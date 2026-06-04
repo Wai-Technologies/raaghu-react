@@ -1,4 +1,5 @@
 
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import RdsTable from './rds-table';
@@ -18,7 +19,7 @@ const meta: Meta<typeof RdsTable> = {
       exclude: ['rows', 'columns','onRowAction','onPageChange','onPageSizeChange','selectedRows','onRowSelect','className','component'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control: { type: 'select' },
@@ -466,7 +467,11 @@ export const Default: Story = {
     rows: defaultTableData,
     columns: defaultColumns,
     selectable: false,
-    onRowAction: (action, rowId) => {},
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const table = canvas.getByRole('table');
+    await expect(table).toBeVisible();
   },
 };
 

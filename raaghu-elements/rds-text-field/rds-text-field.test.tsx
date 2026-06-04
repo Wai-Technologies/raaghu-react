@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTextField, { RdsTextFieldProps } from './rds-text-field';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-text-field.scss', () => ({}));
@@ -675,6 +676,11 @@ describe('RdsTextField', () => {
       );
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input.value).toBe('uncontrolled');
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsTextField label="Name" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

@@ -1,70 +1,69 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import { applyChartThemeColors } from "../chart-utils";
+import "./rds-comp-chart-polar-area.scss";
 
 export interface RdsCompPolarAreaChartProps {
-    labels: any[],
-    options: any,
-    dataSets: any[],
-    radius?: number,
-    id: string
+    labels: any[];
+    options: any;
+    dataSets: any[];
+    radius?: number;
+    id: string;
 }
 
 const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
-     const isDarkMode = () => {
-        if (typeof window !== 'undefined') {
-            return (
-                document.body.classList.contains('theme-dark') ||
-                document.body.classList.contains('dark-theme') ||
-                document.documentElement.getAttribute('data-theme') === 'dark' ||
-                document.body.getAttribute('data-theme') === 'dark'
-            );
-        }
-        return false;
-    };
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const chartInstanceRef = useRef<Chart<"polarArea", number[], unknown> | null>(null);
     const CanvasId = props.id;
 
+    const [themeMode, setThemeMode] = React.useState(() => {
+        if (typeof document !== 'undefined') {
+            return document.documentElement.getAttribute('data-theme') || 'light';
+        }
+        return 'light';
+    });
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const observer = new MutationObserver(() => {
+            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         const canvasElm = canvasRef.current;
         if (!canvasElm) return;
-        const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
-        
-        if (chartInstanceRef.current) {
-            chartInstanceRef.current.destroy();
-        }
-          const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
 
-        if (isDarkMode()) {
-            if (!chartOptions.plugins) chartOptions.plugins = {};
-            if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
-            if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
-            chartOptions.plugins.legend.labels.color = "#fff";
-            if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
-            chartOptions.plugins.title.color = "#fff";
-            if (chartOptions.plugins.tooltip) {
-                chartOptions.plugins.tooltip.titleColor = "#fff";
-                chartOptions.plugins.tooltip.bodyColor = "#fff";
-                chartOptions.plugins.tooltip.labelColor = () => ({ borderColor: '#fff', backgroundColor: '#fff' });
-            }
+        const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
+        chartInstanceRef.current?.destroy();
+
+        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        // Polar area uses 'r' axis — pass empty array; applyChartThemeColors handles plugins
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = { labels: props.labels, datasets: props.dataSets };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
         }
+        
+        applyChartThemeColors(chartOptions, []);
+
         const PolarCanvas = new Chart(ctx, {
             type: "polarArea",
-            data: {
-                labels: props.labels,
-                datasets: props.dataSets
-            },
-             options: chartOptions,
+            data: chartData,
+            options: chartOptions,
         });
+
         if (PolarCanvas != null) {
             PolarCanvas.canvas.style.height = props.radius + "px";
-            chartInstanceRef.current = PolarCanvas; 
+            chartInstanceRef.current = PolarCanvas;
         }
-   }, [props]);
+    }, [props, themeMode]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-polar-area-container">
             <canvas id={CanvasId} ref={canvasRef} />
         </div>
     );

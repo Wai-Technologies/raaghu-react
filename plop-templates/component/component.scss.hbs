@@ -1,0 +1,51 @@
+.rds-comp-{{kebabCase name}} {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--rds-background-paper);
+  border: 1px solid var(--rds-border-default);
+  border-radius: var(--rds-radius-lg);
+  color: var(--rds-text-primary);
+  font-family: var(--rds-font-family-base);
+  transition: var(--rds-motion-transition-base);
+
+  &--loading { opacity: 0.6; pointer-events: none; }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+    border-bottom: 1px solid var(--rds-border-default);
+  }
+
+  &__title {
+    font-size: var(--rds-font-size-lg);
+    font-weight: var(--rds-font-weight-semibold);
+    color: var(--rds-text-primary);
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--rds-text-secondary);
+    font-size: var(--rds-font-size-xl);
+    line-height: 1;
+    padding: var(--rds-spacing-xxs);
+    border-radius: var(--rds-radius-base);
+    transition: var(--rds-motion-transition-fast);
+
+    &:hover       { background-color: var(--rds-action-hover); color: var(--rds-text-primary); }
+    &:focus-visible { outline: 2px solid var(--rds-primary-main); outline-offset: 2px; }
+  }
+
+  &__body {
+    padding: var(--rds-spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--rds-spacing-sm);
+  }
+}

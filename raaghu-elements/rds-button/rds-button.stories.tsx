@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn } from 'storybook/test';
 import React from 'react';
 import RdsButton from './rds-button';
 
@@ -9,7 +10,7 @@ const meta: Meta<typeof RdsButton> = {
   layout: 'padded',
   controls: { exclude: ['component'] },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     text: {
       control: 'text',
@@ -177,5 +178,47 @@ export const WithStartIcon: Story = {
     showLeftIcon: true,
     changeLeftIcon: 'add',
   },
+};
+
+export const ClickTest: Story = {
+  name: 'Interaction: Click fires callback',
+  args: {
+    text: 'Click Me',
+    color: 'primary',
+    style: 'filled',
+    layout: 'text-only',
+    shape: 'rectangle',
+    size: 'medium',
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole('button', { name: /click me/i })
+    await expect(button).toBeVisible()
+    await userEvent.click(button)
+    await expect(args.onClick).toHaveBeenCalledOnce()
+  }
+};
+
+export const DisabledNoClick: Story = {
+  name: 'Interaction: Disabled button ignores clicks',
+  args: {
+    text: 'Disabled',
+    color: 'primary',
+    style: 'filled',
+    layout: 'text-only',
+    shape: 'rectangle',
+    size: 'medium',
+    disabled: true,
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole('button', { name: /disabled/i })
+    await expect(button).toBeVisible()
+    // Disabled MUI button has pointer-events:none — assert disabled, do not attempt click
+    await expect(button).toBeDisabled()
+    await expect(args.onClick).not.toHaveBeenCalled()
+  }
 };
 

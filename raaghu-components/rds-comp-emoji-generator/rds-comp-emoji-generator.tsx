@@ -1,3 +1,4 @@
+import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
 import React, { useState } from "react";
 import {
     Box,
@@ -57,12 +58,12 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
     const skinToneOptions = [
-        { value: 0, color: "#FFD700", label: "Default" },
-        { value: 1, color: "#F7E7CE", label: "Light" },
-        { value: 2, color: "#F3D2A2", label: "Medium Light" },
-        { value: 3, color: "#D08B5B", label: "Medium" },
-        { value: 4, color: "#AE7242", label: "Medium Dark" },
-        { value: 5, color: "#7C4A2E", label: "Dark" },
+        { value: 0, color: emojiSkinToneColors.default, label: "Default" },
+        { value: 1, color: emojiSkinToneColors.light, label: "Light" },
+        { value: 2, color: emojiSkinToneColors.mediumLight, label: "Medium Light" },
+        { value: 3, color: emojiSkinToneColors.medium, label: "Medium" },
+        { value: 4, color: emojiSkinToneColors.mediumDark, label: "Medium Dark" },
+        { value: 5, color: emojiSkinToneColors.dark, label: "Dark" },
     ];
 
     const categoryTabs = [
@@ -97,6 +98,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                     </Box>
                 ))}
                 <IconButton
+                  aria-label="Filter"
                     className="rds-emoji-generator__plus"
                     onClick={() => onEmojiSelect?.('+')}
                     size="small"
@@ -143,6 +145,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                         {showSkinTone && (
                             <Box sx={{ position: 'relative' }}>
                                 <IconButton
+                                  aria-label="Select emoji"
                                     className="rds-emoji-generator__skin-tone-button"
                                     onClick={handleSkinToneClick}
                                     style={{ backgroundColor: skinToneOptions[selectedSkinTone].color }}
@@ -152,13 +155,14 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                                     <Box className="rds-emoji-generator__skin-tone-inline">
                                         {skinToneOptions.map(o => (
                                             <IconButton
+                                              aria-label="Select emoji"
                                                 key={o.value}
                                                 onClick={() => handleSkinToneSelect(o.value)}
                                                 className="rds-emoji-generator__skin-tone-option"
                                                 style={{
                                                     backgroundColor: o.color,
-                                                    border: selectedSkinTone === o.value ? '2px solid #3b82f6' : '1px solid #e5e7eb',
-                                                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px rgba(59,130,246,0.3)' : 'none'
+                                                    border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
+                                                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
                                                 }}
                                                 title={o.label}
                                                 size="small"
@@ -184,13 +188,14 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                             <Box className="rds-emoji-generator__skin-tone-dropdown">
                                 {skinToneOptions.map(o => (
                                     <IconButton
+                                      aria-label="Select emoji"
                                         key={o.value}
                                         onClick={() => handleSkinToneSelect(o.value)}
                                         className="rds-emoji-generator__skin-tone-option"
                                         style={{
                                             backgroundColor: o.color,
-                                            border: selectedSkinTone === o.value ? '2px solid #3b82f6' : '1px solid #e5e7eb',
-                                            boxShadow: selectedSkinTone === o.value ? '0 0 0 1px rgba(59,130,246,0.3)' : 'none'
+                                            border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
+                                            boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
                                         }}
                                         title={o.label}
                                     />

@@ -4,8 +4,8 @@
   &__color-swatch {
     border: 1px solid var(--rds-color-surface-contrast, #fff);
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: var(--rds-spacing-xl);
+    height: var(--rds-spacing-xl);
     border-radius: var(--rds-border-radius, 4px);
   }
   
@@ -26,25 +26,25 @@
   
   &__tabs {
     display: flex;
-    margin-bottom: 12px;
-    padding: 8px;
+    margin-bottom: var(--rds-spacing-sm);
+    padding: var(--rds-spacing-sm);
     background-color: var(--rds-color-surface-variant, #f0f0f0);
     border-radius: var(--rds-border-radius, 6px);
     flex-direction: row;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
     border: 1px solid var(--rds-color-outline, #fff);
   }
   
   &__tab {
     cursor: pointer;
     border: none;
-    background-color: #fff;
+    background-color: var(--rds-color-surface, #fff);
     flex: 1;
     text-align: center;
     border-radius: var(--rds-border-radius, 4px);
-    padding: 6px 10px;
-    font-size: 14px;
-    transition: all 0.2s ease;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-md);
+    font-size: var(--rds-font-size-sm);
+    transition: all var(--rds-transition-base);
     
     &--active {
       background-color: var(--rds-color-primary, #1976d2);
@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
     gap: 0;
-    margin-bottom: 12px;
+    margin-bottom: var(--rds-spacing-sm);
     position: relative;
     border: 1px solid var(--rds-color-outline-variant, rgba(0, 0, 0, 0.12));
     border-radius: var(--rds-border-radius, 4px);
@@ -64,32 +64,32 @@
     
     &--spectrum {
       height: 160px;
-      margin: 0 0 12px 0;
+      margin: 0 0 var(--rds-spacing-md) 0;
     }
   }
   
   &__color-row {
     display: flex;
     gap: 0;
-    height: 16px;
+    height: var(--rds-spacing-md);
   }
   
   &__color-cell {
     flex: 1;
     cursor: pointer;
-    transition: transform 0.1s ease;
+    transition: transform var(--rds-transition-fast, 0.1s ease);
     
     &:hover {
       transform: scale(1.15);
-      z-index: 2;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+      z-index: var(--rds-z-index-layer-2);
+      box-shadow: var(--rds-elevation-1, 0 0 4px rgba(0, 0, 0, 0.4));
       outline: 1px solid var(--rds-color-surface-contrast, #ffffff);
     }
     
     &--selected {
       outline: 2px solid var(--rds-color-surface-contrast, #ffffff);
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 1);
-      z-index: 1;
+      box-shadow: 0 0 0 1px var(--rds-color-neutral-1000, #000);
+      z-index: var(--rds-z-index-layer-1);
       position: relative;
     }
   }
@@ -118,8 +118,8 @@
   &__sliders-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin: 2px 0 12px;
+    gap: var(--rds-spacing-sm);
+    margin: var(--rds-spacing-xs) 0 var(--rds-spacing-md);
   }
 
   &__eyedropper {
@@ -150,19 +150,19 @@
     position: relative;
     
     .hue-horizontal {
-      border-radius: 12px !important;
+      border-radius: var(--rds-border-radius-lg) !important;
       height: 12px !important;
     }
     
   }
   
   &__hue-picker {
-    margin-bottom: 12px;
+    margin-bottom: var(--rds-spacing-sm);
   }
   
   &__alpha-slider-container {
     .alpha-horizontal {
-      border-radius: 12px !important;
+      border-radius: var(--rds-border-radius-lg) !important;
       height: 12px !important;
     }
   }
@@ -170,7 +170,7 @@
   &__color-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--rds-spacing-sm);
   }
   
   &__dropdown-container {
@@ -187,7 +187,7 @@
     min-width: 70px;
     gap: 6px;
     position: relative;
-    z-index: 2;
+    z-index: var(--rds-z-index-layer-2);
     
     &:focus-visible {
       outline: 2px solid var(--rds-color-primary, #1976d2);
@@ -204,7 +204,7 @@
   }
   
   &__dropdown-label {
-    font-size: 12px;
+    font-size: var(--rds-font-size-sm);
     font-weight: 500;
     color: var(--rds-color-on-surface, #333);
     flex-shrink: 0;
@@ -227,15 +227,15 @@
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
     box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.1));
-    z-index: 10;
-    margin-top: 4px;
+    z-index: var(--rds-z-index-raised);
+    margin-top: var(--rds-spacing-xs);
     overflow: hidden;
     animation: fadeIn 0.2s ease-out;
   }
   
   &__dropdown-item {
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: var(--rds-spacing-sm) 16px;
+    font-size: var(--rds-font-size-md);
     cursor: pointer;
     transition: background-color 0.2s;
     color: var(--rds-color-on-surface, #333);
@@ -255,7 +255,7 @@
       position: relative;
       
       &::before {
-        content: '•';
+        content: '�';
         position: absolute;
         left: 6px;
         color: var(--rds-color-primary, #9751F2);
@@ -270,7 +270,7 @@
   
   &__input-wrapper {
     flex: 1;
-    margin-right: 4px;
+    margin-right: var(--rds-spacing-xs);
     
     &:last-child {
       margin-right: 0;
@@ -282,7 +282,7 @@
     height: 32px;
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
-    font-size: 13px;
+    font-size: var(--rds-font-size-xs, 13px);
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
     text-align: center;
@@ -293,7 +293,7 @@
     height: 32px;
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
-    font-size: 13px;
+    font-size: var(--rds-font-size-xs, 13px);
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
     text-align: center;
@@ -309,15 +309,15 @@
     height: 32px;
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
-    padding: 0 10px;
-    font-size: 13px;
+    padding: 0 var(--rds-spacing-sm);
+    font-size: var(--rds-font-size-sm);
     text-align: center;
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
   }
   
   &__swatches {
-    margin-top: 8px;
+    margin-top: var(--rds-spacing-sm);
     padding-top: 12px;
     border-top: 1px solid var(--rds-color-outline-variant, #eee);
   }
@@ -326,10 +326,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: var(--rds-spacing-sm);
     
     span {
-      font-size: 13px;
+      font-size: var(--rds-font-size-sm);
       font-weight: 500;
       color: var(--rds-color-on-surface, #333);
     }
@@ -345,7 +345,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--rds-font-size-md);
     line-height: 1;
     color: var(--rds-color-on-surface-variant, #666);
     
@@ -362,19 +362,19 @@
   &__swatch-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
   }
   
   &__swatch-list--vertical {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
   }
 
   &__swatch-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--rds-spacing-sm);
     cursor: pointer;
   }
 
@@ -387,7 +387,7 @@
   }
 
   &__swatch-label {
-    font-size: 12px;
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface, #333);
   }
 
@@ -411,7 +411,7 @@
   &__swatch-grid {
     display: grid;
     grid-template-columns: repeat(8, 22px);
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
     align-items: center;
   }
 
@@ -454,7 +454,7 @@
   &__mode-switcher {
     display: flex;
     gap: 10px;
-    margin-top: 12px;
+    margin-top: var(--rds-spacing-sm);
   }
   
   &__mode-swatch {
@@ -480,26 +480,26 @@
   &__mode-swatch-solid {
     width: 100%;
     height: 100%;
-    background-color: #5c5c5c;
-    border-radius: 2px;
+    background-color: var(--rds-color-on-surface-variant, #5c5c5c);
+    border-radius: var(--rds-border-radius-xs);
   }
   
   &__mode-swatch-gradient {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #ff4f00, #00f5ff);
-    border-radius: 2px;
+    background: linear-gradient(to right, var(--rds-semantic-warning-main), var(--rds-info-main));
+    border-radius: var(--rds-border-radius-xs);
   }
   
   &__gradient-editor {
-    margin-top: 12px;
+    margin-top: var(--rds-spacing-sm);
     width: 100%;
   }
   
   &__gradient-type {
     display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: var(--rds-spacing-sm);
+    margin-bottom: var(--rds-spacing-sm);
   }
   
   &__gradient-btn {
@@ -509,7 +509,7 @@
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     background-color: var(--rds-color-surface, #fff);
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--rds-font-size-md);
     
     &--active {
       background-color: var(--rds-color-primary-container, #e6f2ff);
@@ -519,12 +519,12 @@
   }
   
   &__direction-control {
-    margin-bottom: 12px;
+    margin-bottom: var(--rds-spacing-sm);
     
     label {
       display: block;
-      margin-bottom: 4px;
-      font-size: 13px;
+      margin-bottom: var(--rds-spacing-xs);
+      font-size: var(--rds-font-size-sm);
       color: var(--rds-color-on-surface, #212121);
     }
   }
@@ -535,13 +535,13 @@
   }
   
   &__gradient-stops-container {
-    margin-top: 16px;
+    margin-top: var(--rds-spacing-md);
   }
   
   &__gradient-preview {
     height: 24px;
     border-radius: var(--rds-border-radius, 4px);
-    margin-bottom: 12px;
+    margin-bottom: var(--rds-spacing-sm);
     border: 1px solid var(--rds-color-outline-variant, rgba(0,0,0,0.08));
   }
   
@@ -550,7 +550,7 @@
     position: relative;
     background: linear-gradient(
       to right,
-      #fff 0%, #fff 100%
+      var(--rds-neutral-0) 0%, var(--rds-neutral-0) 100%
     );
     border-radius: var(--rds-border-radius, 4px);
     border: 1px solid var(--rds-color-outline, #e0e0e0);
@@ -567,12 +567,12 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid var(--rds-neutral-0);
     top: -8px;
     transform: translateX(-8px);
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    z-index: 1;
+    box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0,0,0,0.2));
+    z-index: var(--rds-z-index-layer-1);
     
     &:hover {
       transform: translateX(-8px) scale(1.1);
@@ -594,10 +594,10 @@
     width: 12px;
     height: 12px;
     background: var(--rds-color-error, #d32f2f);
-    color: white;
+    color: var(--rds-color-on-primary, #fff);
     border: none;
     border-radius: 50%;
-    font-size: 9px;
+    font-size: var(--rds-font-size-caption, 9px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -613,68 +613,11 @@
     cursor: pointer;
   }
 }
-
-.dark-theme .rds-comp-color-picker,
-[data-theme="dark"] .rds-comp-color-picker {
-  --rds-color-surface: #111214;
-  --rds-color-surface-variant: #191a1b;
-  --rds-color-outline: rgba(255,255,255,0.06);
-  --rds-color-outline-variant: rgba(255,255,255,0.04);
-  --rds-color-on-surface: #E6E7E8;
-  --rds-color-on-surface-variant: #bfc2c4;
-  --rds-color-primary: #1976d2;
-  --rds-color-primary-container: rgba(25,118,210,0.12);
-  --rds-color-error: #ef5350;
-  color: var(--rds-color-on-surface);
-
-  &__container {
-    position: relative; 
-    background: #000; 
-    border: 1px solid rgba(255,255,255,0.22);
-    border-radius: 8px;
-   box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-   overflow: visible;
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-radius: 8px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.6);
-    }
-  }
- 
-  &__dropdown-menu {
-    border: 1px solid rgba(255,255,255,0.22);
-    color: var(--rds-color-on-surface);
-    z-index: 9999;
-    /* use a slight elevation so shadows render over adjacent elements */
-  }
-
-  &__dropdown-menu--fixed {
-    position: fixed;
-    top: auto;
-    left: auto;
-    transform: none !important;
-  }
-
-  &__swatch-tile,
-  &__swatch {
-    border: 1px solid rgba(255,255,255,0.06);
-  }
-
-  &__swatch-tile:focus-visible,
-  &__color-cell--selected {
-    outline: 2px solid rgba(255,255,255,0.12);
-    outline-offset: 2px;
-  }
-}
  [data-theme="dark"] {
   .rds-comp-color-picker { 
     span , .MuiSvgIcon-root{
-    color: #f6f4f4 !important;
-    fill: #efe8e8 !important;
+    color: var(--rds-color-on-surface) !important;
+    fill: var(--rds-color-on-surface) !important;
   }
   }
 }

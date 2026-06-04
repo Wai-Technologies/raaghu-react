@@ -372,8 +372,8 @@ export const ColorSwatchesType1 = ({ handleChange }: { handleChange: (color: { h
 />
       </div>
       <div className="rds-comp-color-picker__swatch-list rds-comp-color-picker__swatch-list--vertical">
-        {["#FFC300", "#FF4F00", "#EA00FA", "#1708FF", "#00F5FF"].map(hex => (
-          <div key={hex} className="rds-comp-color-picker__swatch-item" onClick={() => handleChange({ hex })}>
+        {["var(--rds-semantic-warning-main, #FFC300)", "var(--rds-semantic-error-main, #FF4F00)", "var(--rds-info-main, #EA00FA)", "var(--rds-primary-main, #1708FF)", "var(--rds-info-light, #00F5FF)"].map(hex => (
+          <div key={hex} className="rds-comp-color-picker__swatch-item" role="button" tabIndex={0} onClick={() => handleChange({ hex })} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleChange({ hex }); } }}>
             <div className="rds-comp-color-picker__swatch-color" style={{ backgroundColor: hex }} />
             <div className="rds-comp-color-picker__swatch-label">{hex}</div>
           </div>
@@ -391,8 +391,8 @@ export const ColorSwatchesType2 = ({ handleChange }: { handleChange: (color: { h
       </div>
       <div className="rds-comp-color-picker__swatch-grid">
         <div className="rds-comp-color-picker__swatch-tile rds-comp-color-picker__swatch-tile--add">+</div>
-        {["#FFC300","#FF4F00","#EA00FA","#9751F2","#00F5FF","#00E5FF","#00D1B2","#1ABC9C","#27AE60","#2ECC71","#16A085","#3498DB","#9B59B6","#BDBDBD"].map(hex => (
-          <div key={hex} className="rds-comp-color-picker__swatch-tile" style={{ backgroundColor: hex }} onClick={() => handleChange({ hex })} />
+        {["var(--rds-semantic-warning-main, #FFC300)","var(--rds-semantic-error-main, #FF4F00)","var(--rds-info-main, #EA00FA)","var(--rds-primary-main, #9751F2)","var(--rds-info-light, #00F5FF)","var(--rds-info-variant, #00E5FF)","var(--rds-neutral-300, #00D1B2)","var(--rds-success-main, #1ABC9C)","var(--rds-success-dark, #27AE60)","var(--rds-success-light, #2ECC71)","var(--rds-info-contrast, #16A085)","var(--rds-primary-light, #3498DB)","var(--rds-primary-dark, #9B59B6)","var(--rds-neutral-400, #BDBDBD)"].map(hex => (
+          <div key={hex} className="rds-comp-color-picker__swatch-tile" style={{ backgroundColor: hex }} role="button" tabIndex={0} aria-label={`Select color ${hex}`} onClick={() => handleChange({ hex })} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleChange({ hex }); } }} />
         ))}
       </div>
     </div>
@@ -544,3 +544,12 @@ export const GradientEditor: React.FC<{
     </div>
   );
 };
+
+ColorPickerGrid.displayName = 'ColorPickerGrid';
+ColorPickerSpectrum.displayName = 'ColorPickerSpectrum';
+ColorPickerSliders.displayName = 'ColorPickerSliders';
+ColorPickerInfo.displayName = 'ColorPickerInfo';
+ColorSwatchesType1.displayName = 'ColorSwatchesType1';
+ColorSwatchesType2.displayName = 'ColorSwatchesType2';
+ColorModeSwatches.displayName = 'ColorModeSwatches';
+GradientEditor.displayName = 'GradientEditor';

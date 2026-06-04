@@ -1,5 +1,5 @@
 import RdsCompToast, { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof RdsCompToast> = {
     title: "Components/Toast",
@@ -29,7 +29,7 @@ const meta: Meta<typeof RdsCompToast> = {
         }
     },
     
-    tags: ["autodocs"],
+    tags: ["autodocs", 'stable'],
     argTypes: {
         state: {
             options: Object.values(ToastState), 

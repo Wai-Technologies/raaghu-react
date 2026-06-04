@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsRange from './rds-range';
@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsRange> = {
     exclude: ['component', 'onChange', 'formatValue'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     label: {
       control: 'text',

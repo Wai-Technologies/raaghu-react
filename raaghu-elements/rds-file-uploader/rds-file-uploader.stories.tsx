@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
+import { expect, within } from 'storybook/test';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 import { renderFileUploader } from './RdsFileUploaderComponents';
 
@@ -18,7 +19,7 @@ const meta: Meta<typeof RdsFileUploader> = {
     exclude: ['onFilesChange', 'onUpload'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
       control: 'text',
@@ -100,6 +101,12 @@ export const Default: Story = {
       updatedArgs.children = <DeleteIcon />;
     }
     return renderFileUploader(updatedArgs);
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    expect(canvas.getByText('Upload your files')).toBeInTheDocument();
+    const fileInput = canvasElement.querySelector('input[type="file"]');
+    expect(fileInput).toBeInTheDocument();
   },
 };
 

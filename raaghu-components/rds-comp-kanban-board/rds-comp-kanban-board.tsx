@@ -1,6 +1,7 @@
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import './rds-comp-kanban-board.scss';
-import { Card, CardContent, Typography, IconButton, Chip, Avatar, Menu, MenuItem, TextField, Button, Box, FormControl, InputLabel, Select, Autocomplete, Paper, } from '@mui/material';
+import { Card, CardContent, Typography, IconButton, Chip, Avatar, Menu, MenuItem, TextField, Box, FormControl, InputLabel, Select, Autocomplete, Paper, } from '@mui/material';
+import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import { MoreVert as MoreVertIcon, Close as CloseIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
@@ -36,6 +37,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                           </Box>
                         </Box>
                         <IconButton size="small" className="btn-sm kanban-board__header-button"
+                          aria-label="Close"
                         >
                           <MoreVertIcon />
                         </IconButton>
@@ -44,8 +46,9 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                         <TextField fullWidth size="small" placeholder="Enter Board Title" value={boardName} onChange={handleDataChanges} className="rds-kanban-board__input-field"
                         />
                         <Box className="add-item-btn btn-margin rds-kanban-board__button-container">
-                          <Button variant="outlined" size="medium" startIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button">Add Board</Button>
+                          <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button" text="Add Board" />
                           <IconButton size="small" onClick={onCancel} className="rds-kanban-board__close-button"
+                            aria-label="Close"
                           >
                             <CloseIcon />
                           </IconButton>
@@ -69,13 +72,14 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                           </Box>
                         </Box>
                         <IconButton size="small" className="btn-sm kanban-board__header-button"
+                          aria-label="More options"
                         >
                           <MoreVertIcon />
                         </IconButton>
                       </Box>
 
                       <Box className="add-board add-board--center-button">
-                        <Button variant="outlined" size="medium" startIcon={PlusIcon} onClick={handleShowInputBox} fullWidth className="rds-kanban-board__add-button">Add Board</Button>
+                        <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={handleShowInputBox} fullWidth className="rds-kanban-board__add-button" text="Add Board" />
                       </Box>
                     </CardContent>
                   </Card>
@@ -102,6 +106,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                         )}
                       </Box>
                       <IconButton size="small" onClick={(e) => toggleDropdown(index, e)} className="btn-sm kanban-board__header-button"
+                        aria-label="More options"
                       >
                         <MoreVertIcon />
                       </IconButton>
@@ -123,6 +128,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                           <RdsBadge badgeContent="Badge" color="secondary" size="small" shape="rectangle" colorVariant='secondary'
                                           />
                                           <IconButton size="small" onClick={(e) => toggleSubCardDropdown(subCard.SubcardId, e, subCard, index)} className="btn-sm rds-kanban-board__subcard-dropdown-button"
+                                            aria-label="More options"
                                           >
                                             <MoreVertIcon fontSize="small" />
                                           </IconButton>
@@ -214,8 +220,9 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                     }}
                                   />
                                   <Box className="add-item-btn btn-margin add-board rds-kanban-board__button-container">
-                                    <Button variant="outlined" size="medium" startIcon={PlusIcon} onClick={() => onAddSubCardClick(index)} className="rds-kanban-board__add-button">Add Item</Button>
+                                    <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={() => onAddSubCardClick(index)} className="rds-kanban-board__add-button" text="Add Item" />
                                     <IconButton size="small" onClick={() => state.setSubCardInputsVisible(null)} className="close-board rds-kanban-board__close-button"
+                                      aria-label="Close"
                                     >
                                       <CloseIcon fontSize="small" />
                                     </IconButton>
@@ -223,7 +230,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                 </Box>
                               ) : (
                                 <Box className="add-item-btn add-board rds-kanban-board__add-item-simple">
-                                  <Button variant="outlined" size="medium" startIcon={PlusIcon} onClick={() => addSubCard(index)} fullWidth className="rds-kanban-board__add-button">Add Item</Button>
+                                  <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={() => addSubCard(index)} fullWidth className="rds-kanban-board__add-button" text="Add Item" />
                                 </Box>
                               )}
                             </>

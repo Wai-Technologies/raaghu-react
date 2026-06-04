@@ -1,13 +1,20 @@
+/* use centralized breakpoint tokens where possible */
+
 .rds-range {
+  --rds-range-max-width-sm: 370px;
+  --rds-range-max-width-xs: 275px;
+  --rds-range-slider-width-mobile: 288px;
+  --rds-range-slider-width-tablet: 382px;
+  --rds-range-disabled-opacity: 0.6;
   display: block;
   position: relative;
   width: 100%;
 
-  @media (max-width: 600px) {
-    max-width: 370px;
+  @media (max-width: var(--rds-breakpoint-sm, 600px)) {
+    max-width: var(--rds-range-max-width-sm, 370px);
   }
-  @media (max-width: 400px) {
-    max-width: 275px;
+  @media (max-width: var(--rds-breakpoint-xs, 400px)) {
+    max-width: var(--rds-range-max-width-xs, 275px);
   }
 
   &__header {
@@ -23,18 +30,18 @@
   }
 
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--rds-range-disabled-opacity, 0.6);
     pointer-events: none;
   }
 }
 
-@media (max-width: 568px) and (min-width: 320px) {
+@media (max-width: var(--rds-breakpoint-mobile-max, 568px)) and (min-width: var(--rds-breakpoint-mobile-min, 320px)) {
   .css-3k03ww, .css-1fm6jzk {
-    width: 288px !important;
+    width: var(--rds-range-slider-width-mobile, 288px) !important;
   }
 }
-@media (min-width: 414px) and (max-width: 896px) {
+@media (min-width: var(--rds-breakpoint-tablet-min, 414px)) and (max-width: var(--rds-breakpoint-tablet-max, 896px)) {
   .css-3k03ww, .css-1fm6jzk {
-    width: 382px !important;
+    width: var(--rds-range-slider-width-tablet, 382px) !important;
   }
 }

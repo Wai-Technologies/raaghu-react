@@ -42,7 +42,7 @@ export interface RdsCompChatProps {
 }
 
 const RdsCompChat = (props: RdsCompChatProps) => {
-  const { currentUserCommentBgColor = "#7825E9", currentUserCommentTextColor = "#FEF7FF", otherUserCommentBgColor = "#D6D6D6", OtherUserCommentTextColor = "#202020" } = props;
+  const { currentUserCommentBgColor = "var(--rds-secondary-main)", currentUserCommentTextColor = "var(--rds-neutral-0)", otherUserCommentBgColor = "var(--rds-neutral-300)", OtherUserCommentTextColor = "var(--rds-text-primary)" } = props;
 
   const [state, setState] = useState({
     isMobile: window.innerWidth <= 600,
@@ -172,9 +172,9 @@ const RdsCompChat = (props: RdsCompChatProps) => {
         <div className={`rds-comp-chat__window${!props.isChatScreenEnabled ? " rds-comp-chat__window--full-width" : ""}`}>
           <div className="rds-comp-chat__window-header">
             {state.isMobile && props.isChatScreenEnabled && (
-              <span className="rds-comp-chat__back-btn" onClick={() => updateState({ showChatWindow: false, selectedIndex: null })} aria-label="Back to user list">
+              <button type="button" className="rds-comp-chat__back-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => updateState({ showChatWindow: false, selectedIndex: null })} aria-label="Back to user list">
                 <ArrowBackIcon fontSize="small" />
-              </span>
+              </button>
             )}
             <div className={`rds-comp-chat__window-header-title${state.isMobile ? " rds-comp-chat__window-header-title--mobile" : ""}`}>
               <RdsAvatar {...avatarProps} size={state.isMobile ? "small" : "medium"} />
@@ -235,7 +235,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
             <div className="rds-comp-chat__footer-left">
               <RdsButton color="primary" changeLeftIcon="add" showLeftIcon layout="icon-only" style="filled" onClick={() => document.getElementById("fileUpload")?.click()} />
               <input id="fileUpload" className="rds-comp-chat__file-input" type="file" accept="image/*,video/*" onChange={handleImageUpload} />
-              <span className="rds-comp-chat__emoji-btn" onClick={() => updateState({ showEmojiPicker: !state.showEmojiPicker })}><EmojiIcon /></span>
+              <button type="button" className="rds-comp-chat__emoji-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => updateState({ showEmojiPicker: !state.showEmojiPicker })} aria-label="Open emoji picker"><EmojiIcon /></button>
             </div>
             <div className="rds-comp-chat__footer-center">
               <div className="rds-comp-chat__input-send">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompMixedChart from './rds-comp-chart-mixed';
 
 // Mock SCSS
@@ -800,7 +801,13 @@ describe('RdsCompMixedChart', () => {
       const { container } = render(<RdsCompMixedChart {...defaultProps} />);
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompMixedChart {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('canvas has id attribute', () => {
       const { container } = render(<RdsCompMixedChart {...defaultProps} />);

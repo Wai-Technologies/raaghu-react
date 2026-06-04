@@ -98,12 +98,13 @@ const RdsHeader = ({
         {userName && userShortName && userEmail ? (
           <span className="rds-header__actions">
             <ProfileMenu
+              variant="compact"
               name={userName}
               shortName={userShortName}
               email={userEmail}
               menuItems={[
                { label: 'My Profile', icon: <Person />, onClick: () => alert('Profile clicked!') },
-    { label: 'Logout', icon: <LogoutIcon />, onClick: () => alert('Logout clicked!'), sx: { color: 'red' } }
+    { label: 'Logout', icon: <LogoutIcon />, onClick: () => alert('Logout clicked!'), sx: { color: 'var(--rds-error-main)' } }
               ]}
             />
           </span>

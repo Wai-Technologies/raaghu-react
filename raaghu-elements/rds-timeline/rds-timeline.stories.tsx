@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { Fastfood, LaptopMac, Hotel } from '@mui/icons-material';
 import RdsTimeline from './rds-timeline';
 
@@ -8,7 +9,7 @@ const meta: Meta<typeof RdsTimeline> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     position: {
       control: { type: 'select' },
@@ -21,6 +22,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const items = canvas.getAllByRole('listitem');
+    expect(items.length).toBeGreaterThan(0);
+  },
   args: {
     items: [
       {

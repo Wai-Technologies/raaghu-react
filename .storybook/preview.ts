@@ -1,14 +1,8 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-// Import your theme files directly
-import lightTheme from '../raaghu-react-themes/src/styles/themes/lightTheme';
-import darkTheme from '../raaghu-react-themes/src/styles/themes/darkTheme';
+import { RaaghuThemeProvider } from '../raaghu-react-themes/src/provider/RaaghuThemeProvider';
+import '../raaghu-react-themes/src/styles/index.scss';
 import './custom-theme.css';
-// Import RDS Button styles globally
-import '../raaghu-elements/rds-button/rds-button.scss';
-import '../raaghu-elements/rds-select/rds-select.scss';
 
 const preview: Preview = {
   globalTypes: {
@@ -39,7 +33,6 @@ const preview: Preview = {
         order: ['Introduction', 'Elements', 'Components', 'Layouts'],
       },
     },
-    // Enhanced parameters for Chromatic testing
     viewport: {
       viewports: {
         mobile: {
@@ -66,28 +59,54 @@ const preview: Preview = {
       },
     },
     chromatic: {
-      // Chromatic-specific parameters
       viewports: [375, 768, 1920],
-      delay: 1000, // Wait for animations/transitions
-      diffThreshold: 0.2, // Visual diff threshold
+      delay: 1000,
+      diffThreshold: 0.2,
       pauseAnimationAtEnd: true,
+    },
+    a11y: {
+      config: {},
+      options: {
+        checks: {
+          'color-contrast': { enabled: true },
+        },
+        restoreScroll: true,
+      },
+    },
+    badgesConfig: {
+      stable: {
+        styles: {
+          backgroundColor: '#1a7f37',
+          borderColor: '#1a7f37',
+          color: '#fff',
+        },
+        title: 'Stable',
+      },
+      beta: {
+        styles: {
+          backgroundColor: '#9a6700',
+          borderColor: '#9a6700',
+          color: '#fff',
+        },
+        title: 'Beta',
+      },
+      experimental: {
+        styles: {
+          backgroundColor: '#cf222e',
+          borderColor: '#cf222e',
+          color: '#fff',
+        },
+        title: 'Experimental',
+      },
     },
   },
   decorators: [
     (Story, context) => {
-      const mode = context.globals.theme || 'light';
-      // Apply theme classes for CSS transitions
-      if (typeof document !== 'undefined') {
-        document.body.classList.remove('theme-light', 'theme-dark');
-        document.body.classList.add(mode === 'dark' ? 'theme-dark' : 'theme-light');
-        document.documentElement.setAttribute('data-theme', mode);
-      }
-      const theme = mode === 'light' ? lightTheme : darkTheme;
+      const mode = (context.globals.theme || 'light') as 'light' | 'dark';
       return React.createElement(
-        ThemeProvider,
-        { theme },
-        React.createElement(CssBaseline),
-        React.createElement(Story)
+        RaaghuThemeProvider,
+        { mode, initializeOnMount: true },
+        React.createElement(Story),
       );
     },
   ],

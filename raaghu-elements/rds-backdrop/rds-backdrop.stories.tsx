@@ -14,7 +14,7 @@ const meta: Meta<typeof RdsBackdrop> = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     open: {
       control: { type: 'boolean' },
@@ -104,7 +104,7 @@ export const Interactive: Story = {
         <Button 
           variant="contained" 
           onClick={() => setOpen(true)}
-          sx={{ color: '#ffffff' }}
+          sx={{ color: (theme) => theme.palette.common.white }}
         >
           Show Backdrop
         </Button>
@@ -132,3 +132,5 @@ export const Interactive: Story = {
     }
   }
 };
+
+

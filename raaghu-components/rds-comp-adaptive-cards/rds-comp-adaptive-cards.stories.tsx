@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 
 const createActionLogger = (actionName: string) => {
@@ -36,7 +36,7 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         layout: 'padded',
  
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         showHeader: { control: 'boolean', description: 'Show header of the card' },
         showDismiss: { control: 'boolean', description: 'Show circle button' },

@@ -5,6 +5,7 @@ import RdsCompTruncateText, {
   RdsCompTruncateTextProps,
 } from './rds-comp-truncate-text';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-truncate-text.scss', () => ({}));
@@ -649,6 +650,14 @@ describe('RdsCompTruncateText', () => {
       const tooltip = screen.getByTestId('rds-tooltip');
       spans = tooltip.querySelectorAll('span');
       expect(spans.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompTruncateText {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

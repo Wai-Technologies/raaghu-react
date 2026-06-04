@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSelect, { RdsSelectOption } from './rds-select';
+import { axe } from 'jest-axe';
 
 // Mock the SCSS file
 jest.mock('./rds-select.scss');
@@ -809,6 +810,11 @@ describe('RdsSelect', () => {
   describe('Display Name', () => {
     it('should have correct displayName', () => {
       expect(RdsSelect.displayName).toBe('RdsSelect');
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsSelect label="Choose" options={[{ label: 'Option 1', value: '1' }]} value="" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

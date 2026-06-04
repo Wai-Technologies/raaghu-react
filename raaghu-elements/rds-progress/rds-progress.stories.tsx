@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsProgress> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     style: {
       control: {
@@ -90,3 +90,5 @@ export const Linear: Story = {
   ],
 };
 Linear.parameters = { controls: { include: ['variant', 'value'] } };
+
+

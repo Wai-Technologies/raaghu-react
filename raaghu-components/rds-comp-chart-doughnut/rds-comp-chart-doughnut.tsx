@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont } from "../chart-utils";
 import "./rds-comp-chart-doughnut.scss";
 
-export interface RdsCompDoughnutprops {
+export interface RdsCompDoughnutProps {
     labels: any[];
     options: any;
     dataSets: any[];
@@ -11,82 +12,89 @@ export interface RdsCompDoughnutprops {
     subTitleText?: string;
 }
 
-const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
-    const isDarkMode = () => {
-        if (typeof window !== 'undefined') {
-            return (
-                document.body.classList.contains('theme-dark') ||
-                document.body.classList.contains('dark-theme') ||
-                document.documentElement.getAttribute('data-theme') === 'dark' ||
-                document.body.getAttribute('data-theme') === 'dark'
-            );
-        }
-        return false;
-    };
+const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
-    useEffect(() => {
-        const canvasElm = canvasRef.current;
-        const ctx = canvasElm?.getContext("2d");
-
-        if (ctx) {
-            const title = props.titleText || "";
-            const subTitle = props.subTitleText || "";
-
-            const centerText = {
-                id: "counter3",
-                beforeDraw(chart: any, args: any, options: any) {
-                    const { ctx, chartArea: { top, right, bottom, left, width, height } } = chart;
-                    ctx.save();
-                    ctx.font = "700 20px Poppins";
-                    ctx.textAlign = "center";
-                    const centerY = top + height / 2;
-                    ctx.fillText(title, width / 2, centerY - 10);
-                    ctx.fillStyle = isDarkMode() ? "#fff" : "#222";
-                    ctx.restore();
-
-                    ctx.font = "500 16px Poppins";
-                    ctx.textAlign = "center";
-                     ctx.fillStyle = isDarkMode() ? "#fff" : "#666";
-                    ctx.fillText(subTitle, width / 2, centerY + 16);
-                    ctx.restore();
-                    ctx.lineJoin = 'round';
-                }
-            };
-
-            const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
-
-            if (isDarkMode()) {
-                if (!chartOptions.plugins) chartOptions.plugins = {};
-                if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
-                if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
-                chartOptions.plugins.legend.labels.color = "#fff";
-            }
-            const doughnutCanvas = new Chart(ctx, {
-                type: "doughnut",
-                plugins: [centerText],
-                data: {
-                    labels: props.labels,
-                    datasets: props.dataSets
-                },
-                 options: chartOptions,
-            });
-
-            if (doughnutCanvas !== null) {
-                doughnutCanvas.canvas.style.width = "66vh";
-                doughnutCanvas.canvas.style.height = "66vh";
-            }
-
-            return () => {
-                doughnutCanvas.destroy();
-            };
+    const [themeMode, setThemeMode] = React.useState(() => {
+        if (typeof document !== 'undefined') {
+            return document.documentElement.getAttribute('data-theme') || 'light';
         }
-    }, [props]);
+        return 'light';
+    });
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const observer = new MutationObserver(() => {
+            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const ctx = canvasRef.current?.getContext("2d");
+        if (!ctx) return;
+
+        const title    = props.titleText    || "";
+        const subTitle = props.subTitleText || "";
+
+        const centerText = {
+            id: "counter3",
+            beforeDraw(chart: any) {
+                const { ctx: c, chartArea: { top, width, height } } = chart;
+                const centerY = top + height / 2;
+
+                // Read colors from CSS vars at draw time — responds to theme changes
+                const primaryColor = chartTextColor();
+                const mutedColor   = chartMutedColor();
+
+                c.save();
+                c.font = chartFont('bold', 'xl');
+                c.textAlign = "center";
+                c.fillStyle = primaryColor;
+                c.fillText(title, width / 2, centerY - 10);
+                c.restore();
+
+                c.save();
+                c.font = chartFont('medium', 'lg');
+                c.textAlign = "center";
+                c.fillStyle = mutedColor;
+                c.fillText(subTitle, width / 2, centerY + 16);
+                c.restore();
+
+                c.lineJoin = 'round';
+            }
+        };
+
+        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = { labels: props.labels, datasets: props.dataSets };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
+        }
+        
+        applyChartThemeColors(chartOptions, []);
+
+        const doughnutCanvas = new Chart(ctx, {
+            type: "doughnut",
+            plugins: [centerText],
+            data: chartData,
+            options: chartOptions,
+        });
+
+        if (doughnutCanvas !== null) {
+            doughnutCanvas.canvas.style.width  = "66vh";
+            doughnutCanvas.canvas.style.height = "66vh";
+        }
+
+        return () => { doughnutCanvas.destroy(); };
+    }, [props, themeMode]);
 
     return (
         <div className="rds-comp-chart-doughnut">
-            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef}></canvas>
+            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} />
         </div>
     );
 };

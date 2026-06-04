@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsBanner, { type RdsBannerProps } from './rds-banner';
@@ -22,7 +22,7 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
       return <Story args={{ ...args, ...extraArgs }} />;
     },
   ],
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     description: {
       control: 'text',
@@ -309,3 +309,5 @@ export const NotFullWidth: Story = {
     fullWidth: false,
   },
 };
+
+

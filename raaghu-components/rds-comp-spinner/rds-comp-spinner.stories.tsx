@@ -18,7 +18,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         size: {
             options: ["Default", "Small", "Large",],
@@ -68,3 +68,4 @@ export const Default: Story = {
     },
 } satisfies Story;
 Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'showLabel', 'layout',"labelText", 'level'] } };
+

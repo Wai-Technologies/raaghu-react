@@ -24,15 +24,20 @@ figma.connect(
         Info: ToastState.Info,
       }),
     },
-    example: (props) => <RdsCompToast 
-    borderColor="primary"
-    progressWidth={40}
-    filename="Filename.txt"
-    headerText="Toast Headline"
-    placeholder="Placeholder Text"
-    subText="This is a big sample placeholder text." 
-    showLeading={true}
-    leadingIcon={ToastLeadingIcon.Circle} 
-    {...props} />,
+    example: (props) => {
+      const toastProps = {
+        borderColor: "primary",
+        progressWidth: 40,
+        filename: "Filename.txt",
+        headerText: "Toast Headline",
+        placeholder: "Placeholder Text",
+        subText: "This is a big sample placeholder text.",
+        showLeading: true,
+        leadingIcon: ToastLeadingIcon.Circle,
+        ...props,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any;
+      return <RdsCompToast {...toastProps} />;
+    },
   },
 )

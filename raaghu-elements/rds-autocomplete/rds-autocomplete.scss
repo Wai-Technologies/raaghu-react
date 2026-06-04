@@ -1,6 +1,10 @@
 .rds-autocomplete {
   display: block;
   position: relative;
+  --rds-autocomplete-focus-ring-width: 1px;
+  --rds-autocomplete-focus-outline-width: 2px;
+  --rds-autocomplete-overflow-chip-bg: rgba(45, 44, 44, 0.04);
+  --rds-autocomplete-overflow-chip-bg-dark: rgba(255, 255, 255, 0.04);
 
   &--root {
     display: inline-flex;
@@ -26,7 +30,7 @@
     cursor: pointer;
 
     &:hover {
-      background: var(--rds-color-hover-bg, #f5f5f5);
+      background: var(--rds-color-hover-bg);
     }
 
     .MuiAvatar-root {
@@ -54,21 +58,21 @@
     pointer-events: none;
 
     .MuiInputBase-root {
-      background-color: var(--rds-color-disabled-bg, #f9f9f9);
-      color: var(--rds-color-disabled-text, #999);
+      background-color: var(--rds-color-disabled-bg);
+      color: var(--rds-color-disabled-text);
     }
   }
 
   &--error {
     .MuiInputBase-root {
-      border-color: var(--rds-color-error, #d32f2f) !important;
+      border-color: var(--rds-color-error) !important;
     }
   }
 
   &--focused {
     .MuiInputBase-root {
-      border-color: var(--rds-color-primary, #005fcc);
-      box-shadow: 0 0 0 1px var(--rds-color-primary, #005fcc);
+      border-color: var(--rds-color-primary);
+      box-shadow: 0 0 0 var(--rds-autocomplete-focus-ring-width, 1px) var(--rds-color-primary);
     }
   }
 
@@ -162,7 +166,7 @@
 
     &--medium {
       font-size: var(--rds-font-size-body, 1rem) !important;
-      margin-bottom: 4px !important;
+      margin-bottom: var(--rds-spacing-xs) !important;
     }
 
     &--large {
@@ -172,7 +176,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, #005fcc);
+    outline: var(--rds-autocomplete-focus-outline-width, 2px) solid var(--rds-color-primary);
     outline-offset: var(--rds-focus-ring-offset, 2px);
   }
 
@@ -211,18 +215,8 @@
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    color: var(--rds-placeholder-color) !important;
     opacity: 1 !important;
-  }
-
-  .dark-theme &, [data-theme="dark"] & {
-    .MuiInputBase-input::placeholder,
-    input::placeholder,
-    textarea::placeholder,
-    .MuiAutocomplete-inputRoot input::placeholder {
-      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-      opacity: 1 !important;
-    }
   }
 
   &__textfield--bottom-line {
@@ -273,13 +267,8 @@
     }
     
     &--overflow {
-      background-color: rgba(45, 44, 44, 0.04) !important;
+      background-color: var(--rds-autocomplete-overflow-chip-bg, rgba(45, 44, 44, 0.04)) !important;
       pointer-events: none !important;
     }
-  }
-
-  .dark-theme &__chip--overflow,
-  [data-theme="dark"] &__chip--overflow {
-    background-color: rgba(255, 255, 255, 0.04) !important;
   }
 }

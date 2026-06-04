@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsModal from './rds-modal';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
@@ -13,7 +14,7 @@ const meta: Meta<typeof RdsModal> = {
       exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'isOpen'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
       control: 'text',
@@ -251,4 +252,25 @@ export const WithImage = {
       </Typography>
     ),
   },
+};
+export const OpenModal: Story = {
+  name: 'Interaction: Open modal',
+  render: ModalTemplate,
+  args: {
+    children: <Typography>Modal content is visible</Typography>,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const openBtn = canvas.getByRole('button', { name: /open modal/i })
+    await expect(openBtn).toBeVisible()
+    await userEvent.click(openBtn)
+    // RdsModal renders in a portal at document.body
+    await waitFor(
+      () => {
+        const modal = document.querySelector('[role="dialog"], [class*="MuiModal"], [class*="MuiDialog"]')
+        expect(modal).not.toBeNull()
+      },
+      { timeout: 2000 }
+    )
+  }
 };

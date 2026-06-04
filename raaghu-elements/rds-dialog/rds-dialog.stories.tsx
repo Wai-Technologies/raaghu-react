@@ -1,5 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { Typography, Box } from '@mui/material';
 import { useState } from 'react';
 import RdsDialog from './rds-dialog';
@@ -16,7 +17,7 @@ const meta: Meta = {
       exclude: ['component', 'slots', 'slotProps', 'children', 'actions', 'onClose'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     open: { control: { type: 'boolean' } },
   size: { control: { type: 'select' }, options: ['extra-small', 'small', 'medium', 'large', 'extra-large', false] },
@@ -319,4 +320,57 @@ export const WithIcon: Story = {
       </>
     );
   },
+};
+
+export const OpenClose: Story = {
+  name: 'Interaction: Open and Close Dialog',
+  args: {
+    size: 'small',
+    variant: 'standard',
+    title: 'Test Dialog',
+    ShowDissmiss: true,
+    ShowPrimary: false,
+    ShowSecondary: false,
+  },
+  render: (args) => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <RdsButton
+          text="Open Dialog"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          size="medium"
+          state="default"
+          style="filled"
+          textCase="uppercase"
+          onClick={() => setOpen(true)}
+        />
+        <RdsDialog
+          {...args}
+          open={open}
+          onClose={() => setOpen(false)}
+        >
+          <Typography>Dialog content visible</Typography>
+        </RdsDialog>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const openBtn = canvas.getByRole('button', { name: /open dialog/i })
+    await expect(openBtn).toBeVisible()
+    await userEvent.click(openBtn)
+    // MUI Dialog renders in a portal at document.body — must query outside canvasElement.
+    // waitFor handles MUI's open animation (opacity transition starts at 0).
+    await waitFor(
+      () => {
+        const dialog = document.querySelector('[role="dialog"]')
+        expect(dialog).not.toBeNull()
+        expect(dialog).toBeVisible()
+      },
+      { timeout: 2000 }
+    )
+  }
 };

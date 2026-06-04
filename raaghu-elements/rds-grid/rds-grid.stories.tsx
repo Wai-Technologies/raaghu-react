@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { Paper, Typography } from '@mui/material';
 import RdsGrid from './rds-grid';
 
@@ -8,7 +9,7 @@ const meta: Meta<typeof RdsGrid> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     container: {
       control: { type: 'boolean' },
@@ -23,6 +24,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.firstElementChild;
+    expect(el).toBeTruthy();
+  },
   args: {
     children: (
       <div style={{ flex: 1, padding: "15px" }}>

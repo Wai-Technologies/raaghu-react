@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import userEvent from '@testing-library/user-event';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
 import { boardInfo, RdsCompKanbanBoardProps } from './kanban-board-helpers';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-kanban-board.scss', () => ({}));
@@ -16,7 +17,7 @@ jest.mock('@mui/material', () => ({
   Chip: ({ children, label, ...props }: any) => <div data-testid="chip" {...props}>{label || children}</div>,
   Avatar: ({ children, alt, src, ...props }: any) => <div data-testid="avatar" {...props} data-src={src}>{children}</div>,
   Menu: ({ children, open, anchorEl, onClose, ...props }: any) => open ? <div data-testid="menu" {...props}>{children}</div> : null,
-  MenuItem: ({ children, onClick, ...props }: any) => <div data-testid="menu-item" onClick={onClick} {...props}>{children}</div>,
+  MenuItem: ({ children, onClick, ...props }: any) => <button type="button" data-testid="menu-item" onClick={onClick} {...props} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>{children}</button>,
   TextField: ({ value, onChange, onKeyDown, placeholder, ...props }: any) => (
     <input 
       data-testid="text-field" 
@@ -893,6 +894,14 @@ describe('RdsCompKanbanBoard', () => {
       ];
       renderComponent({ boardData });
       expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompKanbanBoard {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

@@ -1,4 +1,5 @@
 .rds-banner {
+  // banner sizing and offsets are provided by centralized --rds-* tokens
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);
@@ -19,7 +20,7 @@
     flex: 1;
     
     &-title {
-      font-weight: 500;
+      font-weight: var(--rds-font-weight-medium, 500);
       margin-bottom: var(--rds-spacing-xs);
     }
     
@@ -42,7 +43,7 @@
     border-radius: var(--rds-border-radius-xs);
     
     &:hover {
-      background-color: rgba(0, 0, 0, 0.08);
+      background-color: var(--rds-banner-close-hover-bg, rgba(0, 0, 0, 0.08));
     }
   }
   
@@ -97,7 +98,7 @@
   }
 
   &--style3 {
-    border-left: 6px solid;
+    border-left: var(--rds-banner-style-left-border-width, 6px) solid;
     
     &.rds-banner--info {
       border-left-color: var(--rds-info-main);
@@ -126,7 +127,7 @@
   :global(.MuiAlert-action) {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--rds-spacing-sm, 8px);
   }
 
   :global(.MuiAlert-action .MuiButton-root) {
@@ -155,8 +156,8 @@
 
   &__actions {
     display: flex;
-    gap: 8px;
-    margin-left: 16px;
+    gap: var(--rds-spacing-sm, 8px);
+    margin-left: var(--rds-spacing-md, 16px);
     align-items: center;
   }
 
@@ -170,7 +171,7 @@
   }
 
   &__secondary-button {
-    margin-right: 10px;
+    margin-right: var(--rds-spacing-md, 10px);
   }
 
   &__primary-button {
@@ -186,7 +187,7 @@
   &__action-container {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--rds-spacing-sm, 8px);
   }
 
   &--small {
@@ -212,11 +213,11 @@
     .rds-banner__primary-button { height: 32px; }
   }
   
-  @media (max-width: 833px) {
+  @media (max-width: var(--rds-breakpoint-tablet-md)) {
     width: 100vw !important;
     max-width: 100vw !important;
     margin: 0 !important;
-    padding: 8px !important;
+    padding: var(--rds-spacing-sm, 8px) !important;
     border-radius: 0 !important;
     overflow: hidden !important;
     gap: var(--rds-spacing-xs);
@@ -242,7 +243,8 @@
     .rds-banner__close-button {
       position: absolute !important;
       top: -8px !important;
-      right: -8px !important;
+      top: var(--rds-banner-mobile-offset, -8px) !important;
+      right: var(--rds-banner-mobile-offset, -8px) !important;
       transform: none !important;
       margin-top: 0 !important;
     }
@@ -253,7 +255,7 @@
       display: flex !important;
       flex-direction: column !important;
       align-items: stretch !important;
-      gap: 8px !important;
+      gap: var(--rds-spacing-sm, 8px) !important;
       overflow: hidden !important;
       padding: 0 !important;
       margin: 0 !important;
@@ -266,17 +268,17 @@
       right: 4px !important;
       margin: 0 !important;
       padding: 0 !important;
-      z-index: 10;
+      z-index: var(--rds-z-index-raised);
     }
 
     &__content-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--rds-spacing-sm, 8px);
       width: calc(100% - 32px);
       overflow: hidden;
       box-sizing: border-box;
-      padding-right: 8px;
+      padding-right: var(--rds-spacing-sm, 8px);
     }
 
     &__text-content { box-sizing: border-box; word-wrap: break-word; overflow: hidden; width: 100%; }
@@ -292,9 +294,9 @@
       justify-content: flex-start !important;
     }
 
-    &__actions .rds-banner__link-button { order: 1 !important; margin: 0 !important; padding: 4px 8px !important; white-space: nowrap; flex-shrink: 0 !important; align-self: flex-start !important; }
-    &__actions .rds-banner__secondary-button { order: 2 !important; margin-left: auto !important; margin-right: 4px !important; padding: 4px 8px !important; white-space: nowrap; flex-shrink: 0 !important; }
-    &__actions .rds-banner__primary-button { order: 3 !important; margin: 0 !important; padding: 4px 8px !important; white-space: nowrap; flex-shrink: 0 !important; }
+    &__actions .rds-banner__link-button { order: 1 !important; margin: 0 !important; padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important; white-space: nowrap; flex-shrink: 0 !important; align-self: flex-start !important; }
+    &__actions .rds-banner__secondary-button { order: 2 !important; margin-left: auto !important; margin-right: var(--rds-spacing-xs, 4px) !important; padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important; white-space: nowrap; flex-shrink: 0 !important; }
+    &__actions .rds-banner__primary-button { order: 3 !important; margin: 0 !important; padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important; white-space: nowrap; flex-shrink: 0 !important; }
 
     &__heading, &__description { word-wrap: break-word; line-height: 1.4; overflow: hidden; }
 
@@ -303,7 +305,7 @@
       min-width: 24px !important;
       width: 24px !important;
       height: 24px !important;
-      padding: 2px !important;
+      padding: calc(var(--rds-spacing-xs) / 2) !important;
     }
 
     &__action-container {
@@ -315,17 +317,17 @@
     }
   }
 
-@media (min-width: 320px) and (max-width: 568px) {
-    padding: 4px !important;
+@media (min-width: var(--rds-breakpoint-mobile-sm)) and (max-width: var(--rds-breakpoint-sm)) {
+  padding: var(--rds-spacing-xs, 4px) !important;
     
     &__content-wrapper { 
-      gap: 6px; 
+      gap: var(--rds-banner-mobile-gap-xs, 6px); 
       width: calc(100% - 28px);
-      padding-right: 6px;
+      padding-right: var(--rds-banner-mobile-gap-xs, 6px);
     }
     
     &__actions {
-      gap: 2px;
+      gap: calc(var(--rds-spacing-xs) / 2);
   position: relative;
 
   .rds-banner__link-button {
@@ -338,13 +340,13 @@
       .rds-banner__primary-button {
         min-height: 22px;
         font-size: 0.8125rem;
-        padding: 2px 6px !important;
+        padding: calc(var(--rds-spacing-xs, 4px) / 2) calc(1.5 * var(--rds-spacing-xs, 4px)) !important;
       }
     }
 
     :global(.MuiAlert-message) {
       width: calc(100% - 6px) !important;
-      gap: 6px !important;
+      gap: var(--rds-banner-mobile-gap-xs, 6px) !important;
     }
 
     &__close-button {
@@ -359,7 +361,7 @@
   }
 }
 
-@media (min-width: 414px) and (max-width: 833px) {
+@media (min-width: var(--rds-breakpoint-mobile-lg)) and (max-width: var(--rds-breakpoint-tablet-md)) {
   .rds-banner {
     .rds-banner__action-container {
       position: relative !important;
@@ -367,8 +369,8 @@
 
     .rds-banner__close-button {
       position: absolute !important;
-      top: -8px !important;
-      right: -8px !important;
+      top: var(--rds-banner-mobile-offset, -8px) !important;
+      right: var(--rds-banner-mobile-offset, -8px) !important;
       transform: none !important;
       margin-top: 0 !important;
     }

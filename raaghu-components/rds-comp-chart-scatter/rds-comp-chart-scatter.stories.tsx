@@ -16,7 +16,7 @@ const meta: Meta = {
 
 
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompScatterChart>;
@@ -148,3 +148,4 @@ export const WithMultiAxis: Story = {
         },
      },
 };
+

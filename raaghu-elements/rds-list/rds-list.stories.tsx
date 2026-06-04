@@ -29,7 +29,7 @@ const meta: Meta<typeof RdsList> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     dense: {
       control: { type: 'boolean' },
@@ -443,3 +443,4 @@ export const WithSwitch: Story = {
     ]
   }
 };
+

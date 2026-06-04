@@ -1,19 +1,18 @@
-
 [data-theme="dark"] .rds-comp-empty-state__title,
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__title,
 body.dark .rds-comp-empty-state__subtitle {
-  color: #fff !important;
+  color: var(--rds-neutral-0) !important;
 }
 
 [data-theme="dark"] .rds-comp-empty-state,
 body.dark .rds-comp-empty-state {
-  background-color: #1a1a1a;
+  background-color: var(--rds-color-surface-dark);
 }
 
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__subtitle {
-  color: #b0b0b0 !important;
+  color: var(--rds-text-secondary) !important;
 }
 
 .rds-comp-empty-state {
@@ -24,7 +23,7 @@ body.dark .rds-comp-empty-state__subtitle {
 
   min-height: var(--rds-size-6xl, 400px);
   width: 100%;
-  font-family: 'Poppins', var(--rds-font-family, 'Poppins', sans-serif) !important;
+  font-family: var(--rds-font-family-base) !important;
 
   &__content {
     display: flex;
@@ -32,7 +31,7 @@ body.dark .rds-comp-empty-state__subtitle {
     align-items: center;
     text-align: center;
     max-width: var(--rds-empty-state-max-width, 640px);
-    padding: 0 16px;
+    padding: 0 var(--rds-spacing-md, 16px);
   }
 
   &__icon {
@@ -63,22 +62,22 @@ body.dark .rds-comp-empty-state__subtitle {
 
   &__title {
     font-weight: var(--rds-font-weight-medium, 500) !important;
-    color: var(--rds-text-primary, #111827) !important;
+    color: var(--rds-text-primary) !important;
     font-size: var(--rds-font-size-lg, 1.09375rem) !important;
     line-height: 1.4 !important;
     margin: var(--rds-spacing-xs, 4px) 0 !important;
-    font-family: 'Poppins', var(--rds-font-family, 'Poppins', sans-serif) !important; 
-    margin-top: 10px !important;
+    font-family: var(--rds-font-family-base) !important; 
+    margin-top: var(--rds-spacing-lg, 10px) !important;
   }
 
   &__subtitle {
-    color: var(--rds-empty-state-subtitle-color, #202020) !important;
+    color: var(--rds-text-secondary) !important;
     font-size: var(--rds-font-size-sm, 14px) !important;
     line-height: 1.5 !important;
     margin: var(--rds-spacing-xs, 4px) 0 !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
-    max-width: 600px;
-    font-family: 'Poppins', var(--rds-font-family, 'Poppins', sans-serif) !important;
+    max-width: var(--rds-empty-state-max-width, 640px);
+    font-family: var(--rds-font-family-base) !important;
   }
 
   &__action {
@@ -86,38 +85,38 @@ body.dark .rds-comp-empty-state__subtitle {
   }
 
   &__button {
-    background-color: var(--rds-color-neutral-600, #646464) !important; 
-    color: var(--rds-color-neutral-50, #ffffff) !important;
-    border-radius: 4px !important;
-    padding: 6px 15px !important;
-    font-size: 14px !important;
+    background-color: var(--rds-color-neutral-600) !important; 
+    color: var(--rds-color-neutral-50) !important;
+    border-radius: var(--rds-border-radius-sm) !important;
+    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px) !important;
+    font-size: var(--rds-font-size-md) !important;
     font-weight: 500 !important;
     text-transform: none !important;
     min-width: 160px !important;
     line-height: 1.2 !important;
     box-shadow: none !important;
-    border: 1px solid var(--rds-color-neutral-600, #525252) !important;
-    transition: background-color .15s ease, border-color .15s ease, color .15s ease !important;
-    font-family: 'Poppins', var(--rds-font-family, 'Poppins', sans-serif) !important;
+    border: 1px solid var(--rds-color-neutral-600) !important;
+    transition: background-color var(--rds-transition-fast), border-color var(--rds-transition-fast), color var(--rds-transition-fast) !important;
+    font-family: var(--rds-font-family-base) !important;
 
     &:hover {
-      background-color: var(--rds-color-neutral-700, #454545) !important;
-      border-color: var(--rds-color-neutral-700, #454545) !important;
+      background-color: var(--rds-color-neutral-700) !important;
+      border-color: var(--rds-color-neutral-700) !important;
     }
 
     &:active {
-      background-color: var(--rds-color-neutral-800, #3a3a3a) !important;
-      border-color: var(--rds-color-neutral-800, #3a3a3a) !important;
+      background-color: var(--rds-color-neutral-800) !important;
+      border-color: var(--rds-color-neutral-800) !important;
     }
 
     &:focus-visible {
-      outline: 2px solid var(--rds-focus-ring, #8B5CF6) !important;
+      outline: 2px solid var(--rds-focus-ring) !important;
       outline-offset: 2px !important;
     }
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--rds-breakpoint-md)) {
   .rds-comp-empty-state {
     padding: var(--rds-spacing-lg, 24px) var(--rds-spacing-md, 16px);
     min-height: var(--rds-size-4xl, 200px);
@@ -153,11 +152,11 @@ body.dark .rds-comp-empty-state__subtitle {
 @media (prefers-contrast: high) {
   .rds-comp-empty-state {
     &__title {
-      color: var(--rds-text-primary, #000000) !important;
+      color: var(--rds-text-primary) !important;
     }
 
     &__subtitle {
-      color: var(--rds-text-secondary, #333333) !important;
+      color: var(--rds-text-secondary) !important;
     }
   }
 }

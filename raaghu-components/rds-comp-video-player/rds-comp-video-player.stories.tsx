@@ -20,7 +20,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         type: {
             control: {
@@ -75,7 +75,7 @@ type Story = StoryObj<typeof RdsCompVideoPlayer>;
 export const Default: Story = {
     args: {
         type: VideoPlayerType.Default,
-        width: "100%", 
+        width: "100%",
         height: "400px",
         autoplay: false,
         muted: false,
@@ -83,5 +83,5 @@ export const Default: Story = {
         volume: 0.8,
         disabled: false,
         videoLink: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    }
+    },
 };

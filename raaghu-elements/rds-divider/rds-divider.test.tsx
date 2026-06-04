@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsDivider, { RdsDividerProps } from './rds-divider';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-divider.scss', () => ({}));
@@ -168,7 +169,7 @@ describe('RdsDivider', () => {
     it('should apply correct height styling for vertical layout', () => {
       const { container } = renderWithTheme(<RdsDivider layout="vertical" />);
       const rootBox = container.firstChild as HTMLElement;
-      expect(rootBox).toHaveStyle('height: 120px');
+        expect(rootBox).toHaveStyle('height: var(--rds-divider-vertical-container-height, 120px)');
       expect(rootBox).toHaveStyle('display: flex');
       expect(rootBox).toHaveStyle('align-items: center');
     });
@@ -476,7 +477,13 @@ describe('RdsDivider', () => {
         <RdsDivider dividerMessage="Accessible Divider" />
       );
       expect(container.querySelector('.MuiDivider-root')).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsDivider {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should support aria-label', () => {
       const { container } = renderWithTheme(

@@ -31,7 +31,7 @@ const meta: Meta<typeof RdsCompAiChatHeader> = {
       },
   },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
 };
 
 export default meta;

@@ -7,6 +7,7 @@ import RdsCompToolbar, {
   RdsCompToolbarProps,
 } from './rds-comp-toolbar';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-toolbar.scss', () => ({}));
@@ -76,8 +77,8 @@ jest.mock('./rds-comp-toolbar-config', () => ({
       {icon}
       {hasDropdown && isDropdownOpen && (
         <div className="rds-comp-toolbar__dropdown">
-          <div role="menuitem" onClick={() => onDropdownSelect(action, 'option1')}>Option 1</div>
-          <div role="menuitem" onClick={() => onDropdownSelect(action, 'option2')}>Option 2</div>
+          <button type="button" role="menuitem" onClick={() => onDropdownSelect(action, 'option1')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Option 1</button>
+          <button type="button" role="menuitem" onClick={() => onDropdownSelect(action, 'option2')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Option 2</button>
         </div>
       )}
     </button>
@@ -654,7 +655,13 @@ describe('RdsCompToolbar', () => {
       render(<RdsCompToolbar {...defaultProps} />);
       const toolbar = screen.getByRole('toolbar');
       expect(toolbar).toHaveAttribute('aria-label');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompToolbar {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should pass aria-label to buttons', () => {
       render(<RdsCompToolbar {...defaultProps} />);

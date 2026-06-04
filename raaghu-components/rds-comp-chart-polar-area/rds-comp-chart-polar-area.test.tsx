@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompPolarAreaChart from './rds-comp-chart-polar-area';
 
 // Mock Chart.js
@@ -727,7 +728,13 @@ describe('RdsCompPolarAreaChart', () => {
       const { container } = render(<RdsCompPolarAreaChart {...defaultProps} />);
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompPolarAreaChart {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('canvas has id attribute', () => {
       const { container } = render(<RdsCompPolarAreaChart {...defaultProps} />);

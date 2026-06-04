@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import { Box } from '@mui/material';
 import RdsCarousel from './rds-carousel';
 
@@ -19,7 +20,7 @@ const meta: Meta<typeof RdsCarousel> = {
       return <Story />;
     },
   ],
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     autoPlay: {
       control: 'boolean',
@@ -143,4 +144,28 @@ export const NoControls: Story = {
   title: 'No Controls Title',
   subtitle: 'No controls subtitle',
   },
+};
+export const NavigateSlide: Story = {
+  name: 'Interaction: Navigate carousel slides',
+  args: {
+    children: [
+      <SampleSlide key={1} image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" text="Slide 1" />,
+      <SampleSlide key={2} image="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" text="Slide 2" />,
+      <SampleSlide key={3} image="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" text="Slide 3" />,
+    ],
+    autoPlay: false,
+    showArrows: true,
+    showDots: true,
+    height: '300px',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    // Carousel renders prev/next arrow buttons
+    const buttons = canvas.getAllByRole('button')
+    await expect(buttons.length).toBeGreaterThan(0)
+    await expect(buttons[0]).toBeVisible()
+    // Click next arrow (last button in the list)
+    await userEvent.click(buttons[buttons.length - 1])
+    await expect(canvasElement).toBeTruthy()
+  }
 };

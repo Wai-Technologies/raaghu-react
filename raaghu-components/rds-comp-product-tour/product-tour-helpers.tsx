@@ -49,14 +49,14 @@ export const createEffectiveSlides = (slides: { id: number; imgUrl: string; }[] 
 
 export const arrowSvg = (isNext: boolean) => (
     <svg width="16" height="16" viewBox="0 0 12 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d={isNext ? "M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5" : "M11.5,.5L.764,9.962c-.337,.279-.354,.746-.038,1.044,.012,.011,.025,.022,.038,.033l10.736,9.462"}
-            stroke={isNext ? "currentColor" : "#7C3AED"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={isNext ? "M.5,20.5L11.236,11.038c.337-.279,.354-.746,.038-1.044-.012-.011-.025-.022-.038-.033L.5,.5" : "M11.5,.5L.764,9.962c-.337,.279-.354,.746-.038,1.044,.012,.011,.025,.022,.038,.033l10.736,9.462"}
+                stroke={isNext ? "currentColor" : "var(--rds-primary-main)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
 export const deleteIcon = (
     <svg fill="none" height="20" viewBox="0 0 14 14" width="20" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 3.80979H13M4.46201 3.75519V3.2968C4.46201 2.68765 4.73087 2.10346 5.20946 1.67273C5.68806 1.242 6.33718 1 7.01401 1C7.69084 1 8.33995 1.242 8.81854 1.67273C9.29714 2.10346 9.566 2.68765 9.566 3.2968V3.75581M5.51067 5.572V10.624M8.51733 5.572V10.624M2.53067 3.814H11.498V12.0814C11.4997 12.2006 11.4752 12.3189 11.4261 12.4296C11.3769 12.5403 11.304 12.6411 11.2115 12.7264C11.119 12.8118 11.0087 12.8798 10.887 12.9268C10.7653 12.9737 10.6344 12.9986 10.502 13H3.53C3.26259 12.997 3.00746 12.8986 2.82069 12.7263C2.63392 12.554 2.5308 12.3221 2.53401 12.0814V3.814H2.53067Z" stroke="#BD0D1D" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M1 3.80979H13M4.46201 3.75519V3.2968C4.46201 2.68765 4.73087 2.10346 5.20946 1.67273C5.68806 1.242 6.33718 1 7.01401 1C7.69084 1 8.33995 1.242 8.81854 1.67273C9.29714 2.10346 9.566 2.68765 9.566 3.2968V3.75581M5.51067 5.572V10.624M8.51733 5.572V10.624M2.53067 3.814H11.498V12.0814C11.4997 12.2006 11.4752 12.3189 11.4261 12.4296C11.3769 12.5403 11.304 12.6411 11.2115 12.7264C11.119 12.8118 11.0087 12.8798 10.887 12.9268C10.7653 12.9737 10.6344 12.9986 10.502 13H3.53C3.26259 12.997 3.00746 12.8986 2.82069 12.7263C2.63392 12.554 2.5308 12.3221 2.53401 12.0814V3.814H2.53067Z" stroke="var(--rds-error-main)" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -74,7 +74,13 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
         className="rds-comp-product-tour__close-btn"
         aria-label="Close"
         onClick={handleClose}
-        sx={{ position: 'absolute', top: 12, right: 14, zIndex: 10, color: '#9E9E9E' }}
+        sx={{
+            position: 'absolute',
+            top: 'calc(var(--rds-spacing-sm) + var(--rds-spacing-xs))',
+            right: 'calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) + var(--rds-border-radius-xs))',
+            zIndex: 'var(--rds-z-index-popover)',
+            color: 'var(--rds-text-secondary)'
+        }}
     >
         <Close />
     </IconButton>
@@ -117,7 +123,7 @@ export const renderFormInputs = () => (
                     layout="text"
                     showIcon={true}
                     variant="outlined"
-                    icon={<InfoOutlined sx={{ color: '#9E9E9E', fontSize: '23px' }} />}
+                    icon={<InfoOutlined sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
                 />
             </Box>
             <Box className="rds-comp-product-tour__form-action-btn">
@@ -144,7 +150,7 @@ export const renderFormInputs = () => (
                         { label: 'Option 5', value: 5 }
                     ]}
                     placeholder="Add Team Members"
-                    popupIcon={<ExpandMore sx={{ color: '#9E9E9E', fontSize: '23px' }} />}
+                    popupIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
                     selectSize="medium"
                     allowMultiple={true}
                     showHintText={false}

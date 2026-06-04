@@ -15,7 +15,7 @@ const meta: Meta<typeof RdsCard> = {
     layout: 'padded',
   controls: { exclude: ['component', 'elevation'] },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     padding: {
       control: 'text',
@@ -562,3 +562,4 @@ WithTags.parameters = {
     include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
+

@@ -1,6 +1,13 @@
 .rds-toggle-button {
   display: flex;
   position: relative;
+  --rds-toggle-focus-ring-width: 2px;
+  --rds-toggle-group-border-light: var(--rds-border-light, rgba(0, 0, 0, 0.23));
+  --rds-toggle-group-border-dark: var(--rds-border-dark, rgba(255, 255, 255, 0.23));
+  --rds-toggle-group-border-disabled-light: var(--rds-border-light, rgba(100, 100, 100, 0.3));
+  --rds-toggle-group-border-disabled-dark: var(--rds-border-dark, rgba(100, 100, 100, 0.5));
+  --rds-toggle-button-selected-shadow: inset 0 0 0 1px currentColor;
+  --rds-toggle-button-spaced-shadow: inset 0 0 0 1px var(--rds-border-light, rgba(0, 0, 0, 0.12));
   
   &--horizontal {
     flex-direction: row;
@@ -87,13 +94,13 @@
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-focus-color, #2196f3);
-      outline-offset: 2px;
+      outline: var(--rds-toggle-focus-ring-width, 2px) solid var(--rds-focus-color);
+      outline-offset: var(--rds-toggle-focus-ring-width, 2px);
     }
     
     &.Mui-selected {
-      z-index: 1;
-      box-shadow: inset 0 0 0 1px currentColor;
+      z-index: calc(var(--rds-z-index-base) + 1);
+      box-shadow: var(--rds-toggle-button-selected-shadow, inset 0 0 0 1px currentColor);
     }
     
     &.Mui-disabled {
@@ -104,10 +111,10 @@
 
     &--spaced {
       width: 100%;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+      box-shadow: var(--rds-toggle-button-spaced-shadow, inset 0 0 0 1px rgba(0, 0, 0, 0.12));
       
       &.Mui-selected {
-        box-shadow: inset 0 0 0 1px currentColor;
+        box-shadow: var(--rds-toggle-button-selected-shadow, inset 0 0 0 1px currentColor);
       }
     }
   }
@@ -125,27 +132,27 @@
   max-width: 100%;
 }
 
-.rds-toggle-button--small .rds-toggle-button__button { 
-  font-size: var(--rds-font-size-sm, 0.75rem); 
-  padding: var(--rds-spacing-xs,4px) var(--rds-spacing-sm,8px); 
-  min-height: 32px;
+  .rds-toggle-button--small .rds-toggle-button__button { 
+  font-size: var(--rds-font-size-sm); 
+  padding: var(--rds-spacing-xs) var(--rds-spacing-sm); 
+  min-height: var(--rds-toggle-min-height-sm);
 }
 .rds-toggle-button--medium .rds-toggle-button__button { 
-  font-size: var(--rds-font-size-md, 0.875rem); 
-  padding: var(--rds-spacing-sm,8px) var(--rds-spacing-md,12px); 
-  min-height: 36px;
+  font-size: var(--rds-font-size-md); 
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md); 
+  min-height: var(--rds-toggle-min-height-md);
 }
 .rds-toggle-button--large .rds-toggle-button__button { 
-  font-size: var(--rds-font-size-lg, 1rem); 
-  padding: var(--rds-spacing-md,12px) var(--rds-spacing-lg,16px); 
-  min-height: 44px;
+  font-size: var(--rds-font-size-lg); 
+  padding: var(--rds-spacing-md) var(--rds-spacing-lg); 
+  min-height: var(--rds-toggle-min-height-lg);
 }
 
-@media (max-width:400px){
+@media (max-width:var(--rds-breakpoint-400)){
   .rds-toggle-button--large .rds-toggle-button__button { 
-    padding: var(--rds-spacing-sm,8px) var(--rds-spacing-md,12px); 
-    font-size: var(--rds-font-size-md,0.875rem);
-    min-height: 40px;
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md); 
+    font-size: var(--rds-font-size-md);
+    min-height: var(--rds-toggle-min-height-lg-mobile);
   }
 }
 
@@ -155,7 +162,7 @@
   max-width: 100%;
 }
 
-@media (max-width: 400px) {
+@media (max-width: var(--rds-breakpoint-400)) {
   .rds-toggle-button { width: 100%; max-width:100%; overflow-x:hidden; }
 
   .rds-toggle-button__group,
@@ -174,18 +181,18 @@
 
   .rds-toggle-button--small .rds-toggle-button__button { 
     font-size: var(--rds-font-size-xs,0.7rem); 
-    padding: 4px 6px; 
+    padding: var(--rds-spacing-xs, 4px) calc(1.5 * var(--rds-spacing-xs, 4px)); 
   }
   .rds-toggle-button--medium .rds-toggle-button__button { 
     font-size: var(--rds-font-size-sm,0.8rem); 
-    padding: 6px 8px; 
+    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px); 
   }
   .rds-toggle-button--large .rds-toggle-button__button { 
     font-size: var(--rds-font-size-md,0.9rem); 
-    padding: 8px 12px; 
+    padding: var(--rds-spacing-sm, 8px) calc(3 * var(--rds-spacing-xs, 4px)); 
   }
 
-  .rds-toggle-button__icon { margin-right: 4px !important; }
+  .rds-toggle-button__icon { margin-right: var(--rds-spacing-xs, 4px) !important; }
 
   .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { 
     margin-left: 0 !important; 
@@ -202,7 +209,7 @@
     width:100%;
     max-width:100%;
     min-width:0; 
-    padding:6px 8px;
+    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px);
     box-sizing:border-box;
   }
 
@@ -252,7 +259,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: var(--rds-breakpoint-600)) {
     .rds-toggle-button--wrap-mobile .rds-toggle-button__group,
     .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__custom-group {
       flex-wrap: wrap;
@@ -292,7 +299,7 @@
     }
   }
 
-@media (min-width:401px) and (max-width: 600px) {
+@media (min-width: var(--rds-breakpoint-sm)) and (max-width: var(--rds-breakpoint-600)) {
   .rds-toggle-button { width:100%; max-width:100%; }
 
   .rds-toggle-button__group,
@@ -306,8 +313,8 @@
   .rds-toggle-button__button { 
     flex:1 1 1; 
     min-width:0; 
-    padding:6px 10px; 
-    font-size:0.8rem; 
+    padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px); 
+    font-size: var(--rds-font-size-sm, 0.8rem); 
     box-sizing:border-box; 
   }
 
@@ -316,28 +323,28 @@
 
 .rds-toggle-button__group {
   .MuiToggleButtonGroup-grouped {
-    border: 1px solid rgba(0, 0, 0, 0.23) !important;
+    border: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
     margin-left: 0 !important;
     border-left-width: 1px !important;
     
     &.Mui-disabled {
-      border: 1px solid rgba(100, 100, 100, 0.3) !important;
+      border: 1px solid var(--rds-toggle-group-border-disabled-light, rgba(100, 100, 100, 0.3)) !important;
     }
     
     &.Mui-selected {
       border-color: currentColor !important;
-      z-index: 1;
+      z-index: calc(var(--rds-z-index-base) + 1);
     }
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: 1px solid rgba(255, 255, 255, 0.23) !important;
+    border: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
     border-left-width: 1px !important;
     
     &.Mui-disabled {
-      border: 1px solid rgba(100, 100, 100, 0.5) !important;
+      border: 1px solid var(--rds-toggle-group-border-disabled-dark, rgba(100, 100, 100, 0.5)) !important;
     }
     
     &.Mui-selected {
@@ -346,41 +353,21 @@
   }
 }
 
-.dark-theme,
-[data-theme="dark"],
-.theme-dark,
-body.theme-dark,
-html.theme-dark {
+@media (max-width: var(--rds-breakpoint-400)) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: 1px solid rgba(255, 255, 255, 0.23) !important;
-    border-left-width: 1px !important;
-    margin-left: 0 !important;
-    
-    &.Mui-disabled {
-      border: 1px solid rgba(100, 100, 100, 0.5) !important;
-    }
-    
-    &.Mui-selected {
-      border-color: currentColor !important;
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: 1px solid rgba(0, 0, 0, 0.23) !important;
+    border: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
     
     &:not(:first-of-type) {
-      border-left: 1px solid rgba(0, 0, 0, 0.23) !important;
+      border-left: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
     }
   }
   
   @media (prefers-color-scheme: dark) {
     .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-      border: 1px solid rgba(255, 255, 255, 0.23) !important;
+      border: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
       
       &:not(:first-of-type) {
-        border-left: 1px solid rgba(255, 255, 255, 0.23) !important;
+        border-left: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
       }
     }
   }

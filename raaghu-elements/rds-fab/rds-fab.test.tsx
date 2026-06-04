@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsFab, { RdsFabProps } from './rds-fab';
 
 // Mock SCSS
@@ -341,7 +342,7 @@ describe('RdsFab', () => {
         <RdsFab
           {...defaultProps}
           position="bottom-right"
-          sx={{ zIndex: 1000 }}
+          sx={{ zIndex: 'var(--rds-z-index-dropdown)' }}
         />
       );
       const fab = container.querySelector('.MuiFab-root') as HTMLElement;
@@ -623,7 +624,13 @@ describe('RdsFab', () => {
       );
       const fab = container.querySelector('.MuiFab-root');
       expect(fab).toHaveAttribute('aria-label', 'Add new item');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsFab {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should be keyboard accessible with Tab key', () => {
       const { container } = render(

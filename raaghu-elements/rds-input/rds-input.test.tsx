@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsInput from './rds-input';
 import SearchIcon from '@mui/icons-material/Search';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-input.scss', () => ({}));
@@ -653,6 +654,12 @@ describe('RdsInput', () => {
         <RdsInput label="Error Input" error={true} errorMessage="Field is required" />
       );
       expect(screen.getByText('Field is required')).toBeInTheDocument();
+    });
+
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsInput label="Email" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

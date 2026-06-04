@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsEmojiGenerator, { EmojiGeneratorType, SkinToneState, EmojiCategory } from './rds-comp-emoji-generator';
 
 // Mock SCSS
@@ -9,7 +10,7 @@ jest.mock('./rds-comp-emoji-generator.scss', () => ({}));
 // Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: React.forwardRef(({ children, className, onClick, ...props }: any, ref: any) => (
-    <div ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']}>
+    <div ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']} role={onClick ? 'button' : undefined} tabIndex={onClick ? 0 : undefined} onKeyDown={onClick ? (e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } } : undefined}>
       {children}
     </div>
   )),
@@ -49,7 +50,7 @@ jest.mock('@mui/material', () => ({
   ),
   Popover: ({ open, children, onClose }: any) => (
     open ? (
-      <div data-testid="skin-tone-popover" onClick={onClose}>
+      <div data-testid="skin-tone-popover" role="button" tabIndex={0} onClick={onClose} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}>
         {children}
       </div>
     ) : null
@@ -642,6 +643,14 @@ describe('RdsEmojiGenerator', () => {
         <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
       );
       expect(container.querySelector('.rds-emoji-generator')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsEmojiGenerator />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

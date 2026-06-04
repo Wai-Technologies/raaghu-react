@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsChip, { RdsChipProps } from './rds-chip';
+import { axe } from 'jest-axe';
 
 // Mock SCSS imports
 jest.mock('./rds-chip.scss', () => ({}));
@@ -584,7 +585,13 @@ describe('RdsChip', () => {
       renderWithTheme(<RdsChip {...defaultProps} onClick={onClick} />);
       const chip = screen.getByRole('button');
       expect(chip).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsChip {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should be keyboard accessible', () => {
       const onClick = jest.fn();

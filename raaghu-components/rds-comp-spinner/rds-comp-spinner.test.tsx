@@ -7,6 +7,7 @@ import RdsCompSpinner, {
   RdsCompSpinnerProps,
 } from './rds-comp-spinner';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-spinner.scss', () => ({}));
@@ -499,7 +500,13 @@ describe('RdsCompSpinner', () => {
       render(<RdsCompSpinner {...defaultProps} />);
       const spinner = screen.getByRole('status');
       expect(spinner).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompSpinner {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should be accessible when label is shown', () => {
       const { container } = render(

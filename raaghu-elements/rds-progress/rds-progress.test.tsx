@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsProgress from './rds-progress';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-progress.scss', () => ({}));
@@ -715,6 +716,14 @@ describe('RdsProgress', () => {
         />
       );
       expect(container).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsProgress />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

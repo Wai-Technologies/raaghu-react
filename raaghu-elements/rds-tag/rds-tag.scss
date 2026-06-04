@@ -1,11 +1,26 @@
 .rds-tag {
-  display: block;
+  display: inline-flex;
   position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.rds-tag .MuiChip-root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rds-tag .MuiChip-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 [data-theme="dark"]{
     .MuiChip-label {
-      color: var(--rds-button-primary-text, #ffffff);
+      color: var(--rds-button-primary-text);
     }
    
     .MuiChip-outlined {
@@ -15,7 +30,7 @@
     }
 
     .MuiChip-deleteIcon{
-      color: var(--rds-button-primary-text, #ffffff) !important;
+      color: var(--rds-button-primary-text) !important;
     }
     .MuiChip-outlined .MuiChip-deleteIcon{
       color: inherit !important;

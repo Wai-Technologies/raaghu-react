@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
@@ -8,7 +8,7 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     shape: {
       options: ['rectangle', 'pill'],
@@ -124,3 +124,5 @@ export const Default: Story = {
 Default.parameters = {
   controls: { include: ['shape', 'text', 'showLeftIcon', 'showRightIcon', 'disabled'] },
 };
+
+

@@ -1,6 +1,10 @@
 .rds-text-field {
   display: block;
   position: relative;
+  --rds-text-field-helper-offset: var(--rds-spacing-sm, 6px);
+  --rds-text-field-helper-font-size: var(--rds-font-size-md, 14px);
+  --rds-text-field-focus-ring-width: 2px;
+  --rds-text-field-icon-color-dark: var(--rds-neutral-0);
 
   &__field {
     display: block;
@@ -13,23 +17,23 @@
   &__helper-text {
     display: block;
     margin-left: 0 !important;
-    margin-top: 6px;
+    margin-top: var(--rds-text-field-helper-offset, var(--rds-spacing-sm, 6px));
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: var(--rds-text-field-helper-font-size, var(--rds-font-size-md, 14px));
     line-height: 1.2;
   }
 
   &__error-text {
     display: block;
     margin-left: 0 !important;
-    margin-top: 6px;
+    margin-top: var(--rds-text-field-helper-offset, var(--rds-spacing-sm, 6px));
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: var(--rds-text-field-helper-font-size, var(--rds-font-size-md, 14px));
     line-height: 1.2;
   }
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-text-field-focus-ring-width, 2px) solid var(--rds-primary-main);
     outline-offset: var(--rds-focus-ring-offset);
   }
 
@@ -40,52 +44,14 @@
   }
 
   .MuiFormLabel-asterisk {
-    color: var(--rds-color-error, #d32f2f);
+    color: var(--rds-error-main);
   }
 
-  html.theme-dark &,
-  .theme-dark &,
-  [data-theme="dark"] & {
-    .MuiInputAdornment-root,
-    .MuiInputAdornment-root * {
-      color: #ffffff !important;
-      fill: #ffffff !important;
-      stroke: #ffffff !important;
-    }
-
-    .rds-text-field .MuiInputAdornment-root,
-    .rds-text-field .MuiInputAdornment-root * {
-      color: #ffffff !important;
-      fill: #ffffff !important;
-      stroke: #ffffff !important;
-    }
-
-    input[type="password"]::-webkit-textfield-decoration-button,
-    input[type="password"]::-webkit-textfield-decoration-container {
-      filter: invert(100%) !important;
-      color: #ffffff !important;
-    }
-
-    input[type="password"]::-ms-reveal {
-      color: #ffffff !important;
-      filter: invert(100%) !important;
-    }
-  }
   .MuiInputBase-input::placeholder,
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    color: var(--rds-placeholder-color) !important;
     opacity: 1 !important;
-  }
-
-  .dark-theme &, [data-theme="dark"] & {
-    .MuiInputBase-input::placeholder,
-    input::placeholder,
-    textarea::placeholder,
-    .MuiAutocomplete-inputRoot input::placeholder {
-      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-      opacity: 1 !important;
-    }
   }
 }

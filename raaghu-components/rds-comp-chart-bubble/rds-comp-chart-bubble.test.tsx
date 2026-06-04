@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompBubbleChart from './rds-comp-chart-bubble';
 
 // Mock SCSS
@@ -762,7 +763,13 @@ describe('RdsCompBubbleChart', () => {
       const { container } = render(<RdsCompBubbleChart {...defaultProps} />);
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompBubbleChart {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('canvas has id attribute', () => {
       const { container } = render(<RdsCompBubbleChart {...defaultProps} />);

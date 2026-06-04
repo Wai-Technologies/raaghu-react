@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsBadge> = {
       exclude: ['component', 'slots', 'slotProps', 'color', 'children'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control: { type: 'select' },
@@ -132,3 +132,5 @@ export const ShowZeroFalse: Story = {
 ShowZeroFalse.parameters = {
   controls: { exclude: ['shape', 'layout'] },
 };
+
+

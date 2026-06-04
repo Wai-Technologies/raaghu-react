@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsCompKanbanBoard from "./rds-comp-kanban-board";
 import { boardInfo } from "./kanban-board-helpers";
 
@@ -19,7 +20,7 @@ const meta: Meta = {
     },
 }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         noDataTitle: {
             table: { disable: true },
@@ -103,6 +104,10 @@ export default meta;
 type Story = StoryObj<typeof RdsCompKanbanBoard>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.firstElementChild;
+        expect(el).toBeTruthy();
+    },
     args: {
         allowAddingNewCard: true,
         boardData: sampleItems,

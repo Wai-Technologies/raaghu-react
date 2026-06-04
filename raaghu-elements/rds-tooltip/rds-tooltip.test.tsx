@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTooltip from './rds-tooltip';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-tooltip.scss', () => ({}));
@@ -893,10 +894,10 @@ describe('RdsTooltip', () => {
           <button>Hover me</button>
         </RdsTooltip>
       );
-      
+
       const button = screen.getByText('Hover me');
       await user.hover(button);
-      
+
       await waitFor(() => {
         expect(screen.getByText('Test Tooltip')).toBeInTheDocument();
       });
@@ -909,10 +910,10 @@ describe('RdsTooltip', () => {
           <button>Focus me</button>
         </RdsTooltip>
       );
-      
+
       const button = screen.getByText('Focus me');
       await user.tab();
-      
+
       expect(button).toHaveFocus();
     });
 
@@ -922,8 +923,14 @@ describe('RdsTooltip', () => {
           <button disabled>Disabled button</button>
         </RdsTooltip>
       );
-      
+
       expect(screen.getByText('Disabled button')).toBeDisabled();
+    });
+
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsTooltip title="Help text"><button>Hover me</button></RdsTooltip>);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

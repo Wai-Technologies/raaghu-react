@@ -14,7 +14,7 @@ const meta: Meta = {
 },
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompAreaChart>;
@@ -154,3 +154,4 @@ export const Default: Story = {
         },
      },    
 };
+

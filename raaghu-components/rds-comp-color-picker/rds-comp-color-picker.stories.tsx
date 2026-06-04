@@ -1,5 +1,5 @@
 import RdsColorPicker, { ColorMode, ColorPickerType, PickerType, StyleType } from "./rds-comp-color-picker";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Color Picker',
@@ -10,7 +10,7 @@ const meta: Meta = {
             
         },
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         type: {
             control: 'select',
@@ -63,3 +63,4 @@ export const Default: Story = {
     },
 } satisfies Story;
 Default.parameters = { controls: { include: ['type','showSwatches', 'pickerType', 'showTabs', 'style'] } };
+

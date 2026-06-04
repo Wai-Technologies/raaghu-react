@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompEmptyState from "./rds-comp-empty-state";
 
 
@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsCompEmptyState> = {
   parameters: {
     layout: "padded",
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
   argTypes: {
     mode: {
       control: { type: 'select' },
@@ -59,3 +59,5 @@ export const Standard: Story = {
   
   },
 };
+
+

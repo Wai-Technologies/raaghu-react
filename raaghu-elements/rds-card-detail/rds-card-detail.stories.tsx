@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Typography, Box } from '@mui/material';
 import { Share, Favorite } from '@mui/icons-material';
 import RdsCardDetail from './rds-card-detail';
@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsCardDetail> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     elevation: {
       control: { type: 'range', min: 0, max: 24 },
@@ -118,3 +118,5 @@ export const Outlined: Story = {
     ),
   },
 };
+
+

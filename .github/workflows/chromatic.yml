@@ -3,8 +3,28 @@ name: Chromatic Visual Testing
 on:
   push:
     branches: [main, development, production]
+    paths:
+      - 'raaghu-elements/**/*.tsx'
+      - 'raaghu-elements/**/*.scss'
+      - 'raaghu-components/**/*.tsx'
+      - 'raaghu-components/**/*.scss'
+      - 'raaghu-layouts/**/*.tsx'
+      - 'raaghu-layouts/**/*.scss'
+      - 'raaghu-react-themes/**'
+      - '**/*.stories.tsx'
+      - '.storybook/**'
   pull_request:
     branches: [main, development, production]
+    paths:
+      - 'raaghu-elements/**/*.tsx'
+      - 'raaghu-elements/**/*.scss'
+      - 'raaghu-components/**/*.tsx'
+      - 'raaghu-components/**/*.scss'
+      - 'raaghu-layouts/**/*.tsx'
+      - 'raaghu-layouts/**/*.scss'
+      - 'raaghu-react-themes/**'
+      - '**/*.stories.tsx'
+      - '.storybook/**'
   workflow_dispatch:
 
 permissions:

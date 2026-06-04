@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Share, Print, Favorite } from '@mui/icons-material';
 import RdsSpeedDial, { RdsSpeedDialAction, RdsSpeedDialProps } from './rds-speed-dial';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-speed-dial.scss', () => ({}));
@@ -295,7 +296,13 @@ describe('RdsSpeedDial', () => {
       );
       const speedDial = container.querySelector('[aria-label]');
       expect(speedDial).toHaveAttribute('aria-label', 'Custom aria label');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsSpeedDial {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should use tooltipTitle as aria-label fallback', () => {
       const { container } = render(

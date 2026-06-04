@@ -85,7 +85,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             <Typography
               component="span"
               className="rds-autocomplete__asterisk"
-              sx={{ color: 'red', ml: '3px', fontSize: 'inherit', fontWeight: 700 }}
+              sx={{ color: 'var(--rds-error-main)', ml: '3px', fontSize: 'inherit', fontWeight: 700 }}
             />
           )}
         </label>
@@ -100,16 +100,19 @@ const RdsAutocomplete = <T extends { label?: string },>({
         
         return (
           <>
-            {visibleTags.map((option, index) => (
+            {visibleTags.map((option, index) => {
+              const { key: tagKey, ...restTagProps } = getTagProps({ index });
+              return (
               <Chip
-                key={index}
+                key={tagKey ?? index}
                 variant="filled"
                 label={(option as any)?.label || option}
                 size="small"
-                {...getTagProps({ index })}
+                {...restTagProps}
                 className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
               />
-            ))}
+              );
+            })}
             {remainingCount > 0 && (
               <Chip
                 variant="filled"

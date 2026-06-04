@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsDrawer, { RdsDrawerProps } from './rds-drawer';
 
 // Mock SCSS
@@ -528,7 +529,13 @@ describe('RdsDrawer', () => {
         <RdsDrawer open={true} {...defaultProps} />
       );
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsDrawer {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should support aria-label on drawer', () => {
       render(

@@ -95,18 +95,25 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
         <div className={`rds-comp-video-player${disabled ? " rds-comp-video-player--disabled" : ""} ${className}`}>
             <div className="rds-comp-video-player__wrapper">
                 {React.createElement(ReactPlayer as any, {
-                    key: `${formattedUrl}-${controls}-${Date.now()}`,
+                    key: `${formattedUrl}`,
                     url: formattedUrl,
-                    width: "100%",
-                    height: "100%",
+                    width: width,
+                    height: height,
                     playing: autoplay && !disabled,
                     muted: muted,
                     controls: controls,
                     volume: volume,
                     config: getPlayerConfig(),
                     className: "rds-comp-video-player__player",
-                    style: { width, height }
                 })}
+                {/* Reserve the native controls height when controls are disabled so layout doesn't shift.
+                    This spacer keeps the player size consistent when toggling controls on/off. */}
+                {!controls && (
+                    <div
+                        className="rds-comp-video-player__controls-spacer"
+                        aria-hidden="true"
+                    />
+                )}
             </div>
             {disabled && (
                 <div className="rds-comp-video-player__overlay">

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsAlert, { RdsAlertProps } from './rds-alert';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-alert.scss', () => ({}));
@@ -787,6 +788,14 @@ describe('RdsAlert', () => {
         (btn) => btn.getAttribute('data-text') === 'Cancel'
       );
       expect(secondaryButton).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsAlert description="Test alert message" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

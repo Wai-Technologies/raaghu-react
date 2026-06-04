@@ -64,7 +64,7 @@ function getPropsForState(args: any) {
 }
 
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCommentBox from './rds-comp-comments-box';
 
 const meta: Meta<typeof RdsCommentBox> = {
@@ -76,7 +76,7 @@ const meta: Meta<typeof RdsCommentBox> = {
     exclude: ['editIcon', 'deleteIcon'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     avatarInitials: { control: 'text', description: 'Initials for avatar' },
     placeholderText: { control: 'text', description: 'Placeholder text for input' },
@@ -214,4 +214,6 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
 };
+
+
 

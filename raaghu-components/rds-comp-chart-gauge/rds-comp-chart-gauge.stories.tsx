@@ -15,7 +15,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompGaugeChart>;
@@ -229,3 +229,4 @@ export const RedOnly: Story = {
         ]
     }
 } satisfies Story;
+

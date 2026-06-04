@@ -13,7 +13,7 @@ const meta: Meta = {
       }
 },
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompBubbleChart>;
@@ -74,3 +74,4 @@ export const Default: Story = {
         },
     },
 };
+

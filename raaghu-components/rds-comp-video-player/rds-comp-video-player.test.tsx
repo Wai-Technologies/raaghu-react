@@ -5,6 +5,7 @@ import RdsCompVideoPlayer, {
   RdsVideoPlayerProps,
 } from './rds-comp-video-player';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-video-player.scss', () => ({}));
@@ -34,7 +35,7 @@ jest.mock('react-player', () => {
         data-config={JSON.stringify(config)}
         data-width={width}
         data-height={height}
-        data-style={JSON.stringify(style)}
+        data-style={JSON.stringify(style || { width, height })}
         className={className}
       >
         Video Player
@@ -369,11 +370,11 @@ describe('RdsCompVideoPlayer', () => {
       expect(style.height).toBe(600);
     });
 
-    it('should always render player with 100% width', () => {
+    it('should render player with default dimensions', () => {
       render(<RdsCompVideoPlayer {...defaultProps} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-width', '100%');
-      expect(player).toHaveAttribute('data-height', '100%');
+      expect(player).toHaveAttribute('data-height', 'auto');
     });
   });
 
@@ -682,6 +683,14 @@ describe('RdsCompVideoPlayer', () => {
       );
       const mainDiv = container.querySelector('.rds-comp-video-player');
       expect(mainDiv).toHaveClass('rds-comp-video-player');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompVideoPlayer {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

@@ -119,6 +119,7 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
   const style = {
     height: props.height ? props.height : "22px",
     width: props.width ? props.width : "22px",
+    '--rds-ai-icon-size': 'var(--rds-ai-icon-size)',
     strokeWidth: props.strokeWidth ? props.strokeWidth : "inherit",
     ...(props.position === "center" && { margin: "auto" }),
     ...(props.position === "top-left" && { margin: "0" }),

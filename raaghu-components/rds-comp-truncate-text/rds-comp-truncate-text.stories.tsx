@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompTruncatedText, { TruncateTextState } from './rds-comp-truncate-text';
 
 const meta: Meta = {
@@ -16,7 +16,7 @@ const meta: Meta = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     state: {
       options: Object.values(TruncateTextState),
@@ -48,3 +48,4 @@ export const Default: Story = {
 Default.parameters = {
   controls: { include: ['state', 'text', 'maxLength'] },
 };
+

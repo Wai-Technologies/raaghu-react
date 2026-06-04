@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsContainer, { RdsContainerProps } from './rds-container';
+import { axe } from 'jest-axe';
 
 // Mock SCSS imports
 jest.mock('./rds-container.scss', () => ({}));
@@ -247,20 +248,18 @@ describe('RdsContainer', () => {
       expect(muiContainer).toHaveStyle('padding: 1.5em');
     });
 
-    it('should not apply padding when not provided', () => {
+    it('should apply default padding when not provided', () => {
       const { container } = renderWithTheme(<RdsContainer {...defaultProps} />);
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      const style = muiContainer.getAttribute('style') || '';
-      expect(style).not.toContain('padding');
+      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
     });
 
-    it('should not apply padding when undefined', () => {
+    it('should apply default padding when undefined', () => {
       const { container } = renderWithTheme(
         <RdsContainer padding={undefined} {...defaultProps} />
       );
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      const style = muiContainer.getAttribute('style') || '';
-      expect(style).not.toContain('padding');
+      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
     });
 
     it('should combine custom padding with sx prop', () => {
@@ -605,7 +604,13 @@ describe('RdsContainer', () => {
       );
       const main = container.querySelector('main');
       expect(main).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsContainer {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should support aria attributes', () => {
       renderWithTheme(
@@ -716,11 +721,10 @@ describe('RdsContainer', () => {
       expect(muiContainer).toBeInTheDocument();
     });
 
-    it('should not apply padding by default', () => {
+    it('should apply default padding by default', () => {
       const { container } = renderWithTheme(<RdsContainer {...defaultProps} />);
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      const style = muiContainer.getAttribute('style') || '';
-      expect(style).not.toContain('padding');
+      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
     });
 
     it('should apply maxWidth by default (md)', () => {

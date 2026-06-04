@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsAutocomplete from './rds-autocomplete';
 
 const UserIcon = () => (
@@ -27,7 +28,7 @@ const meta: Meta<typeof RdsAutocomplete> = {
     exclude: ['component', 'slots', 'slotProps', 'ref'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {
       control: { type: 'select' },
@@ -229,4 +230,24 @@ WithHelperText.parameters = {
   controls: { 
     include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
   } 
+};
+
+export const TypeFilter: Story = {
+  name: 'Interaction: Type to filter options',
+  args: {
+    options,
+    label: 'Choose',
+    placeholder: 'Start typing...',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByRole('combobox')
+    await expect(input).toBeVisible()
+    await userEvent.type(input, 'Opt')
+    // MUI Autocomplete listbox renders in a portal
+    await waitFor(
+      () => expect(document.querySelector('[role="listbox"]')).not.toBeNull(),
+      { timeout: 2000 }
+    )
+  }
 };

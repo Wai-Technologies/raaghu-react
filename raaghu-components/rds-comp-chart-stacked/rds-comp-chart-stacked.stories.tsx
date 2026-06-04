@@ -14,7 +14,7 @@ const meta: Meta = {
 }
 
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompStackedChart>;
@@ -249,3 +249,4 @@ export const Default: Story = {
 
     }
 };
+

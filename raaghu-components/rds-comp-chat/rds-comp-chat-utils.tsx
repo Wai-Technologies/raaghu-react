@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface Comment {
   firstName: string;
   lastName: string;

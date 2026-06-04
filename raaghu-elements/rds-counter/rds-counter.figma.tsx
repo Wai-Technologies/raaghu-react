@@ -16,7 +16,7 @@ figma.connect(
   min={0} 
   max={50} 
   {...props} 
-  placeholder={0} 
+  placeholder={'0'} 
   disabled={false}
   onChange={() => {}} />, 
   },

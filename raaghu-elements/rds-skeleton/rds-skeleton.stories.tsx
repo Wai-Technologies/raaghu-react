@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsSkeleton> = {
       include: ['shape', 'frames', 'animated', 'animation', 'width', 'height'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     shape: {
       control: 'select',
@@ -117,7 +117,7 @@ export const CardSkeleton: Story = {
   argTypes: {
     shape: { table: { disable: true }, control: false },
     frames: { table: { disable: true }, control: false },
-    lines: { table: { disable: true }, control: false },
+    // lines: { table: { disable: true }, control: false }, // removed: not in RdsSkeletonProps
     component: { table: { disable: true }, control: false },
   },
   args: {
@@ -136,3 +136,4 @@ export const CardSkeleton: Story = {
     </Card>
   ),
 };
+

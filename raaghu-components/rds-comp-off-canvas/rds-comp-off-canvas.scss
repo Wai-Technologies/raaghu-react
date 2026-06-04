@@ -36,12 +36,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
-  border-bottom: 1px solid var(--rds-offcanvas-border, #e0e0e0);
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+  border-bottom: 1px solid var(--rds-offcanvas-border);
 }
 
 .offcanvas-header.no-title {
-  padding: 4px 16px;
+  padding: var(--rds-spacing-xs) var(--rds-spacing-md);
   justify-content: flex-end;
   border-bottom: none;
 }
@@ -59,28 +59,18 @@
 }
 
 .offcanvas-close-button {
-  padding: 8px;
+  padding: var(--rds-spacing-sm);
   border: 1px solid transparent;
-  border-radius: 5px;
+  border-radius: var(--rds-border-radius-sm);
   transition: all 0.2s ease-in-out;
 }
 .offcanvas-close-button:hover {
-  background-color: rgba(0, 0, 0, 0.10);
-  border-radius: 5px;
+  background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
+  border-radius: var(--rds-border-radius-sm);
 }
-
-.rds-theme--dark .offcanvas-close-button:hover,
-body.theme-dark .offcanvas-close-button:hover,
-body[data-theme="dark"] .offcanvas-close-button:hover,
-[data-theme="dark"] .offcanvas-close-button:hover,
-.theme-dark .offcanvas-close-button:hover,
-.dark-theme .offcanvas-close-button:hover {
-  background-color: rgba(255, 255, 255, 0.22);
-}
-
 .offcanvas-body {
   flex: 1;
-  padding: 16px;
+  padding: var(--rds-spacing-md);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -91,9 +81,9 @@ body[data-theme="dark"] .offcanvas-close-button:hover,
 
 .offcanvas-footer {
   display: flex;
-  gap: 8px;
+  gap: var(--rds-spacing-sm);
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: var(--rds-spacing-md);
 }
 
 .tertiary-button-container,
@@ -112,30 +102,17 @@ body[data-theme="dark"] .offcanvas-close-button:hover,
 }
 
 .primary-button-container {
-  margin-left: 8px;
+  margin-left: var(--rds-spacing-sm);
 }
 
 #offcanvas-btns .rds-button,
 #offcanvas-btns .MuiButton-root {
   min-height: 36px;
-  padding: 6px 16px;
+  padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-md);
 }
-
-.rds-theme--dark #offcanvas-btns .rds-button,
-body.theme-dark #offcanvas-btns .rds-button,
-body[data-theme="dark"] #offcanvas-btns .rds-button,
-.theme-dark #offcanvas-btns .rds-button,
-.rds-theme--dark #offcanvas-btns .MuiButton-root,
-body.theme-dark #offcanvas-btns .MuiButton-root,
-body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
-.theme-dark #offcanvas-btns .MuiButton-root {
-  min-height: 36px !important;
-  padding: 6px 9px !important;
-}
-
 .offcanvas-margin {
   display: flex;
-  gap: 15px;
+  gap: calc(var(--rds-spacing-md) - 1px);
 }
 
 .offcanvas-btn {
@@ -148,46 +125,9 @@ body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
 .offcanvas-action-btn {
   width: auto;
 }
-
-.rds-theme--dark .offcanvas-cancel-btn,
-body.theme-dark .offcanvas-cancel-btn,
-body[data-theme="dark"] .offcanvas-cancel-btn,
-[data-theme="dark"] .offcanvas-cancel-btn,
-.theme-dark .offcanvas-cancel-btn,
-.dark-theme .offcanvas-cancel-btn {
-  color: #2196F3 !important;
-}
-
-.rds-theme--dark .offcanvas-cancel-btn .MuiButton-label,
-body.theme-dark .offcanvas-cancel-btn .MuiButton-label,
-body[data-theme="dark"] .offcanvas-cancel-btn .MuiButton-label,
-[data-theme="dark"] .offcanvas-cancel-btn .MuiButton-label,
-.theme-dark .offcanvas-cancel-btn .MuiButton-label,
-.dark-theme .offcanvas-cancel-btn .MuiButton-label {
-  color: #2196F3 !important;
-}
-
-.rds-theme--dark .tertiary-button-container .offcanvas-action-btn,
-body.theme-dark .tertiary-button-container .offcanvas-action-btn,
-body[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn,
-[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn,
-.theme-dark .tertiary-button-container .offcanvas-action-btn,
-.dark-theme .tertiary-button-container .offcanvas-action-btn {
-  color: #2196F3 !important;
-}
-
-.rds-theme--dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
-body.theme-dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
-body[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
-[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
-.theme-dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
-.dark-theme .tertiary-button-container .offcanvas-action-btn .MuiButton-label {
-  color: #2196F3 !important;
-}
-
 @media (max-width: 767px) {
   .MuiDrawer-paper {
-    width: 375px !important;
+    width: min(375px, 100vw) !important;
   }
 }
 
@@ -198,32 +138,23 @@ body[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn .MuiBut
 
 .offcanvas-container .offcanvas-header .close {
   cursor: pointer;
-  padding: 3px 8px;
+  padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
   border: 1px solid transparent;
   transition: all 0.2s ease-in-out;
-  border-radius: 5px;
+  border-radius: var(--rds-border-radius-sm);
 }
 
 .offcanvas-container .offcanvas-header .close:hover {
-  background-color: rgba(0, 0, 0, 0.10);
+  background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
 }
-.rds-theme--dark .offcanvas-container .offcanvas-header .close:hover,
-body.theme-dark .offcanvas-container .offcanvas-header .close:hover,
-body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
-[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
-.theme-dark .offcanvas-container .offcanvas-header .close:hover,
-.dark-theme .offcanvas-container .offcanvas-header .close:hover {
-  background-color: rgba(255, 255, 255, 0.22);
-}
-
-@media (min-width: 320px) and (max-width: 414px) {
+@media (max-width: 420px) {
   .offcanvas-drawer .MuiDrawer-paper {
-    width: 320px !important;
+    width: min(320px, 100vw) !important;
   }
   .offcanvas-margin {
     display: flex;
     flex-wrap: nowrap;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     align-items: center;
   }
 
@@ -242,7 +173,7 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
   }
   
   .offcanvas-margin .rds-button {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-caption, 11px) !important;
     padding: 5px 7px;
     width: 100% !important;
     white-space: nowrap;
@@ -255,7 +186,7 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
   }
   
   .offcanvas-margin .rds-button span {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-caption, 11px) !important;
     display: inline-block;
     white-space: nowrap;
     line-height: 1.2;
@@ -265,7 +196,7 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
     padding: 0 5px;
     display: flex;
     flex-wrap: nowrap;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     align-items: center;
   }
 
@@ -282,15 +213,15 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
 
   #offcanvas-btns .secondary-button-container {
     margin-left: auto;
-    margin-right: 4px;
+    margin-right: var(--rds-spacing-xs);
   }
 
   #offcanvas-btns .primary-button-container {
-    margin-left: 4px;
+    margin-left: var(--rds-spacing-xs);
   }
   
   #offcanvas-btns .rds-button {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-caption, 11px) !important;
     padding: 5px 7px;
     width: 100% !important;
     white-space: nowrap;
@@ -303,7 +234,7 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
   }
   
   #offcanvas-btns .rds-button span {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-caption, 11px) !important;
     display: inline-block;
     white-space: nowrap;
     line-height: 1.2;
@@ -311,28 +242,28 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
   #close-btn .rds-icon-button,
   #close-btn .MuiIconButton-root {
     padding: 6px 8px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
-    width: 36px !important;
-    height: 36px !important;
+    min-width: var(--rds-icon-button-size, 36px) !important;
+    min-height: var(--rds-icon-button-size, 36px) !important;
+    width: var(--rds-icon-button-size, 36px) !important;
+    height: var(--rds-icon-button-size, 36px) !important;
   }
   
   #close-btn .rds-icon-button svg,
   #close-btn .MuiIconButton-root svg {
-    width: 16px !important;
-    height: 16px !important;
+    width: var(--rds-icon-button-svg-size, 16px) !important;
+    height: var(--rds-icon-button-svg-size, 16px) !important;
     margin-left: 0 !important;
   }
 }
-@media (min-width: 414px) and (max-width: 896px) {
-  .offcanvas-drawer .MuiDrawer-paper { width: 400px !important; }
+@media (max-width: 896px) {
+  .offcanvas-drawer .MuiDrawer-paper { width: min(400px, 100vw) !important; }
   #offcanvas-btns, .offcanvas-margin {
     display: flex;
     flex-wrap: nowrap;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     align-items: center;
     justify-content: flex-end;
-    padding-left: 16px !important;
+    padding-left: var(--rds-spacing-md) !important;
     padding-right: 0 !important;
   }
 
@@ -342,16 +273,16 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
 
   #offcanvas-btns .secondary-button-container {
     margin-left: auto;
-    margin-right: 8px;
+    margin-right: var(--rds-spacing-sm);
   }
 
   #offcanvas-btns .primary-button-container {
-    margin-left: 4px;
+    margin-left: var(--rds-spacing-xs);
   }
 
   #offcanvas-btns .rds-button {
-    font-size: 12px !important;
-    padding: 6px 8px !important;
+    font-size: var(--rds-font-size-sm) !important;
+    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm) !important;
     width: 100% !important;
     white-space: nowrap;
     overflow: hidden;
@@ -359,12 +290,12 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
   }
 
   #close-btn .rds-icon-button, #close-btn .MuiIconButton-root {
-    padding: 6px 8px !important;
-    width: 40px !important; height: 40px !important;
-    min-width: 40px !important; min-height: 40px !important;
+    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm) !important;
+    width: var(--rds-icon-button-lg-size, 40px) !important; height: var(--rds-icon-button-lg-size, 40px) !important;
+    min-width: var(--rds-icon-button-lg-size, 40px) !important; min-height: var(--rds-icon-button-lg-size, 40px) !important;
   }
   #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
-    width: 18px !important; height: 18px !important; 
+    width: var(--rds-icon-button-lg-svg-size, 18px) !important; height: var(--rds-icon-button-lg-svg-size, 18px) !important; 
     margin-left: 0 !important;
   }
 }

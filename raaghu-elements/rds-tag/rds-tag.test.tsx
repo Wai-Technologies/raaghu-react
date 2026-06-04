@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTag from './rds-tag';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-tag.scss', () => ({}));
@@ -557,6 +558,14 @@ describe('RdsTag', () => {
       );
       expect(container).toBeInTheDocument();
       expect(screen.getByText('Test Tag')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTag />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

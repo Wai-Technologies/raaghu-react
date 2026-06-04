@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsButton from './rds-button';
 
 describe('RdsButton', () => {
@@ -45,5 +46,11 @@ describe('RdsButton', () => {
     render(<RdsButton text="Accessible Button" aria-label="Custom aria label" />);
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('aria-label', 'Custom aria label');
+  });
+
+  it('has no axe accessibility violations', async () => {
+    const { container } = render(<RdsButton text="Axe Test Button" color="primary" style="filled" />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

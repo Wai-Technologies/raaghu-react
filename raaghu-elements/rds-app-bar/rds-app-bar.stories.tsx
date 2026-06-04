@@ -353,7 +353,7 @@ const meta: Meta<typeof RdsAppBar> = {
     exclude: ['component', 'onMenuClick', 'actions', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
   },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: ({
     size: {
       control: { type: 'select' },
@@ -1023,3 +1023,5 @@ WithMenuButton.parameters = { controls: { include: ['title', 'showLogo', 'size',
 
 export const DashboardWithLang: Story = { args: { variantStyle: 'dashboardWithLang', color: 'default', showSearch: false } as any, render: DynamicTemplate };
 DashboardWithLang.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
+
+

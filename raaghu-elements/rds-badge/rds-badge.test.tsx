@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsBadge, { RdsBadgeProps } from './rds-badge';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-badge.scss', () => ({}));
@@ -628,6 +629,22 @@ describe('RdsBadge', () => {
         <RdsBadge badgeContent={5} layout="icon" />
       );
       expect(container.querySelector('.MuiSvgIcon-root')).toBeInTheDocument();
+    });
+
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsBadge badgeContent={5} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('has no axe violations when wrapping a button', async () => {
+      const { container } = render(
+        <RdsBadge badgeContent={3}>
+          <button>Notifications</button>
+        </RdsBadge>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

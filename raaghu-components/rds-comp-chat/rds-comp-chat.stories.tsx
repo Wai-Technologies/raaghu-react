@@ -12,7 +12,7 @@ const meta: Meta = {
     }
 }
     },
-    tags: ["autodocs"]
+    tags: ["autodocs", 'stable']
 } satisfies Meta<typeof RdsCompChat>;
 
 export default meta;
@@ -85,3 +85,4 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
+

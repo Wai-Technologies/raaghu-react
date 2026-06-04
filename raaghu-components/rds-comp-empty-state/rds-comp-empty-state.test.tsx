@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompEmptyState, { RdsCompEmptyStateProps } from './rds-comp-empty-state';
+import { axe } from 'jest-axe';
 
 // Mock Lottie
 jest.mock('lottie-react', () => {
@@ -35,11 +36,28 @@ jest.mock('@mui/material', () => {
         {children}
       </div>
     )),
-    Typography: ({ children, variant, className, sx, ...props }: any) => (
-      <div className={`typography ${className || ''}`} style={sx} {...props}>
-        {children}
-      </div>
-    ),
+    Typography: ({ children, variant, className, sx, ...props }: any) => {
+      const fakeTheme = {
+        palette: {
+          common: { white: '#ffffff' },
+          grey: { 800: '#424242' },
+          text: { primary: '#000000' },
+        },
+      };
+      let resolvedStyle: any = typeof sx === 'function' ? sx(fakeTheme) : sx;
+      if (resolvedStyle && typeof resolvedStyle === 'object') {
+        resolvedStyle = Object.keys(resolvedStyle).reduce((acc: any, key) => {
+          const val = resolvedStyle[key];
+          acc[key] = typeof val === 'function' ? val(fakeTheme) : val;
+          return acc;
+        }, {} as any);
+      }
+      return (
+        <div className={`typography ${className || ''}`} style={resolvedStyle} {...props}>
+          {children}
+        </div>
+      );
+    },
     Button: ({ children, variant, className, onClick, ...props }: any) => (
       <button className={`button ${variant || ''} ${className || ''}`} onClick={onClick} {...props}>
         {children}
@@ -527,6 +545,14 @@ describe('RdsCompEmptyState', () => {
       const icon = screen.getByTestId('icon');
       const style = icon.getAttribute('style');
       expect(style).toContain('300px');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompEmptyState />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

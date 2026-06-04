@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import { applyChartThemeColors } from "../chart-utils";
 import "./rds-comp-chart-mixed.scss";
 
 export interface RdsCompMixedChartProps {
@@ -10,73 +11,52 @@ export interface RdsCompMixedChartProps {
 }
 
 const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
-    
- const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-    const isDarkMode = () => {
-        if (typeof window !== 'undefined') {
-            return (
-                document.body.classList.contains('theme-dark') ||
-                document.body.classList.contains('dark-theme') ||
-                document.documentElement.getAttribute('data-theme') === 'dark' ||
-                document.body.getAttribute('data-theme') === 'dark'
-            );
+    const [themeMode, setThemeMode] = React.useState(() => {
+        if (typeof document !== 'undefined') {
+            return document.documentElement.getAttribute('data-theme') || 'light';
         }
-        return false;
-    };
+        return 'light';
+    });
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const observer = new MutationObserver(() => {
+            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
-        const canvasElm = canvasRef.current;
-        const ctx = canvasElm?.getContext("2d") as CanvasRenderingContext2D;
+        const ctx = canvasRef.current?.getContext("2d") as CanvasRenderingContext2D;
+        if (!ctx) return;
 
-        if (ctx) {
-            const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
-
-
-            if (isDarkMode()) {
-                if (!chartOptions.scales) chartOptions.scales = {};
-                ["x", "y"].forEach(axis => {
-                    if (!chartOptions.scales[axis]) chartOptions.scales[axis] = {};
-                    if (!chartOptions.scales[axis].grid) chartOptions.scales[axis].grid = {};
-                    if (!chartOptions.scales[axis].ticks) chartOptions.scales[axis].ticks = {};
-                    if (!chartOptions.scales[axis].border) chartOptions.scales[axis].border = {};
-                    chartOptions.scales[axis].grid.color = "rgba(255,255,255,0.2)";
-                    chartOptions.scales[axis].ticks.color = "#fff";
-                    chartOptions.scales[axis].border.color = "#fff";
-                    if (chartOptions.scales[axis].title) {
-                        chartOptions.scales[axis].title.color = "#fff";
-                    }
-                });
-                if (!chartOptions.plugins) chartOptions.plugins = {};
-                if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
-                if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
-                chartOptions.plugins.legend.labels.color = "#fff";
-            }
-
-            const mixedCanvas = new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: props.labels,
-                    datasets: props.dataSets,
-                },
-                options: chartOptions,
-            });
-
-            if(mixedCanvas !== null) {
-                mixedCanvas.canvas.style.height = "86vh";
-                mixedCanvas.canvas.style.width = "100vh";
-            }
-
-            return () => {
-                mixedCanvas.destroy();
-            };
+        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = { labels: props.labels, datasets: props.dataSets };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
         }
-   }, [props]);
+        
+        applyChartThemeColors(chartOptions);
 
+        const mixedCanvas = new Chart(ctx, {
+            type: "bar",
+            data: chartData,
+            options: chartOptions,
+        });
+
+        // Canvas sizing is controlled by CSS variables (theme tokens)
+
+        return () => { mixedCanvas.destroy(); };
+    }, [props, themeMode]);
 
     return (
         <div className="rds-comp-chart-mixed">
-            <canvas data-testid={props.id} id={props.id} ref={canvasRef} />
+            <canvas className="rds-chart-canvas" data-testid={props.id} id={props.id} ref={canvasRef} />
         </div>
     );
 };

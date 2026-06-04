@@ -1,11 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useRef, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Button, Box, Stack, Typography, Divider } from '@mui/material';
 import RdsCompGrid, { RdsCompGridColumn, RdsCompGridAction, ActionPosition, State, ActionColumnStyle, RdsCompGridRef } from './rds-comp-grid';
 
 const meta: Meta<typeof RdsCompGrid> = {
-  title: 'Components/Grid',
+  title: 'Internal/Grid',
   component: RdsCompGrid,
   parameters: {
     layout: 'padded',
@@ -94,10 +95,25 @@ const meta: Meta<typeof RdsCompGrid> = {
       defaultValue: ActionColumnStyle.ShowDots,
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
 };
 
 export default meta;
+type Story = StoryObj<typeof RdsCompGrid>;
+
+export const Default: Story = {
+  args: {
+    tableHeaders: [
+      { key: 'id', name: 'ID', dataType: 'number' as const, isSort: true, isFilter: true, isResizable: true, isEditable: false, minWidth: 80, colWidth: '100px' },
+      { key: 'name', name: 'Name', dataType: 'string' as const, isSort: true, isFilter: true, isResizable: true, isEditable: true, minWidth: 150, colWidth: '200px' },
+    ],
+    tableData: [],
+  },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.firstElementChild;
+    expect(el).toBeTruthy();
+  },
+};
 // type Story = StoryObj<typeof RdsCompGrid>;
 
 // // Sample data

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompCodeSnippet from './rds-comp-code-snippet';
 
 const sampleCodeSnippets = {
@@ -89,7 +89,7 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     code: {
       control: { type: 'text' },
@@ -124,3 +124,4 @@ export const Default: Story = {
     sampleCodeSnippets,
   },
 };
+

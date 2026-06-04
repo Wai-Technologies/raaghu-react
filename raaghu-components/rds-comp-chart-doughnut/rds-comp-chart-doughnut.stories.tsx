@@ -13,7 +13,7 @@ const meta: Meta = {
 
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompDoughnutChart>;
@@ -68,7 +68,7 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-export const advanced: Story = {
+export const Advanced: Story = {
     args: {
         id: "doughnutchart",
         labels: ['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%'],
@@ -168,3 +168,4 @@ export const advanced: Story = {
         ]
     }
 };
+

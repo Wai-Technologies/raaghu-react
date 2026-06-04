@@ -1,3 +1,4 @@
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
 
@@ -15,7 +16,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         Type: {
             options: Object.values(EmojiGeneratorType),
@@ -55,6 +56,11 @@ export default meta;
 type Story = StoryObj<typeof RdsEmojiGenerator>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const btn = canvasElement.querySelector('button');
+        expect(btn).toBeTruthy();
+    },
     args: {
         Type: EmojiGeneratorType.Default,
         Category: EmojiCategory.SmileysAndPeople,

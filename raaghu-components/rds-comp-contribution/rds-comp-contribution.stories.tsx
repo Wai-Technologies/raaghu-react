@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import dayjs from 'dayjs';
 import RdsCompContribution from "./rds-comp-contribution";
 const meta: Meta<typeof RdsCompContribution> = {
@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsCompContribution> = {
       }
     }
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
   argTypes: {
     showMonthLabels: {
       description: 'Whether to show month labels at the top of the contribution graph',
@@ -88,3 +88,5 @@ export const Default: Story = {
     }
   }
 };
+
+

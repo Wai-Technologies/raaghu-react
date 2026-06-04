@@ -3,6 +3,7 @@ import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRange from './rds-range';
+import { axe } from 'jest-axe';
 
 // Mock SCSS and tooltip imports
 jest.mock('./rds-range.scss', () => ({}));
@@ -650,7 +651,13 @@ describe('RdsRange', () => {
       expect(screen.getByText('Select Price')).toBeInTheDocument();
       const slider = container.querySelector('input[type="range"]');
       expect(slider).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsRange />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should be keyboard accessible', async () => {
       const user = userEvent.setup();

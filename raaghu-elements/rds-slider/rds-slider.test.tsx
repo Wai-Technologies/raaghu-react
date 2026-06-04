@@ -3,6 +3,7 @@ import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material';
 import RdsSlider from './rds-slider';
+import { axe } from 'jest-axe';
 
 // Test helpers
 const renderWithTheme = (component: React.ReactElement) => {
@@ -516,7 +517,13 @@ describe('RdsSlider', () => {
         </div>
       );
       expect(screen.getByLabelText('slider control')).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsSlider />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should have keyboard navigation support', () => {
       renderWithTheme(<RdsSlider value={50} min={0} max={100} />);

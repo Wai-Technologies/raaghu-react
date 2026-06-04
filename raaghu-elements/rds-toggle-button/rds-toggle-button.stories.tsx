@@ -1,4 +1,5 @@
 import React from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import {FormatBold,FormatItalic,FormatUnderlined,FormatAlignLeft,FormatAlignCenter,FormatAlignRight,FormatAlignJustify,ViewList,ViewModule,ViewQuilt,Check,PhoneAndroid,Laptop,Tablet} from '@mui/icons-material';
 import RdsToggleButton, { RdsStandaloneToggleButton } from './rds-toggle-button';
@@ -9,7 +10,7 @@ const meta: Meta<typeof RdsToggleButton> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     value: {
       control: { type: 'object' },
@@ -354,4 +355,20 @@ export const WithoutIcons: Story = {
 };
 WithoutIcons.parameters = {
   controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
+};
+export const ToggleSelect: Story = {
+  name: 'Interaction: Select toggle button',
+  args: {
+    options: formatOptions,
+    defaultValue: 'bold',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const buttons = canvas.getAllByRole('button')
+    // Bold is the default — should be pressed initially
+    await expect(buttons[0]).toHaveAttribute('aria-pressed', 'true')
+    // Click Italic (second button)
+    await userEvent.click(buttons[1])
+    await expect(buttons[1]).toHaveAttribute('aria-pressed', 'true')
+  }
 };

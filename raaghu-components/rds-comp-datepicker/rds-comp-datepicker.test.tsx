@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsDatepicker, { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker';
 
 // Mock SCSS module
@@ -666,6 +667,14 @@ describe('RdsDatepicker', () => {
       );
       
       expect(screen.queryByText('Date')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsDatepicker {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

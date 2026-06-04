@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RdsTextArea, { TextareaState, TextareaStyle, RdsTextAreaProps } from './rds-text-area';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-text-area.scss', () => ({}));
@@ -452,7 +453,13 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveAttribute('aria-invalid');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTextArea label="Message" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should have aria-required when isMandatory', () => {
       render(

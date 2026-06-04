@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import userEvent from '@testing-library/user-event';
 import RdsPagination from './rds-pagination';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-pagination.scss', () => ({}));
@@ -596,7 +597,13 @@ describe('RdsPagination', () => {
         <RdsPagination {...defaultProps} />
       );
       expect(screen.getByRole('navigation')).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsPagination {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should have proper button roles', () => {
       renderWithTheme(

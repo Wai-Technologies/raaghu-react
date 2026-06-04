@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompDetailsPane, { RdsCompDetailsPaneProps } from './rds-comp-details-pane';
 
 // Mock SCSS
@@ -648,6 +649,14 @@ describe('RdsCompDetailsPane', () => {
 
       rerender(<RdsCompDetailsPane headerText="Test" style="Prompt History" />);
       expect(screen.getByTestId('history-favorites-tabs')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompDetailsPane />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

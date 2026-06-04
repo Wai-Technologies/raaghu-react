@@ -1,14 +1,23 @@
 import type { StorybookConfig } from '@storybook/react-vite';
+import type { InlineConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: [
     '../stories/Introduction.mdx',
     '../stories/**/*.mdx',
     "../raaghu-elements/**/**/*.stories.@(js|jsx|ts|tsx)",
-    "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
+    // Exclude internal/paid components (grid=paid, tree-structure=internal, date-and-time-picker=internal)
+    "../raaghu-components/!(rds-comp-grid|rds-comp-tree-structure|rds-comp-date-and-time-picker)/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
   ],
-  addons: ['@storybook/addon-links', '@storybook/addon-docs'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-docs',
+    '@storybook/addon-a11y',
+    '@storybook/addon-coverage',
+    '@storybook/addon-mcp',
+    '@storybook/addon-vitest',
+  ],
   framework: {
     name: '@storybook/react-vite',
     options: {},
@@ -21,6 +30,21 @@ const config: StorybookConfig = {
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
     },
+  },
+  async viteFinal(config: InlineConfig) {
+    return {
+      ...config,
+      css: {
+        ...config.css,
+        preprocessorOptions: {
+          ...config.css?.preprocessorOptions,
+          scss: {
+            ...config.css?.preprocessorOptions?.scss,
+            api: 'modern',
+          },
+        },
+      },
+    };
   },
 };
 

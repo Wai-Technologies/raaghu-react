@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Box, Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import RdsLoader from './rds-loader';
@@ -20,7 +20,7 @@ const meta: Meta<typeof RdsLoader> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {
       control: 'select',

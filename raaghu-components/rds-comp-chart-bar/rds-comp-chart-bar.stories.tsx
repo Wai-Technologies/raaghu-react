@@ -14,7 +14,7 @@ const meta: Meta = {
 },
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         height: {
             control: 'text',
@@ -35,8 +35,8 @@ export const BorderRadius: Story = {
             {
                 label: "Fully Radius",
                 data: [48, 45, 65, 48, 55, 80, 92],
-                backgroundColor: "rgba(75, 192, 192, 1)",
-                borderColor: "rgba(75, 192, 192, 1)",
+                backgroundColor: "var(--rds-comp-chart-bar-ds1-bg, rgba(75, 192, 192, 1))",
+                borderColor: "var(--rds-comp-chart-bar-ds1-border, rgba(75, 192, 192, 1))",
                 borderWidth: 2,
                 borderRadius: 5,
                 borderSkipped: false,
@@ -44,8 +44,8 @@ export const BorderRadius: Story = {
             {
                 label: "Small Radius",
                 data: [48, 55, 65, 90, 45, 65, 65],
-                backgroundColor: "rgba(54, 162, 235, 1)",
-                borderColor: "rgba(54, 162, 245, 1)",
+                backgroundColor: "var(--rds-comp-chart-bar-ds2-bg, rgba(54, 162, 235, 1))",
+                borderColor: "var(--rds-comp-chart-bar-ds2-border, rgba(54, 162, 245, 1))",
                 borderWidth: 2,
                 borderRadius: 5,
                 borderSkipped: false,
@@ -84,13 +84,13 @@ export const Horizontal: Story = {
             {
                 label: "Dataset 1",
                 data: [20, 30, 50, 80, 98, 95, 55],
-                backgroundColor: "rgba(75, 192, 192, 1)",
+                backgroundColor: "var(--rds-comp-chart-bar-ds1-bg, rgba(75, 192, 192, 1))",
                 
             },
             {
                 label: "Dataset 2",
                 data: [15, 67, 34, 78, 45, 87, 76],
-                backgroundColor: "rgba(54, 162, 235, 1)",
+                backgroundColor: "var(--rds-comp-chart-bar-ds2-bg, rgba(54, 162, 235, 1))",
             },
             {
                 label: "Dataset 3",
@@ -217,7 +217,7 @@ export const Stacked: Story = {
             {
                 label: "Dataset 1",
                 data: [50, 80, 80, 50, 175, 60, 220],
-                backgroundColor: "rgba(75, 192, 192, 1)",
+                backgroundColor: "var(--rds-comp-chart-bar-ds1-bg, rgba(75, 192, 192, 1))",
                 borderColor: "rgba(75, 192, 192, 1)"
             },
             {
@@ -306,3 +306,4 @@ export const Vertical: Story = {
         },
      },
 } satisfies Story;
+

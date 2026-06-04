@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsDivider from './rds-divider';
 
 const meta: Meta<typeof RdsDivider> = {
@@ -10,7 +11,7 @@ const meta: Meta<typeof RdsDivider> = {
       exclude: ['component','flexItem'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
 
   argTypes: {
     layout: {
@@ -63,6 +64,10 @@ export const Default: Story = {
     iconName: 'InfoOutlined',
     size: 'medium',
     styleVariant: 'subtle',
+  },
+  play: async ({ canvasElement }) => {
+    const hr = canvasElement.querySelector('hr, [role="separator"]');
+    expect(hr).toBeTruthy();
   },
 };
 export const Vertical: Story = {

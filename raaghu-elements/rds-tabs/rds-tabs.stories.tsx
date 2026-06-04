@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
+import { useState } from 'react';
 import RdsTabs from './rds-tabs';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,7 +15,7 @@ const meta: Meta<typeof RdsTabs> = {
       include: ['tabs', 'activeTab', 'type', 'layout', 'title', 'state', 'leftIcon', 'rightIcon', 'showLeftIcon', 'showRightIcon', 'level'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     tabs: {
       control: 'object',
@@ -259,3 +261,32 @@ export const Vertical: Story = {
   },
 };
 
+
+export const SwitchTab: Story = {
+  name: 'Interaction: Switch between tabs',
+  render: () => {
+    const [activeTab, setActiveTab] = useState(0);
+    const tabs = [
+      { id: 0, label: 'Tab One' },
+      { id: 1, label: 'Tab Two' },
+      { id: 2, label: 'Tab Three' },
+    ];
+    return (
+      <RdsTabs
+        tabs={tabs}
+        activeTab={activeTab}
+        layout="filled"
+        onChange={(_: React.SyntheticEvent, value: number) => setActiveTab(value)}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const allTabs = canvas.getAllByRole('tab')
+    await expect(allTabs).toHaveLength(3)
+    await expect(allTabs[0]).toHaveAttribute('aria-selected', 'true')
+    await expect(allTabs[1]).toHaveAttribute('aria-selected', 'false')
+    await userEvent.click(allTabs[1])
+    await expect(allTabs[1]).toHaveAttribute('aria-selected', 'true')
+  }
+};

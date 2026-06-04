@@ -20,7 +20,7 @@ const meta: Meta = {
             },
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
 } satisfies Meta<typeof RdsCompAiAttachement>;
 
 

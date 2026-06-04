@@ -14,7 +14,7 @@ const meta: Meta<typeof RdsCompAudioPlayer> = {
     },
 }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
             type: {
                 control: 'select',
@@ -37,3 +37,5 @@ export const Default: Story = {
         showMoreOptions: true,
     } 
 };
+
+

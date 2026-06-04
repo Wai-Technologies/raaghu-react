@@ -15,7 +15,7 @@ const meta: Meta = {
 
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         layout: {
             options: [
@@ -66,3 +66,5 @@ export const Default: Story = {
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
+
+

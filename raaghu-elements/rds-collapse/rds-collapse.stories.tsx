@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Typography, Box } from '@mui/material';
 import RdsCollapse from './rds-collapse';
 import RdsTypography from '../../raaghu-elements/rds-typography/rds-typography';
@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsCollapse> = {
     layout: 'centered',
     controls: { exclude: ['timeout'] },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     expanded: {
       control: 'boolean',
@@ -112,3 +112,5 @@ export const LongContent: Story = {
     ),
   },
 };
+
+

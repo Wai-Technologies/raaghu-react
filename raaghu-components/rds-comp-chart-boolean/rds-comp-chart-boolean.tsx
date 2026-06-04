@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { ChartIcons } from "./chart-icons";
+import { getCSSVar } from "../chart-utils";
 
 export interface RdsCompBooleanChartProps {
     labels: any[];
@@ -15,30 +16,46 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
-    const isDarkMode = () => {
-        if (typeof window !== 'undefined') {
-            return (
-                document.body.classList.contains('theme-dark') ||
-                document.body.classList.contains('dark-theme') ||
-                document.documentElement.getAttribute('data-theme') === 'dark' ||
-                document.body.getAttribute('data-theme') === 'dark'
-            );
+    const [themeMode, setThemeMode] = React.useState(() => {
+        if (typeof document !== 'undefined') {
+            return document.documentElement.getAttribute('data-theme') || 'light';
         }
-        return false;
-    };
+        return 'light';
+    });
 
-    let svg = ChartIcons[props.centerIconName || ""];
-    if (isDarkMode() && svg) {
-        svg = svg.replace(/stroke:(#666|#666666|#6c757d|#000|#222|#333|#444|#555|#888|#999|#aaa|#bbb|#ccc|#ddd|#eee|#f8f9fa|#212529|#343a40|#495057|#adb5bd|#ced4da|#dee2e6|#e9ecef|#f1f3f5|#f8f9fa|#fff|#ffffff)/gi, 'stroke:#fff');
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const observer = new MutationObserver(() => {
+            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        return () => observer.disconnect();
+    }, []);
+
+    /**
+     * Resolves CSS variables in SVG by replacing them with computed color values.
+     * Handles var(--variable-name) syntax.
+     */
+    function resolveSvgCssVariables(svgString: string): string {
+        return svgString.replace(/var\(([^,)]+)(?:,\s*([^)]+))?\)/g, (match, varName, fallback) => {
+            const cleanVarName = varName.trim();
+            const cleanFallback = fallback ? fallback.trim() : '';
+            const resolvedColor = getCSSVar(cleanVarName, cleanFallback);
+            return resolvedColor;
+        });
     }
-    const encodedSVG = btoa(unescape(encodeURIComponent(svg)));
-    const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
 
     useEffect(() => {
         const canvasElm = canvasRef.current;
         const ctx = canvasElm?.getContext("2d");
 
         if (ctx) {
+            // Resolve SVG and encode for this theme
+            const svg = ChartIcons[props.centerIconName || ""];
+            const resolvedSvg = resolveSvgCssVariables(svg);
+            const encodedSVG = btoa(unescape(encodeURIComponent(resolvedSvg)));
+            const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
+
             const centerIcon = {
                 id: "counter4",
                 afterDraw(chart: any) {
@@ -65,14 +82,14 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
             });
 
             if (boolCanvas !== null) {
-                boolCanvas.canvas.style.height = "20vh";
-                boolCanvas.canvas.style.width = "20vh";
+                boolCanvas.canvas.style.height = "var(--rds-comp-chart-boolean-size, 20vh)";
+                boolCanvas.canvas.style.width = "var(--rds-comp-chart-boolean-size, 20vh)";
             }
             return () => {
                 boolCanvas.destroy();
             };
         }
-    }, [props]);
+    }, [props, themeMode]);
 
     return (
         <div>

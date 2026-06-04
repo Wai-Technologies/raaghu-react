@@ -1,5 +1,5 @@
 import RdsDatepicker, { DatePickerLayout, DatePickerState, DatePickerStyleType, RdsDatepickerProps } from "./rds-comp-datepicker";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Date Picker',
@@ -25,7 +25,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         datePickerStyleType: {
             options: ["Dropdown", "Selector"],
@@ -67,3 +67,5 @@ export const Default: Story = {
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','title','isMandatory','placeholderText','datePickerStyleType'] } };
+
+

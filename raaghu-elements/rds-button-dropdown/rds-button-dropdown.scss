@@ -1,12 +1,13 @@
 .rds-button-dropdown {
+  // dropdown menu sizing and colors provided by centralized --rds-* tokens
   &__menu {
-    padding: 8px;
-    min-width: 200px;
-    margin-top: 8px;
+    padding: var(--rds-button-dropdown-menu-padding, var(--rds-spacing-sm, 8px));
+    min-width: var(--rds-button-dropdown-menu-min-width, 200px);
+    margin-top: var(--rds-spacing-sm, 8px);
   }
 
   &__search {
-    margin-bottom: 8px;
+    margin-bottom: var(--rds-spacing-sm, 8px);
   }
 
   &__list {
@@ -17,30 +18,26 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 0;
+    gap: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-spacing-xs, 4px) 0;
   }
 
   &__option {
     cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
+    border-radius: var(--rds-border-radius-sm, 4px);
     width: 100%;
     background-color: transparent;
-    transition: background-color 0.2s ease;
+    transition: background-color var(--rds-button-dropdown-transition, var(--rds-transition-base, 0.2s ease-in-out));
     outline: none;
 
     &:hover:not(&--selected) {
-      background-color: #f5f5f5;
-    }
-
-    [data-theme="dark"] &:hover:not(&--selected) {
-      background-color: #4a4a4a;
+      background-color: var(--rds-button-dropdown-hover-bg);
     }
 
     &--selected {
-      background-color: #3C98FF;
-      color: #ffffff;
+      background-color: var(--rds-button-dropdown-selected-bg);
+      color: var(--rds-button-dropdown-selected-text);
     }
 
     &--disabled {
@@ -78,105 +75,47 @@
 }
 
 .rds-button-dropdown--secondary {
-  background-color: #2534E9 !important;
-  color: white !important;
+  background-color: var(--rds-button-dropdown-secondary-bg) !important;
+  color: var(--rds-button-dropdown-selected-text) !important;
   border: none !important;
   
   &:hover {
-    background-color: #1d2bb8 !important;
-    color: white !important;
+    background-color: var(--rds-button-dropdown-secondary-bg-hover) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
   }
   
   &:active {
-    background-color: #162291 !important;
-    color: white !important;
+    background-color: var(--rds-button-dropdown-secondary-bg-active) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
   }
   
   &:focus {
-    background-color: #2534E9 !important;
-    color: white !important;
+    background-color: var(--rds-button-dropdown-secondary-bg) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
   }
   
   .MuiSvgIcon-root {
-    color: white !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
   }
   
   &.MuiButton-root {
-    background-color: #2534E9 !important;
-    color: white !important;
+    background-color: var(--rds-button-dropdown-secondary-bg) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
     border: none !important;
     
     &:hover {
-      background-color: #1d2bb8 !important;
-      color: white !important;
+      background-color: var(--rds-button-dropdown-secondary-bg-hover) !important;
+      color: var(--rds-button-dropdown-selected-text) !important;
     }
     
     &:active {
-      background-color: #162291 !important;
-      color: white !important;
+      background-color: var(--rds-button-dropdown-secondary-bg-active) !important;
+      color: var(--rds-button-dropdown-selected-text) !important;
     }
   }
 }
 
-.dark-theme .rds-button-dropdown__option,
-[data-theme="dark"] .rds-button-dropdown__option,
-.sb-show-main[data-theme="dark"] .rds-button-dropdown__option,
-body[data-theme="dark"] .rds-button-dropdown__option,
-.dark-theme .rds-button-dropdown__item-label,
-[data-theme="dark"] .rds-button-dropdown__item-label,
-.sb-show-main[data-theme="dark"] .rds-button-dropdown__item-label,
-body[data-theme="dark"] .rds-button-dropdown__item-label {
-  color: #ffffff;
-}
-
-.dark-theme .rds-button-dropdown__option .MuiSvgIcon-root,
-[data-theme="dark"] .rds-button-dropdown__option .MuiSvgIcon-root,
-body[data-theme="dark"] .rds-button-dropdown__option .MuiSvgIcon-root,
-.dark-theme .MuiButton-root.rds-button-dropdown__button,
-[data-theme="dark"] .MuiButton-root.rds-button-dropdown__button,
-body[data-theme="dark"] .MuiButton-root.rds-button-dropdown__button,
-.dark-theme .MuiSvgIcon-root,
-[data-theme="dark"] .MuiSvgIcon-root,
-body[data-theme="dark"] .MuiSvgIcon-root,
-.dark-theme .MuiButton-root,
-[data-theme="dark"] .MuiButton-root,
-body[data-theme="dark"] .MuiButton-root {
-  color: #ffffff !important;
-}
-
-.dark-theme .rds-button-dropdown__button.rds-button-dropdown--outline,
-[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline,
-body[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline,
-.dark-theme .rds-button-dropdown__button.rds-button-dropdown--outline .MuiSvgIcon-root,
-[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline .MuiSvgIcon-root,
-body[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline .MuiSvgIcon-root {
-  color: #3C98FF !important;
-}
-
-.dark-theme .rds-button-dropdown__button.rds-button-dropdown--outline,
-[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline,
-body[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline {
-  color: #3C98FF !important;
-}
-
 .rds-button-dropdown__button.rds-button-dropdown--outline {
-  color: #3C98FF !important;
-}
-
-.dark-theme .rds-button,
-[data-theme="dark"] .rds-button,
-body[data-theme="dark"] .rds-button,
-.sb-show-main[data-theme="dark"] .rds-button {
-  color: #ffffff !important;
-}
-
-.dark-theme .rds-button .MuiSvgIcon-root,
-[data-theme="dark"] .rds-button .MuiSvgIcon-root,
-body[data-theme="dark"] .rds-button .MuiSvgIcon-root,
-.dark-theme .rds-button .MuiListItemIcon-root svg,
-[data-theme="dark"] .rds-button .MuiListItemIcon-root svg,
-body[data-theme="dark"] .rds-button .MuiListItemIcon-root svg {
-  color: #ffffff !important;
-  fill: #ffffff !important;
+  color: var(--rds-button-dropdown-selected-bg) !important;
 }
 

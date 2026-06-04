@@ -1,66 +1,88 @@
+// Import breakpoint variables so @media queries use the token scale
 .rds-typography {
   margin: 0;
-  font-family: var(--rds-font-family, var(--rds-font-family-base));
+  font-family: var(--rds-font-family-base);
+
+  // ── Component-scoped size tokens ─────────────────────────────────────────────
+  // These are overridable per-instance via inline style or a parent selector.
+  // They reference the global --rds-font-size-* scale defined in custom-properties.scss.
+  --rds-typography-h1-size:        var(--rds-font-size-5xl, 3rem);
+  --rds-typography-h2-size:        var(--rds-font-size-4xl, 2.125rem);
+  --rds-typography-h3-size:        var(--rds-font-size-3xl, 1.5rem);
+  --rds-typography-h4-size:        var(--rds-font-size-2xl, 1.25rem);
+  --rds-typography-h5-size:        var(--rds-font-size-xl, 1.125rem);
+  --rds-typography-h6-size:        var(--rds-font-size-lg, 1rem);
+  --rds-typography-body1-size:     var(--rds-font-size-lg, 1rem);
+  --rds-typography-body2-size:     var(--rds-font-size-md, 0.875rem);
+  --rds-typography-caption-size:   var(--rds-font-size-sm, 0.75rem);
+  --rds-typography-overline-size:  var(--rds-font-size-sm, 0.75rem);
+  --rds-typography-h1-size-mobile: var(--rds-font-size-5xl, 2.8rem);
+  --rds-typography-h2-size-mobile: var(--rds-font-size-4xl, 2.3rem);
+
+  // ── Font weight tokens ───────────────────────────────────────────────────────
+  --rds-typography-font-weight-light:   var(--rds-font-weight-light, 300);
+  --rds-typography-font-weight-regular: var(--rds-font-weight-regular, 400);
+  --rds-typography-font-weight-medium:  var(--rds-font-weight-medium, 500);
   
   &--h1 {
-    font-size: 3rem;
-    font-weight: 300;
+    font-size: var(--rds-typography-h1-size);
+    font-weight: var(--rds-typography-font-weight-light);
     line-height: 1.167;
     letter-spacing: -0.01562em;
   }
   
   &--h2 {
-    font-size: 2.125rem;
-    font-weight: 300;
+    font-size: var(--rds-typography-h2-size);
+    font-weight: var(--rds-typography-font-weight-light);
     line-height: 1.2;
     letter-spacing: -0.00833em;
   }
   
   &--h3 {
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: var(--rds-typography-h3-size);
+    font-weight: var(--rds-typography-font-weight-regular);
     line-height: 1.167;
     letter-spacing: 0;
   }
   
   &--h4 {
-    font-size: 1.25rem;
-    font-weight: 400;
+    font-size: var(--rds-typography-h4-size);
+    font-weight: var(--rds-typography-font-weight-regular);
     line-height: 1.235;
     letter-spacing: 0.00735em;
   }
   
   &--h5 {
-    font-size: 1.125rem;
-    font-weight: 400;
+    font-size: var(--rds-typography-h5-size);
+    font-weight: var(--rds-typography-font-weight-regular);
     line-height: 1.334;
     letter-spacing: 0;
   }
   
   &--h6 {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: var(--rds-typography-h6-size);
+    font-weight: var(--rds-typography-font-weight-medium);
     line-height: 1.6;
     letter-spacing: 0.0075em;
   }
   
   &--body1 {
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: var(--rds-typography-body1-size);
+    font-weight: var(--rds-typography-font-weight-regular);
     line-height: 1.5;
     letter-spacing: 0.00938em;
   }
   
   &--body2 {
-    font-size: 0.875rem;
-    font-weight: 400;
+    font-size: var(--rds-typography-body2-size);
+    font-weight: var(--rds-typography-font-weight-regular);
     line-height: 1.43;
     letter-spacing: 0.01071em;
   }
   
   &--caption {
-    font-size: 0.75rem;
-    font-weight: 400;
+    font-size: var(--rds-typography-caption-size);
+    font-weight: var(--rds-typography-font-weight-regular);
     line-height: 1.66;
     letter-spacing: 0.03333em;
     display: block;
@@ -71,21 +93,22 @@
   }
 
   &--overline {
-    font-size: 0.75rem;
-    font-weight: 400;
+    font-size: var(--rds-typography-overline-size);
+    font-weight: var(--rds-typography-font-weight-regular);
     line-height: 2.66;
     letter-spacing: 0.08333em;
     text-transform: uppercase;
     display: block;
   }
 
-  @media (max-width: 320px) {
+  // Use the breakpoint token instead of a hardcoded 320px literal
+  @media (max-width: var(--rds-breakpoint-mobile-sm)) {
     &--h1 {
-      font-size: 2.8rem;
+      font-size: var(--rds-typography-h1-size-mobile);
       line-height: 1.2;
     }
     &--h2 {
-      font-size: 2.3rem;
+      font-size: var(--rds-typography-h2-size-mobile);
       line-height: 1.2;
     }
   }

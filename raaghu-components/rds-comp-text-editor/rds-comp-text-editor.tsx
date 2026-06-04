@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
+// @ts-expect-error no declaration file for draft-js
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
+// @ts-expect-error no declaration file for react-draft-wysiwyg
 import { Editor } from 'react-draft-wysiwyg';
+// @ts-expect-error no declaration file for draftjs-to-html
 import draftToHtml from 'draftjs-to-html';
+// @ts-expect-error no declaration file for html-to-draftjs
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import "./rds-comp-text-editor.scss";
@@ -36,8 +40,8 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
     const [isTouch, setIsTouch] = useState(false);
     const editorRef = useRef<any>(null);
     const rows = typeof props.rows === 'number' && props.rows > 0 ? props.rows : 6;
-    const lineHeightPx = 26; 
-    const editorMinHeight = rows * lineHeightPx;
+    const lineHeightVar = 'var(--rds-line-height-body, 26px)';
+    const editorMinHeight = `calc(${rows} * ${lineHeightVar})`;
     const isResizable = props.resizable !== false; 
 
     useEffect(() => {
