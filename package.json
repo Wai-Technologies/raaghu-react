@@ -202,6 +202,9 @@
     "vite": "^7.0.4",
     "vitest": "^4.1.7"
   },
+  "overrides": {
+    "sass-embedded": "npm:sass@^1.89.2"
+  },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
   },
