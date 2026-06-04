@@ -1,5 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
+import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-vite';
 import type { InlineConfig } from 'vite';
 
@@ -43,21 +44,6 @@ const config: StorybookConfig = {
       propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
       exclude: ['**/*.test.tsx', '**/*.spec.tsx', '**/*.test.ts', '**/*.spec.ts'],
     },
-  },
-  async viteFinal(config: InlineConfig) {
-    return {
-      ...config,
-      css: {
-        ...config.css,
-        preprocessorOptions: {
-          ...config.css?.preprocessorOptions,
-          scss: {
-            ...config.css?.preprocessorOptions?.scss,
-            api: 'modern',
-          },
-        },
-      },
-    };
   },
   async viteFinal(config: InlineConfig) {
     return {
