@@ -6,7 +6,7 @@ import { axe } from 'jest-axe';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 import { AdaptiveCardProps } from './rds-comp-adaptive-cards-helpers';
 
-// Mock the SCSS module
+
 jest.mock('./rds-comp-adaptive-cards.scss', () => ({}));
 
 // Mock child components with proper implementations 
