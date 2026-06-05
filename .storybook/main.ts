@@ -1,5 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
+import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-vite';
 import type { InlineConfig } from 'vite';
 import remarkGfm from 'remark-gfm';
