@@ -1,5 +1,5 @@
 export { useMotionTokens, type MotionTokens, type EasingDefinition } from './useMotionTokens';
-export { fadeIn, slideUp, slideDown, slideRight, slideLeft, scaleIn, expandVertical } from './variants';
+export { fadeIn, slideUp, slideDown, slideRight, slideLeft, scaleIn, expandVertical, staggerContainer, staggerItem } from './variants';
 export { default as MotionCollapse } from './MotionCollapse';
 export { default as MotionDialogTransition } from './MotionDialogTransition';
 export { default as MotionDrawerTransition } from './MotionDrawerTransition';

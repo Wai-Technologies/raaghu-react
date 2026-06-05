@@ -40,7 +40,7 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
       autoHideDuration={autoHideDuration || duration}
       onClose={handleClose}
       TransitionComponent={MotionSnackbarTransition}
-      TransitionProps={{ durationMs: animationDuration } as any}
+      TransitionProps={{ durationMs: animationDuration, onDismiss: handleClose } as any}
       {...props}
     >
       {type && message ? (

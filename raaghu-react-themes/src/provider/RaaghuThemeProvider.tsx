@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { MotionConfig } from 'motion/react';
 import { darkTheme, lightTheme } from '../mui';
 import {
   applyRaaghuTheme,
@@ -93,7 +94,9 @@ export function RaaghuThemeProvider({
     <RaaghuThemeContext.Provider value={contextValue}>
       <ThemeProvider theme={muiTheme}>
         <CssBaseline />
-        {children}
+        <MotionConfig reducedMotion="user">
+          {children}
+        </MotionConfig>
       </ThemeProvider>
     </RaaghuThemeContext.Provider>
   );

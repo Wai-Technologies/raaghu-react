@@ -41,3 +41,28 @@ export const expandVertical: Variants = {
   visible: { height: 'auto', opacity: 1, overflow: 'hidden' },
   exit:    { height: 0, opacity: 0, overflow: 'hidden' },
 };
+
+/**
+ * Stagger parent — wrap a list container with this variant.
+ * Children using `staggerItem` will cascade in with a 60ms delay between each.
+ *
+ * @example
+ * <motion.ul variants={staggerContainer} initial="hidden" animate="visible">
+ *   {items.map(item => <motion.li key={item.id} variants={staggerItem} />)}
+ * </motion.ul>
+ */
+export const staggerContainer: Variants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0 } },
+  exit:    { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+};
+
+/**
+ * Stagger child — use inside a `staggerContainer` parent.
+ * Slides up 12px and fades in; exits by fading and sliding down.
+ */
+export const staggerItem: Variants = {
+  hidden:  { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { ease: [0, 0, 0.2, 1] } },
+  exit:    { opacity: 0, y: 8,  transition: { ease: [0.4, 0, 1, 1] } },
+};
