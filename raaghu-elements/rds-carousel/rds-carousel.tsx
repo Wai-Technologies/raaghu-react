@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
 import './rds-carousel.scss';
 
 export interface RdsCarouselProps {
@@ -19,6 +21,7 @@ export interface RdsCarouselProps {
   subtitles?: string[];
   title?: string;
   subtitle?: string;
+  animationDuration?: number;
 }
 
 const RdsCarousel = ({
@@ -36,9 +39,14 @@ const RdsCarousel = ({
   subtitles = [],
   title,
   subtitle,
+  animationDuration,
 }:RdsCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const tokens = useRdsTokens();
+  const motionTokens = useMotionTokens();
+  const shouldReduce = useReducedMotion();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : motionTokens.base;
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
   React.useEffect(() => {
@@ -60,14 +68,17 @@ const RdsCarousel = ({
   }, [autoPlay, autoPlayInterval, children.length]);
 
   const nextSlide = () => {
+    setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % children.length);
   };
 
   const prevSlide = () => {
+    setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + children.length) % children.length);
   };
 
   const goToSlide = (index: number) => {
+    setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
   };
 
@@ -78,11 +89,11 @@ const RdsCarousel = ({
   };
 
   return (
-    <Box 
+    <Box
       className={getCarouselClasses()}
-      sx={{ 
-        position: 'relative', 
-        height: height, 
+      sx={{
+        position: 'relative',
+        height: height,
         overflow: 'hidden',
         width: '100%',
         maxWidth: '100%',
@@ -90,78 +101,79 @@ const RdsCarousel = ({
         backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          transform: `translateX(-${currentIndex * 100}%)`,
-          transition: 'transform 0.3s ease-in-out',
-          height: '100%',
-        }}
-      >
+      <AnimatePresence initial={false} custom={direction}>
         {children.map((child, index) => {
+          if (index !== currentIndex) return null;
           const displayTitle = (titles && titles[index]) ?? title ?? `Card Title`;
           const displaySubtitle = (subtitles && subtitles[index]) ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
 
           return (
-            <Box
+            <motion.div
               key={index}
-              className="rds-carousel__slide"
-              sx={{
-                minWidth: '100%',
-                height: '100%',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: hasTitleLayout ? 'column' : 'row',
-                backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
-              }}
+              custom={direction}
+              initial={shouldReduce ? false : (dir: number) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 })}
+              animate={{ x: 0, opacity: 1 }}
+              exit={(dir: number) => shouldReduce ? { opacity: 0 } : ({ x: dir > 0 ? '-100%' : '100%', opacity: 0 })}
+              transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0.4, 0, 0.2, 1] }}
+              style={{ position: 'absolute', width: '100%', height: '100%' }}
             >
-              {style === 'with title' && (
-                <Box className="rds-carousel__title-content rds-carousel__title-content--top">
-                  {displayTitle && (
-                    <Typography className="rds-carousel__title-text" variant="h5" component="h3">
-                      {displayTitle}
-                    </Typography>
-                  )}
-                  {displaySubtitle && (
-                    <Typography className="rds-carousel__title-subtitle" variant="body2">
-                      {displaySubtitle}
-                    </Typography>
-                  )}
-                </Box>
-              )}
-
-              <Box 
-                className="rds-carousel__slide-content"
+              <Box
+                className="rds-carousel__slide"
                 sx={{
-                  height: hasTitleLayout ? 'auto' : '100%',
-                  flex: hasTitleLayout ? 1 : 'unset',
-                  minHeight: 0,
                   width: '100%',
+                  height: '100%',
                   position: 'relative',
-                  order: 1,
+                  display: 'flex',
+                  flexDirection: hasTitleLayout ? 'column' : 'row',
+                  backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
                 }}
               >
-                {child}
-              </Box>
-
-              {style === 'full width image' && (
-                <Box className="rds-carousel__title-content rds-carousel__title-content--bottom">
-                  {displayTitle && (
-                    <Typography className="rds-carousel__title-text" variant="h5" component="h3">
-                      {displayTitle}
-                    </Typography>
-                  )}
-                  {displaySubtitle && (
-                    <Typography className="rds-carousel__title-subtitle" variant="body2">
-                      {displaySubtitle}
-                    </Typography>
-                  )}
+                {style === 'with title' && (
+                  <Box className="rds-carousel__title-content rds-carousel__title-content--top">
+                    {displayTitle && (
+                      <Typography className="rds-carousel__title-text" variant="h5" component="h3">
+                        {displayTitle}
+                      </Typography>
+                    )}
+                    {displaySubtitle && (
+                      <Typography className="rds-carousel__title-subtitle" variant="body2">
+                        {displaySubtitle}
+                      </Typography>
+                    )}
+                  </Box>
+                )}
+                <Box
+                  className="rds-carousel__slide-content"
+                  sx={{
+                    height: hasTitleLayout ? 'auto' : '100%',
+                    flex: hasTitleLayout ? 1 : 'unset',
+                    minHeight: 0,
+                    width: '100%',
+                    position: 'relative',
+                    order: 1,
+                  }}
+                >
+                  {child}
                 </Box>
-              )}
-            </Box>
+                {style === 'full width image' && (
+                  <Box className="rds-carousel__title-content rds-carousel__title-content--bottom">
+                    {displayTitle && (
+                      <Typography className="rds-carousel__title-text" variant="h5" component="h3">
+                        {displayTitle}
+                      </Typography>
+                    )}
+                    {displaySubtitle && (
+                      <Typography className="rds-carousel__title-subtitle" variant="body2">
+                        {displaySubtitle}
+                      </Typography>
+                    )}
+                  </Box>
+                )}
+              </Box>
+            </motion.div>
           );
         })}
-      </Box>
+      </AnimatePresence>
 
       {showArrows && children.length > 1 && (
         <>

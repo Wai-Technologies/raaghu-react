@@ -89,6 +89,14 @@ const meta: Meta<typeof RdsCard> = {
       control: 'text',
       description: 'Set the description text for the card. This will be displayed below the subtitle as body content.',
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds for mount and hover (default: 250ms)',
+    },
+    disableHoverLift: {
+      control: 'boolean',
+      description: 'Disable the hover lift effect',
+    },
   },
 };
 

@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useMotionTokens } from "../../raaghu-react-themes/src/motion";
 import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
@@ -35,26 +37,32 @@ export enum ToastLayout {
   }  
 
   export interface RdsCompToastProps {
-    headerText?: string; // Header text of Toast
-    subText: string; // Subtext of Toast
-    delay?: number; // Delay Time of Toast
-    autohide?: boolean; // Autohide of Toast
-    showHeader?: boolean; // Show/Hide Header of Toast
-    layout: ToastLayout; // Layout Types of Toast
-    state: ToastState; // state of Toast
-    placeholder?: string; // Placeholder text of Toast
-    progressWidth?: number; // Progress Bar width of Toast
-    filename?: string; // Filename of Toast
-    position?: ToastPosition; // Position of Toast
-    showSubText?: boolean; // Show/Hide Subtext of Toast
-    showDismiss?: boolean; // Show/Hide Dismiss button of Toast
-    showLeading: boolean; // Show/Hide Leading Icon of Toast
-    leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
-    chatTime?: string; // Chat Time of Toast
-    pauseOnHover?: boolean; // Pause auto-hide timer on mouse hover (WCAG 2.2.1)
+    headerText?: string;
+    subText: string;
+    delay?: number;
+    autohide?: boolean;
+    showHeader?: boolean;
+    layout: ToastLayout;
+    state: ToastState;
+    placeholder?: string;
+    progressWidth?: number;
+    filename?: string;
+    position?: ToastPosition;
+    showSubText?: boolean;
+    showDismiss?: boolean;
+    showLeading: boolean;
+    leadingIcon: ToastLeadingIcon;
+    chatTime?: string;
+    pauseOnHover?: boolean;
+    animationDuration?: number;
   }
 const RdsCompToast = (props: RdsCompToastProps) => {
-    // state and layout classes are handled by getStateClass / getLayoutClass
+    const shouldReduce = useReducedMotion();
+    const motionTokens = useMotionTokens();
+    const dur = typeof props.animationDuration === 'number' ? props.animationDuration / 1000 : motionTokens.base;
+
+    const isBottom = props.position?.startsWith('bottom') ?? false;
+    const slideY = isBottom ? 32 : -32;
 
     const getStateClass = (state: ToastState): string => {
         switch (state) {
@@ -140,12 +148,18 @@ const RdsCompToast = (props: RdsCompToastProps) => {
 
     return (
         <div className={`rds-comp-toast__container ${getPositionClasses()}`}>
-            <div
+            <AnimatePresence>
+            {showState === "show" && (
+            <motion.div
                 role="alert"
                 aria-live="assertive"
                 aria-atomic="true"
-                className={`rds-comp-toast rds-comp-toast--${getStateClass(props.state)} rds-comp-toast--${getLayoutClass(props.layout)} ${borderColor} ${showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"}`}
+                className={`rds-comp-toast rds-comp-toast--${getStateClass(props.state)} rds-comp-toast--${getLayoutClass(props.layout)} ${borderColor}`}
                 id="toastId"
+                initial={shouldReduce ? { opacity: 0 } : { opacity: 0, y: slideY }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={shouldReduce ? { opacity: 0 } : { opacity: 0, y: slideY }}
+                transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0.4, 0, 0.2, 1] }}
                 onMouseEnter={props.autohide && props.pauseOnHover ? pauseTimer : undefined}
                 onMouseLeave={props.autohide && props.pauseOnHover ? resumeTimer : undefined}
             >
@@ -303,7 +317,9 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         )}
                     </div>
                 )}
-            </div>
+            </motion.div>
+            )}
+            </AnimatePresence>
         </div>
     );
 };

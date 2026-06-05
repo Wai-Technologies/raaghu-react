@@ -1,8 +1,12 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useState } from 'react';
-import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListProps, Divider } from '@mui/material';
+import { List as MuiList, ListItem as MuiListItem, ListItemButton as MuiListItemButton, ListItemText as MuiListItemText, ListItemIcon as MuiListItemIcon, ListItemAvatar as MuiListItemAvatar, ListProps, Divider } from '@mui/material';
 import './rds-list.scss';
-import {Paper } from '@mui/material';
+import { Paper } from '@mui/material';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
+
+const MotionListItem = motion(MuiListItem);
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 export interface RdsListItem {
   id: string | number;
@@ -25,6 +29,7 @@ export interface RdsListProps extends ListProps {
   withCheckboxes?: boolean;
   onCheckboxChange?: (id: string | number, checked: boolean) => void;
   checkedItems?: (string | number)[];
+  animationDuration?: number;
 }
 
 const RdsList: React.FC<RdsListProps> = ({
@@ -38,10 +43,14 @@ const RdsList: React.FC<RdsListProps> = ({
   checkedItems = [],
   className,
   dense,
+  animationDuration,
   ...props
 }) => {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
   const [internalChecked, setInternalChecked] = useState<(string | number)[]>(checkedItems);
+  const shouldReduce = useReducedMotion();
+  const tokens = useMotionTokens();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : tokens.base;
 
   const effectiveCheckedItems = checkedItems.length > 0 ? checkedItems : internalChecked;
 
@@ -81,9 +90,14 @@ const RdsList: React.FC<RdsListProps> = ({
     />
   );
 
-  const renderListItem = (item: RdsListItem): React.ReactElement => {
+  const renderListItem = (item: RdsListItem, index = 0): React.ReactElement => {
     const hasChildren = Array.isArray(item.children) && item.children.length > 0;
     const isOpen = openMap[item.id] || false;
+    const motionProps = {
+      initial: shouldReduce ? false as const : { opacity: 0, x: -16 },
+      animate: { opacity: 1, x: 0 },
+      transition: shouldReduce ? { duration: 0 } : { duration: dur, delay: index * 0.06, ease: [0, 0, 0.2, 1] as any },
+    };
     const itemProps = {
       selected: item.selected,
       disabled: item.disabled,
@@ -95,7 +109,8 @@ const RdsList: React.FC<RdsListProps> = ({
     if (hasChildren) {
       return (
         <React.Fragment key={item.id}>
-          <MuiListItem
+          <MotionListItem
+            {...motionProps}
             {...itemProps}
             disablePadding
             className={[
@@ -116,7 +131,7 @@ const RdsList: React.FC<RdsListProps> = ({
               />
               <ExpandIcon open={isOpen} />
             </MuiListItemButton>
-          </MuiListItem>
+          </MotionListItem>
           {isOpen && (
             <MuiList disablePadding className="rds-list rds-list--nested">
               {(item.children ?? []).map((child) =>
@@ -147,7 +162,7 @@ const RdsList: React.FC<RdsListProps> = ({
       ) : checkbox;
 
       return (
-        <MuiListItem disablePadding {...itemProps} key={item.id}>
+        <MotionListItem {...motionProps} disablePadding {...itemProps} key={item.id}>
           <MuiListItemButton
             onClick={withCheckboxes ? handleCheckboxChange(item.id) : item.onClick}
             disabled={item.disabled}
@@ -166,12 +181,12 @@ const RdsList: React.FC<RdsListProps> = ({
               <span className="rds-list__secondary-action">{item.secondaryAction}</span>
             )}
           </MuiListItemButton>
-        </MuiListItem>
+        </MotionListItem>
       );
     }
 
     return (
-      <MuiListItem {...itemProps} key={item.id}>
+      <MotionListItem {...motionProps} {...itemProps} key={item.id}>
         {item.icon && !item.secondaryAction && (
           <MuiListItemIcon className="rds-list__icon">
             {item.icon}
@@ -189,7 +204,7 @@ const RdsList: React.FC<RdsListProps> = ({
         {item.secondaryAction && (
           <span className="rds-list__secondary-action">{item.secondaryAction}</span>
         )}
-      </MuiListItem>
+      </MotionListItem>
     );
   };
 
@@ -198,9 +213,7 @@ const RdsList: React.FC<RdsListProps> = ({
     children = [];
     items.forEach((item, idx) => {
       const hasChildren = Array.isArray(item.children) && item.children.length > 0;
-      children.push(
-        renderListItem(item)
-      );
+      children.push(renderListItem(item, idx));
       if (idx < items.length - 1 && !hasChildren) {
         children.push(
           <Divider component="li" className="rds-list__divider" key={`divider-${item.id}`} />
@@ -208,9 +221,7 @@ const RdsList: React.FC<RdsListProps> = ({
       }
     });
   } else {
-    children = items.map((item) =>
-      renderListItem(item)
-    );
+    children = items.map((item, idx) => renderListItem(item, idx));
   }
 
   return (

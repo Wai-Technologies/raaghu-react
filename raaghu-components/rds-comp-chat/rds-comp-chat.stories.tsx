@@ -14,7 +14,13 @@ const meta: Meta = {
     }
 }
     },
-    tags: ["autodocs", 'stable']
+    tags: ["autodocs", 'stable'],
+    argTypes: {
+      animationDuration: {
+        control: { type: 'range', min: 100, max: 1000, step: 50 },
+        description: 'Message entrance animation duration in milliseconds (default: 200ms)',
+      },
+    },
 } satisfies Meta<typeof RdsCompChat>;
 
 export default meta;

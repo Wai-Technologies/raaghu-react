@@ -9,6 +9,7 @@ import {
   Typography
 } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
+import { MotionDialogTransition } from '../../raaghu-react-themes/src/motion';
 import './rds-modal.scss';
  
 export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open'> {
@@ -21,6 +22,7 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open'> {
   showIcon?: boolean;
   imageSrc?: string;
   showDescription?: boolean;
+  animationDuration?: number;
 }
  
 const RdsModal= ({
@@ -33,6 +35,7 @@ const RdsModal= ({
   showIcon = true,
   showDescription = true,
   imageSrc,
+  animationDuration,
   children,
   ...props
 }:RdsModalProps) => {
@@ -40,6 +43,8 @@ const RdsModal= ({
     <MuiDialog
       open={isOpen}
       onClose={onClose}
+      TransitionComponent={MotionDialogTransition}
+      TransitionProps={{ durationMs: animationDuration } as any}
       {...props}
     >
       {(title || icon || imageSrc) && (

@@ -16,6 +16,10 @@ const meta: Meta<typeof RdsTimeline> = {
       control: { type: 'select' },
       options: ['left', 'right', 'alternate'],
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration per item in milliseconds (staggered, default: 350ms)',
+    },
   },
 };
 

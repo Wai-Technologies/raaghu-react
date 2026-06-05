@@ -1,11 +1,13 @@
 import React from 'react';
 import { Fab as MuiFab, FabProps } from '@mui/material';
+import { motion, useReducedMotion } from 'motion/react';
 import './rds-fab.scss';
 
 export interface RdsFabProps extends FabProps {
   icon?: React.ReactNode;
   label?: string;
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  animationDuration?: number;
 }
 
 const RdsFab: React.FC<RdsFabProps> = ({
@@ -14,8 +16,11 @@ const RdsFab: React.FC<RdsFabProps> = ({
   children,
   position,
   sx,
+  animationDuration,
   ...props
 }) => {
+  const shouldReduce = useReducedMotion();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : 0.25;
   const getPositionStyles = () => {
     if (!position) return {};
     
@@ -43,15 +48,24 @@ const RdsFab: React.FC<RdsFabProps> = ({
     fabContent = null;
   }
   return (
-    <MuiFab
-      sx={{
-        ...getPositionStyles(),
-        ...sx,
-      }}
-      {...props}
+    <motion.div
+      initial={shouldReduce ? false : { scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      whileHover={shouldReduce ? {} : { scale: 1.08 }}
+      whileTap={shouldReduce ? {} : { scale: 0.94 }}
+      transition={shouldReduce ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 22, duration: dur }}
+      style={{ display: 'inline-flex' }}
     >
-      {fabContent}
-    </MuiFab>
+      <MuiFab
+        sx={{
+          ...getPositionStyles(),
+          ...sx,
+        }}
+        {...props}
+      >
+        {fabContent}
+      </MuiFab>
+    </motion.div>
   );
 };
 RdsFab.displayName = 'RdsFab';

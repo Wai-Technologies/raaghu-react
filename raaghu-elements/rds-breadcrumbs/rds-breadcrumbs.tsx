@@ -7,6 +7,8 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
 import './rds-breadcrumbs.scss';
 
 export enum BreadcrumbSeparator {
@@ -73,6 +75,7 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children'> 
   icon?: string;
   title?: string;
   autoIcons?: boolean;
+  animationDuration?: number;
 }
 
 const RdsBreadcrumbs = ({
@@ -86,9 +89,13 @@ const RdsBreadcrumbs = ({
   state,
   icon,
   autoIcons = true,
+  animationDuration,
   ...props
 }:RdsBreadcrumbsProps) => {
   const [selectedIdx, setSelectedIdx] = React.useState<number | null>(null);
+  const shouldReduce = useReducedMotion();
+  const motionTokens = useMotionTokens();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : motionTokens.fast;
   
   const getSeparator = (): React.ReactNode => {
     if (separator !== undefined) {
@@ -187,40 +194,49 @@ const RdsBreadcrumbs = ({
           typographyClass += ' rds-breadcrumbs__item__selected';
         }
 
+        const motionProps = {
+          initial: shouldReduce ? false as const : { opacity: 0, x: -8 },
+          animate: { opacity: 1, x: 0 },
+          transition: shouldReduce ? { duration: 0 } : { duration: dur, delay: index * 0.05, ease: [0, 0, 0.2, 1] as any },
+          style: { display: 'inline-flex', alignItems: 'center' },
+        };
+
         if (isLast || item.active || isSelected || selectedIdx === index) {
           return (
-            <Typography 
-              key={index} 
-              className={typographyClass.trim()}
-              onClick={() => setSelectedIdx(index)}
-              style={{ cursor: 'pointer' }}
-            >
-              {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
-              {item.label}
-            </Typography>
+            <motion.span key={index} {...motionProps}>
+              <Typography
+                className={typographyClass.trim()}
+                onClick={() => setSelectedIdx(index)}
+                style={{ cursor: 'pointer' }}
+              >
+                {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
+                {item.label}
+              </Typography>
+            </motion.span>
           );
         }
 
         const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item__enable-hover' : '';
         return (
-          <Link
-            key={index}
-            color="inherit"
-            href={item.href}
-            onClick={e => {
-              if (item.state === 'selected' || state === 'selected') {
-                setSelectedIdx(index);
-                e.preventDefault();
-              }
-              if (item.onClick) item.onClick();
-            }}
-            underline="hover"
-            className={`rds-breadcrumbs__item ${itemLayoutClass} ${itemStateClass} ${enableHoverClass}`.trim()}
-            sx={{ cursor: item.onClick || item.state === 'selected' || state === 'selected' ? 'pointer' : 'default' }}
-          >
-            {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
-            {item.label}
-          </Link>
+          <motion.span key={index} {...motionProps}>
+            <Link
+              color="inherit"
+              href={item.href}
+              onClick={e => {
+                if (item.state === 'selected' || state === 'selected') {
+                  setSelectedIdx(index);
+                  e.preventDefault();
+                }
+                if (item.onClick) item.onClick();
+              }}
+              underline="hover"
+              className={`rds-breadcrumbs__item ${itemLayoutClass} ${itemStateClass} ${enableHoverClass}`.trim()}
+              sx={{ cursor: item.onClick || item.state === 'selected' || state === 'selected' ? 'pointer' : 'default' }}
+            >
+              {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
+              {item.label}
+            </Link>
+          </motion.span>
         );
       })}
     </MuiBreadcrumbs>

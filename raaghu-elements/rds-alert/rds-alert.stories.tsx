@@ -103,6 +103,10 @@ const meta: Meta<typeof RdsAlert> = {
       description: 'Show the Okay button',
       defaultValue: true,
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds (default: 250ms)',
+    },
   },
 };
 

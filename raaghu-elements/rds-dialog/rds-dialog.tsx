@@ -3,6 +3,7 @@ import React from 'react';
 import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RdsButton from '../rds-button/rds-button';
+import { MotionDialogTransition } from '../../raaghu-react-themes/src/motion';
 import './rds-dialog.scss';
 
 
@@ -17,6 +18,7 @@ export interface RdsDialogProps extends DialogProps {
   ShowSecondary?: boolean;
   showTitle?: boolean;
   size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large' | false;
+  animationDuration?: number;
 }
 
 const RdsDialog = ({
@@ -30,6 +32,7 @@ const RdsDialog = ({
   ShowSecondary,
   showTitle = true,
   size = 'medium',
+  animationDuration,
   ...props
 }:RdsDialogProps) => {
   if (variant === 'standard') {
@@ -45,6 +48,8 @@ const RdsDialog = ({
           size
         }
         {...props}
+        TransitionComponent={MotionDialogTransition}
+        TransitionProps={{ durationMs: animationDuration } as any}
         PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}
       >
         {((title && showTitle) || ShowDissmiss) && (
@@ -92,6 +97,8 @@ const RdsDialog = ({
       size === 'extra-large' ? 'xl' :
       size
     }
+    TransitionComponent={MotionDialogTransition}
+    TransitionProps={{ durationMs: animationDuration } as any}
     {...props}
   >
       {((title && showTitle) || ShowDissmiss) && (

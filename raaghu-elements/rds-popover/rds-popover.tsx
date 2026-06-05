@@ -1,12 +1,13 @@
 import React from 'react';
-import { 
-  Popover as MuiPopover, 
-  type PopoverProps, 
+import {
+  Popover as MuiPopover,
+  type PopoverProps,
   Box,
   Typography,
-  IconButton 
+  IconButton
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
+import { MotionPopoverTransition } from '../../raaghu-react-themes/src/motion';
 import './rds-popover.scss';
 
 export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'> {
@@ -19,6 +20,7 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'>
   width?: number | string;
   maxWidth?: number | string;
   position?: 'top-left' | 'top-center' | 'top-right' | 'right-top' | 'right-center' | 'right-bottom' | 'bottom-right' | 'bottom-center' | 'bottom-left' | 'left-bottom' | 'left-center' | 'left-top' | 'no-arrow';
+  animationDuration?: number;
 }
 
 const MOBILE_BREAKPOINT = 600;
@@ -66,6 +68,7 @@ const RdsPopover= ({
   width,
   maxWidth = 'var(--rds-popover-container-max-width, 400px)',
   position = 'bottom-left',
+  animationDuration,
   ...props
 }:RdsPopoverProps) => {
   const positionMap: Record<string, {
@@ -169,6 +172,8 @@ const RdsPopover= ({
       onClose={onClose}
       anchorOrigin={currentPosition.anchorOrigin}
       transformOrigin={currentPosition.transformOrigin}
+      TransitionComponent={MotionPopoverTransition}
+      TransitionProps={{ durationMs: animationDuration } as any}
       slotProps={{
         paper: {
           className: 'rds-popover__paper',

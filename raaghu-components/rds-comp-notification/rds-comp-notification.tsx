@@ -2,24 +2,27 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { RdsButton, RdsIconButton } from "../../raaghu-elements";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useMotionTokens } from "../../raaghu-react-themes/src/motion";
 import "./rds-comp-notification.scss";
 export enum NotificationLayout { Vertical = "vertical", Horizontal = "horizontal", }
 export enum NotificationStyle { Default = "default", Avatar = "avatar", Icon = "icon", Image = "image", }
 export enum NotificationType { Error = "error", Info = "info", Success = "success", Warning = "warning", }
 export interface NotificationItem { userNotificationId?: string | number; title: string; time?: string; description: string; image?: string; avatar?: string; icon?: React.ReactNode | string; status?: string; urlTitle?: string; }
 export interface RdsCompNotificationProps {
-    notifications: any[]; 
-    title?: string; 
-    description?: string; 
-    layout?: NotificationLayout; 
-    style?: NotificationStyle; 
-    type?: NotificationType; 
-    showButton?: boolean; 
-    showPrimaryButton?: boolean; 
-    showSecondaryButton?: boolean; 
-    showDismiss?: boolean; 
-    onDismiss?: (event: any, notification: any) => void; 
-    onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; 
+    notifications: any[];
+    title?: string;
+    description?: string;
+    layout?: NotificationLayout;
+    style?: NotificationStyle;
+    type?: NotificationType;
+    showButton?: boolean;
+    showPrimaryButton?: boolean;
+    showSecondaryButton?: boolean;
+    showDismiss?: boolean;
+    onDismiss?: (event: any, notification: any) => void;
+    onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void;
+    animationDuration?: number;
 }
 const CustomBellIcon: React.FC = () => (
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,8 +42,12 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     description,
     onDismiss,
     onAccept,
+    animationDuration,
 }) => {
     const [visibleNotifications, setVisibleNotifications] = useState(notifications);
+    const shouldReduce = useReducedMotion();
+    const motionTokens = useMotionTokens();
+    const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : motionTokens.base;
 
     useEffect(() => {
         setVisibleNotifications(notifications);
@@ -63,9 +70,16 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     };
     return (
         <Fragment>
+            <AnimatePresence>
             {visibleNotifications.map((notification, index) => (
+                <motion.div
+                    key={notification.userNotificationId ?? `notif-${index}`}
+                    initial={shouldReduce ? false : { opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={shouldReduce ? { opacity: 0 } : { opacity: 0, x: 48, transition: { duration: 0.18 } }}
+                    transition={shouldReduce ? { duration: 0 } : { duration: dur, delay: index * 0.07, ease: [0, 0, 0.2, 1] }}
+                >
                 <Card
-                    key={notification.userNotificationId || Math.random()}
                     className={`rds-comp-notification rds-comp-notification--layout-${layout} rds-comp-notification--style-${style} rds-comp-notification--type-${type}`}
                     sx={{ padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? "flex" : "block",overflow: "hidden"
                     }}>
@@ -201,7 +215,9 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                     </Box>
                     </Box>
                 </Card>
+                </motion.div>
             ))}
+            </AnimatePresence>
         </Fragment>
     );
 };

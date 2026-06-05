@@ -36,7 +36,10 @@ const meta: Meta<typeof RdsTooltip> = {
       ],
       description: 'Placement of the tooltip',
     },
-
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds (default: 150ms)',
+    },
   },
 };
 
@@ -62,10 +65,10 @@ export const Default: Story = {
     wrapper: true,
   },
 };
-Default.parameters = { 
-  controls: { 
-    include: ['label', 'style', 'arrow', 'wrapper'] 
-  } 
+Default.parameters = {
+  controls: {
+    include: ['label', 'style', 'arrow', 'wrapper', 'animationDuration']
+  }
 };
 
 export const OnIconButton: Story = {

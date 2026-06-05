@@ -9,6 +9,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
+import { MotionCollapse } from '../../raaghu-react-themes/src/motion';
 import './rds-accordion.scss';
 
 export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
@@ -21,6 +22,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   size?: 'small' | 'medium' | 'large';
   state?: 'default' | 'hover' | 'selected';
   accordionStyle?: 'border' | 'bottomline' | 'borderhide';
+  animationDuration?: number;
 }
 
 const RdsAccordion = ({
@@ -33,6 +35,7 @@ const RdsAccordion = ({
   size = 'medium',
   state = 'default',
   accordionStyle = 'border',
+  animationDuration,
   ...props
 }: RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -60,7 +63,7 @@ const RdsAccordion = ({
 
   return (
     <div className={clsx('rds-accordion__container', accordionStyle && `rds-accordion--${accordionStyle}`)}>
-      <MuiAccordion {...accordionProps}>
+      <MuiAccordion {...accordionProps} TransitionComponent={MotionCollapse} TransitionProps={{ durationMs: animationDuration } as any}>
         <MuiAccordionSummary
           expandIcon={<ExpandMoreIcon />}
           className="rds-accordion__summary"

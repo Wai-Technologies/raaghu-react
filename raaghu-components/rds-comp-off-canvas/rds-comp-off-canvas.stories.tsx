@@ -39,6 +39,10 @@ const meta: Meta = {
     showPrimaryButton: { control: 'boolean' },
     showSecondaryButton: { control: 'boolean' },
     showTertiaryButton: { control: 'boolean' },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Drawer slide animation duration in milliseconds (default: 250ms)',
+    },
   },
 } satisfies Meta<typeof RdsCompOffcanvas>;
 

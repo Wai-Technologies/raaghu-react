@@ -1,5 +1,6 @@
 import { fileTypeIconColors } from '../../raaghu-react-themes/tokens/design-tokens';
 import React, { useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 // Import all necessary Material-UI icons
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -82,6 +83,7 @@ export interface RdsCompTreeStructureProps {
   onCreateSubUnit?: (node: any) => void; //Callback when a new sub-unit is created.
   onMoveNode?: (id: any) => void; //Callback when a node is moved.
   onCheckboxChange?: (nodeId: number, checked: boolean) => void; //Callback when checkbox state changes.
+  animationDuration?: number;
 }
 
 // Proper file type icons with correct Material-UI components
@@ -228,6 +230,8 @@ export const TreeNode = ({
   const isExpanded = expandedNodeIds.includes(node.id);
   const isHovered = hoveredNodeId === node.id;
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
+  const shouldReduce = useReducedMotion();
+  const dur = typeof props.animationDuration === 'number' ? props.animationDuration / 1000 : 0.2;
 
   const handleIconMouseEnter = (iconName: string) => {
     setHoveredIcon(iconName);
@@ -299,12 +303,15 @@ export const TreeNode = ({
           onMouseLeave={(e) => handleMouseLeave(e)}
         >
           {(node.children && level < maxLevel && props.showChewron) && (
-            <span
+            <motion.span
               className={`rds-comp-tree-structure__chevron ${isExpanded ? 'rds-comp-tree-structure__chevron--expanded' : ''}`}
               onClick={handleChevronClick}
+              animate={shouldReduce ? {} : { rotate: isExpanded ? 90 : 0 }}
+              transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0.4, 0, 0.2, 1] }}
+              style={{ display: 'inline-flex' }}
             >
               <ChevronRightIcon />
-            </span>
+            </motion.span>
           )}
           {props.showCheckbox && (
             <div 
@@ -383,8 +390,17 @@ export const TreeNode = ({
       {isExpanded &&
         node.children &&
         level < maxLevel &&
-        node.children.map((child: any) => (
-          <div className="rds-comp-tree-structure__node-children" key={child.id}>
+        <AnimatePresence initial={false}>
+        {node.children.map((child: any) => (
+          <motion.div
+            className="rds-comp-tree-structure__node-children"
+            key={child.id}
+            initial={shouldReduce ? false : { opacity: 0, height: 0, y: -6 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={shouldReduce ? {} : { opacity: 0, height: 0, y: -4 }}
+            transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0.4, 0, 0.2, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
             <TreeNode
               node={child}
               level={level + 1}
@@ -396,8 +412,10 @@ export const TreeNode = ({
               onNodeClick={onNodeClick}
               onCheckboxClick={onCheckboxClick}
             />
-          </div>
+          </motion.div>
         ))}
+        </AnimatePresence>
+      }
     </div>
   );
 };

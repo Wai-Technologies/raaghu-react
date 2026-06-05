@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
 import './rds-rating.scss';
 
 export interface RdsRatingProps extends RatingProps {
@@ -11,6 +13,7 @@ export interface RdsRatingProps extends RatingProps {
   level?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right';
   styles?: 'default' | 'filled' | 'outlined';
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+  animationDuration?: number;
 }
 
 const RdsRating = ({
@@ -24,8 +27,12 @@ const RdsRating = ({
   level,
   colorVariant,
   onChange,
+  animationDuration,
   ...props
 }: RdsRatingProps) => {
+  const shouldReduce = useReducedMotion();
+  const motionTokens = useMotionTokens();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : motionTokens.fast;
   const maxRating = max || maxStars;
   
   const allowedSliderValues = [0, 2.5, 5];
@@ -165,7 +172,12 @@ const RdsRating = ({
   );
 
   return (
-  <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass()} ${colorVariant ? `rds-rating--color-${colorVariant}` : ''}`}>
+  <motion.div
+    className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass()} ${colorVariant ? `rds-rating--color-${colorVariant}` : ''}`}
+    initial={shouldReduce ? false : { opacity: 0, y: 8 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0, 0, 0.2, 1] }}
+  >
       {label && <span className="rds-rating__label">{label}</span>}
       {type === 'slider' ? renderSliderRating() : renderStarRating()}
       {showValue && currentValue !== undefined && (
@@ -173,7 +185,7 @@ const RdsRating = ({
           {type === 'slider' ? `${Number(currentValue).toFixed(1)}` : `(${currentValue}/${maxRating})`}
         </span>
       )}
-    </div>
+    </motion.div>
   );
 };
 RdsRating.displayName = 'RdsRating';

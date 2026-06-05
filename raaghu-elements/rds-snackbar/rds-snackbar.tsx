@@ -1,5 +1,6 @@
 import React from 'react';
 import { Snackbar as MuiSnackbar, Alert, SnackbarProps } from '@mui/material';
+import { MotionSnackbarTransition } from '../../raaghu-react-themes/src/motion';
 
 export interface RdsSnackbarProps extends SnackbarProps {
   message?: string;
@@ -7,6 +8,7 @@ export interface RdsSnackbarProps extends SnackbarProps {
   showCloseButton?: boolean;
   onClose?: () => void;
   duration?: number;
+  animationDuration?: number;
 }
 
 const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
@@ -17,6 +19,7 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   duration = 6000,
   autoHideDuration,
   children,
+  animationDuration,
   ...props
 }) => {
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -36,6 +39,8 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
       open={props.open}
       autoHideDuration={autoHideDuration || duration}
       onClose={handleClose}
+      TransitionComponent={MotionSnackbarTransition}
+      TransitionProps={{ durationMs: animationDuration } as any}
       {...props}
     >
       {type && message ? (

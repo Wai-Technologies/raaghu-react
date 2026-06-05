@@ -4,6 +4,8 @@ import {
   BottomNavigationAction as MuiBottomNavigationAction,
   BottomNavigationProps
 } from '@mui/material';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
 import './rds-bottom-navigation.scss';
 
 export interface RdsBottomNavigationItem {
@@ -17,18 +19,23 @@ export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'c
   items: RdsBottomNavigationItem[];
   activeValue?: string;
   onItemChange?: (value: string) => void;
-  showLabels?: boolean;  
+  showLabels?: boolean;
+  animationDuration?: number;
 }
 
 const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
   items,
   activeValue,
   onItemChange,
-  showLabels = false, 
+  showLabels = false,
   value,
   onChange,
+  animationDuration,
   ...props
 }) => {
+  const shouldReduce = useReducedMotion();
+  const motionTokens = useMotionTokens();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : motionTokens.base;
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     if (onItemChange) {
       onItemChange(newValue);
@@ -39,7 +46,12 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
   };
 
   return (
-    <div className="rds-bottom-navigation">
+    <motion.div
+      className="rds-bottom-navigation"
+      initial={shouldReduce ? false : { opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0, 0, 0.2, 1] }}
+    >
       <MuiBottomNavigation
         value={value || activeValue}
         onChange={handleChange}
@@ -56,7 +68,7 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
           />
         ))}
       </MuiBottomNavigation>
-    </div>
+    </motion.div>
   );
 };
 

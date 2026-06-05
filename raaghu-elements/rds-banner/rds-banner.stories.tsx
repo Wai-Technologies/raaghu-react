@@ -101,6 +101,10 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
       description: 'Toggle bottom border accent for style1 banners',
       defaultValue: false,
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds (default: 250ms)',
+    },
   },
 };
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
 
 export interface RdsAvatarProps extends AvatarProps {
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
@@ -21,6 +23,7 @@ export interface RdsAvatarProps extends AvatarProps {
   showName?: boolean;
   showDesignation?: boolean;
   showRemainingCount?: boolean;
+  animationDuration?: number;
 }
 const sizeStyles = {
   smallest: { width: 24, height: 24, fontSize: '0.5625rem' },  // 9px
@@ -55,8 +58,17 @@ const RdsAvatar = ({
   showName = true,
   showDesignation = true,
   showRemainingCount = true,
+  animationDuration,
   ...props
 }: RdsAvatarProps) => {
+  const shouldReduce = useReducedMotion();
+  const motionTokens = useMotionTokens();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : motionTokens.fast;
+  const mountProps = {
+    initial: shouldReduce ? false as const : { scale: 0.7, opacity: 0 },
+    animate: { scale: 1, opacity: 1 },
+    transition: shouldReduce ? { duration: 0 } : { type: 'spring' as const, stiffness: 380, damping: 22, duration: dur },
+  };
 
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
     const visibleAvatars = avatars.slice(0, maxVisibleAvatars);
@@ -66,22 +78,26 @@ const RdsAvatar = ({
     return (
       <div className="rds-avatar__stacking avatar-container" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
         {visibleAvatars.map((avatar, idx) => (
-    <MuiAvatar
-      key={idx}
-      src={avatar.src}
-      sx={{
-              ...sizeStyles[size],
-              position: 'relative',
-              zIndex: idx + 1, 
-              marginLeft: idx === 0 ? 0 : `${overlapOffset}px`,
-              border: 'none',
-              boxSizing: 'content-box',
-              background: 'var(--rds-neutral-300, #e0e0e0)',
-            }}
-            className="rds-avatar__stacking-avatar"
+          <motion.div
+            key={idx}
+            style={{ position: 'relative', zIndex: idx + 1, marginLeft: idx === 0 ? 0 : `${overlapOffset}px`, display: 'inline-flex' }}
+            initial={shouldReduce ? false : { scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={shouldReduce ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 22, delay: idx * 0.06 }}
           >
-            {avatar.title ? avatar.title.charAt(0).toUpperCase() : null}
-          </MuiAvatar>
+            <MuiAvatar
+              src={avatar.src}
+              sx={{
+                ...sizeStyles[size],
+                border: 'none',
+                boxSizing: 'content-box',
+                background: 'var(--rds-neutral-300, #e0e0e0)',
+              }}
+              className="rds-avatar__stacking-avatar"
+            >
+              {avatar.title ? avatar.title.charAt(0).toUpperCase() : null}
+            </MuiAvatar>
+          </motion.div>
         ))}
         {remainingCount > 0 && showRemainingCount && (
           <div
@@ -101,7 +117,7 @@ const RdsAvatar = ({
 
   if (displayStyle === 'with-name') {
     return (
-      <div
+      <motion.div {...mountProps}
         className={`rds-avatar rds-avatar--with-name rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
       >
         <span className={`rds-avatar__avatar-wrap`}>
@@ -117,13 +133,13 @@ const RdsAvatar = ({
           {showName && title && <div className="rds-avatar__name" id='avatarname'>{title}</div>}
           {showDesignation && subText && <div className="rds-avatar__designation">{subText}</div>}
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   if (displayStyle === 'name-bottom') {
     return (
-      <div
+      <motion.div {...mountProps}
         className={`rds-avatar rds-avatar--name-bottom rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
       >
         <span className="rds-avatar__avatar-outer">
@@ -143,13 +159,14 @@ const RdsAvatar = ({
           {showName && title && <div className="rds-avatar__name">{title}</div>}
           {showDesignation && subText && <div className="rds-avatar__designation">{subText}</div>}
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <span
+    <motion.span {...mountProps}
       className={`rds-avatar${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+      style={{ display: 'inline-flex' }}
     >
       <span className="rds-avatar__avatar-outer">
         {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
@@ -161,7 +178,7 @@ const RdsAvatar = ({
           {activeDotBottom && <span className="rds-avatar__dot rds-avatar__dot--bottom" aria-label="active status bottom" />}
         </span>
       </span>
-    </span>
+    </motion.span>
   );
 };
 

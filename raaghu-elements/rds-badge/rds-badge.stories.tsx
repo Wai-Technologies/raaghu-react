@@ -55,6 +55,14 @@ const meta: Meta<typeof RdsBadge> = {
   component: { control: { disable: true }, table: { disable: true } },
   slots: { control: { disable: true }, table: { disable: true } },
   slotProps: { control: { disable: true }, table: { disable: true } },
+  badgeContent: {
+    control: 'text',
+    description: 'Content displayed inside the badge',
+  },
+  animationDuration: {
+    control: { type: 'range', min: 50, max: 600, step: 25 },
+    description: 'Spring mount animation duration in milliseconds (default: 200ms)',
+  },
   },
 };
 

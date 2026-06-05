@@ -20,6 +20,10 @@ const meta: Meta<typeof RdsCollapse> = {
     showToggleButton: {
       control: 'boolean',
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds (default: 350ms)',
+    },
   },
 };
 

@@ -39,6 +39,10 @@ const meta: Meta<typeof RdsChip> = {
       control: 'boolean',
       description: 'Whether the chip is disabled',
     },
+    animationDuration: {
+      control: { type: 'range', min: 50, max: 500, step: 25 },
+      description: 'Spring mount animation duration in milliseconds (default: 200ms)',
+    },
   },
 };
 

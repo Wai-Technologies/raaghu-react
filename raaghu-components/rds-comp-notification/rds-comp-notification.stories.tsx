@@ -54,6 +54,10 @@ const meta: Meta = {
             options: ["error", "info", "success", "warning"],
             control: { type: "select" },
         },
+        animationDuration: {
+            control: { type: 'range', min: 100, max: 1000, step: 50 },
+            description: 'Stagger entrance + dismiss exit animation duration in milliseconds (default: 250ms)',
+        },
     }
 } satisfies Meta<typeof RdsCompNotification>;
 

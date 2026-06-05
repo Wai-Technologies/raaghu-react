@@ -27,6 +27,10 @@ const meta: Meta<typeof RdsFab> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Mount animation duration in milliseconds (default: 250ms)',
+    },
   },
 };
 

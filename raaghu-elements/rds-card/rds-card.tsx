@@ -4,6 +4,8 @@ import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camer
          Description, Folder, CalendarToday, AccessTime, Search, Add, Edit, Delete, Check, Close, ArrowForward, ArrowBack,
          Download, Upload, Share, Notifications,
 } from '@mui/icons-material';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
 import './rds-card.scss';
 
 export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
@@ -22,9 +24,11 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style'> {
   showIcon?: boolean;
   changeIcon?: CardIconName;
   children?: ReactNode;
-  title?: string; 
-  cardSubtext?: string; 
+  title?: string;
+  cardSubtext?: string;
   description?: string;
+  animationDuration?: number;
+  disableHoverLift?: boolean;
 }
 
 const RdsCard = ({
@@ -44,8 +48,13 @@ const RdsCard = ({
   title,
   cardSubtext,
   description,
+  animationDuration,
+  disableHoverLift = false,
   ...props
 }:RdsCardProps) => {
+  const shouldReduce = useReducedMotion();
+  const tokens = useMotionTokens();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : tokens.base;
   const getCardClassName = () => {
     const baseClass = 'rds-card';
     const stateClass = `rds-card--${state}`;
@@ -158,14 +167,20 @@ const RdsCard = ({
   };
 
   return (
-    <MuiCard
-      className={getCardClassName()}
-      sx={[
-        cardInlineStyle,
-        ...(Array.isArray(sx) ? sx : [sx]),
-      ]}
-      {...props}
+    <motion.div
+      initial={shouldReduce ? false : { opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={shouldReduce || disableHoverLift || state === 'disabled' ? {} : { y: -4, boxShadow: '0 8px 24px rgba(0,0,0,0.12)' }}
+      transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0.4, 0, 0.2, 1] }}
     >
+      <MuiCard
+        className={getCardClassName()}
+        sx={[
+          cardInlineStyle,
+          ...(Array.isArray(sx) ? sx : [sx]),
+        ]}
+        {...props}
+      >
       {showIndicator && (
         <div className="rds-card__indicator">
           <div className="rds-card__indicator-icon"></div>
@@ -196,7 +211,8 @@ const RdsCard = ({
           {renderDescriptionAndChildren()}
         </div>
       )}
-    </MuiCard>
+      </MuiCard>
+    </motion.div>
   );
 };
 

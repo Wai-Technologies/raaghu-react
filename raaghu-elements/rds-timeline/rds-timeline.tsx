@@ -1,6 +1,6 @@
 import React from 'react';
 import MuiTimeline from '@mui/lab/Timeline';
-import { 
+import {
   TimelineItem as MuiTimelineItem,
   TimelineSeparator as MuiTimelineSeparator,
   TimelineConnector as MuiTimelineConnector,
@@ -9,6 +9,9 @@ import {
   TimelineOppositeContent as MuiTimelineOppositeContent,
   TimelineProps
 } from '@mui/lab';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
+
 export interface RdsTimelineItem {
   id: string | number;
   title: string;
@@ -23,21 +26,37 @@ export interface RdsTimelineProps extends Omit<TimelineProps, 'children'> {
   items: RdsTimelineItem[];
   showTime?: boolean;
   alternating?: boolean;
+  animationDuration?: number;
 }
+
+const MotionTimelineItem = motion(MuiTimelineItem);
 
 const RdsTimeline: React.FC<RdsTimelineProps> = ({
   items,
   showTime = false,
   alternating = false,
   position,
+  animationDuration,
   ...props
 }) => {
+  const tokens = useMotionTokens();
+  const shouldReduce = useReducedMotion();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : tokens.slow;
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
   return (
     <MuiTimeline position={timelinePosition} {...props}>
       {items.map((item, index) => (
-          <MuiTimelineItem key={item.id}>
+          <MotionTimelineItem
+            key={item.id}
+            initial={shouldReduce ? false : { opacity: 0, x: alternating && index % 2 !== 0 ? 24 : -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={shouldReduce ? { duration: 0 } : {
+              duration: dur,
+              delay: index * 0.07,
+              ease: [0, 0, 0.2, 1],
+            }}
+          >
             {showTime && item.time && (
               <MuiTimelineOppositeContent color="text.secondary">
                 {item.time}
@@ -57,7 +76,7 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
                 </div>
               )}
             </MuiTimelineContent>
-          </MuiTimelineItem>
+          </MotionTimelineItem>
         ))}
     </MuiTimeline>
   );

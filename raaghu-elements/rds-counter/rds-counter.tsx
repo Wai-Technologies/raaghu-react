@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, IconButton, InputBase, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import "./rds-counter.scss";
 
 export interface RdsCounterProps {
@@ -23,6 +24,7 @@ export interface RdsCounterProps {
   isMandatory?: boolean;
   selected?: boolean;
   state?: 'default' | 'selected' | 'disabled';
+  animationDuration?: number;
 }
 
 const RdsCounter = ({
@@ -44,13 +46,16 @@ const RdsCounter = ({
   isMandatory = false,
   selected = false,
   state = 'default',
+  animationDuration,
 }: RdsCounterProps) => {
   const isControlled = typeof value === 'number' && typeof onChange === 'function';
   const [internalValue, setInternalValue] = React.useState<number | undefined>(
     typeof defaultValue === 'number' ? defaultValue : undefined
   );
   const currentValue = isControlled ? value : internalValue;
-
+  const shouldReduce = useReducedMotion();
+  const directionRef = React.useRef(0);
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : 0.15;
 
   const updateValue = (newValue: number | undefined) => {
     if (isControlled) {
@@ -63,12 +68,14 @@ const RdsCounter = ({
   const handleIncrement = () => {
     const base = typeof currentValue === 'number' ? currentValue : min;
     const newValue = Math.min(base + step, max);
+    directionRef.current = 1;
     updateValue(newValue);
   };
 
   const handleDecrement = () => {
     const base = typeof currentValue === 'number' ? currentValue : min;
     const newValue = Math.max(base - step, min);
+    directionRef.current = -1;
     updateValue(newValue);
   };
 
@@ -106,8 +113,24 @@ const RdsCounter = ({
         }}
       />
     ) : (
-      <Typography className={`rds-counter__value rds-counter__value--${valueVariant} rds-counter__value--${size}${effectiveDisabled ? ' rds-counter__value--disabled' : ''}`}>
-        {typeof currentValue === 'number' ? currentValue : placeholder}
+      <Typography
+        component="span"
+        className={`rds-counter__value rds-counter__value--${valueVariant} rds-counter__value--${size}${effectiveDisabled ? ' rds-counter__value--disabled' : ''}`}
+        style={{ overflow: 'hidden', display: 'inline-flex', justifyContent: 'center' }}
+      >
+        <AnimatePresence mode="wait" custom={directionRef.current}>
+          <motion.span
+            key={typeof currentValue === 'number' ? currentValue : 'empty'}
+            custom={directionRef.current}
+            initial={shouldReduce ? false : (dir: number) => ({ y: dir > 0 ? 14 : -14, opacity: 0 })}
+            animate={{ y: 0, opacity: 1 }}
+            exit={(dir: number) => shouldReduce ? {} : ({ y: dir > 0 ? -14 : 14, opacity: 0 })}
+            transition={shouldReduce ? { duration: 0 } : { duration: dur }}
+            style={{ display: 'inline-block' }}
+          >
+            {typeof currentValue === 'number' ? currentValue : placeholder}
+          </motion.span>
+        </AnimatePresence>
       </Typography>
     )
   );

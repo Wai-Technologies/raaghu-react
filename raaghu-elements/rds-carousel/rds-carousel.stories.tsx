@@ -67,6 +67,10 @@ const meta: Meta<typeof RdsCarousel> = {
       control: 'text',
       description: 'Single subtitle fallback used for all slides (overridden by per-slide subtitles array if provided)'
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Slide transition duration in milliseconds (default: 250ms)',
+    },
   },
 };
 

@@ -13,6 +13,10 @@ const meta: Meta<typeof RdsDrawer> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds (default: 350ms)',
+    },
     anchor: {
       control: { type: 'select' },
       options: ['left', 'right', 'top', 'bottom'],
@@ -64,7 +68,7 @@ export const Default: Story = {
   },
 };
 Default.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
+  controls: { include: ['animationDuration', 'showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
 };
 
 export const Right: Story = {
@@ -77,7 +81,7 @@ export const Right: Story = {
   },
 };
 Right.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
+  controls: { include: ['animationDuration', 'showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
 };
 
 export const Top: Story = {
@@ -97,7 +101,7 @@ export const Top: Story = {
   },
 };
 Top.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
+  controls: { include: ['animationDuration', 'showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
 };
 
 export const Bottom: Story = {
@@ -117,7 +121,7 @@ export const Bottom: Story = {
   },
 };
 Bottom.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
+  controls: { include: ['animationDuration', 'showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
 };
 
 export const Persistent: Story = {
@@ -154,7 +158,7 @@ export const Interactive: Story = {
   },
 };
 Interactive.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'showCloseButton', 'centerTrigger'] },
+  controls: { include: ['animationDuration', 'showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'showCloseButton', 'centerTrigger'] },
 };
 
 export const OpenDrawer: Story = {

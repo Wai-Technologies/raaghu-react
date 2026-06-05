@@ -58,6 +58,10 @@ const meta: Meta<typeof RdsCounter> = {
       control: 'text',
       description: 'Placeholder text shown when input is empty',
     },
+    animationDuration: {
+      control: { type: 'range', min: 50, max: 500, step: 25 },
+      description: 'Value flip animation duration in milliseconds (default: 150ms)',
+    },
   },
 };
 

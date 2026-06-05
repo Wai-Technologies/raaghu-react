@@ -6,6 +6,7 @@ import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCompEmojiGenerator from "../rds-comp-emoji-generator/rds-comp-emoji-generator";
 import Box from "@mui/material/Box";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 export interface Comment {
   firstName: string;
@@ -39,10 +40,13 @@ export interface RdsCompChatProps {
   currentUserCommentTextColor?: string;
   otherUserCommentBgColor?: string;
   OtherUserCommentTextColor?: string;
+  animationDuration?: number;
 }
 
 const RdsCompChat = (props: RdsCompChatProps) => {
   const { currentUserCommentBgColor = "var(--rds-secondary-main)", currentUserCommentTextColor = "var(--rds-neutral-0)", otherUserCommentBgColor = "var(--rds-neutral-300)", OtherUserCommentTextColor = "var(--rds-text-primary)" } = props;
+  const shouldReduce = useReducedMotion();
+  const dur = typeof props.animationDuration === 'number' ? props.animationDuration / 1000 : 0.2;
 
   const [state, setState] = useState({
     isMobile: window.innerWidth <= 600,
@@ -194,10 +198,18 @@ const RdsCompChat = (props: RdsCompChatProps) => {
           <div className="rds-comp-chat__window-main">
             {state.activeTab === "chat" ? (
               <>
+                <AnimatePresence initial={false}>
                 {state.commentList.map((comment, index) => {
                   const isCurrentUser = comment.firstName === state.currentUser?.firstName && comment.lastName === state.currentUser?.lastName;
                   return (
-                    <div key={index} className={`comment-box rds-comp-chat__message ${isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user"}`}>
+                    <motion.div
+                      key={index}
+                      className={`comment-box rds-comp-chat__message ${isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user"}`}
+                      initial={shouldReduce ? false : { opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={shouldReduce ? {} : { opacity: 0, y: -8 }}
+                      transition={shouldReduce ? { duration: 0 } : { duration: dur, delay: index * 0.03, ease: [0, 0, 0.2, 1] }}
+                    >
                       <div className={`rds-comp-chat__message-row ${isCurrentUser ? "rds-comp-chat__message-row--reverse" : ""}`}>
                         <Box component="div" className="rds-comp-chat__comment-content" sx={{ backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor, color: isCurrentUser ? currentUserCommentTextColor : OtherUserCommentTextColor }}>
                           <div className="comment-text">
@@ -207,9 +219,10 @@ const RdsCompChat = (props: RdsCompChatProps) => {
                           </div>
                         </Box>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
+                </AnimatePresence>
                 {state.currentUser?.messageStatus && <div className="rds-comp-chat__message-status">{state.currentUser.messageStatus}</div>}
               </>
             ) : (

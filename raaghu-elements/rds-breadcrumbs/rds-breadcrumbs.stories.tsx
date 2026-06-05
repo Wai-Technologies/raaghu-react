@@ -60,6 +60,10 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       control: 'text',
       description: 'Icon to display in breadcrumb items',
     },
+    animationDuration: {
+      control: { type: 'range', min: 50, max: 500, step: 25 },
+      description: 'Staggered entrance animation duration per item in milliseconds (default: 150ms)',
+    },
   },
 };
 

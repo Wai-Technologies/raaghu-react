@@ -5,6 +5,8 @@ import {
   Box,
   Typography
 } from '@mui/material';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
 import './rds-progress.scss';
 
 export interface RdsProgressProps {
@@ -22,6 +24,7 @@ export interface RdsProgressProps {
   totalSteps?: number;
   stepperType?: 'number' | 'circle';
   sx?: any;
+  animationDuration?: number;
 }
 
 const RdsProgress = ({
@@ -39,8 +42,12 @@ const RdsProgress = ({
   totalSteps = 5,
   stepperType = 'number',
   sx,
+  animationDuration,
   ...props
 }:RdsProgressProps) => {
+  const shouldReduce = useReducedMotion();
+  const motionTokens = useMotionTokens();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : motionTokens.fast;
   const getProgressValue = () => steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style) ? steps * 20 : value;
 
   const getColorValue = () => ({
@@ -94,20 +101,26 @@ const RdsProgress = ({
             const typeClass = stepperType === 'circle' ? 'rds-progress__stepper-step--circle' : 'rds-progress__stepper-step--number';
             return (
               <React.Fragment key={index}>
-                <Box
+                <motion.div
                   className={`rds-progress__stepper-step ${typeClass} rds-progress__stepper-step--${stepClass}`}
-                  sx={{ width: 'var(--rds-progress-step-size)', height: 'var(--rds-progress-step-size)' }}
+                  style={{ width: 'var(--rds-progress-step-size)', height: 'var(--rds-progress-step-size)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  initial={shouldReduce ? false : { scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={shouldReduce ? { duration: 0 } : { type: 'spring', stiffness: 360, damping: 22, delay: index * 0.06 }}
                 >
                   {stepperType === 'number' ? (
                     <Typography variant="body2" className="rds-progress__stepper-number" sx={{ fontWeight: 'var(--rds-font-weight-bold)', fontSize: 'var(--rds-font-size-sm)' }}>{stepNumber}</Typography>
                   ) : (
                     <span className="rds-progress__stepper-inner-dot" />
                   )}
-                </Box>
+                </motion.div>
                 {index < totalSteps - 1 && (
-                  <Box
+                  <motion.div
                     className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`}
-                      sx={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
+                    style={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
+                    initial={shouldReduce ? false : { scaleX: 0, originX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={shouldReduce ? { duration: 0 } : { duration: dur, delay: index * 0.06 + 0.05, ease: [0, 0, 0.2, 1] }}
                   />
                 )}
               </React.Fragment>

@@ -87,6 +87,10 @@ const meta: Meta = {
     checkedNodes: { control: 'object', description: "Array of checked node IDs. Controls which nodes are selected." },
     treeData: { control: 'object', description: "Tree data structure. Defines nodes, children, and hierarchy." },
     text: { control: 'text', description: "Text to display for each node. If not set, uses node name." },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Expand/collapse animation duration in milliseconds (default: 200ms)',
+    },
   },
 } satisfies Meta<RdsCompTreeStructureProps>;
 

@@ -15,7 +15,11 @@ import {
   IconButton
 } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
+import { motion, useReducedMotion } from 'motion/react';
+import { useMotionTokens } from '../../raaghu-react-themes/src/motion';
 import './rds-table.scss';
+
+const MotionTableRow = motion(MuiTableRow);
 
 export interface RdsTableColumn {
   id: string;
@@ -46,6 +50,7 @@ export interface RdsTableProps extends Omit<TableProps, 'children'> {
   onSortChange?: (columnId: string | undefined, direction: 'asc' | 'desc' | undefined) => void;
   defaultSortBy?: string;
   defaultSortDirection?: 'asc' | 'desc';
+  animationDuration?: number;
 }
 
 const RdsTable = ({
@@ -67,8 +72,12 @@ const RdsTable = ({
   onSortChange,
   defaultSortBy,
   defaultSortDirection = 'asc',
+  animationDuration,
   ...props
 }: RdsTableProps) => {
+  const shouldReduce = useReducedMotion();
+  const motionTokens = useMotionTokens();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : motionTokens.fast;
   const [internalSelectedRows, setInternalSelectedRows] = React.useState<string[]>([]);
 
   const currentSelectedRows = onRowSelect ? selectedRows : internalSelectedRows;
@@ -273,11 +282,14 @@ const RdsTable = ({
             {(pagination ? sortedRows.slice(internalPage * internalPageSize, (internalPage + 1) * internalPageSize) : sortedRows).map((row, index) => {
               const isSelected = currentSelectedRows.includes(row.id || row.key);
               return (
-                <MuiTableRow 
-                  hover 
+                <MotionTableRow
+                  hover
                   key={row.id || row.key || index}
                   selected={isSelected}
                   className={`rds-table__row ${isSelected ? 'rds-table__row--selected' : ''}`}
+                  initial={shouldReduce ? false : { opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={shouldReduce ? { duration: 0 } : { duration: dur, delay: index * 0.04, ease: [0, 0, 0.2, 1] }}
                 >
                   {selectable && (
                     <MuiTableCell padding="checkbox" className="rds-table__cell rds-table__cell--checkbox rds-table__checkbox">
@@ -305,7 +317,7 @@ const RdsTable = ({
                       </MuiTableCell>
                     );
                   })}
-                </MuiTableRow>
+                </MotionTableRow>
               );
             })}
           </MuiTableBody>

@@ -3,6 +3,7 @@ import { Drawer, Box, Typography } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
+import { MotionDrawerTransition } from "../../raaghu-react-themes/src/motion";
 import "./rds-comp-off-canvas.scss";
 export enum RdsOffcanvasPlacement {Start = "left",End = "right",Top = "top",Bottom = "bottom"}
 export enum RdsOffcanvasBackDrop {Static = "static",True = "true",False = "false"}
@@ -22,6 +23,7 @@ export interface RdsCompOffcanvasProps {
   showPrimaryButton?: boolean;
   showSecondaryButton?: boolean;
   showTertiaryButton?: boolean;
+  animationDuration?: number;
 }
 const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
   placement = RdsOffcanvasPlacement.End,
@@ -39,6 +41,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
   showPrimaryButton = false,
   showSecondaryButton = false,
   showTertiaryButton = false,
+  animationDuration,
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const drawerOpen = internalOpen;
@@ -93,6 +96,8 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
           open={drawerOpen}
           onClose={handleClose}
           disableEscapeKeyDown={!preventEscapeKey}
+          TransitionComponent={MotionDrawerTransition}
+          TransitionProps={{ anchor: getAnchor(), durationMs: animationDuration } as any}
           {...getBackdropProps()}
           className={`offcanvas-drawer placement-${placement}`}
           id={offId}>

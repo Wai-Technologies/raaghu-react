@@ -44,6 +44,10 @@ const meta: Meta<typeof RdsProgress> = {
       options: ['number', 'circle'],
       description: 'The type of stepper indicator',
     },
+    animationDuration: {
+      control: { type: 'range', min: 50, max: 500, step: 25 },
+      description: 'Stepper dot entrance animation duration in milliseconds (default: 150ms)',
+    },
   }
 };
 

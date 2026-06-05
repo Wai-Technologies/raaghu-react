@@ -17,6 +17,10 @@ const meta: Meta<typeof RdsModal> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds (default: 350ms)',
+    },
     title: {
       control: 'text',
       description: 'Title of the modal',

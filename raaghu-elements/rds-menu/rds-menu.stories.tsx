@@ -28,6 +28,10 @@ const meta: Meta = {
         defaultValue: { summary: 'medium' },
       },
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds (default: 250ms)',
+    },
   },
 } satisfies Meta<typeof RdsMenu>;
 

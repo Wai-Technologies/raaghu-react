@@ -19,6 +19,10 @@ const meta: Meta<typeof RdsAccordion> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration in milliseconds (default: 350ms)',
+    },
     title: {
       control: 'text',
       description: 'The title displayed in the accordion header',
@@ -83,7 +87,7 @@ export const Default: Story = {
     defaultExpanded: false,
     changeleftIcon: null,
   },
-  render: ({ size, state, accordionStyle, ShowLeftIcon, defaultExpanded, changeleftIcon, title, disabled }) => {
+  render: ({ size, state, accordionStyle, ShowLeftIcon, defaultExpanded, changeleftIcon, title, disabled, animationDuration }) => {
     const [expanded1, setExpanded1] = useState(defaultExpanded);
     const [expanded2, setExpanded2] = useState(defaultExpanded);
     const [expanded3, setExpanded3] = useState(defaultExpanded);
@@ -96,46 +100,49 @@ export const Default: Story = {
 
     return (
       <>
-        <RdsAccordion 
-          title={title} 
-          size={size} 
-          state={state} 
-          accordionStyle={accordionStyle} 
-          ShowLeftIcon={ShowLeftIcon} 
+        <RdsAccordion
+          title={title}
+          size={size}
+          state={state}
+          accordionStyle={accordionStyle}
+          ShowLeftIcon={ShowLeftIcon}
           disabled={disabled}
           expanded={expanded1}
           onChange={(_, isExpanded) => setExpanded1(isExpanded)}
           changeleftIcon={changeleftIcon}
+          animationDuration={animationDuration}
         >
           <RdsTypography color="text.secondary">
             Replace with your content component
           </RdsTypography>
         </RdsAccordion>
-        <RdsAccordion 
-          title={title} 
-          size={size} 
-          state={state} 
-          accordionStyle={accordionStyle} 
-          ShowLeftIcon={ShowLeftIcon} 
+        <RdsAccordion
+          title={title}
+          size={size}
+          state={state}
+          accordionStyle={accordionStyle}
+          ShowLeftIcon={ShowLeftIcon}
           disabled={disabled}
           expanded={expanded2}
           onChange={(_, isExpanded) => setExpanded2(isExpanded)}
           changeleftIcon={changeleftIcon}
+          animationDuration={animationDuration}
         >
           <RdsTypography color="text.secondary">
             Replace with your content component
           </RdsTypography>
         </RdsAccordion>
-        <RdsAccordion 
-          title={title} 
-          size={size} 
-          state={state} 
-          accordionStyle={accordionStyle} 
-          ShowLeftIcon={ShowLeftIcon} 
+        <RdsAccordion
+          title={title}
+          size={size}
+          state={state}
+          accordionStyle={accordionStyle}
+          ShowLeftIcon={ShowLeftIcon}
           disabled={disabled}
           expanded={expanded3}
           onChange={(_, isExpanded) => setExpanded3(isExpanded)}
           changeleftIcon={changeleftIcon}
+          animationDuration={animationDuration}
         >
           <RdsTypography color="text.secondary">
             Replace with your content component

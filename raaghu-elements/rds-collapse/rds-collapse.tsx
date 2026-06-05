@@ -1,7 +1,10 @@
 import React from 'react';
-import { Collapse as MuiCollapse, CollapseProps, Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton } from '@mui/material';
 import './rds-collapse.scss';
 import { ExpandMore } from '@mui/icons-material';
+import { motion, useReducedMotion } from 'motion/react';
+import { MotionCollapse, useMotionTokens } from '../../raaghu-react-themes/src/motion';
+import type { CollapseProps } from '@mui/material';
 
 export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle'> {
   title?: string;
@@ -9,6 +12,7 @@ export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onTo
   expanded?: boolean;
   onToggle?: (expanded: boolean) => void;
   showToggleButton?: boolean;
+  animationDuration?: number;
 }
 
 const RdsCollapse: React.FC<RdsCollapseProps> = ({
@@ -17,9 +21,13 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
   expanded = false,
   onToggle,
   showToggleButton = true,
+  animationDuration,
   ...props
 }) => {
   const [internalExpanded, setInternalExpanded] = React.useState(expanded);
+  const tokens = useMotionTokens();
+  const shouldReduce = useReducedMotion();
+  const dur = typeof animationDuration === 'number' ? animationDuration / 1000 : tokens.slow;
 
   React.useEffect(() => {
     setInternalExpanded(expanded);
@@ -53,23 +61,24 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
             <IconButton
               aria-label={internalExpanded ? 'Collapse' : 'Expand'}
               size="small"
-              sx={{
-                transform: internalExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                transition: 'transform 0.2s',
-                p: 0,
-                ml: 0,
-              }}
+              sx={{ p: 0, ml: 0 }}
             >
-              <ExpandMore />
+              <motion.div
+                animate={{ rotate: internalExpanded ? 180 : 0 }}
+                transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0.4, 0, 0.2, 1] }}
+                style={{ display: 'flex' }}
+              >
+                <ExpandMore />
+              </motion.div>
             </IconButton>
           )}
         </Box>
       )}
-      <MuiCollapse in={internalExpanded} {...props}>
+      <MotionCollapse in={internalExpanded} durationMs={animationDuration}>
         <Box sx={{ pt: title ? 1 : 0 }}>
           {children}
         </Box>
-      </MuiCollapse>
+      </MotionCollapse>
     </Box>
   );
 };

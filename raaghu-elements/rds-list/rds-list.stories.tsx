@@ -39,6 +39,10 @@ const meta: Meta<typeof RdsList> = {
     disablePadding: {
       control: { type: 'boolean' },
     },
+    animationDuration: {
+      control: { type: 'range', min: 100, max: 1000, step: 50 },
+      description: 'Animation duration per item in milliseconds (staggered, default: 250ms)',
+    },
   },
 };
 
