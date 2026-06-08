@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTooltip from './rds-tooltip';
@@ -954,8 +954,8 @@ describe('RdsTooltip — keyboard navigation', () => {
       </RdsTooltip>
     );
     const trigger = screen.getByRole('button', { name: 'Focus Me' });
-    fireEvent.focus(trigger);
-    expect(onOpen).toHaveBeenCalled();
+    await act(async () => { trigger.focus(); });
+    await waitFor(() => expect(onOpen).toHaveBeenCalled());
   });
 
   it('calls onClose when trigger loses focus', async () => {
@@ -966,9 +966,11 @@ describe('RdsTooltip — keyboard navigation', () => {
       </RdsTooltip>
     );
     const trigger = screen.getByRole('button', { name: 'Blur Me' });
-    fireEvent.focus(trigger);
-    fireEvent.blur(trigger);
-    expect(onClose).toHaveBeenCalled();
+    // Focus to open, wait for open, then blur
+    await act(async () => { trigger.focus(); });
+    await waitFor(() => {}, { timeout: 300 }); // let enter delay pass
+    await act(async () => { trigger.blur(); });
+    await waitFor(() => expect(onClose).toHaveBeenCalled());
   });
 
   it('shows tooltip when open prop is true', () => {

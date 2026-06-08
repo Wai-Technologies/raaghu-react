@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, chartTextColor } from "../chart-utils";
 import "./rds-comp-chart-radar.scss";
 
 export interface RdsCompRadarProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartConfiguration['options'];
+  dataSets: ChartConfiguration['data']['datasets'];
   id: string;
   chartLabel?: string;
+  radius?: number;
 }
 
 const RdsCompRadarChart = (props: RdsCompRadarProps) => {
@@ -109,8 +110,8 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
 
     if (radarCanvas != null) {
       // Prefer explicit sizes via props.radius; fall back to CSS-controlled sizing
-      if (props && (props as any).radius) {
-        radarCanvas.canvas.style.height = (props as any).radius + "px";
+      if (props && props.radius) {
+        radarCanvas.canvas.style.height = props.radius + "px";
       } else {
         // leave sizing to CSS/parent container for responsiveness
         radarCanvas.canvas.style.height = '';

@@ -16,7 +16,7 @@
   vertical-align: middle;
   border: 0.25em solid currentColor;
   border-right-color: transparent;
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   animation: spinner-border var(--rds-spinner-animation-duration) linear infinite;
   color: var(--rds-primary-main, var(--rds-spinner-primary-color));
 }
@@ -25,7 +25,7 @@
   display: inline-block;
   vertical-align: middle;
   background-color: currentColor;
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   opacity: 0;
   animation: spinner-grow var(--rds-spinner-animation-duration) linear infinite;
   color: var(--rds-primary-main, var(--rds-spinner-primary-color));

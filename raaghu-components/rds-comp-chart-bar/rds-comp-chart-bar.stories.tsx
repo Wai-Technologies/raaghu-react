@@ -307,9 +307,11 @@ export const Vertical: Story = {
     parameters: {
         controls: {
             exclude: [
-                    'height', 
+                    'height',
             ],
         },
      },
 } satisfies Story;
+
+export const Default: Story = { ...BorderRadius };
 

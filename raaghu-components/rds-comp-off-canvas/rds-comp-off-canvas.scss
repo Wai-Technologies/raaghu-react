@@ -163,11 +163,11 @@
   }
 
   .offcanvas-margin .me-2:nth-child(2) {
-    margin-right: 12px !important;
+    margin-right: var(--rds-spacing-12-px) !important;
   }
 
   .offcanvas-margin .me-2 {
-    margin-right: 2px !important;
+    margin-right: var(--rds-spacing-xxs) !important;
     flex: 1;
     min-width: 0;
   }

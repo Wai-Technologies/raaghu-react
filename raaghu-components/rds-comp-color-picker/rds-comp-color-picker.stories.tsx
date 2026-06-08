@@ -1,10 +1,10 @@
-import RdsColorPicker, { ColorMode, ColorPickerType, PickerType, StyleType } from "./rds-comp-color-picker";
+import RdsCompColorPicker, { ColorMode, ColorPickerType, PickerType, StyleType } from "./rds-comp-color-picker";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Color Picker',
-    component: RdsColorPicker,
+    component: RdsCompColorPicker,
     parameters: {
             status: { type: 'stable' },
         layout: 'padded',
@@ -46,10 +46,10 @@ const meta: Meta = {
         },
         onChange: { action: 'changed' },
     },
-} satisfies Meta<typeof RdsColorPicker>;
+} satisfies Meta<typeof RdsCompColorPicker>;
 
 export default meta;
-type Story = StoryObj<typeof RdsColorPicker>;
+type Story = StoryObj<typeof RdsCompColorPicker>;
 
 export const Default: Story = {
     args: {

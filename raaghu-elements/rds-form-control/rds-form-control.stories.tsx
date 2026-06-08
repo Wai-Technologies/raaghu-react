@@ -187,3 +187,5 @@ export const Small: Story = {
     </RdsFormControl>
   ),
 };
+
+export const Default: Story = { ...WithTextField };

@@ -232,37 +232,35 @@ describe('RdsAccordion', () => {
   describe('Expansion Behavior', () => {
     it('should not be expanded by default', () => {
       const { container } = render(<RdsAccordion {...defaultProps} />);
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should be expanded when defaultExpanded is true', () => {
       const { container } = render(<RdsAccordion {...defaultProps} defaultExpanded={true} />);
-      const detail = container.querySelector('[role="region"]');
-      expect(detail).not.toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should toggle expansion on click with defaultExpanded', () => {
       const { container } = render(<RdsAccordion {...defaultProps} defaultExpanded={false} />);
 
-      let collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
 
-      const summary = container.querySelector('.rds-accordion__summary');
-      fireEvent.click(summary!);
+      const summaryEl = container.querySelector('.rds-accordion__summary');
+      fireEvent.click(summaryEl!);
 
-      collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).not.toHaveClass('MuiCollapse-hidden');
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should be controlled by expanded prop', () => {
       const { rerender, container } = render(<RdsAccordion {...defaultProps} expanded={false} />);
-      let collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
 
       rerender(<RdsAccordion {...defaultProps} expanded={true} />);
-      collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).not.toHaveClass('MuiCollapse-hidden');
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should prefer expanded prop over defaultExpanded', () => {
@@ -273,18 +271,18 @@ describe('RdsAccordion', () => {
           expanded={false}
         />
       );
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should not toggle when expanded prop is controlled', () => {
       const { container } = render(<RdsAccordion {...defaultProps} expanded={false} />);
 
-      const summary = container.querySelector('.rds-accordion__summary');
-      fireEvent.click(summary!);
+      const summaryEl = container.querySelector('.rds-accordion__summary');
+      fireEvent.click(summaryEl!);
 
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
   });
 
@@ -313,11 +311,11 @@ describe('RdsAccordion', () => {
         />
       );
 
-      const summary = container.querySelector('.rds-accordion__summary');
-      fireEvent.click(summary!);
+      const summaryEl = container.querySelector('.rds-accordion__summary');
+      fireEvent.click(summaryEl!);
 
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
   });
 
@@ -379,8 +377,8 @@ describe('RdsAccordion', () => {
           expanded={false}
         />
       );
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should pass through MUI accordion props', () => {
@@ -526,26 +524,20 @@ describe('RdsAccordion', () => {
       );
 
       // Initially expanded
-      let collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).not.toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
 
       // Toggle to collapsed
       rerender(
         <RdsAccordion {...defaultProps} expanded={false} />
       );
-      collapse = container.querySelector('.MuiCollapse-root');
-      await waitFor(() => {
-        expect(collapse).toHaveClass('MuiCollapse-hidden');
-      }, { timeout: 500 });
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
 
       // Toggle back to expanded
       rerender(
         <RdsAccordion {...defaultProps} expanded={true} />
       );
-      collapse = container.querySelector('.MuiCollapse-root');
-      await waitFor(() => {
-        expect(collapse).not.toHaveClass('MuiCollapse-hidden');
-      }, { timeout: 500 });
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
     });
   });
 
@@ -614,8 +606,8 @@ describe('RdsAccordion', () => {
       const { container } = render(
         <RdsAccordion title="Title" children={<div>Content</div>} />
       );
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should use default size', () => {
@@ -697,7 +689,11 @@ describe('RdsAccordion — keyboard navigation', () => {
   it('summary is focusable via Tab', async () => {
     render(<RdsAccordion {...defaultProps} />);
     await userEvent.tab();
-    expect(document.activeElement?.getAttribute('role')).toBe('button');
+    const focused = document.activeElement;
+    const hasButtonRole =
+      focused?.getAttribute('role') === 'button' ||
+      focused?.tagName === 'BUTTON';
+    expect(hasButtonRole).toBe(true);
   });
 
   it('expands on Enter key', async () => {

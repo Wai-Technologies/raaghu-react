@@ -1,4 +1,4 @@
-export const ChartIcons: any = {
+export const ChartIcons: Record<string, string> = {
     circle:
     "<svg width=\"19px\" height=\"19px\" viewBox=\"0 0 19 19\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"10.5\" cy=\"10.5\" fill=\"none\" r=\"8\" stroke=\"var(--rds-text-secondary)\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
     headset:

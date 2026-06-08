@@ -132,7 +132,7 @@ describe('RdsEmojiGenerator', () => {
     });
 
     it('should have correct displayName', () => {
-      expect(RdsEmojiGenerator.displayName).toBe('RdsEmojiGenerator');
+      expect(RdsEmojiGenerator.displayName).toBe('RdsCompEmojiGenerator');
     });
 
     it('should render in Default type by default', () => {

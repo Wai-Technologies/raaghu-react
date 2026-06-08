@@ -27,7 +27,7 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
 
   const backdropClassName = `rds-backdrop ${className}`.trim();
 
-  const { sx, ...restProps } = props as { sx?: any } & typeof props;
+  const { sx, ...restProps } = props as { sx?: BackdropProps['sx'] } & typeof props;
 
   const backdropSx = {
     '&.rds-backdrop': {

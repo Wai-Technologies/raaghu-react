@@ -24,19 +24,19 @@ import "./rds-comp-emoji-generator.scss";
 import { getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
 import { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
 
-export interface RdsEmojiGeneratorProps {
+export interface RdsCompEmojiGeneratorProps {
     Type?: EmojiGeneratorType;
     "Show Skin Tone"?: boolean;
     "Show Footer"?: boolean;
     State?: SkinToneState;
     Category?: EmojiCategory;
-    onEmojiSelect?: (emoji: any) => void;
+    onEmojiSelect?: (emoji: string) => void;
     maxEmojis?: number;
-    sx?: any;
+    sx?: Record<string, unknown>;
 }
 
 
-const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
+const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
     Type = EmojiGeneratorType.Default,
     "Show Skin Tone": showSkinTone = true,
     "Show Footer": showFooter = true,
@@ -77,7 +77,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
         { id: EmojiCategory.Flags, icon: FlagIcon, title: "Flags" },
     ];
 
-    const handleEmojiClick = (e: any) => onEmojiSelect?.(e);
+    const handleEmojiClick = (e: string) => onEmojiSelect?.(e);
     const handleCategoryChange = (c: EmojiCategory) => setSelectedCategory(c);
     const handleSkinToneClick = (e: React.MouseEvent<HTMLElement>) => setSkinToneAnchorEl(e.currentTarget);
     const handleSkinToneClose = () => setSkinToneAnchorEl(null);
@@ -265,6 +265,6 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
         </Box>
     );
 };
-RdsEmojiGenerator.displayName = 'RdsEmojiGenerator';
-export default RdsEmojiGenerator;
+RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
+export default RdsCompEmojiGenerator;
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';

@@ -132,8 +132,7 @@ const RdsRange= ({
     return formatValue ? formatValue(val) : val.toString();
   };
 
-  const ValueLabelComponent = (props: any) => {
-    const { children, value } = props;
+  const ValueLabelComponent = ({ children, value }: { children: React.ReactElement; value: number }) => {
     
     if (!showTooltip) {
       return <span {...props}>{children}</span>;

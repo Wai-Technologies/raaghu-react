@@ -247,7 +247,7 @@
     font-size: 0.95rem;
   }
   .with-list-popover .MuiListItem-root {
-    padding-top: 2px !important;
+    padding-top: var(--rds-spacing-xxs) !important;
     padding-bottom: var(--rds-spacing-xs) !important;
   }
 }

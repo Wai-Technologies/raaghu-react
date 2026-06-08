@@ -19,7 +19,7 @@
     background-color: var(--rds-carousel-navigation-bg, rgba(0, 0, 0, 0.5));
     color: var(--rds-color-on-primary);
     border: none;
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     width: 40px;
     height: 40px;
     display: flex;
@@ -60,11 +60,11 @@
     &--circle {
       width: 12px;
       height: 12px;
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
     }
-    
+
     &--line {
-      width: 24px;
+      width: var(--rds-size-lg);
       height: 4px;
       border-radius: calc(var(--rds-border-radius-sm, 4px) / 2);
     }
@@ -345,11 +345,11 @@
       }
       
       &--line {
-        width: 16px;
+        width: var(--rds-size-md);
         height: 3px;
-        
+
         &.rds-carousel__indicator__active {
-          width: 24px;
+          width: var(--rds-size-lg);
           height: 4px;
         }
       }

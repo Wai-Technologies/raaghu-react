@@ -1,5 +1,6 @@
 import { fileTypeIconColors } from '../../raaghu-react-themes/tokens/design-tokens';
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 // Import all necessary Material-UI icons
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -46,7 +47,14 @@ export const getLanguageFromFileName = (fileName: string): string | null => {
 };
 
 // Utility function to get all node IDs
-export const getAllNodeIds = (nodes: any[]): number[] => {
+export interface TreeNode {
+  id: number;
+  name: string;
+  language?: string;
+  children?: TreeNode[];
+}
+
+export const getAllNodeIds = (nodes: TreeNode[]): number[] => {
   let ids: number[] = [];
   nodes.forEach((node) => {
     ids.push(node.id);
@@ -68,19 +76,19 @@ export interface RdsCompTreeStructureProps {
   state?: NodeState; //State of the node
   type?: IconType; //Type of icon for folder nodes
   showActions?: boolean; //Show action buttons (add, edit, delete) for nodes.
-  treeData?: any; //Data for the tree structure.
+  treeData?: TreeNode[]; //Data for the tree structure.
   Language?: string; //Language for file icons.
   iconName?: string; // Name of the icon to display.
   text?: string; // Text to display for the node.
   fileTypeIcons?: { [key: string]: React.ReactNode }; // File type icons mapping
   getFileIcon?: (fileType: string) => React.ReactNode; // Function to get file icon
   checkedNodes?: number[]; // Array of checked node IDs
-  onSelectNode?: (item: any) => void; //Callback when a node is selected.
-  onDeleteNode?: (id: any) => void; //Callback when a node is deleted.
-  onNodeEdit?: (data: any) => void; //Callback when a node is edited.
-  onCreateNode?: (node: any) => void; //Callback when a new node is created.
-  onCreateSubUnit?: (node: any) => void; //Callback when a new sub-unit is created.
-  onMoveNode?: (id: any) => void; //Callback when a node is moved.
+  onSelectNode?: (item: TreeNode) => void; //Callback when a node is selected.
+  onDeleteNode?: (id: number) => void; //Callback when a node is deleted.
+  onNodeEdit?: (data: TreeNode) => void; //Callback when a node is edited.
+  onCreateNode?: (node: TreeNode) => void; //Callback when a new node is created.
+  onCreateSubUnit?: (node: TreeNode) => void; //Callback when a new sub-unit is created.
+  onMoveNode?: (id: number) => void; //Callback when a node is moved.
   onCheckboxChange?: (nodeId: number, checked: boolean) => void; //Callback when checkbox state changes.
 }
 
@@ -203,6 +211,9 @@ export const getFileIcon = (fileType: string) => {
   return fileTypeIcons[fileType as keyof typeof fileTypeIcons] || fileTypeIcons.Default;
 };
 
+const shouldReduce = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const dur = 0.2;
+
 // TreeNode component
 export const TreeNode = ({
   node,
@@ -215,7 +226,7 @@ export const TreeNode = ({
   onNodeClick,
   onCheckboxClick,
 }: {
-  node: any;
+  node: TreeNode;
   level: number;
   maxLevel: number;
   props: RdsCompTreeStructureProps;
@@ -268,7 +279,7 @@ export const TreeNode = ({
     setHoveredNodeId(null);
   };
 
-  const handlerButtonGroupClick = (e: any, id: any, node: any) => {
+  const handlerButtonGroupClick = (e: React.MouseEvent, id: string, node: { data: TreeNode }) => {
     if (id == 'plus') {
         e.stopPropagation();
         props.onCreateNode && props.onCreateNode(node.data)
@@ -383,8 +394,17 @@ export const TreeNode = ({
       {isExpanded &&
         node.children &&
         level < maxLevel &&
-        node.children.map((child: any) => (
-          <div className="rds-comp-tree-structure__node-children" key={child.id}>
+        <AnimatePresence initial={false}>
+        {node.children.map((child: TreeNode) => (
+          <motion.div
+            className="rds-comp-tree-structure__node-children"
+            key={child.id}
+            initial={shouldReduce ? false : { opacity: 0, height: 0, y: -6 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={shouldReduce ? {} : { opacity: 0, height: 0, y: -4 }}
+            transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0.4, 0, 0.2, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
             <TreeNode
               node={child}
               level={level + 1}
@@ -396,8 +416,10 @@ export const TreeNode = ({
               onNodeClick={onNodeClick}
               onCheckboxClick={onCheckboxClick}
             />
-          </div>
+          </motion.div>
         ))}
+        </AnimatePresence>
+      }
     </div>
   );
 };

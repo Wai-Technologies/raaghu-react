@@ -114,7 +114,7 @@ export const useFileUploader = ({
   };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const incoming = event.target.files as any;
+    const incoming = event.target.files;
     const selectedFiles: File[] = Array.isArray(incoming) ? incoming : Array.from(incoming || []);
     if (selectedFiles.length === 0) return;
 
@@ -293,7 +293,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
   );
 };
 
-export const RenderFileUploader = (args: any) => {
+export const RenderFileUploader = (args: React.ComponentProps<typeof RdsFileUploader>) => {
   const [files, setFiles] = React.useState<FileWithProgress[]>([]);  
   return <RdsFileUploader {...args} onFilesChange={setFiles} />;
 };

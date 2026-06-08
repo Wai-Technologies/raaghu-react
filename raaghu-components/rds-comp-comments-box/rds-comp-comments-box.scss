@@ -81,7 +81,7 @@
     width: var(--rds-dot-size, 16px);
     height: var(--rds-dot-size, 16px);
     background-color: var(--rds-error-dark);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     position: absolute;
     top: var(--rds-spacing-xs) !important;
     right: calc(var(--rds-spacing-sm) + var(--rds-border-radius-xs)) !important;
@@ -128,7 +128,7 @@
       display: flex;
       align-items: center;
       gap: var(--rds-spacing-compact);
-      padding-top: 6px;
+      padding-top: var(--rds-spacing-compact);
     }
 
     .rds-comments-box__toolbar-icons {
@@ -141,9 +141,9 @@
       background: var(--rds-primary-main) !important;
       color: var(--rds-primary-contrast-text) !important;
       width: 36px !important;
-      height: 32px !important;
+      height: var(--rds-size-xl) !important;
       min-width: 36px !important;
-      min-height: 32px !important;
+      min-height: var(--rds-size-xl) !important;
       border-radius: var(--rds-border-radius-md) !important;
       display: flex !important;
       align-items: center !important;
@@ -163,12 +163,12 @@
   &__avatar {
     width: var(--rds-avatar-size-md, 36px);
     height: var(--rds-avatar-size-md, 36px);
-    margin-right: 2px;
+    margin-right: var(--rds-spacing-xxs);
     background-color: var(--rds-primary-main);
     color: var(--rds-primary-contrast-text);
     font-weight: var(--rds-typography-semibold, 600);
     font-size: var(--rds-font-size-xl, 20px);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     box-shadow: var(--rds-card-shadow, 0 2px 8px rgba(58,139,253,0.10));
     background-color: var(--rds-primary-main) !important;
   }
@@ -342,7 +342,7 @@
         justify-content: center;
         .rds-comments-box__send-icon {
           color: var(--rds-primary-contrast-text);
-          margin-left: 3px;
+          margin-left: var(--rds-spacing-micro);
         }
       }
     }
@@ -560,7 +560,7 @@
   &__mention-user-avatar {
     width: var(--rds-avatar-size-md, 36px);
     height: var(--rds-avatar-size-md, 36px);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     background: var(--rds-background-surface);
     display: flex;
     align-items: center;
@@ -621,7 +621,7 @@
     height: var(--rds-typing-header-height, 28px);
     display: flex;
     align-items: center;
-    margin-top: -16px;
+    margin-top: var(--rds-spacing-neg-16);
   }
   &__typing-placeholder {
     font-size: var(--rds-font-size-md, 14px);
@@ -698,7 +698,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-width: 32px;
+  min-width: var(--rds-size-xl);
   min-height: 34px;
   box-sizing: border-box;
   margin: var(--rds-spacing-xs) 0;
@@ -716,7 +716,7 @@
 .rds-comments-box__avatar {
   width: var(--rds-avatar-size-md, 36px);
   height: var(--rds-avatar-size-md, 36px);
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   object-fit: cover;
   background-color: var(--rds-primary-main);
 }
@@ -761,7 +761,7 @@
 }
 
 .rds-comments-box--typing > .rds-comments-box__avatar {
-  margin-bottom: 30px;
+  margin-bottom: var(--rds-spacing-30);
 }
 
 .rds-comments-box__emoji-trigger {
@@ -821,7 +821,7 @@
   max-width: var(--rds-mention-avatar-max-width, 260px) !important;
   width: 100% !important;
   height: var(--rds-avatar-size-sm, 32px);
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   background: var(--rds-background-surface);
   display: flex;
   align-items: center;
@@ -863,7 +863,7 @@
 
   @media (max-width: 320px) {
     .MuiIconButton-root svg {
-        margin-left: 3px;
+        margin-left: var(--rds-spacing-micro);
     }
   }
 
@@ -923,8 +923,8 @@
     padding: 0 var(--rds-spacing-xxs) !important;
   }
   .rds-comments-box__vote{
-    margin-top: 170px !important;
-    margin-left: 20px;
+    margin-top: var(--rds-spacing-170) !important;
+    margin-left: var(--rds-spacing-20-px);
   }
 
   .rds-comments-box--typing .rds-comments-box__send-icon {
@@ -944,7 +944,7 @@
         max-width: 80vw !important;
         height: 28px !important;
         min-height: 28px !important;
-        max-height: 32px !important;
+        max-height: var(--rds-size-xl) !important;
         font-size: var(--rds-font-size-sm) !important;
         .MuiInputBase-root {
           padding: var(--rds-spacing-xs) 6px !important;
@@ -955,12 +955,12 @@
           margin-right: var(--rds-spacing-sm) !important;
         }
         .rds-comments-box__send {
-          width: 24px !important;
-          height: 24px !important;
-          min-width: 24px !important;
-          min-height: 24px !important;
-          max-width: 24px !important;
-          max-height: 24px !important;
+          width: var(--rds-size-lg) !important;
+          height: var(--rds-size-lg) !important;
+          min-width: var(--rds-size-lg) !important;
+          min-height: var(--rds-size-lg) !important;
+          max-width: var(--rds-size-lg) !important;
+          max-height: var(--rds-size-lg) !important;
           padding: var(--rds-spacing-xxs) !important;
           .rds-comments-box__send-icon {
             font-size: var(--rds-font-size-md) !important;
@@ -968,20 +968,20 @@
         }
       }
       .rds-comments-box__avatar {
-        width: 24px !important;
-        height: 24px !important;
+        width: var(--rds-size-lg) !important;
+        height: var(--rds-size-lg) !important;
         font-size: var(--rds-font-size-caption, 10px) !important;
         margin-left: var(--rds-spacing-xs) !important;
       }
     }
   .rds-comments-box--typing {
     min-height: 80px;
-    padding-left: 0px;
+    padding-left: var(--rds-spacing-0);
     .rds-comments-box__avatar {
       width: 28px;
       height: 28px;
       font-size: var(--rds-font-size-sm);
-      margin-right: 0px;
+      margin-right: var(--rds-spacing-0);
     }
     .rds-comments-box__typing-box {
       min-height: 40px;
@@ -1018,7 +1018,7 @@
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: var(--rds-font-size-md);
-        margin-right: 98px;    
+        margin-right: var(--rds-spacing-98);    
       }
       .rds-comments-box__thread-icons {
         gap: var(--rds-spacing-xs);
@@ -1051,14 +1051,14 @@
   }
   .rds-comments-box__tools,
   .rds-comments-box__hover-tools {
-    margin-left: 30px !important;
+    margin-left: var(--rds-spacing-30) !important;
   }
   .rds-comments-box__comment-content {
     min-width: 250px;
     .rds-comments-box__comment-header {
       min-width: 180px;
       margin-bottom: var(--rds-spacing-xs);
-      margin-right: 18px !important;
+      margin-right: var(--rds-spacing-18) !important;
       .rds-comments-box__avatar {
         width: 24px;
         height: 24px;
@@ -1073,19 +1073,19 @@
     }
     .rds-comments-box__text {
       font-size: var(--rds-font-size-xs, 13px);
-      margin-left: 20px !important;
+      margin-left: var(--rds-spacing-20-px) !important;
     }
     .rds-comments-box__meta {
       font-size: var(--rds-font-size-caption, 11px) !important;
-      margin-left: 20px !important;
+      margin-left: var(--rds-spacing-20-px) !important;
     }
     .rds-comments-box__preview {
       max-width: 170px !important;
-      margin-left: 20px;
+      margin-left: var(--rds-spacing-20-px);
     }
     .rds-comments-box__translate {
       font-size: var(--rds-font-size-caption, 11px);
-      margin-left: 20px;
+      margin-left: var(--rds-spacing-20-px);
     }
   }
 }
@@ -1135,13 +1135,13 @@
         max-width: 80vw !important;
         height: 28px !important;
         min-height: 28px !important;
-        max-height: 32px !important;
+        max-height: var(--rds-size-xl) !important;
         font-size: var(--rds-font-size-md) !important;
         .MuiInputBase-root {
           padding: var(--rds-spacing-xs) 8px !important;
-          height: 32px !important;
+          height: var(--rds-size-xl) !important;
           min-height: 40px !important;
-          max-height: 32px !important;
+          max-height: var(--rds-size-xl) !important;
           font-size: var(--rds-font-size-md) !important;
           margin-right: var(--rds-spacing-sm) !important;
         }
@@ -1162,22 +1162,22 @@
         width: 28px !important;
         height: 28px !important;
         font-size: var(--rds-font-size-sm) !important;
-        margin-left: 6px !important;
+        margin-left: var(--rds-spacing-compact) !important;
       }
     }
   .rds-comments-box--hover .rds-comments-box__avatar--hover {
     width: 34px !important;
     height: 34px !important;
     font-size: var(--rds-font-size-sm) !important;
-    margin-right: 6px !important;
+    margin-right: var(--rds-spacing-compact) !important;
   }
   .rds-comments-box--typing {
     min-height: 90px;
     .rds-comments-box__avatar {
-      width: 32px;
-      height: 32px;
+      width: var(--rds-size-xl);
+      height: var(--rds-size-xl);
       font-size: var(--rds-font-size-md);
-      margin-right: 6px;
+      margin-right: var(--rds-spacing-compact);
     }
     .rds-comments-box__typing-box {
       min-height: 50px;
@@ -1185,9 +1185,9 @@
       padding: var(--rds-spacing-cozy) var(--rds-spacing-cozy) var(--rds-spacing-compact) var(--rds-spacing-cozy);
     }
     .rds-comments-box__typing-header {
-      min-height: 24px;
-      height: 24px;
-      margin-bottom: 6px;
+      min-height: var(--rds-size-lg);
+      height: var(--rds-size-lg);
+      margin-bottom: var(--rds-spacing-compact);
     }
     .rds-comments-box__send-btn {
       width: 26px !important;
@@ -1208,7 +1208,7 @@
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: var(--rds-font-size-lg);
-        margin-right: 157px;
+        margin-right: var(--rds-spacing-157);
       }
       .rds-comments-box__thread-icons {
         gap: var(--rds-spacing-compact);
@@ -1229,8 +1229,8 @@
 
   .rds-comments-box__avatar,
   .rds-comments-box__mention-user-avatar {
-    width: 32px !important;
-    height: 32px !important;
+    width: var(--rds-size-xl) !important;
+    height: var(--rds-size-xl) !important;
     font-size: var(--rds-font-size-md) !important;
   }
   .rds-comments-box__text,
@@ -1241,14 +1241,14 @@
   }
   .rds-comments-box__tools,
   .rds-comments-box__hover-tools {
-    margin-left: 80px !important;
+    margin-left: var(--rds-spacing-80-px) !important;
   }
   .rds-comments-box__comment-content {
     min-width: 260px;
     .rds-comments-box__comment-header {
       min-width: 300px;
-      margin-bottom: 6px;
-      margin-right: 10px !important;
+      margin-bottom: var(--rds-spacing-compact);
+      margin-right: var(--rds-spacing-cozy) !important;
       .rds-comments-box__avatar {
         width: 28px;
         height: 28px;
@@ -1263,19 +1263,19 @@
     }
     .rds-comments-box__text {
       font-size: var(--rds-font-size-md, 15px);
-      margin-left: 40px !important;
+      margin-left: var(--rds-spacing-40-px) !important;
     }
     .rds-comments-box__meta {
       font-size: var(--rds-font-size-xs, 13px) !important;
-      margin-left: 40px !important;
+      margin-left: var(--rds-spacing-40-px) !important;
     }
     .rds-comments-box__preview {
       max-width: 180px !important;
-      margin-left: 40px;
+      margin-left: var(--rds-spacing-40-px);
     }
     .rds-comments-box__translate {
       font-size: var(--rds-font-size-xs, 13px);
-      margin-left: 40px;
+      margin-left: var(--rds-spacing-40-px);
     }
   }
 }
@@ -1283,16 +1283,16 @@
 @media (min-width: 700px) and (max-width: 1112px) {
     .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-title {
         font-size: var(--rds-font-size-lg);
-        margin-right: 240px;
+        margin-right: var(--rds-spacing-240);
     }
     .rds-comments-box__comment-content .rds-comments-box__comment-header {
         min-width: 370px;
-        margin-right: 0px !important;
+        margin-right: var(--rds-spacing-0) !important;
     }
   }
   @media (max-width: 420px) {
     .MuiIconButton-root svg {
-        margin-left: 2px;
+        margin-left: var(--rds-spacing-xxs);
     }
   }
 
@@ -1300,7 +1300,7 @@
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 238px;
-        margin-left: 15px;
+        margin-left: var(--rds-spacing-15);
     }
     }
 }
@@ -1309,7 +1309,7 @@
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 301px;
-        margin-left: 15px;
+        margin-left: var(--rds-spacing-15);
     }
     }
 }
@@ -1317,7 +1317,7 @@
 @media (max-width: 1200px) and (min-width: 650px) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
-        margin-left: 3px;
+        margin-left: var(--rds-spacing-micro);
     }
     }
 }
@@ -1327,6 +1327,6 @@
     width: 307px !important;
   }
   .rds-comments-box--typing .rds-comments-box__send-btn {
-    margin-right: 3px !important;
+    margin-right: var(--rds-spacing-micro) !important;
   }
 }

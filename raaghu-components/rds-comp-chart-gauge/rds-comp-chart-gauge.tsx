@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont } from "../chart-utils";
 import "./rds-comp-chart-gauge.scss";
 
 export interface RdsCompGaugeProps {
-    labels: any[];
-    options: any;
-    dataSets: any[];
+    labels: string[];
+    options: ChartConfiguration['options'];
+    dataSets: ChartConfiguration['data']['datasets'];
     id: string;
     titleText?: string;
     subTitleText?: string;
@@ -44,7 +44,7 @@ const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
 
         const centerText = {
             id: "gaugeText",
-            beforeDraw(chart: any) {
+            beforeDraw(chart: Chart) {
                 const { ctx: c, chartArea: { top, width, height } } = chart;
 
                 // Read colors from CSS vars at draw time — responds to theme changes

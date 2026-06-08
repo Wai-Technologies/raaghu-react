@@ -678,12 +678,12 @@ describe('RdsRadio', () => {
       const fieldset = container.querySelector('fieldset');
       expect(fieldset).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsRadio />);
+      const { container } = render(<RdsRadio options={defaultOptions} name="test-radio" label="Select an option" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have legend for label accessibility', () => {
       const { container } = renderWithTheme(

@@ -4,7 +4,7 @@ import "./rds-comp-text-editor.scss";
 
 export interface RdsCompTextEditorProps {
     id?: string;
-    onChange?(value: string, delta: any, source: any, editor: any): any;
+    onChange?(value: string, delta: unknown, source: unknown, editor: unknown): void;
     placeholder?: string;
     readOnly?: boolean;
     value?: string;
@@ -17,20 +17,34 @@ export interface RdsCompTextEditorProps {
     resizable?: boolean;
 }
 
+interface DraftContentState {
+    getPlainText(): string;
+}
+
+interface DraftEditorStateInstance {
+    getCurrentContent(): DraftContentState;
+}
+
 interface EditorDeps {
-    EditorState: any;
-    convertToRaw: any;
-    ContentState: any;
-    Editor: any;
-    draftToHtml: any;
-    htmlToDraft: any;
+    EditorState: {
+        createEmpty(): DraftEditorStateInstance;
+        createWithContent(content: DraftContentState): DraftEditorStateInstance;
+    };
+    convertToRaw: (contentState: DraftContentState) => unknown;
+    ContentState: {
+        createFromBlockArray(contentBlocks: unknown[]): DraftContentState;
+        createFromText(text: string): DraftContentState;
+    };
+    Editor: React.ComponentType<Record<string, unknown>>;
+    draftToHtml: (rawContent: unknown) => string;
+    htmlToDraft: (html: string) => { contentBlocks: unknown[] } | null;
 }
 
 const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
     const [deps, setDeps] = useState<EditorDeps | null>(null);
-    const [editorState, setEditorState] = useState<any>(null);
+    const [editorState, setEditorState] = useState<DraftEditorStateInstance | null>(null);
     const [isTouch, setIsTouch] = useState(false);
-    const editorRef = useRef<any>(null);
+    const editorRef = useRef<unknown>(null);
 
     const rows = typeof props.rows === 'number' && props.rows > 0 ? props.rows : 6;
     const lineHeightVar = 'var(--rds-line-height-body, 26px)';
@@ -45,10 +59,10 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
             import('html-to-draftjs'),
             import('react-draft-wysiwyg/dist/react-draft-wysiwyg.css'),
         ]).then(([draftJs, wysiwyg, draftToHtmlMod, htmlToDraftMod]) => {
-            const { EditorState, convertToRaw, ContentState } = draftJs as any;
-            const { Editor } = wysiwyg as any;
-            const draftToHtml = (draftToHtmlMod as any).default ?? draftToHtmlMod;
-            const htmlToDraft = (htmlToDraftMod as any).default ?? htmlToDraftMod;
+            const { EditorState, convertToRaw, ContentState } = draftJs as unknown as { EditorState: EditorDeps['EditorState']; convertToRaw: EditorDeps['convertToRaw']; ContentState: EditorDeps['ContentState'] };
+            const { Editor } = wysiwyg as unknown as { Editor: EditorDeps['Editor'] };
+            const draftToHtml = ((draftToHtmlMod as Record<string, unknown>).default ?? draftToHtmlMod) as EditorDeps['draftToHtml'];
+            const htmlToDraft = ((htmlToDraftMod as Record<string, unknown>).default ?? htmlToDraftMod) as EditorDeps['htmlToDraft'];
 
             const loadedDeps: EditorDeps = { EditorState, convertToRaw, ContentState, Editor, draftToHtml, htmlToDraft };
             setDeps(loadedDeps);
@@ -83,7 +97,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
         }
     }, [props.value, props.showTitle, deps]);
 
-    const handleEditorChange = (state: any) => {
+    const handleEditorChange = (state: DraftEditorStateInstance) => {
         if (!deps) return;
         setEditorState(state);
         setIsTouch(true);

@@ -23,7 +23,7 @@
       
       .MuiInputBase-input {
         min-width: 350px; // Leave space for icon
-        padding-right: 48px; // Extra padding for icon
+        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
       }
     }
   }
@@ -43,7 +43,7 @@
       
       .MuiInputBase-input {
         min-width: 230px; // Leave space for icon
-        padding-right: 48px; // Extra padding for icon
+        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
       }
     }
   }
@@ -64,7 +64,7 @@
       
       .MuiInputBase-input {
         min-width: 250px; // Leave space for icon
-        padding-right: 48px; // Extra padding for icon
+        padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
       }
     }
   }
@@ -388,9 +388,9 @@
   }
 
   &__helper {
-    margin-top: 6px;
-    padding-left: 14px;
-    padding-right: 14px;
+    margin-top: var(--rds-spacing-compact);
+    padding-left: var(--rds-spacing-14);
+    padding-right: var(--rds-spacing-14);
     font-size: var(--rds-font-size-caption, 0.75rem);
     line-height: 1.25;
     color: var(--rds-color-text-secondary, rgba(0,0,0,0.6));
@@ -538,7 +538,7 @@
       
       .MuiIconButton-root {
         padding: var(--rds-spacing-xs, 8px);
-        margin-right: -8px; // Adjust for proper alignment
+        margin-right: var(--rds-spacing-neg-8); // Adjust for proper alignment
       }
     }
     
@@ -720,11 +720,11 @@
   
   // Range picker styles
   .MuiDateRangePickerDay-root {
-    border-radius: 4px; // Square border radius for range picker days
+    border-radius: var(--rds-border-radius-sm); // Square border radius for range picker days
     
     &.MuiDateRangePickerDay-rangeIntervalDayHighlight {
       background-color: var(--rds-color-primary-hover); // Light blue background for range interval
-      border-radius: 4px; // Square background for range interval
+      border-radius: var(--rds-border-radius-sm); // Square background for range interval
       color: var(--rds-color-primary-dark); // Blue text for range interval
     }
     
@@ -732,7 +732,7 @@
     &.MuiDateRangePickerDay-rangeIntervalDayHighlightEnd {
       background-color: var(--rds-color-primary); // Bright blue background for range start/end
       color: var(--rds-color-on-primary); // White text for range start/end
-      border-radius: 4px; // Square background for range start/end
+      border-radius: var(--rds-border-radius-sm); // Square background for range start/end
     }
     
     // Override circular styles for range picker days
@@ -765,31 +765,31 @@
     
     .MuiPickersYear-root {
       font-weight: var(--rds-font-weight-medium, 500);
-      border-radius: 4px; // Changed from 8px to 4px for square appearance
+      border-radius: var(--rds-border-radius-sm); // Changed from 8px to 4px for square appearance
       margin: var(--rds-spacing-xs);
-      
+
       &:hover {
         background-color: var(--rds-color-primary-hover); // Light blue hover background
         color: var(--rds-color-primary-dark); // Blue text on hover
-        border-radius: 4px; // Square hover state
+        border-radius: var(--rds-border-radius-sm); // Square hover state
       }
-      
+
       &.Mui-selected {
         background-color: var(--rds-color-primary); // Bright blue selected background
         color: var(--rds-color-on-primary); // White text on selected
         font-weight: var(--rds-font-weight-semibold, 600);
-        border-radius: 4px; // Square selected state
-        
+        border-radius: var(--rds-border-radius-sm); // Square selected state
+
         &:hover {
           background-color: var(--rds-color-primary-dark); // Darker blue on selected hover
-          border-radius: 4px; // Square selected hover state
+          border-radius: var(--rds-border-radius-sm); // Square selected hover state
         }
       }
-      
+
       &.MuiPickersYear-yearButton {
         font-size: 1rem;
         padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) var(--rds-spacing-md);
-        border-radius: 4px; // Square button
+        border-radius: var(--rds-border-radius-sm); // Square button
       }
     }
   }
@@ -798,34 +798,34 @@
   .MuiMonthPicker-root {
     background: var(--rds-color-surface);
     border-radius: var(--rds-border-radius-lg);
-    
+
     .MuiPickersMonth-root {
       font-weight: var(--rds-font-weight-medium, 500);
-      border-radius: 4px; // Changed from 8px to 4px for square appearance
+      border-radius: var(--rds-border-radius-sm); // Changed from 8px to 4px for square appearance
       margin: var(--rds-spacing-xs);
-      
+
       &:hover {
         background-color: var(--rds-color-primary-hover); // Light blue hover background
         color: var(--rds-color-primary-dark); // Blue text on hover
-        border-radius: 4px; // Square hover state
+        border-radius: var(--rds-border-radius-sm); // Square hover state
       }
-      
+
       &.Mui-selected {
         background-color: var(--rds-color-primary); // Bright blue selected background
         color: var(--rds-color-on-primary); // White text on selected
         font-weight: var(--rds-font-weight-semibold, 600);
-        border-radius: 4px; // Square selected state
-        
+        border-radius: var(--rds-border-radius-sm); // Square selected state
+
         &:hover {
           background-color: var(--rds-color-primary-dark); // Darker blue on selected hover
-          border-radius: 4px; // Square selected hover state
+          border-radius: var(--rds-border-radius-sm); // Square selected hover state
         }
       }
-      
+
       &.MuiPickersMonth-monthButton {
         font-size: 0.9rem;
         padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-        border-radius: 4px; // Square button
+        border-radius: var(--rds-border-radius-sm); // Square button
       }
     }
   }
@@ -1028,7 +1028,7 @@
   .MuiMultiSectionDigitalClockSection-root {
     .MuiMenuItem-root {
       font-size: 0.8rem !important; // Reduced font size
-      min-height: 32px !important; // Reduced height
+      min-height: var(--rds-size-xl) !important; // Reduced height
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important; // Reduced padding
     }
   }
@@ -1110,14 +1110,14 @@
 
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-esd1yt-MuiPaper-root-MuiPopover-paper {
   left: 16px !important;
-  margin-top: 3px !important;
+  margin-top: var(--rds-spacing-micro) !important;
 }
 
 .rds-date-picker--timerange .MuiStack-root .MuiBox-root .MuiFormControl-root {
     width: 100%;
     min-width: 154px;
     max-width: none;
-    margin-left: -14px;
+    margin-left: var(--rds-spacing-neg-14);
 }
 
 @media (max-width: var(--rds-breakpoint-430)) {

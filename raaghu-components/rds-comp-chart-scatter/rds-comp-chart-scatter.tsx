@@ -4,7 +4,7 @@ import { applyChartThemeColors } from "../chart-utils";
 import "./rds-comp-chart-scatter.scss";
 
 export interface RdsCompScatterChartProps {
-    labels: any[];
+    labels: string[];
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
     id: string;

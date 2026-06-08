@@ -21,6 +21,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   showLabel = false,
   unit,
   value,
+  defaultValue,
   level,
   min = 0,
   max,
@@ -55,6 +56,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   const getInitialValue = () => {
     if (value !== undefined) {
       return value;
+    }
+    if (defaultValue !== undefined) {
+      return defaultValue as number | number[];
     }
     if (isRangeSlider) {
       const midPoint = min + (safeMax - min) * 0.5;

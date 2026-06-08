@@ -16,9 +16,9 @@ export interface RdsCompContributionProps {
   values: { [date: string]: number };
   until: string;
   dateFormat?: string;
-  weekLabelAttributes?: any;
-  monthLabelAttributes?: any;
-  panelAttributes?: any;
+  weekLabelAttributes?: React.SVGProps<SVGTextElement>;
+  monthLabelAttributes?: React.SVGProps<SVGTextElement>;
+  panelAttributes?: React.SVGProps<SVGRectElement>;
   monthLabelHeight?: number;
   weekLabelWidth?: number;
   panelSize?: number;
@@ -252,7 +252,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
 
   return (
     <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
-      {({ measureRef }: any) => (
+      {({ measureRef }: { measureRef: (ref: HTMLDivElement | null) => void }) => (
         <div
           ref={measureRef}
           className="rds-comp-contribution"

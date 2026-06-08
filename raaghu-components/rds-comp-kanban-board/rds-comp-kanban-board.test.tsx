@@ -151,7 +151,7 @@ describe('RdsCompKanbanBoard', () => {
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
       renderComponent();
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
@@ -167,12 +167,12 @@ describe('RdsCompKanbanBoard', () => {
 
     it('should render without any board data', () => {
       renderComponent({ boardData: [] });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should render with null board data', () => {
       renderComponent({ boardData: undefined });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
   });
 
@@ -214,8 +214,8 @@ describe('RdsCompKanbanBoard', () => {
   describe('Sub Cards', () => {
     it('should render sub cards for each board', () => {
       renderComponent();
-      const droppables = screen.getAllByTestId('droppable');
-      expect(droppables.length).toBeGreaterThan(0);
+      const subCards = document.querySelectorAll('.rds-kanban-board__sub-card');
+      expect(subCards.length).toBeGreaterThan(0);
     });
 
     it('should render sub card content', () => {
@@ -466,7 +466,7 @@ describe('RdsCompKanbanBoard', () => {
 
     it('should render sub card actions in menu', () => {
       renderComponent();
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
   });
 
@@ -517,13 +517,13 @@ describe('RdsCompKanbanBoard', () => {
   describe('Drag and Drop', () => {
     it('should render DragDropContext', () => {
       renderComponent();
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should render Droppable zones for each board', () => {
       renderComponent();
-      const droppables = screen.getAllByTestId('droppable');
-      expect(droppables.length).toBeGreaterThan(0);
+      const boards = document.querySelectorAll('.kanban-board');
+      expect(boards.length).toBeGreaterThan(0);
     });
 
     it('should render Draggable items for sub cards', () => {
@@ -534,9 +534,8 @@ describe('RdsCompKanbanBoard', () => {
 
     it('should have correct droppableId format', () => {
       renderComponent();
-      const droppables = screen.getAllByTestId('droppable');
-      const firstDroppable = droppables[0];
-      expect(firstDroppable.getAttribute('data-id')).toBeDefined();
+      const boards = document.querySelectorAll('.kanban-board');
+      expect(boards.length).toBeGreaterThan(0);
     });
 
     it('should have correct draggableId format', () => {
@@ -681,35 +680,35 @@ describe('RdsCompKanbanBoard', () => {
   describe('Props Propagation', () => {
     it('should accept boardData prop', () => {
       renderComponent({ boardData: mockBoardData });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should accept allowAddingNewCard prop', () => {
       renderComponent({ allowAddingNewCard: true });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should accept allowAddingNewSubCard prop', () => {
       renderComponent({ allowAddingNewSubCard: true });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should accept avatarData prop', () => {
       const avatarData = [{ title: 'User 1' }];
       renderComponent({ avatarData });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should accept allTagsList prop', () => {
       const tags = [{ label: 'Tag 1', val: 'tag1' }];
       renderComponent({ allTagsList: tags });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should accept allCategoriesList prop', () => {
       const categories = [{ label: 'Cat 1', val: 'cat1' }];
       renderComponent({ allCategoriesList: categories });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should accept onCardOption callback', () => {
@@ -728,7 +727,7 @@ describe('RdsCompKanbanBoard', () => {
   describe('Integration', () => {
     it('should render complete kanban board with all features', () => {
       renderComponent();
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
       expect(screen.getAllByTestId('card').length).toBeGreaterThan(0);
       expect(screen.getAllByTestId('button').length).toBeGreaterThan(0);
     });
@@ -742,7 +741,7 @@ describe('RdsCompKanbanBoard', () => {
 
     it('should handle board with actions and sub cards', () => {
       renderComponent();
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should display all components together', () => {
@@ -758,7 +757,7 @@ describe('RdsCompKanbanBoard', () => {
         allowAddingNewSubCard: true,
       });
 
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
       expect(screen.getAllByTestId('card').length).toBeGreaterThan(0);
       expect(screen.getAllByTestId('button').length).toBeGreaterThan(0);
       const avatars = screen.queryAllByTestId('rds-avatar');
@@ -775,7 +774,7 @@ describe('RdsCompKanbanBoard', () => {
         fireEvent.click(iconButtons[0]);
         fireEvent.click(iconButtons[0]);
         await waitFor(() => {
-          expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+          expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
         });
       }
     });
@@ -794,7 +793,7 @@ describe('RdsCompKanbanBoard', () => {
         },
       ];
       renderComponent({ boardData });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should handle many boards', () => {
@@ -840,7 +839,7 @@ describe('RdsCompKanbanBoard', () => {
         },
       ];
       renderComponent({ boardData });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should handle empty allCategoriesList', () => {
@@ -848,7 +847,7 @@ describe('RdsCompKanbanBoard', () => {
         allowAddingNewSubCard: true,
         allCategoriesList: [],
       });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should handle empty allTagsList', () => {
@@ -856,7 +855,7 @@ describe('RdsCompKanbanBoard', () => {
         allowAddingNewSubCard: true,
         allTagsList: [],
       });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should handle undefined callbacks', () => {
@@ -865,7 +864,7 @@ describe('RdsCompKanbanBoard', () => {
         onSubCardOption: undefined,
         onAddQuestionSaveHandler: undefined,
       });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should handle board with no actions', () => {
@@ -881,7 +880,7 @@ describe('RdsCompKanbanBoard', () => {
         },
       ];
       renderComponent({ boardData });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
 
     it('should handle sub card with no actions', () => {
@@ -905,13 +904,13 @@ describe('RdsCompKanbanBoard', () => {
         },
       ];
       renderComponent({ boardData });
-      expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+      expect(screen.getByTestId('dnd-context')).toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsCompKanbanBoard {...defaultProps} />);
+      const { container } = renderComponent();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

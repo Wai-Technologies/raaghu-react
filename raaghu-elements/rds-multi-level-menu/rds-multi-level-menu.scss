@@ -15,7 +15,7 @@
 
 @media (max-width: var(--rds-breakpoint-600)) {
   .rds-mlm-paper.rds-mlm-root {
-    margin-top: 43px;
+    margin-top: var(--rds-spacing-43);
   }
 }
 
@@ -95,7 +95,7 @@
 
 
 .rds-mlm-paper .rds-mlm-leading {
-  width: 16px;
+  width: var(--rds-size-md);
   display: inline-flex;
   align-items: center;
   justify-content: center;

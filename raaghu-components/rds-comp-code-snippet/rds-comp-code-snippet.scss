@@ -68,8 +68,8 @@
 
     &__expand-icon {
       font-size: var(--rds-font-size-lg) !important;
-      width: 16px !important;
-      height: 16px !important;
+      width: var(--rds-size-md) !important;
+      height: var(--rds-size-md) !important;
     }
   }
 

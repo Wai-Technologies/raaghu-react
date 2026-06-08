@@ -88,7 +88,7 @@
       height: 12px;
       margin-bottom: var(--rds-spacing-xs, 2px);
       background-color: var(--rds-border-default);
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
     }
   }
   
@@ -117,8 +117,8 @@
     color: var(--rds-primary-main);
     
     svg {
-      width: 16px;
-      height: 16px;
+      width: var(--rds-size-md);
+      height: var(--rds-size-md);
       color: inherit;
     }
     
@@ -146,8 +146,8 @@
       height: 25px;
       padding: var(--rds-spacing-xxs, 2px);
       svg {
-        width: 16px;
-        height: 16px;
+        width: var(--rds-size-md);
+        height: var(--rds-size-md);
       }
     }
   }

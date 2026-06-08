@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
+import { MotionMenuTransition } from '../../raaghu-react-themes/src/motion';
 import './rds-menu.scss'
 
 export interface RdsMenuItem {
@@ -18,6 +19,7 @@ export interface RdsMenuProps extends Omit<MenuProps, 'children'> {
   items: RdsMenuItem[];
   size?: 'small' | 'medium' | 'large';
   children?: ReactNode;
+  animationDuration?: number;
 }
 
 
@@ -25,6 +27,7 @@ const RdsMenu = ({
   items,
   size,
   children,
+  animationDuration = 300,
   ...props
 }: RdsMenuProps) => {
   const dense = size === 'small';
@@ -55,6 +58,8 @@ function getColor(color: string): string {
   return (
       <MuiMenu
         {...props}
+        TransitionComponent={MotionMenuTransition}
+        TransitionProps={{ durationMs: animationDuration } as Record<string, unknown>}
         MenuListProps={{
           ...props.MenuListProps,
           role: 'menu',
@@ -99,11 +104,11 @@ function getColor(color: string): string {
                 >
                   {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
                     ? React.cloneElement(
-                        item.icon as React.ReactElement<any>,
+                        item.icon as React.ReactElement<Record<string, unknown>>,
                         {
                           ...(item.icon.props || {}),
                           style: {
-                            ...((item.icon as React.ReactElement<any>).props?.style || {}),
+                            ...((item.icon as React.ReactElement<Record<string, unknown>>).props?.style || {}),
                             color: item.color ? getColor(item.color) : undefined,
                             fill: item.color ? getColor(item.color) : undefined
                           }

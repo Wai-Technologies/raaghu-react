@@ -152,4 +152,6 @@ export const NoWrap: Story = {
   },
 };
 
+export const Default: Story = { ...Heading1 };
+
 

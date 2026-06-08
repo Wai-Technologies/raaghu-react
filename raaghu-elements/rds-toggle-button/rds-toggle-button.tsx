@@ -68,7 +68,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       : 'rds-toggle-button--small';
 
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: any) => {
+  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string | string[] | null) => {
     const finalValue = newValue;
     
     if (enforceSelected) {

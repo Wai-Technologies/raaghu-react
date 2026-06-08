@@ -64,8 +64,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   const merged = { ...variantDefaults, ...props };
   
   const allowedButtonStyles = ['filled', 'outlined', 'transparent'] as const;
-  const getRdsButtonStyle = (style: any) =>
-    allowedButtonStyles.includes(style) ? style : 'filled';
+  const getRdsButtonStyle = (style: string) =>
+    allowedButtonStyles.includes(style as typeof allowedButtonStyles[number]) ? style as typeof allowedButtonStyles[number] : 'filled';
 
   const {
     showHeader,

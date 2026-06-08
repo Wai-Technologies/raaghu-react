@@ -5,35 +5,46 @@ import millionConfig from './million.config'
 import path from "path";
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [
-    million.vite(millionConfig),
-    react(),
-  ],
-  build: {
-    lib: {
-      // Use the main index.ts file as entry point
-      entry: path.resolve(__dirname, 'index.ts'),
-      name: 'RaaghuReact',
-      fileName: (format) => `raaghu-react.${format}.js`
-    },
-    rollupOptions: {
-      // Externalize peer dependencies
-      external: ['react', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled'],
-      output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          '@mui/material': 'MuiMaterial',
-          '@emotion/react': 'EmotionReact',
-          '@emotion/styled': 'EmotionStyled'
+export default defineConfig(({ command }) => {
+  // Only load vite-plugin-dts during `vite build` — Storybook uses `vite serve`
+  // and api-extractor (bundled in vite-plugin-dts) is not needed there.
+  const dtsPlugin = command === 'build'
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    ? [require('vite-plugin-dts').default({
+        include: ['index.ts', 'raaghu-elements', 'raaghu-components', 'raaghu-layouts', 'raaghu-react-themes', 'utils'],
+        insertTypesEntry: true,
+      })]
+    : [];
+
+  return {
+    plugins: [
+      million.vite(millionConfig),
+      react(),
+      ...dtsPlugin,
+    ],
+    build: {
+      lib: {
+        entry: path.resolve(__dirname, 'index.ts'),
+        name: 'RaaghuReact',
+        fileName: (format) => `raaghu-react.${format}.js`
+      },
+      rollupOptions: {
+        external: ['react', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled'],
+        output: {
+          globals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
+            '@mui/material': 'MuiMaterial',
+            '@emotion/react': 'EmotionReact',
+            '@emotion/styled': 'EmotionStyled'
+          }
         }
-      }
+      },
+      sourcemap: true,
+      emptyOutDir: true,
     },
-    sourcemap: true,
-    emptyOutDir: true,
-  },
-  optimizeDeps: {
-    include: ["chart.js"],
-  }
-  })
+    optimizeDeps: {
+      include: ["chart.js"],
+    },
+  };
+})

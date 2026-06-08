@@ -526,12 +526,12 @@ describe('RdsCheckbox', () => {
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCheckbox {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should be keyboard accessible', () => {
       renderWithTheme(<RdsCheckbox {...defaultProps} />);

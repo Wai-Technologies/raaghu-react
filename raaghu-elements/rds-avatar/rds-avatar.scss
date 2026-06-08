@@ -252,14 +252,14 @@
 }
 
 .plus-indecator-smallest {
-  width: 24px;
-  height: 24px;
+  width: var(--rds-size-lg);
+  height: var(--rds-size-lg);
   font-size: var(--rds-font-size-caption, 8px);
 }
 
 .plus-indecator-small {
-  width: 32px;
-  height: 32px;
+  width: var(--rds-size-xl);
+  height: var(--rds-size-xl);
   font-size: var(--rds-font-size-caption, 11px);
 }
 
@@ -276,8 +276,8 @@
 }
 
 .plus-indecator-largest {
-  width: 64px;
-  height: 64px;
+  width: var(--rds-size-3xl);
+  height: var(--rds-size-3xl);
   font-size: var(--rds-font-size-xl);
 }
 

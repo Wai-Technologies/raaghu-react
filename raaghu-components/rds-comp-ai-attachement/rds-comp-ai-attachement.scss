@@ -9,8 +9,8 @@
     --rds-ai-attachment-transform-y: 97.5px;
 
     &__icon {
-        height: 32px;
-        width: 32px;
+        height: var(--rds-size-xl);
+        width: var(--rds-size-xl);
     }
 
     &__dropdown {

@@ -143,3 +143,5 @@ export const CardSkeleton: Story = {
   ),
 };
 
+export const Default: Story = { ...Text };
+

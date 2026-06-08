@@ -34,8 +34,8 @@
     }
 
     .MuiAvatar-root {
-      width: 24px;
-      height: 24px;
+      width: var(--rds-size-lg);
+      height: var(--rds-size-lg);
     }
 
     .MuiCheckbox-root,
@@ -78,14 +78,14 @@
 
   &--small {
     .MuiInputBase-root {
-      height: 32px !important;
-      min-height: 32px !important;
+      height: var(--rds-size-xl) !important;
+      min-height: var(--rds-size-xl) !important;
       font-size: var(--rds-font-size-small, 14px) !important;
     }
 
     .MuiInputBase-input {
-      height: 16px !important;
-      min-height: 16px !important;
+      height: var(--rds-size-md) !important;
+      min-height: var(--rds-size-md) !important;
       font-size: var(--rds-font-size-small, 14px) !important;
       box-sizing: border-box;
       padding-top: 0;
@@ -112,8 +112,8 @@
     }
 
     .MuiInputBase-input {
-      height: 24px !important;
-      min-height: 24px !important;
+      height: var(--rds-size-lg) !important;
+      min-height: var(--rds-size-lg) !important;
       font-size: var(--rds-font-size-body, 16px) !important;
       box-sizing: border-box;
       padding-top: 0;
@@ -127,7 +127,7 @@
       margin-bottom: 0 !important;
       display: inline-flex;
       align-items: center;
-      height: 24px;
+      height: var(--rds-size-lg);
     }
   }
 
@@ -161,7 +161,7 @@
   &__label {
     &--small {
       font-size: var(--rds-font-size-caption, 0.9rem) !important;
-      margin-bottom: 2px !important;
+      margin-bottom: var(--rds-spacing-xxs) !important;
     }
 
     &--medium {
@@ -171,7 +171,7 @@
 
     &--large {
       font-size: var(--rds-font-size-subheading, 1.1rem) !important;
-      margin-bottom: 6px !important;
+      margin-bottom: var(--rds-spacing-compact) !important;
     }
   }
 
@@ -187,19 +187,19 @@
   }
 
   .MuiAutocomplete-hasPopupIcon.css-n3hv1h-MuiAutocomplete-root .MuiFilledInput-root, .MuiAutocomplete-hasClearIcon.css-n3hv1h-MuiAutocomplete-root .MuiFilledInput-root {
-    padding-bottom: 20px;
+    padding-bottom: var(--rds-spacing-20-px);
   }
 
   .css-1jcag7i-MuiAutocomplete-root, .css-1koemet {
     .MuiFilledInput-root {
-      padding-top: 0px !important;
+      padding-top: var(--rds-spacing-0) !important;
     }
   }
 
   .MuiFormHelperText-root {
     margin-left: 0 !important;
     min-height: 20px !important;
-    margin-top: 3px !important;
+    margin-top: var(--rds-spacing-micro) !important;
     margin-bottom: 0 !important;
     line-height: 1.2 !important;
   }

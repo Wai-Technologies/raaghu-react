@@ -510,12 +510,12 @@ describe('RdsRating', () => {
       const ratingElement = container.querySelector('.rds-rating__stars');
       expect(ratingElement).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsRating />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have proper ARIA labels for slider', () => {
       const { container } = renderWithTheme(

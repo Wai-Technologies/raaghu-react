@@ -673,12 +673,12 @@ describe('RdsTypography', () => {
       const heading = container.querySelector('h1[role="heading"]');
       expect(heading || container.querySelector('h1')).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsTypography />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should support aria attributes', () => {
       const { container } = renderWithTheme(

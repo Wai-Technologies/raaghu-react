@@ -62,7 +62,7 @@ const RdsTabs = ({
     return result;
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: any) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: string | number) => {
     if (onTabChange) {
       onTabChange(newValue);
     }

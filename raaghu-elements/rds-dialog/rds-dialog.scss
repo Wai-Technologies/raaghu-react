@@ -67,7 +67,7 @@
       text-align: center;
       color: var(--rds-text-primary);
       gap: var(--rds-spacing-md);
-      margin-top: 6px;
+      margin-top: var(--rds-spacing-compact);
       flex: 1 1 auto;
       overflow: hidden;
     }

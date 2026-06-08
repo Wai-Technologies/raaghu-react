@@ -121,7 +121,7 @@
     padding: var(--rds-spacing-xs, 4px);
     border-radius: var(--rds-border-radius-md, 8px) !important;
     box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15)) !important;
-    margin-top: 2px;
+    margin-top: var(--rds-spacing-xxs);
     min-width: auto;
     width: var(--rds-size-sm, 45px);
   }
@@ -182,9 +182,9 @@
     flex-shrink: 0;
     transition: all var(--rds-transition-base);
     cursor: pointer;
-    min-width: 32px !important;
-    width: 32px !important;
-    height: 32px !important;
+    min-width: var(--rds-size-xl) !important;
+    width: var(--rds-size-xl) !important;
+    height: var(--rds-size-xl) !important;
     padding: 0 !important;
     border-radius: var(--rds-border-radius-xl, 16px) !important;
     background-color: transparent;

@@ -113,7 +113,7 @@
 
   &__divider {
     width: 1px;
-    height: 24px;
+    height: var(--rds-size-lg);
     background: var(--rds-color-outline);
     margin: 0 var(--rds-spacing-xs, 4px);
   }
@@ -125,12 +125,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 16px;
-    min-height: 16px;
+    min-width: var(--rds-size-md);
+    min-height: var(--rds-size-md);
     text-align: center;
     color: inherit;
     font-family: var(--rds-font-family-base);
-    
+
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -143,8 +143,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 16px;
-    min-height: 16px;
+    min-width: var(--rds-size-md);
+    min-height: var(--rds-size-md);
     text-align: center;
     color: inherit;
     font-family: var(--rds-font-family-base);
@@ -156,8 +156,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 32px;
-    height: 32px;
+    min-width: var(--rds-size-xl);
+    height: var(--rds-size-xl);
     padding: var(--rds-spacing-sm, 6px);
     border: none;
     background: transparent;
@@ -429,8 +429,8 @@
     padding: var(--rds-spacing-xs, 3px) var(--rds-spacing-xs, 4px);
     
     &__button {
-      min-width: 24px;
-      height: 24px;
+      min-width: var(--rds-size-lg);
+      height: var(--rds-size-lg);
       padding: var(--rds-spacing-xs, 2px);
       flex-shrink: 0;
 

@@ -18,7 +18,7 @@ const darkStyle = {
   },
 };
 
-const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<any>;
+const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<Record<string, unknown>>;
 
 export interface RdsCompCodeSnippetProps {
   code?: string;

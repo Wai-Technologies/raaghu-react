@@ -315,4 +315,6 @@ export const NotFullWidth: Story = {
   },
 };
 
+export const Default: Story = { ...Info };
+
 

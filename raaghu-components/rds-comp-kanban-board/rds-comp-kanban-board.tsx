@@ -30,14 +30,16 @@ import {
   createEventHandlers,
   createDragEndHandler,
   colorClass,
+  KanbanSubCard,
+  KanbanAction,
 } from './kanban-board-helpers.tsx';
 
 interface SortableSubCardProps {
-  subCard: any;
+  subCard: KanbanSubCard;
   subCardIndex: number;
   boardIndex: number;
   avatarData?: Array<{ title: string; subText?: string; src?: string }>;
-  toggleSubCardDropdown: (id: number, e: React.MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => void;
+  toggleSubCardDropdown: (id: number, e: React.MouseEvent<HTMLElement>, subCard: KanbanSubCard, cardIndex: number) => void;
 }
 
 const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggleSubCardDropdown }: SortableSubCardProps) => {
@@ -270,7 +272,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                   onChange={(e) => handleAddQuestionDataChanges(e.target.value, "supportCategoryId")}
                                   MenuProps={{ PaperProps: { className: "rds-kanban-board__select-menu" } }}
                                 >
-                                  {props?.allCategoriesList?.map((category: any, idx: number) => (
+                                  {(props?.allCategoriesList as Array<{ val: string | number; label: string }> | undefined)?.map((category, idx: number) => (
                                     <MenuItem key={idx} value={category.val}>{category.label}</MenuItem>
                                   ))}
                                 </Select>
@@ -280,8 +282,8 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                               <Autocomplete
                                 multiple
                                 size="small"
-                                options={props.allTagsList || []}
-                                getOptionLabel={(option: any) => option.label}
+                                options={props.allTagsList as Array<{ label: string }> || []}
+                                getOptionLabel={(option: { label: string }) => option.label}
                                 value={addQuestionData?.supportTagIds || []}
                                 onChange={(_event, value) => onSelectedCreators(value)}
                                 className="rds-kanban-board__autocomplete"
@@ -337,7 +339,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
         <MenuItem onClick={() => handleCardOptionClick("delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">
           <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
         </MenuItem>
-        {selectedCard?.actions?.map((option: any, optIndex: number) => (
+        {selectedCard?.actions?.map((option: KanbanAction, optIndex: number) => (
           <MenuItem key={optIndex} onClick={() => handleCardOptionClick(option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">
             {option.key}
           </MenuItem>
@@ -353,7 +355,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{ className: "rds-kanban-board__menu-paper" }}
       >
-        {selectedSubCard?.actions?.map((option: any, optIndex: number) => (
+        {selectedSubCard?.actions?.map((option: KanbanAction, optIndex: number) => (
           <MenuItem key={optIndex} onClick={() => handleOptionClick(option.value, selectedCardIndex, selectedSubCard?.SubcardId)} className="rds-kanban-board__menu-item">
             {option.key}
           </MenuItem>

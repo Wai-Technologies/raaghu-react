@@ -134,7 +134,7 @@
       justify-content: center;
       width: var(--rds-progress-step-size);
       height: var(--rds-progress-step-size);
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
       border: 2px solid var(--rds-color-gray-300);
       background-color: var(--rds-color-white);
       transition: all var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
@@ -256,7 +256,7 @@
       .rds-progress__stepper-inner-dot {
         width: var(--rds-progress-inner-dot-size);
         height: var(--rds-progress-inner-dot-size);
-        border-radius: 50%;
+        border-radius: var(--rds-border-radius-pill);
         border: 2px solid var(--rds-color-gray-600);
         background: transparent;
         transition: all var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));

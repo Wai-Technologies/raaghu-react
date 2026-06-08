@@ -39,7 +39,7 @@ const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({
     classList.push(`rds-comp-truncate-text--lines-${lines}`);
   }
 
-  const wrapperProps: any = {
+  const wrapperProps: React.HTMLAttributes<HTMLDivElement> = {
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     className: classList.join(' '),

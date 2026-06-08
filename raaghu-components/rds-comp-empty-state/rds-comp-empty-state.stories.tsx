@@ -65,4 +65,6 @@ export const Standard: Story = {
   },
 };
 
+export const Default: Story = { ...Standard };
+
 

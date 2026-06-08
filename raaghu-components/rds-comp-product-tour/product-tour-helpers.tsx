@@ -19,7 +19,7 @@ export interface RdsCompProductTourProps {
     showVisualPlaceholder?: boolean;
     slides?: { id: number; imgUrl: string; }[];
     formTitle?: string;
-    tabTitle?: any[];
+    tabTitle?: string[];
     onClose?: () => void;
 }
 
@@ -88,8 +88,8 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
 
 export const renderNavigationButtons = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, variant = 'default') => (
     <Box className={`rds-comp-product-tour__arrows rds-comp-product-tour__arrows--${variant}`}>
-        {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
+        {showSecondaryButton && <button aria-label="Previous" onClick={goPrev} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
+        {showPrimaryButton && <button aria-label="Next" onClick={goNext} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
     </Box>
 );
 

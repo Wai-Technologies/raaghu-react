@@ -507,12 +507,12 @@ describe('RdsBackdrop', () => {
       const { container } = render(<RdsBackdrop open={true} />);
       expect(container.querySelector('.MuiBackdrop-root')).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsBackdrop {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should render with proper ARIA role', () => {
       const { container } = render(<RdsBackdrop open={true} />);

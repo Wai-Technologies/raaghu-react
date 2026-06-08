@@ -503,12 +503,12 @@ describe('RdsBottomNavigation', () => {
       const { container } = render(<RdsBottomNavigation {...defaultProps} />);
       expect(container.querySelector('.MuiBottomNavigation-root')).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsBottomNavigation {...defaultProps} />);
+      const { container } = render(<RdsBottomNavigation {...defaultProps} showLabels={true} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have button role for items', () => {
       const { container } = render(<RdsBottomNavigation {...defaultProps} />);

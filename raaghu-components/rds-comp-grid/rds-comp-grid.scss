@@ -950,9 +950,9 @@
   
   // Style common HTML elements
   img {
-    max-width: 24px;
-    max-height: 24px;
-    border-radius: 50%;
+    max-width: var(--rds-size-lg);
+    max-height: var(--rds-size-lg);
+    border-radius: var(--rds-border-radius-pill);
     vertical-align: middle;
     margin-right: var(--rds-spacing-sm, 8px);
   }
@@ -1017,8 +1017,8 @@
     justify-content: center;
     width: 20px;
     height: 20px;
-    border-radius: 50%;
-    
+    border-radius: var(--rds-border-radius-pill);
+
     &.verified {
       background-color: var(--rds-success-main);
       color: white;
@@ -1361,7 +1361,7 @@
     align-items: center;
     gap: var(--rds-spacing-xxs);
     padding: 0 var(--rds-spacing-xxs);
-    min-height: 16px;
+    min-height: var(--rds-size-md);
     border-radius: var(--rds-border-radius-xs);
     transition: background-color 0.2s;
 

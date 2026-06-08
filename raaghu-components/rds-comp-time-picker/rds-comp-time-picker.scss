@@ -44,7 +44,7 @@
     .time-input {
   height: 34px;
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-  padding-right: 34px;
+  padding-right: var(--rds-spacing-34);
       border: 1px solid var(--rds-border-subtle);
       border-radius: var(--rds-border-radius-sm);
       text-align: left;
@@ -337,7 +337,7 @@
         font-weight: 600;
         color: var(--rds-time-picker-accent);
         min-width: 45px;
-        margin-left: 5px;
+        margin-left: var(--rds-spacing-tight);
         display: flex;
         align-items: center;
         justify-content: center;
