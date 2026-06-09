@@ -56,6 +56,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     if (value !== undefined) {
       return value;
     }
+    if (props.defaultValue !== undefined) {
+      return props.defaultValue;
+    }
     if (isRangeSlider) {
       const midPoint = min + (safeMax - min) * 0.5;
       const range = (safeMax - min) * 0.2;
@@ -141,6 +144,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
         onChange={handleChange}
           min={min}
           max={safeMax}
+          aria-label={(props as any)['aria-label'] ?? label ?? 'Slider'}
           {...props}
           step={sliderStep}
           marks={sliderMarks}

@@ -617,12 +617,13 @@ describe('RdsSearch', () => {
       const searchButton = screen.getByLabelText('search');
       expect(searchButton).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsSearch />);
+      const { container } = renderWithTheme(<RdsSearch value="" onChange={() => {}} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have accessible clear button', () => {
       renderWithTheme(

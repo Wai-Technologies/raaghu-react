@@ -53,6 +53,7 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
             icon={item.icon}
             disabled={item.disabled}
             showLabel={showLabels}
+            aria-label={item.label}
           />
         ))}
       </MuiBottomNavigation>

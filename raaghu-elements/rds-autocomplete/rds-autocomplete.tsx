@@ -147,13 +147,14 @@ const RdsAutocomplete = <T extends { label?: string },>({
   value={selected}
   onChange={(_, value) => setSelected(value)}
         renderOption={(optionProps, option, { selected: checked }) => {
+          const { key: optionKey, ...optionLiProps } = optionProps;
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
           const singleMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length === 1;
           const multiMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length > 1;
           const labelGap = multiMode ? 2 : (singleMode && isShowUser ? 6 : (singleMode ? 4 : 8));
           if (showDefault) {
             return (
-              <li {...optionProps}>
+              <li key={optionKey} {...optionLiProps}>
                 <Box sx={{ display: 'flex', alignItems: 'center', p: 0, ml: 0.2, mr: 3, gap: 1.5 }}>
                   <span>{(option as any).label || option}</span>
                 </Box>
@@ -161,7 +162,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             );
           }
           return (
-            <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
+            <li key={optionKey} {...optionLiProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>
                 {(isShowCheckbox) && (
                   <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
@@ -194,6 +195,10 @@ const RdsAutocomplete = <T extends { label?: string },>({
               error={error}
               variant={variant}
               className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
+              inputProps={{
+                ...params.inputProps,
+                'aria-label': label || placeholder || 'Autocomplete',
+              }}
               onFocus={(e) => {
                 if (openOnFocus && state !== 'expanded') {
                   setOpen(true);

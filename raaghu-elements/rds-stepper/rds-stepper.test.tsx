@@ -618,7 +618,7 @@ describe('RdsStepper', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsStepper />);
+      const { container } = renderWithTheme(<RdsStepper steps={createSteps(3)} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

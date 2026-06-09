@@ -620,7 +620,7 @@ describe('RdsList', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsList />);
+      const { container } = renderWithTheme(<RdsList items={defaultItems} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

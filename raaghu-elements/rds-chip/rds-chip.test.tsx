@@ -586,12 +586,13 @@ describe('RdsChip', () => {
       const chip = screen.getByRole('button');
       expect(chip).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsChip {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should be keyboard accessible', () => {
       const onClick = jest.fn();

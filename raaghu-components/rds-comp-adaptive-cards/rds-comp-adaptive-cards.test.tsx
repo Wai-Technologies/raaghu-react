@@ -144,6 +144,16 @@ jest.mock('../../raaghu-elements/rds-chip/rds-chip', () => {
   };
 });
 
+jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
+  return function MockRdsButton({ text, onClick, className, disabled, style, fullWidth, textCase, sx, ...props }: any) {
+    return (
+      <button onClick={onClick} className={className} disabled={disabled} data-testid="rds-button-standalone" {...props}>
+        {text}
+      </button>
+    );
+  };
+});
+
 jest.mock('@mui/material', () => ({
   CardHeader: ({ title, action, className, ...props }: any) => (
     <div className={className} data-testid="card-header" {...props}>
@@ -883,12 +893,13 @@ describe('RdsCompAdaptiveCards', () => {
       const button = screen.getByRole('button', { hidden: true });
       expect(button).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAdaptiveCards />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('renders form inputs with proper labels', () => {
       render(

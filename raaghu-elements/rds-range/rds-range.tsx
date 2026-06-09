@@ -177,6 +177,7 @@ const RdsRange= ({
         min={min}
         max={max}
         step={props.step}
+        aria-label={props['aria-label'] ?? label ?? 'Range slider'}
         {...props}
       />
       {showLabel && (

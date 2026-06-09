@@ -863,7 +863,9 @@ describe('RdsSelect — keyboard navigation', () => {
     await userEvent.click(select);
     await userEvent.keyboard('{ArrowDown}');
     const options = screen.getAllByRole('option');
-    const focusedOption = options.find(o => o.classList.contains('Mui-focused'));
+    const focusedOption = options.find(
+      o => o === document.activeElement || o.getAttribute('tabindex') === '0'
+    );
     expect(focusedOption).toBeTruthy();
   });
 

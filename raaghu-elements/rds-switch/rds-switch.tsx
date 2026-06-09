@@ -80,12 +80,31 @@ const RdsSwitch = ({
 
   const { defaultChecked: _, ...restProps } = props;
 
+  const computedAriaLabel =
+    (props as any)['aria-label'] ||
+    (typeof label === 'string' ? label : undefined) ||
+    'Switch';
+
   const switchProps: SwitchProps = {
     ...restProps,
     checked: isControlled ? props.checked : internalChecked,
     disabled,
     onChange: handleChange,
     className: styleClass + (props.className ? ` ${props.className}` : ''),
+    inputProps: {
+      ...(restProps as any).inputProps,
+      'aria-label':
+        ((restProps as any).inputProps && (restProps as any).inputProps['aria-label']) ||
+        computedAriaLabel,
+    },
+    slotProps: {
+      ...(restProps as any).slotProps,
+      input: {
+        ...((restProps as any).slotProps?.input ?? {}),
+        'aria-label':
+          ((restProps as any).slotProps?.input?.['aria-label']) || computedAriaLabel,
+      },
+    } as any,
   };
 
   if (showLabel === false) {

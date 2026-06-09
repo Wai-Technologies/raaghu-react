@@ -729,7 +729,7 @@ describe('RdsStack', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsStack />);
+      const { container } = render(<RdsStack><div>Content</div></RdsStack>);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

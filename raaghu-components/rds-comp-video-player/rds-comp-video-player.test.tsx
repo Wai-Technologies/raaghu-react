@@ -11,8 +11,9 @@ import { axe } from 'jest-axe';
 jest.mock('./rds-comp-video-player.scss', () => ({}));
 
 // Mock ReactPlayer
-jest.mock('react-player', () => {
-  return function MockReactPlayer({
+jest.mock('react-player', () => ({
+  __esModule: true,
+  default: function MockReactPlayer({
     url,
     playing,
     muted,
@@ -41,8 +42,8 @@ jest.mock('react-player', () => {
         Video Player
       </div>
     );
-  };
-});
+  },
+}));
 
 describe('RdsCompVideoPlayer', () => {
   const defaultProps: RdsVideoPlayerProps = {
@@ -51,9 +52,9 @@ describe('RdsCompVideoPlayer', () => {
   };
 
   describe('Basic Rendering', () => {
-    it('should render component without crashing', () => {
+    it('should render component without crashing', async () => {
       render(<RdsCompVideoPlayer {...defaultProps} />);
-      expect(screen.getByTestId('react-player')).toBeInTheDocument();
+      expect(await screen.findByTestId('react-player')).toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {

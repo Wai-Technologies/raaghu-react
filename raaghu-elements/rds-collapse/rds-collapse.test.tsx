@@ -518,12 +518,13 @@ describe('RdsCollapse', () => {
       const toggleButton = screen.getByRole('button');
       expect(toggleButton).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCollapse {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should be keyboard accessible', () => {
       const onToggle = jest.fn();

@@ -85,6 +85,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
             multiple={multiple}
             disabled={disabled}
             onChange={handleFileSelect}
+            aria-label="Choose file"
           />
         </RdsButton>
         <Typography

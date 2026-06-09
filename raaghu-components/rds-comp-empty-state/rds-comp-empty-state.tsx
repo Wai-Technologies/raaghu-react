@@ -73,6 +73,13 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
               component="h5"
               className="rds-comp-empty-state__title"
               data-testid="labelElement"
+              style={{
+                color: props.mode === 'Dark NRA' ? '#ffffff' : '#000000',
+                fontSize: '20px',
+                fontWeight: 600,
+                marginBottom: '8px',
+                marginTop: '24px',
+              }}
               sx={{
                 fontSize: '20px',
                 fontWeight: 600,
@@ -90,9 +97,13 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
               variant="body1"
               className="rds-comp-empty-state__subtitle"
               data-testid="sublabelElement"
+              style={{
+                textAlign: 'center',
+                color: props.mode === 'Dark NRA' ? '#ffffff' : '#000000',
+              }}
               sx={{ 
-                textAlign: 'center', 
-                color: props.mode === 'Dark NRA' ? 'var(--rds-neutral-0)' : 'var(--rds-text-primary)'
+                textAlign: 'center',
+                color: props.mode === 'Dark NRA' ? 'var(--rds-neutral-0)' : 'var(--rds-text-primary)',
               }}
             >
               {props.subLabel}

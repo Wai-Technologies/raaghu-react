@@ -695,7 +695,7 @@ describe('RdsTimeline', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsTimeline />);
+      const { container } = renderWithTheme(<RdsTimeline items={mockItems} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

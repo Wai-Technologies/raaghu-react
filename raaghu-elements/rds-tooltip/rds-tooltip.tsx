@@ -45,6 +45,15 @@ const RdsTooltip= ({
     ...(tooltipStyle || {}),
   } as React.CSSProperties;
 
+  const { onOpen, onClose, ...restProps } = props;
+
+  const handleFocus = (e: React.FocusEvent) => {
+    if (onOpen) onOpen(e as any);
+  };
+  const handleBlur = (e: React.FocusEvent) => {
+    if (onClose) onClose(e as any);
+  };
+
   return (
     <MuiTooltip
       title={title ?? label}
@@ -52,9 +61,17 @@ const RdsTooltip= ({
       arrow={arrow}
       classes={{ popper: tooltipClass }}
       sx={customStyle}
-      {...props}
+      onOpen={onOpen}
+      onClose={onClose}
+      {...restProps}
     >
-      <span className="rds-tooltip__wrapper">{children}</span>
+      <span
+        className="rds-tooltip__wrapper"
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      >
+        {children}
+      </span>
     </MuiTooltip>
   );
 };

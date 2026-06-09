@@ -16,6 +16,7 @@ jest.mock('react-datepicker', () => {
       <div data-testid="date-picker-container" className={className}>
         <input
           data-testid="date-picker-input"
+          aria-label="Date picker"
           value={selected ? new Date(selected).toLocaleDateString() : ''}
           onChange={(e) => {
             if (onChange) {
@@ -29,11 +30,13 @@ jest.mock('react-datepicker', () => {
           <>
             <input
               data-testid="start-date-input"
+              aria-label="Start date"
               value={startDate ? new Date(startDate).toLocaleDateString() : ''}
               readOnly
             />
             <input
               data-testid="end-date-input"
+              aria-label="End date"
               value={endDate ? new Date(endDate).toLocaleDateString() : ''}
               readOnly
             />
@@ -89,7 +92,23 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
     return fourteenDaysAgo;
   },
   renderDatePickerStateView: () => <div data-testid="state-view" />,
-  renderDatePickerTypeView: () => <div data-testid="type-view" />,
+  renderDatePickerTypeView: (
+    _type: any,
+    _startDate: any,
+    _endDate: any,
+    _handlerDateChange: any,
+    _onRangeChange: any,
+    props: any = {}
+  ) => (
+    <div data-testid="type-view">
+      <input
+        data-testid="date-picker-input"
+        type="text"
+        aria-label="Date picker"
+        disabled={props?.isDisabled || props?.disabled}
+      />
+    </div>
+  ),
 }));
 
 describe('RdsDatepicker', () => {

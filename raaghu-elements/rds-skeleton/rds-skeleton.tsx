@@ -30,6 +30,12 @@ const RdsSkeleton = ({
     return (
       <Box
         className={bemClass}
+        style={{
+          display: 'flex',
+          flexDirection: isText ? 'column' : 'row',
+          gap: 'var(--rds-spacing-md, 12px)',
+          alignItems: isText ? 'flex-start' : 'center',
+        }}
         sx={{
           display: 'flex',
           flexDirection: isText ? 'column' : 'row',

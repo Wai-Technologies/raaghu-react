@@ -237,7 +237,7 @@ const RdsSidebar = ({
             );
 
             return (
-              <div key={index}>
+              <React.Fragment key={index}>
                 <ListItem disablePadding className={navItemClasses}>
                   {shouldShowIconsOnly && item.icon ? (
                     <RdsTooltip 
@@ -252,6 +252,7 @@ const RdsSidebar = ({
                   )}
                 </ListItem>
                 {item.children && item.children.length > 0 && (
+                  <ListItem disablePadding component="li" sx={{ display: 'block', p: 0 }}>
                   <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       {item.children.map((child, cIdx) => {
@@ -294,8 +295,9 @@ const RdsSidebar = ({
                       })}
                     </List>
                   </Collapse>
+                  </ListItem>
                 )}
-              </div>
+              </React.Fragment>
             );
           })}
         </List>

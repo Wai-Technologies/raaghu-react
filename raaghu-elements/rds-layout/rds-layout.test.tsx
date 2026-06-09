@@ -574,12 +574,17 @@ describe('RdsLayout', () => {
       const main = container.querySelector('main');
       expect(main).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsLayout />);
+      const { container } = renderWithTheme(
+        <RdsLayout>
+          <div>Content</div>
+        </RdsLayout>
+      );
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should render proper semantic structure', () => {
       const { container } = renderWithTheme(

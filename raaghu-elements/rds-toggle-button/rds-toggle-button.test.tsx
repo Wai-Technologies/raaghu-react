@@ -855,12 +855,13 @@ describe('RdsToggleButton', () => {
       const buttons = container.querySelectorAll('[aria-label]');
       expect(buttons.length).toBeGreaterThan(0);
   
+    });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsToggleButton />);
+      const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have aria-pressed on buttons', () => {
       const { container } = renderWithTheme(

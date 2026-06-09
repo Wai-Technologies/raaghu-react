@@ -127,6 +127,7 @@ const RdsFileUploader = ({
             onChange={handleFileSelect}
             style={{ display: 'none' }}
             disabled={disabled}
+            aria-label={title || 'File upload'}
           />
 
           {style === 'Drop Area - Side Icon' ? (

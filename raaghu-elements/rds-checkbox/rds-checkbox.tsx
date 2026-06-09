@@ -16,6 +16,7 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
 const RdsCheckbox = ({
   labeltext,
   isDisabled = false,
+  disabled,
   style = 'square',
   state = 'default',
   status,
@@ -26,6 +27,7 @@ const RdsCheckbox = ({
   onChange,
   ...props
 }:RdsCheckboxProps) => {
+  const isCheckboxDisabled = Boolean(disabled) || isDisabled || state === 'disabled';
   const getInitialCheckedState = () => {
     if (status !== undefined) {
       return status === 'checked';
@@ -59,7 +61,7 @@ const RdsCheckbox = ({
     const classes = ['rds-checkbox'];
     if (style) classes.push(`rds-checkbox__${style}`);
     if (checked) classes.push('rds-checkbox__checked');
-    if (isDisabled || state === 'disabled') classes.push('rds-checkbox__disabled');
+    if (isCheckboxDisabled) classes.push('rds-checkbox__disabled');
     if (currentIndeterminate) classes.push('rds-checkbox__indeterminate');
     if (state && state !== 'default') classes.push(`rds-checkbox__${state}`);
     if (color && color !== 'default') classes.push(`rds-checkbox__${color}`);
@@ -72,11 +74,11 @@ const RdsCheckbox = ({
   const checkbox = (
     <MuiCheckbox
       checked={checked}
-      disabled={isDisabled || state === 'disabled'}
       indeterminate={currentIndeterminate}
       color={color}
       onChange={handleChange}
       {...props}
+      disabled={isCheckboxDisabled}
     />
   );
 
@@ -86,7 +88,7 @@ const RdsCheckbox = ({
         <FormControlLabel
           control={checkbox}
           label={showText ? labeltext : ''}
-          disabled={isDisabled || state === 'disabled'}
+          disabled={isCheckboxDisabled}
         />
       </div>
     );

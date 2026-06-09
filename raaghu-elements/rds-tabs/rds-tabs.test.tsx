@@ -596,12 +596,13 @@ describe('RdsTabs', () => {
       const tablist = container.querySelector('[role="tablist"]');
       expect(tablist).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsTabs />);
+      const { container } = renderWithTheme(<RdsTabs tabs={mockTabs} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have proper tab roles', () => {
       const { container } = renderWithTheme(
@@ -653,7 +654,7 @@ describe('RdsTabs — keyboard navigation', () => {
   ];
 
   it('first tab is focusable via Tab key', async () => {
-    renderWithTheme(<RdsTabs tabs={tabs} onTabChange={jest.fn()} />);
+    renderWithTheme(<RdsTabs tabs={tabs} activeTab="tab1" onTabChange={jest.fn()} />);
     await userEvent.tab();
     expect(document.activeElement?.getAttribute('role')).toBe('tab');
   });

@@ -894,12 +894,13 @@ describe('RdsButtonDropdown', () => {
       
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsButtonDropdown {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have proper checkbox roles for multi select', () => {
       render(

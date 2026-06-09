@@ -680,12 +680,13 @@ describe('RdsCompBooleanChart', () => {
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompBooleanChart {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('canvas has id attribute', () => {
       const { container } = render(<RdsCompBooleanChart {...defaultProps} />);

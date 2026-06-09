@@ -194,12 +194,11 @@ export default function RdsCompDatePicker({
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton
-                  aria-label="Draw"
+                  aria-label="open calendar"
                   edge="end"
                   size={size === 'small' ? 'small' : 'medium'}
                   onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
                   disabled={disabled || readOnly}
-                  aria-label="open calendar"
                 >
                   <EventIcon fontSize="small" />
                 </IconButton>

@@ -652,12 +652,13 @@ describe('RdsRange', () => {
       const slider = container.querySelector('input[type="range"]');
       expect(slider).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsRange />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should be keyboard accessible', async () => {
       const user = userEvent.setup();

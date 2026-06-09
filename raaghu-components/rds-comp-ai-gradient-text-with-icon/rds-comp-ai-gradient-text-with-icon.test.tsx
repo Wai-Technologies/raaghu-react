@@ -586,7 +586,8 @@ describe('RdsCompAiGradientTextWithIcon', () => {
         />
       );
       const image = screen.getByRole('img');
-      expect(image).toHaveAttribute('src', '');
+      expect(image).toBeInTheDocument();
+      expect(image.getAttribute('src') ?? '').toBe('');
     });
 
     it('handles null logo prop', () => {

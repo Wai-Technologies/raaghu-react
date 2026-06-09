@@ -354,7 +354,8 @@ describe('RdsCompAiMessageBox', () => {
       const image = container.querySelector(
         '.rds-comp-ai-message-box__image'
       ) as HTMLImageElement;
-      expect(image).toHaveAttribute('src', '');
+      expect(image).toBeInTheDocument();
+      expect(image?.getAttribute('src') ?? '').toBe('');
     });
 
     it('handles very long avatar URL', () => {

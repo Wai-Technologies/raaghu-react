@@ -77,9 +77,9 @@ const RdsProgress = ({
     );
   };
 
-  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as any} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} />, 'overlay');
+  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as any} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={label || 'Progress'} />, 'overlay');
 
-  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as any} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} />, 'side');
+  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as any} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={label || 'Progress'} />, 'side');
 
   const renderStepper = () => {
     const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);

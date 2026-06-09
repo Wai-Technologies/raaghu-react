@@ -379,12 +379,13 @@ describe('RdsCounter', () => {
       const input = screen.getByRole('textbox');
       expect(input).toHaveAttribute('aria-label', 'Quantity value');
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCounter />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should set generic aria-label when titleText is not provided', () => {
       render(<RdsCounter showInput={true} />);

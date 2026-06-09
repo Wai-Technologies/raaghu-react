@@ -8,6 +8,20 @@ import RdsCompDatePicker from './rds-comp-date-and-time-picker';
 // Mock SCSS module
 jest.mock('./rds-comp-date-and-time-picker.scss', () => ({}));
 
+jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
+  __esModule: true,
+  default: ({ onClick, children, text, style, ...props }: any) => (
+    <button data-testid="button" data-button-style={style} onClick={onClick} {...props}>
+      {text || children}
+    </button>
+  ),
+}));
+
+jest.mock('@mui/x-date-pickers/internals/demo', () => ({
+  DemoContainer: ({ children }: any) => <div data-testid="demo-container">{children}</div>,
+  DemoItem: ({ children }: any) => <div data-testid="demo-item">{children}</div>,
+}));
+
 // Mock MUI DatePicker components
 jest.mock('@mui/x-date-pickers/DatePicker', () => {
   return {

@@ -95,7 +95,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const borderColor = `rds-comp-toast--border-${borderTokenMap[_stateClass] || 'light'}`;
 
     const [showState, setshowState] = useState("show");
-    const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>();
+    const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const remainingRef = useRef<number>(props.delay ?? 3000);
     const startTimeRef = useRef<number>(0);
 

@@ -618,12 +618,13 @@ describe('RdsMenu', () => {
       const menuItems = screen.getAllByRole('menuitem');
       expect(menuItems.length).toBeGreaterThan(0);
   
+    });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsMenu />);
+      const { container } = renderWithTheme(<RdsMenu items={defaultItems} open={true} anchorEl={document.body} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should render menu items', () => {
       renderWithTheme(

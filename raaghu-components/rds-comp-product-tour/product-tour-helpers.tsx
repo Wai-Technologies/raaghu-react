@@ -88,8 +88,8 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
 
 export const renderNavigationButtons = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, variant = 'default') => (
     <Box className={`rds-comp-product-tour__arrows rds-comp-product-tour__arrows--${variant}`}>
-        {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
+        {showSecondaryButton && <button onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
+        {showPrimaryButton && <button onClick={goNext} aria-label="Next" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
     </Box>
 );
 

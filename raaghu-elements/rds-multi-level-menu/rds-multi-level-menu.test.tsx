@@ -722,12 +722,13 @@ describe('RdsMultiLevelMenu', () => {
       // Menu items should be rendered
       expect(screen.getByText('File')).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsMultiLevelMenu options={defaultOptions} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should render menu items with proper role', async () => {
       renderWithTheme(

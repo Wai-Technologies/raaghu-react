@@ -712,12 +712,13 @@ describe('RdsCardDetail', () => {
       expect(container.querySelector('.MuiCard-root')).toBeInTheDocument();
       expect(container.querySelector('.MuiCardHeader-root')).toBeInTheDocument();
   
+    });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCardDetail {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have proper image alt text', () => {
       renderWithTheme(
