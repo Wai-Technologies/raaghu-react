@@ -571,13 +571,13 @@
     .rds-carousel__title-content {
       background-color: var(--rds-carousel-title-bg-dark) !important;
       border: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.04)) !important;
-      color: var(--rds-color-surface) !important;
+      color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
     }
 
     .rds-carousel__title-content--bottom {
       background-color: var(--rds-carousel-title-bg-dark) !important;
       border-top: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.06)) !important;
-      color: var(--rds-color-surface) !important;
+      color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
     }
 
     &--with-title, &--full-width-image {
@@ -589,12 +589,12 @@
     }
 
     .rds-carousel__title-text {
-      color: var(--rds-color-surface) !important;
+      color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
       opacity: 0.95;
     }
 
     .rds-carousel__title-subtitle {
-      color: var(--rds-color-surface) !important;
+      color: var(--rds-color-on-surface-variant, var(--rds-color-text-secondary)) !important;
       opacity: 0.75 !important;
     }
   }
@@ -602,14 +602,14 @@
   [data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-text,
   .theme-dark .rds-carousel .rds-carousel__title-content .rds-carousel__title-text,
   .sb-show-main[data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-text {
-    color: var(--rds-color-surface) !important;
+    color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
     opacity: 1 !important;
   }
 
   [data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle,
   .theme-dark .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle,
   .sb-show-main[data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle {
-    color: var(--rds-color-surface) !important;
+    color: var(--rds-color-on-surface-variant, var(--rds-color-text-secondary)) !important;
     opacity: 0.85 !important;
   }
 

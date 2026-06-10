@@ -88,7 +88,7 @@ export const colorTokens = {
     0: '#ffffff',
     50: '#fafafa',
     100: '#f5f5f5',
-    200: '#646464', // Dark theme normal
+    200: '#eeeeee',
     250: '#969696', // Dark theme hover
     300: '#e0e0e0',
     400: '#bdbdbd',

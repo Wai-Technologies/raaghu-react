@@ -149,6 +149,17 @@
     }
   }
 
+  &__title-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    > :first-child {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
   &__close-button {
     position: absolute;
     color: var(--rds-text-secondary);

@@ -680,7 +680,7 @@ function sharedCssVars(): Record<string, string> {
     // Card indicator color
     '--rds-card-indicator-bg': 'var(--rds-color-gray-700)',
     // Card color tokens
-    '--rds-card-surface-filled': 'var(--rds-color-surface-light)',
+    '--rds-card-surface-filled': colorTokens.neutral[50],
     '--rds-card-bg-hover': 'var(--rds-color-gray-200)',
     '--rds-card-selected-bg': 'var(--rds-color-gray-200)',
     '--rds-card-disabled-bg': 'var(--rds-color-gray-300)',

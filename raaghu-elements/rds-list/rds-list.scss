@@ -217,7 +217,8 @@
 }
 
 .rds-list--align-responsive {
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  // CSS custom properties cannot be used in @media queries — use hardcoded token values (sm=600px, xl=1536px).
+  @media (max-width: 600px) {
     .rds-list__item {
       align-items: flex-start;
     }
@@ -234,7 +235,7 @@
     }
   }
 
-  @media (min-width: var(--rds-breakpoint-xl)) {
+  @media (min-width: 1536px) {
     .rds-list__item {
       align-items: center;
     }
