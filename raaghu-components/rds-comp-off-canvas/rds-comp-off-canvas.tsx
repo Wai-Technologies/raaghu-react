@@ -1,4 +1,5 @@
-import React, { type ReactNode, useState, useCallback, useMemo } from "react";
+import clsx from "clsx";
+import { type ReactNode, useState, useCallback, useMemo } from "react";
 import { Drawer, Box } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
@@ -23,7 +24,7 @@ export interface RdsCompOffcanvasProps {
   showSecondaryButton?: boolean;
   showTertiaryButton?: boolean;
 }
-const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
+const RdsCompOffcanvas = ({
   placement = RdsOffcanvasPlacement.End,
   backDrop = RdsOffcanvasBackDrop.True,
   scrolling = false,
@@ -94,10 +95,10 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
           onClose={handleClose}
           disableEscapeKeyDown={!preventEscapeKey}
           {...getBackdropProps()}
-          className={`offcanvas-drawer placement-${placement}`}
+          className={clsx("offcanvas-drawer", `placement-${placement}`)}
           id={offId}>
-          <Box className={`offcanvas-container ${scrolling ? 'scrolling' : ''}`}>
-            <Box className={`offcanvas-header ${isCanvasTitle ? '' : 'no-title'}`}>
+          <Box className={clsx("offcanvas-container", scrolling && "scrolling")}>
+            <Box className={clsx("offcanvas-header", !isCanvasTitle && "no-title")}>
               {isCanvasTitle ? (
                 <div className="offcanvas-title-wrap">
                   <span className="offcanvas-title text-uppercase">{canvasTitle}</span>
@@ -109,7 +110,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
                 </RdsIconButton>
               </div>
             </Box>
-            <Box className={`offcanvas-body ${className || ''} ${scrolling ? 'scrolling' : ''}`}>
+            <Box className={clsx("offcanvas-body", className, scrolling && "scrolling")}>
               <div className="d-flex flex-column h-100">
                 {children}
               </div>

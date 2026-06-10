@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import clsx from 'clsx';
 import "./rds-comp-audio-player.scss";
 import Forward10OutlinedIcon from "@mui/icons-material/Forward10Outlined";
 import RestoreOutlinedIcon from "@mui/icons-material/RestoreOutlined";
@@ -219,7 +220,7 @@ const RdsCompAudioPlayer = ({
     setZoomLevel((prev) => Math.max(0, prev - 10));
   }, []);
 
-  const handleWaveformMouseDown = useCallback((e: React.MouseEvent, side: "left" | "right") => {
+  const handleWaveformMouseDown = useCallback((e: MouseEvent, side: "left" | "right") => {
     e.preventDefault();
     if (side === "left") {
       setIsDraggingLeft(true);
@@ -229,7 +230,7 @@ const RdsCompAudioPlayer = ({
   }, []);
 
   const handleWaveformMouseMove = useCallback(
-    (e: React.MouseEvent) => {
+    (e: MouseEvent) => {
       if (!isDraggingLeft && !isDraggingRight) return;
 
       const rect = e.currentTarget.getBoundingClientRect();
@@ -277,7 +278,7 @@ const RdsCompAudioPlayer = ({
   }, [currentTime, duration]);
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, side: "left" | "right") => {
+    (e: KeyboardEvent, side: "left" | "right") => {
       const step = 1;
       if (e.key === "ArrowLeft") {
         e.preventDefault();
@@ -330,7 +331,7 @@ const RdsCompAudioPlayer = ({
         "--selection-width": `${rightTrimPosition - leftTrimPosition}%`,
         "--left-overlay-width": `${leftTrimPosition}%`,
         "--right-overlay-width": `${100 - rightTrimPosition}%`,
-      }) as React.CSSProperties,
+      }) as CSSProperties,
     [leftTrimPosition, rightTrimPosition]
   );
 
@@ -482,11 +483,10 @@ const RdsCompAudioPlayer = ({
             ))}
           </div>
           <div
-            className={`rds-comp-audio-player__edition-waveform ${
-              isDraggingLeft || isDraggingRight
-                ? "rds-comp-audio-player__edition-waveform--dragging"
-                : ""
-            }`}
+            className={clsx(
+              "rds-comp-audio-player__edition-waveform",
+              (isDraggingLeft || isDraggingRight) && "rds-comp-audio-player__edition-waveform--dragging"
+            )}
             onMouseMove={handleWaveformMouseMove}
             onMouseUp={handleWaveformMouseUp}
             onMouseLeave={handleWaveformMouseUp}
@@ -519,11 +519,10 @@ const RdsCompAudioPlayer = ({
             {(["left", "right"] as const).map((side) => (
               <div
                 key={side}
-                className={`rds-comp-audio-player__waveform-blue-bar rds-comp-audio-player__waveform-blue-bar--${side} ${
-                  (side === "left" ? isDraggingLeft : isDraggingRight)
-                    ? "rds-comp-audio-player__waveform-blue-bar--active"
-                    : ""
-                }`}
+                className={clsx(
+                  "rds-comp-audio-player__waveform-blue-bar",
+                  `rds-comp-audio-player__waveform-blue-bar--${side}`
+                )}
                 onMouseDown={(e) => handleWaveformMouseDown(e, side)}
                 onKeyDown={(e) => handleKeyDown(e, side)}
                 tabIndex={0}

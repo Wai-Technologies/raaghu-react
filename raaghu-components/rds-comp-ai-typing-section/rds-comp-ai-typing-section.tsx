@@ -1,4 +1,5 @@
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import clsx from "clsx";
+import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import "./rds-comp-ai-typing-section.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsAutocomplete from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
@@ -21,7 +22,7 @@ export interface RdsCompAiTypingSectionProps {
 
 declare global {
   interface Window {
-    webkitSpeechRecognition: any;
+    webkitSpeechRecognition: new () => SpeechRecognition;
   }
 }
 
@@ -61,7 +62,7 @@ const RdsCompAiTypingSectionComponent = ({
     recognition.interimResults = false;
     recognition.lang = "en-US";
 
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       const transcript = event.results[0][0].transcript;
       setInputText(transcript);
     };
@@ -99,9 +100,9 @@ const RdsCompAiTypingSectionComponent = ({
   );
 
   const autocompleteStyle = useMemo(
-    () =>
+    (): CSSProperties | undefined =>
       autoCompleteMaxWidth
-        ? ({ ["--ai-typing-autocomplete-max-width" as any]: autoCompleteMaxWidth } as React.CSSProperties)
+        ? ({ "--ai-typing-autocomplete-max-width": autoCompleteMaxWidth } as CSSProperties)
         : undefined,
     [autoCompleteMaxWidth]
   );
@@ -110,9 +111,10 @@ const RdsCompAiTypingSectionComponent = ({
     <div className="rds-comp-ai-typing-section">
       <div className="rds-comp-ai-typing-section__input-wrapper">
         <div
-          className={`rds-comp-ai-typing-section__input-with-image${
-            isMobile ? " rds-comp-ai-typing-section__input-with-image--mobile" : ""
-          }`}
+          className={clsx(
+            "rds-comp-ai-typing-section__input-with-image",
+            isMobile && "rds-comp-ai-typing-section__input-with-image--mobile"
+          )}
         >
           <textarea
             className="rds-comp-ai-typing-section__input-box rds-comp-ai-typing-section__input-box--muted-placeholder"
@@ -136,9 +138,10 @@ const RdsCompAiTypingSectionComponent = ({
           )}
         </div>
         <div
-          className={`rds-comp-ai-typing-section__actions${
-            isMobile ? " rds-comp-ai-typing-section__actions--mobile" : ""
-          }`}
+          className={clsx(
+            "rds-comp-ai-typing-section__actions",
+            isMobile && "rds-comp-ai-typing-section__actions--mobile"
+          )}
         >
           <div className="rds-comp-ai-typing-section__action-icons">
             <div className="rds-comp-ai-typing-section__attach" id="Premium">

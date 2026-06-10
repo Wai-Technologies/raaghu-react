@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef, useMemo, useCallback, memo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEvent } from "react";
+import clsx from 'clsx';
 import "./rds-comp-chat.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import { SendOutlined as SendIcon, SentimentSatisfiedAltOutlined as EmojiIcon, ChatBubbleOutlineOutlined as ChatIcon, FilterListOutlined as FilterIcon, MoreVertOutlined as MoreIcon, ArrowBackIosNew as ArrowBackIcon } from "@mui/icons-material";
@@ -58,8 +59,8 @@ const ChatMessage = memo(({
   currentUserCommentTextColor,
   otherUserCommentTextColor
 }: ChatMessageProps) => (
-  <div className={`comment-box rds-comp-chat__message ${isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user"}`}>
-    <div className={`rds-comp-chat__message-row ${isCurrentUser ? "rds-comp-chat__message-row--reverse" : ""}`}>
+  <div className={clsx("comment-box", "rds-comp-chat__message")}>
+    <div className={clsx("rds-comp-chat__message-row", isCurrentUser && "rds-comp-chat__message-row--reverse")}>
       <Box component="div" className="rds-comp-chat__comment-content" sx={{ backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor, color: isCurrentUser ? currentUserCommentTextColor : otherUserCommentTextColor }}>
         <div className="comment-text">
           {comment.comment}
@@ -71,6 +72,8 @@ const ChatMessage = memo(({
   </div>
 ));
 ChatMessage.displayName = "ChatMessage";
+
+const AVATAR_PROPS = { alt: "User Avatar", subText: "Designation", displayStyle: "with-name" as const, title: "Jane Doe", showDesignation: true, activeDotBottom: true, showName: true, src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" };
 
 const RdsCompChat = ({
   isChatScreenEnabled,
@@ -156,7 +159,7 @@ const RdsCompChat = ({
     }));
   }, []);
 
-  const handleImageUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file?.type.startsWith("image/") && state.currentUser) {
       const reader = new FileReader();
@@ -204,10 +207,9 @@ const RdsCompChat = ({
 
   const showUserList = isChatScreenEnabled && (!state.isMobile || !state.showChatWindow);
   const showChat = !isChatScreenEnabled || (state.isMobile ? state.showChatWindow : true);
-  const avatarProps = { alt: "User Avatar", subText: "Designation", displayStyle: "with-name" as const, title: "Jane Doe", showDesignation: true, activeDotBottom: true, showName: true, src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" };
 
   return (
-    <div className={`rds-comp-chat${state.isMobile ? " rds-comp-chat--mobile" : ""}`}>
+    <div className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile")}>
       {showUserList && (
         <div className="rds-comp-chat__screen">
           <div className="rds-comp-chat__screen-header">
@@ -220,7 +222,7 @@ const RdsCompChat = ({
           <div className="rds-comp-chat__screen-main">
             {userData.map((item, index) => (
               <Box key={index} component="div" className={`rds-comp-chat__user-item ${state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""}`} sx={{ position: "relative" }} onClick={() => handleUserSelect(index)}>
-                <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...avatarProps} /></div>
+                <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...AVATAR_PROPS} /></div>
                 <div className="rds-comp-chat__user-time text-muted rds-comp-chat__user-time--absolute">{item.time}</div>
               </Box>
             ))}
@@ -229,15 +231,15 @@ const RdsCompChat = ({
       )}
 
       {showChat && (
-        <div className={`rds-comp-chat__window${!isChatScreenEnabled ? " rds-comp-chat__window--full-width" : ""}`}>
+        <div className={clsx("rds-comp-chat__window", !isChatScreenEnabled && "rds-comp-chat__window--full-width")}>
           <div className="rds-comp-chat__window-header">
             {state.isMobile && isChatScreenEnabled && (
               <button type="button" className="rds-comp-chat__back-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => updateState({ showChatWindow: false, selectedIndex: null })} aria-label="Back to user list">
                 <ArrowBackIcon fontSize="small" />
               </button>
             )}
-            <div className={`rds-comp-chat__window-header-title${state.isMobile ? " rds-comp-chat__window-header-title--mobile" : ""}`}>
-              <RdsAvatar {...avatarProps} size={state.isMobile ? "small" : "medium"} />
+            <div className={clsx("rds-comp-chat__window-header-title", state.isMobile && "rds-comp-chat__window-header-title--mobile")}>
+              <RdsAvatar {...AVATAR_PROPS} size={state.isMobile ? "small" : "medium"} />
             </div>
             <div className="rds-comp-chat__window-header-options">
               <nav className={`nav-tabs${state.isMobile ? " nav-tabs--mobile" : ""}`} role="tablist" aria-label="Chat Tabs">
@@ -298,7 +300,7 @@ const RdsCompChat = ({
             <div className="rds-comp-chat__footer-center">
               <div className="rds-comp-chat__input-send">
                 <div className="rds-comp-chat__input-wrapper">
-                  <RdsInput className="rds-comp-chat__rds-input" layout="text" placeholder="Type comment..." size="small" value={state.commentText} onChange={(e) => updateState({ commentText: e.target.value })} onKeyDown={(e: React.KeyboardEvent) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleAddComment(); } }} />
+                  <RdsInput className="rds-comp-chat__rds-input" layout="text" placeholder="Type comment..." size="small" value={state.commentText} onChange={(e) => updateState({ commentText: e.target.value })} onKeyDown={(e: KeyboardEvent) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleAddComment(); } }} />
                   <button type="button" className="rds-comp-chat__send-icon" onClick={handleAddComment} aria-label="Send"><SendIcon /></button>
                 </div>
               </div>

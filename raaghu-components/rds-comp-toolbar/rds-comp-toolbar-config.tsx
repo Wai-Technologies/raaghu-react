@@ -1,4 +1,5 @@
-import React from "react";
+import { useRef, useState, useEffect, type ReactNode } from "react";
+import clsx from "clsx";
 import ReactDOM from 'react-dom';
 import RdsEmojiGenerator from '../rds-comp-emoji-generator/rds-comp-emoji-generator';
 import {
@@ -34,7 +35,7 @@ import {
 import { ToolbarType } from './rds-comp-toolbar';
 
 export interface ToolbarButtonConfig {
-  icon: React.ReactNode;
+  icon: ReactNode;
   action: string;
   hasDropdown?: boolean;
   className?: string;
@@ -173,11 +174,11 @@ export const ToolbarButton = ({
 
   const dropdownOptions = hasDropdown ? getDropdownOptions(action) : [];
 
-  const buttonRef = React.useRef<HTMLButtonElement | null>(null);
-  const [dropdownPos, setDropdownPos] = React.useState<{ top: number; left: number; minWidth?: number } | null>(null);
-  const [portalThemeClass, setPortalThemeClass] = React.useState<string | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number; minWidth?: number } | null>(null);
+  const [portalThemeClass, setPortalThemeClass] = useState<string | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isDropdownOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setDropdownPos({
@@ -215,7 +216,7 @@ export const ToolbarButton = ({
       <button
         ref={buttonRef}
         type="button"
-        className={`rds-comp-toolbar__button ${isActive ? 'rds-comp-toolbar__button--active' : ''} ${isDisabled ? 'rds-comp-toolbar__button--disabled' : ''} ${buttonClassName}`}
+        className={clsx("rds-comp-toolbar__button", isActive && "rds-comp-toolbar__button--active", isDisabled && "rds-comp-toolbar__button--disabled")}
         onClick={onClick}
         disabled={isDisabled}
         aria-label={ariaLabel || action}
@@ -236,7 +237,7 @@ export const ToolbarButton = ({
 
       {hasDropdown && isDropdownOpen && dropdownPos && ReactDOM.createPortal(
         <div
-          className={`rds-comp-toolbar__dropdown ${portalThemeClass || ''}`.trim()}
+          className={clsx('rds-comp-toolbar__dropdown', portalThemeClass)}
           style={{
             position: 'absolute',
             top: dropdownPos.top,

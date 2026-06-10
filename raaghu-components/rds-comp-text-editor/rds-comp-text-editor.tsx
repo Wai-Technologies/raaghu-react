@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import clsx from 'clsx';
 import { InputLabel as Label } from "@mui/material";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
@@ -54,7 +55,7 @@ const RdsCompTextEditor = ({
         createEditorStateFromValue(value, showTitle)
     );
     const [isTouch, setIsTouch] = useState(false);
-    const editorRef = useRef<any>(null);
+    const editorRef = useRef<Editor | null>(null);
 
     const computedRows = typeof rows === "number" && rows > 0 ? rows : 6;
     const lineHeightVar = "var(--rds-line-height-body, 26px)";
@@ -65,7 +66,7 @@ const RdsCompTextEditor = ({
         setEditorState(createEditorStateFromValue(value, showTitle));
     }, [value, showTitle]);
 
-    const handleEditorChange = useCallback((state: any) => {
+    const handleEditorChange = useCallback((state: EditorState) => {
         setEditorState(state);
         setIsTouch(true);
         if (onChange) {
@@ -76,25 +77,23 @@ const RdsCompTextEditor = ({
 
     const isEmpty = useMemo(() => editorState.getCurrentContent().getPlainText().trim() === "", [editorState]);
 
-    const stateClass = [
+    const stateClass = clsx(
         State === "Selected" && "rds-comp-text-editor--selected",
         State === "Error" && "rds-comp-text-editor--error",
         State === "Active" && "rds-comp-text-editor--active",
         State === "Disabled" && "rds-comp-text-editor--disabled",
-        isResizable && "rds-comp-text-editor--resizable",
-    ]
-        .filter(Boolean)
-        .join(" ");
+        isResizable && "rds-comp-text-editor--resizable"
+    );
 
     return (
         <>
             {showTitle && label && (
-                <Label className={`rds-comp-text-editor-label ${labelClass || ""}`}>
+                <Label className={clsx("rds-comp-text-editor-label", labelClass)}>
                     {label}
                     {isMandatory && <span className="text-danger">*</span>}
                 </Label>
             )}
-            <div id={id} className={`rds-comp-text-editor ${stateClass}`}>
+            <div id={id} className={clsx("rds-comp-text-editor", stateClass)}>
                 <Editor
                     key={placeholder}
                     editorState={editorState}

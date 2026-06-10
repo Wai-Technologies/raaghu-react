@@ -1,4 +1,5 @@
-import React, { forwardRef } from "react";
+import { forwardRef, type RefObject, type ReactNode } from "react";
+import clsx from 'clsx';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import CloseIcon from '@mui/icons-material/Close';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -44,7 +45,7 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
     return (
         <div className="rds-datepicker__input-container" data-empty={isEmpty}>
             <RdsInput
-                className={`rds-datepicker__input ${isDisabled ? 'rds-datepicker--disabled' : ''} ${showClearDate && value ? 'rds-datepicker__input--with-clear' : 'rds-datepicker__input--without-clear'}`}
+                className={clsx("rds-datepicker__input", isDisabled && "rds-datepicker--disabled", showClearDate && value && "rds-datepicker__input--with-clear")}
                 value={value || ''}
                 onClick={handleTriggerClick}
                 placeholder={placeholder}
@@ -53,7 +54,7 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
             />
             {showClearDate && value && (
                 <span
-                    className={`rds-datepicker__clear-button ${isDisabled ? 'rds-datepicker__input--disabled' : 'rds-datepicker__clear-button--clickable'}`}
+                    className={clsx("rds-datepicker__clear-button", isDisabled && "rds-datepicker__input--disabled")}
                     onClick={(e) => {
                         e.stopPropagation();
                         if (!isDisabled) {
@@ -67,7 +68,7 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
                     />
                 </span>
             )} <span
-                className={`rds-datepicker__icon-container ${isDisabled ? 'rds-datepicker--disabled' : 'rds-datepicker__icon-container--clickable'}`}
+                className={clsx("rds-datepicker__icon-container", isDisabled && "rds-datepicker--disabled")}
                 onClick={handleTriggerClick}
                 title="Open calendar"
             >
@@ -225,8 +226,8 @@ const buildDatePickerProps = ({
     onChange: (date: any) => void;
     props: any;
     dayClassName: (date: Date) => string;
-    datePickerRef: React.RefObject<any>;
-    customInput: React.ReactNode;
+    datePickerRef: RefObject<any>;
+    customInput: ReactNode;
     overrides?: Record<string, any>;
 }) => ({
     selected: startDate || null,
@@ -257,9 +258,9 @@ export const renderDatePickerStateView = (
     handlerDateChange: (date: Date | null) => void,
     handlerDateTimeChange: (date: any) => void,
     props: any, 
-    datePickerRef: React.RefObject<any>,
-    expandedDatePickerRef: React.RefObject<any>,
-    selectedDatePickerRef: React.RefObject<any>,
+    datePickerRef: RefObject<any>,
+    expandedDatePickerRef: RefObject<any>,
+    selectedDatePickerRef: RefObject<any>,
     dayClassName: (date: Date) => string,
     CustomInputWithClear: any,
     CustomButtons: any
@@ -356,7 +357,7 @@ export const renderDatePickerTypeView = (
     isDropdownOpen: boolean,
     toggleDropdown: () => void,
     dropdownDisplayValue: string,
-    datePickerRef: React.RefObject<any>,
+    datePickerRef: RefObject<any>,
     activeList: string,
     todayClickHandler: () => void,
     yesterdayClickHandler: () => void,

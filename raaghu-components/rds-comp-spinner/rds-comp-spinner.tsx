@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import clsx from "clsx";
+import { useMemo } from "react";
 import "./rds-comp-spinner.scss";
 
 export enum SpinnerSize {
@@ -69,7 +70,7 @@ const LEVEL_OPACITY: Record<SpinnerLevel, number> = {
   [SpinnerLevel.Level04]: 1,
 };
 
-const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
+const RdsCompSpinner = ({
   spinnerType = "border",
   width,
   height,
@@ -79,7 +80,7 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
   layout,
   colorVariant,
   level,
-}) => {
+}: RdsCompSpinnerProps) => {
   const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
   const colorClass = colorVariant ? `text-${colorVariant}` : "";
 
@@ -90,19 +91,14 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     return { width, height };
   }, [size, width, height]);
 
-  const combinedClasses = useMemo(
-    () =>
-      [spinnerClass, colorClass, size ? SIZE_CLASS[size] : ""].filter(Boolean).join(" "),
-    [spinnerClass, colorClass, size]
-  );
-
+  const combinedClasses = clsx(spinnerClass, colorClass, size && SIZE_CLASS[size]);
   const layoutClass = layout ? LAYOUT_CLASS[layout] : "spinner-container--default";
   const labelSizeClass = size ? LABEL_SIZE_CLASS[size] ?? "spinner-label--default" : "spinner-label--default";
   const opacity = level ? LEVEL_OPACITY[level] ?? 1 : 1;
 
   return (
-    <div className={`spinner-container ${layoutClass}`}>
-      {showLabel && <label className={`spinner-label ${labelSizeClass}`}>{labelText}</label>}
+    <div className={clsx("spinner-container", layoutClass)}>
+      {showLabel && <label className={clsx("spinner-label", labelSizeClass)}>{labelText}</label>}
       <div
         className={combinedClasses}
         style={{ width: dimensions.width, height: dimensions.height, opacity }}

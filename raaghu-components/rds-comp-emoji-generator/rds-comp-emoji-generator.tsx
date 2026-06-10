@@ -1,5 +1,6 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import React, { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import clsx from 'clsx';
 import {
     Box,
     TextField,
@@ -53,12 +54,12 @@ interface SkinTonePickerProps {
     buttonSize?: "small" | "medium";
 }
 
-const SkinTonePicker: React.FC<SkinTonePickerProps> = ({
+const SkinTonePicker = ({
     skinToneOptions,
     selectedSkinTone,
     onSelect,
     buttonSize,
-}) => (
+}: SkinTonePickerProps) => (
     <>
         {skinToneOptions.map((o) => (
             <IconButton
@@ -86,13 +87,13 @@ export interface RdsEmojiGeneratorProps {
     "Show Footer"?: boolean;
     State?: SkinToneState;
     Category?: EmojiCategory;
-    onEmojiSelect?: (emoji: any) => void;
+    onEmojiSelect?: (emoji: string) => void;
     maxEmojis?: number;
-    sx?: any;
+    sx?: Record<string, unknown>;
 }
 
 
-const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
+const RdsEmojiGenerator = ({
     Type = EmojiGeneratorType.Default,
     "Show Skin Tone": showSkinTone = true,
     "Show Footer": showFooter = true,
@@ -103,9 +104,9 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
 
     ...props
 }) => {
-    const rootRef = React.useRef<HTMLDivElement | null>(null);
+    const rootRef = useRef<HTMLDivElement | null>(null);
     const [selectedCategory, setSelectedCategory] = useState(Category);
-    React.useEffect(() => {
+    useEffect(() => {
         setSelectedCategory(Category);
     }, [Category]);
     
@@ -113,9 +114,9 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     const [selectedSkinTone, setSelectedSkinTone] = useState(0); 
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
-    const handleEmojiClick = (e: any) => onEmojiSelect?.(e);
+    const handleEmojiClick = (e: string) => onEmojiSelect?.(e);
     const handleCategoryChange = (c: EmojiCategory) => setSelectedCategory(c);
-    const handleSkinToneClick = (e: React.MouseEvent<HTMLElement>) => setSkinToneAnchorEl(e.currentTarget);
+    const handleSkinToneClick = (e: MouseEvent<HTMLElement>) => setSkinToneAnchorEl(e.currentTarget);
     const handleSkinToneClose = () => setSkinToneAnchorEl(null);
     const handleSkinToneSelect = (t: number) => { setSelectedSkinTone(t); handleSkinToneClose(); };
     const skinTonePopoverOpen = Boolean(skinToneAnchorEl);
@@ -244,7 +245,10 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                                 color={selectedCategory === t.id ? 'primary' : 'default'}
                                 onClick={() => handleCategoryChange(t.id)}
                                 title={t.title}
-                                className={`rds-emoji-generator__category-chip ${selectedCategory === t.id ? 'rds-emoji-generator__category-chip--selected' : ''}`}
+                                className={clsx(
+                                  "rds-emoji-generator__category-chip",
+                                  selectedCategory === t.id && "rds-emoji-generator__category-chip--selected"
+                                )}
                             />
                         );
                     })}

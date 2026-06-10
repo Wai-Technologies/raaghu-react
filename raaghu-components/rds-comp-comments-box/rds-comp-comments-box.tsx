@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { RdsAvatar, RdsBox } from '../../raaghu-elements';
 import './rds-comp-comments-box.scss';
 import { RdsCommentBoxLogic, RdsCommentBoxProps } from './rds-comp-comments-logic-combined';
@@ -8,7 +7,7 @@ import { DropdownMenu } from './rds-comp-comments-box-dropdown';
 
 export { useCommentsBoxLogic, DropdownMenu };
 
-const RdsCommentBox: React.FC<RdsCommentBoxProps> = (props) => {
+const RdsCommentBox = (props: RdsCommentBoxProps) => {
   const { state, avatarInitials } = props;
 
   if (state === 'default' || !state) {

@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import clsx from "clsx";
+import { useMemo } from "react";
 import { Box, Typography } from "@mui/material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import Lottie from "lottie-react";
@@ -59,12 +60,13 @@ const RdsCompEmptyState = ({
   const titleColor = isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-text-primary)";
 
   return (
-    <Box className={`rds-comp-empty-state ${className}`.trim()}>
+    <Box className={clsx("rds-comp-empty-state", className)}>
       <Box className="rds-comp-empty-state__content">
         <Box
-          className={`rds-comp-empty-state__icon${
-            isContinueAnimate ? " rds-comp-empty-state__icon--animated" : ""
-          }`}
+          className={clsx(
+            "rds-comp-empty-state__icon",
+            isContinueAnimate && "rds-comp-empty-state__icon--animated"
+          )}
           data-testid="icon"
           style={{ width, height }}
         >

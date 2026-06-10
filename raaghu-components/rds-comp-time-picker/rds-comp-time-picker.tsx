@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import clsx from 'clsx';
 import './rds-comp-time-picker.scss';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
@@ -72,7 +73,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     }
   }, [props.state, props.value]);
 
-  const handleSetTime = useCallback((e: React.MouseEvent) => {
+  const handleSetTime = useCallback((e: MouseEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -150,7 +151,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   return (
     <div className={`time-picker-container ${variantClass}`}>
       <div
-        className={`time-input-container ${props.disabled ? 'disabled' : ''}`}
+        className={clsx("time-input-container", props.disabled && "disabled")}
         onClick={!props.disabled ? togglePicker : undefined}
       >
         <input
@@ -167,9 +168,13 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       </div>
 
       {showPicker && (
-        <div className={`time-picker ${props.style === 'compact' ? "time-picker-compact" : "time-picker"} ${inputBorderClass}`}>
+        <div className={clsx(
+            "time-picker",
+            props.style === 'compact' ? "time-picker-compact" : "time-picker",
+            inputBorderClass
+          )}>
           <div className="row d-flex align-items-center justify-content-between">
-            <div className={`time-display ${props.style === 'compact' ? "time-display-compact" : "time-display"}`}>
+            <div className={clsx("time-display", props.style === 'compact' ? "time-display-compact" : "time-display")}>
               {props.style === 'compact' 
                 ? ((tempHour !== null && tempMinute !== null && tempPeriod)
                   ? formatTime(tempHour, tempMinute, tempPeriod)
@@ -206,7 +211,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           </div>
           <div className="time-divider" role="separator" aria-hidden="true" />
           
-          <div className={`buttons ${props.style === "compact" ? "buttons-compact" : "buttons"}`}>
+          <div className={clsx("buttons", props.style === "compact" ? "buttons-compact" : "buttons")}>
             <button type="button" className={buttonClasses.cancel} onClick={handleCancel}>Cancel</button>
             <button
               type="button"

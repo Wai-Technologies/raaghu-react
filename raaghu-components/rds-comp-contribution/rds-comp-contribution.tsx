@@ -1,11 +1,14 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import Measure, { BoundingRect } from 'react-measure';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import Measure, { BoundingRect, type MeasureProps } from 'react-measure';
+import clsx from 'clsx';
 import './rds-comp-contribution.scss';
 import SvgIcon from '@mui/material/SvgIcon';
 
 dayjs.extend(customParseFormat);
+
+const COLUMNS = 53;
 
 export interface RdsCompContributionProps {  
   showMonthLabels?: boolean;
@@ -25,7 +28,7 @@ export interface RdsCompContributionProps {
   panelMargin?: number;
 }
 
-const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
+const RdsCompContribution = ({
   showMonthLabels = true,
   showWeekLabels = false,
   weekNames,
@@ -42,7 +45,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   panelSize = 11,
   panelMargin = 2,
 }) => {
-  const columns = 53;
+  const columns = COLUMNS;
   const [dynamicPanelSize, setDynamicPanelSize] = useState(panelSize);
   const [dynamicPanelMargin, setDynamicPanelMargin] = useState(panelMargin);
   const [isMobile, setIsMobile] = useState(false);
@@ -158,7 +161,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   ]);
 
   const contributionPanels = useMemo(() => {
-    const panels: React.ReactElement[] = [];
+    const panels: ReactElement[] = [];
     
     for (let i = 0; i < columns; i++) {
       for (let j = 0; j < 7; j++) {
@@ -247,10 +250,11 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
       return (
         <text
           key={`month_${i}_${month}_${position}`}
-          className={
-            `rds-comp-contribution__text rds-comp-contribution__text--month` +
-            (isMobile ? ' rds-comp-contribution__text--month-mobile' : '')
-          }
+          className={clsx(
+            "rds-comp-contribution__text",
+            "rds-comp-contribution__text--month",
+            isMobile && "rds-comp-contribution__text--month-mobile"
+          )}
           x={textBasePos.x - dynamicPanelSize / 2}
           y={monthLabelHeight / 2}
           textAnchor="middle"
@@ -278,7 +282,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
 
   return (
     <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
-      {({ measureRef }: any) => (
+      {({ measureRef }: MeasureProps) => (
         <div
           ref={measureRef}
           className="rds-comp-contribution"

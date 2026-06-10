@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -9,9 +9,9 @@ import {
 import "./rds-comp-chart-mixed.scss";
 
 export interface RdsCompMixedChartProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartOptions<"bar">;
+  dataSets: ChartDataset[];
   id: string;
   chartLabel?: string;
 }
@@ -27,7 +27,7 @@ const RdsCompMixedChart = ({
   const themeMode = useChartThemeMode();
 
   useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d") as CanvasRenderingContext2D;
+    const ctx = canvasRef.current?.getContext("2d");
     if (!ctx) return;
 
     const chartOptions = cloneChartOptions(options);

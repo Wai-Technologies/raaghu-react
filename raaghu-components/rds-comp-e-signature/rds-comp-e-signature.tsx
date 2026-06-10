@@ -1,5 +1,6 @@
 import { eSignaturePenColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import clsx from 'clsx';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
 import { RdsESignatureUpload, RdsESignatureChoose } from './rds-comp-e-signature-modes';
@@ -21,7 +22,9 @@ export interface RdsCompESignatureProps {
   title?: string;
 }
 
-const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
+const PEN_COLORS = [eSignaturePenColors.black, eSignaturePenColors.blue, eSignaturePenColors.red];
+
+const RdsCompESignature = ({
   mode = 'draw',
   type = 'fullname',
   colourSwatch = true,
@@ -50,10 +53,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
 
   const [hasDrawn, setHasDrawn] = useState(false);
 
-  const colors = useMemo(
-    () => [eSignaturePenColors.black, eSignaturePenColors.blue, eSignaturePenColors.red],
-    []
-  );
+  const colors = PEN_COLORS;
 
   useEffect(() => {
     if (!canvasRef.current || mode !== 'draw') return;
@@ -77,7 +77,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     return () => window.removeEventListener('resize', resize);
   }, [mode, selectedColor, type]);
 
-  const getCanvasPoint = useCallback((canvas: HTMLCanvasElement, e: React.MouseEvent<HTMLCanvasElement>) => {
+  const getCanvasPoint = useCallback((canvas: HTMLCanvasElement, e: MouseEvent<HTMLCanvasElement>) => {
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
@@ -86,7 +86,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     return { x, y, scaleX, scaleY };
   }, []);
 
-  const startDrawing = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+  const startDrawing = useCallback((e: MouseEvent<HTMLCanvasElement>) => {
     if (disabled) return;
     setIsDrawing(true);
     if (!hasDrawn) setHasDrawn(true);
@@ -102,7 +102,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     }
   }, [disabled, getCanvasPoint, hasDrawn]);
 
-  const draw = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+  const draw = useCallback((e: MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing || disabled) return;
     const canvas = canvasRef.current;
     if (canvas) {
@@ -157,13 +157,14 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     setShowLengthError(false);
   }, [clearCanvas]);
 
-  const getStateClassName = useCallback(() => {
-    let className = `rds-e-signature rds-e-signature--${mode} rds-e-signature--type-${type}`;
-    if (disabled) className += ' rds-e-signature--disabled';
-    if (isHovered && !disabled) className += ' rds-e-signature--hover';
-    if (showLengthError && !disabled && mode === 'draw') className += ' rds-e-signature--error';
-    return className;
-  }, [disabled, isHovered, mode, showLengthError, type]);
+  const getStateClassName = useCallback(() => clsx(
+    `rds-e-signature--${mode}`,
+    `rds-e-signature--type-${type}`,
+    "rds-e-signature",
+    disabled && "rds-e-signature--disabled",
+    isHovered && !disabled && "rds-e-signature--hover",
+    showLengthError && !disabled && mode === "draw" && "rds-e-signature--error"
+  ), [disabled, isHovered, mode, showLengthError, type]);
 
   const renderDrawMode = () => (
     <Box className="rds-e-signature__draw-container">
@@ -203,7 +204,10 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
                   {colors.map((color, index) => (
                   <Box
                     key={color}
-                    className={`rds-e-signature__color-button ${selectedColor === color ? 'rds-e-signature__color-button--selected' : ''}`}
+                    className={clsx(
+                      "rds-e-signature__color-button",
+                      selectedColor === color && "rds-e-signature__color-button--selected"
+                    )}
                     onClick={() => setSelectedColor(color)}
                     data-color={color}
                   >

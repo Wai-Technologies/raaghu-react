@@ -1,4 +1,5 @@
-import React, { useRef, useState, useCallback, useMemo } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
+import clsx from 'clsx';
 import { Box, Typography } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
@@ -20,7 +21,7 @@ export interface RdsESignatureUploadProps {
 
 const MAX_FILE_BYTES = 5 * 1024 * 1024; 
 
-export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
+export const RdsESignatureUpload = ({
   type,
   disabled,
   disabledFooterMessage,
@@ -32,7 +33,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const handleFileUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_BYTES) {
@@ -78,7 +79,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
         <span className="rds-e-signature__required">*</span>
       </Typography>
       <Box
-        className={`rds-e-signature__upload-panel ${!disabled && isUploadHovered ? 'rds-e-signature__upload-panel--hover' : ''} ${uploadError ? 'rds-e-signature__upload-panel--error' : ''}`}
+        className={clsx("rds-e-signature__upload-panel", !disabled && isUploadHovered && "rds-e-signature__upload-panel--hover", uploadError && "rds-e-signature__upload-panel--error")}
         onMouseEnter={handleUploadMouseEnter}
         onMouseLeave={handleUploadMouseLeave}
       >
@@ -86,7 +87,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
           <Typography className="rds-e-signature__upload-label">
             Title <span className="rds-e-signature__required">*</span>
           </Typography>
-          <Box className={`rds-e-signature__file-row ${selectedFile ? 'rds-e-signature__file-row--has-file' : ''}`}>
+          <Box className={clsx("rds-e-signature__file-row", selectedFile && "rds-e-signature__file-row--has-file")}>
             <input
               ref={fileInputRef}
               type="file"
@@ -103,7 +104,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
             >
               Choose File
             </button>
-            <span className={`rds-e-signature__file-text ${!selectedFile ? 'rds-e-signature__file-text--placeholder' : ''}`}>
+            <span className={clsx("rds-e-signature__file-text", !selectedFile && "rds-e-signature__file-text--placeholder")}>
               {selectedFile ? selectedFile.name : 'No File Choosen'}
             </span>
             {selectedFile && (
@@ -143,7 +144,7 @@ export interface RdsESignatureChooseProps {
   onSignatureChange?: (signature: string | File | null) => void;
 }
 
-export const RdsESignatureChoose: React.FC<RdsESignatureChooseProps> = ({
+export const RdsESignatureChoose = ({
   type,
   disabled,
   predefinedSignatures,
@@ -181,14 +182,14 @@ export const RdsESignatureChoose: React.FC<RdsESignatureChooseProps> = ({
         Choose Signature
         <span className="rds-e-signature__required">*</span>
       </Typography>
-      <Box className={`rds-e-signature__choose-panel ${multipleChooseError ? 'rds-e-signature__choose-panel--error' : ''}`}>
+      <Box className={clsx("rds-e-signature__choose-panel", multipleChooseError && "rds-e-signature__choose-panel--error")}>
         <Box className="rds-e-signature__mini-grid">
           {predefinedSignatures.map(sig => (
             <Box key={sig.id} className="rds-e-signature__mini-group">
               <span className="rds-e-signature__mini-label">{sig.name}</span>
               <button
                 type="button"
-                className={`rds-e-signature__mini-card ${selectedStyles.includes(sig.id) ? 'rds-e-signature__mini-card--selected' : ''}`}
+                className={clsx("rds-e-signature__mini-card", selectedStyles.includes(sig.id) && "rds-e-signature__mini-card--selected")}
                 onClick={() => !disabled && handleStyleSelect(sig.id)}
                 disabled={disabled}
                 aria-pressed={selectedStyles.includes(sig.id)}

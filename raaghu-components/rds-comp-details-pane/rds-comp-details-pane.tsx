@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
@@ -28,6 +28,20 @@ export interface RdsCompDetailsPaneProps {
   storybookIconSrc?: string;
 }
 
+const DEFAULT_HISTORY_ITEMS = [
+  { id: 1, name: "Login Page Creation" },
+  { id: 2, name: "Finance Dashboard Design" },
+  { id: 3, name: "E-commerce Product Page" },
+  { id: 4, name: "Social Media Profile Setup" },
+  { id: 5, name: "Onboarding Flow Builder" },
+  { id: 6, name: "Analytics Overview Dashboard" },
+];
+
+const DEFAULT_OLDER_HISTORY_ITEMS = [
+  { id: 1, name: "Signup Form Generator" },
+  { id: 2, name: "Task Management Board UI" },
+];
+
 const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   const {
     style,
@@ -46,22 +60,8 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   }, [style]);
   const [activeTab, setActiveTab] = useState(getInitialTab());
   
-  const defaultHistoryItems = useMemo(() => [
-    { id: 1, name: "Login Page Creation" },
-    { id: 2, name: "Finance Dashboard Design" },
-    { id: 3, name: "E-commerce Product Page" },
-    { id: 4, name: "Social Media Profile Setup" },
-    { id: 5, name: "Onboarding Flow Builder" },
-    { id: 6, name: "Analytics Overview Dashboard" },
-  ], []);
-  
-  const defaultOlderHistoryItems = useMemo(() => [
-    { id: 1, name: "Signup Form Generator" },
-    { id: 2, name: "Task Management Board UI" },
-  ], []);
-  
-  const [historyItems, setHistoryItems] = useState(providedHistoryItems || defaultHistoryItems);
-  const [olderHistoryItems, setOlderHistoryItems] = useState(providedOlderHistoryItems || defaultOlderHistoryItems);
+  const [historyItems, setHistoryItems] = useState(providedHistoryItems || DEFAULT_HISTORY_ITEMS);
+  const [olderHistoryItems, setOlderHistoryItems] = useState(providedOlderHistoryItems || DEFAULT_OLDER_HISTORY_ITEMS);
 
   useEffect(() => {
     if (style === "Favourites" || style === "Favourites - New Folder") {

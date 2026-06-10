@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -9,10 +9,10 @@ import {
 import "./rds-comp-chart-bar.scss";
 
 export interface RdsCompBarChartProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
-  id: any;
+  labels: string[];
+  options: ChartOptions<"bar">;
+  dataSets: ChartDataset<"bar">[];
+  id: string;
   height?: string | number;
   chartLabel?: string;
 }

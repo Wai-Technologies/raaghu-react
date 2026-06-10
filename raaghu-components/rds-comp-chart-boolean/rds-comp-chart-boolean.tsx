@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import { ChartIcons } from "./chart-icons";
 import { getCSSVar, useChartThemeMode } from "../chart-utils";
 
 export interface RdsCompBooleanChartProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartOptions<"doughnut">;
+  dataSets: ChartDataset<"doughnut">[];
   chartStyle?: string;
   id: string;
   centerIconName?: string;
@@ -45,7 +45,7 @@ const RdsCompBooleanChart = ({
 
     const centerIcon = {
       id: "counter4",
-      afterDraw(chart: any) {
+      afterDraw(chart: Chart) {
         const chartCtx = chart.ctx;
         chartCtx.save();
         const myIconImage = new Image();

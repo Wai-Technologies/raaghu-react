@@ -1,4 +1,5 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import clsx from "clsx";
+import { memo, useCallback, useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
 import "./rds-comp-ai-fab-menu.scss";
 import RdsCompAiIcon, { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 import ListIcon from "@mui/icons-material/List";
@@ -17,7 +18,7 @@ registerMaterialIcons({
 
 export interface RdsCompAiFabMenuItem {
   key: string;
-  value: React.ReactNode;
+  value: ReactNode;
   icon?: string;
   iconWidth?: string;
   iconHeight?: string;
@@ -66,19 +67,6 @@ const RdsCompAiFabMenu = ({
 
   const resolvedBackgroundType = resolveBackgroundType(backgroundType, isRectangular);
 
-  const customClasses = useMemo(
-    () =>
-      [
-        `rds-fab-menu__button rds-fab-menu__button--${colorVariant}`,
-        size ? `rds-fab-menu__button--${size}` : "",
-        `rds-fab-menu__button--${resolvedBackgroundType}`,
-        className,
-      ]
-        .filter(Boolean)
-        .join(" "),
-    [colorVariant, size, resolvedBackgroundType, className]
-  );
-
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
@@ -101,24 +89,12 @@ const RdsCompAiFabMenu = ({
   }, []);
 
   const handleItemClick = useCallback(
-    (onClick?: () => void) => (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    (onClick?: () => void) => (event: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       event.preventDefault();
       onClick?.();
       setIsMenuOpen(false);
     },
     []
-  );
-
-  const rootClass = useMemo(
-    () =>
-      [
-        "rds-fab-menu",
-        alignment === "right" ? "rds-fab-menu--right" : "",
-        isMenuOpen ? "rds-fab-menu--open" : "",
-      ]
-        .filter(Boolean)
-        .join(" "),
-    [alignment, isMenuOpen]
   );
 
   const iconColorVariant =
@@ -127,10 +103,24 @@ const RdsCompAiFabMenu = ({
       : "dark";
 
   return (
-    <div className={rootClass} data-alignment={alignment} data-open={isMenuOpen}>
+    <div
+      className={clsx(
+        "rds-fab-menu",
+        alignment === "right" && "rds-fab-menu--right",
+        isMenuOpen && "rds-fab-menu--open"
+      )}
+      data-alignment={alignment}
+      data-open={isMenuOpen}
+    >
       <button
         ref={buttonRef}
-        className={customClasses}
+        className={clsx(
+          "rds-fab-menu__button",
+          `rds-fab-menu__button--${colorVariant}`,
+          size && `rds-fab-menu__button--${size}`,
+          `rds-fab-menu__button--${resolvedBackgroundType}`,
+          className
+        )}
         type="button"
         onClick={toggleMenu}
         aria-expanded={isMenuOpen ? "true" : "false"}
@@ -146,24 +136,29 @@ const RdsCompAiFabMenu = ({
         />
       </button>
       <div
-        className={`rds-fab-menu__dropdown-container rds-fab-menu__dropdown-container--${alignment} ${
-          isMenuOpen ? "rds-fab-menu__dropdown-container--open" : ""
-        }`}
+        className={clsx(
+          "rds-fab-menu__dropdown-container",
+          `rds-fab-menu__dropdown-container--${alignment}`,
+          isMenuOpen && "rds-fab-menu__dropdown-container--open"
+        )}
         ref={menuRef}
       >
         <div
-          className={`rds-fab-menu__dropdown ${
-            isShowBorder ? "rds-fab-menu__dropdown--bordered" : ""
-          } ${isMenuOpen ? "rds-fab-menu__dropdown--open" : ""}`}
+          className={clsx(
+            "rds-fab-menu__dropdown",
+            isShowBorder && "rds-fab-menu__dropdown--bordered",
+            isMenuOpen && "rds-fab-menu__dropdown--open"
+          )}
           role="menu"
         >
           {listItems.map((listItem) => (
             <a
               key={listItem.key}
               role="menuitem"
-              className={`rds-fab-menu__item ${
-                id === "attachment-text" ? "rds-fab-menu__item--compact" : ""
-              }`}
+              className={clsx(
+                "rds-fab-menu__item",
+                id === "attachment-text" && "rds-fab-menu__item--compact"
+              )}
               onClick={handleItemClick(listItem.onClick)}
               tabIndex={0}
             >

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import { useEffect, useRef } from "react";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -9,9 +9,9 @@ import {
 import "./rds-comp-chart-area.scss";
 
 export interface lineprops {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartOptions<"line">;
+  dataSets: ChartDataset<"line">[];
   id: string;
   isGradient: boolean;
   chartLabel?: string;
@@ -30,7 +30,7 @@ const RdsCompAreaChart = ({
   const themeMode = useChartThemeMode();
 
   useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d") as CanvasRenderingContext2D;
+    const ctx = canvasRef.current?.getContext("2d");
     if (!ctx) return;
 
     chartRef.current?.destroy();

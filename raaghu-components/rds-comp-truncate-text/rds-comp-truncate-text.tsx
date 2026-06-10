@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import clsx from "clsx";
 import "./rds-comp-truncate-text.scss";
 import RdsTooltip from "../../raaghu-elements/rds-tooltip/rds-tooltip";
 
@@ -14,7 +15,7 @@ export interface RdsCompTruncateTextProps {
   lines?: number;
 }
 
-const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({
+const RdsCompTruncateText = ({
   text,
   maxLength = 100,
   state = TruncateTextState.Default,
@@ -39,13 +40,10 @@ const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({
     return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
   }, [text, maxLength, state]);
 
-  const className = useMemo(() => {
-    const classList = ["rds-comp-truncate-text"];
-    if (lines && lines > 1 && lines <= 5) {
-      classList.push(`rds-comp-truncate-text--lines-${lines}`);
-    }
-    return classList.join(" ");
-  }, [lines]);
+  const className = useMemo(
+    () => clsx("rds-comp-truncate-text", lines && lines > 1 && lines <= 5 && `rds-comp-truncate-text--lines-${lines}`),
+    [lines]
+  );
 
   const showTooltip =
     state === TruncateTextState.Hover && isHovered && text.length > maxLength;

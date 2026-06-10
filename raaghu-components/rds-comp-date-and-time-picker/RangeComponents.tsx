@@ -1,4 +1,6 @@
-import * as React from 'react';
+import { forwardRef, memo, useCallback, useEffect, useMemo, useState, type ReactElement, type ReactNode } from 'react';
+import clsx from 'clsx';
+import type { PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import dayjs, { Dayjs } from 'dayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
@@ -63,7 +65,7 @@ const isSameDay = (a: Dayjs | null, b: Dayjs | null) => !!a && !!b && a.isSame(b
 const isBetween = (day: Dayjs, start: Dayjs | null, end: Dayjs | null) =>
   !!start && !!end && day.isAfter(start, 'day') && day.isBefore(end, 'day');
 
-const DateCalendarPanel = React.memo(function DateCalendarPanel({
+const DateCalendarPanel = memo(function DateCalendarPanel({
   value,
   onChange,
   onMonthChange,
@@ -76,16 +78,16 @@ const DateCalendarPanel = React.memo(function DateCalendarPanel({
   onMonthChange: (newMonth: Dayjs) => void;
   minDate?: Dayjs;
   maxDate?: Dayjs;
-  daySlot: (dayProps: any) => React.ReactNode;
+  daySlot: React.ElementType<PickersDayProps>;
 }) {
   return (
     <DateCalendar
       value={value}
-      onChange={onChange as any}
-      onMonthChange={onMonthChange as any}
+      onChange={(newValue) => onChange(newValue as Dayjs | null)}
+      onMonthChange={(newMonth) => onMonthChange(newMonth as Dayjs)}
       minDate={minDate}
       maxDate={maxDate}
-      slots={{ day: daySlot as any }}
+      slots={{ day: daySlot }}
       views={['year', 'month', 'day']}
       displayWeekNumber
       slotProps={{
@@ -97,10 +99,10 @@ const DateCalendarPanel = React.memo(function DateCalendarPanel({
   );
 });
 
-export const CustomDateRangeLayout = React.forwardRef<
+export const CustomDateRangeLayout = forwardRef<
   HTMLDivElement,
   {
-    children: React.ReactNode;
+    children: ReactNode;
     selectedPreset: string;
     onPresetSelect: (preset: DateRangePreset) => void;
     rangeValue: [Dayjs | null, Dayjs | null];
@@ -117,9 +119,10 @@ export const CustomDateRangeLayout = React.forwardRef<
             <li key={preset.key} className="rds-date-picker__preset-item">
               <button
                 type="button"
-                className={`rds-date-picker__preset-button ${
-                  selectedPreset === preset.key ? 'rds-date-picker__preset-button--selected' : ''
-                }`}
+                className={clsx(
+                  "rds-date-picker__preset-button",
+                  selectedPreset === preset.key && "rds-date-picker__preset-button--selected"
+                )}
                 onClick={() => onPresetSelect(preset)}
               >
                 {preset.label}
@@ -140,12 +143,12 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
   maxDate?: Dayjs;
   multiMonth?: boolean;
 }) {
-  const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>(value);
-  const [currentMonth, setCurrentMonth] = React.useState(draft[0] || dayjs());
+  const [draft, setDraft] = useState<[Dayjs | null, Dayjs | null]>(value);
+  const [currentMonth, setCurrentMonth] = useState(draft[0] || dayjs());
 
-  React.useEffect(() => setDraft(value), [value[0]?.valueOf(), value[1]?.valueOf()]);
+  useEffect(() => setDraft(value), [value[0]?.valueOf(), value[1]?.valueOf()]);
 
-  const handleSelect = React.useCallback((day: Dayjs) => {
+  const handleSelect = useCallback((day: Dayjs) => {
     const [start, end] = draft;
     if (!start || (start && end)) {
       setDraft([day.startOf('day'), null]);
@@ -159,9 +162,9 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
     }
   }, [draft, onChange]);
 
-  const handleMonthChange = React.useCallback((newMonth: Dayjs) => setCurrentMonth(newMonth), []);
+  const handleMonthChange = useCallback((newMonth: Dayjs) => setCurrentMonth(newMonth), []);
 
-  const renderDaySlot = React.useCallback((dayProps: any) => {
+  const RangeDaySlot: React.ElementType<PickersDayProps> = (dayProps: PickersDayProps): ReactElement => {
     const day = dayProps.day as Dayjs;
     const [start, end] = draft;
     const inRange = isBetween(day, start, end);
@@ -169,7 +172,7 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
     const isEnd = isSameDay(day, end);
     return (
       <PickersDay
-        {...dayProps}
+        {...(dayProps as PickersDayProps)}
         onClick={() => handleSelect(day)}
         sx={{
           borderRadius: '4px !important',
@@ -184,21 +187,21 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
         }}
       />
     );
-  }, [draft, handleSelect]);
+  };
 
-  const handlePrimaryCalendarChange = React.useCallback((newMonth: Dayjs | null) => {
+  const handlePrimaryCalendarChange = useCallback((newMonth: Dayjs | null) => {
     if (newMonth) {
       handleMonthChange(newMonth);
     }
   }, [handleMonthChange]);
 
-  const handleSecondaryCalendarChange = React.useCallback((newMonth: Dayjs | null) => {
+  const handleSecondaryCalendarChange = useCallback((newMonth: Dayjs | null) => {
     if (newMonth) {
       handleMonthChange(newMonth.subtract(1, 'month'));
     }
   }, [handleMonthChange]);
 
-  const handleSecondaryMonthChange = React.useCallback((newMonth: Dayjs) => {
+  const handleSecondaryMonthChange = useCallback((newMonth: Dayjs) => {
     setCurrentMonth(newMonth.subtract(1, 'month'));
   }, []);
 
@@ -210,7 +213,7 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
         onMonthChange={handleMonthChange}
         minDate={minDate}
         maxDate={maxDate}
-        daySlot={renderDaySlot}
+        daySlot={RangeDaySlot}
       />
       {multiMonth && (
         <DateCalendarPanel
@@ -219,7 +222,7 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
           onMonthChange={handleSecondaryMonthChange}
           minDate={minDate}
           maxDate={maxDate}
-          daySlot={renderDaySlot}
+          daySlot={RangeDaySlot}
         />
       )}
     </Box>
@@ -245,11 +248,11 @@ export function RangeTime({
 }) {
   const [start, end] = value;
 
-  const handleStartTimeChange = React.useCallback((newStart: Dayjs | null) => onChange([newStart, end]), [onChange, end]);
-  const handleEndTimeChange = React.useCallback((newEnd: Dayjs | null) => onChange([start, newEnd]), [onChange, start]);
+  const handleStartTimeChange = useCallback((newStart: Dayjs | null) => onChange([newStart, end]), [onChange, end]);
+  const handleEndTimeChange = useCallback((newEnd: Dayjs | null) => onChange([start, newEnd]), [onChange, start]);
 
-  const endMinTime = React.useMemo(() => (start ? start : minTime), [start, minTime]);
-  const startMaxTime = React.useMemo(() => (end ? end : maxTime), [end, maxTime]);
+  const endMinTime = useMemo(() => (start ? start : minTime), [start, minTime]);
+  const startMaxTime = useMemo(() => (end ? end : maxTime), [end, maxTime]);
 
   return (
     <Stack direction="row" spacing={2}>
@@ -257,7 +260,7 @@ export function RangeTime({
         <TimePicker
           label="Start Time"
           value={start}
-          onChange={handleStartTimeChange as any}
+          onChange={(newValue) => handleStartTimeChange(newValue as Dayjs | null)}
           ampm={true}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
           timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
@@ -275,7 +278,7 @@ export function RangeTime({
         <TimePicker
           label="End Time"
           value={end}
-          onChange={handleEndTimeChange as any}
+          onChange={(newValue) => handleEndTimeChange(newValue as Dayjs | null)}
           ampm={true}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
           timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}

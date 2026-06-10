@@ -1,4 +1,5 @@
-import { useCallback, useState } from "react";
+import clsx from "clsx";
+import { useCallback, useState, type Dispatch, type SetStateAction, type ChangeEvent } from "react";
 import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
 import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
 import { Comment as AttachmentComment } from "../rds-comp-ai-attachement/rds-comp-ai-attachement";
@@ -10,7 +11,7 @@ export interface RdsCompAiChatBotProps {
   userAvatarUrl?: string;
   placeholderText?: string;
   messages: Message[];
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  setMessages: Dispatch<SetStateAction<Message[]>>;
   iconName: string;
 }
 
@@ -32,7 +33,7 @@ const RdsCompAiChatBot = ({
   const [inputText, setInputText] = useState<string>("");
   const [inputImage, setInputImage] = useState<string | null>(null);
 
-  const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
 
     const reader = new FileReader();
@@ -83,7 +84,7 @@ const RdsCompAiChatBot = ({
         target: {
           files: [blob],
         },
-      } as unknown as React.ChangeEvent<HTMLInputElement>;
+      } as unknown as ChangeEvent<HTMLInputElement>;
 
       handleImageChange(syntheticEvent);
     },
@@ -101,11 +102,12 @@ const RdsCompAiChatBot = ({
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`rds-ai-chat-bot__message ${
+            className={clsx(
+              "rds-ai-chat-bot__message",
               message.sender
                 ? "rds-ai-chat-bot__message--sender"
                 : "rds-ai-chat-bot__message--receiver"
-            }`}
+            )}
           >
             <RdsCompAiMessageBox
               avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}

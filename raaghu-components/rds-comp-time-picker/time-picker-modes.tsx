@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback, type ChangeEvent } from 'react';
 
 const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
 const MINUTES = Array.from({ length: 60 }, (_, i) => i);
@@ -12,7 +12,7 @@ interface CompactTimePickerProps {
   setTempPeriod: (period: string) => void;
 }
 
-export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
+export const CompactTimePicker = ({
   tempHour, 
   setTempHour, 
   tempMinute, 
@@ -20,21 +20,21 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
   tempPeriod, 
   setTempPeriod
 }) => {
-  const onHourChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onHourChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const val = parseInt(e.target.value);
     setTempHour(val);
   }, [setTempHour]);
 
-  const onMinuteChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onMinuteChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const val = parseInt(e.target.value);
     setTempMinute(val);
   }, [setTempMinute]);
 
-  const onPeriodChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onPeriodChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setTempPeriod(e.target.value);
   }, [setTempPeriod]);
 
-  const togglePeriod = React.useCallback(() => {
+  const togglePeriod = useCallback(() => {
     setTempPeriod(tempPeriod === 'AM' ? 'PM' : 'AM');
   }, [setTempPeriod, tempPeriod]);
 
@@ -102,7 +102,7 @@ interface DefaultTimePickerProps {
   onTogglePeriod: () => void;
 }
 
-export const DefaultTimePicker: React.FC<DefaultTimePickerProps> = ({ 
+export const DefaultTimePicker = ({ 
   hours, 
   minutes, 
   period,

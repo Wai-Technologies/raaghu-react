@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type ImgHTMLAttributes, type SVGProps, type ReactNode } from 'react';
 import { RdsAvatar, RdsBox, RdsTypography } from '../../raaghu-elements';
 import RdsEmojiGenerator, { EmojiGeneratorType } from '../rds-comp-emoji-generator/rds-comp-emoji-generator';
 import { Divider, IconButton, InputAdornment, TextField, Link,
@@ -24,11 +24,11 @@ export interface RdsCommentBoxProps {
   svgEditPath?: string;
   svgDeletePath?: string;
   imgSrc?: string;
-  imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
-  svgEditProps?: React.SVGProps<SVGSVGElement>;
-  svgDeleteProps?: React.SVGProps<SVGSVGElement>;
-  editIcon?: React.ReactNode;
-  deleteIcon?: React.ReactNode;
+  imgProps?: ImgHTMLAttributes<HTMLImageElement>;
+  svgEditProps?: SVGProps<SVGSVGElement>;
+  svgDeleteProps?: SVGProps<SVGSVGElement>;
+  editIcon?: ReactNode;
+  deleteIcon?: ReactNode;
   editLabel?: string;
   deleteLabel?: string;
   state:
@@ -60,7 +60,7 @@ export interface RdsCommentBoxProps {
   score?: string;
 }
 
-export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
+export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
   const { state, avatarInitials = 'RD' } = props;
   const logic = useCommentsBoxLogic(props.mentionUsers);
   switch (state) {

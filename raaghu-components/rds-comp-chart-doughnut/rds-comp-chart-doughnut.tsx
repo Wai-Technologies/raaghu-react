@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -12,9 +12,9 @@ import {
 import "./rds-comp-chart-doughnut.scss";
 
 export interface RdsCompDoughnutProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartOptions<"doughnut">;
+  dataSets: ChartDataset<"doughnut">[];
   id: string;
   titleText?: string;
   subTitleText?: string;
@@ -23,7 +23,7 @@ export interface RdsCompDoughnutProps {
 
 const createCenterTextPlugin = (title: string, subTitle: string) => ({
   id: "counter3",
-  beforeDraw(chart: any) {
+  beforeDraw(chart: Chart) {
     const {
       ctx: canvasCtx,
       chartArea: { top, width, height },

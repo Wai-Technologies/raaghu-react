@@ -7,7 +7,7 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
 interface VolumeSliderProps {
   showTranscriptSlider: boolean;
-  volumeSliderRef: React.RefObject<HTMLDivElement | null>;
+  volumeSliderRef: RefObject<HTMLDivElement | null>;
   volumeLevel: number;
   handleVolumeChange: (event: Event, value: number | number[]) => void;
 }

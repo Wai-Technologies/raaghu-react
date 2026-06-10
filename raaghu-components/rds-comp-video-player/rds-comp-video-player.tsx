@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useMemo } from "react";
+import { Suspense, lazy, useMemo, createElement, type ComponentType } from "react";
 import "./rds-comp-video-player.scss";
 
 const ReactPlayer = lazy(() => import("react-player"));
@@ -82,7 +82,7 @@ const buildPlayerConfig = (
   };
 };
 
-const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
+const RdsCompVideoPlayer = ({
   width = "100%",
   height = "auto",
   autoplay = false,
@@ -114,7 +114,7 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
             <div className="rds-comp-video-player__loading" aria-label="Loading video player" />
           }
         >
-          {React.createElement(ReactPlayer as any, {
+          {createElement(ReactPlayer as ComponentType<Record<string, unknown>>, {
             key: `${formattedUrl}`,
             url: formattedUrl,
             width,

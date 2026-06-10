@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -9,9 +9,9 @@ import {
 import "./rds-comp-chart-polar-area.scss";
 
 export interface RdsCompPolarAreaChartProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartOptions<"polarArea">;
+  dataSets: ChartDataset<"polarArea">[];
   radius?: number;
   id: string;
   chartLabel?: string;
@@ -33,7 +33,8 @@ const RdsCompPolarAreaChart = ({
     const canvasElm = canvasRef.current;
     if (!canvasElm) return;
 
-    const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
+    const ctx = canvasElm.getContext("2d");
+    if (!ctx) return;
     chartInstanceRef.current?.destroy();
 
     const chartOptions = cloneChartOptions(options);

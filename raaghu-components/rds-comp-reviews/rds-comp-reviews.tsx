@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import "./rds-comp-reviews.scss";
 import { renderReviewStyle } from "./rds-comp-review-styles";
 import Grid from "@mui/material/Grid";

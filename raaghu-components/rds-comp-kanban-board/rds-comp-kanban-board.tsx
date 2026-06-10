@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, memo, type ReactNode, type MouseEvent } from 'react';
+import clsx from 'clsx';
 import {
   DndContext,
   closestCenter,
@@ -37,10 +38,10 @@ interface SortableSubCardProps {
   subCardIndex: number;
   boardIndex: number;
   avatarData?: Array<{ title: string; subText?: string; src?: string }>;
-  toggleSubCardDropdown: (id: number, e: React.MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => void;
+  toggleSubCardDropdown: (id: number, e: MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => void;
 }
 
-const SortableSubCard = React.memo(({ subCard, subCardIndex, boardIndex, avatarData, toggleSubCardDropdown }: SortableSubCardProps) => {
+const SortableSubCard = memo(({ subCard, subCardIndex, boardIndex, avatarData, toggleSubCardDropdown }: SortableSubCardProps) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: subCard.SubcardId,
     data: { type: 'subCard', boardIndex, subCardIndex },
@@ -113,10 +114,10 @@ const SortableSubCard = React.memo(({ subCard, subCardIndex, boardIndex, avatarD
 interface DroppableColumnProps {
   boardIndex: number;
   subCardIds: number[];
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const DroppableColumn = React.memo(({ boardIndex, subCardIds, children }: DroppableColumnProps) => {
+const DroppableColumn = memo(({ boardIndex, subCardIds, children }: DroppableColumnProps) => {
   const { setNodeRef } = useDroppable({ id: `column-${boardIndex}` });
   return (
     <SortableContext items={subCardIds} strategy={verticalListSortingStrategy}>
@@ -240,7 +241,7 @@ const RdsCompKanbanBoard = ({
           <Box key={index}>
             {showBoard && card.name && (
               <Box className={`kanban-board ${colorClass(card.colorType)}`}>
-                <Card className={`kanban-board__card ${card.subCards && card.subCards.length === 0 ? 'kanban-board__card--empty-board' : ''}`}>
+                <Card className={clsx("kanban-board__card", card.subCards && card.subCards.length === 0 && "kanban-board__card--empty-board")}>
                   <CardContent className="kanban-board__card-content">
                     <Box className="kanban-board__card-header">
                       <Box className="kanban-board__header-content">

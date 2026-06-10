@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
+import clsx from 'clsx';
 import { 
   History, 
   StarBorder, 
@@ -75,7 +76,7 @@ export interface StorybookButtonProps {
   iconAlt?: string;
 }
 
-export const FigmaUIKitButton: React.FC<FigmaUIKitButtonProps> = ({ 
+export const FigmaUIKitButton = ({ 
   text = "Download the Figma UI Kit",
   onClick,
   figmaIconSrc,
@@ -103,7 +104,7 @@ export const FigmaUIKitButton: React.FC<FigmaUIKitButtonProps> = ({
   );
 };
 
-export const StorybookButton: React.FC<StorybookButtonProps> = ({ 
+export const StorybookButton = ({ 
   text = "Go to Storybook",
   onClick,
   className = "",
@@ -132,7 +133,7 @@ export const StorybookButton: React.FC<StorybookButtonProps> = ({
   );
 };
 
-export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
+export const HistoryFavoritesTabs = ({
   activeTab,
   setActiveTab,
   historyTabLabel = "History",
@@ -207,7 +208,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
         </div>
         <div className="rds-comp-details-pane__tab-underline-wrapper">
           <div
-            className={`rds-comp-details-pane__tab-underline rds-comp-details-pane__tab-underline--${activeTab}`}
+            className={clsx("rds-comp-details-pane__tab-underline", "rds-comp-details-pane__tab-underline--")}
           ></div>
         </div>
       </div>
@@ -307,7 +308,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
   );
 };
 
-export const RealEstateContent: React.FC<RealEstateContentProps> = ({
+export const RealEstateContent = ({
   estateTitle,
   estateDescription,
   carouselImages = []
@@ -415,7 +416,7 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
   );
 };
 
-export const SelectionContent: React.FC<SelectionContentProps> = ({
+export const SelectionContent = ({
   headerSubText = "Agent Information"
 }) => {
   const agents = [
@@ -428,7 +429,7 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
   const handleSearchChange = useCallback((value: string) => setSearchValue(value), []);
   const handleAgentSelect = useCallback((agentId: string) => setSelectedAgent(agentId), []);
-  const handleAgentCardKeyDown = useCallback((e: React.KeyboardEvent, agentId: string) => {
+  const handleAgentCardKeyDown = useCallback((e: KeyboardEvent, agentId: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setSelectedAgent(agentId);
@@ -463,7 +464,7 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
           {agents.map((agent) => (
             <div
               key={agent.id}
-              className={`rds-comp-details-pane__agent-card${selectedAgent === String(agent.id) ? ' rds-comp-details-pane__agent-card--selected' : ''}`}
+              className={clsx("rds-comp-details-pane__agent-card", selectedAgent === String(agent.id) && " rds-comp-details-pane__agent-card--selected")}
                 onClick={() => handleAgentSelect(String(agent.id))}
               role="button"
               tabIndex={0}
@@ -513,7 +514,7 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
   );
 };
 
-export const ToolbarContent: React.FC<ToolbarContentProps> = ({
+export const ToolbarContent = ({
   initialTab = 'icon_font',
   figmaIconSrc,
   storybookIconSrc
@@ -624,7 +625,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
                           <div key={size} className="rds-comp-details-pane__grid-cell">
                             <button
                               type="button"
-                              className={`rds-comp-details-pane__font-size-btn${selectedFontSize === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}
+                              className={clsx("rds-comp-details-pane__font-size-btn", selectedFontSize === size && " rds-comp-details-pane__font-size-btn--selected")}
                               onClick={() => setSelectedFontSize(size)}
                             >
                               {size}
@@ -637,7 +638,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
                           <div key={size} className="rds-comp-details-pane__grid-cell">
                             <button
                               type="button"
-                              className={`rds-comp-details-pane__font-size-btn${selectedFontSize === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}
+                              className={clsx("rds-comp-details-pane__font-size-btn", selectedFontSize === size && " rds-comp-details-pane__font-size-btn--selected")}
                               onClick={() => setSelectedFontSize(size)}
                             >
                               {size}
@@ -656,7 +657,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
                           <div key={weight} className="rds-comp-details-pane__grid-cell rds-comp-details-pane__weight-cell">
                             <button 
                               type="button" 
-                              className={`rds-comp-details-pane__font-weight-btn${selectedFontWeight === weight ? ' rds-comp-details-pane__font-weight-btn--selected' : ''}`} 
+                              className={clsx("rds-comp-details-pane__font-weight-btn", selectedFontWeight === weight && " rds-comp-details-pane__font-weight-btn--selected")} 
                               onClick={() => setSelectedFontWeight(weight)}
                             >
                               {weight}
@@ -669,7 +670,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
                           <div key={weight} className="rds-comp-details-pane__grid-cell rds-comp-details-pane__weight-cell">
                             <button 
                               type="button" 
-                              className={`rds-comp-details-pane__font-weight-btn${selectedFontWeight === weight ? ' rds-comp-details-pane__font-weight-btn--selected' : ''}`} 
+                              className={clsx("rds-comp-details-pane__font-weight-btn", selectedFontWeight === weight && " rds-comp-details-pane__font-weight-btn--selected")} 
                               onClick={() => setSelectedFontWeight(weight)}
                             >
                               {weight}
@@ -739,7 +740,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
                           <div key={size} className="rds-comp-details-pane__grid-cell">
                             <button
                               type="button"
-                              className={`rds-comp-details-pane__font-size-btn${selectedCornerRadius === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}
+                              className={clsx("rds-comp-details-pane__font-size-btn", selectedCornerRadius === size && " rds-comp-details-pane__font-size-btn--selected")}
                               onClick={() => setSelectedCornerRadius(size)}
                             >
                               {size}
@@ -752,7 +753,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
                           <div key={size} className="rds-comp-details-pane__grid-cell">
                             <button
                               type="button"
-                              className={`rds-comp-details-pane__font-size-btn${selectedCornerRadius === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}
+                              className={clsx("rds-comp-details-pane__font-size-btn", selectedCornerRadius === size && " rds-comp-details-pane__font-size-btn--selected")}
                                 onClick={() => setSelectedCornerRadius(size)}
                             >
                               {size}
@@ -777,7 +778,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
                           <div key={size} className="rds-comp-details-pane__grid-cell">
                             <button
                               type="button"
-                              className={`rds-comp-details-pane__font-size-btn${selectedSpacingSize === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}
+                              className={clsx("rds-comp-details-pane__font-size-btn", selectedSpacingSize === size && " rds-comp-details-pane__font-size-btn--selected")}
                               onClick={() => setSelectedSpacingSize(size)}
                             >
                               {size}
@@ -790,7 +791,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
                           <div key={size} className="rds-comp-details-pane__grid-cell">
                             <button
                               type="button"
-                              className={`rds-comp-details-pane__font-size-btn${selectedSpacingSize === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}                             
+                              className={clsx("rds-comp-details-pane__font-size-btn", selectedSpacingSize === size && " rds-comp-details-pane__font-size-btn--selected")}                             
                               onClick={() => setSelectedSpacingSize(size)}
                             >
                               {size}
@@ -1010,9 +1011,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
   );
 };
 
-export const ThumbnailViewContent: React.FC<{
-  thumbnailButtonName?: string;
-}> = ({
+export const ThumbnailViewContent = ({
   thumbnailButtonName
 }) => {
   const accordionItems = [

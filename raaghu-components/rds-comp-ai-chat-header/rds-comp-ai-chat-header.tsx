@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { memo } from "react";
 import "./rds-comp-ai-chat-header.scss";
 
@@ -23,10 +24,10 @@ const RdsCompAiChatHeader = memo(({
       <img
         src={logoUrl}
         alt="Logo"
-        className={`rds-comp-ai-chat-header__logo rds-comp-ai-chat-header__logo--${size}`}
+        className={clsx("rds-comp-ai-chat-header__logo", `rds-comp-ai-chat-header__logo--${size}`)}
       />
     )}
-    <h3 className={`rds-comp-ai-chat-header__text rds-comp-ai-chat-header__text--${size}`}>
+    <h3 className={clsx("rds-comp-ai-chat-header__text", `rds-comp-ai-chat-header__text--${size}`)}>
       {title}
     </h3>
   </div>

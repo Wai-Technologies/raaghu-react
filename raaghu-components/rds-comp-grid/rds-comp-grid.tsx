@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { useState, useMemo, useRef, useEffect, forwardRef, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler } from 'react';
 import {
   Box,
   TextField,
@@ -91,7 +91,7 @@ export interface RdsCompGridColumn {
   minWidth?: number;
   maxWidth?: number;
   allowHtml?: boolean;
-  renderCell?: (value: any, row: any) => React.ReactNode;
+  renderCell?: (value: any, row: any) => ReactNode;
   validateCell?: (value: any, row: any) => string | null;
 }
 
@@ -251,18 +251,7 @@ export interface RdsCompGridProps {
   isLoading?: boolean;
 }
 
-const EditableCell: React.FC<{
-  value: any;
-  column: RdsCompGridColumn;
-  row: any;
-  isEditing: boolean;
-  onStartEdit: () => void;
-  onSave: (newValue: any) => void;
-  onCancel: () => void;
-  onValueChange: (newValue: any) => void;
-  tempValue: any;
-  validationError?: string;
-}> = ({ 
+const EditableCell = ({ 
   value, 
   column, 
   row, 
@@ -273,6 +262,17 @@ const EditableCell: React.FC<{
   onValueChange, 
   tempValue, 
   validationError 
+}: {
+  value: any;
+  column: RdsCompGridColumn;
+  row: any;
+  isEditing: boolean;
+  onStartEdit: () => void;
+  onSave: (newValue: any) => void;
+  onCancel: () => void;
+  onValueChange: (newValue: any) => void;
+  tempValue: any;
+  validationError?: string;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -289,7 +289,7 @@ const EditableCell: React.FC<{
     }
   }, [isEditing]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       onSave(tempValue);
@@ -419,15 +419,15 @@ const EditableCell: React.FC<{
   );
 };
 
-const ActionMenu: React.FC<{
+const ActionMenu = ({ row, actions, onActionSelection }: {
   row: any;
   actions: RdsCompGridAction[];
   onActionSelection?: (rowData: any, actionId: any) => void;
-}> = ({ row, actions, onActionSelection }) => {
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
@@ -870,7 +870,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     onSortChange?.(newSortState);
   };
 
-  const handleFilterChange = (columnKey: string, value: string, operator: 'contains' | 'equals' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan' = 'contains') => {
+  const handleFilterChange = (
+    columnKey: string,
+    value: string,
+    operator: FilterState[string]['operator'] = 'contains'
+  ) => {
     const newFilterState = { ...filterState };
     if (value) {
       newFilterState[columnKey] = { value, operator };
@@ -990,7 +994,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
-  const handleFilterIconClick = (event: React.MouseEvent<HTMLElement>, columnKey: string) => {
+  const handleFilterIconClick = (event: MouseEvent<HTMLElement>, columnKey: string) => {
     event.preventDefault();
     event.stopPropagation();
     
@@ -1024,7 +1028,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }, 100);
   };
 
-  const handleResizeStart = (e: React.MouseEvent, columnKey: string) => {
+  const handleResizeStart = (e: MouseEvent, columnKey: string) => {
     e.preventDefault();
     e.stopPropagation();
     
@@ -1138,14 +1142,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     const columnToFilter = selectedColumnForFilter || filterConditions[0].column;
     
     if (columnToFilter && filterConditions[0].value) {
-      const filterValue = (filterConditions[0].value as any) instanceof Date ? 
-        (filterConditions[0].value as unknown as Date).toISOString().split('T')[0] : 
+      const filterValue = filterConditions[0].value instanceof Date ?
+        filterConditions[0].value.toISOString().split('T')[0] :
         filterConditions[0].value;
       
       const newFilterState = { ...filterState };
       newFilterState[columnToFilter] = {
         value: filterValue,
-        operator: filterConditions[0].operator as any
+        operator: filterConditions[0].operator
       };
       
       const newColumnFilterStates = { ...columnFilterStates };
@@ -1617,7 +1621,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     applyFilter: (columnKey: string, value: string, operator: string = 'contains') => {
       const newFilterState = { ...filterState };
       if (value) {
-        newFilterState[columnKey] = { value, operator: operator as any };
+        newFilterState[columnKey] = { value, operator };
       } else {
         delete newFilterState[columnKey];
       }
@@ -1791,8 +1795,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
   const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
 
-  const headerScrollRef = React.useRef<HTMLDivElement | null>(null);
-  const handleBodyScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
+  const headerScrollRef = useRef<HTMLDivElement | null>(null);
+  const handleBodyScroll: UIEventHandler<HTMLDivElement> = (e) => {
     if (headerScrollRef.current) {
       headerScrollRef.current.scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft;
     }
@@ -1960,7 +1964,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   <FormControl size="small" sx={{ minWidth: 120 }}>
                     <Select
                       value={filterState[header.key]?.operator || 'contains'}
-                      onChange={(e) => handleFilterChange(header.key, filterState[header.key]?.value || '', e.target.value as any)}
+                      onChange={(e) => handleFilterChange(header.key, filterState[header.key]?.value || '', e.target.value as FilterState[string]['operator'])}
                     >
                       <MenuItem value="contains">Contains</MenuItem>
                       <MenuItem value="equals">Equals</MenuItem>
@@ -2106,7 +2110,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   const dropIndicatorsEnabled = false;
 
                   return (
-                    <React.Fragment key={header.key}>
+                    <Fragment key={header.key}>
                       {dropIndicatorsEnabled && isDropBefore && (
                         <Box
                           sx={{
@@ -2192,7 +2196,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           ...(isDropTarget && {
                           }),
                         }}
-                        onClick={(e: React.MouseEvent) => {
+                        onClick={(e: MouseEvent) => {
                           e.stopPropagation();
                           if (!customDragState.isDragging && isSort && header.isSort) {
                             handleSort(header.key);
@@ -2305,7 +2309,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             />
                           )}
                       </TableCell>
-                    </React.Fragment>
+                    </Fragment>
                   );
                 })}
                 

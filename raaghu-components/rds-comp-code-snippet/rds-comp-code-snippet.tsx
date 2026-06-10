@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, useState } from "react";
+import clsx from "clsx";
+import { useCallback, useMemo, useState, type ComponentType, type CSSProperties } from "react";
 import "./rds-comp-code-snippet.scss";
 import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
 import CodeOffIcon from '@mui/icons-material/CodeOff';
@@ -9,16 +10,28 @@ import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlig
 // @ts-expect-error no declaration file for react-syntax-highlighter styles subpath
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
-const darkStyle = {
-  ...atomOneLight as any,
+type HighlighterStyle = Record<string, Record<string, string> | string>;
+
+const atomOneLightStyle = atomOneLight as HighlighterStyle;
+
+const darkStyle: HighlighterStyle = {
+  ...atomOneLightStyle,
   hljs: {
-    ...((atomOneLight as any).hljs || {}),
+    ...(typeof atomOneLightStyle.hljs === 'object' ? atomOneLightStyle.hljs : {}),
     background: 'var(--rds-code-bg, #0b1220)',
     color: 'var(--rds-code-color, #e6eef6)',
   },
 };
 
-const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<any>;
+const Highlighter = SyntaxHighlighter as unknown as ComponentType<{
+  language: string;
+  style: HighlighterStyle;
+  showLineNumbers?: boolean;
+  wrapLongLines?: boolean;
+  PreTag?: string;
+  className?: string;
+  children: string;
+}>;
 
 const LANGUAGE_OPTIONS = [
   { id: 'html', label: 'Html' },
@@ -51,7 +64,7 @@ export interface RdsCompCodeSnippetProps {
   sampleCodeSnippets?: Record<string, string>;
 }
 
-const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
+const RdsCompCodeSnippet = ({
   code,
   language = "html",
   codeLines = false,
@@ -60,7 +73,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
   maxHeight,
   className = "",
   sampleCodeSnippets,
-}) => {
+}: RdsCompCodeSnippetProps) => {
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
     typeof language === 'string' ? language : 'html'
@@ -89,10 +102,10 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
 
   const showLanguage = !!language;
   const languageLabel = typeof language === 'string' ? language : 'html';
-  const highlighterStyle = theme === 'dark' ? (darkStyle as any) : (atomOneLight as any);
+  const highlighterStyle = theme === 'dark' ? darkStyle : atomOneLightStyle;
 
   return (
-    <div className={`rds-comp-code-snippet rds-comp-code-snippet--${theme} rds-comp-code-snippet--${type} ${className}`}>
+    <div className={clsx("rds-comp-code-snippet", `rds-comp-code-snippet--${theme}`, `rds-comp-code-snippet--${type}`, className)}>
       <div className="rds-comp-code-snippet__container">
         {type === "singleLine" ? (
           <div className="rds-comp-code-snippet__toolbar rds-comp-code-snippet__toolbar--single-line">
@@ -110,7 +123,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
             </span>
             <div className="rds-comp-code-snippet__actions">             
               <RdsButton
-                className={`rds-comp-code-snippet__copy-button ${copied ? "rds-comp-code-snippet__copy-button--copied" : ""}`}
+                className={clsx("rds-comp-code-snippet__copy-button", copied && "rds-comp-code-snippet__copy-button--copied")}
                 onClick={handleCopy}
                 aria-label="Copy code"
                 size="small"
@@ -131,7 +144,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                   <div className="rds-comp-code-snippet__language-dropdown">
                     <RdsButtonDropdown
                       buttonText={selectedLanguage || (languageLabel as string)}
-                      options={LANGUAGE_OPTIONS as any}
+                      options={LANGUAGE_OPTIONS}
                       showSearch={false}
                       leftIcon={<CodeOffIcon style={{ fontSize: 16 }} />}
                       rightIcon={<KeyboardArrowDownIcon style={{ fontSize: 18 }} />}
@@ -143,7 +156,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                   </div>
                 )}
                 <RdsButton
-                  className={`rds-comp-code-snippet__copy-button ${copied ? "rds-comp-code-snippet__copy-button--copied" : ""}`}
+                  className={clsx("rds-comp-code-snippet__copy-button", copied && "rds-comp-code-snippet__copy-button--copied")}
                   onClick={handleCopy}
                   aria-label="Copy code"
                   size="small"
@@ -156,8 +169,8 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                 <OpenInFullOutlinedIcon className="rds-comp-code-snippet__expand-icon" />
               </div>
               <div 
-                className={`rds-comp-code-snippet__content ${maxHeight ? 'rds-comp-code-snippet__content--with-max' : ''}`} 
-                style={maxHeight ? { ['--rds-code-max-height' as any]: maxHeight } : {}}
+                className={clsx("rds-comp-code-snippet__content", maxHeight && "rds-comp-code-snippet__content--with-max")} 
+                style={maxHeight ? ({ "--rds-code-max-height": maxHeight } as CSSProperties) : undefined}
               >
                 <div className="rds-comp-code-snippet__syntax">
                     <Highlighter

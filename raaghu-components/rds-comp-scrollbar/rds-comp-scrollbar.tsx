@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import clsx from "clsx";
 import "./rds-comp-scrollbar.scss";
 
 export enum ScrollBarType {
@@ -16,11 +17,11 @@ export interface RdsScrollBarProps {
   type?: ScrollBarType;
   position?: ScrollPosition;
   showButtons?: boolean;
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
 }
 
-const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
+const RdsCompScrollBar = ({
   type = ScrollBarType.Mac,
   position = ScrollPosition.Start,
   showButtons = true,
@@ -47,10 +48,7 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
   }, [position, type, scrollToPosition]);
 
   const rootClassName = useMemo(
-    () =>
-      `rds-scrollbar ${
-        type === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple"
-      }`,
+    () => clsx("rds-scrollbar", type === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple"),
     [type]
   );
 

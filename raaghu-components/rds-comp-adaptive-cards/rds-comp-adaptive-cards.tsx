@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import clsx from 'clsx';
 import "./rds-comp-adaptive-cards.scss";
 import {
   RdsBox,
@@ -187,9 +188,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   return (
     visible && (
       <RdsCardDetail
-        className={`rds-adaptive-cards rds-adaptive-cards--default${
-          type === "Default" ? " is-default-selected" : ""
-        }`}
+        className={clsx("rds-adaptive-cards", "rds-adaptive-cards--default")}
       >
         {type === "Default" ? (
           <RdsBox className="custom-box">
@@ -236,18 +235,20 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               {showBtn1 && (
                 <RdsButton
                   style={resolvedBtn1Style}
-                  className={`custom-box__button--cancel${
-                    resolvedBtn1Style === "filled" ? " rds-button__primary" : ""
-                  }`}
+                  className={clsx(
+                    "custom-box__button--cancel",
+                    resolvedBtn1Style === "filled" && "rds-button__primary"
+                  )}
                   text={btn1Label}
                 />
               )}
               {showBtn2 && (
                 <RdsButton
                   style={resolvedBtn2Style}
-                  className={`custom-box__button--done${
-                    resolvedBtn2Style === "filled" ? " rds-button__primary" : ""
-                  }`}
+                  className={clsx(
+                    "custom-box__button--done",
+                    resolvedBtn2Style === "filled" && "rds-button__primary"
+                  )}
                   text={btn2Label}
                 />
               )}
@@ -368,13 +369,11 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
             </CardContent>
 
             <CardActions
-              className={`rds-adaptive-cards__actions${
-                type === "RestaurantOrder" ? " rds-adaptive-cards__actions--restaurant-order" : ""
-              }${
-                type === "ActivityUpdateCard"
-                  ? " rds-adaptive-cards__actions--activity-update"
-                  : ""
-              }`}
+              className={clsx(
+                "rds-adaptive-cards__actions",
+                type === "RestaurantOrder" && "rds-adaptive-cards__actions--restaurant-order",
+                type === "ActivityUpdateCard" && "rds-adaptive-cards__actions--activity-update"
+              )}
             >
               {type === "RestaurantOrder" ? (
                 showBtn1 ? (
@@ -413,15 +412,12 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     ) : (
                       <RdsButton
                         style={resolvedBtn1Style}
-                        className={`rds-adaptive-cards__action-btn${
-                          type === "RestaurantOrder"
-                            ? " rds-adaptive-cards__action-btn--restaurant-order"
-                            : ""
-                        }${
-                          type === "ActivityUpdateCard"
-                            ? " rds-adaptive-cards__action-btn--activity"
-                            : ""
-                        }${resolvedBtn1Style === "filled" ? " rds-button__primary" : ""}`}
+                        className={clsx(
+                          "rds-adaptive-cards__action-btn",
+                          type === "RestaurantOrder" && "rds-adaptive-cards__action-btn--restaurant-order",
+                          type === "ActivityUpdateCard" && "rds-adaptive-cards__action-btn--activity",
+                          resolvedBtn1Style === "filled" && "rds-button__primary"
+                        )}
                         size={type === "RestaurantOrder" ? "small" : undefined}
                         text={btn1Label}
                       />
@@ -430,11 +426,11 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     type !== "InputForm" && (
                       <RdsButton
                         style={resolvedBtn2Style}
-                        className={`rds-adaptive-cards__action-btn${
-                          type === "ActivityUpdateCard"
-                            ? " rds-adaptive-cards__action-btn--activity"
-                            : ""
-                        }${resolvedBtn2Style === "filled" ? " rds-button__primary" : ""}`}
+                        className={clsx(
+                          "rds-adaptive-cards__action-btn",
+                          type === "ActivityUpdateCard" && "rds-adaptive-cards__action-btn--activity",
+                          resolvedBtn2Style === "filled" && "rds-button__primary"
+                        )}
                         size="medium"
                         text={capitalizeFirstWord(btn2Label)}
                       />

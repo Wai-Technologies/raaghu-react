@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
+import type { RdsBadgeProps } from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
 import "./rds-comp-ai-attachement.scss";
@@ -14,7 +15,7 @@ export interface RdsCompAiAttachementProps {
   inputPlaceholder?: string;
   showBadge?: boolean;
   badgeLabel?: string;
-  badgeColor?: string;
+  badgeColor?: RdsBadgeProps["colorVariant"];
   uploadText?: string;
   importText?: string;
   modalText?: string;
@@ -70,7 +71,7 @@ const RdsCompAiAttachement = ({
   const [, setCommentList] = useState<Comment[]>(userData?.[0]?.comments || []);
 
   const handleFileUpload = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
       if (!file?.type.startsWith("image/")) return;
 
@@ -96,7 +97,7 @@ const RdsCompAiAttachement = ({
     [handleAddComment, userData]
   );
 
-  const openModal = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+  const openModal = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setShowModal(true);
 
@@ -116,7 +117,7 @@ const RdsCompAiAttachement = ({
   }, []);
 
   const handleFigmaInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       setFigmaUrl(e.target.value);
       onFigmaSubmit?.(e.target.value);
     },
@@ -137,7 +138,7 @@ const RdsCompAiAttachement = ({
             <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
             {showBadge && (
               <RdsBadge
-                colorVariant={(badgeColor as any) || "primary"}
+                colorVariant={badgeColor || "primary"}
                 layout="text"
                 shape="rectangle"
                 badgeContent={badgeLabel || ""}

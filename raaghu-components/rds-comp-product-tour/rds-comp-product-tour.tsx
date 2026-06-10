@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import clsx from 'clsx';
 import { Box, Typography, Paper } from '@mui/material';
 import { RdsCarousel, RdsBadge, RdsFileUploader } from '../../raaghu-elements';
 import {
@@ -17,7 +18,7 @@ import {
 } from './product-tour-helpers';
 import './rds-comp-product-tour.scss';
 
-const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
+const RdsCompProductTour = ({
     state = "Image",
     topLeft = false,
     topRight = false,
@@ -132,7 +133,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-dots">
                     {effectiveSlides.map((_, idx) => (
-                        <Box key={idx} className={`rds-comp-product-tour__carousel-dot ${idx === currentIndex ? 'rds-comp-product-tour__carousel-dot--active' : ''}`} />
+                        <Box key={idx} className={clsx("rds-comp-product-tour__carousel-dot", idx === currentIndex && "rds-comp-product-tour__carousel-dot--active")} />
                     ))}
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-spacer" />

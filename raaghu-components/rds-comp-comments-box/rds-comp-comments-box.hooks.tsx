@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent, type RefObject } from 'react';
 
 function useClickOutside(
   isOpen: boolean,
-  contentRef: React.RefObject<HTMLElement | null>,
+  contentRef: RefObject<HTMLElement | null>,
   triggerElement: HTMLElement | null,
   onClose: () => void
 ) {
@@ -32,7 +32,7 @@ export function useCommentsBoxLogic(mentionUsers?: string[]) {
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
   const [emojiAnchorEl, setEmojiAnchorEl] = useState<HTMLElement | null>(null);
   const [typingHeader, setTypingHeader] = useState('');
-  const handleEmojiBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleEmojiBtnClick = (event: MouseEvent<HTMLElement>) => {
     setEmojiAnchorEl(event.currentTarget);
     setEmojiPickerOpen((open) => !open);
   };

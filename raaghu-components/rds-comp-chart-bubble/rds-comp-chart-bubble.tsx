@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -10,9 +10,9 @@ import "./rds-comp-chart-bubble.scss";
 
 export interface RdsCompBubbleChartProps {
   id: string;
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartOptions<"bubble">;
+  dataSets: ChartDataset<"bubble">[];
   chartLabel?: string;
 }
 
@@ -27,7 +27,7 @@ const RdsCompBubbleChart = ({
   const themeMode = useChartThemeMode();
 
   useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d") as CanvasRenderingContext2D;
+    const ctx = canvasRef.current?.getContext("2d");
     if (!ctx) return;
 
     const chartOptions = cloneChartOptions(options);

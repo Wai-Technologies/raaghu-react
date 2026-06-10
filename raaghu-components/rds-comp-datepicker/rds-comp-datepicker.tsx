@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import clsx from 'clsx';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
@@ -15,7 +16,7 @@ import {
     renderDatePickerTypeView
 } from './rds-comp-datepicker-utils';
 
-const SafeDatePicker = DatePicker as any;
+const SafeDatePicker = DatePicker;
 
 export enum DatePickerStyleType {
     Dropdown = "Dropdown",
@@ -74,7 +75,7 @@ const RdsDatepicker = ({
     isDefaultDate,
     ...restProps
 }: RdsDatepickerProps) => {
-    const today = new Date(); 
+    const today = useMemo(() => new Date(), []); 
     const [dropdownDisplayValue, setDropdownDisplayValue] = useState(
         isDefaultDate ? today.toDateString().slice(4) : ""
     );
@@ -84,9 +85,9 @@ const RdsDatepicker = ({
     );
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const datePickerRef = useRef<any>(null);
-    const expandedDatePickerRef = useRef<any>(null);
-    const selectedDatePickerRef = useRef<any>(null);
+    const datePickerRef = useRef<DatePicker | null>(null);
+    const expandedDatePickerRef = useRef<DatePicker | null>(null);
+    const selectedDatePickerRef = useRef<DatePicker | null>(null);
     const [showType, setShowType] = useState(false);
     const [showState, setShowState] = useState(true);
 
@@ -252,7 +253,7 @@ const RdsDatepicker = ({
     return (
         <>
             <label
-                className={`rds-datepicker__label ${!showTitle ? 'rds-datepicker__label--hidden' : ''}`}
+                className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
                 aria-hidden={!showTitle}
             >
                 {showTitle && titleText ? titleText : '\u00A0'}

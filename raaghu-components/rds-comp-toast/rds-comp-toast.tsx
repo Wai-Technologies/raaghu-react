@@ -1,4 +1,5 @@
-import React, { useCallback } from "react";
+import clsx from "clsx";
+import { useCallback } from "react";
 import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
@@ -126,27 +127,33 @@ const ToastFooter = ({
     return null;
 };
 
+const BORDER_TOKEN_MAP: Record<string, string> = {
+    basic: 'light',
+    info: 'dark',
+    success: 'primary',
+    error: 'danger',
+};
+
 const RdsCompToast = (props: RdsCompToastProps) => {
-    // Legacy border class mapping (keeps compatibility with existing tests/styles)
     const _stateClass = getStateClass(props.state);
-    const borderTokenMap: Record<string, string> = {
-        basic: 'light',
-        info: 'dark',
-        success: 'primary',
-        error: 'danger',
-    };
-    const borderColor = `rds-comp-toast--border-${borderTokenMap[_stateClass] || 'light'}`;
+    const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
     const { showState, setShowState, pauseTimer, resumeTimer } = useToastTimer(props.autohide, props.delay);
     const hideToast = useCallback(() => setShowState("hide"), [setShowState]);
 
     return (
-        <div className={`rds-comp-toast__container ${getPositionClasses(props.position)}`}>
+        <div className={clsx("rds-comp-toast__container", getPositionClasses(props.position))}>
             <div
                 role="alert"
                 aria-live="assertive"
                 aria-atomic="true"
-                className={`rds-comp-toast rds-comp-toast--${getStateClass(props.state)} rds-comp-toast--${getLayoutClass(props.layout)} ${borderColor} ${showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"}`}
+                className={clsx(
+                  "rds-comp-toast",
+                  `rds-comp-toast--${getStateClass(props.state)}`,
+                  `rds-comp-toast--${getLayoutClass(props.layout)}`,
+                  borderColor,
+                  showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"
+                )}
                 id="toastId"
                 onMouseEnter={props.autohide && props.pauseOnHover ? pauseTimer : undefined}
                 onMouseLeave={props.autohide && props.pauseOnHover ? resumeTimer : undefined}
@@ -156,7 +163,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <div className="rds-comp-toast__header-content">
                             <div className="rds-comp-toast__leading-icon">
                                 {props.showLeading && props.layout !== ToastLayout.Chat && (
-                                    <span className={`rds-comp-toast__icon rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`}></span>
+                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
                                 )}
                             </div>
 
@@ -201,7 +208,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <div className="rds-comp-toast__body-simple">
                             {props.showLeading && props.layout !== ToastLayout.Chat && (
                                 <div className="rds-comp-toast__leading-icon">
-                                    <span className={`rds-comp-toast__icon rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`}></span>
+                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
                                 </div>
                             )}
                             

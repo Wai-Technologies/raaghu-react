@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo, Fragment } from "react";
+import clsx from 'clsx';
 import { getToolbarConfig, ToolbarButton } from "./rds-comp-toolbar-config";
 import "./rds-comp-toolbar.scss";
 
@@ -32,7 +33,7 @@ export interface RdsCompToolbarProps {
   'data-testid'?: string;
 }
 
-const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
+const RdsCompToolbar = ({
   layout = ToolbarLayout.Primary,
   type = ToolbarType.FullFeatured,
   state = ToolbarState.On,
@@ -45,7 +46,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const isDisabled = state === ToolbarState.DisabledOn;
-  const toolbarConfig = getToolbarConfig(type);
+  const toolbarConfig = useMemo(() => getToolbarConfig(type), [type]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -126,7 +127,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   return (
     <div
       ref={toolbarRef}
-      className={`rds-comp-toolbar rds-comp-toolbar--${layout} rds-comp-toolbar--${type} rds-comp-toolbar--${state} ${className}`}
+      className={clsx("rds-comp-toolbar", layout === ToolbarLayout.Primary ? "rds-comp-toolbar--primary" : "rds-comp-toolbar--secondary", className)}
       data-testid={testId}
       role="toolbar"
       aria-label={`${type} toolbar`}
@@ -135,10 +136,10 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
       {layout === ToolbarLayout.Primary ? (
         <div className="rds-comp-toolbar__row">
           {toolbarConfig.sections.map((section, sectionIndex) => (
-            <React.Fragment key={sectionIndex}>
+            <Fragment key={sectionIndex}>
               {sectionIndex > 0 && <div className="rds-comp-toolbar__divider" />}
               {renderSectionButtons(section)}
-            </React.Fragment>
+            </Fragment>
           ))}
         </div>
       ) : (
@@ -146,7 +147,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
           {toolbarConfig.sections.map((section, sectionIndex) => (
             <div
               key={sectionIndex}
-              className={`rds-comp-toolbar__row ${sectionIndex === 1 ? 'rds-comp-toolbar__row--secondary' : ''}`}
+              className={clsx("rds-comp-toolbar__row", sectionIndex === 1 && "rds-comp-toolbar__row--secondary")}
             >
               {renderSectionButtons(section)}
             </div>

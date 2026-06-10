@@ -1,10 +1,10 @@
-import { memo } from "react";
+import { memo, type ReactNode } from "react";
 import "./rds-comp-ai-gradient-text-with-icon.scss";
 
 export interface RdsCompAiGradientTextProps {
   logoUrl?: string;
   title?: string;
-  logo?: React.ReactNode;
+  logo?: ReactNode;
   showImage?: boolean;
   showIcon?: boolean;
 }

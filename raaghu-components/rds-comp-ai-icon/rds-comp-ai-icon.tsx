@@ -1,20 +1,21 @@
-import { forwardRef, memo, useEffect, useMemo, useState } from "react";
+import clsx from "clsx";
+import { forwardRef, memo, useEffect, useMemo, useState, type ComponentType, type MouseEventHandler, type SVGProps } from "react";
 import "./rds-comp-ai-icon.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 
-const defaultMaterialIcons: Record<string, React.ComponentType<any>> = {
-  users: GroupOutlinedIcon,
-  "person-outline": PersonOutlineIcon,
+const defaultMaterialIcons: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
+  users: GroupOutlinedIcon as ComponentType<SVGProps<SVGSVGElement>>,
+  "person-outline": PersonOutlineIcon as ComponentType<SVGProps<SVGSVGElement>>,
 };
 
-const materialIconsRegistry: Record<string, React.ComponentType<any>> = {
+const materialIconsRegistry: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
   ...defaultMaterialIcons,
 };
 
 export const registerMaterialIcon = (
   name: string,
-  iconComponent: React.ComponentType<any>
+  iconComponent: ComponentType<SVGProps<SVGSVGElement>>
 ) => {
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
   try {
@@ -24,7 +25,7 @@ export const registerMaterialIcon = (
   }
 };
 
-export const registerMaterialIcons = (icons: Record<string, React.ComponentType<any>>) => {
+export const registerMaterialIcons = (icons: Record<string, ComponentType<SVGProps<SVGSVGElement>>>) => {
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
@@ -36,9 +37,9 @@ export const registerMaterialIcons = (icons: Record<string, React.ComponentType<
 };
 
 const createMuiIconWrapper = (
-  MuiIcon: React.ComponentType<any>
-): React.ComponentType<React.SVGProps<SVGSVGElement>> =>
-  forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
+  MuiIcon: ComponentType<SVGProps<SVGSVGElement>>
+): ComponentType<SVGProps<SVGSVGElement>> =>
+  forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
     ({ color, fontSize, className, style, ...restProps }, ref) => {
       const combinedStyle = {
         ...style,
@@ -52,8 +53,8 @@ const createMuiIconWrapper = (
 
 const resolveIconComponent = (
   iconName: string,
-  SvgIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>
-): React.ComponentType<React.SVGProps<SVGSVGElement>> | null => {
+  SvgIcon?: ComponentType<SVGProps<SVGSVGElement>>
+): ComponentType<SVGProps<SVGSVGElement>> | null => {
   try {
     if (SvgIcon) return SvgIcon;
     if (iconName && materialIconsRegistry[iconName]) {
@@ -74,10 +75,10 @@ export interface RdsCompAiIconProps {
   stroke?: boolean;
   strokeWidth?: string;
   borderRadius?: string;
-  onClick?: React.MouseEventHandler<HTMLElement | SVGSVGElement> | null;
+  onClick?: MouseEventHandler<HTMLElement | SVGSVGElement> | null;
   opacity?: string;
   isAnimate?: boolean;
-  classes?: any;
+  classes?: string;
   dataTestId?: string;
   databsdismiss?: string;
   databstarget?: string;
@@ -93,7 +94,7 @@ export interface RdsCompAiIconProps {
   isHovered?: boolean;
   isCursorPointer?: boolean;
   strokeColor?: string;
-  SvgIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  SvgIcon?: ComponentType<SVGProps<SVGSVGElement>>;
   position?: "center" | "top-left" | "none";
 }
 
@@ -147,25 +148,19 @@ const RdsCompAiIconComponent = ({
     [height, width, strokeWidth, position]
   );
 
-  const className = useMemo(() => {
-    const rootClass = "rds-comp-ai-icon";
-    const modifierClasses = [
-      classes,
-      isCursorPointer ? `${rootClass}--cursor` : undefined,
-      colorVariant ? `${rootClass}--${colorVariant}` : undefined,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    return `${rootClass} ${modifierClasses}`.trim();
-  }, [classes, isCursorPointer, colorVariant]);
+  const className = clsx(
+    "rds-comp-ai-icon",
+    classes,
+    isCursorPointer && "rds-comp-ai-icon--cursor",
+    colorVariant && `rds-comp-ai-icon--${colorVariant}`
+  );
 
   if (IconComponent) {
     try {
       const Icon = IconComponent;
       return (
         <Icon
-          className={`${className} rds-comp-ai-icon__svg`}
+          className={clsx(className, "rds-comp-ai-icon__svg")}
           onClick={onClick || undefined}
           id={id}
           data-testid={dataTestId}
@@ -187,7 +182,7 @@ const RdsCompAiIconComponent = ({
     return (
       <img
         src={imageUrl}
-        className={`${className} rds-comp-ai-icon__img`}
+        className={clsx(className, "rds-comp-ai-icon__img")}
         onClick={onClick || undefined}
         role="img"
         id={id}

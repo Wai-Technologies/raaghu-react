@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -10,9 +10,9 @@ import {
 import "./rds-comp-chart-line.scss";
 
 export interface RdsCompLineProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartOptions<"line">;
+  dataSets: ChartDataset<"line">[];
   id: string;
   chartLabel?: string;
 }

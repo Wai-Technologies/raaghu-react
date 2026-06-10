@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState, isValidElement, cloneElement, type ReactElement } from "react";
 import "./rds-comp-app-shell.scss";
 import { GetShellLayoutCss } from "./shell-layout";
 
@@ -6,7 +6,7 @@ export interface RdsCompAppShellProps {
   displayType: AppShellDisplayType;
   topbar?: ReactNode;
   sidebar?: ReactNode;
-  children?: React.ReactNode;
+  children?: ReactNode;
   mobileSidebarOpen?: boolean;
   onMobileSidebarToggle?: () => void;
 }
@@ -31,17 +31,17 @@ const RdsCompAppShell = (props: RdsCompAppShellProps) => {
   const renderTopbar = () => {
     if (!props.topbar) return null;
     
-    if (React.isValidElement(props.topbar)) {
+    if (isValidElement(props.topbar)) {
       try {
-        const topbarElement = props.topbar as React.ReactElement<any>;
-        if (topbarElement.props && topbarElement.props.children && React.isValidElement(topbarElement.props.children)) {
-          const appBarChild = topbarElement.props.children as React.ReactElement<any>;
+        const topbarElement = props.topbar as ReactElement<any>;
+        if (topbarElement.props && topbarElement.props.children && isValidElement(topbarElement.props.children)) {
+          const appBarChild = topbarElement.props.children as ReactElement<any>;
           if (appBarChild.type && (appBarChild.type as any).displayName === 'RdsAppBar') {
-            const clonedAppBar = React.cloneElement(appBarChild, {
+            const clonedAppBar = cloneElement(appBarChild, {
               ...appBarChild.props,
               onMenuClick: handleMobileSidebarToggle
             });
-            return React.cloneElement(topbarElement, {
+            return cloneElement(topbarElement, {
               ...topbarElement.props
             }, clonedAppBar);
           }

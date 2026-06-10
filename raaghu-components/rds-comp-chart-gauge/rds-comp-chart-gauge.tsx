@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
   applyChartThemeColors,
   attachChartData,
@@ -12,9 +12,9 @@ import {
 import "./rds-comp-chart-gauge.scss";
 
 export interface RdsCompGaugeProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
+  labels: string[];
+  options: ChartOptions<"doughnut">;
+  dataSets: ChartDataset<"doughnut">[];
   id: string;
   titleText?: string;
   subTitleText?: string;
@@ -25,7 +25,7 @@ export interface RdsCompGaugeProps {
 
 const createGaugeTextPlugin = (title: string, subTitle: string) => ({
   id: "gaugeText",
-  beforeDraw(chart: any) {
+  beforeDraw(chart: Chart) {
     const {
       ctx: canvasCtx,
       chartArea: { top, width, height },

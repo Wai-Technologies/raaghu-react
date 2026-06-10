@@ -1,4 +1,5 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import clsx from 'clsx';
 import "./rds-comp-color-picker.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import { getColorDisplay } from "./color-utils";
@@ -42,6 +43,11 @@ export interface RdsColorPickerProps {
   colorMode?: ColorMode;
   style?: StyleType;
   onChange?: (colorHex: string) => void;
+}
+
+interface ColorUpdate {
+  hex: string;
+  rgb?: { r: number; g: number; b: number; a: number };
 }
 
 const RdsColorPicker = (props: RdsColorPickerProps) => {
@@ -139,7 +145,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     setSelectedTab(tab);
   }, []);
 
-  const handleChange = useCallback((newColor: any) => {
+  const handleChange = useCallback((newColor: ColorUpdate) => {
     if (isDisabled) return;
     const next = { ...selectedColorState, hex: newColor.hex, rgb: newColor.rgb ?? selectedColorState.rgb };
     setSelectedColorState(next);
@@ -147,7 +153,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     if (onChange) onChange(newColor.hex);
   }, [isDisabled, selectedColorState, onChange]);
 
-  const handleHueChange = useCallback((newColor: any) => {
+  const handleHueChange = useCallback((newColor: ColorUpdate) => {
     if (isDisabled) return;
     const next = { ...selectedColorState, hex: newColor.hex };
     setSelectedColorState(next);
@@ -155,17 +161,17 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     if (onChange) onChange(newColor.hex);
   }, [isDisabled, selectedColorState, onChange]);
 
-  const handleAlphaChange = useCallback((newColor: any) => {
+  const handleAlphaChange = useCallback((newColor: ColorUpdate) => {
     if (isDisabled) return;
-    setSelectedColorState({ ...selectedColorState, rgb: { ...selectedColorState.rgb, a: newColor.rgb.a } });
+    setSelectedColorState({ ...selectedColorState, rgb: { ...selectedColorState.rgb, a: newColor.rgb?.a ?? selectedColorState.rgb.a } });
   }, [isDisabled, selectedColorState]);
 
   const getColorDisplayValue = useCallback(() => {
     return getColorDisplay(selectedColorMode, selectedColorState);
   }, [selectedColorMode, selectedColorState]);
 
-  const handleSelectColorMode = useCallback((mode: any) => {
-    setSelectedColorMode(mode as ColorMode);
+  const handleSelectColorMode = useCallback((mode: ColorMode) => {
+    setSelectedColorMode(mode);
   }, []);
 
   return (
@@ -185,15 +191,16 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
             {showTabs && (
               <div className="rds-comp-color-picker__tabs">
                 <button
-                  className={`rds-comp-color-picker__tab ${selectedTab === "Grid" ? "rds-comp-color-picker__tab--active" : ""}`}
+                  className={clsx("rds-comp-color-picker__tab", selectedTab === "Grid" && "rds-comp-color-picker__tab--active")}
                   onClick={() => handleTabClick("Grid")}
                 >
                   Grid
                 </button>
                 <button
-                  className={`rds-comp-color-picker__tab ${
-                    selectedTab === "Spectrum" ? "rds-comp-color-picker__tab--active" : ""
-                  }`}
+                  className={clsx(
+                    "rds-comp-color-picker__tab",
+                    selectedTab === "Spectrum" && "rds-comp-color-picker__tab--active"
+                  )}
                   onClick={() => handleTabClick("Spectrum")}
                 >
                   Spectrum

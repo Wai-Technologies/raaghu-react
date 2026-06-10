@@ -1,14 +1,14 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import { Box, BoxProps } from '@mui/material';
 
 export interface RdsCompLayoutItemProps extends BoxProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   flex?: string | number;
   order?: number;
   alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
 }
 
-const RdsCompLayoutItem: React.FC<RdsCompLayoutItemProps> = ({
+const RdsCompLayoutItem = ({
   children,
   flex,
   order,

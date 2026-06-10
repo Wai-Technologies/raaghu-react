@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo } from 'react';
+import clsx from 'clsx';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCSSVar } from '../chart-utils';
 import { WorldMap } from 'react-svg-worldmap';
 import './rds-comp-map.scss';
@@ -98,9 +99,9 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         [defaultStylingFunction, heatMapStylingFunction, mapType]
     );
 
-    const [mapSize, setMapSize] = React.useState<MapSize>(getMapSize());
+    const [mapSize, setMapSize] = useState<MapSize>(getMapSize());
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleResize = () => {
             setMapSize(getMapSize());
         };
@@ -112,7 +113,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     }, []);
 
     return (
-        <div className={`rds-comp-map ${mapType === 'heatmap' ? 'rds-comp-map--heatmap' : ''}`}>
+        <div className={clsx("rds-comp-map", mapType === 'heatmap' && "rds-comp-map--heatmap")}>
             {title && (
                 <div className="rds-comp-map__label">{title}</div>
             )}
