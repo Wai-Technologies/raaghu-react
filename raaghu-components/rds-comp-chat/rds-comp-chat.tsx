@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEvent } from "react";
+import clsx from 'clsx';
 import "./rds-comp-chat.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import { SendOutlined as SendIcon, SentimentSatisfiedAltOutlined as EmojiIcon, ChatBubbleOutlineOutlined as ChatIcon, FilterListOutlined as FilterIcon, MoreVertOutlined as MoreIcon, ArrowBackIosNew as ArrowBackIcon } from "@mui/icons-material";
@@ -41,8 +42,48 @@ export interface RdsCompChatProps {
   OtherUserCommentTextColor?: string;
 }
 
-const RdsCompChat = (props: RdsCompChatProps) => {
-  const { currentUserCommentBgColor = "var(--rds-secondary-main)", currentUserCommentTextColor = "var(--rds-neutral-0)", otherUserCommentBgColor = "var(--rds-neutral-300)", OtherUserCommentTextColor = "var(--rds-text-primary)" } = props;
+interface ChatMessageProps {
+  comment: Comment;
+  isCurrentUser: boolean;
+  currentUserCommentBgColor: string;
+  otherUserCommentBgColor: string;
+  currentUserCommentTextColor: string;
+  otherUserCommentTextColor: string;
+}
+
+const ChatMessage = memo(({
+  comment,
+  isCurrentUser,
+  currentUserCommentBgColor,
+  otherUserCommentBgColor,
+  currentUserCommentTextColor,
+  otherUserCommentTextColor
+}: ChatMessageProps) => (
+  <div className={clsx("comment-box", "rds-comp-chat__message")}>
+    <div className={clsx("rds-comp-chat__message-row", isCurrentUser && "rds-comp-chat__message-row--reverse")}>
+      <Box component="div" className="rds-comp-chat__comment-content" sx={{ backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor, color: isCurrentUser ? currentUserCommentTextColor : otherUserCommentTextColor }}>
+        <div className="comment-text">
+          {comment.comment}
+          {comment.image && <img src={comment.image} alt="uploaded" className="rds-comp-chat__comment-image" />}
+          {comment.video && <video src={comment.video} controls className="rds-comp-chat__comment-video" />}
+        </div>
+      </Box>
+    </div>
+  </div>
+));
+ChatMessage.displayName = "ChatMessage";
+
+const AVATAR_PROPS = { alt: "User Avatar", subText: "Designation", displayStyle: "with-name" as const, title: "Jane Doe", showDesignation: true, activeDotBottom: true, showName: true, src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" };
+
+const RdsCompChat = ({
+  isChatScreenEnabled,
+  userData,
+  handleAddComment: onAddComment,
+  currentUserCommentBgColor = "var(--rds-secondary-main)",
+  currentUserCommentTextColor = "var(--rds-neutral-0)",
+  otherUserCommentBgColor = "var(--rds-neutral-300)",
+  OtherUserCommentTextColor = "var(--rds-text-primary)"
+}: RdsCompChatProps) => {
 
   const [state, setState] = useState({
     isMobile: window.innerWidth <= 600,
@@ -50,17 +91,19 @@ const RdsCompChat = (props: RdsCompChatProps) => {
     commentText: "",
     showEmojiPicker: false,
     selectedIndex: null as number | null,
-    commentList: props.userData[0]?.comments || [],
+    commentList: userData[0]?.comments || [],
     showCamera: false,
     activeTab: "chat" as "chat" | "media",
-    currentUser: props.userData[0]
+    currentUser: userData[0]
   });
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
 
-  const updateState = (updates: Partial<typeof state>) => setState(prev => ({ ...prev, ...updates }));
+  const updateState = useCallback((updates: Partial<typeof state>) => {
+    setState((prev) => ({ ...prev, ...updates }));
+  }, []);
 
   useEffect(() => {
     const handleResize = () => updateState({ isMobile: window.innerWidth <= 600 });
@@ -80,74 +123,93 @@ const RdsCompChat = (props: RdsCompChatProps) => {
     }
   }, [state.showEmojiPicker]);
 
-  const handleUserSelect = (index: number) => {
-    if (index >= 0 && index < props.userData.length) {
+  const handleUserSelect = useCallback((index: number) => {
+    if (index >= 0 && index < userData.length) {
       updateState({
-        currentUser: props.userData[index],
-        commentList: props.userData[index].comments || [],
+        currentUser: userData[index],
+        commentList: userData[index].comments || [],
         selectedIndex: index,
         showChatWindow: state.isMobile
       });
     }
-  };
+  }, [state.isMobile, updateState, userData]);
 
-  const addComment = (newComment: Comment) => {
+  const addComment = useCallback((newComment: Comment) => {
     const updatedComments = [...state.commentList, newComment];
     updateState({ commentList: updatedComments });
-    props.handleAddComment?.(newComment);
-  };
+    onAddComment?.(newComment);
+  }, [onAddComment, state.commentList, updateState]);
 
-  const handleAddComment = () => {
-    if (state.commentText.trim()) {
-      addComment({ firstName: state.currentUser.firstName, lastName: state.currentUser.lastName, comment: state.commentText });
+  const handleAddComment = useCallback(() => {
+    if (state.commentText.trim() && state.currentUser) {
+      addComment({
+        firstName: state.currentUser.firstName,
+        lastName: state.currentUser.lastName,
+        comment: state.commentText,
+      });
       updateState({ commentText: "" });
     }
-  };
+  }, [addComment, state.commentText, state.currentUser, updateState]);
 
-  const handleEmojiSelect = (emoji: string) => {
-    updateState({ 
-      commentText: state.commentText + emoji,
-      showEmojiPicker: false 
-    });
-  };
+  const handleEmojiSelect = useCallback((emoji: string) => {
+    setState((prev) => ({
+      ...prev,
+      commentText: prev.commentText + emoji,
+      showEmojiPicker: false
+    }));
+  }, []);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file?.type.startsWith("image/")) {
+    if (file?.type.startsWith("image/") && state.currentUser) {
       const reader = new FileReader();
-      reader.onloadend = () => addComment({ firstName: state.currentUser.firstName, lastName: state.currentUser.lastName, comment: "", image: reader.result as string });
+      reader.onloadend = () =>
+        addComment({
+          firstName: state.currentUser!.firstName,
+          lastName: state.currentUser!.lastName,
+          comment: "",
+          image: reader.result as string,
+        });
       reader.readAsDataURL(file);
     }
-  };
+  }, [addComment, state.currentUser]);
 
-  const capturePhoto = () => {
-    if (canvasRef.current && videoRef.current) {
+  const stopVideoStream = useCallback(() => {
+    const stream = videoRef.current?.srcObject as MediaStream;
+    stream?.getTracks().forEach(track => track.stop());
+  }, []);
+
+  const capturePhoto = useCallback(() => {
+    if (canvasRef.current && videoRef.current && state.currentUser) {
       const context = canvasRef.current.getContext("2d");
       canvasRef.current.width = videoRef.current.videoWidth;
       canvasRef.current.height = videoRef.current.videoHeight;
       context?.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
-      addComment({ firstName: state.currentUser.firstName, lastName: state.currentUser.lastName, comment: "", image: canvasRef.current.toDataURL("image/png") });
+      addComment({
+        firstName: state.currentUser.firstName,
+        lastName: state.currentUser.lastName,
+        comment: "",
+        image: canvasRef.current.toDataURL("image/png"),
+      });
       updateState({ showCamera: false });
-      const stream = videoRef.current.srcObject as MediaStream;
-      stream?.getTracks().forEach(track => track.stop());
+      stopVideoStream();
     }
-  };
+  }, [addComment, state.currentUser, stopVideoStream, updateState]);
 
   const mediaItems = useMemo(() => {
     const items: { type: "image" | "video"; src: string }[] = [];
-    props.userData.forEach(user => user.comments?.forEach(c => {
+    userData.forEach(user => user.comments?.forEach(c => {
       if (c.image) items.push({ type: "image", src: c.image });
       if (c.video) items.push({ type: "video", src: c.video });
     }));
     return items;
-  }, [props.userData]);
+  }, [userData]);
 
-  const showUserList = props.isChatScreenEnabled && (!state.isMobile || !state.showChatWindow);
-  const showChat = !props.isChatScreenEnabled || (state.isMobile ? state.showChatWindow : true);
-  const avatarProps = { alt: "User Avatar", subText: "Designation", displayStyle: "with-name" as const, title: "Jane Doe", showDesignation: true, activeDotBottom: true, showName: true, src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" };
+  const showUserList = isChatScreenEnabled && (!state.isMobile || !state.showChatWindow);
+  const showChat = !isChatScreenEnabled || (state.isMobile ? state.showChatWindow : true);
 
   return (
-    <div className={`rds-comp-chat${state.isMobile ? " rds-comp-chat--mobile" : ""}`}>
+    <div className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile")}>
       {showUserList && (
         <div className="rds-comp-chat__screen">
           <div className="rds-comp-chat__screen-header">
@@ -158,9 +220,9 @@ const RdsCompChat = (props: RdsCompChatProps) => {
             </div>
           </div>
           <div className="rds-comp-chat__screen-main">
-            {props.userData.map((item, index) => (
+            {userData.map((item, index) => (
               <Box key={index} component="div" className={`rds-comp-chat__user-item ${state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""}`} sx={{ position: "relative" }} onClick={() => handleUserSelect(index)}>
-                <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...avatarProps} /></div>
+                <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...AVATAR_PROPS} /></div>
                 <div className="rds-comp-chat__user-time text-muted rds-comp-chat__user-time--absolute">{item.time}</div>
               </Box>
             ))}
@@ -169,15 +231,15 @@ const RdsCompChat = (props: RdsCompChatProps) => {
       )}
 
       {showChat && (
-        <div className={`rds-comp-chat__window${!props.isChatScreenEnabled ? " rds-comp-chat__window--full-width" : ""}`}>
+        <div className={clsx("rds-comp-chat__window", !isChatScreenEnabled && "rds-comp-chat__window--full-width")}>
           <div className="rds-comp-chat__window-header">
-            {state.isMobile && props.isChatScreenEnabled && (
+            {state.isMobile && isChatScreenEnabled && (
               <button type="button" className="rds-comp-chat__back-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => updateState({ showChatWindow: false, selectedIndex: null })} aria-label="Back to user list">
                 <ArrowBackIcon fontSize="small" />
               </button>
             )}
-            <div className={`rds-comp-chat__window-header-title${state.isMobile ? " rds-comp-chat__window-header-title--mobile" : ""}`}>
-              <RdsAvatar {...avatarProps} size={state.isMobile ? "small" : "medium"} />
+            <div className={clsx("rds-comp-chat__window-header-title", state.isMobile && "rds-comp-chat__window-header-title--mobile")}>
+              <RdsAvatar {...AVATAR_PROPS} size={state.isMobile ? "small" : "medium"} />
             </div>
             <div className="rds-comp-chat__window-header-options">
               <nav className={`nav-tabs${state.isMobile ? " nav-tabs--mobile" : ""}`} role="tablist" aria-label="Chat Tabs">
@@ -197,17 +259,15 @@ const RdsCompChat = (props: RdsCompChatProps) => {
                 {state.commentList.map((comment, index) => {
                   const isCurrentUser = comment.firstName === state.currentUser?.firstName && comment.lastName === state.currentUser?.lastName;
                   return (
-                    <div key={index} className={`comment-box rds-comp-chat__message ${isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user"}`}>
-                      <div className={`rds-comp-chat__message-row ${isCurrentUser ? "rds-comp-chat__message-row--reverse" : ""}`}>
-                        <Box component="div" className="rds-comp-chat__comment-content" sx={{ backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor, color: isCurrentUser ? currentUserCommentTextColor : OtherUserCommentTextColor }}>
-                          <div className="comment-text">
-                            {comment.comment}
-                            {comment.image && <img src={comment.image} alt="uploaded" className="rds-comp-chat__comment-image" />}
-                            {comment.video && <video src={comment.video} controls className="rds-comp-chat__comment-video" />}
-                          </div>
-                        </Box>
-                      </div>
-                    </div>
+                    <ChatMessage
+                      key={index}
+                      comment={comment}
+                      isCurrentUser={isCurrentUser}
+                      currentUserCommentBgColor={currentUserCommentBgColor}
+                      otherUserCommentBgColor={otherUserCommentBgColor}
+                      currentUserCommentTextColor={currentUserCommentTextColor}
+                      otherUserCommentTextColor={OtherUserCommentTextColor}
+                    />
                   );
                 })}
                 {state.currentUser?.messageStatus && <div className="rds-comp-chat__message-status">{state.currentUser.messageStatus}</div>}
@@ -240,7 +300,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
             <div className="rds-comp-chat__footer-center">
               <div className="rds-comp-chat__input-send">
                 <div className="rds-comp-chat__input-wrapper">
-                  <RdsInput className="rds-comp-chat__rds-input" layout="text" placeholder="Type comment..." size="small" value={state.commentText} onChange={(e) => updateState({ commentText: e.target.value })} onKeyDown={(e: React.KeyboardEvent) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleAddComment(); } }} />
+                  <RdsInput className="rds-comp-chat__rds-input" layout="text" placeholder="Type comment..." size="small" value={state.commentText} onChange={(e) => updateState({ commentText: e.target.value })} onKeyDown={(e: KeyboardEvent) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleAddComment(); } }} />
                   <button type="button" className="rds-comp-chat__send-icon" onClick={handleAddComment} aria-label="Send"><SendIcon /></button>
                 </div>
               </div>
@@ -253,7 +313,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
         <div className="rds-comp-chat__camera-modal">
           <video ref={videoRef} className="rds-comp-chat__video-feed" />
           <button onClick={capturePhoto}>Capture Photo</button>
-          <button onClick={() => { updateState({ showCamera: false }); const stream = videoRef.current?.srcObject as MediaStream; stream?.getTracks().forEach(track => track.stop()); }}>Close</button>
+          <button onClick={() => { updateState({ showCamera: false }); stopVideoStream(); }}>Close</button>
           <canvas ref={canvasRef} className="rds-comp-chat__canvas-hidden" />
         </div>
       )}

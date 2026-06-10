@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, type SyntheticEvent } from "react";
 import { RdsAvatar, RdsRating } from "../../raaghu-elements";
 import { Item, RevieweStyle } from "./rds-comp-reviews";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
@@ -22,7 +22,7 @@ export const formatDate = (date?: Date) => {
 const Style1 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -62,7 +62,7 @@ const Style1 = ({ item }: { item: Item }) => {
 const Style2 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -91,7 +91,7 @@ const Style2 = ({ item }: { item: Item }) => {
 const Style3 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -127,7 +127,7 @@ const Style3 = ({ item }: { item: Item }) => {
 const Style4 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -164,7 +164,7 @@ const Style4 = ({ item }: { item: Item }) => {
 const Style5 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -208,7 +208,7 @@ const Style5 = ({ item }: { item: Item }) => {
 const Style6 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -256,7 +256,7 @@ const Style7 = ({ item }: { item: Item }) => {
     setDislikes(prev => prev + 1);
   };
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -367,7 +367,7 @@ const Style7 = ({ item }: { item: Item }) => {
 const Style8 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -412,7 +412,7 @@ const Style9 = ({ item }: { item: Item }) => {
     setDislikes(prev => prev + 1);
   };
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -507,7 +507,7 @@ const Style10 = ({ item }: { item: Item }) => {
     setDislikes(prev => prev + 1);
   };
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -585,7 +585,7 @@ const Style10 = ({ item }: { item: Item }) => {
 const Style11 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(1);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
@@ -633,7 +633,7 @@ const Style11 = ({ item }: { item: Item }) => {
 const Style12 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(1);
   
-  const handleRatingChange = (_event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }

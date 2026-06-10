@@ -1,88 +1,83 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import {
+  applyChartThemeColors,
+  attachChartData,
+  cloneChartOptions,
+  useChartThemeMode,
+} from "../chart-utils";
 import "./rds-comp-chart-stacked.scss";
 
 export interface RdsCompStackedProps {
-    labels: any[];
-    options: any;
-    dataSets: any[];
-    id: string;
-    chartLabel?: string;
+  labels: any[];
+  options: any;
+  dataSets: any[];
+  id: string;
+  chartLabel?: string;
 }
 
-const RdsCompStackedChart = (props: RdsCompStackedProps) => {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const chartRef = useRef<Chart | null>(null);
-    const CanvasId = props.id;
+const RdsCompStackedChart = ({
+  labels,
+  options,
+  dataSets,
+  id,
+  chartLabel,
+}: RdsCompStackedProps) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const chartRef = useRef<Chart | null>(null);
+  const themeMode = useChartThemeMode();
 
-    const [themeMode, setThemeMode] = React.useState(() => {
-        if (typeof document !== 'undefined') {
-            return document.documentElement.getAttribute('data-theme') || 'light';
-        }
-        return 'light';
+  useEffect(() => {
+    const ctx = canvasRef.current?.getContext("2d");
+    if (!ctx) return;
+
+    chartRef.current?.destroy();
+
+    const chartOptions = cloneChartOptions(options);
+    const chartData = { labels, datasets: dataSets };
+
+    attachChartData(chartOptions, chartData);
+    applyChartThemeColors(chartOptions);
+
+    chartRef.current = new Chart(ctx, {
+      type: "bar",
+      data: chartData,
+      options: {
+        ...chartOptions,
+        maintainAspectRatio: false,
+        scales: {
+          ...(chartOptions?.scales || {}),
+          x: {
+            ...(chartOptions?.scales?.x || {}),
+            offset: true,
+            categoryPercentage: 0.1,
+            barPercentage: 0.1,
+            ticks: {
+              ...(chartOptions?.scales?.x?.ticks || {}),
+              padding: 20,
+              align: "center",
+            },
+          },
+        },
+      },
     });
 
-    React.useEffect(() => {
-        if (typeof window === 'undefined') return;
-        const observer = new MutationObserver(() => {
-            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
-        });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        return () => observer.disconnect();
-    }, []);
+    return () => {
+      chartRef.current?.destroy();
+    };
+  }, [labels, dataSets, options, themeMode]);
 
-    useEffect(() => {
-        const ctx = canvasRef.current?.getContext("2d");
-        if (!ctx) return;
-
-        if (chartRef.current) chartRef.current.destroy();
-
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
-        
-        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
-        const chartData = { labels: props.labels, datasets: props.dataSets };
-        if (!chartOptions.data) {
-            chartOptions.data = chartData;
-        }
-        
-        applyChartThemeColors(chartOptions);
-
-        chartRef.current = new Chart(ctx, {
-            type: "bar",
-            data: chartData,
-            options: {
-                ...chartOptions,
-                maintainAspectRatio: false,
-                scales: {
-                    ...(chartOptions?.scales || {}),
-                    x: {
-                        ...(chartOptions?.scales?.x || {}),
-                        offset: true,
-                        categoryPercentage: 0.1,
-                        barPercentage: 0.1,
-                        ticks: {
-                            ...(chartOptions?.scales?.x?.ticks || {}),
-                            padding: 20,
-                            align: 'center',
-                        },
-                    },
-                },
-            },
-        });
-
-        if (chartRef.current !== null) {
-          // noop
-        }
-
-        return () => { chartRef.current?.destroy(); };
-    }, [props, themeMode]);
-
-    return (
-        <div className="stack-chart-container">
-            <canvas id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Stacked chart'} />
-        </div>
-    );
+  return (
+    <div className="stack-chart-container">
+      <canvas
+        id={id}
+        ref={canvasRef}
+        role="img"
+        aria-label={chartLabel ?? "Stacked chart"}
+      />
+    </div>
+  );
 };
-RdsCompStackedChart.displayName = 'RdsCompStackedChart';
+
+RdsCompStackedChart.displayName = "RdsCompStackedChart";
 export default RdsCompStackedChart;

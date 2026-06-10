@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ChangeEvent, Dispatch, RefObject, SetStateAction } from "react";
 
 export interface Comment {
   firstName: string;
@@ -8,7 +8,7 @@ export interface Comment {
   video?: string;
 }
 
-export const startCamera = async (videoRef: React.RefObject<HTMLVideoElement>) => {
+export const startCamera = async (videoRef: RefObject<HTMLVideoElement>) => {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     if (videoRef.current) {
@@ -21,17 +21,17 @@ export const startCamera = async (videoRef: React.RefObject<HTMLVideoElement>) =
   }
 };
 
-export const stopCamera = (videoRef: React.RefObject<HTMLVideoElement>) => {
+export const stopCamera = (videoRef: RefObject<HTMLVideoElement>) => {
   const stream = videoRef.current?.srcObject as MediaStream;
   stream?.getTracks().forEach(track => track.stop());
 };
 
 export const capturePhoto = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
-  videoRef: React.RefObject<HTMLVideoElement>,
+  canvasRef: RefObject<HTMLCanvasElement>,
+  videoRef: RefObject<HTMLVideoElement>,
   addComment: (comment: Comment) => void,
   currentUser: { firstName: string; lastName: string },
-  updateState: (updates: any) => void,
+  updateState: (updates: Record<string, unknown>) => void,
   stopCameraFn: () => void
 ) => {
   if (canvasRef.current && videoRef.current) {
@@ -50,8 +50,8 @@ export const capturePhoto = (
   }
 };
 
-export function updateState(setState: any) {
-  return (updates: any) => setState((prev: any) => ({ ...prev, ...updates }));
+export function updateState<T extends Record<string, unknown>>(setState: Dispatch<SetStateAction<T>>) {
+  return (updates: Partial<T>) => setState((prev) => ({ ...prev, ...updates }));
 }
 
 export function onUserSelect(index: number, props: any, setCurrentUser: any, updateStateFn: any) {
@@ -81,7 +81,7 @@ export function handleAddComment(state: any, currentUser: any, addCommentFn: any
   }
 }
 
-export function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>, currentUser: any, addCommentFn: any) {
+export function handleImageUpload(event: ChangeEvent<HTMLInputElement>, currentUser: any, addCommentFn: any) {
   const file = event.target.files?.[0];
   if (file?.type.startsWith("image/")) {
     const reader = new FileReader();

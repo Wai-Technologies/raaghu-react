@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, type MouseEventHandler, type MouseEvent } from 'react';
 
 export interface boardInfo {
   cardId?: number;
@@ -35,7 +35,7 @@ export interface RdsCompKanbanBoardProps {
     subText?: string;
     src?: string;
   }>;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   onSubCardOption?: (option: any, subCardIndex: number, subCardId: any) => void;
   onCardOption?: (option: any, cardIndex: number, cardId: any, cardKey: string) => void;
   allTagsList?: any;
@@ -256,13 +256,13 @@ export const createEventHandlers = (state: any, props: RdsCompKanbanBoardProps) 
     setBoardName(event.target.value);
   };
 
-  const toggleDropdown = (index: number, event: React.MouseEvent<HTMLElement>) => {
+  const toggleDropdown = (index: number, event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setSelectedCardIndex(index);
     setSelectedCard(boards[index]);
   };
 
-  const toggleSubCardDropdown = (subCardId: number, event: React.MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => {
+  const toggleSubCardDropdown = (subCardId: number, event: MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => {
     setSubCardAnchorEl(event.currentTarget);
     setSelectedSubCard(subCard);
     setSelectedCardIndex(cardIndex);

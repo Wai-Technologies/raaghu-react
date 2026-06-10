@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import clsx from 'clsx';
 import { InputLabel as Label } from "@mui/material";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
@@ -36,58 +37,69 @@ const createEditorStateFromValue = (value?: string, showTitle?: boolean) => {
     return EditorState.createEmpty();
 };
 
-const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
+const RdsCompTextEditor = ({
+    id,
+    onChange,
+    placeholder,
+    readOnly,
+    value,
+    label,
+    isMandatory,
+    labelClass,
+    State,
+    showTitle,
+    rows,
+    resizable,
+}: RdsCompTextEditorProps) => {
     const [editorState, setEditorState] = useState(() =>
-        createEditorStateFromValue(props.value, props.showTitle)
+        createEditorStateFromValue(value, showTitle)
     );
     const [isTouch, setIsTouch] = useState(false);
-    const editorRef = useRef<any>(null);
+    const editorRef = useRef<Editor | null>(null);
 
-    const rows = typeof props.rows === "number" && props.rows > 0 ? props.rows : 6;
+    const computedRows = typeof rows === "number" && rows > 0 ? rows : 6;
     const lineHeightVar = "var(--rds-line-height-body, 26px)";
-    const editorMinHeight = `calc(${rows} * ${lineHeightVar})`;
-    const isResizable = props.resizable !== false;
+    const editorMinHeight = `calc(${computedRows} * ${lineHeightVar})`;
+    const isResizable = resizable !== false;
 
     useEffect(() => {
-        setEditorState(createEditorStateFromValue(props.value, props.showTitle));
-    }, [props.value, props.showTitle]);
+        setEditorState(createEditorStateFromValue(value, showTitle));
+    }, [value, showTitle]);
 
-    const handleEditorChange = (state: any) => {
+    const handleEditorChange = useCallback((state: EditorState) => {
         setEditorState(state);
         setIsTouch(true);
-        if (props.onChange) {
+        if (onChange) {
             const htmlContent = draftToHtml(convertToRaw(state.getCurrentContent()));
-            props.onChange(htmlContent, { ops: [{ insert: htmlContent }] }, "user", editorRef.current);
+            onChange(htmlContent, { ops: [{ insert: htmlContent }] }, "user", editorRef.current);
         }
-    };
+    }, [onChange]);
 
-    const isEmpty = () => editorState.getCurrentContent().getPlainText().trim() === "";
+    const isEmpty = useMemo(() => editorState.getCurrentContent().getPlainText().trim() === "", [editorState]);
 
-    const stateClass = [
-        props.State === "Selected" && "rds-comp-text-editor--selected",
-        props.State === "Error" && "rds-comp-text-editor--error",
-        props.State === "Active" && "rds-comp-text-editor--active",
-        props.State === "Disabled" && "rds-comp-text-editor--disabled",
-        isResizable && "rds-comp-text-editor--resizable",
-    ]
-        .filter(Boolean)
-        .join(" ");
+    const stateClass = clsx(
+        State === "Selected" && "rds-comp-text-editor--selected",
+        State === "Error" && "rds-comp-text-editor--error",
+        State === "Active" && "rds-comp-text-editor--active",
+        State === "Disabled" && "rds-comp-text-editor--disabled",
+        isResizable && "rds-comp-text-editor--resizable"
+    );
 
     return (
         <>
-            {props.showTitle && props.label && (
-                <Label className={`rds-comp-text-editor-label ${props.labelClass || ""}`}>
-                    {props.label}
-                    {props.isMandatory && <span className="text-danger">*</span>}
+            {showTitle && label && (
+                <Label className={clsx("rds-comp-text-editor-label", labelClass)}>
+                    {label}
+                    {isMandatory && <span className="text-danger">*</span>}
                 </Label>
             )}
-            <div id={props.id} className={`rds-comp-text-editor ${stateClass}`}>
+            <div id={id} className={clsx("rds-comp-text-editor", stateClass)}>
                 <Editor
-                    key={props.placeholder}
+                    key={placeholder}
                     editorState={editorState}
                     onEditorStateChange={handleEditorChange}
-                    readOnly={props.readOnly || props.State === "Disabled"}
-                    placeholder={props.placeholder}
+                    readOnly={readOnly || State === "Disabled"}
+                    placeholder={placeholder}
                     ref={editorRef}
                     toolbarClassName="rds-comp-text-editor__toolbar"
                     wrapperClassName="rds-comp-text-editor__wrapper"
@@ -117,9 +129,9 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                     }}
                 />
             </div>
-            {props.isMandatory && isEmpty() && isTouch && (
+            {isMandatory && isEmpty && isTouch && (
                 <div className="form-control-feedback">
-                    <span className="text-danger">{props.label} is required</span>
+                    <span className="text-danger">{label} is required</span>
                 </div>
             )}
         </>

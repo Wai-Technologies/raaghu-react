@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import clsx from 'clsx';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
@@ -15,7 +16,7 @@ import {
     renderDatePickerTypeView
 } from './rds-comp-datepicker-utils';
 
-const SafeDatePicker = DatePicker as any;
+const SafeDatePicker = DatePicker;
 
 export enum DatePickerStyleType {
     Dropdown = "Dropdown",
@@ -55,26 +56,44 @@ export interface RdsDatepickerProps {
     isDefaultDate?: boolean;
 }
 
-const RdsDatepicker = (props: RdsDatepickerProps) => {
-    const today = new Date(); 
+const RdsDatepicker = ({
+    selectedDate,
+    dateForEdit,
+    titleText,
+    showTitle,
+    onDatePicker,
+    datePickerStyleType,
+    state,
+    layout,
+    customDate,
+    isDisabled,
+    isMandatory,
+    placeholderText,
+    type,
+    changeIcon,
+    showClearDate,
+    isDefaultDate,
+    ...restProps
+}: RdsDatepickerProps) => {
+    const today = useMemo(() => new Date(), []); 
     const [dropdownDisplayValue, setDropdownDisplayValue] = useState(
-        props.isDefaultDate ? today.toDateString().slice(4) : ""
+        isDefaultDate ? today.toDateString().slice(4) : ""
     );
     const [activeList, setActiveList] = useState("custom");
     const [startDate, setStartDate] = useState<Date | null>(
-        props.isDefaultDate ? today : null
+        isDefaultDate ? today : null
     );
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const datePickerRef = useRef<any>(null);
-    const expandedDatePickerRef = useRef<any>(null);
-    const selectedDatePickerRef = useRef<any>(null);
+    const datePickerRef = useRef<DatePicker | null>(null);
+    const expandedDatePickerRef = useRef<DatePicker | null>(null);
+    const selectedDatePickerRef = useRef<DatePicker | null>(null);
     const [showType, setShowType] = useState(false);
     const [showState, setShowState] = useState(true);
 
-    const onRangeChange = (dates: [Date | null, Date | null]) => {
-        if (props.customDate && typeof props.customDate === 'function') {
-            props.customDate(dates);
+    const onRangeChange = useCallback((dates: [Date | null, Date | null]) => {
+        if (customDate && typeof customDate === 'function') {
+            customDate(dates);
         }
         const [start, end] = dates;
         setStartDate(start);
@@ -84,94 +103,94 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                 (end ? " - " + end.toDateString().slice(4) : "") : ""
         );
         setIsDropdownOpen(false);
-        if (typeof props.onDatePicker === 'function') {
-            props.onDatePicker([start, end]);
+        if (typeof onDatePicker === 'function') {
+            onDatePicker([start, end]);
         }
-    };
+    }, [customDate, onDatePicker]);
 
-    const handlerDateChange = (date: Date | null) => {
+    const handlerDateChange = useCallback((date: Date | null) => {
         setStartDate(date);
-        if (typeof props.selectedDate === 'function') props.selectedDate(date);
-        if (typeof props.onDatePicker === 'function') props.onDatePicker(date as Date);
-    };
+        if (typeof selectedDate === 'function') selectedDate(date);
+        if (typeof onDatePicker === 'function') onDatePicker(date as Date);
+    }, [selectedDate, onDatePicker]);
 
-    const handlerDateTimeChange = (date: any) => {
+    const handlerDateTimeChange = useCallback((date: any) => {
         if (date != null) {
             setStartDate(date);
         } else {
             setStartDate(new Date());
         }
-        if (typeof props.selectedDate === 'function') {
-            props.selectedDate(date);
+        if (typeof selectedDate === 'function') {
+            selectedDate(date);
         }
-        if (typeof props.onDatePicker === 'function') {
-            props.onDatePicker(date);
+        if (typeof onDatePicker === 'function') {
+            onDatePicker(date);
         }
-    }; 
+    }, [selectedDate, onDatePicker]); 
     
-    const toggleDropdown = () => {
-        if (!props.isDisabled) {
+    const toggleDropdown = useCallback(() => {
+        if (!isDisabled) {
             setIsDropdownOpen(!isDropdownOpen);
         }
-    }; 
+    }, [isDisabled, isDropdownOpen]); 
     
-    const clearDate = () => {
-        if (!props.isDisabled) {
+    const clearDate = useCallback(() => {
+        if (!isDisabled) {
             setStartDate(null);
             setEndDate(null);
             setDropdownDisplayValue("");
-            if (typeof props.selectedDate === 'function') {
-                props.selectedDate(null);
+            if (typeof selectedDate === 'function') {
+                selectedDate(null);
             }
-            if (typeof props.onDatePicker === 'function') {
-                props.onDatePicker([null, null]);
+            if (typeof onDatePicker === 'function') {
+                onDatePicker([null, null]);
             }
-            if (typeof props.customDate === 'function') {
-                props.customDate([null, null]);
+            if (typeof customDate === 'function') {
+                customDate([null, null]);
             }
         }
-    };
+    }, [isDisabled, selectedDate, onDatePicker, customDate]);
 
-    const yesterdayClickHandler = () => {
+    const yesterdayClickHandler = useCallback(() => {
         setActiveList("yesterday");
         const newDate = getYesterdayDate(today);
         onRangeChange([newDate, newDate]);
         setDropdownDisplayValue(newDate.toDateString().slice(4));
-    };
+    }, [today, onRangeChange]);
 
-    const todayClickHandler = () => {
+    const todayClickHandler = useCallback(() => {
         setActiveList("today");
         const { todayDate, newDate } = getTodayDate(today);
         onRangeChange([todayDate, newDate]); 
         setDropdownDisplayValue(newDate.toDateString().slice(4));
-    };
+    }, [today, onRangeChange]);
 
-    const lastSevenDaysClickHandler = () => {
+    const lastSevenDaysClickHandler = useCallback(() => {
         setActiveList("lastSeven");
         const newDate = getLastSevenDaysDate(today);
         onRangeChange([newDate, today]);
         setDropdownDisplayValue(
             newDate.toDateString().slice(4) + " - " + today.toDateString().slice(4)
         );
-    };
+    }, [today, onRangeChange]);
 
-    const lastFourteenDaysClickHandler = () => {
+    const lastFourteenDaysClickHandler = useCallback(() => {
         setActiveList("lastFourteen");
         const newDate = getLastFourteenDaysDate(today);
         onRangeChange([newDate, today]);
         setDropdownDisplayValue(
             newDate.toDateString().slice(4) + " - " + today.toDateString().slice(4)
         );
-    };
+    }, [today, onRangeChange]);
 
     useEffect(() => {
-        if (props.dateForEdit) {
-            setStartDate(new Date(props.dateForEdit));
+        if (dateForEdit) {
+            setStartDate(new Date(dateForEdit));
         }
-    }, [props.dateForEdit]); 
+    }, [dateForEdit]); 
     
     useEffect(() => {
-        if (props.state === DatePickerState.Expanded) {
+        if (state === DatePickerState.Expanded) {
             setIsDropdownOpen(true);
             setTimeout(() => {
                 if (expandedDatePickerRef.current) {
@@ -179,45 +198,73 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                 }
             }, 100);
         }
-    }, [props.state]);
+    }, [state]);
 
-    const dayClassName = (date: Date) => getDayClassName(date, startDate);
+    const dayClassName = useCallback((date: Date) => getDayClassName(date, startDate), [startDate]);
     
     useEffect(() => {
         setShowType(false);
         setShowState(true);
-    }, [props.state]); 
+    }, [state]); 
     
     useEffect(() => {
         setShowState(false);
         setShowType(true);
-    }, [props.type]);
+    }, [type]);
 
     useEffect(() => {
-        if (props.isDefaultDate) {
+        if (isDefaultDate) {
             setStartDate(today);
             setDropdownDisplayValue(today.toDateString().slice(4));
         } else {
             setStartDate(null);
             setDropdownDisplayValue("");
         }
-    }, [props.isDefaultDate]);
+    }, [isDefaultDate, today]);
+
+    const sharedProps = useMemo(
+        () => ({
+            ...restProps,
+            selectedDate,
+            dateForEdit,
+            titleText,
+            showTitle,
+            onDatePicker,
+            datePickerStyleType,
+            state,
+            layout,
+            customDate,
+            isDisabled,
+            isMandatory,
+            placeholderText,
+            type,
+            changeIcon,
+            showClearDate,
+            isDefaultDate,
+            SafeDatePicker,
+            clearDate,
+        }),
+        [
+            restProps, selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, state, layout,
+            customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, showClearDate, isDefaultDate, clearDate,
+        ]
+    );
 
     return (
         <>
             <label
-                className={`rds-datepicker__label ${!props.showTitle ? 'rds-datepicker__label--hidden' : ''}`}
-                aria-hidden={!props.showTitle}
+                className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
+                aria-hidden={!showTitle}
             >
-                {props.showTitle && props.titleText ? props.titleText : '\u00A0'}
-                {props.showTitle && props.isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
+                {showTitle && titleText ? titleText : '\u00A0'}
+                {showTitle && isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
             </label>
             {showState && renderDatePickerStateView(
-                props.state || DatePickerState.Default,
+                state || DatePickerState.Default,
                 startDate,
                 handlerDateChange,
                 handlerDateTimeChange,
-                {...props, SafeDatePicker, clearDate},
+                sharedProps,
                 datePickerRef,
                 expandedDatePickerRef,
                 selectedDatePickerRef,
@@ -226,12 +273,12 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                 CustomButtons
             )}
             {showType && renderDatePickerTypeView(
-                props.type || 'Default',
+                type || 'Default',
                 startDate,
                 endDate,
                 handlerDateChange,
                 onRangeChange,
-                {...props, SafeDatePicker, clearDate},
+                sharedProps,
                 isDropdownOpen,
                 toggleDropdown,
                 dropdownDisplayValue,
