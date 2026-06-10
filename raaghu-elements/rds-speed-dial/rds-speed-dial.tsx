@@ -3,7 +3,7 @@ import {
   SpeedDial as MuiSpeedDial,
   SpeedDialAction as MuiSpeedDialAction,
   SpeedDialIcon as MuiSpeedDialIcon,
-  SpeedDialProps
+  type SpeedDialProps
 } from '@mui/material';
 import type { OpenReason, CloseReason } from '@mui/material/SpeedDial';
 
@@ -21,7 +21,7 @@ export interface RdsSpeedDialProps extends Omit<SpeedDialProps, 'children'> {
   tooltipTitle?: string;
 }
 
-const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
+const RdsSpeedDial = ({
   actions,
   icon,
   openIcon,
@@ -31,7 +31,7 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
   onClose,
   onOpen,
   ...props
-}) => {
+}: RdsSpeedDialProps) => {
   const [internalOpen, setInternalOpen] = useState(false);
   
   const isForceOpen = open === true;

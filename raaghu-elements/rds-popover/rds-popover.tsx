@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Popover as MuiPopover, 
   type PopoverProps, 
@@ -7,6 +7,7 @@ import {
   IconButton 
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
+import clsx from 'clsx';
 import './rds-popover.scss';
 
 export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'> {
@@ -24,9 +25,9 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'>
 const MOBILE_BREAKPOINT = 600;
 
 function useMobilePopoverPosition(position: string): string {
-  const [mobilePosition, setMobilePosition] = React.useState(position);
+  const [mobilePosition, setMobilePosition] = useState(position);
 
-  React.useEffect(() => {
+  useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
       const topGroup = [
@@ -136,13 +137,8 @@ const RdsPopover= ({
     return 'top';
   };
 
-  const getArrowClasses = (direction: string, position: string): string => {
-    const baseClass = 'rds-popover__arrow';
-    const directionClass = `${baseClass}--${direction}`;
-    const positionClass = `${baseClass}--${position}`;
-    
-    return `${baseClass} ${directionClass} ${positionClass}`;
-  };
+  const getArrowClasses = (direction: string, pos: string): string =>
+    clsx('rds-popover__arrow', `rds-popover__arrow--${direction}`, `rds-popover__arrow--${pos}`);
 
   const currentPosition = positionMap[effectivePosition] || positionMap['bottom-left'];
   const arrowDirection = getArrowDirection(effectivePosition);

@@ -1,6 +1,18 @@
 import React, { ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-menu.scss'
+
+function getColor(color: string): string {
+  switch (color) {
+    case 'primary': return 'var(--rds-primary-main)';
+    case 'success': return 'var(--rds-success-main)';
+    case 'danger':  return 'var(--rds-error-main)';
+    case 'info':    return 'var(--rds-info-main)';
+    case 'warning': return 'var(--rds-warning-main)';
+    default:        return color || '';
+  }
+}
 
 export interface RdsMenuItem {
   id: string | number;
@@ -28,30 +40,8 @@ const RdsMenu = ({
   ...props
 }: RdsMenuProps) => {
   const dense = size === 'small';
-  const menuClassName = [
-    'rds-menu',
-    size ? `rds-menu--${size}` : '',
-    props.className || ''
-  ].filter(Boolean).join(' ');
+  const menuClassName = clsx('rds-menu', size && `rds-menu--${size}`, props.className);
   const menuListClassName = 'rds-menu__list';
-function getColor(color: string): string {
-  // Map semantic color names to CSS custom properties so they respond to theme changes.
-  // Falls back to the raw value for arbitrary color strings.
-  switch (color) {
-    case 'primary':
-      return 'var(--rds-primary-main)';
-    case 'success':
-      return 'var(--rds-success-main)';
-    case 'danger':
-      return 'var(--rds-error-main)';
-    case 'info':
-      return 'var(--rds-info-main)';
-    case 'warning':
-      return 'var(--rds-warning-main)';
-    default:
-      return color || '';
-  }
-}
   return (
       <MuiMenu
         {...props}
@@ -88,26 +78,30 @@ function getColor(color: string): string {
                   '--rds-menu-icon-color': getColor(item.color)
                 } as React.CSSProperties : {})
               }}
-              className={['rds-menu__item', item.color ? `rds-menu__item--${item.color}` : '', item.disabled ? 'rds-menu__item--disabled' : ''].filter(Boolean).join(' ')}
+              className={clsx(
+                'rds-menu__item',
+                item.color && `rds-menu__item--${item.color}`,
+                item.disabled && 'rds-menu__item--disabled',
+              )}
             >
               {item.icon && (
-                <ListItemIcon 
-                  className={`rds-menu__item__icon ${item.color ? `rds-menu__item__icon--${item.color}` : ''}`}
+                <ListItemIcon
+                  className={clsx('rds-menu__item__icon', item.color && `rds-menu__item__icon--${item.color}`)}
                   style={item.color ? { 
                     color: getColor(item.color)
                   } : {}}
                 >
                   {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
                     ? React.cloneElement(
-                        item.icon as React.ReactElement<any>,
+                        item.icon as React.ReactElement<{ style?: React.CSSProperties }>,
                         {
-                          ...(item.icon.props || {}),
+                          ...(item.icon as React.ReactElement<{ style?: React.CSSProperties }>).props,
                           style: {
-                            ...((item.icon as React.ReactElement<any>).props?.style || {}),
+                            ...((item.icon as React.ReactElement<{ style?: React.CSSProperties }>).props?.style ?? {}),
                             color: item.color ? getColor(item.color) : undefined,
-                            fill: item.color ? getColor(item.color) : undefined
-                          }
-                        }
+                            fill: item.color ? getColor(item.color) : undefined,
+                          },
+                        },
                       )
                     : item.icon}
                 </ListItemIcon>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import clsx from 'clsx';
 import './rds-file-uploader.scss';
 import RdsFileUploaderStandardView from './RdsFileUploaderStandardView';
 import { 
@@ -106,7 +107,7 @@ const RdsFileUploader = ({
           title={title}
         />
       ) : (
-        <Box className={`rds-file-uploader rds-file-uploader--mode-${mode}`}>
+        <Box className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`)}>
           {showTitle && (
             <Typography className="rds-file-uploader__form-title" variant="subtitle1">
               {title || 'File Upload'}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
@@ -165,13 +166,13 @@ const RdsFileUploader = ({
           <Box className="rds-file-uploader__hint-row">
             <Typography
               variant="caption"
-              className={`rds-file-uploader__error-inline ${isMandatory && mandatoryError ? 'is-visible' : ''}`}
+              className={clsx('rds-file-uploader__error-inline', isMandatory && mandatoryError && 'is-visible')}
             >
               {mandatoryError || 'placeholder'}
             </Typography>
             <div className="rds-file-uploader__hint-wrapper">
               <Typography
-                className={`rds-file-uploader__hint ${showHint ? '' : 'is-hidden'}`}
+                className={clsx('rds-file-uploader__hint', !showHint && 'is-hidden')}
                 variant="caption"
               >
                 {showHint ? (hintText || 'Maximum 5MB') : '\u00A0'}

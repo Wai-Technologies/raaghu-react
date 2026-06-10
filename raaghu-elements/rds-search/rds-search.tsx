@@ -1,6 +1,7 @@
-import React from 'react';
-import { TextField, InputAdornment, IconButton, TextFieldProps } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
 import { Search, Clear } from '@mui/icons-material';
+import clsx from 'clsx';
 import './rds-search.scss';
 
 export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange'> {
@@ -18,7 +19,7 @@ export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange'> {
   iconPosition?: 'left' | 'right';
 }
 
-const RdsSearch: React.FC<RdsSearchProps> = ({
+const RdsSearch = ({
   value,
   onChange,
   onSearch,
@@ -31,14 +32,14 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
   label,
   labelPosition = 'top',
   iconPosition = 'left',
+  disabled = false,
+  fullWidth: fullWidthProp = false,
   ...props
-}) => {
-  const [searchTimeout, setSearchTimeout] = React.useState<ReturnType<typeof setTimeout> | null>(null);
-
-  const fullWidthProp = Boolean((props as any).fullWidth);
+}: RdsSearchProps) => {
+  const [searchTimeout, setSearchTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if ((props as any).disabled) return;
+    if (disabled) return;
 
     const newValue = event.target.value;
     onChange(newValue);
@@ -54,12 +55,12 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
   };
 
   const handleSearch = () => {
-    if ((props as any).disabled) return;
+    if (disabled) return;
     onSearch?.(value);
   };
 
   const handleClear = () => {
-    if ((props as any).disabled) return;
+    if (disabled) return;
 
     onChange('');
     onClear?.();
@@ -72,27 +73,26 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       if (searchTimeout) {
         clearTimeout(searchTimeout);
       }
     };  }, [searchTimeout]);
 
-  const containerClasses = [
+  const containerClasses = clsx(
     'rds-search',
-    `rds-search--${labelPosition === 'top' ? 'column'
+    `rds-search--${
+      labelPosition === 'top' ? 'column'
       : labelPosition === 'bottom' ? 'column-reverse'
       : labelPosition === 'left' ? 'row'
       : labelPosition === 'right' ? 'row-reverse'
-      : 'column'}`,
-    fullWidthProp ? 'rds-search--fullWidth' : ''
-  ].filter(Boolean).join(' ');
+      : 'column'
+    }`,
+    fullWidthProp && 'rds-search--fullWidth',
+  );
 
-  const labelClasses = [
-    'rds-search__label',
-    `rds-search__label--${labelPosition}`
-  ].join(' ');
+  const labelClasses = clsx('rds-search__label', `rds-search__label--${labelPosition}`);
 
   return (
     <div className={containerClasses}>
@@ -107,7 +107,7 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
         onChange={handleChange}
         onKeyPress={handleKeyPress}
         placeholder={placeholder}
-        disabled={(props as any).disabled}
+        disabled={disabled}
         fullWidth={fullWidthProp}
         InputProps={{
           startAdornment:
@@ -117,7 +117,7 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
                   onClick={handleSearch}
                   edge="start"
                   aria-label="search"
-                  disabled={(props as any).disabled}
+                  disabled={disabled}
                 >
                   <Search />
                 </IconButton>
@@ -132,7 +132,7 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
                       onClick={handleClear}
                       edge="end"
                       aria-label="clear"
-                      disabled={(props as any).disabled}
+                      disabled={disabled}
                     >
                       <Clear />
                     </IconButton>
@@ -140,7 +140,7 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
                       onClick={handleSearch}
                       edge="end"
                       aria-label="search"
-                      disabled={(props as any).disabled}
+                      disabled={disabled}
                     >
                       <Search />
                     </IconButton>
@@ -150,7 +150,7 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
                     onClick={handleSearch}
                     edge="end"
                     aria-label="search"
-                    disabled={(props as any).disabled}
+                    disabled={disabled}
                   >
                     <Search />
                   </IconButton>
@@ -163,7 +163,7 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
                     onClick={handleClear}
                     edge="end"
                     aria-label="clear"
-                    disabled={(props as any).disabled}
+                    disabled={disabled}
                   >
                     <Clear />
                   </IconButton>

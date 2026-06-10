@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Slider as MuiSlider, SliderProps } from '@mui/material';
 import './rds-slider.scss';
 
@@ -15,7 +15,7 @@ export interface RdsSliderProps extends SliderProps {
   className?: string;
 }
 
-const RdsSlider: React.FC<RdsSliderProps> = ({
+const RdsSlider = ({
   label,
   showValue = false,
   showLabel = false,
@@ -67,9 +67,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     return min + (safeMax - min) * 0.3;
   };
 
-  const [sliderValue, setSliderValue] = React.useState<number | number[]>(getInitialValue());
+  const [sliderValue, setSliderValue] = useState<number | number[]>(getInitialValue());
 
-  React.useEffect(() => {
+  useEffect(() => {
     const externalValueChanged = (() => {
       if (value === undefined) return false;
       if (Array.isArray(value) && Array.isArray(sliderValue)) {
@@ -127,6 +127,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     }
   };
 
+  const ariaLabel = (props as any)['aria-label'] ?? label ?? 'Slider';
+  const isRangeValue = Array.isArray(sliderValue);
+
   return (
     <div className={`rds-slider ${className || ''}`}>
       {(showLabel || showValue) && (
@@ -144,8 +147,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
         onChange={handleChange}
           min={min}
           max={safeMax}
-          aria-label={(props as any)['aria-label'] ?? label ?? 'Slider'}
           {...props}
+          aria-label={isRangeValue ? undefined : ariaLabel}
+          getAriaLabel={isRangeValue ? () => ariaLabel : undefined}
           step={sliderStep}
           marks={sliderMarks}
           valueLabelDisplay={props.showTooltip === 'tooltip' ? 'auto' : 'off'}

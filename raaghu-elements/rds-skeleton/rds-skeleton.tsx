@@ -1,5 +1,5 @@
-import React from 'react';
 import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
+import clsx from 'clsx';
 
 export interface RdsSkeletonProps extends SkeletonProps {
   frames?: number;
@@ -22,7 +22,7 @@ const RdsSkeleton = ({
   ...props
 }: RdsSkeletonProps) => {
   const isText = shape === 'text';
-  const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
+  const bemClass = clsx('rds-skeleton', `rds-skeleton--${shape}`, className);
 
   const animationValue = typeof animation !== 'undefined' ? animation : (animated ? 'pulse' : false);
 

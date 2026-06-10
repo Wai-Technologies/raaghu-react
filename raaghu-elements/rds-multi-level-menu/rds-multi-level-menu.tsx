@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -7,6 +7,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CheckIcon from '@mui/icons-material/Check';
 import RdsButton from '../rds-button/rds-button';
 import { Box } from '@mui/material';
+import clsx from 'clsx';
 import './rds-multi-level-menu.scss';
 
 export type MenuOption = {
@@ -47,7 +48,7 @@ export const RdsMultiLevelMenu = ({
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       setAnchorEls([null]);
       setOpenIndexes([]);
     }, [size]);
@@ -95,7 +96,7 @@ export const RdsMultiLevelMenu = ({
           sx: level === 0
             ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset, 43px)', sm: 0 } }
             : menuPaperStyle,
-          className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''} type-${type} size-${size}`
+          className: clsx('rds-mlm-paper', level === 0 && 'rds-mlm-root', `type-${type}`, `size-${size}`)
         }}
         disableAutoFocusItem
       >
@@ -123,7 +124,12 @@ export const RdsMultiLevelMenu = ({
                 sx={{
                   ...menuItemStyle,
                 }}
-                className={`${size === 'large' ? 'large' : ''} ${isForcedHover ? 'force-hover' : ''} ${isForcedSelected && type !== 'selectable' ? 'force-selected' : ''} ${isExpandable && openIndexes[level] === idx ? 'expanded-open' : ''}`}
+                className={clsx(
+                  size === 'large' && 'large',
+                  isForcedHover && 'force-hover',
+                  isForcedSelected && type !== 'selectable' && 'force-selected',
+                  isExpandable && openIndexes[level] === idx && 'expanded-open',
+                )}
                 disableRipple={isExpandable}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
@@ -161,7 +167,7 @@ export const RdsMultiLevelMenu = ({
   };
 
   return (
-    <div className={`rds-multi-level-menu type-${type}`}>
+    <div className={clsx('rds-multi-level-menu', `type-${type}`)}>
       <RdsButton
         style="filled"
         onClick={(e) => handleMenuOpen(e, 0, -1)}

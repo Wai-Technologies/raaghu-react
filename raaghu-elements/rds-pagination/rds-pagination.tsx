@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pagination as MuiPagination, PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography } from '@mui/material';
+import { Pagination as MuiPagination, type PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
@@ -22,7 +22,7 @@ export interface RdsPaginationProps extends PaginationProps {
   paginationStyle?: 'Style 1' | 'Style 2' | 'Style 3' | 'Style 4' | 'Style 5' | 'Style 6' | 'Style 7' | 'Style 8' | 'Style 9' | 'Style 10' | 'Style 11';
 }
 
-const RdsPagination: React.FC<RdsPaginationProps> = ({
+const RdsPagination = ({
   totalPages,
   currentPage,
   onPageChange,
@@ -42,7 +42,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   paginationStyle = 'Style 1',
   onPageSizeChange,
   ...props
-}) => {
+}: RdsPaginationProps) => {
   const [localPageSize, setLocalPageSize] = useState(pageSizeProp || pageSizeOptions[0]);
   const [manualPageInput, setManualPageInput] = useState('');
   const pageSize = pageSizeProp !== undefined ? pageSizeProp : localPageSize;

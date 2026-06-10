@@ -1,14 +1,15 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import { Tabs as MuiTabs, Tab as MuiTab, type TabsProps } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
+import clsx from 'clsx';
 import './rds-tabs.scss';
 
 export interface RdsTabItem {
   id: string | number;
   label: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   disabled?: boolean;
   title?: string; 
   state?: 'default' | 'hover' | 'selected' | 'disabled'; 
@@ -62,7 +63,7 @@ const RdsTabs = ({
     return result;
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: any) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: string | number) => {
     if (onTabChange) {
       onTabChange(newValue);
     }
@@ -71,7 +72,7 @@ const RdsTabs = ({
     }
   };
 
-const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`;
+const layoutClass = clsx(`rds-tabs--${layout}`, `rds-state--${props.state || 'default'}`);
 
   const tabsWithIcons = tabs.map((tab) => ({
     ...tab,
@@ -88,7 +89,7 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
       {...(providedValue !== undefined ? { value: providedValue } : {})}
       onChange={handleChange}
       orientation={type}
-      className={`rds-tabs ${layoutClass}`}
+      className={clsx('rds-tabs', layoutClass)}
       {...props}
     >
       {tabsWithIcons.map((tab) => {

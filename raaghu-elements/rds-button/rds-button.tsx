@@ -1,6 +1,7 @@
-import React from 'react';
+import { type ReactNode, type CSSProperties } from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import clsx from 'clsx';
 import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked, ChevronRight, ChevronLeft, KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
@@ -14,8 +15,8 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   color?: ButtonProps['color'];
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
-  changeLeftIcon?: React.ReactNode;
-  changeRightIcon?: React.ReactNode;
+  changeLeftIcon?: ReactNode;
+  changeRightIcon?: ReactNode;
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
 }
 
@@ -65,11 +66,9 @@ const RdsButton = ({
     };
   };
 
-  const getTextCaseStyles = () => {
-    return {
-      textTransform: textCase === 'unset' ? 'none' as const : textCase as any,
-    };
-  };
+  const getTextCaseStyles = () => ({
+    textTransform: (textCase === 'unset' ? 'none' : textCase) as CSSProperties['textTransform'],
+  });
 
   const getIconComponent = (iconType?: string) => {
     switch (iconType) {
@@ -103,30 +102,26 @@ const RdsButton = ({
     }
   };
 
-  const resolveIcon = (icon?: React.ReactNode | string): React.ReactNode => {
+  const resolveIcon = (icon?: ReactNode | string): ReactNode => {
     if (typeof icon === 'string') {
       return getIconComponent(icon);
     }
     return icon;
   };
 
-  const getStateClassName = () => {
-    switch (state) {
-      case 'hover':
-        return 'rds-button--state-hover';
-      case 'selected':
-        return 'rds-button--state-selected';
-      case 'disabled':
-        return 'rds-button--state-disabled';
-      case 'default':
-      default:
-        return 'rds-button--state-default';
-    }
-  };
+  const styleVariantClass =
+    style === 'filled' ? 'rds-button__primary'
+    : style === 'outlined' ? 'rds-button__secondary'
+    : style === 'transparent' ? 'rds-button__text'
+    : '';
 
-  const getShapeClassName = () => {
-    return shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle';
-  };
+  const stateClass =
+    state === 'hover' ? 'rds-button--state-hover'
+    : state === 'selected' ? 'rds-button--state-selected'
+    : state === 'disabled' ? 'rds-button--state-disabled'
+    : 'rds-button--state-default';
+
+  const shapeClass = shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle';
 
   const getStartIcon = () => {
     if (normalizedLayout === 'icon-only') {
@@ -184,30 +179,21 @@ const RdsButton = ({
 
   const isButtonDisabled = disabled || state === 'disabled' || isLoading;
 
-  const styleVariantClass = style === 'filled'
-    ? 'rds-button__primary'
-    : style === 'outlined'
-      ? 'rds-button__secondary'
-      : style === 'transparent'
-        ? 'rds-button__text'
-        : '';
-
   return (
     <MuiButton
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
-      color={color as any}
-      className={`rds-button ${styleVariantClass} ${getStateClassName()} ${getShapeClassName()}`.replace(/\s+/g, ' ').trim()}
+      color={color}
+      className={clsx('rds-button', styleVariantClass, stateClass, shapeClass)}
       sx={{
         ...getShapeStyles(),
         ...getTextCaseStyles(),
         ...sx,
       }}
       style={{
-        ...getShapeStyles() as React.CSSProperties,
-        ...getTextCaseStyles() as React.CSSProperties,
+        ...getShapeStyles() as CSSProperties,
+        ...getTextCaseStyles() as CSSProperties,
         ...(getFilledTextColor() ? { color: getFilledTextColor() } : {}),
-        ...(sx as any),
       }}
       startIcon={getStartIcon()}
       endIcon={getEndIcon()}

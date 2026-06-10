@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
+import clsx from 'clsx';
 import './rds-carousel.scss';
 
 export interface RdsCarouselProps {
-  children: React.ReactNode[];
+  children: ReactNode[];
   autoPlay?: boolean;
   className?: string;
   autoPlayInterval?: number;
@@ -41,7 +42,7 @@ const RdsCarousel = ({
   const tokens = useRdsTokens();
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (state && !isNaN(parseInt(state))) {
       const stateIndex = parseInt(state) - 1;
       if (stateIndex >= 0 && stateIndex < children.length) {
@@ -50,7 +51,7 @@ const RdsCarousel = ({
     }
   }, [state, children.length]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (autoPlay && children.length > 1) {
       const interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % children.length);
@@ -71,15 +72,15 @@ const RdsCarousel = ({
     setCurrentIndex(index);
   };
 
-  const getCarouselClasses = () => {
-    const baseClass = 'rds-carousel';
-    const styleClass = `${baseClass}--${style.replace(' ', '-')}`;
-    return [baseClass, styleClass, className].filter(Boolean).join(' ');
-  };
+  const carouselClassName = clsx(
+    'rds-carousel',
+    `rds-carousel--${style.replace(' ', '-')}`,
+    className,
+  );
 
   return (
     <Box 
-      className={getCarouselClasses()}
+      className={carouselClassName}
       sx={{ 
         position: 'relative', 
         height: height, 
@@ -233,9 +234,11 @@ const RdsCarousel = ({
             <Box
               key={index}
               onClick={() => goToSlide(index)}
-              className={`rds-carousel__indicator rds-carousel__indicator--${type} ${
-                currentIndex === index ? 'rds-carousel__indicator__active' : ''
-              }`}
+              className={clsx(
+                'rds-carousel__indicator',
+                `rds-carousel__indicator--${type}`,
+                currentIndex === index && 'rds-carousel__indicator__active',
+              )}
               sx={{
                 width: type === 'circle' ? tokens.space(1.5) : tokens.space(3),
                 height: type === 'circle' ? tokens.space(1.5) : tokens.space(0.5),

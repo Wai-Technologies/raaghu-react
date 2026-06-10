@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useRef, type DragEvent, type ChangeEvent } from 'react';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import { CloudUpload, Close } from '@mui/icons-material';
@@ -9,9 +9,9 @@ interface RdsDropZoneSideIconProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
-  onDragOver: (e: React.DragEvent) => void;
-  onDragLeave: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent) => void;
+  onDragOver: (e: DragEvent) => void;
+  onDragLeave: (e: DragEvent) => void;
+  onDrop: (e: DragEvent) => void;
   openFileDialog: () => void;
 }
 
@@ -19,9 +19,9 @@ interface RdsDropZoneWithButtonProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
-  onDragOver: (e: React.DragEvent) => void;
-  onDragLeave: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent) => void;
+  onDragOver: (e: DragEvent) => void;
+  onDragLeave: (e: DragEvent) => void;
+  onDrop: (e: DragEvent) => void;
   openFileDialog: () => void;
 }
 
@@ -29,9 +29,9 @@ interface RdsDropZoneDefaultProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
-  onDragOver: (e: React.DragEvent) => void;
-  onDragLeave: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent) => void;
+  onDragOver: (e: DragEvent) => void;
+  onDragLeave: (e: DragEvent) => void;
+  onDrop: (e: DragEvent) => void;
   openFileDialog: () => void;
 }
 
@@ -57,12 +57,12 @@ export const useFileUploader = ({
   onFilesChange,
   onUpload,
 }: UseFileUploaderProps) => {
-  const [files, setFiles] = React.useState<FileWithProgress[]>([]);
-  const [isDragOver, setIsDragOver] = React.useState(false);
-  const [isUploading, setIsUploading] = React.useState(false);
-  const [mandatoryError, setMandatoryError] = React.useState<string | null>(null);
-  const [selectedFileName, setSelectedFileName] = React.useState<string | null>(null);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const [files, setFiles] = useState<FileWithProgress[]>([]);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [mandatoryError, setMandatoryError] = useState<string | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return '0 Bytes';
@@ -113,7 +113,7 @@ export const useFileUploader = ({
     }
   };
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const incoming = event.target.files as any;
     const selectedFiles: File[] = Array.isArray(incoming) ? incoming : Array.from(incoming || []);
     if (selectedFiles.length === 0) return;
@@ -125,17 +125,17 @@ export const useFileUploader = ({
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  const handleDragOver = (event: React.DragEvent) => {
+  const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
     setIsDragOver(true);
   };
 
-  const handleDragLeave = (event: React.DragEvent) => {
+  const handleDragLeave = (event: DragEvent) => {
     event.preventDefault();
     setIsDragOver(false);
   };
 
-  const handleDrop = (event: React.DragEvent) => {
+  const handleDrop = (event: DragEvent) => {
     event.preventDefault();
     setIsDragOver(false);
     const droppedFiles = Array.from(event.dataTransfer.files);
@@ -163,7 +163,7 @@ export const useFileUploader = ({
   };
 };
 
-export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
+export const RdsDropZoneSideIcon = ({
   mode,
   isDragOver,
   disabled,
@@ -202,7 +202,7 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
   );
 };
 
-export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
+export const RdsDropZoneWithButton = ({
   mode,
   isDragOver,
   disabled,

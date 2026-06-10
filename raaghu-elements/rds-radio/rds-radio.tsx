@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Radio as MuiRadio,
   RadioGroup,
@@ -10,6 +10,7 @@ import {
   Box,
   Typography
 } from '@mui/material';
+import clsx from 'clsx';
 import './rds-radio.scss';
 
 export interface RdsRadioOption {
@@ -41,10 +42,10 @@ const RdsRadio= ({
   const isHoverable = state === 'hover' || state === 'default';
   const radioRow = direction === 'row';
 
-  const effectiveValue: string | undefined = React.useMemo(() => {
-    if (typeof selected === 'undefined') return props.value as any;
+  const effectiveValue: string | undefined = useMemo(() => {
+    if (typeof selected === 'undefined') return props.value as string | undefined;
     if (selected === false) return undefined;
-    if (props.value) return props.value as any;
+    if (props.value) return props.value as string;
     const first = options.find(o => !o.disabled);
     return first ? first.value : undefined;
   }, [selected, props.value, options]);
@@ -68,7 +69,10 @@ const RdsRadio= ({
       return (
         <Box
           key={option.value}
-          className={`rds-radio__bottom-label-container ${finalDisabled ? 'rds-radio__bottom-label-container--disabled' : ''}`}
+          className={clsx(
+            'rds-radio__bottom-label-container',
+            finalDisabled && 'rds-radio__bottom-label-container--disabled',
+          )}
           sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         >
           <label htmlFor={radioId} style={{ cursor: finalDisabled ? 'not-allowed' : 'pointer', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -98,7 +102,10 @@ const RdsRadio= ({
             {option.text && (
               <Typography
                 component="span"
-                className={`rds-radio__bottom-label ${finalDisabled ? 'rds-radio__bottom-label--disabled' : ''}`}
+                className={clsx(
+                  'rds-radio__bottom-label',
+                  finalDisabled && 'rds-radio__bottom-label--disabled',
+                )}
                 sx={{
                   pointerEvents: finalDisabled ? 'none' : 'auto',
                   opacity: finalDisabled ? 0.6 : 1,
@@ -120,7 +127,11 @@ const RdsRadio= ({
         key={option.value}
         {...commonProps}
         label={option.text}
-        className={`rds-radio__option rds-radio__option--with-label ${isHoverable ? 'rds-radio__option--hoverable' : ''}`}
+        className={clsx(
+          'rds-radio__option',
+          'rds-radio__option--with-label',
+          isHoverable && 'rds-radio__option--hoverable',
+        )}
       />
     );
   };
@@ -130,7 +141,11 @@ const RdsRadio= ({
   return (
     <FormControl 
       component="fieldset" 
-      className={`rds-radio rds-radio--${layout.replace(/ /g, '-')} ${state !== 'default' ? `rds-radio--${state}` : ''}`}
+      className={clsx(
+        'rds-radio',
+        `rds-radio--${layout.replace(/ /g, '-')}`,
+        state !== 'default' && `rds-radio--${state}`,
+      )}
     >
       {label && <FormLabel component="legend" className="rds-radio__label">{label}</FormLabel>}
       {layout === 'icon with bottom label' ? (
@@ -144,7 +159,7 @@ const RdsRadio= ({
           value={effectiveValue}
           onChange={(e, val) => {
             if (typeof selected === 'undefined' && props.onChange) {
-              props.onChange(e as any, val);
+              props.onChange(e as React.ChangeEvent<HTMLInputElement>, val);
             }
           }}
           {...restProps}

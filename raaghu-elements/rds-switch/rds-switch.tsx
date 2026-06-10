@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-switch.scss';
 
 export interface RdsSwitchProps extends Omit<SwitchProps, 'style'> {
@@ -46,14 +47,14 @@ const RdsSwitch = ({
 
   const isControlled = typeof props.checked === 'boolean';
 
-  const [internalChecked, setInternalChecked] = React.useState(() => {
+  const [internalChecked, setInternalChecked] = useState(() => {
     if (isControlled) return props.checked as boolean;
     if (normalizedState === 'on' || normalizedState === 'disabled on') return true;
     if (normalizedState === 'off' || normalizedState === 'disabled off') return false;
     return Boolean(props.defaultChecked);
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isControlled) {
       if (normalizedState) {
         if (normalizedState === 'on' || normalizedState === 'disabled on') setInternalChecked(true);
@@ -75,13 +76,12 @@ const RdsSwitch = ({
 
   const normalizedStyleType = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
   const normalizedColor = props.color ? String(props.color).toLowerCase().replace(/[^a-z0-9_-]/g, '-') : 'primary';
-  const colorClass = `rds-switch--color-${normalizedColor}`;
-  const styleClass = `rds-switch rds-switch--${normalizedStyleType} ${colorClass}`;
+  const styleClass = clsx('rds-switch', `rds-switch--${normalizedStyleType}`, `rds-switch--color-${normalizedColor}`);
 
   const { defaultChecked: _, ...restProps } = props;
 
   const computedAriaLabel =
-    (props as any)['aria-label'] ||
+    props['aria-label'] ||
     (typeof label === 'string' ? label : undefined) ||
     'Switch';
 
@@ -90,11 +90,11 @@ const RdsSwitch = ({
     checked: isControlled ? props.checked : internalChecked,
     disabled,
     onChange: handleChange,
-    className: styleClass + (props.className ? ` ${props.className}` : ''),
+    className: clsx(styleClass, props.className),
     inputProps: {
-      ...(restProps as any).inputProps,
+      ...(restProps.inputProps as object),
       'aria-label':
-        ((restProps as any).inputProps && (restProps as any).inputProps['aria-label']) ||
+        ((restProps.inputProps as Record<string, unknown>)?.['aria-label']) ||
         computedAriaLabel,
     },
     slotProps: {

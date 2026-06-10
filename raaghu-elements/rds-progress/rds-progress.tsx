@@ -5,6 +5,7 @@ import {
   Box,
   Typography
 } from '@mui/material';
+import clsx from 'clsx';
 import './rds-progress.scss';
 
 export interface RdsProgressProps {
@@ -21,7 +22,7 @@ export interface RdsProgressProps {
   label?: string;
   totalSteps?: number;
   stepperType?: 'number' | 'circle';
-  sx?: any;
+  sx?: React.CSSProperties;
 }
 
 const RdsProgress = ({
@@ -48,7 +49,8 @@ const RdsProgress = ({
     info: 'var(--rds-color-info)', success: 'var(--rds-color-success)', warning: 'var(--rds-color-warning)',
   })[color] || 'var(--rds-color-primary)';
 
-  const getBaseClasses = (styleType: string) => `rds-progress rds-progress--${styleType} rds-progress--${color}${variant === 'indeterminate' ? ' rds-progress--indeterminate' : ''}`;
+  const getBaseClasses = (styleType: string) =>
+    clsx('rds-progress', `rds-progress--${styleType}`, `rds-progress--${color}`, variant === 'indeterminate' && 'rds-progress--indeterminate');
 
   const finalValue = getProgressValue();
   const colorValue = getColorValue();
@@ -77,9 +79,9 @@ const RdsProgress = ({
     );
   };
 
-  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as any} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={label || 'Progress'} />, 'overlay');
+  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as 'determinate' | 'indeterminate'} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={label || 'Progress'} />, 'overlay');
 
-  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as any} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={label || 'Progress'} />, 'side');
+  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as 'determinate' | 'indeterminate' | 'buffer' | 'query'} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={label || 'Progress'} />, 'side');
 
   const renderStepper = () => {
     const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);

@@ -48,7 +48,7 @@ const RdsTooltip= ({
   const { onOpen, onClose, ...restProps } = props;
 
   const handleFocus = (e: React.FocusEvent) => {
-    if (onOpen) onOpen(e as any);
+    if (onOpen) onOpen(e);
   };
   const handleBlur = (e: React.FocusEvent) => {
     if (onClose) onClose(e as any);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, ToggleButtonGroupProps } from '@mui/material';
+import { ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, type ToggleButtonGroupProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-toggle-button.scss';
 export interface RdsToggleButtonOption {
   value: string;
@@ -19,7 +20,7 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
   inputSize?: 'small' | 'medium' | 'large';
 }
 
-const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
+const RdsToggleButton = ({
   options,
   multiple = false,
   orientation = 'horizontal',
@@ -34,7 +35,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   disabled,
   color,
   ...props
-}) => {
+}: RdsToggleButtonProps) => {
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
     if (defaultValue !== undefined) {
       return defaultValue;
@@ -68,7 +69,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       : 'rds-toggle-button--small';
 
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: any) => {
+  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string | string[] | null) => {
     const finalValue = newValue;
     
     if (enforceSelected) {
@@ -114,10 +115,10 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   const { ...otherProps } = props;
 
   const getButtonClassName = useMemo(() => {
-    return (index: number) => {
-      const baseClass = "rds-toggle-button__button";
-      if (spacing === 0) return  baseClass;
-      return `${baseClass} rds-toggle-button__button--spaced`;
+    return (_index: number) => {
+      const baseClass = 'rds-toggle-button__button';
+      if (spacing === 0) return baseClass;
+      return clsx(baseClass, 'rds-toggle-button__button--spaced');
     };
   }, [spacing]);
 
@@ -190,7 +191,14 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
 
   return (
     <div
-  className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${countClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''} ${options.length > 3 ? 'rds-toggle-button--wrap-mobile' : ''}`}
+  className={clsx(
+    'rds-toggle-button',
+    `rds-toggle-button--${orientation}`,
+    sizeClass,
+    countClass,
+    useCustomSpacing && 'rds-toggle-button--spaced',
+    options.length > 3 && 'rds-toggle-button--wrap-mobile',
+  )}
       role="group"
       aria-label={otherProps['aria-label'] || 'Toggle button group'}
     >

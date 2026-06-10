@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar as MuiAppBar,
   Toolbar as MuiToolbar,
@@ -18,6 +18,7 @@ import Person from '@mui/icons-material/Person';
 import Close from '@mui/icons-material/Close';
 import { ProfileMenu } from './ProfileMenu';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
+import clsx from 'clsx';
 import "./rds-app-bar.scss";
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
 export interface RdsAppBarProps extends AppBarProps {
@@ -43,6 +44,12 @@ export interface RdsAppBarProps extends AppBarProps {
   variantStyle?: string;
   overflowContent?: React.ReactNode;
 }
+const toolbarHeights: Record<RdsAppBarSize, number> = {
+  small: 55,
+  medium: 64,
+  large: 80,
+};
+
 const RdsAppBar = ({
   title,
   rightActions,
@@ -68,17 +75,12 @@ const RdsAppBar = ({
   overflowContent,
   ...props
 }:RdsAppBarProps) => {
-  const toolbarHeights = {
-    small: 55,
-    medium: 64,
-    large: 80,
-  };
   const tokens = useRdsTokens();
-  const [overflowOpen, setOverflowOpen] = React.useState(false);
-  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
-  const [localBottomActive, setLocalBottomActive] = React.useState(0);
-  
-  React.useEffect(() => {
+  const [overflowOpen, setOverflowOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [localBottomActive, setLocalBottomActive] = useState(0);
+
+  useEffect(() => {
     const checkScreenSize = () => {
       const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
       const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
@@ -105,10 +107,15 @@ const RdsAppBar = ({
   return (
     <MuiAppBar
       {...props}
-      className={[
+      className={clsx(
         `rds-app-bar--size-${size}`,
-        `rds-header${colorClass}${variantClass}${props.className ? ' ' + props.className : ''}`,
-      ].filter(Boolean).join(' ')}
+        'rds-header',
+        props.color === 'primary' && 'rds-header--primary',
+        props.color === 'secondary' && 'rds-header--secondary',
+        props.color === 'transparent' && 'rds-header--transparent',
+        variantStyle && `rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}`,
+        props.className,
+      )}
       color={props.color === 'transparent' ? 'transparent' : 'default'}
       elevation={0}
     >
@@ -141,7 +148,7 @@ const RdsAppBar = ({
                 typeof tab === 'string' ? (
                   <Tab key={tab} label={tab} />
                 ) : (
-                  <Tab key={(tab as any).label || idx} {...(tab as any)} />
+                  <Tab key={tab.label || idx} {...(tab as Record<string, unknown>)} />
                 )
               )}
             </Tabs>
@@ -302,20 +309,25 @@ const RdsAppBar = ({
                       boxShadow: tokens.cssVar('elevation-2'),
                     }}
                   >
-                    {React.isValidElement(overflowContent) && (overflowContent as any).props?.children
-                      ? React.Children.toArray((overflowContent as any).props.children).map((child, i) => {
+                    {React.isValidElement<{ children?: React.ReactNode }>(overflowContent) && overflowContent.props.children
+                      ? React.Children.toArray(overflowContent.props.children).map((child, i) => {
                           if (React.isValidElement(child)) {
-                            const childProps: any = (child as any).props || {};
+                            const childProps = (child as React.ReactElement<{ onClick?: (e: React.SyntheticEvent) => void; className?: string }>).props;
                             const existingOnClick = childProps.onClick;
-                            const className = (childProps.className ? childProps.className + ' ' : '') + 'rds-bottom-nav-tab';
-                            return React.cloneElement(child as React.ReactElement, ({
-                              key: i,
-                              onClick: (e: any) => {
-                                if (typeof existingOnClick === 'function') existingOnClick(e);
-                                setLocalBottomActive(i);
+                            const childClassName = `${childProps.className ? `${childProps.className} ` : ''}rds-bottom-nav-tab`;
+                            return React.cloneElement(
+                              child as React.ReactElement<Record<string, unknown>>,
+                              {
+                                key: i,
+                                onClick: (e: React.SyntheticEvent) => {
+                                  existingOnClick?.(e);
+                                  setLocalBottomActive(i);
+                                },
+                                className: localBottomActive === i
+                                  ? `${childClassName} rds-bottom-nav-tab--active`
+                                  : childClassName,
                               },
-                              className: (localBottomActive === i ? className + ' rds-bottom-nav-tab--active' : className),
-                            } as any));
+                            );
                           }
                           return <span key={i}>{child}</span>;
                         })

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import clsx from 'clsx';
 import "./rds-text-area.scss";
 
 export enum TextareaState {
@@ -152,7 +153,7 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
       <div className="textarea-wrapper">
         <textarea
           id={assignedId}
-          className={`rds-textarea ${getStateClass()} ${getStyleClass()} ${props.customClasses || ""}`}
+          className={clsx('rds-textarea', getStateClass(), getStyleClass(), props.customClasses)}
           disabled={isDisabled}
           rows={props.rows || 4}
           placeholder={props.placeholder}

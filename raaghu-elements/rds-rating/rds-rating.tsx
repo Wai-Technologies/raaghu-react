@@ -53,7 +53,7 @@ const RdsRating = ({
     }
   });
   
-  function getLevelValue(level: any): number | undefined {
+  function getLevelValue(level: RdsRatingProps['level']): number | undefined {
     if (level === 'Left') return 0;
     if (level === 'Mid') return 2.5;
     if (level === 'Right') return 5;

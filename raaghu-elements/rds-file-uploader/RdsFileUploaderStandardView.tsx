@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, type ReactNode, type ChangeEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 
@@ -14,15 +14,15 @@ interface RdsFileUploaderStandardViewProps {
   multiple: boolean;
   showPreview: boolean;
   selectedFileName: string | null;
-  handleFileSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFileSelect: (e: ChangeEvent<HTMLInputElement>) => void;
   setSelectedFileName: (name: string | null) => void;
-  setFiles: React.Dispatch<React.SetStateAction<any[]>>;
+  setFiles: Dispatch<SetStateAction<any[]>>;
   onFilesChange?: (files: any[]) => void;
-  children?: React.ReactNode;
+  children?: ReactNode;
   title?: string;
 }
 
-const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = ({
+const RdsFileUploaderStandardView = ({
   showTitle,
   isMandatory,
   mandatoryError,
@@ -41,7 +41,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   children,
   title
 }) => {
-  const [internalDragOver, setInternalDragOver] = React.useState(false);
+  const [internalDragOver, setInternalDragOver] = useState(false);
 
   return (
     <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>

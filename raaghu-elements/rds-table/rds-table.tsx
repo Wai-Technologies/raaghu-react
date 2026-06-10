@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   TableContainer as MuiTableContainer,
   Table as MuiTable,
@@ -15,6 +15,7 @@ import {
   IconButton
 } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
+import clsx from 'clsx';
 import './rds-table.scss';
 
 export interface RdsTableColumn {
@@ -69,18 +70,18 @@ const RdsTable = ({
   defaultSortDirection = 'asc',
   ...props
 }: RdsTableProps) => {
-  const [internalSelectedRows, setInternalSelectedRows] = React.useState<string[]>([]);
+  const [internalSelectedRows, setInternalSelectedRows] = useState<string[]>([]);
 
   const currentSelectedRows = onRowSelect ? selectedRows : internalSelectedRows;
   const handleRowSelection = onRowSelect || setInternalSelectedRows;
 
-  const [cellCheckboxSelected, setCellCheckboxSelected] = React.useState<Set<string | number>>(new Set());
-  const [cellRadioSelected, setCellRadioSelected] = React.useState<string | number | null>(null);
-  const [internalPage, setInternalPage] = React.useState(0);
-  const [internalPageSize, setInternalPageSize] = React.useState(10);
+  const [cellCheckboxSelected, setCellCheckboxSelected] = useState<Set<string | number>>(new Set());
+  const [cellRadioSelected, setCellRadioSelected] = useState<string | number | null>(null);
+  const [internalPage, setInternalPage] = useState(0);
+  const [internalPageSize, setInternalPageSize] = useState(10);
 
-  const [internalSortBy, setInternalSortBy] = React.useState<string | undefined>(defaultSortBy);
-  const [internalSortDirection, setInternalSortDirection] = React.useState<'asc' | 'desc' | undefined>(defaultSortBy ? defaultSortDirection : undefined);
+  const [internalSortBy, setInternalSortBy] = useState<string | undefined>(defaultSortBy);
+  const [internalSortDirection, setInternalSortDirection] = useState<'asc' | 'desc' | undefined>(defaultSortBy ? defaultSortDirection : undefined);
   const sortBy = controlledSortBy !== undefined ? controlledSortBy : internalSortBy;
   const sortDirection = controlledSortDirection !== undefined ? controlledSortDirection : internalSortDirection;
 
@@ -100,7 +101,7 @@ const RdsTable = ({
     }
   };
 
-  const sortedRows = React.useMemo(() => {
+  const sortedRows = useMemo(() => {
     if (!sortBy || !sortDirection) return rows;
     const column = columns.find(c => c.id === sortBy);
     if (!column) return rows;
@@ -133,7 +134,7 @@ const RdsTable = ({
     setCellRadioSelected(rowId);
   };
 
-  const checkboxRowIds = React.useMemo<(string | number)[]>(
+  const checkboxRowIds = useMemo<(string | number)[]>(
     () => rows.map((r: any) => (r.id ?? r.key)).filter((id: unknown) => id !== undefined) as (string | number)[],
     [rows]
   );
@@ -203,9 +204,9 @@ const RdsTable = ({
   const isIndeterminate = selectable && currentSelectedRows.length > 0 && currentSelectedRows.length < rows.length;
 
   return (
-    <Paper className={`rds-table ${className}`}>
+    <Paper className={clsx('rds-table', className)}>
       <MuiTableContainer
-        className={`rds-table__container ${stickyHeader ? 'rds-table__container--sticky' : ''}`}
+          className={clsx('rds-table__container', stickyHeader && 'rds-table__container--sticky')}
         style={{ maxHeight: stickyHeader ? 440 : undefined }}
       >
         <MuiTable stickyHeader={stickyHeader} className="rds-table__table" {...props}>
@@ -231,7 +232,11 @@ const RdsTable = ({
                       minWidth: column.minWidth,
                       width: column.minWidth 
                     }}
-                    className={`rds-table__header ${column.sortable ? 'rds-table__header--sortable' : ''} ${active ? 'rds-table__header--sorted' : ''}`}
+                    className={clsx(
+                      'rds-table__header',
+                      column.sortable && 'rds-table__header--sortable',
+                      active && 'rds-table__header--sorted',
+                    )}
                     aria-sort={active ? (sortDirection === 'asc' ? 'ascending' : 'descending') : undefined}
                   >
                     {column.type === 'checkbox' ? (

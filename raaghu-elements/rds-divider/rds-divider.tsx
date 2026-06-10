@@ -1,4 +1,4 @@
-import React from 'react';
+import { type ElementType } from 'react';
 import {
   Divider as MuiDivider,
   type DividerProps,
@@ -8,6 +8,27 @@ import {
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+
+const ICON_MAP: Record<string, ElementType> = {
+  InfoOutlined: InfoOutlinedIcon,
+  Add: AddIcon,
+  Notification: NotificationImportantIcon,
+};
+
+type StyleColors = { dividerColor: string; textColor: string; iconBorderColor: string; iconColor: string };
+const STYLE_COLORS: Record<string, StyleColors> = {
+  subtle: { dividerColor: 'divider', textColor: 'text.secondary', iconBorderColor: 'divider', iconColor: 'text.secondary' },
+  strong: { dividerColor: 'divider', textColor: 'text.primary', iconBorderColor: 'divider', iconColor: 'text.primary' },
+  primary: { dividerColor: 'var(--rds-primary-main)', textColor: 'var(--rds-primary-main)', iconBorderColor: 'var(--rds-primary-main)', iconColor: 'var(--rds-primary-main)' },
+};
+const DEFAULT_STYLE_COLORS: StyleColors = { dividerColor: 'var(--rds-border-default)', textColor: 'var(--rds-text-secondary)', iconBorderColor: 'var(--rds-border-default)', iconColor: 'var(--rds-text-secondary)' };
+
+const SIZE_STYLES: Record<string, { borderWidth: string; marginY: number }> = {
+  small: { borderWidth: 'var(--rds-divider-border-width-sm, 1px)', marginY: 2 },
+  medium: { borderWidth: 'var(--rds-divider-border-width-md, 2px)', marginY: 2 },
+  large: { borderWidth: 'var(--rds-divider-border-width-lg, 3px)', marginY: 2 },
+};
+const DEFAULT_SIZE_STYLES = { borderWidth: 'var(--rds-divider-border-width-md, 2px)', marginY: 2 };
 
 
 export interface RdsDividerProps extends DividerProps {
@@ -30,79 +51,16 @@ const RdsDivider= ({
   styleVariant = 'subtle',
   ...props
 }:RdsDividerProps) => {
-  const iconMap: Record<string, React.ElementType> = {
-    InfoOutlined: InfoOutlinedIcon,
-    Add: AddIcon,
-    Notification: NotificationImportantIcon,
-  };
   const normalizedIconName = iconName?.trim();
-  const IconComponent = normalizedIconName && iconMap[normalizedIconName] ? iconMap[normalizedIconName] : InfoOutlinedIcon;
+  const IconComponent = (normalizedIconName && ICON_MAP[normalizedIconName]) ?? InfoOutlinedIcon;
 
-  const getStyleColors = () => {
-    switch (styleVariant) {
-      case 'subtle':
-        return {
-          dividerColor: 'divider',
-          textColor: 'text.secondary',
-          iconBorderColor: 'divider',
-          iconColor: 'text.secondary',
-        };
-      case 'strong':
-        return {
-          dividerColor: 'divider',
-          textColor: 'text.primary',
-          iconBorderColor: 'divider',
-          iconColor: 'text.primary',
-        };
-      case 'primary':
-        return {
-          dividerColor: 'var(--rds-primary-main)',
-          textColor: 'var(--rds-primary-main)',
-          iconBorderColor: 'var(--rds-primary-main)',
-          iconColor: 'var(--rds-primary-main)',
-        };
-      default:
-        return {
-          dividerColor: 'var(--rds-border-default)',
-          textColor: 'var(--rds-text-secondary)',
-          iconBorderColor: 'var(--rds-border-default)',
-          iconColor: 'var(--rds-text-secondary)',
-        };
-    }
-  };
-
-  const styleColors = getStyleColors();
+  const styleColors = STYLE_COLORS[styleVariant] ?? DEFAULT_STYLE_COLORS;
   const dividerLineColor = styleColors.dividerColor;
   const textColor = styleColors.textColor;
   const iconBorderColor = styleColors.iconBorderColor;
   const iconColor = styleColors.iconColor;
 
-  const getSizeStyles = () => {
-    switch (size) {
-      case 'small':
-        return {
-          borderWidth: 'var(--rds-divider-border-width-sm, 1px)',
-          marginY: 2,
-        };
-      case 'medium':
-        return {
-          borderWidth: 'var(--rds-divider-border-width-md, 2px)',
-          marginY: 2,
-        };
-      case 'large':
-        return {
-          borderWidth: 'var(--rds-divider-border-width-lg, 3px)',
-          marginY: 2,
-        };
-      default:
-        return {
-          borderWidth: 'var(--rds-divider-border-width-md, 2px)',
-          marginY: 2,
-        };
-    }
-  };
-
-  const sizeStyles = getSizeStyles();
+  const sizeStyles = SIZE_STYLES[size] ?? DEFAULT_SIZE_STYLES;
 
   const content = (dividerMessage || iconShow) && (
    <Box

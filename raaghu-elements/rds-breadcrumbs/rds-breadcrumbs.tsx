@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, type ReactNode, type ElementType } from 'react';
 import { Breadcrumbs as MuiBreadcrumbs, type BreadcrumbsProps, Link, Typography } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -8,6 +8,7 @@ import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import './rds-breadcrumbs.scss';
+import clsx from 'clsx';
 
 export enum BreadcrumbSeparator {
   GreaterThan = ">",
@@ -19,7 +20,7 @@ export enum BreadcrumbSeparator {
   Plus = "+",
 }
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: Record<string, ElementType> = {
   home: HomeOutlinedIcon,
   folder: FolderOutlinedIcon,
   category: CategoryOutlinedIcon,
@@ -64,7 +65,7 @@ export interface RdsBreadcrumbItem {
 
 export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children'> {
   items: RdsBreadcrumbItem[];
-  separator?: React.ReactNode | BreadcrumbSeparator;
+  separator?: ReactNode | BreadcrumbSeparator;
   separatorType?: BreadcrumbSeparator;
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
   layout?: 'pill background' | 'without background' | 'square background';
@@ -88,7 +89,7 @@ const RdsBreadcrumbs = ({
   autoIcons = true,
   ...props
 }:RdsBreadcrumbsProps) => {
-  const [selectedIdx, setSelectedIdx] = React.useState<number | null>(null);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   
   const getSeparator = (): React.ReactNode => {
     if (separator !== undefined) {
@@ -139,7 +140,7 @@ const RdsBreadcrumbs = ({
     }
   };
 
-  const breadcrumbsClass = `rds-breadcrumbs ${getLayoutClass()} ${className || ''}`.trim();
+  const breadcrumbsClass = clsx('rds-breadcrumbs', getLayoutClass(), className);
   
   const getStateClass = (itemState?: string) => {
     const activeState = itemState || state || 'default';
@@ -182,10 +183,12 @@ const RdsBreadcrumbs = ({
         const itemStateClass = getStateClass(item.state);
         const isSelected = (item.state === 'selected') || (state === 'selected' && !item.state);
 
-        let typographyClass = `rds-breadcrumbs__item rds-breadcrumbs__item__active ${itemLayoutClass}`;
-        if (isSelected || selectedIdx === index) {
-          typographyClass += ' rds-breadcrumbs__item__selected';
-        }
+        let typographyClass = clsx(
+          'rds-breadcrumbs__item',
+          'rds-breadcrumbs__item__active',
+          itemLayoutClass,
+          (isSelected || selectedIdx === index) && 'rds-breadcrumbs__item__selected',
+        );
 
         if (isLast || item.active || isSelected || selectedIdx === index) {
           return (
