@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Measure, { BoundingRect } from 'react-measure';
 import './rds-comp-contribution.scss';
 import SvgIcon from '@mui/material/SvgIcon';
@@ -46,21 +46,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   const [dynamicPanelSize, setDynamicPanelSize] = useState(panelSize);
   const [dynamicPanelMargin, setDynamicPanelMargin] = useState(panelMargin);
   const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      updateSizeBasedOnWidth(width);
-      setIsMobile(width <= 414); 
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const updateSizeBasedOnWidth = (width: number) => {
+  const updateSizeBasedOnWidth = useCallback((width: number) => {
     // Responsive sizing for specific screen sizes
     if (width <= 320) {
       setDynamicPanelSize(8);
@@ -75,26 +61,41 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
       setDynamicPanelSize(panelSize);
       setDynamicPanelMargin(panelMargin);
     }
-  };
+  }, [panelMargin, panelSize]);
 
-  const getPanelPosition = (colIndex: number, rowIndex: number) => {
+  const handleResize = useCallback(() => {
+    const width = window.innerWidth;
+    updateSizeBasedOnWidth(width);
+    setIsMobile(width <= 414);
+  }, [updateSizeBasedOnWidth]);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleResize]);
+
+  const getPanelPosition = useCallback((colIndex: number, rowIndex: number) => {
     const bounds = dynamicPanelSize + dynamicPanelMargin;
     return {
       x: weekLabelWidth + bounds * colIndex,
       y: monthLabelHeight + bounds * rowIndex,
     };
-  };
+  }, [dynamicPanelMargin, dynamicPanelSize, monthLabelHeight, weekLabelWidth]);
 
-  const makeCalendarData = (history: { [k: string]: number }, lastDay: string, columns: number) => {
+  const makeCalendarData = useCallback((history: { [k: string]: number }, lastDay: string, columnCount: number) => {
     const d = dayjs(lastDay, dateFormat);
     const lastWeekend = d.endOf('week');
     const endDate = d.endOf('day');
   
     const result: ({ value: number; month: number; date: string } | null)[][] = [];
-    for (let i = 0; i < columns; i++) {
+    for (let i = 0; i < columnCount; i++) {
       result[i] = [];
       for (let j = 0; j < 7; j++) {
-        const date = lastWeekend.subtract((columns - i - 1) * 7 + (6 - j), 'day');
+        const date = lastWeekend.subtract((columnCount - i - 1) * 7 + (6 - j), 'day');
         if (date.isBefore(endDate) || date.isSame(endDate)) {
           result[i][j] = {
             value: history[date.format(dateFormat)] || 0,
@@ -107,19 +108,19 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
       }
     }
     return result;
-  };
+  }, [dateFormat]);
   
-  const updateSize = (size?: BoundingRect) => {
+  const updateSize = useCallback((size?: BoundingRect) => {
     if (!size) return;
     
     const availableWidth = size.width;
     updateSizeBasedOnWidth(availableWidth);
-  };
+  }, [updateSizeBasedOnWidth]);
 
-  const contributions = React.useMemo(() => {
+  const contributions = useMemo(() => {
     if (!values || !until || !panelColors) return null;
     return makeCalendarData(values, until, columns);
-  }, [values, until, columns, dateFormat, panelColors]);
+  }, [values, until, columns, panelColors, makeCalendarData]);
 
   if (!panelColors) {
     return null;
@@ -130,7 +131,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   if (!contributions) {
     return null;
   }
-  const renderWeekLabels = () => {
+  const weekLabels = useMemo(() => {
     if (!showWeekLabels) return null;
     if (!weekNames || weekNames.length < 7) return null;
     
@@ -146,9 +147,17 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
         {weekNames[j] || ''}
       </text>
     ));
-  };
+  }, [
+    dynamicPanelMargin,
+    dynamicPanelSize,
+    monthLabelHeight,
+    showWeekLabels,
+    weekLabelAttributes,
+    weekLabelWidth,
+    weekNames,
+  ]);
 
-  const renderContributionPanels = () => {
+  const contributionPanels = useMemo(() => {
     const panels: React.ReactElement[] = [];
     
     for (let i = 0; i < columns; i++) {
@@ -181,9 +190,16 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     }
     
     return panels;
-  };
+  }, [
+    columns,
+    contributions,
+    dynamicPanelSize,
+    panelAttributes,
+    panelColors,
+    getPanelPosition,
+  ]);
 
-  const renderMonthLabels = () => {
+  const monthLabels = useMemo(() => {
     if (!monthNames || monthNames.length !== 12) return null;
     if (!showMonthLabels) return null; 
     let janIndex = -1;
@@ -244,7 +260,17 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
         </text>
       );
     });
-  };
+  }, [
+    columns,
+    contributions,
+    dynamicPanelSize,
+    getPanelPosition,
+    isMobile,
+    monthLabelAttributes,
+    monthLabelHeight,
+    monthNames,
+    showMonthLabels,
+  ]);
   
   const calculatedSvgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize;
   const svgWidth = Math.max(calculatedSvgWidth, 280);
@@ -269,9 +295,9 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
                   minWidth: 'unset'
                 }}
               >
-                        {renderWeekLabels()}
-                        {renderContributionPanels()}
-                        {renderMonthLabels()}
+                        {weekLabels}
+                        {contributionPanels}
+                        {monthLabels}
               </SvgIcon>
             </div>
           </div>

@@ -1,5 +1,5 @@
+import { useEffect, useMemo, useState } from "react";
 import RdsRadio from "../../raaghu-elements/rds-radio/rds-radio";
-import React, { useState } from "react";
 import RdsCard from "../../raaghu-elements/rds-card/rds-card";
 import RdsStack from "../../raaghu-elements/rds-stack/rds-stack";
 import RdsBox from "../../raaghu-elements/rds-box/rds-box";
@@ -160,8 +160,9 @@ export function InputFormCard(props: AdaptiveCardProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  React.useEffect(() => {
-    if (onChange) onChange({ name, email, phone });
+
+  useEffect(() => {
+    onChange?.({ name, email, phone });
   }, [name, email, phone, onChange]);
   return (
     <div>
@@ -354,7 +355,7 @@ export function CalendarReminderForm({
   btn1Label,
   btn2Label,
 }: CalendarReminderFormProps) {
-  const [selected, setSelected] = React.useState("");
+  const [selected, setSelected] = useState("");
   return (
     <RdsStack spacing={2} className="rds-adaptive-cards__calendar-reminder">
       <RdsBox className="rds-adaptive-cards__calendar-reminder-labels">
@@ -403,8 +404,11 @@ export function CalendarReminderForm({
 }
 
 export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions }: AdaptiveCardProps) {
-  const [selectedValue, setSelectedValue] = React.useState('');
-  const radioOptionsMapped = radioOptions?.map(opt => ({ value: opt.value, text: `${opt.label} : ${opt.desc}` })) ?? [];
+  const [selectedValue, setSelectedValue] = useState('');
+  const radioOptionsMapped = useMemo(
+    () => radioOptions?.map(opt => ({ value: opt.value, text: `${opt.label} : ${opt.desc}` })) ?? [],
+    [radioOptions]
+  );
   return (
     <RdsStack spacing={2} className="rds-adaptive-cards__activity-update">
       <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__activity-update-header">

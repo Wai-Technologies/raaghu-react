@@ -1,5 +1,5 @@
-import React, { type ReactNode, useState } from "react";
-import { Drawer, Box, Typography } from "@mui/material";
+import React, { type ReactNode, useState, useCallback, useMemo } from "react";
+import { Drawer, Box } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
@@ -42,16 +42,16 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const drawerOpen = internalOpen;
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     if (onclick) onclick(true);
     setInternalOpen(true);
     if (onShow) onShow();
-  };
-  const handleClose = () => {
+  }, [onclick, onShow]);
+  const handleClose = useCallback(() => {
     if (onClose) onClose();
     setInternalOpen(false);
-  };
-  const getAnchor = () => {
+  }, [onClose]);
+  const getAnchor = useCallback(() => {
     switch (placement) {
       case RdsOffcanvasPlacement.Start:
         return "left";
@@ -64,9 +64,9 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
       default:
         return "right";
     }
-  };
-  const isCanvasTitle = canvasTitle !== "" && canvasTitle !== undefined;
-  const getBackdropProps = () => {
+  }, [placement]);
+  const isCanvasTitle = useMemo(() => canvasTitle !== "" && canvasTitle !== undefined, [canvasTitle]);
+  const getBackdropProps = useCallback(() => {
     if (backDrop === RdsOffcanvasBackDrop.False) {
       return { hideBackdrop: true };
     }
@@ -79,7 +79,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
       };
     }
     return {};
-  };
+  }, [backDrop]);
   return (
     <>
       <div className="offcanvas-text">

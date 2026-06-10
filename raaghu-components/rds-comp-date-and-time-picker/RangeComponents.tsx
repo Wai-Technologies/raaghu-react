@@ -63,6 +63,40 @@ const isSameDay = (a: Dayjs | null, b: Dayjs | null) => !!a && !!b && a.isSame(b
 const isBetween = (day: Dayjs, start: Dayjs | null, end: Dayjs | null) =>
   !!start && !!end && day.isAfter(start, 'day') && day.isBefore(end, 'day');
 
+const DateCalendarPanel = React.memo(function DateCalendarPanel({
+  value,
+  onChange,
+  onMonthChange,
+  minDate,
+  maxDate,
+  daySlot,
+}: {
+  value: Dayjs;
+  onChange: (newMonth: Dayjs | null) => void;
+  onMonthChange: (newMonth: Dayjs) => void;
+  minDate?: Dayjs;
+  maxDate?: Dayjs;
+  daySlot: (dayProps: any) => React.ReactNode;
+}) {
+  return (
+    <DateCalendar
+      value={value}
+      onChange={onChange as any}
+      onMonthChange={onMonthChange as any}
+      minDate={minDate}
+      maxDate={maxDate}
+      slots={{ day: daySlot as any }}
+      views={['year', 'month', 'day']}
+      displayWeekNumber
+      slotProps={{
+        calendarHeader: {
+          format: 'MMMM YYYY',
+        },
+      }}
+    />
+  );
+});
+
 export const CustomDateRangeLayout = React.forwardRef<
   HTMLDivElement,
   {
@@ -111,7 +145,7 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
 
   React.useEffect(() => setDraft(value), [value[0]?.valueOf(), value[1]?.valueOf()]);
 
-  const handleSelect = (day: Dayjs) => {
+  const handleSelect = React.useCallback((day: Dayjs) => {
     const [start, end] = draft;
     if (!start || (start && end)) {
       setDraft([day.startOf('day'), null]);
@@ -123,11 +157,11 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
       setDraft([start, day.endOf('day')]);
       onChange([start, day.endOf('day')]);
     }
-  };
+  }, [draft, onChange]);
 
-  const handleMonthChange = (newMonth: Dayjs) => setCurrentMonth(newMonth);
+  const handleMonthChange = React.useCallback((newMonth: Dayjs) => setCurrentMonth(newMonth), []);
 
-  const renderDaySlot = (dayProps: any) => {
+  const renderDaySlot = React.useCallback((dayProps: any) => {
     const day = dayProps.day as Dayjs;
     const [start, end] = draft;
     const inRange = isBetween(day, start, end);
@@ -150,40 +184,42 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
         }}
       />
     );
-  };
+  }, [draft, handleSelect]);
+
+  const handlePrimaryCalendarChange = React.useCallback((newMonth: Dayjs | null) => {
+    if (newMonth) {
+      handleMonthChange(newMonth);
+    }
+  }, [handleMonthChange]);
+
+  const handleSecondaryCalendarChange = React.useCallback((newMonth: Dayjs | null) => {
+    if (newMonth) {
+      handleMonthChange(newMonth.subtract(1, 'month'));
+    }
+  }, [handleMonthChange]);
+
+  const handleSecondaryMonthChange = React.useCallback((newMonth: Dayjs) => {
+    setCurrentMonth(newMonth.subtract(1, 'month'));
+  }, []);
 
   const calendars = (
     <Box display="flex" gap={2}>
-      <DateCalendar
+      <DateCalendarPanel
         value={currentMonth}
-        onChange={(newMonth: any) => newMonth && handleMonthChange(newMonth as Dayjs)}
-        onMonthChange={(newMonth: any) => setCurrentMonth(newMonth as Dayjs)}
+        onChange={handlePrimaryCalendarChange}
+        onMonthChange={handleMonthChange}
         minDate={minDate}
         maxDate={maxDate}
-        slots={{ day: renderDaySlot }}
-        views={['year', 'month', 'day']}
-        displayWeekNumber
-        slotProps={{
-          calendarHeader: {
-            format: 'MMMM YYYY',
-          },
-        }}
+        daySlot={renderDaySlot}
       />
       {multiMonth && (
-        <DateCalendar
+        <DateCalendarPanel
           value={currentMonth.add(1, 'month')}
-          onChange={(newMonth: any) => newMonth && handleMonthChange((newMonth as Dayjs).subtract(1, 'month'))}
-          onMonthChange={(newMonth: any) => setCurrentMonth((newMonth as Dayjs).subtract(1, 'month'))}
+          onChange={handleSecondaryCalendarChange}
+          onMonthChange={handleSecondaryMonthChange}
           minDate={minDate}
           maxDate={maxDate}
-          slots={{ day: renderDaySlot }}
-          views={['year', 'month', 'day']}
-          displayWeekNumber
-          slotProps={{
-            calendarHeader: {
-              format: 'MMMM YYYY',
-            },
-          }}
+          daySlot={renderDaySlot}
         />
       )}
     </Box>
@@ -209,8 +245,8 @@ export function RangeTime({
 }) {
   const [start, end] = value;
 
-  const handleStartTimeChange = (newStart: Dayjs | null) => onChange([newStart, end]);
-  const handleEndTimeChange = (newEnd: Dayjs | null) => onChange([start, newEnd]);
+  const handleStartTimeChange = React.useCallback((newStart: Dayjs | null) => onChange([newStart, end]), [onChange, end]);
+  const handleEndTimeChange = React.useCallback((newEnd: Dayjs | null) => onChange([start, newEnd]), [onChange, start]);
 
   const endMinTime = React.useMemo(() => (start ? start : minTime), [start, minTime]);
   const startMaxTime = React.useMemo(() => (end ? end : maxTime), [end, maxTime]);
@@ -281,3 +317,4 @@ CustomDateRangeLayout.displayName = 'CustomDateRangeLayout';
 RangeCalendar.displayName = 'RangeCalendar';
 RangeTime.displayName = 'RangeTime';
 RangeDateTime.displayName = 'RangeDateTime';
+DateCalendarPanel.displayName = 'DateCalendarPanel';

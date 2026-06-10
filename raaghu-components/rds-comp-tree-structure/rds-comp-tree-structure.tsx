@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "./rds-comp-tree-structure.scss";
 import { 
   fileTypeIcons as defaultFileTypeIcons, 
@@ -41,15 +41,15 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
     }
   }, [props.checkedNodes]);
 
-  const handleNodeClick = (id: number) => {
+  const handleNodeClick = useCallback((id: number) => {
     setExpandedNodeIds((prevExpandedNodeIds) =>
       prevExpandedNodeIds.includes(id)
         ? prevExpandedNodeIds.filter((nodeId) => nodeId !== id)
         : [...prevExpandedNodeIds, id]
     );
-  };
+  }, []);
 
-  const handleCheckboxClick = (id: number) => {
+  const handleCheckboxClick = useCallback((id: number) => {
 
     if (!props.checkedNodes) {
       setCheckedNodeIds((prevCheckedNodeIds) =>
@@ -58,9 +58,9 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
           : [...prevCheckedNodeIds, id]
       );
     }
-  };
+  }, [props.checkedNodes]);
 
-  const getMaxLevelFromEnum = (level?: TreeLevel): number => {
+  const getMaxLevelFromEnum = useCallback((level?: TreeLevel): number => {
     if (!level) return 1;
     
     switch (level) {
@@ -75,9 +75,9 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
       default:
         return 1;
     }
-  };
+  }, []);
 
-  const maxLevel = getMaxLevelFromEnum(props.level);
+  const maxLevel = useMemo(() => getMaxLevelFromEnum(props.level), [getMaxLevelFromEnum, props.level]);
 
   return (
     <div className="rds-comp-tree-structure">

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
@@ -55,6 +55,22 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
     onSignatureChange?.(null);
   }, [onSignatureChange]);
 
+  const handleFileButtonClick = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
+
+  const handleUploadMouseEnter = useCallback(() => {
+    if (!disabled) {
+      setIsUploadHovered(true);
+    }
+  }, [disabled]);
+
+  const handleUploadMouseLeave = useCallback(() => {
+    if (!disabled) {
+      setIsUploadHovered(false);
+    }
+  }, [disabled]);
+
   return (
     <Box className="rds-e-signature__upload-container" style={{ maxWidth: width ? `${width}px` : '100%' }}>
       <Typography variant="h6" className="rds-e-signature__title">
@@ -63,8 +79,8 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
       </Typography>
       <Box
         className={`rds-e-signature__upload-panel ${!disabled && isUploadHovered ? 'rds-e-signature__upload-panel--hover' : ''} ${uploadError ? 'rds-e-signature__upload-panel--error' : ''}`}
-        onMouseEnter={() => !disabled && setIsUploadHovered(true)}
-        onMouseLeave={() => !disabled && setIsUploadHovered(false)}
+        onMouseEnter={handleUploadMouseEnter}
+        onMouseLeave={handleUploadMouseLeave}
       >
         <Box className="rds-e-signature__upload-standard">
           <Typography className="rds-e-signature__upload-label">
@@ -81,7 +97,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
             />
             <button
               className="rds-e-signature__file-button"
-              onClick={() => fileInputRef.current?.click()}
+              onClick={handleFileButtonClick}
               disabled={disabled}
               type="button"
             >
@@ -134,7 +150,7 @@ export const RdsESignatureChoose: React.FC<RdsESignatureChooseProps> = ({
   onSignatureChange,
 }) => {
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
-  const multipleChooseError = selectedStyles.length > 1;
+  const multipleChooseError = useMemo(() => selectedStyles.length > 1, [selectedStyles]);
 
   const handleStyleSelect = useCallback((styleId: string) => {
     setSelectedStyles(prev => {

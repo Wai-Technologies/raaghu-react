@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import "./rds-comp-navtabs.scss";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge"; 
 
@@ -28,31 +28,34 @@ export interface RdsCompNavtabsProps {
   id?: string;
 }
 
-const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
-  const [activeNavTabId, setActiveNavTabId] = useState(props.activeNavTabId);
-  const [navStyle, setNavStyle] = useState<string | undefined>(props.style);
-
-  useEffect(() => {
-    if (props.layout === "Vertical") {
-      setNavStyle("Vertical -Alt Right Line");
-    } else if (props.layout === "Horizontal") {
-      setNavStyle("Bottom Select");
-    }
-  }, [props.layout]);
+const RdsCompNavtabs = ({
+  children,
+  navtabsItems,
+  type,
+  fill,
+  justified,
+  activeNavtabOrder,
+  activeNavTabId: activeNavTabIdProp,
+  layout,
+  style,
+  iconOnly,
+  id,
+}: RdsCompNavtabsProps) => {
+  const [activeNavTabId, setActiveNavTabId] = useState(activeNavTabIdProp);
   
   useEffect(() => {
-    props.activeNavtabOrder && props.activeNavtabOrder(activeNavTabId);
-  }, [activeNavTabId]);
+    activeNavtabOrder && activeNavtabOrder(activeNavTabId);
+  }, [activeNavTabId, activeNavtabOrder]);
 
   useEffect(() => {
-    setActiveNavTabId(props.activeNavTabId);
-  }, [props.activeNavTabId]);
+    setActiveNavTabId(activeNavTabIdProp);
+  }, [activeNavTabIdProp]);
 
-  if (!props.navtabsItems || props.navtabsItems.length === 0) {
+  if (!navtabsItems || navtabsItems.length === 0) {
     return null;
   }
 
-  const getNavClasses = () => {
+  const getNavClasses = useCallback(() => {
     const horizontalStyles = [
       "Bottom Select",
       "Top Select",
@@ -62,10 +65,10 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
       "Pill"
     ];
     
-    const isHorizontalStyle = horizontalStyles.includes(props.style || "");
+    const isHorizontalStyle = horizontalStyles.includes(style || "");
     const classes = ["rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs"];
     
-    if (props.id !== "chat") {
+    if (id !== "chat") {
       classes.push("d-md-block");
     }
     
@@ -73,7 +76,7 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
       classes.push("d-flex", "flex-row", "rds-comp-navtabs__nav--horizontal");
     }
     
-    switch (props.style) {
+    switch (style) {
       case "Top Select":
         classes.push("top-select", "rds-comp-navtabs__nav--top-select");
         break;
@@ -126,33 +129,33 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
         classes.push("nav-tabs");
     }
 
-    if (props.type === "tabs") {
+    if (type === "tabs") {
       classes.push("text-primary");
     }
 
-    if (props.layout === "vertical") {
+    if (layout === "vertical") {
       classes.push("col-12", "d-block", "rds-comp-navtabs__nav--vertical");
     }
 
-    if (props.fill) {
+    if (fill) {
       classes.push("nav-fill");
     }
-    if (props.justified) {
+    if (justified) {
       classes.push("nav-justified");
     }
-    if (props.iconOnly) {
+    if (iconOnly) {
       classes.push("nav-icon-only", "rds-comp-navtabs__nav--icon-align");
     }
 
     return classes.join(" ");
-  };
+  }, [fill, iconOnly, id, justified, layout, style, type]);
 
-  const getNavLinkClasses = (navtabsItem: any) => {
+  const getNavLinkClasses = useCallback((navtabsItem: any) => {
     const classes = ["nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link"];
     
-    if (props.type === "tabs") {
+    if (type === "tabs") {
       classes.push("rounded-0");
-    } else if (props.layout === "Vertical") {
+    } else if (layout === "Vertical") {
       classes.push("rounded-2");
     }
 
@@ -166,9 +169,9 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
         "Vertical -Left Filled", "Vertical -Pointer", "Vertical -Flap"
       ];
       
-      if (activeStyles.includes(props.style || "")) {
+      if (activeStyles.includes(style || "")) {
         classes.push("selected", "rds-comp-navtabs__nav-link--selected");
-      } else if (props.type === "tabs") {
+      } else if (type === "tabs") {
         classes.push("border-bottom", "border-primary", "border-3", "text-primary");
       } else {
         classes.push("active");
@@ -182,15 +185,17 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
     }
 
     return classes.join(" ");
-  };
+  }, [activeNavTabId, layout, style, type]);
+
+  const navClasses = useMemo(() => getNavClasses(), [getNavClasses]);
 
   return (
     <div className="rds-comp-navtabs">
       <ul
-        className={getNavClasses()}
-        id={props.id === "features" ? "features" : ""}
+        className={navClasses}
+        id={id === "features" ? "features" : ""}
       >
-        {props.navtabsItems.map((navtabsItem) => (
+        {navtabsItems.map((navtabsItem) => (
           <li
             className={`nav-item py-0 cursor-pointer rds-comp-navtabs__nav-item ${navtabsItem.disabled ? 'rds-comp-navtabs__nav-item--disabled' : ''}`}
             key={navtabsItem.id}
@@ -202,7 +207,7 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
               aria-controls={navtabsItem.ariacontrols}
               onClick={() => setActiveNavTabId(navtabsItem.id)}
             >
-              {!props.iconOnly && (
+              {!iconOnly && (
                 <span className="fw-medium px-3 rds-comp-navtabs__label">{navtabsItem.label}</span>
               )}
               {navtabsItem.count && navtabsItem.count > 0 && (
@@ -219,7 +224,7 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
           </li>
         ))}
       </ul>
-      {props.children}
+      {children}
     </div>
   );
 };

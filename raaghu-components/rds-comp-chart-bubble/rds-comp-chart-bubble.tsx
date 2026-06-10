@@ -1,64 +1,66 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import {
+  applyChartThemeColors,
+  attachChartData,
+  cloneChartOptions,
+  useChartThemeMode,
+} from "../chart-utils";
 import "./rds-comp-chart-bubble.scss";
 
 export interface RdsCompBubbleChartProps {
-    id: string;
-    labels: any[];
-    options: any;
-    dataSets: any[];
-    chartLabel?: string;
+  id: string;
+  labels: any[];
+  options: any;
+  dataSets: any[];
+  chartLabel?: string;
 }
 
-const RdsCompBubbleChart = (props: RdsCompBubbleChartProps) => {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+const RdsCompBubbleChart = ({
+  id,
+  labels,
+  options,
+  dataSets,
+  chartLabel,
+}: RdsCompBubbleChartProps) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const themeMode = useChartThemeMode();
 
-    const [themeMode, setThemeMode] = React.useState(() => {
-        if (typeof document !== 'undefined') {
-            return document.documentElement.getAttribute('data-theme') || 'light';
-        }
-        return 'light';
+  useEffect(() => {
+    const ctx = canvasRef.current?.getContext("2d") as CanvasRenderingContext2D;
+    if (!ctx) return;
+
+    const chartOptions = cloneChartOptions(options);
+    const chartData = { labels, datasets: dataSets };
+
+    attachChartData(chartOptions, chartData);
+    applyChartThemeColors(chartOptions);
+
+    const bubbleCanvas = new Chart(ctx, {
+      type: "bubble",
+      data: chartData,
+      options: chartOptions,
     });
 
-    React.useEffect(() => {
-        if (typeof window === 'undefined') return;
-        const observer = new MutationObserver(() => {
-            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
-        });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        return () => observer.disconnect();
-    }, []);
+    return () => {
+      bubbleCanvas.destroy();
+    };
+  }, [id, labels, options, dataSets, themeMode]);
 
-    useEffect(() => {
-        const ctx = canvasRef.current?.getContext("2d") as CanvasRenderingContext2D;
-        if (!ctx) return;
-
-        const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
-        
-        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
-        const chartData = { labels: props.labels, datasets: props.dataSets };
-        if (!chartOptions.data) {
-            chartOptions.data = chartData;
-        }
-        
-        applyChartThemeColors(chartOptions);
-
-        const bubbleCanvas = new Chart(ctx, {
-            type: "bubble",
-            data: chartData,
-            options: chartOptions,
-        });
-
-        return () => { bubbleCanvas.destroy(); };
-    }, [props, themeMode]);
-
-    return (
-        <div>
-            <canvas data-testid={props.id} id={props.id} ref={canvasRef} width={300} height={300} role="img" aria-label={props.chartLabel ?? 'Bubble chart'} />
-        </div>
-    );
+  return (
+    <div>
+      <canvas
+        data-testid={id}
+        id={id}
+        ref={canvasRef}
+        width={300}
+        height={300}
+        role="img"
+        aria-label={chartLabel ?? "Bubble chart"}
+      />
+    </div>
+  );
 };
 
-RdsCompBubbleChart.displayName = 'RdsCompBubbleChart';
+RdsCompBubbleChart.displayName = "RdsCompBubbleChart";
 export default RdsCompBubbleChart;

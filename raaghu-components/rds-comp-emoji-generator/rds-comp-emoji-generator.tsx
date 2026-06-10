@@ -1,5 +1,5 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
     Box,
     TextField,
@@ -23,6 +23,62 @@ import FlagIcon from "@mui/icons-material/Flag";
 import "./rds-comp-emoji-generator.scss";
 import { getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
 import { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+
+const SKIN_TONE_OPTIONS = [
+    { value: 0, color: emojiSkinToneColors.default, label: "Default" },
+    { value: 1, color: emojiSkinToneColors.light, label: "Light" },
+    { value: 2, color: emojiSkinToneColors.mediumLight, label: "Medium Light" },
+    { value: 3, color: emojiSkinToneColors.medium, label: "Medium" },
+    { value: 4, color: emojiSkinToneColors.mediumDark, label: "Medium Dark" },
+    { value: 5, color: emojiSkinToneColors.dark, label: "Dark" },
+];
+
+const CATEGORY_TABS = [
+    { id: EmojiCategory.SmileysAndPeople, icon: EmojiEmotionsIcon, title: "Smileys & People" },
+    { id: EmojiCategory.AnimalsAndNature, icon: PetsIcon, title: "Animals & Nature" },
+    { id: EmojiCategory.FoodAndDrink, icon: RestaurantIcon, title: "Food & Drink" },
+    { id: EmojiCategory.TravelAndPlaces, icon: FlightIcon, title: "Travel & Places" },
+    { id: EmojiCategory.Activities, icon: SportsFootballIcon, title: "Activities" },
+    { id: EmojiCategory.Objects, icon: LightbulbIcon, title: "Objects" },
+    { id: EmojiCategory.Symbols, icon: FavoriteIcon, title: "Symbols" },
+    { id: EmojiCategory.Flags, icon: FlagIcon, title: "Flags" },
+];
+
+const QUICK_EMOJIS = ["👍", "😊", "😞", "💯", "😎"];
+
+interface SkinTonePickerProps {
+    skinToneOptions: typeof SKIN_TONE_OPTIONS;
+    selectedSkinTone: number;
+    onSelect: (tone: number) => void;
+    buttonSize?: "small" | "medium";
+}
+
+const SkinTonePicker: React.FC<SkinTonePickerProps> = ({
+    skinToneOptions,
+    selectedSkinTone,
+    onSelect,
+    buttonSize,
+}) => (
+    <>
+        {skinToneOptions.map((o) => (
+            <IconButton
+                aria-label="Select emoji"
+                key={o.value}
+                onClick={() => onSelect(o.value)}
+                className="rds-emoji-generator__skin-tone-option"
+                style={{
+                    backgroundColor: o.color,
+                    border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
+                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
+                }}
+                title={o.label}
+                size={buttonSize}
+            />
+        ))}
+    </>
+);
+
+SkinTonePicker.displayName = 'SkinTonePicker';
 
 export interface RdsEmojiGeneratorProps {
     Type?: EmojiGeneratorType;
@@ -57,26 +113,6 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     const [selectedSkinTone, setSelectedSkinTone] = useState(0); 
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
-    const skinToneOptions = [
-        { value: 0, color: emojiSkinToneColors.default, label: "Default" },
-        { value: 1, color: emojiSkinToneColors.light, label: "Light" },
-        { value: 2, color: emojiSkinToneColors.mediumLight, label: "Medium Light" },
-        { value: 3, color: emojiSkinToneColors.medium, label: "Medium" },
-        { value: 4, color: emojiSkinToneColors.mediumDark, label: "Medium Dark" },
-        { value: 5, color: emojiSkinToneColors.dark, label: "Dark" },
-    ];
-
-    const categoryTabs = [
-        { id: EmojiCategory.SmileysAndPeople, icon: EmojiEmotionsIcon, title: "Smileys & People" },
-        { id: EmojiCategory.AnimalsAndNature, icon: PetsIcon, title: "Animals & Nature" },
-        { id: EmojiCategory.FoodAndDrink, icon: RestaurantIcon, title: "Food & Drink" },
-        { id: EmojiCategory.TravelAndPlaces, icon: FlightIcon, title: "Travel & Places" },
-        { id: EmojiCategory.Activities, icon: SportsFootballIcon, title: "Activities" },
-        { id: EmojiCategory.Objects, icon: LightbulbIcon, title: "Objects" },
-        { id: EmojiCategory.Symbols, icon: FavoriteIcon, title: "Symbols" },
-        { id: EmojiCategory.Flags, icon: FlagIcon, title: "Flags" },
-    ];
-
     const handleEmojiClick = (e: any) => onEmojiSelect?.(e);
     const handleCategoryChange = (c: EmojiCategory) => setSelectedCategory(c);
     const handleSkinToneClick = (e: React.MouseEvent<HTMLElement>) => setSkinToneAnchorEl(e.currentTarget);
@@ -85,10 +121,9 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     const skinTonePopoverOpen = Boolean(skinToneAnchorEl);
 
     if (Type === EmojiGeneratorType.QuickReactions) {
-        const quickEmojis = ["👍", "😊", "😞", "💯", "😎"];
         return (
             <Box className="rds-emoji-generator rds-emoji-generator--quick" {...props}>
-                {quickEmojis.map((e, i) => (
+                {QUICK_EMOJIS.map((e, i) => (
                     <Box
                         key={i}
                         className="rds-emoji-generator__emoji rds-emoji-generator__emoji--quick"
@@ -109,10 +144,18 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
         );
     }
 
-    const filteredEmojis = searchTerm
-        ? searchEmojis(searchTerm, selectedCategory, selectedSkinTone)
-        : getEmojisByCategory(selectedCategory, selectedSkinTone);
-    const displayEmojis = maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis;
+    const filteredEmojis = useMemo(
+        () => (
+            searchTerm
+                ? searchEmojis(searchTerm, selectedCategory, selectedSkinTone)
+                : getEmojisByCategory(selectedCategory, selectedSkinTone)
+        ),
+        [searchTerm, selectedCategory, selectedSkinTone]
+    );
+    const displayEmojis = useMemo(
+        () => (maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis),
+        [filteredEmojis, maxEmojis]
+    );
 
     const isFlagEmoji = (emoji: string) => {
         return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(emoji);
@@ -148,26 +191,17 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                                   aria-label="Select emoji"
                                     className="rds-emoji-generator__skin-tone-button"
                                     onClick={handleSkinToneClick}
-                                    style={{ backgroundColor: skinToneOptions[selectedSkinTone].color }}
+                                    style={{ backgroundColor: SKIN_TONE_OPTIONS[selectedSkinTone].color }}
                                 />
 
                                 {State === SkinToneState.Expanded && (
                                     <Box className="rds-emoji-generator__skin-tone-inline">
-                                        {skinToneOptions.map(o => (
-                                            <IconButton
-                                              aria-label="Select emoji"
-                                                key={o.value}
-                                                onClick={() => handleSkinToneSelect(o.value)}
-                                                className="rds-emoji-generator__skin-tone-option"
-                                                style={{
-                                                    backgroundColor: o.color,
-                                                    border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
-                                                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
-                                                }}
-                                                title={o.label}
-                                                size="small"
-                                            />
-                                        ))}
+                                        <SkinTonePicker
+                                            skinToneOptions={SKIN_TONE_OPTIONS}
+                                            selectedSkinTone={selectedSkinTone}
+                                            onSelect={handleSkinToneSelect}
+                                            buttonSize="small"
+                                        />
                                     </Box>
                                 )}
                             </Box>
@@ -186,20 +220,11 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                             container={() => rootRef.current?.closest('.rds-comp-toolbar__dropdown') || rootRef.current || document.body}
                         >
                             <Box className="rds-emoji-generator__skin-tone-dropdown">
-                                {skinToneOptions.map(o => (
-                                    <IconButton
-                                      aria-label="Select emoji"
-                                        key={o.value}
-                                        onClick={() => handleSkinToneSelect(o.value)}
-                                        className="rds-emoji-generator__skin-tone-option"
-                                        style={{
-                                            backgroundColor: o.color,
-                                            border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
-                                            boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
-                                        }}
-                                        title={o.label}
-                                    />
-                                ))}
+                                <SkinTonePicker
+                                    skinToneOptions={SKIN_TONE_OPTIONS}
+                                    selectedSkinTone={selectedSkinTone}
+                                    onSelect={handleSkinToneSelect}
+                                />
                             </Box>
                         </Popover>
                     )}
@@ -208,7 +233,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
 
             <Box className="rds-emoji-generator__categories">
                 <Box className="rds-emoji-generator__categories-container">
-                    {categoryTabs.map(t => {
+                    {CATEGORY_TABS.map(t => {
                         const I = t.icon;
                         return (
                             <Chip
@@ -229,7 +254,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
             <Box className="rds-emoji-generator__grid">
                 <Box className="rds-emoji-generator__category-title">
                     <Typography variant="h6" className="rds-emoji-generator__category-title-text">
-                        {categoryTabs.find(t => t.id === selectedCategory)?.title || "Emojis"}
+                        {CATEGORY_TABS.find(t => t.id === selectedCategory)?.title || "Emojis"}
                     </Typography>
                 </Box>
                 <Box className="rds-emoji-generator__grid-container">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./rds-comp-reviews.scss";
 import { renderReviewStyle } from "./rds-comp-review-styles";
 import Grid from "@mui/material/Grid";
@@ -39,33 +39,45 @@ export enum RevieweStyle {
 }
 
 export interface RdsCompReviewsProps {
-  itemList: Item[]; // List of items to be displayed
-  style?: RevieweStyle; // Style of the component
-  variantType?: VariantType; // Variant type of the component
+  itemList: Item[];
+  style?: RevieweStyle;
+  variantType?: VariantType;
 }
 
-const RdsCompReviews = (props: RdsCompReviewsProps) => {
-  const renderContentByStyle = (item: Item) => {
-    return renderReviewStyle(item, props.style);
-  };
+const GRID_SIZE = {
+  xs: 12,
+  sm: 12,
+  md: 4,
+  lg: 6,
+  xl: 6,
+} as const;
+
+const getItemKey = (item: Item, index: number): string =>
+  item.username ?? item.name ?? `review-${index}`;
+
+const RdsCompReviews = ({
+  itemList,
+  style,
+  variantType = VariantType.Default,
+}: RdsCompReviewsProps) => {
+  const showDefaultVariant = variantType === VariantType.Default;
+
+  const gridItems = useMemo(
+    () =>
+      itemList.map((item, index) => ({
+        key: getItemKey(item, index),
+        content: renderReviewStyle(item, style),
+      })),
+    [itemList, style]
+  );
 
   return (
     <Box className="rds-comp-reviews">
-      {props.variantType === VariantType.Default && (
+      {showDefaultVariant && (
         <Grid container spacing={2} wrap="wrap">
-          {props.itemList.map((item: Item, index: number) => (
-            <Grid 
-             key={index}
-             size={{
-               xs: 12,
-               sm: 12,
-               md: 4,
-               lg: 6,
-               xl: 6
-             }}
-              style={{ display: 'flex'}}
-            >
-              {renderContentByStyle(item)}
+          {gridItems.map(({ key, content }) => (
+            <Grid key={key} size={GRID_SIZE} style={{ display: "flex" }}>
+              {content}
             </Grid>
           ))}
         </Grid>
@@ -73,5 +85,6 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
     </Box>
   );
 };
+
 RdsCompReviews.displayName = "RdsCompReviews";
 export default RdsCompReviews;

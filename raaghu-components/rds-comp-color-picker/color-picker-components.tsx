@@ -6,7 +6,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
-export const ColorPickerGrid = ({
+const GRID_ROWS = Array.from({ length: 10 }, (_, i) => i);
+const GRID_COLS = Array.from({ length: 11 }, (_, i) => i);
+const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main, #FFC300)", "var(--rds-semantic-error-main, #FF4F00)", "var(--rds-info-main, #EA00FA)", "var(--rds-primary-main, #1708FF)", "var(--rds-info-light, #00F5FF)"];
+const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main, #FFC300)","var(--rds-semantic-error-main, #FF4F00)","var(--rds-info-main, #EA00FA)","var(--rds-primary-main, #9751F2)","var(--rds-info-light, #00F5FF)","var(--rds-info-variant, #00E5FF)","var(--rds-neutral-300, #00D1B2)","var(--rds-success-main, #1ABC9C)","var(--rds-success-dark, #27AE60)","var(--rds-success-light, #2ECC71)","var(--rds-info-contrast, #16A085)","var(--rds-primary-light, #3498DB)","var(--rds-primary-dark, #9B59B6)","var(--rds-neutral-400, #BDBDBD)"];
+
+export const ColorPickerGrid = React.memo(({
   handleChange,
   selectedColorState,
   handleHueChange,
@@ -21,10 +26,10 @@ export const ColorPickerGrid = ({
   return (
     <div>
       <div className="rds-comp-color-picker__color-grid-container">
-        {[...Array(10)].map((_, rowIndex) => {
+        {GRID_ROWS.map((rowIndex) => {
           return (
             <div key={`row-${rowIndex}`} className="rds-comp-color-picker__color-row">
-              {[...Array(11)].map((_, colIndex) => {
+              {GRID_COLS.map((colIndex) => {
                 let bgColor: string;
                 let clickHex: string;
                 let clickRgb: { r: number; g: number; b: number; a: number };
@@ -90,9 +95,9 @@ export const ColorPickerGrid = ({
       />
     </div>
   );
-};
+});
 
-export const ColorPickerSpectrum = ({
+export const ColorPickerSpectrum = React.memo(({
   selectedColorHex,
   selectedColorState,
   handleChange,
@@ -149,8 +154,8 @@ export const ColorPickerSpectrum = ({
       )}
     </div>
   );
-};
-export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handleAlphaChange }: {
+});
+export const ColorPickerSliders = React.memo(({ selectedColorState, handleHueChange, handleAlphaChange }: {
   selectedColorState: { hex: string; rgb: { r: number; g: number; b: number; a: number } };
   handleHueChange: (color: any) => void;
   handleAlphaChange: (color: any) => void;
@@ -182,9 +187,9 @@ export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handle
       </div>
     </div>
   );
-};
+});
 
-export const ColorPickerInfo = ({
+export const ColorPickerInfo = React.memo(({
   colorModeDropdownRef,
   setShowColorModeDropdown,
   showColorModeDropdown,
@@ -350,9 +355,9 @@ export const ColorPickerInfo = ({
       </div>
     </div>
   );
-};
+});
 
-export const ColorSwatchesType1 = ({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
+export const ColorSwatchesType1 = React.memo(({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
@@ -372,7 +377,7 @@ export const ColorSwatchesType1 = ({ handleChange }: { handleChange: (color: { h
 />
       </div>
       <div className="rds-comp-color-picker__swatch-list rds-comp-color-picker__swatch-list--vertical">
-        {["var(--rds-semantic-warning-main, #FFC300)", "var(--rds-semantic-error-main, #FF4F00)", "var(--rds-info-main, #EA00FA)", "var(--rds-primary-main, #1708FF)", "var(--rds-info-light, #00F5FF)"].map(hex => (
+        {SWATCHES_TYPE_1.map(hex => (
           <div key={hex} className="rds-comp-color-picker__swatch-item" role="button" tabIndex={0} onClick={() => handleChange({ hex })} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleChange({ hex }); } }}>
             <div className="rds-comp-color-picker__swatch-color" style={{ backgroundColor: hex }} />
             <div className="rds-comp-color-picker__swatch-label">{hex}</div>
@@ -381,9 +386,9 @@ export const ColorSwatchesType1 = ({ handleChange }: { handleChange: (color: { h
       </div>
     </div>
   );
-};
+});
 
-export const ColorSwatchesType2 = ({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
+export const ColorSwatchesType2 = React.memo(({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
@@ -391,18 +396,18 @@ export const ColorSwatchesType2 = ({ handleChange }: { handleChange: (color: { h
       </div>
       <div className="rds-comp-color-picker__swatch-grid">
         <div className="rds-comp-color-picker__swatch-tile rds-comp-color-picker__swatch-tile--add">+</div>
-        {["var(--rds-semantic-warning-main, #FFC300)","var(--rds-semantic-error-main, #FF4F00)","var(--rds-info-main, #EA00FA)","var(--rds-primary-main, #9751F2)","var(--rds-info-light, #00F5FF)","var(--rds-info-variant, #00E5FF)","var(--rds-neutral-300, #00D1B2)","var(--rds-success-main, #1ABC9C)","var(--rds-success-dark, #27AE60)","var(--rds-success-light, #2ECC71)","var(--rds-info-contrast, #16A085)","var(--rds-primary-light, #3498DB)","var(--rds-primary-dark, #9B59B6)","var(--rds-neutral-400, #BDBDBD)"].map(hex => (
+        {SWATCHES_TYPE_2.map(hex => (
           <div key={hex} className="rds-comp-color-picker__swatch-tile" style={{ backgroundColor: hex }} role="button" tabIndex={0} aria-label={`Select color ${hex}`} onClick={() => handleChange({ hex })} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleChange({ hex }); } }} />
         ))}
       </div>
     </div>
   );
-};
+});
 
 export const ColorModeSwatches: React.FC<{
   selectedMode: "solid" | "gradient";
   onSelectMode: (mode: "solid" | "gradient") => void;
-}> = ({ selectedMode, onSelectMode }) => {
+}> = React.memo(({ selectedMode, onSelectMode }) => {
   return (
     <div className="rds-comp-color-picker__mode-switcher">
       <div
@@ -423,7 +428,7 @@ export const ColorModeSwatches: React.FC<{
       </div>
     </div>
   );
-};
+});
 
 export const GradientEditor: React.FC<{
   gradientType: string;
@@ -435,7 +440,7 @@ export const GradientEditor: React.FC<{
   onGradientPositionChange: (index: number, position: number) => void;
   onAddGradientStop: (position: number) => void;
   onRemoveGradientStop: (index: number) => void;
-}> = ({
+}> = React.memo(({
   gradientType,
   gradientDirection,
   gradientStops,
@@ -543,7 +548,7 @@ export const GradientEditor: React.FC<{
       </div>
     </div>
   );
-};
+});
 
 ColorPickerGrid.displayName = 'ColorPickerGrid';
 ColorPickerSpectrum.displayName = 'ColorPickerSpectrum';

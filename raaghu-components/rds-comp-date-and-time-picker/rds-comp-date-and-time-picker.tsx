@@ -14,12 +14,10 @@ import IconButton from '@mui/material/IconButton';
 import EventIcon from '@mui/icons-material/Event';
 import Box from '@mui/material/Box';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import Stack from '@mui/material/Stack';
 import './rds-comp-date-and-time-picker.scss';
 
 import {
   DateRangePreset,
-  dateRangePresets,
   formatRangeText,
   CustomDateRangeLayout,
   RangeCalendar,
@@ -77,9 +75,6 @@ export default function RdsCompDatePicker({
   showSeconds = true,
   isRequired = false,
 }: RdsCompDatePickerProps) {
-  // Determine if we need range values
-  const isRangeVariant = variant.includes('range') || layout === 'Multi Month';
-
   // State management
   const [dateValue, setDateValue] = React.useState<Dayjs | null>(
     Array.isArray(value) ? value[0] : (value as Dayjs | null) || null
@@ -92,25 +87,25 @@ export default function RdsCompDatePicker({
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   // Handle preset selection
-  const handlePresetSelect = (preset: DateRangePreset) => {
+  const handlePresetSelect = React.useCallback((preset: DateRangePreset) => {
     setSelectedPreset(preset.key);
     if (preset.key !== 'custom') {
       const newRange = preset.getValue();
       setRangeValue(newRange);
       onChange?.(newRange);
     }
-  };
+  }, [onChange]);
 
   // Event handlers
-  const handleDateChange = (newValue: Dayjs | null) => {
+  const handleDateChange = React.useCallback((newValue: Dayjs | null) => {
     setDateValue(newValue);
     onChange?.(newValue);
-  };
+  }, [onChange]);
 
-  const handleRangeChange = (newValue: [Dayjs | null, Dayjs | null]) => {
+  const handleRangeChange = React.useCallback((newValue: [Dayjs | null, Dayjs | null]) => {
     setRangeValue(newValue);
     onChange?.(newValue);
-  };
+  }, [onChange]);
 
   // Format label with required indicator
   const formattedLabel = React.useMemo(() => {
@@ -124,7 +119,7 @@ export default function RdsCompDatePicker({
   }, [label, isRequired]);
 
   // Common props for all pickers
-  const baseProps = {
+  const baseProps = React.useMemo(() => ({
     disabled,
     readOnly,
     size,
@@ -162,28 +157,43 @@ export default function RdsCompDatePicker({
       },
       ...slotProps,
     },
-  };
+  }), [disabled, readOnly, size, minDate, maxDate, error, formattedLabel, placeholder, isRequired, slotProps]);
 
   // Props specific to single value pickers
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const singlePickerProps: any = {
+  const singlePickerProps: any = React.useMemo(() => ({
     ...baseProps,
     value: dateValue,
     onChange: handleDateChange,
     minTime,
     maxTime,
     format,
-  };
+  }), [baseProps, dateValue, handleDateChange, minTime, maxTime, format]);
 
   // Custom combined field for range variants
-  const renderRangeField = () => {
+  const handleRangeFieldOpen = React.useCallback((anchor: HTMLElement) => {
+    if (!disabled) {
+      setAnchorEl(anchor);
+    }
+  }, [disabled]);
+
+  const handleClosePopover = React.useCallback(() => {
+    setAnchorEl(null);
+  }, []);
+
+  const handleClearRange = React.useCallback(() => {
+    setRangeValue([null, null]);
+    onChange?.([null, null]);
+  }, [onChange]);
+
+  const renderRangeField = React.useCallback(() => {
     const inputValue = formatRangeText(variant as any, rangeValue, showSeconds);
     const isMultiMonth = layout === 'Multi Month';
 
     return (
       <>
         <TextField
-          onClick={(e) => { if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
+          onClick={(e) => handleRangeFieldOpen(e.currentTarget as HTMLElement)}
           value={inputValue}
           placeholder={placeholder}
           label={formattedLabel}
@@ -197,7 +207,7 @@ export default function RdsCompDatePicker({
                   aria-label="open calendar"
                   edge="end"
                   size={size === 'small' ? 'small' : 'medium'}
-                  onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
+                  onClick={(e) => { e.stopPropagation(); handleRangeFieldOpen(e.currentTarget as HTMLElement); }}
                   disabled={disabled || readOnly}
                 >
                   <EventIcon fontSize="small" />
@@ -211,7 +221,7 @@ export default function RdsCompDatePicker({
         <Popover
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
-          onClose={() => setAnchorEl(null)}
+          onClose={handleClosePopover}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           className="MuiPickersPopper-root"
@@ -268,17 +278,65 @@ export default function RdsCompDatePicker({
               </>
             )}
             <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
-              <RdsButton style="transparent" size="small" text="Clear" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }} />
-              <RdsButton style="filled" size="small" text="Apply" onClick={() => setAnchorEl(null)} />
+              <RdsButton style="transparent" size="small" text="Clear" onClick={handleClearRange} />
+              <RdsButton style="filled" size="small" text="Apply" onClick={handleClosePopover} />
             </Box>
           </Paper>
         </Popover>
       </>
     );
-  };
+  }, [
+    variant, rangeValue, showSeconds, layout, placeholder, formattedLabel, size, disabled, readOnly, error, isRequired,
+    anchorEl, style, selectedPreset, minDate, maxDate, minTime, maxTime, handleRangeFieldOpen, handleClosePopover,
+    handlePresetSelect, handleRangeChange, handleClearRange,
+  ]);
 
   // Get the appropriate picker component
-  const getPickerComponent = () => {
+  const getDatePickerByLayout = React.useCallback(() => {
+    switch (layout) {
+      case 'Year Picker':
+        return (
+          <DatePicker
+            {...singlePickerProps}
+            format={format || 'YYYY'}
+            views={['year']}
+          />
+        );
+      
+      case 'Month Picker':
+        return (
+          <DatePicker
+            {...singlePickerProps}
+            format={format || 'MMMM'}
+            views={['month']}
+          />
+        );
+      
+      case 'Multi Month':
+        // Use range field with two calendars to mimic multi-month range selection
+        return renderRangeField();
+      
+      case 'Default':
+      default:
+        return (
+          <DatePicker
+            {...singlePickerProps}
+            views={['year', 'month', 'day']}
+            openTo="day"
+            displayWeekNumber
+            slotProps={{
+              ...singlePickerProps.slotProps,
+              calendarHeader: {
+                format: 'MMMM YYYY',
+              },
+            }}
+          />
+        );
+    }
+  }, [layout, singlePickerProps, format, renderRangeField]);
+
+  // Get the appropriate picker component
+  const getPickerComponent = React.useCallback(() => {
     switch (variant) {
       case 'time':
         return (
@@ -334,51 +392,7 @@ export default function RdsCompDatePicker({
       default:
         return getDatePickerByLayout();
     }
-  };
-
-  // Handle different layouts for date picker
-  const getDatePickerByLayout = () => {
-    switch (layout) {
-      case 'Year Picker':
-        return (
-          <DatePicker
-            {...singlePickerProps}
-            format={format || 'YYYY'}
-            views={['year']}
-          />
-        );
-      
-      case 'Month Picker':
-        return (
-          <DatePicker
-            {...singlePickerProps}
-            format={format || 'MMMM'}
-            views={['month']}
-          />
-        );
-      
-      case 'Multi Month':
-        // Use range field with two calendars to mimic multi-month range selection
-        return renderRangeField();
-      
-      case 'Default':
-      default:
-        return (
-          <DatePicker
-            {...singlePickerProps}
-            views={['year', 'month', 'day']}
-            openTo="day"
-            displayWeekNumber
-            slotProps={{
-              ...singlePickerProps.slotProps,
-              calendarHeader: {
-                format: 'MMMM YYYY',
-              },
-            }}
-          />
-        );
-    }
-  };
+  }, [variant, singlePickerProps, showSeconds, format, rangeValue, minTime, maxTime, size, handleRangeChange, renderRangeField, getDatePickerByLayout]);
 
   const containerClasses = [
     'rds-date-picker',

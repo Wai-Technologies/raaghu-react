@@ -1,5 +1,8 @@
 import React from 'react';
 
+const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
+const MINUTES = Array.from({ length: 60 }, (_, i) => i);
+
 interface CompactTimePickerProps {
   tempHour: number;
   setTempHour: (hour: number) => void;
@@ -17,6 +20,24 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
   tempPeriod, 
   setTempPeriod
 }) => {
+  const onHourChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = parseInt(e.target.value);
+    setTempHour(val);
+  }, [setTempHour]);
+
+  const onMinuteChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = parseInt(e.target.value);
+    setTempMinute(val);
+  }, [setTempMinute]);
+
+  const onPeriodChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setTempPeriod(e.target.value);
+  }, [setTempPeriod]);
+
+  const togglePeriod = React.useCallback(() => {
+    setTempPeriod(tempPeriod === 'AM' ? 'PM' : 'AM');
+  }, [setTempPeriod, tempPeriod]);
+
   return (
     <div className="time-controls-row">
       <div className="time-select-container">
@@ -24,13 +45,9 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
           id="hours-select"
           className="time-select" 
           value={tempHour.toString()} 
-          onChange={(e) => {
-            const val = parseInt(e.target.value);
-            setTempHour(val);
-          }}
+          onChange={onHourChange}
         >
-          {Array.from({ length: 12 }, (_, i) => {
-            const hour = i + 1;
+          {HOURS.map((hour) => {
             return (
               <option key={hour} value={hour.toString()}>
                 {String(hour).padStart(2, '0')}
@@ -45,12 +62,9 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
           id="minutes-select"
           className="time-select" 
           value={tempMinute.toString()} 
-          onChange={(e) => {
-            const val = parseInt(e.target.value);
-            setTempMinute(val);
-          }}
+          onChange={onMinuteChange}
         >
-          {Array.from({ length: 60 }, (_, i) => (
+          {MINUTES.map((i) => (
             <option key={i} value={i.toString()}>
               {String(i).padStart(2, '0')}
             </option>
@@ -63,16 +77,14 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
           id="period-select"
           className="time-select" 
           value={tempPeriod} 
-          onChange={(e) => {
-            setTempPeriod(e.target.value);
-          }}
+          onChange={onPeriodChange}
         >
           <option value="AM">AM</option>
           <option value="PM">PM</option>
         </select>
         <span
           className="time-control down"
-          onClick={() => setTempPeriod(tempPeriod === 'AM' ? 'PM' : 'AM')}
+          onClick={togglePeriod}
         ></span>
       </div>
     </div>

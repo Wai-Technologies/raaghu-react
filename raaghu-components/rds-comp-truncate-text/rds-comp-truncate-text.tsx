@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import "./rds-comp-truncate-text.scss";
 import RdsTooltip from "../../raaghu-elements/rds-tooltip/rds-tooltip";
 
@@ -6,6 +6,7 @@ export enum TruncateTextState {
   Default = "Default",
   Hover = "Hover",
 }
+
 export interface RdsCompTruncateTextProps {
   text: string;
   maxLength?: number;
@@ -21,36 +22,44 @@ const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseEnter = () => {
-    if (state === TruncateTextState.Hover) setIsHovered(true);
-  };
+  const handleMouseEnter = useCallback(() => {
+    if (state === TruncateTextState.Hover) {
+      setIsHovered(true);
+    }
+  }, [state]);
 
-  const handleMouseLeave = () => {
-    if (state === TruncateTextState.Hover) setIsHovered(false);
-  };
+  const handleMouseLeave = useCallback(() => {
+    if (state === TruncateTextState.Hover) {
+      setIsHovered(false);
+    }
+  }, [state]);
 
   const displayText = useMemo(() => {
     if (state === TruncateTextState.Default) return text;
     return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
   }, [text, maxLength, state]);
 
-  const classList = ['rds-comp-truncate-text'];
-  if (lines && lines > 1 && lines <= 5) {
-    classList.push(`rds-comp-truncate-text--lines-${lines}`);
-  }
+  const className = useMemo(() => {
+    const classList = ["rds-comp-truncate-text"];
+    if (lines && lines > 1 && lines <= 5) {
+      classList.push(`rds-comp-truncate-text--lines-${lines}`);
+    }
+    return classList.join(" ");
+  }, [lines]);
 
-  const wrapperProps: any = {
-    onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave,
-    className: classList.join(' '),
-    tabIndex: 0,
-    role: 'text',
-    'aria-label': text,
-  };
+  const showTooltip =
+    state === TruncateTextState.Hover && isHovered && text.length > maxLength;
 
   return (
-    <div {...wrapperProps}>
-      {state === TruncateTextState.Hover && isHovered && text.length > maxLength ? (
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+      tabIndex={0}
+      role="text"
+      aria-label={text}
+    >
+      {showTooltip ? (
         <RdsTooltip label={text} title={text} style="bottom" arrow>
           <span>{displayText}</span>
         </RdsTooltip>
@@ -60,5 +69,6 @@ const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({
     </div>
   );
 };
+
 RdsCompTruncateText.displayName = "RdsCompTruncateText";
 export default RdsCompTruncateText;

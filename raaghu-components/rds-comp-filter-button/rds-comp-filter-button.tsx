@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { 
   Box, 
   Typography, 
@@ -59,16 +59,16 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setIsOpen(!isOpen);
-  };
+  }, [isOpen]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
-  const handleFilterChange = (filterId: string, value: string, checked: boolean) => {
+  const handleFilterChange = useCallback((filterId: string, value: string, checked: boolean) => {
     const updatedFilters = localFilters.map(filter => {
       if (filter.id === filterId) {
         const selectedValues = filter.selectedValues || [];
@@ -86,14 +86,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
     
     setLocalFilters(updatedFilters);
     onFiltersChange?.(updatedFilters);
-  };
+  }, [localFilters, onFiltersChange]);
 
-  const handleApply = () => {
+  const handleApply = useCallback(() => {
     onApply?.(localFilters);
     setIsOpen(false);
-  };
+  }, [localFilters, onApply]);
 
-  const handleClearAll = () => {
+  const handleClearAll = useCallback(() => {
     const clearedFilters = localFilters.map(filter => ({
       ...filter,
       selectedValues: []
@@ -101,16 +101,16 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
     setLocalFilters(clearedFilters);
     onFiltersChange?.(clearedFilters);
     onClear?.();
-  };
+  }, [localFilters, onClear, onFiltersChange]);
 
-  const getActiveFiltersCount = () => {
-    return localFilters.reduce((count, filter) => {
-      return count + (filter.selectedValues?.length || 0);
-    }, 0);
-  };
-
-  const activeFiltersCount = getActiveFiltersCount();
-  const buttonText = activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text;
+  const activeFiltersCount = useMemo(
+    () => localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0),
+    [localFilters]
+  );
+  const buttonText = useMemo(
+    () => (activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text),
+    [activeFiltersCount, text]
+  );
 
   return (
     <Box className={`rds-comp-filter-button ${className || ''}`} {...props}>

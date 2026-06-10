@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './rds-comp-time-picker.scss';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
 import { 
   getButtonClasses, 
   getInputBorderClass, 
-  getIconColor, 
   parseTimeFromValue,
   getCurrentTime, 
   formatTime 
@@ -31,7 +30,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const [tempMinute, setTempMinute] = useState<number>(0);
   const [tempPeriod, setTempPeriod] = useState<string>('AM');
 
-  const togglePicker = () => {
+  const togglePicker = useCallback(() => {
     if (!showPicker && props.style === 'compact') {
       if (!time) {
         setTempHour(12);
@@ -44,7 +43,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       }
     }
     setShowPicker(!showPicker);
-  };
+  }, [showPicker, props.style, time, hours, minutes, period]);
 
   useEffect(() => {
     if (props.value !== undefined) {
@@ -73,7 +72,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     }
   }, [props.state, props.value]);
 
-  const handleSetTime = (e: React.MouseEvent) => {
+  const handleSetTime = useCallback((e: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -100,9 +99,9 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     }
     
     setShowPicker(false);
-  };
+  }, [props.style, tempHour, tempMinute, tempPeriod, props.onChange, hours, minutes, period]);
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setTime('');
     setHours(12);
     setMinutes(0);
@@ -115,9 +114,9 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       props.onChange('');
     }
     setShowPicker(false);
-  };
+  }, [props.onChange]);
 
-  const setCurrentTime = () => {
+  const setCurrentTime = useCallback(() => {
     const { hours: currentHours, minutes: currentMinutes, period: currentPeriod } = getCurrentTime();
 
     if (props.style === 'compact') {
@@ -136,9 +135,17 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
         props.onChange(formattedTime);
       }
     }
-  };
+  }, [props.style, props.onChange]);
 
-  const variantClass = `time-picker-variant-${props.colorVariant || 'primary'}`;
+  const incrementHour = useCallback(() => setHours((prev) => (prev % 12) + 1), []);
+  const decrementHour = useCallback(() => setHours((prev) => (prev - 1 <= 0 ? 12 : prev - 1)), []);
+  const incrementMinute = useCallback(() => setMinutes((prev) => (prev + 1) % 60), []);
+  const decrementMinute = useCallback(() => setMinutes((prev) => (prev - 1 < 0 ? 59 : prev - 1)), []);
+  const togglePeriod = useCallback(() => setPeriod((p) => (p === 'AM' ? 'PM' : 'AM')), []);
+
+  const variantClass = useMemo(() => `time-picker-variant-${props.colorVariant || 'primary'}`, [props.colorVariant]);
+  const inputBorderClass = useMemo(() => getInputBorderClass(props.colorVariant), [props.colorVariant]);
+  const buttonClasses = useMemo(() => getButtonClasses(props.colorVariant), [props.colorVariant]);
 
   return (
     <div className={`time-picker-container ${variantClass}`}>
@@ -148,7 +155,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       >
         <input
           type="text"
-          className={`time-input ${getInputBorderClass(props.colorVariant)}`}
+          className={`time-input ${inputBorderClass}`}
           value={props.value !== undefined ? props.value : time}
           readOnly
           disabled={props.disabled}
@@ -160,7 +167,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       </div>
 
       {showPicker && (
-        <div className={`time-picker ${props.style === 'compact' ? "time-picker-compact" : "time-picker"} ${getInputBorderClass(props.colorVariant)}`}>
+        <div className={`time-picker ${props.style === 'compact' ? "time-picker-compact" : "time-picker"} ${inputBorderClass}`}>
           <div className="row d-flex align-items-center justify-content-between">
             <div className={`time-display ${props.style === 'compact' ? "time-display-compact" : "time-display"}`}>
               {props.style === 'compact' 
@@ -189,21 +196,21 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                   hours={hours}
                   minutes={minutes}
                   period={period}
-                  onIncrementHour={() => setHours((prev) => (prev % 12) + 1)}
-                  onDecrementHour={() => setHours((prev) => (prev - 1 <= 0 ? 12 : prev - 1))}
-                  onIncrementMinute={() => setMinutes((prev) => (prev + 1) % 60)}
-                  onDecrementMinute={() => setMinutes((prev) => (prev - 1 < 0 ? 59 : prev - 1))}
-                  onTogglePeriod={() => setPeriod((p) => (p === 'AM' ? 'PM' : 'AM'))}
+                  onIncrementHour={incrementHour}
+                  onDecrementHour={decrementHour}
+                  onIncrementMinute={incrementMinute}
+                  onDecrementMinute={decrementMinute}
+                  onTogglePeriod={togglePeriod}
                 />
             }
           </div>
           <div className="time-divider" role="separator" aria-hidden="true" />
           
           <div className={`buttons ${props.style === "compact" ? "buttons-compact" : "buttons"}`}>
-            <button type="button" className={getButtonClasses(props.colorVariant).cancel} onClick={handleCancel}>Cancel</button>
+            <button type="button" className={buttonClasses.cancel} onClick={handleCancel}>Cancel</button>
             <button
               type="button"
-              className={getButtonClasses(props.colorVariant).setTime}
+              className={buttonClasses.setTime}
               onClick={handleSetTime}
             >
               Set Time

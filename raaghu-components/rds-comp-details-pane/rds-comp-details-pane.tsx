@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
@@ -29,49 +29,55 @@ export interface RdsCompDetailsPaneProps {
 }
 
 const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
-  const getInitialTab = () => {
-    if (props.style === "Favourites" || props.style === "Favourites - New Folder") {
+  const {
+    style,
+    historyItems: providedHistoryItems,
+    olderHistoryItems: providedOlderHistoryItems,
+  } = props;
+
+  const getInitialTab = useCallback(() => {
+    if (style === "Favourites" || style === "Favourites - New Folder") {
       return "favourites";
     }
-    if (props.style === "Prompt History") {
+    if (style === "Prompt History") {
       return "history";
     }
     return "history";
-  };
+  }, [style]);
   const [activeTab, setActiveTab] = useState(getInitialTab());
   
-  const defaultHistoryItems = [
+  const defaultHistoryItems = useMemo(() => [
     { id: 1, name: "Login Page Creation" },
     { id: 2, name: "Finance Dashboard Design" },
     { id: 3, name: "E-commerce Product Page" },
     { id: 4, name: "Social Media Profile Setup" },
     { id: 5, name: "Onboarding Flow Builder" },
     { id: 6, name: "Analytics Overview Dashboard" },
-  ];
+  ], []);
   
-  const defaultOlderHistoryItems = [
+  const defaultOlderHistoryItems = useMemo(() => [
     { id: 1, name: "Signup Form Generator" },
     { id: 2, name: "Task Management Board UI" },
-  ];
+  ], []);
   
-  const [historyItems, setHistoryItems] = useState(props.historyItems || defaultHistoryItems);
-  const [olderHistoryItems, setOlderHistoryItems] = useState(props.olderHistoryItems || defaultOlderHistoryItems);
+  const [historyItems, setHistoryItems] = useState(providedHistoryItems || defaultHistoryItems);
+  const [olderHistoryItems, setOlderHistoryItems] = useState(providedOlderHistoryItems || defaultOlderHistoryItems);
 
   useEffect(() => {
-    if (props.style === "Favourites" || props.style === "Favourites - New Folder") {
+    if (style === "Favourites" || style === "Favourites - New Folder") {
       setActiveTab("favourites");
-    } else if (props.style === "Prompt History") {
+    } else if (style === "Prompt History") {
       setActiveTab("history");
     }
-  }, [props.style]);
+  }, [style]);
 
-  const handleDeleteHistoryItem = (id: number) => {
+  const handleDeleteHistoryItem = useCallback((id: number) => {
     setHistoryItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
+  }, []);
 
-  const handleDeleteOlderHistoryItem = (id: number) => {
+  const handleDeleteOlderHistoryItem = useCallback((id: number) => {
     setOlderHistoryItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
+  }, []);
   
   return (
     <>

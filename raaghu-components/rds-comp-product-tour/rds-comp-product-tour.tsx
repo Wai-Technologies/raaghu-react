@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 import { RdsCarousel, RdsBadge, RdsFileUploader } from '../../raaghu-elements';
 import {
@@ -39,10 +39,13 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     const [isVisible, setIsVisible] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const parsedSteps = parseSteps(stepsIndicator);
-    const totalSlides = parsedSteps?.total ?? (slides ? slides.length : 0);
-    const effectiveSlides = createEffectiveSlides(slides, totalSlides);
-    const computedIndicator = `${effectiveSlides && effectiveSlides.length ? currentIndex + 1 : 0}/${totalSlides}`;
+    const parsedSteps = useMemo(() => parseSteps(stepsIndicator), [stepsIndicator]);
+    const totalSlides = useMemo(() => parsedSteps?.total ?? (slides ? slides.length : 0), [parsedSteps, slides]);
+    const effectiveSlides = useMemo(() => createEffectiveSlides(slides, totalSlides), [slides, totalSlides]);
+    const computedIndicator = useMemo(
+        () => `${effectiveSlides && effectiveSlides.length ? currentIndex + 1 : 0}/${totalSlides}`,
+        [currentIndex, effectiveSlides, totalSlides]
+    );
     const [displayIndicator, setDisplayIndicator] = useState<string>(stepsIndicator ?? computedIndicator);
 
     useEffect(() => {
@@ -64,27 +67,27 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
         setIsVisible(true);
     }, [state]);
 
-    const goNext = () => {
+    const goNext = useCallback(() => {
         if (!effectiveSlides || effectiveSlides.length === 0) return;
         setCurrentIndex((i) => {
             const next = i + 1;
             return next % totalSlides;
         });
-    };
+    }, [effectiveSlides, totalSlides]);
 
-    const goPrev = () => {
+    const goPrev = useCallback(() => {
         if (!effectiveSlides || effectiveSlides.length === 0) return;
         setCurrentIndex((i) => {
             const prev = i - 1;
             return (prev + totalSlides) % totalSlides;
         });
-    };
-    const handleClose = () => {
+    }, [effectiveSlides, totalSlides]);
+    const handleClose = useCallback(() => {
         setIsVisible(false);
         if (onClose) {
             onClose();
         }
-    };
+    }, [onClose]);
 
     const currentIndicator = displayIndicator;
     const carouselState = String(currentIndex + 1);

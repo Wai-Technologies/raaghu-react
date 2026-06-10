@@ -1,102 +1,93 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { ChartIcons } from "./chart-icons";
-import { getCSSVar } from "../chart-utils";
+import { getCSSVar, useChartThemeMode } from "../chart-utils";
 
 export interface RdsCompBooleanChartProps {
-    labels: any[];
-    options: any;
-    dataSets: any[];
-    chartStyle?: string;
-    id: string;
-    centerIconName?: string;
-    chartLabel?: string;
+  labels: any[];
+  options: any;
+  dataSets: any[];
+  chartStyle?: string;
+  id: string;
+  centerIconName?: string;
+  chartLabel?: string;
 }
 
-const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const CanvasId = props.id;
+/** Resolves CSS variables in SVG by replacing them with computed color values. */
+function resolveSvgCssVariables(svgString: string): string {
+  return svgString.replace(/var\(([^,)]+)(?:,\s*([^)]+))?\)/g, (_match, varName, fallback) => {
+    const cleanVarName = varName.trim();
+    const cleanFallback = fallback ? fallback.trim() : "";
+    return getCSSVar(cleanVarName, cleanFallback);
+  });
+}
 
-    const [themeMode, setThemeMode] = React.useState(() => {
-        if (typeof document !== 'undefined') {
-            return document.documentElement.getAttribute('data-theme') || 'light';
-        }
-        return 'light';
+const RdsCompBooleanChart = ({
+  labels,
+  options,
+  dataSets,
+  id,
+  centerIconName = "",
+  chartLabel,
+}: RdsCompBooleanChartProps) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const themeMode = useChartThemeMode();
+
+  useEffect(() => {
+    const canvasElm = canvasRef.current;
+    const ctx = canvasElm?.getContext("2d");
+    if (!ctx) return;
+
+    const svg = ChartIcons[centerIconName];
+    const resolvedSvg = resolveSvgCssVariables(svg);
+    const encodedSVG = btoa(unescape(encodeURIComponent(resolvedSvg)));
+    const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
+
+    const centerIcon = {
+      id: "counter4",
+      afterDraw(chart: any) {
+        const chartCtx = chart.ctx;
+        chartCtx.save();
+        const myIconImage = new Image();
+        myIconImage.src = dataURL;
+        const iconSize = 30;
+        const x = chart.width / 2 - iconSize / 2;
+        const y = chart.height / 2 - iconSize / 2;
+        chartCtx.drawImage(myIconImage, x, y, iconSize, iconSize);
+        chartCtx.restore();
+      },
+    };
+
+    const boolCanvas = new Chart(ctx, {
+      type: "doughnut",
+      plugins: [centerIcon],
+      data: {
+        labels,
+        datasets: dataSets,
+      },
+      options,
     });
 
-    React.useEffect(() => {
-        if (typeof window === 'undefined') return;
-        const observer = new MutationObserver(() => {
-            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
-        });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        return () => observer.disconnect();
-    }, []);
+    boolCanvas.canvas.style.height = "var(--rds-comp-chart-boolean-size, 20vh)";
+    boolCanvas.canvas.style.width = "var(--rds-comp-chart-boolean-size, 20vh)";
 
-    /**
-     * Resolves CSS variables in SVG by replacing them with computed color values.
-     * Handles var(--variable-name) syntax.
-     */
-    function resolveSvgCssVariables(svgString: string): string {
-        return svgString.replace(/var\(([^,)]+)(?:,\s*([^)]+))?\)/g, (match, varName, fallback) => {
-            const cleanVarName = varName.trim();
-            const cleanFallback = fallback ? fallback.trim() : '';
-            const resolvedColor = getCSSVar(cleanVarName, cleanFallback);
-            return resolvedColor;
-        });
-    }
+    return () => {
+      boolCanvas.destroy();
+    };
+  }, [labels, options, dataSets, centerIconName, themeMode]);
 
-    useEffect(() => {
-        const canvasElm = canvasRef.current;
-        const ctx = canvasElm?.getContext("2d");
-
-        if (ctx) {
-            // Resolve SVG and encode for this theme
-            const svg = ChartIcons[props.centerIconName || ""];
-            const resolvedSvg = resolveSvgCssVariables(svg);
-            const encodedSVG = btoa(unescape(encodeURIComponent(resolvedSvg)));
-            const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
-
-            const centerIcon = {
-                id: "counter4",
-                afterDraw(chart: any) {
-                    const ctx = chart.ctx;
-                    ctx.save();
-                    const myIconImage = new Image();
-                    myIconImage.src = dataURL;
-                    const iconSize = 30;
-                    const x = chart.width / 2 - iconSize / 2;
-                    const y = chart.height / 2 - iconSize / 2;
-                    ctx.drawImage(myIconImage, x, y, iconSize, iconSize);
-                    ctx.restore();
-                },
-            };
-
-            const boolCanvas = new Chart(ctx, {
-                type: "doughnut",
-                plugins: [centerIcon],
-                data: {
-                    labels: props.labels,
-                    datasets: props.dataSets,
-                },
-                options: props.options,
-            });
-
-            if (boolCanvas !== null) {
-                boolCanvas.canvas.style.height = "var(--rds-comp-chart-boolean-size, 20vh)";
-                boolCanvas.canvas.style.width = "var(--rds-comp-chart-boolean-size, 20vh)";
-            }
-            return () => {
-                boolCanvas.destroy();
-            };
-        }
-    }, [props, themeMode]);
-
-    return (
-        <div>
-            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Boolean chart'} />
-        </div>
-    );
+  return (
+    <div>
+      <canvas
+        data-testid={id}
+        id={id}
+        ref={canvasRef}
+        role="img"
+        aria-label={chartLabel ?? "Boolean chart"}
+      />
+    </div>
+  );
 };
-RdsCompBooleanChart.displayName = 'RdsCompBooleanChart';
+
+RdsCompBooleanChart.displayName = "RdsCompBooleanChart";
 export default RdsCompBooleanChart;

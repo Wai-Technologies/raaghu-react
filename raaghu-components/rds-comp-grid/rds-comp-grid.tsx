@@ -52,8 +52,8 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';// Types and Enums
+
+// Types and Enums
 export enum ActionPosition {
   Right = "right",
   Left = "left",
@@ -250,69 +250,6 @@ export interface RdsCompGridProps {
   // Loading
   isLoading?: boolean;
 }
-const SortableRow: React.FC<{
-  id: string;
-  children: React.ReactNode;
-  isEnabled: boolean;
-}> = ({ id, children, isEnabled }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id, disabled: !isEnabled });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-  };
-
-  return (
-    <TableRow
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...(isEnabled ? listeners : {})}
-    >
-      {children}
-    </TableRow>
-  );
-};
-
-const SortableHeaderCell: React.FC<{
-  id: string;
-  children: React.ReactNode;
-  isEnabled: boolean;
-}> = ({ id, children, isEnabled }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id, disabled: !isEnabled });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-  };
-
-  return (
-    <TableCell
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...(isEnabled ? listeners : {})}
-    >
-      {children}
-    </TableCell>
-  );
-};
 
 const EditableCell: React.FC<{
   value: any;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { getToolbarConfig, ToolbarButton } from "./rds-comp-toolbar-config";
 import "./rds-comp-toolbar.scss";
 
@@ -72,7 +72,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
     }
   }, [openDropdown]);
 
-  const handleFormatClick = (format: string, hasDropdown?: boolean) => {
+  const handleFormatClick = useCallback((format: string, hasDropdown?: boolean) => {
     if (isDisabled) return;
     
     if (hasDropdown) {
@@ -86,9 +86,9 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
       );
     }
     onAction?.(format);
-  };
+  }, [isDisabled, openDropdown, onAction]);
 
-  const handleDropdownSelect = (parentAction: string, option: string) => {
+  const handleDropdownSelect = useCallback((parentAction: string, option: string) => {
     const isEmojiAction = parentAction === 'emoji' || parentAction === 'insertEmoji';
 
     if (!isEmojiAction) {
@@ -100,9 +100,28 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
     }
 
     onAction?.(option);
-  };
+  }, [onAction]);
 
-  const isActive = (format: string) => activeFormats.includes(format);
+  const isActive = useCallback((format: string) => activeFormats.includes(format), [activeFormats]);
+
+  const renderSectionButtons = useCallback((section: ToolbarButton[]) => (
+    <div className="rds-comp-toolbar__section">
+      {section.map((button, buttonIndex) => (
+        <ToolbarButton
+          key={buttonIndex}
+          icon={button.icon}
+          action={button.action}
+          hasDropdown={button.hasDropdown}
+          ariaLabel={button.ariaLabel}
+          isActive={isActive(button.action)}
+          isDisabled={isDisabled}
+          isDropdownOpen={openDropdown === button.action}
+          onClick={() => handleFormatClick(button.action, button.hasDropdown)}
+          onDropdownSelect={handleDropdownSelect}
+        />
+      ))}
+    </div>
+  ), [isActive, isDisabled, openDropdown, handleFormatClick, handleDropdownSelect]);
 
   return (
     <div
@@ -118,22 +137,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
           {toolbarConfig.sections.map((section, sectionIndex) => (
             <React.Fragment key={sectionIndex}>
               {sectionIndex > 0 && <div className="rds-comp-toolbar__divider" />}
-              <div className="rds-comp-toolbar__section">
-                {section.map((button, buttonIndex) => (
-                  <ToolbarButton
-                    key={buttonIndex}
-                    icon={button.icon}
-                    action={button.action}
-                    hasDropdown={button.hasDropdown}
-                    ariaLabel={button.ariaLabel}
-                    isActive={isActive(button.action)}
-                    isDisabled={isDisabled}
-                    isDropdownOpen={openDropdown === button.action}
-                    onClick={() => handleFormatClick(button.action, button.hasDropdown)}
-                    onDropdownSelect={handleDropdownSelect}
-                  />
-                ))}
-              </div>
+              {renderSectionButtons(section)}
             </React.Fragment>
           ))}
         </div>
@@ -144,22 +148,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
               key={sectionIndex}
               className={`rds-comp-toolbar__row ${sectionIndex === 1 ? 'rds-comp-toolbar__row--secondary' : ''}`}
             >
-              <div className="rds-comp-toolbar__section">
-                {section.map((button, buttonIndex) => (
-                  <ToolbarButton
-                    key={buttonIndex}
-                    icon={button.icon}
-                    action={button.action}
-                    hasDropdown={button.hasDropdown}
-                    ariaLabel={button.ariaLabel}
-                    isActive={isActive(button.action)}
-                    isDisabled={isDisabled}
-                    isDropdownOpen={openDropdown === button.action}
-                    onClick={() => handleFormatClick(button.action, button.hasDropdown)}
-                    onDropdownSelect={handleDropdownSelect}
-                  />
-                ))}
-              </div>
+              {renderSectionButtons(section)}
             </div>
           ))}
         </>

@@ -1,191 +1,221 @@
-import React, { useState, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
 import "./rds-comp-ai-attachement.scss";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsCompAiFabMenu from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
-import AttachmentIcon from '@mui/icons-material/Attachment';
+import AttachmentIcon from "@mui/icons-material/Attachment";
 import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 
 export interface RdsCompAiAttachementProps {
-    menuIcon?: string;
-    modalTitle?: string;
-    hintText?: string;
-    inputPlaceholder?: string;
-    showBadge?: boolean;
-    badgeLabel?: string;
-    badgeColor?: string;
-    uploadText?: string;
-    importText?: string;
-    modalText?: string;
-    image?: string;
-    userData?: UserData[];
-    onFileSelect?: (file: File) => void;
-    onFigmaSubmit?: (value: string) => void;
-    handleAddComment?: (comment: Comment) => void;
-    menuAlignment?: "left" | "right";
+  menuIcon?: string;
+  modalTitle?: string;
+  hintText?: string;
+  inputPlaceholder?: string;
+  showBadge?: boolean;
+  badgeLabel?: string;
+  badgeColor?: string;
+  uploadText?: string;
+  importText?: string;
+  modalText?: string;
+  image?: string;
+  userData?: UserData[];
+  onFileSelect?: (file: File) => void;
+  onFigmaSubmit?: (value: string) => void;
+  handleAddComment?: (comment: Comment) => void;
+  menuAlignment?: "left" | "right";
 }
 
 export interface UserData {
-    firstName: string;
-    lastName: string;
-    activeDotButton: boolean;
-    status: string;
-    size: string;
-    colorVariant: string;
-    time: string;
-    profilePic: string;
-    messageStatus: string;
-    comments: Comment[];
+  firstName: string;
+  lastName: string;
+  activeDotButton: boolean;
+  status: string;
+  size: string;
+  colorVariant: string;
+  time: string;
+  profilePic: string;
+  messageStatus: string;
+  comments: Comment[];
 }
 
 export interface Comment {
-    firstName: string;
-    lastName: string;
-    comment: string;
-    image?: string;
+  firstName: string;
+  lastName: string;
+  comment: string;
+  image?: string;
 }
 
-registerMaterialIcons({ 'attachment_icon': AttachmentIcon });
+registerMaterialIcons({ attachment_icon: AttachmentIcon });
 
-const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
-    const [showModal, setShowModal] = useState(false);
-    const [figmaUrl, setFigmaUrl] = useState("");
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const [commentList, setCommentList] = useState<Comment[]>(
-        props.userData?.[0]?.comments || []
-    );
+const RdsCompAiAttachement = ({
+  menuIcon,
+  modalTitle,
+  hintText,
+  inputPlaceholder,
+  showBadge,
+  badgeLabel,
+  badgeColor,
+  uploadText,
+  importText,
+  modalText,
+  userData,
+  onFigmaSubmit,
+  handleAddComment,
+  menuAlignment = "left",
+}: RdsCompAiAttachementProps) => {
+  const [showModal, setShowModal] = useState(false);
+  const [figmaUrl, setFigmaUrl] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [, setCommentList] = useState<Comment[]>(userData?.[0]?.comments || []);
 
-    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file && file.type.startsWith("image/")) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64String = reader.result as string;
+  const handleFileUpload = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file?.type.startsWith("image/")) return;
 
-                const newComment: Comment = {
-                    firstName: props.userData?.[0]?.firstName || "",
-                    lastName: props.userData?.[0]?.lastName || "",
-                    comment: "",
-                    image: base64String,
-                };
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        const newComment: Comment = {
+          firstName: userData?.[0]?.firstName || "",
+          lastName: userData?.[0]?.lastName || "",
+          comment: "",
+          image: base64String,
+        };
 
-                setCommentList([...commentList, newComment]);
-                if (props.handleAddComment) {
-                    props.handleAddComment(newComment);
-                }
+        setCommentList((prev) => [...prev, newComment]);
+        handleAddComment?.(newComment);
 
-                if (fileInputRef.current) {
-                    fileInputRef.current.value = "";
-                }
-            };
-            reader.readAsDataURL(file);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
         }
-    };
+      };
+      reader.readAsDataURL(file);
+    },
+    [handleAddComment, userData]
+  );
 
-    const openModal = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation();
-        setShowModal(true);
+  const openModal = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    setShowModal(true);
 
-        if (showModal) {
-            const fabMenu = document.querySelector(".fab-dropdown");
-            if (fabMenu && fabMenu.classList.contains("show")) {
-                fabMenu.classList.remove("show");
-            }
-        }
-    };
+    const fabMenu = document.querySelector(".fab-dropdown");
+    if (fabMenu?.classList.contains("show")) {
+      fabMenu.classList.remove("show");
+    }
+  }, []);
 
-    const closeModal = () => {
-        setShowModal(false);
-        setFigmaUrl(""); 
-    };
+  const closeModal = useCallback(() => {
+    setShowModal(false);
+    setFigmaUrl("");
+  }, []);
 
-    return (
-        <>
-            <input
-                type="file"
-                ref={fileInputRef}
-                className="rds-comp-ai-attachement__file-input"
-                style={{ display: "none" }}
-                onChange={handleFileUpload}
-                aria-label="Upload attachment"
-            />
+  const handleImportClick = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
 
-            <div className="rds-comp-ai-attachement__dropdown">
-                <RdsCompAiFabMenu
-                    menuIcon={props.menuIcon}
-                    backgroundType="none"
-                    id="attachment-text"
-                    isShowBorder={true}
-                    alignment={props.menuAlignment || "left"}
-                    listItems={[
-                        {
-                            key: "new",
-                            value: (
-                                <button
-                                    onClick={openModal}
-                                    className="rds-comp-ai-attachement__reset-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal1234"
-                                >
-                                    <span className="rds-comp-ai-attachement__upload-text">{props.uploadText}</span>
-                                    {props.showBadge && (
-                                        <RdsBadge
-                                            colorVariant={props.badgeColor as any || "primary"}
-                                            layout="text"
-                                            shape="rectangle"
-                                            badgeContent={props.badgeLabel || ""}
-                                            size="small"
-                                            state="default"
-                                            styleType="primary"
-                                        />
-                                    )}
-                                </button>
-                            ),
-                        },
-                        {
-                            key: "refresh",
-                            value: (
-                                <button
-                                    onClick={() => fileInputRef.current?.click()}
-                                    className="rds-comp-ai-attachement__reset-btn"
-                                >
-                                    {props.importText}
-                                </button>
-                            ),
-                        },
-                    ]}
-                />
-            </div>
+  const handleFigmaInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFigmaUrl(e.target.value);
+      onFigmaSubmit?.(e.target.value);
+    },
+    [onFigmaSubmit]
+  );
 
-            {showModal && (
-                    <RdsModal
-                        isOpen={showModal}
-                        onClose={closeModal}
-                        title={props.modalTitle}
-                        actions={null}
-                        showCloseButton={true}
-                    >
-                        <p className="text-muted rds-comp-ai-attachement__import-size">{props.modalText}</p>
-                        <RdsInput
-                            hintText={props.hintText}
-                            id="default-input"
-                            placeholder={props.inputPlaceholder}
-                            layout="text"
-                            name="Enter Figma URL"
-                            state="default"
-                            style="default"
-                            value={figmaUrl}
-                            onChange={(e) => {
-                                setFigmaUrl(e.target.value);
-                                props.onFigmaSubmit?.(e.target.value);
-                            }}
-                        />
-                    </RdsModal>
+  const listItems = useMemo(
+    () => [
+      {
+        key: "new",
+        value: (
+          <button
+            onClick={openModal}
+            className="rds-comp-ai-attachement__reset-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#modal1234"
+          >
+            <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
+            {showBadge && (
+              <RdsBadge
+                colorVariant={(badgeColor as any) || "primary"}
+                layout="text"
+                shape="rectangle"
+                badgeContent={badgeLabel || ""}
+                size="small"
+                state="default"
+                styleType="primary"
+              />
             )}
-        </>
-    );
+          </button>
+        ),
+      },
+      {
+        key: "refresh",
+        value: (
+          <button onClick={handleImportClick} className="rds-comp-ai-attachement__reset-btn">
+            {importText}
+          </button>
+        ),
+      },
+    ],
+    [
+      openModal,
+      uploadText,
+      showBadge,
+      badgeColor,
+      badgeLabel,
+      handleImportClick,
+      importText,
+    ]
+  );
+
+  return (
+    <>
+      <input
+        type="file"
+        ref={fileInputRef}
+        className="rds-comp-ai-attachement__file-input"
+        style={{ display: "none" }}
+        onChange={handleFileUpload}
+        aria-label="Upload attachment"
+      />
+
+      <div className="rds-comp-ai-attachement__dropdown">
+        <RdsCompAiFabMenu
+          menuIcon={menuIcon}
+          backgroundType="none"
+          id="attachment-text"
+          isShowBorder={true}
+          alignment={menuAlignment}
+          listItems={listItems}
+        />
+      </div>
+
+      {showModal && (
+        <RdsModal
+          isOpen={showModal}
+          onClose={closeModal}
+          title={modalTitle}
+          actions={null}
+          showCloseButton={true}
+        >
+          <p className="text-muted rds-comp-ai-attachement__import-size">{modalText}</p>
+          <RdsInput
+            hintText={hintText}
+            id="default-input"
+            placeholder={inputPlaceholder}
+            layout="text"
+            name="Enter Figma URL"
+            state="default"
+            style="default"
+            value={figmaUrl}
+            onChange={handleFigmaInputChange}
+          />
+        </RdsModal>
+      )}
+    </>
+  );
 };
 
-RdsCompAiAttachement.displayName = "RdsCompAiAttachement"
+RdsCompAiAttachement.displayName = "RdsCompAiAttachement";
 export default RdsCompAiAttachement;

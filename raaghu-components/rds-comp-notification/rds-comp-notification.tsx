@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { RdsButton, RdsIconButton } from "../../raaghu-elements";
@@ -46,21 +46,19 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
         setVisibleNotifications(notifications);
     }, [notifications]);
 
-    const handleDismiss = (event: any, notification: any, notificationIndex: number) => {
-        setVisibleNotifications(prev => 
-            prev.filter((n, index) => index !== notificationIndex)
-        );
-        
-        onDismiss?.(event, notification);
-    };
+    const removeNotificationByIndex = useCallback((notificationIndex: number) => {
+        setVisibleNotifications((prev) => prev.filter((_, index) => index !== notificationIndex));
+    }, []);
 
-    const handleSecondaryButtonClick = (event: any, notification: any, notificationIndex: number) => {
-        setVisibleNotifications(prev => 
-            prev.filter((n, index) => index !== notificationIndex)
-        );
-        
+    const handleDismiss = useCallback((event: any, notification: any, notificationIndex: number) => {
+        removeNotificationByIndex(notificationIndex);
         onDismiss?.(event, notification);
-    };
+    }, [onDismiss, removeNotificationByIndex]);
+
+    const handleSecondaryButtonClick = useCallback((event: any, notification: any, notificationIndex: number) => {
+        removeNotificationByIndex(notificationIndex);
+        onDismiss?.(event, notification);
+    }, [onDismiss, removeNotificationByIndex]);
     return (
         <Fragment>
             {visibleNotifications.map((notification, index) => (

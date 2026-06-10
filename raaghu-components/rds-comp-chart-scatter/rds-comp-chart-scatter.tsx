@@ -1,68 +1,66 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import {
+  applyChartThemeColors,
+  attachChartData,
+  cloneChartOptions,
+  useChartThemeMode,
+} from "../chart-utils";
 import "./rds-comp-chart-scatter.scss";
 
 export interface RdsCompScatterChartProps {
-    labels: any[];
-    options: ChartConfiguration['options'];
-    dataSets: ChartConfiguration['data']['datasets'];
-    id: string;
-    chartLabel?: string;
+  labels: any[];
+  options: ChartConfiguration["options"];
+  dataSets: ChartConfiguration["data"]["datasets"];
+  id: string;
+  chartLabel?: string;
 }
 
-const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
-    const { id, labels, options, dataSets } = props;
-    const chartRef = useRef<Chart | null>(null);
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+const RdsCompScatterChart = ({
+  id,
+  labels,
+  options,
+  dataSets,
+  chartLabel,
+}: RdsCompScatterChartProps) => {
+  const chartRef = useRef<Chart | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const themeMode = useChartThemeMode();
 
-    const [themeMode, setThemeMode] = React.useState(() => {
-        if (typeof document !== 'undefined') {
-            return document.documentElement.getAttribute('data-theme') || 'light';
-        }
-        return 'light';
+  useEffect(() => {
+    chartRef.current?.destroy();
+
+    const ctx = canvasRef.current?.getContext("2d");
+    if (!ctx) return;
+
+    const chartOptions = cloneChartOptions(options);
+    const chartData = { labels, datasets: dataSets };
+
+    attachChartData(chartOptions, chartData);
+    applyChartThemeColors(chartOptions);
+
+    chartRef.current = new Chart(ctx, {
+      type: "scatter",
+      data: chartData,
+      options: chartOptions,
     });
 
-    React.useEffect(() => {
-        if (typeof window === 'undefined') return;
-        const observer = new MutationObserver(() => {
-            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
-        });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        return () => observer.disconnect();
-    }, []);
+    return () => {
+      chartRef.current?.destroy();
+    };
+  }, [id, labels, options, dataSets, themeMode]);
 
-    useEffect(() => {
-        chartRef.current?.destroy();
-
-        const ctx = canvasRef.current?.getContext("2d");
-        if (!ctx) return;
-
-        const chartOptions = JSON.parse(JSON.stringify(options || {}));
-        
-        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
-        const chartData = { labels, datasets: dataSets };
-        if (!chartOptions.data) {
-            chartOptions.data = chartData;
-        }
-        
-        applyChartThemeColors(chartOptions);
-
-        chartRef.current = new Chart(ctx, {
-            type: "scatter",
-            data: chartData,
-            options: chartOptions,
-        });
-
-
-        return () => { chartRef.current?.destroy(); };
-    }, [id, labels, options, dataSets, themeMode]);
-
-    return (
-        <div className="rds-comp-chart-scatter">
-            <canvas id={id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Scatter chart'} />
-        </div>
-    );
+  return (
+    <div className="rds-comp-chart-scatter">
+      <canvas
+        id={id}
+        ref={canvasRef}
+        role="img"
+        aria-label={chartLabel ?? "Scatter chart"}
+      />
+    </div>
+  );
 };
-RdsCompScatterChart.displayName = 'RdsCompScatterChart';
+
+RdsCompScatterChart.displayName = "RdsCompScatterChart";
 export default RdsCompScatterChart;
