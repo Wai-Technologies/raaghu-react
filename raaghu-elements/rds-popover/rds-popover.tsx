@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { 
   Popover as MuiPopover, 
   type PopoverProps, 
@@ -15,7 +15,7 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'>
   onClose: () => void;
   anchorEl: Element | null;
   title?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   showCloseButton?: boolean;
   width?: number | string;
   maxWidth?: number | string;

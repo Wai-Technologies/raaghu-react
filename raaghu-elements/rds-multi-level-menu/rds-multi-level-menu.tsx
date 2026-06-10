@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -60,7 +60,7 @@ export const RdsMultiLevelMenu = ({
     setOpenIndexes(newOpenIndexes);
   };
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, level: number, index: number) => {
+  const handleMenuOpen = (event: MouseEvent<HTMLElement>, level: number, index: number) => {
     const newAnchors = [...anchorEls];
     newAnchors[0] = event.currentTarget as HTMLElement;
     setAnchorEls(newAnchors.slice(0, 1));

@@ -1,4 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useState,
+  type ReactElement,
+  type ReactNode,
+  type SyntheticEvent,
+} from 'react';
 import {
   AppBar as MuiAppBar,
   Toolbar as MuiToolbar,
@@ -23,26 +32,26 @@ import "./rds-app-bar.scss";
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
 export interface RdsAppBarProps extends AppBarProps {
   title?: string;
-  rightActions?: React.ReactNode;
-  centerContent?: React.ReactNode;
+  rightActions?: ReactNode;
+  centerContent?: ReactNode;
   size?: RdsAppBarSize;
-  logo?: React.ReactNode;
+  logo?: ReactNode;
   showLogo?: boolean;
   onMenuClick?: () => void;
   showMenuButton?: boolean;
-  actions?: React.ReactNode;
+  actions?: ReactNode;
   userName?: string;
   userEmail?: string;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
-  tabs?: Array<string | { label: string;[key: string]: any }>;
+  tabs?: Array<string | { label: string; [key: string]: unknown }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
-  subHeader?: React.ReactNode;
+  subHeader?: ReactNode;
   showSearch?: boolean;
   variantStyle?: string;
-  overflowContent?: React.ReactNode;
+  overflowContent?: ReactNode;
 }
 const toolbarHeights: Record<RdsAppBarSize, number> = {
   small: 55,
@@ -223,7 +232,7 @@ const RdsAppBar = ({
               <Box className="rds-bottom-navigation">
                 <Box className="rds-bottom-navigation-single-row">
                   {Array.isArray(tabs) && tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : (t as any).label || String(i);
+                    const label = typeof t === 'string' ? t : t.label || String(i);
                     const isActive = tabValue === i;
                     return (
                       <RdsButton
@@ -275,7 +284,7 @@ const RdsAppBar = ({
                   }}
                 >
                   {tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : (t as any).label || String(i);
+                    const label = typeof t === 'string' ? t : t.label || String(i);
                     const isActive = tabValue === i;
                     return (
                       <RdsButton
@@ -309,17 +318,17 @@ const RdsAppBar = ({
                       boxShadow: tokens.cssVar('elevation-2'),
                     }}
                   >
-                    {React.isValidElement<{ children?: React.ReactNode }>(overflowContent) && overflowContent.props.children
-                      ? React.Children.toArray(overflowContent.props.children).map((child, i) => {
-                          if (React.isValidElement(child)) {
-                            const childProps = (child as React.ReactElement<{ onClick?: (e: React.SyntheticEvent) => void; className?: string }>).props;
+                    {isValidElement<{ children?: ReactNode }>(overflowContent) && overflowContent.props.children
+                      ? Children.toArray(overflowContent.props.children).map((child, i) => {
+                          if (isValidElement(child)) {
+                            const childProps = (child as ReactElement<{ onClick?: (e: SyntheticEvent) => void; className?: string }>).props;
                             const existingOnClick = childProps.onClick;
                             const childClassName = `${childProps.className ? `${childProps.className} ` : ''}rds-bottom-nav-tab`;
-                            return React.cloneElement(
-                              child as React.ReactElement<Record<string, unknown>>,
+                            return cloneElement(
+                              child as ReactElement<Record<string, unknown>>,
                               {
                                 key: i,
-                                onClick: (e: React.SyntheticEvent) => {
+                                onClick: (e: SyntheticEvent) => {
                                   existingOnClick?.(e);
                                   setLocalBottomActive(i);
                                 },

@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
+import { useState, useEffect, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
 import clsx from 'clsx';
 import './rds-input.scss';
@@ -209,6 +209,16 @@ const RdsInput = ({
   };
   const computedPlaceholder = placeholder ?? getPlaceholder(layout);
   const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
+  const numericInputProps: InputHTMLAttributes<HTMLInputElement> =
+    layout === 'phone number' || layout === 'number' || layout === 'card number'
+      ? {
+          inputMode: layout === 'phone number' ? 'tel' : 'numeric',
+          ...(layout === 'phone number' ? { pattern: '^(?:\\+\\d{12}|\\d{10})$' } : {}),
+          onKeyDown: handleNumericKeyDown,
+          ...(layout === 'phone number' ? { onInput: handlePhoneInput } : {}),
+        }
+      : {};
+
   return (
     <div className={clsx('rds-input', sizeClass, pillClass, stateClass, inlineTitleClass)}>
       {titlePosition === 'title-above' && label && (
@@ -241,17 +251,7 @@ const RdsInput = ({
           },
           startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
           endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
-          inputProps: {
-            ...(layout === 'phone number' || layout === 'number' || layout === 'card number'
-              ? {
-                  inputMode: layout === 'phone number' ? 'tel' : 'numeric',
-                  ...(layout === 'phone number' ? { pattern: '^(?:\\+\\d{12}|\\d{10})$' } : {}),
-                  onKeyDown: handleNumericKeyDown,
-                  ...(layout === 'phone number' ? { onInput: handlePhoneInput } : {}),
-                }
-              : {}),
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } as any,
+          inputProps: numericInputProps,
           ...(props.InputProps || {}),
           
         }}

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, type SyntheticEvent } from 'react';
 import { Tabs as MuiTabs, Tab as MuiTab, type TabsProps } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
@@ -35,8 +35,8 @@ export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
   onTabChange?: (tabId: string | number) => void;
   layout?: RdsTabsLayout;
   type?: 'horizontal' | 'vertical';
-  leftIcon?: React.ReactNode; 
-  rightIcon?: React.ReactNode; 
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   showLeftIcon?: boolean; 
   showRightIcon?: boolean; 
   state?: 'default' | 'hover' | 'selected' | 'disabled'; 
@@ -63,7 +63,7 @@ const RdsTabs = ({
     return result;
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string | number) => {
+  const handleChange = (event: SyntheticEvent, newValue: string | number) => {
     if (onTabChange) {
       onTabChange(newValue);
     }

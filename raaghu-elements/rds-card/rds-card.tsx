@@ -1,4 +1,4 @@
-import React, { type ReactNode } from 'react';
+import { type ReactElement, type ReactNode } from 'react';
 import { Card as MuiCard, type CardProps, Avatar, Typography } from '@mui/material';
 import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camera, Image, MusicNote, VideoLibrary,
          Description, Folder, CalendarToday, AccessTime, Search, Add, Edit, Delete, Check, Close, ArrowForward, ArrowBack,
@@ -7,7 +7,7 @@ import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camer
 import clsx from 'clsx';
 import './rds-card.scss';
 
-const ICON_MAP: Record<string, React.ReactElement> = {
+const ICON_MAP: Record<string, ReactElement> = {
   person: <Person />,
   home: <Home />,
   settings: <Settings />,

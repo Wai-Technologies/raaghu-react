@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-switch.scss';
@@ -65,7 +65,7 @@ const RdsSwitch = ({
     }
   }, [normalizedState, props.defaultChecked, isControlled]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     if (!isControlled && !disabled) {
       setInternalChecked(value);
     }
@@ -80,31 +80,21 @@ const RdsSwitch = ({
 
   const { defaultChecked: _, ...restProps } = props;
 
-  const computedAriaLabel =
-    props['aria-label'] ||
+  const computedAriaLabel: string =
+    (typeof props['aria-label'] === 'string' ? props['aria-label'] : undefined) ||
     (typeof label === 'string' ? label : undefined) ||
     'Switch';
 
-  const switchProps: SwitchProps = {
+  const switchProps = {
     ...restProps,
     checked: isControlled ? props.checked : internalChecked,
     disabled,
     onChange: handleChange,
     className: clsx(styleClass, props.className),
     inputProps: {
-      ...(restProps.inputProps as object),
-      'aria-label':
-        ((restProps.inputProps as Record<string, unknown>)?.['aria-label']) ||
-        computedAriaLabel,
+      ...(restProps.inputProps ?? {}),
+      'aria-label': computedAriaLabel,
     },
-    slotProps: {
-      ...(restProps as any).slotProps,
-      input: {
-        ...((restProps as any).slotProps?.input ?? {}),
-        'aria-label':
-          ((restProps as any).slotProps?.input?.['aria-label']) || computedAriaLabel,
-      },
-    } as any,
   };
 
   if (showLabel === false) {

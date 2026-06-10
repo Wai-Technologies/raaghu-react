@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
 import { Search, Clear } from '@mui/icons-material';
 import clsx from 'clsx';
@@ -38,7 +38,7 @@ const RdsSearch = ({
 }: RdsSearchProps) => {
   const [searchTimeout, setSearchTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
 
     const newValue = event.target.value;
@@ -66,7 +66,7 @@ const RdsSearch = ({
     onClear?.();
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       onSearch?.(value);

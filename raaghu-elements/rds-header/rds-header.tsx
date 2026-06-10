@@ -20,11 +20,11 @@ export interface RdsHeaderProps extends AppBarProps {
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
-  tabs?: Array<string | { label: string;[key: string]: any }>;
+  tabs?: Array<string | { label: string; [key: string]: unknown }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
-  subHeader?: React.ReactNode;
-  children?: React.ReactNode;
+  subHeader?: ReactNode;
+  children?: ReactNode;
 }
 const RdsHeader = ({
   title,

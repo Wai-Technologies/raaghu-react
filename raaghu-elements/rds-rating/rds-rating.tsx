@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState, type SyntheticEvent } from 'react';
 import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import './rds-rating.scss';
@@ -92,7 +92,7 @@ const RdsRating = ({
     }
   }, [value, level, type]);
 
-  const handleStarChange = (event: React.SyntheticEvent, newValue: number | null) => {
+  const handleStarChange = (event: SyntheticEvent, newValue: number | null) => {
     let finalValue: number | null = newValue;
     
     if (newValue === currentValue && newValue !== 0) {
@@ -106,13 +106,13 @@ const RdsRating = ({
     }
   };
 
-  const handleSliderChange = (event: Event | React.SyntheticEvent, newValue: number | number[]) => {
+  const handleSliderChange = (event: Event | SyntheticEvent, newValue: number | number[]) => {
     let value = Array.isArray(newValue) ? newValue[0] : newValue;
     value = snapToAllowed(value);
     setInternalValue(value);
     
     if (onChange) {
-      onChange(event as any, value);
+      onChange(event as SyntheticEvent<Element, Event>, value);
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo, type ChangeEvent } from 'react';
 import {
   Radio as MuiRadio,
   RadioGroup,
@@ -159,7 +159,7 @@ const RdsRadio= ({
           value={effectiveValue}
           onChange={(e, val) => {
             if (typeof selected === 'undefined' && props.onChange) {
-              props.onChange(e as React.ChangeEvent<HTMLInputElement>, val);
+              props.onChange(e as ChangeEvent<HTMLInputElement>, val);
             }
           }}
           {...restProps}

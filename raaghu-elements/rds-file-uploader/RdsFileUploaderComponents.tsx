@@ -1,17 +1,17 @@
-import { useState, useRef, type DragEvent, type ChangeEvent } from 'react';
+import { useRef, useState, type ChangeEvent, type DragEvent } from 'react';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import { CloudUpload, Close } from '@mui/icons-material';
-import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
+import RdsFileUploader, { type FileWithProgress, type RdsFileUploaderProps } from './rds-file-uploader';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 
 interface RdsDropZoneSideIconProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
-  onDragOver: (e: DragEvent) => void;
-  onDragLeave: (e: DragEvent) => void;
-  onDrop: (e: DragEvent) => void;
+  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
+  onDrop: (e: DragEvent<HTMLDivElement>) => void;
   openFileDialog: () => void;
 }
 
@@ -19,9 +19,9 @@ interface RdsDropZoneWithButtonProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
-  onDragOver: (e: DragEvent) => void;
-  onDragLeave: (e: DragEvent) => void;
-  onDrop: (e: DragEvent) => void;
+  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
+  onDrop: (e: DragEvent<HTMLDivElement>) => void;
   openFileDialog: () => void;
 }
 
@@ -29,9 +29,9 @@ interface RdsDropZoneDefaultProps {
   mode: string;
   isDragOver: boolean;
   disabled: boolean;
-  onDragOver: (e: DragEvent) => void;
-  onDragLeave: (e: DragEvent) => void;
-  onDrop: (e: DragEvent) => void;
+  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
+  onDrop: (e: DragEvent<HTMLDivElement>) => void;
   openFileDialog: () => void;
 }
 
@@ -114,8 +114,7 @@ export const useFileUploader = ({
   };
 
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
-    const incoming = event.target.files as any;
-    const selectedFiles: File[] = Array.isArray(incoming) ? incoming : Array.from(incoming || []);
+    const selectedFiles = Array.from(event.target.files ?? []);
     if (selectedFiles.length === 0) return;
 
     const fileNames = selectedFiles.map(file => file.name).join(', ');
@@ -125,20 +124,20 @@ export const useFileUploader = ({
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  const handleDragOver = (event: DragEvent) => {
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragOver(true);
   };
 
-  const handleDragLeave = (event: DragEvent) => {
+  const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragOver(false);
   };
 
-  const handleDrop = (event: DragEvent) => {
+  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragOver(false);
-    const droppedFiles = Array.from(event.dataTransfer.files);
+    const droppedFiles = Array.from(event.dataTransfer?.files ?? []);
     addFiles(droppedFiles);
   };
 
@@ -157,6 +156,7 @@ export const useFileUploader = ({
     handleDragOver,
     handleDragLeave,
     handleDrop,
+    addFiles,
     openFileDialog,
     setSelectedFileName,
     setFiles,
@@ -171,7 +171,7 @@ export const RdsDropZoneSideIcon = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}) => {
+}: RdsDropZoneSideIconProps) => {
   const tokens = useRdsTokens();
 
   return (
@@ -210,7 +210,7 @@ export const RdsDropZoneWithButton = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}) => {
+}: RdsDropZoneWithButtonProps) => {
   const tokens = useRdsTokens();
 
   return (
@@ -257,7 +257,7 @@ export const RdsDropZoneWithButton = ({
   );
 };
 
-export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
+export const RdsDropZoneDefault = ({
   mode,
   isDragOver,
   disabled,
@@ -265,7 +265,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}) => {
+}: RdsDropZoneDefaultProps) => {
   const tokens = useRdsTokens();
 
   return (
@@ -293,17 +293,17 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
   );
 };
 
-export const RenderFileUploader = (args: any) => {
-  const [files, setFiles] = React.useState<FileWithProgress[]>([]);  
+export const RenderFileUploader = (args: RdsFileUploaderProps) => {
+  const [files, setFiles] = useState<FileWithProgress[]>([]);
   return <RdsFileUploader {...args} onFilesChange={setFiles} />;
 };
 
-export const RdsFileList: React.FC<RdsFileListProps> = ({
+export const RdsFileList = ({
   files,
   isUploading,
   removeFile,
   formatFileSize,
-}) => {
+}: RdsFileListProps) => {
   const tokens = useRdsTokens();
 
   return (

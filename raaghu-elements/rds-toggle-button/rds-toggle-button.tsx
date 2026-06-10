@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from 'react';
 import { ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, type ToggleButtonGroupProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-toggle-button.scss';
 export interface RdsToggleButtonOption {
   value: string;
   label: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   disabled?: boolean;
 }
 export type { RdsStandaloneToggleButtonProps } from './rds-standalone-toggle-button';
@@ -69,7 +69,7 @@ const RdsToggleButton = ({
       : 'rds-toggle-button--small';
 
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string | string[] | null) => {
+  const handleChange = (event: MouseEvent<HTMLElement>, newValue: string | string[] | null) => {
     const finalValue = newValue;
     
     if (enforceSelected) {
@@ -87,7 +87,7 @@ const RdsToggleButton = ({
   };
   
   const handleCustomButtonClick = useMemo(() => {
-    return (event: React.MouseEvent<HTMLElement>, optionValue: string) => {
+    return (event: MouseEvent<HTMLElement>, optionValue: string) => {
       if (disabled) {
         return;
       }

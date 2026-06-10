@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState, type FocusEvent, type ReactNode } from 'react';
 import { Autocomplete as MuiAutocomplete, TextField, Chip, type AutocompleteProps } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import Radio from '@mui/material/Radio';
@@ -22,8 +22,8 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boole
   isShowCheckbox?: boolean;
   isShowRadio?: boolean;
   isShowUser?: boolean;
-  userIcon?: React.ReactNode;
-  popupIcon?: React.ReactNode;
+  userIcon?: ReactNode;
+  popupIcon?: ReactNode;
   openOnFocus?: boolean;
   allowMultiple?: boolean;
 }
@@ -203,7 +203,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
                   setOpen(true);
                 }
                 if (params.inputProps?.onFocus) {
-                  params.inputProps.onFocus(e as React.FocusEvent<HTMLInputElement>);
+                  params.inputProps.onFocus(e as FocusEvent<HTMLInputElement>);
                 }
               }}
             />

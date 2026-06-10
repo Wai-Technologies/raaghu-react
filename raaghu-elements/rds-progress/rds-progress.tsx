@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment, type CSSProperties, type ReactNode } from 'react';
 import {
   LinearProgress as MuiLinearProgress,
   CircularProgress as MuiCircularProgress,
@@ -22,7 +22,7 @@ export interface RdsProgressProps {
   label?: string;
   totalSteps?: number;
   stepperType?: 'number' | 'circle';
-  sx?: React.CSSProperties;
+  sx?: CSSProperties;
 }
 
 const RdsProgress = ({
@@ -55,7 +55,7 @@ const RdsProgress = ({
   const finalValue = getProgressValue();
   const colorValue = getColorValue();
 
-  const renderWithLabel = (baseClasses: string, progressElement: React.ReactNode, labelPosition: 'overlay' | 'side') => {
+  const renderWithLabel = (baseClasses: string, progressElement: ReactNode, labelPosition: 'overlay' | 'side') => {
     if (!showLabel || variant !== 'determinate') return <div className={baseClasses}>{progressElement}</div>;
     
     const labelElement = <Typography variant={labelPosition === 'overlay' ? 'caption' : 'body2'} component="div" color="text.secondary" className="rds-progress__label">{label || `${Math.round(finalValue || 0)}%`}</Typography>;
@@ -95,7 +95,7 @@ const RdsProgress = ({
             const stepClass = isCompleted ? 'completed' : isCurrent ? 'current' : 'upcoming';
             const typeClass = stepperType === 'circle' ? 'rds-progress__stepper-step--circle' : 'rds-progress__stepper-step--number';
             return (
-              <React.Fragment key={index}>
+              <Fragment key={index}>
                 <Box
                   className={`rds-progress__stepper-step ${typeClass} rds-progress__stepper-step--${stepClass}`}
                   sx={{ width: 'var(--rds-progress-step-size)', height: 'var(--rds-progress-step-size)' }}
@@ -112,7 +112,7 @@ const RdsProgress = ({
                       sx={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
                   />
                 )}
-              </React.Fragment>
+              </Fragment>
             );
           })}
         </Box>

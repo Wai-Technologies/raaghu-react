@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, type ReactNode, type SyntheticEvent } from 'react';
 import {
   SpeedDial as MuiSpeedDial,
   SpeedDialAction as MuiSpeedDialAction,
@@ -8,7 +8,7 @@ import {
 import type { OpenReason, CloseReason } from '@mui/material/SpeedDial';
 
 export interface RdsSpeedDialAction {
-  icon: React.ReactNode;
+  icon: ReactNode;
   name: string;
   onClick?: () => void;
   tooltipTitle?: string;
@@ -16,8 +16,8 @@ export interface RdsSpeedDialAction {
 
 export interface RdsSpeedDialProps extends Omit<SpeedDialProps, 'children'> {
   actions: RdsSpeedDialAction[];
-  icon?: React.ReactNode;
-  openIcon?: React.ReactNode;
+  icon?: ReactNode;
+  openIcon?: ReactNode;
   tooltipTitle?: string;
 }
 
@@ -38,14 +38,14 @@ const RdsSpeedDial = ({
   const useInternalState = open !== true; 
   const finalOpenState = isForceOpen ? true : internalOpen;
   
-  const handleOpen = (event: React.SyntheticEvent<{}, Event>, reason: OpenReason) => {
+  const handleOpen = (event: SyntheticEvent<{}, Event>, reason: OpenReason) => {
     if (useInternalState) {
       setInternalOpen(true);
     }
     onOpen?.(event, reason);
   };
   
-  const handleClose = (event: React.SyntheticEvent<{}, Event>, reason: CloseReason) => {
+  const handleClose = (event: SyntheticEvent<{}, Event>, reason: CloseReason) => {
     if (useInternalState) {
       setInternalOpen(false);
     }

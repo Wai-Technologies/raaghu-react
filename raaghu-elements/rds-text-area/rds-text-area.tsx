@@ -1,4 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FocusEvent,
+  type JSX,
+  type KeyboardEvent,
+  type MouseEvent,
+} from "react";
 import clsx from 'clsx';
 import "./rds-text-area.scss";
 
@@ -27,11 +36,11 @@ export interface RdsTextAreaProps {
   isMandatory?: boolean;
   id?: string;
   dataTestId?: string;
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onClick?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
-  onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onClick?: (event: MouseEvent<HTMLTextAreaElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
+  onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
   reset?: boolean;
   validationPattern?: RegExp;
   validationMsg?: string;
@@ -39,7 +48,7 @@ export interface RdsTextAreaProps {
   customClasses?: string;
 }
 
-const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
+const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   const [isValid, setIsValid] = useState(true);
   const [isMandatoryValid, setIsMandatoryValid] = useState(true);
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
@@ -67,7 +76,7 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
     }
   }, [props.isMandatory, props.value]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
     if (props.isMandatory) {
@@ -86,14 +95,14 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
     props.onChange?.(e);
   };
 
-  const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleFocus = (e: FocusEvent<HTMLTextAreaElement>) => {
     if (currentState !== TextareaState.Disabled && currentState !== TextareaState.Error) {
       setCurrentState(TextareaState.Active);
     }
     props.onFocus?.(e);
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
     if (props.isMandatory) {
       const inputValue = e.target.value;
       setIsMandatoryValid(inputValue.trim().length > 0);

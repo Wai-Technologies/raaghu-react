@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { Fragment, useState, type ReactNode } from 'react';
 import {
   Drawer as MuiDrawer,
   List,
@@ -31,7 +31,7 @@ import './rds-sidebar.scss';
 
 export interface RdsSidebarItem {
   label: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   onClick?: () => void;
   active?: boolean;
   disabled?: boolean;
@@ -238,7 +238,7 @@ const RdsSidebar = ({
             );
 
             return (
-              <React.Fragment key={index}>
+              <Fragment key={index}>
                 <ListItem disablePadding className={navItemClasses}>
                   {shouldShowIconsOnly && item.icon ? (
                     <RdsTooltip 
@@ -298,7 +298,7 @@ const RdsSidebar = ({
                   </Collapse>
                   </ListItem>
                 )}
-              </React.Fragment>
+              </Fragment>
             );
           })}
         </List>

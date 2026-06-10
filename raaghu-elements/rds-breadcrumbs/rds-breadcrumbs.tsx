@@ -91,7 +91,7 @@ const RdsBreadcrumbs = ({
 }:RdsBreadcrumbsProps) => {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   
-  const getSeparator = (): React.ReactNode => {
+  const getSeparator = (): ReactNode => {
     if (separator !== undefined) {
       return separator;
     }
@@ -155,7 +155,7 @@ const RdsBreadcrumbs = ({
     }
   };
 
-  const getIconComponent = (itemIcon?: string, globalIcon?: string, index?: number, label?: string): React.ReactNode => {
+  const getIconComponent = (itemIcon?: string, globalIcon?: string, index?: number, label?: string): ReactNode => {
     let iconName: string;
     if (itemIcon) {
       iconName = itemIcon;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-menu.scss'
@@ -17,7 +17,7 @@ function getColor(color: string): string {
 export interface RdsMenuItem {
   id: string | number;
   label?: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
   divider?: boolean;
@@ -76,7 +76,7 @@ const RdsMenu = ({
                 ...(item.color ? { 
                   color: getColor(item.color),
                   '--rds-menu-icon-color': getColor(item.color)
-                } as React.CSSProperties : {})
+                } as CSSProperties : {})
               }}
               className={clsx(
                 'rds-menu__item',
@@ -91,13 +91,13 @@ const RdsMenu = ({
                     color: getColor(item.color)
                   } : {}}
                 >
-                  {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
-                    ? React.cloneElement(
-                        item.icon as React.ReactElement<{ style?: React.CSSProperties }>,
+                  {isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
+                    ? cloneElement(
+                        item.icon as ReactElement<{ style?: CSSProperties }>,
                         {
-                          ...(item.icon as React.ReactElement<{ style?: React.CSSProperties }>).props,
+                          ...(item.icon as ReactElement<{ style?: CSSProperties }>).props,
                           style: {
-                            ...((item.icon as React.ReactElement<{ style?: React.CSSProperties }>).props?.style ?? {}),
+                            ...((item.icon as ReactElement<{ style?: CSSProperties }>).props?.style ?? {}),
                             color: item.color ? getColor(item.color) : undefined,
                             fill: item.color ? getColor(item.color) : undefined,
                           },

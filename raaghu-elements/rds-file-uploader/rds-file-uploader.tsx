@@ -1,4 +1,4 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
 import './rds-file-uploader.scss';
@@ -36,7 +36,7 @@ export interface RdsFileUploaderProps {
   state?: 'default' | 'selected';
   mode?: 'standard' | 'default';
   style?: 'Drop Area - Side Icon' | 'Drop Area - Top Icon' | 'Drop Area - With Upload Button';
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const RdsFileUploader = ({
@@ -73,6 +73,7 @@ const RdsFileUploader = ({
     handleDragOver,
     handleDragLeave,
     handleDrop,
+    addFiles,
     openFileDialog,
     setSelectedFileName,
     setFiles,
@@ -100,6 +101,7 @@ const RdsFileUploader = ({
           showPreview={showPreview}
           selectedFileName={selectedFileName}
           handleFileSelect={handleFileSelect}
+          addFiles={addFiles}
           setSelectedFileName={setSelectedFileName}
           setFiles={setFiles}
           onFilesChange={onFilesChange}

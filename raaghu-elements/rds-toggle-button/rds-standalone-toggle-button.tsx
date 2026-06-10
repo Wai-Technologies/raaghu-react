@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import { useState, type MouseEvent, type ReactNode } from 'react';
 import { ToggleButton as MuiToggleButton, ToggleButtonProps } from '@mui/material';
 import './rds-toggle-button.scss';
 
 export interface RdsStandaloneToggleButtonProps extends Omit<ToggleButtonProps, 'value'> {
   value?: string;
   selected?: boolean;
-  onChange?: (event: React.MouseEvent<HTMLElement>, selected: boolean) => void;
-  children?: React.ReactNode;
+  onChange?: (event: MouseEvent<HTMLElement>, selected: boolean) => void;
+  children?: ReactNode;
 }
 
-const RdsStandaloneToggleButton: React.FC<RdsStandaloneToggleButtonProps> = ({
+const RdsStandaloneToggleButton = ({
   selected: controlledSelected,
   onChange,
   children,
   ...props
-}) => {
+}: RdsStandaloneToggleButtonProps) => {
   const [internalSelected, setInternalSelected] = useState(false);
   
   const isControlled = controlledSelected !== undefined;
   const selected = isControlled ? controlledSelected : internalSelected;
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>) => {
+  const handleChange = (event: MouseEvent<HTMLElement>) => {
     const newSelected = !selected;
     
     if (!isControlled) {

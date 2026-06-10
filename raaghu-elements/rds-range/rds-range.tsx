@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState, type ReactElement } from 'react';
 import { Slider as MuiSlider, type SliderProps, Box, Typography } from '@mui/material';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
@@ -114,11 +114,10 @@ const RdsRange= ({
   const ariaLabel = props['aria-label'] ?? label ?? 'Range slider';
   const isRangeValue = Array.isArray(effectiveValue);
 
-  const ValueLabelComponent = (props: any) => {
-    const { children, value } = props;
+  const ValueLabelComponent = ({ children, value }: { children: ReactElement; value: number }) => {
     
     if (!showTooltip) {
-      return <span {...props}>{children}</span>;
+      return <span>{children}</span>;
     }
 
     return (

@@ -1,6 +1,7 @@
 import { useState, type ReactNode, type ChangeEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
+import { type FileWithProgress } from './rds-file-uploader';
 
 interface RdsFileUploaderStandardViewProps {
   showTitle: boolean;
@@ -15,9 +16,10 @@ interface RdsFileUploaderStandardViewProps {
   showPreview: boolean;
   selectedFileName: string | null;
   handleFileSelect: (e: ChangeEvent<HTMLInputElement>) => void;
+  addFiles: (files: File[]) => void;
   setSelectedFileName: (name: string | null) => void;
-  setFiles: Dispatch<SetStateAction<any[]>>;
-  onFilesChange?: (files: any[]) => void;
+  setFiles: Dispatch<SetStateAction<FileWithProgress[]>>;
+  onFilesChange?: (files: FileWithProgress[]) => void;
   children?: ReactNode;
   title?: string;
 }
@@ -35,12 +37,13 @@ const RdsFileUploaderStandardView = ({
   showPreview,
   selectedFileName,
   handleFileSelect,
+  addFiles,
   setSelectedFileName,
   setFiles,
   onFilesChange,
   children,
   title
-}) => {
+}: RdsFileUploaderStandardViewProps) => {
   const [internalDragOver, setInternalDragOver] = useState(false);
 
   return (
@@ -63,7 +66,7 @@ const RdsFileUploaderStandardView = ({
         }}
         onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(true); } : undefined}
         onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); } : undefined}
-        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileSelect({ target: { files: droppedFiles } } as any); } : undefined}
+        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); addFiles(Array.from(e.dataTransfer.files)); } : undefined}
       >
         <RdsButton
           style="filled"
