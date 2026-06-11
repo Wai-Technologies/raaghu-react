@@ -15,8 +15,8 @@ jest.mock('../rds-button/rds-button', () => {
 });
 
 jest.mock('../rds-menu/rds-menu', () => {
-  return function MockMenu({ open, onClose, children, PaperProps, ...props }: any) {
-    return open ? <div data-testid="rds-menu" onClick={() => onClose()} style={PaperProps?.style} {...props}>{children}</div> : null;
+  return function MockMenu({ open, onClose, children, slotProps, ...props }: any) {
+    return open ? <div data-testid="rds-menu" onClick={() => onClose()} style={slotProps?.paper?.style} {...props}>{children}</div> : null;
   };
 });
 

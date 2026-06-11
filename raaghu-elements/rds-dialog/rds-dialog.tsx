@@ -45,7 +45,7 @@ const RdsDialog = ({
           size
         }
         {...props}
-        PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}
+        slotProps={{ paper: { className: 'rds-dialog rds-dialog__paper' } }}
       >
         {((title && showTitle) || ShowDissmiss) && (
           <DialogTitle className="rds-dialog__title">

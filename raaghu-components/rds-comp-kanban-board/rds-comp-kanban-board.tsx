@@ -270,7 +270,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                 <Select
                                   label="Category"
                                   onChange={(e) => handleAddQuestionDataChanges(e.target.value, "supportCategoryId")}
-                                  MenuProps={{ PaperProps: { className: "rds-kanban-board__select-menu" } }}
+                                  MenuProps={{ slotProps: { paper: { className: "rds-kanban-board__select-menu" } } }}
                                 >
                                   {(props?.allCategoriesList as Array<{ val: string | number; label: string }> | undefined)?.map((category, idx: number) => (
                                     <MenuItem key={idx} value={category.val}>{category.label}</MenuItem>

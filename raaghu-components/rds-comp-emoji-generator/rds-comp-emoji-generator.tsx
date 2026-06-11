@@ -180,7 +180,7 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
                             onClose={handleSkinToneClose}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                            PaperProps={{ className: 'rds-emoji-generator__skin-tone-popover' }}
+                            slotProps={{ paper: { className: 'rds-emoji-generator__skin-tone-popover' } }}
                             disableAutoFocus
                             disableEnforceFocus
                             container={() => rootRef.current?.closest('.rds-comp-toolbar__dropdown') || rootRef.current || document.body}

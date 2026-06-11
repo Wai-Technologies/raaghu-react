@@ -198,7 +198,7 @@ const RdsAppBar = ({
                   <DehazeIcon />
                 </span>
               </IconButton>
-              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} PaperProps={{ sx: { width: tokens.space(40) } }}>
+              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} slotProps={{ paper: { sx: { width: tokens.space(40) } } }}>
                 <Box sx={{ p: tokens.space(2), height: '100%', boxSizing: 'border-box' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <IconButton onClick={() => setOverflowOpen(false)} aria-label="close">

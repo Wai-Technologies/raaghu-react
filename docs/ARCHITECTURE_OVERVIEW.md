@@ -171,7 +171,7 @@ raaghu-react-themes   ← design-tokens.ts → CSS vars → MUI theme
 | Build | Vite 7, Million.js |
 | Docs / Visual tests | Storybook 9, Chromatic |
 | Testing | Jest, React Testing Library, Playwright |
-| Package manager | Bun |
+| Package manager | npm |
 
 ---
 
@@ -196,7 +196,7 @@ New components and page files must use only `var(--rds-*)` — never hardcode he
 3. If MUI-themed values changed, mirror them manually in `src/mui/palette.ts`
 4. Export new components from the relevant `index.ts` barrel
 5. Write a Storybook story; verify light/dark with the toolbar toggle
-6. For raaghu-pages: `bun run pages:dev` from repo root
+6. For raaghu-pages: `npm run pages:dev` from repo root
 
 ---
 

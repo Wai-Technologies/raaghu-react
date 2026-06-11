@@ -1,5 +1,6 @@
 import React, { type ReactNode, useState } from "react";
 import { Drawer, Box, Typography } from "@mui/material";
+import type { DrawerProps } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
@@ -51,6 +52,12 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
     if (onClose) onClose();
     setInternalOpen(false);
   };
+  const handleDrawerClose: DrawerProps["onClose"] = (_, reason) => {
+    if (backDrop === RdsOffcanvasBackDrop.Static && reason === "backdropClick") {
+      return;
+    }
+    handleClose();
+  };
   const getAnchor = () => {
     switch (placement) {
       case RdsOffcanvasPlacement.Start:
@@ -71,11 +78,8 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
       return { hideBackdrop: true };
     }
     if (backDrop === RdsOffcanvasBackDrop.Static) {
-      return { 
+      return {
         disableEscapeKeyDown: true,
-        onBackdropClick: (event: React.SyntheticEvent) => {
-          event.stopPropagation();
-        }
       };
     }
     return {};
@@ -91,7 +95,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
         <Drawer
           anchor={getAnchor()}
           open={drawerOpen}
-          onClose={handleClose}
+          onClose={handleDrawerClose}
           disableEscapeKeyDown={!preventEscapeKey}
           {...getBackdropProps()}
           className={`offcanvas-drawer placement-${placement}`}

@@ -134,9 +134,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        PaperProps=
-        {{className: "rds-filter-button__popover"}}
-
+        slotProps={{ paper: { className: "rds-filter-button__popover" } }}
       >
         <Box className="rds-filter-button__content">
           <Box className="rds-filter-button__header">

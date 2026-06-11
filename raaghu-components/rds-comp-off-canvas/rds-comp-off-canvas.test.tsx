@@ -13,7 +13,7 @@ jest.mock('./rds-comp-off-canvas.scss', () => ({}));
 
 // Mock MUI components
 jest.mock('@mui/material', () => ({
-  Drawer: ({ children, anchor, open, onClose, onBackdropClick, className, id, ...props }: any) => (
+  Drawer: ({ children, anchor, open, onClose, className, id, ...props }: any) => (
     open ? (
       <div
         data-testid="drawer"

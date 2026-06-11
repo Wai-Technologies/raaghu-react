@@ -152,7 +152,7 @@ export const ProfileMenu = ({
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        PaperProps={{ className: 'rds-profile-menu__dropdown' }}
+        slotProps={{ paper: { className: 'rds-profile-menu__dropdown' } }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >

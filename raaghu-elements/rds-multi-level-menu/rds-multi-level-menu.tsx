@@ -91,11 +91,13 @@ export const RdsMultiLevelMenu = ({
         anchorOrigin={level > 0 && isMobile ? { vertical: 'bottom', horizontal: 'left' } : { vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         MenuListProps={{ autoFocusItem: open, disablePadding: true }}
-        PaperProps={{
-          sx: level === 0
-            ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset, 43px)', sm: 0 } }
-            : menuPaperStyle,
-          className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''} type-${type} size-${size}`
+        slotProps={{
+          paper: {
+            sx: level === 0
+              ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset, 43px)', sm: 0 } }
+              : menuPaperStyle,
+            className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''} type-${type} size-${size}`
+          }
         }}
         disableAutoFocusItem
       >

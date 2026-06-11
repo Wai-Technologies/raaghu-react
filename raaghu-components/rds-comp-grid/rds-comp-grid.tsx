@@ -547,11 +547,13 @@ const ActionMenu: React.FC<{
           vertical: 'top',
           horizontal: 'right',
         }}
-        PaperProps={{
-          sx: {
-            minWidth: 120,
-            '& .MuiMenuItem-root': {
-              fontSize: '14px',
+        slotProps={{
+          paper: {
+            sx: {
+              minWidth: 120,
+              '& .MuiMenuItem-root': {
+                fontSize: '14px',
+              },
             },
           },
         }}
@@ -2806,18 +2808,19 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           horizontal: 'left',
         }}
         disablePortal={false}
-        PaperProps={{
-          sx: {
-            width: 200,
-            maxHeight: 250,
-            overflow: 'auto',
-            overflowY: 'auto',
-            zIndex: 'var(--rds-z-index-modal, 1300)',
-            backgroundColor: 'background.paper',
-            color: 'text.primary',
-            '& .MuiTypography-root': {
+        slotProps={{
+          paper: {
+            sx: {
+              width: 200,
+              maxHeight: 250,
+              overflow: 'auto',
+              overflowY: 'auto',
+              zIndex: 'var(--rds-z-index-modal, 1300)',
+              backgroundColor: 'background.paper',
               color: 'text.primary',
-            },
+              '& .MuiTypography-root': {
+                color: 'text.primary',
+              },
             '& .MuiIconButton-root': {
               color: 'text.primary',
             },
@@ -2838,7 +2841,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             '&::-webkit-scrollbar-thumb:hover': {
               backgroundColor: 'var(--rds-action-disabled)',
             },
-          }
+            },
+          },
         }}
       >
         <Box p={1}>

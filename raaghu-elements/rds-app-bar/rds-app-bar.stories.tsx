@@ -223,9 +223,7 @@ const LanguageMenu = () => {
         open={open}
         onClose={() => setAnchorEl(null)}
         onClick={() => setAnchorEl(null)}
-        PaperProps={{
-          className: 'rds-language-menu-paper',
-        }}
+        slotProps={{ paper: { className: 'rds-language-menu-paper' } }}
         MenuListProps={{ className: 'rds-language-menu-list' }}
       >
         {languages.map(l => (
@@ -266,7 +264,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
         </svg>
       </Button>
 
-      <Drawer anchor="right" open={open} onClose={() => setOpen(false)} PaperProps={{ sx: { width: 320 } }}>
+      <Drawer anchor="right" open={open} onClose={() => setOpen(false)} slotProps={{ paper: { sx: { width: 320 } } }}>
         <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
             <IconButton onClick={() => setOpen(false)} aria-label="close">
