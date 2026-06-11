@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-list {
   --rds-list-focus-ring-width: 2px;
   --rds-list-shadow-surface: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
@@ -275,11 +277,11 @@
 }
 
 .rds-list-demo__grid--col-responsive {
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  @include bp.down(sm) {
     grid-template-columns: 1fr;
   }
 
-  @media (min-width: var(--rds-breakpoint-1600)) {
+  @include bp.up(1600) {
     grid-template-columns: 1fr;
   }
 }
