@@ -48,6 +48,14 @@ const config: StorybookConfig = {
   async viteFinal(config: InlineConfig) {
     return {
       ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...(typeof config.resolve?.alias === 'object' ? config.resolve.alias : {}),
+          '@icons/material/UnfoldMoreHorizontalIcon': fileURLToPath(new URL('./shims/UnfoldMoreHorizontalIcon.tsx', import.meta.url)),
+          '@icons/material/CheckIcon': fileURLToPath(new URL('./shims/CheckIcon.tsx', import.meta.url)),
+        },
+      },
       css: {
         ...config.css,
         preprocessorOptions: {
