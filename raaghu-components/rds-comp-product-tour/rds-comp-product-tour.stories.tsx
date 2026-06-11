@@ -1,13 +1,15 @@
 import RdsCompProductTour from "./rds-comp-product-tour";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 
 const meta: Meta = {
     title: "Components/Product Tour",
     component: RdsCompProductTour,
     parameters: {
+            status: { type: 'stable' },
         layout: "padded",
     },
-    tags: ["autodocs"],
+    tags: ["autodocs", 'stable'],
     argTypes: {
         state: {
             options: ["Image", "Carousel", "Form", "GIF"],
@@ -56,6 +58,10 @@ export default meta;
 type Story = StoryObj<typeof RdsCompProductTour>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.firstElementChild;
+        expect(el).toBeTruthy();
+    },
     args: {
         state: "Image",
         topLeft: true,

@@ -1,11 +1,13 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews";
 
 const meta: Meta = { 
     title: "Components/Reviews",
     component: RdsCompReviews,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs :{
                 source:{
@@ -20,7 +22,7 @@ const meta: Meta = {
         }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         style: {
             options: [ "style1", "style2", "style3","style4", "style5", "style6", "style7", "style8", "style9", "style10", "style11", "style12"],
@@ -34,6 +36,10 @@ export default meta;
 type Story = StoryObj<typeof RdsCompReviews>;
 
 export const Default: Story = {
+play: async ({ canvasElement }) => {
+  const el = canvasElement.firstElementChild;
+  expect(el).toBeTruthy();
+},
 args: {
         variantType: VariantType.Default,
         style: RevieweStyle.Style1,

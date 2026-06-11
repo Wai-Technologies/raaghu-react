@@ -7,6 +7,7 @@ import RdsCompReviews, {
   RdsCompReviewsProps,
 } from './rds-comp-reviews';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-reviews.scss', () => ({}));
@@ -875,6 +876,14 @@ describe('RdsCompReviews', () => {
       );
       const rating = screen.getByTestId('rds-rating');
       expect(rating).toHaveAttribute('data-value', '3.7');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompReviews {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

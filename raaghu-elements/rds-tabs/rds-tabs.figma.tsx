@@ -36,7 +36,6 @@ figma.connect(
     tabs={[
       {
         disabled: false,
-        icon: undefined,
         id: 0,
         label: 'Overview'
       }

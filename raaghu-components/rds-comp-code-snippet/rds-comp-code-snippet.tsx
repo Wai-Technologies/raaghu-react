@@ -4,19 +4,21 @@ import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
 import CodeOffIcon from '@mui/icons-material/CodeOff';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
+// @ts-expect-error no declaration file for react-syntax-highlighter subpath
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
+// @ts-expect-error no declaration file for react-syntax-highlighter styles subpath
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
 const darkStyle = {
   ...atomOneLight as any,
   hljs: {
     ...((atomOneLight as any).hljs || {}),
-    background: '#0b1220',
-    color: '#e6eef6',
+    background: 'var(--rds-code-bg, #0b1220)',
+    color: 'var(--rds-code-color, #e6eef6)',
   },
 };
 
-const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<any>;
+const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<Record<string, unknown>>;
 
 export interface RdsCompCodeSnippetProps {
   code?: string;

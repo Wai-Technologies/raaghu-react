@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsGrid from './rds-grid';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-grid.scss', () => ({}));
@@ -270,6 +271,14 @@ describe('RdsGrid', () => {
         </RdsGrid>
       );
       expect(container).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsGrid />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

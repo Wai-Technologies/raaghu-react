@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsPaper from './rds-paper';
 import { Typography } from '@mui/material';
 
@@ -6,9 +7,10 @@ const meta: Meta<typeof RdsPaper> = {
   title: 'Elements/Paper',
   component: RdsPaper,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     elevation: {
       control: 'number',
@@ -36,6 +38,10 @@ export const Default: Story = {
         <Typography>Default paper with elevation</Typography>
       </div>
     ),
+  },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.firstElementChild;
+    expect(el).toBeTruthy();
   },
 };
 

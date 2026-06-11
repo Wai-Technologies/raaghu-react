@@ -1,10 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import dayjs from 'dayjs';
 import RdsCompContribution from "./rds-comp-contribution";
+import { expect } from 'storybook/test';
 const meta: Meta<typeof RdsCompContribution> = {
   title: "Components/Contribution",
   component: RdsCompContribution,
   parameters: {
+        status: { type: 'stable' },
     layout: "padded",
     docs: {
       description: {
@@ -12,7 +14,7 @@ const meta: Meta<typeof RdsCompContribution> = {
       }
     }
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
   argTypes: {
     showMonthLabels: {
       description: 'Whether to show month labels at the top of the contribution graph',
@@ -64,7 +66,7 @@ export const Default: Story = {
   args: {
     weekNames: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
     monthNames: [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ],
     panelColors: ["#F0F6FF", "#D9E8FF", "#A3C8FF", "#6FA7FF", "#4589FF"],
@@ -75,7 +77,7 @@ export const Default: Story = {
     weekLabelWidth: 24,
     panelSize: 12,
     panelMargin: 2,
-    showMonthLabels: true, 
+    showMonthLabels: true,
   },
   parameters: {
     controls: {
@@ -86,5 +88,10 @@ export const Default: Story = {
         story: 'The default configuration for the contribution chart displays a full year of activity data with customizable colors.'
       }
     }
-  }
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
+
+

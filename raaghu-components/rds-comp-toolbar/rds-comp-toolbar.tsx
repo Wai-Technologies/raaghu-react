@@ -58,6 +58,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
           if (closestDropdown) return;
         }
       } catch (e) {
+        // handled
       }
 
       if (toolbarRef.current && !toolbarRef.current.contains(target)) {

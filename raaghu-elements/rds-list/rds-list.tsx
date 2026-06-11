@@ -78,7 +78,6 @@ const RdsList: React.FC<RdsListProps> = ({
   const ExpandIcon = ({ open }: { open: boolean }) => (
     <ExpandMoreIcon
       className={`rds-list__expand-icon${open ? ' rds-list__expand-icon--open' : ''}`}
-      style={{ transition: 'transform 0.2s' }}
     />
   );
 

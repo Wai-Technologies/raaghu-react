@@ -7,15 +7,17 @@ import RdsInput from '../rds-input/rds-input';
 import { Typography, CardContent, CardActions } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { useState } from 'react';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsCard> = {
   title: 'Elements/Card',
   component: RdsCard,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   controls: { exclude: ['component', 'elevation'] },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     padding: {
       control: 'text',
@@ -108,13 +110,16 @@ export const Default: Story = {
     cardSubtext: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
-      <RdsButton 
+      <RdsButton
         text="Link Button >"
         style="transparent"
         size="small"
         sx={{ mt: 1, p: 0, textTransform: 'none' }}
       />
     ),
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 Default.parameters = { 
@@ -562,3 +567,4 @@ WithTags.parameters = {
     include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
+

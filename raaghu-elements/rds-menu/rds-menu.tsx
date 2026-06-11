@@ -35,17 +35,19 @@ const RdsMenu = ({
   ].filter(Boolean).join(' ');
   const menuListClassName = 'rds-menu__list';
 function getColor(color: string): string {
+  // Map semantic color names to CSS custom properties so they respond to theme changes.
+  // Falls back to the raw value for arbitrary color strings.
   switch (color) {
     case 'primary':
-      return '#1976d2';
+      return 'var(--rds-primary-main)';
     case 'success':
-      return '#2e7d32';
+      return 'var(--rds-success-main)';
     case 'danger':
-      return '#d32f2f';
+      return 'var(--rds-error-main)';
     case 'info':
-      return '#0288d1';
+      return 'var(--rds-info-main)';
     case 'warning':
-      return '#ed6c02';
+      return 'var(--rds-warning-main)';
     default:
       return color || '';
   }
@@ -97,11 +99,11 @@ function getColor(color: string): string {
                 >
                   {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
                     ? React.cloneElement(
-                        item.icon as React.ReactElement<any>,
+                        item.icon as React.ReactElement<Record<string, unknown>>,
                         {
                           ...(item.icon.props || {}),
                           style: {
-                            ...((item.icon as React.ReactElement<any>).props?.style || {}),
+                            ...((item.icon as React.ReactElement<Record<string, unknown>>).props?.style || {}),
                             color: item.color ? getColor(item.color) : undefined,
                             fill: item.color ? getColor(item.color) : undefined
                           }

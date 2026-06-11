@@ -48,22 +48,22 @@ export const VolumeSliderComponent: React.FC<VolumeSliderProps> = ({
           max={100}
           sx={{
             height: 120,
-            color: '#1976d2',
+            color: 'var(--rds-primary-main)',
             '& .MuiSlider-thumb': {
               width: 16,
               height: 16,
-              backgroundColor: '#1976d2',
+              backgroundColor: 'var(--rds-primary-main)',
               '&:hover': {
-                boxShadow: '0 0 0 8px rgba(25, 118, 210, 0.16)',
+                boxShadow: '0 0 0 8px var(--rds-primary-focus-ring, rgba(25, 118, 210, 0.16))',
               },
             },
             '& .MuiSlider-track': {
               width: 4,
-              backgroundColor: '#1976d2',
+              backgroundColor: 'var(--rds-primary-main)',
             },
             '& .MuiSlider-rail': {
               width: 4,
-              backgroundColor: '#e0e0e0',
+              backgroundColor: 'var(--rds-neutral-300, #e0e0e0)',
             },
           }}
         />
@@ -102,38 +102,38 @@ export const SettingsModalComponent: React.FC<SettingsModalProps> = ({
               { value: 2.0, label: '2.0x' }
             ]}
             sx={{
-              color: '#1976d2',
+              color: 'var(--rds-primary-main)',
               height: 8,
               '& .MuiSlider-thumb': {
                 width: 20,
                 height: 20,
-                backgroundColor: '#1976d2',
+                backgroundColor: 'var(--rds-primary-main)',
                 '&:hover': {
-                  boxShadow: '0 0 0 8px rgba(25, 118, 210, 0.16)',
+                  boxShadow: '0 0 0 8px var(--rds-action-hover)',
                 },
               },
               '& .MuiSlider-track': {
                 height: 8,
-                backgroundColor: '#1976d2',
+                backgroundColor: 'var(--rds-primary-main)',
                 border: 'none',
               },
               '& .MuiSlider-rail': {
                 height: 8,
-                backgroundColor: '#e0e0e0',
+                backgroundColor: 'var(--rds-neutral-300)',
               },
               '& .MuiSlider-mark': {
-                backgroundColor: '#1976d2',
+                backgroundColor: 'var(--rds-primary-main)',
                 height: 5,
                 width: 5,
-                borderRadius: '50%',
+                borderRadius: 'var(--rds-border-radius-pill)',
                 '&.MuiSlider-markActive': {
-                  backgroundColor: '#ffffff',
+                  backgroundColor: 'var(--rds-neutral-0)',
                 },
               },
               '& .MuiSlider-markLabel': {
-                fontSize: '12px',
-                color: '#666',
-                marginTop: '8px',
+                fontSize: 'var(--rds-font-size-sm)',
+                color: 'var(--rds-text-secondary)',
+                marginTop: 'var(--rds-spacing-sm)',
               },
             }}
           />
@@ -188,7 +188,7 @@ export const AudioEditionControls: React.FC<AudioEditionControlsProps> = ({
             size="small"
             sx={{ 
               width: '100px',
-              color: '#1976d2',
+              color: 'var(--rds-primary-main)',
               '& .MuiSlider-thumb': {
                 width: 16,
                 height: 16,
@@ -210,3 +210,7 @@ export const AudioEditionControls: React.FC<AudioEditionControlsProps> = ({
     </div>
   );
 };
+
+VolumeSliderComponent.displayName = 'VolumeSliderComponent';
+SettingsModalComponent.displayName = 'SettingsModalComponent';
+AudioEditionControls.displayName = 'AudioEditionControls';

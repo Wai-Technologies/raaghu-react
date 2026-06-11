@@ -1,38 +1,41 @@
+$rds-bottom-navigation-mobile-breakpoint: 568px;
+
 .rds-bottom-navigation {
+  // bottom-navigation sizing and tokens provided by centralized --rds-* vars
   display: block;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: var(--rds-bottom-navigation-z-index, 1000);
 
   &:hover {
   }
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-bottom-navigation-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--rds-bottom-navigation-disabled-opacity, 0.6);
     pointer-events: none;
   }
 
-  @media (max-width: 568px) {
+  @media (max-width: $rds-bottom-navigation-mobile-breakpoint) {
     .MuiBottomNavigation-root {
       .MuiBottomNavigationAction-root {
-        min-width: 72px !important;
+        min-width: var(--rds-bottom-navigation-action-min-width, 72px) !important;
         max-width: none !important;
-        padding: 6px 8px !important;
+        padding: var(--rds-bottom-navigation-action-padding-y, 6px) var(--rds-bottom-navigation-action-padding-x, 8px) !important;
         flex: 1 !important;
         
         .MuiBottomNavigationAction-label {
-          font-size: 0.8rem !important;
-          margin-top: 2px !important;
-          line-height: 1.2 !important;
+          font-size: var(--rds-bottom-navigation-label-font-size, 0.8rem) !important;
+          margin-top: var(--rds-bottom-navigation-label-margin-top, 2px) !important;
+          line-height: var(--rds-bottom-navigation-label-line-height, 1.2) !important;
           white-space: nowrap !important;
           overflow: hidden !important;
           text-overflow: ellipsis !important;
@@ -40,7 +43,7 @@
         }
         
         .MuiSvgIcon-root {
-          font-size: 1.6rem !important;
+          font-size: var(--rds-bottom-navigation-icon-size, 1.6rem) !important;
         }
       }
     }

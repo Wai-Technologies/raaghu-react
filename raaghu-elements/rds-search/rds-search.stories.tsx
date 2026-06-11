@@ -1,15 +1,24 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import RdsSearch from './rds-search';
+
+// Shared styles for search results box - uses theme palette instead of hardcoded colors
+const searchResultsBoxSx = {
+  p: 1,
+  backgroundColor: (theme: any) => theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[100],
+  borderRadius: 1,
+};
 
 const meta: Meta<typeof RdsSearch> = {
   title: 'Elements/Search',
   component: RdsSearch,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     label: {
       control: 'text',
@@ -104,7 +113,7 @@ export const Default: Story = {
         })()}
         {args.autoSearch && searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -152,7 +161,7 @@ export const AutoSearch: Story = {
     })()}
         <Box sx={{ mt: 2 }}>
           {searchResults.length > 0 && (
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -198,7 +207,7 @@ export const FullWidth: Story = {
     })()}
         {searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -250,7 +259,7 @@ export const Sizes: Story = {
   })()}
         {searchResults.length > 0 && (
           <Box sx={{ mt: -1 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -311,7 +320,7 @@ export const Variants: Story = {
   })()}
         {searchResults.length > 0 && (
           <Box sx={{ mt: -1 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -353,7 +362,7 @@ export const WithoutIcons: Story = {
     })()}
         {searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -368,4 +377,29 @@ export const WithoutIcons: Story = {
   parameters: {
     controls: { exclude: ['iconPosition', 'showSearchIcon'] },
   },
+};
+
+export const TypeSearch: Story = {
+  name: 'Interaction: Type in search',
+  render: (args) => {
+    const [searchValue, setSearchValue] = React.useState('');
+    return (
+      <RdsSearch
+        {...args}
+        value={searchValue}
+        onChange={setSearchValue}
+      />
+    );
+  },
+  args: {
+    placeholder: 'Search...',
+  },
+  play: async ({ canvasElement }) => {
+    // RdsSearch input is not exposed as combobox/textbox role — find via querySelector
+    const input = canvasElement.querySelector('input') as HTMLInputElement | null
+    await expect(input).not.toBeNull()
+    await expect(input).toBeInTheDocument()
+    await userEvent.type(input as HTMLElement, 'hello')
+    await expect(input).toHaveValue('hello')
+  }
 };

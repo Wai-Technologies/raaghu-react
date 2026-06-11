@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import userEvent from '@testing-library/user-event';
 import RdsPopover from './rds-popover';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-popover.scss', () => ({}));
@@ -534,6 +535,12 @@ describe('RdsPopover', () => {
         </RdsPopover>
       );
       expect(screen.getByText('Title')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsPopover />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have accessible close button', () => {

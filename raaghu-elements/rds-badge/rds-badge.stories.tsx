@@ -2,17 +2,19 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsBadge from './rds-badge';
 import { Avatar, IconButton } from '@mui/material';
 import { Mail, Notifications } from '@mui/icons-material';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsBadge> = {
   title: 'Elements/Badge',
   component: RdsBadge,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
       exclude: ['component', 'slots', 'slotProps', 'color', 'children'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control: { type: 'select' },
@@ -63,6 +65,9 @@ export const Default: Story = {
   args: {
     badgeContent: 4,
     children: <Mail />,
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 Default.parameters = {
@@ -132,3 +137,5 @@ export const ShowZeroFalse: Story = {
 ShowZeroFalse.parameters = {
   controls: { exclude: ['shape', 'layout'] },
 };
+
+

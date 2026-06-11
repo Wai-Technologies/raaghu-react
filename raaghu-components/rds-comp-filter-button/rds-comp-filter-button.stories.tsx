@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
@@ -6,9 +7,10 @@ const meta: Meta = {
   title: 'Components/Filter Button',
   component: RdsCompFilterButton,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     shape: {
       options: ['rectangle', 'pill'],
@@ -119,8 +121,14 @@ export const Default: Story = {
     onApply: (filters: FilterOption[]) => {},
     onClear: () => {},
   },
+  play: async ({ canvas }) => {
+    const button = await canvas.findByRole('button', { name: /filter/i });
+    await expect(button).toBeInTheDocument();
+  },
 } satisfies Story;
 
 Default.parameters = {
   controls: { include: ['shape', 'text', 'showLeftIcon', 'showRightIcon', 'disabled'] },
 };
+
+

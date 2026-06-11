@@ -6,19 +6,19 @@ export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollb
 export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
 export {default as RdsCompOffcanvas} from './rds-comp-off-canvas/rds-comp-off-canvas';
 export {default as RdsCompFilterButton} from './rds-comp-filter-button/rds-comp-filter-button';
-// export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
-// export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
-// export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
-// export { default as RdsCompDoughnutChart } from "./rds-comp-chart-doughnut/rds-comp-chart-doughnut";
-// export { default as RdsCompGaugeChart } from "./rds-comp-chart-gauge/rds-comp-chart-gauge";
-// export { default as RdsCompBarChart } from "./rds-comp-chart-bar/rds-comp-chart-bar";
-// export { default as RdsCompBooleanChart } from "./rds-comp-chart-boolean/rds-comp-chart-boolean";
-// export { default as RdsCompMixedChart } from "./rds-comp-chart-mixed/rds-comp-chart-mixed";
-// export { default as RdsCompPolarAreaChart } from "./rds-comp-chart-polar-area/rds-comp-chart-polar-area";
-// export { default as RdsCompRadarChart } from "./rds-comp-chart-radar/rds-comp-chart-radar";
-// export { default as RdsCompScatterChart } from "./rds-comp-chart-scatter/rds-comp-chart-scatter";
-// export { default as RdsCompStackedChart } from "./rds-comp-chart-stacked/rds-comp-chart-stacked";
-// export { default as RdsCompBubbleChart } from "./rds-comp-chart-bubble/rds-comp-chart-bubble";
+export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
+export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
+export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
+export { default as RdsCompDoughnutChart } from "./rds-comp-chart-doughnut/rds-comp-chart-doughnut";
+export { default as RdsCompGaugeChart } from "./rds-comp-chart-gauge/rds-comp-chart-gauge";
+export { default as RdsCompBarChart } from "./rds-comp-chart-bar/rds-comp-chart-bar";
+export { default as RdsCompBooleanChart } from "./rds-comp-chart-boolean/rds-comp-chart-boolean";
+export { default as RdsCompMixedChart } from "./rds-comp-chart-mixed/rds-comp-chart-mixed";
+export { default as RdsCompPolarAreaChart } from "./rds-comp-chart-polar-area/rds-comp-chart-polar-area";
+export { default as RdsCompRadarChart } from "./rds-comp-chart-radar/rds-comp-chart-radar";
+export { default as RdsCompScatterChart } from "./rds-comp-chart-scatter/rds-comp-chart-scatter";
+export { default as RdsCompStackedChart } from "./rds-comp-chart-stacked/rds-comp-chart-stacked";
+export { default as RdsCompBubbleChart } from "./rds-comp-chart-bubble/rds-comp-chart-bubble";
 export { default as RdsCompAiChatBot } from './rds-comp-ai-chat-bot/rds-comp-ai-chat-bot';
 export { default as RdsCompAudioPlayer } from './rds-comp-audio-player/rds-comp-audio-player';
 export {default as RdsCompVideoPlayer} from './rds-comp-video-player/rds-comp-video-player';
@@ -28,7 +28,13 @@ export { default as RdsCompMap } from './rds-comp-map/rds-comp-map';
 export {default as RdsCompNotification} from './rds-comp-notification/rds-comp-notification';
 export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-time-picker';
 export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
-// export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure';
+// export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure'; // INTERNAL: tree view — complex peer deps, not part of public API
+// export { default as RdsCompAdaptiveCards } from './rds-comp-adaptive-cards/rds-comp-adaptive-cards'; // INTERNAL: adaptive cards — pending design review, not part of public API
+// export { default as RdsCompChat } from './rds-comp-chat/rds-comp-chat'; // INTERNAL: AI chat UI — pending public release, not part of public API
+// export { default as RdsCompCodeSnippet } from './rds-comp-code-snippet/rds-comp-code-snippet'; // INTERNAL: requires external syntax-highlighter, not part of public API
+// export { default as RdsCommentBox } from './rds-comp-comments-box/rds-comp-comments-box'; // INTERNAL: comments feature — pending design review, not part of public API
+// export { default as RdsCompDetailsPane } from './rds-comp-details-pane/rds-comp-details-pane'; // INTERNAL: details pane — pending design review, not part of public API
+// export { default as RdsCompNavtabs } from './rds-comp-navtabs/rds-comp-navtabs'; // INTERNAL: navtabs — pending accessibility audit, not part of public API
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
 export { default as RdsCompKanbanBoard} from './rds-comp-kanban-board/rds-comp-kanban-board';
 export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-product-tour';
@@ -36,7 +42,7 @@ export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-c
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
 
-// export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid';// paid component
+// export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid'; // INTERNAL: paid enterprise component — not part of public API
 export { default as RdsCompAiAttachement } from './rds-comp-ai-attachement/rds-comp-ai-attachement';
 export { default as RdsCompAiTypingSection } from './rds-comp-ai-typing-section/rds-comp-ai-typing-section';
 export { default as RdsCompAiFabMenu } from './rds-comp-ai-fab-menu/rds-comp-ai-fab-menu';

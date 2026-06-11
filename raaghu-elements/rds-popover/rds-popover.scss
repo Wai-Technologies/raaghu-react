@@ -1,25 +1,47 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-popover {
   display: block;
   position: relative;
   overflow: visible;
+  --rds-popover-arrow-size: 8px;
+  --rds-popover-arrow-edge-inset: 8px;
+  --rds-popover-arrow-offset-primary: 30px;
+  --rds-popover-arrow-offset-secondary: 42px;
+  --rds-popover-surface-border: 1px solid var(--rds-border-default);
+  --rds-popover-surface-shadow-top: drop-shadow(0px -1px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-bottom: drop-shadow(0px 1px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-left: drop-shadow(-1px 0px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-right: drop-shadow(1px 0px 0px var(--rds-border-default));
+  --rds-popover-position-option-size: 32px;
+  --rds-popover-list-mobile-padding: var(--rds-spacing-sm, 6px);
+  --rds-popover-container-max-width: 400px;
+  --rds-popover-container-min-width: 200px;
+  --rds-popover-wide-min-width: 300px;
+  --rds-popover-wide-max-width: 600px;
+  --rds-popover-narrow-min-width: 150px;
+  --rds-popover-narrow-max-width: 250px;
+  --rds-popover-position-grid-max-width: 120px;
+  --rds-popover-list-mobile-max-width: 220px;
+  --rds-popover-list-mobile-min-width: 120px;
 
   &-highlight-box {
-    margin-top: 16px;
-    padding: 16px;
-    border-radius: 8px;
-    background-color: #A0A0A0;
+    margin-top: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md, 16px);
+    border-radius: var(--rds-border-radius-md, 8px);
+    background-color: var(--rds-color-gray-500);
   }
 
   &__paper {
     overflow: visible !important;
-    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border: var(--rds-popover-surface-border) !important;
     box-shadow: none !important;
   }
 
   &__container {
     padding: var(--rds-spacing-md, 16px);
-    max-width: 400px;
-    min-width: 200px;
+    max-width: var(--rds-popover-container-max-width, 400px);
+    min-width: var(--rds-popover-container-min-width, 200px);
     position: relative;
     overflow: visible;
   }
@@ -51,24 +73,24 @@
 
   &__arrow {
     position: absolute;
-    z-index: 1500;
+    z-index: var(--rds-z-index-tooltip);
     pointer-events: none;
     width: 0;
     height: 0;
 
     &--top {
-      top: -8px;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-bottom: 8px solid var(--rds-color-surface, #fff);
-      filter: drop-shadow(0px -1px 0px rgba(0, 0, 0, 0.12));
+      top: calc(-1 * var(--rds-popover-arrow-size, 8px));
+      border-left: var(--rds-popover-arrow-size, 8px) solid transparent;
+      border-right: var(--rds-popover-arrow-size, 8px) solid transparent;
+      border-bottom: var(--rds-popover-arrow-size, 8px) solid var(--rds-color-surface);
+      filter: var(--rds-popover-surface-shadow-top, drop-shadow(0px -1px 0px rgba(0, 0, 0, 0.12)));
 
       &.rds-popover__arrow--bottom-left {
-        left: 30px;
+        left: var(--rds-popover-arrow-offset-primary, 30px);
       }
 
       &.rds-popover__arrow--bottom-right {
-        left: calc(100% - 42px);
+        left: calc(100% - var(--rds-popover-arrow-offset-secondary, 42px));
       }
 
       &.rds-popover__arrow--bottom-center {
@@ -78,18 +100,18 @@
     }
 
     &--bottom {
-      bottom: -8px;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-top: 8px solid var(--rds-color-surface, #fff);
-      filter: drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.12));
+      bottom: calc(-1 * var(--rds-popover-arrow-size, 8px));
+      border-left: var(--rds-popover-arrow-size, 8px) solid transparent;
+      border-right: var(--rds-popover-arrow-size, 8px) solid transparent;
+      border-top: var(--rds-popover-arrow-size, 8px) solid var(--rds-color-surface);
+      filter: var(--rds-popover-surface-shadow-bottom, drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.12)));
 
       &.rds-popover__arrow--top-left {
-        left: 30px;
+        left: var(--rds-popover-arrow-offset-primary, 30px);
       }
 
       &.rds-popover__arrow--top-right {
-        left: calc(100% - 42px);
+        left: calc(100% - var(--rds-popover-arrow-offset-secondary, 42px));
       }
 
       &.rds-popover__arrow--top-center {
@@ -99,20 +121,18 @@
     }
 
     &--left {
-      left: -8px;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-right: 8px solid var(--rds-color-surface, #fff);
-      filter: drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.12));
+      left: calc(-1 * var(--rds-popover-arrow-size, 8px));
+      border-top: var(--rds-popover-arrow-size, 8px) solid transparent;
+      border-bottom: var(--rds-popover-arrow-size, 8px) solid transparent;
+      border-right: var(--rds-popover-arrow-size, 8px) solid var(--rds-color-surface);
+      filter: var(--rds-popover-surface-shadow-left, drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.12)));
 
       &.rds-popover__arrow--right-top {
-        top: 20%;
-        transform: translateY(-140%);
+        top: var(--rds-popover-arrow-edge-inset, 8px);
       }
 
       &.rds-popover__arrow--right-bottom {
-        top: 80%;
-        transform: translateY(60%);
+        bottom: var(--rds-popover-arrow-edge-inset, 8px);
       }
 
       &.rds-popover__arrow--right-center {
@@ -122,20 +142,18 @@
     }
 
     &--right {
-      right: -8px;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-left: 8px solid var(--rds-color-surface, #fff);
-      filter: drop-shadow(1px 0px 0px rgba(0, 0, 0, 0.12));
+      right: calc(-1 * var(--rds-popover-arrow-size, 8px));
+      border-top: var(--rds-popover-arrow-size, 8px) solid transparent;
+      border-bottom: var(--rds-popover-arrow-size, 8px) solid transparent;
+      border-left: var(--rds-popover-arrow-size, 8px) solid var(--rds-color-surface);
+      filter: var(--rds-popover-surface-shadow-right, drop-shadow(1px 0px 0px rgba(0, 0, 0, 0.12)));
 
       &.rds-popover__arrow--left-top {
-        top: 20%;
-        transform: translateY(-120%);
+        top: var(--rds-popover-arrow-edge-inset, 8px);
       }
 
       &.rds-popover__arrow--left-bottom {
-        top: 80%;
-        transform: translateY(40%);
+        bottom: var(--rds-popover-arrow-edge-inset, 8px);
       }
 
       &.rds-popover__arrow--left-center {
@@ -156,36 +174,36 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--rds-spacing-xs, 4px);
-    max-width: 120px;
+    max-width: var(--rds-popover-position-grid-max-width, 120px);
     margin: 0 auto;
   }
 
   &__position-option {
-    width: 32px;
-    height: 32px;
-    border: 1px solid var(--rds-color-border, #e0e0e0);
+    width: var(--rds-popover-position-option-size, 32px);
+    height: var(--rds-popover-position-option-size, 32px);
+    border: 1px solid var(--rds-color-border);
     border-radius: var(--rds-border-radius-sm, 4px);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-color: var(--rds-color-surface, #ffffff);
-    transition: all 0.2s ease;
+    background-color: var(--rds-color-surface);
+    transition: all var(--rds-transition-base, 0.2s ease-in-out);
 
     &:hover {
-      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      background-color: var(--rds-action-hover);
       border-color: var(--rds-color-primary, var(--rds-primary-main));
     }
 
     &--selected {
       background-color: var(--rds-color-primary, var(--rds-primary-main));
       border-color: var(--rds-color-primary, var(--rds-primary-main));
-      color: var(--rds-color-on-primary, #ffffff);
+      color: var(--rds-color-on-primary);
     }
 
     &--disabled {
       background-color: var(--rds-color-surface-disabled);
-      border-color: var(--rds-color-border-disabled, #e0e0e0);
+      border-color: var(--rds-color-border-disabled);
       cursor: not-allowed;
       opacity: 0.6;
     }
@@ -200,15 +218,15 @@
 
   &--wide {
     .rds-popover__container {
-      min-width: 300px;
-      max-width: 600px;
+      min-width: var(--rds-popover-wide-min-width, 300px);
+      max-width: var(--rds-popover-wide-max-width, 600px);
     }
   }
 
   &--narrow {
     .rds-popover__container {
-      min-width: 150px;
-      max-width: 250px;
+      min-width: var(--rds-popover-narrow-min-width, 150px);
+      max-width: var(--rds-popover-narrow-max-width, 250px);
     }
   }
 
@@ -220,34 +238,34 @@
 
 
 .MuiButton-containedSuccess, .MuiButton-containedPrimary, .MuiButton-containedSecondary {
-  color: #fff !important;
+  color: var(--rds-color-on-primary) !important;
 }
 
-@media (max-width: 320px) {
+@include bp.down(mobile-sm) {
   .with-list-popover .rds-popover__container {
-    max-width: 220px !important;
-    min-width: 120px !important;
-    padding: 6px !important;
+    max-width: var(--rds-popover-list-mobile-max-width, 220px) !important;
+    min-width: var(--rds-popover-list-mobile-min-width, 120px) !important;
+    padding: var(--rds-popover-list-mobile-padding, var(--rds-spacing-sm, 6px)) !important;
     font-size: 0.95rem;
   }
   .with-list-popover .MuiListItem-root {
-    padding-top: 2px !important;
-    padding-bottom: 4px !important;
+    padding-top: var(--rds-spacing-xxs) !important;
+    padding-bottom: var(--rds-spacing-xs) !important;
   }
 }
 
-@media (max-width: 568px) and (min-width: 320px) {
+@include bp.between(mobile-sm, sm) {
   .rds-popover__container {
     max-width: 285px !important;
   }
 }
-@media (min-width: 414px) and (max-width: 896px) {
+@include bp.between(mobile-lg, md) {
   .rds-popover__container {
     max-width: 380px !important;
   }
 }
 
-@media (min-width: 834px) and (max-width: 1280px) {
+@include bp.between(tablet-md, lg) {
     .rds-popover__container {
         max-width: 330px !important;
     }

@@ -1,8 +1,10 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-code-snippet {
   border-radius: var(--rds-border-radius, 8px);
-  border: 1px solid var(--rds-color-border, #e5e7eb);
+  border: 1px solid var(--rds-color-border);
   overflow: hidden;
-  font-family: var(--rds-font-family-mono, 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-sm, 14px);
 
   &__container {
@@ -28,7 +30,7 @@
       left: calc(-1 * var(--rds-spacing-md, 16px));
       right: calc(-1 * var(--rds-spacing-md, 16px));
       height: 1px;
-      background-color: var(--rds-color-border, #e5e7eb);
+      background-color: var(--rds-color-border);
     }
 
     &--single-line {
@@ -44,32 +46,32 @@
     }
   }
 
-  @media (max-width: 360px) {
+  @include bp.down(360) {
     // .css-1in3o51-MuiButton-startIcon{
     //   margin-right: 0px;
     // }
     &__toolbar {
-      padding: 4px 8px 5px 4px;
-      gap: 3px;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) calc(var(--rds-spacing-xs) + 1px) var(--rds-spacing-xs);
+      gap: calc(var(--rds-spacing-xs) * 0.75);
     }
 
     &__language-label {
       max-width: 68px;
-      font-size: 8px !important;
+      font-size: var(--rds-font-size-xs, 8px) !important;
     }
 
     &__copy-button {
       min-width: 72px;
-      padding: 5px 6px;
-      font-size: 10px !important;
+      padding: calc(var(--rds-spacing-xs) + 1px) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
+      font-size: var(--rds-font-size-xs, 10px) !important;
       white-space: nowrap;
       height: 30px;
     }
 
     &__expand-icon {
-      font-size: 16px !important;
-      width: 16px !important;
-      height: 16px !important;
+      font-size: var(--rds-font-size-lg) !important;
+      width: var(--rds-size-md) !important;
+      height: var(--rds-size-md) !important;
     }
   }
 
@@ -121,23 +123,23 @@
    min-width: 120px;
     &:focus,
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #3b82f6);
+      outline: 2px solid var(--rds-primary-main);
       outline-offset: 2px;
     }
 
     &--copied {
-      background-color: var(--rds-color-success, #10b981) !important;
-      color: var(--rds-color-on-success, #ffffff) !important;
-      border-color: var(--rds-color-success, #10b981) !important;
+      background-color: var(--rds-color-success) !important;
+      color: var(--rds-color-on-success) !important;
+      border-color: var(--rds-color-success) !important;
     }
   }
 
   &__expand-icon {
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color var(--rds-transition-base);
 
     &:hover {
-      color: var(--rds-color-primary, #3b82f6);
+      color: var(--rds-color-primary);
     }
   }
 
@@ -162,7 +164,7 @@
 
     &__highlighter {
       background: transparent !important;
-      padding: 16px !important;
+      padding: var(--rds-spacing-md) !important;
       margin: 0 !important;
       font-family: inherit !important;
       line-height: inherit !important;
@@ -216,42 +218,74 @@
     align-items: center;
     padding: var(--rds-spacing-md, 12px) var(--rds-spacing-md, 16px);
     min-height: 48px;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   &__show-more {
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 100%;
+    padding-left: var(--rds-spacing-sm, 12px);
+    padding-right: var(--rds-spacing-sm, 12px);
+    box-sizing: border-box;
+    .rds-button {
+      color: var(--rds-color-primary) !important;
+      background: transparent !important;
+      border: none !important;
+      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px) !important;
+      min-width: 0 !important;
+      height: auto !important;
+    }
+
+    .rds-button__icon,
+    .rds-button svg {
+      color: currentColor !important;
+      fill: currentColor !important;
+    }
+
+    .rds-button:hover,
+    .rds-button:focus-visible {
+      color: var(--rds-color-primary) !important;
+      background: transparent !important;
+    }
+  }
+
+  .rds-button {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   &--light {
-    background-color: var(--rds-color-surface, #ffffff);
-    color: var(--rds-color-on-surface, #374151);
+    background-color: var(--rds-color-surface);
+    color: var(--rds-color-on-surface);
 
     .rds-comp-code-snippet__toolbar {
       &::after {
-        background-color: var(--rds-color-border, #e5e7eb);
+        background-color: var(--rds-color-border);
       }
     }
 
     .rds-comp-code-snippet__language-label {
-      color: var(--rds-color-on-surface-variant, #6b7280);
+      color: var(--rds-color-on-surface-variant);
     }
 
     .rds-comp-code-snippet__copy-button {
-      background-color: var(--rds-color-surface, #ffffff);
-      color: var(--rds-color-on-surface-variant, #6b7280);
-      border-color: var(--rds-color-border, #d1d5db);
+      background-color: var(--rds-color-surface);
+      color: var(--rds-color-on-surface-variant);
+      border-color: var(--rds-color-border);
 
       &:hover {
-        background-color: var(--rds-color-surface-hover, #f3f4f6);
-        color: var(--rds-color-on-surface, #374151);
+        background-color: var(--rds-color-surface-hover);
+        color: var(--rds-color-on-surface);
       }
     }
 
     .rds-comp-code-snippet__line-numbers {
-      border-right-color: var(--rds-color-border, #e5e7eb);
-      color: var(--rds-color-on-surface-variant, #9ca3af);
+      border-right-color: var(--rds-color-border);
+      color: var(--rds-color-on-surface-variant);
     }
 
     pre {
@@ -259,43 +293,43 @@
     }
 
     code {
-      color: var(--rds-color-on-surface, #374151);
+      color: var(--rds-color-on-surface);
     }
   }
 
   &--dark {
-    background-color: var(--rds-color-surface-dark, #1f2937);
-    color: var(--rds-color-on-surface-dark, #f9fafb);
-    border-color: var(--rds-color-border-dark, #374151);
+    background-color: var(--rds-color-surface-dark);
+    color: var(--rds-color-on-surface-dark);
+    border-color: var(--rds-color-border-dark);
 
     .rds-comp-code-snippet__toolbar {
       &::after {
-        background-color: var(--rds-color-border-dark, #374151);
+        background-color: var(--rds-color-border-dark);
       }
     }
 
     .rds-comp-code-snippet__footer {
-      background-color: var(--rds-color-surface-variant-dark, #111827) !important;
+      background-color: var(--rds-color-surface-variant-dark) !important;
     }
 
     .rds-comp-code-snippet__language-label {
-      color: var(--rds-color-on-surface-variant-dark, #9ca3af);
+      color: var(--rds-color-on-surface-variant-dark);
     }
 
     .rds-comp-code-snippet__copy-button {
-      background-color: var(--rds-color-surface-variant-dark, #374151);
-      color: var(--rds-color-on-surface-variant-dark, #d1d5db);
-      border-color: var(--rds-color-border-dark, #4b5563);
+      background-color: var(--rds-color-surface-variant-dark);
+      color: var(--rds-color-on-surface-variant-dark);
+      border-color: var(--rds-color-border-dark);
 
       &:hover {
-        background-color: var(--rds-color-surface-hover-dark, #4b5563);
-        color: var(--rds-color-on-surface-dark, #f9fafb);
+        background-color: var(--rds-color-surface-hover-dark);
+        color: var(--rds-color-on-surface-dark);
       }
     }
 
     .rds-comp-code-snippet__line-numbers {
-      border-right-color: var(--rds-color-border-dark, #374151);
-      color: var(--rds-color-on-surface-variant-dark, #6b7280);
+      border-right-color: var(--rds-color-border-dark);
+      color: var(--rds-color-on-surface-variant-dark);
     }
 
     pre {
@@ -303,7 +337,7 @@
     }
 
     code {
-      color: var(--rds-color-on-surface-dark, #f9fafb);
+      color: var(--rds-color-on-surface-dark);
     }
   }
 
@@ -325,110 +359,110 @@
 
 .language-html {
   .tag {
-    color: var(--rds-syntax-tag, #0969da);
+    color: var(--rds-syntax-tag);
   }
   
   .attr-name {
-    color: var(--rds-syntax-attribute, #0550ae);
+    color: var(--rds-syntax-attribute);
   }
   
   .attr-value {
-    color: var(--rds-syntax-string, #032f62);
+    color: var(--rds-syntax-string);
   }
 }
 
 .language-javascript,
 .language-js {
   .keyword {
-    color: var(--rds-syntax-keyword, #cf222e);
+    color: var(--rds-syntax-keyword);
   }
   
   .string {
-    color: var(--rds-syntax-string, #032f62);
+    color: var(--rds-syntax-string);
   }
   
   .function {
-    color: var(--rds-syntax-function, #8250df);
+    color: var(--rds-syntax-function);
   }
 }
 
 .language-css {
   .property {
-    color: var(--rds-syntax-property, #0969da);
+    color: var(--rds-syntax-property);
   }
   
   .value {
-    color: var(--rds-syntax-value, #032f62);
+    color: var(--rds-syntax-value);
   }
   
   .selector {
-    color: var(--rds-syntax-selector, #116329);
+    color: var(--rds-syntax-selector);
   }
 }
 
 .rds-comp-code-snippet--dark {
   .language-html {
     .tag {
-      color: var(--rds-syntax-tag-dark, #7dd3fc);
+      color: var(--rds-syntax-tag-dark);
     }
     
     .attr-name {
-      color: var(--rds-syntax-attribute-dark, #fbbf24);
+      color: var(--rds-syntax-attribute-dark);
     }
     
     .attr-value {
-      color: var(--rds-syntax-string-dark, #a7f3d0);
+      color: var(--rds-syntax-string-dark);
     }
   }
   
   .language-javascript,
   .language-js {
     .keyword {
-      color: var(--rds-syntax-keyword-dark, #f87171);
+      color: var(--rds-syntax-keyword-dark);
     }
     
     .string {
-      color: var(--rds-syntax-string-dark, #a7f3d0);
+      color: var(--rds-syntax-string-dark);
     }
     
     .function {
-      color: var(--rds-syntax-function-dark, #c084fc);
+      color: var(--rds-syntax-function-dark);
     }
   }
   
   .language-css {
     .property {
-      color: var(--rds-syntax-property-dark, #7dd3fc);
+      color: var(--rds-syntax-property-dark);
     }
     
     .value {
-      color: var(--rds-syntax-value-dark, #a7f3d0);
+      color: var(--rds-syntax-value-dark);
     }
     
     .selector {
-      color: var(--rds-syntax-selector-dark, #86efac);
+      color: var(--rds-syntax-selector-dark);
     }
   }
 }
 [data-theme="dark"] {
   .rds-comp-code-snippet--light {
-    background-color: var(--rds-color-surface-dark, #1f2937);
-    color: var(--rds-color-on-surface-dark, #f9fafb);
-    border-color: var(--rds-color-border-dark, #374151);
+    background-color: var(--rds-color-surface-dark);
+    color: var(--rds-color-on-surface-dark);
+    border-color: var(--rds-color-border-dark);
 }
 .rds-comp-code-snippet--light code {
-    color: var(--rds-color-on-surface-dark, #f9fafb);
+    color: var(--rds-color-on-surface-dark);
 }
 .rds-comp-code-snippet--light .rds-comp-code-snippet__copy-button {
-    background-color: var(--rds-color-surface-variant-dark, #374151);
-    color: var(--rds-color-on-surface-variant-dark, #d1d5db);
-    border-color: var(--rds-color-border-dark, #4b5563);
+    background-color: var(--rds-color-surface-variant-dark);
+    color: var(--rds-color-on-surface-variant-dark);
+    border-color: var(--rds-color-border-dark);
 }
 .rds-button {
     color: var(--btn-primary-solid-default) !important;
 }
 .rds-comp-code-snippet--light .rds-comp-code-snippet__toolbar::after {
-    background-color: var(--rds-color-border-dark, #374151);
+    background-color: var(--rds-color-border-dark);
 }
 .rds-comp-code-snippet--light pre{
     background-color: transparent !important;

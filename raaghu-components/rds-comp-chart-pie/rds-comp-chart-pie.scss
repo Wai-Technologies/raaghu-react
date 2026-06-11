@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-chart-pie {
 	display: block;
 	width: 100%;
@@ -9,13 +11,13 @@
 	}
 	canvas {
 		width: 100% !important;
-		height: 335px !important;
+		height: var(--rds-comp-chart-pie-height) !important;
 		max-width: 100%;
-		@media (max-width: 600px) {
-			height: 335px !important;
+		@include bp.down(600) {
+			height: var(--rds-comp-chart-pie-height) !important;
 		}
-		@media (max-width: 400px) {
-			height: 335px !important;
+		@include bp.down(400) {
+			height: var(--rds-comp-chart-pie-height) !important;
 		}
 	}
 }

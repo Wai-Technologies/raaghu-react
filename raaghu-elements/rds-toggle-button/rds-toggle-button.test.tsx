@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsToggleButton, { RdsToggleButtonOption } from './rds-toggle-button';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-toggle-button.scss', () => ({}));
@@ -153,7 +154,7 @@ describe('RdsToggleButton', () => {
         <RdsToggleButton options={mockOptions} value="option1" onChange={() => {}} />
       );
       
-      let option1Button = screen.getByText('Option 1').closest('button');
+      const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
       rerender(
@@ -242,7 +243,7 @@ describe('RdsToggleButton', () => {
         />
       );
       
-      let option1Button = screen.getByText('Option 1').closest('button');
+      const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
       rerender(
@@ -691,7 +692,7 @@ describe('RdsToggleButton', () => {
         />
       );
       
-      let option1Button = screen.getByText('Option 1').closest('button');
+      const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
       rerender(
@@ -718,7 +719,7 @@ describe('RdsToggleButton', () => {
       );
       
       // In single mode, verify button selection
-      let option1Button = screen.getByText('Option 1').closest('button');
+      const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
       rerender(
@@ -853,6 +854,12 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
       const buttons = container.querySelectorAll('[aria-label]');
       expect(buttons.length).toBeGreaterThan(0);
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsToggleButton options={mockOptions} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have aria-pressed on buttons', () => {

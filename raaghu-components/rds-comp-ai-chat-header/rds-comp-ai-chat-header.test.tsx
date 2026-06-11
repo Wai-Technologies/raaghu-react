@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiChatHeader, { RdsCompAiChatHeaderProps, ChatHeaderSize } from './rds-comp-ai-chat-header';
 
 // Mock SCSS
@@ -348,6 +349,12 @@ describe('RdsCompAiChatHeader', () => {
       render(<RdsCompAiChatHeader {...defaultProps} />);
       const heading = screen.getByRole('heading', { level: 3 });
       expect(heading).toBeInTheDocument();
+    });
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiChatHeader {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('logo has proper alt text', () => {

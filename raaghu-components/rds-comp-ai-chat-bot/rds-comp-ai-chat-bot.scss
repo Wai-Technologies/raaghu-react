@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 95vh;
-    min-height: 500px;
+    min-height: var(--rds-ai-chat-bot-min-height, 500px);
     max-height: 100vh;
     width: 100%;
     max-width: 100%;
@@ -31,18 +31,10 @@
     &__input-wrapper {
         flex-shrink: 0;
         padding: var(--rds-spacing-md, 10px);
-         body.theme-dark &,
-            [data-theme="dark"] & {
-                background-color: #2a2a2a;
-            }
     }
 
     &__input {
         width: 100%;
-          body.theme-dark &,
-        [data-theme="dark"] & {
-            background-color: #2a2a2a;
-        }
     }
 
 }
@@ -75,11 +67,11 @@
     @extend .rds-ai-chat-bot__input;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .rds-ai-chat-bot {
         height: 100vh;
         min-height: 400px;
-        
+
         &__input-wrapper {
             padding: var(--rds-spacing-sm, 8px);
         }

@@ -214,10 +214,12 @@ export const ToolbarButton = ({
     <div className="rds-comp-toolbar__button-container">
       <button
         ref={buttonRef}
+        type="button"
         className={`rds-comp-toolbar__button ${isActive ? 'rds-comp-toolbar__button--active' : ''} ${isDisabled ? 'rds-comp-toolbar__button--disabled' : ''} ${buttonClassName}`}
         onClick={onClick}
         disabled={isDisabled}
         aria-label={ariaLabel || action}
+        aria-haspopup={hasDropdown ? true : undefined}
         aria-pressed={isActive}
         aria-expanded={hasDropdown ? isDropdownOpen : undefined}
         data-testid={`toolbar-button-${action}`}
@@ -240,7 +242,7 @@ export const ToolbarButton = ({
             top: dropdownPos.top,
             left: dropdownPos.left,
             minWidth: dropdownPos.minWidth,
-            zIndex: 1250
+            zIndex: 'var(--rds-z-index-overlay, 1250)'
           }}
           role="menu"
           data-portal-theme={portalThemeClass || undefined}
@@ -260,7 +262,7 @@ export const ToolbarButton = ({
             <div className="rds-comp-toolbar__emoji-portal">
               <RdsEmojiGenerator
                 Type={undefined}
-                onEmojiSelect={(e: any) => {
+                onEmojiSelect={(e: string) => {
                   const val = typeof e === 'string' ? e : String(e);
                   onDropdownSelect?.(action, val);
                 }}
@@ -495,3 +497,6 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
       };
   }
 };
+
+ToolbarButton.displayName = 'ToolbarButton';
+Divider.displayName = 'Divider';

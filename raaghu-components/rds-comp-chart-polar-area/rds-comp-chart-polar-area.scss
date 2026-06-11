@@ -1,0 +1,15 @@
+/* Responsive canvas sizing for polar area chart */
+.rds-comp-chart-polar-area-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	border-radius: var(--rds-border-radius-sm, 4px);
+
+	canvas {
+		display: block;
+		width: 100%;
+		height: auto;
+		max-width: 100%;
+	}
+}

@@ -1,7 +1,15 @@
 .rds-slider {
+  --rds-slider-inline-padding: var(--rds-spacing-sm, 10px);
+  --rds-slider-label-offset-top: -12px;
+  --rds-slider-label-offset-left: -10px;
+  --rds-slider-container-gap: var(--rds-spacing-sm, 12px);
+  --rds-slider-font-weight-medium: 500;
+  --rds-slider-font-weight-regular: 400;
+  --rds-slider-label-muted-color: var(--rds-color-on-surface-variant);
   display: block;
   position: relative;
-  padding-inline: 10px;
+  padding-inline: var(--rds-slider-inline-padding, 10px);
+  overflow: visible;
   
   &__label-row {
     display: flex;
@@ -13,35 +21,47 @@
   }
 
   &__label-text {
-    font-weight: 500;
+    font-weight: var(--rds-slider-font-weight-medium, 500);
     display: inline-block;
     position: relative;
-    top: -12px;
-    left: -10px;
+    top: var(--rds-slider-label-offset-top, -12px);
+    left: var(--rds-slider-label-offset-left, -10px);
   }
 
   &__value {
-    font-weight: 400;
+    font-weight: var(--rds-slider-font-weight-regular, 400);
   }
 
   &__container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: var(--rds-slider-container-gap, 12px);
+    min-width: 0; /* allow children to shrink properly */
+  }
+
+  /* make the MUI Slider expand to fill available space between labels */
+  &__container .MuiSlider-root {
+    flex: 1 1 auto;
+    min-width: 0;
+    /* ensure the track has extra padding so the thumb doesn't overlap the right label */
+    padding-inline-end: 20px; /* space for thumb + small gap */
+    padding-inline-start: 8px; /* small start padding for symmetry */
   }
 
   &__left-label,
   &__right-label {
     font-size: var(--rds-font-size-caption, 12px);
     font-family: var(--rds-font-family);
-    color: var(--rds-color-on-surface-variant, #666);
-    font-weight: 400;
+    color: var(--rds-slider-label-muted-color, var(--rds-color-on-surface-variant));
+    font-weight: var(--rds-slider-font-weight-regular, 400);
     white-space: nowrap;
   }
+  &__left-label { margin-right: 8px; }
+  &__right-label { margin-left: 8px; }
 }
 
 .rds-slider__story-wrapper {
-  width: 300px;
-  margin: 16px 16px 16px 0px;
+  width: var(--rds-slider-story-width, 300px);
+  margin: var(--rds-slider-story-margin, var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) 0px);
   box-sizing: border-box;
 }

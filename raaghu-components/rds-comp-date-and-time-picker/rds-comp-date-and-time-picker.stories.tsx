@@ -1,15 +1,17 @@
 import RdsCompDatePicker, { DatePickerDemo } from "./rds-comp-date-and-time-picker";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import dayjs from 'dayjs';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 
 const meta: Meta = { 
-    title: "Components/Date Time Picker",
+    title: "Internal/Date Time Picker",
     component: RdsCompDatePicker,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         controls: {exclude: ['type']},
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         variant: {
             control: { type: 'select' },
@@ -156,3 +158,27 @@ export const DateTimeRangePicker: Story = {
         />
     ),
 };
+
+type Story = StoryObj<typeof RdsCompDatePicker>;
+
+export const Default: Story = {
+    args: {
+        variant: 'date',
+        layout: 'Default',
+        label: 'Select Date',
+        placeholder: 'Choose a date...',
+        size: 'small',
+        style: 'default',
+        isRequired: true,
+    },
+    render: (args) => (
+        <RdsCompDatePicker
+            {...args}
+            minDate={dayjs('1900-01-01')}
+        />
+    ),
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.querySelector('input');
+        expect(el).toBeInTheDocument();
+    },
+} satisfies Story;

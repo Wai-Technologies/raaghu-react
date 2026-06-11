@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsBreadcrumbs, { RdsBreadcrumbItem, RdsBreadcrumbsProps, BreadcrumbSeparator } from './rds-breadcrumbs';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-breadcrumbs.scss', () => ({}));
@@ -720,6 +721,14 @@ describe('RdsBreadcrumbs', () => {
         <RdsBreadcrumbs {...defaultProps} aria-label="Breadcrumb navigation" />
       );
       expect(container.querySelector('[aria-label="Breadcrumb navigation"]')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });
