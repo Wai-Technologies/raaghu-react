@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-text-editor {
   border: 1px solid var(--rds-color-border);
   border-radius: var(--rds-border-radius, 2px);
@@ -295,7 +297,7 @@ body.dark-theme .rds-comp-text-editor__wrapper .rdw-editor-toolbar {
   }
 }
 
-@media (max-width: var(--rds-breakpoint-430)) {
+@include bp.down(430) {
   .rds-comp-text-editor {
     .rdw-link-modal{
       left: -180px;
@@ -307,7 +309,7 @@ body.dark-theme .rds-comp-text-editor__wrapper .rdw-editor-toolbar {
       box-shadow: var(--rds-elevation-4, 0 4px 12px rgba(0, 0, 0, 0.15));
       border: 1px solid var(--rds-color-border);
       
-      @media (max-width: var(--rds-breakpoint-xs)) {
+      @include bp.down(mobile-sm) {
         position: fixed !important;
         left: 50% !important;
         top: 70% !important;
@@ -321,7 +323,7 @@ body.dark-theme .rds-comp-text-editor__wrapper .rdw-editor-toolbar {
   }
 }
 
-@media (min-width: var(--rds-breakpoint-420)) and (max-width: var(--rds-breakpoint-834)) {
+@include bp.between(420, 834) {
   .rds-comp-text-editor {
     .rdw-link-modal {
       left: 4px;

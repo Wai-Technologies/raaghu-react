@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-card {
   border-radius: var(--rds-border-radius-md, 8px);
   box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08));
@@ -380,7 +382,7 @@
       .rds-card__avatar-row {
         display: contents;
       }
-      @media screen and (max-width: var(--rds-breakpoint-xs)) {
+      @include bp.down(mobile-sm) {
         flex-direction: column;
         align-items: stretch;
         
@@ -529,7 +531,7 @@
       }
     }
 
-    @media screen and (max-width: var(--rds-breakpoint-xs)) {
+    @include bp.down(mobile-sm) {
       .rds-card__edit-controls {
         margin-left: 0 !important;
         

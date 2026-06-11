@@ -1,4 +1,6 @@
-﻿@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+﻿@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
+@include bp.down(tablet-sm) {
   .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
         width: var(--rds-avatar-size-medium, 32px) !important;
@@ -31,7 +33,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
   .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
             width: var(--rds-avatar-size-small, 28px) !important;
@@ -139,7 +141,7 @@
         min-width: 0; 
         margin-right: var(--rds-spacing-sm, 12px);
 
-      @media (max-width: var(--rds-breakpoint-xs)) {
+      @include bp.down(mobile-sm) {
         .rds-avatar{
           &--with-name{
             gap: var(--rds-spacing-0) !important;
@@ -192,7 +194,7 @@
           background: transparent;
           color: var(--rds-color-on-surface) !important;
           font-weight: var(--rds-font-weight-medium, 500);
-          @media (max-width: var(--rds-breakpoint-xs)) {
+          @include bp.down(mobile-sm) {
             padding: var(--rds-spacing-cozy) var(--rds-spacing-compact) !important;
           }
         }
@@ -381,7 +383,7 @@
       }
     }
     
-    @media (max-width: var(--rds-breakpoint-tablet-sm)) and (min-width: var(--rds-breakpoint-mobile-lg)) {
+    @include bp.between(mobile-lg, tablet-sm) {
       position: absolute;
       top: auto;
       bottom: 60px;
@@ -404,7 +406,7 @@
       }
     }
     
-    @media (max-width: var(--rds-breakpoint-mobile-lg)) and (min-width: var(--rds-breakpoint-mobile-sm)) {
+    @include bp.between(mobile-sm, mobile-lg) {
       position: absolute !important;
       top: auto !important;
       bottom: 55px !important;
@@ -450,7 +452,7 @@
       }
     }
     
-    @media (max-width: var(--rds-breakpoint-mobile-sm)) {
+    @include bp.down(mobile-sm) {
       position: absolute !important;
       top: auto !important;
       bottom: 55px !important;
@@ -639,7 +641,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-tablet-sm)) {
+  @include bp.down(tablet-sm) {
     &__send-icon { 
       width: 28px; 
       height: 28px;
@@ -651,7 +653,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @include bp.down(mobile-sm) {
     &__send-icon { 
       width: 26px; 
       height: 26px;
@@ -723,7 +725,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-tablet-sm)) {
+  @include bp.down(tablet-sm) {
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
@@ -736,7 +738,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @include bp.down(mobile-sm) {
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
@@ -753,7 +755,7 @@
     transform: translate3d(0px, -180px, 0px);
     max-width: 90vw; 
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @include bp.down(mobile-sm) {
       transform: translate3d(0px, -150px, 0px);
       max-width: 95vw;
     }
@@ -853,7 +855,7 @@
   display: none !important;
 }
 
-@media (min-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.up(tablet-sm) {
   .rds-comp-chat {
     flex-direction: row;
     height: 600px;
@@ -879,7 +881,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.down(tablet-sm) {
   .rds-comp-chat {
     height: 100vh;
     max-height: 100vh;
@@ -949,7 +951,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
   .rds-comp-chat {
     &__window-header {
       padding: 0 var(--rds-spacing-xs, 4px);
@@ -1020,7 +1022,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.down(tablet-sm) {
   .EmojiPickerReact {
     height: 370px !important;
     width: min(300px, 90vw) !important;
@@ -1032,7 +1034,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
   .EmojiPickerReact {
     height: 350px !important;
     width: calc(100vw - 2rem) !important;
@@ -1042,7 +1044,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.down(mobile-sm) {
   [id="fab-list"] .dropdown-menu.show {
     width: auto !important;
     height: auto !important;

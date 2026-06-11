@@ -1,4 +1,6 @@
-﻿.rds-adaptive-cards--image-gallery {
+﻿@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
+.rds-adaptive-cards--image-gallery {
   width: 100%;
   max-width: var(--rds-card-max-width, 1200px);
   border: 1px solid var(--rds-border-light);
@@ -1049,7 +1051,7 @@
   inset: var(--rds-dropdown-menu-inset, 4px auto auto -67px) !important;
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-sm)) and (max-width: var(--rds-breakpoint-mobile-md)) {
+@include bp.between(mobile-sm, mobile-md) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1120,7 +1122,7 @@
      &.rds-adaptive-cards__football-logo--away {
       }
   
-  @media (max-width: var(--rds-breakpoint-340)) {
+  @include bp.down(340) {
     .rds-adaptive-cards__football-live {
       position: relative !important;
       left: 0 !important;
@@ -1181,13 +1183,13 @@
     z-index: var(--rds-z-index-layer-2);
   }
 }
-@media (max-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.down(mobile-sm) {
   .rds-adaptive-cards__football-header-left {
       margin-left: var(--rds-spacing-27) !important;
     }
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-md)) and (max-width: var(--rds-breakpoint-xs)) {
+@include bp.between(mobile-md, mobile-lg) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1219,7 +1221,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.between(mobile-lg, tablet-sm) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1413,7 +1415,7 @@
   line-height: 1.4;
 }
 
-@media (max-width: var(--rds-breakpoint-340)) {
+@include bp.down(340) {
   .rds-adaptive-cards--football-scorecard,
   .rds-adaptive-cards__scorecard-container {
     width: 100% !important;
