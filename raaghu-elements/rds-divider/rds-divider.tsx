@@ -4,7 +4,6 @@ import {
   type DividerProps,
   Box,
   Typography,
-  useTheme,
 } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -38,38 +37,36 @@ const RdsDivider= ({
   };
   const normalizedIconName = iconName?.trim();
   const IconComponent = normalizedIconName && iconMap[normalizedIconName] ? iconMap[normalizedIconName] : InfoOutlinedIcon;
-  const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
 
   const getStyleColors = () => {
     switch (styleVariant) {
       case 'subtle':
         return {
-          dividerColor: isDark ? 'grey.700' : 'grey.300',
-          textColor: isDark ? 'grey.400' : 'grey.600',
-          iconBorderColor: isDark ? 'grey.700' : 'grey.300',
-          iconColor: isDark ? 'grey.400' : 'grey.700',
+          dividerColor: 'divider',
+          textColor: 'text.secondary',
+          iconBorderColor: 'divider',
+          iconColor: 'text.secondary',
         };
       case 'strong':
         return {
-          dividerColor: isDark ? 'grey.600' : 'grey.400',
-          textColor: isDark ? 'grey.300' : 'grey.700',
-          iconBorderColor: isDark ? 'grey.600' : 'grey.400',
-          iconColor: isDark ? 'grey.300' : 'grey.800',
+          dividerColor: 'divider',
+          textColor: 'text.primary',
+          iconBorderColor: 'divider',
+          iconColor: 'text.primary',
         };
       case 'primary':
         return {
-          dividerColor: theme.palette.primary.main,
-          textColor: theme.palette.primary.main,
-          iconBorderColor: theme.palette.primary.main,
-          iconColor: theme.palette.primary.main,
+          dividerColor: 'var(--rds-primary-main)',
+          textColor: 'var(--rds-primary-main)',
+          iconBorderColor: 'var(--rds-primary-main)',
+          iconColor: 'var(--rds-primary-main)',
         };
       default:
         return {
-          dividerColor: isDark ? 'grey.700' : 'grey.300',
-          textColor: isDark ? 'grey.400' : 'grey.600',
-          iconBorderColor: isDark ? 'grey.700' : 'grey.300',
-          iconColor: isDark ? 'grey.400' : 'grey.700',
+          dividerColor: 'var(--rds-border-default)',
+          textColor: 'var(--rds-text-secondary)',
+          iconBorderColor: 'var(--rds-border-default)',
+          iconColor: 'var(--rds-text-secondary)',
         };
     }
   };
@@ -84,22 +81,22 @@ const RdsDivider= ({
     switch (size) {
       case 'small':
         return {
-          borderWidth: '1px',
+          borderWidth: 'var(--rds-divider-border-width-sm, 1px)',
           marginY: 2,
         };
       case 'medium':
         return {
-          borderWidth: '2px',
+          borderWidth: 'var(--rds-divider-border-width-md, 2px)',
           marginY: 2,
         };
       case 'large':
         return {
-          borderWidth: '3px',
+          borderWidth: 'var(--rds-divider-border-width-lg, 3px)',
           marginY: 2,
         };
       default:
         return {
-          borderWidth: '2px',
+          borderWidth: 'var(--rds-divider-border-width-md, 2px)',
           marginY: 2,
         };
     }
@@ -117,18 +114,18 @@ const RdsDivider= ({
     {iconShow && (
       <Box
         sx={{
-          width: 28,
-          height: 28,
+          width: 'var(--rds-divider-icon-box-size, 28px)',
+          height: 'var(--rds-divider-icon-box-size, 28px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <IconComponent sx={{ fontSize: 21, color: iconColor }} />
+        <IconComponent sx={{ fontSize: 'var(--rds-divider-icon-size, 21px)', color: iconColor }} />
       </Box>
     )}
   {dividerMessage && (
-    <Typography variant="body2" sx={{ fontWeight: 500, color: textColor }}>
+    <Typography variant="body2" sx={{ fontWeight: 'fontWeightMedium', color: textColor }}>
       {dividerMessage}
     </Typography>
   )}
@@ -138,7 +135,7 @@ const RdsDivider= ({
 
   if (layout === 'vertical') {
     return (
-      <Box sx={{ display: 'flex', alignItems: 'center', height: 120 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', height: 'var(--rds-divider-vertical-container-height, 120px)' }}>
         <Typography variant="body2" sx={{ mr: 1 }}>Left</Typography>
         <MuiDivider
           orientation="vertical"

@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Box, Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import RdsLoader from './rds-loader';
+import { expect } from 'storybook/test';
 
 const hideAllControls = {
   variant: { table: { disable: true } },
@@ -18,9 +19,10 @@ const meta: Meta<typeof RdsLoader> = {
   title: 'Elements/Loader',
   component: RdsLoader,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {
       control: 'select',
@@ -69,6 +71,10 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     type: 'spinner-ring',
+  },
+  play: async ({ canvasElement }) => {
+    const loader = canvasElement.querySelector('.rds-loader__spinner-ring');
+    await expect(loader).toBeTruthy();
   },
 };
 Default.parameters = { controls: { include: ['type'] } };

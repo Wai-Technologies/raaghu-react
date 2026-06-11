@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { Button, Typography, Box, List, ListItem, ListItemText } from '@mui/material';
 import React, { useState } from 'react';
 import RdsPopover from './rds-popover';
@@ -8,9 +9,10 @@ const meta: Meta<typeof RdsPopover> = {
   title: 'Elements/Popover',
   component: RdsPopover,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     position: {
       control: 'select',
@@ -262,3 +264,41 @@ export const WithList: Story = {
   },
 };
 WithList.parameters = { controls: { include: [] } };
+
+export const OpenPopover: Story = {
+  name: 'Interaction: Open popover',
+  args: {
+    position: 'bottom-left',
+    showCloseButton: false,
+    title: 'Test Popover',
+  },
+  render: (args) => {
+    const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+    return (
+      <Box>
+        <Button variant="contained" onClick={(e) => setAnchorEl(e.currentTarget)}>
+          Open Popover
+        </Button>
+        <RdsPopover
+          {...args}
+          isOpen={Boolean(anchorEl)}
+          onClose={() => setAnchorEl(null)}
+          anchorEl={anchorEl}
+        >
+          <Typography>Popover content</Typography>
+        </RdsPopover>
+      </Box>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button', { name: /open popover/i })
+    await expect(trigger).toBeVisible()
+    await userEvent.click(trigger)
+    // MUI Popover renders in a portal at document.body
+    await waitFor(
+      () => expect(document.querySelector('[class*="MuiPopover-paper"]')).not.toBeNull(),
+      { timeout: 2000 }
+    )
+  }
+};

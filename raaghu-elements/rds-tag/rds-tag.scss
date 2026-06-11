@@ -1,21 +1,36 @@
 .rds-tag {
-  display: block;
+  display: inline-flex;
   position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.rds-tag .MuiChip-root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rds-tag .MuiChip-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 [data-theme="dark"]{
-    .MuiChip-label {
-      color: var(--rds-button-primary-text, #ffffff);
+    .MuiChip-filled .MuiChip-label,
+    .MuiChip-root:not(.MuiChip-outlined) .MuiChip-label {
+      color: var(--rds-text-primary);
     }
    
-    .MuiChip-outlined {
-      .MuiChip-label {
-        color: inherit;
-      }
+    .MuiChip-outlined .MuiChip-label {
+      color: inherit;
     }
 
-    .MuiChip-deleteIcon{
-      color: var(--rds-button-primary-text, #ffffff) !important;
+    .MuiChip-filled .MuiChip-deleteIcon,
+    .MuiChip-root:not(.MuiChip-outlined) .MuiChip-deleteIcon {
+      color: var(--rds-text-primary) !important;
     }
     .MuiChip-outlined .MuiChip-deleteIcon{
       color: inherit !important;

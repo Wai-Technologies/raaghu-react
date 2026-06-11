@@ -17,7 +17,7 @@ export interface RdsCompOffcanvasProps {
   onShow?: () => void;
   onClose?: () => void;
   children?: ReactNode;
-  onclick?: (data: any) => void;
+  onclick?: (data: boolean) => void;
   className?: string;
   showPrimaryButton?: boolean;
   showSecondaryButton?: boolean;
@@ -73,7 +73,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
     if (backDrop === RdsOffcanvasBackDrop.Static) {
       return { 
         disableEscapeKeyDown: true,
-        onBackdropClick: (event: any) => {
+        onBackdropClick: (event: React.SyntheticEvent) => {
           event.stopPropagation();
         }
       };

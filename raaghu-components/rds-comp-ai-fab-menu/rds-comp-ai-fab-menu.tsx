@@ -7,17 +7,34 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 
+// register icons once at module load to avoid repeated registrations on render
+registerMaterialIcons({
+    'list': ListIcon,
+    'refresh': RefreshIcon,
+    'export': FileUploadIcon,
+    'delete': DeleteIcon,
+    'download': DownloadIcon,
+});
+export interface RdsCompAiFabMenuItem {
+    key: string;
+    value: React.ReactNode;
+    icon?: string;
+    iconWidth?: string;
+    iconHeight?: string;
+    onClick?: () => void;
+}
+
 export interface RdsCompAiFabMenuProps {
-    colorVariant?: string;
-    size?: string;
+    colorVariant?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'dark' | 'light';
+    size?: 'small' | 'medium' | 'large';
     menuIcon?: string;
     menuiconWidth?: string;
     menuiconHeight?: string;
-    listItems: any[];
+    listItems: RdsCompAiFabMenuItem[];
     className?: string;
     id?: string;
     isShowBorder?: boolean;
-    isRectangular?: boolean; 
+    isRectangular?: boolean;
     backgroundType?: 'circular' | 'rectangular' | 'none';
     alignment?: 'left' | 'right';
     onClick?: () => void;
@@ -27,14 +44,6 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
-   
-registerMaterialIcons({
-    'list': ListIcon,
-    'refresh': RefreshIcon,
-    'export': FileUploadIcon,
-    'delete': DeleteIcon,
-    'download': DownloadIcon,
-});
     
     const getBackgroundType = () => {
         if (props.backgroundType) {
@@ -106,9 +115,10 @@ registerMaterialIcons({
                     {props.listItems.map((listItem) => (
                         <a 
                             key={listItem.key} 
-                            role="link"  
+                            role="menuitem"
                             className={`rds-fab-menu__item ${props.id === "attachment-text" ? 'rds-fab-menu__item--compact' : ''}`}
                             onClick={handleItemClick(listItem.onClick)}
+                            tabIndex={0}
                         >
                             <RdsCompAiIcon 
                                 name={listItem.icon} 

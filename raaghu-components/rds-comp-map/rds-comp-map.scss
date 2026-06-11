@@ -1,8 +1,11 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-map {
-  background: var(--rds-bg, #fff) !important;
+  /* Use theme variable and avoid forcing white fallback so dark themes stay dark */
+  background: var(--rds-bg, transparent) !important;
   border: none !important;
   box-shadow: none !important;
-  padding: 10px !important;
+  padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) !important;
   margin: 0 !important;
   min-height: auto;
   height: auto;
@@ -10,10 +13,10 @@
   overflow: hidden;
 
   &__label {
-    font-size: 20px;
+    font-size: var(--rds-font-size-2xl);
     font-weight: 500;
     color: var(--rds-text, #222);
-    margin-bottom: 12px;
+    margin-bottom: var(--rds-spacing-sm);
     margin-left: 0;
     letter-spacing: 0.2px;
     text-align: left;
@@ -60,7 +63,7 @@
     height: auto !important;
   }
 
-  @media (max-width: 480px) {
+  @include bp.down(sm) {
     svg {
       max-width: calc(100vw - 20px) !important;
       width: calc(100vw - 20px) !important;
@@ -73,13 +76,13 @@
     width: 100%;
     height: auto;
     max-width: 700px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: var(--rds-border-radius-sm);
+    box-shadow: var(--rds-elevation-2);
   }
 
-  @media (max-width: 768px) {
+  @include bp.down(md) {
     &__label {
-      font-size: 18px;
+      font-size: var(--rds-font-size-xl);
     }
     
     svg, &__heatmap-image {
@@ -87,16 +90,16 @@
     }
   }
 
-  @media (max-width: 320px) {
-    padding: 5px !important;
+  @include bp.down(mobile-sm) {
+    padding: calc(var(--rds-spacing-xs) + 1px) !important;
     max-width: 100vw;
     box-sizing: border-box;
     height: auto;
     min-height: auto;
     
     &__label {
-      font-size: 16px;
-      margin-bottom: 8px;
+      font-size: var(--rds-font-size-lg);
+      margin-bottom: var(--rds-spacing-sm);
     }
     
     &__center {
@@ -133,16 +136,16 @@
     }
   }
 
-  @media (min-width: 321px) and (max-width: 414px) {
-    padding: 8px !important;
+  @include bp.between(mobile-sm, 420) {
+    padding: var(--rds-spacing-sm) !important;
     max-width: 100vw;
     box-sizing: border-box;
     height: auto;
     min-height: auto;
     
     &__label {
-      font-size: 17px;
-      margin-bottom: 10px;
+      font-size: var(--rds-font-size-lg, 17px);
+      margin-bottom: var(--rds-spacing-sm, 10px);
     }
     
     &__center {
@@ -180,11 +183,11 @@
   }
 
   &--heatmap {
-    background: linear-gradient(0deg, #FFAF00, #FFAF00),
-      radial-gradient(50.38% 50.38% at 30.5% 6.53%, #2CC1A5 0%, #26BEAE 33%, #E1CF00 67.18%, #FEA200 100%),
-      radial-gradient(61.69% 61.69% at 78.5% 19.32%, #28C0AB 0%, #F94E00 38.26%, #CCDE00 100%),
-      radial-gradient(36.18% 63.42% at 35.64% 37.56%, #F84A00 0%, #1DBBBC 44.15%, rgba(181, 228, 62, 0) 100%),
-      radial-gradient(18.75% 43.04% at 26.5% 80.97%, #FC4703 0%, #25BDB1 50%, rgba(252, 71, 3, 0) 100%);
+    background: linear-gradient(0deg, var(--rds-comp-map-heatmap-0), var(--rds-comp-map-heatmap-0)),
+      radial-gradient(50.38% 50.38% at 30.5% 6.53%, var(--rds-comp-map-heatmap-1) 0%, var(--rds-comp-map-heatmap-2) 33%, var(--rds-comp-map-heatmap-3) 67.18%, var(--rds-comp-map-heatmap-4) 100%),
+      radial-gradient(61.69% 61.69% at 78.5% 19.32%, var(--rds-comp-map-heatmap-5) 0%, var(--rds-comp-map-heatmap-6) 38.26%, var(--rds-comp-map-heatmap-7) 100%),
+      radial-gradient(36.18% 63.42% at 35.64% 37.56%, var(--rds-comp-map-heatmap-8) 0%, var(--rds-comp-map-heatmap-9) 44.15%, rgba(181, 228, 62, 0) 100%),
+      radial-gradient(18.75% 43.04% at 26.5% 80.97%, var(--rds-comp-map-heatmap-10) 0%, var(--rds-comp-map-heatmap-11) 50%, rgba(252, 71, 3, 0) 100%);
 
     .rds-comp-map__label {
       color: var(--rds-text, #333);
@@ -197,39 +200,24 @@
   }
 }
 
-[data-bs-theme="dark"],
-[data-theme="dark"],
-.dark-theme,
-.dark {
+/* Dark-theme SVG/background fixes so the map doesn't render a white inner canvas */
+body[data-theme="dark"], html[data-theme="dark"], .theme-dark, .sb-show-main[data-theme="dark"],
+.rds-theme--dark, body.theme-dark, .dark-theme {
   .rds-comp-map {
-    background: var(--rds-background-surface, #000000) !important;
-
-    &__label {
-      color: var(--rds-text-primary, #ffffff) !important;
-    }
-
-    &__center {
-      background: var(--rds-background-surface, #000000) !important;
-    }
+    background: var(--rds-bg, transparent) !important;
 
     svg {
-      background: var(--rds-background-surface, #000000) !important;
-      filter: brightness(1.2) contrast(1.1) !important;
-
-      path {
-        stroke: var(--rds-text-secondary, #666666) !important;
-        stroke-opacity: 0.6 !important;
-      }
-      rect[fill="#ffffff"],
-      rect[fill="white"],
-      rect[fill="#fff"],
-      rect:first-child {
-        fill: var(--rds-background-surface, #000000) !important;
-      }
+      background-color: var(--rds-color-surface-dark, #1f1f1f) !important;
     }
 
-    &--heatmap {
-      background: var(--rds-background-surface, #000000) !important;
+    /* Some world map implementations render a rect or a white group; ensure it's dark */
+    svg rect, svg > rect, svg g rect {
+      fill: var(--rds-color-surface-dark, #1f1f1f) !important;
+    }
+
+    /* Make label and surrounding areas adapt to dark theme */
+    &__label {
+      color: var(--rds-color-on-surface-dark, #e6e6e6);
     }
   }
 }

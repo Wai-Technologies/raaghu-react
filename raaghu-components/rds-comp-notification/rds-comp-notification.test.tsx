@@ -8,6 +8,7 @@ import RdsCompNotification, {
   RdsCompNotificationProps,
 } from './rds-comp-notification';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-notification.scss', () => ({}));
@@ -853,6 +854,14 @@ describe('RdsCompNotification', () => {
       expect(screen.getByText('Error')).toBeInTheDocument();
       expect(screen.getByText('Success')).toBeInTheDocument();
       expect(screen.getByText('Warning')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompNotification {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

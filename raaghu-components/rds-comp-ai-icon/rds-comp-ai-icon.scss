@@ -1,29 +1,16 @@
-// Respect explicit app theme instead of OS preference
-[data-theme="dark"] .rds-fab-menu .rds-comp-ai-icon,
-[data-theme="dark"] .rds-fab-menu .rds-comp-ai-icon__svg,
-.dark-theme .rds-fab-menu .rds-comp-ai-icon,
-.dark-theme .rds-fab-menu .rds-comp-ai-icon__svg,
-.theme-dark .rds-fab-menu .rds-comp-ai-icon,
-.theme-dark .rds-fab-menu .rds-comp-ai-icon__svg {
-  color: #fff !important;
-}
-
 .rds-comp-ai-icon {
-  // Base styles
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  line-height: 0; // Prevent extra line-height space around SVGs
+  line-height: 0;
   background: transparent;
-  // Use design tokens for spacing, border-radius, etc.
   border-radius: var(--rds-border-radius, 4px);
-  // Accessibility: focus styles
+
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, #1976d2);
+    outline: 2px solid var(--rds-primary-main);
     outline-offset: 2px;
   }
 
-  // SVG element styles
   &__svg {
     display: inline-block;
     vertical-align: middle;
@@ -31,118 +18,69 @@
     width: 100%;
     fill: currentColor;
     stroke: none;
-    // Use color tokens for fill if needed
     color: inherit;
-    transition: color 0.2s ease;
+    transition: color var(--rds-transition-base);
   }
 
-  // Image element styles
   &__img {
     display: inline-block;
     vertical-align: middle;
     object-fit: contain;
     border-radius: inherit;
     background: transparent;
-    // Use design tokens for fallback
     &--fallback {
       opacity: 0.85;
     }
   }
 
-  // Placeholder element (if used)
   &__placeholder {
     background: transparent;
   }
 
-  // Cursor pointer modifier
   &--cursor {
     cursor: pointer;
   }
 
-  // Color variant modifiers using raaghu design tokens
   &--primary {
-    color: #7e2eef !important;
-    
-    &,
+    color: var(--rds-primary-main) !important;
     .rds-comp-ai-icon__svg {
-      color: #7e2eef !important;
+      color: var(--rds-primary-main) !important;
     }
-  }
-
-  // Ensure primary color in dark theme with highest specificity - placed at end for maximum priority
-  [data-theme="dark"] &--primary,
-  [data-theme="dark"] &--primary .rds-comp-ai-icon__svg,
-  .dark-theme &--primary,
-  .dark-theme &--primary .rds-comp-ai-icon__svg,
-  .theme-dark &--primary,
-  .theme-dark &--primary .rds-comp-ai-icon__svg,
-  body.theme-dark &--primary,
-  body.theme-dark &--primary .rds-comp-ai-icon__svg {
-    color: #7e2eef !important;
   }
 
   &--secondary {
-    color: var(--rds-color-secondary, #2539FF);
-    
-    .rds-comp-ai-icon__svg {
-      color: var(--rds-color-secondary, #2539FF);
-    }
+    color: var(--rds-color-secondary);
+    .rds-comp-ai-icon__svg { color: var(--rds-color-secondary); }
   }
 
   &--success {
-    color: var(--rds-color-success, #24993A);
-    
-    .rds-comp-ai-icon__svg {
-      color: var(--rds-color-success, #24993A);
-    }
+    color: var(--rds-color-success);
+    .rds-comp-ai-icon__svg { color: var(--rds-color-success); }
   }
 
   &--danger {
-    color: var(--rds-color-danger, #f44336);
-    
-    .rds-comp-ai-icon__svg {
-      color: var(--rds-color-danger, #f44336);
-    }
+    color: var(--rds-color-danger);
+    .rds-comp-ai-icon__svg { color: var(--rds-color-danger); }
   }
 
   &--warning {
-    color: var(--rds-color-warning, #EA6C0C);
-    
-    .rds-comp-ai-icon__svg {
-      color: var(--rds-color-warning, #EA6C0C);
-    }
+    color: var(--rds-color-warning);
+    .rds-comp-ai-icon__svg { color: var(--rds-color-warning); }
   }
 
   &--info {
-    color: var(--rds-color-info, #2196f3);
-    
-    .rds-comp-ai-icon__svg {
-      color: var(--rds-color-info, #2196f3);
-    }
+    color: var(--rds-color-info);
+    .rds-comp-ai-icon__svg { color: var(--rds-color-info); }
   }
 
   &--light {
-    color: var(--rds-color-light, #ffffff);
-    
-    .rds-comp-ai-icon__svg {
-      color: var(--rds-color-light, #ffffff);
-    }
+    color: var(--rds-color-light);
+    .rds-comp-ai-icon__svg { color: var(--rds-color-light); }
   }
 
   &--dark {
-      .rds-comp-ai-icon__svg {
-        color: var(--rds-color-dark, #212121);
-      }
-
-      // Make icon white when explicit dark theme is active
-      [data-theme="dark"] &,
-      [data-theme="dark"] & .rds-comp-ai-icon__svg,
-      .dark-theme &,
-      .dark-theme & .rds-comp-ai-icon__svg,
-      .theme-dark &,
-      .theme-dark & .rds-comp-ai-icon__svg {
-        color: #fff !important;
-      }
-    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-text-primary);
+    }
   }
 }

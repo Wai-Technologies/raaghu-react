@@ -1,20 +1,28 @@
 .rds-stack {
   display: block;
   position: relative;
+  --rds-stack-divider-color-light: var(--rds-border-light);
+  --rds-stack-divider-color-dark: var(--rds-border-default);
+  --rds-stack-item-radius: var(--rds-border-radius-sm, 4px);
+  --rds-stack-item-font-weight: var(--rds-font-weight-medium, 500);
 }
 
 .rds-stack .MuiDivider-root,
 .rds-stack .rds-stack__divider {
-  background-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
-  color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
-  border-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
+  background-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
+  color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
+  border-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
+}
+
+[data-theme="dark"] .rds-stack {
+  --rds-stack-divider-color: var(--rds-stack-divider-color-dark);
 }
 
 .rds-stack__demo-item {
   padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-weight: 500;
-  color: #fff;
+  border-radius: var(--rds-stack-item-radius, var(--rds-border-radius-sm, 4px));
+  font-weight: var(--rds-stack-item-font-weight, var(--rds-font-weight-medium, 500));
+  color: var(--rds-neutral-0, var(--rds-color-on-primary));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -22,29 +30,13 @@
 }
 
 .rds-stack__demo-item--primary {
-  background-color: var(--rds-color-primary-light, #1976d2);
+  background-color: var(--rds-color-primary-light, var(--rds-primary-main));
 }
 
 .rds-stack__demo-item--secondary {
-  background-color: var(--rds-color-secondary-light, #9c27b0);
+  background-color: var(--rds-color-secondary, var(--rds-secondary-main));
 }
 
 .rds-stack__demo-item--success {
-  background-color: var(--rds-color-success-light, #2e7d32);
-}
-
-.dark-theme .rds-stack__demo-item--primary {
-  background-color: var(--rds-color-primary-dark, #1976d2);
-}
-.dark-theme .rds-stack__demo-item--secondary {
-  background-color: var(--rds-color-secondary-dark, #9c27b0);
-}
-.dark-theme .rds-stack__demo-item--success {
-  background-color: var(--rds-color-success-dark, #2e7d32);
-}
-.dark-theme .rds-stack .MuiDivider-root,
-.rds-stack .rds-stack__divider {
-  background-color: var(--rds-stack-divider-color, rgba(219, 219, 219, 0.59));
-  color: var(--rds-stack-divider-color, rgba(224, 218, 218, 0.479));
-  border-color: var(--rds-stack-divider-color, rgba(145, 144, 144, 0.621));
+  background-color: var(--rds-color-success, var(--rds-success-main));
 }

@@ -1,302 +1,203 @@
-# Raaghu Design System - Architecture Overview
+# Raaghu Design System — Architecture Overview
 
-## System Architecture
-
-The Raaghu Design System is built as a monorepo containing multiple packages that work together to provide a comprehensive React component library.
+## Package Layout
 
 ```
-@waiin/raaghu-react/
-├── raaghu-elements/         # Atomic UI components
-├── raaghu-layouts/          # Layout compositions  
-├── raaghu-pages/            # Page Solution
-├── raaghu-react-themes/     # Theme system
-├── stories/                 # Storybook documentation
-└── docs/                    # Architecture documentation
-└── utils/                   # Other Tools
+@waiin/raaghu-react/                  ← root package (npm: @waiin/raaghu-react)
+├── raaghu-elements/                  ← atoms (button, input, card, sidebar, appbar …)
+├── raaghu-components/                ← molecules (charts, kanban, details-pane, chat …)
+├── raaghu-layouts/                   ← app-shell, layout compositions
+├── raaghu-react-themes/              ← token source of truth + MUI themes + provider
+│   ├── tokens/
+│   │   ├── design-tokens.ts          ← human-edited token definitions
+│   │   └── build-rds-css-vars.ts     ← converts tokens → CSS custom properties
+│   └── src/
+│       ├── mui/                      ← MUI light/dark themes (palette mirrors tokens)
+│       ├── provider/
+│       │   ├── RaaghuThemeProvider.tsx
+│       │   └── theme-utils.ts        ← applyRaaghuTheme / initializeRaaghuTheme
+│       └── styles/
+│           └── index.scss            ← global resets (uses var(--rds-*))
+├── raaghu-pages/                     ← Vite demo app (client showcase)
+│   └── src/
+│       ├── main.tsx                  ← RaaghuThemeProvider bootstrap
+│       └── pages/DashboardPage.tsx   ← RdsCompAppShell demo
+├── utils/griffel/                    ← GriffelProvider (legacy; use RaaghuThemeProvider)
+└── .storybook/                       ← component documentation (primary demo today)
 ```
 
-## Package Structure
-
-### 1. Raaghu Elements and Components (`raaghu-elements/` and `raaghu-components/`)
-
-**Purpose**: Atomic, reusable UI components
-
-**Components**: Base components including:
-- Form Controls: button, input, select, checkbox, radio, etc.
-- Display: card, avatar, badge, chip, tooltip, etc.
-- Navigation: tabs, breadcrumbs, pagination, etc.
-- Feedback: alert, modal, snackbar, dialog, etc.
-- Layout: box, container, stack, grid, etc.
-
-**Structure**:
-```
-rds-{component}/
-├── rds-{component}.tsx       # React component
-├── rds-{component}.scss      # Component styles  
-└── rds-{component}.stories.tsx # Storybook stories
-```
-
-### 2. Raaghu Layouts (`raaghu-layouts/`)
-
-**Purpose**: Complex layout components that compose multiple elements
-
-**Components**:
-- `rds-comp-app-shell`: Main application shell with header, sidebar, content
-- `rds-comp-layout`: Base page layout structure
-
-**Structure**:
-```
-rds-comp-{layout}/
-├── rds-comp-{layout}.tsx     # Layout component
-├── rds-comp-{layout}.css     # Layout styles
-└── rds-comp-{layout}.stories.tsx # Storybook stories
-```
-
-### 3. Raaghu Pages (`raaghu-pages/`)
-
-**Purpose**: Complete page templates and examples
-
-**Structure**:
-```
-raaghu-pages/
-├── src/                      # Page components
-├── public/                   # Static assets
-├── package.json             # Page-specific dependencies
-└── vite.config.ts           # Build configuration
-```
-
-### 4. Raaghu React Themes (`raaghu-react-themes/`)
-
-**Purpose**: Theme system with design tokens and color schemes
-
-**Themes**:
-- Light theme
-- Dark theme  
-- Semi-dark theme
-
-**Structure**:
-```
-src/styles/
-├── index.scss               # Main theme entry
-├── variables/
-│   └── color-variables.scss # Design tokens
-└── themes/
-    ├── light.scss          # Light theme
-    ├── dark.scss           # Dark theme
-    └── semi-dark.scss      # Semi-dark theme
-```
-
-## Design Principles
-
-### 1. Atomic Design Methodology
-
-We follow Brad Frost's Atomic Design principles:
-
-- **Atoms**: Basic elements (button, input, icon)
-- **Molecules**: Groups of atoms (search bar, card header)
-- **Organisms**: Groups of molecules (header, product grid)
-- **Templates**: Layout structures (page templates)
-- **Pages**: Specific instances of templates
-
-### 2. Component Hierarchy
-
-```
-Pages (raaghu-pages)
-    ↓
-Layouts (raaghu-layouts)  
-    ↓
-Elements (raaghu-elements)
-    ↓
-Themes (raaghu-react-themes)
-```
-
-### 3. Separation of Concerns
-
-- **Structure**: React components (.tsx)
-- **Styling**: SCSS files (.scss/.css)
-- **Documentation**: Storybook stories (.stories.tsx)
-- **Logic**: Custom hooks and utilities
-- **Theming**: Centralized theme system
-
-## Technology Stack
-
-### Core Technologies
-
-- **React 19.1.0**: Component framework
-- **TypeScript 5.8.3**: Type safety
-- **Material-UI 7.2.0**: Base component library
-- **SCSS/Sass**: Styling preprocessor
-- **Vite 7.0.4**: Build tool and dev server
-
-### Development Tools
-
-- **Storybook 9.0.16**: Component documentation
-- **ESLint 9.30.1**: Code linting
-- **Million.js 3.1.11**: Performance optimization
-
-### Build System
-
-- **Vite**: Fast build tool with HMR
-- **TypeScript Compiler**: Type checking and compilation
-- **PostCSS**: CSS processing
-- **Autoprefixer**: Browser compatibility
-
-## Styling Architecture
-
-### BEM Methodology
-
-We use BEM (Block Element Modifier) with RDS prefixes:
-
-```scss
-.rds-{component}                    // Block
-.rds-{component}__element          // Element  
-.rds-{component}--modifier         // Modifier
-.rds-{component}__element--modifier // Element modifier
-```
-
-### Design Tokens
-
-Centralized design system tokens:
-
-```scss
-:root {
-  // Colors
-  --rds-color-primary: #1976d2;
-  --rds-color-secondary: #dc004e;
-  
-  // Spacing
-  --rds-spacing-xs: 4px;
-  --rds-spacing-sm: 8px;
-  --rds-spacing-md: 16px;
-  
-  // Typography
-  --rds-font-family: 'Poppins', sans-serif;
-  --rds-font-size-body: 14px;
-  
-  // Elevation
-  --rds-elevation-1: 0 1px 3px rgba(0,0,0,0.12);
-  --rds-elevation-2: 0 2px 4px rgba(0,0,0,0.1);
-}
-```
-
-### Theme System
-
-Three built-in themes with consistent token mapping:
-
-1. **Light Theme**: Default bright interface
-2. **Dark Theme**: Dark interface for low-light environments  
-3. **Semi-Dark Theme**: Balanced theme with dark sidebar
-
-## Component Standards
-
-### TypeScript Interface Pattern
-
-```tsx
-export interface Rds{Component}Props extends BaseProps {
-  // Component-specific props
-  variant?: 'primary' | 'secondary';
-  size?: 'small' | 'medium' | 'large';
-  disabled?: boolean;
-  // ... other props
-}
-```
-
-### Component Structure Template
-
-```tsx
-import React from 'react';
-import './rds-{component}.scss';
-
-export interface Rds{Component}Props {
-  // Props definition
-}
-
-const Rds{Component}: React.FC<Rds{Component}Props> = ({
-  // Props destructuring
-  ...props
-}) => {
-  return (
-    <div className="rds-{component}">
-      {/* Component JSX */}
-    </div>
-  );
-};
-
-export default Rds{Component};
-```
-
-## Development Workflow
-
-### 1. Component Development
-
-1. Create component directory in appropriate package
-2. Implement React component with TypeScript
-3. Create SCSS styles following BEM conventions
-4. Write Storybook stories for documentation
-5. Add component to package index exports
-
-### 2. Testing Strategy
-
-- **Unit Tests**: Jest + React Testing Library
-- **Visual Tests**: Storybook visual regression
-- **Integration Tests**: Component interaction testing
-- **Accessibility Tests**: axe-core testing
-
-### 3. Documentation
-
-- **Code Comments**: TSDoc for components
-- **Storybook**: Interactive component documentation  
-- **Architecture Docs**: Markdown documentation
-- **README Files**: Package-specific documentation
-
-## Performance Considerations
-
-### Bundle Optimization
-
-- **Tree Shaking**: ES modules for selective imports
-- **Code Splitting**: Lazy loading for large components
-- **Million.js**: React performance optimization
-- **Vite**: Fast bundling and HMR
-
-### Runtime Performance
-
-- **Memoization**: React.memo for expensive components
-- **Virtualization**: For large lists and tables
-- **Debouncing**: For search and input components
-- **Efficient Selectors**: CSS performance optimization
-
-## Accessibility Standards
-
-### WCAG 2.1 Compliance
-
-- **AA Level**: Minimum compliance target
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Screen Readers**: ARIA labels and semantic HTML
-- **Color Contrast**: Minimum 4.5:1 contrast ratio
-- **Focus Management**: Visible focus indicators
-
-### Implementation
-
-- **Semantic HTML**: Proper HTML elements
-- **ARIA Attributes**: When semantic HTML isn't sufficient
-- **Focus Trapping**: For modals and dropdowns
-- **Announcements**: Live regions for dynamic content
-
-## Migration and Versioning
-
-### Semantic Versioning
-
-- **Major**: Breaking changes
-- **Minor**: New features, backward compatible
-- **Patch**: Bug fixes, backward compatible
-
-### Breaking Change Strategy
-
-1. Deprecation warnings in minor releases
-2. Migration guides and codemods
-3. Gradual migration path
-4. Clear communication timeline
+Root `package.json` declares `"workspaces": ["raaghu-pages"]` so raaghu-pages
+resolves all deps from root `node_modules` — no duplicate React.
 
 ---
 
-*This architecture documentation is maintained by the Raaghu Design System team and updated with each major release.*
+## Theme Pipeline (how tokens become styles)
+
+```
+design-tokens.ts          ← single source of truth for all values
+       │
+       ▼
+build-rds-css-vars.ts
+  injectTokens(mode)       ← called by RaaghuThemeProvider on every mode change
+       │
+       ▼
+document.documentElement   ← --rds-* CSS custom properties written to <html>
+       │
+       ├── Component SCSS  ← var(--rds-primary-main), var(--rds-text-secondary) …
+       └── MUI ThemeProvider ← palette.ts manually mirrors the same token values
+```
+
+**Key files:**
+
+| File | Role |
+|---|---|
+| `tokens/design-tokens.ts` | The only place humans edit color/spacing/typography values |
+| `tokens/build-rds-css-vars.ts` | `injectTokens(mode, overrides?)` — writes `--rds-*` vars to `<html>` |
+| `src/provider/RaaghuThemeProvider.tsx` | React context; wraps MUI `ThemeProvider` + calls `injectTokens` |
+| `src/provider/theme-utils.ts` | `applyRaaghuTheme`, `initializeRaaghuTheme`, `getRaaghuThemeMode` |
+| `src/styles/index.scss` | Global resets referencing `var(--rds-*)` — import once at app root |
+| `src/mui/palette.ts` | MUI palette — must stay in sync with `design-tokens.ts` by hand |
+
+Supported modes: `'light'` | `'dark'`.
+(`'semi-dark'` appears in older docs but is **not implemented**.)
+
+---
+
+## App Bootstrap (any consumer)
+
+```tsx
+// 1. Import global resets (once, at app entry)
+import '@waiin/raaghu-react/raaghu-react-themes/src/styles/index.scss';
+
+// 2. Wrap at the app root — this is the only provider needed
+import { RaaghuThemeProvider } from '@waiin/raaghu-react/raaghu-react-themes/src/provider/RaaghuThemeProvider';
+
+<RaaghuThemeProvider defaultMode="light">
+  <App />
+</RaaghuThemeProvider>
+```
+
+`RaaghuThemeProvider` initialises from `localStorage` on mount (key: `raaghu-theme`),
+falls back to `prefers-color-scheme`, then to `defaultMode`.
+
+**Do not** use `GriffelProvider` as the app root — it is a legacy wrapper that does
+not wire MUI correctly. `RaaghuThemeProvider` already covers MUI, CSS vars, and
+`CssBaseline`.
+
+---
+
+## Theme Hook
+
+```tsx
+import { useRaaghuTheme } from 'raaghu-react-themes/src/provider/RaaghuThemeProvider';
+
+const { mode, setMode, toggleMode, isDark } = useRaaghuTheme();
+```
+
+---
+
+## Package Structure
+
+### raaghu-elements / raaghu-components
+
+Each component follows:
+
+```
+rds-{component}/
+├── rds-{component}.tsx        ← React component + TypeScript props interface
+├── rds-{component}.scss       ← BEM styles using var(--rds-*) tokens
+└── rds-{component}.stories.tsx
+```
+
+### raaghu-layouts
+
+```
+rds-comp-{layout}/
+├── rds-comp-{layout}.tsx
+├── rds-comp-{layout}.scss
+└── rds-comp-{layout}.stories.tsx
+```
+
+### raaghu-pages (demo app)
+
+Vite + React app that imports components via `@raaghu/*` path aliases
+configured in `raaghu-pages/vite.config.ts` and `tsconfig.app.json`.
+
+```
+raaghu-pages/
+├── vite.config.ts             ← @raaghu/* aliases via fileURLToPath
+├── tsconfig.app.json          ← paths mirrors vite aliases (TS type resolution)
+└── src/
+    ├── main.tsx               ← RaaghuThemeProvider + BrowserRouter
+    └── pages/DashboardPage.tsx ← RdsCompAppShell + sidebar + KPI demo
+```
+
+---
+
+## Component Hierarchy
+
+```
+raaghu-pages          ← page-level composition
+      ↓
+raaghu-layouts        ← RdsCompAppShell, RdsCompLayout
+      ↓
+raaghu-elements       ← RdsButton, RdsSidebar, RdsAppBar, RdsCard …
+raaghu-components     ← RdsCompChartBar, RdsCompKanban, RdsCompChat …
+      ↓
+raaghu-react-themes   ← design-tokens.ts → CSS vars → MUI theme
+```
+
+---
+
+## BEM Naming Convention
+
+```scss
+.rds-{component}                       /* Block  */
+.rds-{component}__element              /* Element */
+.rds-{component}--modifier             /* Modifier */
+.rds-{component}__element--modifier    /* Element modifier */
+```
+
+---
+
+## Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Components | React 18, TypeScript 5.8 |
+| Base UI | Material UI 7 |
+| CSS-in-JS (optional) | Griffel (`@griffel/react`) |
+| Styling | SCSS/Sass (`sass-embedded`) |
+| Build | Vite 7, Million.js |
+| Docs / Visual tests | Storybook 9, Chromatic |
+| Testing | Jest, React Testing Library, Playwright |
+| Package manager | Bun |
+
+---
+
+## Token Adoption Status
+
+Component SCSS token adoption is **partial**:
+
+- **109 SCSS files** use `var(--rds-*)` tokens correctly
+- **60 SCSS files** still contain hardcoded hex values (~1,510 occurrences)
+
+Top files to migrate: `rds-comp-date-and-time-picker.scss` (104 hex),
+`rds-comp-details-pane.scss` (102), `rds-comp-e-signature.scss` (90).
+
+New components and page files must use only `var(--rds-*)` — never hardcode hex.
+
+---
+
+## Development Workflow
+
+1. Edit tokens in `tokens/design-tokens.ts`
+2. No build step — `injectTokens()` applies changes at runtime via `RaaghuThemeProvider`
+3. If MUI-themed values changed, mirror them manually in `src/mui/palette.ts`
+4. Export new components from the relevant `index.ts` barrel
+5. Write a Storybook story; verify light/dark with the toolbar toggle
+6. For raaghu-pages: `bun run pages:dev` from repo root
+
+---
+
+*Update this file when the token pipeline, provider API, or package structure changes.*

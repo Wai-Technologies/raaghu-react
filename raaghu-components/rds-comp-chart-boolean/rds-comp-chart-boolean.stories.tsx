@@ -1,11 +1,13 @@
 import RdsCompBooleanChart from "./rds-comp-chart-boolean";
 import "./rds-comp-chart-boolean.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Boolean Chart',
     component: RdsCompBooleanChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
            description: {
@@ -14,7 +16,7 @@ const meta: Meta = {
 
         },
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         centerIconName: {
             options: ["users", "headset", "circle"],
@@ -107,5 +109,9 @@ export const Default: Story = {
                     'chartStyle', 
             ],
         },
-     }, 
+     },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 };

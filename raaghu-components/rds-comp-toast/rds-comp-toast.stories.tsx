@@ -1,10 +1,12 @@
 import RdsCompToast, { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsCompToast> = {
     title: "Components/Toast",
     component: RdsCompToast,
     parameters: {
+            status: { type: 'stable' },
         layout: "padded",
         controls: {
         exclude: ['delay', 'autohide', 'borderColor'],
@@ -29,7 +31,7 @@ const meta: Meta<typeof RdsCompToast> = {
         }
     },
     
-    tags: ["autodocs"],
+    tags: ["autodocs", 'stable'],
     argTypes: {
         state: {
             options: Object.values(ToastState), 
@@ -132,5 +134,9 @@ export const Default: Story = {
         filename: "Filename.txt",
         placeholder: "Placeholder Text",
         chatTime: "12:29 PM"
-    }
+    },
+    play: async ({ canvas }) => {
+        const heading = await canvas.findByText('Toast Headline');
+        await expect(heading).toBeInTheDocument();
+    },
 } satisfies Story;

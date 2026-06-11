@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import RdsCompNavtabs from "./rds-comp-navtabs";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 
 const meta: Meta = {
     title: 'Components/Navtabs',
     component: RdsCompNavtabs,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {
@@ -15,7 +17,7 @@ const meta: Meta = {
 
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         layout: {
             options: [
@@ -63,6 +65,12 @@ export const Default: Story = {
         style: "Bottom Select",
         justified: false,
         layout: "Horizontal"
-    }
+    },
+    play: async ({ canvas }) => {
+        const tab = await canvas.findByText('Active');
+        await expect(tab).toBeInTheDocument();
+    },
 } satisfies Story;
 Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
+
+

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiIcon, { RdsCompAiIconProps } from './rds-comp-ai-icon';
 
 // Mock SCSS
@@ -531,6 +532,12 @@ describe('RdsCompAiIcon', () => {
       const { container } = render(<RdsCompAiIcon {...defaultProps} />);
       const icon = getIcon(container);
       expect(icon?.tagName).toBe('svg');
+    });
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiIcon {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('supports aria-controls attribute for accessibility', () => {

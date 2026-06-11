@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsCompDetailsPane from "./rds-comp-details-pane";
 
 
@@ -10,9 +11,10 @@ const meta: Meta = {
     title: "Components/Details Pane",
     component: RdsCompDetailsPane,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         style: {
             options: ["Favourites", "Favourites - New Folder", "Prompt History", "Real Estate","Selection","Toolbar","Thumbnail View"],
@@ -31,6 +33,10 @@ export default meta;
 type Story = StoryObj<typeof RdsCompDetailsPane>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.firstElementChild;
+        expect(el).toBeTruthy();
+    },
     args: {
         headerText: "My Activity",
         historyTabLabel: "History",

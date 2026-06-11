@@ -1,3 +1,4 @@
+import { eSignaturePenColors } from '../../raaghu-react-themes/tokens/design-tokens';
 import React, { useState, useRef, useEffect } from 'react';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
@@ -37,7 +38,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     { id: '6', name: 'Style 6', style: 'modern', fullName: 'John Doe', initials: 'J.D' },
   ],
   width = 695,
-  penColor = '#000000',
+  penColor = eSignaturePenColors.black,
   title = 'Draw Signature',
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -49,7 +50,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
 
   const [hasDrawn, setHasDrawn] = useState(false);
 
-  const colors = ['#000000', '#0066ff', '#ff0000'];
+  const colors = [eSignaturePenColors.black, eSignaturePenColors.blue, eSignaturePenColors.red];
 
   useEffect(() => {
     if (!canvasRef.current || mode !== 'draw') return;
@@ -196,12 +197,12 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
           {colourSwatch && (
             <Box className="rds-e-signature__color-palette">
                   {colors.map((color, index) => (
-                <Box
-                  key={color}
-                  className={`rds-e-signature__color-button ${selectedColor === color ? 'rds-e-signature__color-button--selected' : ''}`}
-                  onClick={() => setSelectedColor(color)}
-                  style={{ backgroundColor: color }}
-                >
+                  <Box
+                    key={color}
+                    className={`rds-e-signature__color-button ${selectedColor === color ? 'rds-e-signature__color-button--selected' : ''}`}
+                    onClick={() => setSelectedColor(color)}
+                    data-color={color}
+                  >
                   {selectedColor === color && <span className="rds-e-signature__checkmark">✓</span>}
                 </Box>
               ))}

@@ -6,6 +6,7 @@ import RdsCompScrollBar, {
   RdsScrollBarProps,
 } from './rds-comp-scrollbar';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-scrollbar.scss', () => ({}));
@@ -595,6 +596,14 @@ describe('RdsCompScrollBar', () => {
           expect(contentDiv).toBeInTheDocument();
         });
       }
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompScrollBar {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

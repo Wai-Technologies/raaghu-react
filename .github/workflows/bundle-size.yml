@@ -1,0 +1,44 @@
+name: Bundle Size
+
+on:
+  pull_request:
+    branches: [main, development, production]
+    paths:
+      - 'raaghu-elements/**'
+      - 'raaghu-components/**'
+      - 'raaghu-layouts/**'
+      - 'raaghu-react-themes/**'
+      - 'package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  size:
+    name: Check bundle size
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Check bundle size
+        run: npm run size
+
+      - name: Post size report to PR
+        uses: andresz1/size-limit-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true

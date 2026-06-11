@@ -1,8 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTabs, { RdsTabItem, RdsTabsLayout } from './rds-tabs';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-tabs.scss', () => ({}));
@@ -593,6 +595,12 @@ describe('RdsTabs', () => {
       );
       const tablist = container.querySelector('[role="tablist"]');
       expect(tablist).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTabs tabs={mockTabs} onTabChange={jest.fn()} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have proper tab roles', () => {
@@ -634,5 +642,61 @@ describe('RdsTabs', () => {
         expect(tab.getAttribute('title')).toBeTruthy();
       });
     });
+  });
+});
+
+describe('RdsTabs — keyboard navigation', () => {
+  const tabs = [
+    { id: 'tab1', label: 'Tab One' },
+    { id: 'tab2', label: 'Tab Two' },
+    { id: 'tab3', label: 'Tab Three' },
+  ];
+
+  it('first tab is focusable via Tab key', async () => {
+    renderWithTheme(<RdsTabs tabs={tabs} activeTab="tab1" onTabChange={jest.fn()} />);
+    await userEvent.tab();
+    expect(document.activeElement?.getAttribute('role')).toBe('tab');
+  });
+
+  it('moves focus to next tab on ArrowRight', async () => {
+    renderWithTheme(<RdsTabs tabs={tabs} activeTab="tab1" onTabChange={jest.fn()} />);
+    const firstTab = screen.getByRole('tab', { name: /tab one/i });
+    firstTab.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: /tab two/i })).toHaveFocus();
+  });
+
+  it('moves focus to previous tab on ArrowLeft', async () => {
+    renderWithTheme(<RdsTabs tabs={tabs} activeTab="tab2" onTabChange={jest.fn()} />);
+    const secondTab = screen.getByRole('tab', { name: /tab two/i });
+    secondTab.focus();
+    await userEvent.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('tab', { name: /tab one/i })).toHaveFocus();
+  });
+
+  it('moves focus to first tab on Home key', async () => {
+    renderWithTheme(<RdsTabs tabs={tabs} activeTab="tab3" onTabChange={jest.fn()} />);
+    screen.getByRole('tab', { name: /tab three/i }).focus();
+    await userEvent.keyboard('{Home}');
+    expect(screen.getByRole('tab', { name: /tab one/i })).toHaveFocus();
+  });
+
+  it('moves focus to last tab on End key', async () => {
+    renderWithTheme(<RdsTabs tabs={tabs} activeTab="tab1" onTabChange={jest.fn()} />);
+    screen.getByRole('tab', { name: /tab one/i }).focus();
+    await userEvent.keyboard('{End}');
+    expect(screen.getByRole('tab', { name: /tab three/i })).toHaveFocus();
+  });
+
+  it('skips disabled tabs during ArrowRight navigation', async () => {
+    const tabsWithDisabled = [
+      { id: 'a', label: 'Alpha' },
+      { id: 'b', label: 'Beta', disabled: true },
+      { id: 'c', label: 'Gamma' },
+    ];
+    renderWithTheme(<RdsTabs tabs={tabsWithDisabled} activeTab="a" onTabChange={jest.fn()} />);
+    screen.getByRole('tab', { name: /alpha/i }).focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: /gamma/i })).toHaveFocus();
   });
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsAppBar, { RdsAppBarProps, RdsAppBarSize } from './rds-app-bar';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-app-bar.scss', () => ({}));
@@ -798,6 +799,14 @@ describe('RdsAppBar', () => {
     it('should handle whitespace in title', () => {
       render(<RdsAppBar title="   Title With Spaces   " />);
       expect(screen.getByText(/Title With Spaces/)).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsAppBar />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

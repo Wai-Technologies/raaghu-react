@@ -1,14 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsAvatar from './rds-avatar';
 import { Person } from '@mui/icons-material';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsAvatar> = {
   title: 'Elements/Avatar',
   component: RdsAvatar,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     colorVariant: {
       control: 'select',
@@ -86,6 +88,9 @@ export const Default: Story = {
         'src'
       ]
     },
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 
@@ -296,3 +301,5 @@ export const WithName: Story = {
     },
   },
 };
+
+

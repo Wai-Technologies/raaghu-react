@@ -5,10 +5,10 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
 
   if (displayType === 'Basic') {
     return (
-      <Box className="rds-comp-layout-wrapper_basic" sx={{ boxShadow: hasShadow ? '0 0 6px 5px #4d525912' : 'none', }} >
+      <Box className="rds-comp-layout-wrapper_basic" sx={{ boxShadow: (theme) => hasShadow ? theme.shadows[2] : 'none', }} >
         <Box className="rds-comp-layout-inner-wrapper_basic">
           <Paper elevation={3} className="rds-comp-layout__card_basic"
-            sx={{ boxShadow: '0 0 6px 5px #4d525912', borderRadius: 2.5, }}>
+            sx={{ borderRadius: 2.5, }}>
           </Paper>
         </Box>
       </Box>
@@ -20,7 +20,7 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
   return (
 
 
-    <Box className="rds-comp-layout-wrapper" sx={{ boxShadow: hasShadow ? '0 0 6px 5px #4d525912' : 'none', p: { xs: 2, sm: 2 } }}>
+    <Box className="rds-comp-layout-wrapper" sx={{ boxShadow: (theme) => hasShadow ? theme.shadows[2] : 'none', p: { xs: 2, sm: 2 } }}>
       <Box className="rds-comp-layout-inner-wrapper" sx={{ gap: 3 }}>
         {(() => {
 

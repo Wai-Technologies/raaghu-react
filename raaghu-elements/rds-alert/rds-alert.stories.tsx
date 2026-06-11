@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import RdsAlert from './rds-alert';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -9,12 +10,13 @@ const meta: Meta<typeof RdsAlert> = {
   title: 'Elements/Alert',
   component: RdsAlert,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
             exclude: ['component', 'slots', 'slotProps', 'variant']
         },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     description: {
       control: 'text',
@@ -117,6 +119,10 @@ export const Default: Story = {
     size: 'medium',
     multiline: false,
     showDescription: true,
+  },
+  play: async ({ canvas }) => {
+    const alert = await canvas.findByRole('alert');
+    await expect(alert).toBeInTheDocument();
   },
 };
 

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Typography, Button, IconButton } from '@mui/material';
+import { Box, Typography, IconButton } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
+import type { FileWithProgress } from './rds-file-uploader';
 
 interface RdsFileUploaderStandardViewProps {
   showTitle: boolean;
@@ -15,8 +17,8 @@ interface RdsFileUploaderStandardViewProps {
   selectedFileName: string | null;
   handleFileSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setSelectedFileName: (name: string | null) => void;
-  setFiles: React.Dispatch<React.SetStateAction<any[]>>;
-  onFilesChange?: (files: any[]) => void;
+  setFiles: React.Dispatch<React.SetStateAction<FileWithProgress[]>>;
+  onFilesChange?: (files: FileWithProgress[]) => void;
   children?: React.ReactNode;
   title?: string;
 }
@@ -62,18 +64,18 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
         }}
         onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(true); } : undefined}
         onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); } : undefined}
-        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileSelect({ target: { files: droppedFiles } } as any); } : undefined}
+        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileSelect({ target: { files: droppedFiles as unknown as FileList } } as unknown as React.ChangeEvent<HTMLInputElement>); } : undefined}
       >
-        <Button
-          variant="contained"
+        <RdsButton
+          style="filled"
           component="label"
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
           sx={{
-            minWidth: 120,
-            fontSize: 15,
-            fontWeight: 500,
-            padding: '8px 16px',
+            minWidth: 'var(--rds-file-uploader-btn-min-width, 120px)',
+            fontSize: 'var(--rds-font-size-md, 0.9375rem)',
+            fontWeight: 'var(--rds-font-weight-medium, 500)',
+            padding: 'var(--rds-file-uploader-upload-padding-y, 4px) var(--rds-file-uploader-upload-padding-x, 13px)',
             flexShrink: 0,
           }}
         >
@@ -85,11 +87,11 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
             disabled={disabled}
             onChange={handleFileSelect}
           />
-        </Button>
+        </RdsButton>
         <Typography
           className="rds-file-uploader__filename"
           variant="body2"
-          sx={{ color: selectedFileName ? '#222' : '#888' }}
+          sx={{ color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)' }}
         >
           {showPreview
             ? (selectedFileName ? selectedFileName : 'No file chosen')
@@ -106,18 +108,18 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
               onFilesChange?.([]);
             }}
             disabled={disabled}
-            sx={{ ml: 1 }}
+            sx={{ ml: 'var(--rds-spacing-xs, 4px)' }}
           >
             {children}
           </IconButton>
         )}
       </Box>
 
-      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 1, minHeight: 20, marginLeft: '10px' }}>
+      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs, 4px)', minHeight: 'var(--rds-file-uploader-hint-row-height, 20px)', marginLeft: 'var(--rds-file-uploader-hint-padding-right, 10px)' }}>
         <Typography
           className="rds-file-uploader__hint"
           variant="caption"
-          sx={{ color: showHint ? '#222' : 'transparent', fontWeight: 400, textAlign: 'right', minWidth: 0 }}
+          sx={{ color: showHint ? 'var(--rds-text-primary)' : 'transparent', fontWeight: 400, textAlign: 'right', minWidth: 0 }}
         >
           {showHint ? hintText : '\u00A0'}
         </Typography>
@@ -132,3 +134,5 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   );
 };
 export default RdsFileUploaderStandardView;
+
+RdsFileUploaderStandardView.displayName = 'RdsFileUploaderStandardView';

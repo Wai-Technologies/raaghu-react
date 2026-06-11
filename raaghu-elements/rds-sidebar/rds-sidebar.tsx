@@ -8,6 +8,7 @@ import {
   ListItemText,
   Collapse,
   type DrawerProps,
+  type SxProps,
 } from '@mui/material';
 import { 
   ExpandLess, 
@@ -121,7 +122,7 @@ const RdsSidebar = ({
   const avatarContainerClasses = `rds-sidebar__avatar-container rds-sidebar__avatar-container--${typeOf}`;
   const getLogoClass = () => shouldShowIconsOnly ? 'rds-sidebar__logo rds-sidebar__logo--collapse' : 'rds-sidebar__logo rds-sidebar__logo--expanded';
 
-  const drawerSx: any = {
+  const drawerSx: SxProps = {
     width: shouldShowIconsOnly ? 64 : width,
     flexShrink: 0,
     ['& .MuiDrawer-paper']: {
@@ -137,7 +138,7 @@ const RdsSidebar = ({
           position: 'fixed',
           top: 0,
           left: 0,
-          zIndex: 1200,
+          zIndex: 'var(--rds-z-index-banner, 1200)',
         })
       })
     }
@@ -219,7 +220,7 @@ const RdsSidebar = ({
                 className={navButtonClasses}
                 aria-expanded={!!openMap[index]}
                 sx={{
-                  minHeight: 48,
+                  minHeight: 'var(--rds-sidebar-nav-min-height, 48px)',
                   justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
                   px: shouldShowIconsOnly ? 0 : 2,
                 }}
@@ -231,26 +232,24 @@ const RdsSidebar = ({
                 )}
                 {showLabels && <ListItemText primary={item.label} />}
                 {item.children && item.children.length > 0 && !shouldShowIconsOnly && (
-                  (!!openMap[index]) ? <ExpandLess /> : <ExpandMore />
+                  (openMap[index]) ? <ExpandLess /> : <ExpandMore />
                 )}
               </ListItemButton>
             );
 
             return (
-              <div key={index}>
-                <ListItem disablePadding className={navItemClasses}>
-                  {shouldShowIconsOnly && item.icon ? (
-                    <RdsTooltip 
-                      title={item.label} 
-                      style="right"
-                      arrow
-                    >
-                      {listItemButton}
-                    </RdsTooltip>
-                  ) : (
-                    listItemButton
-                  )}
-                </ListItem>
+              <ListItem key={index} disablePadding className={navItemClasses} sx={{ display: 'block' }}>
+                {shouldShowIconsOnly && item.icon ? (
+                  <RdsTooltip
+                    title={item.label}
+                    style="right"
+                    arrow
+                  >
+                    {listItemButton}
+                  </RdsTooltip>
+                ) : (
+                  listItemButton
+                )}
                 {item.children && item.children.length > 0 && (
                   <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
@@ -262,7 +261,7 @@ const RdsSidebar = ({
                             selected={child.active}
                             className={navButtonClasses}
                             sx={{
-                              minHeight: 40,
+                                minHeight: 'var(--rds-sidebar-child-nav-min-height, 40px)',
                               justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
                               px: shouldShowIconsOnly ? 0 : 4,
                             }}
@@ -279,7 +278,7 @@ const RdsSidebar = ({
                         return (
                           <ListItem key={cIdx} disablePadding className={navItemClasses}>
                             {shouldShowIconsOnly && child.icon ? (
-                              <RdsTooltip 
+                              <RdsTooltip
                                 title={`${item.label} - ${child.label}`}
                                 style="right"
                                 arrow
@@ -295,7 +294,7 @@ const RdsSidebar = ({
                     </List>
                   </Collapse>
                 )}
-              </div>
+              </ListItem>
             );
           })}
         </List>

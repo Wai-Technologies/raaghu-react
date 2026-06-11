@@ -64,19 +64,21 @@ function getPropsForState(args: any) {
 }
 
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import RdsCommentBox from './rds-comp-comments-box';
 
 const meta: Meta<typeof RdsCommentBox> = {
   title: 'Components/Comment Box',
   component: RdsCommentBox,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['editIcon', 'deleteIcon'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     avatarInitials: { control: 'text', description: 'Initials for avatar' },
     placeholderText: { control: 'text', description: 'Placeholder text for input' },
@@ -123,6 +125,9 @@ export const Default: StoryObj<typeof RdsCommentBox> = {
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
 
 export const Selected: StoryObj<typeof RdsCommentBox> = {
@@ -214,4 +219,6 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
 };
+
+
 
