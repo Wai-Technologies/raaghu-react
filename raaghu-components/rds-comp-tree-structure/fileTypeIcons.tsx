@@ -1,6 +1,5 @@
 import { fileTypeIconColors } from '../../raaghu-react-themes/tokens/design-tokens';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 // Import all necessary Material-UI icons
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -211,9 +210,6 @@ export const getFileIcon = (fileType: string) => {
   return fileTypeIcons[fileType as keyof typeof fileTypeIcons] || fileTypeIcons.Default;
 };
 
-const shouldReduce = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const dur = 0.2;
-
 // TreeNode component
 export const TreeNode = ({
   node,
@@ -394,15 +390,10 @@ export const TreeNode = ({
       {isExpanded &&
         node.children &&
         level < maxLevel &&
-        <AnimatePresence initial={false}>
-        {node.children.map((child: TreeNode) => (
-          <motion.div
+        node.children.map((child: TreeNode) => (
+          <div
             className="rds-comp-tree-structure__node-children"
             key={child.id}
-            initial={shouldReduce ? false : { opacity: 0, height: 0, y: -6 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={shouldReduce ? {} : { opacity: 0, height: 0, y: -4 }}
-            transition={shouldReduce ? { duration: 0 } : { duration: dur, ease: [0.4, 0, 0.2, 1] }}
             style={{ overflow: 'hidden' }}
           >
             <TreeNode
@@ -416,10 +407,8 @@ export const TreeNode = ({
               onNodeClick={onNodeClick}
               onCheckboxClick={onCheckboxClick}
             />
-          </motion.div>
+          </div>
         ))}
-        </AnimatePresence>
-      }
     </div>
   );
 };

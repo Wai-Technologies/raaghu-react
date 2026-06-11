@@ -54,9 +54,9 @@ export const Text: Story = {
     width: '100%',
     animated: true,
   },
-  play: async ({ canvas }) => {
-    const skeleton = await canvas.findByRole('progressbar', { hidden: true });
-    await expect(skeleton).toBeInTheDocument();
+  play: async ({ canvasElement }) => {
+    const skeleton = canvasElement.querySelector('.MuiSkeleton-root');
+    await expect(skeleton).toBeTruthy();
   },
 };
 

@@ -134,7 +134,7 @@ export const colorTokens = {
 
 /** Extended breakpoints for responsive SCSS (injected as --rds-breakpoint-*). */
 export const extendedBreakpointTokens = {
-  xs: '0px',
+  xs: '320px',
   sm: '600px',
   md: '900px',
   lg: '1200px',
@@ -406,7 +406,7 @@ export const zIndexTokens = {
 
 // Breakpoint Tokens
 export const breakpointTokens = {
-  xs: '0px',
+  xs: '320px',
   sm: '600px',
   md: '900px',
   lg: '1200px',
