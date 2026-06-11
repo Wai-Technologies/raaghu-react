@@ -1,29 +1,30 @@
-import React from 'react';
-import { AppBar as MuiAppBar, Toolbar, Typography, IconButton, AppBarProps, InputBase, Tabs, Tab, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
+import { type ReactNode } from 'react';
+import { AppBar as MuiAppBar, Toolbar, Typography, IconButton, type AppBarProps, InputBase, Tabs, Tab, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
 import { ProfileMenu } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Person from '@mui/icons-material/Person';
+import clsx from 'clsx';
 import './rds-header.scss';
 
 export interface RdsHeaderProps extends AppBarProps {
   title?: string;
-  logo?: React.ReactNode;
+  logo?: ReactNode;
   onMenuClick?: () => void;
   showMenuButton?: boolean;
-  actions?: React.ReactNode;
+  actions?: ReactNode;
   userName?: string;
   userShortName?: string;
   userEmail?: string;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
-  tabs?: Array<string | { label: string;[key: string]: any }>;
+  tabs?: Array<string | { label: string; [key: string]: unknown }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
-  subHeader?: React.ReactNode;
-  children?: React.ReactNode;
+  subHeader?: ReactNode;
+  children?: ReactNode;
 }
 const RdsHeader = ({
   title,
@@ -45,17 +46,14 @@ const RdsHeader = ({
   ...props
 }: RdsHeaderProps) => {
   const colorClass =
-    props.color === 'primary'
-      ? ' rds-header--primary'
-      : props.color === 'secondary'
-      ? ' rds-header--secondary'
-      : props.color === 'transparent'
-      ? ' rds-header--transparent'
-      : '';
+    props.color === 'primary' ? 'rds-header--primary' :
+    props.color === 'secondary' ? 'rds-header--secondary' :
+    props.color === 'transparent' ? 'rds-header--transparent' :
+    undefined;
   return (
     <MuiAppBar
       {...props}
-      className={`rds-header${colorClass}${props.className ? ' ' + props.className : ''}`}
+      className={clsx('rds-header', colorClass, props.className)}
       color={props.color === 'transparent' ? 'transparent' : 'default'}
       elevation={0}
     >

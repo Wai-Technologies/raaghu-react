@@ -1,5 +1,5 @@
-import React from 'react';
-import { Snackbar as MuiSnackbar, Alert, SnackbarProps } from '@mui/material';
+import { type SyntheticEvent } from 'react';
+import { Snackbar as MuiSnackbar, Alert, type SnackbarProps } from '@mui/material';
 
 export interface RdsSnackbarProps extends SnackbarProps {
   message?: string;
@@ -9,7 +9,7 @@ export interface RdsSnackbarProps extends SnackbarProps {
   duration?: number;
 }
 
-const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
+const RdsSnackbar = ({
   message,
   type = 'info',
   showCloseButton = true,
@@ -18,8 +18,8 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   autoHideDuration,
   children,
   ...props
-}) => {
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+}: RdsSnackbarProps) => {
+  const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }

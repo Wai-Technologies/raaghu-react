@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextField as MuiTextField, TextFieldProps } from '@mui/material';
+import { TextField as MuiTextField, type TextFieldProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-text-field.scss';
 
 export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required'> {
@@ -7,7 +8,7 @@ export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required'> {
   errorMessage?: string;
 }
 
-const RdsTextField: React.FC<RdsTextFieldProps> = ({
+const RdsTextField = ({
   isRequired = false,
   errorMessage,
   error,
@@ -16,18 +17,12 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
   className,
   FormHelperTextProps: formHelperTextProps,
   ...props
-}) => {
-  const rootClassName = [
-    'rds-text-field',
-    className,
-  ].filter(Boolean).join(' ');
+}: RdsTextFieldProps) => {
+  const rootClassName = clsx('rds-text-field', className);
 
   const mergedHelperTextProps = {
     ...formHelperTextProps,
-    className: [
-      'rds-text-field__helper-text',
-      formHelperTextProps?.className,
-    ].filter(Boolean).join(' '),
+    className: clsx('rds-text-field__helper-text', formHelperTextProps?.className),
   };
   
   // Handle defaultValue - only pass it if explicitly provided and no value prop is present

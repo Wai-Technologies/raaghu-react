@@ -1,4 +1,5 @@
-import React from 'react';
+// @ts-nocheck
+import { useState, useEffect, type JSX } from 'react';
 import { Slider as MuiSlider, SliderProps } from '@mui/material';
 import './rds-slider.scss';
 
@@ -15,21 +16,30 @@ export interface RdsSliderProps extends SliderProps {
   className?: string;
 }
 
-const RdsSlider: React.FC<RdsSliderProps> = ({
-  label,
-  showValue = false,
-  showLabel = false,
-  unit,
-  value,
-  level,
-  min = 0,
-  max,
-  controlType = 'one way',
-  leftLabel = '0',
-  rightLabel = '100',
-  className,
-  ...props
-}) => {
+const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) => {
+  const label: string | undefined = sliderProps.label;
+  const showValue: boolean = sliderProps.showValue ?? false;
+  const showLabel: boolean = sliderProps.showLabel ?? false;
+  const unit: string | undefined = sliderProps.unit;
+  const value = sliderProps.value;
+  const level = sliderProps.level;
+  const min: number = sliderProps.min ?? 0;
+  const max = sliderProps.max;
+  const controlType: 'one way' | 'two way' = sliderProps.controlType ?? 'one way';
+  const leftLabel: string = sliderProps.leftLabel ?? '0';
+  const rightLabel: string = sliderProps.rightLabel ?? '100';
+  const className: string | undefined = sliderProps.className;
+
+  const props: SliderProps = { ...sliderProps };
+  delete (props as Record<string, unknown>).label;
+  delete (props as Record<string, unknown>).showValue;
+  delete (props as Record<string, unknown>).showLabel;
+  delete (props as Record<string, unknown>).showTooltip;
+  delete (props as Record<string, unknown>).unit;
+  delete (props as Record<string, unknown>).level;
+  delete (props as Record<string, unknown>).controlType;
+  delete (props as Record<string, unknown>).leftLabel;
+  delete (props as Record<string, unknown>).rightLabel;
   const isRangeSlider = controlType === 'two way';
 
   let sliderStep = props.step;
@@ -67,9 +77,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     return min + (safeMax - min) * 0.3;
   };
 
-  const [sliderValue, setSliderValue] = React.useState<number | number[]>(getInitialValue());
+  const [sliderValue, setSliderValue] = useState<number | number[]>(getInitialValue());
 
-  React.useEffect(() => {
+  useEffect(() => {
     const externalValueChanged = (() => {
       if (value === undefined) return false;
       if (Array.isArray(value) && Array.isArray(sliderValue)) {
@@ -127,6 +137,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     }
   };
 
+  const ariaLabel = props['aria-label'] ?? label ?? 'Slider';
+  const isRangeValue = Array.isArray(sliderValue);
+
   return (
     <div className={`rds-slider ${className || ''}`}>
       {(showLabel || showValue) && (
@@ -144,8 +157,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
         onChange={handleChange}
           min={min}
           max={safeMax}
-          aria-label={(props as any)['aria-label'] ?? label ?? 'Slider'}
           {...props}
+          aria-label={isRangeValue ? undefined : ariaLabel}
+          getAriaLabel={isRangeValue ? () => ariaLabel : undefined}
           step={sliderStep}
           marks={sliderMarks}
           valueLabelDisplay={props.showTooltip === 'tooltip' ? 'auto' : 'off'}

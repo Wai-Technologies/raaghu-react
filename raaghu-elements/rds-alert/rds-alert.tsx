@@ -1,6 +1,7 @@
-import React from 'react';
+import { isValidElement, cloneElement, type ReactNode } from 'react';
 import { Alert as MuiAlert, type AlertProps, type AlertColor } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
 import './rds-alert.scss';
 
@@ -8,7 +9,7 @@ export interface RdsAlertProps extends AlertProps {
   description?: string;
   type?: AlertColor;
   showIcon?: boolean;
-  changeIconName?: React.ReactNode;
+  changeIconName?: ReactNode;
   title?: string;
   showTitle?: boolean;
   showDescription?: boolean;
@@ -42,18 +43,20 @@ const RdsAlert= ({
   ...props
 }:RdsAlertProps) => {
   const mainText = description !== undefined ? String(description) : (typeof children === 'string' ? children : '');
+  const resolvedSeverity = severity || type;
   const sizeClass = `rds-alert--${size}`;
   const styleClass = `rds-alert--${variantStyle}`;
-  const severityClass = `rds-alert--${(severity || type)}`;
+  const severityClass = `rds-alert--${resolvedSeverity}`;
   const multilineClass = multiline ? 'rds-alert--multiline' : '';
-  let iconNode: React.ReactNode | false = false;
+  let iconNode: ReactNode | false = false;
+
   if (showIcon) {
     if (changeIconName === null) {
       iconNode = false;
     } else if (changeIconName !== undefined) {
-      if (React.isValidElement(changeIconName)) {
-        const existingClass = (changeIconName.props as any)?.className || '';
-        iconNode = React.cloneElement(changeIconName as React.ReactElement<{ className?: string }>, {
+      if (isValidElement<{ className?: string }>(changeIconName)) {
+        const existingClass = changeIconName.props.className || '';
+        iconNode = cloneElement(changeIconName, {
           className: `${existingClass ? existingClass + ' ' : ''}rds-alert__icon`,
         });
       } else {
@@ -67,9 +70,16 @@ const RdsAlert= ({
   return (
     <MuiAlert
       variant={variant}
-      severity={severity || type}
+      severity={resolvedSeverity}
       icon={iconNode}
-      className={`rds-alert ${sizeClass} ${styleClass} ${severityClass} ${multilineClass}${props.className ? ` ${props.className}` : ''}`}
+      className={clsx(
+        'rds-alert',
+        sizeClass,
+        styleClass,
+        severityClass,
+        multilineClass,
+        props.className,
+      )}
       {...props}
     >
       <div className="rds-alert__wrapper">
@@ -93,7 +103,7 @@ const RdsAlert= ({
               )}
             </span>
           )}
-          {React.isValidElement(children) ? children : null}
+          {isValidElement(children) ? children : null}
         </div>
         {showButtons && (showLink || showSecondary || showPrimary) && (
           <div className="rds-alert__actions">
@@ -106,8 +116,8 @@ const RdsAlert= ({
                     )}
                   </div>
                   <div className="rds-alert__right-actions">
-                    {showSecondary && <RdsButton style="transparent" size="small" text="Cancel" textCase="capitalize" color={(severity || type) === 'error' ? 'error' : 'primary'} />}
-                    {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={(severity || type) === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
+                    {showSecondary && <RdsButton style="transparent" size="small" text="Cancel" textCase="capitalize" color={resolvedSeverity === 'error' ? 'error' : 'primary'} />}
+                    {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
                   </div>
                 </div>
               </>
@@ -116,8 +126,8 @@ const RdsAlert= ({
                 {showLink && (
                       <a href="#" className="rds-alert__link-button">Link</a>
                 )}
-                {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" textCase="capitalize" color={(severity || type) === 'error' ? 'error' : 'primary'} />}
-                {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={(severity || type) === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
+                {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" textCase="capitalize" color={resolvedSeverity === 'error' ? 'error' : 'primary'} />}
+                {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
               </>
             )}
           </div>

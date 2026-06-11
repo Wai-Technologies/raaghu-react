@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment, useState, type ReactNode } from 'react';
 import {
   Drawer as MuiDrawer,
   List,
@@ -26,11 +26,12 @@ import {
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
+import clsx from 'clsx';
 import './rds-sidebar.scss';
 
 export interface RdsSidebarItem {
   label: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   onClick?: () => void;
   active?: boolean;
   disabled?: boolean;
@@ -69,8 +70,8 @@ const RdsSidebar = ({
   container,
   ...props
 }:RdsSidebarProps) => {
-  const [searchValue, setSearchValue] = React.useState("");
-  const [openMap, setOpenMap] = React.useState<Record<number, boolean>>({});
+  const [searchValue, setSearchValue] = useState("");
+  const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
 
   const anzMenuItems: RdsSidebarItem[] = [
     { label: 'Dashboard', icon: <DashboardOutlined /> },
@@ -113,15 +114,15 @@ const RdsSidebar = ({
     showSearchBox = showSearch && !shouldShowIconsOnly;
   }
 
-  const sidebarClasses = `rds-sidebar rds-sidebar--${typeOf} ${isNarrowCollapsed ? 'rds-sidebar--narrow-collapsed' : ''}`;
-  const headerClasses = `rds-sidebar__header rds-sidebar__header--${typeOf}`;
+  const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed');
+  const headerClasses = clsx('rds-sidebar__header', `rds-sidebar__header--${typeOf}`);
   const contentClasses = 'rds-sidebar__content';
-  const navItemClasses = `rds-sidebar__nav-item rds-sidebar__nav-item--${typeOf}`;
-  const navButtonClasses = `rds-sidebar__nav-button rds-sidebar__nav-button--${typeOf}`;
-  const avatarContainerClasses = `rds-sidebar__avatar-container rds-sidebar__avatar-container--${typeOf}`;
-  const getLogoClass = () => shouldShowIconsOnly ? 'rds-sidebar__logo rds-sidebar__logo--collapse' : 'rds-sidebar__logo rds-sidebar__logo--expanded';
+  const navItemClasses = clsx('rds-sidebar__nav-item', `rds-sidebar__nav-item--${typeOf}`);
+  const navButtonClasses = clsx('rds-sidebar__nav-button', `rds-sidebar__nav-button--${typeOf}`);
+  const avatarContainerClasses = clsx('rds-sidebar__avatar-container', `rds-sidebar__avatar-container--${typeOf}`);
+  const getLogoClass = () => clsx('rds-sidebar__logo', shouldShowIconsOnly ? 'rds-sidebar__logo--collapse' : 'rds-sidebar__logo--expanded');
 
-  const drawerSx: any = {
+  const drawerSx: Record<string, unknown> = {
     width: shouldShowIconsOnly ? 64 : width,
     flexShrink: 0,
     ['& .MuiDrawer-paper']: {
@@ -237,7 +238,7 @@ const RdsSidebar = ({
             );
 
             return (
-              <React.Fragment key={index}>
+              <Fragment key={index}>
                 <ListItem disablePadding className={navItemClasses}>
                   {shouldShowIconsOnly && item.icon ? (
                     <RdsTooltip 
@@ -297,7 +298,7 @@ const RdsSidebar = ({
                   </Collapse>
                   </ListItem>
                 )}
-              </React.Fragment>
+              </Fragment>
             );
           })}
         </List>

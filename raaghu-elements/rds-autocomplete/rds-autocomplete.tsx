@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState, type FocusEvent, type ReactNode } from 'react';
 import { Autocomplete as MuiAutocomplete, TextField, Chip, type AutocompleteProps } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import Radio from '@mui/material/Radio';
@@ -22,8 +22,8 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boole
   isShowCheckbox?: boolean;
   isShowRadio?: boolean;
   isShowUser?: boolean;
-  userIcon?: React.ReactNode;
-  popupIcon?: React.ReactNode;
+  userIcon?: ReactNode;
+  popupIcon?: ReactNode;
   openOnFocus?: boolean;
   allowMultiple?: boolean;
 }
@@ -49,13 +49,13 @@ const RdsAutocomplete = <T extends { label?: string },>({
   allowMultiple = false,
   ...props
 }: RdsAutocompleteProps<T>) => {
-  const [selected, setSelected] = React.useState<any>(
+  const [selected, setSelected] = useState<T | T[] | null>(
     allowMultiple
       ? (state === 'selected' && props.options ? [props.options[0] as T] : [])
       : (state === 'selected' && props.options ? (props.options[0] as T) : null)
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (state === 'selected' && props.options) {
       setSelected(allowMultiple ? [props.options[0] as T] : (props.options[0] as T));
     } else if (state !== 'selected') {
@@ -63,11 +63,10 @@ const RdsAutocomplete = <T extends { label?: string },>({
     }
   }, [state, props.options, allowMultiple]);
 
-  const [open, setOpen] = React.useState(state === 'expanded');
-  
-  React.useEffect(() => {
-    if (state === 'expanded') setOpen(true);
-    else setOpen(false);
+  const [open, setOpen] = useState(state === 'expanded');
+
+  useEffect(() => {
+    setOpen(state === 'expanded');
   }, [state]);
   let sizeClass = '';
   if (selectSize === 'small') sizeClass = 'rds-autocomplete--small';
@@ -106,7 +105,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
               <Chip
                 key={tagKey ?? index}
                 variant="filled"
-                label={(option as any)?.label || option}
+                label={option.label || String(option)}
                 size="small"
                 {...restTagProps}
                 className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
@@ -156,7 +155,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             return (
               <li key={optionKey} {...optionLiProps}>
                 <Box sx={{ display: 'flex', alignItems: 'center', p: 0, ml: 0.2, mr: 3, gap: 1.5 }}>
-                  <span>{(option as any).label || option}</span>
+                  <span>{option.label || String(option)}</span>
                 </Box>
               </li>
             );
@@ -175,7 +174,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
                 {(isShowRadio) && (
                   <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
                 )}
-                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{(option as any).label || option}</span>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{option.label || String(option)}</span>
               </Box>
             </li>
           );
@@ -204,7 +203,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
                   setOpen(true);
                 }
                 if (params.inputProps?.onFocus) {
-                  params.inputProps.onFocus(e as React.FocusEvent<HTMLInputElement>);
+                  params.inputProps.onFocus(e as FocusEvent<HTMLInputElement>);
                 }
               }}
             />

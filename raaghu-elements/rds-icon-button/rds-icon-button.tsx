@@ -1,19 +1,20 @@
-import React from 'react';
+import { isValidElement, cloneElement, type ReactNode, type MouseEvent, type ElementType } from 'react';
 import { IconButton as MuiIconButton, type IconButtonProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-icon-button.scss';
 
 export interface RdsIconButtonProps extends IconButtonProps {
-  iconOutlined?: React.ReactNode;
-  iconFilled?: React.ReactNode;
+  iconOutlined?: ReactNode;
+  iconFilled?: ReactNode;
   variant?: 'outlined' | 'filled';
   tooltip?: string;
-  icon?: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  icon?: ReactNode;
+  onClick?: (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void;
 }
 
 
 
-type RdsIconButtonComponentProps = React.PropsWithChildren<RdsIconButtonProps>;
+type RdsIconButtonComponentProps = { children?: ReactNode } & RdsIconButtonProps;
 
 const RdsIconButton = ({
   iconOutlined,
@@ -27,21 +28,21 @@ const RdsIconButton = ({
   ...props
 }:RdsIconButtonComponentProps) => {
 
-  const getSizedIcon = (iconNode: React.ReactNode) => {
-    if (React.isValidElement(iconNode)) {
+  const getSizedIcon = (iconNode: ReactNode) => {
+    if (isValidElement(iconNode)) {
       let fontSize: 'small' | 'medium' | 'large' | undefined;
       if (size === 'small' || size === 'medium' || size === 'large') {
         fontSize = size;
       }
-      const typeAny = iconNode.type as any;
-      if (typeAny && typeof typeAny === 'function' && typeAny.muiName && fontSize) {
-        return React.cloneElement(iconNode as any, { fontSize });
+      const iconType = iconNode.type as ElementType & { muiName?: string };
+      if (typeof iconType === 'function' && iconType.muiName && fontSize) {
+        return cloneElement(iconNode as ReactNode & { props: { fontSize?: string } }, { fontSize });
       }
     }
     return iconNode;
   };
 
-  let buttonContent: React.ReactNode = null;
+  let buttonContent: ReactNode = null;
   if (variant === 'outlined' && iconOutlined) {
     buttonContent = getSizedIcon(iconOutlined);
   } else if (variant === 'filled' && iconFilled) {
@@ -49,14 +50,14 @@ const RdsIconButton = ({
   } else if (icon) {
     buttonContent = getSizedIcon(icon);
   } else if (children) {
-    buttonContent = getSizedIcon(children as React.ReactNode);
+    buttonContent = getSizedIcon(children as ReactNode);
   }
 
-  const className = [
+  const className = clsx(
     'rds-icon-button',
-    variant === 'outlined' ? 'rds-icon-button--outlined' : null,
-    props.className || null,
-  ].filter(Boolean).join(' ');
+    variant === 'outlined' && 'rds-icon-button--outlined',
+    props.className,
+  );
 
   return (
     <MuiIconButton

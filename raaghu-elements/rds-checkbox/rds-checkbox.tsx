@@ -1,5 +1,6 @@
-import React from 'react';
+import { useState, useEffect, type CSSProperties, type ChangeEvent } from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-checkbox.scss';
 
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
@@ -9,7 +10,7 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
   state?: 'default' | 'disabled' | 'hover';
   status?: 'checked' | 'unchecked' | 'indeterminate';
   showText?: boolean;
-  cssStyle?: React.CSSProperties;
+  cssStyle?: CSSProperties;
 }
 
 
@@ -28,48 +29,34 @@ const RdsCheckbox = ({
   ...props
 }:RdsCheckboxProps) => {
   const isCheckboxDisabled = Boolean(disabled) || isDisabled || state === 'disabled';
-  const getInitialCheckedState = () => {
-    if (status !== undefined) {
-      return status === 'checked';
-    }
-    return false;
-  };
 
-  const getInitialIndeterminateState = () => {
-    if (status !== undefined) {
-      return status === 'indeterminate';
-    }
-    return false;
-  };
+  const [checked, setChecked] = useState(status === 'checked');
 
-  const [checked, setChecked] = React.useState(getInitialCheckedState());
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (status !== undefined) {
       setChecked(status === 'checked');
     }
   }, [status]);
 
-  const currentIndeterminate = getInitialIndeterminateState();
+  const currentIndeterminate = status === 'indeterminate';
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     setChecked(value);
     if (onChange) onChange(event, value);
   };
 
-  const getCheckboxClasses = () => {
-    const classes = ['rds-checkbox'];
-    if (style) classes.push(`rds-checkbox__${style}`);
-    if (checked) classes.push('rds-checkbox__checked');
-    if (isCheckboxDisabled) classes.push('rds-checkbox__disabled');
-    if (currentIndeterminate) classes.push('rds-checkbox__indeterminate');
-    if (state && state !== 'default') classes.push(`rds-checkbox__${state}`);
-    if (color && color !== 'default') classes.push(`rds-checkbox__${color}`);
-    if (labeltext && !showText) classes.push('rds-checkbox__text-hidden');
-    if (status) classes.push(`rds-checkbox__${status}`);
-    if (className) classes.push(className);
-    return classes.join(' ');
-  };
+  const checkboxClassName = clsx(
+    'rds-checkbox',
+    style && `rds-checkbox__${style}`,
+    checked && 'rds-checkbox__checked',
+    isCheckboxDisabled && 'rds-checkbox__disabled',
+    currentIndeterminate && 'rds-checkbox__indeterminate',
+    state && state !== 'default' && `rds-checkbox__${state}`,
+    color && color !== 'default' && `rds-checkbox__${color}`,
+    labeltext && !showText && 'rds-checkbox__text-hidden',
+    status && `rds-checkbox__${status}`,
+    className,
+  );
 
   const checkbox = (
     <MuiCheckbox
@@ -84,7 +71,7 @@ const RdsCheckbox = ({
 
   if (labeltext) {
     return (
-      <div className={getCheckboxClasses()} style={cssStyle}>
+      <div className={checkboxClassName} style={cssStyle}>
         <FormControlLabel
           control={checkbox}
           label={showText ? labeltext : ''}
@@ -95,7 +82,7 @@ const RdsCheckbox = ({
   }
 
   return (
-    <div className={getCheckboxClasses()} style={cssStyle}>
+    <div className={checkboxClassName} style={cssStyle}>
       {checkbox}
     </div>
   );
