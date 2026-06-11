@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import userEvent from '@testing-library/user-event';
 import { RdsMultiLevelMenu, MenuOption } from './rds-multi-level-menu';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-multi-level-menu.scss', () => ({}));
@@ -345,7 +346,7 @@ describe('RdsMultiLevelMenu', () => {
       
       // Select File
       await userEvent.click(button);
-      let fileItem = screen.getByText('File');
+      const fileItem = screen.getByText('File');
       await userEvent.click(fileItem);
       
       await waitFor(() => expect(onSelect).toHaveBeenCalledWith({ label: 'File' }));
@@ -720,6 +721,12 @@ describe('RdsMultiLevelMenu', () => {
       
       // Menu items should be rendered
       expect(screen.getByText('File')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsMultiLevelMenu options={defaultOptions} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should render menu items with proper role', async () => {

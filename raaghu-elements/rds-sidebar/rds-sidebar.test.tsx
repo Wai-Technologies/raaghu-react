@@ -3,6 +3,7 @@ import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSidebar, { RdsSidebarItem } from './rds-sidebar';
+import { axe, configureAxe } from 'jest-axe';
 
 // Mock the SCSS file
 jest.mock('./rds-sidebar.scss');
@@ -159,7 +160,11 @@ describe('RdsSidebar', () => {
     it('should call onClick when item clicked', async () => {
       const user = userEvent.setup();
       const onClick = jest.fn();
-      const items = [{ label: 'Home', onClick, icon: <span>🏠</span> }];
+      const items = [{
+        label: 'Home',
+        onClick,
+        icon: <span>🏠</span>,
+      }];
       
       renderWithTheme(
         <RdsSidebar items={items} isOpen={true} />
@@ -597,7 +602,7 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={items} isOpen={true} />
       );
-      
+
       const button = screen.getByText('No Click');
       await user.click(button);
       expect(button).toBeInTheDocument();
@@ -631,11 +636,11 @@ describe('RdsSidebar', () => {
           children: [{ label: 'Child' }],
         },
       ];
-      
+
       renderWithTheme(
         <RdsSidebar items={items} isOpen={true} />
       );
-      
+
       expect(screen.getByText('Disabled Parent')).toBeInTheDocument();
     });
 
@@ -646,11 +651,11 @@ describe('RdsSidebar', () => {
           children: [],
         },
       ];
-      
+
       renderWithTheme(
         <RdsSidebar items={items} isOpen={true} />
       );
-      
+
       expect(screen.getByText('Parent with Empty Children')).toBeInTheDocument();
     });
 
@@ -669,9 +674,14 @@ describe('RdsSidebar', () => {
           showLogo={true}
         />
       );
-      
+
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByTestId('rds-search')).toBeInTheDocument();
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsSidebar items={[{ label: 'Home', onClick: () => {} }]} isOpen={true} variant="permanent" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

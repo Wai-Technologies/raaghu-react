@@ -1,177 +1,153 @@
-# 🎉 Raaghu Design System - Theme Integration Complete!
+# Raaghu Design System — Theme Integration Status
 
-## ✅ Mission Accomplished
+## Current State
 
-All CSS and SCSS files in the Raaghu Design System now use `raaghu-react-themes` as the **single source of truth** for all theme-related values.
+Theme integration is **partially complete**. The token pipeline and provider are
+fully implemented and working in Storybook and raaghu-pages. Component SCSS
+adoption is in progress.
 
-### 📊 Integration Statistics
+---
 
-- **📁 Total Components**: 60 RDS components
-- **🎨 SCSS Files Created**: 60 component stylesheets  
-- **🔧 Files Updated**: 41 components updated to use theme variables
-- **🏷️ Theme Variables**: 348 theme variable usages across all components
-- **📚 Documentation Files**: 6 comprehensive documentation files created
+## What Works
 
-### 🎯 What Was Achieved
+### Token pipeline
+The full pipeline is implemented and live:
 
-#### 1. **Complete CSS/SCSS Architecture** ✅
-- Every component has its corresponding SCSS file with consistent naming
-- File structure: `rds-{component}/rds-{component}.scss`
-- BEM methodology with RDS prefixes: `.rds-{component}__element--modifier`
-
-#### 2. **Centralized Theme System** ✅ 
-- Created `custom-properties.scss` with 150+ design tokens
-- All components now use CSS custom properties from themes
-- Single point of contact for all styling values
-- Easy theme switching (light, dark, semi-dark)
-
-#### 3. **Comprehensive Documentation** ✅
-- **ARCHITECTURE_OVERVIEW.md** - System architecture
-- **CSS_ARCHITECTURE.md** - CSS organization guide  
-- **CSS_IMPLEMENTATION_GUIDE.md** - Implementation status
-- **CSS_QUICK_REFERENCE.md** - Developer quick reference
-- **THEME_INTEGRATION_GUIDE.md** - Theme integration guide
-- **README.md** - Documentation overview
-
-#### 4. **Automated Tooling** ✅
-- `generate-scss.js` - Auto-generates SCSS files for new components
-- `update-theme-variables.js` - Auto-updates components to use theme variables
-- Consistent patterns and conventions across all files
-
-### 🎨 Theme Integration Examples
-
-#### Before Integration (Hardcoded Values)
-```scss
-.rds-button {
-  background-color: #1976d2;
-  padding: 8px 16px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
+```
+tokens/design-tokens.ts
+       ↓  (injectTokens called by RaaghuThemeProvider)
+tokens/build-rds-css-vars.ts
+       ↓
+--rds-* CSS custom properties on <html>
+       ↓
+Component SCSS reads var(--rds-*)
+MUI ThemeProvider reads palette.ts (mirrors token values)
 ```
 
-#### After Integration (Theme Variables) ✨
-```scss  
-.rds-button {
-  background-color: var(--rds-button-primary-bg);
-  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-  border-radius: var(--rds-border-radius-sm);
-  transition: all var(--rds-transition-base);
-}
-```
+### RaaghuThemeProvider
+- Controlled and uncontrolled modes
+- `localStorage` persistence (key: `raaghu-theme`)
+- `prefers-color-scheme` fallback on first load
+- Optional brand override via `brandOverrides` prop
+- Wraps MUI `ThemeProvider` + injects `CssBaseline`
+- `useRaaghuTheme()` hook: `{ mode, setMode, toggleMode, isDark }`
 
-### 🔗 Single Point of Contact Flow
+### Storybook
+- All stories wrapped in `RaaghuThemeProvider` via `.storybook/preview.ts`
+- Light/dark toolbar toggle switches tokens and MUI theme simultaneously
 
-```mermaid
-graph TD
-    A[raaghu-react-themes/src/styles/] --> B[variables/color-variables.scss]
-    A --> C[themes/light.scss]
-    A --> D[themes/dark.scss] 
-    A --> E[themes/semi-dark.scss]
-    A --> F[custom-properties.scss]
-    
-    F --> G[CSS Custom Properties]
-    G --> H[All RDS Components]
-    
-    C --> F
-    D --> F
-    E --> F
-    B --> C
-    B --> D
-    B --> E
-    
-    H --> I[rds-button.scss]
-    H --> J[rds-card.scss]
-    H --> K[rds-alert.scss]
-    H --> L[... 57 more components]
-```
+### raaghu-pages demo app
+- `main.tsx` bootstraps with `RaaghuThemeProvider` and `index.scss`
+- `DashboardPage` demonstrates live theme toggle across the full app shell
 
-### 🛠️ Developer Experience
+---
 
-#### Import Theme in Your App
+## Partial: Component SCSS token adoption
+
+As of the last audit:
+
+| Metric | Count |
+|---|---|
+| SCSS files using `var(--rds-*)` | 109 |
+| SCSS files with hardcoded hex values | 60 |
+| Total hardcoded hex occurrences | ~1,510 |
+
+**Top files to migrate (by hex count):**
+
+| File | Occurrences |
+|---|---|
+| `rds-comp-date-and-time-picker.scss` | 104 |
+| `rds-comp-details-pane.scss` | 102 |
+| `rds-comp-e-signature.scss` | 90 |
+| `rds-comp-comments-box.scss` | 84 |
+| `rds-app-bar.scss` | 64 |
+| `rds-comp-code-snippet.scss` | 60 |
+
+Components with hardcoded hex will not theme-switch cleanly until migrated.
+
+---
+
+## What Does NOT Exist (despite older docs)
+
+These files were referenced in earlier documentation but **do not exist**:
+
+- `raaghu-react-themes/src/styles/custom-properties.scss`
+- `raaghu-react-themes/src/styles/variables/color-variables.scss`
+- `raaghu-react-themes/src/styles/themes/light.scss`
+- `raaghu-react-themes/src/styles/themes/dark.scss`
+- `raaghu-react-themes/src/styles/themes/semi-dark.scss`
+
+There are no SCSS theme files. Theming is **entirely runtime** via
+`injectTokens()` writing `--rds-*` CSS custom properties to `<html>`.
+Do not import these paths — they will 404.
+
+`semi-dark` mode is **not implemented**. Only `'light'` and `'dark'` are supported.
+
+---
+
+## Correct App Setup
+
 ```tsx
-import '@waiin/raaghu-react/raaghu-react-themes/src/styles/themes/light.scss';
+// Entry file (e.g. main.tsx)
+import 'raaghu-react-themes/src/styles/index.scss';   // global resets only
+import { RaaghuThemeProvider } from 'raaghu-react-themes';
+
+createRoot(document.getElementById('root')!).render(
+  <RaaghuThemeProvider defaultMode="light">
+    <App />
+  </RaaghuThemeProvider>
+);
 ```
 
-#### Use Theme Variables in Components
+```tsx
+// Any component that needs theme access
+import { useRaaghuTheme } from 'raaghu-react-themes';
+
+function ThemeToggle() {
+  const { toggleMode, isDark } = useRaaghuTheme();
+  return <button onClick={toggleMode}>{isDark ? 'Light' : 'Dark'}</button>;
+}
+```
+
 ```scss
-.my-component {
-  // Colors
+// Component SCSS — always use tokens, never hardcode hex
+.rds-my-component {
   background-color: var(--rds-background-paper);
-  color: var(--rds-text-primary);
-  border: 1px solid var(--rds-border-default);
-  
-  // Spacing  
-  padding: var(--rds-spacing-md);
-  
-  // Typography
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-md);
-  
-  // Effects
-  box-shadow: var(--rds-elevation-2);
-  transition: all var(--rds-transition-base);
+  color:            var(--rds-text-primary);
+  border:           1px solid var(--rds-divider);
+  border-radius:    var(--rds-border-radius-md);
+
+  &:hover {
+    background-color: var(--rds-action-hover);
+  }
 }
 ```
 
-#### Switch Themes Easily
-```tsx
-// Light theme
-import 'raaghu-react-themes/src/styles/themes/light.scss';
+---
 
-// Dark theme  
-import 'raaghu-react-themes/src/styles/themes/dark.scss';
+## Migration Path for Hardcoded Components
 
-// Semi-dark theme
-import 'raaghu-react-themes/src/styles/themes/semi-dark.scss';
-```
+To migrate a component from hardcoded hex to tokens:
 
-### 📈 Benefits Achieved
+1. Open the `.scss` file
+2. For each hardcoded color, find the equivalent `--rds-*` token in
+   `tokens/design-tokens.ts` or `tokens/build-rds-css-vars.ts`
+3. Replace the hex with `var(--rds-{token-name})`
+4. Test in Storybook with both light and dark toolbar toggle
+5. Verify no visual regression via Chromatic
 
-#### ✅ **Consistency**
-All components use the same color palette, spacing scale, typography, and interaction patterns.
+Common mappings:
 
-#### ✅ **Maintainability**  
-Change a color or spacing value in one place, see it reflected across all 60+ components.
-
-#### ✅ **Theme Switching**
-Seamlessly switch between light, dark, and semi-dark themes without rebuilding.
-
-#### ✅ **Developer Productivity**
-Clear, semantic variable names make development faster and more intuitive.
-
-#### ✅ **Performance**
-CSS custom properties enable efficient runtime theme changes.
-
-#### ✅ **Scalability**
-Easy to add new components, themes, and design tokens following established patterns.
-
-### 🚀 Next Steps
-
-1. **Test theme switching** across all components
-2. **Add new themes** by creating new theme SCSS files  
-3. **Extend design tokens** by adding variables to `custom-properties.scss`
-4. **Create component variants** using theme variables
-5. **Build theme switcher UI** component for applications
-
-### 📞 Support
-
-For questions about the theme system:
-1. Check **[THEME_INTEGRATION_GUIDE.md](./docs/THEME_INTEGRATION_GUIDE.md)**
-2. Reference **[CSS_QUICK_REFERENCE.md](./docs/CSS_QUICK_REFERENCE.md)**
-3. Review existing component implementations
-4. Follow established patterns and conventions
+| Hex (light theme) | Token |
+|---|---|
+| `#3C98FF` | `var(--rds-primary-main)` |
+| `#2534E9` | `var(--rds-secondary-main)` |
+| `#ffffff` (surface) | `var(--rds-background-paper)` |
+| `#f5f5f5` (page bg) | `var(--rds-background-default)` |
+| `#212121` (text) | `var(--rds-text-primary)` |
+| `#757575` (muted) | `var(--rds-text-secondary)` |
+| `rgba(0,0,0,0.12)` | `var(--rds-divider)` |
 
 ---
 
-**🎊 Congratulations!** 
-
-Your Raaghu Design System now has a **complete, consistent, and maintainable** CSS/SCSS architecture with **centralized theme management** and **comprehensive documentation**.
-
-*The single source of truth for all styling is now established and ready for production use!*
-
----
-
-**Last Updated**: ${new Date().toLocaleDateString()}  
-**Theme Variables**: 348 usages across 60 components  
-**Status**: ✅ **COMPLETE**
+*Last updated: 2026-05-30*

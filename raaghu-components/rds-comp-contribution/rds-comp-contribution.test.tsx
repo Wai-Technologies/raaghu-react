@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompContribution from './rds-comp-contribution';
 import dayjs from 'dayjs';
 
@@ -79,11 +80,12 @@ describe('RdsCompContribution', () => {
       expect(container.firstChild).toBeNull();
     });
 
-    test('should return null if weekNames is missing', () => {
+    test('should render without week labels if weekNames is missing', () => {
       const { container } = render(
         <RdsCompContribution {...defaultProps} weekNames={undefined} />
       );
-      expect(container.firstChild).toBeNull();
+      expect(container.firstChild).not.toBeNull();
+      expect(container.querySelector('.rds-comp-contribution__text--week')).not.toBeInTheDocument();
     });
 
     test('should return null if values is missing', () => {
@@ -765,6 +767,14 @@ describe('RdsCompContribution', () => {
       );
       const svg = container.querySelector('.rds-comp-contribution__svg');
       expect(svg).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompContribution {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

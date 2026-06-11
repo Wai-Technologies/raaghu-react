@@ -11,14 +11,14 @@ export interface RdsCompNavtabsProps {
     icon?: string;
     subText?: string;
     disabled?: boolean;
-    id: any;
+    id: string | number;
     count?: number; 
     colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "warning" | "light" | "success";  
   }[];
   type: "default" | "tabs";
   fill?: boolean;
   justified?: boolean;
-  activeNavtabOrder?: (id: any) => void;
+  activeNavtabOrder?: (id: string | number | undefined) => void;
   activeNavTabId?: string | number;
   isNextPressed?: boolean;
   onClick?: React.MouseEvent<HTMLElement>;
@@ -63,7 +63,7 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
     ];
     
     const isHorizontalStyle = horizontalStyles.includes(props.style || "");
-    let classes = ["rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs"];
+    const classes = ["rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs"];
     
     if (props.id !== "chat") {
       classes.push("d-md-block");
@@ -147,8 +147,8 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
     return classes.join(" ");
   };
 
-  const getNavLinkClasses = (navtabsItem: any) => {
-    let classes = ["nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link"];
+  const getNavLinkClasses = (navtabsItem: RdsCompNavtabsProps['navtabsItems'][number]) => {
+    const classes = ["nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link"];
     
     if (props.type === "tabs") {
       classes.push("rounded-0");

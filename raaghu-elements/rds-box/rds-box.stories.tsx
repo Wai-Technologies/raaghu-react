@@ -2,11 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsBox from './rds-box';
 import {Typography } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsBox> = {
   title: 'Elements/Box',
   component: RdsBox,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: { include: ['children'] },
     docs: {
@@ -15,7 +17,7 @@ const meta: Meta<typeof RdsBox> = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     children: { 
       control: { type: 'text' },
@@ -41,7 +43,10 @@ export const Default: Story = {
         </RdsBox>`
       }
     }
-  }
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
 
 export const WithPadding: Story = {
@@ -203,3 +208,5 @@ export const CustomComponent: Story = {
     }
   }
 };
+
+

@@ -1,7 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompPieChart from './rds-comp-chart-pie';
+import Chart from 'chart.js/auto';
 
 // Mock SCSS
 jest.mock('./rds-comp-chart-pie.scss', () => ({}));
@@ -26,8 +28,7 @@ jest.mock('chart.js/auto', () => {
 });
 
 // Mock Chart.getChart
-const Chart = require('chart.js/auto');
-Chart.getChart = jest.fn(() => null);
+(Chart as any).getChart = jest.fn(() => null);
 
 const defaultProps = {
   labels: ['Red', 'Blue', 'Yellow', 'Green'],
@@ -659,6 +660,12 @@ describe('RdsCompPieChart', () => {
       const { container } = render(<RdsCompPieChart {...defaultProps} />);
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompPieChart {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('canvas has id attribute', () => {

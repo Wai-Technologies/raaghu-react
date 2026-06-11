@@ -17,6 +17,10 @@ import {
 
 const SafeDatePicker = DatePicker as any;
 
+interface DatePickerImperativeRef {
+    setOpen: (open: boolean) => void;
+}
+
 export enum DatePickerStyleType {
     Dropdown = "Dropdown",
     Selector = "Selector"
@@ -34,7 +38,7 @@ export enum DatePickerState {
     Expanded = "Expanded",
     Selected = "Selected"
 }
-export interface RdsDatepickerProps {
+export interface RdsCompDatepickerProps {
     selectedDate?: (date: Date | null) => void; 
     dateForEdit?: string;
     titleText?: string; 
@@ -44,7 +48,7 @@ export interface RdsDatepickerProps {
     state?: DatePickerState; 
     layout?: DatePickerLayout; 
     customDate?: (dates: [Date | null, Date | null]) => void;
-    isDropdownOpen: boolean;
+    isDropdownOpen?: boolean;
     isDisabled?: boolean;
     isMandatory?: boolean;
     placeholderText?: string;
@@ -55,7 +59,7 @@ export interface RdsDatepickerProps {
     isDefaultDate?: boolean;
 }
 
-const RdsDatepicker = (props: RdsDatepickerProps) => {
+const RdsCompDatepicker = (props: RdsCompDatepickerProps) => {
     const today = new Date(); 
     const [dropdownDisplayValue, setDropdownDisplayValue] = useState(
         props.isDefaultDate ? today.toDateString().slice(4) : ""
@@ -66,9 +70,9 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
     );
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const datePickerRef = useRef<any>(null);
-    const expandedDatePickerRef = useRef<any>(null);
-    const selectedDatePickerRef = useRef<any>(null);
+    const datePickerRef = useRef<DatePickerImperativeRef | null>(null);
+    const expandedDatePickerRef = useRef<DatePickerImperativeRef | null>(null);
+    const selectedDatePickerRef = useRef<DatePickerImperativeRef | null>(null);
     const [showType, setShowType] = useState(false);
     const [showState, setShowState] = useState(true);
 
@@ -91,11 +95,11 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
 
     const handlerDateChange = (date: Date | null) => {
         setStartDate(date);
-        props.selectedDate && props.selectedDate(date);
-        props.onDatePicker && startDate && props.onDatePicker(startDate);
+        if (typeof props.selectedDate === 'function') props.selectedDate(date);
+        if (typeof props.onDatePicker === 'function') props.onDatePicker(date as Date);
     };
 
-    const handlerDateTimeChange = (date: any) => {
+    const handlerDateTimeChange = (date: Date | null) => {
         if (date != null) {
             setStartDate(date);
         } else {
@@ -171,7 +175,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
     }, [props.dateForEdit]); 
     
     useEffect(() => {
-        if (props.state === "Expanded") {
+        if (props.state === DatePickerState.Expanded) {
             setIsDropdownOpen(true);
             setTimeout(() => {
                 if (expandedDatePickerRef.current) {
@@ -213,7 +217,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                 {props.showTitle && props.isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
             </label>
             {showState && renderDatePickerStateView(
-                props.state || 'Default',
+                props.state || DatePickerState.Default,
                 startDate,
                 handlerDateChange,
                 handlerDateTimeChange,
@@ -249,5 +253,5 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
         </>
     );
 };
-RdsDatepicker.displayName = "RdsDatepicker";
-export default RdsDatepicker;
+RdsCompDatepicker.displayName = "RdsCompDatepicker";
+export default RdsCompDatepicker;

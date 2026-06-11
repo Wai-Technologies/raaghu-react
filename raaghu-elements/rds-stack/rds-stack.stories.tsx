@@ -1,3 +1,4 @@
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Typography } from '@mui/material';
 import './rds-stack.scss';
@@ -9,9 +10,13 @@ const meta: Meta<typeof RdsStack> = {
   title: 'Elements/Stack',
   component: RdsStack,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
+    controls: {
+      include: ['spacing', 'children', 'direction', 'divider'],
+    },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     direction: {
       control: { type: 'select' },
@@ -39,6 +44,10 @@ export const Default: Story = {
   args: {
     spacing: 2,
     children: stackItems,
+  },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.firstElementChild;
+    expect(el).toBeTruthy();
   },
 };
 

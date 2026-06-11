@@ -1,44 +1,42 @@
-
 import React from 'react';
+import { getCSSVar } from '../chart-utils';
 import { WorldMap } from 'react-svg-worldmap';
 import './rds-comp-map.scss';
+import { componentTokens, mapTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 export interface RdsCompMapProps {
-    title?: any,
-    mapList: any,
-    color: any,
+    title?: React.ReactNode,
+    mapList: Array<{ country: string; value: number }>,
+    color: string,
     mapType?: 'default' | 'heatmap'
 }
+
+type WorldMapStylingContext = {
+  country: string;
+  countryValue: number;
+  minValue: number;
+  maxValue: number;
+};
 
 const RdsCompMap = (props: RdsCompMapProps) => {
     const { mapType = 'default' } = props;
 
-    const defaultStylingFunction = (context: any) => {
+    const defaultStylingFunction = (context: WorldMapStylingContext) => {
         const opacityLevel = 0.1 + (1.5 * (context.countryValue - context.minValue) / (context.maxValue - context.minValue))
+        const highlightFill = getCSSVar('--rds-info-main');
+        const strokeColor = getCSSVar('--rds-success-main');
         return {
-            fill: context.country === "US" ? "blue" : props.color,
+            fill: context.country === "US" ? highlightFill : props.color,
             fillOpacity: opacityLevel,
-            stroke: "green",
+            stroke: strokeColor,
             strokeWidth: 1,
             strokeOpacity: 0.2,
             cursor: "pointer"
         }
     }
 
-    const heatMapPalette = [
-        '#FFAF00', 
-        '#2CC1A5', 
-        '#26BEAE',
-        '#E1CF00',
-        '#FEA200',
-        '#28C0AB',
-        '#F94E00',
-        '#CCDE00',
-        '#F84A00',
-        '#1DBBBC',
-        '#FC4703',
-        '#25BDB1'
-    ];
+    const heatMapPalette = componentTokens.map?.heatmapPalette ||
+        Object.values(mapTokens.heatmap);
 
     const interpolateColor = (t: number) => {
         if (t <= 0) return heatMapPalette[0];
@@ -67,13 +65,13 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         return rgbToHex(r, g, bl);
     }
 
-    const heatMapStylingFunction = (context: any) => {
+    const heatMapStylingFunction = (context: WorldMapStylingContext) => {
         const intensity = (context.countryValue - context.minValue) / (context.maxValue - context.minValue) || 0;
         const color = interpolateColor(intensity);
         return {
             fill: color,
             fillOpacity: 0.7 + (0.3 * intensity),
-            stroke: '#222',
+            stroke: 'var(--rds-border-dark)',
             strokeWidth: 0.5,
             strokeOpacity: 0.7,
             cursor: 'pointer'

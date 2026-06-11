@@ -18,7 +18,7 @@ const RdsPaper: React.FC<RdsPaperProps> = ({
     <MuiPaper
       square={square}
       sx={{
-        ...(padding && { padding }),
+        ...(padding && { padding: typeof padding === 'number' ? `${(padding as number) * 8}px` : padding }),
         ...sx,
       }}
       {...props}

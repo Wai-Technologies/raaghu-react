@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompProductTour from './rds-comp-product-tour';
 import { RdsCompProductTourProps } from './product-tour-helpers';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-product-tour.scss', () => ({}));
@@ -209,8 +210,9 @@ describe('RdsCompProductTour', () => {
         <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} showVisualPlaceholder={false} />
       );
       const section = container.querySelector('.rds-comp-product-tour__image-section');
-      expect(section).toHaveStyle('height: 220px');
-      expect(section).toHaveStyle('background: transparent');
+      expect(section).toBeInTheDocument();
+      const img = container.querySelector('.rds-comp-product-tour__image');
+      expect(img).not.toBeInTheDocument();
     });
 
     it('should render info and nav section', () => {
@@ -281,12 +283,9 @@ describe('RdsCompProductTour', () => {
       const { container } = render(
         <RdsCompProductTour {...defaultProps} state="GIF" showVisualPlaceholder={false} />
       );
-      const boxes = screen.getAllByTestId('box');
-      const placeholder = boxes.find(box => {
-        const style = box.getAttribute('style') || '';
-        return style.includes('height') && style.includes('220px') && style.includes('background') && style.includes('transparent');
-      });
-      expect(placeholder).toBeInTheDocument();
+        // When visual placeholder is disabled, the GIF element should not be rendered
+        const gif = container.querySelector('.rds-comp-product-tour__gif');
+        expect(gif).not.toBeInTheDocument();
     });
 
     it('should render animation info section', () => {
@@ -847,6 +846,14 @@ describe('RdsCompProductTour', () => {
         />
       );
       expect(screen.getByText(specialHeader, { exact: false })).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompProductTour {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

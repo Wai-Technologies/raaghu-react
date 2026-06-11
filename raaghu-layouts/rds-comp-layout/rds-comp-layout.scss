@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-layout-wrapper_basic {
   min-height: 83vh;
   width: 100%;
@@ -20,8 +22,8 @@
 
 .rds-comp-layout__card_basic {
   position: relative;
-  padding: 20px; 
-  border: 1px solid #d3dcea;
+  padding: var(--rds-spacing-lg); 
+  border: 1px solid var(--rds-border-light);
   background: var(--rds-background-default);
   min-height: 200px;
   height: 83vh;
@@ -56,19 +58,19 @@
 
 
 .rds-comp-layout__paper {
-  border: 1px solid #d3dcea;
-  border-radius: 5px !important;
+  border: 1px solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-sm) !important;
   background: var(--rds-background-default);
   box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07))!important;
   
   &--height-xs {
     min-height: 80px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 100px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 100px;
     }
   }
@@ -76,11 +78,11 @@
   &--height-sm {
     min-height: 80px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 120px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 120px;
     }
   }
@@ -88,11 +90,11 @@
   &--height-md {
     min-height: 120px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 180px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 180px;
     }
   }
@@ -100,11 +102,11 @@
   &--height-lg {
     min-height: 180px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 240px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 240px;
     }
   }
@@ -112,11 +114,11 @@
   &--height-xl {
     min-height: 240px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 360px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 360px;
     }
   }
@@ -124,11 +126,11 @@
   &--height-xxl {
     min-height: 240px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 360px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 400px;
     }
   }
@@ -136,11 +138,11 @@
   &--height-full {
     min-height: 240px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 360px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 500px;
     }
   }
@@ -148,11 +150,11 @@
   &--height-tall {
     min-height: 400px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 600px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 600px;
     }
   }
@@ -160,11 +162,11 @@
   &--height-spotlight {
     min-height: 120px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 180px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 400px;
     }
   }
@@ -172,11 +174,11 @@
   &--height-stacks {
     min-height: 180px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 240px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 300px;
     }
   }
@@ -184,11 +186,11 @@
   &--height-relaxed-left {
     min-height: 180px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 600px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 600px;
     }
   }
@@ -196,19 +198,19 @@
   &--height-relaxed-big {
     min-height: 180px;
     
-    @media (min-width: 600px) {
+    @include bp.up(600) {
       min-height: 360px;
     }
     
-    @media (min-width: 900px) {
+    @include bp.up(md) {
       min-height: 360px;
     }
   }
 }
 
-@media (min-width: 600px) {
+@include bp.up(600) {
   .rds-comp-layout-inner-wrapper {
-    padding: 16px;
+    padding: var(--rds-spacing-md);
   }
 }
 .rds-layout {
@@ -235,7 +237,7 @@
   display: block;
 }
 
-@media (max-width: 768px) {
+@include bp.down(md) {
   .rds-layout.row {
     flex-direction: column;
   }
@@ -245,3 +247,4 @@
     width: 100% !important;
   }
 }
+

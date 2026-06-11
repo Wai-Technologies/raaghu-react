@@ -5,14 +5,25 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 
-export const CustomButtons = forwardRef(({ value, onClick }: any, ref: any) => (
+interface CustomButtonsProps {
+    value?: string;
+    onClick?: () => void;
+}
+
+export const CustomButtons = forwardRef<HTMLDivElement, CustomButtonsProps>(({ value, onClick }) => (
     <div className="rds-datepicker__button-wrapper">
         <RdsButton text="Cancel" size="small" style="outlined" />
         <RdsButton text="Apply" size="small" style="filled" />
     </div>
 ));
 
-export const ExampleCustomInput = forwardRef(({ value, onClick, changeIcon }: any, ref: any) => (
+interface ExampleCustomInputProps {
+    value?: string;
+    onClick?: () => void;
+    changeIcon?: string;
+}
+
+export const ExampleCustomInput = forwardRef<HTMLLIElement, ExampleCustomInputProps>(({ value, onClick, changeIcon }, ref) => (
     <li
         className="rds-datepicker__custom-input rds-datepicker__dropdown-item"
         onClick={onClick}
@@ -29,14 +40,25 @@ export const ExampleCustomInput = forwardRef(({ value, onClick, changeIcon }: an
     </li>
 ));
 
-export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, isDisabled, showClearDate, clearDate, changeIcon, openCustomPicker }: any, ref: any) => {
-    const handleTriggerClick = (e: any) => {
+interface CustomInputWithClearProps {
+    value?: string;
+    onClick?: () => void;
+    placeholder?: string;
+    isDisabled?: boolean;
+    showClearDate?: boolean;
+    clearDate?: () => void;
+    changeIcon?: string;
+    openCustomPicker?: () => void;
+}
+
+export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithClearProps>(({ value, onClick, placeholder, isDisabled, showClearDate, clearDate, changeIcon, openCustomPicker }, ref) => {
+    const handleTriggerClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation && e.stopPropagation();
         if (isDisabled) return;
         if (typeof openCustomPicker === 'function') {
             openCustomPicker();
         } else if (typeof onClick === 'function') {
-            onClick(e);
+            onClick();
         }
     };
     const isEmpty = !value || value === '';
@@ -57,7 +79,7 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
                     onClick={(e) => {
                         e.stopPropagation();
                         if (!isDisabled) {
-                            clearDate();
+                            clearDate?.();
                         }
                     }}
                     title="Clear date"
@@ -85,6 +107,17 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
     );
 });
 
+interface CustomHeaderProps {
+    date: Date;
+    monthDate: Date;
+    changeYear: (year: number) => void;
+    changeMonth: (month: number) => void;
+    decreaseMonth: () => void;
+    increaseMonth: () => void;
+    prevMonthButtonDisabled: boolean;
+    nextMonthButtonDisabled: boolean;
+}
+
 export const renderCustomHeader = ({
   date,
   monthDate,
@@ -94,13 +127,13 @@ export const renderCustomHeader = ({
   increaseMonth,
   prevMonthButtonDisabled,
   nextMonthButtonDisabled
-}: any) => {
+}: CustomHeaderProps) => {
   const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const currentYear = new Date().getFullYear();
   const startYear = currentYear - 6;
   const endYear = currentYear + 6;
   const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
-  
+
   const displayDate = monthDate || date;
 
   return (
@@ -157,7 +190,17 @@ export const getDayClassName = (date: Date, startDate: Date | null) => {
     const isPrevMonth = selectedYear < referenceYear || (selectedYear === referenceYear && selectedMonth < referenceMonth);
     const isNextMonth = selectedYear > referenceYear || (selectedYear === referenceYear && selectedMonth > referenceMonth);
 
-    return "";
+    // Highlight selected day
+    if (startDate && date.getFullYear() === startDate.getFullYear() && date.getMonth() === startDate.getMonth() && date.getDate() === startDate.getDate()) {
+        return 'rds-datepicker__day--selected';
+    }
+
+    // Dim days that belong to previous/next month
+    if (isPrevMonth || isNextMonth) {
+        return 'rds-datepicker__day--outside';
+    }
+
+    return '';
 };
 
 export const getYesterdayDate = (today: Date) => {
@@ -202,21 +245,32 @@ export const getLastFourteenDaysDate = (today: Date) => {
     );
 };
 
+interface DatePickerComponentProps {
+    SafeDatePicker: React.ComponentType<Record<string, unknown>>;
+    placeholderText?: string;
+    isDisabled?: boolean;
+    showClearDate?: boolean;
+    clearDate?: () => void;
+    changeIcon?: string;
+    layout?: string;
+    datePickerStyleType?: string;
+}
+
 export const renderDatePickerStateView = (
-    state: string, 
-    startDate: Date | null, 
+    state: string,
+    startDate: Date | null,
     handlerDateChange: (date: Date | null) => void,
-    handlerDateTimeChange: (date: any) => void,
-    props: any, 
-    datePickerRef: React.RefObject<any>,
-    expandedDatePickerRef: React.RefObject<any>,
-    selectedDatePickerRef: React.RefObject<any>,
+    handlerDateTimeChange: (date: Date | null) => void,
+    props: DatePickerComponentProps,
+    datePickerRef: React.RefObject<unknown>,
+    expandedDatePickerRef: React.RefObject<unknown>,
+    selectedDatePickerRef: React.RefObject<unknown>,
     dayClassName: (date: Date) => string,
-    CustomInputWithClear: any,
-    CustomButtons: any
+    CustomInputWithClear: React.ElementType,
+    CustomButtons: React.ElementType
 ) => {
     const SafeDatePicker = props.SafeDatePicker;
-    
+
     if (state === "Default") {
         return (
             <div className="rds-datepicker__container rds-datepicker__container--default">
@@ -224,7 +278,7 @@ export const renderDatePickerStateView = (
                     selected={startDate || null}
                     onChange={handlerDateChange}
                     customInput={
-                        <CustomInputWithClear 
+                        <CustomInputWithClear
                             placeholder={props.placeholderText || "Select date"}
                             isDisabled={props.isDisabled}
                             showClearDate={props.showClearDate}
@@ -258,7 +312,7 @@ export const renderDatePickerStateView = (
                     selected={startDate || null}
                     onChange={handlerDateTimeChange}
                     customInput={
-                        <CustomInputWithClear 
+                        <CustomInputWithClear
                             placeholder={props.placeholderText || "Select date"}
                             isDisabled={props.isDisabled}
                             showClearDate={props.showClearDate}
@@ -281,7 +335,7 @@ export const renderDatePickerStateView = (
                     monthsShown={props.layout === "Multi Month" ? 3 : 1}
                     todayButton={<CustomButtons />}
                     dayClassName={dayClassName}
-                    autoFocus 
+                    autoFocus
                     ref={expandedDatePickerRef}
                     renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
                 />
@@ -294,7 +348,7 @@ export const renderDatePickerStateView = (
                     selected={startDate || null}
                     onChange={handlerDateTimeChange}
                     customInput={
-                        <CustomInputWithClear 
+                        <CustomInputWithClear
                             placeholder={props.placeholderText || "Select date"}
                             isDisabled={props.isDisabled}
                             showClearDate={props.showClearDate}
@@ -323,33 +377,33 @@ export const renderDatePickerStateView = (
             </div>
         );
     }
-    
+
     return null;
 };
 
 export const renderDatePickerTypeView = (
-    type: string, 
-    startDate: Date | null, 
-    endDate: Date | null, 
+    type: string,
+    startDate: Date | null,
+    endDate: Date | null,
     handlerDateChange: (date: Date | null) => void,
     onRangeChange: (dates: [Date | null, Date | null]) => void,
-    props: any,
+    props: DatePickerComponentProps,
     isDropdownOpen: boolean,
     toggleDropdown: () => void,
     dropdownDisplayValue: string,
-    datePickerRef: React.RefObject<any>,
+    datePickerRef: React.RefObject<unknown>,
     activeList: string,
     todayClickHandler: () => void,
     yesterdayClickHandler: () => void,
     lastSevenDaysClickHandler: () => void,
     lastFourteenDaysClickHandler: () => void,
     dayClassName: (date: Date) => string,
-    CustomInputWithClear: any,
-    ExampleCustomInput: any,
-    CustomButtons: any
+    CustomInputWithClear: React.ElementType,
+    ExampleCustomInput: React.ElementType,
+    CustomButtons: React.ElementType
 ) => {
     const SafeDatePicker = props.SafeDatePicker;
-    
+
     if (type === "Default") {
         return (
             <div className="rds-datepicker__container rds-datepicker__container--default-type">
@@ -357,7 +411,7 @@ export const renderDatePickerTypeView = (
                     selected={startDate || null}
                     onChange={handlerDateChange}
                     customInput={
-                        <CustomInputWithClear 
+                        <CustomInputWithClear
                             placeholder={props.placeholderText || "Select date"}
                             isDisabled={props.isDisabled}
                             showClearDate={props.showClearDate}
@@ -391,7 +445,7 @@ export const renderDatePickerTypeView = (
                     selected={startDate || null}
                     onChange={handlerDateChange}
                     customInput={
-                        <CustomInputWithClear 
+                        <CustomInputWithClear
                             placeholder={props.placeholderText || "Select date"}
                             isDisabled={props.isDisabled}
                             showClearDate={props.showClearDate}
@@ -418,7 +472,7 @@ export const renderDatePickerTypeView = (
                     renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
                     open={false}
                 />
-              
+
                 <ul className={`rds-datepicker__dropdown-menu ${isDropdownOpen ? "rds-datepicker__dropdown-menu--show" : ""}`}>
                     <li className="rds-datepicker__dropdown-item rds-datepicker__dropdown-item--header">
                         <strong className="rds-datepicker__dropdown-label">Custom Date</strong>
@@ -460,8 +514,8 @@ export const renderDatePickerTypeView = (
                            { name: 'flip', options: { fallbackPlacements: ['right-start','right'] } },
                            { name: 'preventOverflow', options: { boundary: 'viewport' } },
                            { name: 'offset', options: { offset: [0, 8] } }
-                        ]}                       
-                        popperContainer={({ children }: any) => <div>{children}</div>}
+                        ]}
+                        popperContainer={({ children }: { children: React.ReactNode }) => <div>{children}</div>}
                         popperClassName="rds-datepicker__popper"
                         customInput={<ExampleCustomInput changeIcon={props.changeIcon} />}
                         disabled={props.isDisabled}
@@ -483,6 +537,10 @@ export const renderDatePickerTypeView = (
             </div>
         );
     }
-    
+
     return null;
 };
+
+CustomButtons.displayName = 'CustomButtons';
+ExampleCustomInput.displayName = 'ExampleCustomInput';
+CustomInputWithClear.displayName = 'CustomInputWithClear';

@@ -1,26 +1,30 @@
+$rds-stepper-breakpoint-sm: 420px;
+
 .rds-stepper {
+  --rds-stepper-mobile-offset-left: calc(-1 * var(--rds-spacing-sm, 10px));
+  --rds-stepper-mobile-step-padding-right: var(--rds-spacing-xs, 0px);
   position: relative;
 }
 
-@media (max-width: 420px) {
+@media (max-width: $rds-stepper-breakpoint-sm) {
   .rds-stepper {
-    margin-left: -10px;
+    margin-left: var(--rds-stepper-mobile-offset-left);
   }
   .MuiStep-root {
-    padding-right: 0px !important;
+    padding-right: var(--rds-stepper-mobile-step-padding-right) !important;
   }
 }
 
 [data-theme="dark"] {
   .rds-stepper {
     .MuiStepLabel-iconContainer .MuiStepIcon-root .MuiStepIcon-text {
-      color: #fff !important;
-      fill: #fff !important;
+      color: var(--rds-neutral-0) !important;
+      fill: var(--rds-neutral-0) !important;
     }
     
     .MuiStepLabel-iconContainer .MuiStepIcon-root svg path {
-      fill: #fff !important;
-      stroke: #fff !important;
+      fill: var(--rds-neutral-0) !important;
+      stroke: var(--rds-neutral-0) !important;
     }
   }
 }

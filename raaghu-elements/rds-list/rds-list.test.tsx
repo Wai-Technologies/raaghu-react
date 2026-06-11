@@ -6,6 +6,7 @@ import { Avatar } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-list.scss', () => ({}));
@@ -614,6 +615,14 @@ describe('RdsList', () => {
       
       const avatarElements = container.querySelectorAll('.rds-list__avatar');
       expect(avatarElements.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsList items={defaultItems} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

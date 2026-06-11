@@ -62,7 +62,7 @@ const RdsTabs = ({
     return result;
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: any) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: string | number) => {
     if (onTabChange) {
       onTabChange(newValue);
     }
@@ -79,9 +79,13 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
     rightIcon: showRightIcon ? (tab.rightIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
   }));
 
+  // Determine provided value: prefer explicit `value`, then `activeTab`.
+  // If neither is provided, do not pass `value` to keep Tabs uncontrolled.
+  const providedValue = (value ?? activeTab);
+
   return (
     <MuiTabs
-      value={value || activeTab}
+      {...(providedValue !== undefined ? { value: providedValue } : {})}
       onChange={handleChange}
       orientation={type}
       className={`rds-tabs ${layoutClass}`}

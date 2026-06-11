@@ -1,15 +1,15 @@
 .rds-textarea-container {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  margin-bottom: 16px;
+  gap: var(--rds-textarea-stack-gap, 3px);
+  margin-bottom: var(--rds-spacing-md, 16px);
 
   .textarea-label {
-  font-family: var(--rds-font-family-base, Poppins);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-md, 14px);
 
     .required-asterisk {
-      color: var(--rds-error-main, #dc3545);
+      color: var(--rds-error-main);
       font-weight: 600;
     }
   }
@@ -20,19 +20,19 @@
 
  .rds-textarea {
   width: 100%;
-  min-height: 120px;
+  min-height: var(--rds-textarea-min-height, 120px);
   padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
   font-size: var(--rds-font-size-md, 14px);
-  font-family: var(--rds-font-family-base, Poppins);
+  font-family: var(--rds-font-family-base);
   line-height: 1.5;
-  border: 1px solid var(--rds-border-default, #e0e0e0);
+  border: 1px solid var(--rds-border-default);
   outline: none;
   resize: vertical;
   transition: all var(--rds-transition-base, 0.2s) ease-in-out;
-  background-color: var(--rds-background-paper, #ffffff);
+  background-color: var(--rds-background-paper);
 
     &::placeholder {
-      color: var(--rds-text-secondary, #646464);
+      color: var(--rds-text-secondary);
       font-weight: 400;
     }
 
@@ -51,114 +51,114 @@
 
     &.textarea-bottom-outline {
       border-radius: var(--rds-border-radius-md, 4px);
-      border-bottom: 2px solid var(--rds-border-default, #1d1d1d) !important;
+      border-bottom: var(--rds-textarea-bottom-border-width, 2px) solid var(--rds-border-default) !important;
       padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
-      background-color: var(--rds-background-paper, #ffffff);
+      background-color: var(--rds-background-paper);
     }
 
     &.textarea-default {
-      border-color: var(--rds-border-default, #e0e0e0);
+      border-color: var(--rds-border-default);
     }
 
     &.textarea-active {
-      border-color: var(--rds-primary-main, #3C98FF);
+      border-color: var(--rds-primary-main);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-primary-main, #3C98FF) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
       }
     }
 
     &.textarea-selected {
-      border-color: var(--rds-border-selected, #7D7D7D);
+      border-color: var(--rds-border-selected);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-border-selected, #7D7D7D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
       }
     }
 
     &.textarea-disabled {
-      background-color: var(--rds-background-disabled, #e9ecef);
-      border-color: var(--rds-border-disabled, #dee2e6);
-      color: var(--rds-text-disabled, #6c757d);
+      background-color: var(--rds-background-disabled);
+      border-color: var(--rds-border-disabled);
+      color: var(--rds-text-disabled);
       cursor: not-allowed;
       
       &::placeholder {
-        color: var(--rds-text-disabled, #adb5bd);
+        color: var(--rds-text-disabled);
       }
 
       &.textarea-bottom-outline {
-        background-color: var(--rds-background-disabled, #e9ecef) !important;
-        border-bottom: 3px solid var(--rds-border-disabled, #dee2e6) !important;
+        background-color: var(--rds-background-disabled) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled) !important;
       }
     }
 
     &.textarea-error {
-      border-color: var(--rds-error-main, #BD0D1D);
+      border-color: var(--rds-error-main);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-error-main, #BD0D1D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main) !important;
       }
     }
   }
 
   .error-message {
     font-size: var(--rds-font-size-sm, 13px);
-    color: var(--rds-error-main, #BD0D1D);
-    font-family: var(--rds-font-family-base, Poppins);
+    color: var(--rds-error-main);
+    font-family: var(--rds-font-family-base);
     font-weight: 400;
   }
 }
 [data-theme="dark"] {
   .rds-textarea {
-    background-color: var(--rds-background-paper, #1e1e1e);
-    color: var(--rds-text-primary, #ffffff);
+    background-color: var(--rds-background-paper);
+    color: var(--rds-text-primary);
 
     &::placeholder {
-      color: var(--rds-text-secondary, #bdbdbd);
+      color: var(--rds-text-secondary);
     }
 
     &.textarea-bottom-outline {
-      background-color: var(--rds-background-paper, #1e1e1e) !important;
-      color: var(--rds-text-primary, #ffffff) !important;
-      border-bottom: 3px solid var(--rds-primary-main, #ffffff) !important;
+      background-color: var(--rds-background-paper) !important;
+      color: var(--rds-text-primary) !important;
+      border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
     }
 
     &.textarea-active {
-      border-color: var(--rds-primary-main, #3C98FF);
+      border-color: var(--rds-primary-main);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-primary-main, #3C98FF) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
       }
     }
 
     &.textarea-selected {
-      border-color: var(--rds-border-selected, #7D7D7D);
+      border-color: var(--rds-border-selected);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-border-selected, #7D7D7D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
       }
     }
 
     &.textarea-disabled {
-      background-color: var(--rds-background-disabled, #2b2b2b);
-      border-color: var(--rds-border-disabled, #3a3a3a);
-      color: var(--rds-text-disabled, #6c757d);
+      background-color: var(--rds-background-disabled);
+      border-color: var(--rds-border-disabled);
+      color: var(--rds-text-disabled);
 
       &::placeholder {
-        color: var(--rds-text-disabled, #6c757d);
+        color: var(--rds-text-disabled);
       }
 
       &.textarea-bottom-outline {
-        background-color: var(--rds-background-disabled, #2b2b2b) !important;
-        border-bottom: 3px solid var(--rds-border-disabled, #3a3a3a) !important;
+        background-color: var(--rds-background-disabled) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled) !important;
       }
     }
 
     &.textarea-error {
-      border-color: var(--rds-error-main, #BD0D1D);
+      border-color: var(--rds-error-main);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-error-main, #BD0D1D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main) !important;
       }
     }
   }

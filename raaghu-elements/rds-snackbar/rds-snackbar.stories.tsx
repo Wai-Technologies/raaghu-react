@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsSnackbar from './rds-snackbar';
 import { useState, useEffect } from 'react';
 import RdsButton from '../rds-button/rds-button';
@@ -7,9 +8,10 @@ const meta: Meta<typeof RdsSnackbar> = {
   title: 'Elements/Snackbar',
   component: RdsSnackbar,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     message: {
       control: 'text',
@@ -103,3 +105,27 @@ export const AutoHide = {
     autoHideDuration: 2000,
   },
 };
+
+export const ShowSnackbar: Story = {
+  name: 'Interaction: Show snackbar',
+  render: SnackbarTemplate,
+  args: {
+    message: 'Hello from play function!',
+    type: 'info',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole('button', { name: /show snackbar/i })
+    await expect(button).toBeVisible()
+    await userEvent.click(button)
+    // MUI Snackbar renders in a portal — query from document.body
+    await waitFor(
+      () => expect(
+        document.querySelector('[class*="MuiSnackbar-root"], [role="alert"]')
+      ).not.toBeNull(),
+      { timeout: 2000 }
+    )
+  }
+};
+
+export const Default: Story = { ...Success };

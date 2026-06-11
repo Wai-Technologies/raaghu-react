@@ -12,7 +12,7 @@
         }
         
         &:focus-visible {
-          outline: 2px solid var(--rds-color-primary, #7e2eef);
+          outline: 2px solid var(--rds-color-primary);
           outline-offset: 2px;
         }
         
@@ -78,7 +78,7 @@
       
       .nav-link {
         &.selected {
-          background-color: var(--rds-color-primary, #8000ff);
+          background-color: var(--rds-color-primary);
           color: var(--rds-color-on-primary, white);
         }
       }
@@ -99,12 +99,12 @@
     transition: all 0.2s ease;
     
     &--active {
-      background-color: var(--rds-color-primary, #7e2eef);
+      background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary, white);
     }
     
     &--selected {
-      background-color: var(--rds-color-primary, #7e2eef);
+      background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary, white);
     }
     
@@ -123,14 +123,16 @@
     margin-left: var(--rds-spacing-xs, 0.25rem);
   }
   
-  &#features {
+  &[id="features"] {
     .nav-link {
       &.active {
-        background-color: var(--rds-color-primary, #7e2eef);
+        background-color: var(--rds-color-primary);
         color: var(--rds-color-on-primary, white);
       }
       
       text-align: start;
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
     }
   }
 }
@@ -150,7 +152,7 @@
     width: unset;
     
     .nav-link.selected {
-      background-color: var(--rds-color-primary, #8000ff);
+      background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary, white);
     }
   }
@@ -186,11 +188,11 @@
   }
 }
 
-#features.nav-tabs .nav-link {
+[id="features"].nav-tabs .nav-link {
   text-align: start;
 }
 
-@media screen and (max-width: 1023px) {
+@include bp.down(1023) {
   .bs-md-0 {
     border-left: 0px solid transparent;
   }

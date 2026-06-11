@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsCompESignature from './rds-comp-e-signature';
 
 const meta: Meta<typeof RdsCompESignature> = {
   title: 'Components/E-Signature',
   component: RdsCompESignature,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     docs: {
       description: {
@@ -12,7 +14,7 @@ const meta: Meta<typeof RdsCompESignature> = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     mode: {
       control: 'select',
@@ -65,6 +67,10 @@ export const Draw: Story = {
     colourSwatch: true,
     title: 'Draw Signature',
   },
+  play: async ({ canvasElement }) => {
+    const c = canvasElement.querySelector('canvas');
+    expect(c).toBeTruthy();
+  },
 };
 
 export const Upload: Story = {
@@ -84,4 +90,6 @@ export const Choose: Story = {
     title: 'Choose Signature',
   },
 };
+
+export const Default: Story = { ...Draw };
 
