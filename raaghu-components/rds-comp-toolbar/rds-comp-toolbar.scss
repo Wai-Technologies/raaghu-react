@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-toolbar {
   display: flex;
   align-items: center;
@@ -293,7 +295,7 @@
   }
 }
 
-@media (max-width:var(--rds-breakpoint-sm)) {
+@include bp.down(sm) {
   .rds-comp-toolbar__dropdown {
     left: 45px !important;
     max-height: 48vh !important;
@@ -301,14 +303,14 @@
   }
 }
 
-@media (max-width:var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
   .rds-comp-toolbar__dropdown {
     left: 12.8px !important;
     max-height: 76vh !important;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-comp-toolbar {
     padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 6px);
     gap: var(--rds-spacing-xs, 4px);
@@ -424,7 +426,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-sm)) {
+@include bp.down(sm) {
   .rds-comp-toolbar {
     padding: var(--rds-spacing-xs, 3px) var(--rds-spacing-xs, 4px);
     

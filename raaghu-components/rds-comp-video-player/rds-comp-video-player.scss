@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-video-player {
   position: relative;
   display: block;
@@ -79,13 +81,13 @@
     }
   }
   
-  @media (max-width: var(--rds-breakpoint-md)) {
+  @include bp.down(md) {
     &__player {
       min-height: var(--rds-player-min-height-sm, 150px);
     }
   }
   
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  @include bp.down(sm) {
     &__player {
       min-height: var(--rds-player-min-height-xs, 120px);
     }

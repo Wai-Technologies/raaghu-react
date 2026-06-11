@@ -1,9 +1,11 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-chart-doughnut {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    @media (min-width: var(--rds-breakpoint-md)) and (max-width: var(--rds-breakpoint-lg)) {
+    @include bp.between(md, lg) {
         canvas {
             /* Use viewport-relative sizing instead of hardcoded pixels
                so charts respond to theme and layout changes. */

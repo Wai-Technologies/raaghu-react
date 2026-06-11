@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-notification {
   &.MuiCard-root {
     position: relative;
@@ -307,7 +309,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-comp-notification {
     &--layout-horizontal {
       .rds-comp-notification__header {

@@ -884,6 +884,8 @@
   .rds-date-picker {
     .MuiDateCalendar-root {
       background: var(--rds-color-surface-dark);
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
       color: var(--rds-color-on-surface-dark, white);
     }
     
@@ -921,7 +923,7 @@
 }
 
 // Responsive design
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-date-picker {
     .MuiDateCalendar-root {
       border-radius: var(--rds-border-radius-md);
@@ -1120,7 +1122,7 @@
     margin-left: var(--rds-spacing-neg-14);
 }
 
-@media (max-width: var(--rds-breakpoint-430)) {
+@include bp.down(430) {
     .css-11yms7-MuiDateCalendar-root {
       width: 288px !important;
      }

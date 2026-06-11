@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-file-uploader {
   display: block;
   position: relative;
@@ -335,7 +337,7 @@ color: var(--rds-color-primary, #1976d2);
 }
 
 // Small mobile: 320px - 414px
-@media (max-width: var(--rds-breakpoint-834)) and (min-width: var(--rds-breakpoint-420)) {
+@include bp.between(420, 834) {
   .rds-file-uploader {
     width: 100% !important;
     max-width: 100% !important;
@@ -400,7 +402,7 @@ color: var(--rds-color-primary, #1976d2);
   }
 }
 
-@media (max-width: var(--rds-breakpoint-lg)) and (min-width: var(--rds-breakpoint-835)) {
+@include bp.between(835, lg) {
   .rds-file-uploader {
     min-width: 0 !important;
     &__drop-zone {
@@ -471,7 +473,7 @@ color: var(--rds-color-primary, #1976d2);
 
 
 
-@media (max-width: var(--rds-breakpoint-xs)) and (min-width: var(--rds-breakpoint-xs)) {
+@include bp.between(mobile-sm, mobile-lg) {
   .rds-file-uploader {
     min-width: 0 !important;
     max-width: 100% !important;

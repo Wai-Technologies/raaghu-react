@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-ai-message-box {
   width: 100%;
   display: block;
@@ -26,7 +28,7 @@
       object-fit: contain;
     }
   }
-  @media (max-width: var(--rds-breakpoint-md)) {
+  @include bp.down(md) {
     &__row {
       flex-direction: row;
       align-items: flex-start;
@@ -45,7 +47,7 @@
       margin-top: var(--rds-spacing-hairline, 1px);
     }
   }
-  @media (max-width: var(--rds-breakpoint-568)) {
+  @include bp.down(568) {
     &__container {
       padding: var(--rds-spacing-xs, 8px);
     }
@@ -68,7 +70,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @include bp.down(xs) {
     &__container {
       padding: var(--rds-spacing-xs, 4px);
     }
@@ -84,13 +86,13 @@
     }
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @include bp.down(xs) {
     .rds-avatar__avatar-wrap {
       margin-bottom: var(--rds-spacing-3xl, 64px);
     }
   }
 
-  @media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-md)) {
+  @include bp.between(xs, md) {
     .rds-avatar__avatar-wrap {
       margin-bottom: var(--rds-spacing-xl, 32px);
     }

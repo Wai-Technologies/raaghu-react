@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-banner {
   // banner sizing and offsets are provided by centralized --rds-* tokens
   display: flex;
@@ -213,7 +215,7 @@
     .rds-banner__primary-button { height: var(--rds-size-xl); }
   }
   
-  @media (max-width: var(--rds-breakpoint-tablet-md)) {
+  @include bp.down(tablet-md) {
     width: 100vw !important;
     max-width: 100vw !important;
     margin: 0 !important;
@@ -317,7 +319,7 @@
     }
   }
 
-@media (min-width: var(--rds-breakpoint-mobile-sm)) and (max-width: var(--rds-breakpoint-sm)) {
+@include bp.between(mobile-sm, sm) {
   padding: var(--rds-spacing-xs, 4px) !important;
     
     &__content-wrapper { 
@@ -361,7 +363,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-lg)) and (max-width: var(--rds-breakpoint-tablet-md)) {
+@include bp.between(mobile-lg, tablet-md) {
   .rds-banner {
     .rds-banner__action-container {
       position: relative !important;

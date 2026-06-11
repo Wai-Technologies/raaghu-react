@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-product-tour {
   &__container {
     background: var(--rds-background-paper);
@@ -882,7 +884,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@include bp.down(420) {
   .rds-comp-product-tour__container--image {
     .rds-comp-product-tour__close-btn {
       top: 0px; 
@@ -891,7 +893,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@include bp.down(420) {
   .rds-comp-product-tour__container--carousel {
     padding: var(--rds-spacing-md) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)); 
     margin: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) auto;
@@ -945,7 +947,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@include bp.down(420) {
   .rds-comp-product-tour__container {
     max-height: calc(100vh - 24px);
     overflow: visible; 
@@ -984,7 +986,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
 .sb-show-main.sb-main-padded {
 padding: var(--rds-spacing-lg);
 }

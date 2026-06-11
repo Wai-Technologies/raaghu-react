@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 // RDS Tree Structure Component Styles
 .rds-comp-tree-structure {
   // Base tree structure styles
@@ -130,7 +132,7 @@
 }
 
 // Responsive styles
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-comp-tree-structure {
     &__node {
       margin-left: calc(-1 * var(--rds-spacing-md, 16px)) !important;

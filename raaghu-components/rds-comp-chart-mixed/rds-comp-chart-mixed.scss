@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-chart-mixed {
     display: flex;
     justify-content: center;
@@ -11,7 +13,7 @@
     }
 
     // Tablet view - use tablet-specific token
-    @media (min-width: var(--rds-breakpoint-md)) and (max-width: var(--rds-breakpoint-lg)) {
+    @include bp.between(md, lg) {
         .rds-chart-canvas,
         canvas {
             height: var(--rds-comp-chart-bar-tablet-height) !important;

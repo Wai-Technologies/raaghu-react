@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-popover {
   display: block;
   position: relative;
@@ -239,7 +241,7 @@
   color: var(--rds-color-on-primary) !important;
 }
 
-@media (max-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.down(mobile-sm) {
   .with-list-popover .rds-popover__container {
     max-width: var(--rds-popover-list-mobile-max-width, 220px) !important;
     min-width: var(--rds-popover-list-mobile-min-width, 120px) !important;
@@ -252,18 +254,18 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-sm)) and (min-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.between(mobile-sm, sm) {
   .rds-popover__container {
     max-width: 285px !important;
   }
 }
-@media (min-width: var(--rds-breakpoint-mobile-lg)) and (max-width: var(--rds-breakpoint-md)) {
+@include bp.between(mobile-lg, md) {
   .rds-popover__container {
     max-width: 380px !important;
   }
 }
 
-@media (min-width: var(--rds-breakpoint-tablet-md)) and (max-width: var(--rds-breakpoint-lg)) {
+@include bp.between(tablet-md, lg) {
     .rds-popover__container {
         max-width: 330px !important;
     }
