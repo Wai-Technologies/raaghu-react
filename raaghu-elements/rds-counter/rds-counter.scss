@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-counter__mandatory {
   display: inline-block;
   width: 1em;
@@ -412,7 +414,7 @@
   height: var(--rds-counter-controls-height-large, 44px) !important;
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(400) {
   .rds-counter {
     &__controls {
       width: 87% !important;
@@ -428,7 +430,7 @@
     }
   }
 }
-@media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.between(mobile-sm, tablet-sm) {
   .rds-counter {
     &__controls {
       width: fit-content;
@@ -446,7 +448,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-counter {
     &__controls {
       &--default {
@@ -465,11 +467,11 @@
   gap: var(--rds-spacing-md, 30px) !important;
   align-items: flex-start;
 
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  @include bp.down(sm) {
     flex-direction: column;
   }
 
-  @media (min-width: var(--rds-breakpoint-sm)) {
+  @include bp.up(sm) {
     flex-direction: row;
   }
 }
@@ -526,7 +528,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(400) {
   .rds-counter--compact {
     align-items: center;
     
@@ -545,19 +547,19 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.down(mobile-sm) {
   .rds-counter--compact .rds-counter__label {
     margin-right: var(--rds-spacing-sm);
   }
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-sm)) and (max-width: var(--rds-breakpoint-420)) {
+@include bp.between(401, 420) {
   .rds-counter--compact .rds-counter__label {
     margin-right: var(--rds-spacing-sm);
   }
 }
 
-@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.down(tablet-sm) {
   .rds-counter .MuiIconButton-root {
     padding: 0 !important;
   }

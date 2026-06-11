@@ -1,4 +1,6 @@
-﻿@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+﻿@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
+@include bp.down(tablet-sm) {
   .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
         width: var(--rds-avatar-size-medium, 32px) !important;
@@ -31,7 +33,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
   .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
             width: var(--rds-avatar-size-small, 28px) !important;
@@ -53,7 +55,7 @@
   }
   .rds-comp-chat__back-btn {
     font-size: var(--rds-font-size-xl);
-    margin-right: 0px;
+    margin-right: var(--rds-spacing-0);
   }
 }
 
@@ -139,7 +141,7 @@
         min-width: 0; 
         margin-right: var(--rds-spacing-sm, 12px);
 
-      @media (max-width: var(--rds-breakpoint-xs)) {
+      @include bp.down(mobile-sm) {
         .rds-avatar{
           &--with-name{
             gap: var(--rds-spacing-0) !important;
@@ -192,7 +194,7 @@
           background: transparent;
           color: var(--rds-color-on-surface) !important;
           font-weight: var(--rds-font-weight-medium, 500);
-          @media (max-width: var(--rds-breakpoint-xs)) {
+          @include bp.down(mobile-sm) {
             padding: var(--rds-spacing-cozy) var(--rds-spacing-compact) !important;
           }
         }
@@ -381,7 +383,7 @@
       }
     }
     
-    @media (max-width: var(--rds-breakpoint-tablet-sm)) and (min-width: var(--rds-breakpoint-mobile-lg)) {
+    @include bp.between(mobile-lg, tablet-sm) {
       position: absolute;
       top: auto;
       bottom: 60px;
@@ -404,7 +406,7 @@
       }
     }
     
-    @media (max-width: var(--rds-breakpoint-mobile-lg)) and (min-width: var(--rds-breakpoint-mobile-sm)) {
+    @include bp.between(mobile-sm, mobile-lg) {
       position: absolute !important;
       top: auto !important;
       bottom: 55px !important;
@@ -450,7 +452,7 @@
       }
     }
     
-    @media (max-width: var(--rds-breakpoint-mobile-sm)) {
+    @include bp.down(mobile-sm) {
       position: absolute !important;
       top: auto !important;
       bottom: 55px !important;
@@ -511,8 +513,8 @@
     .rds-input input {
       width: 100%;
       box-sizing: border-box;
-      padding-right: 56px; 
-      padding-left: 12px;
+      padding-right: var(--rds-spacing-56-px);
+      padding-left: var(--rds-spacing-12-px);
       height: 40px;
       line-height: 1.2;
       border-radius: var(--rds-border-radius-md);
@@ -556,8 +558,8 @@
     font-size: var(--rds-font-size-md);
     line-height: 1.4;
     color: var(--rds-color-on-surface);
-    min-height: 32px;
-    height: 32px;
+    min-height: var(--rds-size-xl);
+    height: var(--rds-size-xl);
     display: flex;
     align-items: center;
     vertical-align: middle;
@@ -575,8 +577,8 @@
       align-items: center;
       width: 100%;
       height: 100%;
-      min-height: 32px;
-      
+      min-height: var(--rds-size-xl);
+
       .MuiOutlinedInput-notchedOutline {
         border: none !important;
       }
@@ -585,7 +587,7 @@
         padding: 0 !important;
         display: flex;
         align-items: center;
-        height: 32px !important;
+        height: var(--rds-size-xl) !important;
         line-height: 1.4 !important;
         box-sizing: border-box;
         vertical-align: middle;
@@ -604,11 +606,11 @@
     .MuiInputBase-root {
       display: flex;
       align-items: center;
-      height: 32px;
-      min-height: 32px;
+      height: var(--rds-size-xl);
+      min-height: var(--rds-size-xl);
       
       input {
-        height: 32px !important;
+        height: var(--rds-size-xl) !important;
         padding: 0 !important;
         display: flex;
         align-items: center;
@@ -624,8 +626,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: var(--rds-size-xl);
+    height: var(--rds-size-xl);
     padding: var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-sm);
     border: none;
@@ -639,7 +641,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-tablet-sm)) {
+  @include bp.down(tablet-sm) {
     &__send-icon { 
       width: 28px; 
       height: 28px;
@@ -651,19 +653,19 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @include bp.down(mobile-sm) {
     &__send-icon { 
       width: 26px; 
       height: 26px;
       
       svg {
-        width: 16px;
-        height: 16px;
+        width: var(--rds-size-md);
+        height: var(--rds-size-md);
       }
     }
     .rds-button--state-default {
       min-width: 40px !important;
-      margin-bottom: 6px;
+      margin-bottom: var(--rds-spacing-compact);
     }
   }
 
@@ -723,7 +725,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-tablet-sm)) {
+  @include bp.down(tablet-sm) {
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
@@ -736,7 +738,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @include bp.down(mobile-sm) {
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
@@ -753,7 +755,7 @@
     transform: translate3d(0px, -180px, 0px);
     max-width: 90vw; 
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @include bp.down(mobile-sm) {
       transform: translate3d(0px, -150px, 0px);
       max-width: 95vw;
     }
@@ -765,7 +767,7 @@
   }
 
   .nav-tabs {
-    margin-top: 14px;
+    margin-top: var(--rds-spacing-14);
     border-bottom: 1px solid var(--rds-color-border-light);
     
     .nav-link {
@@ -840,7 +842,7 @@
   }
 
   &__screen-header-icon-filter {
-    margin-right: 9px;
+    margin-right: var(--rds-spacing-9-px);
     display: inline-flex;
     align-items: center;
   }
@@ -853,7 +855,7 @@
   display: none !important;
 }
 
-@media (min-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.up(tablet-sm) {
   .rds-comp-chat {
     flex-direction: row;
     height: 600px;
@@ -879,7 +881,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.down(tablet-sm) {
   .rds-comp-chat {
     height: 100vh;
     max-height: 100vh;
@@ -949,7 +951,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
   .rds-comp-chat {
     &__window-header {
       padding: 0 var(--rds-spacing-xs, 4px);
@@ -966,7 +968,7 @@
 
     &__window-footer {
       padding: var(--rds-spacing-xs, 8px);
-      margin-top: 29px;
+      margin-top: var(--rds-spacing-29);
     }
     
     &__footer-left {
@@ -975,7 +977,7 @@
         width: 36px;
         height: 36px;
         font-size: var(--rds-font-size-xl);
-        margin-bottom: 6px;
+        margin-bottom: var(--rds-spacing-compact);
       }
       
       .btn-icon {
@@ -1020,7 +1022,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.down(tablet-sm) {
   .EmojiPickerReact {
     height: 370px !important;
     width: min(300px, 90vw) !important;
@@ -1032,7 +1034,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
   .EmojiPickerReact {
     height: 350px !important;
     width: calc(100vw - 2rem) !important;
@@ -1042,7 +1044,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.down(mobile-sm) {
   [id="fab-list"] .dropdown-menu.show {
     width: auto !important;
     height: auto !important;
@@ -1076,7 +1078,7 @@
   }
   .rds-button--state-default {
       min-width: 40px !important;
-      margin-bottom: 3px;
+      margin-bottom: var(--rds-spacing-micro);
     }
 }
 

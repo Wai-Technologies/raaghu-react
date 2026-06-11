@@ -68,7 +68,7 @@ figma.connect(
       type: 'text'
     },
     {
-      format: (value: any) => value,
+      format: (value: unknown) => value as React.ReactNode,
       id: 'textColumn',
       label: 'Text',
       minWidth: 80,
@@ -97,7 +97,7 @@ figma.connect(
       type: 'text'
     },
     {
-      format: (value: any) => value,
+      format: (value: unknown) => value as React.ReactNode,
       id: 'linkText',
       label: 'Text',
       minWidth: 80,

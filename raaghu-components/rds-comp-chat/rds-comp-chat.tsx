@@ -233,8 +233,8 @@ const RdsCompChat = (props: RdsCompChatProps) => {
               </div>
             )}
             <div className="rds-comp-chat__footer-left">
-              <RdsButton color="primary" changeLeftIcon="add" showLeftIcon layout="icon-only" style="filled" onClick={() => document.getElementById("fileUpload")?.click()} />
-              <input id="fileUpload" className="rds-comp-chat__file-input" type="file" accept="image/*,video/*" onChange={handleImageUpload} />
+              <RdsButton color="primary" changeLeftIcon="add" showLeftIcon layout="icon-only" style="filled" aria-label="Add attachment" onClick={() => document.getElementById("fileUpload")?.click()} />
+              <input id="fileUpload" className="rds-comp-chat__file-input" type="file" accept="image/*,video/*" aria-label="Upload file" onChange={handleImageUpload} />
               <button type="button" className="rds-comp-chat__emoji-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => updateState({ showEmojiPicker: !state.showEmojiPicker })} aria-label="Open emoji picker"><EmojiIcon /></button>
             </div>
             <div className="rds-comp-chat__footer-center">

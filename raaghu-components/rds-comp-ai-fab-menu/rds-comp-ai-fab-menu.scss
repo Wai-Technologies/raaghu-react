@@ -4,7 +4,7 @@
 
   .rds-fab-menu-offset &.rds-fab-menu--right,
   .rds-fab-menu-offset &[data-alignment="right"] {
-    margin-left: 235px;
+    margin-left: var(--rds-spacing-235);
   }
 
   &__button {
@@ -21,7 +21,7 @@
     min-height: 48px;
     padding: 0;
     box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
 
     &--small {
       min-width: 40px;
@@ -80,7 +80,7 @@
     }
 
     &--circular {
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
     }
 
     &--rectangular {

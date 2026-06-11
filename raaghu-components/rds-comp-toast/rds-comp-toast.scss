@@ -126,9 +126,9 @@
     align-items: center;
     height: 100%;
     margin-top: var(--rds-spacing-xxs, 2px);
-    width: 24px;
-    min-width: 24px;
-    max-width: 24px;
+    width: var(--rds-size-lg);
+    min-width: var(--rds-size-lg);
+    max-width: var(--rds-size-lg);
     justify-content: center;
   }
   
@@ -136,7 +136,7 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     vertical-align: middle;
     
     &--circle {

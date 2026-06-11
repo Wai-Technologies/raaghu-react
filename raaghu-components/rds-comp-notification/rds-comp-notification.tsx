@@ -46,7 +46,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
         setVisibleNotifications(notifications);
     }, [notifications]);
 
-    const handleDismiss = (event: any, notification: any, notificationIndex: number) => {
+    const handleDismiss = (event: React.SyntheticEvent, notification: NotificationItem, notificationIndex: number) => {
         setVisibleNotifications(prev => 
             prev.filter((n, index) => index !== notificationIndex)
         );
@@ -54,7 +54,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
         onDismiss?.(event, notification);
     };
 
-    const handleSecondaryButtonClick = (event: any, notification: any, notificationIndex: number) => {
+    const handleSecondaryButtonClick = (event: React.SyntheticEvent, notification: NotificationItem, notificationIndex: number) => {
         setVisibleNotifications(prev => 
             prev.filter((n, index) => index !== notificationIndex)
         );

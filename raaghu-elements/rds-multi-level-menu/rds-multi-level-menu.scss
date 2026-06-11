@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-mlm-paper {
   /* use centralized design tokens where available */
   --rds-mlm-min-width: 220px;
@@ -13,9 +15,9 @@
   .MuiList-root { transition: max-height var(--rds-transition-base, 0.16s ease-in-out); }
 }
 
-@media (max-width: var(--rds-breakpoint-600)) {
+@include bp.down(600) {
   .rds-mlm-paper.rds-mlm-root {
-    margin-top: 43px;
+    margin-top: var(--rds-spacing-43);
   }
 }
 
@@ -95,7 +97,7 @@
 
 
 .rds-mlm-paper .rds-mlm-leading {
-  width: 16px;
+  width: var(--rds-size-md);
   display: inline-flex;
   align-items: center;
   justify-content: center;

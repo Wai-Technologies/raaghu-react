@@ -1,7 +1,7 @@
 import * as React from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { PickersDay } from '@mui/x-date-pickers/PickersDay';
+import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -127,8 +127,8 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
 
   const handleMonthChange = (newMonth: Dayjs) => setCurrentMonth(newMonth);
 
-  const renderDaySlot = (dayProps: any) => {
-    const day = dayProps.day as Dayjs;
+  const renderDaySlot = (dayProps: PickersDayProps<Dayjs>) => {
+    const day = dayProps.day;
     const [start, end] = draft;
     const inRange = isBetween(day, start, end);
     const isStart = isSameDay(day, start);
@@ -156,8 +156,8 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
     <Box display="flex" gap={2}>
       <DateCalendar
         value={currentMonth}
-        onChange={(newMonth: any) => newMonth && handleMonthChange(newMonth as Dayjs)}
-        onMonthChange={(newMonth: any) => setCurrentMonth(newMonth as Dayjs)}
+        onChange={(newMonth: Dayjs | null) => newMonth && handleMonthChange(newMonth)}
+        onMonthChange={(newMonth: Dayjs) => setCurrentMonth(newMonth)}
         minDate={minDate}
         maxDate={maxDate}
         slots={{ day: renderDaySlot }}
@@ -172,8 +172,8 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
       {multiMonth && (
         <DateCalendar
           value={currentMonth.add(1, 'month')}
-          onChange={(newMonth: any) => newMonth && handleMonthChange((newMonth as Dayjs).subtract(1, 'month'))}
-          onMonthChange={(newMonth: any) => setCurrentMonth((newMonth as Dayjs).subtract(1, 'month'))}
+          onChange={(newMonth: Dayjs | null) => newMonth && handleMonthChange(newMonth.subtract(1, 'month'))}
+          onMonthChange={(newMonth: Dayjs) => setCurrentMonth(newMonth.subtract(1, 'month'))}
           minDate={minDate}
           maxDate={maxDate}
           slots={{ day: renderDaySlot }}

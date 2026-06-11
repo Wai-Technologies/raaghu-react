@@ -3,7 +3,8 @@ import {
   LinearProgress as MuiLinearProgress,
   CircularProgress as MuiCircularProgress,
   Box,
-  Typography
+  Typography,
+  type SxProps
 } from '@mui/material';
 import './rds-progress.scss';
 
@@ -21,7 +22,10 @@ export interface RdsProgressProps {
   label?: string;
   totalSteps?: number;
   stepperType?: 'number' | 'circle';
-  sx?: any;
+  sx?: SxProps;
+  animationDuration?: number;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
 }
 
 const RdsProgress = ({
@@ -39,6 +43,8 @@ const RdsProgress = ({
   totalSteps = 5,
   stepperType = 'number',
   sx,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
   ...props
 }:RdsProgressProps) => {
   const getProgressValue = () => steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style) ? steps * 20 : value;
@@ -77,9 +83,9 @@ const RdsProgress = ({
     );
   };
 
-  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as any} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} />, 'overlay');
+  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as 'determinate' | 'indeterminate'} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={ariaLabel} aria-labelledby={ariaLabelledby} />, 'overlay');
 
-  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as any} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} />, 'side');
+  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={ariaLabel} aria-labelledby={ariaLabelledby} />, 'side');
 
   const renderStepper = () => {
     const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);

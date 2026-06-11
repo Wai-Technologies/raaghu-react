@@ -45,7 +45,7 @@ export interface RdsCompDatePickerProps {
   format?: string;
   className?: string;
   size?: 'small' | 'medium';
-  slotProps?: Record<string, any>;
+  slotProps?: Record<string, Record<string, unknown>>;
   state?: 'default' | 'expanded' | 'selected';
   changeIcon?: 'dashboard-settings' | 'date-picker';
   style?: 'default' | 'custom';
@@ -166,7 +166,7 @@ export default function RdsCompDatePicker({
 
   // Props specific to single value pickers
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const singlePickerProps: any = {
+  const singlePickerProps: Record<string, unknown> = {
     ...baseProps,
     value: dateValue,
     onChange: handleDateChange,
@@ -427,7 +427,7 @@ export function DatePickerDemo() {
     multimonth: [dayjs(), dayjs().add(7, 'day')] as [Dayjs | null, Dayjs | null],
   });
 
-  const handleChange = (key: string) => (value: any) => {
+  const handleChange = (key: string) => (value: unknown) => {
     setValues(prev => ({ ...prev, [key]: value }));
   };
 

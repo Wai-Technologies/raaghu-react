@@ -297,12 +297,12 @@ describe('RdsSpeedDial', () => {
       const speedDial = container.querySelector('[aria-label]');
       expect(speedDial).toHaveAttribute('aria-label', 'Custom aria label');
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsSpeedDial {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should use tooltipTitle as aria-label fallback', () => {
       const { container } = render(

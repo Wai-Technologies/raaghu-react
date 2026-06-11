@@ -22,14 +22,14 @@ export interface RdsTableColumn {
   label: string;
   minWidth?: number;
   align?: 'left' | 'right' | 'center';
-  format?: (value: any) => string | React.ReactNode;
+  format?: (value: unknown) => string | React.ReactNode;
   type?: 'text' | 'checkbox' | 'radio';
   sortable?: boolean;
 }
 
 export interface RdsTableProps extends Omit<TableProps, 'children'> {
   columns: RdsTableColumn[];
-  rows: any[];
+  rows: Record<string, unknown>[];
   pagination?: boolean;
   pageSize?: number;
   page?: number;
@@ -105,7 +105,7 @@ const RdsTable = ({
     const column = columns.find(c => c.id === sortBy);
     if (!column) return rows;
     const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
-    const getValue = (row: any) => {
+    const getValue = (row: Record<string, unknown>) => {
       const v = row[sortBy];
       if (v === null || v === undefined) return '';
       if (typeof v === 'number') return v;
@@ -134,7 +134,7 @@ const RdsTable = ({
   };
 
   const checkboxRowIds = React.useMemo<(string | number)[]>(
-    () => rows.map((r: any) => (r.id ?? r.key)).filter((id: unknown) => id !== undefined) as (string | number)[],
+    () => rows.map((r) => (r['id'] ?? r['key'])).filter((id: unknown) => id !== undefined) as (string | number)[],
     [rows]
   );
   const isAllCellCheckboxSelected = checkboxRowIds.length > 0 && checkboxRowIds.every((id) => cellCheckboxSelected.has(id));
@@ -154,7 +154,7 @@ const RdsTable = ({
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const allRowIds = rows.map((row) => row.id || row.key);
+      const allRowIds = rows.map((row) => (row['id'] || row['key']) as string);
       handleRowSelection(allRowIds);
     } else {
       handleRowSelection([]);
@@ -168,10 +168,10 @@ const RdsTable = ({
     handleRowSelection(newSelected);
   };
 
-  const renderCellContent = (column: RdsTableColumn, value: any, row: any) => {
+  const renderCellContent = (column: RdsTableColumn, value: unknown, row: Record<string, unknown>) => {
     switch (column.type) {
       case 'checkbox': {
-        const rowId = row.id || row.key;
+        const rowId = (row['id'] || row['key']) as string | number;
         const isChecked = cellCheckboxSelected.has(rowId);
         return (
           <div className="rds-table__checkbox">
@@ -184,7 +184,7 @@ const RdsTable = ({
         );
       }
       case 'radio': {
-        const rowId = row.id || row.key;
+        const rowId = (row['id'] || row['key']) as string | number;
         const isChecked = cellRadioSelected === rowId;
         return (
           <Radio
@@ -195,7 +195,7 @@ const RdsTable = ({
         );
       }
       default:
-        return column.format ? column.format(value) : value;
+        return column.format ? column.format(value) : value as React.ReactNode;
     }
   };
 
@@ -271,11 +271,11 @@ const RdsTable = ({
           </MuiTableHead>
           <MuiTableBody className="rds-table__body">
             {(pagination ? sortedRows.slice(internalPage * internalPageSize, (internalPage + 1) * internalPageSize) : sortedRows).map((row, index) => {
-              const isSelected = currentSelectedRows.includes(row.id || row.key);
+              const isSelected = currentSelectedRows.includes((row['id'] || row['key']) as string);
               return (
-                <MuiTableRow 
-                  hover 
-                  key={row.id || row.key || index}
+                <MuiTableRow
+                  hover
+                  key={(row['id'] || row['key'] || index) as string | number}
                   selected={isSelected}
                   className={`rds-table__row ${isSelected ? 'rds-table__row--selected' : ''}`}
                 >
@@ -283,7 +283,7 @@ const RdsTable = ({
                     <MuiTableCell padding="checkbox" className="rds-table__cell rds-table__cell--checkbox rds-table__checkbox">
                       <Checkbox
                         checked={isSelected}
-                        onChange={() => handleSelectRow(row.id || row.key)}
+                        onChange={() => handleSelectRow((row['id'] || row['key']) as string)}
                         size="small"
                       />
                     </MuiTableCell>

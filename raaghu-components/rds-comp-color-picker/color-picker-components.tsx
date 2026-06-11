@@ -6,6 +6,38 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
+type ColorState = { hex: string; rgb: { r: number; g: number; b: number; a: number } };
+type ColorChangeResult = { hex: string; rgb: { r: number; g: number; b: number; a: number } };
+
+interface ColorPickerGridProps {
+  handleChange: (color: ColorChangeResult) => void;
+  selectedColorState: ColorState;
+  handleHueChange: (color: ColorChangeResult) => void;
+  handleAlphaChange: (color: ColorChangeResult) => void;
+  colorModeDropdownRef: React.RefObject<HTMLDivElement>;
+  selectedColorMode: ColorMode;
+  showColorModeDropdown: boolean;
+  setShowColorModeDropdown: (show: boolean) => void;
+  getColorDisplay: () => string;
+  onSelectColorMode: (mode: ColorMode) => void;
+}
+
+interface ColorPickerSpectrumProps extends ColorPickerGridProps {
+  selectedColorHex: string;
+  showSwatches?: boolean;
+  styleType?: string;
+}
+
+interface ColorPickerInfoProps {
+  colorModeDropdownRef: React.RefObject<HTMLDivElement>;
+  setShowColorModeDropdown: (show: boolean) => void;
+  showColorModeDropdown: boolean;
+  selectedColorMode: ColorMode;
+  selectedColorState: ColorState;
+  getColorDisplay: () => string;
+  onSelectColorMode: (mode: ColorMode) => void;
+}
+
 export const ColorPickerGrid = ({
   handleChange,
   selectedColorState,
@@ -17,7 +49,7 @@ export const ColorPickerGrid = ({
   setShowColorModeDropdown,
   getColorDisplay,
   onSelectColorMode,
-}: any) => {
+}: ColorPickerGridProps) => {
   return (
     <div>
       <div className="rds-comp-color-picker__color-grid-container">
@@ -106,7 +138,7 @@ export const ColorPickerSpectrum = ({
   showSwatches,
   styleType,
   onSelectColorMode,
-}: any) => {
+}: ColorPickerSpectrumProps) => {
   return (
     <div className="rds-comp-color-picker__spectrum-type1">    
       <div className="rds-comp-color-picker__color-grid-container rds-comp-color-picker__color-grid-container--spectrum">
@@ -152,8 +184,8 @@ export const ColorPickerSpectrum = ({
 };
 export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handleAlphaChange }: {
   selectedColorState: { hex: string; rgb: { r: number; g: number; b: number; a: number } };
-  handleHueChange: (color: any) => void;
-  handleAlphaChange: (color: any) => void;
+  handleHueChange: (color: ColorChangeResult) => void;
+  handleAlphaChange: (color: ColorChangeResult) => void;
 }) => {
   return (
     <div className="rds-comp-color-picker__sliders-row">
@@ -192,7 +224,7 @@ export const ColorPickerInfo = ({
   selectedColorState,
   getColorDisplay,
   onSelectColorMode,
-}: any) => {
+}: ColorPickerInfoProps) => {
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
   const hsb = rgbToHsb(rgb);
   const hsl = rgbToHsl(rgb);
@@ -320,7 +352,7 @@ export const ColorPickerInfo = ({
                 key={mode}
                 className={`rds-comp-color-picker__dropdown-item ${selectedColorMode === mode ? 'active' : ''}`}
                 onClick={() => {
-                  if (onSelectColorMode) onSelectColorMode(mode as any);
+                  if (onSelectColorMode) onSelectColorMode(mode as ColorMode);
                   setShowColorModeDropdown(false);
                 }}
                 role="button"
@@ -328,7 +360,7 @@ export const ColorPickerInfo = ({
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    if (onSelectColorMode) onSelectColorMode(mode as any);
+                    if (onSelectColorMode) onSelectColorMode(mode as ColorMode);
                     setShowColorModeDropdown(false);
                   }
                 }}

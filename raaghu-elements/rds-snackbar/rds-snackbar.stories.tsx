@@ -127,3 +127,5 @@ export const ShowSnackbar: Story = {
     )
   }
 };
+
+export const Default: Story = { ...Success };

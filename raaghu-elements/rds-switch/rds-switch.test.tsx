@@ -591,12 +591,12 @@ describe('RdsSwitch', () => {
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toHaveAttribute('type', 'checkbox');
   
+    });
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsSwitch />);
+      const { container } = render(<RdsSwitch label="Toggle" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should be keyboard accessible', () => {
       const { container } = renderWithTheme(

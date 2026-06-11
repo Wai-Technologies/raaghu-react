@@ -13,15 +13,15 @@
         object-fit: cover;
         width: var(--rds-spacing-xl);
         height: var(--rds-spacing-xl);
-        border-radius: 50%;
+        border-radius: var(--rds-border-radius-pill);
         box-shadow: var(--rds-elevation-1);
     }
-    
+
     .rounded-circle {
         object-fit: cover;
         width: var(--rds-spacing-xl);
         height: var(--rds-spacing-xl);
-        border-radius: 50%;
+        border-radius: var(--rds-border-radius-pill);
         box-shadow: var(--rds-elevation-1);
     }
 

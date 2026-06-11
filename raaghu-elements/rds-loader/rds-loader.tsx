@@ -74,6 +74,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
             variant={value !== undefined ? 'determinate' : 'indeterminate'}
             value={value}
             color={color}
+            aria-label={label || 'Loading'}
           />
           {value !== undefined && (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
@@ -99,6 +100,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
           color={color}
           size={getSizeValue()}
           thickness={thickness}
+          aria-label={label || 'Loading'}
         />
         {label && (
           <Typography variant="body2" color="text.secondary">

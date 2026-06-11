@@ -753,12 +753,12 @@ describe('RdsCard', () => {
       expect(heading).toBeInTheDocument();
       expect(heading).toHaveTextContent('Card Title');
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCard {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should render with proper role when provided', () => {
       render(

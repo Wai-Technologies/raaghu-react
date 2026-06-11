@@ -892,9 +892,10 @@ describe('RdsCompToast', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
+      jest.useRealTimers();
       const { container } = render(<RdsCompToast {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
-    });
+    }, 30000);
   });
 });

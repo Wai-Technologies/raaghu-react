@@ -99,11 +99,11 @@ function getColor(color: string): string {
                 >
                   {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
                     ? React.cloneElement(
-                        item.icon as React.ReactElement<any>,
+                        item.icon as React.ReactElement<Record<string, unknown>>,
                         {
                           ...(item.icon.props || {}),
                           style: {
-                            ...((item.icon as React.ReactElement<any>).props?.style || {}),
+                            ...((item.icon as React.ReactElement<Record<string, unknown>>).props?.style || {}),
                             color: item.color ? getColor(item.color) : undefined,
                             fill: item.color ? getColor(item.color) : undefined
                           }

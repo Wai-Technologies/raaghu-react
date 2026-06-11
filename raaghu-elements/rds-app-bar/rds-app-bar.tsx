@@ -35,7 +35,7 @@ export interface RdsAppBarProps extends AppBarProps {
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
-  tabs?: Array<string | { label: string;[key: string]: any }>;
+  tabs?: Array<string | { label: string; [key: string]: unknown }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
   subHeader?: React.ReactNode;
@@ -141,7 +141,7 @@ const RdsAppBar = ({
                 typeof tab === 'string' ? (
                   <Tab key={tab} label={tab} />
                 ) : (
-                  <Tab key={(tab as any).label || idx} {...(tab as any)} />
+                  <Tab key={tab.label || idx} {...(tab as React.ComponentProps<typeof Tab>)} />
                 )
               )}
             </Tabs>
@@ -216,7 +216,7 @@ const RdsAppBar = ({
               <Box className="rds-bottom-navigation">
                 <Box className="rds-bottom-navigation-single-row">
                   {Array.isArray(tabs) && tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : (t as any).label || String(i);
+                    const label = typeof t === 'string' ? t : (t as { label: string }).label || String(i);
                     const isActive = tabValue === i;
                     return (
                       <RdsButton
@@ -268,7 +268,7 @@ const RdsAppBar = ({
                   }}
                 >
                   {tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : (t as any).label || String(i);
+                    const label = typeof t === 'string' ? t : (t as { label: string }).label || String(i);
                     const isActive = tabValue === i;
                     return (
                       <RdsButton
@@ -302,20 +302,20 @@ const RdsAppBar = ({
                       boxShadow: tokens.cssVar('elevation-2'),
                     }}
                   >
-                    {React.isValidElement(overflowContent) && (overflowContent as any).props?.children
-                      ? React.Children.toArray((overflowContent as any).props.children).map((child, i) => {
+                    {React.isValidElement(overflowContent) && (overflowContent as React.ReactElement<{ children?: React.ReactNode }>).props?.children
+                      ? React.Children.toArray((overflowContent as React.ReactElement<{ children?: React.ReactNode }>).props.children).map((child, i) => {
                           if (React.isValidElement(child)) {
-                            const childProps: any = (child as any).props || {};
+                            const childProps = (child as React.ReactElement<{ onClick?: React.MouseEventHandler<HTMLElement>; className?: string }>).props;
                             const existingOnClick = childProps.onClick;
                             const className = (childProps.className ? childProps.className + ' ' : '') + 'rds-bottom-nav-tab';
-                            return React.cloneElement(child as React.ReactElement, ({
+                            return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                               key: i,
-                              onClick: (e: any) => {
+                              onClick: (e: React.MouseEvent<HTMLElement>) => {
                                 if (typeof existingOnClick === 'function') existingOnClick(e);
                                 setLocalBottomActive(i);
                               },
                               className: (localBottomActive === i ? className + ' rds-bottom-nav-tab--active' : className),
-                            } as any));
+                            });
                           }
                           return <span key={i}>{child}</span>;
                         })

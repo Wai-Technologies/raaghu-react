@@ -88,8 +88,28 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
     fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
     return fourteenDaysAgo;
   },
-  renderDatePickerStateView: () => <div data-testid="state-view" />,
-  renderDatePickerTypeView: () => <div data-testid="type-view" />,
+  renderDatePickerStateView: (_state: any, _startDate: any, _handler: any, _handler2: any, props: any) => (
+    <div data-testid="state-view">
+      <input
+        data-testid="date-picker-input"
+        type="text"
+        disabled={props.isDisabled}
+      />
+    </div>
+  ),
+  renderDatePickerTypeView: (...args: any[]) => {
+    const props = args[5] || {};
+    return (
+      <div data-testid="type-view">
+        <input
+          data-testid="date-picker-input"
+          type="text"
+          disabled={!!props.isDisabled}
+          aria-label="Date"
+        />
+      </div>
+    );
+  },
 }));
 
 describe('RdsDatepicker', () => {
@@ -550,7 +570,7 @@ describe('RdsDatepicker', () => {
 
   describe('Component Display Name', () => {
     it('should have displayName set to RdsDatepicker', () => {
-      expect(RdsDatepicker.displayName).toBe('RdsDatepicker');
+      expect(RdsDatepicker.displayName).toBe('RdsCompDatepicker');
     });
   });
 

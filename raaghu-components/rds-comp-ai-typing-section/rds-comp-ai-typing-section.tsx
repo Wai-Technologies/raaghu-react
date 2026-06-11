@@ -18,7 +18,7 @@ export interface RdsCompAiTypingSectionProps {
 }
 declare global {
   interface Window {
-    webkitSpeechRecognition: any;
+    webkitSpeechRecognition: new () => SpeechRecognition;
   }
 }
 
@@ -61,7 +61,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
         recognition.interimResults = false;
         recognition.lang = "en-US";
         
-        recognition.onresult = (event: any) => {
+        recognition.onresult = (event: SpeechRecognitionEvent) => {
             const transcript = event.results[0][0].transcript;
             setInputText(transcript);
         };

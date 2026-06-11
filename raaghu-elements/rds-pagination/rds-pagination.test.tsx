@@ -598,12 +598,12 @@ describe('RdsPagination', () => {
       );
       expect(screen.getByRole('navigation')).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsPagination {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have proper button roles', () => {
       renderWithTheme(

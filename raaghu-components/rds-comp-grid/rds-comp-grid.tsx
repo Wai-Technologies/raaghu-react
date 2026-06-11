@@ -48,12 +48,16 @@ import {
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DragUpdate, DroppableProvided, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';// Types and Enums
+import { CSS } from '@dnd-kit/utilities';
+
+export type GridRow = Record<string, unknown>;
+
+// Types and Enums
 export enum ActionPosition {
   Right = "right",
   Left = "left",
@@ -91,8 +95,8 @@ export interface RdsCompGridColumn {
   minWidth?: number;
   maxWidth?: number;
   allowHtml?: boolean;
-  renderCell?: (value: any, row: any) => React.ReactNode;
-  validateCell?: (value: any, row: any) => string | null;
+  renderCell?: (value: unknown, row: GridRow) => React.ReactNode;
+  validateCell?: (value: unknown, row: GridRow) => string | null;
 }
 
 export interface RdsCompGridAction {
@@ -136,13 +140,13 @@ export interface SortState {
   direction: 'asc' | 'desc';
 }
 export interface RdsCompGridRef {
-  getData: () => any[];
-  setData: (data: any[]) => void;
-  addRow: (row: any) => void;
-  updateRow: (rowId: string, rowData: any) => void;
+  getData: () => GridRow[];
+  setData: (data: GridRow[]) => void;
+  addRow: (row: GridRow) => void;
+  updateRow: (rowId: string, rowData: GridRow) => void;
   deleteRow: (rowId: string) => void;
-  getRow: (rowId: string) => any | null;
-  getSelectedRows: () => any[];
+  getRow: (rowId: string) => GridRow | null;
+  getSelectedRows: () => GridRow[];
   clearSelection: () => void;
   selectAll: () => void;
   
@@ -198,10 +202,10 @@ export interface RdsCompGridRef {
 
 export interface RdsCompGridProps {
   tableHeaders: RdsCompGridColumn[];
-  tableData: any[];
-  
-  controlledData?: any[]; 
-  onDataChange?: (newData: any[]) => void; 
+  tableData: GridRow[];
+
+  controlledData?: GridRow[];
+  onDataChange?: (newData: GridRow[]) => void;
   
   isSort?: boolean;
   isFilter?: boolean;
@@ -227,17 +231,17 @@ export interface RdsCompGridProps {
   recordsPerPageSelectListOption?: boolean;
   totalRecords?: number;
   
-  onActionSelection?: (rowData: any, actionId: any) => void;
-  onRowSelect?: (data: any) => void;
-  onRowClick?: (rowId: any) => void;
+  onActionSelection?: (rowData: GridRow, actionId: string) => void;
+  onRowSelect?: (data: GridRow) => void;
+  onRowClick?: (rowId: string) => void;
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   onSortChange?: (sortState: SortState) => void;
   onFilterChange?: (filterState: FilterState) => void;
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
-  onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
-  onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
-  onRowSwap?: (fromIndex: number, toIndex: number, newData: any[]) => void; 
-  onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void; 
+  onCellEdit?: (rowId: string, columnKey: string, newValue: unknown, oldValue: unknown) => void;
+  onCellEditComplete?: (rowId: string, columnKey: string, newValue: unknown, isValid: boolean) => void;
+  onRowSwap?: (fromIndex: number, toIndex: number, newData: GridRow[]) => void;
+  onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void;
   
   // Styling
   classes?: string;
@@ -315,15 +319,15 @@ const SortableHeaderCell: React.FC<{
 };
 
 const EditableCell: React.FC<{
-  value: any;
+  value: unknown;
   column: RdsCompGridColumn;
-  row: any;
+  row: GridRow;
   isEditing: boolean;
   onStartEdit: () => void;
-  onSave: (newValue: any) => void;
+  onSave: (newValue: unknown) => void;
   onCancel: () => void;
-  onValueChange: (newValue: any) => void;
-  tempValue: any;
+  onValueChange: (newValue: unknown) => void;
+  tempValue: unknown;
   validationError?: string;
 }> = ({ 
   value, 
@@ -389,9 +393,9 @@ const EditableCell: React.FC<{
     }
   };
 
-  const formatValueForDisplay = (val: any) => {
+  const formatValueForDisplay = (val: unknown) => {
     if (val === null || val === undefined) return '';
-    return val.toString();
+    return String(val);
   };
 
   if (isEditing) {
@@ -440,7 +444,7 @@ const EditableCell: React.FC<{
         alignItems: 'center',
         width: '100%',
         border: '1px solid transparent',
-        borderRadius: '4px',
+        borderRadius: 'var(--rds-border-radius-sm)',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
@@ -483,9 +487,9 @@ const EditableCell: React.FC<{
 };
 
 const ActionMenu: React.FC<{
-  row: any;
+  row: GridRow;
   actions: RdsCompGridAction[];
-  onActionSelection?: (rowData: any, actionId: any) => void;
+  onActionSelection?: (rowData: GridRow, actionId: string) => void;
 }> = ({ row, actions, onActionSelection }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -521,6 +525,7 @@ const ActionMenu: React.FC<{
     <>
       <IconButton
         size="small"
+        aria-label="Row actions"
         onClick={handleClick}
         sx={{
           '&:hover': {
@@ -644,13 +649,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   
   const [editingCell, setEditingCell] = useState<{rowId: string, columnKey: string} | null>(null);
   const [editingRow, setEditingRow] = useState<string | null>(null);
-  const [tempCellValue, setTempCellValue] = useState<any>('');
-  const [tempRowValues, setTempRowValues] = useState<{[columnKey: string]: any}>({});
+  const [tempCellValue, setTempCellValue] = useState<unknown>('');
+  const [tempRowValues, setTempRowValues] = useState<{[columnKey: string]: unknown}>({});
   const [cellValidationError, setCellValidationError] = useState<string>('');
   const [rowValidationErrors, setRowValidationErrors] = useState<{[columnKey: string]: string}>({});
   
   const [columnOrder, setColumnOrder] = useState<RdsCompGridColumn[]>(tableHeaders);
-  const [localTableData, setLocalTableData] = useState<any[]>(tableData);
+  const [localTableData, setLocalTableData] = useState<GridRow[]>(tableData);
   
   const [customDragState, setCustomDragState] = useState<{
     isDragging: boolean;
@@ -666,7 +671,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     dragPreviewVisible: false,
   });
   
-  const [internalData, setInternalData] = useState<any[]>(tableData);
+  const [internalData, setInternalData] = useState<GridRow[]>(tableData);
   
   const currentData = controlledData || internalData;
   
@@ -719,14 +724,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     };
   }, []);
 
-  const reorder = (list: any[], startIndex: number, endIndex: number) => {
+  const reorder = (list: GridRow[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
     return result;
   };
 
-  const onDragEnd = (result: any) => {
+  const onDragEnd = (result: DropResult) => {
     
     document.body.style.userSelect = '';
     document.body.style.webkitUserSelect = '';
@@ -758,19 +763,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
-  const onDragStart = (start: any) => {
-    
-    if (start.type === 'COLUMN') {
-      // noop
-    } else if (start.type === 'ROW') {
-      // noop
-    }
+  const onDragStart = (_start: DragStart) => {
     
     document.body.style.userSelect = 'none';
     document.body.style.webkitUserSelect = 'none';
   };
 
-  const onDragUpdate = (update: any) => {
+  const onDragUpdate = (_update: DragUpdate) => {
   };
 
   const handleCustomDragStart = (columnKey: string, columnIndex: number) => {
@@ -1189,7 +1188,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setIsFilterExpanded(!isFilterExpanded);
   };
 
-  const handleFilterConditionChange = (id: number, field: string, value: any) => {
+  const handleFilterConditionChange = (id: number, field: string, value: unknown) => {
     setFilterConditions(prev => 
       prev.map(condition => 
         condition.id === id ? { ...condition, [field]: value } : condition
@@ -1208,7 +1207,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       const newFilterState = { ...filterState };
       newFilterState[columnToFilter] = {
         value: filterValue,
-        operator: filterConditions[0].operator as any
+        operator: filterConditions[0].operator as FilterState[string]['operator']
       };
       
       const newColumnFilterStates = { ...columnFilterStates };
@@ -1303,7 +1302,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     onPaginationHandler?.(page, recordsPerPage);
   };
 
-  const handleRowSelect = (rowId: string, rowData: any) => {
+  const handleRowSelect = (rowId: string, rowData: GridRow) => {
     if (selectedRows.has(rowId)) {
       setSelectedRows(prev => {
         const newSet = new Set(prev);
@@ -1316,7 +1315,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     onRowSelect?.(rowData);
   };
 
-  const handleCellEditStart = (rowId: string, columnKey: string, currentValue: any) => {
+  const handleCellEditStart = (rowId: string, columnKey: string, currentValue: unknown) => {
     if (!enableInlineEdit) return;
     
     const column = tableHeaders.find(h => h.key === columnKey);
@@ -1327,7 +1326,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setCellValidationError('');
   };
 
-  const handleCellEditSave = (rowId: string, columnKey: string, newValue: any) => {
+  const handleCellEditSave = (rowId: string, columnKey: string, newValue: unknown) => {
     const column = tableHeaders.find(h => h.key === columnKey);
     if (!column) return;
 
@@ -1398,7 +1397,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     const rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
     const originalValue = rowIndex >= 0 ? currentData[rowIndex][columnKey] : null;
 
-    const updateData = (newData: any[]) => {
+    const updateData = (newData: GridRow[]) => {
       if (controlledData && onDataChange) {
         onDataChange(newData);
       } else {
@@ -1436,17 +1435,17 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setCellValidationError('');
   };
 
-  const handleCellValueChange = (newValue: any) => {
+  const handleCellValueChange = (newValue: unknown) => {
     setTempCellValue(newValue);
     setCellValidationError(''); 
   };
 
-  const handleRowEditStart = (rowId: string, rowData: any) => {
+  const handleRowEditStart = (rowId: string, rowData: GridRow) => {
     if (!enableInlineEdit || inlineEditMode !== 'row') return;
-    
+
     setEditingRow(rowId);
     const editableColumns = tableHeaders.filter(h => h.isEditable);
-    const initialValues: {[columnKey: string]: any} = {};
+    const initialValues: {[columnKey: string]: unknown} = {};
     editableColumns.forEach(col => {
       initialValues[col.key] = rowData[col.key];
     });
@@ -1518,7 +1517,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       return;
     }
 
-    const updateData = (newData: any[]) => {
+    const updateData = (newData: GridRow[]) => {
       if (controlledData && onDataChange) {
         onDataChange(newData);
       } else {
@@ -1588,7 +1587,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setRowValidationErrors({});
   };
 
-  const handleRowValueChange = (columnKey: string, newValue: any) => {
+  const handleRowValueChange = (columnKey: string, newValue: unknown) => {
     setTempRowValues(prev => {
       const newValues = {
         ...prev,
@@ -1614,14 +1613,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   useImperativeHandle(ref, () => ({
     getData: () => currentData,
-    setData: (data: any[]) => {
+    setData: (data: GridRow[]) => {
       if (controlledData && onDataChange) {
         onDataChange(data);
       } else {
         setInternalData(data);
       }
     },
-    addRow: (row: any) => {
+    addRow: (row: GridRow) => {
       const newData = [...currentData, row];
       if (controlledData && onDataChange) {
         onDataChange(newData);
@@ -1629,7 +1628,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         setInternalData(newData);
       }
     },
-    updateRow: (rowId: string, rowData: any) => {
+    updateRow: (rowId: string, rowData: GridRow) => {
       const updatedData = currentData.map((row, index) => {
         const currentRowId = row.id || `row-${index}`;
         if (currentRowId === rowId || `row-${index}` === rowId) {
@@ -1906,7 +1905,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 </RdsButton>
                 <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} style="outlined" size="small" text="Sort" />
                 <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} style="outlined" size="small" text="Hide" />
-                <IconButton size="small">
+                <IconButton size="small" aria-label="More options">
                   <MoreIcon />
                 </IconButton>
               </Stack>
@@ -1993,7 +1992,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               </RdsButton>
               <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} style="outlined" size="small" text="Sort" />
               <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} style="outlined" size="small" text="Hide" />
-              <IconButton size="small">
+              <IconButton size="small" aria-label="More options">
                 <MoreIcon />
               </IconButton>
             </Stack>
@@ -2051,7 +2050,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   height: '32px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px',
-                  borderRadius: '4px',
+                  borderRadius: 'var(--rds-border-radius-sm)',
                   boxShadow: 'none',
                   '&:hover': {
                     boxShadow: 'none',
@@ -2075,11 +2074,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               <Typography variant="subtitle2" fontWeight="medium">
                 {noDataHeaderTitle}
               </Typography>
-              <IconButton size="small">
+              <IconButton size="small" aria-label="More options">
                 <MoreIcon />
               </IconButton>
             </Stack>
-            <IconButton size="small" onClick={toggleCollapse}>
+            <IconButton size="small" onClick={toggleCollapse} aria-label={isCollapsed ? "Expand section" : "Collapse section"}>
               {isCollapsed ? <ArrowDownIcon /> : <ArrowUpIcon />}
             </IconButton>
           </Stack>
@@ -2112,7 +2111,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   <TableCell 
                     sx={{ 
                       width: '60px',
-                      padding: '8px',
+                      padding: 'var(--rds-spacing-sm-px)',
                       borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
                       bgcolor: 'action.hover !important',
                     }}
@@ -2283,7 +2282,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           )}
                           {isSort && header.isSort && (
                             <Tooltip title="Sort">
-                              <IconButton size="small">
+                              <IconButton size="small" aria-label={`Sort by ${header.name}`}>
                                 {(() => {
                                   if (sortColumn === header.key) {
                                     if (sortDirection === 'asc') {
@@ -2323,6 +2322,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           <Box
                             role="separator"
                             aria-label={`Resize ${header.name} column`}
+                            aria-valuenow={columnWidths[header.key] || 150}
+                            aria-valuemin={50}
+                            aria-valuemax={500}
                             tabIndex={0}
                             onMouseDown={(e) => handleResizeStart(e, header.key)}
                             onKeyDown={(e) => {
@@ -2403,7 +2405,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             </TableHead>
             
             <Droppable droppableId="droppable-body" type="ROW">
-              {(provided: any) => (
+              {(provided: DroppableProvided) => (
                 <TableBody
                   {...provided.droppableProps}
                   ref={provided.innerRef}
@@ -2420,7 +2422,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     index={index}
                     isDragDisabled={!enableRowSwapping}
                   >
-                    {(dragProvided: any, dragSnapshot: any) => (
+                    {(dragProvided: DraggableProvided, dragSnapshot: DraggableStateSnapshot) => (
                       <TableRow
                         ref={dragProvided.innerRef}
                         {...dragProvided.draggableProps}
@@ -2438,7 +2440,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         {enableRowSwapping && (
                           <TableCell sx={{ 
                             width: '60px', 
-                            padding: '8px',
+                            padding: 'var(--rds-spacing-sm-px)',
                             borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
                             textAlign: 'center',
                             verticalAlign: 'middle'
@@ -2564,7 +2566,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 '& .status-pill': {
                                   display: 'inline-block',
                                   padding: '2px 8px',
-                                  borderRadius: '12px',
+                                  borderRadius: 'var(--rds-border-radius-lg)',
                                   fontSize: '12px',
                                   fontWeight: 500,
                                   textAlign: 'center',
@@ -2593,7 +2595,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   width: '100%',
                                   height: '8px',
                                   backgroundColor: 'action.selected',
-                                  borderRadius: '4px',
+                                  borderRadius: 'var(--rds-border-radius-sm)',
                                   overflow: 'hidden',
                                   '& .progress-fill': {
                                     height: '100%',
@@ -2607,7 +2609,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   justifyContent: 'center',
                                   width: '20px',
                                   height: '20px',
-                                  borderRadius: '50%',
+                                  borderRadius: 'var(--rds-border-radius-pill)',
                                   '&.verified': {
                                     backgroundColor: 'success.main',
                                     color: 'common.white',
@@ -2620,9 +2622,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 '& img': {
                                   maxWidth: '24px',
                                   maxHeight: '24px',
-                                  borderRadius: '50%',
+                                  borderRadius: 'var(--rds-border-radius-pill)',
                                   verticalAlign: 'middle',
-                                  marginRight: '8px',
+                                  marginRight: 'var(--rds-spacing-sm-px)',
                                 },
                                 '& .employee-name': {
                                   color: 'text.primary',
@@ -2847,7 +2849,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 'Controls'
               }
             </Typography>
-            <IconButton size="small" onClick={handleFilterPopupClose} sx={{ width: '20px', height: '20px' }}>
+            <IconButton size="small" onClick={handleFilterPopupClose} aria-label="Close filter" sx={{ width: '20px', height: '20px' }}>
               <ClearIcon sx={{ fontSize: '14px' }} />
             </IconButton>
           </Stack>
@@ -3244,7 +3246,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         '&:hover': {
                           backgroundColor: 'primary.dark',
                         },
-                        borderRadius: '4px',
+                        borderRadius: 'var(--rds-border-radius-sm)',
                         boxShadow: 'none',
                         '&:active': {
                           boxShadow: 'none',
@@ -3270,7 +3272,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           borderColor: 'divider',
                           backgroundColor: 'action.hover',
                         },
-                        borderRadius: '4px',
+                        borderRadius: 'var(--rds-border-radius-sm)',
                         boxShadow: 'none',
                         '&:active': {
                           boxShadow: 'none',
@@ -3305,7 +3307,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           backgroundColor: 'error.light',
                           color: 'error.main',
                         },
-                        borderRadius: '4px',
+                        borderRadius: 'var(--rds-border-radius-sm)',
                         textDecoration: 'none',
                         '&:active': {
                           backgroundColor: 'error.main',

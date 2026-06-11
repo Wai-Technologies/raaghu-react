@@ -131,6 +131,8 @@
       }
       
       text-align: start;
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
     }
   }
 }
@@ -190,7 +192,7 @@
   text-align: start;
 }
 
-@media screen and (max-width: var(--rds-breakpoint-1023)) {
+@include bp.down(1023) {
   .bs-md-0 {
     border-left: 0px solid transparent;
   }

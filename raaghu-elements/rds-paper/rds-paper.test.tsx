@@ -412,12 +412,12 @@ describe('RdsPaper', () => {
       const paper = container.querySelector('.MuiPaper-root');
       expect(paper).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsPaper />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should support aria-label', () => {
       renderWithTheme(

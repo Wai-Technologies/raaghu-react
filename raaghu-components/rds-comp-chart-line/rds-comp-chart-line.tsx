@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { ChartConfiguration } from "chart.js/auto";
 import { applyChartThemeColors, getCSSVar } from "../chart-utils";
 import "./rds-comp-chart-line.scss";
 
 export interface RdsCompLineProps {
-    labels: any[];
-    options: any;
-    dataSets: any[];
+    labels: string[];
+    options: ChartConfiguration['options'];
+    dataSets: ChartConfiguration['data']['datasets'];
     id: string;
     chartLabel?: string;
 }

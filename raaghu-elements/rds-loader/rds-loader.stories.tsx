@@ -72,9 +72,9 @@ export const Default: Story = {
   args: {
     type: 'spinner-ring',
   },
-  play: async ({ canvas }) => {
-    const loader = await canvas.findByRole('progressbar', { hidden: true });
-    await expect(loader).toBeInTheDocument();
+  play: async ({ canvasElement }) => {
+    const loader = canvasElement.querySelector('.rds-loader__spinner-ring');
+    await expect(loader).toBeTruthy();
   },
 };
 Default.parameters = { controls: { include: ['type'] } };

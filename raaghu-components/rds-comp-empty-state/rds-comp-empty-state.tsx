@@ -77,8 +77,8 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
                 fontSize: '20px',
                 fontWeight: 600,
                 color: props.mode === 'Dark NRA' ? 'var(--rds-neutral-0)' : 'var(--rds-text-primary)',
-                marginBottom: '8px',
-                marginTop: '24px',
+                marginBottom: 'var(--rds-spacing-sm-px)',
+                marginTop: 'var(--rds-spacing-lg-px)',
               }}
             >
               {props.label}

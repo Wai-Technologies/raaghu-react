@@ -262,7 +262,7 @@ export const ToolbarButton = ({
             <div className="rds-comp-toolbar__emoji-portal">
               <RdsEmojiGenerator
                 Type={undefined}
-                onEmojiSelect={(e: any) => {
+                onEmojiSelect={(e: string) => {
                   const val = typeof e === 'string' ? e : String(e);
                   onDropdownSelect?.(action, val);
                 }}

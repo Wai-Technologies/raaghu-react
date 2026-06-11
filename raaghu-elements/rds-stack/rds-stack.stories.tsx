@@ -12,6 +12,9 @@ const meta: Meta<typeof RdsStack> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'centered',
+    controls: {
+      include: ['spacing', 'children', 'direction', 'divider'],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {

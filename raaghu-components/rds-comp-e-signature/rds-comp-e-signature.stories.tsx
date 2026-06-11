@@ -91,3 +91,5 @@ export const Choose: Story = {
   },
 };
 
+export const Default: Story = { ...Draw };
+

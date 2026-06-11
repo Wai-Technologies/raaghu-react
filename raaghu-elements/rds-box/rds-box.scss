@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-box {
   display: block;
   position: relative;
@@ -21,7 +23,7 @@
     border: var(--rds-border-width-thin, 1px) solid var(--rds-box-surface-outline, var(--rds-color-outline));
     justify-content: space-around;
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @include bp.down(sm) {
       flex-direction: column;
       align-items: center;
       gap: var(--rds-spacing-xs, 8px);

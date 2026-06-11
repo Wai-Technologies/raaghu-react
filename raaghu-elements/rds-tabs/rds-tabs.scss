@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-tabs--line-left .MuiTab-root {
   border-left: 2px solid transparent;
   &.Mui-selected {
@@ -323,7 +325,7 @@
   background-color: unset !important;
 }
 
-@media (max-width: var(--rds-breakpoint-sm)) {
+@include bp.down(sm) {
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-root,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scroller,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scrollableX {

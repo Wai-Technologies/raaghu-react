@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-progress {
   display: block;
   position: relative;
@@ -107,7 +109,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-834)) and (min-width: var(--rds-breakpoint-420)) {
+  @include bp.between(420, 834) {
     &__block {
       width: 75px !important;
       height: 35px !important;
@@ -115,7 +117,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) and (min-width: var(--rds-breakpoint-xs)) {
+  @include bp.between(mobile-sm, mobile-lg) {
     &__block {
       width: 58px !important;
       height: 35px !important;
@@ -134,7 +136,7 @@
       justify-content: center;
       width: var(--rds-progress-step-size);
       height: var(--rds-progress-step-size);
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
       border: 2px solid var(--rds-color-gray-300);
       background-color: var(--rds-color-white);
       transition: all var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
@@ -169,7 +171,7 @@
       }
     }
 
-    @media (max-width: var(--rds-breakpoint-834)) and (min-width: var(--rds-breakpoint-420)) {
+    @include bp.between(420, 834) {
       &-step {
         width: var(--rds-progress-step-size-mobile) !important;
         height: var(--rds-progress-step-size-mobile) !important;
@@ -180,7 +182,7 @@
       }
     }
 
-    @media (max-width: var(--rds-breakpoint-xs)) and (min-width: var(--rds-breakpoint-xs)) {
+    @include bp.between(mobile-sm, mobile-lg) {
       &-step {
         width: var(--rds-progress-step-size-mobile) !important;
         height: var(--rds-progress-step-size-mobile) !important;
@@ -256,7 +258,7 @@
       .rds-progress__stepper-inner-dot {
         width: var(--rds-progress-inner-dot-size);
         height: var(--rds-progress-inner-dot-size);
-        border-radius: 50%;
+        border-radius: var(--rds-border-radius-pill);
         border: 2px solid var(--rds-color-gray-600);
         background: transparent;
         transition: all var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));

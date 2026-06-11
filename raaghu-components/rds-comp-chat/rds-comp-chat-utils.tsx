@@ -31,7 +31,7 @@ export const capturePhoto = (
   videoRef: React.RefObject<HTMLVideoElement>,
   addComment: (comment: Comment) => void,
   currentUser: { firstName: string; lastName: string },
-  updateState: (updates: any) => void,
+  updateState: (updates: Record<string, unknown>) => void,
   stopCameraFn: () => void
 ) => {
   if (canvasRef.current && videoRef.current) {
@@ -50,11 +50,16 @@ export const capturePhoto = (
   }
 };
 
-export function updateState(setState: any) {
-  return (updates: any) => setState((prev: any) => ({ ...prev, ...updates }));
+export function updateState(setState: (fn: (prev: Record<string, unknown>) => Record<string, unknown>) => void) {
+  return (updates: Record<string, unknown>) => setState((prev) => ({ ...prev, ...updates }));
 }
 
-export function onUserSelect(index: number, props: any, setCurrentUser: any, updateStateFn: any) {
+export function onUserSelect(
+  index: number,
+  props: { userData: Array<{ comments?: Comment[]; [key: string]: unknown }> },
+  setCurrentUser: (user: { comments?: Comment[]; [key: string]: unknown }) => void,
+  updateStateFn: (updates: Record<string, unknown>) => void
+) {
   if (index >= 0 && index < props.userData.length) {
     setCurrentUser(props.userData[index]);
     updateStateFn({
@@ -64,13 +69,23 @@ export function onUserSelect(index: number, props: any, setCurrentUser: any, upd
   }
 }
 
-export function addComment(newComment: Comment, state: any, updateStateFn: any, handleAddComment: any) {
+export function addComment(
+  newComment: Comment,
+  state: { commentList: Comment[] },
+  updateStateFn: (updates: Record<string, unknown>) => void,
+  handleAddComment: ((comment: Comment) => void) | undefined
+) {
   const updatedComments = [...state.commentList, newComment];
   updateStateFn({ commentList: updatedComments });
   handleAddComment?.(newComment);
 }
 
-export function handleAddComment(state: any, currentUser: any, addCommentFn: any, updateStateFn: any) {
+export function handleAddComment(
+  state: { commentText: string },
+  currentUser: { firstName: string; lastName: string },
+  addCommentFn: (comment: Comment) => void,
+  updateStateFn: (updates: Record<string, unknown>) => void
+) {
   if (state.commentText.trim()) {
     addCommentFn({
       firstName: currentUser.firstName,
@@ -81,7 +96,11 @@ export function handleAddComment(state: any, currentUser: any, addCommentFn: any
   }
 }
 
-export function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>, currentUser: any, addCommentFn: any) {
+export function handleImageUpload(
+  event: React.ChangeEvent<HTMLInputElement>,
+  currentUser: { firstName: string; lastName: string },
+  addCommentFn: (comment: Comment) => void
+) {
   const file = event.target.files?.[0];
   if (file?.type.startsWith("image/")) {
     const reader = new FileReader();

@@ -450,3 +450,5 @@ export const WithSwitch: Story = {
   }
 };
 
+export const Default: Story = { ...AlignItems };
+

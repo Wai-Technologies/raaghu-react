@@ -656,12 +656,12 @@ describe('RdsCompToolbar', () => {
       const toolbar = screen.getByRole('toolbar');
       expect(toolbar).toHaveAttribute('aria-label');
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompToolbar {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should pass aria-label to buttons', () => {
       render(<RdsCompToolbar {...defaultProps} />);

@@ -154,7 +154,7 @@
   position: absolute;
   top: var(--rds-loader-jump-shadow-top, 60px);
   left: 0;
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   animation: shadow324 0.5s linear infinite;
 }
 .rds-loader__jump:after {
@@ -343,7 +343,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
     background: radial-gradient(10.08px at bottom right,transparent 94%,currentColor) top    left,
       radial-gradient(10.08px at bottom left ,transparent 94%,currentColor) top    right,
       radial-gradient(10.08px at top    right,transparent 94%,currentColor) bottom left,
@@ -398,7 +398,7 @@
   height: var(--rds-loader-spin-size, 56px);
   display: grid;
   border: var(--rds-loader-spin-border, 4px) solid transparent;
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   border-right-color: var(--rds-loader-spin-color, var(--rds-primary-main));
   animation: spinner-a4dj62 1s infinite linear;
 }
@@ -407,7 +407,7 @@
   grid-area: 1/1;
   margin: calc(var(--rds-spacing-xs) / 2);
   border: inherit;
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   animation: spinner-a4dj62 2s infinite;
 }
 .rds-loader__spin::after {
@@ -455,7 +455,7 @@
   border: var(--spinner-ring-border-main) solid transparent;
   border-top: var(--spinner-ring-border-main) solid var(--rds-primary-dark);
   border-right: var(--spinner-ring-border-main) solid var(--rds-primary-dark);
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   animation: spin 1s linear infinite;
   position: relative;
   display: flex;
@@ -480,7 +480,7 @@
     content: "";
     position: absolute;
     border: var(--spinner-ring-border-pseudo) solid var(--rds-primary-dark);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

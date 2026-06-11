@@ -125,7 +125,7 @@ export const SettingsModalComponent: React.FC<SettingsModalProps> = ({
                 backgroundColor: 'var(--rds-primary-main)',
                 height: 5,
                 width: 5,
-                borderRadius: '50%',
+                borderRadius: 'var(--rds-border-radius-pill)',
                 '&.MuiSlider-markActive': {
                   backgroundColor: 'var(--rds-neutral-0)',
                 },

@@ -839,7 +839,7 @@ describe('RdsTable', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsTable />);
+      const { container } = render(<RdsTable columns={mockColumns} rows={mockRows} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

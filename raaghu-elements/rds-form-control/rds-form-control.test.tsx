@@ -590,12 +590,12 @@ describe('RdsFormControl', () => {
       );
       expect(screen.getByText('Accessible Field')).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsFormControl label="Name"><input type="text" id="name-input" aria-label="Name" /></RdsFormControl>);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should mark required field with aria attribute', () => {
       const { container } = render(

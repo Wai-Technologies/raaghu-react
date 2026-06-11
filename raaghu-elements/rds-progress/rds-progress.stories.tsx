@@ -97,4 +97,6 @@ export const Linear: Story = {
 };
 Linear.parameters = { controls: { include: ['variant', 'value'] } };
 
+export const Default: Story = { ...Circular };
+
 

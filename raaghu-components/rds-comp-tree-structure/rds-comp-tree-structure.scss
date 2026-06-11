@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 // RDS Tree Structure Component Styles
 .rds-comp-tree-structure {
   // Base tree structure styles
@@ -88,7 +90,7 @@
       height: 12px;
       margin-bottom: var(--rds-spacing-xs, 2px);
       background-color: var(--rds-border-default);
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
     }
   }
   
@@ -117,8 +119,8 @@
     color: var(--rds-primary-main);
     
     svg {
-      width: 16px;
-      height: 16px;
+      width: var(--rds-size-md);
+      height: var(--rds-size-md);
       color: inherit;
     }
     
@@ -130,7 +132,7 @@
 }
 
 // Responsive styles
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-comp-tree-structure {
     &__node {
       margin-left: calc(-1 * var(--rds-spacing-md, 16px)) !important;
@@ -146,8 +148,8 @@
       height: 25px;
       padding: var(--rds-spacing-xxs, 2px);
       svg {
-        width: 16px;
-        height: 16px;
+        width: var(--rds-size-md);
+        height: var(--rds-size-md);
       }
     }
   }

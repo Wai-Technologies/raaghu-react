@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 /* use centralized breakpoint tokens where possible */
 
 .rds-range {
@@ -10,10 +12,10 @@
   position: relative;
   width: 100%;
 
-  @media (max-width: var(--rds-breakpoint-sm, 600px)) {
+  @include bp.down(sm) {
     max-width: var(--rds-range-max-width-sm, 370px);
   }
-  @media (max-width: var(--rds-breakpoint-xs, 400px)) {
+  @include bp.down(400) {
     max-width: var(--rds-range-max-width-xs, 275px);
   }
 
@@ -35,12 +37,12 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-mobile-max, 568px)) and (min-width: var(--rds-breakpoint-mobile-min, 320px)) {
+@include bp.between(mobile-sm, 568) {
   .css-3k03ww, .css-1fm6jzk {
     width: var(--rds-range-slider-width-mobile, 288px) !important;
   }
 }
-@media (min-width: var(--rds-breakpoint-tablet-min, 414px)) and (max-width: var(--rds-breakpoint-tablet-max, 896px)) {
+@include bp.between(mobile-lg, 896) {
   .css-3k03ww, .css-1fm6jzk {
     width: var(--rds-range-slider-width-tablet, 382px) !important;
   }

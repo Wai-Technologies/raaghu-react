@@ -1,4 +1,6 @@
-﻿.rds-adaptive-cards--image-gallery {
+﻿@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
+.rds-adaptive-cards--image-gallery {
   width: 100%;
   max-width: var(--rds-card-max-width, 1200px);
   border: 1px solid var(--rds-border-light);
@@ -92,7 +94,7 @@
   &__title-icon {
     width: var(--rds-font-size-xl, 20px);
     height: var(--rds-font-size-xl, 20px);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     border: 2px solid var(--rds-border-dark);
     background: transparent;
     margin-right: var(--rds-spacing-sm, 6px);
@@ -241,7 +243,7 @@
   }
   &__calendar-reminder-info-icon {
     font-size: var(--rds-font-size-2xl) !important;
-    margin-bottom: 10px !important;
+    margin-bottom: var(--rds-spacing-cozy) !important;
     color: var(--rds-text-secondary) !important;
   }
   &__calendar-reminder-small-text {
@@ -278,7 +280,7 @@
     height: var(--rds-spacing-xl, 40px) !important;
     min-width: var(--rds-spacing-xl, 40px) !important;
     flex-shrink: 0 !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
     display: block !important;
     margin: 0 !important;
   }
@@ -296,7 +298,7 @@
     font-weight: var(--rds-font-weight-bold, 700) !important;
     font-size: var(--rds-font-size-lg, 16px) !important;
     line-height: 1.2 !important;
-    margin-top: 5px !important;
+    margin-top: var(--rds-spacing-tight) !important;
     padding: 0 !important;
     display: block !important;
     width: 100% !important;
@@ -391,14 +393,14 @@
       align-items: center !important;
       flex: 1 1 auto !important;
       min-width: 0 !important;
-      margin-left: 67px !important;
+      margin-left: var(--rds-spacing-67) !important;
     }
   &__football-league-avatar {
     width: var(--rds-football-league-avatar-size, 24px) !important;
     height: var(--rds-football-league-avatar-size, 24px) !important;
     flex-shrink: 0 !important;
     display: block !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
   }
   &__football-league {
       font-weight: var(--rds-font-weight-black, 900) !important;
@@ -487,7 +489,7 @@
   &__football-logo {
     width: var(--rds-spacing-2xl, 80px);
     height: var(--rds-spacing-2xl, 80px);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     background: var(--rds-background-default);
     display: flex;
     align-items: center;
@@ -528,7 +530,7 @@
   &__football-img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     border: none;
     object-fit: cover;
     background: var(--rds-background-default);
@@ -536,7 +538,7 @@
     &--barca {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
       border: none;
       object-fit: cover;
       margin-top: var(--rds-football-img-barca-margin-top, 5px);
@@ -612,7 +614,7 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-top: 20px !important; 
+    margin-top: var(--rds-spacing-20-px) !important;
   }
 }
 
@@ -713,7 +715,7 @@
 }
 
 .rds-adaptive-cards__activity-update-radio-label{
-  margin-right: 2px !important; 
+  margin-right: var(--rds-spacing-xxs) !important; 
   display: flex;
   align-items: center;
   gap: var(--rds-adaptive-cards-gap-xxs, 2px) !important; 
@@ -771,8 +773,8 @@
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
 }
 .rds-adaptive-cards__action-btn--input-form-button{
-  margin-left: 0px !important;
-  margin-right: 0px !important;
+  margin-left: var(--rds-spacing-0) !important;
+  margin-right: var(--rds-spacing-0) !important;
   font-size: var(--rds-font-size-sm) !important;
   width: 98% !important;
 }
@@ -959,7 +961,7 @@
   display: flex;
   width: var(--rds-spacing-2xl, 100px);
   height: var(--rds-spacing-2xl, 100px);
-  border-radius: 50%;
+  border-radius: var(--rds-border-radius-pill);
   border: 2px solid var(--rds-border-light);
   object-fit: cover;
   background: var(--rds-background-default);
@@ -1049,7 +1051,7 @@
   inset: var(--rds-dropdown-menu-inset, 4px auto auto -67px) !important;
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-sm)) and (max-width: var(--rds-breakpoint-mobile-md)) {
+@include bp.between(mobile-sm, mobile-md) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1120,7 +1122,7 @@
      &.rds-adaptive-cards__football-logo--away {
       }
   
-  @media (max-width: var(--rds-breakpoint-340)) {
+  @include bp.down(340) {
     .rds-adaptive-cards__football-live {
       position: relative !important;
       left: 0 !important;
@@ -1140,7 +1142,7 @@
     }
   }
     height: var(--rds-football-logo-size-mobile, 72px);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     object-fit: cover;
     background: var(--rds-background-default);
     display: block;
@@ -1181,13 +1183,13 @@
     z-index: var(--rds-z-index-layer-2);
   }
 }
-@media (max-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.down(mobile-sm) {
   .rds-adaptive-cards__football-header-left {
-      margin-left: 27px !important;
+      margin-left: var(--rds-spacing-27) !important;
     }
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-md)) and (max-width: var(--rds-breakpoint-xs)) {
+@include bp.between(mobile-md, mobile-lg) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1219,7 +1221,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.between(mobile-lg, tablet-sm) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1280,9 +1282,9 @@
 
   &__circle {
     width: var(--rds-adaptive-cards-icon-width, 24px);
-    height: 24px;
+    height: var(--rds-size-lg);
     border: 2px solid var(--rds-border-light);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
   }
 
   &__title-text {
@@ -1345,7 +1347,7 @@
 
 .css-1lt5qva-MuiCardContent-root:last-child
 {
-  padding-bottom: 10px !important; 
+  padding-bottom: var(--rds-spacing-cozy) !important;
 }
  .css-1q4nm6f-MuiCardActions-root
  {
@@ -1353,10 +1355,10 @@
  }
  .css-1sos3zc-MuiStack-root>:not(style)~:not(style)
  {
-  margin-left: 0px !important; 
+  margin-left: var(--rds-spacing-0) !important; 
  }
  .css-1x4jos1 > :not(style) ~ :not(style) {
-    margin-left: 0px !important;
+    margin-left: var(--rds-spacing-0) !important;
 }
 
 .rds-adaptive-cards__activity-update-header.MuiStack-root > :not(style) ~ :not(style) {
@@ -1364,7 +1366,7 @@
 }
 
 .rds-adaptive-cards__activity-update-header .MuiStack-root > :not(style) ~ :not(style) {
-  margin-top: 2px !important; 
+  margin-top: var(--rds-spacing-xxs) !important; 
   margin-left: 0 !important;
 }
 
@@ -1413,7 +1415,7 @@
   line-height: 1.4;
 }
 
-@media (max-width: var(--rds-breakpoint-340)) {
+@include bp.down(340) {
   .rds-adaptive-cards--football-scorecard,
   .rds-adaptive-cards__scorecard-container {
     width: 100% !important;
@@ -1446,7 +1448,7 @@
   }
 
   .rds-adaptive-cards__football-header-left {
-    margin-left: 24px !important;
+    margin-left: var(--rds-spacing-lg-px) !important;
   }
 }
 

@@ -3,28 +3,28 @@ import './rds-comp-ai-icon.scss';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 
-const defaultMaterialIcons: { [key: string]: React.ComponentType<any> } = {
+const defaultMaterialIcons: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> } = {
   'users': GroupOutlinedIcon,
   'person-outline': PersonOutlineIcon,
 };
 
-const materialIconsRegistry: { [key: string]: React.ComponentType<any> } = {
+const materialIconsRegistry: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> } = {
   ...defaultMaterialIcons
 };
 
-export const registerMaterialIcon = (name: string, iconComponent: React.ComponentType<any>) => {
+export const registerMaterialIcon = (name: string, iconComponent: React.ComponentType<React.SVGProps<SVGSVGElement>>) => {
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
   try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* handled */ }
 };
 
-export const registerMaterialIcons = (icons: { [key: string]: React.ComponentType<any> }) => {
+export const registerMaterialIcons = (icons: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> }) => {
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
   try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* handled */ }
 };
 
-const createMuiIconWrapper = (MuiIcon: React.ComponentType<any>): React.ComponentType<React.SVGProps<SVGSVGElement>> => {
+const createMuiIconWrapper = (MuiIcon: React.ComponentType<React.SVGProps<SVGSVGElement>>): React.ComponentType<React.SVGProps<SVGSVGElement>> => {
   return React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => {
     const {
       color,
@@ -63,7 +63,7 @@ export interface RdsCompAiIconProps {
   onClick?: React.MouseEventHandler<HTMLElement | SVGSVGElement> | null;
   opacity?: string;
   isAnimate?: boolean;
-  classes?: any;
+  classes?: string;
   dataTestId?: string;
   databsdismiss?: string;
   databstarget?: string;

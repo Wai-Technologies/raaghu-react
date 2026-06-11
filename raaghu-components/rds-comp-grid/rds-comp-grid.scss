@@ -357,6 +357,8 @@
    // New structure (non-BEM) class names support
   .rds-comp-grid-table { background-color: var(--rds-grid-bg); }
   .rds-comp-grid-header-cell {
+  @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
     background-color: var(--rds-grid-bg);
     color: var(--rds-neutral-0);
     border-bottom: 2px solid var(--rds-grid-border);
@@ -383,7 +385,7 @@
 }
 
 // Responsive design
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-comp-grid__header {
     flex-direction: column;
     align-items: flex-start;
@@ -790,7 +792,7 @@
 }
 
 // Responsive design
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-comp-grid__header {
     flex-direction: column;
     gap: var(--spacingVerticalS);
@@ -950,9 +952,9 @@
   
   // Style common HTML elements
   img {
-    max-width: 24px;
-    max-height: 24px;
-    border-radius: 50%;
+    max-width: var(--rds-size-lg);
+    max-height: var(--rds-size-lg);
+    border-radius: var(--rds-border-radius-pill);
     vertical-align: middle;
     margin-right: var(--rds-spacing-sm, 8px);
   }
@@ -1017,8 +1019,8 @@
     justify-content: center;
     width: 20px;
     height: 20px;
-    border-radius: 50%;
-    
+    border-radius: var(--rds-border-radius-pill);
+
     &.verified {
       background-color: var(--rds-success-main);
       color: white;
@@ -1361,7 +1363,7 @@
     align-items: center;
     gap: var(--rds-spacing-xxs);
     padding: 0 var(--rds-spacing-xxs);
-    min-height: 16px;
+    min-height: var(--rds-size-md);
     border-radius: var(--rds-border-radius-xs);
     transition: background-color 0.2s;
 

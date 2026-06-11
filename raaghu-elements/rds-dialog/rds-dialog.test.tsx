@@ -408,12 +408,12 @@ describe('RdsDialog', () => {
       render(<RdsDialog {...defaultProps} />);
       expect(screen.getByRole('dialog')).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsDialog open={true} title="Test Dialog" onClose={jest.fn()} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should have proper aria-label on close button', () => {
       render(

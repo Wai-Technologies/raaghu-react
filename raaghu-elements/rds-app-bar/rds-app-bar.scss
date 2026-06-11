@@ -289,7 +289,7 @@ $rds-app-bar-breakpoint-xs: 320px;
         font-size: 10px !important;
         padding: var(--rds-spacing-xxs) var(--rds-spacing-compact) !important;
         min-width: auto !important;
-        min-height: 24px !important;
+        min-height: var(--rds-size-lg) !important;
         line-height: 1.2 !important;
         white-space: nowrap;
       }
@@ -362,10 +362,10 @@ $rds-app-bar-breakpoint-xs: 320px;
   
   @media (max-width: 320px) {
     gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
-    
+
     svg {
-      width: 16px;
-      height: 16px;
+      width: var(--rds-size-md);
+      height: var(--rds-size-md);
     }
   }
 }
@@ -377,11 +377,11 @@ $rds-app-bar-breakpoint-xs: 320px;
   flex-shrink: 0;
   
   @media (max-width: 420px) {
-    margin-right: -8px;
+    margin-right: var(--rds-spacing-neg-8);
   }
   
   @media (max-width: 320px) {
-    margin-right: 0px;
+    margin-right: var(--rds-spacing-0);
   }
 } 
 
@@ -674,10 +674,10 @@ $rds-app-bar-breakpoint-xs: 320px;
   .rds-language-menu-paper .MuiMenuItem-root,
   .rds-language-menu-list .MuiMenuItem-root {
     font-size: var(--rds-font-size-sm) !important; // 13px ? sm (12px, closest token)
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
+    padding-top: var(--rds-spacing-compact) !important;
+    padding-bottom: var(--rds-spacing-compact) !important;
+    padding-left: var(--rds-spacing-12-px) !important;
+    padding-right: var(--rds-spacing-12-px) !important;
     min-height: 0 !important;
     line-height: 1.2 !important;
     white-space: nowrap;
@@ -954,7 +954,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       flex-wrap: wrap !important;
       justify-content: flex-start !important;
       gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
-      margin-left: 0px;
+      margin-left: var(--rds-spacing-0);
       width: 100%;
     }
 
@@ -977,7 +977,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       display: flex;
       flex-wrap: wrap !important;
       justify-content: flex-start !important;
-      margin-left: 0px;
+      margin-left: var(--rds-spacing-0);
       gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
       width: 100%;
     }
@@ -1115,8 +1115,8 @@ $rds-app-bar-breakpoint-xs: 320px;
   
   @media (max-width: 320px) {
     svg {
-      width: 24px;
-      height: 24px;
+      width: var(--rds-size-lg);
+      height: var(--rds-size-lg);
     }
   }
 }
@@ -1131,12 +1131,12 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   @media (max-width: 834px) {
     font-size: var(--rds-font-size-lg); // 17px ? lg (16px, closest token)
-    margin-left: 6px;
+    margin-left: var(--rds-spacing-compact);
   }
-  
+
   @media (max-width: 420px) {
     font-size: var(--rds-font-size-lg);
-    margin-left: 6px;
+    margin-left: var(--rds-spacing-compact);
   }
   
   @media (max-width: 320px) {
@@ -1180,7 +1180,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   @media (max-width: 420px) {
     font-size: var(--rds-font-size-xs); // 11px ? xs (10px, closest token)
     padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
-    margin-right: 6px;
+    margin-right: var(--rds-spacing-compact);
   }
   
   @media (max-width: 320px) {
@@ -1262,17 +1262,17 @@ $rds-app-bar-breakpoint-xs: 320px;
     
     svg {
       font-size: var(--rds-font-size-2xl) !important;
-      margin-left: 3px;
+      margin-left: var(--rds-spacing-micro);
     }
   }
   
   @media (max-width: 320px) {
     padding: var(--rds-spacing-compact) !important;
-    margin-right: 0px !important;
+    margin-right: var(--rds-spacing-0) !important;
     
     svg {
       font-size: var(--rds-font-size-xl) !important;
-      margin-left: 0px !important;
+      margin-left: var(--rds-spacing-0) !important;
     }
   }
 }
@@ -1285,8 +1285,8 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
   
   @media (max-width: 320px) {
-    width: 24px !important;
-    height: 24px !important;
+    width: var(--rds-size-lg) !important;
+    height: var(--rds-size-lg) !important;
     font-size: var(--rds-font-size-sm) !important; // 12px ? sm
   }
 }
@@ -1331,13 +1331,13 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-header__actions {
   margin-left: var(--rds-spacing-md);
-  
+
   @media (max-width: 834px) {
-    margin-left: 12px;
+    margin-left: var(--rds-spacing-12-px);
   }
-  
+
   @media (max-width: 600px) {
-    margin-left: 10px;
+    margin-left: var(--rds-spacing-cozy);
   }
   
   @media (max-width: 420px) {
@@ -1345,7 +1345,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
   
   @media (max-width: 320px) {
-    margin-left: 0px;
+    margin-left: var(--rds-spacing-0);
   }
 }
 
@@ -1434,7 +1434,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-appbar-overflow-button {
   display: none !important;
-  margin-left: 6px;
+  margin-left: var(--rds-spacing-compact);
 }
 
 .rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
@@ -1489,7 +1489,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-header--variant-withmenubutton .rds-header__search-wrapper {
-   margin-right: 12px !important;
+   margin-right: var(--rds-spacing-12-px) !important;
    flex: 0 1 auto !important;
    max-width: calc(100% - 160px) !important;
   }
@@ -1572,7 +1572,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   body {
-    padding-bottom: 56px !important;
+    padding-bottom: var(--rds-spacing-56-px) !important;
   }
 }
 
@@ -1688,9 +1688,9 @@ $rds-app-bar-breakpoint-xs: 320px;
     overflow: visible !important;
   }
 
-  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { display: inline-flex !important; order: 4 !important; margin-left: 6px !important; }
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { display: inline-flex !important; order: 4 !important; margin-left: var(--rds-spacing-compact) !important; }
 
-  .rds-header--variant-withmenubutton .rds-profile-menu__button { display: inline-flex !important; order: 5 !important; margin-left: 6px !important; align-items: center !important; }
+  .rds-header--variant-withmenubutton .rds-profile-menu__button { display: inline-flex !important; order: 5 !important; margin-left: var(--rds-spacing-compact) !important; align-items: center !important; }
   .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
   .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
   .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__email,
@@ -1702,12 +1702,12 @@ $rds-app-bar-breakpoint-xs: 320px;
     display: inline-flex !important;
   }
   .rds-header--variant-withmenubutton .rds-profile-menu__button {
-    order: 99 !important; 
+    order: 99 !important;
     margin-left: auto !important;
     display: inline-flex !important;
     align-items: center !important;
-    padding-left: 6px !important;
-    padding-right: 6px !important;
+    padding-left: var(--rds-spacing-compact) !important;
+    padding-right: var(--rds-spacing-compact) !important;
   }
 
   .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
@@ -1719,14 +1719,14 @@ $rds-app-bar-breakpoint-xs: 320px;
   @media (max-width: 320px) {
     .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
     .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
-      width: 24px !important;
-      height: 24px !important;
+      width: var(--rds-size-lg) !important;
+      height: var(--rds-size-lg) !important;
     }
   }
 
   .rds-header--variant-withmenubutton .rds-header__toolbar {
-    position: relative; 
-    padding-right: 56px !important; 
+    position: relative;
+    padding-right: var(--rds-spacing-56-px) !important;
   }
 
   .rds-header--variant-withmenubutton .rds-appbar-logo-group,
@@ -1739,7 +1739,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-header--variant-withmenubutton .rds-header__toolbar {
-    padding-left: 56px !important;
+    padding-left: var(--rds-spacing-56-px) !important;
   }
 
   @media (max-width: 320px) {
@@ -1748,7 +1748,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       left: 8px !important;
     }
     .rds-header--variant-withmenubutton .rds-header__toolbar {
-      padding-left: 48px !important;
+      padding-left: var(--rds-spacing-2xl-px) !important;
     }
   }
 
@@ -1784,7 +1784,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-header--variant-withmenubutton .rds-header__toolbar {
-    padding-right: 110px !important;
+    padding-right: var(--rds-spacing-110) !important;
   }
 
   @media (max-width: 320px) {
@@ -1841,7 +1841,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     min-width: 32px !important;
   }
 
-  .rds-profile-menu__button { padding-left: 6px !important; padding-right: 6px !important; }
+  .rds-profile-menu__button { padding-left: var(--rds-spacing-compact) !important; padding-right: var(--rds-spacing-compact) !important; }
   .rds-header--variant-logosearchtabs .rds-profile-menu__button .MuiBox-root,
   .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__name-lg,
   .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__email,
@@ -1902,7 +1902,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   @media (max-width: 420px) {
     .rds-header--variant-logotabsactions .rds-header__toolbar {
       position: relative !important;
-      padding-right: 56px !important; 
+      padding-right: var(--rds-spacing-56-px) !important;
       overflow: visible !important;
     }
 
@@ -1990,7 +1990,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
 
     .rds-header--variant-logosearchtabs .rds-header__toolbar {
-      padding-right: 80px !important;
+      padding-right: var(--rds-spacing-80-px) !important;
     }
   }
 
@@ -2026,7 +2026,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
 
     .rds-header--variant-logosearchtabs .rds-header__toolbar {
-      padding-right: 68px !important;
+      padding-right: var(--rds-spacing-68) !important;
     }
   }
   
@@ -2046,7 +2046,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   @media (max-width: 320px) {
-    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { width: 24px !important; height: 24px !important; }
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { width: var(--rds-size-lg) !important; height: var(--rds-size-lg) !important; }
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .rds-admin-profile__chevron {
@@ -2056,7 +2056,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   @media (max-width: 420px) {
     .rds-dashboard-title {
-      margin-left: 6px !important;
+      margin-left: var(--rds-spacing-compact) !important;
       font-size: var(--rds-font-size-md) !important; // 14px ? md
       line-height: 1.1 !important;
       font-weight: 500 !important;
@@ -2064,7 +2064,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
     .rds-header--variant-dashboardwithlang .rds-header__toolbar {
       padding-left: var(--rds-spacing-sm) !important;
-      padding-right: 56px !important; 
+      padding-right: var(--rds-spacing-56-px) !important;
       gap: var(--rds-spacing-sm) !important;
     }
 
@@ -2076,8 +2076,8 @@ $rds-app-bar-breakpoint-xs: 320px;
       top: 50% !important;
       transform: translateY(-50%) !important;
       margin-left: 0 !important;
-      padding-left: 6px !important;
-      padding-right: 6px !important;
+      padding-left: var(--rds-spacing-compact) !important;
+      padding-right: var(--rds-spacing-compact) !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root {
@@ -2124,13 +2124,13 @@ $rds-app-bar-breakpoint-xs: 320px;
   @media (max-width: 320px) {
     .rds-header--variant-dashboardwithlang .rds-header__toolbar {
       padding-left: var(--rds-spacing-sm) !important;
-      padding-right: 44px !important;
+      padding-right: var(--rds-spacing-44) !important;
       gap: var(--rds-spacing-compact) !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root {
-      width: 24px !important;
-      height: 24px !important;
+      width: var(--rds-size-lg) !important;
+      height: var(--rds-size-lg) !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > svg { display: none !important; }
@@ -2149,8 +2149,8 @@ $rds-app-bar-breakpoint-xs: 320px;
     .rds-header--variant-dashboardwithlang button[aria-label="chat"] svg,
     .rds-header--variant-dashboardwithlang button[aria-label="theme"] svg {
       font-size: var(--rds-font-size-lg) !important;
-      width: 16px !important;
-      height: 16px !important;
+      width: var(--rds-size-md) !important;
+      height: var(--rds-size-md) !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-header__title {
@@ -2203,7 +2203,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     align-items: center !important;
   }
 
-  body { padding-bottom: 56px !important; }
+  body { padding-bottom: var(--rds-spacing-56-px) !important; }
 
   .rds-header--variant-withmenubutton .rds-bottom-navigation { min-height: 48px !important; padding: var(--rds-spacing-compact) var(--rds-spacing-cozy) !important; }
   .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-bottom-nav-tab { font-size: var(--rds-font-size-sm) !important; padding: 4px 6px !important; } // 12px ? sm
@@ -2219,8 +2219,8 @@ $rds-app-bar-breakpoint-xs: 320px;
     transform: translateY(-50%) !important;
     z-index: calc(var(--rds-z-index-base) + 4) !important;
     margin-left: 0 !important;
-    padding-left: 6px !important;
-    padding-right: 6px !important;
+    padding-left: var(--rds-spacing-compact) !important;
+    padding-right: var(--rds-spacing-compact) !important;
   }
 
   .rds-header--variant-withmenubutton .rds-profile-menu__button {
@@ -2232,8 +2232,8 @@ $rds-app-bar-breakpoint-xs: 320px;
     transform: translateY(-50%) !important;
     z-index: calc(var(--rds-z-index-base) + 5) !important;
     margin-left: 0 !important;
-    padding-left: 6px !important;
-    padding-right: 6px !important;
+    padding-left: var(--rds-spacing-compact) !important;
+    padding-right: var(--rds-spacing-compact) !important;
   }
 
   .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
@@ -2252,7 +2252,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     transform: translateX(-6px) !important; 
   }
 
-  .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 96px !important; }
+  .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: var(--rds-spacing-96-px) !important; }
 
   // Tablet styles for variants with bottom navigation - hide inline tabs
   .rds-header--variant-withactions .rds-header__tabs-inline,
@@ -2310,7 +2310,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   body {
-    padding-bottom: 60px !important;
+    padding-bottom: var(--rds-spacing-60) !important;
   }
 
   .rds-bottom-navigation {
@@ -2458,11 +2458,11 @@ $rds-app-bar-breakpoint-xs: 320px;
 }
 
 @media (max-width: 420px) {
-  body { padding-bottom: 56px !important; }
+  body { padding-bottom: var(--rds-spacing-56-px) !important; }
 }
 
 @media (max-width: 320px) {
-  body { padding-bottom: 52px !important; }
+  body { padding-bottom: var(--rds-spacing-52) !important; }
 }
 
 @media (max-width: 420px) { 
@@ -2551,10 +2551,10 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 @media (max-width: 840px) {
   .rds-header--variant-withmenubutton .rds-header__search-wrapper {
-    margin-right: 12px !important;
+    margin-right: var(--rds-spacing-12-px) !important;
     flex: 0 1 auto !important;
-    max-width: calc(100% - 140px) !important; 
-    position: relative !important; 
+    max-width: calc(100% - 140px) !important;
+    position: relative !important;
     transform: none !important;
   }
 }

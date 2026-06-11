@@ -66,11 +66,11 @@
 	padding: var(--rds-spacing-compact) var(--rds-spacing-xs);
 
 	.rds-avatar {
-		margin-right: -4px !important;
+		margin-right: var(--rds-spacing-neg-4) !important;
 	}
 	
 	.rds-checkbox {
-		margin-left: -2px !important;
+		margin-left: var(--rds-spacing-neg-2) !important;
 	}
 }
 

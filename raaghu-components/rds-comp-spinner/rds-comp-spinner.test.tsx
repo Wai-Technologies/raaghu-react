@@ -501,12 +501,12 @@ describe('RdsCompSpinner', () => {
       const spinner = screen.getByRole('status');
       expect(spinner).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompSpinner {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should be accessible when label is shown', () => {
       const { container } = render(

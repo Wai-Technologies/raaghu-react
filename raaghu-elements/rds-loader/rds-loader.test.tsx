@@ -611,12 +611,12 @@ describe('RdsLoader', () => {
       );
       expect(screen.getByText('Loading content')).toBeInTheDocument();
   
+    });
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsLoader />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('should display percentage value for screen readers', () => {
       renderWithTheme(

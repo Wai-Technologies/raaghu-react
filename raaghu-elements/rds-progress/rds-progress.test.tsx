@@ -721,7 +721,7 @@ describe('RdsProgress', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsProgress />);
+      const { container } = render(<RdsProgress aria-label="Loading progress" style="line" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
