@@ -22,6 +22,12 @@ export default defineConfig(({ command }) => {
       react(),
       ...dtsPlugin,
     ],
+    resolve: {
+      alias: {
+        '@icons/material/UnfoldMoreHorizontalIcon': '@mui/icons-material/UnfoldMore',
+        '@icons/material/CheckIcon': '@mui/icons-material/Check',
+      },
+    },
     build: {
       lib: {
         entry: path.resolve(__dirname, 'index.ts'),
