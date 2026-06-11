@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsLoader from './rds-loader';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-loader.scss', () => ({}));
@@ -609,6 +610,12 @@ describe('RdsLoader', () => {
         <RdsLoader variant="circular" label="Loading content" />
       );
       expect(screen.getByText('Loading content')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsLoader />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should display percentage value for screen readers', () => {

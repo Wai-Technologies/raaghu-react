@@ -7,10 +7,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { PickersDay } from '@mui/x-date-pickers/PickersDay';
-import { TimeClock } from '@mui/x-date-pickers/TimeClock';
-import { MultiSectionDigitalClock } from '@mui/x-date-pickers/MultiSectionDigitalClock';
 import Popover from '@mui/material/Popover';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
@@ -18,8 +14,19 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import EventIcon from '@mui/icons-material/Event';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import Stack from '@mui/material/Stack';
+import './rds-comp-date-and-time-picker.scss';
+
+import {
+  DateRangePreset,
+  dateRangePresets,
+  formatRangeText,
+  CustomDateRangeLayout,
+  RangeCalendar,
+  RangeTime,
+  RangeDateTime,
+} from './RangeComponents';
 
 export interface RdsCompDatePickerProps {
   variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange' | 'datetimerange';
@@ -39,7 +46,7 @@ export interface RdsCompDatePickerProps {
   format?: string;
   className?: string;
   size?: 'small' | 'medium';
-  slotProps?: Record<string, any>;
+  slotProps?: Record<string, Record<string, unknown>>;
   state?: 'default' | 'expanded' | 'selected';
   changeIcon?: 'dashboard-settings' | 'date-picker';
   style?: 'default' | 'custom';
@@ -537,17 +544,18 @@ export default function RdsCompDatePicker({
         ...slotProps?.desktopPaper,
       },
     },
-  } as const;
+  };
 
   // Props specific to single value pickers
-  const singlePickerProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const singlePickerProps: Record<string, unknown> = {
     ...baseProps,
     value: dateValue,
     onChange: handleDateChange,
     minTime,
     maxTime,
     format,
-  } as const;
+  };
 
   // Custom combined field for range variants
   const renderRangeField = () => {
@@ -569,6 +577,7 @@ export default function RdsCompDatePicker({
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
+                  aria-label="Draw"
                     edge="end"
                     size={size === 'small' ? 'small' : 'medium'}
                     onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(inputContainerRef.current); }}
@@ -644,9 +653,9 @@ export default function RdsCompDatePicker({
                 )}
               </>
             )}
-            <Box display="flex" justifyContent="flex-end" gap={1} mt={2} width="100%">
-              <Button size="small" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }}>Clear</Button>
-              <Button size="small" variant="contained" onClick={() => setAnchorEl(null)}>Apply</Button>
+            <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
+              <RdsButton style="transparent" size="small" text="Clear" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }} />
+              <RdsButton style="filled" size="small" text="Apply" onClick={() => setAnchorEl(null)} />
             </Box>
           </Paper>
         </Popover>
@@ -822,7 +831,7 @@ export function DatePickerDemo() {
     multimonth: [dayjs(), dayjs().add(7, 'day')] as [Dayjs | null, Dayjs | null],
   });
 
-  const handleChange = (key: string) => (value: any) => {
+  const handleChange = (key: string) => (value: unknown) => {
     setValues(prev => ({ ...prev, [key]: value }));
   };
 
@@ -877,3 +886,6 @@ export function DatePickerDemo() {
     </LocalizationProvider>
   );
 }
+
+DatePickerDemo.displayName = 'DatePickerDemo';
+RdsCompDatePicker.displayName = 'RdsCompDatePicker';

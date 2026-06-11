@@ -138,12 +138,13 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     }
   };
 
+  const variantClass = `time-picker-variant-${props.colorVariant || 'primary'}`;
+
   return (
-    <div className="time-picker-container">
-      <div 
-        className={`time-input-container ${props.disabled ? 'disabled' : ''}`} 
+    <div className={`time-picker-container ${variantClass}`}>
+      <div
+        className={`time-input-container ${props.disabled ? 'disabled' : ''}`}
         onClick={!props.disabled ? togglePicker : undefined}
-        style={{ position: 'relative' }}
       >
         <input
           type="text"
@@ -153,10 +154,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           disabled={props.disabled}
           placeholder="12:00 AM"
         />
-        <span 
-          className="time-icon"
-          style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--rds-text-secondary, #757575)' }}
-        >
+        <span className="time-icon">
           <AccessTimeIcon fontSize="small" />
         </span>
       </div>
@@ -203,11 +201,10 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           
           <div className={`buttons ${props.style === "compact" ? "buttons-compact" : "buttons"}`}>
             <button type="button" className={getButtonClasses(props.colorVariant).cancel} onClick={handleCancel}>Cancel</button>
-            <button 
-              type="button" 
-              className={getButtonClasses(props.colorVariant).setTime} 
+            <button
+              type="button"
+              className={getButtonClasses(props.colorVariant).setTime}
               onClick={handleSetTime}
-              style={{ cursor: 'pointer' }}
             >
               Set Time
             </button>

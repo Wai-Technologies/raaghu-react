@@ -1,19 +1,26 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-list {
+  --rds-list-focus-ring-width: 2px;
+  --rds-list-shadow-surface: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
+  --rds-list-demo-sticky-height: 400px;
+  --rds-list-demo-sticky-width: 285px;
+  --rds-list-demo-custom-width: 280px;
+  --rds-list-demo-grid-max-width: 800px;
   margin: 0;
   padding: 0;
   list-style: none;
   background-color: var(--rds-background-paper) !important;
-  box-shadow: var(--rds-shadow-base, 0 1px 1px 0 );
+  box-shadow: var(--rds-list-shadow-surface, var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2)));
   border-radius: var(--rds-border-radius-md, 4px);
   border: none;
-  box-shadow: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
 
   &__item {
     display: flex;
     align-items: center;
     min-height: 48px;
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-    transition: background-color 0.2s ease;
+    transition: background-color var(--rds-transition-base, 0.2s ease-in-out);
     
     &:last-child {
       border-bottom: none;
@@ -30,24 +37,24 @@
     
     &--clickable {
       cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition: background-color var(--rds-transition-base, 0.2s ease-in-out), color var(--rds-transition-base, 0.2s ease-in-out);
       
       &:hover {
         background-color: var(--rds-neutral-100);
       }
       
       &:focus-visible {
-        outline: 2px solid var(--rds-primary-main);
-        outline-offset: -2px;
+        outline: var(--rds-list-focus-ring-width, 2px) solid var(--rds-primary-main);
+        outline-offset: calc(-1 * var(--rds-list-focus-ring-width, 2px));
         position: relative;
-        z-index: 1;
+        z-index: calc(var(--rds-z-index-base) + 1);
       }
     }
     
     &--selected {
       background-color: var(--rds-primary-main);
       color: var(--rds-primary-contrast-text);
-      font-weight: 500;
+      font-weight: var(--rds-font-weight-medium, 500);
       
       .rds-list__content-primary,
       .rds-list__content-secondary {
@@ -86,10 +93,19 @@
     margin-right: var(--rds-spacing-md);
   }
 
+  .rds-list__expand-icon {
+    transition: transform var(--rds-transition-base, 0.2s);
+    will-change: transform;
+  }
+
+  .rds-list__expand-icon--open {
+    transform: rotate(180deg);
+  }
+
   &__content-primary {
     font-size: var(--rds-font-size-body, 1rem);
     font-weight: 400;
-    transition: color 0.2s;
+    transition: color var(--rds-transition-base, 0.2s ease-in-out);
     color: var(--rds-text-primary);
     margin-bottom: var(--rds-spacing-xxs, 2px);
     line-height: 1.2;
@@ -105,7 +121,7 @@
     color: var(--rds-text-secondary);
     line-height: 1.43;
     display: block;
-    transition: color 0.2s;
+    transition: color var(--rds-transition-base, 0.2s ease-in-out);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -128,12 +144,12 @@
   &__subheader {
     padding: var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-sm);
     font-size: var(--rds-font-size-body);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-text-secondary);
     background-color: var(--rds-neutral-50);
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: calc(var(--rds-z-index-base) + 1);
   }
 
   &--dense {
@@ -170,8 +186,8 @@
     }
     
     .rds-list__item--selected {
-      outline: 2px solid CanvasText;
-      outline-offset: -2px;
+      outline: var(--rds-list-focus-ring-width, 2px) solid CanvasText;
+      outline-offset: calc(-1 * var(--rds-list-focus-ring-width, 2px));
     }
   }
 }
@@ -193,17 +209,18 @@
   border-radius: 0;
 
   .rds-list__subheader {
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium, 500);
     line-height: 48px;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: calc(var(--rds-z-index-base) + 1);
     padding: 0 var(--rds-spacing-md, 16px);
   }
 }
 
 .rds-list--align-responsive {
-  @media (max-width: 599.98px) {
+  // CSS custom properties cannot be used in @media queries — use hardcoded token values (sm=600px, xl=1536px).
+  @media (max-width: 600px) {
     .rds-list__item {
       align-items: flex-start;
     }
@@ -220,7 +237,7 @@
     }
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1536px) {
     .rds-list__item {
       align-items: center;
     }
@@ -244,10 +261,10 @@
   overflow: hidden;
   
   &--sticky {
-    max-height: 400px;
+    max-height: var(--rds-list-demo-sticky-height, 400px);
     overflow: auto;
-    width: 285px;
-    border: 1px solid var(--rds-border-default, #e0e0e0);
+    width: var(--rds-list-demo-sticky-width, 285px);
+    border: 1px solid var(--rds-border-default);
     border-radius: var(--rds-border-radius-sm, 2px);
   }
 }
@@ -256,15 +273,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--rds-spacing-xl, 32px);
-  max-width: 800px;
+  max-width: var(--rds-list-demo-grid-max-width, 800px);
 }
 
 .rds-list-demo__grid--col-responsive {
-  @media (max-width: 599.98px) {
+  @include bp.down(sm) {
     grid-template-columns: 1fr;
   }
 
-  @media (min-width: 1600px) {
+  @include bp.up(1600) {
     grid-template-columns: 1fr;
   }
 }
@@ -277,7 +294,7 @@
 
 .rds-list-demo__description {
   font-size: var(--rds-font-size-sm, 14px);
-  color: var(--rds-text-secondary, #666);
+  color: var(--rds-text-secondary);
   margin-bottom: var(--rds-spacing-sm, 12px);
   line-height: 1.5;
 }
@@ -286,23 +303,23 @@
   background-color: var(--rds-background-paper);
   border-radius: var(--rds-border-radius-md, 8px);
   box-shadow: var(--rds-shadow-1, 0 1px 3px rgba(0,0,0,0.1));
-  max-width: 400px;
+  max-width: var(--rds-list-demo-max-width, 400px);
 }
 
 .rds-list-demo__selection-status {
   font-size: var(--rds-font-size-sm, 14px);
-  color: var(--rds-text-secondary, #666);
+  color: var(--rds-text-secondary);
   padding: var(--rds-spacing-sm, 12px) 0;
-  border-top: 1px solid var(--rds-border-light, #eee);
+  border-top: 1px solid var(--rds-border-light);
   margin-top: var(--rds-spacing-sm, 8px);
 }
 
 .rds-list-demo__custom-container {
-  width: 280px;
+  width: var(--rds-list-demo-custom-width, 280px);
   border-radius: var(--rds-border-radius-md, 4px);
   overflow: hidden;
   border: none;
-  box-shadow: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
+  box-shadow: var(--rds-list-shadow-surface, var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2)));
 }
 
 .rds-list-demo__header {
@@ -344,23 +361,3 @@
   }
 }
 
-[data-theme="dark"] .rds-list,
-body.dark .rds-list,
-html.dark .rds-list,
-.dark .rds-list,
-.rds-theme--dark .rds-list {
-  .MuiAvatar-root {
-    color: var(--rds-color-on-primary, #ffffff) !important;
-  }
-
-  .rds-list__content-primary,
-  .rds-list__content-secondary,
-  .rds-list__icon,
-  .rds-list__secondary-action,
-  .MuiListItemText-root,
-  .MuiListItemText-root *,
-  .MuiSvgIcon-root {
-    color: currentColor !important;
-    fill: currentColor !important;
-  }
-}

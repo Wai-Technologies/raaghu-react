@@ -1,5 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsButtonDropdown from './rds-button-dropdown';
 import { ArrowDropDown, Circle } from '@mui/icons-material';
 
@@ -20,9 +21,10 @@ const meta: Meta<typeof RdsButtonDropdown> = {
   title: 'Elements/Button Dropdown',
   component: RdsButtonDropdown,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     buttonText: {
       control: 'text',
@@ -133,3 +135,29 @@ export const MultiSelectWithSearch: Story = {
   },
 };
 MultiSelectWithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','size','layout','styleType','shape','buttonState'] } };
+
+export const OpenDropdown: Story = {
+  name: 'Interaction: Open button dropdown',
+  args: {
+    buttonText: 'Options',
+    options,
+    multiSelect: false,
+    showSearch: false,
+    isShowRightIcon: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const buttons = canvas.getAllByRole('button')
+    await expect(buttons[0]).toBeVisible()
+    await userEvent.click(buttons[0])
+    // Dropdown list renders inside canvas or in portal
+    await waitFor(
+      () => {
+        const list = canvasElement.querySelector('[role="listbox"], [role="menu"], [class*="dropdown"]') ||
+          document.querySelector('[role="listbox"], [role="menu"]')
+        expect(list).not.toBeNull()
+      },
+      { timeout: 2000 }
+    )
+  }
+};

@@ -3,6 +3,7 @@ import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRating from './rds-rating';
+import { axe } from 'jest-axe';
 
 jest.mock('./rds-rating.scss', () => ({}));
 
@@ -508,6 +509,12 @@ describe('RdsRating', () => {
       
       const ratingElement = container.querySelector('.rds-rating__stars');
       expect(ratingElement).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsRating />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have proper ARIA labels for slider', () => {

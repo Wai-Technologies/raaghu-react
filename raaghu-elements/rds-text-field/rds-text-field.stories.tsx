@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsTextField from './rds-text-field';
 import { Email, Lock, Search } from '@mui/icons-material';
 import { InputAdornment } from '@mui/material';
@@ -7,9 +8,10 @@ const meta: Meta<typeof RdsTextField> = {
   title: 'Elements/Text Field',
   component: RdsTextField,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     label: {
       control: 'text',
@@ -181,4 +183,20 @@ export const Password: Story = {
       ),
     },
   },
+};
+
+export const TypeText: Story = {
+  name: 'Interaction: Type in text field',
+  args: {
+    label: 'Name',
+    placeholder: 'Enter name',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByRole('textbox')
+    await expect(input).toBeVisible()
+    await userEvent.clear(input)
+    await userEvent.type(input, 'Jane Doe')
+    await expect(input).toHaveValue('Jane Doe')
+  }
 };

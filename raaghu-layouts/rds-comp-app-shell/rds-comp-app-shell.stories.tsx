@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 import RdsCompAppShell, { AppShellDisplayType } from "./rds-comp-app-shell";
 import RdsAppBar from "../../raaghu-elements/rds-app-bar/rds-app-bar";
 import { BrowserRouter } from "react-router-dom";
@@ -21,7 +22,7 @@ import {
   People as DirectoryIcon,
   LocalActivity as ActivitiesIcon,
 } from "@mui/icons-material";
-import { ProfileMenu } from "../../raaghu-elements/rds-app-bar/ProfileMenu";
+import { ProfileMenu } from "../../raaghu-elements/shared/components/ProfileMenu";
 import { Notifications as BellIcon } from "@mui/icons-material";
 
 const meta: Meta<typeof RdsCompAppShell> = {
@@ -36,7 +37,7 @@ const meta: Meta<typeof RdsCompAppShell> = {
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
   argTypes: {
     displayType: {
       control: { type: "select" },
@@ -632,6 +633,9 @@ export const DoubleNav: Story = {
     displayType: AppShellDisplayType.DoubleNav,
   },
   render: AppShellStory,
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
 
 export const Relaxing: Story = {

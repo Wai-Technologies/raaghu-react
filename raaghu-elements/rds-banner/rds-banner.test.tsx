@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsBanner, { RdsBannerProps } from './rds-banner';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-banner.scss', () => ({}));
@@ -608,6 +609,14 @@ describe('RdsBanner', () => {
         </RdsBanner>
       );
       expect(screen.getByTestId('custom-child')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsBanner {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

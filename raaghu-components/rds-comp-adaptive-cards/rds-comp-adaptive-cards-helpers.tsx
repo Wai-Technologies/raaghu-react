@@ -7,11 +7,11 @@ import RdsTypography from "../../raaghu-elements/rds-typography/rds-typography";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import RdsChip from "../../raaghu-elements/rds-chip/rds-chip";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
-import Button from "@mui/material/Button";
+import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
@@ -32,10 +32,9 @@ export interface AdaptiveCardProps {
   entreeValue?: string;
   sideValue?: string;
   drinkValue?: string;
-  onEntreeChange?: (e: any) => void;
-  onSideChange?: (e: any) => void;
-  onDrinkChange?: (e: any) => void;
-  showBtn1?: boolean;
+  onEntreeChange?: (e: SelectChangeEvent<string>) => void;
+  onSideChange?: (e: SelectChangeEvent<string>) => void;
+  onDrinkChange?: (e: SelectChangeEvent<string>) => void;
   showBtn2?: boolean;
   btn1style?: string;
   btn2style?: string;
@@ -218,7 +217,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
             {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
             <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
             {closeIcon && (
-              <IconButton size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
+              <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
             )}
           </RdsStack>
         </div>
@@ -389,16 +388,12 @@ export function CalendarReminderForm({
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
-            <Button variant="outlined" className="rds-adaptive-cards__action-btn">
-              {snoozeLabel || btn1Label}
-            </Button>
+            <RdsButton style="outlined" className="rds-adaptive-cards__action-btn" text={snoozeLabel || btn1Label} />
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
-            <Button variant="outlined" className="rds-adaptive-cards__action-btn">
-              {lateLabel || btn2Label}
-            </Button>
+            <RdsButton style="outlined" className="rds-adaptive-cards__action-btn" text={lateLabel || btn2Label} />
           </RdsBox>
         )}
       </RdsStack>
@@ -441,9 +436,9 @@ export type RestaurantOrderFormProps = {
   entreeValue?: string;
   sideValue?: string;
   drinkValue?: string;
-  onEntreeChange?: (e: any) => void;
-  onSideChange?: (e: any) => void;
-  onDrinkChange?: (e: any) => void;
+  onEntreeChange?: (e: SelectChangeEvent<string>) => void;
+  onSideChange?: (e: SelectChangeEvent<string>) => void;
+  onDrinkChange?: (e: SelectChangeEvent<string>) => void;
   entreeLabel?: string;
   entreePlaceholder?: string;
   entreeOptions?: { value: string; label: string }[];
@@ -549,3 +544,10 @@ export function RestaurantOrderForm({
     </RdsStack>
   );
 }
+
+InputFormCard.displayName = 'InputFormCard';
+ImageGalleryCard.displayName = 'ImageGalleryCard';
+FootballScorecardCard.displayName = 'FootballScorecardCard';
+CalendarReminderForm.displayName = 'CalendarReminderForm';
+ActivityUpdateCard.displayName = 'ActivityUpdateCard';
+RestaurantOrderForm.displayName = 'RestaurantOrderForm';

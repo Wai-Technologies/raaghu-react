@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAreaChart from './rds-comp-chart-area';
 
 // Mock SCSS
@@ -836,6 +837,14 @@ describe('RdsCompAreaChart', () => {
         <RdsCompAreaChart {...defaultProps} options={aspectOptions} />
       );
       expect(RdsCompAreaChart).toBeDefined();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAreaChart {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

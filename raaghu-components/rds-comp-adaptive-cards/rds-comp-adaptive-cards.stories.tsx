@@ -1,5 +1,6 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 
 const createActionLogger = (actionName: string) => {
@@ -24,7 +25,7 @@ const createActionLogger = (actionName: string) => {
                 });
             }
         } catch (e) {
-           
+          // handled
         }
     };
 };
@@ -33,10 +34,11 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
     title: 'Components/Adaptive Cards',
     component: RdsCompAdaptiveCards,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
  
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         showHeader: { control: 'boolean', description: 'Show header of the card' },
         showDismiss: { control: 'boolean', description: 'Show circle button' },
@@ -104,6 +106,9 @@ export const Default: StoryObj<typeof RdsCompAdaptiveCards> = {
         },
     },
     render: (args) => <RdsCompAdaptiveCards {...args} />,
+    play: async ({ canvasElement }) => {
+        await expect(canvasElement.firstChild).toBeTruthy();
+    },
 };
 
 export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
@@ -286,7 +291,7 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
             if (!form.phone.trim()) {
                 newErrors.phone = 'Phone number is required';
                 hasErrors = true;
-            } else if (!/^[\d\s\-\+\(\)]{10,}$/.test(form.phone.replace(/\s/g, ''))) {
+            } else if (!/^[\d\s\-+()]{10,}$/.test(form.phone.replace(/\s/g, ''))) {
                 newErrors.phone = 'Please enter a valid phone number';
                 hasErrors = true;
             }

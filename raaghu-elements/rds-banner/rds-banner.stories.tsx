@@ -1,12 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsBanner, { type RdsBannerProps } from './rds-banner';
+import { expect } from 'storybook/test';
 
 const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
   title: 'Elements/Banner',
   component: RdsBanner,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   args: {
@@ -22,7 +24,7 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
       return <Story args={{ ...args, ...extraArgs }} />;
     },
   ],
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     description: {
       control: 'text',
@@ -115,6 +117,9 @@ export const Info: Story = {
     size: 'medium',
     multiline: false,
     showDescription: true,
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 
@@ -309,3 +314,7 @@ export const NotFullWidth: Story = {
     fullWidth: false,
   },
 };
+
+export const Default: Story = { ...Info };
+
+

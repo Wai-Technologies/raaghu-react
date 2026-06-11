@@ -1,11 +1,13 @@
 import RdsCompLineChart from "./rds-comp-chart-line";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 import { Chart } from 'chart.js';
 
 const meta: Meta = {
     title: 'Components/Charts/Line Chart',
     component: RdsCompLineChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {
@@ -14,7 +16,7 @@ const meta: Meta = {
 
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
     },
 } satisfies Meta<typeof RdsCompLineChart>;
@@ -73,5 +75,9 @@ export const Default: Story = {
             },
         ],
         id: "linechart",
-    }
+    },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 } satisfies Story;

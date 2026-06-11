@@ -1,0 +1,62 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within, userEvent } from 'storybook/test';
+import RdsComp{{pascalCase name}} from './rds-comp-{{kebabCase name}}';
+
+const meta: Meta<typeof RdsComp{{pascalCase name}}> = {
+  title: 'Components/{{pascalCase name}}',
+  component: RdsComp{{pascalCase name}},
+  parameters: {
+    layout: 'padded',
+  },
+  tags: ['autodocs', 'stable'],
+  argTypes: {
+    title:    { control: 'text' },
+    isOpen:   { control: 'boolean' },
+    loading:  { control: 'boolean' },
+    className: { control: 'text' },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    title: '{{pascalCase name}}',
+    isOpen: true,
+    loading: false,
+    children: 'Content goes here.',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const el = canvasElement.querySelector('.rds-comp-{{kebabCase name}}');
+    expect(el).toBeInTheDocument();
+    expect(canvas.getByText('{{pascalCase name}}')).toBeInTheDocument();
+  },
+};
+
+export const Loading: Story = {
+  args: { ...Default.args, loading: true },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.querySelector('.rds-comp-{{kebabCase name}}--loading');
+    expect(el).toBeInTheDocument();
+  },
+};
+
+export const WithCloseButton: Story = {
+  args: { ...Default.args, onClose: () => {} },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const closeBtn = canvas.getByRole('button', { name: /close/i });
+    expect(closeBtn).toBeInTheDocument();
+  },
+};
+
+export const NoTitle: Story = {
+  args: { isOpen: true, children: 'No title shown.' },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.querySelector('.rds-comp-{{kebabCase name}}');
+    expect(el).toBeInTheDocument();
+    expect(canvasElement.querySelector('.rds-comp-{{kebabCase name}}__header')).not.toBeInTheDocument();
+  },
+};

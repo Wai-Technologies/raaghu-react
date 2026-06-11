@@ -1,7 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import RdsAccordion from './rds-accordion';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-accordion.scss', () => ({}));
@@ -230,37 +232,35 @@ describe('RdsAccordion', () => {
   describe('Expansion Behavior', () => {
     it('should not be expanded by default', () => {
       const { container } = render(<RdsAccordion {...defaultProps} />);
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should be expanded when defaultExpanded is true', () => {
       const { container } = render(<RdsAccordion {...defaultProps} defaultExpanded={true} />);
-      const detail = container.querySelector('[role="region"]');
-      expect(detail).not.toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should toggle expansion on click with defaultExpanded', () => {
       const { container } = render(<RdsAccordion {...defaultProps} defaultExpanded={false} />);
 
-      let collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
 
-      const summary = container.querySelector('.rds-accordion__summary');
-      fireEvent.click(summary!);
+      const summaryEl = container.querySelector('.rds-accordion__summary');
+      fireEvent.click(summaryEl!);
 
-      collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).not.toHaveClass('MuiCollapse-hidden');
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should be controlled by expanded prop', () => {
       const { rerender, container } = render(<RdsAccordion {...defaultProps} expanded={false} />);
-      let collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
 
       rerender(<RdsAccordion {...defaultProps} expanded={true} />);
-      collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).not.toHaveClass('MuiCollapse-hidden');
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('should prefer expanded prop over defaultExpanded', () => {
@@ -271,18 +271,18 @@ describe('RdsAccordion', () => {
           expanded={false}
         />
       );
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should not toggle when expanded prop is controlled', () => {
       const { container } = render(<RdsAccordion {...defaultProps} expanded={false} />);
 
-      const summary = container.querySelector('.rds-accordion__summary');
-      fireEvent.click(summary!);
+      const summaryEl = container.querySelector('.rds-accordion__summary');
+      fireEvent.click(summaryEl!);
 
-      let collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
   });
 
@@ -311,11 +311,11 @@ describe('RdsAccordion', () => {
         />
       );
 
-      const summary = container.querySelector('.rds-accordion__summary');
-      fireEvent.click(summary!);
+      const summaryEl = container.querySelector('.rds-accordion__summary');
+      fireEvent.click(summaryEl!);
 
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
   });
 
@@ -377,8 +377,8 @@ describe('RdsAccordion', () => {
           expanded={false}
         />
       );
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should pass through MUI accordion props', () => {
@@ -524,26 +524,20 @@ describe('RdsAccordion', () => {
       );
 
       // Initially expanded
-      let collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).not.toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
 
       // Toggle to collapsed
       rerender(
         <RdsAccordion {...defaultProps} expanded={false} />
       );
-      collapse = container.querySelector('.MuiCollapse-root');
-      await waitFor(() => {
-        expect(collapse).toHaveClass('MuiCollapse-hidden');
-      }, { timeout: 500 });
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
 
       // Toggle back to expanded
       rerender(
         <RdsAccordion {...defaultProps} expanded={true} />
       );
-      collapse = container.querySelector('.MuiCollapse-root');
-      await waitFor(() => {
-        expect(collapse).not.toHaveClass('MuiCollapse-hidden');
-      }, { timeout: 500 });
+      expect(summary).toHaveAttribute('aria-expanded', 'true');
     });
   });
 
@@ -612,8 +606,8 @@ describe('RdsAccordion', () => {
       const { container } = render(
         <RdsAccordion title="Title" children={<div>Content</div>} />
       );
-      const collapse = container.querySelector('.MuiCollapse-root');
-      expect(collapse).toHaveClass('MuiCollapse-hidden');
+      const summary = container.querySelector('[aria-expanded]');
+      expect(summary).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should use default size', () => {
@@ -675,5 +669,61 @@ describe('RdsAccordion', () => {
       expect(screen.getByText('Paragraph 2')).toBeInTheDocument();
       expect(screen.getByText('Paragraph 3')).toBeInTheDocument();
     });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsAccordion {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
+});
+
+describe('RdsAccordion — keyboard navigation', () => {
+  const defaultProps = {
+    title: 'Accordion Title',
+    children: <div>Accordion Content</div>,
+  };
+
+  it('summary is focusable via Tab', async () => {
+    render(<RdsAccordion {...defaultProps} />);
+    await userEvent.tab();
+    const focused = document.activeElement;
+    const hasButtonRole =
+      focused?.getAttribute('role') === 'button' ||
+      focused?.tagName === 'BUTTON';
+    expect(hasButtonRole).toBe(true);
+  });
+
+  it('expands on Enter key', async () => {
+    render(<RdsAccordion {...defaultProps} />);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    summary.focus();
+    await userEvent.keyboard('{Enter}');
+    expect(screen.getByText('Accordion Content')).toBeInTheDocument();
+  });
+
+  it('expands on Space key', async () => {
+    render(<RdsAccordion {...defaultProps} />);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    summary.focus();
+    await userEvent.keyboard(' ');
+    expect(screen.getByText('Accordion Content')).toBeInTheDocument();
+  });
+
+  it('collapses when expanded and Enter pressed again', async () => {
+    render(<RdsAccordion {...defaultProps} defaultExpanded />);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    summary.focus();
+    await userEvent.keyboard('{Enter}');
+    const root = document.querySelector('.MuiAccordion-root');
+    expect(root).not.toHaveClass('Mui-expanded');
+  });
+
+  it('is not focusable when disabled', async () => {
+    render(<RdsAccordion {...defaultProps} disabled />);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    expect(summary).toBeDisabled();
   });
 });

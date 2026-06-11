@@ -207,8 +207,9 @@ const RdsInput = ({
     }
   };
   const computedPlaceholder = placeholder ?? getPlaceholder(layout);
+  const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
   return (
-    <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass}`.trim()}>
+    <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass} ${inlineTitleClass}`.trim()}>
       {titlePosition === 'title-above' && label && (
         <label className="rds-input__label">
           {label}
@@ -243,12 +244,13 @@ const RdsInput = ({
             ...(layout === 'phone number' || layout === 'number' || layout === 'card number'
               ? {
                   inputMode: layout === 'phone number' ? 'tel' : 'numeric',
-                  ...(layout === 'phone number' ? { pattern: '^(?:\+\d{12}|\d{10})$' } : {}),
+                  ...(layout === 'phone number' ? { pattern: '^(?:\\+\\d{12}|\\d{10})$' } : {}),
                   onKeyDown: handleNumericKeyDown,
                   ...(layout === 'phone number' ? { onInput: handlePhoneInput } : {}),
                 }
               : {}),
-          },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } as any,
           ...(props.InputProps || {}),
           
         }}

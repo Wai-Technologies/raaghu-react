@@ -23,11 +23,20 @@ export interface RdsAvatarProps extends AvatarProps {
   showRemainingCount?: boolean;
 }
 const sizeStyles = {
-  smallest: { width: 24, height: 24, fontSize: 9 },
-  small: { width: 32, height: 32, fontSize: 11 },
-  medium: { width: 40, height: 40, fontSize: 14 },
-  large: { width: 48, height: 48, fontSize: 18 },
-  largest: { width: 64, height: 64, fontSize: 21 }
+  smallest: { width: 24, height: 24, fontSize: '0.5625rem' },  // 9px
+  small:    { width: 32, height: 32, fontSize: '0.6875rem' },  // 11px
+  medium:   { width: 40, height: 40, fontSize: '0.875rem'  },  // 14px
+  large:    { width: 48, height: 48, fontSize: '1.125rem'  },  // 18px
+  largest:  { width: 64, height: 64, fontSize: '1.3125rem' },  // 21px
+};
+
+/** Maps avatar size key to a rem font-size for the +N overflow badge */
+const overflowFontSize: Record<string, string> = {
+  smallest: '0.5rem',
+  small:    '0.6875rem',
+  medium:   '0.875rem',
+  large:    '1rem',
+  largest:  '1.125rem',
 };
 
 const RdsAvatar = ({
@@ -65,9 +74,9 @@ const RdsAvatar = ({
               position: 'relative',
               zIndex: idx + 1, 
               marginLeft: idx === 0 ? 0 : `${overlapOffset}px`,
-              border: '0px solid #fff',
+              border: 'none',
               boxSizing: 'content-box',
-              background: '#e0e0e0',
+              background: 'var(--rds-neutral-300, #e0e0e0)',
             }}
             className="rds-avatar__stacking-avatar"
           >
@@ -79,8 +88,8 @@ const RdsAvatar = ({
             className={`plus-indicator plus-indecator-${size}`}
             style={{
               marginLeft: `${overlapOffset}px`,
-              zIndex: maxVisibleAvatars + 1, 
-              fontSize: size === 'smallest' ? '8px' : size === 'small' ? '11px' : size === 'medium' ? '14px' : size === 'large' ? '16px' : '18px'
+              zIndex: maxVisibleAvatars + 1,
+              fontSize: overflowFontSize[size] ?? '0.875rem',
             }}
           >
             +{remainingCount}

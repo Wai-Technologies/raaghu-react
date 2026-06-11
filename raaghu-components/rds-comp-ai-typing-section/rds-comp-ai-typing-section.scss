@@ -1,23 +1,26 @@
-
-.rds-comp-ai-chat-bot {
+.rds-comp-ai-typing-section {
   display: block;
+
+  /* Use global --rds-* tokens (falls back to component defaults) */
+  --ai-typing-textarea-height: var(--rds-ai-typing-textarea-height, 100px);
+  --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width, 190px);
+  --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width, 60px);
+  --ai-typing-action-button-min-width: var(--rds-ai-typing-action-button-min-width, 140px);
+  --ai-typing-fab-left-offset: var(--rds-ai-typing-fab-left-offset, -129px);
+  --ai-typing-margin-right: var(--rds-ai-typing-action-button-margin-right, 5px);
   
   &__input-wrapper {
     border-radius: var(--rds-border-radius, 5px);
-    border: 1px solid var(--rds-color-border, #C6A2F6);
-    background: var(--rds-color-surface, #FFF);
+    border: 1px solid var(--rds-color-border);
+    background: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2, 0px 0px 12px 0px rgba(0, 0, 0, 0.18));
     padding: var(--rds-spacing-md, 12px);
     position: relative;
-    transition: all 0.2s ease;
+    transition: all var(--rds-transition-base);
     
     &:focus-within {
-      border-color: var(--rds-color-primary, #C6A2F6);
+      border-color: var(--rds-primary-main);
       box-shadow: var(--rds-elevation-3, 0px 0px 16px 0px rgba(0, 0, 0, 0.25));
-    }
-       body.theme-dark &,
-    [data-theme="dark"] & {
-      background: #2a2a2a;
     }
   }
   
@@ -35,33 +38,29 @@
   }
   
   &__input-box {
-    flex: 1;
-    padding: var(--rds-spacing-md, 15px);
-    font-size: var(--rds-font-size-body, 14px);
-    background-color: var(--rds-color-surface, #fff);
-    color: var(--rds-color-on-surface, #353535);
-    height: 100px;
+  flex: 1;
+  padding: var(--rds-spacing-md, 15px);
+  font-size: var(--rds-font-size-body, 14px);
+  background-color: var(--rds-color-surface);
+  color: var(--rds-color-on-surface);
+  height: var(--ai-typing-textarea-height);
     box-sizing: border-box;
     line-height: 1.5;
     resize: none;
     border-radius: var(--rds-border-radius-sm, 3px);
-    font-family: var(--rds-font-family, Poppins);
+    font-family: var(--rds-font-family-base);
     font-weight: var(--rds-font-weight-medium, 500);
     border: none;
     outline: none;
     margin: 0;
-    transition: all 0.2s ease;
+    transition: all var(--rds-transition-base);
     
     &::placeholder {
       font-weight: var(--rds-font-weight-medium, 500);
-      color: var(--rds-color-on-surface, #353535);
-      font-family: var(--rds-font-family, Poppins);
+      color: var(--rds-placeholder-color);
+      font-family: var(--rds-font-family-base);
       font-size: var(--rds-font-size-body, 14px);
       line-height: var(--rds-line-height-body, 16px);
-        body.theme-dark &,
-      [data-theme="dark"] & {
-        color: #fff;
-      }
     }
     
     &:focus {
@@ -70,22 +69,13 @@
     }
     
     &--muted-placeholder::placeholder {
-      color: var(--text-txt-neutral-light-default, #969696);
+      color: var(--rds-text-disabled);
       opacity: 1;
-      body.theme-dark &,
-      [data-theme="dark"] & {
-        color: #fff;
-      }
-    }
-   
-    body.theme-dark &,
-    [data-theme="dark"] & {
-      background-color: #2a2a2a;
     }
   }
-  
+
   &__input-icon {
-    color: var(--rds-color-text-secondary, #6c757d);
+    color: var(--rds-color-text-secondary);
     font-size: var(--rds-font-size-icon, 20px);
     top: var(--rds-spacing-sm, 8px);
     right: var(--rds-spacing-md, 12px);
@@ -93,23 +83,12 @@
     pointer-events: none;
     display: flex;
     align-items: center;
-    transition: color 0.2s ease;
+    transition: color var(--rds-transition-base);
 
-    // Ensure icon color consistency in dark theme
+    // Icon color uses --rds-primary-main which responds to dark mode automatically
     .rds-comp-ai-icon--primary,
     .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg {
-      color: #7e2eef !important;
-    }
-
-    [data-theme="dark"] .rds-comp-ai-icon--primary,
-    [data-theme="dark"] .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg,
-    .dark-theme .rds-comp-ai-icon--primary,
-    .dark-theme .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg,
-    .theme-dark .rds-comp-ai-icon--primary,
-    .theme-dark .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg,
-    body.theme-dark .rds-comp-ai-icon--primary,
-    body.theme-dark .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg {
-      color: #7e2eef !important;
+      color: var(--rds-primary-main) !important;
     }
   }
   
@@ -167,19 +146,19 @@
   overflow-x: visible; 
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 900px) {
     &__button-sections {
       align-items: flex-start;
     }
   }
   
-  &__project-actions {
+    &__project-actions {
     display: flex;
     gap: var(--rds-spacing-md, 12px);
   flex-wrap: nowrap;
   }
   
-  &__action-button {
+    &__action-button {
     display: flex;
     flex: 0 0 auto;
     min-width: 0;
@@ -211,7 +190,7 @@
       flex: 1 1 100%;
       min-width: 0;
       width: 100%;
-      &.rds-comp-ai-chat-bot__action-button--figma {
+      &.rds-comp-ai-typing-section__action-button--figma {
         margin-top: 0;
       }
     }
@@ -223,7 +202,7 @@
     }
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1536px) {
     &__button-sections {
       gap: calc(var(--rds-spacing-md, 12px) * 1.5);
       flex-wrap: nowrap;
@@ -235,14 +214,14 @@
 
     &__action-button {
       flex: 0 1 auto;
-      min-width: 140px;
+      min-width: var(--ai-typing-action-button-min-width);
     }
   }
 
-  &__autocomplete {
+    &__autocomplete {
     flex: 1 1 auto;
     max-width: var(--ai-typing-autocomplete-max-width, 60px);
-    min-width: 190px;
+    min-width: var(--ai-typing-autocomplete-min-width);
   }
   
   @media (min-width: 376px) {
@@ -255,9 +234,8 @@
     }
 
     &__action-button {
-      flex: 0 0 auto;
-      width: auto;
-      min-width: 0;
+      flex: 0 1 auto;
+      min-width: var(--ai-typing-action-button-min-width);
       margin-top: 0;
     }
 
@@ -280,12 +258,18 @@
       width: 100%;
       flex-wrap: nowrap;
       gap: var(--rds-spacing-xs, 6px);
+      justify-content: flex-start;
     }
 
     &__action-button {
-      flex: 1 1 calc((100% - var(--rds-spacing-xs, 6px)) / 2);
+      flex: 1 1 0;
       min-width: 0;
-      margin-right: 5px;
+      margin-right: 0;
+
+      & > * {
+        overflow: visible;
+        width: 100%;
+      }
     }
 
     &__autocomplete {
@@ -299,7 +283,7 @@
     &__action-button--figma {
       .MuiButton-root,
       .css-1r3axgn-MuiButtonBase-root-MuiButton-root { 
-        margin: -6px !important;
+        margin: var(--rds-spacing-neg-6) !important;
       }
     }
   }

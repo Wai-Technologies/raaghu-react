@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Divider } from '@mui/material';
 import RdsStack from './rds-stack';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-stack.scss', () => ({}));
@@ -723,6 +724,14 @@ describe('RdsStack', () => {
       expect(screen.getByTestId('left-item')).toBeInTheDocument();
       expect(screen.getByTestId('center')).toBeInTheDocument();
       expect(screen.getByTestId('right-item')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsStack />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

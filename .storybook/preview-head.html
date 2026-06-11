@@ -1,0 +1,22 @@
+<script>
+  (function () {
+    function syncFromUrl() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var globalsRaw = decodeURIComponent(params.get('globals') || '');
+        var isDark = globalsRaw.indexOf('theme:dark') !== -1;
+        var mode = isDark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', mode);
+        document.documentElement.classList.toggle('rds-theme--dark', isDark);
+        document.documentElement.classList.toggle('theme-dark', isDark);
+        document.documentElement.classList.toggle('theme-light', !isDark);
+        if (document.body) {
+          document.body.classList.toggle('dark-theme', isDark);
+          document.body.classList.toggle('theme-dark', isDark);
+        }
+      } catch (e) {}
+    }
+    syncFromUrl();
+    document.addEventListener('DOMContentLoaded', syncFromUrl);
+  })();
+</script>

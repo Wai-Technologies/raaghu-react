@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCardDetail, { RdsCardDetailProps } from './rds-card-detail';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-card-detail.scss', () => ({}));
@@ -710,6 +711,12 @@ describe('RdsCardDetail', () => {
       );
       expect(container.querySelector('.MuiCard-root')).toBeInTheDocument();
       expect(container.querySelector('.MuiCardHeader-root')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCardDetail {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have proper image alt text', () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsBottomNavigation, { RdsBottomNavigationProps, RdsBottomNavigationItem } from './rds-bottom-navigation';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-bottom-navigation.scss', () => ({}));
@@ -501,6 +502,12 @@ describe('RdsBottomNavigation', () => {
     it('should render as a navigation component', () => {
       const { container } = render(<RdsBottomNavigation {...defaultProps} />);
       expect(container.querySelector('.MuiBottomNavigation-root')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsBottomNavigation {...defaultProps} showLabels={true} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have button role for items', () => {

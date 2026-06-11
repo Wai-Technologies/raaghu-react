@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTypography from './rds-typography';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-typography.scss', () => ({}));
@@ -671,6 +672,12 @@ describe('RdsTypography', () => {
       );
       const heading = container.querySelector('h1[role="heading"]');
       expect(heading || container.querySelector('h1')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTypography />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should support aria attributes', () => {

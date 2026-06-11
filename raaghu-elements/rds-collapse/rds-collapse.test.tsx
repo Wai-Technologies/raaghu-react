@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCollapse, { RdsCollapseProps } from './rds-collapse';
+import { axe } from 'jest-axe';
 
 // Mock SCSS imports
 jest.mock('./rds-collapse.scss', () => ({}));
@@ -516,6 +517,12 @@ describe('RdsCollapse', () => {
       renderWithTheme(<RdsCollapse {...defaultProps} />);
       const toggleButton = screen.getByRole('button');
       expect(toggleButton).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCollapse {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should be keyboard accessible', () => {
