@@ -230,4 +230,8 @@ export const MultiMonthPicker: Story = {
             minDate={dayjs('1900-01-01')}
         />
     ),
-};
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.querySelector('input');
+        expect(el).toBeInTheDocument();
+    },
+} satisfies Story;
