@@ -6,6 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { MultiSectionDigitalClock } from '@mui/x-date-pickers/MultiSectionDigitalClock';
@@ -695,7 +696,7 @@ export default function RdsCompDatePicker({
                 )}
               </>
             )}
-            <Box className="rds-date-picker__range-actions">
+            <Box display="flex" justifyContent="flex-end" gap={1} mt={2} width="100%">
               <RdsButton style="transparent" size="small" text="Clear" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }} />
               <RdsButton style="filled" size="small" text="Apply" onClick={() => setAnchorEl(null)} />
             </Box>
