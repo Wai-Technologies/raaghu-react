@@ -113,14 +113,14 @@ const RdsButton = ({
   const getStateClassName = () => {
     switch (state) {
       case 'hover':
-        return 'rds-button--state-hover';
+        return 'rds-button__state-hover';
       case 'selected':
-        return 'rds-button--state-selected';
+        return 'rds-button__state-selected';
       case 'disabled':
-        return 'rds-button--state-disabled';
+        return 'rds-button__state-disabled';
       case 'default':
       default:
-        return 'rds-button--state-default';
+        return 'rds-button__state-default';
     }
   };
 
@@ -182,6 +182,15 @@ const RdsButton = ({
     return undefined;
   };
 
+  const getFilledBackgroundColor = (): string | undefined => {
+    if (style !== 'filled' || !color || color === 'inherit') return undefined;
+    const paletteColor = theme.palette[color as keyof typeof theme.palette];
+    if (paletteColor && typeof paletteColor === 'object' && 'main' in paletteColor) {
+      return (paletteColor as { main: string }).main;
+    }
+    return undefined;
+  };
+
   const isButtonDisabled = disabled || state === 'disabled' || isLoading;
 
   const styleVariantClass = style === 'filled'
@@ -197,7 +206,7 @@ const RdsButton = ({
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
       color={color as any}
-      className={`rds-button ${styleVariantClass} ${getStateClassName()} ${getShapeClassName()}`.replace(/\s+/g, ' ').trim()}
+      className={`rds-button ${styleVariantClass} ${getStateClassName()} ${getShapeClassName()} ${isLoading ? 'rds-button__loading' : ''}`.replace(/\s+/g, ' ').trim()}
       sx={{
         ...getShapeStyles(),
         ...getTextCaseStyles(),
@@ -206,7 +215,9 @@ const RdsButton = ({
       style={{
         ...getShapeStyles() as React.CSSProperties,
         ...getTextCaseStyles() as React.CSSProperties,
+        ...(isLoading && style === 'filled' && getFilledBackgroundColor() ? { backgroundColor: getFilledBackgroundColor() } : {}),
         ...(getFilledTextColor() ? { color: getFilledTextColor() } : {}),
+        ...(isLoading ? { opacity: 1 } : {}),
         ...(sx as any),
       }}
       startIcon={getStartIcon()}

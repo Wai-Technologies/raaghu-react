@@ -95,25 +95,25 @@
   }
 
   $rds-badge-colors: (
-    primary: (var(--rds-primary-800) var(--rds-primary-100)),
-    secondary: (var(--rds-primary-main) var(--rds-primary-light)),
-    tertiary: (var(--rds-semantic-warning-dark) var(--rds-warning-light)),
-    danger: (var(--rds-semantic-error-main) var(--rds-error-light)),
-    warning: (var(--rds-semantic-warning-main) var(--rds-warning-light)),
-    light: (var(--rds-text-secondary) var(--rds-border-light)),
-    success: (var(--rds-semantic-success-main) var(--rds-success-light))
+    primary: (var(--rds-primary-main) var(--rds-neutral-0)),
+    secondary: (var(--rds-primary-800) var(--rds-neutral-0)),
+    tertiary: (var(--rds-semantic-warning-dark) var(--rds-neutral-0)),
+    danger: (var(--rds-semantic-error-main) var(--rds-neutral-0)),
+    warning: (var(--rds-semantic-warning-main) var(--rds-neutral-0)),
+    light: (var(--rds-border-light) var(--rds-text-primary)),
+    success: (var(--rds-semantic-success-main) var(--rds-neutral-0))
   );
 
   @each $key, $value in $rds-badge-colors {
     &.rds-badge--primary.rds-badge--#{$key} > .rds-badge__badge {
-      color: list.nth($value, 1);
-      background-color: list.nth($value, 2);
+      background-color: list.nth($value, 1);
+      color: list.nth($value, 2);
       border: none;
     }
     
     &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
       background-color: list.nth($value, 1) !important;
-      color: var(--rds-neutral-0) !important;
+      color: list.nth($value, 2) !important;
     }
 
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
@@ -337,4 +337,14 @@
       border-radius: var(--rds-border-radius-full);
     }
   }
+}
+
+.rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
+  background-color: var(--rds-color-primary, var(--rds-primary-main, #2f6fed)) !important;
+  color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+}
+
+.rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
+  background-color: var(--rds-color-secondary, var(--rds-primary-800, #a010c8)) !important;
+  color: var(--rds-color-on-secondary, var(--rds-neutral-0, #fff)) !important;
 }

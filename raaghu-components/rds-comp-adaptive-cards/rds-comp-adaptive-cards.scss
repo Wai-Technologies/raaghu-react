@@ -622,6 +622,7 @@
   width: 100%;
   border-radius: var(--rds-border-radius-md, 8px);
   background: var(--rds-background-light);
+  color: var(--rds-text-primary);
   height: var(--rds-component-button-height-medium, 36px);
   padding: var(--rds-adaptive-cards-input-padding-vertical, 1px) var(--rds-spacing-sm, 12px);
   border: 1.5px solid var(--rds-border-light);
@@ -866,6 +867,20 @@
   .MuiOutlinedInput-input::placeholder {
     color: var(--rds-neutral-0) !important;
     -webkit-text-fill-color: var(--rds-neutral-0) !important;
+  }
+
+  /* Keep InputForm fields on a dark surface in dark mode */
+  .rds-adaptive-cards__action-btn--input-form {
+    background: var(--rds-color-surface-dark, var(--rds-neutral-900, #2b2f3a)) !important;
+    border-color: var(--rds-border-default, rgba(255, 255, 255, 0.2)) !important;
+    color: var(--rds-neutral-0, #fff) !important;
+  }
+
+  .rds-adaptive-cards__action-btn--input-form::placeholder,
+  .rds-adaptive-cards__action-btn--input-form input::placeholder,
+  .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
+    color: var(--rds-text-secondary, rgba(255, 255, 255, 0.7)) !important;
+    -webkit-text-fill-color: var(--rds-text-secondary, rgba(255, 255, 255, 0.7)) !important;
   }
 
   /* For MUI filled/outlined inputs ensure label and helper text contrast if needed */

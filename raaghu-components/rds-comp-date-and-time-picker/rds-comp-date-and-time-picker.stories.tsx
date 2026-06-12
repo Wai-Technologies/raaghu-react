@@ -230,26 +230,6 @@ export const MultiMonthPicker: Story = {
             minDate={dayjs('1900-01-01')}
         />
     ),
-};
-
-type Story = StoryObj<typeof RdsCompDatePicker>;
-
-export const Default: Story = {
-    args: {
-        variant: 'date',
-        layout: 'Default',
-        label: 'Select Date',
-        placeholder: 'Choose a date...',
-        size: 'small',
-        style: 'default',
-        isRequired: true,
-    },
-    render: (args) => (
-        <RdsCompDatePicker
-            {...args}
-            minDate={dayjs('1900-01-01')}
-        />
-    ),
     play: async ({ canvasElement }) => {
         const el = canvasElement.querySelector('input');
         expect(el).toBeInTheDocument();

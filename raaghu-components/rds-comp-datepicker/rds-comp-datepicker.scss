@@ -645,6 +645,34 @@ font-weight: bold;
   margin-top: var(--rds-spacing-hairline) !important;
 }
 
+.rds-datepicker__dropdown-menu--show {
+  position: relative;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.rds-datepicker__dropdown-menu--show .rds-datepicker__popper,
+.rds-datepicker__dropdown-menu--show .react-datepicker-popper {
+  left: calc(100% + 8px) !important;
+  top: 0 !important;
+  transform: none !important;
+  z-index: calc(var(--rds-z-index-modal, 1400) + 1) !important;
+}
+
+.rds-datepicker__dropdown-menu--show .react-datepicker {
+  background-color: var(--rds-neutral-0) !important;
+  opacity: 1 !important;
+}
+
+@include bp.down(576) {
+  .rds-datepicker__dropdown-menu--show .rds-datepicker__popper,
+  .rds-datepicker__dropdown-menu--show .react-datepicker-popper {
+    left: 0 !important;
+    top: calc(100% + 8px) !important;
+    right: auto !important;
+  }
+}
+
 @include bp.between(576, 991) {
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker--multi-month,
   .rds-datepicker__dropdown-menu--show .react-datepicker--multi-month {
