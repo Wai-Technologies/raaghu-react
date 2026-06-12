@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './rds-comp-date-and-time-picker.scss';
 import dayjs, { Dayjs } from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -50,8 +51,371 @@ export interface RdsCompDatePickerProps {
   changeIcon?: 'dashboard-settings' | 'date-picker';
   style?: 'default' | 'custom';
   type?: 'dropdown' | 'selector';
-  showSeconds?: boolean;
-  isRequired?: boolean;
+  showSeconds?: boolean; // New prop to control seconds display
+  isRequired?: boolean; // New prop to show required indicator
+}
+
+interface DateRangePreset {
+  key: string;
+  label: string;
+  getValue: () => [Dayjs | null, Dayjs | null];
+}
+
+const dateRangePresets: DateRangePreset[] = [
+  {
+    key: 'today',
+    label: 'Today',
+    getValue: () => [dayjs().startOf('day'), dayjs().endOf('day')],
+  },
+  {
+    key: 'yesterday',
+    label: 'Yesterday',
+    getValue: () => [dayjs().subtract(1, 'day').startOf('day'), dayjs().subtract(1, 'day').endOf('day')],
+  },
+  {
+    key: 'last7days',
+    label: 'Last 7 days',
+    getValue: () => [dayjs().subtract(6, 'day').startOf('day'), dayjs().endOf('day')],
+  },
+  {
+    key: 'last14days',
+    label: 'Last 14 days',
+    getValue: () => [dayjs().subtract(13, 'day').startOf('day'), dayjs().endOf('day')],
+  },
+  {
+    key: 'custom',
+    label: 'Custom',
+    getValue: () => [null, null],
+  },
+];
+
+// Custom Layout Component for Date Range Picker with Presets
+const CustomDateRangeLayout = React.forwardRef<
+  HTMLDivElement,
+  { 
+    children: React.ReactNode;
+    selectedPreset: string;
+    onPresetSelect: (preset: DateRangePreset) => void;
+    rangeValue: [Dayjs | null, Dayjs | null];
+  }
+>(({ children, selectedPreset, onPresetSelect, rangeValue }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className="rds-date-picker__custom-layout"
+    >
+      {/* Preset Options Panel */}
+      <div className="rds-date-picker__preset-panel">
+        <ul className="rds-date-picker__preset-list">
+          {dateRangePresets.map((preset) => (
+            <li key={preset.key} className="rds-date-picker__preset-item">
+              <button
+                type="button"
+                className={`rds-date-picker__preset-button ${
+                  selectedPreset === preset.key ? 'rds-date-picker__preset-button--selected' : ''
+                }`}
+                onClick={() => onPresetSelect(preset)}
+              >
+                {preset.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      {/* Calendar/Content Panel */}
+      <div className="rds-date-picker__calendar-panel">
+        {children}
+      </div>
+    </div>
+  );
+});
+
+// Utility helpers
+const formatRangeText = (
+  variant: 'daterange' | 'timerange' | 'datetimerange',
+  value: [Dayjs | null, Dayjs | null],
+  showSeconds: boolean
+) => {
+  const [start, end] = value;
+  if (!start && !end) return '';
+  const timeFmt = showSeconds ? 'hh:mm:ss a' : 'hh:mm a';
+  switch (variant) {
+    case 'daterange':
+      return `${start ? start.format('MM/DD/YYYY') : ''} - ${end ? end.format('MM/DD/YYYY') : ''}`;
+    case 'timerange':
+      return `${start ? start.format(timeFmt) : ''} - ${end ? end.format(timeFmt) : ''}`;
+    case 'datetimerange':
+    default:
+      return `${start ? start.format(`MM/DD/YYYY ${timeFmt}`) : ''} - ${end ? end.format(`MM/DD/YYYY ${timeFmt}`) : ''}`;
+  }
+};
+
+const isSameDay = (a: Dayjs | null, b: Dayjs | null) => !!a && !!b && a.isSame(b, 'day');
+const isBetween = (day: Dayjs, start: Dayjs | null, end: Dayjs | null) =>
+  !!start && !!end && day.isAfter(start, 'day') && day.isBefore(end, 'day');
+
+function RangeCalendar({
+  value,
+  onChange,
+  minDate,
+  maxDate,
+  multiMonth,
+}: {
+  value: [Dayjs | null, Dayjs | null];
+  onChange: (v: [Dayjs | null, Dayjs | null]) => void;
+  minDate?: Dayjs;
+  maxDate?: Dayjs;
+  multiMonth?: boolean;
+}) {
+  const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>(value);
+  
+  // Add state for current month being viewed
+  const [currentMonth, setCurrentMonth] = React.useState(
+    draft[0] || dayjs()
+  );
+  
+  React.useEffect(() => setDraft(value), [value[0]?.valueOf(), value[1]?.valueOf()]);
+
+  const handleSelect = (day: Dayjs) => {
+    const [start, end] = draft;
+    if (!start || (start && end)) {
+      setDraft([day.startOf('day'), null]);
+      onChange([day.startOf('day'), null]);
+    } else if (day.isBefore(start, 'day')) {
+      setDraft([day.startOf('day'), start.endOf('day')]);
+      onChange([day.startOf('day'), start.endOf('day')]);
+    } else {
+      setDraft([start, day.endOf('day')]);
+      onChange([start, day.endOf('day')]);
+    }
+  };
+
+  // Handle month navigation
+  const handleMonthChange = (newMonth: Dayjs) => {
+    setCurrentMonth(newMonth);
+  };
+
+  const renderDaySlot = (dayProps: any) => {
+    const day = dayProps.day as Dayjs;
+    const [start, end] = draft;
+    const inRange = isBetween(day, start, end);
+    const isStart = isSameDay(day, start);
+    const isEnd = isSameDay(day, end);
+    return (
+      <PickersDay
+        {...dayProps}
+        onClick={() => handleSelect(day)}
+        className={[
+          dayProps.className,
+          inRange ? 'rds-date-picker__day--in-range' : '',
+          (isStart || isEnd) ? 'rds-date-picker__day--range-end-point' : '',
+        ].filter(Boolean).join(' ')}
+      />
+    );
+  };
+
+  const calendars = (
+    <Box display="flex" gap={2}>
+      <DateCalendar
+        value={currentMonth}
+        onChange={(newMonth) => newMonth && handleMonthChange(newMonth)}
+        onMonthChange={(newMonth) => setCurrentMonth(newMonth)}
+        minDate={minDate}
+        maxDate={maxDate}
+        slots={{ day: renderDaySlot }}
+        views={['year', 'month', 'day']}
+        displayWeekNumber
+        slotProps={{
+          calendarHeader: {
+            format: 'MMMM YYYY',
+          },
+        }}
+      />
+      {multiMonth && (
+        <DateCalendar
+          value={currentMonth.add(1, 'month')}
+          onChange={(newMonth) => newMonth && handleMonthChange(newMonth.subtract(1, 'month'))}
+          onMonthChange={(newMonth) => setCurrentMonth(newMonth.subtract(1, 'month'))}
+          minDate={minDate}
+          maxDate={maxDate}
+          slots={{ day: renderDaySlot }}
+          views={['year', 'month', 'day']}
+          displayWeekNumber
+          slotProps={{
+            calendarHeader: {
+              format: 'MMMM YYYY',
+            },
+          }}
+        />
+      )}
+    </Box>
+  );
+
+  return calendars;
+}
+
+function RangeTime({
+  value,
+  onChange,
+  showSeconds,
+  minTime,
+  maxTime,
+  size = 'medium',
+}: {
+  value: [Dayjs | null, Dayjs | null];
+  onChange: (v: [Dayjs | null, Dayjs | null]) => void;
+  showSeconds: boolean;
+  minTime?: Dayjs;
+  maxTime?: Dayjs;
+  size?: 'small' | 'medium';
+}) {
+  const [start, end] = value;
+  
+  // Handle start time change with validation
+  const handleStartTimeChange = (newStart: Dayjs | null) => {
+    onChange([newStart, end]);
+  };
+  
+  // Handle end time change with validation
+  const handleEndTimeChange = (newEnd: Dayjs | null) => {
+    onChange([start, newEnd]);
+  };
+  
+  // Calculate dynamic minTime for end time picker based on start time
+  // Allow selecting the same time or any time after start time
+  const endMinTime = React.useMemo(() => {
+    if (start) {
+      return start; // Allow same time or later
+    }
+    return minTime;
+  }, [start, minTime]);
+  
+  // Calculate dynamic maxTime for start time picker based on end time
+  // Allow selecting the same time or any time before end time
+  const startMaxTime = React.useMemo(() => {
+    if (end) {
+      return end; // Allow same time or earlier
+    }
+    return maxTime;
+  }, [end, maxTime]);
+  
+  return (
+    <Stack direction="row" spacing={2}>
+      <Box flex={1}>
+        <TimePicker
+          label="Start Time"
+          value={start}
+          onChange={handleStartTimeChange}
+          ampm={true}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+          minTime={minTime}
+          maxTime={startMaxTime} // Use end time as maximum for start time (allows same time)
+          slotProps={{
+            textField: {
+              size: size,
+              fullWidth: true,
+            },
+            popper: {
+              placement: 'bottom-start',
+              modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
+            },
+            desktopPaper: {
+              className: 'rds-date-picker__picker-paper',
+            },
+          }}
+        />
+      </Box>
+      <Box flex={1}>
+        <TimePicker
+          label="End Time"
+          value={end}
+          onChange={handleEndTimeChange}
+          ampm={true}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+          minTime={endMinTime} // Use start time as minimum for end time (allows same time)
+          maxTime={maxTime}
+          slotProps={{
+            textField: {
+              size: size,
+              fullWidth: true,
+            },
+            popper: {
+              placement: 'bottom-start',
+              modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
+            },
+            desktopPaper: {
+              className: 'rds-date-picker__picker-paper',
+            },
+          }}
+        />
+      </Box>
+    </Stack>
+  );
+}
+
+function RangeDateTime({
+  value,
+  onChange,
+  showSeconds,
+  minDate,
+  maxDate,
+  minTime,
+  maxTime,
+  multiMonth,
+}: {
+  value: [Dayjs | null, Dayjs | null];
+  onChange: (v: [Dayjs | null, Dayjs | null]) => void;
+  showSeconds: boolean;
+  minDate?: Dayjs;
+  maxDate?: Dayjs;
+  minTime?: Dayjs;
+  maxTime?: Dayjs;
+  multiMonth?: boolean;
+}) {
+  const [start, end] = value;
+
+  const handleStartTimeChange = (newStart: Dayjs | null) => {
+    onChange([newStart, end]);
+  };
+
+  const handleEndTimeChange = (newEnd: Dayjs | null) => {
+    onChange([start, newEnd]);
+  };
+
+  return (
+    <Box className="rds-date-picker__range-datetime">
+      <RangeCalendar value={value} onChange={onChange} minDate={minDate} maxDate={maxDate} multiMonth={multiMonth} />
+      <Box className="rds-date-picker__range-datetime-divider" />
+      <Box>
+        <Box className="rds-date-picker__range-datetime-time-label">Start Time</Box>
+        <MultiSectionDigitalClock
+          value={start}
+          onChange={handleStartTimeChange}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+          ampm
+          minTime={minTime}
+          maxTime={end ?? maxTime}
+        />
+      </Box>
+      <Box className="rds-date-picker__range-datetime-spacer" />
+      <Box>
+        <Box className="rds-date-picker__range-datetime-time-label">End Time</Box>
+        <MultiSectionDigitalClock
+          value={end}
+          onChange={handleEndTimeChange}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+          ampm
+          minTime={start ?? minTime}
+          maxTime={maxTime}
+        />
+      </Box>
+    </Box>
+  );
 }
 
 export default function RdsCompDatePicker({
@@ -90,6 +454,7 @@ export default function RdsCompDatePicker({
 
   const [selectedPreset, setSelectedPreset] = React.useState<string>('custom');
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const inputContainerRef = React.useRef<HTMLDivElement>(null);
 
   // Handle preset selection
   const handlePresetSelect = (preset: DateRangePreset) => {
@@ -135,7 +500,7 @@ export default function RdsCompDatePicker({
         error,
         label: formattedLabel,
         placeholder: placeholder,
-        fullWidth: true,
+        fullWidth: false,
         size,
         required: isRequired,
         className: `rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`,
@@ -161,6 +526,23 @@ export default function RdsCompDatePicker({
         className: 'rds-date-picker__day',
       },
       ...slotProps,
+      popper: {
+        placement: 'bottom-start',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 4],
+            },
+          },
+          ...(slotProps?.popper?.modifiers ?? []),
+        ],
+        ...slotProps?.popper,
+      },
+      desktopPaper: {
+        className: 'rds-date-picker__picker-paper',
+        ...slotProps?.desktopPaper,
+      },
     },
   };
 
@@ -177,38 +559,40 @@ export default function RdsCompDatePicker({
 
   // Custom combined field for range variants
   const renderRangeField = () => {
-    const inputValue = formatRangeText(variant as any, rangeValue, showSeconds);
+    const effectiveRangeVariant = (variant === 'date' && layout === 'Multi Month') ? 'daterange' : variant as any;
+    const inputValue = formatRangeText(effectiveRangeVariant, rangeValue, showSeconds);
     const isMultiMonth = layout === 'Multi Month';
 
     return (
       <>
-        <TextField
-          onClick={(e) => { if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
-          value={inputValue}
-          placeholder={placeholder}
-          label={formattedLabel}
-          size={size}
-          fullWidth
-          disabled={disabled}
-          InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' },
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
+        <div ref={inputContainerRef} className="rds-date-picker__range-input-container">
+          <TextField
+            onClick={() => { if (!disabled) setAnchorEl(inputContainerRef.current); }}
+            value={inputValue}
+            placeholder={placeholder}
+            label={formattedLabel}
+            size={size}
+            disabled={disabled}
+            InputProps={{ readOnly: true,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
                   aria-label="Draw"
-                  edge="end"
-                  size={size === 'small' ? 'small' : 'medium'}
-                  onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
-                  disabled={disabled || readOnly}
-                  aria-label="open calendar"
-                >
-                  <EventIcon fontSize="small" />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          error={error}
-          className={`rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`}
-        />
+                    edge="end"
+                    size={size === 'small' ? 'small' : 'medium'}
+                    onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(inputContainerRef.current); }}
+                    disabled={disabled || readOnly}
+                    aria-label="open calendar"
+                  >
+                    <EventIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            error={error}
+            className={`rds-date-picker__input${disabled ? ' rds-date-picker__input--disabled' : ''}${readOnly ? ' rds-date-picker__input--readonly' : ''}${isRequired ? ' rds-date-picker__input--required' : ''}${Boolean(anchorEl) ? ' rds-date-picker__input--open' : ''}`}
+          />
+        </div>
         <Popover
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
@@ -216,8 +600,10 @@ export default function RdsCompDatePicker({
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           className="MuiPickersPopper-root"
+          marginThreshold={8}
+          slotProps={{ paper: { className: 'rds-date-picker__popover-paper-gap' } }}
         >
-          <Paper elevation={3} sx={{ p: 2 }}>
+          <Paper elevation={3} className="rds-date-picker__range-paper">
             {style === 'custom' && variant === 'daterange' ? (
               <CustomDateRangeLayout
                 selectedPreset={selectedPreset}
@@ -234,7 +620,7 @@ export default function RdsCompDatePicker({
               </CustomDateRangeLayout>
             ) : (
               <>
-                {variant === 'daterange' && (
+                {(variant === 'daterange' || (variant === 'date' && layout === 'Multi Month')) && (
                   <RangeCalendar
                     value={rangeValue}
                     onChange={handleRangeChange}
@@ -263,7 +649,6 @@ export default function RdsCompDatePicker({
                     minTime={minTime}
                     maxTime={maxTime}
                     multiMonth={isMultiMonth}
-                    size={size}
                   />
                 )}
               </>
@@ -285,7 +670,7 @@ export default function RdsCompDatePicker({
         return (
           <TimePicker
             {...singlePickerProps}
-            format={format || (showSeconds ? 'HH:mm:ss a' : 'HH:mm a')}
+            format={format || (showSeconds ? 'hh:mm:ss a' : 'hh:mm a')}
             views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
             ampm={true}
             timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
@@ -296,7 +681,7 @@ export default function RdsCompDatePicker({
         return (
           <DateTimePicker
             {...singlePickerProps}
-            format={format || (showSeconds ? 'MM/DD/YYYY HH:mm:ss a' : 'MM/DD/YYYY HH:mm a')}
+            format={format || (showSeconds ? 'MM/DD/YYYY hh:mm:ss' : 'MM/DD/YYYY hh:mm')}
             ampm={true}
             views={showSeconds ? ['year', 'month', 'day', 'hours', 'minutes', 'seconds'] : ['year', 'month', 'day', 'hours', 'minutes']}
             timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
@@ -343,18 +728,36 @@ export default function RdsCompDatePicker({
       case 'Year Picker':
         return (
           <DatePicker
+            key="year-picker"
             {...singlePickerProps}
             format={format || 'YYYY'}
             views={['year']}
+            openTo="year"
+            slots={{ actionBar: () => null }}
+            slotProps={{
+              ...singlePickerProps.slotProps,
+              desktopPaper: {
+                className: 'rds-date-picker__picker-paper rds-date-picker__year-picker-paper',
+              },
+            }}
           />
         );
       
       case 'Month Picker':
         return (
           <DatePicker
+            key="month-picker"
             {...singlePickerProps}
-            format={format || 'MMMM'}
-            views={['month']}
+            format={format || 'MMMM YYYY'}
+            views={['year', 'month']}
+            openTo="month"
+            slots={{ actionBar: () => null }}
+            slotProps={{
+              ...singlePickerProps.slotProps,
+              desktopPaper: {
+                className: 'rds-date-picker__picker-paper rds-date-picker__month-picker-paper',
+              },
+            }}
           />
         );
       
@@ -366,6 +769,7 @@ export default function RdsCompDatePicker({
       default:
         return (
           <DatePicker
+            key="default-picker"
             {...singlePickerProps}
             views={['year', 'month', 'day']}
             openTo="day"
