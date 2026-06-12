@@ -137,6 +137,42 @@
   width: 100%;
 }
 
+html[data-theme="dark"] {
+  .rds-appshell-add-layout-center,
+  .rds-appshell-add-layout-flex-center,
+  .side-nav .sidenav-mobile-content {
+    background: var(--rds-surface-dark-deep, #1b1d1f);
+  }
+}
+
+@media (min-width: 769px) {
+  html[data-theme="dark"] {
+    .double-nav .MuiBottomNavigation-root,
+    .double-nav .rds-footer-navigation,
+    .triPane .MuiBottomNavigation-root,
+    .triPane .rds-footer-navigation,
+    .double-nav .topnav-layout .MuiBottomNavigation-root,
+    .double-nav .topnav-layout .rds-footer-navigation,
+    .triPane .topnav-layout .MuiBottomNavigation-root,
+    .triPane .topnav-layout .rds-footer-navigation {
+      background: var(--rds-surface-dark, #1f2123) !important;
+      border-top: 1px solid var(--rds-border-default) !important;
+      color: var(--rds-text-primary, #e6e9ee) !important;
+    }
+
+    .double-nav .MuiBottomNavigation-root .MuiBottomNavigationAction-root,
+    .double-nav .rds-footer-navigation .MuiBottomNavigationAction-root,
+    .triPane .MuiBottomNavigation-root .MuiBottomNavigationAction-root,
+    .triPane .rds-footer-navigation .MuiBottomNavigationAction-root,
+    .double-nav .MuiBottomNavigation-root .MuiTab-root,
+    .double-nav .rds-footer-navigation .MuiTab-root,
+    .triPane .MuiBottomNavigation-root .MuiTab-root,
+    .triPane .rds-footer-navigation .MuiTab-root {
+      color: var(--rds-text-primary, #e6e9ee) !important;
+    }
+  }
+}
+
 .double-nav .rds-appshell-add-layout-flex-center,
 .triPane .rds-appshell-add-layout-flex-center {
   position: absolute;
