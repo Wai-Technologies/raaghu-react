@@ -509,9 +509,9 @@ export const renderDatePickerTypeView = (
                         startDate={startDate}
                         endDate={endDate}
                         selectsRange
-                        popperPlacement="left-start"
+                                popperPlacement="right-start"
                         popperModifiers={[
-                           { name: 'flip', options: { fallbackPlacements: ['right-start','right'] } },
+                                    { name: 'flip', options: { fallbackPlacements: ['left-start','bottom-start'] } },
                            { name: 'preventOverflow', options: { boundary: 'viewport' } },
                            { name: 'offset', options: { offset: [0, 8] } }
                         ]}
