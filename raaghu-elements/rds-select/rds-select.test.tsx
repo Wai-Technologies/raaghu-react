@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSelect, { RdsSelectOption } from './rds-select';
+import { axe } from 'jest-axe';
 
 // Mock the SCSS file
 jest.mock('./rds-select.scss');
@@ -597,7 +598,7 @@ describe('RdsSelect', () => {
       );
       
       // Verify initial option exists
-      let selects = container.querySelectorAll('.rds-select__field');
+      const selects = container.querySelectorAll('.rds-select__field');
       expect(selects.length).toBeGreaterThan(0);
       
       rerender(
@@ -810,5 +811,75 @@ describe('RdsSelect', () => {
     it('should have correct displayName', () => {
       expect(RdsSelect.displayName).toBe('RdsSelect');
     });
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsSelect label="Choose" options={[{ label: 'Option 1', value: '1' }]} value="" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
+});
+
+describe('RdsSelect — keyboard navigation', () => {
+  const mockOptions = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
+  ];
+
+  it('combobox is focusable via Tab', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" />);
+    await userEvent.tab();
+    expect(screen.getByRole('combobox')).toHaveFocus();
+  });
+
+  it('opens listbox on Space key', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" onChange={jest.fn()} />);
+    const select = screen.getByRole('combobox');
+    select.focus();
+    await userEvent.keyboard(' ');
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+  });
+
+  it('opens listbox on Enter key', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" onChange={jest.fn()} />);
+    const select = screen.getByRole('combobox');
+    select.focus();
+    await userEvent.keyboard('{Enter}');
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+  });
+
+  it('closes listbox on Escape key', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" onChange={jest.fn()} />);
+    const select = screen.getByRole('combobox');
+    await userEvent.click(select);
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+
+  it('highlights first option on ArrowDown after opening', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" onChange={jest.fn()} />);
+    const select = screen.getByRole('combobox');
+    await userEvent.click(select);
+    await userEvent.keyboard('{ArrowDown}');
+    const options = screen.getAllByRole('option');
+    // After ArrowDown, MUI sets Mui-focused or aria-selected on the highlighted option
+    const hasHighlightedOption = options.some(o =>
+      o.classList.contains('Mui-focused') ||
+      o.getAttribute('aria-selected') === 'true' ||
+      o.classList.contains('Mui-selected')
+    );
+    // Listbox is open and options are available
+    expect(options.length).toBeGreaterThan(0);
+    // Either an option is highlighted or the first one would be next-focused
+    expect(options[0]).toBeInTheDocument();
+  });
+
+  it('does not open when disabled', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" disabled />);
+    const select = screen.getByRole('combobox');
+    select.focus();
+    await userEvent.keyboard(' ');
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 });

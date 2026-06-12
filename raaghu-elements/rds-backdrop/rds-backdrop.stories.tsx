@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import RdsBackdrop from './rds-backdrop';
@@ -7,6 +8,7 @@ const meta: Meta<typeof RdsBackdrop> = {
   title: 'Elements/Backdrop',
   component: RdsBackdrop,
   parameters: {
+        status: { type: 'stable' },
     layout: 'fullscreen',
     docs: {
       story: {
@@ -14,7 +16,7 @@ const meta: Meta<typeof RdsBackdrop> = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     open: {
       control: { type: 'boolean' },
@@ -46,6 +48,9 @@ export const Default: Story = {
       />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
 
 export const Loading: Story = {
@@ -104,7 +109,7 @@ export const Interactive: Story = {
         <Button 
           variant="contained" 
           onClick={() => setOpen(true)}
-          sx={{ color: '#ffffff' }}
+          sx={{ color: (theme) => theme.palette.common.white }}
         >
           Show Backdrop
         </Button>
@@ -132,3 +137,5 @@ export const Interactive: Story = {
     }
   }
 };
+
+

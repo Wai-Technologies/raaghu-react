@@ -2,7 +2,6 @@ import React, { useState, useMemo, useRef, useEffect, forwardRef, useImperativeH
 import {
   Box,
   TextField,
-  Button,
   Typography,
   Table,
   TableBody,
@@ -30,7 +29,6 @@ import {
   ListItemIcon,
   Divider,
   Grid,
-  useTheme,
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -49,12 +47,17 @@ import {
   Visibility as ViewIcon,
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import RdsButton from '../../raaghu-elements/rds-button/rds-button';
+import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DragUpdate, DroppableProvided, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';// Types and Enums
+import { CSS } from '@dnd-kit/utilities';
+
+export type GridRow = Record<string, unknown>;
+
+// Types and Enums
 export enum ActionPosition {
   Right = "right",
   Left = "left",
@@ -92,8 +95,8 @@ export interface RdsCompGridColumn {
   minWidth?: number;
   maxWidth?: number;
   allowHtml?: boolean;
-  renderCell?: (value: any, row: any) => React.ReactNode;
-  validateCell?: (value: any, row: any) => string | null;
+  renderCell?: (value: unknown, row: GridRow) => React.ReactNode;
+  validateCell?: (value: unknown, row: GridRow) => string | null;
 }
 
 export interface RdsCompGridAction {
@@ -137,13 +140,13 @@ export interface SortState {
   direction: 'asc' | 'desc';
 }
 export interface RdsCompGridRef {
-  getData: () => any[];
-  setData: (data: any[]) => void;
-  addRow: (row: any) => void;
-  updateRow: (rowId: string, rowData: any) => void;
+  getData: () => GridRow[];
+  setData: (data: GridRow[]) => void;
+  addRow: (row: GridRow) => void;
+  updateRow: (rowId: string, rowData: GridRow) => void;
   deleteRow: (rowId: string) => void;
-  getRow: (rowId: string) => any | null;
-  getSelectedRows: () => any[];
+  getRow: (rowId: string) => GridRow | null;
+  getSelectedRows: () => GridRow[];
   clearSelection: () => void;
   selectAll: () => void;
   
@@ -199,10 +202,10 @@ export interface RdsCompGridRef {
 
 export interface RdsCompGridProps {
   tableHeaders: RdsCompGridColumn[];
-  tableData: any[];
-  
-  controlledData?: any[]; 
-  onDataChange?: (newData: any[]) => void; 
+  tableData: GridRow[];
+
+  controlledData?: GridRow[];
+  onDataChange?: (newData: GridRow[]) => void;
   
   isSort?: boolean;
   isFilter?: boolean;
@@ -228,17 +231,17 @@ export interface RdsCompGridProps {
   recordsPerPageSelectListOption?: boolean;
   totalRecords?: number;
   
-  onActionSelection?: (rowData: any, actionId: any) => void;
-  onRowSelect?: (data: any) => void;
-  onRowClick?: (rowId: any) => void;
+  onActionSelection?: (rowData: GridRow, actionId: string) => void;
+  onRowSelect?: (data: GridRow) => void;
+  onRowClick?: (rowId: string) => void;
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   onSortChange?: (sortState: SortState) => void;
   onFilterChange?: (filterState: FilterState) => void;
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
-  onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
-  onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
-  onRowSwap?: (fromIndex: number, toIndex: number, newData: any[]) => void; 
-  onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void; 
+  onCellEdit?: (rowId: string, columnKey: string, newValue: unknown, oldValue: unknown) => void;
+  onCellEditComplete?: (rowId: string, columnKey: string, newValue: unknown, isValid: boolean) => void;
+  onRowSwap?: (fromIndex: number, toIndex: number, newData: GridRow[]) => void;
+  onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void;
   
   // Styling
   classes?: string;
@@ -316,15 +319,15 @@ const SortableHeaderCell: React.FC<{
 };
 
 const EditableCell: React.FC<{
-  value: any;
+  value: unknown;
   column: RdsCompGridColumn;
-  row: any;
+  row: GridRow;
   isEditing: boolean;
   onStartEdit: () => void;
-  onSave: (newValue: any) => void;
+  onSave: (newValue: unknown) => void;
   onCancel: () => void;
-  onValueChange: (newValue: any) => void;
-  tempValue: any;
+  onValueChange: (newValue: unknown) => void;
+  tempValue: unknown;
   validationError?: string;
 }> = ({ 
   value, 
@@ -390,9 +393,9 @@ const EditableCell: React.FC<{
     }
   };
 
-  const formatValueForDisplay = (val: any) => {
+  const formatValueForDisplay = (val: unknown) => {
     if (val === null || val === undefined) return '';
-    return val.toString();
+    return String(val);
   };
 
   if (isEditing) {
@@ -441,7 +444,7 @@ const EditableCell: React.FC<{
         alignItems: 'center',
         width: '100%',
         border: '1px solid transparent',
-        borderRadius: '4px',
+        borderRadius: 'var(--rds-border-radius-sm)',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
@@ -484,9 +487,9 @@ const EditableCell: React.FC<{
 };
 
 const ActionMenu: React.FC<{
-  row: any;
+  row: GridRow;
   actions: RdsCompGridAction[];
-  onActionSelection?: (rowData: any, actionId: any) => void;
+  onActionSelection?: (rowData: GridRow, actionId: string) => void;
 }> = ({ row, actions, onActionSelection }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -522,6 +525,7 @@ const ActionMenu: React.FC<{
     <>
       <IconButton
         size="small"
+        aria-label="Row actions"
         onClick={handleClick}
         sx={{
           '&:hover': {
@@ -616,7 +620,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
 }, ref) => {
-  const theme = useTheme();
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -646,13 +649,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   
   const [editingCell, setEditingCell] = useState<{rowId: string, columnKey: string} | null>(null);
   const [editingRow, setEditingRow] = useState<string | null>(null);
-  const [tempCellValue, setTempCellValue] = useState<any>('');
-  const [tempRowValues, setTempRowValues] = useState<{[columnKey: string]: any}>({});
+  const [tempCellValue, setTempCellValue] = useState<unknown>('');
+  const [tempRowValues, setTempRowValues] = useState<{[columnKey: string]: unknown}>({});
   const [cellValidationError, setCellValidationError] = useState<string>('');
   const [rowValidationErrors, setRowValidationErrors] = useState<{[columnKey: string]: string}>({});
   
   const [columnOrder, setColumnOrder] = useState<RdsCompGridColumn[]>(tableHeaders);
-  const [localTableData, setLocalTableData] = useState<any[]>(tableData);
+  const [localTableData, setLocalTableData] = useState<GridRow[]>(tableData);
   
   const [customDragState, setCustomDragState] = useState<{
     isDragging: boolean;
@@ -668,7 +671,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     dragPreviewVisible: false,
   });
   
-  const [internalData, setInternalData] = useState<any[]>(tableData);
+  const [internalData, setInternalData] = useState<GridRow[]>(tableData);
   
   const currentData = controlledData || internalData;
   
@@ -721,14 +724,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     };
   }, []);
 
-  const reorder = (list: any[], startIndex: number, endIndex: number) => {
+  const reorder = (list: GridRow[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
     return result;
   };
 
-  const onDragEnd = (result: any) => {
+  const onDragEnd = (result: DropResult) => {
     
     document.body.style.userSelect = '';
     document.body.style.webkitUserSelect = '';
@@ -760,17 +763,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
-  const onDragStart = (start: any) => {
-    
-    if (start.type === 'COLUMN') {
-    } else if (start.type === 'ROW') {
-    }
+  const onDragStart = (_start: DragStart) => {
     
     document.body.style.userSelect = 'none';
     document.body.style.webkitUserSelect = 'none';
   };
 
-  const onDragUpdate = (update: any) => {
+  const onDragUpdate = (_update: DragUpdate) => {
   };
 
   const handleCustomDragStart = (columnKey: string, columnIndex: number) => {
@@ -1189,7 +1188,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setIsFilterExpanded(!isFilterExpanded);
   };
 
-  const handleFilterConditionChange = (id: number, field: string, value: any) => {
+  const handleFilterConditionChange = (id: number, field: string, value: unknown) => {
     setFilterConditions(prev => 
       prev.map(condition => 
         condition.id === id ? { ...condition, [field]: value } : condition
@@ -1208,7 +1207,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       const newFilterState = { ...filterState };
       newFilterState[columnToFilter] = {
         value: filterValue,
-        operator: filterConditions[0].operator as any
+        operator: filterConditions[0].operator as FilterState[string]['operator']
       };
       
       const newColumnFilterStates = { ...columnFilterStates };
@@ -1303,7 +1302,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     onPaginationHandler?.(page, recordsPerPage);
   };
 
-  const handleRowSelect = (rowId: string, rowData: any) => {
+  const handleRowSelect = (rowId: string, rowData: GridRow) => {
     if (selectedRows.has(rowId)) {
       setSelectedRows(prev => {
         const newSet = new Set(prev);
@@ -1316,7 +1315,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     onRowSelect?.(rowData);
   };
 
-  const handleCellEditStart = (rowId: string, columnKey: string, currentValue: any) => {
+  const handleCellEditStart = (rowId: string, columnKey: string, currentValue: unknown) => {
     if (!enableInlineEdit) return;
     
     const column = tableHeaders.find(h => h.key === columnKey);
@@ -1327,7 +1326,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setCellValidationError('');
   };
 
-  const handleCellEditSave = (rowId: string, columnKey: string, newValue: any) => {
+  const handleCellEditSave = (rowId: string, columnKey: string, newValue: unknown) => {
     const column = tableHeaders.find(h => h.key === columnKey);
     if (!column) return;
 
@@ -1398,7 +1397,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     const rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
     const originalValue = rowIndex >= 0 ? currentData[rowIndex][columnKey] : null;
 
-    const updateData = (newData: any[]) => {
+    const updateData = (newData: GridRow[]) => {
       if (controlledData && onDataChange) {
         onDataChange(newData);
       } else {
@@ -1407,7 +1406,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     };
 
     const updatedData = currentData.map((row, index) => {
-      let rowIdToCheck = row.id || index.toString();
+      const rowIdToCheck = row.id || index.toString();
       
       if (rowId.startsWith('row-')) {
         const rowIndex = parseInt(rowId.replace('row-', ''));
@@ -1436,17 +1435,17 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setCellValidationError('');
   };
 
-  const handleCellValueChange = (newValue: any) => {
+  const handleCellValueChange = (newValue: unknown) => {
     setTempCellValue(newValue);
     setCellValidationError(''); 
   };
 
-  const handleRowEditStart = (rowId: string, rowData: any) => {
+  const handleRowEditStart = (rowId: string, rowData: GridRow) => {
     if (!enableInlineEdit || inlineEditMode !== 'row') return;
-    
+
     setEditingRow(rowId);
     const editableColumns = tableHeaders.filter(h => h.isEditable);
-    const initialValues: {[columnKey: string]: any} = {};
+    const initialValues: {[columnKey: string]: unknown} = {};
     editableColumns.forEach(col => {
       initialValues[col.key] = rowData[col.key];
     });
@@ -1518,7 +1517,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       return;
     }
 
-    const updateData = (newData: any[]) => {
+    const updateData = (newData: GridRow[]) => {
       if (controlledData && onDataChange) {
         onDataChange(newData);
       } else {
@@ -1526,7 +1525,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       }
     };
 
-    let updatedData = [...currentData];
+    const updatedData = [...currentData];
     
     let rowIndex = -1;
     
@@ -1588,7 +1587,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setRowValidationErrors({});
   };
 
-  const handleRowValueChange = (columnKey: string, newValue: any) => {
+  const handleRowValueChange = (columnKey: string, newValue: unknown) => {
     setTempRowValues(prev => {
       const newValues = {
         ...prev,
@@ -1614,14 +1613,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   useImperativeHandle(ref, () => ({
     getData: () => currentData,
-    setData: (data: any[]) => {
+    setData: (data: GridRow[]) => {
       if (controlledData && onDataChange) {
         onDataChange(data);
       } else {
         setInternalData(data);
       }
     },
-    addRow: (row: any) => {
+    addRow: (row: GridRow) => {
       const newData = [...currentData, row];
       if (controlledData && onDataChange) {
         onDataChange(newData);
@@ -1629,7 +1628,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         setInternalData(newData);
       }
     },
-    updateRow: (rowId: string, rowData: any) => {
+    updateRow: (rowId: string, rowData: GridRow) => {
       const updatedData = currentData.map((row, index) => {
         const currentRowId = row.id || `row-${index}`;
         if (currentRowId === rowId || `row-${index}` === rowId) {
@@ -1890,15 +1889,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ minWidth: 200 }}
               />
               <Stack direction="row" spacing={1}>
-                <Button startIcon={<AddIcon />} variant="outlined" size="small">
-                  Add New
-                </Button>
-                <Button startIcon={<PersonIcon />} variant="outlined" size="small">
-                  Person
-                </Button>
-                <Button
-                  startIcon={<FilterIcon />}
-                  variant={activeFiltersCount > 0 ? "contained" : "outlined"}
+                <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} style="outlined" size="small" text="Add New" />
+                <RdsButton showLeftIcon={true} changeLeftIcon={<PersonIcon />} style="outlined" size="small" text="Person" />
+                <RdsButton
+                  showLeftIcon={true}
+                  changeLeftIcon={<FilterIcon />}
+                  style={activeFiltersCount > 0 ? "filled" : "outlined"}
                   size="small"
                   onClick={() => setShowFilters(!showFilters)}
                 >
@@ -1906,14 +1902,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   {activeFiltersCount > 0 && (
                     <Chip label={activeFiltersCount} size="small" color="primary" sx={{ ml: 1 }} />
                   )}
-                </Button>
-                <Button startIcon={<SortIcon />} variant="outlined" size="small">
-                  Sort
-                </Button>
-                <Button startIcon={<VisibilityIcon />} variant="outlined" size="small">
-                  Hide
-                </Button>
-                <IconButton size="small">
+                </RdsButton>
+                <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} style="outlined" size="small" text="Sort" />
+                <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} style="outlined" size="small" text="Hide" />
+                <IconButton size="small" aria-label="More options">
                   <MoreIcon />
                 </IconButton>
               </Stack>
@@ -1934,10 +1926,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   return (
     <Card sx={{
-      bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
-      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+      bgcolor: 'background.paper',
+      color: 'text.primary',
       '& .MuiTableCell-root': {
-        color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit'
+        color: 'text.primary'
       },
       '& .react-beautiful-dnd-drag-handle': {
         visibility: 'visible !important',
@@ -1954,9 +1946,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         display: 'table-cell !important',
         visibility: 'visible !important',
         opacity: '0.5 !important',
-        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+        backgroundColor: 'action.hover',
         border: '2px dashed',
-        borderColor: theme.palette.primary.main,
+        borderColor: 'var(--rds-primary-main)',
       },
     }}>
       {showHeader && (
@@ -1970,7 +1962,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           }}
         >
           <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
-            bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined
+            bgcolor: 'background.paper'
           }}>
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
             <TextField
@@ -1984,15 +1976,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               sx={{ minWidth: 200 }}
             />
             <Stack direction="row" spacing={1}>
-              <Button startIcon={<AddIcon />} variant="outlined" size="small">
-                Add New
-              </Button>
-              <Button startIcon={<PersonIcon />} variant="outlined" size="small">
-                Person
-              </Button>
-              <Button
-                startIcon={<FilterIcon />}
-                variant={activeFiltersCount > 0 ? "contained" : "outlined"}
+              <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} style="outlined" size="small" text="Add New" />
+              <RdsButton showLeftIcon={true} changeLeftIcon={<PersonIcon />} style="outlined" size="small" text="Person" />
+              <RdsButton
+                showLeftIcon={true}
+                changeLeftIcon={<FilterIcon />}
+                style={activeFiltersCount > 0 ? "filled" : "outlined"}
                 size="small"
                 onClick={() => setShowFilters(!showFilters)}
               >
@@ -2000,14 +1989,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 {activeFiltersCount > 0 && (
                   <Chip label={activeFiltersCount} size="small" color="primary" sx={{ ml: 1 }} />
                 )}
-              </Button>
-              <Button startIcon={<SortIcon />} variant="outlined" size="small">
-                Sort
-              </Button>
-              <Button startIcon={<VisibilityIcon />} variant="outlined" size="small">
-                Hide
-              </Button>
-              <IconButton size="small">
+              </RdsButton>
+              <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} style="outlined" size="small" text="Sort" />
+              <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} style="outlined" size="small" text="Hide" />
+              <IconButton size="small" aria-label="More options">
                 <MoreIcon />
               </IconButton>
             </Stack>
@@ -2018,7 +2003,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
       {showFilters && (
         <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
-          bgcolor: theme.palette.mode === 'dark' ? '#333333' : 'grey.50'
+          bgcolor: 'action.hover'
         }}>
           <Grid container spacing={2} alignItems="center">
             {tableHeaders.filter(header => header.isFilter).map((header) => (
@@ -2051,19 +2036,21 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               </Grid>
             ))}
             <Grid>
-              <Button
-                startIcon={<ClearIcon />}
+              <RdsButton
+                showLeftIcon={true}
+                changeLeftIcon={<ClearIcon />}
                 onClick={clearAllFilters}
-                variant="outlined"
+                style="outlined"
                 size="small"
                 color="secondary"
+                text="Clear All"
                 sx={{
                   fontSize: '11px',
                   fontWeight: 600,
                   height: '32px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px',
-                  borderRadius: '4px',
+                  borderRadius: 'var(--rds-border-radius-sm)',
                   boxShadow: 'none',
                   '&:hover': {
                     boxShadow: 'none',
@@ -2072,9 +2059,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     boxShadow: 'none',
                   }
                 }}
-              >
-                Clear All
-              </Button>
+              />
             </Grid>
           </Grid>
         </Box>
@@ -2082,18 +2067,18 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
       {showSubHeader && (
         <Box p={1.5} borderBottom="1px solid" borderColor="divider" sx={{ 
-          bgcolor: theme => theme.palette.mode === 'dark' ? '#424242' : 'grey.100'
+          bgcolor: 'action.selected'
         }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Stack direction="row" spacing={1} alignItems="center">
               <Typography variant="subtitle2" fontWeight="medium">
                 {noDataHeaderTitle}
               </Typography>
-              <IconButton size="small">
+              <IconButton size="small" aria-label="More options">
                 <MoreIcon />
               </IconButton>
             </Stack>
-            <IconButton size="small" onClick={toggleCollapse}>
+            <IconButton size="small" onClick={toggleCollapse} aria-label={isCollapsed ? "Expand section" : "Collapse section"}>
               {isCollapsed ? <ArrowDownIcon /> : <ArrowUpIcon />}
             </IconButton>
           </Stack>
@@ -2106,7 +2091,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           onScroll={handleBodyScroll}
           elevation={0}
           sx={{
-            bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
+            bgcolor: 'background.paper',
           }}
         >
           <DragDropContext 
@@ -2116,19 +2101,19 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           >
             <Table stickyHeader ref={tableRef} sx={{ tableLayout: 'fixed' }}>
             <TableHead sx={{ 
-              bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
-              '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
+              bgcolor: 'background.paper',
+              '& th': { bgcolor: 'action.hover !important' }
             }}>
               <TableRow sx={{ 
-                bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
+                bgcolor: 'background.paper' 
               }}>
                 {enableRowSwapping && (
                   <TableCell 
                     sx={{ 
                       width: '60px',
-                      padding: '8px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      padding: 'var(--rds-spacing-sm-px)',
+                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                   </TableCell>
@@ -2139,8 +2124,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                     <Checkbox
@@ -2162,8 +2147,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                     <Typography variant="caption" color="text.secondary">
@@ -2176,14 +2161,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   const isDragging = customDragState.isDragging && customDragState.draggedColumnKey === header.key;
                   const isBeingDragged = customDragState.draggedColumnKey === header.key;
                   const isDropTarget = customDragState.currentHoverIndex === index && customDragState.isDragging && !isBeingDragged;
-                  const isDropBefore = customDragState.currentHoverIndex === index && customDragState.isDragging && 
+                  const isDropBefore = customDragState.currentHoverIndex === index && customDragState.isDragging &&
                                       customDragState.dragStartIndex !== null && customDragState.dragStartIndex > index;
-                  const isDropAfter = customDragState.currentHoverIndex === index && customDragState.isDragging && 
+                  const isDropAfter = customDragState.currentHoverIndex === index && customDragState.isDragging &&
                                      customDragState.dragStartIndex !== null && customDragState.dragStartIndex < index;
-                  
+                  const dropIndicatorsEnabled = false;
+
                   return (
                     <React.Fragment key={header.key}>
-                      {false && isDropBefore && (
+                      {dropIndicatorsEnabled && isDropBefore && (
                         <Box
                           sx={{
                             position: 'absolute',
@@ -2191,8 +2177,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             top: 0,
                             bottom: 0,
                             width: '4px',
-                            backgroundColor: theme.palette.primary.main,
-                            zIndex: 999,
+                            backgroundColor: 'var(--rds-primary-main)',
+                            zIndex: 'var(--rds-z-index-portal)',
                           }}
                         />
                       )}
@@ -2244,15 +2230,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
-                          borderRight: '1px solid #d1d1d1',
-                          bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                          borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                          bgcolor: 'action.hover !important',
                           transition: isDragging ? 'none' : 'all 0.2s ease',
                           '&:last-child': {
                             borderRight: 'none',
                           },
                           '&:hover': {
                             ...(enableColumnSwapping && !isDragging && !customDragState.isDragging && {
-                              backgroundColor: theme.palette.mode === 'dark' ? '#525252 !important' : 'rgba(0, 0, 0, 0.04)',
+                              backgroundColor: 'action.hover',
                               cursor: 'grab',
                             }),
                           },
@@ -2296,7 +2282,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           )}
                           {isSort && header.isSort && (
                             <Tooltip title="Sort">
-                              <IconButton size="small">
+                              <IconButton size="small" aria-label={`Sort by ${header.name}`}>
                                 {(() => {
                                   if (sortColumn === header.key) {
                                     if (sortDirection === 'asc') {
@@ -2336,6 +2322,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           <Box
                             role="separator"
                             aria-label={`Resize ${header.name} column`}
+                            aria-valuenow={columnWidths[header.key] || 150}
+                            aria-valuemin={50}
+                            aria-valuemax={500}
                             tabIndex={0}
                             onMouseDown={(e) => handleResizeStart(e, header.key)}
                             onKeyDown={(e) => {
@@ -2351,7 +2340,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               width: '6px',
                               cursor: 'col-resize',
                               backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
-                              zIndex: 10,
+                              zIndex: 'var(--rds-z-index-raised)',
                               transition: 'all 0.2s ease',
                               '&:hover': {
                                 backgroundColor: 'primary.main',
@@ -2367,7 +2356,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           />
                         )}
                           
-                          {false && isDropAfter && (
+                          {dropIndicatorsEnabled && isDropAfter && (
                             <Box
                               sx={{
                                 position: 'absolute',
@@ -2375,8 +2364,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 top: 0,
                                 bottom: 0,
                                 width: '4px',
-                                backgroundColor: theme.palette.primary.main,
-                                zIndex: 999,
+                                backgroundColor: 'var(--rds-primary-main)',
+                                zIndex: 'var(--rds-z-index-portal)',
                               }}
                             />
                           )}
@@ -2390,7 +2379,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     sx={{ 
                       width: '100px',
                       borderRight: 'none',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                     <Typography variant="subtitle2" fontWeight="medium">
@@ -2404,7 +2393,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     sx={{ 
                       width: '150px',
                       borderRight: 'none',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                     <Typography variant="subtitle2" fontWeight="medium">
@@ -2416,7 +2405,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             </TableHead>
             
             <Droppable droppableId="droppable-body" type="ROW">
-              {(provided: any) => (
+              {(provided: DroppableProvided) => (
                 <TableBody
                   {...provided.droppableProps}
                   ref={provided.innerRef}
@@ -2433,7 +2422,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     index={index}
                     isDragDisabled={!enableRowSwapping}
                   >
-                    {(dragProvided: any, dragSnapshot: any) => (
+                    {(dragProvided: DraggableProvided, dragSnapshot: DraggableStateSnapshot) => (
                       <TableRow
                         ref={dragProvided.innerRef}
                         {...dragProvided.draggableProps}
@@ -2444,15 +2433,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         sx={{ 
                           cursor: 'pointer',
                           ...(dragSnapshot.isDragging && {
-                            backgroundColor: isSelected ? '#e6f3ff' : undefined,
+                            backgroundColor: isSelected ? 'var(--rds-primary-light)' : undefined,
                           }),
                         }}
                       >
                         {enableRowSwapping && (
                           <TableCell sx={{ 
                             width: '60px', 
-                            padding: '8px',
-                            borderRight: '1px solid #d1d1d1',
+                            padding: 'var(--rds-spacing-sm-px)',
+                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
                             textAlign: 'center',
                             verticalAlign: 'middle'
                           }}>
@@ -2470,9 +2459,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               <DragIndicatorIcon 
                                 fontSize="small" 
                                 sx={{ 
-                                  color: theme.palette.text.secondary,
+                                  color: 'var(--rds-text-secondary)',
                                   '&:hover': {
-                                    color: theme.palette.text.primary,
+                                    color: 'var(--rds-text-primary)',
                                   }
                                 }} 
                               />
@@ -2483,7 +2472,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: '1px solid #d1d1d1' }}
+                        sx={{ borderRight: (theme) => `1px solid ${'var(--rds-border-default)'}` }}
                       >
                         <Checkbox
                           checked={isSelected}
@@ -2495,7 +2484,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     {enableRadioButtonSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: '1px solid #d1d1d1' }}
+                        sx={{ borderRight: (theme) => `1px solid ${'var(--rds-border-default)'}` }}
                       >
                         <Radio
                           checked={isSelected}
@@ -2524,7 +2513,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             width: cellWidth,
                             minWidth: header.minWidth || 50,
                             maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid #d1d1d1',
+                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -2549,8 +2538,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             width: cellWidth,
                             minWidth: header.minWidth || 50,
                             maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid #d1d1d1',
-                            color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
+                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                            color: 'text.primary',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -2566,56 +2555,51 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
                                 width: '100%',
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
+                                color: 'text.primary',
                                 '& *': {
                                   maxWidth: '100%',
                                   overflow: 'hidden',
                                   textOverflow: 'ellipsis',
                                   whiteSpace: 'nowrap',
-                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& .status-pill': {
                                   display: 'inline-block',
                                   padding: '2px 8px',
-                                  borderRadius: '12px',
+                                  borderRadius: 'var(--rds-border-radius-lg)',
                                   fontSize: '12px',
                                   fontWeight: 500,
                                   textAlign: 'center',
                                   minWidth: '60px',
                                   '&.status-qualified': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#155724' : '#d4edda',
-                                    color: theme.palette.mode === 'dark' ? '#d4edda' : '#155724',
+                                    backgroundColor: 'var(--rds-success-dark)', color: 'var(--rds-neutral-0)',
                                   },
                                   '&.status-negotiation': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#856404' : '#fff3cd',
-                                    color: theme.palette.mode === 'dark' ? '#fff3cd' : '#856404',
+                                    backgroundColor: 'var(--rds-semantic-warning-dark)', color: 'var(--rds-neutral-0)',
                                   },
                                   '&.status-unqualified': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#721c24' : '#f8d7da',
-                                    color: theme.palette.mode === 'dark' ? '#f8d7da' : '#721c24',
+                                    backgroundColor: 'var(--rds-error-main)', color: 'var(--rds-neutral-0)',
                                   },
                                   '&.status-proposal': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#495057' : '#e9ecef',
-                                    color: theme.palette.mode === 'dark' ? '#e9ecef' : '#495057',
+                                    backgroundColor: 'var(--rds-action-selected)', color: 'var(--rds-text-primary)',
                                   },
                                   '&.status-new': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#0066cc' : '#cce5ff',
-                                    color: theme.palette.mode === 'dark' ? '#cce5ff' : '#0066cc',
+                                    backgroundColor: 'var(--rds-primary-light)', color: 'var(--rds-neutral-0)',
                                   },
                                   '&.status-renewal': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#0078d4' : '#0078d4',
-                                    color: '#ffffff',
+                                    backgroundColor: 'var(--rds-primary-main)',
+                                    color: 'common.white',
                                   },
                                 },
                                 '& .progress-bar': {
                                   width: '100%',
                                   height: '8px',
-                                  backgroundColor: '#e9ecef',
-                                  borderRadius: '4px',
+                                  backgroundColor: 'action.selected',
+                                  borderRadius: 'var(--rds-border-radius-sm)',
                                   overflow: 'hidden',
                                   '& .progress-fill': {
                                     height: '100%',
-                                    backgroundColor: '#0078d4',
+                                    backgroundColor: 'primary.main',
                                     transition: 'width 0.3s ease',
                                   },
                                 },
@@ -2625,92 +2609,52 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   justifyContent: 'center',
                                   width: '20px',
                                   height: '20px',
-                                  borderRadius: '50%',
+                                  borderRadius: 'var(--rds-border-radius-pill)',
                                   '&.verified': {
-                                    backgroundColor: '#28a745',
-                                    color: 'white',
+                                    backgroundColor: 'success.main',
+                                    color: 'common.white',
                                   },
                                   '&.not-verified': {
-                                    backgroundColor: '#dc3545',
-                                    color: 'white',
+                                    backgroundColor: 'error.main',
+                                    color: 'common.white',
                                   },
                                 },
                                 '& img': {
                                   maxWidth: '24px',
                                   maxHeight: '24px',
-                                  borderRadius: '50%',
+                                  borderRadius: 'var(--rds-border-radius-pill)',
                                   verticalAlign: 'middle',
-                                  marginRight: '8px',
+                                  marginRight: 'var(--rds-spacing-sm-px)',
                                 },
                                 '& .employee-name': {
-                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  color: 'text.primary',
                                   fontWeight: 'bold',
                                 },
                                 '& .employee-title': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.8) !important' : 'inherit',
+                                  color: 'text.secondary',
                                 },
                                 '& .tag': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.9) !important' : 'inherit',
-                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                  color: 'text.primary',
+                                  borderColor: 'divider',
                                 },
                                 '& .badge, & span[class*="badge"], & .chip, & span[class*="chip"]': {
-                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& .last-active': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.7) !important' : 'inherit',
+                                  color: 'text.disabled',
                                 },
                                 '& .online, & .away': {
-                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                  borderColor: 'divider',
                                 },
                                 '& .leadership, & .management, & .strategy, & .planning, & .coordination, & .reporting': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                  borderColor: theme.palette.mode === 'dark' ? 'transparent !important' : 'inherit',
+                                  color: 'text.primary',
+                                  borderColor: 'transparent',
                                 },
                                 '& .senior, & .lead, & .pending, & .active': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
-                                '& span[style*="background:"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background-color:"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #e3f2fd"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #e8eaf6"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #fce4ec"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #e8f5e8"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #fff3e0"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #f3e5f5"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #e1f5fe"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #e0f2f1"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="background: #f1f8e9"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="border-radius: 4px"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& span[style*="border-radius: 8px"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                },
-                                '& small[style*="color: #666"]': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7) !important' : 'inherit',
-                                },
+                                // Style attribute selectors removed - using CSS classes instead
+                                // See rds-comp-grid.scss for themed cell styling classes
                               }}
                               dangerouslySetInnerHTML={{ __html: cellValue }}
                             />
@@ -2776,16 +2720,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         <Stack direction="row" spacing={0.5}>
                           {actionColumnStyle === ActionColumnStyle.ShowButtonsDirectly ? (
                             actions.map((action) => (
-                              <Button
+                              <RdsButton
                                 key={action.id}
                                 size={action.size || "small"}
-                                variant={action.variant || "outlined"}
+                                style={action.variant === 'contained' ? 'filled' : action.variant === 'text' ? 'transparent' : 'outlined'}
                                 color={action.color || "primary"}
                                 disabled={action.disabled || false}
                                 onClick={() => onActionSelection?.(row, action.id)}
-                              >
-                                {action.displayName}
-                              </Button>
+                                text={action.displayName}
+                              />
                             ))
                           ) : (
                             <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
@@ -2800,37 +2743,37 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         <Stack direction="row" spacing={0.5}>
                           {isRowEditing ? (
                             <>
-                              <Button
+                              <RdsButton
                                 size="small"
-                                variant="contained"
+                                style="filled"
                                 color="primary"
                                 onClick={() => {
                                   handleRowEditSave(rowId);
                                 }}
-                                startIcon={<EditIcon />}
-                              >
-                                Save
-                              </Button>
-                              <Button
+                                showLeftIcon={true}
+                                changeLeftIcon={<EditIcon />}
+                                text="Save"
+                              />
+                              <RdsButton
                                 size="small"
-                                variant="outlined"
+                                style="outlined"
                                 color="secondary"
                                 onClick={handleRowEditCancel}
-                                startIcon={<ClearIcon />}
-                              >
-                                Cancel
-                              </Button>
+                                showLeftIcon={true}
+                                changeLeftIcon={<ClearIcon />}
+                                text="Cancel"
+                              />
                             </>
                           ) : (
-                            <Button
+                            <RdsButton
                               size="small"
-                              variant="outlined"
+                              style="outlined"
                               color="primary"
                               onClick={() => handleRowEditStart(rowId, row)}
-                              startIcon={<EditIcon />}
-                            >
-                              Edit Row
-                            </Button>
+                              showLeftIcon={true}
+                              changeLeftIcon={<EditIcon />}
+                              text="Edit Row"
+                            />
                           )}
                         </Stack>
                       </TableCell>
@@ -2869,31 +2812,31 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             maxHeight: 250,
             overflow: 'auto',
             overflowY: 'auto',
-            zIndex: 1300,
-            backgroundColor: theme.palette.mode === 'dark' ? '#424242' : undefined,
-            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+            zIndex: 'var(--rds-z-index-modal, 1300)',
+            backgroundColor: 'background.paper',
+            color: 'text.primary',
             '& .MuiTypography-root': {
-              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+              color: 'text.primary',
             },
             '& .MuiIconButton-root': {
-              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+              color: 'text.primary',
             },
             '& .MuiDivider-root': {
-              borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : undefined,
+              borderColor: 'divider',
             },
             '&::-webkit-scrollbar': {
               width: '6px',
             },
               scrollbarWidth: 'thin !important',
             '&::-webkit-scrollbar-track': {
-              backgroundColor: theme.palette.mode === 'dark' ? '#2a2a2a' : '#f1f1f1',
+              backgroundColor: 'action.hover',
             },
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: theme.palette.mode === 'dark' ? '#555' : '#c1c1c1',
+              backgroundColor: 'var(--rds-action-disabled)',
               borderRadius: '3px',
             },
             '&::-webkit-scrollbar-thumb:hover': {
-              backgroundColor: theme.palette.mode === 'dark' ? '#777' : '#a8a8a8',
+              backgroundColor: 'var(--rds-action-disabled)',
             },
           }
         }}
@@ -2906,7 +2849,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 'Controls'
               }
             </Typography>
-            <IconButton size="small" onClick={handleFilterPopupClose} sx={{ width: '20px', height: '20px' }}>
+            <IconButton size="small" onClick={handleFilterPopupClose} aria-label="Close filter" sx={{ width: '20px', height: '20px' }}>
               <ClearIcon sx={{ fontSize: '14px' }} />
             </IconButton>
           </Stack>
@@ -2922,9 +2865,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 p: 1,
                 borderRadius: 0.5,
                 border: '1px solid',
-                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                borderColor: 'divider',
                 width: '100%',
-                '&:hover': { backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'action.hover' }
+                '&:hover': { backgroundColor: 'action.hover' }
               }}
               onClick={handleColumnPanelToggle}
             >
@@ -2934,14 +2877,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   flexGrow: 1, 
                   fontSize: '12px',
-                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                  color: 'text.primary',
                 }}
               >
                 Columns
               </Typography>
               {isColumnPanelExpanded ? 
-                <ArrowUpIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} /> : 
-                <ArrowDownIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} />
+                <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
+                <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
               }
             </Box>
             
@@ -2951,10 +2894,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   mt: 0,
                   p: 0.25,
                   border: '1px solid',
-                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                  borderColor: 'divider',
                   borderTop: 'none',
                   borderRadius: '0 0 4px 4px',
-                  backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
+                  backgroundColor: 'action.hover',
                   width: '100%',
                   maxHeight: '80px',
                   overflowY: 'auto',
@@ -2987,10 +2930,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           size="small"
                           sx={{ 
                             padding: '2px',
-                            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                            color: 'text.primary',
                             '& .MuiSvgIcon-root': {
                               fontSize: 14,
-                              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              color: 'text.primary',
                             }
                           }}
                         />
@@ -3002,7 +2945,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           sx: { 
                             fontSize: '12px',
                             fontWeight: '400',
-                            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined 
+                            color: 'text.primary' 
                           }
                         }}
                         sx={{ ml: 0 }}
@@ -3025,10 +2968,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 p: 1,
                 borderRadius: 0.5,
                 border: '1px solid',
-                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                borderColor: 'divider',
                 width: '100%',
                 mb: 0.5,
-                '&:hover': { backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'action.hover' }
+                '&:hover': { backgroundColor: 'action.hover' }
               }}
               onClick={handleFilterToggle}
             >
@@ -3038,14 +2981,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   flexGrow: 1, 
                   fontSize: '12px',
-                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+                  color: 'text.primary'
                 }}
               >
                 Filter
               </Typography>
               {isFilterExpanded ? 
-                <ArrowUpIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} /> : 
-                <ArrowDownIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} />
+                <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
+                <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
               }
             </Box>
             
@@ -3054,9 +2997,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   p: 0.5,
                   border: '1px solid',
-                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'divider',
+                  borderColor: 'divider',
                   borderRadius: '0 0 4px 4px',
-                  backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
+                  backgroundColor: 'action.hover',
                   width: '100%'
                 }}
               >
@@ -3075,7 +3018,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             sx={{ 
                               fontSize: '12px', 
                               fontWeight: '500', 
-                              color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                              color: 'text.primary',
                               mb: 0.5,
                               display: 'block'
                             }}
@@ -3088,17 +3031,17 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             sx={{ 
                               fontSize: '12px',
                               height: '32px',
-                              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
-                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                              color: 'text.primary',
+                              backgroundColor: 'background.paper',
                               '& .MuiOutlinedInput-notchedOutline': {
                                 borderWidth: 1,
-                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0'
+                                borderColor: 'divider'
                               },
                               '& .MuiSvgIcon-root': {
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                color: 'text.primary',
                               },
                               '& .MuiSelect-icon': {
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                color: 'text.primary',
                               },
                             }}
                           >
@@ -3108,12 +3051,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 value={op.value} 
                                 sx={{ 
                                   fontSize: '12px',
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                   '&.Mui-selected': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.16)' : undefined,
+                                    backgroundColor: 'action.selected',
                                   },
                                   '&:hover': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : undefined,
+                                    backgroundColor: 'action.hover',
                                   }
                                 }}
                               >
@@ -3135,18 +3078,18 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                     fullWidth: true,
                                     placeholder: 'Select date...',
                                     sx: {
-                                      backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
+                                      backgroundColor: 'background.paper',
                                       '& .MuiInputBase-input': {
                                         fontSize: '10px',
                                         height: '24px',
                                         padding: '4px 8px',
-                                        color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                        color: 'text.primary',
                                       },
                                       '& .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
+                                        borderColor: 'divider',
                                       },
                                       '& .MuiSvgIcon-root': {
-                                        color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                        color: 'text.primary',
                                       }
                                     }
                                   }
@@ -3161,7 +3104,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               sx={{ 
                                 fontSize: '12px', 
                                 fontWeight: '500', 
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                                color: 'text.primary',
                                 mb: 0.5,
                                 display: 'block'
                               }}
@@ -3176,24 +3119,24 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               size="small"
                               fullWidth
                               sx={{
-                                backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                                backgroundColor: 'background.paper',
                                 '& .MuiInputBase-input': {
                                   fontSize: '12px',
                                   height: '20px',
                                   padding: '6px 8px',
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                 },
                                 '& .MuiOutlinedInput-root': {
                                   height: '32px'
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0',
+                                  borderColor: 'divider',
                                 },
                                 '& .MuiInputLabel-root': {
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                 },
                                 '&::placeholder': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                                  color: 'text.secondary',
                                 }
                               }}
                             />
@@ -3205,7 +3148,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               sx={{ 
                                 fontSize: '12px', 
                                 fontWeight: '500', 
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                                color: 'text.primary',
                                 mb: 0.5,
                                 display: 'block'
                               }}
@@ -3220,24 +3163,24 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               size="small"
                               fullWidth
                               sx={{
-                                backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                                backgroundColor: 'background.paper',
                                 '& .MuiInputBase-input': {
                                   fontSize: '12px',
                                   height: '20px',
                                   padding: '6px 8px',
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                 },
                                 '& .MuiOutlinedInput-root': {
                                   height: '32px'
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0',
+                                  borderColor: 'divider',
                                 },
                                 '& .MuiInputLabel-root': {
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                 },
-                                '&::placeholder': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                                  '&::placeholder': {
+                                  color: 'text.secondary',
                                 }
                               }}
                             />
@@ -3284,12 +3227,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
                   {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
-                    <Button
-                      variant="contained"
+                    <RdsButton
+                      style="filled"
                       color="primary"
                       size="small"
                       onClick={handleApplyFilter}
-                      sx={{ 
+                      text="Filter"
+                      sx={{
                         flexGrow: 1,
                         fontSize: '11px',
                         fontWeight: 600,
@@ -3297,25 +3241,24 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         minWidth: '60px',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
-                        backgroundColor: theme.palette.mode === 'dark' ? '#1976d2' : '#1976d2',
-                        color: '#ffffff',
+                        backgroundColor: 'primary.main',
+                        color: 'common.white',
                         '&:hover': {
-                          backgroundColor: theme.palette.mode === 'dark' ? '#1565c0' : '#1565c0',
+                          backgroundColor: 'primary.dark',
                         },
-                        borderRadius: '4px',
+                        borderRadius: 'var(--rds-border-radius-sm)',
                         boxShadow: 'none',
                         '&:active': {
                           boxShadow: 'none',
                         }
                       }}
-                    >
-                      Filter
-                    </Button>
-                    <Button
-                      variant="outlined"
+                    />
+                    <RdsButton
+                      style="outlined"
                       size="small"
                       onClick={handleClearAdvancedFilter}
-                      sx={{ 
+                      text="Clear"
+                      sx={{
                         flexGrow: 1,
                         fontSize: '11px',
                         fontWeight: 600,
@@ -3323,27 +3266,25 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         minWidth: '60px',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
-                        borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#d0d0d0',
-                        color: theme.palette.mode === 'dark' ? '#ffffff' : '#666666',
+                        borderColor: 'divider',
+                        color: 'text.secondary',
                         '&:hover': {
-                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : '#999999',
-                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)',
+                          borderColor: 'divider',
+                          backgroundColor: 'action.hover',
                         },
-                        borderRadius: '4px',
+                        borderRadius: 'var(--rds-border-radius-sm)',
                         boxShadow: 'none',
                         '&:active': {
                           boxShadow: 'none',
                         }
                       }}
-                    >
-                      Clear
-                    </Button>
+                    />
                   </Stack>
                   
                   {/* Clear All Filters Button */}
                   {Object.keys(filterState).length > 0 && (
-                    <Button
-                      variant="text"
+                    <RdsButton
+                      style="transparent"
                       size="small"
                       onClick={() => {
                         setFilterState({});
@@ -3352,7 +3293,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
                         handleFilterPopupClose();
                       }}
-                      sx={{ 
+                      text="Clear All Filters"
+                      sx={{
                         width: '100%',
                         fontSize: '10px',
                         fontWeight: 500,
@@ -3360,20 +3302,18 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         mt: 1,
                         textTransform: 'uppercase',
                         letterSpacing: '0.3px',
-                        color: theme.palette.mode === 'dark' ? '#ff6b6b' : '#d32f2f',
+                        color: 'error.light',
                         '&:hover': {
-                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 107, 107, 0.08)' : 'rgba(211, 47, 47, 0.04)',
-                          color: theme.palette.mode === 'dark' ? '#ff5252' : '#b71c1c',
+                          backgroundColor: 'error.light',
+                          color: 'error.main',
                         },
-                        borderRadius: '4px',
+                        borderRadius: 'var(--rds-border-radius-sm)',
                         textDecoration: 'none',
                         '&:active': {
-                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 107, 107, 0.12)' : 'rgba(211, 47, 47, 0.08)',
+                          backgroundColor: 'error.main',
                         }
                       }}
-                    >
-                      Clear All Filters
-                    </Button>
+                    />
                   )}
                 </Stack>
               </Box>

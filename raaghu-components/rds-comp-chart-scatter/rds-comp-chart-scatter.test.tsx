@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompScatterChart from './rds-comp-chart-scatter';
 
 // Mock Chart.js
@@ -878,6 +879,12 @@ describe('RdsCompScatterChart', () => {
       const { container } = render(<RdsCompScatterChart {...defaultProps} />);
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompScatterChart {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('canvas has id attribute', () => {

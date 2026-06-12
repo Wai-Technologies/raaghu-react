@@ -3,6 +3,7 @@ import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material';
 import RdsSlider from './rds-slider';
+import { axe } from 'jest-axe';
 
 // Test helpers
 const renderWithTheme = (component: React.ReactElement) => {
@@ -516,6 +517,12 @@ describe('RdsSlider', () => {
         </div>
       );
       expect(screen.getByLabelText('slider control')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsSlider aria-label="Volume" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have keyboard navigation support', () => {
@@ -676,5 +683,53 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider value={50} min={0} max={100} />);
       expect(RdsSlider.displayName).toBe('RdsSlider');
     });
+  });
+});
+
+describe('RdsSlider — keyboard navigation', () => {
+  it('slider is focusable via Tab', async () => {
+    renderWithTheme(<RdsSlider />);
+    await userEvent.tab();
+    expect(screen.getByRole('slider')).toHaveFocus();
+  });
+
+  it('increments value on ArrowRight key', async () => {
+    renderWithTheme(<RdsSlider defaultValue={50} min={0} max={100} />);
+    const slider = screen.getByRole('slider');
+    slider.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(Number(slider.getAttribute('aria-valuenow'))).toBeGreaterThan(50);
+  });
+
+  it('decrements value on ArrowLeft key', async () => {
+    renderWithTheme(<RdsSlider defaultValue={50} min={0} max={100} />);
+    const slider = screen.getByRole('slider');
+    slider.focus();
+    await userEvent.keyboard('{ArrowLeft}');
+    expect(Number(slider.getAttribute('aria-valuenow'))).toBeLessThan(50);
+  });
+
+  it('goes to max on End key', async () => {
+    renderWithTheme(<RdsSlider defaultValue={50} min={0} max={100} />);
+    const slider = screen.getByRole('slider');
+    slider.focus();
+    await userEvent.keyboard('{End}');
+    expect(slider).toHaveAttribute('aria-valuenow', '100');
+  });
+
+  it('goes to min on Home key', async () => {
+    renderWithTheme(<RdsSlider defaultValue={50} min={0} max={100} />);
+    const slider = screen.getByRole('slider');
+    slider.focus();
+    await userEvent.keyboard('{Home}');
+    expect(slider).toHaveAttribute('aria-valuenow', '0');
+  });
+
+  it('does not change when disabled', async () => {
+    renderWithTheme(<RdsSlider defaultValue={50} min={0} max={100} disabled />);
+    const slider = screen.getByRole('slider');
+    slider.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(slider).toHaveAttribute('aria-valuenow', '50');
   });
 });

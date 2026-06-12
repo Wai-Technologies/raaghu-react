@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsSlider from './rds-slider';
 import { Box } from '@mui/material';
 
@@ -6,9 +7,10 @@ const meta: Meta<typeof RdsSlider> = {
   title: 'Elements/Slider',
   component: RdsSlider,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     controlType: {
       control: { type: 'select' },
@@ -158,4 +160,29 @@ export const Disabled: Story = {
       </Box>
     ),
   ],
+};
+
+export const KeyboardSlide: Story = {
+  name: 'Interaction: Keyboard moves slider',
+  args: {
+    min: 0,
+    max: 100,
+    defaultValue: 30,
+    showLabel: true,
+    label: 'Slider',
+    controlType: 'one way',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const slider = canvas.getByRole('slider')
+    await expect(slider).toBeVisible()
+    // Verify slider has correct ARIA bounds
+    await expect(slider).toHaveAttribute('aria-valuemin', '0')
+    await expect(slider).toHaveAttribute('aria-valuemax', '100')
+    // Focus slider via keyboard and step right — don't click (changes position)
+    await slider.focus()
+    await userEvent.keyboard('{ArrowRight}')
+    const after = parseInt(slider.getAttribute('aria-valuenow') ?? '0', 10)
+    await expect(after).toBeGreaterThan(0)
+  }
 };

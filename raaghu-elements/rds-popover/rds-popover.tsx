@@ -64,7 +64,7 @@ const RdsPopover= ({
   children,
   showCloseButton = false,
   width,
-  maxWidth = 400,
+  maxWidth = 'var(--rds-popover-container-max-width, 400px)',
   position = 'bottom-left',
   ...props
 }:RdsPopoverProps) => {

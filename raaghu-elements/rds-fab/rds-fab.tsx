@@ -20,10 +20,10 @@ const RdsFab: React.FC<RdsFabProps> = ({
     if (!position) return {};
     
     const positions = {
-      'bottom-right': { position: 'fixed', bottom: 16, right: 16 },
-      'bottom-left': { position: 'fixed', bottom: 16, left: 16 },
-      'top-right': { position: 'fixed', top: 16, right: 16 },
-      'top-left': { position: 'fixed', top: 16, left: 16 },
+      'bottom-right': { position: 'fixed', bottom: 'var(--rds-spacing-md)', right: 'var(--rds-spacing-md)' },
+      'bottom-left': { position: 'fixed', bottom: 'var(--rds-spacing-md)', left: 'var(--rds-spacing-md)' },
+      'top-right': { position: 'fixed', top: 'var(--rds-spacing-md)', right: 'var(--rds-spacing-md)' },
+      'top-left': { position: 'fixed', top: 'var(--rds-spacing-md)', left: 'var(--rds-spacing-md)' },
     };
     
     return positions[position] || {};

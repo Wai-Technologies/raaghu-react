@@ -1,4 +1,5 @@
 import { Meta } from "@storybook/addon-docs/blocks";
+import ThemeSync from './ThemeSync';
 import bannerImage from './assets/storybook-hero-Banner.png';
 import dasboardImage from './assets/dashboard.png';
 import reactImage from './assets/react.svg';
@@ -20,6 +21,8 @@ import mapsImage from './assets/maps-learn-more.svg';
 import expandImage from './assets/expand.png';
 
 <Meta title="Introduction" />
+
+<ThemeSync />
 
 <style>
   {`
@@ -250,7 +253,104 @@ import expandImage from './assets/expand.png';
         width: 100px;
       }
 
+      /* ── Dark mode overrides ── */
+      html[data-theme="dark"] {
+        background-color: #1b1b1b;
+        color: #e0e0e0;
+      }
 
+      /* Override Storybook's default dark text on all prose elements */
+      html[data-theme="dark"] h1,
+      html[data-theme="dark"] h2,
+      html[data-theme="dark"] h3,
+      html[data-theme="dark"] h4,
+      html[data-theme="dark"] h5,
+      html[data-theme="dark"] h6 {
+        color: #f0f0f0 !important;
+      }
+
+      html[data-theme="dark"] p,
+      html[data-theme="dark"] span:not(.tip) {
+        color: #c8c8c8 !important;
+      }
+
+      html[data-theme="dark"] .containerContent,
+      html[data-theme="dark"] .containerContent p {
+        color: #c8c8c8 !important;
+      }
+
+      html[data-theme="dark"] .toolsUsedSection {
+        background-color: #1a2f42 !important;
+        color: #e0e0e0 !important;
+      }
+
+      html[data-theme="dark"] .toolsUsedSection h3,
+      html[data-theme="dark"] .toolsUsedSection strong {
+        color: #f0f0f0 !important;
+      }
+
+      html[data-theme="dark"] .seamlessUiLayout {
+        background-color: #3a2a00 !important;
+      }
+
+      html[data-theme="dark"] .chartsLayout {
+        background-color: #0a2a3a !important;
+      }
+
+      html[data-theme="dark"] .seamlessUIContent,
+      html[data-theme="dark"] .seamlessUIContent *,
+      html[data-theme="dark"] .chartUIContent,
+      html[data-theme="dark"] .chartUIContent * {
+        background-color: #242424 !important;
+        color: #c8c8c8 !important;
+      }
+
+      html[data-theme="dark"] .learnMoreSection {
+        background-color: #252525 !important;
+        color: #e0e0e0 !important;
+      }
+
+      html[data-theme="dark"] .learnMoreSection:hover {
+        background-color: #1a3a50 !important;
+      }
+
+      html[data-theme="dark"] a.learnMoreSection,
+      html[data-theme="dark"] a.learnMoreSection strong {
+        color: #e0e0e0 !important;
+      }
+
+      html[data-theme="dark"] .featureCards strong {
+        color: #f0f0f0 !important;
+      }
+
+      html[data-theme="dark"] .featureCards div,
+      html[data-theme="dark"] .featureCards p {
+        color: #c0c0c0 !important;
+      }
+
+      html[data-theme="dark"] .title {
+        color: #f0f0f0 !important;
+      }
+
+      html[data-theme="dark"] .c-card-title {
+        color: #f0f0f0 !important;
+      }
+
+      /* Icons: invert dark SVG/GIF icons to white in dark mode */
+      html[data-theme="dark"] .featureImage {
+        filter: brightness(0) invert(1);
+        opacity: 0.85;
+      }
+
+      html[data-theme="dark"] .appShellImage,
+      html[data-theme="dark"] .layoutsImage,
+      html[data-theme="dark"] .componentsImage,
+      html[data-theme="dark"] .elementsImage,
+      html[data-theme="dark"] .chartsImage,
+      html[data-theme="dark"] .mapsImage,
+      html[data-theme="dark"] .expandImage {
+        filter: brightness(0) invert(1);
+      }
 
       .row {
         --bs-gutter-x: 1.5rem;

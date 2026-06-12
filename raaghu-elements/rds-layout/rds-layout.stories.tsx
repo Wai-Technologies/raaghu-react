@@ -1,3 +1,4 @@
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsLayout from './rds-layout';
 import { Typography, Card, CardContent, Box, Button, IconButton } from '@mui/material';
@@ -7,9 +8,10 @@ const meta: Meta<typeof RdsLayout> = {
   title: 'Elements/Layout',
   component: RdsLayout,
   parameters: {
+        status: { type: 'stable' },
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     showHeader: {
       control: 'boolean',
@@ -80,6 +82,10 @@ export const Default: Story = {
       title: 'My Application',
     },
     children: <SampleContent />,
+  },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.firstElementChild;
+    expect(el).toBeTruthy();
   },
 };
 

@@ -5,20 +5,7 @@
   // Focus and disabled states are handled by Material-UI
 }
 
-[data-theme="dark"],
-.dark-theme {
-  .MuiTimeline-root {
-    .MuiTimelineOppositeContent-root {
-      color: var(--rds-text-secondary);
-    }
-    
-    .MuiTimelineContent-root {
-      div {
-        color: var(--rds-text-secondary) !important;
-      }
-    }
-  }
-}
+
 
 .MuiTimeline-root {
   .MuiTimelineContent-root {

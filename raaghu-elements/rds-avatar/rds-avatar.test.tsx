@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsAvatar, { RdsAvatarProps } from './rds-avatar';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-avatar.scss', () => ({}));
@@ -704,6 +705,14 @@ describe('RdsAvatar', () => {
         );
         expect(container.querySelector(`.rds-avatar--${style}`)).toBeInTheDocument();
       });
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsAvatar {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

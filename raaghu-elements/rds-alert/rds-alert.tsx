@@ -53,7 +53,7 @@ const RdsAlert= ({
     } else if (changeIconName !== undefined) {
       if (React.isValidElement(changeIconName)) {
         const existingClass = (changeIconName.props as any)?.className || '';
-        iconNode = React.cloneElement(changeIconName, {
+        iconNode = React.cloneElement(changeIconName as React.ReactElement<{ className?: string }>, {
           className: `${existingClass ? existingClass + ' ' : ''}rds-alert__icon`,
         });
       } else {

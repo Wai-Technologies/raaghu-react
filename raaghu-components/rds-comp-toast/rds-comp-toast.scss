@@ -1,17 +1,17 @@
 .rds-comp-toast {
-  background: var(--rds-color-surface, #ffffff);
-  border: 1px solid var(--rds-color-border, #e0e0e0);
+  background: var(--rds-color-surface);
+  border: 1px solid var(--rds-color-border);
   border-radius: var(--rds-border-radius, 8px);
   box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
-  min-width: 420px;
-  max-width: 420px;
+  min-width: min(420px, 95vw);
+  max-width: min(420px, 95vw);
   overflow: hidden;
   
   &--visible {
     display: block;
     opacity: 1;
     transform: translateY(0);
-    transition: all 0.3s ease-in-out;
+    transition: all var(--rds-transition-slow);
   }
   
   &--hidden {
@@ -21,15 +21,15 @@
   }
   
   &--info {
-    border-left: 4px solid var(--rds-color-info, #7D7D7D);
+    border-left: 4px solid var(--rds-color-info);
   }
   
   &--success {
-    border-left: 4px solid var(--rds-color-success, #3C98FF);
+    border-left: 4px solid var(--rds-color-success);
   }
   
   &--error {
-    border-left: 4px solid var(--rds-color-error, #BD0D1D);
+    border-left: 4px solid var(--rds-color-error);
   }
   
   &--text {
@@ -50,28 +50,28 @@
   
   &__container {
     position: fixed;
-    z-index: 1050;
+    z-index: var(--rds-z-index-toast);
     pointer-events: none;
     
     &--top-left {
-      top: 1rem;
-      left: 1rem;
+      top: var(--rds-spacing-md);
+      left: var(--rds-spacing-md);
     }
     
     &--top-center {
-      top: 1rem;
+      top: var(--rds-spacing-md);
       left: 50%;
       transform: translateX(-50%);
     }
     
     &--top-right {
-      top: 1rem;
-      right: 1rem;
+      top: var(--rds-spacing-md);
+      right: var(--rds-spacing-md);
     }
     
     &--middle-left {
       top: 50%;
-      left: 1rem;
+      left: var(--rds-spacing-md);
       transform: translateY(-50%);
     }
     
@@ -83,24 +83,24 @@
     
     &--middle-right {
       top: 50%;
-      right: 1rem;
+      right: var(--rds-spacing-md);
       transform: translateY(-50%);
     }
     
     &--bottom-left {
-      bottom: 1rem;
-      left: 1rem;
+      bottom: var(--rds-spacing-md);
+      left: var(--rds-spacing-md);
     }
     
     &--bottom-center {
-      bottom: 1rem;
+      bottom: var(--rds-spacing-md);
       left: 50%;
       transform: translateX(-50%);
     }
     
     &--bottom-right {
-      bottom: 1rem;
-      right: 1rem;
+      bottom: var(--rds-spacing-md);
+      right: var(--rds-spacing-md);
     }
   }
   
@@ -126,9 +126,9 @@
     align-items: center;
     height: 100%;
     margin-top: var(--rds-spacing-xxs, 2px);
-    width: 24px;
-    min-width: 24px;
-    max-width: 24px;
+    width: var(--rds-size-lg);
+    min-width: var(--rds-size-lg);
+    max-width: var(--rds-size-lg);
     justify-content: center;
   }
   
@@ -136,25 +136,25 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     vertical-align: middle;
     
     &--circle {
-      border: 2px solid var(--rds-toast-circle-color, #888);
+      border: 2px solid var(--rds-toast-circle-color);
       box-sizing: border-box;
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-circle-color: #888;
+      --rds-toast-circle-color: var(--rds-text-secondary);
     }
     .rds-comp-toast--info & {
-      --rds-toast-circle-color: var(--rds-color-info, #7D7D7D);
+      --rds-toast-circle-color: var(--rds-color-info);
     }
     .rds-comp-toast--success & {
-      --rds-toast-circle-color: var(--rds-color-success, #3C98FF);
+      --rds-toast-circle-color: var(--rds-color-success);
     }
     .rds-comp-toast--error & {
-      --rds-toast-circle-color: var(--rds-color-error, #BD0D1D);
+      --rds-toast-circle-color: var(--rds-color-error);
     }
     
     &--plus {
@@ -164,7 +164,7 @@
       &::after {
         content: '';
         position: absolute;
-        background: var(--rds-toast-plus-color, #888);
+        background: var(--rds-toast-plus-color);
         border-radius: 1px;
       }
       &::before {
@@ -182,16 +182,16 @@
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-plus-color: #888;
+      --rds-toast-plus-color: var(--rds-text-secondary);
     }
     .rds-comp-toast--info & {
-      --rds-toast-plus-color: var(--rds-color-info, #7D7D7D);
+      --rds-toast-plus-color: var(--rds-color-info);
     }
     .rds-comp-toast--success & {
-      --rds-toast-plus-color: var(--rds-color-success, #3C98FF);
+      --rds-toast-plus-color: var(--rds-color-success);
     }
     .rds-comp-toast--error & {
-      --rds-toast-plus-color: var(--rds-color-error, #BD0D1D);
+      --rds-toast-plus-color: var(--rds-color-error);
     }
   }
   
@@ -199,7 +199,7 @@
     flex: 1;
     font-size: var(--rds-font-size-base, 1rem);
     font-weight: var(--rds-font-weight-semibold, 600);
-    color: var(--rds-color-on-surface, #212121);
+    color: var(--rds-color-on-surface);
     margin: 0;
     display: flex;
     align-items: center;
@@ -207,7 +207,7 @@
   }
 
   &--chat &__title {
-    color: var(--rds-color-on-surface-dark, #353535);
+    color: var(--rds-color-on-surface-dark);
     font-weight: 500;
   }
   
@@ -220,14 +220,14 @@
   
   &__chat-time {
     font-size: var(--rds-font-size-sm, 0.875rem);
-    color: var(--rds-color-on-surface-variant, #666666);
+    color: var(--rds-color-on-surface-variant);
   }
   
   &__close-btn {
     background: none;
     border: none;
     font-size: var(--rds-font-size-lg, 1.5rem);
-    color: var(--rds-color-on-surface-variant, #666666);
+    color: var(--rds-color-on-surface-variant);
     cursor: pointer;
     padding: var(--rds-spacing-xs, 0.25rem);
     line-height: 1;
@@ -238,18 +238,18 @@
     outline: none;
     
     &:hover {
-      color: var(--rds-color-on-surface, #212121);
+      color: var(--rds-color-on-surface);
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-primary-main);
       outline-offset: 2px;
     }
   }
   
   &__body {
     padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) 2.2rem;
-    color: var(--rds-color-on-surface-variant, #666666);
+    color: var(--rds-color-on-surface-variant);
     font-size: var(--rds-font-size-sm, 0.875rem);
     line-height: 1.5;
   }
@@ -267,7 +267,7 @@
   
   &__text {
     flex: 1;
-    color: var(--rds-color-on-surface-variant, #666666);
+    color: var(--rds-color-on-surface-variant);
     font-size: var(--rds-font-size-sm, 0.875rem);
   }
   
@@ -294,7 +294,7 @@
   }
   
   &__progress-bar {
-    background: var(--rds-color-primary, #1976d2);
+    background: var(--rds-color-primary);
     height: 100%;
     border-radius: inherit;
     transition: width var(--rds-transition-duration-standard, 0.3s) ease;
@@ -302,14 +302,14 @@
   
   &__progress-label {
     font-size: var(--rds-font-size-sm, 0.875rem);
-    color: var(--rds-color-on-surface-variant, #666666);
+    color: var(--rds-color-on-surface-variant);
     min-width: 2.5rem;
     text-align: right;
   }
   
   &__filename {
     font-size: var(--rds-font-size-sm, 0.875rem);
-    color: var(--rds-color-on-surface-variant, #666666);
+    color: var(--rds-color-on-surface-variant);
     margin-bottom: var(--rds-spacing-md, 0.75rem);
     padding: 0 0 0 1.3rem;
   }
@@ -321,22 +321,22 @@
   &__input {
     width: 100%;
     padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-md, 0.75rem);
-    border: 1px solid var(--rds-color-border, #e0e0e0);
+    border: 1px solid var(--rds-color-border);
     border-radius: var(--rds-border-radius-sm, 4px);
     font-size: var(--rds-font-size-base, 0.875rem);
-    color: var(--rds-color-on-surface, #212121);
-    background: var(--rds-color-surface, #ffffff);
+    color: var(--rds-color-on-surface);
+    background: var(--rds-color-surface);
     transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
                 box-shadow var(--rds-transition-duration-short, 0.2s) ease;
     
     &:focus {
       outline: none;
-      border-color: var(--rds-color-primary, #1976d2);
+      border-color: var(--rds-color-primary);
       box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
     }
     
     &::placeholder {
-      color: var(--rds-color-on-surface-variant, #666666);
+      color: var(--rds-color-on-surface-variant);
     }
   }
 
@@ -392,21 +392,21 @@
     transition: all var(--rds-transition-duration-short, 0.2s) ease;
     
     &--primary {
-      background: var(--rds-color-primary, #1976d2);
-      color: var(--rds-color-on-primary, #ffffff);
+      background: var(--rds-color-primary);
+      color: var(--rds-color-on-primary);
       
       &:hover {
-        background: var(--rds-color-primary-hover, #1565c0);
+        background: var(--rds-color-primary-hover);
       }
       
       &:active {
-        background: var(--rds-color-primary-pressed, #0d47a1);
+        background: var(--rds-color-primary-pressed);
       }
     }
     
     &--secondary {
       background: transparent;
-      color: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary);
       border-color: transparent;
       
       &:hover {
@@ -421,7 +421,7 @@
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .rds-comp-toast {
     min-width: 0;
     max-width: 95vw;
@@ -488,42 +488,5 @@
       bottom: 1rem;
       top: auto;
     }
-  }
-}
-
-.theme-dark .rds-comp-toast {
-  background: var(--rds-color-surface-dark, #121212);
-  color: var(--rds-color-on-surface-dark, #ffffff);
-  
-  &__title {
-    color: var(--rds-color-on-surface-dark, #ffffff);
-  }
-  
-  &__body,
-  &__text,
-  &__chat-time,
-  &__progress-label,
-  &__filename {
-    color: var(--rds-color-on-surface-variant-dark, #cccccc);
-  }
-  
-  &__input {
-    background: var(--rds-color-surface-variant-dark, #1e1e1e);
-    border-color: var(--rds-color-border-dark, #333333);
-    color: var(--rds-color-on-surface-dark, #ffffff);
-    
-    &::placeholder {
-      color: var(--rds-color-on-surface-variant-dark, #cccccc);
-    }
-  }
-
-
-  &__close-btn {
-    color: var(--rds-color-on-surface-dark, #ffffff);
-  }
-
-  .css-1goqzru-MuiButtonBase-root-MuiButton-root,
-  .css-kicv99-MuiButtonBase-root-MuiButton-root {
-    color: var(--rds-color-on-surface-dark, #ffffff);
   }
 }

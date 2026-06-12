@@ -1,15 +1,17 @@
-import RdsCompDatePicker from "./rds-comp-date-and-time-picker";
-import { Meta, StoryObj } from "@storybook/react";
+import RdsCompDatePicker, { DatePickerDemo } from "./rds-comp-date-and-time-picker";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import dayjs from 'dayjs';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 
 const meta: Meta = { 
-    title: "Components/Date Time Picker",
+    title: "Internal/Date Time Picker",
     component: RdsCompDatePicker,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         controls: {exclude: ['type']},
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         variant: {
             control: { type: 'select' },

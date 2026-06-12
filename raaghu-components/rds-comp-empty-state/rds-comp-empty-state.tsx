@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import Lottie from 'lottie-react';
 import './rds-comp-empty-state.scss';
 import emptyStatePng from './empty-state.png';
@@ -75,9 +76,9 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
               sx={{
                 fontSize: '20px',
                 fontWeight: 600,
-                color: props.mode === 'Dark NRA' ? '#fff' : '#374151',
-                marginBottom: '8px',
-                marginTop: '24px',
+                color: props.mode === 'Dark NRA' ? 'var(--rds-neutral-0)' : 'var(--rds-text-primary)',
+                marginBottom: 'var(--rds-spacing-sm-px)',
+                marginTop: 'var(--rds-spacing-lg-px)',
               }}
             >
               {props.label}
@@ -89,7 +90,10 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
               variant="body1"
               className="rds-comp-empty-state__subtitle"
               data-testid="sublabelElement"
-              sx={{ textAlign: 'center', color: props.mode === 'Dark NRA' ? '#fff' : undefined }}
+              sx={{ 
+                textAlign: 'center', 
+                color: props.mode === 'Dark NRA' ? 'var(--rds-neutral-0)' : 'var(--rds-text-primary)'
+              }}
             >
               {props.subLabel}
             </Typography>
@@ -97,14 +101,13 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
 
           {(
             <Box className="rds-comp-empty-state__action">
-              <Button
-                variant="contained"
+              <RdsButton
+                style="filled"
                 className="rds-comp-empty-state__button"
                 onClick={props.onButtonClick}
                 data-testid="actionButton"
-              >
-                {props.buttonText || 'Add New Data'}
-              </Button>
+                text={props.buttonText || 'Add New Data'}
+              />
             </Box>
           )}
         </Box>

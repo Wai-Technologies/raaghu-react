@@ -1,2 +1,6 @@
-// RDS Snackbar Component Styles
-// MUI Snackbar wrapper - component uses MUI styles directly
+// RDS Snackbar — MUI Snackbar wrapper
+// Applies token-based border-radius and transition
+.rds-snackbar {
+  border-radius: var(--rds-border-radius-sm, 4px);
+  transition: color var(--rds-transition-base, 150ms ease-in-out);
+}

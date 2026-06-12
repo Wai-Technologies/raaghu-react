@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiFabMenu, { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu';
 
 // Mock SCSS
@@ -180,7 +181,7 @@ describe('RdsCompAiFabMenu', () => {
 
     it('renders list items with correct role', () => {
       render(<RdsCompAiFabMenu {...defaultProps} />);
-      const items = screen.getAllByRole('link');
+      const items = screen.getAllByRole('menuitem');
       expect(items.length).toBeGreaterThanOrEqual(defaultListItems.length);
     });
 
@@ -203,7 +204,7 @@ describe('RdsCompAiFabMenu', () => {
         icon: 'list',
       }));
       render(<RdsCompAiFabMenu listItems={manyItems} />);
-      const items = screen.getAllByRole('link');
+      const items = screen.getAllByRole('menuitem');
       expect(items.length).toBe(20);
     });
 
@@ -262,7 +263,7 @@ describe('RdsCompAiFabMenu', () => {
       const variants = ['primary', 'danger', 'secondary'];
       variants.forEach((variant) => {
         const { container, unmount } = render(
-          <RdsCompAiFabMenu {...defaultProps} colorVariant={variant} />
+          <RdsCompAiFabMenu {...defaultProps} colorVariant={variant as 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'dark' | 'light'} />
         );
         const button = container.querySelector(`.rds-fab-menu__button--${variant}`);
         expect(button).toBeInTheDocument();
@@ -440,6 +441,12 @@ describe('RdsCompAiFabMenu', () => {
       const button = screen.getByTestId('fab-menu-btn');
       expect(button).toHaveAttribute('type', 'button');
     });
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiFabMenu {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
 
     it('has proper role attribute on dropdown', () => {
       const { container } = render(<RdsCompAiFabMenu {...defaultProps} />);
@@ -447,9 +454,9 @@ describe('RdsCompAiFabMenu', () => {
       expect(dropdown).toBeInTheDocument();
     });
 
-    it('list items have link role', () => {
+    it('list items have menuitem role', () => {
       render(<RdsCompAiFabMenu {...defaultProps} />);
-      const items = screen.getAllByRole('link');
+      const items = screen.getAllByRole('menuitem');
       expect(items.length).toBeGreaterThan(0);
     });
 

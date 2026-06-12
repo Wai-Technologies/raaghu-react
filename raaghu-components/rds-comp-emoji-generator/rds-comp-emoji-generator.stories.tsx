@@ -1,10 +1,12 @@
+import { expect, within } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
-import RdsEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
+import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
 
 const meta: Meta = {
     title: 'Components/Emoji Generator',
-    component: RdsEmojiGenerator,
+    component: RdsCompEmojiGenerator,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     controls: {
     exclude: ['onEmojiSelect'],
@@ -15,7 +17,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         Type: {
             options: Object.values(EmojiGeneratorType),
@@ -49,12 +51,17 @@ const meta: Meta = {
             description: "Callback when emoji is clicked",
         },
     },
-} satisfies Meta<typeof RdsEmojiGenerator>;
+} satisfies Meta<typeof RdsCompEmojiGenerator>;
 
 export default meta;
-type Story = StoryObj<typeof RdsEmojiGenerator>;
+type Story = StoryObj<typeof RdsCompEmojiGenerator>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const btn = canvasElement.querySelector('button');
+        expect(btn).toBeTruthy();
+    },
     args: {
         Type: EmojiGeneratorType.Default,
         Category: EmojiCategory.SmileysAndPeople,

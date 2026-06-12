@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsAccordion from './rds-accordion';
 import RdsTypography from '../rds-typography/rds-typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -10,12 +11,13 @@ const meta: Meta<typeof RdsAccordion> = {
   title: 'Elements/Accordion',
   component: RdsAccordion,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
      controls: {
       exclude: ['disableGutters','expanded','TransitionComponent','TransitionProps','slots','slotProps','component','children','icon','classes','onChange','sx'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
       control: 'text',
@@ -262,6 +264,37 @@ export const Expanded: Story = {
       </RdsAccordion>
     );
   },
+};
+
+export const ExpandCollapse: Story = {
+  name: 'Interaction: Expand and Collapse',
+  args: {
+    title: 'Accordion Title',
+    size: 'medium',
+    state: 'default',
+    accordionStyle: 'border',
+    ShowLeftIcon: true,
+    defaultExpanded: false,
+    changeleftIcon: null,
+  },
+  render: (args) => {
+    const [expanded, setExpanded] = useState(false);
+    return (
+      <RdsAccordion
+        {...args}
+        expanded={expanded}
+        onChange={(_: React.SyntheticEvent, isExpanded: boolean) => setExpanded(isExpanded)}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const header = canvas.getByRole('button')
+    await userEvent.click(header)
+    await expect(header).toHaveAttribute('aria-expanded', 'true')
+    await userEvent.click(header)
+    await expect(header).toHaveAttribute('aria-expanded', 'false')
+  }
 };
 
 export const LongContent: Story = {

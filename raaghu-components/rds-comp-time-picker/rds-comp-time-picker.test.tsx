@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompTimePicker, { RdsTimePickerProps } from './rds-comp-time-picker';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-time-picker.scss', () => ({}));
@@ -631,7 +632,7 @@ describe('RdsCompTimePicker', () => {
     it('should maintain state consistency through multiple interactions', () => {
       const onChange = jest.fn();
       render(<RdsCompTimePicker {...defaultProps} onChange={onChange} />);
-      let input = screen.getByPlaceholderText('12:00 AM') as HTMLInputElement;
+      const input = screen.getByPlaceholderText('12:00 AM') as HTMLInputElement;
       expect(input.value).toBe('');
 
       fireEvent.click(input);
@@ -645,6 +646,14 @@ describe('RdsCompTimePicker', () => {
       const cancelBtn = screen.getByRole('button', { name: /cancel/i });
       fireEvent.click(cancelBtn);
       expect(onChange).toHaveBeenCalledWith('');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompTimePicker {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

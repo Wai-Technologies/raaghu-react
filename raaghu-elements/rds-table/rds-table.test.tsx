@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTable, { RdsTableColumn, RdsTableProps } from './rds-table';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-table.scss', () => ({}));
@@ -833,6 +834,14 @@ describe('RdsTable', () => {
         />
       );
       expect(screen.getByText('25 years')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTable columns={mockColumns} rows={mockRows} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

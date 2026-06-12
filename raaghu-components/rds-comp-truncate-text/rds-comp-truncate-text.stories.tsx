@@ -1,10 +1,12 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import RdsCompTruncatedText, { TruncateTextState } from './rds-comp-truncate-text';
 
 const meta: Meta = {
   title: 'Components/Truncated Text',
   component: RdsCompTruncatedText,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     docs: {
       source: {
@@ -16,7 +18,7 @@ const meta: Meta = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     state: {
       options: Object.values(TruncateTextState),
@@ -43,8 +45,13 @@ export const Default: Story = {
     text: 'This is a sample text',
     maxLength: 16,
   },
+  play: async ({ canvas }) => {
+    const text = await canvas.findByText(/This is a sample/);
+    await expect(text).toBeInTheDocument();
+  },
 } satisfies Story;
 
 Default.parameters = {
   controls: { include: ['state', 'text', 'maxLength'] },
 };
+

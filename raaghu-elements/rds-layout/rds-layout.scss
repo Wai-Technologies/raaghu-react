@@ -1,2 +1,6 @@
-// RDS Layout Component Styles
-// Layout uses MUI Box and Container; no custom styles needed
+// RDS Layout — MUI Box + Container wrapper
+// Ensures layout participates in theme color transitions
+.rds-layout {
+  transition: color var(--rds-transition-base, 150ms ease-in-out),
+              background-color var(--rds-transition-base, 150ms ease-in-out);
+}

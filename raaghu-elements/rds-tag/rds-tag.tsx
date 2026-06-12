@@ -12,10 +12,14 @@ const RdsTag: React.FC<RdsTagProps> = ({
   removable = false,
   onRemove,
   onDelete,
+  className,
   ...props
 }) => {
+  const combinedClassName = ['rds-tag', className].filter(Boolean).join(' ');
+
   return (
     <MuiChip
+      className={combinedClassName}
       label={label}
       onDelete={removable ? (onRemove || onDelete) : undefined}
       {...props}

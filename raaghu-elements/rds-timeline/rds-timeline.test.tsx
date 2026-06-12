@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTimeline, { RdsTimelineProps, RdsTimelineItem } from './rds-timeline';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-timeline.scss', () => ({}));
@@ -689,6 +690,14 @@ describe('RdsTimeline', () => {
       expect(timelineContents[0]).toHaveTextContent('Event 1');
       expect(timelineContents[1]).toHaveTextContent('Event 2');
       expect(timelineContents[2]).toHaveTextContent('Event 3');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTimeline items={[]} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

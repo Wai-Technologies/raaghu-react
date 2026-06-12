@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Pagination as MuiPagination, PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography, Button } from '@mui/material';
+import { Pagination as MuiPagination, PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
 import './rds-pagination.scss';
@@ -104,29 +105,24 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
       )}
       {styleConfig.showPrevNext && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Button variant="contained" size="small" disabled={currentPageNumber <= 1} onClick={() => handleChange({} as any, currentPageNumber - 1)}
-          >
+          <RdsButton style="filled" size="small" disabled={currentPageNumber <= 1} onClick={() => handleChange({} as any, currentPageNumber - 1)}>
             {paginationStyle === 'Style 10' || paginationStyle === 'Style 11' ? (
               <KeyboardArrowLeft />
             ) : (
               'Prev'
             )}
-          </Button>
-          <Button variant="contained" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)}
-          >
+          </RdsButton>
+          <RdsButton style="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)}>
             {paginationStyle === 'Style 10' ? (
               <KeyboardArrowRight />
             ) : (
               'Next'
             )}
-          </Button>
+          </RdsButton>
         </Box>
       )}
       {styleConfig.showNextOnly && (
-        <Button variant="contained" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)}
-        >
-          Next
-        </Button>
+        <RdsButton style="filled" size="small" text="Next" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)} />
       )}
       {shouldShowDropdown && (
       <FormControl size="small" className={`pagination-dropdown ${styleConfig.styleClass || ''}`}>

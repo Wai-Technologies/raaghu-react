@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompChat, { UserData, Comment } from './rds-comp-chat';
 
 // Mock dependencies
@@ -697,6 +698,14 @@ describe('RdsCompChat', () => {
       const { container } = render(<RdsCompChat {...defaultProps} />);
       const filterIcon = container.querySelector('.rds-comp-chat__screen-header-icon-filter');
       expect(filterIcon).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompChat {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

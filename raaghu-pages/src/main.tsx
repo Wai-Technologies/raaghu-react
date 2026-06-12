@@ -1,13 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-import { GriffelProvider } from '../../utils/griffel/GriffelProvider'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import '@raaghu/themes/src/styles/index.scss';
+import './index.css';
+import App from './App.tsx';
+import { RaaghuThemeProvider } from '@raaghu/themes/src/provider/RaaghuThemeProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GriffelProvider initialTheme="light">
-      <App />
-    </GriffelProvider>
+    <RaaghuThemeProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </RaaghuThemeProvider>
   </StrictMode>,
-)
+);

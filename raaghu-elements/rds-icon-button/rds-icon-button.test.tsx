@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsIconButton, { RdsIconButtonProps } from './rds-icon-button';
 import { Favorite, FavoriteBorder, Delete, Edit, Add, Home, Settings } from '@mui/icons-material';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-icon-button.scss', () => ({}));
@@ -503,6 +504,14 @@ describe('RdsIconButton', () => {
         </RdsIconButton>
       );
       expect(screen.getByTestId('custom-button')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsIconButton aria-label="delete"><Delete /></RdsIconButton>);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

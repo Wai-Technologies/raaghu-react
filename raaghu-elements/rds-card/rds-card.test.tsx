@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsCard, { RdsCardProps } from './rds-card';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-card.scss', () => ({}));
@@ -751,6 +752,12 @@ describe('RdsCard', () => {
       const heading = screen.getByRole('heading');
       expect(heading).toBeInTheDocument();
       expect(heading).toHaveTextContent('Card Title');
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCard {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should render with proper role when provided', () => {
