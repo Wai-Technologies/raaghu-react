@@ -897,7 +897,9 @@
   .rds-comp-product-tour__container--carousel {
     padding: var(--rds-spacing-md) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)); 
     margin: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) auto;
-    max-width: 380px;
+    max-width: 100%;
+    width: 100%;
+    overflow: hidden;
 
     .rds-comp-product-tour__carousel-header {
       margin-bottom: var(--rds-spacing-cozy);
@@ -917,6 +919,7 @@
     .rds-comp-product-tour__carousel-wrapper {
       height: var(--rds-carousel-mobile-height, 280px); 
       border-radius: var(--rds-border-radius-sm);
+      margin-bottom: var(--rds-spacing-sm);
     }
 
     .rds-carousel {
@@ -939,6 +942,23 @@
       height: auto;
     }
 
+    .rds-comp-product-tour__carousel-nav-row {
+      flex-wrap: nowrap;
+      gap: var(--rds-spacing-xs);
+      align-items: center;
+    }
+
+    .rds-comp-product-tour__carousel-nav-group,
+    .rds-comp-product-tour__carousel-arrows {
+      gap: var(--rds-spacing-sm);
+      flex-shrink: 0;
+    }
+
+    .rds-comp-product-tour__carousel-skip {
+      margin-right: 0 !important;
+      white-space: nowrap;
+    }
+
     .rds-comp-product-tour__close-btn {
       top: 6px;
       right: 8px;
@@ -950,12 +970,12 @@
 @include bp.down(420) {
   .rds-comp-product-tour__container {
     max-height: calc(100vh - 24px);
-    overflow: visible; 
+    overflow: visible;
   }
 
   .rds-comp-product-tour__info-nav-section,
   .rds-comp-product-tour__form-content,
-  .rds-comp-product-tour__carousel-wrapper {
+  .rds-comp-product-tour__animation-info {
     max-height: calc(100vh - 120px); 
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -963,17 +983,78 @@
 
   .rds-comp-product-tour__info-nav-section::-webkit-scrollbar,
   .rds-comp-product-tour__form-content::-webkit-scrollbar,
-  .rds-comp-product-tour__carousel-wrapper::-webkit-scrollbar {
+  .rds-comp-product-tour__animation-info::-webkit-scrollbar {
     width: 0;
     height: 0;
     background: transparent;
   }
   .rds-comp-product-tour__info-nav-section,
   .rds-comp-product-tour__form-content,
-  .rds-comp-product-tour__carousel-wrapper {
+  .rds-comp-product-tour__animation-info {
     -ms-overflow-style: none; 
     scrollbar-width: none;
     padding-bottom: var(--rds-spacing-18); 
+  }
+
+  .rds-comp-product-tour__container--animation {
+    padding: var(--rds-spacing-md);
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .rds-comp-product-tour__animation-section {
+    margin-bottom: var(--rds-spacing-sm);
+  }
+
+  .rds-comp-product-tour__animation-section img,
+  .rds-comp-product-tour__animation-section .rds-comp-product-tour__gif {
+    max-height: 160px;
+  }
+
+  .rds-comp-product-tour__animation-info {
+    margin-bottom: var(--rds-spacing-sm);
+  }
+
+  .rds-comp-product-tour__animation-navigation {
+    flex-wrap: nowrap;
+    gap: var(--rds-spacing-xs);
+    width: 100%;
+  }
+
+  .rds-comp-product-tour__animation-controls,
+  .rds-comp-product-tour__animation-nav-buttons {
+    gap: var(--rds-spacing-sm);
+    flex-shrink: 0;
+  }
+
+  .rds-comp-product-tour__animation-skip {
+    margin-right: 0;
+    white-space: nowrap;
+  }
+
+  .rds-comp-product-tour__container--carousel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rds-comp-product-tour__carousel-wrapper {
+    height: clamp(180px, 34vh, 240px);
+  }
+
+  .rds-comp-product-tour__carousel-dots {
+    margin-top: var(--rds-spacing-xs);
+  }
+
+  .rds-comp-product-tour__carousel-spacer {
+    height: var(--rds-spacing-xs);
+  }
+
+  .rds-comp-product-tour__carousel-nav-row {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .rds-comp-product-tour__form-tab {

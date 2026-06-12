@@ -86,7 +86,7 @@
     }
   }
 
-  &:disabled,
+  &:disabled:not(.rds-button__loading),
   &__disabled {
     background-color: var(--rds-button-primary-bg-disabled) !important;
     color: var(--rds-button-primary-text-disabled) !important;
@@ -96,6 +96,10 @@
 
   &__loading {
     pointer-events: none;
+
+    &.Mui-disabled {
+      opacity: 1 !important;
+    }
   }
 
   &__state-hover {
