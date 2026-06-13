@@ -177,6 +177,15 @@ const RdsButton = ({
     return undefined;
   };
 
+  const getFilledBackgroundColor = (): string | undefined => {
+    if (style !== 'filled' || !color || color === 'inherit') return undefined;
+    const paletteColor = theme.palette[color as keyof typeof theme.palette];
+    if (paletteColor && typeof paletteColor === 'object' && 'main' in paletteColor) {
+      return (paletteColor as { main: string }).main;
+    }
+    return undefined;
+  };
+
   const isButtonDisabled = disabled || state === 'disabled' || isLoading;
 
   return (
@@ -193,7 +202,10 @@ const RdsButton = ({
       style={{
         ...getShapeStyles() as CSSProperties,
         ...getTextCaseStyles() as CSSProperties,
+        ...(isLoading && style === 'filled' && getFilledBackgroundColor() ? { backgroundColor: getFilledBackgroundColor() } : {}),
         ...(getFilledTextColor() ? { color: getFilledTextColor() } : {}),
+        ...(isLoading ? { opacity: 1 } : {}),
+        ...(sx as any),
       }}
       startIcon={getStartIcon()}
       endIcon={getEndIcon()}

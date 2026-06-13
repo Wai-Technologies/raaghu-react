@@ -911,7 +911,7 @@ describe('RdsAutocomplete', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsAutocomplete {...defaultProps} />);
+      const { container } = render(<RdsAutocomplete {...defaultProps} label="Search" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

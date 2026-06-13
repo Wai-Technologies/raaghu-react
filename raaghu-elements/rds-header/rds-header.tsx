@@ -123,7 +123,7 @@ const RdsHeader = ({
             typeof tab === 'string' ? (
               <Tab key={tab} label={tab} />
             ) : (
-              <Tab key={tab.label || idx} {...tab} />
+              <Tab key={tab.label || idx} {...(tab as React.ComponentProps<typeof Tab>)} />
             )
           )}
         </Tabs>

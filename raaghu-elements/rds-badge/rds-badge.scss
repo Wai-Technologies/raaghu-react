@@ -49,7 +49,7 @@
     box-shadow: var(--rds-badge-pill-shadow, 0 1px 4px rgba(108, 46, 183, 0.08));
     padding: var(--rds-spacing-xs) 18px;
     min-width: 60px;
-    height: 32px;
+    height: var(--rds-size-xl);
     border-radius: var(--rds-border-radius-xl, 16px);
   }
   &--primary > .rds-badge__badge {
@@ -95,25 +95,25 @@
   }
 
   $rds-badge-colors: (
-    primary: (var(--rds-primary-800) var(--rds-primary-100)),
-    secondary: (var(--rds-primary-main) var(--rds-primary-light)),
-    tertiary: (var(--rds-semantic-warning-dark) var(--rds-warning-light)),
-    danger: (var(--rds-semantic-error-main) var(--rds-error-light)),
-    warning: (var(--rds-semantic-warning-main) var(--rds-warning-light)),
-    light: (var(--rds-text-secondary) var(--rds-border-light)),
-    success: (var(--rds-semantic-success-main) var(--rds-success-light))
+    primary: (var(--rds-primary-main) var(--rds-neutral-0)),
+    secondary: (var(--rds-primary-800) var(--rds-neutral-0)),
+    tertiary: (var(--rds-semantic-warning-dark) var(--rds-neutral-0)),
+    danger: (var(--rds-semantic-error-main) var(--rds-neutral-0)),
+    warning: (var(--rds-semantic-warning-main) var(--rds-neutral-0)),
+    light: (var(--rds-border-light) var(--rds-text-primary)),
+    success: (var(--rds-semantic-success-main) var(--rds-neutral-0))
   );
 
   @each $key, $value in $rds-badge-colors {
     &.rds-badge--primary.rds-badge--#{$key} > .rds-badge__badge {
-      color: list.nth($value, 1);
-      background-color: list.nth($value, 2);
+      background-color: list.nth($value, 1);
+      color: list.nth($value, 2);
       border: none;
     }
     
     &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
       background-color: list.nth($value, 1) !important;
-      color: var(--rds-neutral-0) !important;
+      color: list.nth($value, 2) !important;
     }
 
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
@@ -174,13 +174,13 @@
     padding: var(--rds-spacing-xxs) var(--rds-spacing-3);
     border-radius: var(--rds-border-radius-md, 8px);
     min-width: 40px;
-    height: 24px;
+    height: var(--rds-size-lg);
     line-height: 20px;
   }
   &--small .MuiBadge-badge {
     font-size: 0.625rem !important;
-    min-width: 16px !important;
-    height: 16px !important;
+    min-width: var(--rds-size-md) !important;
+    height: var(--rds-size-md) !important;
     border-radius: var(--rds-border-radius-md, 8px) !important;
     padding: 0 var(--rds-spacing-xs, 4px) !important;
     line-height: 1 !important;
@@ -192,7 +192,7 @@
     width: 10px !important;
     height: 10px !important;
     min-width: 8px !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
   }
 
   &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
@@ -200,7 +200,7 @@
     width: 18px !important;
     height: 18px !important;
     min-width: 18px !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
   }
 
   &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
@@ -208,7 +208,7 @@
     width: 22px !important;
     height: 22px !important;
     min-width: 22px !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
   }
 
   &.rds-badge--small .MuiBadge-badge,
@@ -289,7 +289,7 @@
     padding: var(--rds-spacing-xs) 18px;
     border-radius: var(--rds-border-radius-lg, 12px);
     min-width: 60px;
-    height: 32px;
+    height: var(--rds-size-xl);
   }
   &--medium .MuiBadge-badge {
     font-size: var(--rds-badge-dot-font-size, 0.75rem) !important;
@@ -308,8 +308,8 @@
   }
   &--large .MuiBadge-badge {
     font-size: 0.875rem !important;
-    min-width: 24px !important;
-    height: 24px !important;
+    min-width: var(--rds-size-lg) !important;
+    height: var(--rds-size-lg) !important;
     border-radius: var(--rds-border-radius-lg, 12px) !important;
     padding: 0 var(--rds-spacing-sm) !important;
   }
@@ -324,7 +324,7 @@
     padding: var(--rds-spacing-xs) 18px;
     font-size: 1rem;
     min-width: 60px;
-    height: 32px;
+    height: var(--rds-size-xl);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -337,4 +337,14 @@
       border-radius: var(--rds-border-radius-full);
     }
   }
+}
+
+.rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
+  background-color: var(--rds-color-primary, var(--rds-primary-main, #2f6fed)) !important;
+  color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+}
+
+.rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
+  background-color: var(--rds-color-secondary, var(--rds-primary-800, #a010c8)) !important;
+  color: var(--rds-color-on-secondary, var(--rds-neutral-0, #fff)) !important;
 }

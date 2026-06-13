@@ -594,7 +594,7 @@ describe('RdsSwitch', () => {
     });
 
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsSwitch />);
+      const { container } = render(<RdsSwitch label="Toggle" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

@@ -139,6 +139,32 @@ export function chartFont(
   return `${weightVal} ${sizeVal} ${family}`;
 }
 
+/** Minimal mutable shape expected by {@link applyChartThemeColors}. */
+interface ChartOptionsLike {
+  scales?: Record<string, {
+    grid?: Record<string, unknown>;
+    ticks?: Record<string, unknown>;
+    border?: Record<string, unknown>;
+    title?: Record<string, unknown>;
+  }>;
+  data?: {
+    datasets?: Array<{
+      backgroundColor?: string | string[];
+      borderColor?: string | string[];
+    }>;
+  };
+  plugins?: {
+    legend?: { labels?: Record<string, unknown> };
+    title?: Record<string, unknown>;
+    tooltip?: {
+      backgroundColor?: string;
+      titleColor?: string;
+      bodyColor?: string;
+      labelColor?: () => { borderColor: string; backgroundColor: string };
+    };
+  };
+}
+
 /**
  * Applies dark/light theme colors to a Chart.js options object in-place.
  *
@@ -153,7 +179,7 @@ export function chartFont(
  * @param axes          Which axis keys to apply scale colors to (default: ['x', 'y'])
  */
 export function applyChartThemeColors(
-  chartOptions: any,
+  chartOptions: ChartOptionsLike,
   axes: string[] = ['x', 'y']
 ): void {
   const textColor   = chartTextColor();
@@ -164,24 +190,25 @@ export function applyChartThemeColors(
   // ── Scales ──────────────────────────────────────────────────────────────────
   if (axes.length > 0) {
     if (!chartOptions.scales) chartOptions.scales = {};
+    const scales = chartOptions.scales;
     axes.forEach(axis => {
-      if (!chartOptions.scales[axis]) chartOptions.scales[axis] = {};
-      if (!chartOptions.scales[axis].grid)   chartOptions.scales[axis].grid   = {};
-      if (!chartOptions.scales[axis].ticks)  chartOptions.scales[axis].ticks  = {};
-      if (!chartOptions.scales[axis].border) chartOptions.scales[axis].border = {};
-      if (!chartOptions.scales[axis].title)  chartOptions.scales[axis].title  = {};
+      if (!scales[axis]) scales[axis] = {};
+      if (!scales[axis].grid)   scales[axis].grid   = {};
+      if (!scales[axis].ticks)  scales[axis].ticks  = {};
+      if (!scales[axis].border) scales[axis].border = {};
+      if (!scales[axis].title)  scales[axis].title  = {};
 
-      chartOptions.scales[axis].grid.color   = gridColor;
-      chartOptions.scales[axis].ticks.color  = textColor;
-      chartOptions.scales[axis].border.color = textColor;
-      chartOptions.scales[axis].title.color  = textColor;
+      scales[axis].grid.color   = gridColor;
+      scales[axis].ticks.color  = textColor;
+      scales[axis].border.color = textColor;
+      scales[axis].title.color  = textColor;
     });
   }
 
   // ── Datasets ─────────────────────────────────────────────────────────────────
   // Resolve CSS variables in dataset colors
   if (chartOptions.data && chartOptions.data.datasets && Array.isArray(chartOptions.data.datasets)) {
-    chartOptions.data.datasets.forEach((dataset: any) => {
+    chartOptions.data.datasets.forEach((dataset) => {
       if (dataset.backgroundColor) {
         dataset.backgroundColor = resolveColorValue(dataset.backgroundColor);
       }
@@ -222,9 +249,9 @@ export function applyChartThemeColors(
  * @param colorValue A color string with possible CSS var() syntax or array of such strings
  * @returns The resolved color value(s)
  */
-function resolveColorValue(colorValue: any): any {
+function resolveColorValue(colorValue: string | string[]): string | string[] {
   if (Array.isArray(colorValue)) {
-    return colorValue.map(color => resolveColorValue(color));
+    return colorValue.map(color => resolveColorValue(color) as string);
   }
   
   if (typeof colorValue === 'string' && colorValue.includes('var(')) {

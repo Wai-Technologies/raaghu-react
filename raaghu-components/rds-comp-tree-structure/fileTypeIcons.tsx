@@ -47,7 +47,14 @@ export const getLanguageFromFileName = (fileName: string): string | null => {
 };
 
 // Utility function to get all node IDs
-export const getAllNodeIds = (nodes: any[]): number[] => {
+export interface TreeNode {
+  id: number;
+  name: string;
+  language?: string;
+  children?: TreeNode[];
+}
+
+export const getAllNodeIds = (nodes: TreeNode[]): number[] => {
   let ids: number[] = [];
   nodes.forEach((node) => {
     ids.push(node.id);
@@ -69,19 +76,19 @@ export interface RdsCompTreeStructureProps {
   state?: NodeState; //State of the node
   type?: IconType; //Type of icon for folder nodes
   showActions?: boolean; //Show action buttons (add, edit, delete) for nodes.
-  treeData?: any; //Data for the tree structure.
+  treeData?: TreeNode[]; //Data for the tree structure.
   Language?: string; //Language for file icons.
   iconName?: string; // Name of the icon to display.
   text?: string; // Text to display for the node.
   fileTypeIcons?: { [key: string]: ReactNode }; // File type icons mapping
   getFileIcon?: (fileType: string) => ReactNode; // Function to get file icon
   checkedNodes?: number[]; // Array of checked node IDs
-  onSelectNode?: (item: any) => void; //Callback when a node is selected.
-  onDeleteNode?: (id: any) => void; //Callback when a node is deleted.
-  onNodeEdit?: (data: any) => void; //Callback when a node is edited.
-  onCreateNode?: (node: any) => void; //Callback when a new node is created.
-  onCreateSubUnit?: (node: any) => void; //Callback when a new sub-unit is created.
-  onMoveNode?: (id: any) => void; //Callback when a node is moved.
+  onSelectNode?: (item: TreeNode) => void; //Callback when a node is selected.
+  onDeleteNode?: (id: number) => void; //Callback when a node is deleted.
+  onNodeEdit?: (data: TreeNode) => void; //Callback when a node is edited.
+  onCreateNode?: (node: TreeNode) => void; //Callback when a new node is created.
+  onCreateSubUnit?: (node: TreeNode) => void; //Callback when a new sub-unit is created.
+  onMoveNode?: (id: number) => void; //Callback when a node is moved.
   onCheckboxChange?: (nodeId: number, checked: boolean) => void; //Callback when checkbox state changes.
 }
 
@@ -216,7 +223,7 @@ export const TreeNode = ({
   onNodeClick,
   onCheckboxClick,
 }: {
-  node: any;
+  node: TreeNode;
   level: number;
   maxLevel: number;
   props: RdsCompTreeStructureProps;
@@ -269,7 +276,7 @@ export const TreeNode = ({
     setHoveredNodeId(null);
   };
 
-  const handlerButtonGroupClick = (e: any, id: any, node: any) => {
+  const handlerButtonGroupClick = (e: React.MouseEvent, id: string, node: { data: TreeNode }) => {
     if (id == 'plus') {
         e.stopPropagation();
         props.onCreateNode && props.onCreateNode(node.data)
@@ -390,8 +397,12 @@ export const TreeNode = ({
       {isExpanded &&
         node.children &&
         level < maxLevel &&
-        node.children.map((child: any) => (
-          <div className="rds-comp-tree-structure__node-children" key={child.id}>
+        node.children.map((child: TreeNode) => (
+          <div
+            className="rds-comp-tree-structure__node-children"
+            key={child.id}
+            style={{ overflow: 'hidden' }}
+          >
             <TreeNode
               node={child}
               level={level + 1}

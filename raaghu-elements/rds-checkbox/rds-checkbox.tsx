@@ -26,6 +26,7 @@ const RdsCheckbox = ({
   cssStyle,
   color,
   onChange,
+  disabled,
   ...props
 }:RdsCheckboxProps) => {
   const isCheckboxDisabled = Boolean(disabled) || isDisabled || state === 'disabled';
@@ -39,6 +40,8 @@ const RdsCheckbox = ({
   }, [status]);
 
   const currentIndeterminate = status === 'indeterminate';
+
+  const isActuallyDisabled = isDisabled || state === 'disabled' || !!disabled;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     setChecked(value);
@@ -61,6 +64,7 @@ const RdsCheckbox = ({
   const checkbox = (
     <MuiCheckbox
       checked={checked}
+      disabled={isActuallyDisabled}
       indeterminate={currentIndeterminate}
       color={color}
       onChange={handleChange}

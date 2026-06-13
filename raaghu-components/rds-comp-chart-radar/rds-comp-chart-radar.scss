@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-chart-radar {
 	&-container {
 		width: 90%;
@@ -5,12 +7,12 @@
 		justify-content: center;
 		align-items: center;
         
-		@media (max-width: var(--rds-breakpoint-400)) {
+		@include bp.down(400) {
 			height: 335px !important;
             width: 100% !important;
 		}
 
-		@media (max-width: var(--rds-breakpoint-600)) {
+		@include bp.down(600) {
 			height: 330px !important;
             width: 100% !important;
 		}

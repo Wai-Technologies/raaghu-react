@@ -18,7 +18,7 @@ export interface RdsCompProductTourProps {
     showVisualPlaceholder?: boolean;
     slides?: { id: number; imgUrl: string; }[];
     formTitle?: string;
-    tabTitle?: any[];
+    tabTitle?: string[];
     onClose?: () => void;
 }
 

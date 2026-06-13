@@ -81,7 +81,7 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
 
   return (
     <div className="rds-comp-tree-structure">
-      {props.treeData?.map((node: any) => (
+      {props.treeData?.map((node: TreeNode) => (
         <TreeNode
           key={node.id}
           node={node}

@@ -8,6 +8,7 @@ import {
   ListItemText,
   Collapse,
   type DrawerProps,
+  type SxProps,
 } from '@mui/material';
 import { 
   ExpandLess, 
@@ -281,7 +282,7 @@ const RdsSidebar = ({
                         return (
                           <ListItem key={cIdx} disablePadding className={navItemClasses}>
                             {shouldShowIconsOnly && child.icon ? (
-                              <RdsTooltip 
+                              <RdsTooltip
                                 title={`${item.label} - ${child.label}`}
                                 style="right"
                                 arrow

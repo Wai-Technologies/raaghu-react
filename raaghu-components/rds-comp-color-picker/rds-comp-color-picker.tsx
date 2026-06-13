@@ -32,7 +32,7 @@ export enum StyleType {
   Type2 = "Type 2",
 }
 
-export interface RdsColorPickerProps {
+export interface RdsCompColorPickerProps {
   value: string;
   isDisabled?: boolean;
   label: string;
@@ -244,5 +244,5 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     </Fragment>
   );
 };
-RdsColorPicker.displayName = "RdsColorPicker";
-export default RdsColorPicker;
+RdsCompColorPicker.displayName = "RdsCompColorPicker";
+export default RdsCompColorPicker;

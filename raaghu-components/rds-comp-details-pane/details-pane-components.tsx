@@ -7,7 +7,7 @@ import {
   Edit,
   Delete as DeleteIcon,
 } from '@mui/icons-material';
-import { 
+import {
   RdsButton,
   RdsCarousel,
   RdsTypography,
@@ -257,7 +257,7 @@ export const HistoryFavoritesTabs = ({
                       className="rds-comp-details-pane__favourite-checkbox"
                       showText={false}
                       status={selectedIndexes.includes(idx) ? 'checked' : 'unchecked'}
-                      onChange={(e: any, checked?: boolean) => { e.stopPropagation(); toggleSelection(idx); }}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>, checked?: boolean) => { e.stopPropagation(); toggleSelection(idx); }}
                     />
                     <span className="rds-comp-details-pane__favourite-title">
                       {favouriteCardTitle}
@@ -490,7 +490,7 @@ export const SelectionContent = ({
                     direction="row"
                     label=""
                     layout="icon"
-                    onChange={(val: any) => {
+                    onChange={(val: React.ChangeEvent<HTMLInputElement>) => {
                       const parsed = typeof val === 'object' && val?.target ? String(val.target.value) : String(val);
                       handleAgentSelect(parsed);
                     }}
@@ -941,7 +941,7 @@ export const ToolbarContent = ({
           children: [
             {
               children: [
-                
+
               ],
               icon: 'file',
               id: 3,
@@ -953,7 +953,9 @@ export const ToolbarContent = ({
           name: 'App Shell'
         }
       ],
-     
+      icon: 'folder',
+      id: 1,
+      name: 'App Shell'
     },
     {
       children: [

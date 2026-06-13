@@ -156,7 +156,7 @@
 
     .rds-e-signature__file-button::before {
       font-size: var(--rds-font-size-md);
-      margin-right: 6px;
+      margin-right: var(--rds-spacing-compact);
       line-height: 1;
     }
   }
@@ -505,7 +505,7 @@
     width: 14px;
     height: 14px;
     border: 1px solid var(--rds-color-error-700, #d32f2f);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     background: transparent;
     color: var(--rds-color-error-700, #d32f2f);
     font-size: var(--rds-font-size-caption, 9px);
@@ -532,7 +532,7 @@
     background: var(--rds-color-neutral-0, #fff);
     border-radius: var(--rds-radius-lg, 8px);
     padding: var(--rds-spacing-md) 20px 16px;
-    margin-top: 6px;
+    margin-top: var(--rds-spacing-compact);
     display: inline-block;
     width: auto;
     max-width: 100%;
@@ -673,7 +673,7 @@
     width: 14px;
     height: 14px;
     border: 1px solid var(--rds-color-error-700, #d32f2f);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     align-items: center;
     justify-content: center;
     font-size: var(--rds-font-size-caption, 9px);
@@ -831,8 +831,8 @@
 
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-grid {
     grid-template-columns: 1fr;
-    column-gap: 10px;
-    row-gap: 10px;
+    column-gap: var(--rds-spacing-cozy);
+    row-gap: var(--rds-spacing-cozy);
   }
 
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__styles-grid {

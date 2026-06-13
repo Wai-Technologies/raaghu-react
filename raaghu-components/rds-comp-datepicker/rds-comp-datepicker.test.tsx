@@ -569,7 +569,7 @@ describe('RdsDatepicker', () => {
 
   describe('Component Display Name', () => {
     it('should have displayName set to RdsDatepicker', () => {
-      expect(RdsDatepicker.displayName).toBe('RdsDatepicker');
+      expect(RdsDatepicker.displayName).toBe('RdsCompDatepicker');
     });
   });
 

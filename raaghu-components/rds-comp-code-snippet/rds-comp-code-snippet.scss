@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-code-snippet {
   border-radius: var(--rds-border-radius, 8px);
   border: 1px solid var(--rds-color-border);
@@ -44,7 +46,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-360)) {
+  @include bp.down(360) {
     // .css-1in3o51-MuiButton-startIcon{
     //   margin-right: 0px;
     // }
@@ -68,8 +70,8 @@
 
     &__expand-icon {
       font-size: var(--rds-font-size-lg) !important;
-      width: 16px !important;
-      height: 16px !important;
+      width: var(--rds-size-md) !important;
+      height: var(--rds-size-md) !important;
     }
   }
 

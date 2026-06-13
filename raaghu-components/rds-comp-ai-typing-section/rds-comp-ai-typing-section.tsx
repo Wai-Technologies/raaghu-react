@@ -23,6 +23,7 @@ export interface RdsCompAiTypingSectionProps {
 declare global {
   interface Window {
     webkitSpeechRecognition: new () => SpeechRecognition;
+    webkitSpeechRecognition: new () => SpeechRecognition;
   }
 }
 

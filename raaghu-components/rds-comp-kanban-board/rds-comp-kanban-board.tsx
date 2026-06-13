@@ -31,10 +31,12 @@ import {
   createEventHandlers,
   createDragEndHandler,
   colorClass,
+  KanbanSubCard,
+  KanbanAction,
 } from './kanban-board-helpers';
 
 interface SortableSubCardProps {
-  subCard: any;
+  subCard: KanbanSubCard;
   subCardIndex: number;
   boardIndex: number;
   avatarData?: Array<{ title: string; subText?: string; src?: string }>;
@@ -357,7 +359,7 @@ const RdsCompKanbanBoard = ({
         <MenuItem onClick={() => handleCardOptionClick("delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">
           <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
         </MenuItem>
-        {selectedCard?.actions?.map((option: any, optIndex: number) => (
+        {selectedCard?.actions?.map((option: KanbanAction, optIndex: number) => (
           <MenuItem key={optIndex} onClick={() => handleCardOptionClick(option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">
             {option.key}
           </MenuItem>
@@ -373,7 +375,7 @@ const RdsCompKanbanBoard = ({
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{ className: "rds-kanban-board__menu-paper" }}
       >
-        {selectedSubCard?.actions?.map((option: any, optIndex: number) => (
+        {selectedSubCard?.actions?.map((option: KanbanAction, optIndex: number) => (
           <MenuItem key={optIndex} onClick={() => handleOptionClick(option.value, selectedCardIndex, selectedSubCard?.SubcardId)} className="rds-kanban-board__menu-item">
             {option.key}
           </MenuItem>

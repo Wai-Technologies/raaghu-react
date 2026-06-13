@@ -69,7 +69,7 @@ export const Default: Story = {
         level: SpinnerLevel.Level04,
     },
     play: async ({ canvas }) => {
-        const spinner = await canvas.findByRole('progressbar', { hidden: true });
+        const spinner = await canvas.findByRole('status', { hidden: true });
         await expect(spinner).toBeInTheDocument();
     },
 } satisfies Story;

@@ -75,6 +75,203 @@ body.theme-dark .docs-story {
   color: #f0f0f0 !important;
 }
 
+/* Docs Controls dark mode fixes */
+[data-theme="dark"] .docblock-argstable,
+[data-theme="dark"] table.docblock-argstable {
+  background-color: #1f232b !important;
+  color: #e6eaf2 !important;
+  border-color: #3a4250 !important;
+}
+
+[data-theme="dark"] .docblock-argstable thead th,
+[data-theme="dark"] table.docblock-argstable thead th {
+  background-color: #252b36 !important;
+  color: #f3f6fb !important;
+  border-color: #3a4250 !important;
+}
+
+[data-theme="dark"] .docblock-argstable tbody td,
+[data-theme="dark"] table.docblock-argstable tbody td,
+[data-theme="dark"] .docblock-argstable tbody tr,
+[data-theme="dark"] table.docblock-argstable tbody tr {
+  background-color: #1f232b !important;
+  color: #d5dbe6 !important;
+  border-color: #3a4250 !important;
+}
+
+[data-theme="dark"] .docblock-argstable td:nth-child(2),
+[data-theme="dark"] .docblock-argstable td:nth-child(2) *,
+[data-theme="dark"] .docblock-argstable td:nth-child(2) p,
+[data-theme="dark"] .docblock-argstable td:nth-child(2) span,
+[data-theme="dark"] .docblock-argstable td:nth-child(2) div,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-description,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-description *,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-type,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-default,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-required {
+  color: #dbe3f1 !important;
+}
+
+[data-theme="dark"] .docblock-argstable td:nth-child(2) code,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-type code,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-default code {
+  color: #d9e2ff !important;
+}
+
+[data-theme="dark"] .docblock-argstable td:nth-child(3),
+[data-theme="dark"] .docblock-argstable td:nth-child(3) *,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-defaultvalue,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-defaultvalue * {
+  color: #dbe3f1 !important;
+}
+
+[data-theme="dark"] .docblock-argstable td:nth-child(3) span,
+[data-theme="dark"] .docblock-argstable .docblock-argstable-defaultvalue span {
+  background-color: #1a2230 !important;
+  border-color: #3d4a61 !important;
+  color: #dbe3f1 !important;
+}
+
+[data-theme="dark"] .docblock-argstable label input[type="checkbox"][role="switch"] + span,
+[data-theme="dark"] .docblock-argstable label input[type="checkbox"][role="switch"] + span + span,
+[data-theme="dark"] .docblock-argstable td:nth-child(4) label span {
+  background-color: #222c3d !important;
+  border: 1px solid #445066 !important;
+  color: #dbe3f1 !important;
+}
+
+[data-theme="dark"] .docblock-argstable label input[type="checkbox"][role="switch"] {
+  accent-color: #7ea8ff !important;
+  border-color: #5a6e8e !important;
+  background-color: #1a2230 !important;
+}
+
+[data-theme="dark"] .docblock-argstable label input[type="checkbox"][role="switch"]:checked + span + span {
+  background-color: #3c6fd6 !important;
+  border-color: #5f8bf0 !important;
+  color: #eef3ff !important;
+}
+
+[data-theme="dark"] .docblock-argstable label input[type="checkbox"][role="switch"]:checked + span {
+  background-color: #1f2736 !important;
+  border-color: #445066 !important;
+  color: #b9c6dd !important;
+}
+
+[data-theme="dark"] .docblock-argstable label input[type="checkbox"][role="switch"]:not(:checked) + span {
+  background-color: #3c6fd6 !important;
+  border-color: #5f8bf0 !important;
+  color: #eef3ff !important;
+}
+
+[data-theme="dark"] .docblock-argstable label input[type="checkbox"][role="switch"]:not(:checked) + span + span {
+  background-color: #1f2736 !important;
+  border-color: #445066 !important;
+  color: #b9c6dd !important;
+}
+
+[data-theme="dark"] .docblock-argstable td:nth-child(4) {
+  color: #dbe3f1 !important;
+}
+
+[data-theme="dark"] .docblock-argstable code,
+[data-theme="dark"] .docblock-argstable pre {
+  background-color: #171b22 !important;
+  color: #d9e2ff !important;
+}
+
+[data-theme="dark"] .docblock-argstable input,
+[data-theme="dark"] .docblock-argstable textarea,
+[data-theme="dark"] .docblock-argstable select {
+  background-color: #171b22 !important;
+  color: #e6eaf2 !important;
+  border-color: #3a4250 !important;
+}
+
+[data-theme="dark"] .docblock-argstable input::placeholder,
+[data-theme="dark"] .docblock-argstable textarea::placeholder {
+  color: #9aa6b8 !important;
+}
+
+[data-theme="dark"] .docblock-argstable a,
+[data-theme="dark"] .docblock-argstable button {
+  color: #b7c8ff !important;
+}
+
+/* Docs readability and preview chrome in dark mode */
+[data-theme="dark"] .sbdocs,
+[data-theme="dark"] .sbdocs-wrapper,
+[data-theme="dark"] .sbdocs-content,
+[data-theme="dark"] .sbdocs-title,
+[data-theme="dark"] .sbdocs-h1,
+[data-theme="dark"] .sbdocs-h2,
+[data-theme="dark"] .sbdocs-h3,
+[data-theme="dark"] .sbdocs-h4,
+[data-theme="dark"] .sbdocs-p,
+[data-theme="dark"] .sbdocs-li,
+[data-theme="dark"] .sbdocs-label {
+  color: #e6eaf2 !important;
+}
+
+[data-theme="dark"] .sbdocs a,
+[data-theme="dark"] .sbdocs code,
+[data-theme="dark"] .sbdocs h1,
+[data-theme="dark"] .sbdocs h2,
+[data-theme="dark"] .sbdocs h3,
+[data-theme="dark"] .sbdocs h4,
+[data-theme="dark"] .sbdocs h5,
+[data-theme="dark"] .sbdocs h6 {
+  color: #eef3ff !important;
+}
+
+[data-theme="dark"] .sbdocs p,
+[data-theme="dark"] .sbdocs li,
+[data-theme="dark"] .sbdocs .sbdocs-p,
+[data-theme="dark"] .sbdocs .sbdocs-li,
+[data-theme="dark"] .sbdocs .docblock-meta,
+[data-theme="dark"] .sbdocs .docblock-description,
+[data-theme="dark"] .sbdocs .docblock-description * {
+  color: #d9e2f0 !important;
+}
+
+[data-theme="dark"] .docs-story,
+[data-theme="dark"] .docs-story > div,
+[data-theme="dark"] .sb-story,
+[data-theme="dark"] .sb-bar {
+  background-color: #20242d !important;
+  border-color: #3a4250 !important;
+  color: #d5dbe6 !important;
+}
+
+[data-theme="dark"] .sb-bar svg,
+[data-theme="dark"] .sb-bar button,
+[data-theme="dark"] .sb-bar a {
+  color: #c4cfde !important;
+  fill: #c4cfde !important;
+}
+
+[data-theme="dark"] .docblock-code-toggle,
+[data-theme="dark"] .docblock-code-toggle span,
+[data-theme="dark"] .docblock-code-toggle svg,
+[data-theme="dark"] .docblock-code-toggle button {
+  color: #aebdd6 !important;
+  fill: #aebdd6 !important;
+}
+
+[data-theme="dark"] .docblock-argstable button,
+[data-theme="dark"] .docblock-argstable [role="button"] {
+  background-color: #2a3342 !important;
+  border: 1px solid #445066 !important;
+  color: #d2def8 !important;
+}
+
+[data-theme="dark"] .docblock-argstable button:hover,
+[data-theme="dark"] .docblock-argstable [role="button"]:hover {
+  background-color: #33405a !important;
+  border-color: #5a6e8e !important;
+  color: #edf3ff !important;
+}
+
 /* Material UI component overrides - all using Poppins font */
 .css-x28zkw :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)),
 .css-14m39zm,

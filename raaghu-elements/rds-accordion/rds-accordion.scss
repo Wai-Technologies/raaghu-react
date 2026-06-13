@@ -293,6 +293,14 @@
       background-color: var(--rds-color-primary-hover)!important;
     }
 
+    .rds-accordion__details {
+      background-color: var(--rds-color-primary-hover) !important;
+    }
+
+    .rds-accordion__details-panel {
+      background: var(--rds-color-surface) !important;
+    }
+
     .rds-accordion__title {
       color: var(--rds-color-on-surface) !important;
       font-weight: var(--rds-font-weight-semibold) !important;

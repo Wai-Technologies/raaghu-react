@@ -46,6 +46,7 @@ export interface RdsAppBarProps extends AppBarProps {
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
   tabs?: Array<string | { label: string; [key: string]: unknown }>;
+  tabs?: Array<string | { label: string; [key: string]: unknown }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
   subHeader?: ReactNode;

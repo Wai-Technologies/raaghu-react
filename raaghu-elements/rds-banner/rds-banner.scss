@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-banner {
   // banner sizing and offsets are provided by centralized --rds-* tokens
   display: flex;
@@ -167,7 +169,7 @@
   }
   
   &__link-button {
-    margin-right: -9px;
+    margin-right: var(--rds-spacing-neg-9);
   }
 
   &__secondary-button {
@@ -201,7 +203,7 @@
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     .rds-banner__heading { 
       font-size: 1rem;
-      margin-right: 5px;
+      margin-right: var(--rds-spacing-tight);
      }
     .rds-banner__description { font-size: 1rem; }
   }
@@ -210,10 +212,10 @@
     padding: var(--rds-spacing-md) var(--rds-spacing-lg);
     .rds-banner__heading { font-size: 1.1rem; }
     .rds-banner__description { font-size: 1.2rem; }
-    .rds-banner__primary-button { height: 32px; }
+    .rds-banner__primary-button { height: var(--rds-size-xl); }
   }
   
-  @media (max-width: var(--rds-breakpoint-tablet-md)) {
+  @include bp.down(tablet-md) {
     width: 100vw !important;
     max-width: 100vw !important;
     margin: 0 !important;
@@ -302,9 +304,9 @@
 
     &__close-button {
       position: static !important;
-      min-width: 24px !important;
-      width: 24px !important;
-      height: 24px !important;
+      min-width: var(--rds-size-lg) !important;
+      width: var(--rds-size-lg) !important;
+      height: var(--rds-size-lg) !important;
       padding: calc(var(--rds-spacing-xs) / 2) !important;
     }
 
@@ -317,7 +319,7 @@
     }
   }
 
-@media (min-width: var(--rds-breakpoint-mobile-sm)) and (max-width: var(--rds-breakpoint-sm)) {
+@include bp.between(mobile-sm, sm) {
   padding: var(--rds-spacing-xs, 4px) !important;
     
     &__content-wrapper { 
@@ -361,7 +363,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-lg)) and (max-width: var(--rds-breakpoint-tablet-md)) {
+@include bp.between(mobile-lg, tablet-md) {
   .rds-banner {
     .rds-banner__action-container {
       position: relative !important;

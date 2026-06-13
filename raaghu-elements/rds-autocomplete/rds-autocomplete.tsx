@@ -84,7 +84,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             <Typography
               component="span"
               className="rds-autocomplete__asterisk"
-              sx={{ color: 'var(--rds-error-main)', ml: '3px', fontSize: 'inherit', fontWeight: 700 }}
+              sx={{ color: 'var(--rds-error-main)', ml: 'var(--rds-spacing-micro)', fontSize: 'inherit', fontWeight: 700 }}
             />
           )}
         </label>
@@ -182,10 +182,10 @@ const RdsAutocomplete = <T extends { label?: string },>({
 
         popupIcon={popupIcon}
         renderInput={(params) => {
-          const shouldShowPlaceholder = allowMultiple 
+          const shouldShowPlaceholder = allowMultiple
             ? (Array.isArray(selected) ? selected.length === 0 : !selected)
             : true;
-          
+
           return (
             <TextField
               {...params}

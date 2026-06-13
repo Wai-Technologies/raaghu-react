@@ -650,7 +650,7 @@ const Style12 = ({ item }: { item: Item }) => {
           display: 'flex', 
           justifyContent: 'center', 
           alignItems: 'center', 
-          gap: '4px', 
+          gap: 'var(--rds-spacing-xs-px)',
           my: 3 
         }}>
           <RdsRating

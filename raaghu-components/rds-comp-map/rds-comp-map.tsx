@@ -6,9 +6,9 @@ import './rds-comp-map.scss';
 import { componentTokens, mapTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 export interface RdsCompMapProps {
-    title?: any,
-    mapList: any,
-    color: any,
+    title?: React.ReactNode,
+    mapList: Array<{ country: string; value: number }>,
+    color: string,
     mapType?: 'default' | 'heatmap'
 }
 

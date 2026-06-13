@@ -42,14 +42,14 @@ export interface RdsCompNavtabsProps {
     icon?: string;
     subText?: string;
     disabled?: boolean;
-    id: any;
+    id: string | number;
     count?: number; 
     colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "warning" | "light" | "success";  
   }[];
   type: "default" | "tabs";
   fill?: boolean;
   justified?: boolean;
-  activeNavtabOrder?: (id: any) => void;
+  activeNavtabOrder?: (id: string | number | undefined) => void;
   activeNavTabId?: string | number;
   isNextPressed?: boolean;
   onClick?: MouseEvent<HTMLElement>;

@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-contribution {
   display: block;
   width: 100%;
@@ -72,7 +74,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@include bp.down(mobile-sm) {
   .rds-comp-contribution {
     &__container {
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) 0; // reduce side padding
@@ -104,7 +106,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-420)) {
+@include bp.between(mobile-sm, 420) {
   .rds-comp-contribution {
     &__container {
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) var(--rds-spacing-xs);
@@ -136,7 +138,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-420)) and (max-width: var(--rds-breakpoint-834)) {
+@include bp.between(420, 834) {
   .rds-comp-contribution {
     &__container {
       padding: calc(var(--rds-spacing-md) - 1px) var(--rds-spacing-sm);
@@ -168,7 +170,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-835)) {
+@include bp.up(835) {
   .rds-comp-contribution {
     &__container {
       padding: var(--rds-spacing-lg, 20px) 0;

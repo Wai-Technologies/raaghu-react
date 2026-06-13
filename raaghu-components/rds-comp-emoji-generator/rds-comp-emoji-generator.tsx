@@ -88,7 +88,9 @@ export interface RdsEmojiGeneratorProps {
     State?: SkinToneState;
     Category?: EmojiCategory;
     onEmojiSelect?: (emoji: string) => void;
+    onEmojiSelect?: (emoji: string) => void;
     maxEmojis?: number;
+    sx?: Record<string, unknown>;
     sx?: Record<string, unknown>;
 }
 
@@ -294,6 +296,6 @@ const RdsEmojiGenerator = ({
         </Box>
     );
 };
-RdsEmojiGenerator.displayName = 'RdsEmojiGenerator';
-export default RdsEmojiGenerator;
+RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
+export default RdsCompEmojiGenerator;
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';

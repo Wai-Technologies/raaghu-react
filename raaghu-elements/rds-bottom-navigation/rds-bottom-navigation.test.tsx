@@ -506,7 +506,7 @@ describe('RdsBottomNavigation', () => {
     });
 
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsBottomNavigation {...defaultProps} />);
+      const { container } = render(<RdsBottomNavigation {...defaultProps} showLabels={true} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

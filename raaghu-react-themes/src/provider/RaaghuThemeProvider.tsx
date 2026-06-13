@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { darkTheme, lightTheme } from '../mui';
@@ -61,7 +61,7 @@ export function RaaghuThemeProvider({
     }
   }, [initializeOnMount, controlledMode]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     applyRaaghuTheme(mode, brandOverrides);
     onModeChange?.(mode);
   }, [mode, onModeChange, brandOverrides]);

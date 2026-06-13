@@ -232,6 +232,7 @@ export const ColorPickerInfo = memo(({
   getColorDisplay,
   onSelectColorMode,
 }: ColorPickerInfoProps) => {
+}: ColorPickerInfoProps) => {
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
   const hsb = rgbToHsb(rgb);
   const hsl = rgbToHsl(rgb);

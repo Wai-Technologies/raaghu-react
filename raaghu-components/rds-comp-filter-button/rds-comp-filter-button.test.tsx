@@ -522,15 +522,15 @@ describe('RdsCompFilterButton', () => {
         },
       ];
       renderComponent({ filters: filtersWithSelection });
-      fireEvent.click(screen.getByTestId('filter-trigger-button'));
-      
-      expect(screen.getByTestId('filter-trigger-button')).toHaveTextContent('Filter (1)');
-      
+      fireEvent.click(screen.getAllByTestId('filter-trigger-button')[0]);
+
+      expect(screen.getAllByTestId('filter-trigger-button')[0]).toHaveTextContent('Filter (1)');
+
       const clearButton = screen.getAllByRole('button').find(b => b.textContent === 'Clear All');
       fireEvent.click(clearButton!);
-      
-      fireEvent.click(screen.getByTestId('filter-trigger-button'));
-      expect(screen.getByTestId('filter-trigger-button')).toHaveTextContent('Filter');
+
+      fireEvent.click(screen.getAllByTestId('filter-trigger-button')[0]);
+      expect(screen.getAllByTestId('filter-trigger-button')[0]).toHaveTextContent('Filter');
     });
   });
 
@@ -642,12 +642,12 @@ describe('RdsCompFilterButton', () => {
       ];
       renderComponent({ filters: filtersWithSelection });
       
-      fireEvent.click(screen.getByTestId('filter-trigger-button'));
+      fireEvent.click(screen.getAllByTestId('filter-trigger-button')[0]);
       let checkbox = screen.getAllByTestId('filter-checkbox')[0] as HTMLInputElement;
       expect(checkbox.checked).toBe(true);
-      
-      fireEvent.click(screen.getByTestId('filter-trigger-button'));
-      fireEvent.click(screen.getByTestId('filter-trigger-button'));
+
+      fireEvent.click(screen.getAllByTestId('filter-trigger-button')[0]);
+      fireEvent.click(screen.getAllByTestId('filter-trigger-button')[0]);
       checkbox = screen.getAllByTestId('filter-checkbox')[0] as HTMLInputElement;
       expect(checkbox.checked).toBe(true);
     });

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type { PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import dayjs, { Dayjs } from 'dayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { PickersDay } from '@mui/x-date-pickers/PickersDay';
+import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';

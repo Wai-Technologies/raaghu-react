@@ -55,9 +55,9 @@
     color: var(--rds-text-primary) !important;
     min-height: 35px !important;
     padding: var(--rds-spacing-sm) !important;
-    margin-left: -8px !important;
-    margin-right: -8px !important;
-    margin-top: -8px !important;
+    margin-left: var(--rds-spacing-neg-8) !important;
+    margin-right: var(--rds-spacing-neg-8) !important;
+    margin-top: var(--rds-spacing-neg-8) !important;
   }
 
   &__header-content {
@@ -146,7 +146,7 @@
       align-items: center !important;
       flex-direction: row !important;
       border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
-      padding-left: 18px !important;
+      padding-left: var(--rds-spacing-18) !important;
       padding-right: var(--rds-spacing-sm) !important;
       font-size: var(--rds-font-size-md, 15px) !important;
       font-weight: 500 !important;
@@ -239,7 +239,7 @@
   &-header-right {
     display: flex;
     align-items: center;
-    margin-right: -16px;
+    margin-right: var(--rds-spacing-neg-16);
   }
   
   &-body {
@@ -508,7 +508,7 @@
 }
 
 .margin-top-5 {
-  margin-top: -5px !important;
+  margin-top: var(--rds-spacing-neg-5) !important;
 }
 
 .kanban-board .card {
@@ -546,8 +546,8 @@
     width: calc(100vw - 40px) !important;
     min-width: calc(100vw - 40px) !important;
     max-width: calc(100vw - 40px) !important;
-    margin-right: 0px !important;
-    margin-left: 0px !important;
+    margin-right: var(--rds-spacing-0) !important;
+    margin-left: var(--rds-spacing-0) !important;
 
     &__card {
       min-width: 100% !important;

@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-tabs--line-left .MuiTab-root {
   border-left: 2px solid transparent;
   &.Mui-selected {
@@ -323,7 +325,7 @@
   background-color: unset !important;
 }
 
-@media (max-width: var(--rds-breakpoint-sm)) {
+@include bp.down(sm) {
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-root,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scroller,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scrollableX {
@@ -378,4 +380,51 @@
 }
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected {
   border-radius: 0 0 0 0 !important;
+}
+
+/* ========================================================
+   Dark mode overrides — ensure tab text is always visible
+   ======================================================== */
+[data-theme="dark"] {
+  .rds-tabs .MuiTab-root {
+    color: var(--rds-neutral-300, #ccc) !important;
+  }
+
+  .rds-tabs .MuiTab-root:hover {
+    color: var(--rds-neutral-0, #fff) !important;
+  }
+
+  /* Selected tab text for all line-* layouts */
+  .rds-tabs--line-bottom .MuiTab-root.Mui-selected,
+  .rds-tabs--line-top .MuiTab-root.Mui-selected,
+  .rds-tabs--line-left .MuiTab-root.Mui-selected,
+  .rds-tabs--line-right .MuiTab-root.Mui-selected {
+    color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+  }
+
+  /* Solid line variants */
+  .rds-tabs--line-bottom-solid .MuiTab-root.Mui-selected,
+  .rds-tabs--line-top-solid .MuiTab-root.Mui-selected,
+  .rds-tabs--line-left-solid .MuiTab-root.Mui-selected,
+  .rds-tabs--line-right-solid .MuiTab-root.Mui-selected {
+    color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+    background-color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+  }
+
+  /* Filled / Flap / Pill */
+  .rds-tabs--filled .MuiTab-root.Mui-selected,
+  .rds-tabs--flap .MuiTab-root.Mui-selected,
+  .rds-tabs--pill .MuiTab-root.Mui-selected {
+    color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+  }
+
+  /* MUI tab indicator */
+  .rds-tabs .MuiTabs-indicator {
+    background-color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+  }
+
+  /* Tab icons */
+  .rds-tabs .rds-tabs__icon svg {
+    fill: currentColor;
+  }
 }

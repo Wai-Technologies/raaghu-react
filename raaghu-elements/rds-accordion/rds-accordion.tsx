@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
 import './rds-accordion.scss';
+import { MotionCollapse } from '../../raaghu-react-themes/src/motion';
 
 export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   ShowLeftIcon?: boolean;
@@ -22,6 +23,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   size?: 'small' | 'medium' | 'large';
   state?: 'default' | 'hover' | 'selected';
   accordionStyle?: 'border' | 'bottomline' | 'borderhide';
+  animationDuration?: number;
 }
 
 const RdsAccordion = ({
@@ -34,6 +36,7 @@ const RdsAccordion = ({
   size = 'medium',
   state = 'default',
   accordionStyle = 'border',
+  animationDuration = 300,
   ...props
 }: RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);

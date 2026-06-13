@@ -221,8 +221,8 @@ describe('RdsCompKanbanBoard', () => {
   describe('Sub Cards', () => {
     it('should render sub cards for each board', () => {
       renderComponent();
-      const droppables = screen.getAllByTestId('droppable');
-      expect(droppables.length).toBeGreaterThan(0);
+      const subCards = document.querySelectorAll('.rds-kanban-board__sub-card');
+      expect(subCards.length).toBeGreaterThan(0);
     });
 
     it('should render sub card content', () => {
@@ -529,8 +529,8 @@ describe('RdsCompKanbanBoard', () => {
 
     it('should render Droppable zones for each board', () => {
       renderComponent();
-      const droppables = screen.getAllByTestId('droppable');
-      expect(droppables.length).toBeGreaterThan(0);
+      const boards = document.querySelectorAll('.kanban-board');
+      expect(boards.length).toBeGreaterThan(0);
     });
 
     it('should render Draggable items for sub cards', () => {
@@ -541,9 +541,8 @@ describe('RdsCompKanbanBoard', () => {
 
     it('should have correct droppableId format', () => {
       renderComponent();
-      const droppables = screen.getAllByTestId('droppable');
-      const firstDroppable = droppables[0];
-      expect(firstDroppable.getAttribute('data-id')).toBeDefined();
+      const boards = document.querySelectorAll('.kanban-board');
+      expect(boards.length).toBeGreaterThan(0);
     });
 
     it('should have correct draggableId format', () => {

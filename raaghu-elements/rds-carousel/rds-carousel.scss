@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-carousel {
   display: block;
   position: relative;
@@ -19,7 +21,7 @@
     background-color: var(--rds-carousel-navigation-bg, rgba(0, 0, 0, 0.5));
     color: var(--rds-color-on-primary);
     border: none;
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     width: 40px;
     height: 40px;
     display: flex;
@@ -60,11 +62,11 @@
     &--circle {
       width: 12px;
       height: 12px;
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
     }
-    
+
     &--line {
-      width: 24px;
+      width: var(--rds-size-lg);
       height: 4px;
       border-radius: calc(var(--rds-border-radius-sm, 4px) / 2);
     }
@@ -248,12 +250,12 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@include bp.down(420) {
   .css-rw2a2n {
     height: 109% !important;
   }
 }
-@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+@include bp.down(tablet-sm) {
   .rds-carousel {
     &__navigation {
       width: 36px;
@@ -300,7 +302,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-sm)) {
+@include bp.down(sm) {
   .rds-carousel--with-title .rds-carousel__slide-content {
     height: calc(100% - 90px) !important; 
   }
@@ -310,7 +312,7 @@
     height: calc(100% - 80px) !important;
   }
 
-@media (max-width: var(--rds-breakpoint-sm)) {
+@include bp.down(sm) {
   .rds-carousel {
     &__navigation {
       width: 44px;
@@ -345,11 +347,11 @@
       }
       
       &--line {
-        width: 16px;
+        width: var(--rds-size-md);
         height: 3px;
-        
+
         &.rds-carousel__indicator__active {
-          width: 24px;
+          width: var(--rds-size-lg);
           height: 4px;
         }
       }
@@ -406,12 +408,12 @@
     }
   }
 }
-@media (max-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.down(mobile-sm) {
   .rds-carousel--with-title .rds-carousel__slide-content {
     height: calc(100% - 110px) !important;
   }
 }
-@media (max-width: var(--rds-breakpoint-mobile-sm)) {
+@include bp.down(mobile-sm) {
    .css-gu8gi0 {
     width: 88%;
     max-width: 88%;
@@ -484,7 +486,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-lg)) and (max-width: var(--rds-breakpoint-md)) {
+@include bp.between(mobile-lg, md) {
   .rds-carousel__slide-content {
         height: 360px !important;
   }
@@ -531,7 +533,7 @@
     }
   }
 }
-@media (width: var(--rds-breakpoint-420)), (max-width: var(--rds-breakpoint-420)) {
+@include bp.down(420) {
   .rds-carousel--full-width-image {
     width: 100% !important;
     max-width: 100% !important;
@@ -553,7 +555,7 @@
     }
   }
 }
-@media (min-width: var(--rds-breakpoint-tablet-lg)) and (max-width: var(--rds-breakpoint-lg)) {
+@include bp.between(tablet-lg, lg) {
   .rds-carousel__slide-content {
         height: 359px !important;
   }
@@ -571,13 +573,13 @@
     .rds-carousel__title-content {
       background-color: var(--rds-carousel-title-bg-dark) !important;
       border: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.04)) !important;
-      color: var(--rds-color-surface) !important;
+      color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
     }
 
     .rds-carousel__title-content--bottom {
       background-color: var(--rds-carousel-title-bg-dark) !important;
       border-top: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.06)) !important;
-      color: var(--rds-color-surface) !important;
+      color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
     }
 
     &--with-title, &--full-width-image {
@@ -589,12 +591,12 @@
     }
 
     .rds-carousel__title-text {
-      color: var(--rds-color-surface) !important;
+      color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
       opacity: 0.95;
     }
 
     .rds-carousel__title-subtitle {
-      color: var(--rds-color-surface) !important;
+      color: var(--rds-color-on-surface-variant, var(--rds-color-text-secondary)) !important;
       opacity: 0.75 !important;
     }
   }
@@ -602,14 +604,14 @@
   [data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-text,
   .theme-dark .rds-carousel .rds-carousel__title-content .rds-carousel__title-text,
   .sb-show-main[data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-text {
-    color: var(--rds-color-surface) !important;
+    color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
     opacity: 1 !important;
   }
 
   [data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle,
   .theme-dark .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle,
   .sb-show-main[data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle {
-    color: var(--rds-color-surface) !important;
+    color: var(--rds-color-on-surface-variant, var(--rds-color-text-secondary)) !important;
     opacity: 0.85 !important;
   }
 

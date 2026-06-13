@@ -19,9 +19,9 @@ export interface RdsCompContributionProps {
   values: { [date: string]: number };
   until: string;
   dateFormat?: string;
-  weekLabelAttributes?: any;
-  monthLabelAttributes?: any;
-  panelAttributes?: any;
+  weekLabelAttributes?: React.SVGProps<SVGTextElement>;
+  monthLabelAttributes?: React.SVGProps<SVGTextElement>;
+  panelAttributes?: React.SVGProps<SVGRectElement>;
   monthLabelHeight?: number;
   weekLabelWidth?: number;
   panelSize?: number;

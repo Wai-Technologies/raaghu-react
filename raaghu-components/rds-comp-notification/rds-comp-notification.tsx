@@ -95,7 +95,7 @@ const RdsCompNotification = ({
                     }}>
                     
                     {showDismiss && (
-                        <RdsIconButton iconFilled={<Close />} size="small" onClick={(e) => handleDismiss(e, notification, index)} className="rds-comp-notification__dismiss" />)}
+                        <RdsIconButton iconFilled={<Close />} size="small" aria-label="Dismiss notification" onClick={(e) => handleDismiss(e, notification, index)} className="rds-comp-notification__dismiss" />)}
                    
                     <Box
                         className="rds-comp-notification__header"

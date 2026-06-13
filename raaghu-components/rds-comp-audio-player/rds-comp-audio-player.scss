@@ -19,7 +19,7 @@
     justify-content: center;
     width: calc(2.5 * var(--rds-spacing-md, 16px));
     height: calc(2.5 * var(--rds-spacing-md, 16px));
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     background: var(--rds-color-secondary-container);
     color: var(--rds-color-on-secondary-container);
     transition: all var(--rds-transition-base);
@@ -469,7 +469,7 @@
         box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0,0,0,0.15));
 
         &::before {
-          height: 24px;
+          height: var(--rds-size-lg);
         }
       }
     }
@@ -622,8 +622,8 @@
   }
 
   &__btn-icon {
-    width: 16px;
-    height: 16px;
+    width: var(--rds-size-md);
+    height: var(--rds-size-md);
     transition: color 0.2s ease;
   }
 
@@ -966,6 +966,6 @@
   }
 
 .rds-fab-menu__dropdown-container {
-    margin-right: -80px;
+    margin-right: var(--rds-spacing-neg-80);
   }
 }

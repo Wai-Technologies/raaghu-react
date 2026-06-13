@@ -283,7 +283,7 @@
     &__action-button--figma {
       .MuiButton-root,
       .css-1r3axgn-MuiButtonBase-root-MuiButton-root { 
-        margin: -6px !important;
+        margin: var(--rds-spacing-neg-6) !important;
       }
     }
   }

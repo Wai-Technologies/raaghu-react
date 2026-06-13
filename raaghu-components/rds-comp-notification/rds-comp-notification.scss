@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-notification {
   &.MuiCard-root {
     position: relative;
@@ -84,8 +86,8 @@
     .MuiAvatar-root {
       width: 40px;
       height: 40px;
-      margin-top: 20px;
-      margin-right: 12px !important;
+      margin-top: 0;
+      margin-right: var(--rds-spacing-12-px) !important;
     }
   }
 
@@ -95,8 +97,8 @@
       align-items: center;
       width: 38px;
       height: 38px;
-      margin-top: 20px;
-      margin-right: 14px ;
+      margin-top: 0;
+      margin-right: var(--rds-spacing-14) ;
       
       svg {
         width: 100%;
@@ -232,7 +234,7 @@
   &--style-icon {
     .rds-comp-notification__dismiss {
       &.MuiIconButton-root {
-        top: 30px;
+        top: 12px;
       }
     }
   }
@@ -277,9 +279,9 @@
     }
     
     .rds-comp-notification__body img {
-      margin-top: -35px !important; 
-      float: left;                  
-      margin-right: 6px;           
+      margin-top: var(--rds-spacing-neg-35) !important;
+      float: left;
+      margin-right: var(--rds-spacing-compact);
     }
     
     .rds-comp-notification__header {
@@ -289,7 +291,7 @@
       margin-top: var(--rds-spacing-xs) !important;
     }
     .rds-comp-notification__footer {
-      margin-top: 6px !important; 
+      margin-top: var(--rds-spacing-compact) !important;
     }
   }
 
@@ -302,12 +304,12 @@
   &--layout-horizontal.rds-comp-notification--style-avatar,
   &--layout-horizontal.rds-comp-notification--style-icon {
     .rds-comp-notification__body {
-      margin-left: 57px !important;
+      margin-left: var(--rds-spacing-57) !important;
     }
   }
 }
 
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-comp-notification {
     &--layout-horizontal {
       .rds-comp-notification__header {
@@ -338,8 +340,13 @@
 
     &--layout-horizontal.rds-comp-notification--style-avatar,
     &--layout-horizontal.rds-comp-notification--style-icon {
+      .rds-comp-notification__header {
+        flex-direction: row !important;
+        align-items: flex-start !important;
+      }
+
       .rds-comp-notification__body {
-        margin-left: 5px !important;
+        margin-left: var(--rds-spacing-57) !important;
       }
     }
   }
@@ -437,6 +444,44 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     
     .rds-comp-notification__secondary-button {
       color: var(--rds-neutral-900) !important;
+    }
+  }
+}
+
+body.theme-dark,
+[data-theme="dark"] {
+  .rds-comp-notification {
+    &.MuiCard-root {
+      border-color: var(--rds-border-default, rgba(255, 255, 255, 0.16));
+      box-shadow: none;
+    }
+
+    &--type-info {
+      background-color: var(--rds-background-surface, #1f2633) !important;
+      color: var(--rds-neutral-0, #fff) !important;
+      border: none !important;
+    }
+
+    &--layout-horizontal.rds-comp-notification--style-avatar,
+    &--layout-horizontal.rds-comp-notification--style-icon {
+      .rds-comp-notification__header {
+        align-items: flex-start !important;
+      }
+
+      .rds-comp-notification__body {
+        margin-left: var(--rds-spacing-57) !important;
+      }
+    }
+
+    .rds-comp-notification__title,
+    .rds-comp-notification__description {
+      color: var(--rds-neutral-0, #fff) !important;
+    }
+
+    .rds-comp-notification__time,
+    .rds-comp-notification__secondary-button,
+    .rds-comp-notification__dismiss svg {
+      color: var(--rds-text-secondary, rgba(255, 255, 255, 0.7)) !important;
     }
   }
 }

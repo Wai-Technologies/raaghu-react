@@ -35,7 +35,7 @@ export enum DatePickerState {
     Expanded = "Expanded",
     Selected = "Selected"
 }
-export interface RdsDatepickerProps {
+export interface RdsCompDatepickerProps {
     selectedDate?: (date: Date | null) => void; 
     dateForEdit?: string;
     titleText?: string; 
@@ -296,5 +296,5 @@ const RdsDatepicker = ({
         </>
     );
 };
-RdsDatepicker.displayName = "RdsDatepicker";
-export default RdsDatepicker;
+RdsCompDatepicker.displayName = "RdsCompDatepicker";
+export default RdsCompDatepicker;

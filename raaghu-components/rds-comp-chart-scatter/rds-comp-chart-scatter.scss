@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-chart-scatter {
     display: flex;
     justify-content: center;
@@ -9,7 +11,7 @@
     }
 
     // Tablet view - full screen
-    @media (min-width: var(--rds-breakpoint-md)) and (max-width: var(--rds-breakpoint-lg)) {
+    @include bp.between(md, lg) {
        
         canvas {
            height: 600px !important;

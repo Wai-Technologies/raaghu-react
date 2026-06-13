@@ -10,7 +10,7 @@ import "./rds-comp-text-editor.scss";
 
 export interface RdsCompTextEditorProps {
     id?: string;
-    onChange?(value: string, delta: any, source: any, editor: any): any;
+    onChange?(value: string, delta: unknown, source: unknown, editor: unknown): void;
     placeholder?: string;
     readOnly?: boolean;
     value?: string;
@@ -21,6 +21,14 @@ export interface RdsCompTextEditorProps {
     showTitle?: boolean;
     rows?: number;
     resizable?: boolean;
+}
+
+interface DraftContentState {
+    getPlainText(): string;
+}
+
+interface DraftEditorStateInstance {
+    getCurrentContent(): DraftContentState;
 }
 
 const createEditorStateFromValue = (value?: string, showTitle?: boolean) => {

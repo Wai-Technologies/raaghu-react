@@ -655,7 +655,7 @@ describe('RdsRange', () => {
     });
 
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsRange />);
+      const { container } = render(<RdsRange aria-label="Select range" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

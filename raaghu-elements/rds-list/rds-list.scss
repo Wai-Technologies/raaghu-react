@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-list {
   --rds-list-focus-ring-width: 2px;
   --rds-list-shadow-surface: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
@@ -217,7 +219,8 @@
 }
 
 .rds-list--align-responsive {
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  // CSS custom properties cannot be used in @media queries — use hardcoded token values (sm=600px, xl=1536px).
+  @media (max-width: 600px) {
     .rds-list__item {
       align-items: flex-start;
     }
@@ -234,7 +237,7 @@
     }
   }
 
-  @media (min-width: var(--rds-breakpoint-xl)) {
+  @media (min-width: 1536px) {
     .rds-list__item {
       align-items: center;
     }
@@ -274,11 +277,11 @@
 }
 
 .rds-list-demo__grid--col-responsive {
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  @include bp.down(sm) {
     grid-template-columns: 1fr;
   }
 
-  @media (min-width: var(--rds-breakpoint-1600)) {
+  @include bp.up(1600) {
     grid-template-columns: 1fr;
   }
 }

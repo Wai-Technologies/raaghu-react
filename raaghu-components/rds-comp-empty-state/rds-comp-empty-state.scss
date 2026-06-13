@@ -1,3 +1,5 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 [data-theme="dark"] .rds-comp-empty-state__title,
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__title,
@@ -116,7 +118,7 @@ body.dark .rds-comp-empty-state__subtitle {
   }
 }
 
-@media (max-width: var(--rds-breakpoint-md)) {
+@include bp.down(md) {
   .rds-comp-empty-state {
     padding: var(--rds-spacing-lg, 24px) var(--rds-spacing-md, 16px);
     min-height: var(--rds-size-4xl, 200px);

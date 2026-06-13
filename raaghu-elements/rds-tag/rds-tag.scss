@@ -19,18 +19,18 @@
 }
 
 [data-theme="dark"]{
-    .MuiChip-label {
-      color: var(--rds-button-primary-text);
+    .MuiChip-filled .MuiChip-label,
+    .MuiChip-root:not(.MuiChip-outlined) .MuiChip-label {
+      color: var(--rds-text-primary);
     }
    
-    .MuiChip-outlined {
-      .MuiChip-label {
-        color: inherit;
-      }
+    .MuiChip-outlined .MuiChip-label {
+      color: inherit;
     }
 
-    .MuiChip-deleteIcon{
-      color: var(--rds-button-primary-text) !important;
+    .MuiChip-filled .MuiChip-deleteIcon,
+    .MuiChip-root:not(.MuiChip-outlined) .MuiChip-deleteIcon {
+      color: var(--rds-text-primary) !important;
     }
     .MuiChip-outlined .MuiChip-deleteIcon{
       color: inherit !important;

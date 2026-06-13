@@ -88,7 +88,7 @@ export const colorTokens = {
     0: '#ffffff',
     50: '#fafafa',
     100: '#f5f5f5',
-    200: '#646464', // Dark theme normal
+    200: '#eeeeee',
     250: '#969696', // Dark theme hover
     300: '#e0e0e0',
     400: '#bdbdbd',
@@ -134,7 +134,7 @@ export const colorTokens = {
 
 /** Extended breakpoints for responsive SCSS (injected as --rds-breakpoint-*). */
 export const extendedBreakpointTokens = {
-  xs: '0px',
+  xs: '320px',
   sm: '600px',
   md: '900px',
   lg: '1200px',
@@ -290,6 +290,47 @@ export const spacingExact = {
   '18': '18px',
   '22': '22px',
   '52': '52px',
+  // Additional component-specific values (legacy SCSS — not for new code)
+  '25': '25px',
+  '27': '27px',
+  '29': '29px',
+  '30': '30px',
+  '33': '33px',
+  '34': '34px',
+  '43': '43px',
+  '44': '44px',
+  '53': '53px',
+  '54': '54px',
+  '57': '57px',
+  '60': '60px',
+  '67': '67px',
+  '68': '68px',
+  '75': '75px',
+  '92': '92px',
+  '98': '98px',
+  '110': '110px',
+  '122': '122px',
+  '124': '124px',
+  '132': '132px',
+  '157': '157px',
+  '160': '160px',
+  '170': '170px',
+  '235': '235px',
+  '240': '240px',
+  // Negative offsets (layout adjustments in legacy components — not for new code)
+  'neg-1': '-1px',
+  'neg-2': '-2px',
+  'neg-4': '-4px',
+  'neg-5': '-5px',
+  'neg-6': '-6px',
+  'neg-8': '-8px',
+  'neg-9': '-9px',
+  'neg-14': '-14px',
+  'neg-16': '-16px',
+  'neg-20': '-20px',
+  'neg-25': '-25px',
+  'neg-35': '-35px',
+  'neg-80': '-80px',
 } as const;
 
 // Border Radius Tokens
@@ -365,7 +406,7 @@ export const zIndexTokens = {
 
 // Breakpoint Tokens
 export const breakpointTokens = {
-  xs: '0px',
+  xs: '320px',
   sm: '600px',
   md: '900px',
   lg: '1200px',

@@ -1,17 +1,17 @@
-import RdsDatepicker, { DatePickerLayout, DatePickerState, DatePickerStyleType, RdsDatepickerProps } from "./rds-comp-datepicker";
+import RdsCompDatepicker, { DatePickerLayout, DatePickerState, DatePickerStyleType, RdsCompDatepickerProps } from "./rds-comp-datepicker";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Date Picker',
-    component: RdsDatepicker,
+    component: RdsCompDatepicker,
     parameters: {
             status: { type: 'stable' },
         layout: 'padded',
         docs :{
             description: {
         component:
-            'The **Date Picker** component is an interactive UI element for selecting dates in various formats. It supports multiple display styles (`Dropdown`, `Selector`), layout options (`Default`, `Month Picker`, `Year Picker`, `Multi Month`), and states (`Default`, `Expanded`, `Selected`). Users can customize the icon, show an optional title, mark the field as mandatory, and set a placeholder for empty input. The component offers flexible props for appearance and behavior, making it suitable for forms, scheduling tools, and any interface where efficient date selection is required.'
+            'The Date Picker component is an interactive UI element for selecting dates in various formats. It supports multiple display styles (Dropdown, Selector), layout options (Default, Month Picker, Year Picker, Multi Month), and states (Default, Expanded, Selected). Users can customize the icon, show an optional title, mark the field as mandatory, and set a placeholder for empty input. The component offers flexible props for appearance and behavior, making it suitable for forms, scheduling tools, and any interface where efficient date selection is required.'
     },
             source:{
                 transform: (code: string) => {
@@ -50,10 +50,10 @@ const meta: Meta = {
             control: { type: "select" },
         },
     },
-} satisfies Meta<typeof RdsDatepicker>;
+} satisfies Meta<typeof RdsCompDatepicker>;
 
 export default meta;
-type Story = StoryObj<typeof RdsDatepicker>;
+type Story = StoryObj<typeof RdsCompDatepicker>;
 
 export const Default: Story = {
     args: {

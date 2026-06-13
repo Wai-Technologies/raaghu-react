@@ -3,7 +3,8 @@ import {
   LinearProgress as MuiLinearProgress,
   CircularProgress as MuiCircularProgress,
   Box,
-  Typography
+  Typography,
+  type SxProps
 } from '@mui/material';
 import clsx from 'clsx';
 import './rds-progress.scss';
@@ -40,6 +41,8 @@ const RdsProgress = ({
   totalSteps = 5,
   stepperType = 'number',
   sx,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
   ...props
 }:RdsProgressProps) => {
   const getProgressValue = () => steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style) ? steps * 20 : value;

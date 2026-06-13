@@ -521,7 +521,7 @@ describe('RdsSlider', () => {
     });
 
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsSlider />);
+      const { container } = render(<RdsSlider aria-label="Volume" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

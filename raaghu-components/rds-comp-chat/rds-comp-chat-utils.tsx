@@ -32,6 +32,7 @@ export const capturePhoto = (
   addComment: (comment: Comment) => void,
   currentUser: { firstName: string; lastName: string },
   updateState: (updates: Record<string, unknown>) => void,
+  updateState: (updates: Record<string, unknown>) => void,
   stopCameraFn: () => void
 ) => {
   if (canvasRef.current && videoRef.current) {
@@ -54,7 +55,12 @@ export function updateState<T extends Record<string, unknown>>(setState: Dispatc
   return (updates: Partial<T>) => setState((prev) => ({ ...prev, ...updates }));
 }
 
-export function onUserSelect(index: number, props: any, setCurrentUser: any, updateStateFn: any) {
+export function onUserSelect(
+  index: number,
+  props: { userData: Array<{ comments?: Comment[]; [key: string]: unknown }> },
+  setCurrentUser: (user: { comments?: Comment[]; [key: string]: unknown }) => void,
+  updateStateFn: (updates: Record<string, unknown>) => void
+) {
   if (index >= 0 && index < props.userData.length) {
     setCurrentUser(props.userData[index]);
     updateStateFn({
@@ -64,13 +70,23 @@ export function onUserSelect(index: number, props: any, setCurrentUser: any, upd
   }
 }
 
-export function addComment(newComment: Comment, state: any, updateStateFn: any, handleAddComment: any) {
+export function addComment(
+  newComment: Comment,
+  state: { commentList: Comment[] },
+  updateStateFn: (updates: Record<string, unknown>) => void,
+  handleAddComment: ((comment: Comment) => void) | undefined
+) {
   const updatedComments = [...state.commentList, newComment];
   updateStateFn({ commentList: updatedComments });
   handleAddComment?.(newComment);
 }
 
-export function handleAddComment(state: any, currentUser: any, addCommentFn: any, updateStateFn: any) {
+export function handleAddComment(
+  state: { commentText: string },
+  currentUser: { firstName: string; lastName: string },
+  addCommentFn: (comment: Comment) => void,
+  updateStateFn: (updates: Record<string, unknown>) => void
+) {
   if (state.commentText.trim()) {
     addCommentFn({
       firstName: currentUser.firstName,

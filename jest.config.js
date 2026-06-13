@@ -16,8 +16,8 @@ export default {
     '<rootDir>/**/*.spec.{ts,tsx,js}'
   ],
   testPathIgnorePatterns: [
-    '/node_modules/',
     '<rootDir>/tests/specs/',
+    '<rootDir>/e2e/'
   ],
   collectCoverageFrom: [
     'raaghu-elements/**/*.{ts,tsx}',
