@@ -24,6 +24,6 @@
     "raaghu-layouts",
     "raaghu-react-themes",
     "utils",
-    "src"
+    "types"
   ]
 }
