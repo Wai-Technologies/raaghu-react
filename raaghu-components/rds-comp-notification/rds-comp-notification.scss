@@ -1,8 +1,10 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-notification {
   &.MuiCard-root {
     position: relative;
-    transition: all 0.3s ease;
-    border: 1px solid var(--rds-form-border, #B1B1B1);
+    transition: all var(--rds-transition-slow);
+    border: 1px solid var(--rds-form-border);
   }
 
   .MuiTypography-root {
@@ -40,14 +42,14 @@
 
     .rds-comp-notification__image-container {
       width: 100%;
-      background: #E1E3EA;
+      background: var(--rds-background-surface);
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 8px;
+      border-radius: var(--rds-border-radius-md);
       box-sizing: border-box;
-      margin: 4px 0;
-      padding: 40px 0;
+      margin: var(--rds-spacing-xs) 0;
+      padding: var(--rds-spacing-10) 0;
     }
     
     .rds-comp-notification__image-container img {
@@ -63,15 +65,15 @@
     }
     
     .rds-comp-notification__header {
-      margin-bottom: 4px; 
+      margin-bottom: var(--rds-spacing-xs); 
     }
     
     .rds-comp-notification__body {
-      margin-top: 4px !important; 
+      margin-top: var(--rds-spacing-xs) !important; 
     }
     
     .rds-comp-notification__footer {
-      margin-top: 8px !important; 
+      margin-top: var(--rds-spacing-sm) !important; 
     }
     
     .rds-comp-notification__body img {
@@ -84,8 +86,8 @@
     .MuiAvatar-root {
       width: 40px;
       height: 40px;
-      margin-top: 20px;
-      margin-right: 12px !important;
+      margin-top: 0;
+      margin-right: var(--rds-spacing-12-px) !important;
     }
   }
 
@@ -95,8 +97,8 @@
       align-items: center;
       width: 38px;
       height: 38px;
-      margin-top: 20px;
-      margin-right: 14px ;
+      margin-top: 0;
+      margin-right: var(--rds-spacing-14) ;
       
       svg {
         width: 100%;
@@ -110,13 +112,13 @@
 
   &--layout-vertical.rds-comp-notification--style-icon {
     .rds-comp-notification__icon {
-      margin-bottom: 8px !important;
+      margin-bottom: var(--rds-spacing-sm) !important;
     }
   }
 
   &--style-image {
     img {
-      border-radius: 8px;
+      border-radius: var(--rds-border-radius-md);
       vertical-align: middle;
       margin-top: 0 !important;
       margin-bottom: 0 !important;
@@ -132,40 +134,40 @@
   }
 
   &--type-error {
-    background-color: var(--rds-alert-error-bg, #ffdad6) !important;
-    color: var(--rds-text-primary, #333333) !important;
+    background-color: var(--rds-alert-error-bg) !important;
+    color: var(--rds-text-primary) !important;
     border: none !important;
   }
 
   &--type-info {
-    background-color: var(--rds-background-paper, #ffffff) !important;
-    color: var(--rds-text-primary, #333333) !important;
+    background-color: var(--rds-background-paper) !important;
+    color: var(--rds-text-primary) !important;
   }
 
   &--type-success {
-    background-color: var(--rds-alert-success-bg, #ebdcff) !important;
+    background-color: var(--rds-alert-success-bg) !important;
     border: none !important;
-    color: var(--rds-text-primary, #333333) !important;
+    color: var(--rds-text-primary) !important;
   }
 
   &--type-warning {
-    background-color: var(--rds-alert-warning-bg, #fed99b) !important;
+    background-color: var(--rds-alert-warning-bg) !important;
     border: none !important;
-    color: var(--rds-text-primary, #333333) !important;
+    color: var(--rds-text-primary) !important;
   }
 
   &__image-sidebar {
-    background: var(--rds-background-surface, #E1E3EA) !important;
+    background: var(--rds-background-surface) !important;
   }
 
   &__header {
     position: relative;
-    margin-bottom: 8px;
+    margin-bottom: var(--rds-spacing-sm);
   }
 
   &__title-section {
     flex-grow: 1;
-    padding-left: 4px !important;
+    padding-left: var(--rds-spacing-xs) !important;
   }
 
   &__title {
@@ -202,7 +204,7 @@
     .MuiCardActions-root {
       padding: 0 !important;
       justify-content: flex-end;
-      gap: 8px;
+      gap: var(--rds-spacing-sm);
     }
   }
 
@@ -211,17 +213,17 @@
       position: absolute;
       top: 17px;
       right: 5px;
-      padding: 4px;
+      padding: var(--rds-spacing-xs);
       background-color: transparent;
       
       &:hover {
-        background-color: var(--rds-button-text-bg-hover, rgba(0, 0, 0, 0.04));
+        background-color: var(--rds-action-hover);
       }
       
       svg {
         width: 20px;
         height: 20px;
-        color: var(--rds-text-primary,#7d7d7d) !important;
+        color: var(--rds-text-secondary) !important;
         pointer-events: none;
       }
     }
@@ -232,7 +234,7 @@
   &--style-icon {
     .rds-comp-notification__dismiss {
       &.MuiIconButton-root {
-        top: 30px;
+        top: 12px;
       }
     }
   }
@@ -252,7 +254,7 @@
       color: var(--rds-button-primary-text, var(--rds-color-primary)) !important;
       
       &:hover {
-        background-color: var(--rds-button-text-bg-hover, rgba(25, 118, 210, 0.04)) !important;
+        background-color: var(--rds-action-hover) !important;
       }
     }
   }
@@ -268,7 +270,7 @@
     }
   }
   .rds-comp-notification__secondary-button{
-    color: var(--rds-text-secondary, #646464) !important;
+    color: var(--rds-text-secondary) !important;
   }
 
   &--layout-horizontal.rds-comp-notification--style-image {
@@ -277,19 +279,19 @@
     }
     
     .rds-comp-notification__body img {
-      margin-top: -35px !important; 
-      float: left;                  
-      margin-right: 6px;           
+      margin-top: var(--rds-spacing-neg-35) !important;
+      float: left;
+      margin-right: var(--rds-spacing-compact);
     }
     
     .rds-comp-notification__header {
-      margin-bottom: 4px;
+      margin-bottom: var(--rds-spacing-xs);
     }
     .rds-comp-notification__body {
-      margin-top: 4px !important;
+      margin-top: var(--rds-spacing-xs) !important;
     }
     .rds-comp-notification__footer {
-      margin-top: 6px !important; 
+      margin-top: var(--rds-spacing-compact) !important;
     }
   }
 
@@ -302,12 +304,12 @@
   &--layout-horizontal.rds-comp-notification--style-avatar,
   &--layout-horizontal.rds-comp-notification--style-icon {
     .rds-comp-notification__body {
-      margin-left: 57px !important;
+      margin-left: var(--rds-spacing-57) !important;
     }
   }
 }
 
-@media (max-width: 768px) {
+@include bp.down(md) {
   .rds-comp-notification {
     &--layout-horizontal {
       .rds-comp-notification__header {
@@ -338,8 +340,13 @@
 
     &--layout-horizontal.rds-comp-notification--style-avatar,
     &--layout-horizontal.rds-comp-notification--style-icon {
+      .rds-comp-notification__header {
+        flex-direction: row !important;
+        align-items: flex-start !important;
+      }
+
       .rds-comp-notification__body {
-        margin-left: 5px !important;
+        margin-left: var(--rds-spacing-57) !important;
       }
     }
   }
@@ -349,8 +356,8 @@ body:not(.theme-dark):not([data-theme="dark"]) {
   @media (prefers-color-scheme: dark) {
     .rds-comp-notification--type-info.rds-comp-notification--style-image {
       &, &.rds-comp-notification--layout-horizontal {
-        background-color: var(--rds-background-paper, #ffffff) !important;
-        color: #000000 !important;
+        background-color: var(--rds-background-paper) !important;
+        color: var(--rds-neutral-900) !important;
         border: none !important;
       }
       
@@ -358,19 +365,19 @@ body:not(.theme-dark):not([data-theme="dark"]) {
       .rds-comp-notification__title,
       .rds-comp-notification__time,
       .rds-comp-notification__description {
-        color: #000000 !important;
+        color: var(--rds-neutral-900) !important;
       }
       
       .rds-comp-notification__dismiss svg {
-        color: #000000 !important;
+        color: var(--rds-neutral-900) !important;
       }
       
       .rds-comp-notification__secondary-button {
-        color: #000000 !important;
+        color: var(--rds-neutral-900) !important;
       }
       
       .MuiPaper-root, .MuiCard-root { 
-        background-color: var(--rds-background-paper, #ffffff) !important; 
+        background-color: var(--rds-background-paper) !important; 
       }
       .rds-comp-notification__image-container { 
         background-color: transparent !important; 
@@ -380,7 +387,7 @@ body:not(.theme-dark):not([data-theme="dark"]) {
 }
 
 .css-mixntr-MuiButtonBase-root-MuiIconButton-root{
-  z-index: 1 !important;
+  z-index: var(--rds-z-index-layer-1) !important;
 }
 .css-1dy7uxw-MuiPaper-root-MuiCard-root{
   box-shadow: none !important;
@@ -389,8 +396,8 @@ body:not(.theme-dark):not([data-theme="dark"]) {
 @media (prefers-color-scheme: dark) {
   .rds-comp-notification--type-info.rds-comp-notification--style-image {
     &, &.rds-comp-notification--layout-horizontal {
-      background-color: var(--rds-background-paper, #ffffff) !important;
-      color: #000000 !important;
+      background-color: var(--rds-background-paper) !important;
+      color: var(--rds-neutral-900) !important;
       border: none !important;
     }
     
@@ -398,19 +405,19 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     .rds-comp-notification__title,
     .rds-comp-notification__time,
     .rds-comp-notification__description {
-      color: #000000 !important;
+      color: var(--rds-neutral-900) !important;
     }
     
     .rds-comp-notification__dismiss svg {
-      color: #000000 !important;
+      color: var(--rds-neutral-900) !important;
     }
     
     .rds-comp-notification__secondary-button {
-      color: #000000 !important;
+      color: var(--rds-neutral-900) !important;
     }
     
     .MuiPaper-root, .MuiCard-root { 
-      background-color: var(--rds-background-paper, #ffffff) !important; 
+      background-color: var(--rds-background-paper) !important; 
     }
     .rds-comp-notification__image-container { 
       background-color: transparent !important; 
@@ -419,8 +426,8 @@ body:not(.theme-dark):not([data-theme="dark"]) {
   
   :root:not([data-theme="dark"]) .rds-comp-notification--type-info.rds-comp-notification--style-image {
     &, &.rds-comp-notification--layout-horizontal {
-      background-color: var(--rds-background-paper, #ffffff) !important;
-      color: #000000 !important;
+      background-color: var(--rds-background-paper) !important;
+      color: var(--rds-neutral-900) !important;
       border: none !important;
     }
     
@@ -428,90 +435,59 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     .rds-comp-notification__title,
     .rds-comp-notification__time,
     .rds-comp-notification__description {
-      color: #000000 !important;
+      color: var(--rds-neutral-900) !important;
     }
     
     .rds-comp-notification__dismiss svg {
-      color: #000000 !important;
+      color: var(--rds-neutral-900) !important;
     }
     
     .rds-comp-notification__secondary-button {
-      color: #000000 !important;
+      color: var(--rds-neutral-900) !important;
     }
   }
 }
 
-.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-image,
-.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-default,
-.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-icon,
-.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-avatar {
-  &, &.rds-comp-notification--layout-horizontal {
-    background-color: var(--rds-background-paper, #424242) !important;
-    color: var(--rds-text-primary, #ffffff) !important;
-    border: none !important;
-  }
+body.theme-dark,
+[data-theme="dark"] {
+  .rds-comp-notification {
+    &.MuiCard-root {
+      border-color: var(--rds-border-default, rgba(255, 255, 255, 0.16));
+      box-shadow: none;
+    }
 
-  .rds-comp-notification__primary-button {
-    color: #3C98FF !important;
-  }
-  
-  .MuiTypography-root,
-  .rds-comp-notification__title,
-  .rds-comp-notification__time,
-  .rds-comp-notification__description {
-    color: #ffffff !important;
-  }
-  
-  .rds-comp-notification__dismiss svg {
-    color: #ffffff !important;
-  }
-  
-  .rds-comp-notification__secondary-button {
-    color: #ffffff !important;
-  }
-  
-  .MuiPaper-root, .MuiCard-root { 
-    background-color: var(--rds-background-paper, #424242) !important; 
-  }
-  .rds-comp-notification__image-container { 
-    background-color: transparent !important; 
-  }
-}
+    &--type-info {
+      background-color: var(--rds-background-surface, #1f2633) !important;
+      color: var(--rds-neutral-0, #fff) !important;
+      border: none !important;
+    }
 
-[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-image,
-[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-default,
-[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-icon,
-[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-avatar {
-  &, &.rds-comp-notification--layout-horizontal {
-    background-color: var(--rds-background-paper, #424242) !important;
-    color: var(--rds-text-primary, #ffffff) !important;
-    border: none !important;
-  }
-  
-  .MuiTypography-root,
-  .rds-comp-notification__title,
-  .rds-comp-notification__time,
-  .rds-comp-notification__description {
-    color: #ffffff !important;
-  }
-  
-  .rds-comp-notification__dismiss svg {
-    color: #ffffff !important;
-  }
-  
-  .rds-comp-notification__secondary-button {
-    color: #ffffff !important;
-  }
-  
-  .MuiPaper-root, .MuiCard-root { 
-    background-color: var(--rds-background-paper, #424242) !important; 
-  }
-  .rds-comp-notification__image-container { 
-    background-color: transparent !important; 
+    &--layout-horizontal.rds-comp-notification--style-avatar,
+    &--layout-horizontal.rds-comp-notification--style-icon {
+      .rds-comp-notification__header {
+        align-items: flex-start !important;
+      }
+
+      .rds-comp-notification__body {
+        margin-left: var(--rds-spacing-57) !important;
+      }
+    }
+
+    .rds-comp-notification__title,
+    .rds-comp-notification__description {
+      color: var(--rds-neutral-0, #fff) !important;
+    }
+
+    .rds-comp-notification__time,
+    .rds-comp-notification__secondary-button,
+    .rds-comp-notification__dismiss svg {
+      color: var(--rds-text-secondary, rgba(255, 255, 255, 0.7)) !important;
+    }
   }
 }
 .css-60eszb
 {
   position: unset !important;
-  padding: 0px !important;
+  padding: var(--rds-spacing-0) !important;
 }
+

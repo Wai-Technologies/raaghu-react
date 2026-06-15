@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSwitch from './rds-switch';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-switch.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -590,6 +590,12 @@ describe('RdsSwitch', () => {
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toHaveAttribute('type', 'checkbox');
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsSwitch label="Toggle" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should be keyboard accessible', () => {

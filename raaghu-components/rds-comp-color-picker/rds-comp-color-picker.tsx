@@ -8,6 +8,7 @@ import {
   ColorModeSwatches,
   GradientEditor
 } from "./color-picker-components";
+import { colorTokens } from "../../raaghu-react-themes/tokens/design-tokens";
 
 export enum ColorPickerType {
   Default = "Default",
@@ -32,7 +33,7 @@ export enum StyleType {
   Type2 = "Type 2",
 }
 
-export interface RdsColorPickerProps {
+export interface RdsCompColorPickerProps {
   value: string;
   isDisabled?: boolean;
   label: string;
@@ -45,14 +46,46 @@ export interface RdsColorPickerProps {
   onChange?: (colorHex: string) => void;
 }
 
-const RdsColorPicker = (props: RdsColorPickerProps) => {
+const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
   const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, isDisabled, onChange } =
     props;
+  const getDefaultColorHex = () => {
+    if (value) return value;
+    try {
+      if (typeof window !== 'undefined') {
+        const computed = getComputedStyle(document.documentElement).getPropertyValue('--rds-color-primary') || '';
+        const trimmed = computed.trim();
+        if (trimmed) return trimmed;
+      }
+    } catch (e) {
+      // ignore
+    }
+    return colorTokens.primary[400];
+  };
+
+  const hexToRgb = (hex: string) => {
+    if (!hex) return { r: 0, g: 0, b: 0 };
+    const h = hex.replace('#', '');
+    if (h.length === 3) {
+      const r = parseInt(h[0] + h[0], 16);
+      const g = parseInt(h[1] + h[1], 16);
+      const b = parseInt(h[2] + h[2], 16);
+      return { r, g, b };
+    }
+    const r = parseInt(h.substring(0, 2), 16);
+    const g = parseInt(h.substring(2, 4), 16);
+    const b = parseInt(h.substring(4, 6), 16);
+    return { r, g, b };
+  };
+
+  const _defaultHex = getDefaultColorHex();
+  const defaultRgb = hexToRgb(_defaultHex);
+
   const [selectedColorState, setSelectedColorState] = useState({
-    hex: value || "#9751F2",
-    rgb: { r: 151, g: 81, b: 242, a: 1 },
+    hex: _defaultHex,
+    rgb: { r: defaultRgb.r, g: defaultRgb.g, b: defaultRgb.b, a: 1 },
   });
-  const [selectedColorHex, setSelectedColorHex] = useState<string>(value || "#9751F2");
+  const [selectedColorHex, setSelectedColorHex] = useState<string>(_defaultHex);
   const [showPicker, setShowPicker] = useState(type !== ColorPickerType.Button);
   const [selectedTab, setSelectedTab] = useState(
     pickerType || "Grid"
@@ -108,7 +141,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     setSelectedTab(tab);
   };
 
-  const handleChange = (newColor: any) => {
+  const handleChange = (newColor: { hex: string; rgb: { r: number; g: number; b: number; a: number } }) => {
     if (isDisabled) return;
     const next = { ...selectedColorState, hex: newColor.hex, rgb: newColor.rgb ?? selectedColorState.rgb };
     setSelectedColorState(next);
@@ -116,7 +149,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     if (onChange) onChange(newColor.hex);
   };
 
-  const handleHueChange = (newColor: any) => {
+  const handleHueChange = (newColor: { hex: string }) => {
     if (isDisabled) return;
     const next = { ...selectedColorState, hex: newColor.hex };
     setSelectedColorState(next);
@@ -124,7 +157,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     if (onChange) onChange(newColor.hex);
   };
 
-  const handleAlphaChange = (newColor: any) => {
+  const handleAlphaChange = (newColor: { rgb: { a: number } }) => {
     if (isDisabled) return;
     setSelectedColorState({ ...selectedColorState, rgb: { ...selectedColorState.rgb, a: newColor.rgb.a } });
   };
@@ -177,7 +210,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
                 showColorModeDropdown={showColorModeDropdown}
                 setShowColorModeDropdown={setShowColorModeDropdown}
                 getColorDisplay={() => getColorDisplayValue()}
-                onSelectColorMode={(mode: any) => setSelectedColorMode(mode as ColorMode)}
+                onSelectColorMode={(mode: ColorMode) => setSelectedColorMode(mode)}
               />
             ) : (
               <ColorPickerSpectrum
@@ -193,7 +226,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
                 getColorDisplay={() => getColorDisplayValue()}
                 showSwatches={showSwatches}
                 styleType={selectedStyle}
-                onSelectColorMode={(mode: any) => setSelectedColorMode(mode as ColorMode)}
+                onSelectColorMode={(mode: ColorMode) => setSelectedColorMode(mode)}
               />
             )}
           </div>
@@ -202,5 +235,5 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     </Fragment>
   );
 };
-RdsColorPicker.displayName = "RdsColorPicker";
-export default RdsColorPicker;
+RdsCompColorPicker.displayName = "RdsCompColorPicker";
+export default RdsCompColorPicker;

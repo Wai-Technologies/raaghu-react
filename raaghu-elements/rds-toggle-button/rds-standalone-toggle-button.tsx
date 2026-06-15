@@ -47,3 +47,5 @@ const RdsStandaloneToggleButton: React.FC<RdsStandaloneToggleButtonProps> = ({
 };
 
 export default RdsStandaloneToggleButton;
+
+RdsStandaloneToggleButton.displayName = 'RdsStandaloneToggleButton';

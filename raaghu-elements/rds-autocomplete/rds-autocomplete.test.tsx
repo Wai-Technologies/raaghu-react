@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsAutocomplete, { RdsAutocompleteProps } from './rds-autocomplete';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-autocomplete.scss', () => ({}));
@@ -905,6 +906,14 @@ describe('RdsAutocomplete', () => {
       );
       expect(container.querySelector('.rds-autocomplete')).toBeInTheDocument();
       expect(container.querySelector('input')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsAutocomplete {...defaultProps} label="Search" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

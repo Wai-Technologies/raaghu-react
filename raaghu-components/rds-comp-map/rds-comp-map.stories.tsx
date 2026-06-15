@@ -1,3 +1,4 @@
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsCompMap from "./rds-comp-map";
 
@@ -5,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Map',
     component: RdsCompMap,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
             description: {
@@ -12,7 +14,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         title: {
             control: { type: 'text' },
@@ -36,6 +38,10 @@ export default meta;
 type Story = StoryObj<typeof RdsCompMap>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.firstElementChild;
+        expect(el).toBeTruthy();
+    },
     args: {
         title: 'Map',
         color: '#A478E6',

@@ -24,6 +24,7 @@ const RdsCheckbox = ({
   cssStyle,
   color,
   onChange,
+  disabled,
   ...props
 }:RdsCheckboxProps) => {
   const getInitialCheckedState = () => {
@@ -50,6 +51,8 @@ const RdsCheckbox = ({
 
   const currentIndeterminate = getInitialIndeterminateState();
 
+  const isActuallyDisabled = isDisabled || state === 'disabled' || !!disabled;
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
     setChecked(value);
     if (onChange) onChange(event, value);
@@ -59,7 +62,7 @@ const RdsCheckbox = ({
     const classes = ['rds-checkbox'];
     if (style) classes.push(`rds-checkbox__${style}`);
     if (checked) classes.push('rds-checkbox__checked');
-    if (isDisabled || state === 'disabled') classes.push('rds-checkbox__disabled');
+    if (isActuallyDisabled) classes.push('rds-checkbox__disabled');
     if (currentIndeterminate) classes.push('rds-checkbox__indeterminate');
     if (state && state !== 'default') classes.push(`rds-checkbox__${state}`);
     if (color && color !== 'default') classes.push(`rds-checkbox__${color}`);
@@ -72,7 +75,7 @@ const RdsCheckbox = ({
   const checkbox = (
     <MuiCheckbox
       checked={checked}
-      disabled={isDisabled || state === 'disabled'}
+      disabled={isActuallyDisabled}
       indeterminate={currentIndeterminate}
       color={color}
       onChange={handleChange}
@@ -86,7 +89,7 @@ const RdsCheckbox = ({
         <FormControlLabel
           control={checkbox}
           label={showText ? labeltext : ''}
-          disabled={isDisabled || state === 'disabled'}
+          disabled={isActuallyDisabled}
         />
       </div>
     );

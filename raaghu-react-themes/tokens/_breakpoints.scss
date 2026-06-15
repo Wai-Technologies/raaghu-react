@@ -1,0 +1,72 @@
+@use 'sass:map';
+
+$rds-breakpoints: (
+  xs: 0px,
+  sm: 600px,
+  md: 900px,
+  lg: 1200px,
+  xl: 1536px,
+  mobile-sm: 320px,
+  mobile-md: 375px,
+  mobile-lg: 414px,
+  tablet-sm: 768px,
+  tablet-md: 834px,
+  tablet-lg: 1024px,
+  280: 280px,
+  340: 340px,
+  360: 360px,
+  361: 361px,
+  375: 375px,
+  380: 380px,
+  400: 400px,
+  401: 401px,
+  420: 420px,
+  430: 430px,
+  576: 576px,
+  568: 568px,
+  600: 600px,
+  640: 640px,
+  650: 650px,
+  700: 700px,
+  767: 767px,
+  769: 769px,
+  800: 800px,
+  991: 991px,
+  833: 833px,
+  834: 834px,
+  835: 835px,
+  840: 840px,
+  896: 896px,
+  992: 992px,
+  1023: 1023px,
+  1025: 1025px,
+  1112: 1112px,
+  1280: 1280px,
+  1600: 1600px
+);
+
+@function bp($key) {
+  @if not map.has-key($rds-breakpoints, $key) {
+    @error "Unknown breakpoint '#{$key}'.";
+  }
+
+  @return map.get($rds-breakpoints, $key);
+}
+
+@mixin up($key) {
+  @media (min-width: bp($key)) {
+    @content;
+  }
+}
+
+@mixin down($key) {
+  @media (max-width: bp($key)) {
+    @content;
+  }
+}
+
+@mixin between($min, $max) {
+  @media (min-width: bp($min)) and (max-width: bp($max)) {
+    @content;
+  }
+}

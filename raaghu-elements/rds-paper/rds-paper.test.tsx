@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsPaper from './rds-paper';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-paper.scss', () => ({}));
@@ -410,6 +411,12 @@ describe('RdsPaper', () => {
       );
       const paper = container.querySelector('.MuiPaper-root');
       expect(paper).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsPaper />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should support aria-label', () => {

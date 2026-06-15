@@ -29,6 +29,7 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
   };
 
   const content = message || children;
+  const alertTextColor = type ? `var(--rds-alert-${type}-text, var(--rds-text-primary))` : 'var(--rds-text-primary)';
 
   return (
     <MuiSnackbar
@@ -41,7 +42,15 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
         <Alert
           onClose={showCloseButton ? handleClose : undefined}
           severity={type}
-          sx={{ width: '100%' }}
+          sx={{
+            width: '100%',
+            '& .MuiAlert-message': {
+              color: alertTextColor,
+            },
+            '& .MuiAlert-icon, & .MuiAlert-action .MuiIconButton-root': {
+              color: alertTextColor,
+            },
+          }}
         >
           {content}
         </Alert>

@@ -1,11 +1,13 @@
+﻿@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-adaptive-cards--image-gallery {
   width: 100%;
   max-width: var(--rds-card-max-width, 1200px);
-  border: 1px solid var(--rds-border-light, #E9E9E9);
-  border-radius: var(--rds-border-radius-xl, 24px);
-  padding: var(--rds-spacing-lg, 16px) 0 0 0;
-  background: var(--rds-background-default, #fff);
-  box-shadow: var(--rds-box-shadow-lg, 0 2px 12px rgba(0,0,0,0.04));
+  border: 1px solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-xl);
+  padding: var(--rds-spacing-lg) 0 0 0;
+  background: var(--rds-background-default);
+  box-shadow: var(--rds-box-shadow-lg);
 } 
 
 .rds-adaptive-cards--image-gallery,
@@ -13,33 +15,10 @@
 .rds-adaptive-cards--image-gallery .rds-adaptive-cards__content {
   transition: none !important;
 }
-.dark-theme .rds-adaptive-cards--image-gallery,
-[data-theme="dark"] .rds-adaptive-cards--image-gallery {
-  background: var(--rds-background-dark, #3f3f3f) !important;
-  border-color: rgba(255,255,255,0.06) !important;
-  box-shadow: none !important;
-  color: var(--rds-text-primary-dark, #fff) !important;
-}
-.dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list,
-[data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list {
-  background: transparent !important;
-}
-
-.dark-theme .rds-adaptive-cards__small-text,
-[data-theme="dark"] .rds-adaptive-cards__small-text {
-  color: var(--rds-text-secondary-dark, #cfcfcf) !important;
-  opacity: 0.9 !important;
-}
-
-.dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title,
-[data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
-  color: var(--rds-text-primary-dark, #fff) !important;
-}
-
 .rds-adaptive-cards--football-scorecard {
   width: var(--rds-card-width-football, 350px);
   min-width: var(--rds-card-width-football, 350px);
-  border: 1px solid var(--rds-border-light, #E9E9E9);
+  border: 1px solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-lg, 12px);
   padding: var(--rds-spacing-sm, 8px);
   box-sizing: border-box;
@@ -47,7 +26,7 @@
 }
 
 .football-scorecard-stable {
-  min-height: 200px !important;
+  min-height: var(--rds-adaptive-cards-min-height-200, 200px) !important;
   display: flex !important;
   flex-direction: column !important;
 }
@@ -57,7 +36,7 @@
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 8px !important;
+  gap: var(--rds-spacing-sm) !important;
 }
 
 .rds-adaptive-cards__football-score-section .css-9jay18 {
@@ -69,9 +48,9 @@
 .rds-adaptive-cards--default {
   width: var(--rds-card-width-default, 450px);
   height: var(--rds-alt-card-body-height, auto);
-  border: 1px solid var(--rds-border-light, #E9E9E9);
-  border-radius: var(--rds-border-radius-lg, 12px);
-  padding: var(--rds-spacing-xs, 4px) 0 0 0;
+  border: 1px solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-lg);
+  padding: var(--rds-spacing-xs) 0 0 0;
 }
 
 .rds-adaptive-cards {
@@ -84,7 +63,7 @@
     padding-bottom: var(--rds-spacing-none, 0) !important;
     margin-top: var(--rds-spacing-none, 0) !important;
     margin-bottom: var(--rds-spacing-none, 0) !important;
-    padding: 16px;
+    padding: var(--rds-spacing-md);
   }
   &__input-form-field { 
     margin-bottom: var(--rds-spacing-sm, 10px);
@@ -102,45 +81,41 @@
         font-size: var(--rds-font-size-2xl, 20px) !important;
       font-weight: var(--rds-font-weight-bold, 700) !important;
       padding: var(--rds-spacing-none, 0) !important;
-      z-index: 1;
+      z-index: var(--rds-z-index-layer-1);
       display: flex;
       align-items: center;
       justify-content: flex-start;
       text-align: left !important;
-      padding-top: 4px !important;
+      padding-top: var(--rds-spacing-xs) !important;
       padding-bottom: var(--rds-spacing-none, 0) !important;
       line-height: 1.1 !important;
       font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
-      .dark-theme &,
-      [data-theme="dark"] & {
-        color: var(--rds-text-primary, #fff) !important;
-      }
   }
   &__title-icon {
     width: var(--rds-font-size-xl, 20px);
     height: var(--rds-font-size-xl, 20px);
-    border-radius: 50%;
-    border: 2px solid var(--rds-border-dark, #9e9e9e);
+    border-radius: var(--rds-border-radius-pill);
+    border: 2px solid var(--rds-border-dark);
     background: transparent;
     margin-right: var(--rds-spacing-sm, 6px);
   }
   &__content {
     padding: var(--rds-spacing-sm, 8px) 0 var(--rds-spacing-sm, 8px) 0;
-    padding: 16px;
+    padding: var(--rds-spacing-md);
   }
   &__input-form-card { 
-    padding: 0 16px 0 16px;
+    padding: var(--rds-adaptive-cards-input-padding-vertical, 0) var(--rds-adaptive-cards-input-padding-horizontal, 16px);
   }
   &__small-text {
     font-size: var(--rds-font-size-xs, 10px);
-    color: var(--rds-text-secondary, #646464);
+    color: var(--rds-text-secondary);
   }
   &__image-list {
     width: 100%;
     display: grid !important;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--rds-spacing-none, 0);
-    background: var(--rds-background-light, #F3F3F3);
+    background: var(--rds-background-light);
     padding: var(--rds-spacing-none, 0);
     border-radius: var(--rds-border-radius-md, 8px);
     box-sizing: border-box;
@@ -149,7 +124,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rds-background-default, #fff);
+    background: var(--rds-background-default);
     border-radius: var(--rds-border-radius-sm, 4px);
     box-shadow: none;
     overflow: hidden;
@@ -158,8 +133,8 @@
     min-width: var(--rds-spacing-none, 0);
     height: var(--rds-image-list-item-height, 180px);
     &:hover {
-      box-shadow: var(--rds-box-shadow-hover, 0 4px 16px rgba(0,0,0,0.10));
-      border-color: var(--rds-border-hover, #bdbdbd);
+      box-shadow: var(--rds-box-shadow-hover);
+      border-color: var(--rds-border-hover);
       .rds-adaptive-cards__image {
         transform: scale(1.04);
       }
@@ -170,18 +145,18 @@
     height: 100%;
     object-fit: cover;
     border-radius: var(--rds-border-radius-sm, 4px);
-    transition: transform 0.2s;
+    transition: transform var(--rds-transition-base);
     display: block;
   }
   
   &__default-slot {
     height: var(--rds-font-size-4xl, 132px);
-    border: 2px dashed var(--rds-border-default, #CDCDCD);
+    border: 2px dashed var(--rds-border-default);
     border-radius: var(--rds-border-radius-sm, 4px);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--rds-text-secondary, #646464);
+    color: var(--rds-text-secondary);
   }
   &__default-slot-text {
     opacity: 0.6;
@@ -258,7 +233,7 @@
     margin: 0 !important;
     box-sizing: border-box !important;
     position: relative !important;
-    min-height: 120px !important;
+    min-height: var(--rds-adaptive-cards-min-height-120, 120px) !important;
   }
 
   &__calendar-reminder-label {
@@ -267,12 +242,12 @@
     margin-bottom: var(--rds-spacing-sm, 8px) !important;
   }
   &__calendar-reminder-info-icon {
-    font-size: 20px !important;
-    margin-bottom: 10px !important;
-    color: var(--rds-text-secondary, #7D7D7D) !important;
+    font-size: var(--rds-font-size-2xl) !important;
+    margin-bottom: var(--rds-spacing-cozy) !important;
+    color: var(--rds-text-secondary) !important;
   }
   &__calendar-reminder-small-text {
-    color: var(--rds-text-secondary, #646464);
+    color: var(--rds-text-secondary);
   }
   &__calendar-reminder-input {
     font-size: var(--rds-font-size-md, 13px) !important;
@@ -288,21 +263,12 @@
     }
   }
 
-  .dark-theme .rds-adaptive-cards__calendar-reminder-input .MuiInputBase-input::placeholder,
-  [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-input .MuiInputBase-input::placeholder,
-  .dark-theme .rds-adaptive-cards__calendar-reminder-input .MuiOutlinedInput-input::placeholder,
-  [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-input .MuiOutlinedInput-input::placeholder,
-  .dark-theme .rds-adaptive-cards__calendar-reminder-input input::placeholder,
-  [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-input input::placeholder {
-    color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-  }
-
   &__activity-update-header {
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
     width: 100% !important;
-    min-height: 48px !important;
+    min-height: var(--rds-adaptive-cards-min-height-48, 48px) !important;
     padding: 0 !important;
     margin: 0 !important;
     box-sizing: border-box !important;
@@ -314,7 +280,7 @@
     height: var(--rds-spacing-xl, 40px) !important;
     min-width: var(--rds-spacing-xl, 40px) !important;
     flex-shrink: 0 !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
     display: block !important;
     margin: 0 !important;
   }
@@ -332,17 +298,17 @@
     font-weight: var(--rds-font-weight-bold, 700) !important;
     font-size: var(--rds-font-size-lg, 16px) !important;
     line-height: 1.2 !important;
-    margin-top: 5px !important;
+    margin-top: var(--rds-spacing-tight) !important;
     padding: 0 !important;
     display: block !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    color: var(--rds-text-primary, #000) !important;
+    color: var(--rds-text-primary) !important;
   }
-  &__activity-update-date,
-  &__activity-update-text {
-     color: var(--rds-text-secondary, #666) !important;
-  }
+    &__activity-update-date,
+    &__activity-update-text {
+      color: var(--rds-text-secondary) !important;
+    }
   &__activity-update-date {
     font-size: var(--rds-font-size-sm, 12px) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
@@ -369,10 +335,10 @@
     align-items: center;
   }
   &__restaurant-order-info-icon {
-    font-size: 20px !important;
-    width: 20px !important;
+    font-size: var(--rds-font-size-2xl) !important;
+    width: var(--rds-adaptive-cards-thumb-width, 20px) !important;
     height: 20px !important;
-    color: var(--rds-text-secondary, #7D7D7D) !important;
+    color: var(--rds-text-secondary) !important;
   }
   
   &__placeholder {
@@ -427,86 +393,63 @@
       align-items: center !important;
       flex: 1 1 auto !important;
       min-width: 0 !important;
-      margin-left: 67px !important;
+      margin-left: var(--rds-spacing-67) !important;
     }
   &__football-league-avatar {
     width: var(--rds-football-league-avatar-size, 24px) !important;
     height: var(--rds-football-league-avatar-size, 24px) !important;
     flex-shrink: 0 !important;
     display: block !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
   }
   &__football-league {
       font-weight: var(--rds-font-weight-black, 900) !important;
       font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
       letter-spacing: var(--rds-football-league-letter-spacing, 0.5px) !important;
-      font-size: 24px !important; 
-      color: var(--rds-text-primary, #111) !important;
+      font-size: var(--rds-font-size-3xl) !important; 
+      color: var(--rds-text-primary) !important;
       text-shadow: none !important; 
       display: inline-block !important;
       white-space: nowrap !important;
       margin: 0 !important;
       line-height: 1.2 !important;
-      .dark-theme &,
-      [data-theme="dark"] & {
-        color: #fff !important;
-      }
     }
     
     .rds-adaptive-cards__football-live + & {
       margin-left: var(--rds-spacing-md, 12px) !important;
     }
   &__football-date {
-    color: var(--rds-text-secondary, #646464) !important;
+    color: var(--rds-text-secondary) !important;
     font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
     font-size: var(--rds-football-date-font-size, 12px) !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
     margin: var(--rds-spacing-xs, 2px) 0 !important;
     letter-spacing: var(--rds-football-date-letter-spacing, 0.5px) !important;
     text-align: center !important;
-    .dark-theme &,
-    [data-theme="dark"] & {
-      color: #fff !important;
-    }
-   
     min-width: 0 !important;
   }
   &__football-final {
-    color: var(--rds-text-secondary, #646464) !important;
+    color: var(--rds-text-secondary) !important;
     font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
     font-size: var(--rds-football-final-font-size, 12px) !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
     text-align: center !important;
     margin: 0 !important;
-    .dark-theme &,
-    [data-theme="dark"] & {
-      color: #fff !important;
-    }
   }
   &__football-live {
     font-size: var(--rds-font-size-xs, 10px) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
     border-radius: 999px !important;
-    background: #f44336 !important;
-    color: white !important;
+    background: var(--rds-error-main) !important;
+    color: var(--rds-neutral-0) !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
     margin: 0 !important;
-    padding: 12px 6px !important;
+    padding: var(--rds-spacing-sm) 6px !important;
     height: 20px !important; 
-    min-width: 32px !important;
-    .dark-theme &,
-    [data-theme="dark"] & {
-      background: #f44336 !important;
-      color: white !important;
-      fill: white !important;
-    }
-    .dark-theme & svg circle,
-    [data-theme="dark"] & svg circle {
-      fill: white !important;
-    }
+    min-width: var(--rds-adaptive-cards-min-thumb-width, 32px) !important;
   }
 
   .rds-adaptive-cards__football-live--aligned {
@@ -518,6 +461,10 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+  }
+  .rds-adaptive-cards__football-live .MuiChip-label,
+  .rds-adaptive-cards__football-live--aligned .MuiChip-label {
+    color: var(--rds-neutral-0) !important;
   }
   &__football-body {
     display: flex !important; 
@@ -534,57 +481,68 @@
     flex-direction: column !important; 
     align-items: center;
     flex: 1; 
-    min-width: 90px;
-    max-width: 120px; 
+    min-width: var(--rds-adaptive-cards-min-width, 90px);
+    max-width: var(--rds-adaptive-cards-max-width, 120px);
     text-align: center;
     gap: var(--rds-spacing-xs, 4px);
   }
   &__football-logo {
     width: var(--rds-spacing-2xl, 80px);
     height: var(--rds-spacing-2xl, 80px);
-    border-radius: 50%;
-    background: var(--rds-background-default, #4a4a4a);
+    border-radius: var(--rds-border-radius-pill);
+    background: var(--rds-background-default);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
      &.rds-adaptive-cards__football-logo--home {
-      background-color: #fff !important;
-        .dark-theme &,
-        [data-theme="dark"] & {
-          background: #4a4a4a !important;
-        }
+      background-color: var(--rds-background-default) !important;
       }
       
       &.rds-adaptive-cards__football-logo--away {
-        background: #fff !important;
-        .dark-theme &,
-        [data-theme="dark"] & {
-          background: #4a4a4a !important;
-        }
+        background: var(--rds-background-default) !important;
       }
+  }
+
+  /* Ensure logos match dark-mode surface and scores are visible (white) */
+  .rds-adaptive-cards--football-scorecard[data-theme="dark"] & {
+    &__football-logo,
+    &__football-logo.rds-adaptive-cards__football-logo--home,
+    &__football-logo.rds-adaptive-cards__football-logo--away {
+      background: var(--rds-surface-dark-alt, rgba(255,255,255,0.04)) !important;
+    }
+
+    &__football-img {
+      background: transparent !important;
+    }
+
+    &__football-score,
+    &__football-score-colon,
+    &__football-score * {
+      color: var(--rds-neutral-0) !important;
+    }
+
+    &__football-time {
+      background: var(--rds-surface-dark-alt, rgba(255,255,255,0.04)) !important;
+      color: var(--rds-neutral-0) !important;
+    }
   }
   &__football-img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     border: none;
     object-fit: cover;
-    background: var(--rds-background-default, #f8f7f9);
-     .dark-theme &,
-    [data-theme="dark"] & {
-      background: #4a4a4a !important;
-      border: 1px solid #4a4a4a !important;
-    }
+    background: var(--rds-background-default);
     display: block;
     &--barca {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
+      border-radius: var(--rds-border-radius-pill);
       border: none;
       object-fit: cover;
       margin-top: var(--rds-football-img-barca-margin-top, 5px);
-      background: var(--rds-background-default, #f8f7f9);
+      background: var(--rds-background-default);
     }
   }
   
@@ -597,17 +555,17 @@
     white-space: nowrap !important;
     overflow: hidden;
     text-overflow: ellipsis; 
-    max-width: 120px; 
+    max-width: var(--rds-adaptive-cards-max-width, 120px);
     width: 100%; 
   }
   &__football-team-status {
-    color: var(--rds-text-secondary, #646464);
+    color: var(--rds-text-secondary);
     text-align: center;
     font-weight: var(--rds-font-weight-bold, 700);
     font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
     font-size: var(--rds-font-size-sm, 12px) !important; 
     white-space: nowrap !important;
-    max-width: 120px; 
+    max-width: var(--rds-adaptive-cards-max-width, 120px);
     width: 100%;
   }
   &__football-score-section {
@@ -617,8 +575,8 @@
     font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
     gap: var(--rds-spacing-xs, 4px) !important; 
     flex-shrink: 0 !important; 
-    min-width: 100px; 
-    max-width: 120px; 
+    min-width: var(--rds-adaptive-cards-min-width-100, 100px); 
+    max-width: var(--rds-adaptive-cards-max-width, 120px);
     text-align: center !important;
   }
 
@@ -639,12 +597,12 @@
     display: inline-block !important; 
     
     &-colon {
-      margin: 0 2px !important; 
+      margin: 0 var(--rds-spacing-xxs) !important; 
     }
   }
   &__football-time {
-    background: var(--rds-background-default, #dcdfee) !important;
-    color: var(--rds-text-secondary, #545454) !important;
+    background: var(--rds-background-default) !important;
+    color: var(--rds-text-secondary) !important;
     font-size: var(--rds-font-size-xs, 12px) !important;
     font-weight: var(--rds-font-weight-bold, 700) !important;
     letter-spacing: var(--rds-football-time-letter-spacing, 0.5px) !important;
@@ -656,53 +614,33 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-top: 20px !important; 
-    .dark-theme &,
-    [data-theme="dark"] & {
-      background: #6f6f6f !important;
-      color: #fff !important;
-    }
+    margin-top: var(--rds-spacing-20-px) !important;
   }
 }
 
 .rds-adaptive-cards__action-btn--input-form {
   width: 100%;
   border-radius: var(--rds-border-radius-md, 8px);
-  background: var(--rds-background-light, #fcfcfc);
+  background: var(--rds-background-light);
+  color: var(--rds-text-primary);
   height: var(--rds-component-button-height-medium, 36px);
-  padding: 1px var(--rds-spacing-sm, 12px);
-  border: 1.5px solid var(--rds-border-light, #C4C4C4);
+  padding: var(--rds-adaptive-cards-input-padding-vertical, 1px) var(--rds-spacing-sm, 12px);
+  border: 1.5px solid var(--rds-border-light);
   box-sizing: border-box;
   
   &:focus,
   &:active {
     outline: none;
-    border-color: var(--rds-border-light, #C4C4C4) !important;
+    border-color: var(--rds-border-light) !important;
     box-shadow: none !important;
   }
 }
-.dark-theme .rds-adaptive-cards__action-btn--input-form,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form {
-  background: var(--rds-background-dark, #525151) !important;
-  color: var(--rds-text-primary-dark, #fff) !important;
-  border-color: var(--rds-border-light, #C4C4C4) !important;
-  box-shadow: none !important;
-}
-.dark-theme .rds-adaptive-cards__action-btn--input-form:focus,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form:focus,
-.dark-theme .rds-adaptive-cards__action-btn--input-form:active,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form:active {
-  outline: none;
-  border-color: var(--rds-border-light, #C4C4C4) !important;
-  box-shadow: none !important;
-}
-
 .rds-adaptive-cards__input-form-container {
   width: 100%;
   max-width: var(--rds-input-form-max-width, 400px);
   margin: var(--rds-spacing-none, 0) auto;
   padding: var(--rds-spacing-lg, 16px);
-  background: var(--rds-background-default, #fff);
+  background: var(--rds-background-default);
   border-radius: var(--rds-border-radius-lg, 12px);
   box-shadow: var(--rds-box-shadow-md, 0 2px 8px rgba(0,0,0,0.04));
 }
@@ -716,13 +654,9 @@
   margin-bottom: var(--rds-spacing-xs, 4px);
 }
 .rds-adaptive-cards__input-form-small-text {
-  color: var(--rds-text-secondary, #888);
+  color: var(--rds-text-secondary);
   margin-bottom: var(--rds-spacing-lg, 16px);
   font-size: var(--rds-font-size-xs, 12px);
-}
-.dark-theme .rds-adaptive-cards__input-form-small-text,
-[data-theme="dark"] .rds-adaptive-cards__input-form-small-text {
-  color: #fff !important;
 }
 .rds-adaptive-cards__input-form-field-label {
   font-size: var(--rds-font-size-md, 15px);
@@ -776,36 +710,31 @@
   margin-left: var(--rds-spacing-xs, 4px) !important;
 }
 .rds-adaptive-cards__activity-update-radio-desc {
-  font-size: 9px !important;
-  color: var(--rds-text-secondary, #737272);
+  font-size: var(--rds-adaptive-cards-font-size-xxs, 9px) !important;
+  color: var(--rds-text-secondary);
   font-weight: var(--rds-font-weight-normal, 400);
 }
 
 .rds-adaptive-cards__activity-update-radio-label{
-  margin-right: 2px !important; 
+  margin-right: var(--rds-spacing-xxs) !important; 
   display: flex;
   align-items: center;
-  gap: 2px !important; 
+  gap: var(--rds-adaptive-cards-gap-xxs, 2px) !important; 
 }
 
 .rds-adaptive-cards__activity-update-radio-group .MuiSvgIcon-root {
   font-size: var(--rds-font-size-lg, 18px) !important;
 }
 
-.dark-theme .rds-adaptive-cards__activity-update-radio-group .MuiRadio-root.Mui-checked .MuiSvgIcon-root,
-[data-theme="dark"] .rds-adaptive-cards__activity-update-radio-group .MuiRadio-root.Mui-checked .MuiSvgIcon-root {
-  color: #1976d2 !important;
-}
-
 .rds-adaptive-cards__required {
-  color: var(--rds-error-main, #d32f2f);
+  color: var(--rds-error-main);
   margin-left: var(--rds-spacing-xs, 2px);
   font-size: var(--rds-required-font-size, 1em);
   font-weight: var(--rds-font-weight-bold, bold);
 }
 
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon {
-  color: var(--rds-text-secondary, #757575) !important;
+  color: var(--rds-text-secondary) !important;
 }
 .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
@@ -813,34 +742,18 @@
 }
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
 .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon) {
-  stroke: var(--rds-text-secondary, #757575) !important;
-  color: var(--rds-text-secondary, #757575) !important;
+  stroke: var(--rds-text-secondary) !important;
+  color: var(--rds-text-secondary) !important;
   font-size: var(--rds-font-size-md, 14px) !important;
   width: var(--rds-font-size-md, 14px) !important;
   height: var(--rds-font-size-md, 14px) !important;
 }
-.dark-theme .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon,
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon {
-  color: var(--rds-text-secondary, #757575) !important;
-}
-.dark-theme .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder,
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
-  color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-}
-.dark-theme .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
-.dark-theme .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon),
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon) {
-  stroke: var(--rds-text-secondary, #757575) !important;
-  color: var(--rds-text-secondary, #757575) !important;
-}
-
 .rds-adaptive-cards__calendar-reminder-select-icon {
   width: var(--rds-calendar-reminder-select-icon-width, 16px) !important;
   height: var(--rds-calendar-reminder-select-icon-height, 12px) !important;
   font-size: var(--rds-font-size-xs, 12px) !important;
-  stroke: var(--rds-text-secondary, #757575) !important;
-  color: var(--rds-text-secondary, #757575) !important;
+  stroke: var(--rds-text-secondary) !important;
+  color: var(--rds-text-secondary) !important;
   margin-right: var(--rds-spacing-sm, 8px) !important;
 }
 
@@ -848,11 +761,6 @@
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
   font-size: var(--rds-calendar-reminder-placeholder-font-size, 0.85rem);
 }
-.dark-theme .rds-adaptive-cards__calendar-reminder-placeholder,
-[data-theme="dark"] .rds-adaptive-cards__calendar-reminder-placeholder {
-  color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-}
-
 .rds-adaptive-cards__action-btn--input-form input::placeholder,
 .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
   font-size: var(--rds-font-size-xs, 12px) !important;
@@ -860,25 +768,15 @@
 .rds-adaptive-cards__action-btn--input-form input::placeholder,
 .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
-}
-.dark-theme .rds-adaptive-cards__action-btn--input-form input::placeholder,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form input::placeholder,
-.dark-theme .rds-adaptive-cards__action-btn--input-form textarea::placeholder,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
-  color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
 }
 .rds-adaptive-cards__action-btn--input-form::placeholder {
   font-size: var(--rds-font-size-xs, 12px) !important;
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
 }
-.dark-theme .rds-adaptive-cards__action-btn--input-form::placeholder,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form::placeholder {
-  color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-}
 .rds-adaptive-cards__action-btn--input-form-button{
-  margin-left: 0px !important;
-  margin-right: 0px !important;
-  font-size: 12px !important;
+  margin-left: var(--rds-spacing-0) !important;
+  margin-right: var(--rds-spacing-0) !important;
+  font-size: var(--rds-font-size-sm) !important;
   width: 98% !important;
 }
 
@@ -890,8 +788,8 @@
   align-items: flex-start;
   gap: var(--rds-spacing-md, 16px);
   border-radius: var(--rds-border-radius-xl, 12px);
-  border: 1px solid var(--rds-border-light, #E9E9E9);
-  background: var(--rds-background-default, #fff);
+  border: 1px solid var(--rds-border-light);
+  background: var(--rds-background-default);
 }
 .rds-adaptive-cards__header-alt {
   display: flex;
@@ -909,7 +807,7 @@
   gap: var(--rds-spacing-sm, 8px);
   align-self: stretch;
   border-radius: var(--rds-border-radius-sm, 4px);
-  border: 2px dashed var(--rds-border-default, #CDCDCD);
+  border: 2px dashed var(--rds-border-default);
 }
 .rds-adaptive-cards__footer {
   display: flex;
@@ -920,15 +818,79 @@
   align-self: stretch;
 }
 .rds-adaptive-cards__title-alt {
-  color: var(--rds-text-primary, #212121);
+  color: var(--rds-text-primary);
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-2xl, 16px);
   font-style: normal;
   font-weight: var(--rds-font-weight-bold, 700) !important;
   line-height: normal;
 }
+
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--home,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--away {
+  background: var(--rds-surface-dark-alt, #3a3a3a) !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-img {
+  background: transparent !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time .MuiChip-root {
+  background: var(--rds-surface-dark-alt, #3a3a3a) !important;
+  color: var(--rds-neutral-0) !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time .MuiChip-label {
+  color: var(--rds-neutral-0) !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score-colon,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score * {
+  color: var(--rds-neutral-0) !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-team-name,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-team-status {
+  color: var(--rds-text-primary) !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards {
+  input,
+  textarea,
+  .MuiInputBase-input,
+  .MuiOutlinedInput-input,
+  .MuiInputBase-input::placeholder,
+  .MuiOutlinedInput-input::placeholder {
+    color: var(--rds-neutral-0) !important;
+    -webkit-text-fill-color: var(--rds-neutral-0) !important;
+  }
+
+  /* Keep InputForm fields on a dark surface in dark mode */
+  .rds-adaptive-cards__action-btn--input-form {
+    background: var(--rds-color-surface-dark, var(--rds-neutral-900, #2b2f3a)) !important;
+    border-color: var(--rds-border-default, rgba(255, 255, 255, 0.2)) !important;
+    color: var(--rds-neutral-0, #fff) !important;
+  }
+
+  .rds-adaptive-cards__action-btn--input-form::placeholder,
+  .rds-adaptive-cards__action-btn--input-form input::placeholder,
+  .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
+    color: var(--rds-text-secondary, rgba(255, 255, 255, 0.7)) !important;
+    -webkit-text-fill-color: var(--rds-text-secondary, rgba(255, 255, 255, 0.7)) !important;
+  }
+
+  /* For MUI filled/outlined inputs ensure label and helper text contrast if needed */
+  .MuiInputLabel-root,
+  .MuiFormHelperText-root {
+    color: var(--rds-text-secondary) !important;
+  }
+}
 .rds-adaptive-cards__small-text-alt {
-  color: var(--rds-text-secondary, #646464);
+  color: var(--rds-text-secondary);
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-xs, 10px);
   font-style: normal;
@@ -937,7 +899,7 @@
 }
 .rds-adaptive-cards__text {
   align-self: stretch;
-  color: var(--rds-text-secondary, #646464);
+  color: var(--rds-text-secondary);
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-md, 11px);
   font-style: normal;
@@ -952,8 +914,8 @@
   align-items: flex-start;
   gap: var(--rds-spacing-xs, 4px);
   border-radius: var(--rds-border-radius-sm, 4px);
-  border: 1px solid var(--rds-border-light, #E9E9E9);
-  background: var(--rds-background-default, #fff);
+  border: 1px solid var(--rds-border-light);
+  background: var(--rds-background-default);
 }
 .rds-adaptive-cards__image-body img {
   width: 100%;
@@ -970,8 +932,8 @@
   align-items: flex-start;
   gap: var(--rds-spacing-xs, 4px);
   border-radius: var(--rds-border-radius-md, 8px);
-  border: 1px solid var(--rds-border-light, #E9E9E9);
-  background: var(--rds-background-default, #fff);
+  border: 1px solid var(--rds-border-light);
+  background: var(--rds-background-default);
 }
 .rds-adaptive-cards__scorecard-header-container {
   display: flex;
@@ -986,7 +948,7 @@
   gap: var(--rds-spacing-xs, 4px);
 }
 .rds-adaptive-cards__scorecard-text {
-  color: var(--rds-text-primary, #212121);
+  color: var(--rds-text-primary);
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-3xl, 19px);
@@ -995,7 +957,7 @@
   line-height: normal;
 }
 .rds-adaptive-cards__scorecard-subtext {
-  color: var(--rds-text-secondary, #646464);
+  color: var(--rds-text-secondary);
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-md, 11px);
@@ -1014,12 +976,12 @@
   display: flex;
   width: var(--rds-spacing-2xl, 100px);
   height: var(--rds-spacing-2xl, 100px);
-  border-radius: 50%;
-  border: 2px solid var(--rds-border-light, #e0e0e0);
+  border-radius: var(--rds-border-radius-pill);
+  border: 2px solid var(--rds-border-light);
   object-fit: cover;
-  background: var(--rds-background-default, #fff);
+  background: var(--rds-background-default);
   aspect-ratio: 1/1;
-  color: var(--rds-text-primary, #212121);
+  color: var(--rds-text-primary);
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-4xl, 25px);
   font-style: normal;
@@ -1034,11 +996,11 @@
   align-items: flex-end;
   gap: var(--rds-spacing-sm, 8px);
   border-radius: var(--rds-border-radius-sm, 4px);
-  background: var(--rds-background-default, #e1e3ea);
+  background: var(--rds-background-default);
 }
 .rds-adaptive-cards__match-timer {
   font-size: var(--rds-font-size-md, 11px);
-  color: var(--rds-text-secondary, #353535); 
+  color: var(--rds-text-secondary); 
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-style: normal;
@@ -1062,7 +1024,7 @@
 }
 .rds-adaptive-cards__team-name {
   font-size: var(--rds-font-size-md, 13px) !important;
-  color: var(--rds-text-secondary, #353535);
+  color: var(--rds-text-secondary);
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-style: normal;
@@ -1072,7 +1034,7 @@
 }
 .rds-adaptive-cards__team-status {
   font-size: var(--rds-font-size-lg, 13px);
-  color: var(--rds-text-secondary, #646464);
+  color: var(--rds-text-secondary);
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-style: normal;
@@ -1089,9 +1051,9 @@
   left: var(--rds-badge-left, 285px);
   top: var(--rds-badge-top, 25px);
   border-radius: var(--rds-border-radius-full, 9999px);
-  background: var(--rds-badge-error-bg, #BD0D1D);
+  background: var(--rds-badge-error-bg);
   overflow: hidden;
-  color: var(--rds-badge-error-text, #fcfcfc);
+  color: var(--rds-badge-error-text);
   text-align: center;
   text-overflow: ellipsis;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
@@ -1104,7 +1066,7 @@
   inset: var(--rds-dropdown-menu-inset, 4px auto auto -67px) !important;
 }
 
-@media (min-width: 320px) and (max-width: 375px) {
+@include bp.between(mobile-sm, mobile-md) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1115,10 +1077,10 @@
     margin-bottom: var(--rds-title-margin-bottom-mobile, 6px) !important;
   }
   .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
-    font-size: 18px !important;
+    font-size: var(--rds-font-size-xl) !important;
     font-weight: 700 !important;
-    padding-top: 4px !important;
-    padding-bottom: 8px !important;
+    padding-top: var(--rds-spacing-xs) !important;
+    padding-bottom: var(--rds-spacing-sm) !important;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1164,22 +1126,18 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      max-width: 50px !important;
-      min-width: 50px !important;
-      font-size: 9px !important;
-      z-index: 2;
+      max-width: var(--rds-adaptive-cards-max-width-sm, 50px) !important;
+      min-width: var(--rds-adaptive-cards-min-width-sm, 50px) !important;
+      font-size: var(--rds-adaptive-cards-font-size-xxs, 9px) !important;
+      z-index: var(--rds-z-index-layer-2);
     }
 
   .rds-adaptive-cards__football-logo {
     width: var(--rds-football-logo-size-mobile, 72px);
      &.rds-adaptive-cards__football-logo--away {
-        .dark-theme &,
-        [data-theme="dark"] & {
-          background: #4a4a4a !important;
-        }
       }
   
-  @media (max-width: 340px) {
+  @include bp.down(340) {
     .rds-adaptive-cards__football-live {
       position: relative !important;
       left: 0 !important;
@@ -1188,20 +1146,20 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      max-width: 48px !important;
-      font-size: 9px !important;
-      z-index: 2;
+      max-width: var(--rds-adaptive-cards-max-width-xs, 48px) !important;
+      font-size: var(--rds-adaptive-cards-font-size-xxs, 9px) !important;
+      z-index: var(--rds-z-index-dropdown, 1000);
     }
     .rds-adaptive-cards__football-league {
-      font-size: 15px !important;
+      font-size: var(--rds-adaptive-cards-font-size-md, 15px) !important;
       letter-spacing: 0.3px !important;
-      font-weight: 700 !important;
+      font-weight: var(--rds-font-weight-bold, 700) !important;
     }
   }
     height: var(--rds-football-logo-size-mobile, 72px);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     object-fit: cover;
-    background: var(--rds-background-default, #f8f7f9);
+    background: var(--rds-background-default);
     display: block;
     margin-bottom: var(--rds-spacing-none, 0);
   }
@@ -1235,18 +1193,18 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    max-width: 55px !important;
-    min-width: 50px !important;
-    z-index: 2;
+    max-width: var(--rds-adaptive-cards-max-width-md, 55px) !important;
+    min-width: var(--rds-adaptive-cards-min-width-sm, 50px) !important;
+    z-index: var(--rds-z-index-layer-2);
   }
 }
-@media (max-width: 320px) {
+@include bp.down(mobile-sm) {
   .rds-adaptive-cards__football-header-left {
-      margin-left: 27px !important;
+      margin-left: var(--rds-spacing-27) !important;
     }
 }
 
-@media (min-width: 376px) and (max-width: 480px) {
+@include bp.between(mobile-md, mobile-lg) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1278,7 +1236,7 @@
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+@include bp.between(mobile-lg, tablet-sm) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1311,37 +1269,37 @@
   font-size: var(--rds-font-size-xs, 10px) !important;
 }
 .rds-adaptive-cards.rds-adaptive-cards--default {
-  min-height: 160px; 
+  min-height: var(--rds-adaptive-cards-min-height-160, 160px); 
 }
 
 .custom-box__title-stack {
-  gap: 2px !important;
+  gap: var(--rds-adaptive-cards-gap-xxs, 2px) !important;
 }
-.custom-box {
-  min-height: 120px;
+  .custom-box {
+  min-height: var(--rds-adaptive-cards-min-height-120, 120px);
   background: transparent;
-  border-radius: 12px;
+  border-radius: var(--rds-border-radius-lg);
   box-shadow: none;
   position: relative;
 
   &__close-icon {
     align-self: center;
     left: 10px !important;
-    font-size: 12px !important;
+    font-size: var(--rds-font-size-sm) !important;
   }
   
   &__title-stack {
-    margin-bottom: 16px;
+    margin-bottom: var(--rds-spacing-md);
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: var(--rds-adaptive-cards-gap, 14px);
   }
 
   &__circle {
-    width: 24px;
-    height: 24px;
-    border: 2px solid #C4C4C4;
-    border-radius: 50%;
+    width: var(--rds-adaptive-cards-icon-width, 24px);
+    height: var(--rds-size-lg);
+    border: 2px solid var(--rds-border-light);
+    border-radius: var(--rds-border-radius-pill);
   }
 
   &__title-text {
@@ -1351,13 +1309,13 @@
   }
 
   &__slot {
-    border: 2px dashed #C4C4C4;
-    border-radius: 8px;
+    border: 2px dashed var(--rds-border-default);
+    border-radius: var(--rds-border-radius-md);
     min-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
+    margin-bottom: var(--rds-spacing-lg);
      width: 100%;
     height: 120px;
     box-sizing: border-box;
@@ -1379,41 +1337,51 @@
   &__actions {
     display: flex;
     justify-content: flex-end;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
   }
 
   &__button--cancel {
-    color: #1976d2 !important;
+    color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
   }
 
   &__button--done {
-    background-color: #1976d2 !important;
-    color: #fff !important;
+    background-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
+    border-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
+    color: var(--rds-text-primary, var(--rds-button-primary-text)) !important;
+  }
+
+  &__button--done:hover,
+  &__button--done:active,
+  &__button--done.MuiButton-contained,
+  &__button--done.MuiButton-contained:hover,
+  &__button--done.MuiButton-contained:active {
+    background-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
+    border-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
   }
 }
 
 .css-1lt5qva-MuiCardContent-root:last-child
 {
-  padding-bottom: 10px !important; 
+  padding-bottom: var(--rds-spacing-cozy) !important;
 }
  .css-1q4nm6f-MuiCardActions-root
  {
-  padding: 0px !important; 
+  padding: var(--rds-spacing-none, 0) !important; 
  }
  .css-1sos3zc-MuiStack-root>:not(style)~:not(style)
  {
-  margin-left: 0px !important; 
+  margin-left: var(--rds-spacing-0) !important; 
  }
  .css-1x4jos1 > :not(style) ~ :not(style) {
-    margin-left: 0px !important;
+    margin-left: var(--rds-spacing-0) !important;
 }
 
 .rds-adaptive-cards__activity-update-header.MuiStack-root > :not(style) ~ :not(style) {
-  margin-left: 8px !important; 
+  margin-left: var(--rds-spacing-sm) !important; 
 }
 
 .rds-adaptive-cards__activity-update-header .MuiStack-root > :not(style) ~ :not(style) {
-  margin-top: 2px !important; 
+  margin-top: var(--rds-spacing-xxs) !important; 
   margin-left: 0 !important;
 }
 
@@ -1444,44 +1412,25 @@
   font-size: var(--rds-font-size-lg, 14px) !important;
 }
 
-.dark-theme .rds-adaptive-cards__activity-update-name,
-[data-theme="dark"] .rds-adaptive-cards__activity-update-name {
-  color: var(--rds-text-primary-dark, #fff) !important;
-  font-weight: var(--rds-font-weight-bold, 700) !important;
-  font-size: var(--rds-font-size-lg, 18px) !important;
-}
-
-.dark-theme .rds-adaptive-cards__activity-update-date,
-[data-theme="dark"] .rds-adaptive-cards__activity-update-date {
-  color: var(--rds-text-secondary-dark, #ccc) !important;
-  font-weight: var(--rds-font-weight-normal, 400) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
-}
-
-.dark-theme .rds-adaptive-cards__activity-update-text,
-[data-theme="dark"] .rds-adaptive-cards__activity-update-text {
-  color: #fff !important;
-}
-
 .rds-adaptive-cards__input-error {
-  border-color: #d32f2f !important;
-  border-width: 2px !important;
+  border-color: var(--rds-error-main) !important;
+  border-width: var(--rds-adaptive-cards-border-width, 2px) !important;
   &:focus {
-    outline-color: #d32f2f !important;
-    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2) !important;
+    outline-color: var(--rds-error-main) !important;
+    box-shadow: var(--rds-adaptive-cards-error-ring) !important;
   }
 }
 
 .rds-adaptive-cards__error-message {
-  color: #d32f2f;
+  color: var(--rds-error-main);
   font-size: 0.8rem;
-  margin-top: 4px;
-  margin-bottom: 8px;
+  margin-top: var(--rds-spacing-xs);
+  margin-bottom: var(--rds-spacing-sm);
   font-weight: 400;
   line-height: 1.4;
 }
 
-@media (max-width: 340px) {
+@include bp.down(340) {
   .rds-adaptive-cards--football-scorecard,
   .rds-adaptive-cards__scorecard-container {
     width: 100% !important;
@@ -1491,7 +1440,7 @@
   }
 
   .rds-adaptive-cards__football-body {
-    gap: 6px !important;
+    gap: var(--rds-adaptive-cards-gap-xs, 6px) !important;
     justify-content: space-between !important;
   }
 
@@ -1510,10 +1459,103 @@
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    font-size: 13px !important;
+    font-size: var(--rds-adaptive-cards-font-size-sm, 13px) !important;
   }
 
   .rds-adaptive-cards__football-header-left {
-    margin-left: 24px !important;
+    margin-left: var(--rds-spacing-lg-px) !important;
+  }
+}
+
+.rds-adaptive-cards {
+  box-sizing: border-box;
+}
+
+.rds-adaptive-cards--default {
+  width: min(100%, 450px);
+  max-width: 450px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.rds-adaptive-cards--football-scorecard {
+  width: min(100%, 350px);
+  max-width: 350px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.rds-adaptive-cards__content,
+.custom-box,
+.custom-box__slot {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.rds-adaptive-cards__actions,
+.custom-box__actions {
+  flex-wrap: nowrap !important;
+}
+
+@media (max-width: 834px) {
+  .rds-adaptive-cards--default,
+  .rds-adaptive-cards--football-scorecard {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .rds-adaptive-cards__header,
+  .rds-adaptive-cards__content,
+  .rds-adaptive-cards__actions {
+    padding-left: var(--rds-spacing-sm, 12px) !important;
+    padding-right: var(--rds-spacing-sm, 12px) !important;
+  }
+
+  .rds-adaptive-cards__actions,
+  .custom-box__actions {
+    flex-wrap: wrap !important;
+    row-gap: var(--rds-spacing-xs, 6px);
+  }
+
+  .rds-adaptive-cards__action-btn--input-form,
+  .rds-adaptive-cards__action-btn--input-form-button,
+  .rds-adaptive-cards__action-btn--restaurant-order {
+    height: 36px !important;
+    min-height: 36px !important;
+  }
+
+  .rds-adaptive-cards__restaurant-order-form .MuiOutlinedInput-root,
+  .rds-adaptive-cards__restaurant-order-form .MuiInputBase-root {
+    height: 36px !important;
+    min-height: 36px !important;
+    box-sizing: border-box !important;
+  }
+
+  .rds-adaptive-cards__restaurant-order-form .MuiSelect-select {
+    min-height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .rds-adaptive-cards__football-header-left {
+    margin-left: 0 !important;
+    justify-content: center !important;
+  }
+
+  .rds-adaptive-cards__football-header-row {
+    gap: var(--rds-spacing-xs, 6px) !important;
+  }
+
+  .rds-adaptive-cards__football-team,
+  .rds-adaptive-cards__football-score-section {
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  .rds-adaptive-cards__football-team-name,
+  .rds-adaptive-cards__football-team-status {
+    max-width: 100% !important;
   }
 }

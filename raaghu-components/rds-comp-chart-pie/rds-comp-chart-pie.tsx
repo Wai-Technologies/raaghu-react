@@ -1,71 +1,65 @@
 import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import Chart, { ChartConfiguration } from "chart.js/auto";
+import { applyChartThemeColors } from "../chart-utils";
 import "./rds-comp-chart-pie.scss";
 
 export interface RdsCompPieProps {
-  labels: any[];
-  options: any;
-  dataSets: any[];
-  radius: number; 
+  labels: string[];
+  options: ChartConfiguration['options'];
+  dataSets: ChartConfiguration['data']['datasets'];
+  radius: number;
   id: string;
+  chartLabel?: string;
 }
 
 const RdsCompPieChart = (props: RdsCompPieProps) => {
-   const isDarkMode = () => {
-    if (typeof window !== 'undefined') {
-      return (
-        document.body.classList.contains('theme-dark') ||
-        document.body.classList.contains('dark-theme') ||
-        document.documentElement.getAttribute('data-theme') === 'dark' ||
-        document.body.getAttribute('data-theme') === 'dark'
-      );
-    }
-    return false;
-  };
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const [themeMode, setThemeMode] = React.useState(() => {
+    if (typeof document !== 'undefined') {
+        return document.documentElement.getAttribute('data-theme') || 'light';
+    }
+    return 'light';
+  });
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const observer = new MutationObserver(() => {
+        setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvasElm = canvasRef.current;
     if (!canvasElm) return;
 
     const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
-
     Chart.getChart(canvasElm)?.destroy();
-     const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
 
-    if (isDarkMode()) {
-      if (!chartOptions.plugins) chartOptions.plugins = {};
-      if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
-      if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
-      chartOptions.plugins.legend.labels.color = "#fff";
-      if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
-      chartOptions.plugins.title.color = "#fff";
-      if (chartOptions.plugins.tooltip) {
-        chartOptions.plugins.tooltip.titleColor = "#fff";
-        chartOptions.plugins.tooltip.bodyColor = "#fff";
-        chartOptions.plugins.tooltip.labelColor = () => ({ borderColor: '#fff', backgroundColor: '#fff' });
-      }
+    const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+    
+    // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+    const chartData = { labels: props.labels, datasets: props.dataSets };
+    if (!chartOptions.data) {
+        chartOptions.data = chartData;
     }
+    
+    // No axes for pie charts — pass empty array
+    applyChartThemeColors(chartOptions, []);
 
-
-    const pieCanvas = new Chart(ctx, {
+    new Chart(ctx, {
       type: "pie",
-      data: {
-        labels: props.labels,
-        datasets: props.dataSets,
-      },
-      options: {
-        ...chartOptions,
-        radius: props.radius, 
-      },
+      data: chartData,
+      options: { ...chartOptions, radius: props.radius },
     });
-
-  }, [props]);
+  }, [props, themeMode]);
 
   return (
     <div className="rds-comp-chart-pie">
       <div className="chart-container">
-        <canvas id={props.id} ref={canvasRef} />
+        <canvas id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Pie chart'} />
       </div>
     </div>
   );

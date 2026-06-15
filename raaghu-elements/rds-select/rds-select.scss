@@ -1,8 +1,10 @@
 .rds-select {
+  --rds-select-focus-border-width: 2px;
+  --rds-select-helper-margin-left: 0px;
   display: block;
   position: relative;
   .MuiFormLabel-asterisk {
-    color: var(--rds-alert-error-border,#ff0000) !important;
+    color: var(--rds-alert-error-border) !important;
   }
 
   &__form-control {
@@ -11,16 +13,16 @@
 
   &__label {
     margin-bottom: var(--rds-spacing-xs);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     color: var(--rds-text-secondary);
     font-size: var(--rds-font-size-sm);
   }
 
   &__asterisk {
     color: var(--rds-alert-error-border);
-    margin-left: 2px;
+    margin-left: calc(var(--rds-spacing-xs) / 2);
     font-size: inherit;
-    font-weight: 700;
+    font-weight: var(--rds-font-weight-bold);
   }
 
   &__input-label {
@@ -44,7 +46,7 @@
     }
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-primary-main);
-      border-width: 2px;
+      border-width: var(--rds-select-focus-border-width, 2px);
     }
     &.Mui-error .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-alert-error-border);
@@ -91,7 +93,7 @@
     color: var(--rds-text-secondary);
     font-size: var(--rds-font-size-sm);
     margin-top: var(--rds-spacing-xs);
-    margin-left: 0px !important;
+    margin-left: var(--rds-select-helper-margin-left, 0px) !important;
     &.Mui-error {
       color: var(--rds-alert-error-border);
     }
@@ -129,7 +131,7 @@
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
+  margin: var(--rds-spacing-neg-1);
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;

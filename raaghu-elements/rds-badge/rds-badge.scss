@@ -5,17 +5,18 @@
   display: inline-flex;
   vertical-align: middle;
   justify-content: center;
+  // badge sizing and shadow are provided by centralized --rds-* tokens
   
   & .MuiBadge-badge {
-    background-color: #1976d2 !important;
-    color: #ffffff !important;
-    font-weight: 500 !important;
-    font-size: 0.75rem !important;
-    min-width: 20px !important;
-    height: 20px !important;
-    border-radius: 10px !important;
-    padding: 0 6px !important;
-    font-family: 'Poppins', Arial, sans-serif !important;
+    background-color: var(--rds-primary-main) !important;
+    color: var(--rds-neutral-0) !important;
+    font-weight: var(--rds-font-weight-medium, 500) !important;
+    font-size: var(--rds-badge-dot-font-size, 0.75rem) !important;
+    min-width: var(--rds-badge-dot-min-size, 20px) !important;
+    height: var(--rds-badge-dot-min-size, 20px) !important;
+    border-radius: var(--rds-border-radius-md, 8px) !important;
+    padding: 0 var(--rds-badge-dot-padding-x, 6px) !important;
+    font-family: var(--rds-font-family-base) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -35,84 +36,84 @@
     top: 0;
     transform: none;
     margin: 0 auto;
-    background: #e0c7ff;
-    color: #6c2eb7;
-    font-family: 'Poppins', Arial, sans-serif;
-    font-weight: 400;
+    background: var(--rds-primary-100);
+    color: var(--rds-primary-800);
+    font-family: var(--rds-font-family-base);
+    font-weight: var(--rds-font-weight-regular, 400);
     font-style: normal;
     font-size: 0.875rem;
     line-height: 20px;
     letter-spacing: 0;
     text-align: center;
     vertical-align: middle;
-    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
-    padding: 4px 18px;
+    box-shadow: var(--rds-badge-pill-shadow, 0 1px 4px rgba(108, 46, 183, 0.08));
+    padding: var(--rds-spacing-xs) 18px;
     min-width: 60px;
-    height: 32px;
-    border-radius: 16px;
+    height: var(--rds-size-xl);
+    border-radius: var(--rds-border-radius-xl, 16px);
   }
   &--primary > .rds-badge__badge {
-    background: #e0c7ff;
-    color: #6c2eb7;
+    background: var(--rds-primary-100);
+    color: var(--rds-primary-800);
     border: none;
   }
   &--primary .MuiBadge-badge {
-    background-color: #6c2eb7 !important;
-    color: #ffffff !important;
+    background-color: var(--rds-primary-main) !important;
+    color: var(--rds-neutral-0) !important;
   }
   
   &--outline > .rds-badge__badge {
     background: transparent;
-    color: #6c2eb7;
-    border: 2px solid #6c2eb7;
+    color: var(--rds-primary-main);
+    border: 2px solid var(--rds-primary-main);
     box-shadow: none;
   }
   &--outline .MuiBadge-badge {
     background-color: transparent !important;
-    color: #6c2eb7 !important;
-    border: 2px solid #6c2eb7 !important;
+    color: var(--rds-primary-main) !important;
+    border: 2px solid var(--rds-primary-main) !important;
   }
   
   &--transparent > .rds-badge__badge {
     background: transparent !important;
-    color: #6c2eb7;
+    color: var(--rds-primary-main);
     border: none !important;
     box-shadow: none !important;
   }
   &--transparent .MuiBadge-badge {
     background-color: transparent !important;
-    color: #6c2eb7 !important;
+    color: var(--rds-primary-main) !important;
     border: none !important;
     box-shadow: none !important;
   }
 
   &--rectangle > .rds-badge__badge {
-    border-radius: 4px !important;
+    border-radius: var(--rds-border-radius-sm, 4px) !important;
   }
   &--pill > .rds-badge__badge {
-    border-radius: 16px !important;
+    border-radius: var(--rds-border-radius-xl, 16px) !important;
   }
 
   $rds-badge-colors: (
-    primary: (#6c2eb7 #e0c7ff),
-    secondary: (#1e88e5 #bbdefb),
-    tertiary: (#6d4c41 #d7ccc8),
-    danger: (#d32f2f #ffcdd2),
-    warning: (#f57c00 #ffe0b2),
-    light: (#757575 #eeeeee),
-    success: (#2e7d32 #c8e6c9)
+    primary: (var(--rds-primary-main) var(--rds-neutral-0)),
+    secondary: (var(--rds-primary-800) var(--rds-neutral-0)),
+    tertiary: (var(--rds-semantic-warning-dark) var(--rds-neutral-0)),
+    danger: (var(--rds-semantic-error-main) var(--rds-neutral-0)),
+    warning: (var(--rds-semantic-warning-main) var(--rds-neutral-0)),
+    light: (var(--rds-border-light) var(--rds-text-primary)),
+    success: (var(--rds-semantic-success-main) var(--rds-neutral-0))
   );
 
   @each $key, $value in $rds-badge-colors {
     &.rds-badge--primary.rds-badge--#{$key} > .rds-badge__badge {
-      color: list.nth($value, 1);
-      background-color: list.nth($value, 2);
+      background-color: list.nth($value, 1);
+      color: list.nth($value, 2);
       border: none;
     }
     
     &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
       background-color: list.nth($value, 1) !important;
-      color: #ffffff !important;
+      color: list.nth($value, 2) !important;
     }
 
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
@@ -143,14 +144,14 @@
     }
   }
   &--rectangle > .rds-badge__badge {
-    border-radius: 4px !important;
+    border-radius: var(--rds-border-radius-sm, 4px) !important;
   }
   &--pill > .rds-badge__badge {
-    border-radius: 16px !important;
+    border-radius: var(--rds-border-radius-xl, 16px) !important;
   }
   &--disabled > .rds-badge__badge {
-    background: #f3f3f3 !important;
-    color: #bdbdbd !important;
+    background: var(--rds-neutral-100) !important;
+    color: var(--rds-neutral-400) !important;
     border: none !important;
     box-shadow: none !important;
     cursor: not-allowed !important;
@@ -159,8 +160,8 @@
     transition: none;
   }
   &--disabled .MuiBadge-badge {
-    background-color: #f3f3f3 !important;
-    color: #bdbdbd !important;
+    background-color: var(--rds-neutral-100) !important;
+    color: var(--rds-neutral-400) !important;
     border: none !important;
     box-shadow: none !important;
     cursor: not-allowed !important;
@@ -170,18 +171,18 @@
   }
   &--small .rds-badge__badge {
     font-size: 0.75rem;
-    padding: 2px 12px;
-    border-radius: 10px;
+    padding: var(--rds-spacing-xxs) var(--rds-spacing-3);
+    border-radius: var(--rds-border-radius-md, 8px);
     min-width: 40px;
-    height: 24px;
+    height: var(--rds-size-lg);
     line-height: 20px;
   }
   &--small .MuiBadge-badge {
     font-size: 0.625rem !important;
-    min-width: 16px !important;
-    height: 16px !important;
-    border-radius: 8px !important;
-    padding: 0 4px !important;
+    min-width: var(--rds-size-md) !important;
+    height: var(--rds-size-md) !important;
+    border-radius: var(--rds-border-radius-md, 8px) !important;
+    padding: 0 var(--rds-spacing-xs, 4px) !important;
     line-height: 1 !important;
     display: grid !important;
     place-items: center !important;
@@ -191,7 +192,7 @@
     width: 10px !important;
     height: 10px !important;
     min-width: 8px !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
   }
 
   &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
@@ -199,7 +200,7 @@
     width: 18px !important;
     height: 18px !important;
     min-width: 18px !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
   }
 
   &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
@@ -207,7 +208,7 @@
     width: 22px !important;
     height: 22px !important;
     min-width: 22px !important;
-    border-radius: 50% !important;
+    border-radius: var(--rds-border-radius-pill) !important;
   }
 
   &.rds-badge--small .MuiBadge-badge,
@@ -215,7 +216,7 @@
   &--small .MuiBadge-badge {
     display: grid !important;
     place-items: center !important;
-    padding: 2px !important;
+    padding: var(--rds-spacing-xxs) !important;
     line-height: 1 !important;
     height: 15px !important;
     min-width: 15px !important;
@@ -285,45 +286,45 @@
   
   &--medium .rds-badge__badge {
     font-size: 1rem;
-    padding: 4px 18px;
-    border-radius: 12px;
+    padding: var(--rds-spacing-xs) 18px;
+    border-radius: var(--rds-border-radius-lg, 12px);
     min-width: 60px;
-    height: 32px;
+    height: var(--rds-size-xl);
   }
   &--medium .MuiBadge-badge {
-    font-size: 0.75rem !important;
-    min-width: 20px !important;
-    height: 20px !important;
-    border-radius: 10px !important;
-    padding: 0 6px !important;
+    font-size: var(--rds-badge-dot-font-size, 0.75rem) !important;
+    min-width: var(--rds-badge-dot-min-size, 20px) !important;
+    height: var(--rds-badge-dot-min-size, 20px) !important;
+    border-radius: var(--rds-border-radius-md, 8px) !important;
+    padding: 0 var(--rds-badge-dot-padding-x, 6px) !important;
   }
   
   &--large .rds-badge__badge {
     font-size: 1.25rem;
-    padding: 6px 24px;
-    border-radius: 16px;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-lg);
+    border-radius: var(--rds-border-radius-xl, 16px);
     min-width: 80px;
     height: 40px;
   }
   &--large .MuiBadge-badge {
     font-size: 0.875rem !important;
-    min-width: 24px !important;
-    height: 24px !important;
-    border-radius: 12px !important;
-    padding: 0 8px !important;
+    min-width: var(--rds-size-lg) !important;
+    height: var(--rds-size-lg) !important;
+    border-radius: var(--rds-border-radius-lg, 12px) !important;
+    padding: 0 var(--rds-spacing-sm) !important;
   }
   
   &__badge {
     position: static;
-    background: #e0c7ff;
-    color: #6c2eb7;
-    border-radius: 16px;
-    font-weight: 600;
+    background: var(--rds-primary-100);
+    color: var(--rds-primary-800);
+    border-radius: var(--rds-border-radius-xl, 16px);
+    font-weight: var(--rds-font-weight-semibold, 600);
     box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
-    padding: 4px 18px;
+    padding: var(--rds-spacing-xs) 18px;
     font-size: 1rem;
     min-width: 60px;
-    height: 32px;
+    height: var(--rds-size-xl);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -336,4 +337,14 @@
       border-radius: var(--rds-border-radius-full);
     }
   }
+}
+
+.rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
+  background-color: var(--rds-color-primary, var(--rds-primary-main, #2f6fed)) !important;
+  color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+}
+
+.rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
+  background-color: var(--rds-color-secondary, var(--rds-primary-800, #a010c8)) !important;
+  color: var(--rds-color-on-secondary, var(--rds-neutral-0, #fff)) !important;
 }

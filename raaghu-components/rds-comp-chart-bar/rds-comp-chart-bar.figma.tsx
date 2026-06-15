@@ -19,8 +19,8 @@ figma.connect(
     {...props}
   dataSets={[
     {
-      backgroundColor: 'rgba(75, 192, 192, 1)',
-      borderColor: 'rgba(75, 192, 192, 1)',
+      backgroundColor: "var(--rds-comp-chart-bar-ds1-bg, rgba(75, 192, 192, 1))",
+      borderColor: "var(--rds-comp-chart-bar-ds1-border, rgba(75, 192, 192, 1))",
       borderRadius: 5,
       borderSkipped: false,
       borderWidth: 2,
@@ -36,8 +36,8 @@ figma.connect(
       label: 'Fully Radius'
     },
     {
-      backgroundColor: 'rgba(54, 162, 235, 1)',
-      borderColor: 'rgba(54, 162, 245, 1)',
+      backgroundColor: "var(--rds-comp-chart-bar-ds2-bg, rgba(54, 162, 235, 1))",
+      borderColor: "var(--rds-comp-chart-bar-ds2-border, rgba(54, 162, 245, 1))",
       borderRadius: 5,
       borderSkipped: false,
       borderWidth: 2,
@@ -79,8 +79,8 @@ figma.connect(
       x: {
         axis: 'x',
         beginAtZero: false,
-        border: {
-          color: 'rgba(0,0,0,0.1)',
+          border: {
+          color: "var(--rds-border-opacity-light, rgba(0,0,0,0.1))",
           dash: [],
           dashOffset: 0,
           display: true,
@@ -90,8 +90,8 @@ figma.connect(
         clip: true,
         display: true,
         grace: 0,
-        grid: {
-          color: 'rgba(0,0,0,0.1)',
+          grid: {
+          color: "var(--rds-border-opacity-light, rgba(0,0,0,0.1))",
           display: true,
           drawOnChartArea: true,
           drawTicks: true,
@@ -105,14 +105,14 @@ figma.connect(
         offset: true,
         position: 'bottom',
         reverse: false,
-        ticks: {
+          ticks: {
           align: 'center',
           autoSkip: true,
           autoSkipPadding: 3,
-          backdropColor: 'rgba(255, 255, 255, 0.75)',
+          backdropColor: "var(--rds-backdrop-color, rgba(255, 255, 255, 0.75))",
           backdropPadding: 2,
           callback: function woe(){},
-          color: '#666',
+          color: "var(--rds-text-secondary, #666)",
           crossAlign: 'near',
           display: true,
           labelOffset: 0,
@@ -127,7 +127,7 @@ figma.connect(
           textStrokeWidth: 0
         },
         title: {
-          color: '#666',
+          color: "var(--rds-text-secondary, #666)",
           display: false,
           padding: {
             bottom: 4,

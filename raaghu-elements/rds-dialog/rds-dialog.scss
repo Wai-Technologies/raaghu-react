@@ -1,4 +1,14 @@
 .rds-dialog {
+  --rds-dialog-focus-ring-width: 2px;
+  --rds-dialog-disabled-opacity: 0.6;
+  --rds-dialog-icon-paper-width: 310px;
+  --rds-dialog-icon-paper-min-height: 294px;
+  --rds-dialog-icon-size: 56px;
+  --rds-dialog-action-button-width: 248px;
+  --rds-dialog-action-button-height: 36px;
+  --rds-dialog-icon-paper-max-width: 400px;
+  --rds-dialog-title-padding-right: var(--rds-spacing-2xl, 48px);
+  --rds-dialog-title-padding-left: var(--rds-spacing-sm, 14px);
   display: block;
   position: relative;
 
@@ -7,7 +17,7 @@
     padding: var(--rds-spacing-2xl, 32px) var(--rds-spacing-xl, 24px);
     text-align: center;
     font-size: var(--rds-font-size-md, 16px);
-    color: var(--rds-text-primary, #444);
+    color: var(--rds-text-primary);
   }
 
   &__actions {
@@ -22,86 +32,86 @@
     max-width: var(--rds-dialog-max-width, 600px);
     width: 100%;
     border-radius: var(--rds-border-radius-lg, 12px);
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-    background: var(--rds-background-paper, #fff);
+    box-shadow: var(--rds-elevation-2);
+    background: var(--rds-background-paper);
     margin: var(--rds-spacing-2xl, 32px) auto;
   }
 
   &__paper.MuiDialog-paperWidthXs:has(.rds-dialog__content svg) {
-  width: 310px;
-  min-width: 310px;
-  max-width: 400px;
-  min-height: 294px;
+  width: var(--rds-dialog-icon-paper-width, 310px);
+  min-width: var(--rds-dialog-icon-paper-width, 310px);
+  max-width: var(--rds-dialog-icon-paper-max-width, 400px);
+  min-height: var(--rds-dialog-icon-paper-min-height, 294px);
   box-sizing: border-box;
   padding: var(--rds-spacing-lg, 16px);
-  border-radius: 8px;
+  border-radius: var(--rds-border-radius-md);
   overflow: hidden;
 
     .rds-dialog__title {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding: 12px 48px 8px 14px;
-      font-size: 18px;
-      font-weight: 500;
+      padding: var(--rds-spacing-sm) var(--rds-dialog-title-padding-right, 48px) var(--rds-spacing-xs, 8px) var(--rds-dialog-title-padding-left, 14px);
+      font-size: var(--rds-font-size-xl);
+      font-weight: var(--rds-font-weight-medium, 500);
       line-height: 20px;
-      color: var(--rds-text-primary, #222);
+      color: var(--rds-text-primary);
     }
 
     .rds-dialog__content {
-      padding: 0 8px 0 8px;
+      padding: 0 var(--rds-spacing-sm) 0 var(--rds-spacing-sm);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       text-align: center;
-      color: var(--rds-text-primary, #444);
-      gap: 16px;
-      margin-top: 6px;
+      color: var(--rds-text-primary);
+      gap: var(--rds-spacing-md);
+      margin-top: var(--rds-spacing-compact);
       flex: 1 1 auto;
       overflow: hidden;
     }
 
     .rds-dialog__content svg {
       display: block;
-      margin: 12px auto 0 auto;
-      width: 56px;
-      height: 56px;
+      margin: var(--rds-spacing-3) auto 0 auto;
+      width: var(--rds-dialog-icon-size, 56px);
+      height: var(--rds-dialog-icon-size, 56px);
     }
 
     .rds-dialog__content p,
     .rds-dialog__content .MuiTypography-root {
       max-width: 248px;
       margin: 0 auto;
-      font-size: 14px;
+      font-size: var(--rds-font-size-md);
       line-height: 1.45;
-      color: var(--rds-text-secondary, #757575);
+      color: var(--rds-text-secondary);
     }
 
     .rds-dialog__actions {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 14px 0 22px 0;
+      gap: var(--rds-spacing-sm);
+      padding: var(--rds-spacing-14) 0 var(--rds-spacing-22) 0;
       align-items: center;
       justify-content: flex-end;
       background: transparent;
     }
 
     .rds-dialog__button.rds-dialog__button__dismiss {
-      width: 248px;
-      height: 36px;
+      width: var(--rds-dialog-action-button-width, 248px);
+      height: var(--rds-dialog-action-button-height, 36px);
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      padding: 0 12px;
-      color: var(--rds-primary-contrast-text, #fff);
-      border-radius: 8px;
+      padding: 0 var(--rds-spacing-3);
+      color: var(--rds-primary-contrast-text);
+      border-radius: var(--rds-border-radius-md);
       border: none;
       box-shadow: none;
       box-sizing: border-box;
-      font-family: var(--rds-font-family-poppins);
-      font-weight: 400;
+      font-family: var(--rds-font-family-base);
+      font-weight: var(--rds-font-weight-regular, 400);
       font-size: var(--rds-font-size-xs, 13px);
       line-height: 16px;
       text-align: center;
@@ -110,202 +120,103 @@
     }
 
     .rds-dialog__button.rds-dialog__button__primary-link {
-      width: 248px;
-      height: 36px;
+      width: var(--rds-dialog-action-button-width, 248px);
+      height: var(--rds-dialog-action-button-height, 36px);
       display: inline-flex;
       justify-content: center;
       align-items: center;
       padding: 0;
       background: transparent;
-      color: var(--rds-color-primary, #3C98FF);
+      color: var(--rds-primary-main, var(--rds-color-primary));
       border: none;
-      border-radius: 6px;
+      border-radius: var(--rds-border-radius-sm);
       box-shadow: none;
       text-transform: none;
-      margin-top: 8px;
-      font-size: 14px;
-      line-height: 36px;
-      font-weight: 400 !important;
+      margin-top: var(--rds-spacing-sm);
+      font-size: var(--rds-font-size-md);
+      line-height: var(--rds-dialog-action-button-height, 36px);
+      font-weight: var(--rds-font-weight-regular, 400) !important;
       font-size: var(--rds-font-size-xs, 14px) !important;
-      margin-left: 0px;
+      margin-left: 0;
     }
 
     .rds-dialog__close-button {
       position: absolute;
-      right: 12px;
-      top: 12px;
-      color: var(--rds-text-secondary, #888);
-      z-index: 3;
+      right: var(--rds-spacing-sm, 12px);
+      top: var(--rds-spacing-sm, 12px);
+      color: var(--rds-text-secondary);
+      z-index: var(--rds-z-index-above, 3);
+    }
+  }
+
+  &__title-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    > :first-child {
+      flex: 1;
+      min-width: 0;
     }
   }
 
   &__close-button {
     position: absolute;
-    color: var(--rds-text-secondary, #888);
+    color: var(--rds-text-secondary);
   }
 
   &__button {
     min-width: var(--rds-spacing-xl, 80px);
     font-size: var(--rds-font-size-md, 16px);
     border-radius: var(--rds-border-radius, 6px);
-    background: var(--rds-background-paper, #fff);
-    color: var(--rds-color-primary, #1976d2);
-    border: 1px solid var(--rds-color-primary, #1976d2);
+    background: var(--rds-background-paper);
+    color: var(--rds-primary-main, var(--rds-color-primary));
+    border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
 
     &:hover {
-      background: var(--rds-color-primary-hover-bg, #e3f2fd);
+      background: var(--rds-color-primary-hover-bg);
     }
 
     &__primary {
-      background: var(--rds-color-primary, #3C98FF) !important;
-      color: var(--rds-primary-contrast-text, #fff);
+      background: var(--rds-primary-main, var(--rds-color-primary)) !important;
+      color: var(--rds-primary-contrast-text);
       box-shadow: none;
 
       &:hover {
-        background: var(--rds-color-primary-hover, #1565c0);
+        background: var(--rds-primary-dark, var(--rds-color-primary-hover));
       }
     }
 
     &__secondary {
-      color: var(--rds-color-primary, #1976d2);
-      border: 1px solid var(--rds-color-primary, #1976d2);
-      background: var(--rds-background-paper, #fff);
+      color: var(--rds-color-primary, var(--rds-primary-main));
+      border: 1px solid var(--rds-color-primary, var(--rds-primary-main));
+      background: var(--rds-background-paper);
 
       &:hover {
-        background: var(--rds-color-primary-hover-bg, #e3f2fd);
+        background: var(--rds-color-primary-hover-bg);
       }
     }
 
     &__dismiss {
-      color: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary, var(--rds-primary-main));
       background: transparent;
 
       &:hover {
-        background: var(--rds-color-primary-hover-bg, #e3f2fd);
+        background: var(--rds-color-primary-hover-bg);
       }
     }
   }
 
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-dialog-focus-ring-width, 2px) solid var(--rds-primary-main, var(--rds-color-primary));
     outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--rds-dialog-disabled-opacity, 0.6);
     pointer-events: none;
-  }
-}
-
-
-
-.dark-theme .rds-dialog,
-[data-theme="dark"] .rds-dialog {
-  &__content {
-    color: var(--rds-text-primary, #ffffff) !important;
-    background-color: transparent !important;
-  }
-  
-  &__actions {
-    background-color: transparent !important;
-  }
-  
-  &__paper {
-    background-color: var(--rds-background-paper, #1a1a1a) !important;
-    border: 1px solid var(--rds-border-default, #666666) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
-  }
-  
-  &__close-button {
-    color: var(--rds-text-secondary, #cccccc) !important;
-    
-    &:hover {
-      color: var(--rds-text-primary, #ffffff) !important;
-      background-color: var(--rds-background-paper, #2a2a2a) !important;
-    }
-  }
-  
-  &__button {
-    color: var(--rds-color-primary, #ffffff) !important;
-    border-radius: var(--rds-border-radius, 6px) !important;
-    
-    &:focus {
-      outline: 2px solid var(--rds-color-primary, #3c98ff) !important;
-      outline-offset: var(--rds-focus-ring-offset) !important;
-    }
-    
-    &__primary {
-      background: var(--rds-color-primary, #3c98ff) !important;
-      color: var(--rds-primary-contrast-text, #ffffff) !important;
-      border: none !important;
-
-      &:hover {
-        background: var(--rds-color-primary-hover, #056cd3) !important;
-      }
-    }
-    
-    &__secondary {
-     background: var(--rds-background-paper, #3C98FF) !important;
-      color: var(--rds-color-primary, #3c98ff) !important;
-      border: 1px solid var(--rds-color-primary, #3c98ff) !important;
-
-      
-    }
-    
-    &__dismiss {
-      color: var(--rds-color-primary, #1976d2) !important;
-      border: none !important;
-
-     &:hover {
-      background: var(--rds-color-primary-hover-bg, #4a4a4a) !important;
-    }
-    }
-  }
-  
-  &:focus-visible {
-    outline: none !important;
-    outline-offset: 0 !important;
-  }
-  
-  &:disabled,
-  &--disabled {
-    opacity: 0.5 !important;
-    
-    .rds-dialog__content {
-      color: var(--rds-text-disabled, #999999) !important;
-    }
-    
-    .rds-dialog__button {
-      color: var(--rds-text-disabled, #999999) !important;
-      border: none !important;
-      background-color: var(--rds-background-paper, #2a2a2a) !important;
-    }
-  }
-}
-
-.dark-theme .rds-dialog,
-[data-theme="dark"] .rds-dialog {
-  &__content {
-    text-shadow: none;
-    font-weight: 400;
-  }
-  
-  &__button {
-    &:focus-visible {
-      outline: none !important;
-      outline-offset: 0 !important;
-      box-shadow: none !important;
-    }
-  }
-  
-  &__close-button {
-    &:focus-visible {
-      outline: none !important;
-      outline-offset: 0 !important;
-      border-radius: var(--rds-border-radius, 4px) !important;
-    }
   }
 }
 

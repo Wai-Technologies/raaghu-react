@@ -1,43 +1,45 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-tabs--line-left .MuiTab-root {
   border-left: 2px solid transparent;
   &.Mui-selected {
-    border-left: 2px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-primary, #1976d2);
+    border-left: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
 .rds-tabs--line-bottom .MuiTab-root {
   border-bottom: 2px solid transparent;
   &.Mui-selected {
-    border-bottom: 2px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-primary, #1976d2);
+    border-bottom: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
 .rds-tabs--line-bottom-solid .MuiTab-root {
   border-bottom: 3px solid transparent;
   &.Mui-selected {
-    border-bottom: 3px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-accent, #3C98FF) !important; // Use accent token
+    border-bottom: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-accent) !important; // Use accent token
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg, #3D98FF4D) !important; // Use accent bg token
+    background: var(--rds-color-accent-bg) !important; // Use accent bg token
   }
 }
 .rds-tabs--line-left-solid .MuiTab-root {
   border-left: 3px solid transparent;
   &.Mui-selected {
-    border-left: 3px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-accent, #3C98FF) !important;
+    border-left: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+    background: var(--rds-color-accent-bg) !important;
   }
 }
 
 .rds-tabs--line-right .MuiTab-root {
   border-right: 2px solid transparent;
   &.Mui-selected {
-    border-right: 2px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-primary, #1976d2);
+    border-right: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-primary, var(--rds-primary-main));
     border-radius: unset !important;
   }
 }
@@ -45,18 +47,18 @@
 .rds-tabs--line-right-solid .MuiTab-root {
   border-right: 3px solid transparent;
   &.Mui-selected {
-    border-right: 3px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-accent, #3C98FF) !important;
+    border-right: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+    background: var(--rds-color-accent-bg) !important;
   }
 }
 
 .rds-tabs--line-top .MuiTab-root {
   border-top: 2px solid transparent;
   &.Mui-selected {
-    border-top: 2px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-primary, #1976d2);
+    border-top: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
@@ -64,25 +66,25 @@
 .rds-tabs--line-top-solid .MuiTab-root {
   border-top: 3px solid transparent;
   &.Mui-selected {
-    border-top: 3px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-accent, #3C98FF) !important;
+    border-top: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+    background: var(--rds-color-accent-bg) !important;
   }
 }
 
 .rds-tabs--pill .MuiTab-root {
-  border-radius: 15rem !important;
-  margin: 0 4px;
+  border-radius: var(--rds-tabs-pill-radius, 15rem) !important;
+  margin: 0 var(--rds-spacing-xs, 4px);
   &.Mui-selected {
-    border-radius: 15rem !important;
-    background: var(--rds-color-primary, #3C98FF) !important;
-    color: var(--rds-color-on-primary, #fff) !important;
+    border-radius: var(--rds-tabs-pill-radius, 15rem) !important;
+    background: var(--rds-color-primary) !important;
+    color: var(--rds-color-on-primary) !important;
   }
 }
 .rds-tabs--pill .MuiTab-root:hover {
   &.Mui-selected {
-     border-radius: 15rem !important;
+     border-radius: var(--rds-tabs-pill-radius, 15rem) !important;
   }
 }
 
@@ -91,7 +93,17 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  font-family: var(--rds-font-family, Poppins);
+  font-family: var(--rds-font-family-base);
+  --rds-tabs-corner-radius: var(--rds-border-radius-md, 6px);
+  --rds-tabs-pill-radius: var(--rds-border-radius-full, 15rem);
+  --rds-tabs-flap-arrow-bottom: -9px;
+  --rds-tabs-flap-arrow-left: 75px;
+  --rds-tabs-flap-arrow-size: 10px;
+  --rds-tabs-tab-max-width: 150px;
+  --rds-tabs-tab-min-width: 120px;
+  --rds-tabs-tab-mobile-min-width: 140px;
+  --rds-tabs-tab-mobile-max-width: 200px;
+  --rds-tabs-mobile-font-size: var(--rds-font-size-sm, 0.85rem);
   
   &--flap {
     overflow: visible !important;
@@ -112,62 +124,62 @@
   &__label {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--rds-spacing-xs, 4px);
   }
 }
 
 .rds-state--default .Mui-selected {
-  color: var(--rds-color-default, #646464) !important;
-  border-radius:  6px 6px 0 0 !important;
+  color: var(--rds-color-default) !important;
+  border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 .rds-tabs--filled .Mui-selected {
-  background: var(--rds-color-accent, #3C98FF) !important;
-  color: var(--rds-color-on-accent, #ffffff) !important;
-  border-radius:  6px 6px 0 0 !important;
+  background: var(--rds-color-accent) !important;
+  color: var(--rds-color-on-accent) !important;
+  border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
   border: unset !important;
 }
 
 .rds-state--hover .Mui-selected:hover {
-  background: var(--rds-color-hover-bg, #EBDCFF) !important;
-  color: var(--rds-color-default, #646464) !important;
+  background: var(--rds-color-hover-bg) !important;
+  color: var(--rds-color-default) !important;
 }
 
 .rds-state--selected .Mui-selected {
-  background: var(--rds-color-accent, #3C98FF) !important;
-  color: var(--rds-color-on-accent, #ffffff) !important;
-  border-radius:  6px 6px 0 0 !important;
+  background: var(--rds-color-accent) !important;
+  color: var(--rds-color-on-accent) !important;
+  border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 
 .rds-state--filled .Mui-selected {
-  background: var(--rds-color-accent, #3C98FF) !important;
-  color: var(--rds-color-on-accent, #ffffff) !important;
-  border-radius:  6px 6px 0 0 !important;
+  background: var(--rds-color-accent) !important;
+  color: var(--rds-color-on-accent) !important;
+  border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 .rds-tabs--flap .Mui-selected {
-  background: var(--rds-color-accent, #3C98FF) !important;
-  color: var(--rds-color-on-accent, #ffffff) !important;
-  border-radius: 6px 6px 0 0 !important;
+  background: var(--rds-color-accent) !important;
+  color: var(--rds-color-on-accent) !important;
+  border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
   border: unset !important;
   position: relative !important;
-  z-index: 2 !important;
+  z-index: var(--rds-z-index-sticky, 1100) !important;
 }
 
 .rds-tabs--flap .Mui-selected::after {
   content: '';
   position: absolute;
-  bottom: -9px;
-  left: 75px;
+  bottom: var(--rds-tabs-flap-arrow-bottom, -9px);
+  left: var(--rds-tabs-flap-arrow-left, 75px);
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid var(--rds-color-accent, #3C98FF);
-  z-index: 1;
+  border-left: var(--rds-tabs-flap-arrow-size, 10px) solid transparent;
+  border-right: var(--rds-tabs-flap-arrow-size, 10px) solid transparent;
+  border-top: var(--rds-tabs-flap-arrow-size, 10px) solid var(--rds-color-accent);
+  z-index: calc(var(--rds-z-index-base) + 1);
 }
 
 .rds-tabs--flap.rds-state--hover .Mui-selected:hover::after {
-  border-top-color: var(--rds-color-hover-bg, #EBDCFF) !important;
+  border-top-color: var(--rds-color-hover-bg) !important;
 }
 
 .css-jhczcq-MuiTabs-root{
@@ -190,7 +202,7 @@
 
 .css-1usuzwp-MuiButtonBase-root-MuiTab-root{
   overflow: visible !important;
-  max-width: 150px !important;
+  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
 .MuiTabs-scroller{
@@ -200,7 +212,7 @@
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
   content: "" !important;
   position: absolute !important;
-  left: 150px !important;
+  left: var(--rds-tabs-tab-max-width, 150px) !important;
   top: 50% !important;
   right: -12px !important;
   transform: translateY(-50%) !important;
@@ -208,35 +220,35 @@
   height: 0 !important;
   border-top: 8px solid transparent !important;
   border-bottom: 8px solid transparent !important;
-  border-left: 12px solid var(--rds-color-accent, #3C98FF) !important;
-  z-index: 1 !important;
+  border-left: 12px solid var(--rds-color-accent) !important;
+  z-index: calc(var(--rds-z-index-base) + 1) !important;
 }
 
 .rds-tabs--flap.rds-state--hover .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
-  border-left-color: var(--rds-color-hover-bg, #EBDCFF) !important;
+  border-left-color: var(--rds-color-hover-bg) !important;
 }
 .rds-state--disabled .Mui-selected{
-  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
-  color: var(--rds-color-disabled, #AFCDFD) !important;
-  border-radius:  6px 6px 0 0 !important;
+  background: var(--rds-color-disabled-bg) !important;
+  color: var(--rds-color-disabled) !important;
+  border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 
 .rds-tabs--flap.rds-state--disabled .Mui-selected::after {
-  border-top-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  border-top-color: var(--rds-color-disabled-bg) !important;
   pointer-events: none;
   opacity: 0.6;
 }
 
 .rds-tabs--flap.rds-state--disabled .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
-  border-left-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  border-left-color: var(--rds-color-disabled-bg) !important;
   pointer-events: none;
   opacity: 0.6;
 }
 
 .rds-tabs--pill.rds-state--disabled .MuiTab-root.Mui-selected {
-  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
-  color: var(--rds-color-disabled, #AFCDFD) !important;
-  border-radius: 15rem !important;
+  background: var(--rds-color-disabled-bg) !important;
+  color: var(--rds-color-disabled) !important;
+  border-radius: var(--rds-tabs-pill-radius, 15rem) !important;
   pointer-events: none;
   opacity: 0.6;
 }
@@ -245,10 +257,10 @@
 .rds-tabs--line-left-solid.rds-state--disabled .MuiTab-root.Mui-selected,
 .rds-tabs--line-right-solid.rds-state--disabled .MuiTab-root.Mui-selected,
 .rds-tabs--line-top-solid.rds-state--disabled .MuiTab-root.Mui-selected {
-  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
-  color: var(--rds-color-disabled, #AFCDFD) !important;
+  background: var(--rds-color-disabled-bg) !important;
+  color: var(--rds-color-disabled) !important;
   border-radius: unset !important;
-  border-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  border-color: var(--rds-color-disabled-bg) !important;
   pointer-events: none;
   opacity: 0.6;
 }
@@ -257,7 +269,7 @@
    display: inline-flex;
    align-items: center;      
    justify-content: center;  
-   gap: 8px;                 
+  gap: var(--rds-spacing-sm, 8px);                 
    line-height: 1.5;
    text-transform: none !important;       
 }
@@ -282,30 +294,30 @@
 
 .css-nowihk-MuiButtonBase-root-MuiTab-root,
 .css-r0euln-MuiButtonBase-root-MuiTab-root {
-  max-width: 150px !important;
+  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
 .MuiTabs-vertical .MuiTab-root {
-  max-width: 150px !important;
-  min-width: 120px !important;
-  width: 150px !important;
+  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
+  min-width: var(--rds-tabs-tab-min-width, 120px) !important;
+  width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
 .rds-tabs .MuiTabs-vertical {
-  max-width: 150px !important;
-  width: 150px !important;
+  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
+  width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
 .MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
-  max-width: 150px !important;
-  min-width: 120px !important;
-  width: 150px !important;
+  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
+  min-width: var(--rds-tabs-tab-min-width, 120px) !important;
+  width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
 .MuiTab-root {
-  max-width: 150px !important;
-  min-width: 120px !important;
-  width: 150px !important;
+  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
+  min-width: var(--rds-tabs-tab-min-width, 120px) !important;
+  width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
 .css-gb4ru6,
@@ -313,7 +325,7 @@
   background-color: unset !important;
 }
 
-@media (max-width: 480px) {
+@include bp.down(sm) {
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-root,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scroller,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scrollableX {
@@ -323,7 +335,7 @@
 
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-flexContainer {
     display: flex !important;
-    gap: 6px;
+    gap: calc(1.5 * var(--rds-spacing-xs, 4px));
     white-space: normal;
     flex-wrap: wrap !important;
     align-items: center;
@@ -332,10 +344,10 @@
   .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root {
     flex: 0 1 auto !important;
     width: auto !important;
-    min-width: 140px !important;
-    max-width: 200px !important;
-    padding: 4px 8px !important;
-    font-size: 0.85rem !important;
+    min-width: var(--rds-tabs-tab-mobile-min-width, 140px) !important;
+    max-width: var(--rds-tabs-tab-mobile-max-width, 200px) !important;
+    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important;
+    font-size: var(--rds-tabs-mobile-font-size, 0.85rem) !important;
     box-sizing: border-box !important;
   }
 
@@ -346,7 +358,7 @@
   }
 
   .rds-tabs .MuiTab-root:focus-visible {
-    outline: 2px solid var(--rds-color-primary, #1976d2) !important;
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main)) !important;
     outline-offset: 2px !important;
   }
 }
@@ -360,12 +372,59 @@
     height: 18px !important;
     border-top: 27px solid transparent !important;
     border-bottom: 22px solid transparent !important;
-    border-left: 34px solid var(--rds-color-accent, #3C98FF) !important;
-    z-index: 1 !important;
+    border-left: 34px solid var(--rds-color-accent) !important;
+    z-index: calc(var(--rds-z-index-base) + 1) !important;
 }
 .rds-tabs--flap .Mui-selected {
-  border-radius: 6px 6px 0 0 !important;
+  border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected {
   border-radius: 0 0 0 0 !important;
+}
+
+/* ========================================================
+   Dark mode overrides — ensure tab text is always visible
+   ======================================================== */
+[data-theme="dark"] {
+  .rds-tabs .MuiTab-root {
+    color: var(--rds-neutral-300, #ccc) !important;
+  }
+
+  .rds-tabs .MuiTab-root:hover {
+    color: var(--rds-neutral-0, #fff) !important;
+  }
+
+  /* Selected tab text for all line-* layouts */
+  .rds-tabs--line-bottom .MuiTab-root.Mui-selected,
+  .rds-tabs--line-top .MuiTab-root.Mui-selected,
+  .rds-tabs--line-left .MuiTab-root.Mui-selected,
+  .rds-tabs--line-right .MuiTab-root.Mui-selected {
+    color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+  }
+
+  /* Solid line variants */
+  .rds-tabs--line-bottom-solid .MuiTab-root.Mui-selected,
+  .rds-tabs--line-top-solid .MuiTab-root.Mui-selected,
+  .rds-tabs--line-left-solid .MuiTab-root.Mui-selected,
+  .rds-tabs--line-right-solid .MuiTab-root.Mui-selected {
+    color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+    background-color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+  }
+
+  /* Filled / Flap / Pill */
+  .rds-tabs--filled .MuiTab-root.Mui-selected,
+  .rds-tabs--flap .MuiTab-root.Mui-selected,
+  .rds-tabs--pill .MuiTab-root.Mui-selected {
+    color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+  }
+
+  /* MUI tab indicator */
+  .rds-tabs .MuiTabs-indicator {
+    background-color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+  }
+
+  /* Tab icons */
+  .rds-tabs .rds-tabs__icon svg {
+    fill: currentColor;
+  }
 }

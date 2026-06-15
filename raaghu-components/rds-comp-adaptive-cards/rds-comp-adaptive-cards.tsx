@@ -61,11 +61,11 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     label: '',
     smallText: '',
   };
-  let merged = { ...variantDefaults, ...props };
+  const merged = { ...variantDefaults, ...props };
   
   const allowedButtonStyles = ['filled', 'outlined', 'transparent'] as const;
-  const getRdsButtonStyle = (style: any) =>
-    allowedButtonStyles.includes(style) ? style : 'filled';
+  const getRdsButtonStyle = (style: string) =>
+    allowedButtonStyles.includes(style as typeof allowedButtonStyles[number]) ? style as typeof allowedButtonStyles[number] : 'filled';
 
   const {
     showHeader,
@@ -162,7 +162,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               )}
               <RdsBox sx={{ flex: 1 }} />
               {closeIcon && (
-                <IconButton size="small" className="custom-box__close-icon" onClick={() => setVisible(false)}>
+                <IconButton aria-label="Close" size="small" className="custom-box__close-icon" onClick={() => setVisible(false)}>
                   <CloseIcon />
                 </IconButton>
               )}
@@ -201,7 +201,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                 </RdsStack>
               )}
               action={closeIcon && (
-                <IconButton size="small" className="rds-adaptive-cards__close-btn" onClick={() => setVisible(false)}><CloseIcon /></IconButton>
+                <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn" onClick={() => setVisible(false)}><CloseIcon /></IconButton>
               )}
             />
 

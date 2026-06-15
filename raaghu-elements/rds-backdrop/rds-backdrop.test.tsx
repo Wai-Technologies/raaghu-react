@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RdsBackdrop, { RdsBackdropProps } from './rds-backdrop';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-backdrop.scss', () => ({}));
@@ -505,6 +506,12 @@ describe('RdsBackdrop', () => {
     it('should be keyboard dismissible when open', () => {
       const { container } = render(<RdsBackdrop open={true} />);
       expect(container.querySelector('.MuiBackdrop-root')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsBackdrop {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should render with proper ARIA role', () => {

@@ -3,16 +3,15 @@ import {
   Box, 
   Typography, 
   Popover, 
-  Accordion, 
-  AccordionSummary, 
+  Accordion,
+  AccordionSummary,
   AccordionDetails,
-  Checkbox,
   FormControlLabel,
   TextField,
-  Button
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
+import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
 import './rds-comp-filter-button.scss';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
@@ -44,8 +43,8 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   text = 'Filter',
   showLeftIcon = true,
   showRightIcon = true,
-  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 16 }} />,
-  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 16 }} />,
+  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
+  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
   filters = [],
   onFiltersChange,
   onApply,
@@ -165,14 +164,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
               width: '6px',
             },
             '&::-webkit-scrollbar-track': {
-              background: '#f1f1f1',
+              background: 'var(--rds-background-default)',
             },
             '&::-webkit-scrollbar-thumb': {
-              background: '#c1c1c1',
+              background: 'var(--rds-neutral-400)',
               borderRadius: '3px',
             },
             '&::-webkit-scrollbar-thumb:hover': {
-              background: '#a8a8a8',
+              background: 'var(--rds-neutral-500)',
             },
           }}>
             {localFilters.map((filter, index) => (
@@ -192,7 +191,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                 }}
               >
                 <AccordionSummary
-                  expandIcon={<ExpandMore sx={{ color: '#666' }} />}
+                  expandIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)' }} />}
                   sx={{
                     minHeight: '48px',
                     px: 2,
@@ -205,17 +204,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                         margin: 0,
                       }
                     },
-                    '&:hover': {
-                      backgroundColor: '#f9f9f9',
-                    },
                     '&:after': {
                       content: '""',
                       position: 'absolute',
                       bottom: 0,
-                      left: '16px',
-                      right: '16px',
+                      left: 'var(--rds-spacing-md, 16px)',
+                      right: 'var(--rds-spacing-md, 16px)',
                       height: '1px',
-                      backgroundColor: '#f0f0f0',
+                      backgroundColor: 'var(--rds-border-default)',
                       display: index === localFilters.length - 1 ? 'none' : 'block',
                     }
                   }}
@@ -230,9 +226,9 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                     ) : null}
 
                     <Typography sx={{ 
-                      fontSize: '14px', 
-                      fontWeight: 500,
-                      color: '#333'
+                      fontSize: 'var(--rds-font-size-md, 14px)', 
+                      fontWeight: 'var(--rds-font-weight-medium, 500)',
+                      color: 'var(--rds-text-primary)'
                     }}>
                       {filter.name}
                     </Typography>
@@ -248,25 +244,16 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                       <FormControlLabel
                         key={value}
                         control={
-                          <Checkbox
+                          <RdsCheckbox
                             checked={filter.selectedValues?.includes(value) || false}
-                            onChange={(e) => handleFilterChange(filter.id, value, e.target.checked)}
+                            onChange={(e, checked) => handleFilterChange(filter.id, value, checked)}
                             size="small"
-                            sx={{
-                              color: '#ccc',
-                              '&.Mui-checked': {
-                                color: '#1976d2',
-                              },
-                              '& .MuiSvgIcon-root': {
-                                fontSize: 16,
-                              }
-                            }}
                           />
                         }
                         label={
                           <Typography sx={{ 
-                            fontSize: '13px',
-                            color: '#555'
+                            fontSize: 'var(--rds-font-size-sm, 13px)',
+                            color: 'var(--rds-text-secondary)'
                           }}>
                             {value}
                           </Typography>
@@ -274,7 +261,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                         sx={{
                           margin: 0,
                           '& .MuiFormControlLabel-label': {
-                            paddingLeft: '4px'
+                            paddingLeft: 'var(--rds-spacing-xs, 4px)'
                           }
                         }}
                       />
@@ -291,43 +278,24 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
             flexDirection: 'column',
             gap: 1,
             flexShrink: 0,
-            backgroundColor: '#fff'
+            backgroundColor: 'var(--rds-background-paper)'
           }}>
-            <Button
-              variant="contained"
+            <RdsButton
+              style="filled"
               fullWidth
+              text="Apply"
+              textCase="capitalize"
               onClick={handleApply}
-              sx={{
-                backgroundColor: '#1976d2',
-                color: 'white',
-                textTransform: 'none',
-                fontWeight: 500,
-                py: 1,
-                '&:hover': {
-                  backgroundColor: '#1565c0',
-                }
-              }}
-            >
-              Apply
-            </Button>
-            <Button
-              variant="outlined"
+              sx={{ py: 1 }}
+            />
+            <RdsButton
+              style="outlined"
               fullWidth
+              text="Clear All"
+              textCase="capitalize"
               onClick={handleClearAll}
-              sx={(theme) => ({
-                borderColor: '#e0e0e0',
-                 color: theme.palette.mode === 'dark' ? '#fff' : '#666',
-                textTransform: 'none',
-                fontWeight: 500,
-                py: 1,
-                '&:hover': {
-                   backgroundColor: theme.palette.mode === 'dark' ? '#353535' : '#f9f9f9',
-                  borderColor: '#d0d0d0',
-                }
-              })}
-            >
-              Clear All
-            </Button>
+              sx={{ py: 1 }}
+            />
           </Box>
         </Box>
       </Popover>

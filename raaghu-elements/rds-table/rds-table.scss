@@ -3,15 +3,16 @@
   position: relative;
   
   &__container {
-    background-color: var(--rds-color-surface, #ffffff);
+    background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 8px);
     overflow-x: auto;
     overflow-y: visible;
-    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.12));
+    box-shadow: var(--rds-elevation-1);
     max-width: 100%;
     
     &--sticky {
       overflow-y: auto;
+      max-height: var(--rds-table-sticky-max-height, 440px);
     }
   }
   
@@ -25,19 +26,19 @@
   }
   
   &__head {
-    background-color: var(--rds-color-surface-variant, #f5f5f5);
+    background-color: var(--rds-color-surface-variant);
   }
   
   &__header-row {
-    background-color: var(--rds-color-surface-variant, #f5f5f5);
+    background-color: var(--rds-color-surface-variant);
   }
   
   &__header {
     padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
     text-align: left;
-    font-weight: 600;
-    color: var(--rds-color-on-surface, #202020);
-    border-bottom: 1px solid var(--rds-color-outline, #e0e0e0);
+    font-weight: var(--rds-font-weight-semibold, 600);
+    color: var(--rds-color-on-surface);
+    border-bottom: 1px solid var(--rds-color-outline);
     font-size: var(--rds-font-size-sm, 14px);
     letter-spacing: 0.5px;
     white-space: nowrap;
@@ -48,12 +49,12 @@
       transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
       
       &:hover {
-        background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
+        background-color: var(--rds-color-surface-hover);
       }
     }
     
     &--checkbox {
-      width: 48px;
+      width: var(--rds-spacing-2xl, 48px);
       padding: var(--rds-spacing-md, 16px);
     }
   }  &__header-content {
@@ -71,13 +72,13 @@
   &__sort-icon {
     opacity: 0.6;
     transition: opacity var(--rds-transition-duration, 0.15s) ease-in-out;
-    color: var(--rds-color-on-surface-variant, #757575);
-    font-size: 16px !important;
+    color: var(--rds-color-on-surface-variant);
+    font-size: var(--rds-font-size-md, 16px) !important;
     flex: 0 0 auto;
     
     .rds-table__header:hover & {
       opacity: 1;
-      color: var(--rds-color-on-surface, #202020);
+      color: var(--rds-color-on-surface);
     }
   }
   
@@ -88,33 +89,33 @@
     transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
     
     &:hover {
-      background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
+      background-color: var(--rds-color-surface-hover);
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary);
       outline-offset: 2px;
     }
   }
   
   &__body {
-    background-color: var(--rds-color-surface, #ffffff);
+    background-color: var(--rds-color-surface);
+    z-index: var(--rds-z-index-base, 1);
   }
-  
   &__row {
-    border-bottom: 1px solid var(--rds-color-outline-variant, #f0f0f0);
+    border-bottom: 1px solid var(--rds-color-outline-variant);
     transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
     
     &:hover {
-      background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
+      background-color: var(--rds-color-surface-hover);
     }
     
     &--selected {
-      background-color: var(--rds-color-primary-container, rgba(120, 37, 233, 0.08));
+      background-color: var(--rds-color-primary-container);
       
       &:hover {
-        background-color: var(--rds-color-primary-container-hover, rgba(120, 37, 233, 0.12));
-      }
+        background-color: var(--rds-color-primary-container-hover);
+        z-index: var(--rds-z-index-above, 2);
     }
     
     &:last-child {
@@ -124,14 +125,14 @@
   
   &__cell {
     padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
-    border-bottom: 1px solid var(--rds-color-outline-variant, #f0f0f0);
+    border-bottom: 1px solid var(--rds-color-outline-variant);
     vertical-align: middle;
     font-size: var(--rds-font-size-body, 14px);
-    color: var(--rds-color-on-surface, #202020);
+    color: var(--rds-color-on-surface);
     white-space: nowrap;
     
     &--checkbox {
-      width: 48px;
+      width: var(--rds-spacing-2xl, 48px);
       padding: var(--rds-spacing-md, 16px);
     }
     
@@ -150,7 +151,7 @@
     }
     
     &--actions {
-      width: 120px;
+      width: var(--rds-table-actions-width, 120px);
       text-align: right;
     }
     
@@ -170,42 +171,42 @@
   }
   
   &__avatar-name {
-    font-weight: 500;
-    color: var(--rds-color-on-surface, #202020);
+    font-weight: var(--rds-font-weight-medium, 500);
+    color: var(--rds-color-on-surface);
     font-size: var(--rds-font-size-body, 14px);
   }
   
   &__avatar-subtitle {
     font-size: var(--rds-font-size-sm, 12px);
-    color: var(--rds-color-on-surface-variant, #757575);
+    color: var(--rds-color-on-surface-variant);
   }
   
   &__badge {
     font-size: var(--rds-font-size-xs, 12px);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium, 500);
     text-transform: capitalize;
     letter-spacing: 0.5px;
     border-radius: var(--rds-border-radius-full, 16px);
     padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 12px);
     
     &--badge {
-      background-color: var(--rds-color-info-container, #e3f2fd);
-      color: var(--rds-color-on-info-container, #1976d2);
+      background-color: var(--rds-color-info-container);
+      color: var(--rds-color-on-info-container);
     }
     
     &--image {
-      background-color: var(--rds-color-info-container, #e3f2fd);
-      color: var(--rds-color-on-info-container, #1976d2);
+      background-color: var(--rds-color-info-container);
+      color: var(--rds-color-on-info-container);
     }
     
     &--active {
-      background-color: var(--rds-color-success-container, #e8f5e8);
-      color: var(--rds-color-on-success-container, #2e7d32);
+      background-color: var(--rds-color-success-container);
+      color: var(--rds-color-on-success-container);
     }
     
     &--inactive {
-      background-color: var(--rds-color-error-container, #ffebee);
-      color: var(--rds-color-on-error-container, #c62828);
+      background-color: var(--rds-color-error-container);
+      color: var(--rds-color-on-error-container);
     }
   }
   
@@ -217,32 +218,32 @@
   
   &__action {
     padding: var(--rds-spacing-xs, 4px);
-    color: var(--rds-color-on-surface-variant, #757575);
+    color: var(--rds-color-on-surface-variant);
     transition: color var(--rds-transition-duration, 0.15s) ease-in-out;
     
     &:hover {
-      color: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary);
     }
     
     &--edit {
-      color: var(--rds-color-info, #1976d2);
-      background-color: var(--rds-color-info-container, #e3f2fd);
+      color: var(--rds-color-info);
+      background-color: var(--rds-color-info-container);
       border-radius: var(--rds-border-radius-sm, 4px);
       
       &:hover {
-        background-color: var(--rds-color-info, #1976d2);
-        color: var(--rds-color-on-info, #ffffff);
+        background-color: var(--rds-color-info);
+        color: var(--rds-color-on-info);
       }
     }
     
     &--delete {
-      color: var(--rds-color-error, #d32f2f);
+      color: var(--rds-color-error);
       background-color: transparent;
       border-radius: var(--rds-border-radius-sm, 4px);
       
       &:hover {
-        background-color: var(--rds-color-error-container, #ffebee);
-        color: var(--rds-color-error, #d32f2f);
+        background-color: var(--rds-color-error-container);
+        color: var(--rds-color-error);
       }
     }
   }
@@ -253,23 +254,23 @@
   
   &__multiline-text-primary {
     font-size: var(--rds-font-size-body, 14px);
-    color: var(--rds-color-on-surface, #202020);
+    color: var(--rds-color-on-surface);
   }
   
   &__multiline-text-secondary {
     font-size: var(--rds-font-size-sm, 12px);
-    color: var(--rds-color-on-surface-variant, #757575);
+    color: var(--rds-color-on-surface-variant);
   }
   
   &__link-text {
-    color: var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary);
     cursor: pointer;
     text-decoration: none;
     transition: color var(--rds-transition-duration, 0.15s) ease-in-out;
     font-size: var(--rds-font-size-body, 14px);
     
     &:hover {
-      color: var(--rds-color-primary-dark, #0d47a1);
+      color: var(--rds-color-primary-dark);
     }
   }
   
@@ -282,9 +283,9 @@
   
   &__progress-text {
     font-size: var(--rds-font-size-xs, 12px);
-    color: var(--rds-color-on-surface-variant, #757575);
+    color: var(--rds-color-on-surface-variant);
     text-align: center;
-    margin-top: 2px;
+    margin-top: calc(var(--rds-spacing-xs, 4px) / 2);
   }
   
   &__content-row {
@@ -296,7 +297,7 @@
   
   &__content-text {
     font-size: var(--rds-font-size-body, 14px);
-    color: var(--rds-color-on-surface, #202020);
+    color: var(--rds-color-on-surface);
   }
 
   &--dense {
@@ -314,7 +315,7 @@
   &__empty {
     padding: var(--rds-spacing-xl, 32px);
     text-align: center;
-    color: var(--rds-color-on-surface-variant, #757575);
+    color: var(--rds-color-on-surface-variant);
   }
   
   &--loading {
@@ -323,13 +324,20 @@
   }
 
   &__checkbox {
-    --checkbox-size: 18px;
+    --checkbox-size: var(--rds-spacing-md, 16px);
     --checkbox-border-width: 2px;
-    --checkbox-transition: all 0.15s ease-in-out;
+    --checkbox-transition: var(--rds-transition-fast);
+    --rds-table-checkbox-check-width: var(--rds-table-checkbox-check-width, 6px);
+    --rds-table-checkbox-check-height: var(--rds-table-checkbox-check-height, 10px);
+    --rds-table-checkbox-indeterminate-width: var(--rds-table-checkbox-indeterminate-width, 8px);
+    --rds-table-checkbox-indeterminate-height: var(--rds-table-checkbox-indeterminate-height, 2px);
+    --rds-table-checkbox-hover-ring-size: var(--rds-table-checkbox-hover-ring-size, 4px);
+    --rds-table-checkbox-focus-ring-size: var(--rds-table-checkbox-focus-ring-size, 2px);
+    --rds-table-checkbox-disabled-opacity: 0.6;
     
     .MuiCheckbox-root {
       padding: var(--rds-spacing-sm, 8px);
-      color: var(--rds-border-default, #9c9a9a);
+      color: var(--rds-border-default);
       transition: var(--checkbox-transition);
       position: relative;
       
@@ -345,12 +353,12 @@
         left: 50%;
         width: var(--checkbox-size);
         height: var(--checkbox-size);
-        border: var(--checkbox-border-width) solid var(--rds-border-default, #d0d7de);
+        border: var(--checkbox-border-width) solid var(--rds-border-default);
         border-radius: var(--rds-border-radius-sm, 4px);
         background-color: transparent; 
         transform: translate(-50%, -50%);
         transition: var(--checkbox-transition);
-        z-index: 1;
+        z-index: calc(var(--rds-z-index-base) + 1);
       }
       
       &::after {
@@ -358,22 +366,22 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 6px;
-        height: 10px;
-        border: solid var(--rds-primary-contrast-text, #ffffff);
+        width: var(--rds-table-checkbox-check-width, 6px);
+        height: var(--rds-table-checkbox-check-height, 10px);
+        border: solid var(--rds-primary-contrast-text);
         border-width: 0 2px 2px 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transition: var(--checkbox-transition);
-        z-index: 2;
+        z-index: calc(var(--rds-z-index-base) + 2);
         opacity: 0;
       }
       
       &:hover {
-        background-color: var(--rds-button-text-bg-hover, rgba(0, 0, 0, 0.04));
+        background-color: var(--rds-button-text-bg-hover);
         
         &:not(.Mui-disabled)::before {
-          border-color: var(--rds-primary-main, #2196f3);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, rgba(33, 150, 243, 0.1));
+          border-color: var(--rds-primary-main);
+          box-shadow: 0 0 0 var(--rds-table-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
         }
       }
       
@@ -381,16 +389,16 @@
         outline: none;
         
         &::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main, #2196f3);
+          box-shadow: 0 0 0 var(--rds-table-checkbox-focus-ring-size, 2px) var(--rds-primary-main);
         }
       }
       
       &.Mui-checked {
-        color: var(--rds-primary-main, #2196f3);
+        color: var(--rds-primary-main);
         
         &::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
+          background-color: var(--rds-primary-main);
+          border-color: var(--rds-primary-main);
         }
         
         &::after {
@@ -400,19 +408,19 @@
       }
       
       &.MuiCheckbox-indeterminate {
-        color: var(--rds-primary-main, #2196f3);
+        color: var(--rds-primary-main);
         
         &::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
+          background-color: var(--rds-primary-main);
+          border-color: var(--rds-primary-main);
         }
         
         &::after {
           content: '';
-          width: 8px;
-          height: 2px;
+          width: var(--rds-table-checkbox-indeterminate-width, 8px);
+          height: var(--rds-table-checkbox-indeterminate-height, 2px);
           border: none;
-          background-color: var(--rds-primary-contrast-text, #ffffff);
+          background-color: var(--rds-primary-contrast-text);
           border-radius: 1px;
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
@@ -420,202 +428,65 @@
       }
       
       &.Mui-disabled {
-        color: var(--rds-text-disabled, #bdbdbd);
-        opacity: 0.6;
+        color: var(--rds-text-disabled);
+        opacity: var(--rds-table-checkbox-disabled-opacity, 0.6);
         cursor: not-allowed;
         
         &::before {
-          background-color: var(--rds-background-disabled, #f6f8fa);
-          border-color: var(--rds-border-disabled, #d0d7de);
+          background-color: var(--rds-background-disabled);
+          border-color: var(--rds-border-disabled);
         }
         
         &.Mui-checked::before,
         &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-text-disabled, #8c959f);
-          border-color: var(--rds-text-disabled, #8c959f);
+          background-color: var(--rds-text-disabled);
+          border-color: var(--rds-text-disabled);
         }
       }
     }
   }
 
   &.MuiPaper-root {
-    background-color: var(--rds-color-surface, #ffffff);
+    background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 8px);
     overflow: visible;
-    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.12));
+    box-shadow: var(--rds-elevation-1);
   }
   
   .MuiTableContainer-root {
-    background-color: var(--rds-color-surface, #ffffff) !important;
+    background-color: var(--rds-color-surface) !important;
     overflow-x: auto !important;
     overflow-y: visible !important;
     max-width: 100% !important;
   }
   
   .MuiTable-root {
-    background-color: var(--rds-color-surface, #ffffff) !important;
+    background-color: var(--rds-color-surface) !important;
     width: 100% !important;
     min-width: max-content !important;
     table-layout: auto !important;
   }
   
   .MuiTableHead-root {
-    background-color: var(--rds-color-surface-variant, #f5f5f5) !important;
+    background-color: var(--rds-color-surface-variant) !important;
   }
   
   .MuiTableCell-head {
-    background-color: var(--rds-color-surface-variant, #f5f5f5) !important;
-    color: var(--rds-color-on-surface, #202020) !important;
-    font-weight: 600 !important;
-    border-bottom: 1px solid var(--rds-color-outline, #e0e0e0) !important;
+    background-color: var(--rds-color-surface-variant) !important;
+    color: var(--rds-color-on-surface) !important;
+    font-weight: var(--rds-font-weight-semibold, 600) !important;
+    border-bottom: 1px solid var(--rds-color-outline) !important;
     white-space: nowrap !important;
   }
   
   .MuiTableCell-body {
-    color: var(--rds-color-on-surface, #202020) !important;
-    border-bottom: 1px solid var(--rds-color-outline-variant, #f0f0f0) !important;
+    color: var(--rds-color-on-surface) !important;
+    border-bottom: 1px solid var(--rds-color-outline-variant) !important;
     white-space: nowrap !important;
   }
   
   .MuiTableRow-root:hover {
-    background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04)) !important;
+    background-color: var(--rds-color-surface-hover) !important;
   }
 }
-
-[data-theme="dark"],
-.dark-theme {
-  .rds-table {
-    --rds-color-surface: #1a1a1a;
-    --rds-color-surface-variant: #2a2a2a;
-    --rds-color-surface-hover: rgba(255, 255, 255, 0.08);
-    --rds-color-on-surface: #ffffff;
-    --rds-color-on-surface-variant: #b0b0b0;
-    --rds-color-outline: #404040;
-    --rds-color-outline-variant: #333333;
-    --rds-color-primary-container: rgba(120, 37, 233, 0.15);
-    --rds-color-primary-container-hover: rgba(120, 37, 233, 0.25);
-    --rds-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.3);
-    
-    &__container {
-      background-color: var(--rds-color-surface);
-      box-shadow: var(--rds-elevation-1);
-    }
-    
-    &__head {
-      background-color: var(--rds-color-surface-variant);
-    }
-    
-    &__header-row {
-      background-color: var(--rds-color-surface-variant);
-    }
-    
-    &__header {
-      background-color: var(--rds-color-surface-variant);
-      color: var(--rds-color-on-surface);
-      border-bottom-color: var(--rds-color-outline);
-      
-      &--sortable:hover {
-        background-color: var(--rds-color-surface-hover);
-      }
-    }
-    
-    &__body {
-      background-color: var(--rds-color-surface);
-    }
-    
-    &__row {
-      border-bottom-color: var(--rds-color-outline-variant);
-      
-      &:hover {
-        background-color: var(--rds-color-surface-hover);
-      }
-      
-      &--selected {
-        background-color: var(--rds-color-primary-container);
-        
-        &:hover {
-          background-color: var(--rds-color-primary-container-hover);
-        }
-      }
-    }
-    
-    &__cell {
-      color: var(--rds-color-on-surface);
-      border-bottom-color: var(--rds-color-outline-variant);
-    }
-    
-    &__avatar-name {
-      color: var(--rds-color-on-surface);
-    }
-    
-    &__avatar-subtitle {
-      color: var(--rds-color-on-surface-variant);
-    }
-    
-    .rds-avatar {
-      &__name {
-        color: var(--rds-color-on-surface) !important;
-      }
-      
-      &__designation {
-        color: var(--rds-color-on-surface-variant) !important;
-      }
-    }
-
-    &.MuiPaper-root {
-      background-color: var(--rds-color-surface) !important;
-      box-shadow: var(--rds-elevation-1) !important;
-    }
-    
-    .MuiTableContainer-root {
-      background-color: var(--rds-color-surface) !important;
-    }
-    
-    .MuiTable-root {
-      background-color: var(--rds-color-surface) !important;
-    }
-    
-    .MuiTableHead-root {
-      background-color: var(--rds-color-surface-variant) !important;
-    }
-    
-    .MuiTableCell-head {
-      background-color: var(--rds-color-surface-variant) !important;
-      color: var(--rds-color-on-surface) !important;
-      border-bottom-color: var(--rds-color-outline) !important;
-    }
-    
-    .MuiTableCell-body {
-      color: var(--rds-color-on-surface) !important;
-      border-bottom-color: var(--rds-color-outline-variant) !important;
-    }
-    
-    .MuiTableRow-root:hover {
-      background-color: var(--rds-color-surface-hover) !important;
-    }
-    
-    &__checkbox {
-      .MuiCheckbox-root {
-        &::before {
-          background-color: transparent;
-          border-color: var(--rds-border-default, #404040);
-        }
-
-        &.Mui-checked::before,
-        &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
-        }
-        
-        &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-primary-main, #2196f3);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, rgba(33, 150, 243, 0.1));
-        }
-        
-        &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main, #2196f3);
-        }
-      }
-    }
-  }
 }

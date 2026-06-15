@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { 
-  History, 
-  StarBorder, 
-  Star, 
+import {
+  History,
+  StarBorder,
+  Star,
   Edit,
   Delete as DeleteIcon,
 } from '@mui/icons-material';
-import { 
+import {
   RdsButton,
   RdsCarousel,
   RdsTypography,
@@ -15,10 +15,10 @@ import {
   RdsSearch,
   RdsAvatar,
   RdsAccordion,
-  RdsRadio
+  RdsRadio,
+  RdsCheckbox
 } from "../../raaghu-elements";
 import RdsCompTreeStructure, { IconType, TreeLevel } from '../rds-comp-tree-structure/rds-comp-tree-structure';
-import FigmaIcon from './rds-comp-details-pane.stories';
 
 export interface HistoryFavoriteTabsProps {
   activeTab: string;
@@ -252,11 +252,11 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
                   onClick={() => toggleSelection(idx)}                 
                 >
                   <div className="rds-comp-details-pane__favourite-card-header">
-                    <input
-                      type="checkbox"
+                    <RdsCheckbox
                       className="rds-comp-details-pane__favourite-checkbox"
-                      checked={selectedIndexes.includes(idx)}
-                      readOnly
+                      showText={false}
+                      status={selectedIndexes.includes(idx) ? 'checked' : 'unchecked'}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>, checked?: boolean) => { e.stopPropagation(); toggleSelection(idx); }}
                     />
                     <span className="rds-comp-details-pane__favourite-title">
                       {favouriteCardTitle}
@@ -481,7 +481,7 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
                     direction="row"
                     label=""
                     layout="icon"
-                    onChange={(val: any) => {
+                    onChange={(val: React.ChangeEvent<HTMLInputElement>) => {
                       const parsed = typeof val === 'object' && val?.target ? String(val.target.value) : String(val);
                       setSelectedAgent(parsed);
                     }}
@@ -932,7 +932,7 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
           children: [
             {
               children: [
-                
+
               ],
               icon: 'file',
               id: 3,
@@ -944,7 +944,9 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
           name: 'App Shell'
         }
       ],
-     
+      icon: 'folder',
+      id: 1,
+      name: 'App Shell'
     },
     {
       children: [
@@ -1052,3 +1054,11 @@ export const ThumbnailViewContent: React.FC<{
     </div>
   );
 };
+
+FigmaUIKitButton.displayName = 'FigmaUIKitButton';
+StorybookButton.displayName = 'StorybookButton';
+HistoryFavoritesTabs.displayName = 'HistoryFavoritesTabs';
+RealEstateContent.displayName = 'RealEstateContent';
+SelectionContent.displayName = 'SelectionContent';
+ToolbarContent.displayName = 'ToolbarContent';
+ThumbnailViewContent.displayName = 'ThumbnailViewContent';

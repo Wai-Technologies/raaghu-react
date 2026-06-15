@@ -1,5 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from 'storybook/test';
 import RdsCompLayout from './rds-comp-layout';
 
 const meta: Meta<typeof RdsCompLayout> = {
@@ -11,7 +12,7 @@ const meta: Meta<typeof RdsCompLayout> = {
       include: ['displayType', 'hasShadow'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     spacing: {
       control: { type: 'number', min: 0, max: 10 },
@@ -65,7 +66,12 @@ export const Default: Story = {
     hasShadow: false,
     spacing: 2,
     direction: 'column',
-    mode: 'standard', // <-- add this
+    mode: 'standard',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const wrapper = canvasElement.querySelector('.rds-comp-layout-wrapper_basic');
+    expect(wrapper).toBeInTheDocument();
   },
 };
 

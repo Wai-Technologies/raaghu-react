@@ -24,11 +24,11 @@ figma.connect(
   dataSets={[
     {
       backgroundColor: [
-        '#01AE9D',
-        '#E1E1E1'
+        "var(--rds-semantic-success-main, #01AE9D)",
+        "var(--rds-surface-subtle, #E1E1E1)"
       ],
       borderColor: [
-        '#fff'
+        "var(--rds-neutral-0, #fff)"
       ],
       borderWidth: 1,
       cutout: '90%',

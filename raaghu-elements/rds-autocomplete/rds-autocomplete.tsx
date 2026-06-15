@@ -49,7 +49,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   allowMultiple = false,
   ...props
 }: RdsAutocompleteProps<T>) => {
-  const [selected, setSelected] = React.useState<any>(
+  const [selected, setSelected] = React.useState<T | T[] | null>(
     allowMultiple
       ? (state === 'selected' && props.options ? [props.options[0] as T] : [])
       : (state === 'selected' && props.options ? (props.options[0] as T) : null)
@@ -85,7 +85,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             <Typography
               component="span"
               className="rds-autocomplete__asterisk"
-              sx={{ color: 'red', ml: '3px', fontSize: 'inherit', fontWeight: 700 }}
+              sx={{ color: 'var(--rds-error-main)', ml: 'var(--rds-spacing-micro)', fontSize: 'inherit', fontWeight: 700 }}
             />
           )}
         </label>
@@ -100,16 +100,19 @@ const RdsAutocomplete = <T extends { label?: string },>({
         
         return (
           <>
-            {visibleTags.map((option, index) => (
+            {visibleTags.map((option, index) => {
+              const { key: tagKey, ...restTagProps } = getTagProps({ index });
+              return (
               <Chip
-                key={index}
+                key={tagKey ?? index}
                 variant="filled"
-                label={(option as any)?.label || option}
+                label={(option as T)?.label || String(option)}
                 size="small"
-                {...getTagProps({ index })}
+                {...restTagProps}
                 className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
               />
-            ))}
+              );
+            })}
             {remainingCount > 0 && (
               <Chip
                 variant="filled"
@@ -152,7 +155,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             return (
               <li {...optionProps}>
                 <Box sx={{ display: 'flex', alignItems: 'center', p: 0, ml: 0.2, mr: 3, gap: 1.5 }}>
-                  <span>{(option as any).label || option}</span>
+                  <span>{(option as T).label || String(option)}</span>
                 </Box>
               </li>
             );
@@ -171,7 +174,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
                 {(isShowRadio) && (
                   <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
                 )}
-                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{(option as any).label || option}</span>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{(option as T).label || String(option)}</span>
               </Box>
             </li>
           );
@@ -179,10 +182,10 @@ const RdsAutocomplete = <T extends { label?: string },>({
 
         popupIcon={popupIcon}
         renderInput={(params) => {
-          const shouldShowPlaceholder = allowMultiple 
+          const shouldShowPlaceholder = allowMultiple
             ? (Array.isArray(selected) ? selected.length === 0 : !selected)
             : true;
-          
+
           return (
             <TextField
               {...params}
@@ -191,6 +194,10 @@ const RdsAutocomplete = <T extends { label?: string },>({
               error={error}
               variant={variant}
               className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
+              inputProps={{
+                ...params.inputProps,
+                'aria-label': params.inputProps?.['aria-label'] || label,
+              }}
               onFocus={(e) => {
                 if (openOnFocus && state !== 'expanded') {
                   setOpen(true);

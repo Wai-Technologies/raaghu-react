@@ -1,17 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSkeleton from './rds-skeleton';
 import { Card, CardContent } from '@mui/material';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsSkeleton> = {
   title: 'Elements/Skeleton',
   component: RdsSkeleton,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
       include: ['shape', 'frames', 'animated', 'animation', 'width', 'height'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     shape: {
       control: 'select',
@@ -51,6 +53,10 @@ export const Text: Story = {
     frames: 3,
     width: '100%',
     animated: true,
+  },
+  play: async ({ canvasElement }) => {
+    const skeleton = canvasElement.querySelector('.MuiSkeleton-root');
+    await expect(skeleton).toBeTruthy();
   },
 };
 
@@ -117,7 +123,7 @@ export const CardSkeleton: Story = {
   argTypes: {
     shape: { table: { disable: true }, control: false },
     frames: { table: { disable: true }, control: false },
-    lines: { table: { disable: true }, control: false },
+    // lines: { table: { disable: true }, control: false }, // removed: not in RdsSkeletonProps
     component: { table: { disable: true }, control: false },
   },
   args: {
@@ -136,3 +142,6 @@ export const CardSkeleton: Story = {
     </Card>
   ),
 };
+
+export const Default: Story = { ...Text };
+

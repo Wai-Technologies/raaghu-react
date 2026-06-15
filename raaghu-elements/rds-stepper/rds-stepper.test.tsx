@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsStepper from './rds-stepper';
 import { RdsStepperStep } from './rds-stepper';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-stepper.scss', () => ({}));
@@ -612,6 +613,14 @@ describe('RdsStepper', () => {
         <RdsStepper steps={steps} currentStep={-1} />
       );
       expect(container.querySelector('.rds-stepper')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsStepper steps={createSteps(3)} activeStep={0} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

@@ -28,9 +28,9 @@
     width: 100%;
     max-width: 100%;
     height: var(--rds-esignature-draw-height);
-    padding: 0 var(--rds-space-5, 20px) 68px;
+    padding: 0 var(--rds-space-5, 20px) var(--rds-esignature-padding-bottom, 68px);
     background-color: var(--rds-color-surface, #ffffff);
-    transition: border-color .25s ease, background-color .25s ease;
+    transition: border-color var(--rds-transition-base), background-color var(--rds-transition-base);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@
     }
 
     .rds-e-signature--selected & {
-      border-color: var(--rds-color-primary-700, #1976d2);
+      border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
     }
 
     .rds-e-signature--active & {
@@ -62,11 +62,11 @@
     }
 
     .rds-e-signature__controls {
-      z-index: 1;
+      z-index: var(--rds-z-index-layer-1);
     }
 
     .rds-e-signature__canvas {
-      z-index: 0;
+      z-index: var(--rds-z-index-base);
     }
 
     .rds-e-signature--error & {
@@ -83,7 +83,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    padding: 14px 24px 12px;
+    padding: var(--rds-esignature-controls-padding, 14px 24px 12px);
     pointer-events: none;
   }
 
@@ -93,9 +93,9 @@
 
   &--type-initials {
     .rds-e-signature__canvas-container {
-      --rds-esignature-draw-height: 200px;
-      max-width: 420px;
-      padding: 0 16px 56px;
+      --rds-esignature-draw-height: var(--rds-esignature-draw-height-compact, 200px);
+      max-width: var(--rds-esignature-compact-max-width, 420px);
+      padding: 0 16px var(--rds-esignature-compact-padding-bottom, 56px);
     }
 
     .rds-e-signature__canvas-title {
@@ -103,7 +103,7 @@
     }
 
     .rds-e-signature__canvas-icon {
-      font-size: 20px;
+      font-size: var(--rds-font-size-2xl);
     }
 
     .rds-e-signature__color-button {
@@ -116,9 +116,9 @@
     }
 
     .rds-e-signature__upload-panel {
-      max-width: 420px;
+      max-width: var(--rds-esignature-upload-panel-max-width, 420px);
       border-color: var(--rds-color-accent-blue-500, #3C98FF);
-      padding: 24px 20px;
+      padding: var(--rds-esignature-upload-panel-padding, var(--rds-spacing-lg) 20px);
     }
 
     .rds-e-signature__file-row {
@@ -135,28 +135,28 @@
     }
 
     .rds-e-signature__file-button {
-      height: 32px;
-      min-width: 108px;
-      font-size: 13px;
-      padding: 0 12px;
-      border-radius: 5px 0 0 5px;
+      height: var(--rds-file-button-height, 32px);
+      min-width: var(--rds-file-button-min-width, 108px);
+      font-size: var(--rds-file-button-font-size, 13px);
+      padding: var(--rds-file-button-padding, 0 12px);
+      border-radius: var(--rds-file-button-radius, 5px) 0 0 var(--rds-file-button-radius, 5px);
     }
 
     .rds-e-signature__file-text {
-      height: 32px;
-      font-size: 13px;
-      padding: 0 12px;
+      height: var(--rds-file-text-height, 32px);
+      font-size: var(--rds-file-text-font-size, 13px);
+      padding: 0 var(--rds-file-text-padding-horizontal, 12px);
     }
 
     .rds-e-signature__file-delete {
-      height: 32px;
-      font-size: 16px;
-      padding: 0 8px;
+      height: var(--rds-file-delete-height, 32px);
+      font-size: var(--rds-font-size-lg);
+      padding: 0 var(--rds-file-delete-padding-horizontal, 8px);
     }
 
     .rds-e-signature__file-button::before {
-      font-size: 14px;
-      margin-right: 6px;
+      font-size: var(--rds-font-size-md);
+      margin-right: var(--rds-spacing-compact);
       line-height: 1;
     }
   }
@@ -184,9 +184,9 @@
   &__canvas-title {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
     font-size: var(--rds-font-size-xl, 22px);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-neutral-700, #5c5c5c);
     letter-spacing: .2px;
   }
@@ -212,17 +212,17 @@
 
   &__color-palette {
     display: flex;
-    gap: 10px;
+    gap: var(--rds-color-palette-gap, 10px);
     position: static;
   }
 
   &__color-button {
-    width: 32px;
-    height: 32px;
-    border-radius: 4px;
+    width: var(--rds-color-button-size, 32px);
+    height: var(--rds-color-button-size, 32px);
+    border-radius: var(--rds-border-radius-sm);
     border: 1px solid transparent;
     cursor: pointer;
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    transition: transform var(--rds-transition-base), box-shadow var(--rds-transition-base), border-color var(--rds-transition-base);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -251,10 +251,10 @@
 
   &__checkmark {
     color: var(--rds-color-neutral-0, #ffffff);
-    font-size: 16px;
-    font-weight: 500;
+    font-size: var(--rds-font-size-lg);
+    font-weight: var(--rds-font-weight-medium, 500);
     line-height: 1;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+    text-shadow: var(--rds-text-shadow, 0 1px 0 rgba(0,0,0,0.4));
   }
 
   &__color-button--selected {
@@ -264,7 +264,7 @@
 
     .rds-e-signature__checkmark {
       color: var(--rds-color-neutral-0, #ffffff);
-      font-weight: 700;
+      font-weight: var(--rds-font-weight-bold, 700);
     }
   }
 
@@ -286,7 +286,7 @@
     align-items: center;
     justify-content: center;
     color: var(--rds-color-neutral-700, #5c5c5c);
-    font-size: 20px;
+    font-size: var(--rds-font-size-2xl);
 
     &:hover:not(:disabled) {
       color: var(--rds-color-neutral-1000, #000000);
@@ -313,7 +313,7 @@
 
   &__upload-panel {
     background: var(--rds-color-neutral-0, #fff);
-    padding: 28px 13px;
+    padding: var(--rds-spacing-xl, 28px) var(--rds-spacing-md, 13px);
     border: 2px dashed var(--rds-color-border-default, #d1d5db);
     border-radius: var(--rds-radius-lg, 8px);
     width: 100%;
@@ -341,7 +341,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
   }
 
   &__file-row,
@@ -363,15 +363,15 @@
     box-sizing: border-box;
   }
 
-  &__file-row:focus-within {
-    border-color: var(--rds-color-primary-700, #1976d2);
-    box-shadow: 0 0 0 2px rgba(25, 118, 210, .15);
+    &__file-row:focus-within {
+    border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
+    box-shadow: var(--rds-focus-ring, 0 0 0 2px rgba(25, 118, 210, .15));
   }
 
   &__upload-content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--rds-spacing-sm, 10px);
   }
 
   &__upload-label {
@@ -380,7 +380,7 @@
     color: var(--rds-color-neutral-900, #222);
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     margin: 0;
   }
 
@@ -405,13 +405,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px 0 0 6px;
+    border-radius: var(--rds-border-radius-sm) 0 0 6px;
     box-shadow: none;
     transition: background-color .2s ease;
   }
 
   &__file-button:hover:not(:disabled) {
-    background: var(--rds-color-primary-700, #1976d2);
+    background: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
   }
 
   &__file-button:disabled {
@@ -424,7 +424,7 @@
     flex: 1;
     display: inline-flex;
     align-items: center;
-    padding: 0 14px;
+    padding: 0 var(--rds-spacing-14);
     font-size: var(--rds-font-size-sm, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-neutral-900, #222);
@@ -453,9 +453,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0 10px;
+    padding: 0 var(--rds-spacing-cozy);
     cursor: pointer;
-    font-size: 18px;
+    font-size: var(--rds-font-size-xl);
     transition: color .2s ease, background-color .2s ease;
     height: 36px;
   }
@@ -465,7 +465,7 @@
   }
 
   &__file-delete:focus-visible {
-    outline: 2px solid var(--rds-color-primary-700, #1976d2);
+    outline: 2px solid var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
     outline-offset: -2px;
   }
 
@@ -491,10 +491,10 @@
   &__upload-error {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 8px;
+    gap: var(--rds-spacing-sm);
+    margin-top: var(--rds-spacing-sm);
     color: var(--rds-color-error-accent, #ff4444);
-    font-size: 14px;
+    font-size: var(--rds-font-size-md);
     font-weight: 500;
   }
 
@@ -505,25 +505,25 @@
     width: 14px;
     height: 14px;
     border: 1px solid var(--rds-color-error-700, #d32f2f);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     background: transparent;
     color: var(--rds-color-error-700, #d32f2f);
-    font-size: 9px;
+    font-size: var(--rds-font-size-caption, 9px);
     font-weight: 600;
     line-height: 1;
   }
 
   &__upload-error .rds-e-signature__error-text {
-    color: #ff4444;
-    font-size: 14px;
+    color: var(--rds-color-error-accent, #ff4444);
+    font-size: var(--rds-font-size-md);
     font-weight: 500;
     margin: 0;
   }
 
   &__choose-container {
     width: 100%;
-    padding: 0 0 4px;
-    border-radius: 8px;
+    padding: 0 0 var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-md);
     display: block;
   }
 
@@ -531,8 +531,8 @@
     border: 2px dashed var(--rds-color-accent-blue-600, #2E7CE0);
     background: var(--rds-color-neutral-0, #fff);
     border-radius: var(--rds-radius-lg, 8px);
-    padding: 16px 20px 16px;
-    margin-top: 6px;
+    padding: var(--rds-spacing-md) 20px 16px;
+    margin-top: var(--rds-spacing-compact);
     display: inline-block;
     width: auto;
     max-width: 100%;
@@ -547,8 +547,8 @@
   &__mini-grid {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    column-gap: 40px;
-    row-gap: 18px;
+    column-gap: var(--rds-spacing-2xl, 40px);
+    row-gap: var(--rds-spacing-md, 18px);
     width: 100%;
     box-sizing: border-box;
   }
@@ -556,7 +556,7 @@
   &__mini-group {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     align-items: flex-start;
   }
 
@@ -569,12 +569,12 @@
   &__mini-card {
     border: 1px solid var(--rds-color-border-subtle, #D0D7DE);
     background: var(--rds-color-neutral-0, #fff);
-    border-radius: 4px;
-    padding: 2px 6px;
+    border-radius: var(--rds-border-radius-sm);
+    padding: 2px var(--rds-spacing-xs, 6px);
     display: inline-flex;
     align-items: stretch;
     justify-content: flex-start;
-    gap: 6px;
+    gap: var(--rds-spacing-xs, 6px);
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
     font-family: var(--rds-font-family-secondary, 'Segoe UI', sans-serif);
@@ -595,9 +595,9 @@
     align-items: center;
     justify-content: center;
     background: var(--rds-color-neutral-soft, #F8F9FA);
-    border-radius: 4px;
+    border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
-    padding: 0 12px;
+    padding: 0 var(--rds-spacing-sm, 12px);
     min-width: 120px;
   }
 
@@ -606,9 +606,9 @@
     align-items: center;
     justify-content: center;
     background: var(--rds-color-neutral-soft, #F8F9FA);
-    border-radius: 4px;
+    border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
-    padding: 0 12px;
+    padding: 0 var(--rds-spacing-sm, 12px);
     min-width: 60px;
   }
 
@@ -629,7 +629,7 @@
   }
 
   &__create-custom {
-    margin-top: 4px;
+    margin-top: var(--rds-spacing-xs);
   }
 
   &__choose-error {
@@ -637,13 +637,13 @@
     font-size: var(--rds-font-size-xs, 12px);
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin: 6px 0 0 4px;
+    gap: var(--rds-spacing-compact);
+    margin: var(--rds-spacing-compact) 0 0 var(--rds-spacing-xs);
     font-weight: var(--rds-font-weight-medium, 500);
   }
 
   &__create-link {
-    color: var(--rds-color-primary-700, #1976d2);
+    color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
     font-size: var(--rds-font-size-sm, 14px);
     cursor: pointer;
     display: inline-flex;
@@ -673,10 +673,10 @@
     width: 14px;
     height: 14px;
     border: 1px solid var(--rds-color-error-700, #d32f2f);
-    border-radius: 50%;
+    border-radius: var(--rds-border-radius-pill);
     align-items: center;
     justify-content: center;
-    font-size: 9px;
+    font-size: var(--rds-font-size-caption, 9px);
     line-height: 1;
     font-weight: 600;
     margin-top: 0;
@@ -703,7 +703,7 @@
 
   &--type-initials {
     .rds-e-signature__disabled-text {
-      font-size: 13px;
+      font-size: var(--rds-font-size-xs, 13px);
       line-height: 1.35;
       width: 100%;
       background: transparent;
@@ -724,7 +724,7 @@
 
     .rds-e-signature__canvas-container,
     .rds-e-signature__upload-area {
-      border-color: var(--rds-color-primary-700, #1976d2);
+      border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
       border-style: solid;
       box-shadow: var(--rds-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
     }
@@ -770,82 +770,69 @@
   }
 
 }
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-group {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature__file-limit {
-  color: #fff !important;
-}
-body.theme-dark .rds-e-signature__upload-label {
-  color: #fff !important;
-}
-body.theme-dark .rds-e-signature__upload-panel {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature__file-text {
-  color: #fff !important;
-  background: #4a4a4a !important;
-}
-body.theme-dark .rds-e-signature__file-row {
-  background: #4a4a4a !important;
-}
-body.theme-dark .rds-e-signature__canvas-title {
-  color: #fff !important;
-}
-body.theme-dark .rds-e-signature__canvas-container {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature__canvas-icon {
-  color: #fff !important;
+/* Dark theme overrides: use surface-dark variables so panels aren't white in dark mode */
+[data-theme="dark"] .rds-e-signature__upload-panel,
+:root[data-theme="dark"] .rds-e-signature__upload-panel,
+[data-theme="dark"] .rds-e-signature__choose-panel,
+:root[data-theme="dark"] .rds-e-signature__choose-panel,
+[data-theme="dark"] .rds-e-signature__canvas-container,
+:root[data-theme="dark"] .rds-e-signature__canvas-container,
+[data-theme="dark"] .rds-e-signature__file-row,
+:root[data-theme="dark"] .rds-e-signature__file-row,
+[data-theme="dark"] .rds-e-signature__mini-card,
+:root[data-theme="dark"] .rds-e-signature__mini-card,
+[data-theme="dark"] .rds-e-signature__mini-full-wrapper,
+:root[data-theme="dark"] .rds-e-signature__mini-full-wrapper,
+[data-theme="dark"] .rds-e-signature__mini-initials-wrapper,
+:root[data-theme="dark"] .rds-e-signature__mini-initials-wrapper {
+  background: var(--rds-color-surface-dark, #1f1f1f) !important;
+  border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
+  color: var(--rds-color-neutral-0, #ffffff);
 }
 
-body.theme-dark .rds-e-signature__title {
-  color: #fff !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-grid {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
-  background: #2a2a2a !important;
-  color: #fff !important;
-  border-color: #444 !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card,
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card.rds-e-signature__mini-card {
-  background: #232323 !important;
-  color: #fff !important;
-  border-color: #444 !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-label {
-  color: #fff !important;
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-full-wrapper {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-initials-wrapper {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card--selected {
-  border-color: #1976d2 !important;
-  box-shadow: 0 0 0 1px #1976d2 !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card:hover:not(:disabled) {
-  background: #333 !important;
-  border-color: #3C98FF !important;
+[data-theme="dark"] .rds-e-signature__upload-panel--hover,
+:root[data-theme="dark"] .rds-e-signature__upload-panel--hover {
+  background: var(--rds-color-surface-hover-dark, #2a2a2a) !important;
 }
 
-@media (max-width: 480px) {
+/* Dark-mode text color fixes: ensure neutral-500 usages remain visible on dark backgrounds */
+[data-theme="dark"] .rds-e-signature__file-text--placeholder,
+:root[data-theme="dark"] .rds-e-signature__file-text--placeholder,
+[data-theme="dark"] .rds-e-signature__disabled-text,
+:root[data-theme="dark"] .rds-e-signature__disabled-text,
+[data-theme="dark"] .rds-e-signature__canvas-title,
+:root[data-theme="dark"] .rds-e-signature__canvas-title,
+[data-theme="dark"] .rds-e-signature__mini-label,
+:root[data-theme="dark"] .rds-e-signature__mini-label,
+[data-theme="dark"] .rds-e-signature__file-limit,
+:root[data-theme="dark"] .rds-e-signature__file-limit {
+  color: var(--rds-text-secondary, #D1D5DB) !important;
+}
+
+/* file-text container should use dark surface and readable text in dark mode */
+[data-theme="dark"] .rds-e-signature__file-text,
+:root[data-theme="dark"] .rds-e-signature__file-text {
+  background: var(--rds-color-surface-dark, #1f1f1f) !important;
+  color: var(--rds-text-secondary, #D1D5DB) !important;
+  border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
+}
+
+[data-theme="dark"] .rds-e-signature__upload-label,
+:root[data-theme="dark"] .rds-e-signature__upload-label {
+  color: var(--rds-color-neutral-0, #ffffff) !important;
+}
+
+@media (max-width: 600px) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
-    padding: 10px;
+    padding: var(--rds-spacing-cozy);
     margin-left: auto;
     margin-right: auto;
   }
 
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-grid {
     grid-template-columns: 1fr;
-    column-gap: 10px;
-    row-gap: 10px;
+    column-gap: var(--rds-spacing-cozy);
+    row-gap: var(--rds-spacing-cozy);
   }
 
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__styles-grid {
@@ -869,7 +856,7 @@ body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1536px) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
     display: flex;
     flex-direction: column;

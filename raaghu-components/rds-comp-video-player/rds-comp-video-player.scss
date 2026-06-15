@@ -1,23 +1,25 @@
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+
 .rds-comp-video-player {
   position: relative;
   display: block;
   width: 100%;
-  max-width: 480px;
+  max-width: var(--rds-player-max-width, 480px);
   
   &__wrapper {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: var(--rds-border-radius, 4px);
-    background-color: var(--rds-color-surface, #000);
+    border-radius: var(--rds-border-radius-sm);
+    background-color: var(--rds-color-surface);
   }
   
   &__player {
     width: 100% !important;
     height: 100% !important;
-    max-width: 480px;
-    min-height: 180px;
+    max-width: var(--rds-player-max-width, 480px);
+    min-height: var(--rds-player-min-height, 180px);
     aspect-ratio: 16 / 9;
     
     & > div {
@@ -31,6 +33,22 @@
       object-fit: cover;
     }
   }
+
+  /* When native controls are hidden we still reserve space at the bottom
+     so the player size remains consistent and toggling controls doesn't
+     change the overall layout. */
+  &__controls-spacer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--rds-player-controls-height, 48px);
+    pointer-events: none; /* should not intercept clicks */
+    /* visually match typical native control area: subtle gradient to blend */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%);
+    border-bottom-left-radius: var(--rds-border-radius-sm);
+    border-bottom-right-radius: var(--rds-border-radius-sm);
+  }
   
   &__overlay {
     position: absolute;
@@ -38,20 +56,20 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.6));
+    background-color: var(--rds-color-surface-variant);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    z-index: var(--rds-z-index-raised);
   }
   
   &__disabled-message {
-    color: var(--rds-color-on-surface-variant, #fff);
+    color: var(--rds-color-on-surface-variant);
     font-size: var(--rds-font-size-body, 14px);
     text-align: center;
     padding: var(--rds-spacing-md, 16px);
-    background-color: var(--rds-color-surface, rgba(0, 0, 0, 0.8));
-    border-radius: var(--rds-border-radius, 4px);
+    background-color: var(--rds-color-surface);
+    border-radius: var(--rds-border-radius-sm);
   }
   
   &--disabled {
@@ -63,15 +81,15 @@
     }
   }
   
-  @media (max-width: 768px) {
+  @include bp.down(md) {
     &__player {
-      min-height: 150px;
+      min-height: var(--rds-player-min-height-sm, 150px);
     }
   }
   
-  @media (max-width: 480px) {
+  @include bp.down(sm) {
     &__player {
-      min-height: 120px;
+      min-height: var(--rds-player-min-height-xs, 120px);
     }
     
     &__disabled-message {

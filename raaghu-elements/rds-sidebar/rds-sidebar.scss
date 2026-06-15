@@ -1,8 +1,13 @@
 .rds-sidebar--collapse .MuiDrawer-paper .MuiIconButton-root,
 .rds-sidebar--fixed .MuiDrawer-paper .MuiIconButton-root {
-  right: 23px !important;
+  right: var(--rds-sidebar-collapse-icon-offset, 23px) !important;
 }
 .rds-sidebar {
+  --rds-sidebar-header-gap: var(--rds-spacing-sm, 12px);
+  --rds-sidebar-nav-min-height: var(--rds-spacing-2xl, 48px);
+  --rds-sidebar-child-nav-min-height: var(--rds-menu-item-min-height, 40px);
+  --rds-sidebar-overlay-bg: var(--rds-action-hover);
+  --rds-sidebar-subitem-radius: var(--rds-border-radius-sm, 4px);
   display: flex;
   flex-shrink: 0;
   
@@ -15,20 +20,20 @@
   
   &__header {
     display: flex;
-    margin-bottom: 12px;
+    margin-bottom: var(--rds-sidebar-header-gap, 12px);
     
     &--collapse {
-      padding: 16px 0 0 0;
+      padding: var(--rds-spacing-md) 0 0 0;
       justify-content: flex-start;
     }
     
     &--expanded {
-      padding: 9px 16px 0 16px;
+      padding: var(--rds-spacing-sm, 9px) var(--rds-spacing-md, 16px) 0 var(--rds-spacing-md, 16px);
       justify-content: flex-start;
     }
     
     &--fixed {
-      padding: 16px 0 0 0;
+      padding: var(--rds-spacing-md) 0 0 0;
       justify-content: flex-start;
     }
   }
@@ -56,13 +61,13 @@
   
   &__search-divider {
     border: none;
-    border-top: 1px solid var(--rds-color-border, #e0e0e0);
-    margin: 0 0 12px 0;
+    border-top: 1px solid var(--rds-border-default);
+    margin: 0 0 var(--rds-spacing-3) 0;
   }
   
   &__search-container {
-    padding: 2px 16px;
-    right: 24px;
+    padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-md, 16px);
+    right: var(--rds-spacing-lg, 24px);
   }
   
   &__nav-list {
@@ -87,7 +92,7 @@
   }
   
   &__nav-button {
-    min-height: 48px;
+    min-height: var(--rds-sidebar-nav-min-height, 48px);
     
     .MuiListItemText-root {
       flex-shrink: 0;
@@ -105,8 +110,8 @@
     
     &--expanded {
       justify-content: flex-start;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding-left: var(--rds-spacing-md);
+      padding-right: var(--rds-spacing-md);
     }
     
     &--fixed {
@@ -123,7 +128,7 @@
     align-items: center;
     
     &--with-label {
-      margin-right: 4px;
+      margin-right: var(--rds-spacing-xs);
     }
     
     &--no-label {
@@ -139,14 +144,14 @@
   
   &__footer-divider {
     border: none;
-    border-top: 1px solid var(--rds-color-border, #e0e0e0);
+    border-top: 1px solid var(--rds-border-default);
     margin: 0;
   }
   
   &__avatar-container {
-    padding: 4px 16px;
-    display: flex;
-    overflow-x: hidden;
+  padding: var(--rds-spacing-xs) var(--rds-spacing-md, 16px);
+  display: flex;
+  overflow-x: hidden;
     
     &--collapse {
       justify-content: center;
@@ -203,7 +208,7 @@
     }
 
     .rds-sidebar__search-container {
-      padding: 2px 13px;
+      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 13px);
     }
 
     .MuiListItemText-root {
@@ -217,12 +222,12 @@
     .MuiCollapse-root {
       .MuiList-root {
         .MuiListItem-root {
-          .MuiListItemButton-root {
-            padding-left: 8px;
-            padding-right: 8px;
-            background-color: rgba(0, 0, 0, 0.04);
-            margin: 1px 4px;
-            border-radius: 4px;
+            .MuiListItemButton-root {
+            padding-left: var(--rds-spacing-sm);
+            padding-right: var(--rds-spacing-sm);
+            background-color: var(--rds-sidebar-overlay-bg);
+            margin: 1px var(--rds-spacing-xs, 4px);
+            border-radius: var(--rds-sidebar-subitem-radius, 4px);
           }
         }
       }

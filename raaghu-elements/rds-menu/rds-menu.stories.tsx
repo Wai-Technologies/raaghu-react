@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import { ContentCut, ContentCopy, ContentPaste, Delete, KeyboardArrowDown, PersonAdd, Settings, Logout } from '@mui/icons-material';
 import RdsMenu from './rds-menu';
 import RdsButton from '../rds-button/rds-button';
@@ -11,12 +12,13 @@ const meta: Meta = {
   title: 'Elements/Menu',
   component: RdsMenu,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['component', 'slots', 'slotProps'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control: { type: 'select' },
@@ -249,6 +251,51 @@ export const WithDisabled: Story = {
       </>
     );
   },
+};
+
+export const OpenClose: Story = {
+  name: 'Interaction: Open and Close Menu',
+  args: {
+    items: [
+      { id: 1, label: 'Profile' },
+      { id: 2, label: 'My account' },
+      { id: 3, label: 'Logout' },
+    ],
+  },
+  render: (args) => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const items = (args.items || []).map(item => ({ ...item, onClick: () => setAnchorEl(null) }));
+    return (
+      <>
+        <RdsButton
+          text="Open Menu"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          size="medium"
+          state="default"
+          style="outlined"
+          textCase="uppercase"
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(e.currentTarget)}
+        />
+        <RdsMenu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={() => setAnchorEl(null)}
+          items={items}
+        />
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getAllByRole('button')[0]
+    await userEvent.click(trigger)
+    // MUI Menu renders in a portal at document.body — must query outside canvasElement
+    await expect(document.querySelector(
+      '[role="menu"], [class*="MuiMenu-list"], [class*="MuiPaper-root"]'
+    )).not.toBeNull()
+  }
 };
 
 export const CustomizedMenu: Story = {

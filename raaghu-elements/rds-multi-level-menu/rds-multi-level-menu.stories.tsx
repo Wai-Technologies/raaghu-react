@@ -2,17 +2,19 @@
 import React from 'react';
 import { RdsMultiLevelMenu, MenuOption } from './rds-multi-level-menu';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 
 const meta = {
   title: 'Elements/Multi Level Menu',
   component: RdsMultiLevelMenu,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['onSelect'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     type: {
       control: { type: 'select' },
@@ -56,6 +58,10 @@ const options: MenuOption[] = [
 
 
 export const Default:Story ={
+   play: async ({ canvasElement }) => {
+     const buttons = canvasElement.querySelectorAll('button');
+     expect(buttons.length).toBeGreaterThan(0);
+   },
    render: (args) => {
      const base: MenuOption[] = args.options ?? [];
      if (args.size === 'large') {
