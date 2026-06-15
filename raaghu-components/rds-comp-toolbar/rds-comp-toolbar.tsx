@@ -127,7 +127,13 @@ const RdsCompToolbar = ({
   return (
     <div
       ref={toolbarRef}
-      className={clsx("rds-comp-toolbar", layout === ToolbarLayout.Primary ? "rds-comp-toolbar--primary" : "rds-comp-toolbar--secondary", className)}
+      className={clsx(
+        "rds-comp-toolbar",
+        layout === ToolbarLayout.Primary ? "rds-comp-toolbar--primary" : "rds-comp-toolbar--secondary",
+        `rds-comp-toolbar--${type}`,
+        `rds-comp-toolbar--${state}`,
+        className
+      )}
       data-testid={testId}
       role="toolbar"
       aria-label={`${type} toolbar`}

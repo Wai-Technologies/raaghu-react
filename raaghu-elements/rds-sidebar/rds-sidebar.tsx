@@ -254,7 +254,6 @@ const RdsSidebar = ({
                   )}
                 </ListItem>
                 {item.children && item.children.length > 0 && (
-                  <ListItem disablePadding component="li" sx={{ display: 'block', p: 0 }}>
                   <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       {item.children.map((child, cIdx) => {
@@ -297,7 +296,6 @@ const RdsSidebar = ({
                       })}
                     </List>
                   </Collapse>
-                  </ListItem>
                 )}
               </Fragment>
             );

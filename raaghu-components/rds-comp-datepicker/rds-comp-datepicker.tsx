@@ -296,5 +296,5 @@ const RdsDatepicker = ({
         </>
     );
 };
-RdsCompDatepicker.displayName = "RdsCompDatepicker";
-export default RdsCompDatepicker;
+RdsDatepicker.displayName = "RdsCompDatepicker";
+export default RdsDatepicker;

@@ -1,6 +1,7 @@
 import { Box, Typography, IconButton } from '@mui/material';
 import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
 import { RdsInput, RdsAutocomplete, RdsButton } from '../../raaghu-elements';
+import clsx from 'clsx';
 
 export interface RdsCompProductTourProps {
     state: "Image" | "Carousel" | "GIF" | "Form";

@@ -88,14 +88,12 @@ export interface RdsEmojiGeneratorProps {
     State?: SkinToneState;
     Category?: EmojiCategory;
     onEmojiSelect?: (emoji: string) => void;
-    onEmojiSelect?: (emoji: string) => void;
     maxEmojis?: number;
-    sx?: Record<string, unknown>;
     sx?: Record<string, unknown>;
 }
 
 
-const RdsEmojiGenerator = ({
+const RdsCompEmojiGenerator = ({
     Type = EmojiGeneratorType.Default,
     "Show Skin Tone": showSkinTone = true,
     "Show Footer": showFooter = true,
@@ -263,7 +261,7 @@ const RdsEmojiGenerator = ({
                         {CATEGORY_TABS.find(t => t.id === selectedCategory)?.title || "Emojis"}
                     </Typography>
                 </Box>
-                <Box className="rds-emoji-generator__grid-container">
+                <Box className="rds-emoji-generator__grid-container" tabIndex={0}>
                     {displayEmojis.map((e, i) => (
                         <Box
                             key={i}

@@ -80,9 +80,8 @@ const layoutClass = clsx(`rds-tabs--${layout}`, `rds-state--${props.state || 'de
     rightIcon: showRightIcon ? (tab.rightIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
   }));
 
-  // Determine provided value: prefer explicit `value`, then `activeTab`.
-  // If neither is provided, do not pass `value` to keep Tabs uncontrolled.
-  const providedValue = (value ?? activeTab);
+  // Keep Tabs uncontrolled unless a controlled value is explicitly provided.
+  const providedValue = value ?? activeTab;
 
   return (
     <MuiTabs

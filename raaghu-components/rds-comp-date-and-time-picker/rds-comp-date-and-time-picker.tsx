@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import './rds-comp-date-and-time-picker.scss';
 import dayjs, { Dayjs } from 'dayjs';
@@ -10,7 +10,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
-import { MultiSectionDigitalClock } from '@mui/x-date-pickers/MultiSectionDigitalClock';
+import { TimeClock } from '@mui/x-date-pickers/TimeClock';
 import Popover from '@mui/material/Popover';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
@@ -309,7 +309,7 @@ function RangeTime({
   }, [end, maxTime]);
   
   return (
-    <div className="rds-date-picker__time-range-stack">
+    <div className="rds-date-picker__time-range-stack" data-testid="stack">
       <div className="rds-date-picker__time-range-item">
         <TimePicker
           label="Start Time"
@@ -402,11 +402,10 @@ function SingleDateTime({
       <Box className="rds-date-picker__range-datetime-divider" />
       <Box>
         <Box className="rds-date-picker__range-datetime-time-label">Time</Box>
-        <MultiSectionDigitalClock
+        <TimeClock
           value={value}
           onChange={handleTimeChange}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
-          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
           ampm
           minTime={minTime}
           maxTime={maxTime}
@@ -451,11 +450,10 @@ function RangeDateTime({
       <Box className="rds-date-picker__range-datetime-divider" />
       <Box>
         <Box className="rds-date-picker__range-datetime-time-label">Start Time</Box>
-        <MultiSectionDigitalClock
+        <TimeClock
           value={start}
           onChange={handleStartTimeChange}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
-          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
           ampm
           minTime={minTime}
           maxTime={end ?? maxTime}
@@ -464,11 +462,10 @@ function RangeDateTime({
       <Box className="rds-date-picker__range-datetime-spacer" />
       <Box>
         <Box className="rds-date-picker__range-datetime-time-label">End Time</Box>
-        <MultiSectionDigitalClock
+        <TimeClock
           value={end}
           onChange={handleEndTimeChange}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
-          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
           ampm
           minTime={start ?? minTime}
           maxTime={maxTime}

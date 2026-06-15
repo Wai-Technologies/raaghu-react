@@ -2366,7 +2366,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
+      color: var(--rds-color-primary-900, #0d47a1) !important;
       font-weight: 600 !important;
     }
     

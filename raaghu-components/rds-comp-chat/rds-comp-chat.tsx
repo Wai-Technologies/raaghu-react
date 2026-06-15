@@ -59,7 +59,11 @@ const ChatMessage = memo(({
   currentUserCommentTextColor,
   otherUserCommentTextColor
 }: ChatMessageProps) => (
-  <div className={clsx("comment-box", "rds-comp-chat__message")}>
+  <div className={clsx(
+    "comment-box",
+    "rds-comp-chat__message",
+    isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user"
+  )}>
     <div className={clsx("rds-comp-chat__message-row", isCurrentUser && "rds-comp-chat__message-row--reverse")}>
       <Box component="div" className="rds-comp-chat__comment-content" sx={{ backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor, color: isCurrentUser ? currentUserCommentTextColor : otherUserCommentTextColor }}>
         <div className="comment-text">

@@ -244,5 +244,5 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     </Fragment>
   );
 };
-RdsCompColorPicker.displayName = "RdsCompColorPicker";
-export default RdsCompColorPicker;
+RdsColorPicker.displayName = "RdsCompColorPicker";
+export default RdsColorPicker;
