@@ -4,13 +4,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-  font-size: var(--rds-font-size-md, 1rem);
+  font-size: var(--rds-font-size-md);
   font-weight: var(--rds-font-weight-regular, 400);
   color: var(--rds-color-on-surface);
 
   &:focus-within {
-    outline: 2px solid var(--rds-color-primary, #1976d2);
+    outline: 2px solid var(--rds-primary-main);
     outline-offset: 2px;
-    border-radius: var(--rds-border-radius-xs, 2px);
+    border-radius: var(--rds-border-radius-xs);
   }
 }
+
+/* Multiline clamp helpers (2-5 lines) */
+.rds-comp-truncate-text--lines-2 span,
+.rds-comp-truncate-text--lines-3 span,
+.rds-comp-truncate-text--lines-4 span,
+.rds-comp-truncate-text--lines-5 span {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rds-comp-truncate-text--lines-2 span { -webkit-line-clamp: 2; }
+.rds-comp-truncate-text--lines-3 span { -webkit-line-clamp: 3; }
+.rds-comp-truncate-text--lines-4 span { -webkit-line-clamp: 4; }
+.rds-comp-truncate-text--lines-5 span { -webkit-line-clamp: 5; }

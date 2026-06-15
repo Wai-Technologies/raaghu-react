@@ -1,127 +1,63 @@
 .rds-checkbox {
   display: inline-flex;
   align-items: center;
-  position: relative;
 
-  --checkbox-size: 18px;
-  --checkbox-border-width: 2px;
-  --checkbox-transition: all 0.15s ease-in-out;
-
-  &__label {
-    color: var(--rds-text-primary);
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
-    font-size: var(--rds-font-size-md, 14px);
-    margin-left: var(--rds-spacing-xs, 4px);
-    
-    &__disabled {
-      color: var(--rds-text-disabled, #bdbdbd);
-    }
-  }
-
-  .MuiCheckbox-root {
-    padding: var(--rds-spacing-sm, 8px);
-    color: var(--rds-border-default, #9c9a9a);
-    transition: var(--checkbox-transition);
-
-    &:hover {
-      background-color: var(--rds-button-text-bg-hover, rgba(0, 0, 0, 0.04));
-    }
-    
-    &:focus-visible {
-      outline: 2px solid var(--rds-primary-main, #2196f3);
-      outline-offset: 2px;
-    }
-
-    &.Mui-checked {
-      color: var(--rds-primary-main, #2196f3);
-    }
-    
-    &.Mui-disabled {
-      color: var(--rds-text-disabled, #bdbdbd);
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-    
-    &.MuiCheckbox-indeterminate {
-      color: var(--rds-primary-main, #2196f3);
-    }
-  }
+  --rds-checkbox-size: 18px;
+  --rds-checkbox-border-width: 2px;
+  --rds-checkbox-transition: var(--rds-transition-fast, all 0.15s ease);
 
   .MuiFormControlLabel-root {
     margin: 0;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    cursor: pointer;
-    
-    .MuiFormControlLabel-label {
-      color: var(--rds-text-primary);
-      font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
-      font-size: var(--rds-font-size-md, 14px);
-      line-height: 1.5;
-      
-      &.Mui-disabled {
-        color: var(--rds-text-disabled, #bdbdbd);
-        cursor: not-allowed;
-      }
+  }
 
-      &:empty {
-        display: none;
-      }
+  .MuiFormControlLabel-label {
+    color: var(--rds-text-primary);
+    font-family: var(--rds-font-family-base);
+    font-size: var(--rds-font-size-md, 14px);
+    line-height: 1.5;
+  }
+
+  .MuiCheckbox-root {
+    position: relative;
+    padding: var(--rds-spacing-sm, 8px);
+    color: var(--rds-border-default);
+    transition: var(--rds-checkbox-transition);
+
+    &:hover {
+      background-color: var(--rds-primary-alpha-10);
+    }
+
+    &.Mui-checked,
+    &.MuiCheckbox-indeterminate {
+      color: var(--rds-primary-main);
+    }
+
+    &.Mui-disabled {
+      color: var(--rds-text-disabled);
+      opacity: 0.6;
+      cursor: not-allowed;
     }
   }
 
   &__text-hidden {
     .MuiFormControlLabel-label {
-      visibility: hidden;
-      width: 0;
-      margin: 0;
-      padding: 0;
+      display: none;
     }
   }
 
   &__disabled {
     pointer-events: none;
-    
-    .MuiCheckbox-root,
+
     .MuiFormControlLabel-label {
-      color: var(--rds-text-disabled, #bdbdbd);
-      opacity: 0.6;
+      color: var(--rds-text-disabled);
     }
   }
 
   &__hover {
-    .MuiCheckbox-root {
-      background-color: var(--rds-button-text-bg-hover, rgba(0, 0, 0, 0.04));
-      
-      &:not(.Mui-disabled) {
-        color: var(--rds-primary-main, #2196f3);
-      }
-    }
-    
-    &.rds-checkbox--circular {
-      .MuiCheckbox-root:not(.Mui-disabled)::before {
-        border-color: var(--rds-primary-main, #2196f3);
-        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, rgba(33, 150, 243, 0.1));
-      }
-    }
-
-    &.rds-checkbox--secondary {
-      .MuiCheckbox-root:not(.Mui-disabled) {
-        color: var(--rds-secondary-main, #1827BB);
-      }
-      
-      &.rds-checkbox--circular {
-        .MuiCheckbox-root:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main, #1827BB);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, rgba(233, 30, 99, 0.1));
-        }
-      }
-    }
-  }
-
-  &__indeterminate {
-    .MuiCheckbox-root {
-      color: var(--rds-primary-main, #2196f3);
+    .MuiCheckbox-root:not(.Mui-disabled) {
+      color: var(--rds-primary-main);
     }
   }
 
@@ -129,41 +65,7 @@
     .MuiCheckbox-root {
       &.Mui-checked,
       &.MuiCheckbox-indeterminate {
-        color: var(--rds-primary-main, #2196f3);
-      }
-    }
-    
-    &.rds-checkbox--circular {
-      .MuiCheckbox-root {
-        &.Mui-checked::before,
-        &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
-        }
-        
-        &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-primary-main, #2196f3);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, rgba(33, 150, 243, 0.1));
-        }
-      }
-    }
-    
-    &.rds-checkbox__square {
-      .MuiCheckbox-root {
-        &.Mui-checked::before,
-        &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
-        }
-        
-        &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-primary-main, #2196f3);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, rgba(33, 150, 243, 0.1));
-        }
-        
-        &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main, #2196f3);
-        }
+        color: var(--rds-primary-main);
       }
     }
   }
@@ -172,172 +74,44 @@
     .MuiCheckbox-root {
       &.Mui-checked,
       &.MuiCheckbox-indeterminate {
-        color: var(--rds-secondary-main, #1827BB);
+        color: var(--rds-secondary-main);
       }
-    }
-    
-    &.rds-checkbox--circular {
-      .MuiCheckbox-root {
-        &.Mui-checked::before,
-        &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-secondary-main, #1827BB);
-          border-color: var(--rds-secondary-main, #1827BB);
-        }
-        
-        &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main, #1827BB);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, rgba(233, 30, 99, 0.1));
-        }
-      }
-    }
-    
-    &.rds-checkbox__square {
-      .MuiCheckbox-root {
-        &.Mui-checked::before,
-        &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-secondary-main, #1827BB);
-          border-color: var(--rds-secondary-main, #1827BB);
-        }
-        
-        &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main, #1827BB);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, rgba(233, 30, 99, 0.1));
-        }
-        
-        &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-secondary-main, #1827BB);
-        }
+
+      &:hover:not(.Mui-disabled) {
+        background-color: var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
       }
     }
   }
 
   &__square {
     .MuiCheckbox-root {
-      position: relative;
-      
       .MuiSvgIcon-root {
-        opacity: 0;
-        pointer-events: none;
-      }
-      
-      &::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: var(--checkbox-size);
-        height: var(--checkbox-size);
-        border: var(--checkbox-border-width) solid var(--rds-border-default, #d0d7de);
-        border-radius: var(--rds-border-radius-sm, 4px);
-        background-color: transparent; 
-        transform: translate(-50%, -50%);
-        transition: var(--checkbox-transition);
-        z-index: 1;
-      }
-      
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 6px;
-        height: 10px;
-        border: solid var(--rds-primary-contrast-text, #ffffff);
-        border-width: 0 2px 2px 0;
-        transform: translate(-60%, -70%) rotate(45deg) scale(0);
-        transition: var(--checkbox-transition);
-        z-index: 2;
-        opacity: 0;
-      }
-      
-      &.Mui-checked {
-        &::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
-        }
-        
-        &::after {
-          transform: translate(-60%, -70%) rotate(45deg) scale(1);
-          opacity: 1;
-        }
-      }
-       
-      &.MuiCheckbox-indeterminate {
-        &::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
-        }
-        
-        &::after {
-          content: '';
-          width: 8px;
-          height: 2px;
-          border: none;
-          background-color: var(--rds-primary-contrast-text, #ffffff);
-          border-radius: 1px;
-          transform: translate(-50%, -50%) scale(1);
-          opacity: 1;
-        }
-      }
-      
-      &.Mui-disabled {
-        &::before {
-          background-color: var(--rds-background-disabled, #f6f8fa);
-          border-color: var(--rds-border-disabled, #d0d7de);
-        }
-        
-        &.Mui-checked::before,
-        &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-text-disabled, #8c959f);
-          border-color: var(--rds-text-disabled, #8c959f);
-        }
-      }
-      
-      &:hover:not(.Mui-disabled) {
-        &::before {
-          border-color: var(--rds-primary-main, #2196f3);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, rgba(33, 150, 243, 0.1));
-        }
-      }
-      
-      &:focus-visible {
-        outline: none;
-        
-        &::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main, #2196f3);
-        }
+        font-size: calc(var(--rds-checkbox-size) + 6px);
       }
     }
   }
 
   &__circular {
     .MuiCheckbox-root {
-      position: relative;
-      
       .MuiSvgIcon-root {
         opacity: 0;
-        pointer-events: none;
       }
-      .MuiSvgIcon-root {
-        opacity: 0;
-        pointer-events: none;
-      }
-      
+
       &::before {
         content: '';
         position: absolute;
         top: 50%;
         left: 50%;
-        width: var(--checkbox-size);
-        height: var(--checkbox-size);
-        border: var(--checkbox-border-width) solid var(--rds-border-default, #d0d7de);
-        border-radius: var(--rds-border-radius-full, 50%);
-        background-color: transparent; 
+        width: var(--rds-checkbox-size);
+        height: var(--rds-checkbox-size);
         transform: translate(-50%, -50%);
-        transition: var(--checkbox-transition);
-        z-index: 1;
+        border: var(--rds-checkbox-border-width) solid var(--rds-border-default);
+        border-radius: var(--rds-border-radius-full, 50%);
+        background: transparent;
+        transition: var(--rds-checkbox-transition);
+        box-sizing: border-box;
       }
-      
+
       &::after {
         content: '';
         position: absolute;
@@ -345,158 +119,75 @@
         left: 50%;
         width: 6px;
         height: 10px;
-        border: solid var(--rds-primary-contrast-text, #ffffff);
-        border-width: 0 2px 2px 0;
+        border: solid var(--rds-primary-contrast-text, #fff);
+        border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
-        transition: var(--checkbox-transition);
-        z-index: 2;
+        transform-origin: center;
+        transition: var(--rds-checkbox-transition);
         opacity: 0;
       }
-      
+
       &.Mui-checked {
         &::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
+          background-color: var(--rds-primary-main);
+          border-color: var(--rds-primary-main);
         }
-        
+
         &::after {
           transform: translate(-60%, -70%) rotate(45deg) scale(1);
           opacity: 1;
         }
       }
-      
+
       &.MuiCheckbox-indeterminate {
         &::before {
-          background-color: var(--rds-primary-main, #2196f3);
-          border-color: var(--rds-primary-main, #2196f3);
+          background-color: var(--rds-primary-main);
+          border-color: var(--rds-primary-main);
         }
-        
+
         &::after {
-          content: '';
           width: 8px;
           height: 2px;
           border: none;
-          background-color: var(--rds-primary-contrast-text, #ffffff);
-          border-radius: 1px;
+          background-color: var(--rds-primary-contrast-text, #fff);
+          border-radius: 2px;
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
         }
       }
+
+      &.Mui-disabled {
+        &::before {
+          background-color: var(--rds-background-disabled);
+          border-color: var(--rds-border-disabled);
+        }
+
+        &.Mui-checked::before,
+        &.MuiCheckbox-indeterminate::before {
+          background-color: var(--rds-text-disabled);
+          border-color: var(--rds-text-disabled);
+        }
+      }
+
+      &:hover:not(.Mui-disabled)::before {
+        border-color: var(--rds-primary-main);
+        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+      }
     }
-    
+
     &.rds-checkbox__secondary {
       .MuiCheckbox-root {
         &.Mui-checked::before,
         &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-secondary-main, #1827BB);
-          border-color: var(--rds-secondary-main, #1827BB);
+          background-color: var(--rds-secondary-main);
+          border-color: var(--rds-secondary-main);
         }
-        
+
         &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main, #1827BB);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, rgba(233, 30, 99, 0.1));
-        }
-        
-        &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-secondary-main, #1827BB);
+          border-color: var(--rds-secondary-main);
+          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
         }
       }
     }
-    
-    &.rds-checkbox--primary {
-      .MuiCheckbox-root {
-        &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-primary-main, #2196f3);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, rgba(33, 150, 243, 0.1));
-        }
-        
-        &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main, #2196f3);
-        }
-      }
-    }
-    
-    .MuiCheckbox-root {
-      &.Mui-disabled {
-        &::before {
-          background-color: var(--rds-background-disabled, #f6f8fa);
-          border-color: var(--rds-border-disabled, #d0d7de);
-        }
-        
-        &.Mui-checked::before,
-        &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-text-disabled, #8c959f);
-          border-color: var(--rds-text-disabled, #8c959f);
-        }
-      }
-      
-      &:hover:not(.Mui-disabled) {
-        &::before {
-          border-color: var(--rds-primary-main, #2196f3);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10, rgba(33, 150, 243, 0.1));
-        }
-      }
-      
-      &:focus-visible {
-        outline: none;
-        
-        &::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main, #2196f3);
-        }
-      }
-    }
-
-[data-theme='dark'] & {
-  &.rds-checkbox__circular {
-    .MuiCheckbox-root {
-      &::before {
-        background-color: transparent;
-      }
-
-      &.Mui-checked::before,
-      &.MuiCheckbox-indeterminate::before {
-        background-color: var(--rds-primary-main, #2196f3);
-      }
-    }
-
-    &.rds-checkbox__secondary .MuiCheckbox-root.Mui-checked::before,
-    &.rds-checkbox__secondary .MuiCheckbox-root.MuiCheckbox-indeterminate::before {
-      background-color: var(--rds-secondary-main, #1827BB);
-    }
-  }
-
-  &.rds-checkbox__square {
-    .MuiCheckbox-root {
-      &::before {
-        background-color: transparent;
-      }
-
-      &.Mui-checked::before,
-      &.MuiCheckbox-indeterminate::before {
-        background-color: var(--rds-primary-main, #2196f3);
-      }
-    }
-
-    &.rds-checkbox__secondary .MuiCheckbox-root.Mui-checked::before,
-    &.rds-checkbox__secondary .MuiCheckbox-root.MuiCheckbox-indeterminate::before {
-      background-color: var(--rds-secondary-main, #1827BB);
-    }
-  }
-
-  .MuiCheckbox-root {
-    &.Mui-checked,
-    &.MuiCheckbox-indeterminate {
-      color: var(--rds-primary-main, #2196f3);
-    }
-  }
-
-  &.rds-checkbox__secondary .MuiCheckbox-root {
-    &.Mui-checked,
-    &.MuiCheckbox-indeterminate {
-      color: var(--rds-secondary-main, #1827BB);
-    }
-  }
-}
-
   }
 }

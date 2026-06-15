@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
 import { Button, IconButton, Avatar, Badge, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
@@ -348,12 +349,13 @@ const meta: Meta<typeof RdsAppBar> = {
   title: 'Elements/AppBar',
   component: RdsAppBar,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['component', 'onMenuClick', 'actions', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
   },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: ({
     size: {
       control: { type: 'select' },
@@ -930,6 +932,9 @@ export const Default: Story = {
     userEmail: 'john.doe@example.com',
   },
   render: DynamicTemplate,
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
 Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'userName', 'userEmail'] } };
 
@@ -1023,3 +1028,5 @@ WithMenuButton.parameters = { controls: { include: ['title', 'showLogo', 'size',
 
 export const DashboardWithLang: Story = { args: { variantStyle: 'dashboardWithLang', color: 'default', showSearch: false } as any, render: DynamicTemplate };
 DashboardWithLang.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
+
+

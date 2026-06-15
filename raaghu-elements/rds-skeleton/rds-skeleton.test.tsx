@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSkeleton from './rds-skeleton';
+import { axe } from 'jest-axe';
 
 // Mock the SCSS file
 jest.mock('./rds-skeleton.scss');
@@ -233,7 +234,7 @@ describe('RdsSkeleton', () => {
         <RdsSkeleton frames={3} />
       );
       const boxContainer = container.querySelector('.rds-skeleton');
-      expect(boxContainer).toHaveStyle('gap: 12px');
+      expect(boxContainer).toHaveStyle('gap: var(--rds-spacing-md, 12px)');
     });
 
     it('should set flex-start alignment for text frames', () => {
@@ -545,6 +546,14 @@ describe('RdsSkeleton', () => {
       const skeleton = container.querySelector('.rds-skeleton');
       expect(skeleton).not.toHaveClass('MuiSkeleton-pulse');
       expect(skeleton).not.toHaveClass('MuiSkeleton-wave');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsSkeleton />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

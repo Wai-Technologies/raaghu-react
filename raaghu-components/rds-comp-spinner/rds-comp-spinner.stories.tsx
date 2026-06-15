@@ -1,10 +1,12 @@
 import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize, SpinnerLevel } from "./rds-comp-spinner";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Spinner',
     component: RdsCompSpinner,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs :{
               source :{
@@ -18,7 +20,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         size: {
             options: ["Default", "Small", "Large",],
@@ -66,5 +68,10 @@ export const Default: Story = {
         colorVariant: 'primary',
         level: SpinnerLevel.Level04,
     },
+    play: async ({ canvas }) => {
+        const spinner = await canvas.findByRole('status', { hidden: true });
+        await expect(spinner).toBeInTheDocument();
+    },
 } satisfies Story;
 Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'showLabel', 'layout',"labelText", 'level'] } };
+

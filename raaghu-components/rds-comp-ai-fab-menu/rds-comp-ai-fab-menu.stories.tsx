@@ -1,11 +1,13 @@
 import React from "react";
 import RdsCompAiFabMenu from "./rds-comp-ai-fab-menu";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/AI ChatBox/Fab Menu',
     component: RdsCompAiFabMenu,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     },
     decorators: [
@@ -15,7 +17,7 @@ const meta: Meta = {
             </div>
         )
     ],
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         colorVariant: {
             options: [
@@ -62,12 +64,15 @@ export const Default: Story = {
         alignment: "left",
         backgroundType: "circular",
         listItems: [
-            { value: "New Role", some: "value", key: "new", icon: "users", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Refresh", some: "value", key: "refresh", icon: "refresh", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Export to excel", some: "value", key: "export", icon: "export", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Delete", some: "value", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Download", some: "value", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
+            { value: "New Role", key: "new", icon: "users", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Refresh", key: "refresh", icon: "refresh", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Export to excel", key: "export", icon: "export", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Delete", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Download", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
         ]
-    }
+    },
+    play: async ({ canvasElement }) => {
+        await expect(canvasElement.firstChild).toBeTruthy();
+    },
 } satisfies Story;
 Default.parameters = { controls: { include: ['colorVariant', 'menuIcon', 'size', 'backgroundType', 'alignment', 'listItems'] } };

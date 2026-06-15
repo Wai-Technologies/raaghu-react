@@ -1,11 +1,13 @@
 
 import RdsCompPieChart from "./rds-comp-chart-pie";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Pie Chart',
     component: RdsCompPieChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {
@@ -13,7 +15,7 @@ const meta: Meta = {
 },
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         radius: { control: 'number' }, 
     },
@@ -70,4 +72,10 @@ export const Default: Story = {
             },
         ],
     },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 };
+
+

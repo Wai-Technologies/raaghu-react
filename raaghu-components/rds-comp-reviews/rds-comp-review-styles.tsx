@@ -3,7 +3,7 @@ import { RdsAvatar, RdsRating } from "../../raaghu-elements";
 import { Item, RevieweStyle } from "./rds-comp-reviews";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import { Box, Card, CardContent, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
 
 /**
  * Helper function to format dates in a standard way
@@ -29,9 +29,9 @@ const Style1 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <Card sx={{ height: '100%' }}>
+      <Card sx={{ height: '100%' }}>
       <CardContent sx={{ textAlign: 'center' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem' } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'fontWeightMedium', fontSize: 'h6.fontSize' } }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
             title={item.name}
@@ -98,7 +98,7 @@ const Style3 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem'  } }}>
+    <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'fontWeightMedium', fontSize: 'h6.fontSize'  } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
@@ -246,8 +246,7 @@ const Style7 = ({ item }: { item: Item }) => {
   const [likes, setLikes] = useState(item.likes || 35);
   const [dislikes, setDislikes] = useState(item.dislikes || 10);
   const [rating, setRating] = useState(item.rating || 4.5);
-  const theme = useTheme();
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'));
+  const isXs = useMediaQuery('(max-width: 600px)');
   
   const handleLike = () => {
     setLikes(prev => prev + 1);
@@ -293,8 +292,8 @@ const Style7 = ({ item }: { item: Item }) => {
           <Box sx={{ minWidth: 0 }}>
             <Typography
               variant="h6"
-              fontWeight="bold"
-              sx={{ fontSize: { xs: '1rem', sm: '1.25rem' }, lineHeight: 1.2 }}
+              fontWeight="fontWeightMedium"
+              sx={{ fontSize: { xs: 'body1.fontSize', sm: 'h6.fontSize' }, lineHeight: 1.2 }}
             >
               {item.name}
             </Typography>
@@ -608,11 +607,11 @@ const Style11 = ({ item }: { item: Item }) => {
         <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
           {item.username}
         </Typography>
-        <Box sx={{ 
+          <Box sx={{ 
           display: 'flex', 
           justifyContent: 'center', 
           alignItems: 'center', 
-          gap: '4px', 
+          gap: 0.5, 
           my: 3 
         }}>
           <RdsRating
@@ -651,7 +650,7 @@ const Style12 = ({ item }: { item: Item }) => {
           display: 'flex', 
           justifyContent: 'center', 
           alignItems: 'center', 
-          gap: '4px', 
+          gap: 'var(--rds-spacing-xs-px)',
           my: 3 
         }}>
           <RdsRating
@@ -706,3 +705,16 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
       return null;
   }
 };
+
+Style1.displayName = 'Style1';
+Style2.displayName = 'Style2';
+Style3.displayName = 'Style3';
+Style4.displayName = 'Style4';
+Style5.displayName = 'Style5';
+Style6.displayName = 'Style6';
+Style7.displayName = 'Style7';
+Style8.displayName = 'Style8';
+Style9.displayName = 'Style9';
+Style10.displayName = 'Style10';
+Style11.displayName = 'Style11';
+Style12.displayName = 'Style12';

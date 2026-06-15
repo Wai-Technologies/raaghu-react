@@ -1,14 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompEmptyState from "./rds-comp-empty-state";
+import { expect } from 'storybook/test';
 
 
 const meta: Meta<typeof RdsCompEmptyState> = {
   title: "Components/Empty State",
   component: RdsCompEmptyState,
   parameters: {
+        status: { type: 'stable' },
     layout: "padded",
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
   argTypes: {
     mode: {
       control: { type: 'select' },
@@ -56,6 +58,13 @@ export const Standard: Story = {
     iconWidth: 150,
     buttonText: "Add New Data",
     isContinueAnimate: false,
-  
+
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
+
+export const Default: Story = { ...Standard };
+
+

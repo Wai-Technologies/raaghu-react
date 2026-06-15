@@ -1,7 +1,152 @@
-# Contributing
+# Contributing to Raaghu React Design System
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. 
+When contributing, please first discuss the change you wish to make via issue or email with the repository owners.
+
+---
+
+## Quick start
+
+```bash
+npm install
+npm run dev       # start Vite dev server
+npm run storybook # start Storybook on port 6006
+npm run test      # run Jest unit tests
+```
+
+---
+
+## Adding a new component or element
+
+Create component and element files manually following existing folder conventions.
+
+**What gets generated:**
+
+| File | Description |
+|------|-------------|
+| `rds-my-widget.tsx` | Component with typed Props interface and `displayName` |
+| `rds-my-widget.scss` | SCSS using `var(--rds-*)` design tokens |
+| `rds-my-widget.stories.tsx` | 4 story variants with `play:` functions |
+| `rds-my-widget.test.tsx` | 6 test suites including `jest-axe` |
+| `index.ts` | Export line added automatically |
+
+---
+
+## Naming conventions
+
+| Thing | Rule | Example |
+|-------|------|---------|
+| Element prefix | `rds-` | `rds-badge` |
+| Component prefix | `rds-comp-` | `rds-comp-kanban-board` |
+| Props interface | `RdsXxxProps` or `RdsCompXxxProps` | `RdsBadgeProps` |
+| `displayName` | Must match component name | `RdsBadge.displayName = 'RdsBadge'` |
+| Story exports | PascalCase | `export const Default`, `export const Disabled` |
+| SCSS classes | BEM with `rds-` prefix | `.rds-badge`, `.rds-badge--large` |
+
+---
+
+## Design token rules
+
+**Always use CSS custom properties — never hardcode values.**
+
+```scss
+/* ✅ Correct */
+color: var(--rds-text-primary);
+padding: var(--rds-spacing-sm);
+border-radius: var(--rds-radius-base);
+transition: var(--rds-motion-transition-fast);
+
+/* ❌ Wrong */
+color: #333;
+padding: 8px;
+```
+
+| Token prefix | Examples |
+|--------|---------|
+| `--rds-spacing-*` | `xxs` `xs` `sm` `md` `lg` `xl` `2xl` |
+| `--rds-font-size-*` | `xs` `sm` `md` `lg` `xl` `2xl` |
+| `--rds-font-weight-*` | `regular` `medium` `semibold` `bold` |
+| `--rds-radius-*` | `sm` `base` `md` `lg` `xl` `full` |
+| `--rds-motion-*` | `duration-fast` `transition-base` `easing-in-out` |
+| `--rds-text-*` | `primary` `secondary` `disabled` |
+| `--rds-primary-*` | `main` `light` `dark` |
+| `--rds-border-*` | `default` `strong` `focus` |
+
+---
+
+## Writing stories
+
+Every story file must:
+
+- Import from `@storybook/react-vite` (not `@storybook/react`)
+- Have `tags: ['autodocs', 'stable']` (or `'beta'` for new/experimental)
+- Export a `Default` story with a `play:` function
+
+```tsx
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from '@storybook/test';
+
+export const Default: Story = {
+  args: { label: 'Example' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    expect(canvas.getByText('Example')).toBeInTheDocument();
+  },
+};
+```
+
+---
+
+## Writing tests
+
+Every test file must:
+
+- Mock the SCSS import: `jest.mock('./rds-xxx.scss', () => ({}))`
+- Include a `describe('Accessibility')` block with `jest-axe`
+
+```tsx
+import { axe } from 'jest-axe';
+
+describe('Accessibility', () => {
+  it('has no axe accessibility violations', async () => {
+    const { container } = render(<RdsMyWidget {...defaultProps} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+});
+```
+
+---
+
+## Accessibility requirements
+
+- `aria-label` on every icon-only button
+- `role="button"` + `tabIndex={0}` + `onKeyDown` on interactive `<div>` / `<span>`
+- `aria-disabled` when disabled
+
+---
+
+## CI checks on every PR
+
+| Check | Gates |
+|-------|-------|
+| Style governance | No bare hex in SCSS |
+| Health check | Stories/tests/axe coverage |
+| Bundle size | Elements ≤500kB, Components ≤500kB |
+| Chromatic | Visual regression snapshots |
+| Playwright | Story render + visual smoke |
+
+---
+
+## Branch strategy
+
+| Branch | Purpose |
+|--------|---------|
+| `production` | Live releases |
+| `development` | Integration — all PRs target here |
+| `user/<name>/<task>` | Feature / fix branches |
+
+PR title format: `type(scope): description`
+Examples: `feat(button): add loading state`, `fix(modal): close on Escape key`
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 

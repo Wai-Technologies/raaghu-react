@@ -1,21 +1,10 @@
-// Main theme entry point
-// Import this file to get all theme variables and component styles
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
-// Import base variables
-@import './variables/color-variables.scss';
+// Global layout resets — full tokens are injected at runtime via injectTokens() in RaaghuThemeProvider.
+:root {
+  --rds-font-family-base: "Poppins", sans-serif;
+}
 
-// Import theme variants (import one based on your theme selection)
-// @import './themes/light.scss';       // For light theme
-// @import './themes/dark.scss';        // For dark theme
-// @import './themes/semi-dark.scss';   // For semi-dark theme
-
-// Import CSS custom properties (should be imported after theme)
-@import './custom-properties.scss';
-
-// Global styles
-// CSS custom properties will be applied by theme imports above
-
-// Global reset and base styles
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -32,19 +21,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-// Focus styles
 *:focus {
   outline: 2px solid var(--rds-primary-main);
   outline-offset: 2px;
 }
 
-// Selection styles
 ::selection {
   background-color: var(--rds-primary-light);
   color: var(--rds-primary-contrast-text);
 }
 
-// Scrollbar styles
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

@@ -53,7 +53,7 @@ const RdsRating = ({
     }
   });
   
-  function getLevelValue(level: any): number | undefined {
+  function getLevelValue(level: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right'): number | undefined {
     if (level === 'Left') return 0;
     if (level === 'Mid') return 2.5;
     if (level === 'Right') return 5;
@@ -112,7 +112,7 @@ const RdsRating = ({
     setInternalValue(value);
     
     if (onChange) {
-      onChange(event as any, value);
+      onChange(event as React.SyntheticEvent, value);
     }
   };
 

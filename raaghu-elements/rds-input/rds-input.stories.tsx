@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsInput from './rds-input';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
@@ -9,9 +10,10 @@ const meta: Meta<typeof RdsInput> = {
   title: 'Elements/Input',
   component: RdsInput,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control:"select",
@@ -99,7 +101,7 @@ export const Required: Story = {
 };
 Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
-export const withLabel: Story = {
+export const WithLabel: Story = {
   args: {
     label: 'Input',
     placeholder: 'Enter value',
@@ -108,9 +110,9 @@ export const withLabel: Story = {
     titlePosition: 'inline-title'
   },
 };
-withLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'titlePosition'] } };
+WithLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
-export const withError: Story = {
+export const WithError: Story = {
   args: {
     label: 'Input with Error',
     hintText: 'This field has an error',
@@ -121,4 +123,40 @@ export const withError: Story = {
     state: 'error',
   },
 };
-withError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };
+WithError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };
+
+export const TypeText: Story = {
+  name: 'Interaction: Type into input',
+  args: {
+    placeholder: 'Type here',
+    size: 'medium',
+    layout: 'text',
+    state: 'default',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByRole('textbox')
+    await expect(input).toBeVisible()
+    await userEvent.clear(input)
+    await userEvent.type(input, 'Hello Raaghu')
+    await expect(input).toHaveValue('Hello Raaghu')
+  }
+};
+
+export const FocusBlur: Story = {
+  name: 'Interaction: Focus and blur',
+  args: {
+    placeholder: 'Focus me',
+    size: 'medium',
+    layout: 'text',
+    state: 'default',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByRole('textbox')
+    await userEvent.click(input)
+    await expect(input).toHaveFocus()
+    await userEvent.tab()
+    await expect(input).not.toHaveFocus()
+  }
+};

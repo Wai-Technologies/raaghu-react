@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import RdsCompCodeSnippet from './rds-comp-code-snippet';
 
 const sampleCodeSnippets = {
@@ -87,9 +88,10 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
   title: 'Components/Code Snippet',
   component: RdsCompCodeSnippet,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     code: {
       control: { type: 'text' },
@@ -123,4 +125,8 @@ export const Default: Story = {
     codeLines: false,
     sampleCodeSnippets,
   },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
+

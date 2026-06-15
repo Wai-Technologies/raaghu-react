@@ -108,14 +108,14 @@ const RdsFileUploader = ({
       ) : (
         <Box className={`rds-file-uploader rds-file-uploader--mode-${mode}`}>
           {showTitle && (
-            <Typography className="rds-file-uploader__form-title" variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
-              {title || 'File Upload'}{isMandatory && <span style={{ color: 'red' }}> *</span>}
+            <Typography className="rds-file-uploader__form-title" variant="subtitle1">
+              {title || 'File Upload'}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
             </Typography>
           )}
 
           {placeholderImage && files.length === 0 && (
             <Box sx={{ mb: 2, textAlign: 'center' }}>
-              <img src={placeholderImage} alt="placeholder" style={{ maxWidth: '120px', opacity: 0.7 }} />
+              <img className="rds-file-uploader__placeholder-img" src={placeholderImage} alt="placeholder" />
             </Box>
           )}
 

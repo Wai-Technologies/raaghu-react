@@ -105,8 +105,10 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
             <input
                 type="file"
                 ref={fileInputRef}
+                className="rds-comp-ai-attachement__file-input"
                 style={{ display: "none" }}
                 onChange={handleFileUpload}
+                aria-label="Upload attachment"
             />
 
             <div className="rds-comp-ai-attachement__dropdown">
@@ -122,14 +124,7 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                             value: (
                                 <button
                                     onClick={openModal}
-                                    style={{
-                                        cursor: "pointer",
-                                        background: "none",
-                                        border: "none",
-                                        color: "inherit",
-                                        font: "inherit",
-                                        padding: 0,
-                                    }}
+                                    className="rds-comp-ai-attachement__reset-btn"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modal1234"
                                 >
@@ -153,14 +148,7 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                             value: (
                                 <button
                                     onClick={() => fileInputRef.current?.click()}
-                                    style={{
-                                        cursor: "pointer",
-                                        background: "none",
-                                        border: "none",
-                                        color: "inherit",
-                                        font: "inherit",
-                                        padding: 0,
-                                    }}
+                                    className="rds-comp-ai-attachement__reset-btn"
                                 >
                                     {props.importText}
                                 </button>

@@ -2,11 +2,9 @@
   display: flex;
   align-items: center;
   position: relative;
+  // breadcrumbs sizing and focus tokens provided by centralized --rds-* vars
 
-  .MuiSvgIcon-root,
-  .dark-theme & .MuiSvgIcon-root,
-  [data-theme="dark"] & .MuiSvgIcon-root,
-  body[data-theme="dark"] & .MuiSvgIcon-root {
+  .MuiSvgIcon-root {
     color: inherit !important;
     fill: currentColor !important;
   }
@@ -15,16 +13,16 @@
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    transition: all 0.2s ease-in-out;
+    transition: var(--rds-transition-base);
     cursor: pointer;
 
     &__active {
-      font-weight: 400;
+      font-weight: var(--rds-font-weight-regular, 400);
     }
 
     &__enable-hover:hover {
-      background-color: var(--rds-color-primary-light, #e3f2fd);
-      color: var(--rds-color-primary, #1976d2);
+      background-color: var(--rds-color-primary-light);
+      color: var(--rds-color-primary);
     }
   }
 
@@ -38,64 +36,64 @@
 
   &__pill {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
+      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
       border-radius: var(--rds-border-radius-pill, 20px);
 
       &__enable-hover:hover {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
       }
       &__selected {
-        background-color: var(--rds-color-primary, #1976d2);
-        color: var(--rds-color-on-primary, #fff);
+        background-color: var(--rds-color-primary);
+        color: var(--rds-color-on-primary);
       }
       &__active {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
       }
     }
   }
 
   &__square {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
+      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
       border-radius: var(--rds-border-radius, 4px);
 
       &__enable-hover:hover {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
       }
       &__selected {
-        background-color: var(--rds-color-primary, #1976d2);
-        color: var(--rds-color-on-primary, #fff);
+        background-color: var(--rds-color-primary);
+        color: var(--rds-color-on-primary);
       }
       &__active {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
       }
     }
   }
 
   &__plain {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
+      padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
       color: var(--rds-color-text-primary);
 
       &__enable-hover:hover {
-        color: var(--rds-color-primary-dark, #1565c0);
+        color: var(--rds-color-primary-dark);
         text-decoration: underline;
       }
 
       &__selected {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
         border-radius: var(--rds-border-radius, 4px);
       }
     }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-breadcrumbs-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset, 2px);
   }
 
@@ -106,6 +104,6 @@
   }
 
   .MuiBreadcrumbs-separator {
-    margin: 0 var(--rds-spacing-xs, 8px);
+    margin: 0 var(--rds-breadcrumbs-separator-gap, var(--rds-spacing-sm, 8px));
   }
 }

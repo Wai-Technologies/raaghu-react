@@ -1,258 +1,188 @@
-# Raaghu Design System - CSS/SCSS Architecture Documentation
+# Raaghu Design System — CSS/SCSS Architecture
 
 ## Overview
 
-This document outlines the CSS/SCSS architecture and organization for the Raaghu Design System. Our architecture ensures consistency, maintainability, and scalability across all components.
+Component styles are co-located SCSS files that use `var(--rds-*)` CSS custom
+properties for all theme-sensitive values. Those custom properties are injected
+at runtime by `RaaghuThemeProvider` — there are no compiled SCSS theme files.
 
-## File Organization Structure
+---
 
-### Component-Level Styles
+## File Layout
 
-Each RDS component follows a strict naming convention and file organization:
+### Elements and Components
 
 ```
 raaghu-elements/
-├── rds-{component-name}/
-│   ├── rds-{component-name}.tsx          # React component
-│   ├── rds-{component-name}.stories.tsx  # Storybook stories
-│   └── rds-{component-name}.scss         # Component-specific styles
+└── rds-{component}/
+    ├── rds-{component}.tsx
+    ├── rds-{component}.scss      ← BEM styles, var(--rds-*) tokens
+    └── rds-{component}.stories.tsx
+
+raaghu-components/
+└── rds-comp-{component}/
+    ├── rds-comp-{component}.tsx
+    ├── rds-comp-{component}.scss
+    └── rds-comp-{component}.stories.tsx
 ```
 
-### Layout-Level Styles
-
-Layout components follow the same pattern:
-
-```
-raaghu-layouts/
-├── rds-comp-{layout-name}/
-│   ├── rds-comp-{layout-name}.tsx
-│   ├── rds-comp-{layout-name}.stories.tsx
-│   └── rds-comp-{layout-name}.css        # Layout-specific styles
-```
-
-### Theme Styles
-
-Global theme styles are centralized:
+### Theme System
 
 ```
 raaghu-react-themes/
-├── src/
-│   └── styles/
-│       ├── index.scss                    # Main theme entry
-│       ├── variables/
-│       │   └── color-variables.scss      # Color tokens
-│       └── themes/
-│           ├── light.scss               # Light theme
-│           ├── dark.scss                # Dark theme
-│           └── semi-dark.scss           # Semi-dark theme
+├── tokens/
+│   ├── design-tokens.ts          ← all raw values (colors, spacing, radius …)
+│   └── build-rds-css-vars.ts     ← maps tokens to --rds-* CSS custom properties
+└── src/
+    ├── provider/
+    │   ├── RaaghuThemeProvider.tsx
+    │   └── theme-utils.ts
+    ├── mui/
+    │   ├── palette.ts            ← MUI palette (mirrors design-tokens.ts manually)
+    │   ├── light.theme.ts
+    │   └── dark.theme.ts
+    └── styles/
+        └── index.scss            ← global resets only (box-sizing, body, scrollbar)
 ```
 
-## Naming Conventions
+There are **no** `variables/`, `themes/light.scss`, `themes/dark.scss`,
+or `custom-properties.scss` files. All token-to-variable mapping happens
+in TypeScript via `injectTokens()`.
 
-### CSS Class Naming
+---
 
-We follow the **BEM (Block Element Modifier)** methodology with RDS prefixes:
+## BEM Naming
 
 ```scss
-// Block
-.rds-{component-name} { }
-
-// Elements
-.rds-{component-name}__element { }
-
-// Modifiers
-.rds-{component-name}--modifier { }
-.rds-{component-name}__element--modifier { }
+.rds-{component}                       /* Block  */
+.rds-{component}__element              /* Element */
+.rds-{component}--modifier             /* Modifier */
+.rds-{component}__element--modifier    /* Element modifier */
 ```
 
-### Examples
-
+**Examples:**
 ```scss
-// Button component
 .rds-button { }
 .rds-button__icon { }
 .rds-button--primary { }
 .rds-button--large { }
-.rds-button__icon--start { }
 
-// Card component
 .rds-card { }
 .rds-card__header { }
 .rds-card__content { }
-.rds-card__actions { }
-.rds-card--elevation-2 { }
+.rds-card--outlined { }
 ```
-
-## SCSS Structure Standards
-
-### Component SCSS Template
-
-Each component SCSS file should follow this structure:
-
-```scss
-// RDS {Component Name} Component Styles
-.rds-{component-name} {
-  // Base component styles
-  
-  // Element styles
-  &__element {
-    // Element-specific styles
-  }
-  
-  // State modifiers
-  &--state {
-    // State-specific styles
-  }
-  
-  // Size variants
-  &--small { }
-  &--medium { }
-  &--large { }
-  
-  // Color variants
-  &--primary { }
-  &--secondary { }
-  
-  // Interactive states
-  &:hover { }
-  &:focus { }
-  &:active { }
-  &:disabled { }
-}
-
-// Animations (if needed)
-@keyframes rds-{component-name}-animation {
-  // Keyframes
-}
-```
-
-### Variables and Tokens
-
-Use centralized design tokens:
-
-```scss
-// Use theme variables
-background-color: var(--rds-color-primary);
-color: var(--rds-color-on-primary);
-border-radius: var(--rds-border-radius);
-box-shadow: var(--rds-elevation-2);
-```
-
-## File Naming Standards
-
-### Component Files
-
-- **React Component**: `rds-{component-name}.tsx`
-- **Styles**: `rds-{component-name}.scss` 
-- **Stories**: `rds-{component-name}.stories.tsx`
-
-### Layout Files
-
-- **React Component**: `rds-comp-{layout-name}.tsx`
-- **Styles**: `rds-comp-{layout-name}.css`
-- **Stories**: `rds-comp-{layout-name}.stories.tsx`
-
-## Component Categories
-
-### Elements (`raaghu-elements/`)
-
-Basic UI components that serve as building blocks:
-- Form controls (button, input, select, etc.)
-- Display components (card, avatar, badge, etc.)
-- Navigation components (tabs, breadcrumbs, etc.)
-- Feedback components (alert, modal, snackbar, etc.)
-
-### Layouts (`raaghu-layouts/`)
-
-Complex layout components that compose multiple elements:
-- App shell layouts
-- Page layouts
-- Navigation layouts
-
-### Themes (`raaghu-react-themes/`)
-
-Global theming and design tokens:
-- Color schemes
-- Typography scales
-- Spacing systems
-- Elevation levels
-
-## Best Practices
-
-### 1. Isolation and Encapsulation
-
-- Each component's styles should be self-contained
-- Avoid global styles that affect other components
-- Use specific class names with RDS prefix
-
-### 2. Consistency
-
-- Follow the established naming conventions
-- Use consistent spacing and sizing patterns
-- Leverage design tokens for colors and measurements
-
-### 3. Maintainability
-
-- Document complex styles with comments
-- Use meaningful class names
-- Keep styles organized within each file
-
-### 4. Performance
-
-- Minimize CSS specificity conflicts
-- Use efficient selectors
-- Avoid deep nesting (max 3 levels)
-
-### 5. Accessibility
-
-- Include focus states for interactive elements
-- Ensure sufficient color contrast
-- Support screen readers with appropriate styling
-
-## Implementation Guidelines
-
-### Adding New Components
-
-1. Create component directory: `rds-{component-name}/`
-2. Create React component: `rds-{component-name}.tsx`
-3. Create SCSS file: `rds-{component-name}.scss`
-4. Follow the established class naming pattern
-5. Create Storybook stories: `rds-{component-name}.stories.tsx`
-6. Update the main index.ts export file
-
-### Modifying Existing Components
-
-1. Update the SCSS file in the component's directory
-2. Test across different themes
-3. Ensure backward compatibility
-4. Update documentation if needed
-
-### Theme Customization
-
-1. Modify variables in `raaghu-react-themes/src/styles/variables/`
-2. Update theme files in `raaghu-react-themes/src/styles/themes/`
-3. Test all components with the new theme
-
-## Tools and Setup
-
-### Required Dependencies
-
-```json
-{
-  "sass": "^1.x.x",
-  "postcss": "^8.x.x",
-  "autoprefixer": "^10.x.x"
-}
-```
-
-### Build Configuration
-
-The build system should be configured to:
-- Process SCSS files
-- Apply autoprefixer for cross-browser compatibility
-- Minify production CSS
-- Generate source maps for development
 
 ---
 
-*This document is maintained by the Raaghu Design System team. For questions or contributions, please refer to the project's contribution guidelines.*
+## Component SCSS Template
+
+```scss
+.rds-{component} {
+  // Structural / layout properties — can use static values
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  // Theme-sensitive values — always use tokens
+  background-color: var(--rds-background-paper);
+  color:            var(--rds-text-primary);
+  border:           1px solid var(--rds-divider);
+  border-radius:    var(--rds-border-radius-md);
+  padding:          var(--rds-spacing-sm) var(--rds-spacing-md);
+  box-shadow:       var(--rds-elevation-1);
+  font-family:      var(--rds-font-family-base);
+  font-size:        var(--rds-font-size-sm);
+  transition:       background-color 200ms ease, color 200ms ease;
+
+  // Elements
+  &__icon {
+    color: var(--rds-text-secondary);
+  }
+
+  // Modifiers
+  &--primary {
+    background-color: var(--rds-primary-main);
+    color:            var(--rds-primary-contrast-text);
+  }
+
+  // Interactive states
+  &:hover {
+    background-color: var(--rds-action-hover);
+  }
+
+  &:focus-visible {
+    outline:        2px solid var(--rds-primary-main);
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &--disabled {
+    color:  var(--rds-text-disabled);
+    cursor: not-allowed;
+  }
+}
+```
+
+---
+
+## Token Reference (most-used)
+
+| Category | Token | Usage |
+|---|---|---|
+| Surface | `--rds-background-default` | Page background |
+| Surface | `--rds-background-paper` | Card / panel background |
+| Surface | `--rds-background-surface` | Secondary surface |
+| Text | `--rds-text-primary` | Main body text |
+| Text | `--rds-text-secondary` | Muted / caption text |
+| Text | `--rds-text-disabled` | Disabled text |
+| Border | `--rds-divider` | Borders, separators |
+| Brand | `--rds-primary-main` | Primary accent |
+| Brand | `--rds-primary-light` | Lighter primary |
+| Brand | `--rds-primary-dark` | Darker primary |
+| Brand | `--rds-primary-contrast-text` | Text on primary bg |
+| State | `--rds-action-hover` | Hover background |
+| State | `--rds-action-disabled` | Disabled background |
+| Semantic | `--rds-success-main` | Success color |
+| Semantic | `--rds-warning-main` | Warning color |
+| Semantic | `--rds-error-main` | Error color |
+| Spacing | `--rds-spacing-xs/sm/md/lg/xl` | 4/8/16/24/32px |
+| Radius | `--rds-border-radius-sm/md/lg/full` | Border radius scale |
+| Elevation | `--rds-elevation-1` … `--rds-elevation-5` | Box shadows |
+| Z-index | `--rds-z-index-dropdown/modal/tooltip` | Layer management |
+
+Full list: see `tokens/build-rds-css-vars.ts`.
+
+---
+
+## Adding a New Component
+
+1. Create `rds-{component}/rds-{component}.tsx` with TypeScript props interface
+2. Create `rds-{component}/rds-{component}.scss` using BEM + `var(--rds-*)` tokens
+3. Create `rds-{component}/rds-{component}.stories.tsx`
+4. Export from `raaghu-elements/index.ts` (or `raaghu-components/index.ts`)
+5. Verify light and dark rendering in Storybook
+
+---
+
+## Migrating Hardcoded Colors
+
+When you encounter hardcoded hex in an existing SCSS file:
+
+1. Find the matching semantic token in `tokens/build-rds-css-vars.ts`
+2. Replace `#3C98FF` → `var(--rds-primary-main)` (etc.)
+3. Test in Storybook with both light and dark toggle active
+4. Verify with Chromatic before merging
+
+Current status: ~60 SCSS files still have hardcoded values.
+See `docs/THEME_INTEGRATION_COMPLETE.md` for the priority list.
+
+---
+
+## SCSS Conventions
+
+- **Max nesting depth:** 3 levels
+- **No global overrides** — styles must be scoped to the component block
+- **No hardcoded hex, rgb, or hsl** — use `var(--rds-*)` for any color
+- **No hardcoded pixel spacing** for theme-sensitive values — use spacing tokens
+- **Comments:** only when the WHY is non-obvious (workarounds, known browser bugs)

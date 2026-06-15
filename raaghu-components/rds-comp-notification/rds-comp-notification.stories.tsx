@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 import RdsCompNotification, {
     NotificationLayout,
     NotificationStyle,
@@ -9,11 +10,12 @@ const meta: Meta = {
     title: "Components/Notification",
     component: RdsCompNotification,
     parameters: {
+            status: { type: 'stable' },
         layout: "padded",
         docs: {
             description: {
                 component:
-                    'The **Notification** component is a customizable component for displaying alerts, messages, or updates to users. It supports multiple layouts (`vertical`, `horizontal`), styles (`default`, `avatar`, `icon`, `image`), and types (`error`, `info`, `success`, `warning`). Notifications can include a title, description, timestamp, and optional action buttons or dismiss icons. You can show primary and secondary buttons for user actions and control the visibility of the dismiss icon. Flexible props allow you to tailor the appearance and behavior, making this component ideal for informing users about important events, confirmations, or system statuses in your application.'
+                    'The Notification component is a customizable component for displaying alerts, messages, or updates to users. It supports multiple layouts (vertical, horizontal), styles (default, avatar, icon, image), and types (error, info, success, warning). Notifications can include a title, description, timestamp, and optional action buttons or dismiss icons. You can show primary and secondary buttons for user actions and control the visibility of the dismiss icon. Flexible props allow you to tailor the appearance and behavior, making this component ideal for informing users about important events, confirmations, or system statuses in your application.'
             },
             source: {
                 transform: (code: string) => {
@@ -28,7 +30,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         title: {
             control: { type: 'text' },
@@ -78,7 +80,11 @@ export const Default: Story = {
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.",
             }
         ]
-    }
+    },
+    play: async ({ canvas }) => {
+        const title = await canvas.findByText('Notification Title');
+        await expect(title).toBeInTheDocument();
+    },
 }
 
 Default.parameters = {
@@ -86,3 +92,5 @@ Default.parameters = {
         include: ['title', 'description', 'layout', 'style', 'type', 'notifications', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss']
     }
 };
+
+

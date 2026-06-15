@@ -7,6 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import WarningIcon from '@mui/icons-material/Warning';
 import InfoIcon from '@mui/icons-material/Info';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-modal.scss', () => ({}));
@@ -519,7 +520,7 @@ describe('RdsModal', () => {
   describe('Complex Scenarios', () => {
     it('should render modal with all features enabled', () => {
       renderWithTheme(
-        <RdsModal 
+        <RdsModal
           {...defaultProps}
           icon={<WarningIcon data-testid="warning-icon" />}
           imageSrc="https://example.com/warning.png"
@@ -570,7 +571,7 @@ describe('RdsModal', () => {
     it('should handle form content in modal', async () => {
       const handleSubmit = jest.fn();
       renderWithTheme(
-        <RdsModal 
+        <RdsModal
           {...defaultProps}
           actions={
             <button onClick={handleSubmit}>Submit Form</button>
@@ -584,13 +585,13 @@ describe('RdsModal', () => {
       );
       const nameInput = screen.getByPlaceholderText('Enter name') as HTMLInputElement;
       const emailInput = screen.getByPlaceholderText('Enter email') as HTMLInputElement;
-      
+
       await userEvent.type(nameInput, 'John Doe');
       await userEvent.type(emailInput, 'john@example.com');
-      
+
       expect(nameInput.value).toBe('John Doe');
       expect(emailInput.value).toBe('john@example.com');
-      
+
       await userEvent.click(screen.getByRole('button', { name: 'Submit Form' }));
       expect(handleSubmit).toHaveBeenCalled();
     });
@@ -598,16 +599,16 @@ describe('RdsModal', () => {
     it('should handle nested modals gracefully', () => {
       renderWithTheme(
         <div>
-          <RdsModal 
-            title="First Modal" 
-            isOpen={true} 
+          <RdsModal
+            title="First Modal"
+            isOpen={true}
             onClose={jest.fn()}
           >
             First modal content
           </RdsModal>
-          <RdsModal 
-            title="Second Modal" 
-            isOpen={true} 
+          <RdsModal
+            title="Second Modal"
+            isOpen={true}
             onClose={jest.fn()}
           >
             Second modal content
@@ -623,7 +624,7 @@ describe('RdsModal', () => {
       const { rerender } = renderWithTheme(
         <RdsModal {...defaultProps} onClose={onClose} isOpen={true} />
       );
-      
+
       for (let i = 0; i < 3; i++) {
         rerender(
           <ThemeProvider theme={createTheme()}>
@@ -638,5 +639,47 @@ describe('RdsModal', () => {
       }
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
     });
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsModal title="Test Modal" isOpen={true} onClose={jest.fn()} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
+});
+
+describe('RdsModal — keyboard navigation', () => {
+  const onClose = jest.fn();
+
+  beforeEach(() => { onClose.mockClear(); });
+
+  it('closes on Escape key', async () => {
+    renderWithTheme(<RdsModal title="Escape Test" isOpen onClose={onClose} />);
+    await userEvent.keyboard('{Escape}');
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('close button is reachable via Tab', async () => {
+    renderWithTheme(<RdsModal title="Tab Test" isOpen onClose={onClose} showCloseButton />);
+    await userEvent.tab();
+    expect(screen.getByLabelText('close')).toHaveFocus();
+  });
+
+  it('close button activates on Enter', async () => {
+    renderWithTheme(<RdsModal title="Enter Test" isOpen onClose={onClose} showCloseButton />);
+    screen.getByLabelText('close').focus();
+    await userEvent.keyboard('{Enter}');
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('close button activates on Space', async () => {
+    renderWithTheme(<RdsModal title="Space Test" isOpen onClose={onClose} showCloseButton />);
+    screen.getByLabelText('close').focus();
+    await userEvent.keyboard(' ');
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('does not show close button when closed', () => {
+    renderWithTheme(<RdsModal title="Closed" isOpen={false} onClose={onClose} />);
+    expect(screen.queryByLabelText('close')).not.toBeInTheDocument();
   });
 });

@@ -11,53 +11,53 @@
 .rds-kanban-board-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  padding: 8px;
+  gap: var(--rds-spacing-sm);
+  padding: var(--rds-spacing-sm);
   align-items: flex-start;
 }
 
 .kanban-board {
-  font-family: poppins !important;
-  width: 300px !important;
-  min-width: 300px !important;
-  max-width: 300px !important;
-  margin-right: 20px !important;
+  font-family: var(--rds-font-family-base) !important;
+  width: var(--rds-kanban-column-width, 300px) !important;
+  min-width: var(--rds-kanban-column-width, 300px) !important;
+  max-width: var(--rds-kanban-column-width, 300px) !important;
+  margin-right: var(--rds-kanban-column-gap, 20px) !important;
 
   &__card {
-  min-height: 600px !important;
-    min-width: 320px !important;
-    background-color: var(--rds-background-paper, #ffffff);
-    color: var(--txt-neutral-darker-default, #000000);
+  min-height: var(--rds-kanban-card-min-height, 600px) !important;
+    min-width: var(--rds-kanban-card-min-width, 320px) !important;
+    background-color: var(--rds-background-paper);
+    color: var(--rds-text-primary);
     
     &--empty-board {
-      border: 1px dashed var(--bg-primary-medium-default, #D4BBFF) !important;
+      border: 1px dashed var(--rds-surface-primary-medium) !important;
     }
     
     &--add-board-320 {
-      min-width: 320px !important;
+      min-width: var(--rds-kanban-addboard-min-width-320, 320px) !important;
     }
     
     &--add-board-280 {
-      min-width: 280px !important;
+      min-width: var(--rds-kanban-addboard-min-width-280, 280px) !important;
     }
   }
 
   &__card-content {
-    padding: 5px !important;
+    padding: var(--rds-spacing-xs, 5px) !important;
   }
 
   &__card-header {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    margin-bottom: 16px !important;
-    background-color: var(--bg-primary-light-default, #ebdcff) !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
+    margin-bottom: var(--rds-spacing-md) !important;
+    background-color: var(--rds-surface-primary-light) !important;
+    color: var(--rds-text-primary) !important;
     min-height: 35px !important;
-    padding: 8px !important;
-    margin-left: -8px !important;
-    margin-right: -8px !important;
-    margin-top: -8px !important;
+    padding: var(--rds-spacing-sm) !important;
+    margin-left: var(--rds-spacing-neg-8) !important;
+    margin-right: var(--rds-spacing-neg-8) !important;
+    margin-top: var(--rds-spacing-neg-8) !important;
   }
 
   &__header-content {
@@ -69,106 +69,106 @@
   &__title-area {
   display: flex;
   align-items: center;
-  padding-left: 10px !important;
+  padding-left: var(--rds-spacing-sm, 10px) !important;
   }
 
   &__title-count {
-    margin-left: 8px !important;
+    margin-left: var(--rds-spacing-sm) !important;
   }
 
   &__header-button {
-    margin-right: 8px !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
+    margin-right: var(--rds-spacing-sm) !important;
+    color: var(--rds-text-primary) !important;
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
     }
   }
 
   .card {
-    padding: 5px !important;
+    padding: var(--rds-spacing-xs, 5px) !important;
   min-height: 600px !important;
-    border: 1px solid var(--bg-primary-medium-default, #D4BBFF);
-    background-color: var(--rds-background-paper, #ffffff);
+    border: 1px solid var(--rds-surface-primary-medium);
+    background-color: var(--rds-background-paper);
   }
 
   .card-header {
-    background-color: var(--bg-primary-light-default, #ebdcff) !important;
-    color: var(--txt-neutral-darker-default, #000000);
+    background-color: var(--rds-surface-primary-light) !important;
+    color: var(--rds-text-primary);
     min-height: 35px !important;
     height: 35px !important;
     display: flex !important;
     align-items: center !important;
     flex-direction: row !important;
-    border-bottom: 1px solid var(--bg-primary-medium-default, #D4BBFF) !important;
-    padding-left: 18px !important;
-    padding-right: 8px !important;
-    font-size: 16px !important;
+    border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
+    padding-left: var(--rds-spacing-md, 18px) !important;
+    padding-right: var(--rds-spacing-sm) !important;
+    font-size: var(--rds-font-size-lg) !important;
     font-weight: 500 !important;
     letter-spacing: 0.5px;
   }
 
   .card-body {
-    padding: 0px 12px !important;
-    color: var(--txt-neutral-darker-default, #000000);
+    padding: 0px var(--rds-spacing-sm, 12px) !important;
+    color: var(--rds-text-primary);
   }
 
   .pt-3 {
-    padding-top: 8px !important;
+    padding-top: var(--rds-spacing-sm) !important;
   }
 
   .btn-sm svg {
     stroke-width: inherit !important;
     display: flex;
-    width: 16px !important;
-    height: 16px !important;
+    width: var(--rds-icon-size-sm, 16px) !important;
+    height: var(--rds-icon-size-sm, 16px) !important;
   }
 
   .btn-group {
-    margin-top: -4px !important;
+    margin-top: calc(var(--rds-spacing-xs, 4px) * -1) !important;
   }
 
   ul {
-    min-width: 125px !important;
-    padding: 6px 0px;
-    border-color: var(--bg-primary-medium-default, #ebdcff) !important;
-    background-color: var(--rds-background-paper, #ffffff);
-    color: var(--txt-neutral-darker-default, #000000);
+    min-width: var(--rds-kanban-dropdown-min-width, 125px) !important;
+    padding: var(--rds-kanban-dropdown-padding-vertical, 6px) 0px;
+    border-color: var(--rds-surface-primary-medium) !important;
+    background-color: var(--rds-background-paper);
+    color: var(--rds-text-primary);
   }
 
   .sub-card {
     .card-header {
       background-color: transparent !important;
-      color: var(--txt-neutral-darker-default, #000000);
+      color: var(--rds-text-primary);
       min-height: 35px !important;
       height: 35px !important;
       display: flex !important;
       align-items: center !important;
       flex-direction: row !important;
-      border-bottom: 1px solid var(--bg-primary-medium-default, #D4BBFF) !important;
-      padding-left: 18px !important;
-      padding-right: 8px !important;
-      font-size: 15px !important;
+      border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
+      padding-left: var(--rds-spacing-18) !important;
+      padding-right: var(--rds-spacing-sm) !important;
+      font-size: var(--rds-font-size-md, 15px) !important;
       font-weight: 500 !important;
       letter-spacing: 0.5px;
     }
 
     .card {
-      padding: 0px !important;
+      padding: 0 var(--rds-spacing-xs, 0px) !important;
       background: var(--rds-background-paper, var(--Background-bg-primary-lighter-default));
-      color: var(--txt-neutral-darker-default, #000000);
+      color: var(--rds-text-primary);
       border-radius: 0px !important;
-  min-height: 133.6px !important;
+  min-height: var(--rds-kanban-subcard-min-height, 133.6px) !important;
     }
 
     .card-body {
-      padding: 0px 15px !important;
-      color: var(--txt-neutral-darker-default, #000000);
+      padding: 0 var(--rds-kanban-subcard-padding, 15px) !important;
+      color: var(--rds-text-primary);
     }
 
     .card-body-font {
       font-size: small !important;
-      color: var(--txt-neutral-darker-default, #000000);
+      color: var(--rds-text-primary);
     }
   }
 }
@@ -176,12 +176,12 @@
 .add-board {
   width: 100% !important;
   height: 100% !important;
-  background-color: var(--rds-background-paper, #fff);
-  color: var(--txt-neutral-darker-default, #000000);
+  background-color: var(--rds-background-paper);
+  color: var(--rds-text-primary);
   border-radius: 0.5rem !important;
   
   &--with-input {
-    padding: 16px !important;
+    padding: var(--rds-spacing-md) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -189,7 +189,7 @@
   }
   
   &--center-button {
-    padding: 0px !important;
+    padding: var(--rds-spacing-0) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -199,27 +199,27 @@
 
 .rds-kanban-board {
   &__sub-cards-container {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
+    padding-left: var(--rds-spacing-sm) !important;
+    padding-right: var(--rds-spacing-sm) !important;
   }
 }
 
 .rds-kanban-board__sub-card {
-  margin-top: 8px !important;
+  margin-top: var(--rds-spacing-sm) !important;
   
   &-card {
-    background-color: var(--rds-background-paper, #FEF7FF) !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
-    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+    background-color: var(--rds-background-paper) !important;
+    color: var(--rds-text-primary) !important;
+    border: 1px solid var(--rds-surface-neutral-light) !important;
     border-radius: 0px !important;
   min-height: 133.6px !important;
   }
   
   &-content {
-    padding: 15px !important;
+    padding: var(--rds-kanban-subcard-padding, 15px) !important;
     
     &:last-child {
-      padding-bottom: 15px !important;
+      padding-bottom: var(--rds-kanban-subcard-padding-bottom, 15px) !important;
     }
   }
   
@@ -227,28 +227,28 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 8px;
+    margin-bottom: var(--rds-spacing-sm);
   }
   
   &-header-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
   }
   
   &-header-right {
     display: flex;
     align-items: center;
-    margin-right: -16px;
+    margin-right: var(--rds-spacing-neg-16);
   }
   
   &-body {
-    margin-bottom: 16px;
+    margin-bottom: var(--rds-spacing-md);
   }
   
   &-text {
     line-height: 1.4;
-    color: var(--txt-neutral-darker-default, #000000);
+    color: var(--rds-text-primary);
   }
   
   &-footer {
@@ -258,7 +258,7 @@
   }
   
   &-footer-left {
-    color: var(--txt-neutral-darker-default, #000000);
+    color: var(--rds-text-primary);
   }
   
   &-footer-right {
@@ -269,129 +269,129 @@
 
 .rds-kanban-board {
   &__menu-paper {
-    background-color: var(--rds-background-paper, #ffffff) !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
-    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+    background-color: var(--rds-background-paper) !important;
+    color: var(--rds-text-primary) !important;
+    border: 1px solid var(--rds-surface-neutral-light) !important;
   }
   
   &__menu-item {
-    font-size: 14px !important;
-    padding: 8px 16px !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
+    font-size: var(--rds-font-size-md) !important;
+    padding: var(--rds-spacing-sm) 16px !important;
+    color: var(--rds-text-primary) !important;
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
     }
   }
   
   &__menu-icon {
-    margin-right: 8px !important;
-    width: 16px !important;
-    height: 16px !important;
+    margin-right: var(--rds-spacing-sm) !important;
+    width: var(--rds-icon-size-sm, 16px) !important;
+    height: var(--rds-icon-size-sm, 16px) !important;
   }
 }
 
 .rds-kanban-board__select-menu {
   .MuiPaper-root {
-    background-color: var(--rds-background-paper, #ffffff);
-    color: var(--txt-neutral-darker-default, #000000);
+    background-color: var(--rds-background-paper);
+    color: var(--rds-text-primary);
   }
   
   .MuiMenuItem-root {
-    color: var(--txt-neutral-darker-default, #000000);
+    color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
     }
   }
 }
 
 .rds-kanban-board__subcard-dropdown-button {
-  color: var(--txt-neutral-darker-default, #000000) !important;
+  color: var(--rds-text-primary) !important;
   
   &:hover {
-    background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+    background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
   }
 }
 
 .rds-kanban-board__input-field {
-  margin-bottom: 16px !important;
+  margin-bottom: var(--rds-spacing-md) !important;
   
   .MuiOutlinedInput-root {
-    background-color: var(--rds-background-paper, #ffffff);
-    color: var(--txt-neutral-darker-default, #000000);
+    background-color: var(--rds-background-paper);
+    color: var(--rds-text-primary);
     
     fieldset {
-      border-color: var(--bg-neutral-light-default, #e0e0e0);
+      border-color: var(--rds-surface-neutral-light);
     }
     
     &:hover fieldset {
-  border-color: var(--btn-primary-solid-default, #3c98ff);
+  border-color: var(--rds-primary-main);
     }
     
     &.Mui-focused fieldset {
-  border-color: var(--btn-primary-solid-default, #3c98ff);
+  border-color: var(--rds-primary-main);
     }
   }
   
   .MuiInputLabel-root {
-    color: var(--txt-neutral-medium-default, #7D7D7D);
+    color: var(--rds-text-secondary);
   }
   
   .MuiOutlinedInput-input::placeholder {
-    color: var(--txt-neutral-medium-default, #7D7D7D);
+    color: var(--rds-text-secondary);
     opacity: 1;
   }
   
   .MuiSelect-icon {
-    color: var(--txt-neutral-darker-default, #000000);
+    color: var(--rds-text-primary);
   }
 }
 
 .rds-kanban-board__autocomplete {
-  margin-bottom: 16px !important;
+  margin-bottom: var(--rds-spacing-md) !important;
   
   .MuiOutlinedInput-root {
-    background-color: var(--rds-background-paper, #ffffff);
-    color: var(--txt-neutral-darker-default, #000000);
+    background-color: var(--rds-background-paper);
+    color: var(--rds-text-primary);
     
     fieldset {
-      border-color: var(--bg-neutral-light-default, #e0e0e0);
+      border-color: var(--rds-surface-neutral-light);
     }
     
     &:hover fieldset {
-  border-color: var(--btn-primary-solid-default, #3c98ff);
+  border-color: var(--rds-primary-main);
     }
     
     &.Mui-focused fieldset {
-      border-color: var(--btn-primary-solid-default, #904cec);
+      border-color: var(--rds-primary-main);
     }
   }
   
   .MuiInputLabel-root {
-    color: var(--txt-neutral-medium-default, #7D7D7D);
+    color: var(--rds-text-secondary);
   }
   
   .MuiOutlinedInput-input::placeholder {
-    color: var(--txt-neutral-medium-default, #7D7D7D);
+    color: var(--rds-text-secondary);
     opacity: 1;
   }
   
   .MuiChip-root {
-    background-color: var(--bg-primary-light-default, #ebdcff);
-    color: var(--txt-neutral-darker-default, #000000);
+    background-color: var(--rds-surface-primary-light);
+    color: var(--rds-text-primary);
   }
 }
 
 .rds-kanban-board__autocomplete-paper {
-  background-color: var(--rds-background-paper, #ffffff);
-  color: var(--txt-neutral-darker-default, #000000);
+  background-color: var(--rds-background-paper);
+  color: var(--rds-text-primary);
   
   .MuiAutocomplete-option {
-    color: var(--txt-neutral-darker-default, #000000);
+    color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
     }
   }
 }
@@ -400,7 +400,7 @@
   display: flex;
   align-items: center;
   width: 100% !important;
-  gap: 8px !important;
+  gap: var(--rds-spacing-sm) !important;
   
   &--full-width {
     width: 100% !important;
@@ -409,34 +409,34 @@
 
 .rds-kanban-board__add-button {
   flex-grow: 1;
-  border: 1px solid var(--btn-primary-solid-default, #3c98ff) !important;
-  color: var(--btn-primary-solid-default, #3c98ff) !important;
-  background-color: var(--rds-background-paper, #ffffff) !important;
+  border: 1px solid var(--rds-primary-main) !important;
+  color: var(--rds-primary-main) !important;
+  background-color: var(--rds-background-paper) !important;
   text-transform: none !important;
 }
 
 .rds-kanban-board__close-button {
-  color: var(--txt-neutral-darker-default, #000000) !important;
+  color: var(--rds-text-primary) !important;
   
   &:hover {
-    background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+    background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
   }
 }
 
 .rds-kanban-board__add-item-form {
-  margin-top: 16px !important;
+  margin-top: var(--rds-spacing-md) !important;
 }
 
 .rds-kanban-board__add-item-simple {
-  margin-top: 16px !important;
+  margin-top: var(--rds-spacing-md) !important;
 }
 
 .priority-btn {
   .custom-badge {
-  border-color: var(--btn-primary-solid-default, #3c98ff) !important;
+  border-color: var(--rds-primary-main) !important;
     background-color: transparent !important;
-  color: var(--btn-primary-solid-default, #3c98ff) !important;
-  border: 1px solid var(--btn-primary-solid-default, #3c98ff) !important;
+  color: var(--rds-primary-main) !important;
+  border: 1px solid var(--rds-primary-main) !important;
   }
 
   .small {
@@ -445,15 +445,15 @@
 }
 
 .f-12 {
-  font-size: 12px !important;
+  font-size: var(--rds-font-size-sm) !important;
 }
 
 .f-14 {
-  font-size: 14px !important;
+  font-size: var(--rds-font-size-md) !important;
 }
 
 .f-16 {
-  font-size: 16px !important;
+  font-size: var(--rds-font-size-lg) !important;
 }
 
 .fw-400 {
@@ -468,47 +468,47 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 265px;
+  max-width: var(--rds-kanban-truncate-max-width, 265px);
   display: inline-block;
   vertical-align: bottom;
   cursor: pointer;
 }
 
 .truncate-text:hover {
-  max-width: 130px;
+  max-width: var(--rds-kanban-truncate-hover-max-width, 130px);
 }
 
 .add-item-btn {
-  margin: 6px 0px !important;
+  margin: var(--rds-kanban-add-item-margin, 6px 0px) !important;
 
   .btn {
     width: 100% !important;
-  border: 1px solid var(--btn-primary-solid-default, #3c98ff) !important;
-  color: var(--btn-primary-solid-default, #3c98ff) !important;
+  border: 1px solid var(--rds-primary-main) !important;
+  color: var(--rds-primary-main) !important;
     text-transform: none;
-    background-color: var(--rds-background-paper, #ffffff);
+    background-color: var(--rds-background-paper);
   }
   
   svg {
     stroke-width: inherit !important;
     fill: none !important;
     display: flex;
-    width: 16px !important;
-    height: 16px !important;
-  stroke: var(--btn-primary-solid-default, #3c98ff) !important;
+    width: var(--rds-icon-size-sm, 16px) !important;
+    height: var(--rds-icon-size-sm, 16px) !important;
+  stroke: var(--rds-primary-main) !important;
   }
 }
 
 .btn-margin {
-  margin: 20px 0px 6px 0px !important;
+  margin: var(--rds-kanban-btn-margin, 20px 0px 6px 0px) !important;
 }
 
 .add-board-btn {
-  padding: 0px 6px !important;
+  padding: var(--rds-kanban-addboard-btn-padding, 0px 6px) !important;
 }
 
 .margin-top-5 {
-  margin-top: -5px !important;
+  margin-top: var(--rds-spacing-neg-5) !important;
 }
 
 .kanban-board .card {
@@ -517,7 +517,7 @@
 
 .sub-cards-container {
   min-height: 50px;
-  padding: 0px 8px 8px 8px;
+  padding: 0 var(--rds-kanban-subcard-padding-inner, 8px) var(--rds-kanban-subcard-padding-inner, 8px) var(--rds-kanban-subcard-padding-inner, 8px);
 }
 
 .sub-card {
@@ -526,7 +526,7 @@
 
   &.dragging {
     background-color: rgba(0, 0, 0, 0.05);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--rds-elevation-2);
   }
 
   &:active {
@@ -534,10 +534,10 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .rds-kanban-board-container {
-    padding: 0px 16px 5px !important;
-    gap: 8px !important;
+    padding: var(--rds-kanban-container-mobile-padding, 0px 16px 5px) !important;
+    gap: var(--rds-spacing-sm) !important;
     justify-content: center !important;
     align-items: center !important;
   }
@@ -546,8 +546,8 @@
     width: calc(100vw - 40px) !important;
     min-width: calc(100vw - 40px) !important;
     max-width: calc(100vw - 40px) !important;
-    margin-right: 0px !important;
-    margin-left: 0px !important;
+    margin-right: var(--rds-spacing-0) !important;
+    margin-left: var(--rds-spacing-0) !important;
 
     &__card {
       min-width: 100% !important;
@@ -586,16 +586,16 @@
 
 .dropdown-menu {
   .MuiPaper-root {
-    background-color: var(--rds-background-paper, #ffffff) !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
-    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+    background-color: var(--rds-background-paper) !important;
+    color: var(--rds-text-primary) !important;
+    border: 1px solid var(--rds-surface-neutral-light) !important;
   }
   
   .MuiMenuItem-root {
-    color: var(--txt-neutral-darker-default, #000000) !important;
+    color: var(--rds-text-primary) !important;
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
     }
   }
 }
@@ -603,288 +603,96 @@
 .kanban-board {
   .MuiTextField-root {
     .MuiOutlinedInput-root {
-      background-color: var(--rds-background-paper, #ffffff);
-      color: var(--txt-neutral-darker-default, #000000);
+      background-color: var(--rds-background-paper);
+      color: var(--rds-text-primary);
       
       fieldset {
-        border-color: var(--bg-neutral-light-default, #e0e0e0);
+        border-color: var(--rds-surface-neutral-light);
       }
       
       &:hover fieldset {
-  border-color: var(--btn-primary-solid-default, #3c98ff);
+  border-color: var(--rds-primary-main);
       }
       
       &.Mui-focused fieldset {
-  border-color: var(--btn-primary-solid-default, #3c98ff);
+  border-color: var(--rds-primary-main);
       }
     }
     
     .MuiInputLabel-root {
-      color: var(--txt-neutral-medium-default, #7D7D7D);
+      color: var(--rds-text-secondary);
     }
     
     .MuiOutlinedInput-input::placeholder {
-      color: var(--txt-neutral-medium-default, #7D7D7D);
+      color: var(--rds-text-secondary);
       opacity: 1;
     }
   }
   
   .MuiFormControl-root {
     .MuiOutlinedInput-root {
-      background-color: var(--rds-background-paper, #ffffff);
-      color: var(--txt-neutral-darker-default, #000000);
+      background-color: var(--rds-background-paper);
+      color: var(--rds-text-primary);
       
       fieldset {
-        border-color: var(--bg-neutral-light-default, #e0e0e0);
+        border-color: var(--rds-surface-neutral-light);
       }
       
       &:hover fieldset {
-  border-color: var(--btn-primary-solid-default, #3c98ff);
+  border-color: var(--rds-primary-main);
       }
       
       &.Mui-focused fieldset {
-  border-color: var(--btn-primary-solid-default, #3c98ff);
+  border-color: var(--rds-primary-main);
       }
     }
     
     .MuiInputLabel-root {
-      color: var(--txt-neutral-medium-default, #7D7D7D);
+      color: var(--rds-text-secondary);
     }
     
     .MuiSelect-icon {
-      color: var(--txt-neutral-darker-default, #000000);
+      color: var(--rds-text-primary);
     }
   }
   
   .MuiIconButton-root {
-    color: var(--txt-neutral-darker-default, #000000);
+    color: var(--rds-text-primary);
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
     }
   }
   
   .MuiTypography-root {
-    color: var(--txt-neutral-darker-default, #000000);
+    color: var(--rds-text-primary);
   }
   
   .sub-card {
     .MuiCard-root {
-      background-color: var(--line-primary-light-default, #fef7ff) !important;
-      color: var(--txt-neutral-darker-default, #000000) !important;
+      background-color: var(--rds-surface-primary-light) !important;
+      color: var(--rds-text-primary) !important;
     }
     
     .MuiTypography-root {
-      color: var(--txt-neutral-darker-default, #000000) !important;
+      color: var(--rds-text-primary) !important;
     }
   }
 }
 
 .rds-kanban-board__sub-card-header-left .MuiTypography-root {
-  color: #646464 !important;
+  color: var(--rds-text-secondary) !important;
 }
 
 .rds-kanban-board__sub-card-text.f-14.fw-400 {
-  color: #353535 !important;
+  color: var(--rds-text-primary) !important;
 }
 
 .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
-  color: #000000 !important;
+  color: var(--rds-text-primary) !important;
 }
 
 body[data-bs-theme="dark"],
-html[data-theme="dark"],
-.dark,
-.theme-dark {
-  --dark-surface: #1e1e1e;
-  --dark-surface-variant: #2a2a2a;
-  --dark-on-surface: #ffffff;
-  --dark-on-surface-variant: #e0e0e0;
-  --dark-primary: #3c98ff;
-  --dark-primary-container: #2d1b69;
-  --dark-outline: #444444;
-  --dark-outline-variant: #555555;
-  --dark-text-secondary: #cccccc;
-  --dark-hover-alpha: rgba(60, 152, 255, 0.08);
-  --dark-selected-alpha: rgba(60, 152, 255, 0.12);
-  --dark-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  
-  .rds-kanban-board-container {
-    background-color: transparent;
-  }
-
-  
-  .rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
-    background-color: #1c66de;
-    
-  }
-  .kanban-board {
-    &__card,
-    &__card--add-board-320,
-    &__card--add-board-280,
-    &__card-content,
-    .card,
-    .card-body {
-      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-      border-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
-    }
-    
-    &__card-header,
-    .card-header {
-      background-color: #1E5FC7 !important;
-      color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
-      border-bottom-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
-    }
-    
-    .sub-card .card,
-    .sub-card .card-body,
-    .rds-kanban-board__sub-card-card {
-      background-color: var(--rds-color-surface-variant, #AFCDFD) !important;
-      color: var(--rds-color-on-surface-variant, var(--dark-on-surface-variant)) !important;
-      border-color: var(--rds-color-outline-variant, var(--dark-outline-variant)) !important;
-    }
-    
-    .MuiCard-root,
-    .MuiCardContent-root,
-    .MuiPaper-root {
-      color: var(--rds-color-on-surface, #1e1e1e) !important;
-    }
-    
-    .MuiTypography-root {
-      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    }
-  }
-  
-  .add-board {
-    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    border-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
-  }
-  
-  .rds-kanban-board__input-field,
-  .rds-kanban-board__autocomplete,
-  .MuiOutlinedInput-root {
-    .MuiOutlinedInput-root,
-    &.MuiOutlinedInput-root {
-      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-      
-      fieldset,
-      .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-outline, #666666) !important;
-      }
-      
-      &:hover fieldset,
-      &:hover .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-primary, var(--dark-primary)) !important;
-      }
-      
-      &.Mui-focused fieldset,
-      &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-primary, var(--dark-primary)) !important;
-      }
-    }
-    
-    .MuiInputLabel-root {
-      color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
-      
-      &.Mui-focused {
-        color: var(--rds-color-primary, var(--dark-primary)) !important;
-      }
-    }
-  }
-  
-  .rds-kanban-board__add-button,
-  .add-item-btn .btn {
-    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-    color: var(--rds-color-primary, var(--dark-primary)) !important;
-    border-color: var(--rds-color-primary, var(--dark-primary)) !important;
-    
-    &:hover {
-      background-color: var(--rds-color-primary-hover, var(--dark-hover-alpha)) !important;
-    }
-  }
-  
-  .MuiMenu-root .MuiPaper-root,
-  .MuiPopover-root .MuiPaper-root,
-  .rds-kanban-board__menu-paper,
-  .rds-kanban-board__select-menu .MuiPaper-root,
-  .rds-kanban-board__autocomplete-paper {
-    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    border: 1px solid var(--rds-color-outline-variant, var(--dark-outline)) !important;
-    box-shadow: var(--dark-box-shadow) !important;
-  }
-  
-  .MuiMenu-list,
-  .MuiAutocomplete-listbox {
-    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-    padding: 4px 0 !important;
-    max-height: 200px !important;
-  }
-  
-  .MuiMenuItem-root,
-  .rds-kanban-board__menu-item,
-  .MuiAutocomplete-option {
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    background-color: transparent !important;
-    padding: 8px 16px !important;
-    
-    &:hover,
-    &.Mui-focusVisible,
-    &.Mui-focused {
-      background-color: var(--rds-color-primary-hover, var(--dark-hover-alpha)) !important;
-      color: var(--rds-color-primary, var(--dark-primary)) !important;
-    }
-    
-    &.Mui-selected,
-    &[aria-selected="true"] {
-      background-color: var(--rds-color-primary-container, var(--dark-selected-alpha)) !important;
-      color: var(--rds-color-primary, var(--dark-primary)) !important;
-      
-      &:hover {
-        background-color: rgba(60, 152, 255, 0.16) !important;
-      }
-    }
-  }
-  
-  .MuiAutocomplete-noOptions {
-    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
-  }
-  
-  .MuiSelect-root {
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    
-    .MuiSelect-icon {
-      color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
-    }
-  }
-  
-  .MuiChip-root {
-    background-color: var(--rds-color-primary-container, var(--dark-selected-alpha)) !important;
-    color: var(--rds-color-primary, var(--dark-primary)) !important;
-    
-    .MuiChip-deleteIcon {
-      color: var(--rds-color-primary, var(--dark-primary)) !important;
-      
-      &:hover {
-        color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
-      }
-    }
-  }
-  .rds-kanban-board__sub-card-header-left .MuiTypography-root {
-    color: var(--rds-color-on-surface-variant, #7D7D7D) !important;
-  }
-  
-  .rds-kanban-board__sub-card-text.f-14.fw-400 {
-    color: var(--rds-kanban-subcard-text-dark, #7D7D7D) !important;
-  }
-  
-  .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
-    color: var(--rds-color-on-surface-variant, #7D7D7D) !important;
-  }
-}
 .MuiMenu-list,
 .MuiAutocomplete-listbox,
 .MuiSelect-root .MuiMenu-list,
@@ -948,9 +756,9 @@ div[role="menu"],
 }
 
 .css-1umw9bq-MuiSvgIcon-root {
-  fill: #959595 !important;
+  fill: var(--rds-text-disabled) !important;
 }
 
 .css-120dh41-MuiSvgIcon-root {
-  fill: #959595 !important;
+  fill: var(--rds-text-disabled) !important;
 }

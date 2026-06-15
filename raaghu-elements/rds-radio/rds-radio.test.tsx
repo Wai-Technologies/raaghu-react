@@ -3,6 +3,7 @@ import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRadio, { RdsRadioOption } from './rds-radio';
+import { axe } from 'jest-axe';
 
 // Mock SCSS import
 jest.mock('./rds-radio.scss', () => ({}));
@@ -676,6 +677,12 @@ describe('RdsRadio', () => {
       
       const fieldset = container.querySelector('fieldset');
       expect(fieldset).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsRadio options={defaultOptions} name="test-radio" label="Select an option" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have legend for label accessibility', () => {

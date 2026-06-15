@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
 import './rds-accordion.scss';
+import { MotionCollapse } from '../../raaghu-react-themes/src/motion';
 
 export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   ShowLeftIcon?: boolean;
@@ -21,6 +22,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   size?: 'small' | 'medium' | 'large';
   state?: 'default' | 'hover' | 'selected';
   accordionStyle?: 'border' | 'bottomline' | 'borderhide';
+  animationDuration?: number;
 }
 
 const RdsAccordion = ({
@@ -33,12 +35,13 @@ const RdsAccordion = ({
   size = 'medium',
   state = 'default',
   accordionStyle = 'border',
+  animationDuration = 300,
   ...props
 }: RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const isDisabled = props.disabled;
 
-  const accordionProps: any = {
+  const accordionProps: Partial<AccordionProps> = {
     ...props,
     className: clsx(
       'rds-accordion',
@@ -60,7 +63,7 @@ const RdsAccordion = ({
 
   return (
     <div className={clsx('rds-accordion__container', accordionStyle && `rds-accordion--${accordionStyle}`)}>
-      <MuiAccordion {...accordionProps}>
+      <MuiAccordion {...accordionProps} TransitionComponent={MotionCollapse} TransitionProps={{ durationMs: animationDuration } as Record<string, unknown>}>
         <MuiAccordionSummary
           expandIcon={<ExpandMoreIcon />}
           className="rds-accordion__summary"

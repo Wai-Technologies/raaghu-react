@@ -1,0 +1,6 @@
+// RDS Bubble Chart — Chart.js canvas wrapper
+// Applies token-based border-radius to the container
+.rds-comp-chart-bubble {
+  border-radius: var(--rds-border-radius-sm, 4px);
+  overflow: hidden;
+}

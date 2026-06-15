@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsButtonDropdown, { RdsButtonDropdownProps, RdsButtonDropdownOption } from './rds-button-dropdown';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-button-dropdown.scss', () => ({}));
@@ -892,6 +893,12 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
+  
+    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsButtonDropdown {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
 
     it('should have proper checkbox roles for multi select', () => {

@@ -27,7 +27,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
       <div className="d-flex justify-content-center my-5">
         <div className={classes} />
         {props.label && (
-          <div style={{ marginTop: 12, textAlign: "center", width: "100%" }}>
+          <div className="rds-loader__label-wrap">
             <span className="rds-loader__label">{props.label}</span>
           </div>
         )}
@@ -74,6 +74,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
             variant={value !== undefined ? 'determinate' : 'indeterminate'}
             value={value}
             color={color}
+            aria-label={label || 'Loading'}
           />
           {value !== undefined && (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
@@ -99,6 +100,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
           color={color}
           size={getSizeValue()}
           thickness={thickness}
+          aria-label={label || 'Loading'}
         />
         {label && (
           <Typography variant="body2" color="text.secondary">
@@ -123,11 +125,11 @@ const RdsLoader = (props: RdsLoaderProps) => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 9999,
+          zIndex: 'var(--rds-z-index-tooltip, 9999)',
         }}
       >
         {renderLoader()}

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompMap, { RdsCompMapProps } from './rds-comp-map';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock react-svg-worldmap
 jest.mock('react-svg-worldmap', () => ({
@@ -612,6 +613,14 @@ describe('RdsCompMap', () => {
       }
 
       expect(screen.getByTestId('world-map')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompMap {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

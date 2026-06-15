@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn } from 'storybook/test';
 import { Box } from '@mui/material';
 import RdsTag from './rds-tag';
 
@@ -6,9 +7,10 @@ const meta: Meta<typeof RdsTag> = {
   title: 'Elements/Tag',
   component: RdsTag,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {
       control: 'select',
@@ -104,4 +106,25 @@ export const Multiple: Story = {
   parameters: {
     controls: { disable: true },
   },
+};
+
+export const RemoveTag: Story = {
+  name: 'Interaction: Remove tag fires callback',
+  args: {
+    label: 'Removable',
+    removable: true,
+    onRemove: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    // Tag label is visible
+    await expect(canvas.getByText('Removable')).toBeVisible()
+    // Remove button — MUI Chip delete icon renders as role="button" or has specific class
+    const removeBtn = canvasElement.querySelector('[data-testid="CancelIcon"], [aria-label*="delete"], [aria-label*="remove"], svg[class*="delete"]')
+      ?? canvasElement.querySelectorAll('button')[1]
+      ?? canvasElement.querySelector('button')
+    await expect(removeBtn).not.toBeNull()
+    await userEvent.click(removeBtn as HTMLElement)
+    await expect(args.onRemove).toHaveBeenCalledOnce()
+  }
 };

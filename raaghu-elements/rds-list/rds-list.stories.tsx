@@ -7,6 +7,7 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import {Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant,Storage, Dataset, ManageAccounts, LocalFireDepartment, Cloud 
 } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
+import { expect } from 'storybook/test';
 
 
 const nestedListItems = [
@@ -27,9 +28,10 @@ const meta: Meta<typeof RdsList> = {
   title: 'Elements/List',
   component: RdsList,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     dense: {
       control: { type: 'boolean' },
@@ -66,7 +68,11 @@ export const AlignItems: Story = {
         avatar: <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/3.jpg" />,
       },
     ]
-  }
+  },
+  play: async ({ canvas }) => {
+    const list = await canvas.findByRole('list');
+    await expect(list).toBeInTheDocument();
+  },
 };
 const firebaseOverviewItems = [
   {
@@ -443,3 +449,6 @@ export const WithSwitch: Story = {
     ]
   }
 };
+
+export const Default: Story = { ...AlignItems };
+

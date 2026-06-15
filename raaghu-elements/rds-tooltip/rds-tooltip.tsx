@@ -20,12 +20,16 @@ export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
   className?: string;
   tooltipStyle?: React.CSSProperties;
   arrow?: boolean;
+  label?: React.ReactNode;
+  /** Storybook helper: whether to wrap children in a span (default is always true internally) */
+  wrapper?: boolean;
 }
 
 const RdsTooltip= ({
   children,
   style = 'top',
   title,
+  label,
   className,
   tooltipStyle,
   arrow = false,
@@ -43,14 +47,14 @@ const RdsTooltip= ({
 
   return (
     <MuiTooltip
-      title={title}
+      title={title ?? label}
       placement={style}
       arrow={arrow}
       classes={{ popper: tooltipClass }}
       sx={customStyle}
       {...props}
     >
-      {children}
+      <span className="rds-tooltip__wrapper">{children}</span>
     </MuiTooltip>
   );
 };

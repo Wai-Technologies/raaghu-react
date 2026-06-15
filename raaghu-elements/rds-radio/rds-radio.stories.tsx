@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import { useState } from 'react';
 import RdsRadio from './rds-radio';
 
@@ -6,12 +7,13 @@ const meta: Meta<typeof RdsRadio> = {
   title: 'Elements/Radio',
   component: RdsRadio,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['radioProps', 'ref'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     options: {
       control: 'object',
@@ -173,3 +175,30 @@ export const WithoutLabel: Story = {
 };
 WithoutLabel.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
 
+
+export const SelectOption: Story = {
+  name: 'Interaction: Select radio option',
+  render: () => {
+    const [value, setValue] = useState<string | undefined>(undefined);
+    return (
+      <RdsRadio
+        label="Choose"
+        options={[
+          { text: 'Option A', value: 'a' },
+          { text: 'Option B', value: 'b' },
+        ]}
+        value={value}
+        onChange={(_e: React.SyntheticEvent, val: string) => setValue(val)}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    // MUI Radio hides native input — same as Checkbox
+    const radios = canvas.getAllByRole('radio')
+    await expect(radios).toHaveLength(2)
+    await expect(radios[0]).not.toBeChecked()
+    await userEvent.click(radios[0])
+    await expect(radios[0]).toBeChecked()
+  }
+};

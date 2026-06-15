@@ -1,10 +1,6 @@
-name: Chromatic Visual Testing
+name: Chromatic Visual Testing (disabled)
 
 on:
-  push:
-    branches: [main, development, production]
-  pull_request:
-    branches: [main, development, production]
   workflow_dispatch:
 
 permissions:

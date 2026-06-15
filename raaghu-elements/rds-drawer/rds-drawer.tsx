@@ -46,10 +46,10 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
     if (!isControlled) setInternalOpen(!internalOpen);
   }, [isControlled, internalOpen]);
 
-  const handleClose = useCallback((event?: any, reason?: any) => {
+  const handleClose = useCallback((event?: {}, reason?: 'backdropClick' | 'escapeKeyDown' | 'buttonClick') => {
     if (!isControlled) setInternalOpen(false);
     if (props.onClose) {
-      (props.onClose as any)(event, reason);
+      (props.onClose as (event: {}, reason: string) => void)(event ?? {}, reason ?? '');
     }
   }, [isControlled, props]);
 

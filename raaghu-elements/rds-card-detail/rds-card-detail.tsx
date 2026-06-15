@@ -7,7 +7,7 @@ import {
   CardMedia,
   CardProps,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useRaaghuTheme } from '../../raaghu-react-themes/src/provider/RaaghuThemeProvider';
 import './rds-card-detail.scss';
 
 export interface RdsCardDetailProps extends CardProps {
@@ -28,11 +28,11 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
   children,
   ...props
 }) => {
-  const theme = useTheme();
+  const { mode } = useRaaghuTheme();
 
   const passedElevation = (props.elevation ?? 0) as number;
   const isElevationVariant = props.variant === 'elevation';
-  const isDarkMode = theme?.palette?.mode === 'dark';
+  const isDarkMode = mode === 'dark';
   const shouldUsePaperShadow = isElevationVariant && isDarkMode && passedElevation > 0;
 
   const shadowVariable = isDarkMode ? 'var(--Paper-shadow-dark)' : 'var(--Paper-shadow-light)';

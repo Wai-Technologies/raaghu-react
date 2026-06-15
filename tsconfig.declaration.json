@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": false,
+    "moduleDetection": "force",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "erasableSyntaxOnly": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": true,
+    "noEmitOnError": false
+  },
+  "include": [
+    "index.ts",
+    "raaghu-elements",
+    "raaghu-components",
+    "raaghu-layouts",
+    "raaghu-react-themes",
+    "utils"
+  ],
+  "exclude": [
+    "**/*.stories.*",
+    "**/*.story.*",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*.figma.*"
+  ]
+}
+

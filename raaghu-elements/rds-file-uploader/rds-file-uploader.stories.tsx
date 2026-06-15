@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
+import { expect, within } from 'storybook/test';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
-import { renderFileUploader } from './RdsFileUploaderComponents';
+import { RenderFileUploader } from './RdsFileUploaderComponents';
 
 const DeleteIcon = () => (
   <svg width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,12 +14,13 @@ const meta: Meta<typeof RdsFileUploader> = {
   title: 'Elements/File Uploader',
   component: RdsFileUploader,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
     exclude: ['onFilesChange', 'onUpload'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
       control: 'text',
@@ -99,7 +101,13 @@ export const Default: Story = {
     if (args.mode === 'standard') {
       updatedArgs.children = <DeleteIcon />;
     }
-    return renderFileUploader(updatedArgs);
+    return RenderFileUploader(updatedArgs);
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    expect(canvas.getByText('Upload your files')).toBeInTheDocument();
+    const fileInput = canvasElement.querySelector('input[type="file"]');
+    expect(fileInput).toBeInTheDocument();
   },
 };
 
@@ -123,7 +131,7 @@ export const SingleFile: Story = {
     if (args.mode === 'standard') {
       updatedArgs.children = <DeleteIcon />;
     }
-    return renderFileUploader(updatedArgs);
+    return RenderFileUploader(updatedArgs);
   },
 };
 
@@ -149,7 +157,7 @@ export const ImagesOnly: Story = {
     if (args.mode === 'standard') {
       updatedArgs.children = <DeleteIcon />;
     }
-    return renderFileUploader(updatedArgs);
+    return RenderFileUploader(updatedArgs);
   },
 };
 
@@ -172,7 +180,7 @@ export const NoDragAndDrop: Story = {
     if (args.mode === 'standard') {
       updatedArgs.children = <DeleteIcon />;
     }
-    return renderFileUploader(updatedArgs);
+    return RenderFileUploader(updatedArgs);
   },
 };
 
@@ -195,7 +203,7 @@ export const NoPreview: Story = {
     if (args.mode === 'standard') {
       updatedArgs.children = <DeleteIcon />;
     }
-    return renderFileUploader(updatedArgs);
+    return RenderFileUploader(updatedArgs);
   },
 };
 
@@ -221,7 +229,7 @@ export const DocumentsOnly: Story = {
     if (args.mode === 'standard') {
       updatedArgs.children = <DeleteIcon />;
     }
-    return renderFileUploader(updatedArgs);
+    return RenderFileUploader(updatedArgs);
   },
 };
 
@@ -244,7 +252,7 @@ export const Disabled: Story = {
     if (args.mode === 'standard') {
       updatedArgs.children = <DeleteIcon />;
     }
-    return renderFileUploader(updatedArgs);
+    return RenderFileUploader(updatedArgs);
   },
 };
 
@@ -269,7 +277,7 @@ render: (args) => {
   if (args.mode === 'standard') {
     updatedArgs.children = <DeleteIcon />;
   }
-  return renderFileUploader(updatedArgs);
+  return RenderFileUploader(updatedArgs);
 },
 };
 
@@ -294,7 +302,7 @@ render: (args) => {
   if (args.mode === 'standard') {
     updatedArgs.children = <DeleteIcon />;
   }
-  return renderFileUploader(updatedArgs);
+  return RenderFileUploader(updatedArgs);
 },
 };
 
