@@ -409,6 +409,7 @@ describe('RdsDialog', () => {
       expect(screen.getByRole('dialog')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsDialog open={true} title="Test Dialog" onClose={jest.fn()} />);
       const results = await axe(container);

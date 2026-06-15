@@ -1,20 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-export interface KanbanAction {
-  key: string;
-  value: string;
-}
-
-export interface KanbanSubCard {
-  ticketId: string;
-  ticketPriority?: string;
-  ticketQuestion: string;
-  ticketDate: string;
-  SubcardId: number;
-  assignedToName?: string;
-  assignedTo?: string;
-  actions: KanbanAction[];
-}
+import { useState, useEffect, type MouseEventHandler, type MouseEvent } from 'react';
 
 export interface boardInfo {
   cardId?: number;
@@ -42,7 +26,7 @@ export interface RdsCompKanbanBoardProps {
     subText?: string;
     src?: string;
   }>;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   onSubCardOption?: (option: string, subCardIndex: number, subCardId: number) => void;
   onCardOption?: (option: string, cardIndex: number, cardId: number | undefined, cardKey: string) => void;
   allTagsList?: unknown;
@@ -265,13 +249,13 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     setBoardName(event.target.value);
   };
 
-  const toggleDropdown = (index: number, event: React.MouseEvent<HTMLElement>) => {
+  const toggleDropdown = (index: number, event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setSelectedCardIndex(index);
     setSelectedCard(boards[index]);
   };
 
-  const toggleSubCardDropdown = (subCardId: number, event: React.MouseEvent<HTMLElement>, subCard: KanbanSubCard, cardIndex: number) => {
+  const toggleSubCardDropdown = (subCardId: number, event: MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => {
     setSubCardAnchorEl(event.currentTarget);
     setSelectedSubCard(subCard);
     setSelectedCardIndex(cardIndex);

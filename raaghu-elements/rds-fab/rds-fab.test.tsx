@@ -626,6 +626,7 @@ describe('RdsFab', () => {
       expect(fab).toHaveAttribute('aria-label', 'Add new item');
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsFab {...defaultProps} />);
       const results = await axe(container);

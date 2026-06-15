@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { type CSSProperties, type FocusEvent, type ReactElement, type ReactNode } from 'react';
 import { Tooltip as MuiTooltip, type TooltipProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-tooltip.scss';
 export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
-  children: React.ReactElement;
+  children: ReactElement;
   style?:
     | 'top'
     | 'bottom'
@@ -18,9 +18,9 @@ export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
     | 'right-start'
     | 'right-end';
   className?: string;
-  tooltipStyle?: React.CSSProperties;
+  tooltipStyle?: CSSProperties;
   arrow?: boolean;
-  label?: React.ReactNode;
+  label?: ReactNode;
   /** Storybook helper: whether to wrap children in a span (default is always true internally) */
   wrapper?: boolean;
 }
@@ -43,7 +43,16 @@ const RdsTooltip= ({
 
   const customStyle = {
     ...(tooltipStyle || {}),
-  } as React.CSSProperties;
+  } as CSSProperties;
+
+  const { onOpen, onClose, ...restProps } = props;
+
+  const handleFocus = (e: FocusEvent<HTMLElement>) => {
+    if (onOpen) onOpen(e);
+  };
+  const handleBlur = (e: FocusEvent<HTMLElement>) => {
+    if (onClose) onClose(e);
+  };
 
   return (
     <MuiTooltip
@@ -52,9 +61,17 @@ const RdsTooltip= ({
       arrow={arrow}
       classes={{ popper: tooltipClass }}
       sx={customStyle}
-      {...props}
+      onOpen={onOpen}
+      onClose={onClose}
+      {...restProps}
     >
-      <span className="rds-tooltip__wrapper">{children}</span>
+      <span
+        className="rds-tooltip__wrapper"
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      >
+        {children}
+      </span>
     </MuiTooltip>
   );
 };

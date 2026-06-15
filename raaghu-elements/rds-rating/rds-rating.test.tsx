@@ -511,6 +511,7 @@ describe('RdsRating', () => {
       expect(ratingElement).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsRating />);
       const results = await axe(container);

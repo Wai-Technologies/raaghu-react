@@ -803,6 +803,7 @@ describe('RdsCompMixedChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompMixedChart {...defaultProps} />);
       const results = await axe(container);

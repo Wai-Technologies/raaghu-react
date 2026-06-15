@@ -674,6 +674,7 @@ describe('RdsTypography', () => {
       expect(heading || container.querySelector('h1')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsTypography />);
       const results = await axe(container);

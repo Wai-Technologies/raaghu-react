@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState, type SyntheticEvent } from 'react';
 import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import './rds-rating.scss';
@@ -53,7 +53,7 @@ const RdsRating = ({
     }
   });
   
-  function getLevelValue(level: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right'): number | undefined {
+  function getLevelValue(level: RdsRatingProps['level']): number | undefined {
     if (level === 'Left') return 0;
     if (level === 'Mid') return 2.5;
     if (level === 'Right') return 5;
@@ -92,7 +92,7 @@ const RdsRating = ({
     }
   }, [value, level, type]);
 
-  const handleStarChange = (event: React.SyntheticEvent, newValue: number | null) => {
+  const handleStarChange = (event: SyntheticEvent, newValue: number | null) => {
     let finalValue: number | null = newValue;
     
     if (newValue === currentValue && newValue !== 0) {
@@ -106,13 +106,13 @@ const RdsRating = ({
     }
   };
 
-  const handleSliderChange = (event: Event | React.SyntheticEvent, newValue: number | number[]) => {
+  const handleSliderChange = (event: Event | SyntheticEvent, newValue: number | number[]) => {
     let value = Array.isArray(newValue) ? newValue[0] : newValue;
     value = snapToAllowed(value);
     setInternalValue(value);
     
     if (onChange) {
-      onChange(event as React.SyntheticEvent, value);
+      onChange(event as SyntheticEvent<Element, Event>, value);
     }
   };
 

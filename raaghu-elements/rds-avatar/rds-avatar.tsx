@@ -1,4 +1,4 @@
-import React from 'react';
+import clsx from 'clsx';
 import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 
@@ -102,7 +102,15 @@ const RdsAvatar = ({
   if (displayStyle === 'with-name') {
     return (
       <div
-        className={`rds-avatar rds-avatar--with-name rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+        className={clsx(
+        'rds-avatar',
+        'rds-avatar--with-name',
+        `rds-avatar--${size}`,
+        activityRing && 'rds-avatar--with-ring',
+        activeDotTop && 'rds-avatar--dot-top',
+        activeDotBottom && 'rds-avatar--dot-bottom',
+        colorVariant && `rds-avatar--${colorVariant}`,
+      )}
       >
         <span className={`rds-avatar__avatar-wrap`}>
           {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
@@ -124,7 +132,15 @@ const RdsAvatar = ({
   if (displayStyle === 'name-bottom') {
     return (
       <div
-        className={`rds-avatar rds-avatar--name-bottom rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+        className={clsx(
+        'rds-avatar',
+        'rds-avatar--name-bottom',
+        `rds-avatar--${size}`,
+        activityRing && 'rds-avatar--with-ring',
+        activeDotTop && 'rds-avatar--dot-top',
+        activeDotBottom && 'rds-avatar--dot-bottom',
+        colorVariant && `rds-avatar--${colorVariant}`,
+      )}
       >
         <span className="rds-avatar__avatar-outer">
           {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
@@ -149,7 +165,13 @@ const RdsAvatar = ({
 
   return (
     <span
-      className={`rds-avatar${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+      className={clsx(
+        'rds-avatar',
+        activityRing && 'rds-avatar--with-ring',
+        activeDotTop && 'rds-avatar--dot-top',
+        activeDotBottom && 'rds-avatar--dot-bottom',
+        colorVariant && `rds-avatar--${colorVariant}`,
+      )}
     >
       <span className="rds-avatar__avatar-outer">
         {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}

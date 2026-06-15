@@ -1,4 +1,4 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import {
   Dialog as MuiDialog,
   DialogTitle,
@@ -9,15 +9,16 @@ import {
   Typography
 } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
+import clsx from 'clsx';
 import './rds-modal.scss';
  
 export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open'> {
   title?: string;
   isOpen: boolean;
   onClose: () => void;
-  actions?: React.ReactNode;
+  actions?: ReactNode;
   showCloseButton?: boolean;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   showIcon?: boolean;
   imageSrc?: string;
   showDescription?: boolean;
@@ -43,7 +44,7 @@ const RdsModal= ({
       {...props}
     >
       {(title || icon || imageSrc) && (
-        <DialogTitle className={showCloseButton ? 'rds-modal__title--with-close' : 'rds-modal__title'}>
+          <DialogTitle className={clsx('rds-modal__title', showCloseButton && 'rds-modal__title--with-close')}>
           <div className='rds-modal__content'>
           {icon && showIcon && (
             <span className="rds-modal__icon mt-1">{icon}</span>

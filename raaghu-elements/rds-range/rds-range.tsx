@@ -1,6 +1,7 @@
-import React from 'react';
+import { useEffect, useState, type ReactElement } from 'react';
 import { Slider as MuiSlider, type SliderProps, Box, Typography } from '@mui/material';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
+import clsx from 'clsx';
 import './rds-range.scss';
 
 export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
@@ -46,7 +47,7 @@ const RdsRange= ({
     return min + (step * (levelNum - 1));
   };
 
-  const [internalValue, setInternalValue] = React.useState<number | number[]>(
+  const [internalValue, setInternalValue] = useState<number | number[]>(
     value !== undefined && value !== null
       ? value
       : type === 'one-way'
@@ -56,13 +57,13 @@ const RdsRange= ({
           : min
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (value !== undefined && value !== null) {
       setInternalValue(value);
     }
   }, [value]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (type === 'one-way') {
       setInternalValue(calculateLevelValue(level));
     } else if (type === 'two-way') {
@@ -75,39 +76,17 @@ const RdsRange= ({
   const marks = props.marks;
 
   const generateClassName = () => {
-    const baseClass = 'rds-range';
-    const classes = [baseClass];
-    
-    if (type === 'one-way') {
-      classes.push(`${baseClass}--one-way`);
-      if (level) {
-        classes.push(`${baseClass}--level-${level}`);
-      }
-    } else {
-      classes.push(`${baseClass}--two-way`);
-    }
-    
-    if (props.disabled) {
-      classes.push(`${baseClass}--disabled`);
-    }
-    
-    if (showTooltip) {
-      classes.push(`${baseClass}--with-tooltip`);
-    }
-    
-    if (showLabel) {
-      classes.push(`${baseClass}--with-labels`);
-    }
-    
-    if (props.size) {
-      classes.push(`${baseClass}--${props.size}`);
-    }
-    
-    if (props.color) {
-      classes.push(`${baseClass}--${props.color}`);
-    }
-    
-    return classes.join(' ');
+    return clsx(
+      'rds-range',
+      type === 'one-way' && 'rds-range--one-way',
+      type === 'one-way' && level && `rds-range--level-${level}`,
+      type !== 'one-way' && 'rds-range--two-way',
+      props.disabled && 'rds-range--disabled',
+      showTooltip && 'rds-range--with-tooltip',
+      showLabel && 'rds-range--with-labels',
+      props.size && `rds-range--${props.size}`,
+      props.color && `rds-range--${props.color}`,
+    );
   };
 
   const handleChange = (event: Event, newValue: number | number[]) => {
@@ -132,10 +111,13 @@ const RdsRange= ({
     return formatValue ? formatValue(val) : val.toString();
   };
 
-  const ValueLabelComponent = ({ children, value }: { children: React.ReactElement; value: number }) => {
+  const ariaLabel = props['aria-label'] ?? label ?? 'Range slider';
+  const isRangeValue = Array.isArray(effectiveValue);
+
+  const ValueLabelComponent = ({ children, value }: { children: ReactElement; value: number }) => {
     
     if (!showTooltip) {
-      return <span {...props}>{children}</span>;
+      return <span>{children}</span>;
     }
 
     return (
@@ -170,13 +152,15 @@ const RdsRange= ({
         className="rds-range__slider"
         value={effectiveValue}
         onChange={handleChange}
+        {...props}
         valueLabelDisplay={showTooltip ? "on" : "off"}
         slots={showTooltip ? { valueLabel: ValueLabelComponent } : undefined}
         marks={marks}
         min={min}
         max={max}
         step={props.step}
-        {...props}
+        aria-label={isRangeValue ? undefined : ariaLabel}
+        getAriaLabel={isRangeValue ? () => ariaLabel : undefined}
       />
       {showLabel && (
         <Box className="rds-range__footer" sx={{ display: 'flex', justifyContent: 'space-between' }}>

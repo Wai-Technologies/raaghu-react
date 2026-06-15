@@ -781,6 +781,7 @@ describe('RdsCompRadarChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompRadarChart {...defaultProps} />);
       const results = await axe(container);

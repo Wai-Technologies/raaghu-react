@@ -657,6 +657,7 @@ describe('RdsCompToolbar', () => {
       expect(toolbar).toHaveAttribute('aria-label');
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompToolbar {...defaultProps} />);
       const results = await axe(container);

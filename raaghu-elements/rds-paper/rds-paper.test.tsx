@@ -413,8 +413,9 @@ describe('RdsPaper', () => {
       expect(paper).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsPaper />);
+      const { container } = renderWithTheme(<RdsPaper>Content</RdsPaper>);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

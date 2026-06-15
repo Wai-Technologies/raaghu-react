@@ -654,7 +654,7 @@ describe('RdsCompDetailsPane', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsCompDetailsPane />);
+      const { container } = render(<RdsCompDetailsPane headerText="Test Pane" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

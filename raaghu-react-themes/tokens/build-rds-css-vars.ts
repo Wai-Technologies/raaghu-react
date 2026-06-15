@@ -464,7 +464,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-comp-chart-bar-histogram-size': componentTokens.chart?.bar?.histogramSize || '50px',
     '--rds-comp-chart-bar-default-height': componentTokens.chart?.bar?.defaultHeight || '76vh',
     '--rds-comp-chart-bar-tablet-height': componentTokens.chart?.bar?.tabletHeight || '600px',
-    '--rds-comp-chart-pie-height': componentTokens.chart?.bar?.pieHeight || componentTokens.chart?.pie?.pieHeight || componentTokens.chart?.pieHeight || '335px',
+    '--rds-comp-chart-pie-height': componentTokens.chart?.bar?.pieHeight || '335px',
     '--rds-comp-chart-bar-ds1-bg': componentTokens.chart?.bar?.dataset?.ds1Bg,
     '--rds-comp-chart-bar-ds1-border': componentTokens.chart?.bar?.dataset?.ds1Border,
     '--rds-comp-chart-bar-ds2-bg': componentTokens.chart?.bar?.dataset?.ds2Bg,

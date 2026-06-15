@@ -531,6 +531,7 @@ describe('RdsDrawer', () => {
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsDrawer {...defaultProps} />);
       const results = await axe(container);

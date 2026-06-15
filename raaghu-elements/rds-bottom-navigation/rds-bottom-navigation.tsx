@@ -1,4 +1,4 @@
-import React from 'react';
+import { type SyntheticEvent, type ReactNode } from 'react';
 import {
   BottomNavigation as MuiBottomNavigation,
   BottomNavigationAction as MuiBottomNavigationAction,
@@ -9,7 +9,7 @@ import './rds-bottom-navigation.scss';
 export interface RdsBottomNavigationItem {
   label: string;
   value: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   disabled?: boolean;
 }
 
@@ -20,7 +20,7 @@ export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'c
   showLabels?: boolean;  
 }
 
-const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
+const RdsBottomNavigation = ({
   items,
   activeValue,
   onItemChange,
@@ -28,8 +28,8 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
   value,
   onChange,
   ...props
-}) => {
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+}: RdsBottomNavigationProps) => {
+  const handleChange = (event: SyntheticEvent, newValue: string) => {
     if (onItemChange) {
       onItemChange(newValue);
     }
@@ -53,6 +53,7 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
             icon={item.icon}
             disabled={item.disabled}
             showLabel={showLabels}
+            aria-label={item.label}
           />
         ))}
       </MuiBottomNavigation>

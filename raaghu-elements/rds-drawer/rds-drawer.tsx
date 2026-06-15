@@ -1,25 +1,25 @@
-import React, { useState, useCallback } from 'react';
-import { Drawer as MuiDrawer, DrawerProps } from '@mui/material';
+import { useState, useCallback, type ReactNode, type ComponentProps } from 'react';
+import { Drawer as MuiDrawer, type DrawerProps } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import './rds-drawer.scss';
 
 export interface RdsDrawerProps extends DrawerProps {
-  children: React.ReactNode;
+  children: ReactNode;
   width?: number | string;
   position?: 'left' | 'right' | 'top' | 'bottom';
   showTrigger?: boolean;
   triggerText?: string;
   triggerTextWhenOpen?: string;
   defaultOpen?: boolean;
-  triggerButtonProps?: Partial<React.ComponentProps<typeof RdsButton>>;
+  triggerButtonProps?: Partial<ComponentProps<typeof RdsButton>>;
   showCloseButton?: boolean;
   closeButtonText?: string;
-  closeButtonProps?: Partial<React.ComponentProps<typeof RdsButton>>;
+  closeButtonProps?: Partial<ComponentProps<typeof RdsButton>>;
   centerTrigger?: boolean;
   triggerWrapperClassName?: string;
 }
 
-const RdsDrawer: React.FC<RdsDrawerProps> = ({
+const RdsDrawer = ({
   children,
   width = 251,
   position = 'left',
@@ -36,7 +36,7 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
   centerTrigger = false,
   triggerWrapperClassName,
   ...props
-}) => {
+}: RdsDrawerProps) => {
   const drawerAnchor = anchor || position;
   const isControlled = !showTrigger && props.open !== undefined;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
@@ -46,11 +46,9 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
     if (!isControlled) setInternalOpen(!internalOpen);
   }, [isControlled, internalOpen]);
 
-  const handleClose = useCallback((event?: {}, reason?: 'backdropClick' | 'escapeKeyDown' | 'buttonClick') => {
+  const handleClose = useCallback((event: {} = {}, reason: 'backdropClick' | 'escapeKeyDown' | string = 'escapeKeyDown') => {
     if (!isControlled) setInternalOpen(false);
-    if (props.onClose) {
-      (props.onClose as (event: {}, reason: string) => void)(event ?? {}, reason ?? '');
-    }
+    props.onClose?.(event, reason as 'backdropClick' | 'escapeKeyDown');
   }, [isControlled, props]);
 
   const getButtonText = () => {

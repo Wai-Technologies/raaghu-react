@@ -1,27 +1,27 @@
-import React from 'react';
-import { Collapse as MuiCollapse, CollapseProps, Box, Typography, IconButton } from '@mui/material';
+import { useEffect, useState, type ReactNode } from 'react';
+import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButton } from '@mui/material';
 import './rds-collapse.scss';
 import { ExpandMore } from '@mui/icons-material';
 
 export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle'> {
   title?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   expanded?: boolean;
   onToggle?: (expanded: boolean) => void;
   showToggleButton?: boolean;
 }
 
-const RdsCollapse: React.FC<RdsCollapseProps> = ({
+const RdsCollapse = ({
   title,
   children,
   expanded = false,
   onToggle,
   showToggleButton = true,
   ...props
-}) => {
-  const [internalExpanded, setInternalExpanded] = React.useState(expanded);
+}: RdsCollapseProps) => {
+  const [internalExpanded, setInternalExpanded] = useState(expanded);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setInternalExpanded(expanded);
   }, [expanded]);
 

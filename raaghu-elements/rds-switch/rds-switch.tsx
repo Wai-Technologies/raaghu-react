@@ -1,5 +1,6 @@
-import React from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-switch.scss';
 
 export interface RdsSwitchProps extends Omit<SwitchProps, 'style'> {
@@ -46,14 +47,14 @@ const RdsSwitch = ({
 
   const isControlled = typeof props.checked === 'boolean';
 
-  const [internalChecked, setInternalChecked] = React.useState(() => {
+  const [internalChecked, setInternalChecked] = useState(() => {
     if (isControlled) return props.checked as boolean;
     if (normalizedState === 'on' || normalizedState === 'disabled on') return true;
     if (normalizedState === 'off' || normalizedState === 'disabled off') return false;
     return Boolean(props.defaultChecked);
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isControlled) {
       if (normalizedState) {
         if (normalizedState === 'on' || normalizedState === 'disabled on') setInternalChecked(true);
@@ -64,7 +65,7 @@ const RdsSwitch = ({
     }
   }, [normalizedState, props.defaultChecked, isControlled]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     if (!isControlled && !disabled) {
       setInternalChecked(value);
     }
@@ -75,17 +76,25 @@ const RdsSwitch = ({
 
   const normalizedStyleType = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
   const normalizedColor = props.color ? String(props.color).toLowerCase().replace(/[^a-z0-9_-]/g, '-') : 'primary';
-  const colorClass = `rds-switch--color-${normalizedColor}`;
-  const styleClass = `rds-switch rds-switch--${normalizedStyleType} ${colorClass}`;
+  const styleClass = clsx('rds-switch', `rds-switch--${normalizedStyleType}`, `rds-switch--color-${normalizedColor}`);
 
   const { defaultChecked: _, ...restProps } = props;
 
-  const switchProps: SwitchProps = {
+  const computedAriaLabel: string =
+    (typeof props['aria-label'] === 'string' ? props['aria-label'] : undefined) ||
+    (typeof label === 'string' ? label : undefined) ||
+    'Switch';
+
+  const switchProps = {
     ...restProps,
     checked: isControlled ? props.checked : internalChecked,
     disabled,
     onChange: handleChange,
-    className: styleClass + (props.className ? ` ${props.className}` : ''),
+    className: clsx(styleClass, props.className),
+    inputProps: {
+      ...(restProps.inputProps ?? {}),
+      'aria-label': computedAriaLabel,
+    },
   };
 
   if (showLabel === false) {

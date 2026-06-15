@@ -6,9 +6,56 @@
  * automatically respond to theme switching without any hardcoded values.
  */
 
+import { useEffect, useState } from 'react';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 
 export { isDarkMode };
+
+/** Reads the current theme mode from the document root. */
+export function getChartThemeMode(): string {
+  if (typeof document === 'undefined') return 'light';
+  return document.documentElement.getAttribute('data-theme') || 'light';
+}
+
+/**
+ * Subscribes to `data-theme` changes so Chart.js instances can re-render
+ * when the active theme switches.
+ */
+export function useChartThemeMode(): string {
+  const [themeMode, setThemeMode] = useState(getChartThemeMode);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const observer = new MutationObserver(() => {
+      setThemeMode(getChartThemeMode());
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return themeMode;
+}
+
+/** Deep-clones Chart.js options to avoid mutating caller-provided objects. */
+export function cloneChartOptions<T>(options: T): T {
+  return JSON.parse(JSON.stringify(options || {}));
+}
+
+/** Attaches chart data to options when callers have not already done so. */
+export function attachChartData(
+  chartOptions: { data?: unknown },
+  chartData: { labels: unknown[]; datasets: unknown[] }
+): void {
+  if (!chartOptions.data) {
+    chartOptions.data = chartData;
+  }
+}
 
 /**
  * Reads a CSS custom property value from the document root.

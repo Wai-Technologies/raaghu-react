@@ -1,5 +1,5 @@
-
-import React, { useState } from 'react';
+import { useState, type ReactNode, type MouseEvent } from 'react';
+import clsx from 'clsx';
 import './rds-button-dropdown.scss';
 import RdsButton from '../rds-button/rds-button';
 import RdsMenu from '../rds-menu/rds-menu';
@@ -28,8 +28,8 @@ export interface RdsButtonDropdownProps {
   layout?: 'icon+text' | 'text-only' | 'icon-only';
   styleType?: 'primary' | 'secondary' | 'outline' | 'transparent';
   shape?: 'rectangle' | 'pill';
-  rightIcon?: React.ReactNode;
-  leftIcon?: React.ReactNode;
+  rightIcon?: ReactNode;
+  leftIcon?: ReactNode;
   showUserAvatar?: boolean;
   showRadio?: boolean;
   isShowLeftIcon?: boolean;
@@ -84,7 +84,7 @@ const RdsButtonDropdown = ({
 
   const isDropdownOpen = state === 'selected' ? Boolean(anchorEl) || anchorEl === null : Boolean(anchorEl);
 
-  const handleDropdownButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleDropdownButtonClick = (event: MouseEvent<HTMLElement>) => {
     if (isDropdownOpen) {
       setAnchorEl(null);
     } else {
@@ -111,13 +111,11 @@ const RdsButtonDropdown = ({
             styleType === 'primary' ? 'filled' :
             styleType === 'secondary' ? 'filled' : 'outlined'
           }
-          className={
-            styleType === 'secondary'
-              ? 'rds-button-dropdown--secondary'
-              : styleType === 'outline'
-                ? 'rds-button-dropdown__button rds-button-dropdown--outline'
-                : ''
-          }
+          className={clsx(
+            styleType === 'secondary' && 'rds-button-dropdown--secondary',
+            styleType === 'outline' && 'rds-button-dropdown__button',
+            styleType === 'outline' && 'rds-button-dropdown--outline',
+          )}
           textCase="uppercase"
       />
       <RdsMenu
@@ -164,7 +162,11 @@ const RdsButtonDropdown = ({
                   <div
                     role="option"
                     aria-selected={selected.includes(opt.id)}
-                    className={`rds-button-dropdown__option ${selected.includes(opt.id) ? 'rds-button-dropdown__option--selected' : ''} ${opt.disabled ? 'rds-button-dropdown__option--disabled' : ''}`}
+                    className={clsx(
+                      'rds-button-dropdown__option',
+                      selected.includes(opt.id) && 'rds-button-dropdown__option--selected',
+                      opt.disabled && 'rds-button-dropdown__option--disabled',
+                    )}
                     onClick={() => !opt.disabled && handleOptionChange(opt.id)}
                   >
                     {opt.label}

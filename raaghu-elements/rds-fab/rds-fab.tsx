@@ -1,33 +1,29 @@
-import React from 'react';
-import { Fab as MuiFab, FabProps } from '@mui/material';
+import { type ReactNode, type CSSProperties } from 'react';
+import { Fab as MuiFab, type FabProps } from '@mui/material';
 import './rds-fab.scss';
 
 export interface RdsFabProps extends FabProps {
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   label?: string;
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
 }
 
-const RdsFab: React.FC<RdsFabProps> = ({
+const POSITION_STYLES: Record<NonNullable<RdsFabProps['position']>, CSSProperties> = {
+  'bottom-right': { position: 'fixed', bottom: 'var(--rds-spacing-md)', right: 'var(--rds-spacing-md)' },
+  'bottom-left': { position: 'fixed', bottom: 'var(--rds-spacing-md)', left: 'var(--rds-spacing-md)' },
+  'top-right': { position: 'fixed', top: 'var(--rds-spacing-md)', right: 'var(--rds-spacing-md)' },
+  'top-left': { position: 'fixed', top: 'var(--rds-spacing-md)', left: 'var(--rds-spacing-md)' },
+};
+
+const RdsFab = ({
   icon,
   label,
   children,
   position,
   sx,
   ...props
-}) => {
-  const getPositionStyles = () => {
-    if (!position) return {};
-    
-    const positions = {
-      'bottom-right': { position: 'fixed', bottom: 'var(--rds-spacing-md)', right: 'var(--rds-spacing-md)' },
-      'bottom-left': { position: 'fixed', bottom: 'var(--rds-spacing-md)', left: 'var(--rds-spacing-md)' },
-      'top-right': { position: 'fixed', top: 'var(--rds-spacing-md)', right: 'var(--rds-spacing-md)' },
-      'top-left': { position: 'fixed', top: 'var(--rds-spacing-md)', left: 'var(--rds-spacing-md)' },
-    };
-    
-    return positions[position] || {};
-  };
+}: RdsFabProps) => {
+  const positionStyles = position ? (POSITION_STYLES[position] ?? {}) : {};
 
   const isExtended = props.variant === 'extended';
   let fabContent;
@@ -45,7 +41,7 @@ const RdsFab: React.FC<RdsFabProps> = ({
   return (
     <MuiFab
       sx={{
-        ...getPositionStyles(),
+        ...positionStyles,
         ...sx,
       }}
       {...props}

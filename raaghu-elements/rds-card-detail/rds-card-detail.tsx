@@ -1,12 +1,13 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import {
   Card,
   CardContent,
   CardActions,
   CardHeader,
   CardMedia,
-  CardProps,
+  type CardProps,
 } from '@mui/material';
+import clsx from 'clsx';
 import { useRaaghuTheme } from '../../raaghu-react-themes/src/provider/RaaghuThemeProvider';
 import './rds-card-detail.scss';
 
@@ -15,11 +16,11 @@ export interface RdsCardDetailProps extends CardProps {
   subtitle?: string;
   image?: string;
   imageHeight?: number;
-  actions?: React.ReactNode;
-  children: React.ReactNode;
+  actions?: ReactNode;
+  children: ReactNode;
 }
 
-const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
+const RdsCardDetail = ({
   title,
   subtitle,
   image,
@@ -27,7 +28,7 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
   actions,
   children,
   ...props
-}) => {
+}: RdsCardDetailProps) => {
   const { mode } = useRaaghuTheme();
 
   const passedElevation = (props.elevation ?? 0) as number;
@@ -43,7 +44,7 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
       : [props.sx || {}, { boxShadow: shadowVariable }]
     : props.sx;
 
-  const mergedClassName = `rds-card-detail ${props.className || ''}`.trim();
+  const mergedClassName = clsx('rds-card-detail', props.className);
 
   return (
     <Card {...props} sx={mergedSx} className={mergedClassName}>

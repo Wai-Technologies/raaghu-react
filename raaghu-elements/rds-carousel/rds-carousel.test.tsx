@@ -630,6 +630,7 @@ describe('RdsCarousel', () => {
       expect(buttons.length).toBeGreaterThan(0);
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCarousel {...defaultProps} />);
       const results = await axe(container);

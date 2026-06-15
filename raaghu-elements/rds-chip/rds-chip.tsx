@@ -1,12 +1,11 @@
-import React from 'react';
-import { Chip as MuiChip, ChipProps } from '@mui/material';
+import { Chip as MuiChip, type ChipProps } from '@mui/material';
 
 export interface RdsChipProps extends ChipProps {}
 
-const RdsChip: React.FC<RdsChipProps> = ({
+const RdsChip = ({
   label,
   ...props
-}) => {
+}: RdsChipProps) => {
   return (
     <MuiChip
       label={label}

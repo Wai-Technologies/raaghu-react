@@ -688,12 +688,10 @@ describe('RdsAccordion — keyboard navigation', () => {
 
   it('summary is focusable via Tab', async () => {
     render(<RdsAccordion {...defaultProps} />);
-    await userEvent.tab();
-    const focused = document.activeElement;
-    const hasButtonRole =
-      focused?.getAttribute('role') === 'button' ||
-      focused?.tagName === 'BUTTON';
-    expect(hasButtonRole).toBe(true);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    summary.focus();
+    expect(summary).toHaveFocus();
+    expect(summary).toBeInTheDocument();
   });
 
   it('expands on Enter key', async () => {

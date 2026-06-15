@@ -519,6 +519,7 @@ describe('RdsCollapse', () => {
       expect(toggleButton).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCollapse {...defaultProps} />);
       const results = await axe(container);

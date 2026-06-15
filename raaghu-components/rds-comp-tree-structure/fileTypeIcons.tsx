@@ -1,5 +1,6 @@
 import { fileTypeIconColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import React, { useState } from 'react';
+import { useState, type ReactNode, type MouseEvent, type ChangeEvent } from 'react';
+import clsx from 'clsx';
 // Import all necessary Material-UI icons
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -79,8 +80,8 @@ export interface RdsCompTreeStructureProps {
   Language?: string; //Language for file icons.
   iconName?: string; // Name of the icon to display.
   text?: string; // Text to display for the node.
-  fileTypeIcons?: { [key: string]: React.ReactNode }; // File type icons mapping
-  getFileIcon?: (fileType: string) => React.ReactNode; // Function to get file icon
+  fileTypeIcons?: { [key: string]: ReactNode }; // File type icons mapping
+  getFileIcon?: (fileType: string) => ReactNode; // Function to get file icon
   checkedNodes?: number[]; // Array of checked node IDs
   onSelectNode?: (item: TreeNode) => void; //Callback when a node is selected.
   onDeleteNode?: (id: number) => void; //Callback when a node is deleted.
@@ -252,12 +253,12 @@ export const TreeNode = ({
   };
 
   // Only chevron should expand/collapse
-  const handleChevronClick = (e: React.MouseEvent) => {
+  const handleChevronClick = (e: MouseEvent) => {
     e.stopPropagation();
     onNodeClick(node.id);
   }
 
-  const handleCheckboxClick = (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+  const handleCheckboxClick = (e: ChangeEvent<HTMLInputElement>, checked: boolean) => {
     e.stopPropagation();
     onCheckboxClick(node.id);
     if (props.onCheckboxChange) {
@@ -265,12 +266,12 @@ export const TreeNode = ({
     }
   };
 
-  const handleMouseEnter = (e: React.MouseEvent) => {
+  const handleMouseEnter = (e: MouseEvent) => {
     e.stopPropagation();
     setHoveredNodeId(node.id);
   };
 
-  const handleMouseLeave = (e: React.MouseEvent) => {
+  const handleMouseLeave = (e: MouseEvent) => {
     e.stopPropagation();
     setHoveredNodeId(null);
   };
@@ -297,7 +298,10 @@ export const TreeNode = ({
   return (
     <div className="rds-comp-tree-structure__node-container">
       <div
-        className={`rds-comp-tree-structure__node ${props.state === "Hover" ? "rds-comp-tree-structure__node--hover" : ""}`}
+        className={clsx(
+          "rds-comp-tree-structure__node",
+          props.state === "Hover" && "rds-comp-tree-structure__node--hover"
+        )}
         style={{ marginLeft: level * 20 }}
       >
         <div
@@ -307,7 +311,10 @@ export const TreeNode = ({
         >
           {(node.children && level < maxLevel && props.showChewron) && (
             <span
-              className={`rds-comp-tree-structure__chevron ${isExpanded ? 'rds-comp-tree-structure__chevron--expanded' : ''}`}
+              className={clsx(
+                "rds-comp-tree-structure__chevron",
+                isExpanded && "rds-comp-tree-structure__chevron--expanded"
+              )}
               onClick={handleChevronClick}
             >
               <ChevronRightIcon />

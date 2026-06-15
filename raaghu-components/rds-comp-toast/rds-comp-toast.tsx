@@ -1,7 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
+import { useCallback } from "react";
 import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
+import {
+    getLeadingIconClass,
+    getLayoutClass,
+    getPositionClasses,
+    getStateClass,
+    useToastTimer,
+} from "./toast-helpers";
 
 export enum ToastLayout {
     Text = "text",
@@ -53,98 +61,99 @@ export enum ToastLayout {
     chatTime?: string; // Chat Time of Toast
     pauseOnHover?: boolean; // Pause auto-hide timer on mouse hover (WCAG 2.2.1)
   }
+const ToastFooter = ({
+    layout,
+    progressWidth,
+    filename,
+    placeholder,
+    includeButtonClassName,
+}: {
+    layout: ToastLayout;
+    progressWidth?: number;
+    filename?: string;
+    placeholder?: string;
+    includeButtonClassName: boolean;
+}) => {
+    const buttonClassName = includeButtonClassName ? "rds-comp-toast__action-btn" : undefined;
+    if (layout === ToastLayout.Download) {
+        return (
+            <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
+                <div className="rds-comp-toast__progress">
+                    <RdsProgress
+                        style="line"
+                        type="linear"
+                        value={progressWidth}
+                        variant="determinate"
+                        color="primary"
+                        showLabel={true}
+                        label={`${progressWidth}%`}
+                    />
+                </div>
+                <div className="rds-comp-toast__filename">{filename}</div>
+                <div className="rds-comp-toast__actions">
+                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Cancel</RdsButton>
+                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Go To Downloads</RdsButton>
+                </div>
+            </div>
+        );
+    }
+    if (layout === ToastLayout.Chat) {
+        return (
+            <div className="rds-comp-toast__footer rds-comp-toast__footer--chat">
+                <div className="rds-comp-toast__input-group">
+                    <input
+                        type="text"
+                        className="rds-comp-toast__input"
+                        placeholder={placeholder}
+                    />
+                </div>
+                <div className="rds-comp-toast__actions">
+                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Reply</RdsButton>
+                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Mark As Read</RdsButton>
+                </div>
+            </div>
+        );
+    }
+    if (layout === ToastLayout.Request) {
+        return (
+            <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
+                <div className="rds-comp-toast__actions">
+                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Reject</RdsButton>
+                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Accept</RdsButton>
+                </div>
+            </div>
+        );
+    }
+    return null;
+};
+
+const BORDER_TOKEN_MAP: Record<string, string> = {
+    basic: 'light',
+    info: 'dark',
+    success: 'primary',
+    error: 'danger',
+};
+
 const RdsCompToast = (props: RdsCompToastProps) => {
-    // state and layout classes are handled by getStateClass / getLayoutClass
-
-    const getStateClass = (state: ToastState): string => {
-        switch (state) {
-            case ToastState.Info: return 'info';
-            case ToastState.Success: return 'success';
-            case ToastState.Error: return 'error';
-            case ToastState.Basic:
-            default: return 'basic';
-        }
-    };
-
-    const getLayoutClass = (layout: ToastLayout): string => {
-        switch (layout) {
-            case ToastLayout.Download: return 'download';
-            case ToastLayout.Chat: return 'chat';
-            case ToastLayout.Request: return 'request';
-            case ToastLayout.Text:
-            default: return 'text';
-        }
-    };
-
-    const getLeadingIconClass = (leadingIcon: ToastLeadingIcon): string => {
-        switch (leadingIcon) {
-            case ToastLeadingIcon.Plus: return 'plus';
-            case ToastLeadingIcon.Circle:
-            default: return 'circle';
-        }
-    };
-
-    // Legacy border class mapping (keeps compatibility with existing tests/styles)
     const _stateClass = getStateClass(props.state);
-    const borderTokenMap: Record<string, string> = {
-        basic: 'light',
-        info: 'dark',
-        success: 'primary',
-        error: 'danger',
-    };
-    const borderColor = `rds-comp-toast--border-${borderTokenMap[_stateClass] || 'light'}`;
+    const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
-    const [showState, setshowState] = useState("show");
-    const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>();
-    const remainingRef = useRef<number>(props.delay ?? 3000);
-    const startTimeRef = useRef<number>(0);
-
-    const startTimer = (duration: number) => {
-        startTimeRef.current = Date.now();
-        timerRef.current = setTimeout(() => setshowState("hide"), duration);
-    };
-
-    const pauseTimer = () => {
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
-            remainingRef.current -= Date.now() - startTimeRef.current;
-        }
-    };
-
-    const resumeTimer = () => {
-        if (remainingRef.current > 0) startTimer(remainingRef.current);
-    };
-
-    useEffect(() => {
-        if (props.autohide) {
-            remainingRef.current = props.delay ?? 3000;
-            startTimer(remainingRef.current);
-        }
-        return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-    }, [props.autohide, props.delay]);
-
-    const getPositionClasses = () => {
-        switch (props.position) {
-            case ToastPosition.TopLeft: return 'rds-comp-toast__container--top-left';
-            case ToastPosition.TopCenter: return 'rds-comp-toast__container--top-center';
-            case ToastPosition.TopRight: return 'rds-comp-toast__container--top-right';
-            case ToastPosition.MiddleLeft: return 'rds-comp-toast__container--middle-left';
-            case ToastPosition.MiddleCenter: return 'rds-comp-toast__container--middle-center';
-            case ToastPosition.MiddleRight: return 'rds-comp-toast__container--middle-right';
-            case ToastPosition.BottomLeft: return 'rds-comp-toast__container--bottom-left';
-            case ToastPosition.BottomCenter: return 'rds-comp-toast__container--bottom-center';
-            case ToastPosition.BottomRight: return 'rds-comp-toast__container--bottom-right';
-            default: return 'rds-comp-toast__container--top-left';
-        }
-    };
+    const { showState, setShowState, pauseTimer, resumeTimer } = useToastTimer(props.autohide, props.delay);
+    const hideToast = useCallback(() => setShowState("hide"), [setShowState]);
 
     return (
-        <div className={`rds-comp-toast__container ${getPositionClasses()}`}>
+        <div className={clsx("rds-comp-toast__container", getPositionClasses(props.position))}>
             <div
                 role="alert"
                 aria-live="assertive"
                 aria-atomic="true"
-                className={`rds-comp-toast rds-comp-toast--${getStateClass(props.state)} rds-comp-toast--${getLayoutClass(props.layout)} ${borderColor} ${showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"}`}
+                className={clsx(
+                  "rds-comp-toast",
+                  `rds-comp-toast--${getStateClass(props.state)}`,
+                  `rds-comp-toast--${getLayoutClass(props.layout)}`,
+                  borderColor,
+                  showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"
+                )}
                 id="toastId"
                 onMouseEnter={props.autohide && props.pauseOnHover ? pauseTimer : undefined}
                 onMouseLeave={props.autohide && props.pauseOnHover ? resumeTimer : undefined}
@@ -154,7 +163,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <div className="rds-comp-toast__header-content">
                             <div className="rds-comp-toast__leading-icon">
                                 {props.showLeading && props.layout !== ToastLayout.Chat && (
-                                    <span className={`rds-comp-toast__icon rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`}></span>
+                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
                                 )}
                             </div>
 
@@ -171,7 +180,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                         type="button"
                                         className="rds-comp-toast__close-btn"
                                         aria-label="Close"
-                                        onClick={() => setshowState("hide")}>
+                                        onClick={hideToast}>
                                         <span className="rds-comp-toast__close-icon" aria-hidden="true">&times;</span>
                                     </button>
                                 )}
@@ -184,51 +193,13 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Download Layout Footer */}
-                        {props.layout === ToastLayout.Download && (
-                            <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
-                                <div className="rds-comp-toast__progress">
-                                    <RdsProgress
-                                        style="line"
-                                        type="linear"
-                                        value={props.progressWidth}
-                                        variant="determinate"
-                                        color="primary"
-                                        showLabel={true}
-                                        label={`${props.progressWidth}%`}
-                                    />
-                                </div>
-                                <div className="rds-comp-toast__filename">{props.filename}</div>
-                                <div className="rds-comp-toast__actions">
-                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" textCase="capitalize" size="small">Cancel</RdsButton>
-                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" textCase="capitalize" size="small">Go To Downloads</RdsButton>
-                                </div>
-                            </div>
-                        )}
-
-                        {props.layout === ToastLayout.Chat && (
-                            <div className="rds-comp-toast__footer rds-comp-toast__footer--chat">
-                                <div className="rds-comp-toast__input-group">
-                                    <input 
-                                        type="text" 
-                                        className="rds-comp-toast__input" 
-                                        placeholder={props.placeholder} />
-                                </div>
-                                <div className="rds-comp-toast__actions">
-                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" textCase="capitalize" size="small">Reply</RdsButton>
-                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" textCase="capitalize" size="small">Mark As Read</RdsButton>
-                                </div>
-                            </div>
-                        )}
-
-                        {props.layout === ToastLayout.Request && (
-                            <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
-                                <div className="rds-comp-toast__actions">
-                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" textCase="capitalize" size="small">Reject</RdsButton>
-                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" textCase="capitalize" size="small">Accept</RdsButton>
-                                </div>
-                            </div>
-                        )}
+                        <ToastFooter
+                            layout={props.layout}
+                            progressWidth={props.progressWidth}
+                            filename={props.filename}
+                            placeholder={props.placeholder}
+                            includeButtonClassName={true}
+                        />
                     </div>
                 )}
 
@@ -237,7 +208,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <div className="rds-comp-toast__body-simple">
                             {props.showLeading && props.layout !== ToastLayout.Chat && (
                                 <div className="rds-comp-toast__leading-icon">
-                                    <span className={`rds-comp-toast__icon rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`}></span>
+                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
                                 </div>
                             )}
                             
@@ -250,62 +221,24 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                     type="button"
                                     className="rds-comp-toast__close-btn"
                                     aria-label="Close"
-                                    onClick={() => setshowState("hide")} >
+                                    onClick={hideToast} >
                                     <span className="rds-comp-toast__close-icon" aria-hidden="true">&times;</span>
                                 </button>
                             )}
                         </div>
-
-                        {props.layout === ToastLayout.Download && (
-                            <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
-                                <div className="rds-comp-toast__progress">
-                                    <RdsProgress
-                                        style="line"
-                                        type="linear"
-                                        value={props.progressWidth}
-                                        variant="determinate"
-                                        color="primary"
-                                        showLabel={true}
-                                        label={`${props.progressWidth}%`}
-                                    />
-                                </div>
-                                <div className="rds-comp-toast__filename">{props.filename}</div>
-                                <div className="rds-comp-toast__actions">
-                                    <RdsButton style="transparent" textCase="capitalize" size="small">Cancel</RdsButton>
-                                    <RdsButton style="filled" textCase="capitalize" size="small">Go To Downloads</RdsButton>
-                                </div>
-                            </div>
-                        )}
-
-                        {props.layout === ToastLayout.Chat && (
-                            <div className="rds-comp-toast__footer rds-comp-toast__footer--chat">
-                                <div className="rds-comp-toast__input-group">
-                                    <input 
-                                        type="text" 
-                                        className="rds-comp-toast__input" 
-                                        placeholder={props.placeholder} 
-                                    />
-                                </div>
-                                <div className="rds-comp-toast__actions">
-                                    <RdsButton style="filled" textCase="capitalize" size="small">Reply</RdsButton>
-                                    <RdsButton style="transparent" textCase="capitalize" size="small">Mark As Read</RdsButton>
-                                </div>
-                            </div>
-                        )}
-
-                        {props.layout === ToastLayout.Request && (
-                            <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
-                                <div className="rds-comp-toast__actions">
-                                    <RdsButton style="transparent" textCase="capitalize" size="small">Reject</RdsButton>
-                                    <RdsButton style="filled" textCase="capitalize" size="small">Accept</RdsButton>
-                                </div>
-                            </div>
-                        )}
+                        <ToastFooter
+                            layout={props.layout}
+                            progressWidth={props.progressWidth}
+                            filename={props.filename}
+                            placeholder={props.placeholder}
+                            includeButtonClassName={false}
+                        />
                     </div>
                 )}
             </div>
         </div>
     );
 };
+ToastFooter.displayName = "ToastFooter";
 RdsCompToast.displayName = "RdsCompToast";
 export default RdsCompToast;

@@ -1,10 +1,42 @@
-import React, { type ReactNode } from 'react';
+import { type ReactElement, type ReactNode } from 'react';
 import { Card as MuiCard, type CardProps, Avatar, Typography } from '@mui/material';
 import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camera, Image, MusicNote, VideoLibrary,
          Description, Folder, CalendarToday, AccessTime, Search, Add, Edit, Delete, Check, Close, ArrowForward, ArrowBack,
          Download, Upload, Share, Notifications,
 } from '@mui/icons-material';
+import clsx from 'clsx';
 import './rds-card.scss';
+
+const ICON_MAP: Record<string, ReactElement> = {
+  person: <Person />,
+  home: <Home />,
+  settings: <Settings />,
+  favorite: <Favorite />,
+  star: <Star />,
+  email: <Email />,
+  phone: <Phone />,
+  location: <LocationOn />,
+  camera: <Camera />,
+  image: <Image />,
+  music: <MusicNote />,
+  video: <VideoLibrary />,
+  document: <Description />,
+  folder: <Folder />,
+  calendar: <CalendarToday />,
+  clock: <AccessTime />,
+  search: <Search />,
+  add: <Add />,
+  edit: <Edit />,
+  delete: <Delete />,
+  check: <Check />,
+  close: <Close />,
+  arrow_forward: <ArrowForward />,
+  arrow_back: <ArrowBack />,
+  download: <Download />,
+  upload: <Upload />,
+  share: <Share />,
+  notification: <Notifications />,
+};
 
 export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
 export type CardStyle = 'default' | 'outlined' | 'filled';
@@ -45,69 +77,28 @@ const RdsCard = ({
   cardSubtext,
   description,
   ...props
-}:RdsCardProps) => {
-  const getCardClassName = () => {
-    const baseClass = 'rds-card';
-    const stateClass = `rds-card--${state}`;
-    const styleClass = `rds-card--style-${cardStyleProp}`;
-    const layoutClass = `rds-card--layout-${layout}`;
-    const indicatorClass = showIndicator ? 'rds-card--with-indicator' : '';
-    const titleClass = showTitle ? '' : 'rds-card--hide-title';
-    const subtextClass = showSubtext ? '' : 'rds-card--hide-subtext';
-    const descriptionClass = showDescription ? '' : 'rds-card--hide-description';
-    const iconClass = showIcon ? '' : 'rds-card--hide-icon';
-    const iconNameClass = showIcon ? `rds-card--icon-${changeIcon}` : '';
-    const combinedClass = `${baseClass} ${stateClass} ${styleClass} ${layoutClass} ${indicatorClass} ${titleClass} ${subtextClass} ${descriptionClass} ${iconClass} ${iconNameClass}`.trim();
-    
-    return className ? `${combinedClass} ${className}` : combinedClass;
-  };
+}: RdsCardProps) => {
+  const cardClassName = clsx(
+    'rds-card',
+    `rds-card--${state}`,
+    `rds-card--style-${cardStyleProp}`,
+    `rds-card--layout-${layout}`,
+    showIndicator && 'rds-card--with-indicator',
+    !showTitle && 'rds-card--hide-title',
+    !showSubtext && 'rds-card--hide-subtext',
+    !showDescription && 'rds-card--hide-description',
+    !showIcon && 'rds-card--hide-icon',
+    showIcon && `rds-card--icon-${changeIcon}`,
+    className,
+  );
 
   const cardInlineStyle = padding ? { padding } : undefined;
 
   const renderIcon = () => {
     if (!showIcon) return null;
-    
-    const iconProps = {
-      className: `rds-card__icon rds-card__icon--${changeIcon}`,
-    };
-
-    const getIconComponent = () => {
-      switch (changeIcon) {
-        case 'person': return <Person />;
-        case 'home': return <Home />;
-        case 'settings': return <Settings />;
-        case 'favorite': return <Favorite />;
-        case 'star': return <Star />;
-        case 'email': return <Email />;
-        case 'phone': return <Phone />;
-        case 'location': return <LocationOn />;
-        case 'camera': return <Camera />;
-        case 'image': return <Image />;
-        case 'music': return <MusicNote />;
-        case 'video': return <VideoLibrary />;
-        case 'document': return <Description />;
-        case 'folder': return <Folder />;
-        case 'calendar': return <CalendarToday />;
-        case 'clock': return <AccessTime />;
-        case 'search': return <Search />;
-        case 'add': return <Add />;
-        case 'edit': return <Edit />;
-        case 'delete': return <Delete />;
-        case 'check': return <Check />;
-        case 'close': return <Close />;
-        case 'arrow_forward': return <ArrowForward />;
-        case 'arrow_back': return <ArrowBack />;
-        case 'download': return <Download />;
-        case 'upload': return <Upload />;
-        case 'share': return <Share />;
-        case 'notification': return <Notifications />;
-        default: return <Person />;
-      }
-    };
-
     return (
-      <Avatar {...iconProps}>
-        {getIconComponent()}
+      <Avatar className={`rds-card__icon rds-card__icon--${changeIcon}`}>
+        {ICON_MAP[changeIcon] ?? <Person />}
       </Avatar>
     );
   };
@@ -159,7 +150,7 @@ const RdsCard = ({
 
   return (
     <MuiCard
-      className={getCardClassName()}
+      className={cardClassName}
       sx={[
         cardInlineStyle,
         ...(Array.isArray(sx) ? sx : [sx]),

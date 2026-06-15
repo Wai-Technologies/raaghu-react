@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Pagination as MuiPagination, PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography } from '@mui/material';
+import { useState, type ChangeEvent, type KeyboardEvent } from 'react';
+import { Pagination as MuiPagination, type PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
@@ -22,7 +22,7 @@ export interface RdsPaginationProps extends PaginationProps {
   paginationStyle?: 'Style 1' | 'Style 2' | 'Style 3' | 'Style 4' | 'Style 5' | 'Style 6' | 'Style 7' | 'Style 8' | 'Style 9' | 'Style 10' | 'Style 11';
 }
 
-const RdsPagination: React.FC<RdsPaginationProps> = ({
+const RdsPagination = ({
   totalPages,
   currentPage,
   onPageChange,
@@ -42,7 +42,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   paginationStyle = 'Style 1',
   onPageSizeChange,
   ...props
-}) => {
+}: RdsPaginationProps) => {
   const [localPageSize, setLocalPageSize] = useState(pageSizeProp || pageSizeOptions[0]);
   const [manualPageInput, setManualPageInput] = useState('');
   const pageSize = pageSizeProp !== undefined ? pageSizeProp : localPageSize;
@@ -51,7 +51,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   const { finalSiblingCount, finalBoundaryCount } = calculatePaginationConfig(paginationStyle, styleConfig);
   const { totalPagesCalc, totalRecords } = calculateTotalPages(count, totalPages, pageSize);
 
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (event: ChangeEvent<unknown>, value: number) => {
     if (onPageChange) {
       onPageChange(value);
     }
@@ -68,10 +68,10 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
       setLocalPageSize(newSize);
     }
   };
-  const handleManualPageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleManualPageInput = (event: ChangeEvent<HTMLInputElement>) => {
     setManualPageInput(event.target.value);
   };
-  const handleManualPageSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleManualPageSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       const pageNumber = parseInt(manualPageInput);
       if (pageNumber >= 1 && pageNumber <= totalPagesCalc) {
@@ -79,7 +79,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
           onPageChange(pageNumber);
         }
         if (onChange) {
-          onChange(event as any, pageNumber);
+          onChange({} as ChangeEvent<unknown>, pageNumber);
         }
         setManualPageInput('');
       }
@@ -105,14 +105,14 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
       )}
       {styleConfig.showPrevNext && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <RdsButton style="filled" size="small" disabled={currentPageNumber <= 1} onClick={() => handleChange({} as any, currentPageNumber - 1)}>
+          <RdsButton style="filled" size="small" disabled={currentPageNumber <= 1} onClick={() => handleChange({} as ChangeEvent<unknown>, currentPageNumber - 1)}>
             {paginationStyle === 'Style 10' || paginationStyle === 'Style 11' ? (
               <KeyboardArrowLeft />
             ) : (
               'Prev'
             )}
           </RdsButton>
-          <RdsButton style="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)}>
+          <RdsButton style="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as ChangeEvent<unknown>, currentPageNumber + 1)}>
             {paginationStyle === 'Style 10' ? (
               <KeyboardArrowRight />
             ) : (
@@ -122,7 +122,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
         </Box>
       )}
       {styleConfig.showNextOnly && (
-        <RdsButton style="filled" size="small" text="Next" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)} />
+        <RdsButton style="filled" size="small" text="Next" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as ChangeEvent<unknown>, currentPageNumber + 1)} />
       )}
       {shouldShowDropdown && (
       <FormControl size="small" className={`pagination-dropdown ${styleConfig.styleClass || ''}`}>

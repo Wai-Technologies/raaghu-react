@@ -587,7 +587,7 @@ describe('RdsCompAiGradientTextWithIcon', () => {
       );
       const image = screen.getByRole('img');
       expect(image).toBeInTheDocument();
-      // React may strip empty string src attribute; image element still renders
+      expect(image.getAttribute('src') ?? '').toBe('');
     });
 
     it('handles null logo prop', () => {

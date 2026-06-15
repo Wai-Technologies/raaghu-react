@@ -145,12 +145,13 @@ jest.mock('../../raaghu-elements/rds-chip/rds-chip', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  const React = require('react');
-  const MockButton = React.forwardRef(({ text, onClick, className, disabled, ...props }: any, ref: any) => (
-    <button ref={ref} onClick={onClick} className={className} disabled={disabled} data-testid="rds-button-direct">{text}</button>
-  ));
-  MockButton.displayName = 'RdsButton';
-  return MockButton;
+  return function MockRdsButton({ text, onClick, className, disabled, style, fullWidth, textCase, sx, ...props }: any) {
+    return (
+      <button onClick={onClick} className={className} disabled={disabled} data-testid="rds-button-standalone" {...props}>
+        {text}
+      </button>
+    );
+  };
 });
 
 jest.mock('@mui/material', () => ({
@@ -893,6 +894,7 @@ describe('RdsCompAdaptiveCards', () => {
       expect(button).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAdaptiveCards />);
       const results = await axe(container);

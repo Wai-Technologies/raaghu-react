@@ -1,14 +1,15 @@
-import React from 'react';
+import { type ReactNode, type SyntheticEvent } from 'react';
 import { Tabs as MuiTabs, Tab as MuiTab, type TabsProps } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
+import clsx from 'clsx';
 import './rds-tabs.scss';
 
 export interface RdsTabItem {
   id: string | number;
   label: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   disabled?: boolean;
   title?: string; 
   state?: 'default' | 'hover' | 'selected' | 'disabled'; 
@@ -34,8 +35,8 @@ export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
   onTabChange?: (tabId: string | number) => void;
   layout?: RdsTabsLayout;
   type?: 'horizontal' | 'vertical';
-  leftIcon?: React.ReactNode; 
-  rightIcon?: React.ReactNode; 
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   showLeftIcon?: boolean; 
   showRightIcon?: boolean; 
   state?: 'default' | 'hover' | 'selected' | 'disabled'; 
@@ -62,7 +63,7 @@ const RdsTabs = ({
     return result;
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string | number) => {
+  const handleChange = (event: SyntheticEvent, newValue: string | number) => {
     if (onTabChange) {
       onTabChange(newValue);
     }
@@ -71,7 +72,7 @@ const RdsTabs = ({
     }
   };
 
-const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`;
+const layoutClass = clsx(`rds-tabs--${layout}`, `rds-state--${props.state || 'default'}`);
 
   const tabsWithIcons = tabs.map((tab) => ({
     ...tab,
@@ -79,16 +80,15 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
     rightIcon: showRightIcon ? (tab.rightIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
   }));
 
-  // Determine provided value: prefer explicit `value`, then `activeTab`.
-  // If neither is provided, do not pass `value` to keep Tabs uncontrolled.
-  const providedValue = (value ?? activeTab);
+  // Keep Tabs uncontrolled unless a controlled value is explicitly provided.
+  const providedValue = value ?? activeTab;
 
   return (
     <MuiTabs
       {...(providedValue !== undefined ? { value: providedValue } : {})}
       onChange={handleChange}
       orientation={type}
-      className={`rds-tabs ${layoutClass}`}
+      className={clsx('rds-tabs', layoutClass)}
       {...props}
     >
       {tabsWithIcons.map((tab) => {

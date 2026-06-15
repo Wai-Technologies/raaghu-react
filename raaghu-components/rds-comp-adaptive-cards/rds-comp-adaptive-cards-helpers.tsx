@@ -1,5 +1,6 @@
+import { useEffect, useMemo, useState, type ChangeEvent } from "react";
+import clsx from 'clsx';
 import RdsRadio from "../../raaghu-elements/rds-radio/rds-radio";
-import React, { useState } from "react";
 import RdsCard from "../../raaghu-elements/rds-card/rds-card";
 import RdsStack from "../../raaghu-elements/rds-stack/rds-stack";
 import RdsBox from "../../raaghu-elements/rds-box/rds-box";
@@ -7,7 +8,7 @@ import RdsTypography from "../../raaghu-elements/rds-typography/rds-typography";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import RdsChip from "../../raaghu-elements/rds-chip/rds-chip";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
@@ -16,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+// @ts-ignore Side-effect stylesheet import is resolved by bundler.
 import './rds-comp-adaptive-cards.scss';
 
 export interface AdaptiveCardProps {
@@ -23,9 +25,9 @@ export interface AdaptiveCardProps {
   nameValue?: string;
   emailValue?: string;
   phoneValue?: string;
-  onNameChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onEmailChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onPhoneChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onNameChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onEmailChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onPhoneChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   nameError?: string;
   emailError?: string;
   phoneError?: string;
@@ -35,6 +37,7 @@ export interface AdaptiveCardProps {
   onEntreeChange?: (e: SelectChangeEvent<string>) => void;
   onSideChange?: (e: SelectChangeEvent<string>) => void;
   onDrinkChange?: (e: SelectChangeEvent<string>) => void;
+  showBtn1?: boolean;
   showBtn2?: boolean;
   btn1style?: string;
   btn2style?: string;
@@ -159,8 +162,9 @@ export function InputFormCard(props: AdaptiveCardProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  React.useEffect(() => {
-    if (onChange) onChange({ name, email, phone });
+
+  useEffect(() => {
+    onChange?.({ name, email, phone });
   }, [name, email, phone, onChange]);
   return (
     <div>
@@ -169,7 +173,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{nameLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
         <input 
-          className={`rds-adaptive-cards__action-btn--input-form${nameError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          className={clsx("rds-adaptive-cards__action-btn--input-form", nameError && " rds-adaptive-cards__input-error")} 
           placeholder={namePlaceholder} 
           required 
           value={nameValue !== undefined ? nameValue : name} 
@@ -181,7 +185,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{emailLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
         <input 
-          className={`rds-adaptive-cards__action-btn--input-form${emailError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          className={clsx("rds-adaptive-cards__action-btn--input-form", emailError && " rds-adaptive-cards__input-error")} 
           placeholder={emailPlaceholder} 
           required 
           type="email" 
@@ -194,7 +198,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{phoneLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
         <input 
-          className={`rds-adaptive-cards__action-btn--input-form${phoneError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          className={clsx("rds-adaptive-cards__action-btn--input-form", phoneError && " rds-adaptive-cards__input-error")} 
           placeholder={phonePlaceholder} 
           required 
           type="tel" 
@@ -250,7 +254,7 @@ export function FootballScorecardCard({
   finalText,
 }: AdaptiveCardProps) {
   return (
-    <RdsCard className={`rds-adaptive-cards rds-adaptive-cards--football-scorecard${isLive ? ' is-live' : ''} football-scorecard-stable`} showIcon={false} showIndicator={false}>
+    <RdsCard className={clsx("rds-adaptive-cards", "rds-adaptive-cards--football-scorecard", isLive && " is-live")} showIcon={false} showIndicator={false}>
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
           <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="space-between" className="rds-adaptive-cards__football-header-row">
@@ -353,7 +357,7 @@ export function CalendarReminderForm({
   btn1Label,
   btn2Label,
 }: CalendarReminderFormProps) {
-  const [selected, setSelected] = React.useState("");
+  const [selected, setSelected] = useState("");
   return (
     <RdsStack spacing={2} className="rds-adaptive-cards__calendar-reminder">
       <RdsBox className="rds-adaptive-cards__calendar-reminder-labels">
@@ -402,8 +406,11 @@ export function CalendarReminderForm({
 }
 
 export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions }: AdaptiveCardProps) {
-  const [selectedValue, setSelectedValue] = React.useState('');
-  const radioOptionsMapped = radioOptions?.map(opt => ({ value: opt.value, text: `${opt.label} : ${opt.desc}` })) ?? [];
+  const [selectedValue, setSelectedValue] = useState('');
+  const radioOptionsMapped = useMemo(
+    () => radioOptions?.map(opt => ({ value: opt.value, text: `${opt.label} : ${opt.desc}` })) ?? [],
+    [radioOptions]
+  );
   return (
     <RdsStack spacing={2} className="rds-adaptive-cards__activity-update">
       <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__activity-update-header">

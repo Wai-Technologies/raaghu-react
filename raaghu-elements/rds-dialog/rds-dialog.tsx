@@ -1,15 +1,22 @@
 
-import React from 'react';
+import { type ReactNode } from 'react';
 import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RdsButton from '../rds-button/rds-button';
 import './rds-dialog.scss';
 
+const SIZE_MAP = {
+  'extra-small': 'xs',
+  'small': 'sm',
+  'medium': 'md',
+  'large': 'lg',
+  'extra-large': 'xl',
+} as const;
 
 export interface RdsDialogProps extends DialogProps {
   title?: string;
-  children?: React.ReactNode;
-  actions?: React.ReactNode;
+  children?: ReactNode;
+  actions?: ReactNode;
   ShowDissmiss?: boolean;
   onClose?: () => void;
   variant?: 'standard' | 'default';
@@ -36,14 +43,7 @@ const RdsDialog = ({
     return (
       <MuiDialog
         onClose={onClose}
-        maxWidth={
-          size === 'extra-small' ? 'xs' :
-          size === 'small' ? 'sm' :
-          size === 'medium' ? 'md' :
-          size === 'large' ? 'lg' :
-          size === 'extra-large' ? 'xl' :
-          size
-        }
+        maxWidth={size ? SIZE_MAP[size] : size}
         {...props}
         slotProps={{ paper: { className: 'rds-dialog rds-dialog__paper' } }}
       >
@@ -84,14 +84,7 @@ const RdsDialog = ({
   return (
   <MuiDialog
     onClose={onClose}
-    maxWidth={
-      size === 'extra-small' ? 'xs' :
-      size === 'small' ? 'sm' :
-      size === 'medium' ? 'md' :
-      size === 'large' ? 'lg' :
-      size === 'extra-large' ? 'xl' :
-      size
-    }
+    maxWidth={size ? SIZE_MAP[size] : size}
     {...props}
   >
       {((title && showTitle) || ShowDissmiss) && (

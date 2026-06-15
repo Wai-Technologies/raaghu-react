@@ -821,6 +821,7 @@ describe('RdsCompStackedChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompStackedChart {...defaultProps} />);
       const results = await axe(container);

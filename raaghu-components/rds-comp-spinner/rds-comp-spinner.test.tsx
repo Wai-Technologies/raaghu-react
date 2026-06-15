@@ -502,6 +502,7 @@ describe('RdsCompSpinner', () => {
       expect(spinner).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompSpinner {...defaultProps} />);
       const results = await axe(container);

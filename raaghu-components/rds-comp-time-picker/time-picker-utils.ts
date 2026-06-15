@@ -35,7 +35,7 @@ export const getIconColor = (colorVariant?: string): "primary" | "default" | "in
     return 'default';
   }
   
-  if (allowedColors.includes(variant as any)) {
+  if ((allowedColors as readonly string[]).includes(variant)) {
     return variant as typeof allowedColors[number];
   }
   
