@@ -56,6 +56,31 @@ const config: StorybookConfig = {
           '@icons/material/CheckIcon': fileURLToPath(new URL('./shims/CheckIcon.tsx', import.meta.url)),
         },
       },
+      optimizeDeps: {
+        ...config.optimizeDeps,
+        include: [
+          ...(config.optimizeDeps?.include ?? []),
+          // MUI subpaths — Vite 7 cannot auto-resolve the wildcard "./*" export pattern
+          '@mui/material',
+          '@mui/material/styles',
+          '@mui/material/Box',
+          '@mui/material/CssBaseline',
+          '@mui/material/FormControl',
+          '@mui/material/Grid',
+          '@mui/material/IconButton',
+          '@mui/material/ImageList',
+          '@mui/material/ImageListItem',
+          '@mui/material/ListItemText',
+          '@mui/material/Menu',
+          '@mui/material/MenuItem',
+          '@mui/material/Radio',
+          '@mui/material/Select',
+          '@mui/material/SvgIcon',
+          '@mui/material/Typography',
+          '@mui/lab',
+          '@mui/lab/Timeline',
+        ],
+      },
       css: {
         ...config.css,
         preprocessorOptions: {
