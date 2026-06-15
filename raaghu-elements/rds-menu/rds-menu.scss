@@ -149,7 +149,7 @@
 
 [data-theme="dark"] {
   .rds-menu__list {
-     background-color: var(--rds-color-background);
+     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e)) !important;
   }
 
   .rds-menu__item {
@@ -160,8 +160,8 @@
     color: var(--rds-text-disabled);
   }
   .rds-menu__header {
-    color: var(--rds-color-surface);
-    background-color: var(--rds-color-background);
+    color: var(--rds-neutral-200, #ccc);
+    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e));
     border-bottom: 1px solid var(--rds-border-default);
   }
 
@@ -179,6 +179,16 @@
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg {
     color: var(--rds-neutral-0);
     fill: var(--rds-neutral-0);
+  }
+
+  /* Force MuiListItemIcon root itself to white for all non-colored items */
+  .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) {
+    color: var(--rds-neutral-0, #fff) !important;
+  }
+
+  /* MuiPaper that wraps the dropdown */
+  .rds-menu .MuiPaper-root {
+    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e)) !important;
   }
 
   .rds-menu__item .rds-menu__item__icon--primary svg,

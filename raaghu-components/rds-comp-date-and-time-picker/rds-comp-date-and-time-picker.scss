@@ -6,10 +6,15 @@
   width: auto;
   min-width: 200px; // Base minimum width
   max-width: 600px; // Allow for wider range pickers
-  
+  // Global input styles for all variants
+  .MuiInputBase-input {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+
   // Specific width adjustments based on content and variant
-  &--datetimerange,
-  &:has([placeholder*="Start date & time - End date & time"]) {
+  &--datetimerange {
     min-width: 400px;
     max-width: 500px;
     
@@ -28,29 +33,27 @@
     }
   }
   
-  &--timerange,
-  &:has([placeholder*="Start time - End time"]) {
-    min-width: 280px;
-    max-width: 300px;
+  &--timerange {
+    min-width: 460px;
+    max-width: 460px;
     
     .MuiFormControl-root {
-      min-width: 280px;
-      max-width: 300px;
+      min-width: 460px;
+      max-width: 460px;
     }
     
     .MuiInputBase-root {
-      min-width: 280px;
+      min-width: 460px;
       
       .MuiInputBase-input {
-        min-width: 230px; // Leave space for icon
+        min-width: 460px; // Leave space for icon
         padding-right: var(--rds-spacing-2xl-px); // Extra padding for icon
       }
     }
   }
   
   &--daterange,
-  &--multi-month,
-  &:has([placeholder*="Start date - End date"]) {
+  &--multi-month {
     min-width: 300px;
     max-width: 300px;
     
@@ -172,24 +175,6 @@
     }
   }
   
-  // Specific overrides for date range picker interval highlighting
-  .MuiDateRangePickerDay-rangeIntervalDayHighlight,
-  .MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
-  .MuiDateRangePickerDay-rangeIntervalDayHighlightEnd {
-    border-radius: var(--rds-border-radius, 4px) !important;
-  }
-  
-  .MuiDateRangePickerDay-rangeIntervalDayHighlight {
-    background-color: var(--rds-color-primary-hover) !important;
-    color: var(--rds-color-primary) !important;
-  }
-  
-  .MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
-  .MuiDateRangePickerDay-rangeIntervalDayHighlightEnd {
-    background-color: var(--rds-color-primary) !important;
-    color: var(--rds-color-on-primary, white) !important;
-  }
-  
   // Custom Date Range Picker with Presets
   &__custom-layout {
     display: flex;
@@ -258,7 +243,29 @@
     align-items: center;
     justify-content: center;
     padding: var(--rds-spacing-md, 16px);
-    background-color: var(--rds-color-surface);
+    background-color: var(--rds-color-surface, #ffffff);
+  }
+
+  &__range-input-container {
+    display: inline-block;
+
+    // Show beginning of text with ellipsis — prevents Chrome scrolling
+    // to cursor-end in controlled readonly inputs
+    .MuiInputBase-input {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+
+  // Open state for range/multi-month input (popover is open)
+  &__input--open {
+    .MuiOutlinedInput-root {
+      .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-color-primary, #2196F3) !important;
+        border-width: 2px !important;
+      }
+    }
   }
 
   // Input element styling
@@ -398,49 +405,6 @@
     word-break: break-word;
   }
   
-  // Ensure the custom layout takes full space
-  .MuiPickersLayout-root {
-    &:has(.custom-layout) {
-      min-width: 600px !important;
-      min-height: 400px !important;
-    }
-  }
-  
-  // Hide Material-UI X Pro watermark
-  // .MuiPickersPopper-root {
-  //   .MuiPaper-root {
-  //     // Hide any pro watermarks or evaluation notices
-  //     .MuiTypography-root[data-testid*="watermark"],
-  //     .MuiTypography-root[class*="watermark"],
-  //     .MuiBox-root[data-testid*="watermark"],
-  //     .MuiBox-root[class*="watermark"],
-  //     div[data-testid*="evaluation"],
-  //     div[class*="evaluation"],
-  //     div[data-testid*="watermark"],
-  //     div[class*="watermark"] {
-  //       display: none !important;
-  //     }
-  //   }
-  // }
-  
-  // Additional hiding for calendar watermarks
-  // .MuiDateCalendar-root,
-  // .MuiPickersLayout-root {
-  //   // Hide watermark elements
-  //   .MuiTypography-root[data-testid*="watermark"],
-  //   .MuiTypography-root[class*="watermark"],
-  //   .MuiBox-root[data-testid*="watermark"],
-  //   .MuiBox-root[class*="watermark"],
-  //   div[data-testid*="evaluation"],
-  //   div[class*="evaluation"],
-  //   div[data-testid*="watermark"],
-  //   div[class*="watermark"],
-  //   span[class*="watermark"],
-  //   [class*="MuiDataGrid-watermark"] {
-  //     display: none !important;
-  //   }
-  // }
-  
   // Custom styling for Material-UI date picker components
   .MuiInputBase-root {
     border-radius: var(--rds-border-radius-lg, 8px);
@@ -516,11 +480,15 @@
     &:hover .MuiOutlinedInput-notchedOutline {
       border-width: 2px;
       border-color: var(--rds-color-primary);
+      border-width: 2px !important;
+      border-color: var(--rds-color-primary, #2196F3) !important;
     }
     
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-width: 2px;
       border-color: var(--rds-color-primary);
+      border-width: 2px !important;
+      border-color: var(--rds-color-primary, #2196F3) !important;
     }
     
     &.Mui-error .MuiOutlinedInput-notchedOutline {
@@ -542,18 +510,15 @@
       }
     }
     
-    // Ensure input has proper padding for icon
     &.MuiInputBase-adornedEnd {
-
-      
       .MuiInputBase-input {
-        padding-right: var(--rds-spacing-xs, 8px); // Space before icon
+        padding-right: var(--rds-spacing-xs, 8px);
       }
     }
   }
   
   .MuiFormControl-root {
-    width: auto;
+    width: fit-content;
     min-width: 200px; // Base minimum width for usability
     max-width: 300px; // Increased to accommodate range pickers
     
@@ -648,6 +613,8 @@
   .MuiDayCalendar-weekDayLabel {
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-text-secondary);
+    font-weight: 400;
+    color: var(--rds-color-text-secondary, #666);
   }
   
   .MuiPickersDay-root {
@@ -667,6 +634,10 @@
       font-weight: var(--rds-font-weight-semibold, 600);
       border-radius: var(--rds-border-radius-sm);
       color: var(--rds-color-on-primary);
+      background-color: #2196F3;
+      font-weight: 400;
+      border-radius: 4px;
+      color: #fff;
       &:hover {
         background-color: var(--rds-color-primary-dark);
         border-radius: var(--rds-border-radius-sm);
@@ -679,176 +650,25 @@
       background-color: var(--rds-color-surface);
       color: var(--rds-color-primary);
       font-weight: var(--rds-font-weight-semibold, 600);
+      border: 2px solid #2196F3;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #2196F3;
+      font-weight: 400;
       
       &:not(.Mui-selected) {
         background-color: var(--rds-color-surface);
         color: var(--rds-color-primary);
         border-radius: var(--rds-border-radius-sm);
-      }
-      
-      // When today's date is selected, ensure white text color
-      &.Mui-selected {
-        background-color: var(--rds-color-primary) !important;
-        color: var(--rds-color-on-primary) !important;
-        border: 2px solid var(--rds-color-primary) !important;
-        font-weight: var(--rds-font-weight-semibold, 600) !important;
-        
-        &:hover {
-          background-color: var(--rds-color-primary-dark) !important;
-          color: var(--rds-color-on-primary) !important;
-          border: 2px solid var(--rds-color-primary-dark) !important;
-        }
-      }
-    }
-  }
-  
-  // Time picker styles
-  .MuiTimeClock-root {
-    background: var(--rds-color-surface);
-    border-radius: var(--rds-border-radius-lg);
-  }
-  
-  .MuiClockNumber-root {
-    font-weight: var(--rds-font-weight-medium, 500);
-    
-    &.Mui-selected {
-      background-color: var(--rds-color-primary-dark);
-      color: var(--rds-color-on-primary);
-      font-weight: var(--rds-font-weight-semibold, 600);
-    }
-  }
-  
-  // Range picker styles
-  .MuiDateRangePickerDay-root {
-    border-radius: var(--rds-border-radius-sm); // Square border radius for range picker days
-    
-    &.MuiDateRangePickerDay-rangeIntervalDayHighlight {
-      background-color: var(--rds-color-primary-hover); // Light blue background for range interval
-      border-radius: var(--rds-border-radius-sm); // Square background for range interval
-      color: var(--rds-color-primary-dark); // Blue text for range interval
-    }
-    
-    &.MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
-    &.MuiDateRangePickerDay-rangeIntervalDayHighlightEnd {
-      background-color: var(--rds-color-primary); // Bright blue background for range start/end
-      color: var(--rds-color-on-primary); // White text for range start/end
-      border-radius: var(--rds-border-radius-sm); // Square background for range start/end
-    }
-    
-    // Override circular styles for range picker days
-    &.MuiPickersDay-root {
-      border-radius: var(--rds-border-radius-sm);
-      
-      &:hover {
-        background-color: var(--rds-color-primary-hover); // Light blue hover
-        color: var(--rds-color-primary-dark); // Blue text on hover
-        border-radius: var(--rds-border-radius-sm);
-      }
-      
-      &.Mui-selected {
-        background-color: var(--rds-color-primary); // Bright blue selected
-        color: var(--rds-color-on-primary); // White text on selected
-        border-radius: var(--rds-border-radius-sm);
-        
-        &:hover {
-          background-color: var(--rds-color-primary-dark); // Darker blue on selected hover
-          border-radius: var(--rds-border-radius-sm);
-        }
+        color: var(--rds-color-primary, #2196F3) !important;
       }
     }
   }
 
-  // Year picker styles
-  .MuiYearPicker-root {
-    background: var(--rds-color-surface);
-    border-radius: var(--rds-border-radius-lg);
-    
-    .MuiPickersYear-root {
-      font-weight: var(--rds-font-weight-medium, 500);
-      border-radius: var(--rds-border-radius-sm); // Changed from 8px to 4px for square appearance
-      margin: var(--rds-spacing-xs);
-
-      &:hover {
-        background-color: var(--rds-color-primary-hover); // Light blue hover background
-        color: var(--rds-color-primary-dark); // Blue text on hover
-        border-radius: var(--rds-border-radius-sm); // Square hover state
-      }
-
-      &.Mui-selected {
-        background-color: var(--rds-color-primary); // Bright blue selected background
-        color: var(--rds-color-on-primary); // White text on selected
-        font-weight: var(--rds-font-weight-semibold, 600);
-        border-radius: var(--rds-border-radius-sm); // Square selected state
-
-        &:hover {
-          background-color: var(--rds-color-primary-dark); // Darker blue on selected hover
-          border-radius: var(--rds-border-radius-sm); // Square selected hover state
-        }
-      }
-
-      &.MuiPickersYear-yearButton {
-        font-size: 1rem;
-        padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) var(--rds-spacing-md);
-        border-radius: var(--rds-border-radius-sm); // Square button
-      }
-    }
-  }
-
-  // Month picker styles
-  .MuiMonthPicker-root {
-    background: var(--rds-color-surface);
-    border-radius: var(--rds-border-radius-lg);
-
-    .MuiPickersMonth-root {
-      font-weight: var(--rds-font-weight-medium, 500);
-      border-radius: var(--rds-border-radius-sm); // Changed from 8px to 4px for square appearance
-      margin: var(--rds-spacing-xs);
-
-      &:hover {
-        background-color: var(--rds-color-primary-hover); // Light blue hover background
-        color: var(--rds-color-primary-dark); // Blue text on hover
-        border-radius: var(--rds-border-radius-sm); // Square hover state
-      }
-
-      &.Mui-selected {
-        background-color: var(--rds-color-primary); // Bright blue selected background
-        color: var(--rds-color-on-primary); // White text on selected
-        font-weight: var(--rds-font-weight-semibold, 600);
-        border-radius: var(--rds-border-radius-sm); // Square selected state
-
-        &:hover {
-          background-color: var(--rds-color-primary-dark); // Darker blue on selected hover
-          border-radius: var(--rds-border-radius-sm); // Square selected hover state
-        }
-      }
-
-      &.MuiPickersMonth-monthButton {
-        font-size: 0.9rem;
-        padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-        border-radius: var(--rds-border-radius-sm); // Square button
-      }
-    }
-  }
-
-  // Multi-month layout styles (using DateRangePicker with multiple calendars)
-  .MuiDateRangeCalendar-root {
-    display: flex;
-    gap: var(--rds-spacing-md);
-    
-    .MuiDateCalendar-root {
-      margin: 0;
-      
-      &:not(:last-child) {
-        border-right: 1px solid var(--rds-border-default);
-        padding-right: var(--rds-spacing-md);
-      }
-    }
-  }
-  
   // Disabled state
   &--disabled {
     .MuiInputBase-root {
-      background-color: var(--rds-color-surface-disabled);
+      background-color: var(--rds-color-surface-disabled, #f5f5f5);
       color: var(--rds-color-text-disabled, rgba(0, 0, 0, 0.38));
       cursor: not-allowed !important;
       
@@ -865,7 +685,7 @@
   // Read-only state
   &--readonly {
     .MuiInputBase-root {
-      background-color: var(--rds-color-surface-readonly);
+      background-color: var(--rds-color-surface-readonly, #fafafa);
       cursor: not-allowed !important;
       
       .MuiInputBase-input {
@@ -883,54 +703,320 @@
 @media (prefers-color-scheme: dark) {
   .rds-date-picker {
     .MuiDateCalendar-root {
-      background: var(--rds-color-surface-dark);
-@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
-
+      background: var(--rds-color-surface-dark, #1e1e1e);
       color: var(--rds-color-on-surface-dark, white);
     }
     
     .MuiPickersCalendarHeader-root {
-      border-bottom-color: var(--rds-color-border-dark);
+      border-bottom-color: var(--rds-color-border-dark, #333);
     }
     
     .MuiDayCalendar-weekDayLabel {
-      color: var(--rds-color-text-secondary-dark);
-    }
-    
-    .MuiTimeClock-root {
-      background: var(--rds-color-surface-dark);
-      color: var(--rds-color-on-surface-dark, white);
-    }
-
-    .MuiYearPicker-root {
-      background: var(--rds-color-surface-dark);
-      color: var(--rds-color-on-surface-dark, white);
-    }
-
-    .MuiMonthPicker-root {
-      background: var(--rds-color-surface-dark);
-      color: var(--rds-color-on-surface-dark, white);
-    }
-
-    .MuiDateRangeCalendar-root {
-      .MuiDateCalendar-root {
-        &:not(:last-child) {
-          border-right-color: var(--rds-color-border-dark);
-        }
-      }
+      color: var(--rds-color-text-secondary-dark, #ccc);
     }
   }
 }
 
+// Utility layout classes
+
+.rds-date-picker__range-calendar-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+
+  .MuiDateCalendar-root {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.rds-date-picker__time-range-stack {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  width: 100%;
+}
+
+.rds-date-picker__time-range-item {
+  flex: 1;
+  min-width: 0;
+
+  .MuiFormControl-root {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .MuiInputBase-root {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+.rds-date-picker__range-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  width: 100%;
+}
+
 // Responsive design
-@include bp.down(md) {
+
+// Large mobile (up to 767px)
+@media (max-width: 767px) {
   .rds-date-picker {
-    .MuiDateCalendar-root {
-      border-radius: var(--rds-border-radius-md);
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    &--datetimerange,
+    &--timerange,
+    &--daterange,
+    &--multi-month {
+      min-width: 0;
+      width: 100%;
+
+      .MuiFormControl-root {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .MuiInputBase-root {
+        min-width: 0;
+        width: 100%;
+
+        .MuiInputBase-input {
+          min-width: 0;
+        }
+      }
     }
-    
+
+    .MuiFormControl-root {
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .MuiDateCalendar-root {
+      border-radius: 8px;
+    }
+
     .MuiPickersDay-root {
       font-size: 0.875rem;
+    }
+
+    // Ensure input font size remains consistent on mobile
+    .MuiInputBase-root {
+      .MuiInputBase-input {
+        font-size: var(--rds-font-size-body1, 1rem) !important;
+
+        &::placeholder {
+          font-size: var(--rds-font-size-body1, 1rem) !important;
+        }
+      }
+    }
+
+    &__range-input-container {
+      display: block;
+      width: 100%;
+
+      .MuiTextField-root,
+      .MuiFormControl-root {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .MuiInputBase-root {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        .MuiInputBase-input {
+          min-width: 0 !important;
+          width: 100%;
+          font-size: var(--rds-font-size-body1, 1rem) !important;
+
+          &::placeholder {
+            font-size: var(--rds-font-size-body1, 1rem) !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Outer Popover paper — constrain to viewport width on mobile
+  .rds-date-picker__popover-paper-gap {
+    max-width: calc(100vw - 16px) !important;
+    overflow: hidden;
+  }
+
+  // Popover paper adapts to viewport
+  .rds-date-picker__range-paper {
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 12px;
+    max-height: calc(100dvh - 80px);
+    box-sizing: border-box;
+    align-items: stretch;
+
+    // Force DateCalendar to fit the available width inside the paper
+    .MuiDateCalendar-root {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+  }
+
+  // Range datetime stacks vertically on mobile
+  .rds-date-picker__range-datetime {
+    flex-direction: column;
+    width: 100%;
+
+    .rds-date-picker__range-datetime-divider {
+      width: auto;
+      height: 1px;
+      margin: 8px 0;
+    }
+
+    .rds-date-picker__range-datetime-spacer {
+      width: auto;
+      height: 0;
+      margin: 4px 0;
+    }
+  }
+
+  // Calendar row stacks vertically on mobile
+  .rds-date-picker__range-calendar-row {
+    flex-direction: column;
+    width: 100%;
+
+    .MuiDateCalendar-root {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+  }
+
+  // Time range stacks vertically on mobile
+  .rds-date-picker__time-range-stack {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .rds-date-picker__time-range-item {
+    flex: none;
+    width: 100%;
+  }
+
+  // Custom date range layout becomes vertical on mobile
+  .rds-date-picker__custom-layout {
+    flex-direction: column;
+    min-width: 0;
+    width: calc(100vw - 32px);
+    min-height: auto;
+
+    .rds-date-picker__preset-panel {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid var(--rds-color-border, #e0e0e0);
+    }
+
+    .rds-date-picker__preset-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+    }
+  }
+}
+
+// Small mobile (up to 480px)
+@media (max-width: 480px) {
+  .rds-date-picker {
+    &__custom-layout {
+      width: calc(100vw - 16px);
+    }
+
+    // Ensure input font size remains consistent on small mobile
+    .MuiInputBase-root {
+      .MuiInputBase-input {
+        font-size: var(--rds-font-size-body1, 1rem) !important;
+
+        &::placeholder {
+          font-size: var(--rds-font-size-body1, 1rem) !important;
+        }
+      }
+    }
+
+    &__range-input-container {
+      .MuiInputBase-root {
+        .MuiInputBase-input {
+          font-size: var(--rds-font-size-body1, 1rem) !important;
+
+          &::placeholder {
+            font-size: var(--rds-font-size-body1, 1rem) !important;
+          }
+        }
+      }
+    }
+  }
+
+  .rds-date-picker__popover-paper-gap {
+    max-width: calc(100vw - 8px) !important;
+  }
+
+  .rds-date-picker__range-paper {
+    max-width: 100%;
+    padding: 8px;
+    max-height: calc(100dvh - 64px);
+    align-items: stretch;
+
+    // Force calendar to use full available width
+    .MuiDateCalendar-root {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+
+    // Hide week-number column to recover horizontal space on tiny screens
+    .MuiDayCalendar-weekNumberLabel,
+    .MuiDayCalendar-weekNumber {
+      display: none !important;
+    }
+
+    // Tighten day cells so 7 columns fit within ~280px content area
+    .MuiDayCalendar-header,
+    .MuiDayCalendar-weekContainer {
+      justify-content: space-between;
+    }
+
+    .MuiPickersDay-root {
+      width: 32px !important;
+      height: 32px !important;
+      font-size: 0.8rem !important;
+      margin: 1px !important;
+    }
+
+    .MuiDayCalendar-weekDayLabel {
+      width: 32px !important;
+      font-size: 0.75rem !important;
+    }
+
+    // Scale calendar header navigation
+    .MuiPickersCalendarHeader-root {
+      padding-left: 8px;
+      padding-right: 4px;
+    }
+  }
+
+  .rds-date-picker__range-calendar-row {
+    .MuiDateCalendar-root {
+      width: 100% !important;
+      max-width: 100% !important;
     }
   }
 }
@@ -951,6 +1037,110 @@
   animation: rds-date-picker-fade-in 0.2s ease-out;
 }
 
+
+// Base picker paper (DatePicker, TimePicker, DateTimePicker dropdowns)
+.rds-date-picker__picker-paper {
+  box-shadow: none !important;
+  border: 2px solid #2196F3 !important;
+  border-radius: 4px !important;
+}
+
+// Year picker paper - adjusts internal calendar heights
+.rds-date-picker__year-picker-paper {
+  .MuiDateCalendar-root {
+    height: auto;
+  }
+
+  .MuiPickersLayout-contentWrapper {
+    height: auto;
+  }
+
+  .MuiYearCalendar-root {
+    height: auto;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+}
+
+// Month picker paper - adjusts internal calendar heights
+.rds-date-picker__month-picker-paper {
+  .MuiDateCalendar-root {
+    height: auto;
+  }
+
+  .MuiPickersLayout-contentWrapper {
+    height: auto;
+  }
+
+  .MuiMonthCalendar-root {
+    height: auto;
+  }
+}
+
+// Range picker Popover paper
+.rds-date-picker__range-paper {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 2px solid #2196F3 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  // Allow scrolling when content exceeds viewport height (datetime range on small screens)
+  max-height: calc(100dvh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  // Take full width of parent popover paper to match input width
+  width: 100%;
+  box-sizing: border-box;
+}
+
+// Top margin gap between input and popover
+.rds-date-picker__popover-paper-gap {
+  margin-top: 4px;
+  // Ensures popover respects inline width style set by component
+  box-sizing: border-box;
+}
+
+// Custom range day state classes (applied via className in renderDaySlot)
+.rds-date-picker__day--in-range {
+  background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
+  color: var(--rds-color-primary, #1976d2) !important;
+}
+
+.rds-date-picker__day--range-end-point {
+  background-color: var(--rds-color-primary, #2196F3) !important;
+  color: var(--rds-color-on-primary, #fff) !important;
+}
+
+// RangeDateTime layout classes
+.rds-date-picker__range-datetime {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.rds-date-picker__range-datetime-divider {
+  width: 1px;
+  background-color: #2196F3;
+  align-self: stretch;
+  margin: 8px;
+}
+
+.rds-date-picker__range-datetime-spacer {
+  width: 0.5px;
+  align-self: stretch;
+  margin: 8px;
+}
+
+.rds-date-picker__range-datetime-time-label {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 4px;
+  text-align: center;
+}
+
 // Global override to ensure all date picker elements use square borders
 .MuiPickersPopper-root,
 .MuiPickersLayout-root,
@@ -958,7 +1148,6 @@
 .MuiYearCalendar-root,
 .MuiMonthCalendar-root {
   .MuiPickersDay-root,
-  .MuiDateRangePickerDay-root,
   .MuiPickersYear-root,
   .MuiPickersMonth-root {
     border-radius: var(--rds-border-radius, 4px) !important;
@@ -986,16 +1175,14 @@
       color: var(--rds-color-primary) !important;
       
       &:not(.Mui-selected) {
-        // background-color: transparent !important;
-        color: var(--rds-color-primary) !important;
+        color: var(--rds-color-primary, #2196F3) !important;
       }
       
-      // When today's date is selected, ensure white text color
       &.Mui-selected {
-        background-color: var(--rds-color-primary) !important;
-        color: var(--rds-color-on-primary) !important;
-        border: 2px solid var(--rds-color-primary) !important;
-        font-weight: 600 !important;
+        background-color: var(--rds-color-primary, #2196F3) !important;
+        color: var(--rds-color-on-primary, #fff) !important;
+        border: 2px solid var(--rds-color-primary, #2196F3) !important;
+        font-weight: 400 !important;
         
         &:hover {
           background-color: var(--rds-color-primary-dark) !important;
@@ -1004,25 +1191,7 @@
         }
       }
     }
-    
-    &.MuiDateRangePickerDay-rangeIntervalDayHighlight {
-      border-radius: var(--rds-border-radius, 4px) !important;
-      background-color: var(--rds-color-primary-hover) !important;
-      color: var(--rds-color-primary) !important;
-    }
-    
-    &.MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
-    &.MuiDateRangePickerDay-rangeIntervalDayHighlightEnd {
-      border-radius: var(--rds-border-radius, 4px) !important;
-      background-color: var(--rds-color-primary) !important;
-      color: var(--rds-color-on-primary, white) !important;
-    }
   }
-}
-
-.css-1ym3hin-MuiList-root-MuiMultiSectionDigitalClockSection-root::after,
-.css-xhmb5i-MuiList-root-MuiMultiSectionDigitalClockSection-root::after {
-    display: inline !important;
 }
 
 // Time picker dropdown font size reduction
@@ -1038,23 +1207,20 @@
 
 // Specific styles for time range picker component
 .rds-date-picker--timerange {
-  .MuiStack-root {
-    display: flex;
-    gap: var(--rds-spacing-md);
+  // Layout for the two side-by-side time inputs
+  .rds-date-picker__time-range-stack {
     width: 100%;
-    
-    .MuiBox-root {
-      flex: 1;
-      min-width: 0;
-      
-      .MuiFormControl-root {
-        width: 100%;
-        min-width: 160px;
-        max-width: none;
-      }
+  }
+
+  .rds-date-picker__time-range-item {
+    .MuiFormControl-root {
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      margin-left: 0 !important;
     }
   }
-  
+
   // Ensure proper spacing and layout for time range inputs
   .MuiFormControl-root {
     margin-bottom: 0;
@@ -1099,7 +1265,7 @@
         &.Mui-selected {
           background-color: var(--rds-color-primary);
           color: var(--rds-color-on-primary, white);
-          font-weight: 600;
+          font-weight: 400;
         }
       }
       
@@ -1110,25 +1276,33 @@
   }
 }
 
-.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-esd1yt-MuiPaper-root-MuiPopover-paper {
-  left: 16px !important;
-  margin-top: var(--rds-spacing-micro) !important;
-}
+// Action bar button styling for all pickers
+.MuiPickersLayout-actionBar {
+  padding: 8px 16px !important;
 
-.rds-date-picker--timerange .MuiStack-root .MuiBox-root .MuiFormControl-root {
-    width: 100%;
-    min-width: 154px;
-    max-width: none;
-    margin-left: var(--rds-spacing-neg-14);
-}
+  .MuiButton-root {
+    text-transform: none !important;
+    font-weight: 500 !important;
+    border-radius: 6px !important;
+  }
 
-@include bp.down(430) {
-    .css-11yms7-MuiDateCalendar-root {
-      width: 288px !important;
-     }
+  // Cancel button — plain text
+  .MuiButton-root:first-of-type {
+    color: rgba(0, 0, 0, 0.6) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
 
-    /* Ensure the digital clock sections stack/occupy the first grid column on small screens */
-    .css-g3wdz1-MuiMultiSectionDigitalClock-root {
-      grid-column: 1 !important;
+  // OK button — filled blue
+  .MuiButton-root:last-of-type {
+    background-color: #2196F3 !important;
+    color: #fff !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: #1976d2 !important;
     }
+  }
 }

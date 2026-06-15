@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitest/config';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
-import { playwright } from '@vitest/browser-playwright';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
@@ -127,11 +126,7 @@ export default defineConfig({
     ],
   },
   test: {
-    browser: {
-      enabled: true,
-      provider: playwright(),
-      instances: [{ browser: 'chromium' }],
-    },
+    environment: 'jsdom',
     setupFiles: [
       './.storybook/vitest.setup.ts',
       './vitest.setup.ts',
