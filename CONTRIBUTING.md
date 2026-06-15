@@ -8,28 +8,16 @@ When contributing, please first discuss the change you wish to make via issue or
 
 ```bash
 npm install
-npm run dev          # start Vite dev server
-npm run storybook    # start Storybook on port 6006
-npm run test         # run Jest unit tests
-npm run health:check # print design system health report
+npm run dev       # start Vite dev server
+npm run storybook # start Storybook on port 6006
+npm run test      # run Jest unit tests
 ```
 
 ---
 
 ## Adding a new component or element
 
-Use the generator — it creates all required files in one command:
-
-```bash
-npm run generate
-```
-
-You will be asked:
-
-```
-? What are you creating?  › Element  /  Component
-? Name (e.g. "data-table"):  › my-widget
-```
+Create component and element files manually following existing folder conventions.
 
 **What gets generated:**
 

@@ -5,22 +5,11 @@ import millionConfig from './million.config'
 import path from "path";
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => {
-  // Only load vite-plugin-dts during `vite build` — Storybook uses `vite serve`
-  // and api-extractor (bundled in vite-plugin-dts) is not needed there.
-  const dtsPlugin = command === 'build'
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    ? [require('vite-plugin-dts').default({
-        include: ['index.ts', 'raaghu-elements', 'raaghu-components', 'raaghu-layouts', 'raaghu-react-themes', 'utils'],
-        insertTypesEntry: true,
-      })]
-    : [];
-
+export default defineConfig(() => {
   return {
     plugins: [
       million.vite(millionConfig),
       react(),
-      ...dtsPlugin,
     ],
     resolve: {
       alias: {

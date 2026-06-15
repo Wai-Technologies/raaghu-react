@@ -1,4 +1,4 @@
-name: Chromatic Visual Testing (disabled — using Playwright instead)
+name: Chromatic Visual Testing (disabled)
 
 on:
   workflow_dispatch:
