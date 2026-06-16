@@ -25,7 +25,7 @@ This folder contains all technical guides for the Raaghu Design System. Start wi
 
 | Guide | What It Covers |
 |-------|---------------|
-| [TESTING_GUIDE.md](./TESTING_GUIDE.md) | Jest, Vitest, and Playwright — what each is for, how to run them, and which to use when |
+| [TESTING_GUIDE.md](./TESTING_GUIDE.md) | Jest and Vitest/Storybook testing — what each is for, how to run them, and which to use when |
 | [CHROMATIC_GUIDE.md](./CHROMATIC_GUIDE.md) | Visual regression testing with Chromatic |
 
 ## Quality & Lifecycle
@@ -48,7 +48,7 @@ This folder contains all technical guides for the Raaghu Design System. Start wi
 1. Read [ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md) — understand the package structure and token pipeline
 2. Read [CSS_ARCHITECTURE.md](./CSS_ARCHITECTURE.md) — understand how SCSS files are organized and named
 3. Check [TESTING_GUIDE.md](./TESTING_GUIDE.md) — know which test framework to reach for
-4. Use the plop generator to scaffold a new component: see [`/plop-templates/README.md`](../plop-templates/README.md)
+4. Scaffold new components using existing component folders as reference and follow [ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md)
 
 ## Component File Structure
 

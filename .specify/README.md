@@ -74,12 +74,11 @@ Run these from the repo root in PowerShell:
 2. Copy `templates/plan-template.md` → break the spec into tasks
 3. Copy `templates/agent-file-template.md` → create the AI context file
 4. Run `create-new-feature.ps1` to scaffold the files automatically
-5. Use `plop-templates/` (see `/plop-templates/README.md`) to generate the component boilerplate
+5. Scaffold component files from existing component examples in `raaghu-elements/` or `raaghu-components/`
 6. Implement following the constitution rules
 7. Run `update-agent-context.ps1` to keep AI context current
 
 ## Related
 
-- `/plop-templates/README.md` — Code generation templates
 - `/docs/ARCHITECTURE_OVERVIEW.md` — Package structure and design token pipeline
 - `/.github/prompts/` — GitHub Copilot prompt files for code review and generation

@@ -116,10 +116,10 @@ const RdsButton = ({
     : '';
 
   const stateClass =
-    state === 'hover' ? 'rds-button--state-hover'
-    : state === 'selected' ? 'rds-button--state-selected'
-    : state === 'disabled' ? 'rds-button--state-disabled'
-    : 'rds-button--state-default';
+    state === 'hover' ? 'rds-button__state-hover'
+    : state === 'selected' ? 'rds-button__state-selected'
+    : state === 'disabled' ? 'rds-button__state-disabled'
+    : 'rds-button__state-default';
 
   const shapeClass = shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle';
 
@@ -193,7 +193,7 @@ const RdsButton = ({
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
       color={color}
-      className={clsx('rds-button', styleVariantClass, stateClass, shapeClass)}
+      className={clsx('rds-button', styleVariantClass, stateClass, shapeClass, isLoading && 'rds-button__loading')}
       sx={{
         ...getShapeStyles(),
         ...getTextCaseStyles(),

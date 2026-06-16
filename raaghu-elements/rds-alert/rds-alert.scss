@@ -408,3 +408,27 @@
   font-size: var(--rds-alert-link-font-size, 0.8125rem) !important;
   padding: 0 var(--rds-spacing-xs, 4px);
 }
+
+.rds-alert__secondary-button.MuiButton-root {
+  background-color: var(--rds-alert-secondary-bg, #e8f1ff) !important;
+  color: var(--rds-alert-secondary-text, #2d7ff9) !important;
+  border: none !important;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--rds-alert-secondary-bg-hover, #d9e8ff) !important;
+    color: var(--rds-alert-secondary-text, #2d7ff9) !important;
+  }
+}
+
+.rds-alert__secondary-button--error.MuiButton-root {
+  background-color: var(--rds-alert-error-bg, #fdecea) !important;
+  color: var(--rds-alert-error-text, #bd0d1d) !important;
+  border: none !important;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--rds-alert-error-bg-hover, #fbd7d3) !important;
+    color: var(--rds-alert-error-text, #bd0d1d) !important;
+  }
+}

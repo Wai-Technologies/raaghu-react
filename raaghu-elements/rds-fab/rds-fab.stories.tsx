@@ -9,6 +9,9 @@ const meta: Meta<typeof RdsFab> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'centered',
+    controls: {
+      exclude: ['component', 'slots', 'slotProps'],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
@@ -67,6 +70,7 @@ export const Large: Story = {
     size: 'large',
     color: 'primary',
     children: <Add />,
+    disabled: false
   },
 };
 

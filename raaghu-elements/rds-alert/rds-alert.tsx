@@ -116,7 +116,16 @@ const RdsAlert= ({
                     )}
                   </div>
                   <div className="rds-alert__right-actions">
-                    {showSecondary && <RdsButton style="transparent" size="small" text="Cancel" textCase="capitalize" color={resolvedSeverity === 'error' ? 'error' : 'primary'} />}
+                    {showSecondary && (
+                      <RdsButton
+                        className={resolvedSeverity === 'error' ? 'rds-alert__secondary-button--error' : 'rds-alert__secondary-button'}
+                        style="transparent"
+                        size="small"
+                        text="Cancel"
+                        textCase="capitalize"
+                        color={resolvedSeverity === 'error' ? 'error' : 'info'}
+                      />
+                    )}
                     {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
                   </div>
                 </div>
@@ -126,7 +135,17 @@ const RdsAlert= ({
                 {showLink && (
                       <a href="#" className="rds-alert__link-button">Link</a>
                 )}
-                {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" textCase="capitalize" color={resolvedSeverity === 'error' ? 'error' : 'primary'} />}
+                {showSecondary && (
+                  <RdsButton
+                    className={resolvedSeverity === 'error' ? 'rds-alert__secondary-button--error' : 'rds-alert__secondary-button'}
+                    style="transparent"
+                    size="small"
+                    sx={{ mr: showPrimary ? 2 : 0 }}
+                    text="Cancel"
+                    textCase="capitalize"
+                    color={resolvedSeverity === 'error' ? 'error' : 'info'}
+                  />
+                )}
                 {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={resolvedSeverity === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
               </>
             )}

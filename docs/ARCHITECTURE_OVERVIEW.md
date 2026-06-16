@@ -170,7 +170,7 @@ raaghu-react-themes   ← design-tokens.ts → CSS vars → MUI theme
 | Styling | SCSS/Sass (`sass-embedded`) |
 | Build | Vite 7, Million.js |
 | Docs / Visual tests | Storybook 9, Chromatic |
-| Testing | Jest, React Testing Library, Playwright |
+| Testing | Jest, React Testing Library, Vitest (Storybook) |
 | Package manager | npm |
 
 ---

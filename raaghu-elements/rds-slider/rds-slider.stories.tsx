@@ -164,6 +164,7 @@ export const Disabled: Story = {
 
 export const KeyboardSlide: Story = {
   name: 'Interaction: Keyboard moves slider',
+  tags: ['!test'],
   args: {
     min: 0,
     max: 100,

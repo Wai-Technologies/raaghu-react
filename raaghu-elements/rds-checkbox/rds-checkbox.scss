@@ -88,6 +88,9 @@
       .MuiSvgIcon-root {
         font-size: calc(var(--rds-checkbox-size) + 6px);
       }
+      &.MuiCheckbox-sizeSmall .MuiSvgIcon-root {
+        font-size: var(--rds-checkbox-size);
+      }
     }
   }
 

@@ -104,11 +104,13 @@ const RdsCompRadarChart = ({
       },
     });
 
-    if (radius) {
-      radarCanvas.canvas.style.height = `${radius}px`;
-    } else {
-      radarCanvas.canvas.style.height = "";
-      radarCanvas.canvas.style.width = "";
+    if (radarCanvas?.canvas) {
+      if (radius) {
+        radarCanvas.canvas.style.height = `${radius}px`;
+      } else {
+        radarCanvas.canvas.style.height = "";
+        radarCanvas.canvas.style.width = "";
+      }
     }
 
     chartInstanceRef.current = radarCanvas;

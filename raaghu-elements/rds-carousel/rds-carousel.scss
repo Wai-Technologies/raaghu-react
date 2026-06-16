@@ -150,6 +150,7 @@
 
   &--default {
     border-radius: var(--rds-border-radius-sm, 4px);
+    overflow-x: hidden;
     .rds-carousel__indicators {
       bottom: 8px;
     }
@@ -157,6 +158,7 @@
 
   &--with-title {
     border-radius: var(--rds-border-radius-sm, 4px);
+    overflow-x: hidden;
     background-color: var(--rds-carousel-wrapper-bg);
     
     .rds-carousel__slide {

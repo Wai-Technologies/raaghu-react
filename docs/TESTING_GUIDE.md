@@ -617,7 +617,7 @@ This repo uses three testing frameworks, each with a distinct role. Use the righ
 |---------------------|-----------------|-------------|
 | Component logic, props, events, accessibility | **Jest** + React Testing Library | `jest.config.js` |
 | Storybook story interactions and UI state | **Vitest** (via Storybook addon-vitest) | `vitest.config.ts` |
-| End-to-end flows and visual regression | **Playwright** | `playwright.config.ts` |
+| Visual regression snapshots | **Chromatic** | `chromatic.config.json` |
 
 ---
 
@@ -661,25 +661,6 @@ Story tests are co-located with stories (the `play` function in each `StoryObj`)
 
 ---
 
-### Playwright — E2E & Visual Regression
-
-**When**: Testing full user journeys or catching visual regressions.
-
-**Runs via**: `npm run test:e2e` (or the GitHub Actions `playwright.yml` workflow)
-
-**Best for**:
-- Multi-step user flows across components
-- Cross-browser testing
-- Screenshot-based visual regression (Chromatic is the primary tool for this)
-- Accessibility audits at the page level
-
-```bash
-npm run test:e2e                  # run Playwright tests headlessly
-npx playwright test --ui          # open Playwright UI runner
-```
-
----
-
 ### Quick Rule
 
-> Write **Jest** tests first. Add a **Storybook play function** if the interaction is better shown visually. Use **Playwright** only when the test requires a real browser or spans multiple components.
+> Write **Jest** tests first. Add a **Storybook play function** if the interaction is better shown visually. Use **Chromatic** for visual regression checks.

@@ -280,6 +280,10 @@ export const WithIcon: Story = {
       </Box>
     ),
   },
+  argTypes: {
+    ShowPrimary: { control: false },
+    ShowSecondary: { control: false },
+  },
   parameters: {
     controls: {
       include: [

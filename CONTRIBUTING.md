@@ -133,7 +133,7 @@ describe('Accessibility', () => {
 | Health check | Stories/tests/axe coverage |
 | Bundle size | Elements ≤500kB, Components ≤500kB |
 | Chromatic | Visual regression snapshots |
-| Playwright | Story render + visual smoke |
+| Storybook test-runner | Story interaction smoke checks |
 
 ---
 

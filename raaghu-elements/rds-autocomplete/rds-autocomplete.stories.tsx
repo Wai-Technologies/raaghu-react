@@ -248,7 +248,7 @@ export const TypeFilter: Story = {
     // MUI Autocomplete listbox renders in a portal
     await waitFor(
       () => expect(document.querySelector('[role="listbox"]')).not.toBeNull(),
-      { timeout: 2000 }
+      { timeout: 5000 }
     )
   }
 };

@@ -162,6 +162,8 @@
 
   &__close-button {
     position: absolute;
+    right: var(--rds-spacing-sm, 12px);
+    top: var(--rds-spacing-sm, 12px);
     color: var(--rds-text-secondary);
   }
 

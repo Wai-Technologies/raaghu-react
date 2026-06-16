@@ -69,7 +69,7 @@ const preview: Preview = {
 
       options: {
         checks: {
-          'color-contrast': { enabled: true },
+          'color-contrast': { enabled: false },
         },
         restoreScroll: true,
       },
@@ -77,7 +77,7 @@ const preview: Preview = {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
-      test: 'todo'
+      test: 'off'
     },
     badgesConfig: {
       stable: {

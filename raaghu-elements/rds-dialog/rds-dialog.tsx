@@ -71,7 +71,7 @@ const RdsDialog = ({
           {ShowPrimary && (
             <RdsButton
               onClick={onClose}
-              className="rds-dialog__button rds-dialog__button__primary-link"
+              className="rds-dialog__button rds-dialog__button__primary"
               style="filled"
               text="Okay"
             />
