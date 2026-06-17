@@ -68,7 +68,9 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     );
 
     const defaultStylingFunction = useCallback((context: MapStyleContext) => {
-        const opacityLevel = 0.1 + (1.5 * (context.countryValue - context.minValue) / (context.maxValue - context.minValue))
+        const range = context.maxValue - context.minValue;
+        const normalizedValue = range > 0 ? (context.countryValue - context.minValue) / range : 0;
+        const opacityLevel = 0.1 + (1.5 * normalizedValue);
         const highlightFill = getCSSVar('--rds-info-main');
         const strokeColor = getCSSVar('--rds-success-main');
         return {

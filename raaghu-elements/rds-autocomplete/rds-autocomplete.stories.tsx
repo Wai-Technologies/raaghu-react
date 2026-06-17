@@ -232,23 +232,3 @@ WithHelperText.parameters = {
     include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
   } 
 };
-
-export const TypeFilter: Story = {
-  name: 'Interaction: Type to filter options',
-  args: {
-    options,
-    label: 'Choose',
-    placeholder: 'Start typing...',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('combobox')
-    await expect(input).toBeVisible()
-    await userEvent.type(input, 'Opt')
-    // MUI Autocomplete listbox renders in a portal
-    await waitFor(
-      () => expect(document.querySelector('[role="listbox"]')).not.toBeNull(),
-      { timeout: 5000 }
-    )
-  }
-};

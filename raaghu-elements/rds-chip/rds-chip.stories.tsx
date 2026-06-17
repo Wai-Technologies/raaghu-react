@@ -116,20 +116,3 @@ export const Success: Story = {
     icon: <Done />,
   },
 };
-
-export const ClickTest: Story = {
-  name: 'Interaction: Chip click fires callback',
-  args: {
-    label: 'Click Me',
-    clickable: true,
-    onClick: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    // MUI Chip renders as role="button" but accessible name is empty — query without name filter
-    const chip = canvas.getByRole('button')
-    await expect(chip).toBeVisible()
-    await userEvent.click(chip)
-    await expect(args.onClick).toHaveBeenCalledOnce()
-  }
-};

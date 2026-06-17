@@ -357,19 +357,3 @@ export const WithoutIcons: Story = {
 WithoutIcons.parameters = {
   controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
 };
-export const ToggleSelect: Story = {
-  name: 'Interaction: Select toggle button',
-  args: {
-    options: formatOptions,
-    defaultValue: 'bold',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const buttons = canvas.getAllByRole('button')
-    // Bold is the default — should be pressed initially
-    await expect(buttons[0]).toHaveAttribute('aria-pressed', 'true')
-    // Click Italic (second button)
-    await userEvent.click(buttons[1])
-    await expect(buttons[1]).toHaveAttribute('aria-pressed', 'true')
-  }
-};

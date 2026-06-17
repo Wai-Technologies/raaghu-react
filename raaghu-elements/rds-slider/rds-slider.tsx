@@ -20,6 +20,7 @@ const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) =>
   const label: string | undefined = sliderProps.label;
   const showValue: boolean = sliderProps.showValue ?? false;
   const showLabel: boolean = sliderProps.showLabel ?? false;
+  const showTooltip: 'default' | 'tooltip' = sliderProps.showTooltip ?? 'default';
   const unit: string | undefined = sliderProps.unit;
   const value = sliderProps.value;
   const level = sliderProps.level;
@@ -162,7 +163,7 @@ const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) =>
           getAriaLabel={isRangeValue ? () => ariaLabel : undefined}
           step={sliderStep}
           marks={sliderMarks}
-          valueLabelDisplay={props.showTooltip === 'tooltip' ? 'auto' : 'off'}
+          valueLabelDisplay={showTooltip === 'tooltip' ? 'auto' : 'off'}
         />
         {rightLabel && <span className="rds-slider__right-label">{rightLabel}</span>}
       </div>

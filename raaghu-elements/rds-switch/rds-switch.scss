@@ -130,7 +130,6 @@
 }
 .rds-switch--style2 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb) !important;
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
 }
 
 .rds-switch--style3 .MuiSwitch-track {
@@ -157,12 +156,11 @@
   background: var(--rds-color-switch-thumb) !important;
 }
 
-.rds-switch--style2 .Mui-checked + .MuiSwitch-thumb,
-.rds-switch--style2 .MuiSwitch-input:checked + .MuiSwitch-thumb,
-.rds-switch--style4 .Mui-checked + .MuiSwitch-thumb,
-.rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
+.rds-switch--style4 .MuiSwitch-switchBase {
+  top: 2px !important;
 }
+
+
 
 .rds-switch--style5 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
@@ -215,8 +213,8 @@
   --rds-switch-root-width: 40px;
   --rds-switch-root-height: 20px;
   --rds-switch-thumb-size: 16px;
-  --rds-switch-thumb-padding: 2px;
-  --rds-switch-thumb-translate-x: 20px;
+  --rds-switch-thumb-padding: 0px;
+  --rds-switch-thumb-translate-x: 24px;
 }
 
 .rds-switch--style6 .MuiSwitch-track::before {

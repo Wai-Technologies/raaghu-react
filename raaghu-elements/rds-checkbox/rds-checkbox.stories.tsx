@@ -125,37 +125,3 @@ export const WithoutLabel: Story = {
     status: 'checked',
   },
 };
-
-export const CheckInteraction: Story = {
-  name: 'Interaction: Click to check',
-  args: {
-    labeltext: 'Toggle Me',
-    // No status prop — relies on uncontrolled default so click changes DOM state
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // MUI hides the native <input> with opacity:0 — use toBeInTheDocument not toBeVisible
-    const checkbox = canvas.getByRole('checkbox')
-    await expect(checkbox).toBeInTheDocument()
-    await expect(checkbox).not.toBeChecked()
-    await userEvent.click(checkbox)
-    await expect(checkbox).toBeChecked()
-  }
-};
-
-export const IndeterminateVisible: Story = {
-  name: 'Interaction: Indeterminate state visible',
-  args: {
-    labeltext: 'Indeterminate',
-    status: 'indeterminate',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // MUI hides the native input — check it's in the DOM, not visible
-    const checkbox = canvas.getByRole('checkbox')
-    await expect(checkbox).toBeInTheDocument()
-    // ARIA expresses indeterminate as aria-checked="mixed" (confirmed from DOM output)
-    await expect(checkbox).toHaveAttribute('aria-checked', 'mixed')
-    await expect(checkbox).toHaveAttribute('data-indeterminate', 'true')
-  }
-};

@@ -121,6 +121,19 @@ const RdsCompEmojiGenerator = ({
     const handleSkinToneSelect = (t: number) => { setSelectedSkinTone(t); handleSkinToneClose(); };
     const skinTonePopoverOpen = Boolean(skinToneAnchorEl);
 
+    const filteredEmojis = useMemo(
+        () => (
+            searchTerm
+                ? searchEmojis(searchTerm, selectedCategory, selectedSkinTone)
+                : getEmojisByCategory(selectedCategory, selectedSkinTone)
+        ),
+        [searchTerm, selectedCategory, selectedSkinTone]
+    );
+    const displayEmojis = useMemo(
+        () => (maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis),
+        [filteredEmojis, maxEmojis]
+    );
+
     if (Type === EmojiGeneratorType.QuickReactions) {
         return (
             <Box className="rds-emoji-generator rds-emoji-generator--quick" {...props}>
@@ -144,19 +157,6 @@ const RdsCompEmojiGenerator = ({
             </Box>
         );
     }
-
-    const filteredEmojis = useMemo(
-        () => (
-            searchTerm
-                ? searchEmojis(searchTerm, selectedCategory, selectedSkinTone)
-                : getEmojisByCategory(selectedCategory, selectedSkinTone)
-        ),
-        [searchTerm, selectedCategory, selectedSkinTone]
-    );
-    const displayEmojis = useMemo(
-        () => (maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis),
-        [filteredEmojis, maxEmojis]
-    );
 
     const isFlagEmoji = (emoji: string) => {
         return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(emoji);

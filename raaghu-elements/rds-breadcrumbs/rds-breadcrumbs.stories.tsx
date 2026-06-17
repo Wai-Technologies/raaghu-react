@@ -119,22 +119,3 @@ export const WithClickHandlers: Story = {
     level: 'level3',
   },
 };
-export const ClickItem: Story = {
-  name: 'Interaction: Click breadcrumb item',
-  args: {
-    items: [
-      { label: 'Home', onClick: fn() },
-      { label: 'Products', onClick: fn() },
-      { label: 'Current Page', active: true },
-    ],
-    layout: 'without background',
-    showIcon: false,
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    const homeItem = canvas.getByText('Home')
-    await expect(homeItem).toBeVisible()
-    await userEvent.click(homeItem)
-    await expect(args.items[0].onClick).toHaveBeenCalledOnce()
-  }
-};

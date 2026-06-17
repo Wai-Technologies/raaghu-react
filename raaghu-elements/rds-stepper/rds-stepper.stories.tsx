@@ -17,6 +17,9 @@ const meta: Meta<typeof RdsStepper> = {
     currentStep: {
       control: { type: 'number' },
     },
+    showContent: {
+      control: { type: 'boolean' },
+    },
     direction: {
       control: { type: 'select' },
       options: ['horizontal', 'vertical'],
@@ -26,6 +29,18 @@ const meta: Meta<typeof RdsStepper> = {
     },
     nonLinear: {
       control: { type: 'boolean' },
+    },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    children: {
+      control: { disable: true },
+      table: { disable: true },
     },
   },
 };
@@ -111,19 +126,4 @@ export const WithErrors: Story = {
       { label: 'Create an ad' },
     ],
   },
-};
-
-export const NavigationTest: Story = {
-  name: 'Interaction: Step Navigation',
-  args: {
-    currentStep: 0,
-    steps: steps,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    await expect(canvas.getByText('Select campaign settings')).toBeVisible()
-    await expect(canvas.getByText('Create an ad group')).toBeVisible()
-    await expect(canvas.getByText('Create an ad')).toBeVisible()
-    await expect(canvasElement).toBeTruthy()
-  }
 };

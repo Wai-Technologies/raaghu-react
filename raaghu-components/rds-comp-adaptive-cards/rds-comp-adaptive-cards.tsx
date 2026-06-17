@@ -371,6 +371,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
             <CardActions
               className={clsx(
                 "rds-adaptive-cards__actions",
+                type === "InputForm" && "rds-adaptive-cards__actions--input-form",
                 type === "RestaurantOrder" && "rds-adaptive-cards__actions--restaurant-order",
                 type === "ActivityUpdateCard" && "rds-adaptive-cards__actions--activity-update"
               )}

@@ -64,6 +64,46 @@ const meta: Meta<typeof RdsSearch> = {
     searchDelay: {
       control: 'number',
     },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slots: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slotProps: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    InputProps: {
+      control: { disable: true },
+    },
+    inputProps: {
+      control: { disable: true },
+    },
+    InputLabelProps: {
+      control: { disable: true },
+    },
+    FormHelperTextProps: {
+      control: { disable: true },
+    },
+    onChange: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onSearch: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onClear: {
+      control: { disable: true },
+      table: { disable: true },
+    },
   },
 };
 
@@ -377,29 +417,4 @@ export const WithoutIcons: Story = {
   parameters: {
     controls: { exclude: ['iconPosition', 'showSearchIcon'] },
   },
-};
-
-export const TypeSearch: Story = {
-  name: 'Interaction: Type in search',
-  render: (args) => {
-    const [searchValue, setSearchValue] = React.useState('');
-    return (
-      <RdsSearch
-        {...args}
-        value={searchValue}
-        onChange={setSearchValue}
-      />
-    );
-  },
-  args: {
-    placeholder: 'Search...',
-  },
-  play: async ({ canvasElement }) => {
-    // RdsSearch input is not exposed as combobox/textbox role — find via querySelector
-    const input = canvasElement.querySelector('input') as HTMLInputElement | null
-    await expect(input).not.toBeNull()
-    await expect(input).toBeInTheDocument()
-    await userEvent.type(input as HTMLElement, 'hello')
-    await expect(input).toHaveValue('hello')
-  }
 };

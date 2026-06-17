@@ -1,6 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
-import { Search, Clear } from '@mui/icons-material';
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 import clsx from 'clsx';
 import './rds-search.scss';
 
@@ -119,7 +120,7 @@ const RdsSearch = ({
                   aria-label="search"
                   disabled={disabled}
                 >
-                  <Search />
+                  <SearchIcon />
                 </IconButton>
               </InputAdornment>
             ) : undefined,
@@ -134,7 +135,7 @@ const RdsSearch = ({
                       aria-label="clear"
                       disabled={disabled}
                     >
-                      <Clear />
+                      <ClearIcon />
                     </IconButton>
                     <IconButton
                       onClick={handleSearch}
@@ -142,7 +143,7 @@ const RdsSearch = ({
                       aria-label="search"
                       disabled={disabled}
                     >
-                      <Search />
+                      <SearchIcon />
                     </IconButton>
                   </>
                 ) : (
@@ -152,7 +153,7 @@ const RdsSearch = ({
                     aria-label="search"
                     disabled={disabled}
                   >
-                    <Search />
+                    <SearchIcon />
                   </IconButton>
                 )}
               </InputAdornment>
@@ -165,7 +166,7 @@ const RdsSearch = ({
                     aria-label="clear"
                     disabled={disabled}
                   >
-                    <Clear />
+                    <ClearIcon />
                   </IconButton>
                 </InputAdornment>
               ) : undefined

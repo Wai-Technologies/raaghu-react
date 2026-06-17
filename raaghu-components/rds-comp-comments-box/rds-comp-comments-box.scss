@@ -752,6 +752,44 @@
   font-size: var(--rds-font-size-md, 14px) !important;
   color: var(--rds-text-secondary) !important;
 }
+
+.rds-comments-box--hover .rds-comments-box__info,
+.rds-comments-box--thread .rds-comments-box__comment-info {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.rds-comments-box--hover .rds-comments-box__header {
+  width: 100%;
+  min-width: 0;
+}
+
+.rds-comments-box--hover .rds-comments-box__hover-tools {
+  margin-left: auto !important;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.rds-comments-box--hover .rds-comments-box__info .rds-comments-box__name,
+.rds-comments-box--hover .rds-comments-box__info .rds-comments-box__time,
+.rds-comments-box--thread .rds-comments-box__comment-info .rds-comments-box__name,
+.rds-comments-box--thread .rds-comments-box__comment-info .rds-comments-box__time {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rds-comments-box--hover .rds-comments-box__info .rds-comments-box__name,
+.rds-comments-box--hover .rds-comments-box__info .rds-comments-box__time {
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.rds-comments-box--thread .rds-comments-box__comment-content .rds-comments-box__comment-header .rds-comments-box__tools {
+  margin-left: var(--rds-spacing-sm, 8px);
+}
 .rds-comments-box__mention-user-list-scroll-hide {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -1312,6 +1350,34 @@
         margin-left: var(--rds-spacing-15);
     }
     }
+}
+
+[data-theme="dark"] .rds-comments-box--hover .rds-comments-box__meta,
+[data-theme="dark"] .rds-comments-box--thread .rds-comments-box__meta {
+  color: var(--rds-neutral-0) !important;
+}
+
+@media (min-width: 601px) {
+  .rds-comments-box--thread .rds-comments-box__thread-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+  }
+
+  .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-right: var(--rds-spacing-none, 0) !important;
+    text-align: left;
+  }
+
+  .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-icons {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
 }
 
 @media (max-width: 1200px) and (min-width: 650px) {

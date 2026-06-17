@@ -101,6 +101,10 @@ const RdsCompAiFabMenu = ({
     colorVariant === "dark" || colorVariant === "primary" || colorVariant === "danger"
       ? "light"
       : "dark";
+  // When there is no background (transparent button), a "light" icon is invisible on light
+  // theme backgrounds. Use "primary" so the icon inherits the button's primary foreground color.
+  const resolvedIconColorVariant =
+    resolvedBackgroundType === "none" ? "primary" : iconColorVariant;
 
   return (
     <div
@@ -132,7 +136,7 @@ const RdsCompAiFabMenu = ({
           stroke={true}
           height="24px"
           width="24px"
-          colorVariant={iconColorVariant}
+          colorVariant={resolvedIconColorVariant}
         />
       </button>
       <div

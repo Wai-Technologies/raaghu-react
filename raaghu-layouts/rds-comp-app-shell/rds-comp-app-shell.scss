@@ -145,6 +145,13 @@ html[data-theme="dark"] {
   }
 }
 
+html[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
+body[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
+html[data-theme="dark"] .side-nav .sidenav-desktop-content,
+body[data-theme="dark"] .side-nav .sidenav-desktop-content {
+  background: var(--rds-surface-dark-deep, #1b1d1f);
+}
+
 @media (min-width: 769px) {
   html[data-theme="dark"] {
     .double-nav .MuiBottomNavigation-root,

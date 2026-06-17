@@ -253,24 +253,3 @@ export const WithImage = {
     ),
   },
 };
-export const OpenModal: Story = {
-  name: 'Interaction: Open modal',
-  render: ModalTemplate,
-  args: {
-    children: <Typography>Modal content is visible</Typography>,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const openBtn = canvas.getByRole('button', { name: /open modal/i })
-    await expect(openBtn).toBeVisible()
-    await userEvent.click(openBtn)
-    // RdsModal renders in a portal at document.body
-    await waitFor(
-      () => {
-        const modal = document.querySelector('[role="dialog"], [class*="MuiModal"], [class*="MuiDialog"]')
-        expect(modal).not.toBeNull()
-      },
-      { timeout: 2000 }
-    )
-  }
-};

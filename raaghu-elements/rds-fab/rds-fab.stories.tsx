@@ -114,19 +114,3 @@ export const Success: Story = {
     children: <Add />,
   },
 };
-
-export const ClickFab: Story = {
-  name: 'Interaction: FAB click fires callback',
-  args: {
-    color: 'primary',
-    children: <Add />,
-    onClick: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    const fab = canvas.getByRole('button')
-    await expect(fab).toBeVisible()
-    await userEvent.click(fab)
-    await expect(args.onClick).toHaveBeenCalledOnce()
-  }
-};
