@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RdsCompAppShell, { AppShellDisplayType } from '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell';
 import '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell.scss';
 import RdsAppBar from '@raaghu/elements/rds-app-bar/rds-app-bar';
@@ -18,6 +18,11 @@ import {
   Chip,
   LinearProgress,
   Badge,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText as MenuItemText,
+  useMediaQuery,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
@@ -30,6 +35,7 @@ import {
   Notifications as BellIcon,
   WbSunny as SunIcon,
   NightsStay as MoonIcon,
+  SettingsBrightness as SystemThemeIcon,
   PeopleAlt as PeopleIcon,
   AttachMoney as MoneyIcon,
   WorkOutline as WorkIcon,
@@ -123,7 +129,34 @@ const NAV_ITEMS = [
 
 export default function DashboardPage() {
   const [activeNav, setActiveNav] = useState('dashboard');
-  const { toggleMode, isDark } = useRaaghuTheme();
+  const [themeMenuAnchor, setThemeMenuAnchor] = useState<HTMLElement | null>(null);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const { mode, setMode, isDark } = useRaaghuTheme();
+
+  useEffect(() => {
+    if (!isMobile) {
+      setMobileSidebarOpen(false);
+    }
+  }, [isMobile]);
+
+  const handleThemeMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setThemeMenuAnchor(event.currentTarget);
+  };
+
+  const handleThemeMenuClose = () => {
+    setThemeMenuAnchor(null);
+  };
+
+  const handleThemeModeSelect = (nextMode: 'light' | 'dark' | 'system') => {
+    setMode(nextMode);
+    handleThemeMenuClose();
+  };
+
+  const themeIcon =
+    mode === 'system' ? <SystemThemeIcon sx={{ fontSize: 20 }} /> :
+    isDark ? <SunIcon sx={{ fontSize: 20 }} /> :
+    <MoonIcon sx={{ fontSize: 20 }} />;
 
   const logoSrc = isDark
     ? 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-darkmode.png'
@@ -137,57 +170,89 @@ export default function DashboardPage() {
         title=""
         showLogo
         logo={<img src={logoSrc} alt="Raaghu Design System" style={{ height: 28, objectFit: 'contain' }} />}
-        showMenuButton
+        showMenuButton={isMobile}
         showSearch
         searchPlaceholder="Search…"
         onSearchChange={() => {}}
         actions={
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <IconButton
-              size="small"
-              sx={{
-                color: 'text.secondary',
-                bgcolor: 'action.hover',
-                borderRadius: 1.5,
-                '&:hover': { bgcolor: 'action.selected' },
-              }}
-            >
-              <Badge badgeContent={3} color="error" sx={{ '& .MuiBadge-badge': { fontSize: 10, minWidth: 16, height: 16 } }}>
-                <BellIcon sx={{ fontSize: 20 }} />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="small"
-              onClick={toggleMode}
-              aria-label="toggle theme"
-              sx={{
-                color: 'text.secondary',
-                bgcolor: 'action.hover',
-                borderRadius: 1.5,
-                '&:hover': { bgcolor: 'action.selected' },
-              }}
-            >
-              {isDark ? <SunIcon sx={{ fontSize: 20 }} /> : <MoonIcon sx={{ fontSize: 20 }} />}
-            </IconButton>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }}>
-              <Avatar
+          <>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <IconButton
+                size="small"
                 sx={{
-                  width: 34,
-                  height: 34,
-                  background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
-                  fontSize: 13,
-                  fontWeight: 700,
-                  boxShadow: '0 2px 8px rgba(79,70,229,0.4)',
+                  color: 'text.secondary',
+                  bgcolor: 'action.hover',
+                  borderRadius: 1.5,
+                  '&:hover': { bgcolor: 'action.selected' },
                 }}
               >
-                JD
-              </Avatar>
-              <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2, fontSize: 13 }}>John Doe</Typography>
-                <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: 11 }}>Admin</Typography>
+                <Badge badgeContent={3} color="error" sx={{ '& .MuiBadge-badge': { fontSize: 10, minWidth: 16, height: 16 } }}>
+                  <BellIcon sx={{ fontSize: 20 }} />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="small"
+                onClick={handleThemeMenuOpen}
+                aria-label="change theme"
+                aria-controls={themeMenuAnchor ? 'dashboard-theme-menu' : undefined}
+                aria-haspopup="menu"
+                aria-expanded={themeMenuAnchor ? 'true' : undefined}
+                sx={{
+                  color: 'text.secondary',
+                  bgcolor: 'action.hover',
+                  borderRadius: 1.5,
+                  '&:hover': { bgcolor: 'action.selected' },
+                }}
+              >
+                {themeIcon}
+              </IconButton>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }}>
+                <Avatar
+                  sx={{
+                    width: 34,
+                    height: 34,
+                    background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    boxShadow: '0 2px 8px rgba(79,70,229,0.4)',
+                  }}
+                >
+                  JD
+                </Avatar>
+                <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                  <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2, fontSize: 13 }}>John Doe</Typography>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: 11 }}>Admin</Typography>
+                </Box>
               </Box>
             </Box>
-          </Box>
+            <Menu
+              id="dashboard-theme-menu"
+              anchorEl={themeMenuAnchor}
+              open={Boolean(themeMenuAnchor)}
+              onClose={handleThemeMenuClose}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+              <MenuItem selected={mode === 'system'} onClick={() => handleThemeModeSelect('system')}>
+                <ListItemIcon>
+                  <SystemThemeIcon fontSize="small" />
+                </ListItemIcon>
+                <MenuItemText primary="System" secondary="Follow device theme" />
+              </MenuItem>
+              <MenuItem selected={mode === 'light'} onClick={() => handleThemeModeSelect('light')}>
+                <ListItemIcon>
+                  <MoonIcon fontSize="small" />
+                </ListItemIcon>
+                <MenuItemText primary="Light" secondary="Always use light theme" />
+              </MenuItem>
+              <MenuItem selected={mode === 'dark'} onClick={() => handleThemeModeSelect('dark')}>
+                <ListItemIcon>
+                  <SunIcon fontSize="small" />
+                </ListItemIcon>
+                <MenuItemText primary="Dark" secondary="Always use dark theme" />
+              </MenuItem>
+            </Menu>
+          </>
         }
       />
     </div>
@@ -205,7 +270,7 @@ export default function DashboardPage() {
           display: 'flex',
           alignItems: 'center',
           flexShrink: 0,
-          bgcolor: 'var(--rds-background-paper)',
+          bgcolor: 'background.paper',
           borderBottom: '1px solid var(--rds-divider)',
         }}
       >
@@ -222,7 +287,12 @@ export default function DashboardPage() {
           icon: item.icon,
           label: item.label,
           active: activeNav === item.id,
-          onClick: () => setActiveNav(item.id),
+          onClick: () => {
+            setActiveNav(item.id);
+            if (isMobile) {
+              setMobileSidebarOpen(false);
+            }
+          },
         }))}
       />
     </Box>
@@ -230,7 +300,7 @@ export default function DashboardPage() {
 
   // ── Main content ─────────────────────────────────────────────────────────
   const content = (
-    <Box sx={{ p: { xs: 2, md: 3 }, minHeight: '100vh', bgcolor: 'var(--rds-background-default)' }}>
+    <Box sx={{ p: { xs: 2, md: 3 }, minHeight: '100vh', bgcolor: 'background.default' }}>
       {/* Spacer so content clears the fixed AppBar */}
       <Toolbar />
 
@@ -273,7 +343,7 @@ export default function DashboardPage() {
             key={kpi.label}
             sx={{
               p: 2.5,
-              bgcolor: 'var(--rds-background-paper)',
+              bgcolor: 'background.paper',
               border: '1px solid var(--rds-divider)',
               borderRadius: 'var(--rds-border-radius-md)',
               boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)',
@@ -359,7 +429,7 @@ export default function DashboardPage() {
         {/* Recent activity */}
         <Box
           sx={{
-            bgcolor: 'var(--rds-background-paper)',
+            bgcolor: 'background.paper',
             border: '1px solid var(--rds-divider)',
             borderRadius: 'var(--rds-border-radius-md)',
             overflow: 'hidden',
@@ -473,7 +543,7 @@ export default function DashboardPage() {
           {/* System health */}
           <Box
             sx={{
-              bgcolor: 'var(--rds-background-paper)',
+              bgcolor: 'background.paper',
               border: '1px solid var(--rds-divider)',
               borderRadius: 'var(--rds-border-radius-md)',
               overflow: 'hidden',
@@ -559,6 +629,12 @@ export default function DashboardPage() {
       displayType={AppShellDisplayType.Default}
       topbar={topbar}
       sidebar={sidebar}
+      mobileSidebarOpen={isMobile ? mobileSidebarOpen : false}
+      onMobileSidebarToggle={() => {
+        if (isMobile) {
+          setMobileSidebarOpen(open => !open);
+        }
+      }}
     >
       {content}
     </RdsCompAppShell>

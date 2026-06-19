@@ -1092,7 +1092,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-info-dark': i[600],
     '--rds-info-contrast-text': white,
     // ── Background ───────────────────────────────────────────────────────────
-    '--rds-background-default': white,
+    '--rds-background-default': n[50],
     '--rds-background-paper': white,
     '--rds-background-surface': n[50],
     '--rds-background-overlay': alphaTokens.overlayDark,
@@ -1106,7 +1106,8 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-border-light': n[200],
     '--rds-border-dark': n[400],
     '--rds-border-focus': 'var(--rds-primary-main)',
-    // ── Button primary ───────────────────────────────────────────────────────
+    // ── Divider (alias for the most common border use-case in layouts) ────────
+    '--rds-divider': n[200],
     '--rds-button-primary-bg': p[700],
     '--rds-button-primary-bg-hover': p[750],
     '--rds-button-primary-bg-active': p[800],
@@ -1330,6 +1331,8 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-border-default': n[700],
     '--rds-border-light': n[800],
     '--rds-border-dark': n[600],
+    // ── Divider ───────────────────────────────────────────────────────────────
+    '--rds-divider': n[700],
     // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-on-surface': 'var(--rds-text-primary)',
     '--rds-color-on-surface-variant': 'var(--rds-text-secondary)',

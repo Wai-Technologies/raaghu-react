@@ -57,13 +57,21 @@ function ThemeToggle() {
 }
 ```
 
+`toggleMode()` cycles through `light -> dark -> system -> light`.
+Use it when you want a quick inline toggle that can also return to system mode.
+
 ### 3. Set a specific mode
 
 ```tsx
 const { setMode } = useRaaghuTheme();
 setMode('dark');
 setMode('light');
+setMode('system');
 ```
+
+For client applications, prefer explicit `System`, `Light`, and `Dark` actions in
+settings menus or profile menus. That keeps manual mode selection predictable while
+still allowing the app to follow `prefers-color-scheme` when `system` is selected.
 
 ### 4. Controlled mode (parent drives the theme)
 
