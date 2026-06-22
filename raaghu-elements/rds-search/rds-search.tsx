@@ -5,7 +5,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import clsx from 'clsx';
 import './rds-search.scss';
 
-export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange'> {
+export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange' | 'component'> {
   value: string;
   onChange: (value: string) => void;
   onSearch?: (value: string) => void;

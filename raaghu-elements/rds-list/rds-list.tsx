@@ -17,7 +17,7 @@ export interface RdsListItem {
   disabled?: boolean;
   children?: RdsListItem[];
 }
-export interface RdsListProps extends ListProps {
+export interface RdsListProps extends Omit<ListProps, 'component'> {
   items: RdsListItem[];
   variant?: 'simple' | 'button' | 'icon' | 'avatar' | 'firebase';
   alignItems?: 'flex-start' | 'center';

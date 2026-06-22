@@ -3,7 +3,7 @@ import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@
 import clsx from 'clsx';
 import './rds-checkbox.scss';
 
-export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
+export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
   labeltext?: string;
   isDisabled?: boolean;
   style?: 'square' | 'circular';

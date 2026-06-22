@@ -4,7 +4,7 @@ import RdsButton from '../rds-button/rds-button';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
 import './rds-pagination.scss';
-export interface RdsPaginationProps extends PaginationProps {
+export interface RdsPaginationProps extends Omit<PaginationProps, 'component'> {
   totalPages?: number;
   currentPage?: number;
   onPageChange?: (page: number) => void;

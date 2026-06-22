@@ -14,7 +14,7 @@ function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): s
   }
 }
 
-export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size'> {
+export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component'> {
   label?: string;
   placeholder?: string;
   hintText?: string;

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 
-export interface RdsAvatarProps extends AvatarProps {
+export interface RdsAvatarProps extends Omit<AvatarProps, 'component'> {
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
   title?: string;
   subText?: string;

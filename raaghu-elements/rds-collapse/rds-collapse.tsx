@@ -3,7 +3,7 @@ import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButto
 import './rds-collapse.scss';
 import { ExpandMore } from '@mui/icons-material';
 
-export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle'> {
+export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle' | 'component'> {
   title?: string;
   children: ReactNode;
   expanded?: boolean;

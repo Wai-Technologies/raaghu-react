@@ -31,7 +31,7 @@ const resolveIcon = (icon?: ReactNode | string): ReactNode => {
   return icon;
 };
 
-export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
+export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
   text?: string;
   isLoading?: boolean;
   shape?: 'pill' | 'rectangle';

@@ -30,7 +30,7 @@ import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
 import "./rds-app-bar.scss";
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
-export interface RdsAppBarProps extends AppBarProps {
+export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   title?: string;
   rightActions?: ReactNode;
   centerContent?: ReactNode;

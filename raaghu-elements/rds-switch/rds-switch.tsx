@@ -3,7 +3,7 @@ import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/ma
 import clsx from 'clsx';
 import './rds-switch.scss';
 
-export interface RdsSwitchProps extends Omit<SwitchProps, 'style'> {
+export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'> {
   label?: string;
   labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';

@@ -1,7 +1,7 @@
 import { type SyntheticEvent } from 'react';
 import { Snackbar as MuiSnackbar, Alert, type SnackbarProps } from '@mui/material';
 
-export interface RdsSnackbarProps extends SnackbarProps {
+export interface RdsSnackbarProps extends Omit<SnackbarProps, 'component'> {
   message?: string;
   type?: 'success' | 'error' | 'warning' | 'info';
   showCloseButton?: boolean;

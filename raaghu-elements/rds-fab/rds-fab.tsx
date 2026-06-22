@@ -2,7 +2,7 @@ import { type ReactNode, type CSSProperties } from 'react';
 import { Fab as MuiFab, type FabProps } from '@mui/material';
 import './rds-fab.scss';
 
-export interface RdsFabProps extends FabProps {
+export interface RdsFabProps extends Omit<FabProps, 'component'> {
   icon?: ReactNode;
   label?: string;
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';

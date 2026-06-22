@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
 import './rds-alert.scss';
 
-export interface RdsAlertProps extends AlertProps {
+export interface RdsAlertProps extends Omit<AlertProps, 'component'> {
   description?: string;
   type?: AlertColor;
   changeIconName?: ReactNode;

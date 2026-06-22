@@ -4,7 +4,7 @@ import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
 import './rds-range.scss';
 
-export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
+export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange' | 'component'> {
   value?: number | number[];
   onChange?: (value: number | number[]) => void;
   label?: string;

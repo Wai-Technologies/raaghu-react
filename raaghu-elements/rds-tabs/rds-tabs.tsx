@@ -34,7 +34,7 @@ export type RdsTabsLayout =
   | 'line-top-solid'
   | 'pill';
 
-export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
+export interface RdsTabsProps extends Omit<TabsProps, 'orientation' | 'component'> {
   tabs: RdsTabItem[];
   activeTab?: string | number;
   onTabChange?: (tabId: string | number) => void;

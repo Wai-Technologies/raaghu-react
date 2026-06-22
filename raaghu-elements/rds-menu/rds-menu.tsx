@@ -26,7 +26,7 @@ export interface RdsMenuItem {
   color?: 'primary' | 'success' | 'danger' | 'info' | 'warning' | string;
 }
 
-export interface RdsMenuProps extends Omit<MenuProps, 'children'> {
+export interface RdsMenuProps extends Omit<MenuProps, 'children' | 'component'> {
   items: RdsMenuItem[];
   size?: 'small' | 'medium' | 'large';
   children?: ReactNode;

@@ -1,7 +1,7 @@
 import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 import clsx from 'clsx';
 
-export interface RdsSkeletonProps extends SkeletonProps {
+export interface RdsSkeletonProps extends Omit<SkeletonProps, 'component'> {
   frames?: number;
   shape?: 'text' | 'rectangular' | 'rounded' | 'circular';
   animated?: boolean;

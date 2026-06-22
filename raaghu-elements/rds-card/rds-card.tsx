@@ -42,7 +42,7 @@ export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
 export type CardStyle = 'default' | 'outlined' | 'filled';
 export type CardLayout = 'vertical' | 'horizontal';
 export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
-export interface RdsCardProps extends Omit<CardProps, 'children' | 'style'> {
+export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component'> {
   padding?: number | string;
   state?: CardState;
   style?: CardStyle;

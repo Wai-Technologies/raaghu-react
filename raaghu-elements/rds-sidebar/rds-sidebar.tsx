@@ -58,7 +58,7 @@ export interface RdsSidebarItem {
   children?: RdsSidebarItem[];
 }
 
-export interface RdsSidebarProps extends Omit<DrawerProps, 'children'> {
+export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'component'> {
   items: RdsSidebarItem[];
   isOpen: boolean;
   onClose?: () => void;

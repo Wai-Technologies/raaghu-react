@@ -13,7 +13,7 @@ import clsx from 'clsx';
 import './rds-accordion.scss';
 import { MotionCollapse } from '../../raaghu-react-themes/src/motion/MotionCollapse';
 
-export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
+export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'component'> {
   ShowLeftIcon?: boolean;
   changeleftIcon?: ReactNode;
   title: string;

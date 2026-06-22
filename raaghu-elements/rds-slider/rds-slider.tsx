@@ -3,7 +3,7 @@ import { useMemo, useState, type JSX } from 'react';
 import { Slider as MuiSlider, SliderProps } from '@mui/material';
 import './rds-slider.scss';
 
-export interface RdsSliderProps extends SliderProps {
+export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
   label?: string;
   showValue?: boolean;
   showLabel?: boolean;

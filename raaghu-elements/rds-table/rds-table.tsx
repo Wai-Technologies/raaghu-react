@@ -38,7 +38,7 @@ type RdsTableRow = {
   key?: string | number;
 } & Record<string, ReactNode>;
 
-export interface RdsTableProps extends Omit<TableProps, 'children'> {
+export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'> {
   columns: RdsTableColumn[];
   rows: RdsTableRow[];
   pagination?: boolean;

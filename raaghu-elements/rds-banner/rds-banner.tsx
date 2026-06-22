@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
 import './rds-banner.scss';
 
-export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'> {
+export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose' | 'component'> {
   description?: string;
   type?: AlertColor;
   title?: string;

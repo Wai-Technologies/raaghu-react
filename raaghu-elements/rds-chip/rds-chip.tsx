@@ -1,6 +1,6 @@
 import { Chip as MuiChip, type ChipProps } from '@mui/material';
 
-export interface RdsChipProps extends ChipProps {}
+export interface RdsChipProps extends Omit<ChipProps, 'component'> {}
 
 const RdsChip = ({
   label,

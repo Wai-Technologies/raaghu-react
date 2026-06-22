@@ -13,7 +13,7 @@ const SIZE_MAP = {
   'extra-large': 'xl',
 } as const;
 
-export interface RdsDialogProps extends DialogProps {
+export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   title?: string;
   children?: ReactNode;
   actions?: ReactNode;

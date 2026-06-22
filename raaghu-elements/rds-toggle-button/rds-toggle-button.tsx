@@ -9,7 +9,7 @@ export interface RdsToggleButtonOption {
   disabled?: boolean;
 }
 export type { RdsStandaloneToggleButtonProps } from './rds-standalone-toggle-button';
-export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'children'> {
+export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'children' | 'component'> {
   options: RdsToggleButtonOption[];
   multiple?: boolean;
   enforceSelected?: boolean;

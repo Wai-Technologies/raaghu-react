@@ -18,7 +18,7 @@ export interface RdsStepperStep {
   error?: boolean;
 }
 
-export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'variant'> {
+export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'variant' | 'component'> {
   steps: RdsStepperStep[];
   currentStep?: number;
   direction?: 'horizontal' | 'vertical';

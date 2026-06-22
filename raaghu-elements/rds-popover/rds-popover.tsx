@@ -56,7 +56,7 @@ const POPOVER_POSITION_MAP: Record<string, PositionMapEntry> = {
 };
 import './rds-popover.scss';
 
-export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'> {
+export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children' | 'component'> {
   isOpen: boolean;
   onClose: () => void;
   anchorEl: Element | null;

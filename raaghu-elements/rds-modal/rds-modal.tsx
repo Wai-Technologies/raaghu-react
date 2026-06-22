@@ -12,7 +12,7 @@ import { Close as CloseIcon } from '@mui/icons-material';
 import clsx from 'clsx';
 import './rds-modal.scss';
  
-export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open'> {
+export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'component'> {
   title?: string;
   visibility?: 'open' | 'closed';
   onClose: () => void;

@@ -55,7 +55,7 @@ export interface RdsBreadcrumbItem {
   icon?: string;
 }
 
-export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children'> {
+export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' | 'component'> {
   items: RdsBreadcrumbItem[];
   separator?: ReactNode | BreadcrumbSeparator;
   separatorType?: BreadcrumbSeparator;

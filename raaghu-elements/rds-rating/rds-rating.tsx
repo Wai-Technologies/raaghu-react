@@ -3,7 +3,7 @@ import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/materia
 import StarIcon from '@mui/icons-material/Star';
 import './rds-rating.scss';
 
-export interface RdsRatingProps extends RatingProps {
+export interface RdsRatingProps extends Omit<RatingProps, 'component'> {
   label?: string;
   showValue?: boolean;
   maxStars?: number;
