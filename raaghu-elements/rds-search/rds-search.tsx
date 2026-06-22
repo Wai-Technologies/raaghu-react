@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useEffect, useRef, type ChangeEvent, type KeyboardEvent } from 'react';
 import { TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -37,7 +37,7 @@ const RdsSearch = ({
   fullWidth: fullWidthProp = false,
   ...props
 }: RdsSearchProps) => {
-  const [searchTimeout, setSearchTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
@@ -45,13 +45,13 @@ const RdsSearch = ({
     const newValue = event.target.value;
     onChange(newValue);
     if (autoSearch && onSearch) {
-      if (searchTimeout) {
-        clearTimeout(searchTimeout);
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
       }
       const timeout = setTimeout(() => {
         onSearch(newValue);
       }, searchDelay);
-      setSearchTimeout(timeout);
+      searchTimeoutRef.current = timeout;
     }
   };
 
@@ -75,11 +75,13 @@ const RdsSearch = ({
   };
 
   useEffect(() => {
+    const timeoutRef = searchTimeoutRef;
     return () => {
-      if (searchTimeout) {
-        clearTimeout(searchTimeout);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
-    };  }, [searchTimeout]);
+    };
+  }, []);
 
   const containerClasses = clsx(
     'rds-search',

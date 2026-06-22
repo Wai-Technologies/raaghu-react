@@ -157,7 +157,7 @@ const RdsAppBar = ({
                 typeof tab === 'string' ? (
                   <Tab key={tab} label={tab} />
                 ) : (
-                  <Tab key={tab.label || idx} {...(tab as Record<string, unknown>)} />
+                  <Tab key={tab.label || 'tab-item'} {...(tab as Record<string, unknown>)} />
                 )
               )}
             </Tabs>
@@ -233,10 +233,11 @@ const RdsAppBar = ({
                 <Box className="rds-bottom-navigation-single-row">
                   {Array.isArray(tabs) && tabs.map((t, i) => {
                     const label = typeof t === 'string' ? t : t.label || String(i);
+                    const tabKey = typeof t === 'string' ? t : String((t as { label?: string }).label || 'tab-item');
                     const isActive = tabValue === i;
                     return (
                       <RdsButton
-                        key={label + i}
+                        key={tabKey}
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => typeof onTabChange === 'function' && onTabChange(i)}
@@ -285,10 +286,11 @@ const RdsAppBar = ({
                 >
                   {tabs.map((t, i) => {
                     const label = typeof t === 'string' ? t : t.label || String(i);
+                    const tabKey = typeof t === 'string' ? t : String((t as { label?: string }).label || 'tab-item');
                     const isActive = tabValue === i;
                     return (
                       <RdsButton
-                        key={label + i}
+                        key={tabKey}
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => onTabChange(i)}
@@ -324,10 +326,13 @@ const RdsAppBar = ({
                             const childProps = (child as ReactElement<{ onClick?: (e: SyntheticEvent) => void; className?: string }>).props;
                             const existingOnClick = childProps.onClick;
                             const childClassName = `${childProps.className ? `${childProps.className} ` : ''}rds-bottom-nav-tab`;
+                            const childKey = (child as ReactElement).key != null
+                              ? String((child as ReactElement).key)
+                              : String(childProps.className || 'overflow-item');
                             return cloneElement(
                               child as ReactElement<Record<string, unknown>>,
                               {
-                                key: i,
+                                key: childKey,
                                 onClick: (e: SyntheticEvent) => {
                                   existingOnClick?.(e);
                                   setLocalBottomActive(i);
@@ -338,7 +343,7 @@ const RdsAppBar = ({
                               },
                             );
                           }
-                          return <span key={i}>{child}</span>;
+                          return <span key={String(child)}>{child}</span>;
                         })
                       :
                         overflowContent}

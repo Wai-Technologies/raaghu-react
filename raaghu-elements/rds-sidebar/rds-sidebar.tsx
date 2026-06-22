@@ -30,6 +30,23 @@ import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
 import './rds-sidebar.scss';
 
+const ANZ_MENU_ITEMS: RdsSidebarItem[] = [
+  { label: 'Dashboard', icon: <DashboardOutlined /> },
+  { label: 'Saas', icon: <AppsOutlined /> },
+  { label: 'Administration', icon: <ManageAccounts /> },
+  { label: 'Demo UI Components', icon: <DesignServicesOutlined /> },
+];
+
+const ABP_MENU_ITEMS: RdsSidebarItem[] = [
+  { label: 'Dashboard', icon: <DashboardOutlined /> },
+  { label: 'Saas', icon: <GroupsOutlined /> },
+  { label: 'Invoices', icon: <ReceiptLongOutlined /> },
+  { label: 'Ticket Allocation', icon: <FolderOutlined /> },
+  { label: 'Communication', icon: <MailOutline /> },
+  { label: 'Advertisements', icon: <CampaignOutlined /> },
+  { label: 'Requests', icon: <RequestQuoteOutlined /> },
+];
+
 export interface RdsSidebarItem {
   label: string;
   icon?: ReactNode;
@@ -74,25 +91,8 @@ const RdsSidebar = ({
   const [searchValue, setSearchValue] = useState("");
   const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
 
-  const anzMenuItems: RdsSidebarItem[] = [
-    { label: 'Dashboard', icon: <DashboardOutlined /> },
-    { label: 'Saas', icon: <AppsOutlined /> },
-    { label: 'Administration', icon: <ManageAccounts /> },
-    { label: 'Demo UI Components', icon: <DesignServicesOutlined /> },
-  ];
-
-  const abpMenuItems: RdsSidebarItem[] = [
-    { label: 'Dashboard', icon: <DashboardOutlined /> },
-    { label: 'Saas', icon: <GroupsOutlined /> },
-    { label: 'Invoices', icon: <ReceiptLongOutlined /> },
-    { label: 'Ticket Allocation', icon: <FolderOutlined /> },
-    { label: 'Communication', icon: <MailOutline /> },
-    { label: 'Advertisements', icon: <CampaignOutlined /> },
-    { label: 'Requests', icon: <RequestQuoteOutlined /> },
-  ];
-
-  const menuItems = platform === 'abp-list' ? abpMenuItems : 
-                   platform === 'anz-list' ? anzMenuItems : 
+  const menuItems = platform === 'abp-list' ? ABP_MENU_ITEMS : 
+                   platform === 'anz-list' ? ANZ_MENU_ITEMS : 
                    items;
 
   const toggleOpen = (idx: number) => {
@@ -239,7 +239,7 @@ const RdsSidebar = ({
             );
 
             return (
-              <Fragment key={index}>
+              <Fragment key={`${item.label}-${item.path || item.href || 'nav-item'}`}>
                 <ListItem disablePadding className={navItemClasses}>
                   {shouldShowIconsOnly && item.icon ? (
                     <RdsTooltip 
@@ -279,7 +279,7 @@ const RdsSidebar = ({
                         );
 
                         return (
-                          <ListItem key={cIdx} disablePadding className={navItemClasses}>
+                          <ListItem key={`${child.label}-${child.path || child.href || 'child-item'}`} disablePadding className={navItemClasses}>
                             {shouldShowIconsOnly && child.icon ? (
                               <RdsTooltip
                                 title={`${item.label} - ${child.label}`}

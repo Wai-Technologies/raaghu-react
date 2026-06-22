@@ -528,7 +528,6 @@ describe('RdsCompCodeSnippet', () => {
             {...defaultProps}
             language={lang}
             code="test"
-            key={lang}
           />
         );
       });

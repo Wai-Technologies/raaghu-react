@@ -28,6 +28,12 @@ export interface RdsListProps extends ListProps {
   checkedItems?: (string | number)[];
 }
 
+const ExpandIcon = ({ open }: { open: boolean }) => (
+  <ExpandMoreIcon
+    className={clsx('rds-list__expand-icon', open && 'rds-list__expand-icon--open')}
+  />
+);
+
 const RdsList = ({
   items,
   variant = 'simple',
@@ -36,15 +42,15 @@ const RdsList = ({
   withDividers,
   withCheckboxes,
   onCheckboxChange,
-  checkedItems = [],
+  checkedItems,
   className,
   dense,
   ...props
 }: RdsListProps) => {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
-  const [internalChecked, setInternalChecked] = useState<(string | number)[]>(checkedItems);
-
-  const effectiveCheckedItems = checkedItems.length > 0 ? checkedItems : internalChecked;
+  const [internalChecked, setInternalChecked] = useState<(string | number)[]>([]);
+  const isControlledChecked = checkedItems !== undefined;
+  const effectiveCheckedItems = isControlledChecked ? checkedItems : internalChecked;
 
   const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
   const denseClass = dense ? 'rds-list--dense' : '';
@@ -75,12 +81,6 @@ const RdsList = ({
     setOpenMap((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const ExpandIcon = ({ open }: { open: boolean }) => (
-    <ExpandMoreIcon
-      className={clsx('rds-list__expand-icon', open && 'rds-list__expand-icon--open')}
-    />
-  );
-
   const renderListItem = (item: RdsListItem): ReactElement => {
     const hasChildren = Array.isArray(item.children) && item.children.length > 0;
     const isOpen = openMap[item.id] || false;
@@ -108,8 +108,10 @@ const RdsList = ({
                 <MuiListItemAvatar className="rds-list__avatar">{item.avatar}</MuiListItemAvatar>
               )}
               <MuiListItemText
-                primary={<span className="rds-list__content-primary">{item.primary}</span>}
-                secondary={item.secondary && <span className="rds-list__content-secondary">{item.secondary}</span>}
+                primary={item.primary}
+                secondary={item.secondary}
+                primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
+                secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
               />
               <ExpandIcon open={isOpen} />
             </MuiListItemButton>
@@ -144,7 +146,7 @@ const RdsList = ({
       ) : checkbox;
 
       return (
-        <MuiListItem disablePadding {...itemProps} key={item.id}>
+        <MuiListItem key={item.id} disablePadding {...itemProps}>
           <MuiListItemButton
             onClick={withCheckboxes ? handleCheckboxChange(item.id) : item.onClick}
             disabled={item.disabled}
@@ -156,8 +158,10 @@ const RdsList = ({
               </MuiListItemAvatar>
             )}
             <MuiListItemText
-              primary={<span className="rds-list__content-primary">{item.primary}</span>}
-              secondary={item.secondary && <span className="rds-list__content-secondary">{item.secondary}</span>}
+              primary={item.primary}
+              secondary={item.secondary}
+              primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
+              secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
             />
             {item.secondaryAction && (
               <span className="rds-list__secondary-action">{item.secondaryAction}</span>
@@ -168,7 +172,7 @@ const RdsList = ({
     }
 
     return (
-      <MuiListItem {...itemProps} key={item.id}>
+      <MuiListItem key={item.id} {...itemProps}>
         {item.icon && !item.secondaryAction && (
           <MuiListItemIcon className="rds-list__icon">
             {item.icon}
@@ -180,8 +184,10 @@ const RdsList = ({
           </MuiListItemAvatar>
         )}
         <MuiListItemText
-          primary={<span className="rds-list__content-primary">{item.primary}</span>}
-          secondary={item.secondary && <span className="rds-list__content-secondary">{item.secondary}</span>}
+          primary={item.primary}
+          secondary={item.secondary}
+          primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
+          secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
         />
         {item.secondaryAction && (
           <span className="rds-list__secondary-action">{item.secondaryAction}</span>

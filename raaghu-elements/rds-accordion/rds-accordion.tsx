@@ -11,7 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
 import './rds-accordion.scss';
-import { MotionCollapse } from '../../raaghu-react-themes/src/motion';
+import { MotionCollapse } from '../../raaghu-react-themes/src/motion/MotionCollapse';
 
 export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   ShowLeftIcon?: boolean;

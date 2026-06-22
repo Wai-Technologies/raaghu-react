@@ -40,6 +40,12 @@ const meta: Meta<typeof RdsSwitch> = {
       description: 'Switch color variant',
       defaultValue: 'primary',
     },
+    labelPlacement: {
+      control: 'select',
+      options: ['end', 'start', 'top', 'bottom'],
+      description: 'Position of the label relative to the switch',
+      defaultValue: 'end',
+    },
   },
 };
 

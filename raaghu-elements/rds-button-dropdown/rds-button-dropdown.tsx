@@ -2,6 +2,7 @@ import { useState, type ReactNode, type MouseEvent } from 'react';
 import clsx from 'clsx';
 import './rds-button-dropdown.scss';
 import RdsButton from '../rds-button/rds-button';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RdsMenu from '../rds-menu/rds-menu';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import RdsRadio from '../rds-radio/rds-radio';
@@ -20,7 +21,13 @@ export interface RdsButtonDropdownProps {
   buttonText?: string;
   options: RdsButtonDropdownOption[];
   multiSelect?: boolean;
-  showSearch?: boolean;
+  ui?: {
+    search?: 'visible' | 'hidden';
+    avatar?: 'visible' | 'hidden';
+    selection?: 'radio' | 'button';
+    leftIcon?: 'visible' | 'hidden';
+    rightIcon?: 'visible' | 'hidden';
+  };
   onChange?: (selected: string[] | string) => void;
   state?: 'default' | 'selected'; 
   buttonState?: 'default' | 'hover' | 'disabled' | 'selected';
@@ -30,36 +37,48 @@ export interface RdsButtonDropdownProps {
   shape?: 'rectangle' | 'pill';
   rightIcon?: ReactNode;
   leftIcon?: ReactNode;
-  showUserAvatar?: boolean;
-  showRadio?: boolean;
-  isShowLeftIcon?: boolean;
-  isShowRightIcon?: boolean;
+  [key: string]: unknown;
 }
 
 const RdsButtonDropdown = ({
   buttonText = 'Button',
   options,
   multiSelect = false,
-  showSearch = false,
+  ui,
   state = 'default',
   rightIcon,
   leftIcon,
-  showUserAvatar = true,
-  showRadio = true,
-  isShowLeftIcon = true,
-  isShowRightIcon = true,
   size = 'medium',
   layout = 'icon+text',
   styleType = 'primary',
   shape = 'rectangle',
   buttonState = 'default',
   onChange,
+  ...legacyProps
 }:RdsButtonDropdownProps) => {
+  const legacyShowSearch = typeof legacyProps['showSearch'] === 'boolean' ? (legacyProps['showSearch'] as boolean) : undefined;
+  const legacyShowUserAvatar = typeof legacyProps['showUserAvatar'] === 'boolean' ? (legacyProps['showUserAvatar'] as boolean) : undefined;
+  const legacyShowRadio = typeof legacyProps['showRadio'] === 'boolean' ? (legacyProps['showRadio'] as boolean) : undefined;
+  const legacyShowLeftIcon = typeof legacyProps['isShowLeftIcon'] === 'boolean' ? (legacyProps['isShowLeftIcon'] as boolean) : undefined;
+  const legacyShowRightIcon = typeof legacyProps['isShowRightIcon'] === 'boolean' ? (legacyProps['isShowRightIcon'] as boolean) : undefined;
+
+  const showSearch = ui?.search ? ui.search === 'visible' : (legacyShowSearch ?? false);
+  const showUserAvatar = ui?.avatar ? ui.avatar === 'visible' : (legacyShowUserAvatar ?? true);
+  const showRadio = ui?.selection ? ui.selection === 'radio' : (legacyShowRadio ?? true);
+  const isShowLeftIcon = ui?.leftIcon ? ui.leftIcon === 'visible' : (legacyShowLeftIcon ?? true);
+  const isShowRightIcon = ui?.rightIcon ? ui.rightIcon === 'visible' : (legacyShowRightIcon ?? true);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState<(string | number)[]>(
-    options.filter(o => o.checked).map(o => o.id)
-  );
+  const [selected, setSelected] = useState<(string | number)[]>(() => {
+    const initialSelected: (string | number)[] = [];
+    for (const option of options) {
+      if (option.checked) {
+        initialSelected.push(option.id);
+      }
+    }
+    return initialSelected;
+  });
 
   const handleClose = () => setAnchorEl(null);
 
@@ -99,7 +118,7 @@ const RdsButtonDropdown = ({
         onClick={handleDropdownButtonClick}
         showRightIcon={isShowRightIcon}
         showLeftIcon={isShowLeftIcon}
-        changeRightIcon={rightIcon}
+        changeRightIcon={isDropdownOpen ? <KeyboardArrowUpIcon /> : rightIcon}
         changeLeftIcon={leftIcon}
         size={size}
         layout={layout}
@@ -123,11 +142,11 @@ const RdsButtonDropdown = ({
         anchorEl={anchorEl}
         onClose={handleClose}
         items={[]}
-        slotProps={{ paper: { style: { minWidth: 200 }, className: 'rds-button-dropdown__menu' } }}
+        slotProps={{ paper: { style: { minWidth: 176 }, className: 'rds-button-dropdown__menu' } }}
       >
-        <div style={{ padding: 8, minWidth: 200 }}>
+        <div style={{ padding: 6, minWidth: 176 }}>
           {showSearch && (
-            <div style={{ marginBottom: 8 }}>
+            <div style={{ marginBottom: 6 }}>
               <RdsSearch
                 value={search}
                 onChange={setSearch}
@@ -138,7 +157,7 @@ const RdsButtonDropdown = ({
               />
             </div>
           )}
-          <div style={{ maxHeight: 240, overflowY: 'auto' }}>
+          <div style={{ maxHeight: 220, overflowY: 'auto' }}>
             {filteredOptions.map(opt => (
               <div key={opt.id} className="rds-button-dropdown__option">
                 {showUserAvatar && <RdsAvatar size="small" src={opt.avatarSrc} />}
@@ -159,18 +178,19 @@ const RdsButtonDropdown = ({
                     className={styleType === 'outline' ? 'rds-button-dropdown__button rds-button-dropdown--outline' : ''}
                   />
                 ) : (
-                  <div
-                    role="option"
-                    aria-selected={selected.includes(opt.id)}
+                  <button
+                    type="button"
+                    aria-pressed={selected.includes(opt.id)}
                     className={clsx(
                       'rds-button-dropdown__option',
                       selected.includes(opt.id) && 'rds-button-dropdown__option--selected',
                       opt.disabled && 'rds-button-dropdown__option--disabled',
                     )}
                     onClick={() => !opt.disabled && handleOptionChange(opt.id)}
+                    disabled={opt.disabled}
                   >
                     {opt.label}
-                  </div>
+                  </button>
                 )}
               </div>
             ))}

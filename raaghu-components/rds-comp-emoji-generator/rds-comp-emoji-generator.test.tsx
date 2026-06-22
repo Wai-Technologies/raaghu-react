@@ -10,9 +10,15 @@ jest.mock('./rds-comp-emoji-generator.scss', () => ({}));
 // Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: React.forwardRef(({ children, className, onClick, ...props }: any, ref: any) => (
-    <div ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']} role={onClick ? 'button' : undefined} tabIndex={onClick ? 0 : undefined} onKeyDown={onClick ? (e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } } : undefined}>
-      {children}
-    </div>
+    onClick ? (
+      <button type="button" ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } }}>
+        {children}
+      </button>
+    ) : (
+      <div ref={ref} className={className} data-testid={props['data-testid']}>
+        {children}
+      </div>
+    )
   )),
   TextField: ({ value, onChange, placeholder, InputProps, ...props }: any) => {
     const handleChange = (e: any) => {
@@ -50,9 +56,9 @@ jest.mock('@mui/material', () => ({
   ),
   Popover: ({ open, children, onClose }: any) => (
     open ? (
-      <div data-testid="skin-tone-popover" role="button" tabIndex={0} onClick={onClose} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}>
+      <button type="button" data-testid="skin-tone-popover" onClick={onClose} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}>
         {children}
-      </div>
+      </button>
     ) : null
   ),
   IconButton: ({ children, onClick, disabled, className, style, title, size, ...props }: any) => (
@@ -209,6 +215,22 @@ describe('RdsEmojiGenerator', () => {
       );
       const title = screen.getByText(/Smileys & People|Emojis/);
       expect(title).toBeInTheDocument();
+    });
+
+    it('should still change category from chip clicks when Category prop is initially provided', () => {
+      render(
+        <RdsEmojiGenerator
+          Type={EmojiGeneratorType.Default}
+          Category={EmojiCategory.SmileysAndPeople}
+        />
+      );
+
+      expect(screen.getByText('Smileys & People')).toBeInTheDocument();
+
+      const flagsChip = screen.getByTitle('Flags');
+      fireEvent.click(flagsChip);
+
+      expect(screen.getByText('Flags')).toBeInTheDocument();
     });
   });
 

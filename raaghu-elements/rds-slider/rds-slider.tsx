@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState, useEffect, type JSX } from 'react';
+import { useMemo, useState, type JSX } from 'react';
 import { Slider as MuiSlider, SliderProps } from '@mui/material';
 import './rds-slider.scss';
 
@@ -78,51 +78,45 @@ const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) =>
     return min + (safeMax - min) * 0.3;
   };
 
-  const [sliderValue, setSliderValue] = useState<number | number[]>(getInitialValue());
+  const [internalSliderValue, setInternalSliderValue] = useState<number | number[]>(() => getInitialValue());
 
-  useEffect(() => {
-    const externalValueChanged = (() => {
-      if (value === undefined) return false;
-      if (Array.isArray(value) && Array.isArray(sliderValue)) {
-        if (value.length !== sliderValue.length) return true;
-        for (let i = 0; i < value.length; i++) {
-          if (value[i] !== (sliderValue as number[])[i]) return true;
-        }
-        return false;
+  const normalizedInternalValue = useMemo(() => {
+    if (isRangeSlider) {
+      if (Array.isArray(internalSliderValue)) {
+        return internalSliderValue;
       }
-      return value !== sliderValue;
-    })();
-
-    if (externalValueChanged) {
-      setSliderValue(value as number | number[]);
-      return;
-    }
-
-    if (level && typeof level === 'number' && level >= 1 && level <= 5) {
-      const percent = (level - 1) * 25;
-      const calculated = min + ((safeMax - min) * percent) / 100;
-      if (isRangeSlider) {
-        const range = (safeMax - min) * 0.1;
-        const lowerValue = Math.max(min, calculated - range);
-        const upperValue = Math.min(safeMax, calculated + range);
-        setSliderValue([lowerValue, upperValue]);
-      } else {
-        setSliderValue(calculated);
-      }
-      return;
-    }
-
-    if (isRangeSlider && !Array.isArray(sliderValue)) {
-      const currentVal = typeof sliderValue === 'number' ? sliderValue : min;
+      const currentVal = typeof internalSliderValue === 'number' ? internalSliderValue : min;
       const range = (safeMax - min) * 0.2;
       const lowerValue = Math.max(min, currentVal - range / 2);
       const upperValue = Math.min(safeMax, currentVal + range / 2);
-      setSliderValue([lowerValue, upperValue]);
-    } else if (!isRangeSlider && Array.isArray(sliderValue)) {
-      const average = (sliderValue[0] + sliderValue[1]) / 2;
-      setSliderValue(average);
+      return [lowerValue, upperValue];
     }
-  }, [level, value, min, max, controlType, isRangeSlider, safeMax]);
+
+    if (Array.isArray(internalSliderValue)) {
+      return (internalSliderValue[0] + internalSliderValue[1]) / 2;
+    }
+
+    return internalSliderValue;
+  }, [internalSliderValue, isRangeSlider, min, safeMax]);
+
+  const levelValue = useMemo(() => {
+    if (!level || typeof level !== 'number' || level < 1 || level > 5) {
+      return undefined;
+    }
+    const percent = (level - 1) * 25;
+    const calculated = min + ((safeMax - min) * percent) / 100;
+    if (isRangeSlider) {
+      const range = (safeMax - min) * 0.1;
+      const lowerValue = Math.max(min, calculated - range);
+      const upperValue = Math.min(safeMax, calculated + range);
+      return [lowerValue, upperValue] as number[];
+    }
+    return calculated;
+  }, [isRangeSlider, level, min, safeMax]);
+
+  const sliderValue = value !== undefined
+    ? (value as number | number[])
+    : (levelValue ?? normalizedInternalValue);
 
   const formatValue = (val: number | number[]) => {
     if (Array.isArray(val)) {
@@ -132,7 +126,7 @@ const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) =>
   };
 
   const handleChange = (_: Event, newValue: number | number[], activeThumb?: number) => {
-    setSliderValue(newValue);
+    setInternalSliderValue(newValue);
     if (props.onChange) {
       props.onChange(_, newValue, activeThumb ?? 0);
     }

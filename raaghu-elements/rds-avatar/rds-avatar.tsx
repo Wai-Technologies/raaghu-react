@@ -67,7 +67,7 @@ const RdsAvatar = ({
       <div className="rds-avatar__stacking avatar-container" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
         {visibleAvatars.map((avatar, idx) => (
     <MuiAvatar
-      key={idx}
+      key={avatar.src || avatar.title || avatar.alt || `${avatar.colorVariant || 'avatar'}-${idx + 1}`}
       src={avatar.src}
       sx={{
               ...sizeStyles[size],

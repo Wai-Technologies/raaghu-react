@@ -147,6 +147,26 @@
       color: var(--rds-text-secondary);
       z-index: var(--rds-z-index-above, 3);
     }
+
+    // Responsive: fit inside small mobile screens (≤320px)
+    @media (max-width: 360px) {
+      width: calc(100vw - 32px) !important;
+      min-width: unset !important;
+      max-width: calc(100vw - 32px) !important;
+      padding: var(--rds-spacing-md, 12px);
+
+      .rds-dialog__content p,
+      .rds-dialog__content .MuiTypography-root {
+        max-width: 100%;
+      }
+
+      .rds-dialog__button.rds-dialog__button__dismiss,
+      .rds-dialog__button.rds-dialog__button__primary-link {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+    }
   }
 
   &__title-inner {
@@ -219,6 +239,20 @@
   &--disabled {
     opacity: var(--rds-dialog-disabled-opacity, 0.6);
     pointer-events: none;
+  }
+}
+
+// Ensure the MUI Dialog paper doesn't overflow small mobile viewports
+@media (max-width: 360px) {
+  .MuiDialog-paper {
+    margin: 16px !important;
+    max-height: calc(100% - 32px) !important;
+  }
+
+  .MuiDialog-paperWidthXs:has(.rds-dialog__content svg) {
+    width: calc(100vw - 32px) !important;
+    min-width: unset !important;
+    max-width: calc(100vw - 32px) !important;
   }
 }
 

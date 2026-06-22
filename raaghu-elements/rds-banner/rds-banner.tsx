@@ -1,4 +1,4 @@
-import { useState, isValidElement, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Alert as MuiAlert, type AlertProps, type AlertColor, IconButton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Close } from '@mui/icons-material';
@@ -9,46 +9,96 @@ import './rds-banner.scss';
 export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'> {
   description?: string;
   type?: AlertColor;
-  Icon?: boolean;
   title?: string;
-  showTitle?: boolean;
-  showDescription?: boolean;
+  content?: {
+    icon?: 'visible' | 'hidden';
+    title?: 'visible' | 'hidden';
+    description?: 'visible' | 'hidden';
+    multiline?: 'on' | 'off';
+  };
   size?: 'small' | 'medium' | 'large';
-  multiline?: boolean;
   variantStyle?: 'style1' | 'style2' | 'style3';
-  showLink?: boolean;
-  showSecondary?: boolean;
-  showPrimary?: boolean;
-  closable?: boolean;
+  actionsConfig?: {
+    link?: 'visible' | 'hidden';
+    secondary?: 'visible' | 'hidden';
+    primary?: 'visible' | 'hidden';
+    close?: 'visible' | 'hidden';
+  };
+  layout?: {
+    persistent?: 'on' | 'off';
+    width?: 'full' | 'auto';
+    outline?: 'on' | 'off';
+  };
   onClose?: () => void;
-  persistent?: boolean;
-  fullWidth?: boolean;
   actions?: ReactNode;
-  showOutline?: boolean;
+  [key: string]: unknown;
 }
 
 const RdsBanner = ({
   description,
   children,
   type = 'info',
-  Icon = true,
   title = 'Heading Title.',
-  showTitle = false,
-  showDescription = true,
+  content,
   size = 'medium',
-  multiline = false,
   variantStyle = 'style1',
-  showLink = true,
-  showSecondary = true,
-  showPrimary = true,
-  closable = true,
+  actionsConfig,
+  layout,
   onClose,
-  persistent = false,
-  fullWidth = true,
   actions,
-  showOutline = false,
   ...props
 }: RdsBannerProps) => {
+  const legacyIcon = typeof props['Icon'] === 'boolean' ? (props['Icon'] as boolean) : undefined;
+  const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
+  const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
+  const legacyMultiline = typeof props['multiline'] === 'boolean' ? (props['multiline'] as boolean) : undefined;
+  const legacyShowLink = typeof props['showLink'] === 'boolean' ? (props['showLink'] as boolean) : undefined;
+  const legacyShowSecondary = typeof props['showSecondary'] === 'boolean' ? (props['showSecondary'] as boolean) : undefined;
+  const legacyShowPrimary = typeof props['showPrimary'] === 'boolean' ? (props['showPrimary'] as boolean) : undefined;
+  const legacyClosable = typeof props['closable'] === 'boolean' ? (props['closable'] as boolean) : undefined;
+  const legacyPersistent = typeof props['persistent'] === 'boolean' ? (props['persistent'] as boolean) : undefined;
+  const legacyFullWidth = typeof props['fullWidth'] === 'boolean' ? (props['fullWidth'] as boolean) : undefined;
+  const legacyShowOutline = typeof props['showOutline'] === 'boolean' ? (props['showOutline'] as boolean) : undefined;
+
+  const showIcon = content?.icon ? content.icon === 'visible' : (legacyIcon ?? true);
+  const showTitle = content?.title ? content.title === 'visible' : (legacyShowTitle ?? false);
+  const showDescription = content?.description ? content.description === 'visible' : (legacyShowDescription ?? true);
+  const multiline = content?.multiline ? content.multiline === 'on' : (legacyMultiline ?? false);
+  const showLink = actionsConfig?.link ? actionsConfig.link === 'visible' : (legacyShowLink ?? true);
+  const showSecondary = actionsConfig?.secondary ? actionsConfig.secondary === 'visible' : (legacyShowSecondary ?? true);
+  const showPrimary = actionsConfig?.primary ? actionsConfig.primary === 'visible' : (legacyShowPrimary ?? true);
+  const closable = actionsConfig?.close ? actionsConfig.close === 'visible' : (legacyClosable ?? true);
+  const persistent = layout?.persistent ? layout.persistent === 'on' : (legacyPersistent ?? false);
+  const fullWidth = layout?.width ? layout.width === 'full' : (legacyFullWidth ?? true);
+  const showOutline = layout?.outline ? layout.outline === 'on' : (legacyShowOutline ?? false);
+
+  const {
+    Icon: _legacyIcon,
+    showTitle: _legacyShowTitle,
+    showDescription: _legacyShowDescription,
+    multiline: _legacyMultiline,
+    showLink: _legacyShowLink,
+    showSecondary: _legacyShowSecondary,
+    showPrimary: _legacyShowPrimary,
+    closable: _legacyClosable,
+    persistent: _legacyPersistent,
+    fullWidth: _legacyFullWidth,
+    showOutline: _legacyShowOutline,
+    ...muiAlertProps
+  } = props as typeof props & {
+    Icon?: boolean;
+    showTitle?: boolean;
+    showDescription?: boolean;
+    multiline?: boolean;
+    showLink?: boolean;
+    showSecondary?: boolean;
+    showPrimary?: boolean;
+    closable?: boolean;
+    persistent?: boolean;
+    fullWidth?: boolean;
+    showOutline?: boolean;
+  };
+
   const [isVisible, setIsVisible] = useState(true);
 
   const handleClose = () => {
@@ -62,7 +112,7 @@ const RdsBanner = ({
   if (!isVisible && !persistent) {
     return null;
   }
-  const mainText = description !== undefined ? String(description) : (typeof children === 'string' ? children : '');
+  const mainText = description;
   const outlineClass = showOutline
     ? (variantStyle === 'style1' ? 'rds-banner--style1-outline'
       : variantStyle === 'style2' ? 'rds-banner--style2-outline'
@@ -70,7 +120,7 @@ const RdsBanner = ({
     : '';
 
   let muiVariant: AlertProps['variant'] = props.variant ?? 'standard';
-  if (!props.variant) {
+  if (!muiAlertProps.variant) {
   if (variantStyle === 'style2') {
     muiVariant = 'outlined';
   } else if (variantStyle === 'style3') {
@@ -82,7 +132,7 @@ const RdsBanner = ({
     <MuiAlert
       severity={type}
       variant={muiVariant}
-      icon={Icon ? <InfoOutlinedIcon /> : false}
+      icon={showIcon ? <InfoOutlinedIcon /> : false}
       className={clsx(
         'rds-banner',
         `rds-banner--${size}`,
@@ -90,7 +140,7 @@ const RdsBanner = ({
         `rds-banner--${type}`,
         fullWidth ? 'rds-banner--full-width' : 'rds-banner--auto-width',
         outlineClass,
-        props.className,
+        muiAlertProps.className,
       )}
       action={
         <div className="rds-banner__action-container">
@@ -108,7 +158,7 @@ const RdsBanner = ({
           )}
         </div>
       }
-      {...props}
+      {...muiAlertProps}
     >
       <div className="rds-banner__content-wrapper">
         <div className="rds-banner__text-content">
@@ -129,7 +179,7 @@ const RdsBanner = ({
               {showDescription && mainText}
             </span>
           )}
-          {isValidElement(children) ? children : null}
+          {children}
         </div>
         {(showLink || showSecondary || showPrimary) && (
           <div className="rds-banner__actions">

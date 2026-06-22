@@ -64,9 +64,9 @@ export const CompactTimePicker = ({
           value={tempMinute.toString()} 
           onChange={onMinuteChange}
         >
-          {MINUTES.map((i) => (
-            <option key={i} value={i.toString()}>
-              {String(i).padStart(2, '0')}
+          {MINUTES.map((minute) => (
+            <option key={minute} value={minute.toString()}>
+              {String(minute).padStart(2, '0')}
             </option>
           ))}
         </select>
@@ -82,10 +82,12 @@ export const CompactTimePicker = ({
           <option value="AM">AM</option>
           <option value="PM">PM</option>
         </select>
-        <span
+        <button
+          type="button"
           className="time-control down"
           onClick={togglePeriod}
-        ></span>
+          aria-label="Toggle period"
+        ></button>
       </div>
     </div>
   );

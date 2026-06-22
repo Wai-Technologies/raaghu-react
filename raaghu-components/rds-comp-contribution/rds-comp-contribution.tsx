@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Measure, { BoundingRect, type MeasureProps } from 'react-measure';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
@@ -46,40 +46,35 @@ const RdsCompContribution = ({
   panelMargin = 2,
 }) => {
   const columns = COLUMNS;
-  const [dynamicPanelSize, setDynamicPanelSize] = useState(panelSize);
-  const [dynamicPanelMargin, setDynamicPanelMargin] = useState(panelMargin);
-  const [isMobile, setIsMobile] = useState(false);
-  const updateSizeBasedOnWidth = useCallback((width: number) => {
-    // Responsive sizing for specific screen sizes
-    if (width <= 320) {
-      setDynamicPanelSize(8);
-      setDynamicPanelMargin(1.2);
-    } else if (width <= 414) {
-      setDynamicPanelSize(9);
-      setDynamicPanelMargin(1.2);
-    } else if (width <= 834) {
-      setDynamicPanelSize(8);
-      setDynamicPanelMargin(2);
-    } else {
-      setDynamicPanelSize(panelSize);
-      setDynamicPanelMargin(panelMargin);
-    }
-  }, [panelMargin, panelSize]);
+  const [viewportWidth, setViewportWidth] = useState(() => (typeof window === 'undefined' ? 1024 : window.innerWidth));
 
-  const handleResize = useCallback(() => {
-    const width = window.innerWidth;
-    updateSizeBasedOnWidth(width);
-    setIsMobile(width <= 414);
-  }, [updateSizeBasedOnWidth]);
+  const handleResizeRef = useRef<() => void>(null!);
+  handleResizeRef.current = () => {
+    setViewportWidth(window.innerWidth);
+  };
 
   useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
+    const handler = () => handleResizeRef.current();
+    handler();
+    window.addEventListener('resize', handler);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handler);
     };
-  }, [handleResize]);
+  }, []);
+
+  const isMobile = viewportWidth <= 414;
+  const { dynamicPanelSize, dynamicPanelMargin } = useMemo(() => {
+    if (viewportWidth <= 320) {
+      return { dynamicPanelSize: 8, dynamicPanelMargin: 1.2 };
+    }
+    if (viewportWidth <= 414) {
+      return { dynamicPanelSize: 9, dynamicPanelMargin: 1.2 };
+    }
+    if (viewportWidth <= 834) {
+      return { dynamicPanelSize: 8, dynamicPanelMargin: 2 };
+    }
+    return { dynamicPanelSize: panelSize, dynamicPanelMargin: panelMargin };
+  }, [panelMargin, panelSize, viewportWidth]);
 
   const getPanelPosition = useCallback((colIndex: number, rowIndex: number) => {
     const bounds = dynamicPanelSize + dynamicPanelMargin;
@@ -115,25 +110,15 @@ const RdsCompContribution = ({
   
   const updateSize = useCallback((size?: BoundingRect) => {
     if (!size) return;
-    
-    const availableWidth = size.width;
-    updateSizeBasedOnWidth(availableWidth);
-  }, [updateSizeBasedOnWidth]);
+
+    setViewportWidth(size.width);
+  }, []);
 
   const contributions = useMemo(() => {
     if (!values || !until || !panelColors) return null;
     return makeCalendarData(values, until, columns);
   }, [values, until, columns, panelColors, makeCalendarData]);
 
-  if (!panelColors) {
-    return null;
-  }
-  if (!values || !until) {
-    return null;
-  }
-  if (!contributions) {
-    return null;
-  }
   const weekLabels = useMemo(() => {
     if (!showWeekLabels) return null;
     if (!weekNames || weekNames.length < 7) return null;
@@ -161,6 +146,7 @@ const RdsCompContribution = ({
   ]);
 
   const contributionPanels = useMemo(() => {
+    if (!contributions || !panelColors) return [];
     const panels: ReactElement[] = [];
     
     for (let i = 0; i < columns; i++) {
@@ -203,6 +189,7 @@ const RdsCompContribution = ({
   ]);
 
   const monthLabels = useMemo(() => {
+    if (!contributions) return null;
     if (!monthNames || monthNames.length !== 12) return null;
     if (!showMonthLabels) return null; 
     let janIndex = -1;
@@ -275,6 +262,16 @@ const RdsCompContribution = ({
     monthNames,
     showMonthLabels,
   ]);
+
+  if (!panelColors) {
+    return null;
+  }
+  if (!values || !until) {
+    return null;
+  }
+  if (!contributions) {
+    return null;
+  }
   
   const calculatedSvgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize;
   const svgWidth = Math.max(calculatedSvgWidth, 280);

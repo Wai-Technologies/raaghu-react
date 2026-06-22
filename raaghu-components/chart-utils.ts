@@ -6,13 +6,11 @@
  * automatically respond to theme switching without any hardcoded values.
  */
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 
-export { isDarkMode };
-
 /** Reads the current theme mode from the document root. */
-export function getChartThemeMode(): string {
+function getChartThemeMode(): string {
   if (typeof document === 'undefined') return 'light';
   return document.documentElement.getAttribute('data-theme') || 'light';
 }
@@ -22,24 +20,24 @@ export function getChartThemeMode(): string {
  * when the active theme switches.
  */
 export function useChartThemeMode(): string {
-  const [themeMode, setThemeMode] = useState(getChartThemeMode);
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      if (typeof window === 'undefined') return () => {};
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
+      const observer = new MutationObserver(() => {
+        onStoreChange();
+      });
 
-    const observer = new MutationObserver(() => {
-      setThemeMode(getChartThemeMode());
-    });
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme'],
+      });
 
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return themeMode;
+      return () => observer.disconnect();
+    },
+    getChartThemeMode,
+    () => 'light',
+  );
 }
 
 /** Deep-clones Chart.js options to avoid mutating caller-provided objects. */
@@ -88,7 +86,7 @@ export function chartMutedColor(): string {
 /**
  * Returns the current theme's grid line color for chart axes.
  */
-export function chartGridColor(): string {
+function chartGridColor(): string {
   // Keep grid lines visibly light in dark mode across all charts.
   return isDarkMode()
     ? getCSSVar('--rds-comp-chart-grid-color-dark', 'rgba(255,255,255,0.28)')
@@ -98,14 +96,14 @@ export function chartGridColor(): string {
 /**
  * Returns the current theme's tooltip background color.
  */
-export function chartTooltipBg(): string {
+function chartTooltipBg(): string {
   return getCSSVar('--rds-background-paper', isDarkMode() ? '#424242' : '#ffffff');
 }
 
 /**
  * Returns the current theme's tooltip text color.
  */
-export function chartTooltipTextColor(): string {
+function chartTooltipTextColor(): string {
   return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
 }
 

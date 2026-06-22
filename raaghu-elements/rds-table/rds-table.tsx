@@ -17,6 +17,12 @@ import SwapVertIcon from '@mui/icons-material/SwapVert';
 import clsx from 'clsx';
 import './rds-table.scss';
 
+const EMPTY_SELECTED_ROWS: string[] = [];
+
+function getRowId(row: { id?: string | number; key?: string | number }, index: number): string {
+  return String(row.id ?? row.key ?? index);
+}
+
 export interface RdsTableColumn {
   id: string;
   label: string;
@@ -64,7 +70,7 @@ const RdsTable = ({
   onPageSizeChange,
   stickyHeader = false,
   selectable = false,
-  selectedRows = [],
+  selectedRows,
   onRowSelect,
   className = '',
   sortBy: controlledSortBy,
@@ -74,18 +80,34 @@ const RdsTable = ({
   defaultSortDirection = 'asc',
   ...props
 }: RdsTableProps) => {
-  const [internalSelectedRows, setInternalSelectedRows] = useState<string[]>([]);
+  const resolvedSelectedRows = selectedRows ?? EMPTY_SELECTED_ROWS;
+  const [tableState, setTableState] = useState({
+    internalSelectedRows: [] as string[],
+    cellCheckboxSelected: new Set<string>(),
+    cellRadioSelected: null as string | null,
+    internalPage: 0,
+    internalPageSize: 10,
+    internalSortBy: defaultSortBy as string | undefined,
+    internalSortDirection: (defaultSortBy ? defaultSortDirection : undefined) as 'asc' | 'desc' | undefined,
+  });
+  const {
+    internalSelectedRows,
+    cellCheckboxSelected,
+    cellRadioSelected,
+    internalPage,
+    internalPageSize,
+    internalSortBy,
+    internalSortDirection,
+  } = tableState;
+  const updateTableState = (updates: Partial<typeof tableState> | ((prev: typeof tableState) => Partial<typeof tableState>)) => {
+    setTableState((prev) => ({
+      ...prev,
+      ...(typeof updates === 'function' ? updates(prev) : updates),
+    }));
+  };
 
-  const currentSelectedRows = onRowSelect ? selectedRows : internalSelectedRows;
-  const handleRowSelection = onRowSelect || setInternalSelectedRows;
-
-  const [cellCheckboxSelected, setCellCheckboxSelected] = useState<Set<string>>(new Set());
-  const [cellRadioSelected, setCellRadioSelected] = useState<string | null>(null);
-  const [internalPage, setInternalPage] = useState(0);
-  const [internalPageSize, setInternalPageSize] = useState(10);
-
-  const [internalSortBy, setInternalSortBy] = useState<string | undefined>(defaultSortBy);
-  const [internalSortDirection, setInternalSortDirection] = useState<'asc' | 'desc' | undefined>(defaultSortBy ? defaultSortDirection : undefined);
+  const currentSelectedRows = onRowSelect ? resolvedSelectedRows : internalSelectedRows;
+  const handleRowSelection = onRowSelect || ((nextRows: string[]) => updateTableState({ internalSelectedRows: nextRows }));
   const sortBy = controlledSortBy !== undefined ? controlledSortBy : internalSortBy;
   const sortDirection = controlledSortDirection !== undefined ? controlledSortDirection : internalSortDirection;
 
@@ -100,8 +122,7 @@ const RdsTable = ({
       nextDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     }
     if (onSortChange) onSortChange(nextColumn, nextDirection); else {
-      setInternalSortBy(nextColumn);
-      setInternalSortDirection(nextDirection);
+      updateTableState({ internalSortBy: nextColumn, internalSortDirection: nextDirection });
     }
   };
 
@@ -117,7 +138,7 @@ const RdsTable = ({
       if (typeof v === 'string') return v;
       try { return JSON.stringify(v); } catch { return String(v); }
     };
-    return [...rows].sort((a, b) => {
+    return rows.toSorted((a, b) => {
       const va = getValue(a);
       const vb = getValue(b);
       let cmp: number;
@@ -126,18 +147,18 @@ const RdsTable = ({
     });
   }, [rows, sortBy, sortDirection, columns]);
 
-  const getRowId = (row: RdsTableRow, index: number): string => String(row.id ?? row.key ?? index);
+
 
   const toggleCellCheckbox = (rowId: string) => {
-    setCellCheckboxSelected(prev => {
-      const next = new Set(prev);
+    updateTableState(prev => {
+      const next = new Set(prev.cellCheckboxSelected);
       if (next.has(rowId)) next.delete(rowId); else next.add(rowId);
-      return next;
+      return { cellCheckboxSelected: next };
     });
   };
 
   const selectCellRadio = (rowId: string) => {
-    setCellRadioSelected(rowId);
+    updateTableState({ cellRadioSelected: rowId });
   };
 
   const checkboxRowIds = useMemo<string[]>(
@@ -147,14 +168,13 @@ const RdsTable = ({
   const isAllCellCheckboxSelected = checkboxRowIds.length > 0 && checkboxRowIds.every((id) => cellCheckboxSelected.has(id));
   const isCellCheckboxIndeterminate = cellCheckboxSelected.size > 0 && !isAllCellCheckboxSelected;
   const handleChangePage = (event: unknown, newPage: number) => {
-    setInternalPage(newPage);
+    updateTableState({ internalPage: newPage });
     if (onPageChange) onPageChange(newPage);
   };
 
   const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
     const newSize = parseInt(event.target.value, 10);
-    setInternalPageSize(newSize);
-    setInternalPage(0);
+    updateTableState({ internalPageSize: newSize, internalPage: 0 });
     if (onPageSizeChange) onPageSizeChange(newSize);
     if (onPageChange) onPageChange(0);
   };
@@ -254,27 +274,44 @@ const RdsTable = ({
                         checked={isAllCellCheckboxSelected}
                         onChange={(e) => {
                           if (e.target.checked) {
-                            setCellCheckboxSelected(new Set(checkboxRowIds));
+                            updateTableState({ cellCheckboxSelected: new Set(checkboxRowIds) });
                           } else {
-                            setCellCheckboxSelected(new Set());
+                            updateTableState({ cellCheckboxSelected: new Set() });
                           }
                         }}
                         size="small"
                       />
                       </div>
-                    ) : (
-                      <div className="rds-table__header-content" role="button" tabIndex={0} onClick={() => handleSort(column)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSort(column); } }} style={{ cursor: column.sortable ? 'pointer' : undefined }}>
+                    ) : column.sortable ? (
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        className="rds-table__header-content"
+                        onClick={() => handleSort(column)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleSort(column);
+                          }
+                        }}
+                        style={{ cursor: 'pointer' }}
+                      >
                         <span className="rds-table__header-label">{column.label}</span>
-                        {column.sortable && (
-                          <IconButton
-                            aria-label={active ? `Sort ${column.label} ${sortDirection}` : `Sort ${column.label}`}
-                            size="small"
-                            className={`rds-table__sort-button ${active ? 'rds-table__sort-button--active' : ''}`}
-                            onClick={(e) => { e.stopPropagation(); handleSort(column); }}
-                          >
-                            <SwapVertIcon className={`rds-table__sort-icon ${sortDirection === 'desc' && active ? 'rds-table__sort-icon--desc' : ''}`} fontSize="small" />
-                          </IconButton>
-                        )}
+                        <IconButton
+                          aria-label={active ? `Sort ${column.label} ${sortDirection}` : `Sort ${column.label}`}
+                          size="small"
+                          className={`rds-table__sort-button ${active ? 'rds-table__sort-button--active' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleSort(column);
+                          }}
+                        >
+                          <SwapVertIcon className={`rds-table__sort-icon ${sortDirection === 'desc' && active ? 'rds-table__sort-icon--desc' : ''}`} fontSize="small" />
+                        </IconButton>
+                      </div>
+                    ) : (
+                      <div>
+                        <span className="rds-table__header-label">{column.label}</span>
                       </div>
                     )}
                   </MuiTableCell>

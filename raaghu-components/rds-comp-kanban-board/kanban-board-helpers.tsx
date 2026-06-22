@@ -1,4 +1,4 @@
-import { useState, useEffect, type MouseEventHandler, type MouseEvent } from 'react';
+import { useState, type MouseEventHandler, type MouseEvent } from 'react';
 
 export interface boardInfo {
   cardId?: number;
@@ -36,7 +36,7 @@ export interface RdsCompKanbanBoardProps {
   onSelectedTagsListChange?: (items: unknown) => void;
 }
 
-export const formatDate = (date: Date) => {
+const formatDate = (date: Date) => {
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
   const year = date.getFullYear();
@@ -48,7 +48,7 @@ export const formatDate = (date: Date) => {
   return `${ordinalSuffix(day)} ${month} ${year}`;
 };
 
-export const generateRandomId = () => {
+const generateRandomId = () => {
   return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
 };
 
@@ -61,7 +61,7 @@ export const colorClass = (colortype: string) => {
   return defaultClass;
 };
 
-export const priorityList = [
+const priorityList = [
   { label: "High", val: "High" },
   { label: "Moderate", val: "Moderate" },
   { label: "Low", val: "Low" },
@@ -78,11 +78,12 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   );
 
   const [boards, setBoards] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
-  const [totalRecords, setBoardsRecord] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
-
-  useEffect(() => {
+  const [prevBoardData, setPrevBoardData] = useState(props.boardData);
+  if (props.boardData !== prevBoardData) {
+    setPrevBoardData(props.boardData);
     setBoards(props.boardData ? [...props.boardData] : []);
-  }, [props.boardData]);
+  }
+  const [totalRecords, setBoardsRecord] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
 
   const [isBoardDropdownOpen, setIsBoardDropdownOpen] = useState<boolean[]>(
     props.boardData ? [...props.boardData.map(() => false)] : []
@@ -99,7 +100,7 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   const [ticketIdValue, setTicketIdValue] = useState<string>("");
   const [ticketPriorityValue, setTicketPriorityValue] = useState<string>("");
   const [ticketQuestionValue, setTicketQuestionValue] = useState<string>("");
-  const [ticketDateValue, setTicketDateValue] = useState<string>(formatDate(new Date()));
+  const [ticketDateValue, setTicketDateValue] = useState<string>(() => formatDate(new Date()));
   const [editAction, setEditAction] = useState<string>("edit");
   const [deleteAction, setDeleteAction] = useState<string>("delete");
   const [assignAction, setAssignAction] = useState<string>("assign");

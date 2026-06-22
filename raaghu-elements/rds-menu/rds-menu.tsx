@@ -98,8 +98,10 @@ const RdsMenu = ({
                           ...(item.icon as ReactElement<{ style?: CSSProperties }>).props,
                           style: {
                             ...((item.icon as ReactElement<{ style?: CSSProperties }>).props?.style ?? {}),
-                            color: item.color ? getColor(item.color) : undefined,
-                            fill: item.color ? getColor(item.color) : undefined,
+                            ...(item.color ? {
+                              color: getColor(item.color),
+                              fill: getColor(item.color),
+                            } : {}),
                           },
                         },
                       )
@@ -107,13 +109,14 @@ const RdsMenu = ({
                 </ListItemIcon>
               )}
               <ListItemText
-                  primary={<span className="rds-menu__item__text" style={item.color ? { color: getColor(item.color) } : undefined}>{item.label}</span>}
-                secondary={item.shortcut ? (
-                  <Typography variant="body2" color="text.secondary" component="span" className="rds-menu__item__shortcut">
-                    {item.shortcut}
-                  </Typography>
-                ) : undefined}
+                primary={item.label}
+                secondary={item.shortcut}
+                primaryTypographyProps={{ className: 'rds-menu__item__text', style: item.color ? { color: getColor(item.color) } : undefined }}
                 secondaryTypographyProps={{
+                  variant: 'body2',
+                  color: 'text.secondary',
+                  component: 'span',
+                  className: 'rds-menu__item__shortcut',
                   sx: { textAlign: 'right', display: 'block' }
                 }}
               />

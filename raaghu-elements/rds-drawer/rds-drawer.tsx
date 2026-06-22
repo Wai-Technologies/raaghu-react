@@ -82,6 +82,8 @@ const RdsDrawer = ({
     }
     return children;
   };
+
+  const drawerContent = renderDrawerContent();
   
   const drawerElement = (
     <MuiDrawer
@@ -99,7 +101,7 @@ const RdsDrawer = ({
       }}
       {...props}
     >
-      {renderDrawerContent()}
+      {drawerContent}
     </MuiDrawer>
   );
 

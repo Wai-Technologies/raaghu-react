@@ -43,9 +43,9 @@ const RdsSkeleton = ({
           alignItems: isText ? 'flex-start' : 'center',
         }}
       >
-        {Array.from({ length: frames }).map((_, index) => (
+        {Array.from({ length: frames }, (_, frameNumber) => frameNumber + 1).map((frameNumber) => (
           <MuiSkeleton
-            key={index}
+            key={frameNumber}
             variant={shape}
             animation={animationValue}
             {...props}

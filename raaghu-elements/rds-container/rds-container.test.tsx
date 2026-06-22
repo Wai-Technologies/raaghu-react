@@ -56,7 +56,7 @@ describe('RdsContainer', () => {
     });
 
     it('should render empty container', () => {
-      const { container } = renderWithTheme(<RdsContainer children="" />);
+      const { container } = renderWithTheme(<RdsContainer >{""}</RdsContainer>);
       const muiContainer = container.querySelector('.MuiContainer-root');
       expect(muiContainer).toBeInTheDocument();
     });
@@ -532,7 +532,7 @@ describe('RdsContainer', () => {
       const items = ['Item 1', 'Item 2', 'Item 3'];
       renderWithTheme(
         <RdsContainer>
-          {items.map((item, index) => <p key={index}>{item}</p>)}
+          {items.map((item) => <p key={item}>{item}</p>)}
         </RdsContainer>
       );
       expect(screen.getByText('Item 1')).toBeInTheDocument();

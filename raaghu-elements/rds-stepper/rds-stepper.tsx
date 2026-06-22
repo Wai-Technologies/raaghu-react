@@ -50,7 +50,7 @@ const RdsStepper = ({
     >
       {steps.map((step, index) => (
         <MuiStep
-          key={index}
+          key={`${step.label}-${step.optional ? 'optional' : 'required'}`}
           completed={step.completed}
           disabled={step.disabled}
         >

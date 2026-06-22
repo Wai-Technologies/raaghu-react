@@ -1,4 +1,4 @@
-import { AppShellDisplayType } from "./rds-comp-app-shell";
+import { AppShellDisplayType } from "./shell-types";
 
 const DefaultCss = `Default`;
 

@@ -5,6 +5,32 @@ import clsx from 'clsx';
 import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked, ChevronRight, ChevronLeft, KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
+
+function getIconComponent(iconType?: string): ReactNode {
+  switch (iconType) {
+    case 'add': return <Add />;
+    case 'delete': return <Delete />;
+    case 'save': return <Save />;
+    case 'edit': return <Edit />;
+    case 'close': return <Close />;
+    case 'arrow-forward': return <ArrowForward />;
+    case 'chevron':
+    case 'chevron_right': return <ChevronRight />;
+    case 'chevron_left': return <ChevronLeft />;
+    case 'chevron_up': return <KeyboardArrowUp />;
+    case 'chevron_down': return <KeyboardArrowDown />;
+    case 'arrow-back': return <ArrowBack />;
+    case 'circle': return <RadioButtonUnchecked />;
+    default: return null;
+  }
+}
+const resolveIcon = (icon?: ReactNode | string): ReactNode => {
+  if (typeof icon === 'string') {
+    return getIconComponent(icon);
+  }
+  return icon;
+};
+
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   text?: string;
   isLoading?: boolean;
@@ -70,45 +96,6 @@ const RdsButton = ({
     textTransform: (textCase === 'unset' ? 'none' : textCase) as CSSProperties['textTransform'],
   });
 
-  const getIconComponent = (iconType?: string) => {
-    switch (iconType) {
-      case 'add':
-        return <Add />;
-      case 'delete':
-        return <Delete />;
-      case 'save':
-        return <Save />;
-      case 'edit':
-        return <Edit />;
-      case 'close':
-        return <Close />;
-      case 'arrow-forward':
-        return <ArrowForward />;
-      case 'chevron':
-      case 'chevron_right':
-        return <ChevronRight />;
-      case 'chevron_left':
-        return <ChevronLeft />;
-      case 'chevron_up':
-        return <KeyboardArrowUp />;
-      case 'chevron_down':
-        return <KeyboardArrowDown />;
-      case 'arrow-back':
-        return <ArrowBack />;
-      case 'circle':
-        return <RadioButtonUnchecked />;
-      default:
-        return null;
-    }
-  };
-
-  const resolveIcon = (icon?: ReactNode | string): ReactNode => {
-    if (typeof icon === 'string') {
-      return getIconComponent(icon);
-    }
-    return icon;
-  };
-
   const styleVariantClass =
     style === 'filled' ? 'rds-button__primary'
     : style === 'outlined' ? 'rds-button__secondary'
@@ -122,6 +109,13 @@ const RdsButton = ({
     : 'rds-button__state-default';
 
   const shapeClass = shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle';
+
+  const layoutClass =
+    normalizedLayout === 'icon+text' ? 'rds-button--layout-icon-text'
+    : normalizedLayout === 'icon-only' ? 'rds-button--layout-icon-only'
+    : 'rds-button--layout-text-only';
+
+  const hasIconClass = (normalizedLayout === 'icon+text' && (showLeftIcon || showRightIcon)) ? 'rds-button--has-icon' : '';
 
   const getStartIcon = () => {
     if (normalizedLayout === 'icon-only') {
@@ -187,23 +181,28 @@ const RdsButton = ({
   };
 
   const isButtonDisabled = disabled || state === 'disabled' || isLoading;
+  const shapeStyles = getShapeStyles();
+  const textCaseStyles = getTextCaseStyles();
+  const filledBackgroundColor = getFilledBackgroundColor();
+  const filledTextColor = getFilledTextColor();
+  const contentElement = renderContent();
 
   return (
     <MuiButton
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
       color={color}
-      className={clsx('rds-button', styleVariantClass, stateClass, shapeClass, isLoading && 'rds-button__loading')}
+      className={clsx('rds-button', layoutClass, hasIconClass, styleVariantClass, stateClass, shapeClass, isLoading && 'rds-button__loading')}
       sx={{
-        ...getShapeStyles(),
-        ...getTextCaseStyles(),
+        ...shapeStyles,
+        ...textCaseStyles,
         ...sx,
       }}
       style={{
-        ...getShapeStyles() as CSSProperties,
-        ...getTextCaseStyles() as CSSProperties,
-        ...(isLoading && style === 'filled' && getFilledBackgroundColor() ? { backgroundColor: getFilledBackgroundColor() } : {}),
-        ...(getFilledTextColor() ? { color: getFilledTextColor() } : {}),
+        ...shapeStyles as CSSProperties,
+        ...textCaseStyles as CSSProperties,
+        ...(isLoading && style === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
+        ...(filledTextColor ? { color: filledTextColor } : {}),
         ...(isLoading ? { opacity: 1 } : {}),
         ...(sx as any),
       }}
@@ -211,7 +210,7 @@ const RdsButton = ({
       endIcon={getEndIcon()}
       {...props}
     >
-      {renderContent()}
+      {contentElement}
     </MuiButton>
   );
 };

@@ -8,41 +8,54 @@ export interface RdsPaginationProps extends PaginationProps {
   totalPages?: number;
   currentPage?: number;
   onPageChange?: (page: number) => void;
-  showFirstLast?: boolean;
+  controls?: {
+    firstLast?: 'visible' | 'hidden';
+    recordsPerPage?: 'visible' | 'hidden';
+    dropdown?: 'visible' | 'hidden';
+    legend?: 'visible' | 'hidden';
+    first?: 'visible' | 'hidden';
+    last?: 'visible' | 'hidden';
+    manualInput?: 'visible' | 'hidden';
+  };
   pageSizeOptions?: number[];
   pageSize?: number;
   onPageSizeChange?: (size: number) => void;
-  showRecordsPerPage?: boolean;
-  showDropdown?: boolean;
-  showLegend?: boolean;
   legendText?: string;
-  showFirst?: boolean;
-  showLast?: boolean;
-  showManualInput?: boolean;
   paginationStyle?: 'Style 1' | 'Style 2' | 'Style 3' | 'Style 4' | 'Style 5' | 'Style 6' | 'Style 7' | 'Style 8' | 'Style 9' | 'Style 10' | 'Style 11';
+  [key: string]: unknown;
 }
 
 const RdsPagination = ({
   totalPages,
   currentPage,
   onPageChange,
-  showFirstLast = true,
+  controls,
   count,
   page,
   onChange,
   pageSizeOptions = [10, 50, 100, 500],
   pageSize: pageSizeProp,
-  showRecordsPerPage = false,
-  showDropdown = false,
-  showLegend = false,
   legendText = "{current} of {total} items",
-  showFirst = false,
-  showLast = false,
-  showManualInput = false,
   paginationStyle = 'Style 1',
   onPageSizeChange,
   ...props
 }: RdsPaginationProps) => {
+  const legacyShowFirstLast = typeof props['showFirstLast'] === 'boolean' ? (props['showFirstLast'] as boolean) : undefined;
+  const legacyShowRecordsPerPage = typeof props['showRecordsPerPage'] === 'boolean' ? (props['showRecordsPerPage'] as boolean) : undefined;
+  const legacyShowDropdown = typeof props['showDropdown'] === 'boolean' ? (props['showDropdown'] as boolean) : undefined;
+  const legacyShowLegend = typeof props['showLegend'] === 'boolean' ? (props['showLegend'] as boolean) : undefined;
+  const legacyShowFirst = typeof props['showFirst'] === 'boolean' ? (props['showFirst'] as boolean) : undefined;
+  const legacyShowLast = typeof props['showLast'] === 'boolean' ? (props['showLast'] as boolean) : undefined;
+  const legacyShowManualInput = typeof props['showManualInput'] === 'boolean' ? (props['showManualInput'] as boolean) : undefined;
+
+  const showFirstLast = controls?.firstLast ? controls.firstLast === 'visible' : (legacyShowFirstLast ?? true);
+  const showRecordsPerPage = controls?.recordsPerPage ? controls.recordsPerPage === 'visible' : (legacyShowRecordsPerPage ?? false);
+  const showDropdown = controls?.dropdown ? controls.dropdown === 'visible' : (legacyShowDropdown ?? false);
+  const showLegend = controls?.legend ? controls.legend === 'visible' : (legacyShowLegend ?? false);
+  const showFirst = controls?.first ? controls.first === 'visible' : (legacyShowFirst ?? false);
+  const showLast = controls?.last ? controls.last === 'visible' : (legacyShowLast ?? false);
+  const showManualInput = controls?.manualInput ? controls.manualInput === 'visible' : (legacyShowManualInput ?? false);
+
   const [localPageSize, setLocalPageSize] = useState(pageSizeProp || pageSizeOptions[0]);
   const [manualPageInput, setManualPageInput] = useState('');
   const pageSize = pageSizeProp !== undefined ? pageSizeProp : localPageSize;

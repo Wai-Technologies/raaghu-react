@@ -9,16 +9,8 @@ import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import './rds-breadcrumbs.scss';
 import clsx from 'clsx';
-
-export enum BreadcrumbSeparator {
-  GreaterThan = ">",
-  Slash = "/",
-  Arrow = "→",
-  DoubleArrow = "»",
-  Pipe = "|",
-  Dash = "-",
-  Plus = "+",
-}
+export { BreadcrumbSeparator } from './rds-breadcrumbs-types';
+import { BreadcrumbSeparator } from './rds-breadcrumbs-types';
 
 const iconMap: Record<string, ElementType> = {
   home: HomeOutlinedIcon,
@@ -193,7 +185,7 @@ const RdsBreadcrumbs = ({
         if (isLast || item.active || isSelected || selectedIdx === index) {
           return (
             <Typography 
-              key={index} 
+              key={`${item.label}-${item.routePath || item.url || index}`}
               className={typographyClass.trim()}
               onClick={() => setSelectedIdx(index)}
               style={{ cursor: 'pointer' }}
@@ -207,7 +199,7 @@ const RdsBreadcrumbs = ({
         const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item__enable-hover' : '';
         return (
           <Link
-            key={index}
+            key={`${item.label}-${item.routePath || item.url || item.href || 'link'}`}
             color="inherit"
             href={item.href}
             onClick={e => {

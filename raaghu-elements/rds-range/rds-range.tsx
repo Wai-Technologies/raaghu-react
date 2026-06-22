@@ -20,6 +20,11 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
   rightLabel?: number;
 }
 
+interface ValueLabelComponentProps {
+  children: ReactElement;
+  value: number;
+}
+
 const RdsRange= ({
   value,
   onChange,
@@ -35,7 +40,7 @@ const RdsRange= ({
   leftLabel = 0,
   rightLabel = 100,
   ...props
-}:RdsRangeProps) => {
+}: RdsRangeProps) => {
   const min = leftLabel ?? props.min ?? 0;
   const max = rightLabel ?? props.max ?? 100;
 
@@ -114,7 +119,7 @@ const RdsRange= ({
   const ariaLabel = props['aria-label'] ?? label ?? 'Range slider';
   const isRangeValue = Array.isArray(effectiveValue);
 
-  const ValueLabelComponent = ({ children, value }: { children: ReactElement; value: number }) => {
+  const ValueLabelComponent = ({ children, value }: ValueLabelComponentProps) => {
     
     if (!showTooltip) {
       return <span>{children}</span>;

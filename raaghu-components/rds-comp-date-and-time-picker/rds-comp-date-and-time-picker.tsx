@@ -163,6 +163,33 @@ const isSameDay = (a: Dayjs | null, b: Dayjs | null) => !!a && !!b && a.isSame(b
 const isBetween = (day: Dayjs, start: Dayjs | null, end: Dayjs | null) =>
   !!start && !!end && day.isAfter(start, 'day') && day.isBefore(end, 'day');
 
+interface RangeDaySlotProps {
+  day: Dayjs;
+  draft: [Dayjs | null, Dayjs | null];
+  onSelectDay: (day: Dayjs) => void;
+  [key: string]: any;
+}
+
+const RangeDaySlot = ({ day, draft, onSelectDay, ...dayProps }: RangeDaySlotProps) => {
+  const [start, end] = draft;
+  const inRange = isBetween(day, start, end);
+  const isStart = isSameDay(day, start);
+  const isEnd = isSameDay(day, end);
+  return (
+    <PickersDay
+      {...dayProps}
+      day={day}
+      onClick={() => onSelectDay(day)}
+      className={[
+        dayProps.className,
+        inRange ? 'rds-date-picker__day--in-range' : '',
+        (isStart || isEnd) ? 'rds-date-picker__day--range-end-point' : '',
+      ].filter(Boolean).join(' ')}
+    />
+  );
+};
+RangeDaySlot.displayName = 'RangeDaySlot';
+
 function RangeCalendar({
   value,
   onChange,
@@ -176,14 +203,18 @@ function RangeCalendar({
   maxDate?: Dayjs;
   multiMonth?: boolean;
 }) {
-  const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>(value);
-  
-  // Add state for current month being viewed
-  const [currentMonth, setCurrentMonth] = React.useState(
-    draft[0] || dayjs()
-  );
-  
-  React.useEffect(() => setDraft(value), [value[0]?.valueOf(), value[1]?.valueOf()]);
+  const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>([null, null]);
+  const [currentMonth, setCurrentMonth] = React.useState(() => dayjs());
+  const prevValue0Ref = React.useRef(value[0]?.valueOf());
+  const prevValue1Ref = React.useRef(value[1]?.valueOf());
+  if (value[0]?.valueOf() !== prevValue0Ref.current || value[1]?.valueOf() !== prevValue1Ref.current) {
+    prevValue0Ref.current = value[0]?.valueOf();
+    prevValue1Ref.current = value[1]?.valueOf();
+    setDraft(value);
+    if (value[0]) {
+      setCurrentMonth(value[0]);
+    }
+  }
 
   const handleSelect = (day: Dayjs) => {
     const [start, end] = draft;
@@ -204,25 +235,6 @@ function RangeCalendar({
     setCurrentMonth(newMonth);
   };
 
-  const renderDaySlot = (dayProps: any) => {
-    const day = dayProps.day as Dayjs;
-    const [start, end] = draft;
-    const inRange = isBetween(day, start, end);
-    const isStart = isSameDay(day, start);
-    const isEnd = isSameDay(day, end);
-    return (
-      <PickersDay
-        {...dayProps}
-        onClick={() => handleSelect(day)}
-        className={[
-          dayProps.className,
-          inRange ? 'rds-date-picker__day--in-range' : '',
-          (isStart || isEnd) ? 'rds-date-picker__day--range-end-point' : '',
-        ].filter(Boolean).join(' ')}
-      />
-    );
-  };
-
   const calendars = (
     <Box className="rds-date-picker__range-calendar-row">
       <DateCalendar
@@ -231,10 +243,11 @@ function RangeCalendar({
         onMonthChange={(newMonth) => setCurrentMonth(newMonth)}
         minDate={minDate}
         maxDate={maxDate}
-        slots={{ day: renderDaySlot }}
+        slots={{ day: RangeDaySlot as any }}
         views={['year', 'month', 'day']}
         displayWeekNumber
         slotProps={{
+          day: { draft, onSelectDay: handleSelect } as any,
           calendarHeader: {
             format: 'MMMM YYYY',
           },
@@ -247,10 +260,11 @@ function RangeCalendar({
           onMonthChange={(newMonth) => setCurrentMonth(newMonth.subtract(1, 'month'))}
           minDate={minDate}
           maxDate={maxDate}
-          slots={{ day: renderDaySlot }}
+          slots={{ day: RangeDaySlot as any }}
           views={['year', 'month', 'day']}
           displayWeekNumber
           slotProps={{
+            day: { draft, onSelectDay: handleSelect } as any,
             calendarHeader: {
               format: 'MMMM YYYY',
             },

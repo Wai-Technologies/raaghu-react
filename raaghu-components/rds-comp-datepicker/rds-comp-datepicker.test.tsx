@@ -3,7 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsDatepicker, { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker';
+import RdsDatepicker from './rds-comp-datepicker';
+import { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker.types';
 
 // Mock SCSS module
 jest.mock('./rds-comp-datepicker.scss', () => ({}));

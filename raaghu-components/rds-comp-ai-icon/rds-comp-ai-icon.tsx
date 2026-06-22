@@ -121,17 +121,10 @@ const RdsCompAiIconComponent = ({
   position,
 }: RdsCompAiIconProps) => {
   const normalizedName = name?.toLowerCase() ?? "";
-  const [iconVersion, setIconVersion] = useState(0);
-
-  useEffect(() => {
-    const onIconsUpdated = () => setIconVersion((version) => version + 1);
-    window.addEventListener("rds-icons-updated", onIconsUpdated);
-    return () => window.removeEventListener("rds-icons-updated", onIconsUpdated);
-  }, []);
 
   const IconComponent = useMemo(
     () => resolveIconComponent(normalizedName, SvgIcon),
-    [normalizedName, SvgIcon, iconVersion]
+    [normalizedName, SvgIcon]
   );
 
   const style = useMemo(
@@ -179,12 +172,11 @@ const RdsCompAiIconComponent = ({
   }
 
   if (imageUrl) {
-    return (
+    const imageElement = (
       <img
         src={imageUrl}
+        alt=""
         className={clsx(className, "rds-comp-ai-icon__img")}
-        onClick={onClick || undefined}
-        role="img"
         id={id}
         data-testid={dataTestId}
         style={style}
@@ -193,6 +185,28 @@ const RdsCompAiIconComponent = ({
         data-bs-toggle={databstoggle}
         aria-controls={ariacontrols}
       />
+    );
+
+    if (onClick) {
+      return (
+        <button
+          type="button"
+          className="rds-comp-ai-icon__button"
+          onClick={onClick as MouseEventHandler<HTMLButtonElement>}
+          style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer" }}
+          data-bs-dismiss={databsdismiss}
+          data-bs-target={databstarget}
+          data-bs-toggle={databstoggle}
+          aria-controls={ariacontrols}
+          aria-label={normalizedName || "icon button"}
+        >
+          {imageElement}
+        </button>
+      );
+    }
+
+    return (
+      imageElement
     );
   }
 

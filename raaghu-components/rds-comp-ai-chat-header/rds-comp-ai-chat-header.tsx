@@ -1,12 +1,8 @@
 import clsx from "clsx";
 import { memo } from "react";
 import "./rds-comp-ai-chat-header.scss";
-
-export enum ChatHeaderSize {
-  Small = "small",
-  Medium = "medium",
-  Large = "large",
-}
+export { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
+import { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
 
 export interface RdsCompAiChatHeaderProps {
   logoUrl?: string;

@@ -1,12 +1,13 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import RdsCompToast, {
+import RdsCompToast from './rds-comp-toast';
+import {
   ToastLayout,
   ToastState,
   ToastLeadingIcon,
   ToastPosition,
   RdsCompToastProps,
-} from './rds-comp-toast';
+} from './rds-comp-toast.types';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 

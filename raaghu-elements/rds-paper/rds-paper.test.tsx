@@ -393,13 +393,13 @@ describe('RdsPaper', () => {
     it('should work as card component', () => {
       renderWithTheme(
         <RdsPaper elevation={3} padding={16} square={false}>
-          <img src="test.jpg" alt="Card image" />
+          <img src="test.jpg" alt="Card preview" />
           <h3>Card Title</h3>
           <p>Card description</p>
           <button>Learn More</button>
         </RdsPaper>
       );
-      expect(screen.getByAltText('Card image')).toBeInTheDocument();
+      expect(screen.getByAltText('Card preview')).toBeInTheDocument();
       expect(screen.getByText('Card Title')).toBeInTheDocument();
     });
   });

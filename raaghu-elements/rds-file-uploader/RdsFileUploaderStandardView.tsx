@@ -4,16 +4,20 @@ import RdsButton from '../rds-button/rds-button';
 import { type FileWithProgress } from './rds-file-uploader';
 
 interface RdsFileUploaderStandardViewProps {
-  showTitle: boolean;
-  isMandatory: boolean;
+  viewConfig: {
+    showTitle: boolean;
+    isMandatory: boolean;
+    showHint: boolean;
+    showPreview: boolean;
+  };
+  interactionConfig: {
+    disabled: boolean;
+    dragAndDrop: boolean;
+    isDragOver: boolean;
+    multiple: boolean;
+  };
   mandatoryError: string | null;
-  showHint: boolean;
   hintText: string;
-  disabled: boolean;
-  dragAndDrop: boolean;
-  isDragOver: boolean;
-  multiple: boolean;
-  showPreview: boolean;
   selectedFileName: string | null;
   handleFileSelect: (e: ChangeEvent<HTMLInputElement>) => void;
   addFiles: (files: File[]) => void;
@@ -25,16 +29,10 @@ interface RdsFileUploaderStandardViewProps {
 }
 
 const RdsFileUploaderStandardView = ({
-  showTitle,
-  isMandatory,
+  viewConfig,
+  interactionConfig,
   mandatoryError,
-  showHint,
   hintText,
-  disabled,
-  dragAndDrop,
-  isDragOver,
-  multiple,
-  showPreview,
   selectedFileName,
   handleFileSelect,
   addFiles,
@@ -44,7 +42,8 @@ const RdsFileUploaderStandardView = ({
   children,
   title
 }: RdsFileUploaderStandardViewProps) => {
-  const [internalDragOver, setInternalDragOver] = useState(false);
+  const { showTitle, isMandatory, showHint, showPreview } = viewConfig;
+  const { disabled, dragAndDrop, isDragOver, multiple } = interactionConfig;
 
   return (
     <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>
@@ -64,9 +63,9 @@ const RdsFileUploaderStandardView = ({
           pointerEvents: disabled ? 'none' : 'auto',
           opacity: disabled ? 0.6 : 1,
         }}
-        onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(true); } : undefined}
-        onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); } : undefined}
-        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); addFiles(Array.from(e.dataTransfer.files)); } : undefined}
+        onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); } : undefined}
+        onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); } : undefined}
+        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); addFiles(Array.from(e.dataTransfer.files)); } : undefined}
       >
         <RdsButton
           style="filled"

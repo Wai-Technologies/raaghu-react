@@ -1,6 +1,6 @@
 
 import { type ReactNode } from 'react';
-import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
+import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RdsButton from '../rds-button/rds-button';
 import './rds-dialog.scss';
@@ -88,16 +88,32 @@ const RdsDialog = ({
     {...props}
   >
       {((title && showTitle) || ShowDissmiss) && (
-        <DialogTitle sx={{ position: 'relative', paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, 40px)' : undefined }}>
-          {showTitle ? title : null}
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 1,
+            pr: ShowDissmiss ? 1 : undefined,
+          }}
+        >
+          <Box
+            sx={{
+              flex: '1 1 auto',
+              minWidth: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {showTitle ? title : null}
+          </Box>
           {ShowDissmiss && onClose && (
             <IconButton
               aria-label="close"
               onClick={onClose}
               sx={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
+                flex: '0 0 auto',
                 color: 'var(--rds-neutral-500)',
               }}
             >

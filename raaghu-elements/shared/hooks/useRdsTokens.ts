@@ -92,4 +92,3 @@ export const useRdsTokens = (): RdsTokens => {
   };
 };
 
-export default useRdsTokens;

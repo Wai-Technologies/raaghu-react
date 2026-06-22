@@ -38,12 +38,12 @@ describe('RdsCollapse', () => {
     });
 
     it('should render with title', () => {
-      renderWithTheme(<RdsCollapse title="Section Title" children="Content" />);
+      renderWithTheme(<RdsCollapse title="Section Title" >{"Content"}</RdsCollapse>);
       expect(screen.getByText('Section Title')).toBeInTheDocument();
     });
 
     it('should render without title when not provided', () => {
-      renderWithTheme(<RdsCollapse children="Content" />);
+      renderWithTheme(<RdsCollapse >{"Content"}</RdsCollapse>);
       const content = screen.getByText('Content');
       expect(content).toBeInTheDocument();
     });
@@ -67,7 +67,7 @@ describe('RdsCollapse', () => {
 
     it('should render empty collapse when children is empty string', () => {
       const { container } = renderWithTheme(
-        <RdsCollapse title="Empty" children="" />
+        <RdsCollapse title="Empty" >{""}</RdsCollapse>
       );
       expect(screen.getByText('Empty')).toBeInTheDocument();
     });
@@ -80,7 +80,7 @@ describe('RdsCollapse', () => {
         </div>
       );
       renderWithTheme(
-        <RdsCollapse title="Multi Content" children={children} />
+        <RdsCollapse title="Multi Content" >{children}</RdsCollapse>
       );
       expect(screen.getByText('Paragraph 1')).toBeInTheDocument();
       expect(screen.getByText('Paragraph 2')).toBeInTheDocument();
@@ -202,7 +202,7 @@ describe('RdsCollapse', () => {
 
   describe('Title Rendering', () => {
     it('should render title as h6 typography', () => {
-      renderWithTheme(<RdsCollapse title="Section" children="Content" />);
+      renderWithTheme(<RdsCollapse title="Section" >{"Content"}</RdsCollapse>);
       const title = screen.getByText('Section');
       expect(title).toBeInTheDocument();
       // Title is rendered as DIV within Typography component
@@ -210,20 +210,20 @@ describe('RdsCollapse', () => {
     });
 
     it('should render title and toggle button together', () => {
-      renderWithTheme(<RdsCollapse title="Title" children="Content" />);
+      renderWithTheme(<RdsCollapse title="Title" >{"Content"}</RdsCollapse>);
       expect(screen.getByText('Title')).toBeInTheDocument();
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('should update title when prop changes', () => {
       const { rerender } = renderWithTheme(
-        <RdsCollapse title="Title 1" children="Content" />
+        <RdsCollapse title="Title 1" >{"Content"}</RdsCollapse>
       );
       expect(screen.getByText('Title 1')).toBeInTheDocument();
 
       rerender(
         <ThemeProvider theme={theme}>
-          <RdsCollapse title="Title 2" children="Content" />
+          <RdsCollapse title="Title 2" >{"Content"}</RdsCollapse>
         </ThemeProvider>
       );
       expect(screen.queryByText('Title 1')).not.toBeInTheDocument();
@@ -232,19 +232,19 @@ describe('RdsCollapse', () => {
 
     it('should handle long title text', () => {
       const longTitle = 'A'.repeat(100);
-      renderWithTheme(<RdsCollapse title={longTitle} children="Content" />);
+      renderWithTheme(<RdsCollapse title={longTitle} >{"Content"}</RdsCollapse>);
       expect(screen.getByText(longTitle)).toBeInTheDocument();
     });
 
     it('should handle special characters in title', () => {
       const specialTitle = 'Title @#$%^&*()';
-      renderWithTheme(<RdsCollapse title={specialTitle} children="Content" />);
+      renderWithTheme(<RdsCollapse title={specialTitle} >{"Content"}</RdsCollapse>);
       expect(screen.getByText(specialTitle)).toBeInTheDocument();
     });
 
     it('should handle unicode characters in title', () => {
       const unicodeTitle = '🎉 Title 🎊';
-      renderWithTheme(<RdsCollapse title={unicodeTitle} children="Content" />);
+      renderWithTheme(<RdsCollapse title={unicodeTitle} >{"Content"}</RdsCollapse>);
       expect(screen.getByText(unicodeTitle)).toBeInTheDocument();
     });
   });
@@ -305,11 +305,11 @@ describe('RdsCollapse', () => {
       const { container } = renderWithTheme(
         <RdsCollapse 
           title="Title" 
-          children="Content" 
+          
           onToggle={onToggle} 
           showToggleButton={false}
           expanded={false}
-        />
+        >{"Content"}</RdsCollapse>
       );
       
       const title = screen.getByText('Title');
@@ -323,11 +323,11 @@ describe('RdsCollapse', () => {
       renderWithTheme(
         <RdsCollapse 
           title="Title" 
-          children="Content" 
+          
           onToggle={onToggle} 
           showToggleButton={true}
           expanded={false}
-        />
+        >{"Content"}</RdsCollapse>
       );
       
       const header = screen.getByText('Title').parentElement;
@@ -426,14 +426,14 @@ describe('RdsCollapse', () => {
 
     it('should handle empty content', () => {
       const { container } = renderWithTheme(
-        <RdsCollapse title="Empty" children="" />
+        <RdsCollapse title="Empty" >{""}</RdsCollapse>
       );
       expect(screen.getByText('Empty')).toBeInTheDocument();
     });
 
     it('should handle null children gracefully', () => {
       const { container } = renderWithTheme(
-        <RdsCollapse title="Null Child" children={null} />
+        <RdsCollapse title="Null Child" >{null}</RdsCollapse>
       );
       expect(screen.getByText('Null Child')).toBeInTheDocument();
     });
@@ -451,7 +451,7 @@ describe('RdsCollapse', () => {
       );
       
       renderWithTheme(
-        <RdsCollapse title="Complex" children={complexContent} />
+        <RdsCollapse title="Complex" >{complexContent}</RdsCollapse>
       );
       expect(screen.getByText('Nested Title')).toBeInTheDocument();
       expect(screen.getByText('Deep nested content')).toBeInTheDocument();
@@ -464,7 +464,7 @@ describe('RdsCollapse', () => {
       );
       
       renderWithTheme(
-        <RdsCollapse title="With Handlers" children={childContent} />
+        <RdsCollapse title="With Handlers" >{childContent}</RdsCollapse>
       );
       
       const button = screen.getByText('Click me');
@@ -488,14 +488,14 @@ describe('RdsCollapse', () => {
 
     it('should handle changing children content', () => {
       const { rerender } = renderWithTheme(
-        <RdsCollapse title="Dynamic" children="Content 1" />
+        <RdsCollapse title="Dynamic" >{"Content 1"}</RdsCollapse>
       );
       
       expect(screen.getByText('Content 1')).toBeInTheDocument();
       
       rerender(
         <ThemeProvider theme={theme}>
-          <RdsCollapse title="Dynamic" children="Content 2" />
+          <RdsCollapse title="Dynamic" >{"Content 2"}</RdsCollapse>
         </ThemeProvider>
       );
       
@@ -505,7 +505,7 @@ describe('RdsCollapse', () => {
 
     it('should handle title and showToggleButton both false', () => {
       const { container } = renderWithTheme(
-        <RdsCollapse children="Content" showToggleButton={false} />
+        <RdsCollapse showToggleButton={false} >{"Content"}</RdsCollapse>
       );
       const content = screen.getByText('Content');
       expect(content).toBeInTheDocument();
@@ -568,7 +568,7 @@ describe('RdsCollapse', () => {
 
     it('should have proper semantic HTML structure', () => {
       const { container } = renderWithTheme(
-        <RdsCollapse title="Section" children="Content" />
+        <RdsCollapse title="Section" >{"Content"}</RdsCollapse>
       );
       const box = container.querySelector('.MuiBox-root');
       expect(box).toBeInTheDocument();
@@ -606,14 +606,14 @@ describe('RdsCollapse', () => {
       renderWithTheme(
         <RdsCollapse 
           title="Complete"
-          children="Full content"
+         
           expanded={false}
           onToggle={onToggle}
           showToggleButton={true}
           timeout={300}
           data-testid="complete-collapse"
           className="custom-collapse"
-        />
+        >{"Full content"}</RdsCollapse>
       );
       
       expect(screen.getByText('Complete')).toBeInTheDocument();
@@ -641,9 +641,8 @@ describe('RdsCollapse', () => {
       renderWithTheme(
         <RdsCollapse 
           title="Title with <special> & characters"
-          children="Content"
           showToggleButton={true}
-        />
+        >{"Content"}</RdsCollapse>
       );
       
       expect(screen.getByText('Title with <special> & characters')).toBeInTheDocument();
@@ -653,7 +652,7 @@ describe('RdsCollapse', () => {
   describe('Default Props', () => {
     it('should have expanded as false by default', () => {
       renderWithTheme(
-        <RdsCollapse children="Content" />
+        <RdsCollapse >{"Content"}</RdsCollapse>
       );
       const content = screen.getByText('Content');
       expect(content).toBeInTheDocument();
@@ -661,14 +660,14 @@ describe('RdsCollapse', () => {
 
     it('should have showToggleButton as true by default', () => {
       renderWithTheme(
-        <RdsCollapse title="Title" children="Content" />
+        <RdsCollapse title="Title" >{"Content"}</RdsCollapse>
       );
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('should not have title by default', () => {
       renderWithTheme(
-        <RdsCollapse children="Content" />
+        <RdsCollapse >{"Content"}</RdsCollapse>
       );
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
@@ -686,7 +685,7 @@ describe('RdsCollapse', () => {
 
   describe('Props Validation', () => {
     it('should accept string title', () => {
-      renderWithTheme(<RdsCollapse title="Title" children="Content" />);
+      renderWithTheme(<RdsCollapse title="Title" >{"Content"}</RdsCollapse>);
       expect(screen.getByText('Title')).toBeInTheDocument();
     });
 
@@ -734,7 +733,7 @@ describe('RdsCollapse', () => {
         </div>
       );
       renderWithTheme(
-        <RdsCollapse title="Title" children={children} />
+        <RdsCollapse title="Title" >{children}</RdsCollapse>
       );
       expect(screen.getByTestId('complex-children')).toBeInTheDocument();
     });

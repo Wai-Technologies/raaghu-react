@@ -15,110 +15,128 @@ import {
     renderDatePickerStateView,
     renderDatePickerTypeView
 } from './rds-comp-datepicker-utils';
+import {
+    DatePickerLayout,
+    DatePickerState,
+    DatePickerStyleType,
+    type RdsCompDatepickerProps,
+} from './rds-comp-datepicker.types';
 
 const SafeDatePicker = DatePicker;
-
-export enum DatePickerStyleType {
-    Dropdown = "Dropdown",
-    Selector = "Selector"
-}
-
-export enum DatePickerLayout {
-    Default = "Default",
-    MonthPicker = "Month Picker",
-    YearPicker = "Year Picker",
-    MultiMonth = "Multi Month"
-}
-
-export enum DatePickerState {
-    Default = "Default",
-    Expanded = "Expanded",
-    Selected = "Selected"
-}
-export interface RdsCompDatepickerProps {
-    selectedDate?: (date: Date | null) => void; 
-    dateForEdit?: string;
-    titleText?: string; 
-    showTitle?: boolean; 
-    onDatePicker?: (date: Date | [Date | null, Date | null]) => void; 
-    datePickerStyleType?: DatePickerStyleType; 
-    state?: DatePickerState; 
-    layout?: DatePickerLayout; 
-    customDate?: (dates: [Date | null, Date | null]) => void;
-    isDropdownOpen?: boolean;
-    isDisabled?: boolean;
-    isMandatory?: boolean;
-    placeholderText?: string;
-    DatePickerLabel?: string;
-    type?: string;
-    changeIcon?: "dashboard_settings" | string; 
-    showClearDate?: boolean;
-    isDefaultDate?: boolean;
-}
 
 const RdsDatepicker = ({
     selectedDate,
     dateForEdit,
     titleText,
-    showTitle,
     onDatePicker,
     datePickerStyleType,
     state,
     layout,
     customDate,
-    isDisabled,
-    isMandatory,
+    controls,
     placeholderText,
     type,
     changeIcon,
-    showClearDate,
-    isDefaultDate,
-    ...restProps
+    ...legacyProps
 }: RdsDatepickerProps) => {
+    const legacyShowTitle = typeof legacyProps['showTitle'] === 'boolean' ? (legacyProps['showTitle'] as boolean) : undefined;
+    const legacyIsDisabled = typeof legacyProps['isDisabled'] === 'boolean' ? (legacyProps['isDisabled'] as boolean) : undefined;
+    const legacyIsMandatory = typeof legacyProps['isMandatory'] === 'boolean' ? (legacyProps['isMandatory'] as boolean) : undefined;
+    const legacyShowClearDate = typeof legacyProps['showClearDate'] === 'boolean' ? (legacyProps['showClearDate'] as boolean) : undefined;
+    const legacyIsDefaultDate = typeof legacyProps['isDefaultDate'] === 'boolean' ? (legacyProps['isDefaultDate'] as boolean) : undefined;
+
+    const showTitle = controls?.title ? controls.title === 'visible' : (legacyShowTitle ?? false);
+    const isDisabled = controls?.disabled ? controls.disabled === 'on' : (legacyIsDisabled ?? false);
+    const isMandatory = controls?.mandatory ? controls.mandatory === 'required' : (legacyIsMandatory ?? false);
+    const showClearDate = controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false);
+    const isDefaultDate = controls?.defaultDate ? controls.defaultDate === 'on' : (legacyIsDefaultDate ?? false);
+
+    const {
+        showTitle: _legacyShowTitle,
+        isDisabled: _legacyIsDisabled,
+        isMandatory: _legacyIsMandatory,
+        showClearDate: _legacyShowClearDate,
+        isDefaultDate: _legacyIsDefaultDate,
+        ...restProps
+    } = legacyProps as typeof legacyProps & {
+        showTitle?: boolean;
+        isDisabled?: boolean;
+        isMandatory?: boolean;
+        showClearDate?: boolean;
+        isDefaultDate?: boolean;
+    };
+
     const today = useMemo(() => new Date(), []); 
-    const [dropdownDisplayValue, setDropdownDisplayValue] = useState(
-        isDefaultDate ? today.toDateString().slice(4) : ""
-    );
-    const [activeList, setActiveList] = useState("custom");
-    const [startDate, setStartDate] = useState<Date | null>(
-        isDefaultDate ? today : null
-    );
-    const [endDate, setEndDate] = useState<Date | null>(null);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [pickerState, setPickerState] = useState(() => {
+        const start = dateForEdit ? new Date(dateForEdit) : (isDefaultDate ? today : null);
+        return {
+            dropdownDisplayValue: start ? start.toDateString().slice(4) : "",
+            activeList: "custom",
+            startDate: start as Date | null,
+            endDate: null as Date | null,
+            isDropdownOpen: false,
+        };
+    });
+    const { dropdownDisplayValue, activeList, startDate, endDate, isDropdownOpen } = pickerState;
+    const updatePickerState = useCallback((updates: Partial<typeof pickerState> | ((prev: typeof pickerState) => Partial<typeof pickerState>)) => {
+        setPickerState((prev) => ({
+            ...prev,
+            ...(typeof updates === 'function' ? updates(prev) : updates),
+        }));
+    }, []);
+    const prevDateForEditRef = useRef(dateForEdit);
+    useEffect(() => {
+        if (dateForEdit !== prevDateForEditRef.current) {
+            prevDateForEditRef.current = dateForEdit;
+            if (dateForEdit) {
+                const newDate = new Date(dateForEdit);
+                updatePickerState({ startDate: newDate, dropdownDisplayValue: newDate.toDateString().slice(4) });
+            }
+        }
+    }, [dateForEdit, updatePickerState]);
+
+    const initializedDefaultsRef = useRef(false);
+    useEffect(() => {
+        if (!initializedDefaultsRef.current && isDefaultDate) {
+            initializedDefaultsRef.current = true;
+            updatePickerState({ startDate: today, dropdownDisplayValue: today.toDateString().slice(4) });
+        }
+    }, [isDefaultDate, today, updatePickerState]);
     const datePickerRef = useRef<DatePicker | null>(null);
     const expandedDatePickerRef = useRef<DatePicker | null>(null);
     const selectedDatePickerRef = useRef<DatePicker | null>(null);
-    const [showType, setShowType] = useState(false);
-    const [showState, setShowState] = useState(true);
+    const showState = state === DatePickerState.Expanded || state === DatePickerState.Selected;
+    const showType = !showState;
 
     const onRangeChange = useCallback((dates: [Date | null, Date | null]) => {
         if (customDate && typeof customDate === 'function') {
             customDate(dates);
         }
         const [start, end] = dates;
-        setStartDate(start);
-        setEndDate(end);
-        setDropdownDisplayValue(
+        updatePickerState({
+            startDate: start,
+            endDate: end,
+            dropdownDisplayValue:
             start ? start.toDateString().slice(4) +
-                (end ? " - " + end.toDateString().slice(4) : "") : ""
-        );
-        setIsDropdownOpen(false);
+                (end ? " - " + end.toDateString().slice(4) : "") : "",
+            isDropdownOpen: false,
+        });
         if (typeof onDatePicker === 'function') {
             onDatePicker([start, end]);
         }
-    }, [customDate, onDatePicker]);
+    }, [customDate, onDatePicker, updatePickerState]);
 
     const handlerDateChange = useCallback((date: Date | null) => {
-        setStartDate(date);
+        updatePickerState({ startDate: date });
         if (typeof selectedDate === 'function') selectedDate(date);
         if (typeof onDatePicker === 'function') onDatePicker(date as Date);
-    }, [selectedDate, onDatePicker]);
+    }, [selectedDate, onDatePicker, updatePickerState]);
 
     const handlerDateTimeChange = useCallback((date: any) => {
         if (date != null) {
-            setStartDate(date);
+            updatePickerState({ startDate: date });
         } else {
-            setStartDate(new Date());
+            updatePickerState({ startDate: new Date() });
         }
         if (typeof selectedDate === 'function') {
             selectedDate(date);
@@ -126,19 +144,17 @@ const RdsDatepicker = ({
         if (typeof onDatePicker === 'function') {
             onDatePicker(date);
         }
-    }, [selectedDate, onDatePicker]); 
+    }, [selectedDate, onDatePicker, updatePickerState]); 
     
     const toggleDropdown = useCallback(() => {
         if (!isDisabled) {
-            setIsDropdownOpen(!isDropdownOpen);
+            updatePickerState((prev) => ({ isDropdownOpen: !prev.isDropdownOpen }));
         }
-    }, [isDisabled, isDropdownOpen]); 
+    }, [isDisabled, updatePickerState]); 
     
     const clearDate = useCallback(() => {
         if (!isDisabled) {
-            setStartDate(null);
-            setEndDate(null);
-            setDropdownDisplayValue("");
+            updatePickerState({ startDate: null, endDate: null, dropdownDisplayValue: "" });
             if (typeof selectedDate === 'function') {
                 selectedDate(null);
             }
@@ -149,78 +165,55 @@ const RdsDatepicker = ({
                 customDate([null, null]);
             }
         }
-    }, [isDisabled, selectedDate, onDatePicker, customDate]);
+    }, [isDisabled, selectedDate, onDatePicker, customDate, updatePickerState]);
 
     const yesterdayClickHandler = useCallback(() => {
-        setActiveList("yesterday");
+        updatePickerState({ activeList: "yesterday" });
         const newDate = getYesterdayDate(today);
         onRangeChange([newDate, newDate]);
-        setDropdownDisplayValue(newDate.toDateString().slice(4));
-    }, [today, onRangeChange]);
+        updatePickerState({ dropdownDisplayValue: newDate.toDateString().slice(4) });
+    }, [today, onRangeChange, updatePickerState]);
 
     const todayClickHandler = useCallback(() => {
-        setActiveList("today");
+        updatePickerState({ activeList: "today" });
         const { todayDate, newDate } = getTodayDate(today);
         onRangeChange([todayDate, newDate]); 
-        setDropdownDisplayValue(newDate.toDateString().slice(4));
-    }, [today, onRangeChange]);
+        updatePickerState({ dropdownDisplayValue: newDate.toDateString().slice(4) });
+    }, [today, onRangeChange, updatePickerState]);
 
     const lastSevenDaysClickHandler = useCallback(() => {
-        setActiveList("lastSeven");
+        updatePickerState({ activeList: "lastSeven" });
         const newDate = getLastSevenDaysDate(today);
         onRangeChange([newDate, today]);
-        setDropdownDisplayValue(
+        updatePickerState({ dropdownDisplayValue:
             newDate.toDateString().slice(4) + " - " + today.toDateString().slice(4)
-        );
-    }, [today, onRangeChange]);
+        });
+    }, [today, onRangeChange, updatePickerState]);
 
     const lastFourteenDaysClickHandler = useCallback(() => {
-        setActiveList("lastFourteen");
+        updatePickerState({ activeList: "lastFourteen" });
         const newDate = getLastFourteenDaysDate(today);
         onRangeChange([newDate, today]);
-        setDropdownDisplayValue(
+        updatePickerState({ dropdownDisplayValue:
             newDate.toDateString().slice(4) + " - " + today.toDateString().slice(4)
-        );
-    }, [today, onRangeChange]);
+        });
+    }, [today, onRangeChange, updatePickerState]);
+
+    const dayClassName = useCallback((date: Date) => getDayClassName(date, startDate), [startDate]);
 
     useEffect(() => {
-        if (dateForEdit) {
-            setStartDate(new Date(dateForEdit));
-        }
-    }, [dateForEdit]); 
-    
-    useEffect(() => {
         if (state === DatePickerState.Expanded) {
-            setIsDropdownOpen(true);
-            setTimeout(() => {
+            const timeoutId = window.setTimeout(() => {
                 if (expandedDatePickerRef.current) {
                     expandedDatePickerRef.current.setOpen(true);
                 }
             }, 100);
+
+            return () => {
+                window.clearTimeout(timeoutId);
+            };
         }
     }, [state]);
-
-    const dayClassName = useCallback((date: Date) => getDayClassName(date, startDate), [startDate]);
-    
-    useEffect(() => {
-        setShowType(false);
-        setShowState(true);
-    }, [state]); 
-    
-    useEffect(() => {
-        setShowState(false);
-        setShowType(true);
-    }, [type]);
-
-    useEffect(() => {
-        if (isDefaultDate) {
-            setStartDate(today);
-            setDropdownDisplayValue(today.toDateString().slice(4));
-        } else {
-            setStartDate(null);
-            setDropdownDisplayValue("");
-        }
-    }, [isDefaultDate, today]);
 
     const sharedProps = useMemo(
         () => ({

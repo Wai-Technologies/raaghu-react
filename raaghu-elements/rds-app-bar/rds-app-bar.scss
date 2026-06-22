@@ -6,18 +6,18 @@ $rds-app-bar-breakpoint-sm: 420px;
 $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-story-logo {
-  height: var(--rds-spacing-xl, 32px);
+  height: var(--rds-spacing-xl, 40px);
  
   @media (max-width: $rds-app-bar-breakpoint-md) {
-    height: calc(3.5 * var(--rds-spacing-xs, 4px));
+    height: var(--rds-spacing-xl, 40px);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    height: var(--rds-spacing-lg, 24px);
+    height: var(--rds-spacing-xl, 40px);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    height: calc(2.5 * var(--rds-spacing-xs, 4px));
+    height: var(--rds-spacing-lg, 36px);
     margin-left: calc(2.5 * var(--rds-spacing-xs, 4px));
   }
 }

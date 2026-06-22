@@ -61,5 +61,3 @@ export const lightTheme = createTheme({
 
   components: designSystemComponentOverrides,
 });
-
-export default lightTheme;

@@ -203,9 +203,9 @@ export const LargeContent: Story = {
         <Typography variant="body1">
           This dialog contains a lot of content to demonstrate scrolling behavior.
         </Typography>
-        {Array.from({ length: 20 }, (_, i) => (
-          <p key={i}>
-            This is paragraph {i + 1} with some sample text to make the dialog content longer.
+        {Array.from({ length: 20 }, (_, paragraphNumber) => paragraphNumber + 1).map((paragraphNumber) => (
+          <p key={paragraphNumber}>
+            This is paragraph {paragraphNumber} with some sample text to make the dialog content longer.
           </p>
         ))}
       </>
@@ -271,7 +271,7 @@ export const WithIcon: Story = {
       <Box display="flex" flexDirection="column" alignItems="center" width="100%" sx={{ mt: 1, mb: 1 }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2, mt: 1 }}>
           <svg width="48" height="48" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.6154 45.3077H1V39.7692C0.999091 36.8594 1.76237 34.0004 3.21346 31.4782C4.66456 28.956 6.75258 26.8591 9.26861 25.3973C11.7846 23.9356 14.6404 23.1602 17.5502 23.1488C20.46 23.1374 23.3218 23.8903 25.8492 25.3323M49 33.3446L33.3446 49M33.3446 33.3446L49 49M25.9231 9.30769C25.9231 13.8959 22.2036 17.6154 17.6154 17.6154C13.0272 17.6154 9.30769 13.8959 9.30769 9.30769C9.30769 4.71948 13.0272 1 17.6154 1C22.2036 1 25.9231 4.71948 25.9231 9.30769Z" stroke="#BD0D1D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M17.62 45.31H1V39.77C1 36.86 1.76 34 3.21 31.48C4.66 28.96 6.75 26.86 9.27 25.4C11.78 23.94 14.64 23.16 17.55 23.15C20.46 23.14 23.32 23.89 25.85 25.33M49 33.34L33.34 49M33.34 33.34L49 49M25.92 9.31C25.92 13.9 22.2 17.62 17.62 17.62C13.03 17.62 9.31 13.9 9.31 9.31C9.31 4.72 13.03 1 17.62 1C22.2 1 25.92 4.72 25.92 9.31Z" stroke="#BD0D1D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Box>
         <Typography sx={{ fontSize: 16, fontWeight: 400, textAlign: 'center', lineHeight: 1.4 }}>
@@ -321,7 +321,7 @@ export const WithIcon: Story = {
           textCase="uppercase"
           onClick={() => setOpen(true)}
         />
-        <RdsDialog children={undefined} open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
+        <RdsDialog open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
       </>
     );
   },
