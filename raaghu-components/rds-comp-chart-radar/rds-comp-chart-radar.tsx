@@ -74,6 +74,9 @@ const RdsCompRadarChart = ({
 
     const textColor = chartTextColor();
 
+    const passedLegend = chartOptions?.plugins?.legend || {};
+    const passedLabels = passedLegend.labels || {};
+
     const radarCanvas = new Chart(ctx, {
       type: "radar",
       data: chartData,
@@ -82,20 +85,22 @@ const RdsCompRadarChart = ({
         plugins: {
           ...((chartOptions && chartOptions.plugins) || {}),
           legend: {
-            ...(chartOptions?.plugins?.legend || {}),
             position: "top",
             align: "start",
+            ...passedLegend,
             labels: {
-              boxWidth: 8,
-              boxHeight: 8,
-              pointStyleWidth: 8,
-              padding: 20,
               usePointStyle: true,
               pointStyle: "circle",
+              pointStyleWidth: 10,
+              padding: 20,
+              ...passedLabels,
               font: {
                 size: getFontSizeFromVar("--rds-font-size-md", 12),
                 weight: getFontWeightFromVar("--rds-font-weight-medium", "500"),
                 family: "inherit",
+                ...(typeof passedLabels.font === "object" && passedLabels.font !== null
+                  ? passedLabels.font
+                  : {}),
               },
               color: textColor,
             },
