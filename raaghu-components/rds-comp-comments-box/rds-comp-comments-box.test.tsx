@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCommentBox, { useCommentsBoxLogic, DropdownMenu } from './rds-comp-comments-box';
-import { ColorPickerType } from '../rds-comp-color-picker/rds-comp-color-picker';
+import { ColorPickerType } from '../rds-comp-color-picker/rds-comp-color-picker.types';
 
 // Mock dependencies
 jest.mock('./rds-comp-comments-box.scss', () => ({}));

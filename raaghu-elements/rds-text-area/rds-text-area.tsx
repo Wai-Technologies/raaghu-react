@@ -1,19 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type ChangeEvent,
+  type FocusEvent,
+  type KeyboardEvent,
+  type MouseEvent,
+} from "react";
+import clsx from 'clsx';
 import "./rds-text-area.scss";
-
-export enum TextareaState {
-  Default = "Default",
-  Active = "Active", 
-  Selected = "Selected",
-  Disabled = "Disabled",
-  Error = "Error"
-}
-
-export enum TextareaStyle {
-  Default = "Default",
-  Pill = "Pill",
-  BottomOutline = "Bottom Outline"
-}
+export { TextareaState, TextareaStyle } from './rds-text-area-types';
+import { TextareaState, TextareaStyle } from './rds-text-area-types';
 
 export interface RdsTextAreaProps {
   rows?: number;
@@ -26,11 +24,11 @@ export interface RdsTextAreaProps {
   isMandatory?: boolean;
   id?: string;
   dataTestId?: string;
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onClick?: (event: React.MouseEvent<HTMLTextAreaElement>) => void;
-  onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onClick?: (event: MouseEvent<HTMLTextAreaElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
+  onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
   reset?: boolean;
   validationPattern?: RegExp;
   validationMsg?: string;
@@ -38,19 +36,23 @@ export interface RdsTextAreaProps {
   customClasses?: string;
 }
 
-const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
+const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
   const [isValid, setIsValid] = useState(true);
-  const [isMandatoryValid, setIsMandatoryValid] = useState(true);
+  const [isMandatoryValid, setIsMandatoryValid] = useState(
+    !props.isMandatory || (props.value ?? '').trim().length > 0
+  );
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
+  const prevResetRef = useRef(Boolean(props.reset));
   const idRef = useRef<string>(props.id || `rds-textarea-${Math.random().toString(36).slice(2)}`);
   const assignedId = props.id || idRef.current;
   const errorId = `${assignedId}-error`;
 
   useEffect(() => {
-    if (props.reset) {
+    if (Boolean(props.reset) && !prevResetRef.current) {
       setIsValid(true);
       setIsMandatoryValid(true);
     }
+    prevResetRef.current = Boolean(props.reset);
   }, [props.reset]);
 
   useEffect(() => {
@@ -66,7 +68,7 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
     }
   }, [props.isMandatory, props.value]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
     if (props.isMandatory) {
@@ -85,21 +87,21 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
     props.onChange?.(e);
   };
 
-  const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleFocus = (e: FocusEvent<HTMLTextAreaElement>) => {
     if (currentState !== TextareaState.Disabled && currentState !== TextareaState.Error) {
       setCurrentState(TextareaState.Active);
     }
     props.onFocus?.(e);
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
+    const inputValue = e.target.value;
     if (props.isMandatory) {
-      const inputValue = e.target.value;
       setIsMandatoryValid(inputValue.trim().length > 0);
     }
 
     if (currentState === TextareaState.Active) {
-      setCurrentState(props.value ? TextareaState.Selected : TextareaState.Default);
+      setCurrentState(inputValue ? TextareaState.Selected : TextareaState.Default);
     }
     props.onBlur?.(e);
   };
@@ -152,7 +154,7 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
       <div className="textarea-wrapper">
         <textarea
           id={assignedId}
-          className={`rds-textarea ${getStateClass()} ${getStyleClass()} ${props.customClasses || ""}`}
+          className={clsx('rds-textarea', getStateClass(), getStyleClass(), props.customClasses)}
           disabled={isDisabled}
           rows={props.rows || 4}
           placeholder={props.placeholder}

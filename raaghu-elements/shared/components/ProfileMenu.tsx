@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect, type ReactNode, type MouseEvent, type CSSProperties } from 'react';
 import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
@@ -12,7 +12,7 @@ export interface ProfileMenuItem {
   label: string;
   onClick?: () => void;
   sx?: object;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 }
 
 export type ProfileMenuVariant = 'rich' | 'compact';
@@ -56,25 +56,27 @@ export const ProfileMenu = ({
   designation = 'Developer',
   menuItems,
 }: ProfileMenuProps) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+    return window.innerWidth <= 834;
+  });
   const open = Boolean(anchorEl);
   const initials = shortName ?? getInitials(name);
   const items = menuItems && menuItems.length > 0 ? menuItems : DEFAULT_MENU_ITEMS;
 
-  React.useEffect(() => {
-    if (variant !== 'rich') return;
-
+  useEffect(() => {
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth <= 834);
     };
 
-    checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
-  }, [variant]);
+  }, []);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -92,6 +94,9 @@ export const ProfileMenu = ({
         className="rds-profile-menu__button"
         aria-haspopup="true"
         aria-expanded={open}
+        disableRipple
+        disableTouchRipple
+        focusRipple={false}
       >
         {variant === 'rich' ? (
           <>
@@ -152,7 +157,7 @@ export const ProfileMenu = ({
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        PaperProps={{ className: 'rds-profile-menu__dropdown' }}
+        slotProps={{ paper: { className: 'rds-profile-menu__dropdown' } }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
@@ -171,7 +176,7 @@ export const ProfileMenu = ({
               item.onClick?.();
             }}
             className={`rds-profile-menu__item${idx === items.length - 1 ? ' rds-profile-menu__item--last' : ''}`}
-            style={item.sx as React.CSSProperties}
+            style={item.sx as CSSProperties}
           >
             {item.icon && <span className="rds-profile-menu__item-icon">{item.icon}</span>}
             {item.label}

@@ -1,7 +1,7 @@
-import React from 'react';
 import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
+import clsx from 'clsx';
 
-export interface RdsSkeletonProps extends SkeletonProps {
+export interface RdsSkeletonProps extends Omit<SkeletonProps, 'component'> {
   frames?: number;
   shape?: 'text' | 'rectangular' | 'rounded' | 'circular';
   animated?: boolean;
@@ -22,7 +22,7 @@ const RdsSkeleton = ({
   ...props
 }: RdsSkeletonProps) => {
   const isText = shape === 'text';
-  const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
+  const bemClass = clsx('rds-skeleton', `rds-skeleton--${shape}`, className);
 
   const animationValue = typeof animation !== 'undefined' ? animation : (animated ? 'pulse' : false);
 
@@ -30,6 +30,12 @@ const RdsSkeleton = ({
     return (
       <Box
         className={bemClass}
+        style={{
+          display: 'flex',
+          flexDirection: isText ? 'column' : 'row',
+          gap: 'var(--rds-spacing-md, 12px)',
+          alignItems: isText ? 'flex-start' : 'center',
+        }}
         sx={{
           display: 'flex',
           flexDirection: isText ? 'column' : 'row',
@@ -37,9 +43,9 @@ const RdsSkeleton = ({
           alignItems: isText ? 'flex-start' : 'center',
         }}
       >
-        {Array.from({ length: frames }).map((_, index) => (
+        {Array.from({ length: frames }, (_, frameNumber) => frameNumber + 1).map((frameNumber) => (
           <MuiSkeleton
-            key={index}
+            key={frameNumber}
             variant={shape}
             animation={animationValue}
             {...props}

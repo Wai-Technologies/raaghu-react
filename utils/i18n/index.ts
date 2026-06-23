@@ -262,7 +262,7 @@ export class I18nManager {
     const localeInfo = this.getLocaleInfo(localeCode);
     
     try {
-      return new Intl.NumberFormat(localeCode, localeInfo.numberFormat).format(value);
+      return value.toLocaleString(localeCode, localeInfo.numberFormat);
     } catch {
       return value.toString();
     }
@@ -277,9 +277,10 @@ export class I18nManager {
       month: '2-digit',
       day: '2-digit',
     };
+    const formatterOptions = { ...defaultOptions, ...options };
     
     try {
-      return new Intl.DateTimeFormat(localeCode, { ...defaultOptions, ...options }).format(date);
+      return date.toLocaleDateString(localeCode, formatterOptions);
     } catch {
       return date.toLocaleDateString();
     }
@@ -290,10 +291,10 @@ export class I18nManager {
     const localeCode = locale || this.currentLocale;
     
     try {
-      return new Intl.NumberFormat(localeCode, {
+      return value.toLocaleString(localeCode, {
         style: 'currency',
         currency,
-      }).format(value);
+      });
     } catch {
       return `${currency} ${value}`;
     }

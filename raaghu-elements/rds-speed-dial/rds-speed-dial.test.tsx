@@ -298,6 +298,7 @@ describe('RdsSpeedDial', () => {
       expect(speedDial).toHaveAttribute('aria-label', 'Custom aria label');
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsSpeedDial {...defaultProps} />);
       const results = await axe(container);

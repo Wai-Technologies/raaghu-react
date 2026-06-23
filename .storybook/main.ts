@@ -14,7 +14,6 @@ const config: StorybookConfig = {
     "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
-    getAbsolutePath("@storybook/addon-links"),
     {
       name: getAbsolutePath("@storybook/addon-docs"),
       options: {

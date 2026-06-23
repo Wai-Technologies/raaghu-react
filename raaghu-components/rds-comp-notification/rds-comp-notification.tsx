@@ -1,72 +1,98 @@
-import React, { Fragment, useState, useEffect } from "react";
+import clsx from "clsx";
+import { Fragment, useState, useMemo, useCallback, useRef } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { RdsButton, RdsIconButton } from "../../raaghu-elements";
 import "./rds-comp-notification.scss";
-export enum NotificationLayout { Vertical = "vertical", Horizontal = "horizontal", }
-export enum NotificationStyle { Default = "default", Avatar = "avatar", Icon = "icon", Image = "image", }
-export enum NotificationType { Error = "error", Info = "info", Success = "success", Warning = "warning", }
-export interface NotificationItem { userNotificationId?: string | number; title: string; time?: string; description: string; image?: string; avatar?: string; icon?: React.ReactNode | string; status?: string; urlTitle?: string; }
-export interface RdsCompNotificationProps {
-    notifications: any[]; 
-    title?: string; 
-    description?: string; 
-    layout?: NotificationLayout; 
-    style?: NotificationStyle; 
-    type?: NotificationType; 
-    showButton?: boolean; 
-    showPrimaryButton?: boolean; 
-    showSecondaryButton?: boolean; 
-    showDismiss?: boolean; 
-    onDismiss?: (event: any, notification: any) => void; 
-    onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; 
-}
-const CustomBellIcon: React.FC = () => (
+import {
+    NotificationLayout,
+    NotificationStyle,
+    NotificationType,
+    type RdsCompNotificationProps,
+} from "./rds-comp-notification.types";
+
+const CustomBellIcon = () => (
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14.7976 7.69526L7.60461 14.9865M19.2006 7.69526L26.3937 14.9865M17.0723 13.3624C17.292 13.3624 17.5071 13.4241 17.6931 13.5405C17.879 13.6568 18.0281 13.8231 18.1232 14.0201L22.2528 22.3993C22.7979 23.5018 22.9869 24.7451 22.794 25.9588C22.6011 27.1724 22.0358 28.297 21.1754 29.1785C20.6423 29.7238 20.0048 30.1573 19.3005 30.4533C18.5961 30.7493 17.8393 30.9019 17.0747 30.9019C16.3101 30.9019 15.5533 30.7493 14.849 30.4533C14.1446 30.1573 13.5071 29.7238 12.9741 29.1785C12.1124 28.2979 11.5455 27.1737 11.3512 25.9601C11.1568 24.7464 11.3445 23.5026 11.8886 22.3993L16.0198 14.0201C16.1149 13.8231 16.2656 13.6568 16.4516 13.5405C16.6375 13.4241 16.8527 13.3624 17.0723 13.3624ZM17.0723 13.3624L17.0715 23.4873M10.7726 32.9993H23.2273M12.596 5.46326L17 1L21.404 5.46326L17 9.92652L12.596 5.46326ZM1 17.2169L5.40398 12.7536L9.80797 17.2169L5.40398 21.6801L1 17.2169ZM24.192 17.2185L28.596 12.7552L33 17.2185L28.596 21.6817L24.192 17.2185Z" stroke="var(--rds-text-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M14.8 7.7L7.6 14.99M19.2 7.7L26.39 14.99M17.07 13.36C17.29 13.36 17.51 13.42 17.69 13.54C17.88 13.66 18.03 13.82 18.12 14.02L22.25 22.4C22.8 23.5 22.99 24.75 22.79 25.96C22.6 27.17 22.04 28.3 21.18 29.18C20.64 29.72 20 30.16 19.3 30.45C18.6 30.75 17.84 30.9 17.07 30.9C16.31 30.9 15.55 30.75 14.85 30.45C14.14 30.16 13.51 29.72 12.97 29.18C12.11 28.3 11.55 27.17 11.35 25.96C11.16 24.75 11.34 23.5 11.89 22.4L16.02 14.02C16.11 13.82 16.27 13.66 16.45 13.54C16.64 13.42 16.85 13.36 17.07 13.36ZM17.07 13.36L17.07 23.49M10.77 33H23.23M12.6 5.46L17 1L21.4 5.46L17 9.93L12.6 5.46ZM1 17.22L5.4 12.75L9.81 17.22L5.4 21.68L1 17.22ZM24.19 17.22L28.6 12.76L33 17.22L28.6 21.68L24.19 17.22Z" stroke="var(--rds-text-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
-const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
+
+const DEFAULT_NOTIFICATION_IMAGE = "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
+
+const RdsCompNotification = ({
     notifications,
     title,
+    defaultImage = DEFAULT_NOTIFICATION_IMAGE,
     layout = NotificationLayout.Horizontal,
     style = NotificationStyle.Default,
     type = NotificationType.Info,
-    showButton = false,
-    showPrimaryButton = false,
-    showSecondaryButton = false,
-    showDismiss = false,
+    actions = 'none',
+    dismiss = 'hidden',
     description,
     onDismiss,
     onAccept,
+    ...legacyProps
 }) => {
-    const [visibleNotifications, setVisibleNotifications] = useState(notifications);
+    const legacyShowButton = typeof legacyProps['showButton'] === 'boolean' ? (legacyProps['showButton'] as boolean) : undefined;
+    const legacyShowPrimaryButton = typeof legacyProps['showPrimaryButton'] === 'boolean' ? (legacyProps['showPrimaryButton'] as boolean) : undefined;
+    const legacyShowSecondaryButton = typeof legacyProps['showSecondaryButton'] === 'boolean' ? (legacyProps['showSecondaryButton'] as boolean) : undefined;
+    const legacyShowDismiss = typeof legacyProps['showDismiss'] === 'boolean' ? (legacyProps['showDismiss'] as boolean) : undefined;
 
-    useEffect(() => {
-        setVisibleNotifications(notifications);
-    }, [notifications]);
+    const resolvedDismissVisible = dismiss === 'visible' || legacyShowDismiss === true;
+    const resolvedShowPrimaryButton = actions === 'primary' || actions === 'both' || legacyShowPrimaryButton === true;
+    const resolvedShowSecondaryButton = actions === 'secondary' || actions === 'both' || legacyShowSecondaryButton === true;
+    const resolvedShowButton = actions !== 'none' || legacyShowButton === true || resolvedShowPrimaryButton || resolvedShowSecondaryButton;
 
-    const handleDismiss = (event: React.SyntheticEvent, notification: NotificationItem, notificationIndex: number) => {
-        setVisibleNotifications(prev => 
-            prev.filter((n, index) => index !== notificationIndex)
-        );
-        
+    const [dismissedNotificationKeys, setDismissedNotificationKeys] = useState<Array<string | number>>([]);
+    const lastNotificationsRef = useRef(notifications);
+    const dismissIconElement = useMemo(() => <Close />, []);
+
+    // Avoid resetting dismissed keys via useEffect (causes an extra render).
+    // When the `notifications` reference changes, we ignore previously dismissed keys
+    // by tracking the last notifications reference. This keeps UI in sync without
+    // forcing state updates during an effect.
+    if (lastNotificationsRef.current !== notifications) {
+        lastNotificationsRef.current = notifications;
+    }
+
+    const visibleNotifications = useMemo(() => {
+        // If notifications changed, ignore dismissed keys and show all notifications.
+        if (lastNotificationsRef.current !== notifications) {
+            return notifications;
+        }
+        return notifications.filter((notification, index) => {
+            const notificationKey = notification.userNotificationId ?? `${notification.title}-${index}`;
+            return !dismissedNotificationKeys.includes(notificationKey);
+        });
+    }, [dismissedNotificationKeys, notifications]);
+
+    const removeNotificationByIndex = useCallback((notificationIndex: number) => {
+        const notification = visibleNotifications[notificationIndex];
+        if (!notification) return;
+        const notificationKey = notification.userNotificationId ?? `${notification.title}-${notificationIndex}`;
+        setDismissedNotificationKeys((prev) => prev.includes(notificationKey) ? prev : [...prev, notificationKey]);
+    }, [visibleNotifications]);
+
+    const handleDismiss = useCallback((event: any, notification: any, notificationIndex: number) => {
+        removeNotificationByIndex(notificationIndex);
         onDismiss?.(event, notification);
-    };
+    }, [onDismiss, removeNotificationByIndex]);
 
-    const handleSecondaryButtonClick = (event: React.SyntheticEvent, notification: NotificationItem, notificationIndex: number) => {
-        setVisibleNotifications(prev => 
-            prev.filter((n, index) => index !== notificationIndex)
-        );
-        
+    const handleSecondaryButtonClick = useCallback((event: any, notification: any, notificationIndex: number) => {
+        removeNotificationByIndex(notificationIndex);
         onDismiss?.(event, notification);
-    };
+    }, [onDismiss, removeNotificationByIndex]);
     return (
         <Fragment>
             {visibleNotifications.map((notification, index) => (
                 <Card
-                    key={notification.userNotificationId || Math.random()}
-                    className={`rds-comp-notification rds-comp-notification--layout-${layout} rds-comp-notification--style-${style} rds-comp-notification--type-${type}`}
+                                        key={notification.userNotificationId ?? `${notification.title}-${index}`}
+                    className={clsx(
+                      "rds-comp-notification",
+                      `rds-comp-notification--layout-${layout}`,
+                      `rds-comp-notification--style-${style}`,
+                      `rds-comp-notification--type-${type}`
+                    )}
                     sx={{ padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? "flex" : "block",overflow: "hidden"
                     }}>
                    
@@ -77,7 +103,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                         >
                             <Box
                                 component="img"
-                                src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg"}
+                                src={notification.image || defaultImage}
                                 alt="Notification"
                                 sx={{ width: 70, height: 70, objectFit: "contain" }}
                             />
@@ -90,8 +116,8 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                         position: "relative"
                     }}>
                     
-                    {showDismiss && (
-                        <RdsIconButton iconFilled={<Close />} size="small" aria-label="Dismiss notification" onClick={(e) => handleDismiss(e, notification, index)} className="rds-comp-notification__dismiss" />)}
+                    {resolvedDismissVisible && (
+                        <RdsIconButton iconFilled={dismissIconElement} size="small" aria-label="Dismiss notification" onClick={(e) => handleDismiss(e, notification, index)} className="rds-comp-notification__dismiss" />)}
                    
                     <Box
                         className="rds-comp-notification__header"
@@ -116,10 +142,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                             <Box className="rds-comp-notification__image-container">
                             <Box
                                 component="img"
-                                src={
-                                    notification.image ||
-                                    "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                                }
+                                src={notification.image || defaultImage}
                                 alt="Notification"
                                 />
                             </Box>
@@ -186,13 +209,13 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                         sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2, gap: 1,
                         }}
                     >
-                        {showButton && (
+                        {resolvedShowButton && (
                             <>
-                                {showSecondaryButton && (
+                                {resolvedShowSecondaryButton && (
                                     <RdsButton text="DISMISS" size="small" onClick={(e) => handleSecondaryButtonClick(e, notification, index)} className="rds-comp-notification__secondary-button"
                                     />
                                 )}
-                                {showPrimaryButton && (
+                                {resolvedShowPrimaryButton && (
                                     <RdsButton text="ACCEPT" size="small" style="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
                                     />
                                 )}

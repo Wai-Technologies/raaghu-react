@@ -597,8 +597,9 @@ describe('RdsTabs', () => {
       expect(tablist).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsTabs tabs={mockTabs} onTabChange={jest.fn()} />);
+      const { container } = renderWithTheme(<RdsTabs tabs={mockTabs} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

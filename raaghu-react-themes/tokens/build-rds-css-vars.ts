@@ -464,7 +464,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-comp-chart-bar-histogram-size': componentTokens.chart?.bar?.histogramSize || '50px',
     '--rds-comp-chart-bar-default-height': componentTokens.chart?.bar?.defaultHeight || '76vh',
     '--rds-comp-chart-bar-tablet-height': componentTokens.chart?.bar?.tabletHeight || '600px',
-    '--rds-comp-chart-pie-height': componentTokens.chart?.bar?.pieHeight || componentTokens.chart?.pie?.pieHeight || componentTokens.chart?.pieHeight || '335px',
+    '--rds-comp-chart-pie-height': componentTokens.chart?.bar?.pieHeight || '335px',
     '--rds-comp-chart-bar-ds1-bg': componentTokens.chart?.bar?.dataset?.ds1Bg,
     '--rds-comp-chart-bar-ds1-border': componentTokens.chart?.bar?.dataset?.ds1Border,
     '--rds-comp-chart-bar-ds2-bg': componentTokens.chart?.bar?.dataset?.ds2Bg,
@@ -1092,7 +1092,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-info-dark': i[600],
     '--rds-info-contrast-text': white,
     // ── Background ───────────────────────────────────────────────────────────
-    '--rds-background-default': white,
+    '--rds-background-default': n[50],
     '--rds-background-paper': white,
     '--rds-background-surface': n[50],
     '--rds-background-overlay': alphaTokens.overlayDark,
@@ -1106,7 +1106,8 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-border-light': n[200],
     '--rds-border-dark': n[400],
     '--rds-border-focus': 'var(--rds-primary-main)',
-    // ── Button primary ───────────────────────────────────────────────────────
+    // ── Divider (alias for the most common border use-case in layouts) ────────
+    '--rds-divider': n[200],
     '--rds-button-primary-bg': p[700],
     '--rds-button-primary-bg-hover': p[750],
     '--rds-button-primary-bg-active': p[800],
@@ -1260,6 +1261,10 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[700],
     '--rds-color-neutral-disabled-icon': n[400],
     '--rds-color-neutral-soft': n[100],
+    // ── Kanban board (light-theme defaults) ──────────────────────────────────
+    '--rds-kanban-header-bg': 'var(--rds-surface-primary-light)',
+    '--rds-kanban-subcard-bg': 'var(--rds-background-paper)',
+    '--rds-kanban-subcard-border': 'var(--rds-surface-neutral-light)',
   };
 }
 
@@ -1330,6 +1335,8 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-border-default': n[700],
     '--rds-border-light': n[800],
     '--rds-border-dark': n[600],
+    // ── Divider ───────────────────────────────────────────────────────────────
+    '--rds-divider': n[700],
     // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-on-surface': 'var(--rds-text-primary)',
     '--rds-color-on-surface-variant': 'var(--rds-text-secondary)',
@@ -1461,6 +1468,10 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[200],
     '--rds-color-neutral-disabled-icon': n[600],
     '--rds-color-neutral-soft': n[800],
+    // ── Kanban board (dark-theme overrides) ──────────────────────────────────
+    '--rds-kanban-header-bg': componentTokens.kanban?.headerBgDark,
+    '--rds-kanban-subcard-bg': componentTokens.kanban?.subcardBgDark,
+    '--rds-kanban-subcard-border': componentTokens.kanban?.subcardBorderDark,
   };
 }
 

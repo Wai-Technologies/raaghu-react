@@ -592,6 +592,7 @@ describe('RdsSwitch', () => {
       expect(input).toHaveAttribute('type', 'checkbox');
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsSwitch label="Toggle" />);
       const results = await axe(container);

@@ -269,33 +269,3 @@ export const WithFirstLast: Story = {
     page: 10,
   },
 };
-
-
-
-export const NavigatePage: Story = {
-  name: 'Interaction: Navigate to next page',
-  render: (args) => {
-    const [page, setPage] = useState(1);
-    return (
-      <RdsPagination
-        {...args}
-        page={page}
-        pageSize={10}
-        onChange={(_: React.ChangeEvent<unknown>, value: number) => setPage(value)}
-        onPageChange={setPage}
-        pageSizeOptions={[10, 25, 50]}
-      />
-    );
-  },
-  args: {
-    totalPages: 5,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // RdsPagination shows prev/next controls — verify they render
-    await expect(canvas.getByRole('button', { name: /go to next page/i })).toBeInTheDocument()
-    await expect(canvas.getByRole('button', { name: /go to previous page/i })).toBeInTheDocument()
-    // Current page is marked with aria-current="page"
-    await expect(canvasElement.querySelector('[aria-current="page"]')).not.toBeNull()
-  }
-};

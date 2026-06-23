@@ -25,6 +25,26 @@ const meta: Meta<typeof RdsPaper> = {
       control: 'boolean',
       description: 'Remove border radius',
     },
+    children: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slots: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slotProps: {
+      control: { disable: true },
+      table: { disable: true },
+    },
   },
 };
 

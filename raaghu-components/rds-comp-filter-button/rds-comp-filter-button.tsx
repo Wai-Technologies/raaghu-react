@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import clsx from 'clsx';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { 
   Box, 
   Typography, 
@@ -27,25 +28,27 @@ export interface RdsCompFilterButtonProps {
   text?: string;
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   filters?: FilterOption[];
   onFiltersChange?: (filters: FilterOption[]) => void;
   onApply?: (selectedFilters: FilterOption[]) => void;
   onClear?: () => void;
   disabled?: boolean;
   className?: string;
-  itemIcon?: string | React.ReactNode;
+  itemIcon?: string | ReactNode;
 }
 
-const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
+const EMPTY_FILTER_OPTIONS: FilterOption[] = [];
+
+const RdsCompFilterButton = ({
   shape = 'rectangle',
   text = 'Filter',
   showLeftIcon = true,
   showRightIcon = true,
   leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
   rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
-  filters = [],
+  filters,
   onFiltersChange,
   onApply,
   onClear,
@@ -54,21 +57,27 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   itemIcon,
   ...props
 }) => {
+  const resolvedFilters = filters ?? EMPTY_FILTER_OPTIONS;
   const [isOpen, setIsOpen] = useState(false);
-  const [localFilters, setLocalFilters] = useState<FilterOption[]>(filters);
+  const [localFilters, setLocalFilters] = useState<FilterOption[]>(resolvedFilters);
+  const prevFiltersRef = useRef(resolvedFilters);
+  if (resolvedFilters !== prevFiltersRef.current) {
+    prevFiltersRef.current = resolvedFilters;
+    setLocalFilters(resolvedFilters);
+  }
   const [searchTerm, setSearchTerm] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setIsOpen(!isOpen);
-  };
+  }, [isOpen]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
-  const handleFilterChange = (filterId: string, value: string, checked: boolean) => {
+  const handleFilterChange = useCallback((filterId: string, value: string, checked: boolean) => {
     const updatedFilters = localFilters.map(filter => {
       if (filter.id === filterId) {
         const selectedValues = filter.selectedValues || [];
@@ -86,14 +95,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
     
     setLocalFilters(updatedFilters);
     onFiltersChange?.(updatedFilters);
-  };
+  }, [localFilters, onFiltersChange]);
 
-  const handleApply = () => {
+  const handleApply = useCallback(() => {
     onApply?.(localFilters);
     setIsOpen(false);
-  };
+  }, [localFilters, onApply]);
 
-  const handleClearAll = () => {
+  const handleClearAll = useCallback(() => {
     const clearedFilters = localFilters.map(filter => ({
       ...filter,
       selectedValues: []
@@ -101,19 +110,13 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
     setLocalFilters(clearedFilters);
     onFiltersChange?.(clearedFilters);
     onClear?.();
-  };
+  }, [localFilters, onClear, onFiltersChange]);
 
-  const getActiveFiltersCount = () => {
-    return localFilters.reduce((count, filter) => {
-      return count + (filter.selectedValues?.length || 0);
-    }, 0);
-  };
-
-  const activeFiltersCount = getActiveFiltersCount();
+  const activeFiltersCount = localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0);
   const buttonText = activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text;
 
   return (
-    <Box className={`rds-comp-filter-button ${className || ''}`} {...props}>
+    <Box className={clsx("rds-comp-filter-button", className)} {...props}>
       <RdsButton
         ref={buttonRef}
         text={buttonText}
@@ -125,7 +128,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
         startIcon={showLeftIcon ? leftIcon : undefined}
         endIcon={showRightIcon ? rightIcon : undefined}
         onClick={handleButtonClick}
-        className={`rds-button__primary rds-filter-button__trigger ${isOpen ? 'rds-filter-button__trigger--open' : ''}`}
+        className={clsx("rds-button__primary", "rds-filter-button__trigger", isOpen && "rds-filter-button__trigger--open")}
       />
 
       <Popover
@@ -134,9 +137,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        PaperProps=
-        {{className: "rds-filter-button__popover"}}
-
+        slotProps={{ paper: { className: "rds-filter-button__popover" } }}
       >
         <Box className="rds-filter-button__content">
           <Box className="rds-filter-button__header">

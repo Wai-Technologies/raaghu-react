@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsContainer> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'fullscreen',
+    controls: { exclude: ['component'] },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {

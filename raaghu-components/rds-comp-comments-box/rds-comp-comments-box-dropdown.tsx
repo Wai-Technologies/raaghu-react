@@ -1,18 +1,18 @@
-import React from 'react';
+import { useRef, useEffect, type RefObject } from 'react';
 import ComputerIcon from '@mui/icons-material/Computer';
 import CloudIcon from '@mui/icons-material/Cloud';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 
 interface DropdownMenuProps {
   visible: boolean;
-  anchorRef: React.RefObject<HTMLButtonElement | null>;
+  anchorRef: RefObject<HTMLButtonElement | null>;
   onClose: () => void;
   onSelect: (label: string) => void;
 }
 
-export const DropdownMenu: React.FC<DropdownMenuProps & { labels?: { computer?: string; googleDrive?: string; oneDrive?: string } }> = ({ visible, anchorRef, onClose, onSelect, labels }) => {
-  const menuRef = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
+export const DropdownMenu = ({ visible, anchorRef, onClose, onSelect, labels }: DropdownMenuProps & { labels?: { computer?: string; googleDrive?: string; oneDrive?: string } }) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
         menuRef.current &&
@@ -48,7 +48,5 @@ export const DropdownMenu: React.FC<DropdownMenuProps & { labels?: { computer?: 
     </div>
   );
 };
-
-export default DropdownMenu;
 
 DropdownMenu.displayName = 'DropdownMenu';

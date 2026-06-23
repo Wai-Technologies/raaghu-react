@@ -13,7 +13,7 @@ jest.mock('./RdsFileUploaderStandardView', () => {
   return function MockStandardView(props: any) {
     return (
       <div data-testid="standard-view">
-        <input type="file" aria-label="Upload file" onChange={props.handleFileSelect} />
+        <input type="file" aria-label="Choose file" onChange={props.handleFileSelect} />
       </div>
     );
   };
@@ -581,6 +581,7 @@ describe('RdsFileUploader', () => {
       expect(title).toHaveTextContent('Upload Files');
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsFileUploader {...defaultProps} />);
       const results = await axe(container);

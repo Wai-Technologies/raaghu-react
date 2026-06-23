@@ -1,15 +1,22 @@
 
-import React from 'react';
-import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
+import { type ReactNode } from 'react';
+import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RdsButton from '../rds-button/rds-button';
 import './rds-dialog.scss';
 
+const SIZE_MAP = {
+  'extra-small': 'xs',
+  'small': 'sm',
+  'medium': 'md',
+  'large': 'lg',
+  'extra-large': 'xl',
+} as const;
 
-export interface RdsDialogProps extends DialogProps {
+export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   title?: string;
-  children?: React.ReactNode;
-  actions?: React.ReactNode;
+  children?: ReactNode;
+  actions?: ReactNode;
   ShowDissmiss?: boolean;
   onClose?: () => void;
   variant?: 'standard' | 'default';
@@ -36,16 +43,9 @@ const RdsDialog = ({
     return (
       <MuiDialog
         onClose={onClose}
-        maxWidth={
-          size === 'extra-small' ? 'xs' :
-          size === 'small' ? 'sm' :
-          size === 'medium' ? 'md' :
-          size === 'large' ? 'lg' :
-          size === 'extra-large' ? 'xl' :
-          size
-        }
+        maxWidth={size ? SIZE_MAP[size] : size}
         {...props}
-        PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}
+        slotProps={{ paper: { className: 'rds-dialog rds-dialog__paper' } }}
       >
         {((title && showTitle) || ShowDissmiss) && (
           <DialogTitle className="rds-dialog__title">
@@ -71,7 +71,7 @@ const RdsDialog = ({
           {ShowPrimary && (
             <RdsButton
               onClick={onClose}
-              className="rds-dialog__button rds-dialog__button__primary-link"
+              className="rds-dialog__button rds-dialog__button__primary"
               style="filled"
               text="Okay"
             />
@@ -84,27 +84,36 @@ const RdsDialog = ({
   return (
   <MuiDialog
     onClose={onClose}
-    maxWidth={
-      size === 'extra-small' ? 'xs' :
-      size === 'small' ? 'sm' :
-      size === 'medium' ? 'md' :
-      size === 'large' ? 'lg' :
-      size === 'extra-large' ? 'xl' :
-      size
-    }
+    maxWidth={size ? SIZE_MAP[size] : size}
     {...props}
   >
       {((title && showTitle) || ShowDissmiss) && (
-        <DialogTitle sx={{ position: 'relative', paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, 40px)' : undefined }}>
-          {showTitle ? title : null}
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 1,
+            pr: ShowDissmiss ? 1 : undefined,
+          }}
+        >
+          <Box
+            sx={{
+              flex: '1 1 auto',
+              minWidth: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {showTitle ? title : null}
+          </Box>
           {ShowDissmiss && onClose && (
             <IconButton
               aria-label="close"
               onClick={onClose}
               sx={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
+                flex: '0 0 auto',
                 color: 'var(--rds-neutral-500)',
               }}
             >

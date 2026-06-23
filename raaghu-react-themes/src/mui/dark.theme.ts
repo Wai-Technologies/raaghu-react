@@ -61,5 +61,3 @@ export const darkTheme = createTheme({
 
   components: designSystemComponentOverrides,
 });
-
-export default darkTheme;

@@ -1,144 +1,82 @@
-import React from "react";
+import clsx from "clsx";
+import { useMemo } from "react";
 import "./rds-comp-spinner.scss";
+export { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
+import { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
 
-export enum SpinnerSize {
-    Default = "Default",
-    Small = "Small",
-    Large = "Large",
-    Medium = "Medium",
-}
-
-export enum SpinnerLayout {
-    LabelOnBottom = "Label on bottom",
-    LabelAndSpinner = "Label + Spinner",
-    SpinnerAndLabel = "Spinner + Label",
-    LabelOnTop = "Label on top",
-}
-
-export enum SpinnerLevel {
-    Level01 = "01",
-    Level02 = "02",
-    Level03 = "03",
-    Level04 = "04",
-}
-
-export interface RdsCompSpinnerProps {
-    spinnerType?: string;
-    width?: string;
-    height?: string;
-    showLabel?: boolean;
-    labelText?: string;
-    size?: SpinnerSize;
-    layout?: SpinnerLayout;
-    colorVariant?: string;
-    level?: SpinnerLevel;
-}
-
-const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
-    spinnerType = "border",
-    width,
-    height,
-    showLabel = false,
-    labelText,
-    size,
-    layout,
-    colorVariant,
-    level
-}) => {
-    const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
-    const colorClass = colorVariant ? `text-${colorVariant}` : "";
-
-    const getSizeDimensions = () => {
-        switch (size) {
-            case SpinnerSize.Default:
-                return { width: "30px", height: "30px" };
-            case SpinnerSize.Small:
-                return { width: "15px", height: "15px" };
-            case SpinnerSize.Medium:
-                return { width: "35px", height: "35px" };
-            case SpinnerSize.Large:
-                return { width: "45px", height: "45px" };
-            default:
-                return { width: width, height: height };
-        }
-    };
-
-    const dimensions = getSizeDimensions();
-    const classes = `${spinnerClass} ${colorClass}`.trim();
-    const getSizeClass = () => {
-        switch (size) {
-            case SpinnerSize.Small:
-                return "spinner--small";
-            case SpinnerSize.Default:
-                return "spinner--default";
-            case SpinnerSize.Medium:
-                return "spinner--medium";
-            case SpinnerSize.Large:
-                return "spinner--large";
-            default:
-                return "";
-        }
-    };
-    const sizeClass = getSizeClass();
-    const combinedClasses = `${classes} ${sizeClass}`.trim();
-    
-    const getOpacity = () => {
-        switch (level) {
-            case SpinnerLevel.Level01:
-                return 0.25;
-            case SpinnerLevel.Level02:
-                return 0.5;
-            case SpinnerLevel.Level03:
-                return 0.75;
-            case SpinnerLevel.Level04:
-                return 1;
-            default:
-                return 1;
-        }
-    };
-    const getLayoutClass = () => {
-        switch (layout) {
-            case SpinnerLayout.LabelOnBottom:
-                return "spinner-container--label-bottom";
-            case SpinnerLayout.LabelAndSpinner:
-                return "spinner-container--label-spinner";
-            case SpinnerLayout.SpinnerAndLabel:
-                return "spinner-container--spinner-label";
-            case SpinnerLayout.LabelOnTop:
-                return "spinner-container--label-top";
-            default:
-                return "spinner-container--default";
-        }
-    };
-
-    const getLabelSizeClass = () => {
-        switch (size) {
-            case SpinnerSize.Small:
-                return "spinner-label--small";
-            case SpinnerSize.Default:
-                return "spinner-label--default";
-            case SpinnerSize.Medium:
-                return "spinner-label--medium";
-            case SpinnerSize.Large:
-                return "spinner-label--large";
-            default:
-                return "spinner-label--default";
-        }
-    };
-
-    return (
-        <div className={`spinner-container ${getLayoutClass()}`}>
-            {showLabel && (
-                <label className={`spinner-label ${getLabelSizeClass()}`}>{labelText}</label>
-            )}
-            <div
-                className={combinedClasses}
-                style={{ width: dimensions.width, height: dimensions.height, opacity: getOpacity() }}
-                role="status"
-            >
-            </div>
-        </div>
-    );
+const SIZE_DIMENSIONS: Record<SpinnerSize, { width: string; height: string }> = {
+  [SpinnerSize.Default]: { width: "30px", height: "30px" },
+  [SpinnerSize.Small]: { width: "15px", height: "15px" },
+  [SpinnerSize.Medium]: { width: "35px", height: "35px" },
+  [SpinnerSize.Large]: { width: "45px", height: "45px" },
 };
+
+const SIZE_CLASS: Partial<Record<SpinnerSize, string>> = {
+  [SpinnerSize.Small]: "spinner--small",
+  [SpinnerSize.Default]: "spinner--default",
+  [SpinnerSize.Medium]: "spinner--medium",
+  [SpinnerSize.Large]: "spinner--large",
+};
+
+const LABEL_SIZE_CLASS: Partial<Record<SpinnerSize, string>> = {
+  [SpinnerSize.Small]: "spinner-label--small",
+  [SpinnerSize.Default]: "spinner-label--default",
+  [SpinnerSize.Medium]: "spinner-label--medium",
+  [SpinnerSize.Large]: "spinner-label--large",
+};
+
+const LAYOUT_CLASS: Record<SpinnerLayout, string> = {
+  [SpinnerLayout.LabelOnBottom]: "spinner-container--label-bottom",
+  [SpinnerLayout.LabelAndSpinner]: "spinner-container--label-spinner",
+  [SpinnerLayout.SpinnerAndLabel]: "spinner-container--spinner-label",
+  [SpinnerLayout.LabelOnTop]: "spinner-container--label-top",
+};
+
+const LEVEL_OPACITY: Record<SpinnerLevel, number> = {
+  [SpinnerLevel.Level01]: 0.25,
+  [SpinnerLevel.Level02]: 0.5,
+  [SpinnerLevel.Level03]: 0.75,
+  [SpinnerLevel.Level04]: 1,
+};
+
+const RdsCompSpinner = ({
+  spinnerType = "border",
+  width,
+  height,
+  showLabel = false,
+  labelText,
+  size,
+  layout,
+  colorVariant,
+  level,
+}: RdsCompSpinnerProps) => {
+  const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
+  const colorClass = colorVariant ? `text-${colorVariant}` : "";
+
+  const dimensions = useMemo(() => {
+    if (size && SIZE_DIMENSIONS[size]) {
+      return SIZE_DIMENSIONS[size];
+    }
+    return { width, height };
+  }, [size, width, height]);
+
+  const combinedClasses = clsx(spinnerClass, colorClass, size && SIZE_CLASS[size]);
+  const layoutClass = layout ? LAYOUT_CLASS[layout] : "spinner-container--default";
+  const labelSizeClass = size ? LABEL_SIZE_CLASS[size] ?? "spinner-label--default" : "spinner-label--default";
+  const opacity = level ? LEVEL_OPACITY[level] ?? 1 : 1;
+
+  return (
+    <div className={clsx("spinner-container", layoutClass)}>
+      {showLabel && <label className={clsx("spinner-label", labelSizeClass)}>{labelText}</label>}
+      <div
+        className={combinedClasses}
+        style={{ width: dimensions.width, height: dimensions.height, opacity }}
+        role="status"
+        aria-live="polite"
+      />
+    </div>
+  );
+};
+
 RdsCompSpinner.displayName = "RdsCompSpinner";
 export default RdsCompSpinner;

@@ -313,6 +313,14 @@ body.dark-theme .rds-comp-text-editor {
   border-color: var(--rds-border-default, rgba(255, 255, 255, 0.18));
   color: var(--rds-neutral-0, #fff);
 
+  &.rds-comp-text-editor--error {
+    border-color: var(--rds-color-error, var(--rds-semantic-error-main, #e53935));
+  }
+
+  &.rds-comp-text-editor--active {
+    border-color: var(--rds-color-primary, var(--rds-primary-main));
+  }
+
   &.rds-comp-text-editor--disabled {
     background-color: var(--rds-color-disabled-surface-dark, #2b2f3a);
     border-color: var(--rds-border-default, rgba(255, 255, 255, 0.16));

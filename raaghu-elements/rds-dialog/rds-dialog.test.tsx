@@ -24,9 +24,9 @@ jest.mock('@mui/material', () => ({
   Dialog: ({ children, onClose, maxWidth, open, ...props }: any) => {
     if (!open) return null;
     return (
-      <div data-testid="dialog-root" role="dialog" aria-labelledby="mock-dialog-title" {...props}>
+      <dialog data-testid="dialog-root" aria-labelledby="mock-dialog-title" open {...props}>
         {children}
-      </div>
+      </dialog>
     );
   },
   DialogTitle: ({ children, ...props }: any) => (
@@ -409,6 +409,7 @@ describe('RdsDialog', () => {
       expect(screen.getByRole('dialog')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsDialog open={true} title="Test Dialog" onClose={jest.fn()} />);
       const results = await axe(container);

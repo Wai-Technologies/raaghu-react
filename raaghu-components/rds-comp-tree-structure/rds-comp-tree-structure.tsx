@@ -1,55 +1,34 @@
-import React, { useState, useEffect } from "react";
+import { useCallback, useMemo, useState } from "react";
 import "./rds-comp-tree-structure.scss";
+import * as FileType from './fileTypeIcons';
+import { TreeNodeRow as DirectTreeNodeRow } from './TreeNodeRow';
 import { 
-  fileTypeIcons as defaultFileTypeIcons, 
-  getFileIcon as getDefaultFileIcon,
   TreeLevel,
   NodeState,
   IconType,
   type RdsCompTreeStructureProps,
-  TreeNode,
-  getAllNodeIds
-} from './fileTypeIcons';
+} from './tree-structure-types';
+import { type TreeNode } from './tree-structure-types';
 
-export { 
-  defaultFileTypeIcons, 
-  getDefaultFileIcon, 
-  TreeLevel, 
-  NodeState, 
-  IconType, 
-  type RdsCompTreeStructureProps 
-};
+export { TreeLevel, NodeState, IconType, type RdsCompTreeStructureProps } from './tree-structure-types';
 
 const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
-  const [expandedNodeIds, setExpandedNodeIds] = useState<number[]>([]);
+  const ResolvedTreeNodeRow = DirectTreeNodeRow ?? (FileType as any).TreeNodeRow ?? (FileType as any).default?.TreeNodeRow;
+  const [expandedNodeIds, setExpandedNodeIds] = useState<number[]>(() =>
+    props.showCollapsed ? FileType.getAllNodeIds(props.treeData) : []
+  );
   const [hoveredNodeId, setHoveredNodeId] = useState<number | null>(null);
   const [checkedNodeIds, setCheckedNodeIds] = useState<number[]>(props.checkedNodes || []);
 
-  useEffect(() => {
-    if (!props.showCollapsed) {
-      setExpandedNodeIds([]);
-    } else {
-      const allNodeIds = getAllNodeIds(props.treeData);
-      setExpandedNodeIds(allNodeIds);
-    }
-  }, [props.showCollapsed]);
-
-  // Sync with external checkedNodes prop
-  useEffect(() => {
-    if (props.checkedNodes) {
-      setCheckedNodeIds(props.checkedNodes);
-    }
-  }, [props.checkedNodes]);
-
-  const handleNodeClick = (id: number) => {
+  const handleNodeClick = useCallback((id: number) => {
     setExpandedNodeIds((prevExpandedNodeIds) =>
       prevExpandedNodeIds.includes(id)
         ? prevExpandedNodeIds.filter((nodeId) => nodeId !== id)
         : [...prevExpandedNodeIds, id]
     );
-  };
+  }, []);
 
-  const handleCheckboxClick = (id: number) => {
+  const handleCheckboxClick = useCallback((id: number) => {
 
     if (!props.checkedNodes) {
       setCheckedNodeIds((prevCheckedNodeIds) =>
@@ -58,9 +37,9 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
           : [...prevCheckedNodeIds, id]
       );
     }
-  };
+  }, [props.checkedNodes]);
 
-  const getMaxLevelFromEnum = (level?: TreeLevel): number => {
+  const getMaxLevelFromEnum = useCallback((level?: TreeLevel): number => {
     if (!level) return 1;
     
     switch (level) {
@@ -75,14 +54,13 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
       default:
         return 1;
     }
-  };
+  }, []);
 
-  const maxLevel = getMaxLevelFromEnum(props.level);
-
+  const maxLevel = useMemo(() => getMaxLevelFromEnum(props.level), [getMaxLevelFromEnum, props.level]);
   return (
     <div className="rds-comp-tree-structure">
       {props.treeData?.map((node: TreeNode) => (
-        <TreeNode
+        <ResolvedTreeNodeRow
           key={node.id}
           node={node}
           level={1}

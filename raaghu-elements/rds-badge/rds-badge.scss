@@ -339,12 +339,3 @@
   }
 }
 
-.rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
-  background-color: var(--rds-color-primary, var(--rds-primary-main, #2f6fed)) !important;
-  color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
-}
-
-.rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
-  background-color: var(--rds-color-secondary, var(--rds-primary-800, #a010c8)) !important;
-  color: var(--rds-color-on-secondary, var(--rds-neutral-0, #fff)) !important;
-}

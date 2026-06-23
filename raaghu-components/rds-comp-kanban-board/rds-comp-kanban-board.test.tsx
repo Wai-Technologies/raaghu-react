@@ -63,13 +63,20 @@ jest.mock('@dnd-kit/core', () => ({
   PointerSensor: jest.fn(),
   useSensor: jest.fn(),
   useSensors: jest.fn(() => []),
-  useDroppable: () => ({ setNodeRef: jest.fn() }),
+  useDroppable: ({ id }: { id: string }) => ({
+    setNodeRef: (node: HTMLElement | null) => {
+      if (node) {
+        node.setAttribute('data-testid', 'droppable');
+        node.setAttribute('data-id', id);
+      }
+    },
+  }),
 }));
 jest.mock('@dnd-kit/sortable', () => ({
   SortableContext: ({ children }: any) => <>{children}</>,
   sortableKeyboardCoordinates: jest.fn(),
-  useSortable: () => ({
-    attributes: {},
+  useSortable: ({ id }: { id: number | string }) => ({
+    attributes: { 'data-testid': 'draggable', 'data-id': String(id) },
     listeners: {},
     setNodeRef: jest.fn(),
     transform: null,

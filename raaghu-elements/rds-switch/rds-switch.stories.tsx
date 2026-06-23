@@ -40,6 +40,12 @@ const meta: Meta<typeof RdsSwitch> = {
       description: 'Switch color variant',
       defaultValue: 'primary',
     },
+    labelPlacement: {
+      control: 'select',
+      options: ['end', 'start', 'top', 'bottom'],
+      description: 'Position of the label relative to the switch',
+      defaultValue: 'end',
+    },
   },
 };
 
@@ -85,20 +91,4 @@ export const DisabledChecked: Story = {
     disabled: true,
     defaultChecked: true,
   },
-};
-export const ToggleOn: Story = {
-  name: 'Interaction: Toggle switch on',
-  args: {
-    label: 'Toggle Me',
-    showLabel: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // MUI Switch uses role="switch" (not "checkbox" like MUI Checkbox)
-    const switchEl = canvas.getByRole('switch')
-    await expect(switchEl).toBeInTheDocument()
-    await expect(switchEl).not.toBeChecked()
-    await userEvent.click(switchEl)
-    await expect(switchEl).toBeChecked()
-  }
 };

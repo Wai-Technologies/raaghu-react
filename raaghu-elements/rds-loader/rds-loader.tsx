@@ -1,5 +1,5 @@
-import React from 'react';
 import { Box, Typography, LinearProgress, CircularProgress } from '@mui/material';
+import clsx from 'clsx';
 import './rds-loader.scss';
 export interface RdsLoaderProps {
   variant?: 'linear' | 'circular';
@@ -22,7 +22,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
     }
     const loaderClass = `rds-loader__${type}`;
     const sizeClass = `loader-${size}`;
-    const classes = `${loaderClass} ${sizeClass}`.trim();
+    const classes = clsx(loaderClass, sizeClass);
     return (
       <div className="d-flex justify-content-center my-5">
         <div className={classes} />
@@ -116,6 +116,8 @@ const RdsLoader = (props: RdsLoaderProps) => {
     );
   };
 
+  const loaderElement = renderLoader();
+
   if (overlay) {
     return (
       <Box
@@ -132,12 +134,12 @@ const RdsLoader = (props: RdsLoaderProps) => {
           zIndex: 'var(--rds-z-index-tooltip, 9999)',
         }}
       >
-        {renderLoader()}
+        {loaderElement}
       </Box>
     );
   }
 
-  return renderLoader();
+  return loaderElement;
 };
 RdsLoader.displayName = 'RdsLoader';
 export default RdsLoader;

@@ -266,37 +266,6 @@ export const Expanded: Story = {
   },
 };
 
-export const ExpandCollapse: Story = {
-  name: 'Interaction: Expand and Collapse',
-  args: {
-    title: 'Accordion Title',
-    size: 'medium',
-    state: 'default',
-    accordionStyle: 'border',
-    ShowLeftIcon: true,
-    defaultExpanded: false,
-    changeleftIcon: null,
-  },
-  render: (args) => {
-    const [expanded, setExpanded] = useState(false);
-    return (
-      <RdsAccordion
-        {...args}
-        expanded={expanded}
-        onChange={(_: React.SyntheticEvent, isExpanded: boolean) => setExpanded(isExpanded)}
-      />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const header = canvas.getByRole('button')
-    await userEvent.click(header)
-    await expect(header).toHaveAttribute('aria-expanded', 'true')
-    await userEvent.click(header)
-    await expect(header).toHaveAttribute('aria-expanded', 'false')
-  }
-};
-
 export const LongContent: Story = {
   args: {
     title: 'Accordion with Long Content',

@@ -1,120 +1,82 @@
-# Raaghu Design System. **[CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)**
-   - Implementation status and checklist
-   - Development workflow
-   - Integration instructions
-   - Production readiness guide
+# Raaghu Design System — Documentation
 
-4. **[CSS_REFERENCE.md](./CSS_REFERENCE.md)**
-   - Quick reference for developers
-   - Common patterns and templates
-   - Naming conventions cheat sheet
-   - Development best practices
-
-5. **[THEME_INTEGRATION_GUIDE.md](./THEME_INTEGRATION_GUIDE.md)** ✨ **NEW**
-   - Complete theme integration documentation
-   - CSS custom properties system
-   - Single source of truth for all styling
-   - Theme switching implementationation
-
-This folder contains comprehensive documentation for the Raaghu Design System CSS/SCSS architecture.
-
-## 📚 Documentation Overview
-
-### Core Architecture Guides
-
-1. **[ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md)**
-   - Complete system architecture overview
-   - Technology stack and design principles
-   - Component hierarchy and organization
-   - Performance and accessibility standards
-
-2. **[CSS_ARCHITECTURE.md](./CSS_ARCHITECTURE.md)**
-   - CSS/SCSS file organization and naming conventions
-   - BEM methodology implementation
-   - Component structure standards
-   - Best practices and guidelines
-
-3. **[CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)**
-   - Implementation status and checklist
-   - Development workflow
-   - Integration instructions
-   - Production readiness guide
-
-4. **[CSS_REFERENCE.md](./CSS_REFERENCE.md)**
-   - Quick reference for developers
-   - Common patterns and templates
-   - Naming conventions cheat sheet
-   - Development best practices
-
-## 🎯 Quick Start
-
-For developers new to the Raaghu Design System:
-
-1. **Read First**: [ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md)
-2. **Understand Structure**: [CSS_ARCHITECTURE.md](./CSS_ARCHITECTURE.md)  
-3. **Follow Guidelines**: [CSS_QUICK_REFERENCE.md](./CSS_QUICK_REFERENCE.md)
-4. **Check Status**: [CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)
-
-## 🏗️ Component Structure
-
-Every RDS component follows this consistent structure:
-
-```
-rds-{component}/
-├── rds-{component}.tsx          # React component
-├── rds-{component}.scss         # Component styles
-└── rds-{component}.stories.tsx  # Storybook documentation
-```
-
-## 🎨 Naming Convention
-
-All CSS classes follow BEM methodology with RDS prefix:
-
-```scss
-.rds-{component}                    // Block
-.rds-{component}__element          // Element
-.rds-{component}--modifier         // Modifier
-.rds-{component}__element--modifier // Element Modifier
-```
-
-## 📦 Implementation Status
-
-✅ **Complete**: All 60+ components have SCSS files
-✅ **Documented**: Comprehensive architecture documentation
-✅ **Standardized**: Consistent naming and structure
-✅ **Theme Integrated**: All components use raaghu-react-themes variables
-✅ **Ready**: Production-ready implementation
-
-## 🛠️ Development Guidelines
-
-### Adding New Components
-1. Create component directory: `rds-{name}/`
-2. Follow established naming conventions
-3. Use BEM methodology for CSS classes
-4. Include all necessary variants and states
-5. Create comprehensive Storybook stories
-
-### Modifying Existing Components
-1. Follow existing patterns
-2. Test across all themes
-3. Ensure backward compatibility
-4. Update documentation if needed
-
-## 🎯 Key Principles
-
-- **Consistency**: Same patterns across all components
-- **Maintainability**: Clear structure and documentation
-- **Scalability**: Easy to extend and modify
-- **Accessibility**: WCAG 2.1 AA compliance
-- **Performance**: Optimized for production use
-
-## 📞 Getting Help
-
-1. **Check Documentation**: Start with the guides above
-2. **Review Examples**: Look at existing component implementations
-3. **Follow Patterns**: Use established conventions
-4. **Ask Questions**: Reach out to the design system team
+This folder contains all technical guides for the Raaghu Design System. Start with the Architecture Overview if you're new to the repo.
 
 ---
 
-*This documentation is maintained by the Raaghu Design System team and updated with each release.*
+## Core Architecture
+
+| Guide | What It Covers |
+|-------|---------------|
+| [ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md) | Package layout, component hierarchy, design token pipeline, tech stack |
+| [CSS_ARCHITECTURE.md](./CSS_ARCHITECTURE.md) | SCSS file organization, BEM methodology, naming conventions |
+| [CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md) | Development workflow, integration checklist, production readiness |
+| [CSS_REFERENCE.md](./CSS_REFERENCE.md) | Quick-reference cheat sheet for naming, patterns, and common class structures |
+
+## Theming & Design Tokens
+
+| Guide | What It Covers |
+|-------|---------------|
+| [THEME_INTEGRATION_GUIDE.md](./THEME_INTEGRATION_GUIDE.md) | How to integrate `raaghu-react-themes` into a consuming app |
+| [GRIFFEL_INTEGRATION_GUIDE.md](./GRIFFEL_INTEGRATION_GUIDE.md) | CSS-in-JS integration with Griffel |
+| [DESIGN_TOKENS_CHANGELOG.md](./DESIGN_TOKENS_CHANGELOG.md) | History of token additions, renames, and removals; guidelines for token authors |
+
+## Testing
+
+| Guide | What It Covers |
+|-------|---------------|
+| [TESTING_GUIDE.md](./TESTING_GUIDE.md) | Jest and Vitest/Storybook testing — what each is for, how to run them, and which to use when |
+| [CHROMATIC_GUIDE.md](./CHROMATIC_GUIDE.md) | Visual regression testing with Chromatic |
+
+## Quality & Lifecycle
+
+| Guide | What It Covers |
+|-------|---------------|
+| [COMPONENT_DEPRECATION_POLICY.md](./COMPONENT_DEPRECATION_POLICY.md) | How to deprecate and remove components; current deprecation register |
+| [PERFORMANCE_MONITORING.md](./PERFORMANCE_MONITORING.md) | Bundle size budgets and performance monitoring utilities |
+
+## Internationalization
+
+| Guide | What It Covers |
+|-------|---------------|
+| [LOCALIZATION_GUIDE.md](./LOCALIZATION_GUIDE.md) | i18next setup, supported locales, RTL support |
+
+---
+
+## Quick Start for New Contributors
+
+1. Read [ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md) — understand the package structure and token pipeline
+2. Read [CSS_ARCHITECTURE.md](./CSS_ARCHITECTURE.md) — understand how SCSS files are organized and named
+3. Check [TESTING_GUIDE.md](./TESTING_GUIDE.md) — know which test framework to reach for
+4. Scaffold new components using existing component folders as reference and follow [ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md)
+
+## Component File Structure
+
+Every component follows this exact structure:
+
+```
+rds-{name}/
+├── rds-{name}.tsx            # React component + TypeScript props
+├── rds-{name}.scss           # BEM styles using var(--rds-*) CSS variables
+├── rds-{name}.test.tsx       # Jest unit tests
+├── rds-{name}.stories.tsx    # Storybook stories with play() tests
+└── rds-{name}.figma.tsx      # Figma Code Connect metadata
+```
+
+## BEM Naming Convention
+
+```scss
+.rds-{component}                       // Block
+.rds-{component}__element              // Element
+.rds-{component}--modifier             // Modifier
+.rds-{component}__element--modifier    // Element + Modifier
+```
+
+All color and spacing values come from CSS custom properties injected by `raaghu-react-themes`:
+
+```scss
+color: var(--rds-primary-700);
+background: var(--rds-neutral-50);
+```
+
+Never use hardcoded hex values in component SCSS.

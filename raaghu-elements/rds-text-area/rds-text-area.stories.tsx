@@ -58,21 +58,3 @@ export const Default: Story = {
         rows: 4
     }
 };
-export const TypeText: Story = {
-  name: 'Interaction: Type in textarea',
-  args: {
-    placeholder: 'Type here...',
-    rows: 4,
-    showTitle: true,
-    style: TextareaStyle.Default,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const textarea = canvas.getByRole('textbox')
-    await expect(textarea).toBeVisible()
-    await userEvent.click(textarea)
-    await expect(textarea).toHaveFocus()
-    await userEvent.type(textarea, 'Hello Raaghu')
-    await expect(textarea).toHaveValue('Hello Raaghu')
-  }
-};

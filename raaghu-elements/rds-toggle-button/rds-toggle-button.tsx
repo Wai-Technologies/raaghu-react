@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, ToggleButtonGroupProps } from '@mui/material';
+import { useCallback, useMemo, useState, type MouseEvent, type ReactNode } from 'react';
+import { ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, type ToggleButtonGroupProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-toggle-button.scss';
 export interface RdsToggleButtonOption {
   value: string;
   label: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   disabled?: boolean;
 }
 export type { RdsStandaloneToggleButtonProps } from './rds-standalone-toggle-button';
-export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'children'> {
+export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'children' | 'component'> {
   options: RdsToggleButtonOption[];
   multiple?: boolean;
   enforceSelected?: boolean;
@@ -19,7 +20,7 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
   inputSize?: 'small' | 'medium' | 'large';
 }
 
-const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
+const RdsToggleButton = ({
   options,
   multiple = false,
   orientation = 'horizontal',
@@ -34,7 +35,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   disabled,
   color,
   ...props
-}) => {
+}: RdsToggleButtonProps) => {
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
     if (defaultValue !== undefined) {
       return defaultValue;
@@ -45,18 +46,19 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
     return multiple ? [] : '';
   });
   const isControlled = controlledValue !== undefined;
-  const value = isControlled ? controlledValue : internalValue;
-  useEffect(() => {
-    if (isControlled) {
-      // noop
-    } else if (enforceSelected && options.length > 0) {
-      if (multiple && Array.isArray(internalValue) && internalValue.length === 0) {
-        setInternalValue([options[0].value]);
-      } else if (!multiple && !internalValue) {
-        setInternalValue(options[0].value);
-      }
+  const rawValue = isControlled ? controlledValue : internalValue;
+  const value = useMemo(() => {
+    if (!enforceSelected || options.length === 0) {
+      return rawValue;
     }
-  }, [enforceSelected, options, multiple, internalValue, isControlled]);
+
+    if (multiple) {
+      const current = Array.isArray(rawValue) ? rawValue : [];
+      return current.length > 0 ? current : [options[0].value];
+    }
+
+    return rawValue || options[0].value;
+  }, [enforceSelected, multiple, options, rawValue]);
 
   const effectiveSize = (sizeProp as 'small' | 'medium' | 'large' | undefined) || inputSize;
 
@@ -68,7 +70,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       : 'rds-toggle-button--small';
 
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string | string[] | null) => {
+  const handleChange = useCallback((event: MouseEvent<HTMLElement>, newValue: string | string[] | null) => {
     const finalValue = newValue;
     
     if (enforceSelected) {
@@ -80,13 +82,12 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       }
     }
     if (!isControlled) {
-      setInternalValue(finalValue);
+      setInternalValue(finalValue ?? (multiple ? [] : ''));
     }
     onChange?.(event, finalValue);
-  };
+  }, [enforceSelected, multiple, isControlled, onChange]);
   
-  const handleCustomButtonClick = useMemo(() => {
-    return (event: React.MouseEvent<HTMLElement>, optionValue: string) => {
+  const handleCustomButtonClick = useCallback((event: MouseEvent<HTMLElement>, optionValue: string) => {
       if (disabled) {
         return;
       }
@@ -108,16 +109,16 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         const newValue = value === optionValue && !enforceSelected ? null : optionValue;
         handleChange(event, newValue);
       }
-    };
   }, [multiple, value, enforceSelected, handleChange, disabled]);
 
   const { ...otherProps } = props;
+  const groupAriaLabel = (otherProps['aria-label'] as string | undefined) || 'Toggle button group';
 
   const getButtonClassName = useMemo(() => {
-    return (index: number) => {
-      const baseClass = "rds-toggle-button__button";
-      if (spacing === 0) return  baseClass;
-      return `${baseClass} rds-toggle-button__button--spaced`;
+    return (_index: number) => {
+      const baseClass = 'rds-toggle-button__button';
+      if (spacing === 0) return baseClass;
+      return clsx(baseClass, 'rds-toggle-button__button--spaced');
     };
   }, [spacing]);
 
@@ -182,7 +183,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         </div>
       );
     });
-  }, [options, value, multiple, iconTextSpacing, spacing, orientation, color, enforceSelected, getButtonClassName, handleCustomButtonClick, inputSize]);
+  }, [options, value, multiple, iconTextSpacing, spacing, orientation, color, getButtonClassName, handleCustomButtonClick, effectiveSize, disabled, sizeClass]);
 
   const useCustomSpacing = spacing > 0;
 
@@ -190,12 +191,18 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
 
   return (
     <div
-  className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${countClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''} ${options.length > 3 ? 'rds-toggle-button--wrap-mobile' : ''}`}
-      role="group"
-      aria-label={otherProps['aria-label'] || 'Toggle button group'}
+  className={clsx(
+    'rds-toggle-button',
+    `rds-toggle-button--${orientation}`,
+    sizeClass,
+    countClass,
+    useCustomSpacing && 'rds-toggle-button--spaced',
+    options.length > 3 && 'rds-toggle-button--wrap-mobile',
+  )}
+      aria-label={groupAriaLabel}
     >
       {useCustomSpacing ? (
-        <div className="rds-toggle-button__custom-group">
+        <div className="rds-toggle-button__custom-group" role="group" aria-label={groupAriaLabel}>
           {memoizedButtons}
         </div>
       ) : (
@@ -207,6 +214,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           size={effectiveSize}
           color={color}
           {...otherProps}
+          aria-label={groupAriaLabel}
           className="rds-toggle-button__group"
         >
           {memoizedButtons}

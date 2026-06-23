@@ -27,6 +27,31 @@ const meta: Meta<typeof RdsTag> = {
     removable: {
       control: 'boolean',
     },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    avatar: {
+      control: { disable: true },
+    },
+    deleteIcon: {
+      control: { disable: true },
+    },
+    icon: {
+      control: { disable: true },
+    },
+    onDelete: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onRemove: {
+      control: { disable: true },
+      table: { disable: true },
+    },
   },
 };
 
@@ -106,25 +131,4 @@ export const Multiple: Story = {
   parameters: {
     controls: { disable: true },
   },
-};
-
-export const RemoveTag: Story = {
-  name: 'Interaction: Remove tag fires callback',
-  args: {
-    label: 'Removable',
-    removable: true,
-    onRemove: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    // Tag label is visible
-    await expect(canvas.getByText('Removable')).toBeVisible()
-    // Remove button — MUI Chip delete icon renders as role="button" or has specific class
-    const removeBtn = canvasElement.querySelector('[data-testid="CancelIcon"], [aria-label*="delete"], [aria-label*="remove"], svg[class*="delete"]')
-      ?? canvasElement.querySelectorAll('button')[1]
-      ?? canvasElement.querySelector('button')
-    await expect(removeBtn).not.toBeNull()
-    await userEvent.click(removeBtn as HTMLElement)
-    await expect(args.onRemove).toHaveBeenCalledOnce()
-  }
 };

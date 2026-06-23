@@ -587,6 +587,7 @@ describe('RdsChip', () => {
       expect(chip).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsChip {...defaultProps} />);
       const results = await axe(container);

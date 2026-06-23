@@ -1,38 +1,53 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo, Fragment } from "react";
+export { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
+import { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
+import clsx from 'clsx';
 import { getToolbarConfig, ToolbarButton } from "./rds-comp-toolbar-config";
 import "./rds-comp-toolbar.scss";
 
-export enum ToolbarLayout {
-  Primary = 'primary',
-  Secondary = 'secondary'
+
+function ToolbarSectionButtons({
+  section,
+  sectionIndex,
+  isActive,
+  isDisabled,
+  openDropdown,
+  handleFormatClick,
+  handleDropdownSelect,
+}: {
+  section: ToolbarButton[];
+  sectionIndex: number;
+  isActive: (format: string) => boolean;
+  isDisabled: boolean;
+  openDropdown: string | null;
+  handleFormatClick: (format: string, hasDropdown?: boolean) => void;
+  handleDropdownSelect: (parentAction: string, option: string) => void;
+}) {
+  return (
+    <Fragment>
+      {sectionIndex > 0 && <div className="rds-comp-toolbar__divider" />}
+      <div className="rds-comp-toolbar__section">
+        {section.map((button, buttonIndex) => (
+          <ToolbarButton
+            key={buttonIndex}
+            icon={button.icon}
+            action={button.action}
+            hasDropdown={button.hasDropdown}
+            ariaLabel={button.ariaLabel}
+            isActive={isActive(button.action)}
+            isDisabled={isDisabled}
+            isDropdownOpen={openDropdown === button.action}
+            dropdownAction={openDropdown}
+            onClick={() => handleFormatClick(button.action, button.hasDropdown)}
+            onDropdownSelect={handleDropdownSelect}
+          />
+        ))}
+      </div>
+    </Fragment>
+  );
 }
 
-export enum ToolbarType {
-  InlineEditor = 'inline-editor',
-  FullFeatured = 'full-featured',
-  MoreText = 'more-text',
-  MoreParagraph = 'more-paragraph',
-  MoreRichContent = 'more-rich-content',
-  Misc = 'misc'
-}
-
-export enum ToolbarState {
-  Off = 'off',
-  On = 'on',
-  DisabledOn = 'disabled-on',
-  DisabledOff = 'disabled-off'
-}
-
-export interface RdsCompToolbarProps {
-  layout?: ToolbarLayout;
-  type?: ToolbarType;
-  state?: ToolbarState;
-  onAction?: (action: string) => void;
-  className?: string;
-  'data-testid'?: string;
-}
-
-const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
+const RdsCompToolbar = ({
   layout = ToolbarLayout.Primary,
   type = ToolbarType.FullFeatured,
   state = ToolbarState.On,
@@ -45,7 +60,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const isDisabled = state === ToolbarState.DisabledOn;
-  const toolbarConfig = getToolbarConfig(type);
+  const toolbarConfig = useMemo(() => getToolbarConfig(type), [type]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -72,7 +87,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
     }
   }, [openDropdown]);
 
-  const handleFormatClick = (format: string, hasDropdown?: boolean) => {
+  const handleFormatClick = useCallback((format: string, hasDropdown?: boolean) => {
     if (isDisabled) return;
     
     if (hasDropdown) {
@@ -86,9 +101,9 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
       );
     }
     onAction?.(format);
-  };
+  }, [isDisabled, openDropdown, onAction]);
 
-  const handleDropdownSelect = (parentAction: string, option: string) => {
+  const handleDropdownSelect = useCallback((parentAction: string, option: string) => {
     const isEmojiAction = parentAction === 'emoji' || parentAction === 'insertEmoji';
 
     if (!isEmojiAction) {
@@ -100,14 +115,56 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
     }
 
     onAction?.(option);
-  };
+  }, [onAction]);
 
-  const isActive = (format: string) => activeFormats.includes(format);
+  const isActive = useCallback((format: string) => activeFormats.includes(format), [activeFormats]);
+
+  const primarySectionsContent = useMemo(
+    () => toolbarConfig.sections.map((section, sectionIndex) => (
+      <ToolbarSectionButtons
+        key={sectionIndex}
+        section={section}
+        sectionIndex={sectionIndex}
+        isActive={isActive}
+        isDisabled={isDisabled}
+        openDropdown={openDropdown}
+        handleFormatClick={handleFormatClick}
+        handleDropdownSelect={handleDropdownSelect}
+      />
+    )),
+    [toolbarConfig.sections, isActive, isDisabled, openDropdown, handleFormatClick, handleDropdownSelect]
+  );
+
+  const secondarySectionsContent = useMemo(
+    () => toolbarConfig.sections.map((section, sectionIndex) => (
+      <div
+        key={sectionIndex}
+        className={clsx("rds-comp-toolbar__row", sectionIndex === 1 && "rds-comp-toolbar__row--secondary")}
+      >
+        <ToolbarSectionButtons
+          section={section}
+          sectionIndex={sectionIndex}
+          isActive={isActive}
+          isDisabled={isDisabled}
+          openDropdown={openDropdown}
+          handleFormatClick={handleFormatClick}
+          handleDropdownSelect={handleDropdownSelect}
+        />
+      </div>
+    )),
+    [toolbarConfig.sections, isActive, isDisabled, openDropdown, handleFormatClick, handleDropdownSelect]
+  );
 
   return (
     <div
       ref={toolbarRef}
-      className={`rds-comp-toolbar rds-comp-toolbar--${layout} rds-comp-toolbar--${type} rds-comp-toolbar--${state} ${className}`}
+      className={clsx(
+        "rds-comp-toolbar",
+        layout === ToolbarLayout.Primary ? "rds-comp-toolbar--primary" : "rds-comp-toolbar--secondary",
+        `rds-comp-toolbar--${type}`,
+        `rds-comp-toolbar--${state}`,
+        className
+      )}
       data-testid={testId}
       role="toolbar"
       aria-label={`${type} toolbar`}
@@ -115,53 +172,11 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
     >
       {layout === ToolbarLayout.Primary ? (
         <div className="rds-comp-toolbar__row">
-          {toolbarConfig.sections.map((section, sectionIndex) => (
-            <React.Fragment key={sectionIndex}>
-              {sectionIndex > 0 && <div className="rds-comp-toolbar__divider" />}
-              <div className="rds-comp-toolbar__section">
-                {section.map((button, buttonIndex) => (
-                  <ToolbarButton
-                    key={buttonIndex}
-                    icon={button.icon}
-                    action={button.action}
-                    hasDropdown={button.hasDropdown}
-                    ariaLabel={button.ariaLabel}
-                    isActive={isActive(button.action)}
-                    isDisabled={isDisabled}
-                    isDropdownOpen={openDropdown === button.action}
-                    onClick={() => handleFormatClick(button.action, button.hasDropdown)}
-                    onDropdownSelect={handleDropdownSelect}
-                  />
-                ))}
-              </div>
-            </React.Fragment>
-          ))}
+          {primarySectionsContent}
         </div>
       ) : (
         <>
-          {toolbarConfig.sections.map((section, sectionIndex) => (
-            <div
-              key={sectionIndex}
-              className={`rds-comp-toolbar__row ${sectionIndex === 1 ? 'rds-comp-toolbar__row--secondary' : ''}`}
-            >
-              <div className="rds-comp-toolbar__section">
-                {section.map((button, buttonIndex) => (
-                  <ToolbarButton
-                    key={buttonIndex}
-                    icon={button.icon}
-                    action={button.action}
-                    hasDropdown={button.hasDropdown}
-                    ariaLabel={button.ariaLabel}
-                    isActive={isActive(button.action)}
-                    isDisabled={isDisabled}
-                    isDropdownOpen={openDropdown === button.action}
-                    onClick={() => handleFormatClick(button.action, button.hasDropdown)}
-                    onDropdownSelect={handleDropdownSelect}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
+          {secondarySectionsContent}
         </>
       )}
     </div>

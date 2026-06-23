@@ -537,8 +537,13 @@ describe('RdsPopover', () => {
       expect(screen.getByText('Title')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsPopover />);
+      const { container } = renderWithTheme(
+        <RdsPopover isOpen={true} onClose={jest.fn()} anchorEl={anchorElement}>
+          Content
+        </RdsPopover>
+      );
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

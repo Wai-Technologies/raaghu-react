@@ -1,11 +1,13 @@
-import React, { type ReactNode, useState } from "react";
-import { Drawer, Box, Typography } from "@mui/material";
+import clsx from "clsx";
+import { type ReactNode, useState, useCallback, useMemo } from "react";
+import { Drawer, Box } from "@mui/material";
+import type { DrawerProps } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
 import "./rds-comp-off-canvas.scss";
-export enum RdsOffcanvasPlacement {Start = "left",End = "right",Top = "top",Bottom = "bottom"}
-export enum RdsOffcanvasBackDrop {Static = "static",True = "true",False = "false"}
+export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
+import { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
 export interface RdsCompOffcanvasProps {
   placement: RdsOffcanvasPlacement;
   backDrop: RdsOffcanvasBackDrop;
@@ -23,7 +25,7 @@ export interface RdsCompOffcanvasProps {
   showSecondaryButton?: boolean;
   showTertiaryButton?: boolean;
 }
-const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
+const RdsCompOffcanvas = ({
   placement = RdsOffcanvasPlacement.End,
   backDrop = RdsOffcanvasBackDrop.True,
   scrolling = false,
@@ -42,16 +44,22 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const drawerOpen = internalOpen;
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     if (onclick) onclick(true);
     setInternalOpen(true);
     if (onShow) onShow();
-  };
-  const handleClose = () => {
+  }, [onclick, onShow]);
+  const handleClose = useCallback(() => {
     if (onClose) onClose();
     setInternalOpen(false);
+  }, [onClose]);
+  const handleDrawerClose: DrawerProps["onClose"] = (_, reason) => {
+    if (backDrop === RdsOffcanvasBackDrop.Static && reason === "backdropClick") {
+      return;
+    }
+    handleClose();
   };
-  const getAnchor = () => {
+  const getAnchor = useCallback(() => {
     switch (placement) {
       case RdsOffcanvasPlacement.Start:
         return "left";
@@ -64,40 +72,35 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
       default:
         return "right";
     }
-  };
-  const isCanvasTitle = canvasTitle !== "" && canvasTitle !== undefined;
-  const getBackdropProps = () => {
+  }, [placement]);
+  const isCanvasTitle = useMemo(() => canvasTitle !== "" && canvasTitle !== undefined, [canvasTitle]);
+  const getBackdropProps = useCallback(() => {
     if (backDrop === RdsOffcanvasBackDrop.False) {
       return { hideBackdrop: true };
     }
     if (backDrop === RdsOffcanvasBackDrop.Static) {
-      return { 
+      return {
         disableEscapeKeyDown: true,
-        onBackdropClick: (event: React.SyntheticEvent) => {
-          event.stopPropagation();
-        }
       };
     }
     return {};
-  };
+  }, [backDrop]);
   return (
     <>
       <div className="offcanvas-text">
-          <div
-            className="offcanvas_btn"
-            onClick={handleOpen}>
+          <div className="offcanvas_btn">
             <RdsButton text="Open Off Canvas" style="filled" size="medium" onClick={handleOpen}/>
           </div>        
         <Drawer
           anchor={getAnchor()}
           open={drawerOpen}
-          onClose={handleClose}
+          onClose={handleDrawerClose}
           disableEscapeKeyDown={!preventEscapeKey}
           {...getBackdropProps()}
-          className={`offcanvas-drawer placement-${placement}`}
+          className={clsx("offcanvas-drawer", `placement-${placement}`)}
           id={offId}>
-          <Box className={`offcanvas-container ${scrolling ? 'scrolling' : ''}`}>
-            <Box className={`offcanvas-header ${isCanvasTitle ? '' : 'no-title'}`}>
+          <Box className={clsx("offcanvas-container", scrolling && "scrolling")}>
+            <Box className={clsx("offcanvas-header", !isCanvasTitle && "no-title")}>
               {isCanvasTitle ? (
                 <div className="offcanvas-title-wrap">
                   <span className="offcanvas-title text-uppercase">{canvasTitle}</span>
@@ -109,7 +112,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
                 </RdsIconButton>
               </div>
             </Box>
-            <Box className={`offcanvas-body ${className || ''} ${scrolling ? 'scrolling' : ''}`}>
+            <Box className={clsx("offcanvas-body", className, scrolling && "scrolling")}>
               <div className="d-flex flex-column h-100">
                 {children}
               </div>

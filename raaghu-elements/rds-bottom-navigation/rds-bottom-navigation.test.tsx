@@ -504,6 +504,7 @@ describe('RdsBottomNavigation', () => {
       expect(container.querySelector('.MuiBottomNavigation-root')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsBottomNavigation {...defaultProps} showLabels={true} />);
       const results = await axe(container);

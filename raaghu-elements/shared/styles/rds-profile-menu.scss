@@ -18,8 +18,15 @@
   outline: 0;
 }
 
-.rds-profile-menu__button.MuiIconButton-root:hover {
+.rds-profile-menu__button.MuiIconButton-root:hover,
+.rds-profile-menu__button.MuiIconButton-root:active,
+.rds-profile-menu__button.MuiIconButton-root:focus,
+.rds-profile-menu__button.MuiIconButton-root.Mui-focusVisible {
   background-color: transparent !important;
+}
+
+.rds-profile-menu__button .MuiTouchRipple-root {
+  display: none;
 }
 
 .rds-profile-menu__button {

@@ -679,8 +679,9 @@ describe('RdsRadio', () => {
       expect(fieldset).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsRadio options={defaultOptions} name="test-radio" label="Select an option" />);
+      const { container } = renderWithTheme(<RdsRadio options={defaultOptions} name="axe-test" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

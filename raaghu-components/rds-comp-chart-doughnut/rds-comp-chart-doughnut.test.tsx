@@ -718,6 +718,7 @@ describe('RdsCompDoughnutChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompDoughnutChart {...defaultProps} />);
       const results = await axe(container);

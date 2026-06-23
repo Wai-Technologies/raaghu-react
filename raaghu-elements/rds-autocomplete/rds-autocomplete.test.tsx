@@ -10,7 +10,7 @@ jest.mock('./rds-autocomplete.scss', () => ({}));
 // Mock checkbox component
 jest.mock('../rds-checkbox/rds-checkbox', () => {
   return function MockRdsCheckbox(props: any) {
-    return <input type="checkbox" data-testid="rds-checkbox" checked={props.status === 'checked'} {...props} />;
+    return <input type="checkbox" data-testid="rds-checkbox" checked={props.status === 'checked'} readOnly {...props} />;
   };
 });
 

@@ -1,30 +1,65 @@
-import React, { type ReactNode } from 'react';
+import { type ReactElement, type ReactNode } from 'react';
 import { Card as MuiCard, type CardProps, Avatar, Typography } from '@mui/material';
 import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camera, Image, MusicNote, VideoLibrary,
          Description, Folder, CalendarToday, AccessTime, Search, Add, Edit, Delete, Check, Close, ArrowForward, ArrowBack,
          Download, Upload, Share, Notifications,
 } from '@mui/icons-material';
+import clsx from 'clsx';
 import './rds-card.scss';
+
+const ICON_MAP: Record<string, ReactElement> = {
+  person: <Person />,
+  home: <Home />,
+  settings: <Settings />,
+  favorite: <Favorite />,
+  star: <Star />,
+  email: <Email />,
+  phone: <Phone />,
+  location: <LocationOn />,
+  camera: <Camera />,
+  image: <Image />,
+  music: <MusicNote />,
+  video: <VideoLibrary />,
+  document: <Description />,
+  folder: <Folder />,
+  calendar: <CalendarToday />,
+  clock: <AccessTime />,
+  search: <Search />,
+  add: <Add />,
+  edit: <Edit />,
+  delete: <Delete />,
+  check: <Check />,
+  close: <Close />,
+  arrow_forward: <ArrowForward />,
+  arrow_back: <ArrowBack />,
+  download: <Download />,
+  upload: <Upload />,
+  share: <Share />,
+  notification: <Notifications />,
+};
 
 export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
 export type CardStyle = 'default' | 'outlined' | 'filled';
 export type CardLayout = 'vertical' | 'horizontal';
 export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
-export interface RdsCardProps extends Omit<CardProps, 'children' | 'style'> {
+export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component'> {
   padding?: number | string;
   state?: CardState;
-  showIndicator?: boolean;
   style?: CardStyle;
-  showTitle?: boolean;
-  showSubtext?: boolean;
-  showDescription?: boolean;
   layout?: CardLayout;
-  showIcon?: boolean;
+  content?: {
+    indicator?: 'visible' | 'hidden';
+    title?: 'visible' | 'hidden';
+    subtext?: 'visible' | 'hidden';
+    description?: 'visible' | 'hidden';
+    icon?: 'visible' | 'hidden';
+  };
   changeIcon?: CardIconName;
   children?: ReactNode;
   title?: string; 
   cardSubtext?: string; 
   description?: string;
+  [key: string]: unknown;
 }
 
 const RdsCard = ({
@@ -33,86 +68,65 @@ const RdsCard = ({
   sx,
   state = 'default',
   className,
-  showIndicator = true,
   style: cardStyleProp = 'default',
-  showTitle = true,
-  showSubtext = true,
-  showDescription = true,
   layout = 'vertical',
-  showIcon = true,
+  content,
   changeIcon = 'person',
   title,
   cardSubtext,
   description,
   ...props
-}:RdsCardProps) => {
-  const getCardClassName = () => {
-    const baseClass = 'rds-card';
-    const stateClass = `rds-card--${state}`;
-    const styleClass = `rds-card--style-${cardStyleProp}`;
-    const layoutClass = `rds-card--layout-${layout}`;
-    const indicatorClass = showIndicator ? 'rds-card--with-indicator' : '';
-    const titleClass = showTitle ? '' : 'rds-card--hide-title';
-    const subtextClass = showSubtext ? '' : 'rds-card--hide-subtext';
-    const descriptionClass = showDescription ? '' : 'rds-card--hide-description';
-    const iconClass = showIcon ? '' : 'rds-card--hide-icon';
-    const iconNameClass = showIcon ? `rds-card--icon-${changeIcon}` : '';
-    const combinedClass = `${baseClass} ${stateClass} ${styleClass} ${layoutClass} ${indicatorClass} ${titleClass} ${subtextClass} ${descriptionClass} ${iconClass} ${iconNameClass}`.trim();
-    
-    return className ? `${combinedClass} ${className}` : combinedClass;
+}: RdsCardProps) => {
+  const legacyShowIndicator = typeof props['showIndicator'] === 'boolean' ? (props['showIndicator'] as boolean) : undefined;
+  const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
+  const legacyShowSubtext = typeof props['showSubtext'] === 'boolean' ? (props['showSubtext'] as boolean) : undefined;
+  const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
+  const legacyShowIcon = typeof props['showIcon'] === 'boolean' ? (props['showIcon'] as boolean) : undefined;
+
+  const showIndicator = content?.indicator ? content.indicator === 'visible' : (legacyShowIndicator ?? true);
+  const showTitle = content?.title ? content.title === 'visible' : (legacyShowTitle ?? true);
+  const showSubtext = content?.subtext ? content.subtext === 'visible' : (legacyShowSubtext ?? true);
+  const showDescription = content?.description ? content.description === 'visible' : (legacyShowDescription ?? true);
+  const showIcon = content?.icon ? content.icon === 'visible' : (legacyShowIcon ?? true);
+
+  const {
+    showIndicator: _legacyShowIndicator,
+    showTitle: _legacyShowTitle,
+    showSubtext: _legacyShowSubtext,
+    showDescription: _legacyShowDescription,
+    showIcon: _legacyShowIcon,
+    ...muiCardProps
+  } = props as typeof props & {
+    showIndicator?: boolean;
+    showTitle?: boolean;
+    showSubtext?: boolean;
+    showDescription?: boolean;
+    showIcon?: boolean;
   };
+
+  const cardClassName = clsx(
+    'rds-card',
+    `rds-card--${state}`,
+    `rds-card--style-${cardStyleProp}`,
+    `rds-card--layout-${layout}`,
+    showIndicator && 'rds-card--with-indicator',
+    !showTitle && 'rds-card--hide-title',
+    !showSubtext && 'rds-card--hide-subtext',
+    !showDescription && 'rds-card--hide-description',
+    !showIcon && 'rds-card--hide-icon',
+    showIcon && `rds-card--icon-${changeIcon}`,
+    className,
+  );
 
   const cardInlineStyle = padding ? { padding } : undefined;
 
-  const renderIcon = () => {
-    if (!showIcon) return null;
-    
-    const iconProps = {
-      className: `rds-card__icon rds-card__icon--${changeIcon}`,
-    };
+  const iconElement = !showIcon ? null : (
+    <Avatar className={`rds-card__icon rds-card__icon--${changeIcon}`}>
+      {ICON_MAP[changeIcon] ?? <Person />}
+    </Avatar>
+  );
 
-    const getIconComponent = () => {
-      switch (changeIcon) {
-        case 'person': return <Person />;
-        case 'home': return <Home />;
-        case 'settings': return <Settings />;
-        case 'favorite': return <Favorite />;
-        case 'star': return <Star />;
-        case 'email': return <Email />;
-        case 'phone': return <Phone />;
-        case 'location': return <LocationOn />;
-        case 'camera': return <Camera />;
-        case 'image': return <Image />;
-        case 'music': return <MusicNote />;
-        case 'video': return <VideoLibrary />;
-        case 'document': return <Description />;
-        case 'folder': return <Folder />;
-        case 'calendar': return <CalendarToday />;
-        case 'clock': return <AccessTime />;
-        case 'search': return <Search />;
-        case 'add': return <Add />;
-        case 'edit': return <Edit />;
-        case 'delete': return <Delete />;
-        case 'check': return <Check />;
-        case 'close': return <Close />;
-        case 'arrow_forward': return <ArrowForward />;
-        case 'arrow_back': return <ArrowBack />;
-        case 'download': return <Download />;
-        case 'upload': return <Upload />;
-        case 'share': return <Share />;
-        case 'notification': return <Notifications />;
-        default: return <Person />;
-      }
-    };
-
-    return (
-      <Avatar {...iconProps}>
-        {getIconComponent()}
-      </Avatar>
-    );
-  };
-
-  const renderHeaderText = () => (
+  const headerTextElement = (
     <div className="rds-card__content">
       {title && showTitle && (
         <Typography
@@ -135,36 +149,33 @@ const RdsCard = ({
     </div>
   );
 
-  const renderDescriptionAndChildren = () => {
-    if (!description && !children) return null;
-    return (
-      <div className="rds-card__below-content">
-        {description && showDescription && (
-          <Typography 
-            variant="body2"
-            component="p"
-            className="rds-card__description"
-          >
-            {description}
-          </Typography>
-        )}
-        {children && (
-          <div className="rds-card__additional-content">
-            {children}
-          </div>
-        )}
-      </div>
-    );
-  };
+  const descriptionAndChildrenElement = !description && !children ? null : (
+    <div className="rds-card__below-content">
+      {description && showDescription && (
+        <Typography 
+          variant="body2"
+          component="p"
+          className="rds-card__description"
+        >
+          {description}
+        </Typography>
+      )}
+      {children && (
+        <div className="rds-card__additional-content">
+          {children}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <MuiCard
-      className={getCardClassName()}
+      className={cardClassName}
       sx={[
         cardInlineStyle,
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
-      {...props}
+      {...muiCardProps}
     >
       {showIndicator && (
         <div className="rds-card__indicator">
@@ -176,24 +187,24 @@ const RdsCard = ({
           <div className="rds-card__header-row">
             {showIcon && (
               <div className="rds-card__icon-container">
-                {renderIcon()}
+                {iconElement}
               </div>
             )}
             <div className="rds-card__header-text">
-              {renderHeaderText()}
+              {headerTextElement}
             </div>
           </div>
-          {renderDescriptionAndChildren()}
+          {descriptionAndChildrenElement}
         </>
       ) : (
         <div className="rds-card__content-wrapper">
           {showIcon && (
             <div className="rds-card__icon-container rds-card__icon-container--vertical">
-              {renderIcon()}
+              {iconElement}
             </div>
           )}
-          {renderHeaderText()}
-          {renderDescriptionAndChildren()}
+          {headerTextElement}
+          {descriptionAndChildrenElement}
         </div>
       )}
     </MuiCard>

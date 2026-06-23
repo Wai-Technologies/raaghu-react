@@ -31,13 +31,15 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
       )
     );
     
+    const isTrigger = typeof className === 'string' && className.includes('rds-filter-button__trigger');
+    const testId = isTrigger ? 'filter-trigger-button' : 'rds-button';
     return (
       <button
         ref={ref}
         onClick={onClick}
         className={className}
         disabled={disabled}
-        data-testid="filter-trigger-button"
+        data-testid={testId}
         {...cleanProps}
       >
         {startIcon}

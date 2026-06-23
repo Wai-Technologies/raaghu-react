@@ -1,30 +1,31 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import './rds-stepper.scss';
 import {
   Stepper as MuiStepper,
   Step as MuiStep,
   StepLabel as MuiStepLabel,
   StepContent as MuiStepContent,
-  StepperProps
+  type StepperProps
 } from '@mui/material';
+import clsx from 'clsx';
 
 export interface RdsStepperStep {
   label: string;
-  content?: React.ReactNode;
+  content?: ReactNode;
   completed?: boolean;
   disabled?: boolean;
   optional?: boolean;
   error?: boolean;
 }
 
-export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'variant'> {
+export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'variant' | 'component'> {
   steps: RdsStepperStep[];
   currentStep?: number;
   direction?: 'horizontal' | 'vertical';
   showContent?: boolean;
 }
 
-const RdsStepper: React.FC<RdsStepperProps> = ({
+const RdsStepper = ({
   steps,
   currentStep = 0,
   direction = 'horizontal',
@@ -34,10 +35,10 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
   className,
   alternativeLabel,
   ...props
-}) => {
+}: RdsStepperProps) => {
   const stepperActiveStep = activeStep !== undefined ? activeStep : currentStep;
   const stepperOrientation = orientation || (direction === 'vertical' ? 'vertical' : 'horizontal');
-  const rootClassName = ['rds-stepper', className].filter(Boolean).join(' ');
+  const rootClassName = clsx('rds-stepper', className);
 
   return (
     <MuiStepper
@@ -49,7 +50,7 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
     >
       {steps.map((step, index) => (
         <MuiStep
-          key={index}
+          key={`${step.label}-${step.optional ? 'optional' : 'required'}`}
           completed={step.completed}
           disabled={step.disabled}
         >

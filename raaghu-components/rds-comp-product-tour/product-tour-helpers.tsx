@@ -1,7 +1,7 @@
-import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
 import { RdsInput, RdsAutocomplete, RdsButton } from '../../raaghu-elements';
+import clsx from 'clsx';
 
 export interface RdsCompProductTourProps {
     state: "Image" | "Carousel" | "GIF" | "Form";
@@ -12,15 +12,18 @@ export interface RdsCompProductTourProps {
     header?: string;
     description?: string;
     stepsIndicator?: string;
-    showDismiss?: boolean;
-    showPrimaryButton?: boolean;
-    showSecondaryButton?: boolean;
-    showTertiaryButton?: boolean;
-    showVisualPlaceholder?: boolean;
+    controls?: {
+        dismiss?: 'visible' | 'hidden';
+        primary?: 'visible' | 'hidden';
+        secondary?: 'visible' | 'hidden';
+        tertiary?: 'visible' | 'hidden';
+        visual?: 'visible' | 'hidden';
+    };
     slides?: { id: number; imgUrl: string; }[];
     formTitle?: string;
     tabTitle?: string[];
     onClose?: () => void;
+    [key: string]: unknown;
 }
 
 export const parseSteps = (s?: string) => {
@@ -56,7 +59,7 @@ export const arrowSvg = (isNext: boolean) => (
 
 export const deleteIcon = (
     <svg fill="none" height="20" viewBox="0 0 14 14" width="20" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 3.80979H13M4.46201 3.75519V3.2968C4.46201 2.68765 4.73087 2.10346 5.20946 1.67273C5.68806 1.242 6.33718 1 7.01401 1C7.69084 1 8.33995 1.242 8.81854 1.67273C9.29714 2.10346 9.566 2.68765 9.566 3.2968V3.75581M5.51067 5.572V10.624M8.51733 5.572V10.624M2.53067 3.814H11.498V12.0814C11.4997 12.2006 11.4752 12.3189 11.4261 12.4296C11.3769 12.5403 11.304 12.6411 11.2115 12.7264C11.119 12.8118 11.0087 12.8798 10.887 12.9268C10.7653 12.9737 10.6344 12.9986 10.502 13H3.53C3.26259 12.997 3.00746 12.8986 2.82069 12.7263C2.63392 12.554 2.5308 12.3221 2.53401 12.0814V3.814H2.53067Z" stroke="var(--rds-error-main)" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M1 3.81H13M4.46 3.76V3.3C4.46 2.69 4.73 2.1 5.21 1.67C5.69 1.24 6.34 1 7.01 1C7.69 1 8.34 1.24 8.82 1.67C9.3 2.1 9.57 2.69 9.57 3.3V3.76M5.51 5.57V10.62M8.52 5.57V10.62M2.53 3.81H11.5V12.08C11.5 12.2 11.48 12.32 11.43 12.43C11.38 12.54 11.3 12.64 11.21 12.73C11.12 12.81 11.01 12.88 10.89 12.93C10.77 12.97 10.63 13 10.5 13H3.53C3.26 13 3.01 12.9 2.82 12.73C2.63 12.55 2.53 12.32 2.53 12.08V3.81H2.53Z" stroke="var(--rds-error-main)" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -86,22 +89,41 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
     </IconButton>
 );
 
-export const renderNavigationButtons = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, variant = 'default') => (
-    <Box className={`rds-comp-product-tour__arrows rds-comp-product-tour__arrows--${variant}`}>
-        {showSecondaryButton && <button aria-label="Previous" onClick={goPrev} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button aria-label="Next" onClick={goNext} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
+const renderNavigationButtons = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, variant = 'default') => (
+    <Box className={clsx("rds-comp-product-tour__arrows", `rds-comp-product-tour__arrows--${variant}`)}>
+        {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
+        {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
     </Box>
 );
 
-export const renderSkipButton = (showTertiaryButton: boolean, className: string) => showTertiaryButton && (
+const renderDirectionalButtons = (
+    showSecondaryButton: boolean,
+    showPrimaryButton: boolean,
+    goPrev: () => void,
+    goNext: () => void,
+    prevClassName: string,
+    nextClassName: string
+) => (
+    <>
+        {showSecondaryButton && <button type="button" onClick={goPrev} className={prevClassName}>{arrowSvg(false)}</button>}
+        {showPrimaryButton && <button type="button" onClick={goNext} className={nextClassName}>{arrowSvg(true)}</button>}
+    </>
+);
+
+const renderSkipButton = (showTertiaryButton: boolean, className: string) => showTertiaryButton && (
     <Typography className={className}>Skip</Typography>
 );
 
 export const renderNavRow = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, stepClass: string, skipClass: string, arrowClass: string) => (
     <Box className="rds-comp-product-tour__navigation-row">
         <Typography className={stepClass}>{currentIndicator}</Typography>
-        {renderSkipButton(showTertiaryButton, skipClass)}
-        <Box className={arrowClass}>{renderNavigationButtons(showSecondaryButton, showPrimaryButton, goPrev, goNext)}</Box>
+        {showTertiaryButton && <Typography className={skipClass}>Skip</Typography>}
+        <Box className={arrowClass}>
+            <Box className={clsx("rds-comp-product-tour__arrows", "rds-comp-product-tour__arrows--default")}>
+                {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
+            </Box>
+        </Box>
     </Box>
 );
 
@@ -175,10 +197,10 @@ export const renderFormInputs = () => (
     </>
 );
 
-export const renderCarouselArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
+const renderCarouselArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
     <Box className="rds-comp-product-tour__carousel-arrows">
-        {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
+        {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
+        {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
     </Box>
 );
 
@@ -186,16 +208,19 @@ export const renderCarouselNavigation = (currentIndicator: string, showTertiaryB
     <Box className="rds-comp-product-tour__carousel-nav-row">
         <Typography className="rds-comp-product-tour__carousel-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__carousel-nav-group">
-            {showTertiaryButton && <button className="rds-comp-product-tour__carousel-skip">Skip</button>}
-            {renderCarouselArrows(showSecondaryButton, showPrimaryButton, goPrev, goNext)}
+            {showTertiaryButton && <button type="button" className="rds-comp-product-tour__carousel-skip">Skip</button>}
+            <Box className="rds-comp-product-tour__carousel-arrows">
+                {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
+            </Box>
         </Box>
     </Box>
 );
 
-export const renderGifArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
+const renderGifArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
     <Box className="rds-comp-product-tour__animation-nav-buttons">
-        {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
+        {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
+        {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
     </Box>
 );
 
@@ -204,15 +229,18 @@ export const renderGifNavigation = (currentIndicator: string, showTertiaryButton
         <Typography className="rds-comp-product-tour__animation-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__animation-controls">
             {showTertiaryButton && <Typography className="rds-comp-product-tour__animation-skip">Skip</Typography>}
-            {renderGifArrows(showSecondaryButton, showPrimaryButton, goPrev, goNext)}
+            <Box className="rds-comp-product-tour__animation-nav-buttons">
+                {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
+            </Box>
         </Box>
     </Box>
 );
 
-export const renderFormArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
+const renderFormArrows = (showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void) => (
     <Box className="rds-comp-product-tour__form-arrows">
-        {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
-        {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
+        {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
+        {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
     </Box>
 );
 
@@ -221,7 +249,10 @@ export const renderFormNavigation = (currentIndicator: string, showTertiaryButto
         <Typography className="rds-comp-product-tour__form-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__form-navigation-actions">
             {showTertiaryButton && <Typography className="rds-comp-product-tour__form-skip">Skip</Typography>}
-            {renderFormArrows(showSecondaryButton, showPrimaryButton, goPrev, goNext)}
+            <Box className="rds-comp-product-tour__form-arrows">
+                {showSecondaryButton && <button type="button" onClick={goPrev} className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
+                {showPrimaryButton && <button type="button" onClick={goNext} className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
+            </Box>
         </Box>
     </Box>
 );

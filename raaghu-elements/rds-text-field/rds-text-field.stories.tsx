@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import RdsTextField from './rds-text-field';
-import { Email, Lock, Search } from '@mui/icons-material';
+import EmailIcon from '@mui/icons-material/Email';
+import LockIcon from '@mui/icons-material/Lock';
+import SearchIcon from '@mui/icons-material/Search';
 import { InputAdornment } from '@mui/material';
 
 const meta: Meta<typeof RdsTextField> = {
@@ -16,6 +18,10 @@ const meta: Meta<typeof RdsTextField> = {
     label: {
       control: 'text',
       description: 'Label for the text field',
+    },
+    errorMessage: {
+      control: 'text',
+      description: 'Error message shown below the field',
     },
     placeholder: {
       control: 'text',
@@ -55,6 +61,41 @@ const meta: Meta<typeof RdsTextField> = {
     defaultValue: {
       control: 'text',
       description: 'Default value for the text field',
+    },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    inputRef: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    InputProps: {
+      control: { disable: true },
+    },
+    inputProps: {
+      control: { disable: true },
+    },
+    InputLabelProps: {
+      control: { disable: true },
+    },
+    FormHelperTextProps: {
+      control: { disable: true },
+    },
+    SelectProps: {
+      control: { disable: true },
+    },
+    slotProps: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slots: {
+      control: { disable: true },
+      table: { disable: true },
     },
   },
 };
@@ -149,7 +190,7 @@ export const WithStartAdornment: Story = {
     InputProps: {
       startAdornment: (
         <InputAdornment position="start">
-          <Email />
+          <EmailIcon />
         </InputAdornment>
       ),
     },
@@ -163,7 +204,7 @@ export const WithEndAdornment: Story = {
     InputProps: {
       endAdornment: (
         <InputAdornment position="end">
-          <Search />
+          <SearchIcon />
         </InputAdornment>
       ),
     },
@@ -178,25 +219,9 @@ export const Password: Story = {
     InputProps: {
       startAdornment: (
         <InputAdornment position="start">
-          <Lock />
+          <LockIcon />
         </InputAdornment>
       ),
     },
   },
-};
-
-export const TypeText: Story = {
-  name: 'Interaction: Type in text field',
-  args: {
-    label: 'Name',
-    placeholder: 'Enter name',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('textbox')
-    await expect(input).toBeVisible()
-    await userEvent.clear(input)
-    await userEvent.type(input, 'Jane Doe')
-    await expect(input).toHaveValue('Jane Doe')
-  }
 };

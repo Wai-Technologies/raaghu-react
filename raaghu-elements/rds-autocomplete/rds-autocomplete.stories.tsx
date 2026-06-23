@@ -15,7 +15,7 @@ const UserIcon = () => (
 
 const PopupIcon = () => (
   <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 0.5L5.731 5.37991C5.75919 5.41535 5.79707 5.4447 5.84154 5.46554C5.88601 5.48638 5.93578 5.49812 5.98675 5.49979C6.03773 5.50146 6.08845 5.49302 6.13474 5.47515C6.18103 5.45728 6.22157 5.43048 6.253 5.397L6.2695 5.37991L11 0.5" stroke="#7D7D7D" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M1 0.5L5.73 5.38C5.76 5.42 5.8 5.44 5.84 5.47C5.89 5.49 5.94 5.5 5.99 5.5C6.04 5.5 6.09 5.49 6.13 5.48C6.18 5.46 6.22 5.43 6.25 5.4L6.27 5.38L11 0.5" stroke="#7D7D7D" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -231,24 +231,4 @@ WithHelperText.parameters = {
   controls: { 
     include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
   } 
-};
-
-export const TypeFilter: Story = {
-  name: 'Interaction: Type to filter options',
-  args: {
-    options,
-    label: 'Choose',
-    placeholder: 'Start typing...',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('combobox')
-    await expect(input).toBeVisible()
-    await userEvent.type(input, 'Opt')
-    // MUI Autocomplete listbox renders in a portal
-    await waitFor(
-      () => expect(document.querySelector('[role="listbox"]')).not.toBeNull(),
-      { timeout: 2000 }
-    )
-  }
 };

@@ -623,8 +623,8 @@ const AppShellStory = (args: any) => {
       onMobileSidebarToggle={handleMobileSidebarToggle}
       topbar={args.displayType !== AppShellDisplayType.SideNav ? renderTopbar() : renderTopbar()}
       sidebar={args.displayType !== AppShellDisplayType.TopNav ? renderSidebar() : undefined}
-      children={renderChildren()}
-    />
+     
+    >{renderChildren()}</RdsCompAppShell>
   );
 };
 

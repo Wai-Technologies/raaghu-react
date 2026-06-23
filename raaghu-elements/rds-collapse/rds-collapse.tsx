@@ -1,33 +1,31 @@
-import React from 'react';
-import { Collapse as MuiCollapse, CollapseProps, Box, Typography, IconButton } from '@mui/material';
+import { useState, type ReactNode } from 'react';
+import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButton } from '@mui/material';
 import './rds-collapse.scss';
 import { ExpandMore } from '@mui/icons-material';
 
-export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle'> {
+export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle' | 'component'> {
   title?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   expanded?: boolean;
   onToggle?: (expanded: boolean) => void;
   showToggleButton?: boolean;
 }
 
-const RdsCollapse: React.FC<RdsCollapseProps> = ({
+const RdsCollapse = ({
   title,
   children,
   expanded = false,
   onToggle,
   showToggleButton = true,
   ...props
-}) => {
-  const [internalExpanded, setInternalExpanded] = React.useState(expanded);
-
-  React.useEffect(() => {
-    setInternalExpanded(expanded);
-  }, [expanded]);
+}: RdsCollapseProps) => {
+  const isControlled = expanded !== undefined && onToggle !== undefined;
+  const [internalExpanded, setInternalExpanded] = useState(expanded ?? false);
+  const currentExpanded = isControlled ? expanded : internalExpanded;
 
   const handleToggle = () => {
-    const newExpanded = !internalExpanded;
-    setInternalExpanded(newExpanded);
+    const newExpanded = !currentExpanded;
+    if (!isControlled) setInternalExpanded(newExpanded);
     onToggle?.(newExpanded);
   };
 
@@ -51,10 +49,10 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
           )}
           {showToggleButton && (
             <IconButton
-              aria-label={internalExpanded ? 'Collapse' : 'Expand'}
+              aria-label={currentExpanded ? 'Collapse' : 'Expand'}
               size="small"
               sx={{
-                transform: internalExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                transform: currentExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
                 transition: 'transform 0.2s',
                 p: 0,
                 ml: 0,
@@ -65,7 +63,7 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
           )}
         </Box>
       )}
-      <MuiCollapse in={internalExpanded} {...props}>
+      <MuiCollapse in={currentExpanded} {...props}>
         <Box sx={{ pt: title ? 1 : 0 }}>
           {children}
         </Box>

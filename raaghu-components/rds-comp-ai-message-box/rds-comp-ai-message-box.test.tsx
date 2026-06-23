@@ -355,7 +355,7 @@ describe('RdsCompAiMessageBox', () => {
         '.rds-comp-ai-message-box__image'
       ) as HTMLImageElement;
       expect(image).toBeInTheDocument();
-      // React may strip empty string src attribute; image element still renders
+      expect(image?.getAttribute('src') ?? '').toBe('');
     });
 
     it('handles very long avatar URL', () => {

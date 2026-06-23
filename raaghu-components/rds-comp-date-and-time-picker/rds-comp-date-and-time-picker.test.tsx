@@ -8,23 +8,19 @@ import RdsCompDatePicker from './rds-comp-date-and-time-picker';
 // Mock SCSS module
 jest.mock('./rds-comp-date-and-time-picker.scss', () => ({}));
 
-// Mock RdsButton to avoid emotion/MUI styled-engine initialization issues
-jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  const React = require('react');
-  const MockButton = React.forwardRef((props: any, ref: any) => (
-    <button
-      ref={ref}
-      onClick={props.onClick}
-      disabled={props.disabled}
-      data-testid={props['data-testid'] || 'button'}
-      className={props.className}
-    >
-      {props.startIcon}{props.text || props.children}{props.endIcon}
+jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
+  __esModule: true,
+  default: ({ onClick, children, text, style, ...props }: any) => (
+    <button data-testid="button" data-button-style={style} onClick={onClick} {...props}>
+      {text || children}
     </button>
-  ));
-  MockButton.displayName = 'RdsButton';
-  return MockButton;
-});
+  ),
+}));
+
+jest.mock('@mui/x-date-pickers/internals/demo', () => ({
+  DemoContainer: ({ children }: any) => <div data-testid="demo-container">{children}</div>,
+  DemoItem: ({ children }: any) => <div data-testid="demo-item">{children}</div>,
+}));
 
 // Mock MUI DatePicker components
 jest.mock('@mui/x-date-pickers/DatePicker', () => {
@@ -165,9 +161,9 @@ jest.mock('@mui/material/Popover', () => ({
   __esModule: true,
   default: ({ open, onClose, children }: any) => 
     open ? (
-      <div data-testid="popover" role="button" tabIndex={0} onClick={() => onClose && onClose()} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose && onClose(); } }}>
+      <button type="button" data-testid="popover" onClick={() => onClose && onClose()} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose && onClose(); } }}>
         {children}
-      </div>
+      </button>
     ) : null,
 }));
 

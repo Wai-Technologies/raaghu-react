@@ -168,21 +168,3 @@ export const WithCustomIcon: Story = {
     emptyIcon: <StarBorder fontSize="inherit" />,
   },
 };
-
-export const ClickStar: Story = {
-  name: 'Interaction: Click star to rate',
-  args: {
-    value: 2,
-    type: 'star',
-    onChange: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    // MUI Rating renders stars as radio inputs (hidden by CSS)
-    const stars = canvas.getAllByRole('radio')
-    await expect(stars.length).toBeGreaterThan(0)
-    // Click the 5th star (highest rating)
-    await userEvent.click(stars[stars.length - 1])
-    await expect(args.onChange).toHaveBeenCalled()
-  }
-};

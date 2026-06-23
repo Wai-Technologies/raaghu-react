@@ -629,6 +629,10 @@ const _componentTokensBase = {
   ,
   // Kanban board component tokens
   kanban: {
+    // Dark-theme color tokens for Kanban board (defined here so no hex lives in SCSS)
+    headerBgDark: '#1f5fb9',
+    subcardBgDark: '#9fbce6',
+    subcardBorderDark: '#81a7d9',
     columnWidth: '300px',
     columnGap: '20px',
     cardMinHeight: '600px',

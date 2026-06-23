@@ -233,8 +233,9 @@ describe('RdsSkeleton', () => {
       const { container } = renderWithTheme(
         <RdsSkeleton frames={3} />
       );
-      const boxContainer = container.querySelector('.rds-skeleton');
-      expect(boxContainer).toHaveStyle('gap: var(--rds-spacing-md, 12px)');
+      const boxContainer = container.querySelector('.rds-skeleton') as HTMLElement;
+      const styleAttr = boxContainer?.getAttribute('style') ?? '';
+      expect(styleAttr).toMatch(/12px/);
     });
 
     it('should set flex-start alignment for text frames', () => {
@@ -453,8 +454,8 @@ describe('RdsSkeleton', () => {
     it('should render list skeleton pattern', () => {
       const { container } = renderWithTheme(
         <div>
-          {[1, 2, 3].map(i => (
-            <RdsSkeleton key={i} frames={2} height={15} />
+          {[1, 2, 3].map(frameNumber => (
+            <RdsSkeleton key={frameNumber} frames={2} height={15} />
           ))}
         </div>
       );

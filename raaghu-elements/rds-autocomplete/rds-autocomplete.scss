@@ -81,6 +81,7 @@
       height: var(--rds-size-xl) !important;
       min-height: var(--rds-size-xl) !important;
       font-size: var(--rds-font-size-small, 14px) !important;
+      overflow: hidden !important;
     }
 
     .MuiInputBase-input {
@@ -109,6 +110,7 @@
       height: 40px !important;
       min-height: 40px !important;
       font-size: var(--rds-font-size-body, 16px) !important;
+      overflow: hidden !important;
     }
 
     .MuiInputBase-input {
@@ -136,6 +138,7 @@
       height: 52px !important;
       min-height: 52px !important;
       font-size: var(--rds-font-size-large, 18px) !important;
+      overflow: hidden !important;
     }
 
     .MuiInputBase-input {
@@ -217,6 +220,8 @@
   .MuiAutocomplete-inputRoot input::placeholder {
     color: var(--rds-placeholder-color) !important;
     opacity: 1 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__textfield--bottom-line {
@@ -229,30 +234,49 @@
   }
 
   .MuiAutocomplete-inputRoot {
+    overflow: hidden !important;
+    flex-wrap: nowrap !important;
+
+    .MuiAutocomplete-tag {
+      flex-shrink: 0;
+      max-width: calc(50% - 8px);
+      white-space: nowrap;
+    }
+
+    // When chips are present, shrink input to minimum; when empty, let it fill fully
+    .MuiAutocomplete-input {
+      min-width: 30px !important;
+      flex-shrink: 1;
+      flex-grow: 1;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
     &[aria-expanded="true"],
     &[aria-expanded="false"] {
       min-height: inherit !important;
-      flex-wrap: nowrap !important;
-      
-      overflow-x: auto !important;
-      overflow-y: hidden !important;
-      
-      .MuiAutocomplete-tag {
-        flex-shrink: 0;
-        white-space: nowrap;
-      }
-  
-      .MuiAutocomplete-input {
-        min-width: 80px !important;
-        flex-grow: 1;
-      }
+      height: inherit !important;
+    }
+  }
+
+  // Make the outlined border box clip chips properly
+  .MuiOutlinedInput-root {
+    overflow: hidden !important;
+    
+    // Tighten vertical padding in multiple mode so chips stay within the border
+    &.MuiAutocomplete-inputRoot {
+      padding-top: 4px !important;
+      padding-bottom: 4px !important;
+      align-items: center !important;
     }
   }
 
   &__chip {
-    margin: var(--rds-spacing-xxs) !important;
+    margin: 1px 2px !important;
     max-width: 120px !important;
     font-size: 0.75rem !important;
+    vertical-align: middle;
     
     &--small {
       height: 20px !important;
@@ -267,7 +291,9 @@
     }
     
     &--overflow {
-      background-color: var(--rds-autocomplete-overflow-chip-bg, rgba(45, 44, 44, 0.04)) !important;
+      background-color: var(--rds-primary-light, rgba(135, 46, 252, 0.12)) !important;
+      color: var(--rds-primary-main) !important;
+      font-weight: 600 !important;
       pointer-events: none !important;
     }
   }

@@ -17,7 +17,6 @@ export default defineConfig({
       './raaghu-elements/**/*.stories.tsx',
       './raaghu-components/**/*.stories.tsx',
       './raaghu-layouts/**/*.stories.tsx',
-      './.storybook/vitest.setup.ts',
       './vitest.setup.ts',
     ],
     include: [
@@ -128,7 +127,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: [
-      './.storybook/vitest.setup.ts',
       './vitest.setup.ts',
     ],
     coverage: {
@@ -147,10 +145,10 @@ export default defineConfig({
         '**/index.ts',
       ],
       thresholds: {
-        statements: 60,
-        branches: 50,
-        functions: 60,
-        lines: 60,
+        statements: 80,
+        branches: 80,
+        functions: 80,
+        lines: 80,
       },
     },
   },

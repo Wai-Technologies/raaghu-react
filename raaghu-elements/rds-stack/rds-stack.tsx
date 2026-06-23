@@ -1,27 +1,28 @@
-import React from 'react';
+import { type ReactNode, type CSSProperties } from 'react';
 import {
   Stack as MuiStack,
-  StackProps,
+  type StackProps,
   Divider
 } from '@mui/material';
+import clsx from 'clsx';
 import './rds-stack.scss';
 
-export interface RdsStackProps extends StackProps {
-  children: React.ReactNode;
+export interface RdsStackProps extends Omit<StackProps, 'component'> {
+  children: ReactNode;
   gap?: number | string;
-  divider?: boolean | React.ReactNode;
+  divider?: boolean | ReactNode;
   dividerColor?: string;
 }
 
-const RdsStack: React.FC<RdsStackProps> = ({
+const RdsStack = ({
   children,
   gap,
   spacing,
   divider,
   dividerColor,
   ...props
-}) => {
-  let stackDivider: React.ReactNode | undefined = undefined;
+}: RdsStackProps) => {
+  let stackDivider: ReactNode | undefined = undefined;
 
   if (typeof divider === 'boolean') {
     if (divider) {
@@ -32,7 +33,7 @@ const RdsStack: React.FC<RdsStackProps> = ({
       stackDivider = (
         <Divider
           className="rds-stack__divider"
-          orientation={orientation as any}
+          orientation={orientation as 'horizontal' | 'vertical'}
           flexItem
         />
       );
@@ -41,10 +42,10 @@ const RdsStack: React.FC<RdsStackProps> = ({
     stackDivider = divider;
   }
 
-  const { className: propClassName, style: propStyle, ...restProps } = props as any;
-  const rootClassName = ['rds-stack', propClassName].filter(Boolean).join(' ');
+  const { className: propClassName, style: propStyle, ...restProps } = props;
+  const rootClassName = clsx('rds-stack', propClassName);
   const cssVarStyle = dividerColor
-    ? ({ ['--rds-stack-divider-color']: dividerColor } as React.CSSProperties)
+    ? ({ ['--rds-stack-divider-color']: dividerColor } as CSSProperties)
     : undefined;
   const mergedStyle = propStyle ? { ...propStyle, ...cssVarStyle } : cssVarStyle;
 

@@ -1,10 +1,11 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
+import clsx from 'clsx';
 import './rds-badge.scss';
 
-export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
-  children?: React.ReactNode;
+export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero' | 'component'> {
+  children?: ReactNode;
   showZero?: boolean;
   max?: number;
   size?: 'small' | 'medium' | 'large';
@@ -30,27 +31,32 @@ const RdsBadge= ({
   colorVariant = 'primary',
   ...props
 }:RdsBadgeProps) => {
-  const content = badgeContent;
+  const isZeroContent = badgeContent === 0 || badgeContent === '0';
+
+  const bemClass = clsx(
+    'rds-badge',
+    `rds-badge--${size}`,
+    `rds-badge--${shape}`,
+    `rds-badge--${styleType}`,
+    `rds-badge--${colorVariant || 'primary'}`,
+    state === 'disabled' && 'rds-badge--disabled',
+  );
   
-  const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--${colorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
   
-  const isZeroContent = content === 0 || content === '0';
-  
-  
-  let badgeInner: React.ReactNode;
+  let badgeInner: ReactNode;
   switch (layout) {
     case 'icon':
       badgeInner = <Notifications fontSize="small" sx={{ marginRight: 0 }} />;
       break;
     case 'icon-text':
-      badgeInner = <><Notifications fontSize="small" sx={{ marginRight: '6px' }} />{content?.toString()}</>;
+      badgeInner = <><Notifications fontSize="small" sx={{ marginRight: '6px' }} />{badgeContent?.toString()}</>;
       break;
     case 'text-icon':
-      badgeInner = <>{content?.toString()}<Notifications fontSize="small" sx={{ marginLeft: '6px' }} /></>;
+      badgeInner = <>{badgeContent?.toString()}<Notifications fontSize="small" sx={{ marginLeft: '6px' }} /></>;
       break;
     case 'text':
     default:
-      badgeInner = content?.toString();
+      badgeInner = badgeContent?.toString();
       break;
   }
   
@@ -72,7 +78,7 @@ const RdsBadge= ({
   
   return (
     <MuiBadge
-      badgeContent={content}
+      badgeContent={badgeContent}
       showZero={showZero}
       max={max}
       color={color}
