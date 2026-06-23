@@ -41,7 +41,7 @@ const RdsCompAiTypingSectionComponent = ({
   autoCompleteMaxWidth,
 }: RdsCompAiTypingSectionProps) => {
   const [inputText, setInputText] = useState<string>("");
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(() => typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -50,7 +50,6 @@ const RdsCompAiTypingSectionComponent = ({
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -203,7 +202,7 @@ const RdsCompAiTypingSectionComponent = ({
           <RdsAutocomplete
             controlStyle="default"
             helperText="Select one of the available options"
-            isMandatory
+            isMandatory={false}
             label=""
             options={[{ label: "Raaghu", value: 1 }]}
             placeholder="Select Frontend"

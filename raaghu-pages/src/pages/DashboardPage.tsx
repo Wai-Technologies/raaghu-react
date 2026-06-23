@@ -163,7 +163,7 @@ export default function DashboardPage() {
     : 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png';
 
   // ── Topbar ──────────────────────────────────────────────────────────────
-  const topbar = (
+  const topbar = useMemo(() => (
     <div className="rds-appshell-appbar rds-appshell-appbar--fixed">
       <RdsAppBar
         color="default"
@@ -256,7 +256,7 @@ export default function DashboardPage() {
         }
       />
     </div>
-  );
+  ), [isDark, logoSrc, toggleMode]);
 
   // ── Sidebar ─────────────────────────────────────────────────────────────
   // Default layout intentionally hides the sidebar logo (logo lives in AppBar).
@@ -500,16 +500,10 @@ export default function DashboardPage() {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={
-                      <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.25 }}>
-                        {item.user}
-                      </Typography>
-                    }
-                    secondary={
-                      <Typography variant="caption" sx={{ color: 'text.secondary', lineHeight: 1.4 }}>
-                        {item.action}
-                      </Typography>
-                    }
+                    primary={item.user}
+                    secondary={item.action}
+                    primaryTypographyProps={{ variant: 'body2', sx: { fontWeight: 600, mb: 0.25 } }}
+                    secondaryTypographyProps={{ variant: 'caption', sx: { color: 'text.secondary', lineHeight: 1.4 } }}
                   />
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 0.75, ml: 2, flexShrink: 0 }}>
                     <Chip

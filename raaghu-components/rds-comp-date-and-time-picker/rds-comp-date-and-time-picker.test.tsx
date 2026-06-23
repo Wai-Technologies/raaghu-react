@@ -161,9 +161,9 @@ jest.mock('@mui/material/Popover', () => ({
   __esModule: true,
   default: ({ open, onClose, children }: any) => 
     open ? (
-      <div data-testid="popover" role="button" tabIndex={0} onClick={() => onClose && onClose()} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose && onClose(); } }}>
+      <button type="button" data-testid="popover" onClick={() => onClose && onClose()} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose && onClose(); } }}>
         {children}
-      </div>
+      </button>
     ) : null,
 }));
 

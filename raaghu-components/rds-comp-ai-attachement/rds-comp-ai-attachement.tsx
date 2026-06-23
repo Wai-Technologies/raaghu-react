@@ -130,30 +130,33 @@ const RdsCompAiAttachement = ({
         key: "new",
         value: (
           <button
+            type="button"
             onClick={openModal}
             className="rds-comp-ai-attachement__reset-btn"
             data-bs-toggle="modal"
             data-bs-target="#modal1234"
           >
-            <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
-            {showBadge && (
-              <RdsBadge
-                colorVariant={badgeColor || "primary"}
-                layout="text"
-                shape="rectangle"
-                badgeContent={badgeLabel || ""}
-                size="small"
-                state="default"
-                styleType="primary"
-              />
-            )}
+            <span className="rds-comp-ai-attachement__upload-row">
+              <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
+              {showBadge && (
+                <RdsBadge
+                  colorVariant={badgeColor || "primary"}
+                  layout="text"
+                  shape="rectangle"
+                  badgeContent={badgeLabel || ""}
+                  size="small"
+                  state="default"
+                  styleType="primary"
+                />
+              )}
+            </span>
           </button>
         ),
       },
       {
         key: "refresh",
         value: (
-          <button onClick={handleImportClick} className="rds-comp-ai-attachement__reset-btn">
+          <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachement__reset-btn">
             {importText}
           </button>
         ),

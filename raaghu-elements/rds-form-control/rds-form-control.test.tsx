@@ -585,8 +585,8 @@ describe('RdsFormControl', () => {
       render(
         <RdsFormControl
           label="Accessible Field"
-          children={<input type="text" data-testid="form-input" />}
-        />
+         
+        >{<input type="text" data-testid="form-input" />}</RdsFormControl>
       );
       expect(screen.getByText('Accessible Field')).toBeInTheDocument();
   

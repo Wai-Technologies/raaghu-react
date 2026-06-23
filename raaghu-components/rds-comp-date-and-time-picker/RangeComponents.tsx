@@ -14,7 +14,7 @@ export interface DateRangePreset {
   getValue: () => [Dayjs | null, Dayjs | null];
 }
 
-export const dateRangePresets: DateRangePreset[] = [
+const dateRangePresets: DateRangePreset[] = [
   {
     key: 'today',
     label: 'Today',

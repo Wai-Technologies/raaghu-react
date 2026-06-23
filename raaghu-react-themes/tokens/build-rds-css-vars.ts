@@ -1261,6 +1261,10 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[700],
     '--rds-color-neutral-disabled-icon': n[400],
     '--rds-color-neutral-soft': n[100],
+    // ── Kanban board (light-theme defaults) ──────────────────────────────────
+    '--rds-kanban-header-bg': 'var(--rds-surface-primary-light)',
+    '--rds-kanban-subcard-bg': 'var(--rds-background-paper)',
+    '--rds-kanban-subcard-border': 'var(--rds-surface-neutral-light)',
   };
 }
 
@@ -1464,6 +1468,10 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[200],
     '--rds-color-neutral-disabled-icon': n[600],
     '--rds-color-neutral-soft': n[800],
+    // ── Kanban board (dark-theme overrides) ──────────────────────────────────
+    '--rds-kanban-header-bg': componentTokens.kanban?.headerBgDark,
+    '--rds-kanban-subcard-bg': componentTokens.kanban?.subcardBgDark,
+    '--rds-kanban-subcard-border': componentTokens.kanban?.subcardBorderDark,
   };
 }
 

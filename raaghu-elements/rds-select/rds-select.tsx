@@ -17,7 +17,7 @@ export interface RdsSelectOption {
   disabled?: boolean;
 }
 
-export interface RdsSelectProps extends Omit<SelectProps, 'children'> {
+export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
   label?: string;
   placeholder?: string;
   options: RdsSelectOption[];

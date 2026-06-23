@@ -2,7 +2,7 @@ import { useState, type MouseEvent, type ReactNode } from 'react';
 import { ToggleButton as MuiToggleButton, ToggleButtonProps } from '@mui/material';
 import './rds-toggle-button.scss';
 
-export interface RdsStandaloneToggleButtonProps extends Omit<ToggleButtonProps, 'value'> {
+export interface RdsStandaloneToggleButtonProps extends Omit<ToggleButtonProps, 'value' | 'component'> {
   value?: string;
   selected?: boolean;
   onChange?: (event: MouseEvent<HTMLElement>, selected: boolean) => void;

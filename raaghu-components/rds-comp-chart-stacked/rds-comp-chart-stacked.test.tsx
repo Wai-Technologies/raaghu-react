@@ -468,12 +468,12 @@ describe('RdsCompStackedChart', () => {
           dataSets={[
             {
               label: 'Data 1',
-              data: Array.from({ length: 12 }, () => Math.random() * 50),
+              data: Array.from({ length: 12 }, (_, index) => (index % 5 + 1) * 8),
               backgroundColor: 'rgba(75, 192, 192, 0.7)',
             },
             {
               label: 'Data 2',
-              data: Array.from({ length: 12 }, () => Math.random() * 50),
+              data: Array.from({ length: 12 }, (_, index) => (index % 4 + 2) * 6),
               backgroundColor: 'rgba(255, 99, 132, 0.7)',
             },
           ]}

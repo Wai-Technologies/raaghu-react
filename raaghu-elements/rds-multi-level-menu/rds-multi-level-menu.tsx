@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from 'react';
+import { useRef, useState, type MouseEvent } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -47,11 +47,13 @@ export const RdsMultiLevelMenu = ({
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
+  const prevSizeRef = useRef(size);
 
-    useEffect(() => {
-      setAnchorEls([null]);
-      setOpenIndexes([]);
-    }, [size]);
+  if (size !== prevSizeRef.current) {
+    prevSizeRef.current = size;
+    setAnchorEls([null]);
+    setOpenIndexes([]);
+  }
 
   const setSubmenuAnchor = (parentLevel: number, anchor: HTMLElement | null, idx: number) => {
     const newAnchors = [...anchorEls.slice(0, parentLevel + 1), anchor];
@@ -108,6 +110,9 @@ export const RdsMultiLevelMenu = ({
           let isSelected = selectedIndex[level] === idx;
           const isForcedHover = state === 'hover' && idx === 0;
           const isForcedSelected = state === 'selected' && idx === 0;
+          const subMenuElement = isExpandable && openIndexes[level] === idx
+            ? renderMenu(option.children!, level + 1)
+            : null;
           if (isForcedSelected && type === 'selectable') {
             isSelected = true;
           }
@@ -160,13 +165,15 @@ export const RdsMultiLevelMenu = ({
                   )}
                 </Box>
               </MenuItem>
-              {isExpandable && openIndexes[level] === idx && renderMenu(option.children!, level + 1)}
+              {subMenuElement}
             </Box>
           );
         })}
       </Menu>
     );
   };
+
+  const rootMenuElement = renderMenu(options, 0);
 
   return (
     <div className={clsx('rds-multi-level-menu', `type-${type}`)}>
@@ -177,7 +184,7 @@ export const RdsMultiLevelMenu = ({
       >
         Multi Level Menu
       </RdsButton>
-      {renderMenu(options, 0)}
+      {rootMenuElement}
     </div>
   );
 };

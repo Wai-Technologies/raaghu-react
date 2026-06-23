@@ -2,28 +2,16 @@ import {
   useEffect,
   useRef,
   useState,
+  type ReactNode,
   type ChangeEvent,
   type FocusEvent,
-  type JSX,
   type KeyboardEvent,
   type MouseEvent,
 } from "react";
 import clsx from 'clsx';
 import "./rds-text-area.scss";
-
-export enum TextareaState {
-  Default = "Default",
-  Active = "Active", 
-  Selected = "Selected",
-  Disabled = "Disabled",
-  Error = "Error"
-}
-
-export enum TextareaStyle {
-  Default = "Default",
-  Pill = "Pill",
-  BottomOutline = "Bottom Outline"
-}
+export { TextareaState, TextareaStyle } from './rds-text-area-types';
+import { TextareaState, TextareaStyle } from './rds-text-area-types';
 
 export interface RdsTextAreaProps {
   rows?: number;
@@ -48,19 +36,23 @@ export interface RdsTextAreaProps {
   customClasses?: string;
 }
 
-const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
+const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
   const [isValid, setIsValid] = useState(true);
-  const [isMandatoryValid, setIsMandatoryValid] = useState(true);
+  const [isMandatoryValid, setIsMandatoryValid] = useState(
+    !props.isMandatory || (props.value ?? '').trim().length > 0
+  );
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
+  const prevResetRef = useRef(Boolean(props.reset));
   const idRef = useRef<string>(props.id || `rds-textarea-${Math.random().toString(36).slice(2)}`);
   const assignedId = props.id || idRef.current;
   const errorId = `${assignedId}-error`;
 
   useEffect(() => {
-    if (props.reset) {
+    if (Boolean(props.reset) && !prevResetRef.current) {
       setIsValid(true);
       setIsMandatoryValid(true);
     }
+    prevResetRef.current = Boolean(props.reset);
   }, [props.reset]);
 
   useEffect(() => {
@@ -103,13 +95,13 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   };
 
   const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
+    const inputValue = e.target.value;
     if (props.isMandatory) {
-      const inputValue = e.target.value;
       setIsMandatoryValid(inputValue.trim().length > 0);
     }
 
     if (currentState === TextareaState.Active) {
-      setCurrentState(props.value ? TextareaState.Selected : TextareaState.Default);
+      setCurrentState(inputValue ? TextareaState.Selected : TextareaState.Default);
     }
     props.onBlur?.(e);
   };

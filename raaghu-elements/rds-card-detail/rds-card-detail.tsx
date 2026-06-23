@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import { useRaaghuTheme } from '../../raaghu-react-themes/src/provider/RaaghuThemeProvider';
 import './rds-card-detail.scss';
 
-export interface RdsCardDetailProps extends CardProps {
+export interface RdsCardDetailProps extends Omit<CardProps, 'component'> {
   title?: string;
   subtitle?: string;
   image?: string;

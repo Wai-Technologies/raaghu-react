@@ -4,7 +4,7 @@ import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
 import './rds-range.scss';
 
-export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
+export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange' | 'component'> {
   value?: number | number[];
   onChange?: (value: number | number[]) => void;
   label?: string;
@@ -18,6 +18,11 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
   level?: '1' | '2' | '3' | '4' | '5';
   leftLabel?: number;
   rightLabel?: number;
+}
+
+interface ValueLabelComponentProps {
+  children: ReactElement;
+  value: number;
 }
 
 const RdsRange= ({
@@ -35,7 +40,7 @@ const RdsRange= ({
   leftLabel = 0,
   rightLabel = 100,
   ...props
-}:RdsRangeProps) => {
+}: RdsRangeProps) => {
   const min = leftLabel ?? props.min ?? 0;
   const max = rightLabel ?? props.max ?? 100;
 
@@ -114,7 +119,7 @@ const RdsRange= ({
   const ariaLabel = props['aria-label'] ?? label ?? 'Range slider';
   const isRangeValue = Array.isArray(effectiveValue);
 
-  const ValueLabelComponent = ({ children, value }: { children: ReactElement; value: number }) => {
+  const ValueLabelComponent = ({ children, value }: ValueLabelComponentProps) => {
     
     if (!showTooltip) {
       return <span>{children}</span>;

@@ -607,7 +607,7 @@ describe('RdsCompMap', () => {
         rerender(
           <RdsCompMap
             {...defaultProps}
-            color={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+            color={`#${(((i + 1) * 1118481) % 16777215).toString(16).padStart(6, '0')}`}
           />
         );
       }

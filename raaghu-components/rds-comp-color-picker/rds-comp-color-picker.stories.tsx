@@ -1,4 +1,5 @@
-import RdsCompColorPicker, { ColorMode, ColorPickerType, PickerType, StyleType } from "./rds-comp-color-picker";
+import RdsCompColorPicker from "./rds-comp-color-picker";
+import { ColorMode, ColorPickerType, PickerType, StyleType } from "./rds-comp-color-picker.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 

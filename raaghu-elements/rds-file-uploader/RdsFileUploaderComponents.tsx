@@ -1,8 +1,8 @@
-import { useRef, useState, type ChangeEvent, type DragEvent } from 'react';
+import { useRef, useState, lazy, Suspense, type ChangeEvent, type DragEvent } from 'react';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import { CloudUpload, Close } from '@mui/icons-material';
-import RdsFileUploader, { type FileWithProgress, type RdsFileUploaderProps } from './rds-file-uploader';
+import { type FileWithProgress, type RdsFileUploaderProps } from './rds-file-uploader-types';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 
 interface RdsDropZoneSideIconProps {
@@ -50,6 +50,21 @@ interface UseFileUploaderProps {
   onUpload?: (files: File[]) => Promise<void>;
 }
 
+function formatFileSize(bytes: number): string {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+function validateFile(file: File, maxSize: number): string | null {
+  if (file.size > maxSize) {
+    return `File size exceeds ${formatFileSize(maxSize)}`;
+  }
+  return null;
+}
+
 export const useFileUploader = ({
   maxSize,
   maxFiles,
@@ -64,26 +79,13 @@ export const useFileUploader = ({
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-  };
 
-  const validateFile = (file: File): string | null => {
-    if (file.size > maxSize) {
-      return `File size exceeds ${formatFileSize(maxSize)}`;
-    }
-    return null;
-  };
 
   const addFiles = (newFiles: File[]) => {
     const validFiles: FileWithProgress[] = [];
     for (const file of newFiles) {
       if (files.length + validFiles.length >= maxFiles) break;
-      const error = validateFile(file);
+      const error = validateFile(file, maxSize);
       validFiles.push({ file, progress: 0, error: error || undefined });
     }
     const updatedFiles = [...files, ...validFiles];
@@ -189,7 +191,7 @@ export const RdsDropZoneSideIcon = ({
     >
       <Box className="rds-file-uploader__side-content">
         <Typography className="rds-file-uploader__title rds-file-uploader__title--left" variant="h6" gutterBottom>
-          Drag and Drop files or <span className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" role="button" tabIndex={0} onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</span>
+          Drag and Drop files or <button type="button" className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
         </Typography>
         <Typography className="rds-file-uploader__info rds-file-uploader__info--left" variant="caption">
           (PNG, JPG, DOC, PDF, PPT)
@@ -284,7 +286,7 @@ export const RdsDropZoneDefault = ({
     >
       <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
       <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
-        Drag and Drop files or <span className="rds-file-uploader__browse-link" role="button" tabIndex={0} onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</span>
+        Drag and Drop files or <button type="button" className="rds-file-uploader__browse-link" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
       </Typography>
       <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
         (PNG, JPG, DOC, PDF, PPT)
@@ -293,9 +295,15 @@ export const RdsDropZoneDefault = ({
   );
 };
 
+const RdsFileUploader = lazy(() => import('./rds-file-uploader'));
+
 export const RenderFileUploader = (args: RdsFileUploaderProps) => {
   const [files, setFiles] = useState<FileWithProgress[]>([]);
-  return <RdsFileUploader {...args} onFilesChange={setFiles} />;
+  return (
+    <Suspense fallback={null}>
+      <RdsFileUploader {...args} onFilesChange={setFiles} />
+    </Suspense>
+  );
 };
 
 export const RdsFileList = ({
@@ -313,7 +321,7 @@ export const RdsFileList = ({
       </Typography>
       {files.map((fileWithProgress, index) => (
         <Box
-          key={index}
+          key={`${fileWithProgress.file.name}-${fileWithProgress.file.size}-${fileWithProgress.file.lastModified}`}
           sx={{
             display: 'flex',
             alignItems: 'center',

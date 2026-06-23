@@ -437,7 +437,7 @@ describe('RdsCompRadarChart', () => {
           dataSets={[
             {
               label: 'Quarterly Data',
-              data: Array.from({ length: 12 }, () => Math.random() * 100),
+              data: Array.from({ length: 12 }, (_, index) => (index + 1) * 7),
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderColor: 'rgba(75, 192, 192, 1)',
             },

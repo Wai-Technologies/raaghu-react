@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsCarousel> = {
   component: RdsCarousel,
   parameters: {
         status: { type: 'stable' },
-    layout: 'centered',
+    layout: 'fullscreen',
     controls: {
         exclude: ['titles', 'subtitles'],
         },
@@ -18,7 +18,11 @@ const meta: Meta<typeof RdsCarousel> = {
       if (context.args && context.args.style === 'full width image') {
         context.args = { ...context.args, showDots: false };
       }
-      return <Story />;
+      return (
+        <Box sx={{ width: '100%', maxWidth: '100vw', minWidth: 0, overflowX: 'hidden', p: 1 }}>
+          <Story />
+        </Box>
+      );
     },
   ],
   tags: ['autodocs', 'stable'],

@@ -454,8 +454,8 @@ describe('RdsSkeleton', () => {
     it('should render list skeleton pattern', () => {
       const { container } = renderWithTheme(
         <div>
-          {[1, 2, 3].map(i => (
-            <RdsSkeleton key={i} frames={2} height={15} />
+          {[1, 2, 3].map(frameNumber => (
+            <RdsSkeleton key={frameNumber} frames={2} height={15} />
           ))}
         </div>
       );

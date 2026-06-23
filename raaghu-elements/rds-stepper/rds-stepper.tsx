@@ -18,7 +18,7 @@ export interface RdsStepperStep {
   error?: boolean;
 }
 
-export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'variant'> {
+export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'variant' | 'component'> {
   steps: RdsStepperStep[];
   currentStep?: number;
   direction?: 'horizontal' | 'vertical';
@@ -50,7 +50,7 @@ const RdsStepper = ({
     >
       {steps.map((step, index) => (
         <MuiStep
-          key={index}
+          key={`${step.label}-${step.optional ? 'optional' : 'required'}`}
           completed={step.completed}
           disabled={step.disabled}
         >

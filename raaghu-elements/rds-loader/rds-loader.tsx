@@ -116,6 +116,8 @@ const RdsLoader = (props: RdsLoaderProps) => {
     );
   };
 
+  const loaderElement = renderLoader();
+
   if (overlay) {
     return (
       <Box
@@ -132,12 +134,12 @@ const RdsLoader = (props: RdsLoaderProps) => {
           zIndex: 'var(--rds-z-index-tooltip, 9999)',
         }}
       >
-        {renderLoader()}
+        {loaderElement}
       </Box>
     );
   }
 
-  return renderLoader();
+  return loaderElement;
 };
 RdsLoader.displayName = 'RdsLoader';
 export default RdsLoader;

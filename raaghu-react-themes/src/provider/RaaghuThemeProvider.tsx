@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { darkTheme, lightTheme } from '../mui';
+import { darkTheme } from '../mui/dark.theme';
+import { lightTheme } from '../mui/light.theme';
 import {
   applyRaaghuTheme,
   getRaaghuThemeMode,
@@ -149,4 +150,3 @@ export function useRaaghuTheme(): RaaghuThemeContextValue {
   return ctx;
 }
 
-export default RaaghuThemeProvider;

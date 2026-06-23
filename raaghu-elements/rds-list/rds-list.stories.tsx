@@ -347,9 +347,9 @@ const subheaderSections = [
 export const StickySubheader: Story = {
   render: (args) => (
     <div className="rds-list-demo__container rds-list-demo__container--sticky">
-      {subheaderSections.map((section, index) => (
+      {subheaderSections.map((section) => (
         <RdsList
-          key={`section-${index}`}
+          key={section.title}
           withDividers
           className="rds-list--with-subheader"
           subheader={<ListSubheader className="rds-list__subheader">{section.title}</ListSubheader>}

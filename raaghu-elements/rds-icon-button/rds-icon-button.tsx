@@ -3,7 +3,7 @@ import { IconButton as MuiIconButton, type IconButtonProps } from '@mui/material
 import clsx from 'clsx';
 import './rds-icon-button.scss';
 
-export interface RdsIconButtonProps extends IconButtonProps {
+export interface RdsIconButtonProps extends Omit<IconButtonProps, 'component'> {
   iconOutlined?: ReactNode;
   iconFilled?: ReactNode;
   variant?: 'outlined' | 'filled';

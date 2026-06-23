@@ -1,13 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
 import clsx from 'clsx';
 import "./rds-comp-adaptive-cards.scss";
-import {
-  RdsBox,
-  RdsTypography,
-  RdsStack,
-  RdsButtonDropdown,
-  RdsButton,
-} from "../../raaghu-elements";
+import RdsBox from "../../raaghu-elements/rds-box/rds-box";
+import RdsTypography from "../../raaghu-elements/rds-typography/rds-typography";
+import RdsStack from "../../raaghu-elements/rds-stack/rds-stack";
+import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
+import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCardDetail from "../../raaghu-elements/rds-card-detail/rds-card-detail";
 import { CardHeader, CardContent, CardActions, IconButton } from "@mui/material";
 import { Close as CloseIcon, ExpandMore as ExpandMoreIcon } from "@mui/icons-material";

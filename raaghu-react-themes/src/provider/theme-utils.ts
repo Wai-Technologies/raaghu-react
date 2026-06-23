@@ -32,7 +32,7 @@ export { type RdsBrandOverrides };
 export const THEME_STORAGE_KEY = 'raaghu-theme';
 
 /** CSS classes applied to document.body when a theme is active */
-export const RAAGHU_THEME_BODY_CLASSES = {
+const RAAGHU_THEME_BODY_CLASSES = {
   light: ['light-theme', 'theme-light'],
   dark: ['dark-theme', 'theme-dark'],
 } as const;

@@ -49,6 +49,4 @@ export const DropdownMenu = ({ visible, anchorRef, onClose, onSelect, labels }: 
   );
 };
 
-export default DropdownMenu;
-
 DropdownMenu.displayName = 'DropdownMenu';

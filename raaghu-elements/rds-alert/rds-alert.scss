@@ -417,7 +417,7 @@
 }
 
 .rds-alert__secondary-button.MuiButton-root {
-  background-color: var(--rds-alert-secondary-bg, #e8f1ff) !important;
+  background-color: transparent !important;
   color: var(--rds-alert-secondary-text, #2d7ff9) !important;
   border: none !important;
 
@@ -429,7 +429,7 @@
 }
 
 .rds-alert__secondary-button--error.MuiButton-root {
-  background-color: var(--rds-alert-error-bg, #fdecea) !important;
+  background-color: transparent !important;
   color: var(--rds-alert-error-text, #bd0d1d) !important;
   border: none !important;
 
