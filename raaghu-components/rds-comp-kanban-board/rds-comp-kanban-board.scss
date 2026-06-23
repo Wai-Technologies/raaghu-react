@@ -762,3 +762,51 @@ div[role="menu"],
 .css-120dh41-MuiSvgIcon-root {
   fill: var(--rds-text-disabled) !important;
 }
+
+body[data-bs-theme="dark"],
+html[data-bs-theme="dark"],
+body[data-theme="dark"],
+html[data-theme="dark"],
+.theme-dark,
+.dark-theme,
+.rds-theme--dark {
+  .kanban-board {
+    &__card {
+      background-color: var(--rds-background-paper, transparent) !important;
+      border: 1px solid var(--rds-border-dark, transparent) !important;
+    }
+
+    &__card-header {
+      background-color: var(--rds-kanban-header-bg) !important;
+      color: var(--rds-color-on-primary) !important;
+      border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
+    }
+
+    &__header-button,
+    &__title-area,
+    &__title-count,
+    .card-name {
+      color: var(--rds-color-on-primary) !important;
+    }
+  }
+
+  .rds-kanban-board__sub-card-card,
+  .kanban-board .sub-card .MuiCard-root {
+    background-color: var(--rds-kanban-subcard-bg) !important;
+    border: 1px solid var(--rds-kanban-subcard-border) !important;
+  }
+
+  .rds-kanban-board__sub-card-header-left .MuiTypography-root,
+  .rds-kanban-board__sub-card-text,
+  .rds-kanban-board__sub-card-footer-left,
+  .rds-kanban-board__sub-card-text.f-14.fw-400,
+  .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
+    color: var(--rds-text-primary) !important;
+  }
+
+  .rds-kanban-board__add-button {
+    background-color: var(--rds-background-paper) !important;
+    border-color: var(--rds-primary-main) !important;
+    color: var(--rds-primary-main) !important;
+  }
+}

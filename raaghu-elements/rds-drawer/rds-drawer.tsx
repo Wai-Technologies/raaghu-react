@@ -3,7 +3,7 @@ import { Drawer as MuiDrawer, type DrawerProps } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import './rds-drawer.scss';
 
-export interface RdsDrawerProps extends DrawerProps {
+export interface RdsDrawerProps extends Omit<DrawerProps, 'component'> {
   children: ReactNode;
   width?: number | string;
   position?: 'left' | 'right' | 'top' | 'bottom';
@@ -82,6 +82,8 @@ const RdsDrawer = ({
     }
     return children;
   };
+
+  const drawerContent = renderDrawerContent();
   
   const drawerElement = (
     <MuiDrawer
@@ -99,7 +101,7 @@ const RdsDrawer = ({
       }}
       {...props}
     >
-      {renderDrawerContent()}
+      {drawerContent}
     </MuiDrawer>
   );
 

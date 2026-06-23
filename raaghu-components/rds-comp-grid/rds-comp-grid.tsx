@@ -580,7 +580,17 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     { id: 2, column: '', operator: 'contains', value: '' }
   ]);
   const [columnFilterStates, setColumnFilterStates] = useState<{[columnKey: string]: {operator: string, value: string}}>({});
-  const [columnWidths, setColumnWidths] = useState<{[columnKey: string]: number}>({});
+  const [columnWidths, setColumnWidths] = useState<{[columnKey: string]: number}>(() => {
+    const initialWidths: {[columnKey: string]: number} = {};
+    tableHeaders.forEach(header => {
+      if (header.colWidth) {
+        initialWidths[header.key] = parseInt(header.colWidth.replace('px', ''));
+      } else {
+        initialWidths[header.key] = header.minWidth || 100;
+      }
+    });
+    return initialWidths;
+  });
   const [isResizing, setIsResizing] = useState(false);
   const [resizingColumn, setResizingColumn] = useState<string | null>(null);
   const [resizeStartX, setResizeStartX] = useState(0);
@@ -1062,18 +1072,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isFilterPopupOpen, filterAnchorEl]);
-
-  useEffect(() => {
-    const initialWidths: {[columnKey: string]: number} = {};
-    tableHeaders.forEach(header => {
-      if (header.colWidth) {
-        initialWidths[header.key] = parseInt(header.colWidth.replace('px', ''));
-      } else {
-        initialWidths[header.key] = header.minWidth || 100;
-      }
-    });
-    setColumnWidths(initialWidths);
-  }, [tableHeaders]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -2367,9 +2365,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   >
                     {(dragProvided: DraggableProvided, dragSnapshot: DraggableStateSnapshot) => (
                       <TableRow
+                        key={rowId}
                         ref={dragProvided.innerRef}
                         {...dragProvided.draggableProps}
-                        key={rowId}
                         selected={isSelected}
                         hover
                         onClick={() => onRowClick?.(rowId)}
@@ -2599,8 +2597,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 // Style attribute selectors removed - using CSS classes instead
                                 // See rds-comp-grid.scss for themed cell styling classes
                               }}
-                              dangerouslySetInnerHTML={{ __html: cellValue }}
-                            />
+                            >
+                              {cellText}
+                            </Box>
                           ) : isEditable && inlineEditMode === 'cell' ? (
                             <EditableCell
                               value={cellValue}

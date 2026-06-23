@@ -154,8 +154,8 @@ export const Default: Story = {
         {args.autoSearch && searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -202,8 +202,8 @@ export const AutoSearch: Story = {
         <Box sx={{ mt: 2 }}>
           {searchResults.length > 0 && (
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -248,8 +248,8 @@ export const FullWidth: Story = {
         {searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -300,8 +300,8 @@ export const Sizes: Story = {
         {searchResults.length > 0 && (
           <Box sx={{ mt: -1 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -361,8 +361,8 @@ export const Variants: Story = {
         {searchResults.length > 0 && (
           <Box sx={{ mt: -1 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}
@@ -403,8 +403,8 @@ export const WithoutIcons: Story = {
         {searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
             <Box sx={searchResultsBoxSx}>
-              {searchResults.map((result, index) => (
-                <Box key={index} sx={{ py: 0.5 }}>
+              {searchResults.map((result) => (
+                <Box key={result} sx={{ py: 0.5 }}>
                   {result}
                 </Box>
               ))}

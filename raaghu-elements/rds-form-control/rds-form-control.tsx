@@ -9,7 +9,7 @@ import {
   type FormControlProps
 } from '@mui/material';
 
-export interface RdsFormControlProps extends FormControlProps {
+export interface RdsFormControlProps extends Omit<FormControlProps, 'component'> {
   label?: string;
   helperText?: string;
   children: ReactNode;

@@ -1,6 +1,6 @@
-import { useState, type SyntheticEvent } from "react";
+import { useState, type SyntheticEvent, type MouseEventHandler } from "react";
 import { RdsAvatar, RdsRating } from "../../raaghu-elements";
-import { Item, RevieweStyle } from "./rds-comp-reviews";
+import { Item, RevieweStyle } from "./rds-comp-reviews-types";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
@@ -12,661 +12,541 @@ import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material
  */
 export const formatDate = (date?: Date) => {
   if (!date) return "Date not available";
-  return date.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
   });
 };
 
-const Style1 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-      <Card sx={{ height: '100%' }}>
-      <CardContent sx={{ textAlign: 'center' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'fontWeightMedium', fontSize: 'h6.fontSize' } }}>
-          <RdsAvatar
-            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-            title={item.name}
-            size="medium"
-            displayStyle="name-bottom"
-          />
+interface FeedbackActionsProps {
+  likes: number;
+  dislikes: number;
+  iconSize: "small" | "medium";
+  onLike: MouseEventHandler<HTMLButtonElement>;
+  onDislike: MouseEventHandler<HTMLButtonElement>;
+}
+
+const FeedbackActions = ({ likes, dislikes, iconSize, onLike, onDislike }: FeedbackActionsProps) => (
+  <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", my: 3 }}>
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center", mr: 3 }}>
+        <Box
+          component="button"
+          onClick={onLike}
+          sx={{ p: 0, color: "primary.main", backgroundColor: "transparent", border: "none", cursor: "pointer" }}
+        >
+          <ThumbUpAltIcon color="primary" fontSize={iconSize} />
         </Box>
-        <Box>
-                  <Typography variant="subtitle1" color="text.secondary">{item.username}</Typography>
+        <Typography variant="body2" sx={{ ml: 1 }}>{likes}</Typography>
+      </Box>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box
+          component="button"
+          onClick={onDislike}
+          sx={{ p: 0, color: "error.main", backgroundColor: "transparent", border: "none", cursor: "pointer" }}
+        >
+          <ThumbDownAltIcon color="error" fontSize={iconSize} />
         </Box>
-        <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
-         <RdsRating
-          styles="default"
-          type="star"
-          value={rating}
-          size="medium"
-          onChange={handleRatingChange}
-            precision={0.5}
-          readOnly={false}
-          />
-        </Box>
-        <Typography variant="body1">{item.description}</Typography>
-      </CardContent>
-    </Card>
-  );
-};
-
-const Style2 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ height: '100%' }}>
-      <CardContent sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h6" fontWeight="bold">{item.name}</Typography>
-        <Typography variant="subtitle1" color="text.secondary">{item.username}</Typography>
-        <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
-          <RdsRating
-            value={rating}
-            precision={0.5}
-            size="medium"
-            onChange={handleRatingChange}
-            readOnly={false}
-          />
-        </Box>
-        <Typography variant="body1">{item.description}</Typography>
-      </CardContent>
-    </Card>
-  );
-};
-
-const Style3 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'fontWeightMedium', fontSize: 'h6.fontSize'  } }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-        <RdsAvatar
-          src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          title={item.name}
-          subText={formatDate(item.date)}
-          size="medium"
-          displayStyle="with-name"
-        />
+        <Typography variant="body2" sx={{ ml: 1 }}>{dislikes}</Typography>
       </Box>
+    </Box>
+  </Box>
+);
 
-      <Typography variant="body1">{item.description}</Typography>
+FeedbackActions.displayName = "FeedbackActions";
 
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-        <RdsRating
-          value={rating}
-          precision={0.5}
-          size="medium"
-          onChange={handleRatingChange}
-          readOnly={false}
-        />
-      </Box>
-    </Card>
-  );
-};
+export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweStyle }) => {
+  const initialRating =
+    style === RevieweStyle.Style11 || style === RevieweStyle.Style12
+      ? 1
+      : item.rating || 4.5;
 
-const Style4 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ p: 3, height: '100%' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box>
-          <Typography variant="h6" fontWeight="bold">
-            {item.name}
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
-            {formatDate(item.date)}
-          </Typography>
-        </Box>
-      </Box>
-
-      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
-
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-        <RdsRating
-          value={rating}
-          precision={0.5}
-          size="medium"
-          onChange={handleRatingChange}
-          readOnly={false}
-        />
-      </Box>
-    </Card>
-  );
-};
-
-const Style5 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ p: 3, height: '100%' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <RdsAvatar
-           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          title={item.name}
-          size="medium"
-          showDesignation={false}
-          showName={false}
-        />
-        <Box >
-          <Typography variant="h6" fontWeight="bold">
-            {item.name}
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
-            {formatDate(item.date)}
-          </Typography>
-        </Box>
-      </Box>
-      
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-        <RdsRating
-          value={rating}
-          precision={0.5}
-          size="medium"
-          onChange={handleRatingChange}
-          readOnly={false}
-        />
-      </Box>
-      
-      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
-    </Card>
-  );
-};
-
-const Style6 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ p: 3, height: '100%' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>
-            {item.name}
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
-            {formatDate(item.date)}
-          </Typography>
-        </Box>
-      </Box>
-      
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-        <RdsRating
-          value={rating}
-          precision={0.5}
-          size="medium"
-          onChange={handleRatingChange}
-          readOnly={false}
-        />
-      </Box>
-      
-      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
-    </Card>
-  );
-};
-
-const Style7 = ({ item }: { item: Item }) => {
+  const [rating, setRating] = useState(initialRating);
   const [likes, setLikes] = useState(item.likes || 35);
   const [dislikes, setDislikes] = useState(item.dislikes || 10);
-  const [rating, setRating] = useState(item.rating || 4.5);
-  const isXs = useMediaQuery('(max-width: 600px)');
-  
-  const handleLike = () => {
-    setLikes(prev => prev + 1);
-  };
-  
-  const handleDislike = () => {
-    setDislikes(prev => prev + 1);
-  };
-  
+  const isXs = useMediaQuery("(max-width: 600px)");
+
   const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
     if (newValue !== null) {
       setRating(newValue);
     }
   };
-  
-  return (
-    <Card sx={{ p: 3, height: '100%' }} className="rating-text">
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: { xs: 'flex-start', sm: 'center' },
-          gap: 1.5,
-          flexDirection: { xs: 'column', sm: 'row' }
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1,
-            flexWrap: { xs: 'wrap', sm: 'nowrap' },
-            width: '100%'
-          }}
-        >
-          <RdsAvatar
-            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-            title={item.name}
-            size={isXs ? 'small' : 'medium'}
-            showDesignation={false}
-            showName={false}
-          />
-          <Box sx={{ minWidth: 0 }}>
-            <Typography
-              variant="h6"
-              fontWeight="fontWeightMedium"
-              sx={{ fontSize: { xs: 'body1.fontSize', sm: 'h6.fontSize' }, lineHeight: 1.2 }}
+
+  const handleLike = () => {
+    setLikes((prev) => prev + 1);
+  };
+
+  const handleDislike = () => {
+    setDislikes((prev) => prev + 1);
+  };
+
+  switch (style) {
+    case RevieweStyle.Style1:
+      return (
+        <Card sx={{ height: "100%" }}>
+          <CardContent sx={{ textAlign: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                "& .rds-avatar__name": {
+                  fontWeight: "fontWeightMedium",
+                  fontSize: "h6.fontSize",
+                },
+              }}
             >
+              <RdsAvatar
+                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+                title={item.name}
+                size="medium"
+                displayStyle="name-bottom"
+              />
+            </Box>
+            <Box>
+              <Typography variant="subtitle1" color="text.secondary">
+                {item.username}
+              </Typography>
+            </Box>
+            <Box sx={{ my: 3, display: "flex", justifyContent: "center" }}>
+              <RdsRating
+                styles="default"
+                type="star"
+                value={rating}
+                size="medium"
+                onChange={handleRatingChange}
+                precision={0.5}
+                readOnly={false}
+              />
+            </Box>
+            <Typography variant="body1">{item.description}</Typography>
+          </CardContent>
+        </Card>
+      );
+
+    case RevieweStyle.Style2:
+      return (
+        <Card sx={{ height: "100%" }}>
+          <CardContent sx={{ textAlign: "center", display: "flex", flexDirection: "column" }}>
+            <Typography variant="h6" fontWeight="bold">
               {item.name}
             </Typography>
+            <Typography variant="subtitle1" color="text.secondary">
+              {item.username}
+            </Typography>
+            <Box sx={{ my: 3, display: "flex", justifyContent: "center" }}>
+              <RdsRating
+                value={rating}
+                precision={0.5}
+                size="medium"
+                onChange={handleRatingChange}
+                readOnly={false}
+              />
+            </Box>
+            <Typography variant="body1">{item.description}</Typography>
+          </CardContent>
+        </Card>
+      );
+
+    case RevieweStyle.Style3:
+      return (
+        <Card
+          sx={{
+            p: 3,
+            height: "100%",
+            "& .rds-avatar__name": {
+              fontWeight: "fontWeightMedium",
+              fontSize: "h6.fontSize",
+            },
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+            <RdsAvatar
+              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+              title={item.name}
+              subText={formatDate(item.date)}
+              size="medium"
+              displayStyle="with-name"
+            />
+          </Box>
+
+          <Typography variant="body1">{item.description}</Typography>
+
+          <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+            <RdsRating
+              value={rating}
+              precision={0.5}
+              size="medium"
+              onChange={handleRatingChange}
+              readOnly={false}
+            />
+          </Box>
+        </Card>
+      );
+
+    case RevieweStyle.Style4:
+      return (
+        <Card sx={{ p: 3, height: "100%" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box>
+              <Typography variant="h6" fontWeight="bold">
+                {item.name}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {formatDate(item.date)}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Typography variant="body1" sx={{ mt: 3 }}>
+            {item.description}
+          </Typography>
+
+          <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+            <RdsRating
+              value={rating}
+              precision={0.5}
+              size="medium"
+              onChange={handleRatingChange}
+              readOnly={false}
+            />
+          </Box>
+        </Card>
+      );
+
+    case RevieweStyle.Style5:
+      return (
+        <Card sx={{ p: 3, height: "100%" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <RdsAvatar
+              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+              title={item.name}
+              size="medium"
+              showDesignation={false}
+              showName={false}
+            />
+            <Box>
+              <Typography variant="h6" fontWeight="bold">
+                {item.name}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {formatDate(item.date)}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+            <RdsRating
+              value={rating}
+              precision={0.5}
+              size="medium"
+              onChange={handleRatingChange}
+              readOnly={false}
+            />
+          </Box>
+
+          <Typography variant="body1" sx={{ mt: 3 }}>
+            {item.description}
+          </Typography>
+        </Card>
+      );
+
+    case RevieweStyle.Style6:
+      return (
+        <Card sx={{ p: 3, height: "100%" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box>
+              <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>
+                {item.name}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {formatDate(item.date)}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+            <RdsRating
+              value={rating}
+              precision={0.5}
+              size="medium"
+              onChange={handleRatingChange}
+              readOnly={false}
+            />
+          </Box>
+
+          <Typography variant="body1" sx={{ mt: 3 }}>
+            {item.description}
+          </Typography>
+        </Card>
+      );
+
+    case RevieweStyle.Style7:
+      return (
+        <Card sx={{ p: 3, height: "100%" }} className="rating-text">
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: { xs: "flex-start", sm: "center" },
+              gap: 1.5,
+              flexDirection: { xs: "column", sm: "row" },
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                flexWrap: { xs: "wrap", sm: "nowrap" },
+                width: "100%",
+              }}
+            >
+              <RdsAvatar
+                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+                title={item.name}
+                size={isXs ? "small" : "medium"}
+                showDesignation={false}
+                showName={false}
+              />
+              <Box sx={{ minWidth: 0 }}>
+                <Typography
+                  variant="h6"
+                  fontWeight="fontWeightMedium"
+                  sx={{ fontSize: { xs: "body1.fontSize", sm: "h6.fontSize" }, lineHeight: 1.2 }}
+                >
+                  {item.name}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {formatDate(item.date)}
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              className="rating-wrapper"
+              sx={{
+                alignSelf: { xs: "stretch", sm: "auto" },
+                width: { xs: "100%", sm: "auto" },
+                mt: { xs: 1, sm: 0 },
+                display: "flex",
+                justifyContent: { xs: "flex-start", sm: "flex-end" },
+              }}
+            >
+              <RdsRating
+                value={rating}
+                precision={0.5}
+                size={isXs ? "small" : "medium"}
+                onChange={handleRatingChange}
+                readOnly={false}
+              />
+            </Box>
+          </Box>
+
+          <Typography variant="body1" sx={{ mt: 3 }}>
+            {item.description}
+          </Typography>
+
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="small" onLike={handleLike} onDislike={handleDislike} />
+        </Card>
+      );
+
+    case RevieweStyle.Style8:
+      return (
+        <Card sx={{ p: 3, height: "100%" }}>
+          <Box>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2, mt: 2 }}>
+              <RdsRating
+                value={rating}
+                precision={0.5}
+                size="medium"
+                onChange={handleRatingChange}
+                readOnly={false}
+              />
+            </Box>
+            <Typography variant="caption" color="text.secondary">
+              {formatDate(item.date)}
+            </Typography>
+
+            <Typography variant="body1" sx={{ mt: 3 }}>
+              {item.description}
+            </Typography>
+
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Typography variant="body2" sx={{ mb: 0, textAlign: "right", mt: 1 }}>
+                {item.name}
+              </Typography>
+            </Box>
+          </Box>
+        </Card>
+      );
+
+    case RevieweStyle.Style9:
+      return (
+        <Card sx={{ p: 3, height: "100%" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <RdsAvatar
+              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+              title={item.name}
+              size="medium"
+              showDesignation={false}
+              showName={false}
+            />
+            <Box>
+              <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>
+                {item.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ textTransform: "lowercase" }}>
+                {item.username}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <RdsRating
+                value={rating}
+                precision={0.5}
+                size="medium"
+                onChange={handleRatingChange}
+                readOnly={false}
+              />
+            </Box>
+
             <Typography variant="caption" color="text.secondary">
               {formatDate(item.date)}
             </Typography>
           </Box>
-        </Box>
-        <Box
-          className="rating-wrapper"
-          sx={{
-            alignSelf: { xs: 'stretch', sm: 'auto' },
-            width: { xs: '100%', sm: 'auto' },
-            mt: { xs: 1, sm: 0 },
-            display: 'flex',
-            justifyContent: { xs: 'flex-start', sm: 'flex-end' }
-          }}
-        >
-          <RdsRating
-            value={rating}
-            precision={0.5}
-            size={isXs ? 'small' : 'medium'}
-            onChange={handleRatingChange}
-            readOnly={false}
-          />
-        </Box>
-      </Box>
-      
-      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
-      
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
-            <Box 
-              component="button" 
-              onClick={handleLike}
-              sx={{ 
-                p: 0, 
-                color: 'primary.main',
-                backgroundColor: 'transparent', 
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              <ThumbUpAltIcon color="primary" fontSize="small" />
-            </Box>
-            <Typography variant="body2" sx={{ ml: 1 }}>{likes}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box 
-              component="button" 
-              onClick={handleDislike}
-              sx={{ 
-                p: 0, 
-                color: 'error.main',
-                backgroundColor: 'transparent', 
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              <ThumbDownAltIcon color="error" fontSize="small" />
-            </Box>
-            <Typography variant="body2" sx={{ ml: 1 }}>{dislikes}</Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Card>
-  );
-};
 
-const Style8 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ p: 3, height: '100%' }}>
-      <Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, mt: 2 }}>
-          <RdsRating
-            value={rating}
-            precision={0.5}
-            size="medium"
-            onChange={handleRatingChange}
-            readOnly={false}
-          />
-        </Box>
-        <Typography variant="caption" color="text.secondary">
-          {formatDate(item.date)}
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
-        
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Typography variant="body2" sx={{ mb: 0, textAlign: 'right', mt: 1}}>{item.name}</Typography>
-        </Box>
-      </Box>
-    </Card>
-  );
-};
-
-const Style9 = ({ item }: { item: Item }) => {
-  const [likes, setLikes] = useState(item.likes || 35);
-  const [dislikes, setDislikes] = useState(item.dislikes || 10);
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleLike = () => {
-    setLikes(prev => prev + 1);
-  };
-  
-  const handleDislike = () => {
-    setDislikes(prev => prev + 1);
-  };
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ p: 3, height: '100%' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <RdsAvatar
-           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          title={item.name}
-          size="medium"
-          showDesignation={false}
-          showName={false}
-        />
-        <Box>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
-            {item.username}
+          <Typography variant="body1" sx={{ mt: 3 }}>
+            {item.description}
           </Typography>
-        </Box>
-      </Box>
-      
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <RdsRating
-            value={rating}
-            precision={0.5}
-            size="medium"
-            onChange={handleRatingChange}
-            readOnly={false}
-          />
-        </Box>
 
-        <Typography variant="caption" color="text.secondary">
-          {formatDate(item.date)}
-        </Typography>
-      </Box>
-    
-      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" onLike={handleLike} onDislike={handleDislike} />
+        </Card>
+      );
 
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
-            <Box 
-              component="button"
-              onClick={handleLike}
-              sx={{ 
-                p: 0, 
-                color: 'primary.main',
-                backgroundColor: 'transparent', 
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              <ThumbUpAltIcon color="primary" fontSize="medium" />
+    case RevieweStyle.Style10:
+      return (
+        <Card sx={{ p: 3, height: "100%" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box>
+              <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>
+                {item.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ textTransform: "lowercase" }}>
+                {item.username}
+              </Typography>
             </Box>
-            <Typography variant="body2" sx={{ ml: 1 }}>{likes}</Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box 
-              component="button"
-              onClick={handleDislike}
-              sx={{ 
-                p: 0, 
-                color: 'error.main',
-                backgroundColor: 'transparent', 
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              <ThumbDownAltIcon color="error" fontSize="medium" />
-            </Box>
-            <Typography variant="body2" sx={{ ml: 1 }}>{dislikes}</Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Card>
-  );
-};
 
-const Style10 = ({ item }: { item: Item }) => {
-  const [likes, setLikes] = useState(item.likes || 35);
-  const [dislikes, setDislikes] = useState(item.dislikes || 10);
-  const [rating, setRating] = useState(item.rating || 4.5);
-  
-  const handleLike = () => {
-    setLikes(prev => prev + 1);
-  };
-  
-  const handleDislike = () => {
-    setDislikes(prev => prev + 1);
-  };
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ p: 3, height: '100%' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
-            {item.username}
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <RdsRating
+                value={rating}
+                precision={0.5}
+                size="medium"
+                onChange={handleRatingChange}
+                readOnly={false}
+              />
+            </Box>
+
+            <Typography variant="caption" color="text.secondary">
+              {formatDate(item.date)}
+            </Typography>
+          </Box>
+
+          <Typography variant="body1" sx={{ mt: 3 }}>
+            {item.description}
           </Typography>
-        </Box>
-      </Box>
-      
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <RdsRating
-            value={rating}
-            precision={0.5}
-            size="medium"
-            onChange={handleRatingChange}
-            readOnly={false}
-          />
-        </Box>
 
-        <Typography variant="caption" color="text.secondary">
-          {formatDate(item.date)}
-        </Typography>
-      </Box>
-      
-      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
-      
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
-            <Box 
-              component="button"
-              onClick={handleLike}
-              sx={{ 
-                p: 0, 
-                color: 'primary.main',
-                backgroundColor: 'transparent', 
-                border: 'none',
-                cursor: 'pointer'
+          <FeedbackActions likes={likes} dislikes={dislikes} iconSize="medium" onLike={handleLike} onDislike={handleDislike} />
+        </Card>
+      );
+
+    case RevieweStyle.Style11:
+      return (
+        <Card sx={{ height: "100%" }}>
+          <CardContent>
+            <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+              <RdsAvatar
+                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+                title={item.name}
+                alt={item.name}
+                showName={false}
+                size="medium"
+              />
+            </Box>
+            <Typography variant="h6" fontWeight="bold" sx={{ textAlign: "center" }}>
+              {item.name}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: "center" }}>
+              {item.username}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 0.5,
+                my: 3,
               }}
             >
-              <ThumbUpAltIcon color="primary" fontSize="medium" />
+              <RdsRating
+                value={rating}
+                max={1}
+                size="medium"
+                onChange={handleRatingChange}
+                readOnly={false}
+                precision={0.5}
+              />
+              <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
             </Box>
-            <Typography variant="body2" sx={{ ml: 1 }}>{likes}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box 
-              component="button"
-              onClick={handleDislike}
-              sx={{ 
-                p: 0, 
-                color: 'error.main',
-                backgroundColor: 'transparent', 
-                border: 'none',
-                cursor: 'pointer'
+            <Typography variant="body1" sx={{ textAlign: "center" }}>
+              {item.description}
+            </Typography>
+          </CardContent>
+        </Card>
+      );
+
+    case RevieweStyle.Style12:
+      return (
+        <Card sx={{ height: "100%" }}>
+          <CardContent>
+            <Typography variant="h6" fontWeight="bold" sx={{ textAlign: "center" }}>
+              {item.name}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: "center" }}>
+              {item.username}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "var(--rds-spacing-xs-px)",
+                my: 3,
               }}
             >
-              <ThumbDownAltIcon color="error" fontSize="medium" />
+              <RdsRating
+                value={rating}
+                max={1}
+                size="medium"
+                onChange={handleRatingChange}
+                readOnly={false}
+                precision={0.5}
+              />
+              <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
             </Box>
-            <Typography variant="body2" sx={{ ml: 1 }}>{dislikes}</Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Card>
-  );
-};
+            <Typography variant="body1" sx={{ textAlign: "center" }}>
+              {item.description}
+            </Typography>
+          </CardContent>
+        </Card>
+      );
 
-const Style11 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(1);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ height: '100%' }}>
-      <CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-          <RdsAvatar
-            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-            title={item.name}
-            alt={item.name}
-            showName={false}
-            size="medium"
-          />
-        </Box>
-        <Typography variant="h6" fontWeight="bold" sx={{ textAlign: 'center' }}>{item.name}</Typography>
-        <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
-          {item.username}
-        </Typography>
-          <Box sx={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          gap: 0.5, 
-          my: 3 
-        }}>
-          <RdsRating
-            value={rating}
-            max={1}
-            size="medium"
-            onChange={handleRatingChange}
-            readOnly={false}
-            precision={0.5}
-          />
-          <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
-        </Box>
-        <Typography variant="body1" sx={{ textAlign: 'center' }}>{item.description}</Typography>
-      </CardContent>
-    </Card>
-  );
-};
-
-const Style12 = ({ item }: { item: Item }) => {
-  const [rating, setRating] = useState(1);
-  
-  const handleRatingChange = (_event: SyntheticEvent, newValue: number | null) => {
-    if (newValue !== null) {
-      setRating(newValue);
-    }
-  };
-  
-  return (
-    <Card sx={{ height: '100%' }}>
-      <CardContent>
-        <Typography variant="h6" fontWeight="bold"  sx={{ textAlign: 'center' }}>{item.name}</Typography>
-        <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
-          {item.username}
-        </Typography>
-        <Box sx={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          gap: 'var(--rds-spacing-xs-px)',
-          my: 3 
-        }}>
-          <RdsRating
-            value={rating}
-            max={1}
-            size="medium"
-            onChange={handleRatingChange}
-            readOnly={false}
-            precision={0.5}
-          />
-          <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
-        </Box>
-        <Typography variant="body1" sx={{ textAlign: 'center' }}>{item.description}</Typography>
-      </CardContent>
-    </Card>
-  );
+    default:
+      return null;
+  }
 };
 
 /**
@@ -676,45 +556,7 @@ const Style12 = ({ item }: { item: Item }) => {
  * @returns The styled review component
  */
 export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
-  switch (style) {
-    case RevieweStyle.Style1:
-      return <Style1 item={item} />;
-    case RevieweStyle.Style2:
-      return <Style2 item={item} />;
-    case RevieweStyle.Style3:
-      return <Style3 item={item} />;
-    case RevieweStyle.Style4:
-      return <Style4 item={item} />;
-    case RevieweStyle.Style5:
-      return <Style5 item={item} />;
-    case RevieweStyle.Style6:
-      return <Style6 item={item} />;
-    case RevieweStyle.Style7:
-      return <Style7 item={item} />;
-    case RevieweStyle.Style8:
-      return <Style8 item={item} />;
-    case RevieweStyle.Style9:
-      return <Style9 item={item} />;
-    case RevieweStyle.Style10:
-      return <Style10 item={item} />;
-    case RevieweStyle.Style11:
-      return <Style11 item={item} />;
-    case RevieweStyle.Style12:
-      return <Style12 item={item} />;
-    default:
-      return null;
-  }
+  return <ReviewStyleCard item={item} style={style} />;
 };
 
-Style1.displayName = 'Style1';
-Style2.displayName = 'Style2';
-Style3.displayName = 'Style3';
-Style4.displayName = 'Style4';
-Style5.displayName = 'Style5';
-Style6.displayName = 'Style6';
-Style7.displayName = 'Style7';
-Style8.displayName = 'Style8';
-Style9.displayName = 'Style9';
-Style10.displayName = 'Style10';
-Style11.displayName = 'Style11';
-Style12.displayName = 'Style12';
+ReviewStyleCard.displayName = "ReviewStyleCard";

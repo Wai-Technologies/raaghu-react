@@ -19,7 +19,7 @@ export interface RdsTimelineItem {
   variant?: 'filled' | 'outlined';
 }
 
-export interface RdsTimelineProps extends Omit<TimelineProps, 'children'> {
+export interface RdsTimelineProps extends Omit<TimelineProps, 'children' | 'component'> {
   items: RdsTimelineItem[];
   showTime?: boolean;
   alternating?: boolean;

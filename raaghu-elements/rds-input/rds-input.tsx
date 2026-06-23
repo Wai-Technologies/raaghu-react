@@ -1,9 +1,20 @@
-import { useState, useEffect, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
+import { useRef, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
 import clsx from 'clsx';
 import './rds-input.scss';
 
-export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size'> {
+function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): string {
+  switch (layoutType) {
+    case 'password': return '••••••••';
+    case 'phone number': return 'Enter Phone Number';
+    case 'number': return 'Enter Number';
+    case 'card number': return 'XXXX XXXX XXXX XXXX';
+    case 'text':
+    default: return 'Placeholder Text';
+  }
+}
+
+export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component'> {
   label?: string;
   placeholder?: string;
   hintText?: string;
@@ -46,12 +57,15 @@ const RdsInput = ({
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [internalValue, setInternalValue] = useState('');
+  const prevLayoutRef = useRef(layout);
   const isControlled = value !== undefined;
-  useEffect(() => {
+
+  if (layout !== prevLayoutRef.current) {
+    prevLayoutRef.current = layout;
     if (!isControlled) {
       setInternalValue('');
     }
-  }, [layout, isControlled]);
+  }
   
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -192,22 +206,7 @@ const RdsInput = ({
       }
     }
   };
-  const getPlaceholder = (layoutType: RdsInputProps['layout'] | undefined) => {
-    switch (layoutType) {
-      case 'password':
-        return '••••••••';
-      case 'phone number':
-        return 'Enter Phone Number';
-      case 'number':
-        return 'Enter Number';
-      case 'card number':
-        return 'XXXX XXXX XXXX XXXX';
-      case 'text':
-      default:
-        return 'Placeholder Text';
-    }
-  };
-  const computedPlaceholder = placeholder ?? getPlaceholder(layout);
+  const computedPlaceholder = placeholder ?? getInputPlaceholder(layout);
   const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
   const numericInputProps: InputHTMLAttributes<HTMLInputElement> =
     layout === 'phone number' || layout === 'number' || layout === 'card number'

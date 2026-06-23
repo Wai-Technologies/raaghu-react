@@ -1,17 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import clsx from "clsx";
 import "./rds-comp-scrollbar.scss";
-
-export enum ScrollBarType {
-  Mac = "Mac",
-  Simple = "Simple",
-}
-
-export enum ScrollPosition {
-  Start = "Start",
-  Middle = "Middle",
-  End = "End",
-}
+export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
+import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 
 export interface RdsScrollBarProps {
   type?: ScrollBarType;
@@ -67,6 +58,7 @@ const RdsCompScrollBar = ({
       {type === ScrollBarType.Mac && showButtons && (
         <div className="rds-scrollbar__controls">
           <button
+            type="button"
             className="rds-scrollbar__button"
             onClick={scrollToStart}
             aria-label="Scroll to top"
@@ -74,6 +66,7 @@ const RdsCompScrollBar = ({
             {startIcon}
           </button>
           <button
+            type="button"
             className="rds-scrollbar__button"
             onClick={scrollToEnd}
             aria-label="Scroll to bottom"

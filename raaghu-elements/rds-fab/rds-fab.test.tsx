@@ -573,14 +573,14 @@ describe('RdsFab', () => {
 
     it('should handle null children', () => {
       const { container } = render(
-        <RdsFab {...defaultProps} children={null} />
+        <RdsFab {...defaultProps} >{null}</RdsFab>
       );
       expect(container).toBeInTheDocument();
     });
 
     it('should handle undefined children', () => {
       const { container } = render(
-        <RdsFab {...defaultProps} children={undefined} />
+        <RdsFab {...defaultProps} >{undefined}</RdsFab>
       );
       expect(container).toBeInTheDocument();
     });

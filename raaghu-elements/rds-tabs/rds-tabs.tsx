@@ -5,6 +5,11 @@ import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
 import './rds-tabs.scss';
 
+function capitalizeFirstLetter(text: string): string {
+  if (typeof text !== 'string' || text.length === 0) return text;
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
 export interface RdsTabItem {
   id: string | number;
   label: string;
@@ -29,7 +34,7 @@ export type RdsTabsLayout =
   | 'line-top-solid'
   | 'pill';
 
-export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
+export interface RdsTabsProps extends Omit<TabsProps, 'orientation' | 'component'> {
   tabs: RdsTabItem[];
   activeTab?: string | number;
   onTabChange?: (tabId: string | number) => void;
@@ -57,11 +62,7 @@ const RdsTabs = ({
   showRightIcon = true,
   ...props
 }:RdsTabsProps) => {
-  const capitalizeFirstLetter = (text: string) => {
-    if (typeof text !== 'string' || text.length === 0) return text;
-    const result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-    return result;
-  };
+
 
   const handleChange = (event: SyntheticEvent, newValue: string | number) => {
     if (onTabChange) {

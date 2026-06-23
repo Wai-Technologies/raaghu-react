@@ -19,7 +19,7 @@ export interface RdsRadioOption {
   disabled?: boolean;
 }
 
-export interface RdsRadioProps extends Omit<RadioGroupProps, 'children'> {
+export interface RdsRadioProps extends Omit<RadioGroupProps, 'children' | 'component'> {
   options: RdsRadioOption[];
   label?: string;
   direction?: 'row' | 'column';

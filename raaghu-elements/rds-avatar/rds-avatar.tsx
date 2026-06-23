@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 
-export interface RdsAvatarProps extends AvatarProps {
+export interface RdsAvatarProps extends Omit<AvatarProps, 'component'> {
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
   title?: string;
   subText?: string;
@@ -67,7 +67,7 @@ const RdsAvatar = ({
       <div className="rds-avatar__stacking avatar-container" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
         {visibleAvatars.map((avatar, idx) => (
     <MuiAvatar
-      key={idx}
+      key={avatar.src || avatar.title || avatar.alt || `${avatar.colorVariant || 'avatar'}-${idx + 1}`}
       src={avatar.src}
       sx={{
               ...sizeStyles[size],

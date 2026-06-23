@@ -39,6 +39,16 @@
     }
   }
 
+  &__worldmap-host {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: transparent;
+  }
+
   svg {
     display: block;
     margin: 0 auto;
@@ -59,6 +69,26 @@
     overflow: visible;
   }
 
+  .svg-map,
+  svg {
+    background: var(--rds-background-paper, transparent) !important;
+  }
+
+  .svg-map__background,
+  svg > rect:first-of-type {
+    fill: var(--rds-background-paper, transparent) !important;
+  }
+
+  // Fix: figure wrapper from react-svg-worldmap should be transparent
+  figure,
+  .worldmap__figure-container,
+  figure.worldmap__figure-container {
+    background-color: transparent !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   div[style*="height"] {
     height: auto !important;
   }
@@ -69,6 +99,11 @@
       width: calc(100vw - 20px) !important;
     }
   }
+
+  .rds-theme--dark .rds-comp-map .worldmap__figure-container,
+[data-theme="dark"] .rds-comp-map .worldmap__figure-container {
+  background-color: transparent !important;
+}
 
   &__heatmap-image {
     display: block;
@@ -201,18 +236,37 @@
 }
 
 /* Dark-theme SVG/background fixes so the map doesn't render a white inner canvas */
-body[data-theme="dark"], html[data-theme="dark"], .theme-dark, .sb-show-main[data-theme="dark"],
+body[data-theme="dark"], html[data-theme="dark"], body[data-bs-theme="dark"], html[data-bs-theme="dark"], .theme-dark, .sb-show-main[data-theme="dark"],
 .rds-theme--dark, body.theme-dark, .dark-theme {
   .rds-comp-map {
     background: var(--rds-bg, transparent) !important;
 
+    // Target the figure/container rendered by react-svg-worldmap
+    figure,
+    .worldmap__figure-container,
+    figure.worldmap__figure-container {
+      background-color: transparent !important;
+      background: transparent !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
     svg {
-      background-color: var(--rds-color-surface-dark, #1f1f1f) !important;
+      background-color: transparent !important;
+    }
+
+    .rds-comp-map__worldmap-host,
+    .svg-map {
+      background-color: transparent !important;
     }
 
     /* Some world map implementations render a rect or a white group; ensure it's dark */
-    svg rect, svg > rect, svg g rect {
-      fill: var(--rds-color-surface-dark, #1f1f1f) !important;
+    .svg-map__background,
+    svg > rect:first-of-type,
+    svg rect[fill="#fff"],
+    svg rect[fill="#ffffff"],
+    svg rect[fill="white"] {
+      fill: transparent !important;
     }
 
     /* Make label and surrounding areas adapt to dark theme */

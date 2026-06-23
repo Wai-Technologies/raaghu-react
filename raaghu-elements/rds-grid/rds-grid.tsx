@@ -6,7 +6,7 @@ import {
 import clsx from 'clsx';
 import './rds-grid.scss';
 
-export interface RdsGridProps extends GridProps {
+export interface RdsGridProps extends Omit<GridProps, 'component'> {
   children?: ReactNode;
 }
 

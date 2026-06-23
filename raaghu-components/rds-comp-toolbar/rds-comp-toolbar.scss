@@ -161,7 +161,7 @@
     min-width: var(--rds-size-xl);
     height: var(--rds-size-xl);
     padding: var(--rds-spacing-sm, 6px);
-    border: none;
+    border: 1px solid transparent;
     background: transparent;
     border-radius: var(--rds-border-radius-sm, 4px);
     cursor: pointer;
@@ -176,6 +176,7 @@
 
     &:hover {
       background: var(--rds-color-surface-container);
+      border-color: var(--rds-color-outline-variant, var(--rds-color-outline));
       color: var(--rds-color-on-surface);
     }
 
@@ -292,6 +293,37 @@
   &__math-icon {
     font-weight: 600;
     font-size: var(--rds-font-size-md, 16px);
+  }
+}
+
+html[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-text,
+body[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-text,
+body.theme-dark .rds-comp-toolbar--secondary.rds-comp-toolbar--more-text,
+body.dark-theme .rds-comp-toolbar--secondary.rds-comp-toolbar--more-text,
+html[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-paragraph,
+body[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-paragraph,
+body.theme-dark .rds-comp-toolbar--secondary.rds-comp-toolbar--more-paragraph,
+body.dark-theme .rds-comp-toolbar--secondary.rds-comp-toolbar--more-paragraph,
+html[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-rich-content,
+body[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-rich-content,
+body.theme-dark .rds-comp-toolbar--secondary.rds-comp-toolbar--more-rich-content,
+body.dark-theme .rds-comp-toolbar--secondary.rds-comp-toolbar--more-rich-content,
+html[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--misc,
+body[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--misc,
+body.theme-dark .rds-comp-toolbar--secondary.rds-comp-toolbar--misc,
+body.dark-theme .rds-comp-toolbar--secondary.rds-comp-toolbar--misc {
+  .rds-comp-toolbar__row--secondary .rds-comp-toolbar__button:hover {
+    background: var(--rds-surface-dark-hover, #4a5058);
+    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.18));
+    color: var(--rds-color-on-surface-dark, #fff);
+  }
+
+  .rds-comp-toolbar__button:hover,
+  .rds-comp-toolbar__button:focus-visible,
+  .rds-comp-toolbar__button[aria-expanded='true'] {
+    background: var(--rds-surface-dark-hover, #4a5058);
+    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.18));
+    color: var(--rds-color-on-surface-dark, #fff);
   }
 }
 

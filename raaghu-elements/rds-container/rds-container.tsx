@@ -4,7 +4,7 @@ import {
   type ContainerProps
 } from '@mui/material';
 
-export interface RdsContainerProps extends ContainerProps {
+export interface RdsContainerProps extends Omit<ContainerProps, 'component'> {
   children: ReactNode;
   padding?: number | string;
 }

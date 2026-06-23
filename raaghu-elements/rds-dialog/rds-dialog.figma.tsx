@@ -15,9 +15,9 @@ figma.connect(
     },
     example: (props) => <RdsDialog 
     {...props}
-    children={<Typography variant="body1">
+   
+    open={true} >{<Typography variant="body1">
           This is the dialog content. You can put any content here.
-        </Typography>}
-    open={true} />,
+        </Typography>}</RdsDialog>,
   },
 )

@@ -98,24 +98,29 @@ const RdsCompEmojiGenerator = ({
     "Show Skin Tone": showSkinTone = true,
     "Show Footer": showFooter = true,
     State = SkinToneState.Default,
-    Category = EmojiCategory.SmileysAndPeople,
+    Category: categoryProp,
     onEmojiSelect,
     maxEmojis = 80,
 
     ...props
 }) => {
     const rootRef = useRef<HTMLDivElement | null>(null);
-    const [selectedCategory, setSelectedCategory] = useState(Category);
-    useEffect(() => {
-        setSelectedCategory(Category);
-    }, [Category]);
+    const initialCategory = categoryProp ?? EmojiCategory.SmileysAndPeople;
+    const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+    const currentCategory = selectedCategory;
     
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedSkinTone, setSelectedSkinTone] = useState(0); 
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
     const handleEmojiClick = (e: string) => onEmojiSelect?.(e);
-    const handleCategoryChange = (c: EmojiCategory) => setSelectedCategory(c);
+    useEffect(() => {
+        setSelectedCategory(categoryProp ?? EmojiCategory.SmileysAndPeople);
+    }, [categoryProp]);
+
+    const handleCategoryChange = (c: EmojiCategory) => {
+        setSelectedCategory(c);
+    };
     const handleSkinToneClick = (e: MouseEvent<HTMLElement>) => setSkinToneAnchorEl(e.currentTarget);
     const handleSkinToneClose = () => setSkinToneAnchorEl(null);
     const handleSkinToneSelect = (t: number) => { setSelectedSkinTone(t); handleSkinToneClose(); };
@@ -124,10 +129,10 @@ const RdsCompEmojiGenerator = ({
     const filteredEmojis = useMemo(
         () => (
             searchTerm
-                ? searchEmojis(searchTerm, selectedCategory, selectedSkinTone)
-                : getEmojisByCategory(selectedCategory, selectedSkinTone)
+                ? searchEmojis(searchTerm, currentCategory, selectedSkinTone)
+                : getEmojisByCategory(currentCategory, selectedSkinTone)
         ),
-        [searchTerm, selectedCategory, selectedSkinTone]
+        [searchTerm, currentCategory, selectedSkinTone]
     );
     const displayEmojis = useMemo(
         () => (maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis),
@@ -137,9 +142,9 @@ const RdsCompEmojiGenerator = ({
     if (Type === EmojiGeneratorType.QuickReactions) {
         return (
             <Box className="rds-emoji-generator rds-emoji-generator--quick" {...props}>
-                {QUICK_EMOJIS.map((e, i) => (
+                {QUICK_EMOJIS.map((e) => (
                     <Box
-                        key={i}
+                        key={e}
                         className="rds-emoji-generator__emoji rds-emoji-generator__emoji--quick"
                         onClick={() => handleEmojiClick(e)}
                     >
@@ -157,15 +162,6 @@ const RdsCompEmojiGenerator = ({
             </Box>
         );
     }
-
-    const isFlagEmoji = (emoji: string) => {
-        return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(emoji);
-    };
-
-    const twemojiUrl = (emoji: string) => {
-        const codepoints = Array.from(emoji).map(c => c.codePointAt(0)!.toString(16)).join('-');
-        return `https://twemoji.maxcdn.com/v/latest/72x72/${codepoints}.png`;
-    };
 
     return (
     <Box ref={rootRef} className="rds-emoji-generator" {...props}>
@@ -241,13 +237,13 @@ const RdsCompEmojiGenerator = ({
                                 key={t.id}
                                 icon={<I />}
                                 size="small"
-                                variant={selectedCategory === t.id ? 'filled' : 'outlined'}
-                                color={selectedCategory === t.id ? 'primary' : 'default'}
+                                                                variant={currentCategory === t.id ? 'filled' : 'outlined'}
+                                                                color={currentCategory === t.id ? 'primary' : 'default'}
                                 onClick={() => handleCategoryChange(t.id)}
                                 title={t.title}
                                 className={clsx(
                                   "rds-emoji-generator__category-chip",
-                                  selectedCategory === t.id && "rds-emoji-generator__category-chip--selected"
+                                                                    currentCategory === t.id && "rds-emoji-generator__category-chip--selected"
                                 )}
                             />
                         );
@@ -258,13 +254,13 @@ const RdsCompEmojiGenerator = ({
             <Box className="rds-emoji-generator__grid">
                 <Box className="rds-emoji-generator__category-title">
                     <Typography variant="h6" className="rds-emoji-generator__category-title-text">
-                        {CATEGORY_TABS.find(t => t.id === selectedCategory)?.title || "Emojis"}
+                        {CATEGORY_TABS.find(t => t.id === currentCategory)?.title || "Emojis"}
                     </Typography>
                 </Box>
                 <Box className="rds-emoji-generator__grid-container" tabIndex={0}>
-                    {displayEmojis.map((e, i) => (
+                    {displayEmojis.map((e) => (
                         <Box
-                            key={i}
+                            key={`${e}-${currentCategory}`}
                             className="rds-emoji-generator__emoji"
                             onClick={() => handleEmojiClick(e)}
                         >
@@ -297,3 +293,20 @@ const RdsCompEmojiGenerator = ({
 RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
 export default RdsCompEmojiGenerator;
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+
+function normalizeEmojiForTwemoji(emoji: string): string {
+    // Remove common variation selectors which Twemoji filenames don't include (U+FE0F, U+FE0E)
+    // Keep tag sequences and other codepoints Twemoji expects.
+    return emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, '');
+}
+
+function isFlagEmoji(emoji: string): boolean {
+    const normalized = normalizeEmojiForTwemoji(emoji);
+    return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(normalized) || /\u{1F3F4}/u.test(normalized) || /\uE006/u.test(normalized);
+}
+
+function twemojiUrl(emoji: string): string {
+    const normalized = normalizeEmojiForTwemoji(emoji);
+    const codepoints = Array.from(normalized).map(c => c.codePointAt(0)!.toString(16)).join('-');
+    return `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/${codepoints}.png`;
+}

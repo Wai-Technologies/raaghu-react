@@ -189,6 +189,8 @@ const RdsCounter = ({
     return <Box className={base}>{decButton}{valueNode}{incButton}</Box>;
   };
 
+  const controlsElement = renderControls();
+
   return (
     <Box className={containerClasses}>
       {showTitle && titleText && (
@@ -201,7 +203,7 @@ const RdsCounter = ({
           <span className="rds-counter__mandatory" style={{ visibility: isMandatory ? 'visible' : 'hidden' }}>*</span>
         </Typography>
       )}
-      {renderControls()}
+      {controlsElement}
     </Box>
   );
 };

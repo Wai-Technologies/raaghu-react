@@ -6,8 +6,8 @@ import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
 import "./rds-comp-off-canvas.scss";
-export enum RdsOffcanvasPlacement {Start = "left",End = "right",Top = "top",Bottom = "bottom"}
-export enum RdsOffcanvasBackDrop {Static = "static",True = "true",False = "false"}
+export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
+import { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
 export interface RdsCompOffcanvasProps {
   placement: RdsOffcanvasPlacement;
   backDrop: RdsOffcanvasBackDrop;
@@ -88,9 +88,7 @@ const RdsCompOffcanvas = ({
   return (
     <>
       <div className="offcanvas-text">
-          <div
-            className="offcanvas_btn"
-            onClick={handleOpen}>
+          <div className="offcanvas_btn">
             <RdsButton text="Open Off Canvas" style="filled" size="medium" onClick={handleOpen}/>
           </div>        
         <Drawer

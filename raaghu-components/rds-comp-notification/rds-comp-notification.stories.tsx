@@ -1,10 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
-import RdsCompNotification, {
-    NotificationLayout,
-    NotificationStyle,
-    NotificationType
-} from "./rds-comp-notification";
+import RdsCompNotification from "./rds-comp-notification";
+import { NotificationLayout, NotificationStyle, NotificationType } from "./rds-comp-notification.types";
 
 const meta: Meta = {
     title: "Components/Notification",
@@ -42,6 +39,11 @@ const meta: Meta = {
             description: 'Description for all notifications (overrides notification.description)',
             defaultValue: '',
         },
+        defaultImage: {
+            control: { type: 'text' },
+            description: 'Fallback image URL used when notification.image is not provided',
+            defaultValue: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+        },
         layout: {
             options: ["vertical", "horizontal"],
             control: { type: "select" },
@@ -77,6 +79,7 @@ export const Default: Story = {
                 title: "Notification Title",
                 urlTitle: "hello",
                 time: "10 min ago",
+                image: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.",
             }
         ]
@@ -89,7 +92,7 @@ export const Default: Story = {
 
 Default.parameters = {
     controls: {
-        include: ['title', 'description', 'layout', 'style', 'type', 'notifications', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss']
+        include: ['title', 'description', 'defaultImage', 'layout', 'style', 'type', 'notifications', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss']
     }
 };
 

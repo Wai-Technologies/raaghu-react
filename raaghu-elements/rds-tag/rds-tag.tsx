@@ -1,7 +1,7 @@
 import { Chip as MuiChip, type ChipProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-tag.scss';
-export interface RdsTagProps extends Omit<ChipProps, 'label'> {
+export interface RdsTagProps extends Omit<ChipProps, 'label' | 'component'> {
   label: string;
   removable?: boolean;
   onRemove?: () => void;

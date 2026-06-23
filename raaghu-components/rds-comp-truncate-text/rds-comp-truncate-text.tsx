@@ -2,11 +2,8 @@ import { useCallback, useMemo, useState } from "react";
 import clsx from "clsx";
 import "./rds-comp-truncate-text.scss";
 import RdsTooltip from "../../raaghu-elements/rds-tooltip/rds-tooltip";
-
-export enum TruncateTextState {
-  Default = "Default",
-  Hover = "Hover",
-}
+export { TruncateTextState } from './rds-comp-truncate-text-types';
+import { TruncateTextState } from './rds-comp-truncate-text-types';
 
 export interface RdsCompTruncateTextProps {
   text: string;
@@ -53,8 +50,6 @@ const RdsCompTruncateText = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={className}
-      tabIndex={0}
-      role="text"
       aria-label={text}
     >
       {showTooltip ? (

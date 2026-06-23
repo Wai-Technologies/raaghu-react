@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useCallback, useMemo, useState } from "react";
 import "./rds-comp-navtabs.scss";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 
@@ -72,19 +72,18 @@ const RdsCompNavtabs = ({
   iconOnly,
   id,
 }: RdsCompNavtabsProps) => {
-  const [activeNavTabId, setActiveNavTabId] = useState(activeNavTabIdProp);
-  
-  useEffect(() => {
-    activeNavtabOrder && activeNavtabOrder(activeNavTabId);
-  }, [activeNavTabId, activeNavtabOrder]);
+  const [internalActiveNavTabId, setInternalActiveNavTabId] = useState<string | number | undefined>(
+    activeNavTabIdProp ?? navtabsItems?.[0]?.id
+  );
+  const isControlled = activeNavTabIdProp !== undefined;
+  const activeNavTabId = isControlled ? activeNavTabIdProp : internalActiveNavTabId;
 
-  useEffect(() => {
-    setActiveNavTabId(activeNavTabIdProp);
-  }, [activeNavTabIdProp]);
-
-  if (!navtabsItems || navtabsItems.length === 0) {
-    return null;
-  }
+  const handleTabClick = useCallback((tabId: string | number) => {
+    if (!isControlled) {
+      setInternalActiveNavTabId(tabId);
+    }
+    activeNavtabOrder?.(tabId);
+  }, [activeNavtabOrder, isControlled]);
 
   const getNavClasses = useCallback(() => {
     const isHorizontalStyle = HORIZONTAL_STYLES.has(style || "");
@@ -122,6 +121,10 @@ const RdsCompNavtabs = ({
 
   const navClasses = useMemo(() => getNavClasses(), [getNavClasses]);
 
+  if (!navtabsItems || navtabsItems.length === 0) {
+    return null;
+  }
+
   return (
     <div className="rds-comp-navtabs">
       <ul
@@ -136,12 +139,14 @@ const RdsCompNavtabs = ({
             )}
             key={navtabsItem.id}
           >
-            <a
+            <button
+              type="button"
               className={getNavLinkClasses(navtabsItem)}
               aria-current="page"
               data-bs-target={navtabsItem.tablink}
               aria-controls={navtabsItem.ariacontrols}
-              onClick={() => setActiveNavTabId(navtabsItem.id)}
+              disabled={Boolean(navtabsItem.disabled)}
+              onClick={() => handleTabClick(navtabsItem.id)}
             >
               {!iconOnly && (
                 <span className="fw-medium px-3 rds-comp-navtabs__label">{navtabsItem.label}</span>
@@ -156,7 +161,7 @@ const RdsCompNavtabs = ({
                   />
                 </span>
               )}
-            </a>
+            </button>
           </li>
         ))}
       </ul>

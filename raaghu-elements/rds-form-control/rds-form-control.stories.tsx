@@ -63,7 +63,9 @@ export const WithTextField: Story = {
 };
 
 export const WithSelect: Story = {
-  args: {},
+  args: {
+    fullWidth: true,
+  },
   render: (args) => (
     <RdsFormControl {...args}>
       <FormLabel>Country</FormLabel>

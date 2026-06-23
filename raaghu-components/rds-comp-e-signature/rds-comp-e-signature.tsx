@@ -45,13 +45,23 @@ const RdsCompESignature = ({
   title = 'Draw Signature',
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(penColor);
-  const [isHovered, setIsHovered] = useState(false);
+  const [uiState, setUiState] = useState({
+    isDrawing: false,
+    selectedColor: eSignaturePenColors.black,
+    isHovered: false,
+    showLengthError: false,
+    hasDrawn: false,
+  });
+  const { isDrawing, selectedColor, isHovered, showLengthError, hasDrawn } = uiState;
+  const updateUiState = (updates: Partial<typeof uiState>) => {
+    setUiState((prev) => ({ ...prev, ...updates }));
+  };
+  const prevPenColorRef = useRef(penColor);
+  if (penColor !== prevPenColorRef.current) {
+    prevPenColorRef.current = penColor;
+    updateUiState({ selectedColor: penColor });
+  }
   const strokesRef = useRef<{ x: number; y: number; }[][]>([]);
-  const [showLengthError, setShowLengthError] = useState(false);
-
-  const [hasDrawn, setHasDrawn] = useState(false);
 
   const colors = PEN_COLORS;
 
@@ -88,8 +98,7 @@ const RdsCompESignature = ({
 
   const startDrawing = useCallback((e: MouseEvent<HTMLCanvasElement>) => {
     if (disabled) return;
-    setIsDrawing(true);
-    if (!hasDrawn) setHasDrawn(true);
+    updateUiState({ isDrawing: true, hasDrawn: true });
     const canvas = canvasRef.current;
     if (canvas) {
       const { x, y, scaleX, scaleY } = getCanvasPoint(canvas, e);
@@ -100,7 +109,7 @@ const RdsCompESignature = ({
       }
       strokesRef.current.push([{ x: x / scaleX, y: y / scaleY }]);
     }
-  }, [disabled, getCanvasPoint, hasDrawn]);
+  }, [disabled, getCanvasPoint]);
 
   const draw = useCallback((e: MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing || disabled) return;
@@ -121,15 +130,15 @@ const RdsCompESignature = ({
   const evaluateSignatureLength = useCallback(() => {
     const strokes = strokesRef.current;
     const totalPoints = strokes.reduce((a, s) => a + s.length, 0);
-    if (totalPoints === 0) { setShowLengthError(false); return; }
+    if (totalPoints === 0) { updateUiState({ showLengthError: false }); return; }
     let minX = Infinity, maxX = -Infinity; strokes.forEach(s => s.forEach(p => { if (p.x < minX) minX = p.x; if (p.x > maxX) maxX = p.x; }));
     const boxW = maxX - minX;
     const hasFourLetters = boxW >= 160 && totalPoints >= 40;
-    setShowLengthError(!hasFourLetters);
+    updateUiState({ showLengthError: !hasFourLetters });
   }, []);
 
   const stopDrawing = useCallback(() => {
-    setIsDrawing(false);
+    updateUiState({ isDrawing: false });
     if (canvasRef.current && onSignatureChange) {
       const dataURL = canvasRef.current.toDataURL();
       onSignatureChange(dataURL);
@@ -146,15 +155,14 @@ const RdsCompESignature = ({
       }
     }
     strokesRef.current = [];
-    setHasDrawn(false);
-    setShowLengthError(false);
+    updateUiState({ hasDrawn: false, showLengthError: false });
   }, [onSignatureChange]);
 
 
   const handleSave = useCallback(() => {
     
     clearCanvas();
-    setShowLengthError(false);
+    updateUiState({ showLengthError: false });
   }, [clearCanvas]);
 
   const getStateClassName = useCallback(() => clsx(
@@ -208,7 +216,7 @@ const RdsCompESignature = ({
                       "rds-e-signature__color-button",
                       selectedColor === color && "rds-e-signature__color-button--selected"
                     )}
-                    onClick={() => setSelectedColor(color)}
+                    onClick={() => updateUiState({ selectedColor: color })}
                     data-color={color}
                   >
                   {selectedColor === color && <span className="rds-e-signature__checkmark">✓</span>}
@@ -250,8 +258,8 @@ const RdsCompESignature = ({
   return (
     <Box
       className={getStateClassName()}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => updateUiState({ isHovered: true })}
+      onMouseLeave={() => updateUiState({ isHovered: false })}
     >
       {mode === 'draw' && renderDrawMode()}
       {mode === 'upload' && (

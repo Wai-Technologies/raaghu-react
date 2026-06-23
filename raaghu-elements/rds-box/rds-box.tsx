@@ -6,7 +6,7 @@ import {
 import clsx from 'clsx';
 import './rds-box.scss';
 
-export interface RdsBoxProps extends BoxProps {
+export interface RdsBoxProps extends Omit<BoxProps, 'component'> {
   children?: ReactNode;
 }
 

@@ -364,9 +364,12 @@
   }
 
     &__file-row:focus-within {
-    border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
-    box-shadow: var(--rds-focus-ring, 0 0 0 2px rgba(25, 118, 210, .15));
-  }
+      /* remove prominent focus border/outline when interacting with the file input/button
+         to avoid an unwanted border in both light and dark themes */
+      border-color: var(--rds-color-neutral-300, #e0e0e0);
+      box-shadow: none !important;
+      outline: none !important;
+    }
 
   &__upload-content {
     display: flex;
@@ -418,6 +421,21 @@
     background: var(--rds-color-accent-blue-200, #c7def5);
     cursor: not-allowed;
     color: var(--rds-color-neutral-0, #fff);
+  }
+
+  /* remove mouse-click outline but keep keyboard-visible focus for accessibility */
+  &__file-button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &__file-button:focus-visible {
+    outline: 2px solid var(--rds-color-primary-700, var(--rds-primary-main, #1976d2)) !important;
+    outline-offset: 0 !important;
+  }
+
+  &__file-button::-moz-focus-inner {
+    border: 0;
   }
 
   &__file-text {

@@ -30,7 +30,6 @@ const RdsCompAiChatBot = ({
   setMessages,
   iconName,
 }: RdsCompAiChatBotProps) => {
-  const [inputText, setInputText] = useState<string>("");
   const [inputImage, setInputImage] = useState<string | null>(null);
 
   const handleImageChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -45,20 +44,19 @@ const RdsCompAiChatBot = ({
 
   const handleSendMessage = useCallback(
     async (messageText: string, image?: string) => {
-      if (!messageText && !inputText && !image) return;
+      if (!messageText && !image) return;
 
       const newMessage: Message = {
         id: messages.length + 1,
-        text: messageText || inputText,
+        text: messageText,
         image: image || inputImage || undefined,
         sender: false,
       };
 
       setMessages((prev) => [...prev, newMessage]);
-      setInputText("");
       setInputImage(null);
     },
-    [inputImage, inputText, messages.length, setMessages]
+    [inputImage, messages.length, setMessages]
   );
 
   const handleAddComment = useCallback(

@@ -248,9 +248,9 @@ export const WithList: Story = {
           className="with-list-popover"
         >
           <List dense>
-            {menuItems.map((item, index) => (
+            {menuItems.map((item) => (
               <ListItem 
-                key={index} 
+                key={item} 
                 onClick={handleClose}
                 sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'action.hover' } }}
               >

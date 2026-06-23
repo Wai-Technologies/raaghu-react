@@ -240,7 +240,7 @@ const RdsCompKanbanBoard = ({
           </>
         )}
         {boards.map((card, index) => (
-          <Box key={index}>
+          <Box key={card.cardId}>
             {showBoard && card.name && (
               <Box className={`kanban-board ${colorClass(card.colorType)}`}>
                 <Card className={clsx("kanban-board__card", card.subCards && card.subCards.length === 0 && "kanban-board__card--empty-board")}>
@@ -292,8 +292,8 @@ const RdsCompKanbanBoard = ({
                                   onChange={(e) => handleAddQuestionDataChanges(e.target.value, "supportCategoryId")}
                                   MenuProps={{ slotProps: { paper: { className: "rds-kanban-board__select-menu" } } }}
                                 >
-                                  {allCategoriesList?.map((category: any, idx: number) => (
-                                    <MenuItem key={idx} value={category.val}>{category.label}</MenuItem>
+                                  {allCategoriesList?.map((category: any) => (
+                                    <MenuItem key={category.val} value={category.val}>{category.label}</MenuItem>
                                   ))}
                                 </Select>
                               </FormControl>

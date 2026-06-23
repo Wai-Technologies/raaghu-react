@@ -5,7 +5,7 @@ import {
   CircularProgress
 } from '@mui/material';
 
-export interface RdsBackdropProps extends Omit<BackdropProps, 'open'> {
+export interface RdsBackdropProps extends Omit<BackdropProps, 'open' | 'component'> {
   loading?: boolean;
   loadingComponent?: ReactNode;
   open?: boolean;
