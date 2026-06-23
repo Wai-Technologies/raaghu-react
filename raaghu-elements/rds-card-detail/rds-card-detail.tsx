@@ -31,18 +31,24 @@ const RdsCardDetail = ({
 }: RdsCardDetailProps) => {
   const { mode } = useRaaghuTheme();
 
-  const passedElevation = (props.elevation ?? 0) as number;
-  const isElevationVariant = props.variant === 'elevation';
+  const passedElevation = (props.elevation ?? 1) as number;
+  const isElevationVariant = props.variant !== 'outlined';
   const isDarkMode = mode === 'dark';
-  const shouldUsePaperShadow = isElevationVariant && isDarkMode && passedElevation > 0;
 
-  const shadowVariable = isDarkMode ? 'var(--Paper-shadow-dark)' : 'var(--Paper-shadow-light)';
-  
-  const mergedSx = shouldUsePaperShadow
-    ? Array.isArray(props.sx)
-      ? [...props.sx, { boxShadow: shadowVariable }]
-      : [props.sx || {}, { boxShadow: shadowVariable }]
-    : props.sx;
+  // For elevation variant: remove border so the shadow is the visual indicator.
+  // In dark mode MUI doesn't render shadows natively, so we apply a custom shadow token.
+  const elevationSx = isElevationVariant
+    ? {
+        border: 'none',
+        ...(isDarkMode && passedElevation > 0
+          ? { boxShadow: `var(--rds-elevation-${Math.min(passedElevation, 5)}, var(--rds-elevation-1))` }
+          : {}),
+      }
+    : {};
+
+  const mergedSx = Array.isArray(props.sx)
+    ? [...props.sx, elevationSx]
+    : [props.sx || {}, elevationSx];
 
   const mergedClassName = clsx('rds-card-detail', props.className);
 
