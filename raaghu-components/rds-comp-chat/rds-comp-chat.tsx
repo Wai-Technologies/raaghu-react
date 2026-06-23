@@ -95,6 +95,7 @@ const RdsCompChat = ({
 
   const [state, setState] = useState({
     isMobile: window.innerWidth <= 600,
+    isSmallMobile: window.innerWidth <= 320,
     showChatWindow: false,
     commentText: "",
     showEmojiPicker: false,
@@ -114,7 +115,10 @@ const RdsCompChat = ({
   }, []);
 
   useEffect(() => {
-    const handleResize = () => updateState({ isMobile: window.innerWidth <= 600 });
+    const handleResize = () => updateState({
+      isMobile: window.innerWidth <= 600,
+      isSmallMobile: window.innerWidth <= 320,
+    });
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [updateState]);
@@ -247,7 +251,10 @@ const RdsCompChat = ({
               </button>
             )}
             <div className={clsx("rds-comp-chat__window-header-title", state.isMobile && "rds-comp-chat__window-header-title--mobile")}>
-              <RdsAvatar {...AVATAR_PROPS} size={state.isMobile ? "small" : "medium"} />
+              <RdsAvatar
+                {...AVATAR_PROPS}
+                size={state.isSmallMobile ? "smallest" : state.isMobile ? "small" : "medium"}
+              />
             </div>
             <div className="rds-comp-chat__window-header-options">
               <div
