@@ -370,7 +370,7 @@ describe('RdsDrawer', () => {
   describe('Custom Content', () => {
     it('should render custom children', () => {
       const customContent = <div data-testid="custom-content">Custom Content</div>;
-      render(<RdsDrawer {...defaultProps} children={customContent} open={true} />);
+      render(<RdsDrawer {...defaultProps} open={true} >{customContent}</RdsDrawer>);
       expect(screen.getByTestId('custom-content')).toBeInTheDocument();
     });
 
@@ -382,7 +382,7 @@ describe('RdsDrawer', () => {
           <button>Action</button>
         </div>
       );
-      render(<RdsDrawer {...defaultProps} children={complexContent} open={true} />);
+      render(<RdsDrawer {...defaultProps} open={true} >{complexContent}</RdsDrawer>);
       expect(screen.getByText('Title')).toBeInTheDocument();
       expect(screen.getByText('Description')).toBeInTheDocument();
     });
@@ -505,7 +505,7 @@ describe('RdsDrawer', () => {
 
     it('should handle empty children', () => {
       render(
-        <RdsDrawer open={true} children={<div></div>} />
+        <RdsDrawer open={true} >{<div></div>}</RdsDrawer>
       );
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
     });

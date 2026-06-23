@@ -4,6 +4,11 @@ import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
 import {
+        type RdsCompToastProps,
+        ToastLayout,
+        ToastLeadingIcon,
+} from "./rds-comp-toast.types";
+import {
     getLeadingIconClass,
     getLayoutClass,
     getPositionClasses,
@@ -11,56 +16,6 @@ import {
     useToastTimer,
 } from "./toast-helpers";
 
-export enum ToastLayout {
-    Text = "text",
-    Download = "download",
-    Chat = "chat",
-    Request = "request"
-}
-  
-  export enum ToastState {
-    Basic = "basic",
-    Info = "info",
-    Success = "success",
-    Error = "error",
-  }
-  
-  export enum ToastLeadingIcon {
-    Circle = "circle",
-    Plus = "plus",
-  }
-  
-  export enum ToastPosition {
-    TopLeft = "topLeft",
-    TopCenter = "topCenter",
-    TopRight = "topRight",
-    MiddleLeft = "middleLeft",
-    MiddleCenter = "middleCenter",
-    MiddleRight = "middleRight",
-    BottomLeft = "bottomLeft",
-    BottomCenter = "bottomCenter",
-    BottomRight = "bottomRight",
-  }  
-
-  export interface RdsCompToastProps {
-    headerText?: string; // Header text of Toast
-    subText: string; // Subtext of Toast
-    delay?: number; // Delay Time of Toast
-    autohide?: boolean; // Autohide of Toast
-    showHeader?: boolean; // Show/Hide Header of Toast
-    layout: ToastLayout; // Layout Types of Toast
-    state: ToastState; // state of Toast
-    placeholder?: string; // Placeholder text of Toast
-    progressWidth?: number; // Progress Bar width of Toast
-    filename?: string; // Filename of Toast
-    position?: ToastPosition; // Position of Toast
-    showSubText?: boolean; // Show/Hide Subtext of Toast
-    showDismiss?: boolean; // Show/Hide Dismiss button of Toast
-    showLeading: boolean; // Show/Hide Leading Icon of Toast
-    leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
-    chatTime?: string; // Chat Time of Toast
-    pauseOnHover?: boolean; // Pause auto-hide timer on mouse hover (WCAG 2.2.1)
-  }
 const ToastFooter = ({
     layout,
     progressWidth,
@@ -105,6 +60,7 @@ const ToastFooter = ({
                         type="text"
                         className="rds-comp-toast__input"
                         placeholder={placeholder}
+                        aria-label={placeholder || 'Toast reply input'}
                     />
                 </div>
                 <div className="rds-comp-toast__actions">
@@ -135,6 +91,16 @@ const BORDER_TOKEN_MAP: Record<string, string> = {
 };
 
 const RdsCompToast = (props: RdsCompToastProps) => {
+    const legacyShowHeader = typeof props['showHeader'] === 'boolean' ? (props['showHeader'] as boolean) : undefined;
+    const legacyShowLeading = typeof props['showLeading'] === 'boolean' ? (props['showLeading'] as boolean) : undefined;
+    const legacyShowDismiss = typeof props['showDismiss'] === 'boolean' ? (props['showDismiss'] as boolean) : undefined;
+    const legacyShowSubText = typeof props['showSubText'] === 'boolean' ? (props['showSubText'] as boolean) : undefined;
+
+    const showHeader = props.chrome?.header ? props.chrome.header === 'visible' : (legacyShowHeader ?? false);
+    const showLeading = props.chrome?.leading ? props.chrome.leading === 'visible' : (legacyShowLeading ?? false);
+    const showDismiss = props.chrome?.dismiss ? props.chrome.dismiss === 'visible' : (legacyShowDismiss ?? false);
+    const showSubText = props.chrome?.subText ? props.chrome.subText === 'visible' : (legacyShowSubText ?? false);
+
     const _stateClass = getStateClass(props.state);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
@@ -158,11 +124,11 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                 onMouseEnter={props.autohide && props.pauseOnHover ? pauseTimer : undefined}
                 onMouseLeave={props.autohide && props.pauseOnHover ? resumeTimer : undefined}
             >
-                {props.showHeader && (
+                {showHeader && (
                     <div className="rds-comp-toast__header">
                         <div className="rds-comp-toast__header-content">
                             <div className="rds-comp-toast__leading-icon">
-                                {props.showLeading && props.layout !== ToastLayout.Chat && (
+                                {showLeading && props.layout !== ToastLayout.Chat && (
                                     <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
                                 )}
                             </div>
@@ -175,7 +141,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                 {props.layout === ToastLayout.Chat && props.chatTime && (
                                     <span className="rds-comp-toast__chat-time">{props.chatTime}</span>
                                 )}
-                                {props.showDismiss && props.layout !== ToastLayout.Chat && (
+                                {showDismiss && props.layout !== ToastLayout.Chat && (
                                     <button
                                         type="button"
                                         className="rds-comp-toast__close-btn"
@@ -187,7 +153,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         </div>
                         
-                        {props.showSubText && (
+                        {showSubText && (
                             <div className="rds-comp-toast__body">
                                 {props.subText}
                             </div>
@@ -203,20 +169,20 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                     </div>
                 )}
 
-                {!props.showHeader && (
+                {!showHeader && (
                     <div className="rds-comp-toast__content">
                         <div className="rds-comp-toast__body-simple">
-                            {props.showLeading && props.layout !== ToastLayout.Chat && (
+                            {showLeading && props.layout !== ToastLayout.Chat && (
                                 <div className="rds-comp-toast__leading-icon">
                                     <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
                                 </div>
                             )}
                             
                             <div className="rds-comp-toast__text">
-                                {props.showSubText && props.subText}
+                                {showSubText && props.subText}
                             </div>
                             
-                            {props.showDismiss && (
+                            {showDismiss && (
                                 <button
                                     type="button"
                                     className="rds-comp-toast__close-btn"

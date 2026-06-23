@@ -1,9 +1,9 @@
-import { useEffect, useState, type SyntheticEvent } from 'react';
+import { useMemo, useState, type SyntheticEvent } from 'react';
 import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import './rds-rating.scss';
 
-export interface RdsRatingProps extends RatingProps {
+export interface RdsRatingProps extends Omit<RatingProps, 'component'> {
   label?: string;
   showValue?: boolean;
   maxStars?: number;
@@ -12,6 +12,20 @@ export interface RdsRatingProps extends RatingProps {
   styles?: 'default' | 'filled' | 'outlined';
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
 }
+
+const allowedSliderValues = [0, 2.5, 5];
+
+const snapToAllowed = (val: number | null | undefined): number => {
+  if (val === null || val === undefined) return 0;
+  return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
+};
+
+const getLevelValue = (lvl: RdsRatingProps['level']): number | undefined => {
+  if (lvl === 'Left') return 0;
+  if (lvl === 'Mid') return 2.5;
+  if (lvl === 'Right') return 5;
+  return lvl;
+};
 
 const RdsRating = ({
   label,
@@ -28,13 +42,6 @@ const RdsRating = ({
 }: RdsRatingProps) => {
   const maxRating = max || maxStars;
   
-  const allowedSliderValues = [0, 2.5, 5];
-
-  function snapToAllowed(val: number | null | undefined): number {
-    if (val === null || val === undefined) return 0;
-    return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
-  }
-
   const [internalValue, setInternalValue] = useState<number | null>(() => {
     if (type === 'slider') {
       if (level !== undefined) {
@@ -53,44 +60,29 @@ const RdsRating = ({
     }
   });
   
-  function getLevelValue(level: RdsRatingProps['level']): number | undefined {
-    if (level === 'Left') return 0;
-    if (level === 'Mid') return 2.5;
-    if (level === 'Right') return 5;
-    return level;
-  }
   
-
-  let currentValue: number | null = internalValue;
-  if (type === 'slider') {
-    currentValue = snapToAllowed(currentValue);
-  } else {
-    if (currentValue === null && level !== undefined) {
-      const lvl = getLevelValue(level);
-      currentValue = lvl !== undefined ? lvl : null;
+  const currentValue = useMemo(() => {
+    if (type === 'slider') {
+      if (value !== undefined) {
+        return snapToAllowed(value);
+      }
+      if (level !== undefined) {
+        return snapToAllowed(getLevelValue(level));
+      }
+      return snapToAllowed(internalValue);
     }
-    if (currentValue === null && value !== undefined) currentValue = value;
-  }
+
+    if (value !== undefined) {
+      return value;
+    }
+    if (level !== undefined) {
+      const levelValue = getLevelValue(level);
+      return levelValue !== undefined ? levelValue : null;
+    }
+    return internalValue;
+  }, [internalValue, level, type, value]);
 
   const precision = type === 'slider' ? undefined : (props.precision !== undefined ? props.precision : 0.5);
-
-  useEffect(() => {
-    if (type === 'slider') {
-      if (level !== undefined) {
-        const levelVal = getLevelValue(level);
-        setInternalValue(snapToAllowed(levelVal));
-      } else if (value !== undefined) {
-        setInternalValue(snapToAllowed(value));
-      }
-    } else {
-      if (level !== undefined) {
-        const levelVal = getLevelValue(level);
-        setInternalValue(levelVal !== undefined ? levelVal : null);
-      } else if (value !== undefined) {
-        setInternalValue(value);
-      }
-    }
-  }, [value, level, type]);
 
   const handleStarChange = (event: SyntheticEvent, newValue: number | null) => {
     let finalValue: number | null = newValue;

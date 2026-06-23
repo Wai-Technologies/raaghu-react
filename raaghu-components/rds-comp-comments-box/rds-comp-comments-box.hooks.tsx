@@ -127,4 +127,3 @@ export function useCommentsBoxLogic(mentionUsers?: string[]) {
   };
 }
 
-export default useCommentsBoxLogic;

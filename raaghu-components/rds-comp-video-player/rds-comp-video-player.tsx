@@ -1,13 +1,9 @@
 import { Suspense, lazy, useMemo, createElement, type ComponentType } from "react";
 import "./rds-comp-video-player.scss";
+export { VideoPlayerType } from './rds-comp-video-player-types';
+import { VideoPlayerType } from './rds-comp-video-player-types';
 
 const ReactPlayer = lazy(() => import("react-player"));
-
-export enum VideoPlayerType {
-  Default = "Default",
-  YouTube = "YouTube",
-  Vimeo = "Vimeo",
-}
 
 export interface RdsVideoPlayerProps {
   width?: string | number;

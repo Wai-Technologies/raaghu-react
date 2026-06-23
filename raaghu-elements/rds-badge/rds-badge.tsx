@@ -4,7 +4,7 @@ import Notifications from '@mui/icons-material/Notifications';
 import clsx from 'clsx';
 import './rds-badge.scss';
 
-export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
+export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero' | 'component'> {
   children?: ReactNode;
   showZero?: boolean;
   max?: number;

@@ -13,7 +13,7 @@ export interface RdsBottomNavigationItem {
   disabled?: boolean;
 }
 
-export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'children'> {
+export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'children' | 'component'> {
   items: RdsBottomNavigationItem[];
   activeValue?: string;
   onItemChange?: (value: string) => void;

@@ -96,12 +96,9 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         }
     }, [heatMapPalette]);
 
-    const stylingFunction = useMemo(
-        () => (mapType === 'heatmap' ? heatMapStylingFunction : defaultStylingFunction),
-        [defaultStylingFunction, heatMapStylingFunction, mapType]
-    );
+    const stylingFunction = mapType === 'heatmap' ? heatMapStylingFunction : defaultStylingFunction;
 
-    const [mapSize, setMapSize] = useState<MapSize>(getMapSize());
+    const [mapSize, setMapSize] = useState<MapSize>(() => getMapSize());
 
     useEffect(() => {
         const handleResize = () => {
@@ -120,14 +117,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
                 <div className="rds-comp-map__label">{title}</div>
             )}
             <div className="rds-comp-map__center">
-                <div style={{ 
-                    width: '100%', 
-                    height: 'auto', 
-                    overflow: 'visible',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'flex-start'
-                }}>
+                <div className="rds-comp-map__worldmap-host">
                     <WorldMap 
                         styleFunction={stylingFunction} 
                         color={color} 

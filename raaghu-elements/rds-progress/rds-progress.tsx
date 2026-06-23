@@ -91,14 +91,13 @@ const RdsProgress = ({
     return (
       <div className={`rds-progress rds-progress--stepper rds-progress--${color}`}>
         <Box sx={{ display: 'flex', alignItems: 'center', ...sx }} className="rds-progress__stepper">
-          {Array.from({ length: totalSteps }, (_, index) => {
-            const stepNumber = index + 1;
-            const isCompleted = index < currentStep;
-            const isCurrent = index === currentStep - 1;
+          {Array.from({ length: totalSteps }, (_, stepNumber) => stepNumber + 1).map((stepNumber) => {
+            const isCompleted = stepNumber <= currentStep;
+            const isCurrent = stepNumber === currentStep;
             const stepClass = isCompleted ? 'completed' : isCurrent ? 'current' : 'upcoming';
             const typeClass = stepperType === 'circle' ? 'rds-progress__stepper-step--circle' : 'rds-progress__stepper-step--number';
             return (
-              <Fragment key={index}>
+              <Fragment key={stepNumber}>
                 <Box
                   className={`rds-progress__stepper-step ${typeClass} rds-progress__stepper-step--${stepClass}`}
                   sx={{ width: 'var(--rds-progress-step-size)', height: 'var(--rds-progress-step-size)' }}
@@ -109,7 +108,7 @@ const RdsProgress = ({
                     <span className="rds-progress__stepper-inner-dot" />
                   )}
                 </Box>
-                {index < totalSteps - 1 && (
+                {stepNumber < totalSteps && (
                   <Box
                     className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`}
                       sx={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
@@ -132,30 +131,30 @@ const RdsProgress = ({
       <div className={`rds-progress rds-progress--${type} rds-progress--${color}`}>
         <Box sx={{ display: 'flex', alignItems: 'center', ...sx }}>
           <Box sx={{ display: 'flex', gap: isDash ? 0.5 : 0, alignItems: 'center' }}>
-            {Array.from({ length: count }, (_, index) => {
+            {Array.from({ length: count }, (_, segmentNumber) => segmentNumber + 1).map((segmentNumber) => {
               const getBorderRadius = () => {
                 if (isDash) {
                   return 'var(--rds-border-radius-sm)';
                 } else {
-                  if (index === 0) return 'var(--rds-border-radius-sm) 0 0 var(--rds-border-radius-sm)';
-                  if (index === count - 1) return '0 var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0';
+                  if (segmentNumber === 1) return 'var(--rds-border-radius-sm) 0 0 var(--rds-border-radius-sm)';
+                  if (segmentNumber === count) return '0 var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0';
                   return '0';
                 }
               };
 
               return (
                 <Box
-                  key={index}
-                  className={`rds-progress__${type} ${index < filledCount ? `rds-progress__${type}--filled` : ''}`}
+                  key={segmentNumber}
+                  className={`rds-progress__${type} ${segmentNumber <= filledCount ? `rds-progress__${type}--filled` : ''}`}
                   sx={{
                     width: isDash ? 'var(--rds-progress-dash-width)' : 'var(--rds-progress-block-width)', 
                     height: isDash ? 'var(--rds-progress-dash-height)' : 'var(--rds-progress-block-height)', 
-                    backgroundColor: index < filledCount ? colorValue : 'var(--rds-color-gray-300)',
+                    backgroundColor: segmentNumber <= filledCount ? colorValue : 'var(--rds-color-gray-300)',
                     borderRadius: getBorderRadius(),
-                    ...(isDash ? {} : { display: 'flex', alignItems: 'center', justifyContent: 'center', color: index < filledCount ? 'var(--rds-color-white)' : 'var(--rds-color-gray-600)', fontWeight: 'var(--rds-font-weight-bold)', fontSize: 'var(--rds-font-size-sm)' })
+                    ...(isDash ? {} : { display: 'flex', alignItems: 'center', justifyContent: 'center', color: segmentNumber <= filledCount ? 'var(--rds-color-white)' : 'var(--rds-color-gray-600)', fontWeight: 'var(--rds-font-weight-bold)', fontSize: 'var(--rds-font-size-sm)' })
                   }}
                 >
-                  {!isDash && `Step ${index + 1}`}
+                  {!isDash && `Step ${segmentNumber}`}
                 </Box>
               );
             })}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
@@ -58,18 +58,19 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
     }
     return "history";
   }, [style]);
-  const [activeTab, setActiveTab] = useState(getInitialTab());
-  
-  const [historyItems, setHistoryItems] = useState(providedHistoryItems || DEFAULT_HISTORY_ITEMS);
-  const [olderHistoryItems, setOlderHistoryItems] = useState(providedOlderHistoryItems || DEFAULT_OLDER_HISTORY_ITEMS);
-
-  useEffect(() => {
+  const [activeTab, setActiveTab] = useState(() => getInitialTab());
+  const prevStyleRef = useRef(style);
+  if (style !== prevStyleRef.current) {
+    prevStyleRef.current = style;
     if (style === "Favourites" || style === "Favourites - New Folder") {
       setActiveTab("favourites");
     } else if (style === "Prompt History") {
       setActiveTab("history");
     }
-  }, [style]);
+  }
+  
+  const [historyItems, setHistoryItems] = useState(providedHistoryItems || DEFAULT_HISTORY_ITEMS);
+  const [olderHistoryItems, setOlderHistoryItems] = useState(providedOlderHistoryItems || DEFAULT_OLDER_HISTORY_ITEMS);
 
   const handleDeleteHistoryItem = useCallback((id: number) => {
     setHistoryItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -127,4 +128,3 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
 };
 RdsCompDetailsPane.displayName = "RdsCompDetailsPane";
 export default RdsCompDetailsPane;
-export { FigmaUIKitButton };

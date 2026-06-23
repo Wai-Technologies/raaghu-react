@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { darkTheme, lightTheme } from '../mui';
+import { darkTheme } from '../mui/dark.theme';
+import { lightTheme } from '../mui/light.theme';
 import {
   applyRaaghuTheme,
   getRaaghuThemeMode,
@@ -52,21 +53,30 @@ export function RaaghuThemeProvider({
   onModeChange,
   brandOverrides,
 }: Readonly<RaaghuThemeProviderProps>) {
-  const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(defaultMode);
+  const defaultModeRef = React.useRef(defaultMode);
+  const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(defaultModeRef.current);
   const mode = controlledMode ?? internalMode;
 
-  useEffect(() => {
-    if (initializeOnMount && controlledMode === undefined) {
-      setInternalMode(initializeRaaghuTheme());
-    }
-  }, [initializeOnMount, controlledMode]);
+  const prevInitializeOnMountRef = React.useRef(initializeOnMount);
+  const prevControlledModeRef = React.useRef(controlledMode);
+  if (
+    (initializeOnMount !== prevInitializeOnMountRef.current || controlledMode !== prevControlledModeRef.current) &&
+    initializeOnMount &&
+    controlledMode === undefined
+  ) {
+    prevInitializeOnMountRef.current = initializeOnMount;
+    prevControlledModeRef.current = controlledMode;
+    setInternalMode(initializeRaaghuTheme());
+  }
 
+  const onModeChangeRef = React.useRef(onModeChange);
+  React.useLayoutEffect(() => { onModeChangeRef.current = onModeChange; });
   useLayoutEffect(() => {
     applyRaaghuTheme(mode, brandOverrides);
-    onModeChange?.(mode);
-  }, [mode, onModeChange, brandOverrides]);
+    onModeChangeRef.current?.(mode);
+  }, [mode, brandOverrides]);
 
-  const muiTheme = useMemo(() => (mode === 'dark' ? darkTheme : lightTheme), [mode]);
+  const muiTheme = mode === 'dark' ? darkTheme : lightTheme;
 
   const setMode = useCallback(
     (next: RaaghuThemeMode) => {
@@ -121,4 +131,3 @@ export function useRaaghuTheme(): RaaghuThemeContextValue {
   return ctx;
 }
 
-export default RaaghuThemeProvider;

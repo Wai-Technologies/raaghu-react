@@ -17,7 +17,7 @@ const RdsCompAiGradientTextWithIcon = memo(({
   showIcon,
 }: RdsCompAiGradientTextProps) => (
   <div className="rds-gradient-text-with-icon">
-    {showImage && <img src={logoUrl} className="rds-gradient-text-with-icon__logo" />}
+    {showImage && <img src={logoUrl} className="rds-gradient-text-with-icon__logo" alt={title ?? ''} />}
     {showIcon && logo}
     <h6 className="rds-gradient-text-with-icon__title">{title}</h6>
   </div>

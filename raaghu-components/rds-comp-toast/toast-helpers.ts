@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast";
+import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast.types";
 
 export const getStateClass = (state: ToastState): string => {
     const stateClass: Record<ToastState, string> = {
@@ -73,8 +73,9 @@ export const useToastTimer = (autohide?: boolean, delay?: number) => {
             remainingRef.current = delay ?? 3000;
             startTimer(remainingRef.current);
         }
+        const timer = timerRef.current;
         return () => {
-            if (timerRef.current) clearTimeout(timerRef.current);
+            if (timer) clearTimeout(timer);
         };
     }, [autohide, delay, startTimer]);
 

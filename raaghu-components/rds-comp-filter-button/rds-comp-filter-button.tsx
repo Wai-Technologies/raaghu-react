@@ -39,6 +39,8 @@ export interface RdsCompFilterButtonProps {
   itemIcon?: string | ReactNode;
 }
 
+const EMPTY_FILTER_OPTIONS: FilterOption[] = [];
+
 const RdsCompFilterButton = ({
   shape = 'rectangle',
   text = 'Filter',
@@ -46,7 +48,7 @@ const RdsCompFilterButton = ({
   showRightIcon = true,
   leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
   rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
-  filters = [],
+  filters,
   onFiltersChange,
   onApply,
   onClear,
@@ -55,8 +57,14 @@ const RdsCompFilterButton = ({
   itemIcon,
   ...props
 }) => {
+  const resolvedFilters = filters ?? EMPTY_FILTER_OPTIONS;
   const [isOpen, setIsOpen] = useState(false);
-  const [localFilters, setLocalFilters] = useState<FilterOption[]>(filters);
+  const [localFilters, setLocalFilters] = useState<FilterOption[]>(resolvedFilters);
+  const prevFiltersRef = useRef(resolvedFilters);
+  if (resolvedFilters !== prevFiltersRef.current) {
+    prevFiltersRef.current = resolvedFilters;
+    setLocalFilters(resolvedFilters);
+  }
   const [searchTerm, setSearchTerm] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -104,14 +112,8 @@ const RdsCompFilterButton = ({
     onClear?.();
   }, [localFilters, onClear, onFiltersChange]);
 
-  const activeFiltersCount = useMemo(
-    () => localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0),
-    [localFilters]
-  );
-  const buttonText = useMemo(
-    () => (activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text),
-    [activeFiltersCount, text]
-  );
+  const activeFiltersCount = localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0);
+  const buttonText = activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text;
 
   return (
     <Box className={clsx("rds-comp-filter-button", className)} {...props}>

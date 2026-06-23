@@ -1,11 +1,14 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useMemo, useRef, useState } from "react";
 import clsx from 'clsx';
 import { InputLabel as Label } from "@mui/material";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+const Editor = lazy(() =>
+    import("react-draft-wysiwyg").then((m) => ({ default: m.Editor }))
+);
 import "./rds-comp-text-editor.scss";
 
 export interface RdsCompTextEditorProps {
@@ -60,8 +63,15 @@ const RdsCompTextEditor = ({
     resizable,
 }: RdsCompTextEditorProps) => {
     const [editorState, setEditorState] = useState(() =>
-        createEditorStateFromValue(value, showTitle)
+        createEditorStateFromValue('', false)
     );
+    const prevValueRef = useRef(value);
+    const prevShowTitleRef = useRef(showTitle);
+    if (value !== prevValueRef.current || showTitle !== prevShowTitleRef.current) {
+        prevValueRef.current = value;
+        prevShowTitleRef.current = showTitle;
+        setEditorState(createEditorStateFromValue(value, showTitle));
+    }
     const [isTouch, setIsTouch] = useState(false);
     const editorRef = useRef<Editor | null>(null);
 
@@ -69,10 +79,6 @@ const RdsCompTextEditor = ({
     const lineHeightVar = "var(--rds-line-height-body, 26px)";
     const editorMinHeight = `calc(${computedRows} * ${lineHeightVar})`;
     const isResizable = resizable !== false;
-
-    useEffect(() => {
-        setEditorState(createEditorStateFromValue(value, showTitle));
-    }, [value, showTitle]);
 
     const handleEditorChange = useCallback((state: EditorState) => {
         setEditorState(state);
@@ -102,40 +108,42 @@ const RdsCompTextEditor = ({
                 </Label>
             )}
             <div id={id} className={clsx("rds-comp-text-editor", stateClass)}>
-                <Editor
-                    key={placeholder}
-                    editorState={editorState}
-                    onEditorStateChange={handleEditorChange}
-                    readOnly={readOnly || State === "Disabled"}
-                    placeholder={placeholder}
-                    ref={editorRef}
-                    toolbarClassName="rds-comp-text-editor__toolbar"
-                    wrapperClassName="rds-comp-text-editor__wrapper"
-                    editorClassName="rds-comp-text-editor__content"
-                    editorStyle={{
-                        minHeight: editorMinHeight,
-                        resize: isResizable ? "vertical" : "none",
-                        overflow: "auto",
-                    }}
-                    toolbar={{
-                        options: ["inline", "blockType", "list", "textAlign", "link", "image", "history"],
-                        inline: { options: ["bold", "italic", "underline", "strikethrough"] },
-                        image: {
-                            urlEnabled: true,
-                            uploadEnabled: true,
-                            alignmentEnabled: true,
-                            uploadCallback: (file: File) =>
-                                new Promise((resolve) => {
-                                    const reader = new FileReader();
-                                    reader.onload = () => resolve({ data: { link: reader.result as string } });
-                                    reader.readAsDataURL(file);
-                                }),
-                            previewImage: true,
-                            inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
-                            alt: { present: true, mandatory: false },
-                        },
-                    }}
-                />
+                <Suspense fallback={<div className="rds-comp-text-editor__loading" />}>
+                    <Editor
+                        key={placeholder}
+                        editorState={editorState}
+                        onEditorStateChange={handleEditorChange}
+                        readOnly={readOnly || State === "Disabled"}
+                        placeholder={placeholder}
+                        ref={editorRef}
+                        toolbarClassName="rds-comp-text-editor__toolbar"
+                        wrapperClassName="rds-comp-text-editor__wrapper"
+                        editorClassName="rds-comp-text-editor__content"
+                        editorStyle={{
+                            minHeight: editorMinHeight,
+                            resize: isResizable ? "vertical" : "none",
+                            overflow: "auto",
+                        }}
+                        toolbar={{
+                            options: ["inline", "blockType", "list", "textAlign", "link", "image", "history"],
+                            inline: { options: ["bold", "italic", "underline", "strikethrough"] },
+                            image: {
+                                urlEnabled: true,
+                                uploadEnabled: true,
+                                alignmentEnabled: true,
+                                uploadCallback: (file: File) =>
+                                    new Promise((resolve) => {
+                                        const reader = new FileReader();
+                                        reader.onload = () => resolve({ data: { link: reader.result as string } });
+                                        reader.readAsDataURL(file);
+                                    }),
+                                previewImage: true,
+                                inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
+                                alt: { present: true, mandatory: false },
+                            },
+                        }}
+                    />
+                </Suspense>
             </div>
             {isMandatory && isEmpty && isTouch && (
                 <div className="form-control-feedback">

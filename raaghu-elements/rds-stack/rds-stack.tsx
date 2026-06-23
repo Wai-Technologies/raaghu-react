@@ -7,7 +7,7 @@ import {
 import clsx from 'clsx';
 import './rds-stack.scss';
 
-export interface RdsStackProps extends StackProps {
+export interface RdsStackProps extends Omit<StackProps, 'component'> {
   children: ReactNode;
   gap?: number | string;
   divider?: boolean | ReactNode;

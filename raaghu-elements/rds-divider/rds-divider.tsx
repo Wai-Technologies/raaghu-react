@@ -31,7 +31,7 @@ const SIZE_STYLES: Record<string, { borderWidth: string; marginY: number }> = {
 const DEFAULT_SIZE_STYLES = { borderWidth: 'var(--rds-divider-border-width-md, 2px)', marginY: 2 };
 
 
-export interface RdsDividerProps extends DividerProps {
+export interface RdsDividerProps extends Omit<DividerProps, 'component'> {
   dividerMessage?: string;
   textAlign?: 'left' | 'center' | 'right';
   layout?: 'horizontal' | 'vertical';

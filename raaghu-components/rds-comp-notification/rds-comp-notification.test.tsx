@@ -1,12 +1,13 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import RdsCompNotification, {
+import RdsCompNotification from './rds-comp-notification';
+import {
   NotificationLayout,
   NotificationStyle,
   NotificationType,
   NotificationItem,
   RdsCompNotificationProps,
-} from './rds-comp-notification';
+} from './rds-comp-notification.types';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 

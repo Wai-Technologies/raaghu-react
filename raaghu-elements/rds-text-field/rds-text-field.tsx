@@ -3,7 +3,7 @@ import { TextField as MuiTextField, type TextFieldProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-text-field.scss';
 
-export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required'> {
+export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required' | 'component'> {
   isRequired?: boolean;
   errorMessage?: string;
 }

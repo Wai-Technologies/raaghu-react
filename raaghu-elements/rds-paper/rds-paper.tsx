@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { Paper as MuiPaper, type PaperProps } from '@mui/material';
 
-export interface RdsPaperProps extends PaperProps {
+export interface RdsPaperProps extends Omit<PaperProps, 'component'> {
   children: ReactNode;
   padding?: number | string;
   square?: boolean;

@@ -563,6 +563,25 @@
     display: flex;
     align-items: center;
     vertical-align: middle;
+
+    // Suppress MUI focus ring on the rds-input wrapper in chat context
+    .MuiOutlinedInput-notchedOutline {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .MuiOutlinedInput-root {
+      outline: none !important;
+      box-shadow: none !important;
+    }
   }
 
   &__input-wrapper .MuiTextField-root {
@@ -581,6 +600,16 @@
 
       .MuiOutlinedInput-notchedOutline {
         border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      // Suppress focus outline/border on the notchedOutline in all states
+      &:hover .MuiOutlinedInput-notchedOutline,
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
       }
       
       .MuiOutlinedInput-input {
@@ -713,6 +742,14 @@
       height: 40px;
       border-radius: var(--rds-border-radius-md);
       padding: 0;
+
+      &:focus,
+      &:focus-visible,
+      &:active {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: transparent !important;
+      }
       
       svg {
         width: 20px;
@@ -796,6 +833,14 @@
     .nav-link {
       cursor: pointer;
       user-select: none;
+
+      &:focus,
+      &:focus-visible,
+      &:active {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: transparent !important;
+      }
     }
     display: flex;
     align-items: center;

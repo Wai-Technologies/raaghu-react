@@ -300,6 +300,13 @@
     color: var(--rds-color-on-surface);
   }
 
+  &__badge-group {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rds-spacing-xs, 4px);
+  }
+
   &--dense {
     .rds-table__header,
     .rds-table__cell {

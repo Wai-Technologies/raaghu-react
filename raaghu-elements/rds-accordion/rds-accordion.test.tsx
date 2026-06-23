@@ -65,7 +65,7 @@ describe('RdsAccordion', () => {
 
   describe('Children Display', () => {
     it('should display children content', () => {
-      render(<RdsAccordion {...defaultProps} children={<div>Test Content</div>} />);
+      render(<RdsAccordion {...defaultProps} >{<div>Test Content</div>}</RdsAccordion>);
       expect(screen.getByText('Test Content')).toBeInTheDocument();
     });
 
@@ -74,14 +74,14 @@ describe('RdsAccordion', () => {
         <RdsAccordion
           {...defaultProps}
           defaultExpanded={true}
-          children={
+         
+        >{
             <div>
               <p>Paragraph 1</p>
               <p>Paragraph 2</p>
               <button>Action Button</button>
             </div>
-          }
-        />
+          }</RdsAccordion>
       );
       expect(screen.getByText('Paragraph 1')).toBeInTheDocument();
       expect(screen.getByText('Paragraph 2')).toBeInTheDocument();
@@ -354,7 +354,7 @@ describe('RdsAccordion', () => {
 
   describe('Props Validation', () => {
     it('should render with minimal required props', () => {
-      render(<RdsAccordion title="Title" children={<div>Content</div>} />);
+      render(<RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>);
       expect(screen.getByText('Title')).toBeInTheDocument();
     });
 
@@ -365,7 +365,7 @@ describe('RdsAccordion', () => {
     });
 
     it('should handle empty children', () => {
-      render(<RdsAccordion {...defaultProps} children={<div></div>} />);
+      render(<RdsAccordion {...defaultProps} >{<div></div>}</RdsAccordion>);
       expect(screen.getByText('Accordion Title')).toBeInTheDocument();
     });
 
@@ -409,14 +409,15 @@ describe('RdsAccordion', () => {
       const { container } = render(
         <RdsAccordion
           title="Custom Title"
-          children={<div>Custom Content</div>}
           size="large"
           accordionStyle="bottomline"
           state="selected"
           defaultExpanded={true}
           ShowLeftIcon={true}
           changeleftIcon={<span data-testid="custom-icon">Icon</span>}
-        />
+        >
+          <div>Custom Content</div>
+        </RdsAccordion>
       );
 
       expect(screen.getByText('Custom Title')).toBeInTheDocument();
@@ -576,7 +577,7 @@ describe('RdsAccordion', () => {
 
     it('should wrap content in details panel', () => {
       const { container } = render(
-        <RdsAccordion {...defaultProps} children={<div>Test Content</div>} />
+        <RdsAccordion {...defaultProps} >{<div>Test Content</div>}</RdsAccordion>
       );
 
       const detailsPanel = container.querySelector('.rds-accordion__details-panel');
@@ -587,7 +588,7 @@ describe('RdsAccordion', () => {
 
   describe('Default Props Tests', () => {
     it('should use default ShowLeftIcon value', () => {
-      render(<RdsAccordion title="Title" children={<div>Content</div>} />);
+      render(<RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>);
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();
     });
 
@@ -595,16 +596,16 @@ describe('RdsAccordion', () => {
       render(
         <RdsAccordion
           title="Title"
-          children={<div>Content</div>}
+         
           ShowLeftIcon={true}
-        />
+        >{<div>Content</div>}</RdsAccordion>
       );
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();
     });
 
     it('should use default defaultExpanded', () => {
       const { container } = render(
-        <RdsAccordion title="Title" children={<div>Content</div>} />
+        <RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>
       );
       const summary = container.querySelector('[aria-expanded]');
       expect(summary).toHaveAttribute('aria-expanded', 'false');
@@ -612,14 +613,14 @@ describe('RdsAccordion', () => {
 
     it('should use default size', () => {
       const { container } = render(
-        <RdsAccordion title="Title" children={<div>Content</div>} />
+        <RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>
       );
       expect(container.querySelector('.rds-accordion--medium')).toBeInTheDocument();
     });
 
     it('should use default state', () => {
       const { container } = render(
-        <RdsAccordion title="Title" children={<div>Content</div>} />
+        <RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>
       );
       const accordion = container.querySelector('.rds-accordion');
       expect(accordion).not.toHaveClass('rds-accordion--selected');
@@ -628,7 +629,7 @@ describe('RdsAccordion', () => {
 
     it('should use default accordionStyle', () => {
       const { container } = render(
-        <RdsAccordion title="Title" children={<div>Content</div>} />
+        <RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>
       );
       expect(container.querySelector('.rds-accordion--border')).toBeInTheDocument();
     });
@@ -640,12 +641,12 @@ describe('RdsAccordion', () => {
         <RdsAccordion
           {...defaultProps}
           defaultExpanded={true}
-          children={
+         
+        >{
             <div data-testid="jsx-content">
               <span>JSX Content</span>
             </div>
-          }
-        />
+          }</RdsAccordion>
       );
       expect(screen.getByTestId('jsx-content')).toBeInTheDocument();
       expect(screen.getByText('JSX Content')).toBeInTheDocument();
@@ -656,14 +657,14 @@ describe('RdsAccordion', () => {
         <RdsAccordion
           {...defaultProps}
           defaultExpanded={true}
-          children={
+         
+        >{
             <div>
               <p>Paragraph 1</p>
               <p>Paragraph 2</p>
               <p>Paragraph 3</p>
             </div>
-          }
-        />
+          }</RdsAccordion>
       );
       expect(screen.getByText('Paragraph 1')).toBeInTheDocument();
       expect(screen.getByText('Paragraph 2')).toBeInTheDocument();

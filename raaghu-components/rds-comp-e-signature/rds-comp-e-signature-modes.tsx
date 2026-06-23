@@ -95,6 +95,7 @@ export const RdsESignatureUpload = ({
               onChange={handleFileUpload}
               className="rds-e-signature__file-input"
               disabled={disabled}
+              aria-label={type === 'initials' ? 'Upload initial file' : 'Upload signature file'}
             />
             <button
               className="rds-e-signature__file-button"
@@ -151,7 +152,7 @@ export const RdsESignatureChoose = ({
   onSignatureChange,
 }) => {
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
-  const multipleChooseError = useMemo(() => selectedStyles.length > 1, [selectedStyles]);
+  const multipleChooseError = selectedStyles.length > 1;
 
   const handleStyleSelect = useCallback((styleId: string) => {
     setSelectedStyles(prev => {
@@ -222,10 +223,12 @@ export const RdsESignatureChoose = ({
   );
 };
 
-export default {
+const RdsESignatureModes = {
   RdsESignatureUpload,
   RdsESignatureChoose,
 };
+
+export default RdsESignatureModes;
 
 RdsESignatureUpload.displayName = 'RdsESignatureUpload';
 RdsESignatureChoose.displayName = 'RdsESignatureChoose';

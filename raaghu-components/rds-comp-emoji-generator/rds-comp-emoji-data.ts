@@ -23,16 +23,7 @@ export enum SkinToneState {
 }
 
 const allEmojis: Emoji[] = (data as unknown as Emoji[])
-  .filter(e => !!e.emoji)
-  .filter(e => {
-    if (e.version && parseFloat(e.version.toString()) >= 12.0) {
-      return false;
-    }
-    if (e.emoji.length > 7) {
-      return false;
-    }
-    return true;
-  });
+  .filter(e => !!e.emoji && !(e.version && parseFloat(e.version.toString()) >= 12.0) && e.emoji.length <= 7);
 
 const categoryGroupMap: Record<EmojiCategory, number[]> = {
   [EmojiCategory.SmileysAndPeople]: [0, 1],
@@ -46,6 +37,16 @@ const categoryGroupMap: Record<EmojiCategory, number[]> = {
 };
 
 const emojiCache: Partial<Record<EmojiCategory, string[]>> = {};
+
+const emojiByLabelMap = new Map<string, Emoji>();
+for (const emoji of allEmojis) {
+  const label = (emoji.label || '').toLowerCase();
+  if (label && !emojiByLabelMap.has(label)) {
+    emojiByLabelMap.set(label, emoji);
+  }
+}
+
+const escapeRegExp = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const skinToneModifiers = [
   '',
@@ -73,11 +74,13 @@ export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 
   const cacheKey = `${category}_${skinTone}` as keyof typeof emojiCache;
   
   if (!emojiCache[cacheKey]) {
-    const groups = categoryGroupMap[category] || [];
-    const baseEmojis = allEmojis
-      .filter(e => groups.includes(e.group as number))
-      .map(e => applySkinTone(e.emoji, skinTone))
-      .filter(Boolean);
+    const groups = new Set(categoryGroupMap[category] || []);
+    const baseEmojis = allEmojis.reduce<string[]>((acc, emoji) => {
+      if (groups.has(emoji.group as number)) {
+        acc.push(applySkinTone(emoji.emoji, skinTone));
+      }
+      return acc;
+    }, []).filter(Boolean);
     
     emojiCache[cacheKey] = baseEmojis;
   }
@@ -87,16 +90,24 @@ export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 
 export const searchEmojis = (searchTerm: string, category?: EmojiCategory, skinTone: number = 0): string[] => {
   const term = searchTerm.trim().toLowerCase();
   if (!term) return [];
-  const pool = category ? getEmojisByCategory(category, skinTone) : allEmojis.map(e => applySkinTone(e.emoji, skinTone));
-  return allEmojis
-    .filter(e => (category ? pool.includes(applySkinTone(e.emoji, skinTone)) : true))
-    .filter(e => {
-      const label = (e.label || '').toLowerCase();
-      const tags = (e.tags || []).join(' ').toLowerCase();
-      return label.includes(term) || tags.includes(term) || e.emoji === searchTerm;
-    })
-    .map(e => applySkinTone(e.emoji, skinTone))
-    .slice(0, 200);
+  const pool = category ? new Set(getEmojisByCategory(category, skinTone)) : null;
+  const termPattern = new RegExp(escapeRegExp(term));
+  const matches: string[] = [];
+  for (const emoji of allEmojis) {
+    const renderedEmoji = applySkinTone(emoji.emoji, skinTone);
+    if (pool && !pool.has(renderedEmoji)) {
+      continue;
+    }
+    const label = (emoji.label || '').toLowerCase();
+    const tags = (emoji.tags || []).join(' ').toLowerCase();
+    if (termPattern.test(label) || termPattern.test(tags) || emoji.emoji === searchTerm) {
+      matches.push(renderedEmoji);
+      if (matches.length >= 200) {
+        break;
+      }
+    }
+  }
+  return matches;
 };
 
 export const getQuickReactionEmojis = (): string[] => {
@@ -107,12 +118,15 @@ export const getQuickReactionEmojis = (): string[] => {
     'pouting face',
     'thumbs up'
   ];
-  
-  const quickEmojis = quickReactionNames
-    .map(name => allEmojis.find(e => (e.label || '').toLowerCase().includes(name)))
-    .filter(Boolean)
-    .map(e => e!.emoji);
-  
+
+  const quickEmojis: string[] = [];
+  for (const name of quickReactionNames) {
+    const match = emojiByLabelMap.get(name);
+    if (match) {
+      quickEmojis.push(match.emoji);
+    }
+  }
+
   if (quickEmojis.length < 5) {
     return getEmojisByCategory(EmojiCategory.SmileysAndPeople).slice(0, 5);
   }

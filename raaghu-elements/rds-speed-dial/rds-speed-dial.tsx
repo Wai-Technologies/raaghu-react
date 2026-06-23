@@ -14,7 +14,7 @@ export interface RdsSpeedDialAction {
   tooltipTitle?: string;
 }
 
-export interface RdsSpeedDialProps extends Omit<SpeedDialProps, 'children'> {
+export interface RdsSpeedDialProps extends Omit<SpeedDialProps, 'children' | 'component'> {
   actions: RdsSpeedDialAction[];
   icon?: ReactNode;
   openIcon?: ReactNode;

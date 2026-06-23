@@ -1,9 +1,9 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButton } from '@mui/material';
 import './rds-collapse.scss';
 import { ExpandMore } from '@mui/icons-material';
 
-export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle'> {
+export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle' | 'component'> {
   title?: string;
   children: ReactNode;
   expanded?: boolean;
@@ -19,15 +19,13 @@ const RdsCollapse = ({
   showToggleButton = true,
   ...props
 }: RdsCollapseProps) => {
-  const [internalExpanded, setInternalExpanded] = useState(expanded);
-
-  useEffect(() => {
-    setInternalExpanded(expanded);
-  }, [expanded]);
+  const isControlled = expanded !== undefined && onToggle !== undefined;
+  const [internalExpanded, setInternalExpanded] = useState(expanded ?? false);
+  const currentExpanded = isControlled ? expanded : internalExpanded;
 
   const handleToggle = () => {
-    const newExpanded = !internalExpanded;
-    setInternalExpanded(newExpanded);
+    const newExpanded = !currentExpanded;
+    if (!isControlled) setInternalExpanded(newExpanded);
     onToggle?.(newExpanded);
   };
 
@@ -51,10 +49,10 @@ const RdsCollapse = ({
           )}
           {showToggleButton && (
             <IconButton
-              aria-label={internalExpanded ? 'Collapse' : 'Expand'}
+              aria-label={currentExpanded ? 'Collapse' : 'Expand'}
               size="small"
               sx={{
-                transform: internalExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                transform: currentExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
                 transition: 'transform 0.2s',
                 p: 0,
                 ml: 0,
@@ -65,7 +63,7 @@ const RdsCollapse = ({
           )}
         </Box>
       )}
-      <MuiCollapse in={internalExpanded} {...props}>
+      <MuiCollapse in={currentExpanded} {...props}>
         <Box sx={{ pt: title ? 1 : 0 }}>
           {children}
         </Box>

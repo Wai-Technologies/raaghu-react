@@ -156,7 +156,8 @@ const RdsCompAiFabMenu = ({
           role="menu"
         >
           {listItems.map((listItem) => (
-            <a
+            <button
+              type="button"
               key={listItem.key}
               role="menuitem"
               className={clsx(
@@ -164,7 +165,6 @@ const RdsCompAiFabMenu = ({
                 id === "attachment-text" && "rds-fab-menu__item--compact"
               )}
               onClick={handleItemClick(listItem.onClick)}
-              tabIndex={0}
             >
               <RdsCompAiIcon
                 name={listItem.icon}
@@ -175,7 +175,7 @@ const RdsCompAiFabMenu = ({
                 position="top-left"
               />
               <span className="rds-fab-menu__item-text">{listItem.value}</span>
-            </a>
+            </button>
           ))}
         </div>
       </div>

@@ -2,7 +2,7 @@ import { type ReactNode, type CSSProperties } from 'react';
 import { Box, Container, type ContainerProps } from '@mui/material';
 import RdsHeader from '../rds-header/rds-header';
 
-export interface RdsLayoutProps extends Omit<ContainerProps, 'children'> {
+export interface RdsLayoutProps extends Omit<ContainerProps, 'children' | 'component'> {
   children: ReactNode;
   header?: {
     title?: string;

@@ -345,9 +345,8 @@ const defaultColumns = [
     minWidth: 180,
     type: 'text' as const,
     sortable: true,
-    format: (value: string) => (
-      <div className="rds-table__content-row">
-        <span className="rds-table__content-text">Text</span>
+    format: () => (
+      <div className="rds-table__badge-group">
         <RdsBadge 
           badgeContent="Active" 
           color="secondary" 
@@ -384,8 +383,8 @@ const defaultColumns = [
     minWidth: 180,
     type: 'text' as const,
     sortable: true,
-    format: (value: string) => (
-      <div className="rds-table__content-row">
+    format: () => (
+      <div className="rds-table__badge-group">
         <RdsBadge 
           badgeContent="Active" 
           color="secondary" 
@@ -400,7 +399,6 @@ const defaultColumns = [
           shape="rectangle" 
           colorVariant="secondary"
         />
-        <span className="rds-table__content-text">Text</span>
       </div>
     )
   }

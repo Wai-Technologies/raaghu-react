@@ -57,22 +57,24 @@ export const ProfileMenu = ({
   menuItems,
 }: ProfileMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+    return window.innerWidth <= 834;
+  });
   const open = Boolean(anchorEl);
   const initials = shortName ?? getInitials(name);
   const items = menuItems && menuItems.length > 0 ? menuItems : DEFAULT_MENU_ITEMS;
 
   useEffect(() => {
-    if (variant !== 'rich') return;
-
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth <= 834);
     };
 
-    checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
-  }, [variant]);
+  }, []);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -92,6 +94,9 @@ export const ProfileMenu = ({
         className="rds-profile-menu__button"
         aria-haspopup="true"
         aria-expanded={open}
+        disableRipple
+        disableTouchRipple
+        focusRipple={false}
       >
         {variant === 'rich' ? (
           <>

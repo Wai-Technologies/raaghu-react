@@ -1,4 +1,4 @@
-import { RdsTimePickerProps } from './rds-comp-time-picker';
+import { RdsTimePickerProps } from './time-picker-types';
 
 export const getButtonClasses = (colorVariant?: string) => {
   const variant = colorVariant || 'primary';

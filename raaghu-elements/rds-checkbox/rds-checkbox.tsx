@@ -1,9 +1,9 @@
-import { useState, useEffect, type CSSProperties, type ChangeEvent } from 'react';
+import { useEffect, useState, type CSSProperties, type ChangeEvent } from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-checkbox.scss';
 
-export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
+export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
   labeltext?: string;
   isDisabled?: boolean;
   style?: 'square' | 'circular';
@@ -30,18 +30,19 @@ const RdsCheckbox = ({
 }:RdsCheckboxProps) => {
   const isCheckboxDisabled = Boolean(disabled) || isDisabled || state === 'disabled';
 
-  const [checked, setChecked] = useState(status === 'checked');
+  const [internalChecked, setInternalChecked] = useState(status === 'checked');
+  const checked = internalChecked;
 
   useEffect(() => {
     if (status !== undefined) {
-      setChecked(status === 'checked');
+      setInternalChecked(status === 'checked');
     }
   }, [status]);
 
   const currentIndeterminate = status === 'indeterminate';
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
-    setChecked(value);
+    setInternalChecked(value);
     if (onChange) onChange(event, value);
   };
 

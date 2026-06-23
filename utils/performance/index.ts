@@ -84,14 +84,12 @@ export class BundleSizeAnalyzer {
     const components = [
       'RdsButton', 'RdsCard', 'RdsModal', 'RdsTable', 'RdsForm'
     ];
-    
-    const report: Record<string, number> = {};
-    
-    for (const component of components) {
-      report[component] = await this.analyzeComponent(component);
-    }
-    
-    return report;
+
+    const entries = await Promise.all(
+      components.map(async (component) => [component, await this.analyzeComponent(component)] as const)
+    );
+
+    return Object.fromEntries(entries);
   }
 }
 

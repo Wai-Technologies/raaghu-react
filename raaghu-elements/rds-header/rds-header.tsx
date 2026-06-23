@@ -8,7 +8,7 @@ import Person from '@mui/icons-material/Person';
 import clsx from 'clsx';
 import './rds-header.scss';
 
-export interface RdsHeaderProps extends AppBarProps {
+export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
   title?: string;
   logo?: ReactNode;
   onMenuClick?: () => void;
