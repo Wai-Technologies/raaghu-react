@@ -109,6 +109,11 @@ function ThemeToggle() {
 }
 ```
 
+`toggleMode()` cycles `light -> dark -> system -> light`. For production apps,
+prefer explicit `setMode('system')`, `setMode('light')`, and `setMode('dark')`
+actions so users can choose between following the device theme and forcing a
+manual light or dark mode.
+
 ```scss
 // Component SCSS — always use tokens, never hardcode hex
 .rds-my-component {

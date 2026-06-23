@@ -9,12 +9,13 @@ const preview: Preview = {
     theme: {
       name: 'Theme',
       description: 'Global theme for components',
-      defaultValue: 'light',
+      defaultValue: 'system',
       toolbar: {
         icon: 'photo',
         items: [
           { value: 'light', title: 'Light' },
           { value: 'dark', title: 'Dark' },
+          { value: 'system', title: 'System' },
         ],
         showName: true,
         dynamicTitle: true,
@@ -108,10 +109,10 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const mode = (context.globals.theme || 'light') as 'light' | 'dark';
+      const mode = (context.globals.theme || 'system') as 'light' | 'dark' | 'system';
       return React.createElement(
         RaaghuThemeProvider,
-        { mode, initializeOnMount: true },
+        { mode, initializeOnMount: false },
         React.createElement(Story),
       );
     },
