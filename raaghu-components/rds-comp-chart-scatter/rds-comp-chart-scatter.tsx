@@ -14,6 +14,7 @@ export interface RdsCompScatterChartProps {
   dataSets: ChartConfiguration["data"]["datasets"];
   id: string;
   chartLabel?: string;
+  chartType?: "scatter" | "bar" | "line";
 }
 
 const RdsCompScatterChart = ({
@@ -22,6 +23,7 @@ const RdsCompScatterChart = ({
   options,
   dataSets,
   chartLabel,
+  chartType = "scatter",
 }: RdsCompScatterChartProps) => {
   const chartRef = useRef<Chart | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -40,7 +42,7 @@ const RdsCompScatterChart = ({
     applyChartThemeColors(chartOptions);
 
     chartRef.current = new Chart(ctx, {
-      type: "scatter",
+      type: chartType,
       data: chartData,
       options: chartOptions,
     });
@@ -48,7 +50,7 @@ const RdsCompScatterChart = ({
     return () => {
       chartRef.current?.destroy();
     };
-  }, [id, labels, options, dataSets, themeMode]);
+  }, [id, labels, options, dataSets, themeMode, chartType]);
 
   return (
     <div className="rds-comp-chart-scatter">

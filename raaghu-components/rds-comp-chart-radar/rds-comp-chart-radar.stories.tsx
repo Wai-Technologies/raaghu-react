@@ -47,23 +47,18 @@ export const Default: Story = {
                     "text": "Radar Chart"
                 },
                 "legend": {
-                    "position": "left",
+                    "position": "top",
                     "align": "start",
-                    "pointStyle": "rectRot",
-                    "pointRadius": 5,
                     "labels": {
                         "usePointStyle": true,
                         "pointStyle": "circle",
-                        "pointStyleWidth": 8,
                         "boxWidth": 8,
                         "boxHeight": 8,
                         "padding": 20,
-                        "height": 5,
                         "font": {
                             "size": 12,
                             "weight": "500"
-                        },
-                        "color": "#333333"
+                        }
                     }
                 },
                 "tooltip": {
