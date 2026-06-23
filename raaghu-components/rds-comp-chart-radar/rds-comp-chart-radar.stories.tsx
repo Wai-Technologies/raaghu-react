@@ -52,7 +52,8 @@ export const Default: Story = {
                     "labels": {
                         "usePointStyle": true,
                         "pointStyle": "circle",
-                        "pointStyleWidth": 10,
+                        "boxWidth": 8,
+                        "boxHeight": 8,
                         "padding": 20,
                         "font": {
                             "size": 12,

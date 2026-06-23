@@ -87,6 +87,7 @@ export const Default: Story = {
 export const WithMultiAxis: Story = {
     args: {
         id: "Scatter_Chart_Multi_Axis",
+        chartType: "bar",
         dataSets: [
             {
                 label: "Scatter Dataset 1",
