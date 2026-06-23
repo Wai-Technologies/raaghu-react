@@ -64,7 +64,7 @@ const RdsAvatar = ({
     const overlapOffset = size === 'smallest' ? -12 : size === 'small' ? -14 : size === 'medium' ? -16 : size === 'largest' ? -26 : size === 'large' ? -20 : -22;
 
     return (
-      <div className="rds-avatar__stacking avatar-container" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+      <div className="rds-avatar__stacking avatar-container" style={{ display: 'flex', alignItems: 'center' }}>
         {visibleAvatars.map((avatar, idx) => (
     <MuiAvatar
       key={idx}
