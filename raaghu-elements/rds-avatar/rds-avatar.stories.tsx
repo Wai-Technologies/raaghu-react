@@ -79,6 +79,14 @@ export const Default: Story = {
     showName: true,
     showDesignation: true,
     displayStyle: 'with-name',
+    avatars: [
+      { title: 'Jane Doe', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'John Smith', src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Ava Lee', src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Mike Brown', src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Sarah Wilson', src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face' },
+    ],
+    maxVisibleAvatars: 3,
   },
   parameters: {
     controls: {
