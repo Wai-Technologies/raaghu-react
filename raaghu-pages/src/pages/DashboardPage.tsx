@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import RdsCompAppShell, { AppShellDisplayType } from '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell';
 import '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell.scss';
 import RdsAppBar from '@raaghu/elements/rds-app-bar/rds-app-bar';
@@ -256,7 +256,7 @@ export default function DashboardPage() {
         }
       />
     </div>
-  ), [isDark, logoSrc, toggleMode]);
+  ), [isDark, logoSrc, mode, themeMenuAnchor, isMobile,themeIcon]);
 
   // ── Sidebar ─────────────────────────────────────────────────────────────
   // Default layout intentionally hides the sidebar logo (logo lives in AppBar).
