@@ -1144,15 +1144,16 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-button-secondary-text-disabled': interactiveTokens.secondaryTextDisabled,
     '--rds-button-secondary-bg-disabled': n[100],
     // ── Button text ──────────────────────────────────────────────────────────
-    '--rds-button-text-bg-hover': t[50],
+    '--rds-button-text-bg-hover': p[50],
     '--rds-button-text-variant-bg': interactiveTokens.variantTextBg,
-    '--rds-button-text-bg-active': t[100],
-    '--rds-button-text-color': t[400],
-    '--rds-button-text-color-active': t[500],
-    '--rds-button-text-color-disabled': t[300],
+    '--rds-button-text-bg-active': p[100],
+    '--rds-button-text-color': p[700],
+    '--rds-button-text-color-active': p[600],
+    '--rds-button-text-color-disabled': p[300],
     // ── Alerts ───────────────────────────────────────────────────────────────
     '--rds-alert-success-bg': p[50],
     '--rds-alert-success-border': interactiveTokens.alertSuccessBorder,
+    '--rds-alert-loading-border': '#3D98FF',
     '--rds-alert-success-text': su[600],
     '--rds-alert-error-bg': interactiveTokens.alertErrorBg,
     '--rds-alert-error-border': e[700],
@@ -1188,7 +1189,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-tooltip-bg': n[900],
     '--rds-tooltip-text': white,
     // ── Focus ring ───────────────────────────────────────────────────────────
-    '--rds-focus-ring': '0 0 0 2px var(--rds-primary-main)',
+    '--rds-focus-ring': '2px solid var(--rds-primary-main)',
     // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-hover-bg': 'var(--rds-action-hover)',
     '--rds-color-disabled-bg': 'var(--rds-neutral-50)',
@@ -1423,6 +1424,7 @@ function darkThemeCssVars(): Record<string, string> {
     // ── Alerts (dark overrides) ───────────────────────────────────────────────
     '--rds-alert-success-bg': 'rgba(31, 118, 48, 0.15)',
     '--rds-alert-success-border': su[200],
+    '--rds-alert-loading-border': '#3D98FF',
     '--rds-alert-success-text': su[200],
     '--rds-alert-error-bg': 'rgba(189, 13, 29, 0.15)',
     '--rds-alert-error-border': e[200],

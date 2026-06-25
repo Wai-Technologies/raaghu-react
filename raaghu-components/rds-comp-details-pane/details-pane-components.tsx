@@ -52,6 +52,14 @@ export interface ToolbarContentProps {
   storybookIconSrc?: string;
 }
 
+const TOOLBAR_TABS = [
+  { id: 'icon_font', ariaLabel: 'Font settings' },
+  { id: 'icon_color', ariaLabel: 'Color settings' },
+  { id: 'icon_frame', ariaLabel: 'Corner radius settings' },
+  { id: 'icon_line_height', ariaLabel: 'Spacing settings' },
+  { id: 'icon_block', ariaLabel: 'Block settings' },
+] as const;
+
 export interface ThumbnailViewContentProps {
   thumbnailButtonName?: string;
 }
@@ -250,9 +258,10 @@ export const HistoryFavoritesTabs = ({
               {["fav-card-1", "fav-card-2"].map((cardKey, idx) => (
                 <button
                   type="button"
-                  className={`rds-comp-details-pane__favourite-card${
-                    selectedIndexes.includes(idx) ? " rds-comp-details-pane__favourite-card--selected" : ""
-                  }`}
+                  className={clsx(
+                    'rds-comp-details-pane__favourite-card',
+                    selectedIndexes.includes(idx) && 'rds-comp-details-pane__favourite-card--selected',
+                  )}
                   key={cardKey}
                   onClick={() => toggleSelection(idx)}
                   onKeyDown={(e) => {
@@ -480,7 +489,7 @@ export const SelectionContent = ({
             <button
               type="button"
               key={agent.id}
-              className={clsx("rds-comp-details-pane__agent-card", selectedAgent === String(agent.id) && " rds-comp-details-pane__agent-card--selected")}
+              className={clsx("rds-comp-details-pane__agent-card", selectedAgent === String(agent.id) && "rds-comp-details-pane__agent-card--selected")}
                 onClick={() => handleAgentSelect(String(agent.id))}
               onKeyDown={(e) => handleAgentCardKeyDown(e, String(agent.id))}
             >
@@ -553,81 +562,24 @@ export const ToolbarContent = ({
           <div>
             <h3>Toolbar</h3>
             <div className="rds-comp-details-pane__toolbar-buttons-row rds-comp-details-pane__toolbar-buttons-row--scrollable">
-              <div className="rds-comp-details-pane__circle-btn-container">
-                <RdsButton
-                  color="primary"
-                  changeLeftIcon='circle'
-                  showLeftIcon
-                  layout="icon-only"
-                  shape="rectangle"
-                  size="medium"
-                  state="default"
-                  style={activeToolbarTab === 'icon_font' ? 'filled' : 'transparent'}
-                  text="Default Button"
-                  textCase="uppercase"
-                  onClick={() => updateToolbarState({ activeToolbarTab: 'icon_font' })}
-                />
-              </div>
-              <div className="rds-comp-details-pane__circle-btn-container">
-                <RdsButton
-                  color="primary"
-                  changeLeftIcon='circle'
-                  showLeftIcon
-                  layout="icon-only"
-                  shape="rectangle"
-                  size="medium"
-                  state="default"
-                  style={activeToolbarTab === 'icon_color' ? 'filled' : 'transparent'}
-                  text="Default Button"
-                  textCase="uppercase"
-                  onClick={() => updateToolbarState({ activeToolbarTab: 'icon_color' })}
-                />
-              </div>
-              <div className="rds-comp-details-pane__circle-btn-container">
-                <RdsButton
-                  color="primary"
-                  changeLeftIcon='circle'
-                  showLeftIcon  
-                  layout="icon-only"
-                  shape="rectangle"
-                  size="medium"
-                  state="default"
-                  style={activeToolbarTab === 'icon_frame' ? 'filled' : 'transparent'}
-                  text="Default Button"
-                  textCase="uppercase"
-                  onClick={() => updateToolbarState({ activeToolbarTab: 'icon_frame' })}
-                />
-              </div>
-              <div className="rds-comp-details-pane__circle-btn-container">
-                <RdsButton
-                  color="primary"
-                  changeLeftIcon='circle'
-                  showLeftIcon
-                  layout="icon-only"
-                  shape="rectangle"
-                  size="medium"
-                  state="default"
-                  style={activeToolbarTab === 'icon_line_height' ? 'filled' : 'transparent'}
-                  text="Default Button"
-                  textCase="uppercase"
-                  onClick={() => updateToolbarState({ activeToolbarTab: 'icon_line_height' })}
-                />
-              </div>
-              <div className="rds-comp-details-pane__circle-btn-container">
-                <RdsButton
-                  color="primary"
-                  changeLeftIcon='circle'
-                  showLeftIcon
-                  layout="icon-only"
-                  shape="rectangle"
-                  size="medium"
-                  state="default"
-                  style={activeToolbarTab === 'icon_block' ? 'filled' : 'transparent'}
-                  text="Default Button"
-                  textCase="uppercase"
-                  onClick={() => updateToolbarState({ activeToolbarTab: 'icon_block' })}
-                />
-              </div>
+              {TOOLBAR_TABS.map((tab) => {
+                const isSelected = activeToolbarTab === tab.id;
+                return (
+                <div key={tab.id} className="rds-comp-details-pane__circle-btn-container">
+                  <button
+                    type="button"
+                    className={clsx(
+                      'rds-comp-details-pane__toolbar-circle-btn',
+                      isSelected && 'rds-comp-details-pane__toolbar-circle-btn--selected',
+                    )}
+                    aria-label={tab.ariaLabel}
+                    aria-pressed={isSelected}
+                    onClick={() => updateToolbarState({ activeToolbarTab: tab.id })}
+                  >
+                    <span className="rds-comp-details-pane__toolbar-circle-icon" aria-hidden="true" />
+                  </button>
+                </div>
+              )})}
             </div>
             <hr className="rds-comp-details-pane__toolbar-divider" />
             <div>

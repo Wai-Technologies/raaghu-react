@@ -352,6 +352,25 @@
     opacity: var(--rds-accordion-disabled-opacity, 0.6);
     pointer-events: none;
     background-color: var(--rds-color-surface-hover) !important;
+    border: none !important;
+
+    .rds-accordion__summary {
+      background-color: var(--rds-color-surface-hover) !important;
+    }
+
+    .rds-accordion__details {
+      background-color: var(--rds-color-surface-hover) !important;
+    }
+
+    .rds-accordion__title {
+      color: var(--rds-color-text-secondary) !important;
+      font-weight: var(--rds-font-weight-regular, 400) !important;
+    }
+
+    .rds-accordion__icon,
+    .MuiAccordionSummary-expandIconWrapper {
+      color: var(--rds-color-text-secondary) !important;
+    }
   }
 
   &--small {

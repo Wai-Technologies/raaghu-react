@@ -53,8 +53,8 @@ const RdsAccordion = ({
     size && `rds-accordion--${size}`,
     accordionStyle && `rds-accordion--${accordionStyle}`,
     isExpanded && 'rds-accordion--expanded',
-    state === 'selected' && 'rds-accordion--selected',
-    state === 'hover' && isHovered && 'rds-accordion--hover',
+    !isDisabled && state === 'selected' && 'rds-accordion--selected',
+    !isDisabled && state === 'hover' && isHovered && 'rds-accordion--hover',
     isDisabled && 'rds-accordion--disabled',
   );
 

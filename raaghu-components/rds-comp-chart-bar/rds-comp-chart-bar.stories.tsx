@@ -313,5 +313,3 @@ export const Vertical: Story = {
      },
 } satisfies Story;
 
-export const Default: Story = { ...BorderRadius };
-
