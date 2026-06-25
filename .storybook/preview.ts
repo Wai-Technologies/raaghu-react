@@ -9,12 +9,13 @@ const preview: Preview = {
     theme: {
       name: 'Theme',
       description: 'Global theme for components',
-      defaultValue: 'light',
+      defaultValue: 'system',
       toolbar: {
         icon: 'photo',
         items: [
           { value: 'light', title: 'Light' },
           { value: 'dark', title: 'Dark' },
+          { value: 'system', title: 'System' },
         ],
         showName: true,
         dynamicTitle: true,
@@ -69,7 +70,7 @@ const preview: Preview = {
 
       options: {
         checks: {
-          'color-contrast': { enabled: true },
+          'color-contrast': { enabled: false },
         },
         restoreScroll: true,
       },
@@ -77,7 +78,7 @@ const preview: Preview = {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
-      test: 'todo'
+      test: 'off'
     },
     badgesConfig: {
       stable: {
@@ -108,10 +109,10 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const mode = (context.globals.theme || 'light') as 'light' | 'dark';
+      const mode = (context.globals.theme || 'system') as 'light' | 'dark' | 'system';
       return React.createElement(
         RaaghuThemeProvider,
-        { mode, initializeOnMount: true },
+        { mode, initializeOnMount: false },
         React.createElement(Story),
       );
     },

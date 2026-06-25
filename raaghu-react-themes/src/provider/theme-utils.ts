@@ -9,10 +9,23 @@ import { injectTokens, type RdsBrandOverrides } from '../../tokens/build-rds-css
 /**
  * Supported theme modes for the Raaghu Design System.
  *
- * Note: `'semi-dark'` was previously accepted but is not implemented.
- * Only `'light'` and `'dark'` are supported.
+ * - `'light'`  — always light, ignores OS preference
+ * - `'dark'`   — always dark, ignores OS preference
+ * - `'system'` — follows the OS/browser `prefers-color-scheme` automatically
  */
-export type RaaghuThemeMode = 'light' | 'dark';
+export type RaaghuThemeMode = 'light' | 'dark' | 'system';
+
+/**
+ * Resolves `'system'` to the actual effective mode by reading
+ * `prefers-color-scheme`. `'light'` and `'dark'` are returned as-is.
+ */
+export function resolveEffectiveMode(mode: RaaghuThemeMode): 'light' | 'dark' {
+  if (mode !== 'system') return mode;
+  return typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
+    ? 'dark'
+    : 'light';
+}
 
 export { type RdsBrandOverrides };
 
@@ -31,8 +44,8 @@ export const RAAGHU_THEME_BODY_CLASSES = {
 export function isDarkMode(): boolean {
   if (typeof document === 'undefined') return false;
 
-  const htmlTheme = document.documentElement.dataset.theme;
-  const bodyTheme = document.body.dataset.theme;
+  const htmlTheme = document.documentElement.getAttribute('data-theme');
+  const bodyTheme = document.body.getAttribute('data-theme');
 
   return (
     htmlTheme === 'dark' ||
@@ -47,15 +60,16 @@ export function isDarkMode(): boolean {
 /**
  * Applies theme to the DOM so runtime --rds-* tokens and MUI stay in sync.
  *
- * @param mode - Theme mode. Only `'light'` and `'dark'` are supported.
+ * @param mode - `'light'`, `'dark'`, or `'system'` (follows OS preference).
  * @param overrides - Optional brand overrides applied on top of the base token set.
  */
 export function applyRaaghuTheme(mode: RaaghuThemeMode, overrides?: RdsBrandOverrides): void {
   if (typeof document === 'undefined') return;
 
-  const isDark = mode === 'dark';
+  const effectiveMode = resolveEffectiveMode(mode);
+  const isDark = effectiveMode === 'dark';
 
-  document.documentElement.setAttribute('data-theme', mode);
+  document.documentElement.setAttribute('data-theme', effectiveMode);
   document.documentElement.classList.toggle('rds-theme--dark', isDark);
   document.documentElement.classList.toggle('theme-dark', isDark);
   document.documentElement.classList.toggle('theme-light', !isDark);
@@ -73,12 +87,12 @@ export function applyRaaghuTheme(mode: RaaghuThemeMode, overrides?: RdsBrandOver
     localStorage.setItem(THEME_STORAGE_KEY, mode);
   }
 
-  injectTokens(mode, overrides);
+  injectTokens(effectiveMode, overrides);
 }
 
 export function getRaaghuThemeMode(): RaaghuThemeMode {
   if (typeof document === 'undefined') return 'light';
-  const htmlTheme = document.documentElement.dataset.theme;
+  const htmlTheme = document.documentElement.getAttribute('data-theme');
   if (htmlTheme === 'dark' || htmlTheme === 'light') {
     return htmlTheme;
   }
@@ -87,6 +101,7 @@ export function getRaaghuThemeMode(): RaaghuThemeMode {
 
 /**
  * Initializes theme from localStorage or system preference.
+ * Returns `'system'` when no stored preference exists (default behaviour).
  */
 export function initializeRaaghuTheme(): RaaghuThemeMode {
   const stored =
@@ -94,18 +109,10 @@ export function initializeRaaghuTheme(): RaaghuThemeMode {
       ? (localStorage.getItem(THEME_STORAGE_KEY) as RaaghuThemeMode | null)
       : null;
 
-  const prefersDark =
-    typeof window !== 'undefined' &&
-    window.matchMedia?.('(prefers-color-scheme: dark)')?.matches;
-
   const mode: RaaghuThemeMode =
-    stored === 'dark'
-      ? 'dark'
-      : stored === 'light'
-        ? 'light'
-        : prefersDark
-          ? 'dark'
-          : 'light';
+    stored === 'dark' || stored === 'light' || stored === 'system'
+      ? stored
+      : 'system';
 
   applyRaaghuTheme(mode);
   return mode;

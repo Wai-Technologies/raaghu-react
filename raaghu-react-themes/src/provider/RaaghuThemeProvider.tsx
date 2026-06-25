@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { darkTheme, lightTheme } from '../mui';
+import { darkTheme } from '../mui/dark.theme';
+import { lightTheme } from '../mui/light.theme';
 import {
   applyRaaghuTheme,
   getRaaghuThemeMode,
   initializeRaaghuTheme,
+  resolveEffectiveMode,
   type RaaghuThemeMode,
   type RdsBrandOverrides,
 } from './theme-utils';
@@ -33,26 +35,21 @@ export interface RaaghuThemeProviderProps {
 
 /**
  * Industry-standard theme root: syncs MUI ThemeProvider with Raaghu CSS custom properties.
- *
- * Usage:
- * ```tsx
- * import 'raaghu-react-themes/src/styles/index.scss';
- * import { RaaghuThemeProvider } from 'raaghu-react-themes';
- *
- * <RaaghuThemeProvider>
- *   <App />
- * </RaaghuThemeProvider>
- * ```
  */
 export function RaaghuThemeProvider({
   children,
   mode: controlledMode,
-  defaultMode = 'light',
+  defaultMode = 'system',
   initializeOnMount = true,
   onModeChange,
   brandOverrides,
 }: Readonly<RaaghuThemeProviderProps>) {
   const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(defaultMode);
+  const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(() =>
+    typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
+      ? true
+      : false,
+  );
   const mode = controlledMode ?? internalMode;
 
   useEffect(() => {
@@ -64,29 +61,45 @@ export function RaaghuThemeProvider({
   useLayoutEffect(() => {
     applyRaaghuTheme(mode, brandOverrides);
     onModeChange?.(mode);
-  }, [mode, onModeChange, brandOverrides]);
+  }, [mode, systemPrefersDark, onModeChange, brandOverrides]);
 
-  const muiTheme = useMemo(() => (mode === 'dark' ? darkTheme : lightTheme), [mode]);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (event: MediaQueryListEvent) => {
+      setSystemPrefersDark(event.matches);
+    };
+
+    setSystemPrefersDark(mq.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const effectiveMode = mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : resolveEffectiveMode(mode);
+  const muiTheme = useMemo(() => (effectiveMode === 'dark' ? darkTheme : lightTheme), [effectiveMode]);
 
   const setMode = useCallback(
     (next: RaaghuThemeMode) => {
       if (controlledMode === undefined) {
         setInternalMode(next);
       }
-      applyRaaghuTheme(next, brandOverrides);
       onModeChange?.(next);
     },
-    [controlledMode, onModeChange, brandOverrides],
+    [controlledMode, onModeChange],
   );
 
   const contextValue = useMemo(
     () => ({
       mode,
       setMode,
-      toggleMode: () => setMode(mode === 'light' ? 'dark' : 'light'),
-      isDark: mode === 'dark',
+      toggleMode: () => {
+        const next = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
+        setMode(next);
+      },
+      isDark: effectiveMode === 'dark',
     }),
-    [mode, setMode],
+    [mode, effectiveMode, setMode],
   );
 
   return (
