@@ -36,7 +36,7 @@ jest.mock('@mui/material', () => {
         {children}
       </div>
     )),
-    Typography: ({ children, _variant, className, sx, ...props }: any) => {
+    Typography: ({ children, variant, className, sx, ...props }: any) => {
       const fakeTheme = {
         palette: {
           common: { white: '#ffffff' },

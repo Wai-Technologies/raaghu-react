@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompProductTour from './rds-comp-product-tour';
 import { RdsCompProductTourProps } from './product-tour-helpers';
 import '@testing-library/jest-dom';
@@ -46,7 +46,7 @@ jest.mock('@mui/icons-material', () => ({
 
 // Mock Raaghu elements
 jest.mock('../../raaghu-elements', () => ({
-  RdsCarousel: ({ children, state, height, style, type, _showDots, _showArrows, ...props }: any) => (
+  RdsCarousel: ({ children, state, height, style, type, showDots, showArrows, ...props }: any) => (
     <div
       data-testid="rds-carousel"
       data-state={state}
@@ -71,7 +71,7 @@ jest.mock('../../raaghu-elements', () => ({
       {badgeContent}
     </span>
   ),
-  RdsFileUploader: ({ accept, _dragAndDrop, hintText, maxFiles, maxSize, _onFilesChange, ...props }: any) => (
+  RdsFileUploader: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onFilesChange, ...props }: any) => (
     <div
       data-testid="rds-file-uploader"
       data-accept={accept}
@@ -91,7 +91,7 @@ jest.mock('../../raaghu-elements', () => ({
       {...props}
     />
   ),
-  RdsAutocomplete: ({ _options, placeholder, ...props }: any) => (
+  RdsAutocomplete: ({ options, placeholder, ...props }: any) => (
     <div data-testid="rds-autocomplete" data-placeholder={placeholder} {...props}></div>
   ),
   RdsButton: ({ text, onClick, className, style, size, ...props }: any) => (
@@ -147,7 +147,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should not render if not visible', () => {
-      render(<RdsCompProductTour {...defaultProps} />);
+      const { rerender } = render(<RdsCompProductTour {...defaultProps} />);
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
   });
@@ -321,7 +321,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should render form tabs', () => {
-      render(
+      const { container } = render(
         <RdsCompProductTour
           {...defaultProps}
           state="Form"
@@ -420,7 +420,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should hide component when dismiss button clicked', () => {
-      render(
+      const { container } = render(
         <RdsCompProductTour {...defaultProps} showDismiss={true} state="Image" slides={mockSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();

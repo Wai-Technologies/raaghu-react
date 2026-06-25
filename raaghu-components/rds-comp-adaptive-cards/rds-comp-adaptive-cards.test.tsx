@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -18,13 +18,13 @@ jest.mock('../../raaghu-elements', () => ({
     const element = variant?.startsWith('h') ? 'h3' : 'p';
     return React.createElement(element, { className, 'data-testid': 'rds-typography', ...props }, children);
   },
-  RdsStack: ({ children, className, direction, _spacing, _alignItems, _justifyContent, ...props }: any) => (
+  RdsStack: ({ children, className, direction, spacing, alignItems, justifyContent, ...props }: any) => (
     <div className={className} data-testid="rds-stack" data-direction={direction} {...props}>{children}</div>
   ),
-  RdsButton: ({ text, onClick, className, _style, disabled, _fullWidth, ...props }: any) => (
+  RdsButton: ({ text, onClick, className, style, disabled, fullWidth, ...props }: any) => (
     <button onClick={onClick} className={className} disabled={disabled} data-testid="rds-button" {...props}>{text}</button>
   ),
-  RdsButtonDropdown: ({ buttonText, onClick, _options, ...props }: any) => (
+  RdsButtonDropdown: ({ buttonText, onClick, options, ...props }: any) => (
     <button onClick={onClick} data-testid="rds-button-dropdown" {...props}>{buttonText}</button>
   ),
   RdsAvatar: ({ src, className, ...props }: any) => (
@@ -47,7 +47,7 @@ jest.mock('../../raaghu-elements', () => ({
       ))}
     </div>
   ),
-  RdsCard: ({ children, className, _showIcon, _showIndicator, ...props }: any) => (
+  RdsCard: ({ children, className, showIcon, showIndicator, ...props }: any) => (
     <div className={className} data-testid="rds-card" {...props}>{children}</div>
   ),
   RdsChip: ({ label, onDelete, className, ...props }: any) => (
@@ -91,7 +91,7 @@ jest.mock('../../raaghu-elements/rds-radio/rds-radio', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-card/rds-card', () => {
-  return function MockRdsCard({ children, className, _showIcon, _showIndicator, ...props }: any) {
+  return function MockRdsCard({ children, className, showIcon, showIndicator, ...props }: any) {
     return (
       <div className={className} data-testid="rds-card-standalone" {...props}>
         {children}
@@ -101,7 +101,7 @@ jest.mock('../../raaghu-elements/rds-card/rds-card', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-stack/rds-stack', () => {
-  return function MockRdsStack({ children, className, direction, _spacing, _alignItems, _justifyContent, ...props }: any) {
+  return function MockRdsStack({ children, className, direction, spacing, alignItems, justifyContent, ...props }: any) {
     return (
       <div className={className} data-testid="rds-stack-standalone" data-direction={direction} {...props}>
         {children}
@@ -145,12 +145,13 @@ jest.mock('../../raaghu-elements/rds-chip/rds-chip', () => {
 });
 
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  const React = jest.requireActual('react');
-  const MockButton = React.forwardRef(({ text, onClick, className, disabled, ..._props }: any, ref: any) => (
-    <button ref={ref} onClick={onClick} className={className} disabled={disabled} data-testid="rds-button-direct">{text}</button>
-  ));
-  MockButton.displayName = 'RdsButton';
-  return MockButton;
+  return function MockRdsButton({ text, onClick, className, disabled, style, fullWidth, textCase, sx, ...props }: any) {
+    return (
+      <button onClick={onClick} className={className} disabled={disabled} data-testid="rds-button-standalone" {...props}>
+        {text}
+      </button>
+    );
+  };
 });
 
 jest.mock('@mui/material', () => ({
@@ -290,7 +291,7 @@ describe('RdsCompAdaptiveCards', () => {
     });
 
     it('applies correct button styles', () => {
-      render(
+      const { container } = render(
         <RdsCompAdaptiveCards
           type="Default"
           showBtn1={true}
@@ -893,6 +894,7 @@ describe('RdsCompAdaptiveCards', () => {
       expect(button).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAdaptiveCards />);
       const results = await axe(container);

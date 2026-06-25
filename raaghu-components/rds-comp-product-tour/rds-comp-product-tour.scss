@@ -2,7 +2,7 @@
 
 .rds-comp-product-tour {
   &__container {
-    background-color: var(--rds-background-paper);
+    background: var(--rds-background-paper);
     box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow, rgba(162, 89, 255, 0.18));
     border-radius: var(--rds-border-radius-xl);
     margin: var(--rds-spacing-xl) auto;
@@ -19,6 +19,7 @@
     }
 
     &--carousel {
+  width: 100%;
   width: 100%;
   max-width: var(--rds-carousel-max-width, 520px);
   height: auto;
@@ -52,7 +53,7 @@
     position: absolute;
     width: var(--rds-spacing-md);
     height: var(--rds-spacing-md);
-    background-color: var(--rds-primary-main);
+    background: var(--rds-primary-main);
     border-radius: var(--rds-border-radius-pill);
     box-shadow: 0 0 0 var(--rds-spacing-sm) var(--rds-product-tour-dot-shadow, rgba(135, 46, 252, 0.15));
     z-index: var(--rds-z-index-local-50);
@@ -82,7 +83,7 @@
     position: absolute;
     top: var(--rds-spacing-sm);
     right: var(--rds-spacing-md);
-    background-color: none;
+    background: none;
     border: none;
     padding: 0;
     z-index: var(--rds-z-index-raised);
@@ -104,7 +105,7 @@
     margin: 0;
     border-radius: var(--rds-border-radius-md) var(--rds-border-radius-md) 0 0;
     overflow: hidden;
-    background-color: var(--rds-background-surface);
+    background: var(--rds-background-surface);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,7 +122,7 @@
   &__info-nav-section {
     width: 100%;
     min-height: 137.74px;
-    background-color: var(--rds-background-paper);
+    background: var(--rds-background-paper);
     border-radius: 0 0 var(--rds-border-radius-md) var(--rds-border-radius-md);
     display: flex;
     flex-direction: column;
@@ -166,7 +167,7 @@
     font-size: var(--rds-font-size-md) !important;
     font-weight: 500 !important;
     cursor: pointer;
-    background-color: none;
+    background: none;
     border: none;
     margin-left: auto !important;
     margin-right: var(--rds-spacing-2xl) !important;
@@ -180,7 +181,7 @@
 
     &__arrow {
     border: 0.5px solid var(--rds-primary-main);
-    background-color: var(--rds-background-paper);
+    background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
     border-radius: var(--rds-border-radius-sm);
@@ -197,7 +198,7 @@
     }
 
     &--next {
-      background-color: var(--rds-primary-main);
+      background: var(--rds-primary-main);
       color: var(--rds-neutral-0);
       border: none;
     }
@@ -305,7 +306,7 @@
     font-size: var(--rds-font-size-md) !important;
     font-weight: 500 !important;
     cursor: pointer;
-    background-color: none;
+    background: none;
     border: none;
     margin-left: auto !important;
     font-family: var(--rds-font-family-base);
@@ -320,7 +321,7 @@
   &__carousel-arrow-prev,
   &__carousel-arrow-next {
     border: 0.5px solid var(--rds-primary-main);
-    background-color: var(--rds-background-paper);
+    background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
     border-radius: var(--rds-border-radius-sm);
@@ -346,7 +347,7 @@
   }
 
   &__carousel-arrow-next {
-    background-color: var(--rds-primary-main);
+    background: var(--rds-primary-main);
     color: var(--rds-neutral-0);
     border: none;
   }
@@ -429,7 +430,7 @@
   &__animation-nav-prev,
   &__animation-nav-next {
     border: 0.5px solid var(--rds-primary-main);
-    background-color: var(--rds-background-paper);
+    background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
     border-radius: var(--rds-border-radius-sm);
@@ -455,7 +456,7 @@
   }
 
   &__animation-nav-next {
-    background-color: var(--rds-primary-main);
+    background: var(--rds-primary-main);
     color: var(--rds-neutral-0);
     border: none;
   }
@@ -516,7 +517,7 @@
     bottom: 0;
     left: 0;
     height: 1px;
-    background-color: var(--rds-border-light);
+    background-color: var(--rds-border-default);
     width: 306px;
   }
 
@@ -826,7 +827,7 @@
   &__form-arrow-prev,
   &__form-arrow-next {
     border: 0.5px solid var(--rds-primary-main);
-    background-color: var(--rds-neutral-0);
+    background: var(--rds-neutral-0);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
     border-radius: var(--rds-border-radius-sm);
@@ -852,7 +853,7 @@
   }
 
   &__form-arrow-next {
-    background-color: var(--rds-primary-main);
+    background: var(--rds-primary-main);
     color: var(--rds-neutral-0);
     border: none;
   }
@@ -985,7 +986,7 @@
   .rds-comp-product-tour__animation-info::-webkit-scrollbar {
     width: 0;
     height: 0;
-    background-color: transparent;
+    background: transparent;
   }
   .rds-comp-product-tour__info-nav-section,
   .rds-comp-product-tour__form-content,

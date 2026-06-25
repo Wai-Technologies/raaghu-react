@@ -1,3 +1,4 @@
+import React from "react";
 import RdsCompVideoPlayer, { VideoPlayerType } from "./rds-comp-video-player";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';

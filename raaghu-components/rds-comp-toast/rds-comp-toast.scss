@@ -1,6 +1,6 @@
 .rds-comp-toast {
-  background-color: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-border);
+  background: var(--rds-color-surface);
+  border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
   border-radius: var(--rds-border-radius, 8px);
   box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
   min-width: min(420px, 95vw);
@@ -30,6 +30,22 @@
   
   &--error {
     border-left: 4px solid var(--rds-color-error);
+  }
+
+  &--border-light {
+    border-color: var(--rds-color-outline-variant, var(--rds-color-border));
+  }
+
+  &--border-dark {
+    border-color: var(--rds-color-border-dark, var(--rds-color-border));
+  }
+
+  &--border-primary {
+    border-color: var(--rds-color-primary, var(--rds-primary-main));
+  }
+
+  &--border-danger {
+    border-color: var(--rds-color-error, var(--rds-semantic-error-main, #e53935));
   }
   
   &--text {
@@ -158,13 +174,13 @@
     }
     
     &--plus {
-      background-color: transparent;
+      background: transparent;
       position: relative;
       &::before,
       &::after {
         content: '';
         position: absolute;
-        background-color: var(--rds-toast-plus-color);
+        background: var(--rds-toast-plus-color);
         border-radius: 1px;
       }
       &::before {
@@ -224,7 +240,7 @@
   }
   
   &__close-btn {
-    background-color: none;
+    background: none;
     border: none;
     font-size: var(--rds-font-size-lg, 1.5rem);
     color: var(--rds-color-on-surface-variant);
@@ -294,7 +310,7 @@
   }
   
   &__progress-bar {
-    background-color: var(--rds-color-primary);
+    background: var(--rds-color-primary);
     height: 100%;
     border-radius: inherit;
     transition: width var(--rds-transition-duration-standard, 0.3s) ease;
@@ -321,11 +337,11 @@
   &__input {
     width: 100%;
     padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-md, 0.75rem);
-    border: 1px solid var(--rds-color-border);
+    border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
     border-radius: var(--rds-border-radius-sm, 4px);
     font-size: var(--rds-font-size-base, 0.875rem);
     color: var(--rds-color-on-surface);
-    background-color: var(--rds-color-surface);
+    background: var(--rds-color-surface-container, var(--rds-color-surface));
     transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
                 box-shadow var(--rds-transition-duration-short, 0.2s) ease;
     
@@ -392,31 +408,52 @@
     transition: all var(--rds-transition-duration-short, 0.2s) ease;
     
     &--primary {
-      background-color: var(--rds-color-primary);
+      background: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
       
       &:hover {
-        background-color: var(--rds-color-primary-hover);
+        background: var(--rds-color-primary-hover);
       }
       
       &:active {
-        background-color: var(--rds-color-primary-pressed);
+        background: var(--rds-color-primary-pressed);
       }
     }
     
     &--secondary {
-      background-color: transparent;
+      background: transparent;
       color: var(--rds-color-primary);
       border-color: transparent;
       
       &:hover {
-        background-color: var(--rds-color-primary-hover-light, rgba(25, 118, 210, 0.04));
+        background: var(--rds-color-primary-hover-light, rgba(25, 118, 210, 0.04));
       }
       
       &:active {
-        background-color: var(--rds-color-primary-pressed-light, rgba(25, 118, 210, 0.12));
+        background: var(--rds-color-primary-pressed-light, rgba(25, 118, 210, 0.12));
       }
     }
+  }
+}
+
+html[data-theme='dark'] .rds-comp-toast,
+body[data-theme='dark'] .rds-comp-toast,
+body.theme-dark .rds-comp-toast,
+body.dark-theme .rds-comp-toast {
+  border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+
+  &.rds-comp-toast--border-light {
+    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  }
+
+  &.rds-comp-toast--border-dark {
+    border-color: var(--rds-color-border-dark, rgba(255, 255, 255, 0.24));
+  }
+
+  .rds-comp-toast__input {
+    background: var(--rds-color-surface-dark, var(--rds-color-surface));
+    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.24));
+    color: var(--rds-color-on-surface-dark, var(--rds-color-on-surface));
   }
 }
 
@@ -443,6 +480,7 @@
       right: auto;
       transform: translateX(-50%);
       width: 95vw;
+      max-width: 95vw;
       max-width: 95vw;
       box-sizing: border-box;
     }

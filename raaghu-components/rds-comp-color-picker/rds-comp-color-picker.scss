@@ -13,7 +13,7 @@
     position: relative;
     box-shadow: var(--rds-elevation-2, 0 2px 10px rgba(0, 0, 0, 0.12));
     border-radius: var(--rds-border-radius, 8px);
-    background-color: var(--rds-color-surface, #fff);
+    background: var(--rds-color-surface, #fff);
     padding: var(--rds-spacing-sm, 12px);
     width: 285px;
   }
@@ -39,12 +39,20 @@
     cursor: pointer;
     border: none;
     background-color: var(--rds-color-surface, #fff);
+    color: var(--rds-color-on-surface, #1f1f1f);
     flex: 1;
     text-align: center;
     border-radius: var(--rds-border-radius, 4px);
     padding: var(--rds-spacing-xs) var(--rds-spacing-md);
     font-size: var(--rds-font-size-sm);
     transition: all var(--rds-transition-base);
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+    }
     
     &--active {
       background-color: var(--rds-color-primary, #1976d2);
@@ -181,7 +189,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    background-color: transparent;
+    background: transparent;
     border: none;
     padding: 0;
     min-width: 70px;
@@ -234,15 +242,21 @@
   }
   
   &__dropdown-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
     padding: var(--rds-spacing-sm) 16px;
     font-size: var(--rds-font-size-md);
     cursor: pointer;
     transition: background-color 0.2s;
     color: var(--rds-color-on-surface, #333);
     
-    &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
-      outline-offset: 2px;
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
     }
     
     &:hover {
@@ -253,11 +267,18 @@
       color: var(--rds-color-primary, #9751F2);
       font-weight: 500;
       position: relative;
+      padding-left: 18px;
       
       &::before {
-        content: '�';
+        content: '';
         position: absolute;
-        left: 6px;
+        left: 8px;
+        top: 50%;
+        width: 6px;
+        height: 6px;
+        border-radius: var(--rds-border-radius-pill);
+        transform: translateY(-50%);
+        background-color: var(--rds-color-primary, #9751F2);
         color: var(--rds-color-primary, #9751F2);
       }
     }
@@ -305,6 +326,7 @@
   
   &__percent-input {
     width: 100%;
+    text-align: center;
     height: var(--rds-size-xl);
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
@@ -373,8 +395,19 @@
   &__swatch-item {
     display: flex;
     align-items: center;
+    width: 100%;
     gap: var(--rds-spacing-sm);
     cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 0;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   &__swatch-color {
@@ -436,7 +469,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--rds-color-surface-variant, #f0f0f0);
+    background: var(--rds-color-surface-variant, #f0f0f0);
     color: var(--rds-color-on-surface-variant, #666);
   }
   
@@ -592,7 +625,7 @@
     right: -8px;
     width: 12px;
     height: 12px;
-    background-color: var(--rds-color-error, #d32f2f);
+    background: var(--rds-color-error, #d32f2f);
     color: var(--rds-color-on-primary, #fff);
     border: none;
     border-radius: var(--rds-border-radius-pill);
@@ -618,6 +651,10 @@
     color: var(--rds-color-on-surface) !important;
     fill: var(--rds-color-on-surface) !important;
   }
+
+    .rds-comp-color-picker__tab {
+      color: var(--rds-color-on-surface, #f3f3f3);
+    }
   }
 }
 

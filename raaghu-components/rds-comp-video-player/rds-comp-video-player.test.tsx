@@ -11,8 +11,9 @@ import { axe } from 'jest-axe';
 jest.mock('./rds-comp-video-player.scss', () => ({}));
 
 // Mock ReactPlayer
-jest.mock('react-player', () => {
-  return function MockReactPlayer({
+jest.mock('react-player', () => ({
+  __esModule: true,
+  default: function MockReactPlayer({
     url,
     playing,
     muted,
@@ -41,8 +42,8 @@ jest.mock('react-player', () => {
         Video Player
       </div>
     );
-  };
-});
+  },
+}));
 
 describe('RdsCompVideoPlayer', () => {
   const defaultProps: RdsVideoPlayerProps = {
@@ -178,7 +179,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.dataset.config || '{}');
+      const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.youtube).toBeDefined();
       expect(config.youtube.playerVars.modestbranding).toBe(1);
       expect(config.youtube.playerVars.rel).toBe(0);
@@ -206,7 +207,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.dataset.config || '{}');
+      const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.vimeo).toBeDefined();
       expect(config.vimeo.playerOptions.title).toBe(false);
       expect(config.vimeo.playerOptions.byline).toBe(false);
@@ -222,7 +223,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.dataset.config || '{}');
+      const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.vimeo).toBeDefined();
     });
   });
@@ -249,7 +250,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.dataset.config || '{}');
+      const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.youtube.playerVars.controls).toBe(1);
     });
 
@@ -262,7 +263,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.dataset.config || '{}');
+      const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.youtube.playerVars.controls).toBe(0);
     });
   });
@@ -337,7 +338,7 @@ describe('RdsCompVideoPlayer', () => {
     it('should render with default width and height', () => {
       render(<RdsCompVideoPlayer {...defaultProps} />);
       const player = screen.getByTestId('react-player');
-      const style = JSON.parse(player.dataset.style || '{}');
+      const style = JSON.parse(player.getAttribute('data-style') || '{}');
       expect(style.width).toBe('100%');
       expect(style.height).toBe('auto');
     });
@@ -345,28 +346,28 @@ describe('RdsCompVideoPlayer', () => {
     it('should set custom width', () => {
       render(<RdsCompVideoPlayer {...defaultProps} width="800px" />);
       const player = screen.getByTestId('react-player');
-      const style = JSON.parse(player.dataset.style || '{}');
+      const style = JSON.parse(player.getAttribute('data-style') || '{}');
       expect(style.width).toBe('800px');
     });
 
     it('should set custom height', () => {
       render(<RdsCompVideoPlayer {...defaultProps} height="600px" />);
       const player = screen.getByTestId('react-player');
-      const style = JSON.parse(player.dataset.style || '{}');
+      const style = JSON.parse(player.getAttribute('data-style') || '{}');
       expect(style.height).toBe('600px');
     });
 
     it('should handle numeric width', () => {
       render(<RdsCompVideoPlayer {...defaultProps} width={800} />);
       const player = screen.getByTestId('react-player');
-      const style = JSON.parse(player.dataset.style || '{}');
+      const style = JSON.parse(player.getAttribute('data-style') || '{}');
       expect(style.width).toBe(800);
     });
 
     it('should handle numeric height', () => {
       render(<RdsCompVideoPlayer {...defaultProps} height={600} />);
       const player = screen.getByTestId('react-player');
-      const style = JSON.parse(player.dataset.style || '{}');
+      const style = JSON.parse(player.getAttribute('data-style') || '{}');
       expect(style.height).toBe(600);
     });
 
@@ -577,7 +578,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const style = JSON.parse(player.dataset.style || '{}');
+      const style = JSON.parse(player.getAttribute('data-style') || '{}');
       expect(style).toHaveProperty('width', '640px');
       expect(style).toHaveProperty('height', '360px');
     });
@@ -591,7 +592,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      const config = JSON.parse(player.dataset.config || '{}');
+      const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.file).toBeDefined();
     });
 
@@ -604,7 +605,7 @@ describe('RdsCompVideoPlayer', () => {
       );
 
       let player = screen.getByTestId('react-player');
-      let config = JSON.parse(player.dataset.config || '{}');
+      let config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.file).toBeDefined();
 
       rerender(
@@ -615,7 +616,7 @@ describe('RdsCompVideoPlayer', () => {
       );
 
       player = screen.getByTestId('react-player');
-      config = JSON.parse(player.dataset.config || '{}');
+      config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.vimeo).toBeDefined();
     });
   });
@@ -624,14 +625,14 @@ describe('RdsCompVideoPlayer', () => {
     it('should use default width of 100%', () => {
       render(<RdsCompVideoPlayer videoLink="https://example.com/video.mp4" />);
       const player = screen.getByTestId('react-player');
-      const style = JSON.parse(player.dataset.style || '{}');
+      const style = JSON.parse(player.getAttribute('data-style') || '{}');
       expect(style.width).toBe('100%');
     });
 
     it('should use default height of auto', () => {
       render(<RdsCompVideoPlayer videoLink="https://example.com/video.mp4" />);
       const player = screen.getByTestId('react-player');
-      const style = JSON.parse(player.dataset.style || '{}');
+      const style = JSON.parse(player.getAttribute('data-style') || '{}');
       expect(style.height).toBe('auto');
     });
 

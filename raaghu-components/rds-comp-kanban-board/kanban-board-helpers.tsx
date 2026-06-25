@@ -1,20 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-export interface KanbanAction {
-  key: string;
-  value: string;
-}
-
-export interface KanbanSubCard {
-  ticketId: string;
-  ticketPriority?: string;
-  ticketQuestion: string;
-  ticketDate: string;
-  SubcardId: number;
-  assignedToName?: string;
-  assignedTo?: string;
-  actions: KanbanAction[];
-}
+import { useState, type MouseEventHandler, type MouseEvent } from 'react';
 
 export interface boardInfo {
   cardId?: number;
@@ -42,7 +26,7 @@ export interface RdsCompKanbanBoardProps {
     subText?: string;
     src?: string;
   }>;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   onSubCardOption?: (option: string, subCardIndex: number, subCardId: number) => void;
   onCardOption?: (option: string, cardIndex: number, cardId: number | undefined, cardKey: string) => void;
   allTagsList?: unknown;
@@ -52,7 +36,7 @@ export interface RdsCompKanbanBoardProps {
   onSelectedTagsListChange?: (items: unknown) => void;
 }
 
-export const formatDate = (date: Date) => {
+const formatDate = (date: Date) => {
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
   const year = date.getFullYear();
@@ -64,10 +48,8 @@ export const formatDate = (date: Date) => {
   return `${ordinalSuffix(day)} ${month} ${year}`;
 };
 
-import { secureRandomId } from '../../utils/id';
-
-export const generateRandomId = () => {
-  return secureRandomId();
+const generateRandomId = () => {
+  return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
 };
 
 export const colorClass = (colortype: string) => {
@@ -79,7 +61,7 @@ export const colorClass = (colortype: string) => {
   return defaultClass;
 };
 
-export const priorityList = [
+const priorityList = [
   { label: "High", val: "High" },
   { label: "Moderate", val: "Moderate" },
   { label: "Low", val: "Low" },
@@ -96,11 +78,12 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   );
 
   const [boards, setBoards] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
-  const [totalRecords, setBoardsRecord] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
-
-  useEffect(() => {
+  const [prevBoardData, setPrevBoardData] = useState(props.boardData);
+  if (props.boardData !== prevBoardData) {
+    setPrevBoardData(props.boardData);
     setBoards(props.boardData ? [...props.boardData] : []);
-  }, [props.boardData]);
+  }
+  const [totalRecords, setBoardsRecord] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
 
   const [isBoardDropdownOpen, setIsBoardDropdownOpen] = useState<boolean[]>(
     props.boardData ? [...props.boardData.map(() => false)] : []
@@ -117,7 +100,7 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   const [ticketIdValue, setTicketIdValue] = useState<string>("");
   const [ticketPriorityValue, setTicketPriorityValue] = useState<string>("");
   const [ticketQuestionValue, setTicketQuestionValue] = useState<string>("");
-  const [ticketDateValue, setTicketDateValue] = useState<string>(formatDate(new Date()));
+  const [ticketDateValue, setTicketDateValue] = useState<string>(() => formatDate(new Date()));
   const [editAction, setEditAction] = useState<string>("edit");
   const [deleteAction, setDeleteAction] = useState<string>("delete");
   const [assignAction, setAssignAction] = useState<string>("assign");
@@ -267,13 +250,13 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     setBoardName(event.target.value);
   };
 
-  const toggleDropdown = (index: number, event: React.MouseEvent<HTMLElement>) => {
+  const toggleDropdown = (index: number, event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setSelectedCardIndex(index);
     setSelectedCard(boards[index]);
   };
 
-  const toggleSubCardDropdown = (subCardId: number, event: React.MouseEvent<HTMLElement>, subCard: KanbanSubCard, cardIndex: number) => {
+  const toggleSubCardDropdown = (subCardId: number, event: MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => {
     setSubCardAnchorEl(event.currentTarget);
     setSelectedSubCard(subCard);
     setSelectedCardIndex(cardIndex);
@@ -443,7 +426,7 @@ export const createDragEndHandler = (boards: boardInfo[], setBoards: React.Dispa
     let destSubCardIndex: number;
 
     if (typeof overId === 'string' && overId.startsWith('column-')) {
-      destBoardIndex = Number.parseInt(overId.replace('column-', ''), 10);
+      destBoardIndex = parseInt(overId.replace('column-', ''), 10);
       destSubCardIndex = boards[destBoardIndex]?.subCards.length ?? 0;
     } else {
       destBoardIndex = over.data.current?.boardIndex ?? -1;

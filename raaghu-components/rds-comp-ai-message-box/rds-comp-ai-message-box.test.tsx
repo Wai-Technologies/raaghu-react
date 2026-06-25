@@ -127,7 +127,7 @@ describe('RdsCompAiMessageBox', () => {
     it('renders undefined message when not provided', () => {
       render(<RdsCompAiMessageBox />);
       const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar.dataset.subtext).toBeUndefined();
+      expect(avatar.getAttribute('data-subtext')).toBeNull();
     });
 
     it('renders empty string message when provided', () => {
@@ -355,7 +355,7 @@ describe('RdsCompAiMessageBox', () => {
         '.rds-comp-ai-message-box__image'
       ) as HTMLImageElement;
       expect(image).toBeInTheDocument();
-      // React may strip empty string src attribute; image element still renders
+      expect(image?.getAttribute('src') ?? '').toBe('');
     });
 
     it('handles very long avatar URL', () => {

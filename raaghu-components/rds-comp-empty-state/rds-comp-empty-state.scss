@@ -4,9 +4,7 @@
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__title,
 body.dark .rds-comp-empty-state__subtitle {
-
-
-  color: var(--rds-text-secondary) !important;
+  color: var(--rds-neutral-0) !important;
 }
 
 [data-theme="dark"] .rds-comp-empty-state,
@@ -15,6 +13,9 @@ body.dark .rds-comp-empty-state {
 }
 
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
+body.dark .rds-comp-empty-state__subtitle {
+  color: var(--rds-text-secondary) !important;
+}
 
 .rds-comp-empty-state {
   display: flex;
@@ -40,24 +41,46 @@ body.dark .rds-comp-empty-state {
     align-items: center;
     justify-content: center;
     margin-bottom: 0; 
+      overflow: hidden; /* prevent animated content from overflowing and changing visual size */
+      min-width: 0;
+      min-height: 0;
 
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
+    /* Force static images and svg to exactly fill the icon container so
+       animated and static modes render the same visual size. Use !important
+       to override any storybook/global constraints. */
+    img,
     svg {
-      max-width: 100%;
-      height: auto;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
     }
 
     &--animated {
       position: relative;
       
       & > div {
-        width: 100%;
-        height: 100%;
+          width: 100% !important;
+          height: 100% !important;
+          max-width: 100% !important;
+          max-height: 100% !important;
+          overflow: hidden !important;
+          display: block !important;
       }
+        
+        /* also make sure any svg inside the lottie wrapper obeys sizing */
+        & > div svg {
+          width: 100% !important;
+          height: 100% !important;
+          max-width: 100% !important;
+          max-height: 100% !important;
+          display: block !important;
+        }
     }
   }
 
@@ -68,6 +91,7 @@ body.dark .rds-comp-empty-state {
     line-height: 1.4 !important;
     margin: var(--rds-spacing-xs, 4px) 0 !important;
     font-family: var(--rds-font-family-base) !important; 
+    margin-top: var(--rds-spacing-lg, 10px) !important;
   }
 
   &__subtitle {
@@ -125,8 +149,11 @@ body.dark .rds-comp-empty-state {
       max-width: 100%;
     }
 
+    /* On small screens make sure container controls sizing, do not force an extra smaller max */
     &__icon img {
-      max-width: var(--rds-size-3xl, 120px);
+      max-width: none !important;
+      width: 100% !important;
+      height: 100% !important;
     }
 
     &__title {
