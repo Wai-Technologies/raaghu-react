@@ -153,7 +153,7 @@ export const renderFormInputs = () => (
             </Box>
         </Box>
         </Box>
-        <Box className="rds-comp-product-tour__form-input-row">
+        <Box className="rds-comp-product-tour__form-input-row rds-comp-product-tour__form-input-row--team-members">
             <Box className="rds-comp-product-tour__form-input-row--group">
             <Box className="rds-comp-product-tour__form-input-container">
                 <RdsAutocomplete
@@ -172,13 +172,25 @@ export const renderFormInputs = () => (
                         { label: 'Option 5', value: 5 }
                     ]}
                     placeholder="Add Team Members"
-                    popupIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
+                    popupIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-xl)' }} />}
                     selectSize="medium"
                     allowMultiple={true}
                     showHintText={false}
                     userIcon={true}
                     openOnFocus={true}
                     fullWidth
+                    slotProps={{
+                        popper: {
+                            placement: 'bottom-start',
+                            sx: { zIndex: 'var(--rds-z-index-popover, 1300)' },
+                        },
+                        paper: {
+                            sx: {
+                                maxWidth: '100%',
+                                '& .MuiAutocomplete-option': { minWidth: 'unset' },
+                            },
+                        },
+                    }}
                 />
                 </Box>
                 <Box className="rds-comp-product-tour__form-action-btn">

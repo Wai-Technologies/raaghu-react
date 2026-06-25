@@ -138,7 +138,7 @@ const RdsAppBar = ({
       >
         <Box className="rds-header__toolbar" sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
           {showMenuButton && (
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} sx={{ mr: tokens.space(2) }}>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} className="rds-header__menu-button">
               <DehazeIcon />
             </IconButton>
           )}

@@ -16,6 +16,7 @@ jest.mock('react-player', () => ({
   default: function MockReactPlayer({
     url,
     playing,
+    loop,
     muted,
     controls,
     volume,
@@ -30,6 +31,7 @@ jest.mock('react-player', () => ({
         data-testid="react-player"
         data-url={url}
         data-playing={playing}
+        data-loop={loop}
         data-muted={muted}
         data-controls={controls}
         data-volume={volume}
@@ -291,6 +293,30 @@ describe('RdsCompVideoPlayer', () => {
       );
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-playing', 'false');
+    });
+
+    it('should loop when autoplay is true', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoplay={true} />);
+      const player = screen.getByTestId('react-player');
+      expect(player).toHaveAttribute('data-loop', 'true');
+    });
+
+    it('should not loop when autoplay is false', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoplay={false} />);
+      const player = screen.getByTestId('react-player');
+      expect(player).toHaveAttribute('data-loop', 'false');
+    });
+
+    it('should not loop when disabled even if autoplay is true', () => {
+      render(
+        <RdsCompVideoPlayer
+          {...defaultProps}
+          autoplay={true}
+          disabled={true}
+        />
+      );
+      const player = screen.getByTestId('react-player');
+      expect(player).toHaveAttribute('data-loop', 'false');
     });
   });
 

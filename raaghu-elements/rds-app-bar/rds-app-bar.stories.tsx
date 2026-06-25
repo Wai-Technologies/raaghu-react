@@ -762,7 +762,7 @@ const DynamicTemplate = (args: any) => {
           </IconButton>
         ),
         centerContent: (
-          <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
+          <div className="rds-withactions-center-buttons">
             <span className="rds-withactions-findjobs-topnav">
               <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
             </span>
