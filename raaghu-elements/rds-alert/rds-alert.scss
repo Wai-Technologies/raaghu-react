@@ -226,7 +226,7 @@
     border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-info-border);
 
     &.rds-alert--success {
-      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-success-border) !important;
+      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-loading-border, #3D98FF) !important;
     }
 
     &.rds-alert--error {
@@ -249,7 +249,7 @@
   border-left-style: solid !important;
 
   &.rds-alert--success {
-    border-left-color: var(--rds-alert-success-border) !important;
+    border-left-color: var(--rds-alert-loading-border, #3D98FF) !important;
   }
 
   &.rds-alert--error {
