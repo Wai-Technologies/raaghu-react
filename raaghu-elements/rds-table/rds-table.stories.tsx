@@ -345,22 +345,25 @@ const defaultColumns = [
     minWidth: 180,
     type: 'text' as const,
     sortable: true,
-    format: () => (
-      <div className="rds-table__badge-group">
-        <RdsBadge 
-          badgeContent="Active" 
-          color="secondary" 
-          size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
-        />
-        <RdsBadge 
-          badgeContent="Pending" 
-          color="secondary" 
-          size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
-        />
+    format: (value: string) => (
+      <div className="rds-table__content-row">
+        <span>{value}</span>
+        <div className="rds-table__badge-group">
+          <RdsBadge 
+            badgeContent="Active" 
+            color="secondary" 
+            size="small" 
+            shape="rectangle" 
+            colorVariant="secondary"
+          />
+          <RdsBadge 
+            badgeContent="Pending" 
+            color="secondary" 
+            size="small" 
+            shape="rectangle" 
+            colorVariant="secondary"
+          />
+        </div>
       </div>
     )
   },
@@ -383,22 +386,25 @@ const defaultColumns = [
     minWidth: 180,
     type: 'text' as const,
     sortable: true,
-    format: () => (
-      <div className="rds-table__badge-group">
-        <RdsBadge 
-          badgeContent="Active" 
-          color="secondary" 
-          size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
-        />
-        <RdsBadge 
-          badgeContent="Pending" 
-          color="secondary" 
-          size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
-        />
+    format: (value: string) => (
+      <div className="rds-table__content-row">
+        <div className="rds-table__badge-group">
+          <RdsBadge 
+            badgeContent="Active" 
+            color="secondary" 
+            size="small" 
+            shape="rectangle" 
+            colorVariant="secondary"
+          />
+          <RdsBadge 
+            badgeContent="Pending" 
+            color="secondary" 
+            size="small" 
+            shape="rectangle" 
+            colorVariant="secondary"
+          />
+        </div>
+        <span>{value}</span>
       </div>
     )
   }

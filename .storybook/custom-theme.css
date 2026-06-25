@@ -224,6 +224,23 @@ body.theme-dark .docs-story {
   color: #eef3ff !important;
 }
 
+/* Inline code inside docs description text (component/story descriptions) */
+[data-theme="dark"] .sbdocs-description code,
+[data-theme="dark"] .sbdocs-description p code,
+[data-theme="dark"] .sbdocs-description li code,
+[data-theme="dark"] .sbdocs p code,
+[data-theme="dark"] .sbdocs li code,
+[data-theme="dark"] .sbdocs-wrapper p code,
+[data-theme="dark"] .sbdocs-wrapper li code,
+[data-theme="dark"] #storybook-docs p code,
+[data-theme="dark"] #storybook-docs li code {
+  background-color: #2a3142 !important;
+  color: #a8c4ff !important;
+  border: 1px solid #3d4f6e !important;
+  border-radius: 4px !important;
+  padding: 1px 5px !important;
+}
+
 [data-theme="dark"] .sbdocs p,
 [data-theme="dark"] .sbdocs li,
 [data-theme="dark"] .sbdocs .sbdocs-p,

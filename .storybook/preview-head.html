@@ -1,22 +1,88 @@
+<meta name="color-scheme" content="light dark" />
+<style>
+  :root {
+    color-scheme: light dark;
+  }
+</style>
 <script>
   (function () {
-    function syncFromUrl() {
+    function prefersDark() {
+      var targets = [window];
+
+      try {
+        if (window.parent && window.parent !== window) targets.push(window.parent);
+      } catch (e) {}
+
+      try {
+        if (window.top && window.top !== window) targets.push(window.top);
+      } catch (e) {}
+
+      for (var i = 0; i < targets.length; i++) {
+        try {
+          if (targets[i].matchMedia('(prefers-color-scheme: dark)').matches) {
+            return true;
+          }
+        } catch (e) {}
+      }
+
+      return false;
+    }
+
+    function getThemeMode() {
       try {
         var params = new URLSearchParams(window.location.search);
         var globalsRaw = decodeURIComponent(params.get('globals') || '');
-        var isDark = globalsRaw.indexOf('theme:dark') !== -1;
-        var mode = isDark ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', mode);
-        document.documentElement.classList.toggle('rds-theme--dark', isDark);
-        document.documentElement.classList.toggle('theme-dark', isDark);
-        document.documentElement.classList.toggle('theme-light', !isDark);
-        if (document.body) {
-          document.body.classList.toggle('dark-theme', isDark);
-          document.body.classList.toggle('theme-dark', isDark);
-        }
-      } catch (e) {}
+
+        if (globalsRaw.indexOf('theme:dark') !== -1) return 'dark';
+        if (globalsRaw.indexOf('theme:light') !== -1) return 'light';
+
+        return prefersDark() ? 'dark' : 'light';
+      } catch (e) {
+        return 'light';
+      }
     }
-    syncFromUrl();
-    document.addEventListener('DOMContentLoaded', syncFromUrl);
+
+    function applyTheme(mode) {
+      var isDark = mode === 'dark';
+      document.documentElement.setAttribute('data-theme', mode);
+      document.documentElement.classList.toggle('rds-theme--dark', isDark);
+      document.documentElement.classList.toggle('theme-dark', isDark);
+      document.documentElement.classList.toggle('theme-light', !isDark);
+
+      if (document.body) {
+        document.body.classList.toggle('dark-theme', isDark);
+        document.body.classList.toggle('theme-dark', isDark);
+        document.body.classList.toggle('light-theme', !isDark);
+        document.body.classList.toggle('theme-light', !isDark);
+      }
+    }
+
+    function syncTheme() {
+      applyTheme(getThemeMode());
+    }
+
+    syncTheme();
+
+    [50, 150, 300, 600, 1200].forEach(function (delay) {
+      window.setTimeout(syncTheme, delay);
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+      var params = new URLSearchParams(window.location.search);
+      var globalsRaw = decodeURIComponent(params.get('globals') || '');
+
+      if (globalsRaw.indexOf('theme:dark') === -1 && globalsRaw.indexOf('theme:light') === -1) {
+        syncTheme();
+      }
+    });
+
+    window.setInterval(function () {
+      var params = new URLSearchParams(window.location.search);
+      var globalsRaw = decodeURIComponent(params.get('globals') || '');
+
+      if (globalsRaw.indexOf('theme:dark') === -1 && globalsRaw.indexOf('theme:light') === -1) {
+        syncTheme();
+      }
+    }, 500);
   })();
 </script>

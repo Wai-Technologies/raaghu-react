@@ -116,6 +116,7 @@
       &:hover {
         background-color: var(--rds-color-primary-container-hover);
         z-index: var(--rds-z-index-above, 2);
+      }
     }
     
     &:last-child {
@@ -303,8 +304,11 @@
   &__badge-group {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-sm, 8px);
+
+    .rds-badge {
+      flex-shrink: 0;
+    }
   }
 
   &--dense {
@@ -495,5 +499,4 @@
   .MuiTableRow-root:hover {
     background-color: var(--rds-color-surface-hover) !important;
   }
-}
 }
