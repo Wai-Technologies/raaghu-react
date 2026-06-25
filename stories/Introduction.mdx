@@ -1,5 +1,4 @@
 import { Meta } from "@storybook/addon-docs/blocks";
-import ThemeSync from './ThemeSync';
 import bannerImage from './assets/storybook-hero-Banner.png';
 import dasboardImage from './assets/dashboard.png';
 import reactImage from './assets/react.svg';
@@ -21,8 +20,6 @@ import mapsImage from './assets/maps-learn-more.svg';
 import expandImage from './assets/expand.png';
 
 <Meta title="Introduction" />
-
-<ThemeSync />
 
 <style>
   {`
@@ -205,6 +202,8 @@ import expandImage from './assets/expand.png';
         padding: 30px 30px;
         border-radius: 10px;
         text-align: center;
+        color: #000000;
+        text-decoration: none;
       }
       
      
@@ -270,7 +269,8 @@ import expandImage from './assets/expand.png';
       }
 
       html[data-theme="dark"] p,
-      html[data-theme="dark"] span:not(.tip) {
+      html[data-theme="dark"] span:not(.tip),
+      html[data-theme="dark"] div:not([class]) {
         color: #c8c8c8 !important;
       }
 
@@ -315,7 +315,8 @@ import expandImage from './assets/expand.png';
       }
 
       html[data-theme="dark"] a.learnMoreSection,
-      html[data-theme="dark"] a.learnMoreSection strong {
+      html[data-theme="dark"] a.learnMoreSection strong,
+      html[data-theme="dark"] a.learnMoreSection * {
         color: #e0e0e0 !important;
       }
 
@@ -740,7 +741,7 @@ import expandImage from './assets/expand.png';
 </div>
 
 <div className="footerClass">
-  <a className="learnMoreSection" href="/?path=/docs/application-shells--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/application-shells--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -754,7 +755,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/layouts--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/layouts--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -768,7 +769,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/components-adaptive-cards--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/components-adaptive-cards--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -782,7 +783,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/elements-accordion--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/elements-accordion--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -796,7 +797,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/components-charts-area-chart--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/components-charts-area-chart--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -810,7 +811,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/components-map--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/components-map--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>

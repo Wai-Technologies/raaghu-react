@@ -7,6 +7,7 @@ import {
   applyRaaghuTheme,
   getRaaghuThemeMode,
   initializeRaaghuTheme,
+  prefersDarkColorScheme,
   resolveEffectiveMode,
   type RaaghuThemeMode,
   type RdsBrandOverrides,
@@ -56,9 +57,7 @@ export function RaaghuThemeProvider({
 }: Readonly<RaaghuThemeProviderProps>) {
   const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(defaultMode);
   const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(() =>
-    typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
-      ? true
-      : false,
+    typeof window !== 'undefined' ? prefersDarkColorScheme() : false,
   );
   const mode = controlledMode ?? internalMode;
 
@@ -80,12 +79,12 @@ export function RaaghuThemeProvider({
     if (typeof window === 'undefined') return;
 
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = (event: MediaQueryListEvent) => {
-      setSystemPrefersDark(event.matches);
+    const handler = () => {
+      setSystemPrefersDark(prefersDarkColorScheme());
     };
 
     // Keep state aligned if the effect runs after a mode toggle.
-    setSystemPrefersDark(mq.matches);
+    setSystemPrefersDark(prefersDarkColorScheme());
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);

@@ -352,6 +352,12 @@ font-weight: bold;
   background-position: right 10px center;
   background-size: 10px 6px;
   -webkit-font-smoothing: antialiased;
+
+  &:focus,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }
 
 .rds-datepicker__header-select::-ms-expand {
@@ -370,6 +376,15 @@ font-weight: bold;
 .react-datepicker__navigation-icon {
   background: transparent !important;
   color: inherit !important;
+}
+
+.react-datepicker__navigation:focus {
+  outline: none !important;
+}
+
+.react-datepicker__navigation:focus-visible {
+  outline: 2px solid var(--rds-primary-main) !important;
+  outline-offset: 2px !important;
 }
 .react-datepicker__navigation-icon::before {
   border-color: var(--rds-color-primary) !important;
@@ -484,7 +499,12 @@ font-weight: bold;
   border: 2px solid var(--rds-primary-main) !important;
   box-shadow: none !important;
   border-radius: var(--rds-border-radius-sm) !important;
+}
 
+.react-datepicker__day--selected.react-datepicker__day--today,
+.react-datepicker__day--keyboard-selected.react-datepicker__day--today {
+  color: var(--rds-primary-main) !important;
+  background-color: var(--rds-neutral-0) !important;
 }
 
 .react-datepicker__day--range-start,
@@ -500,15 +520,14 @@ font-weight: bold;
 .react-datepicker__day:focus {
   background-color: color-mix(in srgb, var(--rds-error-main) 8%, transparent) !important;
   color: var(--rds-primary-main) !important;
-
+  outline: none !important;
 }
 
 .react-datepicker__day--today {
-  color: var(--rds-neutral-0) !important;
+  color: var(--rds-primary-main) !important;
   font-weight: 600;
   box-shadow: inset 0 0 0 1px var(--rds-color-primary-container);
   border-radius: var(--rds-border-radius-sm);
-
 }
 
 .react-datepicker__month-container {
@@ -922,6 +941,7 @@ font-weight: bold;
   .react-datepicker__day:hover,
   .react-datepicker__day:focus {
     color: #ffffff !important;
+    outline: none !important;
   }
 
   // Selected / keyboard-selected day
@@ -941,6 +961,12 @@ font-weight: bold;
   // Today highlight
   .react-datepicker__day--today {
     color: #ffffff !important;
+  }
+
+  .react-datepicker__day--selected.react-datepicker__day--today,
+  .react-datepicker__day--keyboard-selected.react-datepicker__day--today {
+    color: #ffffff !important;
+    background-color: var(--rds-primary-main) !important;
   }
 
   // Outside-month days (dimmed but still visible)

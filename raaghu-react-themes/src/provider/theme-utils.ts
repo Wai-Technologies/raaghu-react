@@ -16,15 +16,59 @@ import { injectTokens, type RdsBrandOverrides } from '../../tokens/build-rds-css
 export type RaaghuThemeMode = 'light' | 'dark' | 'system';
 
 /**
+ * Reads OS dark-mode preference. Checks parent/top windows so embedded
+ * contexts (e.g. Storybook preview iframes) inherit the host preference.
+ */
+export function prefersDarkColorScheme(): boolean {
+  if (typeof window === 'undefined') return false;
+
+  const candidates: Window[] = [window];
+
+  try {
+    if (window.parent && window.parent !== window) {
+      candidates.push(window.parent);
+    }
+  } catch {
+    // Cross-origin parent — ignore.
+  }
+
+  try {
+    if (window.top && window.top !== window) {
+      candidates.push(window.top);
+    }
+  } catch {
+    // Cross-origin top — ignore.
+  }
+
+  const seen = new Set<Window>();
+  for (const candidate of candidates) {
+    if (seen.has(candidate)) continue;
+    seen.add(candidate);
+
+    try {
+      if (candidate.matchMedia?.('(prefers-color-scheme: dark)')?.matches) {
+        return true;
+      }
+    } catch {
+      // Ignore inaccessible frames.
+    }
+  }
+
+  return false;
+}
+
+/**
  * Resolves `'system'` to the actual effective mode by reading
  * `prefers-color-scheme`. `'light'` and `'dark'` are returned as-is.
  */
 export function resolveEffectiveMode(mode: RaaghuThemeMode): 'light' | 'dark' {
   if (mode !== 'system') return mode;
-  return typeof window !== 'undefined' &&
-    window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
-    ? 'dark'
-    : 'light';
+  return prefersDarkColorScheme() ? 'dark' : 'light';
+}
+
+export interface ApplyRaaghuThemeOptions {
+  /** When false, skips writing to localStorage (useful in Storybook). */
+  persist?: boolean;
 }
 
 export { type RdsBrandOverrides };
@@ -63,7 +107,11 @@ export function isDarkMode(): boolean {
  * @param mode - `'light'`, `'dark'`, or `'system'` (follows OS preference).
  * @param overrides - Optional brand overrides applied on top of the base token set.
  */
-export function applyRaaghuTheme(mode: RaaghuThemeMode, overrides?: RdsBrandOverrides): void {
+export function applyRaaghuTheme(
+  mode: RaaghuThemeMode,
+  overrides?: RdsBrandOverrides,
+  options?: ApplyRaaghuThemeOptions,
+): void {
   if (typeof document === 'undefined') return;
 
   // Resolve 'system' → actual 'light' | 'dark' for DOM/token application
@@ -86,7 +134,7 @@ export function applyRaaghuTheme(mode: RaaghuThemeMode, overrides?: RdsBrandOver
   );
 
   // Persist the user's intent ('system', 'light', or 'dark') — not the resolved value
-  if (typeof localStorage !== 'undefined') {
+  if (options?.persist !== false && typeof localStorage !== 'undefined') {
     localStorage.setItem(THEME_STORAGE_KEY, mode);
   }
 
