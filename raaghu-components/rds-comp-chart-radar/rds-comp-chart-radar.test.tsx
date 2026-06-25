@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompRadarChart from './rds-comp-chart-radar';
@@ -437,7 +437,7 @@ describe('RdsCompRadarChart', () => {
           dataSets={[
             {
               label: 'Quarterly Data',
-              data: Array.from({ length: 12 }, () => Math.random() * 100),
+              data: Array.from({ length: 12 }, (_, index) => (index + 1) * 7),
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderColor: 'rgba(75, 192, 192, 1)',
             },
@@ -680,7 +680,7 @@ describe('RdsCompRadarChart', () => {
       const { rerender, container } = render(
         <RdsCompRadarChart {...defaultProps} />
       );
-      const _canvas1 = container.querySelector('canvas');
+      const canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompRadarChart
@@ -781,6 +781,7 @@ describe('RdsCompRadarChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompRadarChart {...defaultProps} />);
       const results = await axe(container);

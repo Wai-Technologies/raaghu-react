@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBarChart from './rds-comp-chart-bar';
@@ -118,7 +118,7 @@ describe('RdsCompBarChart', () => {
     it('handles different id values', () => {
       const ids = ['chart1', 'chart2', 'chart3'];
       ids.forEach(id => {
-        const { unmount } = render(
+        const { container, unmount } = render(
           <RdsCompBarChart {...defaultProps} id={id} />
         );
         expect(screen.getByTestId(id)).toHaveAttribute('id', id);
@@ -754,6 +754,7 @@ describe('RdsCompBarChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompBarChart {...defaultProps} />);
       const results = await axe(container);
