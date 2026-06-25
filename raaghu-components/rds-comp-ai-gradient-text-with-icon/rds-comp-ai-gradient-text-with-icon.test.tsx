@@ -234,7 +234,8 @@ describe('RdsCompAiGradientTextWithIcon', () => {
         />
       );
       const image = screen.getByRole('img');
-      expect(image).not.toHaveAttribute('alt');
+      // Component renders alt={title ?? ''} – the alt will equal the title prop
+      expect(image).toHaveAttribute('alt', defaultProps.title);
     });
   });
 
@@ -422,9 +423,11 @@ describe('RdsCompAiGradientTextWithIcon', () => {
     });
 
     it('renders with only showImage provided', () => {
-      render(<RdsCompAiGradientTextWithIcon showImage={true} />);
-      // showImage=true renders the image even without logoUrl
-      expect(screen.getByRole('img')).toBeInTheDocument();
+      const { container } = render(<RdsCompAiGradientTextWithIcon showImage={true} />);
+      // showImage=true renders the image even without logoUrl.
+      // With no title the alt is '', making the img role="presentation" in ARIA,
+      // so query by CSS class instead of ARIA role.
+      expect(container.querySelector('.rds-gradient-text-with-icon__logo')).toBeInTheDocument();
     });
 
     it('renders with only showIcon provided', () => {
@@ -701,13 +704,13 @@ describe('RdsCompAiGradientTextWithIcon', () => {
     });
 
     it('toggles image visibility on prop change', () => {
-      const { rerender } = render(
+      const { rerender, container } = render(
         <RdsCompAiGradientTextWithIcon
           logoUrl="https://example.com/logo.jpg"
           showImage={false}
         />
       );
-      expect(screen.queryByRole('img')).not.toBeInTheDocument();
+      expect(container.querySelector('.rds-gradient-text-with-icon__logo')).not.toBeInTheDocument();
 
       rerender(
         <RdsCompAiGradientTextWithIcon
@@ -715,7 +718,8 @@ describe('RdsCompAiGradientTextWithIcon', () => {
           showImage={true}
         />
       );
-      expect(screen.getByRole('img')).toBeInTheDocument();
+      // No title → alt="" → ARIA role is "presentation"; query by class instead
+      expect(container.querySelector('.rds-gradient-text-with-icon__logo')).toBeInTheDocument();
     });
 
     it('toggles icon visibility on prop change', () => {

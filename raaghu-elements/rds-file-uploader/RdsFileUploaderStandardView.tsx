@@ -117,7 +117,7 @@ const RdsFileUploaderStandardView = ({
         )}
       </Box>
 
-      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs, 4px)', minHeight: 'var(--rds-file-uploader-hint-row-height, 20px)', marginLeft: 'var(--rds-file-uploader-hint-padding-right, 10px)' }}>
+      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs, 4px)', minHeight: 'var(--rds-file-uploader-hint-row-height, 20px)' }}>
         <Typography
           className="rds-file-uploader__hint"
           variant="caption"

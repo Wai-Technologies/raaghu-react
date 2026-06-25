@@ -44,27 +44,30 @@ const RdsCompNotification = ({
     const resolvedShowButton = actions !== 'none' || legacyShowButton === true || resolvedShowPrimaryButton || resolvedShowSecondaryButton;
 
     const [dismissedNotificationKeys, setDismissedNotificationKeys] = useState<Array<string | number>>([]);
-    const lastNotificationsRef = useRef(notifications);
+    // Track the notifications reference from the *previous* render so we can
+    // detect when the caller passes a new array (even with the same contents).
+    // We intentionally do NOT update this ref during the current render body so
+    // that the useMemo below can still see the old value while computing.
+    const prevNotificationsRef = useRef<typeof notifications | null>(null);
     const dismissIconElement = useMemo(() => <Close />, []);
 
-    // Avoid resetting dismissed keys via useEffect (causes an extra render).
-    // When the `notifications` reference changes, we ignore previously dismissed keys
-    // by tracking the last notifications reference. This keeps UI in sync without
-    // forcing state updates during an effect.
-    if (lastNotificationsRef.current !== notifications) {
-        lastNotificationsRef.current = notifications;
-    }
+    const notificationsChanged = prevNotificationsRef.current !== null && prevNotificationsRef.current !== notifications;
 
     const visibleNotifications = useMemo(() => {
-        // If notifications changed, ignore dismissed keys and show all notifications.
-        if (lastNotificationsRef.current !== notifications) {
+        // If the notifications prop reference changed, the caller has supplied a
+        // fresh list – treat it as an authoritative reset and show everything.
+        if (notificationsChanged) {
             return notifications;
         }
         return notifications.filter((notification, index) => {
             const notificationKey = notification.userNotificationId ?? `${notification.title}-${index}`;
             return !dismissedNotificationKeys.includes(notificationKey);
         });
-    }, [dismissedNotificationKeys, notifications]);
+    }, [dismissedNotificationKeys, notifications, notificationsChanged]);
+
+    // Update the ref *after* computing visibleNotifications so the next render
+    // can correctly detect a further reference change.
+    prevNotificationsRef.current = notifications;
 
     const removeNotificationByIndex = useCallback((notificationIndex: number) => {
         const notification = visibleNotifications[notificationIndex];

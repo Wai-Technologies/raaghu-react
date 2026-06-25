@@ -163,8 +163,9 @@
 
       &-options {
         display: flex;
-        align-items: center;
+        align-items: stretch;
         justify-content: flex-end;
+        align-self: stretch;
         margin-left: auto;
         gap: var(--rds-spacing-sm, 12px);
         flex-shrink: 0;
@@ -173,13 +174,16 @@
           display: flex;
           align-items: center;
           flex-shrink: 0;
+          align-self: center;
         }
         
         .nav-tabs {
           display: flex !important;
           flex-direction: row !important;
-          align-items: center;
-          margin: 0;
+          align-items: flex-end;
+          align-self: stretch;
+          height: 100%;
+          margin: 0 !important;
           padding: 0;
           background: transparent;
           border-bottom: none;
@@ -196,6 +200,7 @@
           padding: var(--rds-spacing-13) var(--rds-spacing-cozy) !important;
           border: none !important;
           border-bottom: 2px solid transparent !important;
+          border-radius: 0;
           background: transparent;
           color: var(--rds-color-on-surface) !important;
           font-weight: var(--rds-font-weight-medium, 500);
@@ -210,7 +215,7 @@
           content: none !important;
         }
 
-        .nav-link:hover {
+        .nav-link:hover:not(.active) {
           color: var(--rds-color-primary) !important;
           border-bottom-color: transparent !important;
         }
@@ -218,7 +223,8 @@
         .nav-link.active {
           color: var(--rds-color-primary) !important;
           font-weight: var(--rds-font-weight-bold, 700) !important;
-          border-bottom-color: var(--rds-color-primary) !important;
+          border-bottom: 2px solid var(--rds-color-primary) !important;
+          margin-bottom: -1px;
         }
       }
     }
@@ -844,16 +850,24 @@
       cursor: pointer;
       user-select: none;
 
-      &:focus,
-      &:focus-visible,
-      &:active {
+      &:focus:not(.active),
+      &:focus-visible:not(.active),
+      &:active:not(.active) {
         outline: none !important;
         box-shadow: none !important;
         border-color: transparent !important;
       }
+
+      &.active:focus,
+      &.active:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+        border-bottom: 2px solid var(--rds-color-primary) !important;
+      }
     }
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    align-self: stretch;
     gap: var(--rds-spacing-sm);
   }
 
