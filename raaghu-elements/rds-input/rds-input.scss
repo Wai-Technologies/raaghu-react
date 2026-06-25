@@ -31,6 +31,8 @@
     font-weight: var(--rds-font-weight-medium);
     color: var(--rds-text-secondary);
     margin-bottom: var(--rds-spacing-xs);
+    display: flex;
+    align-items: center;
   }
 
   &__asterisk {
@@ -49,10 +51,26 @@
     background-color: var(--rds-background-paper);
     transition: border-color var(--rds-transition-base), box-shadow var(--rds-transition-base);
 
+    // Ensure the MUI input wrapper centers its content vertically
+    &.MuiInputBase-root {
+      align-items: center;
+    }
+
+    // Center the actual input element and placeholder text vertically
+    .MuiInputBase-input {
+      display: flex;
+      align-items: center;
+      padding-top: 0;
+      padding-bottom: 0;
+      height: 100%;
+      box-sizing: border-box;
+      line-height: normal;
+    }
+
     &:focus {
       outline: none;
-      border-color: var(--rds-primary-main);
-      box-shadow: var(--rds-focus-ring);
+      border-color: var(--rds-border-default);
+      box-shadow: none;
     }
 
     &::placeholder {
@@ -162,10 +180,17 @@
 
     .MuiInputBase-root {
       font-size: var(--rds-font-size-sm) !important;
+      align-items: center !important;
     }
 
     .MuiInputBase-input {
-      padding: var(--rds-input-mui-padding-small-y) var(--rds-input-mui-padding-small-x) !important;
+      padding-top: var(--rds-input-mui-padding-small-y) !important;
+      padding-bottom: var(--rds-input-mui-padding-small-y) !important;
+      padding-left: var(--rds-input-mui-padding-small-x) !important;
+      padding-right: var(--rds-input-mui-padding-small-x) !important;
+      display: flex !important;
+      align-items: center !important;
+      line-height: normal !important;
     }
   }
 
@@ -177,10 +202,17 @@
 
     .MuiInputBase-root {
       font-size: var(--rds-font-size-md) !important;
+      align-items: center !important;
     }
 
     .MuiInputBase-input {
-      padding: var(--rds-input-mui-padding-medium-y) var(--rds-input-mui-padding-medium-x) !important;
+      padding-top: var(--rds-input-mui-padding-medium-y) !important;
+      padding-bottom: var(--rds-input-mui-padding-medium-y) !important;
+      padding-left: var(--rds-input-mui-padding-medium-x) !important;
+      padding-right: var(--rds-input-mui-padding-medium-x) !important;
+      display: flex !important;
+      align-items: center !important;
+      line-height: normal !important;
     }
   }
 
@@ -192,10 +224,17 @@
 
     .MuiInputBase-root {
       font-size: var(--rds-font-size-lg) !important;
+      align-items: center !important;
     }
 
     .MuiInputBase-input {
-      padding: var(--rds-input-mui-padding-medium-y) var(--rds-input-mui-padding-large-x) !important;
+      padding-top: var(--rds-input-mui-padding-medium-y) !important;
+      padding-bottom: var(--rds-input-mui-padding-medium-y) !important;
+      padding-left: var(--rds-input-mui-padding-large-x) !important;
+      padding-right: var(--rds-input-mui-padding-large-x) !important;
+      display: flex !important;
+      align-items: center !important;
+      line-height: normal !important;
     }
 
     .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
@@ -289,12 +328,16 @@
 
   &--active {
     .MuiFormLabel-root.Mui-focused {
-      color: var(--rds-primary-main) !important;
+      color: var(--rds-text-secondary) !important;
     }
 
     .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-primary-main) !important;
-      border-width: var(--rds-input-border-width-thick);
+      border-color: var(--rds-border-default) !important;
+      border-width: var(--rds-input-border-width-thin);
+    }
+
+    .MuiOutlinedInput-root.Mui-focused {
+      box-shadow: none !important;
     }
   }
 
@@ -380,11 +423,15 @@
   }
 
   .MuiInputLabel-root {
-    background-color: var(--rds-background-paper) !important;
+    background: var(--rds-background-paper) !important;
     padding: 0 0.25rem !important;
+    // Center the label vertically using MUI's transform-based positioning
+    // MUI outlined small default is translate(14px, 9px) — keep that as-is
+    top: 0 !important;
   }
 
   .MuiInputLabel-root.MuiInputLabel-shrink {
+    top: 0 !important;
     transform: translate(0.5rem, -0.6rem) scale(0.85) !important;
   }
 }

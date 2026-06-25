@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCarousel, { RdsCarouselProps } from './rds-carousel';
 import '@testing-library/jest-dom';
@@ -119,7 +119,7 @@ describe('RdsCarousel', () => {
 
     it('should not show arrows for single slide', () => {
       const { container } = renderWithTheme(
-        <RdsCarousel children={[<div key="1">Single</div>]} />
+        <RdsCarousel >{[<div key="1">Single</div>]}</RdsCarousel>
       );
       expect(
         container.querySelector('.rds-carousel__navigation--prev')
@@ -183,7 +183,7 @@ describe('RdsCarousel', () => {
 
     it('should not show dots for single slide', () => {
       const { container } = renderWithTheme(
-        <RdsCarousel children={[<div key="1">Single</div>]} />
+        <RdsCarousel >{[<div key="1">Single</div>]}</RdsCarousel>
       );
       expect(
         container.querySelector('.rds-carousel__indicators')
@@ -260,10 +260,10 @@ describe('RdsCarousel', () => {
     it('should not autoplay with single slide', () => {
       renderWithTheme(
         <RdsCarousel 
-          children={[<div key="1">Single</div>]}
+         
           autoPlay={true}
           autoPlayInterval={1000}
-        />
+        >{[<div key="1">Single</div>]}</RdsCarousel>
       );
       jest.advanceTimersByTime(2000);
       expect(screen.getByText('Single')).toBeInTheDocument();
@@ -408,7 +408,7 @@ describe('RdsCarousel', () => {
     });
 
     it('should render different titles for each slide', () => {
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
           style="with title"
@@ -448,18 +448,18 @@ describe('RdsCarousel', () => {
   describe('Edge Cases', () => {
     it('should handle single child slide', () => {
       renderWithTheme(
-        <RdsCarousel children={[<div key="1">Single Slide</div>]} />
+        <RdsCarousel >{[<div key="1">Single Slide</div>]}</RdsCarousel>
       );
       expect(screen.getByText('Single Slide')).toBeInTheDocument();
     });
 
     it('should handle many slides', () => {
-      const manySlides = Array.from({ length: 10 }, (_, i) => (
-        <div key={i} data-testid={`slide-${i}`}>
-          Slide {i + 1}
+      const manySlides = Array.from({ length: 10 }, (_, slideNumber) => slideNumber + 1).map((slideNumber) => (
+        <div key={slideNumber} data-testid={`slide-${slideNumber - 1}`}>
+          Slide {slideNumber}
         </div>
       ));
-      renderWithTheme(<RdsCarousel children={manySlides} />);
+      renderWithTheme(<RdsCarousel >{manySlides}</RdsCarousel>);
       expect(screen.getByTestId('slide-0')).toBeInTheDocument();
     });
 
@@ -493,7 +493,7 @@ describe('RdsCarousel', () => {
           <button>Button</button>
         </div>,
       ];
-      renderWithTheme(<RdsCarousel children={complexSlides} />);
+      renderWithTheme(<RdsCarousel >{complexSlides}</RdsCarousel>);
       expect(screen.getByText('Title')).toBeInTheDocument();
       expect(screen.getByText('Description')).toBeInTheDocument();
       expect(screen.getByText('Button')).toBeInTheDocument();
@@ -564,11 +564,11 @@ describe('RdsCarousel', () => {
     it('should accept ReactNode array children', () => {
       renderWithTheme(
         <RdsCarousel
-          children={[
+         
+        >{[
             <div key="1">Child 1</div>,
             <div key="2">Child 2</div>,
-          ]}
-        />
+          ]}</RdsCarousel>
       );
       expect(screen.getByText('Child 1')).toBeInTheDocument();
     });
@@ -630,6 +630,7 @@ describe('RdsCarousel', () => {
       expect(buttons.length).toBeGreaterThan(0);
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCarousel {...defaultProps} />);
       const results = await axe(container);
@@ -655,7 +656,7 @@ describe('RdsCarousel', () => {
     it('should handle all props together', () => {
       renderWithTheme(
         <RdsCarousel
-          children={defaultSlides}
+         
           autoPlay={true}
           autoPlayInterval={2000}
           showArrows={true}
@@ -666,7 +667,7 @@ describe('RdsCarousel', () => {
           className="custom-carousel"
           titles={['T1', 'T2', 'T3']}
           subtitles={['S1', 'S2', 'S3']}
-        />
+        >{defaultSlides}</RdsCarousel>
       );
       expect(screen.getByTestId('slide-1')).toBeInTheDocument();
       expect(screen.getByText('T1')).toBeInTheDocument();

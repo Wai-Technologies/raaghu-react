@@ -6,18 +6,18 @@ $rds-app-bar-breakpoint-sm: 420px;
 $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-story-logo {
-  height: var(--rds-spacing-xl, 32px);
+  height: var(--rds-spacing-xl, 40px);
  
   @media (max-width: $rds-app-bar-breakpoint-md) {
-    height: calc(3.5 * var(--rds-spacing-xs, 4px));
+    height: var(--rds-spacing-xl, 40px);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    height: var(--rds-spacing-lg, 24px);
+    height: var(--rds-spacing-xl, 40px);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    height: calc(2.5 * var(--rds-spacing-xs, 4px));
+    height: calc(5.5 * var(--rds-spacing-xs, 4px));
     margin-left: calc(2.5 * var(--rds-spacing-xs, 4px));
   }
 }
@@ -269,7 +269,14 @@ $rds-app-bar-breakpoint-xs: 320px;
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center; margin-left: auto; }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; }
     .rds-header__actions { order: 5; }
+    // Remove the heading gap — title should not grow when center content is present
+    .rds-header__title { flex-grow: 0; min-width: 0; padding: 0; }
   }
+}
+
+// Remove heading gap for withactions at all screen sizes
+.rds-header--variant-withactions {
+  .rds-header__title { flex-grow: 0 !important; min-width: 0 !important; padding: 0 !important; }
 }
 
 @media (max-width: 420px) {
@@ -326,6 +333,28 @@ $rds-app-bar-breakpoint-xs: 320px;
         line-height: 1.1 !important;
       }
     }
+  }
+}
+
+// "Find Jobs" button in bottom nav: only visible at small mobile (≤320px)
+.rds-withactions-findjobs-mobile {
+  display: none;
+}
+
+// "Find Jobs" button in top nav: hidden at small mobile (≤320px), visible above
+.rds-withactions-findjobs-topnav {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 320px) {
+  .rds-withactions-findjobs-mobile {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .rds-withactions-findjobs-topnav {
+    display: none;
   }
 }
 
@@ -470,7 +499,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-header--transparent {
   &.rds-header {
-    background-color: transparent;
+    background: transparent;
     box-shadow: none;
     color: var(--rds-color-on-surface);
   }
@@ -478,16 +507,32 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-header--primary {
   &.rds-header {
-    background-color: var(--rds-color-primary);
+    background: var(--rds-color-primary);
     color: var(--rds-color-on-primary);
   }
   .rds-header__title,
   .rds-header__actions,
-  .rds-header__logo {
+  .rds-header__logo,
+  .rds-header__center-content {
     color: var(--rds-color-on-primary);
   }
+  // Force MUI Buttons and text inside header to be white on primary background
+  .rds-header__actions,
+  .rds-header__center-content {
+    .MuiButton-root,
+    .MuiButton-text,
+    .MuiIconButton-root {
+      color: var(--rds-color-on-primary) !important;
+    }
+    // Avatar background should stand out on primary — use a semi-transparent white
+    .MuiAvatar-root {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+      color: var(--rds-color-on-primary) !important;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+  }
   .rds-header__search {
-    background-color: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
     color: var(--rds-color-on-primary);
     border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
     input {
@@ -498,23 +543,38 @@ $rds-app-bar-breakpoint-xs: 320px;
     color: var(--rds-color-on-primary);
     &.Mui-selected {
       color: var(--rds-color-primary);
-      background-color: var(--rds-color-surface);
+      background: var(--rds-color-surface);
     }
   }
 }
 
 .rds-header--secondary {
   &.rds-header {
-    background-color: var(--rds-color-secondary);
+    background: var(--rds-color-secondary);
     color: var(--rds-color-on-secondary);
   }
   .rds-header__title,
   .rds-header__actions,
-  .rds-header__logo {
+  .rds-header__logo,
+  .rds-header__center-content {
     color: var(--rds-color-on-secondary);
   }
+  // Force MUI Buttons and text inside header to be readable on secondary background
+  .rds-header__actions,
+  .rds-header__center-content {
+    .MuiButton-root,
+    .MuiButton-text,
+    .MuiIconButton-root {
+      color: var(--rds-color-on-secondary) !important;
+    }
+    .MuiAvatar-root {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+      color: var(--rds-color-on-secondary) !important;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+  }
   .rds-header__search {
-    background-color: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
     color: var(--rds-color-on-secondary);
     border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
     input {
@@ -525,7 +585,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     color: var(--rds-color-on-secondary);
     &.Mui-selected {
       color: var(--rds-color-secondary);
-      background-color: var(--rds-color-surface);
+      background: var(--rds-color-surface);
     }
   }
 }
@@ -533,7 +593,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 .rds-header {
   display: flex;
   flex-direction: column;
-  background-color: var(--rds-color-surface);
+  background: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
   border-bottom: 1px solid var(--rds-color-border);
   box-shadow: var(--rds-elevation-1, 0 2px 8px 0 rgba(60,60,60,0.03));
@@ -549,7 +609,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     padding-left: var(--rds-spacing-xl, 32px);
     padding-right: var(--rds-spacing-xl, 32px);
     gap: var(--rds-spacing-lg, 20px);
-    background-color: transparent;
+    background: transparent;
     position: relative;
     width: 100%;
     box-sizing: border-box;
@@ -660,7 +720,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       height: 8px;
     }
     &::-webkit-scrollbar-track {
-      background-color: transparent;
+      background: transparent;
     }
     &::-webkit-scrollbar-thumb {
       background-color: var(--rds-color-scrollbar-thumb, rgba(0,0,0,0.32));
@@ -730,7 +790,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   &__search {
     min-width: 148px;
     color: var(--rds-color-on-surface);
-    background-color: var(--rds-color-surface-alt);
+    background: var(--rds-color-surface-alt);
     padding: 0 var(--rds-spacing-sm, 12px);
     border-radius: var(--rds-border-radius, 6px);
     font-size: var(--rds-font-size-body, 15px);
@@ -775,7 +835,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       outline-offset: 2px;
     }
     input {
-      background-color: transparent;
+      background: transparent;
       border: none;
       outline: none;
       width: 100%;
@@ -829,7 +889,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     border-bottom: none;
     .MuiTabs-indicator {
       height: 2px;
-      background-color: var(--rds-color-primary);
+      background: var(--rds-color-primary);
       border-radius: var(--rds-border-radius-xs) var(--rds-border-radius-xs) 0 0;
     }
     .MuiTabs-flexContainer {
@@ -845,14 +905,14 @@ $rds-app-bar-breakpoint-xs: 320px;
       border-bottom: none;
       &.Mui-selected {
         color: var(--rds-color-primary);
-        background-color: var(--rds-color-surface);
+        background: var(--rds-color-surface);
         box-shadow: none;
       }
     }
   }
 
   &__sub-header {
-    background-color: var(--rds-color-surface-alt);
+    background: var(--rds-color-surface-alt);
     padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-xl, 32px);
     border-top: 1px solid var(--rds-color-border);
     font-size: var(--rds-font-size-body, 15px);
@@ -1080,7 +1140,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       }
       
       &.Mui-selected {
-        color: var(--rds-color-primary) !important;
+        color: var(--rds-color-primary-900, #0d47a1) !important;
       }
     }
     
@@ -1166,7 +1226,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 }
 
 .rds-appbar-badge {
-  background-color: var(--rds-appbar-badge-bg, rgba(25, 118, 210, 0.1));
+  background: var(--rds-appbar-badge-bg, rgba(25, 118, 210, 0.1));
   color: var(--rds-appbar-badge-color, var(--rds-color-primary, #1976d2));
   border: 1px solid currentColor;
   border-radius: var(--rds-border-radius-sm);
@@ -1209,7 +1269,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-header--transparent {
-    background-color: var(--rds-color-surface) !important;
+    background: var(--rds-color-surface) !important;
   }
 
  
@@ -1661,7 +1721,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    background-color: var(--rds-color-surface-alt) !important;
+    background: var(--rds-color-surface-alt) !important;
     border-top: 1px solid var(--rds-color-border) !important;
     padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
     margin: 0 !important;
@@ -2384,7 +2444,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-appbar-badge {
-    background-color: var(--rds-appbar-badge-bg);
+    background: var(--rds-appbar-badge-bg);
     color: var(--rds-appbar-badge-color);
     border-radius: var(--rds-border-radius-sm);
     padding: var(--rds-spacing-xs) 8px;

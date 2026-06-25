@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCounter from './rds-counter';
+import RdsCounter, { RdsCounterProps } from './rds-counter';
 
 // Mock SCSS imports
 jest.mock('./rds-counter.scss', () => ({}));
@@ -380,6 +380,7 @@ describe('RdsCounter', () => {
       expect(input).toHaveAttribute('aria-label', 'Quantity value');
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCounter />);
       const results = await axe(container);

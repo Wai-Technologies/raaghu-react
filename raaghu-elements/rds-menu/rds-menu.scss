@@ -2,9 +2,9 @@
   &__list {
     min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
-    background-color: var(--rds-background-paper);
+    background: var(--rds-background-paper);
     box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0,0,0,0.10));
-    border-radius: var(--rds-border-radius-lg, 10px);
+    border-radius: var(--rds-border-radius-sm, 4px);
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -19,7 +19,7 @@
     cursor: pointer;
     transition: background var(--rds-transition-fast, 0.18s ease-in-out), color var(--rds-transition-fast, 0.18s ease-in-out);
     border: none;
-    background-color: none;
+    background: none;
     width: 100%;
     text-align: left;
     color: var(--rds-text-primary);
@@ -27,7 +27,7 @@
     outline: none;
     position: relative;
     &:hover:not(:disabled), &:focus-visible:not(:disabled) {
-      background-color: var(--rds-action-hover);
+      background: var(--rds-action-hover);
       color: var(--rds-primary-main);
     }
     &:focus-visible {
@@ -37,7 +37,7 @@
     &--disabled {
       color: var(--rds-text-disabled);
       cursor: not-allowed;
-      background-color: none;
+      background: none;
     }
     &__icon {
       display: flex;
@@ -117,12 +117,12 @@
     margin-bottom: var(--rds-menu-header-margin-bottom);
     letter-spacing: var(--rds-menu-letter-spacing);
     text-transform: uppercase;
-    background-color: var(--rds-background-default);
+    background: var(--rds-background-default);
     border-bottom: 1px solid var(--rds-border-light);
   }
   &__divider {
     height: 1px;
-    background-color: var(--rds-neutral-300);
+    background: var(--rds-neutral-300);
     margin: var(--rds-spacing-xs) 0;
     border: none;
   }
@@ -166,12 +166,12 @@
   }
 
   .rds-menu__divider {
-    background-color: var(--rds-border-default);
+    background: var(--rds-border-default);
   }
   
   .rds-menu__item:hover:not(:disabled),
   .rds-menu__item:focus-visible:not(:disabled) {
-    background-color: var(--rds-action-active);
+    background: var(--rds-action-active);
     color: var(--rds-neutral-0);
   }
 
@@ -184,6 +184,13 @@
   /* Force MuiListItemIcon root itself to white for all non-colored items */
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) {
     color: var(--rds-neutral-0, #fff) !important;
+  }
+
+  /* Target MuiSvgIcon-root directly so MUI icon color is white in dark mode */
+  .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root,
+  .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root {
+    color: var(--rds-neutral-0, #fff) !important;
+    fill: var(--rds-neutral-0, #fff) !important;
   }
 
   /* MuiPaper that wraps the dropdown */

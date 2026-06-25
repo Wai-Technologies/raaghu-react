@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect} from 'storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { TextField, Select, MenuItem, FormHelperText, FormLabel } from '@mui/material';
 import RdsFormControl from './rds-form-control';
 
@@ -63,7 +63,9 @@ export const WithTextField: Story = {
 };
 
 export const WithSelect: Story = {
-  args: {},
+  args: {
+    fullWidth: true,
+  },
   render: (args) => (
     <RdsFormControl {...args}>
       <FormLabel>Country</FormLabel>

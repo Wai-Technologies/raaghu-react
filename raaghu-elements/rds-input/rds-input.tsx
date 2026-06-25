@@ -1,18 +1,20 @@
-import React from 'react';
+import { useRef, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
-import {
-  getSizeClass,
-  getPillClass,
-  getStateClass,
-  getInputType,
-  getPlaceholder,
-  createNumericKeyDownHandler,
-  createPhoneInputHandler,
-  getNumericInputProps,
-} from './rds-input.helpers';
+import clsx from 'clsx';
 import './rds-input.scss';
 
-export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size'> {
+function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): string {
+  switch (layoutType) {
+    case 'password': return '••••••••';
+    case 'phone number': return 'Enter Phone Number';
+    case 'number': return 'Enter Number';
+    case 'card number': return 'XXXX XXXX XXXX XXXX';
+    case 'text':
+    default: return 'Placeholder Text';
+  }
+}
+
+export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component'> {
   label?: string;
   placeholder?: string;
   hintText?: string;
@@ -23,10 +25,10 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
   titlePosition?: string;
   style?: 'default' | 'pill' | 'bottom outline';
-  state?: 'default' | 'active' | 'selected' | 'error' | 'disabled';
+  state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
   showIcon?: boolean;
   iconPosition?: 'start' | 'end';
-  icon?: React.ReactNode;
+  icon?: ReactNode; // Custom icon component provided by the user
 }
 
 const RdsInput = ({
@@ -52,18 +54,24 @@ const RdsInput = ({
   onBlur,
   ...props
 }: RdsInputProps) => {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [isFocused, setIsFocused] = React.useState(false);
-  const [internalValue, setInternalValue] = React.useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [internalValue, setInternalValue] = useState('');
+  const prevLayoutRef = useRef(layout);
   const isControlled = value !== undefined;
 
-  React.useEffect(() => {
+  if (layout !== prevLayoutRef.current) {
+    prevLayoutRef.current = layout;
     if (!isControlled) {
       setInternalValue('');
     }
-  }, [layout, isControlled]);
+  }
+  
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-  const handleInternalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInternalChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
       setInternalValue(event.target.value);
     }
@@ -71,15 +79,54 @@ const RdsInput = ({
   };
 
   const currentValue = isControlled ? value : internalValue;
-  const active = state === 'active' || (state === 'default' && isFocused);
-  const handleNumericKeyDown = React.useMemo(() => createNumericKeyDownHandler(layout), [layout]);
-  const handlePhoneInput = React.useMemo(
-    () => createPhoneInputHandler({ isControlled, setInternalValue, onChange }),
-    [isControlled, onChange]
-  );
+  const sizeClass = size === 'small' ? 'rds-input--small' : 
+                     size === 'medium' ? 'rds-input--medium' : 
+                     'rds-input--large';
 
+  const pillClass = style === 'pill' ? 'rds-input--pill' : style === 'bottom outline' ? 'rds-input--bottom-outline' : '';
+  
+  const active = (state === 'active') || (state === 'default' && isFocused);
+
+  let stateClass = '';
+  if (state === 'error' || error) {
+    stateClass = 'rds-input--error';
+  } else if (state === 'disabled' || disabled) {
+    stateClass = 'rds-input--disabled';
+  } else if (state === 'active') {
+    stateClass = 'rds-input--active';
+  } else if (state === 'selected') {
+    stateClass = 'rds-input--selected';
+  } else if (active) {
+    stateClass = 'rds-input--active';
+  }
+
+  let inputType: string = 'text';
+  switch (layout) {
+    case 'password':
+      inputType = showPassword ? 'text' : 'password';
+      break;
+    case 'number':
+    case 'card number':
+      inputType = 'tel';
+      break;
+    case 'phone number':
+      inputType = 'tel';
+      break;
+    default:
+      inputType = 'text';
+  }
+  
   const renderIcon = () => {
     if (!showIcon) return null;
+    
+    if (icon) {
+      return (
+        <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
+          {icon}
+        </InputAdornment>
+      );
+    }
+    
     return (
       <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
         {icon}
@@ -87,17 +134,96 @@ const RdsInput = ({
     );
   };
 
+  const handleNumericKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const allowedKeys = [
+      'Backspace',
+      'Delete',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowDown',
+      'Home',
+      'End',
+      'Tab',
+    ];
+    if (e.ctrlKey || e.metaKey) return;
+
+    const input = e.currentTarget;
+    const selectionStart = input.selectionStart ?? input.value.length;
+    const selectionEnd = input.selectionEnd ?? selectionStart;
+    const hasPlus = input.value.startsWith('+');
+    const isPlusKey = e.key === '+';
+    const isDigit = /^[0-9]$/.test(e.key);
+
+    if (isPlusKey && layout === 'phone number') {
+      const atStart = selectionStart === 0;
+      const replacingPlus = hasPlus && selectionStart === 0 && selectionEnd > 0;
+      if (!atStart || (hasPlus && !replacingPlus)) {
+        e.preventDefault();
+      }
+      return;
+    } else if (isPlusKey && layout !== 'phone number') {
+      e.preventDefault();
+      return;
+    }
+
+    if (!isDigit && !allowedKeys.includes(e.key)) {
+      e.preventDefault();
+      return;
+    }
+
+    if (isDigit && layout === 'phone number') {
+      const value = input.value;
+      const selectedSegment = value.slice(selectionStart, selectionEnd);
+      const digitsInValue = value.replace(/\D/g, '').length;
+      const digitsInSelection = selectedSegment.replace(/\D/g, '').length;
+      const maxDigits = hasPlus ? 12 : 10;
+      if (digitsInValue - digitsInSelection >= maxDigits) {
+        e.preventDefault();
+      }
+    }
+  };
+
+  const handlePhoneInput = (e: FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const orig = target.value;
+    const startsWithPlus = orig.startsWith('+');
+    let digits = orig.replace(/\D/g, '');
+    const maxDigits = startsWithPlus ? 12 : 10;
+    if (digits.length > maxDigits) digits = digits.slice(0, maxDigits);
+    const next = (startsWithPlus ? '+' : '') + digits;
+    if (orig !== next) {
+      target.value = next;
+      if (!isControlled) {
+        setInternalValue(next);
+      }
+      if (onChange) {
+        const event = {
+          ...e,
+          target: { ...target, value: next }
+        } as ChangeEvent<HTMLInputElement>;
+        onChange(event);
+      }
+    }
+  };
+  const computedPlaceholder = placeholder ?? getInputPlaceholder(layout);
   const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
-  const computedPlaceholder = placeholder ?? getPlaceholder(layout);
+  const numericInputProps: InputHTMLAttributes<HTMLInputElement> =
+    layout === 'phone number' || layout === 'number' || layout === 'card number'
+      ? {
+          inputMode: layout === 'phone number' ? 'tel' : 'numeric',
+          ...(layout === 'phone number' ? { pattern: '^(?:\\+\\d{12}|\\d{10})$' } : {}),
+          onKeyDown: handleNumericKeyDown,
+          ...(layout === 'phone number' ? { onInput: handlePhoneInput } : {}),
+        }
+      : {};
 
   return (
-    <div
-      className={`rds-input ${getSizeClass(size)} ${getPillClass(style)} ${getStateClass(state, error, disabled, active)} ${inlineTitleClass}`.trim()}
-    >
+    <div className={clsx('rds-input', sizeClass, pillClass, stateClass, inlineTitleClass)}>
       {titlePosition === 'title-above' && label && (
         <label className="rds-input__label">
           {label}
-          {isMandatory === true && <span className="rds-input__asterisk">*</span>}
+          {isMandatory === true && (<span className="rds-input__asterisk">*</span>)}
         </label>
       )}
       <MuiTextField
@@ -109,20 +235,14 @@ const RdsInput = ({
         required={isMandatory}
         variant={variant}
         size={size === 'large' ? 'medium' : size}
-        type={getInputType(layout, showPassword)}
+        type={inputType}
         fullWidth
         focused={active}
         value={currentValue}
         onChange={handleInternalChange}
-        onFocus={(e) => {
-          setIsFocused(true);
-          onFocus?.(e);
-        }}
-        onBlur={(e) => {
-          setIsFocused(false);
-          onBlur?.(e);
-        }}
-        InputProps={{
+        onFocus={(e) => { setIsFocused(true); onFocus?.(e); }}
+        onBlur={(e) => { setIsFocused(false); onBlur?.(e); }}
+        InputProps={{ 
           className: 'rds-input__field',
           classes: {
             root: active ? 'Mui-focused' : '',
@@ -130,10 +250,9 @@ const RdsInput = ({
           },
           startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
           endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
-          inputProps: {
-            ...getNumericInputProps(layout, handleNumericKeyDown, handlePhoneInput),
-          } as Record<string, unknown>,
+          inputProps: numericInputProps,
           ...(props.InputProps || {}),
+          
         }}
         {...props}
       />

@@ -62,14 +62,21 @@
     font-size: var(--rds-font-size-2xl);
     font-weight: var(--rds-font-weight-medium);
     margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--rds-spacing-xs);
+    width: 100%;
+    padding-inline: var(--rds-spacing-sm);
 
     &--with-close {
-      padding-right: var(--rds-modal-title-close-padding-right, calc(5 * var(--rds-spacing-sm, 8px))) !important;
+      padding-inline: var(--rds-spacing-sm) !important;
     }
   }
  
   &__close {
-    background-color: none;
+    background: none;
     border: none;
     cursor: pointer;
     padding: var(--rds-spacing-sm);
@@ -83,9 +90,18 @@
   &__content {
     padding: var(--rds-spacing-sm);
     overflow-y: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
       @media (max-width: var(--rds-modal-mobile-breakpoint, 600px)) {
         overflow: hidden !important;
       }
+  }
+
+  &__media {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
  
   &__actions {
@@ -99,9 +115,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: var(--rds-spacing-xs);
     color: var(--rds-color-icon);
-    margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
   }
  
   &__image {

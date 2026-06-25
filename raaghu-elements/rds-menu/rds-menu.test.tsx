@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import userEvent from '@testing-library/user-event';
 import RdsMenu from './rds-menu';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -195,7 +196,7 @@ describe('RdsMenu', () => {
       const items = [
         { id: 1, divider: true, label: 'This should not appear' },
       ];
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsMenu items={items} open={true} anchorEl={document.body} />
       );
       expect(screen.queryByText('This should not appear')).not.toBeInTheDocument();
@@ -229,7 +230,7 @@ describe('RdsMenu', () => {
       const items = [
         { id: 1, header: 'Header Text', label: 'This should not appear' },
       ];
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsMenu items={items} open={true} anchorEl={document.body} />
       );
       expect(screen.getByText('Header Text')).toBeInTheDocument();
@@ -472,7 +473,7 @@ describe('RdsMenu', () => {
 
   describe('Menu Props', () => {
     it('should pass through MenuProps', () => {
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsMenu 
           items={defaultItems} 
           open={true} 
@@ -618,8 +619,9 @@ describe('RdsMenu', () => {
       expect(menuItems.length).toBeGreaterThan(0);
   
     });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsMenu items={[]} />);
+      const { container } = renderWithTheme(<RdsMenu items={defaultItems} open={true} anchorEl={document.body} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

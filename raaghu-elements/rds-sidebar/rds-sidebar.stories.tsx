@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { expect} from 'storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
 import { Button, Box } from '@mui/material';
@@ -13,6 +13,14 @@ import {
   Star,
   Send,
   Drafts,
+  Business,
+  AdminPanelSettings,
+  Widgets,
+  Receipt,
+  ConfirmationNumber,
+  Chat,
+  Campaign,
+  Assignment
 } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsSidebar> = {
@@ -113,6 +121,23 @@ const mailItems = [
   { label: 'Starred', icon: <Star />, onClick: () => {} },
   { label: 'Send email', icon: <Send />, onClick: () => {} },
   { label: 'Drafts', icon: <Drafts />, onClick: () => {} },
+];
+
+const anzMenuItems = [
+  { label: 'Dashboard', icon: <Dashboard />, onClick: () => {} },
+  { label: 'Saas', icon: <Business />, onClick: () => {} },
+  { label: 'Administration', icon: <AdminPanelSettings />, onClick: () => {} },
+  { label: 'Demo UI Components', icon: <Widgets />, onClick: () => {} },
+];
+
+const abpMenuItems = [
+  { label: 'Dashboard', icon: <Dashboard />, onClick: () => {} },
+  { label: 'Saas', icon: <Business />, onClick: () => {} },
+  { label: 'Invoices', icon: <Receipt />, onClick: () => {} },
+  { label: 'Ticket Allocation', icon: <ConfirmationNumber />, onClick: () => {} },
+  { label: 'Communication', icon: <Chat />, onClick: () => {} },
+  { label: 'Advertisements', icon: <Campaign />, onClick: () => {} },
+  { label: 'Requests', icon: <Assignment />, onClick: () => {} },
 ];
 
 const SidebarTemplate = (args: any) => {

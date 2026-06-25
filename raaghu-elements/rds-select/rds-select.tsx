@@ -1,13 +1,14 @@
-import React, { useId } from 'react';
+import { useId } from 'react';
 import { 
   Select as MuiSelect, 
   FormControl, 
   InputLabel, 
   MenuItem, 
-  SelectProps, 
+  type SelectProps, 
   FormHelperText 
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import clsx from 'clsx';
 import './rds-select.scss';
 
 export interface RdsSelectOption {
@@ -16,7 +17,7 @@ export interface RdsSelectOption {
   disabled?: boolean;
 }
 
-export interface RdsSelectProps extends Omit<SelectProps, 'children'> {
+export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
   label?: string;
   placeholder?: string;
   options: RdsSelectOption[];
@@ -29,7 +30,7 @@ export interface RdsSelectProps extends Omit<SelectProps, 'children'> {
   className?: string;
 }
 
-const RdsSelect: React.FC<RdsSelectProps> = ({
+const RdsSelect = ({
   label,
   placeholder,
   options,
@@ -42,12 +43,12 @@ const RdsSelect: React.FC<RdsSelectProps> = ({
   size = 'small',
   className,
   ...props
-}) => {
+}: RdsSelectProps) => {
   const labelId = useId();
   const hasError = !!errorMessage || error;
   
   return (
-    <div className={`rds-select ${hasError ? 'rds-select--error' : ''} ${className || ''}`}>
+    <div className={clsx('rds-select', hasError && 'rds-select--error', className)}>
       <FormControl 
         fullWidth 
         error={hasError} 

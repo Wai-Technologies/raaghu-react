@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSidebar, { RdsSidebarItem } from './rds-sidebar';
-import { axe } from 'jest-axe';
+import { axe, configureAxe } from 'jest-axe';
 
 // Mock the SCSS file
 jest.mock('./rds-sidebar.scss');

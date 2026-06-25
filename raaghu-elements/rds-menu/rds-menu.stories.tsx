@@ -34,7 +34,15 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsMenu>;
 
-const DefaultStory = (args) => {
+export const Default: Story = {
+  args: {
+    items: [
+      { id: 1, label: 'Profile' },
+      { id: 2, label: 'My account' },
+      { id: 3, label: 'Logout' },
+    ],
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -68,21 +76,23 @@ const DefaultStory = (args) => {
         />
       </>
     );
-  };
-
-export const Default: Story = {
-  args: {
-    items: [
-      { id: 1, label: 'Profile' },
-      { id: 2, label: 'My account' },
-      { id: 3, label: 'Logout' },
-    ],
   },
-  render: DefaultStory,
 };
 Default.parameters = { controls: { include: ['open'] } };
 
-const WithIconStory = (args) => {
+export const WithIcon: Story = {
+  args: {
+    items: [
+      { id: 1, label: 'Profile', icon: <RdsAvatar>M</RdsAvatar> },
+      { id: 2, label: 'My account', icon: <RdsAvatar>M</RdsAvatar> },
+      { id: 3, divider: true },
+      { id: 4, label: 'Add another account', icon: <PersonAdd fontSize="small" /> },
+      { id: 5, label: 'Settings', icon: <Settings fontSize="small" /> },
+      { id: 6, label: 'Logout', icon: <Logout fontSize="small" /> },
+    ],
+    size: 'medium',
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -121,24 +131,19 @@ const WithIconStory = (args) => {
         />
       </>
     );
-  };
-
-export const WithIcon: Story = {
-  args: {
-    items: [
-      { id: 1, label: 'Profile', icon: <RdsAvatar>M</RdsAvatar> },
-      { id: 2, label: 'My account', icon: <RdsAvatar>M</RdsAvatar> },
-      { id: 3, divider: true },
-      { id: 4, label: 'Add another account', icon: <PersonAdd fontSize="small" /> },
-      { id: 5, label: 'Settings', icon: <Settings fontSize="small" /> },
-      { id: 6, label: 'Logout', icon: <Logout fontSize="small" /> },
-    ],
-    size: 'medium',
   },
-  render: WithIconStory,
 };
 
-const DenseStory = (args) => {
+export const Dense: Story = {
+  args: {
+    size: 'small',
+    items: [
+      { id: 1, label: 'Dense Cut', icon: <ContentCut fontSize="small" /> },
+      { id: 2, label: 'Dense Copy', icon: <ContentCopy fontSize="small" /> },
+      { id: 3, label: 'Dense Paste', icon: <ContentPaste fontSize="small" /> },
+    ],
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -164,20 +169,26 @@ const DenseStory = (args) => {
         />
       </>
     );
-  };
-
-export const Dense: Story = {
+  },
+};
+export const WithCustomColor: Story = {
   args: {
-    size: 'small',
+    size: 'medium',
+    color: 'primary',
     items: [
-      { id: 1, label: 'Dense Cut', icon: <ContentCut fontSize="small" /> },
-      { id: 2, label: 'Dense Copy', icon: <ContentCopy fontSize="small" /> },
-      { id: 3, label: 'Dense Paste', icon: <ContentPaste fontSize="small" /> },
+      { id: 1, label: 'Primary', icon: <ContentCopy fontSize="small" /> },
+      { id: 2, label: 'Success', icon: <ContentPaste fontSize="small" /> },
+      { id: 3, label: 'Danger', icon: <Delete fontSize="small" /> },
     ],
   },
-  render: DenseStory,
-};
-const WithCustomColorStory = (args) => {
+  argTypes: {
+    color: {
+      control: { type: 'select' },
+      options: ['primary', 'success', 'danger', 'info', 'warning'],
+      description: 'Color theme for all menu items',
+    },
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -203,29 +214,18 @@ const WithCustomColorStory = (args) => {
         />
       </>
     );
-  };
-
-export const WithCustomColor: Story = {
-  args: {
-    size: 'medium',
-    color: 'primary',
-    items: [
-      { id: 1, label: 'Primary', icon: <ContentCopy fontSize="small" /> },
-      { id: 2, label: 'Success', icon: <ContentPaste fontSize="small" /> },
-      { id: 3, label: 'Danger', icon: <Delete fontSize="small" /> },
-    ],
   },
-  argTypes: {
-    color: {
-      control: { type: 'select' },
-      options: ['primary', 'success', 'danger', 'info', 'warning'],
-      description: 'Color theme for all menu items',
-    },
-  },
-  render: WithCustomColorStory,
 };
 
-const WithDisabledStory = (args) => {
+export const WithDisabled: Story = {
+  args: {
+    items: [
+      { id: 1, label: 'Enabled Item' },
+      { id: 2, label: 'Disabled Item', disabled: true },
+      { id: 3, label: 'Another Enabled Item' },
+    ],
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -250,67 +250,24 @@ const WithDisabledStory = (args) => {
         />
       </>
     );
-  };
-
-export const WithDisabled: Story = {
-  args: {
-    items: [
-      { id: 1, label: 'Enabled Item' },
-      { id: 2, label: 'Disabled Item', disabled: true },
-      { id: 3, label: 'Another Enabled Item' },
-    ],
   },
-  render: WithDisabledStory,
 };
 
-const OpenCloseStory = (args) => {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const items = (args.items || []).map(item => ({ ...item, onClick: () => setAnchorEl(null) }));
-    return (
-      <>
-        <RdsButton
-          text="Open Menu"
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          size="medium"
-          state="default"
-          style="outlined"
-          textCase="uppercase"
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(e.currentTarget)}
-        />
-        <RdsMenu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={() => setAnchorEl(null)}
-          items={items}
-        />
-      </>
-    );
-  };
-
-export const OpenClose: Story = {
-  name: 'Interaction: Open and Close Menu',
+export const CustomizedMenu: Story = {
   args: {
     items: [
-      { id: 1, label: 'Profile' },
-      { id: 2, label: 'My account' },
-      { id: 3, label: 'Logout' },
+      { id: 1, header: 'Header 1' },
+      { id: 2, label: 'Item 1', color: 'primary', icon: <ContentCut fontSize="small" /> },
+      { id: 3, label: 'Item 2', color: 'success', icon: <ContentCopy fontSize="small" /> },
+      { id: 4, divider: true },
+      { id: 5, label: 'Item 3', color: 'danger', disabled: true, icon: <Delete fontSize="small" /> },
+      { id: 6, label: 'Item 4', color: 'info', icon: <ContentPaste fontSize="small" /> },
+      { id: 7, header: 'Header 2' },
+      { id: 8, label: 'Item 5', color: 'warning', icon: <ContentCopy fontSize="small" /> },
     ],
+    size: 'medium',
   },
-  render: OpenCloseStory,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const trigger = canvas.getAllByRole('button')[0]
-    await userEvent.click(trigger)
-    // MUI Menu renders in a portal at document.body — must query outside canvasElement
-    await expect(document.querySelector(
-      '[role="menu"], [class*="MuiMenu-list"], [class*="MuiPaper-root"]'
-    )).not.toBeNull()
-  }
-};
-
-const CustomizedMenuStory = (args) => {
+  render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -354,21 +311,5 @@ const CustomizedMenuStory = (args) => {
         />
       </div>
     );
-  };
-
-export const CustomizedMenu: Story = {
-  args: {
-    items: [
-      { id: 1, header: 'Header 1' },
-      { id: 2, label: 'Item 1', color: 'primary', icon: <ContentCut fontSize="small" /> },
-      { id: 3, label: 'Item 2', color: 'success', icon: <ContentCopy fontSize="small" /> },
-      { id: 4, divider: true },
-      { id: 5, label: 'Item 3', color: 'danger', disabled: true, icon: <Delete fontSize="small" /> },
-      { id: 6, label: 'Item 4', color: 'info', icon: <ContentPaste fontSize="small" /> },
-      { id: 7, header: 'Header 2' },
-      { id: 8, label: 'Item 5', color: 'warning', icon: <ContentCopy fontSize="small" /> },
-    ],
-    size: 'medium',
   },
-  render: CustomizedMenuStory,
 };

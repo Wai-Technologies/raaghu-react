@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsInput from './rds-input';
 import SearchIcon from '@mui/icons-material/Search';
@@ -292,7 +293,7 @@ describe('RdsInput', () => {
 
   describe('Icon Support', () => {
     it('should render icon when showIcon is true', () => {
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsInput 
           label="Input with Icon" 
           showIcon={true}
@@ -304,7 +305,7 @@ describe('RdsInput', () => {
     });
 
     it('should not render icon when showIcon is false', () => {
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsInput 
           label="Input without Icon" 
           showIcon={false}
@@ -649,7 +650,7 @@ describe('RdsInput', () => {
     });
 
     it('should show error state for accessibility', () => {
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsInput label="Error Input" error={true} errorMessage="Field is required" />
       );
       expect(screen.getByText('Field is required')).toBeInTheDocument();

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsCounter from './rds-counter';
@@ -81,6 +81,7 @@ export const Default: Story = {
   },
   render: (args) => <RdsCounter {...args} />,
   play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
     const buttons = canvasElement.querySelectorAll('button');
     expect(buttons.length).toBeGreaterThan(0);
     const display = canvasElement.querySelector('input, [class*=value], [class*=count]') || canvasElement.firstElementChild;
@@ -232,7 +233,16 @@ export const Disabled: Story = {
   },
 };
 
-const InteractiveStory = (args) => {
+export const Interactive: Story = {
+  args: {
+    min: 0,
+    max: 20,
+    size: 'small',
+    variant: 'compact',
+    layout: 'side-to-side',
+    placeholder: '00',
+  },
+  render: (args) => {
     const [cart, setCart] = useState([
       { id: 1, name: 'Apple', quantity: 2, price: 1.50 },
       { id: 2, name: 'Banana', quantity: 1, price: 0.75 },
@@ -286,16 +296,5 @@ const InteractiveStory = (args) => {
         </Box>
       </Box>
     );
-  };
-
-export const Interactive: Story = {
-  args: {
-    min: 0,
-    max: 20,
-    size: 'small',
-    variant: 'compact',
-    layout: 'side-to-side',
-    placeholder: '00',
   },
-  render: InteractiveStory,
 };

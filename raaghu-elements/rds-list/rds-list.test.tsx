@@ -117,7 +117,7 @@ describe('RdsList', () => {
       const itemsWithoutSecondary = [
         { id: 1, primary: 'Item 1' },
       ];
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsList items={itemsWithoutSecondary} />
       );
       expect(screen.getByText('Item 1')).toBeInTheDocument();
@@ -548,7 +548,7 @@ describe('RdsList', () => {
         secondary: `Secondary ${i}`,
       }));
 
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsList items={largeItems} withDividers={true} />
       );
       
@@ -559,7 +559,7 @@ describe('RdsList', () => {
 
   describe('Props Spreading', () => {
     it('should accept additional MuiList props', () => {
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsList 
           items={defaultItems}
           data-testid="custom-list"
@@ -620,7 +620,7 @@ describe('RdsList', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsList items={defaultItems} />);
+      const { container } = renderWithTheme(<RdsList items={defaultItems} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

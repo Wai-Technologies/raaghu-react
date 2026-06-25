@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsButtonDropdown, { RdsButtonDropdownProps, RdsButtonDropdownOption } from './rds-button-dropdown';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -9,14 +9,14 @@ jest.mock('./rds-button-dropdown.scss', () => ({}));
 
 // Mock child components
 jest.mock('../rds-button/rds-button', () => {
-  return function MockButton({ text, onClick, style: _style, ...props }: any) {
+  return function MockButton({ text, onClick, style, ...props }: any) {
     return <button onClick={onClick} {...props}>{text}</button>;
   };
 });
 
 jest.mock('../rds-menu/rds-menu', () => {
-  return function MockMenu({ open, onClose, children, PaperProps, ...props }: any) {
-    return open ? <div data-testid="rds-menu" onClick={() => onClose()} style={PaperProps?.style} {...props}>{children}</div> : null;
+  return function MockMenu({ open, onClose, children, slotProps, ...props }: any) {
+    return open ? <div data-testid="rds-menu" onClick={() => onClose()} style={slotProps?.paper?.style} {...props}>{children}</div> : null;
   };
 });
 
@@ -281,7 +281,7 @@ describe('RdsButtonDropdown', () => {
       const callCount1 = onChange.mock.calls.length;
       
       fireEvent.click(checkboxes[0]);
-      const _callCount2 = onChange.mock.calls.length;
+      const callCount2 = onChange.mock.calls.length;
       
       // Verify at least one call was made for selection
       expect(callCount1).toBeGreaterThanOrEqual(1);
@@ -895,6 +895,7 @@ describe('RdsButtonDropdown', () => {
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsButtonDropdown {...defaultProps} />);
       const results = await axe(container);
