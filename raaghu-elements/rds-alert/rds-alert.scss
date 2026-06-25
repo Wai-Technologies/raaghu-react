@@ -53,7 +53,7 @@
   line-height: var(--rds-line-height-base);
   border-radius: var(--rds-border-radius-sm);
   border: 1px solid transparent;
-  background: var(--rds-alert-info-bg);
+  background-color: var(--rds-alert-info-bg);
 
   &--success {
     color: var(--rds-alert-success-text) !important;
@@ -175,7 +175,6 @@
   }
 
   &__content {
-    flex: 1 1 0%;
     min-width: 0;
     overflow: hidden;
     flex: 1;
@@ -194,7 +193,7 @@
 
   &__close {
     flex-shrink: 0;
-    background: transparent;
+    background-color: transparent;
     border: none;
     cursor: pointer;
     padding: var(--rds-spacing-xs);

@@ -48,23 +48,25 @@ export const WithLabels: Story = {
   },
 };
 
+const InteractiveStory = (args) => {
+    const [activeValue, setActiveValue] = useState(args.activeValue || 'home');
+    
+    return (
+      <RdsBottomNavigation
+        {...args}
+        activeValue={activeValue}
+        onItemChange={(value) => setActiveValue(value)}
+      />
+    );
+  };
+
 export const Interactive: Story = {
   args: {
     items: navigationItems,
     activeValue: 'home',
     showLabels: false,
   },
-  render: (args) => {
-    const [activeValue, setActiveValue] = useState(args.activeValue || 'home');
-    
-    return (
-      <RdsBottomNavigation
-        {...args}
-        activeValue={args.activeValue}
-        onItemChange={(value) => setActiveValue(value)}
-      />
-    );
-  },
+  render: InteractiveStory,
 };
 
 export const ThreeItems: Story = {
@@ -92,14 +94,7 @@ export const WithDisabledItem: Story = {
   },
 };
 
-export const SwitchNavItem: Story = {
-  name: 'Interaction: Switch navigation item',
-  args: {
-    items: navigationItems,
-    activeValue: 'home',
-    showLabels: true,
-  },
-  render: (args) => {
+const SwitchNavItemStory = (args) => {
     const [active, setActive] = useState(args.activeValue || 'home');
     return (
       <RdsBottomNavigation
@@ -108,7 +103,16 @@ export const SwitchNavItem: Story = {
         onItemChange={(value: string) => setActive(value)}
       />
     );
+  };
+
+export const SwitchNavItem: Story = {
+  name: 'Interaction: Switch navigation item',
+  args: {
+    items: navigationItems,
+    activeValue: 'home',
+    showLabels: true,
   },
+  render: SwitchNavItemStory,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const buttons = canvas.getAllByRole('button')

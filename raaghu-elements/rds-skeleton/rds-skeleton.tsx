@@ -24,7 +24,7 @@ const RdsSkeleton = ({
   const isText = shape === 'text';
   const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
 
-  const animationValue = typeof animation !== 'undefined' ? animation : (animated ? 'pulse' : false);
+  const animationValue = animation ?? (animated ? 'pulse' : false);
 
   if (frames > 1) {
     return (
@@ -39,7 +39,7 @@ const RdsSkeleton = ({
       >
         {Array.from({ length: frames }).map((_, index) => (
           <MuiSkeleton
-            key={index}
+            key={`skeleton-frame-${index + 1}`}
             variant={shape}
             animation={animationValue}
             {...props}

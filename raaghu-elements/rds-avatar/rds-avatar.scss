@@ -38,8 +38,7 @@
     border-radius: var(--rds-border-radius-full, 50%);
     z-index: var(--rds-z-index-base);
     pointer-events: none;
-    background: transparent;
-    border-color: var(--rds-color-primary);
+    background-color: transparent;
   }
 
 &__dot {
@@ -52,7 +51,7 @@
   box-shadow: 0 0 0 var(--rds-avatar-dot-border-width, 2px) var(--rds-background-paper);
   transition: background var(--rds-transition-base);
   right: calc(-1 * var(--rds-avatar-dot-border-width, 2px) * var(--rds-avatar-dot-scale, 1));
-  background: var(--rds-color-primary);
+  background-color: var(--rds-color-primary);
 
   &--top {
     top: calc(2px * var(--dot-scale, 1));
@@ -124,7 +123,7 @@
     display: flex;
     align-items: center;
     gap: calc(var(--rds-spacing-xs, 4px) + 1px);
-    background: none;
+    background-color: none;
     box-shadow: none;
   }
   &--name-bottom {
@@ -132,7 +131,7 @@
     flex-direction: column;
     align-items: center;
     gap: var(--rds-spacing-xs, 4px);
-    background: none;
+    background-color: none;
     box-shadow: none;
     .rds-avatar__avatar-outer,
     .rds-avatar__avatar-wrap {
@@ -154,7 +153,7 @@
       border-radius: var(--rds-border-radius-full, 50%);
       z-index: var(--rds-z-index-base);
       pointer-events: none;
-      background: transparent;
+      background-color: transparent;
     }
     .rds-avatar__dot {
       position: absolute;
@@ -215,7 +214,7 @@
     transition: box-shadow var(--rds-transition-base);
     position: absolute;
     top: 0;
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
   }
 
   &--primary {

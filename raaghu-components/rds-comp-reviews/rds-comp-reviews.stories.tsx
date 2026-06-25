@@ -1,6 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect} from 'storybook/test';
 import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews";
 
 const meta: Meta = { 

@@ -2,7 +2,7 @@
 
 .rds-comp-map {
   /* Use theme variable and avoid forcing white fallback so dark themes stay dark */
-  background: var(--rds-bg, transparent) !important;
+  background-color: var(--rds-bg, transparent) !important;
   border: none !important;
   box-shadow: none !important;
   padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) !important;
@@ -204,7 +204,7 @@
 body[data-theme="dark"], html[data-theme="dark"], .theme-dark, .sb-show-main[data-theme="dark"],
 .rds-theme--dark, body.theme-dark, .dark-theme {
   .rds-comp-map {
-    background: var(--rds-bg, transparent) !important;
+    background-color: var(--rds-bg, transparent) !important;
 
     svg {
       background-color: var(--rds-color-surface-dark, #1f1f1f) !important;

@@ -107,7 +107,7 @@
         transform: translate(-50%, -50%);
         border: var(--rds-checkbox-border-width) solid var(--rds-border-default);
         border-radius: var(--rds-border-radius-full, 50%);
-        background: transparent;
+        background-color: transparent;
         transition: var(--rds-checkbox-transition);
         box-sizing: border-box;
       }
@@ -120,7 +120,6 @@
         width: 6px;
         height: 10px;
         border: solid var(--rds-primary-contrast-text, #fff);
-        border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transform-origin: center;
         transition: var(--rds-checkbox-transition);

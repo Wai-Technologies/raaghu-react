@@ -1,6 +1,5 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect} from 'storybook/test';
 import RdsCompTimePicker from "./rds-comp-time-picker";
 
 const meta: Meta = {

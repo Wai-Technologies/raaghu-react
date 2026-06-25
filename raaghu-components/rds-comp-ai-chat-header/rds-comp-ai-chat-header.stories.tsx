@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 import RdsCompAiChatHeader, { ChatHeaderSize } from "./rds-comp-ai-chat-header";

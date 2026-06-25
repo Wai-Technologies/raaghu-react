@@ -1,4 +1,3 @@
-import React from "react";
 import RdsCompStackedChart from "./rds-comp-chart-stacked";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';

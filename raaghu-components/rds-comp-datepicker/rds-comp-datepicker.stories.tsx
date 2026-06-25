@@ -1,4 +1,4 @@
-import RdsCompDatepicker, { DatePickerLayout, DatePickerState, DatePickerStyleType, RdsCompDatepickerProps } from "./rds-comp-datepicker";
+import RdsCompDatepicker, { DatePickerLayout, DatePickerState, DatePickerStyleType } from "./rds-comp-datepicker";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 

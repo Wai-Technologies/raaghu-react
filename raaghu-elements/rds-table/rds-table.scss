@@ -369,7 +369,6 @@
         width: var(--rds-table-checkbox-check-width, 6px);
         height: var(--rds-table-checkbox-check-height, 10px);
         border: solid var(--rds-primary-contrast-text);
-        border-width: 0 2px 2px 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transition: var(--checkbox-transition);
         z-index: calc(var(--rds-z-index-base) + 2);

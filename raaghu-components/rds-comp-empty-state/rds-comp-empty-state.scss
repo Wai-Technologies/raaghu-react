@@ -4,7 +4,9 @@
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__title,
 body.dark .rds-comp-empty-state__subtitle {
-  color: var(--rds-neutral-0) !important;
+
+
+  color: var(--rds-text-secondary) !important;
 }
 
 [data-theme="dark"] .rds-comp-empty-state,
@@ -13,9 +15,6 @@ body.dark .rds-comp-empty-state {
 }
 
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
-body.dark .rds-comp-empty-state__subtitle {
-  color: var(--rds-text-secondary) !important;
-}
 
 .rds-comp-empty-state {
   display: flex;
@@ -69,7 +68,6 @@ body.dark .rds-comp-empty-state__subtitle {
     line-height: 1.4 !important;
     margin: var(--rds-spacing-xs, 4px) 0 !important;
     font-family: var(--rds-font-family-base) !important; 
-    margin-top: var(--rds-spacing-lg, 10px) !important;
   }
 
   &__subtitle {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import RdsAppBar, { RdsAppBarProps, RdsAppBarSize } from './rds-app-bar';
+import RdsAppBar from './rds-app-bar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -188,7 +188,7 @@ describe('RdsAppBar', () => {
     });
 
     it('should display dehaze icon in menu button', () => {
-      const { container } = render(
+      render(
         <RdsAppBar {...defaultProps} showMenuButton={true} />
       );
       expect(screen.getByTestId('dehaze-icon')).toBeInTheDocument();
@@ -423,7 +423,7 @@ describe('RdsAppBar', () => {
     });
 
     it('should display all tabs', () => {
-      const { container } = render(
+      render(
         <RdsAppBar
           {...defaultProps}
           tabs={tabs}
@@ -452,7 +452,7 @@ describe('RdsAppBar', () => {
     });
 
     it('should render tabs with object labels', () => {
-      const tabsWithObjects = [
+      const _tabsWithObjects = [
         { label: 'Home' },
         { label: 'About' },
         { label: 'Contact' },
@@ -581,7 +581,7 @@ describe('RdsAppBar', () => {
 
   describe('Children', () => {
     it('should render children elements', () => {
-      const { container } = render(
+      render(
         <RdsAppBar {...defaultProps}>
           <span data-testid="child-element">Child</span>
         </RdsAppBar>
@@ -720,7 +720,7 @@ describe('RdsAppBar', () => {
     });
 
     it('should use default showLogo as true', () => {
-      const { container } = render(
+      render(
         <RdsAppBar
           {...defaultProps}
           logo={<span data-testid="logo">Logo</span>}

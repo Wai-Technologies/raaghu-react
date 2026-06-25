@@ -1,9 +1,22 @@
 import React from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked, ChevronRight, ChevronLeft, KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
-import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
+import {
+  normalizeLayout,
+  getShapeStyles,
+  getTextCaseStyles,
+  getStateClassName,
+  getShapeClassName,
+  getStartIcon,
+  getEndIcon,
+  renderButtonContent,
+  getMuiVariant,
+  getStyleVariantClass,
+  getFilledTextColor,
+  getFilledBackgroundColor,
+} from './rds-button.helpers';
 import './rds-button.scss';
+
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   text?: string;
   isLoading?: boolean;
@@ -36,195 +49,52 @@ const RdsButton = ({
   state = 'default',
   textCase = 'uppercase',
   ...props
-}:RdsButtonProps) => {
+}: RdsButtonProps) => {
   const theme = useTheme();
-  let normalizedLayout = layout;
-  if (typeof layout === 'string') {
-    switch (layout.trim().toLowerCase()) {
-      case 'icon + text':
-        normalizedLayout = 'icon+text';
-        break;
-      case 'icon only':
-        normalizedLayout = 'icon-only';
-        break;
-      case 'text only':
-        normalizedLayout = 'text-only';
-        break;
-      default:
-        normalizedLayout = layout;
-    }
-  }
-  const getShapeStyles = () => {
-    if (shape === 'pill') {
-      return {
-        borderRadius: 'var(--rds-border-radius-pill)',
-      };
-    }
-    return {
-      borderRadius: 'var(--rds-border-radius-sm)',
-    };
-  };
-
-  const getTextCaseStyles = () => {
-    return {
-      textTransform: textCase === 'unset' ? 'none' as const : textCase as any,
-    };
-  };
-
-  const getIconComponent = (iconType?: string) => {
-    switch (iconType) {
-      case 'add':
-        return <Add />;
-      case 'delete':
-        return <Delete />;
-      case 'save':
-        return <Save />;
-      case 'edit':
-        return <Edit />;
-      case 'close':
-        return <Close />;
-      case 'arrow-forward':
-        return <ArrowForward />;
-      case 'chevron':
-      case 'chevron_right':
-        return <ChevronRight />;
-      case 'chevron_left':
-        return <ChevronLeft />;
-      case 'chevron_up':
-        return <KeyboardArrowUp />;
-      case 'chevron_down':
-        return <KeyboardArrowDown />;
-      case 'arrow-back':
-        return <ArrowBack />;
-      case 'circle':
-        return <RadioButtonUnchecked />;
-      default:
-        return null;
-    }
-  };
-
-  const resolveIcon = (icon?: React.ReactNode | string): React.ReactNode => {
-    if (typeof icon === 'string') {
-      return getIconComponent(icon);
-    }
-    return icon;
-  };
-
-  const getStateClassName = () => {
-    switch (state) {
-      case 'hover':
-        return 'rds-button__state-hover';
-      case 'selected':
-        return 'rds-button__state-selected';
-      case 'disabled':
-        return 'rds-button__state-disabled';
-      case 'default':
-      default:
-        return 'rds-button__state-default';
-    }
-  };
-
-  const getShapeClassName = () => {
-    return shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle';
-  };
-
-  const getStartIcon = () => {
-    if (normalizedLayout === 'icon-only') {
-      return undefined;
-    }
-    if (normalizedLayout === 'icon+text' && showLeftIcon) {
-      return resolveIcon(changeLeftIcon);
-    }
-    return undefined;
-  };
-
-  const getEndIcon = () => {
-    if (normalizedLayout === 'icon-only') {
-      return undefined;
-    }
-    if (normalizedLayout === 'icon+text' && showRightIcon) {
-      return resolveIcon(changeRightIcon);
-    }
-    return undefined;
-  };
-
-  const renderContent = () => {
-    if (isLoading) {
-      return <RdsCompSpinner
-        colorVariant="light"
-        labelText={text || "Loading"}
-        layout={SpinnerLayout.SpinnerAndLabel}
-        showLabel
-        size={SpinnerSize.Small}
-      />;
-    }
-    if (normalizedLayout === 'icon-only') {
-      if (showLeftIcon) {
-        return resolveIcon(changeLeftIcon);
-      }
-      if (showRightIcon) {
-        return resolveIcon(changeRightIcon);
-      }
-      return null;
-    }
-    if (normalizedLayout === 'icon+text' || normalizedLayout === 'text-only') {
-      return text || children;
-    }
-    return null;
-  };
-
-  const getFilledTextColor = (): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') return undefined;
-    const paletteColor = theme.palette[color as keyof typeof theme.palette];
-    if (paletteColor && typeof paletteColor === 'object' && 'contrastText' in paletteColor) {
-      return (paletteColor as { contrastText: string }).contrastText;
-    }
-    return undefined;
-  };
-
-  const getFilledBackgroundColor = (): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') return undefined;
-    const paletteColor = theme.palette[color as keyof typeof theme.palette];
-    if (paletteColor && typeof paletteColor === 'object' && 'main' in paletteColor) {
-      return (paletteColor as { main: string }).main;
-    }
-    return undefined;
-  };
-
+  const normalizedLayout = typeof layout === 'string' ? normalizeLayout(layout) : layout;
+  const shapeStyles = getShapeStyles(shape);
+  const textCaseStyles = getTextCaseStyles(textCase);
   const isButtonDisabled = disabled || state === 'disabled' || isLoading;
-
-  const styleVariantClass = style === 'filled'
-    ? 'rds-button__primary'
-    : style === 'outlined'
-      ? 'rds-button__secondary'
-      : style === 'transparent'
-        ? 'rds-button__text'
-        : '';
+  const filledBackgroundColor = getFilledBackgroundColor(style, color, theme);
+  const filledTextColor = getFilledTextColor(style, color, theme);
 
   return (
     <MuiButton
       disabled={isButtonDisabled}
-      variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
-      color={color as any}
-      className={`rds-button ${styleVariantClass} ${getStateClassName()} ${getShapeClassName()} ${isLoading ? 'rds-button__loading' : ''}`.replace(/\s+/g, ' ').trim()}
+      variant={getMuiVariant(style)}
+      color={color as ButtonProps['color']}
+      className={`rds-button ${getStyleVariantClass(style)} ${getStateClassName(state)} ${getShapeClassName(shape)} ${isLoading ? 'rds-button__loading' : ''}`
+        .replace(/\s+/g, ' ')
+        .trim()}
       sx={{
-        ...getShapeStyles(),
-        ...getTextCaseStyles(),
+        ...shapeStyles,
+        ...textCaseStyles,
         ...sx,
       }}
       style={{
-        ...getShapeStyles() as React.CSSProperties,
-        ...getTextCaseStyles() as React.CSSProperties,
-        ...(isLoading && style === 'filled' && getFilledBackgroundColor() ? { backgroundColor: getFilledBackgroundColor() } : {}),
-        ...(getFilledTextColor() ? { color: getFilledTextColor() } : {}),
+        ...(shapeStyles as React.CSSProperties),
+        ...(textCaseStyles as React.CSSProperties),
+        ...(isLoading && style === 'filled' && filledBackgroundColor
+          ? { backgroundColor: filledBackgroundColor }
+          : {}),
+        ...(filledTextColor ? { color: filledTextColor } : {}),
         ...(isLoading ? { opacity: 1 } : {}),
-        ...(sx as any),
+        ...(sx as React.CSSProperties),
       }}
-      startIcon={getStartIcon()}
-      endIcon={getEndIcon()}
+      startIcon={getStartIcon(normalizedLayout, showLeftIcon, changeLeftIcon)}
+      endIcon={getEndIcon(normalizedLayout, showRightIcon, changeRightIcon)}
       {...props}
     >
-      {renderContent()}
+      {renderButtonContent(
+        isLoading,
+        normalizedLayout,
+        showLeftIcon,
+        showRightIcon,
+        changeLeftIcon,
+        changeRightIcon,
+        text,
+        children
+      )}
     </MuiButton>
   );
 };

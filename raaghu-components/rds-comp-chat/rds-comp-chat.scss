@@ -26,7 +26,7 @@
     cursor: pointer;
     margin-right: var(--rds-spacing-sm);
     color: var(--rds-color-primary);
-    background: none;
+    background-color: none;
     border: none;
     font-size: var(--rds-font-size-2xl);
     padding: 0;
@@ -176,7 +176,7 @@
           align-items: center;
           margin: 0;
           padding: 0;
-          background: transparent;
+          background-color: transparent;
           border-bottom: none;
         }
 
@@ -191,7 +191,7 @@
           padding: var(--rds-spacing-13) var(--rds-spacing-cozy) !important;
           border: none !important;
           border-bottom: 2px solid transparent !important;
-          background: transparent;
+          background-color: transparent;
           color: var(--rds-color-on-surface) !important;
           font-weight: var(--rds-font-weight-medium, 500);
           @include bp.down(mobile-sm) {
@@ -230,7 +230,7 @@
       justify-content: space-between;
       padding: var(--rds-spacing-sm, 12px);
       flex-shrink: 0;
-      background: var(--rds-color-surface);
+      background-color: var(--rds-color-surface);
       position: relative;
     }
 
@@ -328,7 +328,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--rds-backdrop-overlay, rgba(0, 0, 0, 0.8));
+    background-color: var(--rds-backdrop-overlay, rgba(0, 0, 0, 0.8));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -522,7 +522,7 @@
 
     .rds-input {
       display: block;
-      background: transparent;
+      background-color: transparent;
     }
   }
 
@@ -536,7 +536,7 @@
     box-sizing: border-box;
     gap: var(--rds-spacing-sm);
     min-height: 44px;
-    background: var(--rds-color-surface);
+    background-color: var(--rds-color-surface);
     border: 1px solid var(--rds-color-border-light);
   }
 
@@ -631,7 +631,7 @@
     padding: var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-sm);
     border: none;
-    background: transparent;
+    background-color: transparent;
     cursor: pointer;
     color: var(--rds-color-primary);
     
@@ -814,7 +814,7 @@
     width: 100%;
     overflow: hidden;
     border-radius: var(--rds-border-radius-md);
-    background: var(--rds-color-surface);
+    background-color: var(--rds-color-surface);
     border: 1px solid var(--rds-color-border-light);
     padding: var(--rds-spacing-compact);
     box-sizing: border-box;
@@ -1084,7 +1084,7 @@
 
 [data-theme="dark"] {
   .rds-comp-chat__input-wrapper {
-    background: var(--rds-neutral-900) !important;
+    background-color: var(--rds-neutral-900) !important;
   }
 
   .rds-comp-chat__screen-main .rds-comp-chat__user-item {

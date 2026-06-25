@@ -1,9 +1,7 @@
 
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, within} from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import React from 'react';
 import RdsTable from './rds-table';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RdsProgress from '../rds-progress/rds-progress';
 import RdsAvatar from '../rds-avatar/rds-avatar';
@@ -236,7 +234,7 @@ const defaultColumns = [
     minWidth: 60,
     type: 'text' as const,
     sortable: true,
-    format: (value: string) => (
+    format: (_value: string) => (
         <RdsBadge 
           badgeContent="Badge" 
           color="secondary" 
@@ -345,7 +343,7 @@ const defaultColumns = [
     minWidth: 180,
     type: 'text' as const,
     sortable: true,
-    format: (value: string) => (
+    format: (_value: string) => (
       <div className="rds-table__content-row">
         <span className="rds-table__content-text">Text</span>
         <RdsBadge 
@@ -384,7 +382,7 @@ const defaultColumns = [
     minWidth: 180,
     type: 'text' as const,
     sortable: true,
-    format: (value: string) => (
+    format: (_value: string) => (
       <div className="rds-table__content-row">
         <RdsBadge 
           badgeContent="Active" 
@@ -413,46 +411,7 @@ const columns = [
   { id: 'role', label: 'Role', minWidth: 120, sortable: true },
 ];
 
-const advancedColumns = [
-  { 
-    id: 'checkbox', 
-    label: '', 
-    type: 'checkbox' as const,
-    minWidth: 50
-  },
-  { 
-    id: 'user', 
-    label: 'User', 
-    type: 'avatar' as const,
-    minWidth: 200
-  },
-  { 
-    id: 'badge', 
-    label: 'Badge', 
-    type: 'badge' as const,
-    minWidth: 100,
-  },
-  { 
-    id: 'status', 
-    label: 'Status', 
-    type: 'badge' as const,
-    minWidth: 100,
-  },
-  { 
-    id: 'actions', 
-    label: 'Actions', 
-    type: 'actions' as const,
-    minWidth: 120,
-    align: 'right' as const,
-    format: () => [
-      { type: 'edit', icon: <EditIcon fontSize="small" /> },
-      { type: 'delete', icon: <DeleteIcon fontSize="small" /> }
-    ]
-  },
-];
-
-export const Default: Story = {
-  render: (args) => {
+const DefaultStory = (args) => {
     const [selected, setSelected] = React.useState<string[]>([]);
     return (
       <RdsTable
@@ -463,7 +422,10 @@ export const Default: Story = {
         defaultSortDirection="asc"
       />
     );
-  },
+  };
+
+export const Default: Story = {
+  render: DefaultStory,
   args: {
     rows: defaultTableData,
     columns: defaultColumns,
@@ -476,8 +438,7 @@ export const Default: Story = {
   },
 };
 
-export const SmallSize: Story = {
-  render: (args) => {
+const SmallSizeStory = (args) => {
     const [selected, setSelected] = React.useState<string[]>([]);
     return (
       <RdsTable
@@ -488,7 +449,10 @@ export const SmallSize: Story = {
         defaultSortDirection="asc"
       />
     );
-  },
+  };
+
+export const SmallSize: Story = {
+  render: SmallSizeStory,
   args: {
     rows: sampleData,
     columns: columns,
@@ -497,8 +461,7 @@ export const SmallSize: Story = {
   },
 };
 
-export const StickyHeader: Story = {
-  render: (args) => {
+const StickyHeaderStory = (args) => {
     const [selected, setSelected] = React.useState<string[]>([]);
     return (
       <RdsTable
@@ -509,7 +472,10 @@ export const StickyHeader: Story = {
         defaultSortDirection="asc"
       />
     );
-  },
+  };
+
+export const StickyHeader: Story = {
+  render: StickyHeaderStory,
   args: {
     rows: sampleData,
     columns: columns,
@@ -518,8 +484,7 @@ export const StickyHeader: Story = {
   },
 };
 
-export const LargeDataset: Story = {
-  render: (args) => {
+const LargeDatasetStory = (args) => {
     const [selected, setSelected] = React.useState<string[]>([]);
     return (
       <RdsTable
@@ -530,7 +495,10 @@ export const LargeDataset: Story = {
         defaultSortDirection="asc"
       />
     );
-  },
+  };
+
+export const LargeDataset: Story = {
+  render: LargeDatasetStory,
   args: {
     rows: Array.from({ length: 20 }, (_, index) => ({
       id: (index + 1).toString(),
@@ -544,8 +512,7 @@ export const LargeDataset: Story = {
   },
 };
 
-export const WithActions: Story = {
-  render: (args) => {
+const WithActionsStory = (args) => {
     const [selected, setSelected] = React.useState<string[]>([]);
     return (
       <RdsTable
@@ -556,7 +523,10 @@ export const WithActions: Story = {
         defaultSortDirection="asc"
       />
     );
-  },
+  };
+
+export const WithActions: Story = {
+  render: WithActionsStory,
   args: {
     rows: sampleData,
     columns: [
@@ -573,8 +543,7 @@ export const WithActions: Story = {
   },
 };
 
-export const Empty: Story = {
-  render: (args) => {
+const EmptyStory = (args) => {
     const [selected, setSelected] = React.useState<string[]>([]);
     return (
       <RdsTable
@@ -585,7 +554,10 @@ export const Empty: Story = {
         defaultSortDirection="asc"
       />
     );
-  },
+  };
+
+export const Empty: Story = {
+  render: EmptyStory,
   args: {
     rows: [],
     columns: columns,

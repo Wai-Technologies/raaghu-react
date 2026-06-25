@@ -326,9 +326,8 @@ font-weight: bold;
 .rds-datepicker__header-select {
   height: var(--rds-size-xl);
   padding: 0 var(--rds-spacing-sm);
-  padding-right: var(--rds-spacing-36-px);
   border: 1px solid var(--rds-color-border);
-  background: var(--rds-neutral-0);
+  background-color: var(--rds-neutral-0);
   color: var(--rds-color-text);
   border-radius: var(--rds-border-radius-sm);
   font-size: 0.9rem;
@@ -643,6 +642,10 @@ font-weight: bold;
 .rds-datepicker__dropdown-menu--show .react-datepicker {
   margin-left: 0 !important;
   margin-top: var(--rds-spacing-hairline) !important;
+
+
+  background-color: var(--rds-neutral-0) !important;
+  opacity: 1 !important;
 }
 
 .rds-datepicker__dropdown-menu--show {
@@ -657,11 +660,6 @@ font-weight: bold;
   top: 0 !important;
   transform: none !important;
   z-index: calc(var(--rds-z-index-modal, 1400) + 1) !important;
-}
-
-.rds-datepicker__dropdown-menu--show .react-datepicker {
-  background-color: var(--rds-neutral-0) !important;
-  opacity: 1 !important;
 }
 
 @include bp.down(576) {

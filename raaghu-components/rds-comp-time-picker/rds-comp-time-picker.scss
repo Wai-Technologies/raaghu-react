@@ -138,7 +138,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: var(--rds-spacing-sm);
       width: 100%;
     }
     .time-divider {
@@ -269,7 +268,6 @@
       .time-value {
         font-size: var(--rds-font-size-xl);
         font-weight: 600;
-        color: var(--rds-primary-main);
         color: var(--rds-time-picker-accent);
         width: 36px;
         height: 36px;
@@ -377,7 +375,7 @@
         line-height: 1.5;
         
         &.cancel {
-          background: transparent;
+          background-color: transparent;
           color: var(--rds-time-picker-accent);
           border: none;
           padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
@@ -390,7 +388,7 @@
         }
         
         &.set-time {
-          background: var(--rds-primary-main);
+          background-color: var(--rds-primary-main);
           color: white;
           padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
           min-width: 70px;

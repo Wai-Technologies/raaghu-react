@@ -220,7 +220,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
           </>
         )}
         {boards.map((card, index) => (
-          <Box key={index}>
+          <Box key={card.key}>
             {showBoard && card.name && (
               <Box className={`kanban-board ${colorClass(card.colorType)}`}>
                 <Card className={`kanban-board__card ${card.subCards && card.subCards.length === 0 ? 'kanban-board__card--empty-board' : ''}`}>
@@ -273,7 +273,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                   MenuProps={{ PaperProps: { className: "rds-kanban-board__select-menu" } }}
                                 >
                                   {(props?.allCategoriesList as Array<{ val: string | number; label: string }> | undefined)?.map((category, idx: number) => (
-                                    <MenuItem key={idx} value={category.val}>{category.label}</MenuItem>
+                                    <MenuItem key={category.val} value={category.val}>{category.label}</MenuItem>
                                   ))}
                                 </Select>
                               </FormControl>

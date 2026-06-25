@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompStackedChart from './rds-comp-chart-stacked';
@@ -711,7 +711,7 @@ describe('RdsCompStackedChart', () => {
       const { rerender, container } = render(
         <RdsCompStackedChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
+      const _canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompStackedChart

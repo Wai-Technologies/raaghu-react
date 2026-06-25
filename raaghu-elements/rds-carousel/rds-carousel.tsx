@@ -42,8 +42,8 @@ const RdsCarousel = ({
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
   React.useEffect(() => {
-    if (state && !isNaN(parseInt(state))) {
-      const stateIndex = parseInt(state) - 1;
+    if (state && !Number.isNaN(Number.parseInt(state))) {
+      const stateIndex = Number.parseInt(state) - 1;
       if (stateIndex >= 0 && stateIndex < children.length) {
         setCurrentIndex(stateIndex);
       }
@@ -102,9 +102,11 @@ const RdsCarousel = ({
           const displayTitle = (titles && titles[index]) ?? title ?? `Card Title`;
           const displaySubtitle = (subtitles && subtitles[index]) ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
 
+          const slideKey = (titles && titles[index]) ?? `carousel-slide-${index + 1}`;
+
           return (
             <Box
-              key={index}
+              key={slideKey}
               className="rds-carousel__slide"
               sx={{
                 minWidth: '100%',
@@ -231,7 +233,7 @@ const RdsCarousel = ({
         >
           {children.map((_, index) => (
             <Box
-              key={index}
+              key={`carousel-indicator-${index + 1}`}
               onClick={() => goToSlide(index)}
               className={`rds-carousel__indicator rds-carousel__indicator--${type} ${
                 currentIndex === index ? 'rds-carousel__indicator__active' : ''

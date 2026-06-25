@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsTextField, { RdsTextFieldProps } from './rds-text-field';
+import RdsTextField from './rds-text-field';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -91,7 +91,7 @@ describe('RdsTextField', () => {
     });
 
     it('should show error when errorMessage is provided', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTextField errorMessage="This field is required" />
       );
       expect(screen.getByText('This field is required')).toBeInTheDocument();
@@ -644,7 +644,7 @@ describe('RdsTextField', () => {
     });
 
     it('should clear error when value becomes valid', () => {
-      const { rerender, container } = renderWithTheme(
+      const { rerender } = renderWithTheme(
         <RdsTextField 
           errorMessage="Field is required"
           value=""

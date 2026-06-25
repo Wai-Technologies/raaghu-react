@@ -597,7 +597,7 @@ describe('RdsLoader', () => {
     });
 
     it('should work with only value specified', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsLoader value={50} />
       );
       expect(screen.getByText('50%')).toBeInTheDocument();
@@ -606,7 +606,7 @@ describe('RdsLoader', () => {
 
   describe('Accessibility', () => {
     it('should render proper structure for circular progress', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsLoader variant="circular" label="Loading content" />
       );
       expect(screen.getByText('Loading content')).toBeInTheDocument();

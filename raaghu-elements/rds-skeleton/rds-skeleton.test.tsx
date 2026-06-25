@@ -322,7 +322,7 @@ describe('RdsSkeleton', () => {
       const { container } = renderWithTheme(
         <RdsSkeleton frames={3} height={60} />
       );
-      const skeletons = container.querySelectorAll('.rds-skeleton:not(.rds-skeleton)');
+      const _skeletons = container.querySelectorAll('.rds-skeleton:not(.rds-skeleton)');
       // The parent has the class, individual skeletons should have the height
       const individualSkeletons = Array.from(container.querySelectorAll('.MuiSkeleton-root'));
       individualSkeletons.forEach(skeleton => {
@@ -405,7 +405,7 @@ describe('RdsSkeleton', () => {
     });
 
     it('should pass data attributes', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsSkeleton data-testid="custom-skeleton" data-custom="value" />
       );
       const skeleton = screen.getByTestId('custom-skeleton');
@@ -472,7 +472,7 @@ describe('RdsSkeleton', () => {
     });
 
     it('should render with all props at once', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsSkeleton
           frames={2}
           shape="rectangular"

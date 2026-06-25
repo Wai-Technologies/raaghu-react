@@ -75,7 +75,7 @@ describe('RdsProgress', () => {
     });
 
     it('should render with label', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsProgress 
           type="linear" 
           style="line" 
@@ -89,7 +89,7 @@ describe('RdsProgress', () => {
     });
 
     it('should show percentage as label when no label provided', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsProgress 
           type="linear" 
           style="line" 
@@ -150,7 +150,7 @@ describe('RdsProgress', () => {
     });
 
     it('should show label overlay for determinate', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsProgress 
           type="circular" 
           style="circular" 
@@ -164,7 +164,7 @@ describe('RdsProgress', () => {
     });
 
     it('should show percentage in center for circular with label', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsProgress 
           type="circular" 
           style="circular" 
@@ -362,7 +362,7 @@ describe('RdsProgress', () => {
     });
 
     it('should show step labels in blocks', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsProgress 
           style="block" 
           value={40} 
@@ -592,7 +592,7 @@ describe('RdsProgress', () => {
     });
 
     it('should handle 0 value', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsProgress 
           style="line" 
           value={0} 
@@ -604,7 +604,7 @@ describe('RdsProgress', () => {
     });
 
     it('should handle 100 value', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsProgress 
           style="line" 
           value={100} 
@@ -695,7 +695,7 @@ describe('RdsProgress', () => {
     });
 
     it('should handle label without showLabel', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsProgress 
           style="line" 
           value={50} 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompMixedChart from './rds-comp-chart-mixed';
@@ -674,7 +674,7 @@ describe('RdsCompMixedChart', () => {
       const { rerender, container } = render(
         <RdsCompMixedChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
+      const _canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompMixedChart

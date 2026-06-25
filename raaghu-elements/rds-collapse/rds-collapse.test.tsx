@@ -66,7 +66,7 @@ describe('RdsCollapse', () => {
     });
 
     it('should render empty collapse when children is empty string', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCollapse title="Empty" children="" />
       );
       expect(screen.getByText('Empty')).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe('RdsCollapse', () => {
   describe('Collapse Behavior', () => {
     it('should be collapsed by default', () => {
       const { container } = renderWithTheme(<RdsCollapse {...defaultProps} />);
-      const collapse = container.querySelector('.MuiCollapse-entered');
+      const _collapse = container.querySelector('.MuiCollapse-entered');
       // When collapsed, MuiCollapse doesn't have entered class
       expect(container.querySelector('.MuiCollapse-root')).toBeInTheDocument();
     });
@@ -141,7 +141,7 @@ describe('RdsCollapse', () => {
       // Collapse
       fireEvent.click(toggleButton);
       await waitFor(() => {
-        const collapse = document.querySelector('.MuiCollapse-hidden');
+        const _collapse = document.querySelector('.MuiCollapse-hidden');
         // Just verify button exists
         expect(toggleButton).toBeInTheDocument();
       });
@@ -177,7 +177,7 @@ describe('RdsCollapse', () => {
     });
 
     it('should rotate toggle button when expanded', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCollapse {...defaultProps} expanded={false} />
       );
       const toggleButton = screen.getByRole('button');
@@ -185,14 +185,14 @@ describe('RdsCollapse', () => {
       fireEvent.click(toggleButton);
       
       await waitFor(() => {
-        const btnElement = toggleButton as HTMLElement;
+        const btnElement = toggleButton;
         // Button should have transform rotate when expanded
         expect(btnElement).toBeInTheDocument();
       });
     });
 
     it('should have correct initial rotation when expanded prop is true', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCollapse {...defaultProps} expanded={true} />
       );
       const toggleButton = screen.getByRole('button');
@@ -302,7 +302,7 @@ describe('RdsCollapse', () => {
 
     it('should not call onToggle when showToggleButton is false and title clicked', () => {
       const onToggle = jest.fn();
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCollapse 
           title="Title" 
           children="Content" 
@@ -374,7 +374,7 @@ describe('RdsCollapse', () => {
 
   describe('Props Integration', () => {
     it('should accept MuiCollapse props', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCollapse 
           {...defaultProps} 
           timeout={500}
@@ -425,14 +425,14 @@ describe('RdsCollapse', () => {
     });
 
     it('should handle empty content', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCollapse title="Empty" children="" />
       );
       expect(screen.getByText('Empty')).toBeInTheDocument();
     });
 
     it('should handle null children gracefully', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCollapse title="Null Child" children={null} />
       );
       expect(screen.getByText('Null Child')).toBeInTheDocument();
@@ -504,7 +504,7 @@ describe('RdsCollapse', () => {
     });
 
     it('should handle title and showToggleButton both false', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCollapse children="Content" showToggleButton={false} />
       );
       const content = screen.getByText('Content');
@@ -560,7 +560,7 @@ describe('RdsCollapse', () => {
 
     it('should be focusable', () => {
       renderWithTheme(<RdsCollapse {...defaultProps} />);
-      const toggleButton = screen.getByRole('button') as HTMLElement;
+      const toggleButton = screen.getByRole('button');
       toggleButton.focus();
       expect(document.activeElement).toBe(toggleButton);
     });
@@ -704,7 +704,7 @@ describe('RdsCollapse', () => {
     });
 
     it('should accept boolean showToggleButton', () => {
-      const { container: container1 } = renderWithTheme(
+      const { container: _container1 } = renderWithTheme(
         <RdsCollapse {...defaultProps} showToggleButton={true} />
       );
       expect(screen.getByRole('button')).toBeInTheDocument();

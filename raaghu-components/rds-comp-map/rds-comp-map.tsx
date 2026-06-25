@@ -48,7 +48,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
 
         const hexToRgb = (hex: string) => {
             const h = hex.replace('#', '');
-            const bigint = parseInt(h, 16);
+            const bigint = Number.parseInt(h, 16);
             return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
         }
 
@@ -82,7 +82,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
 
     const getMapSize = (): "sm" | "md" | "lg" | "xl" | "xxl" | "responsive" | undefined => {
         if (typeof window !== 'undefined') {
-            const width = window.innerWidth;
+            const width = globalThis.innerWidth;
             if (width <= 320) return 'responsive';
             if (width <= 414) return 'responsive';
             if (width <= 768) return 'md';
@@ -99,8 +99,8 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         };
 
         if (typeof window !== 'undefined') {
-            window.addEventListener('resize', handleResize);
-            return () => window.removeEventListener('resize', handleResize);
+            globalThis.addEventListener('resize', handleResize);
+            return () => globalThis.removeEventListener('resize', handleResize);
         }
     }, []);
 

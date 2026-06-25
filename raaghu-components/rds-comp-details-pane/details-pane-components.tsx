@@ -248,8 +248,11 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
                   className={`rds-comp-details-pane__favourite-card${
                     selectedIndexes.includes(idx) ? " rds-comp-details-pane__favourite-card--selected" : ""
                   }`}
-                  key={idx}
-                  onClick={() => toggleSelection(idx)}                 
+                  key={`favourite-card-${idx}`}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => toggleSelection(idx)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSelection(idx); } }}
                 >
                   <div className="rds-comp-details-pane__favourite-card-header">
                     <RdsCheckbox
@@ -330,8 +333,8 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
             style="default"
             type="circle"
           >
-            {carouselImages.map((image, index) => (
-              <div key={index}>
+            {carouselImages.map((image) => (
+              <div key={image.src}>
                 <img 
                   src={image.src}
                   alt={image.alt}
@@ -350,9 +353,9 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
           </div>
 
           <div className="rds-comp-details-pane__real-estate-badges">
-            {badges.map((badge, index) => (
+            {badges.map((badge) => (
               <span 
-                key={index} 
+                key={badge.content} 
                 className={`rds-comp-details-pane__badge-item`}
               >
                 <RdsBadge 
@@ -1030,9 +1033,9 @@ export const ThumbnailViewContent: React.FC<{
 
       <div className="rds-comp-details-pane__accordion-list-container">
         <div className="rds-comp-details-pane__accordion-list">
-          {accordionItems.map((item, idx) => (
+          {accordionItems.map((item) => (
             <RdsAccordion
-              key={idx}
+              key={item.title}
               accordionStyle="borderhide"
               size="medium"
               state="default"

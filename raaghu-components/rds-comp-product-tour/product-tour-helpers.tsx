@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
-import { RdsInput, RdsAutocomplete, RdsButton } from '../../raaghu-elements';
+import { RdsInput, RdsAutocomplete, RdsButton, RdsCarousel, RdsBadge, RdsFileUploader } from '../../raaghu-elements';
 
 export interface RdsCompProductTourProps {
     state: "Image" | "Carousel" | "GIF" | "Form";
@@ -27,7 +27,7 @@ export const parseSteps = (s?: string) => {
     if (!s) return undefined;
     const m = s.match(/^\s*(\d+)\s*\/\s*(\d+)\s*$/);
     if (!m) return undefined;
-    return { numerator: parseInt(m[1], 10), total: parseInt(m[2], 10) };
+    return { numerator: Number.parseInt(m[1], 10), total: Number.parseInt(m[2], 10) };
 };
 
 export const createEffectiveSlides = (slides: { id: number; imgUrl: string; }[] | undefined, totalSlides: number) => {
@@ -225,3 +225,156 @@ export const renderFormNavigation = (currentIndicator: string, showTertiaryButto
         </Box>
     </Box>
 );
+
+export interface TourViewProps {
+    topLeft: boolean;
+    topRight: boolean;
+    bottomLeft: boolean;
+    bottomRight: boolean;
+    header?: string;
+    description?: string;
+    showDismiss: boolean;
+    showPrimaryButton: boolean;
+    showSecondaryButton: boolean;
+    showTertiaryButton: boolean;
+    showVisualPlaceholder: boolean;
+    currentIndicator: string;
+    handleClose: () => void;
+    goPrev: () => void;
+    goNext: () => void;
+}
+
+export interface ImageTourViewProps extends TourViewProps {
+    effectiveSlides: { id: number; imgUrl: string; }[];
+    currentIndex: number;
+}
+
+export function ImageTourView({
+    topLeft, topRight, bottomLeft, bottomRight, showDismiss, showPrimaryButton, showSecondaryButton, showTertiaryButton,
+    showVisualPlaceholder, currentIndicator, header, description, effectiveSlides, currentIndex, handleClose, goPrev, goNext,
+}: ImageTourViewProps) {
+    return (
+        <Paper className="rds-comp-product-tour__container rds-comp-product-tour__container--image">
+            {renderCornerDots(topLeft, topRight, bottomLeft, bottomRight)}
+            {renderCloseButton(showDismiss, handleClose)}
+            {showVisualPlaceholder ? (
+                <Box className="rds-comp-product-tour__image-section">
+                    <img src={effectiveSlides[currentIndex] ? effectiveSlides[currentIndex].imgUrl : ""} alt="Tour Step" className="rds-comp-product-tour__image" />
+                </Box>
+            ) : (
+                <Box className="rds-comp-product-tour__image-section" sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', background: 'transparent' }} />
+            )}
+            <Box className="rds-comp-product-tour__info-nav-section">
+                {renderInfoSection(header, description)}
+                {renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows")}
+            </Box>
+        </Paper>
+    );
+}
+
+export interface CarouselTourViewProps extends TourViewProps {
+    effectiveSlides: { id: number; imgUrl: string; }[];
+    currentIndex: number;
+    carouselState: string;
+}
+
+export function CarouselTourView({
+    topLeft, topRight, bottomLeft, bottomRight, showDismiss, showPrimaryButton, showSecondaryButton, showTertiaryButton,
+    showVisualPlaceholder, currentIndicator, header, description, effectiveSlides, currentIndex, carouselState, handleClose, goPrev, goNext,
+}: CarouselTourViewProps) {
+    return (
+        <Paper className="rds-comp-product-tour__container rds-comp-product-tour__container--carousel">
+            {renderCornerDots(topLeft, topRight, bottomLeft, bottomRight)}
+            {renderCloseButton(showDismiss, handleClose)}
+            <Box className="rds-comp-product-tour__carousel-header">
+                <Typography variant="h6" className="rds-comp-product-tour__carousel-title">{header}</Typography>
+                <Typography variant="body2" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
+            </Box>
+            <Box className="rds-comp-product-tour__carousel-wrapper">
+                <RdsCarousel showDots={false} showArrows={false} type="circle" style="default" height="var(--rds-carousel-height, 300px)" state={carouselState as unknown as '1' | '2' | '3' | '4' | undefined}>
+                    {showVisualPlaceholder ? effectiveSlides.map((slide) => (
+                        <img key={slide.id} src={slide.imgUrl} alt={`Slide ${slide.id}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
+                    )) : []}
+                </RdsCarousel>
+            </Box>
+            <Box className="rds-comp-product-tour__carousel-dots">
+                {effectiveSlides.map((slide) => (
+                    <Box key={slide.id} className={`rds-comp-product-tour__carousel-dot ${slide.id - 1 === currentIndex ? 'rds-comp-product-tour__carousel-dot--active' : ''}`} />
+                ))}
+            </Box>
+            <Box className="rds-comp-product-tour__carousel-spacer" />
+            {renderCarouselNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext)}
+        </Paper>
+    );
+}
+
+export function GifTourView({
+    topLeft, topRight, bottomLeft, bottomRight, showDismiss, showPrimaryButton, showSecondaryButton, showTertiaryButton,
+    showVisualPlaceholder, currentIndicator, header, description, handleClose, goPrev, goNext,
+}: TourViewProps) {
+    return (
+        <Paper className="rds-comp-product-tour__container rds-comp-product-tour__container--animation">
+            {renderCornerDots(topLeft, topRight, bottomLeft, bottomRight)}
+            {renderCloseButton(showDismiss, handleClose)}
+            {showVisualPlaceholder ? (
+                <Box className="rds-comp-product-tour__animation-section">
+                    <img src="/assets/animation.gif" alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
+                </Box>
+            ) : (
+                <Box sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', width: '100%', background: 'transparent' }} />
+            )}
+            <Box className="rds-comp-product-tour__animation-info">
+                <Typography variant="h5" className="rds-comp-product-tour__animation-title">{header}</Typography>
+                <Typography variant="body1" className="rds-comp-product-tour__animation-desc">{description}</Typography>
+            </Box>
+            {renderGifNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext)}
+        </Paper>
+    );
+}
+
+export interface FormTourViewProps extends TourViewProps {
+    formTitle?: string;
+    tabTitle: string[];
+}
+
+export function FormTourView({
+    topLeft, topRight, bottomLeft, bottomRight, showDismiss, showPrimaryButton, showSecondaryButton, showTertiaryButton,
+    currentIndicator, header, description, formTitle, tabTitle, handleClose, goPrev, goNext,
+}: FormTourViewProps) {
+    return (
+        <Paper className="rds-comp-product-tour__container rds-comp-product-tour__container--form">
+            {renderCornerDots(topLeft, topRight, bottomLeft, bottomRight)}
+            {renderCloseButton(showDismiss, handleClose)}
+            <Box className="rds-comp-product-tour__form-header">
+                <Typography variant="h6" className="rds-comp-product-tour__form-subtitle">{formTitle}</Typography>
+            </Box>
+            <Box className="rds-comp-product-tour__form-content">
+                <Box className="rds-comp-product-tour__form-title-badge-row">
+                    <Typography variant="h6" className="rds-comp-product-tour__form-title">{header}</Typography>
+                    <RdsBadge badgeContent="Badge" size="medium" colorVariant="primary" shape="pill" layout="text" />
+                </Box>
+                <Typography variant="body2" className="rds-comp-product-tour__form-description">{description}</Typography>
+                <Box className="rds-comp-product-tour__form-tabs-wrapper">
+                    <Box className="rds-comp-product-tour__form-tabs">
+                        {tabTitle.map((title) => (
+                            <Typography key={title} className="rds-comp-product-tour__form-tab">{title}</Typography>
+                        ))}
+                    </Box>
+                    <Box className="rds-comp-product-tour__form-tabs-line"></Box>
+                </Box>
+                {renderFormInputs()}
+                <Box className="rds-comp-product-tour__file-upload-container">
+                    <Box className="rds-comp-product-tour__file-upload-container-wrapper">
+                        <RdsFileUploader accept=".pdf,.doc,.docx" dragAndDrop hintText="Maximum 5MB" isMandatory maxFiles={1} maxSize={2097152} mode="standard" onFilesChange={() => { }} showHint showPreview showTitle> {deleteIcon} </RdsFileUploader>
+                    </Box>
+                </Box>
+                {renderFormNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext)}
+            </Box>
+        </Paper>
+    );
+}
+
+ImageTourView.displayName = 'ImageTourView';
+CarouselTourView.displayName = 'CarouselTourView';
+GifTourView.displayName = 'GifTourView';
+FormTourView.displayName = 'FormTourView';

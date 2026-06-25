@@ -1,5 +1,12 @@
 .offcanvas-header {
   background-color: var(--rds-offcanvas-header-bg, transparent);
+
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+  border-bottom: 1px solid var(--rds-offcanvas-border);
 }
 
 .offcanvas-title{
@@ -30,14 +37,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.offcanvas-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-  border-bottom: 1px solid var(--rds-offcanvas-border);
 }
 
 .offcanvas-header.no-title {
@@ -91,6 +90,9 @@
 .primary-button-container {
   flex: 0 0 auto;
   min-width: fit-content;
+
+
+  margin-left: var(--rds-spacing-sm);
 }
 
 .tertiary-button-container {
@@ -99,10 +101,6 @@
 
 .secondary-button-container {
   margin-left: auto;
-}
-
-.primary-button-container {
-  margin-left: var(--rds-spacing-sm);
 }
 
 #offcanvas-btns .rds-button,

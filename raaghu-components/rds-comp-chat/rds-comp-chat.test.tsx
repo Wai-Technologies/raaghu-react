@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompChat, { UserData, Comment } from './rds-comp-chat';
+import RdsCompChat, { UserData } from './rds-comp-chat';
 
 // Mock dependencies
 jest.mock('./rds-comp-chat.scss', () => ({}));
@@ -14,12 +14,12 @@ jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   };
 });
 jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
-  return function MockRdsInput({ children, ...props }: any) {
+  return function MockRdsInput({ _children, ...props }: any) {
     return <input data-testid="rds-input" {...props} />;
   };
 });
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  return function MockRdsButton({ children, style, ...props }: any) {
+  return function MockRdsButton({ children, style: _style, ...props }: any) {
     return <button data-testid="rds-button" {...props}>{children}</button>;
   };
 });
@@ -33,7 +33,7 @@ jest.mock('../rds-comp-emoji-generator/rds-comp-emoji-generator', () => {
   };
 });
 jest.mock('@mui/material/Box', () => {
-  return function MockBox({ children, sx, component = 'div', ...props }: any) {
+  return function MockBox({ children, _sx, component = 'div', ...props }: any) {
     const Component = component as any;
     return <Component data-testid="mui-box" {...props}>{children}</Component>;
   };
@@ -369,7 +369,7 @@ describe('RdsCompChat', () => {
           ],
         },
       ];
-      const { container } = render(
+      render(
         <RdsCompChat {...defaultProps} userData={dataWithoutMedia} />
       );
       const mediaTab = screen.getByRole('tab', { name: 'Media' });

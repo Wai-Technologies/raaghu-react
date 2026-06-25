@@ -82,7 +82,7 @@ export const Default: Story = {
         currentUserCommentTextColor: "#FEF7FF",
         otherUserCommentBgColor: "#E1E3EA",
         OtherUserCommentTextColor: "#202020",
-        handleAddComment: (comment) => {},
+        handleAddComment: (_comment) => {},
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();

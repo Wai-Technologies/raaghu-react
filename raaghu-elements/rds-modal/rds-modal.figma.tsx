@@ -1,10 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 import  RdsModal  from "./rds-modal"
 import figma from "@figma/code-connect"
 import RdsButton from "../rds-button/rds-button"
 import { Delete } from "@mui/icons-material";
 
-const [open, setOpen] = useState(false);
 figma.connect(
   RdsModal,
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=1982-23802",

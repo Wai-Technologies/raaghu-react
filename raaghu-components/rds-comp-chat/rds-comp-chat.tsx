@@ -45,7 +45,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
   const { currentUserCommentBgColor = "var(--rds-secondary-main)", currentUserCommentTextColor = "var(--rds-neutral-0)", otherUserCommentBgColor = "var(--rds-neutral-300)", OtherUserCommentTextColor = "var(--rds-text-primary)" } = props;
 
   const [state, setState] = useState({
-    isMobile: window.innerWidth <= 600,
+    isMobile: globalThis.innerWidth <= 600,
     showChatWindow: false,
     commentText: "",
     showEmojiPicker: false,
@@ -63,9 +63,9 @@ const RdsCompChat = (props: RdsCompChatProps) => {
   const updateState = (updates: Partial<typeof state>) => setState(prev => ({ ...prev, ...updates }));
 
   useEffect(() => {
-    const handleResize = () => updateState({ isMobile: window.innerWidth <= 600 });
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const handleResize = () => updateState({ isMobile: globalThis.innerWidth <= 600 });
+    globalThis.addEventListener("resize", handleResize);
+    return () => globalThis.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -158,12 +158,23 @@ const RdsCompChat = (props: RdsCompChatProps) => {
             </div>
           </div>
           <div className="rds-comp-chat__screen-main">
-            {props.userData.map((item, index) => (
-              <Box key={index} component="div" className={`rds-comp-chat__user-item ${state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""}`} sx={{ position: "relative" }} onClick={() => handleUserSelect(index)}>
+            {props.userData.map((item, index) => {
+              const userKey = `${item.firstName}-${item.lastName}-${item.time}`;
+              return (
+              <Box
+                key={userKey}
+                component="div"
+                role="button"
+                tabIndex={0}
+                className={`rds-comp-chat__user-item ${state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""}`}
+                sx={{ position: "relative" }}
+                onClick={() => handleUserSelect(index)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleUserSelect(index); } }}
+              >
                 <div className="rds-comp-chat__user-item-inner"><RdsAvatar {...avatarProps} /></div>
                 <div className="rds-comp-chat__user-time text-muted rds-comp-chat__user-time--absolute">{item.time}</div>
               </Box>
-            ))}
+            );})}
           </div>
         </div>
       )}
@@ -196,8 +207,9 @@ const RdsCompChat = (props: RdsCompChatProps) => {
               <>
                 {state.commentList.map((comment, index) => {
                   const isCurrentUser = comment.firstName === state.currentUser?.firstName && comment.lastName === state.currentUser?.lastName;
+                  const commentKey = `${comment.firstName}-${comment.lastName}-${comment.comment.slice(0, 32)}-${index}`;
                   return (
-                    <div key={index} className={`comment-box rds-comp-chat__message ${isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user"}`}>
+                    <div key={commentKey} className={`comment-box rds-comp-chat__message ${isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user"}`}>
                       <div className={`rds-comp-chat__message-row ${isCurrentUser ? "rds-comp-chat__message-row--reverse" : ""}`}>
                         <Box component="div" className="rds-comp-chat__comment-content" sx={{ backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor, color: isCurrentUser ? currentUserCommentTextColor : OtherUserCommentTextColor }}>
                           <div className="comment-text">
@@ -214,9 +226,9 @@ const RdsCompChat = (props: RdsCompChatProps) => {
               </>
             ) : (
               <div className="rds-comp-chat__media-grid" role="region" aria-label="Media gallery">
-                {mediaItems.length === 0 ? <div className="text-muted">No media available</div> : mediaItems.map((m, i) => (
-                  <div className="rds-comp-chat__media-item" key={i}>
-                    {m.type === "image" ? <img src={m.src} alt={`media-${i}`} className="rds-comp-chat__comment-image" /> : <video src={m.src} controls className="rds-comp-chat__comment-video" />}
+                {mediaItems.length === 0 ? <div className="text-muted">No media available</div> : mediaItems.map((m) => (
+                  <div className="rds-comp-chat__media-item" key={m.src}>
+                    {m.type === "image" ? <img src={m.src} alt={`media-${m.src}`} className="rds-comp-chat__comment-image" /> : <video src={m.src} controls className="rds-comp-chat__comment-video" />}
                   </div>
                 ))}
               </div>

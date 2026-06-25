@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
 import { boardInfo, RdsCompKanbanBoardProps } from './kanban-board-helpers';
 import { axe } from 'jest-axe';
@@ -15,8 +14,8 @@ jest.mock('@mui/material', () => ({
   Typography: ({ children, variant, ...props }: any) => <div data-testid="typography" data-variant={variant} {...props}>{children}</div>,
   IconButton: ({ children, onClick, ...props }: any) => <button data-testid="icon-button" onClick={onClick} {...props}>{children}</button>,
   Chip: ({ children, label, ...props }: any) => <div data-testid="chip" {...props}>{label || children}</div>,
-  Avatar: ({ children, alt, src, ...props }: any) => <div data-testid="avatar" {...props} data-src={src}>{children}</div>,
-  Menu: ({ children, open, anchorEl, onClose, ...props }: any) => open ? <div data-testid="menu" {...props}>{children}</div> : null,
+  Avatar: ({ children, _alt, src, ...props }: any) => <div data-testid="avatar" {...props} data-src={src}>{children}</div>,
+  Menu: ({ children, open, _anchorEl, _onClose, ...props }: any) => open ? <div data-testid="menu" {...props}>{children}</div> : null,
   MenuItem: ({ children, onClick, ...props }: any) => <button type="button" data-testid="menu-item" onClick={onClick} {...props} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>{children}</button>,
   TextField: ({ value, onChange, onKeyDown, placeholder, ...props }: any) => (
     <input 
@@ -34,10 +33,10 @@ jest.mock('@mui/material', () => ({
   Box: React.forwardRef(({ children, className, ...props }: any, ref: any) => <div data-testid="box" className={className} ref={ref} {...props}>{children}</div>),
   FormControl: ({ children, ...props }: any) => <div data-testid="form-control" {...props}>{children}</div>,
   InputLabel: ({ children, ...props }: any) => <label data-testid="input-label" {...props}>{children}</label>,
-  Select: ({ children, onChange, label, ...props }: any) => (
+  Select: ({ children, onChange, _label, ...props }: any) => (
     <select data-testid="select" onChange={(e) => onChange?.(e)} {...props}>{children}</select>
   ),
-  Autocomplete: ({ onChange, renderInput, label, ...props }: any) => (
+  Autocomplete: ({ _onChange, renderInput, _label, ...props }: any) => (
     <div data-testid="autocomplete" {...props}>
       {renderInput?.({ id: 'autocomplete-input' })}
     </div>
@@ -542,7 +541,7 @@ describe('RdsCompKanbanBoard', () => {
       renderComponent();
       const draggables = screen.queryAllByTestId('draggable');
       if (draggables.length > 0) {
-        expect(draggables[0].getAttribute('data-id')).toBeDefined();
+        expect(draggables[0].dataset.id).toBeDefined();
       }
     });
   });

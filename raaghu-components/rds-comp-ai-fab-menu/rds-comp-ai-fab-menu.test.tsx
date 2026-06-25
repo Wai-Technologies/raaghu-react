@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiFabMenu, { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu';
@@ -43,7 +42,7 @@ jest.mock('@mui/icons-material/Download', () => {
 jest.mock('../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
-    default: function MockRdsCompAiIcon({ name, height, width, colorVariant, fill, stroke, ...props }: any) {
+    default: function MockRdsCompAiIcon({ name, height, width, _colorVariant, _fill, _stroke, ...props }: any) {
       return (
         <span data-testid={`icon-${name}`} data-height={height} data-width={width} {...props}>
           {name}
@@ -244,7 +243,7 @@ describe('RdsCompAiFabMenu', () => {
       const icons = container.querySelectorAll('[data-testid="icon-list"]');
       expect(icons.length).toBeGreaterThan(0);
       // Target the item icon, not the button icon
-      const itemIcon = Array.from(icons).find((icon) => icon.getAttribute('data-height') === '20px');
+      const itemIcon = Array.from(icons).find((icon) => icon.dataset.height === '20px');
       expect(itemIcon).toHaveAttribute('data-height', '20px');
       expect(itemIcon).toHaveAttribute('data-width', '20px');
     });
@@ -513,7 +512,7 @@ describe('RdsCompAiFabMenu', () => {
     });
 
     it('handles multiple menu instances independently', () => {
-      const { container } = render(
+      render(
         <div>
           <RdsCompAiFabMenu listItems={[{ key: 'item1', value: 'Menu 1', icon: 'list' }]} />
           <RdsCompAiFabMenu listItems={[{ key: 'item2', value: 'Menu 2', icon: 'list' }]} />

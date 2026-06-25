@@ -9,7 +9,7 @@ jest.mock('./rds-dialog.scss', () => ({}));
 
 // Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
-  return function MockRdsButton({ children, onClick, text, style, ...props }: any) {
+  return function MockRdsButton({ children, onClick, text, style: _buttonStyle, ...props }: any) {
     return (
       <button onClick={onClick} {...props}>
         {children || text}
@@ -21,7 +21,7 @@ jest.mock('../rds-button/rds-button', () => {
 // Mock MUI components
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
-  Dialog: ({ children, onClose, maxWidth, open, ...props }: any) => {
+  Dialog: ({ children, _onClose, _maxWidth, open, ...props }: any) => {
     if (!open) return null;
     return (
       <div data-testid="dialog-root" role="dialog" aria-labelledby="mock-dialog-title" {...props}>

@@ -15,6 +15,8 @@ const RdsContainer: React.FC<RdsContainerProps> = ({
   sx,
   ...props
 }) => {
+  const paddingSx = padding === undefined ? {} : padding ? { padding } : {};
+
   return (
     <MuiContainer
       data-rds-container-padding={padding === undefined && !(sx && typeof sx === 'object' && ('padding' in sx || 'p' in sx || 'px' in sx || 'py' in sx)) ? 'applied' : undefined}
@@ -25,7 +27,7 @@ const RdsContainer: React.FC<RdsContainerProps> = ({
           : {}),
       }}
       sx={{
-        ...(padding !== undefined ? (padding ? { padding } : {}) : {}),
+        ...paddingSx,
         ...sx,
       }}
       {...props}

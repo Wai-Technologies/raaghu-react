@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompScatterChart from './rds-comp-chart-scatter';
@@ -771,7 +771,7 @@ describe('RdsCompScatterChart', () => {
       const { rerender, container } = render(
         <RdsCompScatterChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
+      const _canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompScatterChart

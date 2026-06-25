@@ -155,7 +155,7 @@
 
     .card {
       padding: 0 var(--rds-spacing-xs, 0px) !important;
-      background: var(--rds-background-paper, var(--Background-bg-primary-lighter-default));
+      background-color: var(--rds-background-paper, var(--Background-bg-primary-lighter-default));
       color: var(--rds-text-primary);
       border-radius: 0px !important;
   min-height: var(--rds-kanban-subcard-min-height, 133.6px) !important;
@@ -433,7 +433,6 @@
 
 .priority-btn {
   .custom-badge {
-  border-color: var(--rds-primary-main) !important;
     background-color: transparent !important;
   color: var(--rds-primary-main) !important;
   border: 1px solid var(--rds-primary-main) !important;
@@ -575,7 +574,7 @@
 
   .rds-kanban-board-container::-webkit-scrollbar {
     width: 0px;
-    background: transparent;
+    background-color: transparent;
   }
 
   .rds-kanban-board-container::-webkit-scrollbar-thumb {

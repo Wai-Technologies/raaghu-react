@@ -1,12 +1,10 @@
-import React, { useState, Fragment, useEffect, useRef } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import "./rds-comp-color-picker.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import { getColorDisplay } from "./color-utils";
 import {
   ColorPickerGrid,
   ColorPickerSpectrum,
-  ColorModeSwatches,
-  GradientEditor
 } from "./color-picker-components";
 import { colorTokens } from "../../raaghu-react-themes/tokens/design-tokens";
 
@@ -67,14 +65,14 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
     if (!hex) return { r: 0, g: 0, b: 0 };
     const h = hex.replace('#', '');
     if (h.length === 3) {
-      const r = parseInt(h[0] + h[0], 16);
-      const g = parseInt(h[1] + h[1], 16);
-      const b = parseInt(h[2] + h[2], 16);
+      const r = Number.parseInt(h[0] + h[0], 16);
+      const g = Number.parseInt(h[1] + h[1], 16);
+      const b = Number.parseInt(h[2] + h[2], 16);
       return { r, g, b };
     }
-    const r = parseInt(h.substring(0, 2), 16);
-    const g = parseInt(h.substring(2, 4), 16);
-    const b = parseInt(h.substring(4, 6), 16);
+    const r = Number.parseInt(h.substring(0, 2), 16);
+    const g = Number.parseInt(h.substring(2, 4), 16);
+    const b = Number.parseInt(h.substring(4, 6), 16);
     return { r, g, b };
   };
 
@@ -88,11 +86,11 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
   const [selectedColorHex, setSelectedColorHex] = useState<string>(_defaultHex);
   const [showPicker, setShowPicker] = useState(type !== ColorPickerType.Button);
   const [selectedTab, setSelectedTab] = useState(
-    pickerType || "Grid"
+    pickerType ?? "Grid"
   );
-  const [selectedColorMode, setSelectedColorMode] = useState<ColorMode>(colorMode || ColorMode.HEX);
+  const [selectedColorMode, setSelectedColorMode] = useState<ColorMode>(colorMode ?? ColorMode.HEX);
   const [showColorModeDropdown, setShowColorModeDropdown] = useState(false);
-  const [selectedStyle, setSelectedStyle] = useState(style || StyleType.Type1);
+  const [selectedStyle, setSelectedStyle] = useState(style ?? StyleType.Type1);
   
   const colorModeDropdownRef = React.useRef<HTMLDivElement>(null);
   
@@ -121,11 +119,11 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
   }, [value]);
 
   useEffect(() => {
-    setSelectedTab(pickerType || "Grid");
+    setSelectedTab(pickerType ?? "Grid");
   }, [pickerType]);
 
   useEffect(() => {
-    setSelectedStyle(style || StyleType.Type1);
+    setSelectedStyle(style ?? StyleType.Type1);
   }, [style]);
 
   useEffect(() => {
@@ -172,10 +170,10 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
         {(type === ColorPickerType.Button || type === ColorPickerType.ButtonExpanded) && (
           <RdsButton
             color="primary"
-            children={label || "Color Picker"}
             style="filled"
             disabled={isDisabled}
             onClick={handleButtonClick}
+            text={label ?? "Color Picker"}
           />
         )}
         {(showPicker && (type === ColorPickerType.ButtonExpanded || type === ColorPickerType.Default || type === ColorPickerType.Button)) && (

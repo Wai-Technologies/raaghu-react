@@ -260,14 +260,14 @@
         height: var(--rds-progress-inner-dot-size);
         border-radius: var(--rds-border-radius-pill);
         border: 2px solid var(--rds-color-gray-600);
-        background: transparent;
+        background-color: transparent;
         transition: all var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
       }
 
   &--circle.rds-progress__stepper-step--completed .rds-progress__stepper-inner-dot,
   &--circle.rds-progress__stepper-step--current .rds-progress__stepper-inner-dot {
         border-color: var(--rds-color-white);
-        background: transparent;
+        background-color: transparent;
       }
     }
   }

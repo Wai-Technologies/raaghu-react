@@ -24,8 +24,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsCompAiChatBot>;
 
-export const Default: Story = {
-  render: (args) => {
+const DefaultStory = (args) => {
     const [messages, setMessages] = useState<Message[]>([]);
     return (
       <RdsCompAiChatBot
@@ -34,7 +33,10 @@ export const Default: Story = {
         setMessages={setMessages}
       />
     );
-  },
+  };
+
+export const Default: Story = {
+  render: DefaultStory,
   args: {
     aiLogoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
     userAvatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",

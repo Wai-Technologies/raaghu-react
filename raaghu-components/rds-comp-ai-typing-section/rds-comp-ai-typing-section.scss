@@ -12,7 +12,7 @@
   &__input-wrapper {
     border-radius: var(--rds-border-radius, 5px);
     border: 1px solid var(--rds-color-border);
-    background: var(--rds-color-surface);
+    background-color: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2, 0px 0px 12px 0px rgba(0, 0, 0, 0.18));
     padding: var(--rds-spacing-md, 12px);
     position: relative;

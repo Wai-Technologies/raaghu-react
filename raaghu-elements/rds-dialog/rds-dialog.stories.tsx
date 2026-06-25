@@ -42,8 +42,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => {
+const DefaultStory = (args) => {
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -68,7 +67,10 @@ export const Default: Story = {
         />
       </>
     );
-  },
+  };
+
+export const Default: Story = {
+  render: DefaultStory,
   args: {
     size: 'medium',
     fullWidth: true,
@@ -83,8 +85,7 @@ export const Default: Story = {
   },
 };
 
-export const FullWidth: Story = {
-  render: (args) => {
+const FullWidthStory = (args) => {
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -109,7 +110,10 @@ export const FullWidth: Story = {
         />
       </>
     );
-  },
+  };
+
+export const FullWidth: Story = {
+  render: FullWidthStory,
   args: {
     fullWidth: true,
   size: 'small',
@@ -122,8 +126,7 @@ export const FullWidth: Story = {
   },
 };
 
-export const Interactive: Story = {
-  render: (args) => {
+const InteractiveStory = (args) => {
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -157,7 +160,10 @@ export const Interactive: Story = {
         </RdsDialog>
       </>
     );
-  },
+  };
+
+export const Interactive: Story = {
+  render: InteractiveStory,
   args: {
     title: 'Interactive Dialog',
     ShowDissmiss: true,
@@ -167,8 +173,7 @@ export const Interactive: Story = {
   },
 };
 
-export const LargeContent: Story = {
-  render: (args) => {
+const LargeContentStory = (args) => {
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -193,7 +198,10 @@ export const LargeContent: Story = {
         />
       </>
     );
-  },
+  };
+
+export const LargeContent: Story = {
+  render: LargeContentStory,
   args: {
     size: 'medium',
     fullWidth: true,
@@ -213,8 +221,7 @@ export const LargeContent: Story = {
   },
 };
 
-export const WithActions: Story = {
-  render: (args) => {
+const WithActionsStory = (args) => {
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -245,7 +252,10 @@ export const WithActions: Story = {
         />
       </>
     );
-  },
+  };
+
+export const WithActions: Story = {
+  render: WithActionsStory,
   args: {
     size: 'medium',
     fullWidth: true,
@@ -257,6 +267,30 @@ export const WithActions: Story = {
     ),
   },
 };
+const WithIconStory = (args) => {
+    const { showTitle = true, ...rest } = args;
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <RdsButton
+          changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="filled"
+          text=" Open Dialog"
+          textCase="uppercase"
+          onClick={() => setOpen(true)}
+        />
+        <RdsDialog children={undefined} open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
+      </>
+    );
+  };
+
 export const WithIcon: Story = {
   args: {
     size: 'medium',
@@ -298,42 +332,10 @@ export const WithIcon: Story = {
 
   },
 
-  render: (args) => {
-    const { showTitle = true, ...rest } = args;
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <RdsButton
-          changeLeftIcon="add"
-          changeRightIcon="save"
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          showLeftIcon
-          size="medium"
-          state="default"
-          style="filled"
-          text=" Open Dialog"
-          textCase="uppercase"
-          onClick={() => setOpen(true)}
-        />
-        <RdsDialog children={undefined} open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
-      </>
-    );
-  },
+  render: WithIconStory,
 };
 
-export const OpenClose: Story = {
-  name: 'Interaction: Open and Close Dialog',
-  args: {
-    size: 'small',
-    variant: 'standard',
-    title: 'Test Dialog',
-    ShowDissmiss: true,
-    ShowPrimary: false,
-    ShowSecondary: false,
-  },
-  render: (args) => {
+const OpenCloseStory = (args) => {
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -357,7 +359,19 @@ export const OpenClose: Story = {
         </RdsDialog>
       </>
     );
+  };
+
+export const OpenClose: Story = {
+  name: 'Interaction: Open and Close Dialog',
+  args: {
+    size: 'small',
+    variant: 'standard',
+    title: 'Test Dialog',
+    ShowDissmiss: true,
+    ShowPrimary: false,
+    ShowSecondary: false,
   },
+  render: OpenCloseStory,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const openBtn = canvas.getByRole('button', { name: /open dialog/i })

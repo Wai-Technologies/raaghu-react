@@ -1,4 +1,4 @@
-import { expect } from 'vitest';
+import { expect, vi } from 'vitest';
 import * as matchers from '@testing-library/jest-dom/matchers';
 expect.extend(matchers);
 
@@ -20,9 +20,9 @@ Object.defineProperty(window, 'matchMedia', {
 Object.defineProperty(window, 'IntersectionObserver', {
   writable: true,
   value: class IntersectionObserver {
-    disconnect() {}
-    observe() {}
+    disconnect = vi.fn();
+    observe = vi.fn();
     takeRecords() { return []; }
-    unobserve() {}
+    unobserve = vi.fn();
   },
 });

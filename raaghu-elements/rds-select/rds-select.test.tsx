@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSelect, { RdsSelectOption } from './rds-select';
@@ -864,7 +864,7 @@ describe('RdsSelect — keyboard navigation', () => {
     await userEvent.keyboard('{ArrowDown}');
     const options = screen.getAllByRole('option');
     // After ArrowDown, MUI sets Mui-focused or aria-selected on the highlighted option
-    const hasHighlightedOption = options.some(o =>
+    const _hasHighlightedOption = options.some(o =>
       o.classList.contains('Mui-focused') ||
       o.getAttribute('aria-selected') === 'true' ||
       o.classList.contains('Mui-selected')

@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import './rds-comp-adaptive-cards.scss';
-import {RdsBox,RdsTypography,RdsStack, RdsButtonDropdown} from "../../raaghu-elements";
 import RdsCardDetail from "../../raaghu-elements/rds-card-detail/rds-card-detail";
-import { CardHeader, CardContent, CardActions, IconButton} from "@mui/material";
-import { RdsButton } from "../../raaghu-elements";
-import {  Close as CloseIcon,ExpandMore as ExpandMoreIcon} from "@mui/icons-material";
 import { 
   FootballScorecardCard,
-  ActivityUpdateCard,
-  CalendarReminderForm, 
-  RestaurantOrderForm,
   ImageGalleryCard,
-  InputFormCard,
-  capitalizeFirstWord,
   AdaptiveCardProps,
+  DefaultAdaptiveCard,
+  AdaptiveTypedCard,
+  AdaptiveCardActions,
 } from "./rds-comp-adaptive-cards-helpers";
 
 type FootballProps = {
@@ -62,10 +56,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     smallText: '',
   };
   const merged = { ...variantDefaults, ...props };
-  
-  const allowedButtonStyles = ['filled', 'outlined', 'transparent'] as const;
-  const getRdsButtonStyle = (style: string) =>
-    allowedButtonStyles.includes(style as typeof allowedButtonStyles[number]) ? style as typeof allowedButtonStyles[number] : 'filled';
 
   const {
     showHeader,
@@ -81,7 +71,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     cardText,
     closeIcon,
     label,
-    block,
     images,
     leagueName,
     leagueAvatar,
@@ -110,6 +99,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   const [side, setSide] = useState("");
   const [drink, setDrink] = useState("");
   const [visible, setVisible] = useState(true);
+
+  const handleClose = () => setVisible(false);
 
   if (!visible) return null;
   if (type === "ImageGallery") {
@@ -152,201 +143,59 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   return (
     visible && (
       <RdsCardDetail className={`rds-adaptive-cards rds-adaptive-cards--default${type === 'Default' ? ' is-default-selected' : ''}`}>
-        
         {type === 'Default' ? (
-          <RdsBox className="custom-box">
-            <RdsStack direction="row" alignItems="center" spacing={1} className="custom-box__title-stack">
-              {showDismiss && <RdsBox className="custom-box__circle" />}
-              {showHeader && (
-                <RdsTypography variant="h5" className="custom-box__title-text">{cardTitle}</RdsTypography>
-              )}
-              <RdsBox sx={{ flex: 1 }} />
-              {closeIcon && (
-                <IconButton aria-label="Close" size="small" className="custom-box__close-icon" onClick={() => setVisible(false)}>
-                  <CloseIcon />
-                </IconButton>
-              )}
-            </RdsStack>
-            {smallText && (
-              <RdsTypography variant="body2" color="text.secondary" sx={{ ml: 2 }}>{smallText}</RdsTypography>
-            )}
-            <RdsBox className="custom-box__slot">
-              <RdsTypography variant="body1" color="text.secondary">{cardText || 'Instance Slot'}</RdsTypography>
-            </RdsBox>
-            <RdsStack direction="row" justifyContent="flex-end" spacing={2} className="custom-box__actions">
-               {showBtn1 && (
-                <RdsButton 
-                  style={getRdsButtonStyle(btn1style)} 
-                  className={`custom-box__button--cancel${getRdsButtonStyle(btn1style)==='filled' ? ' rds-button__primary' : ''}`} 
-                  text={btn1Label} 
-                />
-              )}
-              {showBtn2 && (
-                <RdsButton 
-                  style={getRdsButtonStyle(btn2style)} 
-                  className={`custom-box__button--done${getRdsButtonStyle(btn2style)==='filled' ? ' rds-button__primary' : ''}`} 
-                  text={btn2Label} 
-                />
-              )}
-            </RdsStack>
-          </RdsBox>
+          <DefaultAdaptiveCard
+            showDismiss={showDismiss}
+            showHeader={showHeader}
+            cardTitle={cardTitle}
+            closeIcon={closeIcon}
+            smallText={smallText}
+            cardText={cardText}
+            showBtn1={showBtn1}
+            showBtn2={showBtn2}
+            btn1style={btn1style}
+            btn2style={btn2style}
+            btn1Label={btn1Label}
+            btn2Label={btn2Label}
+            onClose={handleClose}
+          />
         ) : (
           <>
-            <CardHeader
-              className="rds-adaptive-cards__header"
-              title={showHeader && ( 
-                <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
-                  {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
-                  <RdsTypography variant="h5" className="rds-adaptive-cards__title" fontWeight={600}>{cardTitle}</RdsTypography>
-                </RdsStack>
-              )}
-              action={closeIcon && (
-                <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn" onClick={() => setVisible(false)}><CloseIcon /></IconButton>
-              )}
+            <AdaptiveTypedCard
+              type={type}
+              props={props}
+              showHeader={showHeader}
+              showDismiss={showDismiss}
+              cardTitle={cardTitle}
+              closeIcon={closeIcon}
+              calendarLabel={calendarLabel}
+              calendarSmallText={calendarSmallText}
+              inputFormLabel={inputFormLabel}
+              inputFormSmallText={inputFormSmallText}
+              showBtn1={showBtn1}
+              showBtn2={showBtn2}
+              btn1Label={btn1Label}
+              btn2Label={btn2Label}
+              activityProps={activityProps}
+              entree={entree}
+              setEntree={setEntree}
+              side={side}
+              setSide={setSide}
+              drink={drink}
+              setDrink={setDrink}
+              onClose={handleClose}
             />
-
-            <CardContent className="rds-adaptive-cards__content">
-              {type === "CalenderReminder" && (
-                <CalendarReminderForm 
-                  label={calendarLabel}
-                  smallText={calendarSmallText}
-                  placeholder={props.calendarReminderPlaceholder}
-                  calendarReminderLabel={props.calendarReminderLabel}
-                  sideOptions={props.options || props.sideOptions}
-                  selectPlaceholder={props.sidePlaceholder}
-                  snoozeLabel={props.snoozeLabel}
-                  lateLabel={props.lateLabel}
-                  showBtn1={showBtn1}
-                  showBtn2={showBtn2}
-                  btn1Label={props.snoozeLabel ? undefined : btn1Label}
-                  btn2Label={props.lateLabel ? undefined : btn2Label}
-                />
-              )}
-              {type === "InputForm" && (
-                <InputFormCard
-                  label={inputFormLabel}
-                  smallText={inputFormSmallText}
-                  nameLabel={props.nameLabel}
-                  namePlaceholder={props.namePlaceholder}
-                  emailLabel={props.emailLabel}
-                  emailPlaceholder={props.emailPlaceholder}
-                  phoneLabel={props.phoneLabel}
-                  phonePlaceholder={props.phonePlaceholder}
-                  requiredText={props.requiredText}
-                  nameValue={props.nameValue}
-                  emailValue={props.emailValue}
-                  phoneValue={props.phoneValue}
-                  onNameChange={props.onNameChange}
-                  onEmailChange={props.onEmailChange}
-                  onPhoneChange={props.onPhoneChange}
-                  nameError={props.nameError}
-                  emailError={props.emailError}
-                  phoneError={props.phoneError}
-                />
-              )}
-              {type === "ActivityUpdateCard" && (
-                <div className="rds-adaptive-cards__activity-update-wrapper">
-                  <ActivityUpdateCard
-                    avatar={activityProps?.avatar ?? ''}
-                    name={props.name ?? activityProps?.name ?? ''}
-                    date={props.date ?? activityProps?.date ?? ''}
-                    cardText={props.cardText}
-                    radioOptions={activityProps?.radioOptions ?? []}
-                  />
-                </div>
-              )}
-              {type === "RestaurantOrder" && (
-                <RestaurantOrderForm
-                  entree={entree} setEntree={setEntree}
-                  side={side} setSide={setSide}
-                  drink={drink} setDrink={setDrink}
-                  entreeLabel={props.entreeLabel}
-                  entreePlaceholder={props.entreePlaceholder}
-                  entreeOptions={props.entreeOptions}
-                  sideLabel={props.sideLabel}
-                  sidePlaceholder={props.sidePlaceholder}
-                  sideOptions={props.sideOptions}
-                  drinkLabel={props.drinkLabel}
-                  drinkPlaceholder={props.drinkPlaceholder}
-                  drinkOptions={props.drinkOptions}
-                  entreeValue={props.entreeValue}
-                  sideValue={props.sideValue}
-                  drinkValue={props.drinkValue}
-                  onEntreeChange={props.onEntreeChange}
-                  onSideChange={props.onSideChange}
-                  onDrinkChange={props.onDrinkChange}
-                />
-              )}
-            </CardContent>
-
-            <CardActions
-              className={`rds-adaptive-cards__actions${type === "RestaurantOrder" ? ' rds-adaptive-cards__actions--restaurant-order' : ''}${type === "ActivityUpdateCard" ? ' rds-adaptive-cards__actions--activity-update' : ''}`}
-            >
-              {type === "RestaurantOrder" ? (
-                showBtn1 ? (
-                   <RdsButton
-                    style="filled"
-                    className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order rds-button__primary"
-                    fullWidth
-                    text={btn1Label}
-                    onClick={props.onBtn1Click}
-                  />
-                ) : null
-              ) : type === "CalenderReminder" ? null : (
-                <>
-                  {showBtn1 && (
-                    type === "InputForm" ? (
-                       <RdsButton
-                        style="filled"
-                        className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button rds-button__primary"
-                        fullWidth
-                        text={btn1Label}
-                        onClick={props.onBtn1Click}
-                      />
-                    ) : type === "ActivityUpdateCard" ? (
-                      <RdsButtonDropdown
-                        buttonText={btn1Label}
-                        styleType="outline"
-                        options={(activityProps?.radioOptions ?? []).map((opt, idx) => ({
-                          id: opt.value ?? idx,
-                          label: opt.label,
-                          size: "small",
-                          styleType: "outline",
-                          avatarSrc: undefined,
-                          checked: undefined,
-                          disabled: undefined
-                        }))}
-                        onChange={() => {}}
-                        state="default"
-                        showRadio={true}
-                        showUserAvatar={true}
-                        multiSelect={false}
-                        isShowLeftIcon={false}
-                        rightIcon={<ExpandMoreIcon />}
-                      />
-                    ) : (
-                      <RdsButton
-                        style={getRdsButtonStyle(btn1style)}
-                        className={`rds-adaptive-cards__action-btn${type === "RestaurantOrder" ? " rds-adaptive-cards__action-btn--restaurant-order" : ""}${type === "ActivityUpdateCard" ? " rds-adaptive-cards__action-btn--activity" : ""}${getRdsButtonStyle(btn1style)==='filled' ? ' rds-button__primary' : ''}`}
-                        size={type === "RestaurantOrder" ? "small" : undefined}
-                          text={btn1Label}
-                      />
-                     
-                    )
-                  )}
-                  {showBtn2 && (
-                    type !== "InputForm" && (
-                      <RdsButton
-                        style={getRdsButtonStyle(btn2style)}
-                        className={`rds-adaptive-cards__action-btn${type === "ActivityUpdateCard" ? " rds-adaptive-cards__action-btn--activity" : ""}${getRdsButtonStyle(btn2style)==='filled' ? ' rds-button__primary' : ''}`}
-                        size="medium"
-                       text={capitalizeFirstWord(btn2Label)}
-                      />
-                    )
-                  )}
-                </>
-              )}
-            </CardActions>
+            <AdaptiveCardActions
+              type={type}
+              showBtn1={showBtn1}
+              showBtn2={showBtn2}
+              btn1style={btn1style}
+              btn2style={btn2style}
+              btn1Label={btn1Label}
+              btn2Label={btn2Label}
+              activityProps={activityProps}
+              onBtn1Click={props.onBtn1Click}
+            />
           </>
         )}
       </RdsCardDetail>

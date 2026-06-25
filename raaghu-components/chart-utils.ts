@@ -160,7 +160,7 @@ export function applyChartThemeColors(
 
   // ── Datasets ─────────────────────────────────────────────────────────────────
   // Resolve CSS variables in dataset colors
-  if (chartOptions.data && chartOptions.data.datasets && Array.isArray(chartOptions.data.datasets)) {
+  if (chartOptions.data?.datasets && Array.isArray(chartOptions.data.datasets)) {
     chartOptions.data.datasets.forEach((dataset) => {
       if (dataset.backgroundColor) {
         dataset.backgroundColor = resolveColorValue(dataset.backgroundColor);
@@ -208,11 +208,13 @@ function resolveColorValue(colorValue: string | string[]): string | string[] {
   }
   
   if (typeof colorValue === 'string' && colorValue.includes('var(')) {
-    // Extract CSS variable name from "var(--rds-..., fallback)"
-    const varMatch = colorValue.match(/var\(([^,)]+)(?:,\s*([^)]+))?\)/);
-    if (varMatch) {
-      const varName = varMatch[1].trim();
-      const fallback = varMatch[2] ? varMatch[2].trim() : '';
+    const openParen = colorValue.indexOf('(');
+    const closeParen = colorValue.lastIndexOf(')');
+    if (openParen !== -1 && closeParen > openParen) {
+      const inner = colorValue.slice(openParen + 1, closeParen);
+      const commaIdx = inner.indexOf(',');
+      const varName = (commaIdx === -1 ? inner : inner.slice(0, commaIdx)).trim();
+      const fallback = commaIdx === -1 ? '' : inner.slice(commaIdx + 1).trim();
       return getCSSVar(varName, fallback);
     }
   }

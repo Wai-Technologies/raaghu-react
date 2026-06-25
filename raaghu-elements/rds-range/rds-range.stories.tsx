@@ -66,18 +66,7 @@ const meta: Meta<typeof RdsRange> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    type: 'one-way',
-    level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
-    showValue: false,
-    showLabel: true,
-    textLabel: true,
-    showTooltip: true,
-  },
-  render: (args) => {
+const DefaultStory = (args) => {
     const [singleValue, setSingleValue] = useState(30);
     const [rangeValue, setRangeValue] = useState([20, 80]);    const isOneWay = args.type === 'one-way';
 
@@ -109,29 +98,27 @@ export const Default: Story = {
         />
       </Box>
     );
+  };
+
+export const Default: Story = {
+  args: {
+    type: 'one-way',
+    level: '3',
+    leftLabel: 0,
+    rightLabel: 100,
+    showValue: false,
+    showLabel: true,
+    textLabel: true,
+    showTooltip: true,
   },
+  render: DefaultStory,
   play: async ({ canvas }) => {
     const slider = await canvas.findByRole('slider');
     await expect(slider).toBeInTheDocument();
   },
 };
 
-export const Colors: Story = {
-  args: {
-    type: 'one-way',
-    level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
-    showValue: true,
-    showLabel: false,
-    textLabel: false,
-    showTooltip: false,
-  },
-  argTypes: {
-    color: { control: false },
-    value: { control: false },
-  },
-  render: (args) => {
+const ColorsStory = (args) => {
     const [primarySingleValue, setPrimarySingleValue] = useState(40);
     const [secondarySingleValue, setSecondarySingleValue] = useState(60);
     const [primaryRangeValue, setPrimaryRangeValue] = useState<[number, number]>([20, 80]);
@@ -191,7 +178,24 @@ export const Colors: Story = {
         />
       </Box>
     );
+  };
+
+export const Colors: Story = {
+  args: {
+    type: 'one-way',
+    level: '3',
+    leftLabel: 0,
+    rightLabel: 100,
+    showValue: true,
+    showLabel: false,
+    textLabel: false,
+    showTooltip: false,
   },
+  argTypes: {
+    color: { control: false },
+    value: { control: false },
+  },
+  render: ColorsStory,
 };
 
 export const Disabled: Story = {
@@ -206,19 +210,7 @@ export const Disabled: Story = {
   },
 };
 
-export const Interactive: Story = {
-  args: {
-    type: 'one-way',
-    level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
-    showValue: true,
-    showLabel: false,
-    textLabel: false,
-    showTooltip: false,
-    
-  },
-  render: (args) => {
+const InteractiveStory = (args) => {
     const [singleValue, setSingleValue] = useState(30);
     const [rangeValue, setRangeValue] = useState<[number, number]>([20, 80]);
     const [priceRange, setPriceRange] = useState<[number, number]>([100, 500]);
@@ -303,7 +295,21 @@ export const Interactive: Story = {
         />
       </Box>
     );
+  };
+
+export const Interactive: Story = {
+  args: {
+    type: 'one-way',
+    level: '3',
+    leftLabel: 0,
+    rightLabel: 100,
+    showValue: true,
+    showLabel: false,
+    textLabel: false,
+    showTooltip: false,
+    
   },
+  render: InteractiveStory,
 };
 
 export const RangeSlider: Story = {

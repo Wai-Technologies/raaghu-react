@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RdsTextArea, { TextareaState, TextareaStyle, RdsTextAreaProps } from './rds-text-area';
+import RdsTextArea, { TextareaState, TextareaStyle } from './rds-text-area';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -92,7 +92,7 @@ describe('RdsTextArea', () => {
     });
 
     it('should transition to active state on focus', async () => {
-      const { container } = render(
+      render(
         <RdsTextArea state={TextareaState.Default} dataTestId="test-textarea" />
       );
       const textarea = screen.getByTestId('test-textarea');
@@ -224,7 +224,7 @@ describe('RdsTextArea', () => {
     });
 
     it('should validate mandatory field on blur', async () => {
-      const { container } = render(
+      render(
         <RdsTextArea isMandatory={true} label="Required Field" dataTestId="test-textarea" />
       );
       const textarea = screen.getByTestId('test-textarea');
@@ -259,7 +259,7 @@ describe('RdsTextArea', () => {
   describe('Custom Validation Pattern', () => {
     it('should validate against pattern', async () => {
       const urlPattern = /^(https?:\/\/)/;
-      const { rerender } = render(
+      render(
         <RdsTextArea 
           value="" 
           validationPattern={urlPattern}
@@ -516,8 +516,8 @@ describe('RdsTextArea', () => {
     });
 
     it('should generate unique id when not provided', () => {
-      const { container: container1 } = render(<RdsTextArea dataTestId="textarea1" />);
-      const { container: container2 } = render(<RdsTextArea dataTestId="textarea2" />);
+      const { container: _container1 } = render(<RdsTextArea dataTestId="textarea1" />);
+      const { container: _container2 } = render(<RdsTextArea dataTestId="textarea2" />);
       
       const textarea1 = screen.getByTestId('textarea1');
       const textarea2 = screen.getByTestId('textarea2');
@@ -628,7 +628,7 @@ describe('RdsTextArea', () => {
       const onFocus = jest.fn();
       const onBlur = jest.fn();
       
-      const { rerender } = render(
+      render(
         <RdsTextArea 
           label="Email"
           placeholder="Enter email"
@@ -729,7 +729,7 @@ describe('RdsTextArea', () => {
       render(<RdsTextArea rows={0} dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
       // When rows is 0, the component defaults to 4 rows
-      const rowsValue = parseInt(textarea.getAttribute('rows') || '4');
+      const rowsValue = Number.parseInt(textarea.getAttribute('rows') || '4');
       expect(rowsValue).toBeGreaterThanOrEqual(0);
     });
 

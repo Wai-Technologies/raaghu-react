@@ -31,8 +31,8 @@ export const RAAGHU_THEME_BODY_CLASSES = {
 export function isDarkMode(): boolean {
   if (typeof document === 'undefined') return false;
 
-  const htmlTheme = document.documentElement.getAttribute('data-theme');
-  const bodyTheme = document.body.getAttribute('data-theme');
+  const htmlTheme = document.documentElement.dataset.theme;
+  const bodyTheme = document.body.dataset.theme;
 
   return (
     htmlTheme === 'dark' ||
@@ -78,7 +78,7 @@ export function applyRaaghuTheme(mode: RaaghuThemeMode, overrides?: RdsBrandOver
 
 export function getRaaghuThemeMode(): RaaghuThemeMode {
   if (typeof document === 'undefined') return 'light';
-  const htmlTheme = document.documentElement.getAttribute('data-theme');
+  const htmlTheme = document.documentElement.dataset.theme;
   if (htmlTheme === 'dark' || htmlTheme === 'light') {
     return htmlTheme;
   }

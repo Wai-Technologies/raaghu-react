@@ -91,13 +91,7 @@ export const WithCustomContent: Story = {
   ),
 };
 
-export const Interactive: Story = {
-  args: {
-    open: false,
-    loading: false,
-    children: 'This content can be customized via controls',
-  },
-  render: (args) => {
+const InteractiveStory = (args) => {
     const [open, setOpen] = useState<boolean>(!!args.open);
 
     useEffect(() => {
@@ -128,7 +122,15 @@ export const Interactive: Story = {
         </RdsBackdrop>
       </div>
     );
+  };
+
+export const Interactive: Story = {
+  args: {
+    open: false,
+    loading: false,
+    children: 'This content can be customized via controls',
   },
+  render: InteractiveStory,
   parameters: {
     docs: {
       story: {

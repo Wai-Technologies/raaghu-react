@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { createUniqueId } from "../../utils/id";
 import "./rds-text-area.scss";
 
 export enum TextareaState {
@@ -42,7 +43,7 @@ const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
   const [isValid, setIsValid] = useState(true);
   const [isMandatoryValid, setIsMandatoryValid] = useState(true);
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
-  const idRef = useRef<string>(props.id || `rds-textarea-${Math.random().toString(36).slice(2)}`);
+  const idRef = useRef<string>(props.id || createUniqueId('rds-textarea'));
   const assignedId = props.id || idRef.current;
   const errorId = `${assignedId}-error`;
 

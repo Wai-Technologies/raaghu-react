@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent} from 'storybook/test';
 import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import RdsSearch from './rds-search';
@@ -70,15 +70,7 @@ const meta: Meta<typeof RdsSearch> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    placeholder: 'Search...',
-    label: 'Search',
-    labelPosition: 'top',
-    iconPosition: 'left',
-    fullWidth: false,
-  },
-  render: (args) => {
+const DefaultStory = (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
 
@@ -124,15 +116,20 @@ export const Default: Story = {
         )}
       </Box>
     );
+  };
+
+export const Default: Story = {
+  args: {
+    placeholder: 'Search...',
+    label: 'Search',
+    labelPosition: 'top',
+    iconPosition: 'left',
+    fullWidth: false,
   },
+  render: DefaultStory,
 };
 
-export const AutoSearch: Story = {
-  args: {
-    autoSearch: true,
-    searchDelay: 300,
-  },
-  render: (args) => {
+const AutoSearchStory = (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
     const isSmallScreen = useMediaQuery('(max-width:414px)');
@@ -172,17 +169,17 @@ export const AutoSearch: Story = {
         </Box>
       </Box>
     );
+  };
+
+export const AutoSearch: Story = {
+  args: {
+    autoSearch: true,
+    searchDelay: 300,
   },
+  render: AutoSearchStory,
 };
 
-export const FullWidth: Story = {
-  parameters: {
-    controls: { exclude: ['fullWidth'] },
-  },
-  args: {
-    fullWidth: true,
-  },
-  render: (args) => {
+const FullWidthStory = (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
 
@@ -218,11 +215,19 @@ export const FullWidth: Story = {
         )}
       </Box>
     );
+  };
+
+export const FullWidth: Story = {
+  parameters: {
+    controls: { exclude: ['fullWidth'] },
   },
+  args: {
+    fullWidth: true,
+  },
+  render: FullWidthStory,
 };
 
-export const Sizes: Story = {
-  render: (args) => {
+const SizesStory = (args) => {
     const [small, setSmall] = useState('');
     const [medium, setMedium] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
@@ -270,11 +275,13 @@ export const Sizes: Story = {
         )}
       </Box>
     );
-  },
+  };
+
+export const Sizes: Story = {
+  render: SizesStory,
 };
 
-export const Variants: Story = {
-  render: (args) => {
+const VariantsStory = (args) => {
     const [outlined, setOutlined] = useState('');
     const [filled, setFilled] = useState('');
     const [standard, setStandard] = useState('');
@@ -331,11 +338,13 @@ export const Variants: Story = {
         )}
       </Box>
     );
-  },
+  };
+
+export const Variants: Story = {
+  render: VariantsStory,
 };
 
-export const WithoutIcons: Story = {
-  render: (args) => {
+const WithoutIconsStory = (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
 
@@ -373,15 +382,16 @@ export const WithoutIcons: Story = {
         )}
       </Box>
     );
-  },
+  };
+
+export const WithoutIcons: Story = {
+  render: WithoutIconsStory,
   parameters: {
     controls: { exclude: ['iconPosition', 'showSearchIcon'] },
   },
 };
 
-export const TypeSearch: Story = {
-  name: 'Interaction: Type in search',
-  render: (args) => {
+const TypeSearchStory = (args) => {
     const [searchValue, setSearchValue] = React.useState('');
     return (
       <RdsSearch
@@ -390,7 +400,11 @@ export const TypeSearch: Story = {
         onChange={setSearchValue}
       />
     );
-  },
+  };
+
+export const TypeSearch: Story = {
+  name: 'Interaction: Type in search',
+  render: TypeSearchStory,
   args: {
     placeholder: 'Search...',
   },

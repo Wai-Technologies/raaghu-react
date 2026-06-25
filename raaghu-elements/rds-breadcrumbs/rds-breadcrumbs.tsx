@@ -190,7 +190,7 @@ const RdsBreadcrumbs = ({
         if (isLast || item.active || isSelected || selectedIdx === index) {
           return (
             <Typography 
-              key={index} 
+              key={item.href ?? item.label} 
               className={typographyClass.trim()}
               onClick={() => setSelectedIdx(index)}
               style={{ cursor: 'pointer' }}
@@ -204,7 +204,7 @@ const RdsBreadcrumbs = ({
         const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item__enable-hover' : '';
         return (
           <Link
-            key={index}
+            key={item.href ?? item.label}
             color="inherit"
             href={item.href}
             onClick={e => {

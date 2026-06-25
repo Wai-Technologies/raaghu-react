@@ -6,7 +6,7 @@ import { axe } from 'jest-axe';
 
 // Mock react-svg-worldmap
 jest.mock('react-svg-worldmap', () => ({
-  WorldMap: ({ data, styleFunction, color, title, size }: any) => (
+  WorldMap: ({ data, _styleFunction, color, title, size }: any) => (
     <div
       data-testid="world-map"
       data-map-size={size}
@@ -105,7 +105,7 @@ describe('RdsCompMap', () => {
     });
 
     it('should render as default when mapType is not specified', () => {
-      const { mapType, ...propsWithoutType } = defaultProps;
+      const { _mapType, ...propsWithoutType } = defaultProps;
       const { container } = render(<RdsCompMap {...propsWithoutType} />);
       const mapContainer = container.querySelector('.rds-comp-map');
       expect(mapContainer).not.toHaveClass('rds-comp-map--heatmap');

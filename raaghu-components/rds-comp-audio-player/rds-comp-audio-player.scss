@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: var(--rds-color-surface-variant);
+    background-color: var(--rds-color-surface-variant);
     border-radius: var(--rds-border-radius-full, 999px);
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
     gap: var(--rds-spacing-lg, 16px);
@@ -20,16 +20,16 @@
     width: calc(2.5 * var(--rds-spacing-md, 16px));
     height: calc(2.5 * var(--rds-spacing-md, 16px));
     border-radius: var(--rds-border-radius-pill);
-    background: var(--rds-color-secondary-container);
+    background-color: var(--rds-color-secondary-container);
     color: var(--rds-color-on-secondary-container);
     transition: all var(--rds-transition-base);
     
     &--purple {
-      background: var(--rds-color-secondary-container);
+      background-color: var(--rds-color-secondary-container);
     }
 
     &:hover {
-      background: var(--rds-color-secondary-container-hover);
+      background-color: var(--rds-color-secondary-container-hover);
     }
   }
 
@@ -52,7 +52,7 @@
     align-items: center;
     gap: var(--rds-spacing-md, 14px);
     padding: var(--rds-spacing-sm, 10px);
-    background: var(--rds-color-surface);
+    background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 10px);
     position: relative;    min-width: min(900px, 100%);
     min-height: calc(4.375 * var(--rds-spacing-md, 16px));
@@ -92,7 +92,7 @@
     }
     
     button {
-      background: none;
+      background-color: none;
       border: none;
       cursor: pointer;
       font-size: var(--rds-font-size-md);
@@ -105,7 +105,7 @@
       justify-content: center;
       
       &:hover {
-        background: var(--rds-color-surface-variant);
+        background-color: var(--rds-color-surface-variant);
         color: var(--rds-color-primary);
       }
       
@@ -123,7 +123,7 @@
   }
 
   &__control-btn {
-    background: none;
+    background-color: none;
     border: none;
     cursor: pointer;
     font-size: var(--rds-font-size-lg);
@@ -136,7 +136,7 @@
     justify-content: center;
 
     &:hover {
-      background: var(--rds-color-surface-variant);
+      background-color: var(--rds-color-surface-variant);
       color: var(--rds-color-primary);
     }
 
@@ -152,7 +152,7 @@
   }
 
   &__play-btn {
-    background: var(--rds-color-primary);
+    background-color: var(--rds-color-primary);
     color: var(--rds-color-on-primary);
     border: none;
     padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
@@ -165,7 +165,7 @@
     justify-content: center;
     
     &:hover {
-      background: var(--rds-color-primary-hover);
+      background-color: var(--rds-color-primary-hover);
       box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(25, 118, 210, 0.15));
     }
 
@@ -175,7 +175,7 @@
     }
 
     &:active {
-      background: var(--rds-color-primary-pressed);
+      background-color: var(--rds-color-primary-pressed);
     }
   }
 
@@ -202,7 +202,7 @@
   }
 
   &__side-btn {
-    background: none;
+    background-color: none;
     border: none;
     cursor: pointer;
     font-size: var(--rds-font-size-md);
@@ -212,7 +212,7 @@
     color: var(--rds-color-on-surface-variant);
 
     &:hover {
-      background: var(--rds-color-surface-variant);
+      background-color: var(--rds-color-surface-variant);
       color: var(--rds-color-primary);
     }
 
@@ -228,7 +228,7 @@
     top: 85%;
     right: var(--rds-spacing-sm, 8px);
     z-index: var(--rds-z-index-dropdown, 1000);
-    background: var(--rds-color-surface, white);
+    background-color: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius-sm, 6px);
     padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-md, 12px);
     border: 1px solid var(--rds-color-outline-variant);
@@ -255,7 +255,7 @@
     top: 85%;
     right: 250px;
     z-index: var(--rds-z-index-dropdown, 1000);
-    background: var(--rds-color-surface, white);
+    background-color: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius, 8px);
     padding: var(--rds-spacing-xl, 20px);
     border: 1px solid var(--rds-color-outline-variant);
@@ -308,7 +308,7 @@
     font-size: var(--rds-font-size-body-medium, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-primary);
-    background: var(--rds-color-primary-container);
+    background-color: var(--rds-color-primary-container);
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 16px);
     border-radius: var(--rds-border-radius-sm, 6px);
     border: 1px solid var(--rds-color-primary-outline);
@@ -316,7 +316,7 @@
 
   &__settings-button {
     position: relative;
-    background: none;
+    background-color: none;
     border: none;
     cursor: pointer;
     padding: var(--rds-spacing-xs, 4px);
@@ -325,7 +325,7 @@
     color: var(--rds-color-on-surface-variant);
 
     &:hover {
-      background: var(--rds-color-surface-variant);
+      background-color: var(--rds-color-surface-variant);
       color: var(--rds-color-primary);
     }
 
@@ -336,7 +336,7 @@
   }
 
   &__edition-container {
-    background: var(--rds-color-surface-variant);
+    background-color: var(--rds-color-surface-variant);
     border-radius: var(--rds-border-radius-lg, 12px);
     padding: var(--rds-spacing-xl, 20px);
     box-shadow: var(--rds-elevation-4, 0 4px 20px rgba(0, 0, 0, 0.08));
@@ -389,7 +389,7 @@
   }
 
   &__edition-waveform {
-    background: var(--rds-color-primary-container);
+    background-color: var(--rds-color-primary-container);
     border-radius: var(--rds-border-radius-xs, 4px);
     margin: 0;
     position: relative;
@@ -422,7 +422,7 @@
     bottom: 0;
     left: var(--left-trim-position, 10%);
     width: var(--selection-width, 80%);
-    background: var(--rds-color-primary-container-variant, rgba(25, 118, 210, 0.1));
+    background-color: var(--rds-color-primary-container-variant, rgba(25, 118, 210, 0.1));
     border: 1px solid var(--rds-color-primary-outline, rgba(25, 118, 210, 0.3));
     z-index: var(--rds-z-index-layer-1);
     pointer-events: none;
@@ -433,7 +433,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    background: var(--rds-color-surface-disabled, rgba(108, 117, 125, 0.15));
+    background-color: var(--rds-color-surface-disabled, rgba(108, 117, 125, 0.15));
     z-index: var(--rds-z-index-layer-1);
     pointer-events: none;
     transition: all 0.2s ease;
@@ -456,14 +456,14 @@
     top: 0;
     bottom: 0;
     width: calc(0.625 * var(--rds-spacing-md, 16px));
-    background: var(--rds-color-primary);
+    background-color: var(--rds-color-primary);
     z-index: var(--rds-z-index-layer-2);
     cursor: col-resize;
     transition: background-color 0.2s ease;
     outline: none;
     
     &:hover {
-      background: var(--rds-color-primary-hover);
+      background-color: var(--rds-color-primary-hover);
 
       .rds-comp-audio-player__waveform-bar-handle {
         box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0,0,0,0.15));
@@ -475,12 +475,12 @@
     }
     
     &:focus-visible {
-      background: var(--rds-color-primary-hover);
+      background-color: var(--rds-color-primary-hover);
       box-shadow: 0 0 0 2px var(--rds-color-primary-container, rgba(25, 118, 210, 0.3));
     }
     
     &--active {
-      background: var(--rds-color-primary-pressed);
+      background-color: var(--rds-color-primary-pressed);
       
       .rds-comp-audio-player__waveform-bar-handle {
         box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0,0,0,0.20));
@@ -524,7 +524,7 @@
     transform: translate(-50%, -50%);
     width: var(--rds-spacing-xs, 4px);
     height: calc(2.5 * var(--rds-spacing-md, 16px));
-    background: var(--rds-color-on-primary);
+    background-color: var(--rds-color-on-primary);
     border-radius: var(--rds-border-radius-xs, 3px);
     box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0,0,0,0.10));
     z-index: var(--rds-z-index-layer-3);
@@ -539,7 +539,7 @@
       transform: translate(-50%, -50%);
       width: 1px;
       height: 20px;
-      background: var(--rds-color-primary);
+      background-color: var(--rds-color-primary);
       border-radius: 1px;
       transition: all 0.2s ease;
     }
@@ -548,7 +548,7 @@
   &__edition-controls {
     display: flex;
     align-items: center;
-    background: var(--rds-color-surface-container);
+    background-color: var(--rds-color-surface-container);
     border: 1px solid var(--rds-color-outline-variant);
     border-radius: var(--rds-border-radius, 8px);
     justify-content: space-between;
@@ -587,7 +587,7 @@
     align-items: center;
     gap: var(--rds-spacing-sm, 8px);
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 16px);
-    background: transparent;
+    background-color: transparent;
     border: none;
     border-radius: var(--rds-border-radius-full, 20px);
     cursor: pointer;
@@ -597,7 +597,7 @@
     font-family: var(--rds-font-family-base);
     
     &:hover {
-      background: var(--rds-color-surface-variant);
+      background-color: var(--rds-color-surface-variant);
       color: var(--rds-color-on-surface);
     }
     
@@ -607,7 +607,7 @@
     }
     
     &--active {
-      background: var(--rds-color-primary-container);
+      background-color: var(--rds-color-primary-container);
       color: var(--rds-color-primary);
       
       .rds-comp-audio-player__btn-icon {
@@ -633,7 +633,7 @@
     gap: var(--rds-spacing-md, 12px);
     
     button {
-      background: var(--rds-color-surface-variant);
+      background-color: var(--rds-color-surface-variant);
       border: 1px solid var(--rds-color-outline-variant);
       border-radius: var(--rds-border-radius-sm, 6px);
       padding: var(--rds-spacing-sm, 8px);
@@ -645,7 +645,7 @@
       color: var(--rds-color-on-surface-variant);
       
       &:hover:not(:disabled) {
-        background: var(--rds-color-primary-container);
+        background-color: var(--rds-color-primary-container);
         border-color: var(--rds-color-primary);
         color: var(--rds-color-primary);
       }
@@ -676,7 +676,7 @@
     font-weight: var(--rds-font-weight-medium, 500);
     min-width: 35px;
     text-align: center;
-    background: var(--rds-color-surface-variant);
+    background-color: var(--rds-color-surface-variant);
     padding: 2px var(--rds-spacing-sm, 8px);
     border-radius: var(--rds-border-radius-md, 12px);
     border: 1px solid var(--rds-color-outline-variant);
@@ -927,15 +927,15 @@
 
 [data-theme="dark"] {
   .rds-comp-audio-player__settings-modal, .rds-comp-audio-player__volume-slider-container {
-    background: var(--rds-color-surface, black);
+    background-color: var(--rds-color-surface, black);
   }
 
   .rds-comp-audio-player__edition-btn--active {
-    background: var(--rds-color-primary-overlay, rgba(25, 118, 210, 0.2));
+    background-color: var(--rds-color-primary-overlay, rgba(25, 118, 210, 0.2));
     color: var(--rds-color-primary-light);
     
     &:hover {
-      background: var(--rds-color-primary-overlay-strong, rgba(25, 118, 210, 0.3));
+      background-color: var(--rds-color-primary-overlay-strong, rgba(25, 118, 210, 0.3));
       color: var(--rds-color-primary-lighter);
     }
     
@@ -946,12 +946,12 @@
 
   .rds-comp-audio-player__edition-zoom {
     button {
-      background: var(--rds-color-surface-overlay, rgba(255, 255, 255, 0.05));
+      background-color: var(--rds-color-surface-overlay, rgba(255, 255, 255, 0.05));
       border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.1));
       color: var(--rds-color-on-surface-overlay, rgba(255, 255, 255, 0.7));
       
       &:hover:not(:disabled) {
-        background: var(--rds-color-primary-overlay-soft, rgba(15, 119, 223, 0.2));
+        background-color: var(--rds-color-primary-overlay-soft, rgba(15, 119, 223, 0.2));
         border-color: var(--rds-color-primary-light);
         color: var(--rds-color-primary-light);
       }

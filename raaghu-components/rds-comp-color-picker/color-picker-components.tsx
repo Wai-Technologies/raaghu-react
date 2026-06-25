@@ -507,7 +507,7 @@ export const GradientEditor: React.FC<{
             min="0"
             max="359"
             value={gradientDirection}
-            onChange={(e) => onGradientDirectionChange(parseInt(e.target.value))}
+            onChange={(e) => onGradientDirectionChange(Number.parseInt(e.target.value))}
             className="rds-comp-color-picker__direction-slider"
           />
         </div>
@@ -531,13 +531,16 @@ export const GradientEditor: React.FC<{
           <div className="rds-comp-color-picker__gradient-stops">
             {gradientStops.map((stop, index) => (
               <div
-                key={index}
+                key={`gradient-stop-${stop.color}-${stop.offset}`}
                 className="rds-comp-color-picker__gradient-stop"
                 style={{
                   left: `${stop.offset * 100}%`,
                   backgroundColor: stop.color
                 }}
+                role="button"
+                tabIndex={0}
                 onClick={() => onGradientStopChange(index, stop.color)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onGradientStopChange(index, stop.color); } }}
               >
                 <input
                   type="range"
@@ -545,7 +548,7 @@ export const GradientEditor: React.FC<{
                   max="100"
                   value={stop.offset * 100}
                   onChange={(e) => 
-                    onGradientPositionChange(index, parseInt(e.target.value) / 100)
+                    onGradientPositionChange(index, Number.parseInt(e.target.value) / 100)
                   }
                   className="rds-comp-color-picker__stop-position"
                 />

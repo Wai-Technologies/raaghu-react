@@ -295,7 +295,7 @@ describe('RdsAlert', () => {
           CustomIcon
         </span>
       );
-      const { container } = render(
+      render(
         <RdsAlert
           {...defaultProps}
           showIcon={true}
@@ -415,7 +415,7 @@ describe('RdsAlert', () => {
       );
       const buttons = screen.getAllByTestId('rds-button');
       const secondaryButton = buttons.find(
-        (btn) => btn.getAttribute('data-text') === 'Cancel'
+        (btn) => btn.dataset.text === 'Cancel'
       );
       expect(secondaryButton).toBeInTheDocument();
     });
@@ -430,7 +430,7 @@ describe('RdsAlert', () => {
       );
       const buttons = screen.getAllByTestId('rds-button');
       const primaryButton = buttons.find(
-        (btn) => btn.getAttribute('data-text') === 'Okay'
+        (btn) => btn.dataset.text === 'Okay'
       );
       expect(primaryButton).toBeInTheDocument();
     });
@@ -459,7 +459,7 @@ describe('RdsAlert', () => {
       );
       const buttons = screen.getAllByTestId('rds-button');
       const primaryButton = buttons.find(
-        (btn) => btn.getAttribute('data-text') === 'Okay'
+        (btn) => btn.dataset.text === 'Okay'
       );
       expect(primaryButton).toHaveAttribute('data-style', 'filled');
     });
@@ -474,7 +474,7 @@ describe('RdsAlert', () => {
       );
       const buttons = screen.getAllByTestId('rds-button');
       const secondaryButton = buttons.find(
-        (btn) => btn.getAttribute('data-text') === 'Cancel'
+        (btn) => btn.dataset.text === 'Cancel'
       );
       expect(secondaryButton).toHaveAttribute('data-style', 'transparent');
     });
@@ -488,7 +488,7 @@ describe('RdsAlert', () => {
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
-      expect(buttons.every((btn) => btn.getAttribute('data-size') === 'small')).toBe(true);
+      expect(buttons.every((btn) => btn.dataset.size === 'small')).toBe(true);
     });
 
     it('should use error color for buttons when alert type is error', () => {
@@ -501,7 +501,7 @@ describe('RdsAlert', () => {
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
-      expect(buttons.every((btn) => btn.getAttribute('data-color') === 'error')).toBe(true);
+      expect(buttons.every((btn) => btn.dataset.color === 'error')).toBe(true);
     });
 
     it('should use primary color for buttons when alert type is not error', () => {
@@ -514,7 +514,7 @@ describe('RdsAlert', () => {
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
-      expect(buttons.every((btn) => btn.getAttribute('data-color') === 'primary')).toBe(true);
+      expect(buttons.every((btn) => btn.dataset.color === 'primary')).toBe(true);
     });
   });
 
@@ -572,7 +572,7 @@ describe('RdsAlert', () => {
     });
 
     it('should accept MUI alert props', () => {
-      const { container } = render(
+      render(
         <RdsAlert {...defaultProps} variant="filled" />
       );
       expect(screen.getByRole('alert')).toBeInTheDocument();
@@ -776,7 +776,7 @@ describe('RdsAlert', () => {
       render(<RdsAlert showButtons={true} showPrimary={true} />);
       const buttons = screen.getAllByTestId('rds-button');
       const primaryButton = buttons.find(
-        (btn) => btn.getAttribute('data-text') === 'Okay'
+        (btn) => btn.dataset.text === 'Okay'
       );
       expect(primaryButton).toBeInTheDocument();
     });
@@ -785,7 +785,7 @@ describe('RdsAlert', () => {
       render(<RdsAlert showButtons={true} showSecondary={true} />);
       const buttons = screen.getAllByTestId('rds-button');
       const secondaryButton = buttons.find(
-        (btn) => btn.getAttribute('data-text') === 'Cancel'
+        (btn) => btn.dataset.text === 'Cancel'
       );
       expect(secondaryButton).toBeInTheDocument();
     });

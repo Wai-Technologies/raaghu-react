@@ -11,7 +11,7 @@
   z-index: var(--rds-z-index-popover);
 
   .MuiTooltip-tooltip {
-    background: var(--rds-tooltip-bg);
+    background-color: var(--rds-tooltip-bg);
     color: var(--rds-tooltip-color);
     border: var(--rds-tooltip-border-width) solid var(--rds-tooltip-border);
     border-radius: var(--rds-border-radius-sm);

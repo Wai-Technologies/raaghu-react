@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiAttachement, { RdsCompAiAttachementProps, UserData, Comment } from './rds-comp-ai-attachement';
@@ -17,7 +16,7 @@ jest.mock('@mui/icons-material/Attachment', () => {
 
 // Mock child components
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
-  return function MockRdsBadge({ badgeContent, colorVariant, styleType, ...props }: any) {
+  return function MockRdsBadge({ badgeContent, colorVariant, _styleType, ...props }: any) {
     return (
       <span data-testid="rds-badge" data-color={colorVariant} {...props}>
         {badgeContent}
@@ -71,7 +70,7 @@ jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
 });
 
 jest.mock('../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
-  return function MockRdsCompAiFabMenu({ listItems, menuIcon, alignment, backgroundType, isShowBorder, ...props }: any) {
+  return function MockRdsCompAiFabMenu({ listItems, menuIcon, alignment, _backgroundType, _isShowBorder, ...props }: any) {
     return (
       <div data-testid="rds-fab-menu" data-alignment={alignment} {...props}>
         <button data-testid="fab-menu-trigger" style={{ cursor: 'pointer' }}>

@@ -286,7 +286,7 @@ describe('RdsTypography', () => {
       const typography = container.querySelector('.rds-typography');
       expect(typography).toBeInTheDocument();
       // Verify the color prop is accepted and passed through
-      expect(typography?.getAttribute('data-testid')).toBe(null); // Element renders normally
+      expect((typography as HTMLElement).dataset.testid).toBeUndefined(); // Element renders normally
     });
 
     it('should apply textSecondary color', () => {
@@ -582,7 +582,7 @@ describe('RdsTypography', () => {
 
     it('should support conditional rendering', () => {
       const showContent = true;
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTypography variant="body1">
           {showContent && 'Visible Content'}
         </RdsTypography>

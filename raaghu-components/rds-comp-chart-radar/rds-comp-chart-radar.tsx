@@ -18,7 +18,7 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
 
   const [themeMode, setThemeMode] = React.useState(() => {
     if (typeof document !== 'undefined') {
-        return document.documentElement.getAttribute('data-theme') || 'light';
+        return document.documentElement.dataset.theme || 'light';
     }
     return 'light';
   });
@@ -26,7 +26,7 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
     const observer = new MutationObserver(() => {
-        setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+        setThemeMode(document.documentElement.dataset.theme || 'light');
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     return () => observer.disconnect();
@@ -61,8 +61,8 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
       try {
         const v = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
         if (!v) return fallback;
-        const n = parseInt(v.replace(/px$/, ""), 10);
-        return Number.isNaN(n) ? fallback : n;
+        const n = Number.parseInt(v.replace(/px$/, ""), 10);
+        return Number.Number.isNaN(n) ? fallback : n;
       } catch (e) {
         return fallback;
       }

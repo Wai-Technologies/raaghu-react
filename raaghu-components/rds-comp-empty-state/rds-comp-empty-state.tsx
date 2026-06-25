@@ -29,7 +29,7 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
   const height = toCss(rawH);
   
   const isDarkTheme = !props.mode && (
-    document.documentElement.getAttribute('data-theme') === 'dark' ||
+    document.documentElement.dataset.theme === 'dark' ||
     document.body.classList.contains('dark')
   );
   

@@ -13,7 +13,7 @@
     position: relative;
     box-shadow: var(--rds-elevation-2, 0 2px 10px rgba(0, 0, 0, 0.12));
     border-radius: var(--rds-border-radius, 8px);
-    background: var(--rds-color-surface, #fff);
+    background-color: var(--rds-color-surface, #fff);
     padding: var(--rds-spacing-sm, 12px);
     width: 285px;
   }
@@ -181,7 +181,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    background: transparent;
+    background-color: transparent;
     border: none;
     padding: 0;
     min-width: 70px;
@@ -305,7 +305,6 @@
   
   &__percent-input {
     width: 100%;
-    text-align: center;
     height: var(--rds-size-xl);
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
@@ -437,7 +436,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rds-color-surface-variant, #f0f0f0);
+    background-color: var(--rds-color-surface-variant, #f0f0f0);
     color: var(--rds-color-on-surface-variant, #666);
   }
   
@@ -593,7 +592,7 @@
     right: -8px;
     width: 12px;
     height: 12px;
-    background: var(--rds-color-error, #d32f2f);
+    background-color: var(--rds-color-error, #d32f2f);
     color: var(--rds-color-on-primary, #fff);
     border: none;
     border-radius: var(--rds-border-radius-pill);

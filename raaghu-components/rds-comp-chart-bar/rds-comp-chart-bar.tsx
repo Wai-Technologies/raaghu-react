@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
-import { isDarkMode, applyChartThemeColors } from "../chart-utils";
+import { applyChartThemeColors } from "../chart-utils";
 import "./rds-comp-chart-bar.scss";
 
 export interface RdsCompBarChartProps {
@@ -18,7 +18,7 @@ const RdsCompBarChart = (props: RdsCompBarChartProps) => {
 
     const [themeMode, setThemeMode] = React.useState(() => {
         if (typeof document !== 'undefined') {
-            return document.documentElement.getAttribute('data-theme') || 'light';
+            return document.documentElement.dataset.theme || 'light';
         }
         return 'light';
     });
@@ -26,7 +26,7 @@ const RdsCompBarChart = (props: RdsCompBarChartProps) => {
     React.useEffect(() => {
         if (typeof window === 'undefined') return;
         const observer = new MutationObserver(() => {
-            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+            setThemeMode(document.documentElement.dataset.theme || 'light');
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         return () => observer.disconnect();

@@ -23,9 +23,9 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
+
+ -webkit-line-clamp: 5; }
 
 .rds-comp-truncate-text--lines-2 span { -webkit-line-clamp: 2; }
 .rds-comp-truncate-text--lines-3 span { -webkit-line-clamp: 3; }
 .rds-comp-truncate-text--lines-4 span { -webkit-line-clamp: 4; }
-.rds-comp-truncate-text--lines-5 span { -webkit-line-clamp: 5; }

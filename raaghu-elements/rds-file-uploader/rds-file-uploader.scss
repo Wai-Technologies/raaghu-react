@@ -87,7 +87,7 @@
       min-width: 0;
       min-height: var(--rds-file-uploader-dropzone-min-height, 60px);
       padding: var(--rds-spacing-md) var(--rds-spacing-xl, 32px);
-      background: var(--rds-background-paper, #fff);
+      background-color: var(--rds-background-paper, #fff);
       border-radius: var(--rds-file-uploader-dropzone-border-radius, var(--rds-border-radius, 8px));
       box-sizing: border-box;
     }
@@ -102,7 +102,7 @@
       min-height: var(--rds-file-uploader-dropzone-min-height, 60px);
       padding: var(--rds-spacing-md) var(--rds-spacing-xl, 32px);
       border: var(--rds-file-uploader-dropzone-border-width, 1.5px) dashed var(--rds-color-primary, #3390e6) !important;
-      background: var(--rds-background-paper, #fff) !important;
+      background-color: var(--rds-background-paper, #fff) !important;
       border-radius: var(--rds-file-uploader-dropzone-border-radius, var(--rds-border-radius, 8px));
       box-sizing: border-box;
     }
@@ -176,7 +176,7 @@
     font-size: 0.875rem;
     padding: var(--rds-file-uploader-upload-padding-y, 4px) var(--rds-file-uploader-upload-padding-x, 13px);
     text-transform: uppercase;
-    background: var(--rds-color-primary, #3C98FF);
+    background-color: var(--rds-color-primary, #3C98FF);
     color: var(--rds-color-on-primary, #fff);
     border-radius: var(--rds-border-radius, 5px);
     box-shadow: none;
@@ -189,20 +189,20 @@
     display: flex;
     align-items: center;
     gap: 0;
-    background: var(--rds-background-paper, #fff);
+    background-color: var(--rds-background-paper, #fff);
     border-radius: var(--rds-file-uploader-control-radius, 6px);
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     box-sizing: border-box;
   }
   &__input {
     border: none;
-    background: none;
+    background-color: none;
     font-size: 1rem;
     color: var(--rds-text-secondary, #555);
     flex: 1;
   }
   &__choose-btn {
-    background: var(--rds-color-primary, #2196f3) !important;
+    background-color: var(--rds-color-primary, #2196f3) !important;
     color: var(--rds-primary-contrast-text, #fff) !important;
     border-radius: var(--rds-file-uploader-control-radius, 6px) 0 0 var(--rds-file-uploader-control-radius, 6px) !important;
     min-width: var(--rds-file-uploader-btn-min-width, 120px);
@@ -213,7 +213,7 @@
     border-bottom-right-radius: 0;
   }
   &__filename {
-    background: var(--rds-color-surface, #fff);
+    background-color: var(--rds-color-surface, #fff);
     border-radius: 0 var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0;
     height: var(--rds-file-uploader-filename-height, 40px);
     display: flex;
@@ -294,7 +294,7 @@ color: var(--rds-color-primary, #1976d2);
     padding: var(--rds-spacing-md, 16px);
     margin-bottom: var(--rds-spacing-sm, 8px);
     border: 1px solid var(--rds-color-outline, #e0e0e0);
-    background: var(--rds-background-paper, #fff);
+    background-color: var(--rds-background-paper, #fff);
     border-radius: var(--rds-border-radius, 6px);
   }
   &__file-icon {

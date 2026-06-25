@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsTable, { RdsTableColumn, RdsTableProps } from './rds-table';
+import RdsTable, { RdsTableColumn } from './rds-table';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -177,7 +177,7 @@ describe('RdsTable', () => {
       );
       const headers = container.querySelectorAll('.rds-table__header-content');
       headers.forEach(header => {
-        expect(header).toHaveStyle({ cursor: undefined });
+        expect(header).toHaveStyle({ cursor: 'default' });
       });
     });
 
@@ -199,7 +199,7 @@ describe('RdsTable', () => {
       const sortableColumns: RdsTableColumn[] = [
         { id: 'name', label: 'Name', sortable: true },
       ];
-      const { container, rerender } = renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsTable 
           columns={sortableColumns} 
           rows={mockRows} 
@@ -241,7 +241,7 @@ describe('RdsTable', () => {
       const cells = container.querySelectorAll('.rds-table__body .rds-table__cell');
       const ages = Array.from(cells)
         .filter((_, i) => i % mockColumns.length === 2)
-        .map(cell => parseInt(cell.textContent || '0'));
+        .map(cell => Number.parseInt(cell.textContent || '0'));
       expect(ages).toEqual([25, 30, 35]);
     });
 
@@ -257,7 +257,7 @@ describe('RdsTable', () => {
       const cells = container.querySelectorAll('.rds-table__body .rds-table__cell');
       const ages = Array.from(cells)
         .filter((_, i) => i % mockColumns.length === 2)
-        .map(cell => parseInt(cell.textContent || '0'));
+        .map(cell => Number.parseInt(cell.textContent || '0'));
       expect(ages).toEqual([35, 30, 25]);
     });
 
@@ -825,7 +825,7 @@ describe('RdsTable', () => {
           sortable: true
         },
       ];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTable 
           columns={formattedColumns} 
           rows={mockRows}

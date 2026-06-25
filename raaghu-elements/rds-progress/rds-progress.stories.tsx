@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsProgress from './rds-progress';
-import { Box, Typography } from '@mui/material';
+import { Box} from '@mui/material';
 import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsProgress> = {

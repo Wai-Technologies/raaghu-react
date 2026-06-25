@@ -19,16 +19,16 @@ jest.mock('@mui/material', () => ({
       {children}
     </div>
   ),
-  Box: ({ children, className, sx, ...props }: any) => (
+  Box: ({ children, className, _sx, ...props }: any) => (
     <div data-testid="box" className={className} {...props}>{children}</div>
   ),
-  Card: ({ children, sx, ...props }: any) => (
+  Card: ({ children, _sx, ...props }: any) => (
     <div data-testid="card" {...props}>{children}</div>
   ),
-  CardContent: ({ children, sx, ...props }: any) => (
+  CardContent: ({ children, _sx, ...props }: any) => (
     <div data-testid="card-content" {...props}>{children}</div>
   ),
-  Typography: ({ children, variant, color, className, ...props }: any) => (
+  Typography: ({ children, variant, _color, className, ...props }: any) => (
     <div data-testid={`typography-${variant}`} className={className} {...props}>
       {children}
     </div>
@@ -49,7 +49,7 @@ jest.mock('@mui/icons-material', () => ({
 
 // Mock RDS elements
 jest.mock('../../raaghu-elements', () => ({
-  RdsAvatar: ({ title, src, displayStyle, size, showName, showDesignation, subText, alt }: any) => (
+  RdsAvatar: ({ title, src, displayStyle, size, showName, showDesignation, subText, _alt }: any) => (
     <div
       data-testid="rds-avatar"
       data-title={title}
@@ -155,7 +155,7 @@ describe('RdsCompReviews', () => {
       );
       const avatar = screen.getByTestId('rds-avatar');
       expect(avatar).toBeInTheDocument();
-      expect(avatar.getAttribute('data-title')).toBe('John Doe');
+      expect(avatar.dataset.title).toBe('John Doe');
       expect(screen.getByTestId('rds-rating')).toBeInTheDocument();
     });
 
@@ -329,7 +329,7 @@ describe('RdsCompReviews', () => {
       const item = { ...defaultItem, name: 'Alice Smith' };
       render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
       const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Alice Smith')).toBeTruthy();
+      expect(avatars.some(a => a.dataset.title === 'Alice Smith')).toBeTruthy();
     });
 
     it('should display item description', () => {
@@ -348,7 +348,7 @@ describe('RdsCompReviews', () => {
       const item: Item = { name: 'John' };
       render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
       const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'John')).toBeTruthy();
+      expect(avatars.some(a => a.dataset.title === 'John')).toBeTruthy();
     });
 
     it('should use default image when imageUrl not provided', () => {
@@ -561,9 +561,9 @@ describe('RdsCompReviews', () => {
       ];
       render(<RdsCompReviews {...defaultProps} itemList={items} />);
       const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'John')).toBeTruthy();
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Jane')).toBeTruthy();
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Bob')).toBeTruthy();
+      expect(avatars.some(a => a.dataset.title === 'John')).toBeTruthy();
+      expect(avatars.some(a => a.dataset.title === 'Jane')).toBeTruthy();
+      expect(avatars.some(a => a.dataset.title === 'Bob')).toBeTruthy();
     });
 
     it('should render items with different ratings', () => {
@@ -599,7 +599,7 @@ describe('RdsCompReviews', () => {
         />
       );
       const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Test Item 1')).toBeTruthy();
+      expect(avatars.some(a => a.dataset.title === 'Test Item 1')).toBeTruthy();
       expect(screen.getAllByText('50').length).toBeGreaterThan(0);
     });
   });
@@ -761,7 +761,7 @@ describe('RdsCompReviews', () => {
       );
 
       const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === 'Complete User')).toBeTruthy();
+      expect(avatars.some(a => a.dataset.title === 'Complete User')).toBeTruthy();
       // Style7 shows Complete User, date, rating, description, and interaction counts
       const allText = screen.getByTestId('card').textContent || '';
       expect(allText).toContain('Complete User');
@@ -825,7 +825,7 @@ describe('RdsCompReviews', () => {
       const item = { ...defaultItem, name: "O'Brien & Sons" };
       render(<RdsCompReviews {...defaultProps} itemList={[item]} />);
       const avatars = screen.getAllByTestId('rds-avatar');
-      expect(avatars.some(a => a.getAttribute('data-title') === "O'Brien & Sons")).toBeTruthy();
+      expect(avatars.some(a => a.dataset.title === "O'Brien & Sons")).toBeTruthy();
     });
 
     it('should handle zero rating', () => {

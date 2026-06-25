@@ -278,7 +278,7 @@ describe('RdsBadge', () => {
     });
 
     it('should not render children when zero without showZero', () => {
-      const { container } = render(
+      render(
         <RdsBadge badgeContent={0} showZero={false}>
           <span>Content</span>
         </RdsBadge>
@@ -611,7 +611,7 @@ describe('RdsBadge', () => {
 
   describe('Accessibility', () => {
     it('should be accessible when displaying count', () => {
-      const { container } = render(
+      render(
         <RdsBadge badgeContent={5}>
           <button>Button with badge</button>
         </RdsBadge>

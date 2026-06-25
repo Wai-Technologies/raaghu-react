@@ -5,20 +5,22 @@ import {
   type AppBarProps,
   IconButton,
   Box,
-  InputBase,
-  Drawer,
-  Tabs,
-  Tab,
 } from '@mui/material';
-import RdsButton from '../rds-button/rds-button';
-import ClearIcon from '@mui/icons-material/Clear';
 import { Dehaze as DehazeIcon } from '@mui/icons-material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Person from '@mui/icons-material/Person';
-import Close from '@mui/icons-material/Close';
-import { ProfileMenu } from './ProfileMenu';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
-import "./rds-app-bar.scss";
+import {
+  toolbarHeights,
+  getAppBarColorClass,
+  getAppBarVariantClass,
+  useAppBarScreenSize,
+  AppBarSearch,
+  AppBarInlineTabs,
+  AppBarOverflowDrawer,
+  AppBarBottomNavigation,
+  AppBarUserActions,
+} from './rds-app-bar.helpers';
+import './rds-app-bar.scss';
+
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
 export interface RdsAppBarProps extends AppBarProps {
   title?: string;
@@ -43,6 +45,7 @@ export interface RdsAppBarProps extends AppBarProps {
   variantStyle?: string;
   overflowContent?: React.ReactNode;
 }
+
 const RdsAppBar = ({
   title,
   rightActions,
@@ -50,7 +53,7 @@ const RdsAppBar = ({
   children,
   size = 'medium',
   logo,
-  showLogo = true, 
+  showLogo = true,
   onMenuClick,
   showMenuButton = false,
   actions,
@@ -67,48 +70,28 @@ const RdsAppBar = ({
   variantStyle,
   overflowContent,
   ...props
-}:RdsAppBarProps) => {
-  const toolbarHeights = {
-    small: 55,
-    medium: 64,
-    large: 80,
-  };
+}: RdsAppBarProps) => {
   const tokens = useRdsTokens();
   const [overflowOpen, setOverflowOpen] = React.useState(false);
-  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
   const [localBottomActive, setLocalBottomActive] = React.useState(0);
-  
-  React.useEffect(() => {
-    const checkScreenSize = () => {
-      const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
-      const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
-      const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
-      const threshold = needsTabletBottomNav ? 840 : 420;
-      setIsSmallScreen(window.innerWidth <= threshold);
-    };
+  const isSmallScreen = useAppBarScreenSize(variantStyle);
 
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
+  const colorClass = getAppBarColorClass(props.color);
+  const variantClass = getAppBarVariantClass(variantStyle);
+  const hasInlineTabs =
+    Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function';
+  const hasSearch =
+    showSearch && typeof searchValue === 'string' && typeof onSearchChange === 'function';
 
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, [variantStyle]);
-  const colorClass =
-    props.color === 'primary'
-      ? ' rds-header--primary'
-      : props.color === 'secondary'
-        ? ' rds-header--secondary'
-        : props.color === 'transparent'
-          ? ' rds-header--transparent'
-          : '';
- 
-  const variantClass = variantStyle ? ` rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}` : '';
   return (
     <MuiAppBar
       {...props}
       className={[
         `rds-app-bar--size-${size}`,
         `rds-header${colorClass}${variantClass}${props.className ? ' ' + props.className : ''}`,
-      ].filter(Boolean).join(' ')}
+      ]
+        .filter(Boolean)
+        .join(' ')}
       color={props.color === 'transparent' ? 'transparent' : 'default'}
       elevation={0}
     >
@@ -122,210 +105,56 @@ const RdsAppBar = ({
       >
         <Box className="rds-header__toolbar" sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
           {showMenuButton && (
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} sx={{ mr: tokens.space(2) }}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={onMenuClick}
+              sx={{ mr: tokens.space(2) }}
+            >
               <DehazeIcon />
             </IconButton>
           )}
-         
+
           {showLogo && logo && <span className="rds-header__logo">{logo}</span>}
           {centerContent && <span className="rds-header__center-content">{centerContent}</span>}
-          {Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function' && (
-            <Tabs
-              className="rds-header__tabs-inline"
-              value={tabValue}
-              onChange={(_, v) => onTabChange(v)}
-              textColor="primary"
-              indicatorColor="primary"
-            >
-              {tabs.map((tab, idx) =>
-                typeof tab === 'string' ? (
-                  <Tab key={tab} label={tab} />
-                ) : (
-                  <Tab key={tab.label || idx} {...(tab as React.ComponentProps<typeof Tab>)} />
-                )
-              )}
-            </Tabs>
+          {hasInlineTabs && (
+            <AppBarInlineTabs tabs={tabs!} tabValue={tabValue!} onTabChange={onTabChange!} />
           )}
           <span className="rds-header__title">{title}</span>
-          
-          {showSearch && typeof searchValue === 'string' && typeof onSearchChange === 'function' && (
-            <div className="rds-header__search-wrapper">
-              <InputBase
-                className="rds-header__search"
-                placeholder={searchPlaceholder || 'Search…'}
-                value={searchValue}
-                onChange={e => onSearchChange(e.target.value)}
-              />
-              {searchValue && (
-                <IconButton
-                  className="rds-header__search-clear"
-                  size="small"
-                  aria-label="Clear search"
-                  onClick={() => onSearchChange('')}
-                >
-                  <ClearIcon fontSize="small" />
-                </IconButton>
-              )}
-            </div>
+
+          {hasSearch && (
+            <AppBarSearch
+              searchValue={searchValue!}
+              searchPlaceholder={searchPlaceholder}
+              onSearchChange={onSearchChange!}
+            />
           )}
           {rightActions && <span className="rds-header__right-actions">{rightActions}</span>}
 
-          {userName && userEmail ? (
-            <span className="rds-header__actions">
-              <ProfileMenu
-                name={userName}
-                email={userEmail}
-                menuItems={[
-                  { label: 'My Profile', icon: <Person />},
-                  { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
-                ]}
-              />
-            </span>
-          ) : (
-            actions && <span className="rds-header__actions">{actions}</span>
-          )}
+          <AppBarUserActions userName={userName} userEmail={userEmail} actions={actions} />
           {children}
-          {overflowContent && !isSmallScreen ? (
-            <>
-              <IconButton
-                className="rds-appbar-overflow-button"
-                color="inherit"
-                aria-label="open overflow menu"
-                onClick={() => setOverflowOpen(true)}
-                size="small"
-              >
-                <span className="rds-overflow-icon rds-overflow-icon--hamburger" aria-hidden>
-                  <DehazeIcon />
-                </span>
-              </IconButton>
-              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} PaperProps={{ sx: { width: tokens.space(40) } }}>
-                <Box sx={{ p: tokens.space(2), height: '100%', boxSizing: 'border-box' }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <IconButton onClick={() => setOverflowOpen(false)} aria-label="close">
-                      <Close />
-                    </IconButton>
-                  </Box>
-                  <Box className="rds-appbar-overflow-content" sx={{ mt: tokens.space(1) }}>{overflowContent}</Box>
-                </Box>
-              </Drawer>
-            </>
-          ) : null}
-          
-          {isSmallScreen && (
-            (variantStyle && variantStyle.toLowerCase() === 'withmenubutton') ? (
-              <Box className="rds-bottom-navigation">
-                <Box className="rds-bottom-navigation-single-row">
-                  {Array.isArray(tabs) && tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : (t as { label: string }).label || String(i);
-                    const isActive = tabValue === i;
-                    return (
-                      <RdsButton
-                        key={label + i}
-                        role="tab"
-                        aria-selected={isActive}
-                        onClick={() => typeof onTabChange === 'function' && onTabChange(i)}
-                        className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
-                        style="transparent"
-                        size="small"
-                        text={label}
-                      />
-                    );
-                  })}
 
-                  <span className="rds-appbar-badge">28 Days Left</span>
-                  <RdsButton
-                    style="filled"
-                    color="primary"
-                    text="View Plans"
-                    textCase="capitalize"
-                    sx={{
-                      minWidth: 'auto',
-                      fontWeight: 500,
-                      fontSize: 'var(--rds-font-size-sm, 12px)',
-                      boxShadow: 'none',
-                      padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)'
-                    }}
-                  />
-                </Box>
-              </Box>
-            ) : (
-              (Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function') ? (
-                <Box
-                  className="rds-bottom-navigation"
-                  role="tablist"
-                  sx={{
-                    position: 'fixed',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    padding: `${tokens.space(1)} ${tokens.space(2)}`,
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    zIndex: tokens.zIndex.dropdown,
-                    borderTop: `1px solid ${tokens.cssVar('border-default')}`,
-                    boxShadow: tokens.cssVar('elevation-2'),
-                  }}
-                >
-                  {tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : (t as { label: string }).label || String(i);
-                    const isActive = tabValue === i;
-                    return (
-                      <RdsButton
-                        key={label + i}
-                        role="tab"
-                        aria-selected={isActive}
-                        onClick={() => onTabChange(i)}
-                        className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
-                        style="transparent"
-                        size="small"
-                        text={label}
-                      />
-                    );
-                  })}
-                </Box>
-              ) : (
-                overflowContent ? (
-                  <Box
-                    className="rds-bottom-navigation"
-                    sx={{
-                      position: 'fixed',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      padding: `${tokens.space(1)} ${tokens.space(3)}`,
-                      display: 'flex',
-                      justifyContent: 'space-around',
-                      alignItems: 'center',
-                      zIndex: tokens.zIndex.dropdown,
-                      borderTop: `1px solid ${tokens.cssVar('border-default')}`,
-                      boxShadow: tokens.cssVar('elevation-2'),
-                    }}
-                  >
-                    {React.isValidElement(overflowContent) && (overflowContent as React.ReactElement<{ children?: React.ReactNode }>).props?.children
-                      ? React.Children.toArray((overflowContent as React.ReactElement<{ children?: React.ReactNode }>).props.children).map((child, i) => {
-                          if (React.isValidElement(child)) {
-                            const childProps = (child as React.ReactElement<{ onClick?: React.MouseEventHandler<HTMLElement>; className?: string }>).props;
-                            const existingOnClick = childProps.onClick;
-                            const className = (childProps.className ? childProps.className + ' ' : '') + 'rds-bottom-nav-tab';
-                            return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, {
-                              key: i,
-                              onClick: (e: React.MouseEvent<HTMLElement>) => {
-                                if (typeof existingOnClick === 'function') existingOnClick(e);
-                                setLocalBottomActive(i);
-                              },
-                              className: (localBottomActive === i ? className + ' rds-bottom-nav-tab--active' : className),
-                            });
-                          }
-                          return <span key={i}>{child}</span>;
-                        })
-                      :
-                        overflowContent}
-                  </Box>
-                ) : null
-              )
-            )
-          )}
+          <AppBarOverflowDrawer
+            open={overflowOpen}
+            onOpen={() => setOverflowOpen(true)}
+            onClose={() => setOverflowOpen(false)}
+            overflowContent={overflowContent}
+            drawerWidth={tokens.space(40)}
+            isSmallScreen={isSmallScreen}
+          />
+
+          <AppBarBottomNavigation
+            isSmallScreen={isSmallScreen}
+            variantStyle={variantStyle}
+            tabs={tabs}
+            tabValue={tabValue}
+            onTabChange={onTabChange}
+            overflowContent={overflowContent}
+            localBottomActive={localBottomActive}
+            setLocalBottomActive={setLocalBottomActive}
+            tokens={tokens}
+          />
         </Box>
       </MuiToolbar>
 

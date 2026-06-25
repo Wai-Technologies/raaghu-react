@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompColorPicker, { ColorPickerType, PickerType, ColorMode, StyleType } from './rds-comp-color-picker';
@@ -8,10 +7,10 @@ import RdsCompColorPicker, { ColorPickerType, PickerType, ColorMode, StyleType }
 // Mock dependencies
 jest.mock('./rds-comp-color-picker.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  return function MockRdsButton({ children, onClick, disabled, style, color, ...props }: any) {
+  return function MockRdsButton({ children, onClick, disabled, style: _style, color: _color, text, ...props }: any) {
     return (
       <button data-testid="rds-button" onClick={onClick} disabled={disabled} {...props}>
-        {children}
+        {text || children}
       </button>
     );
   };

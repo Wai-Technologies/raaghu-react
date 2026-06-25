@@ -64,8 +64,10 @@ export const formatDate = (date: Date) => {
   return `${ordinalSuffix(day)} ${month} ${year}`;
 };
 
+import { secureRandomId } from '../../utils/id';
+
 export const generateRandomId = () => {
-  return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+  return secureRandomId();
 };
 
 export const colorClass = (colortype: string) => {
@@ -441,7 +443,7 @@ export const createDragEndHandler = (boards: boardInfo[], setBoards: React.Dispa
     let destSubCardIndex: number;
 
     if (typeof overId === 'string' && overId.startsWith('column-')) {
-      destBoardIndex = parseInt(overId.replace('column-', ''), 10);
+      destBoardIndex = Number.parseInt(overId.replace('column-', ''), 10);
       destSubCardIndex = boards[destBoardIndex]?.subCards.length ?? 0;
     } else {
       destBoardIndex = over.data.current?.boardIndex ?? -1;

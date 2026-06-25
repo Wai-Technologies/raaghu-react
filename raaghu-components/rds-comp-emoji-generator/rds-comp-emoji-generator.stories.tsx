@@ -1,4 +1,4 @@
-import { expect, within } from 'storybook/test';
+import { expect } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
 
@@ -58,7 +58,6 @@ type Story = StoryObj<typeof RdsCompEmojiGenerator>;
 
 export const Default: Story = {
     play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
         const btn = canvasElement.querySelector('button');
         expect(btn).toBeTruthy();
     },

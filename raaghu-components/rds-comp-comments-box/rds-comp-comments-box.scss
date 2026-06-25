@@ -4,7 +4,7 @@
   gap: var(--rds-spacing-xs);
   max-width: var(--rds-comments-max-width, 450px) !important;
   padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-xxl, 16px) var(--rds-spacing-xxxl, 24px) var(--rds-spacing-xxl, 16px);
-  background: transparent;
+  background-color: transparent;
   font-family: var(--rds-font-family-base);
   color: var(--rds-text-primary);
   border-radius: var(--rds-border-radius-md, 8px);
@@ -17,11 +17,11 @@
   }
   
   &--hover {
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
   }
   
   &--thread {
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
     display: flex;
     flex-direction: column;
     gap: var(--rds-spacing-lg, 16px);
@@ -110,7 +110,7 @@
       flex-direction: column;
       gap: var(--rds-spacing-sm);
       padding-left: var(--rds-spacing-sm);
-      background: var(--rds-background-paper);
+      background-color: var(--rds-background-paper);
     }
 
     .rds-comments-box__typing-header {
@@ -138,7 +138,7 @@
     }
 
     .rds-comments-box__send-btn {
-      background: var(--rds-primary-main) !important;
+      background-color: var(--rds-primary-main) !important;
       color: var(--rds-primary-contrast-text) !important;
       width: 36px !important;
       height: var(--rds-size-xl) !important;
@@ -164,7 +164,6 @@
     width: var(--rds-avatar-size-md, 36px);
     height: var(--rds-avatar-size-md, 36px);
     margin-right: var(--rds-spacing-xxs);
-    background-color: var(--rds-primary-main);
     color: var(--rds-primary-contrast-text);
     font-weight: var(--rds-typography-semibold, 600);
     font-size: var(--rds-font-size-xl, 20px);
@@ -214,7 +213,7 @@
     border: 1px solid var(--rds-border-default) !important;
     margin: var(--rds-spacing-md, 12px) 0;
     width: 100%;
-    background: transparent;
+    background-color: transparent;
   }
 
   &__thread-body {
@@ -297,7 +296,6 @@
       font-size: var(--rds-font-size-md, 14px) !important;
       color: var(--rds-text-secondary);
       margin: var(--rds-spacing-md, 12px);
-      margin-left: var(--rds-spacing-xxl, 50px) !important;
     }
     .rds-comments-box__translate {
       color: var(--rds-primary-main);
@@ -392,7 +390,7 @@
     top: var(--rds-dropdown-top, 40px);
     right: 0;
     z-index: var(--rds-z-index-dropdown, 1000);
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
     border: 2px solid var(--rds-neutral-400);
     border-radius: var(--rds-border-radius-xl, 12px);
     box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0,0,0,0.08));
@@ -442,7 +440,7 @@
     z-index: var(--rds-z-index-dropdown, 1000);
     min-width: var(--rds-dropdown-min-width, 140px);
     width: var(--rds-dropdown-width, 140px);
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
   }
   &__dropdown-item {
     display: flex;
@@ -452,7 +450,7 @@
     margin-bottom: var(--rds-spacing-xs, 2px);
     transition: background var(--rds-transition-base);
     &:hover {
-      background: var(--rds-background-hover);
+      background-color: var(--rds-background-hover);
     }
     &:last-child {
       margin-bottom: 0;
@@ -480,7 +478,7 @@
     z-index: var(--rds-z-index-dropdown, 1000);
     min-width: var(--rds-dropdown-min-width, 160px);
     width: var(--rds-dropdown-width, 160px);
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
   }
   &__attachment-dropdown-item {
     display: flex;
@@ -490,7 +488,7 @@
     margin-bottom: var(--rds-spacing-xs, 2px);
     transition: background 0.2s;
     &:hover {
-      background: var(--rds-background-hover);
+      background-color: var(--rds-background-hover);
     }
     &:last-child {
       margin-bottom: 0;
@@ -517,7 +515,7 @@
     box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0,0,0,0.08));
     z-index: var(--rds-z-index-dropdown, 1000);
     padding: 0;
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
     color: var(--rds-text-primary);
     font-family: var(--rds-font-family-base);
   }
@@ -532,7 +530,7 @@
     border: 1px solid var(--rds-neutral-300);
     font-size: var(--rds-font-size-lg, 16px);
     outline: none;
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
     margin-bottom: 0;
     box-sizing: border-box;
     &::placeholder {
@@ -561,7 +559,7 @@
     width: var(--rds-avatar-size-md, 36px);
     height: var(--rds-avatar-size-md, 36px);
     border-radius: var(--rds-border-radius-pill);
-    background: var(--rds-background-surface);
+    background-color: var(--rds-background-surface);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -580,7 +578,7 @@
   }
   &__mention-invite-btn {
     width: 100%;
-    background: var(--rds-primary-main);
+    background-color: var(--rds-primary-main);
     color: var(--rds-primary-contrast-text);
     border: none;
     border-radius: var(--rds-border-radius-lg, 8px);
@@ -600,7 +598,7 @@
   }
 
   &__typing-box {
-    background: var(--rds-background-paper);
+    background-color: var(--rds-background-paper);
     border: 1.5px solid var(--rds-border-default);
     border-radius: var(--rds-border-radius-lg, 12px);
     min-height: var(--rds-typing-box-min-height, 60px);
@@ -646,7 +644,7 @@
     flex: 1;
   }
   &__send-btn {
-    background: var(--rds-primary-main) !important;
+    background-color: var(--rds-primary-main) !important;
     color: var(--rds-primary-contrast-text) !important;
     border-radius: var(--rds-border-radius-md, 8px) !important;
     width: var(--rds-send-btn-size, 28px) !important;
@@ -661,7 +659,7 @@
     border: none !important;
     padding: 0 !important;
     &:hover {
-      background: var(--rds-primary-dark) !important;
+      background-color: var(--rds-primary-dark) !important;
     }
   }
   &__send-icon {
@@ -673,7 +671,7 @@
     padding: var(--rds-spacing-xs, 2px);
     min-width: var(--rds-send-btn-size, 28px);
     height: var(--rds-send-btn-size, 28px);
-    background: none;
+    background-color: none;
     border: none;
     box-shadow: none;
   }
@@ -693,7 +691,7 @@
   border: 1px solid var(--rds-border-default);
   border-radius: var(--rds-border-radius-md);
   padding: var(--rds-spacing-xs) 2px;
-  background: var(--rds-background-paper);
+  background-color: var(--rds-background-paper);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -736,8 +734,10 @@
   margin-top: var(--rds-spacing-xl, 16px) !important;
   margin-bottom: var(--rds-spacing-xl, 16px) !important;
   margin-left: var(--rds-spacing-xxxl, 57px) !important;
-  color: var(--rds-text-primary) !important;
-  font-weight: var(--rds-typography-regular, 400) !important;
+
+
+  color: var(--rds-text-primary); 
+  font-weight: 500 !important;
 }
 .rds-comments-box__meta {
   font-size: var(--rds-font-size-sm, 13px) !important;
@@ -822,7 +822,6 @@
   width: 100% !important;
   height: var(--rds-avatar-size-sm, 32px);
   border-radius: var(--rds-border-radius-pill);
-  background: var(--rds-background-surface);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -842,7 +841,7 @@
 }
 .mention-invite-btn {
   width: 100%;
-  background: var(--rds-primary-main);
+  background-color: var(--rds-primary-main);
   color: var(--rds-primary-contrast-text);
   border: none;
   border-radius: var(--rds-border-radius-lg, 8px);
@@ -871,7 +870,7 @@
   color: var(--rds-comments-selected-text);
 
   .rds-comments-box__input {
-    background: var(--rds-comments-input-bg);
+    background-color: var(--rds-comments-input-bg);
     color: var(--rds-comments-input-text);
     
   }
@@ -882,10 +881,6 @@
   justify-content: flex-start;
 }
 .rds-comments-box__name,
-.rds-comments-box__text {
-  color: var(--rds-text-primary); 
-  font-weight: 500 !important;
-}
 @media (max-width: 600px) and (min-width: 320px) {
   .rds-comments-box__header {
     padding-left: 0 !important;

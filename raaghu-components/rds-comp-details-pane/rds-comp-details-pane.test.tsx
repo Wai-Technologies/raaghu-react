@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompDetailsPane, { RdsCompDetailsPaneProps } from './rds-comp-details-pane';
+import RdsCompDetailsPane from './rds-comp-details-pane';
 
 // Mock SCSS
 jest.mock('./rds-comp-details-pane.scss', () => ({}));

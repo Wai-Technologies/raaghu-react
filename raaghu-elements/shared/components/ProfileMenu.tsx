@@ -66,12 +66,12 @@ export const ProfileMenu = ({
     if (variant !== 'rich') return;
 
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth <= 834);
+      setIsSmallScreen(globalThis.innerWidth <= 834);
     };
 
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
+    globalThis.addEventListener('resize', checkScreenSize);
+    return () => globalThis.removeEventListener('resize', checkScreenSize);
   }, [variant]);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompPieChart from './rds-comp-chart-pie';
@@ -577,7 +577,7 @@ describe('RdsCompPieChart', () => {
       const { rerender, container } = render(
         <RdsCompPieChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
+      const _canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompPieChart

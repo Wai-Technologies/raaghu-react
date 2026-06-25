@@ -51,10 +51,10 @@
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root { color: var(--rds-color-on-primary-soft) !important; }
   }
   .rds-accordion__details-panel {
-    background: var(--rds-color-surface-dark) !important;
+    background-color: var(--rds-color-surface-dark) !important;
   }
   .rds-accordion.rds-accordion--expanded .rds-accordion__summary::after {
-    background: var(--rds-color-border-dark) !important;
+    background-color: var(--rds-color-border-dark) !important;
   }
 }
 .rds-accordion__container {
@@ -62,7 +62,7 @@
   --rds-accordion-container-gap-bottom: calc(1.75 * var(--rds-spacing-xs, 4px));
   --rds-accordion-item-divider-color: var(--rds-border-default);
   border: 1px solid var(--rds-border-default);
-  background: var(--rds-color-surface);
+  background-color: var(--rds-color-surface);
   border-radius: var(--rds-accordion-container-radius, 4px);
   overflow: hidden;
   margin-bottom: var(--rds-accordion-container-gap-bottom, calc(1.75 * var(--rds-spacing-xs, 4px)));
@@ -102,7 +102,7 @@
         right: 0px;
         bottom: 0;
         height: 0.5px;
-        background: var(--rds-border-default);
+        background-color: var(--rds-border-default);
         display: none;
       }
     }
@@ -200,7 +200,7 @@
       right: 0px;
       bottom: 0;
       height: 1px;
-      background: var(--rds-border-default);
+      background-color: var(--rds-border-default);
       display: none;
     }
     
@@ -257,7 +257,7 @@
  &__details {
     .rds-accordion__details-panel {
       border: 1.5px solid var(--rds-border-default);
-      background: var(--rds-color-surface);
+      background-color: var(--rds-color-surface);
       border-radius: var(--rds-border-radius-sm);
       margin: var(--rds-accordion-details-margin-top, 12px) var(--rds-accordion-details-margin-right, 12px) var(--rds-accordion-details-margin-bottom, 20px) var(--rds-accordion-details-margin-left, 12px);
       min-height: var(--rds-accordion-details-min-height, 80px);
@@ -298,7 +298,7 @@
     }
 
     .rds-accordion__details-panel {
-      background: var(--rds-color-surface) !important;
+      background-color: var(--rds-color-surface) !important;
     }
 
     .rds-accordion__title {

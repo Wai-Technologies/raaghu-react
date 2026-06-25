@@ -79,8 +79,7 @@ export const Default: Story = {
 };
 Default.parameters = { controls: { include: ['type'] } };
 
-export const AnimatedLinearProgress: Story = {
-  render: () => {
+const AnimatedLinearProgressStory = () => {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -106,7 +105,10 @@ export const AnimatedLinearProgress: Story = {
         <RdsLoader variant="linear" value={progress} label="Linear Progress" />
       </Box>
     );
-  },
+  };
+
+export const AnimatedLinearProgress: Story = {
+  render: AnimatedLinearProgressStory,
   argTypes: hideAllControls,
   parameters: {
     docs: {
@@ -117,8 +119,7 @@ export const AnimatedLinearProgress: Story = {
   },
 };
 
-export const AnimatedCircularProgress: Story = {
-  render: () => {
+const AnimatedCircularProgressStory = () => {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -133,7 +134,10 @@ export const AnimatedCircularProgress: Story = {
         <RdsLoader variant="circular" value={progress} label="Circular Progress" />
       </Box>
     );
-  },
+  };
+
+export const AnimatedCircularProgress: Story = {
+  render: AnimatedCircularProgressStory,
   argTypes: hideAllControls,
   parameters: {
     docs: {
@@ -336,8 +340,7 @@ export const TriangleWithLabel: Story = {
 };
 TriangleWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
-export const WithOverlay: Story = {
-  render: () => {
+const WithOverlayStory = () => {
     const [showOverlay, setShowOverlay] = useState(false);
 
     return (
@@ -365,7 +368,10 @@ export const WithOverlay: Story = {
         )}
       </Box>
     );
-  },
+  };
+
+export const WithOverlay: Story = {
+  render: WithOverlayStory,
   argTypes: hideAllControls,
   parameters: {
     docs: {

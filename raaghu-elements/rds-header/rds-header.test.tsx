@@ -263,7 +263,7 @@ describe('RdsHeader', () => {
 
   describe('Tabs Functionality', () => {
     it('should render tabs when provided', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsHeader
           title="Header"
           tabs={['Home', 'About', 'Contact']}

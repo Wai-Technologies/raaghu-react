@@ -127,7 +127,7 @@ describe('RdsCompAiMessageBox', () => {
     it('renders undefined message when not provided', () => {
       render(<RdsCompAiMessageBox />);
       const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar.getAttribute('data-subtext')).toBeNull();
+      expect(avatar.dataset.subtext).toBeUndefined();
     });
 
     it('renders empty string message when provided', () => {

@@ -38,11 +38,11 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
 
   useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
+            setIsMobile(globalThis.innerWidth <= 768);
         };
-        window.addEventListener("resize", handleResize);
+        globalThis.addEventListener("resize", handleResize);
         handleResize();
-        return () => window.removeEventListener("resize", handleResize);
+        return () => globalThis.removeEventListener("resize", handleResize);
     }, []);
 
     useEffect(() => {
@@ -56,7 +56,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
       return;
     }
 
-        const recognition = new window.webkitSpeechRecognition();
+        const recognition = new globalThis.webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
         recognition.lang = "en-US";

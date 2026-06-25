@@ -117,8 +117,8 @@ export const Default: Story = {
     ),
     leftIcon: <CircleOutlinedIcon sx={{ fontSize: 16 }} />,
     rightIcon: <CircleOutlinedIcon sx={{ fontSize: 16 }} />,
-    onFiltersChange: (filters: FilterOption[]) => {},
-    onApply: (filters: FilterOption[]) => {},
+    onFiltersChange: (_filters: FilterOption[]) => {},
+    onApply: (_filters: FilterOption[]) => {},
     onClear: () => {},
   },
   play: async ({ canvas }) => {

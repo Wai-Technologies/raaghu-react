@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRating from './rds-rating';
@@ -431,7 +431,7 @@ describe('RdsRating', () => {
     });
 
     it('should be keyboard accessible for stars', async () => {
-      const user = userEvent.setup();
+      const _user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRating type="star" />
       );
@@ -518,7 +518,7 @@ describe('RdsRating', () => {
     });
 
     it('should have proper ARIA labels for slider', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsRating type="slider" label="Rate the experience" />
       );
       
@@ -526,7 +526,7 @@ describe('RdsRating', () => {
     });
 
     it('should support keyboard navigation in stars', async () => {
-      const user = userEvent.setup();
+      const _user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRating type="star" />
       );

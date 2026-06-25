@@ -78,8 +78,8 @@ const RdsCounter = ({
       updateValue(undefined);
       return;
     }
-    const newValue = parseInt(raw, 10);
-    if (!isNaN(newValue) && newValue >= min && newValue <= max) updateValue(newValue);
+    const newValue = Number.parseInt(raw, 10);
+    if (!Number.isNaN(newValue) && newValue >= min && newValue <= max) updateValue(newValue);
   };
 
   const demoSelected = state === 'selected' || selected;

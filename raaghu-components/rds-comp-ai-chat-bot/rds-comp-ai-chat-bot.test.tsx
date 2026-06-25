@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiChatBot, { RdsCompAiChatBotProps, Message } from './rds-comp-ai-chat-bot';
@@ -39,7 +38,7 @@ jest.mock('../rds-comp-ai-message-box/rds-comp-ai-message-box', () => {
 
 jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
   return function MockRdsCompAiTypingSection({
-    colorVariant,
+    _colorVariant,
     onSend,
     placeholderText,
     iconName,

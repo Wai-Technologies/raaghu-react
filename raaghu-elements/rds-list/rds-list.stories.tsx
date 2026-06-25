@@ -237,8 +237,7 @@ const multiSelectionItems = [
   }
 ];
 
-export const MultipleSelection: Story = {
-  render: (args) => {
+const MultipleSelectionStory = (args) => {
     const [selectedItems, setSelectedItems] = React.useState<number[]>([2]);
     
     const handleCheckboxChange = (id: string | number, isChecked: boolean) => {
@@ -264,7 +263,10 @@ export const MultipleSelection: Story = {
         />
       </div>
     );
-  }
+  };
+
+export const MultipleSelection: Story = {
+  render: MultipleSelectionStory,
 };
 export const Nested: Story = {
   args: {
@@ -398,8 +400,7 @@ const checkboxItems = [
   }
 ];
 
-export const WithCheckbox: Story = {
-  render: (args) => {
+const WithCheckboxStory = (args) => {
     const [checked, setChecked] = React.useState<(string | number)[]>([1]);
     
     const handleCheckboxChange = (id: string | number, isChecked: boolean) => {
@@ -436,7 +437,10 @@ export const WithCheckbox: Story = {
         />
       </div>
     );
-  }
+  };
+
+export const WithCheckbox: Story = {
+  render: WithCheckboxStory,
 };
 
 export const WithSwitch: Story = {

@@ -13,8 +13,6 @@
   margin: 0;
   padding: 0;
   position: relative;
-  padding-top: 0;
-  padding-bottom: 0;
   outline: 0;
 }
 
@@ -38,7 +36,7 @@
 .rds-profile-menu__avatar {
   width: var(--rds-profile-menu-avatar-size, 32px) !important;
   height: var(--rds-profile-menu-avatar-size, 32px) !important;
-  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt)) !important;
+  background-color: var(--rds-color-avatar-bg, var(--rds-color-surface-alt)) !important;
   color: var(--rds-color-avatar-fg, var(--rds-primary-main)) !important;
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-body, 1rem);
@@ -80,7 +78,7 @@
   width: var(--rds-profile-menu-avatar-size-lg, 44px) !important;
   height: var(--rds-profile-menu-avatar-size-lg, 44px) !important;
   margin-right: var(--rds-spacing-md, 1rem);
-  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt)) !important;
+  background-color: var(--rds-color-avatar-bg, var(--rds-color-surface-alt)) !important;
   color: var(--rds-color-avatar-fg, var(--rds-primary-main)) !important;
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-lg, 1.2rem);

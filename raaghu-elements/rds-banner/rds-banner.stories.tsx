@@ -200,8 +200,7 @@ export const WithActions: Story = {
   },
 };
 
-export const Interactive: Story = {
-  render: (args) => {
+const InteractiveStory = (args) => {
     const [banners, setBanners] = useState([
       { id: 1, description: 'Welcome to our new dashboard!', type: 'info' as const, visible: true },
       { id: 2, description: 'Your trial expires in 7 days.', type: 'warning' as const, visible: true },
@@ -242,7 +241,10 @@ export const Interactive: Story = {
         </Box>
       </Box>
     );
-  },
+  };
+
+export const Interactive: Story = {
+  render: InteractiveStory,
 };
 
 export const AllTypes: Story = {

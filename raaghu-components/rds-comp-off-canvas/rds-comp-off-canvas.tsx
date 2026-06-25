@@ -1,5 +1,5 @@
 import React, { type ReactNode, useState } from "react";
-import { Drawer, Box, Typography } from "@mui/material";
+import { Drawer, Box } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";

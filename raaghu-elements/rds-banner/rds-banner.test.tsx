@@ -527,7 +527,7 @@ describe('RdsBanner', () => {
     });
 
     it('should handle rapid close/reopen cycles', () => {
-      const { rerender, container } = render(
+      const { container } = render(
         <RdsBanner {...defaultProps} closable={true} persistent={false} />
       );
       expect(container.querySelector('.rds-banner')).toBeInTheDocument();

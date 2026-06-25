@@ -156,7 +156,7 @@ describe('RdsFormControl', () => {
       render(
         <RdsFormControl {...defaultProps} helperText={multilineText} />
       );
-      expect(screen.getByText((content, element) => content.includes('Line 1') && content.includes('Line 2'))).toBeInTheDocument();
+      expect(screen.getByText((content, _element) => content.includes('Line 1') && content.includes('Line 2'))).toBeInTheDocument();
     });
 
     it('should handle empty string helper text', () => {

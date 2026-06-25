@@ -73,7 +73,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   };
   const handleManualPageSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      const pageNumber = parseInt(manualPageInput);
+      const pageNumber = Number.parseInt(manualPageInput);
       if (pageNumber >= 1 && pageNumber <= totalPagesCalc) {
         if (onPageChange) {
           onPageChange(pageNumber);

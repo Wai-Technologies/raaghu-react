@@ -73,7 +73,7 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      background: var(--rds-color-surface, white);
+      background-color: var(--rds-color-surface, white);
       color: var(--rds-color-on-surface);
       text-transform: capitalize;
       transition: color 0.15s ease, background-color 0.15s ease;
@@ -96,7 +96,7 @@
     
     .rdw-dropdown-wrapper {
       border: 1px solid var(--rds-color-border-light);
-      background: var(--rds-color-surface);
+      background-color: var(--rds-color-surface);
       color: var(--rds-color-on-surface);
       border-radius: var(--rds-border-radius-sm, 2px);
       min-width: 110px;
@@ -122,7 +122,7 @@
       }
 
       .rdw-dropdown-optionwrapper {
-        background: var(--rds-color-surface);
+        background-color: var(--rds-color-surface);
         border: 1px solid var(--rds-color-border-light);
         box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
         border-radius: var(--rds-border-radius-sm, 2px);
@@ -133,12 +133,12 @@
       .rdw-dropdownoption-highlighted,
       .rdw-dropdownoption-active {
         color: var(--rds-color-on-surface);
-        background: transparent;
+        background-color: transparent;
       }
 
       .rdw-dropdownoption-default:hover,
       .rdw-dropdownoption-highlighted {
-        background: var(--rds-color-surface-variant);
+        background-color: var(--rds-color-surface-variant);
       }
 
       .rds-comp-text-editor--disabled & {
@@ -166,17 +166,17 @@
         }
         
         .rdw-image-modal-btn {
-          background: var(--rds-color-primary);
+          background-color: var(--rds-color-primary);
           color: var(--rds-color-on-primary);
           border-radius: var(--rds-border-radius-sm, 2px);
           
           &:hover {
-            background: var(--rds-color-primary-dark);
+            background-color: var(--rds-color-primary-dark);
             box-shadow: var(--rds-elevation-1, 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075));
           }
           
           &:disabled {
-            background: var(--rds-color-disabled-bg);
+            background-color: var(--rds-color-disabled-bg);
             color: var(--rds-color-disabled-text);
           }
         }

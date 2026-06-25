@@ -1,5 +1,5 @@
 .rds-comp-toast {
-  background: var(--rds-color-surface);
+  background-color: var(--rds-color-surface);
   border: 1px solid var(--rds-color-border);
   border-radius: var(--rds-border-radius, 8px);
   box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
@@ -158,13 +158,13 @@
     }
     
     &--plus {
-      background: transparent;
+      background-color: transparent;
       position: relative;
       &::before,
       &::after {
         content: '';
         position: absolute;
-        background: var(--rds-toast-plus-color);
+        background-color: var(--rds-toast-plus-color);
         border-radius: 1px;
       }
       &::before {
@@ -224,7 +224,7 @@
   }
   
   &__close-btn {
-    background: none;
+    background-color: none;
     border: none;
     font-size: var(--rds-font-size-lg, 1.5rem);
     color: var(--rds-color-on-surface-variant);
@@ -294,7 +294,7 @@
   }
   
   &__progress-bar {
-    background: var(--rds-color-primary);
+    background-color: var(--rds-color-primary);
     height: 100%;
     border-radius: inherit;
     transition: width var(--rds-transition-duration-standard, 0.3s) ease;
@@ -325,7 +325,7 @@
     border-radius: var(--rds-border-radius-sm, 4px);
     font-size: var(--rds-font-size-base, 0.875rem);
     color: var(--rds-color-on-surface);
-    background: var(--rds-color-surface);
+    background-color: var(--rds-color-surface);
     transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
                 box-shadow var(--rds-transition-duration-short, 0.2s) ease;
     
@@ -392,29 +392,29 @@
     transition: all var(--rds-transition-duration-short, 0.2s) ease;
     
     &--primary {
-      background: var(--rds-color-primary);
+      background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
       
       &:hover {
-        background: var(--rds-color-primary-hover);
+        background-color: var(--rds-color-primary-hover);
       }
       
       &:active {
-        background: var(--rds-color-primary-pressed);
+        background-color: var(--rds-color-primary-pressed);
       }
     }
     
     &--secondary {
-      background: transparent;
+      background-color: transparent;
       color: var(--rds-color-primary);
       border-color: transparent;
       
       &:hover {
-        background: var(--rds-color-primary-hover-light, rgba(25, 118, 210, 0.04));
+        background-color: var(--rds-color-primary-hover-light, rgba(25, 118, 210, 0.04));
       }
       
       &:active {
-        background: var(--rds-color-primary-pressed-light, rgba(25, 118, 210, 0.12));
+        background-color: var(--rds-color-primary-pressed-light, rgba(25, 118, 210, 0.12));
       }
     }
   }
@@ -443,7 +443,6 @@
       right: auto;
       transform: translateX(-50%);
       width: 95vw;
-      max-width: 95vw;
       max-width: 95vw;
       box-sizing: border-box;
     }

@@ -88,11 +88,14 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
         const quickEmojis = ["👍", "😊", "😞", "💯", "😎"];
         return (
             <Box className="rds-emoji-generator rds-emoji-generator--quick" {...props}>
-                {quickEmojis.map((e, i) => (
+                {quickEmojis.map((e) => (
                     <Box
-                        key={i}
+                        key={e}
                         className="rds-emoji-generator__emoji rds-emoji-generator__emoji--quick"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleEmojiClick(e)}
+                        onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); handleEmojiClick(e); } }}
                     >
                         {e}
                     </Box>
@@ -233,11 +236,14 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
                     </Typography>
                 </Box>
                 <Box className="rds-emoji-generator__grid-container">
-                    {displayEmojis.map((e, i) => (
+                    {displayEmojis.map((e) => (
                         <Box
-                            key={i}
+                            key={e}
                             className="rds-emoji-generator__emoji"
+                            role="button"
+                            tabIndex={0}
                             onClick={() => handleEmojiClick(e)}
+                            onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); handleEmojiClick(e); } }}
                         >
                             {isFlagEmoji(e) ? (
                                 <img

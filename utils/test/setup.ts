@@ -22,18 +22,20 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock ResizeObserver
+// Mock ResizeObserver
+const noopObserver = () => undefined;
 (window as any).ResizeObserver = class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+  observe = noopObserver;
+  unobserve = noopObserver;
+  disconnect = noopObserver;
 };
 
 // Mock IntersectionObserver
 (window as any).IntersectionObserver = class IntersectionObserver {
   constructor() {}
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+  observe = noopObserver;
+  unobserve = noopObserver;
+  disconnect = noopObserver;
 };
 
 // Mock scrollIntoView

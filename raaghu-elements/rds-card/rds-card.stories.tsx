@@ -4,7 +4,7 @@ import RdsButton from '../rds-button/rds-button';
 import RdsBadge from '../rds-badge/rds-badge';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsInput from '../rds-input/rds-input';
-import { Typography, CardContent, CardActions } from '@mui/material';
+import {CardContent, CardActions } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { useState } from 'react';
 import { expect } from 'storybook/test';
@@ -181,33 +181,7 @@ WithActions.parameters = {
     include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
-export const WithAvatar: Story = {
-  args: {
-    state: 'default',
-    style: 'default',
-    showIndicator: true,
-    showTitle: true,
-    showSubtext: true,
-    showDescription: false,
-    layout: 'vertical',
-    showIcon: true,
-    changeIcon: 'person',
-    title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
-  } as any,
-  parameters: {
-    controls: {
-      include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'isEditing'],
-    },
-  },
-  argTypes: {
-    isEditing: {
-      control: 'boolean',
-      description: 'Toggle to show or hide the edit icon functionality.',
-      defaultValue: false,
-    },
-  } as any,
-  render: (args) => {
+const WithAvatarStory = (args) => {
     const [isEditMode, setIsEditMode] = useState(false);
     const [editableData, setEditableData] = useState({
       title: args.title || 'Card Title',
@@ -341,7 +315,35 @@ export const WithAvatar: Story = {
         </div>
       </RdsCard>
     );
+  };
+
+export const WithAvatar: Story = {
+  args: {
+    state: 'default',
+    style: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: false,
+    layout: 'vertical',
+    showIcon: true,
+    changeIcon: 'person',
+    title: 'Card Title',
+    cardSubtext: 'Card Subtitle',
+  } as any,
+  parameters: {
+    controls: {
+      include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'isEditing'],
+    },
   },
+  argTypes: {
+    isEditing: {
+      control: 'boolean',
+      description: 'Toggle to show or hide the edit icon functionality.',
+      defaultValue: false,
+    },
+  } as any,
+  render: WithAvatarStory,
 };
 WithAvatar.parameters = { 
   controls: { 

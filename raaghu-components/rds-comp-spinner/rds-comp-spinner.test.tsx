@@ -39,7 +39,7 @@ describe('RdsCompSpinner', () => {
     });
 
     it('should render with default border spinner', () => {
-      const { container } = render(<RdsCompSpinner {...defaultProps} />);
+      render(<RdsCompSpinner {...defaultProps} />);
       const spinner = screen.getByRole('status');
       expect(spinner).toHaveClass('spinner-border');
     });
@@ -67,7 +67,7 @@ describe('RdsCompSpinner', () => {
     });
 
     it('should default to border spinner when no type specified', () => {
-      const { container } = render(<RdsCompSpinner />);
+      render(<RdsCompSpinner />);
       const spinner = screen.getByRole('status');
       expect(spinner).toHaveClass('spinner-border');
     });
@@ -554,7 +554,7 @@ describe('RdsCompSpinner', () => {
     });
 
     it('should handle dynamic prop updates', () => {
-      const { rerender, container } = render(
+      const { rerender } = render(
         <RdsCompSpinner size={SpinnerSize.Small} colorVariant="primary" />
       );
 

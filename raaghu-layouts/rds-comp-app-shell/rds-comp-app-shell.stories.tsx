@@ -13,10 +13,6 @@ import {
   Person,
   Settings,
   Help,
-  Inbox,
-  Star,
-  Send,
-  Drafts,
   CalendarToday as CalendarIcon,
   Folder as ProjectsIcon,
   People as DirectoryIcon,
@@ -24,6 +20,111 @@ import {
 } from "@mui/icons-material";
 import { ProfileMenu } from "../../raaghu-elements/shared/components/ProfileMenu";
 import { Notifications as BellIcon } from "@mui/icons-material";
+
+const STORY_LOGO_URL =
+  "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
+const STORY_AVATAR_URL =
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
+
+const sidebarItems = [
+  { icon: <Home />, label: "Home", onClick: () => {} },
+  { active: true, icon: <Dashboard />, label: "Dashboard", onClick: () => {} },
+  { icon: <Person />, label: "Profile", onClick: () => {} },
+  { icon: <Settings />, label: "Settings", onClick: () => {} },
+  { icon: <Help />, label: "Help", onClick: () => {} },
+];
+
+const bottomNavLabels = ["HOME", "NEWS", "MARKETPLACE", "JOBS"];
+
+const bottomNavButtonStyle = (active: boolean): React.CSSProperties => ({
+  background: "none",
+  border: "none",
+  padding: "8px 4px",
+  cursor: "pointer",
+  flex: 1,
+  textAlign: "center",
+  fontSize: "11px",
+  fontWeight: active ? "600" : "400",
+  color: active ? "var(--rds-color-primary, #1976d2)" : "inherit",
+  minWidth: 0,
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+const AppShellBottomNav = ({
+  selectedTab,
+  onTabChange,
+}: {
+  selectedTab: number;
+  onTabChange: (tab: number) => void;
+}) => (
+  <div className="rds-footer-navigation MuiBottomNavigation-root">
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        justifyContent: "space-around",
+        alignItems: "center",
+        padding: "0",
+        height: "56px",
+      }}
+    >
+      {bottomNavLabels.map((label, index) => (
+        <button
+          key={label}
+          type="button"
+          data-active={selectedTab === index}
+          style={bottomNavButtonStyle(selectedTab === index)}
+          onClick={() => onTabChange(index)}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+const AppShellSubTabHeader = ({
+  selectedSubTab,
+  onSubTabChange,
+}: {
+  selectedSubTab: number;
+  onSubTabChange: (tab: number) => void;
+}) => {
+  const subTabs = [
+    { icon: <Home className="rds-story-sub-tab-icon" />, label: "Dashboard" },
+    { icon: <ActivitiesIcon className="rds-story-sub-tab-icon" />, label: "Activities" },
+    { icon: <DirectoryIcon className="rds-story-sub-tab-icon" />, label: "Directory" },
+    { icon: <ProjectsIcon className="rds-story-sub-tab-icon" />, label: "Projects" },
+    { icon: <CalendarIcon className="rds-story-sub-tab-icon" />, label: "Calendar" },
+  ];
+
+  return (
+    <div className="rds-header__sub-header-layout rds-story-sub-header-layout">
+      <div className="rds-header__sub-tabs rds-story-sub-tabs">
+        {subTabs.map((tab, index) => (
+          <button
+            key={tab.label}
+            type="button"
+            className={`rds-story-sub-tab-button ${selectedSubTab === index ? "rds-story-sub-tab-button--primary" : "rds-story-sub-tab-button--inherit"}`}
+            onClick={() => onSubTabChange(index)}
+          >
+            {tab.icon} {tab.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const StoryLogo = () => (
+  <img alt="Logo" className="rds-story-logo" src={STORY_LOGO_URL} />
+);
 
 const meta: Meta<typeof RdsCompAppShell> = {
   title: "Application Shells",
@@ -94,52 +195,17 @@ const AppShellStory = (args: any) => {
         <RdsAppBar
           actions={<><BellIcon /><ProfileMenu email="john.doe@example.com" name="John Doe"/></>}
           color="default"
-          logo={<img alt="Logo" className="rds-story-logo" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"/>}
+          logo={<StoryLogo />}
           onSearchChange={() => {}}
           onTabChange={handleTabChange}
           searchPlaceholder="Search…"
           searchValue=""
           showLogo
           subHeader={
-            <div className="rds-header__sub-header-layout rds-story-sub-header-layout">
-              <div className="rds-header__sub-tabs rds-story-sub-tabs">
-                <button 
-                  type="button" 
-                  className={`rds-story-sub-tab-button ${selectedSubTab === 0 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleSubTabChange(0)}
-                >
-                  <Home className="rds-story-sub-tab-icon" /> Dashboard
-                </button>
-                <button 
-                  type="button" 
-                  className={`rds-story-sub-tab-button ${selectedSubTab === 1 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleSubTabChange(1)}
-                >
-                  <ActivitiesIcon className="rds-story-sub-tab-icon" /> Activities
-                </button>
-                <button 
-                  type="button" 
-                  className={`rds-story-sub-tab-button ${selectedSubTab === 2 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleSubTabChange(2)}
-                >
-                  <DirectoryIcon className="rds-story-sub-tab-icon" /> Directory
-                </button>
-                <button 
-                  type="button" 
-                  className={`rds-story-sub-tab-button ${selectedSubTab === 3 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleSubTabChange(3)}
-                >
-                  <ProjectsIcon className="rds-story-sub-tab-icon" /> Projects
-                </button>
-                <button 
-                  type="button" 
-                  className={`rds-story-sub-tab-button ${selectedSubTab === 4 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleSubTabChange(4)}
-                >
-                  <CalendarIcon className="rds-story-sub-tab-icon" /> Calendar
-                </button>
-              </div>
-            </div>
+            <AppShellSubTabHeader
+              selectedSubTab={selectedSubTab}
+              onSubTabChange={handleSubTabChange}
+            />
           }
           tabValue={selectedTab}
           tabs={['Home', 'News', 'Marketplace', 'Jobs']}
@@ -152,13 +218,7 @@ const AppShellStory = (args: any) => {
       return (
         <RdsAppBar
           color="default"
-          logo={
-            <img
-              alt="Logo"
-              className="rds-story-logo"
-              src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-            />
-          }
+          logo={<StoryLogo />}
           onTabChange={handleTabChange}
           showLogo={true}
           showMenuButton={true}
@@ -174,13 +234,7 @@ const AppShellStory = (args: any) => {
       <div className="rds-appshell-appbar rds-appshell-appbar--fixed">
         <RdsAppBar
           color="default"
-          logo={
-            <img
-              alt="Logo"
-              className="rds-story-logo"
-              src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-            />
-          }
+          logo={<StoryLogo />}
           onTabChange={handleTabChange}
           showLogo={args.displayType !== AppShellDisplayType.Default}
           showMenuButton={true}
@@ -207,35 +261,6 @@ const AppShellStory = (args: any) => {
   };
 
   const renderSidebar = () => {
-    const sidebarItems = [
-      {
-        icon: <Home />,
-        label: "Home",
-        onClick: () => {},
-      },
-      {
-        active: true,
-        icon: <Dashboard />,
-        label: "Dashboard",
-        onClick: () => {},
-      },
-      {
-        icon: <Person />,
-        label: "Profile",
-        onClick: () => {},
-      },
-      {
-        icon: <Settings />,
-        label: "Settings",
-        onClick: () => {},
-      },
-      {
-        icon: <Help />,
-        label: "Help",
-        onClick: () => {},
-      },
-    ];
-
     if (args.displayType === AppShellDisplayType.SideNav) {
       return (
         <div className="rds-appshell-side-nav-layout d-flex flex-row align-items-stretch w-100">
@@ -249,8 +274,8 @@ const AppShellStory = (args: any) => {
           <div className="rds-appshell-side-nav-left">
             <BrowserRouter>
               <RdsSidebar
-                avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                avatarCollapsedSrc={STORY_LOGO_URL}
+                avatarSrc={STORY_AVATAR_URL}
                 isOpen
                 items={sidebarItems}
                 variant="permanent"
@@ -264,8 +289,8 @@ const AppShellStory = (args: any) => {
             <div className="rds-story-side-nav-right-content" id="side-nav-icon-list">
               <BrowserRouter>
                 <RdsSidebar
-                  avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                  avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                avatarCollapsedSrc={STORY_LOGO_URL}
+                avatarSrc={STORY_AVATAR_URL}
                   isOpen
                   items={sidebarItems}
                   variant="permanent"
@@ -287,8 +312,8 @@ const AppShellStory = (args: any) => {
           <div className="rds-story-double-nav-content">
             <BrowserRouter>
               <RdsSidebar
-                avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                avatarCollapsedSrc={STORY_LOGO_URL}
+                avatarSrc={STORY_AVATAR_URL}
                 isOpen
                 items={sidebarItems}
                 variant="permanent"
@@ -297,8 +322,8 @@ const AppShellStory = (args: any) => {
                 anchor="left"
               />
               <RdsSidebar
-                avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                avatarCollapsedSrc={STORY_LOGO_URL}
+                avatarSrc={STORY_AVATAR_URL}
                 isOpen
                 items={sidebarItems}
                 variant="permanent"
@@ -326,8 +351,8 @@ const AppShellStory = (args: any) => {
         <div className="tripane-sidebar rds-story-tripane-layout">
           <div>
             <RdsSidebar
-              avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-              avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                avatarCollapsedSrc={STORY_LOGO_URL}
+                avatarSrc={STORY_AVATAR_URL}
               isOpen
               items={sidebarItems}
               variant="permanent"
@@ -353,8 +378,8 @@ const AppShellStory = (args: any) => {
     return (
       <BrowserRouter>
         <RdsSidebar
-          avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-          avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+          avatarCollapsedSrc={STORY_LOGO_URL}
+          avatarSrc={STORY_AVATAR_URL}
           isOpen
           items={sidebarItems}
           variant="permanent"
@@ -405,37 +430,10 @@ const AppShellStory = (args: any) => {
             <div className="rds-story-relaxing-sidebar">
               <BrowserRouter>
                 <RdsSidebar
-                  avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                  avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                avatarCollapsedSrc={STORY_LOGO_URL}
+                avatarSrc={STORY_AVATAR_URL}
                   isOpen
-                  items={[
-                    {
-                      icon: <Home />,
-                      label: "Home",
-                      onClick: () => {},
-                    },
-                    {
-                      active: true,
-                      icon: <Dashboard />,
-                      label: "Dashboard",
-                      onClick: () => {},
-                    },
-                    {
-                      icon: <Person />,
-                      label: "Profile",
-                      onClick: () => {},
-                    },
-                    {
-                      icon: <Settings />,
-                      label: "Settings",
-                      onClick: () => {},
-                    },
-                    {
-                      icon: <Help />,
-                      label: "Help",
-                      onClick: () => {},
-                    },
-                  ]}
+                  items={sidebarItems}
                   variant="permanent"
                   layout="raaghu"
                 />
@@ -486,117 +484,7 @@ const AppShellStory = (args: any) => {
           
           {/* Add bottom navigation for DoubleNav and TriPane */}
           {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && !mobileSidebarOpen && !mobileToolbarOpen && (
-            <div className="rds-footer-navigation MuiBottomNavigation-root">
-              <div style={{ 
-                display: 'flex', 
-                width: '100%', 
-                justifyContent: 'space-around', 
-                alignItems: 'center', 
-                padding: '0', 
-                height: '56px'
-              }}>
-                <button 
-                  data-active={selectedTab === 0}
-                  style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    padding: '8px 4px', 
-                    cursor: 'pointer',
-                    flex: 1,
-                    textAlign: 'center',
-                    fontSize: '11px',
-                    fontWeight: selectedTab === 0 ? '600' : '400',
-                    color: selectedTab === 0 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
-                    minWidth: 0,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                  onClick={() => handleTabChange(0)}
-                >
-                  HOME
-                </button>
-                <button 
-                  data-active={selectedTab === 1}
-                  style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    padding: '8px 4px', 
-                    cursor: 'pointer',
-                    flex: 1,
-                    textAlign: 'center',
-                    fontSize: '11px',
-                    fontWeight: selectedTab === 1 ? '600' : '400',
-                    color: selectedTab === 1 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
-                    minWidth: 0,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                  onClick={() => handleTabChange(1)}
-                >
-                  NEWS
-                </button>
-                <button 
-                  data-active={selectedTab === 2}
-                  style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    padding: '8px 4px', 
-                    cursor: 'pointer',
-                    flex: 1,
-                    textAlign: 'center',
-                    fontSize: '11px',
-                    fontWeight: selectedTab === 2 ? '600' : '400',
-                    color: selectedTab === 2 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
-                    minWidth: 0,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                  onClick={() => handleTabChange(2)}
-                >
-                  MARKETPLACE
-                </button>
-                <button 
-                  data-active={selectedTab === 3}
-                  style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    padding: '8px 4px', 
-                    cursor: 'pointer',
-                    flex: 1,
-                    textAlign: 'center',
-                    fontSize: '11px',
-                    fontWeight: selectedTab === 3 ? '600' : '400',
-                    color: selectedTab === 3 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
-                    minWidth: 0,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                  onClick={() => handleTabChange(3)}
-                >
-                  JOBS
-                </button>
-              </div>
-            </div>
+            <AppShellBottomNav selectedTab={selectedTab} onTabChange={handleTabChange} />
           )}
         </>
       );
@@ -621,7 +509,7 @@ const AppShellStory = (args: any) => {
       displayType={args.displayType}
       mobileSidebarOpen={mobileSidebarOpen}
       onMobileSidebarToggle={handleMobileSidebarToggle}
-      topbar={args.displayType !== AppShellDisplayType.SideNav ? renderTopbar() : renderTopbar()}
+      topbar={renderTopbar()}
       sidebar={args.displayType !== AppShellDisplayType.TopNav ? renderSidebar() : undefined}
       children={renderChildren()}
     />

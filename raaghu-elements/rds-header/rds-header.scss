@@ -7,7 +7,7 @@
 }
 
 .rds-header--primary {
-  background: var(--rds-color-primary) !important;
+  background-color: var(--rds-color-primary) !important;
   color: var(--rds-color-on-primary) !important;
   .rds-header__title,
   .rds-header__actions,
@@ -15,7 +15,7 @@
     color: var(--rds-color-on-primary) !important;
   }
   .rds-header__search {
-    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+    background-color: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
     color: var(--rds-color-on-primary);
     border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
     input {
@@ -26,13 +26,13 @@
     color: var(--rds-color-on-primary);
     &.Mui-selected {
       color: var(--rds-color-primary);
-      background: var(--rds-color-surface);
+      background-color: var(--rds-color-surface);
     }
   }
 }
 
 .rds-header--secondary {
-  background: var(--rds-color-secondary) !important;
+  background-color: var(--rds-color-secondary) !important;
   color: var(--rds-color-on-secondary) !important;
   .rds-header__title,
   .rds-header__actions,
@@ -40,7 +40,7 @@
     color: var(--rds-color-on-secondary) !important;
   }
   .rds-header__search {
-    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+    background-color: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
     color: var(--rds-color-on-secondary);
     border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
     input {
@@ -51,7 +51,7 @@
     color: var(--rds-color-on-secondary);
     &.Mui-selected {
       color: var(--rds-color-secondary);
-      background: var(--rds-color-surface);
+      background-color: var(--rds-color-surface);
     }
   }
 }
@@ -64,7 +64,7 @@
   --rds-header-focus-ring-offset: 2px;
   display: flex;
   flex-direction: column;
-  background: var(--rds-color-surface);
+  background-color: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
   border-bottom: 1px solid var(--rds-color-border);
   box-shadow: var(--rds-elevation-1, 0 2px 8px 0 rgba(60,60,60,0.03));
@@ -80,7 +80,7 @@
     padding-left: var(--rds-spacing-xl, 32px);
     padding-right: var(--rds-spacing-xl, 32px);
     gap: var(--rds-spacing-lg, 24px);
-    background: transparent;
+    background-color: transparent;
     position: relative;
   }
 
@@ -111,7 +111,7 @@
   &__search {
     min-width: var(--rds-header-search-width, 220px);
     color: var(--rds-color-on-surface);
-    background: var(--rds-color-surface-alt);
+    background-color: var(--rds-color-surface-alt);
     padding: 0 var(--rds-spacing-sm, 12px);
     border-radius: var(--rds-border-radius, 6px);
     font-size: var(--rds-font-size-body, 15px);
@@ -126,7 +126,7 @@
       outline-offset: var(--rds-header-focus-ring-offset, 2px);
     }
     input {
-      background: transparent;
+      background-color: transparent;
       border: none;
       outline: none;
       width: 100%;
@@ -148,7 +148,7 @@
     border-bottom: none;
     .MuiTabs-indicator {
       height: 2px;
-      background: var(--rds-color-primary);
+      background-color: var(--rds-color-primary);
       border-radius: var(--rds-border-radius-xs) 2px 0 0;
     }
     .MuiTabs-flexContainer {
@@ -164,14 +164,14 @@
       border-bottom: none;
       &.Mui-selected {
         color: var(--rds-color-primary);
-        background: var(--rds-color-surface);
+        background-color: var(--rds-color-surface);
         box-shadow: none;
       }
     }
   }
 
   &__sub-header {
-    background: var(--rds-color-surface-alt);
+    background-color: var(--rds-color-surface-alt);
     padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-xl, 32px);
     border-top: 1px solid var(--rds-color-border);
     font-size: var(--rds-font-size-body, 15px);

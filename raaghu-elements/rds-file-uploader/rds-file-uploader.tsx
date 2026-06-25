@@ -1,14 +1,8 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
 import './rds-file-uploader.scss';
 import RdsFileUploaderStandardView from './RdsFileUploaderStandardView';
-import { 
-  RdsDropZoneSideIcon, 
-  RdsDropZoneWithButton, 
-  RdsDropZoneDefault, 
-  RdsFileList,
-  useFileUploader
-} from './RdsFileUploaderComponents';
+import { useFileUploader } from './RdsFileUploaderComponents';
+import { DefaultModeView } from './rds-file-uploader.helpers';
 
 export interface FileWithProgress {
   file: File;
@@ -22,7 +16,7 @@ export interface RdsFileUploaderProps {
   accept?: string;
   title?: string;
   multiple?: boolean;
-  maxSize?: number; // in bytes
+  maxSize?: number;
   maxFiles?: number;
   disabled?: boolean;
   showPreview?: boolean;
@@ -44,7 +38,7 @@ const RdsFileUploader = ({
   onUpload,
   accept,
   multiple = false,
-  maxSize = 10 * 1024 * 1024, // 10MB default
+  maxSize = 10 * 1024 * 1024,
   maxFiles = 5,
   disabled = false,
   showPreview = true,
@@ -54,28 +48,11 @@ const RdsFileUploader = ({
   showHint = false,
   hintText = '',
   placeholderImage = '',
-  state = 'default',
   mode = 'standard',
   style,
   children,
 }: RdsFileUploaderProps) => {
-  const {
-    files,
-    isDragOver,
-    isUploading,
-    mandatoryError,
-    selectedFileName,
-    fileInputRef,
-    formatFileSize,
-    removeFile,
-    handleFileSelect,
-    handleDragOver,
-    handleDragLeave,
-    handleDrop,
-    openFileDialog,
-    setSelectedFileName,
-    setFiles,
-  } = useFileUploader({
+  const uploader = useFileUploader({
     maxSize,
     maxFiles,
     isMandatory,
@@ -83,111 +60,58 @@ const RdsFileUploader = ({
     onUpload,
   });
 
+  if (mode === 'standard') {
+    return (
+      <RdsFileUploaderStandardView
+        showTitle={showTitle}
+        isMandatory={isMandatory}
+        mandatoryError={uploader.mandatoryError}
+        showHint={showHint}
+        hintText={hintText}
+        disabled={disabled}
+        dragAndDrop={dragAndDrop}
+        isDragOver={uploader.isDragOver}
+        multiple={multiple}
+        showPreview={showPreview}
+        selectedFileName={uploader.selectedFileName}
+        handleFileSelect={uploader.handleFileSelect}
+        setSelectedFileName={uploader.setSelectedFileName}
+        setFiles={uploader.setFiles}
+        onFilesChange={onFilesChange}
+        title={title}
+      >
+        {children}
+      </RdsFileUploaderStandardView>
+    );
+  }
+
   return (
-    <>
-      {mode === 'standard' ? (
-        <RdsFileUploaderStandardView
-          showTitle={showTitle}
-          isMandatory={isMandatory}
-          mandatoryError={mandatoryError}
-          showHint={showHint}
-          hintText={hintText}
-          disabled={disabled}
-          dragAndDrop={dragAndDrop}
-          isDragOver={isDragOver}
-          multiple={multiple}
-          showPreview={showPreview}
-          selectedFileName={selectedFileName}
-          handleFileSelect={handleFileSelect}
-          setSelectedFileName={setSelectedFileName}
-          setFiles={setFiles}
-          onFilesChange={onFilesChange}
-          children={children}
-          title={title}
-        />
-      ) : (
-        <Box className={`rds-file-uploader rds-file-uploader--mode-${mode}`}>
-          {showTitle && (
-            <Typography className="rds-file-uploader__form-title" variant="subtitle1">
-              {title || 'File Upload'}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
-            </Typography>
-          )}
-
-          {placeholderImage && files.length === 0 && (
-            <Box sx={{ mb: 2, textAlign: 'center' }}>
-              <img className="rds-file-uploader__placeholder-img" src={placeholderImage} alt="placeholder" />
-            </Box>
-          )}
-
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept={accept}
-            multiple={multiple}
-            onChange={handleFileSelect}
-            style={{ display: 'none' }}
-            disabled={disabled}
-          />
-
-          {style === 'Drop Area - Side Icon' ? (
-            <RdsDropZoneSideIcon
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          ) : style === 'Drop Area - With Upload Button' ? (
-            <RdsDropZoneWithButton
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          ) : (
-            <RdsDropZoneDefault
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          )}
-
-          <Box className="rds-file-uploader__hint-row">
-            <Typography
-              variant="caption"
-              className={`rds-file-uploader__error-inline ${isMandatory && mandatoryError ? 'is-visible' : ''}`}
-            >
-              {mandatoryError || 'placeholder'}
-            </Typography>
-            <div className="rds-file-uploader__hint-wrapper">
-              <Typography
-                className={`rds-file-uploader__hint ${showHint ? '' : 'is-hidden'}`}
-                variant="caption"
-              >
-                {showHint ? (hintText || 'Maximum 5MB') : '\u00A0'}
-              </Typography>
-            </div>
-          </Box>
-          {showPreview && files.length > 0 && (
-            <RdsFileList
-              files={files}
-              isUploading={isUploading}
-              removeFile={removeFile}
-              formatFileSize={formatFileSize}
-            />
-          )}
-        </Box>
-      )}
-    </>
+    <DefaultModeView
+      mode={mode}
+      style={style}
+      showTitle={showTitle}
+      title={title}
+      isMandatory={isMandatory}
+      placeholderImage={placeholderImage}
+      files={uploader.files}
+      fileInputRef={uploader.fileInputRef}
+      accept={accept}
+      multiple={multiple}
+      disabled={disabled}
+      isDragOver={uploader.isDragOver}
+      isUploading={uploader.isUploading}
+      showHint={showHint}
+      hintText={hintText}
+      mandatoryError={uploader.mandatoryError}
+      showPreview={showPreview}
+      handleFileSelect={uploader.handleFileSelect}
+      handleDragOver={uploader.handleDragOver}
+      handleDragLeave={uploader.handleDragLeave}
+      handleDrop={uploader.handleDrop}
+      openFileDialog={uploader.openFileDialog}
+      removeFile={uploader.removeFile}
+      formatFileSize={uploader.formatFileSize}
+    />
   );
 };
 
