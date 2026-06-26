@@ -30,6 +30,10 @@ const meta: Meta<typeof RdsFab> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    icon: { control: { disable: true }, table: { disable: true } },
+    label: { control: { disable: true }, table: { disable: true } },
+    children: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
   },
 };
 
