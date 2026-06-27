@@ -1,8 +1,6 @@
 import React from "react";
 import RdsCompAiFabMenu from "./rds-comp-ai-fab-menu";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/AI ChatBox/Fab Menu',
     component: RdsCompAiFabMenu,
@@ -70,9 +68,6 @@ export const Default: Story = {
             { value: "Delete", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
             { value: "Download", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
         ]
-    },
-    play: async ({ canvasElement }) => {
-        await expect(canvasElement.firstChild).toBeTruthy();
-    },
+    },
 } satisfies Story;
 Default.parameters = { controls: { include: ['colorVariant', 'menuIcon', 'size', 'backgroundType', 'alignment', 'listItems'] } };

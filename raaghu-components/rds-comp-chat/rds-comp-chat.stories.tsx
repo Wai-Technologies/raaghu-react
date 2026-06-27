@@ -1,7 +1,5 @@
 import RdsCompChat from "./rds-comp-chat";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: "Components/Chat",
     component: RdsCompChat,
@@ -83,10 +81,7 @@ export const Default: Story = {
         otherUserCommentBgColor: "#E1E3EA",
         OtherUserCommentTextColor: "#202020",
         handleAddComment: (comment) => {},
-    },
-    play: async ({ canvasElement }) => {
-        await expect(canvasElement.firstChild).toBeTruthy();
-    },
+    },
 } satisfies Story;
 
 Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };

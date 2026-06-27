@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { RdsButton, RdsIconButton } from "../../raaghu-elements";
+import { useChartThemeMode } from "../chart-utils";
 import {
   NotificationLayout,
   NotificationStyle,
@@ -9,6 +10,13 @@ import {
   NotificationItem,
   RdsCompNotificationProps,
 } from "./rds-comp-notification-types";
+
+const NOTIFICATION_DEFAULT_IMAGES = {
+  light:
+    "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
+  dark:
+    "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-darkmode.png",
+} as const;
 
 const CustomBellIcon: React.FC = () => (
   <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,6 +55,10 @@ export function NotificationCard({
   onDismiss,
   onAccept,
 }: NotificationCardProps) {
+  const themeMode = useChartThemeMode();
+  const defaultNotificationImage =
+    NOTIFICATION_DEFAULT_IMAGES[themeMode === "dark" ? "dark" : "light"];
+
   const handleSecondaryButtonClick = (event: React.SyntheticEvent) => {
     onDismiss(event, notification, index);
   };
@@ -70,7 +82,7 @@ export function NotificationCard({
         >
           <Box
             component="img"
-            src={notification.image || "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg"}
+            src={notification.image || defaultNotificationImage}
             alt="Notification"
             sx={{ width: 70, height: 70, objectFit: "contain" }}
           />
@@ -109,10 +121,7 @@ export function NotificationCard({
             <Box className="rds-comp-notification__image-container">
               <Box
                 component="img"
-                src={
-                  notification.image ||
-                  "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-                }
+                src={notification.image || defaultNotificationImage}
                 alt="Notification"
               />
             </Box>

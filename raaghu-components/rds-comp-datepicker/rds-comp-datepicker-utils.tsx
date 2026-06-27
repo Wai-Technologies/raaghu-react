@@ -104,7 +104,7 @@ const buildDatePickerProps = ({
     peekNextMonth: true,
     showMonthDropdown: props.datePickerStyleType === "Dropdown",
     showYearDropdown: props.datePickerStyleType === "Dropdown",
-    dropdownMode: "select",
+    dropdownMode: "scroll",
     dayClassName,
     ref: datePickerRef,
     renderCustomHeader: props.layout === "Multi Month" ? renderCustomHeader : undefined,
@@ -316,7 +316,7 @@ export const renderDatePickerTypeView = (
                             peekNextMonth={true}
                             showMonthDropdown={props.datePickerStyleType === "Dropdown"}
                             showYearDropdown={props.datePickerStyleType === "Dropdown"}
-                            dropdownMode="select"
+                            dropdownMode="scroll"
                             showPreviousMonths
                             monthsShown={props.layout === "Multi Month" ? 3 : 1}
                             dayClassName={dayClassName}

@@ -37,6 +37,7 @@ export interface RdsButtonDropdownProps {
   shape?: 'rectangle' | 'pill';
   rightIcon?: ReactNode;
   leftIcon?: ReactNode;
+  className?: string;
   [key: string]: unknown;
 }
 
@@ -53,6 +54,7 @@ const RdsButtonDropdown = ({
   styleType = 'primary',
   shape = 'rectangle',
   buttonState = 'default',
+  className,
   onChange,
   ...legacyProps
 }:RdsButtonDropdownProps) => {
@@ -131,6 +133,7 @@ const RdsButtonDropdown = ({
             styleType === 'secondary' ? 'filled' : 'outlined'
           }
           className={clsx(
+            className,
             styleType === 'secondary' && 'rds-button-dropdown--secondary',
             styleType === 'outline' && 'rds-button-dropdown__button',
             styleType === 'outline' && 'rds-button-dropdown--outline',

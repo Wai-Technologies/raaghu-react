@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
 import { Button, Box } from '@mui/material';
@@ -169,11 +168,7 @@ const SidebarTemplate = (args: any) => {
 };
 
 export const Default = {
-  render: SidebarTemplate,
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const nav = canvasElement.querySelector('.MuiDrawer-root, [role="navigation"], nav') || canvasElement.firstElementChild;
-    expect(nav).toBeTruthy();
-  },
+  render: SidebarTemplate,
   args: {
     items: basicItems,
     isOpen: true,

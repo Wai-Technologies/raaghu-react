@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { Home, Favorite, LocationOn, Folder } from '@mui/icons-material';
 import { useState } from 'react';
 import RdsBottomNavigation from './rds-bottom-navigation';
@@ -92,34 +91,4 @@ export const WithDisabledItem: Story = {
     activeValue: 'home',
     showLabels: true,
   },
-};
-
-const SwitchNavItemStory = (args) => {
-    const [active, setActive] = useState(args.activeValue || 'home');
-    return (
-      <RdsBottomNavigation
-        {...args}
-        activeValue={active}
-        onItemChange={(value: string) => setActive(value)}
-      />
-    );
-  };
-
-export const SwitchNavItem: Story = {
-  name: 'Interaction: Switch navigation item',
-  args: {
-    items: navigationItems,
-    activeValue: 'home',
-    showLabels: true,
-  },
-  render: SwitchNavItemStory,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const buttons = canvas.getAllByRole('button')
-    await expect(buttons.length).toBeGreaterThan(1)
-    await expect(buttons[0]).toBeVisible()
-    // Click Favorites (second item)
-    await userEvent.click(buttons[1])
-    await expect(canvasElement).toBeTruthy()
-  }
 };

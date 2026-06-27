@@ -21,9 +21,12 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
 }) => {
   const isOpen = open !== undefined ? open : loading;
 
-  const content = loading
-    ? (loadingComponent ?? <CircularProgress color="inherit" />)
-    : children;
+  const resolvedLoadingComponent =
+    loadingComponent != null && React.isValidElement(loadingComponent)
+      ? loadingComponent
+      : <CircularProgress color="inherit" />;
+
+  const content = loading ? resolvedLoadingComponent : children;
 
   const backdropClassName = `rds-backdrop ${className}`.trim();
 

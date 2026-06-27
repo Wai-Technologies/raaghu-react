@@ -117,15 +117,6 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
         : getEmojisByCategory(selectedCategory, selectedSkinTone);
     const displayEmojis = maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis;
 
-    const isFlagEmoji = (emoji: string) => {
-        return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(emoji);
-    };
-
-    const twemojiUrl = (emoji: string) => {
-        const codepoints = Array.from(emoji).map(c => c.codePointAt(0)!.toString(16)).join('-');
-        return `https://twemoji.maxcdn.com/v/latest/72x72/${codepoints}.png`;
-    };
-
     return (
     <Box ref={rootRef} className="rds-emoji-generator" {...props}>
             {Type === EmojiGeneratorType.Default && (
@@ -274,3 +265,21 @@ const RdsCompEmojiGenerator: React.FC<RdsCompEmojiGeneratorProps> = ({
 RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
 export default RdsCompEmojiGenerator;
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+
+function normalizeEmojiForTwemoji(emoji: string): string {
+    // Remove variation selectors Twemoji filenames omit (U+FE0F, U+FE0E).
+    return emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, '');
+}
+
+function isFlagEmoji(emoji: string): boolean {
+    const normalized = normalizeEmojiForTwemoji(emoji);
+    return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(normalized)
+        || /\u{1F3F4}/u.test(normalized)
+        || /\uE006/u.test(normalized);
+}
+
+function twemojiUrl(emoji: string): string {
+    const normalized = normalizeEmojiForTwemoji(emoji);
+    const codepoints = Array.from(normalized).map(c => c.codePointAt(0)!.toString(16)).join('-');
+    return `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/${codepoints}.png`;
+}

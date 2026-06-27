@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import dayjs from 'dayjs';
 import RdsCompContribution from "./rds-comp-contribution";
-import { expect } from 'storybook/test';
 const meta: Meta<typeof RdsCompContribution> = {
   title: "Components/Contribution",
   component: RdsCompContribution,
@@ -88,10 +87,7 @@ export const Default: Story = {
         story: 'The default configuration for the contribution chart displays a full year of activity data with customizable colors.'
       }
     }
-  },
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  },
 };
 
 

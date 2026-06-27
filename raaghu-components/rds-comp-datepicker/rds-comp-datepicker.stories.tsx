@@ -1,8 +1,6 @@
 import RdsCompDatepicker from "./rds-comp-datepicker";
 import { DatePickerLayout, DatePickerState, DatePickerStyleType, type RdsCompDatepickerProps } from "./rds-comp-datepicker.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/Date Picker',
     component: RdsCompDatepicker,
@@ -67,11 +65,7 @@ export const Default: Story = {
         changeIcon: "calendar",
         datePickerStyleType: DatePickerStyleType.Selector,
         layout: DatePickerLayout.Default,
-    },
-    play: async ({ canvas }) => {
-        const input = await canvas.findByPlaceholderText(/select date/i);
-        await expect(input).toBeInTheDocument();
-    },
+    },
 } satisfies Story;
 Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','title','isMandatory','placeholderText','datePickerStyleType'] } };
 

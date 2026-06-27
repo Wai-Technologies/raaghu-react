@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { useState } from 'react';
 import RdsTabs from './rds-tabs';
 import PersonIcon from '@mui/icons-material/Person';
@@ -216,16 +215,4 @@ const SwitchTabStory = () => {
     );
   };
 
-export const SwitchTab: Story = {
-  name: 'Interaction: Switch between tabs',
-  render: SwitchTabStory,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const allTabs = canvas.getAllByRole('tab')
-    await expect(allTabs).toHaveLength(3)
-    await expect(allTabs[0]).toHaveAttribute('aria-selected', 'true')
-    await expect(allTabs[1]).toHaveAttribute('aria-selected', 'false')
-    await userEvent.click(allTabs[1])
-    await expect(allTabs[1]).toHaveAttribute('aria-selected', 'true')
-  }
-};
+

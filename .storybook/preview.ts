@@ -3,8 +3,12 @@ import React from 'react';
 import { RaaghuThemeProvider } from '../raaghu-react-themes/src/provider/RaaghuThemeProvider';
 import '../raaghu-react-themes/src/styles/index.scss';
 import './custom-theme.css';
+import './storybook-theme-sync';
 
 const preview: Preview = {
+  initialGlobals: {
+    theme: 'system',
+  },
   globalTypes: {
     theme: {
       name: 'Theme',
@@ -24,6 +28,7 @@ const preview: Preview = {
   },
   parameters: {
     controls: {
+      exclude: ['component'],
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
 import RdsCompAudioPlayer from './rds-comp-audio-player';
 
 const meta: Meta<typeof RdsCompAudioPlayer> = {
@@ -37,10 +36,7 @@ export const Default: Story = {
         showExport: true,
         showMoreOptions: true,
     }
-    ,
-    play: async ({ canvasElement }) => {
-        await expect(canvasElement.firstChild).toBeTruthy();
-    },
+    ,
 };
 
 

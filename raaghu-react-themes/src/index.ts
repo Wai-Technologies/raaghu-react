@@ -32,9 +32,9 @@ export {
 
   initializeRaaghuTheme,
 
-  isDarkMode,
-
   resolveEffectiveMode,
+
+  isDarkMode,
 
   THEME_STORAGE_KEY,
 

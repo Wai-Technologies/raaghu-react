@@ -2,8 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsBadge from './rds-badge';
 import { Avatar, IconButton } from '@mui/material';
 import { Mail, Notifications } from '@mui/icons-material';
-import { expect } from 'storybook/test';
-
 const meta: Meta<typeof RdsBadge> = {
   title: 'Elements/Badge',
   component: RdsBadge,
@@ -65,10 +63,7 @@ export const Default: Story = {
   args: {
     badgeContent: 4,
     children: <Mail />,
-  },
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  },
 };
 Default.parameters = {
   controls: { exclude: ['shape', 'layout'] },

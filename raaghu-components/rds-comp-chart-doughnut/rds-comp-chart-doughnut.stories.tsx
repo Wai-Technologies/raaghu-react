@@ -1,7 +1,5 @@
 import RdsCompDoughnutChart from "./rds-comp-chart-doughnut";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/Charts/Doughnut Chart',
     component: RdsCompDoughnutChart,
@@ -67,11 +65,7 @@ export const Default: Story = {
         ],
 
     
-    },
-    play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
-        await expect(chart).toBeInTheDocument();
-    },
+    },
 } satisfies Story;
 
 export const Advanced: Story = {

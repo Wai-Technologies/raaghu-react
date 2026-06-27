@@ -337,6 +337,19 @@
     background-color: var(--rds-color-surface, #ffffff);
   }
   
+  /* Remove the default blue focus ring on inputs when clicked (mouse). 
+     Keepability for keyboard users can be added with :focus-visible if desired. */
+  &__hex-input,
+  &__color-input,
+  &__percent-input {
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  
   &__swatches {
     margin-top: var(--rds-spacing-sm);
     padding-top: var(--rds-spacing-12-px);

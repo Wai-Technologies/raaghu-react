@@ -107,6 +107,21 @@
 #offcanvas-btns .MuiButton-root {
   min-height: 36px;
   padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-md);
+  box-sizing: border-box;
+}
+
+#offcanvas-btns .rds-button.MuiButton-text:hover,
+#offcanvas-btns .rds-button.rds-button__text:hover {
+  background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+}
+
+#offcanvas-btns .rds-button.MuiButton-outlined:hover,
+#offcanvas-btns .rds-button.rds-button__secondary:hover {
+  background-color: transparent !important;
+}
+
+#offcanvas-btns .rds-button .MuiTouchRipple-root {
+  display: none;
 }
 .offcanvas-margin {
   display: flex;
@@ -122,6 +137,12 @@
 
 .offcanvas-action-btn {
   width: auto;
+}
+
+.offcanvas-tertiary-btn {
+  min-width: 0 !important;
+  width: auto !important;
+  text-align: left;
 }
 @media (max-width: 767px) {
   .MuiDrawer-paper {
@@ -154,88 +175,73 @@
     flex-wrap: nowrap;
     gap: var(--rds-spacing-xs);
     align-items: center;
-  }
-
-  .offcanvas-margin .me-2:first-child {
-    align-self: center;
-  }
-
-  .offcanvas-margin .me-2:nth-child(2) {
-    margin-right: var(--rds-spacing-12-px) !important;
-  }
-
-  .offcanvas-margin .me-2 {
-    margin-right: var(--rds-spacing-xxs) !important;
-    flex: 1;
-    min-width: 0;
-  }
-  
-  .offcanvas-margin .rds-button {
-    font-size: var(--rds-font-size-caption, 11px) !important;
-    padding: var(--rds-spacing-tight) var(--rds-spacing-7);
-    width: 100% !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: auto !important;
-    max-width: none !important;
-    height: auto !important;
-    line-height: 1.2;
-  }
-  
-  .offcanvas-margin .rds-button span {
-    font-size: var(--rds-font-size-caption, 11px) !important;
-    display: inline-block;
-    white-space: nowrap;
-    line-height: 1.2;
+    justify-content: flex-end;
   }
 
   #offcanvas-btns {
     padding: 0 var(--rds-spacing-tight);
     display: flex;
     flex-wrap: nowrap;
-    gap: var(--rds-spacing-xs);
     align-items: center;
+    justify-content: flex-end;
+    gap: var(--rds-spacing-xs);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   #offcanvas-btns .tertiary-button-container,
   #offcanvas-btns .secondary-button-container,
   #offcanvas-btns .primary-button-container {
-    flex: 1;
+    flex: 0 0 auto;
     min-width: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    isolation: isolate;
   }
 
   #offcanvas-btns .tertiary-button-container {
-    margin-right: auto;
+    flex: 0 1 auto;
+    max-width: 38%;
+    margin-right: auto !important;
+    align-self: center;
   }
 
-  #offcanvas-btns .secondary-button-container {
-    margin-left: auto;
-    margin-right: var(--rds-spacing-xs);
-  }
-
+  #offcanvas-btns .secondary-button-container,
   #offcanvas-btns .primary-button-container {
-    margin-left: var(--rds-spacing-xs);
+    flex-shrink: 0;
   }
-  
-  #offcanvas-btns .rds-button {
-    font-size: var(--rds-font-size-caption, 11px) !important;
-    padding: var(--rds-spacing-tight) var(--rds-spacing-7);
-    width: 100% !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: auto !important;
-    max-width: none !important;
+
+  #offcanvas-btns .rds-button,
+  #offcanvas-btns .MuiButton-root {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100%;
     height: auto !important;
-    line-height: 1.2;
-  }
-  
-  #offcanvas-btns .rds-button span {
+    line-height: 1.15;
+    box-sizing: border-box;
     font-size: var(--rds-font-size-caption, 11px) !important;
-    display: inline-block;
+    padding: var(--rds-spacing-tight) var(--rds-spacing-7) !important;
     white-space: nowrap;
-    line-height: 1.2;
+  }
+
+  #offcanvas-btns .tertiary-button-container .rds-button,
+  #offcanvas-btns .tertiary-button-container .MuiButton-root {
+    white-space: normal !important;
+    text-align: left;
+    justify-content: flex-start;
+    align-self: flex-start;
+    padding: var(--rds-spacing-tight) var(--rds-spacing-xs) !important;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  #offcanvas-btns .rds-button span {
+    font-size: inherit !important;
+    display: inline;
+    white-space: inherit;
+    line-height: inherit;
   }
   #close-btn .rds-icon-button,
   #close-btn .MuiIconButton-root {
@@ -258,33 +264,59 @@
   #offcanvas-btns, .offcanvas-margin {
     display: flex;
     flex-wrap: nowrap;
-    gap: var(--rds-spacing-xs);
     align-items: center;
     justify-content: flex-end;
+    gap: var(--rds-spacing-xs);
     padding-left: var(--rds-spacing-md) !important;
-    padding-right: 0 !important;
+    padding-right: var(--rds-spacing-md) !important;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #offcanvas-btns .tertiary-button-container,
+  #offcanvas-btns .secondary-button-container,
+  #offcanvas-btns .primary-button-container {
+    flex: 0 0 auto;
+    min-width: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    isolation: isolate;
   }
 
   #offcanvas-btns .tertiary-button-container {
-    margin-right: auto;
+    flex: 0 1 auto;
+    max-width: 42%;
+    margin-right: auto !important;
+    align-self: center;
   }
 
-  #offcanvas-btns .secondary-button-container {
-    margin-left: auto;
-    margin-right: var(--rds-spacing-sm);
-  }
-
+  #offcanvas-btns .secondary-button-container,
   #offcanvas-btns .primary-button-container {
-    margin-left: var(--rds-spacing-xs);
+    flex-shrink: 0;
   }
 
-  #offcanvas-btns .rds-button {
+  #offcanvas-btns .rds-button,
+  #offcanvas-btns .MuiButton-root {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100%;
     font-size: var(--rds-font-size-sm) !important;
     padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm) !important;
-    width: 100% !important;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    height: auto !important;
+    line-height: 1.15;
+    box-sizing: border-box;
+  }
+
+  #offcanvas-btns .tertiary-button-container .rds-button,
+  #offcanvas-btns .tertiary-button-container .MuiButton-root {
+    white-space: normal !important;
+    text-align: left;
+    justify-content: flex-start;
+    word-break: break-word;
+    padding: var(--rds-spacing-tight) var(--rds-spacing-xs) !important;
   }
 
   #close-btn .rds-icon-button, #close-btn .MuiIconButton-root {

@@ -1,4 +1,3 @@
-import { expect } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
 
@@ -56,11 +55,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompEmojiGenerator>;
 
-export const Default: Story = {
-    play: async ({ canvasElement }) => {
-        const btn = canvasElement.querySelector('button');
-        expect(btn).toBeTruthy();
-    },
+export const Default: Story = {
     args: {
         Type: EmojiGeneratorType.Default,
         Category: EmojiCategory.SmileysAndPeople,

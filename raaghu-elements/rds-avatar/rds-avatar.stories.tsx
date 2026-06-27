@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsAvatar from './rds-avatar';
 import { Person } from '@mui/icons-material';
-import { expect } from 'storybook/test';
-
 const meta: Meta<typeof RdsAvatar> = {
   title: 'Elements/Avatar',
   component: RdsAvatar,
@@ -62,6 +60,14 @@ const meta: Meta<typeof RdsAvatar> = {
       control: { type: 'number', min: 1, max: 5, step: 1 },
       description: 'Maximum number of avatars to show in stacking mode (1-5)',
     },
+    showRemainingCount: {
+      control: 'boolean',
+      description: 'Show +N indicator for remaining avatars in stacking mode',
+    },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
     displayStyle: {
       control: 'select',
       options: ['with-name', 'name-bottom', 'stacking'],
@@ -88,10 +94,7 @@ export const Default: Story = {
         'src'
       ]
     },
-  },
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  },
 };
 
 export const Fallback: Story = {

@@ -6,13 +6,14 @@
   --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width, 190px);
   --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width, 60px);
   --ai-typing-action-button-min-width: var(--rds-ai-typing-action-button-min-width, 140px);
+  --ai-typing-toolbar-control-height: var(--rds-ai-typing-toolbar-control-height, 40px);
   --ai-typing-fab-left-offset: var(--rds-ai-typing-fab-left-offset, -129px);
   --ai-typing-margin-right: var(--rds-ai-typing-action-button-margin-right, 5px);
   
   &__input-wrapper {
     border-radius: var(--rds-border-radius, 5px);
     border: 1px solid var(--rds-color-border);
-    background-color: var(--rds-color-surface);
+    background: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2, 0px 0px 12px 0px rgba(0, 0, 0, 0.18));
     padding: var(--rds-spacing-md, 12px);
     position: relative;
@@ -163,6 +164,13 @@
     flex: 0 0 auto;
     min-width: 0;
 
+      .rds-button,
+      .MuiButton-root,
+      .MuiButtonBase-root {
+        min-height: var(--ai-typing-toolbar-control-height) !important;
+        height: var(--ai-typing-toolbar-control-height) !important;
+      }
+
     & > * {
       white-space: nowrap;
       overflow: hidden;
@@ -222,6 +230,13 @@
     flex: 1 1 auto;
     max-width: var(--ai-typing-autocomplete-max-width, 60px);
     min-width: var(--ai-typing-autocomplete-min-width);
+
+      .MuiInputBase-root,
+      .MuiOutlinedInput-root {
+        min-height: var(--ai-typing-toolbar-control-height);
+        height: var(--ai-typing-toolbar-control-height);
+        box-sizing: border-box;
+      }
   }
   
   @media (min-width: 376px) {
@@ -248,34 +263,81 @@
 
   @media (min-width: 376px) and (max-width: 767px) {
     &__button-sections {
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      align-items: flex-start;
       gap: var(--rds-spacing-xs, 6px);
       margin-top: var(--rds-spacing-sm, 8px);
       margin-bottom: var(--rds-spacing-xs, 4px);
     }
 
     &__project-actions {
-      width: 100%;
+      width: auto;
+      flex: 1 1 auto;
       flex-wrap: nowrap;
       gap: var(--rds-spacing-xs, 6px);
       justify-content: flex-start;
+      min-width: 0;
+      align-items: center;
     }
 
     &__action-button {
-      flex: 1 1 0;
+      flex: 1 1 auto;
       min-width: 0;
       margin-right: 0;
 
       & > * {
-        overflow: visible;
+        overflow: hidden;
         width: 100%;
+        text-overflow: ellipsis;
       }
     }
 
     &__autocomplete {
-      flex-basis: 100%;
-      order: 3;
-      margin-top: var(--rds-spacing-xs, 6px);
+      flex: 0 1 170px;
+      min-width: 140px;
+      max-width: 190px;
+      order: initial;
+      margin-top: 0;
+      align-self: flex-start;
+    }
+  }
+
+  /* Keep the three bottom controls (two buttons + autocomplete) in one row on tablets. */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    &__button-sections {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--rds-spacing-sm, 10px);
+    }
+
+    &__project-actions {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: var(--rds-spacing-sm, 10px);
+      min-width: 0;
+    }
+
+    &__action-button {
+      display: flex;
+      align-items: center;
+      flex: 0 1 auto;
+      min-width: 0;
+
+      .rds-button,
+      .MuiButton-root {
+        margin: 0 !important;
+      }
+    }
+
+    &__autocomplete {
+      align-self: flex-start;
+      flex: 1 1 auto;
+      min-width: 190px;
+      max-width: 260px;
+      margin: 0;
     }
   }
 

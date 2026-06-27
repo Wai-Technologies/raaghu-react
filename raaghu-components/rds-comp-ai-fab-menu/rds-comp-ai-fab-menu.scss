@@ -141,13 +141,16 @@
         border-radius: 0 !important; 
       }
 
-      &:focus {
+      /* Remove visible focus ring for 'none' background buttons (click/focus) to avoid the blue square.
+         Keep focus-visible for keyboard accessibility handled elsewhere if needed. */
+      &:focus,
+      &:focus-visible {
         background-color: transparent !important;
-        outline: 2px solid var(--rds-color-primary);
-        outline-offset: 2px;
-        opacity: 0.9;
+        outline: none !important;
+        outline-offset: 0 !important;
         box-shadow: none !important;
-        border-radius: 0 !important; 
+        opacity: 0.95;
+        border-radius: 0 !important;
       }
 
       &:active {

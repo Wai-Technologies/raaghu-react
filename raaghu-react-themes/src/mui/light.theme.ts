@@ -10,11 +10,11 @@ import { lightMuiPalette } from './palette';
 export const lightTheme = createTheme({
   breakpoints: {
     values: {
-      xs: Number.parseInt(breakpointTokens.xs, 10),
-      sm: Number.parseInt(breakpointTokens.sm, 10),
-      md: Number.parseInt(breakpointTokens.md, 10),
-      lg: Number.parseInt(breakpointTokens.lg, 10),
-      xl: Number.parseInt(breakpointTokens.xl, 10),
+      xs: parseInt(breakpointTokens.xs, 10),
+      sm: parseInt(breakpointTokens.sm, 10),
+      md: parseInt(breakpointTokens.md, 10),
+      lg: parseInt(breakpointTokens.lg, 10),
+      xl: parseInt(breakpointTokens.xl, 10),
     },
   },
 
@@ -40,7 +40,7 @@ export const lightTheme = createTheme({
 
   shape: {
     // radiusTokens.base = '0.25rem' = 4px — matches --rds-border-radius-sm in build-rds-css-vars.ts
-    borderRadius: Number.parseFloat(radiusTokens.base) * 16,
+    borderRadius: parseFloat(radiusTokens.base) * 16,
   },
 
   shadows: [
@@ -61,5 +61,3 @@ export const lightTheme = createTheme({
 
   components: designSystemComponentOverrides,
 });
-
-export default lightTheme;

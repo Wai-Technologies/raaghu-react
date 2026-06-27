@@ -123,7 +123,7 @@
     display: flex;
     align-items: center;
     gap: calc(var(--rds-spacing-xs, 4px) + 1px);
-    background-color: none;
+    background: none;
     box-shadow: none;
   }
   &--name-bottom {
@@ -131,7 +131,7 @@
     flex-direction: column;
     align-items: center;
     gap: var(--rds-spacing-xs, 4px);
-    background-color: none;
+    background: none;
     box-shadow: none;
     .rds-avatar__avatar-outer,
     .rds-avatar__avatar-wrap {
@@ -206,14 +206,17 @@
     align-items: center;
     position: relative;
     height: auto;
-    min-width: 0;
+    flex-shrink: 0;
+    min-width: fit-content;
+    background: none;
+    box-shadow: none;
   }
 
   &__stacking-avatar {
     box-shadow: 0 0 0 2px var(--rds-color-on-primary);
     transition: box-shadow var(--rds-transition-base);
-    position: absolute;
-    top: 0;
+    position: relative;
+    flex-shrink: 0;
     background-color: var(--rds-background-paper);
   }
 

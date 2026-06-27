@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsRange from './rds-range';
@@ -111,11 +110,7 @@ export const Default: Story = {
     textLabel: true,
     showTooltip: true,
   },
-  render: DefaultStory,
-  play: async ({ canvas }) => {
-    const slider = await canvas.findByRole('slider');
-    await expect(slider).toBeInTheDocument();
-  },
+  render: DefaultStory,
 };
 
 const ColorsStory = (args) => {

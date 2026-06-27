@@ -346,8 +346,13 @@
       color: var(--rds-primary-main) !important;
     }
 
-    .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-primary-main) !important;
+    }
+
+    .MuiOutlinedInput-root.Mui-focused {
+      box-shadow: none !important;
     }
   }
 
@@ -372,6 +377,10 @@
 
   .MuiOutlinedInput-notchedOutline legend {
     font-size: var(--rds-font-size-sm) !important;
+  }
+
+  .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    box-shadow: none !important;
   }
 
   .MuiFormHelperText-root {
@@ -419,19 +428,61 @@
       visibility: hidden !important;
       border: 0 !important;
     }
-    overflow: hidden; 
+    overflow: hidden;
+  }
+
+  .MuiFormControl-root {
+    display: grid;
+    grid-template-rows: auto auto;
+    position: relative;
+    width: 100%;
+  }
+
+  .MuiOutlinedInput-root {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .MuiFormHelperText-root {
+    grid-row: 2;
+    grid-column: 1;
   }
 
   .MuiInputLabel-root {
     background: var(--rds-background-paper) !important;
     padding: 0 0.25rem !important;
-    // Center the label vertically using MUI's transform-based positioning
-    // MUI outlined small default is translate(14px, 9px) — keep that as-is
-    top: 0 !important;
+    line-height: 1 !important;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
+    grid-row: 1;
+    grid-column: 1;
+    position: relative !important;
+    align-self: center;
+    justify-self: start;
+    top: auto !important;
+    left: auto !important;
+    margin: 0 !important;
+    width: max-content;
+    transform: translateX(calc(var(--rds-spacing-sm) + var(--rds-input-border-width-thin))) !important;
+    transform-origin: left center !important;
   }
 
   .MuiInputLabel-root.MuiInputLabel-shrink {
+    position: absolute !important;
+    grid-row: 1;
+    grid-column: 1;
     top: 0 !important;
-    transform: translate(0.5rem, -0.6rem) scale(0.85) !important;
+    left: 0 !important;
+    align-self: start;
+    transform: translate(calc(var(--rds-spacing-sm) - 0.25rem), -50%) scale(0.85) !important;
+    transform-origin: left center !important;
+    z-index: 2;
+  }
+
+  &.rds-input--large .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
+    transform: translateX(calc(var(--rds-spacing-md) - (var(--rds-input-border-width-thick) / 2))) !important;
   }
 }

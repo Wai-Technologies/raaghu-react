@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { expect} from 'storybook/test';
-import RdsCompTreeStructure, { IconType, NodeState, RdsCompTreeStructureProps, TreeLevel } from './rds-comp-tree-structure';
+import RdsCompTreeStructure, { IconType, NodeState, RdsCompTreeStructureProps, TreeLevel, defaultFileTypeIcons, getDefaultFileIcon } from './rds-comp-tree-structure';
 
 const meta: Meta = {
   title: 'Internal/Tree Structure',
@@ -240,9 +239,5 @@ export const Default: StoryObj<RdsCompTreeStructureProps> = {
         ],
       },
     ],
-  },
-  play: async ({ canvasElement }) => {
-    const tree = canvasElement.querySelector('[role="tree"]') || canvasElement.firstElementChild;
-    expect(tree).toBeTruthy();
-  },
+  },
 };

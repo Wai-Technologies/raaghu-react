@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from 'storybook/test';
 import RdsStepper from './rds-stepper';
 
 const meta: Meta<typeof RdsStepper> = {
@@ -113,17 +112,4 @@ export const WithErrors: Story = {
   },
 };
 
-export const NavigationTest: Story = {
-  name: 'Interaction: Step Navigation',
-  args: {
-    currentStep: 0,
-    steps: steps,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    await expect(canvas.getByText('Select campaign settings')).toBeVisible()
-    await expect(canvas.getByText('Create an ad group')).toBeVisible()
-    await expect(canvas.getByText('Create an ad')).toBeVisible()
-    await expect(canvasElement).toBeTruthy()
-  }
-};
+

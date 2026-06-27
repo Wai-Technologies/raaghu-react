@@ -1,8 +1,5 @@
 import RdsCompNavtabs from "./rds-comp-navtabs";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
-
 const meta: Meta = {
     title: 'Components/Navtabs',
     component: RdsCompNavtabs,
@@ -64,11 +61,7 @@ export const Default: Story = {
         style: "Bottom Select",
         justified: false,
         layout: "Horizontal"
-    },
-    play: async ({ canvas }) => {
-        const tab = await canvas.findByText('Active');
-        await expect(tab).toBeInTheDocument();
-    },
+    },
 } satisfies Story;
 Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
 

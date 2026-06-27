@@ -200,24 +200,20 @@
   }
 }
 
-/* Dark-theme SVG/background fixes so the map doesn't render a white inner canvas */
-body[data-theme="dark"], html[data-theme="dark"], .theme-dark, .sb-show-main[data-theme="dark"],
-.rds-theme--dark, body.theme-dark, .dark-theme {
+/* Dark-theme background fixes for react-svg-worldmap figure wrapper */
+[data-theme="dark"],
+html.theme-dark,
+body.theme-dark,
+.rds-theme--dark {
   .rds-comp-map {
     background-color: var(--rds-bg, transparent) !important;
 
-    svg {
-      background-color: var(--rds-color-surface-dark, #1f1f1f) !important;
+    .worldmap__figure-container {
+      background-color: var(--rds-background-surface, #424242) !important;
     }
 
-    /* Some world map implementations render a rect or a white group; ensure it's dark */
-    svg rect, svg > rect, svg g rect {
-      fill: var(--rds-color-surface-dark, #1f1f1f) !important;
-    }
-
-    /* Make label and surrounding areas adapt to dark theme */
     &__label {
-      color: var(--rds-color-on-surface-dark, #e6e6e6);
+      color: var(--rds-text-primary, #e6e6e6);
     }
   }
 }

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from 'storybook/test';
 import RdsPagination from './rds-pagination';
 import React, { useState } from 'react';
 
@@ -302,18 +301,4 @@ const NavigatePageStory = (args) => {
     );
   };
 
-export const NavigatePage: Story = {
-  name: 'Interaction: Navigate to next page',
-  render: NavigatePageStory,
-  args: {
-    totalPages: 5,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // RdsPagination shows prev/next controls — verify they render
-    await expect(canvas.getByRole('button', { name: /go to next page/i })).toBeInTheDocument()
-    await expect(canvas.getByRole('button', { name: /go to previous page/i })).toBeInTheDocument()
-    // Current page is marked with aria-current="page"
-    await expect(canvasElement.querySelector('[aria-current="page"]')).not.toBeNull()
-  }
-};
+

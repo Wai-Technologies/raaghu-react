@@ -45,12 +45,34 @@
     margin-left: var(--rds-spacing-lg, 20px);
   }
   
-  // Chevron icon
+  // Chevron icon (plain arrow, no boxed border)
   &__chevron {
-    margin-top: var(--rds-spacing-sm, 2px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 2px 6px;
     cursor: pointer;
-    transition: transform var(--rds-transition-duration-short, 0.2s) ease;
-    
+    transition: transform var(--rds-transition-duration-short, 0.2s) ease, color 0.12s ease;
+    color: var(--rds-text-secondary);
+    background: transparent;
+    border: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    line-height: 0;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    &:hover {
+      color: var(--rds-text-primary);
+    }
+
     &--expanded {
       transform: rotate(90deg);
     }
@@ -66,12 +88,16 @@
   
   // Icons
   &__icon {
-    margin-right: var(--rds-spacing-xs, 4px);
-    margin-top: var(--rds-spacing-sm, 2px);
+    margin-right: var(--rds-spacing-xs, 8px);
+    margin-top: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
     
     &--folder {
       color: var(--rds-warning-main);
-      margin-top: var(--rds-spacing-sm, 2px);
+      margin-top: 0;
 
       svg,
       svg * {
@@ -110,22 +136,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--rds-primary-main);
-    border-radius: var(--rds-border-radius-xs, 3px);
-    padding: var(--rds-spacing-xs, 8px);
-    transition: all var(--rds-transition-duration-short, 0.3s) ease;
+    border: 0;
+    border-radius: 6px;
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+    transition: background-color var(--rds-transition-duration-short, 0.15s) ease, color 0.15s ease;
     cursor: pointer;
-    background-color: transparent;
-    color: var(--rds-primary-main);
-    
+    background: transparent;
+    color: var(--rds-text-secondary);
+
     svg {
-      width: var(--rds-size-md);
-      height: var(--rds-size-md);
+      width: 16px;
+      height: 16px;
       color: inherit;
     }
-    
+
     &:hover {
-      background-color: var(--rds-primary-main);
+      background-color: var(--rds-surface-hover, rgba(0,0,0,0.04));
       color: var(--rds-text-primary);
     }
   }

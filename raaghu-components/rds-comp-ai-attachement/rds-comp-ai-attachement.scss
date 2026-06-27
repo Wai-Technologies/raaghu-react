@@ -62,13 +62,20 @@
         padding-right: var(--rds-spacing-sm) !important;
     }
 
+    &__upload-row {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--rds-spacing-xs, 8px);
+        white-space: nowrap;
+    }
+
     &__file-input {
         display: none;
     }
 
     &__reset-btn {
         cursor: pointer;
-        background-color: none;
+        background: none;
         border: none;
         color: inherit;
         font: inherit;

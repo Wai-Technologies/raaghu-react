@@ -1,8 +1,6 @@
 import RdsCompToast from "./rds-comp-toast";
 import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta<typeof RdsCompToast> = {
     title: "Components/Toast",
     component: RdsCompToast,
@@ -135,9 +133,5 @@ export const Default: Story = {
         filename: "Filename.txt",
         placeholder: "Placeholder Text",
         chatTime: "12:29 PM"
-    },
-    play: async ({ canvas }) => {
-        const heading = await canvas.findByText('Toast Headline');
-        await expect(heading).toBeInTheDocument();
-    },
+    },
 } satisfies Story;

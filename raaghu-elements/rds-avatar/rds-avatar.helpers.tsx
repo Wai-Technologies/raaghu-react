@@ -105,11 +105,22 @@ export function StackingAvatarsView({
   const visibleAvatars = avatars.slice(0, maxVisibleAvatars);
   const remainingCount = Math.max(0, avatars.length - maxVisibleAvatars);
   const overlapOffset = overlapOffsets[size] ?? -22;
+  const avatarSize = sizeStyles[size].width;
+  const itemCount = visibleAvatars.length + (remainingCount > 0 && showRemainingCount ? 1 : 0);
+  const stackWidth =
+    itemCount > 0 ? avatarSize + Math.max(0, itemCount - 1) * (avatarSize + overlapOffset) : avatarSize;
 
   return (
     <div
-      className="rds-avatar__stacking avatar-container"
-      style={{ display: 'flex', alignItems: 'center', position: 'relative' }}
+      className={`rds-avatar rds-avatar--${size} rds-avatar__stacking avatar-container`}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
+        flexShrink: 0,
+        minHeight: avatarSize,
+        width: stackWidth,
+      }}
     >
       {visibleAvatars.map((avatar, idx) => (
         <MuiAvatar

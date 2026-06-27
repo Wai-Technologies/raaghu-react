@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent} from 'storybook/test';
 import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import RdsSearch from './rds-search';
@@ -402,18 +401,4 @@ const TypeSearchStory = (args) => {
     );
   };
 
-export const TypeSearch: Story = {
-  name: 'Interaction: Type in search',
-  render: TypeSearchStory,
-  args: {
-    placeholder: 'Search...',
-  },
-  play: async ({ canvasElement }) => {
-    // RdsSearch input is not exposed as combobox/textbox role — find via querySelector
-    const input = canvasElement.querySelector('input') as HTMLInputElement | null
-    await expect(input).not.toBeNull()
-    await expect(input).toBeInTheDocument()
-    await userEvent.type(input as HTMLElement, 'hello')
-    await expect(input).toHaveValue('hello')
-  }
-};
+

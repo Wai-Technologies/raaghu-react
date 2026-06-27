@@ -399,6 +399,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                       <RdsButtonDropdown
                         buttonText={btn1Label}
                         styleType="outline"
+                        size="medium"
+                        className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--activity"
                         options={activityDropdownOptions}
                         onChange={() => {}}
                         state="default"

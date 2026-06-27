@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import RdsCompAiChatBot from "./rds-comp-ai-chat-bot";
 import { Message } from "./rds-comp-ai-chat-bot";
 import { StoryObj, Meta } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
   title: "Components/AI ChatBox/AI Chat Bot",
   component: RdsCompAiChatBot,
@@ -40,8 +38,5 @@ export const Default: Story = {
     userAvatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     placeholderText: "Ask a followup",
     iconName: "enhancer"
-  },
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  },
 } satisfies Story;

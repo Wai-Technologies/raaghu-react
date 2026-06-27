@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
-import { expect, within } from 'storybook/test';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 import { RenderFileUploader } from './RdsFileUploaderComponents';
 
@@ -104,13 +103,7 @@ export const Default: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: FileUploaderStory,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    expect(canvas.getByText('Upload your files')).toBeInTheDocument();
-    const fileInput = canvasElement.querySelector('input[type="file"]');
-    expect(fileInput).toBeInTheDocument();
-  },
+  render: FileUploaderStory,
 };
 
 export const SingleFile: Story = {

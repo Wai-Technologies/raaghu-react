@@ -227,10 +227,11 @@
   }
 
   &__emoji-image {
-      width: var(--rds-size-xs, 22px);
-      height: var(--rds-size-xs, 22px);
-      display: inline-block;
-      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
   }
   
   &__category-title {

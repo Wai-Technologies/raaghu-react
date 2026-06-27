@@ -218,9 +218,12 @@
   }
   &__action-btn--activity {
     text-transform: lowercase;
-    padding-top: var(--rds-spacing-sm, 8px);
-    padding-bottom: var(--rds-spacing-sm, 8px);
-    min-height: var(--rds-component-button-height-small, 32px);
+    padding-top: var(--rds-spacing-xs, 4px) !important;
+    padding-bottom: var(--rds-spacing-xs, 4px) !important;
+    min-height: var(--rds-component-button-height-small, 32px) !important;
+    height: var(--rds-component-button-height-small, 32px) !important;
+    box-sizing: border-box !important;
+    line-height: 1 !important;
   }
   &__actions--activity-update {
     display: flex !important;
@@ -247,7 +250,13 @@
   }
   &__calendar-reminder-info-icon {
     font-size: var(--rds-font-size-2xl) !important;
-    margin-bottom: var(--rds-spacing-cozy) !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--rds-text-secondary) !important;
   }
   &__calendar-reminder-small-text {
@@ -332,16 +341,28 @@
   &__restaurant-order-form {
     margin-bottom: var(--rds-spacing-none, 0);
     gap: var(--rds-spacing-sm, 8px);
+
+    > .MuiStack-root {
+      width: fit-content;
+      max-width: 100%;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
   }
   &__restaurant-order-label {
     font-size: var(--rds-font-size-sm, 12px);
     display: flex;
     align-items: center;
+    width: auto;
   }
   &__restaurant-order-info-icon {
     font-size: var(--rds-font-size-2xl) !important;
     width: var(--rds-adaptive-cards-thumb-width, 20px) !important;
     height: 20px !important;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--rds-text-secondary) !important;
   }
   
@@ -710,6 +731,44 @@
   align-items: center !important;
   justify-content: center !important;
   vertical-align: middle !important;
+  min-height: var(--rds-component-button-height-small, 32px) !important;
+  height: var(--rds-component-button-height-small, 32px) !important;
+  padding-top: var(--rds-spacing-xs, 4px) !important;
+  padding-bottom: var(--rds-spacing-xs, 4px) !important;
+  box-sizing: border-box !important;
+  line-height: 1 !important;
+}
+
+.rds-adaptive-cards__actions--activity-update .rds-adaptive-cards__action-btn,
+.rds-adaptive-cards__actions--activity-update .rds-button,
+.rds-adaptive-cards__actions--activity-update .MuiButton-root {
+  min-height: var(--rds-component-button-height-small, 32px) !important;
+  height: var(--rds-component-button-height-small, 32px) !important;
+  padding-top: var(--rds-spacing-xs, 4px) !important;
+  padding-bottom: var(--rds-spacing-xs, 4px) !important;
+  box-sizing: border-box !important;
+  line-height: 1 !important;
+}
+
+.rds-adaptive-cards__calendar-reminder-select-form {
+  .MuiStack-root {
+    width: fit-content;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .rds-adaptive-cards__calendar-reminder-label {
+    margin-bottom: 0 !important;
+    font-weight: var(--rds-font-weight-medium, 500) !important;
+  }
+}
+
+.rds-adaptive-cards__calendar-reminder-info-icon.MuiSvgIcon-root,
+.rds-adaptive-cards__restaurant-order-info-icon.MuiSvgIcon-root {
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
 .rds-adaptive-cards__calendar-reminder-actions.rds-adaptive-cards__actions--input-form {

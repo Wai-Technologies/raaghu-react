@@ -85,18 +85,17 @@ const RdsInput = ({
 
   const pillClass = style === 'pill' ? 'rds-input--pill' : style === 'bottom outline' ? 'rds-input--bottom-outline' : '';
   
-  const active = (state === 'active') || (state === 'default' && isFocused);
+  const isFocusedDefault = state === 'default' && isFocused;
+  const active = state === 'active' || isFocusedDefault;
 
   let stateClass = '';
   if (state === 'error' || error) {
     stateClass = 'rds-input--error';
   } else if (state === 'disabled' || disabled) {
     stateClass = 'rds-input--disabled';
-  } else if (state === 'active') {
-    stateClass = 'rds-input--active';
-  } else if (state === 'selected') {
+  } else if (state === 'selected' || isFocusedDefault) {
     stateClass = 'rds-input--selected';
-  } else if (active) {
+  } else if (state === 'active') {
     stateClass = 'rds-input--active';
   }
 

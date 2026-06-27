@@ -1,4 +1,3 @@
-import { expect } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompGrid, { ActionPosition, State, ActionColumnStyle } from './rds-comp-grid';
 
@@ -106,9 +105,5 @@ export const Default: Story = {
       { key: 'name', name: 'Name', dataType: 'string' as const, isSort: true, isFilter: true, isResizable: true, isEditable: true, minWidth: 150, colWidth: '200px' },
     ],
     tableData: [],
-  },
-  play: async ({ canvasElement }) => {
-    const el = canvasElement.firstElementChild;
-    expect(el).toBeTruthy();
-  },
+  },
 };

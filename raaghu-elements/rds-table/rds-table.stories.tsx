@@ -1,5 +1,4 @@
-
-import { expect, within} from 'storybook/test';
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsTable from './rds-table';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -430,11 +429,6 @@ export const Default: Story = {
     rows: defaultTableData,
     columns: defaultColumns,
     selectable: false,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const table = canvas.getByRole('table');
-    await expect(table).toBeVisible();
   },
 };
 

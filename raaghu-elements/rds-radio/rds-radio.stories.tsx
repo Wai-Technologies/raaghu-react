@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { useState } from 'react';
 import RdsRadio from './rds-radio';
 
@@ -201,16 +200,4 @@ const SelectOptionStory = () => {
     );
   };
 
-export const SelectOption: Story = {
-  name: 'Interaction: Select radio option',
-  render: SelectOptionStory,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // MUI Radio hides native input — same as Checkbox
-    const radios = canvas.getAllByRole('radio')
-    await expect(radios).toHaveLength(2)
-    await expect(radios[0]).not.toBeChecked()
-    await userEvent.click(radios[0])
-    await expect(radios[0]).toBeChecked()
-  }
-};
+

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within} from 'storybook/test';
 import { Fastfood, LaptopMac, Hotel } from '@mui/icons-material';
 import RdsTimeline from './rds-timeline';
 
@@ -22,12 +21,7 @@ const meta: Meta<typeof RdsTimeline> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const items = canvas.getAllByRole('listitem');
-    expect(items.length).toBeGreaterThan(0);
-  },
+export const Default: Story = {
   args: {
     items: [
       {

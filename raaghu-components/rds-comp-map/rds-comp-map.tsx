@@ -1,5 +1,5 @@
 import React from 'react';
-import { getCSSVar } from '../chart-utils';
+import { getCSSVar, useChartThemeMode } from '../chart-utils';
 import { WorldMap } from 'react-svg-worldmap';
 import './rds-comp-map.scss';
 import { componentTokens, mapTokens } from '../../raaghu-react-themes/tokens/design-tokens';
@@ -20,9 +20,19 @@ type WorldMapStylingContext = {
 
 const RdsCompMap = (props: RdsCompMapProps) => {
     const { mapType = 'default' } = props;
+    const themeMode = useChartThemeMode();
+    const isDarkTheme = themeMode === 'dark';
+    const mapBackgroundColor = getCSSVar(
+        '--rds-background-surface',
+        isDarkTheme ? '#424242' : '#ffffff',
+    );
 
     const defaultStylingFunction = (context: WorldMapStylingContext) => {
-        const opacityLevel = 0.1 + (1.5 * (context.countryValue - context.minValue) / (context.maxValue - context.minValue))
+        const range = context.maxValue - context.minValue;
+        const normalizedValue =
+            range > 0 ? (context.countryValue - context.minValue) / range : 0;
+        const minOpacity = isDarkTheme ? 0.35 : 0.1;
+        const opacityLevel = minOpacity + ((1 - minOpacity) * normalizedValue);
         const highlightFill = getCSSVar('--rds-info-main');
         const strokeColor = getCSSVar('--rds-success-main');
         return {
@@ -30,7 +40,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
             fillOpacity: opacityLevel,
             stroke: strokeColor,
             strokeWidth: 1,
-            strokeOpacity: 0.2,
+            strokeOpacity: isDarkTheme ? 0.35 : 0.2,
             cursor: "pointer"
         }
     }
@@ -71,7 +81,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         return {
             fill: color,
             fillOpacity: 0.7 + (0.3 * intensity),
-            stroke: 'var(--rds-border-dark)',
+            stroke: getCSSVar('--rds-border-default', isDarkTheme ? 'rgba(255,255,255,0.24)' : 'rgba(0,0,0,0.12)'),
             strokeWidth: 0.5,
             strokeOpacity: 0.7,
             cursor: 'pointer'
@@ -120,7 +130,8 @@ const RdsCompMap = (props: RdsCompMapProps) => {
                 }}>
                     <WorldMap 
                         styleFunction={stylingFunction} 
-                        color={props.color} 
+                        color={props.color}
+                        backgroundColor={mapBackgroundColor}
                         title="" 
                         value-suffix="people" 
                         size={mapSize} 

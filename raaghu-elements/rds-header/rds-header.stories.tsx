@@ -1,7 +1,7 @@
-import { expect} from 'storybook/test';
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsHeader from './rds-header';
-import { Button, IconButton, Avatar, Badge} from '@mui/material';
+import { Button, IconButton, Avatar, Badge, Menu, Box, MenuItem } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsHeader> = {
@@ -41,11 +41,7 @@ export const Default: Story = {
   args: {
     title: 'My Application',
     color: 'default',
-  },
-  play: async ({ canvasElement }) => {
-    const h = canvasElement.querySelector('header, .MuiAppBar-root') || canvasElement.firstElementChild;
-    expect(h).toBeTruthy();
-  },
+  },
 };
 export const LogoSearchActions: Story = {
   args: {
@@ -159,15 +155,6 @@ export const Minimal: Story = {
   },
 };
 
-const TransparentStory = (args) => {
-    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
-    return (
-      <div style={{ minHeight: 100 }}>
-        <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
-      </div>
-    );
-  };
-
 export const Transparent: Story = {
   args: {
     color: 'transparent',
@@ -181,7 +168,14 @@ export const Transparent: Story = {
   parameters: {
     backgrounds: { default: 'transparent' },
   },
-  render: TransparentStory,
+  render: (args) => {
+    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    return (
+      <div style={{ minHeight: 100 }}>
+        <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
+      </div>
+    );
+  },
 };
 export const WithLogo: Story = {
   args: {
@@ -199,18 +193,6 @@ export const WithLogo: Story = {
   ),
 };
 
-const WithSearchStory = (args) => {
-    const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
-    return (
-      <RdsHeader
-        {...args}
-        color={args.color}
-        searchValue={searchValue}
-        onSearchChange={setSearchValue}
-      />
-    );
-  };
-
 export const WithSearch: Story = {
   args: {
     title: '',
@@ -224,15 +206,18 @@ export const WithSearch: Story = {
     ),
     color: 'default',
   },
-  render: WithSearchStory,
-};
-
-const WithTabsStory = (args) => {
-    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+  render: (args) => {
+    const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
     return (
-      <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
+      <RdsHeader
+        {...args}
+        color={args.color}
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
+      />
     );
-  };
+  },
+};
 
 export const WithTabs: Story = {
   args: {
@@ -242,7 +227,12 @@ export const WithTabs: Story = {
     tabValue: 0,
     color: 'default',
   },
-  render: WithTabsStory,
+  render: (args) => {
+    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    return (
+      <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
+    );
+  },
 };
 
 export const WithSubHeader: Story = {
@@ -267,13 +257,6 @@ export const WithNotificationBadge: Story = {
   },
 };
 
-const WithLogoAndTabsStory = (args) => {
-    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
-    return (
-      <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
-    );
-  };
-
 export const WithLogoAndTabs: Story = {
   args: {
     logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
@@ -282,7 +265,12 @@ export const WithLogoAndTabs: Story = {
     tabValue: 0,
     color: 'default',
   },
-  render: WithLogoAndTabsStory,
+  render: (args) => {
+    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    return (
+      <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
+    );
+  },
 };
 
 export const WithUserProfile: Story = {

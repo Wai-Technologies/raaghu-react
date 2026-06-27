@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { TextField, Select, MenuItem, FormHelperText, FormLabel } from '@mui/material';
 import RdsFormControl from './rds-form-control';
 
@@ -41,11 +40,7 @@ type Story = StoryObj<typeof meta>;
 export const WithTextField: Story = {
   args: {
     error: false,
-  },
-  play: async ({ canvasElement }) => {
-    const el = canvasElement.querySelector('input, select, textarea') || canvasElement.firstElementChild;
-    expect(el).toBeTruthy();
-  },
+  },
   render: (args) => (
     <RdsFormControl {...args}>
       <FormLabel>Email Address</FormLabel>

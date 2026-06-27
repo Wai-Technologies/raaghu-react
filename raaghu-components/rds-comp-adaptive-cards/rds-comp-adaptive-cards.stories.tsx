@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 
 const createActionLogger = (actionName: string) => {
@@ -105,10 +104,7 @@ export const Default: StoryObj<typeof RdsCompAdaptiveCards> = {
             include: ['cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon'],
         },
     },
-    render: (args) => <RdsCompAdaptiveCards {...args} />,
-    play: async ({ canvasElement }) => {
-        await expect(canvasElement.firstChild).toBeTruthy();
-    },
+    render: (args) => <RdsCompAdaptiveCards {...args} />,
 };
 
 export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {

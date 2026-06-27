@@ -30,7 +30,7 @@ const SSR_DEFAULTS: MotionTokens = {
 function parseMs(styles: CSSStyleDeclaration, token: string): number {
   const val = styles.getPropertyValue(token).trim();
   if (!val) return 0;
-  return Number.parseFloat(val) / 1000;
+  return parseFloat(val) / 1000;
 }
 
 export function useMotionTokens(): MotionTokens {

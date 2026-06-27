@@ -116,6 +116,7 @@
       &:hover {
         background-color: var(--rds-color-primary-container-hover);
         z-index: var(--rds-z-index-above, 2);
+      }
     }
     
     &:last-child {
@@ -487,5 +488,4 @@
   .MuiTableRow-root:hover {
     background-color: var(--rds-color-surface-hover) !important;
   }
-}
 }

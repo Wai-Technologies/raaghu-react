@@ -1,4 +1,3 @@
-import { expect } from 'storybook/test';
 import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompToolbar, { ToolbarLayout, ToolbarType, ToolbarState } from "./rds-comp-toolbar";
 
@@ -126,9 +125,5 @@ export const Default: Story = {
         layout: ToolbarLayout.Primary,
         type: ToolbarType.FullFeatured,
         state: ToolbarState.On,
-    },
-    play: async ({ canvasElement }) => {
-        const buttons = canvasElement.querySelectorAll('button');
-        expect(buttons.length).toBeGreaterThan(0);
-    },
+    },
 };

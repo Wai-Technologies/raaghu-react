@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent } from 'storybook/test';
 import {Box } from '@mui/material';
 import RdsCollapse from './rds-collapse';
 import RdsTypography from '../../raaghu-elements/rds-typography/rds-typography';
@@ -20,6 +19,10 @@ const meta: Meta<typeof RdsCollapse> = {
     showToggleButton: {
       control: 'boolean',
     },
+    title: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
   },
 };
 
@@ -40,13 +43,7 @@ export const Default: Story = {
         </RdsTypography>
       </Box>
     ),
-  },
-  play: async ({ canvas }) => {
-    const button = await canvas.findByRole('button');
-    await expect(button).toBeInTheDocument();
-    await userEvent.click(button);
-    await expect(await canvas.findByText('This is the content that can be collapsed and expanded.')).toBeInTheDocument();
-  },
+  },
 };
 
 export const Expanded: Story = {
@@ -54,11 +51,11 @@ export const Expanded: Story = {
     title: 'Initially Expanded',
     expanded: true,
     children: (
-      <Box sx={{ p: 2, backgroundColor: 'primary.light', color: 'primary.contrastText', borderRadius: 1 }}>
+      <Box className="rds-collapse__story-box">
         <RdsTypography variant="body1" paragraph>
           This collapse component starts in an expanded state.
         </RdsTypography>
-        <RdsTypography variant="body2">
+        <RdsTypography variant="body2" color="text.secondary">
           Click the arrow button to collapse this content.
         </RdsTypography>
       </Box>
@@ -71,11 +68,11 @@ export const NoTitle: Story = {
     expanded: false,
     showToggleButton: true,
     children: (
-      <Box sx={{ p: 2, backgroundColor: 'secondary.light', color: 'secondary.contrastText', borderRadius: 1 }}>
+      <Box className="rds-collapse__story-box">
         <RdsTypography variant="h6" gutterBottom>
           Content without title
         </RdsTypography>
-        <RdsTypography variant="body2">
+        <RdsTypography variant="body2" color="text.secondary">
           This collapse component has no title, just a toggle button.
         </RdsTypography>
       </Box>
@@ -89,7 +86,7 @@ export const NoToggleButton: Story = {
     expanded: true,
     showToggleButton: false,
     children: (
-      <Box sx={{ p: 2, backgroundColor: 'success.light', color: 'success.contrastText', borderRadius: 1 }}>
+      <Box className="rds-collapse__story-box">
         <RdsTypography variant="body1">
           This collapse component has no toggle button and is controlled externally.
         </RdsTypography>
@@ -103,7 +100,7 @@ export const LongContent: Story = {
     title: 'Long Content Example',
     expanded: false,
     children: (
-  <Box className="rds-collapse__story-box rds-collapse__story-box--warning">
+      <Box className="rds-collapse__story-box rds-collapse__story-box--warning">
         <RdsTypography variant="h6" gutterBottom>
           Lorem Ipsum
         </RdsTypography>

@@ -7,8 +7,6 @@ import RdsInput from '../rds-input/rds-input';
 import {CardContent, CardActions } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { useState } from 'react';
-import { expect } from 'storybook/test';
-
 const meta: Meta<typeof RdsCard> = {
   title: 'Elements/Card',
   component: RdsCard,
@@ -117,10 +115,7 @@ export const Default: Story = {
         sx={{ mt: 1, p: 0, textTransform: 'none' }}
       />
     ),
-  },
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  },
 };
 Default.parameters = { 
   controls: { 

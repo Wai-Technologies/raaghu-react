@@ -187,6 +187,8 @@ const RdsButton = ({
   const filledTextColor = getFilledTextColor();
   const contentElement = renderContent();
 
+  const hasIcons = normalizedLayout === 'icon+text' && (showLeftIcon || showRightIcon);
+
   return (
     <MuiButton
       disabled={isButtonDisabled}
@@ -196,13 +198,16 @@ const RdsButton = ({
       sx={{
         ...shapeStyles,
         ...textCaseStyles,
+        '& .MuiButton-startIcon': { margin: 0 },
+        '& .MuiButton-endIcon': { margin: 0 },
+        ...(hasIcons ? { padding: '6px' } : {}),
         ...sx,
       }}
       style={{
         ...shapeStyles as CSSProperties,
         ...textCaseStyles as CSSProperties,
-        ...(isLoading && style === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
-        ...(filledTextColor ? { color: filledTextColor } : {}),
+        ...(style === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
+        ...(style === 'filled' && filledTextColor ? { color: filledTextColor } : {}),
         ...(isLoading ? { opacity: 1 } : {}),
         ...(sx as any),
       }}

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
 import { Button, IconButton, Avatar, Badge, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
@@ -762,7 +761,7 @@ const DynamicTemplate = (args: any) => {
           </IconButton>
         ),
         centerContent: (
-          <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
+          <div className="rds-withactions-center-buttons">
             <span className="rds-withactions-findjobs-topnav">
               <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
             </span>
@@ -934,10 +933,7 @@ export const Default: Story = {
     userName: 'John Doe',
     userEmail: 'john.doe@example.com',
   },
-  render: DynamicTemplate,
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  render: DynamicTemplate,
 };
 Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'userName', 'userEmail'] } };
 

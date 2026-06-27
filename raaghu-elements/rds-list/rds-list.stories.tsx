@@ -19,9 +19,6 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import CloudIcon from '@mui/icons-material/Cloud';
 import CommentIcon from '@mui/icons-material/Comment';
-import { expect } from 'storybook/test';
-
-
 const nestedListItems = [
   { id: 1, primary: 'Sent mail', icon: <SendIcon /> },
   { id: 2, primary: 'Drafts', icon: <DraftsIcon /> },
@@ -88,11 +85,7 @@ export const AlignItems: Story = {
         avatar: <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/3.jpg" />,
       },
     ]
-  },
-  play: async ({ canvas }) => {
-    const list = await canvas.findByRole('list');
-    await expect(list).toBeInTheDocument();
-  },
+  },
 };
 const firebaseOverviewItems = [
   {

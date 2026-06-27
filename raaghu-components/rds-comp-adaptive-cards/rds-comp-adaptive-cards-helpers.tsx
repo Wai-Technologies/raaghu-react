@@ -409,12 +409,12 @@ export function CalendarReminderForm({
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
-            <RdsButton style="outlined" className="rds-adaptive-cards__action-btn" text={snoozeLabel || btn1Label} />
+            <RdsButton style="outlined" size="medium" className="rds-adaptive-cards__action-btn" text={snoozeLabel || btn1Label} />
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
-            <RdsButton style="outlined" className="rds-adaptive-cards__action-btn" text={lateLabel || btn2Label} />
+            <RdsButton style="outlined" size="medium" className="rds-adaptive-cards__action-btn" text={lateLabel || btn2Label} />
           </RdsBox>
         )}
       </RdsStack>

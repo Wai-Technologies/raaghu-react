@@ -116,6 +116,7 @@ const RdsCompVideoPlayer = ({
             width,
             height,
             playing: autoplay && !disabled,
+            loop: autoplay && !disabled,
             muted,
             controls,
             volume,

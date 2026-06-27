@@ -122,6 +122,7 @@ const RdsAppBar = ({
         props.color === 'primary' && 'rds-header--primary',
         props.color === 'secondary' && 'rds-header--secondary',
         props.color === 'transparent' && 'rds-header--transparent',
+        showMenuButton && 'rds-header--has-menu-button',
         variantStyle && `rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}`,
         props.className,
       )}
@@ -138,7 +139,7 @@ const RdsAppBar = ({
       >
         <Box className="rds-header__toolbar" sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
           {showMenuButton && (
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} sx={{ mr: tokens.space(2) }}>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} className="rds-header__menu-button">
               <DehazeIcon />
             </IconButton>
           )}

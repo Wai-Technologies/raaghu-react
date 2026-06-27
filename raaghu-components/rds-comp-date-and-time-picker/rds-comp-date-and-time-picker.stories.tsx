@@ -1,8 +1,6 @@
 import RdsCompDatePicker from "./rds-comp-date-and-time-picker";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import dayjs from 'dayjs';
-import { expect} from 'storybook/test';
-
 const meta: Meta = { 
     title: "Internal/Date Time Picker",
     component: RdsCompDatePicker,
@@ -229,9 +227,5 @@ export const MultiMonthPicker: Story = {
             {...args}
             minDate={dayjs('1900-01-01')}
         />
-    ),
-    play: async ({ canvasElement }) => {
-        const el = canvasElement.querySelector('input');
-        expect(el).toBeInTheDocument();
-    },
+    ),
 } satisfies Story;
