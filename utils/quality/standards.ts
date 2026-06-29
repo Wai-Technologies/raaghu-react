@@ -91,7 +91,6 @@ export class ComponentStandards {
     component: /^Rds[A-Z][a-zA-Z]*$/,
     props: /^[a-z][a-zA-Z]*$/,
     file: /^rds-[a-z-]+\.(tsx|ts|scss|stories\.tsx)$/,
-    cssClass: /^rds-[a-z-]+(__[a-z-]+)?(--[a-z-]+)?$/,
     storyName: /^[A-Z][a-zA-Z\s]*$/,
   };
 
@@ -112,9 +111,15 @@ export class ComponentStandards {
     return this.NAMING_CONVENTIONS.file.test(fileName);
   }
 
-  // Validate CSS class name
+  // Validate CSS class name (BEM-style rds- prefix without backtracking-prone regex)
   static validateCSSClassName(className: string): boolean {
-    return this.NAMING_CONVENTIONS.cssClass.test(className);
+    if (!className.startsWith('rds-')) return false;
+    const segments = className.split('--');
+    if (segments.length > 2) return false;
+    const blockPart = segments[0];
+    if (!/^rds-[a-z-]+(__[a-z-]+)?$/.test(blockPart)) return false;
+    if (segments.length === 2 && !/^[a-z-]+$/.test(segments[1])) return false;
+    return true;
   }
 
   // Calculate overall quality score

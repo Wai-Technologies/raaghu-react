@@ -13,7 +13,7 @@ jest.mock('./rds-comp-off-canvas.scss', () => ({}));
 
 // Mock MUI components
 jest.mock('@mui/material', () => ({
-  Drawer: ({ children, anchor, open, onClose, onBackdropClick, className, id, ...props }: any) => (
+  Drawer: ({ children, anchor, open, _onClose, _onBackdropClick, className, id, ...props }: any) => (
     open ? (
       <div
         data-testid="drawer"
@@ -30,7 +30,7 @@ jest.mock('@mui/material', () => ({
   Box: ({ children, className, id, ...props }: any) => (
     <div data-testid="box" className={className} id={id} {...props}>{children}</div>
   ),
-  Typography: ({ children, variant, component, className, ...props }: any) => (
+  Typography: ({ children, variant, _component, className, ...props }: any) => (
     <div data-testid={`typography-${variant}`} className={className} {...props}>{children}</div>
   ),
 }));
@@ -178,7 +178,7 @@ describe('RdsCompOffcanvas', () => {
     });
 
     it('should apply correct placement class', async () => {
-      const { container } = render(
+      render(
         <RdsCompOffcanvas {...defaultProps} placement={RdsOffcanvasPlacement.Start} />
       );
       const openButton = screen.getByTestId('rds-button-open-off-canvas');
@@ -288,7 +288,7 @@ describe('RdsCompOffcanvas', () => {
     });
 
     it('should render title with uppercase class', async () => {
-      const { container } = render(
+      render(
         <RdsCompOffcanvas
           {...defaultProps}
           canvasTitle="Test Title"
@@ -544,7 +544,7 @@ describe('RdsCompOffcanvas', () => {
 
   describe('Scrolling', () => {
     it('should render without scrolling by default', async () => {
-      const { container } = render(
+      render(
         <RdsCompOffcanvas {...defaultProps} scrolling={false} />
       );
       const openButton = screen.getByTestId('rds-button-open-off-canvas');
@@ -558,7 +558,7 @@ describe('RdsCompOffcanvas', () => {
     });
 
     it('should apply scrolling class when enabled', async () => {
-      const { container } = render(
+      render(
         <RdsCompOffcanvas {...defaultProps} scrolling={true} />
       );
       const openButton = screen.getByTestId('rds-button-open-off-canvas');
@@ -712,7 +712,7 @@ describe('RdsCompOffcanvas', () => {
 
   describe('Props Spread', () => {
     it('should accept all component props', () => {
-      const { container } = render(
+      render(
         <RdsCompOffcanvas
           {...defaultProps}
           aria-label="Offcanvas"

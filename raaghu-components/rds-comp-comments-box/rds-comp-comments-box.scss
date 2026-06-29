@@ -18,6 +18,7 @@
   
   &--hover {
     background: var(--rds-background-paper);
+    border: 1px solid var(--rds-border-default, var(--rds-neutral-200, #e0e0e0));
   }
   
   &--thread {
@@ -25,21 +26,23 @@
     display: flex;
     flex-direction: column;
     gap: var(--rds-spacing-lg, 16px);
+    border: 1px solid var(--rds-border-default, var(--rds-neutral-200, #e0e0e0));
   }
   
   &--selected { 
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-md, 12px) var(--rds-spacing-lg, 16px);
-    border-radius: var(--rds-border-radius-lg, 12px);
-    gap: var(--rds-spacing-md, 4px);
+    padding: 6px 10px;
+    border-radius: var(--rds-border-radius-md, 8px);
+    gap: 6px;
+    max-width: 280px;
 
     .rds-comments-box__avatar {
-      width: var(--rds-avatar-size-md, 36px);
-      height: var(--rds-avatar-size-md, 36px);
+      width: 28px;
+      height: 28px;
       background-color: var(--rds-primary-main);
       color: var(--rds-primary-contrast-text);
-      font-size: var(--rds-font-size-md, 14px);
+      font-size: var(--rds-font-size-sm, 11px);
       font-weight: var(--rds-typography-semibold, 600);
       display: flex;
       align-items: center;
@@ -47,14 +50,15 @@
     }
     .rds-comments-box__input {
       flex: 1;
-      border-radius: var(--rds-border-radius-lg, 12px);
+      min-width: 0;
+      border-radius: var(--rds-border-radius-md, 8px);
       .MuiOutlinedInput-root {
-        border-radius: var(--rds-border-radius-lg, 12px);
-        border: var(--rds-comments-input-border, 1px) solid var(--rds-neutral-300);
-        padding-right: var(--rds-spacing-xs, 8px);
+        border-radius: var(--rds-border-radius-md, 8px);
+        border: 1px solid var(--rds-neutral-300);
+        padding-right: 4px;
         input {
-          padding: var(--rds-spacing-md, 10px) var(--rds-spacing-lg, 14px);
-          font-size: var(--rds-font-size-lg, 16px);
+          padding: 5px 8px;
+          font-size: var(--rds-font-size-sm, 12px);
           color: var(--rds-text-primary);
         }
         fieldset {
@@ -63,16 +67,19 @@
       }
     }
     .rds-comments-box__send {
-      background-color: var(--rds-primary-light);
-      border-radius: var(--rds-border-radius-md, 8px);
-      padding: var(--rds-spacing-xs, 6px);
+      background-color: var(--rds-primary-main);
+      border-radius: var(--rds-border-radius-sm, 6px);
+      padding: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
       .rds-comments-box__send-icon {
-        font-size: var(--rds-font-size-xl, 20px);
-        color: var(--rds-primary-dark);
-        margin-left: var(--rds-border-radius-xs);
+        font-size: 14px;
+        color: var(--rds-primary-contrast-text);
+        margin-left: 1px;
       }
     }
   }
@@ -393,20 +400,25 @@
     right: 0;
     z-index: var(--rds-z-index-dropdown, 1000);
     background: var(--rds-background-paper);
-    border: 2px solid var(--rds-neutral-400);
-    border-radius: var(--rds-border-radius-xl, 12px);
-    box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0,0,0,0.08));
-    padding: var(--rds-spacing-xs, 8px);
-    min-width: var(--rds-dropdown-min-width, 120px);
+    border: 1px solid var(--rds-neutral-300);
+    border-radius: var(--rds-border-radius-md, 8px);
+    box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0,0,0,0.06));
+    padding: 6px 4px;
+    min-width: 110px;
   }
   &__comment-dropdown-item {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-xs, 6px) 0;
+    padding: 6px 10px;
     cursor: pointer;
-    transition: background var(--rds-transition-base);
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    transition: background 0.12s;
     &:hover {
-      background-color: var(--rds-background-hover);
+      background: rgba(0,0,0,0.04);
     }
     .rds-comments-box__comment-dropdown-icon {
       margin-right: var(--rds-spacing-xs, 6px);
@@ -449,10 +461,13 @@
     align-items: center;
     padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 12px);
     cursor: pointer;
-    margin-bottom: var(--rds-spacing-xs, 2px);
+    margin-bottom: 0;
     transition: background var(--rds-transition-base);
+    background: transparent;
+    border: none;
+    box-shadow: none;
     &:hover {
-      background: var(--rds-background-hover);
+      background: rgba(0,0,0,0.04);
     }
     &:last-child {
       margin-bottom: 0;
@@ -471,38 +486,43 @@
 
   &__attachment-dropdown-menu {
     position: absolute;
-    top: var(--rds-dropdown-top, 42px);
+    top: var(--rds-dropdown-top, 36px);
     left: 0;
-    border: 2px solid var(--rds-neutral-500);
+    border: none;
     border-radius: var(--rds-border-radius-md, 8px);
     box-shadow: var(--rds-card-shadow, 0 2px 8px rgba(0,0,0,0.08));
-    padding: var(--rds-spacing-xs, 4px) 0;
+    padding: 2px 0;
     z-index: var(--rds-z-index-dropdown, 1000);
-    min-width: var(--rds-dropdown-min-width, 160px);
-    width: var(--rds-dropdown-width, 160px);
+    min-width: 110px;
+    width: 110px;
     background: var(--rds-background-paper);
   }
   &__attachment-dropdown-item {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 12px);
+    padding: 4px 8px;
     cursor: pointer;
-    margin-bottom: var(--rds-spacing-xs, 2px);
-    transition: background 0.2s;
+    margin-bottom: 0;
+    transition: background 0.12s;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    border-radius: 0;
     &:hover {
-      background: var(--rds-background-hover);
+      background: rgba(0,0,0,0.04);
     }
     &:last-child {
       margin-bottom: 0;
     }
   }
   &__attachment-dropdown-icon {
-    margin-right: var(--rds-spacing-md, 8px);
-    font-size: var(--rds-font-size-lg, 18px) !important;
+    margin-right: 6px;
+    font-size: 14px !important;
     color: var(--rds-neutral-dark) !important;
   }
   &__attachment-dropdown-label {
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-sm, 12px);
     color: var(--rds-text-secondary);
     font-weight: var(--rds-typography-medium, 500);
   }
@@ -510,10 +530,10 @@
   &__mention-dropdown {
     position: absolute;
     left: 0;
-    top: var(--rds-dropdown-top, 40px);
-    width: var(--rds-dropdown-width, 180px);
-    border: 2px solid var(--rds-neutral-400);
-    border-radius: var(--rds-border-radius-xl, 12px);
+    top: var(--rds-dropdown-top, 36px);
+    width: 150px;
+    border: 1px solid var(--rds-neutral-300);
+    border-radius: var(--rds-border-radius-md, 8px);
     box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0,0,0,0.08));
     z-index: var(--rds-z-index-dropdown, 1000);
     padding: 0;
@@ -523,14 +543,14 @@
   }
   
   &__mention-search {
-    padding: var(--rds-spacing-lg, 18px) var(--rds-spacing-lg, 18px) 0 var(--rds-spacing-lg, 18px);
+    padding: 8px 8px 0 8px;
   }
   &__mention-search-input {
     width: 100%;
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
-    border-radius: var(--rds-border-radius-md, 6px);
+    padding: 4px 8px;
+    border-radius: var(--rds-border-radius-sm, 4px);
     border: 1px solid var(--rds-neutral-300);
-    font-size: var(--rds-font-size-lg, 16px);
+    font-size: var(--rds-font-size-sm, 12px);
     outline: none;
     background: var(--rds-background-paper);
     margin-bottom: 0;
@@ -541,25 +561,32 @@
     }
   }
   &__mention-divider {
-    border-bottom: 2px solid var(--rds-border-light);
-    margin: var(--rds-spacing-lg, 14px) 0 0 0;
+    border-bottom: 1px solid var(--rds-border-light);
+    margin: 6px 0 0 0;
   }
   &__mention-user-list {
-    max-height: var(--rds-mention-list-max-height, 200px);
+    max-height: 140px;
     overflow-y: auto;
     margin: 0;
-    padding: var(--rds-spacing-md, 10px) 0 0 0;
+    padding: 4px 0 0 0;
   }
   &__mention-user-item {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-md, 10px) var(--rds-spacing-lg, 18px);
+    padding: 6px 8px;
     cursor: pointer;
-    gap: var(--rds-spacing-md, 12px);
+    gap: 8px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    &:hover {
+      background: rgba(0,0,0,0.04);
+    }
   }
   &__mention-user-avatar {
-    width: var(--rds-avatar-size-md, 36px);
-    height: var(--rds-avatar-size-md, 36px);
+    width: 24px;
+    height: 24px;
     border-radius: var(--rds-border-radius-pill);
     background: var(--rds-background-surface);
     display: flex;
@@ -567,36 +594,36 @@
     justify-content: center;
   }
   &__mention-user-icon {
-    font-size: var(--rds-font-size-xl, 22px) !important;
+    font-size: 16px !important;
     color: var(--rds-neutral-dark) !important;
   }
   &__mention-user-name {
     font-weight: var(--rds-typography-semibold, 500);
     color: var(--rds-text-secondary);
-    font-size: var(--rds-font-size-lg, 16px);
+    font-size: var(--rds-font-size-sm, 12px);
   }
   &__mention-invite {
-    padding: 0 var(--rds-spacing-lg, 18px) var(--rds-spacing-lg, 18px) var(--rds-spacing-lg, 18px);
+    padding: 0 8px 8px 8px;
   }
   &__mention-invite-btn {
     width: 100%;
     background: var(--rds-primary-main);
     color: var(--rds-primary-contrast-text);
     border: none;
-    border-radius: var(--rds-border-radius-lg, 8px);
-    padding: var(--rds-spacing-lg, 12px) 0;
+    border-radius: var(--rds-border-radius-sm, 4px);
+    padding: 6px 0;
     font-weight: var(--rds-typography-semibold, 500);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--rds-spacing-md, 8px);
-    font-size: var(--rds-font-size-lg, 16px);
-    margin-top: var(--rds-spacing-lg, 18px);
+    gap: 4px;
+    font-size: var(--rds-font-size-sm, 12px);
+    margin-top: 6px;
     cursor: pointer;
     box-shadow: var(--rds-elevation-0, 0 1px 2px rgba(58,139,253,0.08));
   }
   &__mention-invite-icon {
-    font-size: var(--rds-font-size-xl, 20px) !important;
+    font-size: 14px !important;
   }
 
   &__typing-box {
@@ -751,6 +778,44 @@
 .rds-comments-box__time {
   font-size: var(--rds-font-size-md, 14px) !important;
   color: var(--rds-text-secondary) !important;
+}
+
+.rds-comments-box--hover .rds-comments-box__info,
+.rds-comments-box--thread .rds-comments-box__comment-info {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.rds-comments-box--hover .rds-comments-box__header {
+  width: 100%;
+  min-width: 0;
+}
+
+.rds-comments-box--hover .rds-comments-box__hover-tools {
+  margin-left: auto !important;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.rds-comments-box--hover .rds-comments-box__info .rds-comments-box__name,
+.rds-comments-box--hover .rds-comments-box__info .rds-comments-box__time,
+.rds-comments-box--thread .rds-comments-box__comment-info .rds-comments-box__name,
+.rds-comments-box--thread .rds-comments-box__comment-info .rds-comments-box__time {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rds-comments-box--hover .rds-comments-box__info .rds-comments-box__name,
+.rds-comments-box--hover .rds-comments-box__info .rds-comments-box__time {
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.rds-comments-box--thread .rds-comments-box__comment-content .rds-comments-box__comment-header .rds-comments-box__tools {
+  margin-left: var(--rds-spacing-sm, 8px);
 }
 .rds-comments-box__mention-user-list-scroll-hide {
   scrollbar-width: none;
@@ -1312,6 +1377,34 @@
         margin-left: var(--rds-spacing-15);
     }
     }
+}
+
+[data-theme="dark"] .rds-comments-box--hover .rds-comments-box__meta,
+[data-theme="dark"] .rds-comments-box--thread .rds-comments-box__meta {
+  color: var(--rds-neutral-0) !important;
+}
+
+@media (min-width: 601px) {
+  .rds-comments-box--thread .rds-comments-box__thread-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+  }
+
+  .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-right: var(--rds-spacing-none, 0) !important;
+    text-align: left;
+  }
+
+  .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-icons {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
 }
 
 @media (max-width: 1200px) and (min-width: 650px) {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import { axe } from 'jest-axe';
 
@@ -16,10 +15,10 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
       startIcon, 
       endIcon, 
       className,
-      size,
-      shape,
-      layout,
-      style,
+      size: _size,
+      shape: _shape,
+      layout: _layout,
+      style: _style,
       disabled,
       ...rest 
     } = props;
@@ -27,7 +26,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
     // Filter out MUI-specific props that shouldn't go on a button element
     const cleanProps = Object.fromEntries(
       Object.entries(rest).filter(([key]) => 
-        !['sx', 'variant', 'color', 'fullWidth', 'state', 'textCase', 'changeLeftIcon', 'changeRightIcon', 'showLeftIcon', 'showRightIcon', 'isLoading', 'children'].includes(key)
+        !['sx', 'variant', 'color', 'fullWidth', 'state', 'style', 'textCase', 'changeLeftIcon', 'changeRightIcon', 'showLeftIcon', 'showRightIcon', 'isLoading', 'children', 'shape', 'size', 'layout'].includes(key)
       )
     );
     
@@ -53,17 +52,17 @@ jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return {
     ...actual,
-    Box: ({ children, className, sx, ...props }: any) => (
+    Box: ({ children, className, _sx, ...props }: any) => (
       <div className={className} data-testid="box" {...props}>
         {children}
       </div>
     ),
-    Typography: ({ children, className, sx, ...props }: any) => (
+    Typography: ({ children, className, _sx, ...props }: any) => (
       <div className={className} data-testid="typography" {...props}>
         {children}
       </div>
     ),
-    Popover: ({ children, open, onClose, anchorEl, ...props }: any) => {
+    Popover: ({ children, open, _onClose, _anchorEl, ...props }: any) => {
       return open ? (
         <div data-testid="popover" {...props}>
           {children}
@@ -110,7 +109,7 @@ jest.mock('@mui/material', () => {
         {...props}
       />
     ),
-    Button: ({ children, onClick, className, sx, variant, ...props }: any) => (
+    Button: ({ children, onClick, className, _sx, _variant, ...props }: any) => (
       <button onClick={onClick} className={className} {...props}>
         {children}
       </button>

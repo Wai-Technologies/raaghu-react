@@ -3,18 +3,32 @@
 .rds-comp-chart-radar {
 	&-container {
 		width: 90%;
+		max-width: 680px;
+		height: 520px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-        
-		@include bp.down(400) {
-			height: 335px !important;
-            width: 100% !important;
+
+		@include bp.up(lg) {
+			max-width: 580px;
+			height: 520px;
+		}
+
+		@include bp.between(sm, lg) {
+			max-width: 420px;
+			height: 280px;
 		}
 
 		@include bp.down(600) {
-			height: 330px !important;
+			height: 430px !important;
             width: 100% !important;
+			max-width: 100%;
+		}
+
+		@include bp.down(400) {
+			height: 335px !important;
+            width: 100% !important;
+			max-width: 100%;
 		}
 	}
 

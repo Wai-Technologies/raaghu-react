@@ -146,6 +146,31 @@
       top: var(--rds-spacing-sm, 12px);
       color: var(--rds-text-secondary);
       z-index: var(--rds-z-index-above, 3);
+      border-radius: 50%;
+
+      &:hover {
+        background-color: var(--rds-color-primary-hover-bg);
+      }
+    }
+
+    // Responsive: fit inside small mobile screens (≤320px)
+    @media (max-width: 360px) {
+      width: calc(100vw - 32px) !important;
+      min-width: unset !important;
+      max-width: calc(100vw - 32px) !important;
+      padding: var(--rds-spacing-md, 12px);
+
+      .rds-dialog__content p,
+      .rds-dialog__content .MuiTypography-root {
+        max-width: 100%;
+      }
+
+      .rds-dialog__button.rds-dialog__button__dismiss,
+      .rds-dialog__button.rds-dialog__button__primary-link {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
     }
   }
 
@@ -162,7 +187,14 @@
 
   &__close-button {
     position: absolute;
+    right: var(--rds-spacing-sm, 12px);
+    top: var(--rds-spacing-sm, 12px);
     color: var(--rds-text-secondary);
+    border-radius: 50%;
+
+    &:hover {
+      background-color: var(--rds-color-primary-hover-bg);
+    }
   }
 
   &__button {
@@ -208,6 +240,10 @@
   }
 
 
+  &:focus {
+    outline: none;
+  }
+
   &:focus-visible {
     outline: var(--rds-dialog-focus-ring-width, 2px) solid var(--rds-primary-main, var(--rds-color-primary));
     outline-offset: var(--rds-focus-ring-offset);
@@ -217,6 +253,20 @@
   &--disabled {
     opacity: var(--rds-dialog-disabled-opacity, 0.6);
     pointer-events: none;
+  }
+}
+
+// Ensure the MUI Dialog paper doesn't overflow small mobile viewports
+@media (max-width: 360px) {
+  .MuiDialog-paper {
+    margin: 16px !important;
+    max-height: calc(100% - 32px) !important;
+  }
+
+  .MuiDialog-paperWidthXs:has(.rds-dialog__content svg) {
+    width: calc(100vw - 32px) !important;
+    min-width: unset !important;
+    max-width: calc(100vw - 32px) !important;
   }
 }
 

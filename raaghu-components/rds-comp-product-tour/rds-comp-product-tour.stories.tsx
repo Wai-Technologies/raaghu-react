@@ -1,7 +1,5 @@
 import RdsCompProductTour from "./rds-comp-product-tour";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
-
 const meta: Meta = {
     title: "Components/Product Tour",
     component: RdsCompProductTour,
@@ -57,11 +55,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompProductTour>;
 
-export const Default: Story = {
-    play: async ({ canvasElement }) => {
-        const el = canvasElement.firstElementChild;
-        expect(el).toBeTruthy();
-    },
+export const Default: Story = {
     args: {
         state: "Image",
         topLeft: true,

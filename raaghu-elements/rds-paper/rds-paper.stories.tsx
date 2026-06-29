@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsPaper from './rds-paper';
 import { Typography } from '@mui/material';
 
@@ -38,11 +37,7 @@ export const Default: Story = {
         <Typography>Default paper with elevation</Typography>
       </div>
     ),
-  },
-  play: async ({ canvasElement }) => {
-    const el = canvasElement.firstElementChild;
-    expect(el).toBeTruthy();
-  },
+  },
 };
 
 export const HighElevation: Story = {

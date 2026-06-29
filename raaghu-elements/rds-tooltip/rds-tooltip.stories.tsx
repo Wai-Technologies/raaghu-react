@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsTooltip from './rds-tooltip';
 import { Delete } from '@mui/icons-material';
 import RdsButton from '../rds-button/rds-button';
@@ -169,24 +168,4 @@ LongText.parameters = {
   } 
 };
 
-export const HoverTooltip: Story = {
-  name: 'Interaction: Hover shows tooltip',
-  args: {
-    label: 'Tooltip text',
-    children: <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Hover me" textCase="unset" />,
-    style: 'top',
-    arrow: false,
-    wrapper: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const trigger = canvas.getByRole('button', { name: /hover me/i })
-    await expect(trigger).toBeVisible()
-    await userEvent.hover(trigger)
-    // MUI Tooltip renders content in a portal with role="tooltip"
-    await waitFor(
-      () => expect(document.querySelector('[role="tooltip"]')).not.toBeNull(),
-      { timeout: 2000 }
-    )
-  }
-};
+

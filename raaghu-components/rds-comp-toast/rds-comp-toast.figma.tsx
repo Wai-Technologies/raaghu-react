@@ -1,5 +1,6 @@
 import React from "react"
-import  RdsCompToast, { ToastLayout, ToastLeadingIcon, ToastState }  from "./rds-comp-toast"
+import  RdsCompToast from "./rds-comp-toast"
+import { ToastLayout, ToastLeadingIcon, ToastState } from "./rds-comp-toast.types"
 import figma from "@figma/code-connect"
 
 figma.connect(

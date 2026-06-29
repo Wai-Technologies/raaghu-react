@@ -1,6 +1,4 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import dayjs, { Dayjs } from 'dayjs';
 import RdsCompDatePicker from './rds-comp-date-and-time-picker';
@@ -10,7 +8,7 @@ jest.mock('./rds-comp-date-and-time-picker.scss', () => ({}));
 
 // Mock RdsButton to avoid emotion/MUI styled-engine initialization issues
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  const React = require('react');
+  const React = jest.requireActual('react');
   const MockButton = React.forwardRef((props: any, ref: any) => (
     <button
       ref={ref}
@@ -121,7 +119,7 @@ jest.mock('@mui/x-date-pickers/DateTimePicker', () => {
 
 // Mock MUI DateCalendar
 jest.mock('@mui/x-date-pickers/DateCalendar', () => ({
-  DateCalendar: ({ value, onChange, slots, ...props }: any) => (
+  DateCalendar: ({ value, onChange, _slots, ..._props }: any) => (
     <div data-testid="date-calendar" data-value={value?.format('YYYY-MM-DD')}>
       <button
         data-testid="calendar-day-select"
@@ -152,6 +150,19 @@ jest.mock('@mui/x-date-pickers/TimeClock', () => ({
     <div data-testid="time-clock">
       <button
         data-testid="time-clock-select"
+        onClick={() => onChange && onChange(value || dayjs())}
+      >
+        Select Time
+      </button>
+    </div>
+  ),
+}));
+
+jest.mock('@mui/x-date-pickers/MultiSectionDigitalClock', () => ({
+  MultiSectionDigitalClock: ({ value, onChange }: any) => (
+    <div data-testid="multi-section-digital-clock">
+      <button
+        data-testid="digital-clock-select"
         onClick={() => onChange && onChange(value || dayjs())}
       >
         Select Time
@@ -289,7 +300,7 @@ describe('RdsCompDatePicker', () => {
     it('should render with error state', () => {
       render(<RdsCompDatePicker error={true} />);
       const input = screen.getByTestId('text-field-input');
-      expect(input.getAttribute('data-error')).toBe('true');
+      expect(input.dataset.error).toBe('true');
     });
   });
 
@@ -359,7 +370,8 @@ describe('RdsCompDatePicker', () => {
       const handleChange = jest.fn();
       render(<RdsCompDatePicker variant="datetime" onChange={handleChange} />);
       const input = screen.getByTestId('text-field-input');
-      fireEvent.change(input, { target: { value: '12/25/2024 10:30:45 AM' } });
+      fireEvent.click(input);
+      fireEvent.click(screen.getByTestId('calendar-day-select'));
       expect(handleChange).toHaveBeenCalled();
     });
 

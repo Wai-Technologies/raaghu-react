@@ -247,7 +247,7 @@ describe('RdsAutocomplete', () => {
     });
 
     it('should pass error prop to TextField', () => {
-      const { container } = render(
+      render(
         <RdsAutocomplete {...defaultProps} error={true} helperText="Error message" showHintText={true} />
       );
       expect(screen.getByText('Error message')).toBeInTheDocument();
@@ -334,7 +334,7 @@ describe('RdsAutocomplete', () => {
 
     it('should not display user icon when isShowUser is false', () => {
       const userIcon = <span data-testid="user-icon">👤</span>;
-      const { container } = render(
+      render(
         <RdsAutocomplete {...defaultProps} isShowUser={false} userIcon={userIcon} />
       );
       expect(screen.queryByTestId('user-icon')).not.toBeInTheDocument();
@@ -554,7 +554,7 @@ describe('RdsAutocomplete', () => {
   describe('Combined Props', () => {
     it('should render with all customization props', () => {
       const userIcon = <span data-testid="user-icon">👤</span>;
-      const { container } = render(
+      render(
         <RdsAutocomplete
           {...defaultProps}
           label="Department"

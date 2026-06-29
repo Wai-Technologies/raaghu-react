@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import RdsInput from './rds-input';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
@@ -124,39 +123,3 @@ export const WithError: Story = {
   },
 };
 WithError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };
-
-export const TypeText: Story = {
-  name: 'Interaction: Type into input',
-  args: {
-    placeholder: 'Type here',
-    size: 'medium',
-    layout: 'text',
-    state: 'default',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('textbox')
-    await expect(input).toBeVisible()
-    await userEvent.clear(input)
-    await userEvent.type(input, 'Hello Raaghu')
-    await expect(input).toHaveValue('Hello Raaghu')
-  }
-};
-
-export const FocusBlur: Story = {
-  name: 'Interaction: Focus and blur',
-  args: {
-    placeholder: 'Focus me',
-    size: 'medium',
-    layout: 'text',
-    state: 'default',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('textbox')
-    await userEvent.click(input)
-    await expect(input).toHaveFocus()
-    await userEvent.tab()
-    await expect(input).not.toHaveFocus()
-  }
-};

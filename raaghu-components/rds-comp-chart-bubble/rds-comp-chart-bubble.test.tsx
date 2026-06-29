@@ -765,6 +765,7 @@ describe('RdsCompBubbleChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompBubbleChart {...defaultProps} />);
       const results = await axe(container);

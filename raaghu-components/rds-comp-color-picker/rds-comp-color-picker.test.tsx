@@ -3,7 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompColorPicker, { ColorPickerType, PickerType, ColorMode, StyleType } from './rds-comp-color-picker';
+import RdsCompColorPicker from './rds-comp-color-picker';
+import { ColorPickerType, PickerType, ColorMode, StyleType } from './rds-comp-color-picker.types';
 
 // Mock dependencies
 jest.mock('./rds-comp-color-picker.scss', () => ({}));

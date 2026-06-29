@@ -478,15 +478,11 @@
     cursor: pointer;
     
     &:hover .MuiOutlinedInput-notchedOutline {
-      border-width: 2px;
-      border-color: var(--rds-color-primary);
       border-width: 2px !important;
       border-color: var(--rds-color-primary, #2196F3) !important;
     }
     
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-width: 2px;
-      border-color: var(--rds-color-primary);
       border-width: 2px !important;
       border-color: var(--rds-color-primary, #2196F3) !important;
     }
@@ -599,7 +595,7 @@
   }
   
   .MuiDateCalendar-root {
-    background: var(--rds-color-surface, white);
+    background-color: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius-lg, 12px);
     box-shadow: none !important;
     border: 1.5px solid var(--rds-color-border-light) !important;
@@ -611,8 +607,6 @@
   }
   
   .MuiDayCalendar-weekDayLabel {
-    font-weight: var(--rds-font-weight-semibold, 600);
-    color: var(--rds-color-text-secondary);
     font-weight: 400;
     color: var(--rds-color-text-secondary, #666);
   }
@@ -658,7 +652,6 @@
       
       &:not(.Mui-selected) {
         background-color: var(--rds-color-surface);
-        color: var(--rds-color-primary);
         border-radius: var(--rds-border-radius-sm);
         color: var(--rds-color-primary, #2196F3) !important;
       }
@@ -703,7 +696,7 @@
 @media (prefers-color-scheme: dark) {
   .rds-date-picker {
     .MuiDateCalendar-root {
-      background: var(--rds-color-surface-dark, #1e1e1e);
+      background-color: var(--rds-color-surface-dark, #1e1e1e);
       color: var(--rds-color-on-surface-dark, white);
     }
     

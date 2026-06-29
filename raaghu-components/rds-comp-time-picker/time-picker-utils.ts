@@ -57,9 +57,9 @@ export const parseTimeFromValue = (timeValue: string) => {
     const [hourStr, minuteStr] = timeStr.split(':');
     
     if (hourStr && minuteStr && ampm) {
-      const hourVal = parseInt(hourStr, 10);
+      const hourVal = Number.parseInt(hourStr, 10);
       const adjHourVal = hourVal === 0 ? 12 : hourVal;
-      const minVal = parseInt(minuteStr, 10);
+      const minVal = Number.parseInt(minuteStr, 10);
       
       return {
         hours: adjHourVal,

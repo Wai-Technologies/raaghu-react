@@ -82,6 +82,31 @@
     gap: var(--rds-spacing-lg, 24px);
     background: transparent;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    @media (max-width: 420px) {
+      padding-left: var(--rds-spacing-sm, 12px);
+      padding-right: var(--rds-spacing-sm, 12px);
+      gap: var(--rds-spacing-xs, 8px);
+    }
+
+    @media (max-width: 320px) {
+      padding-left: var(--rds-spacing-xs, 8px);
+      padding-right: var(--rds-spacing-xs, 8px);
+      gap: calc(var(--rds-spacing-xs, 8px) / 2);
+    }
+  }
+
+  &__menu-button {
+    margin-right: var(--rds-spacing-sm);
+    margin-left: 0 !important;
+    flex-shrink: 0;
+
+    @media (max-width: 420px) {
+      margin-right: 0 !important;
+    }
   }
 
   &__logo {
@@ -194,6 +219,18 @@
     display: flex;
     align-items: center;
     width: var(--rds-header-search-width, 220px);
+    flex-shrink: 1;
+    min-width: 0;
+
+    @media (max-width: 420px) {
+      min-width: 100px;
+      max-width: 150px;
+    }
+
+    @media (max-width: 320px) {
+      min-width: 80px;
+      max-width: 120px;
+    }
   }
 
   &__search-clear {
@@ -207,6 +244,63 @@
   &__tabs {
     ~ .rds-header__sub-header {
       border-top: none;
+    }
+  }
+}
+
+.rds-header__toolbar > * {
+  flex-shrink: 0;
+
+  &.rds-header__title,
+  &.rds-header__search-wrapper {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-header--has-menu-button {
+    .rds-header__title {
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      max-width: 38% !important;
+      margin: 0 var(--rds-spacing-xs) !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .rds-header__search-wrapper {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      max-width: 120px !important;
+    }
+
+    .rds-header__actions > .MuiButton-root {
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact) !important;
+      min-width: auto !important;
+      font-size: var(--rds-font-size-xs) !important;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-header--has-menu-button {
+    .rds-header__title {
+      max-width: calc(100% - 130px) !important;
+      font-size: var(--rds-font-size-sm) !important;
+      margin: 0 var(--rds-spacing-xxs) !important;
+    }
+
+    .rds-header__search-wrapper {
+      display: none !important;
+    }
+
+    .rds-header__actions > .MuiButton-root {
+      display: none !important;
+    }
+
+    .rds-header__actions {
+      margin-left: auto !important;
     }
   }
 }

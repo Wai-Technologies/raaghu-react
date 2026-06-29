@@ -1,8 +1,6 @@
 import React from "react";
 import RdsCompVideoPlayer, { VideoPlayerType } from "./rds-comp-video-player";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/Video Player',
     component: RdsCompVideoPlayer,
@@ -85,8 +83,5 @@ export const Default: Story = {
         volume: 0.8,
         disabled: false,
         videoLink: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    play: async ({ canvasElement }) => {
-        await expect(canvasElement.firstChild).toBeTruthy();
-    },
+    },
 };

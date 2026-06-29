@@ -430,7 +430,7 @@ describe('RdsBox', () => {
     });
 
     it('should support flexbox layouts', () => {
-      const { container } = render(
+      render(
         <RdsBox display="flex" justifyContent="center" alignItems="center">
           Centered Content
         </RdsBox>

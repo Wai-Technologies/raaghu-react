@@ -38,7 +38,7 @@ describe('RdsAvatar', () => {
     });
 
     it('should render children when no title provided', () => {
-      const { container } = render(<RdsAvatar>Custom Content</RdsAvatar>);
+      render(<RdsAvatar>Custom Content</RdsAvatar>);
       expect(screen.getByText('Custom Content')).toBeInTheDocument();
     });
   });

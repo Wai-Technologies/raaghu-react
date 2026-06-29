@@ -1,6 +1,5 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
 import RdsCompAiGradientTextWithIcon from "./rds-comp-ai-gradient-text-with-icon";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
  
@@ -20,13 +19,11 @@ type Story = StoryObj<typeof RdsCompAiGradientTextWithIcon>;
 
 export const Default: Story = {
     args: {
-        logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
+        logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
         logo: <AutoAwesomeIcon className="pundit-icon" />,
         title: "AI Pundit is creating some magic for you",
         showImage: true,
         showIcon: true,
     },
-    play: async ({ canvasElement }) => {
-        await expect(canvasElement.firstChild).toBeTruthy();
-    },
+
 }

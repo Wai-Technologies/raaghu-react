@@ -22,14 +22,18 @@
   background-color: var(--rds-warning-light);
 }
 
-[data-theme=dark]
-{ 
+[data-theme=dark] {
   .rds-collapse__story-box {
     background-color: var(--rds-background-surface) !important;
     color: var(--rds-color-on-surface-dark) !important;
   }
+
   .rds-collapse__story-box--warning {
     background-color: var(--rds-warning-light) !important;
-    color: var(--rds-text-primary) !important;
+    color: var(--rds-text-primary-light) !important;
+
+    .MuiTypography-root {
+      color: var(--rds-text-primary-light) !important;
+    }
   }
 }

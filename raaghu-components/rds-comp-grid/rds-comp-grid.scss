@@ -1,4 +1,5 @@
 // RDS Fluent Grid Component Styles
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 // Default CSS Variables (Light Theme)
 :root {
@@ -20,96 +21,8 @@
   background-color: var(--rds-grid-bg);
   overflow: hidden;
   color: var(--rds-grid-text);
-}
 
-.rds-comp-grid {
-  width: 100%;
-  height: 100%;
-  border: 1px solid var(--rds-grid-border);
-  border-radius: var(--rds-border-radius-sm, 4px);
-  background-color: var(--rds-grid-bg);
-  overflow: hidden;
 
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--rds-grid-bg-alt);
-    border-bottom: 1px solid var(--rds-grid-border-soft);
-  }
-  &__header { padding: var(--rds-spacing-md, 16px); }
-  &__subheader { padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px); }
-  &__subheader-left { display:flex; align-items:center; gap: var(--rds-spacing-sm, 8px); }
-  &__subheader-title { font-weight: var(--rds-font-weight-semibold, 600); font-size: var(--rds-font-size-xl); color: var(--rds-grid-text); }
-  &__subheader-dots { color: var(--rds-grid-text-subtle); cursor:pointer; }
-  &__subheader-toggle { cursor:pointer; }
-
-  // Filters Bar ------------------------------------------------------------
-  &__filters { padding: var(--rds-spacing-md, 16px); background: var(--rds-grid-bg-alt); border-bottom:1px solid var(--rds-grid-border-soft); }
-  &__filters-content { display:flex; flex-wrap:wrap; gap: var(--spacingHorizontalM, 16px); align-items:center; }
-  &__filter-item { display:flex; align-items:center; gap: var(--spacingHorizontalS,8px); min-width:200px; }
-  &__filter-label { font-weight: var(--fontWeightSemibold,600); font-size: var(--fontSizeBase200,14px); color: var(--rds-grid-text); }
-  &__filter-input,
-  &__filter-select,
-  &__search-input {
-    padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px);
-    border:1px solid var(--rds-grid-border-alt);
-    border-radius: var(--borderRadiusSmall,4px);
-    font-size: var(--fontSizeBase200,14px);
-    background: var(--rds-grid-bg);
-    min-width:150px;
-    &:focus { outline:none; border-color: var(--colorBrandBackground); box-shadow:0 0 0 1px var(--colorBrandBackground); }
-  }
-  &__search-input { min-width:200px; }
-
-  // Buttons / Actions ------------------------------------------------------
-  &__btn,
-  &__action-btn {
-    padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px);
-    border:1px solid var(--rds-grid-border-alt);
-    border-radius: var(--borderRadiusSmall,4px);
-    background: var(--rds-grid-bg-alt);
-    color: var(--rds-grid-text);
-    font-size: var(--fontSizeBase200,14px);
-    cursor:pointer; transition: var(--rds-transition-base);
-    &:hover:not(:disabled){ background: var(--colorNeutralBackground1Hover); }
-    &:disabled { opacity:.5; cursor:not-allowed; }
-  }
-  &__action-btn { font-size: var(--fontSizeBase100,12px); margin-right: var(--spacingHorizontalXXS,4px); }
-  &__action-menu { position:relative; display:inline-block; }
-  &__action-dropdown { position:absolute; top:100%; right:0; background:var(--rds-grid-bg); border:1px solid var(--rds-grid-border); border-radius: var(--rds-border-radius-sm, 4px); box-shadow: var(--shadow8); z-index: var(--rds-z-index-raised); min-width:120px; display:none; }
-  &__action-menu:hover &__action-dropdown { display:block; }
-  &__action-item { padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px); background:none; border:none; text-align:left; width:100%; font-size: var(--fontSizeBase200,14px); color: var(--rds-grid-text); cursor:pointer; &:hover{ background: var(--rds-grid-row-hover); } }
-
-  // Table ------------------------------------------------------------------
-  &__table { width:100%; height:100%; overflow:auto; }
-  &__header-cell { font-weight: var(--rds-font-weight-semibold, 600); background: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)); border-bottom:2px solid var(--rds-grid-border); border-right:1px solid var(--rds-grid-border-alt); padding: var(--rds-spacing-sm); text-align:left; position:relative; user-select:none; }
-  &__header-cell:last-child { border-right:none; }
-  &__row { background: var(--rds-grid-bg); transition: var(--rds-transition-fast); }
-  &__row:nth-child(even){ background: var(--rds-grid-bg-alt); }
-  &__row:hover { background: var(--rds-grid-row-hover); }
-  &__row-selected { background: var(--rds-grid-row-hover); }
-  &__cell { padding: var(--rds-spacing-sm); border-right:1px solid var(--rds-grid-border-alt); border-bottom:1px solid var(--rds-grid-border); position:relative; }
-  &__cell:last-child { border-right:none; }
-  &__cell--truncated { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  &__cell-text, &__cell-html { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:100%; }
-
-  // Pagination & States ----------------------------------------------------
-  &__pagination, &-pagination { display:flex; justify-content:center; align-items:center; padding: var(--rds-spacing-md, 16px); border-top:1px solid var(--rds-grid-border); background:var(--rds-grid-bg); }
-  &__loader, &-loader { display:flex; justify-content:center; align-items:center; padding: var(--rds-spacing-2xl, 48px); }
-  &__empty-state, &-empty-state { display:flex; flex-direction:column; justify-content:center; align-items:center; padding: var(--rds-spacing-2xl, 48px); text-align:center; background:var(--rds-grid-bg); }
-  &__empty-state-title { font-weight: var(--rds-font-weight-semibold, 600); margin-bottom: var(--rds-spacing-xs, 4px); }
-  &__empty-state-description { color: var(--rds-grid-text-subtle); }
-  &__sort-icon, &-sort-icon { margin-left: var(--rds-spacing-xs, 4px); color: var(--rds-grid-text-subtle); }
-  &__filter-icon, &-filter-icon { margin-left: var(--rds-spacing-xs, 4px); color: var(--rds-grid-text-subtle); cursor:pointer; }
-  &__filter-icon-active { color: var(--colorBrandBackground, var(--rds-primary-main)); }
-  &__action-button, &-action-button { min-width:auto; }
-  &__resize-handle, &-resize-handle { position:absolute; right:0; top:0; bottom:0; width:4px; cursor:col-resize; background:transparent; transition: background-color var(--rds-transition-base); z-index: var(--rds-z-index-raised); &:hover{ background: var(--rds-grid-row-hover); } }
-
-  // Modifiers --------------------------------------------------------------
-  &--compact { .rds-comp-grid__header-cell, .rds-comp-grid__cell { padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px); font-size: var(--fontSizeBase100,12px);} }
-  &--loading { opacity:.6; pointer-events:none; }
-  &--error { border-color: var(--colorPaletteRedBorder1, var(--rds-error-main)); background: var(--colorPaletteRedBackground1, var(--rds-color-error-container)); }
 }
 
 // Filter Popup -------------------------------------------------------------
@@ -167,7 +80,6 @@
   .MuiBox-root,
   .MuiContainer-root,
   .MuiPaper-root,
-  .rds-comp-grid-toolbar,
   .rds-comp-grid-header-toolbar,
   .rds-comp-grid-search-toolbar,
   .rds-comp-grid-action-toolbar,
@@ -217,7 +129,6 @@
   button[type="button"],
   button[class*="button"],
   div[role="toolbar"] button,
-  .rds-comp-grid button,
   div[class*="toolbar"] button,
   div[class*="header"] button,
   div[class*="controls"] button {
@@ -333,7 +244,7 @@
 
   .rds-comp-grid-pagination {
     background-color: var(--rds-grid-bg);
-    border-top-color: var(--rds-grid-border);
+    border-top: 1px solid var(--rds-grid-border);
     color: var(--rds-neutral-0);
   }
 
@@ -357,8 +268,6 @@
    // New structure (non-BEM) class names support
   .rds-comp-grid-table { background-color: var(--rds-grid-bg); }
   .rds-comp-grid-header-cell {
-  @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
-
     background-color: var(--rds-grid-bg);
     color: var(--rds-neutral-0);
     border-bottom: 2px solid var(--rds-grid-border);
@@ -378,40 +287,11 @@
   }
   .rds-comp-grid-cell-text,
   .rds-comp-grid-cell-html { color: var(--rds-neutral-0); }
-  .rds-comp-grid-pagination { background-color: var(--rds-grid-bg); border-top: 1px solid var(--rds-grid-border); }
-  .rds-comp-grid-empty-state { background-color: var(--rds-grid-bg); color: var(--rds-neutral-0); }
   .rds-comp-grid-resize-handle { background-color: transparent; }
   .rds-comp-grid-resize-handle:hover { background-color: var(--rds-color-scrollbar-thumb-hover); }
 }
 
-// Responsive design
-@include bp.down(md) {
-  .rds-comp-grid__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--rds-spacing-sm);
-  }
-
-  .rds-comp-grid__subheader {
-    flex-direction: column;
-    padding: var(--rds-spacing-sm);
-  }
-
-  .rds-comp-grid__table {
-    font-size: var(--rds-font-size-md);
-  }
-}
-
 // RDS Fluent Grid Component Styles
-.rds-comp-grid-container {
-  width: 100%;
-  height: 100%;
-  border: 1px solid var(--rds-grid-border);
-  border-radius: var(--rds-border-radius-sm, 4px);
-  background-color: var(--rds-grid-bg);
-  overflow: hidden;
-  color: var(--rds-grid-text);
-}
 
 .rds-comp-grid {
   width: 100%;
@@ -661,7 +541,7 @@
     width: 100%;
     padding: var(--spacingVerticalXS) var(--spacingHorizontalS);
     border: none;
-    background: none;
+    background-color: none;
     text-align: left;
     font-size: var(--fontSizeBase200);
     color: var(--colorNeutralForeground1);
@@ -1286,47 +1166,6 @@
   }
 }
 
-// // Dark theme support
-// .rds-comp-grid--dark {
-//   background-color: var(--colorNeutralBackground1);
-//   border-color: var(--colorNeutralStroke1);
-
-//   .rds-comp-grid__header {
-//     background-color: var(--colorNeutralBackground2);
-//     border-bottom-color: var(--colorNeutralStroke2);
-//   }
-
-//   .rds-comp-grid__subheader {
-//     background-color: var(--colorNeutralBackground2);
-//     border-bottom-color: var(--colorNeutralStroke2);
-//   }
-
-//   .rds-comp-grid__table {
-//     .fui-DataGridHeader {
-//       background-color: var(--colorNeutralBackground2);
-//     }
-
-//     .fui-DataGridRow {
-//       &:nth-child(even) {
-
-  
-  /* Icons inside buttons */
-  svg {
-    fill: var(--rds-neutral-0) !important;
-    color: var(--rds-neutral-0) !important;
-  }
-
-
-//       &:hover {
-//         background-color: var(--colorNeutralBackground1Hover);
-//       }
-
-//       &--selected {
-//       }
-//     }
-//   }
-// }
-
 // Compact mode
 .rds-comp-grid--compact {
   .fui-DataGridHeaderCell,
@@ -1378,47 +1217,47 @@
 
 // Background color variants for cell content
 .rds-grid-cell-bg-blue-light {
-  background: var(--rds-color-info-light, #e3f2fd);
+  background-color: var(--rds-color-info-light, #e3f2fd);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-indigo-light {
-  background: var(--rds-color-indigo-light, #e8eaf6);
+  background-color: var(--rds-color-indigo-light, #e8eaf6);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-pink-light {
-  background: var(--rds-color-pink-light, #fce4ec);
+  background-color: var(--rds-color-pink-light, #fce4ec);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-green-light {
-  background: var(--rds-color-success-light, #e8f5e8);
+  background-color: var(--rds-color-success-light, #e8f5e8);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-orange-light {
-  background: var(--rds-color-warning-light, #fff3e0);
+  background-color: var(--rds-color-warning-light, #fff3e0);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-purple-light {
-  background: var(--rds-color-purple-light, #f3e5f5);
+  background-color: var(--rds-color-purple-light, #f3e5f5);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-cyan-light {
-  background: var(--rds-color-cyan-light, #e1f5fe);
+  background-color: var(--rds-color-cyan-light, #e1f5fe);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-teal-light {
-  background: var(--rds-color-teal-light, #e0f2f1);
+  background-color: var(--rds-color-teal-light, #e0f2f1);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-bg-lime-light {
-  background: var(--rds-color-lime-light, #f1f8e9);
+  background-color: var(--rds-color-lime-light, #f1f8e9);
   color: var(--rds-text-primary);
 }
 
@@ -1442,46 +1281,48 @@
   color: var(--rds-text-secondary);
 }
 
+.rds-comp-grid--dark {
   .rds-grid-cell-bg-indigo-light {
-    background: var(--rds-color-indigo-dark, rgba(63, 81, 181, 0.2));
+    background-color: var(--rds-color-indigo-dark, rgba(63, 81, 181, 0.2));
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-pink-light {
-    background: var(--rds-color-pink-dark, rgba(233, 30, 99, 0.2));
+    background-color: var(--rds-color-pink-dark, rgba(233, 30, 99, 0.2));
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-green-light {
-    background: var(--rds-color-success-dark, rgba(76, 175, 80, 0.2));
+    background-color: var(--rds-color-success-dark, rgba(76, 175, 80, 0.2));
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-orange-light {
-    background: var(--rds-color-warning-dark, rgba(255, 152, 0, 0.2));
+    background-color: var(--rds-color-warning-dark, rgba(255, 152, 0, 0.2));
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-purple-light {
-    background: var(--rds-color-purple-dark, rgba(156, 39, 176, 0.2));
+    background-color: var(--rds-color-purple-dark, rgba(156, 39, 176, 0.2));
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-cyan-light {
-    background: var(--rds-color-cyan-dark, rgba(0, 188, 212, 0.2));
+    background-color: var(--rds-color-cyan-dark, rgba(0, 188, 212, 0.2));
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-teal-light {
-    background: var(--rds-color-teal-dark, rgba(0, 150, 136, 0.2));
+    background-color: var(--rds-color-teal-dark, rgba(0, 150, 136, 0.2));
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-bg-lime-light {
-    background: var(--rds-color-lime-dark, rgba(205, 220, 57, 0.2));
+    background-color: var(--rds-color-lime-dark, rgba(205, 220, 57, 0.2));
     color: var(--rds-text-primary);
   }
 
   .rds-grid-cell-text-secondary {
     color: var(--rds-text-secondary);
   }
+}

@@ -81,7 +81,7 @@ describe('RdsDivider', () => {
 
     it('should not render message Typography when dividerMessage is undefined', () => {
       const { container } = renderWithTheme(<RdsDivider dividerMessage={undefined} />);
-      const typography = container.querySelector('.MuiTypography-body2');
+      const _typography = container.querySelector('.MuiTypography-body2');
       // Should exist but be empty when no message and no icon
       expect(container).toBeInTheDocument();
     });
@@ -293,21 +293,21 @@ describe('RdsDivider', () => {
 
   describe('Style Variants', () => {
     it('should apply subtle style by default', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsDivider dividerMessage="Subtle" styleVariant="subtle" />
       );
       expect(screen.getByText('Subtle')).toBeInTheDocument();
     });
 
     it('should apply strong style', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsDivider dividerMessage="Strong" styleVariant="strong" />
       );
       expect(screen.getByText('Strong')).toBeInTheDocument();
     });
 
     it('should apply primary style', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsDivider dividerMessage="Primary" styleVariant="primary" />
       );
       expect(screen.getByText('Primary')).toBeInTheDocument();
@@ -350,7 +350,7 @@ describe('RdsDivider', () => {
           },
         },
       });
-      const { container } = render(
+      render(
         <ThemeProvider theme={theme}>
           <RdsDivider dividerMessage="Primary" styleVariant="primary" />
         </ThemeProvider>
@@ -437,7 +437,7 @@ describe('RdsDivider', () => {
     });
 
     it('should handle null icon name', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsDivider dividerMessage="Test" iconName={null as any} />
       );
       // Should fallback to default icon

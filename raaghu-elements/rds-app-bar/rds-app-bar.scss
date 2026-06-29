@@ -6,18 +6,18 @@ $rds-app-bar-breakpoint-sm: 420px;
 $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-story-logo {
-  height: var(--rds-spacing-xl, 32px);
+  height: var(--rds-spacing-xl, 40px);
  
   @media (max-width: $rds-app-bar-breakpoint-md) {
-    height: calc(3.5 * var(--rds-spacing-xs, 4px));
+    height: var(--rds-spacing-xl, 40px);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    height: var(--rds-spacing-lg, 24px);
+    height: var(--rds-spacing-xl, 40px);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    height: calc(2.5 * var(--rds-spacing-xs, 4px));
+    height: calc(5.5 * var(--rds-spacing-xs, 4px));
     margin-left: calc(2.5 * var(--rds-spacing-xs, 4px));
   }
 }
@@ -269,7 +269,14 @@ $rds-app-bar-breakpoint-xs: 320px;
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center; margin-left: auto; }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; }
     .rds-header__actions { order: 5; }
+    // Remove the heading gap — title should not grow when center content is present
+    .rds-header__title { flex-grow: 0; min-width: 0; padding: 0; }
   }
+}
+
+// Remove heading gap for withactions at all screen sizes
+.rds-header--variant-withactions {
+  .rds-header__title { flex-grow: 0 !important; min-width: 0 !important; padding: 0 !important; }
 }
 
 @media (max-width: 420px) {
@@ -326,6 +333,39 @@ $rds-app-bar-breakpoint-xs: 320px;
         line-height: 1.1 !important;
       }
     }
+  }
+}
+
+// "Find Jobs" button in bottom nav: only visible at small mobile (≤320px)
+.rds-withactions-findjobs-mobile {
+  display: none;
+}
+
+// "Find Jobs" button in top nav: hidden at small mobile (≤320px), visible above
+.rds-withactions-findjobs-topnav {
+  display: inline-flex;
+  align-items: center;
+}
+
+// Center buttons container for withActions variant
+.rds-withactions-center-buttons {
+  display: flex;
+  align-items: center;
+
+  // Large mobile (421px - 840px): collapse gap to 0
+  @media (min-width: 421px) and (max-width: 840px) {
+    gap: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-withactions-findjobs-mobile {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .rds-withactions-findjobs-topnav {
+    display: none;
   }
 }
 
@@ -428,14 +468,19 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   &__menu-button {
     margin-right: var(--rds-spacing-sm);
+    margin-left: 0 !important; // override MUI edge="start" default of -12px
     flex-shrink: 0;
     
+    @media (max-width: 840px) {
+      margin-right: 0 !important;
+    }
+    
     @media (max-width: 420px) {
-      margin-right: var(--rds-spacing-xs);
+      margin-right: 0 !important;
     }
     
     @media (max-width: 320px) {
-      margin-right: var(--rds-spacing-xs);
+      margin-right: 0 !important;
     }
   }
 
@@ -483,8 +528,24 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
   .rds-header__title,
   .rds-header__actions,
-  .rds-header__logo {
+  .rds-header__logo,
+  .rds-header__center-content {
     color: var(--rds-color-on-primary);
+  }
+  // Force MUI Buttons and text inside header to be white on primary background
+  .rds-header__actions,
+  .rds-header__center-content {
+    .MuiButton-root,
+    .MuiButton-text,
+    .MuiIconButton-root {
+      color: var(--rds-color-on-primary) !important;
+    }
+    // Avatar background should stand out on primary — use a semi-transparent white
+    .MuiAvatar-root {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+      color: var(--rds-color-on-primary) !important;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
   }
   .rds-header__search {
     background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
@@ -510,8 +571,23 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
   .rds-header__title,
   .rds-header__actions,
-  .rds-header__logo {
+  .rds-header__logo,
+  .rds-header__center-content {
     color: var(--rds-color-on-secondary);
+  }
+  // Force MUI Buttons and text inside header to be readable on secondary background
+  .rds-header__actions,
+  .rds-header__center-content {
+    .MuiButton-root,
+    .MuiButton-text,
+    .MuiIconButton-root {
+      color: var(--rds-color-on-secondary) !important;
+    }
+    .MuiAvatar-root {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+      color: var(--rds-color-on-secondary) !important;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
   }
   .rds-header__search {
     background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
@@ -1080,7 +1156,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       }
       
       &.Mui-selected {
-        color: var(--rds-color-primary) !important;
+        color: var(--rds-color-primary-900, #0d47a1) !important;
       }
     }
     
@@ -1573,6 +1649,21 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   body {
     padding-bottom: var(--rds-spacing-56-px) !important;
+  }
+
+  // Large mobile: remove gap between buttons and menu icon margin-right for withActions variant
+  .rds-header--variant-withactions {
+    .rds-header__center-content,
+    .rds-header__center-content > div {
+      gap: 0 !important;
+    }
+
+    // Override MUI inline margin-right on the edge="start" menu icon button
+    .MuiIconButton-edgeStart,
+    .MuiIconButton-root[aria-label="menu"],
+    .rds-header__toolbar > .MuiIconButton-root:first-child {
+      margin-right: 0 !important;
+    }
   }
 }
 
@@ -2565,4 +2656,52 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
+@media (max-width: 420px) {
+  .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
+    .rds-header__title {
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      max-width: 38% !important;
+      margin: 0 var(--rds-spacing-xs) !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .rds-header__search-wrapper {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      max-width: 120px !important;
+    }
+
+    .rds-header__right-actions .MuiButton-root,
+    .rds-header__actions > .MuiButton-root {
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact) !important;
+      min-width: auto !important;
+      font-size: var(--rds-font-size-xs) !important;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
+    .rds-header__title {
+      max-width: calc(100% - 130px) !important;
+      font-size: var(--rds-font-size-sm) !important;
+      margin: 0 var(--rds-spacing-xxs) !important;
+    }
+
+    .rds-header__search-wrapper {
+      display: none !important;
+    }
+
+    .rds-header__right-actions .MuiButton-root,
+    .rds-header__actions > .MuiButton-root {
+      display: none !important;
+    }
+
+    .rds-header__actions {
+      margin-left: auto !important;
+    }
+  }
+}
 

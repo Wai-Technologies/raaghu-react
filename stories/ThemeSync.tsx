@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 function getMode(): 'light' | 'dark' {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(globalThis.location.search);
   const g = decodeURIComponent(params.get('globals') || '');
   return g.includes('theme:dark') ? 'dark' : 'light';
 }

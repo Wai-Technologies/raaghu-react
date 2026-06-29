@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSnackbar from './rds-snackbar';
@@ -265,7 +265,7 @@ describe('RdsSnackbar', () => {
 
     test('should not call onClose when clickaway reason is provided', () => {
       const onClose = jest.fn();
-      const { rerender } = renderWithTheme(
+      renderWithTheme(
         <RdsSnackbar
           open={true}
           message="Message"
@@ -467,7 +467,7 @@ describe('RdsSnackbar', () => {
     });
 
     test('should handle null children gracefully', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsSnackbar open={true} message="Message" />
       );
       expect(screen.getByText('Message')).toBeInTheDocument();
@@ -580,7 +580,7 @@ describe('RdsSnackbar', () => {
 
   describe('Complex Scenarios', () => {
     test('should handle multiple rapid changes', async () => {
-      const user = userEvent.setup();
+      const _user = userEvent.setup();
       const onClose = jest.fn();
       const { rerender } = renderWithTheme(
         <RdsSnackbar

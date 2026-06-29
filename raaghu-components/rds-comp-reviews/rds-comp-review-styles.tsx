@@ -5,11 +5,7 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
 
-/**
- * Helper function to format dates in a standard way
- * @param date Optional date to format
- * @returns Formatted date string
- */
+
 export const formatDate = (date?: Date) => {
   if (!date) return "Date not available";
   return date.toLocaleDateString('en-GB', {

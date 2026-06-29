@@ -29,14 +29,14 @@
   opacity: 0;
   animation: spinner-grow var(--rds-spinner-animation-duration) linear infinite;
   color: var(--rds-primary-main, var(--rds-spinner-primary-color));
+
+
+  width: 30px;
+  height: 30px;
 }
 
 /* Default and size modifier classes for consistent sizing */
 .spinner-border,
-.spinner-grow {
-  width: 30px;
-  height: 30px;
-}
 
 .spinner-border.spinner--small,
 .spinner-grow.spinner--small {

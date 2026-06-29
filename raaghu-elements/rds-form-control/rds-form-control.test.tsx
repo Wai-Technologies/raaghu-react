@@ -585,12 +585,13 @@ describe('RdsFormControl', () => {
       render(
         <RdsFormControl
           label="Accessible Field"
-          children={<input type="text" data-testid="form-input" />}
-        />
+         
+        >{<input type="text" data-testid="form-input" />}</RdsFormControl>
       );
       expect(screen.getByText('Accessible Field')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsFormControl label="Name"><input type="text" id="name-input" aria-label="Name" /></RdsFormControl>);
       const results = await axe(container);

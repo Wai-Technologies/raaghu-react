@@ -227,10 +227,11 @@
   }
 
   &__emoji-image {
-      width: var(--rds-size-xs, 22px);
-      height: var(--rds-size-xs, 22px);
-      display: inline-block;
-      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
   }
   
   &__category-title {
@@ -387,16 +388,16 @@
   }
   
   &__grid::-webkit-scrollbar-track {
-    background: var(--rds-background-neutral-50);
+    background-color: var(--rds-background-neutral-50);
   }
   
   &__grid::-webkit-scrollbar-thumb {
-    background: var(--rds-border-default);
+    background-color: var(--rds-border-default);
     border-radius: var(--rds-border-radius-xs, 3px);
   }
   
   &__grid::-webkit-scrollbar-thumb:hover {
-    background: var(--rds-border-hover);
+    background-color: var(--rds-border-hover);
   }
 }
 

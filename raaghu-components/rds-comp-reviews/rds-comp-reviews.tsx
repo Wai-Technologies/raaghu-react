@@ -55,7 +55,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
         <Grid container spacing={2} wrap="wrap">
           {props.itemList.map((item: Item, index: number) => (
             <Grid 
-             key={index}
+             key={item.name ?? item.username ?? `review-${index}`}
              size={{
                xs: 12,
                sm: 12,

@@ -33,7 +33,7 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
 
   return (
     <Box>
-      {(title || showToggleButton) && (
+      {((typeof title === 'string' && title) || showToggleButton) && (
         <Box
           sx={{
             display: 'flex',
@@ -44,7 +44,7 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
           }}
           onClick={showToggleButton ? handleToggle : undefined}
         >
-          {title && (
+          {typeof title === 'string' && title && (
             <Typography variant="h6" component="div">
               {title}
             </Typography>
@@ -66,7 +66,7 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
         </Box>
       )}
       <MuiCollapse in={internalExpanded} {...props}>
-        <Box sx={{ pt: title ? 1 : 0 }}>
+        <Box sx={{ pt: typeof title === 'string' && title ? 1 : 0 }}>
           {children}
         </Box>
       </MuiCollapse>

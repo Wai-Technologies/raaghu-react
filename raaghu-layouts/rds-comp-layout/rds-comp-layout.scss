@@ -24,7 +24,7 @@
   position: relative;
   padding: var(--rds-spacing-lg); 
   border: 1px solid var(--rds-border-light);
-  background: var(--rds-background-default);
+  background-color: var(--rds-background-default);
   min-height: 200px;
   height: 83vh;
   width: 100%;
@@ -60,7 +60,7 @@
 .rds-comp-layout__paper {
   border: 1px solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-sm) !important;
-  background: var(--rds-background-default);
+  background-color: var(--rds-background-default);
   box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07))!important;
   
   &--height-xs {

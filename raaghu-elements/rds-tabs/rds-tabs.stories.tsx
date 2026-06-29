@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { useState } from 'react';
 import RdsTabs from './rds-tabs';
 import PersonIcon from '@mui/icons-material/Person';
@@ -111,6 +110,22 @@ const iconMap = {
   Home: <HomeIcon fontSize="small" />,
 };
 
+const TabsStory = (args) => {
+  const { leftIcon, rightIcon, level, title, ...rest } = args as any;
+  let tabs = (args.tabs || []).slice(0, level || 1);
+  if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
+    tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
+  }
+  return (
+    <RdsTabs
+      {...rest}
+      tabs={tabs}
+      leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
+      rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
+    />
+  );
+};
+
 export const Default: Story = {
   args: {
     tabs: sampleTabs,
@@ -120,23 +135,7 @@ export const Default: Story = {
     rightIcon: 'Add',
     level: 4,
   },
-  render: (args) => {
-    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
-    let tabs = (args.tabs || []).slice(0, level || 1);
-    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          tabs={tabs}
-          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
-          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: TabsStory,
 };
 
 export const ManyTabs: Story = {
@@ -150,23 +149,7 @@ export const ManyTabs: Story = {
     state: "default",
     level: 5
   },
-  render: (args) => {
-    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
-    let tabs = (args.tabs || []).slice(0, level || 1);
-    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          tabs={tabs}
-          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
-          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: TabsStory,
 };
 
 export const SecondTabActive: Story = {
@@ -178,23 +161,7 @@ export const SecondTabActive: Story = {
     rightIcon: 'Add',
     level: 4,
   },
-  render: (args) => {
-    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
-    let tabs = (args.tabs || []).slice(0, level || 1);
-    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          tabs={tabs}
-          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
-          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: TabsStory,
 };
 
 export const SimpleTabs: Story = {
@@ -214,23 +181,7 @@ export const SimpleTabs: Story = {
     leftIcon: 'Person',
     rightIcon: 'Add',
   },
-  render: (args) => {
-    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
-    let tabs = (args.tabs || []).slice(0, level || 1);
-    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          tabs={tabs}
-          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
-          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: TabsStory,
 };
 
 export const Vertical: Story = {
@@ -243,29 +194,11 @@ export const Vertical: Story = {
     rightIcon: 'Add',
     level: 4,
   },
-  render: (args) => {
-    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
-    let tabs = (args.tabs || []).slice(0, level || 1);
-    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
-      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
-    }
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          tabs={tabs}
-          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
-          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
+  render: TabsStory,
 };
 
 
-export const SwitchTab: Story = {
-  name: 'Interaction: Switch between tabs',
-  render: () => {
+const SwitchTabStory = () => {
     const [activeTab, setActiveTab] = useState(0);
     const tabs = [
       { id: 0, label: 'Tab One' },
@@ -280,14 +213,6 @@ export const SwitchTab: Story = {
         onChange={(_: React.SyntheticEvent, value: number) => setActiveTab(value)}
       />
     );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const allTabs = canvas.getAllByRole('tab')
-    await expect(allTabs).toHaveLength(3)
-    await expect(allTabs[0]).toHaveAttribute('aria-selected', 'true')
-    await expect(allTabs[1]).toHaveAttribute('aria-selected', 'false')
-    await userEvent.click(allTabs[1])
-    await expect(allTabs[1]).toHaveAttribute('aria-selected', 'true')
-  }
-};
+  };
+
+

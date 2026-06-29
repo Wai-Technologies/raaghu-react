@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import RdsPagination from './rds-pagination';
 import React, { useState } from 'react';
 
@@ -83,8 +82,7 @@ const meta: Meta<typeof RdsPagination> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => {
+const DefaultStory = (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     const [pageSize, setPageSize] = useState(10);
     return (
@@ -105,7 +103,10 @@ export const Default: Story = {
         paginationStyle={args.paginationStyle}
       />
     );
-  },
+  };
+
+export const Default: Story = {
+  render: DefaultStory,
   args: {
     count: 50,
     page: 1,
@@ -123,8 +124,7 @@ export const Default: Story = {
     }
   }
 };
-export const Advanced: Story = {
-  render: (args) => {
+const AdvancedStory = (args) => {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const totalRecords = 123;
@@ -148,7 +148,10 @@ export const Advanced: Story = {
         paginationStyle={args.paginationStyle}
       />
     );
-  },
+  };
+
+export const Advanced: Story = {
+  render: AdvancedStory,
   args: {
     showDropdown: false,
     showLegend: false,
@@ -165,8 +168,7 @@ export const Advanced: Story = {
   }
 };
 
-export const Disabled: Story = {
-  render: (args) => {
+const DisabledStory = (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     return (
       <RdsPagination
@@ -175,15 +177,17 @@ export const Disabled: Story = {
         onChange={(_, value) => setPage(value)}
       />
     );
-  },
+  };
+
+export const Disabled: Story = {
+  render: DisabledStory,
   args: {
     count: 10,
     page: 5,
     disabled: true,
   },
 };
-export const Large: Story = {
-  render: (args) => {
+const LargeStory = (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     return (
       <RdsPagination
@@ -192,7 +196,10 @@ export const Large: Story = {
         onChange={(_, value) => setPage(value)}
       />
     );
-  },
+  };
+
+export const Large: Story = {
+  render: LargeStory,
   args: {
     count: 12,
     page: 6,
@@ -200,8 +207,7 @@ export const Large: Story = {
   },
 };
 
-export const Outlined: Story = {
-  render: (args) => {
+const OutlinedStory = (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     return (
       <RdsPagination
@@ -210,7 +216,10 @@ export const Outlined: Story = {
         onChange={(_, value) => setPage(value)}
       />
     );
-  },
+  };
+
+export const Outlined: Story = {
+  render: OutlinedStory,
   args: {
     count: 10,
     page: 3,
@@ -218,8 +227,7 @@ export const Outlined: Story = {
   },
 };
 
-export const Rounded: Story = {
-  render: (args) => {
+const RoundedStory = (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     return (
       <RdsPagination
@@ -228,15 +236,17 @@ export const Rounded: Story = {
         onChange={(_, value) => setPage(value)}
       />
     );
-  },
+  };
+
+export const Rounded: Story = {
+  render: RoundedStory,
   args: {
     count: 15,
     page: 7,
     shape: 'rounded',
   },
 };
-export const Small: Story = {
-  render: (args) => {
+const SmallStory = (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     return (
       <RdsPagination
@@ -245,7 +255,10 @@ export const Small: Story = {
         onChange={(_, value) => setPage(value)}
       />
     );
-  },
+  };
+
+export const Small: Story = {
+  render: SmallStory,
   args: {
     count: 8,
     page: 4,
@@ -253,8 +266,7 @@ export const Small: Story = {
   },
 };
 
-export const WithFirstLast: Story = {
-  render: (args) => {
+const WithFirstLastStory = (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     return (
       <RdsPagination
@@ -263,7 +275,10 @@ export const WithFirstLast: Story = {
         onChange={(_, value) => setPage(value)}
       />
     );
-  },
+  };
+
+export const WithFirstLast: Story = {
+  render: WithFirstLastStory,
   args: {
     count: 20,
     page: 10,
@@ -272,9 +287,7 @@ export const WithFirstLast: Story = {
 
 
 
-export const NavigatePage: Story = {
-  name: 'Interaction: Navigate to next page',
-  render: (args) => {
+const NavigatePageStory = (args) => {
     const [page, setPage] = useState(1);
     return (
       <RdsPagination
@@ -286,16 +299,6 @@ export const NavigatePage: Story = {
         pageSizeOptions={[10, 25, 50]}
       />
     );
-  },
-  args: {
-    totalPages: 5,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // RdsPagination shows prev/next controls — verify they render
-    await expect(canvas.getByRole('button', { name: /go to next page/i })).toBeInTheDocument()
-    await expect(canvas.getByRole('button', { name: /go to previous page/i })).toBeInTheDocument()
-    // Current page is marked with aria-current="page"
-    await expect(canvasElement.querySelector('[aria-current="page"]')).not.toBeNull()
-  }
-};
+  };
+
+

@@ -80,7 +80,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       }
     }
     if (!isControlled) {
-      setInternalValue(finalValue);
+      setInternalValue(finalValue ?? (multiple ? [] : ''));
     }
     onChange?.(event, finalValue);
   };

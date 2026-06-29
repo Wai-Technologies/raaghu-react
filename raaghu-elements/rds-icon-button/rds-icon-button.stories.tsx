@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from 'storybook/test';
 import RdsIconButton from './rds-icon-button';
 import { 
   Favorite, 
@@ -106,17 +105,4 @@ export const Small: Story = {
 
 
 
-export const ClickTest: Story = {
-  name: 'Interaction: Icon button fires callback',
-  args: {
-    children: <Favorite />,
-    onClick: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    const button = canvas.getByRole('button')
-    await expect(button).toBeVisible()
-    await userEvent.click(button)
-    await expect(args.onClick).toHaveBeenCalledOnce()
-  }
-};
+

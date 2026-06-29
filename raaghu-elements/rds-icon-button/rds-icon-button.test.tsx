@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsIconButton, { RdsIconButtonProps } from './rds-icon-button';
+import RdsIconButton from './rds-icon-button';
 import { Favorite, FavoriteBorder, Delete, Edit, Add, Home, Settings } from '@mui/icons-material';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -59,7 +59,7 @@ describe('RdsIconButton', () => {
 
   describe('Icon Rendering', () => {
     it('should render icon from children', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsIconButton>
           <Favorite data-testid="favorite-icon" />
         </RdsIconButton>
@@ -68,7 +68,7 @@ describe('RdsIconButton', () => {
     });
 
     it('should render iconFilled when variant is filled', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsIconButton
           variant="filled"
           iconFilled={<Favorite data-testid="filled-icon" />}
@@ -80,7 +80,7 @@ describe('RdsIconButton', () => {
     });
 
     it('should render iconOutlined when variant is outlined', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsIconButton
           variant="outlined"
           iconFilled={<Favorite data-testid="filled-icon" />}
@@ -92,7 +92,7 @@ describe('RdsIconButton', () => {
     });
 
     it('should fallback to icon prop when variant icons are not available', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsIconButton
           variant="filled"
           icon={<Edit data-testid="edit-icon" />}
@@ -102,7 +102,7 @@ describe('RdsIconButton', () => {
     });
 
     it('should prioritize variant-specific icons over generic icon prop', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsIconButton
           variant="filled"
           iconFilled={<Favorite data-testid="filled-icon" />}
@@ -389,7 +389,7 @@ describe('RdsIconButton', () => {
 
   describe('Complex Scenarios', () => {
     it('should render toggle button with variant switching', () => {
-      const { container, rerender } = renderWithTheme(
+      const { rerender } = renderWithTheme(
         <RdsIconButton
           variant="outlined"
           iconFilled={<Favorite data-testid="filled-icon" />}
@@ -498,7 +498,7 @@ describe('RdsIconButton', () => {
     });
 
     it('should handle data attributes', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsIconButton data-testid="custom-button">
           <Favorite />
         </RdsIconButton>

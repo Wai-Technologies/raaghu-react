@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompTimePicker, { RdsTimePickerProps } from './rds-comp-time-picker';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -42,7 +42,7 @@ jest.mock('./time-picker-utils', () => ({
     if (!value) return { hours: 12, minutes: 0, period: 'AM' };
     const [time, period] = value.split(' ');
     const [hours, minutes] = time.split(':');
-    return { hours: parseInt(hours), minutes: parseInt(minutes), period };
+    return { hours: Number.parseInt(hours), minutes: Number.parseInt(minutes), period };
   },
   getCurrentTime: () => {
     const now = new Date();
@@ -134,7 +134,7 @@ describe('RdsCompTimePicker', () => {
 
     colorVariants.forEach((color) => {
       it(`should apply color variant ${color}`, () => {
-        const { container } = render(<RdsCompTimePicker {...defaultProps} colorVariant={color} />);
+        render(<RdsCompTimePicker {...defaultProps} colorVariant={color} />);
         const input = screen.getByPlaceholderText('12:00 AM');
         expect(input).toHaveClass(`border-${color}`);
       });

@@ -1,5 +1,9 @@
 .rds-icon-button--outlined {
   border: var(--rds-icon-button-outlined-border-width, 1.5px) solid currentColor;
+
+
+  border-radius: var(--rds-icon-button-outlined-radius, 6px);
+  padding: var(--rds-icon-button-outlined-padding, 6px);
 }
 
 .rds-icon-button {
@@ -29,11 +33,6 @@
   font-size: var(--rds-icon-button-size-large, 24px) !important;
   width: var(--rds-icon-button-size-large, 24px) !important;
   height: var(--rds-icon-button-size-large, 24px) !important;
-}
-
-.rds-icon-button--outlined {
-  border-radius: var(--rds-icon-button-outlined-radius, 6px);
-  padding: var(--rds-icon-button-outlined-padding, 6px);
 }
 
 .rds-icon-button:focus-visible {

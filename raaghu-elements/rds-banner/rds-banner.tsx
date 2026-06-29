@@ -1,14 +1,19 @@
 import React from 'react';
-import { Alert as MuiAlert, AlertProps, AlertColor, IconButton } from '@mui/material';
+import { Alert as MuiAlert, AlertProps, IconButton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Close } from '@mui/icons-material';
-import RdsButton from '../rds-button/rds-button';
-
+import {
+  resolveBannerMainText,
+  resolveBannerClasses,
+  resolveBannerMuiVariant,
+  BannerTextContent,
+  BannerActionButtons,
+} from './rds-banner.helpers';
 import './rds-banner.scss';
 
 export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'> {
   description?: string;
-  type?: AlertColor;
+  type?: AlertProps['severity'];
   Icon?: boolean;
   title?: string;
   showTitle?: boolean;
@@ -62,32 +67,16 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   if (!isVisible && !persistent) {
     return null;
   }
-  const mainText = description !== undefined ? String(description) : (typeof children === 'string' ? children : '');
-  const sizeClass = `rds-banner--${size}`;
-  const styleClass = `rds-banner--${variantStyle}`;
-  const severityClass = `rds-banner--${type}`;
-  const widthClass = fullWidth ? 'rds-banner--full-width' : 'rds-banner--auto-width';
-  let outlineClass = '';
-  if (showOutline) {
-    if (variantStyle === 'style1') outlineClass = 'rds-banner--style1-outline';
-    if (variantStyle === 'style2') outlineClass = 'rds-banner--style2-outline';
-  }
 
-  let muiVariant: AlertProps['variant'] = props.variant ?? 'standard';
-  if (!props.variant) {
-  if (variantStyle === 'style2') {
-    muiVariant = 'outlined';
-  } else if (variantStyle === 'style3') {
-    muiVariant = 'standard';
-  }
-  }
+  const mainText = resolveBannerMainText(description, children);
+  const muiVariant = resolveBannerMuiVariant(variantStyle, props.variant);
 
   return (
     <MuiAlert
       severity={type}
       variant={muiVariant}
       icon={Icon ? <InfoOutlinedIcon /> : false}
-  className={`rds-banner ${sizeClass} ${styleClass} ${severityClass} ${widthClass}${outlineClass ? ` ${outlineClass}` : ''}${props.className ? ` ${props.className}` : ''}`}
+      className={resolveBannerClasses(size, variantStyle, type!, fullWidth, showOutline, props.className)}
       action={
         <div className="rds-banner__action-container">
           {actions}
@@ -107,39 +96,19 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
       {...props}
     >
       <div className="rds-banner__content-wrapper">
-        <div className="rds-banner__text-content">
-          {multiline ? (
-            <div>
-              {showTitle && (
-                <strong className="rds-banner__heading rds-banner__heading--multiline">{title}</strong>
-              )}
-              {showDescription && (
-                <div className="rds-banner__description">{mainText}</div>
-              )}
-            </div>
-          ) : (
-            <span>
-              {showTitle && (
-                <strong className="rds-banner__heading">{title}</strong>
-              )}
-              {showDescription && mainText}
-            </span>
-          )}
-          {React.isValidElement(children) ? children : null}
-        </div>
-        {(showLink || showSecondary || showPrimary) && (
-          <div className="rds-banner__actions">
-            {showLink && (
-              <RdsButton size="small" className="rds-banner__link-button" text="Link" />
-            )}
-            {showSecondary && (
-              <RdsButton size="small" className="rds-banner__secondary-button" text="Cancel" />
-            )}
-            {showPrimary && (
-              <RdsButton style='filled' size="small" className="rds-banner__primary-button" text="Okay" />
-            )}
-          </div>
-        )}
+        <BannerTextContent
+          multiline={multiline}
+          showTitle={showTitle}
+          showDescription={showDescription}
+          title={title}
+          mainText={mainText}
+          children={children}
+        />
+        <BannerActionButtons
+          showLink={showLink}
+          showSecondary={showSecondary}
+          showPrimary={showPrimary}
+        />
       </div>
     </MuiAlert>
   );

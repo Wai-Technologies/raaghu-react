@@ -1,5 +1,5 @@
 import React, { type ReactNode, useState } from "react";
-import { Drawer, Box, Typography } from "@mui/material";
+import { Drawer, Box } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
@@ -117,17 +117,25 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
                 <Box className="d-flex justify-content-start mt-auto offcanvas-margin offcanvas-footer" id="offcanvas-btns">
                   <Box className="tertiary-button-container">
                     {showTertiaryButton && (
-                      <RdsButton text="RESTORE TO DEFAULT" style="transparent" size="medium" className="offcanvas-action-btn" />
+                      <RdsButton
+                        text="RESTORE TO DEFAULT"
+                        style="transparent"
+                        size="medium"
+                        layout="text-only"
+                        className="offcanvas-action-btn offcanvas-tertiary-btn"
+                        disableRipple
+                        sx={{ minWidth: 0, width: 'auto' }}
+                      />
                     )}
                   </Box>
                   <Box className="secondary-button-container">
                     {showSecondaryButton && (
-                      <RdsButton text="CANCEL" style="outlined" size="medium"  onClick={handleClose} className="offcanvas-cancel-btn"/>
+                      <RdsButton text="CANCEL" style="outlined" size="medium" onClick={handleClose} className="offcanvas-cancel-btn" disableRipple sx={{ minWidth: 0, width: 'auto' }}/>
                     )}
                   </Box>
                   <Box className="primary-button-container">
                     {showPrimaryButton && (
-                      <RdsButton text="SAVE" style="filled" size="medium" onClick={handleClose} className="offcanvas-action-btn" />
+                      <RdsButton text="SAVE" style="filled" size="medium" onClick={handleClose} className="offcanvas-action-btn" disableRipple sx={{ minWidth: 0, width: 'auto' }} />
                     )}
                   </Box>
                 </Box>

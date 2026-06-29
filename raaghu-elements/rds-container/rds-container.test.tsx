@@ -251,7 +251,7 @@ describe('RdsContainer', () => {
     it('should apply default padding when not provided', () => {
       const { container } = renderWithTheme(<RdsContainer {...defaultProps} />);
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
+      expect(muiContainer.dataset.rdsContainerPadding).toBe('applied');
     });
 
     it('should apply default padding when undefined', () => {
@@ -259,7 +259,7 @@ describe('RdsContainer', () => {
         <RdsContainer padding={undefined} {...defaultProps} />
       );
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
+      expect(muiContainer.dataset.rdsContainerPadding).toBe('applied');
     });
 
     it('should combine custom padding with sx prop', () => {
@@ -726,7 +726,7 @@ describe('RdsContainer', () => {
     it('should apply default padding by default', () => {
       const { container } = renderWithTheme(<RdsContainer {...defaultProps} />);
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
+      expect(muiContainer.dataset.rdsContainerPadding).toBe('applied');
     });
 
     it('should apply maxWidth by default (md)', () => {

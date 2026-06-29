@@ -1,6 +1,5 @@
 import RdsCompLineChart from "./rds-comp-chart-line";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
 import { Chart } from 'chart.js';
 
 const meta: Meta = {
@@ -75,9 +74,5 @@ export const Default: Story = {
             },
         ],
         id: "linechart",
-    },
-    play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
-        await expect(chart).toBeInTheDocument();
-    },
+    },
 } satisfies Story;

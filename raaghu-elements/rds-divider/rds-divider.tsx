@@ -104,12 +104,19 @@ const RdsDivider= ({
 
   const sizeStyles = getSizeStyles();
 
+  let contentPaddingX = 0;
+  if (dividerMessage) {
+    contentPaddingX = 1;
+  } else if (layout === 'horizontal') {
+    contentPaddingX = 2;
+  }
+
   const content = (dividerMessage || iconShow) && (
    <Box
     display="flex"
     alignItems="center"
     gap={{ xs: 0.3, sm: 0.3, md: 0.3, lg: 1.0 }}
-    px={dividerMessage ? 1 : (layout === 'horizontal' ? 2 : 0)}
+    px={contentPaddingX}
   >
     {iconShow && (
       <Box

@@ -1,5 +1,22 @@
 import React, { useState, useMemo, useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import {
+  applyFilterState,
+  matchesSearch,
+  sortGridData,
+  paginateData,
+  validateColumnValue,
+  processColumnValue,
+  findRowIndexInData,
+  parseRowIndexFromId,
+  updateRowColumnInData,
+  buildFilterApiRequest,
+  getOperatorsForDataType,
+  getInputTypeForDataType,
+  parseColumnWidth,
+} from './rds-comp-grid-helpers';
+import { GridHeaderCell, GridDataRow } from './rds-comp-grid-parts';
+import type { DroppableProvided } from '@hello-pangea/dnd';
+import {
   Box,
   TextField,
   Typography,
@@ -17,7 +34,6 @@ import {
   Select,
   FormControl,
   Checkbox,
-  Radio,
   Pagination,
   Stack,
   Card,
@@ -41,14 +57,9 @@ import {
   Clear as ClearIcon,
   ArrowUpward as ArrowUpIcon,
   ArrowDownward as ArrowDownIcon,
-  SwapVert as ArrowUpDownIcon,
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-  Visibility as ViewIcon,
-  DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DragUpdate, DroppableProvided, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable, DropResult, DragStart, DragUpdate } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -318,265 +329,6 @@ const SortableHeaderCell: React.FC<{
   );
 };
 
-const EditableCell: React.FC<{
-  value: unknown;
-  column: RdsCompGridColumn;
-  row: GridRow;
-  isEditing: boolean;
-  onStartEdit: () => void;
-  onSave: (newValue: unknown) => void;
-  onCancel: () => void;
-  onValueChange: (newValue: unknown) => void;
-  tempValue: unknown;
-  validationError?: string;
-}> = ({ 
-  value, 
-  column, 
-  row, 
-  isEditing, 
-  onStartEdit, 
-  onSave, 
-  onCancel, 
-  onValueChange, 
-  tempValue, 
-  validationError 
-}) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (isEditing && inputRef.current) {
-      inputRef.current.focus();
-      if (inputRef.current.type === 'text' || inputRef.current.type === 'email' || inputRef.current.type === 'url') {
-        try {
-          inputRef.current.select();
-        } catch (e) {
-          inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
-        }
-      }
-    }
-  }, [isEditing]);
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      onSave(tempValue);
-    } else if (e.key === 'Escape') {
-      e.preventDefault();
-      onCancel();
-    }
-  };
-
-  const handleBlur = () => {
-    onSave(tempValue);
-  };
-
-  const getInputType = () => {
-    switch (column.dataType?.toLowerCase()) {
-      case 'number':
-      case 'numeric':
-      case 'int':
-      case 'float':
-      case 'decimal':
-        return 'number';
-      case 'email':
-        return 'email';
-      case 'url':
-        return 'url';
-      case 'date':
-        return 'date';
-      case 'datetime':
-        return 'datetime-local';
-      case 'time':
-        return 'time';
-      default:
-        return 'text';
-    }
-  };
-
-  const formatValueForDisplay = (val: unknown) => {
-    if (val === null || val === undefined) return '';
-    return String(val);
-  };
-
-  if (isEditing) {
-    return (
-      <TextField
-        ref={inputRef}
-        value={tempValue}
-        onChange={(e) => onValueChange(e.target.value)}
-        onKeyDown={handleKeyDown}
-        onBlur={handleBlur}
-        type={getInputType()}
-        size="small"
-        fullWidth
-        error={!!validationError}
-        helperText={validationError}
-        sx={{
-          '& .MuiInputBase-input': {
-            padding: '4px 8px',
-            fontSize: '14px',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          },
-          '& .MuiOutlinedInput-notchedOutline': {
-            borderWidth: '1px',
-          },
-          '& .MuiOutlinedInput-root': {
-            height: '32px',
-          },
-        }}
-      />
-    );
-  }
-
-  const displayValue = formatValueForDisplay(value);
-  const shouldShowTooltip = displayValue.length > 10;
-
-  return (
-    <Box
-      onClick={onStartEdit}
-      sx={{
-        cursor: 'pointer',
-        padding: '4px 8px',
-        minHeight: '32px',
-        display: 'flex',
-        alignItems: 'center',
-        width: '100%',
-        border: '1px solid transparent',
-        borderRadius: 'var(--rds-border-radius-sm)',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        '&:hover': {
-          backgroundColor: 'action.hover',
-          border: '1px solid',
-          borderColor: 'divider',
-        },
-      }}
-    >
-      {shouldShowTooltip ? (
-        <Tooltip title={displayValue} arrow>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              width: '100%',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {displayValue}
-          </Typography>
-        </Tooltip>
-      ) : (
-        <Typography 
-          variant="body2" 
-          sx={{ 
-            width: '100%',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {displayValue}
-        </Typography>
-      )}
-    </Box>
-  );
-};
-
-const ActionMenu: React.FC<{
-  row: GridRow;
-  actions: RdsCompGridAction[];
-  onActionSelection?: (rowData: GridRow, actionId: string) => void;
-}> = ({ row, actions, onActionSelection }) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleActionClick = (actionId: string) => {
-    onActionSelection?.(row, actionId);
-    handleClose();
-  };
-
-  const getActionIcon = (actionId: string) => {
-    switch (actionId.toLowerCase()) {
-      case 'edit':
-        return <EditIcon fontSize="small" />;
-      case 'delete':
-        return <DeleteIcon fontSize="small" />;
-      case 'view':
-        return <ViewIcon fontSize="small" />;
-      default:
-        return <MoreIcon fontSize="small" />;
-    }
-  };
-
-  return (
-    <>
-      <IconButton
-        size="small"
-        aria-label="Row actions"
-        onClick={handleClick}
-        sx={{
-          '&:hover': {
-            backgroundColor: 'action.hover',
-          },
-        }}
-      >
-        <MoreIcon />
-      </IconButton>
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        PaperProps={{
-          sx: {
-            minWidth: 120,
-            '& .MuiMenuItem-root': {
-              fontSize: '14px',
-            },
-          },
-        }}
-      >
-        {actions.map((action) => (
-          <MenuItem
-            key={action.id}
-            onClick={() => handleActionClick(action.id)}
-            sx={{
-              '&:hover': {
-                backgroundColor: 'action.hover',
-              },
-            }}
-          >
-            <ListItemIcon sx={{ minWidth: 32 }}>
-              {getActionIcon(action.id)}
-            </ListItemIcon>
-            <ListItemText primary={action.displayName} />
-          </MenuItem>
-        ))}
-      </Menu>
-    </>
-  );
-};
-
 const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   tableHeaders,
   tableData,
@@ -829,97 +581,25 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   };
 
   const processedData = useMemo(() => {
-    let filtered = [...(enableRowSwapping ? localTableData : currentData)];
+    const sourceData = enableRowSwapping ? localTableData : currentData;
+    let filtered = [...sourceData];
 
     if (searchValue) {
-      filtered = filtered.filter((row) =>
-        Object.values(row).some((val) =>
-          val?.toString().toLowerCase().includes(searchValue.toLowerCase())
-        )
-      );
+      filtered = filtered.filter((row) => matchesSearch(row, searchValue));
     }
 
-    Object.entries(filterState).forEach(([columnKey, filter]) => {
-      if (filter.value) {
-        filtered = filtered.filter((row) => {
-          const cellValue = row[columnKey];
-          const filterValue = filter.value;
-
-          const column = tableHeaders.find(h => h.key === columnKey);
-          const dataType = column?.dataType?.toLowerCase() || 'string';
-          
-          switch (filter.operator) {
-            case 'contains':
-              return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
-            case 'notContains':
-              return !cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
-            case 'equals':
-              if (dataType === 'number' || dataType === 'numeric' || dataType === 'int' || dataType === 'float' || dataType === 'decimal') {
-                return parseFloat(cellValue) === parseFloat(filterValue);
-              } else if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
-                return new Date(cellValue).toDateString() === new Date(filterValue).toDateString();
-              } else {
-                return cellValue?.toString().toLowerCase() === filterValue.toLowerCase();
-              }
-            case 'startsWith':
-              return cellValue?.toString().toLowerCase().startsWith(filterValue.toLowerCase());
-            case 'endsWith':
-              return cellValue?.toString().toLowerCase().endsWith(filterValue.toLowerCase());
-            case 'greaterThan':
-              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
-                return new Date(cellValue) > new Date(filterValue);
-              } else {
-                return parseFloat(cellValue) > parseFloat(filterValue);
-              }
-            case 'lessThan':
-              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
-                return new Date(cellValue) < new Date(filterValue);
-              } else {
-                return parseFloat(cellValue) < parseFloat(filterValue);
-              }
-            case 'greaterThanOrEqual':
-              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
-                return new Date(cellValue) >= new Date(filterValue);
-              } else {
-                return parseFloat(cellValue) >= parseFloat(filterValue);
-              }
-            case 'lessThanOrEqual':
-              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
-                return new Date(cellValue) <= new Date(filterValue);
-              } else {
-                return parseFloat(cellValue) <= parseFloat(filterValue);
-              }
-            case 'between':
-              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
-                return new Date(cellValue) >= new Date(filterValue);
-              } else {
-                return parseFloat(cellValue) >= parseFloat(filterValue);
-              }
-            default:
-              return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
-          }
-        });
-      }
-    });
+    filtered = applyFilterState(filtered, filterState, tableHeaders);
 
     if (sortColumn) {
-      filtered = filtered.sort((a, b) => {
-        const aVal = a[sortColumn];
-        const bVal = b[sortColumn];
-        if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
-        if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
-        return 0;
-      });
+      filtered = sortGridData(filtered, sortColumn, sortDirection);
     }
 
     if (pagination) {
-      const startIndex = (currentPage - 1) * recordsPerPage;
-      const endIndex = startIndex + recordsPerPage;
-      filtered = filtered.slice(startIndex, endIndex);
+      filtered = paginateData(filtered, currentPage, recordsPerPage);
     }
 
     return filtered;
-  }, [enableRowSwapping ? localTableData : currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns, enableRowSwapping, localTableData, currentData]);
+  }, [enableRowSwapping ? localTableData : currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns, enableRowSwapping, localTableData, currentData, tableHeaders]);
 
   const handleSort = (columnKey: string) => {
     if (sortColumn === columnKey) {
@@ -988,68 +668,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const getVisibleHeaders = () => {
     const visible = columnOrder.filter(header => visibleColumns.includes(header.key));
     return visible;
-  };
-
-  const getOperatorsForDataType = (dataType: string) => {
-    switch (dataType?.toLowerCase()) {
-      case 'number':
-      case 'numeric':
-      case 'int':
-      case 'float':
-      case 'decimal':
-        return [
-          { value: 'equals', label: 'Equals' },
-          { value: 'greaterThan', label: 'Greater Than' },
-          { value: 'lessThan', label: 'Less Than' },
-          { value: 'greaterThanOrEqual', label: 'Greater Than or Equal' },
-          { value: 'lessThanOrEqual', label: 'Less Than or Equal' },
-          { value: 'between', label: 'Between' }
-        ];
-      case 'date':
-      case 'datetime':
-      case 'timestamp':
-        return [
-          { value: 'equals', label: 'Equals' },
-          { value: 'greaterThan', label: 'After' },
-          { value: 'lessThan', label: 'Before' },
-          { value: 'greaterThanOrEqual', label: 'On or After' },
-          { value: 'lessThanOrEqual', label: 'On or Before' },
-          { value: 'between', label: 'Between' }
-        ];
-      case 'boolean':
-        return [
-          { value: 'equals', label: 'Equals' }
-        ];
-      default:
-        return [
-          { value: 'contains', label: 'Contains' },
-          { value: 'equals', label: 'Equals' },
-          { value: 'startsWith', label: 'Starts With' },
-          { value: 'endsWith', label: 'Ends With' },
-          { value: 'notContains', label: 'Does Not Contain' }
-        ];
-    }
-  };
-
-  const getInputTypeForDataType = (dataType: string) => {
-    switch (dataType?.toLowerCase()) {
-      case 'number':
-      case 'numeric':
-      case 'int':
-      case 'float':
-      case 'decimal':
-        return 'number';
-      case 'date':
-      case 'datetime':
-      case 'timestamp':
-        return 'date';
-      case 'email':
-        return 'email';
-      case 'url':
-        return 'url';
-      default:
-        return 'text';
-    }
   };
 
   const handleFilterIconClick = (event: React.MouseEvent<HTMLElement>, columnKey: string) => {
@@ -1124,7 +742,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     const initialWidths: {[columnKey: string]: number} = {};
     tableHeaders.forEach(header => {
       if (header.colWidth) {
-        initialWidths[header.key] = parseInt(header.colWidth.replace('px', ''));
+        initialWidths[header.key] = parseColumnWidth(header.colWidth);
       } else {
         initialWidths[header.key] = header.minWidth || 100;
       }
@@ -1216,28 +834,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         value: filterValue
       };
       
-      const activeFilters = Object.entries(newFilterState)
-        .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
-        .map(([columnKey, filter]) => {
-          const column = tableHeaders.find(h => h.key === columnKey);
-          return {
-            columnKey,
-            columnName: column?.name || columnKey,
-            dataType: column?.dataType || 'string',
-            operator: filter.operator,
-            value: filter.value,
-            id: `${columnKey}_${Date.now()}`
-          } as FilterCondition;
-        });
-      
-      const filterApiRequest: FilterApiRequest = {
-        filters: activeFilters,
-        logicalOperator: 'AND',
-        page: currentPage,
-        pageSize: recordsPerPage,
-        sortBy: sortColumn || undefined,
-        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
-      };
+      const filterApiRequest = buildFilterApiRequest(
+        newFilterState,
+        tableHeaders,
+        sortColumn,
+        sortDirection,
+        currentPage,
+        recordsPerPage
+      );
       
       setFilterState(newFilterState);
       setColumnFilterStates(newColumnFilterStates);
@@ -1261,28 +865,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       const newColumnFilterStates = { ...columnFilterStates };
       delete newColumnFilterStates[selectedColumnForFilter];
       
-      const activeFilters = Object.entries(newFilterState)
-        .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
-        .map(([columnKey, filter]) => {
-          const column = tableHeaders.find(h => h.key === columnKey);
-          return {
-            columnKey,
-            columnName: column?.name || columnKey,
-            dataType: column?.dataType || 'string',
-            operator: filter.operator,
-            value: filter.value,
-            id: `${columnKey}_${Date.now()}`
-          } as FilterCondition;
-        });
-      
-      const filterApiRequest: FilterApiRequest = {
-        filters: activeFilters,
-        logicalOperator: 'AND',
-        page: currentPage,
-        pageSize: recordsPerPage,
-        sortBy: sortColumn || undefined,
-        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
-      };
+      const filterApiRequest = buildFilterApiRequest(
+        newFilterState,
+        tableHeaders,
+        sortColumn,
+        sortDirection,
+        currentPage,
+        recordsPerPage
+      );
       
       setFilterState(newFilterState);
       setColumnFilterStates(newColumnFilterStates);
@@ -1330,96 +920,22 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     const column = tableHeaders.find(h => h.key === columnKey);
     if (!column) return;
 
-    let validationError = '';
-    
-    if (column.required && (!newValue || newValue.toString().trim() === '')) {
-      validationError = 'This field is required';
-    }
-    
-    if (!validationError && newValue && column.dataType) {
-      switch (column.dataType.toLowerCase()) {
-        case 'number':
-        case 'numeric':
-        case 'int':
-        case 'float':
-        case 'decimal':
-          if (isNaN(Number(newValue))) {
-            validationError = 'Please enter a valid number';
-          }
-          break;
-        case 'email': {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(newValue)) {
-            validationError = 'Please enter a valid email address';
-          }
-          break;
-        }
-        case 'url':
-          try {
-            new URL(newValue);
-          } catch {
-            validationError = 'Please enter a valid URL';
-          }
-          break;
-      }
-    }
-    
-    if (!validationError && column.validateCell) {
-      const customError = column.validateCell(newValue, { id: rowId });
-      if (customError) {
-        validationError = customError;
-      }
-    }
-    
+    const validationError = validateColumnValue(column, newValue, rowId);
     if (validationError) {
       setCellValidationError(validationError);
       return;
     }
 
-    let processedValue = newValue;
-    if (column.dataType) {
-      switch (column.dataType.toLowerCase()) {
-        case 'number':
-        case 'numeric':
-        case 'int':
-        case 'float':
-        case 'decimal':
-          processedValue = Number(newValue);
-          break;
-        case 'boolean':
-          processedValue = Boolean(newValue);
-          break;
-        default:
-          processedValue = newValue.toString();
-      }
-    }
-
-    const rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
+    const processedValue = processColumnValue(column, newValue);
+    const rowIndex = findRowIndexInData(currentData, rowId);
     const originalValue = rowIndex >= 0 ? currentData[rowIndex][columnKey] : null;
 
-    const updateData = (newData: GridRow[]) => {
-      if (controlledData && onDataChange) {
-        onDataChange(newData);
-      } else {
-        setInternalData(newData);
-      }
-    };
-
-    const updatedData = currentData.map((row, index) => {
-      const rowIdToCheck = row.id || index.toString();
-      
-      if (rowId.startsWith('row-')) {
-        const rowIndex = parseInt(rowId.replace('row-', ''));
-        if (index === rowIndex) {
-          return { ...row, [columnKey]: processedValue };
-        }
-      } else if (rowIdToCheck === rowId) {
-        return { ...row, [columnKey]: processedValue };
-      }
-      return row;
-    });
-
-    updateData(updatedData);
+    const updatedData = updateRowColumnInData(currentData, rowId, columnKey, processedValue);
+    if (controlledData && onDataChange) {
+      onDataChange(updatedData);
+    } else {
+      setInternalData(updatedData);
+    }
 
     onCellEdit?.(rowId, columnKey, processedValue, originalValue);
     onCellEditComplete?.(rowId, columnKey, processedValue, true);
@@ -1465,46 +981,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
     editableColumns.forEach(column => {
       const value = tempRowValues[column.key];
-      let error = '';
-
-      if (column.required && (!value || value.toString().trim() === '')) {
-        error = 'This field is required';
-      }
-
-      if (!error && value && column.dataType) {
-        switch (column.dataType.toLowerCase()) {
-          case 'number':
-          case 'numeric':
-          case 'int':
-          case 'float':
-          case 'decimal':
-            if (isNaN(Number(value))) {
-              error = 'Please enter a valid number';
-            }
-            break;
-          case 'email': {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-              error = 'Please enter a valid email address';
-            }
-            break;
-          }
-          case 'url':
-            try {
-              new URL(value);
-            } catch {
-              error = 'Please enter a valid URL';
-            }
-            break;
-        }
-      }
-
-      if (!error && column.validateCell) {
-        const customError = column.validateCell(value, { id: rowId });
-        if (customError) {
-          error = customError;
-        }
-      }
+      const error = validateColumnValue(column, value, rowId);
 
       if (error) {
         validationErrors[column.key] = error;
@@ -1517,24 +994,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       return;
     }
 
-    const updateData = (newData: GridRow[]) => {
-      if (controlledData && onDataChange) {
-        onDataChange(newData);
-      } else {
-        setInternalData(newData);
-      }
-    };
-
     const updatedData = [...currentData];
-    
-    let rowIndex = -1;
-    
-    if (rowId.startsWith('row-')) {
-      const index = parseInt(rowId.replace('row-', ''));
-      rowIndex = index;
-    } else {
-      rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
-    }
+    const rowIndex = findRowIndexInData(currentData, rowId);
     
     if (rowIndex === -1 || rowIndex >= currentData.length) {
       console.error('Row not found in currentData. rowId:', rowId, 'currentData.length:', currentData.length);
@@ -1545,26 +1006,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     
     editableColumns.forEach(column => {
       const value = tempRowValues[column.key];
-      let processedValue = value;
-
-      if (column.dataType) {
-        switch (column.dataType.toLowerCase()) {
-          case 'number':
-          case 'numeric':
-          case 'int':
-          case 'float':
-          case 'decimal':
-            processedValue = Number(value);
-            break;
-          case 'boolean':
-            processedValue = Boolean(value);
-            break;
-          default:
-            processedValue = value.toString();
-        }
-      }
-
-      const originalValue = rowIndex >= 0 ? currentData[rowIndex][column.key] : null;
+      const processedValue = processColumnValue(column, value);
+      const originalValue = currentData[rowIndex][column.key];
 
       updatedRow[column.key] = processedValue;
 
@@ -1574,7 +1017,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
     updatedData[rowIndex] = updatedRow;
 
-    updateData(updatedData);
+    if (controlledData && onDataChange) {
+      onDataChange(updatedData);
+    } else {
+      setInternalData(updatedData);
+    }
 
     setEditingRow(null);
     setTempRowValues({});
@@ -1609,6 +1056,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       const currentRowId = row.id || `row-${index}`;
       return currentRowId === rowId || `row-${index}` === rowId;
     }) || null;
+  };
+
+  const handleStopEditing = () => {
+    if (editingCell) {
+      handleCellEditCancel();
+    }
+    if (editingRow) {
+      handleRowEditCancel();
+    }
   };
 
   useImperativeHandle(ref, () => ({
@@ -1656,7 +1112,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     getRow: getRowById,
     getSelectedRows: () => {
       return Array.from(selectedRows).map(rowId => {
-        const index = parseInt(rowId.replace('row-', ''));
+        const index = parseRowIndexFromId(rowId);
         return currentData[index];
       }).filter(Boolean);
     },
@@ -1763,14 +1219,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         }
       }
     },
-    stopEdit: () => {
-      if (editingCell) {
-        handleCellEditCancel();
-      }
-      if (editingRow) {
-        handleRowEditCancel();
-      }
-    },
+    stopEdit: handleStopEditing,
     isEditing: () => !!(editingCell || editingRow),
     getEditingRow: () => editingRow,
 
@@ -1845,6 +1294,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     handleCellEditStart,
     handleCellEditCancel,
     handleRowEditCancel,
+    handleStopEditing,
     getVisibleHeaders,
     tableRef,
     getRowById
@@ -1852,6 +1302,190 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
   const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
+  const rowVisibleHeaders = enableColumnSwapping
+    ? columnOrder.filter((header) => visibleColumns.includes(header.key))
+    : getVisibleHeaders();
+  const showActionButtonsDirectly = actionColumnStyle === ActionColumnStyle.ShowButtonsDirectly;
+
+  const handleSelectAllRows = (checked: boolean) => {
+    if (checked) {
+      setSelectedRows(new Set(processedData.map((_, index) => `row-${index}`)));
+      return;
+    }
+    setSelectedRows(new Set());
+  };
+
+  const renderDroppableBody = (provided: DroppableProvided) => (
+    <TableBody {...provided.droppableProps} ref={provided.innerRef}>
+      {processedData.map((row, index) => {
+        const rowId = `row-${index}`;
+        return (
+          <GridDataRow
+            key={rowId}
+            row={row}
+            index={index}
+            rowId={rowId}
+            isSelected={selectedRows.has(rowId)}
+            isRowEditing={editingRow === rowId}
+            enableRowSwapping={enableRowSwapping}
+            enableCheckboxSelection={enableCheckboxSelection}
+            enableRadioButtonSelection={enableRadioButtonSelection}
+            enableInlineEdit={enableInlineEdit}
+            inlineEditMode={inlineEditMode}
+            visibleHeaders={rowVisibleHeaders}
+            columnWidths={columnWidths}
+            editingCell={editingCell}
+            editingRow={editingRow}
+            tempCellValue={tempCellValue}
+            tempRowValues={tempRowValues}
+            cellValidationError={cellValidationError}
+            rowValidationErrors={rowValidationErrors}
+            actions={actions}
+            showActionButtonsDirectly={showActionButtonsDirectly}
+            onRowClick={onRowClick}
+            onRowSelect={handleRowSelect}
+            onCellEditStart={handleCellEditStart}
+            onCellEditSave={handleCellEditSave}
+            onCellEditCancel={handleCellEditCancel}
+            onCellValueChange={handleCellValueChange}
+            onRowValueChange={handleRowValueChange}
+            onRowEditStart={handleRowEditStart}
+            onRowEditSave={handleRowEditSave}
+            onRowEditCancel={handleRowEditCancel}
+            onActionSelection={onActionSelection}
+          />
+        );
+      })}
+      {provided.placeholder}
+    </TableBody>
+  );
+
+  const renderAdvancedFilterControls = () => {
+    const selectedColumn = tableHeaders.find((h) => h.key === selectedColumnForFilter);
+    const dataType = selectedColumn?.dataType || 'string';
+    const operators = getOperatorsForDataType(dataType);
+    const inputType = getInputTypeForDataType(dataType);
+
+    return (
+      <Box>
+        <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
+          <Typography
+            variant="caption"
+            sx={{
+              fontSize: '12px',
+              fontWeight: '500',
+              color: 'text.primary',
+              mb: 0.5,
+              display: 'block',
+            }}
+          >
+            Filter
+          </Typography>
+          <Select
+            value={filterConditions[0].operator}
+            onChange={(e) => handleFilterConditionChange(1, 'operator', e.target.value)}
+            sx={{
+              fontSize: '12px',
+              height: '32px',
+              color: 'text.primary',
+              backgroundColor: 'background.paper',
+              '& .MuiOutlinedInput-notchedOutline': { borderWidth: 1, borderColor: 'divider' },
+              '& .MuiSvgIcon-root': { color: 'text.primary' },
+              '& .MuiSelect-icon': { color: 'text.primary' },
+            }}
+          >
+            {operators.map((op) => (
+              <MenuItem
+                key={op.value}
+                value={op.value}
+                sx={{
+                  fontSize: '12px',
+                  color: 'text.primary',
+                  '&.Mui-selected': { backgroundColor: 'action.selected' },
+                  '&:hover': { backgroundColor: 'action.hover' },
+                }}
+              >
+                {op.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        {inputType === 'date' ? (
+          <Box onMouseDown={(e) => e.stopPropagation()}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                value={filterConditions[0].value ? new Date(filterConditions[0].value) : null}
+                onChange={(date) => handleFilterConditionChange(1, 'value', date)}
+                slotProps={{
+                  textField: {
+                    size: 'small',
+                    fullWidth: true,
+                    placeholder: 'Select date...',
+                    sx: {
+                      backgroundColor: 'background.paper',
+                      '& .MuiInputBase-input': {
+                        fontSize: '10px',
+                        height: '24px',
+                        padding: '4px 8px',
+                        color: 'text.primary',
+                      },
+                      '& .MuiOutlinedInput-notchedOutline': { borderColor: 'divider' },
+                      '& .MuiSvgIcon-root': { color: 'text.primary' },
+                    },
+                  },
+                }}
+              />
+            </LocalizationProvider>
+          </Box>
+        ) : inputType === 'number' ? (
+          <Box>
+            <Typography variant="caption" sx={{ fontSize: '12px', fontWeight: '500', color: 'text.primary', mb: 0.5, display: 'block' }}>
+              Value
+            </Typography>
+            <TextField
+              placeholder="Enter number..."
+              type="number"
+              value={filterConditions[0].value}
+              onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
+              size="small"
+              fullWidth
+              sx={{
+                backgroundColor: 'background.paper',
+                '& .MuiInputBase-input': { fontSize: '12px', height: '20px', padding: '6px 8px', color: 'text.primary' },
+                '& .MuiOutlinedInput-root': { height: '32px' },
+                '& .MuiOutlinedInput-notchedOutline': { borderColor: 'divider' },
+                '& .MuiInputLabel-root': { color: 'text.primary' },
+                '&::placeholder': { color: 'text.secondary' },
+              }}
+            />
+          </Box>
+        ) : (
+          <Box>
+            <Typography variant="caption" sx={{ fontSize: '12px', fontWeight: '500', color: 'text.primary', mb: 0.5, display: 'block' }}>
+              Value
+            </Typography>
+            <TextField
+              placeholder={`Enter ${dataType}...`}
+              type={inputType}
+              value={filterConditions[0].value}
+              onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
+              size="small"
+              fullWidth
+              sx={{
+                backgroundColor: 'background.paper',
+                '& .MuiInputBase-input': { fontSize: '12px', height: '20px', padding: '6px 8px', color: 'text.primary' },
+                '& .MuiOutlinedInput-root': { height: '32px' },
+                '& .MuiOutlinedInput-notchedOutline': { borderColor: 'divider' },
+                '& .MuiInputLabel-root': { color: 'text.primary' },
+                '&::placeholder': { color: 'text.secondary' },
+              }}
+            />
+          </Box>
+        )}
+      </Box>
+    );
+  };
 
   const headerScrollRef = React.useRef<HTMLDivElement | null>(null);
   const handleBodyScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
@@ -2131,13 +1765,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     <Checkbox
                       checked={selectedRows.size === processedData.length && processedData.length > 0}
                       indeterminate={selectedRows.size > 0 && selectedRows.size < processedData.length}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedRows(new Set(processedData.map((_, index) => `row-${index}`)));
-                        } else {
-                          setSelectedRows(new Set());
-                        }
-                      }}
+                      onChange={(e) => handleSelectAllRows(e.target.checked)}
                     />
                   </TableCell>
                 )}
@@ -2157,222 +1785,31 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   </TableCell>
                 )}
                 
-                {getVisibleHeaders().map((header, index) => {
-                  const isDragging = customDragState.isDragging && customDragState.draggedColumnKey === header.key;
-                  const isBeingDragged = customDragState.draggedColumnKey === header.key;
-                  const isDropTarget = customDragState.currentHoverIndex === index && customDragState.isDragging && !isBeingDragged;
-                  const isDropBefore = customDragState.currentHoverIndex === index && customDragState.isDragging &&
-                                      customDragState.dragStartIndex !== null && customDragState.dragStartIndex > index;
-                  const isDropAfter = customDragState.currentHoverIndex === index && customDragState.isDragging &&
-                                     customDragState.dragStartIndex !== null && customDragState.dragStartIndex < index;
-                  const dropIndicatorsEnabled = false;
-
-                  return (
-                    <React.Fragment key={header.key}>
-                      {dropIndicatorsEnabled && isDropBefore && (
-                        <Box
-                          sx={{
-                            position: 'absolute',
-                            left: '-2px',
-                            top: 0,
-                            bottom: 0,
-                            width: '4px',
-                            backgroundColor: 'var(--rds-primary-main)',
-                            zIndex: 'var(--rds-z-index-portal)',
-                          }}
-                        />
-                      )}
-                      
-                      <TableCell
-                        draggable={enableColumnSwapping}
-                        onDragStart={(e) => {
-                          if (enableColumnSwapping) {
-                            handleCustomDragStart(header.key, index);
-                            e.dataTransfer.effectAllowed = 'move';
-                            e.dataTransfer.setData('text/plain', header.key);
-                          }
-                        }}
-                        onDragOver={(e) => {
-                          if (enableColumnSwapping && customDragState.isDragging) {
-                            e.preventDefault();
-                            e.dataTransfer.dropEffect = 'move';
-                            handleCustomDragOver(index);
-                          }
-                        }}
-                        onDragEnd={(e) => {
-                          if (enableColumnSwapping && customDragState.isDragging) {
-                            handleCustomDragEnd(customDragState.currentHoverIndex ?? undefined);
-                          }
-                        }}
-                        onDragLeave={(e) => {
-                          if (enableColumnSwapping && customDragState.isDragging) {
-                            const rect = e.currentTarget.getBoundingClientRect();
-                            const { clientX, clientY } = e;
-                            if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
-                              handleCustomDragLeave();
-                            }
-                          }
-                        }}
-                        onDrop={(e) => {
-                          if (enableColumnSwapping && customDragState.isDragging) {
-                            e.preventDefault();
-                            handleCustomDragEnd(index);
-                          }
-                        }}
-                        sx={{
-                          cursor: enableColumnSwapping ? 'grab' : (isSort && header.isSort ? 'pointer' : 'default'),
-                          width: columnWidths[header.key] || header.minWidth || 150,
-                          minWidth: header.minWidth || 50,
-                          maxWidth: header.maxWidth || 800,
-                          fontWeight: header.isBold ? 'bold' : 'normal',
-                          position: 'relative',
-                          userSelect: 'none',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                          borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
-                          bgcolor: 'action.hover !important',
-                          transition: isDragging ? 'none' : 'all 0.2s ease',
-                          '&:last-child': {
-                            borderRight: 'none',
-                          },
-                          '&:hover': {
-                            ...(enableColumnSwapping && !isDragging && !customDragState.isDragging && {
-                              backgroundColor: 'action.hover',
-                              cursor: 'grab',
-                            }),
-                          },
-                          '&:active': {
-                            ...(enableColumnSwapping && {
-                              cursor: 'grabbing',
-                            }),
-                          },
-                          ...(isBeingDragged && !customDragState.dragPreviewVisible && {
-                            opacity: 1,
-                            position: 'relative',
-                          }),
-                          ...(isDropTarget && {
-                          }),
-                        }}
-                        onClick={(e: React.MouseEvent) => {
-                          e.stopPropagation();
-                          if (!customDragState.isDragging && isSort && header.isSort) {
-                            handleSort(header.key);
-                          }
-                        }}
-                      >
-                        <Stack direction="row" spacing={0.5} alignItems="center">
-                          
-                          <Tooltip title={header.name} arrow>
-                            <Typography 
-                              variant="subtitle2" 
-                              fontWeight={header.isBold ? 'bold' : 'medium'}
-                              sx={{
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                                width: '100%',
-                              }}
-                            >
-                              {header.name}
-                            </Typography>
-                          </Tooltip>
-                          {header.required && (
-                            <Typography color="error" variant="caption">*</Typography>
-                          )}
-                          {isSort && header.isSort && (
-                            <Tooltip title="Sort">
-                              <IconButton size="small" aria-label={`Sort by ${header.name}`}>
-                                {(() => {
-                                  if (sortColumn === header.key) {
-                                    if (sortDirection === 'asc') {
-                                      return <ArrowUpIcon fontSize="small" />;
-                                    }
-                                    return <ArrowDownIcon fontSize="small" />;
-                                  }
-                                  return <ArrowUpDownIcon fontSize="small" />;
-                                })()}
-                              </IconButton>
-                            </Tooltip>
-                          )}
-                          {isFilter && header.isFilter && (
-                            <Tooltip title="Click to open filters and column visibility">
-                              <span>
-                                <IconButton 
-                                  size="small" 
-                                  onClick={(e) => handleFilterIconClick(e, header.key)}
-                                  ref={filterButtonRef}
-                                  data-filter-button
-                                  sx={{ 
-                                    '&:hover': { 
-                                      backgroundColor: 'action.hover' 
-                                    },
-                                    backgroundColor: filterState[header.key]?.value ? 'primary.light' : 'transparent',
-                                    color: filterState[header.key]?.value ? 'primary.main' : 'action.active'
-                                  }}
-                                >
-                                  <FilterIcon fontSize="small" color="action" />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
-                          )}
-                        </Stack>
-                        
-                        {header.isResizable !== false && (
-                          <Box
-                            role="separator"
-                            aria-label={`Resize ${header.name} column`}
-                            aria-valuenow={columnWidths[header.key] || 150}
-                            aria-valuemin={50}
-                            aria-valuemax={500}
-                            tabIndex={0}
-                            onMouseDown={(e) => handleResizeStart(e, header.key)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' || e.key === ' ') {
-                                e.preventDefault();
-                              }
-                            }}
-                            sx={{
-                              position: 'absolute',
-                              right: 0,
-                              top: 0,
-                              bottom: 0,
-                              width: '6px',
-                              cursor: 'col-resize',
-                              backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
-                              zIndex: 'var(--rds-z-index-raised)',
-                              transition: 'all 0.2s ease',
-                              '&:hover': {
-                                backgroundColor: 'primary.main',
-                                opacity: 0.8,
-                                width: '3px',
-                              },
-                              '&:focus': {
-                                outline: '2px solid',
-                                outlineColor: 'primary.main',
-                                outlineOffset: '1px',
-                              },
-                            }}
-                          />
-                        )}
-                          
-                          {dropIndicatorsEnabled && isDropAfter && (
-                            <Box
-                              sx={{
-                                position: 'absolute',
-                                right: '-2px',
-                                top: 0,
-                                bottom: 0,
-                                width: '4px',
-                                backgroundColor: 'var(--rds-primary-main)',
-                                zIndex: 'var(--rds-z-index-portal)',
-                              }}
-                            />
-                          )}
-                      </TableCell>
-                    </React.Fragment>
-                  );
-                })}
+                                {getVisibleHeaders().map((header, index) => (
+                  <GridHeaderCell
+                    key={header.key}
+                    header={header}
+                    index={index}
+                    enableColumnSwapping={enableColumnSwapping}
+                    isSort={isSort}
+                    isFilter={isFilter}
+                    customDragState={customDragState}
+                    columnWidths={columnWidths}
+                    sortColumn={sortColumn}
+                    sortDirection={sortDirection}
+                    filterState={filterState}
+                    isResizing={isResizing}
+                    resizingColumn={resizingColumn}
+                    filterButtonRef={filterButtonRef}
+                    onCustomDragStart={handleCustomDragStart}
+                    onCustomDragOver={handleCustomDragOver}
+                    onCustomDragEnd={handleCustomDragEnd}
+                    onCustomDragLeave={handleCustomDragLeave}
+                    onSort={handleSort}
+                    onFilterIconClick={handleFilterIconClick}
+                    onResizeStart={handleResizeStart}
+                  />
+                ))}
                 
                 {actions.length > 0 && (
                   <TableCell 
@@ -2404,388 +1841,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               </TableRow>
             </TableHead>
             
-            <Droppable droppableId="droppable-body" type="ROW">
-              {(provided: DroppableProvided) => (
-                <TableBody
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-              {processedData.map((row, index) => {
-                const rowId = `row-${index}`;
-                const isSelected = selectedRows.has(rowId);
-                const isRowEditing = editingRow === rowId;
-                
-                return (
-                  <Draggable 
-                    key={rowId} 
-                    draggableId={String(rowId)} 
-                    index={index}
-                    isDragDisabled={!enableRowSwapping}
-                  >
-                    {(dragProvided: DraggableProvided, dragSnapshot: DraggableStateSnapshot) => (
-                      <TableRow
-                        ref={dragProvided.innerRef}
-                        {...dragProvided.draggableProps}
-                        key={rowId}
-                        selected={isSelected}
-                        hover
-                        onClick={() => onRowClick?.(rowId)}
-                        sx={{ 
-                          cursor: 'pointer',
-                          ...(dragSnapshot.isDragging && {
-                            backgroundColor: isSelected ? 'var(--rds-primary-light)' : undefined,
-                          }),
-                        }}
-                      >
-                        {enableRowSwapping && (
-                          <TableCell sx={{ 
-                            width: '60px', 
-                            padding: 'var(--rds-spacing-sm-px)',
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
-                            textAlign: 'center',
-                            verticalAlign: 'middle'
-                          }}>
-                            <div 
-                              {...dragProvided.dragHandleProps}
-                              style={{ 
-                                cursor: 'grab',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                width: '100%',
-                                height: '100%'
-                              }}
-                            >
-                              <DragIndicatorIcon 
-                                fontSize="small" 
-                                sx={{ 
-                                  color: 'var(--rds-text-secondary)',
-                                  '&:hover': {
-                                    color: 'var(--rds-text-primary)',
-                                  }
-                                }} 
-                              />
-                            </div>
-                          </TableCell>
-                        )}
-
-                        {enableCheckboxSelection && (
-                      <TableCell 
-                        padding="checkbox"
-                        sx={{ borderRight: (theme) => `1px solid ${'var(--rds-border-default)'}` }}
-                      >
-                        <Checkbox
-                          checked={isSelected}
-                          onChange={() => handleRowSelect(rowId, row)}
-                        />
-                      </TableCell>
-                    )}
-                    
-                    {enableRadioButtonSelection && (
-                      <TableCell 
-                        padding="checkbox"
-                        sx={{ borderRight: (theme) => `1px solid ${'var(--rds-border-default)'}` }}
-                      >
-                        <Radio
-                          checked={isSelected}
-                          onChange={() => handleRowSelect(rowId, row)}
-                          name="rowSelection"
-                        />
-                      </TableCell>
-                    )}
-                    
-                    {(enableColumnSwapping ? columnOrder.filter(header => visibleColumns.includes(header.key)) : getVisibleHeaders()).map((header) => {
-                      const cellValue = row[header.key];
-                      const cellWidth = columnWidths[header.key] || header.minWidth || 150;
-                      const rowId = `row-${index}`;
-                      const isEditing = editingCell?.rowId === rowId && editingCell?.columnKey === header.key;
-                      
-                      const shouldRenderHtml = header.allowHtml && typeof cellValue === 'string' && cellValue.includes('<');
-                      const cellText = shouldRenderHtml ? '' : (cellValue?.toString() || '');
-                      
-                      const shouldShowTooltip = !shouldRenderHtml && cellText.length > 10;
-                      
-                      if (header.renderCell) {
-                        return (
-                      <TableCell
-                        key={header.key}
-                        sx={{
-                            width: cellWidth,
-                            minWidth: header.minWidth || 50,
-                            maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            '&:last-child': {
-                              borderRight: 'none',
-                            },
-                          }}
-                          >
-                            {header.renderCell(cellValue, row)}
-                          </TableCell>
-                        );
-                      }
-                      
-                      const isEditable = enableInlineEdit && header.isEditable && !shouldRenderHtml;
-                      const isRowEditing = editingRow === rowId;
-                      const isCellEditing = isEditing && inlineEditMode === 'cell';
-                      
-                      return (
-                        <TableCell
-                          key={header.key}
-                          sx={{
-                            width: cellWidth,
-                            minWidth: header.minWidth || 50,
-                            maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
-                            color: 'text.primary',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            '&:last-child': {
-                              borderRight: 'none',
-                            },
-                          }}
-                        >
-                          {shouldRenderHtml ? (
-                            <Box 
-                              sx={{
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                                width: '100%',
-                                color: 'text.primary',
-                                '& *': {
-                                  maxWidth: '100%',
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis',
-                                  whiteSpace: 'nowrap',
-                                  color: 'text.primary',
-                                },
-                                '& .status-pill': {
-                                  display: 'inline-block',
-                                  padding: '2px 8px',
-                                  borderRadius: 'var(--rds-border-radius-lg)',
-                                  fontSize: '12px',
-                                  fontWeight: 500,
-                                  textAlign: 'center',
-                                  minWidth: '60px',
-                                  '&.status-qualified': {
-                                    backgroundColor: 'var(--rds-success-dark)', color: 'var(--rds-neutral-0)',
-                                  },
-                                  '&.status-negotiation': {
-                                    backgroundColor: 'var(--rds-semantic-warning-dark)', color: 'var(--rds-neutral-0)',
-                                  },
-                                  '&.status-unqualified': {
-                                    backgroundColor: 'var(--rds-error-main)', color: 'var(--rds-neutral-0)',
-                                  },
-                                  '&.status-proposal': {
-                                    backgroundColor: 'var(--rds-action-selected)', color: 'var(--rds-text-primary)',
-                                  },
-                                  '&.status-new': {
-                                    backgroundColor: 'var(--rds-primary-light)', color: 'var(--rds-neutral-0)',
-                                  },
-                                  '&.status-renewal': {
-                                    backgroundColor: 'var(--rds-primary-main)',
-                                    color: 'common.white',
-                                  },
-                                },
-                                '& .progress-bar': {
-                                  width: '100%',
-                                  height: '8px',
-                                  backgroundColor: 'action.selected',
-                                  borderRadius: 'var(--rds-border-radius-sm)',
-                                  overflow: 'hidden',
-                                  '& .progress-fill': {
-                                    height: '100%',
-                                    backgroundColor: 'primary.main',
-                                    transition: 'width 0.3s ease',
-                                  },
-                                },
-                                '& .verification-icon': {
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  width: '20px',
-                                  height: '20px',
-                                  borderRadius: 'var(--rds-border-radius-pill)',
-                                  '&.verified': {
-                                    backgroundColor: 'success.main',
-                                    color: 'common.white',
-                                  },
-                                  '&.not-verified': {
-                                    backgroundColor: 'error.main',
-                                    color: 'common.white',
-                                  },
-                                },
-                                '& img': {
-                                  maxWidth: '24px',
-                                  maxHeight: '24px',
-                                  borderRadius: 'var(--rds-border-radius-pill)',
-                                  verticalAlign: 'middle',
-                                  marginRight: 'var(--rds-spacing-sm-px)',
-                                },
-                                '& .employee-name': {
-                                  color: 'text.primary',
-                                  fontWeight: 'bold',
-                                },
-                                '& .employee-title': {
-                                  color: 'text.secondary',
-                                },
-                                '& .tag': {
-                                  color: 'text.primary',
-                                  borderColor: 'divider',
-                                },
-                                '& .badge, & span[class*="badge"], & .chip, & span[class*="chip"]': {
-                                  color: 'text.primary',
-                                },
-                                '& .last-active': {
-                                  color: 'text.disabled',
-                                },
-                                '& .online, & .away': {
-                                  borderColor: 'divider',
-                                },
-                                '& .leadership, & .management, & .strategy, & .planning, & .coordination, & .reporting': {
-                                  color: 'text.primary',
-                                  borderColor: 'transparent',
-                                },
-                                '& .senior, & .lead, & .pending, & .active': {
-                                  color: 'text.primary',
-                                },
-                                // Style attribute selectors removed - using CSS classes instead
-                                // See rds-comp-grid.scss for themed cell styling classes
-                              }}
-                              dangerouslySetInnerHTML={{ __html: cellValue }}
-                            />
-                          ) : isEditable && inlineEditMode === 'cell' ? (
-                            <EditableCell
-                              value={cellValue}
-                              column={header}
-                              row={row}
-                              isEditing={isCellEditing}
-                              onStartEdit={() => handleCellEditStart(rowId, header.key, cellValue)}
-                              onSave={(newValue) => handleCellEditSave(rowId, header.key, newValue)}
-                              onCancel={handleCellEditCancel}
-                              onValueChange={handleCellValueChange}
-                              tempValue={tempCellValue}
-                              validationError={cellValidationError}
-                            />
-                          ) : isEditable && inlineEditMode === 'row' && isRowEditing ? (
-                            <EditableCell
-                              value={tempRowValues[header.key] || cellValue}
-                              column={header}
-                              row={row}
-                              isEditing={true}
-                              onStartEdit={() => {}} // No-op for row mode
-                              onSave={() => {}} // No-op for row mode - only save on row save button
-                              onCancel={() => {}} // No-op for row mode
-                              onValueChange={(newValue) => handleRowValueChange(header.key, newValue)}
-                              tempValue={tempRowValues[header.key] || cellValue}
-                              validationError={rowValidationErrors[header.key] || ''}
-                            />
-                          ) : shouldShowTooltip ? (
-                            <Tooltip title={cellText} arrow>
-                              <Typography 
-                                variant="body2" 
-                                sx={{
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis',
-                                  whiteSpace: 'nowrap',
-                                  width: '100%',
-                                }}
-                              >
-                                {cellText}
-                        </Typography>
-                            </Tooltip>
-                          ) : (
-                            <Typography 
-                              variant="body2" 
-                              sx={{
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                                width: '100%',
-                              }}
-                            >
-                              {cellText}
-                            </Typography>
-                          )}
-                      </TableCell>
-                      );
-                    })}
-                    
-                    {actions.length > 0 && (
-                      <TableCell sx={{ borderRight: 'none' }}>
-                        <Stack direction="row" spacing={0.5}>
-                          {actionColumnStyle === ActionColumnStyle.ShowButtonsDirectly ? (
-                            actions.map((action) => (
-                              <RdsButton
-                                key={action.id}
-                                size={action.size || "small"}
-                                style={action.variant === 'contained' ? 'filled' : action.variant === 'text' ? 'transparent' : 'outlined'}
-                                color={action.color || "primary"}
-                                disabled={action.disabled || false}
-                                onClick={() => onActionSelection?.(row, action.id)}
-                                text={action.displayName}
-                              />
-                            ))
-                          ) : (
-                            <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
-                          )}
-                        </Stack>
-                      </TableCell>
-                    )}
-
-                    {/* Row editing controls */}
-                    {enableInlineEdit && inlineEditMode === 'row' && (
-                      <TableCell sx={{ borderRight: 'none' }}>
-                        <Stack direction="row" spacing={0.5}>
-                          {isRowEditing ? (
-                            <>
-                              <RdsButton
-                                size="small"
-                                style="filled"
-                                color="primary"
-                                onClick={() => {
-                                  handleRowEditSave(rowId);
-                                }}
-                                showLeftIcon={true}
-                                changeLeftIcon={<EditIcon />}
-                                text="Save"
-                              />
-                              <RdsButton
-                                size="small"
-                                style="outlined"
-                                color="secondary"
-                                onClick={handleRowEditCancel}
-                                showLeftIcon={true}
-                                changeLeftIcon={<ClearIcon />}
-                                text="Cancel"
-                              />
-                            </>
-                          ) : (
-                            <RdsButton
-                              size="small"
-                              style="outlined"
-                              color="primary"
-                              onClick={() => handleRowEditStart(rowId, row)}
-                              showLeftIcon={true}
-                              changeLeftIcon={<EditIcon />}
-                              text="Edit Row"
-                            />
-                          )}
-                        </Stack>
-                      </TableCell>
-                    )}
-                      </TableRow>
-                        )}
-                      </Draggable>
-                );
-              })}
-                  {provided.placeholder}
-                </TableBody>
-              )}
+                        <Droppable droppableId="droppable-body" type="ROW">
+              {renderDroppableBody}
             </Droppable>
           </Table>
           </DragDropContext>
@@ -3004,191 +2061,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 }}
               >
                 <Stack spacing={1}>
-                  {(() => {
-                    const selectedColumn = tableHeaders.find(h => h.key === selectedColumnForFilter);
-                    const dataType = selectedColumn?.dataType || 'string';
-                    const operators = getOperatorsForDataType(dataType);
-                    const inputType = getInputTypeForDataType(dataType);
-                    
-                    return (
-                      <Box>
-                        <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
-                          <Typography 
-                            variant="caption" 
-                            sx={{ 
-                              fontSize: '12px', 
-                              fontWeight: '500', 
-                              color: 'text.primary',
-                              mb: 0.5,
-                              display: 'block'
-                            }}
-                          >
-                            Filter
-                          </Typography>
-                          <Select
-                            value={filterConditions[0].operator}
-                            onChange={(e) => handleFilterConditionChange(1, 'operator', e.target.value)}
-                            sx={{ 
-                              fontSize: '12px',
-                              height: '32px',
-                              color: 'text.primary',
-                              backgroundColor: 'background.paper',
-                              '& .MuiOutlinedInput-notchedOutline': {
-                                borderWidth: 1,
-                                borderColor: 'divider'
-                              },
-                              '& .MuiSvgIcon-root': {
-                                color: 'text.primary',
-                              },
-                              '& .MuiSelect-icon': {
-                                color: 'text.primary',
-                              },
-                            }}
-                          >
-                            {operators.map((op) => (
-                              <MenuItem 
-                                key={op.value} 
-                                value={op.value} 
-                                sx={{ 
-                                  fontSize: '12px',
-                                  color: 'text.primary',
-                                  '&.Mui-selected': {
-                                    backgroundColor: 'action.selected',
-                                  },
-                                  '&:hover': {
-                                    backgroundColor: 'action.hover',
-                                  }
-                                }}
-                              >
-                                {op.label}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        
-                        {inputType === 'date' ? (
-                          <Box onMouseDown={e => e.stopPropagation()}>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                              <DatePicker
-                                value={filterConditions[0].value ? new Date(filterConditions[0].value) : null}
-                                onChange={(date) => handleFilterConditionChange(1, 'value', date)}
-                                slotProps={{
-                                  textField: {
-                                    size: 'small',
-                                    fullWidth: true,
-                                    placeholder: 'Select date...',
-                                    sx: {
-                                      backgroundColor: 'background.paper',
-                                      '& .MuiInputBase-input': {
-                                        fontSize: '10px',
-                                        height: '24px',
-                                        padding: '4px 8px',
-                                        color: 'text.primary',
-                                      },
-                                      '& .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: 'divider',
-                                      },
-                                      '& .MuiSvgIcon-root': {
-                                        color: 'text.primary',
-                                      }
-                                    }
-                                  }
-                                }}
-                              />
-                            </LocalizationProvider>
-                          </Box>
-                        ) : inputType === 'number' ? (
-                          <Box>
-                            <Typography 
-                              variant="caption" 
-                              sx={{ 
-                                fontSize: '12px', 
-                                fontWeight: '500', 
-                                color: 'text.primary',
-                                mb: 0.5,
-                                display: 'block'
-                              }}
-                            >
-                              Value
-                            </Typography>
-                            <TextField
-                              placeholder="Enter number..."
-                              type="number"
-                              value={filterConditions[0].value}
-                              onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
-                              size="small"
-                              fullWidth
-                              sx={{
-                                backgroundColor: 'background.paper',
-                                '& .MuiInputBase-input': {
-                                  fontSize: '12px',
-                                  height: '20px',
-                                  padding: '6px 8px',
-                                  color: 'text.primary',
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                  height: '32px'
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: 'divider',
-                                },
-                                '& .MuiInputLabel-root': {
-                                  color: 'text.primary',
-                                },
-                                '&::placeholder': {
-                                  color: 'text.secondary',
-                                }
-                              }}
-                            />
-                          </Box>
-                        ) : (
-                          <Box>
-                            <Typography 
-                              variant="caption" 
-                              sx={{ 
-                                fontSize: '12px', 
-                                fontWeight: '500', 
-                                color: 'text.primary',
-                                mb: 0.5,
-                                display: 'block'
-                              }}
-                            >
-                              Value
-                            </Typography>
-                            <TextField
-                              placeholder={`Enter ${dataType}...`}
-                              type={inputType}
-                              value={filterConditions[0].value}
-                              onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
-                              size="small"
-                              fullWidth
-                              sx={{
-                                backgroundColor: 'background.paper',
-                                '& .MuiInputBase-input': {
-                                  fontSize: '12px',
-                                  height: '20px',
-                                  padding: '6px 8px',
-                                  color: 'text.primary',
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                  height: '32px'
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: 'divider',
-                                },
-                                '& .MuiInputLabel-root': {
-                                  color: 'text.primary',
-                                },
-                                  '&::placeholder': {
-                                  color: 'text.secondary',
-                                }
-                              }}
-                            />
-                          </Box>
-                        )}
-                      </Box>
-                    );
-                  })()}
+                  {renderAdvancedFilterControls()}
 
                   {/* Logical Operator */}
                   {/* <FormControl size="small" sx={{ minWidth: 120 }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material';
 import RdsSlider from './rds-slider';
@@ -47,7 +47,7 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       // Default should be min + (max - min) * 0.3 = 0 + (100 - 0) * 0.3 = 30
-      expect(parseInt(input.value)).toBe(30);
+      expect(Number.parseInt(input.value)).toBe(30);
     });
 
     it('should update slider value on user drag', async () => {
@@ -62,13 +62,13 @@ describe('RdsSlider', () => {
     it('should respect min max bounds', () => {
       renderWithTheme(<RdsSlider value={150} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.value)).toBeLessThanOrEqual(100);
+      expect(Number.parseInt(input.value)).toBeLessThanOrEqual(100);
     });
 
     it('should update when value prop changes', () => {
       const { rerender } = renderWithTheme(<RdsSlider value={30} min={0} max={100} />);
       let input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.value)).toBe(30);
+      expect(Number.parseInt(input.value)).toBe(30);
 
       rerender(
         <ThemeProvider theme={createTheme()}>
@@ -76,7 +76,7 @@ describe('RdsSlider', () => {
         </ThemeProvider>
       );
       input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.value)).toBe(70);
+      expect(Number.parseInt(input.value)).toBe(70);
     });
   });
 
@@ -90,7 +90,7 @@ describe('RdsSlider', () => {
     it('should initialize with range values when controlType="two way"', () => {
       renderWithTheme(<RdsSlider controlType="two way" min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      const value = parseInt(input.value);
+      const value = Number.parseInt(input.value);
       // With range: midPoint = 0 + (100 - 0) * 0.5 = 50
       // range = (100 - 0) * 0.2 = 20
       // lower = 50 - 10 = 40, upper = 50 + 10 = 60
@@ -238,7 +238,7 @@ describe('RdsSlider', () => {
     it('should set position based on level 1', () => {
       renderWithTheme(<RdsSlider level={1} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      const value = parseInt(input.value);
+      const value = Number.parseInt(input.value);
       // level 1 = 0% of range = min = 0
       expect(value).toBe(0);
     });
@@ -246,7 +246,7 @@ describe('RdsSlider', () => {
     it('should set position based on level 3', () => {
       renderWithTheme(<RdsSlider level={3} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      const value = parseInt(input.value);
+      const value = Number.parseInt(input.value);
       // level 3 = 50% of range = 0 + (100 - 0) * 0.5 = 50
       expect(value).toBe(50);
     });
@@ -254,7 +254,7 @@ describe('RdsSlider', () => {
     it('should set position based on level 5', () => {
       renderWithTheme(<RdsSlider level={5} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      const value = parseInt(input.value);
+      const value = Number.parseInt(input.value);
       // level 5 = 100% of range = max = 100
       expect(value).toBe(100);
     });
@@ -262,7 +262,7 @@ describe('RdsSlider', () => {
     it('should update value when level prop changes', () => {
       const { rerender } = renderWithTheme(<RdsSlider level={1} min={0} max={100} />);
       let input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.value)).toBe(0);
+      expect(Number.parseInt(input.value)).toBe(0);
 
       rerender(
         <ThemeProvider theme={createTheme()}>
@@ -270,7 +270,7 @@ describe('RdsSlider', () => {
         </ThemeProvider>
       );
       input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.value)).toBe(100);
+      expect(Number.parseInt(input.value)).toBe(100);
     });
 
     it('should ignore invalid level values', () => {
@@ -334,25 +334,25 @@ describe('RdsSlider', () => {
     it('should use default max of 100 when not provided', () => {
       renderWithTheme(<RdsSlider min={0} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.max)).toBe(100);
+      expect(Number.parseInt(input.max)).toBe(100);
     });
 
     it('should use custom max value', () => {
       renderWithTheme(<RdsSlider min={0} max={500} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.max)).toBe(500);
+      expect(Number.parseInt(input.max)).toBe(500);
     });
 
     it('should handle custom min value', () => {
       renderWithTheme(<RdsSlider min={10} max={100} value={10} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.min)).toBe(10);
+      expect(Number.parseInt(input.min)).toBe(10);
     });
 
     it('should handle negative min value', () => {
       renderWithTheme(<RdsSlider min={-50} max={50} value={0} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.min)).toBe(-50);
+      expect(Number.parseInt(input.min)).toBe(-50);
     });
 
     it('should handle float step', () => {
@@ -442,7 +442,7 @@ describe('RdsSlider', () => {
     it('should update slider when value prop changes', () => {
       const { rerender } = renderWithTheme(<RdsSlider value={25} min={0} max={100} />);
       let input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.value)).toBe(25);
+      expect(Number.parseInt(input.value)).toBe(25);
 
       rerender(
         <ThemeProvider theme={createTheme()}>
@@ -450,7 +450,7 @@ describe('RdsSlider', () => {
         </ThemeProvider>
       );
       input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.value)).toBe(75);
+      expect(Number.parseInt(input.value)).toBe(75);
     });
 
     it('should maintain value when props dont change', () => {
@@ -581,7 +581,7 @@ describe('RdsSlider', () => {
         );
       }
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      expect(parseInt(input.value)).toBe(80);
+      expect(Number.parseInt(input.value)).toBe(80);
     });
 
     it('should handle switching between range and single value modes', () => {

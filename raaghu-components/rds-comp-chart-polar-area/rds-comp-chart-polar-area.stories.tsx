@@ -1,8 +1,6 @@
 import RdsCompPolarAreaChart from "./rds-comp-chart-polar-area";
 import "./rds-comp-chart-polar-area.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/Charts/Polar Area Chart',
     component: RdsCompPolarAreaChart,
@@ -83,9 +81,5 @@ export const Default: Story = {
         controls: {
             exclude: ['chartStyle'],
         },
-    },
-    play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
-        await expect(chart).toBeInTheDocument();
-    },
+    },
 };

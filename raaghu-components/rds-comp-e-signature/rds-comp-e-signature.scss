@@ -279,7 +279,7 @@
     width: 28px;
     height: 28px;
     border: none;
-    background: transparent;
+    background-color: transparent;
     cursor: pointer;
     transition: color .2s ease, transform .2s ease;
     display: flex;
@@ -312,7 +312,7 @@
   }
 
   &__upload-panel {
-    background: var(--rds-color-neutral-0, #fff);
+    background-color: var(--rds-color-neutral-0, #fff);
     padding: var(--rds-spacing-xl, 28px) var(--rds-spacing-md, 13px);
     border: 2px dashed var(--rds-color-border-default, #d1d5db);
     border-radius: var(--rds-radius-lg, 8px);
@@ -322,18 +322,18 @@
 
     .rds-e-signature--disabled & {
       border-color: var(--rds-color-accent-blue-disabled, #AFCDFD);
-      background: var(--rds-color-neutral-0, #ffffff);
+      background-color: var(--rds-color-neutral-0, #ffffff);
       cursor: not-allowed;
     }
 
     &--hover {
       border-color: var(--rds-color-accent-blue-600, #2E7CE0);
-      background: var(--rds-color-surface-hover, #FEF7FF);
+      background-color: var(--rds-color-surface-hover, #FEF7FF);
     }
 
     &--error {
       border-color: var(--rds-color-error-accent, #ff4444);
-      background: var(--rds-color-error-50, #fff5f5);
+      background-color: var(--rds-color-error-50, #fff5f5);
     }
   }
 
@@ -349,7 +349,7 @@
     display: flex;
     align-items: center;
     gap: 0;
-    background: var(--rds-color-neutral-0, #fff);
+    background-color: var(--rds-color-neutral-0, #fff);
     border: 1px solid var(--rds-color-neutral-300, #e0e0e0);
     border-radius: var(--rds-radius-md, 6px);
     box-sizing: border-box;
@@ -393,7 +393,7 @@
   }
 
   &__file-button {
-    background: var(--rds-color-accent-blue-500, #3C98FF);
+    background-color: var(--rds-color-accent-blue-500, #3C98FF);
     color: var(--rds-color-neutral-0, #fff);
     border: none;
     padding: 0 var(--rds-space-4, 16px);
@@ -411,11 +411,11 @@
   }
 
   &__file-button:hover:not(:disabled) {
-    background: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
+    background-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
   }
 
   &__file-button:disabled {
-    background: var(--rds-color-accent-blue-200, #c7def5);
+    background-color: var(--rds-color-accent-blue-200, #c7def5);
     cursor: not-allowed;
     color: var(--rds-color-neutral-0, #fff);
   }
@@ -432,7 +432,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: 36px;
-    background: var(--rds-color-neutral-0, #fff);
+    background-color: var(--rds-color-neutral-0, #fff);
     margin-left: 0;
     border-radius: 0 6px 6px 0;
   }
@@ -447,7 +447,7 @@
   }
 
   &__file-delete {
-    background: transparent;
+    background-color: transparent;
     border: none;
     color: var(--rds-color-red-delete, #b30000);
     display: inline-flex;
@@ -506,7 +506,7 @@
     height: 14px;
     border: 1px solid var(--rds-color-error-700, #d32f2f);
     border-radius: var(--rds-border-radius-pill);
-    background: transparent;
+    background-color: transparent;
     color: var(--rds-color-error-700, #d32f2f);
     font-size: var(--rds-font-size-caption, 9px);
     font-weight: 600;
@@ -529,7 +529,7 @@
 
   &__choose-panel {
     border: 2px dashed var(--rds-color-accent-blue-600, #2E7CE0);
-    background: var(--rds-color-neutral-0, #fff);
+    background-color: var(--rds-color-neutral-0, #fff);
     border-radius: var(--rds-radius-lg, 8px);
     padding: var(--rds-spacing-md) 20px 16px;
     margin-top: var(--rds-spacing-compact);
@@ -541,7 +541,7 @@
 
   &__choose-panel--error {
     border-color: var(--rds-color-error-dark, #c04343);
-    background: var(--rds-color-error-50, #fff5f5);
+    background-color: var(--rds-color-error-50, #fff5f5);
   }
 
   &__mini-grid {
@@ -568,7 +568,7 @@
 
   &__mini-card {
     border: 1px solid var(--rds-color-border-subtle, #D0D7DE);
-    background: var(--rds-color-neutral-0, #fff);
+    background-color: var(--rds-color-neutral-0, #fff);
     border-radius: var(--rds-border-radius-sm);
     padding: 2px var(--rds-spacing-xs, 6px);
     display: inline-flex;
@@ -582,7 +582,7 @@
 
   &__mini-card:hover:not(:disabled) {
     border-color: var(--rds-color-accent-blue-500, #3C98FF);
-    background: var(--rds-color-accent-blue-bg-hover, #F5FAFF);
+    background-color: var(--rds-color-accent-blue-bg-hover, #F5FAFF);
   }
 
   &__mini-card--selected {
@@ -594,7 +594,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rds-color-neutral-soft, #F8F9FA);
+    background-color: var(--rds-color-neutral-soft, #F8F9FA);
     border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
     padding: 0 var(--rds-spacing-sm, 12px);
@@ -605,7 +605,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rds-color-neutral-soft, #F8F9FA);
+    background-color: var(--rds-color-neutral-soft, #F8F9FA);
     border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
     padding: 0 var(--rds-spacing-sm, 12px);
@@ -706,7 +706,7 @@
       font-size: var(--rds-font-size-xs, 13px);
       line-height: 1.35;
       width: 100%;
-      background: transparent;
+      background-color: transparent;
       padding: 0;
       border: none;
       box-shadow: none;
@@ -785,14 +785,14 @@
 :root[data-theme="dark"] .rds-e-signature__mini-full-wrapper,
 [data-theme="dark"] .rds-e-signature__mini-initials-wrapper,
 :root[data-theme="dark"] .rds-e-signature__mini-initials-wrapper {
-  background: var(--rds-color-surface-dark, #1f1f1f) !important;
+  background-color: var(--rds-color-surface-dark, #1f1f1f) !important;
   border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
   color: var(--rds-color-neutral-0, #ffffff);
 }
 
 [data-theme="dark"] .rds-e-signature__upload-panel--hover,
 :root[data-theme="dark"] .rds-e-signature__upload-panel--hover {
-  background: var(--rds-color-surface-hover-dark, #2a2a2a) !important;
+  background-color: var(--rds-color-surface-hover-dark, #2a2a2a) !important;
 }
 
 /* Dark-mode text color fixes: ensure neutral-500 usages remain visible on dark backgrounds */
@@ -812,7 +812,7 @@
 /* file-text container should use dark surface and readable text in dark mode */
 [data-theme="dark"] .rds-e-signature__file-text,
 :root[data-theme="dark"] .rds-e-signature__file-text {
-  background: var(--rds-color-surface-dark, #1f1f1f) !important;
+  background-color: var(--rds-color-surface-dark, #1f1f1f) !important;
   color: var(--rds-text-secondary, #D1D5DB) !important;
   border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
 }

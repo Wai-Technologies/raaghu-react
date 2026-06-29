@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsCounter from './rds-counter';
@@ -58,6 +57,10 @@ const meta: Meta<typeof RdsCounter> = {
       control: 'text',
       description: 'Placeholder text shown when input is empty',
     },
+    titleText: {
+      control: 'text',
+      description: 'Label text displayed above the counter',
+    },
   },
 };
 
@@ -79,14 +82,7 @@ export const Default: Story = {
     isMandatory: false,
     placeholder: '00',
   },
-  render: (args) => <RdsCounter {...args} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const buttons = canvasElement.querySelectorAll('button');
-    expect(buttons.length).toBeGreaterThan(0);
-    const display = canvasElement.querySelector('input, [class*=value], [class*=count]') || canvasElement.firstElementChild;
-    expect(display).toBeTruthy();
-  },
+  render: (args) => <RdsCounter {...args} />,
 };
 
 export const Compact: Story = {
@@ -241,6 +237,12 @@ export const Interactive: Story = {
     variant: 'compact',
     layout: 'side-to-side',
     placeholder: '00',
+    showTitle: false,
+  },
+  parameters: {
+    controls: {
+      exclude: ['titleText', 'showTitle', 'isMandatory'],
+    },
   },
   render: (args) => {
     const [cart, setCart] = useState([

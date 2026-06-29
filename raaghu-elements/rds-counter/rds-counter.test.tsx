@@ -380,6 +380,7 @@ describe('RdsCounter', () => {
       expect(input).toHaveAttribute('aria-label', 'Quantity value');
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCounter />);
       const results = await axe(container);

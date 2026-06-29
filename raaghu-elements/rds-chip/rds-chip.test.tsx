@@ -238,7 +238,7 @@ describe('RdsChip', () => {
     it('should not render delete button when onDelete is not provided', () => {
       const { container } = renderWithTheme(<RdsChip {...defaultProps} />);
       const chip = container.querySelector('.MuiChip-root');
-      const deleteIcons = container.querySelectorAll('[data-testid*="Icon"]');
+      const _deleteIcons = container.querySelectorAll('[data-testid*="Icon"]');
       expect(chip).toBeInTheDocument();
     });
 
@@ -255,14 +255,14 @@ describe('RdsChip', () => {
 
   describe('Icon Support', () => {
     it('should render avatar when avatar prop is provided', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsChip {...defaultProps} avatar={<span data-testid="test-avatar">A</span>} />
       );
       expect(screen.getByTestId('test-avatar')).toBeInTheDocument();
     });
 
     it('should render icon when icon prop is provided', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsChip {...defaultProps} icon={<span data-testid="test-icon">✓</span>} />
       );
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
@@ -270,7 +270,7 @@ describe('RdsChip', () => {
 
     it('should render deleteIcon when onDelete is provided and deleteIcon is custom', () => {
       const onDelete = jest.fn();
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsChip 
           {...defaultProps} 
           onDelete={onDelete}
@@ -283,7 +283,7 @@ describe('RdsChip', () => {
     it('should not render both avatar and icon together', () => {
       // MUI Chip does not allow both avatar and icon at the same time
       // This test verifies the component can be created with either one
-      const { container: container1 } = renderWithTheme(
+      const { container: _container1 } = renderWithTheme(
         <RdsChip 
           {...defaultProps} 
           avatar={<span data-testid="test-avatar">A</span>}
@@ -319,7 +319,7 @@ describe('RdsChip', () => {
 
     it('should not be clickable when disabled', () => {
       const onClick = jest.fn();
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsChip {...defaultProps} disabled={true} onClick={onClick} />
       );
       const chip = screen.getByRole('button');
@@ -377,7 +377,7 @@ describe('RdsChip', () => {
     });
 
     it('should accept custom data attributes', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsChip 
           {...defaultProps} 
           data-testid="rds-chip-test"
@@ -418,7 +418,7 @@ describe('RdsChip', () => {
     it('should handle all props together', () => {
       const onClick = jest.fn();
       const onDelete = jest.fn();
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsChip
           label="Complex Chip"
           variant="outlined"
@@ -527,7 +527,7 @@ describe('RdsChip', () => {
 
     it('should handle rapid deletes', () => {
       const onDelete = jest.fn();
-      const { container, rerender } = renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsChip {...defaultProps} onDelete={onDelete} />
       );
       expect(container.querySelector('.MuiChip-root')).toBeInTheDocument();
@@ -605,7 +605,7 @@ describe('RdsChip', () => {
     it('should be focusable when clickable', () => {
       const onClick = jest.fn();
       renderWithTheme(<RdsChip {...defaultProps} onClick={onClick} />);
-      const chip = screen.getByRole('button') as HTMLElement;
+      const chip = screen.getByRole('button');
       chip.focus();
       expect(document.activeElement).toBe(chip);
     });
@@ -617,10 +617,10 @@ describe('RdsChip', () => {
 
     it('should not be focusable when disabled', () => {
       const onClick = jest.fn();
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsChip {...defaultProps} disabled={true} onClick={onClick} />
       );
-      const chip = screen.getByRole('button') as HTMLElement;
+      const chip = screen.getByRole('button');
       // Disabled clickable chips still have button role
       expect(chip).toBeInTheDocument();
     });
@@ -731,7 +731,7 @@ describe('RdsChip', () => {
     });
 
     it('should accept ReactNode children in avatar', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsChip 
           {...defaultProps}
           avatar={<span data-testid="test-avatar">A</span>}
@@ -768,7 +768,7 @@ describe('RdsChip', () => {
 
     it('should not have delete icon by default', () => {
       const { container } = renderWithTheme(<RdsChip {...defaultProps} />);
-      const deleteIcon = container.querySelector('[role="button"]:last-child');
+      const _deleteIcon = container.querySelector('[role="button"]:last-child');
       // May or may not have delete icon depending on onDelete prop
       expect(container.querySelector('.MuiChip-root')).toBeInTheDocument();
     });

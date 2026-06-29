@@ -38,7 +38,7 @@
   }
   
   &__close {
-    background: none;
+    background-color: none;
     border: none;
     cursor: pointer;
     padding: var(--rds-spacing-xs);
@@ -244,7 +244,6 @@
 
     .rds-banner__close-button {
       position: absolute !important;
-      top: -8px !important;
       top: var(--rds-banner-mobile-offset, -8px) !important;
       right: var(--rds-banner-mobile-offset, -8px) !important;
       transform: none !important;

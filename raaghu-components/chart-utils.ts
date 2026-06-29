@@ -1,19 +1,67 @@
-/**
- * Chart Theme Utilities
- *
- * Shared helpers for all rds-comp-chart-* components.
- * Colors are read from CSS custom properties at runtime so they
- * automatically respond to theme switching without any hardcoded values.
- */
-
+import { useSyncExternalStore } from 'react';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 
-export { isDarkMode };
+function getChartThemeMode(): string {
+  if (typeof document === 'undefined') return 'light';
+  const attr = document.documentElement.getAttribute('data-theme') || 'light';
+  const hasDarkClass =
+    document.documentElement.classList.contains('theme-dark') ||
+    document.documentElement.classList.contains('rds-theme--dark') ||
+    document.body?.classList.contains('theme-dark') ||
+    document.body?.classList.contains('dark-theme');
+  return hasDarkClass ? 'dark' : attr;
+}
 
-/**
- * Reads a CSS custom property value from the document root.
- * Falls back to the provided default if the property is not set.
- */
+export function useChartThemeMode(): string {
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      if (typeof window === 'undefined') return () => {};
+
+      let rafId: number;
+      const notify = () => {
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => onStoreChange());
+      };
+
+      const observer = new MutationObserver(notify);
+
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'class'],
+      });
+
+      if (document.body) {
+        observer.observe(document.body, {
+          attributes: true,
+          attributeFilter: ['class', 'data-theme'],
+        });
+      }
+
+      return () => {
+        cancelAnimationFrame(rafId);
+        observer.disconnect();
+      };
+    },
+    getChartThemeMode,
+    () => 'light',
+  );
+}
+
+/** Deep-clones Chart.js options to avoid mutating caller-provided objects. */
+export function cloneChartOptions<T>(options: T): T {
+  return JSON.parse(JSON.stringify(options || {}));
+}
+
+/** Attaches chart data to options when callers have not already done so. */
+export function attachChartData(
+  chartOptions: { data?: unknown },
+  chartData: { labels: unknown[]; datasets: unknown[] }
+): void {
+  if (!chartOptions.data) {
+    chartOptions.data = chartData;
+  }
+}
+
 export function getCSSVar(property: string, fallback = ''): string {
   if (typeof window === 'undefined') return fallback;
   const value = getComputedStyle(document.documentElement)
@@ -22,18 +70,10 @@ export function getCSSVar(property: string, fallback = ''): string {
   return value || fallback;
 }
 
-/**
- * Returns the current theme's text color for chart labels/ticks/titles.
- * Reads --rds-text-primary so it automatically follows the active theme.
- */
 export function chartTextColor(): string {
   return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
 }
 
-/**
- * Returns the current theme's muted text color (for secondary labels).
- * Reads --rds-text-secondary.
- */
 export function chartMutedColor(): string {
   return getCSSVar('--rds-text-secondary', isDarkMode() ? '#9e9e9e' : '#757575');
 }
@@ -41,7 +81,7 @@ export function chartMutedColor(): string {
 /**
  * Returns the current theme's grid line color for chart axes.
  */
-export function chartGridColor(): string {
+function chartGridColor(): string {
   // Keep grid lines visibly light in dark mode across all charts.
   return isDarkMode()
     ? getCSSVar('--rds-comp-chart-grid-color-dark', 'rgba(255,255,255,0.28)')
@@ -51,21 +91,17 @@ export function chartGridColor(): string {
 /**
  * Returns the current theme's tooltip background color.
  */
-export function chartTooltipBg(): string {
+function chartTooltipBg(): string {
   return getCSSVar('--rds-background-paper', isDarkMode() ? '#424242' : '#ffffff');
 }
 
 /**
  * Returns the current theme's tooltip text color.
  */
-export function chartTooltipTextColor(): string {
+function chartTooltipTextColor(): string {
   return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
 }
 
-/**
- * Returns a Chart.js-compatible font string constructed from design tokens.
- * Example output: "700 20px Poppins"
- */
 export function chartFont(
   weight: 'regular' | 'medium' | 'bold',
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'

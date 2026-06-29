@@ -19,12 +19,12 @@ Object.defineProperty(window, 'matchMedia', {
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
-  disconnect() {}
-  observe() {}
+  disconnect = jest.fn();
+  observe = jest.fn();
   takeRecords() {
     return [];
   }
-  unobserve() {}
+  unobserve = jest.fn();
 } as any;
 
 // Suppress console errors in tests (optional)

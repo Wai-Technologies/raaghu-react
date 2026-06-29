@@ -1,5 +1,6 @@
 import React from "react"
-import  RdsCompColorPicker, { ColorMode, ColorPickerType, PickerType }  from "./rds-comp-color-picker"
+import  RdsCompColorPicker from "./rds-comp-color-picker"
+import { ColorMode, ColorPickerType, PickerType } from "./rds-comp-color-picker.types"
 import figma from "@figma/code-connect"
 
 figma.connect(

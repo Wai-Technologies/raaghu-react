@@ -150,7 +150,12 @@ const RdsAutocomplete = <T extends { label?: string },>({
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
           const singleMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length === 1;
           const multiMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length > 1;
-          const labelGap = multiMode ? 2 : (singleMode && isShowUser ? 6 : (singleMode ? 4 : 8));
+          const labelGap = (() => {
+            if (multiMode) return 2;
+            if (singleMode && isShowUser) return 6;
+            if (singleMode) return 4;
+            return 8;
+          })();
           if (showDefault) {
             return (
               <li {...optionProps}>

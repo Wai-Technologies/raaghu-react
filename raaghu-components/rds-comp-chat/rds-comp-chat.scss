@@ -1,12 +1,14 @@
-﻿@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
+@use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 @include bp.down(tablet-sm) {
   .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
+      .MuiAvatar-root {
         width: var(--rds-avatar-size-medium, 32px) !important;
         height: var(--rds-avatar-size-medium, 32px) !important;
         font-size: var(--rds-font-size-md) !important;
       }
+    }
   }
   .nav-tabs--mobile {
     .nav-link {
@@ -34,17 +36,10 @@
 }
 
 @include bp.down(mobile-sm) {
-  .rds-comp-chat__window-header-title--mobile {
-    .rds-avatar {
-            width: var(--rds-avatar-size-small, 28px) !important;
-            height: var(--rds-avatar-size-small, 28px) !important;
-        font-size: var(--rds-font-size-sm) !important;
-      }
-  }
   .nav-tabs--mobile {
     .nav-link {
-          font-size: var(--rds-font-size-sm) !important;
-          padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important;
+      font-size: var(--rds-font-size-sm) !important;
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important;
       min-width: 40px;
     }
   }
@@ -56,6 +51,7 @@
   .rds-comp-chat__back-btn {
     font-size: var(--rds-font-size-xl);
     margin-right: var(--rds-spacing-0);
+    flex-shrink: 0;
   }
 }
 
@@ -138,28 +134,38 @@
       
       &-title {
         flex: 1;
-        min-width: 0; 
+        min-width: 0;
         margin-right: var(--rds-spacing-sm, 12px);
 
       @include bp.down(mobile-sm) {
-        .rds-avatar{
-          &--with-name{
-            gap: var(--rds-spacing-0) !important;
-          }
-              &__name{
-                font-size: var(--rds-font-size-md, 0.85rem) !important;
-              }
-              &__designation{
-                font-size: var(--rds-font-size-md, 0.70rem) !important;
-              }
+        margin-right: var(--rds-spacing-xs, 4px);
+        flex: 1;
+        min-width: 0;
+
+        .rds-avatar--with-name {
+          min-width: 0;
+          flex-wrap: nowrap;
+        }
+
+        .rds-avatar__info {
+          min-width: 0;
+        }
+
+        .rds-avatar__name,
+        .rds-avatar__designation {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
         }
       }
     }
 
       &-options {
         display: flex;
-        align-items: center;
+        align-items: stretch;
         justify-content: flex-end;
+        align-self: stretch;
         margin-left: auto;
         gap: var(--rds-spacing-sm, 12px);
         flex-shrink: 0;
@@ -168,13 +174,16 @@
           display: flex;
           align-items: center;
           flex-shrink: 0;
+          align-self: center;
         }
         
         .nav-tabs {
           display: flex !important;
           flex-direction: row !important;
-          align-items: center;
-          margin: 0;
+          align-items: flex-end;
+          align-self: stretch;
+          height: 100%;
+          margin: 0 !important;
           padding: 0;
           background: transparent;
           border-bottom: none;
@@ -191,11 +200,14 @@
           padding: var(--rds-spacing-13) var(--rds-spacing-cozy) !important;
           border: none !important;
           border-bottom: 2px solid transparent !important;
+          border-radius: 0;
           background: transparent;
           color: var(--rds-color-on-surface) !important;
           font-weight: var(--rds-font-weight-medium, 500);
           @include bp.down(mobile-sm) {
-            padding: var(--rds-spacing-cozy) var(--rds-spacing-compact) !important;
+            padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px) !important;
+            font-size: var(--rds-font-size-sm, 12px) !important;
+            min-width: unset;
           }
         }
         .nav-link::before {
@@ -203,7 +215,7 @@
           content: none !important;
         }
 
-        .nav-link:hover {
+        .nav-link:hover:not(.active) {
           color: var(--rds-color-primary) !important;
           border-bottom-color: transparent !important;
         }
@@ -211,7 +223,8 @@
         .nav-link.active {
           color: var(--rds-color-primary) !important;
           font-weight: var(--rds-font-weight-bold, 700) !important;
-          border-bottom-color: var(--rds-color-primary) !important;
+          border-bottom: 2px solid var(--rds-color-primary) !important;
+          margin-bottom: -1px;
         }
       }
     }
@@ -294,6 +307,7 @@
       word-break: break-word;
       hyphens: auto;
       box-shadow: var(--rds-elevation-1, 0 1px 2px rgba(0, 0, 0, 0.1));
+      overflow: hidden;
       
       .comment-text {
         margin: 0;
@@ -302,23 +316,25 @@
     }
 
     &-image {
-      max-width: min(350px, 100%);
+      max-width: 100%;
+      width: 100%;
       max-height: 220px;
-      width: auto;
       height: auto;
       border-radius: var(--rds-border-radius, 8px);
       margin-bottom: var(--rds-spacing-xs, 8px);
       object-fit: cover;
       display: block;
+      box-sizing: border-box;
     }
 
     &-video {
       width: 100%;
-      max-width: min(300px, 100%);
+      max-width: 100%;
       height: auto;
       border-radius: var(--rds-border-radius, 10px);
       margin-top: var(--rds-spacing-xs, 10px);
       display: block;
+      box-sizing: border-box;
     }
   }
 
@@ -563,6 +579,25 @@
     display: flex;
     align-items: center;
     vertical-align: middle;
+
+    // Suppress MUI focus ring on the rds-input wrapper in chat context
+    .MuiOutlinedInput-notchedOutline {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .MuiOutlinedInput-root {
+      outline: none !important;
+      box-shadow: none !important;
+    }
   }
 
   &__input-wrapper .MuiTextField-root {
@@ -581,6 +616,16 @@
 
       .MuiOutlinedInput-notchedOutline {
         border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      // Suppress focus outline/border on the notchedOutline in all states
+      &:hover .MuiOutlinedInput-notchedOutline,
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
       }
       
       .MuiOutlinedInput-input {
@@ -713,6 +758,14 @@
       height: 40px;
       border-radius: var(--rds-border-radius-md);
       padding: 0;
+
+      &:focus,
+      &:focus-visible,
+      &:active {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: transparent !important;
+      }
       
       svg {
         width: 20px;
@@ -796,9 +849,25 @@
     .nav-link {
       cursor: pointer;
       user-select: none;
+
+      &:focus:not(.active),
+      &:focus-visible:not(.active),
+      &:active:not(.active) {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: transparent !important;
+      }
+
+      &.active:focus,
+      &.active:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+        border-bottom: 2px solid var(--rds-color-primary) !important;
+      }
     }
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    align-self: stretch;
     gap: var(--rds-spacing-sm);
   }
 
@@ -940,12 +1009,12 @@
 
     &__comment {
       &-image {
-        max-width: min(280px, 85vw);
+        max-width: 100%;
         max-height: 180px;
       }
 
       &-video {
-        max-width: min(250px, 85vw);
+        max-width: 100%;
       }
     }
   }
@@ -955,13 +1024,17 @@
   .rds-comp-chat {
     &__window-header {
       padding: 0 var(--rds-spacing-xs, 4px);
+      gap: 0;
       
       &-options {
-        gap: var(--rds-spacing-xs, 4px);
+        gap: 2px;
+        flex-shrink: 0;
         
         .nav-tabs .nav-link {
-          padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
-          font-size: var(--rds-font-size-xs, 13px);
+          padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px);
+          font-size: var(--rds-font-size-xs, 12px);
+          min-width: unset;
+          white-space: nowrap;
         }
       }
     }
@@ -1011,12 +1084,12 @@
 
     &__comment {
       &-image {
-        max-width: min(240px, 90vw);
+        max-width: 100%;
         max-height: 150px;
       }
 
       &-video {
-        max-width: min(220px, 90vw);
+        max-width: 100%;
       }
     }
   }
@@ -1067,12 +1140,12 @@
 
     &__comment {
       &-image {
-        max-width: min(200px, 95vw);
+        max-width: 100%;
         max-height: 120px;
       }
 
       &-video {
-        max-width: min(180px, 95vw);
+        max-width: 100%;
       }
     }
   }

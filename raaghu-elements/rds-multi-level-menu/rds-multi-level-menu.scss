@@ -11,7 +11,7 @@
   border: 1px solid var(--rds-border-default);
   padding: 0;
   min-width: var(--rds-mlm-min-width, 220px);
-  background: var(--rds-background-paper);
+  background-color: var(--rds-background-paper);
   .MuiList-root { transition: max-height var(--rds-transition-base, 0.16s ease-in-out); }
 }
 
@@ -30,7 +30,7 @@
   margin: 0;
   transition: background-color var(--rds-mlm-item-transition, 0.15s ease-in-out), color var(--rds-mlm-item-transition, 0.15s ease-in-out);
   color: var(--rds-text-primary);
-  background: transparent;
+  background-color: transparent;
 }
 
 

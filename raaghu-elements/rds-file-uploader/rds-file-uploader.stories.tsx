@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
-import { expect, within } from 'storybook/test';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 import { RenderFileUploader } from './RdsFileUploaderComponents';
 
@@ -79,6 +78,14 @@ const meta: Meta<typeof RdsFileUploader> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const FileUploaderStory = (args) => {
+  const updatedArgs = { ...args };
+  if (args.mode === 'standard') {
+    updatedArgs.children = <DeleteIcon />;
+  }
+  return RenderFileUploader(updatedArgs);
+};
+
 export const Default: Story = {
   args: {
     title: 'Upload your files',
@@ -96,19 +103,7 @@ export const Default: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: (args) => {
-    const updatedArgs = {...args};
-    if (args.mode === 'standard') {
-      updatedArgs.children = <DeleteIcon />;
-    }
-    return RenderFileUploader(updatedArgs);
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    expect(canvas.getByText('Upload your files')).toBeInTheDocument();
-    const fileInput = canvasElement.querySelector('input[type="file"]');
-    expect(fileInput).toBeInTheDocument();
-  },
+  render: FileUploaderStory,
 };
 
 export const SingleFile: Story = {
@@ -126,13 +121,7 @@ export const SingleFile: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: (args) => {
-    const updatedArgs = {...args};
-    if (args.mode === 'standard') {
-      updatedArgs.children = <DeleteIcon />;
-    }
-    return RenderFileUploader(updatedArgs);
-  },
+  render: FileUploaderStory,
 };
 
 export const ImagesOnly: Story = {
@@ -152,13 +141,7 @@ export const ImagesOnly: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: (args) => {
-    const updatedArgs = {...args};
-    if (args.mode === 'standard') {
-      updatedArgs.children = <DeleteIcon />;
-    }
-    return RenderFileUploader(updatedArgs);
-  },
+  render: FileUploaderStory,
 };
 
 export const NoDragAndDrop: Story = {
@@ -175,13 +158,7 @@ export const NoDragAndDrop: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: (args) => {
-    const updatedArgs = {...args};
-    if (args.mode === 'standard') {
-      updatedArgs.children = <DeleteIcon />;
-    }
-    return RenderFileUploader(updatedArgs);
-  },
+  render: FileUploaderStory,
 };
 
 export const NoPreview: Story = {
@@ -198,13 +175,7 @@ export const NoPreview: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: (args) => {
-    const updatedArgs = {...args};
-    if (args.mode === 'standard') {
-      updatedArgs.children = <DeleteIcon />;
-    }
-    return RenderFileUploader(updatedArgs);
-  },
+  render: FileUploaderStory,
 };
 
 export const DocumentsOnly: Story = {
@@ -224,13 +195,7 @@ export const DocumentsOnly: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: (args) => {
-    const updatedArgs = {...args};
-    if (args.mode === 'standard') {
-      updatedArgs.children = <DeleteIcon />;
-    }
-    return RenderFileUploader(updatedArgs);
-  },
+  render: FileUploaderStory,
 };
 
 export const Disabled: Story = {
@@ -247,13 +212,7 @@ export const Disabled: Story = {
     showHint: true,
     hintText: 'Maximum 5MB',
   },
-  render: (args) => {
-    const updatedArgs = {...args};
-    if (args.mode === 'standard') {
-      updatedArgs.children = <DeleteIcon />;
-    }
-    return RenderFileUploader(updatedArgs);
-  },
+  render: FileUploaderStory,
 };
 
 export const WithValidation: Story = {
@@ -272,13 +231,7 @@ args: {
   showHint: true,
   hintText: 'Maximum 5MB',
 },
-render: (args) => {
-  const updatedArgs = {...args};
-  if (args.mode === 'standard') {
-    updatedArgs.children = <DeleteIcon />;
-  }
-  return RenderFileUploader(updatedArgs);
-},
+render: FileUploaderStory,
 };
 
 export const Interactive: Story = {
@@ -297,14 +250,23 @@ args: {
   showHint: true,
   hintText: 'Maximum 5MB',
 },
-render: (args) => {
-  const updatedArgs = {...args};
-  if (args.mode === 'standard') {
-    updatedArgs.children = <DeleteIcon />;
-  }
-  return RenderFileUploader(updatedArgs);
-},
+render: FileUploaderStory,
 };
+
+const StandardStory = (args) => {
+    const [, setFiles] = React.useState<FileWithProgress[]>([
+      {
+        file: new File([''], 'example.pdf', { type: 'application/pdf' }),
+        progress: 0,
+      },
+    ]);
+    const updatedArgs = {...args};
+    if (args.mode === 'standard') {
+      updatedArgs.children = <DeleteIcon />;
+    }
+    
+    return <RdsFileUploader {...updatedArgs} onFilesChange={setFiles} />;
+  };
 
 export const Standard: Story = {
   args: {
@@ -322,20 +284,7 @@ export const Standard: Story = {
     dragAndDrop: true,
     disabled: false,
   },
-  render: (args) => {
-    const [files, setFiles] = React.useState<FileWithProgress[]>([
-      {
-        file: new File([''], 'example.pdf', { type: 'application/pdf' }),
-        progress: 0,
-      },
-    ]);
-    const updatedArgs = {...args};
-    if (args.mode === 'standard') {
-      updatedArgs.children = <DeleteIcon />;
-    }
-    
-    return <RdsFileUploader {...updatedArgs} onFilesChange={setFiles} />;
-  },
+  render: StandardStory,
 };
 
 

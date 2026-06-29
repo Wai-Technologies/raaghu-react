@@ -1,6 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from 'storybook/test';
+import { expect } from 'storybook/test';
 import RdsCompLayout from './rds-comp-layout';
 
 const meta: Meta<typeof RdsCompLayout> = {
@@ -69,7 +69,6 @@ export const Default: Story = {
     mode: 'standard',
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
     const wrapper = canvasElement.querySelector('.rds-comp-layout-wrapper_basic');
     expect(wrapper).toBeInTheDocument();
   },

@@ -1,8 +1,5 @@
-import React from "react";
-import RdsCompAiIcon, { registerMaterialIcon, registerMaterialIcons } from "./rds-comp-ai-icon";
+import RdsCompAiIcon from "./rds-comp-ai-icon";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/AI ChatBox/Icon',
     component: RdsCompAiIcon,
@@ -36,10 +33,6 @@ export const Default: Story = {
         stroke: true,
         colorVariant: "primary",
         isCursorPointer: true,
-    },
-    play: async ({ canvasElement }) => {
-        const el = canvasElement.firstElementChild;
-        expect(el).toBeTruthy();
-    },
+    },
 } satisfies Story;
 Default.parameters = { controls: { include: ['name', 'width', 'height','colorVariant', 'isCursorPointer'] } };

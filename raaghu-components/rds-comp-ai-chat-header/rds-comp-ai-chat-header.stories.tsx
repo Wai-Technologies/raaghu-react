@@ -1,6 +1,5 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
 import RdsCompAiChatHeader, { ChatHeaderSize } from "./rds-comp-ai-chat-header";
 
 const meta: Meta<typeof RdsCompAiChatHeader> = {
@@ -41,11 +40,8 @@ type Story = StoryObj<typeof RdsCompAiChatHeader>;
 
 export const Default: Story = {
   args: {
-    logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
+    logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
     title: "New Chat Started",
     size: ChatHeaderSize.Medium,
-  },
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  },
 };

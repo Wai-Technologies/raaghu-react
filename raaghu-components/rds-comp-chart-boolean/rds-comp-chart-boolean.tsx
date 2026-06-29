@@ -19,7 +19,7 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
 
     const [themeMode, setThemeMode] = React.useState(() => {
         if (typeof document !== 'undefined') {
-            return document.documentElement.getAttribute('data-theme') || 'light';
+            return document.documentElement.dataset.theme || 'light';
         }
         return 'light';
     });
@@ -27,7 +27,7 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
     React.useEffect(() => {
         if (typeof window === 'undefined') return;
         const observer = new MutationObserver(() => {
-            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+            setThemeMode(document.documentElement.dataset.theme || 'light');
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         return () => observer.disconnect();
@@ -38,12 +38,23 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
      * Handles var(--variable-name) syntax.
      */
     function resolveSvgCssVariables(svgString: string): string {
-        return svgString.replace(/var\(([^,)]+)(?:,\s*([^)]+))?\)/g, (match, varName, fallback) => {
-            const cleanVarName = varName.trim();
-            const cleanFallback = fallback ? fallback.trim() : '';
-            const resolvedColor = getCSSVar(cleanVarName, cleanFallback);
-            return resolvedColor;
-        });
+        let result = svgString;
+        let searchFrom = 0;
+        while (true) {
+            const varStart = result.indexOf('var(', searchFrom);
+            if (varStart === -1) break;
+            const openParen = varStart + 4;
+            const closeParen = result.indexOf(')', openParen);
+            if (closeParen === -1) break;
+            const inner = result.slice(openParen, closeParen);
+            const commaIdx = inner.indexOf(',');
+            const varName = (commaIdx === -1 ? inner : inner.slice(0, commaIdx)).trim();
+            const fallback = commaIdx === -1 ? '' : inner.slice(commaIdx + 1).trim();
+            const resolvedColor = getCSSVar(varName, fallback);
+            result = result.slice(0, varStart) + resolvedColor + result.slice(closeParen + 1);
+            searchFrom = varStart + resolvedColor.length;
+        }
+        return result;
     }
 
     useEffect(() => {

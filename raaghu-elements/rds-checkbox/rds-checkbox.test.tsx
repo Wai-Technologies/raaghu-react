@@ -167,7 +167,7 @@ describe('RdsCheckbox', () => {
     it('should apply indeterminate state when status is indeterminate', () => {
       renderWithTheme(<RdsCheckbox {...defaultProps} status="indeterminate" />);
       const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
-      expect(checkbox.getAttribute('data-indeterminate')).toBe('true');
+      expect(checkbox.dataset.indeterminate).toBe('true');
     });
 
     it('should apply indeterminate class when status is indeterminate', () => {
@@ -346,7 +346,7 @@ describe('RdsCheckbox', () => {
     });
 
     it('should forward props to MuiCheckbox', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsCheckbox {...defaultProps} size="small" />
       );
       const checkbox = screen.getByRole('checkbox');
@@ -451,7 +451,7 @@ describe('RdsCheckbox', () => {
         <RdsCheckbox {...defaultProps} status="checked" />
       );
       let checkbox = screen.getByRole('checkbox') as HTMLInputElement;
-      expect(checkbox.getAttribute('data-indeterminate')).toBe('false');
+      expect(checkbox.dataset.indeterminate).toBe('false');
 
       rerender(
         <ThemeProvider theme={theme}>
@@ -459,7 +459,7 @@ describe('RdsCheckbox', () => {
         </ThemeProvider>
       );
       checkbox = screen.getByRole('checkbox') as HTMLInputElement;
-      expect(checkbox.getAttribute('data-indeterminate')).toBe('true');
+      expect(checkbox.dataset.indeterminate).toBe('true');
     });
   });
 
@@ -648,7 +648,7 @@ describe('RdsCheckbox', () => {
 
       renderWithTheme(<RdsCheckbox {...defaultProps} status="indeterminate" />);
       checkbox = screen.getByRole('checkbox') as HTMLInputElement;
-      expect(checkbox.getAttribute('data-indeterminate')).toBe('true');
+      expect(checkbox.dataset.indeterminate).toBe('true');
     });
 
     it('should accept boolean showText', () => {
