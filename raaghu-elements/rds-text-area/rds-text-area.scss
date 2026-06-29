@@ -16,6 +16,11 @@
 
   .textarea-wrapper {
     position: relative;
+
+    &.textarea-pill-wrapper {
+      border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full, 9999px));
+      overflow: hidden;
+    }
   }
 
  .rds-textarea {
@@ -45,8 +50,9 @@
     }
 
     &.textarea-pill {
-      border-radius: var(--rds-border-radius-pill, 16px);
-      padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-lg, 8px);
+      border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full, 9999px));
+      padding: var(--rds-spacing-lg, 24px);
+      box-sizing: border-box;
     }
 
     &.textarea-bottom-outline {

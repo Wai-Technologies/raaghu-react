@@ -95,7 +95,7 @@
     width: var(--rds-font-size-xl, 20px);
     height: var(--rds-font-size-xl, 20px);
     border-radius: var(--rds-border-radius-pill);
-    border: 2px solid var(--rds-border-dark);
+    border: 2px solid var(--rds-text-secondary);
     background: transparent;
     margin-right: var(--rds-spacing-sm, 6px);
   }
@@ -1322,7 +1322,7 @@
   &__circle {
     width: var(--rds-adaptive-cards-icon-width, 24px);
     height: var(--rds-size-lg);
-    border: 2px solid var(--rds-border-light);
+    border: 2px solid var(--rds-text-secondary);
     border-radius: var(--rds-border-radius-pill);
   }
 

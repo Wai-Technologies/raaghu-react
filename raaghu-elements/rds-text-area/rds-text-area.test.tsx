@@ -131,6 +131,7 @@ describe('RdsTextArea', () => {
       render(<RdsTextArea style={TextareaStyle.Pill} dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveClass('textarea-pill');
+      expect(textarea.closest('.textarea-pill-wrapper')).toBeTruthy();
     });
 
     it('should apply bottom outline style class', () => {
