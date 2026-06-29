@@ -324,12 +324,116 @@ font-weight: bold;
 .rds-datepicker__custom-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid transparent;
   background-color: transparent;
-  
 
+  &--with-nav {
+    justify-content: center;
+    width: 100%;
+    padding: 0.375rem 0.5rem;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+}
+
+.rds-datepicker__custom-header-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rds-spacing-xs);
+  max-width: 100%;
+
+  .rds-datepicker__nav-btn {
+    height: 1.75rem;
+    width: 1.75rem;
+    min-width: 1.75rem;
+  }
+
+  .rds-datepicker__header-select {
+    height: 1.75rem;
+    min-width: 0;
+    width: auto;
+    padding: 0 1.375rem 0 0.375rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    background-position: right 0.375rem center;
+    background-size: 8px 5px;
+    flex-shrink: 1;
+
+    &--month {
+      max-width: 3.5rem;
+    }
+
+    &--year {
+      max-width: 4rem;
+    }
+  }
+}
+
+.rds-datepicker__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: var(--rds-size-xl);
+  width: var(--rds-size-xl);
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--rds-color-primary);
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.35;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-primary-main);
+    outline-offset: 2px;
+  }
+}
+
+.rds-datepicker__nav-icon {
+  position: relative;
+  display: block;
+  width: 9px;
+  height: 9px;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    border: 2px solid var(--rds-color-primary);
+    border-width: 2px 2px 0 0;
+    content: "";
+    display: block;
+  }
+
+  &--previous::before {
+    transform: translate(-50%, -50%) rotate(225deg);
+  }
+
+  &--next::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+}
+
+.react-datepicker__header--custom:has(.rds-datepicker__custom-header-group) {
+  overflow: hidden !important;
+}
+
+.react-datepicker:has(.rds-datepicker__custom-header-group) {
+  > .react-datepicker__navigation {
+    display: none !important;
+  }
 }
 
 .rds-datepicker__custom-header-controls {
@@ -348,6 +452,8 @@ font-weight: bold;
   border-radius: var(--rds-border-radius-sm);
   font-size: 0.9rem;
   line-height: 1;
+  appearance: none;
+  -webkit-appearance: none;
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 10px 6px;
@@ -630,6 +736,41 @@ font-weight: bold;
 .react-datepicker__year-dropdown-container--scroll {
   margin: 0 4px;
   vertical-align: middle;
+}
+
+.react-datepicker__header__dropdown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.react-datepicker__header:has(.react-datepicker__header__dropdown) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Fallback vertical alignment when react-datepicker renders its own header dropdowns
+.react-datepicker:has(.react-datepicker__header__dropdown) {
+  .react-datepicker__navigation {
+    top: calc(0.5rem + var(--rds-size-xl) / 2) !important;
+    transform: translateY(-50%);
+  }
+
+  .react-datepicker__navigation-icon {
+    top: 0 !important;
+  }
+
+  .react-datepicker__navigation-icon--previous::before {
+    top: 50% !important;
+    transform: translateY(-50%) rotate(225deg) !important;
+  }
+
+  .react-datepicker__navigation-icon--next::before {
+    top: 50% !important;
+    transform: translateY(-50%) rotate(45deg) !important;
+  }
 }
 
 .react-datepicker__month-read-view,
@@ -994,11 +1135,36 @@ font-weight: bold;
   // Month Picker header (e.g. "2026") and Year Picker header (e.g. "2017 - 2028")
   .react-datepicker__current-month,
   .react-datepicker-year-header,
-  .rds-datepicker__custom-header,
+  .rds-datepicker__custom-header {
+    color: #ffffff !important;
+    background-color: var(--rds-background-paper, #1e1e2e) !important;
+  }
+
   .rds-datepicker__header-select {
     color: #ffffff !important;
     background-color: var(--rds-background-paper, #1e1e2e) !important;
-    border-color: var(--rds-border-default, rgba(255, 255, 255, 0.18)) !important;
+    border: 1px solid var(--rds-border-default, rgba(255, 255, 255, 0.18)) !important;
+    color-scheme: dark;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background-image: linear-gradient(45deg, transparent 50%, #ffffff 50%),
+      linear-gradient(135deg, #ffffff 50%, transparent 50%) !important;
+    background-position: calc(100% - 10px) calc(50% - 2px), calc(100% - 6px) calc(50% - 2px) !important;
+    background-size: 4px 4px, 4px 4px !important;
+    background-repeat: no-repeat !important;
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none !important;
+      box-shadow: none !important;
+      border: 1px solid var(--rds-border-default, rgba(255, 255, 255, 0.18)) !important;
+    }
+  }
+
+  .rds-datepicker__custom-header-group .rds-datepicker__header-select {
+    background-position: calc(100% - 8px) calc(50% - 2px), calc(100% - 5px) calc(50% - 2px) !important;
   }
 
   // Day-of-week header names (Su Mo Tu We …)
@@ -1132,7 +1298,8 @@ font-weight: bold;
   }
 
   // Navigation arrow chevrons
-  .react-datepicker__navigation-icon::before {
+  .react-datepicker__navigation-icon::before,
+  .rds-datepicker__nav-icon::before {
     border-color: #ffffff !important;
   }
 

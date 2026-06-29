@@ -2,7 +2,17 @@ import type { RefObject, ReactNode } from "react";
 import { CustomButtons } from "./CustomButtons";
 import { ExampleCustomInput } from "./ExampleCustomInput";
 import { CustomInputWithClear } from "./CustomInputWithClear";
-import { renderCustomHeader } from "./renderCustomHeader";
+import { createRenderCustomHeader } from "./renderCustomHeader";
+
+const getRenderCustomHeader = (layout: string, datePickerStyleType: string) => {
+    if (layout === "Multi Month") {
+        return createRenderCustomHeader(false);
+    }
+    if (layout === "Default" && datePickerStyleType === "Dropdown") {
+        return createRenderCustomHeader(true);
+    }
+    return undefined;
+};
 
 export const getDayClassName = (date: Date, startDate: Date | null) => {
     const today = new Date();
@@ -88,7 +98,11 @@ const buildDatePickerProps = ({
     datePickerRef: RefObject<any>;
     customInput: ReactNode;
     overrides?: Record<string, any>;
-}) => ({
+}) => {
+    const renderCustomHeader = getRenderCustomHeader(props.layout, props.datePickerStyleType);
+    const usesCustomHeaderDropdown = Boolean(renderCustomHeader);
+
+    return {
     selected: startDate || null,
     onChange,
     customInput,
@@ -102,14 +116,16 @@ const buildDatePickerProps = ({
     scrollableMonthYearDropdown: props.datePickerStyleType === "Dropdown",
     todayButton: <CustomButtons />,
     peekNextMonth: true,
-    showMonthDropdown: props.datePickerStyleType === "Dropdown",
-    showYearDropdown: props.datePickerStyleType === "Dropdown",
+    showMonthDropdown: props.datePickerStyleType === "Dropdown" && !usesCustomHeaderDropdown,
+    showYearDropdown: props.datePickerStyleType === "Dropdown" && !usesCustomHeaderDropdown,
     dropdownMode: "select",
     dayClassName,
     ref: datePickerRef,
-    renderCustomHeader: props.layout === "Multi Month" ? renderCustomHeader : undefined,
+    renderCustomHeader,
+    calendarClassName: props.layout === "Default" ? "rds-datepicker--layout-default" : undefined,
     ...overrides,
-});
+};
+};
 
 export const renderDatePickerStateView = (
     state: string,
@@ -314,13 +330,14 @@ export const renderDatePickerTypeView = (
                             showYearPicker={props.layout === "Year Picker"}
                             todayButton={todayButtonElement}
                             peekNextMonth={true}
-                            showMonthDropdown={props.datePickerStyleType === "Dropdown"}
-                            showYearDropdown={props.datePickerStyleType === "Dropdown"}
+                            showMonthDropdown={props.datePickerStyleType === "Dropdown" && !getRenderCustomHeader(props.layout, props.datePickerStyleType)}
+                            showYearDropdown={props.datePickerStyleType === "Dropdown" && !getRenderCustomHeader(props.layout, props.datePickerStyleType)}
                             dropdownMode="select"
                             showPreviousMonths
                             monthsShown={props.layout === "Multi Month" ? 3 : 1}
                             dayClassName={dayClassName}
-                            renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
+                            renderCustomHeader={getRenderCustomHeader(props.layout, props.datePickerStyleType)}
+                            calendarClassName={props.layout === "Default" ? "rds-datepicker--layout-default" : undefined}
                             customInput={<ExampleCustomInput changeIcon={props.changeIcon} />}
                         />
                     </li>
