@@ -1,16 +1,19 @@
 import clsx from "clsx";
 import { useMemo } from "react";
 import { Box, Typography } from "@mui/material";
+import SearchOffOutlinedIcon from "@mui/icons-material/SearchOffOutlined";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-import Lottie from "lottie-react";
-import "./rds-comp-empty-state.scss";
+import Lottie from "lottie-react";import "./rds-comp-empty-state.scss";
 import emptyStatePng from "./empty-state.png";
 import emptyStateDarkPng from "./empty-state-dark.png";
 import illustrationLight from "./illustration-light.json";
 import illustrationDark from "./illustration-dark.json";
 
+export type RdsCompEmptyStateVariant = "illustration" | "minimal";
+
 export interface RdsCompEmptyStateProps {
   mode?: string;
+  variant?: RdsCompEmptyStateVariant;
   label?: string;
   subLabel?: string;
   iconHeight?: string | number;
@@ -31,6 +34,7 @@ const isDarkThemeActive = (): boolean =>
 
 const RdsCompEmptyState = ({
   mode,
+  variant = "illustration",
   label,
   subLabel,
   iconHeight,
@@ -41,12 +45,14 @@ const RdsCompEmptyState = ({
   isContinueAnimate,
   className = "",
 }: RdsCompEmptyStateProps) => {
-  const { width, height } = useMemo(() => {
-    const rawW = iconWidth ?? 150;
-    const rawH = iconHeight ?? iconWidth ?? 150;
-    return { width: toCss(rawW), height: toCss(rawH) };
-  }, [iconHeight, iconWidth]);
+  const isMinimal = variant === "minimal";
 
+  const { width, height } = useMemo(() => {
+    const defaultSize = isMinimal ? (isContinueAnimate ? 150 : 72) : 150;
+    const rawW = iconWidth ?? defaultSize;
+    const rawH = iconHeight ?? iconWidth ?? defaultSize;
+    return { width: toCss(rawW), height: toCss(rawH) };
+  }, [iconHeight, iconWidth, isMinimal, isContinueAnimate]);
   const useDarkVariant = useMemo(
     () => mode === "Dark NRA" || (!mode && isDarkThemeActive()),
     [mode]
@@ -59,34 +65,93 @@ const RdsCompEmptyState = ({
 
   const titleColor = isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-text-primary)";
 
+  const renderMinimalIcon = () => {
+    if (iconPath) {
+      return (
+        <img
+          src={iconPath}
+          alt={label || mode || "Empty state"}
+          loading="lazy"
+          style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+          data-testid="emptyStateImage"
+        />
+      );
+    }
+
+    if (isContinueAnimate) {
+      return (
+        <Box className="rds-comp-empty-state__minimal-lottie-shell">
+          <Lottie
+            animationData={resolvedAnimation}
+            loop
+            autoplay
+            style={{ width: "100%", height: "100%" }}
+            data-testid="emptyStateLottie"
+          />
+        </Box>
+      );
+    }
+
+    return (
+      <SearchOffOutlinedIcon
+        className="rds-comp-empty-state__minimal-icon"
+        data-testid="emptyStateMinimalIcon"
+        sx={{ fontSize: width, width, height }}
+        aria-hidden="true"
+      />
+    );  };
+
+  const renderIcon = () => {
+    if (isMinimal) {
+      return renderMinimalIcon();
+    }
+
+    if (isContinueAnimate) {
+      return (
+        <Lottie
+          animationData={resolvedAnimation}
+          loop
+          autoplay
+          style={{ width: "100%", height: "100%" }}
+          data-testid="emptyStateLottie"
+        />
+      );
+    }
+
+    return (
+      <img
+        src={imageSrc}
+        alt={label || mode || "Empty state"}
+        loading="lazy"
+        style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+        data-testid="emptyStateImage"
+      />
+    );
+  };
+
   return (
-    <Box className={clsx("rds-comp-empty-state", className)}>
+    <Box
+      className={clsx(
+        "rds-comp-empty-state",
+        isMinimal && "rds-comp-empty-state--minimal",
+        isMinimal && isContinueAnimate && "rds-comp-empty-state--minimal-animated",
+        className
+      )}
+    >
       <Box className="rds-comp-empty-state__content">
         <Box
           className={clsx(
             "rds-comp-empty-state__icon",
-            isContinueAnimate && "rds-comp-empty-state__icon--animated"
+            isMinimal && "rds-comp-empty-state__icon--minimal",
+            isMinimal &&
+              isContinueAnimate &&
+              "rds-comp-empty-state__icon--minimal-animated",
+            !isMinimal && isContinueAnimate && "rds-comp-empty-state__icon--animated"
           )}
           data-testid="icon"
           style={{ width, height }}
         >
-          {isContinueAnimate ? (
-            <Lottie
-              animationData={resolvedAnimation}
-              loop
-              autoplay
-              style={{ width: "100%", height: "100%" }}
-              data-testid="emptyStateLottie"
-            />
-          ) : (
-            <img
-              src={imageSrc}
-              alt={label || mode || "Empty state"}
-              loading="lazy"
-              style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
-              data-testid="emptyStateImage"
-            />
-          )}
+          {renderIcon()}
         </Box>
 
         {label && (
