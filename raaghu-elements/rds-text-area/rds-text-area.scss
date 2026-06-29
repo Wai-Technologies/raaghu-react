@@ -19,7 +19,38 @@
 
     &.textarea-pill-wrapper {
       border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full, 9999px));
+      border: 1px solid var(--rds-border-default);
       overflow: hidden;
+      background-color: var(--rds-background-paper);
+      transition: border-color var(--rds-transition-base, 0.2s) ease-in-out;
+
+      &.textarea-active {
+        border-color: var(--rds-primary-main);
+      }
+
+      &.textarea-selected {
+        border-color: var(--rds-border-selected);
+      }
+
+      &.textarea-disabled {
+        background-color: var(--rds-background-disabled);
+        border-color: var(--rds-border-disabled);
+      }
+
+      &.textarea-error {
+        border-color: var(--rds-error-main);
+      }
+
+      .rds-textarea.textarea-pill {
+        border: none;
+        border-radius: 0;
+        background-color: transparent;
+        resize: none;
+
+        &.textarea-disabled {
+          background-color: transparent;
+        }
+      }
     }
   }
 
