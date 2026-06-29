@@ -1,7 +1,3 @@
-.rds-sidebar--collapse .MuiDrawer-paper .MuiIconButton-root,
-.rds-sidebar--fixed .MuiDrawer-paper .MuiIconButton-root {
-  right: var(--rds-sidebar-collapse-icon-offset, 23px) !important;
-}
 .rds-sidebar {
   --rds-sidebar-header-gap: var(--rds-spacing-sm, 12px);
   --rds-sidebar-nav-min-height: var(--rds-spacing-2xl, 48px);
@@ -67,7 +63,42 @@
   
   &__search-container {
     padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-md, 16px);
-    right: var(--rds-spacing-lg, 24px);
+
+    &--icon-only {
+      display: flex;
+      justify-content: center;
+      padding: var(--rds-spacing-xs, 2px) 0;
+      overflow: hidden;
+
+      .rds-search {
+        width: var(--rds-sidebar-nav-min-height, 48px);
+
+        .rds-search__input.MuiTextField-root {
+          width: 100%;
+
+          .MuiInput-root {
+            justify-content: center;
+
+            .MuiInput-input {
+              display: none;
+              width: 0;
+              min-width: 0;
+              padding: 0;
+            }
+
+            .MuiInputAdornment-root {
+              margin: 0;
+              max-height: none;
+            }
+
+            .MuiIconButton-root {
+              position: static;
+              right: auto;
+            }
+          }
+        }
+      }
+    }
   }
   
   &__nav-list {
@@ -207,8 +238,10 @@
       justify-content: center;
     }
 
-    .rds-sidebar__search-container {
-      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 13px);
+    .rds-sidebar__header--expanded {
+      padding-left: 0;
+      padding-right: 0;
+      justify-content: center;
     }
 
     .MuiListItemText-root {
