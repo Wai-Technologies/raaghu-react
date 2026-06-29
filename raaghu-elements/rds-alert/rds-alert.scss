@@ -55,10 +55,6 @@
   border: 1px solid transparent;
   background: var(--rds-alert-info-bg);
 
-  &--success {
-    color: var(--rds-alert-success-text) !important;
-  }
-  
   &__actions {
     display: flex;
     justify-content: flex-end;
@@ -69,19 +65,11 @@
       margin-right: var(--rds-alert-link-margin-right, 10px);
     }
   }
-  &--error {
-    color: var(--rds-alert-error-text) !important;
-  }
-  &--warning {
-    color: var(--rds-alert-warning-text) !important;
-  }
-  &--info {
-    color: var(--rds-alert-info-text) !important;
-  }
   &__heading,
   &__heading--multiline,
-  &__description {
-    color: inherit !important;
+  &__description,
+  &__description-inline {
+    color: var(--rds-text-primary) !important;
   }
 
     &__heading--multiline {
@@ -178,6 +166,7 @@
     display: flex;
     align-items: center;
     margin-top: 0;
+    color: var(--rds-text-primary) !important;
   }
 
   &__actions {
@@ -300,7 +289,6 @@
 
   .rds-alert.MuiAlert-root.rds-alert--info{
     background-color: var(--rds-alert-info-bg) !important;
-    color: var(--rds-alert-info-text) !important;
   }
   .rds-alert.rds-alert--success .rds-alert__icon {
     color: var(--rds-alert-success-text) !important;
@@ -319,10 +307,11 @@
   }
 }
 
-.MuiAlert-message {
+.rds-alert .MuiAlert-message {
   flex: 1 1 auto;
   min-width: 0;
   display: block;
+  color: var(--rds-text-primary) !important;
 }
 @media (max-width: 640px) {
   .rds-alert {
