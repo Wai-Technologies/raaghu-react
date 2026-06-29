@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useRef, type FocusEvent, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState, useRef, type FocusEvent, type ReactNode } from 'react';
 import { Autocomplete as MuiAutocomplete, TextField, Chip, type AutocompleteProps } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import Radio from '@mui/material/Radio';
@@ -32,6 +32,8 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boole
     openOnFocus?: 'on' | 'off';
     multiple?: 'on' | 'off';
   };
+  /** Hides the clear-all control when the field width is at or below large mobile (414px). */
+  hideClearAllOnMobile?: boolean;
   [key: string]: unknown;
 }
 
@@ -49,6 +51,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   userIcon,
   popupIcon,
   behavior,
+  hideClearAllOnMobile = false,
   ...props
 }: RdsAutocompleteProps<T>) => {
   const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
@@ -127,7 +130,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   // so the chip limit works correctly inside Storybook iframes and any container
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(1024);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver((entries) => {
@@ -135,10 +138,12 @@ const RdsAutocomplete = <T extends { label?: string },>({
       setContainerWidth(width);
     });
     ro.observe(el);
-    // set initial value
     setContainerWidth(el.offsetWidth);
     return () => ro.disconnect();
   }, []);
+
+  const MOBILE_LG_MAX_WIDTH = 414;
+  const shouldHideClearAll = hideClearAllOnMobile && containerWidth <= MOBILE_LG_MAX_WIDTH;
 
   // ≤200px → 1 chip, ≤320px → 2 chips, >320px → 3 chips
   const responsiveLimitTags = containerWidth <= 200 ? 1 : containerWidth <= 320 ? 2 : 3;
@@ -161,7 +166,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
       {...muiAutocompleteProps}
       multiple={allowMultiple}
       limitTags={allowMultiple ? responsiveLimitTags : undefined}
-      clearIcon={hideClearAll ? null : undefined}
+      clearIcon={hideClearAll || shouldHideClearAll ? null : undefined}
       renderTags={allowMultiple ? (value, getTagProps) => {
         const limit = responsiveLimitTags;
         const visibleTags = value.slice(0, limit);
