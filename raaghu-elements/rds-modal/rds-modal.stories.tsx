@@ -34,6 +34,10 @@ const meta: Meta<typeof RdsModal> = {
       control: 'boolean',
       description: 'Whether modal takes full width',
     },
+    imageSrc: {
+      control: 'text',
+      description: 'URL of the image to display in the modal header',
+    },
   },
 };
 
@@ -63,7 +67,7 @@ export const Default = {
   render: ModalTemplate,
   parameters: {
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen'],
+      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen', 'imageSrc'],
     },
   },
   args: {
@@ -79,6 +83,11 @@ export const Default = {
 
 export const WithActions = {
   render: ModalTemplate,
+  parameters: {
+    controls: {
+      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen', 'imageSrc'],
+    },
+  },
   args: {
     title: 'Are you sure?',
     showIcon: true,
@@ -115,7 +124,7 @@ export const WithoutCloseButton = {
   render: ModalTemplate,
   parameters: {
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon','isOpen'],
+      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen', 'imageSrc'],
     },
   },
   args: {
@@ -145,7 +154,7 @@ export const LargeModal = {
   render: ModalTemplate,
   parameters: {
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen' ],
+      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen', 'imageSrc'],
     },
   },
   args: {
@@ -188,7 +197,7 @@ export const SmallModal = {
   render: ModalTemplate,
   parameters: {
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen'],
+      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen', 'imageSrc'],
     },
   },
   args: {
@@ -220,6 +229,11 @@ export const SmallModal = {
 
 export const WithIcon = {
   render: ModalTemplate,
+  parameters: {
+    controls: {
+      exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'showIcon', 'isOpen', 'imageSrc'],
+    },
+  },
   args: {
     title: 'Are you sure?',
     showIcon: true,

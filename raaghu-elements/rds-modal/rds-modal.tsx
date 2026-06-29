@@ -51,11 +51,23 @@ const RdsModal= ({
     : media === 'icon' || media === 'both'
       ? true
       : (legacyShowIcon ?? true);
-  const showImage = media === 'none'
+  const resolvedImageSrc = typeof imageSrc === 'string' && imageSrc.trim() ? imageSrc : undefined;
+  const showImage = media === 'none' || media === 'icon'
     ? false
     : media === 'image' || media === 'both'
       ? true
-      : true;
+      : Boolean(resolvedImageSrc);
+  const hasImageHeader = Boolean(resolvedImageSrc && showImage);
+
+  const closeButton = resolvedShowCloseButton ? (
+    <IconButton
+      aria-label="close"
+      onClick={onClose}
+      className="rds-modal__close-button"
+    >
+      <CloseIcon />
+    </IconButton>
+  ) : null;
 
   return (
     <MuiDialog
@@ -63,16 +75,25 @@ const RdsModal= ({
       onClose={onClose}
       {...props}
     >
-      {(title || icon || imageSrc) && (
-          <DialogTitle className={clsx('rds-modal__title', resolvedShowCloseButton && 'rds-modal__title--with-close')}>
+      {(title || icon || resolvedImageSrc) && (
+          <DialogTitle className={clsx(
+            'rds-modal__title',
+            resolvedShowCloseButton && 'rds-modal__title--with-close',
+            hasImageHeader && 'rds-modal__title--with-image'
+          )}>
+          {hasImageHeader && closeButton && (
+            <div className="rds-modal__title-bar">
+              {closeButton}
+            </div>
+          )}
           <div className='rds-modal__content'>
-            {(icon && resolvedShowIcon) || (imageSrc && showImage) ? (
+            {(icon && resolvedShowIcon) || (resolvedImageSrc && showImage) ? (
               <div className="rds-modal__media">
                 {icon && resolvedShowIcon && (
                   <span className="rds-modal__icon">{icon}</span>
                 )}
-                {imageSrc && showImage && (
-                  <img src={imageSrc} alt="Modal" className="rds-modal__image" />
+                {resolvedImageSrc && showImage && (
+                  <img src={resolvedImageSrc} alt="Modal" className="rds-modal__image" />
                 )}
               </div>
             ) : null}
@@ -80,20 +101,7 @@ const RdsModal= ({
           <Typography sx={{ textAlign: 'center', width: '100%' }} variant="h6" component="div">
             {title}
           </Typography>
-          {resolvedShowCloseButton && (
-            <IconButton
-              aria-label="close"
-              onClick={onClose}
-              sx={{
-                position: 'absolute',
-                right: 'var(--rds-spacing-sm, 8px)',
-                top: 'var(--rds-spacing-sm, 8px)',
-                color: 'var(--rds-neutral-500)',
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          )}
+          {!hasImageHeader && closeButton}
         </DialogTitle>
       )}
       <DialogContent sx={{ textAlign: 'center'}}>
