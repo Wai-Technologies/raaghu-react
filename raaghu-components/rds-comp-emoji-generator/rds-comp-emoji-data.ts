@@ -25,7 +25,7 @@ export enum SkinToneState {
 const allEmojis: Emoji[] = (data as unknown as Emoji[])
   .filter(e => !!e.emoji)
   .filter(e => {
-    if (e.version && parseFloat(e.version.toString()) >= 12.0) {
+    if (e.version && Number.parseFloat(e.version.toString()) >= 12.0) {
       return false;
     }
     if (e.emoji.length > 7) {

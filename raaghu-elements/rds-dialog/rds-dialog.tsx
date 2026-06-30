@@ -1,15 +1,22 @@
 
-import React from 'react';
-import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
+import { type ReactNode } from 'react';
+import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RdsButton from '../rds-button/rds-button';
 import './rds-dialog.scss';
 
+const SIZE_MAP = {
+  'extra-small': 'xs',
+  'small': 'sm',
+  'medium': 'md',
+  'large': 'lg',
+  'extra-large': 'xl',
+} as const;
 
-export interface RdsDialogProps extends DialogProps {
+export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   title?: string;
-  children?: React.ReactNode;
-  actions?: React.ReactNode;
+  children?: ReactNode;
+  actions?: ReactNode;
   ShowDissmiss?: boolean;
   onClose?: () => void;
   variant?: 'standard' | 'default';
@@ -36,19 +43,17 @@ const RdsDialog = ({
     return (
       <MuiDialog
         onClose={onClose}
-        maxWidth={
-          size === 'extra-small' ? 'xs' :
-          size === 'small' ? 'sm' :
-          size === 'medium' ? 'md' :
-          size === 'large' ? 'lg' :
-          size === 'extra-large' ? 'xl' :
-          size
-        }
+        maxWidth={size ? SIZE_MAP[size] : size}
         {...props}
-        PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}
+        slotProps={{ paper: { className: 'rds-dialog rds-dialog__paper' } }}
       >
         {((title && showTitle) || ShowDissmiss) && (
-          <DialogTitle className="rds-dialog__title">
+          <DialogTitle
+            className="rds-dialog__title"
+            sx={{
+              paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, 48px)' : undefined,
+            }}
+          >
             <div className="rds-dialog__title-inner">
               <div style={{ flex: 1 }}>{showTitle ? title : null}</div>
               {ShowDissmiss && (
@@ -65,13 +70,13 @@ const RdsDialog = ({
             <RdsButton
               onClick={onClose}
               className="rds-dialog__button rds-dialog__button__dismiss"
-              
+              style="outlined"
             >Cancel</RdsButton>
           )}
           {ShowPrimary && (
             <RdsButton
               onClick={onClose}
-              className="rds-dialog__button rds-dialog__button__primary-link"
+              className="rds-dialog__button rds-dialog__button__primary"
               style="filled"
               text="Okay"
             />
@@ -84,29 +89,37 @@ const RdsDialog = ({
   return (
   <MuiDialog
     onClose={onClose}
-    maxWidth={
-      size === 'extra-small' ? 'xs' :
-      size === 'small' ? 'sm' :
-      size === 'medium' ? 'md' :
-      size === 'large' ? 'lg' :
-      size === 'extra-large' ? 'xl' :
-      size
-    }
+    maxWidth={size ? SIZE_MAP[size] : size}
     {...props}
+    slotProps={{ paper: { className: 'rds-dialog rds-dialog__paper' } }}
   >
       {((title && showTitle) || ShowDissmiss) && (
-        <DialogTitle sx={{ position: 'relative', paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, 40px)' : undefined }}>
-          {showTitle ? title : null}
+        <DialogTitle
+          className="rds-dialog__title"
+          sx={{
+            position: 'relative',
+            paddingRight: ShowDissmiss ? 'var(--rds-dialog-title-padding-right, 48px)' : undefined,
+          }}
+        >
+          {showTitle ? (
+            <Box
+              component="span"
+              sx={{
+                display: 'block',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {title}
+            </Box>
+          ) : null}
           {ShowDissmiss && onClose && (
             <IconButton
               aria-label="close"
+              className="rds-dialog__close-button"
               onClick={onClose}
-              sx={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
-                color: 'var(--rds-neutral-500)',
-              }}
+              size="medium"
             >
               <CloseIcon />
             </IconButton>

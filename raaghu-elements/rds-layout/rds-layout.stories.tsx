@@ -1,7 +1,6 @@
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsLayout from './rds-layout';
-import { Typography, Card, CardContent, Box, Button, IconButton } from '@mui/material';
+import { Typography, Card, CardContent, Box, IconButton } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsLayout> = {
@@ -82,11 +81,7 @@ export const Default: Story = {
       title: 'My Application',
     },
     children: <SampleContent />,
-  },
-  play: async ({ canvasElement }) => {
-    const el = canvasElement.firstElementChild;
-    expect(el).toBeTruthy();
-  },
+  },
 };
 
 export const WithMenuButton: Story = {

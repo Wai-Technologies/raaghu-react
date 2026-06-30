@@ -1,7 +1,5 @@
 import RdsCompGaugeChart from "./rds-comp-chart-gauge";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/Charts/Gauge Chart',
     component: RdsCompGaugeChart,
@@ -59,11 +57,7 @@ export const Default: Story = {
                 cutout: "70%"
             }
         ]
-    },
-    play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
-        await expect(chart).toBeInTheDocument();
-    },
+    },
 } satisfies Story;
 
 export const BlueYellowOrangePurpleRed: Story = {

@@ -21,7 +21,7 @@ jest.mock('@mui/material', () => ({
   CardContent: ({ children, className, ...props }: any) => (
     <div data-testid="card-content" className={className} {...props}>{children}</div>
   ),
-  Typography: ({ children, variant, component, className, ...props }: any) => (
+  Typography: ({ children, variant, _component, className, ...props }: any) => (
     <div data-testid={`typography-${variant}`} className={className} {...props}>{children}</div>
   ),
   Box: ({ children, component, className, ...props }: any) => {

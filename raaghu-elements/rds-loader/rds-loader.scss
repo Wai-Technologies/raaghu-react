@@ -150,7 +150,7 @@
   content: '';
   width: var(--rds-loader-jump-size, 48px);
   height: var(--rds-loader-jump-shadow-height, 5px);
-  background: var(--rds-loader-jump-shadow);
+  background-color: var(--rds-loader-jump-shadow);
   position: absolute;
   top: var(--rds-loader-jump-shadow-top, 60px);
   left: 0;
@@ -161,7 +161,7 @@
   content: '';
   width: 100%;
   height: 100%;
-  background: var(--rds-loader-jump-fill);
+  background-color: var(--rds-loader-jump-fill);
   position: absolute;
   top: 0;
   left: 0;
@@ -247,11 +247,9 @@
   mask-composite: exclude;
   background: linear-gradient(var(--d,0deg),var(--c2) 50%,transparent 0) bottom /100% 205%,
     linear-gradient(var(--c2) 0 0) center/0 100%;
-  background-repeat: no-repeat;
   animation: inherit;
-  animation-name: l5-1;
-}
-.rds-loader__sand::after {
+
+
   transform-origin: 50% calc(100% + 2px);
   transform: scaleY(-1);
   --s: 3px;
@@ -278,7 +276,7 @@
 .rds-loader__moving::before {
   content: "";
   position: absolute;
-  background: var(--loader-color);
+  background-color: var(--loader-color);
   top: 0;
   left: 0;
   width: 0%;
@@ -303,7 +301,7 @@
   transform: translate(-50%, -50%) rotate(45deg);
   height: 100%;
   width: 4px;
-  background: var(--rds-color-primary);
+  background-color: var(--rds-color-primary);
   left: 50%;
   top: 50%;
 }
@@ -348,8 +346,6 @@
       radial-gradient(10.08px at bottom left ,transparent 94%,currentColor) top    right,
       radial-gradient(10.08px at top    right,transparent 94%,currentColor) bottom left,
       radial-gradient(10.08px at top    left ,transparent 94%,currentColor) bottom right;
-  background-size: 22.4px 22.4px;
-  background-repeat: no-repeat;
   animation: loader 1.5s infinite cubic-bezier(0.3,1,0,1);
 }
 @keyframes loader {
@@ -429,7 +425,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: inherit;
+  background-color: inherit;
   transform-origin: 50% 66%;
   animation: l27-1 1.5s infinite;
 }

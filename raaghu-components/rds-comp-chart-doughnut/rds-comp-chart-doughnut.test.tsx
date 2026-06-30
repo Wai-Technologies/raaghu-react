@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompDoughnutChart from './rds-comp-chart-doughnut';
@@ -649,7 +649,7 @@ describe('RdsCompDoughnutChart', () => {
       const { rerender, container } = render(
         <RdsCompDoughnutChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
+      const _canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompDoughnutChart

@@ -54,7 +54,7 @@ jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
     default: function MockRdsCompAiIcon(props: any) {
-      const { colorVariant, isCursorPointer, name, ...svgProps } = props;
+      const { _colorVariant, _isCursorPointer, name, ...svgProps } = props;
       // Filter out non-standard SVG attributes
       Object.keys(svgProps).forEach(key => {
         if (key.startsWith('is') || key.startsWith('show') || key.startsWith('backgroundType') || key.startsWith('styleType')) {
@@ -291,7 +291,7 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('handles file selection from attachment', async () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} />);
       const attachment = screen.getByTestId('rds-attachment');
       
       fireEvent.click(attachment);
@@ -519,7 +519,7 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('handles undefined callbacks gracefully', async () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} />);
       const sendButton = screen.getByTestId('btn-icon-only');
       
       // Should not throw even without callbacks
@@ -586,7 +586,7 @@ it('handles emoji input', () => {
 
     it('buttons are keyboard accessible', () => {
       const onSend = jest.fn();
-      const { container } = render(
+      render(
         <RdsCompAiTypingSection {...defaultProps} onSend={onSend} />
       );
       const sendButton = screen.getByTestId('btn-icon-only');

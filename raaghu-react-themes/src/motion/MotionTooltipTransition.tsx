@@ -13,10 +13,14 @@ interface MotionTooltipTransitionProps extends React.HTMLAttributes<HTMLDivEleme
 
 const MotionTooltipTransition = React.forwardRef<HTMLDivElement, MotionTooltipTransitionProps>(
   ({ in: isIn, children, onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }, ref) => {
+    const onEnterRef = React.useRef(onEnter);
+    const onEnteredRef = React.useRef(onEntered);
+    const onExitRef = React.useRef(onExit);
+    const onExitedRef = React.useRef(onExited);
+    React.useLayoutEffect(() => { onEnterRef.current = onEnter; onEnteredRef.current = onEntered; onExitRef.current = onExit; onExitedRef.current = onExited; });
     React.useEffect(() => {
-      if (isIn) { onEnter?.(); onEntered?.(); }
-      else { onExit?.(); onExited?.(); }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      if (isIn) { onEnterRef.current?.(); onEnteredRef.current?.(); }
+      else { onExitRef.current?.(); onExitedRef.current?.(); }
     }, [isIn]);
 
     if (!isIn) return null;

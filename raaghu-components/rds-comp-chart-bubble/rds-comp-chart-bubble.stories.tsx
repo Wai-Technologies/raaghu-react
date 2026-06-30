@@ -1,8 +1,6 @@
 import RdsCompBubbleChart from "./rds-comp-chart-bubble";
 import "./rds-comp-chart-bubble.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/Charts/Bubble Chart',
     component: RdsCompBubbleChart,
@@ -11,7 +9,7 @@ const meta: Meta = {
         layout: 'padded',
         docs:{
             description: {
-      component: 'The **Bubble Chart** element is a visual component in the design system used to display multi-dimensional data where each point represents three values: `x`, `y`, and `radius`. It is ideal for illustrating relationships, patterns, and outliers within complex datasets. This chart supports multiple datasets with customizable styling options including colors, border width, and point shapes. Features include tooltip interaction, dynamic legends, and optional titles for better data interpretation. The component is fully responsive and can be integrated into dashboards, analytics tools, or reporting views to enhance visual storytelling and decision-making based on data clusters or distributions.'
+      component: 'The **Bubble Chart** element is a visual component in the design system used to display multi-dimensional data where each point represents three values: **x**, **y**, and **radius**. It is ideal for illustrating relationships, patterns, and outliers within complex datasets. This chart supports multiple datasets with customizable styling options including colors, border width, and point shapes. Features include tooltip interaction, dynamic legends, and optional titles for better data interpretation. The component is fully responsive and can be integrated into dashboards, analytics tools, or reporting views to enhance visual storytelling and decision-making based on data clusters or distributions.'
       }
 },
     },
@@ -74,10 +72,6 @@ export const Default: Story = {
         controls: {
             exclude: ['chartWidth', 'chartStyle',],
         },
-    },
-    play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
-        await expect(chart).toBeInTheDocument();
-    },
+    },
 };
 

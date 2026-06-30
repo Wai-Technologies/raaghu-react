@@ -629,6 +629,10 @@ const _componentTokensBase = {
   ,
   // Kanban board component tokens
   kanban: {
+    // Dark-theme color tokens for Kanban board (defined here so no hex lives in SCSS)
+    headerBgDark: '#1f5fb9',
+    subcardBgDark: '#9fbce6',
+    subcardBorderDark: '#81a7d9',
     columnWidth: '300px',
     columnGap: '20px',
     cardMinHeight: '600px',
@@ -898,6 +902,8 @@ export const interactiveTokens = {
 
   /** Variant text background used for text-buttons hover (semi-transparent blue) */
   variantTextBg: 'rgba(60, 152, 255, 0.04)',
+  /** Dark-theme variant text background for text-buttons hover */
+  variantTextBgDark: 'rgba(60, 152, 255, 0.12)',
 
   // ── Alert backgrounds ─────────────────────────────────────────────────────
   /** Alert success border (uses primary purple brand) */

@@ -1,5 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { RdsAvatar, RdsBox, RdsTypography } from '../../raaghu-elements';
+import { useState, useRef, useEffect, type ImgHTMLAttributes, type SVGProps, type ReactNode } from 'react';
+import RdsAvatar from '../../raaghu-elements/rds-avatar/rds-avatar';
+import RdsBox from '../../raaghu-elements/rds-box/rds-box';
+import RdsTypography from '../../raaghu-elements/rds-typography/rds-typography';
 import RdsEmojiGenerator, { EmojiGeneratorType } from '../rds-comp-emoji-generator/rds-comp-emoji-generator';
 import { Divider, IconButton, InputAdornment, TextField, Link,
 } from '@mui/material';
@@ -18,17 +20,18 @@ import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './rds-comp-comments-box.scss';
-import { useCommentsBoxLogic, DropdownMenu } from './rds-comp-comments-box';
+import { useCommentsBoxLogic } from './rds-comp-comments-box.hooks';
+import { DropdownMenu } from './rds-comp-comments-box-dropdown';
 
 export interface RdsCommentBoxProps {
   svgEditPath?: string;
   svgDeletePath?: string;
   imgSrc?: string;
-  imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
-  svgEditProps?: React.SVGProps<SVGSVGElement>;
-  svgDeleteProps?: React.SVGProps<SVGSVGElement>;
-  editIcon?: React.ReactNode;
-  deleteIcon?: React.ReactNode;
+  imgProps?: ImgHTMLAttributes<HTMLImageElement>;
+  svgEditProps?: SVGProps<SVGSVGElement>;
+  svgDeleteProps?: SVGProps<SVGSVGElement>;
+  editIcon?: ReactNode;
+  deleteIcon?: ReactNode;
   editLabel?: string;
   deleteLabel?: string;
   state:
@@ -60,7 +63,7 @@ export interface RdsCommentBoxProps {
   score?: string;
 }
 
-export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
+export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
   const { state, avatarInitials = 'RD' } = props;
   const logic = useCommentsBoxLogic(props.mentionUsers);
   switch (state) {
@@ -154,21 +157,22 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                         value={logic.search}
                         onChange={(e) => logic.setSearch(e.target.value)}
                         className="rds-comments-box__mention-search-input"
+                        aria-label={props.mentionSearchPlaceholder || 'Search mentions'}
                       />
                     </div>
                     <div className="rds-comments-box__mention-divider" />
                     <div className="rds-comments-box__mention-user-list-scroll-hide rds-comments-box__mention-user-list">
                       {logic.filteredUsers.map((user: string) => (
-                        <div key={user} className="rds-comments-box__mention-user-item" role="button" tabIndex={0} onClick={() => { logic.setTypingHeader(user); logic.setMentionDropdownOpen(false); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setTypingHeader(user); logic.setMentionDropdownOpen(false); } }}>
+                        <button type="button" key={user} className="rds-comments-box__mention-user-item" onClick={() => { logic.setTypingHeader(user); logic.setMentionDropdownOpen(false); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setTypingHeader(user); logic.setMentionDropdownOpen(false); } }}>
                           <span className="rds-comments-box__mention-user-avatar">
                             <AccountCircleIcon className="rds-comments-box__mention-user-icon" />
                           </span>
                           <span className="rds-comments-box__mention-user-name">{user}</span>
-                        </div>
+                        </button>
                       ))}
                     </div>
                     <div className="rds-comments-box__mention-invite">
-                      <button className="rds-comments-box__mention-invite-btn">
+                      <button type="button" className="rds-comments-box__mention-invite-btn">
                         <MailOutlineIcon className="rds-comments-box__mention-invite-icon" /> {props.mentionInviteLabel || 'Invite'}
                       </button>
                     </div>
@@ -215,22 +219,22 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                   </IconButton>
                   {logic.hoverDropdownOpen && (
                     <div ref={logic.hoverDropdownRef} className="rds-comments-box__comment-dropdown-menu">
-                      <div className="rds-comments-box__comment-dropdown-item" role="button" tabIndex={0} onClick={() => { logic.setHoverDropdownOpen(false); /* handle edit */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setHoverDropdownOpen(false); } }}>
+                      <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setHoverDropdownOpen(false); /* handle edit */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setHoverDropdownOpen(false); } }}>
                         {props.editIcon ? (
                           <span className="rds-comments-box__comment-dropdown-icon">{props.editIcon}</span>
                         ) : (
                           <EditIcon className="rds-comments-box__comment-dropdown-icon" style={{ color: 'var(--rds-text-disabled)' }} />
                         )}
                         <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">{props.editLabel || 'Edit'}</span>
-                      </div>
-                      <div className="rds-comments-box__comment-dropdown-item" role="button" tabIndex={0} onClick={() => { logic.setHoverDropdownOpen(false); /* handle delete */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setHoverDropdownOpen(false); } }}>
+                      </button>
+                      <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setHoverDropdownOpen(false); /* handle delete */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setHoverDropdownOpen(false); } }}>
                         {props.deleteIcon ? (
                           <span className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete">{props.deleteIcon}</span>
                         ) : (
                           <DeleteIcon className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" style={{ color: 'var(--rds-error-main)' }} />
                         )}
                         <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">{props.deleteLabel || 'Delete'}</span>
-                      </div>
+                      </button>
                     </div>
                   )}
                 </span>
@@ -253,22 +257,22 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                 </IconButton>
                 {logic.threadDropdownOpenHeader && (
                   <div ref={logic.threadDropdownHeaderRef} className="rds-comments-box__comment-dropdown-menu">
-                    <div className="rds-comments-box__comment-dropdown-item" role="button" tabIndex={0} onClick={() => { logic.setThreadDropdownOpenHeader(false); /* handle edit */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setThreadDropdownOpenHeader(false); } }}>
+                    <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setThreadDropdownOpenHeader(false); /* handle edit */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setThreadDropdownOpenHeader(false); } }}>
                       {props.editIcon ? (
                         <span className="rds-comments-box__comment-dropdown-icon">{props.editIcon}</span>
                       ) : (
                         <EditIcon className="rds-comments-box__comment-dropdown-icon" style={{ color: 'var(--rds-text-disabled)' }} />
                       )}
                       <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">{props.editLabel || 'Edit'}</span>
-                    </div>
-                    <div className="rds-comments-box__comment-dropdown-item" role="button" tabIndex={0} onClick={() => { logic.setThreadDropdownOpenHeader(false); /* handle delete */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setThreadDropdownOpenHeader(false); } }}>
+                    </button>
+                    <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setThreadDropdownOpenHeader(false); /* handle delete */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setThreadDropdownOpenHeader(false); } }}>
                       {props.deleteIcon ? (
                         <span className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete">{props.deleteIcon}</span>
                       ) : (
                         <DeleteIcon className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" style={{ color: 'var(--rds-error-main)' }} />
                       )}
                       <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">{props.deleteLabel || 'Delete'}</span>
-                    </div>
+                    </button>
                   </div>
                 )}
               </span>
@@ -304,22 +308,22 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                     </IconButton>
                     {logic.threadDropdownOpenTools && ( 
                       <div ref={logic.threadDropdownToolsRef} className="rds-comments-box__comment-dropdown-menu">
-                        <div className="rds-comments-box__comment-dropdown-item" role="button" tabIndex={0} onClick={() => { logic.setThreadDropdownOpenTools(false); /* handle edit */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setThreadDropdownOpenTools(false); } }}>
+                        <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setThreadDropdownOpenTools(false); /* handle edit */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setThreadDropdownOpenTools(false); } }}>
                           {props.editIcon ? (
                             <span className="rds-comments-box__comment-dropdown-icon">{props.editIcon}</span>
                           ) : (
                             <EditIcon className="rds-comments-box__comment-dropdown-icon" style={{ color: 'var(--rds-text-disabled)' }} />
                           )}
                           <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">{props.editLabel || 'Edit'}</span>
-                        </div>
-                        <div className="rds-comments-box__comment-dropdown-item" role="button" tabIndex={0} onClick={() => { logic.setThreadDropdownOpenTools(false); /* handle delete */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setThreadDropdownOpenTools(false); } }}>
+                        </button>
+                        <button type="button" className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setThreadDropdownOpenTools(false); /* handle delete */ }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logic.setThreadDropdownOpenTools(false); } }}>
                           {props.deleteIcon ? (
                             <span className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete">{props.deleteIcon}</span>
                           ) : (
                             <DeleteIcon className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" style={{ color: 'var(--rds-error-main)' }} />
                           )}
                           <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">{props.deleteLabel || 'Delete'}</span>
-                        </div>
+                        </button>
                       </div>
                     )}
                   </span>

@@ -1,3 +1,4 @@
+import { type MouseEvent } from 'react';
 export const rgbToHsb = (rgb: { r: number; g: number; b: number }) => {
   const r = rgb.r / 255;
   const g = rgb.g / 255;
@@ -92,7 +93,7 @@ export const getColorDisplay = (colorMode: string, colorState: {
   }
 };
 
-export const handleSpectrumClick = (e: React.MouseEvent, currentHue: number, currentAlpha: number) => {
+export const handleSpectrumClick = (e: MouseEvent, currentHue: number, currentAlpha: number) => {
   const rect = e.currentTarget.getBoundingClientRect();
   const x = (e.clientX - rect.left) / rect.width;
   const y = (e.clientY - rect.top) / rect.height;

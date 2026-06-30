@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsEmojiGenerator, { EmojiGeneratorType, SkinToneState, EmojiCategory } from './rds-comp-emoji-generator';
+import RdsEmojiGenerator, { EmojiGeneratorType, EmojiCategory } from './rds-comp-emoji-generator';
 
 // Mock SCSS
 jest.mock('./rds-comp-emoji-generator.scss', () => ({}));
@@ -14,7 +14,7 @@ jest.mock('@mui/material', () => ({
       {children}
     </div>
   )),
-  TextField: ({ value, onChange, placeholder, InputProps, ...props }: any) => {
+  TextField: ({ value, onChange, placeholder, _InputProps, ...props }: any) => {
     const handleChange = (e: any) => {
       if (onChange) {
         onChange(e);
@@ -104,7 +104,7 @@ jest.mock('./rds-comp-emoji-data', () => ({
     Symbols: 'Symbols',
     Flags: 'Flags',
   },
-  getEmojisByCategory: (category: any, skinTone: any) => {
+  getEmojisByCategory: (category: any, _skinTone: any) => {
     const emojis: any = {
       SmileysAndPeople: ['😊', '😂', '❤️', '😍'],
       AnimalsAndNature: ['🐶', '🐱', '🐭', '🐹'],
@@ -117,7 +117,7 @@ jest.mock('./rds-comp-emoji-data', () => ({
     };
     return emojis[category] || [];
   },
-  searchEmojis: (term: string, category: any, skinTone: any) => {
+  searchEmojis: (term: string, _category: any, _skinTone: any) => {
     if (term.toLowerCase().includes('smile')) return ['😊', '😁', '😃'];
     if (term.toLowerCase().includes('dog')) return ['🐶', '🐕'];
     return [];

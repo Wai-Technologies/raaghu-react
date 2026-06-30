@@ -3,7 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsDatepicker, { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker';
+import RdsDatepicker from './rds-comp-datepicker';
+import { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker.types';
 
 // Mock SCSS module
 jest.mock('./rds-comp-datepicker.scss', () => ({}));
@@ -16,6 +17,7 @@ jest.mock('react-datepicker', () => {
       <div data-testid="date-picker-container" className={className}>
         <input
           data-testid="date-picker-input"
+          aria-label="Date picker"
           value={selected ? new Date(selected).toLocaleDateString() : ''}
           onChange={(e) => {
             if (onChange) {
@@ -29,11 +31,13 @@ jest.mock('react-datepicker', () => {
           <>
             <input
               data-testid="start-date-input"
+              aria-label="Start date"
               value={startDate ? new Date(startDate).toLocaleDateString() : ''}
               readOnly
             />
             <input
               data-testid="end-date-input"
+              aria-label="End date"
               value={endDate ? new Date(endDate).toLocaleDateString() : ''}
               readOnly
             />
@@ -88,28 +92,24 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
     fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
     return fourteenDaysAgo;
   },
-  renderDatePickerStateView: (_state: any, _startDate: any, _handler: any, _handler2: any, props: any) => (
-    <div data-testid="state-view">
+  renderDatePickerStateView: () => <div data-testid="state-view" />,
+  renderDatePickerTypeView: (
+    _type: any,
+    _startDate: any,
+    _endDate: any,
+    _handlerDateChange: any,
+    _onRangeChange: any,
+    props: any = {}
+  ) => (
+    <div data-testid="type-view">
       <input
         data-testid="date-picker-input"
         type="text"
-        disabled={props.isDisabled}
+        aria-label="Date picker"
+        disabled={props?.isDisabled || props?.disabled}
       />
     </div>
   ),
-  renderDatePickerTypeView: (...args: any[]) => {
-    const props = args[5] || {};
-    return (
-      <div data-testid="type-view">
-        <input
-          data-testid="date-picker-input"
-          type="text"
-          disabled={!!props.isDisabled}
-          aria-label="Date"
-        />
-      </div>
-    );
-  },
 }));
 
 describe('RdsDatepicker', () => {

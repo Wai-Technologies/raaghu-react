@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsToggleButton, { RdsToggleButtonOption } from './rds-toggle-button';
 import '@testing-library/jest-dom';
@@ -108,7 +107,7 @@ describe('RdsToggleButton', () => {
   describe('Single Select Mode', () => {
     it('should use exclusive mode by default', () => {
       const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
-      const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
+      const _toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
       // In single mode, verify only one button can be selected
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBe(mockOptions.length);
@@ -126,7 +125,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should select button on click', async () => {
-      const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
+      renderWithTheme(<RdsToggleButton options={mockOptions} />);
       const option1Button = screen.getByText('Option 1').closest('button');
       
       fireEvent.click(option1Button!);
@@ -137,7 +136,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should deselect when clicking selected button without enforceSelected', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton options={mockOptions} defaultValue="option1" />
       );
       const option1Button = screen.getByText('Option 1').closest('button');
@@ -150,7 +149,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should handle controlled value', () => {
-      const { rerender, container } = renderWithTheme(
+      const { rerender } = renderWithTheme(
         <RdsToggleButton options={mockOptions} value="option1" onChange={() => {}} />
       );
       
@@ -173,7 +172,7 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} multiple={true} />
       );
-      const toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
+      const _toggleGroup = container.querySelector('.MuiToggleButtonGroup-root');
       // In multiple mode, verify multiple buttons can be selected
       const buttons = container.querySelectorAll('.MuiToggleButton-root');
       expect(buttons.length).toBe(mockOptions.length);
@@ -184,7 +183,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should have defaultValue as array in multiple mode', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           multiple={true} 
@@ -199,7 +198,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should select multiple buttons', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton options={mockOptions} multiple={true} />
       );
       
@@ -216,7 +215,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should deselect when clicking already selected button in multiple mode', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           multiple={true}
@@ -379,7 +378,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should render icon and label together', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton options={mockOptionsWithIcons} />
       );
       
@@ -405,7 +404,7 @@ describe('RdsToggleButton', () => {
 
   describe('enforceSelected Prop', () => {
     it('should not allow deselecting all buttons when enforceSelected is true', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           enforceSelected={true}
@@ -422,7 +421,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should enforce first option selected by default when enforceSelected is true', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           enforceSelected={true}
@@ -434,7 +433,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should prevent emptying multiple selection when enforceSelected is true', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           multiple={true}
@@ -452,7 +451,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should allow deselecting when enforceSelected is false', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton 
           options={mockOptions} 
           enforceSelected={false}
@@ -710,7 +709,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should switch between single and multiple modes', async () => {
-      const { rerender, container } = renderWithTheme(
+      const { rerender } = renderWithTheme(
         <RdsToggleButton 
           options={mockOptions}
           multiple={false}
@@ -732,7 +731,7 @@ describe('RdsToggleButton', () => {
         </ThemeProvider>
       );
       
-      const updatedContainer = rerender(
+      const _updatedContainer = rerender(
         <ThemeProvider theme={createTheme()}>
           <RdsToggleButton 
             options={mockOptions}
@@ -871,7 +870,7 @@ describe('RdsToggleButton', () => {
     });
 
     it('should update aria-pressed state on selection', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsToggleButton options={mockOptions} />
       );
       

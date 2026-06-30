@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsStepper from './rds-stepper';
 import { RdsStepperStep } from './rds-stepper';
@@ -75,7 +75,7 @@ describe('RdsStepper', () => {
       const { container } = renderWithTheme(
         <RdsStepper steps={steps} className="custom-stepper" />
       );
-      const stepper = container.querySelector('.rds-stepper.custom-class');
+      const _stepper = container.querySelector('.rds-stepper.custom-class');
       expect(container.querySelector('.custom-stepper')).toBeInTheDocument();
     });
   });

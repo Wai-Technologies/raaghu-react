@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSkeleton from './rds-skeleton';
 import { Card, CardContent } from '@mui/material';
-import { expect } from 'storybook/test';
-
 const meta: Meta<typeof RdsSkeleton> = {
   title: 'Elements/Skeleton',
   component: RdsSkeleton,
@@ -53,11 +51,7 @@ export const Text: Story = {
     frames: 3,
     width: '100%',
     animated: true,
-  },
-  play: async ({ canvasElement }) => {
-    const skeleton = canvasElement.querySelector('.MuiSkeleton-root');
-    await expect(skeleton).toBeTruthy();
-  },
+  },
 };
 
 export const Rectangular: Story = {

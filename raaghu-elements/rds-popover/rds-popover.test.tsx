@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import userEvent from '@testing-library/user-event';
 import RdsPopover from './rds-popover';
@@ -505,7 +505,7 @@ describe('RdsPopover', () => {
     });
 
     it('should apply theme to all elements', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsPopover 
           isOpen={true}
           onClose={jest.fn()}

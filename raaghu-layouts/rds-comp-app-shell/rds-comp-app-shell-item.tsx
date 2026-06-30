@@ -1,9 +1,9 @@
-import React from "react";
+import { type ReactNode } from "react";
 import "./rds-comp-app-shell.scss";
 
 export interface RdsCompAppShellItemProps {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const RdsCompAppShellItem = (props: RdsCompAppShellItemProps) => {

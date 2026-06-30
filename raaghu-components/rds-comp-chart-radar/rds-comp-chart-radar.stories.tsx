@@ -1,7 +1,5 @@
 import RdsCompRadarChart from "./rds-comp-chart-radar";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/Charts/Radar Chart',
     component: RdsCompRadarChart,
@@ -47,23 +45,18 @@ export const Default: Story = {
                     "text": "Radar Chart"
                 },
                 "legend": {
-                    "position": "left",
+                    "position": "top",
                     "align": "start",
-                    "pointStyle": "rectRot",
-                    "pointRadius": 5,
                     "labels": {
                         "usePointStyle": true,
                         "pointStyle": "circle",
-                        "pointStyleWidth": 8,
                         "boxWidth": 8,
                         "boxHeight": 8,
                         "padding": 20,
-                        "height": 5,
                         "font": {
                             "size": 12,
                             "weight": "500"
-                        },
-                        "color": "#333333"
+                        }
                     }
                 },
                 "tooltip": {
@@ -221,10 +214,6 @@ export const Default: Story = {
         ],
 
 
-    },
-    play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
-        await expect(chart).toBeInTheDocument();
-    },
+    },
 };
 

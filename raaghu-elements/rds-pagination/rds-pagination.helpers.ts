@@ -15,210 +15,175 @@ export interface StyleConfig {
   boundaryCount?: number;
 }
 
-export const getStyleConfig = (style: string): StyleConfig => {
-  switch (style) {
-    case 'Style 1':
-      return {
-        showPagination: true,
-        showDropdownControl: true,
-        showLegendControl: true,
-        showManualInputControl: true,
-        showFirstControl: true,
-        showLastControl: true,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-1',
-        siblingCount: 0,
-        boundaryCount: 1
-      };
-    case 'Style 2':
-      return {
-        showPagination: true,
-        showDropdownControl: true,
-        showLegendControl: true,
-        showManualInputControl: true,
-        showFirstControl: false,
-        showLastControl: false,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-2',
-        siblingCount: 0,
-        boundaryCount: 1
-      };
-    case 'Style 3':
-      return {
-        showPagination: true,
-        showDropdownControl: true,
-        showLegendControl: true,
-        showManualInputControl: true,
-        showFirstControl: false,
-        showLastControl: false,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-3',
-        siblingCount: 0,
-        boundaryCount: 2
-      };
-    case 'Style 4':
-      return {
-        showPagination: true,
-        showDropdownControl: true,
-        showLegendControl: true,
-        showManualInputControl: true,
-        showFirstControl: true,
-        showLastControl: false,
-        showNextOnly: true,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-4',
-        siblingCount: 0,
-        boundaryCount: 1
-      };
-    case 'Style 5':
-      return {
-        showPagination: true,
-        showDropdownControl: false,
-        showLegendControl: true,
-        showManualInputControl: false,
-        showFirstControl: false,
-        showLastControl: false,
-        showNextOnly: true,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-5'
-      };
-    case 'Style 6':
-      return {
-        showPagination: false,
-        showDropdownControl: false,
-        showLegendControl: true,
-        showManualInputControl: false,
-        showFirstControl: false,
-        showLastControl: false,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-6'
-      };
-    case 'Style 7':
-      return {
-        showPagination: true,
-        showDropdownControl: true,
-        showLegendControl: true,
-        showManualInputControl: true,
-        showFirstControl: false,
-        showLastControl: false,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-7',
-        siblingCount: 0,
-        boundaryCount: 1
-      };
-    case 'Style 8':
-      return {
-        showPagination: false,
-        showDropdownControl: false,
-        showLegendControl: true,
-        showManualInputControl: false,
-        showFirstControl: false,
-        showLastControl: false,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-8'
-      };
-    case 'Style 9':
-      return {
-        showPagination: true,
-        showDropdownControl: false,
-        showLegendControl: false,
-        showManualInputControl: false,
-        showFirstControl: false,
-        showLastControl: false,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-9',
-        siblingCount: 2,
-        boundaryCount: 0
-      };
-    case 'Style 10':
-      return {
-        showPagination: false,
-        showDropdownControl: false,
-        showLegendControl: false,
-        showManualInputControl: false,
-        showFirstControl: false,
-        showLastControl: false,
-        showPrevNext: true,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-10'
-      };
-    case 'Style 11':
-      return {
-        showPagination: false,
-        showDropdownControl: false,
-        showLegendControl: false,
-        showManualInputControl: false,
-        showFirstControl: false,
-        showLastControl: false,
-        showPrevNext: true,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-11'
-      };
-    default:
-      return {
-        showPagination: true,
-        showDropdownControl: true,
-        showLegendControl: true,
-        showManualInputControl: true,
-        showFirstControl: true,
-        showLastControl: true,
-        variant: 'text' as const,
-        shape: 'circular' as const,
-        size: 'medium' as const,
-        styleClass: 'style-1'
-      };
-  }
+const baseStyleConfig = {
+  variant: 'text' as const,
+  shape: 'circular' as const,
+  size: 'medium' as const,
 };
 
-export const calculatePaginationConfig = (
+const defaultStyleConfig: StyleConfig = {
+  ...baseStyleConfig,
+  showPagination: true,
+  showDropdownControl: true,
+  showLegendControl: true,
+  showManualInputControl: true,
+  showFirstControl: true,
+  showLastControl: true,
+  styleClass: 'style-1',
+};
+
+const STYLE_CONFIGS: Record<string, StyleConfig> = {
+  'Style 1': { ...defaultStyleConfig, siblingCount: 0, boundaryCount: 1 },
+  'Style 2': {
+    ...defaultStyleConfig,
+    showFirstControl: false,
+    showLastControl: false,
+    styleClass: 'style-2',
+    siblingCount: 0,
+    boundaryCount: 1,
+  },
+  'Style 3': {
+    ...defaultStyleConfig,
+    showFirstControl: false,
+    showLastControl: false,
+    styleClass: 'style-3',
+    siblingCount: 0,
+    boundaryCount: 2,
+  },
+  'Style 4': {
+    ...defaultStyleConfig,
+    showLastControl: false,
+    showNextOnly: true,
+    styleClass: 'style-4',
+    siblingCount: 0,
+    boundaryCount: 1,
+  },
+  'Style 5': {
+    ...defaultStyleConfig,
+    showDropdownControl: false,
+    showManualInputControl: false,
+    showFirstControl: false,
+    showLastControl: false,
+    showNextOnly: true,
+    styleClass: 'style-5',
+  },
+  'Style 6': {
+    ...baseStyleConfig,
+    showPagination: false,
+    showDropdownControl: false,
+    showLegendControl: true,
+    showManualInputControl: false,
+    showFirstControl: false,
+    showLastControl: false,
+    styleClass: 'style-6',
+  },
+  'Style 7': {
+    ...defaultStyleConfig,
+    showFirstControl: false,
+    showLastControl: false,
+    styleClass: 'style-7',
+    siblingCount: 0,
+    boundaryCount: 1,
+  },
+  'Style 8': {
+    ...baseStyleConfig,
+    showPagination: false,
+    showDropdownControl: false,
+    showLegendControl: true,
+    showManualInputControl: false,
+    showFirstControl: false,
+    showLastControl: false,
+    styleClass: 'style-8',
+  },
+  'Style 9': {
+    ...defaultStyleConfig,
+    showDropdownControl: false,
+    showLegendControl: false,
+    showManualInputControl: false,
+    showFirstControl: false,
+    showLastControl: false,
+    styleClass: 'style-9',
+    siblingCount: 2,
+    boundaryCount: 0,
+  },
+  'Style 10': {
+    ...baseStyleConfig,
+    showPagination: false,
+    showDropdownControl: false,
+    showLegendControl: false,
+    showManualInputControl: false,
+    showFirstControl: false,
+    showLastControl: false,
+    showPrevNext: true,
+    styleClass: 'style-10',
+  },
+  'Style 11': {
+    ...baseStyleConfig,
+    showPagination: false,
+    showDropdownControl: false,
+    showLegendControl: false,
+    showManualInputControl: false,
+    showFirstControl: false,
+    showLastControl: false,
+    showPrevNext: true,
+    styleClass: 'style-11',
+  },
+};
+
+export const getStyleConfig = (style: string): StyleConfig => {
+  return STYLE_CONFIGS[style] ?? defaultStyleConfig;
+};
+
+function resolveSiblingCount(
   paginationStyle: string,
   styleConfig: StyleConfig
-) => {
-  const isVerySmallScreen = typeof window !== 'undefined' && window.innerWidth <= 360;
-  const isSmallScreen = typeof window !== 'undefined' && window.innerWidth <= 480;
-  const paginationSiblingCount = typeof styleConfig.siblingCount === 'number'
-    ? styleConfig.siblingCount
-    : (paginationStyle === 'Style 2' || paginationStyle === 'Style 7' ? 0 : undefined);
-  const paginationBoundaryCount = typeof styleConfig.boundaryCount === 'number'
-    ? styleConfig.boundaryCount
-    : (paginationStyle === 'Style 2' || paginationStyle === 'Style 7' ? 2 : undefined);
+): number | undefined {
+  if (typeof styleConfig.siblingCount === 'number') return styleConfig.siblingCount;
+  if (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') return 0;
+  return undefined;
+}
 
-  let finalSiblingCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 0 : (typeof paginationSiblingCount === 'number' ? paginationSiblingCount : 0);
-  let finalBoundaryCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 1 : (typeof paginationBoundaryCount === 'number' ? paginationBoundaryCount : 1);
+function resolveBoundaryCount(
+  paginationStyle: string,
+  styleConfig: StyleConfig
+): number | undefined {
+  if (typeof styleConfig.boundaryCount === 'number') return styleConfig.boundaryCount;
+  if (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') return 2;
+  return undefined;
+}
 
-  if (isVerySmallScreen) {
-    finalSiblingCount = 0;
-    finalBoundaryCount = 1;
+function applyScreenSizeLimits(
+  paginationStyle: string,
+  siblingCount: number | undefined,
+  boundaryCount: number | undefined
+) {
+  const isVerySmallScreen = typeof window !== 'undefined' && globalThis.innerWidth <= 360;
+  const isSmallScreen = typeof window !== 'undefined' && globalThis.innerWidth <= 480;
+
+  let finalSiblingCount = 0;
+  if (paginationStyle !== 'Style 2' && paginationStyle !== 'Style 7') {
+    finalSiblingCount = typeof siblingCount === 'number' ? siblingCount : 0;
   }
-  
-  else if (isSmallScreen) {
+  let finalBoundaryCount = 1;
+  if (paginationStyle !== 'Style 2' && paginationStyle !== 'Style 7') {
+    finalBoundaryCount = typeof boundaryCount === 'number' ? boundaryCount : 1;
+  }
+
+  if (isVerySmallScreen || isSmallScreen) {
     finalSiblingCount = 0;
     finalBoundaryCount = 1;
   }
 
   return { finalSiblingCount, finalBoundaryCount };
+}
+
+export const calculatePaginationConfig = (
+  paginationStyle: string,
+  styleConfig: StyleConfig
+) => {
+  const paginationSiblingCount = resolveSiblingCount(paginationStyle, styleConfig);
+  const paginationBoundaryCount = resolveBoundaryCount(paginationStyle, styleConfig);
+  return applyScreenSizeLimits(paginationStyle, paginationSiblingCount, paginationBoundaryCount);
 };
 
 export const calculateTotalPages = (
@@ -226,14 +191,12 @@ export const calculateTotalPages = (
   totalPages: number | undefined,
   pageSize: number
 ) => {
- 
   let totalPagesCalc = 1;
   let totalRecords = 0;
   if (typeof count === 'number' && count > 1 && (!totalPages || totalPages < 2)) {
     totalPagesCalc = count;
     totalRecords = count * pageSize;
   } else {
-    
     totalRecords = count || totalPages || 1;
     totalPagesCalc = Math.ceil(totalRecords / pageSize);
   }

@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
+import { type RatingProps } from '@mui/material';
+import {
+  getInitialInternalValue,
+  resolveCurrentValue,
+  getSyncInternalValue,
+  getPositionClass,
+  snapToAllowed,
+} from './rds-rating.helpers';
+import { StarRatingView, SliderRatingView } from './rds-rating.views';
 import './rds-rating.scss';
 
 export interface RdsRatingProps extends RatingProps {
@@ -27,147 +34,61 @@ const RdsRating = ({
   ...props
 }: RdsRatingProps) => {
   const maxRating = max || maxStars;
-  
-  const allowedSliderValues = [0, 2.5, 5];
+  const [internalValue, setInternalValue] = useState<number | null>(() =>
+    getInitialInternalValue(type, level, value)
+  );
 
-  function snapToAllowed(val: number | null | undefined): number {
-    if (val === null || val === undefined) return 0;
-    return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
-  }
-
-  const [internalValue, setInternalValue] = useState<number | null>(() => {
-    if (type === 'slider') {
-      if (level !== undefined) {
-        const levelVal = getLevelValue(level);
-        return snapToAllowed(levelVal);
-      }
-      if (value !== undefined) return snapToAllowed(value);
-      return 0;
-    } else {
-      if (level !== undefined) {
-        const levelVal = getLevelValue(level);
-        return levelVal !== undefined ? levelVal : null;
-      }
-      if (value !== undefined) return value;
-      return null;
-    }
-  });
-  
-  function getLevelValue(level: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right'): number | undefined {
-    if (level === 'Left') return 0;
-    if (level === 'Mid') return 2.5;
-    if (level === 'Right') return 5;
-    return level;
-  }
-  
-
-  let currentValue: number | null = internalValue;
-  if (type === 'slider') {
-    currentValue = snapToAllowed(currentValue);
-  } else {
-    if (currentValue === null && level !== undefined) {
-      const lvl = getLevelValue(level);
-      currentValue = lvl !== undefined ? lvl : null;
-    }
-    if (currentValue === null && value !== undefined) currentValue = value;
-  }
-
-  const precision = type === 'slider' ? undefined : (props.precision !== undefined ? props.precision : 0.5);
+  const currentValue = resolveCurrentValue(type, internalValue, level, value);
+  const precision = type === 'slider' ? undefined : (props.precision ?? 0.5);
 
   useEffect(() => {
-    if (type === 'slider') {
-      if (level !== undefined) {
-        const levelVal = getLevelValue(level);
-        setInternalValue(snapToAllowed(levelVal));
-      } else if (value !== undefined) {
-        setInternalValue(snapToAllowed(value));
-      }
-    } else {
-      if (level !== undefined) {
-        const levelVal = getLevelValue(level);
-        setInternalValue(levelVal !== undefined ? levelVal : null);
-      } else if (value !== undefined) {
-        setInternalValue(value);
-      }
+    const synced = getSyncInternalValue(type, level, value);
+    if (synced !== null) {
+      setInternalValue(synced);
     }
   }, [value, level, type]);
 
   const handleStarChange = (event: React.SyntheticEvent, newValue: number | null) => {
     let finalValue: number | null = newValue;
-    
     if (newValue === currentValue && newValue !== 0) {
       finalValue = 0;
     }
-    
     setInternalValue(finalValue);
-    
-    if (onChange) {
-      onChange(event, finalValue);
-    }
+    onChange?.(event, finalValue);
   };
 
   const handleSliderChange = (event: Event | React.SyntheticEvent, newValue: number | number[]) => {
-    let value = Array.isArray(newValue) ? newValue[0] : newValue;
-    value = snapToAllowed(value);
-    setInternalValue(value);
-    
-    if (onChange) {
-      onChange(event as React.SyntheticEvent, value);
-    }
+    let nextValue = Array.isArray(newValue) ? newValue[0] : newValue;
+    nextValue = snapToAllowed(nextValue);
+    setInternalValue(nextValue);
+    onChange?.(event as React.SyntheticEvent, nextValue);
   };
-
-  const getPositionClass = () => {
-    if (type === 'slider' && level !== undefined) {
-      const numLevel = getLevelValue(level);
-      if (numLevel === 0) return 'rds-rating--position-left';
-      if (numLevel === 2.5) return 'rds-rating--position-mid';
-      if (numLevel === 5) return 'rds-rating--position-right';
-    }
-    return '';
-  };
-
-  const renderStarRating = () => (
-    <MuiRating
-      max={maxRating}
-      value={currentValue}
-      precision={precision === undefined ? undefined : precision}
-      onChange={handleStarChange}
-      className={`rds-rating__stars rds-rating__stars--${styles} ${colorVariant ? `rds-rating__stars--color-${colorVariant}` : ''}`}
-      emptyIcon={styles === 'filled' ? <StarIcon className="rds-rating__star-icon rds-rating__star-icon--empty" fontSize="inherit" /> : undefined}
-      {...props}
-    />
-  );
-
-  const renderSliderRating = () => (
-    <div className="rds-rating__slider-container">
-      <div className="rds-rating__slider-wrapper">
-        <Slider
-          value={currentValue || 0}
-          max={maxRating}
-          min={0}
-          step={precision}
-          valueLabelDisplay="off"
-          onChange={handleSliderChange}
-          className={`rds-rating__slider ${colorVariant ? `rds-rating__slider--color-${colorVariant}` : ''}`}
-        />
-        {showValue && currentValue !== undefined && currentValue !== null && (
-          <span className="rds-rating__value">
-            {Number(currentValue).toFixed(1)}
-          </span>
-        )}
-      </div>
-      <div className="rds-rating__slider-labels">
-        <span className="rds-rating__slider-label rds-rating__slider-label--start">No</span>
-        <span className="rds-rating__slider-label rds-rating__slider-label--middle">Maybe</span>
-        <span className="rds-rating__slider-label rds-rating__slider-label--end">Yes</span>
-      </div>
-    </div>
-  );
 
   return (
-  <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass()} ${colorVariant ? `rds-rating--color-${colorVariant}` : ''}`}>
+    <div
+      className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass(type, level)} ${colorVariant ? `rds-rating--color-${colorVariant}` : ''}`}
+    >
       {label && <span className="rds-rating__label">{label}</span>}
-      {type === 'slider' ? renderSliderRating() : renderStarRating()}
+      {type === 'slider' ? (
+        <SliderRatingView
+          currentValue={currentValue}
+          maxRating={maxRating}
+          precision={precision}
+          colorVariant={colorVariant}
+          showValue={showValue}
+          onChange={handleSliderChange}
+        />
+      ) : (
+        <StarRatingView
+          maxRating={maxRating}
+          currentValue={currentValue}
+          precision={precision}
+          styles={styles}
+          colorVariant={colorVariant}
+          onChange={handleStarChange}
+          {...props}
+        />
+      )}
       {showValue && currentValue !== undefined && (
         <span className="rds-rating__display-value">
           {type === 'slider' ? `${Number(currentValue).toFixed(1)}` : `(${currentValue}/${maxRating})`}

@@ -419,6 +419,12 @@
     &__controls {
       width: 87% !important;
     }
+
+    &__controls--large {
+      min-width: unset !important;
+      width: auto !important;
+      max-width: 100% !important;
+    }
     
     &__input {
       min-width: 40px !important;
@@ -469,6 +475,13 @@
 
   @include bp.down(sm) {
     flex-direction: column;
+
+    .rds-counter__controls--large {
+      min-width: unset;
+      width: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
   }
 
   @include bp.up(sm) {

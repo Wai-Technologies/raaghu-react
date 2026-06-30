@@ -195,7 +195,7 @@ describe('RdsBreadcrumbs', () => {
     });
 
     it('should render custom ReactNode separator', () => {
-      const { container } = render(
+      render(
         <RdsBreadcrumbs {...defaultProps} separator={<span data-testid="custom-sep">•</span>} />
       );
       const separators = screen.getAllByTestId('custom-sep');
@@ -328,7 +328,7 @@ describe('RdsBreadcrumbs', () => {
         { label: 'Home', showIcon: false },
         { label: 'Products' },
       ];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
+      render(<RdsBreadcrumbs items={items} />);
       const homeText = screen.getByText('Home');
       expect(homeText.querySelector('[data-testid]')).not.toBeInTheDocument();
     });
@@ -500,7 +500,7 @@ describe('RdsBreadcrumbs', () => {
     });
 
     it('should apply active class to Typography items', () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
+      render(<RdsBreadcrumbs {...defaultProps} />);
       const lastItem = screen.getByText('Laptops');
       expect(lastItem).toHaveClass('rds-breadcrumbs__item');
     });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsDrawer, { RdsDrawerProps } from './rds-drawer';
@@ -10,7 +10,7 @@ jest.mock('./rds-drawer.scss', () => ({}));
 // Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return jest.fn((props: any) => {
-    const { text, children, onClick, style, shape, size, state, layout, color, textCase, isLoading, changeLeftIcon, changeRightIcon, showLeftIcon, showRightIcon, ...rest } = props;
+    const { text, children, onClick, style: _style, shape: _shape, size: _size, state: _state, layout: _layout, color: _color, textCase: _textCase, isLoading: _isLoading, changeLeftIcon: _changeLeftIcon, changeRightIcon: _changeRightIcon, showLeftIcon: _showLeftIcon, showRightIcon: _showRightIcon, ...rest } = props;
     return (
       <button onClick={onClick} data-testid="rds-button" {...rest}>
         {text || children}
@@ -195,7 +195,7 @@ describe('RdsDrawer', () => {
     });
 
     it('should render close button in separate container', () => {
-      const { container } = render(
+      render(
         <RdsDrawer
           {...defaultProps}
           showCloseButton={true}
@@ -442,7 +442,7 @@ describe('RdsDrawer', () => {
     });
 
     it('should not update internal state when controlled', () => {
-      const { container } = render(
+      render(
         <RdsDrawer
           {...defaultProps}
           open={true}

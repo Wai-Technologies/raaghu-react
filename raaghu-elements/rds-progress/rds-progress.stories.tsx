@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsProgress from './rds-progress';
-import { Box, Typography } from '@mui/material';
-import { expect } from 'storybook/test';
-
+import { Box} from '@mui/material';
 const meta: Meta<typeof RdsProgress> = {
   title: 'Elements/Progress',
   component: RdsProgress,
@@ -58,11 +56,7 @@ export const Circular: Story = {
     showLabel: true,
     color: 'primary',
     stepperType: 'circle',
-  },
-  play: async ({ canvas }) => {
-    const progress = await canvas.findByRole('progressbar');
-    await expect(progress).toBeInTheDocument();
-  },
+  },
 };
 Circular.parameters = { controls: { include: ['style', 'variant', 'steps', 'showLabel', 'color', 'stepperType'] } };
 

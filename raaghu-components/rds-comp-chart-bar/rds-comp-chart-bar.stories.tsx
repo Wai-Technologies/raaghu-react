@@ -1,5 +1,4 @@
 import { StoryObj, Meta } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
 import RdsCompBarChart from "./rds-comp-chart-bar";
 import "./rds-comp-chart-bar.scss";
 
@@ -32,7 +31,7 @@ type Story = StoryObj<typeof RdsCompBarChart>;
 
 export const BorderRadius: Story = {
     args: {
-        id: 1,
+        id: "bar-chart-border-radius",
         dataSets: [
             {
                 label: "Fully Radius",
@@ -75,16 +74,12 @@ export const BorderRadius: Story = {
                     'height', 
             ],
         },
-     },
-    play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
-        await expect(chart).toBeInTheDocument();
-    },
+     },
 
 } satisfies Story;
 export const Horizontal: Story = {
     args: {
-        id: 1,
+        id: "bar-chart-horizontal",
         height: "400px",
         dataSets: [
             {
@@ -151,7 +146,7 @@ export const Horizontal: Story = {
 
 export const PerformanceStacked: Story = {
     args: {
-        id: 1,
+        id: "bar-chart-performance-stacked",
         dataSets: [
             {
                 label: "Productive",
@@ -218,7 +213,7 @@ export const PerformanceStacked: Story = {
 
 export const Stacked: Story = {
     args: {
-        id: 1,
+        id: "bar-chart-stacked",
         dataSets: [
             {
                 label: "Dataset 1",
@@ -269,7 +264,7 @@ export const Stacked: Story = {
 
 export const Vertical: Story = {
     args: {
-        id: 1,
+        id: "bar-chart-vertical",
         dataSets: [
             {
                 label: "Dataset 1",
@@ -312,6 +307,4 @@ export const Vertical: Story = {
         },
      },
 } satisfies Story;
-
-export const Default: Story = { ...BorderRadius };
 

@@ -25,7 +25,7 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
           className="time-select" 
           value={tempHour.toString()} 
           onChange={(e) => {
-            const val = parseInt(e.target.value);
+            const val = Number.parseInt(e.target.value);
             setTempHour(val);
           }}
         >
@@ -46,7 +46,7 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
           className="time-select" 
           value={tempMinute.toString()} 
           onChange={(e) => {
-            const val = parseInt(e.target.value);
+            const val = Number.parseInt(e.target.value);
             setTempMinute(val);
           }}
         >

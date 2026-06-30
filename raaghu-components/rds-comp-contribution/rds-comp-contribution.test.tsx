@@ -10,11 +10,10 @@ jest.mock('./rds-comp-contribution.scss', () => ({}));
 
 // Mock react-measure
 jest.mock('react-measure', () => {
-  return function MockMeasure({ children, onResize }: any) {
-    React.useEffect(() => {
-      onResize({ bounds: { width: 1200, height: 300 } });
-    }, [onResize]);
-
+  return function MockMeasure({ children, onResize }: { children: (args: unknown) => React.ReactNode; onResize?: (size: unknown) => void }) {
+    if (onResize) {
+      queueMicrotask(() => onResize({ bounds: { width: 1200, height: 300 } }));
+    }
     return children({
       measure: { ref: jest.fn() },
       measureRef: jest.fn(),
@@ -24,7 +23,7 @@ jest.mock('react-measure', () => {
 
 // Mock MUI SvgIcon
 jest.mock('@mui/material/SvgIcon', () => {
-  return function MockSvgIcon({ children, className, viewBox, sx, ...props }: any) {
+  return function MockSvgIcon({ children, className, viewBox, _sx, ...props }: any) {
     return (
       <svg className={className} viewBox={viewBox} data-testid="svg-icon" {...props}>
         {children}
@@ -118,7 +117,7 @@ describe('RdsCompContribution', () => {
       );
       const panels = container.querySelectorAll('.rds-comp-contribution__panel');
       panels.forEach(panel => {
-        const dateAttr = panel.getAttribute('data-date');
+        const dateAttr = panel.dataset.date;
         expect(dateAttr).toBeTruthy();
       });
     });
@@ -129,7 +128,7 @@ describe('RdsCompContribution', () => {
       );
       const panels = container.querySelectorAll('.rds-comp-contribution__panel');
       panels.forEach(panel => {
-        const valueAttr = panel.getAttribute('data-value');
+        const valueAttr = panel.dataset.value;
         expect(valueAttr).toBeTruthy();
       });
     });
@@ -144,7 +143,7 @@ describe('RdsCompContribution', () => {
         <RdsCompContribution {...defaultProps} values={values} until="2024-12-31" />
       );
       const panels = container.querySelectorAll('[data-value]');
-      const dataValues = Array.from(panels).map(p => parseInt(p.getAttribute('data-value') || '0'));
+      const dataValues = Array.from(panels).map(p => Number.parseInt(p.dataset.value || '0'));
       expect(dataValues.some(v => v > 0)).toBe(true);
     });
 
@@ -166,7 +165,7 @@ describe('RdsCompContribution', () => {
       const panels = container.querySelectorAll('.rds-comp-contribution__panel');
       panels.forEach(panel => {
         const fill = panel.getAttribute('fill');
-        expect(panelColors.includes(fill as string)).toBe(true);
+        expect(panelColors.includes(fill ?? '')).toBe(true);
       });
     });
 
@@ -233,7 +232,7 @@ describe('RdsCompContribution', () => {
 
     test('should apply mobile class to month labels when on mobile', async () => {
       global.innerWidth = 300;
-      const { container, rerender } = render(
+      const { rerender } = render(
         <RdsCompContribution {...defaultProps} showMonthLabels={true} />
       );
       fireEvent(window, new Event('resize'));
@@ -343,7 +342,7 @@ describe('RdsCompContribution', () => {
 
   describe('SVG Rendering', () => {
     test('should render SVG with correct viewBox', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -355,7 +354,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should have minimum SVG width of 280px', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -373,7 +372,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should apply correct sx styles to SVG', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -402,7 +401,7 @@ describe('RdsCompContribution', () => {
       );
       const panels = container.querySelectorAll('[data-date]');
       panels.forEach(panel => {
-        const date = panel.getAttribute('data-date');
+        const date = panel.dataset.date;
         expect(date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       });
     });
@@ -593,7 +592,7 @@ describe('RdsCompContribution', () => {
 
   describe('Height and Width Configuration', () => {
     test('should use default monthLabelHeight', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} monthLabelHeight={28} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -601,7 +600,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use custom monthLabelHeight', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} monthLabelHeight={40} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -609,7 +608,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use default weekLabelWidth', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} weekLabelWidth={24} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -617,7 +616,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use custom weekLabelWidth', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} weekLabelWidth={30} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -625,7 +624,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use custom panelSize', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} panelSize={15} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -633,7 +632,7 @@ describe('RdsCompContribution', () => {
     });
 
     test('should use custom panelMargin', () => {
-      const { container } = render(
+      render(
         <RdsCompContribution {...defaultProps} panelMargin={3} />
       );
       const svg = screen.getByTestId('svg-icon');
@@ -692,7 +691,7 @@ describe('RdsCompContribution', () => {
         <RdsCompContribution {...defaultProps} until="2024-12-31" />
       );
       const panels = container.querySelectorAll('[data-date]');
-      const dates = Array.from(panels).map(p => p.getAttribute('data-date'));
+      const dates = Array.from(panels).map(p => p.dataset.date);
       dates.forEach(date => {
         expect(date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       });

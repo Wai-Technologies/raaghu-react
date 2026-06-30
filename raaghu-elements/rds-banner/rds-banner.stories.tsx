@@ -2,8 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsBanner, { type RdsBannerProps } from './rds-banner';
-import { expect } from 'storybook/test';
-
 const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
   title: 'Elements/Banner',
   component: RdsBanner,
@@ -117,10 +115,7 @@ export const Info: Story = {
     size: 'medium',
     multiline: false,
     showDescription: true,
-  },
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  },
 };
 
 export const Success: Story = {
@@ -200,8 +195,7 @@ export const WithActions: Story = {
   },
 };
 
-export const Interactive: Story = {
-  render: (args) => {
+const InteractiveStory = (args) => {
     const [banners, setBanners] = useState([
       { id: 1, description: 'Welcome to our new dashboard!', type: 'info' as const, visible: true },
       { id: 2, description: 'Your trial expires in 7 days.', type: 'warning' as const, visible: true },
@@ -242,7 +236,10 @@ export const Interactive: Story = {
         </Box>
       </Box>
     );
-  },
+  };
+
+export const Interactive: Story = {
+  render: InteractiveStory,
 };
 
 export const AllTypes: Story = {

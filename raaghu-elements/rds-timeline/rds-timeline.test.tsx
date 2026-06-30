@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsTimeline, { RdsTimelineProps, RdsTimelineItem } from './rds-timeline';
+import RdsTimeline, { RdsTimelineItem } from './rds-timeline';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -93,7 +93,7 @@ describe('RdsTimeline', () => {
 
     it('should render single item', () => {
       const singleItem = [mockItems[0]];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTimeline items={singleItem} />
       );
       expect(screen.getByText('Event 1')).toBeInTheDocument();
@@ -514,7 +514,7 @@ describe('RdsTimeline', () => {
           time: '',
         },
       ];
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsTimeline items={emptyItems} showTime={true} />
       );
       expect(screen.getByText('Title')).toBeInTheDocument();

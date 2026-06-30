@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompLineChart from './rds-comp-chart-line';
@@ -650,7 +650,7 @@ describe('RdsCompLineChart', () => {
       const { rerender, container } = render(
         <RdsCompLineChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
+      const _canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompLineChart

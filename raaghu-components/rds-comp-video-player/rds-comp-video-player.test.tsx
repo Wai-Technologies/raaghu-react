@@ -11,10 +11,12 @@ import { axe } from 'jest-axe';
 jest.mock('./rds-comp-video-player.scss', () => ({}));
 
 // Mock ReactPlayer
-jest.mock('react-player', () => {
-  return function MockReactPlayer({
+jest.mock('react-player', () => ({
+  __esModule: true,
+  default: function MockReactPlayer({
     url,
     playing,
+    loop,
     muted,
     controls,
     volume,
@@ -29,6 +31,7 @@ jest.mock('react-player', () => {
         data-testid="react-player"
         data-url={url}
         data-playing={playing}
+        data-loop={loop}
         data-muted={muted}
         data-controls={controls}
         data-volume={volume}
@@ -41,8 +44,8 @@ jest.mock('react-player', () => {
         Video Player
       </div>
     );
-  };
-});
+  },
+}));
 
 describe('RdsCompVideoPlayer', () => {
   const defaultProps: RdsVideoPlayerProps = {
@@ -290,6 +293,30 @@ describe('RdsCompVideoPlayer', () => {
       );
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-playing', 'false');
+    });
+
+    it('should loop when autoplay is true', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoplay={true} />);
+      const player = screen.getByTestId('react-player');
+      expect(player).toHaveAttribute('data-loop', 'true');
+    });
+
+    it('should not loop when autoplay is false', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoplay={false} />);
+      const player = screen.getByTestId('react-player');
+      expect(player).toHaveAttribute('data-loop', 'false');
+    });
+
+    it('should not loop when disabled even if autoplay is true', () => {
+      render(
+        <RdsCompVideoPlayer
+          {...defaultProps}
+          autoplay={true}
+          disabled={true}
+        />
+      );
+      const player = screen.getByTestId('react-player');
+      expect(player).toHaveAttribute('data-loop', 'false');
     });
   });
 

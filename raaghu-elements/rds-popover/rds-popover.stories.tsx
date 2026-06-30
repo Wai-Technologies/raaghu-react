@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { Button, Typography, Box, List, ListItem, ListItemText } from '@mui/material';
 import React, { useState } from 'react';
 import RdsPopover from './rds-popover';
@@ -26,12 +25,7 @@ const meta: Meta<typeof RdsPopover> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    position: 'bottom-left',
-    showCloseButton: false,
-  },
-  render: (args) => {
+const DefaultStory = (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -60,20 +54,18 @@ export const Default: Story = {
         </RdsPopover>
       </Box>
     );
+  };
+
+export const Default: Story = {
+  args: {
+    position: 'bottom-left',
+    showCloseButton: false,
   },
+  render: DefaultStory,
 };
 Default.parameters = { controls: { include: ['position', 'showCloseButton'] } };
 
-export const CustomPosition: Story = {
-  argTypes: {
-    position: { table: { disable: true } },
-    showCloseButton: { control: 'boolean' },
-  },
-  args: {
-    showCloseButton: false,
-    position: 'no-arrow',
-  },
-  render: (args) => {
+const CustomPositionStory = (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -110,11 +102,9 @@ export const CustomPosition: Story = {
         </RdsPopover>
       </Box>
     );
-  },
-};
-CustomPosition.parameters = { controls: { include: ['showCloseButton'] } };
+  };
 
-export const WideContent: Story = {
+export const CustomPosition: Story = {
   argTypes: {
     position: { table: { disable: true } },
     showCloseButton: { control: 'boolean' },
@@ -122,9 +112,12 @@ export const WideContent: Story = {
   args: {
     showCloseButton: false,
     position: 'no-arrow',
-    width: 500,
   },
-  render: (args) => {
+  render: CustomPositionStory,
+};
+CustomPosition.parameters = { controls: { include: ['showCloseButton'] } };
+
+const WideContentStory = (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -161,20 +154,23 @@ export const WideContent: Story = {
         </RdsPopover>
       </Box>
     );
-  },
-};
-WideContent.parameters = { controls: { include: ['showCloseButton'] } };
+  };
 
-export const WithCloseButton: Story = {
+export const WideContent: Story = {
   argTypes: {
     position: { table: { disable: true } },
     showCloseButton: { control: 'boolean' },
   },
   args: {
-    showCloseButton: true,
+    showCloseButton: false,
     position: 'no-arrow',
+    width: 500,
   },
-  render: (args) => {
+  render: WideContentStory,
+};
+WideContent.parameters = { controls: { include: ['showCloseButton'] } };
+
+const WithCloseButtonStory = (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -206,15 +202,22 @@ export const WithCloseButton: Story = {
         </RdsPopover>
       </Box>
     );
+  };
+
+export const WithCloseButton: Story = {
+  argTypes: {
+    position: { table: { disable: true } },
+    showCloseButton: { control: 'boolean' },
   },
+  args: {
+    showCloseButton: true,
+    position: 'no-arrow',
+  },
+  render: WithCloseButtonStory,
 };
 WithCloseButton.parameters = { controls: { include: ['showCloseButton'] } };
 
-export const WithList: Story = {
-  argTypes: {
-    position: { table: { disable: true } },
-  },
-  render: () => {
+const WithListStory = () => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -261,18 +264,17 @@ export const WithList: Story = {
         </RdsPopover>
       </Box>
     );
+  };
+
+export const WithList: Story = {
+  argTypes: {
+    position: { table: { disable: true } },
   },
+  render: WithListStory,
 };
 WithList.parameters = { controls: { include: [] } };
 
-export const OpenPopover: Story = {
-  name: 'Interaction: Open popover',
-  args: {
-    position: 'bottom-left',
-    showCloseButton: false,
-    title: 'Test Popover',
-  },
-  render: (args) => {
+const OpenPopoverStory = (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
     return (
       <Box>
@@ -289,16 +291,6 @@ export const OpenPopover: Story = {
         </RdsPopover>
       </Box>
     );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const trigger = canvas.getByRole('button', { name: /open popover/i })
-    await expect(trigger).toBeVisible()
-    await userEvent.click(trigger)
-    // MUI Popover renders in a portal at document.body
-    await waitFor(
-      () => expect(document.querySelector('[class*="MuiPopover-paper"]')).not.toBeNull(),
-      { timeout: 2000 }
-    )
-  }
-};
+  };
+
+

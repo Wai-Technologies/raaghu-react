@@ -18,7 +18,7 @@ const RdsCompAreaChart = (props: lineprops) => {
 
     const [themeMode, setThemeMode] = React.useState(() => {
         if (typeof document !== 'undefined') {
-            return document.documentElement.getAttribute('data-theme') || 'light';
+            return document.documentElement.dataset.theme || 'light';
         }
         return 'light';
     });
@@ -26,7 +26,7 @@ const RdsCompAreaChart = (props: lineprops) => {
     React.useEffect(() => {
         if (typeof window === 'undefined') return;
         const observer = new MutationObserver(() => {
-            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+            setThemeMode(document.documentElement.dataset.theme || 'light');
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         return () => observer.disconnect();

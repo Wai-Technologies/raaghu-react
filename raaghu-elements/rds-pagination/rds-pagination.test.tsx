@@ -25,7 +25,7 @@ jest.mock('./rds-pagination.helpers', () => ({
     showPrevNext: false,
     showNextOnly: false,
   }),
-  calculatePaginationConfig: (style: string, config: any) => ({
+  calculatePaginationConfig: (_style: string, _config: any) => ({
     finalSiblingCount: 1,
     finalBoundaryCount: 1,
   }),
@@ -703,7 +703,7 @@ describe('RdsPagination', () => {
 
     it('should handle page size changes affecting total pages', async () => {
       const onPageSizeChange = jest.fn();
-      const { rerender } = renderWithTheme(
+      renderWithTheme(
         <RdsPagination 
           {...defaultProps}
           count={100}

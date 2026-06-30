@@ -863,16 +863,10 @@ describe('RdsSelect — keyboard navigation', () => {
     await userEvent.click(select);
     await userEvent.keyboard('{ArrowDown}');
     const options = screen.getAllByRole('option');
-    // After ArrowDown, MUI sets Mui-focused or aria-selected on the highlighted option
-    const hasHighlightedOption = options.some(o =>
-      o.classList.contains('Mui-focused') ||
-      o.getAttribute('aria-selected') === 'true' ||
-      o.classList.contains('Mui-selected')
+    const focusedOption = options.find(
+      o => o === document.activeElement || o.getAttribute('tabindex') === '0'
     );
-    // Listbox is open and options are available
-    expect(options.length).toBeGreaterThan(0);
-    // Either an option is highlighted or the first one would be next-focused
-    expect(options[0]).toBeInTheDocument();
+    expect(focusedOption).toBeTruthy();
   });
 
   it('does not open when disabled', async () => {

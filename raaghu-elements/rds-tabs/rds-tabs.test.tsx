@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTabs, { RdsTabItem, RdsTabsLayout } from './rds-tabs';
@@ -637,7 +637,7 @@ describe('RdsTabs', () => {
         <RdsTabs tabs={mockTabs} />
       );
       const tabs = container.querySelectorAll('[role="tab"]');
-      tabs.forEach((tab, index) => {
+      tabs.forEach((tab, _index) => {
         expect(tab).toHaveAttribute('title');
         expect(tab.getAttribute('title')).toBeTruthy();
       });

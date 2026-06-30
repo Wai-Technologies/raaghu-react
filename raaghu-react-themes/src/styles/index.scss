@@ -21,7 +21,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-*:focus {
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
   outline: 2px solid var(--rds-primary-main);
   outline-offset: 2px;
 }

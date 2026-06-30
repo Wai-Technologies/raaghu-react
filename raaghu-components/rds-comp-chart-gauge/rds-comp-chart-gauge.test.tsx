@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompGaugeChart from './rds-comp-chart-gauge';
@@ -653,7 +653,7 @@ describe('RdsCompGaugeChart', () => {
       const { rerender, container } = render(
         <RdsCompGaugeChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
+      const _canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompGaugeChart

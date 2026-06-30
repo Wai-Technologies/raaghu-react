@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRadio, { RdsRadioOption } from './rds-radio';
@@ -469,7 +469,7 @@ describe('RdsRadio', () => {
     });
 
     it('should handle keyboard selection with space key', async () => {
-      const user = userEvent.setup();
+      const _user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
@@ -486,7 +486,7 @@ describe('RdsRadio', () => {
     });
 
     it('should handle keyboard selection with Enter key', async () => {
-      const user = userEvent.setup();
+      const _user = userEvent.setup();
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
@@ -699,7 +699,7 @@ describe('RdsRadio', () => {
     });
 
     it('should have proper label associations in standard layout', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
           layout="icon with label"
@@ -725,7 +725,7 @@ describe('RdsRadio', () => {
     });
 
     it('should be keyboard navigable', async () => {
-      const user = userEvent.setup();
+      const _user = userEvent.setup();
       renderWithTheme(
         <RdsRadio 
           options={defaultOptions}

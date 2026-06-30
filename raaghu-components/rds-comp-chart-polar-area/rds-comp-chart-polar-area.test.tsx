@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompPolarAreaChart from './rds-comp-chart-polar-area';
@@ -626,7 +626,7 @@ describe('RdsCompPolarAreaChart', () => {
       const { rerender, container } = render(
         <RdsCompPolarAreaChart {...defaultProps} />
       );
-      const canvas1 = container.querySelector('canvas');
+      const _canvas1 = container.querySelector('canvas');
 
       rerender(
         <RdsCompPolarAreaChart

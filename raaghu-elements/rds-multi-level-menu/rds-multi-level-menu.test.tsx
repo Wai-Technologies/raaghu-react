@@ -9,7 +9,7 @@ import { axe } from 'jest-axe';
 // Mock SCSS
 jest.mock('./rds-multi-level-menu.scss', () => ({}));
 jest.mock('../rds-button/rds-button', () => {
-  return function DummyRdsButton({ onClick, children, style, ...props }: any) {
+  return function DummyRdsButton({ onClick, children, style: _style, ...props }: any) {
     return (
       <button onClick={onClick} {...props} data-testid="rds-button">
         {children}
@@ -377,7 +377,7 @@ describe('RdsMultiLevelMenu', () => {
 
   describe('Menu Size', () => {
     it('should apply default size', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsMultiLevelMenu options={defaultOptions} size="default" />
       );
       const button = screen.getByTestId('rds-button');
@@ -468,7 +468,7 @@ describe('RdsMultiLevelMenu', () => {
     });
 
     it('should have arrow element in expandable items', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsMultiLevelMenu options={nestedOptions} type="expandable" />
       );
       const button = screen.getByTestId('rds-button');
@@ -753,7 +753,7 @@ describe('RdsMultiLevelMenu', () => {
     });
 
     it('should handle keyboard navigation', async () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsMultiLevelMenu options={defaultOptions} />
       );
       const button = screen.getByTestId('rds-button');

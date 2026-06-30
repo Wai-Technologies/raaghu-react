@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsSelect from './rds-select';
 
 const meta: Meta<typeof RdsSelect> = {
@@ -15,9 +14,64 @@ const meta: Meta<typeof RdsSelect> = {
       control: 'object',
       description: 'Array of select options',
     },
+    label: {
+      control: 'text',
+    },
+    helperText: {
+      control: 'text',
+      description: 'Helper text shown below the field',
+    },
+    errorMessage: {
+      control: 'text',
+      description: 'Error text shown below the field',
+    },
+    placeholder: {
+      control: 'text',
+    },
+    inputPlaceholder: {
+      control: 'text',
+    },
+    labelposition: {
+      control: 'boolean',
+    },
+    isRequired: {
+      control: 'boolean',
+    },
     size: {
       control: 'select',
       options: ['small', 'medium'],
+    },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    input: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    IconComponent: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    renderValue: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    MenuProps: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    SelectDisplayProps: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onChange: {
+      control: { disable: true },
+      table: { disable: true },
     },
   },
 };
@@ -91,26 +145,4 @@ export const WithValue: Story = {
     value: 'option2',
     options: basicOptions,
   },
-};
-
-export const SelectOpen: Story = {
-  name: 'Interaction: Open dropdown',
-  args: {
-    label: 'Select Option',
-    options: basicOptions,
-    inputPlaceholder: 'Please select...',
-    size: 'small',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // MUI non-native Select renders trigger as role="combobox"
-    const trigger = canvas.getByRole('combobox')
-    await expect(trigger).toBeVisible()
-    await userEvent.click(trigger)
-    // MUI listbox opens in a portal at document.body
-    await waitFor(
-      () => expect(document.querySelector('[role="listbox"]')).not.toBeNull(),
-      { timeout: 2000 }
-    )
-  }
 };

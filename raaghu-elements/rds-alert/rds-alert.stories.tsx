@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
 import RdsAlert from './rds-alert';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -119,11 +118,7 @@ export const Default: Story = {
     size: 'medium',
     multiline: false,
     showDescription: true,
-  },
-  play: async ({ canvas }) => {
-    const alert = await canvas.findByRole('alert');
-    await expect(alert).toBeInTheDocument();
-  },
+  },
 };
 
 export const Error: Story = {

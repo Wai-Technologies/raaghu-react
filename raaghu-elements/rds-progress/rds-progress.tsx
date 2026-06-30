@@ -96,10 +96,14 @@ const RdsProgress = ({
             const stepNumber = index + 1;
             const isCompleted = index < currentStep;
             const isCurrent = index === currentStep - 1;
-            const stepClass = isCompleted ? 'completed' : isCurrent ? 'current' : 'upcoming';
+            const stepClass = (() => {
+              if (isCompleted) return 'completed';
+              if (isCurrent) return 'current';
+              return 'upcoming';
+            })();
             const typeClass = stepperType === 'circle' ? 'rds-progress__stepper-step--circle' : 'rds-progress__stepper-step--number';
             return (
-              <React.Fragment key={index}>
+              <React.Fragment key={`stepper-step-${stepNumber}`}>
                 <Box
                   className={`rds-progress__stepper-step ${typeClass} rds-progress__stepper-step--${stepClass}`}
                   sx={{ width: 'var(--rds-progress-step-size)', height: 'var(--rds-progress-step-size)' }}
@@ -146,7 +150,7 @@ const RdsProgress = ({
 
               return (
                 <Box
-                  key={index}
+                  key={`progress-${type}-segment-${index + 1}`}
                   className={`rds-progress__${type} ${index < filledCount ? `rds-progress__${type}--filled` : ''}`}
                   sx={{
                     width: isDash ? 'var(--rds-progress-dash-width)' : 'var(--rds-progress-block-width)', 

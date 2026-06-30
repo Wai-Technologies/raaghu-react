@@ -14,7 +14,7 @@ jest.mock('@dnd-kit/sortable', () => ({
   useSortable: () => ({ attributes: {}, listeners: {}, setNodeRef: jest.fn(), transform: null, transition: null, isDragging: false }),
 }));
 jest.mock('@dnd-kit/utilities', () => ({ CSS: { Transform: { toString: jest.fn() } } }));
-jest.mock('@mui/x-date-pickers/DatePicker', () => ({ DatePicker: ({ slotProps }: any) => <input data-testid="date-picker" /> }));
+jest.mock('@mui/x-date-pickers/DatePicker', () => ({ DatePicker: ({ _slotProps }: any) => <input data-testid="date-picker" /> }));
 jest.mock('@mui/x-date-pickers/LocalizationProvider', () => ({ LocalizationProvider: ({ children }: any) => <>{children}</> }));
 jest.mock('@mui/x-date-pickers/AdapterDateFns', () => ({ AdapterDateFns: class {} }));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({

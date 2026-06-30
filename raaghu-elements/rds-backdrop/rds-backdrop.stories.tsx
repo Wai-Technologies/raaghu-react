@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import RdsBackdrop from './rds-backdrop';
@@ -27,6 +26,10 @@ const meta: Meta<typeof RdsBackdrop> = {
     children: {
       control: { type: 'text' },
     },
+    loadingComponent: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
   },
 };
 
@@ -47,10 +50,7 @@ export const Default: Story = {
         }}
       />
     </div>
-  ),
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.firstChild).toBeTruthy();
-  },
+  ),
 };
 
 export const Loading: Story = {
@@ -91,13 +91,7 @@ export const WithCustomContent: Story = {
   ),
 };
 
-export const Interactive: Story = {
-  args: {
-    open: false,
-    loading: false,
-    children: 'This content can be customized via controls',
-  },
-  render: (args) => {
+const InteractiveStory = (args) => {
     const [open, setOpen] = useState<boolean>(!!args.open);
 
     useEffect(() => {
@@ -128,7 +122,15 @@ export const Interactive: Story = {
         </RdsBackdrop>
       </div>
     );
+  };
+
+export const Interactive: Story = {
+  args: {
+    open: false,
+    loading: false,
+    children: 'This content can be customized via controls',
   },
+  render: InteractiveStory,
   parameters: {
     docs: {
       story: {

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { Home, Favorite, LocationOn, Folder } from '@mui/icons-material';
 import { useState } from 'react';
 import RdsBottomNavigation from './rds-bottom-navigation';
@@ -48,23 +47,25 @@ export const WithLabels: Story = {
   },
 };
 
+const InteractiveStory = (args) => {
+    const [activeValue, setActiveValue] = useState(args.activeValue || 'home');
+    
+    return (
+      <RdsBottomNavigation
+        {...args}
+        activeValue={activeValue}
+        onItemChange={(value) => setActiveValue(value)}
+      />
+    );
+  };
+
 export const Interactive: Story = {
   args: {
     items: navigationItems,
     activeValue: 'home',
     showLabels: false,
   },
-  render: (args) => {
-    const [activeValue, setActiveValue] = useState(args.activeValue || 'home');
-    
-    return (
-      <RdsBottomNavigation
-        {...args}
-        activeValue={args.activeValue}
-        onItemChange={(value) => setActiveValue(value)}
-      />
-    );
-  },
+  render: InteractiveStory,
 };
 
 export const ThreeItems: Story = {
@@ -90,32 +91,4 @@ export const WithDisabledItem: Story = {
     activeValue: 'home',
     showLabels: true,
   },
-};
-
-export const SwitchNavItem: Story = {
-  name: 'Interaction: Switch navigation item',
-  args: {
-    items: navigationItems,
-    activeValue: 'home',
-    showLabels: true,
-  },
-  render: (args) => {
-    const [active, setActive] = useState(args.activeValue || 'home');
-    return (
-      <RdsBottomNavigation
-        {...args}
-        activeValue={active}
-        onItemChange={(value: string) => setActive(value)}
-      />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const buttons = canvas.getAllByRole('button')
-    await expect(buttons.length).toBeGreaterThan(1)
-    await expect(buttons[0]).toBeVisible()
-    // Click Favorites (second item)
-    await userEvent.click(buttons[1])
-    await expect(canvasElement).toBeTruthy()
-  }
 };

@@ -39,7 +39,7 @@ const RdsRange= ({
   const max = rightLabel ?? props.max ?? 100;
 
   const calculateLevelValue = (level: string): number => {
-    const levelNum = parseInt(level);
+    const levelNum = Number.parseInt(level);
     if (levelNum < 1 || levelNum > 5) return min;
     const range = max - min;
     const step = range / 4;

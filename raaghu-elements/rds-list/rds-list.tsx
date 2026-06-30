@@ -1,6 +1,7 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React, { useState } from 'react';
-import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListProps, Divider } from '@mui/material';
+import { useState, type ReactNode, type ReactElement, Fragment } from 'react';
+import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,type ListProps, Divider } from '@mui/material';
+import clsx from 'clsx';
 import './rds-list.scss';
 import {Paper } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
@@ -8,15 +9,15 @@ export interface RdsListItem {
   id: string | number;
   primary: string;
   secondary?: string;
-  icon?: React.ReactNode;
-  avatar?: React.ReactNode;
-  secondaryAction?: React.ReactNode;
+  icon?: ReactNode;
+  avatar?: ReactNode;
+  secondaryAction?: ReactNode;
   onClick?: () => void;
   selected?: boolean;
   disabled?: boolean;
   children?: RdsListItem[];
 }
-export interface RdsListProps extends ListProps {
+export interface RdsListProps extends Omit<ListProps, 'component'> {
   items: RdsListItem[];
   variant?: 'simple' | 'button' | 'icon' | 'avatar' | 'firebase';
   alignItems?: 'flex-start' | 'center';
@@ -27,7 +28,13 @@ export interface RdsListProps extends ListProps {
   checkedItems?: (string | number)[];
 }
 
-const RdsList: React.FC<RdsListProps> = ({
+const ExpandIcon = ({ open }: { open: boolean }) => (
+  <ExpandMoreIcon
+    className={clsx('rds-list__expand-icon', open && 'rds-list__expand-icon--open')}
+  />
+);
+
+const RdsList = ({
   items,
   variant = 'simple',
   alignItems,
@@ -35,28 +42,27 @@ const RdsList: React.FC<RdsListProps> = ({
   withDividers,
   withCheckboxes,
   onCheckboxChange,
-  checkedItems = [],
+  checkedItems,
   className,
   dense,
   ...props
-}) => {
+}: RdsListProps) => {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
-  const [internalChecked, setInternalChecked] = useState<(string | number)[]>(checkedItems);
-
-  const effectiveCheckedItems = checkedItems.length > 0 ? checkedItems : internalChecked;
+  const [internalChecked, setInternalChecked] = useState<(string | number)[]>([]);
+  const isControlledChecked = checkedItems !== undefined;
+  const effectiveCheckedItems = isControlledChecked ? checkedItems : internalChecked;
 
   const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
   const denseClass = dense ? 'rds-list--dense' : '';
-  const rootClass = ['rds-list', variantClass, denseClass, className].filter(Boolean).join(' ');
+  const rootClass = clsx('rds-list', variantClass, denseClass, className);
 
-  const getItemClass = (item: RdsListItem) => {
-    let cls = 'rds-list__item';
-    if (item.onClick || variant === 'button') cls += ' rds-list__item--clickable';
-    if (item.selected) cls += ' rds-list__item--selected';
-    if (item.disabled) cls += ' rds-list__item--disabled';
-    if (disableGutters) cls += ' rds-list__item--no-gutters';
-    return cls;
-  };
+  const getItemClass = (item: RdsListItem) => clsx(
+    'rds-list__item',
+    (item.onClick || variant === 'button') && 'rds-list__item--clickable',
+    item.selected && 'rds-list__item--selected',
+    item.disabled && 'rds-list__item--disabled',
+    disableGutters && 'rds-list__item--no-gutters',
+  );
 
   const handleCheckboxChange = (id: string | number) => () => {
     const isChecked = !effectiveCheckedItems.includes(id);
@@ -75,13 +81,7 @@ const RdsList: React.FC<RdsListProps> = ({
     setOpenMap((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const ExpandIcon = ({ open }: { open: boolean }) => (
-    <ExpandMoreIcon
-      className={`rds-list__expand-icon${open ? ' rds-list__expand-icon--open' : ''}`}
-    />
-  );
-
-  const renderListItem = (item: RdsListItem): React.ReactElement => {
+  const renderListItem = (item: RdsListItem): ReactElement => {
     const hasChildren = Array.isArray(item.children) && item.children.length > 0;
     const isOpen = openMap[item.id] || false;
     const itemProps = {
@@ -94,14 +94,11 @@ const RdsList: React.FC<RdsListProps> = ({
 
     if (hasChildren) {
       return (
-        <React.Fragment key={item.id}>
+        <Fragment key={item.id}>
           <MuiListItem
             {...itemProps}
             disablePadding
-            className={[
-              getItemClass(item),
-              isOpen ? 'rds-list__item--expanded' : '',
-            ].filter(Boolean).join(' ')}
+            className={clsx(getItemClass(item), isOpen && 'rds-list__item--expanded')}
           >
             <MuiListItemButton onClick={() => handleToggle(item.id)}>
               {item.icon && (
@@ -111,8 +108,10 @@ const RdsList: React.FC<RdsListProps> = ({
                 <MuiListItemAvatar className="rds-list__avatar">{item.avatar}</MuiListItemAvatar>
               )}
               <MuiListItemText
-                primary={<span className="rds-list__content-primary">{item.primary}</span>}
-                secondary={item.secondary && <span className="rds-list__content-secondary">{item.secondary}</span>}
+                primary={item.primary}
+                secondary={item.secondary}
+                primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
+                secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
               />
               <ExpandIcon open={isOpen} />
             </MuiListItemButton>
@@ -124,7 +123,7 @@ const RdsList: React.FC<RdsListProps> = ({
               )}
             </MuiList>
           )}
-        </React.Fragment>
+        </Fragment>
       );
     }
 
@@ -147,7 +146,7 @@ const RdsList: React.FC<RdsListProps> = ({
       ) : checkbox;
 
       return (
-        <MuiListItem disablePadding {...itemProps} key={item.id}>
+        <MuiListItem key={item.id} disablePadding {...itemProps}>
           <MuiListItemButton
             onClick={withCheckboxes ? handleCheckboxChange(item.id) : item.onClick}
             disabled={item.disabled}
@@ -159,8 +158,10 @@ const RdsList: React.FC<RdsListProps> = ({
               </MuiListItemAvatar>
             )}
             <MuiListItemText
-              primary={<span className="rds-list__content-primary">{item.primary}</span>}
-              secondary={item.secondary && <span className="rds-list__content-secondary">{item.secondary}</span>}
+              primary={item.primary}
+              secondary={item.secondary}
+              primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
+              secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
             />
             {item.secondaryAction && (
               <span className="rds-list__secondary-action">{item.secondaryAction}</span>
@@ -171,7 +172,7 @@ const RdsList: React.FC<RdsListProps> = ({
     }
 
     return (
-      <MuiListItem {...itemProps} key={item.id}>
+      <MuiListItem key={item.id} {...itemProps}>
         {item.icon && !item.secondaryAction && (
           <MuiListItemIcon className="rds-list__icon">
             {item.icon}
@@ -183,8 +184,10 @@ const RdsList: React.FC<RdsListProps> = ({
           </MuiListItemAvatar>
         )}
         <MuiListItemText
-          primary={<span className="rds-list__content-primary">{item.primary}</span>}
-          secondary={item.secondary && <span className="rds-list__content-secondary">{item.secondary}</span>}
+          primary={item.primary}
+          secondary={item.secondary}
+          primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
+          secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
         />
         {item.secondaryAction && (
           <span className="rds-list__secondary-action">{item.secondaryAction}</span>
@@ -193,7 +196,7 @@ const RdsList: React.FC<RdsListProps> = ({
     );
   };
 
-  let children: React.ReactNode[];
+  let children: ReactNode[];
   if (withDividers) {
     children = [];
     items.forEach((item, idx) => {

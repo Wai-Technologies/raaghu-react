@@ -44,12 +44,12 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
 
   useEffect(() => {
     const checkMobileView = () => {
-      setIsMobileView(window.innerWidth <= 768);
+      setIsMobileView(globalThis.innerWidth <= 768);
     };
     checkMobileView();
-    window.addEventListener('resize', checkMobileView);
+    globalThis.addEventListener('resize', checkMobileView);
     return () => {
-      window.removeEventListener('resize', checkMobileView);
+      globalThis.removeEventListener('resize', checkMobileView);
     };
   }, []);
 
@@ -248,7 +248,7 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
             <RdsButton color="primary" size="medium" text="Save" layout="text-only" shape="rectangle" state="default"  style="filled" />
           </div>
           <div className="rds-comp-audio-player__edition-timemarks">
-            {[...Array(getTimeMarkConfig().count)].map((_, i) => (<span key={i} className="rds-comp-audio-player__edition-timemark">{getTimeMarkConfig().interval}</span>))}
+            {[...Array(getTimeMarkConfig().count)].map((_, i) => (<span key={`timemark-${getTimeMarkConfig().interval}-${i}`} className="rds-comp-audio-player__edition-timemark">{getTimeMarkConfig().interval}</span>))}
           </div>
           <div 
             className={`rds-comp-audio-player__edition-waveform ${isDraggingLeft || isDraggingRight ? 'rds-comp-audio-player__edition-waveform--dragging' : ''}`}
@@ -261,9 +261,9 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
               <svg width="100%" height="200" viewBox="0 0 1200 200" preserveAspectRatio="none">
                 {[...Array(150)].map((_, i) => {
                   const x = i * 8;
-                  const height = Math.max(20, Math.abs(Math.sin(i * 0.1) * 60 + Math.random() * 40));
+                  const height = Math.max(20, Math.abs(Math.sin(i * 0.1) * 60 + ((i * 17) % 40)));
                   const adjustedHeight = height * Math.max(0.1, zoomLevel / 50);
-                  return <rect key={i} x={x} y={(200 - adjustedHeight) / 2} width="5" height={adjustedHeight} fill="white" rx="2" opacity={0.9} />;
+                  return <rect key={`waveform-bar-${x}`} x={x} y={(200 - adjustedHeight) / 2} width="5" height={adjustedHeight} fill="white" rx="2" opacity={0.9} />;
                 })}
               </svg>
             </div>

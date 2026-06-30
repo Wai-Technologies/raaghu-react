@@ -45,7 +45,7 @@ describe('RdsFab', () => {
 
   describe('Icon Rendering', () => {
     it('should render icon when provided', () => {
-      const { container } = render(
+      render(
         <RdsFab {...defaultProps} icon={<span data-testid="test-icon">★</span>} />
       );
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
@@ -370,7 +370,7 @@ describe('RdsFab', () => {
         <RdsFab {...defaultProps} onClick={handleClick} />
       );
       const fab = document.querySelector('.MuiFab-root');
-      fireEvent.click(fab as HTMLElement);
+      fireEvent.click(fab);
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
@@ -423,7 +423,7 @@ describe('RdsFab', () => {
         <RdsFab {...defaultProps} onFocus={handleFocus} />
       );
       const fab = document.querySelector('.MuiFab-root');
-      fireEvent.focus(fab as HTMLElement);
+      fireEvent.focus(fab);
       expect(handleFocus).toHaveBeenCalledTimes(1);
     });
 
@@ -433,7 +433,7 @@ describe('RdsFab', () => {
         <RdsFab {...defaultProps} onBlur={handleBlur} />
       );
       const fab = document.querySelector('.MuiFab-root');
-      fireEvent.blur(fab as HTMLElement);
+      fireEvent.blur(fab);
       expect(handleBlur).toHaveBeenCalledTimes(1);
     });
 
@@ -443,7 +443,7 @@ describe('RdsFab', () => {
         <RdsFab {...defaultProps} onMouseEnter={handleMouseEnter} />
       );
       const fab = document.querySelector('.MuiFab-root');
-      fireEvent.mouseEnter(fab as HTMLElement);
+      fireEvent.mouseEnter(fab);
       expect(handleMouseEnter).toHaveBeenCalledTimes(1);
     });
 
@@ -453,7 +453,7 @@ describe('RdsFab', () => {
         <RdsFab {...defaultProps} onMouseLeave={handleMouseLeave} />
       );
       const fab = document.querySelector('.MuiFab-root');
-      fireEvent.mouseLeave(fab as HTMLElement);
+      fireEvent.mouseLeave(fab);
       expect(handleMouseLeave).toHaveBeenCalledTimes(1);
     });
   });
@@ -552,7 +552,7 @@ describe('RdsFab', () => {
       );
       const fab = document.querySelector('.MuiFab-root');
       for (let i = 0; i < 10; i++) {
-        fireEvent.click(fab as HTMLElement);
+        fireEvent.click(fab);
       }
       expect(handleClick).toHaveBeenCalledTimes(10);
     });
@@ -647,7 +647,7 @@ describe('RdsFab', () => {
         <RdsFab {...defaultProps} onClick={handleClick} />
       );
       const fab = document.querySelector('.MuiFab-root');
-      fireEvent.click(fab as HTMLElement);
+      fireEvent.click(fab);
       expect(handleClick).toHaveBeenCalled();
     });
 
@@ -657,7 +657,7 @@ describe('RdsFab', () => {
         <RdsFab {...defaultProps} onClick={handleClick} />
       );
       const fab = document.querySelector('.MuiFab-root');
-      fireEvent.click(fab as HTMLElement);
+      fireEvent.click(fab);
       expect(handleClick).toHaveBeenCalled();
     });
 
@@ -679,7 +679,7 @@ describe('RdsFab', () => {
         />
       );
       const fab = document.querySelector('.MuiFab-root');
-      fireEvent.click(fab as HTMLElement);
+      fireEvent.click(fab);
       // Click on disabled button may or may not trigger depending on implementation
       expect(fab).toHaveAttribute('disabled');
     });

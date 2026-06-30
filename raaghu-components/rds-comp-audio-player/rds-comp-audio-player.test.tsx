@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAudioPlayer from './rds-comp-audio-player';
@@ -102,7 +102,7 @@ jest.mock('./audio-player-components', () => ({
       <input type="range" min="0.5" max="2" step="0.25" value={playbackSpeed} onChange={handlePlaybackSpeedChange} />
     </div>
   ),
-  AudioEditionControls: ({ formatTime, getSelectedTimeRange, togglePlayPause, zoomLevel, handleZoomOut, handleZoomIn, handleZoomChange }: any) => (
+  AudioEditionControls: ({ _formatTime, _getSelectedTimeRange, togglePlayPause, zoomLevel, handleZoomOut, handleZoomIn, handleZoomChange }: any) => (
     <div data-testid="audio-edition-controls">
       <button onClick={togglePlayPause}>Play/Pause</button>
       <button onClick={handleZoomOut}>Zoom Out</button>
@@ -298,13 +298,13 @@ describe('RdsCompAudioPlayer', () => {
       const { container } = render(
         <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showTranscript={true} />
       );
-      const transcriptBtn = container.querySelector('button[class*="transcript"]');
+      const _transcriptBtn = container.querySelector('button[class*="transcript"]');
       // The transcript button is rendered but doesn't have a specific class
       expect(container.querySelector('.rds-comp-audio-player__extra-controls')).toBeInTheDocument();
     });
 
     it('does not render transcript button when showTranscript is false', () => {
-      const { container } = render(
+      render(
         <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showTranscript={false} />
       );
       const volumeSlider = screen.getByTestId('volume-slider');
@@ -426,7 +426,7 @@ describe('RdsCompAudioPlayer', () => {
   describe('Mobile Responsiveness', () => {
     it('responds to window resize', () => {
       const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const initialTimeMarks = container.querySelectorAll('.rds-comp-audio-player__edition-timemark').length;
+      const _initialTimeMarks = container.querySelectorAll('.rds-comp-audio-player__edition-timemark').length;
       
       // Simulate window resize to mobile
       global.innerWidth = 500;

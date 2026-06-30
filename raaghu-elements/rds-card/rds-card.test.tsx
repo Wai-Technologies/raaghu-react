@@ -10,7 +10,7 @@ jest.mock('./rds-card.scss', () => ({}));
 // Mock MUI components
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
-  Card: ({ children, className, sx, ...props }: any) => (
+  Card: ({ children, className, _sx, ...props }: any) => (
     <div className={className} data-testid="card-root" {...props}>{children}</div>
   ),
   Avatar: ({ children, className, ...props }: any) => (
@@ -357,7 +357,7 @@ describe('RdsCard', () => {
 
   describe('Padding and Styling', () => {
     it('should apply padding when provided', () => {
-      const { container } = render(
+      render(
         <RdsCard {...defaultProps} padding="20px" />
       );
       // Verify card renders with padding prop
@@ -365,7 +365,7 @@ describe('RdsCard', () => {
     });
 
     it('should accept numeric padding', () => {
-      const { container } = render(
+      render(
         <RdsCard {...defaultProps} padding={16} />
       );
       const card = screen.getByTestId('card-root');
@@ -373,7 +373,7 @@ describe('RdsCard', () => {
     });
 
     it('should accept string padding', () => {
-      const { container } = render(
+      render(
         <RdsCard {...defaultProps} padding="1rem" />
       );
       const card = screen.getByTestId('card-root');

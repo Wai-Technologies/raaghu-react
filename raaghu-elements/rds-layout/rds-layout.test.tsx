@@ -424,7 +424,7 @@ describe('RdsLayout', () => {
 
   describe('Props Spreading', () => {
     it('should accept additional Container props', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsLayout data-testid="custom-layout" className="custom-class">
           <div>Content</div>
         </RdsLayout>

@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   line-height: 0;
-  background: transparent;
+  background-color: transparent;
   border-radius: var(--rds-border-radius, 4px);
 
   &:focus-visible {
@@ -27,14 +27,14 @@
     vertical-align: middle;
     object-fit: contain;
     border-radius: inherit;
-    background: transparent;
+    background-color: transparent;
     &--fallback {
       opacity: 0.85;
     }
   }
 
   &__placeholder {
-    background: transparent;
+    background-color: transparent;
   }
 
   &--cursor {

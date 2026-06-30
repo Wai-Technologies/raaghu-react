@@ -22,7 +22,7 @@
     border-bottom: 3px solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-accent) !important; // Use accent token
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg) !important; // Use accent bg token
+    background-color: var(--rds-color-accent-bg) !important; // Use accent bg token
   }
 }
 .rds-tabs--line-left-solid .MuiTab-root {
@@ -31,7 +31,7 @@
     border-left: 3px solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg) !important;
+    background-color: var(--rds-color-accent-bg) !important;
   }
 }
 
@@ -50,7 +50,7 @@
     border-right: 3px solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg) !important;
+    background-color: var(--rds-color-accent-bg) !important;
   }
 }
 
@@ -69,7 +69,7 @@
     border-top: 3px solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg) !important;
+    background-color: var(--rds-color-accent-bg) !important;
   }
 }
 
@@ -78,7 +78,7 @@
   margin: 0 var(--rds-spacing-xs, 4px);
   &.Mui-selected {
     border-radius: var(--rds-tabs-pill-radius, 15rem) !important;
-    background: var(--rds-color-primary) !important;
+    background-color: var(--rds-color-primary) !important;
     color: var(--rds-color-on-primary) !important;
   }
 }
@@ -133,30 +133,30 @@
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 .rds-tabs--filled .Mui-selected {
-  background: var(--rds-color-accent) !important;
+  background-color: var(--rds-color-accent) !important;
   color: var(--rds-color-on-accent) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
   border: unset !important;
 }
 
 .rds-state--hover .Mui-selected:hover {
-  background: var(--rds-color-hover-bg) !important;
+  background-color: var(--rds-color-hover-bg) !important;
   color: var(--rds-color-default) !important;
 }
 
 .rds-state--selected .Mui-selected {
-  background: var(--rds-color-accent) !important;
+  background-color: var(--rds-color-accent) !important;
   color: var(--rds-color-on-accent) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 
 .rds-state--filled .Mui-selected {
-  background: var(--rds-color-accent) !important;
+  background-color: var(--rds-color-accent) !important;
   color: var(--rds-color-on-accent) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 .rds-tabs--flap .Mui-selected {
-  background: var(--rds-color-accent) !important;
+  background-color: var(--rds-color-accent) !important;
   color: var(--rds-color-on-accent) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
   border: unset !important;
@@ -198,6 +198,9 @@
 .MuiTab-root {
   position: relative !important;
   overflow: visible !important;
+  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
+  min-width: var(--rds-tabs-tab-min-width, 120px) !important;
+  width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
 .css-1usuzwp-MuiButtonBase-root-MuiTab-root{
@@ -212,23 +215,25 @@
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
   content: "" !important;
   position: absolute !important;
-  left: var(--rds-tabs-tab-max-width, 150px) !important;
-  top: 50% !important;
   right: -12px !important;
-  transform: translateY(-50%) !important;
-  width: 0 !important;
-  height: 0 !important;
-  border-top: 8px solid transparent !important;
-  border-bottom: 8px solid transparent !important;
-  border-left: 12px solid var(--rds-color-accent) !important;
   z-index: calc(var(--rds-z-index-base) + 1) !important;
+
+
+    left: calc(100% + 0px) !important;
+    top: 48% !important;
+    transform: translateY(-48%) !important;
+    width: 211px !important;
+    height: 18px !important;
+    border-top: 27px solid transparent !important;
+    border-bottom: 22px solid transparent !important;
+    border-left: 34px solid var(--rds-color-accent) !important;
 }
 
 .rds-tabs--flap.rds-state--hover .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
   border-left-color: var(--rds-color-hover-bg) !important;
 }
 .rds-state--disabled .Mui-selected{
-  background: var(--rds-color-disabled-bg) !important;
+  background-color: var(--rds-color-disabled-bg) !important;
   color: var(--rds-color-disabled) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
@@ -246,7 +251,7 @@
 }
 
 .rds-tabs--pill.rds-state--disabled .MuiTab-root.Mui-selected {
-  background: var(--rds-color-disabled-bg) !important;
+  background-color: var(--rds-color-disabled-bg) !important;
   color: var(--rds-color-disabled) !important;
   border-radius: var(--rds-tabs-pill-radius, 15rem) !important;
   pointer-events: none;
@@ -257,7 +262,7 @@
 .rds-tabs--line-left-solid.rds-state--disabled .MuiTab-root.Mui-selected,
 .rds-tabs--line-right-solid.rds-state--disabled .MuiTab-root.Mui-selected,
 .rds-tabs--line-top-solid.rds-state--disabled .MuiTab-root.Mui-selected {
-  background: var(--rds-color-disabled-bg) !important;
+  background-color: var(--rds-color-disabled-bg) !important;
   color: var(--rds-color-disabled) !important;
   border-radius: unset !important;
   border-color: var(--rds-color-disabled-bg) !important;
@@ -304,18 +309,7 @@
 }
 
 .rds-tabs .MuiTabs-vertical {
-  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
-  width: var(--rds-tabs-tab-max-width, 150px) !important;
-}
-
-.MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
-  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
-  min-width: var(--rds-tabs-tab-min-width, 120px) !important;
-  width: var(--rds-tabs-tab-max-width, 150px) !important;
-}
-
-.MuiTab-root {
-  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
+  max-width: var(--rds-tpx) !important;
   min-width: var(--rds-tabs-tab-min-width, 120px) !important;
   width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
@@ -382,9 +376,6 @@
   border-radius: 0 0 0 0 !important;
 }
 
-/* ========================================================
-   Dark mode overrides — ensure tab text is always visible
-   ======================================================== */
 [data-theme="dark"] {
   .rds-tabs .MuiTab-root {
     color: var(--rds-neutral-300, #ccc) !important;

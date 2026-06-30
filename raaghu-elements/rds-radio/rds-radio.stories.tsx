@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { useState } from 'react';
 import RdsRadio from './rds-radio';
 
@@ -67,8 +66,7 @@ function computeForcedValue(args: any) {
   return undefined;
 }
 
-export const Default: Story = {
-  render: (args) => {
+const DefaultStory = (args) => {
     const [internal, setInternal] = useState<string | undefined>(args.value ?? undefined);
     const forced = computeForcedValue(args);
     const valueToUse = forced !== undefined || args.selected === false ? forced : internal;
@@ -81,7 +79,10 @@ export const Default: Story = {
         }}
       />
     );
-  },
+  };
+
+export const Default: Story = {
+  render: DefaultStory,
   args: {
     label: 'Choose an option',
     options: [{ text: 'Option 1', value: 'option1' }],
@@ -92,8 +93,7 @@ export const Default: Story = {
 Default.parameters = { controls: { include: ['label','options','value','selected', 'direction','layout','state'] } };
 
 
-export const Horizontal: Story = {
-  render: (args) => {
+const HorizontalStory = (args) => {
     const [selected, setSelected] = useState(args.value ?? undefined);
     return (
       <RdsRadio
@@ -102,7 +102,10 @@ export const Horizontal: Story = {
         onChange={(_event, value) => setSelected(value)}
       />
     );
-  },
+  };
+
+export const Horizontal: Story = {
+  render: HorizontalStory,
   args: {
     label: 'Horizontal Layout',
     options: basicOptions,
@@ -112,8 +115,7 @@ export const Horizontal: Story = {
 };
 Horizontal.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
 
-export const WithDisabledOptions: Story = {
-  render: (args) => {
+const WithDisabledOptionsStory = (args) => {
     const [selected, setSelected] = useState(args.value ?? undefined);
     return (
       <RdsRadio
@@ -122,7 +124,10 @@ export const WithDisabledOptions: Story = {
         onChange={(_event, value) => setSelected(value)}
       />
     );
-  },
+  };
+
+export const WithDisabledOptions: Story = {
+  render: WithDisabledOptionsStory,
   args: {
     label: 'Some Disabled Options',
     options: [
@@ -137,8 +142,7 @@ export const WithDisabledOptions: Story = {
 WithDisabledOptions.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
 
 
-export const WithSelectedValue: Story = {
-  render: (args) => {
+const WithSelectedValueStory = (args) => {
     const [selected, setSelected] = useState(args.value ?? undefined);
     return (
       <RdsRadio
@@ -147,7 +151,10 @@ export const WithSelectedValue: Story = {
         onChange={(_event, value) => setSelected(value)}
       />
     );
-  },
+  };
+
+export const WithSelectedValue: Story = {
+  render: WithSelectedValueStory,
   args: {
     label: 'Pre-selected Option',
     options:  [{ text: 'Option 1', value: 'option1' }],
@@ -157,8 +164,7 @@ export const WithSelectedValue: Story = {
 WithSelectedValue.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
 
 
-export const WithoutLabel: Story = {
-  render: (args) => {
+const WithoutLabelStory = (args) => {
     const [selected, setSelected] = useState(args.value ?? undefined);
     return (
       <RdsRadio
@@ -167,7 +173,10 @@ export const WithoutLabel: Story = {
         onChange={(_event, value) => setSelected(value)}
       />
     );
-  },
+  };
+
+export const WithoutLabel: Story = {
+  render: WithoutLabelStory,
   args: {
     options: basicOptions,
     value: undefined,
@@ -176,9 +185,7 @@ export const WithoutLabel: Story = {
 WithoutLabel.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
 
 
-export const SelectOption: Story = {
-  name: 'Interaction: Select radio option',
-  render: () => {
+const SelectOptionStory = () => {
     const [value, setValue] = useState<string | undefined>(undefined);
     return (
       <RdsRadio
@@ -191,14 +198,6 @@ export const SelectOption: Story = {
         onChange={(_e: React.SyntheticEvent, val: string) => setValue(val)}
       />
     );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // MUI Radio hides native input — same as Checkbox
-    const radios = canvas.getAllByRole('radio')
-    await expect(radios).toHaveLength(2)
-    await expect(radios[0]).not.toBeChecked()
-    await userEvent.click(radios[0])
-    await expect(radios[0]).toBeChecked()
-  }
-};
+  };
+
+

@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-md, 8px) var(--rds-spacing-lg, 12px);
-  background: var(--rds-color-surface);
+  background-color: var(--rds-color-surface);
   border: 1px solid var(--rds-color-outline);
   border-radius: var(--rds-border-radius, 8px);
   gap: var(--rds-spacing-md, 8px);
@@ -60,7 +60,7 @@
 
   &--disabled-on {
     pointer-events: none;
-    background: var(--rds-color-surface-variant);
+    background-color: var(--rds-color-surface-variant);
   }
 
   &--disabled-on {
@@ -91,14 +91,14 @@
     }
 
     &--secondary {
-      background: var(--rds-color-surface-variant);
+      background-color: var(--rds-color-surface-variant);
       border-radius: var(--rds-border-radius-sm, 4px);
 
       .rds-comp-toolbar__button {
         color: var(--rds-color-on-surface-variant);
 
         &:hover {
-          background: var(--rds-color-surface-container-high);
+          background-color: var(--rds-color-surface-container-high, var(--rds-color-surface-container));
           color: var(--rds-color-on-surface);
         }
       }
@@ -108,7 +108,6 @@
   &__section {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 8px);
     gap: var(--rds-spacing-xs, 2px);
     flex-shrink: 0;
   }
@@ -116,7 +115,7 @@
   &__divider {
     width: 1px;
     height: var(--rds-size-lg);
-    background: var(--rds-color-outline);
+    background-color: var(--rds-color-outline);
     margin: 0 var(--rds-spacing-xs, 4px);
   }
 
@@ -155,27 +154,31 @@
   }
 
   &__button {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: auto;
+    flex: 0 0 auto;
     min-width: var(--rds-size-xl);
     height: var(--rds-size-xl);
     padding: var(--rds-spacing-sm, 6px);
     border: none;
-    background: transparent;
+    background-color: transparent;
     border-radius: var(--rds-border-radius-sm, 4px);
     cursor: pointer;
     color: var(--rds-color-on-surface-variant);
     font-size: var(--rds-font-size-md, 14px);
-    transition: all var(--rds-transition-base);
+    transition: background-color var(--rds-transition-base), color var(--rds-transition-base);
     position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
 
     svg, .rds-comp-toolbar__text-icon, .rds-comp-toolbar__highlight-icon {
       pointer-events: none;
     }
 
     &:hover {
-      background: var(--rds-color-surface-container);
+      background-color: var(--rds-color-surface-container);
       color: var(--rds-color-on-surface);
     }
 
@@ -191,12 +194,12 @@
     }
 
     &--muted {
-      background: transparent;
+      background-color: transparent;
       color: var(--rds-color-on-surface-variant);
       opacity: 0.9;
 
       &:hover {
-        background: var(--rds-color-surface-container);
+        background-color: var(--rds-color-surface-container);
         color: var(--rds-color-on-surface);
       }
     }
@@ -204,7 +207,11 @@
 
   &__button-container {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: fit-content;
+    max-width: 100%;
+    vertical-align: top;
   }
 
   &__dropdown {
@@ -216,7 +223,6 @@
    max-width: calc(100vw - 24px);
    max-height: 61vh;
    overflow: auto;
-  background: var(--rds-color-surface);
   border: 1px solid var(--rds-color-outline);
    border-radius: var(--rds-border-radius-sm, 4px);
    box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12));
@@ -235,7 +241,7 @@
     width: 100%;
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
     border: none;
-    background: transparent;
+    background-color: transparent;
     color: var(--rds-color-on-surface);
     font-size: var(--rds-font-size-md, 14px);
     text-align: left;
@@ -243,12 +249,12 @@
     transition: background-color var(--rds-transition-base);
 
     &:hover {
-      background: var(--rds-color-surface-container);
+      background-color: var(--rds-color-surface-container);
     }
 
     &:focus {
       outline: none;
-      background: var(--rds-color-surface-container);
+      background-color: var(--rds-color-surface-container);
     }
 
     &:disabled {
@@ -331,16 +337,16 @@
       }
       
       &::-webkit-scrollbar-track {
-        background: var(--rds-color-surface-variant);
+        background-color: var(--rds-color-surface-variant);
         border-radius: var(--rds-border-radius-xs, 3px);
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--rds-color-on-surface-variant);
+        background-color: var(--rds-color-on-surface-variant);
         border-radius: var(--rds-border-radius-xs, 3px);
 
         &:hover {
-          background: var(--rds-color-on-surface);
+          background-color: var(--rds-color-on-surface);
         }
       }
     }
@@ -358,16 +364,16 @@
       }
       
       &::-webkit-scrollbar-track {
-        background: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.1));
+        background-color: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.1));
         border-radius: var(--rds-border-radius-xs, 3px);
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3));
+        background-color: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3));
         border-radius: var(--rds-border-radius-xs, 3px);
 
         &:hover {
-          background: var(--rds-color-on-surface, rgba(0, 0, 0, 0.5));
+          background-color: var(--rds-color-on-surface, rgba(0, 0, 0, 0.5));
         }
       }
     }

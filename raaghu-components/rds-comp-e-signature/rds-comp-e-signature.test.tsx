@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompESignature, { RdsCompESignatureProps } from './rds-comp-e-signature';
+import RdsCompESignature from './rds-comp-e-signature';
 
 // Mock SCSS
 jest.mock('./rds-comp-e-signature.scss', () => ({}));

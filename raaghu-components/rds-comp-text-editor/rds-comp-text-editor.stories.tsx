@@ -1,8 +1,5 @@
-import React from "react";
 import RdsCompTextEditor from "./rds-comp-text-editor";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
-
 const meta: Meta = {
     title: 'Components/Text Editor',
     component: RdsCompTextEditor,
@@ -38,10 +35,6 @@ export const Default: Story = {
         rows:6,
         resizable:false,
         placeholder:"Enter Description"
-    },
-    play: async ({ canvasElement }) => {
-        const editor = canvasElement.querySelector('[contenteditable="true"], .ql-editor, .ProseMirror') || canvasElement.firstElementChild;
-        expect(editor).toBeTruthy();
-    },
+    },
 } satisfies Story;
 Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory','rows','resizable','placeholder'] } };

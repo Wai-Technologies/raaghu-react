@@ -74,7 +74,7 @@ export class PerformanceMonitor {
 export class BundleSizeAnalyzer {
   static async analyzeComponent(_componentName: string): Promise<number> {
     // Mock implementation - in real scenario, this would analyze actual bundle sizes
-    const mockSize = Math.random() * 50000; // 0-50KB
+    const mockSize = 25000; // fixed mock size for bundle analysis placeholder
     return new Promise((resolve) => {
       setTimeout(() => resolve(mockSize), 100);
     });

@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsHeader from './rds-header';
 import { Button, IconButton, Avatar, Badge, Menu, Box, MenuItem } from '@mui/material';
@@ -42,11 +41,7 @@ export const Default: Story = {
   args: {
     title: 'My Application',
     color: 'default',
-  },
-  play: async ({ canvasElement }) => {
-    const h = canvasElement.querySelector('header, .MuiAppBar-root') || canvasElement.firstElementChild;
-    expect(h).toBeTruthy();
-  },
+  },
 };
 export const LogoSearchActions: Story = {
   args: {

@@ -28,7 +28,7 @@ function useMobilePopoverPosition(position: string): string {
 
   React.useEffect(() => {
     function handleResize() {
-      const width = window.innerWidth;
+      const width = globalThis.innerWidth;
       const topGroup = [
         'top-left', 'top-center', 'top-right',
         'left-top', 'left-center', 'right-top'
@@ -50,8 +50,8 @@ function useMobilePopoverPosition(position: string): string {
       }
     }
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    globalThis.addEventListener('resize', handleResize);
+    return () => globalThis.removeEventListener('resize', handleResize);
   }, [position]);
   return mobilePosition;
 }

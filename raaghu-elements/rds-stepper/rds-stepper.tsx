@@ -49,7 +49,7 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
     >
       {steps.map((step, index) => (
         <MuiStep
-          key={index}
+          key={step.label}
           completed={step.completed}
           disabled={step.disabled}
         >

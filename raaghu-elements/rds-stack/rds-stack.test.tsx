@@ -301,7 +301,7 @@ describe('RdsStack', () => {
 
     it('should accept custom divider as React component', () => {
       const CustomDivider = <span data-testid="custom-divider">Custom</span>;
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsStack direction="row" divider={CustomDivider}>
           <div>Item 1</div>
           <div>Item 2</div>
@@ -331,7 +331,7 @@ describe('RdsStack', () => {
         </RdsStack>
       );
       const stack = container.querySelector('.MuiStack-root');
-      const style = window.getComputedStyle(stack!);
+      const _style = window.getComputedStyle(stack!);
       expect(stack).toBeInTheDocument();
     });
 
@@ -496,7 +496,7 @@ describe('RdsStack', () => {
     });
 
     it('should handle null and undefined children', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsStack>
           <div>Item 1</div>
           {null}
@@ -674,7 +674,7 @@ describe('RdsStack', () => {
     });
 
     it('should render complex layout with nested stacks', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsStack direction="column" spacing={3}>
           <div data-testid="header">Header</div>
           <RdsStack direction="row" spacing={2}>
@@ -709,7 +709,7 @@ describe('RdsStack', () => {
     });
 
     it('should support mixed alignment and distribution in complex layout', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsStack
           direction="row"
           spacing={2}

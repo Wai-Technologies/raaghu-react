@@ -7,7 +7,7 @@ import RdsCompCodeSnippet from './rds-comp-code-snippet';
 // Mock dependencies
 jest.mock('./rds-comp-code-snippet.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
-  return function MockRdsButton({ children, onClick, text, style, showLeftIcon, textCase, changeLeftIcon, size, ...props }: any) {
+  return function MockRdsButton({ children, onClick, text, style: _style, showLeftIcon: _showLeftIcon, textCase: _textCase, changeLeftIcon: _changeLeftIcon, size: _size, ...props }: any) {
     return (
       <button data-testid="rds-button" onClick={onClick} {...props}>
         {text || children}
@@ -16,7 +16,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   };
 });
 jest.mock('../../raaghu-elements/rds-button-dropdown/rds-button-dropdown', () => {
-  return function MockRdsButtonDropdown({ onChange, options, buttonText, leftIcon, rightIcon, showSearch, showUserAvatar, showRadio, size, ...props }: any) {
+  return function MockRdsButtonDropdown({ onChange, options, buttonText, _leftIcon, _rightIcon, _showSearch, _showUserAvatar, _showRadio, _size, ...props }: any) {
     return (
       <select data-testid="rds-button-dropdown" aria-label={buttonText || 'Select language'} onChange={(e) => onChange(e.target.value)} {...props}>
         {options?.map((opt: any) => (
@@ -34,19 +34,19 @@ jest.mock('@mui/icons-material/OpenInFullOutlined', () => {
   };
 });
 jest.mock('@mui/icons-material/CodeOff', () => {
-  return function MockIcon(props: any) {
+  return function MockIcon(_props: any) {
     return <span data-testid="code-off-icon" />;
   };
 });
 jest.mock('@mui/icons-material/KeyboardArrowDown', () => {
-  return function MockIcon(props: any) {
+  return function MockIcon(_props: any) {
     return <span data-testid="arrow-down-icon" />;
   };
 });
 
 // Mock SyntaxHighlighter
 jest.mock('react-syntax-highlighter/dist/esm/default-highlight', () => {
-  return function MockHighlighter({ children, language, showLineNumbers, style, wrapLongLines, PreTag, className, ...props }: any) {
+  return function MockHighlighter({ children, language, showLineNumbers, _style, _wrapLongLines, _PreTag, className, ...props }: any) {
     return (
       <pre data-testid="syntax-highlighter" data-language={language} data-show-lines={showLineNumbers} className={className} {...props}>
         {children}
@@ -71,17 +71,6 @@ Object.assign(navigator, {
     writeText: jest.fn(() => Promise.resolve()),
   },
 });
-
-interface CodeSnippet {
-  code: string;
-  language: string | boolean;
-  codeLines: boolean;
-  theme: string;
-  type: string;
-  maxHeight: string;
-  className: string;
-  sampleCodeSnippets: Record<string, string>;
-}
 
 const defaultCode = '<div>Hello World</div>';
 const defaultProps = {
@@ -312,7 +301,7 @@ describe('RdsCompCodeSnippet', () => {
     });
 
     it('defaults to html when no language specified', () => {
-      const { container } = render(
+      render(
         <RdsCompCodeSnippet code={defaultCode} type="multiLine" />
       );
       expect(screen.getByTestId('syntax-highlighter')).toHaveAttribute('data-language', 'html');
@@ -738,7 +727,7 @@ describe('RdsCompCodeSnippet', () => {
     });
 
     it('preserves state during re-render', async () => {
-      const { rerender } = render(
+      render(
         <RdsCompCodeSnippet {...defaultProps} type="multiLine" />
       );
       const copyButton = screen.getAllByTestId('rds-button')[0];

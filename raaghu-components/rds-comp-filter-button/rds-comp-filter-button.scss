@@ -25,7 +25,7 @@
       left: var(--rds-spacing-md, 16px);
       right: var(--rds-spacing-md, 16px);
       height: 1px;
-      background: var(--rds-color-border);
+      background-color: var(--rds-color-border);
     }
   }
 
@@ -41,14 +41,14 @@
     width: 380px !important;
 
   } 
-      background: var(--rds-color-scrollbar-track);
+      background-color: var(--rds-color-scrollbar-track);
     }
     &::-webkit-scrollbar-thumb {
-      background: var(--rds-color-scrollbar-thumb);
+      background-color: var(--rds-color-scrollbar-thumb);
       border-radius: calc(0.75 * var(--rds-border-radius-sm, 4px));
     }
     &::-webkit-scrollbar-thumb:hover {
-      background: var(--rds-color-scrollbar-thumb-hover);
+      background-color: var(--rds-color-scrollbar-thumb-hover);
     }
   }
 
@@ -69,7 +69,7 @@
     flex-direction: column;
     height: 100%;
     max-height: 450px;
-    background: var(--rds-color-surface);
+    background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 8px);
     overflow: hidden;
   }
@@ -116,7 +116,7 @@
     left: var(--rds-spacing-md, 16px);
     right: var(--rds-spacing-md, 16px);
     height: 1px;
-    background: var(--rds-border-light);
+    background-color: var(--rds-border-light);
   }
   
   .rds-filter-button__search {

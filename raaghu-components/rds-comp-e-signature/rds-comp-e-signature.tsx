@@ -56,7 +56,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     if (!canvasRef.current || mode !== 'draw') return;
     const canvas = canvasRef.current;
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = globalThis.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
@@ -70,8 +70,8 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
       }
     };
     resize();
-    window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
+    globalThis.addEventListener('resize', resize);
+    return () => globalThis.removeEventListener('resize', resize);
   }, [mode, selectedColor, type]);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {

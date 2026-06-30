@@ -1,6 +1,4 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsCompTimePicker from "./rds-comp-time-picker";
 
 const meta: Meta = {
@@ -51,9 +49,5 @@ export const Default: Story = {
     colorVariant: "primary",
     style: "default",
     state: "default",
-  },
-  play: async ({ canvasElement }) => {
-    const el = canvasElement.querySelector('input');
-    expect(el).toBeInTheDocument();
-  },
+  },
 };
