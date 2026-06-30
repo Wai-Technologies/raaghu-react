@@ -205,15 +205,20 @@
   &__stacking {
     display: flex;
     align-items: center;
+    position: relative;
     height: auto;
-    min-width: 0;
+    flex-shrink: 0;
+    min-width: fit-content;
+    background: none;
+    box-shadow: none;
   }
 
   &__stacking-avatar {
     box-shadow: 0 0 0 2px var(--rds-color-on-primary);
     transition: box-shadow var(--rds-transition-base);
-    background: var(--rds-background-paper);
+    position: relative;
     flex-shrink: 0;
+    background-color: var(--rds-background-paper);
   }
 
   &--primary {

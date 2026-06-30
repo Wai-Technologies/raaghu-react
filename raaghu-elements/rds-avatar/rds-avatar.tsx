@@ -61,10 +61,31 @@ const RdsAvatar = ({
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
     const visibleAvatars = avatars.slice(0, maxVisibleAvatars);
     const remainingCount = Math.max(0, avatars.length - maxVisibleAvatars);
-    const overlapOffset = size === 'smallest' ? -12 : size === 'small' ? -14 : size === 'medium' ? -16 : size === 'largest' ? -26 : size === 'large' ? -20 : -22;
+    const overlapOffsets: Record<string, number> = {
+      smallest: -12,
+      small: -14,
+      medium: -16,
+      large: -20,
+      largest: -26,
+    };
+    const overlapOffset = overlapOffsets[size] ?? -22;
+    const avatarSize = sizeStyles[size].width;
+    const itemCount = visibleAvatars.length + (remainingCount > 0 && showRemainingCount ? 1 : 0);
+    const stackWidth =
+      itemCount > 0 ? avatarSize + Math.max(0, itemCount - 1) * (avatarSize + overlapOffset) : avatarSize;
 
     return (
-      <div className="rds-avatar__stacking avatar-container" style={{ display: 'flex', alignItems: 'center' }}>
+      <div
+        className={clsx('rds-avatar', `rds-avatar--${size}`, 'rds-avatar__stacking', 'avatar-container')}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          flexShrink: 0,
+          minHeight: avatarSize,
+          width: stackWidth,
+        }}
+      >
         {visibleAvatars.map((avatar, idx) => (
     <MuiAvatar
       key={avatar.src || avatar.title || avatar.alt || `${avatar.colorVariant || 'avatar'}-${idx + 1}`}

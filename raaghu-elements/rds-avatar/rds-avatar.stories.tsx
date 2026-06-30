@@ -62,6 +62,14 @@ const meta: Meta<typeof RdsAvatar> = {
       control: { type: 'number', min: 1, max: 5, step: 1 },
       description: 'Maximum number of avatars to show in stacking mode (1-5)',
     },
+    showRemainingCount: {
+      control: 'boolean',
+      description: 'Show +N indicator for remaining avatars in stacking mode',
+    },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
     displayStyle: {
       control: 'select',
       options: ['with-name', 'name-bottom', 'stacking'],

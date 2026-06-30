@@ -122,6 +122,7 @@ const RdsAppBar = ({
         props.color === 'primary' && 'rds-header--primary',
         props.color === 'secondary' && 'rds-header--secondary',
         props.color === 'transparent' && 'rds-header--transparent',
+        showMenuButton && 'rds-header--has-menu-button',
         variantStyle && `rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}`,
         props.className,
       )}

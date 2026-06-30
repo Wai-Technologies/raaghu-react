@@ -513,6 +513,32 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
+// Prevent title/search overlap when menu button consumes left toolbar space
+@media (max-width: 420px) {
+  .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
+    .rds-header__title {
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      max-width: 38% !important;
+      margin: 0 var(--rds-spacing-xs) !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .rds-header__search-wrapper {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      max-width: 120px !important;
+    }
+
+    .rds-header__right-actions .MuiButton-root {
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact) !important;
+      min-width: auto !important;
+      font-size: var(--rds-font-size-xs) !important;
+    }
+  }
+}
+
 .rds-header--transparent {
   &.rds-header {
     background: transparent;
@@ -2656,4 +2682,25 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
+@media (max-width: 320px) {
+  .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
+    .rds-header__title {
+      max-width: calc(100% - 130px) !important;
+      font-size: var(--rds-font-size-sm) !important;
+      margin: 0 var(--rds-spacing-xxs) !important;
+    }
+
+    .rds-header__search-wrapper {
+      display: none !important;
+    }
+
+    .rds-header__right-actions .MuiButton-root {
+      display: none !important;
+    }
+
+    .rds-header__actions {
+      margin-left: auto !important;
+    }
+  }
+}
 
