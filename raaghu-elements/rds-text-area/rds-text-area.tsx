@@ -151,7 +151,13 @@ const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
         </label>
       )}
       
-      <div className="textarea-wrapper">
+      <div
+        className={clsx(
+          'textarea-wrapper',
+          props.style === TextareaStyle.Pill && 'textarea-pill-wrapper',
+          props.style === TextareaStyle.Pill && getStateClass()
+        )}
+      >
         <textarea
           id={assignedId}
           className={clsx('rds-textarea', getStateClass(), getStyleClass(), props.customClasses)}
