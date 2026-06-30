@@ -1,4 +1,4 @@
-import { type ReactNode, type CSSProperties } from 'react';
+import { type ReactNode, type CSSProperties, isValidElement } from 'react';
 import { Fab as MuiFab, type FabProps } from '@mui/material';
 import './rds-fab.scss';
 
@@ -25,16 +25,26 @@ const RdsFab = ({
 }: RdsFabProps) => {
   const positionStyles = position ? (POSITION_STYLES[position] ?? {}) : {};
 
+  const isRenderableNode = (node: unknown): node is ReactNode =>
+    node == null ||
+    typeof node === 'string' ||
+    typeof node === 'number' ||
+    isValidElement(node);
+
   const isExtended = props.variant === 'extended';
+  const resolvedIcon = isRenderableNode(icon) ? icon : undefined;
+  const resolvedLabel = typeof label === 'string' ? label : undefined;
+  const resolvedChildren = isRenderableNode(children) ? children : undefined;
+
   let fabContent;
-  if (isExtended && icon && label) {
-    fabContent = <><span>{icon}</span><span>{label}</span></>;
-  } else if (children) {
-    fabContent = children;
-  } else if (icon) {
-    fabContent = icon;
-  } else if (label) {
-    fabContent = label;
+  if (isExtended && resolvedIcon && resolvedLabel) {
+    fabContent = <><span>{resolvedIcon}</span><span>{resolvedLabel}</span></>;
+  } else if (resolvedChildren) {
+    fabContent = resolvedChildren;
+  } else if (resolvedIcon) {
+    fabContent = resolvedIcon;
+  } else if (resolvedLabel) {
+    fabContent = resolvedLabel;
   } else {
     fabContent = null;
   }

@@ -20,6 +20,10 @@ const meta: Meta<typeof RdsCollapse> = {
     showToggleButton: {
       control: 'boolean',
     },
+    title: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
   },
 };
 

@@ -60,6 +60,7 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       control: 'text',
       description: 'Icon to display in breadcrumb items',
     },
+    separator: { control: { disable: true }, table: { disable: true } },
   },
 };
 

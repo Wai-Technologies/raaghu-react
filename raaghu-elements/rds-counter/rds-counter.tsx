@@ -193,7 +193,7 @@ const RdsCounter = ({
 
   return (
     <Box className={containerClasses}>
-      {showTitle && titleText && (
+      {showTitle && typeof titleText === 'string' && titleText && (
         <Typography className={clsx(
           'rds-counter__label',
           variant === 'compact' && 'rds-counter__label--compact',

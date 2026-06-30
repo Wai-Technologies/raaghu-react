@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, isValidElement } from 'react';
 import {
   Backdrop as MuiBackdrop,
   BackdropProps,
@@ -21,9 +21,12 @@ const RdsBackdrop = ({
 }: RdsBackdropProps) => {
   const isOpen = open !== undefined ? open : loading;
 
-  const content = loading
-    ? (loadingComponent ?? <CircularProgress color="inherit" />)
-    : children;
+  const resolvedLoadingComponent =
+    loadingComponent != null && isValidElement(loadingComponent)
+      ? loadingComponent
+      : <CircularProgress color="inherit" />;
+
+  const content = loading ? resolvedLoadingComponent : children;
 
   const backdropClassName = className ? `rds-backdrop ${className}` : 'rds-backdrop';
 
