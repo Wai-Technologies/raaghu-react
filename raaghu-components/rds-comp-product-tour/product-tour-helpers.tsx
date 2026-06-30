@@ -159,6 +159,7 @@ export const renderFormInputs = () => (
                 <RdsAutocomplete
                     controlStyle="default"
                     helperText=""
+                    hideClearAllOnMobile={true}
                     isMandatory={false}
                     isShowCheckbox={true}
                     isShowRadio={false}

@@ -46,6 +46,8 @@
       width: 100%;
       box-sizing: border-box;
       overflow: visible;
+      container-type: inline-size;
+      container-name: product-tour-form;
     }
   }
 
@@ -1099,9 +1101,29 @@
     }
 
     .rds-comp-product-tour__form-input-row--team-members {
-      .MuiAutocomplete-clearIndicator {
+      .rds-autocomplete .MuiAutocomplete-clearIndicator {
         display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        pointer-events: none !important;
       }
+    }
+  }
+}
+
+@container product-tour-form (max-width: 414px) {
+  .rds-comp-product-tour__form-input-row--team-members {
+    .rds-autocomplete .MuiAutocomplete-clearIndicator {
+      display: none !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      pointer-events: none !important;
     }
   }
 }
