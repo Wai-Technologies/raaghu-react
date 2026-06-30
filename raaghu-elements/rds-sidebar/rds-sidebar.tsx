@@ -190,17 +190,23 @@ const RdsSidebar = ({
             <div className="rds-sidebar__search-section">
               <hr className="rds-sidebar__search-divider" />
             </div>
-            <div className="rds-sidebar__search-container">
+            <div
+              className={clsx(
+                'rds-sidebar__search-container',
+                shouldShowIconsOnly && 'rds-sidebar__search-container--icon-only',
+              )}
+            >
               <RdsSearch
-                iconPosition="right"
+                iconPosition={shouldShowIconsOnly ? 'left' : 'right'}
                 label=""
                 labelPosition="top"
                 onChange={value => setSearchValue(value)}
                 onSearch={() => {}}
                 placeholder={shouldShowIconsOnly ? '' : 'Search...'}
+                showClearButton={!shouldShowIconsOnly}
                 size="small"
                 value={searchValue}
-                sx={{ width: shouldShowIconsOnly ? 38 : Math.min(width - 32, 205) }}
+                sx={shouldShowIconsOnly ? undefined : { width: Math.min(width - 32, 205) }}
               />
             </div>
           </>
