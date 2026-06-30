@@ -212,6 +212,17 @@ describe('RdsBreadcrumbs', () => {
       );
       expect(container.textContent).toContain('@');
     });
+
+    it('should ignore empty object separator and fall back to separatorType', () => {
+      const { container } = render(
+        <RdsBreadcrumbs
+          {...defaultProps}
+          separator={{} as React.ReactNode}
+          separatorType={BreadcrumbSeparator.Slash}
+        />
+      );
+      expect(container.textContent).toContain('/');
+    });
   });
 
   describe('Layouts', () => {

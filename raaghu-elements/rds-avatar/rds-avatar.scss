@@ -126,6 +126,24 @@
     background: none;
     box-shadow: none;
   }
+  &--with-ring {
+    .rds-avatar__avatar-wrap {
+      padding: calc(var(--rds-spacing-xs, 4px) + 1px);
+    }
+
+    .rds-avatar__ring {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .MuiAvatar-root {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
   &--name-bottom {
     display: flex;
     flex-direction: column;
@@ -143,17 +161,12 @@
       overflow: visible;
       padding: calc(var(--rds-spacing-xs, 4px) / 2);
     }
-    .rds-avatar__ring {
-      position: absolute;
-      top: -0.5px;
-      left: -0.5px;
-      right: -0.5px;
-      bottom: -0.5px;
-      border: 2.5px solid currentColor;
-      border-radius: var(--rds-border-radius-full, 50%);
-      z-index: var(--rds-z-index-base);
-      pointer-events: none;
-      background-color: transparent;
+
+    &.rds-avatar--with-ring {
+      .rds-avatar__avatar-outer,
+      .rds-avatar__avatar-wrap {
+        padding: calc(var(--rds-spacing-xs, 4px) + 1px);
+      }
     }
     .rds-avatar__dot {
       position: absolute;

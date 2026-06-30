@@ -2630,6 +2630,33 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
+.rds-language-button {
+  cursor: pointer;
+  text-transform: none;
+  min-width: 0;
+}
+
+.rds-admin-profile__button {
+  cursor: pointer;
+  text-transform: none;
+  min-width: 0;
+}
+
+.rds-admin-profile__chevron {
+  flex-shrink: 0;
+  transition: transform var(--rds-transition-base, 0.2s ease);
+  transform: rotate(0deg);
+
+  &--open {
+    transform: rotate(180deg);
+  }
+}
+
+.rds-admin-profile__drawer-avatar.MuiAvatar-root {
+  font-size: var(--rds-font-size-3xl, 2rem) !important;
+  font-weight: var(--rds-font-weight-semibold, 600) !important;
+}
+
 .rds-header--variant-dashboardwithlang {
   .rds-bottom-navigation {
     display: none;

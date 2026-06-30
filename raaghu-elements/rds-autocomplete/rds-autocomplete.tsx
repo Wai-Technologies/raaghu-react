@@ -125,6 +125,11 @@ const RdsAutocomplete = <T extends { label?: string },>({
         );
       } : undefined}
       sx={{ width: '100%' }}
+      slotProps={{
+        paper: {
+          className: 'rds-autocomplete__dropdown-paper',
+        },
+      }}
       ListboxProps={{
         sx: {
           '& .MuiAutocomplete-option': {
