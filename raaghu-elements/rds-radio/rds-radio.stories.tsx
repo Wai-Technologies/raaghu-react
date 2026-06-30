@@ -15,6 +15,10 @@ const meta: Meta<typeof RdsRadio> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    label: {
+      control: 'text',
+      description: 'Group label displayed above the radio options',
+    },
     options: {
       control: 'object',
       description: 'Array of radio options',
@@ -173,4 +177,4 @@ export const WithoutLabel: Story = {
     value: undefined,
   },
 };
-WithoutLabel.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
+WithoutLabel.parameters = { controls: { include: ['options', 'value', 'direction', 'layout', 'state'] } };

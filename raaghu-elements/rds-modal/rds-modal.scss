@@ -73,6 +73,29 @@
     &--with-close {
       padding-inline: var(--rds-spacing-sm) !important;
     }
+
+    &--with-image {
+      .rds-modal__content {
+        padding-top: 0;
+      }
+    }
+  }
+
+  &__title-bar {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__close-button {
+    color: var(--rds-neutral-500);
+  }
+
+  &__title:not(&__title--with-image) &__close-button {
+    position: absolute;
+    right: var(--rds-spacing-sm, 8px);
+    top: var(--rds-spacing-sm, 8px);
   }
  
   &__close {
