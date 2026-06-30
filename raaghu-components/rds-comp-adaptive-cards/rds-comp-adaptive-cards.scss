@@ -48,9 +48,11 @@
 .rds-adaptive-cards--default {
   width: var(--rds-card-width-default, 450px);
   height: var(--rds-alt-card-body-height, auto);
-  border: 1px solid var(--rds-border-light);
+  border: 1px solid var(--rds-border-light) !important;
   border-radius: var(--rds-border-radius-lg);
   padding: var(--rds-spacing-xs) 0 0 0;
+  background: var(--rds-background-default);
+  box-shadow: none;
 }
 
 .rds-adaptive-cards {

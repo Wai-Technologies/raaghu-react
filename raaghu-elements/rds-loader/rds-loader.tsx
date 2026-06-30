@@ -26,7 +26,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
     return (
       <div className="d-flex justify-content-center my-5">
         <div className={classes} />
-        {props.label && (
+        {typeof props.label === 'string' && props.label && (
           <div className="rds-loader__label-wrap">
             <span className="rds-loader__label">{props.label}</span>
           </div>
@@ -65,7 +65,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
     if (variant === 'linear') {
       return (
         <Box sx={{ width: '100%' }}>
-          {label && (
+          {typeof label === 'string' && label && (
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
               {label}
             </Typography>
@@ -74,7 +74,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
             variant={value !== undefined ? 'determinate' : 'indeterminate'}
             value={value}
             color={color}
-            aria-label={label || 'Loading'}
+            aria-label={typeof label === 'string' ? label || 'Loading' : 'Loading'}
           />
           {value !== undefined && (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
@@ -100,9 +100,9 @@ const RdsLoader = (props: RdsLoaderProps) => {
           color={color}
           size={getSizeValue()}
           thickness={thickness}
-          aria-label={label || 'Loading'}
+          aria-label={typeof label === 'string' ? label || 'Loading' : 'Loading'}
         />
-        {label && (
+        {typeof label === 'string' && label && (
           <Typography variant="body2" color="text.secondary">
             {label}
           </Typography>

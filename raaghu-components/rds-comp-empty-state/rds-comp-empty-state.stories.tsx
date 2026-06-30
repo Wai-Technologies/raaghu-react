@@ -75,7 +75,13 @@ export const Default: Story = {
 export const Animated: Story = {
   args: {
     ...Default.args,
+    variant: "illustration",
     isContinueAnimate: true,
+  },
+  argTypes: {
+    variant: {
+      table: { disable: true },
+    },
   },
   play: async ({ canvasElement }) => {
     await expect(canvasElement.firstChild).toBeTruthy();

@@ -141,6 +141,49 @@ export function applyRaaghuTheme(
   injectTokens(effectiveMode, overrides);
 }
 
+/**
+ * Reads Storybook `globals` query param from the current window and parent frames.
+ * In static/production builds the manager URL carries globals; the preview iframe often does not.
+ */
+export function getStorybookGlobalsFromUrl(win: Window = window): string {
+  if (typeof win === 'undefined') return '';
+
+  const searches: string[] = [];
+  const seen = new Set<Window>();
+  let current: Window | null = win;
+
+  while (current) {
+    if (seen.has(current)) break;
+    seen.add(current);
+
+    try {
+      searches.push(current.location.search);
+    } catch {
+      break;
+    }
+
+    if (current.parent === current) break;
+    current = current.parent;
+  }
+
+  for (const search of searches) {
+    const params = new URLSearchParams(search);
+    const globals = decodeURIComponent(params.get('globals') || '');
+    if (globals) return globals;
+  }
+
+  return '';
+}
+
+/** Parses `theme:*` from Storybook globals in the URL hierarchy. */
+export function getStorybookThemeFromUrl(win: Window = window): RaaghuThemeMode | null {
+  const globals = getStorybookGlobalsFromUrl(win);
+  if (globals.includes('theme:dark')) return 'dark';
+  if (globals.includes('theme:light')) return 'light';
+  if (globals.includes('theme:system')) return 'system';
+  return null;
+}
+
 export function getRaaghuThemeMode(): RaaghuThemeMode {
   if (typeof document === 'undefined') return 'light';
   const htmlTheme = document.documentElement.getAttribute('data-theme');

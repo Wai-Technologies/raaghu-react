@@ -127,6 +127,14 @@
       outline-offset: 2px;
     }
 
+    &.rds-button {
+      .MuiButton-startIcon,
+      .MuiButton-endIcon,
+      svg {
+        color: inherit;
+      }
+    }
+
     &--copied {
       background-color: var(--rds-color-success) !important;
       color: var(--rds-color-on-success) !important;
@@ -317,13 +325,30 @@
     }
 
     .rds-comp-code-snippet__copy-button {
-      background-color: var(--rds-color-surface-variant-dark);
-      color: var(--rds-color-on-surface-variant-dark);
-      border-color: var(--rds-color-border-dark);
+      background-color: var(--rds-neutral-0) !important;
+      color: var(--rds-neutral-900) !important;
+      border-color: var(--rds-neutral-300) !important;
 
-      &:hover {
-        background-color: var(--rds-color-surface-hover-dark);
-        color: var(--rds-color-on-surface-dark);
+      &.rds-button,
+      &.MuiButton-outlined {
+        color: var(--rds-neutral-900) !important;
+      }
+
+      .MuiButton-startIcon,
+      .MuiButton-endIcon,
+      .rds-button__icon,
+      svg {
+        color: currentColor !important;
+      }
+
+      svg path {
+        fill: currentColor !important;
+      }
+
+      &:hover:not(.rds-comp-code-snippet__copy-button--copied) {
+        background-color: var(--rds-neutral-100) !important;
+        color: var(--rds-neutral-900) !important;
+        border-color: var(--rds-neutral-400) !important;
       }
     }
 

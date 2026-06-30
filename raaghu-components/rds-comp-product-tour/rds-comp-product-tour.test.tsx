@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import RdsCompProductTour from './rds-comp-product-tour';
 import { RdsCompProductTourProps } from './product-tour-helpers';
 import '@testing-library/jest-dom';
@@ -260,6 +261,26 @@ describe('RdsCompProductTour', () => {
       );
       expect(screen.getByText('Carousel Title')).toBeInTheDocument();
       expect(screen.getByText('Carousel Desc')).toBeInTheDocument();
+    });
+
+    it('should navigate carousel slides when next and previous are clicked', async () => {
+      const user = userEvent.setup();
+      const { container } = render(
+        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} stepsIndicator="1/3" />
+      );
+
+      expect(screen.getByText('1/3')).toBeInTheDocument();
+
+      const nextButton = container.querySelector('.rds-comp-product-tour__carousel-arrow-next');
+      const prevButton = container.querySelector('.rds-comp-product-tour__carousel-arrow-prev');
+      expect(nextButton).toBeInTheDocument();
+      expect(prevButton).toBeInTheDocument();
+
+      await user.click(nextButton!);
+      expect(screen.getByText('2/3')).toBeInTheDocument();
+
+      await user.click(prevButton!);
+      expect(screen.getByText('1/3')).toBeInTheDocument();
     });
   });
 

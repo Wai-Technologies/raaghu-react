@@ -326,6 +326,31 @@ describe('RdsCompFilterButton', () => {
       fireEvent.change(searchInput, { target: { value: '' } });
       expect(searchInput.value).toBe('');
     });
+
+    it('should filter options by search term', () => {
+      renderComponent();
+      fireEvent.click(screen.getByTestId('filter-trigger-button'));
+
+      expect(screen.getByText('Option A')).toBeInTheDocument();
+      expect(screen.getByText('Option X')).toBeInTheDocument();
+
+      const searchInput = screen.getByTestId('search-input');
+      fireEvent.change(searchInput, { target: { value: 'Option A' } });
+
+      expect(screen.getByText('Option A')).toBeInTheDocument();
+      expect(screen.queryByText('Option X')).not.toBeInTheDocument();
+    });
+
+    it('should filter by filter category name', () => {
+      renderComponent();
+      fireEvent.click(screen.getByTestId('filter-trigger-button'));
+
+      const searchInput = screen.getByTestId('search-input');
+      fireEvent.change(searchInput, { target: { value: 'Category 2' } });
+
+      expect(screen.getByText('Category 2')).toBeInTheDocument();
+      expect(screen.queryByText('Category 1')).not.toBeInTheDocument();
+    });
   });
 
   describe('Filter Selection', () => {

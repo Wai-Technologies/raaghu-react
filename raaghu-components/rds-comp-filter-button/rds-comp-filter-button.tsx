@@ -7,7 +7,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  FormControlLabel,
   TextField,
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
@@ -115,6 +114,26 @@ const RdsCompFilterButton = ({
   const activeFiltersCount = localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0);
   const buttonText = activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text;
 
+  const filteredFilters = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return localFilters;
+
+    return localFilters
+      .map((filter) => {
+        const nameMatches = filter.name.toLowerCase().includes(term);
+        const matchingValues = filter.values.filter((value) =>
+          value.toLowerCase().includes(term)
+        );
+
+        if (nameMatches) return filter;
+        if (matchingValues.length > 0) {
+          return { ...filter, values: matchingValues };
+        }
+        return null;
+      })
+      .filter((filter): filter is FilterOption => filter !== null);
+  }, [localFilters, searchTerm]);
+
   return (
     <Box className={clsx("rds-comp-filter-button", className)} {...props}>
       <RdsButton
@@ -175,7 +194,7 @@ const RdsCompFilterButton = ({
               background: 'var(--rds-neutral-500)',
             },
           }}>
-            {localFilters.map((filter, index) => (
+            {filteredFilters.map((filter, index) => (
               <Accordion 
                 key={filter.id}
                 elevation={0}
@@ -213,7 +232,7 @@ const RdsCompFilterButton = ({
                       right: 'var(--rds-spacing-md, 16px)',
                       height: '1px',
                       backgroundColor: 'var(--rds-border-default)',
-                      display: index === localFilters.length - 1 ? 'none' : 'block',
+                      display: index === filteredFilters.length - 1 ? 'none' : 'block',
                     }
                   }}
                 >
@@ -240,31 +259,17 @@ const RdsCompFilterButton = ({
                   py: 1,
                   pt: 0,
                 }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                  <Box className="rds-filter-button__options">
                     {filter.values.map((value) => (
-                      <FormControlLabel
+                      <RdsCheckbox
                         key={value}
-                        control={
-                          <RdsCheckbox
-                            checked={filter.selectedValues?.includes(value) || false}
-                            onChange={(e, checked) => handleFilterChange(filter.id, value, checked)}
-                            size="small"
-                          />
-                        }
-                        label={
-                          <Typography sx={{ 
-                            fontSize: 'var(--rds-font-size-sm, 13px)',
-                            color: 'var(--rds-text-secondary)'
-                          }}>
-                            {value}
-                          </Typography>
-                        }
-                        sx={{
-                          margin: 0,
-                          '& .MuiFormControlLabel-label': {
-                            paddingLeft: 'var(--rds-spacing-xs, 4px)'
-                          }
-                        }}
+                        className="rds-filter-button__option"
+                        labeltext={value}
+                        showText
+                        color="primary"
+                        size="small"
+                        status={filter.selectedValues?.includes(value) ? 'checked' : 'unchecked'}
+                        onChange={(_e, checked) => handleFilterChange(filter.id, value, checked)}
                       />
                     ))}
                   </Box>

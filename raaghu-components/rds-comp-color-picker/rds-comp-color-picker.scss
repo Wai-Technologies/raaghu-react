@@ -307,6 +307,14 @@
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
     text-align: center;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+      border-color: var(--rds-color-outline, #e0e0e0);
+    }
   }
   
   &__color-input {
@@ -318,6 +326,14 @@
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
     text-align: center;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+      border-color: var(--rds-color-outline, #e0e0e0);
+    }
   }
   
   &__percent-wrapper {
@@ -335,6 +351,14 @@
     text-align: center;
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+      border-color: var(--rds-color-outline, #e0e0e0);
+    }
   }
   
   &__swatches {

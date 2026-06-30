@@ -186,6 +186,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   return (
     visible && (
       <RdsCardDetail
+        variant="outlined"
+        elevation={0}
         className={clsx("rds-adaptive-cards", "rds-adaptive-cards--default")}
       >
         {type === "Default" ? (
