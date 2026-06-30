@@ -12,6 +12,12 @@ const meta: Meta<typeof RdsCompEmptyState> = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
+    variant: {
+      control: { type: "select" },
+      options: ["illustration", "minimal"],
+      description:
+        "Visual style: illustration shows full artwork; minimal uses a compact icon or cropped circular animation",
+    },
     mode: {
       control: { type: 'select' },
       options: ['Light NRA', 'Dark NRA'],
@@ -35,7 +41,8 @@ const meta: Meta<typeof RdsCompEmptyState> = {
     },
     isContinueAnimate: {
       control: { type: "boolean" },
-      description: "Enable Lottie animation for the empty state icon. When true, displays animated Lottie instead of static PNG image",
+      description:
+        "Enable animation: full Lottie for illustration, circular cropped Lottie for minimal",
     },
     buttonText: {
       control: { type: "text" },
@@ -50,21 +57,31 @@ const meta: Meta<typeof RdsCompEmptyState> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Standard: Story = {
+export const Default: Story = {
   args: {
+    variant: "illustration",
     label: "No Data Available",
     subLabel: "No data available at this moment. Would you like to add new data?",
     iconHeight: 150,
     iconWidth: 150,
     buttonText: "Add New Data",
     isContinueAnimate: false,
-
   },
   play: async ({ canvasElement }) => {
     await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 
-export const Default: Story = { ...Standard };
-
+export const Animated: Story = {
+  args: {
+    ...Default.args,
+    isContinueAnimate: true,
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+    await expect(
+      canvasElement.querySelector('[data-testid="emptyStateLottie"]')
+    ).toBeTruthy();
+  },
+};
 
