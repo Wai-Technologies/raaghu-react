@@ -111,6 +111,7 @@ describe('RdsCompEmptyState', () => {
       renderComponent({ variant: 'minimal' });
       expect(screen.getByTestId('emptyStateMinimalIcon')).toBeInTheDocument();
       expect(screen.queryByTestId('emptyStateImage')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('emptyStateLottie')).not.toBeInTheDocument();
     });
 
     it('should not render illustration image when variant is minimal', () => {
@@ -118,23 +119,10 @@ describe('RdsCompEmptyState', () => {
       expect(screen.queryByTestId('emptyStateImage')).not.toBeInTheDocument();
     });
 
-    it('should render clipped Lottie when variant is minimal and isContinueAnimate is true', () => {
+    it('should render minimal icon even when isContinueAnimate is true', () => {
       renderComponent({ variant: 'minimal', isContinueAnimate: true });
-      expect(screen.getByTestId('emptyStateLottie')).toBeInTheDocument();
-      expect(screen.queryByTestId('emptyStateMinimalIcon')).not.toBeInTheDocument();
-    });
-
-    it('should apply minimal animation class when isContinueAnimate is true', () => {
-      const { container } = renderComponent({ variant: 'minimal', isContinueAnimate: true });
-      expect(
-        container.querySelector('.rds-comp-empty-state__icon--minimal-animated')
-      ).toBeInTheDocument();
-      expect(
-        container.querySelector('.rds-comp-empty-state--minimal-animated')
-      ).toBeInTheDocument();
-      expect(
-        container.querySelector('.rds-comp-empty-state__minimal-lottie-shell')
-      ).toBeInTheDocument();
+      expect(screen.getByTestId('emptyStateMinimalIcon')).toBeInTheDocument();
+      expect(screen.queryByTestId('emptyStateLottie')).not.toBeInTheDocument();
     });
 
     it('should apply minimal modifier classes when variant is minimal', () => {
@@ -330,6 +318,13 @@ describe('RdsCompEmptyState', () => {
   });
 
   describe('Icon Dimensions', () => {
+    it('should apply default 72px dimensions for minimal variant', () => {
+      renderComponent({ variant: 'minimal' });
+      const icon = screen.getByTestId('icon');
+      const style = icon.getAttribute('style');
+      expect(style).toContain('72px');
+    });
+
     it('should apply default dimensions when not provided', () => {
       renderComponent();
       const icon = screen.getByTestId('icon');
