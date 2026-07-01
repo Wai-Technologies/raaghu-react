@@ -232,7 +232,8 @@
       border-radius: 50%;
 
       &:hover {
-        background-color: var(--rds-color-primary-hover-bg);
+        color: var(--rds-text-primary, var(--rds-color-text-primary));
+        background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
       }
     }
 
@@ -277,7 +278,8 @@
     border-radius: 50%;
 
     &:hover {
-      background-color: var(--rds-color-primary-hover-bg);
+      color: var(--rds-text-primary, var(--rds-color-text-primary));
+      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
     }
   }
 
