@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ChangeEvent, type KeyboardEvent } from 'react';
 import { TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
+import type { InputProps } from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import clsx from 'clsx';
@@ -35,7 +36,9 @@ const RdsSearch = ({
   iconPosition = 'left',
   disabled = false,
   fullWidth: fullWidthProp = false,
-  ...props
+  InputProps: legacyInputProps,
+  slotProps: consumerSlotProps,
+  ...restProps
 }: RdsSearchProps) => {
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -96,6 +99,79 @@ const RdsSearch = ({
   );
 
   const labelClasses = clsx('rds-search__label', `rds-search__label--${labelPosition}`);
+  const consumerInputProps =
+    typeof consumerSlotProps?.input === 'object' && consumerSlotProps?.input !== null
+      ? (consumerSlotProps.input as InputProps)
+      : undefined;
+
+  const inputSlotProps: InputProps = {
+    ...legacyInputProps,
+    ...consumerInputProps,
+    startAdornment:
+      showSearchIcon && iconPosition === 'left'
+        ? (
+          <InputAdornment position="start">
+            <IconButton
+              onClick={handleSearch}
+              edge="start"
+              aria-label="search"
+              disabled={disabled}
+            >
+              <SearchIcon />
+            </IconButton>
+          </InputAdornment>
+        )
+        : consumerInputProps?.startAdornment ?? legacyInputProps?.startAdornment,
+    endAdornment:
+      iconPosition === 'right' && showSearchIcon
+        ? (
+          <InputAdornment position="end">
+            {showClearButton && value ? (
+              <>
+                <IconButton
+                  onClick={handleClear}
+                  edge="end"
+                  aria-label="clear"
+                  disabled={disabled}
+                >
+                  <ClearIcon />
+                </IconButton>
+                <IconButton
+                  onClick={handleSearch}
+                  edge="end"
+                  aria-label="search"
+                  disabled={disabled}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </>
+            ) : (
+              <IconButton
+                onClick={handleSearch}
+                edge="end"
+                aria-label="search"
+                disabled={disabled}
+              >
+                <SearchIcon />
+              </IconButton>
+            )}
+          </InputAdornment>
+        )
+        : showClearButton && value
+          ? (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={handleClear}
+                edge="end"
+                aria-label="clear"
+                disabled={disabled}
+              >
+                <ClearIcon />
+              </IconButton>
+            </InputAdornment>
+          )
+          : consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment,
+  };
 
   return (
     <div className={containerClasses}>
@@ -112,69 +188,11 @@ const RdsSearch = ({
         placeholder={placeholder}
         disabled={disabled}
         fullWidth={fullWidthProp}
-        InputProps={{
-          startAdornment:
-            showSearchIcon && iconPosition === 'left' ? (
-              <InputAdornment position="start">
-                <IconButton
-                  onClick={handleSearch}
-                  edge="start"
-                  aria-label="search"
-                  disabled={disabled}
-                >
-                  <SearchIcon />
-                </IconButton>
-              </InputAdornment>
-            ) : undefined,
-          endAdornment:
-            iconPosition === 'right' && showSearchIcon ? (
-              <InputAdornment position="end">
-                {showClearButton && value ? (
-                  <>
-                    <IconButton
-                      onClick={handleClear}
-                      edge="end"
-                      aria-label="clear"
-                      disabled={disabled}
-                    >
-                      <ClearIcon />
-                    </IconButton>
-                    <IconButton
-                      onClick={handleSearch}
-                      edge="end"
-                      aria-label="search"
-                      disabled={disabled}
-                    >
-                      <SearchIcon />
-                    </IconButton>
-                  </>
-                ) : (
-                  <IconButton
-                    onClick={handleSearch}
-                    edge="end"
-                    aria-label="search"
-                    disabled={disabled}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                )}
-              </InputAdornment>
-            ) : (
-              showClearButton && value ? (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClear}
-                    edge="end"
-                    aria-label="clear"
-                    disabled={disabled}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>
-              ) : undefined
-            ),
+        slotProps={{
+          ...consumerSlotProps,
+          input: inputSlotProps,
         }}
-        {...props}
+        {...restProps}
       />
     </div>
   );

@@ -408,24 +408,26 @@ describe('RdsTextField', () => {
   });
 
   describe('FormHelperText Props', () => {
-    it('should merge custom FormHelperTextProps with default', () => {
+    it('should merge custom slotProps.formHelperText with default', () => {
       const { container } = renderWithTheme(
-        <RdsTextField 
+        <RdsTextField
           helperText="Help text"
-          FormHelperTextProps={{ className: 'custom-helper' }}
+          slotProps={{ formHelperText: { className: 'custom-helper' } }}
         />
       );
       const helperText = container.querySelector('.MuiFormHelperText-root');
       expect(helperText).toHaveClass('rds-text-field__helper-text');
     });
 
-    it('should apply FormHelperTextProps classes', () => {
+    it('should apply slotProps.formHelperText classes', () => {
       const { container } = renderWithTheme(
-        <RdsTextField 
+        <RdsTextField
           helperText="Help text"
-          FormHelperTextProps={{ 
-            className: 'custom-class-1 custom-class-2',
-            id: 'custom-helper-id'
+          slotProps={{
+            formHelperText: {
+              className: 'custom-class-1 custom-class-2',
+              id: 'custom-helper-id',
+            },
           }}
         />
       );

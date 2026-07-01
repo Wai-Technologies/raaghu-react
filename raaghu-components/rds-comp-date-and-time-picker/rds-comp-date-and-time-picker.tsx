@@ -2,7 +2,6 @@ import React, { useState, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import './rds-comp-date-and-time-picker.scss';
 import dayjs, { Dayjs } from 'dayjs';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -18,6 +17,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import EventIcon from '@mui/icons-material/Event';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import './rds-comp-date-and-time-picker.scss';
 
@@ -926,35 +927,34 @@ export function DatePickerDemo() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer
-        components={[
-          'DatePicker',
-          'TimePicker', 
-          'DateTimePicker',
-          'DateRangePicker',
-          'TimeRangePicker',
-          'DateTimeRangePicker',
-        ]}
-      >
-        <h6 className="rds-date-picker__demo-title">
+      <Box className="rds-date-picker__demo">
+        <Typography variant="h6" component="h6" className="rds-date-picker__demo-title">
           Date Picker Components
-        </h6>
-        
-        {demos.map(({ label, variant, layout, valueKey, style, showSeconds, isRequired }) => (
-          <DemoItem key={`${valueKey}-${style || 'default'}-${showSeconds || 'default'}-${isRequired || 'false'}`} label={label}>
-            <RdsCompDatePicker
-              variant={variant}
-              layout={layout}
-              value={values[valueKey]}
-              onChange={handleChange(valueKey)}
-              style={style}
-              showSeconds={showSeconds}
-              isRequired={isRequired}
-              label={isRequired ? 'Required Field' : 'Optional Field'}
-            />
-          </DemoItem>
-        ))}
-      </DemoContainer>
+        </Typography>
+
+        <Stack spacing={3}>
+          {demos.map(({ label, variant, layout, valueKey, style, showSeconds, isRequired }) => (
+            <Box
+              key={`${valueKey}-${style || 'default'}-${showSeconds || 'default'}-${isRequired || 'false'}`}
+              className="rds-date-picker__demo-item"
+            >
+              <Typography variant="subtitle2" component="p" className="rds-date-picker__demo-label">
+                {label}
+              </Typography>
+              <RdsCompDatePicker
+                variant={variant}
+                layout={layout}
+                value={values[valueKey]}
+                onChange={handleChange(valueKey)}
+                style={style}
+                showSeconds={showSeconds}
+                isRequired={isRequired}
+                label={isRequired ? 'Required Field' : 'Optional Field'}
+              />
+            </Box>
+          ))}
+        </Stack>
+      </Box>
     </LocalizationProvider>
   );
 }
