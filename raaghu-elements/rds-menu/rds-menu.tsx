@@ -14,6 +14,62 @@ function getColor(color: string): string {
   }
 }
 
+const MENU_AVATAR_SIZES = {
+  small: 'smallest',
+  medium: 'small',
+  large: 'medium',
+} as const;
+
+const MENU_ICON_FONT_SIZES = {
+  small: 'small',
+  medium: 'small',
+  large: 'medium',
+} as const;
+
+function isRdsAvatarElement(icon: ReactElement): boolean {
+  const iconType = icon.type as { displayName?: string; name?: string };
+  return iconType?.displayName === 'RdsAvatar' || iconType?.name === 'RdsAvatar';
+}
+
+function normalizeMenuIcon(
+  icon: ReactNode,
+  menuSize: 'small' | 'medium' | 'large',
+  color?: RdsMenuItem['color'],
+): ReactNode {
+  if (!isValidElement(icon)) return icon;
+
+  const colorStyle = color
+    ? { color: getColor(color), fill: getColor(color) }
+    : undefined;
+
+  if (isRdsAvatarElement(icon)) {
+    return cloneElement(
+      icon as ReactElement<{ size?: string; style?: CSSProperties }>,
+      {
+        ...(icon.props as Record<string, unknown>),
+        size: MENU_AVATAR_SIZES[menuSize],
+        style: {
+          ...((icon.props as { style?: CSSProperties }).style ?? {}),
+          ...colorStyle,
+        },
+      },
+    );
+  }
+
+  const iconProps = icon.props as { fontSize?: string; style?: CSSProperties };
+  return cloneElement(
+    icon as ReactElement<{ fontSize?: string; style?: CSSProperties }>,
+    {
+      ...iconProps,
+      fontSize: iconProps.fontSize ?? MENU_ICON_FONT_SIZES[menuSize],
+      style: {
+        ...(iconProps.style ?? {}),
+        ...colorStyle,
+      },
+    },
+  );
+}
+
 export interface RdsMenuItem {
   id: string | number;
   label?: string;
@@ -35,7 +91,7 @@ export interface RdsMenuProps extends Omit<MenuProps, 'children' | 'component'> 
 
 const RdsMenu = ({
   items,
-  size,
+  size = 'small',
   children,
   ...props
 }: RdsMenuProps) => {
@@ -91,21 +147,7 @@ const RdsMenu = ({
                     color: getColor(item.color)
                   } : {}}
                 >
-                  {isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
-                    ? cloneElement(
-                        item.icon as ReactElement<{ style?: CSSProperties }>,
-                        {
-                          ...(item.icon as ReactElement<{ style?: CSSProperties }>).props,
-                          style: {
-                            ...((item.icon as ReactElement<{ style?: CSSProperties }>).props?.style ?? {}),
-                            ...(item.color ? {
-                              color: getColor(item.color),
-                              fill: getColor(item.color),
-                            } : {}),
-                          },
-                        },
-                      )
-                    : item.icon}
+                  {normalizeMenuIcon(item.icon, size ?? 'small', item.color)}
                 </ListItemIcon>
               )}
               <ListItemText

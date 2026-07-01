@@ -93,12 +93,10 @@ export const WithActions = {
     ),
     actions: (
       <>
-        <RdsButton changeLeftIcon="add"
-          changeRightIcon="save"
+        <RdsButton
           color="primary"
           layout="text-only"
           shape="rectangle"
-          showLeftIcon
           size="medium"
           state="default"
           style="outlined"
@@ -126,12 +124,10 @@ export const WithoutCloseButton = {
       </Typography>
     ),
     actions: (
-        <RdsButton changeLeftIcon="add"
-          changeRightIcon="save"
+        <RdsButton
           color="primary"
           layout="text-only"
           shape="rectangle"
-          showLeftIcon
           size="medium"
           state="default"
           style="outlined"
@@ -166,12 +162,10 @@ export const LargeModal = {
     ),
     actions: (
       <>
-         <RdsButton changeLeftIcon="add"
-          changeRightIcon="save"
+         <RdsButton
           color="primary"
           layout="text-only"
           shape="rectangle"
-          showLeftIcon
           size="medium"
           state="default"
           style="outlined"
@@ -200,12 +194,10 @@ export const SmallModal = {
     ),
     actions: (
       <>
-         <RdsButton changeLeftIcon="add"
-          changeRightIcon="save"
+         <RdsButton
           color="primary"
           layout="text-only"
           shape="rectangle"
-          showLeftIcon
           size="medium"
           state="default"
           style="outlined"

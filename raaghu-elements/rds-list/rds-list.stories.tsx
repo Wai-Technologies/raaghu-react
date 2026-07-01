@@ -39,13 +39,41 @@ const meta: Meta<typeof RdsList> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'centered',
+    controls: {
+      exclude: [
+        'items',
+        'component',
+        'ref',
+        'subheader',
+        'checkedItems',
+        'onCheckboxChange',
+        'withCheckboxes',
+        'onClick',
+        'children',
+        'className',
+      ],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['simple', 'button', 'icon', 'avatar', 'firebase'],
+    },
+    alignItems: {
+      control: { type: 'radio' },
+      options: ['flex-start', 'center'],
+    },
     dense: {
       control: { type: 'boolean' },
     },
     disablePadding: {
+      control: { type: 'boolean' },
+    },
+    withDividers: {
+      control: { type: 'boolean' },
+    },
+    disableGutters: {
       control: { type: 'boolean' },
     },
     component: {
@@ -53,6 +81,18 @@ const meta: Meta<typeof RdsList> = {
       table: { disable: true },
     },
     ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    checkedItems: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onCheckboxChange: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    withCheckboxes: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -85,7 +125,7 @@ export const AlignItems: Story = {
         avatar: <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/3.jpg" />,
       },
     ]
-  },
+  },
 };
 const firebaseOverviewItems = [
   {

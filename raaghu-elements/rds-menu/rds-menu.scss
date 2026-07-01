@@ -1,4 +1,7 @@
 .rds-menu {
+  --rds-menu-icon-slot-size: 20px;
+  --rds-menu-icon-size: 20px;
+
   &__list {
     min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
@@ -12,10 +15,25 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 12px);
-    padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
-    font-size: 1rem;
+    gap: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+    font-size: 0.875rem;
     min-height: var(--rds-menu-item-min-height);
+
+    .MuiListItemIcon-root.rds-menu__item__icon {
+      flex: 0 0 var(--rds-menu-icon-slot-size);
+      width: var(--rds-menu-icon-slot-size);
+      min-width: var(--rds-menu-icon-slot-size) !important;
+      max-width: var(--rds-menu-icon-slot-size);
+      height: var(--rds-menu-icon-slot-size);
+      margin-right: 0 !important;
+    }
+
+    .MuiListItemText-root {
+      margin: 0;
+      display: flex;
+      align-items: center;
+    }
     cursor: pointer;
     transition: background var(--rds-transition-fast, 0.18s ease-in-out), color var(--rds-transition-fast, 0.18s ease-in-out);
     border: none;
@@ -40,10 +58,41 @@
       background: none;
     }
     &__icon {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      min-width: 20px;
       justify-content: center;
+      align-self: center;
+
+      .rds-avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+
+      .rds-avatar__avatar-wrap,
+      .rds-avatar__avatar-outer {
+        padding: 0 !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .rds-avatar__info {
+        display: none;
+      }
+
+      .MuiAvatar-root {
+        width: var(--rds-menu-icon-size) !important;
+        height: var(--rds-menu-icon-size) !important;
+        font-size: calc(var(--rds-menu-icon-size) * 0.5) !important;
+      }
+
+      .MuiSvgIcon-root {
+        width: var(--rds-menu-icon-size);
+        height: var(--rds-menu-icon-size);
+        font-size: var(--rds-menu-icon-size);
+      }
     }
     &__text {
       flex: 1 1 auto;
@@ -62,14 +111,19 @@
   }
 
   &--small {
+    --rds-menu-icon-slot-size: 20px;
+    --rds-menu-icon-size: 20px;
+
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-small);
-      max-width: 225px;
+      max-width: 200px;
+      padding: var(--rds-spacing-xs) 0;
     }
     .rds-menu__item {
-      font-size: 0.80rem;
+      font-size: 0.8125rem;
       min-height: var(--rds-menu-item-min-height-small);
-      padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+      gap: var(--rds-spacing-xs, 4px);
     }
     .rds-menu__header {
       font-size: 0.85em;
@@ -78,14 +132,19 @@
   }
 
   &--medium {
+    --rds-menu-icon-slot-size: 24px;
+    --rds-menu-icon-size: 24px;
+
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-medium);
-      max-width: 260px;
+      max-width: 220px;
+      padding: var(--rds-spacing-xs) 0;
     }
     .rds-menu__item {
-      font-size: 1rem;
-      min-height: var(--rds-menu-item-min-height);
-      padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
+      font-size: 0.875rem;
+      min-height: calc(var(--rds-menu-item-min-height) - 8px);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+      gap: var(--rds-spacing-sm, 8px);
     }
     .rds-menu__header {
       font-size: 0.98em;
@@ -94,6 +153,9 @@
   }
 
   &--large {
+    --rds-menu-icon-slot-size: 28px;
+    --rds-menu-icon-size: 28px;
+
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-large);
       max-width: 340px;

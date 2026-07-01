@@ -79,11 +79,34 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: var(--rds-spacing-sm);
+    padding: var(--rds-spacing-xs);
     border-radius: var(--rds-spacing-xs);
+    color: var(--rds-neutral-500);
+
+    &--absolute {
+      position: absolute;
+      right: var(--rds-spacing-sm, 8px);
+      top: var(--rds-spacing-sm, 8px);
+    }
    
     &:hover {
       background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.08));
+    }
+  }
+
+  &__close-row {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: var(--rds-spacing-xs);
+  }
+
+  &__title--with-image {
+    padding-top: var(--rds-spacing-xs);
+
+    .rds-modal__image {
+      width: 100%;
+      max-width: var(--rds-modal-image-width, 300px);
     }
   }
  
