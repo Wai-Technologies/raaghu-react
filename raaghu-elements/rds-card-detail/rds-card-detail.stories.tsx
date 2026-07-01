@@ -20,6 +20,10 @@ const meta: Meta<typeof RdsCardDetail> = {
     },
     actions: { control: false },
     children: { control: false },
+    image: {
+      control: 'text',
+      description: 'Image URL',
+    },
     imageHeight: {
       control: { type: 'number', min: 0, step: 10 },
     },

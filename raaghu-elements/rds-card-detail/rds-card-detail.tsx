@@ -27,6 +27,13 @@ const isRenderableNode = (node: unknown): node is React.ReactNode => {
   return false;
 };
 
+const resolveImageUrl = (image: unknown): string | undefined => {
+  if (typeof image === 'string' && image.trim() !== '') {
+    return image.trim();
+  }
+  return undefined;
+};
+
 const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
   title,
   subtitle,
@@ -54,6 +61,7 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
   const mergedClassName = `rds-card-detail ${props.className || ''}`.trim();
   const resolvedImageHeight =
     typeof imageHeight === 'number' && !Number.isNaN(imageHeight) ? imageHeight : 140;
+  const resolvedImageUrl = resolveImageUrl(image);
   const renderedActions = isRenderableNode(actions) ? actions : null;
 
   return (
@@ -64,11 +72,11 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
           subheader={subtitle}
         />
       )}
-      {image && (
+      {resolvedImageUrl && (
         <CardMedia
           component="img"
           height={resolvedImageHeight}
-          image={image}
+          image={resolvedImageUrl}
           alt={title || 'Card image'}
         />
       )}
