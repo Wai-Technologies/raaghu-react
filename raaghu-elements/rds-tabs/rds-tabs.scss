@@ -186,13 +186,9 @@
   overflow: visible !important;
 }
 
-.css-1qltlow-MuiTabs-indicator,
-.css-1695agp-MuiTabs-indicator {
+.rds-tabs .MuiTabs-indicator {
   display: none !important;
-}
-
-.rds-tabs .css-8itpbe-MuiTabs-indicator {
-  background-color: unset !important;
+  background-color: transparent !important;
 }
 
 .MuiTab-root {
@@ -409,13 +405,58 @@
     color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
   }
 
-  /* MUI tab indicator */
-  .rds-tabs .MuiTabs-indicator {
-    background-color: var(--rds-color-primary, var(--rds-primary-main)) !important;
-  }
-
   /* Tab icons */
   .rds-tabs .rds-tabs__icon svg {
+    fill: currentColor;
+  }
+
+  /* Disabled state — all tabs muted; selected tab gets visible disabled surface */
+  .rds-tabs.rds-state--disabled .MuiTab-root {
+    color: var(--rds-color-disabled-text-dark, #9e9e9e) !important;
+    pointer-events: none;
+  }
+
+  .rds-tabs.rds-state--disabled .MuiTab-root:hover {
+    color: var(--rds-color-disabled-text-dark, #9e9e9e) !important;
+  }
+
+  .rds-tabs.rds-state--disabled .MuiTab-root.Mui-selected {
+    background: var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+    color: var(--rds-neutral-400, #bdbdbd) !important;
+    border: unset !important;
+    opacity: 1;
+  }
+
+  .rds-tabs--filled.rds-state--disabled .MuiTab-root.Mui-selected,
+  .rds-tabs--flap.rds-state--disabled .MuiTab-root.Mui-selected,
+  .rds-tabs--pill.rds-state--disabled .MuiTab-root.Mui-selected {
+    border: unset !important;
+  }
+
+  .rds-tabs.rds-state--disabled .MuiTab-root.Mui-selected .rds-tabs__label,
+  .rds-tabs.rds-state--disabled .MuiTab-root.Mui-selected .rds-tabs__label span,
+  .rds-tabs.rds-state--disabled .MuiTab-root.Mui-selected .rds-tabs__icon {
+    color: inherit !important;
+  }
+
+  .rds-tabs--line-bottom-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+  .rds-tabs--line-left-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+  .rds-tabs--line-right-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+  .rds-tabs--line-top-solid.rds-state--disabled .MuiTab-root.Mui-selected {
+    border-color: var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+  }
+
+  .rds-tabs--flap.rds-state--disabled .MuiTab-root.Mui-selected::after {
+    border-top: var(--rds-tabs-flap-arrow-size, 10px) solid var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+    opacity: 1;
+  }
+
+  .rds-tabs--flap.rds-state--disabled .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
+    border-left: 34px solid var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+    opacity: 1;
+  }
+
+  .rds-tabs.rds-state--disabled .MuiTab-root .rds-tabs__icon svg {
     fill: currentColor;
   }
 }

@@ -204,7 +204,7 @@
       box-shadow: var(--rds-elevation-3, 0 4px 8px rgba(0, 0, 0, 0.15));
     }
 
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--rds-color-primary);
       outline-offset: 2px;
     }

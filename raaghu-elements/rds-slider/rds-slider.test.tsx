@@ -507,6 +507,34 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider value={50} min={0} max={100} showValue={true} unit="" />);
       expect(document.querySelector('.rds-slider__value')).toHaveTextContent('50');
     });
+
+    it('should ignore invalid showValue and unit props from controls', () => {
+      renderWithTheme(
+        <RdsSlider
+          value={[-9, 1.2]}
+          min={-9}
+          max={93}
+          controlType="two way"
+          showValue={{} as unknown as boolean}
+          unit={{} as unknown as string}
+        />
+      );
+      expect(document.querySelector('.rds-slider__value')).not.toBeInTheDocument();
+    });
+
+    it('should not append object unit to formatted value', () => {
+      renderWithTheme(
+        <RdsSlider
+          value={[25, 75]}
+          min={0}
+          max={100}
+          controlType="two way"
+          showValue={true}
+          unit={{} as unknown as string}
+        />
+      );
+      expect(document.querySelector('.rds-slider__value')).toHaveTextContent('25 - 75');
+    });
   });
 
   describe('Accessibility', () => {
