@@ -28,10 +28,33 @@
       return false;
     }
 
+    function getGlobalsRaw() {
+      var searches = [window.location.search];
+
+      try {
+        if (window.parent && window.parent !== window) {
+          searches.push(window.parent.location.search);
+        }
+      } catch (e) {}
+
+      try {
+        if (window.top && window.top !== window) {
+          searches.push(window.top.location.search);
+        }
+      } catch (e) {}
+
+      for (var i = 0; i < searches.length; i++) {
+        var params = new URLSearchParams(searches[i]);
+        var globals = decodeURIComponent(params.get('globals') || '');
+        if (globals) return globals;
+      }
+
+      return '';
+    }
+
     function getThemeMode() {
       try {
-        var params = new URLSearchParams(window.location.search);
-        var globalsRaw = decodeURIComponent(params.get('globals') || '');
+        var globalsRaw = getGlobalsRaw();
 
         if (globalsRaw.indexOf('theme:dark') !== -1) return 'dark';
         if (globalsRaw.indexOf('theme:light') !== -1) return 'light';
@@ -68,21 +91,14 @@
     });
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
-      var params = new URLSearchParams(window.location.search);
-      var globalsRaw = decodeURIComponent(params.get('globals') || '');
+      var globalsRaw = getGlobalsRaw();
 
       if (globalsRaw.indexOf('theme:dark') === -1 && globalsRaw.indexOf('theme:light') === -1) {
         syncTheme();
       }
     });
 
-    window.setInterval(function () {
-      var params = new URLSearchParams(window.location.search);
-      var globalsRaw = decodeURIComponent(params.get('globals') || '');
-
-      if (globalsRaw.indexOf('theme:dark') === -1 && globalsRaw.indexOf('theme:light') === -1) {
-        syncTheme();
-      }
-    }, 500);
+    // Re-sync when the manager toolbar changes theme (parent URL updates without iframe reload).
+    window.setInterval(syncTheme, 500);
   })();
 </script>

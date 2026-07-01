@@ -219,6 +219,7 @@ const RdsCompChat = ({
 
   const showUserList = isChatScreenEnabled && (!state.isMobile || !state.showChatWindow);
   const showChat = !isChatScreenEnabled || (state.isMobile ? state.showChatWindow : true);
+  const hasCommentText = state.commentText.trim().length > 0;
 
   return (
     <div className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile")}>
@@ -324,7 +325,14 @@ const RdsCompChat = ({
               <div className="rds-comp-chat__input-send">
                 <div className="rds-comp-chat__input-wrapper">
                   <RdsInput className="rds-comp-chat__rds-input" layout="text" placeholder="Type comment..." size="small" aria-label="Type comment" value={state.commentText} onChange={(e) => updateState({ commentText: e.target.value })} onKeyDown={(e: KeyboardEvent) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleAddComment(); } }} />
-                  <button type="button" className="rds-comp-chat__send-icon" onClick={handleAddComment} aria-label="Send"><SendIcon /></button>
+                  <button
+                    type="button"
+                    className={clsx("rds-comp-chat__send-icon", hasCommentText && "rds-comp-chat__send-icon--active")}
+                    onClick={handleAddComment}
+                    aria-label="Send"
+                  >
+                    <SendIcon />
+                  </button>
                 </div>
               </div>
             </div>

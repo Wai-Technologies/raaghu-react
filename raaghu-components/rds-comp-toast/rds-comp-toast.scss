@@ -440,14 +440,60 @@ html[data-theme='dark'] .rds-comp-toast,
 body[data-theme='dark'] .rds-comp-toast,
 body.theme-dark .rds-comp-toast,
 body.dark-theme .rds-comp-toast {
-  border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  // Set top/right/bottom only so state left-accent borders are preserved
+  border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
 
   &.rds-comp-toast--border-light {
-    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+    border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+    border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+    border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
   }
 
   &.rds-comp-toast--border-dark {
-    border-color: var(--rds-color-border-dark, rgba(255, 255, 255, 0.24));
+    border-top-color: var(--rds-color-border-dark, rgba(255, 255, 255, 0.24));
+    border-right-color: var(--rds-color-border-dark, rgba(255, 255, 255, 0.24));
+    border-bottom-color: var(--rds-color-border-dark, rgba(255, 255, 255, 0.24));
+  }
+
+  &.rds-comp-toast--border-primary {
+    border-top-color: var(--rds-alert-success-border, var(--rds-color-primary));
+    border-right-color: var(--rds-alert-success-border, var(--rds-color-primary));
+    border-bottom-color: var(--rds-alert-success-border, var(--rds-color-primary));
+  }
+
+  &.rds-comp-toast--border-danger {
+    border-top-color: var(--rds-alert-error-border, var(--rds-color-error));
+    border-right-color: var(--rds-alert-error-border, var(--rds-color-error));
+    border-bottom-color: var(--rds-alert-error-border, var(--rds-color-error));
+  }
+
+  &.rds-comp-toast--info {
+    border-left-color: var(--rds-alert-info-border, var(--rds-color-info));
+  }
+
+  &.rds-comp-toast--success {
+    border-left-color: var(--rds-alert-success-border, var(--rds-color-success));
+  }
+
+  &.rds-comp-toast--error {
+    border-left-color: var(--rds-alert-error-border, var(--rds-color-error));
+  }
+
+  &.rds-comp-toast--info .rds-comp-toast__icon {
+    --rds-toast-circle-color: var(--rds-alert-info-border, var(--rds-color-info));
+    --rds-toast-plus-color: var(--rds-alert-info-border, var(--rds-color-info));
+  }
+
+  &.rds-comp-toast--success .rds-comp-toast__icon {
+    --rds-toast-circle-color: var(--rds-alert-success-border, var(--rds-color-success));
+    --rds-toast-plus-color: var(--rds-alert-success-border, var(--rds-color-success));
+  }
+
+  &.rds-comp-toast--error .rds-comp-toast__icon {
+    --rds-toast-circle-color: var(--rds-alert-error-border, var(--rds-color-error));
+    --rds-toast-plus-color: var(--rds-alert-error-border, var(--rds-color-error));
   }
 
   .rds-comp-toast__input {

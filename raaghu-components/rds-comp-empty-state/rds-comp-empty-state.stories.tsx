@@ -16,7 +16,7 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       control: { type: "select" },
       options: ["illustration", "minimal"],
       description:
-        "Visual style: illustration shows full artwork; minimal uses a compact icon or cropped circular animation",
+        "Visual style: illustration shows full artwork; minimal uses a compact icon",
     },
     mode: {
       control: { type: 'select' },
@@ -33,16 +33,16 @@ const meta: Meta<typeof RdsCompEmptyState> = {
     },
     iconHeight: {
       control: { type: "number" },
-      description: "Icon height (px if number). Default 150",
+      description: "Icon height (px if number). Default 150 for illustration, 72 for minimal",
     },
     iconWidth: {
       control: { type: "number" },
-      description: "Icon width (px if number). Default 150",
+      description: "Icon width (px if number). Default 150 for illustration, 72 for minimal",
     },
     isContinueAnimate: {
       control: { type: "boolean" },
-      description:
-        "Enable animation: full Lottie for illustration, circular cropped Lottie for minimal",
+      if: { arg: "variant", eq: "illustration" },
+      description: "Enable full Lottie animation (illustration variant only)",
     },
     buttonText: {
       control: { type: "text" },
@@ -62,8 +62,6 @@ export const Default: Story = {
     variant: "illustration",
     label: "No Data Available",
     subLabel: "No data available at this moment. Would you like to add new data?",
-    iconHeight: 150,
-    iconWidth: 150,
     buttonText: "Add New Data",
     isContinueAnimate: false,
   },
@@ -75,7 +73,13 @@ export const Default: Story = {
 export const Animated: Story = {
   args: {
     ...Default.args,
+    variant: "illustration",
     isContinueAnimate: true,
+  },
+  argTypes: {
+    variant: {
+      table: { disable: true },
+    },
   },
   play: async ({ canvasElement }) => {
     await expect(canvasElement.firstChild).toBeTruthy();

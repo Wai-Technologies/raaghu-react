@@ -48,11 +48,11 @@ const RdsCompEmptyState = ({
   const isMinimal = variant === "minimal";
 
   const { width, height } = useMemo(() => {
-    const defaultSize = isMinimal ? (isContinueAnimate ? 150 : 72) : 150;
+    const defaultSize = isMinimal ? 72 : 150;
     const rawW = iconWidth ?? defaultSize;
     const rawH = iconHeight ?? iconWidth ?? defaultSize;
     return { width: toCss(rawW), height: toCss(rawH) };
-  }, [iconHeight, iconWidth, isMinimal, isContinueAnimate]);
+  }, [iconHeight, iconWidth, isMinimal]);
   const useDarkVariant = useMemo(
     () => mode === "Dark NRA" || (!mode && isDarkThemeActive()),
     [mode]
@@ -75,20 +75,6 @@ const RdsCompEmptyState = ({
           style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
           data-testid="emptyStateImage"
         />
-      );
-    }
-
-    if (isContinueAnimate) {
-      return (
-        <Box className="rds-comp-empty-state__minimal-lottie-shell">
-          <Lottie
-            animationData={resolvedAnimation}
-            loop
-            autoplay
-            style={{ width: "100%", height: "100%" }}
-            data-testid="emptyStateLottie"
-          />
-        </Box>
       );
     }
 
@@ -134,7 +120,6 @@ const RdsCompEmptyState = ({
       className={clsx(
         "rds-comp-empty-state",
         isMinimal && "rds-comp-empty-state--minimal",
-        isMinimal && isContinueAnimate && "rds-comp-empty-state--minimal-animated",
         className
       )}
     >
@@ -143,9 +128,6 @@ const RdsCompEmptyState = ({
           className={clsx(
             "rds-comp-empty-state__icon",
             isMinimal && "rds-comp-empty-state__icon--minimal",
-            isMinimal &&
-              isContinueAnimate &&
-              "rds-comp-empty-state__icon--minimal-animated",
             !isMinimal && isContinueAnimate && "rds-comp-empty-state__icon--animated"
           )}
           data-testid="icon"

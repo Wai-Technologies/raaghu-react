@@ -5,6 +5,7 @@
 import { addons } from 'storybook/preview-api';
 import {
   applyRaaghuTheme,
+  getStorybookThemeFromUrl,
   resolveEffectiveMode,
   type RaaghuThemeMode,
 } from '../raaghu-react-themes/src/provider/theme-utils';
@@ -20,12 +21,7 @@ function parseThemeMode(value: unknown): RaaghuThemeMode | null {
 }
 
 function getThemeModeFromUrl(): RaaghuThemeMode {
-  const params = new URLSearchParams(window.location.search);
-  const globals = decodeURIComponent(params.get('globals') || '');
-
-  if (globals.includes('theme:dark')) return 'dark';
-  if (globals.includes('theme:light')) return 'light';
-  return 'system';
+  return getStorybookThemeFromUrl() ?? 'system';
 }
 
 let currentMode: RaaghuThemeMode = 'system';
@@ -65,6 +61,11 @@ export function setupStorybookThemeSync(): void {
 
   // Iframe previews can miss OS theme events; poll while following system mode.
   window.setInterval(() => {
+    const urlMode = getStorybookThemeFromUrl();
+    if (urlMode) {
+      syncThemeIfChanged(urlMode);
+      return;
+    }
     if (currentMode === 'system') {
       syncThemeIfChanged('system');
     }

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, Paper } from '@mui/material';
 import { RdsCarousel, RdsBadge, RdsFileUploader } from '../../raaghu-elements';
@@ -50,42 +50,42 @@ const RdsCompProductTour = ({
     const showVisualPlaceholder = controls?.visual ? controls.visual === 'visible' : (legacyShowVisualPlaceholder ?? true);
 
     const [isVisible, setIsVisible] = useState(true);
-    const [currentIndexState, setCurrentIndexState] = useState(0);
     const resolvedSlides = slides ?? EMPTY_TOUR_SLIDES;
     const resolvedTabTitle = tabTitle ?? EMPTY_TAB_TITLES;
 
     const parsedSteps = useMemo(() => parseSteps(stepsIndicator), [stepsIndicator]);
     const totalSlides = useMemo(() => parsedSteps?.total ?? resolvedSlides.length, [parsedSteps, resolvedSlides]);
     const effectiveSlides = useMemo(() => createEffectiveSlides(resolvedSlides, totalSlides), [resolvedSlides, totalSlides]);
-    const controlledIndex = useMemo(() => {
+    const [currentIndex, setCurrentIndex] = useState(() => {
+        const parsed = parseSteps(stepsIndicator);
+        if (!parsed || parsed.total <= 0) {
+            return 0;
+        }
+        return Math.max(0, Math.min(parsed.numerator - 1, parsed.total - 1));
+    });
+
+    useEffect(() => {
         if (stepsIndicator === undefined) {
-            return undefined;
+            return;
         }
         const parsed = parseSteps(stepsIndicator);
         if (!parsed || totalSlides <= 0) {
-            return 0;
+            return;
         }
-        return Math.max(0, Math.min(parsed.numerator - 1, totalSlides - 1));
+        setCurrentIndex(Math.max(0, Math.min(parsed.numerator - 1, totalSlides - 1)));
     }, [stepsIndicator, totalSlides]);
-    const currentIndex = controlledIndex ?? currentIndexState;
-    const computedIndicator = `${effectiveSlides && effectiveSlides.length ? currentIndex + 1 : 0}/${totalSlides}`;
+
+    const currentIndicator = `${effectiveSlides && effectiveSlides.length ? currentIndex + 1 : 0}/${totalSlides}`;
 
     const goNext = useCallback(() => {
-        if (!effectiveSlides || effectiveSlides.length === 0 || controlledIndex !== undefined) return;
-        setCurrentIndexState((i) => {
-            const next = i + 1;
-            return next % totalSlides;
-        });
-    }, [controlledIndex, effectiveSlides, totalSlides]);
+        if (!effectiveSlides || effectiveSlides.length === 0) return;
+        setCurrentIndex((i) => (i + 1) % totalSlides);
+    }, [effectiveSlides, totalSlides]);
 
     const goPrev = useCallback(() => {
-        if (!effectiveSlides || effectiveSlides.length === 0 || controlledIndex !== undefined) return;
-        setCurrentIndexState((i) => {
-            const prev = i - 1;
-            return (prev + totalSlides) % totalSlides;
-        });
-    }, [controlledIndex, effectiveSlides, totalSlides]);
-    const currentIndicator = stepsIndicator ?? computedIndicator;
+        if (!effectiveSlides || effectiveSlides.length === 0) return;
+        setCurrentIndex((i) => (i - 1 + totalSlides) % totalSlides);
+    }, [effectiveSlides, totalSlides]);
     const carouselState = String(currentIndex + 1);
     const handleClose = useCallback(() => {
         setIsVisible(false);
