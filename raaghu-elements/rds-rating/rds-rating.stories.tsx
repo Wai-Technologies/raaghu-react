@@ -8,12 +8,18 @@ const meta: Meta<typeof RdsRating> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'centered',
-    controls: {
-    exclude: ['component', 'slots', 'slotProps', 'precision'],
-    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    label: {
+      control: 'text',
+    },
+    showValue: {
+      control: 'boolean',
+    },
+    maxStars: {
+      control: 'number',
+    },
     value: {
       control: { type: 'number', min: 0, max: 5, step: 0.5 },
     },
@@ -51,6 +57,13 @@ const meta: Meta<typeof RdsRating> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    icon: { control: { disable: true }, table: { disable: true } },
+    emptyIcon: { control: { disable: true }, table: { disable: true } },
+    onChange: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
   },
 };
 

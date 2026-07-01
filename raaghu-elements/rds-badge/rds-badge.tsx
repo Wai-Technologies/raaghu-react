@@ -32,7 +32,7 @@ const RdsBadge= ({
 }:RdsBadgeProps) => {
   const content = badgeContent;
   
-  const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--${colorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
+  const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--color-${colorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
   
   const isZeroContent = content === 0 || content === '0';
   

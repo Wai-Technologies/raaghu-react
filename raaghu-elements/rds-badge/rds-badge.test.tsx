@@ -148,49 +148,49 @@ describe('RdsBadge', () => {
   describe('Color Variants', () => {
     it('should apply primary color by default', () => {
       const { container } = render(<RdsBadge {...defaultProps} />);
-      expect(container.querySelector('.rds-badge--primary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-primary')).toBeInTheDocument();
     });
 
     it('should apply secondary color', () => {
       const { container } = render(
         <RdsBadge {...defaultProps} colorVariant="secondary" />
       );
-      expect(container.querySelector('.rds-badge--secondary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-secondary')).toBeInTheDocument();
     });
 
     it('should apply tertiary color', () => {
       const { container } = render(
         <RdsBadge {...defaultProps} colorVariant="tertiary" />
       );
-      expect(container.querySelector('.rds-badge--tertiary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-tertiary')).toBeInTheDocument();
     });
 
     it('should apply danger color', () => {
       const { container } = render(
         <RdsBadge {...defaultProps} colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-badge--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-danger')).toBeInTheDocument();
     });
 
     it('should apply warning color', () => {
       const { container } = render(
         <RdsBadge {...defaultProps} colorVariant="warning" />
       );
-      expect(container.querySelector('.rds-badge--warning')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-warning')).toBeInTheDocument();
     });
 
     it('should apply light color', () => {
       const { container } = render(
         <RdsBadge {...defaultProps} colorVariant="light" />
       );
-      expect(container.querySelector('.rds-badge--light')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-light')).toBeInTheDocument();
     });
 
     it('should apply success color', () => {
       const { container } = render(
         <RdsBadge {...defaultProps} colorVariant="success" />
       );
-      expect(container.querySelector('.rds-badge--success')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-success')).toBeInTheDocument();
     });
   });
 
@@ -335,7 +335,7 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--large')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--rectangle')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--outline')).toBeInTheDocument();
-      expect(container.querySelector('.rds-badge--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-danger')).toBeInTheDocument();
     });
 
     it('should handle size, shape, and color variations', () => {
@@ -349,7 +349,7 @@ describe('RdsBadge', () => {
       );
       expect(container.querySelector('.rds-badge--small')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--pill')).toBeInTheDocument();
-      expect(container.querySelector('.rds-badge--success')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-success')).toBeInTheDocument();
     });
 
     it('should handle disabled state with color variants', () => {
@@ -361,7 +361,7 @@ describe('RdsBadge', () => {
         />
       );
       expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
-      expect(container.querySelector('.rds-badge--warning')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-warning')).toBeInTheDocument();
     });
 
     it('should handle all layout variants with all sizes', () => {
@@ -407,7 +407,7 @@ describe('RdsBadge', () => {
 
     it('should use default colorVariant as primary', () => {
       const { container } = render(<RdsBadge badgeContent={5} />);
-      expect(container.querySelector('.rds-badge--primary')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--color-primary')).toBeInTheDocument();
     });
 
     it('should use default state as default', () => {
@@ -575,7 +575,7 @@ describe('RdsBadge', () => {
         const { container } = render(
           <RdsBadge badgeContent={5} colorVariant={color} />
         );
-        expect(container.querySelector(`.rds-badge--${color}`)).toBeInTheDocument();
+        expect(container.querySelector(`.rds-badge--color-${color}`)).toBeInTheDocument();
       });
     });
   });

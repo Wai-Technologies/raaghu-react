@@ -609,16 +609,16 @@
   margin-top: var(--rds-spacing-xs, 8px) !important;
 }
 
-.rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
+.rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--color-secondary > .rds-badge__badge {
   background-color: var(--rds-badge-bg-secondary-card) !important;
   color: var(--rds-badge-text-on-dark) !important;
 }
-.rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
+.rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--color-primary > .rds-badge__badge {
   background-color: var(--rds-badge-bg-primary-card);
   color: var(--rds-badge-text-on-dark) !important;
 }
 
-.rds-card .rds-card__tags .rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
+.rds-card .rds-card__tags .rds-badge.rds-badge--primary.rds-badge--color-primary > .rds-badge__badge {
   background-color: var(--rds-badge-bg-primary-card);
   color: var(--rds-badge-text-on-dark) !important;
 }

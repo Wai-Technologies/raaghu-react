@@ -21,6 +21,11 @@ const meta: Meta<typeof RdsLoader> = {
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],
+  args: {
+    overlay: false,
+    value: 0,
+    thickness: 3.6,
+  },
   argTypes: {
     variant: {
       control: 'select',
@@ -37,6 +42,10 @@ const meta: Meta<typeof RdsLoader> = {
     value: {
       control: { type: 'range', min: 0, max: 100 },
     },
+    label: {
+      control: 'text',
+      description: 'Optional loading label text',
+    },
     overlay: {
       control: 'boolean',
     },
@@ -44,22 +53,22 @@ const meta: Meta<typeof RdsLoader> = {
       control: { type: 'range', min: 1, max: 10 },
     },
     type: {
-            options: [
-                "line-wobble",
-                "loader-moving",
-                "loader-hash",
-                "loader-jump",
-                "sand",
-                "rolling-rock",
-                "loader-round",
-                "rotate",
-                "spin",
-                "triangle",
-                "spinner-ring",
-            ],
-            control: { type: "select" },
-            description: "Custom loader type. If specified, overrides variant and size.",
-        },
+      options: [
+        'line-wobble',
+        'loader-moving',
+        'loader-hash',
+        'loader-jump',
+        'sand',
+        'rolling-rock',
+        'loader-round',
+        'rotate',
+        'spin',
+        'triangle',
+        'spinner-ring',
+      ],
+      control: { type: 'select' },
+      description: 'Custom loader type. If specified, overrides variant and size.',
+    },
   },
 };
 
@@ -69,7 +78,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     type: 'spinner-ring',
-  },
+  },
 };
 Default.parameters = { controls: { include: ['type'] } };
 
