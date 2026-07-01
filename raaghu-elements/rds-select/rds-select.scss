@@ -59,11 +59,13 @@
       }
     }
     .MuiSelect-icon {
-      color: var(--rds-text-secondary);
+      color: var(--rds-text-disabled);
+      font-size: var(--rds-select-icon-size, 18px);
+      right: var(--rds-spacing-sm);
       transition: transform var(--rds-transition-base);
     }
     &.Mui-focused .MuiSelect-icon {
-      color: var(--rds-primary-main);
+      color: var(--rds-text-disabled);
     }
   }
 
