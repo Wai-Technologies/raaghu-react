@@ -169,7 +169,9 @@ jest.mock('@mui/material/Paper', () => ({
 
 jest.mock('@mui/material/TextField', () => ({
   __esModule: true,
-  default: ({ value, onChange, onClick, label, disabled, error, helperText, InputProps, required, placeholder, ...props }: any) => (
+  default: ({ value, onChange, onClick, label, disabled, error, helperText, InputProps, slotProps, required, placeholder, ...props }: any) => {
+    const endAdornment = slotProps?.input?.endAdornment ?? InputProps?.endAdornment;
+    return (
     <div data-testid="text-field">
       {label && <label data-testid="text-field-label">{label}</label>}
       <input
@@ -183,12 +185,12 @@ jest.mock('@mui/material/TextField', () => ({
         data-error={error ? 'true' : 'false'}
         {...props}
       />
-      {InputProps?.endAdornment && (
-        <div data-testid="input-adornment">{InputProps.endAdornment}</div>
+      {endAdornment && (
+        <div data-testid="input-adornment">{endAdornment}</div>
       )}
       {helperText && <div data-testid="helper-text">{helperText}</div>}
     </div>
-  ),
+  );},
 }));
 
 jest.mock('@mui/material/InputAdornment', () => ({

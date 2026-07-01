@@ -634,20 +634,26 @@ export default function RdsCompDatePicker({
           size={size}
           fullWidth
           disabled={disabled}
-          InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' },
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="open calendar"
-                  edge="end"
-                  size={size === 'small' ? 'small' : 'medium'}
-                  onClick={(e) => { e.stopPropagation(); handleRangeFieldOpen(e.currentTarget as HTMLElement); }}
-                  disabled={disabled || readOnly}
-                >
-                  <EventIcon fontSize="small" />
-                </IconButton>
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="open calendar"
+                    edge="end"
+                    size={size === 'small' ? 'small' : 'medium'}
+                    onClick={(e) => { e.stopPropagation(); handleRangeFieldOpen(e.currentTarget as HTMLElement); }}
+                    disabled={disabled || readOnly}
+                  >
+                    <EventIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+            htmlInput: {
+              readOnly: true,
+              style: { cursor: disabled ? 'default' : 'pointer' },
+            },
           }}
           error={error}
           className={clsx(

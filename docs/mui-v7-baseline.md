@@ -30,15 +30,16 @@ Recorded after the MUI v7 stabilization pass (July 2026).
   - `rds-text-field` — `slotProps.formHelperText` (legacy `FormHelperTextProps` still accepted)
   - `rds-input` — `slotProps.input` + `slotProps.htmlInput` (legacy `InputProps` still accepted)
   - `rds-search` — `slotProps.input` (legacy `InputProps` still accepted)
+- Migrated components layer to `slotProps.input` / `slotProps.htmlInput`:
+  - `rds-comp-grid`
+  - `rds-comp-date-and-time-picker`
+  - `rds-comp-emoji-generator`
+  - `rds-comp-comments-logic-combined`
 
-## Phase 3b backlog (v9 prep)
+## Remaining deprecated API references (non-blocking)
 
-These files still use deprecated `InputProps` on MUI `TextField` and should be migrated to `slotProps.input` before Material UI v9:
-
-- `raaghu-components/rds-comp-grid/rds-comp-grid.tsx`
-- `raaghu-components/rds-comp-date-and-time-picker/rds-comp-date-and-time-picker.tsx`
-- `raaghu-components/rds-comp-emoji-generator/rds-comp-emoji-generator.tsx`
-- `raaghu-components/rds-comp-comments-box/rds-comp-comments-logic-combined.tsx`
+- Storybook argTypes in `rds-text-field.stories.tsx` and `rds-search.stories.tsx` still list legacy prop names as disabled controls (cosmetic only)
+- Element wrappers still accept legacy `InputProps` / `FormHelperTextProps` for backward compatibility
 
 ## Next major upgrade
 
