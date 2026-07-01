@@ -18,6 +18,11 @@ const meta: Meta<typeof RdsCardDetail> = {
       control: 'select',
       options: ['elevation', 'outlined'],
     },
+    actions: { control: false },
+    children: { control: false },
+    imageHeight: {
+      control: { type: 'number', min: 0, step: 10 },
+    },
   },
 };
 
@@ -33,7 +38,7 @@ export const Default: Story = {
         This is the main content of the card. It can contain any type of content including text, images, and other components.
       </Typography>
     ),
-  },
+  },
 };
 
 export const WithImage: Story = {

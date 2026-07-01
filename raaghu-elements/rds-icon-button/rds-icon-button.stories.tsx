@@ -15,11 +15,30 @@ const meta: Meta<typeof RdsIconButton> = {
   title: 'Elements/IconButton',
   component: RdsIconButton,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
+    controls: {
+      exclude: [
+        'iconOutlined',
+        'iconFilled',
+        'icon',
+        'tooltip',
+        'children',
+        'onClick',
+        'ref',
+        'className',
+        'component',
+        'sx',
+      ],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    variant: {
+      control: 'select',
+      options: ['outlined', 'filled'],
+      description: 'Visual variant of the icon button',
+    },
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
@@ -41,65 +60,105 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    children: <Favorite />,
-  },
+  render: (args) => (
+    <RdsIconButton {...args}>
+      <Favorite />
+    </RdsIconButton>
+  ),
 };
+
 export const Disabled: Story = {
   args: {
     disabled: true,
-    children: <Share />,
   },
+  render: (args) => (
+    <RdsIconButton {...args}>
+      <Share />
+    </RdsIconButton>
+  ),
 };
+
 export const Delete_Button: Story = {
   args: {
     color: 'error',
-    children: <Delete />,
   },
+  render: (args) => (
+    <RdsIconButton {...args}>
+      <Delete />
+    </RdsIconButton>
+  ),
 };
+
 export const FilledVariant: Story = {
   args: {
     variant: 'filled',
-    iconOutlined: <FavoriteBorder />,
-    iconFilled: <Favorite />,
     tooltip: 'Filled Icon',
   },
+  render: (args) => (
+    <RdsIconButton
+      {...args}
+      iconOutlined={<FavoriteBorder />}
+      iconFilled={<Favorite />}
+    />
+  ),
 };
+
 export const Large: Story = {
   args: {
     size: 'large',
-    children: <Add />,
   },
+  render: (args) => (
+    <RdsIconButton {...args}>
+      <Add />
+    </RdsIconButton>
+  ),
 };
 
 export const OutlinedVariant: Story = {
   args: {
     variant: 'outlined',
-    iconOutlined: <FavoriteBorder />,
-    iconFilled: <Favorite />,
     tooltip: 'Outlined Icon',
   },
+  render: (args) => (
+    <RdsIconButton
+      {...args}
+      iconOutlined={<FavoriteBorder />}
+      iconFilled={<Favorite />}
+    />
+  ),
 };
 
 export const Primary: Story = {
   args: {
     color: 'primary',
-    children: <Home />,
   },
+  render: (args) => (
+    <RdsIconButton {...args}>
+      <Home />
+    </RdsIconButton>
+  ),
 };
 
 export const Secondary: Story = {
   args: {
     color: 'secondary',
-    children: <Settings />,
   },
+  render: (args) => (
+    <RdsIconButton {...args}>
+      <Settings />
+    </RdsIconButton>
+  ),
 };
 
 export const Small: Story = {
   args: {
     size: 'small',
-    children: <Edit />,
   },
+  render: (args) => (
+    <RdsIconButton {...args}>
+      <Edit />
+    </RdsIconButton>
+  ),
 };
 
 

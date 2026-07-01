@@ -1475,6 +1475,11 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[200],
     '--rds-color-neutral-disabled-icon': n[600],
     '--rds-color-neutral-soft': n[800],
+    // ── Carousel (dark overrides) ─────────────────────────────────────────────
+    '--rds-carousel-indicator-bg': 'rgba(255, 255, 255, 0.55)',
+    '--rds-carousel-indicator-active': 'var(--rds-primary-main)',
+    '--rds-neutral-400': n[500],
+    '--rds-neutral-500': n[400],
     // ── Kanban board (dark-theme overrides) ──────────────────────────────────
     '--rds-kanban-header-bg': componentTokens.kanban?.headerBgDark,
     '--rds-kanban-subcard-bg': componentTokens.kanban?.subcardBgDark,

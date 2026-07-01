@@ -598,6 +598,21 @@
   [data-theme="dark"] .rds-carousel,
   .theme-dark .rds-carousel,
   .sb-show-main[data-theme="dark"] .rds-carousel {
+    .rds-carousel__indicator {
+      background-color: rgba(255, 255, 255, 0.55) !important;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+
+      &__active {
+        background-color: var(--rds-carousel-indicator-active, var(--rds-color-primary)) !important;
+        border-color: var(--rds-carousel-indicator-active, var(--rds-color-primary)) !important;
+      }
+
+      &:hover:not(.rds-carousel__indicator__active) {
+        background-color: rgba(255, 255, 255, 0.75) !important;
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+    }
+
     .rds-carousel__title-content {
       background-color: var(--rds-carousel-title-bg-dark) !important;
       border: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.04)) !important;

@@ -1,5 +1,6 @@
 
 import { type ReactNode } from 'react';
+import clsx from 'clsx';
 import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RdsButton from '../rds-button/rds-button';
@@ -40,12 +41,19 @@ const RdsDialog = ({
   ...props
 }:RdsDialogProps) => {
   if (variant === 'standard') {
+    const paperClassName = clsx(
+      'rds-dialog',
+      'rds-dialog__paper',
+      'rds-dialog--icon',
+      size === 'extra-small' && 'rds-dialog--extra-small',
+    );
+
     return (
       <MuiDialog
         onClose={onClose}
         maxWidth={size ? SIZE_MAP[size] : size}
         {...props}
-        slotProps={{ paper: { className: 'rds-dialog rds-dialog__paper' } }}
+        slotProps={{ paper: { className: paperClassName } }}
       >
         {((title && showTitle) || ShowDissmiss) && (
           <DialogTitle
@@ -65,19 +73,26 @@ const RdsDialog = ({
           </DialogTitle>
         )}
         <DialogContent className="rds-dialog__content" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', textAlign: 'center' }}>{children}</DialogContent>
-        <DialogActions className="rds-dialog__actions">
+        <DialogActions className="rds-dialog__actions rds-dialog__actions--stacked" disableSpacing>
           {ShowSecondary && (
             <RdsButton
               onClick={onClose}
               className="rds-dialog__button rds-dialog__button__dismiss"
               style="outlined"
-            >Cancel</RdsButton>
+              color="primary"
+              layout="text-only"
+              textCase="uppercase"
+              text="Cancel"
+            />
           )}
           {ShowPrimary && (
             <RdsButton
               onClick={onClose}
               className="rds-dialog__button rds-dialog__button__primary"
               style="filled"
+              color="primary"
+              layout="text-only"
+              textCase="uppercase"
               text="Okay"
             />
           )}
@@ -130,7 +145,7 @@ const RdsDialog = ({
         {children}
       </DialogContent>
       {actions && (
-        <DialogActions>
+        <DialogActions className="rds-dialog__actions">
           {actions}
         </DialogActions>
       )}
