@@ -90,8 +90,15 @@ const RdsBreadcrumbs = ({
 }:RdsBreadcrumbsProps) => {
   const [selectedIdx, setSelectedIdx] = React.useState<number | null>(null);
   
+  const isRenderableSeparator = (value: unknown): value is React.ReactNode | BreadcrumbSeparator => {
+    if (value === undefined || value === null) return false;
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') return true;
+    if (React.isValidElement(value)) return true;
+    return false;
+  };
+
   const getSeparator = (): React.ReactNode => {
-    if (separator !== undefined) {
+    if (isRenderableSeparator(separator)) {
       return separator;
     }
     

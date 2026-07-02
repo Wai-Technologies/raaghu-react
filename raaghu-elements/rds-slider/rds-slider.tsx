@@ -25,9 +25,9 @@ export interface RdsSliderProps extends SliderProps {
 
 const RdsSlider: React.FC<RdsSliderProps> = ({
   label,
-  showValue = false,
-  showLabel = false,
-  unit,
+  showValue: showValueProp = false,
+  showLabel: showLabelProp = false,
+  unit: unitProp,
   value,
   defaultValue,
   level,
@@ -39,6 +39,9 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   className,
   ...props
 }) => {
+  const showValue = showValueProp === true;
+  const showLabel = showLabelProp === true;
+  const unit = typeof unitProp === 'string' ? unitProp : undefined;
   const isRangeSlider = controlType === 'two way';
   const safeMax = typeof max === 'number' ? max : 100;
   const { sliderStep, sliderMarks } = resolveSliderMarksAndStep(props.marks, props.step, min, safeMax);

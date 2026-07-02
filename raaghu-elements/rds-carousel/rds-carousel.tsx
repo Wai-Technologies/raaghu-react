@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
@@ -55,7 +55,27 @@ const RdsCarousel = ({
     }
   }
   const tokens = useRdsTokens();
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const hasTitleLayout = style === 'with title' || style === 'full width image';
+
+  const getInactiveIndicatorColor = () => {
+    if (style === 'full width image') {
+      return tokens.cssVar('neutral-0');
+    }
+    return isDarkMode
+      ? 'rgba(255, 255, 255, 0.55)'
+      : tokens.cssVar('carousel-indicator-bg');
+  };
+
+  const getInactiveIndicatorHoverColor = () => {
+    if (style === 'full width image') {
+      return tokens.cssVar('neutral-0');
+    }
+    return isDarkMode
+      ? 'rgba(255, 255, 255, 0.75)'
+      : tokens.cssVar('neutral-500');
+  };
 
   useEffect(() => {
     if (autoPlay && children.length > 1) {
@@ -267,23 +287,21 @@ const RdsCarousel = ({
                 backgroundColor:
                   currentIndex === index
                     ? tokens.color.primary
-                    : style === 'full width image'
-                      ? tokens.cssVar('neutral-0')
-                      : tokens.cssVar('neutral-400'),
+                    : getInactiveIndicatorColor(),
                 opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
                 border:
                   style === 'full width image'
                     ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('border-opacity-light')}`
-                    : 'none',
+                    : isDarkMode && currentIndex !== index
+                      ? '1px solid rgba(255, 255, 255, 0.25)'
+                      : 'none',
                 cursor: 'pointer',
                 transition: 'background-color 0.2s, opacity 0.2s',
                 '&:hover': {
                   backgroundColor:
                     currentIndex === index
                       ? tokens.color.primary
-                      : style === 'full width image'
-                        ? tokens.cssVar('neutral-0')
-                        : tokens.cssVar('neutral-500'),
+                      : getInactiveIndicatorHoverColor(),
                   opacity: 1,
                 },
               }}

@@ -420,6 +420,7 @@
   border: none !important;
   font-size: var(--rds-alert-link-font-size, 0.8125rem) !important;
   padding: 0 var(--rds-spacing-xs, 4px);
+  cursor: pointer;
 }
 
 .rds-alert__secondary-button.MuiButton-root {

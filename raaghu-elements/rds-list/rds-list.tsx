@@ -34,6 +34,20 @@ const ExpandIcon = ({ open }: { open: boolean }) => (
   />
 );
 
+const normalizeCheckedItems = (items?: (string | number)[] | string): (string | number)[] => {
+  if (items === undefined) return [];
+  if (Array.isArray(items)) return items;
+  if (typeof items === 'string') {
+    try {
+      const parsed = JSON.parse(items);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+  return [];
+};
+
 const RdsList = ({
   items,
   variant = 'simple',

@@ -59,6 +59,14 @@ const meta: Meta<typeof RdsList> = {
     variant: 'simple',
   },
   argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['simple', 'button', 'icon', 'avatar', 'firebase'],
+    },
+    alignItems: {
+      control: { type: 'radio' },
+      options: ['flex-start', 'center'],
+    },
     dense: {
       control: { type: 'boolean' },
     },

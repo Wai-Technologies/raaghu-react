@@ -24,7 +24,7 @@ const meta: Meta = {
       options: ['small', 'medium', 'large'],
       description: 'Size of the menu',
       table: {
-        defaultValue: { summary: 'medium' },
+        defaultValue: { summary: 'small' },
       },
     },
   },
@@ -35,6 +35,7 @@ type Story = StoryObj<typeof RdsMenu>;
 
 export const Default: Story = {
   args: {
+    size: 'small',
     items: [
       { id: 1, label: 'Profile' },
       { id: 2, label: 'My account' },
@@ -71,6 +72,7 @@ export const Default: Story = {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleClose}
+          size={args.size ?? 'small'}
           items={items}
         />
       </>
@@ -82,14 +84,14 @@ Default.parameters = { controls: { include: ['open'] } };
 export const WithIcon: Story = {
   args: {
     items: [
-      { id: 1, label: 'Profile', icon: <RdsAvatar>M</RdsAvatar> },
-      { id: 2, label: 'My account', icon: <RdsAvatar>M</RdsAvatar> },
+      { id: 1, label: 'Profile', icon: <RdsAvatar size="smallest">M</RdsAvatar> },
+      { id: 2, label: 'My account', icon: <RdsAvatar size="smallest">M</RdsAvatar> },
       { id: 3, divider: true },
       { id: 4, label: 'Add another account', icon: <PersonAdd fontSize="small" /> },
       { id: 5, label: 'Settings', icon: <Settings fontSize="small" /> },
       { id: 6, label: 'Logout', icon: <Logout fontSize="small" /> },
     ],
-    size: 'medium',
+    size: 'small',
   },
   render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -126,7 +128,7 @@ export const WithIcon: Story = {
           open={open}
           onClose={handleClose}
           items={items}
-          size={args.size}
+          size={args.size ?? 'small'}
         />
       </>
     );
@@ -172,7 +174,7 @@ export const Dense: Story = {
 };
 export const WithCustomColor: Story = {
   args: {
-    size: 'medium',
+    size: 'small',
     color: 'primary',
     items: [
       { id: 1, label: 'Primary', icon: <ContentCopy fontSize="small" /> },
@@ -208,7 +210,7 @@ export const WithCustomColor: Story = {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleClose}
-          size={args.size || 'medium'}
+          size={args.size ?? 'small'}
           items={items}
         />
       </>
@@ -218,6 +220,7 @@ export const WithCustomColor: Story = {
 
 export const WithDisabled: Story = {
   args: {
+    size: 'small',
     items: [
       { id: 1, label: 'Enabled Item' },
       { id: 2, label: 'Disabled Item', disabled: true },
@@ -245,6 +248,7 @@ export const WithDisabled: Story = {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleClose}
+          size={args.size ?? 'small'}
           items={items}
         />
       </>
@@ -264,7 +268,7 @@ export const CustomizedMenu: Story = {
       { id: 7, header: 'Header 2' },
       { id: 8, label: 'Item 5', color: 'warning', icon: <ContentCopy fontSize="small" /> },
     ],
-    size: 'medium',
+    size: 'small',
   },
   render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -306,7 +310,7 @@ export const CustomizedMenu: Story = {
           open={open}
           onClose={handleClose}
           items={items}
-          size={args.size}
+          size={args.size ?? 'small'}
         />
       </div>
     );

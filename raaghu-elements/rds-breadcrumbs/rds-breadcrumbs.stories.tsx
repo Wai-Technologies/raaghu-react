@@ -23,6 +23,10 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       options: Object.values(BreadcrumbSeparator),
       description: 'Type of separator to use between breadcrumb items',
     },
+    separator: {
+      control: false,
+      table: { disable: true },
+    },
     autoIcons: {
       control: 'boolean',
       description: 'Automatically assign different icons based on breadcrumb position and content',

@@ -7,6 +7,7 @@
     --rds-ai-attachment-fab-bottom: 10px;
     --rds-ai-attachment-transform-x: 30px;
     --rds-ai-attachment-transform-y: 97.5px;
+    --rds-ai-attachment-dropdown-gap: var(--rds-spacing-xs, 4px);
 
     &__icon {
         height: var(--rds-size-xl);
@@ -14,6 +15,18 @@
     }
 
     &__dropdown {
+        .rds-fab-menu__button--none {
+            min-width: auto;
+            min-height: auto;
+            width: var(--rds-size-xl);
+            height: var(--rds-size-xl);
+        }
+
+        .rds-fab-menu__button--none + .rds-fab-menu__dropdown-container--open {
+            margin-top: var(--rds-ai-attachment-dropdown-gap);
+            transform: translateY(0);
+        }
+
             .rds-fab-menu__dropdown {
             min-width: var(--rds-ai-attachment-min-width) !important;
             max-width: none !important;
@@ -82,8 +95,4 @@
         padding: 0;
     }
 
-    &:focus-visible {
-        outline: 2px solid var(--rds-primary-main);
-        outline-offset: 2px;
-    }
 }

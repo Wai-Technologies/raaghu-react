@@ -249,6 +249,14 @@
     }
   }
 
+  &__dropdown-paper {
+    margin-top: var(--rds-spacing-xs, 4px);
+    border: 1px solid var(--rds-border-default);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    box-shadow: var(--rds-elevation-3, 0 4px 12px rgba(0, 0, 0, 0.12));
+    background-color: var(--rds-background-paper);
+  }
+
   &__chip {
     margin: var(--rds-spacing-xxs) !important;
     max-width: 120px !important;

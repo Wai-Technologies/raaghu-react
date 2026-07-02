@@ -14,27 +14,31 @@ const meta: Meta = {
         status: { type: 'stable' },
     layout: 'centered',
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'children', 'actions', 'onClose'],
+      exclude: [
+        'component',
+        'slots',
+        'slotProps',
+        'children',
+        'actions',
+        'onClose',
+        'ref',
+      ],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
     open: { control: { type: 'boolean' } },
-  size: { control: { type: 'select' }, options: ['extra-small', 'small', 'medium', 'large', 'extra-large', false] },
+    size: { control: { type: 'select' }, options: ['extra-small', 'small', 'medium', 'large', 'extra-large', false] },
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
     variant: { control: { type: 'select' }, options: ['standard', 'default'] },
     ShowDissmiss: { control: 'boolean' },
     showTitle: { control: 'boolean' },
+    ShowPrimary: { control: 'boolean' },
+    ShowSecondary: { control: 'boolean' },
     actions: { control: false },
     children: { control: false },
-    ShowPrimary: {
-      control: 'boolean'
-    },
-    ShowSecondary: {
-      control: 'boolean'
-    }
   },
 } satisfies Meta<typeof RdsDialog>;
 
@@ -237,8 +241,24 @@ export const WithActions: Story = {
           onClose={() => setOpen(false)}
           actions={(
             <>
-              <RdsButton style="outlined" color="primary" onClick={() => setOpen(false)}>Cancel</RdsButton>
-              <RdsButton style="filled" color="primary" onClick={() => setOpen(false)}>Confirm</RdsButton>
+              <RdsButton
+                style="outlined"
+                color="primary"
+                layout="text-only"
+                textCase="uppercase"
+                text="Cancel"
+                className="rds-dialog__button rds-dialog__button__dismiss"
+                onClick={() => setOpen(false)}
+              />
+              <RdsButton
+                style="filled"
+                color="primary"
+                layout="text-only"
+                textCase="uppercase"
+                text="Confirm"
+                className="rds-dialog__button rds-dialog__button__primary"
+                onClick={() => setOpen(false)}
+              />
             </>
           )}
         />
@@ -280,8 +300,8 @@ export const WithIcon: Story = {
     ),
   },
   argTypes: {
-    ShowPrimary: { control: false },
-    ShowSecondary: { control: false },
+    ShowPrimary: { control: 'boolean' },
+    ShowSecondary: { control: 'boolean' },
   },
   parameters: {
     controls: {
@@ -298,7 +318,6 @@ export const WithIcon: Story = {
       ],
     },
     docs: { disable: true },
-
   },
 
   render: (args) => {

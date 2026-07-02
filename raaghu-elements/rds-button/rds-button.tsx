@@ -162,29 +162,86 @@ const RdsButton = ({
     return null;
   };
 
-  const getFilledTextColor = (): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') return undefined;
+  const getPaletteColor = (shade: 'main' | 'dark' | 'light' | 'contrastText'): string | undefined => {
+    if (!color || color === 'inherit') return undefined;
     const paletteColor = theme.palette[color as keyof typeof theme.palette];
-    if (paletteColor && typeof paletteColor === 'object' && 'contrastText' in paletteColor) {
-      return (paletteColor as { contrastText: string }).contrastText;
+    if (paletteColor && typeof paletteColor === 'object' && shade in paletteColor) {
+      return (paletteColor as Record<string, string>)[shade];
     }
     return undefined;
   };
 
-  const getFilledBackgroundColor = (): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') return undefined;
-    const paletteColor = theme.palette[color as keyof typeof theme.palette];
-    if (paletteColor && typeof paletteColor === 'object' && 'main' in paletteColor) {
-      return (paletteColor as { main: string }).main;
-    }
-    return undefined;
+  const paletteMain = getPaletteColor('main');
+  const paletteDark = getPaletteColor('dark');
+  const paletteLight = getPaletteColor('light');
+  const paletteContrast = getPaletteColor('contrastText') ?? '#ffffff';
+
+  const getOutlinedHoverStyles = () => {
+    if (!paletteMain) return {};
+    return {
+      backgroundColor: `${paletteMain} !important`,
+      color: `${paletteContrast} !important`,
+      borderColor: `${paletteMain} !important`,
+      '& .MuiButton-startIcon, & .MuiButton-endIcon, & .MuiSvgIcon-root': {
+        color: 'inherit !important',
+      },
+    };
+  };
+
+  const getFilledSelectedStyles = () => {
+    if (!paletteDark) return {};
+    return {
+      backgroundColor: `${paletteDark} !important`,
+      color: `${paletteContrast} !important`,
+      boxShadow: 'var(--rds-elevation-1)',
+      '&:hover': {
+        backgroundColor: `${paletteDark} !important`,
+        color: `${paletteContrast} !important`,
+      },
+      '& .MuiButton-startIcon, & .MuiButton-endIcon, & .MuiSvgIcon-root': {
+        color: 'inherit !important',
+      },
+    };
+  };
+
+  const getOutlinedSelectedStyles = () => {
+    if (!paletteDark) return {};
+    return {
+      backgroundColor: `${paletteDark} !important`,
+      color: `${paletteContrast} !important`,
+      borderColor: `${paletteDark} !important`,
+      boxShadow: 'var(--rds-elevation-1)',
+      '&:hover': {
+        backgroundColor: `${paletteDark} !important`,
+        color: `${paletteContrast} !important`,
+        borderColor: `${paletteDark} !important`,
+      },
+      '& .MuiButton-startIcon, & .MuiButton-endIcon, & .MuiSvgIcon-root': {
+        color: 'inherit !important',
+      },
+    };
+  };
+
+  const getTextSelectedStyles = () => {
+    if (!paletteLight || !paletteMain) return {};
+    return {
+      backgroundColor: `${paletteLight} !important`,
+      color: `${paletteMain} !important`,
+      boxShadow: 'var(--rds-elevation-1)',
+      '&:hover': {
+        backgroundColor: `${paletteLight} !important`,
+        color: `${paletteMain} !important`,
+      },
+    };
   };
 
   const isButtonDisabled = disabled || state === 'disabled' || isLoading;
   const shapeStyles = getShapeStyles();
   const textCaseStyles = getTextCaseStyles();
-  const filledBackgroundColor = getFilledBackgroundColor();
-  const filledTextColor = getFilledTextColor();
+  const outlinedHoverStyles = getOutlinedHoverStyles();
+  const filledSelectedStyles = getFilledSelectedStyles();
+  const outlinedSelectedStyles = getOutlinedSelectedStyles();
+  const textSelectedStyles = getTextSelectedStyles();
   const contentElement = renderContent();
 
   const hasIcons = normalizedLayout === 'icon+text' && (showLeftIcon || showRightIcon);
@@ -201,13 +258,28 @@ const RdsButton = ({
         '& .MuiButton-startIcon': { margin: 0 },
         '& .MuiButton-endIcon': { margin: 0 },
         ...(hasIcons ? { padding: '6px' } : {}),
+        ...(style === 'outlined' && paletteMain ? {
+          ...(state === 'hover' ? {
+            ...outlinedHoverStyles,
+            transform: 'translateY(-1px)',
+            boxShadow: 'var(--rds-elevation-2)',
+          } : {}),
+          ...(state === 'selected' ? outlinedSelectedStyles : {}),
+          '&:hover': {
+            ...outlinedHoverStyles,
+            transform: 'translateY(-1px)',
+            boxShadow: 'var(--rds-elevation-2)',
+          },
+        } : {}),
+        ...(style === 'filled' && state === 'selected' ? filledSelectedStyles : {}),
+        ...(style === 'transparent' && state === 'selected' ? textSelectedStyles : {}),
         ...sx,
       }}
       style={{
         ...shapeStyles as CSSProperties,
         ...textCaseStyles as CSSProperties,
-        ...(style === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
-        ...(style === 'filled' && filledTextColor ? { color: filledTextColor } : {}),
+        ...(style === 'filled' && paletteMain && state !== 'selected' ? { backgroundColor: paletteMain } : {}),
+        ...(style === 'filled' && paletteContrast && state !== 'selected' ? { color: paletteContrast } : {}),
         ...(isLoading ? { opacity: 1 } : {}),
         ...(sx as any),
       }}

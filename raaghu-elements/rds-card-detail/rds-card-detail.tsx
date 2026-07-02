@@ -19,6 +19,21 @@ export interface RdsCardDetailProps extends CardProps {
   children: React.ReactNode;
 }
 
+const isRenderableNode = (node: unknown): node is React.ReactNode => {
+  if (node == null || node === false) return false;
+  if (typeof node === 'string' || typeof node === 'number') return true;
+  if (React.isValidElement(node)) return true;
+  if (Array.isArray(node)) return node.length > 0;
+  return false;
+};
+
+const resolveImageUrl = (image: unknown): string | undefined => {
+  if (typeof image === 'string' && image.trim() !== '') {
+    return image.trim();
+  }
+  return undefined;
+};
+
 const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
   title,
   subtitle,
@@ -44,6 +59,10 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
     : props.sx;
 
   const mergedClassName = `rds-card-detail ${props.className || ''}`.trim();
+  const resolvedImageHeight =
+    typeof imageHeight === 'number' && !Number.isNaN(imageHeight) ? imageHeight : 140;
+  const resolvedImageUrl = resolveImageUrl(image);
+  const renderedActions = isRenderableNode(actions) ? actions : null;
 
   return (
     <Card {...props} sx={mergedSx} className={mergedClassName}>
@@ -53,20 +72,20 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
           subheader={subtitle}
         />
       )}
-      {image && (
+      {resolvedImageUrl && (
         <CardMedia
           component="img"
-          height={imageHeight}
-          image={image}
+          height={resolvedImageHeight}
+          image={resolvedImageUrl}
           alt={title || 'Card image'}
         />
       )}
       <CardContent>
         {children}
       </CardContent>
-      {actions && (
+      {renderedActions && (
         <CardActions>
-          {actions}
+          {renderedActions}
         </CardActions>
       )}
     </Card>

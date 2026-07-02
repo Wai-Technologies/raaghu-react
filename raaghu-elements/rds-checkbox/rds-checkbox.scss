@@ -210,13 +210,17 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 6px;
-        height: 10px;
-        border: solid var(--rds-primary-contrast-text, #fff);
-        transform: translate(-60%, -70%) rotate(45deg) scale(0);
+        width: 4px;
+        height: 8px;
+        border-right: 2px solid var(--rds-primary-contrast-text, #fff);
+        border-bottom: 2px solid var(--rds-primary-contrast-text, #fff);
+        border-top: none;
+        border-left: none;
+        transform: translate(-50%, -58%) rotate(45deg) scale(0);
         transform-origin: center;
         transition: var(--rds-checkbox-transition);
         opacity: 0;
+        box-sizing: border-box;
       }
 
       &.Mui-checked {
@@ -226,7 +230,7 @@
         }
 
         &::after {
-          transform: translate(-60%, -70%) rotate(45deg) scale(1);
+          transform: translate(-50%, -58%) rotate(45deg) scale(1);
           opacity: 1;
         }
       }

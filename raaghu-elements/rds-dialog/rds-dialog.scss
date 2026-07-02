@@ -92,22 +92,46 @@
       display: flex;
       flex-direction: column;
       gap: var(--rds-spacing-sm);
-      padding: var(--rds-spacing-14) 0 var(--rds-spacing-22) 0;
+      padding: var(--rds-spacing-14) var(--rds-spacing-sm) var(--rds-spacing-22);
       align-items: center;
       justify-content: flex-end;
+      width: 100%;
+      box-sizing: border-box;
       background: transparent;
+
+      &.MuiDialogActions-root {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+
+        > * {
+          margin: 0 !important;
+          flex: 0 0 auto;
+          align-self: center;
+        }
+      }
+    }
+
+    .rds-dialog__button.rds-dialog__button__dismiss,
+    .rds-dialog__button.rds-dialog__button__primary {
+      width: var(--rds-dialog-action-button-width, 248px) !important;
+      min-width: unset !important;
+      max-width: var(--rds-dialog-action-button-width, 248px) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
     }
 
     .rds-dialog__button.rds-dialog__button__dismiss {
-      width: var(--rds-dialog-action-button-width, 248px);
       height: var(--rds-dialog-action-button-height, 36px);
       display: inline-flex;
       justify-content: center;
       align-items: center;
       padding: 0 var(--rds-spacing-3);
-      color: var(--rds-primary-contrast-text);
+      background: transparent;
+      color: var(--rds-primary-main, var(--rds-color-primary));
       border-radius: var(--rds-border-radius-md);
-      border: none;
+      border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
       box-shadow: none;
       box-sizing: border-box;
       font-family: var(--rds-font-family-base);
@@ -117,6 +141,49 @@
       text-align: center;
       vertical-align: middle;
       text-transform: none;
+
+      &:hover {
+        background: var(--rds-color-primary-hover-bg);
+        color: var(--rds-primary-main, var(--rds-color-primary));
+        border-color: var(--rds-primary-main, var(--rds-color-primary));
+      }
+
+      &:active {
+        background: var(--rds-color-primary-hover-bg);
+        color: var(--rds-primary-main, var(--rds-color-primary));
+        border-color: var(--rds-primary-main, var(--rds-color-primary));
+      }
+    }
+
+    .rds-dialog__button.rds-dialog__button__primary {
+      height: var(--rds-dialog-action-button-height, 36px);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 var(--rds-spacing-3);
+      background: var(--rds-primary-main, var(--rds-color-primary));
+      color: var(--rds-primary-contrast-text);
+      border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
+      border-radius: var(--rds-border-radius-md);
+      box-shadow: none;
+      box-sizing: border-box;
+      font-family: var(--rds-font-family-base);
+      font-weight: var(--rds-font-weight-regular, 400);
+      font-size: var(--rds-font-size-xs, 13px);
+      line-height: 16px;
+      text-align: center;
+      vertical-align: middle;
+      text-transform: none;
+
+      &:hover {
+        background: var(--rds-primary-dark, var(--rds-color-primary-hover));
+        border-color: var(--rds-primary-dark, var(--rds-color-primary-hover));
+      }
+
+      &:active {
+        background: var(--rds-primary-dark, var(--rds-color-primary-hover));
+        border-color: var(--rds-primary-dark, var(--rds-color-primary-hover));
+      }
     }
 
     .rds-dialog__button.rds-dialog__button__primary-link {
@@ -140,6 +207,22 @@
       margin-left: 0;
     }
 
+    &.rds-dialog--extra-small {
+      .rds-dialog__actions {
+        max-width: var(--rds-dialog-action-button-width, 248px);
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .rds-dialog__button.rds-dialog__button__dismiss,
+      .rds-dialog__button.rds-dialog__button__primary {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+    }
+
     .rds-dialog__close-button {
       position: absolute;
       right: var(--rds-spacing-sm, 12px);
@@ -149,7 +232,8 @@
       border-radius: 50%;
 
       &:hover {
-        background-color: var(--rds-color-primary-hover-bg);
+        color: var(--rds-text-primary, var(--rds-color-text-primary));
+        background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
       }
     }
 
@@ -166,6 +250,7 @@
       }
 
       .rds-dialog__button.rds-dialog__button__dismiss,
+      .rds-dialog__button.rds-dialog__button__primary,
       .rds-dialog__button.rds-dialog__button__primary-link {
         width: 100%;
         max-width: 100%;
@@ -193,7 +278,8 @@
     border-radius: 50%;
 
     &:hover {
-      background-color: var(--rds-color-primary-hover-bg);
+      color: var(--rds-text-primary, var(--rds-color-text-primary));
+      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
     }
   }
 
@@ -204,6 +290,36 @@
     background: var(--rds-background-paper);
     color: var(--rds-primary-main, var(--rds-color-primary));
     border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
+    box-shadow: none;
+
+    &.rds-button.rds-button__secondary {
+      background: transparent !important;
+      color: var(--rds-primary-main, var(--rds-color-primary)) !important;
+      border: 1px solid var(--rds-primary-main, var(--rds-color-primary)) !important;
+
+      &:hover,
+      &:active {
+        background: var(--rds-color-primary-hover-bg) !important;
+        color: var(--rds-primary-main, var(--rds-color-primary)) !important;
+        border-color: var(--rds-primary-main, var(--rds-color-primary)) !important;
+      }
+    }
+
+    &.rds-button.rds-button__primary {
+      background: var(--rds-primary-main, var(--rds-color-primary)) !important;
+      color: var(--rds-primary-contrast-text) !important;
+      border: 1px solid var(--rds-primary-main, var(--rds-color-primary)) !important;
+
+      &:hover {
+        background: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
+        border-color: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
+      }
+
+      &:active {
+        background: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
+        border-color: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
+      }
+    }
 
     &:hover {
       background: var(--rds-color-primary-hover-bg);
@@ -232,9 +348,13 @@
     &__dismiss {
       color: var(--rds-color-primary, var(--rds-primary-main));
       background: transparent;
+      border: 1px solid var(--rds-color-primary, var(--rds-primary-main));
 
-      &:hover {
+      &:hover,
+      &:active {
         background: var(--rds-color-primary-hover-bg);
+        color: var(--rds-color-primary, var(--rds-primary-main));
+        border-color: var(--rds-color-primary, var(--rds-primary-main));
       }
     }
   }
