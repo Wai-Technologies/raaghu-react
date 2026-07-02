@@ -63,6 +63,7 @@ const RdsModal= ({
     <MuiDialog
       open={resolvedIsOpen}
       onClose={onClose}
+      className="rds-modal"
       {...props}
     >
       {(title || icon || imageSrc) && (
@@ -71,6 +72,15 @@ const RdsModal= ({
             resolvedShowCloseButton && 'rds-modal__title--with-close',
             hasImageHeader && 'rds-modal__title--with-image',
           )}>
+          {resolvedShowCloseButton && !hasImageHeader && (
+            <IconButton
+              aria-label="close"
+              onClick={onClose}
+              className="rds-modal__close rds-modal__close--absolute"
+            >
+              <CloseIcon />
+            </IconButton>
+          )}
           {resolvedShowCloseButton && hasImageHeader && (
             <div className="rds-modal__close-row">
               <IconButton
@@ -82,8 +92,8 @@ const RdsModal= ({
               </IconButton>
             </div>
           )}
-          <div className='rds-modal__content'>
-            {(icon && resolvedShowIcon) || (imageSrc && showImage) ? (
+          {((icon && resolvedShowIcon) || (imageSrc && showImage)) && (
+            <div className="rds-modal__content">
               <div className="rds-modal__media">
                 {icon && resolvedShowIcon && (
                   <span className="rds-modal__icon">{icon}</span>
@@ -92,20 +102,11 @@ const RdsModal= ({
                   <img src={imageSrc} alt="Modal" className="rds-modal__image" />
                 )}
               </div>
-            ) : null}
-          </div>
+            </div>
+          )}
           <Typography sx={{ textAlign: 'center', width: '100%' }} variant="h6" component="div">
             {title}
           </Typography>
-          {resolvedShowCloseButton && !hasImageHeader && (
-            <IconButton
-              aria-label="close"
-              onClick={onClose}
-              className="rds-modal__close rds-modal__close--absolute"
-            >
-              <CloseIcon />
-            </IconButton>
-          )}
         </DialogTitle>
       )}
       <DialogContent sx={{ textAlign: 'center'}}>

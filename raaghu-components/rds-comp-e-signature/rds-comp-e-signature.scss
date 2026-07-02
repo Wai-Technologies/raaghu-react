@@ -365,7 +365,6 @@
 
     &__file-row:focus-within {
     border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
-    box-shadow: var(--rds-focus-ring, 0 0 0 2px rgba(25, 118, 210, .15));
   }
 
   &__upload-content {

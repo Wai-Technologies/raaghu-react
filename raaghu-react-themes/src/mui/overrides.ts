@@ -29,7 +29,6 @@ export const designSystemComponentOverrides: Components<Theme> = {
         },
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
           borderColor: 'var(--rds-primary-main)',
-          boxShadow: `0 0 0 ${theme.spacing(0.25)} color-mix(in srgb, ${theme.palette.primary.main} 20%, transparent)`,
         },
         '&.Mui-error .MuiOutlinedInput-notchedOutline': {
           borderColor: theme.palette.error.main,
