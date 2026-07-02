@@ -21,7 +21,11 @@
 .rds-profile-menu__button.MuiIconButton-root:hover,
 .rds-profile-menu__button.MuiIconButton-root:active,
 .rds-profile-menu__button.MuiIconButton-root:focus,
-.rds-profile-menu__button.MuiIconButton-root.Mui-focusVisible {
+.rds-profile-menu__button.MuiIconButton-root.Mui-focusVisible,
+.rds-profile-menu__button.MuiButton-root:hover,
+.rds-profile-menu__button.MuiButton-root:active,
+.rds-profile-menu__button.MuiButton-root:focus,
+.rds-profile-menu__button.MuiButton-root.Mui-focusVisible {
   background-color: transparent !important;
 }
 
@@ -37,9 +41,19 @@
   padding-left: 0.5rem;
   padding-right: 1rem;
   border-radius: var(--rds-profile-menu-button-radius, 16px);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--rds-profile-menu-button-gap, 8px);
+  cursor: pointer;
+  text-transform: none;
+  min-width: 0;
+
+  .rds-avatar,
+  .rds-profile-menu__avatar,
+  .rds-profile-menu__name,
+  .rds-profile-menu__chevron {
+    pointer-events: none;
+  }
 }
 
 .rds-profile-menu__avatar {
@@ -54,6 +68,13 @@
 .rds-profile-menu__chevron {
   margin-left: var(--rds-spacing-xs);
   color: var(--rds-secondary-main);
+  flex-shrink: 0;
+  transition: transform var(--rds-transition-base, 0.2s ease);
+  transform: rotate(0deg);
+
+  &--open {
+    transform: rotate(180deg);
+  }
 }
 
 .rds-profile-menu__name {

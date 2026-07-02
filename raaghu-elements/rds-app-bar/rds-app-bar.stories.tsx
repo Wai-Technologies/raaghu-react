@@ -211,7 +211,7 @@ const LanguageMenu = () => {
   }, [selected]);
   return (
     <>
-      <Button className="rds-language-button" color="inherit" onClick={e => setAnchorEl(e.currentTarget)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      <Button className="rds-language-button" color="inherit" onClick={e => setAnchorEl(e.currentTarget)} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
         <span style={{ fontWeight: 600 }}>{shortCode}</span>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -252,13 +252,13 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
   const avatarTextColor = theme?.palette?.mode === 'dark' ? theme.palette.common.white : undefined;
   return (
     <>
-      <Button className="rds-admin-profile__button" color="inherit" onClick={() => setOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, textTransform: 'none' }}>
-        <Avatar sx={{ width: 32, height: 32, color: avatarTextColor }}>AU</Avatar>
+      <Button className="rds-admin-profile__button" color="inherit" onClick={() => setOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, textTransform: 'none', cursor: 'pointer' }}>
+        <Avatar sx={{ width: 32, height: 32, fontSize: '0.875rem', fontWeight: 600, color: avatarTextColor }}>AU</Avatar>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1 }}>
           <Typography sx={{ fontSize: 13, fontWeight: 600 }}>Hi, {name.toLowerCase()}</Typography>
           <Typography sx={{ fontSize: 11, color: 'inherit' }}>{email}</Typography>
         </Box>
-        <svg className="rds-admin-profile__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} xmlns="http://www.w3.org/2000/svg">
+        <svg className={`rds-admin-profile__chevron${open ? ' rds-admin-profile__chevron--open' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} xmlns="http://www.w3.org/2000/svg">
           <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </Button>
@@ -272,7 +272,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
           </Box>
 
           <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-            <Avatar sx={{ width: 80, height: 80, color: avatarTextColor }}>AU</Avatar>
+            <Avatar className="rds-admin-profile__drawer-avatar" sx={{ width: 80, height: 80, fontSize: '2rem', fontWeight: 600, color: avatarTextColor }}>AU</Avatar>
             <Typography sx={{ fontWeight: 700, textTransform: 'lowercase' }}>{name}</Typography>
             <Typography sx={{ fontSize: 12, color: 'inherit' }}>{email}</Typography>
           </Box>
@@ -933,7 +933,7 @@ export const Default: Story = {
     userName: 'John Doe',
     userEmail: 'john.doe@example.com',
   },
-  render: DynamicTemplate,
+  render: DynamicTemplate,
 };
 Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'userName', 'userEmail'] } };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
+import { Button, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -35,6 +35,26 @@ const getInitials = (name: string): string =>
     .map((part) => part.charAt(0))
     .join('')
     .toUpperCase();
+
+const ProfileMenuChevron = ({ open }: { open: boolean }) => (
+  <svg
+    className={`rds-profile-menu__chevron${open ? ' rds-profile-menu__chevron--open' : ''}`}
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden
+  >
+    <path
+      d="M6 8L10 12L14 8"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const DEFAULT_MENU_ITEMS: ProfileMenuItem[] = [
   { label: 'My Profile', icon: <PersonIcon fontSize="small" /> },
@@ -75,7 +95,7 @@ export const ProfileMenu = ({
   }, [variant]);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(open ? null : event.currentTarget);
   };
 
   const handleClose = () => {
@@ -84,14 +104,15 @@ export const ProfileMenu = ({
 
   return (
     <>
-      <IconButton
-        aria-label="Draw"
+      <Button
+        aria-label="Open profile menu"
         color="inherit"
         onClick={handleClick}
         size="small"
         className="rds-profile-menu__button"
         aria-haspopup="true"
         aria-expanded={open}
+        disableElevation
       >
         {variant === 'rich' ? (
           <>
@@ -103,50 +124,16 @@ export const ProfileMenu = ({
               showName={!isSmallScreen}
               size="small"
             />
-            {!isSmallScreen && (
-              <svg
-                className="rds-profile-menu__chevron"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <path
-                  d="M6 8L10 12L14 8"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            )}
+            {!isSmallScreen && <ProfileMenuChevron open={open} />}
           </>
         ) : (
           <>
             <Avatar className="rds-profile-menu__avatar">{initials}</Avatar>
             <span className="rds-profile-menu__name">{name}</span>
-            <svg
-              className="rds-profile-menu__chevron"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden
-            >
-              <path
-                d="M6 8L10 12L14 8"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ProfileMenuChevron open={open} />
           </>
         )}
-      </IconButton>
+      </Button>
       <MuiMenu
         anchorEl={anchorEl}
         open={open}
