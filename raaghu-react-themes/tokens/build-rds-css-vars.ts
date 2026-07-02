@@ -365,7 +365,7 @@ function sharedCssVars(): Record<string, string> {
     // AI typing section tokens
     '--rds-ai-typing-textarea-height': componentTokens.aiTyping?.textareaHeight || '100px',
     '--rds-ai-typing-autocomplete-min-width': componentTokens.aiTyping?.autocompleteMinWidth || '190px',
-    '--rds-ai-typing-autocomplete-max-width': componentTokens.aiTyping?.autocompleteMaxWidth || '60px',
+    '--rds-ai-typing-autocomplete-max-width': componentTokens.aiTyping?.autocompleteMaxWidth || '260px',
     '--rds-ai-typing-action-button-min-width': componentTokens.aiTyping?.actionButtonMinWidth || '140px',
     '--rds-ai-typing-fab-left-offset': componentTokens.aiTyping?.fabLeftOffset || '-129px',
     '--rds-ai-typing-action-button-margin-right': componentTokens.aiTyping?.actionButtonMarginRight || '5px',

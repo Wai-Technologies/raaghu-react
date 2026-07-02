@@ -51,6 +51,10 @@ export interface RdsCompDatePickerProps {
   size?: 'small' | 'medium';
   slotProps?: {
     textField?: {
+      slotProps?: {
+        inputLabel?: Record<string, unknown>;
+      };
+      /** @deprecated Use slotProps.textField.slotProps.inputLabel */
       InputLabelProps?: Record<string, unknown>;
       [key: string]: unknown;
     };
@@ -559,7 +563,14 @@ export default function RdsCompDatePicker({
   }, [label, isRequired]);
 
   // Common props for all pickers
-  const baseProps = useMemo(() => ({
+  const baseProps = useMemo(() => {
+    const {
+      InputLabelProps: legacyInputLabelProps,
+      slotProps: textFieldSlotProps,
+      ...restTextFieldSlotProps
+    } = slotProps?.textField ?? {};
+
+    return {
     disabled,
     readOnly,
     size,
@@ -574,21 +585,26 @@ export default function RdsCompDatePicker({
         size,
         required: isRequired,
         className: `rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`,
-        InputLabelProps: {
-          ...(isRequired && { 
-            disableAnimation: false,
-            shrink: undefined,
-          }),
-          ...slotProps?.textField?.InputLabelProps,
+        slotProps: {
+          ...textFieldSlotProps,
+          inputLabel: {
+            ...(isRequired && {
+              disableAnimation: false,
+              shrink: undefined,
+            }),
+            ...legacyInputLabelProps,
+            ...textFieldSlotProps?.inputLabel,
+          },
         },
-        ...slotProps?.textField,
+        ...restTextFieldSlotProps,
       },
       day: {
         className: 'rds-date-picker__day',
       },
       ...slotProps,
     },
-  }), [disabled, readOnly, size, minDate, maxDate, error, formattedLabel, placeholder, isRequired, slotProps]);
+  };
+  }, [disabled, readOnly, size, minDate, maxDate, error, formattedLabel, placeholder, isRequired, slotProps]);
 
   // Props specific to single value pickers
   const singlePickerProps = useMemo(() => ({
