@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
+import { useCallback, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
 import type { RdsBadgeProps } from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
@@ -124,54 +124,43 @@ const RdsCompAiAttachement = ({
     [onFigmaSubmit]
   );
 
-  const listItems = useMemo(
-    () => [
-      {
-        key: "new",
-        value: (
-          <button
-            type="button"
-            onClick={openModal}
-            className="rds-comp-ai-attachement__reset-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#modal1234"
-          >
-            <span className="rds-comp-ai-attachement__upload-row">
-              <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
-              {showBadge && (
-                <RdsBadge
-                  colorVariant={badgeColor || "primary"}
-                  layout="text"
-                  shape="rectangle"
-                  badgeContent={badgeLabel || ""}
-                  size="small"
-                  state="default"
-                  styleType="primary"
-                />
-              )}
-            </span>
-          </button>
-        ),
-      },
-      {
-        key: "refresh",
-        value: (
-          <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachement__reset-btn">
-            {importText}
-          </button>
-        ),
-      },
-    ],
-    [
-      openModal,
-      uploadText,
-      showBadge,
-      badgeColor,
-      badgeLabel,
-      handleImportClick,
-      importText,
-    ]
-  );
+  const listItems = [
+    {
+      key: "new",
+      value: (
+        <button
+          type="button"
+          onClick={openModal}
+          className="rds-comp-ai-attachement__reset-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#modal1234"
+        >
+          <span className="rds-comp-ai-attachement__upload-row">
+            <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
+            {showBadge && (
+              <RdsBadge
+                colorVariant={badgeColor || "primary"}
+                layout="text"
+                shape="rectangle"
+                badgeContent={badgeLabel || ""}
+                size="small"
+                state="default"
+                styleType="primary"
+              />
+            )}
+          </span>
+        </button>
+      ),
+    },
+    {
+      key: "refresh",
+      value: (
+        <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachement__reset-btn">
+          {importText}
+        </button>
+      ),
+    },
+  ];
 
   return (
     <>

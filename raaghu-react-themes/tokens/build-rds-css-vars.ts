@@ -1339,6 +1339,32 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-border-dark': n[600],
     // ── Divider ───────────────────────────────────────────────────────────────
     '--rds-divider': n[700],
+    // ── Button primary (dark) ────────────────────────────────────────────────
+    '--rds-button-primary-bg': p[200],
+    '--rds-button-primary-bg-hover': p[250],
+    '--rds-button-primary-bg-active': p[400],
+    '--rds-button-primary-bg-disabled': n[700],
+    '--rds-button-primary-text': n[900],
+    '--rds-button-primary-text-disabled': n[600],
+    // ── Button secondary / outlined (dark) ───────────────────────────────────
+    '--rds-button-secondary-bg': 'transparent',
+    '--rds-button-secondary-bg-hover': 'transparent',
+    '--rds-button-secondary-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
+    '--rds-button-secondary-border': p[200],
+    '--rds-button-secondary-border-hover': p[250],
+    '--rds-button-secondary-border-active': p[250],
+    '--rds-button-secondary-border-disabled': n[700],
+    '--rds-button-secondary-text': p[200],
+    '--rds-button-secondary-text-active': p[200],
+    '--rds-button-secondary-text-disabled': n[600],
+    '--rds-button-secondary-bg-disabled': n[800],
+    // ── Button text (dark) ───────────────────────────────────────────────────
+    '--rds-button-text-bg-hover': 'color-mix(in srgb, var(--rds-primary-main) 10%, transparent)',
+    '--rds-button-text-variant-bg': 'color-mix(in srgb, var(--rds-primary-main) 4%, transparent)',
+    '--rds-button-text-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 15%, transparent)',
+    '--rds-button-text-color': p[200],
+    '--rds-button-text-color-active': p[250],
+    '--rds-button-text-color-disabled': n[600],
     // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-on-surface': 'var(--rds-text-primary)',
     '--rds-color-on-surface-variant': 'var(--rds-text-secondary)',

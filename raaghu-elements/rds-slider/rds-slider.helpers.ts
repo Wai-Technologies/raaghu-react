@@ -99,10 +99,11 @@ export function normalizeRangeSliderValue(
 }
 
 export function formatSliderValue(val: number | number[], unit?: string): string {
+  const suffix = typeof unit === 'string' ? unit : '';
   if (Array.isArray(val)) {
-    return `${val[0]}${unit || ''} - ${val[1]}${unit || ''}`;
+    return `${val[0]}${suffix} - ${val[1]}${suffix}`;
   }
-  return `${val}${unit || ''}`;
+  return `${val}${suffix}`;
 }
 
 export function resolveSliderMarksAndStep(

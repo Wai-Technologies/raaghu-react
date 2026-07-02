@@ -126,11 +126,11 @@
 
 .rds-switch--style2 .MuiSwitch-track {
   background-color: var(--rds-color-switch-track) !important;
+  height: 100% !important;
   border-radius: var(--rds-border-radius-xl, 16px) !important;
 }
 .rds-switch--style2 .MuiSwitch-thumb {
   background-color: var(--rds-color-switch-thumb) !important;
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
 }
 
 .rds-switch--style3 .MuiSwitch-track {
@@ -146,6 +146,7 @@
 .rds-switch--style4 .MuiSwitch-track {
   background-color: var(--rds-color-switch-track) !important;
   height: 10px !important;
+  width: 100% !important;
   border-radius: 999px !important;
   position: absolute !important;
   top: 50% !important;
@@ -155,13 +156,6 @@
 }
 .rds-switch--style4 .MuiSwitch-thumb {
   background-color: var(--rds-color-switch-thumb) !important;
-}
-
-.rds-switch--style2 .Mui-checked + .MuiSwitch-thumb,
-.rds-switch--style2 .MuiSwitch-input:checked + .MuiSwitch-thumb,
-.rds-switch--style4 .Mui-checked + .MuiSwitch-thumb,
-.rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
 }
 
 .rds-switch--style5 .MuiSwitch-track {
@@ -211,12 +205,39 @@
   --rds-switch-thumb-translate-x: 28px;
 }
 
-.rds-switch--style4 {
+.rds-switch--style4.MuiSwitch-root,
+.rds-switch--style4 .MuiSwitch-root {
   --rds-switch-root-width: 40px;
   --rds-switch-root-height: 20px;
   --rds-switch-thumb-size: 16px;
-  --rds-switch-thumb-padding: 2px;
-  --rds-switch-thumb-translate-x: 20px;
+  --rds-switch-thumb-padding: 0px;
+  --rds-switch-thumb-translate-x: calc(
+    var(--rds-switch-root-width) - var(--rds-switch-thumb-size)
+  );
+
+  width: var(--rds-switch-root-width) !important;
+  height: var(--rds-switch-root-height) !important;
+
+  .MuiSwitch-switchBase {
+    padding: 0 !important;
+    top: 50% !important;
+    left: 0 !important;
+    right: auto !important;
+    width: var(--rds-switch-thumb-size) !important;
+    height: var(--rds-switch-thumb-size) !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .MuiSwitch-switchBase.Mui-checked {
+    left: auto !important;
+    right: 0 !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .MuiSwitch-thumb {
+    width: 100% !important;
+    height: 100% !important;
+  }
 }
 
 .rds-switch--style6 .MuiSwitch-track::before {

@@ -55,6 +55,18 @@ const meta: Meta<typeof RdsSlider> = {
       control: 'boolean',
       description: 'Whether to show the label above the slider',
     },
+    showValue: {
+      control: 'boolean',
+      description: 'Whether to show the current value above the slider',
+    },
+    unit: {
+      control: 'text',
+      description: 'Unit suffix displayed with the slider value',
+    },
+    label: {
+      control: 'text',
+      description: 'Label text displayed above the slider',
+    },
     showTooltip: {
       control: { type: 'select' },
       options: ['default', 'tooltip'],
