@@ -1,31 +1,39 @@
 .time-picker-container {
   position: relative;
+  width: 100%;
+  max-width: 100%;
   --rds-time-picker-accent: var(--rds-primary-main);
   --rds-time-picker-accent-rgb: var(--rds-primary-rgb, 13, 110, 253);
+  --rds-time-picker-on-accent: var(--rds-primary-contrast-text, var(--rds-neutral-0));
 
   &.time-picker-variant-secondary {
     --rds-time-picker-accent: var(--rds-secondary-main, var(--rds-text-secondary));
     --rds-time-picker-accent-rgb: var(--rds-secondary-rgb, var(--rds-text-secondary-rgb, 108, 117, 125));
+    --rds-time-picker-on-accent: var(--rds-secondary-contrast-text, var(--rds-neutral-0));
   }
 
   &.time-picker-variant-success {
     --rds-time-picker-accent: var(--rds-semantic-success-main, var(--rds-success-main));
     --rds-time-picker-accent-rgb: var(--rds-semantic-success-rgb, var(--rds-success-rgb, 25, 135, 84));
+    --rds-time-picker-on-accent: var(--rds-success-contrast-text, var(--rds-neutral-0));
   }
 
   &.time-picker-variant-error {
     --rds-time-picker-accent: var(--rds-semantic-error-main, var(--rds-error-main));
     --rds-time-picker-accent-rgb: var(--rds-semantic-error-rgb, var(--rds-error-rgb, 220, 53, 69));
+    --rds-time-picker-on-accent: var(--rds-error-contrast-text, var(--rds-neutral-0));
   }
 
   &.time-picker-variant-warning {
     --rds-time-picker-accent: var(--rds-semantic-warning-main, var(--rds-warning-main));
     --rds-time-picker-accent-rgb: var(--rds-semantic-warning-rgb, var(--rds-warning-rgb, 245, 158, 11));
+    --rds-time-picker-on-accent: var(--rds-warning-contrast-text, var(--rds-neutral-0));
   }
 
   &.time-picker-variant-info {
     --rds-time-picker-accent: var(--rds-info-main, var(--rds-info-dark));
     --rds-time-picker-accent-rgb: var(--rds-info-rgb, 13, 202, 240);
+    --rds-time-picker-on-accent: var(--rds-info-contrast-text, var(--rds-neutral-0));
   }
   
   .time-input-container {
@@ -52,7 +60,7 @@
       color: var(--rds-text-primary);
       cursor: pointer;
       outline: none;
-      background-color: var(--rds-neutral-0);
+      background-color: var(--rds-color-surface, var(--rds-background-paper, var(--rds-neutral-0)));
       transition: border-color 0.2s;
       
       &:hover:not(:disabled) {
@@ -100,20 +108,46 @@
     position: absolute;
     top: 100%;
     left: 0;
-    right: 0;
-    width: 100%;
-    min-width: 300px;
-    max-width: 350px;
+    right: auto;
+    width: max(100%, 280px);
+    min-width: 0;
+    max-width: min(350px, calc(100vw - 16px));
     margin-top: var(--rds-spacing-sm);
-    background-color: var(--rds-neutral-0);
+    background-color: var(--rds-color-surface, var(--rds-background-paper, var(--rds-neutral-0)));
     border: 1px solid var(--rds-border-default);
     border-radius: var(--rds-border-radius-sm);
     padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     z-index: var(--rds-z-index-modal, 1400);
-    padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+    box-sizing: border-box;
     
     &.time-picker-compact {
       padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) var(--rds-spacing-md);
+      border: 1px solid var(--rds-border-default, var(--rds-color-outline));
+
+      &.border-primary {
+        border-color: var(--rds-primary-main);
+      }
+
+      &.border-secondary {
+        border-color: var(--rds-border-default);
+      }
+
+      &.border-success {
+        border-color: var(--rds-semantic-success-main, var(--rds-success-main));
+      }
+
+      &.border-error,
+      &.border-danger {
+        border-color: var(--rds-semantic-error-main, var(--rds-error-main));
+      }
+
+      &.border-warning {
+        border-color: var(--rds-semantic-warning-main, var(--rds-warning-main));
+      }
+
+      &.border-info {
+        border-color: var(--rds-info-dark);
+      }
     }
     
     &.border-primary { 
@@ -151,7 +185,7 @@
       width: auto;
       font-weight: 500;
       font-size: var(--rds-font-size-md);
-      color: var(--rds-neutral-900);
+      color: var(--rds-color-on-surface, var(--rds-text-primary));
       
       &.time-display-compact {
         font-size: var(--rds-font-size-xs, 13px);
@@ -240,11 +274,12 @@
           height: 38px;
           padding: var(--rds-spacing-sm);
           border-radius: var(--rds-border-radius-sm);
-          border: 1px solid var(--rds-border-light);
-           background-color: var(--rds-neutral-0);
+          border: 1px solid var(--rds-border-default, var(--rds-color-outline));
+          background-color: var(--rds-color-surface, var(--rds-background-paper, var(--rds-neutral-0)));
           font-size: var(--rds-font-size-md);
           appearance: auto;
-          color: var(--rds-text-secondary);
+          color: var(--rds-time-picker-accent);
+          box-sizing: border-box;
           
               &:focus {
                 outline: none;
@@ -254,6 +289,8 @@
           
           option {
             padding: var(--rds-spacing-xs);
+            background-color: var(--rds-color-surface, var(--rds-background-paper, var(--rds-neutral-0)));
+            color: var(--rds-color-on-surface, var(--rds-text-primary));
           }
         }
       }
@@ -388,8 +425,8 @@
         }
         
         &.set-time {
-          background-color: var(--rds-primary-main);
-          color: white;
+          background-color: var(--rds-time-picker-accent);
+          color: var(--rds-time-picker-on-accent, var(--rds-neutral-0));
           padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
           min-width: 70px;
           cursor: pointer;
@@ -398,10 +435,15 @@
           &:hover {
             opacity: 0.9;
           }
+
+          &.set-time--light {
+            background-color: var(--rds-surface-subtle);
+            color: var(--rds-text-primary);
+          }
         }
         
         &.bg-primary { background-color: var(--rds-primary-main); }
-        &.bg-secondary { background-color: var(--rds-text-secondary); }
+        &.bg-secondary { background-color: var(--rds-secondary-main, var(--rds-text-secondary)); }
         &.bg-success { background-color: var(--rds-semantic-success-main, var(--rds-success-main)); }
         &.bg-error, &.bg-danger { background-color: var(--rds-semantic-error-main, var(--rds-error-main)); }
         &.bg-warning { background-color: var(--rds-semantic-warning-main, var(--rds-warning-main)); }
@@ -429,7 +471,7 @@
     max-width: 100%;
     
     .MuiOutlinedInput-root {
-    background-color: var(--rds-neutral-0);
+    background-color: var(--rds-color-surface, var(--rds-background-paper, var(--rds-neutral-0)));
       color: var(--rds-time-picker-accent);
       padding: 0;
       font-size: var(--rds-font-size-md);
@@ -496,6 +538,8 @@
     margin-top: var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-sm);
     max-height: 200px;
+    background-color: var(--rds-color-surface, var(--rds-background-paper, var(--rds-neutral-0)));
+    color: var(--rds-color-on-surface, var(--rds-text-primary));
     
     .MuiAutocomplete-listbox {
       padding: var(--rds-spacing-xs) 0;
@@ -504,6 +548,7 @@
       .MuiAutocomplete-option {
         min-height: 36px;
         padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+        color: var(--rds-color-on-surface, var(--rds-text-primary));
         
         &[aria-selected="true"] {
           background-color: rgba(var(--rds-time-picker-accent-rgb), 0.08);
@@ -512,6 +557,87 @@
         &.Mui-focused {
           background-color: rgba(var(--rds-time-picker-accent-rgb), 0.12);
         }
+      }
+    }
+  }
+}
+
+html[data-theme='dark'] .time-picker-container,
+body[data-theme='dark'] .time-picker-container,
+body.theme-dark .time-picker-container,
+body.dark-theme .time-picker-container,
+[data-theme='dark'] .time-picker-container {
+  .time-input {
+    background-color: var(--rds-color-surface, var(--rds-background-paper));
+    color: var(--rds-color-on-surface, var(--rds-text-primary));
+  }
+
+  .time-picker,
+  .time-picker-compact {
+    background-color: var(--rds-color-surface, var(--rds-background-paper));
+    border-color: var(--rds-border-default, var(--rds-color-outline));
+  }
+
+  .time-display {
+    color: var(--rds-color-on-surface, var(--rds-text-primary));
+  }
+
+  .time-select {
+    color-scheme: dark;
+    background-color: var(--rds-color-surface, var(--rds-background-paper));
+    color: var(--rds-time-picker-accent);
+    border-color: var(--rds-border-default, var(--rds-color-outline));
+
+    option {
+      background-color: var(--rds-color-surface, var(--rds-background-paper));
+      color: var(--rds-color-on-surface, var(--rds-text-primary));
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .time-picker-container {
+    .time-input-container {
+      width: 100%;
+    }
+
+    .time-input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .time-picker,
+    .time-picker-compact {
+      left: 0;
+      right: 0;
+      transform: none;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .time-controls-row {
+      gap: var(--rds-spacing-xs);
+
+      .time-select-container {
+        margin: 0;
+        min-width: 0;
+
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(3) {
+          flex: 1;
+          max-width: none;
+        }
+      }
+    }
+
+    .buttons {
+      flex-wrap: wrap;
+      justify-content: stretch;
+
+      button {
+        flex: 1 1 auto;
+        min-width: 0;
       }
     }
   }

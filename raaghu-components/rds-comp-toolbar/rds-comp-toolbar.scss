@@ -183,6 +183,10 @@
     }
 
     &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
       outline: var(--rds-focus-ring, 2px solid var(--rds-color-primary));
       outline-offset: var(--rds-focus-ring-offset, 2px);
     }
@@ -254,6 +258,9 @@
 
     &:focus {
       outline: none;
+    }
+
+    &:focus-visible {
       background-color: var(--rds-color-surface-container);
     }
 
