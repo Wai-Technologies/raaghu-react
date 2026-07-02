@@ -19,6 +19,7 @@
   },
   "include": [
     "index.ts",
+    "stories",
     "raaghu-elements",
     "raaghu-components",
     "raaghu-layouts",

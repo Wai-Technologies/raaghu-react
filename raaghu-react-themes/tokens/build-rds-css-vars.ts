@@ -1421,9 +1421,6 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-surface-container': surfaceTokens.darkContainer,
     '--rds-color-surface-container-high': surfaceTokens.darkHover,
     '--rds-color-hover-dark': surfaceTokens.darkContainer,
-    '--rds-button-text-variant-bg': interactiveTokens.variantTextBgDark,
-    '--rds-button-text-bg-hover': alphaTokens.actionHoverDark,
-    '--rds-button-text-bg-active': alphaTokens.actionActiveDark,
     // ── Grid / data-table ─────────────────────────────────────────────────────
     '--rds-grid-bg': gridTokens.bg,
     '--rds-grid-bg-alt': gridTokens.bgAlt,
