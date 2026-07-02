@@ -7,18 +7,21 @@ const meta: Meta<typeof RdsStepper> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'centered',
-    controls: {
-      exclude: ['alternativeLabel'],
-    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
     currentStep: {
       control: { type: 'number' },
     },
+    steps: {
+      control: { disable: true },
+    },
     direction: {
       control: { type: 'select' },
       options: ['horizontal', 'vertical'],
+    },
+    showContent: {
+      control: 'boolean',
     },
     alternativeLabel: {
       control: { type: 'boolean' },
@@ -26,6 +29,10 @@ const meta: Meta<typeof RdsStepper> = {
     nonLinear: {
       control: { type: 'boolean' },
     },
+    ref: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
   },
 };
 

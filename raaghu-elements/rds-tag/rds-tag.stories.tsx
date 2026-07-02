@@ -26,6 +26,12 @@ const meta: Meta<typeof RdsTag> = {
     removable: {
       control: 'boolean',
     },
+    onRemove: { control: { disable: true }, table: { disable: true } },
+    onDelete: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
   },
 };
 

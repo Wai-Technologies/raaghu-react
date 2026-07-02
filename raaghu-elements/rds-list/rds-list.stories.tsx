@@ -37,24 +37,27 @@ const meta: Meta<typeof RdsList> = {
   title: 'Elements/List',
   component: RdsList,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'centered',
     controls: {
-      exclude: [
-        'items',
-        'component',
-        'ref',
-        'subheader',
-        'checkedItems',
-        'onCheckboxChange',
-        'withCheckboxes',
-        'onClick',
-        'children',
-        'className',
+      include: [
+        'dense',
+        'disablePadding',
+        'withDividers',
+        'disableGutters',
+        'variant',
+        'alignItems',
       ],
     },
   },
   tags: ['autodocs', 'stable'],
+  args: {
+    dense: false,
+    disablePadding: false,
+    withDividers: false,
+    disableGutters: false,
+    variant: 'simple',
+  },
   argTypes: {
     variant: {
       control: { type: 'select' },
@@ -72,16 +75,22 @@ const meta: Meta<typeof RdsList> = {
     },
     withDividers: {
       control: { type: 'boolean' },
+      description: 'Show dividers between list items',
     },
     disableGutters: {
       control: { type: 'boolean' },
+      description: 'Remove horizontal padding from list items',
     },
-    component: {
-      control: { disable: true },
-      table: { disable: true },
+    variant: {
+      control: { type: 'select' },
+      options: ['simple', 'button', 'icon', 'avatar', 'firebase'],
     },
-    ref: {
-      control: { disable: true },
+    alignItems: {
+      control: { type: 'select' },
+      options: [undefined, 'flex-start', 'center'],
+    },
+    withCheckboxes: {
+      control: { type: 'boolean' },
       table: { disable: true },
     },
     checkedItems: {
@@ -92,7 +101,39 @@ const meta: Meta<typeof RdsList> = {
       control: { disable: true },
       table: { disable: true },
     },
-    withCheckboxes: {
+    items: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    className: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    subheader: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    sx: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    classes: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slotProps: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slots: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -104,7 +145,8 @@ type Story = StoryObj<typeof meta>;
 export const AlignItems: Story = {
   args: {
     withDividers: true,
-  className: 'rds-list--align-responsive',
+    alignItems: 'flex-start',
+    className: 'rds-list--align-responsive',
     items: [
       {
         id: 1,
@@ -291,6 +333,9 @@ const multiSelectionItems = [
 ];
 
 export const MultipleSelection: Story = {
+  parameters: {
+    controls: { include: ['dense', 'disablePadding'] },
+  },
   render: (args) => {
     const [selectedItems, setSelectedItems] = React.useState<number[]>([2]);
     
@@ -452,6 +497,9 @@ const checkboxItems = [
 ];
 
 export const WithCheckbox: Story = {
+  parameters: {
+    controls: { include: ['dense', 'disablePadding'] },
+  },
   render: (args) => {
     const [checked, setChecked] = React.useState<(string | number)[]>([1]);
     

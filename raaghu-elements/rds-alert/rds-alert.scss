@@ -46,7 +46,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--rds-spacing-md);
+  gap: var(--rds-spacing-sm);
   width: 100%;
   font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-sm);
@@ -135,6 +135,12 @@
       }
     }
   }
+  .MuiAlert-icon {
+    margin-right: 0;
+    padding: 0;
+    align-items: center;
+  }
+
   &__icon {
     display: flex;
     align-items: center;

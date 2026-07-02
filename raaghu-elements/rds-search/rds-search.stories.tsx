@@ -63,6 +63,16 @@ const meta: Meta<typeof RdsSearch> = {
     searchDelay: {
       control: 'number',
     },
+    value: { control: { disable: true }, table: { disable: true } },
+    onChange: { control: { disable: true }, table: { disable: true } },
+    onSearch: { control: { disable: true }, table: { disable: true } },
+    onClear: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    InputProps: { control: { disable: true }, table: { disable: true } },
+    inputProps: { control: { disable: true }, table: { disable: true } },
   },
 };
 

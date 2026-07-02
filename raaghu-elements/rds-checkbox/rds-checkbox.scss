@@ -86,7 +86,100 @@
   &__square {
     .MuiCheckbox-root {
       .MuiSvgIcon-root {
-        font-size: calc(var(--rds-checkbox-size) + 6px);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: var(--rds-checkbox-size);
+        height: var(--rds-checkbox-size);
+        transform: translate(-50%, -50%);
+        border: var(--rds-checkbox-border-width) solid var(--rds-border-default);
+        border-radius: var(--rds-border-radius-sm, 4px);
+        background: transparent;
+        transition: var(--rds-checkbox-transition);
+        box-sizing: border-box;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 6px;
+        height: 10px;
+        border: solid var(--rds-primary-contrast-text, #fff);
+        border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
+        transform: translate(-60%, -70%) rotate(45deg) scale(0);
+        transform-origin: center;
+        transition: var(--rds-checkbox-transition);
+        opacity: 0;
+      }
+
+      &.Mui-checked {
+        &::before {
+          background-color: var(--rds-primary-main);
+          border-color: var(--rds-primary-main);
+        }
+
+        &::after {
+          transform: translate(-60%, -70%) rotate(45deg) scale(1);
+          opacity: 1;
+        }
+      }
+
+      &.MuiCheckbox-indeterminate {
+        &::before {
+          background-color: var(--rds-primary-main);
+          border-color: var(--rds-primary-main);
+        }
+
+        &::after {
+          width: 8px;
+          height: 2px;
+          border: none;
+          background-color: var(--rds-primary-contrast-text, #fff);
+          border-radius: 2px;
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+      }
+
+      &.Mui-disabled {
+        &::before {
+          background-color: var(--rds-background-disabled);
+          border-color: var(--rds-border-disabled);
+        }
+
+        &.Mui-checked::before,
+        &.MuiCheckbox-indeterminate::before {
+          background-color: var(--rds-text-disabled);
+          border-color: var(--rds-text-disabled);
+        }
+      }
+
+      &:hover:not(.Mui-disabled)::before {
+        border-color: var(--rds-primary-main);
+        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+      }
+    }
+
+    &.rds-checkbox__secondary {
+      .MuiCheckbox-root {
+        &.Mui-checked::before,
+        &.MuiCheckbox-indeterminate::before {
+          background-color: var(--rds-secondary-main);
+          border-color: var(--rds-secondary-main);
+        }
+
+        &:hover:not(.Mui-disabled)::before {
+          border-color: var(--rds-secondary-main);
+          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
+        }
       }
     }
   }

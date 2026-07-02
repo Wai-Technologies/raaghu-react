@@ -104,38 +104,38 @@
   );
 
   @each $key, $value in $rds-badge-colors {
-    &.rds-badge--primary.rds-badge--#{$key} > .rds-badge__badge {
+    &.rds-badge--primary.rds-badge--color-#{$key} > .rds-badge__badge {
       background-color: list.nth($value, 1);
       color: list.nth($value, 2);
       border: none;
     }
     
-    &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
+    &.rds-badge--primary.rds-badge--color-#{$key} .MuiBadge-badge {
       background-color: list.nth($value, 1) !important;
       color: list.nth($value, 2) !important;
     }
 
-    &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
+    &.rds-badge--outline.rds-badge--color-#{$key} > .rds-badge__badge {
       color: list.nth($value, 1);
       background-color: transparent;
       border: 2px solid list.nth($value, 1);
       box-shadow: none;
     }
     
-    &.rds-badge--outline.rds-badge--#{$key} .MuiBadge-badge {
+    &.rds-badge--outline.rds-badge--color-#{$key} .MuiBadge-badge {
       background-color: transparent !important;
       color: list.nth($value, 1) !important;
       border: 2px solid list.nth($value, 1) !important;
     }
 
-    &.rds-badge--transparent.rds-badge--#{$key} > .rds-badge__badge {
+    &.rds-badge--transparent.rds-badge--color-#{$key} > .rds-badge__badge {
       color: list.nth($value, 1);
       background-color: transparent;
       border: none;
       box-shadow: none;
     }
     
-    &.rds-badge--transparent.rds-badge--#{$key} .MuiBadge-badge {
+    &.rds-badge--transparent.rds-badge--color-#{$key} .MuiBadge-badge {
       background-color: transparent !important;
       color: list.nth($value, 1) !important;
       border: none !important;
@@ -338,12 +338,12 @@
   }
 }
 
-.rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
+.rds-badge.rds-badge--primary.rds-badge--color-primary > .rds-badge__badge {
   background-color: var(--rds-color-primary, var(--rds-primary-main, #2f6fed)) !important;
   color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
 }
 
-.rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
+.rds-badge.rds-badge--primary.rds-badge--color-secondary > .rds-badge__badge {
   background-color: var(--rds-color-secondary, var(--rds-primary-800, #a010c8)) !important;
   color: var(--rds-color-on-secondary, var(--rds-neutral-0, #fff)) !important;
 }

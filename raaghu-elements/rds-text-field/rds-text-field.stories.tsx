@@ -55,6 +55,21 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'text',
       description: 'Default value for the text field',
     },
+    helperText: {
+      control: 'text',
+      description: 'Helper text shown below the field',
+    },
+    errorMessage: {
+      control: 'text',
+      description: 'Error message shown below the field',
+    },
+    ref: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    InputProps: { control: { disable: true }, table: { disable: true } },
+    inputProps: { control: { disable: true }, table: { disable: true } },
+    FormHelperTextProps: { control: { disable: true }, table: { disable: true } },
   },
 };
 

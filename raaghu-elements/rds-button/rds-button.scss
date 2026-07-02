@@ -62,6 +62,8 @@
 
     &:active {
       background-color: var(--rds-button-secondary-bg-active);
+      border-color: var(--rds-button-secondary-border-active, var(--rds-button-primary-bg-hover, var(--rds-primary-main)));
+      color: var(--rds-button-secondary-text-active, var(--rds-button-primary-bg-hover, var(--rds-primary-main)));
     }
 
     &.MuiButton-outlined.MuiButton-colorPrimary {

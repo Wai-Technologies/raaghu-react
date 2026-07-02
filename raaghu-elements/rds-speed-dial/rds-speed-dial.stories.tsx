@@ -21,6 +21,21 @@ const meta: Meta<typeof RdsSpeedDial> = {
     hidden: {
       control: { type: 'boolean' },
     },
+    ariaLabel: {
+      control: 'text',
+    },
+    tooltipTitle: {
+      control: 'text',
+    },
+    icon: { control: { disable: true }, table: { disable: true } },
+    openIcon: { control: { disable: true }, table: { disable: true } },
+    actions: { control: { disable: true }, table: { disable: true } },
+    onOpen: { control: { disable: true }, table: { disable: true } },
+    onClose: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
   },
 };
 
@@ -39,7 +54,7 @@ export const Default: Story = {
     icon: <Speed />,
     open: false,
     actions: speedDialActions,
-  },
+  },
 };
 
 export const Open: Story = {

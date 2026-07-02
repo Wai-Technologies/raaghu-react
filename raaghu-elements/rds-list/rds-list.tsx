@@ -64,7 +64,10 @@ const RdsList = ({
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
   const [internalChecked, setInternalChecked] = useState<(string | number)[]>([]);
   const isControlledChecked = checkedItems !== undefined;
-  const effectiveCheckedItems = isControlledChecked ? normalizeCheckedItems(checkedItems) : internalChecked;
+  const effectiveCheckedItems = isControlledChecked
+    ? (Array.isArray(checkedItems) ? checkedItems : [])
+    : internalChecked;
+  const showCheckboxes = withCheckboxes === true;
 
   const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
   const denseClass = dense ? 'rds-list--dense' : '';
@@ -141,8 +144,8 @@ const RdsList = ({
       );
     }
 
-    if (variant === 'button' || item.onClick || withCheckboxes) {
-      const checkbox = withCheckboxes && !item.icon ? (
+    if (variant === 'button' || item.onClick || showCheckboxes) {
+      const checkbox = showCheckboxes && !item.icon ? (
         <MuiListItemIcon className="rds-list__icon">
           <RdsCheckbox
             checked={effectiveCheckedItems.includes(item.id)}
@@ -162,7 +165,7 @@ const RdsList = ({
       return (
         <MuiListItem key={item.id} disablePadding {...itemProps}>
           <MuiListItemButton
-            onClick={withCheckboxes ? handleCheckboxChange(item.id) : item.onClick}
+            onClick={showCheckboxes ? handleCheckboxChange(item.id) : item.onClick}
             disabled={item.disabled}
           >
             {icon}
