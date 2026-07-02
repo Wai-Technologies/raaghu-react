@@ -27,6 +27,9 @@
     flex-direction: column;
     gap: var(--rds-spacing-lg, 16px);
     border: 1px solid var(--rds-border-default, var(--rds-neutral-200, #e0e0e0));
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   &--selected { 
@@ -190,17 +193,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     .rds-comments-box__thread-title {
+      flex: 1 1 auto;
+      min-width: 0;
       font-size: var(--rds-font-size-xl, 18px);
       font-weight: var(--rds-typography-semibold, 600);
       color: var(--rds-text-secondary);
       padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-md, 6px);
       border-radius: var(--rds-border-radius-sm, 4px);
-      margin-right: var(--rds-spacing-xxl, 210px);
+      margin-right: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .rds-comments-box__thread-icons {
       display: flex;
       align-items: center;
+      flex-shrink: 0;
+      margin-left: auto;
       gap: var(--rds-spacing-md, 8px);
       .rds-comments-box__more-btn,
       .rds-comments-box__pushpin-btn,
@@ -941,11 +954,6 @@
     
   }
 }
-.rds-comments-box__thread-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
 .rds-comments-box__name,
 .rds-comments-box__text {
   color: var(--rds-text-primary); 
@@ -969,9 +977,6 @@
   }
   .rds-comments-box__toolbar-icons {
     gap: var(--rds-spacing-xs) !important;
-  }
-  .rds-comments-box--thread .rds-comments-box__thread-header {
-    justify-content: flex-end !important;
   }
   .rds-comments-box__pushpin-icon,
   .rds-comments-box__more-icon {
@@ -1083,7 +1088,6 @@
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: var(--rds-font-size-md);
-        margin-right: var(--rds-spacing-98);    
       }
       .rds-comments-box__thread-icons {
         gap: var(--rds-spacing-xs);
@@ -1273,7 +1277,6 @@
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: var(--rds-font-size-lg);
-        margin-right: var(--rds-spacing-157);
       }
       .rds-comments-box__thread-icons {
         gap: var(--rds-spacing-compact);
@@ -1348,7 +1351,6 @@
 @media (min-width: 700px) and (max-width: 1112px) {
     .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-title {
         font-size: var(--rds-font-size-lg);
-        margin-right: var(--rds-spacing-240);
     }
     .rds-comments-box__comment-content .rds-comments-box__comment-header {
         min-width: 370px;

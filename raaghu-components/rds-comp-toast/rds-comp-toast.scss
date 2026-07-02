@@ -1,4 +1,8 @@
 .rds-comp-toast {
+  --rds-toast-accent-info: var(--rds-text-primary, var(--rds-color-on-surface));
+  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
+  --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
+
   background: var(--rds-color-surface);
   border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
   border-radius: var(--rds-border-radius, 8px);
@@ -21,31 +25,24 @@
   }
   
   &--info {
-    border-left: 4px solid var(--rds-color-info);
+    border-left: 4px solid var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
   }
   
   &--success {
-    border-left: 4px solid var(--rds-color-success);
+    border-left: 4px solid var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
   }
   
   &--error {
-    border-left: 4px solid var(--rds-color-error);
+    border-left: 4px solid var(--rds-toast-accent-error, var(--rds-color-error));
   }
 
-  &--border-light {
-    border-color: var(--rds-color-outline-variant, var(--rds-color-border));
-  }
-
-  &--border-dark {
-    border-color: var(--rds-color-border-dark, var(--rds-color-border));
-  }
-
-  &--border-primary {
-    border-color: var(--rds-color-primary, var(--rds-primary-main));
-  }
-
+  &--border-light,
+  &--border-dark,
+  &--border-primary,
   &--border-danger {
-    border-color: var(--rds-color-error, var(--rds-semantic-error-main, #e53935));
+    border-top-color: var(--rds-color-outline-variant, var(--rds-color-border));
+    border-right-color: var(--rds-color-outline-variant, var(--rds-color-border));
+    border-bottom-color: var(--rds-color-outline-variant, var(--rds-color-border));
   }
   
   &--text {
@@ -161,16 +158,16 @@
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-circle-color: var(--rds-text-secondary);
+      --rds-toast-circle-color: var(--rds-text-secondary, var(--rds-color-on-surface-variant));
     }
     .rds-comp-toast--info & {
-      --rds-toast-circle-color: var(--rds-color-info);
+      --rds-toast-circle-color: var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
     }
     .rds-comp-toast--success & {
-      --rds-toast-circle-color: var(--rds-color-success);
+      --rds-toast-circle-color: var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
     }
     .rds-comp-toast--error & {
-      --rds-toast-circle-color: var(--rds-color-error);
+      --rds-toast-circle-color: var(--rds-toast-accent-error, var(--rds-color-error));
     }
     
     &--plus {
@@ -198,16 +195,16 @@
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-plus-color: var(--rds-text-secondary);
+      --rds-toast-plus-color: var(--rds-text-secondary, var(--rds-color-on-surface-variant));
     }
     .rds-comp-toast--info & {
-      --rds-toast-plus-color: var(--rds-color-info);
+      --rds-toast-plus-color: var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
     }
     .rds-comp-toast--success & {
-      --rds-toast-plus-color: var(--rds-color-success);
+      --rds-toast-plus-color: var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
     }
     .rds-comp-toast--error & {
-      --rds-toast-plus-color: var(--rds-color-error);
+      --rds-toast-plus-color: var(--rds-toast-accent-error, var(--rds-color-error));
     }
   }
   
@@ -438,16 +435,36 @@
 
 html[data-theme='dark'] .rds-comp-toast,
 body[data-theme='dark'] .rds-comp-toast,
+[data-theme='dark'] .rds-comp-toast,
 body.theme-dark .rds-comp-toast,
 body.dark-theme .rds-comp-toast {
-  border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  --rds-toast-accent-info: var(--rds-color-on-surface, var(--rds-text-primary));
+  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
+  --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
 
-  &.rds-comp-toast--border-light {
-    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+
+  &.rds-comp-toast--border-light,
+  &.rds-comp-toast--border-dark,
+  &.rds-comp-toast--border-primary,
+  &.rds-comp-toast--border-danger {
+    border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+    border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+    border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
   }
 
-  &.rds-comp-toast--border-dark {
-    border-color: var(--rds-color-border-dark, rgba(255, 255, 255, 0.24));
+  &.rds-comp-toast--info {
+    border-left-color: var(--rds-toast-accent-info);
+  }
+
+  &.rds-comp-toast--success {
+    border-left-color: var(--rds-toast-accent-success);
+  }
+
+  &.rds-comp-toast--error {
+    border-left-color: var(--rds-toast-accent-error);
   }
 
   .rds-comp-toast__input {

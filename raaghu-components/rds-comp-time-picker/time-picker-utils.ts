@@ -4,13 +4,13 @@ export const getButtonClasses = (colorVariant?: string) => {
   const variant = colorVariant || 'primary';
   if (variant === 'light') {
     return {
-      setTime: 'set-time bg-light text-dark',
-      cancel: 'cancel border-none text-dark'
+      setTime: 'set-time set-time--light',
+      cancel: 'cancel border-none text-dark',
     };
   }
   return {
-    setTime: `set-time bg-${variant} text-white`,
-    cancel: `cancel border-none text-${variant}`
+    setTime: 'set-time',
+    cancel: `cancel border-none text-${variant}`,
   };
 };
 
