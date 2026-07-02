@@ -59,15 +59,7 @@
     background-color: var(--rds-button-secondary-bg);
     color: var(--rds-button-secondary-text);
     border: 1px solid var(--rds-button-secondary-border);
-    
-    /* Change hover to keep background transparent and use primary color for
-       border/text to match desired outlined look (no filled/purple hover). */
-    &:hover {
-      background-color: transparent;
-      color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
-      border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
-    }
-    
+
     &:active {
       background-color: var(--rds-button-secondary-bg-active);
     }
@@ -102,31 +94,12 @@
     }
   }
 
-  &__state-hover {
+  &__state-hover:not(.rds-button__secondary):not(.MuiButton-outlined) {
     &:hover {
       background-color: var(--rds-button-primary-bg-hover) !important;
+      color: var(--rds-button-primary-text) !important;
       transform: translateY(-1px);
       box-shadow: var(--rds-elevation-2);
-    }
-  }
-
-  &__state-selected {
-    background-color: var(--rds-button-primary-bg-active) !important;
-    box-shadow: var(--rds-elevation-1);
-
-    &:hover {
-      background-color: var(--rds-button-primary-bg-active) !important;
-    }
-
-    &.MuiButton-outlined {
-      background-color: var(--rds-button-secondary-bg-active) !important;
-      border-color: var(--rds-button-secondary-border-active) !important;
-      color: var(--rds-button-secondary-text-active) !important;
-    }
-
-    &.MuiButton-text {
-      background-color: var(--rds-button-text-bg-active) !important;
-      color: var(--rds-button-text-color-active) !important;
     }
   }
 

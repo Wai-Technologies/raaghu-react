@@ -6,8 +6,22 @@ const meta: Meta<typeof RdsFormControl> = {
   title: 'Elements/Form Control',
   component: RdsFormControl,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'centered',
+    controls: {
+      exclude: [
+        'children',
+        'label',
+        'helperText',
+        'isRequired',
+        'isGroup',
+        'ref',
+        'className',
+        'component',
+        'id',
+        'sx',
+      ],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
@@ -40,7 +54,7 @@ type Story = StoryObj<typeof meta>;
 export const WithTextField: Story = {
   args: {
     error: false,
-  },
+  },
   render: (args) => (
     <RdsFormControl {...args}>
       <FormLabel>Email Address</FormLabel>
