@@ -4,7 +4,8 @@ import { Search, Clear } from '@mui/icons-material';
 
 export function getSearchLayoutClasses(
   labelPosition: 'top' | 'left' | 'right' | 'bottom',
-  fullWidthProp: boolean
+  fullWidthProp: boolean,
+  size: 'small' | 'medium' = 'medium'
 ) {
   const layoutMap: Record<string, string> = {
     top: 'column',
@@ -16,6 +17,7 @@ export function getSearchLayoutClasses(
   const containerClasses = [
     'rds-search',
     `rds-search--${layoutMap[labelPosition] ?? 'column'}`,
+    `rds-search--${size}`,
     fullWidthProp ? 'rds-search--fullWidth' : '',
   ]
     .filter(Boolean)
@@ -32,6 +34,7 @@ export interface SearchInputAdornmentsProps {
   iconPosition: 'left' | 'right';
   value: string;
   disabled?: boolean;
+  size?: 'small' | 'medium';
   onSearch: () => void;
   onClear: () => void;
 }
@@ -42,18 +45,36 @@ export function SearchInputAdornments({
   iconPosition,
   value,
   disabled,
+  size = 'medium',
   onSearch,
   onClear,
 }: SearchInputAdornmentsProps) {
+  const iconButtonSize = size === 'small' ? 'small' : 'medium';
+
   const searchButton = (edge: 'start' | 'end') => (
-    <IconButton onClick={onSearch} edge={edge} aria-label="search" disabled={disabled}>
-      <Search />
+    <IconButton
+      onClick={onSearch}
+      edge={edge}
+      size={iconButtonSize}
+      className="rds-search__icon-button"
+      aria-label="search"
+      disabled={disabled}
+    >
+      <Search fontSize="inherit" />
     </IconButton>
   );
 
   const clearButton = (edge: 'start' | 'end') => (
-    <IconButton onClick={onClear} edge={edge} aria-label="clear" disabled={disabled}>
-      <Clear />
+    <IconButton
+      onClick={onClear}
+      edge={edge}
+      size={iconButtonSize}
+      className="rds-search__clear-button"
+      aria-label="clear"
+      disabled={disabled}
+      disableRipple
+    >
+      <Clear fontSize="inherit" />
     </IconButton>
   );
 

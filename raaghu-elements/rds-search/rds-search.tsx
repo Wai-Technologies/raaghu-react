@@ -31,6 +31,7 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
   label,
   labelPosition = 'top',
   iconPosition = 'left',
+  size = 'medium',
   ...props
 }) => {
   const [searchTimeout, setSearchTimeout] = React.useState<ReturnType<typeof setTimeout> | null>(null);
@@ -79,13 +80,14 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
     };
   }, [searchTimeout]);
 
-  const { containerClasses, labelClasses } = getSearchLayoutClasses(labelPosition, fullWidthProp);
+  const { containerClasses, labelClasses } = getSearchLayoutClasses(labelPosition, fullWidthProp, size);
   const adornments = SearchInputAdornments({
     showSearchIcon,
     showClearButton,
     iconPosition,
     value,
     disabled,
+    size,
     onSearch: handleSearch,
     onClear: handleClear,
   });
@@ -102,6 +104,7 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
         onKeyPress={handleKeyPress}
         placeholder={placeholder}
         disabled={disabled}
+        size={size}
         fullWidth={fullWidthProp}
         InputProps={{
           startAdornment: adornments.startAdornment,

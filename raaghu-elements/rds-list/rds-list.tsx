@@ -34,6 +34,20 @@ const ExpandIcon = ({ open }: { open: boolean }) => (
   />
 );
 
+const normalizeCheckedItems = (items?: (string | number)[] | string): (string | number)[] => {
+  if (items === undefined) return [];
+  if (Array.isArray(items)) return items;
+  if (typeof items === 'string') {
+    try {
+      const parsed = JSON.parse(items);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+  return [];
+};
+
 const RdsList = ({
   items,
   variant = 'simple',
@@ -50,7 +64,7 @@ const RdsList = ({
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
   const [internalChecked, setInternalChecked] = useState<(string | number)[]>([]);
   const isControlledChecked = checkedItems !== undefined;
-  const effectiveCheckedItems = isControlledChecked ? checkedItems : internalChecked;
+  const effectiveCheckedItems = isControlledChecked ? normalizeCheckedItems(checkedItems) : internalChecked;
 
   const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
   const denseClass = dense ? 'rds-list--dense' : '';
