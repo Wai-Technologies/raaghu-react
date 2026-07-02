@@ -56,9 +56,6 @@ export const Standard: Story = {
     buttonText: "Add New Data",
     isContinueAnimate: false,
 
-  },
+  },
 };
-
-export const Default: Story = { ...Standard };
-
 

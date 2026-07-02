@@ -40,7 +40,7 @@
       .MuiInputBase-root {
         background-color: var(--rds-background-paper);
         border-radius: var(--rds-border-radius-sm, 4px);
-        border: 1px solid var(--rds-border-light);
+        border: 1px solid var(--rds-border-default);
         transition: all var(--rds-transition-base);
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-primary);
@@ -51,6 +51,7 @@
         }
         
         &.Mui-focused {
+          border-color: var(--rds-border-focus);
           box-shadow: 0 0 0 2px var(--rds-color-primary-20, rgba(59, 130, 246, 0.2));
           background-color: var(--rds-background-paper);
         }
@@ -83,7 +84,7 @@
     width: var(--rds-size-sm, 29px);
     height: var(--rds-size-sm, 29px);
     border-radius: var(--rds-border-radius-sm, 4px) !important;
-    border: 1px solid var(--rds-border-light);
+    border: 1px solid var(--rds-border-default);
     min-width: var(--rds-size-sm, 29px);
     padding: 0;
     margin-left: var(--rds-spacing-sm, 8px);

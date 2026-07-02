@@ -8,13 +8,74 @@ import {
 } from "../chart-utils";
 import "./rds-comp-chart-scatter.scss";
 
+export type ScatterChartType = "scatter" | "bar" | "line";
+
+const VALID_CHART_TYPES: ScatterChartType[] = ["scatter", "bar", "line"];
+
+function resolveDatasetColor(
+  color: string | string[] | undefined,
+  fallback: string
+): string {
+  if (Array.isArray(color)) {
+    return color[0] ?? fallback;
+  }
+  return color ?? fallback;
+}
+
+function normalizeScatterDataset(
+  dataset: NonNullable<ChartConfiguration["data"]["datasets"]>[number],
+  chartType: ScatterChartType
+) {
+  const normalized = {
+    ...dataset,
+    type: chartType,
+  };
+
+  if (chartType !== "line") {
+    return normalized;
+  }
+
+  const lineColor = resolveDatasetColor(
+    dataset.borderColor ?? dataset.backgroundColor,
+    "rgb(255, 99, 132)"
+  );
+
+  return {
+    ...normalized,
+    showLine: true,
+    fill: false,
+    borderColor: lineColor,
+    borderWidth: dataset.borderWidth ?? 2,
+    pointBackgroundColor: resolveDatasetColor(
+      dataset.pointBackgroundColor ?? dataset.backgroundColor,
+      lineColor
+    ),
+    pointBorderColor: resolveDatasetColor(
+      dataset.pointBorderColor ?? dataset.backgroundColor,
+      lineColor
+    ),
+  };
+}
+
+export function resolveScatterChartType(
+  chartType?: string
+): ScatterChartType {
+  if (
+    chartType &&
+    VALID_CHART_TYPES.includes(chartType as ScatterChartType)
+  ) {
+    return chartType as ScatterChartType;
+  }
+  return "scatter";
+}
+
 export interface RdsCompScatterChartProps {
   labels: any[];
   options: ChartConfiguration["options"];
   dataSets: ChartConfiguration["data"]["datasets"];
   id: string;
   chartLabel?: string;
-  chartType?: "scatter" | "bar" | "line";
+  chartType?: ScatterChartType;
 }
 
 const RdsCompScatterChart = ({
@@ -23,7 +84,7 @@ const RdsCompScatterChart = ({
   options,
   dataSets,
   chartLabel,
-  chartType = "scatter",
+  chartType,
 }: RdsCompScatterChartProps) => {
   const chartRef = useRef<Chart | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -35,14 +96,20 @@ const RdsCompScatterChart = ({
     const ctx = canvasRef.current?.getContext("2d");
     if (!ctx) return;
 
+    const resolvedChartType = resolveScatterChartType(chartType);
     const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
+    const chartData = {
+      labels,
+      datasets: dataSets.map((dataset) =>
+        normalizeScatterDataset(dataset, resolvedChartType)
+      ),
+    };
 
     attachChartData(chartOptions, chartData);
     applyChartThemeColors(chartOptions);
 
     chartRef.current = new Chart(ctx, {
-      type: chartType,
+      type: resolvedChartType,
       data: chartData,
       options: chartOptions,
     });

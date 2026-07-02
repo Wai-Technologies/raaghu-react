@@ -95,9 +95,10 @@
     width: var(--rds-font-size-xl, 20px);
     height: var(--rds-font-size-xl, 20px);
     border-radius: var(--rds-border-radius-pill);
-    border: 2px solid var(--rds-border-dark);
+    border: 2px solid var(--rds-text-secondary);
     background: transparent;
     margin-right: var(--rds-spacing-sm, 6px);
+    flex-shrink: 0;
   }
   &__content {
     padding: var(--rds-spacing-sm, 8px) 0 var(--rds-spacing-sm, 8px) 0;
@@ -784,6 +785,11 @@
 
 .rds-adaptive-cards__close-btn .MuiSvgIcon-root {
   font-size: var(--rds-close-btn-font-size, 1.8rem) !important;
+  color: var(--rds-text-secondary);
+}
+
+.rds-adaptive-cards__close-btn {
+  color: var(--rds-text-secondary);
 }
 
 .rds-adaptive-cards__activity-update-radio  {
@@ -970,6 +976,21 @@
   .MuiInputLabel-root,
   .MuiFormHelperText-root {
     color: var(--rds-text-secondary) !important;
+  }
+
+  .custom-box__circle,
+  .rds-adaptive-cards__title-icon {
+    border-color: var(--rds-text-secondary) !important;
+  }
+
+  .custom-box__close-icon,
+  .rds-adaptive-cards__close-btn {
+    color: var(--rds-text-primary) !important;
+  }
+
+  .custom-box__close-icon .MuiSvgIcon-root,
+  .rds-adaptive-cards__close-btn .MuiSvgIcon-root {
+    color: var(--rds-text-primary) !important;
   }
 }
 .rds-adaptive-cards__small-text-alt {
@@ -1369,6 +1390,11 @@
     align-self: center;
     left: 10px !important;
     font-size: var(--rds-font-size-sm) !important;
+    color: var(--rds-text-secondary);
+
+    .MuiSvgIcon-root {
+      color: inherit;
+    }
   }
   
   &__title-stack {
@@ -1381,8 +1407,9 @@
   &__circle {
     width: var(--rds-adaptive-cards-icon-width, 24px);
     height: var(--rds-size-lg);
-    border: 2px solid var(--rds-border-light);
+    border: 2px solid var(--rds-text-secondary);
     border-radius: var(--rds-border-radius-pill);
+    flex-shrink: 0;
   }
 
   &__title-text {
@@ -1430,7 +1457,7 @@
   &__button--done {
     background-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
     border-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
-    color: var(--rds-text-primary, var(--rds-button-primary-text)) !important;
+    color: var(--rds-button-primary-text) !important;
   }
 
   &__button--done:hover,
@@ -1440,6 +1467,7 @@
   &__button--done.MuiButton-contained:active {
     background-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
     border-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
+    color: var(--rds-button-primary-text) !important;
   }
 }
 

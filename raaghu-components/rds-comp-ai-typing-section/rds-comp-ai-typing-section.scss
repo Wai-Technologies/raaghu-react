@@ -4,7 +4,7 @@
   /* Use global --rds-* tokens (falls back to component defaults) */
   --ai-typing-textarea-height: var(--rds-ai-typing-textarea-height, 100px);
   --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width, 190px);
-  --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width, 60px);
+  --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width, 260px);
   --ai-typing-action-button-min-width: var(--rds-ai-typing-action-button-min-width, 140px);
   --ai-typing-toolbar-control-height: var(--rds-ai-typing-toolbar-control-height, 40px);
   --ai-typing-fab-left-offset: var(--rds-ai-typing-fab-left-offset, -129px);
@@ -139,214 +139,99 @@
     display: flex;
     margin-top: var(--rds-spacing-md, 12px);
     margin-bottom: var(--rds-spacing-sm, 8px);
-    align-items: center;
-    justify-content: space-between;
+    align-items: stretch;
+    justify-content: flex-start;
     gap: var(--rds-spacing-md, 12px);
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: visible; 
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow-x: visible;
   }
 
-  @media (min-width: 900px) {
-    &__button-sections {
-      align-items: flex-start;
+  &__project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--rds-spacing-md, 12px);
+    width: 100%;
+  }
+
+  &__action-button {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: min(100%, var(--ai-typing-action-button-min-width));
+
+    .rds-button,
+    .MuiButton-root,
+    .MuiButtonBase-root {
+      min-height: var(--ai-typing-toolbar-control-height) !important;
+      height: var(--ai-typing-toolbar-control-height) !important;
+      width: 100%;
+    }
+
+    & > * {
+      white-space: nowrap;
+      width: 100%;
     }
   }
-  
-    &__project-actions {
-    display: flex;
-    gap: var(--rds-spacing-md, 12px);
-  flex-wrap: nowrap;
-  }
-  
-    &__action-button {
-    display: flex;
-    flex: 0 0 auto;
+
+  &__autocomplete {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
+
+    .MuiInputBase-root,
+    .MuiOutlinedInput-root {
+      min-height: var(--ai-typing-toolbar-control-height);
+      height: var(--ai-typing-toolbar-control-height);
+      box-sizing: border-box;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &__button-sections {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__project-actions {
+      flex-wrap: nowrap;
+      width: auto;
+      flex: 0 1 auto;
+      min-width: 0;
+    }
+
+    &__action-button {
+      flex: 0 0 auto;
+      min-width: var(--ai-typing-action-button-min-width);
 
       .rds-button,
       .MuiButton-root,
       .MuiButtonBase-root {
-        min-height: var(--ai-typing-toolbar-control-height) !important;
-        height: var(--ai-typing-toolbar-control-height) !important;
+        width: auto;
       }
 
-    & > * {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-
-  @media (max-width: 375px) {
-    &__button-sections {
-      flex-wrap: wrap;
-      gap: 0;
-      margin-top: var(--rds-spacing-xs, 6px);
-      margin-bottom: var(--rds-spacing-xs, 4px);
-    }
-
-    &__project-actions {
-      gap: var(--rds-spacing-xs, 6px);
-      flex-wrap: nowrap;
-      flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-    }
-
-    &__action-button {
-      flex: 1 1 100%;
-      min-width: 0;
-      width: 100%;
-      &.rds-comp-ai-typing-section__action-button--figma {
-        margin-top: 0;
+      & > * {
+        width: auto;
       }
     }
 
     &__autocomplete {
-      flex-basis: 100%;
-      order: 3;
-      margin-top: var(--rds-spacing-xs, 6px);
+      flex: 1 1 auto;
+      width: auto;
+      min-width: var(--ai-typing-autocomplete-min-width);
+      max-width: var(--ai-typing-autocomplete-max-width);
     }
   }
 
   @media (min-width: 1536px) {
     &__button-sections {
       gap: calc(var(--rds-spacing-md, 12px) * 1.5);
-      flex-wrap: nowrap;
     }
 
     &__project-actions {
       gap: calc(var(--rds-spacing-md, 12px) * 1.5);
-    }
-
-    &__action-button {
-      flex: 0 1 auto;
-      min-width: var(--ai-typing-action-button-min-width);
-    }
-  }
-
-    &__autocomplete {
-    flex: 1 1 auto;
-    max-width: var(--ai-typing-autocomplete-max-width, 60px);
-    min-width: var(--ai-typing-autocomplete-min-width);
-
-      .MuiInputBase-root,
-      .MuiOutlinedInput-root {
-        min-height: var(--ai-typing-toolbar-control-height);
-        height: var(--ai-typing-toolbar-control-height);
-        box-sizing: border-box;
-      }
-  }
-  
-  @media (min-width: 376px) {
-    &__project-actions {
-      flex-direction: row;
-      flex-wrap: nowrap;
-      width: auto;
-      align-items: center;
-      gap: var(--rds-spacing-md, 10px);
-    }
-
-    &__action-button {
-      flex: 0 1 auto;
-      min-width: var(--ai-typing-action-button-min-width);
-      margin-top: 0;
-    }
-
-    &__autocomplete {
-      order: initial;
-      flex-basis: auto;
-      margin-top: 0;
-    }
-  }
-
-  @media (min-width: 376px) and (max-width: 767px) {
-    &__button-sections {
-      flex-wrap: nowrap;
-      align-items: flex-start;
-      gap: var(--rds-spacing-xs, 6px);
-      margin-top: var(--rds-spacing-sm, 8px);
-      margin-bottom: var(--rds-spacing-xs, 4px);
-    }
-
-    &__project-actions {
-      width: auto;
-      flex: 1 1 auto;
-      flex-wrap: nowrap;
-      gap: var(--rds-spacing-xs, 6px);
-      justify-content: flex-start;
-      min-width: 0;
-      align-items: center;
-    }
-
-    &__action-button {
-      flex: 1 1 auto;
-      min-width: 0;
-      margin-right: 0;
-
-      & > * {
-        overflow: hidden;
-        width: 100%;
-        text-overflow: ellipsis;
-      }
-    }
-
-    &__autocomplete {
-      flex: 0 1 170px;
-      min-width: 140px;
-      max-width: 190px;
-      order: initial;
-      margin-top: 0;
-      align-self: flex-start;
-    }
-  }
-
-  /* Keep the three bottom controls (two buttons + autocomplete) in one row on tablets. */
-  @media (min-width: 768px) and (max-width: 1024px) {
-    &__button-sections {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: var(--rds-spacing-sm, 10px);
-    }
-
-    &__project-actions {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: center;
-      gap: var(--rds-spacing-sm, 10px);
-      min-width: 0;
-    }
-
-    &__action-button {
-      display: flex;
-      align-items: center;
-      flex: 0 1 auto;
-      min-width: 0;
-
-      .rds-button,
-      .MuiButton-root {
-        margin: 0 !important;
-      }
-    }
-
-    &__autocomplete {
-      align-self: flex-start;
-      flex: 1 1 auto;
-      min-width: 190px;
-      max-width: 260px;
-      margin: 0;
-    }
-  }
-
-  @media (min-width: 400px) and (max-width: 430px) {
-    &__action-button--figma {
-      .MuiButton-root,
-      .css-1r3axgn-MuiButtonBase-root-MuiButton-root { 
-        margin: var(--rds-spacing-neg-6) !important;
-      }
     }
   }
 }
