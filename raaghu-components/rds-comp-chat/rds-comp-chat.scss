@@ -678,11 +678,22 @@
     border: none;
     background: transparent;
     cursor: pointer;
-    color: var(--rds-color-primary);
-    
-    svg {
+    color: var(--rds-text-disabled);
+
+    svg,
+    .MuiSvgIcon-root {
       width: 20px;
       height: 20px;
+      color: inherit;
+    }
+
+    &--active {
+      color: var(--rds-primary-main) !important;
+
+      svg,
+      .MuiSvgIcon-root {
+        color: inherit !important;
+      }
     }
   }
 
