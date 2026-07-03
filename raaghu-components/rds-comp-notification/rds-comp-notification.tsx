@@ -1,9 +1,11 @@
 import clsx from "clsx";
 import { Fragment, useState, useMemo, useCallback, useRef } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Close } from "@mui/icons-material";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
+import { getRaaghuLogoUrlFromDark } from "../../raaghu-elements/shared/constants/raaghu-logo";
 import "./rds-comp-notification.scss";
 import {
     NotificationLayout,
@@ -18,12 +20,10 @@ const CustomBellIcon = () => (
     </svg>
 );
 
-const DEFAULT_NOTIFICATION_IMAGE = "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
-
 const RdsCompNotification = ({
     notifications,
     title,
-    defaultImage = DEFAULT_NOTIFICATION_IMAGE,
+    defaultImage,
     layout = NotificationLayout.Horizontal,
     style = NotificationStyle.Default,
     type = NotificationType.Info,
@@ -38,6 +38,10 @@ const RdsCompNotification = ({
     const legacyShowPrimaryButton = typeof legacyProps['showPrimaryButton'] === 'boolean' ? (legacyProps['showPrimaryButton'] as boolean) : undefined;
     const legacyShowSecondaryButton = typeof legacyProps['showSecondaryButton'] === 'boolean' ? (legacyProps['showSecondaryButton'] as boolean) : undefined;
     const legacyShowDismiss = typeof legacyProps['showDismiss'] === 'boolean' ? (legacyProps['showDismiss'] as boolean) : undefined;
+
+    const theme = useTheme();
+    const resolvedDefaultImage =
+        defaultImage ?? getRaaghuLogoUrlFromDark(theme.palette.mode === 'dark');
 
     const resolvedDismissVisible = dismiss === 'visible' || legacyShowDismiss === true;
     const resolvedShowPrimaryButton = actions === 'primary' || actions === 'both' || legacyShowPrimaryButton === true;
@@ -107,7 +111,7 @@ const RdsCompNotification = ({
                         >
                             <Box
                                 component="img"
-                                src={notification.image || defaultImage}
+                                src={notification.image || resolvedDefaultImage}
                                 alt="Notification"
                                 sx={{ width: 70, height: 70, objectFit: "contain" }}
                             />
@@ -146,7 +150,7 @@ const RdsCompNotification = ({
                             <Box className="rds-comp-notification__image-container">
                             <Box
                                 component="img"
-                                src={notification.image || defaultImage}
+                                src={notification.image || resolvedDefaultImage}
                                 alt="Notification"
                                 />
                             </Box>

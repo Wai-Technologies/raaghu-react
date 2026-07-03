@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
+import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
 import { Button, Box } from '@mui/material';
 import { 
   Home, 
@@ -141,6 +142,7 @@ const abpMenuItems = [
 ];
 
 const SidebarTemplate = (args: any) => {
+  const logoSrc = useRaaghuLogoSrc();
   const [open, setOpen] = useState(args.isOpen || false);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -157,6 +159,7 @@ const SidebarTemplate = (args: any) => {
       )}
       <RdsSidebar
         {...args}
+        avatarCollapsedSrc={logoSrc}
         isOpen={open}
         onClose={() => setOpen(false)}
         container={containerRef.current}
@@ -179,7 +182,6 @@ export const Default = {
     isOpen: true,
     variant: 'permanent',
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     showLogo: true,
     showSearch: true,
     hideMainParagraph: true,
@@ -194,7 +196,6 @@ export const MailApp = {
     width: 280,
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
@@ -207,7 +208,6 @@ export const NarrowSidebar = {
     variant: 'permanent',
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     hideToggleButton: true,
   },
   parameters: {
@@ -220,12 +220,15 @@ export const NarrowSidebar = {
 };
 
 export const Permanent: Story = {
+  render: (args) => {
+    const logoSrc = useRaaghuLogoSrc();
+    return <RdsSidebar {...args} avatarCollapsedSrc={logoSrc} />;
+  },
   args: {
     items: basicItems,
     isOpen: true,
     variant: 'permanent',
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     showLogo: true,
   },
 };
@@ -237,7 +240,6 @@ export const WideSidebar = {
     width: 250,
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
@@ -253,11 +255,14 @@ export const WithDisabledItems = {
     ],
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
 export const WithoutIcons: Story = {
+  render: (args) => {
+    const logoSrc = useRaaghuLogoSrc();
+    return <RdsSidebar {...args} avatarCollapsedSrc={logoSrc} />;
+  },
   args: {
     items: [
       { label: 'Home', onClick: () => {} },
@@ -269,6 +274,5 @@ export const WithoutIcons: Story = {
     variant: 'permanent',
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };

@@ -10,6 +10,7 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import './rds-app-bar.scss';
 import { TextField } from '@mui/material';
+import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
 
 const HomeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -429,6 +430,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const DynamicTemplate = (args: any) => {
+  const logoSrc = useRaaghuLogoSrc();
   const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
   const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
   const [selectedSubTab, setSelectedSubTab] = React.useState(0);
@@ -483,7 +485,7 @@ const DynamicTemplate = (args: any) => {
 
   const logoImg = (
     <img
-      src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+      src={logoSrc}
       alt="Logo"
       className="rds-story-logo"
     />

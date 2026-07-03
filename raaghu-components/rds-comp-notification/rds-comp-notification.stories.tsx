@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 import RdsCompNotification from "./rds-comp-notification";
+import { RAAGHU_LOGO_LIGHT_URL } from "../../raaghu-elements/shared/constants/raaghu-logo";
+import { useRaaghuLogoSrc } from "../../raaghu-elements/shared/hooks/useRaaghuLogoSrc";
 import { NotificationLayout, NotificationStyle, NotificationType } from "./rds-comp-notification.types";
 
 const meta: Meta = {
@@ -42,7 +44,7 @@ const meta: Meta = {
         defaultImage: {
             control: { type: 'text' },
             description: 'Fallback image URL used when notification.image is not provided',
-            defaultValue: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+            defaultValue: RAAGHU_LOGO_LIGHT_URL,
         },
         layout: {
             options: ["vertical", "horizontal"],
@@ -63,6 +65,20 @@ export default meta;
 type Story = StoryObj<typeof RdsCompNotification>;
 
 export const Default: Story = {
+    render: (args) => {
+        const logoSrc = useRaaghuLogoSrc();
+        const notifications = args.notifications?.map((notification) => ({
+            ...notification,
+            image: logoSrc,
+        }));
+        return (
+            <RdsCompNotification
+                {...args}
+                defaultImage={logoSrc}
+                notifications={notifications ?? args.notifications}
+            />
+        );
+    },
     args: {
         title: 'Notification Title',
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
@@ -79,7 +95,7 @@ export const Default: Story = {
                 title: "Notification Title",
                 urlTitle: "hello",
                 time: "10 min ago",
-                image: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
+                image: RAAGHU_LOGO_LIGHT_URL,
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.",
             }
         ]

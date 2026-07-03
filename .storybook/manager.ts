@@ -1,12 +1,13 @@
 import { addons } from 'storybook/manager-api';
 import { create } from 'storybook/theming/create';
+import { RAAGHU_LOGO_LIGHT_URL } from '../raaghu-elements/shared/constants/raaghu-logo';
 import '../.storybook/custom-theme.css';
 
 const theme = create({
   base: 'light',
   brandTitle: 'Raaghu Design System',
   brandUrl: 'https://waiin.com/raaghu',
-  brandImage: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+  brandImage: RAAGHU_LOGO_LIGHT_URL,
 });
 
 addons.setConfig({

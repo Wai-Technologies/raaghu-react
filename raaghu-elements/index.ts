@@ -126,3 +126,11 @@ export type { RdsSearchProps } from './rds-search/rds-search';
 export type { RdsCounterProps } from './rds-counter/rds-counter';
 export type { RdsBannerProps } from './rds-banner/rds-banner';
 export type { RdsFileUploaderProps } from './rds-file-uploader/rds-file-uploader';
+export {
+  RAAGHU_LOGO_LIGHT_URL,
+  RAAGHU_LOGO_DARK_URL,
+  getRaaghuLogoUrl,
+  getRaaghuLogoUrlFromDark,
+} from './shared/constants/raaghu-logo';
+export { useRaaghuLogoSrc } from './shared/hooks/useRaaghuLogoSrc';
+export { RaaghuLogoImg } from './shared/components/RaaghuLogoImg';

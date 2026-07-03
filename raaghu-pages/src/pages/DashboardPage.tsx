@@ -3,6 +3,7 @@ import RdsCompAppShell, { AppShellDisplayType } from '@raaghu/layouts/rds-comp-a
 import '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell.scss';
 import RdsAppBar from '@raaghu/elements/rds-app-bar/rds-app-bar';
 import RdsSidebar from '@raaghu/elements/rds-sidebar/rds-sidebar';
+import { useRaaghuLogoSrc } from '@raaghu/elements/shared/hooks/useRaaghuLogoSrc';
 import { useRaaghuTheme } from '@raaghu/themes/src/provider/RaaghuThemeProvider';
 import {
   Box,
@@ -159,9 +160,7 @@ export default function DashboardPage() {
     <MoonIcon sx={{ fontSize: 20 }} />
   ), [mode, isDark]);
 
-  const logoSrc = isDark
-    ? 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-darkmode.png'
-    : 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png';
+  const logoSrc = useRaaghuLogoSrc();
 
   // ── Topbar ──────────────────────────────────────────────────────────────
   const topbar = useMemo(() => (
