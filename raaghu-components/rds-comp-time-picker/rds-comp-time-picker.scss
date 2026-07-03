@@ -69,7 +69,6 @@
       
       &:focus {
         border-color: var(--rds-time-picker-accent);
-        box-shadow: 0 0 0 2px rgba(var(--rds-time-picker-accent-rgb), 0.2);
       }
       
       &:disabled {
@@ -284,7 +283,6 @@
               &:focus {
                 outline: none;
                 border-color: var(--rds-time-picker-accent);
-                box-shadow: 0 0 0 2px rgba(var(--rds-time-picker-accent-rgb), 0.2);
               }
           
           option {

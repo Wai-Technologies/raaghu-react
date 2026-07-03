@@ -81,14 +81,6 @@ const meta: Meta<typeof RdsList> = {
       control: { type: 'boolean' },
       description: 'Remove horizontal padding from list items',
     },
-    variant: {
-      control: { type: 'select' },
-      options: ['simple', 'button', 'icon', 'avatar', 'firebase'],
-    },
-    alignItems: {
-      control: { type: 'select' },
-      options: [undefined, 'flex-start', 'center'],
-    },
     withCheckboxes: {
       control: { type: 'boolean' },
       table: { disable: true },

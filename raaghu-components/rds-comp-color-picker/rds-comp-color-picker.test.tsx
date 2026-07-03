@@ -55,13 +55,17 @@ jest.mock('./color-picker-components', () => ({
   },
 }));
 
-jest.mock('./color-utils', () => ({
-  getColorDisplay: jest.fn((colorMode, colorState) => {
-    if (colorMode === 'HEX') return colorState.hex;
-    if (colorMode === 'RGB') return `rgb(${colorState.rgb.r}, ${colorState.rgb.g}, ${colorState.rgb.b})`;
-    return colorState.hex;
-  }),
-}));
+jest.mock('./color-utils', () => {
+  const actual = jest.requireActual('./color-utils');
+  return {
+    ...actual,
+    getColorDisplay: jest.fn((colorMode: string, colorState: { hex: string; rgb: { r: number; g: number; b: number } }) => {
+      if (colorMode === 'HEX') return colorState.hex;
+      if (colorMode === 'RGB') return `rgb(${colorState.rgb.r}, ${colorState.rgb.g}, ${colorState.rgb.b})`;
+      return colorState.hex;
+    }),
+  };
+});
 
 // Mock navigator.clipboard
 Object.assign(navigator, {

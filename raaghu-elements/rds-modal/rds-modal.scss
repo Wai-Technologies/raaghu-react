@@ -72,7 +72,13 @@
 
     &--with-close {
       padding-inline: var(--rds-spacing-sm) !important;
+      padding-top: var(--rds-spacing-sm, 8px);
     }
+  }
+
+  .MuiDialogTitle-root.rds-modal__title {
+    flex-direction: column;
+    align-items: center;
   }
  
   &__close {
@@ -84,9 +90,10 @@
     color: var(--rds-neutral-500);
 
     &--absolute {
-      position: absolute;
+      position: absolute !important;
       right: var(--rds-spacing-sm, 8px);
       top: var(--rds-spacing-sm, 8px);
+      z-index: 1;
     }
    
     &:hover {

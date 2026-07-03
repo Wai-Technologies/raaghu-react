@@ -388,7 +388,6 @@
     &:focus {
       outline: none;
       border-color: var(--colorBrandBackground);
-      box-shadow: 0 0 0 1px var(--colorBrandBackground);
     }
   }
 
@@ -415,7 +414,6 @@
     &:focus {
       outline: none;
       border-color: var(--colorBrandBackground);
-      box-shadow: 0 0 0 1px var(--colorBrandBackground);
     }
   }
 
@@ -1105,7 +1103,6 @@
   &:focus {
     outline: none;
     border-color: var(--colorBrandBackground, var(--rds-primary-main));
-    box-shadow: 0 0 0 1px var(--colorBrandBackground, var(--rds-primary-main));
   }
 }
 

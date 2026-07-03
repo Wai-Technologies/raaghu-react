@@ -1,5 +1,5 @@
-.rds-sidebar--collapse .MuiDrawer-paper .MuiIconButton-root,
-.rds-sidebar--fixed .MuiDrawer-paper .MuiIconButton-root {
+.rds-sidebar--collapse .MuiDrawer-paper .rds-sidebar__nav-button .MuiIconButton-root,
+.rds-sidebar--fixed .MuiDrawer-paper .rds-sidebar__nav-button .MuiIconButton-root {
   right: var(--rds-sidebar-collapse-icon-offset, 23px) !important;
 }
 .rds-sidebar {
@@ -67,7 +67,39 @@
   
   &__search-container {
     padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-md, 16px);
-    right: var(--rds-spacing-lg, 24px);
+
+    &--icons-only {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--rds-spacing-xs, 2px) 0;
+    }
+  }
+
+  &__search-icon-button {
+    &.MuiIconButton-root {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      margin: 0;
+      padding: 0;
+      border: 1px solid var(--rds-form-border, var(--rds-border-default)) !important;
+      border-radius: var(--rds-border-radius-sm, 4px);
+      background-color: var(--rds-form-bg, var(--rds-background-paper)) !important;
+      color: var(--rds-text-secondary);
+
+      &:hover {
+        background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04)) !important;
+      }
+    }
+
+    .MuiSvgIcon-root {
+      font-size: var(--rds-font-size-lg, 20px);
+    }
   }
   
   &__nav-list {
@@ -208,7 +240,11 @@
     }
 
     .rds-sidebar__search-container {
-      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 13px);
+      padding: var(--rds-spacing-xs, 2px) 0;
+
+      &:not(.rds-sidebar__search-container--icons-only) {
+        padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 13px);
+      }
     }
 
     .MuiListItemText-root {

@@ -2,7 +2,7 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "rea
 import clsx from 'clsx';
 import "./rds-comp-color-picker.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-import { getColorDisplay } from "./color-utils";
+import { getColorDisplay, normalizeHex, resolveColorToHex } from "./color-utils";
 import {
   ColorPickerGrid,
   ColorPickerSpectrum,
@@ -24,12 +24,16 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, isDisabled, onChange } =
     props;
   const getDefaultColorHex = useCallback(() => {
-    if (value) return value;
+    if (value) {
+      return value.startsWith("#") ? normalizeHex(value) : resolveColorToHex(value).hex;
+    }
     try {
       if (typeof window !== 'undefined') {
         const computed = getComputedStyle(document.documentElement).getPropertyValue('--rds-color-primary') || '';
         const trimmed = computed.trim();
-        if (trimmed) return trimmed;
+        if (trimmed) {
+          return trimmed.startsWith("#") ? normalizeHex(trimmed) : resolveColorToHex(trimmed).hex;
+        }
       }
     } catch (e) {
       // ignore
@@ -82,12 +86,12 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   }, []);
 
   const selectedTab = internalSelectedTab;
-  const selectedColorMode = colorMode || internalSelectedColorMode;
   const selectedStyle = style || internalSelectedStyle;
   const selectedColorHex = internalColorState.hex;
   const selectedColorState = internalColorState;
   
   const colorModeDropdownRef = useRef<HTMLDivElement>(null);
+  const prevColorModeRef = useRef(colorMode);
   
   useEffect(() => {
     updatePickerState({ showPicker: type !== ColorPickerType.Button });
@@ -98,6 +102,15 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
       updatePickerState({ internalSelectedTab: pickerType as "Grid" | "Spectrum" });
     }
   }, [pickerType, updatePickerState]);
+
+  useEffect(() => {
+    if (colorMode && colorMode !== prevColorModeRef.current) {
+      prevColorModeRef.current = colorMode;
+      updatePickerState({ internalSelectedColorMode: colorMode });
+    }
+  }, [colorMode, updatePickerState]);
+
+  const selectedColorMode = internalSelectedColorMode;
 
   useEffect(() => {
     if (value && value.startsWith('#')) {
@@ -148,18 +161,37 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
 
   const handleChange = useCallback((newColor: ColorUpdate) => {
     if (isDisabled) return;
-    const nextRgb = newColor.rgb ?? selectedColorState.rgb;
-    const nextHex = newColor.rgb
-      ? rgbToHex(nextRgb.r, nextRgb.g, nextRgb.b)
-      : newColor.hex;
-    const next = { ...selectedColorState, hex: nextHex, rgb: nextRgb };
+    let nextRgb = newColor.rgb ?? selectedColorState.rgb;
+    let nextHex: string;
+
+    if (newColor.rgb) {
+      nextHex = rgbToHex(nextRgb.r, nextRgb.g, nextRgb.b);
+    } else if (newColor.hex.startsWith("#")) {
+      nextHex = normalizeHex(newColor.hex);
+    } else {
+      const resolved = resolveColorToHex(newColor.hex);
+      nextHex = resolved.hex;
+      nextRgb = resolved.rgb;
+    }
+
+    const next = {
+      ...selectedColorState,
+      hex: nextHex,
+      rgb: { ...nextRgb, a: nextRgb.a ?? selectedColorState.rgb.a },
+    };
     updatePickerState({ internalColorState: next });
     if (onChange) onChange(nextHex);
   }, [isDisabled, selectedColorState, onChange, rgbToHex, updatePickerState]);
 
   const handleHueChange = useCallback((newColor: ColorUpdate) => {
     if (isDisabled) return;
-    const next = { ...selectedColorState, hex: newColor.hex };
+    const next = {
+      ...selectedColorState,
+      hex: newColor.hex,
+      rgb: newColor.rgb
+        ? { ...newColor.rgb, a: newColor.rgb.a ?? selectedColorState.rgb.a }
+        : selectedColorState.rgb,
+    };
     updatePickerState({ internalColorState: next });
     if (onChange) onChange(newColor.hex);
   }, [isDisabled, selectedColorState, onChange, updatePickerState]);

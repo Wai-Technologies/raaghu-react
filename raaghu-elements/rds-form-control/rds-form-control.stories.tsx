@@ -8,7 +8,6 @@ const meta: Meta<typeof RdsFormControl> = {
   component: RdsFormControl,
   parameters: {
     status: { type: 'stable' },
-    status: { type: 'stable' },
     layout: 'centered',
     controls: {
       include: [

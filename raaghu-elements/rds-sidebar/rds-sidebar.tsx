@@ -1,6 +1,7 @@
 import { Fragment, useState, type ReactNode } from 'react';
 import {
   Drawer as MuiDrawer,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -13,6 +14,7 @@ import {
 import { 
   ExpandLess, 
   ExpandMore,
+  Search,
   DashboardOutlined,
   GroupsOutlined,
   AppsOutlined,
@@ -190,18 +192,31 @@ const RdsSidebar = ({
             <div className="rds-sidebar__search-section">
               <hr className="rds-sidebar__search-divider" />
             </div>
-            <div className="rds-sidebar__search-container">
-              <RdsSearch
-                iconPosition="right"
-                label=""
-                labelPosition="top"
-                onChange={value => setSearchValue(value)}
-                onSearch={() => {}}
-                placeholder={shouldShowIconsOnly ? '' : 'Search...'}
-                size="small"
-                value={searchValue}
-                sx={{ width: shouldShowIconsOnly ? 38 : Math.min(width - 32, 205) }}
-              />
+            <div className={clsx('rds-sidebar__search-container', shouldShowIconsOnly && 'rds-sidebar__search-container--icons-only')}>
+              {shouldShowIconsOnly ? (
+                <RdsTooltip title="Search" style="right" arrow>
+                  <IconButton
+                    aria-label="search"
+                    className="rds-sidebar__search-icon-button"
+                    onClick={() => {}}
+                    size="small"
+                  >
+                    <Search fontSize="small" />
+                  </IconButton>
+                </RdsTooltip>
+              ) : (
+                <RdsSearch
+                  iconPosition="right"
+                  label=""
+                  labelPosition="top"
+                  onChange={value => setSearchValue(value)}
+                  onSearch={() => {}}
+                  placeholder="Search..."
+                  size="small"
+                  value={searchValue}
+                  sx={{ width: Math.min(width - 32, 205) }}
+                />
+              )}
             </div>
           </>
         )}

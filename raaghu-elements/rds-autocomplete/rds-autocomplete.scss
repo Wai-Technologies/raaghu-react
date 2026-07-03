@@ -1,7 +1,6 @@
 .rds-autocomplete {
   display: block;
   position: relative;
-  --rds-autocomplete-focus-ring-width: 1px;
   --rds-autocomplete-focus-outline-width: 2px;
   --rds-autocomplete-overflow-chip-bg: rgba(45, 44, 44, 0.04);
   --rds-autocomplete-overflow-chip-bg-dark: rgba(255, 255, 255, 0.04);
@@ -72,8 +71,11 @@
   &--focused {
     .MuiInputBase-root {
       border-color: var(--rds-color-primary);
-      box-shadow: 0 0 0 var(--rds-autocomplete-focus-ring-width, 1px) var(--rds-color-primary);
     }
+  }
+
+  .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    box-shadow: none !important;
   }
 
   &--small {
