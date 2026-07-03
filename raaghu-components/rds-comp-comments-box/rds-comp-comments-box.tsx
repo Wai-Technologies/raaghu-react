@@ -1,4 +1,5 @@
-import { RdsAvatar, RdsBox } from '../../raaghu-elements';
+import RdsAvatar from '../../raaghu-elements/rds-avatar/rds-avatar';
+import RdsBox from '../../raaghu-elements/rds-box/rds-box';
 import './rds-comp-comments-box.scss';
 import { RdsCommentBoxLogic, RdsCommentBoxProps } from './rds-comp-comments-logic-combined';
 import { useCommentsBoxLogic } from './rds-comp-comments-box.hooks';

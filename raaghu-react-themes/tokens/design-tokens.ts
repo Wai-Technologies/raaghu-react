@@ -507,7 +507,7 @@ const _componentTokensBase = {
     actionButtonMinWidth: '140px',
     fabLeftOffset: '-129px',
     actionButtonMarginRight: '5px',
-    autocompleteMaxWidth: '60px',
+    autocompleteMaxWidth: '260px',
   },
   chart: {
     bar: {

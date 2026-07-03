@@ -26,4 +26,4 @@ const MotionCollapse = React.forwardRef<HTMLDivElement, MotionCollapseProps>(
 );
 
 MotionCollapse.displayName = 'MotionCollapse';
-export default MotionCollapse;
+export { MotionCollapse };

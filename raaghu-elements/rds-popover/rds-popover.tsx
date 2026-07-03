@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { 
   Popover as MuiPopover, 
   type PopoverProps, 
@@ -71,36 +71,40 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children' 
 const MOBILE_BREAKPOINT = 600;
 
 function useMobilePopoverPosition(position: string): string {
-  const [mobilePosition, setMobilePosition] = useState(position);
+  const [viewportWidth, setViewportWidth] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth : MOBILE_BREAKPOINT + 1
+  );
 
   useEffect(() => {
     function handleResize() {
-      const width = window.innerWidth;
-      const topGroup = [
-        'top-left', 'top-center', 'top-right',
-        'left-top', 'left-center', 'right-top'
-      ];
-      const bottomGroup = [
-        'left-bottom', 'right-center', 'right-bottom',
-        'bottom-right', 'bottom-center', 'bottom-left'
-      ];
-      if (width <= MOBILE_BREAKPOINT) {
-        if (topGroup.includes(position)) {
-          setMobilePosition('top-center');
-        } else if (bottomGroup.includes(position)) {
-          setMobilePosition('bottom-center');
-        } else {
-          setMobilePosition(position);
-        }
-      } else {
-        setMobilePosition(position);
-      }
+      setViewportWidth(window.innerWidth);
     }
-    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [position]);
-  return mobilePosition;
+  }, []);
+
+  return useMemo(() => {
+    if (viewportWidth > MOBILE_BREAKPOINT) {
+      return position;
+    }
+
+    const topGroup = [
+      'top-left', 'top-center', 'top-right',
+      'left-top', 'left-center', 'right-top',
+    ];
+    const bottomGroup = [
+      'left-bottom', 'right-center', 'right-bottom',
+      'bottom-right', 'bottom-center', 'bottom-left',
+    ];
+
+    if (topGroup.includes(position)) {
+      return 'top-center';
+    }
+    if (bottomGroup.includes(position)) {
+      return 'bottom-center';
+    }
+    return position;
+  }, [viewportWidth, position]);
 }
 
 const RdsPopover= ({

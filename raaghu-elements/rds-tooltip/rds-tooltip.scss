@@ -4,7 +4,6 @@
   --rds-tooltip-border: var(--rds-border-default);
   --rds-tooltip-border-width: 1.5px;
   --rds-tooltip-arrow-offset: 0.4em;
-  --rds-tooltip-arrow-shadow: var(--rds-elevation-2);
   --rds-tooltip-focus-ring-width: 2px;
   --rds-tooltip-min-width: 80px;
   --rds-tooltip-max-width: 320px;
@@ -43,7 +42,11 @@
 
   .MuiTooltip-arrow {
     color: var(--rds-tooltip-bg);
-    filter: var(--rds-tooltip-arrow-shadow);
+
+    &::before {
+      border: var(--rds-tooltip-border-width) solid var(--rds-tooltip-border);
+      box-sizing: border-box;
+    }
   }
 
   &--top .MuiTooltip-tooltip,

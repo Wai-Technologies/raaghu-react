@@ -1,5 +1,6 @@
 import { useRef, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
+import type { InputProps } from '@mui/material/Input';
 import clsx from 'clsx';
 import './rds-input.scss';
 
@@ -52,6 +53,8 @@ const RdsInput = ({
   onChange,
   onFocus,
   onBlur,
+  InputProps: legacyInputProps,
+  slotProps: consumerSlotProps,
   ...props
 }: RdsInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -217,6 +220,35 @@ const RdsInput = ({
         }
       : {};
 
+  const consumerInputProps =
+    typeof consumerSlotProps?.input === 'object' && consumerSlotProps?.input !== null
+      ? (consumerSlotProps.input as InputProps)
+      : undefined;
+
+  const inputSlotProps: InputProps = {
+    ...legacyInputProps,
+    ...consumerInputProps,
+    className: clsx(
+      'rds-input__field',
+      legacyInputProps?.className,
+      consumerInputProps?.className,
+    ),
+    classes: {
+      root: active ? 'Mui-focused' : '',
+      focused: active ? 'Mui-focused' : '',
+      ...legacyInputProps?.classes,
+      ...consumerInputProps?.classes,
+    },
+    startAdornment:
+      iconPosition === 'start' && showIcon
+        ? renderIcon()
+        : consumerInputProps?.startAdornment ?? legacyInputProps?.startAdornment,
+    endAdornment:
+      iconPosition === 'end' && showIcon
+        ? renderIcon()
+        : consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment,
+  };
+
   return (
     <div className={clsx('rds-input', sizeClass, pillClass, stateClass, inlineTitleClass)}>
       {titlePosition === 'title-above' && label && (
@@ -241,17 +273,13 @@ const RdsInput = ({
         onChange={handleInternalChange}
         onFocus={(e) => { setIsFocused(true); onFocus?.(e); }}
         onBlur={(e) => { setIsFocused(false); onBlur?.(e); }}
-        InputProps={{ 
-          className: 'rds-input__field',
-          classes: {
-            root: active ? 'Mui-focused' : '',
-            focused: active ? 'Mui-focused' : '',
+        slotProps={{
+          ...consumerSlotProps,
+          input: inputSlotProps,
+          htmlInput: {
+            ...numericInputProps,
+            ...consumerSlotProps?.htmlInput,
           },
-          startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
-          endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
-          inputProps: numericInputProps,
-          ...(props.InputProps || {}),
-          
         }}
         {...props}
       />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextField as MuiTextField, type TextFieldProps } from '@mui/material';
+import type { FormHelperTextProps } from '@mui/material/FormHelperText';
 import clsx from 'clsx';
 import './rds-text-field.scss';
 
@@ -15,28 +16,41 @@ const RdsTextField = ({
   helperText,
   defaultValue,
   className,
-  FormHelperTextProps: formHelperTextProps,
+  FormHelperTextProps: legacyFormHelperTextProps,
+  slotProps: consumerSlotProps,
   ...props
 }: RdsTextFieldProps) => {
   const rootClassName = clsx('rds-text-field', className);
+  const consumerFormHelperTextProps =
+    typeof consumerSlotProps?.formHelperText === 'object' && consumerSlotProps?.formHelperText !== null
+      ? (consumerSlotProps.formHelperText as FormHelperTextProps)
+      : undefined;
 
-  const mergedHelperTextProps = {
-    ...formHelperTextProps,
-    className: clsx('rds-text-field__helper-text', formHelperTextProps?.className),
+  const formHelperTextSlotProps: FormHelperTextProps = {
+    ...legacyFormHelperTextProps,
+    ...consumerFormHelperTextProps,
+    className: clsx(
+      'rds-text-field__helper-text',
+      legacyFormHelperTextProps?.className,
+      consumerFormHelperTextProps?.className,
+    ),
   };
-  
+
   // Handle defaultValue - only pass it if explicitly provided and no value prop is present
   // to prevent React warnings about controlled/uncontrolled components
   const fieldProps = defaultValue !== undefined && props.value === undefined
-    ? { defaultValue } 
+    ? { defaultValue }
     : {};
-    
+
   return (
     <MuiTextField
       error={error || !!errorMessage}
       helperText={errorMessage || helperText}
       required={isRequired}
-      FormHelperTextProps={mergedHelperTextProps}
+      slotProps={{
+        ...consumerSlotProps,
+        formHelperText: formHelperTextSlotProps,
+      }}
       {...fieldProps}
       {...props}
       className={rootClassName}

@@ -75,14 +75,16 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
             variant="outlined"
             placeholder={props.placeholderText || 'Placeholder'}
             className="rds-comments-box__input"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton aria-label="Send" className="rds-comments-box__send">
-                    <SendIcon fontSize="inherit" className="rds-comments-box__send-icon" />
-                  </IconButton>
-                </InputAdornment>
-              ),
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton aria-label="Send" className="rds-comments-box__send">
+                      <SendIcon fontSize="inherit" className="rds-comments-box__send-icon" />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
             }}
           />
         </RdsBox>
@@ -99,7 +101,7 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
                 placeholder={props.typingPlaceholderText || 'Placeholder...'}
                 value={logic.typingHeader}
                 onChange={e => logic.setTypingHeader(e.target.value)}
-                InputProps={{ disableUnderline: true }}
+                slotProps={{ input: { disableUnderline: true } }}
                 fullWidth
               />
             </RdsBox>
@@ -345,14 +347,16 @@ export const RdsCommentBoxLogic = (props: RdsCommentBoxProps) => {
               variant="outlined"
               placeholder={props.placeholderText || 'Placeholder'}
               className="rds-comments-box__input"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton aria-label="Send" className="rds-comments-box__send">
-                      <SendIcon fontSize="inherit" className="rds-comments-box__send-icon" />
-                    </IconButton>
-                  </InputAdornment>
-                ),
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton aria-label="Send" className="rds-comments-box__send">
+                        <SendIcon fontSize="inherit" className="rds-comments-box__send-icon" />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
               }}
             />
           </RdsBox>

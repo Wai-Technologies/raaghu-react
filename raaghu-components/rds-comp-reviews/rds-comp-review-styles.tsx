@@ -1,5 +1,6 @@
 import { useState, type SyntheticEvent, type MouseEventHandler } from "react";
-import { RdsAvatar, RdsRating } from "../../raaghu-elements";
+import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
+import RdsRating from "../../raaghu-elements/rds-rating/rds-rating";
 import { Item, RevieweStyle } from "./rds-comp-reviews-types";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
@@ -10,7 +11,7 @@ import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material
  * @param date Optional date to format
  * @returns Formatted date string
  */
-export const formatDate = (date?: Date) => {
+const formatDate = (date?: Date) => {
   if (!date) return "Date not available";
   return date.toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -547,16 +548,6 @@ export const ReviewStyleCard = ({ item, style }: { item: Item; style?: RevieweSt
     default:
       return null;
   }
-};
-
-/**
- * Component that renders different review styles based on the style prop
- * @param item The review item to render
- * @param style The style variant to use
- * @returns The styled review component
- */
-export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
-  return <ReviewStyleCard item={item} style={style} />;
 };
 
 ReviewStyleCard.displayName = "ReviewStyleCard";

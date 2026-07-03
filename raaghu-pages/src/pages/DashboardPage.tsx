@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import RdsCompAppShell, { AppShellDisplayType } from '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell';
 import '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell.scss';
 import RdsAppBar from '@raaghu/elements/rds-app-bar/rds-app-bar';
 import RdsSidebar from '@raaghu/elements/rds-sidebar/rds-sidebar';
+import { useRaaghuLogoSrc } from '@raaghu/elements/shared/hooks/useRaaghuLogoSrc';
 import { useRaaghuTheme } from '@raaghu/themes/src/provider/RaaghuThemeProvider';
 import {
   Box,
@@ -140,27 +141,26 @@ export default function DashboardPage() {
     }
   }, [isMobile]);
 
-  const handleThemeMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleThemeMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setThemeMenuAnchor(event.currentTarget);
-  };
+  }, []);
 
-  const handleThemeMenuClose = () => {
+  const handleThemeMenuClose = useCallback(() => {
     setThemeMenuAnchor(null);
-  };
+  }, []);
 
-  const handleThemeModeSelect = (nextMode: 'light' | 'dark' | 'system') => {
+  const handleThemeModeSelect = useCallback((nextMode: 'light' | 'dark' | 'system') => {
     setMode(nextMode);
-    handleThemeMenuClose();
-  };
+    setThemeMenuAnchor(null);
+  }, [setMode]);
 
-  const themeIcon =
+  const themeIcon = useMemo(() => (
     mode === 'system' ? <SystemThemeIcon sx={{ fontSize: 20 }} /> :
     isDark ? <SunIcon sx={{ fontSize: 20 }} /> :
-    <MoonIcon sx={{ fontSize: 20 }} />;
+    <MoonIcon sx={{ fontSize: 20 }} />
+  ), [mode, isDark]);
 
-  const logoSrc = isDark
-    ? 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-darkmode.png'
-    : 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png';
+  const logoSrc = useRaaghuLogoSrc();
 
   // ── Topbar ──────────────────────────────────────────────────────────────
   const topbar = useMemo(() => (
@@ -256,7 +256,7 @@ export default function DashboardPage() {
         }
       />
     </div>
-  ), [isDark, logoSrc, mode, themeMenuAnchor, isMobile,themeIcon]);
+  ), [logoSrc, mode, themeMenuAnchor, isMobile, themeIcon, handleThemeMenuOpen, handleThemeMenuClose, handleThemeModeSelect]);
 
   // ── Sidebar ─────────────────────────────────────────────────────────────
   // Default layout intentionally hides the sidebar logo (logo lives in AppBar).

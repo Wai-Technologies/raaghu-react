@@ -15,6 +15,12 @@ const POSITION_STYLES: Record<NonNullable<RdsFabProps['position']>, CSSPropertie
   'top-left': { position: 'fixed', top: 'var(--rds-spacing-md)', left: 'var(--rds-spacing-md)' },
 };
 
+const isRenderableNode = (node: unknown): node is ReactNode =>
+  node == null ||
+  typeof node === 'string' ||
+  typeof node === 'number' ||
+  isValidElement(node);
+
 const RdsFab = ({
   icon,
   label,
@@ -24,12 +30,6 @@ const RdsFab = ({
   ...props
 }: RdsFabProps) => {
   const positionStyles = position ? (POSITION_STYLES[position] ?? {}) : {};
-
-  const isRenderableNode = (node: unknown): node is ReactNode =>
-    node == null ||
-    typeof node === 'string' ||
-    typeof node === 'number' ||
-    isValidElement(node);
 
   const isExtended = props.variant === 'extended';
   const resolvedIcon = isRenderableNode(icon) ? icon : undefined;

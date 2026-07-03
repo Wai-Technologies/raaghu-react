@@ -20,7 +20,7 @@ jest.mock('@mui/material', () => ({
       </div>
     )
   )),
-  TextField: ({ value, onChange, placeholder, InputProps, ...props }: any) => {
+  TextField: ({ value, onChange, placeholder, InputProps, slotProps, ...props }: any) => {
     const handleChange = (e: any) => {
       if (onChange) {
         onChange(e);

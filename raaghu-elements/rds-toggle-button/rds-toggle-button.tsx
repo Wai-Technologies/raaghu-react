@@ -202,9 +202,9 @@ const RdsToggleButton = ({
       aria-label={groupAriaLabel}
     >
       {useCustomSpacing ? (
-        <div className="rds-toggle-button__custom-group" role="group" aria-label={groupAriaLabel}>
+        <fieldset className="rds-toggle-button__custom-group" aria-label={groupAriaLabel}>
           {memoizedButtons}
-        </div>
+        </fieldset>
       ) : (
         <MuiToggleButtonGroup
           exclusive={!multiple}

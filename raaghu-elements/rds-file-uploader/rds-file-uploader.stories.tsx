@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { expect, within } from 'storybook/test';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
-import { RenderFileUploader } from './RdsFileUploaderComponents';
+import { RenderFileUploader } from './rds-file-uploader-render';
 
 const DeleteIcon = () => (
   <svg width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">

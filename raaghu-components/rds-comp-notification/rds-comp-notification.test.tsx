@@ -48,8 +48,9 @@ jest.mock('@mui/icons-material', () => ({
 }));
 
 // Mock RDS elements
-jest.mock('../../raaghu-elements', () => ({
-  RdsButton: ({ text, onClick, className, style, color, size }: any) => (
+jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
+  __esModule: true,
+  default: ({ text, onClick, className, style, color, size }: any) => (
     <button
       data-testid={`rds-button-${text?.toLowerCase()}`}
       onClick={onClick}
@@ -61,7 +62,10 @@ jest.mock('../../raaghu-elements', () => ({
       {text}
     </button>
   ),
-  RdsIconButton: ({ iconFilled, onClick, className, size }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-icon-button/rds-icon-button', () => ({
+  __esModule: true,
+  default: ({ iconFilled, onClick, className, size }: any) => (
     <button
       data-testid="rds-icon-button"
       onClick={onClick}

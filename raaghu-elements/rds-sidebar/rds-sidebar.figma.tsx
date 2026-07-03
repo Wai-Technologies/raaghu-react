@@ -6,8 +6,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
-
-
+import { RAAGHU_LOGO_LIGHT_URL } from '../shared/constants/raaghu-logo';
 figma.connect(
   RdsSidebar,
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=810-12671",
@@ -57,7 +56,7 @@ figma.connect(
       }
     ]} showLogo isOpen={true} {...props} 
     avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-    avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+    avatarCollapsedSrc={RAAGHU_LOGO_LIGHT_URL}
     />,
   },
 )

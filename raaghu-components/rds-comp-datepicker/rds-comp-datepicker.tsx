@@ -3,15 +3,17 @@ import clsx from 'clsx';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
+import { CustomButtons } from './CustomButtons';
+import { CustomInputWithClear } from './CustomInputWithClear';
+import { ExampleCustomInput } from './ExampleCustomInput';
 import {
-    CustomButtons,
-    CustomInputWithClear,
-    ExampleCustomInput,
     getDayClassName,
     getYesterdayDate,
     getTodayDate,
     getLastSevenDaysDate,
     getLastFourteenDaysDate,
+} from './rds-comp-datepicker-helpers';
+import {
     renderDatePickerStateView,
     renderDatePickerTypeView
 } from './rds-comp-datepicker-utils';
@@ -85,23 +87,19 @@ const RdsDatepicker = ({
         }));
     }, []);
     const prevDateForEditRef = useRef(dateForEdit);
-    useEffect(() => {
-        if (dateForEdit !== prevDateForEditRef.current) {
-            prevDateForEditRef.current = dateForEdit;
-            if (dateForEdit) {
-                const newDate = new Date(dateForEdit);
-                updatePickerState({ startDate: newDate, dropdownDisplayValue: newDate.toDateString().slice(4) });
-            }
+    if (dateForEdit !== prevDateForEditRef.current) {
+        prevDateForEditRef.current = dateForEdit;
+        if (dateForEdit) {
+            const newDate = new Date(dateForEdit);
+            updatePickerState({ startDate: newDate, dropdownDisplayValue: newDate.toDateString().slice(4) });
         }
-    }, [dateForEdit, updatePickerState]);
+    }
 
-    const initializedDefaultsRef = useRef(false);
-    useEffect(() => {
-        if (!initializedDefaultsRef.current && isDefaultDate) {
-            initializedDefaultsRef.current = true;
-            updatePickerState({ startDate: today, dropdownDisplayValue: today.toDateString().slice(4) });
-        }
-    }, [isDefaultDate, today, updatePickerState]);
+    const initializedDefaultsRef = useRef(isDefaultDate);
+    if (isDefaultDate && !initializedDefaultsRef.current) {
+        initializedDefaultsRef.current = true;
+        updatePickerState({ startDate: today, dropdownDisplayValue: today.toDateString().slice(4) });
+    }
     const datePickerRef = useRef<DatePicker | null>(null);
     const expandedDatePickerRef = useRef<DatePicker | null>(null);
     const selectedDatePickerRef = useRef<DatePicker | null>(null);

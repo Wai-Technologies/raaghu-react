@@ -1,5 +1,5 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { useMemo, useRef, useState, type MouseEvent } from "react";
 import clsx from 'clsx';
 import {
     Box,
@@ -107,16 +107,20 @@ const RdsCompEmojiGenerator = ({
     const rootRef = useRef<HTMLDivElement | null>(null);
     const initialCategory = categoryProp ?? EmojiCategory.SmileysAndPeople;
     const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+    const prevCategoryPropRef = useRef(categoryProp);
+
+    if (categoryProp !== prevCategoryPropRef.current) {
+        prevCategoryPropRef.current = categoryProp;
+        setSelectedCategory(categoryProp ?? EmojiCategory.SmileysAndPeople);
+    }
+
     const currentCategory = selectedCategory;
-    
+
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedSkinTone, setSelectedSkinTone] = useState(0); 
+    const [selectedSkinTone, setSelectedSkinTone] = useState(0);
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
     const handleEmojiClick = (e: string) => onEmojiSelect?.(e);
-    useEffect(() => {
-        setSelectedCategory(categoryProp ?? EmojiCategory.SmileysAndPeople);
-    }, [categoryProp]);
 
     const handleCategoryChange = (c: EmojiCategory) => {
         setSelectedCategory(c);
@@ -174,12 +178,14 @@ const RdsCompEmojiGenerator = ({
                             placeholder="Search"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <SearchIcon />
-                                    </InputAdornment>
-                                ),
+                            slotProps={{
+                                input: {
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    ),
+                                },
                             }}
                         />
                         {showSkinTone && (

@@ -45,12 +45,12 @@ const RdsSkeleton = ({
       >
         {Array.from({ length: frames }, (_, frameNumber) => frameNumber + 1).map((frameNumber) => (
           <MuiSkeleton
-            key={frameNumber}
             variant={shape}
             animation={animationValue}
             {...props}
             sx={{ ...sx, height, width }}
             className={bemClass}
+            key={frameNumber}
           />
         ))}
       </Box>

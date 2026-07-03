@@ -16,9 +16,9 @@ import {
   RestaurantOrderForm,
   ImageGalleryCard,
   InputFormCard,
-  capitalizeFirstWord,
   AdaptiveCardProps,
 } from "./rds-comp-adaptive-cards-helpers";
+import { capitalizeFirstWord } from "./rds-comp-adaptive-cards-utils";
 
 type FootballProps = {
   leagueName?: string;

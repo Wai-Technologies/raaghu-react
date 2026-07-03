@@ -2,8 +2,11 @@ import React from 'react';
 import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsHeader from './rds-header';
+import { RaaghuLogoImg } from '../shared/components/RaaghuLogoImg';
 import { Button, IconButton, Avatar, Badge, Menu, Box, MenuItem } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
+
+const headerThemeLogo = <RaaghuLogoImg alt="Logo" style={{ height: 32 }} />;
 
 const meta: Meta<typeof RdsHeader> = {
   title: 'Elements/Header',
@@ -50,7 +53,7 @@ export const Default: Story = {
 };
 export const LogoSearchActions: Story = {
   args: {
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     title: '',
     searchValue: '',
     searchPlaceholder: 'Search…',
@@ -70,7 +73,7 @@ export const LogoSearchActions: Story = {
 
 export const LogoSearchTabs: Story = {
   args: {
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     title: '',
     searchValue: '',
     searchPlaceholder: 'Search…',
@@ -87,7 +90,7 @@ export const LogoSearchTabs: Story = {
 
 export const LogoTabsActions: Story = {
   args: {
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     title: '',
     tabs: ['Dashboard', 'Projects', 'Calendar'],
     tabValue: 0,
@@ -107,7 +110,7 @@ export const LogoTabsActions: Story = {
 
 export const LogoSearchTabsActions: Story = {
   args: {
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     title: '',
     searchValue: '',
     searchPlaceholder: 'Search…',
@@ -130,7 +133,7 @@ export const LogoSearchTabsActions: Story = {
 
 export const LogoSearchTabsActionsSubHeader: Story = {
   args: {
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     title: '',
     searchValue: '',
     searchPlaceholder: 'Search…',
@@ -155,7 +158,7 @@ export const LogoSearchTabsActionsSubHeader: Story = {
 export const Minimal: Story = {
   args: {
     title: '',
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     color: 'default',
   },
 };
@@ -163,7 +166,7 @@ export const Minimal: Story = {
 export const Transparent: Story = {
   args: {
     color: 'transparent',
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     actions: (
       <IconButton color="inherit"><AccountCircle /></IconButton>
     ),
@@ -185,7 +188,7 @@ export const Transparent: Story = {
 export const WithLogo: Story = {
   args: {
     title: '',
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     actions: (
       <IconButton color="inherit">
         <Notifications />
@@ -201,7 +204,7 @@ export const WithLogo: Story = {
 export const WithSearch: Story = {
   args: {
     title: '',
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     searchValue: '',
     searchPlaceholder: 'Search…',
     actions: (
@@ -227,7 +230,7 @@ export const WithSearch: Story = {
 export const WithTabs: Story = {
   args: {
     title: '',
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     tabs: ['HOME', 'NEWS', 'MARKETPLACE', 'JOBS'],
     tabValue: 0,
     color: 'default',
@@ -264,7 +267,7 @@ export const WithNotificationBadge: Story = {
 
 export const WithLogoAndTabs: Story = {
   args: {
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
+    logo: headerThemeLogo,
     title: '',
     tabs: ['Dashboard', 'Projects', 'Calendar'],
     tabValue: 0,

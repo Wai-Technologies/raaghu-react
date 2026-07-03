@@ -167,8 +167,9 @@ describe('RdsTable', () => {
       const { container } = renderWithTheme(
         <RdsTable columns={sortableColumns} rows={mockRows} />
       );
-      const headerContent = container.querySelector('.rds-table__header-content');
-      expect(headerContent).toHaveStyle({ cursor: 'pointer' });
+      const sortButton = container.querySelector('.rds-table__sort-button');
+      expect(sortButton).toBeInTheDocument();
+      expect(sortButton?.tagName).toBe('BUTTON');
     });
 
     it('should not make non-sortable columns clickable', () => {

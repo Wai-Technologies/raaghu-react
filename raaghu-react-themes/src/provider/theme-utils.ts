@@ -145,7 +145,7 @@ export function applyRaaghuTheme(
  * Reads Storybook `globals` query param from the current window and parent frames.
  * In static/production builds the manager URL carries globals; the preview iframe often does not.
  */
-export function getStorybookGlobalsFromUrl(win: Window = window): string {
+function getStorybookGlobalsFromUrl(win: Window = window): string {
   if (typeof win === 'undefined') return '';
 
   const searches: string[] = [];

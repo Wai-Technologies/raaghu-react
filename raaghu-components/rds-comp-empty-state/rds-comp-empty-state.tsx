@@ -65,31 +65,28 @@ const RdsCompEmptyState = ({
 
   const titleColor = isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-text-primary)";
 
-  const renderMinimalIcon = () => {
-    if (iconPath) {
+  const iconContent = useMemo(() => {
+    if (isMinimal) {
+      if (iconPath) {
+        return (
+          <img
+            src={iconPath}
+            alt={label || mode || "Empty state"}
+            loading="lazy"
+            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+            data-testid="emptyStateImage"
+          />
+        );
+      }
+
       return (
-        <img
-          src={iconPath}
-          alt={label || mode || "Empty state"}
-          loading="lazy"
-          style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
-          data-testid="emptyStateImage"
+        <SearchOffOutlinedIcon
+          className="rds-comp-empty-state__minimal-icon"
+          data-testid="emptyStateMinimalIcon"
+          sx={{ fontSize: width, width, height }}
+          aria-hidden="true"
         />
       );
-    }
-
-    return (
-      <SearchOffOutlinedIcon
-        className="rds-comp-empty-state__minimal-icon"
-        data-testid="emptyStateMinimalIcon"
-        sx={{ fontSize: width, width, height }}
-        aria-hidden="true"
-      />
-    );  };
-
-  const renderIcon = () => {
-    if (isMinimal) {
-      return renderMinimalIcon();
     }
 
     if (isContinueAnimate) {
@@ -113,7 +110,7 @@ const RdsCompEmptyState = ({
         data-testid="emptyStateImage"
       />
     );
-  };
+  }, [iconPath, imageSrc, isContinueAnimate, isMinimal, label, mode, resolvedAnimation, height, width]);
 
   return (
     <Box
@@ -133,7 +130,7 @@ const RdsCompEmptyState = ({
           data-testid="icon"
           style={{ width, height }}
         >
-          {renderIcon()}
+          {iconContent}
         </Box>
 
         {label && (

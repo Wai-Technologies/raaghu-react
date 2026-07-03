@@ -1,7 +1,5 @@
-import type { RefObject, ReactNode } from "react";
+import { createElement, type RefObject, type ReactNode } from "react";
 import { CustomButtons } from "./CustomButtons";
-import { ExampleCustomInput } from "./ExampleCustomInput";
-import { CustomInputWithClear } from "./CustomInputWithClear";
 import { createRenderCustomHeader } from "./renderCustomHeader";
 
 const getRenderCustomHeader = (layout: string, datePickerStyleType: string) => {
@@ -12,74 +10,6 @@ const getRenderCustomHeader = (layout: string, datePickerStyleType: string) => {
         return createRenderCustomHeader(true);
     }
     return undefined;
-};
-
-export const getDayClassName = (date: Date, startDate: Date | null) => {
-    const today = new Date();
-    const referenceDate = startDate ?? today;
-
-    const referenceMonth = referenceDate.getMonth();
-    const referenceYear = referenceDate.getFullYear();
-
-    const selectedMonth = date.getMonth();
-    const selectedYear = date.getFullYear();
-
-    const isPrevMonth = selectedYear < referenceYear || (selectedYear === referenceYear && selectedMonth < referenceMonth);
-    const isNextMonth = selectedYear > referenceYear || (selectedYear === referenceYear && selectedMonth > referenceMonth);
-
-    // Highlight selected day
-    if (startDate && date.getFullYear() === startDate.getFullYear() && date.getMonth() === startDate.getMonth() && date.getDate() === startDate.getDate()) {
-        return 'rds-datepicker__day--selected';
-    }
-
-    // Dim days that belong to previous/next month
-    if (isPrevMonth || isNextMonth) {
-        return 'rds-datepicker__day--outside';
-    }
-
-    return '';
-};
-
-export const getYesterdayDate = (today: Date) => {
-    return new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate() - 1
-    );
-};
-
-export const getTodayDate = (today: Date) => {
-    return {
-        todayDate: new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate()
-        ),
-        newDate: new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate(),
-            today.getHours(),
-            today.getMinutes(),
-            today.getSeconds()
-        )
-    };
-};
-
-export const getLastSevenDaysDate = (today: Date) => {
-    return new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate() - 7 + 1
-    );
-};
-
-export const getLastFourteenDaysDate = (today: Date) => {
-    return new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate() - 14 + 1
-    );
 };
 
 const buildDatePickerProps = ({
@@ -228,7 +158,7 @@ export const renderDatePickerTypeView = (
     endDate: Date | null,
     handlerDateChange: (date: Date | null) => void,
     onRangeChange: (dates: [Date | null, Date | null]) => void,
-    props: DatePickerComponentProps,
+    props: any,
     isDropdownOpen: boolean,
     toggleDropdown: () => void,
     dropdownDisplayValue: string,
@@ -269,6 +199,7 @@ export const renderDatePickerTypeView = (
         );
     } else if (type === "Custom") {
         const todayButtonElement = <CustomButtons />;
+        const rangeCustomInput = createElement(ExampleCustomInput, { changeIcon: props.changeIcon });
         const pickerProps = buildDatePickerProps({
             startDate,
             onChange: handlerDateChange,
@@ -338,7 +269,7 @@ export const renderDatePickerTypeView = (
                             dayClassName={dayClassName}
                             renderCustomHeader={getRenderCustomHeader(props.layout, props.datePickerStyleType)}
                             calendarClassName={props.layout === "Default" ? "rds-datepicker--layout-default" : undefined}
-                            customInput={<ExampleCustomInput changeIcon={props.changeIcon} />}
+                            customInput={rangeCustomInput}
                         />
                     </li>
                 </ul>
@@ -348,9 +279,3 @@ export const renderDatePickerTypeView = (
 
     return null;
 };
-
-CustomButtons.displayName = 'CustomButtons';
-ExampleCustomInput.displayName = 'ExampleCustomInput';
-CustomInputWithClear.displayName = 'CustomInputWithClear';
-
-export { CustomButtons, ExampleCustomInput, CustomInputWithClear };

@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties, type ChangeEvent } from 'react';
+import { useRef, useState, type CSSProperties, type ChangeEvent } from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-checkbox.scss';
@@ -31,13 +31,16 @@ const RdsCheckbox = ({
   const isCheckboxDisabled = Boolean(disabled) || isDisabled || state === 'disabled';
 
   const [internalChecked, setInternalChecked] = useState(status === 'checked');
-  const checked = internalChecked;
+  const prevStatusRef = useRef(status);
 
-  useEffect(() => {
+  if (status !== prevStatusRef.current) {
+    prevStatusRef.current = status;
     if (status !== undefined) {
       setInternalChecked(status === 'checked');
     }
-  }, [status]);
+  }
+
+  const checked = internalChecked;
 
   const currentIndeterminate = status === 'indeterminate';
 

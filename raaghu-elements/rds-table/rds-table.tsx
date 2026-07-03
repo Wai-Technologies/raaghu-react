@@ -11,7 +11,6 @@ import {
   type TableProps,
   Checkbox,
   Radio,
-  IconButton
 } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import clsx from 'clsx';
@@ -283,32 +282,26 @@ const RdsTable = ({
                       />
                       </div>
                     ) : column.sortable ? (
-                      <div
-                        role="button"
-                        tabIndex={0}
-                        className="rds-table__header-content"
+                      <button
+                        type="button"
+                        className={clsx(
+                          'rds-table__header-content',
+                          'rds-table__sort-button',
+                          active && 'rds-table__sort-button--active'
+                        )}
+                        aria-label={active ? `Sort ${column.label} ${sortDirection}` : `Sort ${column.label}`}
                         onClick={() => handleSort(column)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            handleSort(column);
-                          }
-                        }}
-                        style={{ cursor: 'pointer' }}
                       >
                         <span className="rds-table__header-label">{column.label}</span>
-                        <IconButton
-                          aria-label={active ? `Sort ${column.label} ${sortDirection}` : `Sort ${column.label}`}
-                          size="small"
-                          className={`rds-table__sort-button ${active ? 'rds-table__sort-button--active' : ''}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleSort(column);
-                          }}
-                        >
-                          <SwapVertIcon className={`rds-table__sort-icon ${sortDirection === 'desc' && active ? 'rds-table__sort-icon--desc' : ''}`} fontSize="small" />
-                        </IconButton>
-                      </div>
+                        <SwapVertIcon
+                          aria-hidden
+                          className={clsx(
+                            'rds-table__sort-icon',
+                            sortDirection === 'desc' && active && 'rds-table__sort-icon--desc'
+                          )}
+                          fontSize="small"
+                        />
+                      </button>
                     ) : (
                       <div>
                         <span className="rds-table__header-label">{column.label}</span>

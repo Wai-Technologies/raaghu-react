@@ -121,9 +121,9 @@ const RdsHeader = ({
         >
           {tabs.map((tab, idx) =>
             typeof tab === 'string' ? (
-              <Tab key={tab} label={tab} />
+              <Tab label={tab} key={tab} />
             ) : (
-              <Tab key={tab.label || idx} {...(tab as React.ComponentProps<typeof Tab>)} />
+              <Tab {...(tab as React.ComponentProps<typeof Tab>)} key={tab.label || idx} />
             )
           )}
         </Tabs>

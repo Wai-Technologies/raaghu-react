@@ -1824,8 +1824,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 size="small"
-                InputProps={{
-                  startAdornment: <SearchIcon color="action" />,
+                slotProps={{
+                  input: {
+                    startAdornment: <SearchIcon color="action" />,
+                  },
                 }}
                 sx={{ minWidth: 200 }}
               />
@@ -1911,8 +1913,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               size="small"
-              InputProps={{
-                startAdornment: <SearchIcon color="action" />,
+              slotProps={{
+                input: {
+                  startAdornment: <SearchIcon color="action" />,
+                },
               }}
               sx={{ minWidth: 200 }}
             />

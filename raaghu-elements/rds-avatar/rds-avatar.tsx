@@ -39,6 +39,14 @@ const overflowFontSize: Record<string, string> = {
   largest:  '1.125rem',
 };
 
+const overlapOffsets: Record<string, number> = {
+  smallest: -12,
+  small: -14,
+  medium: -16,
+  large: -20,
+  largest: -26,
+};
+
 const RdsAvatar = ({
   colorVariant = 'primary',
   title,
@@ -61,13 +69,6 @@ const RdsAvatar = ({
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
     const visibleAvatars = avatars.slice(0, maxVisibleAvatars);
     const remainingCount = Math.max(0, avatars.length - maxVisibleAvatars);
-    const overlapOffsets: Record<string, number> = {
-      smallest: -12,
-      small: -14,
-      medium: -16,
-      large: -20,
-      largest: -26,
-    };
     const overlapOffset = overlapOffsets[size] ?? -22;
     const avatarSize = sizeStyles[size].width;
     const itemCount = visibleAvatars.length + (remainingCount > 0 && showRemainingCount ? 1 : 0);

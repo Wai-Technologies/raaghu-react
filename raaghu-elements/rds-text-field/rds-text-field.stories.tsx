@@ -187,12 +187,14 @@ export const WithStartAdornment: Story = {
   args: {
     label: 'Email',
     placeholder: 'Enter your email',
-    InputProps: {
-      startAdornment: (
-        <InputAdornment position="start">
-          <EmailIcon />
-        </InputAdornment>
-      ),
+    slotProps: {
+      input: {
+        startAdornment: (
+          <InputAdornment position="start">
+            <EmailIcon />
+          </InputAdornment>
+        ),
+      },
     },
   },
 };
@@ -201,12 +203,14 @@ export const WithEndAdornment: Story = {
   args: {
     label: 'Search',
     placeholder: 'Search...',
-    InputProps: {
-      endAdornment: (
-        <InputAdornment position="end">
-          <SearchIcon />
-        </InputAdornment>
-      ),
+    slotProps: {
+      input: {
+        endAdornment: (
+          <InputAdornment position="end">
+            <SearchIcon />
+          </InputAdornment>
+        ),
+      },
     },
   },
 };
@@ -216,12 +220,14 @@ export const Password: Story = {
     label: 'Password',
     type: 'password',
     placeholder: 'Enter your password',
-    InputProps: {
-      startAdornment: (
-        <InputAdornment position="start">
-          <LockIcon />
-        </InputAdornment>
-      ),
+    slotProps: {
+      input: {
+        startAdornment: (
+          <InputAdornment position="start">
+            <LockIcon />
+          </InputAdornment>
+        ),
+      },
     },
   },
 };

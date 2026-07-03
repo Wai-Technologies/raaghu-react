@@ -2,7 +2,8 @@ import { useState, useEffect, useRef, useCallback, useMemo, Fragment } from "rea
 export { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
 import { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
 import clsx from 'clsx';
-import { getToolbarConfig, ToolbarButton } from "./rds-comp-toolbar-config";
+import { ToolbarButton } from "./rds-comp-toolbar-config";
+import { getToolbarConfig } from "./rds-comp-toolbar-config-data";
 import "./rds-comp-toolbar.scss";
 
 

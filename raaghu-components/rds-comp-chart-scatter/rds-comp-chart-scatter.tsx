@@ -7,10 +7,9 @@ import {
   useChartThemeMode,
 } from "../chart-utils";
 import "./rds-comp-chart-scatter.scss";
+import { resolveScatterChartType, type ScatterChartType } from "./rds-comp-chart-scatter-utils";
 
-export type ScatterChartType = "scatter" | "bar" | "line";
-
-const VALID_CHART_TYPES: ScatterChartType[] = ["scatter", "bar", "line"];
+export type { ScatterChartType } from "./rds-comp-chart-scatter-utils";
 
 function resolveDatasetColor(
   color: string | string[] | undefined,
@@ -55,18 +54,6 @@ function normalizeScatterDataset(
       lineColor
     ),
   };
-}
-
-export function resolveScatterChartType(
-  chartType?: string
-): ScatterChartType {
-  if (
-    chartType &&
-    VALID_CHART_TYPES.includes(chartType as ScatterChartType)
-  ) {
-    return chartType as ScatterChartType;
-  }
-  return "scatter";
 }
 
 export interface RdsCompScatterChartProps {

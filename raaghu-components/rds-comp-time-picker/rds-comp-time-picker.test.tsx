@@ -251,10 +251,10 @@ describe('RdsCompTimePicker', () => {
       expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
     });
 
-    it('should open picker on container click', () => {
+    it('should open picker on input click', () => {
       const { container } = render(<RdsCompTimePicker {...defaultProps} />);
-      const inputContainer = container.querySelector('.time-input-container');
-      fireEvent.click(inputContainer!);
+      const input = container.querySelector('.time-input');
+      fireEvent.click(input!);
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
     });
   });
@@ -510,7 +510,7 @@ describe('RdsCompTimePicker', () => {
       const { container } = render(<RdsCompTimePicker {...defaultProps} />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
-      const separator = container.querySelector('[role="separator"]');
+      const separator = container.querySelector('hr.time-divider');
       expect(separator).toBeInTheDocument();
       expect(separator).toHaveClass('time-divider');
     });
@@ -519,7 +519,7 @@ describe('RdsCompTimePicker', () => {
       const { container } = render(<RdsCompTimePicker {...defaultProps} />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
-      const separator = container.querySelector('[role="separator"]');
+      const separator = container.querySelector('hr.time-divider');
       expect(separator).toHaveAttribute('aria-hidden', 'true');
     });
   });

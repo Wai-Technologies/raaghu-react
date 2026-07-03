@@ -125,12 +125,12 @@ const RdsCompContribution = ({
     
     return Array.from({ length: 7 }, (_, j) => (
       <text
-        key={`week_label_${j}`}
         className="rds-comp-contribution__text rds-comp-contribution__text--week"
         x={weekLabelWidth - 10}
         y={monthLabelHeight + j * (dynamicPanelSize + dynamicPanelMargin) + dynamicPanelSize / 2 + 4}
         textAnchor="end"
         {...weekLabelAttributes}
+        key={`week_label_${j}`}
       >
         {weekNames[j] || ''}
       </text>
@@ -161,7 +161,6 @@ const RdsCompContribution = ({
             : panelColors?.[contribution.value];
         panels.push(
           <rect
-            key={`panel_${i}_${j}`}
             className="rds-comp-contribution__panel"
             x={pos.x}
             y={pos.y}
@@ -173,6 +172,7 @@ const RdsCompContribution = ({
             data-date={contribution.date}
             data-value={contribution.value}
             {...panelAttributes}
+            key={`panel_${i}_${j}`}
           />
         );
       }
@@ -236,7 +236,6 @@ const RdsCompContribution = ({
 
       return (
         <text
-          key={`month_${i}_${month}_${position}`}
           className={clsx(
             "rds-comp-contribution__text",
             "rds-comp-contribution__text--month",
@@ -246,6 +245,7 @@ const RdsCompContribution = ({
           y={monthLabelHeight / 2}
           textAnchor="middle"
           {...monthLabelAttributes}
+          key={`month_${i}_${month}_${position}`}
         >
           {getMonthLabel(month)}
         </text>

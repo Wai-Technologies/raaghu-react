@@ -61,7 +61,7 @@ const RdsRadio= ({
     };
 
     if (layout === 'icon') {
-      return <FormControlLabel key={option.value} {...commonProps} label="" className="rds-radio__option rds-radio__option--icon" />;
+      return <FormControlLabel {...commonProps} key={option.value} label="" className="rds-radio__option rds-radio__option--icon" />;
     }
 
     if (layout === 'icon with bottom label') {
@@ -124,8 +124,8 @@ const RdsRadio= ({
 
     return (
       <FormControlLabel
-        key={option.value}
         {...commonProps}
+        key={option.value}
         label={option.text}
         className={clsx(
           'rds-radio__option',

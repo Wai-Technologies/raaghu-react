@@ -34,10 +34,6 @@ export const CompactTimePicker = ({
     setTempPeriod(e.target.value);
   }, [setTempPeriod]);
 
-  const togglePeriod = useCallback(() => {
-    setTempPeriod(tempPeriod === 'AM' ? 'PM' : 'AM');
-  }, [setTempPeriod, tempPeriod]);
-
   return (
     <div className="time-controls-row">
       <div className="time-select-container">
@@ -82,12 +78,6 @@ export const CompactTimePicker = ({
           <option value="AM">AM</option>
           <option value="PM">PM</option>
         </select>
-        <button
-          type="button"
-          className="time-control down"
-          onClick={togglePeriod}
-          aria-label="Toggle period"
-        ></button>
       </div>
     </div>
   );

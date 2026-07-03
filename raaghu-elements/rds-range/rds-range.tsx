@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactElement } from 'react';
+import { useRef, useState, type ReactElement } from 'react';
 import { Slider as MuiSlider, type SliderProps, Box, Typography } from '@mui/material';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
@@ -20,10 +20,49 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange' | 
   rightLabel?: number;
 }
 
-interface ValueLabelComponentProps {
+interface RangeValueLabelProps {
   children: ReactElement;
   value: number;
+  formatValue?: (value: number) => string;
 }
+
+const calculateLevelValue = (level: string, min: number, max: number): number => {
+  const levelNum = parseInt(level);
+  if (levelNum < 1 || levelNum > 5) return min;
+  const span = max - min;
+  const step = span / 4;
+  return min + (step * (levelNum - 1));
+};
+
+const getDefaultRangeValue = (
+  type: RdsRangeProps['type'],
+  level: RdsRangeProps['level'],
+  range: boolean,
+  min: number,
+  max: number,
+): number | number[] => {
+  if (type === 'one-way') {
+    return calculateLevelValue(level ?? '1', min, max);
+  }
+  if (type === 'two-way' || range) {
+    return [min, max];
+  }
+  return min;
+};
+
+const RangeValueLabel = ({ children, value, formatValue }: RangeValueLabelProps) => {
+  const title = formatValue ? formatValue(value) : value.toString();
+  return (
+    <RdsTooltip
+      arrow
+      title={title}
+      placement="top"
+      open={true}
+    >
+      {children}
+    </RdsTooltip>
+  );
+};
 
 const RdsRange= ({
   value,
@@ -43,40 +82,21 @@ const RdsRange= ({
 }: RdsRangeProps) => {
   const min = leftLabel ?? props.min ?? 0;
   const max = rightLabel ?? props.max ?? 100;
+  const isControlled = value !== undefined && value !== null;
 
-  const calculateLevelValue = (level: string): number => {
-    const levelNum = parseInt(level);
-    if (levelNum < 1 || levelNum > 5) return min;
-    const range = max - min;
-    const step = range / 4;
-    return min + (step * (levelNum - 1));
-  };
-
-  const [internalValue, setInternalValue] = useState<number | number[]>(
-    value !== undefined && value !== null
-      ? value
-      : type === 'one-way'
-        ? calculateLevelValue(level)
-        : range
-          ? [min, max]
-          : min
+  const [internalValue, setInternalValue] = useState<number | number[]>(() =>
+    isControlled ? value : getDefaultRangeValue(type, level, range, min, max)
   );
 
-  useEffect(() => {
-    if (value !== undefined && value !== null) {
-      setInternalValue(value);
-    }
-  }, [value]);
+  const prevModeRef = useRef(`${type}-${level}-${min}-${max}-${range}`);
 
-  useEffect(() => {
-    if (type === 'one-way') {
-      setInternalValue(calculateLevelValue(level));
-    } else if (type === 'two-way') {
-      setInternalValue([min, max]);
-    }
-  }, [type, level, min, max]);
+  const modeKey = `${type}-${level}-${min}-${max}-${range}`;
+  if (!isControlled && modeKey !== prevModeRef.current) {
+    prevModeRef.current = modeKey;
+    setInternalValue(getDefaultRangeValue(type, level, range, min, max));
+  }
 
-  const effectiveValue = internalValue;
+  const effectiveValue = isControlled ? value : internalValue;
 
   const marks = props.marks;
 
@@ -112,30 +132,8 @@ const RdsRange= ({
     return formatValue ? formatValue(val) : val.toString();
   };
 
-  const formatTooltipValue = (val: number) => {
-    return formatValue ? formatValue(val) : val.toString();
-  };
-
   const ariaLabel = props['aria-label'] ?? label ?? 'Range slider';
   const isRangeValue = Array.isArray(effectiveValue);
-
-  const ValueLabelComponent = ({ children, value }: ValueLabelComponentProps) => {
-    
-    if (!showTooltip) {
-      return <span>{children}</span>;
-    }
-
-    return (
-      <RdsTooltip
-        arrow
-        title={formatTooltipValue(value)}
-        placement="top"
-        open={true}
-      >
-        {children}
-      </RdsTooltip>
-    );
-  };
 
   return (
     <Box className={generateClassName()} sx={{ width: '100%' }}>
@@ -159,7 +157,8 @@ const RdsRange= ({
         onChange={handleChange}
         {...props}
         valueLabelDisplay={showTooltip ? "on" : "off"}
-        slots={showTooltip ? { valueLabel: ValueLabelComponent } : undefined}
+        slots={showTooltip ? { valueLabel: RangeValueLabel } : undefined}
+        slotProps={showTooltip ? { valueLabel: { formatValue } } : undefined}
         marks={marks}
         min={min}
         max={max}

@@ -28,6 +28,10 @@
       display: flex;
       flex-direction: inherit;
       width: 100%;
+      border: none;
+      margin: 0;
+      padding: 0;
+      min-inline-size: 0;
     }
   
     .rds-toggle-button__button-wrapper {

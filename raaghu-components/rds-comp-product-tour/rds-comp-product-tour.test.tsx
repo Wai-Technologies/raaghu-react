@@ -46,8 +46,9 @@ jest.mock('@mui/icons-material', () => ({
 }));
 
 // Mock Raaghu elements
-jest.mock('../../raaghu-elements', () => ({
-  RdsCarousel: ({ children, state, height, style, type, showDots, showArrows, ...props }: any) => (
+jest.mock('../../raaghu-elements/rds-carousel/rds-carousel', () => ({
+  __esModule: true,
+  default: ({ children, state, height, style, type, showDots, showArrows, ...props }: any) => (
     <div
       data-testid="rds-carousel"
       data-state={state}
@@ -59,7 +60,10 @@ jest.mock('../../raaghu-elements', () => ({
       {children}
     </div>
   ),
-  RdsBadge: ({ badgeContent, size, colorVariant, shape, layout, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => ({
+  __esModule: true,
+  default: ({ badgeContent, size, colorVariant, shape, layout, ...props }: any) => (
     <span
       data-testid="rds-badge"
       data-badge-content={badgeContent}
@@ -72,7 +76,10 @@ jest.mock('../../raaghu-elements', () => ({
       {badgeContent}
     </span>
   ),
-  RdsFileUploader: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onFilesChange, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-file-uploader/rds-file-uploader', () => ({
+  __esModule: true,
+  default: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onFilesChange, ...props }: any) => (
     <div
       data-testid="rds-file-uploader"
       data-accept={accept}
@@ -83,7 +90,10 @@ jest.mock('../../raaghu-elements', () => ({
       {hintText}
     </div>
   ),
-  RdsInput: ({ placeholder, value, onChange, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-input/rds-input', () => ({
+  __esModule: true,
+  default: ({ placeholder, value, onChange, ...props }: any) => (
     <input
       data-testid="rds-input"
       placeholder={placeholder}
@@ -92,10 +102,16 @@ jest.mock('../../raaghu-elements', () => ({
       {...props}
     />
   ),
-  RdsAutocomplete: ({ options, placeholder, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => ({
+  __esModule: true,
+  default: ({ options, placeholder, ...props }: any) => (
     <div data-testid="rds-autocomplete" data-placeholder={placeholder} {...props}></div>
   ),
-  RdsButton: ({ text, onClick, className, style, size, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
+  __esModule: true,
+  default: ({ text, onClick, className, style, size, ...props }: any) => (
     <button
       data-testid={`rds-button-${text?.toLowerCase()?.replace(/\s+/g, '-')}`}
       onClick={onClick}
