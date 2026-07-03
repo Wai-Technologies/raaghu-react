@@ -2,12 +2,43 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Star, StarBorder } from '@mui/icons-material';
 import RdsRating from './rds-rating';
 
+const levelControl = {
+  control: { type: 'select' as const },
+  options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
+  mapping: {
+    Left: 0,
+    Mid: 2.5,
+    Right: 5,
+  },
+};
+
+const precisionControl = {
+  control: { type: 'select' as const },
+  options: [1, 0.5, 0.25, 0.1],
+};
+
+const hiddenControls = [
+  'level',
+  'precision',
+  'max',
+  'icon',
+  'emptyIcon',
+  'onChange',
+  'ref',
+  'component',
+  'slots',
+  'slotProps',
+];
+
 const meta: Meta<typeof RdsRating> = {
   title: 'Elements/Rating',
   component: RdsRating,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'centered',
+    controls: {
+      exclude: hiddenControls,
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
@@ -35,21 +66,11 @@ const meta: Meta<typeof RdsRating> = {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
     },
-    precision: {
-      control: { type: 'number', min: 0.1, max: 1, step: 0.1 },
-    },
-    level: {
-      control: { type: 'select' },
-      options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
-      mapping: {
-        'Left': 0,
-        'Mid': 2.5,
-        'Right': 5,
-      },
-    },
+    precision: precisionControl,
+    level: levelControl,
     colorVariant: {
       control: { type: 'select' },
-      options: ['primary','success','danger','warning','light','info','secondary','dark'],
+      options: ['primary', 'success', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'],
     },
     readOnly: {
       control: { type: 'boolean' },
@@ -64,6 +85,7 @@ const meta: Meta<typeof RdsRating> = {
     component: { control: { disable: true }, table: { disable: true } },
     slots: { control: { disable: true }, table: { disable: true } },
     slotProps: { control: { disable: true }, table: { disable: true } },
+    max: { control: { disable: true }, table: { disable: true } },
   },
 };
 
@@ -75,25 +97,18 @@ export const Default: Story = {
     value: 3,
     type: 'star',
   },
-  argTypes: {
-    type: {
-      control: { type: 'select' },
-      options: ['star', 'slider'],
+  parameters: {
+    controls: {
+      exclude: hiddenControls.filter((key) => key !== 'level'),
     },
-    level: {
-      control: { type: 'select' },
-      options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
-      mapping: {
-        'Left': 0,
-        'Mid': 2.5,
-        'Right': 5,
+    docs: {
+      description: {
+        story:
+          'Default rating component with click-to-toggle functionality and level control. You can either: 1) Click any star to select it, click the same star again to unselect (set to 0), or 2) Use the level control to set specific values.',
       },
     },
-    styles: {
-      control: { type: 'select' },
-      options: ['default', 'filled', 'outlined'],
-    },
-    
+  },
+  argTypes: {
     value: { table: { disable: true } },
     showValue: { table: { disable: true } },
     label: { table: { disable: true } },
@@ -102,17 +117,6 @@ export const Default: Story = {
     precision: { table: { disable: true } },
     readOnly: { table: { disable: true } },
     disabled: { table: { disable: true } },
-    max: { table: { disable: true } },
-    onChange: { table: { disable: true } },
-    icon: { table: { disable: true } },
-    emptyIcon: { table: { disable: true } },
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Default rating component with click-to-toggle functionality and level control. You can either: 1) Click any star to select it, click the same star again to unselect (set to 0), or 2) Use the level control to set specific values.',
-      },
-    },
   },
 };
 
@@ -137,12 +141,22 @@ export const HalfStar: Story = {
     value: 3.5,
     precision: 0.5,
   },
+  parameters: {
+    controls: {
+      exclude: hiddenControls.filter((key) => key !== 'precision'),
+    },
+  },
 };
 
 export const HighPrecision: Story = {
   args: {
     value: 3.7,
     precision: 0.1,
+  },
+  parameters: {
+    controls: {
+      exclude: hiddenControls.filter((key) => key !== 'precision'),
+    },
   },
 };
 
@@ -180,5 +194,3 @@ export const WithCustomIcon: Story = {
     emptyIcon: <StarBorder fontSize="inherit" />,
   },
 };
-
-

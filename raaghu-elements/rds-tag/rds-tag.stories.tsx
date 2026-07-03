@@ -99,11 +99,11 @@ export const Small: Story = {
 
 export const Multiple: Story = {
   render: () => (
-    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+    <Box className="rds-tag-group">
       <RdsTag label="React" color="primary" />
       <RdsTag label="TypeScript" color="secondary" />
       <RdsTag label="Material-UI" color="success" />
-      <RdsTag label="Removable Tag"  onRemove={() => {}} removable/>
+      <RdsTag label="Removable Tag" onRemove={() => {}} removable />
       <RdsTag label="Vite" color="info" variant="outlined" />
       <RdsTag label="ESLint" color="error" size="small" />
     </Box>
