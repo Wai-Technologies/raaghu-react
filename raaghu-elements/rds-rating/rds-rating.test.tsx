@@ -710,6 +710,13 @@ describe('RdsRating', () => {
       );
       expect(container.querySelector('.rds-rating__stars')).toBeInTheDocument();
     });
+
+    it('should fall back to default precision when precision is zero', () => {
+      const { container } = renderWithTheme(
+        <RdsRating type="star" precision={0} />
+      );
+      expect(container.querySelector('.rds-rating__stars')).toBeInTheDocument();
+    });
   });
 
   describe('Display Name', () => {

@@ -6,6 +6,16 @@ export type RdsRatingType = 'star' | 'slider';
 
 export const ALLOWED_SLIDER_VALUES = [0, 2.5, 5];
 
+export function normalizePrecision(
+  precision: number | undefined,
+  fallback = 0.5
+): number {
+  if (precision === undefined || precision <= 0 || !Number.isFinite(precision)) {
+    return fallback;
+  }
+  return precision;
+}
+
 export function snapToAllowed(val: number | null | undefined): number {
   if (val === null || val === undefined) return 0;
   return ALLOWED_SLIDER_VALUES.reduce((prev, curr) =>

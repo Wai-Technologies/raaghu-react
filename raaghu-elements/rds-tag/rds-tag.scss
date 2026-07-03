@@ -1,38 +1,46 @@
 .rds-tag {
   display: inline-flex;
-  position: relative;
   align-items: center;
-  justify-content: center;
+  vertical-align: middle;
+
+  .MuiChip-label {
+    display: block;
+    line-height: 1.43;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .MuiChip-deleteIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px 0 -6px;
+  }
 }
 
-.rds-tag .MuiChip-root {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.rds-tag .MuiChip-label {
+.rds-tag-group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  gap: var(--rds-spacing-xs, 8px);
 }
 
-[data-theme="dark"]{
-    .MuiChip-filled .MuiChip-label,
-    .MuiChip-root:not(.MuiChip-outlined) .MuiChip-label {
-      color: var(--rds-text-primary);
-    }
-   
-    .MuiChip-outlined .MuiChip-label {
-      color: inherit;
-    }
+[data-theme="dark"] {
+  .MuiChip-filled .MuiChip-label,
+  .MuiChip-root:not(.MuiChip-outlined) .MuiChip-label {
+    color: var(--rds-text-primary);
+  }
 
-    .MuiChip-filled .MuiChip-deleteIcon,
-    .MuiChip-root:not(.MuiChip-outlined) .MuiChip-deleteIcon {
-      color: var(--rds-text-primary) !important;
-    }
-    .MuiChip-outlined .MuiChip-deleteIcon{
-      color: inherit !important;
-    }
+  .MuiChip-outlined .MuiChip-label {
+    color: inherit;
+  }
+
+  .MuiChip-filled .MuiChip-deleteIcon,
+  .MuiChip-root:not(.MuiChip-outlined) .MuiChip-deleteIcon {
+    color: var(--rds-text-primary) !important;
+  }
+
+  .MuiChip-outlined .MuiChip-deleteIcon {
+    color: inherit !important;
+  }
 }

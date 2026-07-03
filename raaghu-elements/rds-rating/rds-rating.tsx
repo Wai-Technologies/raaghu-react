@@ -5,6 +5,7 @@ import {
   resolveCurrentValue,
   getSyncInternalValue,
   getPositionClass,
+  normalizePrecision,
   snapToAllowed,
 } from './rds-rating.helpers';
 import { StarRatingView, SliderRatingView } from './rds-rating.views';
@@ -31,6 +32,7 @@ const RdsRating = ({
   level,
   colorVariant,
   onChange,
+  precision: precisionProp,
   ...props
 }: RdsRatingProps) => {
   const maxRating = max || maxStars;
@@ -39,7 +41,8 @@ const RdsRating = ({
   );
 
   const currentValue = resolveCurrentValue(type, internalValue, level, value);
-  const precision = type === 'slider' ? undefined : (props.precision ?? 0.5);
+  const precision =
+    type === 'slider' ? undefined : normalizePrecision(precisionProp, 0.5);
 
   useEffect(() => {
     const synced = getSyncInternalValue(type, level, value);
