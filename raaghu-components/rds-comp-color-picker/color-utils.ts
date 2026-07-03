@@ -45,7 +45,70 @@ export const componentToHex = (c: number) => {
 };
 
 export const rgbToHex = (r: number, g: number, b: number) => {
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  return ("#" + componentToHex(r) + componentToHex(g) + componentToHex(b)).toUpperCase();
+};
+
+export const parseHexToRgb = (hex: string) => {
+  const h = hex.replace("#", "");
+  if (h.length === 3) {
+    return {
+      r: parseInt(h[0] + h[0], 16),
+      g: parseInt(h[1] + h[1], 16),
+      b: parseInt(h[2] + h[2], 16),
+    };
+  }
+  return {
+    r: parseInt(h.substring(0, 2), 16),
+    g: parseInt(h.substring(2, 4), 16),
+    b: parseInt(h.substring(4, 6), 16),
+  };
+};
+
+export const normalizeHex = (hex: string) => {
+  const upper = hex.toUpperCase();
+  if (/^#[0-9A-F]{3}$/.test(upper)) {
+    const [, r, g, b] = upper;
+    return `#${r}${r}${g}${g}${b}${b}`;
+  }
+  return upper;
+};
+
+export const resolveColorToHex = (color: string) => {
+  const trimmed = color.trim();
+
+  if (/^#[0-9A-Fa-f]{3,8}$/.test(trimmed)) {
+    const hex = normalizeHex(trimmed);
+    const rgb = parseHexToRgb(hex);
+    return { hex, rgb: { ...rgb, a: 1 } };
+  }
+
+  const fallbackMatch = trimmed.match(/#[0-9A-Fa-f]{3,6}/);
+
+  if (typeof window !== "undefined" && document.body) {
+    const el = document.createElement("div");
+    el.style.display = "none";
+    el.style.backgroundColor = trimmed;
+    document.body.appendChild(el);
+    const computed = getComputedStyle(el).backgroundColor;
+    document.body.removeChild(el);
+
+    const rgbMatch = computed.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+    if (rgbMatch) {
+      const r = parseInt(rgbMatch[1], 10);
+      const g = parseInt(rgbMatch[2], 10);
+      const b = parseInt(rgbMatch[3], 10);
+      const hex = rgbToHex(r, g, b);
+      return { hex, rgb: { r, g, b, a: 1 } };
+    }
+  }
+
+  if (fallbackMatch) {
+    const hex = normalizeHex(fallbackMatch[0]);
+    const rgb = parseHexToRgb(hex);
+    return { hex, rgb: { ...rgb, a: 1 } };
+  }
+
+  return { hex: "#000000", rgb: { r: 0, g: 0, b: 0, a: 1 } };
 };
 
 export const hsvToRgb = (h: number, s: number, v: number) => {
