@@ -1,6 +1,8 @@
 import { Box, Typography, IconButton } from '@mui/material';
 import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
-import { RdsInput, RdsAutocomplete, RdsButton } from '../../raaghu-elements';
+import RdsInput from '../../raaghu-elements/rds-input/rds-input';
+import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomplete';
+import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import clsx from 'clsx';
 
 export interface RdsCompProductTourProps {

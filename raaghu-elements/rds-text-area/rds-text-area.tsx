@@ -1,5 +1,4 @@
 import {
-  useEffect,
   useRef,
   useState,
   type ReactNode,
@@ -43,30 +42,37 @@ const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
   );
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
   const prevResetRef = useRef(Boolean(props.reset));
+  const prevStateRef = useRef(props.state);
+  const prevValueRef = useRef(props.value);
+  const prevMandatoryRef = useRef(props.isMandatory);
   const idRef = useRef<string>(props.id || `rds-textarea-${Math.random().toString(36).slice(2)}`);
   const assignedId = props.id || idRef.current;
   const errorId = `${assignedId}-error`;
 
-  useEffect(() => {
-    if (Boolean(props.reset) && !prevResetRef.current) {
+  const reset = Boolean(props.reset);
+  if (reset !== prevResetRef.current) {
+    if (reset) {
       setIsValid(true);
       setIsMandatoryValid(true);
     }
-    prevResetRef.current = Boolean(props.reset);
-  }, [props.reset]);
+    prevResetRef.current = reset;
+  }
 
-  useEffect(() => {
-    setCurrentState(props.state || TextareaState.Default);
-  }, [props.state]);
+  const propState = props.state || TextareaState.Default;
+  if (propState !== prevStateRef.current) {
+    prevStateRef.current = propState;
+    setCurrentState(propState);
+  }
 
-  useEffect(() => {
+  if (props.value !== prevValueRef.current || props.isMandatory !== prevMandatoryRef.current) {
+    prevValueRef.current = props.value;
+    prevMandatoryRef.current = props.isMandatory;
     if (props.isMandatory) {
-      const currentValue = props.value || '';
-      setIsMandatoryValid(currentValue.trim().length > 0);
+      setIsMandatoryValid((props.value || '').trim().length > 0);
     } else {
       setIsMandatoryValid(true);
     }
-  }, [props.isMandatory, props.value]);
+  }
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;

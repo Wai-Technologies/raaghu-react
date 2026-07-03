@@ -2,7 +2,8 @@ import clsx from "clsx";
 import { Fragment, useState, useMemo, useCallback, useRef } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { RdsButton, RdsIconButton } from "../../raaghu-elements";
+import RdsButton from "../../raaghu-elements/rds-button/rds-button";
+import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
 import "./rds-comp-notification.scss";
 import {
     NotificationLayout,

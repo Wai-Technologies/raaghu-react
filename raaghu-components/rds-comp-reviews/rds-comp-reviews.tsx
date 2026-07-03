@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import "./rds-comp-reviews.scss";
-import { renderReviewStyle } from "./rds-comp-review-styles";
+import { ReviewStyleCard } from "./rds-comp-review-styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 export { type Item, VariantType, RevieweStyle } from "./rds-comp-reviews-types";
@@ -34,7 +34,7 @@ const RdsCompReviews = ({
     () =>
       itemList.map((item, index) => ({
         key: getItemKey(item, index),
-        content: renderReviewStyle(item, style),
+        content: <ReviewStyleCard item={item} style={style} />,
       })),
     [itemList, style]
   );

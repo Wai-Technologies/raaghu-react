@@ -95,6 +95,13 @@
 }
 
 .spinner-container {
+  output {
+    display: block;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
   &--default {
     display: flex;
     align-items: center;

@@ -90,8 +90,7 @@
     "type-check": "tsc --noEmit",
     "type-check:all": "tsc --noEmit --project tsconfig.library.json",
     "prepublishOnly": "npm run build",
-    "test:visual:all": "storybook test-runner --browsers chromium",
-    "doctor": "npx react-doctor@latest"
+    "test:visual:all": "storybook test-runner --browsers chromium"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

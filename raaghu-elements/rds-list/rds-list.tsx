@@ -149,7 +149,7 @@ const RdsList = ({
       ) : checkbox;
 
       return (
-        <MuiListItem key={item.id} disablePadding {...itemProps}>
+        <MuiListItem disablePadding {...itemProps} key={item.id}>
           <MuiListItemButton
             onClick={showCheckboxes ? handleCheckboxChange(item.id) : item.onClick}
             disabled={item.disabled}
@@ -175,7 +175,7 @@ const RdsList = ({
     }
 
     return (
-      <MuiListItem key={item.id} {...itemProps}>
+      <MuiListItem {...itemProps} key={item.id}>
         {item.icon && !item.secondaryAction && (
           <MuiListItemIcon className="rds-list__icon">
             {item.icon}

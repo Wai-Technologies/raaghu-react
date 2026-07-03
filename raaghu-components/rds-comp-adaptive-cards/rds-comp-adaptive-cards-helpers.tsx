@@ -126,12 +126,6 @@ export interface AdaptiveCardProps {
   onChange?: (data: { name: string; email: string; phone: string }) => void;
 }
 
-export function capitalizeFirstWord(text: string) {
-  if (!text) return '';
-  const [first, ...rest] = text.split(' ');
-  return first.charAt(0).toUpperCase() + first.slice(1).toLowerCase() + (rest.length ? ' ' + rest.join(' ').toLowerCase() : '');
-}
-
 const renderSelectValue = (placeholder?: string) => (selected: unknown) =>
   selected === "" ? (
     <span className="rds-adaptive-cards__placeholder">{placeholder}</span>

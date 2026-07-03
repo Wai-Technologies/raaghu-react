@@ -198,5 +198,3 @@ export const TreeNodeRow = ({
 };
 
 TreeNodeRow.displayName = 'TreeNodeRow';
-
-export default TreeNodeRow;

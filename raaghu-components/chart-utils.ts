@@ -49,7 +49,13 @@ export function useChartThemeMode(): string {
 
 /** Deep-clones Chart.js options to avoid mutating caller-provided objects. */
 export function cloneChartOptions<T>(options: T): T {
-  return JSON.parse(JSON.stringify(options || {}));
+  if (!options) {
+    return {} as T;
+  }
+  if (typeof structuredClone === 'function') {
+    return structuredClone(options);
+  }
+  return JSON.parse(JSON.stringify(options));
 }
 
 /** Attaches chart data to options when callers have not already done so. */

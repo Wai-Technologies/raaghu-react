@@ -1,5 +1,5 @@
 export { useMotionTokens, type MotionTokens, type EasingDefinition } from './useMotionTokens';
-export { default as MotionCollapse } from './MotionCollapse';
+export { MotionCollapse } from './MotionCollapse';
 export { default as MotionDialogTransition } from './MotionDialogTransition';
 export { default as MotionDrawerTransition } from './MotionDrawerTransition';
 export { default as MotionTooltipTransition } from './MotionTooltipTransition';

@@ -80,6 +80,37 @@ const RdsCompTextEditor = ({
     const editorMinHeight = `calc(${computedRows} * ${lineHeightVar})`;
     const isResizable = resizable !== false;
 
+    const editorStyle = useMemo(
+        () => ({
+            minHeight: editorMinHeight,
+            resize: isResizable ? "vertical" as const : "none" as const,
+            overflow: "auto" as const,
+        }),
+        [editorMinHeight, isResizable],
+    );
+
+    const toolbarConfig = useMemo(
+        () => ({
+            options: ["inline", "blockType", "list", "textAlign", "link", "image", "history"],
+            inline: { options: ["bold", "italic", "underline", "strikethrough"] },
+            image: {
+                urlEnabled: true,
+                uploadEnabled: true,
+                alignmentEnabled: true,
+                uploadCallback: (file: File) =>
+                    new Promise<{ data: { link: string } }>((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve({ data: { link: reader.result as string } });
+                        reader.readAsDataURL(file);
+                    }),
+                previewImage: true,
+                inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
+                alt: { present: true, mandatory: false },
+            },
+        }),
+        [],
+    );
+
     const handleEditorChange = useCallback((state: EditorState) => {
         setEditorState(state);
         setIsTouch(true);
@@ -119,29 +150,8 @@ const RdsCompTextEditor = ({
                         toolbarClassName="rds-comp-text-editor__toolbar"
                         wrapperClassName="rds-comp-text-editor__wrapper"
                         editorClassName="rds-comp-text-editor__content"
-                        editorStyle={{
-                            minHeight: editorMinHeight,
-                            resize: isResizable ? "vertical" : "none",
-                            overflow: "auto",
-                        }}
-                        toolbar={{
-                            options: ["inline", "blockType", "list", "textAlign", "link", "image", "history"],
-                            inline: { options: ["bold", "italic", "underline", "strikethrough"] },
-                            image: {
-                                urlEnabled: true,
-                                uploadEnabled: true,
-                                alignmentEnabled: true,
-                                uploadCallback: (file: File) =>
-                                    new Promise((resolve) => {
-                                        const reader = new FileReader();
-                                        reader.onload = () => resolve({ data: { link: reader.result as string } });
-                                        reader.readAsDataURL(file);
-                                    }),
-                                previewImage: true,
-                                inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
-                                alt: { present: true, mandatory: false },
-                            },
-                        }}
+                        editorStyle={editorStyle}
+                        toolbar={toolbarConfig}
                     />
                 </Suspense>
             </div>

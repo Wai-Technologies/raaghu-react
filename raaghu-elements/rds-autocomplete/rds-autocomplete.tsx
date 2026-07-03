@@ -101,20 +101,28 @@ const RdsAutocomplete = <T extends { label?: string },>({
   }, [allowMultiple, props.options, state]);
 
   const [selected, setSelected] = useState<T | T[] | null>(initialSelected);
+  const prevSelectionStateRef = useRef({ state, options: props.options, allowMultiple });
 
-  useEffect(() => {
+  if (
+    state !== prevSelectionStateRef.current.state ||
+    props.options !== prevSelectionStateRef.current.options ||
+    allowMultiple !== prevSelectionStateRef.current.allowMultiple
+  ) {
+    prevSelectionStateRef.current = { state, options: props.options, allowMultiple };
     if (state === 'selected' && props.options && props.options.length > 0) {
       setSelected(allowMultiple ? [props.options[0] as T] : (props.options[0] as T));
-      return;
+    } else {
+      setSelected(allowMultiple ? [] : null);
     }
-    setSelected(allowMultiple ? [] : null);
-  }, [allowMultiple, props.options, state]);
+  }
 
   const [open, setOpen] = useState(state === 'expanded');
+  const prevExpandedStateRef = useRef(state);
 
-  useEffect(() => {
+  if (state !== prevExpandedStateRef.current) {
+    prevExpandedStateRef.current = state;
     setOpen(state === 'expanded');
-  }, [state]);
+  }
 
   let sizeClass = '';
   if (selectSize === 'small') sizeClass = 'rds-autocomplete--small';
@@ -178,11 +186,11 @@ const RdsAutocomplete = <T extends { label?: string },>({
               const { key: tagKey, ...restTagProps } = getTagProps({ index });
               return (
               <Chip
-                key={tagKey ?? index}
                 variant="filled"
                 label={option.label || String(option)}
                 size="small"
                 {...restTagProps}
+                key={tagKey ?? index}
                 className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
               />
               );
@@ -228,7 +236,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
           const labelGap = multiMode ? 2 : (singleMode && isShowUser ? 6 : (singleMode ? 4 : 8));
           if (showDefault) {
             return (
-              <li key={optionKey} {...optionLiProps}>
+              <li {...optionLiProps} key={optionKey}>
                 <Box sx={{ display: 'flex', alignItems: 'center', p: 0, ml: 0.2, mr: 3, gap: 1.5 }}>
                   <span>{option.label || String(option)}</span>
                 </Box>
@@ -236,7 +244,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             );
           }
           return (
-            <li key={optionKey} {...optionLiProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
+            <li {...optionLiProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }} key={optionKey}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>
                 {(isShowCheckbox) && (
                   <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />

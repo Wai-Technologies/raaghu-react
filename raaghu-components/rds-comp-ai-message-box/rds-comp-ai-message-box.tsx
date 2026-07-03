@@ -41,7 +41,7 @@ const RdsCompAiMessageBox = memo(({
         </div>
         {isImage && (
           <div className="rds-comp-ai-message-box__image-wrapper">
-            <img src={imageSrc} alt="message image" className="rds-comp-ai-message-box__image" />
+            <img src={imageSrc} alt="" className="rds-comp-ai-message-box__image" />
           </div>
         )}
       </div>

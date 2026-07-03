@@ -1,8 +1,8 @@
-import { useRef, useState, lazy, Suspense, type ChangeEvent, type DragEvent } from 'react';
+import { useRef, useState, type ChangeEvent, type DragEvent } from 'react';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import { CloudUpload, Close } from '@mui/icons-material';
-import { type FileWithProgress, type RdsFileUploaderProps } from './rds-file-uploader-types';
+import { type FileWithProgress } from './rds-file-uploader-types';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 
 interface RdsDropZoneSideIconProps {
@@ -292,17 +292,6 @@ export const RdsDropZoneDefault = ({
         (PNG, JPG, DOC, PDF, PPT)
       </Typography>
     </Paper>
-  );
-};
-
-const RdsFileUploader = lazy(() => import('./rds-file-uploader'));
-
-export const RenderFileUploader = (args: RdsFileUploaderProps) => {
-  const [files, setFiles] = useState<FileWithProgress[]>([]);
-  return (
-    <Suspense fallback={null}>
-      <RdsFileUploader {...args} onFilesChange={setFiles} />
-    </Suspense>
   );
 };
 

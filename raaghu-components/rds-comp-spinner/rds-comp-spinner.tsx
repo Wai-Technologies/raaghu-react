@@ -68,10 +68,9 @@ const RdsCompSpinner = ({
   return (
     <div className={clsx("spinner-container", layoutClass)}>
       {showLabel && <label className={clsx("spinner-label", labelSizeClass)}>{labelText}</label>}
-      <div
+      <output
         className={combinedClasses}
         style={{ width: dimensions.width, height: dimensions.height, opacity }}
-        role="status"
         aria-live="polite"
       />
     </div>

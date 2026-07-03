@@ -48,8 +48,9 @@ jest.mock('@mui/icons-material', () => ({
 }));
 
 // Mock RDS elements
-jest.mock('../../raaghu-elements', () => ({
-  RdsAvatar: ({ title, src, displayStyle, size, showName, showDesignation, subText, alt }: any) => (
+jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => ({
+  __esModule: true,
+  default: ({ title, src, displayStyle, size, showName, showDesignation, subText, alt }: any) => (
     <div
       data-testid="rds-avatar"
       data-title={title}
@@ -63,7 +64,10 @@ jest.mock('../../raaghu-elements', () => ({
       {subText && <div data-testid="avatar-subtext">{subText}</div>}
     </div>
   ),
-  RdsRating: ({ value, onChange, readOnly, size, precision, max }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-rating/rds-rating', () => ({
+  __esModule: true,
+  default: ({ value, onChange, readOnly, size, precision, max }: any) => (
     <div
       data-testid="rds-rating"
       data-value={value}

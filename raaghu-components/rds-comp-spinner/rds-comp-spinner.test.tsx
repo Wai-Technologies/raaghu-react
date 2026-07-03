@@ -496,11 +496,10 @@ describe('RdsCompSpinner', () => {
   });
 
   describe('Accessibility', () => {
-    it('should have role="status" for accessibility', () => {
-      render(<RdsCompSpinner {...defaultProps} />);
-      const spinner = screen.getByRole('status');
-      expect(spinner).toBeInTheDocument();
-  
+    it('should expose live region semantics for accessibility', () => {
+      const { container } = render(<RdsCompSpinner {...defaultProps} />);
+      const spinner = container.querySelector('output');
+      expect(spinner).toHaveAttribute('aria-live', 'polite');
     });
 
     it('has no axe accessibility violations', async () => {

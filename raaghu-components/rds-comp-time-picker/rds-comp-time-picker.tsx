@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import clsx from 'clsx';
 import './rds-comp-time-picker.scss';
 export { type RdsTimePickerProps } from './time-picker-types';
@@ -53,38 +53,35 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     }));
   }, []);
 
-  // Sync prop changes after initial mount
   const prevValuePropRef = useRef(valueProp);
   const prevStatePropRef = useRef(stateProp);
-  useEffect(() => {
-    if (valueProp !== prevValuePropRef.current || stateProp !== prevStatePropRef.current) {
-      prevValuePropRef.current = valueProp;
-      prevStatePropRef.current = stateProp;
 
-      if (valueProp !== undefined) {
-        updatePickerState({ time: valueProp });
+  if (valueProp !== prevValuePropRef.current || stateProp !== prevStatePropRef.current) {
+    prevValuePropRef.current = valueProp;
+    prevStatePropRef.current = stateProp;
 
-        if (valueProp) {
-          const { hours: parsedHours, minutes: parsedMinutes, period: parsedPeriod } = parseTimeFromValue(valueProp);
-          updatePickerState({
-            hours: parsedHours,
-            minutes: parsedMinutes,
-            period: parsedPeriod,
-            tempHour: parsedHours,
-            tempMinute: parsedMinutes,
-            tempPeriod: parsedPeriod,
-          });
-        }
-      } else if (stateProp === 'expanded') {
-        updatePickerState({ showPicker: true, time: '' });
-      } else if (stateProp === 'selected') {
-        updatePickerState({ showPicker: false, time: '12:00 AM' });
-      } else {
-        updatePickerState({ showPicker: false, time: '' });
+    if (valueProp !== undefined) {
+      updatePickerState({ time: valueProp });
+
+      if (valueProp) {
+        const { hours: parsedHours, minutes: parsedMinutes, period: parsedPeriod } = parseTimeFromValue(valueProp);
+        updatePickerState({
+          hours: parsedHours,
+          minutes: parsedMinutes,
+          period: parsedPeriod,
+          tempHour: parsedHours,
+          tempMinute: parsedMinutes,
+          tempPeriod: parsedPeriod,
+        });
       }
+    } else if (stateProp === 'expanded') {
+      updatePickerState({ showPicker: true, time: '' });
+    } else if (stateProp === 'selected') {
+      updatePickerState({ showPicker: false, time: '12:00 AM' });
+    } else {
+      updatePickerState({ showPicker: false, time: '' });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [valueProp, stateProp]);
+  }
 
   const togglePicker = useCallback(() => {
     if (!showPicker && pickerStyle === 'compact') {
@@ -181,7 +178,6 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     <div className={`time-picker-container ${variantClass}`}>
       <div
         className={clsx("time-input-container", disabled && "disabled")}
-        onClick={!disabled ? ((e: React.MouseEvent) => { if (e.target === e.currentTarget) togglePicker(); }) : undefined}
       >
         <input
           type="text"
@@ -192,6 +188,12 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           placeholder="12:00 AM"
           aria-label="Selected time"
           onClick={!disabled ? togglePicker : undefined}
+          onKeyDown={!disabled ? (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              togglePicker();
+            }
+          } : undefined}
         />
         <button
           type="button"
@@ -222,7 +224,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
               NOW
             </button>
           </div>
-          <hr className="time-divider" role="separator" aria-hidden="true" />
+          <hr className="time-divider" aria-hidden="true" />
           
           <div className="time-values-container">
             {pickerStyle === 'compact' 
@@ -246,7 +248,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                 />
             }
           </div>
-          <hr className="time-divider" role="separator" aria-hidden="true" />
+          <hr className="time-divider" aria-hidden="true" />
           
           <div className={clsx("buttons", pickerStyle === "compact" ? "buttons-compact" : "buttons")}>
             <button type="button" className={buttonClasses.cancel} onClick={handleCancel}>Cancel</button>

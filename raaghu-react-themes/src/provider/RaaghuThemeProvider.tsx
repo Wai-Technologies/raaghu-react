@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState, type ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { darkTheme } from '../mui/dark.theme';
@@ -55,26 +55,24 @@ export function RaaghuThemeProvider({
   onModeChange,
   brandOverrides,
 }: Readonly<RaaghuThemeProviderProps>) {
-  const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(defaultMode);
+  const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(() => {
+    if (controlledMode !== undefined) {
+      return defaultMode;
+    }
+    if (initializeOnMount && typeof window !== 'undefined') {
+      return initializeRaaghuTheme();
+    }
+    return defaultMode;
+  });
   const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(() =>
     typeof window !== 'undefined' ? prefersDarkColorScheme() : false,
   );
   const mode = controlledMode ?? internalMode;
 
-  // On mount: read stored preference or OS default
-  useEffect(() => {
-    if (initializeOnMount && controlledMode === undefined) {
-      setInternalMode(initializeRaaghuTheme());
-    }
-  }, [initializeOnMount, controlledMode]);
-
-  // Apply DOM classes + CSS tokens whenever mode/system preference changes
   useLayoutEffect(() => {
     applyRaaghuTheme(mode, brandOverrides);
-    onModeChange?.(mode);
-  }, [mode, systemPrefersDark, onModeChange, brandOverrides]);
+  }, [mode, systemPrefersDark, brandOverrides]);
 
-  // When mode is 'system', track OS preference so React re-renders and MUI theme updates.
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -83,15 +81,12 @@ export function RaaghuThemeProvider({
       setSystemPrefersDark(prefersDarkColorScheme());
     };
 
-    // Keep state aligned if the effect runs after a mode toggle.
-    setSystemPrefersDark(prefersDarkColorScheme());
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // MUI needs the resolved ('light' | 'dark') value — not 'system'
   const effectiveMode = mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : resolveEffectiveMode(mode);
-  const muiTheme = useMemo(() => (effectiveMode === 'dark' ? darkTheme : lightTheme), [effectiveMode]);
+  const muiTheme = effectiveMode === 'dark' ? darkTheme : lightTheme;
 
   const setMode = useCallback(
     (next: RaaghuThemeMode) => {
@@ -103,19 +98,15 @@ export function RaaghuThemeProvider({
     [controlledMode, onModeChange],
   );
 
-  const contextValue = useMemo(
-    () => ({
-      mode,
-      setMode,
-      // cycles: light → dark → system → light
-      toggleMode: () => {
-        const next = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
-        setMode(next);
-      },
-      isDark: effectiveMode === 'dark',
-    }),
-    [mode, effectiveMode, setMode],
-  );
+  const contextValue = {
+    mode,
+    setMode,
+    toggleMode: () => {
+      const next = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
+      setMode(next);
+    },
+    isDark: effectiveMode === 'dark',
+  };
 
   return (
     <RaaghuThemeContext.Provider value={contextValue}>

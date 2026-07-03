@@ -12,8 +12,8 @@ import { axe } from 'jest-axe';
 // Mock SCSS
 jest.mock('./rds-comp-toolbar.scss', () => ({}));
 
-// Mock the toolbar config and ToolbarButton component
-jest.mock('./rds-comp-toolbar-config', () => ({
+// Mock the toolbar config data and ToolbarButton component
+jest.mock('./rds-comp-toolbar-config-data', () => ({
   getToolbarConfig: jest.fn(() => ({
     sections: [
       [
@@ -52,6 +52,9 @@ jest.mock('./rds-comp-toolbar-config', () => ({
       ],
     ],
   })),
+}));
+
+jest.mock('./rds-comp-toolbar-config', () => ({
   ToolbarButton: ({ 
     icon, 
     action, 

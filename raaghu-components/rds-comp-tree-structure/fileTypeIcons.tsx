@@ -23,18 +23,7 @@ const getLanguageFromFileName = (fileName: string): string | null => {
   return extension ? extensionMap[extension] || null : null;
 };
 
-export const getAllNodeIds = (nodes: TreeNode[]): number[] => {
-  let ids: number[] = [];
-  nodes.forEach((node) => {
-    ids.push(node.id);
-    if (node.children) {
-      ids = ids.concat(getAllNodeIds(node.children));
-    }
-  });
-  return ids;
-};
-
-// Proper file type icons with correct Material-UI components
+export { getAllNodeIds } from './tree-structure-utils';
 export const fileTypeIcons = {
   CSS: (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,7 +1,9 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useRef } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, Paper } from '@mui/material';
-import { RdsCarousel, RdsBadge, RdsFileUploader } from '../../raaghu-elements';
+import RdsCarousel from '../../raaghu-elements/rds-carousel/rds-carousel';
+import RdsBadge from '../../raaghu-elements/rds-badge/rds-badge';
+import RdsFileUploader from '../../raaghu-elements/rds-file-uploader/rds-file-uploader';
 import {
     RdsCompProductTourProps,
     parseSteps,
@@ -64,16 +66,19 @@ const RdsCompProductTour = ({
         return Math.max(0, Math.min(parsed.numerator - 1, parsed.total - 1));
     });
 
-    useEffect(() => {
-        if (stepsIndicator === undefined) {
-            return;
+    const prevStepsIndicatorRef = useRef(stepsIndicator);
+    const prevTotalSlidesRef = useRef(totalSlides);
+
+    if (stepsIndicator !== prevStepsIndicatorRef.current || totalSlides !== prevTotalSlidesRef.current) {
+        prevStepsIndicatorRef.current = stepsIndicator;
+        prevTotalSlidesRef.current = totalSlides;
+        if (stepsIndicator !== undefined) {
+            const parsed = parseSteps(stepsIndicator);
+            if (parsed && totalSlides > 0) {
+                setCurrentIndex(Math.max(0, Math.min(parsed.numerator - 1, totalSlides - 1)));
+            }
         }
-        const parsed = parseSteps(stepsIndicator);
-        if (!parsed || totalSlides <= 0) {
-            return;
-        }
-        setCurrentIndex(Math.max(0, Math.min(parsed.numerator - 1, totalSlides - 1)));
-    }, [stepsIndicator, totalSlides]);
+    }
 
     const currentIndicator = `${effectiveSlides && effectiveSlides.length ? currentIndex + 1 : 0}/${totalSlides}`;
 

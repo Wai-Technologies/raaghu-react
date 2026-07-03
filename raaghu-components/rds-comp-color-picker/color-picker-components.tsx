@@ -7,6 +7,40 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
+const SLIDER_TRACK_HEIGHT = "12px";
+const SLIDER_POINTER_SIZE = 12;
+
+const SliderPointer = ({ direction }: { direction?: string }) => {
+  if (direction === "vertical") {
+    return (
+      <div
+        className="rds-comp-color-picker__slider-pointer"
+        style={{
+          width: SLIDER_POINTER_SIZE,
+          height: SLIDER_POINTER_SIZE,
+          borderRadius: "50%",
+          transform: `translate(-3px, -${SLIDER_POINTER_SIZE / 2}px)`,
+          backgroundColor: "#ffffff",
+          boxShadow: "0 0 2px rgba(0, 0, 0, 0.6)",
+        }}
+      />
+    );
+  }
+
+  return (
+    <div
+      className="rds-comp-color-picker__slider-pointer"
+      style={{
+        width: SLIDER_POINTER_SIZE,
+        height: SLIDER_POINTER_SIZE,
+        borderRadius: "50%",
+        backgroundColor: "#ffffff",
+        boxShadow: "0 0 2px rgba(0, 0, 0, 0.6)",
+      }}
+    />
+  );
+};
+
 const GRID_ROWS = Array.from({ length: 10 }, (_, i) => i);
 const GRID_COLS = Array.from({ length: 11 }, (_, i) => i);
 const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main, #FFC300)", "var(--rds-semantic-error-main, #FF4F00)", "var(--rds-info-main, #EA00FA)", "var(--rds-primary-main, #1708FF)", "var(--rds-info-light, #00F5FF)"];
@@ -212,6 +246,8 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
             color={selectedColorState.hex}
             onChange={handleHueChange}
             width="230px"
+            height={SLIDER_TRACK_HEIGHT}
+            pointer={SliderPointer}
             className="rds-comp-color-picker__hue-picker"
           />
         </div>       
@@ -220,7 +256,9 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
           <AlphaPicker
             color={selectedColorState.rgb}
             onChange={handleAlphaChange}
-            width="226px"
+            width="230px"
+            height={SLIDER_TRACK_HEIGHT}
+            pointer={SliderPointer}
             className="rds-comp-color-picker__alpha-picker"
           />
         </div>
@@ -320,12 +358,15 @@ export const ColorPickerInfo = memo(({
         </button>
         
         {showColorModeDropdown && (
-          <div className="rds-comp-color-picker__dropdown-menu">
+          <div className="rds-comp-color-picker__dropdown-menu" role="listbox" aria-label="Color format">
             {Object.values(ColorMode).map((mode) => (
               <button
                 type="button"
                 key={mode}
+                role="option"
+                aria-selected={selectedColorMode === mode}
                 className={clsx("rds-comp-color-picker__dropdown-item", selectedColorMode === mode && "active")}
+                onMouseDown={(e) => e.preventDefault()}
                 onClick={() => {
                   if (onSelectColorMode) onSelectColorMode(mode);
                   setShowColorModeDropdown(false);

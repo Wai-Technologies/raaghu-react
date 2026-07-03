@@ -156,9 +156,9 @@ const RdsAppBar = ({
             >
               {tabs.map((tab, idx) =>
                 typeof tab === 'string' ? (
-                  <Tab key={tab} label={tab} />
+                  <Tab label={tab} key={tab} />
                 ) : (
-                  <Tab key={tab.label || 'tab-item'} {...(tab as Record<string, unknown>)} />
+                  <Tab {...(tab as Record<string, unknown>)} key={tab.label || 'tab-item'} />
                 )
               )}
             </Tabs>
