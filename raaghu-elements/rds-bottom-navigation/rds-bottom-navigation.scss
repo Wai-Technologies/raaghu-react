@@ -16,6 +16,9 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    // Separates the bar from the page background in light mode
+    border-top: 1px solid
+      var(--rds-bottom-navigation-border-color, var(--rds-color-border, var(--rds-border-default)));
   }
 
   .MuiBottomNavigationAction-root {
