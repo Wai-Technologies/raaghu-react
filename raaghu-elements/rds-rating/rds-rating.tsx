@@ -20,6 +20,18 @@ const snapToAllowed = (val: number | null | undefined): number => {
   return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
 };
 
+/**
+ * MUI Rating builds decimal segments with `new Array(1 / precision)`, which throws
+ * RangeError when 1/precision is not an integer (e.g. 0.3 → 3.33…, 0.4 → 2.5).
+ * Normalize to a precision that divides 1 evenly.
+ */
+const sanitizePrecision = (precision: number): number => {
+  if (!Number.isFinite(precision) || precision <= 0) return 0.5;
+  if (precision >= 1) return 1;
+  const segments = Math.max(1, Math.round(1 / precision));
+  return 1 / segments;
+};
+
 const getLevelValue = (lvl: RdsRatingProps['level']): number | undefined => {
   if (lvl === 'Left') return 0;
   if (lvl === 'Mid') return 2.5;
@@ -38,6 +50,7 @@ const RdsRating = ({
   level,
   colorVariant,
   onChange,
+  precision: precisionProp,
   ...props
 }: RdsRatingProps) => {
   const maxRating = max || maxStars;
@@ -82,7 +95,10 @@ const RdsRating = ({
     return internalValue;
   }, [internalValue, level, type, value]);
 
-  const precision = type === 'slider' ? undefined : (props.precision !== undefined ? props.precision : 0.5);
+  const precision =
+    type === 'slider'
+      ? undefined
+      : sanitizePrecision(precisionProp !== undefined ? precisionProp : 0.5);
 
   const handleStarChange = (event: SyntheticEvent, newValue: number | null) => {
     let finalValue: number | null = newValue;

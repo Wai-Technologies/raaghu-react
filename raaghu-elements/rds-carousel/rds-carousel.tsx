@@ -249,11 +249,9 @@ const RdsCarousel = ({
             zIndex: tokens.zIndex.layer2,
           }}
         >
-          {children.map((child, index) => (
+          {children.map((_, index) => (
             <Box
-              key={(typeof child === 'object' && child !== null && 'key' in child && (child as { key?: string | number }).key != null)
-                ? String((child as { key?: string | number }).key)
-                : `${title || subtitle || 'indicator'}`}
+              key={`rds-carousel-indicator-${index}`}
               onClick={() => goToSlide(index)}
               className={clsx(
                 'rds-carousel__indicator',
@@ -264,16 +262,16 @@ const RdsCarousel = ({
                 width: type === 'circle' ? tokens.space(1.5) : tokens.space(3),
                 height: type === 'circle' ? tokens.space(1.5) : tokens.space(0.5),
                 borderRadius: type === 'circle' ? tokens.radius.full : tokens.radius.sm,
+                // Use carousel-indicator tokens (present in both themes). Avoid
+                // --rds-neutral-* here — those light-theme-only vars are removed in dark mode.
                 backgroundColor:
                   currentIndex === index
                     ? tokens.color.primary
-                    : style === 'full width image'
-                      ? tokens.cssVar('neutral-0')
-                      : tokens.cssVar('neutral-400'),
+                    : tokens.cssVar('carousel-indicator-bg'),
                 opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
                 border:
                   style === 'full width image'
-                    ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('border-opacity-light')}`
+                    ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('carousel-indicator-bg')}`
                     : 'none',
                 cursor: 'pointer',
                 transition: 'background-color 0.2s, opacity 0.2s',
@@ -281,9 +279,7 @@ const RdsCarousel = ({
                   backgroundColor:
                     currentIndex === index
                       ? tokens.color.primary
-                      : style === 'full width image'
-                        ? tokens.cssVar('neutral-0')
-                        : tokens.cssVar('neutral-500'),
+                      : tokens.cssVar('carousel-indicator-bg-hover'),
                   opacity: 1,
                 },
               }}
