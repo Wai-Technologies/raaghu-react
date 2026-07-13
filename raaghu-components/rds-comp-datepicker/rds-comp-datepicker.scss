@@ -182,22 +182,55 @@
     border: 0;
     cursor: pointer;
     transition: background-color 0.15s ease-in-out;
+
     &:hover {
       background-color: var(--rds-color-hover);
     }
     
     &--active {
       background-color: rgba(var(--rds-color-primary-rgb, 13, 110, 253), 0.1);
-      
 
+      &:hover {
+        background-color: rgba(var(--rds-color-primary-rgb, 13, 110, 253), 0.1);
+      }
     }
     
     &--header {
-      padding: 0.5rem 0.5rem 0.5rem 1rem;
+      padding: 0.5rem 1rem 0.375rem;
       border-bottom: 1px solid var(--rds-color-border);
-     
+      cursor: default;
+      pointer-events: none;
 
+      &:hover {
+        background-color: transparent;
+      }
     }
+
+    &--custom {
+      position: relative;
+      padding-right: 2.5rem;
+
+      .react-datepicker-wrapper,
+      .react-datepicker__input-container {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100%;
+      }
+    }
+  }
+
+  &__dropdown-custom-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: var(--rds-color-placeholder);
+    line-height: 0;
+    z-index: 1;
   }
 
   &__dropdown-action {
@@ -212,21 +245,30 @@
     font: inherit;
     line-height: 1.4;
     cursor: pointer;
+
+    &--custom {
+      display: block;
+      width: 100%;
+    }
   }
   
   &__dropdown-label {
     font-size: 0.875rem;
     display: block;
+    line-height: 1.25;
   }
   
   &__dropdown-value {
+    display: block;
     font-size: 0.875rem;
-    padding: 0 0.25rem;
+    line-height: 1.25;
+    margin-top: 0.125rem;
+    padding: 0;
   }
   
   &__icon-container {
     position: absolute;
-    right: 8px;
+    right: 4px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -1005,7 +1047,7 @@ font-weight: bold;
   .rds-datepicker {
     &__input { font-size: 0.95rem; padding: 0.45rem 2.6rem 0.45rem 0.6rem; }
     &__input--with-clear { padding-right: 84px; }
-    &__icon-container { right: 8px; width: 28px; height: 28px; }
+    &__icon-container { right: 2px; width: 28px; height: 28px; }
     &__clear-button { right: 64px; }
     &__dropdown-menu--show { margin-right: 0 !important; width: 100% !important; }
     &__custom-dropdown { width: 85% !important; }
@@ -1129,7 +1171,7 @@ font-weight: bold;
       padding-right: var(--rds-spacing-92);
     }
     &__icon-container {
-      right: 10px;
+      right: 4px;
     }
     &__clear-button {
       right: 76px;
@@ -1149,7 +1191,7 @@ font-weight: bold;
       padding-right: var(--rds-spacing-96-px);
     }
     &__icon-container {
-      right: 12px;
+      right: 4px;
     }
     &__clear-button {
       right: 76px;

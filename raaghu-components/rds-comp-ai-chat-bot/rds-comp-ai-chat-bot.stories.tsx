@@ -36,7 +36,7 @@ export const Default: Story = {
     );
   },
   args: {
-    aiLogoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
+    aiLogoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu_icon%201%20(1).png",
     userAvatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     placeholderText: "Ask a followup",
     iconName: "enhancer"

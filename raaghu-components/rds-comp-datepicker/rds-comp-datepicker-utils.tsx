@@ -1,4 +1,6 @@
 import { createElement, type RefObject, type ReactNode } from "react";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { CustomButtons } from "./CustomButtons";
 import { createRenderCustomHeader } from "./renderCustomHeader";
 
@@ -168,10 +170,12 @@ export const renderDatePickerTypeView = (
     yesterdayClickHandler: () => void,
     lastSevenDaysClickHandler: () => void,
     lastFourteenDaysClickHandler: () => void,
+    customClickHandler: () => void,
     dayClassName: (date: Date) => string,
     CustomInputWithClear: React.ElementType,
     ExampleCustomInput: React.ElementType,
-    CustomButtons: React.ElementType
+    CustomButtons: React.ElementType,
+    customDropdownRef?: RefObject<HTMLDivElement | null>
 ) => {
     const SafeDatePicker = props.SafeDatePicker;
 
@@ -199,7 +203,10 @@ export const renderDatePickerTypeView = (
         );
     } else if (type === "Custom") {
         const todayButtonElement = <CustomButtons />;
-        const rangeCustomInput = createElement(ExampleCustomInput, { changeIcon: props.changeIcon });
+        const rangeCustomInput = createElement(ExampleCustomInput, {
+            changeIcon: props.changeIcon,
+            onActivate: customClickHandler,
+        });
         const pickerProps = buildDatePickerProps({
             startDate,
             onChange: handlerDateChange,
@@ -219,13 +226,15 @@ export const renderDatePickerTypeView = (
             overrides: { open: false },
         });
         return (
-            <div className="rds-datepicker__custom-dropdown">
+            <div className="rds-datepicker__custom-dropdown" ref={customDropdownRef}>
                 <SafeDatePicker {...pickerProps} />
               
                 <ul className={`rds-datepicker__dropdown-menu ${isDropdownOpen ? "rds-datepicker__dropdown-menu--show" : ""}`}>
                     <li className="rds-datepicker__dropdown-item rds-datepicker__dropdown-item--header">
                         <strong className="rds-datepicker__dropdown-label">Custom Date</strong>
-                        <span className="rds-datepicker__dropdown-value">{dropdownDisplayValue}</span>
+                        {dropdownDisplayValue ? (
+                            <span className="rds-datepicker__dropdown-value">{dropdownDisplayValue}</span>
+                        ) : null}
                     </li>
 
                     <li id="today" className={`rds-datepicker__dropdown-item ${activeList === "today" ? "rds-datepicker__dropdown-item--active" : ""}`}>
@@ -240,7 +249,7 @@ export const renderDatePickerTypeView = (
                     <li id="lastFourteen" className={`rds-datepicker__dropdown-item ${activeList === "lastFourteen" ? "rds-datepicker__dropdown-item--active" : ""}`}>
                         <button type="button" className="rds-datepicker__dropdown-action" onClick={lastFourteenDaysClickHandler}>Last 14 days</button>
                     </li>
-                    <li id="custom" className={`rds-datepicker__dropdown-item ${activeList === "custom" ? "rds-datepicker__dropdown-item--active" : ""}`}>
+                    <li id="custom" className={`rds-datepicker__dropdown-item rds-datepicker__dropdown-item--custom ${activeList === "custom" ? "rds-datepicker__dropdown-item--active" : ""}`}>
                         <SafeDatePicker
                             selected={startDate || null}
                             onChange={onRangeChange}
@@ -271,6 +280,13 @@ export const renderDatePickerTypeView = (
                             calendarClassName={props.layout === "Default" ? "rds-datepicker--layout-default" : undefined}
                             customInput={rangeCustomInput}
                         />
+                        <span className="rds-datepicker__dropdown-custom-icon" aria-hidden="true">
+                            {props.changeIcon === "dashboard_settings" ? (
+                                <SettingsIcon className="rds-datepicker__calendar-icon" />
+                            ) : (
+                                <CalendarMonthIcon className="rds-datepicker__calendar-icon" />
+                            )}
+                        </span>
                     </li>
                 </ul>
             </div>

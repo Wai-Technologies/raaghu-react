@@ -1,32 +1,30 @@
-import { forwardRef } from "react";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { forwardRef, type MouseEvent } from "react";
 
 interface ExampleCustomInputProps {
   value?: string;
-  onClick?: () => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   changeIcon?: string;
+  onActivate?: () => void;
 }
 
 export const ExampleCustomInput = forwardRef<HTMLButtonElement, ExampleCustomInputProps>(
-  ({ value: _value, onClick, changeIcon }, ref) => (
-    <button
-      type="button"
-      className="rds-datepicker__dropdown-action rds-datepicker__dropdown-action--custom"
-      onClick={onClick}
-      ref={ref}
-      style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}
-    >
-      <span>Custom</span>
-      <span style={{ display: "flex", alignItems: "center" }}>
-        {changeIcon === "dashboard_settings" ? (
-          <SettingsIcon className="rds-datepicker__calendar-icon" />
-        ) : (
-          <CalendarMonthIcon className="rds-datepicker__calendar-icon" />
-        )}
-      </span>
-    </button>
-  )
+  ({ value: _value, onClick, changeIcon: _changeIcon, onActivate }, ref) => {
+    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+      onActivate?.();
+      onClick?.(event);
+    };
+
+    return (
+      <button
+        type="button"
+        className="rds-datepicker__dropdown-action rds-datepicker__dropdown-action--custom"
+        onClick={handleClick}
+        ref={ref}
+      >
+        Custom
+      </button>
+    );
+  }
 );
 
 ExampleCustomInput.displayName = "ExampleCustomInput";

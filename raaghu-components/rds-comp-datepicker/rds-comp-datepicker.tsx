@@ -103,6 +103,7 @@ const RdsDatepicker = ({
     const datePickerRef = useRef<DatePicker | null>(null);
     const expandedDatePickerRef = useRef<DatePicker | null>(null);
     const selectedDatePickerRef = useRef<DatePicker | null>(null);
+    const customDropdownRef = useRef<HTMLDivElement | null>(null);
     const showState = state === DatePickerState.Expanded || state === DatePickerState.Selected;
     const showType = !showState;
 
@@ -197,6 +198,10 @@ const RdsDatepicker = ({
         });
     }, [today, onRangeChange, updatePickerState]);
 
+    const customClickHandler = useCallback(() => {
+        updatePickerState({ activeList: "custom" });
+    }, [updatePickerState]);
+
     const dayClassName = useCallback((date: Date) => getDayClassName(date, startDate), [startDate]);
 
     useEffect(() => {
@@ -212,6 +217,32 @@ const RdsDatepicker = ({
             };
         }
     }, [state]);
+
+    useEffect(() => {
+        if (!isDropdownOpen || type !== "Custom") return;
+
+        const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+            const target = event.target as Node | null;
+            if (!target) return;
+
+            if (customDropdownRef.current?.contains(target)) return;
+
+            const targetElement = target instanceof Element ? target : target.parentElement;
+            if (targetElement?.closest(".rds-datepicker__popper, .react-datepicker-popper, .react-datepicker")) {
+                return;
+            }
+
+            updatePickerState({ isDropdownOpen: false });
+        };
+
+        document.addEventListener("mousedown", handlePointerDown);
+        document.addEventListener("touchstart", handlePointerDown);
+
+        return () => {
+            document.removeEventListener("mousedown", handlePointerDown);
+            document.removeEventListener("touchstart", handlePointerDown);
+        };
+    }, [isDropdownOpen, type, updatePickerState]);
 
     const sharedProps = useMemo(
         () => ({
@@ -279,10 +310,12 @@ const RdsDatepicker = ({
                 yesterdayClickHandler,
                 lastSevenDaysClickHandler,
                 lastFourteenDaysClickHandler,
+                customClickHandler,
                 dayClassName,
                 CustomInputWithClear,
                 ExampleCustomInput,
-                CustomButtons
+                CustomButtons,
+                customDropdownRef
             )}
         </>
     );
