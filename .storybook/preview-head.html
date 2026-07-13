@@ -28,37 +28,53 @@
       return false;
     }
 
-    function getGlobalsRaw() {
-      var searches = [window.location.search];
-
+    function getGlobalsFromSearch(search) {
       try {
-        if (window.parent && window.parent !== window) {
-          searches.push(window.parent.location.search);
-        }
-      } catch (e) {}
-
-      try {
-        if (window.top && window.top !== window) {
-          searches.push(window.top.location.search);
-        }
-      } catch (e) {}
-
-      for (var i = 0; i < searches.length; i++) {
-        var params = new URLSearchParams(searches[i]);
-        var globals = decodeURIComponent(params.get('globals') || '');
-        if (globals) return globals;
+        var params = new URLSearchParams(search);
+        return decodeURIComponent(params.get('globals') || '');
+      } catch (e) {
+        return '';
       }
-
-      return '';
     }
 
+    /**
+     * Manager URL is source of truth. System (default) clears theme from the
+     * parent query while the iframe often keeps a stale theme:light|dark.
+     */
     function getThemeMode() {
       try {
-        var globalsRaw = getGlobalsRaw();
+        var chain = [];
+        var current = window;
 
-        if (globalsRaw.indexOf('theme:dark') !== -1) return 'dark';
-        if (globalsRaw.indexOf('theme:light') !== -1) return 'light';
+        while (current) {
+          try {
+            void current.location.search;
+            chain.push(current);
+            if (current.parent === current) break;
+            current = current.parent;
+          } catch (e) {
+            break;
+          }
+        }
 
+        var manager = chain[chain.length - 1];
+        var managerGlobals = getGlobalsFromSearch(manager.location.search);
+
+        if (managerGlobals.indexOf('theme:dark') !== -1) return 'dark';
+        if (managerGlobals.indexOf('theme:light') !== -1) return 'light';
+
+        // theme:system, or no theme on manager while embedded → follow OS.
+        if (
+          managerGlobals.indexOf('theme:system') !== -1 ||
+          chain.length > 1
+        ) {
+          return prefersDark() ? 'dark' : 'light';
+        }
+
+        // Standalone preview: fall back to own globals / OS.
+        var selfGlobals = getGlobalsFromSearch(chain[0].location.search);
+        if (selfGlobals.indexOf('theme:dark') !== -1) return 'dark';
+        if (selfGlobals.indexOf('theme:light') !== -1) return 'light';
         return prefersDark() ? 'dark' : 'light';
       } catch (e) {
         return 'light';
@@ -91,11 +107,7 @@
     });
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
-      var globalsRaw = getGlobalsRaw();
-
-      if (globalsRaw.indexOf('theme:dark') === -1 && globalsRaw.indexOf('theme:light') === -1) {
-        syncTheme();
-      }
+      syncTheme();
     });
 
     // Re-sync when the manager toolbar changes theme (parent URL updates without iframe reload).

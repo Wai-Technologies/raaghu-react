@@ -116,7 +116,11 @@ const preview: Preview = {
       const mode = (context.globals.theme || 'system') as 'light' | 'dark' | 'system';
       return React.createElement(
         RaaghuThemeProvider,
-        { mode, initializeOnMount: false },
+        {
+          mode,
+          // Theme persistence is handled outside Storybook; avoid fighting toolbar globals.
+          initializeOnMount: false,
+        },
         React.createElement(Story),
       );
     },

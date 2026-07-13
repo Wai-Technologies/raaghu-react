@@ -8,13 +8,44 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
   left: 0;
   right: 0;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   z-index: var(--rds-bottom-navigation-z-index, 1000);
 
-  &:hover {
+  .MuiBottomNavigation-root {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .MuiBottomNavigationAction-root {
+    // Equal columns across the full bar — override MUI maxWidth: 168px
+    // which otherwise leaves empty space on the right at mid/large widths.
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: var(--rds-bottom-navigation-action-padding-y, 6px)
+      var(--rds-bottom-navigation-action-padding-x, 8px) !important;
+
+    .MuiBottomNavigationAction-label {
+      font-size: var(--rds-bottom-navigation-label-font-size, 0.8rem) !important;
+      margin-top: var(--rds-bottom-navigation-label-margin-top, 2px) !important;
+      line-height: var(--rds-bottom-navigation-label-line-height, 1.2) !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      max-width: 100% !important;
+      width: 100%;
+    }
+
+    .MuiSvgIcon-root {
+      font-size: var(--rds-bottom-navigation-icon-size, 1.6rem) !important;
+    }
   }
 
   &:focus-visible {
-    outline: var(--rds-bottom-navigation-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-bottom-navigation-focus-ring-width, 2px) solid
+      var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
 
@@ -25,26 +56,15 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
   }
 
   @media (max-width: $rds-bottom-navigation-mobile-breakpoint) {
-    .MuiBottomNavigation-root {
-      .MuiBottomNavigationAction-root {
-        min-width: var(--rds-bottom-navigation-action-min-width, 72px) !important;
-        max-width: none !important;
-        padding: var(--rds-bottom-navigation-action-padding-y, 6px) var(--rds-bottom-navigation-action-padding-x, 8px) !important;
-        flex: 1 !important;
-        
-        .MuiBottomNavigationAction-label {
-          font-size: var(--rds-bottom-navigation-label-font-size, 0.8rem) !important;
-          margin-top: var(--rds-bottom-navigation-label-margin-top, 2px) !important;
-          line-height: var(--rds-bottom-navigation-label-line-height, 1.2) !important;
-          white-space: nowrap !important;
-          overflow: hidden !important;
-          text-overflow: ellipsis !important;
-          max-width: 100% !important;
-        }
-        
-        .MuiSvgIcon-root {
-          font-size: var(--rds-bottom-navigation-icon-size, 1.6rem) !important;
-        }
+    .MuiBottomNavigationAction-root {
+      padding: var(--rds-bottom-navigation-action-padding-y, 6px) 4px !important;
+
+      .MuiBottomNavigationAction-label {
+        font-size: 0.7rem !important;
+      }
+
+      .MuiSvgIcon-root {
+        font-size: 1.4rem !important;
       }
     }
   }
