@@ -52,7 +52,7 @@ const RdsDivider= ({
   ...props
 }:RdsDividerProps) => {
   const normalizedIconName = iconName?.trim();
-  const IconComponent = (normalizedIconName && ICON_MAP[normalizedIconName]) ?? InfoOutlinedIcon;
+  const IconComponent: ElementType = (normalizedIconName && ICON_MAP[normalizedIconName]) || InfoOutlinedIcon;
 
   const styleColors = STYLE_COLORS[styleVariant] ?? DEFAULT_STYLE_COLORS;
   const dividerLineColor = styleColors.dividerColor;

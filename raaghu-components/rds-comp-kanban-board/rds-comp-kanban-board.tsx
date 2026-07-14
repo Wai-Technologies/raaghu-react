@@ -261,7 +261,7 @@ const RdsCompKanbanBoard = ({
                             size="small"
                             value={boardName}
                             onChange={handleDataChanges}
-                            onKeyDown={(e) => { if (e.key === "Enter") { handleChange(e.target, card.cardId); } }}
+                            onKeyDown={(e) => { if (e.key === "Enter") { handleChange({ value: (e.target as HTMLInputElement).value }, card.cardId); } }}
                             autoFocus
                           />
                         )}
@@ -304,7 +304,7 @@ const RdsCompKanbanBoard = ({
                                 size="small"
                                 options={allTagsList || []}
                                 getOptionLabel={(option: any) => option.label}
-                                value={addQuestionData?.supportTagIds || []}
+                                value={(Array.isArray(addQuestionData?.supportTagIds) ? addQuestionData.supportTagIds : []) as any[]}
                                 onChange={(_event, value) => onSelectedCreators(value)}
                                 className="rds-kanban-board__autocomplete"
                                 renderInput={(params) => {
@@ -356,11 +356,11 @@ const RdsCompKanbanBoard = ({
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{ className: "rds-kanban-board__menu-paper" }}
       >
-        <MenuItem onClick={() => handleCardOptionClick("delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">
+        <MenuItem onClick={() => handleCardOptionClick("delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
           <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
         </MenuItem>
         {selectedCard?.actions?.map((option: KanbanAction, optIndex: number) => (
-          <MenuItem key={optIndex} onClick={() => handleCardOptionClick(option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">
+          <MenuItem key={optIndex} onClick={() => handleCardOptionClick(option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
             {option.key}
           </MenuItem>
         ))}

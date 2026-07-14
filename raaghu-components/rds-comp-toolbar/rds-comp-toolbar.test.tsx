@@ -62,10 +62,12 @@ jest.mock('./rds-comp-toolbar-config', () => ({
     ariaLabel, 
     isActive, 
     isDisabled, 
-    isDropdownOpen,
+    dropdownAction,
     onClick,
     onDropdownSelect 
-  }: any) => (
+  }: any) => {
+    const isDropdownOpen = Boolean(hasDropdown && dropdownAction === action);
+    return (
     <div
       data-testid={`toolbar-button-${action}`}
       data-action={action}
@@ -84,7 +86,8 @@ jest.mock('./rds-comp-toolbar-config', () => ({
         </div>
       )}
     </div>
-  ),
+    );
+  },
 }));
 
 // Mock MUI Icons (not fully needed since we're mocking ToolbarButton)

@@ -46,6 +46,10 @@ const getDefaultIconForPosition = (index: number, label: string): string => {
 export interface RdsBreadcrumbItem {
   label: string;
   href?: string;
+  /** @deprecated Prefer `href`. Kept for consumer compatibility. */
+  url?: string;
+  /** @deprecated Prefer `href`. Kept for consumer compatibility. */
+  routePath?: string;
   onClick?: () => void;
   active?: boolean;
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';

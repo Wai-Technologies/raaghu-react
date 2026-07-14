@@ -26,8 +26,10 @@ mirror the token values.
 
 ```tsx
 // main.tsx or app entry
-import 'raaghu-react-themes/src/styles/index.scss';
-import { RaaghuThemeProvider } from 'raaghu-react-themes';
+import '@waiin/raaghu-react/styles.css'; // bundled component styles from the published package
+// Optional: global resets (source path when consuming the monorepo / theme package path)
+// import 'raaghu-react-themes/src/styles/index.scss';
+import { RaaghuThemeProvider } from '@waiin/raaghu-react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 
@@ -37,6 +39,9 @@ createRoot(document.getElementById('root')!).render(
   </RaaghuThemeProvider>
 );
 ```
+
+`@waiin/raaghu-react/styles.css` is the built library CSS (`dist/raaghu-react.css`).
+Theme tokens are still applied at runtime by `RaaghuThemeProvider` via `--rds-*` CSS variables.
 
 `index.scss` only contains global resets (box-sizing, body font, scrollbar).
 It uses `var(--rds-*)` and does not define any colors by itself.

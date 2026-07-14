@@ -20,13 +20,6 @@ export interface RdsCompAiTypingSectionProps {
   autoCompleteMaxWidth?: string;
 }
 
-declare global {
-  interface Window {
-    webkitSpeechRecognition: new () => SpeechRecognition;
-    webkitSpeechRecognition: new () => SpeechRecognition;
-  }
-}
-
 registerMaterialIcons({
   enhance: AutoAwesomeOutlinedIcon,
 });
@@ -57,7 +50,9 @@ const RdsCompAiTypingSectionComponent = ({
   const handleMicClick = useCallback(() => {
     if (!("webkitSpeechRecognition" in window)) return;
 
-    const recognition = new window.webkitSpeechRecognition();
+    const SpeechRecognitionCtor = window.webkitSpeechRecognition;
+    if (!SpeechRecognitionCtor) return;
+    const recognition = new SpeechRecognitionCtor();
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.lang = "en-US";

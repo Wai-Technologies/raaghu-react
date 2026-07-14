@@ -20,7 +20,7 @@
 
 <div align="center">
 
-[![License](https://img.shields.io/badge/license-MIT-orange)](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-orange)](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/stargazers)
 ![Design System Version](https://img.shields.io/github/v/release/Wai-Technologies/raaghu-react)
 [![GitHub issues](https://img.shields.io/github/issues/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/issues)
@@ -253,6 +253,17 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 
 ## <a name='started'></a> Getting Started with Raaghu
 
+```bash
+npm install @waiin/raaghu-react
+```
+
+`@mui/material`, `@emotion/react`, and `@emotion/styled` are installed automatically with the package. Peer dependency: `react` / `react-dom` (≥18) — normally already present in the app.
+
+```tsx
+import '@waiin/raaghu-react/styles.css';
+import { RaaghuThemeProvider, RdsButton } from '@waiin/raaghu-react';
+```
+
 - [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): Start using Raaghu Design System by referring to our docs on Wiki.
 - [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screens etc.
 - [Create new solution](): Guide to create new React Solution.
@@ -267,7 +278,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
  
 ## <a name='license'></a> License
 
-This project is licensed under the MIT License - see the [`LICENSE`](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [`LICENSE`](https://github.com/Wai-Technologies/raaghu-react/blob/production/LICENSE) file for details.
 
 ## <a name='communities'></a> Communities
 

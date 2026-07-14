@@ -56,6 +56,10 @@ export interface RdsSidebarItem {
   typeOf?: 'collapse' | 'expanded' | 'fixed';
   platform?: 'abp-list' | 'anz-list';
   children?: RdsSidebarItem[];
+  /** Optional navigation path (alias used by some consumers). */
+  path?: string;
+  /** Optional href for link-style items. */
+  href?: string;
 }
 
 export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'component'> {

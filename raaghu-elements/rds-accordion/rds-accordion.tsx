@@ -58,22 +58,23 @@ const RdsAccordion = ({
     isDisabled && 'rds-accordion--disabled',
   );
 
-  const accordionProps: AccordionProps = {
+  const accordionProps = {
     ...props,
+    children,
     className: accordionClassName,
-    onMouseEnter: (event) => {
+    onMouseEnter: (event: React.MouseEvent<HTMLDivElement>) => {
       props.onMouseEnter?.(event);
       if (state === 'hover') {
         setIsHovered(true);
       }
     },
-    onMouseLeave: (event) => {
+    onMouseLeave: (event: React.MouseEvent<HTMLDivElement>) => {
       props.onMouseLeave?.(event);
       if (state === 'hover') {
         setIsHovered(false);
       }
     },
-  };
+  } as AccordionProps;
 
   if (typeof props.expanded === 'boolean') {
     accordionProps.expanded = props.expanded;

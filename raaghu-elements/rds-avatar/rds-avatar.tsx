@@ -13,6 +13,8 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component'> {
     title?: string;
     subText?: string;
     size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
+    alt?: string;
+    colorVariant?: string;
   }>;
   maxVisibleAvatars?: number;
   activityRing?: boolean;

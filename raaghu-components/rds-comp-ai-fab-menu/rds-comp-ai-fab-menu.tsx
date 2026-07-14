@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { memo, useCallback, useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
+import { memo, useCallback, useEffect, useRef, useState, type ReactNode, type MouseEvent as ReactMouseEvent } from "react";
 import "./rds-comp-ai-fab-menu.scss";
 import RdsCompAiIcon, { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 import ListIcon from "@mui/icons-material/List";
@@ -89,7 +89,7 @@ const RdsCompAiFabMenu = ({
   }, []);
 
   const handleItemClick = useCallback(
-    (onClick?: () => void) => (event: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    (onClick?: () => void) => (event: ReactMouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
       onClick?.();
       setIsMenuOpen(false);

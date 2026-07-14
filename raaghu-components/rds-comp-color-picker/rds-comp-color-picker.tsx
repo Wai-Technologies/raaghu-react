@@ -17,10 +17,10 @@ import {
 
 interface ColorUpdate {
   hex: string;
-  rgb?: { r: number; g: number; b: number; a: number };
+  rgb?: { r: number; g: number; b: number; a?: number };
 }
 
-const RdsColorPicker = (props: RdsColorPickerProps) => {
+const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, isDisabled, onChange } =
     props;
   const getDefaultColorHex = useCallback(() => {
@@ -209,8 +209,10 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     updatePickerState({ internalSelectedColorMode: mode });
   }, [updatePickerState]);
 
-  const setShowColorModeDropdown = useCallback((next: boolean) => {
-    updatePickerState({ showColorModeDropdown: next });
+  const setShowColorModeDropdown = useCallback((next: boolean | ((prev: boolean) => boolean)) => {
+    updatePickerState((prev) => ({
+      showColorModeDropdown: typeof next === 'function' ? next(prev.showColorModeDropdown) : next,
+    }));
   }, [updatePickerState]);
 
   return (

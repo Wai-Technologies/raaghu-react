@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import clsx from 'clsx';
 import "./rds-comp-audio-player.scss";
 import Forward10OutlinedIcon from "@mui/icons-material/Forward10Outlined";
@@ -272,7 +272,7 @@ const RdsCompAudioPlayer = ({
     updateAudioState((prev) => ({ zoomLevel: Math.max(0, prev.zoomLevel - 10) }));
   }, [updateAudioState]);
 
-  const handleWaveformMouseDown = useCallback((e: MouseEvent, side: "left" | "right") => {
+  const handleWaveformMouseDown = useCallback((e: ReactMouseEvent, side: "left" | "right") => {
     e.preventDefault();
     updateAudioState({
       isDraggingLeft: side === "left",
@@ -281,7 +281,7 @@ const RdsCompAudioPlayer = ({
   }, [updateAudioState]);
 
   const handleWaveformMouseMove = useCallback(
-    (e: MouseEvent) => {
+    (e: ReactMouseEvent<HTMLDivElement>) => {
       if (!isDraggingLeft && !isDraggingRight) return;
 
       const rect = e.currentTarget.getBoundingClientRect();
@@ -326,7 +326,7 @@ const RdsCompAudioPlayer = ({
   }, [currentTime, duration, updateAudioState]);
 
   const handleKeyDown = useCallback(
-    (e: KeyboardEvent, side: "left" | "right") => {
+    (e: ReactKeyboardEvent, side: "left" | "right") => {
       const step = 1;
       if (e.key === "ArrowLeft") {
         e.preventDefault();

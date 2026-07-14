@@ -10,12 +10,16 @@ import {
   RdsFileList,
   useFileUploader
 } from './RdsFileUploaderComponents';
-export { type FileWithProgress } from './rds-file-uploader-types';
-import { type FileWithProgress } from './rds-file-uploader-types';
+export { type FileWithProgress, type RdsFileUploaderProps as RdsFileUploaderBaseProps } from './rds-file-uploader-types';
+import { type FileWithProgress, type RdsFileUploaderProps as RdsFileUploaderBaseProps } from './rds-file-uploader-types';
 
-export interface RdsFileUploaderProps {
+export interface RdsFileUploaderProps extends RdsFileUploaderBaseProps {
   children?: ReactNode;
-  [key: string]: unknown;
+  /** Legacy aliases still accepted by some consumers. */
+  showPreview?: boolean;
+  showTitle?: boolean;
+  isMandatory?: boolean;
+  showHint?: boolean;
 }
 
 const RdsFileUploader = ({

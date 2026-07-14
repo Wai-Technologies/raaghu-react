@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState, type ReactNode, type MouseEvent as ReactMouseEvent } from 'react';
 import { 
   Box, 
   Typography, 
@@ -67,7 +67,7 @@ const RdsCompFilterButton = ({
   const [searchTerm, setSearchTerm] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleButtonClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setIsOpen(!isOpen);
   }, [isOpen]);
@@ -140,7 +140,7 @@ const RdsCompFilterButton = ({
         ref={buttonRef}
         text={buttonText}
         size={'medium'}
-        shape={shape}
+        shape={shape as 'rectangle' | 'pill'}
         layout={'icon+text'}
         style={'filled'}
         disabled={disabled}

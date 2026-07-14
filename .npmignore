@@ -6,6 +6,7 @@
 .storybook/
 **/.storybook/
 storybook-static/
+stories/
 
 # Figma files
 *.figma.*
@@ -21,6 +22,7 @@ figma.config.*
 **/*.spec.*
 **/__tests__/
 **/__mocks__/
+tests/
 
 # Development files
 src/**/*.test.*
@@ -28,25 +30,35 @@ src/**/*.spec.*
 jest.config.*
 eslint.config.*
 vite.config.*
+vitest.config.*
+vitest.setup.ts
 tsconfig.*.json
 million.config.*
 chromatic.config.*
 figma.config.*
 
-# Build artifacts and caches
+# Build artifacts and caches (keep dist/ — published via package.json "files")
 node_modules/
 coverage/
 .nyc_output/
-dist/
 build/
 bun.lock
 bunfig.toml
 
-# Documentation
+# Documentation & internal guides (README.md ships via package.json "files")
 docs/
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 SECURITY.md
+
+# Contributor / IDE / CI tooling (not part of the published library)
+.github/
+.specify/
+.raaghu/
+.vscode/
+.cursor/
+scripts/
+assets/
 
 # Development configs
 web.config
