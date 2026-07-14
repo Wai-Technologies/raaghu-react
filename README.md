@@ -82,7 +82,9 @@
 
 <br>
 
-<p align="center"><a href="https://www.figma.com/community/file/1425066439193737902/raaghu-design-system-open-source" rel="nofollow"><img alt="Go to Raaghu Design Kit" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-kit-btn.png?raw=true" width="290"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://react.raaghu.ai/?path=/docs/introduction--docs" rel="nofollow"><img alt="Check out Raaghu Design System" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-system-btn.png?raw=true" width="290"></a></p>
+<p align="center">
+  <a href="https://www.figma.com/community/file/1425066439193737902/raaghu-design-system-open-source" rel="nofollow"><img alt="Go to Raaghu Design Kit" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-kit-btn1.png" width="290" height="58"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://react.raaghu.ai/?path=/docs/introduction--docs" rel="nofollow"><img alt="Check out Raaghu Design System" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/design-system-btn.png" width="290" height="58"></a>
+</p>
 <br><br>
 
 <p align="center">Built for Web Apps and Power Apps</p>
