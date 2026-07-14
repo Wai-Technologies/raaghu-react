@@ -44,6 +44,8 @@ const meta: Meta<typeof RdsRating> = {
     },
     precision: {
       control: { type: 'number', min: 0.1, max: 1, step: 0.1 },
+      description:
+        'Minimum increment for star selection. Values that do not divide 1 evenly (e.g. 0.3, 0.4) are normalized so the rating renders safely.',
     },
     level: {
       control: { type: 'select' },

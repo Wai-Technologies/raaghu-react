@@ -96,7 +96,7 @@
     }
     
     &:hover:not(.rds-carousel__indicator__active) {
-      background-color: var(--rds-color-gray-500);
+      background-color: var(--rds-carousel-indicator-bg-hover, var(--rds-color-gray-500));
     }
   }
 
@@ -615,6 +615,15 @@
 
       .rds-carousel__slide {
         background-color: transparent !important;
+      }
+    }
+
+    .rds-carousel__indicator:not(.rds-carousel__indicator__active) {
+      background-color: var(--rds-carousel-indicator-bg, rgba(255, 255, 255, 0.55)) !important;
+      border-color: var(--rds-carousel-indicator-bg, rgba(255, 255, 255, 0.55));
+
+      &:hover {
+        background-color: var(--rds-carousel-indicator-bg-hover, rgba(255, 255, 255, 0.8)) !important;
       }
     }
 

@@ -691,6 +691,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-carousel-navigation-bg': alphaTokens.modalBackdrop,
     '--rds-carousel-navigation-bg-hover': alphaTokens.actionHoverDark,
     '--rds-carousel-indicator-bg': 'var(--rds-color-gray-500)',
+    '--rds-carousel-indicator-bg-hover': 'var(--rds-color-gray-600)',
     '--rds-carousel-indicator-active': 'var(--rds-primary-main)',
     '--rds-carousel-divider': 'var(--rds-border-light)',
     // ── Box component tokens
@@ -1503,6 +1504,9 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-kanban-header-bg': componentTokens.kanban?.headerBgDark,
     '--rds-kanban-subcard-bg': componentTokens.kanban?.subcardBgDark,
     '--rds-kanban-subcard-border': componentTokens.kanban?.subcardBorderDark,
+    // ── Carousel indicators (dark): light dots for contrast on dark surfaces ─
+    '--rds-carousel-indicator-bg': 'rgba(255, 255, 255, 0.55)',
+    '--rds-carousel-indicator-bg-hover': 'rgba(255, 255, 255, 0.8)',
   };
 }
 
