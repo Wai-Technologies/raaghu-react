@@ -141,14 +141,24 @@ export function applyRaaghuTheme(
   injectTokens(effectiveMode, overrides);
 }
 
-/**
- * Reads Storybook `globals` query param from the current window and parent frames.
- * In static/production builds the manager URL carries globals; the preview iframe often does not.
- */
-function getStorybookGlobalsFromUrl(win: Window = window): string {
-  if (typeof win === 'undefined') return '';
+function getGlobalsParamFromSearch(search: string): string {
+  const params = new URLSearchParams(search);
+  return decodeURIComponent(params.get('globals') || '');
+}
 
-  const searches: string[] = [];
+function parseThemeFromGlobals(globals: string): RaaghuThemeMode | null {
+  if (globals.includes('theme:dark')) return 'dark';
+  if (globals.includes('theme:light')) return 'light';
+  if (globals.includes('theme:system')) return 'system';
+  return null;
+}
+
+/**
+ * Walks from `win` up to the outermost accessible frame (Storybook manager).
+ * Stops on cross-origin boundaries.
+ */
+function getAccessibleWindowChain(win: Window): Window[] {
+  const chain: Window[] = [];
   const seen = new Set<Window>();
   let current: Window | null = win;
 
@@ -157,7 +167,9 @@ function getStorybookGlobalsFromUrl(win: Window = window): string {
     seen.add(current);
 
     try {
-      searches.push(current.location.search);
+      // Access location to ensure same-origin readability.
+      void current.location.search;
+      chain.push(current);
     } catch {
       break;
     }
@@ -166,22 +178,38 @@ function getStorybookGlobalsFromUrl(win: Window = window): string {
     current = current.parent;
   }
 
-  for (const search of searches) {
-    const params = new URLSearchParams(search);
-    const globals = decodeURIComponent(params.get('globals') || '');
-    if (globals) return globals;
-  }
-
-  return '';
+  return chain;
 }
 
-/** Parses `theme:*` from Storybook globals in the URL hierarchy. */
+/**
+ * Reads Storybook toolbar theme from the URL hierarchy.
+ *
+ * The manager (parent) URL is the source of truth. Selecting the default
+ * "System" theme clears `theme` from the manager query string, but the
+ * preview iframe often keeps a stale `theme:light` / `theme:dark`. Prefer
+ * the outermost accessible frame; if it has no explicit theme, treat as
+ * system and ignore nested iframe globals.
+ */
 export function getStorybookThemeFromUrl(win: Window = window): RaaghuThemeMode | null {
-  const globals = getStorybookGlobalsFromUrl(win);
-  if (globals.includes('theme:dark')) return 'dark';
-  if (globals.includes('theme:light')) return 'light';
-  if (globals.includes('theme:system')) return 'system';
-  return null;
+  if (typeof win === 'undefined') return null;
+
+  const chain = getAccessibleWindowChain(win);
+  if (chain.length === 0) return null;
+
+  const manager = chain[chain.length - 1];
+  const managerTheme = parseThemeFromGlobals(
+    getGlobalsParamFromSearch(manager.location.search),
+  );
+  if (managerTheme) return managerTheme;
+
+  // Embedded preview: manager has no theme:* → Storybook default is system.
+  // Do not fall back to a stale theme still present on the iframe URL.
+  if (chain.length > 1) {
+    return 'system';
+  }
+
+  // Standalone iframe.html (no manager): use this window's globals only.
+  return parseThemeFromGlobals(getGlobalsParamFromSearch(chain[0].location.search));
 }
 
 export function getRaaghuThemeMode(): RaaghuThemeMode {

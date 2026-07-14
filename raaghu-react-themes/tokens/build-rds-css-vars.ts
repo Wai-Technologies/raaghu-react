@@ -632,6 +632,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-bottom-navigation-label-margin-top': '2px',
     '--rds-bottom-navigation-label-line-height': '1.2',
     '--rds-bottom-navigation-icon-size': '1.6rem',
+    '--rds-bottom-navigation-border-color': 'var(--rds-border-default)',
     // ── Chip component tokens
     '--rds-chip-focus-ring-width': componentTokens.chip.focusRingWidth,
     '--rds-chip-disabled-opacity': componentTokens.chip.disabledOpacity,
