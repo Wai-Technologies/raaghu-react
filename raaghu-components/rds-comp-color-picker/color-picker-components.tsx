@@ -247,7 +247,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
             onChange={handleHueChange}
             width="230px"
             height={SLIDER_TRACK_HEIGHT}
-            pointer={SliderPointer}
+            {...({ pointer: SliderPointer } as Record<string, unknown>)}
             className="rds-comp-color-picker__hue-picker"
           />
         </div>       
@@ -258,7 +258,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
             onChange={handleAlphaChange}
             width="230px"
             height={SLIDER_TRACK_HEIGHT}
-            pointer={SliderPointer}
+            {...({ pointer: SliderPointer } as Record<string, unknown>)}
             className="rds-comp-color-picker__alpha-picker"
           />
         </div>

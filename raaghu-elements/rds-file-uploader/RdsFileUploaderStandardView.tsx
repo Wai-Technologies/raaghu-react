@@ -69,7 +69,6 @@ const RdsFileUploaderStandardView = ({
       >
         <RdsButton
           style="filled"
-          component="label"
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
           sx={{
@@ -79,6 +78,7 @@ const RdsFileUploaderStandardView = ({
             padding: 'var(--rds-file-uploader-upload-padding-y, 4px) var(--rds-file-uploader-upload-padding-x, 13px)',
             flexShrink: 0,
           }}
+          {...({ component: 'label' } as Record<string, unknown>)}
         >
           Choose File
           <input

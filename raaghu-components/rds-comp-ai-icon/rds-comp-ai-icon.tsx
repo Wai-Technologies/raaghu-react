@@ -4,18 +4,22 @@ import "./rds-comp-ai-icon.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 
-const defaultMaterialIcons: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
-  users: GroupOutlinedIcon as ComponentType<SVGProps<SVGSVGElement>>,
-  "person-outline": PersonOutlineIcon as ComponentType<SVGProps<SVGSVGElement>>,
+/** Accepts MUI SvgIcon components and plain SVG React components. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RdsIconComponent = ComponentType<any>;
+
+const defaultMaterialIcons: Record<string, RdsIconComponent> = {
+  users: GroupOutlinedIcon,
+  "person-outline": PersonOutlineIcon,
 };
 
-const materialIconsRegistry: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
+const materialIconsRegistry: Record<string, RdsIconComponent> = {
   ...defaultMaterialIcons,
 };
 
 export const registerMaterialIcon = (
   name: string,
-  iconComponent: ComponentType<SVGProps<SVGSVGElement>>
+  iconComponent: RdsIconComponent
 ) => {
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
   try {
@@ -25,7 +29,7 @@ export const registerMaterialIcon = (
   }
 };
 
-export const registerMaterialIcons = (icons: Record<string, ComponentType<SVGProps<SVGSVGElement>>>) => {
+export const registerMaterialIcons = (icons: Record<string, RdsIconComponent>) => {
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
@@ -37,7 +41,7 @@ export const registerMaterialIcons = (icons: Record<string, ComponentType<SVGPro
 };
 
 const createMuiIconWrapper = (
-  MuiIcon: ComponentType<SVGProps<SVGSVGElement>>
+  MuiIcon: RdsIconComponent
 ): ComponentType<SVGProps<SVGSVGElement>> =>
   forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
     ({ color, fontSize, className, style, ...restProps }, ref) => {
@@ -53,7 +57,7 @@ const createMuiIconWrapper = (
 
 const resolveIconComponent = (
   iconName: string,
-  SvgIcon?: ComponentType<SVGProps<SVGSVGElement>>
+  SvgIcon?: RdsIconComponent
 ): ComponentType<SVGProps<SVGSVGElement>> | null => {
   try {
     if (SvgIcon) return SvgIcon;

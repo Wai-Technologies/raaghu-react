@@ -345,7 +345,6 @@ const RdsTable = ({
                         }}
                         className={cellClass}
                       >
-                        {/* @ts-expect-error row-indexed value is normalized to renderable output in renderCellContent */}
                         {renderCellContent(column, value, row, index) as ReactNode}
                       </MuiTableCell>
                     );

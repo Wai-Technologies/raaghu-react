@@ -24,6 +24,8 @@ export interface RdsProgressProps {
   totalSteps?: number;
   stepperType?: 'number' | 'circle';
   sx?: CSSProperties;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
 }
 
 const RdsProgress = ({

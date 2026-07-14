@@ -60,7 +60,7 @@ export function cloneChartOptions<T>(options: T): T {
 
 /** Attaches chart data to options when callers have not already done so. */
 export function attachChartData(
-  chartOptions: { data?: unknown },
+  chartOptions: Record<string, any>,
   chartData: { labels: unknown[]; datasets: unknown[] }
 ): void {
   if (!chartOptions.data) {
@@ -134,31 +134,9 @@ export function chartFont(
   return `${weightVal} ${sizeVal} ${family}`;
 }
 
-/** Minimal mutable shape expected by {@link applyChartThemeColors}. */
-interface ChartOptionsLike {
-  scales?: Record<string, {
-    grid?: Record<string, unknown>;
-    ticks?: Record<string, unknown>;
-    border?: Record<string, unknown>;
-    title?: Record<string, unknown>;
-  }>;
-  data?: {
-    datasets?: Array<{
-      backgroundColor?: string | string[];
-      borderColor?: string | string[];
-    }>;
-  };
-  plugins?: {
-    legend?: { labels?: Record<string, unknown> };
-    title?: Record<string, unknown>;
-    tooltip?: {
-      backgroundColor?: string;
-      titleColor?: string;
-      bodyColor?: string;
-      labelColor?: () => { borderColor: string; backgroundColor: string };
-    };
-  };
-}
+/** Mutable Chart.js options shape used by theme helpers (accepts Chart.js DeepPartial options). */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ChartOptionsLike = Record<string, any>;
 
 /**
  * Applies dark/light theme colors to a Chart.js options object in-place.

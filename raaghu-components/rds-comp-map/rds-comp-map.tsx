@@ -119,12 +119,12 @@ const RdsCompMap = (props: RdsCompMapProps) => {
             <div className="rds-comp-map__center">
                 <div className="rds-comp-map__worldmap-host">
                     <WorldMap 
-                        styleFunction={stylingFunction} 
+                        styleFunction={stylingFunction as any} 
                         color={color} 
                         title="" 
                         value-suffix="people" 
                         size={mapSize} 
-                        data={mapList} 
+                        data={mapList as any} 
                     />
                 </div>
             </div>

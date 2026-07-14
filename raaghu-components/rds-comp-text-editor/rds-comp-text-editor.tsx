@@ -8,7 +8,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const Editor = lazy(() =>
     import("react-draft-wysiwyg").then((m) => ({ default: m.Editor }))
-);
+) as React.ComponentType<any>;
 import "./rds-comp-text-editor.scss";
 
 export interface RdsCompTextEditorProps {
@@ -73,7 +73,7 @@ const RdsCompTextEditor = ({
         setEditorState(createEditorStateFromValue(value, showTitle));
     }
     const [isTouch, setIsTouch] = useState(false);
-    const editorRef = useRef<Editor | null>(null);
+    const editorRef = useRef<any>(null);
 
     const computedRows = typeof rows === "number" && rows > 0 ? rows : 6;
     const lineHeightVar = "var(--rds-line-height-body, 26px)";
@@ -111,7 +111,7 @@ const RdsCompTextEditor = ({
         [],
     );
 
-    const handleEditorChange = useCallback((state: EditorState) => {
+    const handleEditorChange = useCallback((state: any) => {
         setEditorState(state);
         setIsTouch(true);
         if (onChange) {

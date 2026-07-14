@@ -99,7 +99,7 @@ const RdsCompRadarChart = ({
               pointStyleWidth: undefined,
               font: {
                 size: getFontSizeFromVar("--rds-font-size-md", 12),
-                weight: getFontWeightFromVar("--rds-font-weight-medium", "500"),
+                weight: getFontWeightFromVar("--rds-font-weight-medium", "500") as any,
                 family: "inherit",
                 ...(typeof passedLabels.font === "object" && passedLabels.font !== null
                   ? passedLabels.font

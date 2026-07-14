@@ -3,6 +3,7 @@ export { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } fr
 import { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
 import clsx from 'clsx';
 import { ToolbarButton } from "./rds-comp-toolbar-config";
+import { type ToolbarButtonConfig } from "./rds-comp-toolbar-config-types";
 import { getToolbarConfig } from "./rds-comp-toolbar-config-data";
 import "./rds-comp-toolbar.scss";
 
@@ -16,7 +17,7 @@ function ToolbarSectionButtons({
   handleFormatClick,
   handleDropdownSelect,
 }: {
-  section: ToolbarButton[];
+  section: ToolbarButtonConfig[];
   sectionIndex: number;
   isActive: (format: string) => boolean;
   isDisabled: boolean;
@@ -37,7 +38,6 @@ function ToolbarSectionButtons({
             ariaLabel={button.ariaLabel}
             isActive={isActive(button.action)}
             isDisabled={isDisabled}
-            isDropdownOpen={openDropdown === button.action}
             dropdownAction={openDropdown}
             onClick={() => handleFormatClick(button.action, button.hasDropdown)}
             onDropdownSelect={handleDropdownSelect}

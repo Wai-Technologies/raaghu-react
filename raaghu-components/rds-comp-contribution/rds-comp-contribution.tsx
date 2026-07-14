@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Measure, { BoundingRect, type MeasureProps } from 'react-measure';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactElement } from 'react';
+import Measure, { BoundingRect, type MeasuredComponentProps } from 'react-measure';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
 import SvgIcon from '@mui/material/SvgIcon';
@@ -279,7 +279,7 @@ const RdsCompContribution = ({
 
   return (
     <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
-      {({ measureRef }: MeasureProps) => (
+      {({ measureRef }: MeasuredComponentProps) => (
         <div
           ref={measureRef}
           className="rds-comp-contribution"

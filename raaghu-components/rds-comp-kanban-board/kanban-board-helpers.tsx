@@ -1,5 +1,19 @@
 import { useState, type MouseEventHandler, type MouseEvent } from 'react';
 
+export interface KanbanAction {
+  key: string;
+  value: string;
+}
+
+export interface KanbanSubCard {
+  ticketId: string;
+  ticketPriority: string;
+  ticketQuestion: string;
+  ticketDate: string;
+  SubcardId: number;
+  actions: KanbanAction[];
+}
+
 export interface boardInfo {
   cardId?: number;
   name: string;
@@ -29,10 +43,10 @@ export interface RdsCompKanbanBoardProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   onSubCardOption?: (option: string, subCardIndex: number, subCardId: number) => void;
   onCardOption?: (option: string, cardIndex: number, cardId: number | undefined, cardKey: string) => void;
-  allTagsList?: unknown;
-  allCategoriesList?: unknown;
+  allTagsList?: any[];
+  allCategoriesList?: any[];
   onAddQuestionSaveHandler?: (data: Record<string, unknown>) => void;
-  addQuestionData?: Record<string, unknown>;
+  addQuestionData?: Record<string, any>;
   onSelectedTagsListChange?: (items: unknown) => void;
 }
 
@@ -410,7 +424,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
 };
 
 export const createDragEndHandler = (boards: boardInfo[], setBoards: React.Dispatch<React.SetStateAction<boardInfo[]>>) => {
-  return (event: { active: { id: string | number; data: { current: { boardIndex?: number; subCardIndex?: number } } }; over: { id: string | number; data: { current: { boardIndex?: number; subCardIndex?: number } } } | null }) => {
+  return (event: any) => {
     const { active, over } = event;
     if (!over) return;
 

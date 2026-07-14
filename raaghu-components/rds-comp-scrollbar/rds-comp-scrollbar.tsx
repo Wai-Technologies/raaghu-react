@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, type ReactNode } from "react";
 import clsx from "clsx";
 import "./rds-comp-scrollbar.scss";
 export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';

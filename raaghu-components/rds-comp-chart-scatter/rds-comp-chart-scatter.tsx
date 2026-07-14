@@ -12,17 +12,17 @@ import { resolveScatterChartType, type ScatterChartType } from "./rds-comp-chart
 export type { ScatterChartType } from "./rds-comp-chart-scatter-utils";
 
 function resolveDatasetColor(
-  color: string | string[] | undefined,
+  color: unknown,
   fallback: string
 ): string {
   if (Array.isArray(color)) {
-    return color[0] ?? fallback;
+    return (color[0] as string) ?? fallback;
   }
-  return color ?? fallback;
+  return typeof color === "string" ? color : fallback;
 }
 
 function normalizeScatterDataset(
-  dataset: NonNullable<ChartConfiguration["data"]["datasets"]>[number],
+  dataset: any,
   chartType: ScatterChartType
 ) {
   const normalized = {
@@ -92,12 +92,12 @@ const RdsCompScatterChart = ({
       ),
     };
 
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
+    attachChartData(chartOptions ?? {}, chartData);
+    applyChartThemeColors(chartOptions ?? {});
 
     chartRef.current = new Chart(ctx, {
       type: resolvedChartType,
-      data: chartData,
+      data: chartData as any,
       options: chartOptions,
     });
 

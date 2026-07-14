@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useMemo } from 'react';
+import { useRef, useState, useCallback, useMemo, type ChangeEvent } from 'react';
 import clsx from 'clsx';
 import { Box, Typography } from '@mui/material';
 import { Delete } from '@mui/icons-material';

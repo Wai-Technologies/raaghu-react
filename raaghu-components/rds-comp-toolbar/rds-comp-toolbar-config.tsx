@@ -235,6 +235,7 @@ export const ToolbarButton = ({
           {(action === 'emoji' || action === 'insertEmoji') && (
             <div className="rds-comp-toolbar__emoji-portal">
               <RdsEmojiGenerator
+                Category={undefined as any}
                 Type={undefined}
                 onEmojiSelect={(e: string) => {
                   const val = typeof e === 'string' ? e : String(e);

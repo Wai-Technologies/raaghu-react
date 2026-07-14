@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import clsx from 'clsx';
 import './rds-comp-time-picker.scss';
 export { type RdsTimePickerProps } from './time-picker-types';
@@ -94,7 +94,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     updatePickerState((prev) => ({ showPicker: !prev.showPicker }));
   }, [showPicker, pickerStyle, time, hours, minutes, period, updatePickerState]);
 
-  const handleSetTime = useCallback((e: MouseEvent) => {
+  const handleSetTime = useCallback((e?: ReactMouseEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();

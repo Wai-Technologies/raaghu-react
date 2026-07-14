@@ -1,4 +1,4 @@
-import { memo, type RefObject } from "react";
+import { memo, type RefObject, type Ref } from "react";
 import { Slider } from "@mui/material";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
@@ -19,7 +19,7 @@ export const VolumeSliderComponent = memo(
     if (!showTranscriptSlider) return null;
 
     return (
-      <div ref={volumeSliderRef} className="rds-comp-audio-player__volume-slider-container">
+      <div ref={volumeSliderRef as Ref<HTMLDivElement>} className="rds-comp-audio-player__volume-slider-container">
         <div className="rds-comp-audio-player__volume-slider">
           <VolumeUpIcon className="rds-comp-audio-player__speaker-icon" />
           <Slider

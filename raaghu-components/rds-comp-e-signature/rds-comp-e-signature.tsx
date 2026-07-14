@@ -1,5 +1,5 @@
 import { eSignaturePenColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import { useState, useRef, useEffect, useMemo, useCallback, type MouseEvent as ReactMouseEvent } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
@@ -87,7 +87,7 @@ const RdsCompESignature = ({
     return () => window.removeEventListener('resize', resize);
   }, [mode, selectedColor, type]);
 
-  const getCanvasPoint = useCallback((canvas: HTMLCanvasElement, e: MouseEvent<HTMLCanvasElement>) => {
+  const getCanvasPoint = useCallback((canvas: HTMLCanvasElement, e: ReactMouseEvent<HTMLCanvasElement>) => {
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
@@ -96,7 +96,7 @@ const RdsCompESignature = ({
     return { x, y, scaleX, scaleY };
   }, []);
 
-  const startDrawing = useCallback((e: MouseEvent<HTMLCanvasElement>) => {
+  const startDrawing = useCallback((e: ReactMouseEvent<HTMLCanvasElement>) => {
     if (disabled) return;
     updateUiState({ isDrawing: true, hasDrawn: true });
     const canvas = canvasRef.current;
@@ -111,7 +111,7 @@ const RdsCompESignature = ({
     }
   }, [disabled, getCanvasPoint]);
 
-  const draw = useCallback((e: MouseEvent<HTMLCanvasElement>) => {
+  const draw = useCallback((e: ReactMouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing || disabled) return;
     const canvas = canvasRef.current;
     if (canvas) {

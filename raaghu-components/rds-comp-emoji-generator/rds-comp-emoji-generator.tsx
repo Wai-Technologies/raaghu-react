@@ -103,7 +103,7 @@ const RdsCompEmojiGenerator = ({
     maxEmojis = 80,
 
     ...props
-}) => {
+}: RdsEmojiGeneratorProps) => {
     const rootRef = useRef<HTMLDivElement | null>(null);
     const initialCategory = categoryProp ?? EmojiCategory.SmileysAndPeople;
     const [selectedCategory, setSelectedCategory] = useState(initialCategory);

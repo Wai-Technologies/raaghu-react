@@ -158,7 +158,7 @@ const RdsRange= ({
         {...props}
         valueLabelDisplay={showTooltip ? "on" : "off"}
         slots={showTooltip ? { valueLabel: RangeValueLabel } : undefined}
-        slotProps={showTooltip ? { valueLabel: { formatValue } } : undefined}
+        slotProps={showTooltip ? ({ valueLabel: { formatValue } } as any) : undefined}
         marks={marks}
         min={min}
         max={max}

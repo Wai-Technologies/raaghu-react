@@ -38,7 +38,7 @@ const RdsCompMixedChart = ({
 
     const mixedCanvas = new Chart(ctx, {
       type: "bar",
-      data: chartData,
+      data: chartData as any,
       options: chartOptions,
     });
 
