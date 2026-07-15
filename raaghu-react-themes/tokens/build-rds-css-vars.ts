@@ -1187,9 +1187,11 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-action-hover': alphaTokens.actionHoverLight,
     '--rds-action-active': alphaTokens.actionActiveLight,
     '--rds-action-disabled': alphaTokens.actionDisabledLight,
-    // ── Tooltip ──────────────────────────────────────────────────────────────
+    // ── Tooltip (inverted: dark surface on light theme) ──────────────────────
     '--rds-tooltip-bg': n[900],
+    '--rds-tooltip-color': white,
     '--rds-tooltip-text': white,
+    '--rds-tooltip-border': n[900],
     // ── Focus ring ───────────────────────────────────────────────────────────
     '--rds-focus-ring': '2px solid var(--rds-primary-main)',
     // ── Semantic aliases ─────────────────────────────────────────────────────
@@ -1411,10 +1413,11 @@ function darkThemeCssVars(): Record<string, string> {
     // ── Toggle group ──────────────────────────────────────────────────────────
     '--rds-toggle-group-border-light': alphaTokens.toggleGroupBorderDark,
     '--rds-toggle-group-border-disabled-light': alphaTokens.toggleGroupBorderDisabledDark,
-    // ── Tooltip ───────────────────────────────────────────────────────────────
+    // ── Tooltip (inverted: light surface on dark theme) ───────────────────────
     '--rds-tooltip-bg': white,
     '--rds-tooltip-color': black,
-    '--rds-tooltip-border': white,
+    '--rds-tooltip-text': black,
+    '--rds-tooltip-border': n[300],
     // ── Scrollbar ─────────────────────────────────────────────────────────────
     '--rds-color-scrollbar-track': scrollbarTokens.track,
     '--rds-color-scrollbar-thumb': scrollbarTokens.thumb,
