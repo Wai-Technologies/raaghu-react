@@ -212,15 +212,15 @@ export const designSystemComponentOverrides: Components<Theme> = {
   MuiTooltip: {
     styleOverrides: {
       tooltip: ({ theme }) => ({
-        backgroundColor: alpha(theme.palette.common.black, theme.palette.mode === 'dark' ? 0.92 : 0.82),
-        color: theme.palette.common.white,
+        backgroundColor: 'var(--rds-tooltip-bg)',
+        color: 'var(--rds-tooltip-color, var(--rds-tooltip-text))',
         borderRadius: theme.shape.borderRadius,
         padding: theme.spacing(0.75, 1),
         fontSize: theme.typography.caption.fontSize,
       }),
-      arrow: ({ theme }) => ({
-        color: alpha(theme.palette.common.black, theme.palette.mode === 'dark' ? 0.92 : 0.82),
-      }),
+      arrow: {
+        color: 'var(--rds-tooltip-bg)',
+      },
     },
   },
   MuiAvatar: {

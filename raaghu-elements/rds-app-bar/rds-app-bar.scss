@@ -1180,9 +1180,20 @@ $rds-app-bar-breakpoint-xs: 320px;
         padding: var(--rds-spacing-compact) var(--rds-spacing-sm) !important;
         font-size: var(--rds-font-size-xs) !important; // 11px ? xs (10px, closest token)
       }
+
+      &:hover {
+        color: var(--rds-color-primary) !important;
+        background-color: transparent !important;
+        opacity: 1;
+      }
       
       &.Mui-selected {
-        color: var(--rds-color-primary-900, #0d47a1) !important;
+        color: var(--rds-color-primary) !important;
+
+        &:hover {
+          color: var(--rds-color-primary) !important;
+          background-color: transparent !important;
+        }
       }
     }
     
