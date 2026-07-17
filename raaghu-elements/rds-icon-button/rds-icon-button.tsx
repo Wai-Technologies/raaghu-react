@@ -36,7 +36,7 @@ const RdsIconButton = ({
       }
       const iconType = iconNode.type as ElementType & { muiName?: string };
       if (typeof iconType === 'function' && iconType.muiName && fontSize) {
-        return cloneElement(iconNode as React.ReactElement, { fontSize });
+        return cloneElement(iconNode as React.ReactElement<{ fontSize?: typeof fontSize }>, { fontSize });
       }
     }
     return iconNode;

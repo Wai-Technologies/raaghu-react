@@ -164,11 +164,11 @@ raaghu-react-themes   ← design-tokens.ts → CSS vars → MUI theme
 
 | Layer | Technology |
 |---|---|
-| Components | React 18, TypeScript 5.8 |
+| Components | React 19, TypeScript 5.8 |
 | Base UI | Material UI 7 |
 | CSS-in-JS (optional) | Griffel (`@griffel/react`) |
 | Styling | SCSS/Sass (`sass-embedded`) |
-| Build | Vite 7, Million.js |
+| Build | Vite 7 |
 | Docs / Visual tests | Storybook 9, Chromatic |
 | Testing | Jest, React Testing Library, Vitest (Storybook) |
 | Package manager | npm |
