@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Dropped React 18 support on this branch: `peerDependencies` now require `react` / `react-dom` `^19.0.0` only (previously `>=18.0.0 || ^19.0.0`). React 18 consumers should use the dedicated React 18 branch/release line.
+- Bumped dev/build environment to React `19.2.5` (`react`, `react-dom`, `@types/react`, `@types/react-dom`).
+- Fixed two React 19 type-definition regressions surfaced by the `@types/react` 19 upgrade: `RdsIconButton`'s `cloneElement` call now types its cloned icon element explicitly, and `color-picker-components.tsx` updated its `colorModeDropdownRef` prop types from `RefObject<HTMLDivElement>` to `RefObject<HTMLDivElement | null>` to match `useRef`'s React 19 return type.
+
 ### Fixed
 
 - Exported bundled CSS for consumers: `style` field plus `@waiin/raaghu-react/styles.css` / `./raaghu-react.css` package exports (maps to `dist/raaghu-react.css`).

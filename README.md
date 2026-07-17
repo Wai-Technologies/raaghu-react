@@ -62,7 +62,6 @@
   <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Million JS"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="Figma"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/>
@@ -259,7 +258,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 npm install @waiin/raaghu-react
 ```
 
-`@mui/material`, `@emotion/react`, and `@emotion/styled` are installed automatically with the package. Peer dependency: `react` / `react-dom` (≥18) — normally already present in the app.
+`@mui/material`, `@emotion/react`, and `@emotion/styled` are installed automatically with the package. Peer dependency: `react` / `react-dom` (`^19.0.0`) — normally already present in the app.
 
 ```tsx
 import '@waiin/raaghu-react/styles.css';
@@ -268,7 +267,7 @@ import { RaaghuThemeProvider, RdsButton } from '@waiin/raaghu-react';
 
 - [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): Start using Raaghu Design System by referring to our docs on Wiki.
 - [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screens etc.
-- [Create new solution](): Guide to create new React Solution.
+- [Create new solution](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started): Guide to create a new React solution using Raaghu.
 - [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster.
 - [Demo](https://demo.raaghu.ai/): Explore our demo to see our customizable platform.
 - [Figma UI Kit](https://raaghu.ai/figma-ui-kit): Preview & download Figma designs.
@@ -300,8 +299,8 @@ This project is licensed under the Apache License 2.0 - see the [`LICENSE`](http
 
 </h2>
 <p>
-    We :hearts: our contributors and we will be more than happy to see any kind of positive contribution and stay committed for a safe environment in the community.<br>        If you wish to contribute, you can work on any features <a href="https://github.com/shubham-waii/raaghu/tree/main/raaghu-mfe#Features" > listed here </a> or create one on your own. After adding your code, please send us a Pull Request.
-    We expect our contributors to participate at it's highest potential and abide by our <a href="https://github.com/shubham-waii/raaghu/blob/development/CODE_OF_CONDUCT.md"> Code of Conduct</a>. Please read and follow it.<br>
+    We :hearts: our contributors and we will be more than happy to see any kind of positive contribution and stay committed for a safe environment in the community.<br>        If you wish to contribute, please read our <a href="https://github.com/Wai-Technologies/raaghu-react/blob/development/CONTRIBUTING.md"> Contributing Guide </a> for setup steps, naming conventions, and PR requirements, or create a feature of your own. After adding your code, please send us a Pull Request.
+    We expect our contributors to participate at it's highest potential and abide by our <a href="https://github.com/Wai-Technologies/raaghu-react/blob/development/CODE_OF_CONDUCT.md"> Code of Conduct</a>. Please read and follow it.<br>
     Let's build a great community and software together :relaxed:
 </p>
 <br>

@@ -66,7 +66,7 @@ interface SharedColorPickerProps {
   selectedColorState: ColorState;
   handleHueChange: (color: ColorResult) => void;
   handleAlphaChange: (color: ColorResult) => void;
-  colorModeDropdownRef: RefObject<HTMLDivElement>;
+  colorModeDropdownRef: RefObject<HTMLDivElement | null>;
   selectedColorMode: ColorMode;
   showColorModeDropdown: boolean;
   setShowColorModeDropdown: Dispatch<SetStateAction<boolean>>;
@@ -75,7 +75,7 @@ interface SharedColorPickerProps {
 }
 
 interface ColorPickerInfoProps {
-  colorModeDropdownRef: RefObject<HTMLDivElement>;
+  colorModeDropdownRef: RefObject<HTMLDivElement | null>;
   selectedColorMode: ColorMode;
   selectedColorState: ColorState;
   showColorModeDropdown: boolean;
