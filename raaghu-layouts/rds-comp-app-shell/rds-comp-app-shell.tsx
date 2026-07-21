@@ -1,6 +1,7 @@
 import { ReactNode, ReactElement, useState, isValidElement, cloneElement } from "react";
 import "./rds-comp-app-shell.scss";
-export { AppShellDisplayType } from "./shell-types";
+import { AppShellDisplayType } from "./shell-types";
+export { AppShellDisplayType };
 import { GetShellLayoutCss } from "./shell-layout";
 
 export interface RdsCompAppShellProps {

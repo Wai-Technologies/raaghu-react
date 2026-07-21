@@ -3,6 +3,9 @@ import { CustomButtons } from "./CustomButtons";
 import { ExampleCustomInput } from "./ExampleCustomInput";
 import { CustomInputWithClear } from "./CustomInputWithClear";
 import { renderCustomHeader } from "./renderCustomHeader";
+import type { RdsCompDatepickerProps } from "./rds-comp-datepicker.types";
+
+type DatePickerComponentProps = RdsCompDatepickerProps & Record<string, any>;
 
 export const getDayClassName = (date: Date, startDate: Date | null) => {
     const today = new Date();

@@ -15,7 +15,7 @@ const NOTIFICATION_DEFAULT_IMAGES = {
   light:
     "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
   dark:
-    "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-darkmode.png",
+    "https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu-design-system-darkmode3.png",
 } as const;
 
 const CustomBellIcon: React.FC = () => (

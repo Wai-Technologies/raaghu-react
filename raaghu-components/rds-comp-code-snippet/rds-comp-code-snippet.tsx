@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./rds-comp-code-snippet.scss";
-// @ts-expect-error no declaration file for react-syntax-highlighter subpath
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
-// @ts-expect-error no declaration file for react-syntax-highlighter styles subpath
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { CopyButton, SingleLineSnippet, MultiLineSnippet } from "./rds-comp-code-snippet-helpers";
 

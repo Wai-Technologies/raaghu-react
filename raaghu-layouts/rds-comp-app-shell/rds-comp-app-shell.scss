@@ -47,6 +47,28 @@
   }
 }
 
+// Keep the app-shell tab label, hover state and bottom indicator on the same
+// primary token so the text colour and border stay consistent.
+.topnav-layout .rds-header__tabs-inline {
+  .MuiTab-root {
+    color: var(--rds-color-on-surface) !important;
+
+    &:hover {
+      color: var(--rds-color-primary) !important;
+      background-color: var(--rds-color-primary-container) !important;
+      opacity: 1 !important;
+    }
+
+    &.Mui-selected {
+      color: var(--rds-color-primary) !important;
+    }
+  }
+
+  .MuiTabs-indicator {
+    background-color: var(--rds-color-primary) !important;
+  }
+}
+
 .Default {
   margin: 0;
   padding: 0;
@@ -2373,7 +2395,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
-      color: var(--rds-color-primary-900, #0d47a1) !important;
+      color: var(--rds-color-primary) !important;
       font-weight: 600 !important;
     }
     

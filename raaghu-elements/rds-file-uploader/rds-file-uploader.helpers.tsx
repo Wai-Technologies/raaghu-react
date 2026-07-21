@@ -29,7 +29,7 @@ export interface DefaultModeViewProps {
   isUploading: boolean;
   showHint: boolean;
   hintText: string;
-  mandatoryError?: string;
+  mandatoryError?: string | null;
   showPreview: boolean;
   handleFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleDragOver: (event: React.DragEvent) => void;
@@ -92,7 +92,7 @@ export function DefaultModeView({
       )}
 
       <input
-        ref={fileInputRef}
+        ref={fileInputRef as React.RefObject<HTMLInputElement>}
         type="file"
         accept={accept}
         multiple={multiple}

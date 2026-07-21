@@ -20,6 +20,7 @@ export interface TreeNode {
   id: number;
   name: string;
   language?: string;
+  icon?: string;
   children?: TreeNode[];
 }
 

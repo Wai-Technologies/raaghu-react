@@ -24,6 +24,12 @@ import {
 } from "@mui/icons-material";
 import { ProfileMenu } from "../../raaghu-elements/shared/components/ProfileMenu";
 import { Notifications as BellIcon } from "@mui/icons-material";
+import { useRaaghuTheme } from "../../raaghu-react-themes/src/provider/RaaghuThemeProvider";
+
+const LOGO_LIGHT =
+  "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png";
+const LOGO_DARK =
+  "https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu-design-system-darkmode3.png";
 
 const meta: Meta<typeof RdsCompAppShell> = {
   title: "Application Shells",
@@ -61,6 +67,8 @@ export default meta;
 type Story = StoryObj<typeof RdsCompAppShell>;
 
 const AppShellStory = (args: any) => {
+  const { isDark } = useRaaghuTheme();
+  const logoSrc = isDark ? LOGO_DARK : LOGO_LIGHT;
   const [mobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const [mobileToolbarOpen, setMobileToolbarOpen] = React.useState(false);
   const [selectedTab, setSelectedTab] = React.useState(0);
@@ -94,7 +102,7 @@ const AppShellStory = (args: any) => {
         <RdsAppBar
           actions={<><BellIcon /><ProfileMenu email="john.doe@example.com" name="John Doe"/></>}
           color="default"
-          logo={<img alt="Logo" className="rds-story-logo" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"/>}
+          logo={<img alt="Logo" className="rds-story-logo" src={logoSrc}/>}
           onSearchChange={() => {}}
           onTabChange={handleTabChange}
           searchPlaceholder="Search…"
@@ -156,7 +164,7 @@ const AppShellStory = (args: any) => {
             <img
               alt="Logo"
               className="rds-story-logo"
-              src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+              src={logoSrc}
             />
           }
           onTabChange={handleTabChange}
@@ -178,7 +186,7 @@ const AppShellStory = (args: any) => {
             <img
               alt="Logo"
               className="rds-story-logo"
-              src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+              src={logoSrc}
             />
           }
           onTabChange={handleTabChange}
@@ -249,7 +257,7 @@ const AppShellStory = (args: any) => {
           <div className="rds-appshell-side-nav-left">
             <BrowserRouter>
               <RdsSidebar
-                avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                avatarCollapsedSrc={logoSrc}
                 avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
                 isOpen
                 items={sidebarItems}
@@ -264,7 +272,7 @@ const AppShellStory = (args: any) => {
             <div className="rds-story-side-nav-right-content" id="side-nav-icon-list">
               <BrowserRouter>
                 <RdsSidebar
-                  avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                  avatarCollapsedSrc={logoSrc}
                   avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
                   isOpen
                   items={sidebarItems}
@@ -287,7 +295,7 @@ const AppShellStory = (args: any) => {
           <div className="rds-story-double-nav-content">
             <BrowserRouter>
               <RdsSidebar
-                avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                avatarCollapsedSrc={logoSrc}
                 avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
                 isOpen
                 items={sidebarItems}
@@ -297,7 +305,7 @@ const AppShellStory = (args: any) => {
                 anchor="left"
               />
               <RdsSidebar
-                avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                avatarCollapsedSrc={logoSrc}
                 avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
                 isOpen
                 items={sidebarItems}
@@ -326,7 +334,7 @@ const AppShellStory = (args: any) => {
         <div className="tripane-sidebar rds-story-tripane-layout">
           <div>
             <RdsSidebar
-              avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+              avatarCollapsedSrc={logoSrc}
               avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
               isOpen
               items={sidebarItems}
@@ -353,7 +361,7 @@ const AppShellStory = (args: any) => {
     return (
       <BrowserRouter>
         <RdsSidebar
-          avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+          avatarCollapsedSrc={logoSrc}
           avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
           isOpen
           items={sidebarItems}
@@ -405,7 +413,7 @@ const AppShellStory = (args: any) => {
             <div className="rds-story-relaxing-sidebar">
               <BrowserRouter>
                 <RdsSidebar
-                  avatarCollapsedSrc="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+                  avatarCollapsedSrc={logoSrc}
                   avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
                   isOpen
                   items={[

@@ -1,3 +1,7 @@
+import type { SliderProps } from '@mui/material/Slider';
+
+type SliderMarks = NonNullable<SliderProps['marks']>;
+
 export function resolveSliderStep(
   step: number | undefined | null,
   min: number,
@@ -11,7 +15,7 @@ export function resolveSliderStep(
 }
 
 export function shouldDisableMarks(
-  marks: boolean | unknown[] | undefined,
+  marks: SliderMarks | undefined,
   min: number,
   safeMax: number
 ): boolean {
@@ -107,11 +111,11 @@ export function formatSliderValue(val: number | number[], unit?: string): string
 }
 
 export function resolveSliderMarksAndStep(
-  marks: boolean | unknown[] | undefined,
+  marks: SliderMarks | undefined,
   step: number | undefined | null,
   min: number,
   safeMax: number
-): { sliderStep: number | undefined; sliderMarks: boolean | unknown[] | undefined } {
+): { sliderStep: number | undefined; sliderMarks: SliderMarks | undefined } {
   let sliderStep = step ?? undefined;
   let sliderMarks = marks;
 

@@ -125,7 +125,7 @@ export default function RdsCompDatePicker({
             disableAnimation: false,
             shrink: undefined,
           }),
-          ...slotProps?.textField?.InputLabelProps,
+          ...((slotProps?.textField?.InputLabelProps as object) ?? {}),
         },
         ...slotProps?.textField,
       },
@@ -142,7 +142,7 @@ export default function RdsCompDatePicker({
               offset: [0, 4],
             },
           },
-          ...(slotProps?.popper?.modifiers ?? []),
+          ...((slotProps?.popper?.modifiers as unknown[]) ?? []),
         ],
         ...slotProps?.popper,
       },
@@ -272,7 +272,7 @@ export default function RdsCompDatePicker({
             openTo="year"
             slots={{ actionBar: () => null }}
             slotProps={{
-              ...singlePickerProps.slotProps,
+              ...((singlePickerProps.slotProps as object) ?? {}),
               desktopPaper: {
                 className: 'rds-date-picker__picker-paper rds-date-picker__year-picker-paper',
               },
@@ -290,7 +290,7 @@ export default function RdsCompDatePicker({
             openTo="month"
             slots={{ actionBar: () => null }}
             slotProps={{
-              ...singlePickerProps.slotProps,
+              ...((singlePickerProps.slotProps as object) ?? {}),
               desktopPaper: {
                 className: 'rds-date-picker__picker-paper rds-date-picker__month-picker-paper',
               },
@@ -311,7 +311,7 @@ export default function RdsCompDatePicker({
             openTo="day"
             displayWeekNumber
             slotProps={{
-              ...singlePickerProps.slotProps,
+              ...((singlePickerProps.slotProps as object) ?? {}),
               calendarHeader: {
                 format: 'MMMM YYYY',
               },

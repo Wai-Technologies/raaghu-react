@@ -36,7 +36,7 @@ function normalizeScatterDataset(
   }
 
   const lineColor = resolveDatasetColor(
-    dataset.borderColor ?? dataset.backgroundColor,
+    (dataset.borderColor ?? dataset.backgroundColor) as string | string[] | undefined,
     "rgb(255, 99, 132)"
   );
 
@@ -47,11 +47,11 @@ function normalizeScatterDataset(
     borderColor: lineColor,
     borderWidth: dataset.borderWidth ?? 2,
     pointBackgroundColor: resolveDatasetColor(
-      dataset.pointBackgroundColor ?? dataset.backgroundColor,
+      ((dataset as any).pointBackgroundColor ?? dataset.backgroundColor) as string | string[] | undefined,
       lineColor
     ),
     pointBorderColor: resolveDatasetColor(
-      dataset.pointBorderColor ?? dataset.backgroundColor,
+      ((dataset as any).pointBorderColor ?? dataset.backgroundColor) as string | string[] | undefined,
       lineColor
     ),
   };
@@ -105,12 +105,12 @@ const RdsCompScatterChart = ({
       ),
     };
 
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
+    attachChartData(chartOptions as { data?: unknown }, chartData);
+    applyChartThemeColors(chartOptions as any);
 
     chartRef.current = new Chart(ctx, {
       type: resolvedChartType,
-      data: chartData,
+      data: chartData as any,
       options: chartOptions,
     });
 

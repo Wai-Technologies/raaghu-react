@@ -126,7 +126,7 @@ export default function DashboardPage() {
   const { toggleMode, isDark } = useRaaghuTheme();
 
   const logoSrc = isDark
-    ? 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-darkmode.png'
+    ? 'https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu-design-system-darkmode3.png'
     : 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png';
 
   // ── Topbar ──────────────────────────────────────────────────────────────

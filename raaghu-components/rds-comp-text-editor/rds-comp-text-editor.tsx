@@ -57,6 +57,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
             import('react-draft-wysiwyg'),
             import('draftjs-to-html'),
             import('html-to-draftjs'),
+            // @ts-expect-error no type declarations for CSS side-effect import
             import('react-draft-wysiwyg/dist/react-draft-wysiwyg.css'),
         ]).then(([draftJs, wysiwyg, draftToHtmlMod, htmlToDraftMod]) => {
             const { EditorState, convertToRaw, ContentState } = draftJs as unknown as { EditorState: EditorDeps['EditorState']; convertToRaw: EditorDeps['convertToRaw']; ContentState: EditorDeps['ContentState'] };

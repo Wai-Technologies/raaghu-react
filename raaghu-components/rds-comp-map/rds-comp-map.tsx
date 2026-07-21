@@ -129,13 +129,13 @@ const RdsCompMap = (props: RdsCompMapProps) => {
                     alignItems: 'flex-start'
                 }}>
                     <WorldMap 
-                        styleFunction={stylingFunction} 
+                        styleFunction={stylingFunction as any} 
                         color={props.color}
                         backgroundColor={mapBackgroundColor}
                         title="" 
                         value-suffix="people" 
                         size={mapSize} 
-                        data={props.mapList} 
+                        data={props.mapList as any} 
                     />
                 </div>
             </div>

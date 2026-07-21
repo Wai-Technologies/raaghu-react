@@ -59,7 +59,7 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
 
         if (PolarCanvas != null) {
             PolarCanvas.canvas.style.height = props.radius + "px";
-            chartInstanceRef.current = PolarCanvas;
+            chartInstanceRef.current = PolarCanvas as unknown as Chart<"polarArea", number[], unknown>;
         }
     }, [props, themeMode]);
 

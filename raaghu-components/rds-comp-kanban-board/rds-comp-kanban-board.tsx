@@ -179,7 +179,7 @@ const RdsCompKanbanBoard = ({
   );
 
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd as any}>
       <Box className="rds-kanban-board-container">
         {allowAddingNewCard !== undefined && (
           <>
@@ -261,7 +261,7 @@ const RdsCompKanbanBoard = ({
                             size="small"
                             value={boardName}
                             onChange={handleDataChanges}
-                            onKeyDown={(e) => { if (e.key === "Enter") { handleChange(e.target, card.cardId); } }}
+                            onKeyDown={(e) => { if (e.key === "Enter") { handleChange(e.target as HTMLInputElement, card.cardId); } }}
                             autoFocus
                           />
                         )}
@@ -304,7 +304,7 @@ const RdsCompKanbanBoard = ({
                                 size="small"
                                 options={allTagsList || []}
                                 getOptionLabel={(option: any) => option.label}
-                                value={addQuestionData?.supportTagIds || []}
+                                value={(addQuestionData?.supportTagIds as any[]) || []}
                                 onChange={(_event, value) => onSelectedCreators(value)}
                                 className="rds-kanban-board__autocomplete"
                                 renderInput={(params) => {
@@ -356,7 +356,7 @@ const RdsCompKanbanBoard = ({
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{ className: "rds-kanban-board__menu-paper" }}
       >
-        <MenuItem onClick={() => handleCardOptionClick("delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">
+        <MenuItem onClick={() => handleCardOptionClick("delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
           <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
         </MenuItem>
         {selectedCard?.actions?.map((option: KanbanAction, optIndex: number) => (

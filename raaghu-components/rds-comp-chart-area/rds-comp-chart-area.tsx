@@ -53,11 +53,11 @@ const RdsCompAreaChart = (props: lineprops) => {
 
         const AreaCanvas = new Chart(ctx, {
             type: "line",
-            data: chartData,
+            data: chartData as any,
             options: chartOptions,
         });
 
-        chartRef.current = AreaCanvas;
+        chartRef.current = AreaCanvas as Chart;
         AreaCanvas.canvas.style.height = "76vh";
         AreaCanvas.canvas.style.width = "100vh";
 

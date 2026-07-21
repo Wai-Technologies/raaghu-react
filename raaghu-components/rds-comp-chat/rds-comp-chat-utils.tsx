@@ -32,7 +32,6 @@ export const capturePhoto = (
   addComment: (comment: Comment) => void,
   currentUser: { firstName: string; lastName: string },
   updateState: (updates: Record<string, unknown>) => void,
-  updateState: (updates: Record<string, unknown>) => void,
   stopCameraFn: () => void
 ) => {
   if (canvasRef.current && videoRef.current) {

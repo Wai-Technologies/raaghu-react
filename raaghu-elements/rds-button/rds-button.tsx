@@ -31,7 +31,7 @@ const resolveIcon = (icon?: ReactNode | string): ReactNode => {
   return icon;
 };
 
-export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
+export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   text?: string;
   isLoading?: boolean;
   shape?: 'pill' | 'rectangle';
@@ -166,7 +166,7 @@ const RdsButton = ({
     if (!color || color === 'inherit') return undefined;
     const paletteColor = theme.palette[color as keyof typeof theme.palette];
     if (paletteColor && typeof paletteColor === 'object' && shade in paletteColor) {
-      return (paletteColor as Record<string, string>)[shade];
+      return (paletteColor as unknown as Record<string, string>)[shade];
     }
     return undefined;
   };

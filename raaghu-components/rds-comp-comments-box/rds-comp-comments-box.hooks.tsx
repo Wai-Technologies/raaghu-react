@@ -9,7 +9,7 @@ function useClickOutside(
   useEffect(() => {
     if (!isOpen) return;
 
-    function handleClickOutside(event: MouseEvent) {
+    function handleClickOutside(event: Event) {
       if (
         contentRef.current &&
         !contentRef.current.contains(event.target as Node) &&

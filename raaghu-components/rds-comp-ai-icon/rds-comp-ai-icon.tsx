@@ -14,7 +14,7 @@ export type { RdsCompAiIconProps };
 
 const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
   const name: string = !props.name ? "" : props.name.toLowerCase();
-  const [IconComponent, setIconComponent] = useState<React.ComponentType<React.SVGProps<SVGSVGElement>> | null>(props.SvgIcon || null);
+  const [IconComponent, setIconComponent] = useState<React.ElementType | null>(props.SvgIcon || null);
 
   useEffect(() => {
     const resolveIcon = () => {

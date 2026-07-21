@@ -62,7 +62,7 @@ const RdsCompRadarChart = ({
     chartInstanceRef.current?.destroy();
 
     const chartOptions = cloneChartOptions(options);
-    applyChartThemeColors(chartOptions, ["r"]);
+    applyChartThemeColors(chartOptions as any, ["r"]);
 
     if (!chartOptions.scales) chartOptions.scales = {};
     if (!chartOptions.scales.r) chartOptions.scales.r = {};
@@ -70,7 +70,7 @@ const RdsCompRadarChart = ({
     chartOptions.scales.r.pointLabels.color = chartTextColor();
 
     const chartData = { labels, datasets: dataSets };
-    attachChartData(chartOptions, chartData);
+    attachChartData(chartOptions as { data?: unknown }, chartData);
 
     const textColor = chartTextColor();
 
@@ -99,7 +99,7 @@ const RdsCompRadarChart = ({
               pointStyleWidth: undefined,
               font: {
                 size: getFontSizeFromVar("--rds-font-size-md", 12),
-                weight: getFontWeightFromVar("--rds-font-weight-medium", "500"),
+                weight: getFontWeightFromVar("--rds-font-weight-medium", "500") as any,
                 family: "inherit",
                 ...(typeof passedLabels.font === "object" && passedLabels.font !== null
                   ? passedLabels.font
@@ -121,7 +121,7 @@ const RdsCompRadarChart = ({
       }
     }
 
-    chartInstanceRef.current = radarCanvas;
+    chartInstanceRef.current = radarCanvas as Chart;
 
     return () => {
       chartInstanceRef.current?.destroy();

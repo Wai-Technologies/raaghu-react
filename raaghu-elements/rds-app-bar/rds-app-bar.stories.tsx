@@ -428,6 +428,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const DynamicTemplate = (args: any) => {
+  const dynamicTheme = useTheme();
+  const isDarkTheme = dynamicTheme.palette.mode === 'dark';
+  const logoSrc = isDarkTheme
+    ? 'https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu-design-system-darkmode3.png'
+    : 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png';
   const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
   const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
   const [selectedSubTab, setSelectedSubTab] = React.useState(0);
@@ -482,7 +487,7 @@ const DynamicTemplate = (args: any) => {
 
   const logoImg = (
     <img
-      src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+      src={logoSrc}
       alt="Logo"
       className="rds-story-logo"
     />

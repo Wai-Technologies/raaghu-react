@@ -476,7 +476,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     };
   }, []);
 
-  const reorder = (list: GridRow[], startIndex: number, endIndex: number) => {
+  const reorder = <T,>(list: T[], startIndex: number, endIndex: number): T[] => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -1113,7 +1113,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     getSelectedRows: () => {
       return Array.from(selectedRows).map(rowId => {
         const index = parseRowIndexFromId(rowId);
-        return currentData[index];
+        return currentData[index as number];
       }).filter(Boolean);
     },
     clearSelection: () => setSelectedRows(new Set()),

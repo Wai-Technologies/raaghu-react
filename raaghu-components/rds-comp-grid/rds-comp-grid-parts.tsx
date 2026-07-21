@@ -211,7 +211,7 @@ export const GridHeaderCell: React.FC<GridHeaderCellProps> = ({
               <IconButton
                 size="small"
                 onClick={(e) => onFilterIconClick(e, header.key)}
-                ref={filterButtonRef}
+                ref={filterButtonRef as React.RefObject<HTMLButtonElement>}
                 data-filter-button
                 sx={{
                   '&:hover': { backgroundColor: 'action.hover' },

@@ -44,7 +44,7 @@ export function SingleDateTime({
     <Box className="rds-date-picker__range-datetime">
       <DateCalendar
         value={value}
-        onChange={onChange}
+        onChange={onChange as any}
         minDate={minDate}
         maxDate={maxDate}
         displayWeekNumber
@@ -59,7 +59,7 @@ export function SingleDateTime({
         <Box className="rds-date-picker__range-datetime-time-label">Time</Box>
         <MultiSectionDigitalClock
           value={value}
-          onChange={handleTimeChange}
+          onChange={handleTimeChange as any}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
           timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
           ampm
@@ -130,7 +130,7 @@ export function RangeFieldRenderer({
 
   return (
     <>
-      <div ref={inputContainerRef} className="rds-date-picker__range-input-container">
+      <div ref={inputContainerRef as React.RefObject<HTMLDivElement>} className="rds-date-picker__range-input-container">
         <TextField
           onClick={() => { if (!disabled) onOpen(inputContainerRef.current); }}
           value={inputValue}
@@ -143,7 +143,6 @@ export function RangeFieldRenderer({
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton
-                  aria-label="Draw"
                   edge="end"
                   size={size === 'small' ? 'small' : 'medium'}
                   onClick={(e) => { e.stopPropagation(); if (!disabled) onOpen(inputContainerRef.current); }}
@@ -280,7 +279,7 @@ export function DateTimeFieldRenderer({
 
   return (
     <>
-      <div ref={datetimeRef} className="rds-date-picker__range-input-container">
+      <div ref={datetimeRef as React.RefObject<HTMLDivElement>} className="rds-date-picker__range-input-container">
         <TextField
           onClick={() => { if (!disabled) onOpen(datetimeRef.current); }}
           value={inputValue}

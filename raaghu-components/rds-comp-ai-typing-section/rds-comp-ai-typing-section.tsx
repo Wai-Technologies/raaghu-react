@@ -17,6 +17,17 @@ export interface RdsCompAiTypingSectionProps {
   autoCompleteMaxWidth?: string; 
 }
 declare global {
+  interface SpeechRecognitionEvent extends Event {
+    readonly results: any;
+  }
+  interface SpeechRecognition extends EventTarget {
+    continuous: boolean;
+    interimResults: boolean;
+    lang: string;
+    onresult: ((event: SpeechRecognitionEvent) => void) | null;
+    start(): void;
+    stop(): void;
+  }
   interface Window {
     webkitSpeechRecognition: new () => SpeechRecognition;
   }

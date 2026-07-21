@@ -127,8 +127,8 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
 
   const handleMonthChange = (newMonth: Dayjs) => setCurrentMonth(newMonth);
 
-  const renderDaySlot = (dayProps: PickersDayProps<Dayjs>) => {
-    const day = dayProps.day;
+  const renderDaySlot = (dayProps: PickersDayProps) => {
+    const day = dayProps.day as Dayjs;
     const [start, end] = draft;
     const inRange = isBetween(day, start, end);
     const isStart = isSameDay(day, start);
@@ -156,8 +156,8 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
     <Box display="flex" gap={2}>
       <DateCalendar
         value={currentMonth}
-        onChange={(newMonth: Dayjs | null) => newMonth && handleMonthChange(newMonth)}
-        onMonthChange={(newMonth: Dayjs) => setCurrentMonth(newMonth)}
+        onChange={((newMonth: Dayjs | null) => newMonth && handleMonthChange(newMonth)) as any}
+        onMonthChange={((newMonth: Dayjs) => setCurrentMonth(newMonth)) as any}
         minDate={minDate}
         maxDate={maxDate}
         slots={{ day: renderDaySlot }}
@@ -172,8 +172,8 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
       {multiMonth && (
         <DateCalendar
           value={currentMonth.add(1, 'month')}
-          onChange={(newMonth: Dayjs | null) => newMonth && handleMonthChange(newMonth.subtract(1, 'month'))}
-          onMonthChange={(newMonth: Dayjs) => setCurrentMonth(newMonth.subtract(1, 'month'))}
+          onChange={((newMonth: Dayjs | null) => newMonth && handleMonthChange(newMonth.subtract(1, 'month'))) as any}
+          onMonthChange={((newMonth: Dayjs) => setCurrentMonth(newMonth.subtract(1, 'month'))) as any}
           minDate={minDate}
           maxDate={maxDate}
           slots={{ day: renderDaySlot }}
