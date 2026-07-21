@@ -549,85 +549,129 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-header--primary {
   &.rds-header {
+    --rds-color-on-primary: var(--rds-color-on-surface);
     background: var(--rds-color-primary);
     color: var(--rds-color-on-primary);
-  }
-  .rds-header__title,
-  .rds-header__actions,
-  .rds-header__logo,
-  .rds-header__center-content {
-    color: var(--rds-color-on-primary);
-  }
-  // Force MUI Buttons and text inside header to be white on primary background
-  .rds-header__actions,
-  .rds-header__center-content {
-    .MuiButton-root,
-    .MuiButton-text,
-    .MuiIconButton-root {
+
+    .rds-header__title,
+    .rds-header__actions,
+    .rds-header__logo,
+    .rds-header__center-content,
+    .rds-avatar__name,
+    #avatarname,
+    .rds-avatar__designation,
+    .rds-profile-menu__name,
+    .rds-profile-menu__chevron {
       color: var(--rds-color-on-primary) !important;
     }
-    // Avatar background should stand out on primary — use a semi-transparent white
-    .MuiAvatar-root {
-      background-color: rgba(255, 255, 255, 0.25) !important;
-      color: var(--rds-color-on-primary) !important;
-      border: 1px solid rgba(255, 255, 255, 0.5);
+
+    .rds-header__actions,
+    .rds-header__right-actions,
+    .rds-header__center-content {
+      .MuiButton-root,
+      .MuiButton-text,
+      .MuiIconButton-root {
+        color: var(--rds-color-on-primary) !important;
+      }
+
+      // Avatar background should stand out on primary — use a semi-transparent white
+      .MuiAvatar-root {
+        background-color: rgba(255, 255, 255, 0.25) !important;
+        color: var(--rds-color-on-primary) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
     }
-  }
-  .rds-header__search {
-    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
-    color: var(--rds-color-on-primary);
-    border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
-    input {
+
+    .rds-header__search {
+      background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+      color: var(--rds-color-on-primary) !important;
+      border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
+
+      input {
+        color: var(--rds-color-on-primary);
+      }
+
+      input::placeholder {
+        color: var(--rds-color-on-primary);
+        opacity: 0.75;
+      }
+    }
+
+    .rds-header__search-clear {
+      color: var(--rds-color-on-primary) !important;
+    }
+
+    .MuiTab-root {
       color: var(--rds-color-on-primary);
-    }
-  }
-  .MuiTab-root {
-    color: var(--rds-color-on-primary);
-    &.Mui-selected {
-      color: var(--rds-color-primary);
-      background: var(--rds-color-surface);
+
+      &.Mui-selected {
+        color: var(--rds-color-primary);
+        background: var(--rds-color-surface);
+      }
     }
   }
 }
 
 .rds-header--secondary {
   &.rds-header {
+    --rds-color-on-secondary: var(--rds-color-on-surface);
     background: var(--rds-color-secondary);
     color: var(--rds-color-on-secondary);
-  }
-  .rds-header__title,
-  .rds-header__actions,
-  .rds-header__logo,
-  .rds-header__center-content {
-    color: var(--rds-color-on-secondary);
-  }
-  // Force MUI Buttons and text inside header to be readable on secondary background
-  .rds-header__actions,
-  .rds-header__center-content {
-    .MuiButton-root,
-    .MuiButton-text,
-    .MuiIconButton-root {
+
+    .rds-header__title,
+    .rds-header__actions,
+    .rds-header__logo,
+    .rds-header__center-content,
+    .rds-avatar__name,
+    #avatarname,
+    .rds-avatar__designation,
+    .rds-profile-menu__name,
+    .rds-profile-menu__chevron {
       color: var(--rds-color-on-secondary) !important;
     }
-    .MuiAvatar-root {
-      background-color: rgba(255, 255, 255, 0.25) !important;
-      color: var(--rds-color-on-secondary) !important;
-      border: 1px solid rgba(255, 255, 255, 0.5);
+
+    .rds-header__actions,
+    .rds-header__right-actions,
+    .rds-header__center-content {
+      .MuiButton-root,
+      .MuiButton-text,
+      .MuiIconButton-root {
+        color: var(--rds-color-on-secondary) !important;
+      }
+
+      .MuiAvatar-root {
+        background-color: rgba(255, 255, 255, 0.25) !important;
+        color: var(--rds-color-on-secondary) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
     }
-  }
-  .rds-header__search {
-    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
-    color: var(--rds-color-on-secondary);
-    border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
-    input {
+
+    .rds-header__search {
+      background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+      color: var(--rds-color-on-secondary) !important;
+      border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
+
+      input {
+        color: var(--rds-color-on-secondary);
+      }
+
+      input::placeholder {
+        color: var(--rds-color-on-secondary);
+        opacity: 0.75;
+      }
+    }
+
+    .rds-header__search-clear {
+      color: var(--rds-color-on-secondary) !important;
+    }
+
+    .MuiTab-root {
       color: var(--rds-color-on-secondary);
-    }
-  }
-  .MuiTab-root {
-    color: var(--rds-color-on-secondary);
-    &.Mui-selected {
-      color: var(--rds-color-secondary);
-      background: var(--rds-color-surface);
+
+      &.Mui-selected {
+        color: var(--rds-color-secondary);
+        background: var(--rds-color-surface);
+      }
     }
   }
 }

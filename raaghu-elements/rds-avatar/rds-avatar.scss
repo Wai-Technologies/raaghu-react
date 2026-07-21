@@ -254,12 +254,20 @@
   &--light {
     .rds-avatar__ring { border-color: var(--rds-color-light); }
     .rds-avatar__dot { background: var(--rds-color-light); }
-    .MuiAvatar-root { background-color: var(--rds-color-light) !important; color: var(--rds-text-primary) !important; }
+    .MuiAvatar-root {
+      background-color: var(--rds-color-light) !important;
+      color: var(--rds-color-on-light, var(--rds-neutral-900, #212121)) !important;
+      box-shadow: inset 0 0 0 1px var(--rds-border-default);
+    }
   }
   &--dark {
     .rds-avatar__ring { border-color: var(--rds-color-dark); }
     .rds-avatar__dot { background: var(--rds-color-dark); }
-    .MuiAvatar-root { background-color: var(--rds-color-dark) !important; color: var(--rds-color-on-primary) !important; }
+    .MuiAvatar-root {
+      background-color: var(--rds-color-dark) !important;
+      color: var(--rds-color-on-dark, #ffffff) !important;
+      box-shadow: inset 0 0 0 1px var(--rds-border-default);
+    }
   }
 }
 
