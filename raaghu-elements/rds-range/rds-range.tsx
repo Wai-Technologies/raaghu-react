@@ -135,7 +135,7 @@ const RdsRange= ({
   const ValueLabelComponent = ({ children, value }: { children: React.ReactElement; value: number }) => {
     
     if (!showTooltip) {
-      return <span {...props}>{children}</span>;
+      return <span>{children}</span>;
     }
 
     return (

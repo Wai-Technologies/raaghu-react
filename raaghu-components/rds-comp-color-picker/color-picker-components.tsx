@@ -1,6 +1,9 @@
 import clsx from "clsx";
-import { memo, type Dispatch, type RefObject, type SetStateAction } from "react";
-import { HuePicker, AlphaPicker, type ColorResult } from "react-color";
+import { memo, type RefObject } from "react";
+import { HuePicker, AlphaPicker } from "react-color";
+
+const HuePickerAny: any = HuePicker;
+const AlphaPickerAny: any = AlphaPicker;
 import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl } from "./color-utils";
 import { ColorMode } from "./rds-comp-color-picker.types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -64,12 +67,12 @@ interface ColorUpdate {
 interface SharedColorPickerProps {
   handleChange: (color: ColorUpdate) => void;
   selectedColorState: ColorState;
-  handleHueChange: (color: ColorResult) => void;
-  handleAlphaChange: (color: ColorResult) => void;
+  handleHueChange: (color: ColorUpdate) => void;
+  handleAlphaChange: (color: ColorUpdate) => void;
   colorModeDropdownRef: RefObject<HTMLDivElement>;
   selectedColorMode: ColorMode;
   showColorModeDropdown: boolean;
-  setShowColorModeDropdown: Dispatch<SetStateAction<boolean>>;
+  setShowColorModeDropdown: (next: boolean) => void;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
 }
@@ -79,7 +82,7 @@ interface ColorPickerInfoProps {
   selectedColorMode: ColorMode;
   selectedColorState: ColorState;
   showColorModeDropdown: boolean;
-  setShowColorModeDropdown: Dispatch<SetStateAction<boolean>>;
+  setShowColorModeDropdown: (next: boolean) => void;
   getColorDisplay: () => string;
   onSelectColorMode?: (mode: ColorMode) => void;
 }
@@ -231,8 +234,8 @@ export const ColorPickerSpectrum = memo(({
 });
 export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, handleAlphaChange }: {
   selectedColorState: ColorState;
-  handleHueChange: (color: ColorResult) => void;
-  handleAlphaChange: (color: ColorResult) => void;
+  handleHueChange: (color: ColorUpdate) => void;
+  handleAlphaChange: (color: ColorUpdate) => void;
 }) => {
   return (
     <div className="rds-comp-color-picker__sliders-row">
@@ -241,8 +244,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
       </div>
       <div className="rds-comp-color-picker__sliders">
         <div className="rds-comp-color-picker__slider-container">
-          {/* @ts-ignore - React Color TypeScript issues */}
-          <HuePicker
+          <HuePickerAny
             color={selectedColorState.hex}
             onChange={handleHueChange}
             width="230px"
@@ -252,8 +254,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
           />
         </div>       
         <div className="rds-comp-color-picker__slider-container rds-comp-color-picker__alpha-slider-container">
-          {/* @ts-ignore - React Color TypeScript issues */}
-          <AlphaPicker
+          <AlphaPickerAny
             color={selectedColorState.rgb}
             onChange={handleAlphaChange}
             width="230px"

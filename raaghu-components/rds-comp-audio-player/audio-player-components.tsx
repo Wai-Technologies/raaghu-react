@@ -37,7 +37,7 @@ export const VolumeSliderComponent: React.FC<VolumeSliderProps> = ({
   if (!showTranscriptSlider) return null;
 
   return (
-    <div ref={volumeSliderRef} className="rds-comp-audio-player__volume-slider-container">
+    <div ref={volumeSliderRef as React.RefObject<HTMLDivElement>} className="rds-comp-audio-player__volume-slider-container">
       <div className="rds-comp-audio-player__volume-slider">
         <VolumeUpIcon className="rds-comp-audio-player__speaker-icon" />
         <Slider

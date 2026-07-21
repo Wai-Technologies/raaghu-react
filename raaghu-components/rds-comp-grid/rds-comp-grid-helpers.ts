@@ -29,7 +29,7 @@ export function rowMatchesFilter(
 ): boolean {
   switch (operator) {
     case 'contains':
-      return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
+      return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase()) ?? false;
     case 'notContains':
       return !cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
     case 'equals':
@@ -41,9 +41,9 @@ export function rowMatchesFilter(
       }
       return cellValue?.toString().toLowerCase() === filterValue.toLowerCase();
     case 'startsWith':
-      return cellValue?.toString().toLowerCase().startsWith(filterValue.toLowerCase());
+      return cellValue?.toString().toLowerCase().startsWith(filterValue.toLowerCase()) ?? false;
     case 'endsWith':
-      return cellValue?.toString().toLowerCase().endsWith(filterValue.toLowerCase());
+      return cellValue?.toString().toLowerCase().endsWith(filterValue.toLowerCase()) ?? false;
     case 'greaterThan':
       if (isDateDataType(dataType)) {
         return new Date(String(cellValue)) > new Date(filterValue);
@@ -70,7 +70,7 @@ export function rowMatchesFilter(
       }
       return Number.parseFloat(String(cellValue)) >= Number.parseFloat(filterValue);
     default:
-      return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
+      return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase()) ?? false;
   }
 }
 
@@ -107,8 +107,8 @@ export function sortGridData(
   return [...data].sort((a, b) => {
     const aVal = a[sortColumn];
     const bVal = b[sortColumn];
-    if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
-    if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+    if ((aVal as any) < (bVal as any)) return sortDirection === 'asc' ? -1 : 1;
+    if ((aVal as any) > (bVal as any)) return sortDirection === 'asc' ? 1 : -1;
     return 0;
   });
 }
@@ -179,7 +179,7 @@ export function processColumnValue(column: RdsCompGridColumn, value: unknown): u
     case 'boolean':
       return Boolean(value);
     default:
-      return value.toString();
+      return String(value);
   }
 }
 

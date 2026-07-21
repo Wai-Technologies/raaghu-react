@@ -1,6 +1,8 @@
 import React from "react";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
+
+type IconComponentType = React.ElementType;
 export interface RdsCompAiIconProps {
   width?: string;
   height?: string;
@@ -29,32 +31,32 @@ export interface RdsCompAiIconProps {
   isHovered?: boolean;
   isCursorPointer?: boolean;
   strokeColor?: string;
-  SvgIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  SvgIcon?: IconComponentType;
   position?: "center" | "top-left" | "none";
 }
 
-const defaultMaterialIcons: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> } = {
+const defaultMaterialIcons: { [key: string]: IconComponentType } = {
   'users': GroupOutlinedIcon,
   'person-outline': PersonOutlineIcon,
 };
 
-export const materialIconsRegistry: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> } = {
+export const materialIconsRegistry: { [key: string]: IconComponentType } = {
   ...defaultMaterialIcons,
 };
 
-export const registerMaterialIcon = (name: string, iconComponent: React.ComponentType<React.SVGProps<SVGSVGElement>>) => {
+export const registerMaterialIcon = (name: string, iconComponent: IconComponentType) => {
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
   try { globalThis.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch { /* handled */ }
 };
 
-export const registerMaterialIcons = (icons: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> }) => {
+export const registerMaterialIcons = (icons: { [key: string]: IconComponentType }) => {
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
   try { globalThis.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch { /* handled */ }
 };
 
-export const createMuiIconWrapper = (MuiIcon: React.ComponentType<React.SVGProps<SVGSVGElement>>): React.ComponentType<React.SVGProps<SVGSVGElement>> => {
+export const createMuiIconWrapper = (MuiIcon: IconComponentType): IconComponentType => {
   return React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => {
     const { color, fontSize, className, style, ...restProps } = props || {};
     const combinedStyle = {
@@ -68,8 +70,8 @@ export const createMuiIconWrapper = (MuiIcon: React.ComponentType<React.SVGProps
 
 export function resolveIconComponent(
   name: string,
-  SvgIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>
-): React.ComponentType<React.SVGProps<SVGSVGElement>> | null {
+  SvgIcon?: IconComponentType
+): IconComponentType | null {
   try {
     if (SvgIcon) return SvgIcon;
     if (name && materialIconsRegistry[name]) {
@@ -109,7 +111,7 @@ export function buildIconClassName(props: RdsCompAiIconProps) {
 
 export interface IconRendererProps {
   props: RdsCompAiIconProps;
-  IconComponent: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  IconComponent: IconComponentType;
 }
 
 export function IconRenderer({ props, IconComponent }: IconRendererProps) {
@@ -160,3 +162,4 @@ export function ImageIconRenderer({ props }: { props: RdsCompAiIconProps }) {
 
 IconRenderer.displayName = 'IconRenderer';
 ImageIconRenderer.displayName = 'ImageIconRenderer';
+

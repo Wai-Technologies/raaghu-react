@@ -33,8 +33,8 @@ const RdsCompBubbleChart = ({
     const chartOptions = cloneChartOptions(options);
     const chartData = { labels, datasets: dataSets };
 
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
+    attachChartData(chartOptions as { data?: unknown }, chartData);
+    applyChartThemeColors(chartOptions as any);
 
     const bubbleCanvas = new Chart(ctx, {
       type: "bubble",

@@ -63,8 +63,8 @@ const RdsCompBarChart = ({
     const chartOptions = cloneChartOptions(options);
     const chartData = { labels, datasets: dataSets };
 
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
+    attachChartData(chartOptions as { data?: unknown }, chartData);
+    applyChartThemeColors(chartOptions as any);
 
     const barCanvas = new Chart(ctx, {
       type: "bar",
@@ -72,7 +72,7 @@ const RdsCompBarChart = ({
       options: { ...chartOptions, responsive: true, maintainAspectRatio: false },
     });
 
-    applyBarCanvasSizing(barCanvas, id, height);
+    applyBarCanvasSizing(barCanvas as Chart, id, height);
 
     return () => {
       barCanvas.destroy();

@@ -38,7 +38,7 @@ const RdsDatepicker = ({
     type,
     changeIcon,
     ...legacyProps
-}: RdsDatepickerProps) => {
+}: RdsCompDatepickerProps) => {
     const legacyShowTitle = typeof legacyProps['showTitle'] === 'boolean' ? (legacyProps['showTitle'] as boolean) : undefined;
     const legacyIsDisabled = typeof legacyProps['isDisabled'] === 'boolean' ? (legacyProps['isDisabled'] as boolean) : undefined;
     const legacyIsMandatory = typeof legacyProps['isMandatory'] === 'boolean' ? (legacyProps['isMandatory'] as boolean) : undefined;

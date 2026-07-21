@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import clsx from 'clsx';
 import { 
   History, 
@@ -92,7 +92,7 @@ export const FigmaUIKitButton = ({
   storybookIconSrc,
   iconAlt = "Figma",
   className = ""
-}) => {
+}: FigmaUIKitButtonProps) => {
   return (
     <button 
       className={`rds-comp-details-pane__figma-ui-kit-button ${className}`}
@@ -120,7 +120,7 @@ export const StorybookButton = ({
   figmaIconSrc,
   storybookIconSrc,
   iconAlt = "Storybook"
-}) => {
+}: StorybookButtonProps) => {
   return (
     <button 
       className={`rds-comp-details-pane__storybook-ui-kit-button ${className}`}
@@ -446,14 +446,14 @@ const SELECTION_AGENTS = [
 
 export const SelectionContent = ({
   headerSubText = "Agent Information"
-}) => {
+}: SelectionContentProps) => {
   const agents = SELECTION_AGENTS;
 
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
   const handleSearchChange = useCallback((value: string) => setSearchValue(value), []);
   const handleAgentSelect = useCallback((agentId: string) => setSelectedAgent(agentId), []);
-  const handleAgentCardKeyDown = useCallback((e: KeyboardEvent, agentId: string) => {
+  const handleAgentCardKeyDown = useCallback((e: React.KeyboardEvent<HTMLButtonElement>, agentId: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setSelectedAgent(agentId);

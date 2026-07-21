@@ -57,6 +57,8 @@ export interface RdsSidebarItem {
   disabled?: boolean;
   typeOf?: 'collapse' | 'expanded' | 'fixed';
   platform?: 'abp-list' | 'anz-list';
+  path?: string;
+  href?: string;
   children?: RdsSidebarItem[];
 }
 

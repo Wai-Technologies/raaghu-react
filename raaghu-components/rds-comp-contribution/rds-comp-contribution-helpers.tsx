@@ -221,7 +221,7 @@ export function makeCalendarData(
   lastDay: string,
   columns: number,
   dateFormat: string,
-  dayjs: typeof import('dayjs').default
+  dayjs: typeof import('dayjs')
 ) {
   const d = dayjs(lastDay, dateFormat);
   const lastWeekend = d.endOf('week');

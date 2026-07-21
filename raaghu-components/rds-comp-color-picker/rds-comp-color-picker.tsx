@@ -20,7 +20,7 @@ interface ColorUpdate {
   rgb?: { r: number; g: number; b: number; a: number };
 }
 
-const RdsColorPicker = (props: RdsColorPickerProps) => {
+const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, isDisabled, onChange } =
     props;
   const getDefaultColorHex = useCallback(() => {
