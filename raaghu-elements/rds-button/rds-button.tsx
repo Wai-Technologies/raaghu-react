@@ -96,10 +96,12 @@ const RdsButton = ({
     textTransform: (textCase === 'unset' ? 'none' : textCase) as CSSProperties['textTransform'],
   });
 
+  const usesTokenColorStyling = !color || color === 'primary';
+
   const styleVariantClass =
     style === 'filled' ? 'rds-button__primary'
-    : style === 'outlined' ? 'rds-button__secondary'
-    : style === 'transparent' ? 'rds-button__text'
+    : style === 'outlined' ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
+    : style === 'transparent' ? (usesTokenColorStyling ? 'rds-button__text' : '')
     : '';
 
   const stateClass =

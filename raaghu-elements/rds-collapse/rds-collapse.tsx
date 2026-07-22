@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButton } from '@mui/material';
 import './rds-collapse.scss';
 import { ExpandMore } from '@mui/icons-material';
@@ -19,9 +19,15 @@ const RdsCollapse = ({
   showToggleButton = true,
   ...props
 }: RdsCollapseProps) => {
-  const isControlled = expanded !== undefined && onToggle !== undefined;
+  const isControlled = onToggle !== undefined;
   const [internalExpanded, setInternalExpanded] = useState(expanded ?? false);
   const currentExpanded = isControlled ? expanded : internalExpanded;
+
+  useEffect(() => {
+    if (!isControlled) {
+      setInternalExpanded(expanded ?? false);
+    }
+  }, [expanded, isControlled]);
 
   const handleToggle = () => {
     const newExpanded = !currentExpanded;
