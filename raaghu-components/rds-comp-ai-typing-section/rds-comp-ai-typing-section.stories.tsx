@@ -27,7 +27,7 @@ export const Default: Story = {
     },
     args: {
         colorVariant: "#353535",
-        placeholderText: "How can AI Pundit help you today?",
+        placeholderText: "How can Raaghu help you today?",
         iconName: "enhancer",
         type: "default",
     }
