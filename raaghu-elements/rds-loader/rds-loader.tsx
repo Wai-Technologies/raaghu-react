@@ -141,21 +141,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
 
   if (overlay) {
     return (
-      <Box
-        className="rds-loader rds-loader--overlay"
-        sx={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5))',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 'var(--rds-z-index-tooltip, 9999)',
-        }}
-      >
+      <Box className="rds-loader rds-loader--overlay" role="presentation">
         {loaderElement}
       </Box>
     );

@@ -126,7 +126,20 @@
   width: 100%;
 }
 
-.rds-loader--overlay {
+/* Higher specificity so overlay flex centering is not overridden by
+   `.rds-loader { display: inline-block }` */
+.rds-loader.rds-loader--overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5));
+  z-index: var(--rds-z-index-tooltip, 9999);
+
   .MuiTypography-root {
     color: var(--rds-neutral-0, #fff);
   }
