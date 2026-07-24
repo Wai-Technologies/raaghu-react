@@ -4,6 +4,7 @@
 $rds-app-bar-breakpoint-md: 834px;
 $rds-app-bar-breakpoint-sm: 420px;
 $rds-app-bar-breakpoint-xs: 320px;
+$rds-app-bar-breakpoint-notification-tablet: 1280px;
 
 .rds-story-logo {
   height: var(--rds-spacing-xl, 40px);
@@ -1707,6 +1708,50 @@ $rds-app-bar-breakpoint-xs: 320px;
     min-width: auto !important;
   }
 
+}
+
+@media (min-width: 835px) and (max-width: $rds-app-bar-breakpoint-notification-tablet) {
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiSvgIcon-root {
+    display: none !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__avatar,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiAvatar-root {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    min-width: auto !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-bottom-navigation {
+    display: flex !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-header__actions {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container,
+  .rds-header--variant-withnotificationbadge .rds-header__right-actions {
+    display: none !important;
+  }
+
+  body:has(.rds-header--variant-withnotificationbadge) {
+    padding-bottom: var(--rds-spacing-56-px) !important;
+  }
 }
 
 @media (min-width: 421px) and (max-width: 840px) {

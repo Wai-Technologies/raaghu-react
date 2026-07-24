@@ -87,8 +87,8 @@ const RdsCompChat = ({
   isChatScreenEnabled,
   userData,
   handleAddComment: onAddComment,
-  currentUserCommentBgColor = "var(--rds-secondary-main)",
-  currentUserCommentTextColor = "var(--rds-neutral-0)",
+  currentUserCommentBgColor = "var(--rds-primary-main)",
+  currentUserCommentTextColor = "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
   otherUserCommentBgColor = "var(--rds-neutral-300)",
   OtherUserCommentTextColor = "var(--rds-text-primary)"
 }: RdsCompChatProps) => {

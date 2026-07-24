@@ -22,6 +22,7 @@ export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'varian
   steps: RdsStepperStep[];
   currentStep?: number;
   direction?: 'horizontal' | 'vertical';
+  /** When true, step label text is visible; when false, only step icons are shown. */
   showContent?: boolean;
 }
 
@@ -29,7 +30,7 @@ const RdsStepper = ({
   steps,
   currentStep = 0,
   direction = 'horizontal',
-  showContent = false,
+  showContent = true,
   activeStep,
   orientation,
   className,
@@ -38,29 +39,35 @@ const RdsStepper = ({
 }: RdsStepperProps) => {
   const stepperActiveStep = activeStep !== undefined ? activeStep : currentStep;
   const stepperOrientation = orientation || (direction === 'vertical' ? 'vertical' : 'horizontal');
-  const rootClassName = clsx('rds-stepper', className);
+  const isVertical = stepperOrientation === 'vertical';
+  const rootClassName = clsx(
+    'rds-stepper',
+    { 'rds-stepper--hide-labels': !showContent },
+    className,
+  );
 
   return (
     <MuiStepper
       activeStep={stepperActiveStep}
       orientation={stepperOrientation}
-  className={rootClassName}
-  {...(stepperOrientation === 'horizontal' ? { alternativeLabel } : {})}
-  {...props}
+      className={rootClassName}
+      {...(isVertical ? {} : { alternativeLabel })}
+      {...props}
     >
-      {steps.map((step, index) => (
+      {steps.map((step) => (
         <MuiStep
           key={`${step.label}-${step.optional ? 'optional' : 'required'}`}
           completed={step.completed}
           disabled={step.disabled}
         >
           <MuiStepLabel
-            optional={step.optional ? 'Optional' : undefined}
+            optional={showContent && step.optional ? 'Optional' : undefined}
             error={step.error}
+            aria-label={step.label}
           >
-            {step.label}
+            {showContent ? step.label : null}
           </MuiStepLabel>
-          {showContent && step.content && (
+          {isVertical && step.content && (
             <MuiStepContent>
               {step.content}
             </MuiStepContent>

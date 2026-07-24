@@ -42,18 +42,18 @@ const formatTime = (time: number) =>
   `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, "0")}`;
 
 const EXPORT_MENU_ITEMS = [
-  { icon: "users", iconHeight: "24px", iconWidth: "24px", key: "new", some: "value", value: "Share Link" },
-  { icon: "refresh", iconHeight: "24px", iconWidth: "24px", key: "refresh", some: "value", value: "Export Audio" },
-  { icon: "export", iconHeight: "24px", iconWidth: "24px", key: "export", some: "value", value: "Export Transcript" },
-  { icon: "delete", iconHeight: "24px", iconWidth: "24px", key: "delete", some: "value", value: "Export Summary" },
-  { icon: "download", iconHeight: "24px", iconWidth: "24px", key: "download", some: "value", value: "Export Mind Map" },
+  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", some: "value", value: "Share Link" },
+  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", some: "value", value: "Export Audio" },
+  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", some: "value", value: "Export Transcript" },
+  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", some: "value", value: "Export Summary" },
+  { icon: "download", iconHeight: "22px", iconWidth: "22px", key: "download", some: "value", value: "Export Mind Map" },
 ];
 
 const MORE_OPTIONS_MENU_ITEMS = [
-  { icon: "users", iconHeight: "24px", iconWidth: "24px", key: "new", some: "value", value: "Move to folder" },
-  { icon: "refresh", iconHeight: "24px", iconWidth: "24px", key: "refresh", some: "value", value: "Find & Replace" },
-  { icon: "export", iconHeight: "24px", iconWidth: "24px", key: "export", some: "value", value: "Re-Transcribe" },
-  { icon: "delete", iconHeight: "24px", iconWidth: "24px", key: "delete", some: "value", value: "Re-Summarize" },
+  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", some: "value", value: "Move to folder" },
+  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", some: "value", value: "Find & Replace" },
+  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", some: "value", value: "Re-Transcribe" },
+  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", some: "value", value: "Re-Summarize" },
 ];
 
 type AudioPlayerState = {
@@ -477,30 +477,33 @@ const RdsCompAudioPlayer = ({
               />
             )}
             <CircleOutlinedIcon />
-            {showTranscript && (
-              <button
-                type="button"
-                ref={transcriptButtonRef}
-                onClick={toggleTranscriptSlider}
-                aria-label="Toggle transcript"
-              >
-                <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M11.78 17.06H6.22C5.39 17.06 4.6 16.73 4.02 16.15C3.43 15.57 3.1 14.78 3.1 13.95V4.05C3.1 3.22 3.43 2.43 4.02 1.85C4.6 1.27 5.39 0.94 6.22 0.94H11.78C12.61 0.94 13.4 1.27 13.98 1.85C14.57 2.43 14.9 3.22 14.9 4.05V13.95C14.9 14.78 14.57 15.57 13.98 16.15C13.4 16.73 12.61 17.06 11.78 17.06ZM6.22 2.06C5.69 2.06 5.18 2.27 4.81 2.64C4.44 3.02 4.23 3.52 4.23 4.05V13.95C4.23 14.48 4.44 14.98 4.81 15.36C5.18 15.73 5.69 15.94 6.22 15.94H11.78C12.31 15.94 12.82 15.73 13.19 15.36C13.56 14.98 13.77 14.48 13.77 13.95V4.05C13.77 3.52 13.56 3.02 13.19 2.64C12.82 2.27 12.31 2.06 11.78 2.06H6.22ZM9 4.72C8.8 4.73 8.6 4.79 8.43 4.9C8.26 5.01 8.13 5.17 8.05 5.36C7.97 5.55 7.95 5.76 7.99 5.96C8.03 6.16 8.13 6.34 8.28 6.48C8.42 6.63 8.6 6.72 8.8 6.76C9 6.8 9.21 6.78 9.4 6.7C9.59 6.62 9.75 6.49 9.86 6.32C9.97 6.15 10.03 5.95 10.03 5.74C10.03 5.61 10 5.48 9.95 5.35C9.9 5.23 9.82 5.12 9.73 5.02C9.63 4.93 9.52 4.85 9.39 4.8C9.27 4.75 9.13 4.72 9 4.72ZM9 14.02C8.46 14.02 7.93 13.86 7.48 13.56C7.03 13.26 6.68 12.84 6.48 12.34C6.27 11.84 6.22 11.29 6.32 10.76C6.43 10.23 6.69 9.75 7.07 9.36C7.45 8.98 7.94 8.72 8.47 8.62C9 8.51 9.55 8.57 10.04 8.77C10.54 8.98 10.97 9.33 11.27 9.78C11.57 10.23 11.73 10.76 11.73 11.3C11.73 12.02 11.44 12.71 10.93 13.22C10.42 13.73 9.72 14.02 9 14.02ZM9 9.69C8.68 9.69 8.37 9.78 8.11 9.96C7.84 10.14 7.64 10.39 7.52 10.68C7.4 10.97 7.36 11.3 7.43 11.61C7.49 11.92 7.64 12.21 7.87 12.43C8.09 12.65 8.38 12.81 8.69 12.87C9 12.93 9.32 12.9 9.61 12.78C9.91 12.66 10.16 12.45 10.33 12.19C10.51 11.92 10.6 11.61 10.6 11.3C10.6 10.87 10.44 10.46 10.13 10.16C9.83 9.86 9.43 9.69 9 9.69Z"
-                    fill="currentColor"
-                    stroke="currentColor"
-                    strokeWidth="0.5"
-                  />
-                </svg>
-              </button>
-            )}
+            <div className="rds-comp-audio-player__volume-control">
+              {showTranscript && (
+                <button
+                  type="button"
+                  ref={transcriptButtonRef}
+                  onClick={toggleTranscriptSlider}
+                  aria-label="Toggle volume"
+                  aria-expanded={showTranscriptSlider}
+                >
+                  <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M11.78 17.06H6.22C5.39 17.06 4.6 16.73 4.02 16.15C3.43 15.57 3.1 14.78 3.1 13.95V4.05C3.1 3.22 3.43 2.43 4.02 1.85C4.6 1.27 5.39 0.94 6.22 0.94H11.78C12.61 0.94 13.4 1.27 13.98 1.85C14.57 2.43 14.9 3.22 14.9 4.05V13.95C14.9 14.78 14.57 15.57 13.98 16.15C13.4 16.73 12.61 17.06 11.78 17.06ZM6.22 2.06C5.69 2.06 5.18 2.27 4.81 2.64C4.44 3.02 4.23 3.52 4.23 4.05V13.95C4.23 14.48 4.44 14.98 4.81 15.36C5.18 15.73 5.69 15.94 6.22 15.94H11.78C12.31 15.94 12.82 15.73 13.19 15.36C13.56 14.98 13.77 14.48 13.77 13.95V4.05C13.77 3.52 13.56 3.02 13.19 2.64C12.82 2.27 12.31 2.06 11.78 2.06H6.22ZM9 4.72C8.8 4.73 8.6 4.79 8.43 4.9C8.26 5.01 8.13 5.17 8.05 5.36C7.97 5.55 7.95 5.76 7.99 5.96C8.03 6.16 8.13 6.34 8.28 6.48C8.42 6.63 8.6 6.72 8.8 6.76C9 6.8 9.21 6.78 9.4 6.7C9.59 6.62 9.75 6.49 9.86 6.32C9.97 6.15 10.03 5.95 10.03 5.74C10.03 5.61 10 5.48 9.95 5.35C9.9 5.23 9.82 5.12 9.73 5.02C9.63 4.93 9.52 4.85 9.39 4.8C9.27 4.75 9.13 4.72 9 4.72ZM9 14.02C8.46 14.02 7.93 13.86 7.48 13.56C7.03 13.26 6.68 12.84 6.48 12.34C6.27 11.84 6.22 11.29 6.32 10.76C6.43 10.23 6.69 9.75 7.07 9.36C7.45 8.98 7.94 8.72 8.47 8.62C9 8.51 9.55 8.57 10.04 8.77C10.54 8.98 10.97 9.33 11.27 9.78C11.57 10.23 11.73 10.76 11.73 11.3C11.73 12.02 11.44 12.71 10.93 13.22C10.42 13.73 9.72 14.02 9 14.02ZM9 9.69C8.68 9.69 8.37 9.78 8.11 9.96C7.84 10.14 7.64 10.39 7.52 10.68C7.4 10.97 7.36 11.3 7.43 11.61C7.49 11.92 7.64 12.21 7.87 12.43C8.09 12.65 8.38 12.81 8.69 12.87C9 12.93 9.32 12.9 9.61 12.78C9.91 12.66 10.16 12.45 10.33 12.19C10.51 11.92 10.6 11.61 10.6 11.3C10.6 10.87 10.44 10.46 10.13 10.16C9.83 9.86 9.43 9.69 9 9.69Z"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      strokeWidth="0.5"
+                    />
+                  </svg>
+                </button>
+              )}
+              <VolumeSliderComponent
+                showTranscriptSlider={showTranscriptSlider}
+                volumeSliderRef={volumeSliderRef}
+                volumeLevel={volumeLevel}
+                handleVolumeChange={handleVolumeChange}
+              />
+            </div>
           </div>
-          <VolumeSliderComponent
-            showTranscriptSlider={showTranscriptSlider}
-            volumeSliderRef={volumeSliderRef}
-            volumeLevel={volumeLevel}
-            handleVolumeChange={handleVolumeChange}
-          />
           <SettingsModalComponent
             showSettingsModal={showSettingsModal}
             playbackSpeed={playbackSpeed}

@@ -9,7 +9,7 @@ export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'>
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';
   state?: 'off' | 'on' | 'disabled on' | 'disabled off';
   showLabel?: boolean;
-  style?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5' | 'style6';
+  style?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
 }
 
 const layoutToPlacement: Record<NonNullable<RdsSwitchProps['layout']>, RdsSwitchProps['labelPlacement']> = {
@@ -91,7 +91,9 @@ const RdsSwitch = ({
     }
   };
 
-  const normalizedStyleType = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
+  const normalizedStyleRaw = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
+  // style6 was removed when consolidating duplicate styles; map legacy value to style5.
+  const normalizedStyleType = normalizedStyleRaw === 'style6' ? 'style5' : normalizedStyleRaw;
   const normalizedColor = props.color ? String(props.color).toLowerCase().replace(/[^a-z0-9_-]/g, '-') : 'primary';
   const styleClass = clsx('rds-switch', `rds-switch--${normalizedStyleType}`, `rds-switch--color-${normalizedColor}`);
 

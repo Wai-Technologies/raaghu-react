@@ -26,9 +26,10 @@ const RdsStack = ({
 
   if (typeof divider === 'boolean') {
     if (divider) {
+      // MUI Stack defaults to column; row* directions use a vertical divider.
       const dir = (props.direction && typeof props.direction === 'string')
         ? props.direction
-        : 'row';
+        : 'column';
       const orientation = dir.includes('row') ? 'vertical' : 'horizontal';
       stackDivider = (
         <Divider
@@ -38,7 +39,7 @@ const RdsStack = ({
         />
       );
     }
-  } else {
+  } else if (divider) {
     stackDivider = divider;
   }
 

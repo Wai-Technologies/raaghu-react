@@ -252,11 +252,11 @@ describe('RdsSwitch', () => {
       expect(switchElement).toBeInTheDocument();
     });
 
-    it('should apply style6', () => {
+    it('should map legacy style6 to style5', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style6" />
+        <RdsSwitch style={'style6' as never} />
       );
-      const switchElement = container.querySelector('.rds-switch--style6');
+      const switchElement = container.querySelector('.rds-switch--style5');
       expect(switchElement).toBeInTheDocument();
     });
 

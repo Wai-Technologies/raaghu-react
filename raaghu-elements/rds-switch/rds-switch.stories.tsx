@@ -30,7 +30,14 @@ const meta: Meta<typeof RdsSwitch> = {
     },
     style: {
       control: 'select',
-      options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5", "Style 6"],
+      options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5"],
+      mapping: {
+        "Style 1": "style1",
+        "Style 2": "style2",
+        "Style 3": "style3",
+        "Style 4": "style4",
+        "Style 5": "style5",
+      },
       description: 'Switch style variant',
       defaultValue: 'Style 1',
     },

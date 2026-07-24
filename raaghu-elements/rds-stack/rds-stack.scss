@@ -1,17 +1,28 @@
 .rds-stack {
-  display: block;
   position: relative;
   --rds-stack-divider-color-light: var(--rds-border-light);
   --rds-stack-divider-color-dark: var(--rds-border-default);
   --rds-stack-item-radius: var(--rds-border-radius-sm, 4px);
   --rds-stack-item-font-weight: var(--rds-font-weight-medium, 500);
+  --rds-stack-divider-thickness: 1px;
 }
 
 .rds-stack .MuiDivider-root,
 .rds-stack .rds-stack__divider {
-  background-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
-  color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
   border-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
+}
+
+.rds-stack .MuiDivider-root.MuiDivider-vertical,
+.rds-stack .rds-stack__divider.MuiDivider-vertical {
+  border-right-width: var(--rds-stack-divider-thickness);
+  align-self: stretch;
+  height: auto;
+}
+
+.rds-stack .MuiDivider-root.MuiDivider-horizontal,
+.rds-stack .rds-stack__divider.MuiDivider-horizontal {
+  border-bottom-width: var(--rds-stack-divider-thickness);
+  width: 100%;
 }
 
 [data-theme="dark"] .rds-stack {

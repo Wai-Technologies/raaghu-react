@@ -19,6 +19,7 @@ const meta: Meta<typeof RdsStepper> = {
     },
     showContent: {
       control: { type: 'boolean' },
+      description: 'Show or hide step label text',
     },
     direction: {
       control: { type: 'select' },
@@ -56,8 +57,9 @@ const steps = [
 
 export const Default: Story = {
   args: {
-  currentStep: 1,
+    currentStep: 1,
     steps: steps,
+    showContent: true,
   },
 };
 
