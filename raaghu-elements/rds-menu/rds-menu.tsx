@@ -14,6 +14,48 @@ function getColor(color: string): string {
   }
 }
 
+/** Map menu size → RdsAvatar size so icons scale with the menu (small→small, large→large). */
+const menuToAvatarSize = {
+  small: 'smallest',
+  medium: 'small',
+  large: 'medium',
+} as const;
+
+type MenuSize = keyof typeof menuToAvatarSize;
+type AvatarSize = (typeof menuToAvatarSize)[MenuSize];
+
+function isRdsAvatarElement(element: ReactElement): boolean {
+  const type = element.type as { displayName?: string; name?: string };
+  return type?.displayName === 'RdsAvatar' || type?.name === 'RdsAvatar';
+}
+
+function renderMenuIcon(
+  icon: ReactNode,
+  menuSize: MenuSize | undefined,
+  itemColor?: string,
+): ReactNode {
+  if (!isValidElement(icon) || (typeof icon.type !== 'function' && typeof icon.type !== 'object')) {
+    return icon;
+  }
+
+  const existingProps = (icon as ReactElement<{ style?: CSSProperties; size?: AvatarSize }>).props;
+  const avatarSize = menuSize ? menuToAvatarSize[menuSize] : undefined;
+
+  return cloneElement(icon as ReactElement<{ style?: CSSProperties; size?: AvatarSize }>, {
+    ...existingProps,
+    ...(isRdsAvatarElement(icon) && avatarSize ? { size: avatarSize } : {}),
+    style: {
+      ...(existingProps?.style ?? {}),
+      ...(itemColor
+        ? {
+            color: getColor(itemColor),
+            fill: getColor(itemColor),
+          }
+        : {}),
+    },
+  });
+}
+
 export interface RdsMenuItem {
   id: string | number;
   label?: string;
@@ -91,21 +133,7 @@ const RdsMenu = ({
                     color: getColor(item.color)
                   } : {}}
                 >
-                  {isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
-                    ? cloneElement(
-                        item.icon as ReactElement<{ style?: CSSProperties }>,
-                        {
-                          ...(item.icon as ReactElement<{ style?: CSSProperties }>).props,
-                          style: {
-                            ...((item.icon as ReactElement<{ style?: CSSProperties }>).props?.style ?? {}),
-                            ...(item.color ? {
-                              color: getColor(item.color),
-                              fill: getColor(item.color),
-                            } : {}),
-                          },
-                        },
-                      )
-                    : item.icon}
+                  {renderMenuIcon(item.icon, size, item.color)}
                 </ListItemIcon>
               )}
               <ListItemText

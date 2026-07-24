@@ -311,46 +311,16 @@ export const RdsFileList = ({
       {files.map((fileWithProgress, index) => (
         <Box
           key={`${fileWithProgress.file.name}-${fileWithProgress.file.size}-${fileWithProgress.file.lastModified}`}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: { xs: '100%', sm: '100%', md: 'var(--rds-spacing-3xl, 500px)' },
-            minWidth: { xs: 0, sm: 0, md: 'var(--rds-spacing-2xl, 400px)' },
-            maxWidth: { xs: '98vw', sm: '98vw', md: 'var(--rds-spacing-3xl, 500px)' },
-            height: 'var(--rds-spacing-xl, 36px)',
-            background: tokens.color.surface,
-            borderRadius: tokens.radius.sm,
-            border: `1px solid ${tokens.color.textMuted}`,
-            px: tokens.space(0.5),
-            py: 0,
-            mb: tokens.space(0.5),
-            fontSize: { xs: 'var(--rds-font-size-sm, 13px)', sm: 'var(--rds-font-size-md, 14px)', md: 'var(--rds-font-size-md, 15px)' },
-          }}
+          className="rds-file-uploader__file-item"
         >
           <Typography
-            sx={{
-              color: tokens.color.text,
-              fontWeight: 500,
-              flex: 1,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
+            component="span"
+            className="rds-file-uploader__file-item-name"
             title={fileWithProgress.file.name}
           >
             {fileWithProgress.file.name}
           </Typography>
-          <Typography
-            sx={{
-              color: tokens.color.textMuted,
-              fontWeight: 400,
-              fontSize: 'var(--rds-font-size-md, 14px)',
-              ml: tokens.space(2),
-              minWidth: 'var(--rds-spacing-xl, 70px)',
-              textAlign: 'right',
-            }}
-          >
+          <Typography component="span" className="rds-file-uploader__file-item-size">
             {formatFileSize(fileWithProgress.file.size)}
           </Typography>
           <IconButton
@@ -359,7 +329,14 @@ export const RdsFileList = ({
             size="small"
             onClick={() => removeFile(index)}
             disabled={isUploading}
-            sx={{ ml: tokens.space(0.5), color: tokens.color.textMuted, background: 'transparent', borderRadius: tokens.radius.full, '&:hover': { background: tokens.color.divider }, p: tokens.space(0.5) }}
+            sx={{
+              flexShrink: 0,
+              color: tokens.color.textMuted,
+              background: 'transparent',
+              borderRadius: tokens.radius.full,
+              '&:hover': { background: tokens.color.divider },
+              p: tokens.space(0.5),
+            }}
           >
             <Close fontSize="small" sx={{ color: tokens.color.textMuted }} />
           </IconButton>

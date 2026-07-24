@@ -152,7 +152,7 @@
     font-size: var(--rds-font-size-body);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-text-secondary);
-    background-color: var(--rds-neutral-50);
+    background-color: var(--rds-background-paper);
     position: sticky;
     top: 0;
     z-index: calc(var(--rds-z-index-base) + 1);
@@ -243,6 +243,7 @@
     top: 0;
     z-index: calc(var(--rds-z-index-base) + 1);
     padding: 0 var(--rds-spacing-md, 16px);
+    background-color: var(--rds-background-paper);
   }
 }
 
