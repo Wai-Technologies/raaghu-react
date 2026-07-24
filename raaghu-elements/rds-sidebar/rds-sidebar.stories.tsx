@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
@@ -86,6 +86,14 @@ When a platform is specified, the component automatically displays the appropria
       control: 'boolean',
       description: 'Toggle whether the search box is shown in the sidebar',
     },
+    hideMainParagraph: {
+      control: 'boolean',
+      description: 'Hide the main content area paragraph in the story preview',
+    },
+    hideToggleButton: {
+      control: 'boolean',
+      description: 'Hide the Open/Close sidebar toggle button in the story preview',
+    },
   },
 };
 
@@ -143,29 +151,38 @@ const abpMenuItems = [
 
 const SidebarTemplate = (args: any) => {
   const logoSrc = useRaaghuLogoSrc();
-  const [open, setOpen] = useState(args.isOpen || false);
+  const [open, setOpen] = useState(!!args.isOpen);
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const { hideMainParagraph, hideToggleButton, ...sidebarArgs } = args;
+
+  // Keep local open state in sync with the Storybook isOpen control
+  useEffect(() => {
+    setOpen(!!args.isOpen);
+  }, [args.isOpen]);
 
   return (
-    <Box sx={{ display: 'flex' }} ref={containerRef}>
-      {!args.hideToggleButton && (
-        <Button 
-          variant="contained" 
-          onClick={() => setOpen(!open)}
-          sx={{ mb: 2 }}
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {/* Keep toggle outside the drawer container so it stays visible when the sidebar overlays */}
+      {!hideToggleButton && (
+        <Button
+          variant="contained"
+          onClick={() => setOpen((prev: boolean) => !prev)}
+          sx={{ alignSelf: 'flex-start' }}
         >
           {open ? 'Close' : 'Open'} Sidebar
         </Button>
       )}
-      <RdsSidebar
-        {...args}
-        avatarCollapsedSrc={logoSrc}
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        container={containerRef.current}
-      />
-      <Box sx={{ flexGrow: 1, p: 3 }}>
-        {!args.hideMainParagraph && <p>Main content area. The sidebar will slide over this content.</p>}
+      <Box sx={{ display: 'flex', position: 'relative', minHeight: 400 }} ref={containerRef}>
+        <RdsSidebar
+          {...sidebarArgs}
+          avatarCollapsedSrc={logoSrc}
+          isOpen={open}
+          onClose={() => setOpen(false)}
+          container={containerRef.current}
+        />
+        <Box sx={{ flexGrow: 1, p: 3, minWidth: 0 }}>
+          {!hideMainParagraph && <p>Main content area. The sidebar will slide over this content.</p>}
+        </Box>
       </Box>
     </Box>
   );
@@ -194,8 +211,12 @@ export const MailApp = {
   args: {
     items: mailItems,
     width: 280,
+    isOpen: true,
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    showSearch: true,
+    hideMainParagraph: false,
+    hideToggleButton: false,
   },
 };
 

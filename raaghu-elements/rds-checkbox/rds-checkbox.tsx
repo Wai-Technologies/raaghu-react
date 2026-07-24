@@ -70,6 +70,7 @@ const RdsCheckbox = ({
       color={color}
       onChange={handleChange}
       {...props}
+      disableRipple
     />
   );
 

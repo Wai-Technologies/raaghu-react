@@ -90,6 +90,8 @@ const RdsSidebar = ({
   avatarCollapsedSrc,
   showLogo,
   container,
+  layout,
+  sx: propsSx,
   ...props
 }:RdsSidebarProps) => {
   const [searchValue, setSearchValue] = useState("");
@@ -110,13 +112,14 @@ const RdsSidebar = ({
   let showAvatar = true;
   let showSearchBox = !shouldShowIconsOnly && showSearch;
 
-  if (props.layout === 'list' && shouldShowIconsOnly) {
+  if (layout === 'list' && shouldShowIconsOnly) {
     showAvatar = true;
     showSearchBox = showSearch;
   }
-  if (props.layout === 'raaghu' || props.layout === 'toolbar') {
+  if (layout === 'raaghu' || layout === 'toolbar') {
     showAvatar = false;
-    showSearchBox = showSearch && !shouldShowIconsOnly;
+    // Keep search available in collapse/fixed (icon-only) mode when showSearch is true
+    showSearchBox = showSearch;
   }
 
   const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed');
@@ -138,7 +141,7 @@ const RdsSidebar = ({
       height: shouldShowIconsOnly && typeOf === 'fixed' ? '100vh' : '100%',
       ...(shouldShowIconsOnly && {
         alignItems: 'center',
-        overflowX: 'hidden',
+        overflow: 'hidden',
         ...(typeOf === 'fixed' && {
           position: 'fixed',
           top: 0,
@@ -149,20 +152,64 @@ const RdsSidebar = ({
     }
   };
 
+  const searchIconOnlySize = 'var(--rds-sidebar-search-icon-only-size, var(--rds-menu-item-min-height, 40px))';
+  const searchSx = shouldShowIconsOnly
+    ? {
+        width: searchIconOnlySize,
+        maxWidth: searchIconOnlySize,
+        minWidth: 0,
+        margin: '0 auto',
+        '& .MuiInputBase-root': {
+          minWidth: 0,
+          width: searchIconOnlySize,
+          maxWidth: searchIconOnlySize,
+          height: searchIconOnlySize,
+          margin: '0 auto',
+          padding: 0,
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'transparent',
+        },
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: 'var(--rds-sidebar-search-icon-border-color, var(--rds-border-default))',
+          borderWidth: 'var(--rds-border-width-thin, 1px)',
+          borderRadius: 'var(--rds-sidebar-search-icon-border-radius, var(--rds-border-radius-sm, 4px))',
+        },
+        '& .MuiInputBase-input': {
+          display: 'none',
+          width: 0,
+          padding: 0,
+          flex: '0 0 0',
+          position: 'absolute',
+        },
+        '& .MuiInputAdornment-root': {
+          margin: 0,
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+        },
+        '& .MuiIconButton-root': {
+          margin: 0,
+        },
+      }
+    : { width: '100%', maxWidth: Math.min(width - 32, 205) };
+
   return (
     <MuiDrawer
       open={isOpen}
       onClose={onClose}
       variant={variant}
-      sx={drawerSx}
       className={sidebarClasses}
       container={container}
       {...props}
+      sx={[drawerSx, propsSx] as SxProps}
     >
       <div className={contentClasses}>
         {showLogo && (
           <div className={headerClasses}>
-            {props.layout === 'toolbar' ? (
+            {layout === 'toolbar' ? (
               shouldShowIconsOnly ? (
                 <RdsAvatar
                   activeDotBottom
@@ -209,8 +256,9 @@ const RdsSidebar = ({
                 placeholder={shouldShowIconsOnly ? '' : 'Search...'}
                 showClearButton={!shouldShowIconsOnly}
                 size="small"
+                variant="outlined"
                 value={searchValue}
-                sx={shouldShowIconsOnly ? undefined : { width: Math.min(width - 32, 205) }}
+                sx={searchSx}
               />
             </div>
           </>

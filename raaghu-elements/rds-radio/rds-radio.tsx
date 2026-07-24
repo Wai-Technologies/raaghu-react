@@ -39,7 +39,6 @@ const RdsRadio= ({
   selected,
   ...props
 }:RdsRadioProps) => {
-  const isHoverable = state === 'hover' || state === 'default';
   const radioRow = direction === 'row';
 
   const effectiveValue: string | undefined = useMemo(() => {
@@ -56,7 +55,7 @@ const RdsRadio= ({
     
     const commonProps = {
       value: option.value,
-      control: <MuiRadio {...radioProps} disabled={finalDisabled} />,
+      control: <MuiRadio {...radioProps} disabled={finalDisabled} disableRipple />,
       disabled: finalDisabled,
     };
 
@@ -91,6 +90,7 @@ const RdsRadio= ({
                 }
               }}
               className="rds-radio__option"
+              disableRipple
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -130,7 +130,6 @@ const RdsRadio= ({
         className={clsx(
           'rds-radio__option',
           'rds-radio__option--with-label',
-          isHoverable && 'rds-radio__option--hoverable',
         )}
       />
     );

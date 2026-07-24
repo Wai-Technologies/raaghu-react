@@ -196,11 +196,12 @@ const RdsCompAiTypingSectionComponent = ({
         <div className="rds-comp-ai-typing-section__autocomplete" style={autocompleteStyle}>
           <RdsAutocomplete
             controlStyle="default"
-            helperText="Select one of the available options"
             isMandatory={false}
             label=""
             options={[{ label: "Raaghu", value: 1 }]}
             placeholder="Select Frontend"
+            showHintText={false}
+            showTitle={false}
           />
         </div>
       </div>
