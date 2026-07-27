@@ -1150,6 +1150,33 @@
     gap: var(--rds-spacing-xs, 8px);
     padding-left: var(--rds-spacing-md, 12px);
     padding-right: var(--rds-spacing-md, 12px);
+
+    .rds-accordion.rds-accordion--medium .rds-accordion__details,
+    .rds-accordion__details {
+      padding: 0 !important;
+    }
+
+    .rds-accordion__details .rds-accordion__details-panel,
+    .rds-accordion__details-panel {
+      margin: var(--rds-spacing-xxs, 4px) 0 var(--rds-spacing-xs, 8px) !important;
+      padding: 0 !important;
+      min-height: 0 !important;
+      align-items: stretch !important;
+      overflow: hidden;
+    }
+
+    .rds-comp-details-pane__thumbnail-image-wrap {
+      width: 100%;
+      line-height: 0;
+    }
+
+    .rds-comp-details-pane__thumbnail-img-square {
+      width: 100% !important;
+      height: 168px !important;
+      object-fit: cover !important;
+      display: block;
+      border-radius: var(--rds-border-radius-xs, 2px);
+    }
   }
 
   &__thumbnail-image-square {
