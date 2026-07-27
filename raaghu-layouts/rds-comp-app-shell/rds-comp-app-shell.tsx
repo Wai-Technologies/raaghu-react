@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement, useState, isValidElement, cloneElement } from "react";
+import { ReactNode, ReactElement, useState, useEffect, isValidElement, cloneElement } from "react";
 import "./rds-comp-app-shell.scss";
 import { AppShellDisplayType } from "./shell-types";
 export { AppShellDisplayType } from "./shell-types";
@@ -47,13 +47,22 @@ TopbarSlot.displayName = 'TopbarSlot';
 
 const RdsCompAppShell = (props: RdsCompAppShellProps) => {
   const [internalMobileSidebarOpen, setInternalMobileSidebarOpen] = useState(false);
-  
+  // Avoid animating the sidebar from a desktop first-paint when Storybook/viewport resizes to mobile.
+  const [layoutReady, setLayoutReady] = useState(false);
+
   const mobileSidebarOpen = props.mobileSidebarOpen ?? internalMobileSidebarOpen;
   const handleMobileSidebarToggle = props.onMobileSidebarToggle ?? (() => setInternalMobileSidebarOpen(!internalMobileSidebarOpen));
 
+  useEffect(() => {
+    const rafId = window.requestAnimationFrame(() => setLayoutReady(true));
+    return () => window.cancelAnimationFrame(rafId);
+  }, []);
+
   return (
     <>
-      <div className={`${GetShellLayoutCss(props.displayType)} ${mobileSidebarOpen ? 'mobile-sidebar-open' : ''}`}>
+      <div
+        className={`${GetShellLayoutCss(props.displayType)} ${mobileSidebarOpen ? 'mobile-sidebar-open' : ''} ${layoutReady ? 'rds-appshell--layout-ready' : ''}`}
+      >
         <div className="sidebar-layout">
           {props.sidebar}
         </div>

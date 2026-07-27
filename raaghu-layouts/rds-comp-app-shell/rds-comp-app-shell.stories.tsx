@@ -155,15 +155,10 @@ const AppShellStory = (args: any) => {
       return (
         <RdsAppBar
           color="default"
-          logo={
-            <img
-              alt="Logo"
-              className="rds-story-logo"
-              src={logoSrc}
-            />
-          }
+          position="relative"
+          size="medium"
           onTabChange={handleTabChange}
-          showLogo={true}
+          showLogo={false}
           showMenuButton={true}
           onMenuClick={handleMobileSidebarToggle}
           tabValue={selectedTab}
@@ -263,7 +258,7 @@ const AppShellStory = (args: any) => {
             </BrowserRouter>
           </div>
           
-          <div className="rds-appshell-side-nav-right d-flex align-items-end justify-content-end rds-story-side-nav-right-container">
+          <div className="rds-appshell-side-nav-right d-flex align-items-stretch justify-content-end rds-story-side-nav-right-container">
             <div className="rds-story-side-nav-right-content" id="side-nav-icon-list">
               <BrowserRouter>
                 <RdsSidebar
