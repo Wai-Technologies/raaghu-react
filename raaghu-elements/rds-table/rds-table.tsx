@@ -205,6 +205,7 @@ const RdsTable = ({
             checked={isChecked}
             onChange={() => toggleCellCheckbox(rowId)}
             size="small"
+            disableRipple
           />
           </div>
         );
@@ -217,6 +218,7 @@ const RdsTable = ({
             checked={isChecked}
             onChange={() => selectCellRadio(rowId)}
             size="small"
+            disableRipple
           />
         );
       }
@@ -246,6 +248,7 @@ const RdsTable = ({
                     checked={isAllSelected}
                     onChange={handleSelectAll}
                     size="small"
+                    disableRipple
                   />
                 </MuiTableCell>
               )}
@@ -279,6 +282,7 @@ const RdsTable = ({
                           }
                         }}
                         size="small"
+                        disableRipple
                       />
                       </div>
                     ) : column.sortable ? (
@@ -329,6 +333,7 @@ const RdsTable = ({
                         checked={isSelected}
                         onChange={() => handleSelectRow(rowId)}
                         size="small"
+                        disableRipple
                       />
                     </MuiTableCell>
                   )}

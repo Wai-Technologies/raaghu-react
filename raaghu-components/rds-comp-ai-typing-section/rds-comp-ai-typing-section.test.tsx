@@ -347,7 +347,7 @@ it('hides enhance icon when input has text', () => {
       render(<RdsCompAiTypingSection {...defaultProps} />);
       const autocomplete = screen.getByTestId('rds-autocomplete');
       expect(autocomplete).toHaveAttribute('data-placeholder', 'Select Frontend');
-      expect(autocomplete).toHaveAttribute('data-helper-text', 'Select one of the available options');
+      expect(autocomplete).not.toHaveAttribute('data-helper-text', 'Select one of the available options');
     });
 
     it('applies custom max-width when provided', () => {

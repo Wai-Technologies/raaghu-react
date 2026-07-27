@@ -146,8 +146,10 @@
     flex-wrap: wrap;
   }
 
-  @media (min-width: 900px) {
+  /* Tablet (768px) and above: keep New Project, Import From Figma, and Select Frontend on one row */
+  @media (min-width: 768px) {
     &__button-sections {
+      /* Top-align so buttons line up with the autocomplete input (not helper-text height) */
       align-items: flex-start;
       flex-wrap: nowrap;
     }
@@ -155,6 +157,7 @@
   
   &__project-actions {
     display: flex;
+    align-items: center;
     gap: var(--rds-spacing-md, 12px);
     flex-wrap: wrap;
     min-width: 0;
@@ -162,8 +165,10 @@
   
   &__action-button {
     display: flex;
+    align-items: center;
     flex: 0 1 auto;
     min-width: 0;
+    height: var(--ai-typing-toolbar-control-height);
 
     .rds-button,
     .MuiButton-root,
@@ -185,6 +190,13 @@
     flex: 1 1 auto;
     max-width: var(--ai-typing-autocomplete-max-width, 260px);
     min-width: min(var(--ai-typing-autocomplete-min-width), 100%);
+    display: flex;
+    align-items: flex-start;
+
+    .rds-autocomplete,
+    .rds-autocomplete--root {
+      width: 100%;
+    }
 
     .MuiInputBase-root,
     .MuiOutlinedInput-root {
@@ -192,9 +204,15 @@
       height: var(--ai-typing-toolbar-control-height);
       box-sizing: border-box;
     }
+
+    /* Helper text is not shown in this toolbar; collapse reserved space so controls share one baseline */
+    .MuiFormHelperText-root {
+      display: none;
+    }
   }
 
-  @media (max-width: 899px) {
+  /* Mobile only: stack project actions above the frontend select */
+  @media (max-width: 767px) {
     &__button-sections {
       align-items: stretch;
       gap: var(--rds-spacing-sm, 8px);
@@ -254,10 +272,11 @@
     }
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 768px) {
     &__project-actions {
       flex: 0 1 auto;
       flex-wrap: nowrap;
+      min-width: 0;
     }
 
     &__action-button {
@@ -271,19 +290,20 @@
     }
   }
 
-  @media (min-width: 900px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1024px) {
     &__button-sections {
       gap: var(--rds-spacing-sm, 10px);
     }
 
     &__project-actions {
       gap: var(--rds-spacing-sm, 10px);
+      flex: 1 1 auto;
     }
 
     &__autocomplete {
       flex: 1 1 auto;
-      min-width: 190px;
-      max-width: 260px;
+      min-width: 160px;
+      max-width: 220px;
     }
   }
 }

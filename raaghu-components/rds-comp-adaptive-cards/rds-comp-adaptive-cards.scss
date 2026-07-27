@@ -773,12 +773,46 @@
   height: var(--rds-font-size-md, 14px) !important;
 }
 .rds-adaptive-cards__calendar-reminder-select-icon {
-  width: var(--rds-calendar-reminder-select-icon-width, 16px) !important;
-  height: var(--rds-calendar-reminder-select-icon-height, 12px) !important;
-  font-size: var(--rds-font-size-xs, 12px) !important;
+  font-size: var(--rds-font-size-md, 14px) !important;
+  width: 1em !important;
+  height: 1em !important;
   stroke: var(--rds-text-secondary) !important;
   color: var(--rds-text-secondary) !important;
-  margin-right: var(--rds-spacing-sm, 8px) !important;
+}
+
+.rds-adaptive-cards__calendar-reminder-select-form,
+.rds-adaptive-cards__calendar-reminder-input {
+  .MuiOutlinedInput-root,
+  .MuiOutlinedInput-root.Mui-focused,
+  .MuiOutlinedInput-root:hover {
+    box-shadow: none !important;
+  }
+
+  .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    box-shadow: none !important;
+  }
+
+  .MuiSelect-icon {
+    pointer-events: none;
+    right: var(--rds-spacing-sm, 8px);
+    color: var(--rds-text-secondary) !important;
+  }
+}
+
+.rds-adaptive-cards__restaurant-order-form {
+  .MuiOutlinedInput-root,
+  .MuiOutlinedInput-root.Mui-focused,
+  .MuiOutlinedInput-root:hover {
+    box-shadow: none !important;
+  }
+
+  .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    box-shadow: none !important;
+  }
 }
 
 .rds-adaptive-cards__calendar-reminder-placeholder {

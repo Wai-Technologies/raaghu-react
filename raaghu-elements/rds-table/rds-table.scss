@@ -159,6 +159,19 @@
       width: 48px;
       padding: var(--rds-spacing-md, 16px);
       text-align: center;
+
+      .MuiRadio-root:hover {
+        background-color: transparent;
+      }
+
+      .MuiRadio-root:active,
+      .MuiRadio-root.Mui-focusVisible {
+        background-color: transparent;
+      }
+
+      .MuiRadio-root .MuiTouchRipple-root {
+        display: none;
+      }
     }
     
     &--avatar {
@@ -360,7 +373,6 @@
     --rds-table-checkbox-check-height: var(--rds-table-checkbox-check-height, 10px);
     --rds-table-checkbox-indeterminate-width: var(--rds-table-checkbox-indeterminate-width, 8px);
     --rds-table-checkbox-indeterminate-height: var(--rds-table-checkbox-indeterminate-height, 2px);
-    --rds-table-checkbox-hover-ring-size: var(--rds-table-checkbox-hover-ring-size, 4px);
     --rds-table-checkbox-focus-ring-size: var(--rds-table-checkbox-focus-ring-size, 2px);
     --rds-table-checkbox-disabled-opacity: 0.6;
     
@@ -388,6 +400,8 @@
         transform: translate(-50%, -50%);
         transition: var(--checkbox-transition);
         z-index: calc(var(--rds-z-index-base) + 1);
+        pointer-events: none;
+        box-sizing: border-box;
       }
       
       &::after {
@@ -403,15 +417,20 @@
         transition: var(--checkbox-transition);
         z-index: calc(var(--rds-z-index-base) + 2);
         opacity: 0;
+        pointer-events: none;
       }
       
       &:hover {
-        background-color: var(--rds-button-text-bg-hover);
-        
-        &:not(.Mui-disabled)::before {
-          border-color: var(--rds-primary-main);
-          box-shadow: 0 0 0 var(--rds-table-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
-        }
+        background-color: transparent;
+      }
+      
+      &:active,
+      &.Mui-focusVisible {
+        background-color: transparent;
+      }
+
+      .MuiTouchRipple-root {
+        display: none;
       }
       
       &:focus-visible {

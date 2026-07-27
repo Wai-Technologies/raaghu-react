@@ -26,7 +26,16 @@
     transition: var(--rds-checkbox-transition);
 
     &:hover {
-      background-color: var(--rds-primary-alpha-10);
+      background-color: transparent;
+    }
+
+    &:active,
+    &.Mui-focusVisible {
+      background-color: transparent;
+    }
+
+    .MuiTouchRipple-root {
+      display: none;
     }
 
     &.Mui-checked,
@@ -78,7 +87,7 @@
       }
 
       &:hover:not(.Mui-disabled) {
-        background-color: var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
+        background-color: transparent;
       }
     }
   }
@@ -103,6 +112,7 @@
         background: transparent;
         transition: var(--rds-checkbox-transition);
         box-sizing: border-box;
+        pointer-events: none;
       }
 
       &::after {
@@ -118,6 +128,7 @@
         transform-origin: center;
         transition: var(--rds-checkbox-transition);
         opacity: 0;
+        pointer-events: none;
       }
 
       &.Mui-checked {
@@ -161,11 +172,6 @@
           border-color: var(--rds-text-disabled);
         }
       }
-
-      &:hover:not(.Mui-disabled)::before {
-        border-color: var(--rds-primary-main);
-        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
-      }
     }
 
     &.rds-checkbox__secondary {
@@ -174,11 +180,6 @@
         &.MuiCheckbox-indeterminate::before {
           background-color: var(--rds-secondary-main);
           border-color: var(--rds-secondary-main);
-        }
-
-        &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
         }
       }
     }
@@ -203,6 +204,7 @@
         background: transparent;
         transition: var(--rds-checkbox-transition);
         box-sizing: border-box;
+        pointer-events: none;
       }
 
       &::after {
@@ -218,6 +220,7 @@
         transform-origin: center;
         transition: var(--rds-checkbox-transition);
         opacity: 0;
+        pointer-events: none;
       }
 
       &.Mui-checked {
@@ -261,11 +264,6 @@
           border-color: var(--rds-text-disabled);
         }
       }
-
-      &:hover:not(.Mui-disabled)::before {
-        border-color: var(--rds-primary-main);
-        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
-      }
     }
 
     &.rds-checkbox__secondary {
@@ -274,11 +272,6 @@
         &.MuiCheckbox-indeterminate::before {
           background-color: var(--rds-secondary-main);
           border-color: var(--rds-secondary-main);
-        }
-
-        &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, var(--rds-primary-alpha-10));
         }
       }
     }

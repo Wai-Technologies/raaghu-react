@@ -380,7 +380,7 @@ export function CalendarReminderForm({
           <RdsTypography variant="subtitle2" className="rds-adaptive-cards__calendar-reminder-label">{calendarReminderLabel || "Snooze for"}</RdsTypography>
           <InfoOutlined className="rds-adaptive-cards__calendar-reminder-info-icon" />
         </RdsStack>
-        <FormControl fullWidth size="small">
+        <FormControl fullWidth size="small" className="rds-adaptive-cards__calendar-reminder-input">
           <Select
             value={selected}
             onChange={e => setSelected(e.target.value)}
@@ -391,7 +391,12 @@ export function CalendarReminderForm({
                 ? <span className="rds-adaptive-cards__calendar-reminder-placeholder">{placeholder || selectPlaceholder}</span>
                 : (resolvedSideOptions.find(opt => opt.value === selected)?.label || selected)
             }
-            IconComponent={props => <ExpandMoreIcon {...props} className="rds-adaptive-cards__calendar-reminder-select-icon" />}
+            IconComponent={(iconProps) => (
+              <ExpandMoreIcon
+                {...iconProps}
+                className={clsx(iconProps.className, "rds-adaptive-cards__calendar-reminder-select-icon")}
+              />
+            )}
           >
             <MenuItem value="" disabled>{selectPlaceholder}</MenuItem>
             {resolvedSideOptions.map(opt => (
