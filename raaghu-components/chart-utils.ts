@@ -47,15 +47,39 @@ export function useChartThemeMode(): string {
   );
 }
 
+/** Deep-clones Chart.js options, preserving functions (callbacks, generateLabels, etc.). */
+function deepClonePreservingFunctions<T>(value: T): T {
+  if (value === null || typeof value !== 'object') {
+    return value;
+  }
+  if (typeof value === 'function') {
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return value.map((item) => deepClonePreservingFunctions(item)) as T;
+  }
+  const result: Record<string, unknown> = {};
+  for (const key of Object.keys(value as object)) {
+    result[key] = deepClonePreservingFunctions(
+      (value as Record<string, unknown>)[key]
+    );
+  }
+  return result as T;
+}
+
 /** Deep-clones Chart.js options to avoid mutating caller-provided objects. */
 export function cloneChartOptions<T>(options: T): T {
   if (!options) {
     return {} as T;
   }
-  if (typeof structuredClone === 'function') {
-    return structuredClone(options);
+  try {
+    if (typeof structuredClone === 'function') {
+      return structuredClone(options);
+    }
+  } catch {
+    // Chart.js options often include functions that structuredClone cannot copy.
   }
-  return JSON.parse(JSON.stringify(options));
+  return deepClonePreservingFunctions(options);
 }
 
 /** Attaches chart data to options when callers have not already done so. */
