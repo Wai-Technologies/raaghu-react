@@ -1020,7 +1020,7 @@ export const ThumbnailViewContent = ({
               title={item.title}
               ShowLeftIcon={false}
             >
-              <div>
+              <div className="rds-comp-details-pane__thumbnail-image-wrap">
                 <img 
                   src={item.imgSrc}
                   alt="Night Sky"
