@@ -300,18 +300,18 @@ describe('RdsLoader', () => {
       const { container } = renderWithTheme(
         <RdsLoader overlay={true} />
       );
-      const overlayBox = container.querySelector('[style*="backgroundColor"]') || container.firstChild;
+      const overlayBox = container.querySelector('.rds-loader--overlay');
       expect(overlayBox).toBeInTheDocument();
+      expect(overlayBox).toHaveClass('rds-loader', 'rds-loader--overlay');
     });
 
     it('should center content in overlay', () => {
       const { container } = renderWithTheme(
         <RdsLoader overlay={true} />
       );
-      const overlayBox = container.firstChild as HTMLElement;
-      // Verify the overlay container is displayed with flex layout
+      const overlayBox = container.querySelector('.rds-loader--overlay');
       expect(overlayBox).toBeInTheDocument();
-      const childContent = overlayBox.querySelector('.MuiCircularProgress-root');
+      const childContent = overlayBox?.querySelector('.MuiCircularProgress-root');
       expect(childContent).toBeInTheDocument();
     });
 
@@ -319,18 +319,17 @@ describe('RdsLoader', () => {
       const { container } = renderWithTheme(
         <RdsLoader overlay={true} />
       );
-      const overlayBox = container.firstChild as HTMLElement;
-      // Overlay should be the top-level element containing the loader
+      const overlayBox = container.querySelector('.rds-loader--overlay');
       expect(overlayBox).toBeInTheDocument();
-      expect(overlayBox.querySelector('.MuiCircularProgress-root')).toBeInTheDocument();
+      expect(overlayBox?.querySelector('.MuiCircularProgress-root')).toBeInTheDocument();
     });
 
     it('should not render overlay when overlay is false', () => {
       const { container } = renderWithTheme(
         <RdsLoader overlay={false} />
       );
-      const fixedBox = container.querySelector('[style*="position: fixed"]');
-      expect(fixedBox).not.toBeInTheDocument();
+      const overlayBox = container.querySelector('.rds-loader--overlay');
+      expect(overlayBox).not.toBeInTheDocument();
     });
 
     it('should render loader inside overlay', () => {

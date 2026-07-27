@@ -28,12 +28,29 @@
   }
 
   &__browse-link--left {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    font-size: inherit;
+    line-height: inherit;
     color: var(--rds-color-primary, #3390e6);
     font-weight: var(--rds-font-weight-semibold, 600);
     cursor: pointer;
     text-decoration: underline;
+    display: inline;
+    vertical-align: baseline;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
     transition: color var(--rds-transition-base);
-    &:hover {
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background: none;
+      outline: none;
+      box-shadow: none;
       color: var(--rds-color-primary-hover, #1976d2);
     }
   }
@@ -271,17 +288,37 @@
     display: none;
   }
   &__browse-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    font-size: inherit;
+    line-height: inherit;
     color: var(--rds-color-primary, #3390e6);
     font-weight: var(--rds-font-weight-semibold, 600);
     cursor: pointer;
     text-decoration: underline;
+    display: inline;
+    vertical-align: baseline;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
     transition: color var(--rds-transition-base);
-    &:hover {
-color: var(--rds-color-primary, #1976d2);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background: none;
+      outline: none;
+      box-shadow: none;
+      color: var(--rds-color-primary-hover, #1976d2);
     }
   }
   &__file-list {
     margin-top: var(--rds-spacing-md, 16px);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   &__file-list-title {
     font-weight: var(--rds-font-weight-semibold, 600);
@@ -290,12 +327,35 @@ color: var(--rds-color-primary, #1976d2);
   &__file-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--rds-spacing-md, 16px);
-    padding: var(--rds-spacing-md, 16px);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    min-height: var(--rds-file-uploader-file-item-min-height, 48px);
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
     margin-bottom: var(--rds-spacing-sm, 8px);
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     background: var(--rds-background-paper, #fff);
     border-radius: var(--rds-border-radius, 6px);
+  }
+  &__file-item-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: var(--rds-font-weight-medium, 500);
+    color: var(--rds-text-primary, #222);
+  }
+  &__file-item-size {
+    flex: 0 0 auto;
+    margin: 0;
+    color: var(--rds-text-secondary, #666);
+    font-size: var(--rds-font-size-md, 14px);
+    white-space: nowrap;
   }
   &__file-icon {
     font-size: var(--rds-font-size-4xl, 32px);
@@ -375,10 +435,13 @@ color: var(--rds-color-primary, #1976d2);
     }
     &__file-list {
       margin-top: var(--rds-spacing-xs, 10px);
-      max-width: 98vw;
+      max-width: 100%;
+      width: 100%;
     }
     &__file-item {
-      padding: var(--rds-spacing-xs, 10px);
+      width: 100%;
+      max-width: 100%;
+      padding: var(--rds-spacing-xs, 10px) var(--rds-spacing-sm, 12px);
       gap: var(--rds-spacing-xs, 10px);
       font-size: var(--rds-font-size-md, 14px);
       border-radius: var(--rds-border-radius, 6px);
@@ -429,9 +492,13 @@ color: var(--rds-color-primary, #1976d2);
     }
     &__file-list {
       margin-top: var(--rds-spacing-sm, 14px);
+      width: 100%;
+      max-width: 100%;
     }
     &__file-item {
-      padding: var(--rds-spacing-sm, 14px);
+      width: 100%;
+      max-width: 100%;
+      padding: var(--rds-spacing-sm, 14px) var(--rds-spacing-md, 16px);
       gap: var(--rds-spacing-sm, 14px);
       font-size: var(--rds-font-size-md, 15px);
     }
@@ -511,10 +578,13 @@ color: var(--rds-color-primary, #1976d2);
     }
     &__file-list {
       margin-top: var(--rds-spacing-xs, 10px);
-      max-width: 98vw;
+      max-width: 100%;
+      width: 100%;
     }
     &__file-item {
-      padding: var(--rds-spacing-xs, 10px);
+      width: 100%;
+      max-width: 100%;
+      padding: var(--rds-spacing-xs, 10px) var(--rds-spacing-sm, 12px);
       gap: var(--rds-spacing-xs, 10px);
       font-size: var(--rds-font-size-md, 14px);
       border-radius: var(--rds-border-radius, 6px);

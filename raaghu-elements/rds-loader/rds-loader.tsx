@@ -45,6 +45,11 @@ const RdsLoader = (props: RdsLoaderProps) => {
     thickness = 3.6,
   } = props;
 
+  // Overlay sits on a dark backdrop — keep label/value text light for contrast in light mode
+  const overlayTextSx = overlay
+    ? { color: 'var(--rds-neutral-0, #fff)' }
+    : undefined;
+
   const getSizeValue = () => {
     if (variant === 'circular') {
       switch (size) {
@@ -66,7 +71,11 @@ const RdsLoader = (props: RdsLoaderProps) => {
       return (
         <Box sx={{ width: '100%' }}>
           {typeof label === 'string' && label && (
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            <Typography
+              variant="body2"
+              color={overlay ? undefined : 'text.secondary'}
+              sx={{ mb: 1, ...overlayTextSx }}
+            >
               {label}
             </Typography>
           )}
@@ -77,7 +86,11 @@ const RdsLoader = (props: RdsLoaderProps) => {
             aria-label={typeof label === 'string' ? label || 'Loading' : 'Loading'}
           />
           {value !== undefined && (
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+            <Typography
+              variant="body2"
+              color={overlay ? undefined : 'text.secondary'}
+              sx={{ mt: 1, ...overlayTextSx }}
+            >
               {Math.round(value)}%
             </Typography>
           )}
@@ -103,12 +116,20 @@ const RdsLoader = (props: RdsLoaderProps) => {
           aria-label={typeof label === 'string' ? label || 'Loading' : 'Loading'}
         />
         {typeof label === 'string' && label && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color={overlay ? undefined : 'text.secondary'}
+            sx={overlayTextSx}
+          >
             {label}
           </Typography>
         )}
         {value !== undefined && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color={overlay ? undefined : 'text.secondary'}
+            sx={overlayTextSx}
+          >
             {Math.round(value)}%
           </Typography>
         )}
@@ -120,20 +141,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
 
   if (overlay) {
     return (
-      <Box
-        sx={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5))',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 'var(--rds-z-index-tooltip, 9999)',
-        }}
-      >
+      <Box className="rds-loader rds-loader--overlay" role="presentation">
         {loaderElement}
       </Box>
     );
