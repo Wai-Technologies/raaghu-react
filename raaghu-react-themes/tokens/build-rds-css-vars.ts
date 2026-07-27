@@ -1382,6 +1382,10 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-surface-hover': 'var(--rds-action-hover)',
     '--rds-color-primary': 'var(--rds-primary-main)',
     '--rds-color-primary-hover': 'var(--rds-primary-light)',
+    // Higher opacity than light (8%/12%) so containers stay visible on dark surfaces
+    '--rds-color-primary-container': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
+    '--rds-color-primary-container-hover': 'color-mix(in srgb, var(--rds-primary-main) 28%, transparent)',
+    '--rds-color-primary-container-variant': 'color-mix(in srgb, var(--rds-primary-main) 24%, transparent)',
     '--rds-color-success': 'var(--rds-success-main)',
     '--rds-color-error': 'var(--rds-error-main)',
     '--rds-color-danger': 'var(--rds-error-main)',

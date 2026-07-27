@@ -91,7 +91,8 @@
       vertical-align: middle;
     }
     
-    button {
+    // Exclude dropdown menu items so icon+text stay left-aligned
+    button:not(.rds-fab-menu__item) {
       background: none;
       border: none;
       cursor: pointer;
@@ -223,17 +224,25 @@
   }
 
 
+  &__volume-control {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
   &__volume-slider-container {
     position: absolute;
-    top: 85%;
-    right: var(--rds-spacing-sm, 8px);
+    top: calc(100% + var(--rds-spacing-xs, 4px));
+    left: 50%;
+    right: auto;
     z-index: var(--rds-z-index-dropdown, 1000);
     background: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius-sm, 6px);
     padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-md, 12px);
     border: 1px solid var(--rds-color-outline-variant);
     box-shadow: var(--rds-elevation-3, 0 8px 32px rgba(0, 0, 0, 0.12));
-    animation: rds-comp-audio-player-slide-down 0.2s ease-out;
+    animation: rds-comp-audio-player-volume-slide-down 0.2s ease-out;
+    translate: -50% 0;
   }
 
   &__volume-slider {
@@ -684,6 +693,17 @@
   }
 
   @keyframes rds-comp-audio-player-slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes rds-comp-audio-player-volume-slide-down {
     from {
       opacity: 0;
       transform: translateY(-10px);

@@ -94,7 +94,7 @@ const RdsAppBar = ({
       const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
       const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
       const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
-      const threshold = needsTabletBottomNav ? 840 : 420;
+      const threshold = variantLower === 'withnotificationbadge' ? 1280 : needsTabletBottomNav ? 840 : 420;
       setIsSmallScreen(window.innerWidth <= threshold);
     };
 

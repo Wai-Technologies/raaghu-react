@@ -27,7 +27,6 @@ figma.connect(
         "Style 3": "style3",
         "Style 4": "style4",
         "Style 5": "style5",
-        "Style 6": "style6",
       }),
 
     },

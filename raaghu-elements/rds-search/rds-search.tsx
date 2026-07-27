@@ -114,10 +114,11 @@ const RdsSearch = ({
             <IconButton
               onClick={handleSearch}
               edge="start"
+              size="small"
               aria-label="search"
               disabled={disabled}
             >
-              <SearchIcon />
+              <SearchIcon fontSize="small" />
             </IconButton>
           </InputAdornment>
         )
@@ -131,28 +132,31 @@ const RdsSearch = ({
                 <IconButton
                   onClick={handleClear}
                   edge="end"
+                  size="small"
                   aria-label="clear"
                   disabled={disabled}
                 >
-                  <ClearIcon />
+                  <ClearIcon fontSize="small" />
                 </IconButton>
                 <IconButton
                   onClick={handleSearch}
                   edge="end"
+                  size="small"
                   aria-label="search"
                   disabled={disabled}
                 >
-                  <SearchIcon />
+                  <SearchIcon fontSize="small" />
                 </IconButton>
               </>
             ) : (
               <IconButton
                 onClick={handleSearch}
                 edge="end"
+                size="small"
                 aria-label="search"
                 disabled={disabled}
               >
-                <SearchIcon />
+                <SearchIcon fontSize="small" />
               </IconButton>
             )}
           </InputAdornment>
@@ -163,10 +167,11 @@ const RdsSearch = ({
               <IconButton
                 onClick={handleClear}
                 edge="end"
+                size="small"
                 aria-label="clear"
                 disabled={disabled}
               >
-                <ClearIcon />
+                <ClearIcon fontSize="small" />
               </IconButton>
             </InputAdornment>
           )

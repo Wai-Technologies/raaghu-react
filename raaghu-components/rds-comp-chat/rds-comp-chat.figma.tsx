@@ -17,12 +17,12 @@ figma.connect(
     props: {},
     example: (props) => (
       <RdsCompChat
-        OtherUserCommentTextColor="#202020"
-        currentUserCommentBgColor="#7825E9"
-        currentUserCommentTextColor="#FEF7FF"
+        OtherUserCommentTextColor="var(--rds-text-primary)"
+        currentUserCommentBgColor="var(--rds-primary-main)"
+        currentUserCommentTextColor="var(--rds-primary-contrast-text, var(--rds-neutral-0))"
         handleAddComment={() => {}}
         isChatScreenEnabled
-        otherUserCommentBgColor="#E1E3EA"
+        otherUserCommentBgColor="var(--rds-neutral-300)"
         userData={[
           {
             activeDotButton: true,
