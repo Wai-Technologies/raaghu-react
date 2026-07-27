@@ -68,10 +68,12 @@
       border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
     }
     
+    /* Match the outlined hover intent on press: no purple fill, only a
+       primary-colored border/text (slightly darker for press feedback). */
     &:active {
-      background-color: var(--rds-button-secondary-bg-active);
-      border-color: var(--rds-button-secondary-border-active, var(--rds-button-primary-bg-hover, var(--rds-primary-main)));
-      color: var(--rds-button-secondary-text-active, var(--rds-button-primary-bg-hover, var(--rds-primary-main)));
+      background-color: transparent;
+      color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main)));
+      border-color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main)));
     }
   }
 
