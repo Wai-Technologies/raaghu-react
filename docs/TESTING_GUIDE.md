@@ -396,27 +396,6 @@ export const InteractionTest: Story = {
 };
 ```
 
-### Chromatic Integration
-
-```yaml
-# .github/workflows/chromatic.yml
-name: 'Chromatic'
-on: push
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: npm install
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-```
-
 ## Performance Testing
 
 ### Component Performance Tests
@@ -617,7 +596,7 @@ This repo uses three testing frameworks, each with a distinct role. Use the righ
 |---------------------|-----------------|-------------|
 | Component logic, props, events, accessibility | **Jest** + React Testing Library | `jest.config.js` |
 | Storybook story interactions and UI state | **Vitest** (via Storybook addon-vitest) | `vitest.config.ts` |
-| Visual regression snapshots | **Chromatic** | `chromatic.config.json` |
+| Visual / interaction smoke checks | **Vitest** Storybook tests | `npm run test:storybook` / `npm run test:visual` |
 
 ---
 
@@ -663,4 +642,4 @@ Story tests are co-located with stories (the `play` function in each `StoryObj`)
 
 ### Quick Rule
 
-> Write **Jest** tests first. Add a **Storybook play function** if the interaction is better shown visually. Use **Chromatic** for visual regression checks.
+> Write **Jest** tests first. Add a **Storybook play function** if the interaction is better shown visually. Run **`npm run test:storybook`** for story interaction / visual smoke checks.

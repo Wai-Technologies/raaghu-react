@@ -63,12 +63,6 @@ const preview: Preview = {
         },
       },
     },
-    chromatic: {
-      viewports: [375, 768, 1920],
-      delay: 1000,
-      diffThreshold: 0.2,
-      pauseAnimationAtEnd: true,
-    },
     a11y: {
       config: {},
 

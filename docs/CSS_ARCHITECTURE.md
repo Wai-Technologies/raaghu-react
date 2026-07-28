@@ -172,7 +172,7 @@ When you encounter hardcoded hex in an existing SCSS file:
 1. Find the matching semantic token in `tokens/build-rds-css-vars.ts`
 2. Replace `#3C98FF` → `var(--rds-primary-main)` (etc.)
 3. Test in Storybook with both light and dark toggle active
-4. Verify with Chromatic before merging
+4. Verify light/dark in Storybook before merging
 
 Current status: ~60 SCSS files still have hardcoded values.
 See `docs/THEME_INTEGRATION_COMPLETE.md` for the priority list.

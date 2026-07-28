@@ -3,10 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompAiAttachement, { RdsCompAiAttachementProps, UserData, Comment } from './rds-comp-ai-attachement';
+import RdsCompAiAttachment, { RdsCompAiAttachmentProps, UserData, Comment } from './rds-comp-ai-attachment';
 
 // Mock SCSS
-jest.mock('./rds-comp-ai-attachement.scss', () => ({}));
+jest.mock('./rds-comp-ai-attachment.scss', () => ({}));
 
 // Mock Material UI Icons
 jest.mock('@mui/icons-material/Attachment', () => {
@@ -93,7 +93,7 @@ jest.mock('../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon', () => ({
   registerMaterialIcons: jest.fn(),
 }));
 
-describe('RdsCompAiAttachement', () => {
+describe('RdsCompAiAttachment', () => {
   const mockUserData: UserData[] = [
     {
       firstName: 'John',
@@ -109,7 +109,7 @@ describe('RdsCompAiAttachement', () => {
     },
   ];
 
-  const defaultProps: RdsCompAiAttachementProps = {
+  const defaultProps: RdsCompAiAttachmentProps = {
     menuIcon: 'attach',
     modalTitle: 'Import Design',
     hintText: 'Enter Figma URL',
@@ -126,30 +126,30 @@ describe('RdsCompAiAttachement', () => {
 
   describe('Basic Rendering', () => {
     it('renders the component without crashing', () => {
-      render(<RdsCompAiAttachement {...defaultProps} />);
+      render(<RdsCompAiAttachment {...defaultProps} />);
       expect(screen.getByTestId('rds-fab-menu')).toBeInTheDocument();
     });
 
     it('renders the FAB menu with correct alignment', () => {
-      render(<RdsCompAiAttachement {...defaultProps} menuAlignment="right" />);
+      render(<RdsCompAiAttachment {...defaultProps} menuAlignment="right" />);
       expect(screen.getByTestId('rds-fab-menu')).toHaveAttribute('data-alignment', 'right');
     });
 
     it('renders upload and import buttons in FAB menu', () => {
-      render(<RdsCompAiAttachement {...defaultProps} />);
+      render(<RdsCompAiAttachment {...defaultProps} />);
       expect(screen.getByText('Upload')).toBeInTheDocument();
       expect(screen.getByText('Import from Figma')).toBeInTheDocument();
     });
 
     it('has correct display name for debugging', () => {
-      expect(RdsCompAiAttachement.displayName).toBe('RdsCompAiAttachement');
+      expect(RdsCompAiAttachment.displayName).toBe('RdsCompAiAttachment');
     });
   });
 
   describe('Badge Rendering', () => {
     it('renders badge when showBadge is true', () => {
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           showBadge={true}
           badgeLabel="NEW"
@@ -161,13 +161,13 @@ describe('RdsCompAiAttachement', () => {
     });
 
     it('does not render badge when showBadge is false', () => {
-      render(<RdsCompAiAttachement {...defaultProps} showBadge={false} />);
+      render(<RdsCompAiAttachment {...defaultProps} showBadge={false} />);
       expect(screen.queryByTestId('rds-badge')).not.toBeInTheDocument();
     });
 
     it('applies correct badge color', () => {
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           showBadge={true}
           badgeColor="success"
@@ -179,7 +179,7 @@ describe('RdsCompAiAttachement', () => {
 
   describe('Modal Functionality', () => {
     it('does not show modal initially', () => {
-      render(<RdsCompAiAttachement {...defaultProps} />);
+      render(<RdsCompAiAttachment {...defaultProps} />);
       expect(screen.queryByTestId('rds-modal')).not.toBeInTheDocument();
     });
   });
@@ -190,14 +190,14 @@ describe('RdsCompAiAttachement', () => {
 
   describe('File Upload', () => {
     it('renders hidden file input', () => {
-      const { container } = render(<RdsCompAiAttachement {...defaultProps} />);
+      const { container } = render(<RdsCompAiAttachment {...defaultProps} />);
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
       expect(fileInput).toBeInTheDocument();
       expect(fileInput).toHaveStyle({ display: 'none' });
     });
 
     it('triggers file input when import button is clicked', async () => {
-      const { container } = render(<RdsCompAiAttachement {...defaultProps} />);
+      const { container } = render(<RdsCompAiAttachment {...defaultProps} />);
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
       const clickSpy = jest.spyOn(fileInput, 'click');
 
@@ -209,7 +209,7 @@ describe('RdsCompAiAttachement', () => {
     it('handles image file upload', async () => {
       const handleAddComment = jest.fn();
       const { container } = render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           handleAddComment={handleAddComment}
         />
@@ -244,7 +244,7 @@ describe('RdsCompAiAttachement', () => {
     it('only accepts image files', async () => {
       const handleAddComment = jest.fn();
       const { container } = render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           handleAddComment={handleAddComment}
         />
@@ -262,7 +262,7 @@ describe('RdsCompAiAttachement', () => {
     });
 
     it('clears file input after upload', async () => {
-      const { container } = render(<RdsCompAiAttachement {...defaultProps} />);
+      const { container } = render(<RdsCompAiAttachment {...defaultProps} />);
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
       // Mock FileReader
@@ -292,22 +292,22 @@ describe('RdsCompAiAttachement', () => {
   describe('Props and Defaults', () => {
     it('uses default values for optional props', () => {
       const { container } = render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           modalTitle="Test"
           userData={mockUserData}
         />
       );
-      expect(container.querySelector('.rds-comp-ai-attachement__dropdown')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-attachment__dropdown')).toBeInTheDocument();
     });
 
     it('renders with left menu alignment by default', () => {
-      render(<RdsCompAiAttachement {...defaultProps} menuAlignment={undefined} />);
+      render(<RdsCompAiAttachment {...defaultProps} menuAlignment={undefined} />);
       expect(screen.getByTestId('rds-fab-menu')).toHaveAttribute('data-alignment', 'left');
     });
 
     it('applies custom menu icon', () => {
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           menuIcon="custom-icon"
         />
@@ -334,7 +334,7 @@ describe('RdsCompAiAttachement', () => {
       ];
 
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           userData={customUserData}
         />
@@ -361,7 +361,7 @@ describe('RdsCompAiAttachement', () => {
       ];
 
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           userData={userDataWithComments}
         />
@@ -375,13 +375,13 @@ describe('RdsCompAiAttachement', () => {
 
   describe('Accessibility', () => {
     it('buttons have proper roles', async () => {
-      render(<RdsCompAiAttachement {...defaultProps} />);
+      render(<RdsCompAiAttachment {...defaultProps} />);
       const buttons = screen.getAllByRole('button');
       expect(buttons.length).toBeGreaterThan(0);
     });
   
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsCompAiAttachement {...defaultProps} />);
+      const { container } = render(<RdsCompAiAttachment {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
@@ -390,7 +390,7 @@ describe('RdsCompAiAttachement', () => {
   describe('Edge Cases', () => {
     it('handles empty userData array', () => {
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           userData={[]}
         />
@@ -400,7 +400,7 @@ describe('RdsCompAiAttachement', () => {
 
     it('handles undefined userData', () => {
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           userData={undefined}
         />
@@ -410,7 +410,7 @@ describe('RdsCompAiAttachement', () => {
 
     it('handles undefined callbacks gracefully', () => {
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           onFigmaSubmit={undefined}
           handleAddComment={undefined}
@@ -421,7 +421,7 @@ describe('RdsCompAiAttachement', () => {
 
     it('handles empty badge label', () => {
       render(
-        <RdsCompAiAttachement
+        <RdsCompAiAttachment
           {...defaultProps}
           showBadge={true}
           badgeLabel=""
