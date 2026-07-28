@@ -1042,7 +1042,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-surface-neutral-darker': surfaceTokens.neutralDarker,
     '--rds-surface-neutral-dark': surfaceTokens.neutralDark,
     '--rds-surface-neutral-medium': surfaceTokens.neutralMedium,
-    '--rds-surface-neutral-light': n[200],
+    '--rds-surface-neutral-light': surfaceTokens.neutralLight,
     '--rds-surface-neutral-subtle': white,
     // ── Secondary ────────────────────────────────────────────────────────────
     '--rds-secondary-main': s[700],

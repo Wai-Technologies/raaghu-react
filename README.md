@@ -59,12 +59,13 @@
 <p align="center">Built on a Robust Technology Stack</p>
 <br>
 <p align="center">
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="Figma"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/>
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-vite.svg" width="50" height="50" alt="Vite"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-typescript.svg" width="50" height="50" alt="TypeScript"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-mui.svg" width="50" height="50" alt="MUI"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-storybook.svg" width="50" height="50" alt="Storybook"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-figma.svg" width="50" height="50" alt="Figma"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/>
 </p>
 <br>
 <!-- <p>

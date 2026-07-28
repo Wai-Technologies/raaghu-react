@@ -90,18 +90,43 @@ const RdsAppBar = ({
   const [localBottomActive, setLocalBottomActive] = useState(0);
 
   useEffect(() => {
+    const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
+    const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
+    const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
+    const threshold = variantLower === 'withnotificationbadge' ? 1280 : needsTabletBottomNav ? 840 : 420;
+
+    // Storybook viewport addon can report the full manager width on the first paint
+    // before the iframe is resized — prefer layout width and keep observing.
+    const getViewportWidth = () =>
+      Math.min(
+        window.innerWidth || Number.POSITIVE_INFINITY,
+        document.documentElement?.clientWidth || Number.POSITIVE_INFINITY,
+        document.body?.clientWidth || Number.POSITIVE_INFINITY,
+      );
+
     const checkScreenSize = () => {
-      const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
-      const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
-      const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
-      const threshold = variantLower === 'withnotificationbadge' ? 1280 : needsTabletBottomNav ? 840 : 420;
-      setIsSmallScreen(window.innerWidth <= threshold);
+      setIsSmallScreen(getViewportWidth() <= threshold);
     };
 
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
 
-    return () => window.removeEventListener('resize', checkScreenSize);
+    const resizeObserver =
+      typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(() => checkScreenSize())
+        : null;
+    resizeObserver?.observe(document.documentElement);
+
+    // Catch delayed Storybook iframe viewport application after reload.
+    const rafId = window.requestAnimationFrame(checkScreenSize);
+    const timeoutId = window.setTimeout(checkScreenSize, 100);
+
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+      resizeObserver?.disconnect();
+      window.cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+    };
   }, [variantStyle]);
   const colorClass =
     props.color === 'primary'
@@ -245,6 +270,7 @@ const RdsAppBar = ({
                         className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
                         style="transparent"
                         size="small"
+                        layout="text-only"
                         text={label}
                       />
                     );
@@ -276,13 +302,19 @@ const RdsAppBar = ({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    padding: `${tokens.space(1)} ${tokens.space(2)}`,
+                    height: 56,
+                    maxHeight: 56,
+                    minHeight: 56,
+                    padding: `0 ${tokens.space(2)}`,
                     display: 'flex',
                     justifyContent: 'space-around',
                     alignItems: 'center',
+                    overflow: 'hidden',
+                    boxSizing: 'border-box',
                     zIndex: tokens.zIndex.dropdown,
                     borderTop: `1px solid ${tokens.cssVar('border-default')}`,
                     boxShadow: tokens.cssVar('elevation-2'),
+                    backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface, #ffffff))',
                   }}
                 >
                   {tabs.map((t, i) => {
@@ -298,6 +330,7 @@ const RdsAppBar = ({
                         className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
                         style="transparent"
                         size="small"
+                        layout="text-only"
                         text={label}
                       />
                     );

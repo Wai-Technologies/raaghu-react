@@ -81,6 +81,10 @@ injected-vars.txt
 /coverage/
 testem.log
 
+# Local agent/browser temp profiles
+.tmp-chrome-profile*/
+.tmp-*/
+
 # System files
 .DS_Store
 Thumbs.db

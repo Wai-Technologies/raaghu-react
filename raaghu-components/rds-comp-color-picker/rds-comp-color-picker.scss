@@ -28,16 +28,18 @@
     display: flex;
     margin-bottom: var(--rds-spacing-sm);
     padding: var(--rds-spacing-sm);
-    background-color: var(--rds-color-surface-variant, #f0f0f0);
+    background-color: var(--rds-surface-neutral-light, #E1E3EA);
     border-radius: var(--rds-border-radius, 6px);
     flex-direction: row;
     gap: var(--rds-spacing-sm);
-    border: 1px solid var(--rds-color-outline, #fff);
+    border: none;
   }
   
   &__tab {
     cursor: pointer;
     border: none;
+    outline: none;
+    box-shadow: none;
     background-color: var(--rds-color-surface, #fff);
     color: var(--rds-color-on-surface, #1f1f1f);
     flex: 1;
@@ -47,14 +49,17 @@
     font-size: var(--rds-font-size-sm);
     transition: all var(--rds-transition-base);
 
+    &:hover,
     &:focus,
     &:focus-visible,
     &:active {
+      border: none;
       outline: none;
       box-shadow: none;
     }
     
     &--active {
+      border: none;
       background-color: var(--rds-color-primary, #1976d2);
       color: var(--rds-color-on-primary, #ffffff);
     }
@@ -684,15 +689,28 @@
     cursor: pointer;
   }
 }
- [data-theme="dark"] {
-  .rds-comp-color-picker { 
-    span , .MuiSvgIcon-root{
-    color: var(--rds-color-on-surface) !important;
-    fill: var(--rds-color-on-surface) !important;
-  }
+[data-theme="dark"] {
+  .rds-comp-color-picker {
+    span,
+    .MuiSvgIcon-root {
+      color: var(--rds-color-on-surface) !important;
+      fill: var(--rds-color-on-surface) !important;
+    }
+
+    .rds-comp-color-picker__tabs {
+      // Elevated track so it separates from the dark card surface (#424242)
+      background-color: var(--rds-color-surface-container, #4a4a4a);
+    }
 
     .rds-comp-color-picker__tab {
+      // Inactive pill needs its own fill — surface token matches the card in dark
+      background-color: var(--rds-neutral-700, #646464);
       color: var(--rds-color-on-surface, #f3f3f3);
+
+      &--active {
+        background-color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-on-primary, #ffffff);
+      }
     }
   }
 }

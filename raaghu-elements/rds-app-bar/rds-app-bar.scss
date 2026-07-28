@@ -19,7 +19,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
     height: calc(5.5 * var(--rds-spacing-xs, 4px));
-    margin-left: calc(2.5 * var(--rds-spacing-xs, 4px));
+    margin-left: 0;
   }
 }
 
@@ -517,7 +517,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 // Prevent title/search overlap when menu button consumes left toolbar space
 @media (max-width: 420px) {
   .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
-    .rds-header__title {
+    .rds-header__title:not(:empty) {
       flex: 0 1 auto !important;
       min-width: 0 !important;
       max-width: 38% !important;
@@ -1609,7 +1609,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
 @media (max-width: 420px) {
   .rds-header__toolbar {
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: nowrap;
   }
   
@@ -2560,6 +2560,16 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
   box-sizing: border-box;
   min-height: 56px;
+  max-height: 56px;
+  height: 56px;
+  overflow: hidden;
+  background: var(--rds-background-paper, var(--rds-color-surface, #ffffff));
+
+  .rds-bottom-nav-tab,
+  .MuiButton-root {
+    min-height: 0;
+    align-self: center;
+  }
 
   .rds-bottom-navigation-single-row {
     display: flex;
@@ -2782,9 +2792,51 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   }
 }
 
+// Keep hamburger + logo flush on tablet / large mobile / small mobile.
+// Avoid space-between, which opens a large gap between the menu button and logo.
+@media (max-width: 834px) {
+  .rds-header--has-menu-button {
+    .rds-header__toolbar {
+      justify-content: flex-start !important;
+      column-gap: 0 !important;
+      gap: 0 !important;
+    }
+
+    .rds-header__menu-button,
+    .rds-header__toolbar > .MuiIconButton-root[aria-label="menu"] {
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+    }
+
+    .rds-header__menu-button + .rds-header__logo,
+    .MuiIconButton-root[aria-label="menu"] + .rds-header__logo {
+      margin-left: 0 !important;
+    }
+
+    // Modest spacing only after the logo group (not between hamburger and logo)
+    .rds-header__logo + :not(.rds-header__title:empty) {
+      margin-left: var(--rds-spacing-xs, 4px);
+    }
+
+    .rds-header__title:empty {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .rds-header__right-actions,
+    .rds-header__actions,
+    .rds-appbar-overflow-button {
+      margin-left: auto;
+    }
+  }
+}
+
 @media (max-width: 320px) {
   .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
-    .rds-header__title {
+    .rds-header__title:not(:empty) {
       max-width: calc(100% - 130px) !important;
       font-size: var(--rds-font-size-sm) !important;
       margin: 0 var(--rds-spacing-xxs) !important;
