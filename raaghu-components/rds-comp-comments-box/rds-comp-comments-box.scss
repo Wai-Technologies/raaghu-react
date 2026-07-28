@@ -46,19 +46,20 @@
     box-shadow: none !important;
   }
   
-  // Figma Commentbox State=Comment Hover — hug content, padding/gap spacing-md, radius-s
+  // Figma Commentbox State=Comment Hover — fixed card width (matches tablet), padding/gap spacing-md, radius-s
   &--hover {
     display: flex;
     align-items: stretch;
-    width: fit-content;
+    width: 360px;
     max-width: 360px !important;
+    min-width: 0;
     box-sizing: border-box;
     padding: var(--rds-spacing-md, 16px);
     gap: var(--rds-spacing-md, 16px);
     background: var(--rds-background-paper, #ffffff);
     border: 1px solid var(--rds-border-default, var(--rds-neutral-200, #e0e0e0));
     border-radius: var(--rds-border-radius-sm, 4px);
-    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(16, 24, 40, 0.06));
+    box-shadow: none;
     overflow: visible;
 
     .rds-comments-box__comment-card {
@@ -163,7 +164,7 @@
     background: var(--rds-background-paper, #ffffff);
     border: 1px solid var(--rds-border-default, var(--rds-neutral-200, #e0e0e0));
     border-radius: var(--rds-border-radius-sm, 4px);
-    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(16, 24, 40, 0.06));
+    box-shadow: none;
     overflow: visible;
 
     // Compact icon buttons — MUI defaults to 40×40 and collapses the header into the author row
@@ -1955,6 +1956,7 @@
   }
 
   .rds-comments-box--hover {
+    width: min(360px, 95vw) !important;
     max-width: min(360px, 95vw) !important;
 
     .rds-comments-box__comment-card {
@@ -2179,6 +2181,7 @@
   }
 
   .rds-comments-box--hover {
+    width: min(360px, 98vw) !important;
     max-width: min(360px, 98vw) !important;
 
     .rds-comments-box__comment-card {
