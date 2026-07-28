@@ -352,6 +352,8 @@ const RdsAppBar = ({
                       zIndex: tokens.zIndex.dropdown,
                       borderTop: `1px solid ${tokens.cssVar('border-default')}`,
                       boxShadow: tokens.cssVar('elevation-2'),
+                      backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface, #ffffff))',
+                      color: 'var(--rds-color-on-surface, var(--rds-text-primary, #212121))',
                     }}
                   >
                     {isValidElement<{ children?: ReactNode }>(overflowContent) && overflowContent.props.children

@@ -2563,7 +2563,9 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   max-height: 56px;
   height: 56px;
   overflow: hidden;
+  // Paper surface (not app-bar fill) — use on-surface so light mode stays readable
   background: var(--rds-background-paper, var(--rds-color-surface, #ffffff));
+  color: var(--rds-color-on-surface, var(--rds-text-primary, #212121));
 
   .rds-bottom-nav-tab,
   .MuiButton-root {
@@ -2597,7 +2599,8 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   }
 
   .rds-bottom-nav-tab {
-    color: var(--rds-color-on-appbar, var(--rds-appbar-color));
+    // Bottom nav sits on paper/surface, not the colored app bar — avoid on-appbar (white)
+    color: var(--rds-color-on-surface, var(--rds-text-primary, #212121)) !important;
     text-transform: none;
     font-weight: 600;
     font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
@@ -2706,10 +2709,12 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   }
 }
 
-@media (max-width: 840px) {
+// Include notification-badge tablet range (up to 1280px) where bottom nav still shows
+@media (max-width: $rds-app-bar-breakpoint-notification-tablet) {
   .rds-header:not([data-theme="dark"]) {
-    .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
-      color: var(--rds-color-on-surface) !important;
+    .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active),
+    .rds-bottom-navigation .MuiButton-root:not(.rds-bottom-nav-tab--active) {
+      color: var(--rds-color-on-surface, var(--rds-text-primary, #212121)) !important;
     }
     .rds-header__tabs-inline .MuiTab-root:not(.Mui-selected),
     .rds-appbar-tabs-container .MuiButton-root:not(.Mui-selected),
