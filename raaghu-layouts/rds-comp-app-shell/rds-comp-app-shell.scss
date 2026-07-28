@@ -1848,6 +1848,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none !important;
     }
 
+    // Undo max-width:900px closed-drawer hide so tablet keeps a permanent sidebar
+    // (hamburger is hidden here; without this the left column stays blank).
+    &:not(.mobile-sidebar-open) > .sidebar-layout,
     .sidebar-layout {
       position: relative !important;
       transform: none !important;
@@ -1855,6 +1858,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: transparent !important;
       box-shadow: none !important;
       z-index: var(--rds-z-index-layer-1) !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      display: block !important;
     }
   }
 
@@ -1892,11 +1898,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
       
+      // Match other shells' bottom nav: active = primary color only (no top indicator bar).
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary) !important;
-        height: 3px !important;
-        top: 0 !important;
-        bottom: auto !important;
+        display: none !important;
       }
     }
     
@@ -2429,8 +2433,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       .tripane-toolbar-content {
         height: 100%;
         overflow-y: auto;
-        padding-left: var(--rds-spacing-md);
-        padding-right: var(--rds-spacing-md);
+        padding-left: 0;
+        padding-right: 0;
       }
     }
     
@@ -2490,7 +2494,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none !important;
     }
     
-    .sidebar-layout {
+    .sidebar-layout,
+    &:not(.mobile-sidebar-open) > .sidebar-layout {
       position: relative;
       transform: none;
       width: auto;
@@ -2498,6 +2503,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: transparent;
       box-shadow: none;
       display: block !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
     }
 
     .rds-appshell-side-nav-layout {
@@ -2735,12 +2742,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none !important;
     }
     
-    .sidebar-layout {
+    .sidebar-layout,
+    &:not(.mobile-sidebar-open) > .sidebar-layout {
       position: relative;
       transform: none;
       width: auto;
       background: transparent;
       box-shadow: none;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      display: block !important;
     }
     
     .rds-story-relaxing-sidebar {
@@ -2778,12 +2789,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none !important;
     }
     
-    .sidebar-layout {
+    .sidebar-layout,
+    &:not(.mobile-sidebar-open) > .sidebar-layout {
       position: relative;
       transform: none;
       width: auto;
       background: transparent;
       box-shadow: none;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      display: block !important;
     }
   }
 }
