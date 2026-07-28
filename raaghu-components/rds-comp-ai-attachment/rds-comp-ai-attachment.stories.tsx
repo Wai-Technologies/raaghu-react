@@ -1,10 +1,10 @@
-import RdsCompAiAttachement from "./rds-comp-ai-attachement";
+import RdsCompAiAttachment from "./rds-comp-ai-attachment";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
  
 const meta: Meta = {
-    title: "Components/AI ChatBox/Attachement",
-    component: RdsCompAiAttachement,
+    title: "Components/AI ChatBox/Attachment",
+    component: RdsCompAiAttachment,
     argTypes: {
         badgeColor: {
             control: { type: 'select' },
@@ -23,11 +23,11 @@ const meta: Meta = {
         }
     },
     tags: ['autodocs', 'stable'],
-} satisfies Meta<typeof RdsCompAiAttachement>;
+} satisfies Meta<typeof RdsCompAiAttachment>;
 
 
 export default meta;
-type Story = StoryObj<typeof RdsCompAiAttachement>;
+type Story = StoryObj<typeof RdsCompAiAttachment>;
 
 export const Default: Story = {
     args: {

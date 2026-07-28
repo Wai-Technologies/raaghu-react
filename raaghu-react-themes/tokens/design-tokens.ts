@@ -857,6 +857,8 @@ export const surfaceTokens = {
   neutralDark: '#4C4C4C',
   /** Medium neutral surface (light theme) */
   neutralMedium: '#CDCDCD',
+  /** Light neutral surface (light theme) */
+  neutralLight: '#E1E3EA',
 
   // ── Dark-mode UI chrome ───────────────────────────────────────────────────
   /** Standard dark surface (cards, panels) */

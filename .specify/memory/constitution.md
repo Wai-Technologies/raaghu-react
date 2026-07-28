@@ -16,7 +16,7 @@ Component hierarchy must be respected: Pages → Layouts → Components → Elem
 All styling must use `raaghu-react-themes` as the single point of contact:
 - **No hardcoded values**: All colors, spacing, typography must reference theme variables
 - **CSS Custom Properties**: Use CSS custom properties system (150+ design tokens)
-- **Theme consistency**: Support light, dark, and semi-dark themes uniformly
+- **Theme consistency**: Support light and dark themes uniformly
 - **BEM with RDS prefix**: `.rds-{component}`, `.rds-{component}__element`, `.rds-{component}--modifier`
 
 ### III. Component Structure Standards (STRICT)
@@ -36,7 +36,7 @@ Testing Trophy methodology with strict coverage requirements:
 - **15% Integration Tests**: Component interaction and data flow
 - **5% E2E Tests**: Complete user journey validation
 - **85%+ Code Coverage**: Minimum threshold for all components
-- **Visual Regression**: Chromatic integration for UI consistency
+- **Visual Regression**: Storybook / Vitest visual smoke checks
 
 ### V. Performance by Design (MANDATORY)
 Performance considerations integrated from component creation:
@@ -70,11 +70,11 @@ Support for 8 primary languages with RTL capability:
 - **Vite 7.0.4**: Build tool and development server
 
 ### Development Tools (REQUIRED)
-- **Storybook 9.0.16**: Component documentation and testing
+- **Storybook 10**: Component documentation and testing
 - **ESLint 9.30.1**: Code quality and consistency enforcement
 - **Million.js 3.1.11**: React performance optimization
 - **Jest + Testing Library**: Unit and integration testing
-- **Chromatic**: Visual regression testing
+- **Storybook + Vitest**: Visual and interaction smoke testing
 
 ### Performance Monitoring (CONTINUOUS)
 - **Web Vitals**: Real-time performance metrics
@@ -89,7 +89,7 @@ Support for 8 primary languages with RTL capability:
 2. **Story Creation**: Storybook story with all variants and states
 3. **Test Writing**: Unit tests covering behavior and edge cases
 4. **Implementation**: Component with TypeScript and SCSS
-5. **Visual Testing**: Chromatic visual regression validation
+5. **Visual Testing**: Storybook / Vitest story tests
 6. **Performance Check**: Bundle size and runtime performance validation
 7. **Accessibility Audit**: WCAG compliance verification
 8. **Documentation**: README and usage examples
@@ -105,7 +105,7 @@ Support for 8 primary languages with RTL capability:
 ### Quality Gates
 - **Build Success**: TypeScript compilation without errors
 - **Test Passing**: All unit and integration tests pass
-- **Visual Consistency**: Chromatic visual tests approved
+- **Visual Consistency**: Storybook story tests reviewed
 - **Performance Budget**: Bundle size within limits
 - **Accessibility Compliance**: axe-core tests passing
 - **Code Quality**: ESLint rules passing

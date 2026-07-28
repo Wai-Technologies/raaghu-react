@@ -146,7 +146,7 @@ export const Selected: StoryObj<typeof RdsCommentBox> = {
 export const Typing: StoryObj<typeof RdsCommentBox> = {
   args: {
     state: 'typing',
-    typingPlaceholderText: 'Placeholder...',
+    typingPlaceholderText: 'Placeholder',
     avatarInitials: 'RD', 
     mentionUsers: ['John Doe', 'Harry Cane', 'Romella', 'Jackson', 'Stephen'],
     attachmentLabels: { computer: 'Computer', googleDrive: 'Google Drive', oneDrive: 'One Drive' },
@@ -165,17 +165,28 @@ export const CommentPosted: StoryObj<typeof RdsCommentBox> = {
     avatarInitials: 'RD',
   },
   parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        story:
+          'Comment Posted state — floating 38×42 hug avatar with unread badge at top-right (matches Figma Commentbox State=Comment Posted, Type=Floating).',
+      },
+    },
     controls: {
       include: ['avatarInitials'],
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelector('.rds-comments-box--posted')).toBeTruthy();
+    await expect(canvasElement.querySelector('.rds-avatar__dot--top, .rds-comments-box__dot')).toBeTruthy();
+  },
 };
 
 export const CommentHover: StoryObj<typeof RdsCommentBox> = {
   args: {
     state: 'comment Hover',
-    hoverText: 'This is the sample hover text...',
+    hoverText: 'This is the sample text...',
     hoverTime: '1 hour ago',
     hoverMeta: '10 Replies . 2 Images . 1 GIF',
     commentHoverName: 'Renne Doe',
@@ -184,11 +195,31 @@ export const CommentHover: StoryObj<typeof RdsCommentBox> = {
     deleteLabel: 'Delete',
   },
   parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        story:
+          'Comment Hover state — white card with avatar, author, timestamp, pin/more actions, body text, and reply metadata (matches Figma Commentbox State=Comment Hover).',
+      },
+    },
     controls: {
-      include: ['hoverText', 'hoverTime', 'hoverMeta', 'commentHoverName', 'avatarInitials', 'editLabel', 'deleteLabel'],
+      include: [
+        'hoverText',
+        'hoverTime',
+        'hoverMeta',
+        'commentHoverName',
+        'avatarInitials',
+        'editLabel',
+        'deleteLabel',
+      ],
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelector('.rds-comments-box--hover')).toBeTruthy();
+    await expect(canvasElement.textContent).toContain('Renne Doe');
+    await expect(canvasElement.textContent).toContain('This is the sample text...');
+  },
 };
 
 export const CommentThread: StoryObj<typeof RdsCommentBox> = {
@@ -200,7 +231,7 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
     meta: '10 Replies . 2 Images . 1 GIF',
     translate: 'Translate',
     imgSrc: '/assets/ThreadHero.png',
-    imgProps: { alt: 'Custom preview', style: { borderRadius: '8px', width: '200px', height: '140px' } },
+    imgProps: { alt: 'Custom preview' },
     commentThreadName: 'Renne Doe',
     score: '00',
     avatarInitials: 'RD',
@@ -211,6 +242,13 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
     deleteLabel: 'Delete',
   },
   parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        story:
+          'Comment Thread state — floating white card (~416×453 hug) with header actions, vote score, author row, preview image, meta/Translate, and reply input (matches Figma Commentbox State=Commentbox Thread, Type=Floating).',
+      },
+    },
     controls: {
       include: [
         'threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'editIcon', 'deleteIcon', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo', 'editLabel', 'deleteLabel'
@@ -218,6 +256,12 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelector('.rds-comments-box--thread')).toBeTruthy();
+    await expect(canvasElement.textContent).toContain('Comment');
+    await expect(canvasElement.textContent).toContain('Renne Doe');
+    await expect(canvasElement.textContent).toContain('This is the sample text...');
+  },
 };
 
 

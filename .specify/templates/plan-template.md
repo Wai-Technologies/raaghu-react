@@ -39,9 +39,9 @@
 **Base Framework**: React 19.1.0 with TypeScript 5.8.3  
 **Styling**: SCSS with BEM methodology + CSS custom properties  
 **Base Component**: [Material-UI component if applicable, or custom implementation]  
-**Theme Support**: Light/Dark/Semi-dark themes via design tokens  
-**Testing**: Jest + Testing Library + Chromatic visual regression  
-**Documentation**: Storybook 9.0.16 with MDX documentation  
+**Theme Support**: Light/Dark themes via design tokens  
+**Testing**: Jest + Testing Library + Storybook/Vitest  
+**Documentation**: Storybook 10 with MDX documentation  
 **Accessibility**: WCAG 2.1 AA compliance with axe-core testing  
 **Internationalization**: i18next support for 8 languages + RTL  
 **Performance Goals**: Bundle size < 10KB, LCP contribution < 50ms  
@@ -60,7 +60,7 @@
 ### II. Single Source of Truth for Theming
 - [ ] **No Hardcoded Values**: All colors, spacing, typography use CSS custom properties
 - [ ] **Design Token Usage**: Uses existing design tokens or defines new ones appropriately
-- [ ] **Theme Compatibility**: Supports all three themes (light/dark/semi-dark)
+- [ ] **Theme Compatibility**: Supports light and dark themes
 - [ ] **BEM Naming**: Follows `.rds-{component}__element--modifier` pattern
 
 ### III. Component Structure Standards
@@ -71,7 +71,7 @@
 ### IV. Test-Driven Development Requirements
 - [ ] **Test Strategy**: Unit tests covering behavior, not implementation
 - [ ] **Coverage Target**: Plan for 85%+ test coverage
-- [ ] **Visual Testing**: Chromatic integration for visual regression
+- [ ] **Visual Testing**: Storybook / Vitest story tests
 - [ ] **Accessibility Testing**: axe-core integration for a11y compliance
 
 ### V. Performance Standards
@@ -133,20 +133,18 @@ raaghu-layouts/                     # ORGANISM COMPONENTS (Layout compositions)
     └── index.ts
 
 raaghu-react-themes/               # CENTRALIZED THEME SYSTEM
-├── src/styles/
-│   ├── index.scss                # Main theme entry point
-│   ├── custom-properties.scss    # CSS custom properties (design tokens)
-│   ├── variables/
-│   │   └── color-variables.scss  # SCSS color variables
-│   └── themes/
-│       ├── light.scss           # Light theme
-│       ├── dark.scss            # Dark theme
-│       └── semi-dark.scss       # Semi-dark theme
+├── tokens/
+│   ├── design-tokens.ts          # Token source of truth
+│   └── build-rds-css-vars.ts     # injectTokens() → --rds-* on <html>
+└── src/
+    ├── provider/RaaghuThemeProvider.tsx
+    ├── mui/                      # MUI light/dark themes
+    └── styles/index.scss         # Global resets (var(--rds-*))
 
-stories/                           # STORYBOOK CONFIGURATION
+.storybook/                        # STORYBOOK CONFIGURATION
 ├── main.ts                       # Storybook main configuration
 ├── preview.ts                    # Global decorators and parameters
-└── theme.ts                      # Storybook theme customization
+└── storybook-theme-sync.ts       # Toolbar theme → RaaghuThemeProvider
 api/
 └── [same as backend above]
 

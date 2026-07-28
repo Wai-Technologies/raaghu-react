@@ -4,9 +4,9 @@ import "./rds-comp-ai-typing-section.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsAutocomplete from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import RdsCompAiAttachement, {
+import RdsCompAiAttachment, {
   Comment as AttachmentComment,
-} from "../../raaghu-components/rds-comp-ai-attachement/rds-comp-ai-attachement";
+} from "../../raaghu-components/rds-comp-ai-attachment/rds-comp-ai-attachment";
 import RdsCompAiIcon, { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
 
 export interface RdsCompAiTypingSectionProps {
@@ -140,7 +140,7 @@ const RdsCompAiTypingSectionComponent = ({
         >
           <div className="rds-comp-ai-typing-section__action-icons">
             <div className="rds-comp-ai-typing-section__attach" id="Premium">
-              <RdsCompAiAttachement
+              <RdsCompAiAttachment
                 badgeColor="primary"
                 badgeLabel="Premium"
                 handleAddComment={handleAddComment}

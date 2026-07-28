@@ -85,7 +85,7 @@ When creating this spec from a user prompt:
 - **CR-007**: Component MUST handle [NEEDS CLARIFICATION: loading state behavior not defined]
 
 ### Design System Integration Requirements
-- **Theme Support**: Must work with light, dark, and semi-dark themes
+- **Theme Support**: Must work with light and dark themes
 - **Design Tokens**: Must use CSS custom properties for all styling values
 - **Typography**: Must integrate with Raaghu typography scale
 - **Spacing**: Must use standard spacing tokens for padding/margins

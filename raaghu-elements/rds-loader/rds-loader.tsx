@@ -141,9 +141,9 @@ const RdsLoader = (props: RdsLoaderProps) => {
 
   if (overlay) {
     return (
-      <Box className="rds-loader rds-loader--overlay" role="presentation">
+      <div className="rds-loader rds-loader--overlay" role="presentation">
         {loaderElement}
-      </Box>
+      </div>
     );
   }
 

@@ -7,12 +7,13 @@ This folder contains the **project-level** Storybook documentation. It is distin
 ```
 stories/
 ├── Introduction.mdx     # Storybook landing page — project overview, tech stack, quick links
-├── ThemeSync.tsx        # Interactive theme switcher shown in the Introduction
 └── assets/             # Shared images and media used in documentation pages
     ├── *.gif            # Animation demos
     ├── *.svg            # Brand and icon assets
     └── *.png            # Screenshots and diagrams
 ```
+
+Theme switching in Storybook is handled by `.storybook/storybook-theme-sync.ts` (toolbar globals → `RaaghuThemeProvider`), not a file under `stories/`.
 
 ## Root `stories/` vs. Colocated `.stories.tsx`
 
@@ -21,7 +22,7 @@ stories/
 | **Location** | `stories/` at repo root | Next to each component (e.g., `raaghu-elements/rds-button/rds-button.stories.tsx`) |
 | **Purpose** | Project-level docs: intro, guides, design philosophy | Component-level docs: props, variants, interaction tests |
 | **Audience** | Anyone landing on the Storybook site | Developers building with or maintaining that component |
-| **Contents** | MDX pages, theme demos, shared assets | Story exports with `args`, `argTypes`, and `play()` functions |
+| **Contents** | MDX pages, shared assets | Story exports with `args`, `argTypes`, and `play()` functions |
 
 ## Storybook Story Discovery Order
 

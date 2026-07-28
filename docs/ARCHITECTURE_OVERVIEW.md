@@ -22,7 +22,7 @@
 │   └── src/
 │       ├── main.tsx                  ← RaaghuThemeProvider bootstrap
 │       └── pages/DashboardPage.tsx   ← RdsCompAppShell demo
-├── utils/griffel/                    ← GriffelProvider (legacy; use RaaghuThemeProvider)
+├── utils/                            ← shared helpers (performance exported; a11y/i18n/quality reference)
 └── .storybook/                       ← component documentation (primary demo today)
 ```
 
@@ -80,9 +80,7 @@ import { RaaghuThemeProvider } from '@waiin/raaghu-react/raaghu-react-themes/src
 `RaaghuThemeProvider` initialises from `localStorage` on mount (key: `raaghu-theme`),
 falls back to `prefers-color-scheme`, then to `defaultMode`.
 
-**Do not** use `GriffelProvider` as the app root — it is a legacy wrapper that does
-not wire MUI correctly. `RaaghuThemeProvider` already covers MUI, CSS vars, and
-`CssBaseline`.
+Do not introduce a separate Griffel app-root provider. `RaaghuThemeProvider` already covers MUI, CSS vars, and `CssBaseline`. `@griffel/react` remains an optional dependency for atomic CSS-in-JS where needed, but there is no `utils/griffel` package in this repo.
 
 ---
 
@@ -166,10 +164,10 @@ raaghu-react-themes   ← design-tokens.ts → CSS vars → MUI theme
 |---|---|
 | Components | React 19, TypeScript 5.8 |
 | Base UI | Material UI 7 |
-| CSS-in-JS (optional) | Griffel (`@griffel/react`) |
-| Styling | SCSS/Sass (`sass-embedded`) |
+| CSS-in-JS (optional) | Griffel (`@griffel/react`) — no dedicated provider folder |
+| Styling | SCSS/Sass (`sass`) |
 | Build | Vite 7 |
-| Docs / Visual tests | Storybook 9, Chromatic |
+| Docs / Visual tests | Storybook 10, Vitest (story tests) |
 | Testing | Jest, React Testing Library, Vitest (Storybook) |
 | Package manager | npm |
 

@@ -2,13 +2,13 @@ import { useCallback, useMemo, useRef, useState, type ChangeEvent, type MouseEve
 import type { RdsBadgeProps } from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
-import "./rds-comp-ai-attachement.scss";
+import "./rds-comp-ai-attachment.scss";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsCompAiFabMenu from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 
-export interface RdsCompAiAttachementProps {
+export interface RdsCompAiAttachmentProps {
   menuIcon?: string;
   modalTitle?: string;
   hintText?: string;
@@ -26,6 +26,9 @@ export interface RdsCompAiAttachementProps {
   handleAddComment?: (comment: Comment) => void;
   menuAlignment?: "left" | "right";
 }
+
+/** @deprecated Use `RdsCompAiAttachmentProps` */
+export type RdsCompAiAttachementProps = RdsCompAiAttachmentProps;
 
 export interface UserData {
   firstName: string;
@@ -49,7 +52,7 @@ export interface Comment {
 
 registerMaterialIcons({ attachment_icon: AttachmentIcon });
 
-const RdsCompAiAttachement = ({
+const RdsCompAiAttachment = ({
   menuIcon,
   modalTitle,
   hintText,
@@ -64,7 +67,7 @@ const RdsCompAiAttachement = ({
   onFigmaSubmit,
   handleAddComment,
   menuAlignment = "left",
-}: RdsCompAiAttachementProps) => {
+}: RdsCompAiAttachmentProps) => {
   const [showModal, setShowModal] = useState(false);
   const [figmaUrl, setFigmaUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -132,12 +135,12 @@ const RdsCompAiAttachement = ({
           <button
             type="button"
             onClick={openModal}
-            className="rds-comp-ai-attachement__reset-btn"
+            className="rds-comp-ai-attachment__reset-btn"
             data-bs-toggle="modal"
             data-bs-target="#modal1234"
           >
-            <span className="rds-comp-ai-attachement__upload-row">
-              <span className="rds-comp-ai-attachement__upload-text">{uploadText}</span>
+            <span className="rds-comp-ai-attachment__upload-row">
+              <span className="rds-comp-ai-attachment__upload-text">{uploadText}</span>
               {showBadge && (
                 <RdsBadge
                   colorVariant={badgeColor || "primary"}
@@ -156,7 +159,7 @@ const RdsCompAiAttachement = ({
       {
         key: "refresh",
         value: (
-          <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachement__reset-btn">
+          <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachment__reset-btn">
             {importText}
           </button>
         ),
@@ -178,13 +181,13 @@ const RdsCompAiAttachement = ({
       <input
         type="file"
         ref={fileInputRef}
-        className="rds-comp-ai-attachement__file-input"
+        className="rds-comp-ai-attachment__file-input"
         style={{ display: "none" }}
         onChange={handleFileUpload}
         aria-label="Upload attachment"
       />
 
-      <div className="rds-comp-ai-attachement__dropdown">
+      <div className="rds-comp-ai-attachment__dropdown">
         <RdsCompAiFabMenu
           menuIcon={menuIcon}
           backgroundType="none"
@@ -203,7 +206,7 @@ const RdsCompAiAttachement = ({
           actions={null}
           showCloseButton={true}
         >
-          <p className="text-muted rds-comp-ai-attachement__import-size">{modalText}</p>
+          <p className="text-muted rds-comp-ai-attachment__import-size">{modalText}</p>
           <RdsInput
             hintText={hintText}
             id="default-input"
@@ -221,5 +224,5 @@ const RdsCompAiAttachement = ({
   );
 };
 
-RdsCompAiAttachement.displayName = "RdsCompAiAttachement";
-export default RdsCompAiAttachement;
+RdsCompAiAttachment.displayName = "RdsCompAiAttachment";
+export default RdsCompAiAttachment;

@@ -52,19 +52,20 @@
 ## <a name='raaghu-intro'></a> What is Raaghu Design System?
 
 <p>
-  <b>The Raaghu Design System</b> is an AI-powered, component-driven development platform backed by a large, active community. We continuously enhance our platform by adding app shells, layouts, and component designs, which are transformed into coded components by AI Pundit and community members, enriching our component library. Each design component is seamlessly connected to code through Figma Code Connect, allowing designers and developers to achieve 3x faster front-end development. All components are rigorously tested using Chromatic to ensure quality and reliability.
+  <b>The Raaghu Design System</b> is an AI-powered, component-driven development platform backed by a large, active community. We continuously enhance our platform by adding app shells, layouts, and component designs, which are transformed into coded components by AI Pundit and community members, enriching our component library. Each design component is seamlessly connected to code through Figma Code Connect, allowing designers and developers to achieve 3x faster front-end development. All components are rigorously tested using Storybook and automated unit/story tests to ensure quality and reliability.
 
 </p>
 <br>
 <p align="center">Built on a Robust Technology Stack</p>
 <br>
 <p align="center">
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="Figma"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/>
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-vite.svg" width="50" height="50" alt="Vite"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-typescript.svg" width="50" height="50" alt="TypeScript"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-mui.svg" width="50" height="50" alt="MUI"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-storybook.svg" width="50" height="50" alt="Storybook"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-figma.svg" width="50" height="50" alt="Figma"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/tech-stack-lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/>
 </p>
 <br>
 <!-- <p>
@@ -119,7 +120,7 @@
 ## <a name='how'></a> How Raaghu Design System Works?
 
 <p>
-The Raaghu Design System streamlines front-end development by combining an AI-powered component-driven approach with seamless design-to-code integration. Designers use the Figma design kit, available on the Figma Community, to create prototypes, which are automatically linked to code via Figma Code Connect. Raaghu’s AI Pundit converts these designs into fully functional, reusable components, documented in Storybook. Continuous updates from community contributors and rigorous testing with Chromatic ensure quality, enabling designers and developers to achieve up to 3x faster development.
+The Raaghu Design System streamlines front-end development by combining an AI-powered component-driven approach with seamless design-to-code integration. Designers use the Figma design kit, available on the Figma Community, to create prototypes, which are automatically linked to code via Figma Code Connect. Raaghu’s AI Pundit converts these designs into fully functional, reusable components, documented in Storybook. Continuous updates from community contributors and rigorous testing with Storybook ensure quality, enabling designers and developers to achieve up to 3x faster development.
 </p>
 <br><br>
 

@@ -33,15 +33,27 @@ export const DropdownMenu = ({ visible, anchorRef, onClose, onSelect, labels }: 
   if (!visible) return null;
   return (
     <div ref={menuRef} className="rds-comments-box__attachment-dropdown-menu">
-      <button type="button" className="rds-comments-box__attachment-dropdown-item" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => { onSelect(labels?.computer || 'Computer'); onClose(); }}>
+      <button
+        type="button"
+        className="rds-comments-box__attachment-dropdown-item"
+        onClick={() => { onSelect(labels?.computer || 'Computer'); onClose(); }}
+      >
         <ComputerIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">{labels?.computer || 'Computer'}</span>
       </button>
-      <button type="button" className="rds-comments-box__attachment-dropdown-item" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => { onSelect(labels?.googleDrive || 'Google Drive'); onClose(); }}>
+      <button
+        type="button"
+        className="rds-comments-box__attachment-dropdown-item"
+        onClick={() => { onSelect(labels?.googleDrive || 'Google Drive'); onClose(); }}
+      >
         <InsertDriveFileIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">{labels?.googleDrive || 'Google Drive'}</span>
       </button>
-      <button type="button" className="rds-comments-box__attachment-dropdown-item" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => { onSelect(labels?.oneDrive || 'One Drive'); onClose(); }}>
+      <button
+        type="button"
+        className="rds-comments-box__attachment-dropdown-item"
+        onClick={() => { onSelect(labels?.oneDrive || 'One Drive'); onClose(); }}
+      >
         <CloudIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">{labels?.oneDrive || 'One Drive'}</span>
       </button>

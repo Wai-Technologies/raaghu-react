@@ -13,7 +13,7 @@ const RdsCommentBox = (props: RdsCommentBoxProps) => {
   if (state === 'default' || !state) {
     return (
       <RdsBox className="rds-comments-box rds-comments-box--default">
-        <RdsAvatar className="rds-comments-box__avatar">{avatarInitials || 'RD'}</RdsAvatar>
+        <RdsAvatar size="small" showName={false} showDesignation={false} className="rds-comments-box__avatar">{avatarInitials || 'RD'}</RdsAvatar>
       </RdsBox>
     );
   }

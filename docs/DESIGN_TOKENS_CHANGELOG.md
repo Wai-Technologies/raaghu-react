@@ -75,4 +75,4 @@ Token renames are breaking changes. Before renaming:
 
 Changes to token values (not names) are not breaking at the API level, but they are visual breaking changes. Always:
 - Check contrast ratios with `utils/accessibility/index.ts → ColorContrastUtils`
-- Note the change here so UI reviewers know what to look for in Chromatic diffs
+- Note the change here so UI reviewers know what to look for in Storybook

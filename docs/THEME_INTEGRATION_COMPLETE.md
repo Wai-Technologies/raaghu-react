@@ -139,7 +139,7 @@ To migrate a component from hardcoded hex to tokens:
    `tokens/design-tokens.ts` or `tokens/build-rds-css-vars.ts`
 3. Replace the hex with `var(--rds-{token-name})`
 4. Test in Storybook with both light and dark toolbar toggle
-5. Verify no visual regression via Chromatic
+5. Verify no visual regression via Storybook (`npm run test:storybook`) / manual review
 
 Common mappings:
 

@@ -73,9 +73,9 @@ jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   };
 });
 
-// Mock RdsCompAiAttachement component
-jest.mock('../rds-comp-ai-attachement/rds-comp-ai-attachement', () => {
-  return function MockRdsCompAiAttachement(props: any) {
+// Mock RdsCompAiAttachment component
+jest.mock('../rds-comp-ai-attachment/rds-comp-ai-attachment', () => {
+  return function MockRdsCompAiAttachment(props: any) {
     return (
       <div
         data-testid="rds-attachment"
