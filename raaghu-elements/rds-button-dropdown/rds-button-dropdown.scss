@@ -4,6 +4,11 @@
     padding: var(--rds-button-dropdown-menu-padding, 6px);
     min-width: var(--rds-button-dropdown-menu-min-width, 176px);
     margin-top: 6px;
+    box-shadow: none !important;
+
+    .rds-menu__list {
+      box-shadow: none !important;
+    }
   }
 
   &__search {
