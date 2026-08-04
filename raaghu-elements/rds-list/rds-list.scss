@@ -196,7 +196,13 @@
       outline-offset: calc(-1 * var(--rds-list-focus-ring-width, 2px));
     }
   }
-}
+
+  &--nested {
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent !important;
+  }
+ }
 
 .rds-list--root {
   padding: 0;
@@ -244,6 +250,20 @@
     z-index: calc(var(--rds-z-index-base) + 1);
     padding: 0 var(--rds-spacing-md, 16px);
     background-color: var(--rds-background-paper);
+  }
+}
+
+.rds-list--sticky-subheader {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
+
+  .rds-list__section {
+    padding: 0;
+    margin: 0;
+    list-style: none;
   }
 }
 

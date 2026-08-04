@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsList from './rds-list';
-import { Avatar, Switch, ListSubheader, Paper } from '@mui/material';
+import { Avatar, Switch, Paper } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
@@ -424,17 +424,15 @@ const subheaderSections = [
 export const StickySubheader: Story = {
   render: (args) => (
     <div className="rds-list-demo__container rds-list-demo__container--sticky">
-      {subheaderSections.map((section) => (
-        <RdsList
-          key={section.title}
-          withDividers
-          className="rds-list--with-subheader"
-          subheader={<ListSubheader className="rds-list__subheader">{section.title}</ListSubheader>}
-          items={section.items}
-          dense={args.dense}
-          disablePadding={args.disablePadding}
-        />
-      ))}
+      <RdsList
+        withDividers
+        sections={subheaderSections.map((section) => ({
+          title: section.title,
+          items: section.items,
+        }))}
+        dense={args.dense}
+        disablePadding={args.disablePadding}
+      />
     </div>
   )
 };

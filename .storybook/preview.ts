@@ -1,8 +1,13 @@
 import type { Preview } from '@storybook/react-vite';
 import React from 'react';
+import {
+  getStorybookThemeFromUrl,
+  type RaaghuThemeMode,
+} from '../raaghu-react-themes/src/provider/theme-utils';
 import { RaaghuThemeProvider } from '../raaghu-react-themes/src/provider/RaaghuThemeProvider';
 import '../raaghu-react-themes/src/styles/index.scss';
 import './custom-theme.css';
+import { getDocsTheme } from './storybook-docs-theme';
 import './storybook-theme-sync';
 
 const preview: Preview = {
@@ -78,6 +83,9 @@ const preview: Preview = {
       // 'off' - skip a11y checks entirely
       test: 'off'
     },
+    docs: {
+      theme: getDocsTheme('system'),
+    },
     badgesConfig: {
       stable: {
         styles: {
@@ -107,7 +115,16 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const mode = (context.globals.theme || 'system') as 'light' | 'dark' | 'system';
+      const mode = (context.globals.theme ??
+        getStorybookThemeFromUrl() ??
+        'system') as RaaghuThemeMode;
+      const docsTheme = getDocsTheme(mode);
+
+      context.parameters.docs = {
+        ...context.parameters.docs,
+        theme: docsTheme,
+      };
+
       return React.createElement(
         RaaghuThemeProvider,
         {

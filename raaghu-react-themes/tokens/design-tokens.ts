@@ -740,7 +740,7 @@ componentTokens.pagination = {
     xl: '30px',
   },
   buttonMinWidth: '60px',
-  textFieldWidth: '44px',
+  textFieldWidth: '64px',
   smallGapOffset: '3px',
   dropdownMinWidth: '120px',
   fontSize: {

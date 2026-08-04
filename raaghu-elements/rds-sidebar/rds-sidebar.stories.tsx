@@ -32,7 +32,7 @@ const meta: Meta<typeof RdsSidebar> = {
     layout: 'padded',
     docs: {
       story: {
-        height: '450px'
+        height: '450px',
       },
       description: {
         component: `
@@ -152,8 +152,13 @@ const abpMenuItems = [
 const SidebarTemplate = (args: any) => {
   const logoSrc = useRaaghuLogoSrc();
   const [open, setOpen] = useState(!!args.isOpen);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [drawerContainer, setDrawerContainer] = useState<HTMLDivElement | null>(null);
   const { hideMainParagraph, hideToggleButton, ...sidebarArgs } = args;
+  const sidebarWidth = sidebarArgs.width ?? 240;
+  // Embedded preview uses a local container — permanent avoids modal scroll/focus lock in Docs.
+  const variant = sidebarArgs.variant ?? 'permanent';
+  const isPermanent = variant === 'permanent';
+  const reserveSidebarColumn = open && (isPermanent || variant === 'temporary' || variant === 'persistent');
 
   // Keep local open state in sync with the Storybook isOpen control
   useEffect(() => {
@@ -161,28 +166,71 @@ const SidebarTemplate = (args: any) => {
   }, [args.isOpen]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      {/* Keep toggle outside the drawer container so it stays visible when the sidebar overlays */}
-      {!hideToggleButton && (
-        <Button
-          variant="contained"
-          onClick={() => setOpen((prev: boolean) => !prev)}
-          sx={{ alignSelf: 'flex-start' }}
-        >
-          {open ? 'Close' : 'Open'} Sidebar
-        </Button>
-      )}
-      <Box sx={{ display: 'flex', position: 'relative', minHeight: 400 }} ref={containerRef}>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        position: 'relative',
+        minHeight: 400,
+        bgcolor: 'background.default',
+        overflow: 'hidden',
+        borderRadius: 1,
+        color: 'text.primary',
+      }}
+    >
+      <Box
+        ref={setDrawerContainer}
+        sx={{
+          position: 'relative',
+          flexShrink: 0,
+          width: reserveSidebarColumn ? (isPermanent ? 'auto' : sidebarWidth) : 0,
+          minWidth: isPermanent && open ? sidebarWidth : undefined,
+          minHeight: 400,
+          overflow: 'hidden',
+        }}
+      >
         <RdsSidebar
           {...sidebarArgs}
           avatarCollapsedSrc={logoSrc}
           isOpen={open}
           onClose={() => setOpen(false)}
-          container={containerRef.current}
+          container={drawerContainer}
         />
-        <Box sx={{ flexGrow: 1, p: 3, minWidth: 0 }}>
-          {!hideMainParagraph && <p>Main content area. The sidebar will slide over this content.</p>}
-        </Box>
+      </Box>
+      <Box
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          minWidth: 0,
+          alignSelf: 'flex-start',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          gap: 2,
+          flexWrap: 'wrap',
+        }}
+      >
+        {!hideToggleButton && (
+          <Button
+            variant="contained"
+            onClick={() => setOpen((prev: boolean) => !prev)}
+            sx={{ flexShrink: 0, whiteSpace: 'nowrap' }}
+          >
+            {open ? 'Close' : 'Open'} Sidebar
+          </Button>
+        )}
+        {!hideMainParagraph && (
+          <Box
+            component="p"
+            sx={{
+              m: 0,
+              flex: '1 1 14rem',
+              minWidth: 0,
+            }}
+          >
+            Main content area. The sidebar will slide over this content.
+          </Box>
+        )}
       </Box>
     </Box>
   );
@@ -212,6 +260,7 @@ export const MailApp = {
     items: mailItems,
     width: 280,
     isOpen: true,
+    variant: 'permanent',
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     showSearch: true,
