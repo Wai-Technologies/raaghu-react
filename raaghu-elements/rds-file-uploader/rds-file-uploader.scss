@@ -1,9 +1,13 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-file-uploader {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   position: relative;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 
   &__form-title {
@@ -44,14 +48,14 @@
     box-shadow: none;
     appearance: none;
     -webkit-appearance: none;
-    transition: color var(--rds-transition-base);
+
     &:hover,
     &:focus,
     &:focus-visible {
       background: none;
       outline: none;
       box-shadow: none;
-      color: var(--rds-color-primary-hover, #1976d2);
+      color: var(--rds-color-primary, #3390e6);
     }
   }
 
@@ -72,9 +76,10 @@
     transition: border-color var(--rds-transition-base), background-color var(--rds-transition-base);
     border-radius: var(--rds-file-uploader-dropzone-border-radius, var(--rds-border-radius, 8px));
     position: relative;
-    width: 100%;
+    width: 100% !important;
     max-width: 100%;
     min-width: 0;
+    align-self: stretch;
     box-sizing: border-box;
 
     &.rds-file-uploader__drop-zone--side-icon {
@@ -201,11 +206,18 @@
   &__standard {
     margin-bottom: var(--rds-spacing-lg, 24px);
     width: 80vw !important;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
   }
   &__input-row {
     display: flex;
     align-items: center;
     gap: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
     background: var(--rds-background-paper, #fff);
     border-radius: var(--rds-file-uploader-control-radius, 6px);
     border: 1px solid var(--rds-color-outline, #e0e0e0);
@@ -233,13 +245,16 @@
     background: var(--rds-color-surface, #fff);
     border-radius: 0 var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0;
     height: var(--rds-file-uploader-filename-height, 40px);
-    display: flex;
+    display: block;
     align-items: center;
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
     color: var(--rds-color-on-surface, #222);
     font-weight: var(--rds-font-weight-medium, 500);
     font-size: var(--rds-font-size-lg);
     padding-left: var(--rds-spacing-md, 16px);
+    line-height: var(--rds-file-uploader-filename-height, 40px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -247,6 +262,8 @@
   }
   &__hint-row {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -304,20 +321,22 @@
     box-shadow: none;
     appearance: none;
     -webkit-appearance: none;
-    transition: color var(--rds-transition-base);
+
     &:hover,
     &:focus,
     &:focus-visible {
       background: none;
       outline: none;
       box-shadow: none;
-      color: var(--rds-color-primary-hover, #1976d2);
+      color: var(--rds-color-primary, #3390e6);
     }
   }
   &__file-list {
     margin-top: var(--rds-spacing-md, 16px);
-    width: 100%;
+    width: 0;
+    min-width: 100%;
     max-width: 100%;
+    overflow: hidden;
     box-sizing: border-box;
   }
   &__file-list-title {
@@ -332,6 +351,7 @@
     width: 100%;
     max-width: 100%;
     min-width: 0;
+    overflow: hidden;
     box-sizing: border-box;
     min-height: var(--rds-file-uploader-file-item-min-height, 48px);
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
@@ -340,9 +360,14 @@
     background: var(--rds-background-paper, #fff);
     border-radius: var(--rds-border-radius, 6px);
   }
-  &__file-item-name {
-    flex: 1 1 auto;
+  &__file-item-name-wrap {
+    flex: 1 1 0;
     min-width: 0;
+    overflow: hidden;
+  }
+  &__file-item-name {
+    display: block;
+    width: 100%;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -352,10 +377,14 @@
   }
   &__file-item-size {
     flex: 0 0 auto;
+    flex-shrink: 0;
     margin: 0;
     color: var(--rds-text-secondary, #666);
     font-size: var(--rds-font-size-md, 14px);
     white-space: nowrap;
+  }
+  &__file-remove {
+    flex-shrink: 0;
   }
   &__file-icon {
     font-size: var(--rds-font-size-4xl, 32px);

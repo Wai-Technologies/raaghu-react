@@ -104,7 +104,7 @@ const RdsFileUploader = ({
           title={title}
         >{children}</RdsFileUploaderStandardView>
       ) : (
-        <Box className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`)}>
+        <Box className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`)} sx={{ width: '100%', maxWidth: '100%', minWidth: 0 }}>
           {showTitle && (
             <Typography className="rds-file-uploader__form-title" variant="subtitle1">
               {title || 'File Upload'}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
