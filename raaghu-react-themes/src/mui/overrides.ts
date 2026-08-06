@@ -10,7 +10,11 @@ export const designSystemComponentOverrides: Components<Theme> = {
         transition: theme.transitions.create(['border-color', 'box-shadow', 'background-color']),
       }),
       input: ({ theme }) => ({
-        padding: theme.spacing(1.25, 1.5),
+        // Longhands so MuiSelect can override paddingRight for the chevron
+        paddingTop: theme.spacing(1.25),
+        paddingBottom: theme.spacing(1.25),
+        paddingLeft: theme.spacing(1.5),
+        paddingRight: theme.spacing(1.5),
         '&::placeholder': {
           color: theme.palette.text.secondary,
           opacity: 1,
@@ -64,12 +68,17 @@ export const designSystemComponentOverrides: Components<Theme> = {
     styleOverrides: {
       select: ({ theme }) => ({
         minHeight: theme.spacing(2.5),
-        display: 'flex',
-        alignItems: 'center',
+        // Avoid display:flex — it breaks text-overflow and lets long values cover the icon
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
         paddingRight: theme.spacing(4),
       }),
       icon: ({ theme }) => ({
         color: theme.palette.text.secondary,
+        position: 'absolute',
+        right: theme.spacing(1),
+        pointerEvents: 'none',
       }),
     },
   },

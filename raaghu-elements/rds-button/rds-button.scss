@@ -107,10 +107,64 @@
   }
 
   &__state-hover {
-    &:hover {
+    /* Filled primary: force hover fill for Storybook/state control. */
+    &.MuiButton-contained.MuiButton-colorPrimary,
+    &.rds-button__primary.MuiButton-colorPrimary {
       background-color: var(--rds-button-primary-bg-hover) !important;
       transform: translateY(-1px);
       box-shadow: var(--rds-elevation-2);
+
+      &:hover {
+        background-color: var(--rds-button-primary-bg-hover) !important;
+        transform: translateY(-1px);
+        box-shadow: var(--rds-elevation-2);
+      }
+    }
+
+    /* Filled non-primary: elevation only — keep MUI color. */
+    &.MuiButton-contained:not(.MuiButton-colorPrimary) {
+      transform: translateY(-1px);
+      box-shadow: var(--rds-elevation-2);
+    }
+
+    /* Token outlined (primary): transparent fill + primary border/text. */
+    &.rds-button__secondary {
+      background-color: transparent !important;
+      color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+      border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent !important;
+        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        box-shadow: none;
+      }
+    }
+
+    /* Outlined non-primary: transparent fill only — keep MUI color/border. */
+    &.MuiButton-outlined:not(.rds-button__secondary) {
+      background-color: transparent !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent !important;
+        box-shadow: none;
+      }
+    }
+
+    /* Transparent/text: subtle hover surface, no elevation fill. */
+    &.MuiButton-text,
+    &.rds-button__text {
+      background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+      box-shadow: none;
+      transform: none;
+
+      &:hover {
+        background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+        box-shadow: none;
+        transform: none;
+      }
     }
   }
 

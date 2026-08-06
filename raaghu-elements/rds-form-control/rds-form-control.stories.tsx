@@ -133,12 +133,11 @@ export const WithSelect: Story = {
   args: {
     label: 'Country',
     helperText: 'Select your country',
-    fullWidth: true,
   },
   render: (args) => (
     <RdsFormControl {...args}>
       <Select
-        defaultValue=""
+        defaultValue="uk"
         variant={args.variant as 'standard' | 'outlined' | 'filled'}
         size={args.size}
         fullWidth={args.fullWidth}
@@ -148,6 +147,7 @@ export const WithSelect: Story = {
         <MenuItem value="ca">Canada</MenuItem>
         <MenuItem value="uk">United Kingdom</MenuItem>
         <MenuItem value="de">Germany</MenuItem>
+        <MenuItem value="gb">United Kingdom of Great Britain and Northern Ireland</MenuItem>
       </Select>
     </RdsFormControl>
   ),
