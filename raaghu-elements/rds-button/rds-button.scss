@@ -169,22 +169,66 @@
   }
 
   &__state-selected {
-    background-color: var(--rds-button-primary-bg-active) !important;
-    box-shadow: var(--rds-elevation-1);
-
-    &:hover {
+    /* Filled primary: force active fill for Storybook/state control. */
+    &.MuiButton-contained.MuiButton-colorPrimary,
+    &.rds-button__primary.MuiButton-colorPrimary {
       background-color: var(--rds-button-primary-bg-active) !important;
+      box-shadow: var(--rds-elevation-1);
+
+      &:hover {
+        background-color: var(--rds-button-primary-bg-active) !important;
+      }
     }
 
-    &.MuiButton-outlined {
-      background-color: var(--rds-button-secondary-bg-active) !important;
-      border-color: var(--rds-button-secondary-border-active) !important;
-      color: var(--rds-button-secondary-text-active) !important;
+    /* Filled non-primary: elevation only — keep MUI color. */
+    &.MuiButton-contained:not(.MuiButton-colorPrimary) {
+      box-shadow: var(--rds-elevation-1);
     }
 
-    &.MuiButton-text {
+    /* Token outlined (primary): no fill — selected border/text only. */
+    &.rds-button__secondary {
+      background-color: transparent !important;
+      border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main))) !important;
+      color: var(--rds-button-secondary-text-active, var(--rds-primary-main)) !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent !important;
+        border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main))) !important;
+        color: var(--rds-button-secondary-text-active, var(--rds-primary-main)) !important;
+      }
+    }
+
+    /* Outlined non-primary: no fill — keep MUI selected color on border/text. */
+    &.MuiButton-outlined:not(.rds-button__secondary) {
+      background-color: transparent !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+
+    /* Transparent/text primary: token active styles. */
+    &.rds-button__text {
       background-color: var(--rds-button-text-bg-active) !important;
       color: var(--rds-button-text-color-active) !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: var(--rds-button-text-bg-active) !important;
+        color: var(--rds-button-text-color-active) !important;
+      }
+    }
+
+    /* Transparent/text non-primary: light selected tint — keep MUI color. */
+    &.MuiButton-text:not(.rds-button__text) {
+      background-color: color-mix(in srgb, currentColor 12%, transparent) !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: color-mix(in srgb, currentColor 12%, transparent) !important;
+      }
     }
   }
 
