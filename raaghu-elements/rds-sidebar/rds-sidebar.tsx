@@ -91,6 +91,7 @@ const RdsSidebar = ({
   showLogo,
   container,
   layout,
+  ModalProps: modalPropsFromProps,
   sx: propsSx,
   ...props
 }:RdsSidebarProps) => {
@@ -196,6 +197,18 @@ const RdsSidebar = ({
       }
     : { width: '100%', maxWidth: Math.min(width - 32, 205) };
 
+  const modalProps = {
+    disableScrollLock: true,
+    ...(container
+      ? {
+          disableAutoFocus: true,
+          disableEnforceFocus: true,
+          disableRestoreFocus: true,
+        }
+      : {}),
+    ...modalPropsFromProps,
+  };
+
   return (
     <MuiDrawer
       open={isOpen}
@@ -203,6 +216,7 @@ const RdsSidebar = ({
       variant={variant}
       className={sidebarClasses}
       container={container}
+      ModalProps={modalProps}
       {...props}
       sx={[drawerSx, propsSx] as SxProps}
     >

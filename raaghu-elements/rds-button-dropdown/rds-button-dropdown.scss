@@ -4,7 +4,8 @@
     padding: var(--rds-button-dropdown-menu-padding, 6px);
     min-width: var(--rds-button-dropdown-menu-min-width, 176px);
     margin-top: 6px;
-    box-shadow: none !important;
+    border: 1px solid var(--rds-color-border, var(--rds-border-light));
+    box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0, 0, 0, 0.12)) !important;
 
     .rds-menu__list {
       box-shadow: none !important;
@@ -58,7 +59,7 @@
 
 [data-theme="dark"] .rds-button-dropdown__menu {
   background: var(--rds-background-paper, #262626);
-  border: none;
+  border-color: var(--rds-color-border-dark, var(--rds-border-default));
 }
 
 [data-theme="dark"] .rds-button-dropdown__option {

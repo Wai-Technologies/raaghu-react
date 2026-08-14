@@ -1,6 +1,6 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState, type ReactNode, type ReactElement, Fragment } from 'react';
-import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,type ListProps, Divider } from '@mui/material';
+import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListSubheader as MuiListSubheader,type ListProps, Divider } from '@mui/material';
 import clsx from 'clsx';
 import './rds-list.scss';
 import {Paper } from '@mui/material';
@@ -17,8 +17,15 @@ export interface RdsListItem {
   disabled?: boolean;
   children?: RdsListItem[];
 }
-export interface RdsListProps extends Omit<ListProps, 'component'> {
+export interface RdsListSection {
+  title: ReactNode;
   items: RdsListItem[];
+}
+
+export interface RdsListProps extends Omit<ListProps, 'component'> {
+  items?: RdsListItem[];
+  /** Grouped sections with sticky subheaders — use instead of multiple lists in one scroll container. */
+  sections?: RdsListSection[];
   variant?: 'simple' | 'button' | 'icon' | 'avatar' | 'firebase';
   alignItems?: 'flex-start' | 'center';
   disableGutters?: boolean;
@@ -35,7 +42,8 @@ const ExpandIcon = ({ open }: { open: boolean }) => (
 );
 
 const RdsList = ({
-  items,
+  items = [],
+  sections,
   variant = 'simple',
   alignItems,
   disableGutters,
@@ -199,25 +207,50 @@ const RdsList = ({
     );
   };
 
-  let children: ReactNode[];
-  if (withDividers) {
-    children = [];
-    items.forEach((item, idx) => {
-      const hasChildren = Array.isArray(item.children) && item.children.length > 0;
-      children.push(
-        renderListItem(item)
-      );
-      if (idx < items.length - 1 && !hasChildren) {
-        children.push(
-          <Divider component="li" className="rds-list__divider" key={`divider-${item.id}`} />
-        );
-      }
-    });
-  } else {
-    children = items.map((item) =>
-      renderListItem(item)
+  const renderItems = (sectionItems: RdsListItem[]): ReactNode[] => {
+    if (withDividers) {
+      const sectionChildren: ReactNode[] = [];
+      sectionItems.forEach((item, idx) => {
+        const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+        sectionChildren.push(renderListItem(item));
+        if (idx < sectionItems.length - 1 && !hasChildren) {
+          sectionChildren.push(
+            <Divider component="li" className="rds-list__divider" key={`divider-${item.id}`} />
+          );
+        }
+      });
+      return sectionChildren;
+    }
+
+    return sectionItems.map((item) => renderListItem(item));
+  };
+
+  if (sections?.length) {
+    const { subheader: _subheader, ...listProps } = props;
+
+    return (
+      <Paper>
+        <MuiList
+          className={clsx(rootClass, 'rds-list--sticky-subheader', 'rds-list--with-subheader')}
+          subheader={<li />}
+          {...listProps}
+        >
+          {sections.map((section, sectionIdx) => (
+            <li key={sectionIdx}>
+              <ul className="rds-list__section">
+                <MuiListSubheader className="rds-list__subheader" disableSticky={false}>
+                  {section.title}
+                </MuiListSubheader>
+                {renderItems(section.items)}
+              </ul>
+            </li>
+          ))}
+        </MuiList>
+      </Paper>
     );
   }
+
+  const children = renderItems(items);
 
   return (
     <Paper>

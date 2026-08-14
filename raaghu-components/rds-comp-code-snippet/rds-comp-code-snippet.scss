@@ -23,6 +23,12 @@
     gap: var(--rds-spacing-xs, 12px);
     position: relative;
 
+    .rds-button.MuiButton-root {
+      height: 32px;
+      min-height: 32px;
+      box-sizing: border-box;
+    }
+
     &::after {
       content: '';
       position: absolute;
@@ -120,11 +126,13 @@
   }
 
   &__copy-button {
-   min-width: 120px;
+    min-width: 120px;
+
     &:focus,
-    &:focus-visible {
-      outline: 2px solid var(--rds-primary-main);
-      outline-offset: 2px;
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
     }
 
     &.rds-button {

@@ -521,7 +521,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-pagination-item-size-lg': componentTokens.pagination?.itemSize?.lg || '28px',
     '--rds-pagination-item-size-xl': componentTokens.pagination?.itemSize?.xl || '30px',
     '--rds-pagination-button-min-width': componentTokens.pagination?.buttonMinWidth || '60px',
-    '--rds-pagination-textfield-width': componentTokens.pagination?.textFieldWidth || '44px',
+    '--rds-pagination-textfield-width': componentTokens.pagination?.textFieldWidth || '64px',
     '--rds-pagination-small-gap-offset': componentTokens.pagination?.smallGapOffset || '3px',
     '--rds-pagination-dropdown-min-width': componentTokens.pagination?.dropdownMinWidth || '120px',
     '--rds-pagination-font-size-xs': componentTokens.pagination?.fontSize?.xs || '0.65rem',
@@ -1375,7 +1375,8 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-text-secondary': 'var(--rds-text-secondary)',
     '--rds-color-text-disabled': 'var(--rds-text-disabled)',
     '--rds-color-outline': 'var(--rds-border-default)',
-    '--rds-color-outline-variant': 'var(--rds-border-light)',
+    // border-light (n[800]) matches surface paper — use divider for visible row borders
+    '--rds-color-outline-variant': 'var(--rds-divider)',
     '--rds-color-border': 'var(--rds-border-default)',
     '--rds-color-border-disabled': 'var(--rds-border-light)',
     '--rds-color-surface-variant': 'var(--rds-background-surface)',
