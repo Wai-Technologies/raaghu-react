@@ -15,11 +15,18 @@ const meta: Meta<typeof RdsFileUploader> = {
   component: RdsFileUploader,
   parameters: {
         status: { type: 'stable' },
-    layout: 'centered',
+    layout: 'padded',
     controls: {
     exclude: ['onFilesChange', 'onUpload'],
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 'min(480px, 100%)' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
@@ -105,9 +112,8 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    expect(canvas.getByText('Upload your files')).toBeInTheDocument();
-    const fileInput = canvasElement.querySelector('input[type="file"]');
-    expect(fileInput).toBeInTheDocument();
+    await expect(await canvas.findByText('Upload your files')).toBeInTheDocument();
+    await expect(canvasElement.querySelector('input[type="file"]')).toBeInTheDocument();
   },
 };
 

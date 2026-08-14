@@ -93,6 +93,7 @@ const RdsFileUploaderStandardView = ({
         <Typography
           className="rds-file-uploader__filename"
           variant="body2"
+          noWrap
           sx={{ color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)' }}
         >
           {showPreview

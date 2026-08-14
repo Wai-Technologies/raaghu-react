@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type KeyboardEvent } from 'react';
-import { Pagination as MuiPagination, type PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography } from '@mui/material';
+import { Pagination as MuiPagination, PaginationItem as MuiPaginationItem, type PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
@@ -113,7 +113,20 @@ const RdsPagination = ({
   return (
     <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}`}>
       {styleConfig.showPagination && (
-      <MuiPagination  className="rds-pagination"  count={totalPagesCalc}  page={page || currentPage}  onChange={handleChange}  showFirstButton={showFirstBtn}  showLastButton={showLastBtn}    variant={styleConfig.variant}    shape={styleConfig.shape}    size={styleConfig.size}    siblingCount={finalSiblingCount}    boundaryCount={finalBoundaryCount}  {...props}
+      <MuiPagination
+        className="rds-pagination"
+        count={totalPagesCalc}
+        page={page || currentPage}
+        onChange={handleChange}
+        showFirstButton={showFirstBtn}
+        showLastButton={showLastBtn}
+        variant={styleConfig.variant}
+        shape={styleConfig.shape}
+        size={styleConfig.size}
+        siblingCount={finalSiblingCount}
+        boundaryCount={finalBoundaryCount}
+        {...props}
+        renderItem={(item) => <MuiPaginationItem {...item} disableRipple />}
       />
       )}
       {styleConfig.showPrevNext && (

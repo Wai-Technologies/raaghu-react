@@ -14,11 +14,11 @@ function getColor(color: string): string {
   }
 }
 
-/** Map menu size → RdsAvatar size so icons scale with the menu (small→small, large→large). */
+/** Map menu size → RdsAvatar size so avatars stay compact alongside menu icons. */
 const menuToAvatarSize = {
   small: 'smallest',
-  medium: 'small',
-  large: 'medium',
+  medium: 'smallest',
+  large: 'small',
 } as const;
 
 type MenuSize = keyof typeof menuToAvatarSize;
@@ -41,9 +41,17 @@ function renderMenuIcon(
   const existingProps = (icon as ReactElement<{ style?: CSSProperties; size?: AvatarSize }>).props;
   const avatarSize = menuSize ? menuToAvatarSize[menuSize] : undefined;
 
-  return cloneElement(icon as ReactElement<{ style?: CSSProperties; size?: AvatarSize }>, {
+  return cloneElement(icon as ReactElement<{ style?: CSSProperties; size?: AvatarSize; displayStyle?: string; showName?: boolean; showDesignation?: boolean }>, {
     ...existingProps,
-    ...(isRdsAvatarElement(icon) && avatarSize ? { size: avatarSize } : {}),
+    ...(isRdsAvatarElement(icon)
+      ? {
+          ...(avatarSize ? { size: avatarSize } : {}),
+          showName: false,
+          showDesignation: false,
+          // Compact avatar chrome (no with-name wrapper) for menu list rows
+          displayStyle: 'icon-only' as 'with-name',
+        }
+      : {}),
     style: {
       ...(existingProps?.style ?? {}),
       ...(itemColor

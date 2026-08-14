@@ -188,6 +188,7 @@ export const RdsDropZoneSideIcon = ({
       onDragLeave={onDragLeave}
       onDrop={onDrop}
       onClick={!disabled ? openFileDialog : undefined}
+      sx={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
     >
       <Box className="rds-file-uploader__side-content">
         <Typography className="rds-file-uploader__title rds-file-uploader__title--left" variant="h6" gutterBottom>
@@ -231,6 +232,9 @@ export const RdsDropZoneWithButton = ({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
         minHeight: 'var(--rds-file-uploader-dropzone-min-height, 60px)',
         px: 'var(--rds-file-uploader-dropzone-padding-x, 24px)',
         py: 'var(--rds-file-uploader-dropzone-padding-y, 32px)',
@@ -282,7 +286,12 @@ export const RdsDropZoneDefault = ({
       onDragLeave={onDragLeave}
       onDrop={onDrop}
       onClick={!disabled ? openFileDialog : undefined}
-      sx={mode === 'standard' ? { boxShadow: 3 } : {}}
+      sx={{
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        ...(mode === 'standard' ? { boxShadow: 3 } : {}),
+      }}
     >
       <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
       <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
@@ -313,13 +322,16 @@ export const RdsFileList = ({
           key={`${fileWithProgress.file.name}-${fileWithProgress.file.size}-${fileWithProgress.file.lastModified}`}
           className="rds-file-uploader__file-item"
         >
-          <Typography
-            component="span"
-            className="rds-file-uploader__file-item-name"
-            title={fileWithProgress.file.name}
-          >
-            {fileWithProgress.file.name}
-          </Typography>
+          <Box className="rds-file-uploader__file-item-name-wrap">
+            <Typography
+              component="span"
+              className="rds-file-uploader__file-item-name"
+              title={fileWithProgress.file.name}
+              noWrap
+            >
+              {fileWithProgress.file.name}
+            </Typography>
+          </Box>
           <Typography component="span" className="rds-file-uploader__file-item-size">
             {formatFileSize(fileWithProgress.file.size)}
           </Typography>
