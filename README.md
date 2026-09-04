@@ -27,8 +27,9 @@
 [![GitHub forks](https://img.shields.io/github/forks/Wai-Technologies/raaghu-react?style=social)](https://github.com/Wai-Technologies/raaghu-react/network/members)
 [![GitHub contributors](https://img.shields.io/github/contributors/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react/graphs/contributors)
 [![Documentation](https://img.shields.io/badge/Docs-Online-red)](https://react.raaghu.ai/)
-[![Build Status (development)](https://img.shields.io/badge/build-development-purple)](https://github.com/Wai-Technologies/raaghu-react/actions)  
-[![GitHub last commit (development)](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react/development)](https://github.com/Wai-Technologies/raaghu-react/commits/development)
+
+[![Build Status (production)](https://img.shields.io/badge/build-production-purple)](https://github.com/Wai-Technologies/raaghu-react/actions)
+[![GitHub last commit (production)](https://img.shields.io/github/last-commit/Wai-Technologies/raaghu-react/production)](https://github.com/Wai-Technologies/raaghu-react/commits/production)
 [![GitHub code size](https://img.shields.io/github/languages/code-size/Wai-Technologies/raaghu-react)](https://github.com/Wai-Technologies/raaghu-react)
 
 </div>
@@ -41,6 +42,9 @@
 
 - [What is Raaghu Design System?](#raaghu-intro)
 - [Why Choose Raaghu Design System??](#why)
+- [How Raaghu Design System Works?](#how)
+- [Features](#features)
+- [More about Raaghu Design System](#learn-more)
 - [Raaghu Resources](#insights)
 - [Getting Started with Raaghu](#started)
 - [License](#license)
@@ -152,8 +156,9 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
     <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?">
     <img  alt="Features" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-light.PNG?raw=true?" width="1000"/>
   </picture>
-</p>  -->
+</p>
 
+## <a name='learn-more'></a> More about Raaghu Design System
 ## <a name='learn-more'></a> More about Raaghu Design System
 <!-- <p>
   Learn more about Raaghu Design System
