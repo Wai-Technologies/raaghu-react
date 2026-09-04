@@ -1,5 +1,5 @@
-import React from 'react';
 import { Box, Typography, LinearProgress, CircularProgress } from '@mui/material';
+import clsx from 'clsx';
 import './rds-loader.scss';
 export interface RdsLoaderProps {
   variant?: 'linear' | 'circular';
@@ -22,11 +22,11 @@ const RdsLoader = (props: RdsLoaderProps) => {
     }
     const loaderClass = `rds-loader__${type}`;
     const sizeClass = `loader-${size}`;
-    const classes = `${loaderClass} ${sizeClass}`.trim();
+    const classes = clsx(loaderClass, sizeClass);
     return (
       <div className="d-flex justify-content-center my-5">
         <div className={classes} />
-        {props.label && (
+        {typeof props.label === 'string' && props.label && (
           <div className="rds-loader__label-wrap">
             <span className="rds-loader__label">{props.label}</span>
           </div>
@@ -44,6 +44,11 @@ const RdsLoader = (props: RdsLoaderProps) => {
     overlay = false,
     thickness = 3.6,
   } = props;
+
+  // Overlay sits on a dark backdrop — keep label/value text light for contrast in light mode
+  const overlayTextSx = overlay
+    ? { color: 'var(--rds-neutral-0, #fff)' }
+    : undefined;
 
   const getSizeValue = () => {
     if (variant === 'circular') {
@@ -65,8 +70,12 @@ const RdsLoader = (props: RdsLoaderProps) => {
     if (variant === 'linear') {
       return (
         <Box sx={{ width: '100%' }}>
-          {label && (
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          {typeof label === 'string' && label && (
+            <Typography
+              variant="body2"
+              color={overlay ? undefined : 'text.secondary'}
+              sx={{ mb: 1, ...overlayTextSx }}
+            >
               {label}
             </Typography>
           )}
@@ -74,10 +83,14 @@ const RdsLoader = (props: RdsLoaderProps) => {
             variant={value !== undefined ? 'determinate' : 'indeterminate'}
             value={value}
             color={color}
-            aria-label={label || 'Loading'}
+            aria-label={typeof label === 'string' ? label || 'Loading' : 'Loading'}
           />
           {value !== undefined && (
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+            <Typography
+              variant="body2"
+              color={overlay ? undefined : 'text.secondary'}
+              sx={{ mt: 1, ...overlayTextSx }}
+            >
               {Math.round(value)}%
             </Typography>
           )}
@@ -100,15 +113,23 @@ const RdsLoader = (props: RdsLoaderProps) => {
           color={color}
           size={getSizeValue()}
           thickness={thickness}
-          aria-label={label || 'Loading'}
+          aria-label={typeof label === 'string' ? label || 'Loading' : 'Loading'}
         />
-        {label && (
-          <Typography variant="body2" color="text.secondary">
+        {typeof label === 'string' && label && (
+          <Typography
+            variant="body2"
+            color={overlay ? undefined : 'text.secondary'}
+            sx={overlayTextSx}
+          >
             {label}
           </Typography>
         )}
         {value !== undefined && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color={overlay ? undefined : 'text.secondary'}
+            sx={overlayTextSx}
+          >
             {Math.round(value)}%
           </Typography>
         )}
@@ -116,28 +137,17 @@ const RdsLoader = (props: RdsLoaderProps) => {
     );
   };
 
+  const loaderElement = renderLoader();
+
   if (overlay) {
     return (
-      <Box
-        sx={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5))',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 'var(--rds-z-index-tooltip, 9999)',
-        }}
-      >
-        {renderLoader()}
-      </Box>
+      <div className="rds-loader rds-loader--overlay" role="presentation">
+        {loaderElement}
+      </div>
     );
   }
 
-  return renderLoader();
+  return loaderElement;
 };
 RdsLoader.displayName = 'RdsLoader';
 export default RdsLoader;

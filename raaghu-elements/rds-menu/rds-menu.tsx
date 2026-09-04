@@ -1,11 +1,73 @@
-import React, { ReactNode } from 'react';
+import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-menu.scss'
+
+function getColor(color: string): string {
+  switch (color) {
+    case 'primary': return 'var(--rds-primary-main)';
+    case 'success': return 'var(--rds-success-main)';
+    case 'danger':  return 'var(--rds-error-main)';
+    case 'info':    return 'var(--rds-info-main)';
+    case 'warning': return 'var(--rds-warning-main)';
+    default:        return color || '';
+  }
+}
+
+/** Map menu size → RdsAvatar size so avatars stay compact alongside menu icons. */
+const menuToAvatarSize = {
+  small: 'smallest',
+  medium: 'smallest',
+  large: 'small',
+} as const;
+
+type MenuSize = keyof typeof menuToAvatarSize;
+type AvatarSize = (typeof menuToAvatarSize)[MenuSize];
+
+function isRdsAvatarElement(element: ReactElement): boolean {
+  const type = element.type as { displayName?: string; name?: string };
+  return type?.displayName === 'RdsAvatar' || type?.name === 'RdsAvatar';
+}
+
+function renderMenuIcon(
+  icon: ReactNode,
+  menuSize: MenuSize | undefined,
+  itemColor?: string,
+): ReactNode {
+  if (!isValidElement(icon) || (typeof icon.type !== 'function' && typeof icon.type !== 'object')) {
+    return icon;
+  }
+
+  const existingProps = (icon as ReactElement<{ style?: CSSProperties; size?: AvatarSize }>).props;
+  const avatarSize = menuSize ? menuToAvatarSize[menuSize] : undefined;
+
+  return cloneElement(icon as ReactElement<{ style?: CSSProperties; size?: AvatarSize; displayStyle?: string; showName?: boolean; showDesignation?: boolean }>, {
+    ...existingProps,
+    ...(isRdsAvatarElement(icon)
+      ? {
+          ...(avatarSize ? { size: avatarSize } : {}),
+          showName: false,
+          showDesignation: false,
+          // Compact avatar chrome (no with-name wrapper) for menu list rows
+          displayStyle: 'icon-only' as 'with-name',
+        }
+      : {}),
+    style: {
+      ...(existingProps?.style ?? {}),
+      ...(itemColor
+        ? {
+            color: getColor(itemColor),
+            fill: getColor(itemColor),
+          }
+        : {}),
+    },
+  });
+}
 
 export interface RdsMenuItem {
   id: string | number;
   label?: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
   divider?: boolean;
@@ -14,7 +76,7 @@ export interface RdsMenuItem {
   color?: 'primary' | 'success' | 'danger' | 'info' | 'warning' | string;
 }
 
-export interface RdsMenuProps extends Omit<MenuProps, 'children'> {
+export interface RdsMenuProps extends Omit<MenuProps, 'children' | 'component'> {
   items: RdsMenuItem[];
   size?: 'small' | 'medium' | 'large';
   children?: ReactNode;
@@ -28,30 +90,8 @@ const RdsMenu = ({
   ...props
 }: RdsMenuProps) => {
   const dense = size === 'small';
-  const menuClassName = [
-    'rds-menu',
-    size ? `rds-menu--${size}` : '',
-    props.className || ''
-  ].filter(Boolean).join(' ');
+  const menuClassName = clsx('rds-menu', size && `rds-menu--${size}`, props.className);
   const menuListClassName = 'rds-menu__list';
-function getColor(color: string): string {
-  // Map semantic color names to CSS custom properties so they respond to theme changes.
-  // Falls back to the raw value for arbitrary color strings.
-  switch (color) {
-    case 'primary':
-      return 'var(--rds-primary-main)';
-    case 'success':
-      return 'var(--rds-success-main)';
-    case 'danger':
-      return 'var(--rds-error-main)';
-    case 'info':
-      return 'var(--rds-info-main)';
-    case 'warning':
-      return 'var(--rds-warning-main)';
-    default:
-      return color || '';
-  }
-}
   return (
       <MuiMenu
         {...props}
@@ -86,40 +126,33 @@ function getColor(color: string): string {
                 ...(item.color ? { 
                   color: getColor(item.color),
                   '--rds-menu-icon-color': getColor(item.color)
-                } as React.CSSProperties : {})
+                } as CSSProperties : {})
               }}
-              className={['rds-menu__item', item.color ? `rds-menu__item--${item.color}` : '', item.disabled ? 'rds-menu__item--disabled' : ''].filter(Boolean).join(' ')}
+              className={clsx(
+                'rds-menu__item',
+                item.color && `rds-menu__item--${item.color}`,
+                item.disabled && 'rds-menu__item--disabled',
+              )}
             >
               {item.icon && (
-                <ListItemIcon 
-                  className={`rds-menu__item__icon ${item.color ? `rds-menu__item__icon--${item.color}` : ''}`}
+                <ListItemIcon
+                  className={clsx('rds-menu__item__icon', item.color && `rds-menu__item__icon--${item.color}`)}
                   style={item.color ? { 
                     color: getColor(item.color)
                   } : {}}
                 >
-                  {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
-                    ? React.cloneElement(
-                        item.icon as React.ReactElement<Record<string, unknown>>,
-                        {
-                          ...(item.icon.props || {}),
-                          style: {
-                            ...((item.icon as React.ReactElement<Record<string, unknown>>).props?.style || {}),
-                            color: item.color ? getColor(item.color) : undefined,
-                            fill: item.color ? getColor(item.color) : undefined
-                          }
-                        }
-                      )
-                    : item.icon}
+                  {renderMenuIcon(item.icon, size, item.color)}
                 </ListItemIcon>
               )}
               <ListItemText
-                  primary={<span className="rds-menu__item__text" style={item.color ? { color: getColor(item.color) } : undefined}>{item.label}</span>}
-                secondary={item.shortcut ? (
-                  <Typography variant="body2" color="text.secondary" component="span" className="rds-menu__item__shortcut">
-                    {item.shortcut}
-                  </Typography>
-                ) : undefined}
+                primary={item.label}
+                secondary={item.shortcut}
+                primaryTypographyProps={{ className: 'rds-menu__item__text', style: item.color ? { color: getColor(item.color) } : undefined }}
                 secondaryTypographyProps={{
+                  variant: 'body2',
+                  color: 'text.secondary',
+                  component: 'span',
+                  className: 'rds-menu__item__shortcut',
                   sx: { textAlign: 'right', display: 'block' }
                 }}
               />

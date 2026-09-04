@@ -2,25 +2,37 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsList from './rds-list';
-import { Avatar, Switch, ListSubheader, Paper } from '@mui/material';
+import { Avatar, Switch, Paper } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
-import {Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant,Storage, Dataset, ManageAccounts, LocalFireDepartment, Cloud 
-} from '@mui/icons-material';
+import HomeIcon from '@mui/icons-material/Home';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
+import InfoIcon from '@mui/icons-material/Info';
+import SendIcon from '@mui/icons-material/Send';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import InboxIcon from '@mui/icons-material/Inbox';
+import StarIcon from '@mui/icons-material/Star';
+import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import StorageIcon from '@mui/icons-material/Storage';
+import DatasetIcon from '@mui/icons-material/Dataset';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import CloudIcon from '@mui/icons-material/Cloud';
 import CommentIcon from '@mui/icons-material/Comment';
 import { expect } from 'storybook/test';
 
 
 const nestedListItems = [
-  { id: 1, primary: 'Sent mail', icon: <Send /> },
-  { id: 2, primary: 'Drafts', icon: <Drafts /> },
+  { id: 1, primary: 'Sent mail', icon: <SendIcon /> },
+  { id: 2, primary: 'Drafts', icon: <DraftsIcon /> },
   {
     id: 3,
     primary: 'Inbox',
     secondary: 'Nested items below',
-    icon: <Inbox />,
+    icon: <InboxIcon />,
     children: [
-      { id: '3-1', primary: 'Starred', icon: <Star /> },
-      { id: '3-2', primary: 'Important', icon: <LabelImportant /> },
+      { id: '3-1', primary: 'Starred', icon: <StarIcon /> },
+      { id: '3-2', primary: 'Important', icon: <LabelImportantIcon /> },
     ],
   },
 ];
@@ -28,16 +40,97 @@ const meta: Meta<typeof RdsList> = {
   title: 'Elements/List',
   component: RdsList,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'centered',
+    controls: {
+      include: [
+        'dense',
+        'disablePadding',
+        'withDividers',
+        'disableGutters',
+        'variant',
+        'alignItems',
+      ],
+    },
   },
   tags: ['autodocs', 'stable'],
+  args: {
+    dense: false,
+    disablePadding: false,
+    withDividers: false,
+    disableGutters: false,
+    variant: 'simple',
+  },
   argTypes: {
     dense: {
       control: { type: 'boolean' },
     },
     disablePadding: {
       control: { type: 'boolean' },
+    },
+    withDividers: {
+      control: { type: 'boolean' },
+      description: 'Show dividers between list items',
+    },
+    disableGutters: {
+      control: { type: 'boolean' },
+      description: 'Remove horizontal padding from list items',
+    },
+    variant: {
+      control: { type: 'select' },
+      options: ['simple', 'button', 'icon', 'avatar', 'firebase'],
+    },
+    alignItems: {
+      control: { type: 'select' },
+      options: [undefined, 'flex-start', 'center'],
+    },
+    withCheckboxes: {
+      control: { type: 'boolean' },
+      table: { disable: true },
+    },
+    checkedItems: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onCheckboxChange: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    items: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    className: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    subheader: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    sx: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    classes: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slotProps: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    slots: {
+      control: { disable: true },
+      table: { disable: true },
     },
   },
 };
@@ -47,7 +140,8 @@ type Story = StoryObj<typeof meta>;
 export const AlignItems: Story = {
   args: {
     withDividers: true,
-  className: 'rds-list--align-responsive',
+    alignItems: 'flex-start',
+    className: 'rds-list--align-responsive',
     items: [
       {
         id: 1,
@@ -78,7 +172,7 @@ const firebaseOverviewItems = [
   {
     id: 'overview',
     primary: 'Project Overview',
-    icon: <Home className="rds-list__firebase-icon" />
+    icon: <HomeIcon className="rds-list__firebase-icon" />
   }
 ];
 
@@ -86,22 +180,22 @@ const firebaseBuildItems = [
   {
     id: 'auth',
     primary: 'Authentication',
-    icon: <ManageAccounts className="rds-list__firebase-icon" />
+    icon: <ManageAccountsIcon className="rds-list__firebase-icon" />
   },
   {
     id: 'database',
     primary: 'Database',
-    icon: <Dataset className="rds-list__firebase-icon" />
+    icon: <DatasetIcon className="rds-list__firebase-icon" />
   },
   {
     id: 'storage',
     primary: 'Storage',
-    icon: <Storage className="rds-list__firebase-icon" />
+    icon: <StorageIcon className="rds-list__firebase-icon" />
   },
   {
     id: 'hosting',
     primary: 'Hosting',
-    icon: <Cloud className="rds-list__firebase-icon" />
+    icon: <CloudIcon className="rds-list__firebase-icon" />
   }
 ];
 
@@ -109,7 +203,7 @@ export const CustomizedList: Story = {
   render: (args) => (
     <Paper className="rds-list-demo__custom-container">
       <div className="rds-list-demo__header">
-        <LocalFireDepartment className="rds-list-demo__header-icon" />
+        <LocalFireDepartmentIcon className="rds-list-demo__header-icon" />
         <span className="rds-list-demo__header-title">Firebase</span>
       </div>
       
@@ -125,10 +219,10 @@ export const Dense: Story = {
     dense: true,
     withDividers: true,
     items: [
-      { id: 1, primary: 'Home', icon: <Home /> },
-      { id: 2, primary: 'Profile', icon: <Person /> },
-      { id: 3, primary: 'Settings', icon: <Settings /> },
-      { id: 4, primary: 'About', icon: <Info /> },
+      { id: 1, primary: 'Home', icon: <HomeIcon /> },
+      { id: 2, primary: 'Profile', icon: <PersonIcon /> },
+      { id: 3, primary: 'Settings', icon: <SettingsIcon /> },
+      { id: 4, primary: 'About', icon: <InfoIcon /> },
     ],
   },
 };
@@ -137,9 +231,9 @@ export const Folder: Story = {
   args: {
     withDividers: true,
     items: [
-      { id: 1, primary: 'Photos', secondary: 'Jan 9, 2014', icon: <Home /> },
-      { id: 2, primary: 'Work', secondary: 'Jan 7, 2014', icon: <Settings /> },
-      { id: 3, primary: 'Vacation', secondary: 'July 20, 2014', icon: <Info /> },
+      { id: 1, primary: 'Photos', secondary: 'Jan 9, 2014', icon: <HomeIcon /> },
+      { id: 2, primary: 'Work', secondary: 'Jan 7, 2014', icon: <SettingsIcon /> },
+      { id: 3, primary: 'Vacation', secondary: 'July 20, 2014', icon: <InfoIcon /> },
     ],
   },
 };
@@ -159,7 +253,7 @@ export const Inset: Story = {
     withDividers: true,
     className: "rds-list--inset",
     items: [
-      { id: 1, primary: 'Chelsea Otakan', icon: <Star /> },
+      { id: 1, primary: 'Chelsea Otakan', icon: <StarIcon /> },
       { id: 2, primary: 'Eric Hoffman' },
     ]
   }
@@ -171,9 +265,9 @@ const interactiveTextItems = [
 ];
 
 const interactiveIconItems = [
-  { id: 1, primary: 'Single-line item', icon: <Home /> },
-  { id: 2, primary: 'Single-line item', icon: <Home /> },
-  { id: 3, primary: 'Single-line item', icon: <Home /> },
+  { id: 1, primary: 'Single-line item', icon: <HomeIcon /> },
+  { id: 2, primary: 'Single-line item', icon: <HomeIcon /> },
+  { id: 3, primary: 'Single-line item', icon: <HomeIcon /> },
 ];
 
 const interactiveAvatarItems = [
@@ -238,6 +332,9 @@ const multiSelectionItems = [
 ];
 
 export const MultipleSelection: Story = {
+  parameters: {
+    controls: { include: ['dense', 'disablePadding'] },
+  },
   render: (args) => {
     const [selectedItems, setSelectedItems] = React.useState<number[]>([2]);
     
@@ -279,8 +376,8 @@ export const Selected: Story = {
       { id: 1, primary: 'Inbox', selected: true },
       { id: 2, primary: 'Drafts' },
       { id: 3, primary: 'Trash' },
-    ],
-  },
+    ]
+  }
 };
 
 const subheaderSections = [
@@ -327,17 +424,15 @@ const subheaderSections = [
 export const StickySubheader: Story = {
   render: (args) => (
     <div className="rds-list-demo__container rds-list-demo__container--sticky">
-      {subheaderSections.map((section, index) => (
-        <RdsList
-          key={`section-${index}`}
-          withDividers
-          className="rds-list--with-subheader"
-          subheader={<ListSubheader className="rds-list__subheader">{section.title}</ListSubheader>}
-          items={section.items}
-          dense={args.dense}
-          disablePadding={args.disablePadding}
-        />
-      ))}
+      <RdsList
+        withDividers
+        sections={subheaderSections.map((section) => ({
+          title: section.title,
+          items: section.items,
+        }))}
+        dense={args.dense}
+        disablePadding={args.disablePadding}
+      />
     </div>
   )
 };
@@ -346,9 +441,9 @@ export const WithIcons: Story = {
   args: {
     withDividers: true,
     items: [
-      { id: 1, primary: 'Home', icon: <Home /> },
-      { id: 2, primary: 'Profile', icon: <Person /> },
-      { id: 3, primary: 'Settings', icon: <Settings /> },
+      { id: 1, primary: 'Home', icon: <HomeIcon /> },
+      { id: 2, primary: 'Profile', icon: <PersonIcon /> },
+      { id: 3, primary: 'Settings', icon: <SettingsIcon /> },
     ],
   },
 };
@@ -357,9 +452,9 @@ export const WithSecondaryText: Story = {
   withDividers: true,
   className: 'rds-list--align-responsive',
     items: [
-      { id: 1, primary: 'Home', secondary: 'Navigate to home page', icon: <Home /> },
-      { id: 2, primary: 'Profile', secondary: 'View and edit your profile', icon: <Person /> },
-      { id: 3, primary: 'Settings', secondary: 'Configure application settings', icon: <Settings /> },
+      { id: 1, primary: 'Home', secondary: 'Navigate to home page', icon: <HomeIcon /> },
+      { id: 2, primary: 'Profile', secondary: 'View and edit your profile', icon: <PersonIcon /> },
+      { id: 3, primary: 'Settings', secondary: 'Configure application settings', icon: <SettingsIcon /> },
     ],
   },
 };
@@ -399,6 +494,9 @@ const checkboxItems = [
 ];
 
 export const WithCheckbox: Story = {
+  parameters: {
+    controls: { include: ['dense', 'disablePadding'] },
+  },
   render: (args) => {
     const [checked, setChecked] = React.useState<(string | number)[]>([1]);
     

@@ -42,7 +42,7 @@
 
     .rds-comp-notification__image-container {
       width: 100%;
-      background: var(--rds-background-surface);
+      background: var(--rds-surface-neutral-light);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -157,7 +157,7 @@
   }
 
   &__image-sidebar {
-    background: var(--rds-background-surface) !important;
+    background: var(--rds-surface-neutral-light) !important;
   }
 
   &__header {

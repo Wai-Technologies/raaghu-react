@@ -90,7 +90,13 @@
     font-size: var(--rds-font-size-icon-md, 24px);
     color: var(--rds-text-secondary);
     flex-shrink: 0;
-    margin-right: var(--rds-spacing-md);
+    min-width: 36px !important;
+    margin-right: var(--rds-spacing-xs, 4px);
+  }
+
+  // Override MUI ListItemIcon default min-width to reduce icon-text gap
+  .MuiListItemIcon-root {
+    min-width: 36px;
   }
 
   .rds-list__expand-icon {
@@ -146,7 +152,7 @@
     font-size: var(--rds-font-size-body);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-text-secondary);
-    background-color: var(--rds-neutral-50);
+    background-color: var(--rds-background-paper);
     position: sticky;
     top: 0;
     z-index: calc(var(--rds-z-index-base) + 1);
@@ -177,7 +183,7 @@
   }
   
   .MuiSvgIcon-root {
-    margin-left: var(--rds-spacing-md, 16px);
+    margin-left: 0;
   }
   
   @media (forced-colors: active) {
@@ -190,7 +196,13 @@
       outline-offset: calc(-1 * var(--rds-list-focus-ring-width, 2px));
     }
   }
-}
+
+  &--nested {
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent !important;
+  }
+ }
 
 .rds-list--root {
   padding: 0;
@@ -203,6 +215,28 @@
   padding: 0;
 }
 
+// Circular hover effect on the checkbox icon area in withCheckboxes mode
+.rds-list__item .MuiListItemButton-root .rds-list__icon {
+  position: relative;
+
+  .MuiCheckbox-root {
+    border-radius: 50%;
+    overflow: visible;
+  }
+}
+
+// For withCheckboxes rows: suppress the full-width MuiListItemButton hover
+// and show only the circular ripple on the checkbox itself
+.rds-list__item--clickable .MuiListItemButton-root {
+  &:hover {
+    background-color: transparent;
+  }
+
+  .rds-list__icon .MuiCheckbox-root:hover {
+    background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.04));
+    border-radius: 50%;
+  }
+}
 .rds-list--with-subheader {
   background-color: var(--rds-background-paper);
   margin-bottom: 0;
@@ -215,6 +249,21 @@
     top: 0;
     z-index: calc(var(--rds-z-index-base) + 1);
     padding: 0 var(--rds-spacing-md, 16px);
+    background-color: var(--rds-background-paper);
+  }
+}
+
+.rds-list--sticky-subheader {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
+
+  .rds-list__section {
+    padding: 0;
+    margin: 0;
+    list-style: none;
   }
 }
 
@@ -290,6 +339,8 @@
   font-size: var(--rds-font-size-body, 16px);
   font-weight: 500;
   margin: var(--rds-spacing-sm, 8px) 0;
+  text-align: left;
+  padding-left: var(--rds-spacing-md, 16px);
 }
 
 .rds-list-demo__description {

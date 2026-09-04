@@ -4,7 +4,7 @@
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
     background: var(--rds-background-paper);
     box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0,0,0,0.10));
-    border-radius: var(--rds-border-radius-lg, 10px);
+    border-radius: var(--rds-border-radius-sm, 4px);
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -26,6 +26,11 @@
     box-sizing: border-box;
     outline: none;
     position: relative;
+    // Collapse MUI ListItemText default vertical margins that inflate row height
+    .MuiListItemText-root {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
     &:hover:not(:disabled), &:focus-visible:not(:disabled) {
       background: var(--rds-action-hover);
       color: var(--rds-primary-main);
@@ -42,8 +47,34 @@
     &__icon {
       display: flex;
       align-items: center;
-      min-width: 20px;
       justify-content: center;
+      flex-shrink: 0;
+      line-height: 0;
+      // Override MUI ListItemIcon default 56px min-width (causes large icon→text gap)
+      min-width: auto !important;
+      margin-right: 0 !important;
+
+      // Constrain avatar chrome so wrap padding does not inflate the row
+      .rds-avatar,
+      .rds-avatar--with-name,
+      .rds-avatar__avatar-outer,
+      .rds-avatar__avatar-wrap {
+        padding: 0;
+        margin: 0;
+        background: transparent;
+        line-height: 0;
+      }
+
+      .MuiSvgIcon-root {
+        font-size: 1.25rem;
+      }
+
+      // Keep avatars aligned with standard menu icon scale
+      .rds-avatar .MuiAvatar-root {
+        width: 1.25rem !important;
+        height: 1.25rem !important;
+        font-size: 0.5625rem !important;
+      }
     }
     &__text {
       flex: 1 1 auto;
@@ -70,6 +101,15 @@
       font-size: 0.80rem;
       min-height: var(--rds-menu-item-min-height-small);
       padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      gap: var(--rds-spacing-sm, 8px);
+    }
+    .rds-menu__item__icon .MuiSvgIcon-root {
+      font-size: 1rem;
+    }
+    .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
+      width: 1rem !important;
+      height: 1rem !important;
+      font-size: 0.5rem !important;
     }
     .rds-menu__header {
       font-size: 0.85em;
@@ -86,6 +126,15 @@
       font-size: 1rem;
       min-height: var(--rds-menu-item-min-height);
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
+      gap: var(--rds-spacing-md, 12px);
+    }
+    .rds-menu__item__icon .MuiSvgIcon-root {
+      font-size: 1.25rem;
+    }
+    .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
+      width: 1.25rem !important;
+      height: 1.25rem !important;
+      font-size: 0.5625rem !important;
     }
     .rds-menu__header {
       font-size: 0.98em;
@@ -99,13 +148,22 @@
       max-width: 340px;
     }
     .rds-menu__item {
-      font-size: 1.18rem;
-      min-height: var(--rds-menu-item-min-height-large);
-      padding: calc(var(--rds-spacing-md) + var(--rds-spacing-xs) / 2) var(--rds-spacing-xl);
+      font-size: 1.0625rem;
+      min-height: 2.75rem;
+      padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) var(--rds-spacing-lg);
+      gap: var(--rds-spacing-md, 12px);
+    }
+    .rds-menu__item__icon .MuiSvgIcon-root {
+      font-size: 1.5rem;
+    }
+    .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
+      width: 1.5rem !important;
+      height: 1.5rem !important;
+      font-size: 0.6875rem !important;
     }
     .rds-menu__header {
-      font-size: 1.12em;
-      padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs) / 2) var(--rds-spacing-xl) var(--rds-spacing-sm) var(--rds-spacing-xl);
+      font-size: 1.05em;
+      padding: var(--rds-spacing-sm) var(--rds-spacing-lg) var(--rds-spacing-xs) var(--rds-spacing-lg);
     }
   }
 
@@ -184,6 +242,13 @@
   /* Force MuiListItemIcon root itself to white for all non-colored items */
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) {
     color: var(--rds-neutral-0, #fff) !important;
+  }
+
+  /* Target MuiSvgIcon-root directly so MUI icon color is white in dark mode */
+  .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root,
+  .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root {
+    color: var(--rds-neutral-0, #fff) !important;
+    fill: var(--rds-neutral-0, #fff) !important;
   }
 
   /* MuiPaper that wraps the dropdown */

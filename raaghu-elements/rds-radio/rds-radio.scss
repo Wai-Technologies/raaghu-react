@@ -35,12 +35,10 @@
       display: flex;
       align-items: center;
     }
-    
-    &--hoverable {
+
+    .MuiRadio-root {
       &:hover {
-          .MuiRadio-root {
-          background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
-        }
+        background-color: transparent;
       }
     }
 
@@ -82,25 +80,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
 
-    &:hover {
-        .MuiRadio-root {
-        background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      &:hover {
+        background-color: transparent;
       }
     }
 
     &--disabled {
       cursor: not-allowed;
       opacity: 0.6;
-    }
-
-    &--hoverable {
-      &:hover {
-        .MuiRadio-root {
-          background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
-        }
-      }
     }
   }
 
@@ -153,7 +141,7 @@
 
   &--hover {
     .MuiRadio-root:hover {
-      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      background-color: transparent;
     }
   }
 
@@ -175,6 +163,19 @@
   .MuiButtonBase-root.MuiRadio-root.Mui-checked,
   .MuiRadio-root.Mui-checked {
     color: var(--rds-primary-main) !important;
+  }
+
+  .MuiRadio-root:hover {
+    background-color: transparent;
+  }
+
+  .MuiRadio-root:active,
+  .MuiRadio-root.Mui-focusVisible {
+    background-color: transparent;
+  }
+
+  .MuiRadio-root .MuiTouchRipple-root {
+    display: none;
   }
 
   .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {

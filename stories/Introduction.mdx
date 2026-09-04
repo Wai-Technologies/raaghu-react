@@ -1,11 +1,10 @@
 import { Meta } from "@storybook/addon-docs/blocks";
-import ThemeSync from './ThemeSync';
 import bannerImage from './assets/storybook-hero-Banner.png';
 import dasboardImage from './assets/dashboard.png';
 import reactImage from './assets/react.svg';
 import tsImage from './assets/ts.svg';
 import viteImage from './assets/vite.svg';
-import millionJsImage from './assets/million.svg';
+import muiImage from './assets/mui.svg';
 import fastWebGif from './assets/web-dashboard.gif';
 import consistenceGif from './assets/Notes.gif';
 import scalableGif from './assets/layer-stack.gif';
@@ -21,8 +20,6 @@ import mapsImage from './assets/maps-learn-more.svg';
 import expandImage from './assets/expand.png';
 
 <Meta title="Introduction" />
-
-<ThemeSync />
 
 <style>
   {`
@@ -205,6 +202,8 @@ import expandImage from './assets/expand.png';
         padding: 30px 30px;
         border-radius: 10px;
         text-align: center;
+        color: #000000;
+        text-decoration: none;
       }
       
      
@@ -270,7 +269,8 @@ import expandImage from './assets/expand.png';
       }
 
       html[data-theme="dark"] p,
-      html[data-theme="dark"] span:not(.tip) {
+      html[data-theme="dark"] span:not(.tip),
+      html[data-theme="dark"] div:not([class]) {
         color: #c8c8c8 !important;
       }
 
@@ -315,7 +315,8 @@ import expandImage from './assets/expand.png';
       }
 
       html[data-theme="dark"] a.learnMoreSection,
-      html[data-theme="dark"] a.learnMoreSection strong {
+      html[data-theme="dark"] a.learnMoreSection strong,
+      html[data-theme="dark"] a.learnMoreSection * {
         color: #e0e0e0 !important;
       }
 
@@ -544,8 +545,8 @@ import expandImage from './assets/expand.png';
 <img className="bannerSection" src={bannerImage} alt="flow" />
 
 <div className="containerContent">
-  <p>Raaghu Design System is an React based micro front-end design system. Raaghu Design System employs React, Vite, TypeScript, Million, Boostrap5 and Storybook
-  features to develop highly customizable UI application shells, layouts, elements and components. Raaghu Design System provides as a online repository for the developers containing the elements, components, map and charts.</p>
+  <p>Raaghu Design System is a React based component design system. Raaghu Design System employs React, Vite, TypeScript, MUI, Fluent UI (Griffel) and Storybook
+  features to develop highly customizable UI application shells, layouts, elements and components. Raaghu Design System provides an online repository for developers containing the elements, components, map and charts.</p>
 </div>
 
 <div style={{textAlign:"center"}}>
@@ -564,9 +565,9 @@ import expandImage from './assets/expand.png';
 
         <img src={viteImage} alt="Vite" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0" />
 
-        <img className="tsImage" src={tsImage} alt="Typescript" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-1 p-md-1 p-xl-1 p-xxl-1" />
+        <img src={tsImage} alt="Typescript" className="tsImage img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-1 p-md-1 p-xl-1 p-xxl-1" />
 
-        <img src={millionJsImage} alt="Millionjs" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0" />
+        <img src={muiImage} alt="MUI" className="img-fluid mb-2 mb-lg-0 mb-md-0 mb-xl-0 mb-xxl-0 p-2 p-lg-0 p-md-0 p-xl-0 p-xxl-0" />
       </div>
     </div>
   </div>
@@ -601,7 +602,7 @@ import expandImage from './assets/expand.png';
 
       <div className="seamlessUIContent">
         Raaghu Design System contains ready to use templates for a new or built React Application. Fully customizable with the help of
-        our Adobe XD and Figma design kits.
+        our Figma design kits.
       </div>
     </div>
 
@@ -629,7 +630,7 @@ import expandImage from './assets/expand.png';
       </div>
 
       <div className="chartUIContent">
-        With more than 60+ react based elements, components , pages and charts , Raaghu offers a wide array catering to the needs for your UI components.
+        With more than 60+ React-based elements, components, pages and charts, Raaghu offers a wide array of options catering to the needs of your UI components.
       </div>
     </div>
   </div>
@@ -637,11 +638,11 @@ import expandImage from './assets/expand.png';
   <div style={{marginTop: "60px" }}>
     ### <div className="title">How Raaghu Design System Works?</div>
 
-    Raaghu Design System leverages micro-front-end capabilities by breaking the page design into the components. Based on the wireframe and theme design, Raaghu Design System applies the same CSS to elements, components and pages available in the Raaghu Design System.
+    Raaghu Design System leverages atomic design principles by breaking the page design into elements, components and layouts. Based on the wireframe and theme design, Raaghu Design System applies the same CSS to elements, components and pages available in the Raaghu Design System.
 
     <img className="dasboardImage" src={dasboardImage} alt="flow" />
 
-    Thought the CI/CD pipelines the components are deployed to the wireframe design and form a page
+    Through the CI/CD pipelines, the components are deployed to the wireframe design and form a page.
   </div>
 </div>
 
@@ -740,7 +741,7 @@ import expandImage from './assets/expand.png';
 </div>
 
 <div className="footerClass">
-  <a className="learnMoreSection" href="/?path=/docs/application-shells--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/application-shells--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -754,7 +755,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/layouts--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/layouts--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -768,7 +769,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/components-adaptive-cards--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/components-adaptive-cards--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -782,7 +783,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/elements-accordion--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/elements-accordion--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -796,7 +797,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/components-charts-area-chart--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/components-charts-area-chart--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>
@@ -810,7 +811,7 @@ import expandImage from './assets/expand.png';
     </div>
   </a>
 
-  <a className="learnMoreSection" href="/?path=/docs/components-map--docs" style={{color:"#000000"}}>
+  <a className="learnMoreSection" href="/?path=/docs/components-map--docs">
     <div style={{display: "flex", justifyContent: "flex-end", position: "relative"}}>
       <img className="expandImage" src={expandImage} alt="expandImage" style={{top: "-18px", right: "-16px", position: "absolute"}} />
     </div>

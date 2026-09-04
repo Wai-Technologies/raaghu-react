@@ -26,3 +26,44 @@ Object.defineProperty(window, 'IntersectionObserver', {
     unobserve() {}
   },
 });
+
+const ResizeObserverMock = class ResizeObserver {
+  disconnect() {}
+  observe() {}
+  unobserve() {}
+};
+
+Object.defineProperty(window, 'ResizeObserver', {
+  writable: true,
+  value: ResizeObserverMock,
+});
+
+// Also expose as a bare global so components using `new ResizeObserver()` work in jsdom
+if (typeof global.ResizeObserver === 'undefined') {
+  (global as any).ResizeObserver = ResizeObserverMock;
+}
+
+if (typeof HTMLCanvasElement !== 'undefined' && !HTMLCanvasElement.prototype.getContext) {
+  Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+    writable: true,
+    value: () => ({
+      measureText: () => ({ width: 0 }),
+      fillRect: () => {},
+      clearRect: () => {},
+      getImageData: () => ({ data: [] }),
+      putImageData: () => {},
+      createImageData: () => [],
+      setTransform: () => {},
+      drawImage: () => {},
+      save: () => {},
+      restore: () => {},
+      beginPath: () => {},
+      closePath: () => {},
+      moveTo: () => {},
+      lineTo: () => {},
+      stroke: () => {},
+      arc: () => {},
+      fill: () => {},
+    }),
+  });
+}

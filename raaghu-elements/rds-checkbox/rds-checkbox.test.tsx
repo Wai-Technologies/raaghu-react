@@ -527,6 +527,7 @@ describe('RdsCheckbox', () => {
       expect(checkbox).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCheckbox {...defaultProps} />);
       const results = await axe(container);

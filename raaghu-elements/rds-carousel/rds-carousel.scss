@@ -4,13 +4,32 @@
   display: block;
   position: relative;
   overflow: hidden;
+  inline-size: min(100%, 100vw);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  &__track {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
 
   &__slide {
     display: block;
     width: 100%;
+    max-width: 100%;
     height: 100%;
     position: relative;
     border-radius: inherit;
+    box-sizing: border-box;
   }
 
   &__navigation {
@@ -77,19 +96,22 @@
     }
     
     &:hover:not(.rds-carousel__indicator__active) {
-      background-color: var(--rds-color-gray-500);
+      background-color: var(--rds-carousel-indicator-bg-hover, var(--rds-color-gray-500));
     }
   }
 
   &__title-content {
     padding: var(--rds-spacing-md, 16px);
     background-color: var(--rds-carousel-title-bg);
+    width: 100%;
+    max-width: 100%;
     min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: var(--rds-spacing-xs, 4px);
     border: 1px solid var(--rds-carousel-title-border);
+    box-sizing: border-box;
 
     &--top {
       border-radius: var(--rds-border-radius-sm, 4px) var(--rds-border-radius-sm, 4px) 0 0;
@@ -137,6 +159,9 @@
 
   &__slide-content {
     overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     border-radius: var(--rds-border-radius-sm, 4px);
     
     img {
@@ -150,6 +175,7 @@
 
   &--default {
     border-radius: var(--rds-border-radius-sm, 4px);
+    overflow-x: hidden;
     .rds-carousel__indicators {
       bottom: 8px;
     }
@@ -157,6 +183,7 @@
 
   &--with-title {
     border-radius: var(--rds-border-radius-sm, 4px);
+    overflow-x: hidden;
     background-color: var(--rds-carousel-wrapper-bg);
     
     .rds-carousel__slide {
@@ -250,11 +277,6 @@
   }
 }
 
-@include bp.down(420) {
-  .css-rw2a2n {
-    height: 109% !important;
-  }
-}
 @include bp.down(tablet-sm) {
   .rds-carousel {
     &__navigation {
@@ -414,13 +436,12 @@
   }
 }
 @include bp.down(mobile-sm) {
-   .css-gu8gi0 {
-    width: 88%;
-    max-width: 88%;
-    box-sizing: border-box;
-  }
-  
   .rds-carousel {
+    inline-size: min(100%, 100vw);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
     &__navigation {
       width: 40px;
       height: 40px;
@@ -449,9 +470,9 @@
     
     &--default,
     &--with-title {
-      height: 390px !important;
+      height: min(390px, calc(100vh - 24px)) !important;
       .rds-carousel__slide-content {
-        height: 355px !important;
+        height: calc(100% - 35px) !important;
       }
     }
     
@@ -534,6 +555,13 @@
   }
 }
 @include bp.down(420) {
+  .rds-carousel {
+    inline-size: min(100%, 100vw);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
   .rds-carousel--full-width-image {
     width: 100% !important;
     max-width: 100% !important;
@@ -587,6 +615,15 @@
 
       .rds-carousel__slide {
         background-color: transparent !important;
+      }
+    }
+
+    .rds-carousel__indicator:not(.rds-carousel__indicator__active) {
+      background-color: var(--rds-carousel-indicator-bg, rgba(255, 255, 255, 0.55)) !important;
+      border-color: var(--rds-carousel-indicator-bg, rgba(255, 255, 255, 0.55));
+
+      &:hover {
+        background-color: var(--rds-carousel-indicator-bg-hover, rgba(255, 255, 255, 0.8)) !important;
       }
     }
 

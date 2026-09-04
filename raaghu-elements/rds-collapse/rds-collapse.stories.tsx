@@ -20,6 +20,10 @@ const meta: Meta<typeof RdsCollapse> = {
     showToggleButton: {
       control: 'boolean',
     },
+    title: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
   },
 };
 
@@ -54,7 +58,7 @@ export const Expanded: Story = {
     title: 'Initially Expanded',
     expanded: true,
     children: (
-      <Box sx={{ p: 2, backgroundColor: 'primary.light', color: 'primary.contrastText', borderRadius: 1 }}>
+      <Box className="rds-collapse__story-box rds-collapse__story-box--primary" sx={{ p: 2, borderRadius: 1 }}>
         <RdsTypography variant="body1" paragraph>
           This collapse component starts in an expanded state.
         </RdsTypography>
@@ -71,7 +75,7 @@ export const NoTitle: Story = {
     expanded: false,
     showToggleButton: true,
     children: (
-      <Box sx={{ p: 2, backgroundColor: 'secondary.light', color: 'secondary.contrastText', borderRadius: 1 }}>
+      <Box className="rds-collapse__story-box rds-collapse__story-box--secondary" sx={{ p: 2, borderRadius: 1 }}>
         <RdsTypography variant="h6" gutterBottom>
           Content without title
         </RdsTypography>
@@ -89,7 +93,7 @@ export const NoToggleButton: Story = {
     expanded: true,
     showToggleButton: false,
     children: (
-      <Box sx={{ p: 2, backgroundColor: 'success.light', color: 'success.contrastText', borderRadius: 1 }}>
+      <Box className="rds-collapse__story-box rds-collapse__story-box--success" sx={{ p: 2, borderRadius: 1 }}>
         <RdsTypography variant="body1">
           This collapse component has no toggle button and is controlled externally.
         </RdsTypography>

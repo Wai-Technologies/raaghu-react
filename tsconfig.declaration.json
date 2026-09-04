@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -21,6 +21,8 @@
     "noEmitOnError": false
   },
   "include": [
+    "global.d.ts",
+    "types",
     "index.ts",
     "raaghu-elements",
     "raaghu-components",
@@ -33,7 +35,15 @@
     "**/*.story.*",
     "**/*.test.*",
     "**/*.spec.*",
-    "**/*.figma.*"
+    "**/*.figma.*",
+    "raaghu-components/rds-comp-tree-structure/**",
+    "raaghu-components/rds-comp-adaptive-cards/**",
+    "raaghu-components/rds-comp-chat/**",
+    "raaghu-components/rds-comp-code-snippet/**",
+    "raaghu-components/rds-comp-comments-box/**",
+    "raaghu-components/rds-comp-details-pane/**",
+    "raaghu-components/rds-comp-navtabs/**",
+    "raaghu-components/rds-comp-grid/**",
+    "raaghu-components/rds-comp-date-and-time-picker/**"
   ]
 }
-

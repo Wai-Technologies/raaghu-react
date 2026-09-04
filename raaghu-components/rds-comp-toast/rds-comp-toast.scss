@@ -1,6 +1,10 @@
 .rds-comp-toast {
+  --rds-toast-accent-info: var(--rds-text-primary, var(--rds-color-on-surface));
+  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
+  --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
+
   background: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-border);
+  border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
   border-radius: var(--rds-border-radius, 8px);
   box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
   min-width: min(420px, 95vw);
@@ -21,15 +25,24 @@
   }
   
   &--info {
-    border-left: 4px solid var(--rds-color-info);
+    border-left: 4px solid var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
   }
   
   &--success {
-    border-left: 4px solid var(--rds-color-success);
+    border-left: 4px solid var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
   }
   
   &--error {
-    border-left: 4px solid var(--rds-color-error);
+    border-left: 4px solid var(--rds-toast-accent-error, var(--rds-color-error));
+  }
+
+  &--border-light,
+  &--border-dark,
+  &--border-primary,
+  &--border-danger {
+    border-top-color: var(--rds-color-outline-variant, var(--rds-color-border));
+    border-right-color: var(--rds-color-outline-variant, var(--rds-color-border));
+    border-bottom-color: var(--rds-color-outline-variant, var(--rds-color-border));
   }
   
   &--text {
@@ -145,16 +158,16 @@
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-circle-color: var(--rds-text-secondary);
+      --rds-toast-circle-color: var(--rds-text-secondary, var(--rds-color-on-surface-variant));
     }
     .rds-comp-toast--info & {
-      --rds-toast-circle-color: var(--rds-color-info);
+      --rds-toast-circle-color: var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
     }
     .rds-comp-toast--success & {
-      --rds-toast-circle-color: var(--rds-color-success);
+      --rds-toast-circle-color: var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
     }
     .rds-comp-toast--error & {
-      --rds-toast-circle-color: var(--rds-color-error);
+      --rds-toast-circle-color: var(--rds-toast-accent-error, var(--rds-color-error));
     }
     
     &--plus {
@@ -182,16 +195,16 @@
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-plus-color: var(--rds-text-secondary);
+      --rds-toast-plus-color: var(--rds-text-secondary, var(--rds-color-on-surface-variant));
     }
     .rds-comp-toast--info & {
-      --rds-toast-plus-color: var(--rds-color-info);
+      --rds-toast-plus-color: var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
     }
     .rds-comp-toast--success & {
-      --rds-toast-plus-color: var(--rds-color-success);
+      --rds-toast-plus-color: var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
     }
     .rds-comp-toast--error & {
-      --rds-toast-plus-color: var(--rds-color-error);
+      --rds-toast-plus-color: var(--rds-toast-accent-error, var(--rds-color-error));
     }
   }
   
@@ -321,11 +334,11 @@
   &__input {
     width: 100%;
     padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-md, 0.75rem);
-    border: 1px solid var(--rds-color-border);
+    border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
     border-radius: var(--rds-border-radius-sm, 4px);
     font-size: var(--rds-font-size-base, 0.875rem);
     color: var(--rds-color-on-surface);
-    background: var(--rds-color-surface);
+    background: var(--rds-color-surface-container, var(--rds-color-surface));
     transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
                 box-shadow var(--rds-transition-duration-short, 0.2s) ease;
     
@@ -417,6 +430,62 @@
         background: var(--rds-color-primary-pressed-light, rgba(25, 118, 210, 0.12));
       }
     }
+  }
+}
+
+html[data-theme='dark'] .rds-comp-toast,
+body[data-theme='dark'] .rds-comp-toast,
+[data-theme='dark'] .rds-comp-toast,
+body.theme-dark .rds-comp-toast,
+body.dark-theme .rds-comp-toast {
+  --rds-toast-accent-info: var(--rds-color-on-surface, var(--rds-text-primary));
+  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
+  --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
+
+  border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+
+  &.rds-comp-toast--border-light,
+  &.rds-comp-toast--border-dark,
+  &.rds-comp-toast--border-primary,
+  &.rds-comp-toast--border-danger {
+    border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+    border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+    border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  }
+
+  &.rds-comp-toast--info {
+    border-left-color: var(--rds-toast-accent-info);
+  }
+
+  &.rds-comp-toast--success {
+    border-left-color: var(--rds-toast-accent-success);
+  }
+
+  &.rds-comp-toast--error {
+    border-left-color: var(--rds-toast-accent-error);
+  }
+
+  &.rds-comp-toast--info .rds-comp-toast__icon {
+    --rds-toast-circle-color: var(--rds-toast-accent-info);
+    --rds-toast-plus-color: var(--rds-toast-accent-info);
+  }
+
+  &.rds-comp-toast--success .rds-comp-toast__icon {
+    --rds-toast-circle-color: var(--rds-toast-accent-success);
+    --rds-toast-plus-color: var(--rds-toast-accent-success);
+  }
+
+  &.rds-comp-toast--error .rds-comp-toast__icon {
+    --rds-toast-circle-color: var(--rds-toast-accent-error);
+    --rds-toast-plus-color: var(--rds-toast-accent-error);
+  }
+
+  .rds-comp-toast__input {
+    background: var(--rds-color-surface-dark, var(--rds-color-surface));
+    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.24));
+    color: var(--rds-color-on-surface-dark, var(--rds-color-on-surface));
   }
 }
 

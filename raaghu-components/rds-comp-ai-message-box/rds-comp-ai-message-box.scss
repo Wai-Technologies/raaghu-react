@@ -4,14 +4,34 @@
   width: 100%;
   display: block;
   &__container {
-    padding: var(--rds-spacing-md, 16px);
+    padding: 0 var(--rds-spacing-md, 16px);
     display: flex;
     flex-direction: column;
   }
   &__row {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+  }
+
+  .rds-avatar--with-name {
+    align-items: center;
+    width: 100%;
+  }
+
+  .rds-avatar__avatar-wrap {
+    margin-bottom: 0;
+    flex-shrink: 0;
+    align-self: center;
+    padding: var(--rds-spacing-xxs, 2px);
+  }
+
+  .rds-avatar__info {
+    align-self: center;
+  }
+
+  .rds-avatar__designation {
+    margin-top: 0;
   }
   &__message {
     white-space: pre-wrap;
@@ -31,7 +51,7 @@
   @include bp.down(md) {
     &__row {
       flex-direction: row;
-      align-items: flex-start;
+      align-items: center;
     }
     &__image-wrapper {
       margin-left: var(--rds-spacing-sm);
@@ -49,11 +69,11 @@
   }
   @include bp.down(568) {
     &__container {
-      padding: var(--rds-spacing-xs, 8px);
+      padding: 0 var(--rds-spacing-xs, 8px);
     }
     &__row {
       flex-direction: row;
-      align-items: flex-start;
+      align-items: center;
     }
     &__image-wrapper {
       margin-left: var(--rds-spacing-sm);
@@ -72,7 +92,7 @@
 
   @include bp.down(xs) {
     &__container {
-      padding: var(--rds-spacing-xs, 4px);
+      padding: 0 var(--rds-spacing-xs, 4px);
     }
     &__image-wrapper {
       margin-left: var(--rds-spacing-sm);
@@ -83,18 +103,6 @@
         height: auto;
         object-fit: contain;
       }
-    }
-  }
-  
-  @include bp.down(xs) {
-    .rds-avatar__avatar-wrap {
-      margin-bottom: var(--rds-spacing-3xl, 64px);
-    }
-  }
-
-  @include bp.between(xs, md) {
-    .rds-avatar__avatar-wrap {
-      margin-bottom: var(--rds-spacing-xl, 32px);
     }
   }
 }

@@ -1,21 +1,23 @@
-import React from 'react';
+import { useRef, useState, type CSSProperties, type ChangeEvent } from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-checkbox.scss';
 
-export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
+export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
   labeltext?: string;
   isDisabled?: boolean;
   style?: 'square' | 'circular';
   state?: 'default' | 'disabled' | 'hover';
   status?: 'checked' | 'unchecked' | 'indeterminate';
   showText?: boolean;
-  cssStyle?: React.CSSProperties;
+  cssStyle?: CSSProperties;
 }
 
 
 const RdsCheckbox = ({
   labeltext,
   isDisabled = false,
+  disabled,
   style = 'square',
   state = 'default',
   status,
@@ -24,79 +26,68 @@ const RdsCheckbox = ({
   cssStyle,
   color,
   onChange,
-  disabled,
   ...props
 }:RdsCheckboxProps) => {
-  const getInitialCheckedState = () => {
+  const isCheckboxDisabled = Boolean(disabled) || isDisabled || state === 'disabled';
+
+  const [internalChecked, setInternalChecked] = useState(status === 'checked');
+  const prevStatusRef = useRef(status);
+
+  if (status !== prevStatusRef.current) {
+    prevStatusRef.current = status;
     if (status !== undefined) {
-      return status === 'checked';
+      setInternalChecked(status === 'checked');
     }
-    return false;
-  };
+  }
 
-  const getInitialIndeterminateState = () => {
-    if (status !== undefined) {
-      return status === 'indeterminate';
-    }
-    return false;
-  };
+  const checked = internalChecked;
 
-  const [checked, setChecked] = React.useState(getInitialCheckedState());
+  const currentIndeterminate = status === 'indeterminate';
 
-  React.useEffect(() => {
-    if (status !== undefined) {
-      setChecked(status === 'checked');
-    }
-  }, [status]);
-
-  const currentIndeterminate = getInitialIndeterminateState();
-
-  const isActuallyDisabled = isDisabled || state === 'disabled' || !!disabled;
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
-    setChecked(value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
+    setInternalChecked(value);
     if (onChange) onChange(event, value);
   };
 
-  const getCheckboxClasses = () => {
-    const classes = ['rds-checkbox'];
-    if (style) classes.push(`rds-checkbox__${style}`);
-    if (checked) classes.push('rds-checkbox__checked');
-    if (isActuallyDisabled) classes.push('rds-checkbox__disabled');
-    if (currentIndeterminate) classes.push('rds-checkbox__indeterminate');
-    if (state && state !== 'default') classes.push(`rds-checkbox__${state}`);
-    if (color && color !== 'default') classes.push(`rds-checkbox__${color}`);
-    if (labeltext && !showText) classes.push('rds-checkbox__text-hidden');
-    if (status) classes.push(`rds-checkbox__${status}`);
-    if (className) classes.push(className);
-    return classes.join(' ');
-  };
+  const checkboxClassName = clsx(
+    'rds-checkbox',
+    style && `rds-checkbox__${style}`,
+    checked && 'rds-checkbox__checked',
+    isCheckboxDisabled && 'rds-checkbox__disabled',
+    currentIndeterminate && 'rds-checkbox__indeterminate',
+    state && state !== 'default' && `rds-checkbox__${state}`,
+    color && color !== 'default' && `rds-checkbox__${color}`,
+    labeltext && !showText && 'rds-checkbox__text-hidden',
+    status && `rds-checkbox__${status}`,
+    className,
+  );
 
   const checkbox = (
     <MuiCheckbox
       checked={checked}
-      disabled={isActuallyDisabled}
+      disabled={isCheckboxDisabled}
       indeterminate={currentIndeterminate}
       color={color}
       onChange={handleChange}
       {...props}
+      disableRipple
     />
   );
 
   if (labeltext) {
     return (
-      <div className={getCheckboxClasses()} style={cssStyle}>
+      <div className={checkboxClassName} style={cssStyle}>
         <FormControlLabel
           control={checkbox}
           label={showText ? labeltext : ''}
-          disabled={isActuallyDisabled}
+          disabled={isCheckboxDisabled}
         />
       </div>
     );
   }
 
   return (
-    <div className={getCheckboxClasses()} style={cssStyle}>
+    <div className={checkboxClassName} style={cssStyle}>
       {checkbox}
     </div>
   );

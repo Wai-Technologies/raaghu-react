@@ -1,39 +1,43 @@
-import React from 'react';
-import { Collapse as MuiCollapse, CollapseProps, Box, Typography, IconButton } from '@mui/material';
+import { useState, useEffect, type ReactNode } from 'react';
+import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButton } from '@mui/material';
 import './rds-collapse.scss';
 import { ExpandMore } from '@mui/icons-material';
 
-export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle'> {
+export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle' | 'component'> {
   title?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   expanded?: boolean;
   onToggle?: (expanded: boolean) => void;
   showToggleButton?: boolean;
 }
 
-const RdsCollapse: React.FC<RdsCollapseProps> = ({
+const RdsCollapse = ({
   title,
   children,
   expanded = false,
   onToggle,
   showToggleButton = true,
   ...props
-}) => {
-  const [internalExpanded, setInternalExpanded] = React.useState(expanded);
+}: RdsCollapseProps) => {
+  const isControlled = onToggle !== undefined;
+  const [internalExpanded, setInternalExpanded] = useState(expanded ?? false);
+  const currentExpanded = isControlled ? expanded : internalExpanded;
 
-  React.useEffect(() => {
-    setInternalExpanded(expanded);
-  }, [expanded]);
+  useEffect(() => {
+    if (!isControlled) {
+      setInternalExpanded(expanded ?? false);
+    }
+  }, [expanded, isControlled]);
 
   const handleToggle = () => {
-    const newExpanded = !internalExpanded;
-    setInternalExpanded(newExpanded);
+    const newExpanded = !currentExpanded;
+    if (!isControlled) setInternalExpanded(newExpanded);
     onToggle?.(newExpanded);
   };
 
   return (
     <Box>
-      {(title || showToggleButton) && (
+      {((typeof title === 'string' && title) || showToggleButton) && (
         <Box
           sx={{
             display: 'flex',
@@ -44,17 +48,17 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
           }}
           onClick={showToggleButton ? handleToggle : undefined}
         >
-          {title && (
+          {typeof title === 'string' && title && (
             <Typography variant="h6" component="div">
               {title}
             </Typography>
           )}
           {showToggleButton && (
             <IconButton
-              aria-label={internalExpanded ? 'Collapse' : 'Expand'}
+              aria-label={currentExpanded ? 'Collapse' : 'Expand'}
               size="small"
               sx={{
-                transform: internalExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                transform: currentExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
                 transition: 'transform 0.2s',
                 p: 0,
                 ml: 0,
@@ -65,8 +69,8 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
           )}
         </Box>
       )}
-      <MuiCollapse in={internalExpanded} {...props}>
-        <Box sx={{ pt: title ? 1 : 0 }}>
+      <MuiCollapse in={currentExpanded} {...props}>
+        <Box sx={{ pt: typeof title === 'string' && title ? 1 : 0 }}>
           {children}
         </Box>
       </MuiCollapse>

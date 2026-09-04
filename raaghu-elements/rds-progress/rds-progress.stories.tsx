@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsProgress from './rds-progress';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsProgress> = {
@@ -42,7 +42,8 @@ const meta: Meta<typeof RdsProgress> = {
         type: 'select',
       },
       options: ['number', 'circle'],
-      description: 'The type of stepper indicator',
+      description: 'The type of stepper indicator. Only applies when style is stepper.',
+      if: { arg: 'style', eq: 'stepper' },
     },
   }
 };
@@ -57,7 +58,6 @@ export const Circular: Story = {
     steps: 4,
     showLabel: true,
     color: 'primary',
-    stepperType: 'circle',
   },
   play: async ({ canvas }) => {
     const progress = await canvas.findByRole('progressbar');
@@ -65,6 +65,16 @@ export const Circular: Story = {
   },
 };
 Circular.parameters = { controls: { include: ['style', 'variant', 'steps', 'showLabel', 'color', 'stepperType'] } };
+
+export const Stepper: Story = {
+  args: {
+    style: 'stepper',
+    steps: 2,
+    color: 'primary',
+    stepperType: 'circle',
+  },
+};
+Stepper.parameters = { controls: { include: ['style', 'steps', 'color', 'stepperType'] } };
 
 export const ColorVariants: Story = {
   args: {
@@ -98,5 +108,3 @@ export const Linear: Story = {
 Linear.parameters = { controls: { include: ['variant', 'value'] } };
 
 export const Default: Story = { ...Circular };
-
-

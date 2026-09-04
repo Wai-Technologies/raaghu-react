@@ -43,7 +43,9 @@ export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empt
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
 
 // export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid'; // INTERNAL: paid enterprise component — not part of public API
-export { default as RdsCompAiAttachement } from './rds-comp-ai-attachement/rds-comp-ai-attachement';
+export { default as RdsCompAiAttachment } from './rds-comp-ai-attachment/rds-comp-ai-attachment';
+/** @deprecated Use `RdsCompAiAttachment` — typo alias kept for backwards compatibility */
+export { default as RdsCompAiAttachement } from './rds-comp-ai-attachment/rds-comp-ai-attachment';
 export { default as RdsCompAiTypingSection } from './rds-comp-ai-typing-section/rds-comp-ai-typing-section';
 export { default as RdsCompAiFabMenu } from './rds-comp-ai-fab-menu/rds-comp-ai-fab-menu';
 export { default as RdsCompAiIcon } from './rds-comp-ai-icon/rds-comp-ai-icon';

@@ -748,6 +748,7 @@ describe('RdsCompLineChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompLineChart {...defaultProps} />);
       const results = await axe(container);

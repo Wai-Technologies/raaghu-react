@@ -83,13 +83,13 @@ Raaghu Design System follows strict package-based organization:
 - [ ] T008 [P] Implement component variants (primary, secondary, etc.)
 - [ ] T009 [P] Add responsive design and mobile support
 - [ ] T010 [P] Implement accessibility features (ARIA labels, keyboard navigation)
-- [ ] T011 Add theme support verification (light, dark, semi-dark)
+- [ ] T011 Add theme support verification (light, dark)
 
 ## Phase 3.4: Documentation & Stories
 - [ ] T012 [P] Create comprehensive Storybook stories with all variants
 - [ ] T013 [P] Write MDX documentation with usage examples
 - [ ] T014 [P] Add accessibility documentation and testing instructions
-- [ ] T015 [P] Create visual regression test baselines in Chromatic
+- [ ] T015 [P] Add Storybook stories and Vitest play coverage for visual states
 
 ## Phase 3.5: Quality & Integration
 - [ ] T016 [P] Run unit tests and achieve 85%+ coverage
@@ -119,7 +119,7 @@ Task: "Create accessibility features in rds-{component}.tsx"
 - Verify tests fail before implementing component logic
 - Commit after each task with descriptive messages
 - Test in Storybook after each implementation task
-- Run Chromatic after visual changes
+- Run `npm run test:storybook` after visual changes
 
 ## Task Generation Rules
 *Applied during main() execution*

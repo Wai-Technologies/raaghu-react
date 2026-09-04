@@ -1,8 +1,21 @@
-import React from 'react';
+import { useRef, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
+import type { InputProps } from '@mui/material/Input';
+import clsx from 'clsx';
 import './rds-input.scss';
 
-export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size'> {
+function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): string {
+  switch (layoutType) {
+    case 'password': return '••••••••';
+    case 'phone number': return 'Enter Phone Number';
+    case 'number': return 'Enter Number';
+    case 'card number': return 'XXXX XXXX XXXX XXXX';
+    case 'text':
+    default: return 'Placeholder Text';
+  }
+}
+
+export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component'> {
   label?: string;
   placeholder?: string;
   hintText?: string;
@@ -16,7 +29,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
   showIcon?: boolean;
   iconPosition?: 'start' | 'end';
-  icon?: React.ReactNode; // Custom icon component provided by the user
+  icon?: ReactNode; // Custom icon component provided by the user
 }
 
 const RdsInput = ({
@@ -40,23 +53,28 @@ const RdsInput = ({
   onChange,
   onFocus,
   onBlur,
+  InputProps: legacyInputProps,
+  slotProps: consumerSlotProps,
   ...props
 }: RdsInputProps) => {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [isFocused, setIsFocused] = React.useState(false);
-  const [internalValue, setInternalValue] = React.useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [internalValue, setInternalValue] = useState('');
+  const prevLayoutRef = useRef(layout);
   const isControlled = value !== undefined;
-  React.useEffect(() => {
+
+  if (layout !== prevLayoutRef.current) {
+    prevLayoutRef.current = layout;
     if (!isControlled) {
       setInternalValue('');
     }
-  }, [layout, isControlled]);
+  }
   
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleInternalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInternalChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
       setInternalValue(event.target.value);
     }
@@ -70,18 +88,17 @@ const RdsInput = ({
 
   const pillClass = style === 'pill' ? 'rds-input--pill' : style === 'bottom outline' ? 'rds-input--bottom-outline' : '';
   
-  const active = (state === 'active') || (state === 'default' && isFocused);
+  const isFocusedDefault = state === 'default' && isFocused;
+  const active = state === 'active' || isFocusedDefault;
 
   let stateClass = '';
   if (state === 'error' || error) {
     stateClass = 'rds-input--error';
   } else if (state === 'disabled' || disabled) {
     stateClass = 'rds-input--disabled';
-  } else if (state === 'active') {
-    stateClass = 'rds-input--active';
-  } else if (state === 'selected') {
+  } else if (state === 'selected' || isFocusedDefault) {
     stateClass = 'rds-input--selected';
-  } else if (active) {
+  } else if (state === 'active') {
     stateClass = 'rds-input--active';
   }
 
@@ -119,7 +136,7 @@ const RdsInput = ({
     );
   };
 
-  const handleNumericKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleNumericKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const allowedKeys = [
       'Backspace',
       'Delete',
@@ -169,7 +186,7 @@ const RdsInput = ({
     }
   };
 
-  const handlePhoneInput = (e: React.FormEvent<HTMLInputElement>) => {
+  const handlePhoneInput = (e: FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     const orig = target.value;
     const startsWithPlus = orig.startsWith('+');
@@ -186,30 +203,54 @@ const RdsInput = ({
         const event = {
           ...e,
           target: { ...target, value: next }
-        } as React.ChangeEvent<HTMLInputElement>;
+        } as ChangeEvent<HTMLInputElement>;
         onChange(event);
       }
     }
   };
-  const getPlaceholder = (layoutType: RdsInputProps['layout'] | undefined) => {
-    switch (layoutType) {
-      case 'password':
-        return '••••••••';
-      case 'phone number':
-        return 'Enter Phone Number';
-      case 'number':
-        return 'Enter Number';
-      case 'card number':
-        return 'XXXX XXXX XXXX XXXX';
-      case 'text':
-      default:
-        return 'Placeholder Text';
-    }
-  };
-  const computedPlaceholder = placeholder ?? getPlaceholder(layout);
+  const computedPlaceholder = placeholder ?? getInputPlaceholder(layout);
   const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
+  const numericInputProps: InputHTMLAttributes<HTMLInputElement> =
+    layout === 'phone number' || layout === 'number' || layout === 'card number'
+      ? {
+          inputMode: layout === 'phone number' ? 'tel' : 'numeric',
+          ...(layout === 'phone number' ? { pattern: '^(?:\\+\\d{12}|\\d{10})$' } : {}),
+          onKeyDown: handleNumericKeyDown,
+          ...(layout === 'phone number' ? { onInput: handlePhoneInput } : {}),
+        }
+      : {};
+
+  const consumerInputProps =
+    typeof consumerSlotProps?.input === 'object' && consumerSlotProps?.input !== null
+      ? (consumerSlotProps.input as InputProps)
+      : undefined;
+
+  const inputSlotProps: InputProps = {
+    ...legacyInputProps,
+    ...consumerInputProps,
+    className: clsx(
+      'rds-input__field',
+      legacyInputProps?.className,
+      consumerInputProps?.className,
+    ),
+    classes: {
+      root: active ? 'Mui-focused' : '',
+      focused: active ? 'Mui-focused' : '',
+      ...legacyInputProps?.classes,
+      ...consumerInputProps?.classes,
+    },
+    startAdornment:
+      iconPosition === 'start' && showIcon
+        ? renderIcon()
+        : consumerInputProps?.startAdornment ?? legacyInputProps?.startAdornment,
+    endAdornment:
+      iconPosition === 'end' && showIcon
+        ? renderIcon()
+        : consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment,
+  };
+
   return (
-    <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass} ${inlineTitleClass}`.trim()}>
+    <div className={clsx('rds-input', sizeClass, pillClass, stateClass, inlineTitleClass)}>
       {titlePosition === 'title-above' && label && (
         <label className="rds-input__label">
           {label}
@@ -232,27 +273,13 @@ const RdsInput = ({
         onChange={handleInternalChange}
         onFocus={(e) => { setIsFocused(true); onFocus?.(e); }}
         onBlur={(e) => { setIsFocused(false); onBlur?.(e); }}
-        InputProps={{ 
-          className: 'rds-input__field',
-          classes: {
-            root: active ? 'Mui-focused' : '',
-            focused: active ? 'Mui-focused' : '',
+        slotProps={{
+          ...consumerSlotProps,
+          input: inputSlotProps,
+          htmlInput: {
+            ...numericInputProps,
+            ...consumerSlotProps?.htmlInput,
           },
-          startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
-          endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
-          inputProps: {
-            ...(layout === 'phone number' || layout === 'number' || layout === 'card number'
-              ? {
-                  inputMode: layout === 'phone number' ? 'tel' : 'numeric',
-                  ...(layout === 'phone number' ? { pattern: '^(?:\\+\\d{12}|\\d{10})$' } : {}),
-                  onKeyDown: handleNumericKeyDown,
-                  ...(layout === 'phone number' ? { onInput: handlePhoneInput } : {}),
-                }
-              : {}),
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } as any,
-          ...(props.InputProps || {}),
-          
         }}
         {...props}
       />

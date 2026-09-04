@@ -1,8 +1,8 @@
-import React from 'react';
 import { Typography as MuiTypography, type TypographyProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-typography.scss';
 
-export interface RdsTypographyProps extends TypographyProps {
+export interface RdsTypographyProps extends Omit<TypographyProps, 'component'> {
   text?: string;
 }
 
@@ -17,7 +17,7 @@ const RdsTypography = ({
   return (
    <MuiTypography
       variant={variant}
-      className={`${variantClass} ${className}`.trim()}
+      className={clsx(variantClass, className)}
       {...props}
     >
       {text || children}

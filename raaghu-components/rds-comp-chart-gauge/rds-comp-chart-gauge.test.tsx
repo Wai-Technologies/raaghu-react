@@ -807,6 +807,7 @@ describe('RdsCompGaugeChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompGaugeChart {...defaultProps} />);
       const results = await axe(container);

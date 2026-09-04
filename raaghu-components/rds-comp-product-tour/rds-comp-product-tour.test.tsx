@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import RdsCompProductTour from './rds-comp-product-tour';
 import { RdsCompProductTourProps } from './product-tour-helpers';
 import '@testing-library/jest-dom';
@@ -45,8 +46,9 @@ jest.mock('@mui/icons-material', () => ({
 }));
 
 // Mock Raaghu elements
-jest.mock('../../raaghu-elements', () => ({
-  RdsCarousel: ({ children, state, height, style, type, showDots, showArrows, ...props }: any) => (
+jest.mock('../../raaghu-elements/rds-carousel/rds-carousel', () => ({
+  __esModule: true,
+  default: ({ children, state, height, style, type, showDots, showArrows, ...props }: any) => (
     <div
       data-testid="rds-carousel"
       data-state={state}
@@ -58,7 +60,10 @@ jest.mock('../../raaghu-elements', () => ({
       {children}
     </div>
   ),
-  RdsBadge: ({ badgeContent, size, colorVariant, shape, layout, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => ({
+  __esModule: true,
+  default: ({ badgeContent, size, colorVariant, shape, layout, ...props }: any) => (
     <span
       data-testid="rds-badge"
       data-badge-content={badgeContent}
@@ -71,7 +76,10 @@ jest.mock('../../raaghu-elements', () => ({
       {badgeContent}
     </span>
   ),
-  RdsFileUploader: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onFilesChange, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-file-uploader/rds-file-uploader', () => ({
+  __esModule: true,
+  default: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onFilesChange, ...props }: any) => (
     <div
       data-testid="rds-file-uploader"
       data-accept={accept}
@@ -82,7 +90,10 @@ jest.mock('../../raaghu-elements', () => ({
       {hintText}
     </div>
   ),
-  RdsInput: ({ placeholder, value, onChange, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-input/rds-input', () => ({
+  __esModule: true,
+  default: ({ placeholder, value, onChange, ...props }: any) => (
     <input
       data-testid="rds-input"
       placeholder={placeholder}
@@ -91,10 +102,16 @@ jest.mock('../../raaghu-elements', () => ({
       {...props}
     />
   ),
-  RdsAutocomplete: ({ options, placeholder, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-autocomplete/rds-autocomplete', () => ({
+  __esModule: true,
+  default: ({ options, placeholder, ...props }: any) => (
     <div data-testid="rds-autocomplete" data-placeholder={placeholder} {...props}></div>
   ),
-  RdsButton: ({ text, onClick, className, style, size, ...props }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
+  __esModule: true,
+  default: ({ text, onClick, className, style, size, ...props }: any) => (
     <button
       data-testid={`rds-button-${text?.toLowerCase()?.replace(/\s+/g, '-')}`}
       onClick={onClick}
@@ -260,6 +277,26 @@ describe('RdsCompProductTour', () => {
       );
       expect(screen.getByText('Carousel Title')).toBeInTheDocument();
       expect(screen.getByText('Carousel Desc')).toBeInTheDocument();
+    });
+
+    it('should navigate carousel slides when next and previous are clicked', async () => {
+      const user = userEvent.setup();
+      const { container } = render(
+        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} stepsIndicator="1/3" />
+      );
+
+      expect(screen.getByText('1/3')).toBeInTheDocument();
+
+      const nextButton = container.querySelector('.rds-comp-product-tour__carousel-arrow-next');
+      const prevButton = container.querySelector('.rds-comp-product-tour__carousel-arrow-prev');
+      expect(nextButton).toBeInTheDocument();
+      expect(prevButton).toBeInTheDocument();
+
+      await user.click(nextButton!);
+      expect(screen.getByText('2/3')).toBeInTheDocument();
+
+      await user.click(prevButton!);
+      expect(screen.getByText('1/3')).toBeInTheDocument();
     });
   });
 

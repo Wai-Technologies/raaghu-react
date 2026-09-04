@@ -519,6 +519,7 @@ describe('RdsSlider', () => {
       expect(screen.getByLabelText('slider control')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsSlider aria-label="Volume" />);
       const results = await axe(container);

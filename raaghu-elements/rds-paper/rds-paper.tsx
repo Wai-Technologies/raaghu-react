@@ -1,19 +1,19 @@
-import React from 'react';
-import { Paper as MuiPaper, PaperProps } from '@mui/material';
+import { type ReactNode } from 'react';
+import { Paper as MuiPaper, type PaperProps } from '@mui/material';
 
-export interface RdsPaperProps extends PaperProps {
-  children: React.ReactNode;
+export interface RdsPaperProps extends Omit<PaperProps, 'component'> {
+  children: ReactNode;
   padding?: number | string;
   square?: boolean;
 }
 
-const RdsPaper: React.FC<RdsPaperProps> = ({
+const RdsPaper = ({
   children,
   padding,
   square = false,
   sx,
   ...props
-}) => {
+}: RdsPaperProps) => {
   return (
     <MuiPaper
       square={square}

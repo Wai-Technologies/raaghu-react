@@ -479,6 +479,7 @@ describe('RdsDivider', () => {
       expect(container.querySelector('.MuiDivider-root')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsDivider {...defaultProps} />);
       const results = await axe(container);

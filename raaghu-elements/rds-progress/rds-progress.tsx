@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment, type CSSProperties, type ReactNode } from 'react';
 import {
   LinearProgress as MuiLinearProgress,
   CircularProgress as MuiCircularProgress,
@@ -6,6 +6,7 @@ import {
   Typography,
   type SxProps
 } from '@mui/material';
+import clsx from 'clsx';
 import './rds-progress.scss';
 
 export interface RdsProgressProps {
@@ -22,8 +23,7 @@ export interface RdsProgressProps {
   label?: string;
   totalSteps?: number;
   stepperType?: 'number' | 'circle';
-  sx?: SxProps;
-  animationDuration?: number;
+  sx?: CSSProperties;
   'aria-label'?: string;
   'aria-labelledby'?: string;
 }
@@ -54,12 +54,13 @@ const RdsProgress = ({
     info: 'var(--rds-color-info)', success: 'var(--rds-color-success)', warning: 'var(--rds-color-warning)',
   })[color] || 'var(--rds-color-primary)';
 
-  const getBaseClasses = (styleType: string) => `rds-progress rds-progress--${styleType} rds-progress--${color}${variant === 'indeterminate' ? ' rds-progress--indeterminate' : ''}`;
+  const getBaseClasses = (styleType: string) =>
+    clsx('rds-progress', `rds-progress--${styleType}`, `rds-progress--${color}`, variant === 'indeterminate' && 'rds-progress--indeterminate');
 
   const finalValue = getProgressValue();
   const colorValue = getColorValue();
 
-  const renderWithLabel = (baseClasses: string, progressElement: React.ReactNode, labelPosition: 'overlay' | 'side') => {
+  const renderWithLabel = (baseClasses: string, progressElement: ReactNode, labelPosition: 'overlay' | 'side') => {
     if (!showLabel || variant !== 'determinate') return <div className={baseClasses}>{progressElement}</div>;
     
     const labelElement = <Typography variant={labelPosition === 'overlay' ? 'caption' : 'body2'} component="div" color="text.secondary" className="rds-progress__label">{label || `${Math.round(finalValue || 0)}%`}</Typography>;
@@ -83,23 +84,22 @@ const RdsProgress = ({
     );
   };
 
-  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as 'determinate' | 'indeterminate'} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={ariaLabel} aria-labelledby={ariaLabelledby} />, 'overlay');
+  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as 'determinate' | 'indeterminate'} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={label || 'Progress'} />, 'overlay');
 
-  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={ariaLabel} aria-labelledby={ariaLabelledby} />, 'side');
+  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as 'determinate' | 'indeterminate' | 'buffer' | 'query'} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={label || 'Progress'} />, 'side');
 
   const renderStepper = () => {
     const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);
     return (
       <div className={`rds-progress rds-progress--stepper rds-progress--${color}`}>
         <Box sx={{ display: 'flex', alignItems: 'center', ...sx }} className="rds-progress__stepper">
-          {Array.from({ length: totalSteps }, (_, index) => {
-            const stepNumber = index + 1;
-            const isCompleted = index < currentStep;
-            const isCurrent = index === currentStep - 1;
+          {Array.from({ length: totalSteps }, (_, stepNumber) => stepNumber + 1).map((stepNumber) => {
+            const isCompleted = stepNumber <= currentStep;
+            const isCurrent = stepNumber === currentStep;
             const stepClass = isCompleted ? 'completed' : isCurrent ? 'current' : 'upcoming';
             const typeClass = stepperType === 'circle' ? 'rds-progress__stepper-step--circle' : 'rds-progress__stepper-step--number';
             return (
-              <React.Fragment key={index}>
+              <Fragment key={stepNumber}>
                 <Box
                   className={`rds-progress__stepper-step ${typeClass} rds-progress__stepper-step--${stepClass}`}
                   sx={{ width: 'var(--rds-progress-step-size)', height: 'var(--rds-progress-step-size)' }}
@@ -110,13 +110,13 @@ const RdsProgress = ({
                     <span className="rds-progress__stepper-inner-dot" />
                   )}
                 </Box>
-                {index < totalSteps - 1 && (
+                {stepNumber < totalSteps && (
                   <Box
                     className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`}
                       sx={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
                   />
                 )}
-              </React.Fragment>
+              </Fragment>
             );
           })}
         </Box>
@@ -133,30 +133,30 @@ const RdsProgress = ({
       <div className={`rds-progress rds-progress--${type} rds-progress--${color}`}>
         <Box sx={{ display: 'flex', alignItems: 'center', ...sx }}>
           <Box sx={{ display: 'flex', gap: isDash ? 0.5 : 0, alignItems: 'center' }}>
-            {Array.from({ length: count }, (_, index) => {
+            {Array.from({ length: count }, (_, segmentNumber) => segmentNumber + 1).map((segmentNumber) => {
               const getBorderRadius = () => {
                 if (isDash) {
                   return 'var(--rds-border-radius-sm)';
                 } else {
-                  if (index === 0) return 'var(--rds-border-radius-sm) 0 0 var(--rds-border-radius-sm)';
-                  if (index === count - 1) return '0 var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0';
+                  if (segmentNumber === 1) return 'var(--rds-border-radius-sm) 0 0 var(--rds-border-radius-sm)';
+                  if (segmentNumber === count) return '0 var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0';
                   return '0';
                 }
               };
 
               return (
                 <Box
-                  key={index}
-                  className={`rds-progress__${type} ${index < filledCount ? `rds-progress__${type}--filled` : ''}`}
+                  key={segmentNumber}
+                  className={`rds-progress__${type} ${segmentNumber <= filledCount ? `rds-progress__${type}--filled` : ''}`}
                   sx={{
                     width: isDash ? 'var(--rds-progress-dash-width)' : 'var(--rds-progress-block-width)', 
                     height: isDash ? 'var(--rds-progress-dash-height)' : 'var(--rds-progress-block-height)', 
-                    backgroundColor: index < filledCount ? colorValue : 'var(--rds-color-gray-300)',
+                    backgroundColor: segmentNumber <= filledCount ? colorValue : 'var(--rds-color-gray-300)',
                     borderRadius: getBorderRadius(),
-                    ...(isDash ? {} : { display: 'flex', alignItems: 'center', justifyContent: 'center', color: index < filledCount ? 'var(--rds-color-white)' : 'var(--rds-color-gray-600)', fontWeight: 'var(--rds-font-weight-bold)', fontSize: 'var(--rds-font-size-sm)' })
+                    ...(isDash ? {} : { display: 'flex', alignItems: 'center', justifyContent: 'center', color: segmentNumber <= filledCount ? 'var(--rds-color-white)' : 'var(--rds-color-gray-600)', fontWeight: 'var(--rds-font-weight-bold)', fontSize: 'var(--rds-font-size-sm)' })
                   }}
                 >
-                  {!isDash && `Step ${index + 1}`}
+                  {!isDash && `Step ${segmentNumber}`}
                 </Box>
               );
             })}

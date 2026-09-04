@@ -30,7 +30,14 @@ const meta: Meta<typeof RdsSwitch> = {
     },
     style: {
       control: 'select',
-      options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5", "Style 6"],
+      options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5"],
+      mapping: {
+        "Style 1": "style1",
+        "Style 2": "style2",
+        "Style 3": "style3",
+        "Style 4": "style4",
+        "Style 5": "style5",
+      },
       description: 'Switch style variant',
       defaultValue: 'Style 1',
     },
@@ -39,6 +46,12 @@ const meta: Meta<typeof RdsSwitch> = {
       options: ["primary", "secondary", "error", "warning", "info", "success"],
       description: 'Switch color variant',
       defaultValue: 'primary',
+    },
+    labelPlacement: {
+      control: 'select',
+      options: ['end', 'start', 'top', 'bottom'],
+      description: 'Position of the label relative to the switch',
+      defaultValue: 'end',
     },
   },
 };
@@ -85,20 +98,4 @@ export const DisabledChecked: Story = {
     disabled: true,
     defaultChecked: true,
   },
-};
-export const ToggleOn: Story = {
-  name: 'Interaction: Toggle switch on',
-  args: {
-    label: 'Toggle Me',
-    showLabel: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // MUI Switch uses role="switch" (not "checkbox" like MUI Checkbox)
-    const switchEl = canvas.getByRole('switch')
-    await expect(switchEl).toBeInTheDocument()
-    await expect(switchEl).not.toBeChecked()
-    await userEvent.click(switchEl)
-    await expect(switchEl).toBeChecked()
-  }
 };

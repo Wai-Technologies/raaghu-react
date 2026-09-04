@@ -23,6 +23,12 @@
     gap: var(--rds-spacing-xs, 12px);
     position: relative;
 
+    .rds-button.MuiButton-root {
+      height: 32px;
+      min-height: 32px;
+      box-sizing: border-box;
+    }
+
     &::after {
       content: '';
       position: absolute;
@@ -120,11 +126,21 @@
   }
 
   &__copy-button {
-   min-width: 120px;
+    min-width: 120px;
+
     &:focus,
-    &:focus-visible {
-      outline: 2px solid var(--rds-primary-main);
-      outline-offset: 2px;
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &.rds-button {
+      .MuiButton-startIcon,
+      .MuiButton-endIcon,
+      svg {
+        color: inherit;
+      }
     }
 
     &--copied {
@@ -317,13 +333,30 @@
     }
 
     .rds-comp-code-snippet__copy-button {
-      background-color: var(--rds-color-surface-variant-dark);
-      color: var(--rds-color-on-surface-variant-dark);
-      border-color: var(--rds-color-border-dark);
+      background-color: var(--rds-neutral-0) !important;
+      color: var(--rds-neutral-900) !important;
+      border-color: var(--rds-neutral-300) !important;
 
-      &:hover {
-        background-color: var(--rds-color-surface-hover-dark);
-        color: var(--rds-color-on-surface-dark);
+      &.rds-button,
+      &.MuiButton-outlined {
+        color: var(--rds-neutral-900) !important;
+      }
+
+      .MuiButton-startIcon,
+      .MuiButton-endIcon,
+      .rds-button__icon,
+      svg {
+        color: currentColor !important;
+      }
+
+      svg path {
+        fill: currentColor !important;
+      }
+
+      &:hover:not(.rds-comp-code-snippet__copy-button--copied) {
+        background-color: var(--rds-neutral-100) !important;
+        color: var(--rds-neutral-900) !important;
+        border-color: var(--rds-neutral-400) !important;
       }
     }
 

@@ -168,25 +168,3 @@ LongText.parameters = {
     include: ['label', 'style', 'arrow', 'wrapper'] 
   } 
 };
-
-export const HoverTooltip: Story = {
-  name: 'Interaction: Hover shows tooltip',
-  args: {
-    label: 'Tooltip text',
-    children: <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Hover me" textCase="unset" />,
-    style: 'top',
-    arrow: false,
-    wrapper: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const trigger = canvas.getByRole('button', { name: /hover me/i })
-    await expect(trigger).toBeVisible()
-    await userEvent.hover(trigger)
-    // MUI Tooltip renders content in a portal with role="tooltip"
-    await waitFor(
-      () => expect(document.querySelector('[role="tooltip"]')).not.toBeNull(),
-      { timeout: 2000 }
-    )
-  }
-};

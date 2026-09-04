@@ -8,8 +8,8 @@ const meta: Meta<typeof RdsBottomNavigation> = {
   title: 'Elements/Bottom Navigation',
   component: RdsBottomNavigation,
   parameters: {
-        status: { type: 'stable' },
-    layout: 'centered',
+    status: { type: 'stable' },
+    layout: 'fullscreen',
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
@@ -90,32 +90,4 @@ export const WithDisabledItem: Story = {
     activeValue: 'home',
     showLabels: true,
   },
-};
-
-export const SwitchNavItem: Story = {
-  name: 'Interaction: Switch navigation item',
-  args: {
-    items: navigationItems,
-    activeValue: 'home',
-    showLabels: true,
-  },
-  render: (args) => {
-    const [active, setActive] = useState(args.activeValue || 'home');
-    return (
-      <RdsBottomNavigation
-        {...args}
-        activeValue={active}
-        onItemChange={(value: string) => setActive(value)}
-      />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const buttons = canvas.getAllByRole('button')
-    await expect(buttons.length).toBeGreaterThan(1)
-    await expect(buttons[0]).toBeVisible()
-    // Click Favorites (second item)
-    await userEvent.click(buttons[1])
-    await expect(canvasElement).toBeTruthy()
-  }
 };

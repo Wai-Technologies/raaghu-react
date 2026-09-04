@@ -18,12 +18,13 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
+    "global.d.ts",
     "index.ts",
     "raaghu-elements",
     "raaghu-components",
     "raaghu-layouts",
     "raaghu-react-themes",
     "utils",
-    "src"
+    "types"
   ]
 }

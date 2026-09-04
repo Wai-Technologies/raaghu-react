@@ -507,7 +507,7 @@ const _componentTokensBase = {
     actionButtonMinWidth: '140px',
     fabLeftOffset: '-129px',
     actionButtonMarginRight: '5px',
-    autocompleteMaxWidth: '60px',
+    autocompleteMaxWidth: '260px',
   },
   chart: {
     bar: {
@@ -629,6 +629,10 @@ const _componentTokensBase = {
   ,
   // Kanban board component tokens
   kanban: {
+    // Dark-theme color tokens for Kanban board (defined here so no hex lives in SCSS)
+    headerBgDark: '#1f5fb9',
+    subcardBgDark: '#9fbce6',
+    subcardBorderDark: '#81a7d9',
     columnWidth: '300px',
     columnGap: '20px',
     cardMinHeight: '600px',
@@ -736,7 +740,7 @@ componentTokens.pagination = {
     xl: '30px',
   },
   buttonMinWidth: '60px',
-  textFieldWidth: '44px',
+  textFieldWidth: '64px',
   smallGapOffset: '3px',
   dropdownMinWidth: '120px',
   fontSize: {
@@ -853,6 +857,8 @@ export const surfaceTokens = {
   neutralDark: '#4C4C4C',
   /** Medium neutral surface (light theme) */
   neutralMedium: '#CDCDCD',
+  /** Light neutral surface (light theme) */
+  neutralLight: '#E1E3EA',
 
   // ── Dark-mode UI chrome ───────────────────────────────────────────────────
   /** Standard dark surface (cards, panels) */

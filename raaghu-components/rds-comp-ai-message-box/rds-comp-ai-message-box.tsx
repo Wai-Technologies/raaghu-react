@@ -1,4 +1,4 @@
-import React from "react";
+import { memo, useMemo } from "react";
 import "./rds-comp-ai-message-box.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 
@@ -10,17 +10,20 @@ export interface RdsCompAiMessageBoxProps {
   avatar?: string;
 }
 
-const RdsCompAiMessageBox: React.FC<RdsCompAiMessageBoxProps> = ({
+const DEFAULT_AVATAR =
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
+const DEFAULT_IMAGE =
+  "https://via.placeholder.com/480x320.png?text=Image+placeholder";
+
+const RdsCompAiMessageBox = memo(({
   isImage,
   message,
   src,
   avtar,
   avatar,
-}) => {
-  const avatarSrc = avatar ?? avtar ??
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
-
-  const imageSrc = src ?? "https://via.placeholder.com/480x320.png?text=Image+placeholder";
+}: RdsCompAiMessageBoxProps) => {
+  const avatarSrc = useMemo(() => avatar ?? avtar ?? DEFAULT_AVATAR, [avatar, avtar]);
+  const imageSrc = useMemo(() => src ?? DEFAULT_IMAGE, [src]);
 
   return (
     <div className="rds-comp-ai-message-box">
@@ -38,16 +41,13 @@ const RdsCompAiMessageBox: React.FC<RdsCompAiMessageBoxProps> = ({
         </div>
         {isImage && (
           <div className="rds-comp-ai-message-box__image-wrapper">
-            <img
-              src={imageSrc}
-              alt="message image"
-              className="rds-comp-ai-message-box__image"
-            />
+            <img src={imageSrc} alt="" className="rds-comp-ai-message-box__image" />
           </div>
         )}
       </div>
     </div>
   );
-};
+});
+
 RdsCompAiMessageBox.displayName = "RdsCompAiMessageBox";
 export default RdsCompAiMessageBox;

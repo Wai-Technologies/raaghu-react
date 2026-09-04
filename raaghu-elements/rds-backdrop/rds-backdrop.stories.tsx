@@ -27,6 +27,10 @@ const meta: Meta<typeof RdsBackdrop> = {
     children: {
       control: { type: 'text' },
     },
+    loadingComponent: { control: { disable: true }, table: { disable: true } },
+    slots: { control: { disable: true }, table: { disable: true } },
+    slotProps: { control: { disable: true }, table: { disable: true } },
+    component: { control: { disable: true }, table: { disable: true } },
   },
 };
 

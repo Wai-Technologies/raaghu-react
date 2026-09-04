@@ -222,43 +222,64 @@ describe('RdsStepper', () => {
   });
 
   describe('Content Display', () => {
-    it('should not show content by default', () => {
+    it('should show step labels by default', () => {
       const steps = createSteps(3);
       renderWithTheme(
         <RdsStepper steps={steps} />
       );
-      const stepContent = document.querySelector('.MuiStepContent-root');
-      expect(stepContent).not.toBeInTheDocument();
+      expect(screen.getByText('Step 1')).toBeInTheDocument();
+      expect(screen.getByText('Step 2')).toBeInTheDocument();
+      expect(screen.getByText('Step 3')).toBeInTheDocument();
     });
 
-    it('should show content when showContent is true', () => {
+    it('should show step labels when showContent is true', () => {
       const steps = createSteps(3);
       renderWithTheme(
         <RdsStepper steps={steps} showContent={true} />
       );
-      const stepContent = document.querySelectorAll('.MuiStepContent-root');
-      expect(stepContent.length).toBe(3);
+      expect(screen.getByText('Step 1')).toBeInTheDocument();
+      expect(screen.getByText('Step 2')).toBeInTheDocument();
+      expect(screen.getByText('Step 3')).toBeInTheDocument();
     });
 
-    it('should render step content correctly in vertical stepper', () => {
+    it('should hide step labels when showContent is false', () => {
+      const steps = createSteps(3);
+      const { container } = renderWithTheme(
+        <RdsStepper steps={steps} showContent={false} />
+      );
+      expect(screen.queryByText('Step 1')).not.toBeInTheDocument();
+      expect(screen.queryByText('Step 2')).not.toBeInTheDocument();
+      expect(screen.queryByText('Step 3')).not.toBeInTheDocument();
+      expect(container.querySelector('.rds-stepper--hide-labels')).toBeInTheDocument();
+    });
+
+    it('should still render step icons when labels are hidden', () => {
+      const steps = createSteps(3);
+      const { container } = renderWithTheme(
+        <RdsStepper steps={steps} showContent={false} />
+      );
+      expect(container.querySelectorAll('.MuiStep-root').length).toBe(3);
+      expect(container.querySelectorAll('.MuiStepIcon-root').length).toBe(3);
+    });
+
+    it('should render step content in vertical stepper when content is provided', () => {
       const steps = createSteps(3);
       renderWithTheme(
-        <RdsStepper steps={steps} showContent={true} direction="vertical" />
+        <RdsStepper steps={steps} direction="vertical" currentStep={0} />
       );
-      // In vertical stepper, content for active step (0) will be shown
       expect(screen.getByText('Content for step 1')).toBeInTheDocument();
     });
 
-    it('should not render content for steps without content property', () => {
+    it('should not render StepContent when step has no content property', () => {
       const steps: RdsStepperStep[] = [
         { label: 'Step 1', content: 'Content 1' },
         { label: 'Step 2' },
         { label: 'Step 3', content: 'Content 3' },
       ];
       renderWithTheme(
-        <RdsStepper steps={steps} showContent={true} direction="vertical" currentStep={0} />
+        <RdsStepper steps={steps} direction="vertical" currentStep={1} />
       );
-      expect(screen.getByText('Content 1')).toBeInTheDocument();
+      expect(screen.queryByText('Content 1')).not.toBeInTheDocument();
       expect(screen.queryByText('Content 2')).not.toBeInTheDocument();
       expect(screen.queryByText('Content 3')).not.toBeInTheDocument();
     });
@@ -275,27 +296,25 @@ describe('RdsStepper', () => {
         },
       ];
       renderWithTheme(
-        <RdsStepper steps={steps} showContent={true} />
+        <RdsStepper steps={steps} direction="vertical" />
       );
       expect(screen.getByTestId('custom-content')).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument();
     });
 
-    it('should toggle content visibility with showContent prop', () => {
+    it('should toggle label visibility with showContent prop', () => {
       const steps = createSteps(3);
       const { rerender } = renderWithTheme(
-        <RdsStepper steps={steps} showContent={false} />
+        <RdsStepper steps={steps} showContent={true} />
       );
-      let stepContent = document.querySelector('.MuiStepContent-root');
-      expect(stepContent).not.toBeInTheDocument();
+      expect(screen.getByText('Step 1')).toBeInTheDocument();
 
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsStepper steps={steps} showContent={true} />
+          <RdsStepper steps={steps} showContent={false} />
         </ThemeProvider>
       );
-      stepContent = document.querySelector('.MuiStepContent-root');
-      expect(stepContent).toBeInTheDocument();
+      expect(screen.queryByText('Step 1')).not.toBeInTheDocument();
     });
   });
 
@@ -458,7 +477,7 @@ describe('RdsStepper', () => {
     it('should render vertical stepper with content', () => {
       const steps = createSteps(3);
       const { container } = renderWithTheme(
-        <RdsStepper steps={steps} direction="vertical" showContent={true} currentStep={0} />
+        <RdsStepper steps={steps} direction="vertical" currentStep={0} />
       );
       expect(container.querySelector('.MuiStepper-vertical')).toBeInTheDocument();
       expect(container.querySelector('.MuiStepContent-root')).toBeInTheDocument();
@@ -479,7 +498,7 @@ describe('RdsStepper', () => {
         { label: 'Step 3', content: 'Active content' },
       ];
       renderWithTheme(
-        <RdsStepper steps={steps} direction="vertical" showContent={true} currentStep={2} />
+        <RdsStepper steps={steps} direction="vertical" currentStep={2} />
       );
       // In vertical stepper, only active step content is shown in the collapsed state
       expect(screen.getByText('Active content')).toBeInTheDocument();
@@ -618,7 +637,7 @@ describe('RdsStepper', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsStepper steps={createSteps(3)} activeStep={0} />);
+      const { container } = renderWithTheme(<RdsStepper steps={createSteps(3)} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

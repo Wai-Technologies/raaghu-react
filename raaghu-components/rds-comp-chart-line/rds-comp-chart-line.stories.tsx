@@ -1,7 +1,6 @@
 import RdsCompLineChart from "./rds-comp-chart-line";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
-import { Chart } from 'chart.js';
 
 const meta: Meta = {
     title: 'Components/Charts/Line Chart',
@@ -41,11 +40,6 @@ export const Default: Story = {
                     pointStyle: "bottom",
                     labels: {
                         usePointStyle: true,
-                        generateLabels: function (chart : any) {
-
-                            const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-                            return original;
-                        },
                     },
 
                 },

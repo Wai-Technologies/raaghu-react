@@ -26,6 +26,18 @@ jest.mock('./empty-state-dark.png', () => 'empty-state-dark.png');
 jest.mock('./illustration-light.json', () => ({ default: {} }));
 jest.mock('./illustration-dark.json', () => ({ default: {} }));
 
+jest.mock('@mui/icons-material/FolderOffOutlined', () => {
+  return (props: any) => (
+    <svg data-testid={props['data-testid'] || 'folder-off-icon'} className={props.className} aria-hidden={props['aria-hidden']} />
+  );
+});
+
+jest.mock('@mui/icons-material/SearchOffOutlined', () => {
+  return (props: any) => (
+    <svg data-testid={props['data-testid'] || 'search-off-icon'} className={props.className} aria-hidden={props['aria-hidden']} />
+  );
+});
+
 // Mock MUI components
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
@@ -91,6 +103,45 @@ describe('RdsCompEmptyState', () => {
       const { container } = renderComponent();
       const contentElement = container.querySelector('.rds-comp-empty-state__content');
       expect(contentElement).toBeInTheDocument();
+    });
+  });
+
+  describe('Variant Rendering', () => {
+    it('should render minimal icon when variant is minimal', () => {
+      renderComponent({ variant: 'minimal' });
+      expect(screen.getByTestId('emptyStateMinimalIcon')).toBeInTheDocument();
+      expect(screen.queryByTestId('emptyStateImage')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('emptyStateLottie')).not.toBeInTheDocument();
+    });
+
+    it('should not render illustration image when variant is minimal', () => {
+      renderComponent({ variant: 'minimal', isContinueAnimate: false });
+      expect(screen.queryByTestId('emptyStateImage')).not.toBeInTheDocument();
+    });
+
+    it('should render minimal icon even when isContinueAnimate is true', () => {
+      renderComponent({ variant: 'minimal', isContinueAnimate: true });
+      expect(screen.getByTestId('emptyStateMinimalIcon')).toBeInTheDocument();
+      expect(screen.queryByTestId('emptyStateLottie')).not.toBeInTheDocument();
+    });
+
+    it('should apply minimal modifier classes when variant is minimal', () => {
+      const { container } = renderComponent({ variant: 'minimal' });
+      expect(container.querySelector('.rds-comp-empty-state--minimal')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-empty-state__icon--minimal')).toBeInTheDocument();
+    });
+
+    it('should use custom iconPath in minimal variant', () => {
+      renderComponent({ variant: 'minimal', iconPath: '/custom/minimal.svg' });
+      const image = screen.getByTestId('emptyStateImage') as HTMLImageElement;
+      expect(image.src).toContain('/custom/minimal.svg');
+      expect(screen.queryByTestId('emptyStateMinimalIcon')).not.toBeInTheDocument();
+    });
+
+    it('should default to illustration variant', () => {
+      renderComponent({ isContinueAnimate: false });
+      expect(screen.getByTestId('emptyStateImage')).toBeInTheDocument();
+      expect(screen.queryByTestId('emptyStateMinimalIcon')).not.toBeInTheDocument();
     });
   });
 
@@ -267,6 +318,13 @@ describe('RdsCompEmptyState', () => {
   });
 
   describe('Icon Dimensions', () => {
+    it('should apply default 72px dimensions for minimal variant', () => {
+      renderComponent({ variant: 'minimal' });
+      const icon = screen.getByTestId('icon');
+      const style = icon.getAttribute('style');
+      expect(style).toContain('72px');
+    });
+
     it('should apply default dimensions when not provided', () => {
       renderComponent();
       const icon = screen.getByTestId('icon');

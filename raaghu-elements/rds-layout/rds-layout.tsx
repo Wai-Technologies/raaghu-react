@@ -1,14 +1,14 @@
-import React from 'react';
+import { type ReactNode, type CSSProperties } from 'react';
 import { Box, Container, type ContainerProps } from '@mui/material';
 import RdsHeader from '../rds-header/rds-header';
 
-export interface RdsLayoutProps extends Omit<ContainerProps, 'children'> {
-  children: React.ReactNode;
+export interface RdsLayoutProps extends Omit<ContainerProps, 'children' | 'component'> {
+  children: ReactNode;
   header?: {
     title?: string;
     showMenuButton?: boolean;
     onMenuClick?: () => void;
-    actions?: React.ReactNode;
+    actions?: ReactNode;
   };
   showHeader?: boolean;
   headerHeight?: number;
@@ -25,7 +25,7 @@ const RdsLayout= ({
   ...props
 }:RdsLayoutProps) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` } as any}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` } as CSSProperties}>
       {showHeader && header && (
         <RdsHeader
           title={header.title}

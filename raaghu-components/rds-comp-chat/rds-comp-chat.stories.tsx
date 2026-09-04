@@ -78,10 +78,10 @@ export const Default: Story = {
                 comments: []
             }
         ],
-        currentUserCommentBgColor: "#7825E9",
-        currentUserCommentTextColor: "#FEF7FF",
-        otherUserCommentBgColor: "#E1E3EA",
-        OtherUserCommentTextColor: "#202020",
+        currentUserCommentBgColor: "var(--rds-primary-main)",
+        currentUserCommentTextColor: "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
+        otherUserCommentBgColor: "var(--rds-neutral-300)",
+        OtherUserCommentTextColor: "var(--rds-text-primary)",
         handleAddComment: (comment) => {},
     },
     play: async ({ canvasElement }) => {

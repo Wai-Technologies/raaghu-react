@@ -377,7 +377,7 @@ describe('RdsTypography', () => {
   describe('Text Content', () => {
     it('should render empty text prop with children fallback', () => {
       const { container } = renderWithTheme(
-        <RdsTypography text="" children="Fallback" />
+        <RdsTypography text="" >{"Fallback"}</RdsTypography>
       );
       const typography = container.querySelector('.rds-typography');
       expect(typography?.textContent).toBe('Fallback');
@@ -625,25 +625,25 @@ describe('RdsTypography', () => {
   describe('Edge Cases', () => {
     it('should handle undefined text prop', () => {
       renderWithTheme(
-        <RdsTypography text={undefined} children="Fallback" />
+        <RdsTypography text={undefined} >{"Fallback"}</RdsTypography>
       );
       expect(screen.getByText('Fallback')).toBeInTheDocument();
     });
 
     it('should handle null children', () => {
-      renderWithTheme(<RdsTypography text="Text" children={null} />);
+      renderWithTheme(<RdsTypography text="Text" >{null}</RdsTypography>);
       expect(screen.getByText('Text')).toBeInTheDocument();
     });
 
     it('should handle false as text', () => {
       renderWithTheme(
-        <RdsTypography text={false as any} children="Fallback" />
+        <RdsTypography text={false as any} >{"Fallback"}</RdsTypography>
       );
       expect(screen.getByText('Fallback')).toBeInTheDocument();
     });
 
     it('should handle 0 as text', () => {
-      renderWithTheme(<RdsTypography text={0 as any} children="Fallback" />);
+      renderWithTheme(<RdsTypography text={0 as any} >{"Fallback"}</RdsTypography>);
       expect(screen.getByText('Fallback')).toBeInTheDocument();
     });
 
@@ -674,6 +674,7 @@ describe('RdsTypography', () => {
       expect(heading || container.querySelector('h1')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsTypography />);
       const results = await axe(container);

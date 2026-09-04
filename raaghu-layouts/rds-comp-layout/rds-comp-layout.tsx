@@ -1,10 +1,10 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import { Box, type BoxProps } from '@mui/material';
 import './rds-comp-layout.scss';
 import renderLayoutContent from './renderLayoutContent';
 
 export interface RdsCompLayoutProps extends BoxProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   spacing?: number;
   direction?: 'row' | 'column';
   wrap?: boolean;

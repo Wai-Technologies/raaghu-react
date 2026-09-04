@@ -44,9 +44,10 @@ const meta: Meta<typeof RdsTable> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defaultTableData = [
-  {
-    id: '1',
+const defaultTableData = Array.from({ length: 16 }, (_, index) => {
+  const id = (index + 1).toString();
+  return {
+    id,
     text1: 'Text',
     badge1: 'Badge',
     radio1: 'radio',
@@ -57,7 +58,7 @@ const defaultTableData = [
     user: {
       name: 'Jane Doe',
       subtitle: 'Designation',
-      src: '/path/to/avatar1.jpg'
+      src: `/path/to/avatar${id}.jpg`,
     },
     sampleText: 'This is a sample text',
     linkText: 'Text',
@@ -74,145 +75,49 @@ const defaultTableData = [
     badge5: 'Badge',
     text5: 'Text',
     text6: 'Text',
-    deleteAction: 'delete'
-  },
-  {
-    id: '2',
-    text1: 'Text',
-    badge1: 'Badge',
-    radio1: 'radio',
-    checkbox1: 'checkbox',
-    text2: 'Text',
-    menuIcon: '⋮',
-    textColumn: 'Text\nText',
-    user: {
-      name: 'Jane Doe',
-      subtitle: 'Designation',
-      src: '/path/to/avatar2.jpg'
-    },
-    sampleText: 'This is a sample text',
-    linkText: 'Text',
-    progressBar1: 'progress',
-    textNew1: 'Text',
-    badge6: 'Badge',
-    badge7: 'Badge',
-    progressText: 'Text',
-    text3: 'Text',
-    badge2: 'Badge',
-    badge3: 'Badge',
-    textNew2: 'Text',
-    badge4: 'Badge',
-    badge5: 'Badge',
-    text5: 'Text',
-    text6: 'Text',
-    deleteAction: 'delete'
-  },
-  {
-    id: '3',
-    text1: 'Text',
-    badge1: 'Badge',
-    radio1: 'radio',
-    checkbox1: 'checkbox',
-    text2: 'Text',
-    menuIcon: '⋮',
-    textColumn: 'Text\nText',
-    user: {
-      name: 'Jane Doe',
-      subtitle: 'Designation',
-      src: '/path/to/avatar3.jpg'
-    },
-    sampleText: 'This is a sample text',
-    linkText: 'Text',
-    progressBar1: 'progress',
-    textNew1: 'Text',
-    badge6: 'Badge',
-    badge7: 'Badge',
-    progressText: 'Text',
-    text3: 'Text',
-    badge2: 'Badge',
-    badge3: 'Badge',
-    textNew2: 'Text',
-    badge4: 'Badge',
-    badge5: 'Badge',
-    text5: 'Text',
-    text6: 'Text',
-    deleteAction: 'delete'
-  },
-  {
-    id: '4',
-    text1: 'Text',
-    badge1: 'Badge',
-    radio1: 'radio',
-    checkbox1: 'checkbox',
-    text2: 'Text',
-    menuIcon: '⋮',
-    textColumn: 'Text\nText',
-    user: {
-      name: 'Jane Doe',
-      subtitle: 'Designation',
-      src: '/path/to/avatar4.jpg'
-    },
-    sampleText: 'This is a sample text',
-    linkText: 'Text',
-    progressBar1: 'progress',
-    textNew1: 'Text',
-    badge6: 'Badge',
-    badge7: 'Badge',
-    progressText: 'Text',
-    text3: 'Text',
-    badge2: 'Badge',
-    badge3: 'Badge',
-    textNew2: 'Text',
-    badge4: 'Badge',
-    badge5: 'Badge',
-    text5: 'Text',
-    text6: 'Text',
-    deleteAction: 'delete'
-  }
+    deleteAction: 'delete',
+  };
+});
+
+const sampleUsers = [
+  { name: 'John Doe', email: 'john@example.com' },
+  { name: 'Jane Smith', email: 'jane@example.com' },
+  { name: 'Bob Johnson', email: 'bob@example.com' },
+  { name: 'Alice Williams', email: 'alice@example.com' },
+  { name: 'Charlie Brown', email: 'charlie@example.com' },
+  { name: 'Diana Prince', email: 'diana@example.com' },
+  { name: 'Ethan Hunt', email: 'ethan@example.com' },
+  { name: 'Fiona Gallagher', email: 'fiona@example.com' },
+  { name: 'George Miller', email: 'george@example.com' },
+  { name: 'Hannah Lee', email: 'hannah@example.com' },
+  { name: 'Ian Curtis', email: 'ian@example.com' },
+  { name: 'Julia Roberts', email: 'julia@example.com' },
+  { name: 'Kevin Morgan', email: 'kevin@example.com' },
+  { name: 'Laura Cox', email: 'laura@example.com' },
+  { name: 'Michael Scott', email: 'michael@example.com' },
+  { name: 'Nina Patel', email: 'nina@example.com' },
 ];
 
+const sampleRoles = ['Admin', 'User', 'Moderator'] as const;
+const sampleStatuses = ['Active', 'Inactive'] as const;
+const sampleBadges = ['Badge', 'Image'] as const;
 
-const sampleData = [
-  { 
-    id: '1', 
-    name: 'John Doe', 
-    email: 'john@example.com', 
-    role: 'Admin',
+const sampleData = sampleUsers.map((user, index) => {
+  const id = (index + 1).toString();
+  return {
+    id,
+    name: user.name,
+    email: user.email,
+    role: sampleRoles[index % sampleRoles.length],
     user: {
-      name: 'Jane Doe',
+      name: user.name,
       subtitle: 'Designation',
-      src: '/path/to/avatar1.jpg'
+      src: `/path/to/avatar${id}.jpg`,
     },
-    badge: 'Badge',
-    status: 'Active'
-  },
-  { 
-    id: '2', 
-    name: 'Jane Smith', 
-    email: 'jane@example.com', 
-    role: 'User',
-    user: {
-      name: 'Jane Doe',
-      subtitle: 'Designation',
-      src: '/path/to/avatar2.jpg'
-    },
-    badge: 'Image',
-    status: 'Inactive'
-  },
-  { 
-    id: '3', 
-    name: 'Bob Johnson', 
-    email: 'bob@example.com', 
-    role: 'Moderator',
-    user: {
-      name: 'Jane Doe',
-      subtitle: 'Designation',
-      src: '/path/to/avatar3.jpg'
-    },
-    badge: 'Badge',
-    status: 'Active'
-  },
-];
+    badge: sampleBadges[index % sampleBadges.length],
+    status: sampleStatuses[index % sampleStatuses.length],
+  };
+});
 
 const defaultColumns = [
   { 
@@ -347,21 +252,23 @@ const defaultColumns = [
     sortable: true,
     format: (value: string) => (
       <div className="rds-table__content-row">
-        <span className="rds-table__content-text">Text</span>
-        <RdsBadge 
-          badgeContent="Active" 
-          color="secondary" 
-          size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
-        />
-        <RdsBadge 
-          badgeContent="Pending" 
-          color="secondary" 
-          size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
-        />
+        <span>{value}</span>
+        <div className="rds-table__badge-group">
+          <RdsBadge 
+            badgeContent="Active" 
+            color="secondary" 
+            size="small" 
+            shape="rectangle" 
+            colorVariant="secondary"
+          />
+          <RdsBadge 
+            badgeContent="Pending" 
+            color="secondary" 
+            size="small" 
+            shape="rectangle" 
+            colorVariant="secondary"
+          />
+        </div>
       </div>
     )
   },
@@ -386,21 +293,23 @@ const defaultColumns = [
     sortable: true,
     format: (value: string) => (
       <div className="rds-table__content-row">
-        <RdsBadge 
-          badgeContent="Active" 
-          color="secondary" 
-          size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
-        />
-        <RdsBadge 
-          badgeContent="Pending" 
-          color="secondary" 
-          size="small" 
-          shape="rectangle" 
-          colorVariant="secondary"
-        />
-        <span className="rds-table__content-text">Text</span>
+        <div className="rds-table__badge-group">
+          <RdsBadge 
+            badgeContent="Active" 
+            color="secondary" 
+            size="small" 
+            shape="rectangle" 
+            colorVariant="secondary"
+          />
+          <RdsBadge 
+            badgeContent="Pending" 
+            color="secondary" 
+            size="small" 
+            shape="rectangle" 
+            colorVariant="secondary"
+          />
+        </div>
+        <span>{value}</span>
       </div>
     )
   }

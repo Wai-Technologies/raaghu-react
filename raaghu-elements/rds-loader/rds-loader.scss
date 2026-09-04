@@ -125,6 +125,33 @@
   text-align: center;
   width: 100%;
 }
+
+/* Higher specificity so overlay flex centering is not overridden by
+   `.rds-loader { display: inline-block }` */
+.rds-loader.rds-loader--overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5));
+  z-index: var(--rds-z-index-tooltip, 9999);
+
+  .MuiTypography-root {
+    color: var(--rds-neutral-0, #fff);
+  }
+
+  .rds-loader__label {
+    color: var(--rds-neutral-0, #fff);
+  }
+}
 .rds-loader__hash:before { animation: before8 2s infinite; }
 .rds-loader__hash:after { animation: after6 2s infinite; }
 @keyframes before8 {

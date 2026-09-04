@@ -226,6 +226,25 @@ describe('RdsModal', () => {
       expect(image).not.toBeInTheDocument();
     });
 
+    it('should not render image when imageSrc is an invalid value', () => {
+      renderWithTheme(
+        <RdsModal
+          {...defaultProps}
+          imageSrc={[] as unknown as string}
+        />
+      );
+      const image = screen.queryByAltText('Modal');
+      expect(image).not.toBeInTheDocument();
+    });
+
+    it('should not render image when imageSrc is an empty string', () => {
+      renderWithTheme(
+        <RdsModal {...defaultProps} imageSrc="" />
+      );
+      const image = screen.queryByAltText('Modal');
+      expect(image).not.toBeInTheDocument();
+    });
+
     it('should apply correct image class', () => {
       renderWithTheme(
         <RdsModal 

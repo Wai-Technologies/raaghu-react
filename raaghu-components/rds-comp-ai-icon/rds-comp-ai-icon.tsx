@@ -1,54 +1,73 @@
-import React, { useState, useEffect } from "react";
-import './rds-comp-ai-icon.scss';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
+import clsx from "clsx";
+import { forwardRef, memo, useEffect, useMemo, useState, type ComponentType, type MouseEventHandler, type SVGProps } from "react";
+import "./rds-comp-ai-icon.scss";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 
-const defaultMaterialIcons: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> } = {
-  'users': GroupOutlinedIcon,
-  'person-outline': PersonOutlineIcon,
+/** Accepts MUI SvgIcon components and plain SVG React components. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RdsIconComponent = ComponentType<any>;
+
+const defaultMaterialIcons: Record<string, RdsIconComponent> = {
+  users: GroupOutlinedIcon,
+  "person-outline": PersonOutlineIcon,
 };
 
-const materialIconsRegistry: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> } = {
-  ...defaultMaterialIcons
+const materialIconsRegistry: Record<string, RdsIconComponent> = {
+  ...defaultMaterialIcons,
 };
 
-export const registerMaterialIcon = (name: string, iconComponent: React.ComponentType<React.SVGProps<SVGSVGElement>>) => {
+export const registerMaterialIcon = (
+  name: string,
+  iconComponent: RdsIconComponent
+) => {
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
-  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* handled */ }
+  try {
+    window.dispatchEvent(new CustomEvent("rds-icons-updated"));
+  } catch {
+    /* handled */
+  }
 };
 
-export const registerMaterialIcons = (icons: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> }) => {
+export const registerMaterialIcons = (icons: Record<string, RdsIconComponent>) => {
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
-  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* handled */ }
+  try {
+    window.dispatchEvent(new CustomEvent("rds-icons-updated"));
+  } catch {
+    /* handled */
+  }
 };
 
-const createMuiIconWrapper = (MuiIcon: React.ComponentType<React.SVGProps<SVGSVGElement>>): React.ComponentType<React.SVGProps<SVGSVGElement>> => {
-  return React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => {
-    const {
-      color,
-      fontSize,
-      className,
-      style,
-      ...restProps
-    } = props || {};
+const createMuiIconWrapper = (
+  MuiIcon: RdsIconComponent
+): ComponentType<SVGProps<SVGSVGElement>> =>
+  forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
+    ({ color, fontSize, className, style, ...restProps }, ref) => {
+      const combinedStyle = {
+        ...style,
+        ...(color && { color }),
+        ...(fontSize && { fontSize }),
+      };
 
-    const combinedStyle = {
-      ...style,
-      ...(color && { color }),
-      ...(fontSize && { fontSize }),
-    };
+      return <MuiIcon ref={ref} className={className} style={combinedStyle} {...restProps} />;
+    }
+  );
 
-    return (
-      <MuiIcon
-        ref={ref}
-        className={className}
-        style={combinedStyle}
-        {...restProps}
-      />
-    );
-  });
+const resolveIconComponent = (
+  iconName: string,
+  SvgIcon?: RdsIconComponent
+): ComponentType<SVGProps<SVGSVGElement>> | null => {
+  try {
+    if (SvgIcon) return SvgIcon;
+    if (iconName && materialIconsRegistry[iconName]) {
+      return createMuiIconWrapper(materialIconsRegistry[iconName]);
+    }
+    return null;
+  } catch {
+    return null;
+  }
 };
 
 export interface RdsCompAiIconProps {
@@ -60,7 +79,7 @@ export interface RdsCompAiIconProps {
   stroke?: boolean;
   strokeWidth?: string;
   borderRadius?: string;
-  onClick?: React.MouseEventHandler<HTMLElement | SVGSVGElement> | null;
+  onClick?: MouseEventHandler<HTMLElement | SVGSVGElement> | null;
   opacity?: string;
   isAnimate?: boolean;
   classes?: string;
@@ -69,7 +88,7 @@ export interface RdsCompAiIconProps {
   databstarget?: string;
   databstoggle?: string;
   ariacontrols?: string;
-  imageUrl?: string; // Add imageUrl prop
+  imageUrl?: string;
   id?: string;
   iconPath?: string;
   type?: "icon" | "lottie";
@@ -77,109 +96,127 @@ export interface RdsCompAiIconProps {
   isContinueAnimate?: boolean;
   hovered?: boolean;
   isHovered?: boolean;
-  isCursorPointer?: boolean; 
+  isCursorPointer?: boolean;
   strokeColor?: string;
-  SvgIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  SvgIcon?: ComponentType<SVGProps<SVGSVGElement>>;
   position?: "center" | "top-left" | "none";
 }
 
-const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
-  const name: string = !props.name ? "" : props.name.toLowerCase();
-  const [IconComponent, setIconComponent] = useState<React.ComponentType<React.SVGProps<SVGSVGElement>> | null>(props.SvgIcon || null);
+const RdsCompAiIconComponent = ({
+  width,
+  height,
+  colorVariant,
+  name,
+  fill,
+  stroke,
+  strokeWidth,
+  onClick,
+  classes,
+  dataTestId,
+  databsdismiss,
+  databstarget,
+  databstoggle,
+  ariacontrols,
+  imageUrl,
+  id,
+  isCursorPointer,
+  strokeColor,
+  SvgIcon,
+  position,
+}: RdsCompAiIconProps) => {
+  const normalizedName = name?.toLowerCase() ?? "";
 
-  useEffect(() => {
-    const resolveIcon = () => {
-      try {
-        if (props.SvgIcon) {
-          setIconComponent(props.SvgIcon);
-          return;
-        }
-        if (name && materialIconsRegistry[name]) {
-          const MuiIcon = materialIconsRegistry[name];
-          if (MuiIcon) {
-            const wrappedIcon = createMuiIconWrapper(MuiIcon);
-            setIconComponent(wrappedIcon);
-            return;
-          }
-        }
-        setIconComponent(null);
-      } catch (error) {
-        setIconComponent(null);
-      }
-    };
+  const IconComponent = useMemo(
+    () => resolveIconComponent(normalizedName, SvgIcon),
+    [normalizedName, SvgIcon]
+  );
 
-    resolveIcon();
-    const onIconsUpdated = () => resolveIcon();
-    window.addEventListener('rds-icons-updated', onIconsUpdated);
-    return () => {
-      window.removeEventListener('rds-icons-updated', onIconsUpdated);
-    };
-  }, [name, props.SvgIcon]);
+  const style = useMemo(
+    () => ({
+      height: height ?? "22px",
+      width: width ?? "22px",
+      "--rds-ai-icon-size": "var(--rds-ai-icon-size)",
+      strokeWidth: strokeWidth ?? "inherit",
+      ...(position === "center" && { margin: "auto" }),
+      ...(position === "top-left" && { margin: "0" }),
+      ...(position === "none" && {}),
+      ...(!position && { margin: "auto" }),
+    }),
+    [height, width, strokeWidth, position]
+  );
 
-  const style = {
-    height: props.height ? props.height : "22px",
-    width: props.width ? props.width : "22px",
-    '--rds-ai-icon-size': 'var(--rds-ai-icon-size)',
-    strokeWidth: props.strokeWidth ? props.strokeWidth : "inherit",
-    ...(props.position === "center" && { margin: "auto" }),
-    ...(props.position === "top-left" && { margin: "0" }),
-    ...(props.position === "none" && {}),
-    ...(!props.position && { margin: "auto" }),
-  };
-
-  const rootClass = "rds-comp-ai-icon";
-  const modifierClasses = [
-    props.classes,
-    props.isCursorPointer ? `${rootClass}--cursor` : undefined,
-    props.colorVariant ? `${rootClass}--${props.colorVariant}` : undefined,
-  ]
-    .filter(Boolean)
-    .join(" ");
-  const className = `${rootClass} ${modifierClasses}`.trim();
+  const className = clsx(
+    "rds-comp-ai-icon",
+    classes,
+    isCursorPointer && "rds-comp-ai-icon--cursor",
+    colorVariant && `rds-comp-ai-icon--${colorVariant}`
+  );
 
   if (IconComponent) {
     try {
       const Icon = IconComponent;
-      const svgProps = {
-        className: `${className} ${rootClass}__svg`,
-        onClick: props.onClick || undefined,
-        id: props.id,
-        "data-testid": props.dataTestId,
-        style,
-        "data-bs-dismiss": props.databsdismiss,
-        "data-bs-target": props.databstarget,
-        "data-bs-toggle": props.databstoggle,
-        "aria-controls": props.ariacontrols,
-        fill: props.fill ? "currentColor" : "none",
-        stroke: props.stroke ? (props.strokeColor || "currentColor") : "none",
-      };
-
-      return <Icon {...svgProps} />;
-    } catch (error) {
+      return (
+        <Icon
+          className={clsx(className, "rds-comp-ai-icon__svg")}
+          onClick={onClick || undefined}
+          id={id}
+          data-testid={dataTestId}
+          style={style}
+          data-bs-dismiss={databsdismiss}
+          data-bs-target={databstarget}
+          data-bs-toggle={databstoggle}
+          aria-controls={ariacontrols}
+          fill={fill ? "currentColor" : "none"}
+          stroke={stroke ? strokeColor || "currentColor" : "none"}
+        />
+      );
+    } catch {
       return null;
     }
   }
 
-  if (props.imageUrl) {
-    return (
+  if (imageUrl) {
+    const imageElement = (
       <img
-        src={props.imageUrl}
-        className={`${className} ${rootClass}__img`}
-        onClick={props.onClick || undefined}
-        role="img"
-        id={props.id}
-        data-testid={props.dataTestId}
+        src={imageUrl}
+        alt=""
+        className={clsx(className, "rds-comp-ai-icon__img")}
+        id={id}
+        data-testid={dataTestId}
         style={style}
-        data-bs-dismiss={props.databsdismiss}
-        data-bs-target={props.databstarget}
-        data-bs-toggle={props.databstoggle}
-        aria-controls={props.ariacontrols}
+        data-bs-dismiss={databsdismiss}
+        data-bs-target={databstarget}
+        data-bs-toggle={databstoggle}
+        aria-controls={ariacontrols}
       />
+    );
+
+    if (onClick) {
+      return (
+        <button
+          type="button"
+          className="rds-comp-ai-icon__button"
+          onClick={onClick as MouseEventHandler<HTMLButtonElement>}
+          style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer" }}
+          data-bs-dismiss={databsdismiss}
+          data-bs-target={databstarget}
+          data-bs-toggle={databstoggle}
+          aria-controls={ariacontrols}
+          aria-label={normalizedName || "icon button"}
+        >
+          {imageElement}
+        </button>
+      );
+    }
+
+    return (
+      imageElement
     );
   }
 
   return null;
 };
 
-RdsCompAiIcon.displayName = "RdsCompAiIcon"
+const RdsCompAiIcon = memo(RdsCompAiIconComponent);
+RdsCompAiIcon.displayName = "RdsCompAiIcon";
 export default RdsCompAiIcon;

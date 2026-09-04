@@ -28,25 +28,38 @@
     display: flex;
     margin-bottom: var(--rds-spacing-sm);
     padding: var(--rds-spacing-sm);
-    background-color: var(--rds-color-surface-variant, #f0f0f0);
+    background-color: var(--rds-surface-neutral-light, #E1E3EA);
     border-radius: var(--rds-border-radius, 6px);
     flex-direction: row;
     gap: var(--rds-spacing-sm);
-    border: 1px solid var(--rds-color-outline, #fff);
+    border: none;
   }
   
   &__tab {
     cursor: pointer;
     border: none;
+    outline: none;
+    box-shadow: none;
     background-color: var(--rds-color-surface, #fff);
+    color: var(--rds-color-on-surface, #1f1f1f);
     flex: 1;
     text-align: center;
     border-radius: var(--rds-border-radius, 4px);
     padding: var(--rds-spacing-xs) var(--rds-spacing-md);
     font-size: var(--rds-font-size-sm);
     transition: all var(--rds-transition-base);
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
     
     &--active {
+      border: none;
       background-color: var(--rds-color-primary, #1976d2);
       color: var(--rds-color-on-primary, #ffffff);
     }
@@ -148,23 +161,37 @@
   &__slider-container {
     margin: var(--rds-spacing-compact) 0;
     position: relative;
-    
+  }
+
+  &__hue-picker {
+    margin-bottom: var(--rds-spacing-sm);
+
     .hue-horizontal {
       border-radius: var(--rds-border-radius-lg) !important;
       height: 12px !important;
     }
-    
+
+    .hue-horizontal > div {
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+    }
   }
-  
-  &__hue-picker {
-    margin-bottom: var(--rds-spacing-sm);
-  }
-  
-  &__alpha-slider-container {
-    .alpha-horizontal {
+
+  &__alpha-picker {
+    > div > div:last-child {
+      margin: 0 !important;
       border-radius: var(--rds-border-radius-lg) !important;
       height: 12px !important;
     }
+
+    > div > div:last-child > div {
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+    }
+  }
+
+  &__slider-pointer {
+    box-sizing: border-box;
   }
   
   &__color-info {
@@ -234,15 +261,24 @@
   }
   
   &__dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
     padding: var(--rds-spacing-sm) 16px;
     font-size: var(--rds-font-size-md);
     cursor: pointer;
     transition: background-color 0.2s;
     color: var(--rds-color-on-surface, #333);
+    min-height: 36px;
     
-    &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
-      outline-offset: 2px;
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
     }
     
     &:hover {
@@ -252,13 +288,18 @@
     &.active {
       color: var(--rds-color-primary, #9751F2);
       font-weight: 500;
-      position: relative;
+      gap: 8px;
+      padding-left: 16px;
       
       &::before {
-        content: '�';
-        position: absolute;
-        left: 6px;
-        color: var(--rds-color-primary, #9751F2);
+        content: '';
+        position: static;
+        flex-shrink: 0;
+        width: 6px;
+        height: 6px;
+        border-radius: var(--rds-border-radius-pill);
+        transform: none;
+        background-color: var(--rds-color-primary, #9751F2);
       }
     }
   }
@@ -286,6 +327,14 @@
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
     text-align: center;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+      border-color: var(--rds-color-outline, #e0e0e0);
+    }
   }
   
   &__color-input {
@@ -297,6 +346,14 @@
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
     text-align: center;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+      border-color: var(--rds-color-outline, #e0e0e0);
+    }
   }
   
   &__percent-wrapper {
@@ -314,6 +371,14 @@
     text-align: center;
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+      border-color: var(--rds-color-outline, #e0e0e0);
+    }
   }
   
   &__swatches {
@@ -374,8 +439,19 @@
   &__swatch-item {
     display: flex;
     align-items: center;
+    width: 100%;
     gap: var(--rds-spacing-sm);
     cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 0;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   &__swatch-color {
@@ -613,12 +689,29 @@
     cursor: pointer;
   }
 }
- [data-theme="dark"] {
-  .rds-comp-color-picker { 
-    span , .MuiSvgIcon-root{
-    color: var(--rds-color-on-surface) !important;
-    fill: var(--rds-color-on-surface) !important;
-  }
+[data-theme="dark"] {
+  .rds-comp-color-picker {
+    span,
+    .MuiSvgIcon-root {
+      color: var(--rds-color-on-surface) !important;
+      fill: var(--rds-color-on-surface) !important;
+    }
+
+    .rds-comp-color-picker__tabs {
+      // Elevated track so it separates from the dark card surface (#424242)
+      background-color: var(--rds-color-surface-container, #4a4a4a);
+    }
+
+    .rds-comp-color-picker__tab {
+      // Inactive pill needs its own fill — surface token matches the card in dark
+      background-color: var(--rds-neutral-700, #646464);
+      color: var(--rds-color-on-surface, #f3f3f3);
+
+      &--active {
+        background-color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-on-primary, #ffffff);
+      }
+    }
   }
 }
 

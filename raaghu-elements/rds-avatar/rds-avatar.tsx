@@ -1,8 +1,8 @@
-import React from 'react';
+import clsx from 'clsx';
 import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 
-export interface RdsAvatarProps extends AvatarProps {
+export interface RdsAvatarProps extends Omit<AvatarProps, 'component'> {
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
   title?: string;
   subText?: string;
@@ -13,6 +13,8 @@ export interface RdsAvatarProps extends AvatarProps {
     title?: string;
     subText?: string;
     size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
+    alt?: string;
+    colorVariant?: string;
   }>;
   maxVisibleAvatars?: number;
   activityRing?: boolean;
@@ -39,6 +41,14 @@ const overflowFontSize: Record<string, string> = {
   largest:  '1.125rem',
 };
 
+const overlapOffsets: Record<string, number> = {
+  smallest: -12,
+  small: -14,
+  medium: -16,
+  large: -20,
+  largest: -26,
+};
+
 const RdsAvatar = ({
   colorVariant = 'primary',
   title,
@@ -61,13 +71,27 @@ const RdsAvatar = ({
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
     const visibleAvatars = avatars.slice(0, maxVisibleAvatars);
     const remainingCount = Math.max(0, avatars.length - maxVisibleAvatars);
-    const overlapOffset = size === 'smallest' ? -12 : size === 'small' ? -14 : size === 'medium' ? -16 : size === 'largest' ? -26 : size === 'large' ? -20 : -22;
+    const overlapOffset = overlapOffsets[size] ?? -22;
+    const avatarSize = sizeStyles[size].width;
+    const itemCount = visibleAvatars.length + (remainingCount > 0 && showRemainingCount ? 1 : 0);
+    const stackWidth =
+      itemCount > 0 ? avatarSize + Math.max(0, itemCount - 1) * (avatarSize + overlapOffset) : avatarSize;
 
     return (
-      <div className="rds-avatar__stacking avatar-container" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+      <div
+        className={clsx('rds-avatar', `rds-avatar--${size}`, 'rds-avatar__stacking', 'avatar-container')}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          flexShrink: 0,
+          minHeight: avatarSize,
+          width: stackWidth,
+        }}
+      >
         {visibleAvatars.map((avatar, idx) => (
     <MuiAvatar
-      key={idx}
+      key={avatar.src || avatar.title || avatar.alt || `${avatar.colorVariant || 'avatar'}-${idx + 1}`}
       src={avatar.src}
       sx={{
               ...sizeStyles[size],
@@ -102,7 +126,15 @@ const RdsAvatar = ({
   if (displayStyle === 'with-name') {
     return (
       <div
-        className={`rds-avatar rds-avatar--with-name rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+        className={clsx(
+        'rds-avatar',
+        'rds-avatar--with-name',
+        `rds-avatar--${size}`,
+        activityRing && 'rds-avatar--with-ring',
+        activeDotTop && 'rds-avatar--dot-top',
+        activeDotBottom && 'rds-avatar--dot-bottom',
+        colorVariant && `rds-avatar--${colorVariant}`,
+      )}
       >
         <span className={`rds-avatar__avatar-wrap`}>
           {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
@@ -124,7 +156,15 @@ const RdsAvatar = ({
   if (displayStyle === 'name-bottom') {
     return (
       <div
-        className={`rds-avatar rds-avatar--name-bottom rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+        className={clsx(
+        'rds-avatar',
+        'rds-avatar--name-bottom',
+        `rds-avatar--${size}`,
+        activityRing && 'rds-avatar--with-ring',
+        activeDotTop && 'rds-avatar--dot-top',
+        activeDotBottom && 'rds-avatar--dot-bottom',
+        colorVariant && `rds-avatar--${colorVariant}`,
+      )}
       >
         <span className="rds-avatar__avatar-outer">
           {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
@@ -149,7 +189,13 @@ const RdsAvatar = ({
 
   return (
     <span
-      className={`rds-avatar${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+      className={clsx(
+        'rds-avatar',
+        activityRing && 'rds-avatar--with-ring',
+        activeDotTop && 'rds-avatar--dot-top',
+        activeDotBottom && 'rds-avatar--dot-bottom',
+        colorVariant && `rds-avatar--${colorVariant}`,
+      )}
     >
       <span className="rds-avatar__avatar-outer">
         {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}

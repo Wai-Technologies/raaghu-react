@@ -40,7 +40,7 @@
       .MuiInputBase-root {
         background-color: var(--rds-background-paper);
         border-radius: var(--rds-border-radius-sm, 4px);
-        border: 1px solid var(--rds-border-light);
+        border: 1px solid var(--rds-border-default);
         transition: all var(--rds-transition-base);
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-primary);
@@ -227,10 +227,11 @@
   }
 
   &__emoji-image {
-      width: var(--rds-size-xs, 22px);
-      height: var(--rds-size-xs, 22px);
-      display: inline-block;
-      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
   }
   
   &__category-title {
@@ -298,6 +299,8 @@
     justify-content: center;
     width: var(--rds-size-lg, 36px);
     height: var(--rds-size-lg, 36px);
+    min-width: var(--rds-size-lg, 36px);
+    min-height: var(--rds-size-lg, 36px);
     border-radius: var(--rds-border-radius-md, 8px);
     cursor: pointer;
     transition: transform 0.2s ease;

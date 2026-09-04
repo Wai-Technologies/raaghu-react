@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useMemo, useState, type SyntheticEvent } from 'react';
 import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import './rds-rating.scss';
 
-export interface RdsRatingProps extends RatingProps {
+export interface RdsRatingProps extends Omit<RatingProps, 'component'> {
   label?: string;
   showValue?: boolean;
   maxStars?: number;
@@ -12,6 +12,32 @@ export interface RdsRatingProps extends RatingProps {
   styles?: 'default' | 'filled' | 'outlined';
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
 }
+
+const allowedSliderValues = [0, 2.5, 5];
+
+const snapToAllowed = (val: number | null | undefined): number => {
+  if (val === null || val === undefined) return 0;
+  return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
+};
+
+/**
+ * MUI Rating builds decimal segments with `new Array(1 / precision)`, which throws
+ * RangeError when 1/precision is not an integer (e.g. 0.3 → 3.33…, 0.4 → 2.5).
+ * Normalize to a precision that divides 1 evenly.
+ */
+const sanitizePrecision = (precision: number): number => {
+  if (!Number.isFinite(precision) || precision <= 0) return 0.5;
+  if (precision >= 1) return 1;
+  const segments = Math.max(1, Math.round(1 / precision));
+  return 1 / segments;
+};
+
+const getLevelValue = (lvl: RdsRatingProps['level']): number | undefined => {
+  if (lvl === 'Left') return 0;
+  if (lvl === 'Mid') return 2.5;
+  if (lvl === 'Right') return 5;
+  return lvl;
+};
 
 const RdsRating = ({
   label,
@@ -24,17 +50,11 @@ const RdsRating = ({
   level,
   colorVariant,
   onChange,
+  precision: precisionProp,
   ...props
 }: RdsRatingProps) => {
   const maxRating = max || maxStars;
   
-  const allowedSliderValues = [0, 2.5, 5];
-
-  function snapToAllowed(val: number | null | undefined): number {
-    if (val === null || val === undefined) return 0;
-    return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
-  }
-
   const [internalValue, setInternalValue] = useState<number | null>(() => {
     if (type === 'slider') {
       if (level !== undefined) {
@@ -53,46 +73,34 @@ const RdsRating = ({
     }
   });
   
-  function getLevelValue(level: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right'): number | undefined {
-    if (level === 'Left') return 0;
-    if (level === 'Mid') return 2.5;
-    if (level === 'Right') return 5;
-    return level;
-  }
   
-
-  let currentValue: number | null = internalValue;
-  if (type === 'slider') {
-    currentValue = snapToAllowed(currentValue);
-  } else {
-    if (currentValue === null && level !== undefined) {
-      const lvl = getLevelValue(level);
-      currentValue = lvl !== undefined ? lvl : null;
-    }
-    if (currentValue === null && value !== undefined) currentValue = value;
-  }
-
-  const precision = type === 'slider' ? undefined : (props.precision !== undefined ? props.precision : 0.5);
-
-  useEffect(() => {
+  const currentValue = useMemo(() => {
     if (type === 'slider') {
-      if (level !== undefined) {
-        const levelVal = getLevelValue(level);
-        setInternalValue(snapToAllowed(levelVal));
-      } else if (value !== undefined) {
-        setInternalValue(snapToAllowed(value));
+      if (value !== undefined) {
+        return snapToAllowed(value);
       }
-    } else {
       if (level !== undefined) {
-        const levelVal = getLevelValue(level);
-        setInternalValue(levelVal !== undefined ? levelVal : null);
-      } else if (value !== undefined) {
-        setInternalValue(value);
+        return snapToAllowed(getLevelValue(level));
       }
+      return snapToAllowed(internalValue);
     }
-  }, [value, level, type]);
 
-  const handleStarChange = (event: React.SyntheticEvent, newValue: number | null) => {
+    if (value !== undefined) {
+      return value;
+    }
+    if (level !== undefined) {
+      const levelValue = getLevelValue(level);
+      return levelValue !== undefined ? levelValue : null;
+    }
+    return internalValue;
+  }, [internalValue, level, type, value]);
+
+  const precision =
+    type === 'slider'
+      ? undefined
+      : sanitizePrecision(precisionProp !== undefined ? precisionProp : 0.5);
+
+  const handleStarChange = (event: SyntheticEvent, newValue: number | null) => {
     let finalValue: number | null = newValue;
     
     if (newValue === currentValue && newValue !== 0) {
@@ -106,13 +114,13 @@ const RdsRating = ({
     }
   };
 
-  const handleSliderChange = (event: Event | React.SyntheticEvent, newValue: number | number[]) => {
+  const handleSliderChange = (event: Event | SyntheticEvent, newValue: number | number[]) => {
     let value = Array.isArray(newValue) ? newValue[0] : newValue;
     value = snapToAllowed(value);
     setInternalValue(value);
     
     if (onChange) {
-      onChange(event as React.SyntheticEvent, value);
+      onChange(event as SyntheticEvent<Element, Event>, value);
     }
   };
 

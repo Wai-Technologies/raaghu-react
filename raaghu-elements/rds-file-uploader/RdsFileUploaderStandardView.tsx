@@ -1,48 +1,49 @@
-import React from 'react';
+import { useState, type ReactNode, type ChangeEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
-import type { FileWithProgress } from './rds-file-uploader';
+import { type FileWithProgress } from './rds-file-uploader';
 
 interface RdsFileUploaderStandardViewProps {
-  showTitle: boolean;
-  isMandatory: boolean;
+  viewConfig: {
+    showTitle: boolean;
+    isMandatory: boolean;
+    showHint: boolean;
+    showPreview: boolean;
+  };
+  interactionConfig: {
+    disabled: boolean;
+    dragAndDrop: boolean;
+    isDragOver: boolean;
+    multiple: boolean;
+  };
   mandatoryError: string | null;
-  showHint: boolean;
   hintText: string;
-  disabled: boolean;
-  dragAndDrop: boolean;
-  isDragOver: boolean;
-  multiple: boolean;
-  showPreview: boolean;
   selectedFileName: string | null;
-  handleFileSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFileSelect: (e: ChangeEvent<HTMLInputElement>) => void;
+  addFiles: (files: File[]) => void;
   setSelectedFileName: (name: string | null) => void;
-  setFiles: React.Dispatch<React.SetStateAction<FileWithProgress[]>>;
+  setFiles: Dispatch<SetStateAction<FileWithProgress[]>>;
   onFilesChange?: (files: FileWithProgress[]) => void;
-  children?: React.ReactNode;
+  children?: ReactNode;
   title?: string;
 }
 
-const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = ({
-  showTitle,
-  isMandatory,
+const RdsFileUploaderStandardView = ({
+  viewConfig,
+  interactionConfig,
   mandatoryError,
-  showHint,
   hintText,
-  disabled,
-  dragAndDrop,
-  isDragOver,
-  multiple,
-  showPreview,
   selectedFileName,
   handleFileSelect,
+  addFiles,
   setSelectedFileName,
   setFiles,
   onFilesChange,
   children,
   title
-}) => {
-  const [internalDragOver, setInternalDragOver] = React.useState(false);
+}: RdsFileUploaderStandardViewProps) => {
+  const { showTitle, isMandatory, showHint, showPreview } = viewConfig;
+  const { disabled, dragAndDrop, isDragOver, multiple } = interactionConfig;
 
   return (
     <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>
@@ -62,13 +63,12 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
           pointerEvents: disabled ? 'none' : 'auto',
           opacity: disabled ? 0.6 : 1,
         }}
-        onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(true); } : undefined}
-        onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); } : undefined}
-        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileSelect({ target: { files: droppedFiles as unknown as FileList } } as unknown as React.ChangeEvent<HTMLInputElement>); } : undefined}
+        onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); } : undefined}
+        onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); } : undefined}
+        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); addFiles(Array.from(e.dataTransfer.files)); } : undefined}
       >
         <RdsButton
           style="filled"
-          component="label"
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
           sx={{
@@ -78,6 +78,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
             padding: 'var(--rds-file-uploader-upload-padding-y, 4px) var(--rds-file-uploader-upload-padding-x, 13px)',
             flexShrink: 0,
           }}
+          {...({ component: 'label' } as Record<string, unknown>)}
         >
           Choose File
           <input
@@ -86,11 +87,13 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
             multiple={multiple}
             disabled={disabled}
             onChange={handleFileSelect}
+            aria-label="Choose file"
           />
         </RdsButton>
         <Typography
           className="rds-file-uploader__filename"
           variant="body2"
+          noWrap
           sx={{ color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)' }}
         >
           {showPreview
@@ -115,7 +118,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
         )}
       </Box>
 
-      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs, 4px)', minHeight: 'var(--rds-file-uploader-hint-row-height, 20px)', marginLeft: 'var(--rds-file-uploader-hint-padding-right, 10px)' }}>
+      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs, 4px)', minHeight: 'var(--rds-file-uploader-hint-row-height, 20px)' }}>
         <Typography
           className="rds-file-uploader__hint"
           variant="caption"

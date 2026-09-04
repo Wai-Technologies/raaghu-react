@@ -4,21 +4,22 @@
 $rds-app-bar-breakpoint-md: 834px;
 $rds-app-bar-breakpoint-sm: 420px;
 $rds-app-bar-breakpoint-xs: 320px;
+$rds-app-bar-breakpoint-notification-tablet: 1280px;
 
 .rds-story-logo {
-  height: var(--rds-spacing-xl, 32px);
+  height: var(--rds-spacing-xl, 40px);
  
   @media (max-width: $rds-app-bar-breakpoint-md) {
-    height: calc(3.5 * var(--rds-spacing-xs, 4px));
+    height: var(--rds-spacing-xl, 40px);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    height: var(--rds-spacing-lg, 24px);
+    height: var(--rds-spacing-xl, 40px);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    height: calc(2.5 * var(--rds-spacing-xs, 4px));
-    margin-left: calc(2.5 * var(--rds-spacing-xs, 4px));
+    height: calc(5.5 * var(--rds-spacing-xs, 4px));
+    margin-left: 0;
   }
 }
 
@@ -269,7 +270,14 @@ $rds-app-bar-breakpoint-xs: 320px;
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center; margin-left: auto; }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; }
     .rds-header__actions { order: 5; }
+    // Remove the heading gap — title should not grow when center content is present
+    .rds-header__title { flex-grow: 0; min-width: 0; padding: 0; }
   }
+}
+
+// Remove heading gap for withactions at all screen sizes
+.rds-header--variant-withactions {
+  .rds-header__title { flex-grow: 0 !important; min-width: 0 !important; padding: 0 !important; }
 }
 
 @media (max-width: 420px) {
@@ -326,6 +334,39 @@ $rds-app-bar-breakpoint-xs: 320px;
         line-height: 1.1 !important;
       }
     }
+  }
+}
+
+// "Find Jobs" button in bottom nav: only visible at small mobile (≤320px)
+.rds-withactions-findjobs-mobile {
+  display: none;
+}
+
+// "Find Jobs" button in top nav: hidden at small mobile (≤320px), visible above
+.rds-withactions-findjobs-topnav {
+  display: inline-flex;
+  align-items: center;
+}
+
+// Center buttons container for withActions variant
+.rds-withactions-center-buttons {
+  display: flex;
+  align-items: center;
+
+  // Large mobile (421px - 840px): collapse gap to 0
+  @media (min-width: 421px) and (max-width: 840px) {
+    gap: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-withactions-findjobs-mobile {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .rds-withactions-findjobs-topnav {
+    display: none;
   }
 }
 
@@ -428,14 +469,19 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   &__menu-button {
     margin-right: var(--rds-spacing-sm);
+    margin-left: 0 !important; // override MUI edge="start" default of -12px
     flex-shrink: 0;
     
+    @media (max-width: 840px) {
+      margin-right: 0 !important;
+    }
+    
     @media (max-width: 420px) {
-      margin-right: var(--rds-spacing-xs);
+      margin-right: 0 !important;
     }
     
     @media (max-width: 320px) {
-      margin-right: var(--rds-spacing-xs);
+      margin-right: 0 !important;
     }
   }
 
@@ -468,6 +514,32 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
+// Prevent title/search overlap when menu button consumes left toolbar space
+@media (max-width: 420px) {
+  .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
+    .rds-header__title:not(:empty) {
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      max-width: 38% !important;
+      margin: 0 var(--rds-spacing-xs) !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .rds-header__search-wrapper {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      max-width: 120px !important;
+    }
+
+    .rds-header__right-actions .MuiButton-root {
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact) !important;
+      min-width: auto !important;
+      font-size: var(--rds-font-size-xs) !important;
+    }
+  }
+}
+
 .rds-header--transparent {
   &.rds-header {
     background: transparent;
@@ -478,54 +550,129 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 .rds-header--primary {
   &.rds-header {
+    --rds-color-on-primary: var(--rds-color-on-surface);
     background: var(--rds-color-primary);
     color: var(--rds-color-on-primary);
-  }
-  .rds-header__title,
-  .rds-header__actions,
-  .rds-header__logo {
-    color: var(--rds-color-on-primary);
-  }
-  .rds-header__search {
-    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
-    color: var(--rds-color-on-primary);
-    border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
-    input {
-      color: var(--rds-color-on-primary);
+
+    .rds-header__title,
+    .rds-header__actions,
+    .rds-header__logo,
+    .rds-header__center-content,
+    .rds-avatar__name,
+    #avatarname,
+    .rds-avatar__designation,
+    .rds-profile-menu__name,
+    .rds-profile-menu__chevron {
+      color: var(--rds-color-on-primary) !important;
     }
-  }
-  .MuiTab-root {
-    color: var(--rds-color-on-primary);
-    &.Mui-selected {
-      color: var(--rds-color-primary);
-      background: var(--rds-color-surface);
+
+    .rds-header__actions,
+    .rds-header__right-actions,
+    .rds-header__center-content {
+      .MuiButton-root,
+      .MuiButton-text,
+      .MuiIconButton-root {
+        color: var(--rds-color-on-primary) !important;
+      }
+
+      // Avatar background should stand out on primary — use a semi-transparent white
+      .MuiAvatar-root {
+        background-color: rgba(255, 255, 255, 0.25) !important;
+        color: var(--rds-color-on-primary) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .rds-header__search {
+      background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+      color: var(--rds-color-on-primary) !important;
+      border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
+
+      input {
+        color: var(--rds-color-on-primary);
+      }
+
+      input::placeholder {
+        color: var(--rds-color-on-primary);
+        opacity: 0.75;
+      }
+    }
+
+    .rds-header__search-clear {
+      color: var(--rds-color-on-primary) !important;
+    }
+
+    .MuiTab-root {
+      color: var(--rds-color-on-primary);
+
+      &.Mui-selected {
+        color: var(--rds-color-primary);
+        background: var(--rds-color-surface);
+      }
     }
   }
 }
 
 .rds-header--secondary {
   &.rds-header {
+    --rds-color-on-secondary: var(--rds-color-on-surface);
     background: var(--rds-color-secondary);
     color: var(--rds-color-on-secondary);
-  }
-  .rds-header__title,
-  .rds-header__actions,
-  .rds-header__logo {
-    color: var(--rds-color-on-secondary);
-  }
-  .rds-header__search {
-    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
-    color: var(--rds-color-on-secondary);
-    border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
-    input {
-      color: var(--rds-color-on-secondary);
+
+    .rds-header__title,
+    .rds-header__actions,
+    .rds-header__logo,
+    .rds-header__center-content,
+    .rds-avatar__name,
+    #avatarname,
+    .rds-avatar__designation,
+    .rds-profile-menu__name,
+    .rds-profile-menu__chevron {
+      color: var(--rds-color-on-secondary) !important;
     }
-  }
-  .MuiTab-root {
-    color: var(--rds-color-on-secondary);
-    &.Mui-selected {
-      color: var(--rds-color-secondary);
-      background: var(--rds-color-surface);
+
+    .rds-header__actions,
+    .rds-header__right-actions,
+    .rds-header__center-content {
+      .MuiButton-root,
+      .MuiButton-text,
+      .MuiIconButton-root {
+        color: var(--rds-color-on-secondary) !important;
+      }
+
+      .MuiAvatar-root {
+        background-color: rgba(255, 255, 255, 0.25) !important;
+        color: var(--rds-color-on-secondary) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .rds-header__search {
+      background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
+      color: var(--rds-color-on-secondary) !important;
+      border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
+
+      input {
+        color: var(--rds-color-on-secondary);
+      }
+
+      input::placeholder {
+        color: var(--rds-color-on-secondary);
+        opacity: 0.75;
+      }
+    }
+
+    .rds-header__search-clear {
+      color: var(--rds-color-on-secondary) !important;
+    }
+
+    .MuiTab-root {
+      color: var(--rds-color-on-secondary);
+
+      &.Mui-selected {
+        color: var(--rds-color-secondary);
+        background: var(--rds-color-surface);
+      }
     }
   }
 }
@@ -1078,9 +1225,20 @@ $rds-app-bar-breakpoint-xs: 320px;
         padding: var(--rds-spacing-compact) var(--rds-spacing-sm) !important;
         font-size: var(--rds-font-size-xs) !important; // 11px ? xs (10px, closest token)
       }
+
+      &:hover {
+        color: var(--rds-color-primary) !important;
+        background-color: transparent !important;
+        opacity: 1;
+      }
       
       &.Mui-selected {
         color: var(--rds-color-primary) !important;
+
+        &:hover {
+          color: var(--rds-color-primary) !important;
+          background-color: transparent !important;
+        }
       }
     }
     
@@ -1451,7 +1609,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 @media (max-width: 420px) {
   .rds-header__toolbar {
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: nowrap;
   }
   
@@ -1552,6 +1710,50 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 }
 
+@media (min-width: 835px) and (max-width: $rds-app-bar-breakpoint-notification-tablet) {
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiSvgIcon-root {
+    display: none !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__avatar,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiAvatar-root {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    min-width: auto !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-bottom-navigation {
+    display: flex !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-header__actions {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container,
+  .rds-header--variant-withnotificationbadge .rds-header__right-actions {
+    display: none !important;
+  }
+
+  body:has(.rds-header--variant-withnotificationbadge) {
+    padding-bottom: var(--rds-spacing-56-px) !important;
+  }
+}
+
 @media (min-width: 421px) and (max-width: 840px) {
   .rds-header--variant-withtabs,
   .rds-header--variant-withlogoandtabs,
@@ -1573,6 +1775,21 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   body {
     padding-bottom: var(--rds-spacing-56-px) !important;
+  }
+
+  // Large mobile: remove gap between buttons and menu icon margin-right for withActions variant
+  .rds-header--variant-withactions {
+    .rds-header__center-content,
+    .rds-header__center-content > div {
+      gap: 0 !important;
+    }
+
+    // Override MUI inline margin-right on the edge="start" menu icon button
+    .MuiIconButton-edgeStart,
+    .MuiIconButton-root[aria-label="menu"],
+    .rds-header__toolbar > .MuiIconButton-root:first-child {
+      margin-right: 0 !important;
+    }
   }
 }
 
@@ -2343,6 +2560,18 @@ $rds-app-bar-breakpoint-xs: 320px;
   box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
   box-sizing: border-box;
   min-height: 56px;
+  max-height: 56px;
+  height: 56px;
+  overflow: hidden;
+  // Paper surface (not app-bar fill) — use on-surface so light mode stays readable
+  background: var(--rds-background-paper, var(--rds-color-surface, #ffffff));
+  color: var(--rds-color-on-surface, var(--rds-text-primary, #212121));
+
+  .rds-bottom-nav-tab,
+  .MuiButton-root {
+    min-height: 0;
+    align-self: center;
+  }
 
   .rds-bottom-navigation-single-row {
     display: flex;
@@ -2370,7 +2599,8 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-bottom-nav-tab {
-    color: var(--rds-color-on-appbar, var(--rds-appbar-color));
+    // Bottom nav sits on paper/surface, not the colored app bar — avoid on-appbar (white)
+    color: var(--rds-color-on-surface, var(--rds-text-primary, #212121)) !important;
     text-transform: none;
     font-weight: 600;
     font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
@@ -2479,10 +2709,12 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: 840px) {
+// Include notification-badge tablet range (up to 1280px) where bottom nav still shows
+@media (max-width: $rds-app-bar-breakpoint-notification-tablet) {
   .rds-header:not([data-theme="dark"]) {
-    .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
-      color: var(--rds-color-on-surface) !important;
+    .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active),
+    .rds-bottom-navigation .MuiButton-root:not(.rds-bottom-nav-tab--active) {
+      color: var(--rds-color-on-surface, var(--rds-text-primary, #212121)) !important;
     }
     .rds-header__tabs-inline .MuiTab-root:not(.Mui-selected),
     .rds-appbar-tabs-container .MuiButton-root:not(.Mui-selected),
@@ -2565,4 +2797,67 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
+// Keep hamburger + logo flush on tablet / large mobile / small mobile.
+// Avoid space-between, which opens a large gap between the menu button and logo.
+@media (max-width: 834px) {
+  .rds-header--has-menu-button {
+    .rds-header__toolbar {
+      justify-content: flex-start !important;
+      column-gap: 0 !important;
+      gap: 0 !important;
+    }
+
+    .rds-header__menu-button,
+    .rds-header__toolbar > .MuiIconButton-root[aria-label="menu"] {
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+    }
+
+    .rds-header__menu-button + .rds-header__logo,
+    .MuiIconButton-root[aria-label="menu"] + .rds-header__logo {
+      margin-left: 0 !important;
+    }
+
+    // Modest spacing only after the logo group (not between hamburger and logo)
+    .rds-header__logo + :not(.rds-header__title:empty) {
+      margin-left: var(--rds-spacing-xs, 4px);
+    }
+
+    .rds-header__title:empty {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .rds-header__right-actions,
+    .rds-header__actions,
+    .rds-appbar-overflow-button {
+      margin-left: auto;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-header--has-menu-button:not(.rds-header--variant-withmenubutton) {
+    .rds-header__title:not(:empty) {
+      max-width: calc(100% - 130px) !important;
+      font-size: var(--rds-font-size-sm) !important;
+      margin: 0 var(--rds-spacing-xxs) !important;
+    }
+
+    .rds-header__search-wrapper {
+      display: none !important;
+    }
+
+    .rds-header__right-actions .MuiButton-root {
+      display: none !important;
+    }
+
+    .rds-header__actions {
+      margin-left: auto !important;
+    }
+  }
+}
 

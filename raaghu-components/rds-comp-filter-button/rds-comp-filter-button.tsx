@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import clsx from 'clsx';
+import { useCallback, useMemo, useRef, useState, type ReactNode, type MouseEvent as ReactMouseEvent } from 'react';
 import { 
   Box, 
   Typography, 
@@ -6,7 +7,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  FormControlLabel,
   TextField,
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
@@ -27,25 +27,27 @@ export interface RdsCompFilterButtonProps {
   text?: string;
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   filters?: FilterOption[];
   onFiltersChange?: (filters: FilterOption[]) => void;
   onApply?: (selectedFilters: FilterOption[]) => void;
   onClear?: () => void;
   disabled?: boolean;
   className?: string;
-  itemIcon?: string | React.ReactNode;
+  itemIcon?: string | ReactNode;
 }
 
-const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
+const EMPTY_FILTER_OPTIONS: FilterOption[] = [];
+
+const RdsCompFilterButton = ({
   shape = 'rectangle',
   text = 'Filter',
   showLeftIcon = true,
   showRightIcon = true,
   leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
   rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
-  filters = [],
+  filters,
   onFiltersChange,
   onApply,
   onClear,
@@ -54,21 +56,27 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   itemIcon,
   ...props
 }) => {
+  const resolvedFilters = filters ?? EMPTY_FILTER_OPTIONS;
   const [isOpen, setIsOpen] = useState(false);
-  const [localFilters, setLocalFilters] = useState<FilterOption[]>(filters);
+  const [localFilters, setLocalFilters] = useState<FilterOption[]>(resolvedFilters);
+  const prevFiltersRef = useRef(resolvedFilters);
+  if (resolvedFilters !== prevFiltersRef.current) {
+    prevFiltersRef.current = resolvedFilters;
+    setLocalFilters(resolvedFilters);
+  }
   const [searchTerm, setSearchTerm] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setIsOpen(!isOpen);
-  };
+  }, [isOpen]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
-  const handleFilterChange = (filterId: string, value: string, checked: boolean) => {
+  const handleFilterChange = useCallback((filterId: string, value: string, checked: boolean) => {
     const updatedFilters = localFilters.map(filter => {
       if (filter.id === filterId) {
         const selectedValues = filter.selectedValues || [];
@@ -86,14 +94,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
     
     setLocalFilters(updatedFilters);
     onFiltersChange?.(updatedFilters);
-  };
+  }, [localFilters, onFiltersChange]);
 
-  const handleApply = () => {
+  const handleApply = useCallback(() => {
     onApply?.(localFilters);
     setIsOpen(false);
-  };
+  }, [localFilters, onApply]);
 
-  const handleClearAll = () => {
+  const handleClearAll = useCallback(() => {
     const clearedFilters = localFilters.map(filter => ({
       ...filter,
       selectedValues: []
@@ -101,31 +109,45 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
     setLocalFilters(clearedFilters);
     onFiltersChange?.(clearedFilters);
     onClear?.();
-  };
+  }, [localFilters, onClear, onFiltersChange]);
 
-  const getActiveFiltersCount = () => {
-    return localFilters.reduce((count, filter) => {
-      return count + (filter.selectedValues?.length || 0);
-    }, 0);
-  };
-
-  const activeFiltersCount = getActiveFiltersCount();
+  const activeFiltersCount = localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0);
   const buttonText = activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text;
 
+  const filteredFilters = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return localFilters;
+
+    return localFilters
+      .map((filter) => {
+        const nameMatches = filter.name.toLowerCase().includes(term);
+        const matchingValues = filter.values.filter((value) =>
+          value.toLowerCase().includes(term)
+        );
+
+        if (nameMatches) return filter;
+        if (matchingValues.length > 0) {
+          return { ...filter, values: matchingValues };
+        }
+        return null;
+      })
+      .filter((filter): filter is FilterOption => filter !== null);
+  }, [localFilters, searchTerm]);
+
   return (
-    <Box className={`rds-comp-filter-button ${className || ''}`} {...props}>
+    <Box className={clsx("rds-comp-filter-button", className)} {...props}>
       <RdsButton
         ref={buttonRef}
         text={buttonText}
         size={'medium'}
-        shape={shape}
+        shape={shape as 'rectangle' | 'pill'}
         layout={'icon+text'}
         style={'filled'}
         disabled={disabled}
         startIcon={showLeftIcon ? leftIcon : undefined}
         endIcon={showRightIcon ? rightIcon : undefined}
         onClick={handleButtonClick}
-        className={`rds-button__primary rds-filter-button__trigger ${isOpen ? 'rds-filter-button__trigger--open' : ''}`}
+        className={clsx("rds-button__primary", "rds-filter-button__trigger", isOpen && "rds-filter-button__trigger--open")}
       />
 
       <Popover
@@ -134,9 +156,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        PaperProps=
-        {{className: "rds-filter-button__popover"}}
-
+        slotProps={{ paper: { className: "rds-filter-button__popover" } }}
       >
         <Box className="rds-filter-button__content">
           <Box className="rds-filter-button__header">
@@ -174,7 +194,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
               background: 'var(--rds-neutral-500)',
             },
           }}>
-            {localFilters.map((filter, index) => (
+            {filteredFilters.map((filter, index) => (
               <Accordion 
                 key={filter.id}
                 elevation={0}
@@ -212,7 +232,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                       right: 'var(--rds-spacing-md, 16px)',
                       height: '1px',
                       backgroundColor: 'var(--rds-border-default)',
-                      display: index === localFilters.length - 1 ? 'none' : 'block',
+                      display: index === filteredFilters.length - 1 ? 'none' : 'block',
                     }
                   }}
                 >
@@ -239,31 +259,17 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                   py: 1,
                   pt: 0,
                 }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                  <Box className="rds-filter-button__options">
                     {filter.values.map((value) => (
-                      <FormControlLabel
+                      <RdsCheckbox
                         key={value}
-                        control={
-                          <RdsCheckbox
-                            checked={filter.selectedValues?.includes(value) || false}
-                            onChange={(e, checked) => handleFilterChange(filter.id, value, checked)}
-                            size="small"
-                          />
-                        }
-                        label={
-                          <Typography sx={{ 
-                            fontSize: 'var(--rds-font-size-sm, 13px)',
-                            color: 'var(--rds-text-secondary)'
-                          }}>
-                            {value}
-                          </Typography>
-                        }
-                        sx={{
-                          margin: 0,
-                          '& .MuiFormControlLabel-label': {
-                            paddingLeft: 'var(--rds-spacing-xs, 4px)'
-                          }
-                        }}
+                        className="rds-filter-button__option"
+                        labeltext={value}
+                        showText
+                        color="primary"
+                        size="small"
+                        status={filter.selectedValues?.includes(value) ? 'checked' : 'unchecked'}
+                        onChange={(_e, checked) => handleFilterChange(filter.id, value, checked)}
                       />
                     ))}
                   </Box>

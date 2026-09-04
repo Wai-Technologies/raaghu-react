@@ -365,7 +365,7 @@ function sharedCssVars(): Record<string, string> {
     // AI typing section tokens
     '--rds-ai-typing-textarea-height': componentTokens.aiTyping?.textareaHeight || '100px',
     '--rds-ai-typing-autocomplete-min-width': componentTokens.aiTyping?.autocompleteMinWidth || '190px',
-    '--rds-ai-typing-autocomplete-max-width': componentTokens.aiTyping?.autocompleteMaxWidth || '60px',
+    '--rds-ai-typing-autocomplete-max-width': componentTokens.aiTyping?.autocompleteMaxWidth || '260px',
     '--rds-ai-typing-action-button-min-width': componentTokens.aiTyping?.actionButtonMinWidth || '140px',
     '--rds-ai-typing-fab-left-offset': componentTokens.aiTyping?.fabLeftOffset || '-129px',
     '--rds-ai-typing-action-button-margin-right': componentTokens.aiTyping?.actionButtonMarginRight || '5px',
@@ -464,7 +464,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-comp-chart-bar-histogram-size': componentTokens.chart?.bar?.histogramSize || '50px',
     '--rds-comp-chart-bar-default-height': componentTokens.chart?.bar?.defaultHeight || '76vh',
     '--rds-comp-chart-bar-tablet-height': componentTokens.chart?.bar?.tabletHeight || '600px',
-    '--rds-comp-chart-pie-height': componentTokens.chart?.bar?.pieHeight || componentTokens.chart?.pie?.pieHeight || componentTokens.chart?.pieHeight || '335px',
+    '--rds-comp-chart-pie-height': componentTokens.chart?.bar?.pieHeight || '335px',
     '--rds-comp-chart-bar-ds1-bg': componentTokens.chart?.bar?.dataset?.ds1Bg,
     '--rds-comp-chart-bar-ds1-border': componentTokens.chart?.bar?.dataset?.ds1Border,
     '--rds-comp-chart-bar-ds2-bg': componentTokens.chart?.bar?.dataset?.ds2Bg,
@@ -521,7 +521,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-pagination-item-size-lg': componentTokens.pagination?.itemSize?.lg || '28px',
     '--rds-pagination-item-size-xl': componentTokens.pagination?.itemSize?.xl || '30px',
     '--rds-pagination-button-min-width': componentTokens.pagination?.buttonMinWidth || '60px',
-    '--rds-pagination-textfield-width': componentTokens.pagination?.textFieldWidth || '44px',
+    '--rds-pagination-textfield-width': componentTokens.pagination?.textFieldWidth || '64px',
     '--rds-pagination-small-gap-offset': componentTokens.pagination?.smallGapOffset || '3px',
     '--rds-pagination-dropdown-min-width': componentTokens.pagination?.dropdownMinWidth || '120px',
     '--rds-pagination-font-size-xs': componentTokens.pagination?.fontSize?.xs || '0.65rem',
@@ -632,6 +632,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-bottom-navigation-label-margin-top': '2px',
     '--rds-bottom-navigation-label-line-height': '1.2',
     '--rds-bottom-navigation-icon-size': '1.6rem',
+    '--rds-bottom-navigation-border-color': 'var(--rds-border-default)',
     // ── Chip component tokens
     '--rds-chip-focus-ring-width': componentTokens.chip.focusRingWidth,
     '--rds-chip-disabled-opacity': componentTokens.chip.disabledOpacity,
@@ -690,6 +691,7 @@ function sharedCssVars(): Record<string, string> {
     '--rds-carousel-navigation-bg': alphaTokens.modalBackdrop,
     '--rds-carousel-navigation-bg-hover': alphaTokens.actionHoverDark,
     '--rds-carousel-indicator-bg': 'var(--rds-color-gray-500)',
+    '--rds-carousel-indicator-bg-hover': 'var(--rds-color-gray-600)',
     '--rds-carousel-indicator-active': 'var(--rds-primary-main)',
     '--rds-carousel-divider': 'var(--rds-border-light)',
     // ── Box component tokens
@@ -1040,7 +1042,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-surface-neutral-darker': surfaceTokens.neutralDarker,
     '--rds-surface-neutral-dark': surfaceTokens.neutralDark,
     '--rds-surface-neutral-medium': surfaceTokens.neutralMedium,
-    '--rds-surface-neutral-light': n[200],
+    '--rds-surface-neutral-light': surfaceTokens.neutralLight,
     '--rds-surface-neutral-subtle': white,
     // ── Secondary ────────────────────────────────────────────────────────────
     '--rds-secondary-main': s[700],
@@ -1092,7 +1094,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-info-dark': i[600],
     '--rds-info-contrast-text': white,
     // ── Background ───────────────────────────────────────────────────────────
-    '--rds-background-default': white,
+    '--rds-background-default': n[50],
     '--rds-background-paper': white,
     '--rds-background-surface': n[50],
     '--rds-background-overlay': alphaTokens.overlayDark,
@@ -1106,7 +1108,8 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-border-light': n[200],
     '--rds-border-dark': n[400],
     '--rds-border-focus': 'var(--rds-primary-main)',
-    // ── Button primary ───────────────────────────────────────────────────────
+    // ── Divider (alias for the most common border use-case in layouts) ────────
+    '--rds-divider': n[200],
     '--rds-button-primary-bg': p[700],
     '--rds-button-primary-bg-hover': p[750],
     '--rds-button-primary-bg-active': p[800],
@@ -1143,15 +1146,16 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-button-secondary-text-disabled': interactiveTokens.secondaryTextDisabled,
     '--rds-button-secondary-bg-disabled': n[100],
     // ── Button text ──────────────────────────────────────────────────────────
-    '--rds-button-text-bg-hover': t[50],
+    '--rds-button-text-bg-hover': p[50],
     '--rds-button-text-variant-bg': interactiveTokens.variantTextBg,
-    '--rds-button-text-bg-active': t[100],
-    '--rds-button-text-color': t[400],
-    '--rds-button-text-color-active': t[500],
-    '--rds-button-text-color-disabled': t[300],
+    '--rds-button-text-bg-active': p[100],
+    '--rds-button-text-color': p[700],
+    '--rds-button-text-color-active': p[600],
+    '--rds-button-text-color-disabled': p[300],
     // ── Alerts ───────────────────────────────────────────────────────────────
     '--rds-alert-success-bg': p[50],
     '--rds-alert-success-border': interactiveTokens.alertSuccessBorder,
+    '--rds-alert-loading-border': '#3D98FF',
     '--rds-alert-success-text': su[600],
     '--rds-alert-error-bg': interactiveTokens.alertErrorBg,
     '--rds-alert-error-border': e[700],
@@ -1183,11 +1187,13 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-action-hover': alphaTokens.actionHoverLight,
     '--rds-action-active': alphaTokens.actionActiveLight,
     '--rds-action-disabled': alphaTokens.actionDisabledLight,
-    // ── Tooltip ──────────────────────────────────────────────────────────────
+    // ── Tooltip (inverted: dark surface on light theme) ──────────────────────
     '--rds-tooltip-bg': n[900],
+    '--rds-tooltip-color': white,
     '--rds-tooltip-text': white,
+    '--rds-tooltip-border': n[900],
     // ── Focus ring ───────────────────────────────────────────────────────────
-    '--rds-focus-ring': '0 0 0 2px var(--rds-primary-main)',
+    '--rds-focus-ring': '2px solid var(--rds-primary-main)',
     // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-hover-bg': 'var(--rds-action-hover)',
     '--rds-color-disabled-bg': 'var(--rds-neutral-50)',
@@ -1260,6 +1266,10 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[700],
     '--rds-color-neutral-disabled-icon': n[400],
     '--rds-color-neutral-soft': n[100],
+    // ── Kanban board (light-theme defaults) ──────────────────────────────────
+    '--rds-kanban-header-bg': 'var(--rds-surface-primary-light)',
+    '--rds-kanban-subcard-bg': 'var(--rds-background-paper)',
+    '--rds-kanban-subcard-border': 'var(--rds-surface-neutral-light)',
   };
 }
 
@@ -1330,6 +1340,34 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-border-default': n[700],
     '--rds-border-light': n[800],
     '--rds-border-dark': n[600],
+    // ── Divider ───────────────────────────────────────────────────────────────
+    '--rds-divider': n[700],
+    // ── Button primary (dark) ────────────────────────────────────────────────
+    '--rds-button-primary-bg': p[200],
+    '--rds-button-primary-bg-hover': p[250],
+    '--rds-button-primary-bg-active': p[400],
+    '--rds-button-primary-bg-disabled': n[700],
+    '--rds-button-primary-text': n[900],
+    '--rds-button-primary-text-disabled': n[600],
+    // ── Button secondary / outlined (dark) ───────────────────────────────────
+    '--rds-button-secondary-bg': 'transparent',
+    '--rds-button-secondary-bg-hover': 'transparent',
+    '--rds-button-secondary-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
+    '--rds-button-secondary-border': p[200],
+    '--rds-button-secondary-border-hover': p[250],
+    '--rds-button-secondary-border-active': p[250],
+    '--rds-button-secondary-border-disabled': n[700],
+    '--rds-button-secondary-text': p[200],
+    '--rds-button-secondary-text-active': p[200],
+    '--rds-button-secondary-text-disabled': n[600],
+    '--rds-button-secondary-bg-disabled': n[800],
+    // ── Button text (dark) ───────────────────────────────────────────────────
+    '--rds-button-text-bg-hover': 'color-mix(in srgb, var(--rds-primary-main) 10%, transparent)',
+    '--rds-button-text-variant-bg': 'color-mix(in srgb, var(--rds-primary-main) 4%, transparent)',
+    '--rds-button-text-bg-active': 'color-mix(in srgb, var(--rds-primary-main) 15%, transparent)',
+    '--rds-button-text-color': p[200],
+    '--rds-button-text-color-active': p[250],
+    '--rds-button-text-color-disabled': n[600],
     // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-on-surface': 'var(--rds-text-primary)',
     '--rds-color-on-surface-variant': 'var(--rds-text-secondary)',
@@ -1337,11 +1375,18 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-text-secondary': 'var(--rds-text-secondary)',
     '--rds-color-text-disabled': 'var(--rds-text-disabled)',
     '--rds-color-outline': 'var(--rds-border-default)',
-    '--rds-color-outline-variant': 'var(--rds-border-light)',
+    // border-light (n[800]) matches surface paper — use divider for visible row borders
+    '--rds-color-outline-variant': 'var(--rds-divider)',
+    '--rds-color-border': 'var(--rds-border-default)',
+    '--rds-color-border-disabled': 'var(--rds-border-light)',
     '--rds-color-surface-variant': 'var(--rds-background-surface)',
     '--rds-color-surface-hover': 'var(--rds-action-hover)',
     '--rds-color-primary': 'var(--rds-primary-main)',
     '--rds-color-primary-hover': 'var(--rds-primary-light)',
+    // Higher opacity than light (8%/12%) so containers stay visible on dark surfaces
+    '--rds-color-primary-container': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
+    '--rds-color-primary-container-hover': 'color-mix(in srgb, var(--rds-primary-main) 28%, transparent)',
+    '--rds-color-primary-container-variant': 'color-mix(in srgb, var(--rds-primary-main) 24%, transparent)',
     '--rds-color-success': 'var(--rds-success-main)',
     '--rds-color-error': 'var(--rds-error-main)',
     '--rds-color-danger': 'var(--rds-error-main)',
@@ -1373,10 +1418,11 @@ function darkThemeCssVars(): Record<string, string> {
     // ── Toggle group ──────────────────────────────────────────────────────────
     '--rds-toggle-group-border-light': alphaTokens.toggleGroupBorderDark,
     '--rds-toggle-group-border-disabled-light': alphaTokens.toggleGroupBorderDisabledDark,
-    // ── Tooltip ───────────────────────────────────────────────────────────────
+    // ── Tooltip (inverted: light surface on dark theme) ───────────────────────
     '--rds-tooltip-bg': white,
     '--rds-tooltip-color': black,
-    '--rds-tooltip-border': white,
+    '--rds-tooltip-text': black,
+    '--rds-tooltip-border': n[300],
     // ── Scrollbar ─────────────────────────────────────────────────────────────
     '--rds-color-scrollbar-track': scrollbarTokens.track,
     '--rds-color-scrollbar-thumb': scrollbarTokens.thumb,
@@ -1416,6 +1462,7 @@ function darkThemeCssVars(): Record<string, string> {
     // ── Alerts (dark overrides) ───────────────────────────────────────────────
     '--rds-alert-success-bg': 'rgba(31, 118, 48, 0.15)',
     '--rds-alert-success-border': su[200],
+    '--rds-alert-loading-border': '#3D98FF',
     '--rds-alert-success-text': su[200],
     '--rds-alert-error-bg': 'rgba(189, 13, 29, 0.15)',
     '--rds-alert-error-border': e[200],
@@ -1461,6 +1508,13 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-red-delete-hover': e[200],
     '--rds-color-neutral-disabled-icon': n[600],
     '--rds-color-neutral-soft': n[800],
+    // ── Kanban board (dark-theme overrides) ──────────────────────────────────
+    '--rds-kanban-header-bg': componentTokens.kanban?.headerBgDark,
+    '--rds-kanban-subcard-bg': componentTokens.kanban?.subcardBgDark,
+    '--rds-kanban-subcard-border': componentTokens.kanban?.subcardBorderDark,
+    // ── Carousel indicators (dark): light dots for contrast on dark surfaces ─
+    '--rds-carousel-indicator-bg': 'rgba(255, 255, 255, 0.55)',
+    '--rds-carousel-indicator-bg-hover': 'rgba(255, 255, 255, 0.8)',
   };
 }
 

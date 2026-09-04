@@ -141,7 +141,7 @@
         border-radius: 0 !important; 
       }
 
-      &:focus {
+      &:focus-visible {
         background-color: transparent !important;
         outline: 2px solid var(--rds-color-primary);
         outline-offset: 2px;
@@ -201,7 +201,7 @@
       box-shadow: var(--rds-elevation-3, 0 4px 8px rgba(0, 0, 0, 0.15));
     }
 
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--rds-color-primary);
       outline-offset: 2px;
     }
@@ -277,8 +277,9 @@
   &__item {
     display: flex;
     align-items: center;
-  padding: var(--rds-spacing-md, 12px) var(--rds-spacing-lg, 16px);
-  color: var(--rds-color-on-surface);
+    justify-content: flex-start;
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
+    color: var(--rds-color-on-surface);
     text-decoration: none;
     cursor: pointer;
     transition: background-color var(--rds-transition-base);
@@ -286,9 +287,12 @@
     background: none;
     width: 100%;
     text-align: left;
+    box-sizing: border-box;
+    min-height: 0;
+    line-height: 1.3;
 
     &--compact {
-      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 16px);
+      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 12px);
     }
 
     &:hover {
@@ -316,10 +320,10 @@
   }
 
   &__item-text {
-    margin-left: var(--rds-spacing-md, 12px);
+    margin-left: var(--rds-spacing-sm, 8px);
     font-size: var(--rds-font-size-body, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
-    line-height: 1.4;
+    line-height: 1.3;
   }
 }
 

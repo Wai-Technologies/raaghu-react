@@ -1,12 +1,13 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import RdsCompNotification, {
+import RdsCompNotification from './rds-comp-notification';
+import {
   NotificationLayout,
   NotificationStyle,
   NotificationType,
   NotificationItem,
   RdsCompNotificationProps,
-} from './rds-comp-notification';
+} from './rds-comp-notification.types';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -47,8 +48,9 @@ jest.mock('@mui/icons-material', () => ({
 }));
 
 // Mock RDS elements
-jest.mock('../../raaghu-elements', () => ({
-  RdsButton: ({ text, onClick, className, style, color, size }: any) => (
+jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
+  __esModule: true,
+  default: ({ text, onClick, className, style, color, size }: any) => (
     <button
       data-testid={`rds-button-${text?.toLowerCase()}`}
       onClick={onClick}
@@ -60,7 +62,10 @@ jest.mock('../../raaghu-elements', () => ({
       {text}
     </button>
   ),
-  RdsIconButton: ({ iconFilled, onClick, className, size }: any) => (
+}));
+jest.mock('../../raaghu-elements/rds-icon-button/rds-icon-button', () => ({
+  __esModule: true,
+  default: ({ iconFilled, onClick, className, size }: any) => (
     <button
       data-testid="rds-icon-button"
       onClick={onClick}

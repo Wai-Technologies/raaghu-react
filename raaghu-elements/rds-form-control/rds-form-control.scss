@@ -1,11 +1,71 @@
 .rds-form-control {
-  display: block;
+  --rds-form-control-select-width: var(--rds-input-min-width, 200px);
+
+  // Match MuiFormControl (inline-flex + column). `display: block` overrides that
+  // and lets the inline FormLabel sit beside the TextField when SCSS injects
+  // after Emotion (common on first Storybook navigation).
+  display: inline-flex;
+  flex-direction: column;
   position: relative;
-  
+
+  .rds-form-control__label {
+    display: block;
+  }
+
   &.MuiFormControl-fullWidth {
     width: 100%;
     margin-right: var(--rds-form-control-fullwidth-margin-right);
   }
+
+  // No outer focus glow — match rds-select (border color change only)
+  .MuiOutlinedInput-root {
+    &,
+    &:hover,
+    &.Mui-focused {
+      .MuiOutlinedInput-notchedOutline {
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  // Keep Select at a stable width so long selected values do not stretch the field.
+  // Do not set overflow:hidden on the root — it clips the outlined fieldset top edge.
+  .MuiSelect-root {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    position: relative;
+    width: 100%;
+  }
+
+  &:not(.MuiFormControl-fullWidth) .MuiSelect-root {
+    width: var(--rds-form-control-select-width);
+  }
+
+  // Reserve space for the chevron; truncate long values so they never cover the icon
+  .MuiSelect-select.MuiInputBase-input {
+    box-sizing: border-box !important;
+    display: block !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    padding-right: 32px !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .MuiSelect-icon {
+    color: var(--rds-text-secondary) !important;
+    display: inline-block !important;
+    flex-shrink: 0;
+    opacity: 1 !important;
+    pointer-events: none;
+    position: absolute !important;
+    right: 7px !important;
+    visibility: visible !important;
+    z-index: 2;
+  }
+
   .MuiInputBase-input::placeholder,
   input::placeholder,
   textarea::placeholder,

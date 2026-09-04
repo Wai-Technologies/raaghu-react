@@ -73,9 +73,9 @@ jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => {
   };
 });
 
-// Mock RdsCompAiAttachement component
-jest.mock('../rds-comp-ai-attachement/rds-comp-ai-attachement', () => {
-  return function MockRdsCompAiAttachement(props: any) {
+// Mock RdsCompAiAttachment component
+jest.mock('../rds-comp-ai-attachment/rds-comp-ai-attachment', () => {
+  return function MockRdsCompAiAttachment(props: any) {
     return (
       <div
         data-testid="rds-attachment"
@@ -347,7 +347,7 @@ it('hides enhance icon when input has text', () => {
       render(<RdsCompAiTypingSection {...defaultProps} />);
       const autocomplete = screen.getByTestId('rds-autocomplete');
       expect(autocomplete).toHaveAttribute('data-placeholder', 'Select Frontend');
-      expect(autocomplete).toHaveAttribute('data-helper-text', 'Select one of the available options');
+      expect(autocomplete).not.toHaveAttribute('data-helper-text', 'Select one of the available options');
     });
 
     it('applies custom max-width when provided', () => {

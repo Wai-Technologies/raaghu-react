@@ -10,7 +10,11 @@ export const designSystemComponentOverrides: Components<Theme> = {
         transition: theme.transitions.create(['border-color', 'box-shadow', 'background-color']),
       }),
       input: ({ theme }) => ({
-        padding: theme.spacing(1.25, 1.5),
+        // Longhands so MuiSelect can override paddingRight for the chevron
+        paddingTop: theme.spacing(1.25),
+        paddingBottom: theme.spacing(1.25),
+        paddingLeft: theme.spacing(1.5),
+        paddingRight: theme.spacing(1.5),
         '&::placeholder': {
           color: theme.palette.text.secondary,
           opacity: 1,
@@ -64,12 +68,17 @@ export const designSystemComponentOverrides: Components<Theme> = {
     styleOverrides: {
       select: ({ theme }) => ({
         minHeight: theme.spacing(2.5),
-        display: 'flex',
-        alignItems: 'center',
+        // Avoid display:flex — it breaks text-overflow and lets long values cover the icon
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
         paddingRight: theme.spacing(4),
       }),
       icon: ({ theme }) => ({
         color: theme.palette.text.secondary,
+        position: 'absolute',
+        right: theme.spacing(1),
+        pointerEvents: 'none',
       }),
     },
   },
@@ -134,10 +143,12 @@ export const designSystemComponentOverrides: Components<Theme> = {
   },
   MuiCard: {
     styleOverrides: {
-      root: ({ theme }) => ({
+      root: ({ theme, ownerState }: any) => ({
         borderRadius: theme.shape.borderRadius,
-        border: `1px solid ${theme.palette.divider}`,
-        boxShadow: theme.shadows[1],
+        // Only apply the default border for outlined variant; elevation variant uses MUI shadows
+        ...(ownerState?.variant === 'outlined'
+          ? { border: `1px solid ${theme.palette.divider}`, boxShadow: 'none' }
+          : { border: `1px solid ${theme.palette.divider}` }),
       }),
     },
   },
@@ -210,15 +221,15 @@ export const designSystemComponentOverrides: Components<Theme> = {
   MuiTooltip: {
     styleOverrides: {
       tooltip: ({ theme }) => ({
-        backgroundColor: alpha(theme.palette.common.black, theme.palette.mode === 'dark' ? 0.92 : 0.82),
-        color: theme.palette.common.white,
+        backgroundColor: 'var(--rds-tooltip-bg)',
+        color: 'var(--rds-tooltip-color, var(--rds-tooltip-text))',
         borderRadius: theme.shape.borderRadius,
         padding: theme.spacing(0.75, 1),
         fontSize: theme.typography.caption.fontSize,
       }),
-      arrow: ({ theme }) => ({
-        color: alpha(theme.palette.common.black, theme.palette.mode === 'dark' ? 0.92 : 0.82),
-      }),
+      arrow: {
+        color: 'var(--rds-tooltip-bg)',
+      },
     },
   },
   MuiAvatar: {

@@ -11,9 +11,11 @@ interface MotionCollapseProps {
 
 const MotionCollapse = React.forwardRef<HTMLDivElement, MotionCollapseProps>(
   ({ in: isIn, children, onExited }, ref) => {
-    React.useEffect(() => {
-      if (!isIn) onExited?.();
-    }, [isIn, onExited]);
+    const prevIsInRef = React.useRef(Boolean(isIn));
+    if (prevIsInRef.current && !isIn) {
+      onExited?.();
+    }
+    prevIsInRef.current = Boolean(isIn);
 
     return (
       <div ref={ref} style={{ overflow: 'hidden', display: isIn ? undefined : 'none' }}>
@@ -24,4 +26,4 @@ const MotionCollapse = React.forwardRef<HTMLDivElement, MotionCollapseProps>(
 );
 
 MotionCollapse.displayName = 'MotionCollapse';
-export default MotionCollapse;
+export { MotionCollapse };

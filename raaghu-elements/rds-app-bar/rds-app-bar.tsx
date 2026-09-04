@@ -1,4 +1,13 @@
-import React from 'react';
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useState,
+  type ReactElement,
+  type ReactNode,
+  type SyntheticEvent,
+} from 'react';
 import {
   AppBar as MuiAppBar,
   Toolbar as MuiToolbar,
@@ -18,18 +27,19 @@ import Person from '@mui/icons-material/Person';
 import Close from '@mui/icons-material/Close';
 import { ProfileMenu } from './ProfileMenu';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
+import clsx from 'clsx';
 import "./rds-app-bar.scss";
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
-export interface RdsAppBarProps extends AppBarProps {
+export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   title?: string;
-  rightActions?: React.ReactNode;
-  centerContent?: React.ReactNode;
+  rightActions?: ReactNode;
+  centerContent?: ReactNode;
   size?: RdsAppBarSize;
-  logo?: React.ReactNode;
+  logo?: ReactNode;
   showLogo?: boolean;
   onMenuClick?: () => void;
   showMenuButton?: boolean;
-  actions?: React.ReactNode;
+  actions?: ReactNode;
   userName?: string;
   userEmail?: string;
   searchValue?: string;
@@ -38,11 +48,17 @@ export interface RdsAppBarProps extends AppBarProps {
   tabs?: Array<string | { label: string; [key: string]: unknown }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
-  subHeader?: React.ReactNode;
+  subHeader?: ReactNode;
   showSearch?: boolean;
   variantStyle?: string;
-  overflowContent?: React.ReactNode;
+  overflowContent?: ReactNode;
 }
+const toolbarHeights: Record<RdsAppBarSize, number> = {
+  small: 55,
+  medium: 64,
+  large: 80,
+};
+
 const RdsAppBar = ({
   title,
   rightActions,
@@ -68,29 +84,49 @@ const RdsAppBar = ({
   overflowContent,
   ...props
 }:RdsAppBarProps) => {
-  const toolbarHeights = {
-    small: 55,
-    medium: 64,
-    large: 80,
-  };
   const tokens = useRdsTokens();
-  const [overflowOpen, setOverflowOpen] = React.useState(false);
-  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
-  const [localBottomActive, setLocalBottomActive] = React.useState(0);
-  
-  React.useEffect(() => {
+  const [overflowOpen, setOverflowOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [localBottomActive, setLocalBottomActive] = useState(0);
+
+  useEffect(() => {
+    const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
+    const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
+    const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
+    const threshold = variantLower === 'withnotificationbadge' ? 1280 : needsTabletBottomNav ? 840 : 420;
+
+    // Storybook viewport addon can report the full manager width on the first paint
+    // before the iframe is resized — prefer layout width and keep observing.
+    const getViewportWidth = () =>
+      Math.min(
+        window.innerWidth || Number.POSITIVE_INFINITY,
+        document.documentElement?.clientWidth || Number.POSITIVE_INFINITY,
+        document.body?.clientWidth || Number.POSITIVE_INFINITY,
+      );
+
     const checkScreenSize = () => {
-      const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
-      const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
-      const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
-      const threshold = needsTabletBottomNav ? 840 : 420;
-      setIsSmallScreen(window.innerWidth <= threshold);
+      setIsSmallScreen(getViewportWidth() <= threshold);
     };
 
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
 
-    return () => window.removeEventListener('resize', checkScreenSize);
+    const resizeObserver =
+      typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(() => checkScreenSize())
+        : null;
+    resizeObserver?.observe(document.documentElement);
+
+    // Catch delayed Storybook iframe viewport application after reload.
+    const rafId = window.requestAnimationFrame(checkScreenSize);
+    const timeoutId = window.setTimeout(checkScreenSize, 100);
+
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+      resizeObserver?.disconnect();
+      window.cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+    };
   }, [variantStyle]);
   const colorClass =
     props.color === 'primary'
@@ -105,10 +141,16 @@ const RdsAppBar = ({
   return (
     <MuiAppBar
       {...props}
-      className={[
+      className={clsx(
         `rds-app-bar--size-${size}`,
-        `rds-header${colorClass}${variantClass}${props.className ? ' ' + props.className : ''}`,
-      ].filter(Boolean).join(' ')}
+        'rds-header',
+        props.color === 'primary' && 'rds-header--primary',
+        props.color === 'secondary' && 'rds-header--secondary',
+        props.color === 'transparent' && 'rds-header--transparent',
+        showMenuButton && 'rds-header--has-menu-button',
+        variantStyle && `rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}`,
+        props.className,
+      )}
       color={props.color === 'transparent' ? 'transparent' : 'default'}
       elevation={0}
     >
@@ -122,7 +164,7 @@ const RdsAppBar = ({
       >
         <Box className="rds-header__toolbar" sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
           {showMenuButton && (
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} sx={{ mr: tokens.space(2) }}>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} className="rds-header__menu-button">
               <DehazeIcon />
             </IconButton>
           )}
@@ -139,9 +181,9 @@ const RdsAppBar = ({
             >
               {tabs.map((tab, idx) =>
                 typeof tab === 'string' ? (
-                  <Tab key={tab} label={tab} />
+                  <Tab label={tab} key={tab} />
                 ) : (
-                  <Tab key={tab.label || idx} {...(tab as React.ComponentProps<typeof Tab>)} />
+                  <Tab {...(tab as Record<string, unknown>)} key={tab.label || 'tab-item'} />
                 )
               )}
             </Tabs>
@@ -198,7 +240,7 @@ const RdsAppBar = ({
                   <DehazeIcon />
                 </span>
               </IconButton>
-              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} PaperProps={{ sx: { width: tokens.space(40) } }}>
+              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} slotProps={{ paper: { sx: { width: tokens.space(40) } } }}>
                 <Box sx={{ p: tokens.space(2), height: '100%', boxSizing: 'border-box' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <IconButton onClick={() => setOverflowOpen(false)} aria-label="close">
@@ -216,17 +258,19 @@ const RdsAppBar = ({
               <Box className="rds-bottom-navigation">
                 <Box className="rds-bottom-navigation-single-row">
                   {Array.isArray(tabs) && tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : (t as { label: string }).label || String(i);
+                    const label = typeof t === 'string' ? t : t.label || String(i);
+                    const tabKey = typeof t === 'string' ? t : String((t as { label?: string }).label || 'tab-item');
                     const isActive = tabValue === i;
                     return (
                       <RdsButton
-                        key={label + i}
+                        key={tabKey}
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => typeof onTabChange === 'function' && onTabChange(i)}
                         className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
                         style="transparent"
                         size="small"
+                        layout="text-only"
                         text={label}
                       />
                     );
@@ -258,27 +302,35 @@ const RdsAppBar = ({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    padding: `${tokens.space(1)} ${tokens.space(2)}`,
+                    height: 56,
+                    maxHeight: 56,
+                    minHeight: 56,
+                    padding: `0 ${tokens.space(2)}`,
                     display: 'flex',
                     justifyContent: 'space-around',
                     alignItems: 'center',
+                    overflow: 'hidden',
+                    boxSizing: 'border-box',
                     zIndex: tokens.zIndex.dropdown,
                     borderTop: `1px solid ${tokens.cssVar('border-default')}`,
                     boxShadow: tokens.cssVar('elevation-2'),
+                    backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface, #ffffff))',
                   }}
                 >
                   {tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : (t as { label: string }).label || String(i);
+                    const label = typeof t === 'string' ? t : t.label || String(i);
+                    const tabKey = typeof t === 'string' ? t : String((t as { label?: string }).label || 'tab-item');
                     const isActive = tabValue === i;
                     return (
                       <RdsButton
-                        key={label + i}
+                        key={tabKey}
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => onTabChange(i)}
                         className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
                         style="transparent"
                         size="small"
+                        layout="text-only"
                         text={label}
                       />
                     );
@@ -300,24 +352,34 @@ const RdsAppBar = ({
                       zIndex: tokens.zIndex.dropdown,
                       borderTop: `1px solid ${tokens.cssVar('border-default')}`,
                       boxShadow: tokens.cssVar('elevation-2'),
+                      backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface, #ffffff))',
+                      color: 'var(--rds-color-on-surface, var(--rds-text-primary, #212121))',
                     }}
                   >
-                    {React.isValidElement(overflowContent) && (overflowContent as React.ReactElement<{ children?: React.ReactNode }>).props?.children
-                      ? React.Children.toArray((overflowContent as React.ReactElement<{ children?: React.ReactNode }>).props.children).map((child, i) => {
-                          if (React.isValidElement(child)) {
-                            const childProps = (child as React.ReactElement<{ onClick?: React.MouseEventHandler<HTMLElement>; className?: string }>).props;
+                    {isValidElement<{ children?: ReactNode }>(overflowContent) && overflowContent.props.children
+                      ? Children.toArray(overflowContent.props.children).map((child, i) => {
+                          if (isValidElement(child)) {
+                            const childProps = (child as ReactElement<{ onClick?: (e: SyntheticEvent) => void; className?: string }>).props;
                             const existingOnClick = childProps.onClick;
-                            const className = (childProps.className ? childProps.className + ' ' : '') + 'rds-bottom-nav-tab';
-                            return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, {
-                              key: i,
-                              onClick: (e: React.MouseEvent<HTMLElement>) => {
-                                if (typeof existingOnClick === 'function') existingOnClick(e);
-                                setLocalBottomActive(i);
+                            const childClassName = `${childProps.className ? `${childProps.className} ` : ''}rds-bottom-nav-tab`;
+                            const childKey = (child as ReactElement).key != null
+                              ? String((child as ReactElement).key)
+                              : String(childProps.className || 'overflow-item');
+                            return cloneElement(
+                              child as ReactElement<Record<string, unknown>>,
+                              {
+                                key: childKey,
+                                onClick: (e: SyntheticEvent) => {
+                                  existingOnClick?.(e);
+                                  setLocalBottomActive(i);
+                                },
+                                className: localBottomActive === i
+                                  ? `${childClassName} rds-bottom-nav-tab--active`
+                                  : childClassName,
                               },
-                              className: (localBottomActive === i ? className + ' rds-bottom-nav-tab--active' : className),
-                            });
+                            );
                           }
-                          return <span key={i}>{child}</span>;
+                          return <span key={String(child)}>{child}</span>;
                         })
                       :
                         overflowContent}

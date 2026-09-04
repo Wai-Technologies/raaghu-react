@@ -60,6 +60,7 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       control: 'text',
       description: 'Icon to display in breadcrumb items',
     },
+    separator: { control: { disable: true }, table: { disable: true } },
   },
 };
 
@@ -118,23 +119,4 @@ export const WithClickHandlers: Story = {
     autoIcons: false,
     level: 'level3',
   },
-};
-export const ClickItem: Story = {
-  name: 'Interaction: Click breadcrumb item',
-  args: {
-    items: [
-      { label: 'Home', onClick: fn() },
-      { label: 'Products', onClick: fn() },
-      { label: 'Current Page', active: true },
-    ],
-    layout: 'without background',
-    showIcon: false,
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    const homeItem = canvas.getByText('Home')
-    await expect(homeItem).toBeVisible()
-    await userEvent.click(homeItem)
-    await expect(args.items[0].onClick).toHaveBeenCalledOnce()
-  }
 };

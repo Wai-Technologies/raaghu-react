@@ -20,6 +20,8 @@ const meta: Meta<typeof RdsCardDetail> = {
       control: 'select',
       options: ['elevation', 'outlined'],
     },
+    actions: { control: false },
+    children: { control: false },
   },
 };
 

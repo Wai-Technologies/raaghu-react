@@ -1,0 +1,56 @@
+name: Type Check
+
+on:
+  pull_request:
+    branches: [main, development, production]
+    paths:
+      - 'raaghu-elements/**'
+      - 'raaghu-components/**'
+      - 'raaghu-layouts/**'
+      - 'raaghu-react-themes/**'
+      - 'utils/**'
+      - 'index.ts'
+      - 'tsconfig*.json'
+      - 'scripts/emit-declarations.js'
+      - 'package.json'
+      - 'package-lock.json'
+  push:
+    branches: [development, production]
+    paths:
+      - 'raaghu-elements/**'
+      - 'raaghu-components/**'
+      - 'raaghu-layouts/**'
+      - 'raaghu-react-themes/**'
+      - 'utils/**'
+      - 'index.ts'
+      - 'tsconfig*.json'
+      - 'scripts/emit-declarations.js'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  type-check:
+    name: Declaration type-check (strict)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    continue-on-error: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps --ignore-scripts
+
+      - name: Strict declaration type-check
+        run: npm run type-check:declarations

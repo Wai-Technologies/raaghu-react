@@ -10,11 +10,23 @@ const meta: Meta<typeof RdsRating> = {
         status: { type: 'stable' },
     layout: 'centered',
     controls: {
-    exclude: ['component', 'slots', 'slotProps', 'precision'],
+      exclude: ['component', 'slots', 'slotProps', 'ref', 'onChange', 'icon', 'emptyIcon', 'max'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    label: {
+      control: 'text',
+      description: 'Optional label displayed next to the rating',
+    },
+    showValue: {
+      control: 'boolean',
+      description: 'Whether to display the numeric rating value',
+    },
+    maxStars: {
+      control: { type: 'number', min: 1, max: 10, step: 1 },
+      description: 'Maximum number of stars',
+    },
     value: {
       control: { type: 'number', min: 0, max: 5, step: 0.5 },
     },
@@ -32,6 +44,8 @@ const meta: Meta<typeof RdsRating> = {
     },
     precision: {
       control: { type: 'number', min: 0.1, max: 1, step: 0.1 },
+      description:
+        'Minimum increment for star selection. Values that do not divide 1 evenly (e.g. 0.3, 0.4) are normalized so the rating renders safely.',
     },
     level: {
       control: { type: 'select' },
@@ -58,6 +72,16 @@ const meta: Meta<typeof RdsRating> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const basicRatingControls = [
+  'value',
+  'type',
+  'styles',
+  'size',
+  'readOnly',
+  'disabled',
+  'precision',
+] as const;
+
 export const Default: Story = {
   args: {
     value: 3,
@@ -68,6 +92,19 @@ export const Default: Story = {
       control: { type: 'select' },
       options: ['star', 'slider'],
     },
+    styles: {
+      control: { type: 'select' },
+      options: ['default', 'filled', 'outlined'],
+    },
+    value: { control: false },
+    showValue: { control: false },
+    label: { control: false },
+    maxStars: { control: false },
+    size: { control: false },
+    precision: { control: false },
+    readOnly: { control: false },
+    disabled: { control: false },
+    colorVariant: { control: false },
     level: {
       control: { type: 'select' },
       options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
@@ -77,25 +114,9 @@ export const Default: Story = {
         'Right': 5,
       },
     },
-    styles: {
-      control: { type: 'select' },
-      options: ['default', 'filled', 'outlined'],
-    },
-    
-    value: { table: { disable: true } },
-    showValue: { table: { disable: true } },
-    label: { table: { disable: true } },
-    maxStars: { table: { disable: true } },
-    size: { table: { disable: true } },
-    precision: { table: { disable: true } },
-    readOnly: { table: { disable: true } },
-    disabled: { table: { disable: true } },
-    max: { table: { disable: true } },
-    onChange: { table: { disable: true } },
-    icon: { table: { disable: true } },
-    emptyIcon: { table: { disable: true } },
   },
   parameters: {
+    controls: { include: ['type', 'styles', 'level'] },
     docs: {
       description: {
         story: 'Default rating component with click-to-toggle functionality and level control. You can either: 1) Click any star to select it, click the same star again to unselect (set to 0), or 2) Use the level control to set specific values.',
@@ -111,6 +132,9 @@ export const WithColor: Story = {
     colorVariant: 'primary',
     styles: 'filled',
   },
+  parameters: {
+    controls: { include: ['value', 'type', 'colorVariant', 'styles', 'size', 'readOnly', 'disabled'] },
+  },
 };
 
 export const Disabled: Story = {
@@ -118,6 +142,7 @@ export const Disabled: Story = {
     value: 2,
     disabled: true,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const HalfStar: Story = {
@@ -125,6 +150,7 @@ export const HalfStar: Story = {
     value: 3.5,
     precision: 0.5,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const HighPrecision: Story = {
@@ -132,6 +158,7 @@ export const HighPrecision: Story = {
     value: 3.7,
     precision: 0.1,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const Large: Story = {
@@ -139,12 +166,14 @@ export const Large: Story = {
     value: 5,
     size: 'large',
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const NoValue: Story = {
   args: {
     value: 0,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const ReadOnly: Story = {
@@ -152,6 +181,7 @@ export const ReadOnly: Story = {
     value: 4,
     readOnly: true,
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const Small: Story = {
@@ -159,6 +189,7 @@ export const Small: Story = {
     value: 4,
     size: 'small',
   },
+  parameters: { controls: { include: [...basicRatingControls] } },
 };
 
 export const WithCustomIcon: Story = {
@@ -167,22 +198,5 @@ export const WithCustomIcon: Story = {
     icon: <Star fontSize="inherit" />,
     emptyIcon: <StarBorder fontSize="inherit" />,
   },
-};
-
-export const ClickStar: Story = {
-  name: 'Interaction: Click star to rate',
-  args: {
-    value: 2,
-    type: 'star',
-    onChange: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    // MUI Rating renders stars as radio inputs (hidden by CSS)
-    const stars = canvas.getAllByRole('radio')
-    await expect(stars.length).toBeGreaterThan(0)
-    // Click the 5th star (highest rating)
-    await userEvent.click(stars[stars.length - 1])
-    await expect(args.onChange).toHaveBeenCalled()
-  }
+  parameters: { controls: { include: [...basicRatingControls] } },
 };

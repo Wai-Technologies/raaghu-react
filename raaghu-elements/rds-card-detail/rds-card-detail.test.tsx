@@ -713,6 +713,7 @@ describe('RdsCardDetail', () => {
       expect(container.querySelector('.MuiCardHeader-root')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCardDetail {...defaultProps} />);
       const results = await axe(container);

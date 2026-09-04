@@ -1,69 +1,47 @@
-import React, { useState, Fragment, useEffect, useRef } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import clsx from 'clsx';
 import "./rds-comp-color-picker.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-import { getColorDisplay } from "./color-utils";
+import { getColorDisplay, normalizeHex, resolveColorToHex } from "./color-utils";
 import {
   ColorPickerGrid,
   ColorPickerSpectrum,
-  ColorModeSwatches,
-  GradientEditor
 } from "./color-picker-components";
 import { colorTokens } from "../../raaghu-react-themes/tokens/design-tokens";
+import {
+  ColorMode,
+  ColorPickerType,
+  type RdsCompColorPickerProps,
+  StyleType,
+} from "./rds-comp-color-picker.types";
 
-export enum ColorPickerType {
-  Default = "Default",
-  Button = "Button",
-  ButtonExpanded = "Button-Expanded",
+interface ColorUpdate {
+  hex: string;
+  rgb?: { r: number; g: number; b: number; a?: number };
 }
 
-export enum PickerType {
-  Grid = "Grid",
-  Spectrum = "Spectrum",
-}
-
-export enum ColorMode {
-  HEX = "HEX",
-  RGB = "RGB",
-  HSB = "HSB",
-  HSL = "HSL",
-}
-
-export enum StyleType {
-  Type1 = "Type 1",
-  Type2 = "Type 2",
-}
-
-export interface RdsCompColorPickerProps {
-  value: string;
-  isDisabled?: boolean;
-  label: string;
-  type: ColorPickerType;
-  showSwatches?: boolean;
-  pickerType?: PickerType;
-  showTabs?: boolean;
-  colorMode?: ColorMode;
-  style?: StyleType;
-  onChange?: (colorHex: string) => void;
-}
-
-const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
+const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, isDisabled, onChange } =
     props;
-  const getDefaultColorHex = () => {
-    if (value) return value;
+  const getDefaultColorHex = useCallback(() => {
+    if (value) {
+      return value.startsWith("#") ? normalizeHex(value) : resolveColorToHex(value).hex;
+    }
     try {
       if (typeof window !== 'undefined') {
         const computed = getComputedStyle(document.documentElement).getPropertyValue('--rds-color-primary') || '';
         const trimmed = computed.trim();
-        if (trimmed) return trimmed;
+        if (trimmed) {
+          return trimmed.startsWith("#") ? normalizeHex(trimmed) : resolveColorToHex(trimmed).hex;
+        }
       }
     } catch (e) {
       // ignore
     }
     return colorTokens.primary[400];
-  };
+  }, [value]);
 
-  const hexToRgb = (hex: string) => {
+  const hexToRgb = useCallback((hex: string) => {
     if (!hex) return { r: 0, g: 0, b: 0 };
     const h = hex.replace('#', '');
     if (h.length === 3) {
@@ -76,30 +54,86 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
     const g = parseInt(h.substring(2, 4), 16);
     const b = parseInt(h.substring(4, 6), 16);
     return { r, g, b };
-  };
+  }, []);
 
-  const _defaultHex = getDefaultColorHex();
-  const defaultRgb = hexToRgb(_defaultHex);
+  const _defaultHex = useMemo(() => getDefaultColorHex(), [getDefaultColorHex]);
+  const defaultRgb = useMemo(() => hexToRgb(_defaultHex), [_defaultHex, hexToRgb]);
 
-  const [selectedColorState, setSelectedColorState] = useState({
-    hex: _defaultHex,
-    rgb: { r: defaultRgb.r, g: defaultRgb.g, b: defaultRgb.b, a: 1 },
+  const [pickerState, setPickerState] = useState({
+    internalColorState: {
+      hex: _defaultHex,
+      rgb: { r: defaultRgb.r, g: defaultRgb.g, b: defaultRgb.b, a: 1 },
+    },
+    showPicker: type !== ColorPickerType.Button,
+    internalSelectedTab: (pickerType || "Grid") as "Grid" | "Spectrum",
+    internalSelectedColorMode: colorMode || ColorMode.HEX,
+    showColorModeDropdown: false,
+    internalSelectedStyle: style || StyleType.Type1,
   });
-  const [selectedColorHex, setSelectedColorHex] = useState<string>(_defaultHex);
-  const [showPicker, setShowPicker] = useState(type !== ColorPickerType.Button);
-  const [selectedTab, setSelectedTab] = useState(
-    pickerType || "Grid"
-  );
-  const [selectedColorMode, setSelectedColorMode] = useState<ColorMode>(colorMode || ColorMode.HEX);
-  const [showColorModeDropdown, setShowColorModeDropdown] = useState(false);
-  const [selectedStyle, setSelectedStyle] = useState(style || StyleType.Type1);
+  const {
+    internalColorState,
+    showPicker,
+    internalSelectedTab,
+    internalSelectedColorMode,
+    showColorModeDropdown,
+    internalSelectedStyle,
+  } = pickerState;
+  const updatePickerState = useCallback((updates: Partial<typeof pickerState> | ((prev: typeof pickerState) => Partial<typeof pickerState>)) => {
+    setPickerState((prev) => ({
+      ...prev,
+      ...(typeof updates === 'function' ? updates(prev) : updates),
+    }));
+  }, []);
+
+  const selectedTab = internalSelectedTab;
+  const selectedStyle = style || internalSelectedStyle;
+  const selectedColorHex = internalColorState.hex;
+  const selectedColorState = internalColorState;
   
-  const colorModeDropdownRef = React.useRef<HTMLDivElement>(null);
-  
+  const colorModeDropdownRef = useRef<HTMLDivElement>(null);
+  const prevTypeRef = useRef(type);
+  const prevPickerTypeRef = useRef(pickerType);
+  const prevColorModeRef = useRef(colorMode);
+
+  if (type !== prevTypeRef.current) {
+    prevTypeRef.current = type;
+    updatePickerState({ showPicker: type !== ColorPickerType.Button });
+  }
+
+  if (pickerType && pickerType !== prevPickerTypeRef.current) {
+    prevPickerTypeRef.current = pickerType;
+    updatePickerState({ internalSelectedTab: pickerType as "Grid" | "Spectrum" });
+  }
+
+  if (colorMode && colorMode !== prevColorModeRef.current) {
+    prevColorModeRef.current = colorMode;
+    updatePickerState({ internalSelectedColorMode: colorMode });
+  }
+
+  const selectedColorMode = internalSelectedColorMode;
+
+  const prevValueRef = useRef(value);
+  if (value && value.startsWith('#') && value !== prevValueRef.current) {
+    prevValueRef.current = value;
+    const rgb = hexToRgb(value);
+    updatePickerState((prev) => ({
+      internalColorState: {
+        ...prev.internalColorState,
+        hex: value,
+        rgb: {
+          r: rgb.r,
+          g: rgb.g,
+          b: rgb.b,
+          a: prev.internalColorState.rgb.a,
+        },
+      },
+    }));
+  }
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (colorModeDropdownRef.current && !colorModeDropdownRef.current.contains(event.target as Node)) {
-        setShowColorModeDropdown(false);
+        updatePickerState({ showColorModeDropdown: false });
       }
     }
     
@@ -107,64 +141,79 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [updatePickerState]);
   
-  useEffect(() => {
-    setShowPicker(type !== ColorPickerType.Button);
-  }, [type]);
+  const handleButtonClick = useCallback(() => {
+    if (isDisabled) return;
+    updatePickerState((prev) => ({ showPicker: !prev.showPicker }));
+  }, [isDisabled, updatePickerState]);
 
-  useEffect(() => {
-    setSelectedColorHex(value);
-    if (value && value.startsWith('#')) {
-      setSelectedColorState(prev => ({ ...prev, hex: value }));
+  const handleTabClick = useCallback((tab: "Grid" | "Spectrum") => {
+    updatePickerState({ internalSelectedTab: tab });
+  }, [updatePickerState]);
+
+  const rgbToHex = useCallback((r: number, g: number, b: number) => {
+    return `#${[r, g, b]
+      .map((v) => Math.round(v).toString(16).padStart(2, '0'))
+      .join('')
+      .toUpperCase()}`;
+  }, []);
+
+  const handleChange = useCallback((newColor: ColorUpdate) => {
+    if (isDisabled) return;
+    let nextRgb = newColor.rgb ?? selectedColorState.rgb;
+    let nextHex: string;
+
+    if (newColor.rgb) {
+      nextHex = rgbToHex(nextRgb.r, nextRgb.g, nextRgb.b);
+    } else if (newColor.hex.startsWith("#")) {
+      nextHex = normalizeHex(newColor.hex);
+    } else {
+      const resolved = resolveColorToHex(newColor.hex);
+      nextHex = resolved.hex;
+      nextRgb = resolved.rgb;
     }
-  }, [value]);
 
-  useEffect(() => {
-    setSelectedTab(pickerType || "Grid");
-  }, [pickerType]);
+    const next = {
+      ...selectedColorState,
+      hex: nextHex,
+      rgb: { ...nextRgb, a: nextRgb.a ?? selectedColorState.rgb.a },
+    };
+    updatePickerState({ internalColorState: next });
+    if (onChange) onChange(nextHex);
+  }, [isDisabled, selectedColorState, onChange, rgbToHex, updatePickerState]);
 
-  useEffect(() => {
-    setSelectedStyle(style || StyleType.Type1);
-  }, [style]);
-
-  useEffect(() => {
-    if (colorMode) setSelectedColorMode(colorMode);
-  }, [colorMode]);
-
-  const handleButtonClick = () => {
+  const handleHueChange = useCallback((newColor: ColorUpdate) => {
     if (isDisabled) return;
-    setShowPicker(!showPicker);
-  };
-
-  const handleTabClick = (tab: "Grid" | "Spectrum") => {
-    setSelectedTab(tab);
-  };
-
-  const handleChange = (newColor: { hex: string; rgb: { r: number; g: number; b: number; a: number } }) => {
-    if (isDisabled) return;
-    const next = { ...selectedColorState, hex: newColor.hex, rgb: newColor.rgb ?? selectedColorState.rgb };
-    setSelectedColorState(next);
-    setSelectedColorHex(newColor.hex);
+    const next = {
+      ...selectedColorState,
+      hex: newColor.hex,
+      rgb: newColor.rgb
+        ? { ...newColor.rgb, a: newColor.rgb.a ?? selectedColorState.rgb.a }
+        : selectedColorState.rgb,
+    };
+    updatePickerState({ internalColorState: next });
     if (onChange) onChange(newColor.hex);
-  };
+  }, [isDisabled, selectedColorState, onChange, updatePickerState]);
 
-  const handleHueChange = (newColor: { hex: string }) => {
+  const handleAlphaChange = useCallback((newColor: ColorUpdate) => {
     if (isDisabled) return;
-    const next = { ...selectedColorState, hex: newColor.hex };
-    setSelectedColorState(next);
-    setSelectedColorHex(newColor.hex);
-    if (onChange) onChange(newColor.hex);
-  };
+    updatePickerState({ internalColorState: { ...selectedColorState, rgb: { ...selectedColorState.rgb, a: newColor.rgb?.a ?? selectedColorState.rgb.a } } });
+  }, [isDisabled, selectedColorState, updatePickerState]);
 
-  const handleAlphaChange = (newColor: { rgb: { a: number } }) => {
-    if (isDisabled) return;
-    setSelectedColorState({ ...selectedColorState, rgb: { ...selectedColorState.rgb, a: newColor.rgb.a } });
-  };
-
-  const getColorDisplayValue = () => {
+  const getColorDisplayValue = useCallback(() => {
     return getColorDisplay(selectedColorMode, selectedColorState);
-  };
+  }, [selectedColorMode, selectedColorState]);
+
+  const handleSelectColorMode = useCallback((mode: ColorMode) => {
+    updatePickerState({ internalSelectedColorMode: mode });
+  }, [updatePickerState]);
+
+  const setShowColorModeDropdown = useCallback((next: boolean | ((prev: boolean) => boolean)) => {
+    updatePickerState((prev) => ({
+      showColorModeDropdown: typeof next === 'function' ? next(prev.showColorModeDropdown) : next,
+    }));
+  }, [updatePickerState]);
 
   return (
     <Fragment>
@@ -172,26 +221,30 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
         {(type === ColorPickerType.Button || type === ColorPickerType.ButtonExpanded) && (
           <RdsButton
             color="primary"
-            children={label || "Color Picker"}
             style="filled"
             disabled={isDisabled}
             onClick={handleButtonClick}
-          />
+          >
+            {label || "Color Picker"}
+          </RdsButton>
         )}
         {(showPicker && (type === ColorPickerType.ButtonExpanded || type === ColorPickerType.Default || type === ColorPickerType.Button)) && (
           <div className="rds-comp-color-picker__container">
             {showTabs && (
               <div className="rds-comp-color-picker__tabs">
                 <button
-                  className={`rds-comp-color-picker__tab ${selectedTab === "Grid" ? "rds-comp-color-picker__tab--active" : ""}`}
+                  type="button"
+                  className={clsx("rds-comp-color-picker__tab", selectedTab === "Grid" && "rds-comp-color-picker__tab--active")}
                   onClick={() => handleTabClick("Grid")}
                 >
                   Grid
                 </button>
                 <button
-                  className={`rds-comp-color-picker__tab ${
-                    selectedTab === "Spectrum" ? "rds-comp-color-picker__tab--active" : ""
-                  }`}
+                  type="button"
+                  className={clsx(
+                    "rds-comp-color-picker__tab",
+                    selectedTab === "Spectrum" && "rds-comp-color-picker__tab--active"
+                  )}
                   onClick={() => handleTabClick("Spectrum")}
                 >
                   Spectrum
@@ -209,8 +262,8 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
                 selectedColorMode={selectedColorMode}
                 showColorModeDropdown={showColorModeDropdown}
                 setShowColorModeDropdown={setShowColorModeDropdown}
-                getColorDisplay={() => getColorDisplayValue()}
-                onSelectColorMode={(mode: ColorMode) => setSelectedColorMode(mode)}
+                getColorDisplay={getColorDisplayValue}
+                onSelectColorMode={handleSelectColorMode}
               />
             ) : (
               <ColorPickerSpectrum
@@ -223,10 +276,10 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
                 selectedColorMode={selectedColorMode}
                 showColorModeDropdown={showColorModeDropdown}
                 setShowColorModeDropdown={setShowColorModeDropdown}
-                getColorDisplay={() => getColorDisplayValue()}
+                getColorDisplay={getColorDisplayValue}
                 showSwatches={showSwatches}
                 styleType={selectedStyle}
-                onSelectColorMode={(mode: ColorMode) => setSelectedColorMode(mode)}
+                onSelectColorMode={handleSelectColorMode}
               />
             )}
           </div>
@@ -235,5 +288,5 @@ const RdsCompColorPicker = (props: RdsCompColorPickerProps) => {
     </Fragment>
   );
 };
-RdsCompColorPicker.displayName = "RdsCompColorPicker";
-export default RdsCompColorPicker;
+RdsColorPicker.displayName = "RdsCompColorPicker";
+export default RdsColorPicker;

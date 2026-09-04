@@ -126,24 +126,15 @@
 
 .rds-switch--style2 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
-  border-radius: var(--rds-border-radius-xl, 16px) !important;
-}
-.rds-switch--style2 .MuiSwitch-thumb {
-  background: var(--rds-color-switch-thumb) !important;
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
-}
-
-.rds-switch--style3 .MuiSwitch-track {
-  background: var(--rds-color-switch-track) !important;
   height: 100% !important;
   border-radius: var(--rds-border-radius-sm, 4px) !important;
 }
-.rds-switch--style3 .MuiSwitch-thumb {
+.rds-switch--style2 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb) !important;
   border-radius: var(--rds-border-radius-sm, 4px) !important;
 }
 
-.rds-switch--style4 .MuiSwitch-track {
+.rds-switch--style3 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
   height: 10px !important;
   border-radius: 999px !important;
@@ -153,25 +144,67 @@
   right: 0 !important;
   transform: translateY(-50%) !important;
 }
-.rds-switch--style4 .MuiSwitch-thumb {
+.rds-switch--style3 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb) !important;
 }
 
-.rds-switch--style2 .Mui-checked + .MuiSwitch-thumb,
-.rds-switch--style2 .MuiSwitch-input:checked + .MuiSwitch-thumb,
-.rds-switch--style4 .Mui-checked + .MuiSwitch-thumb,
-.rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
+.rds-switch--style3 .MuiSwitch-switchBase {
+  top: 2px !important;
 }
 
-.rds-switch--style5 .MuiSwitch-track {
+.rds-switch--style4 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
   height: 100% !important;
   border-radius: calc(2.5 * var(--rds-spacing-xs, 4px)) !important;
   position: relative !important;
 }
+.rds-switch--style4 .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb) !important;
+}
+
+.rds-switch--style4 .MuiSwitch-track::before {
+  content: 'On' !important;
+  position: absolute !important;
+  left: calc(var(--rds-spacing-xs, 4px) / 2) !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: var(--rds-color-switch-label) !important;
+  font-size: var(--rds-font-size-sm, 12px) !important;
+}
+
+.rds-switch--style4 .MuiSwitch-track::after {
+  content: 'Off' !important;
+  position: absolute !important;
+  right: calc(var(--rds-spacing-xs, 4px) / 2) !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: var(--rds-color-switch-label) !important;
+  font-size: var(--rds-font-size-sm, 12px) !important;
+}
+
+.rds-switch--style5 .MuiSwitch-track {
+  background: var(--rds-color-switch-track) !important;
+  height: 100% !important;
+  border-radius: calc(0.75 * var(--rds-spacing-xs, 4px)) !important;
+  position: relative !important;
+}
 .rds-switch--style5 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb) !important;
+  border-radius: var(--rds-border-radius-sm, 4px) !important;
+}
+
+.rds-switch--style4,
+.rds-switch--style5 {
+  --rds-switch-root-width: 52px;
+  --rds-switch-thumb-translate-x: 28px;
+}
+
+.rds-switch--style3 {
+  --rds-switch-root-width: 40px;
+  --rds-switch-root-height: 20px;
+  --rds-switch-thumb-size: 16px;
+  --rds-switch-thumb-padding: 0px;
+  --rds-switch-thumb-translate-x: 24px;
 }
 
 .rds-switch--style5 .MuiSwitch-track::before {
@@ -194,51 +227,6 @@
   font-size: var(--rds-font-size-sm, 12px) !important;
 }
 
-.rds-switch--style6 .MuiSwitch-track {
-  background: var(--rds-color-switch-track) !important;
-  height: 100% !important;
-  border-radius: calc(0.75 * var(--rds-spacing-xs, 4px)) !important;
-  position: relative !important;
-}
-.rds-switch--style6 .MuiSwitch-thumb {
-  background: var(--rds-color-switch-thumb) !important;
-  border-radius: var(--rds-border-radius-sm, 4px) !important;
-}
-
-.rds-switch--style5,
-.rds-switch--style6 {
-  --rds-switch-root-width: 52px;
-  --rds-switch-thumb-translate-x: 28px;
-}
-
-.rds-switch--style4 {
-  --rds-switch-root-width: 40px;
-  --rds-switch-root-height: 20px;
-  --rds-switch-thumb-size: 16px;
-  --rds-switch-thumb-padding: 2px;
-  --rds-switch-thumb-translate-x: 20px;
-}
-
-.rds-switch--style6 .MuiSwitch-track::before {
-  content: 'On' !important;
-  position: absolute !important;
-  left: calc(var(--rds-spacing-xs, 4px) / 2) !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
-}
-
-.rds-switch--style6 .MuiSwitch-track::after {
-  content: 'Off' !important;
-  position: absolute !important;
-  right: calc(var(--rds-spacing-xs, 4px) / 2) !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
-}
-
 .rds-switch--style1 .Mui-checked + .MuiSwitch-track,
 .rds-switch--style1 .MuiSwitch-input:checked + .MuiSwitch-track,
 .rds-switch--style2 .Mui-checked + .MuiSwitch-track,
@@ -248,9 +236,7 @@
 .rds-switch--style4 .Mui-checked + .MuiSwitch-track,
 .rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-track,
 .rds-switch--style5 .Mui-checked + .MuiSwitch-track,
-.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track,
-.rds-switch--style6 .Mui-checked + .MuiSwitch-track,
-.rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track {
+.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track {
   background: var(--rds-switch-active-bg) !important;
 }
 
@@ -427,32 +413,32 @@
   background: var(--rds-color-on-default) !important;
   opacity: var(--rds-switch-disabled-opacity, 0.6) !important;
 }
-.rds-switch--style6 .Mui-checked + .MuiSwitch-track::before,
-.rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track::before,
 .rds-switch--style5 .Mui-checked + .MuiSwitch-track::before,
-.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track::before {
+.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track::before,
+.rds-switch--style4 .Mui-checked + .MuiSwitch-track::before,
+.rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-track::before {
   color: var(--rds-color-on-primary) !important;
 }
-.rds-switch--style6 .Mui-checked + .MuiSwitch-track::after,
-.rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track::after,
 .rds-switch--style5 .Mui-checked + .MuiSwitch-track::after,
-.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track::after {
+.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track::after,
+.rds-switch--style4 .Mui-checked + .MuiSwitch-track::after,
+.rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-track::after {
   color: var(--rds-color-on-primary) !important;
 }
 
 .rds-switch--style1.MuiFormControlLabel-root,
+.rds-switch--style2.MuiFormControlLabel-root,
 .rds-switch--style3.MuiFormControlLabel-root,
 .rds-switch--style4.MuiFormControlLabel-root,
-.rds-switch--style5.MuiFormControlLabel-root,
-.rds-switch--style6.MuiFormControlLabel-root {
+.rds-switch--style5.MuiFormControlLabel-root {
   align-items: center !important;
 }
 
 .rds-switch--style1 .MuiFormControlLabel-label,
+.rds-switch--style2 .MuiFormControlLabel-label,
 .rds-switch--style3 .MuiFormControlLabel-label,
 .rds-switch--style4 .MuiFormControlLabel-label,
-.rds-switch--style5 .MuiFormControlLabel-label,
-.rds-switch--style6 .MuiFormControlLabel-label {
+.rds-switch--style5 .MuiFormControlLabel-label {
   margin-top: 0 !important;
   display: inline-flex;
   align-items: center;

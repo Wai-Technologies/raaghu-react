@@ -95,6 +95,22 @@
 }
 
 .spinner-container {
+  output {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Keep border spinner visible: `.spinner-container output` must not wipe `.spinner-border` */
+  output.spinner-border {
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+  }
+
+  output.spinner-grow {
+    border: none;
+  }
+
   &--default {
     display: flex;
     align-items: center;

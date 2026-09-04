@@ -1,21 +1,21 @@
-import React from 'react';
-import { Chip as MuiChip, ChipProps } from '@mui/material';
+import { Chip as MuiChip, type ChipProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-tag.scss';
-export interface RdsTagProps extends Omit<ChipProps, 'label'> {
+export interface RdsTagProps extends Omit<ChipProps, 'label' | 'component'> {
   label: string;
   removable?: boolean;
   onRemove?: () => void;
 }
 
-const RdsTag: React.FC<RdsTagProps> = ({
+const RdsTag = ({
   label,
   removable = false,
   onRemove,
   onDelete,
   className,
   ...props
-}) => {
-  const combinedClassName = ['rds-tag', className].filter(Boolean).join(' ');
+}: RdsTagProps) => {
+  const combinedClassName = clsx('rds-tag', className);
 
   return (
     <MuiChip

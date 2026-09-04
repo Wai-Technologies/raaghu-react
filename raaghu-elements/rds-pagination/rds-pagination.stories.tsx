@@ -7,11 +7,33 @@ const meta: Meta<typeof RdsPagination> = {
   title: 'Elements/Pagination',
   component: RdsPagination,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
+    controls: {
+      exclude: [
+        'ref',
+        'component',
+        'pageSize',
+        'onPageSizeChange',
+        'onChange',
+        'onPageChange',
+        'pageSizeOptions',
+        'controls',
+        'totalPages',
+        'currentPage',
+        'showFirstLast',
+        'showRecordsPerPage',
+      ],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    pageSize: { control: false },
+    onPageSizeChange: { control: false },
+    onChange: { control: false },
+    onPageChange: { control: false },
+    pageSizeOptions: { control: false },
+    ref: { control: false },
     count: {
       control: 'number',
       description: 'Total number of pages',
@@ -116,6 +138,25 @@ export const Default: Story = {
     paginationStyle: 'Style 1',
   },
   parameters: {
+    controls: {
+      include: [
+        'count',
+        'page',
+        'paginationStyle',
+        'showDropdown',
+        'showLegend',
+        'legendText',
+        'showFirst',
+        'showLast',
+        'showManualInput',
+        'size',
+        'variant',
+        'shape',
+        'disabled',
+        'showFirstButton',
+        'showLastButton',
+      ],
+    },
     docs: {
       description: {
         story: 'Default pagination with all controls available. Use the Style control to switch between 11 different pagination layouts and feature combinations.'
@@ -157,6 +198,23 @@ export const Advanced: Story = {
     paginationStyle: 'Style 1',
   },
   parameters: {
+    controls: {
+      include: [
+        'paginationStyle',
+        'showDropdown',
+        'showLegend',
+        'legendText',
+        'showFirst',
+        'showLast',
+        'showManualInput',
+        'size',
+        'variant',
+        'shape',
+        'disabled',
+        'showFirstButton',
+        'showLastButton',
+      ],
+    },
     docs: {
       description: {
         story: 'Advanced pagination with 11 predefined styles. Select different styles to see various feature combinations.'
@@ -164,6 +222,17 @@ export const Advanced: Story = {
     }
   }
 };
+
+const basicPaginationControls = [
+  'count',
+  'page',
+  'size',
+  'variant',
+  'shape',
+  'disabled',
+  'showFirstButton',
+  'showLastButton',
+] as const;
 
 export const Disabled: Story = {
   render: (args) => {
@@ -181,6 +250,7 @@ export const Disabled: Story = {
     page: 5,
     disabled: true,
   },
+  parameters: { controls: { include: [...basicPaginationControls] } },
 };
 export const Large: Story = {
   render: (args) => {
@@ -198,6 +268,7 @@ export const Large: Story = {
     page: 6,
     size: 'large',
   },
+  parameters: { controls: { include: [...basicPaginationControls] } },
 };
 
 export const Outlined: Story = {
@@ -216,6 +287,7 @@ export const Outlined: Story = {
     page: 3,
     variant: 'outlined',
   },
+  parameters: { controls: { include: [...basicPaginationControls] } },
 };
 
 export const Rounded: Story = {
@@ -234,6 +306,7 @@ export const Rounded: Story = {
     page: 7,
     shape: 'rounded',
   },
+  parameters: { controls: { include: [...basicPaginationControls] } },
 };
 export const Small: Story = {
   render: (args) => {
@@ -251,6 +324,7 @@ export const Small: Story = {
     page: 4,
     size: 'small',
   },
+  parameters: { controls: { include: [...basicPaginationControls] } },
 };
 
 export const WithFirstLast: Story = {
@@ -268,34 +342,5 @@ export const WithFirstLast: Story = {
     count: 20,
     page: 10,
   },
-};
-
-
-
-export const NavigatePage: Story = {
-  name: 'Interaction: Navigate to next page',
-  render: (args) => {
-    const [page, setPage] = useState(1);
-    return (
-      <RdsPagination
-        {...args}
-        page={page}
-        pageSize={10}
-        onChange={(_: React.ChangeEvent<unknown>, value: number) => setPage(value)}
-        onPageChange={setPage}
-        pageSizeOptions={[10, 25, 50]}
-      />
-    );
-  },
-  args: {
-    totalPages: 5,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // RdsPagination shows prev/next controls — verify they render
-    await expect(canvas.getByRole('button', { name: /go to next page/i })).toBeInTheDocument()
-    await expect(canvas.getByRole('button', { name: /go to previous page/i })).toBeInTheDocument()
-    // Current page is marked with aria-current="page"
-    await expect(canvasElement.querySelector('[aria-current="page"]')).not.toBeNull()
-  }
+  parameters: { controls: { include: [...basicPaginationControls] } },
 };

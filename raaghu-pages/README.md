@@ -1,69 +1,92 @@
-# React + TypeScript + Vite
+# raaghu-pages — Design System Demo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a standalone React application used to manually test and demonstrate how the Raaghu Design System integrates into a real app. It is **not published as an npm package** and is not included in the library build.
 
-Currently, two official plugins are available:
+## Purpose
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| What it is | What it isn't |
+|------------|---------------|
+| A sandbox for testing component integrations | A production app |
+| A place to verify raaghu-react-themes setup | Part of the published library |
+| A reference for how to import and use the design system | A comprehensive component showcase (Storybook is for that) |
 
-## Expanding the ESLint configuration
+For component documentation and interaction demos, use the **Storybook** at the repo root (`npm run storybook`).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Make sure you have installed dependencies from the repo root first:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# From repo root
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run the Dev Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd raaghu-pages
+npm run dev
 ```
+
+Opens at `http://localhost:5173` by default.
+
+### Build
+
+```bash
+npm run build
+```
+
+### Preview the Build
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+raaghu-pages/
+├── src/
+│   ├── App.tsx          # Root app component
+│   ├── main.tsx         # React entry point
+│   └── index.css        # Global styles
+├── index.html           # HTML shell
+├── package.json         # App-specific dependencies
+├── tsconfig.json        # TypeScript config
+└── vite.config.ts       # Vite config
+```
+
+## Using Raaghu Components
+
+To import and use design system components in this app:
+
+```tsx
+// Import components
+import { RdsButton, RdsInput } from '../../index'; // root library export
+
+// Import the theme provider
+import { RaaghuThemeProvider } from '../../raaghu-react-themes/src/provider/RaaghuThemeProvider';
+
+// Wrap your app in the provider
+function App() {
+  return (
+    <RaaghuThemeProvider>
+      <RdsButton label="Hello" colorVariant="primary" />
+    </RaaghuThemeProvider>
+  );
+}
+```
+
+## Notes
+
+- This app uses Vite directly, not the Storybook build pipeline
+- It intentionally has minimal dependencies to stay close to a real client integration scenario
+- Treat it as a "does it actually work outside Storybook?" check
+
+## Related
+
+- `README.md` (repo root) — full library overview and setup
+- `docs/THEME_INTEGRATION_GUIDE.md` — how to integrate raaghu-react-themes
+- `docs/ARCHITECTURE_OVERVIEW.md` — package structure explanation

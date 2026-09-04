@@ -511,6 +511,7 @@ describe('RdsRating', () => {
       expect(ratingElement).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsRating />);
       const results = await axe(container);
@@ -709,6 +710,15 @@ describe('RdsRating', () => {
         <RdsRating type="star" precision={0.25} />
       );
       expect(container.querySelector('.rds-rating__stars')).toBeInTheDocument();
+    });
+
+    it('should render without error for non-dividing precision values like 0.3 and 0.4', () => {
+      expect(() => {
+        renderWithTheme(<RdsRating type="star" value={3} precision={0.3} />);
+      }).not.toThrow();
+      expect(() => {
+        renderWithTheme(<RdsRating type="star" value={5} precision={0.4} />);
+      }).not.toThrow();
     });
   });
 

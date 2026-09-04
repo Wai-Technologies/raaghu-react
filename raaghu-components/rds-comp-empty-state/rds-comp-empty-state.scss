@@ -1,5 +1,17 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
+@keyframes rds-empty-state-content-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 [data-theme="dark"] .rds-comp-empty-state__title,
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__title,
@@ -15,6 +27,11 @@ body.dark .rds-comp-empty-state {
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__subtitle {
   color: var(--rds-text-secondary) !important;
+}
+
+[data-theme="dark"] .rds-comp-empty-state__icon--minimal,
+body.dark .rds-comp-empty-state__icon--minimal {
+  color: var(--rds-text-secondary);
 }
 
 .rds-comp-empty-state {
@@ -36,30 +53,105 @@ body.dark .rds-comp-empty-state__subtitle {
     padding: 0 var(--rds-spacing-md, 16px);
   }
 
+  &--minimal {
+    .rds-comp-empty-state__title {
+      margin-top: var(--rds-spacing-md, 16px) !important;
+    }
+  }
+
+  &--minimal-animated {
+    .rds-comp-empty-state__title {
+      animation: rds-empty-state-content-rise 0.65s ease-out both;
+      animation-delay: 0.15s;
+    }
+
+    .rds-comp-empty-state__subtitle {
+      animation: rds-empty-state-content-rise 0.65s ease-out both;
+      animation-delay: 0.3s;
+    }
+
+    .rds-comp-empty-state__action {
+      animation: rds-empty-state-content-rise 0.65s ease-out both;
+      animation-delay: 0.45s;
+    }
+  }
+
   &__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0; 
+    margin-bottom: 0;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
 
-    img {
-      max-width: 100%;
-      height: auto;
+    &--minimal {
+      color: var(--rds-text-secondary);
     }
 
+    &--minimal-animated {
+      overflow: visible;
+    }
+
+    img,
     svg {
-      max-width: 100%;
-      height: auto;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
     }
 
-    &--animated {
+    &--animated,
+    &--minimal-animated {
       position: relative;
-      
+
+      .rds-comp-empty-state__minimal-lottie-shell,
       & > div {
-        width: 100%;
-        height: 100%;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        display: block !important;
+      }
+
+      .rds-comp-empty-state__minimal-lottie-shell > div svg,
+      & > div svg {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        display: block !important;
       }
     }
+  }
+
+  &__minimal-lottie-shell {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    clip-path: circle(46% at 50% 46%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+      width: 128% !important;
+      height: 128% !important;
+      max-width: none !important;
+      max-height: none !important;
+      flex-shrink: 0;
+    }
+  }
+
+  &__minimal-icon {
+    display: block;
+    color: inherit;
   }
 
   &__title {
@@ -68,7 +160,7 @@ body.dark .rds-comp-empty-state__subtitle {
     font-size: var(--rds-font-size-lg, 1.09375rem) !important;
     line-height: 1.4 !important;
     margin: var(--rds-spacing-xs, 4px) 0 !important;
-    font-family: var(--rds-font-family-base) !important; 
+    font-family: var(--rds-font-family-base) !important;
     margin-top: var(--rds-spacing-lg, 10px) !important;
   }
 
@@ -87,7 +179,7 @@ body.dark .rds-comp-empty-state__subtitle {
   }
 
   &__button {
-    background-color: var(--rds-color-neutral-600) !important; 
+    background-color: var(--rds-color-neutral-600) !important;
     color: var(--rds-color-neutral-50) !important;
     border-radius: var(--rds-border-radius-sm) !important;
     padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px) !important;
@@ -128,7 +220,9 @@ body.dark .rds-comp-empty-state__subtitle {
     }
 
     &__icon img {
-      max-width: var(--rds-size-3xl, 120px);
+      max-width: none !important;
+      width: 100% !important;
+      height: 100% !important;
     }
 
     &__title {
@@ -165,13 +259,21 @@ body.dark .rds-comp-empty-state__subtitle {
 
 @media (prefers-reduced-motion: reduce) {
   .rds-comp-empty-state {
+    &--minimal-animated {
+      .rds-comp-empty-state__title,
+      .rds-comp-empty-state__subtitle,
+      .rds-comp-empty-state__action {
+        animation: none !important;
+      }
+    }
+
     &__button {
       transition: none !important;
-      
+
       &:hover {
         transform: none !important;
       }
-      
+
       &:active {
         transform: none !important;
       }

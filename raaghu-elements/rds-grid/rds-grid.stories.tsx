@@ -9,6 +9,9 @@ const meta: Meta<typeof RdsGrid> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'fullscreen',
+    controls: {
+      include: ['container', 'spacing'],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
@@ -17,6 +20,18 @@ const meta: Meta<typeof RdsGrid> = {
     },
     spacing: {
       control: { type: 'number' },
+    },
+    children: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
     },
   },
 };

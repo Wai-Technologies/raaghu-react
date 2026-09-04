@@ -1,22 +1,23 @@
-import React from 'react';
+import { type ReactNode } from 'react';
+import clsx from 'clsx';
 import './rds-form-control.scss';
 import {
   FormControl as MuiFormControl,
   FormGroup as MuiFormGroup,
   FormHelperText as MuiFormHelperText,
   FormLabel as MuiFormLabel,
-  FormControlProps
+  type FormControlProps
 } from '@mui/material';
 
-export interface RdsFormControlProps extends FormControlProps {
+export interface RdsFormControlProps extends Omit<FormControlProps, 'component'> {
   label?: string;
   helperText?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   isRequired?: boolean;
   isGroup?: boolean;
 }
 
-const RdsFormControl: React.FC<RdsFormControlProps> = ({
+const RdsFormControl = ({
   label,
   helperText,
   children,
@@ -25,7 +26,7 @@ const RdsFormControl: React.FC<RdsFormControlProps> = ({
   required,
   error,
   ...props
-}) => {
+}: RdsFormControlProps) => {
   const isRequiredProp = required !== undefined ? required : isRequired;
 
   const content = isGroup ? (
@@ -35,7 +36,7 @@ const RdsFormControl: React.FC<RdsFormControlProps> = ({
   );
 
   return (
-    <MuiFormControl required={isRequiredProp} error={error} {...props} className={`rds-form-control ${props.className ?? ''}`}>
+    <MuiFormControl required={isRequiredProp} error={error} {...props} className={clsx('rds-form-control', props.className)}>
       {label && (
         <MuiFormLabel required={isRequiredProp} className="rds-form-control__label">
           {label}

@@ -856,8 +856,9 @@ describe('RdsToggleButton', () => {
       expect(buttons.length).toBeGreaterThan(0);
   
     });
+
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsToggleButton options={mockOptions} />);
+      const { container } = renderWithTheme(<RdsToggleButton options={mockOptions} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

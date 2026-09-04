@@ -1,13 +1,14 @@
-.rds-sidebar--collapse .MuiDrawer-paper .MuiIconButton-root,
-.rds-sidebar--fixed .MuiDrawer-paper .MuiIconButton-root {
-  right: var(--rds-sidebar-collapse-icon-offset, 23px) !important;
-}
 .rds-sidebar {
   --rds-sidebar-header-gap: var(--rds-spacing-sm, 12px);
   --rds-sidebar-nav-min-height: var(--rds-spacing-2xl, 48px);
   --rds-sidebar-child-nav-min-height: var(--rds-menu-item-min-height, 40px);
   --rds-sidebar-overlay-bg: var(--rds-action-hover);
   --rds-sidebar-subitem-radius: var(--rds-border-radius-sm, 4px);
+  --rds-sidebar-search-icon-only-size: var(--rds-menu-item-min-height, 40px);
+  --rds-sidebar-search-icon-button-size: calc(var(--rds-size-lg, 24px) + var(--rds-size-xs, 4px));
+  --rds-sidebar-search-icon-button-padding: var(--rds-spacing-xs, 4px);
+  --rds-sidebar-search-icon-border-color: var(--rds-border-default);
+  --rds-sidebar-search-icon-border-radius: var(--rds-border-radius-sm, 4px);
   display: flex;
   flex-shrink: 0;
   
@@ -16,6 +17,7 @@
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    max-width: 100%;
   }
   
   &__header {
@@ -67,7 +69,122 @@
   
   &__search-container {
     padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-md, 16px);
-    right: var(--rds-spacing-lg, 24px);
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    &--icon-only {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      padding: var(--rds-spacing-xs, 2px) 0;
+      overflow: hidden;
+
+      .rds-search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: visible;
+        --rds-search-input-min-width: var(--rds-spacing-none, 0px);
+
+        .rds-search__input.MuiTextField-root {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: var(--rds-sidebar-search-icon-only-size) !important;
+          max-width: var(--rds-sidebar-search-icon-only-size) !important;
+          min-width: 0 !important;
+          margin: 0 auto;
+
+          .MuiInputBase-root,
+          .MuiOutlinedInput-root,
+          .MuiFilledInput-root,
+          .MuiInput-root {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: var(--rds-sidebar-search-icon-only-size) !important;
+            max-width: var(--rds-sidebar-search-icon-only-size) !important;
+            min-width: 0 !important;
+            height: var(--rds-sidebar-search-icon-only-size) !important;
+            overflow: hidden;
+            padding: 0 !important;
+            margin: 0 auto !important;
+            background: transparent !important;
+            border-radius: var(--rds-sidebar-search-icon-border-radius);
+
+            &::before,
+            &::after {
+              display: none !important;
+            }
+
+            .MuiOutlinedInput-notchedOutline {
+              display: block !important;
+              border-color: var(--rds-sidebar-search-icon-border-color) !important;
+              border-width: var(--rds-border-width-thin, 1px) !important;
+              border-radius: var(--rds-sidebar-search-icon-border-radius) !important;
+              top: 0;
+              legend {
+                display: none;
+              }
+            }
+
+            fieldset {
+              display: block !important;
+            }
+
+            .MuiInputBase-input,
+            .MuiOutlinedInput-input,
+            .MuiFilledInput-input,
+            .MuiInput-input {
+              display: none !important;
+              width: 0 !important;
+              min-width: 0 !important;
+              max-width: 0 !important;
+              padding: 0 !important;
+              flex: 0 0 0 !important;
+              opacity: 0 !important;
+              position: absolute !important;
+              pointer-events: none !important;
+            }
+
+            .MuiInputAdornment-root {
+              margin: 0 !important;
+              max-height: none;
+              height: auto;
+              width: 100%;
+              max-width: 100%;
+              display: flex !important;
+              justify-content: center !important;
+              align-items: center !important;
+
+              &.MuiInputAdornment-positionStart,
+              &.MuiInputAdornment-positionEnd {
+                margin: 0 !important;
+              }
+            }
+
+            .MuiIconButton-root,
+            .MuiIconButton-edgeStart,
+            .MuiIconButton-edgeEnd {
+              position: static !important;
+              right: auto !important;
+              left: auto !important;
+              margin: 0 !important;
+              padding: var(--rds-sidebar-search-icon-button-padding);
+              width: var(--rds-sidebar-search-icon-button-size);
+              height: var(--rds-sidebar-search-icon-button-size);
+              overflow: hidden;
+            }
+          }
+        }
+      }
+    }
   }
   
   &__nav-list {
@@ -207,8 +324,10 @@
       justify-content: center;
     }
 
-    .rds-sidebar__search-container {
-      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 13px);
+    .rds-sidebar__header--expanded {
+      padding-left: 0;
+      padding-right: 0;
+      justify-content: center;
     }
 
     .MuiListItemText-root {

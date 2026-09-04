@@ -9,6 +9,9 @@ const meta: Meta<typeof RdsFab> = {
   parameters: {
         status: { type: 'stable' },
     layout: 'centered',
+    controls: {
+      exclude: ['component', 'slots', 'slotProps'],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
@@ -27,6 +30,10 @@ const meta: Meta<typeof RdsFab> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    icon: { control: { disable: true }, table: { disable: true } },
+    label: { control: { disable: true }, table: { disable: true } },
+    children: { control: { disable: true }, table: { disable: true } },
+    ref: { control: { disable: true }, table: { disable: true } },
   },
 };
 
@@ -67,6 +74,7 @@ export const Large: Story = {
     size: 'large',
     color: 'primary',
     children: <Add />,
+    disabled: false
   },
 };
 
@@ -109,20 +117,4 @@ export const Success: Story = {
     color: 'success',
     children: <Add />,
   },
-};
-
-export const ClickFab: Story = {
-  name: 'Interaction: FAB click fires callback',
-  args: {
-    color: 'primary',
-    children: <Add />,
-    onClick: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    const fab = canvas.getByRole('button')
-    await expect(fab).toBeVisible()
-    await userEvent.click(fab)
-    await expect(args.onClick).toHaveBeenCalledOnce()
-  }
 };

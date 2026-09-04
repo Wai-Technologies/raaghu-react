@@ -12,11 +12,11 @@ Auto-generated from all feature plans. Last updated: [DATE]
 - **Vite 7.0.4**: Fast build tool with HMR and optimizations
 
 ### Development Tools
-- **Storybook 9.0.16**: Component documentation and visual testing
+- **Storybook 10**: Component documentation and visual testing
 - **Jest + Testing Library**: Unit and integration testing
 - **ESLint 9.30.1**: Code quality and consistency
 - **Million.js 3.1.11**: React performance optimization
-- **Chromatic**: Visual regression testing
+- **Storybook + Vitest**: Visual and interaction smoke testing
 - **i18next**: Internationalization with 8 language support
 
 ## Project Structure
@@ -81,7 +81,7 @@ npm run type-check
 npm run generate:component rds-{name}
 
 # Run visual regression tests
-npm run chromatic
+npm run test:storybook
 
 # Build Storybook for production
 npm run build-storybook
@@ -222,21 +222,21 @@ describe('RdsButton', () => {
 - [ ] SCSS using only theme variables
 - [ ] BEM methodology with RDS prefix
 - [ ] Responsive design considerations
-- [ ] Theme support (light/dark/semi-dark)
+- [ ] Theme support (light/dark)
 - [ ] Internationalization ready
 
 ### Testing & Documentation  
 - [ ] Unit tests with 85%+ coverage
 - [ ] Accessibility tests passing
 - [ ] Storybook stories with all variants
-- [ ] Visual regression tests in Chromatic
+- [ ] Storybook / Vitest visual smoke tests
 - [ ] Performance impact < 10KB bundle size
 
 ### Quality Gates
 - [ ] TypeScript compilation without errors
 - [ ] ESLint rules passing
 - [ ] Tests passing in CI/CD
-- [ ] Chromatic visual tests approved
+- [ ] Storybook visual review approved
 - [ ] Bundle size within limits
 
 <!-- MANUAL ADDITIONS END -->

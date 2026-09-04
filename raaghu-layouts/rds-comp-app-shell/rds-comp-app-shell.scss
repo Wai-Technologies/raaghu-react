@@ -37,8 +37,15 @@
   
   .MuiTab-root:hover,
   .MuiBottomNavigationAction-root:hover {
-    color: var(--rds-color-primary-hover) !important;
-    opacity: 0.8;
+    color: var(--rds-color-primary) !important;
+    background-color: transparent !important;
+    opacity: 1;
+  }
+
+  .MuiTab-root.Mui-selected:hover,
+  .MuiBottomNavigationAction-root.Mui-selected:hover {
+    color: var(--rds-color-primary) !important;
+    background-color: transparent !important;
   }
   
   .MuiTab-root.Mui-focusVisible,
@@ -145,6 +152,13 @@ html[data-theme="dark"] {
   }
 }
 
+html[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
+body[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
+html[data-theme="dark"] .side-nav .sidenav-desktop-content,
+body[data-theme="dark"] .side-nav .sidenav-desktop-content {
+  background: var(--rds-surface-dark-deep, #1b1d1f);
+}
+
 @media (min-width: 769px) {
   html[data-theme="dark"] {
     .double-nav .MuiBottomNavigation-root,
@@ -175,16 +189,19 @@ html[data-theme="dark"] {
 
 .double-nav .rds-appshell-add-layout-flex-center,
 .triPane .rds-appshell-add-layout-flex-center {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
+  position: relative;
+  flex: 1 1 auto;
+  align-self: stretch;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
   margin: 0;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rds-surface-subtle);
 }
 
 .side-nav .rds-appshell-add-layout-flex-center {
@@ -236,10 +253,16 @@ html[data-theme="dark"] {
 }
 
 .rds-appshell-side-nav-left {
-  flex: 0 0 245px;
-  min-width: 245px;
-  max-width: 245px;
+  flex: 0 0 240px;
+  min-width: 240px;
+  max-width: 240px;
   height: 100%;
+  align-self: stretch;
+
+  .MuiDrawer-root,
+  .MuiDrawer-paper {
+    height: 100% !important;
+  }
 }
 
 .rds-appshell-side-nav-right {
@@ -247,22 +270,36 @@ html[data-theme="dark"] {
   min-width: 80px;
   max-width: 120px;
   height: 100%;
+  align-self: stretch;
+
+  .MuiDrawer-root,
+  .MuiDrawer-paper {
+    height: 100% !important;
+  }
 }
 
 .rds-story-double-nav-layout,
 .rds-story-tripane-layout {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: stretch;
   width: 100%;
+  height: calc(100vh - 68px);
   margin-top: 68px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .rds-story-double-nav-content {
   display: flex;
   flex-direction: row;
+  flex: 0 0 auto;
+  align-items: stretch;
   gap: calc(var(--rds-spacing-sm) - 1px);
+  height: 100%;
+  z-index: var(--rds-z-index-raised);
 }
 
 .rds-story-relaxing-layout {
@@ -392,10 +429,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 #details-pane-app-shell {
-  margin-top: var(--rds-spacing-md);
-  height: calc(100vh - 82px);
+  flex: 0 0 auto;
+  margin-top: 0;
+  height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
+  z-index: var(--rds-z-index-raised);
 }
 
 #details-pane-app-shell .rds-comp-details-pane {
@@ -403,6 +444,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   display: flex !important;
   flex-direction: column !important;
   padding: 0 !important;
+  // Override details-pane's global min-width:420px margin-left so right nav sits flush.
+  margin-left: 0 !important;
 }
 
 #details-pane-app-shell .rds-comp-details-pane__toolbar-buttons-row,
@@ -424,11 +467,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 #detail-pane-one-three-one {
-  margin-top: var(--rds-spacing-md);
-  height: calc(100vh - 82px);
+  flex: 0 0 auto;
+  margin-top: 0;
+  height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   overflow: hidden;
+  z-index: var(--rds-z-index-raised);
 }
 
 #detail-pane-one-three-one .rds-comp-details-pane {
@@ -436,6 +483,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   flex-direction: column !important;
   padding: calc(var(--rds-spacing-xs) * 1.25) !important;
   overflow: hidden !important;
+  // Override details-pane's global min-width:420px margin-left so right nav sits flush.
+  margin-left: 0 !important;
 }
 
 #detail-pane-one-three-one .rds-comp-details-pane__toolbar-buttons-row,
@@ -469,17 +518,38 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   height: 100vh;
   overflow: hidden;
   position: relative;
-  
-  .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
-  .css-dm61o6 .MuiDrawer-paper {
-    margin-top: 84px;
-    margin-left: 87px;
+  display: flex;
+  flex-direction: column;
+
+  // Stable selectors — do not target MUI emotion hashes (they change between builds).
+  .rds-story-double-nav-content {
+    .rds-sidebar.MuiDrawer-root,
+    .rds-sidebar .MuiDrawer-root {
+      position: relative;
+      height: 100%;
+    }
+
+    .MuiDrawer-paper {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      height: 100% !important;
+      margin-top: 0 !important;
+      margin-left: 0 !important;
+      box-shadow: none;
+      border-right: 1px solid var(--rds-border-default);
+    }
   }
-  
-  .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper,
-  .css-1movy1a .MuiDrawer-paper {
-    margin-top: 84px;
-    margin-left: 12px;
+
+  > .sidebar-layout {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  > .topnav-layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
   }
 }
 
@@ -492,12 +562,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   position: relative;
   display: flex;
   flex-direction: column;
-  
-  .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
-  .css-dm61o6 .MuiDrawer-paper {
-    margin-top: 67px;
-    margin-left: 12px;
-  }
   
   .rds-header__toolbar {
     gap: 0 !important;
@@ -518,11 +582,42 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   height: 100vh;
   overflow: hidden;
   position: relative;
-  
-  .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
-  .css-dm61o6 .MuiDrawer-paper {
-    margin-top: 84px;
-    margin-left: var(--rds-spacing-md);
+  display: flex;
+  flex-direction: column;
+
+  .rds-story-tripane-layout {
+    > div:first-child {
+      flex: 0 0 auto;
+      height: 100%;
+
+      .rds-sidebar.MuiDrawer-root,
+      .MuiDrawer-root {
+        position: relative;
+        height: 100%;
+      }
+
+      .MuiDrawer-paper {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        height: 100% !important;
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        box-shadow: none;
+        border-right: 1px solid var(--rds-border-default);
+      }
+    }
+  }
+
+  > .sidebar-layout {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  > .topnav-layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
   }
 }
 
@@ -554,9 +649,33 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
 @media (max-width: 900px) {
   .TopNav, .Default, .relaxing, .side-nav, .triPane, .double-nav {
+    overflow-x: hidden;
+
     .rds-header__navigation,
-    .MuiTabs-root {
+    .MuiTabs-root,
+    .rds-header__tabs-inline {
       display: none !important;
+    }
+
+    // Keep closed mobile drawer fully off-screen (avoids white strip flash on viewport resize).
+    &:not(.mobile-sidebar-open) > .sidebar-layout {
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+
+  // Only animate after first layout — Storybook mobile viewport often paints desktop width first.
+  .Default,
+  .relaxing,
+  .side-nav,
+  .triPane,
+  .double-nav {
+    > .sidebar-layout {
+      transition: none;
+    }
+
+    &.rds-appshell--layout-ready > .sidebar-layout {
+      transition: transform 0.3s ease;
     }
   }
   
@@ -769,7 +888,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .double-nav, .side-nav, .triPane, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex !important;
-      margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      margin-right: 0;
       padding: var(--rds-spacing-sm);
       
       .MuiSvgIcon-root {
@@ -787,7 +906,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex !important;
-      margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      margin-right: 0;
       padding: var(--rds-spacing-sm);
       
       .MuiSvgIcon-root {
@@ -812,7 +931,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(0);
       transition: transform 0.3s ease;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
       box-shadow: var(--rds-elevation-3);
     }
     
@@ -825,7 +944,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
     }
     
     .topnav-layout {
@@ -847,7 +966,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         z-index: var(--rds-z-index-modal, 1400);
         transform: translateX(0);
         transition: transform 0.3s ease;
-        background: white;
+        background: var(--rds-background-paper, #ffffff);
         box-shadow: var(--rds-elevation-3);
       }
       
@@ -869,7 +988,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
     }
     
     .topnav-layout {
@@ -891,15 +1010,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-drawer, 1200) !important;
       width: 100% !important;
     }
-    
+
+    // Bottom nav is rendered by RdsAppBar (.rds-bottom-navigation); keep header tabs hidden.
     .MuiTabs-root,
-    .rds-header__navigation {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: var(--rds-z-index-drawer, 1200) !important;
-      border-top: 1px solid var(--rds-border-default) !important;
+    .rds-header__navigation,
+    .rds-header__tabs-inline {
+      display: none !important;
     }
     
     .rds-story-standard-content {
@@ -927,28 +1043,70 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   .double-nav {
+    &.mobile-sidebar-open > .sidebar-layout {
+      left: 0 !important;
+      top: 0 !important;
+      width: 240px !important;
+      max-width: 85vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      overflow: hidden;
+    }
+
     &.mobile-sidebar-open .sidebar-layout .double-nav-sidebar {
       display: flex;
       flex-direction: column;
       height: 100vh;
-      padding-top: 68px;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       
       .rds-story-double-nav-content {
         display: block;
         flex: 1;
+        width: 100%;
+        overflow-x: hidden;
         overflow-y: auto;
+        margin: 0;
+        padding: 0;
         
         > div:first-child {
-          display: none;
+          display: none !important;
         }
         
         > div:last-child {
-          display: block;
+          display: block !important;
+          width: 100% !important;
         }
         
+        .MuiDrawer-root,
+        .rds-sidebar {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+        }
+
         .MuiDrawer-paper {
-          margin-left: 0 !important;
-          margin-top: 0 !important;
+          position: relative !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+          left: 0 !important;
+          right: auto !important;
+          top: 0 !important;
+          box-sizing: border-box !important;
+          border-right: none !important;
+          box-shadow: none !important;
+        }
+
+        .rds-sidebar__content {
+          width: 100%;
+          box-sizing: border-box;
+          padding-left: 0;
+          padding-right: 0;
         }
       }
       
@@ -1033,18 +1191,25 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
     }
     
+    // Right panel: leave a thin strip on the left (hamburger/chrome).
+    // Cap width on tablet-sized viewports so 85% does not dominate the canvas.
     .doublenav-mobile-toolbar {
       position: fixed;
       top: 0;
       right: 0;
+      left: auto;
       height: 100vh;
-      width: 80%;
-      max-width: 400px;
-      background: white;
+      width: 85%;
+      max-width: 395px;
+      margin: 0;
+      padding: 0;
+      background: var(--rds-background-paper, #ffffff);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
       transition: transform 0.3s ease;
       box-shadow: var(--rds-elevation-3);
+      box-sizing: border-box;
+      overflow: hidden;
       
       &.open {
         transform: translateX(0);
@@ -1052,8 +1217,43 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       
       .doublenav-toolbar-content {
         height: 100%;
+        width: 100%;
+        overflow-x: hidden;
         overflow-y: auto;
-        padding-top: 68px;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+        // Details pane must fill the panel — no fixed 338px width / side gutters.
+        .rds-comp-details-pane {
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          height: auto !important;
+          min-height: 100vh;
+          margin: 0 !important;
+          padding: var(--rds-spacing-sm) !important;
+          box-sizing: border-box !important;
+          box-shadow: none !important;
+          align-items: stretch !important;
+          border-radius: 0 !important;
+          gap: var(--rds-spacing-md) !important;
+        }
+
+        .rds-comp-details-pane__header,
+        .rds-comp-details-pane__header-container,
+        .rds-comp-details-pane__title,
+        .rds-comp-details-pane__subtitle,
+        .rds-comp-details-pane__search-container,
+        .rds-comp-details-pane__agent-list,
+        .detail-pane-container,
+        .custom-content-wrapper {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          box-sizing: border-box;
+        }
       }
     }
     
@@ -1214,14 +1414,19 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       position: fixed;
       top: 0;
       right: 0;
+      left: auto;
       height: 100vh;
-      width: 80%;
-      max-width: 400px;
-      background: white;
+      width: 85%;
+      max-width: 395px;
+      margin: 0;
+      padding: 0;
+      background: var(--rds-background-paper, #ffffff);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
       transition: transform 0.3s ease;
       box-shadow: var(--rds-elevation-3);
+      box-sizing: border-box;
+      overflow: hidden;
       
       &.open {
         transform: translateX(0);
@@ -1229,7 +1434,33 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       
       .tripane-toolbar-content {
         height: 100%;
+        width: 100%;
+        overflow-x: hidden;
         overflow-y: auto;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+        .rds-comp-details-pane {
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          height: auto !important;
+          min-height: 100vh;
+          margin: 0 !important;
+          padding: var(--rds-spacing-sm) !important;
+          box-sizing: border-box !important;
+          box-shadow: none !important;
+          align-items: stretch !important;
+          border-radius: 0 !important;
+        }
+
+        .rds-comp-details-pane__header,
+        .rds-comp-details-pane__header-container {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          width: 100%;
+        }
       }
     }
     
@@ -1311,19 +1542,85 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .MuiBottomNavigation-root {
       z-index: var(--rds-z-index-toast, 1700) !important;
     }
+
+    .rds-bottom-navigation {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 56px !important;
+      min-height: 56px !important;
+      max-height: 56px !important;
+      padding: 0 var(--rds-spacing-sm) !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      z-index: var(--rds-z-index-toast, 1700) !important;
+      background: var(--rds-background-paper, #ffffff) !important;
+
+      .rds-bottom-nav-tab,
+      .MuiButton-root {
+        min-height: 0 !important;
+        height: auto !important;
+        flex: 1 1 0 !important;
+        align-self: center !important;
+      }
+    }
   }
 }
 
 @media (max-width: 576px) {
   .double-nav {
+    &.mobile-sidebar-open > .sidebar-layout {
+      left: 0 !important;
+      width: 240px !important;
+      max-width: 85vw !important;
+    }
+
     .doublenav-mobile-content {
       bottom: 45px !important;
+    }
+
+    .doublenav-mobile-toolbar {
+      width: 85% !important;
+      max-width: none !important;
+      right: 0 !important;
+
+      .doublenav-toolbar-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        .rds-comp-details-pane {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+          box-shadow: none !important;
+        }
+      }
     }
   }
 
   .triPane {
     .tripane-mobile-content {
       bottom: 45px !important;
+    }
+
+    .tripane-mobile-toolbar {
+      width: 85% !important;
+      max-width: none !important;
+      right: 0 !important;
+
+      .tripane-toolbar-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        .rds-comp-details-pane {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+          box-shadow: none !important;
+        }
+      }
     }
   }
 
@@ -1380,17 +1677,33 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  .MuiTabs-root,
-  .rds-header__navigation,
+  // Prefer AppBar's .rds-bottom-navigation over forcing header tabs to the bottom
+  // (avoids a tall broken tab strip while Storybook viewport is mid-resize).
+  .Default .MuiTabs-root,
+  .relaxing .MuiTabs-root,
+  .side-nav .MuiTabs-root,
+  .double-nav .MuiTabs-root,
+  .triPane .MuiTabs-root,
+  .Default .rds-header__tabs-inline,
+  .relaxing .rds-header__tabs-inline,
+  .side-nav .rds-header__tabs-inline,
+  .double-nav .rds-header__tabs-inline,
+  .triPane .rds-header__tabs-inline {
+    display: none !important;
+  }
+
   .MuiBottomNavigation-root,
-  .rds-footer-navigation {
+  .rds-footer-navigation,
+  .rds-bottom-navigation {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     z-index: var(--rds-z-index-toast, 1700) !important;
     box-shadow: var(--rds-elevation-3) !important;
-    background: transparent !important;
+    height: 56px !important;
+    min-height: 56px !important;
+    max-height: 56px !important;
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
@@ -1428,7 +1741,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .side-nav, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex !important;
-      margin-right: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      margin-right: 0;
       padding: var(--rds-spacing-sm);
     }
     
@@ -1441,7 +1754,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(0);
       transition: transform 0.3s ease;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
       box-shadow: var(--rds-elevation-3);
     }
     
@@ -1454,7 +1767,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
     }
     
     .topnav-layout {
@@ -1535,6 +1848,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none !important;
     }
 
+    // Undo max-width:900px closed-drawer hide so tablet keeps a permanent sidebar
+    // (hamburger is hidden here; without this the left column stays blank).
+    &:not(.mobile-sidebar-open) > .sidebar-layout,
     .sidebar-layout {
       position: relative !important;
       transform: none !important;
@@ -1542,6 +1858,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: transparent !important;
       box-shadow: none !important;
       z-index: var(--rds-z-index-layer-1) !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      display: block !important;
     }
   }
 
@@ -1579,11 +1898,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
       }
       
+      // Match other shells' bottom nav: active = primary color only (no top indicator bar).
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary) !important;
-        height: 3px !important;
-        top: 0 !important;
-        bottom: auto !important;
+        display: none !important;
       }
     }
     
@@ -1790,7 +2107,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
       box-shadow: none;
       display: block !important;
       visibility: visible !important;
@@ -1809,7 +2126,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
           flex: 1;
           overflow-y: auto;
           height: 100%;
-          padding-top: 68px;
+          padding-top: 0;
           visibility: visible !important;
           
           > div:first-child {
@@ -1818,7 +2135,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
           
           > div:last-child {
             display: block !important;
-            height: calc(100vh - 68px);
+            height: 100%;
             visibility: visible !important;
             
             .MuiDrawer-root {
@@ -1862,7 +2179,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0;
       height: 100vh;
       width: 395px;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
       transition: transform 0.3s ease;
@@ -1875,9 +2192,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       .doublenav-toolbar-content {
         height: 100%;
         overflow-y: auto;
-        padding-top: 68px;
-        padding-left: var(--rds-spacing-md);
-        padding-right: var(--rds-spacing-md);
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
       }
     }
     
@@ -1930,10 +2247,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       cursor: pointer;
     }
     
-    .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
-    .css-dm61o6 .MuiDrawer-paper {
+    .rds-story-double-nav-content .MuiDrawer-paper {
       margin-left: 0 !important;
-      margin-top: 0;
+      margin-top: 0 !important;
     }
   }
   
@@ -2041,7 +2357,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
       box-shadow: none;
       display: block !important;
       visibility: visible !important;
@@ -2059,8 +2375,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
           display: block !important;
           flex: 1;
           overflow-y: auto;
-          height: calc(100vh - 68px);
-          padding-top: 68px;
+          height: 100%;
+          padding-top: 0;
           visibility: visible !important;
           
           .MuiDrawer-root {
@@ -2104,7 +2420,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0;
       height: 100vh;
       width: 395px;
-      background: white;
+      background: var(--rds-background-paper, #ffffff);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
       transition: transform 0.3s ease;
@@ -2117,8 +2433,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       .tripane-toolbar-content {
         height: 100%;
         overflow-y: auto;
-        padding-left: var(--rds-spacing-md);
-        padding-right: var(--rds-spacing-md);
+        padding-left: 0;
+        padding-right: 0;
       }
     }
     
@@ -2166,17 +2482,69 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
 @media (min-width: 834px) {
   .side-nav {
+    --rds-side-nav-top-height: 64px;
+
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
     }
+
+    .rds-header__logo,
+    .rds-header__actions,
+    .rds-profile-menu {
+      display: none !important;
+    }
     
-    .sidebar-layout {
+    .sidebar-layout,
+    &:not(.mobile-sidebar-open) > .sidebar-layout {
       position: relative;
       transform: none;
       width: auto;
+      height: 100vh;
       background: transparent;
       box-shadow: none;
       display: block !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    .rds-appshell-side-nav-layout {
+      height: 100vh;
+      min-height: 100vh;
+    }
+
+    .rds-appshell-side-nav-left {
+      height: 100vh;
+
+      .MuiDrawer-root,
+      .MuiDrawer-paper {
+        height: 100vh !important;
+        top: 0 !important;
+      }
+
+      .rds-sidebar__header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        box-sizing: border-box;
+        height: var(--rds-side-nav-top-height) !important;
+        min-height: var(--rds-side-nav-top-height) !important;
+        max-height: var(--rds-side-nav-top-height) !important;
+        margin: 0 !important;
+        padding: 0 var(--rds-spacing-md, 16px) !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        border-bottom: 1px solid var(--rds-border-default);
+      }
+
+      .rds-sidebar__logo {
+        display: block !important;
+        visibility: visible !important;
+        max-height: 32px !important;
+        max-width: 140px !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain;
+      }
     }
     
     .sidenav-mobile-content {
@@ -2185,9 +2553,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .sidenav-desktop-content {
       position: fixed !important;
-      top: 52px !important;
-      left: 230px !important;
-      right: 50px !important;
+      top: var(--rds-side-nav-top-height) !important;
+      left: 240px !important;
+      right: 64px !important;
       bottom: 0 !important;
       display: flex !important;
       align-items: stretch !important;
@@ -2213,18 +2581,158 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-appshell-side-nav-right {
       position: fixed !important;
       right: 0 !important;
-      top: 52px !important;
+      top: 0 !important;
       bottom: 0 !important;
-      width: 120px !important;
+      width: 64px !important;
+      min-width: 64px !important;
+      max-width: 64px !important;
+      height: 100vh !important;
       z-index: var(--rds-z-index-raised) !important;
-      display: block !important;
+      display: flex !important;
+      align-items: stretch !important;
+
+      .rds-story-side-nav-right-content,
+      .MuiDrawer-root,
+      .MuiDrawer-paper {
+        height: 100vh !important;
+        top: 0 !important;
+      }
+
+      .rds-sidebar__header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box;
+        height: var(--rds-side-nav-top-height) !important;
+        min-height: var(--rds-side-nav-top-height) !important;
+        max-height: var(--rds-side-nav-top-height) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        border-bottom: 1px solid var(--rds-border-default);
+      }
+
+      .rds-sidebar__logo,
+      .rds-avatar,
+      .MuiAvatar-root {
+        display: flex !important;
+        visibility: visible !important;
+        width: 32px !important;
+        height: 32px !important;
+        max-width: 32px !important;
+        max-height: 32px !important;
+      }
     }
     
     .topnav-layout {
       display: flex !important;
       flex-direction: column;
-      width: 100%;
+      flex: 1 1 auto;
+      width: auto !important;
+      min-width: 0;
+      margin-right: 64px;
+      box-sizing: border-box;
       position: relative;
+      z-index: var(--rds-z-index-layer-1);
+      overflow: hidden !important;
+      overflow-x: hidden !important;
+      overflow-y: hidden !important;
+
+      .MuiAppBar-root,
+      .rds-header {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        width: 100% !important;
+        height: var(--rds-side-nav-top-height) !important;
+        min-height: var(--rds-side-nav-top-height) !important;
+        max-height: var(--rds-side-nav-top-height) !important;
+        box-shadow: none !important;
+        border-bottom: 1px solid var(--rds-border-default);
+        background: var(--rds-color-surface, #ffffff) !important;
+        color: var(--rds-text-primary) !important;
+        overflow: hidden !important;
+      }
+
+      .MuiToolbar-root {
+        display: flex !important;
+        align-items: center !important;
+        height: var(--rds-side-nav-top-height) !important;
+        min-height: var(--rds-side-nav-top-height) !important;
+        max-height: var(--rds-side-nav-top-height) !important;
+        padding: 0 var(--rds-spacing-md, 16px) !important;
+        overflow: hidden !important;
+        background: transparent !important;
+      }
+
+      .rds-header__toolbar {
+        display: flex !important;
+        align-items: center !important;
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 100% !important;
+        overflow: hidden !important;
+      }
+
+      .rds-header__tabs-inline,
+      .MuiTabs-root {
+        display: flex !important;
+        align-items: center !important;
+        flex: 0 1 auto;
+        min-width: 0;
+        min-height: 48px !important;
+        height: 48px !important;
+        max-height: 48px !important;
+        overflow: hidden !important;
+      }
+
+      .MuiTabs-scroller {
+        overflow: hidden !important;
+        margin: 0 !important;
+
+        // Kill native scrollbars on the tabs strip
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+          width: 0;
+          height: 0;
+        }
+      }
+
+      .MuiTabs-flexContainer {
+        display: flex !important;
+        align-items: center !important;
+        height: 100% !important;
+      }
+
+      .MuiTabs-indicator {
+        bottom: 0 !important;
+      }
+
+      .MuiTab-root {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 48px !important;
+        height: 48px !important;
+        max-height: 48px !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
+      }
+
+      .MuiTabs-scrollButtons {
+        display: none !important;
+      }
+    }
+
+    .sidebar-layout,
+    .rds-appshell-side-nav-left,
+    .rds-appshell-side-nav-right {
       z-index: var(--rds-z-index-layer-2);
     }
   }
@@ -2234,12 +2742,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none !important;
     }
     
-    .sidebar-layout {
+    .sidebar-layout,
+    &:not(.mobile-sidebar-open) > .sidebar-layout {
       position: relative;
       transform: none;
       width: auto;
       background: transparent;
       box-shadow: none;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      display: block !important;
     }
     
     .rds-story-relaxing-sidebar {
@@ -2277,12 +2789,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: none !important;
     }
     
-    .sidebar-layout {
+    .sidebar-layout,
+    &:not(.mobile-sidebar-open) > .sidebar-layout {
       position: relative;
       transform: none;
       width: auto;
       background: transparent;
       box-shadow: none;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      display: block !important;
     }
   }
 }
@@ -2341,9 +2857,48 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .sidebar-layout {
       position: relative;
       transform: none;
-      width: auto;
+      flex: 1 1 auto;
+      width: 100%;
+      max-width: 100%;
+      min-height: 0;
       background: transparent;
       box-shadow: none;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    > .topnav-layout {
+      flex: 0 0 0;
+      min-height: 0;
+      overflow: visible;
+    }
+
+    .rds-story-double-nav-layout,
+    .rds-story-tripane-layout {
+      display: flex !important;
+      flex-direction: row;
+      align-items: stretch;
+      width: 100%;
+      height: calc(100vh - 68px);
+      margin-top: 68px;
+    }
+
+    .rds-appshell-add-layout-flex-center {
+      position: relative !important;
+      flex: 1 1 auto !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      width: auto !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+
+    #details-pane-app-shell,
+    #detail-pane-one-three-one {
+      margin-top: 0 !important;
+      height: 100% !important;
     }
     
     .doublenav-mobile-content,
@@ -2380,7 +2935,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 .side-nav, .relaxing {
   margin: 0;
   padding: 0;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   height: 100vh;
   overflow: hidden;
   position: relative;
@@ -2398,17 +2954,20 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     flex: 0 0 auto;
     transition: width 0.3s ease;
     width: fit-content;
+    height: 100%;
     z-index: var(--rds-z-index-layer-1);
   }
   
   .topnav-layout {
-    flex: 1;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     min-width: 0;
-    width: 100%;
+    max-width: 100%;
+    width: auto;
     position: relative;
     z-index: var(--rds-z-index-layer-2);
+    overflow: hidden;
   }
 }
 

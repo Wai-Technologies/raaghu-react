@@ -48,7 +48,6 @@ Our performance approach is built on these core principles:
 {
   "benchmark": "^2.1.4",
   "puppeteer": "^23.9.0",
-  "playwright": "^1.49.1",
   "@storybook/addon-performance": "^0.16.1"
 }
 ```

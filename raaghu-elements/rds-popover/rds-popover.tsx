@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { 
   Popover as MuiPopover, 
   type PopoverProps, 
@@ -7,14 +7,61 @@ import {
   IconButton 
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
+import clsx from 'clsx';
+
+function getPopoverArrowDirection(pos: string): string {
+  if (pos.startsWith('top-')) return 'bottom';
+  if (pos.startsWith('bottom-')) return 'top';
+  if (pos.startsWith('left-')) return 'right';
+  if (pos.startsWith('right-')) return 'left';
+  return 'top';
+}
+
+function getPopoverArrowClasses(direction: string, pos: string): string {
+  return clsx('rds-popover__arrow', `rds-popover__arrow--${direction}`, `rds-popover__arrow--${pos}`);
+}
+
+function getPopoverOffset(arrowDirection: string, shouldShowArrow: boolean): { vertical: number; horizontal: number } {
+  if (!shouldShowArrow) return { vertical: 0, horizontal: 0 };
+  switch (arrowDirection) {
+    case 'top': return { vertical: 8, horizontal: 0 };
+    case 'bottom': return { vertical: -8, horizontal: 0 };
+    case 'left': return { vertical: 0, horizontal: 8 };
+    case 'right': return { vertical: 0, horizontal: -8 };
+    default: return { vertical: 8, horizontal: 0 };
+  }
+}
+
+type AnchorOriginVertical = 'top' | 'center' | 'bottom';
+type AnchorOriginHorizontal = 'left' | 'center' | 'right';
+type PositionMapEntry = {
+  anchorOrigin: { vertical: AnchorOriginVertical; horizontal: AnchorOriginHorizontal };
+  transformOrigin: { vertical: AnchorOriginVertical; horizontal: AnchorOriginHorizontal };
+};
+
+const POPOVER_POSITION_MAP: Record<string, PositionMapEntry> = {
+  'top-left':     { anchorOrigin: { vertical: 'top', horizontal: 'left' },     transformOrigin: { vertical: 'bottom', horizontal: 'left' } },
+  'top-center':   { anchorOrigin: { vertical: 'top', horizontal: 'center' },   transformOrigin: { vertical: 'bottom', horizontal: 'center' } },
+  'top-right':    { anchorOrigin: { vertical: 'top', horizontal: 'right' },    transformOrigin: { vertical: 'bottom', horizontal: 'right' } },
+  'right-top':    { anchorOrigin: { vertical: 'top', horizontal: 'right' },    transformOrigin: { vertical: 'top', horizontal: 'left' } },
+  'right-center': { anchorOrigin: { vertical: 'center', horizontal: 'right' }, transformOrigin: { vertical: 'center', horizontal: 'left' } },
+  'right-bottom': { anchorOrigin: { vertical: 'bottom', horizontal: 'right' }, transformOrigin: { vertical: 'bottom', horizontal: 'left' } },
+  'bottom-right': { anchorOrigin: { vertical: 'bottom', horizontal: 'right' }, transformOrigin: { vertical: 'top', horizontal: 'right' } },
+  'bottom-center':{ anchorOrigin: { vertical: 'bottom', horizontal: 'center' },transformOrigin: { vertical: 'top', horizontal: 'center' } },
+  'bottom-left':  { anchorOrigin: { vertical: 'bottom', horizontal: 'left' },  transformOrigin: { vertical: 'top', horizontal: 'left' } },
+  'left-bottom':  { anchorOrigin: { vertical: 'bottom', horizontal: 'left' },  transformOrigin: { vertical: 'bottom', horizontal: 'right' } },
+  'left-center':  { anchorOrigin: { vertical: 'center', horizontal: 'left' },  transformOrigin: { vertical: 'center', horizontal: 'right' } },
+  'left-top':     { anchorOrigin: { vertical: 'top', horizontal: 'left' },     transformOrigin: { vertical: 'top', horizontal: 'right' } },
+  'no-arrow':     { anchorOrigin: { vertical: 'bottom', horizontal: 'left' },  transformOrigin: { vertical: 'top', horizontal: 'left' } },
+};
 import './rds-popover.scss';
 
-export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'> {
+export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children' | 'component'> {
   isOpen: boolean;
   onClose: () => void;
   anchorEl: Element | null;
   title?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   showCloseButton?: boolean;
   width?: number | string;
   maxWidth?: number | string;
@@ -24,36 +71,40 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'>
 const MOBILE_BREAKPOINT = 600;
 
 function useMobilePopoverPosition(position: string): string {
-  const [mobilePosition, setMobilePosition] = React.useState(position);
+  const [viewportWidth, setViewportWidth] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth : MOBILE_BREAKPOINT + 1
+  );
 
-  React.useEffect(() => {
+  useEffect(() => {
     function handleResize() {
-      const width = window.innerWidth;
-      const topGroup = [
-        'top-left', 'top-center', 'top-right',
-        'left-top', 'left-center', 'right-top'
-      ];
-      const bottomGroup = [
-        'left-bottom', 'right-center', 'right-bottom',
-        'bottom-right', 'bottom-center', 'bottom-left'
-      ];
-      if (width <= MOBILE_BREAKPOINT) {
-        if (topGroup.includes(position)) {
-          setMobilePosition('top-center');
-        } else if (bottomGroup.includes(position)) {
-          setMobilePosition('bottom-center');
-        } else {
-          setMobilePosition(position);
-        }
-      } else {
-        setMobilePosition(position);
-      }
+      setViewportWidth(window.innerWidth);
     }
-    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [position]);
-  return mobilePosition;
+  }, []);
+
+  return useMemo(() => {
+    if (viewportWidth > MOBILE_BREAKPOINT) {
+      return position;
+    }
+
+    const topGroup = [
+      'top-left', 'top-center', 'top-right',
+      'left-top', 'left-center', 'right-top',
+    ];
+    const bottomGroup = [
+      'left-bottom', 'right-center', 'right-bottom',
+      'bottom-right', 'bottom-center', 'bottom-left',
+    ];
+
+    if (topGroup.includes(position)) {
+      return 'top-center';
+    }
+    if (bottomGroup.includes(position)) {
+      return 'bottom-center';
+    }
+    return position;
+  }, [viewportWidth, position]);
 }
 
 const RdsPopover= ({
@@ -68,99 +119,12 @@ const RdsPopover= ({
   position = 'bottom-left',
   ...props
 }:RdsPopoverProps) => {
-  const positionMap: Record<string, {
-    anchorOrigin: { vertical: 'top' | 'center' | 'bottom'; horizontal: 'left' | 'center' | 'right' };
-    transformOrigin: { vertical: 'top' | 'center' | 'bottom'; horizontal: 'left' | 'center' | 'right' };
-  }> = {
-    'top-left': {
-      anchorOrigin: { vertical: 'top', horizontal: 'left' },
-      transformOrigin: { vertical: 'bottom', horizontal: 'left' }
-    },
-    'top-center': {
-      anchorOrigin: { vertical: 'top', horizontal: 'center' },
-      transformOrigin: { vertical: 'bottom', horizontal: 'center' }
-    },
-    'top-right': {
-      anchorOrigin: { vertical: 'top', horizontal: 'right' },
-      transformOrigin: { vertical: 'bottom', horizontal: 'right' }
-    },
-    'right-top': {
-      anchorOrigin: { vertical: 'top', horizontal: 'right' },
-      transformOrigin: { vertical: 'top', horizontal: 'left' }
-    },
-    'right-center': {
-      anchorOrigin: { vertical: 'center', horizontal: 'right' },
-      transformOrigin: { vertical: 'center', horizontal: 'left' }
-    },
-    'right-bottom': {
-      anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
-      transformOrigin: { vertical: 'bottom', horizontal: 'left' }
-    },
-    'bottom-right': {
-      anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
-      transformOrigin: { vertical: 'top', horizontal: 'right' }
-    },
-    'bottom-center': {
-      anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
-      transformOrigin: { vertical: 'top', horizontal: 'center' }
-    },
-    'bottom-left': {
-      anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-      transformOrigin: { vertical: 'top', horizontal: 'left' }
-    },
-    'left-bottom': {
-      anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-      transformOrigin: { vertical: 'bottom', horizontal: 'right' }
-    },
-    'left-center': {
-      anchorOrigin: { vertical: 'center', horizontal: 'left' },
-      transformOrigin: { vertical: 'center', horizontal: 'right' }
-    },
-    'left-top': {
-      anchorOrigin: { vertical: 'top', horizontal: 'left' },
-      transformOrigin: { vertical: 'top', horizontal: 'right' }
-    },
-    'no-arrow': {
-      anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-      transformOrigin: { vertical: 'top', horizontal: 'left' }
-    }
-  };
-  
   const effectivePosition = useMobilePopoverPosition(position);
 
-  const getArrowDirection = (pos: string): string => {
-    if (pos.startsWith('top-')) return 'bottom';
-    if (pos.startsWith('bottom-')) return 'top';
-    if (pos.startsWith('left-')) return 'right';
-    if (pos.startsWith('right-')) return 'left';
-    return 'top';
-  };
-
-  const getArrowClasses = (direction: string, position: string): string => {
-    const baseClass = 'rds-popover__arrow';
-    const directionClass = `${baseClass}--${direction}`;
-    const positionClass = `${baseClass}--${position}`;
-    
-    return `${baseClass} ${directionClass} ${positionClass}`;
-  };
-
-  const currentPosition = positionMap[effectivePosition] || positionMap['bottom-left'];
-  const arrowDirection = getArrowDirection(effectivePosition);
+  const currentPosition = POPOVER_POSITION_MAP[effectivePosition] || POPOVER_POSITION_MAP['bottom-left'];
+  const arrowDirection = getPopoverArrowDirection(effectivePosition);
   const shouldShowArrow = effectivePosition !== 'no-arrow';
-
-  const getPopoverOffset = () => {
-    if (!shouldShowArrow) return { vertical: 0, horizontal: 0 };
-    
-    switch (arrowDirection) {
-      case 'top': return { vertical: 8, horizontal: 0 };
-      case 'bottom': return { vertical: -8, horizontal: 0 };
-      case 'left': return { vertical: 0, horizontal: 8 };
-      case 'right': return { vertical: 0, horizontal: -8 };
-      default: return { vertical: 8, horizontal: 0 };
-    }
-  };
-  
-  const offset = getPopoverOffset();
+  const offset = getPopoverOffset(arrowDirection, shouldShowArrow);
   
   return (
     <MuiPopover
@@ -185,7 +149,7 @@ const RdsPopover= ({
       >
         {shouldShowArrow && (
           <Box
-            className={getArrowClasses(arrowDirection, effectivePosition)}
+            className={getPopoverArrowClasses(arrowDirection, effectivePosition)}
           />
         )}
         {(!!title || !!showCloseButton) && (

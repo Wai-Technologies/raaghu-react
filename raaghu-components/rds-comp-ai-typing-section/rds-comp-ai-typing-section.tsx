@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import './rds-comp-ai-typing-section.scss';
-import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomplete';
-import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
-import RdsCompAiAttachement, { Comment as AttachmentComment } from '../../raaghu-components/rds-comp-ai-attachement/rds-comp-ai-attachement';
-import RdsCompAiIcon, { registerMaterialIcons } from '../rds-comp-ai-icon/rds-comp-ai-icon';
+import clsx from "clsx";
+import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
+import "./rds-comp-ai-typing-section.scss";
+import RdsButton from "../../raaghu-elements/rds-button/rds-button";
+import RdsAutocomplete from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
+import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import RdsCompAiAttachment, {
+  Comment as AttachmentComment,
+} from "../../raaghu-components/rds-comp-ai-attachment/rds-comp-ai-attachment";
+import RdsCompAiIcon, { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
 
 export interface RdsCompAiTypingSectionProps {
   colorVariant?: string;
@@ -14,92 +17,103 @@ export interface RdsCompAiTypingSectionProps {
   onAddComment?: (comment: AttachmentComment) => void;
   previewImage?: string;
   type?: string;
-  autoCompleteMaxWidth?: string; 
-}
-declare global {
-  interface Window {
-    webkitSpeechRecognition: new () => SpeechRecognition;
-  }
+  autoCompleteMaxWidth?: string;
 }
 
-const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
-  colorVariant,
+registerMaterialIcons({
+  enhance: AutoAwesomeOutlinedIcon,
+});
+
+const MOBILE_BREAKPOINT = 768;
+
+const RdsCompAiTypingSectionComponent = ({
   placeholderText,
-  iconName,
   onSend,
   previewImage,
-  type,
   onAddComment,
-  autoCompleteMaxWidth
-}) => {
+  autoCompleteMaxWidth,
+}: RdsCompAiTypingSectionProps) => {
   const [inputText, setInputText] = useState<string>("");
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(() => typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
 
   useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-        window.addEventListener("resize", handleResize);
-        handleResize();
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    useEffect(() => {
-            registerMaterialIcons({
-                'enhance': AutoAwesomeOutlinedIcon,
-            });
-        }, []);
-
-    const handleMicClick = () => {
-    if (!('webkitSpeechRecognition' in window)) {
-      return;
-    }
-
-        const recognition = new window.webkitSpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.lang = "en-US";
-        
-        recognition.onresult = (event: SpeechRecognitionEvent) => {
-            const transcript = event.results[0][0].transcript;
-            setInputText(transcript);
-        };
-        recognition.start();
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
     };
 
-    const handleSent = () => {
-        onSend && onSend(inputText, enhancedImage || previewImage);
-        setInputText("");
-        setEnhancedImage(null);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleMicClick = useCallback(() => {
+    if (!("webkitSpeechRecognition" in window)) return;
+
+    const SpeechRecognitionCtor = window.webkitSpeechRecognition;
+    if (!SpeechRecognitionCtor) return;
+    const recognition = new SpeechRecognitionCtor();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      const transcript = event.results[0][0].transcript;
+      setInputText(transcript);
     };
 
-    const handleFileSelect = (file: File) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setEnhancedImage(reader.result as string); 
-            setInputText(""); 
-        };
-        reader.readAsDataURL(file);
-    };
+    recognition.start();
+  }, []);
 
-    const handleAddComment = (comment: AttachmentComment) => {
-        onAddComment && onAddComment(comment);
-    };
+  const handleSent = useCallback(() => {
+    onSend?.(inputText, enhancedImage || previewImage);
+    setInputText("");
+    setEnhancedImage(null);
+  }, [enhancedImage, inputText, onSend, previewImage]);
 
-    const handleFigmaSubmit = (value: string) => {
-        onAddComment && onAddComment({ image: value } as AttachmentComment);
+  const handleFileSelect = useCallback((file: File) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setEnhancedImage(reader.result as string);
+      setInputText("");
     };
+    reader.readAsDataURL(file);
+  }, []);
+
+  const handleAddComment = useCallback(
+    (comment: AttachmentComment) => {
+      onAddComment?.(comment);
+    },
+    [onAddComment]
+  );
+
+  const handleFigmaSubmit = useCallback(
+    (value: string) => {
+      onAddComment?.({ image: value } as AttachmentComment);
+    },
+    [onAddComment]
+  );
+
+  const autocompleteStyle = useMemo(
+    (): CSSProperties | undefined =>
+      autoCompleteMaxWidth
+        ? ({ "--ai-typing-autocomplete-max-width": autoCompleteMaxWidth } as CSSProperties)
+        : undefined,
+    [autoCompleteMaxWidth]
+  );
 
   return (
     <div className="rds-comp-ai-typing-section">
       <div className="rds-comp-ai-typing-section__input-wrapper">
-        <div className={`rds-comp-ai-typing-section__input-with-image${ isMobile ? " rds-comp-ai-typing-section__input-with-image--mobile" : "" }`} >
+        <div
+          className={clsx(
+            "rds-comp-ai-typing-section__input-with-image",
+            isMobile && "rds-comp-ai-typing-section__input-with-image--mobile"
+          )}
+        >
           <textarea
             className="rds-comp-ai-typing-section__input-box rds-comp-ai-typing-section__input-box--muted-placeholder"
-            placeholder={
-              !enhancedImage ? placeholderText || "Placeholder Text" : ""
-            }
+            placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             title="Enter your prompt here"
@@ -118,25 +132,30 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             </span>
           )}
         </div>
-        <div className={`rds-comp-ai-typing-section__actions${ isMobile ? " rds-comp-ai-typing-section__actions--mobile" : "" }`}>
+        <div
+          className={clsx(
+            "rds-comp-ai-typing-section__actions",
+            isMobile && "rds-comp-ai-typing-section__actions--mobile"
+          )}
+        >
           <div className="rds-comp-ai-typing-section__action-icons">
             <div className="rds-comp-ai-typing-section__attach" id="Premium">
-                  <RdsCompAiAttachement
-                    badgeColor="primary"
-                  badgeLabel="Premium"
-                  handleAddComment={handleAddComment}
-                  hintText="Hint Text"
-                  importText="Import From This Device"
-                  inputPlaceholder="Enter URL"
-                  menuIcon="attachment_icon"
-                  modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
-                  modalTitle="Import From Figma"
-                  onFigmaSubmit={handleFigmaSubmit}
-                  onFileSelect={handleFileSelect}
-                  showBadge
-                  uploadText="Upload From Figma"
-                  menuAlignment="right"
-                />
+              <RdsCompAiAttachment
+                badgeColor="primary"
+                badgeLabel="Premium"
+                handleAddComment={handleAddComment}
+                hintText="Hint Text"
+                importText="Import From This Device"
+                inputPlaceholder="Enter URL"
+                menuIcon="attachment_icon"
+                modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
+                modalTitle="Import From Figma"
+                onFigmaSubmit={handleFigmaSubmit}
+                onFileSelect={handleFileSelect}
+                showBadge
+                uploadText="Upload From Figma"
+                menuAlignment="right"
+              />
             </div>
             <div className="rds-comp-ai-typing-section__send">
               <RdsButton
@@ -174,17 +193,15 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             />
           </div>
         </div>
-        <div
-          className="rds-comp-ai-typing-section__autocomplete"
-          style={autoCompleteMaxWidth ? { ['--ai-typing-autocomplete-max-width' as any]: autoCompleteMaxWidth } : undefined}
-        >
+        <div className="rds-comp-ai-typing-section__autocomplete" style={autocompleteStyle}>
           <RdsAutocomplete
             controlStyle="default"
-            helperText="Select one of the available options"
-            isMandatory
+            isMandatory={false}
             label=""
             options={[{ label: "Raaghu", value: 1 }]}
             placeholder="Select Frontend"
+            showHintText={false}
+            showTitle={false}
           />
         </div>
       </div>
@@ -192,5 +209,6 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
   );
 };
 
-RdsCompAiTypingSection.displayName = 'RdsCompAiTypingSection';
+const RdsCompAiTypingSection = memo(RdsCompAiTypingSectionComponent);
+RdsCompAiTypingSection.displayName = "RdsCompAiTypingSection";
 export default RdsCompAiTypingSection;

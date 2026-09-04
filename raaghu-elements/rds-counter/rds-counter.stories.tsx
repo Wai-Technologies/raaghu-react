@@ -58,6 +58,10 @@ const meta: Meta<typeof RdsCounter> = {
       control: 'text',
       description: 'Placeholder text shown when input is empty',
     },
+    titleText: {
+      control: 'text',
+      description: 'Label text displayed above the counter',
+    },
   },
 };
 
@@ -241,6 +245,12 @@ export const Interactive: Story = {
     variant: 'compact',
     layout: 'side-to-side',
     placeholder: '00',
+    showTitle: false,
+  },
+  parameters: {
+    controls: {
+      exclude: ['titleText', 'showTitle', 'isMandatory'],
+    },
   },
   render: (args) => {
     const [cart, setCart] = useState([

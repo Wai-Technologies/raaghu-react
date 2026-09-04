@@ -1,30 +1,36 @@
 .rds-button-dropdown {
   // dropdown menu sizing and colors provided by centralized --rds-* tokens
   &__menu {
-    padding: var(--rds-button-dropdown-menu-padding, var(--rds-spacing-sm, 8px));
-    min-width: var(--rds-button-dropdown-menu-min-width, 200px);
-    margin-top: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-button-dropdown-menu-padding, 6px);
+    min-width: var(--rds-button-dropdown-menu-min-width, 176px);
+    margin-top: 6px;
+    border: 1px solid var(--rds-color-border, var(--rds-border-light));
+    box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0, 0, 0, 0.12)) !important;
+
+    .rds-menu__list {
+      box-shadow: none !important;
+    }
   }
 
   &__search {
-    margin-bottom: var(--rds-spacing-sm, 8px);
+    margin-bottom: 6px;
   }
 
   &__list {
-    max-height: 240px;
+    max-height: 220px;
     overflow-y: auto;
   }
 
   &__item {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
-    padding: var(--rds-spacing-xs, 4px) 0;
+    gap: 6px;
+    padding: 4px 0;
   }
 
   &__option {
     cursor: pointer;
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
+    padding: 4px 8px;
     border-radius: var(--rds-border-radius-sm, 4px);
     width: 100%;
     background-color: transparent;
@@ -34,6 +40,9 @@
     &:hover:not(&--selected) {
       background-color: var(--rds-button-dropdown-hover-bg);
     }
+
+    border: none !important;
+    box-shadow: none !important;
 
     &--selected {
       background-color: var(--rds-button-dropdown-selected-bg);
@@ -46,6 +55,25 @@
       pointer-events: none;
     }
   }
+}
+
+[data-theme="dark"] .rds-button-dropdown__menu {
+  background: var(--rds-background-paper, #262626);
+  border-color: var(--rds-color-border-dark, var(--rds-border-default));
+}
+
+[data-theme="dark"] .rds-button-dropdown__option {
+  background: transparent;
+  color: var(--rds-text-primary, #e6eef6);
+}
+
+[data-theme="dark"] .rds-button-dropdown__option:hover:not(.rds-button-dropdown__option--selected) {
+  background: var(--rds-button-dropdown-hover-bg-dark, rgba(255,255,255,0.04));
+}
+
+[data-theme="dark"] .rds-button-dropdown__option--selected {
+  background: var(--rds-button-dropdown-selected-bg, var(--rds-primary-main));
+  color: var(--rds-button-dropdown-selected-text, #fff);
 }
 
 .rds-button-dropdown__avatar {
@@ -62,15 +90,81 @@
 .rds-button-dropdown__option {
 	display: flex;
 	align-items: center;
-	gap: var(--rds-spacing-0);
-	padding: var(--rds-spacing-compact) var(--rds-spacing-xs);
+  gap: 6px;
+  padding: 4px 6px;
+  min-height: 32px;
 
-	.rds-avatar {
-		margin-right: var(--rds-spacing-neg-4) !important;
+  /* Keep compact avatar size without overlap */
+	.rds-avatar,
+	.rds-avatar .MuiAvatar-root {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    font-size: 11px !important;
+
+		svg {
+      font-size: 16px !important;
+		}
 	}
-	
+
+  /* Keep radio readable and prevent overlap with avatar */
+	.rds-radio {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+
+		.MuiRadio-root {
+      padding: 3px !important;
+
+			svg {
+        width: 16px !important;
+        height: 16px !important;
+        font-size: 16px !important;
+			}
+		}
+
+		.MuiFormControlLabel-label,
+		.MuiTypography-root {
+      font-size: 12px !important;
+      line-height: 1.35 !important;
+		}
+
+		.MuiFormControlLabel-root {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+			margin-right: 0 !important;
+      margin-left: 0 !important;
+		}
+	}
+
+  /* Keep checkbox compact but readable */
 	.rds-checkbox {
-		margin-left: var(--rds-spacing-neg-2) !important;
+    margin-left: 0 !important;
+    min-width: 0;
+
+    .MuiFormControlLabel-root {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      gap: 6px;
+    }
+
+		.MuiFormControlLabel-label,
+		.MuiTypography-root {
+      font-size: 12px !important;
+      line-height: 1.35 !important;
+		}
+
+		.MuiCheckbox-root {
+      padding: 3px !important;
+
+			svg {
+        width: 16px !important;
+        height: 16px !important;
+        font-size: 16px !important;
+			}
+		}
 	}
 }
 

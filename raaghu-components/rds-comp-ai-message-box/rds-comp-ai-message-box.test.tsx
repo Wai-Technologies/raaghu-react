@@ -205,7 +205,7 @@ describe('RdsCompAiMessageBox', () => {
       const image = container.querySelector(
         '.rds-comp-ai-message-box__image'
       ) as HTMLImageElement;
-      expect(image).toHaveAttribute('alt', 'message image');
+      expect(image).toHaveAttribute('alt', '');
     });
 
     it('does not render image when isImage is undefined', () => {
@@ -355,7 +355,7 @@ describe('RdsCompAiMessageBox', () => {
         '.rds-comp-ai-message-box__image'
       ) as HTMLImageElement;
       expect(image).toBeInTheDocument();
-      // React may strip empty string src attribute; image element still renders
+      expect(image?.getAttribute('src') ?? '').toBe('');
     });
 
     it('handles very long avatar URL', () => {
@@ -447,7 +447,7 @@ describe('RdsCompAiMessageBox', () => {
     it('renders image with descriptive alt text', () => {
       const { container } = render(<RdsCompAiMessageBox isImage={true} />);
       const image = container.querySelector('.rds-comp-ai-message-box__image') as HTMLImageElement;
-      expect(image.alt).toBe('message image');
+      expect(image.alt).toBe('');
     });
   
     it('has no axe accessibility violations', async () => {

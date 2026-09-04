@@ -26,8 +26,10 @@ mirror the token values.
 
 ```tsx
 // main.tsx or app entry
-import 'raaghu-react-themes/src/styles/index.scss';
-import { RaaghuThemeProvider } from 'raaghu-react-themes';
+import '@waiin/raaghu-react/styles.css'; // bundled component styles from the published package
+// Optional: global resets (source path when consuming the monorepo / theme package path)
+// import 'raaghu-react-themes/src/styles/index.scss';
+import { RaaghuThemeProvider } from '@waiin/raaghu-react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 
@@ -37,6 +39,9 @@ createRoot(document.getElementById('root')!).render(
   </RaaghuThemeProvider>
 );
 ```
+
+`@waiin/raaghu-react/styles.css` is the built library CSS (`dist/raaghu-react.css`).
+Theme tokens are still applied at runtime by `RaaghuThemeProvider` via `--rds-*` CSS variables.
 
 `index.scss` only contains global resets (box-sizing, body font, scrollbar).
 It uses `var(--rds-*)` and does not define any colors by itself.
@@ -57,13 +62,21 @@ function ThemeToggle() {
 }
 ```
 
+`toggleMode()` cycles through `light -> dark -> system -> light`.
+Use it when you want a quick inline toggle that can also return to system mode.
+
 ### 3. Set a specific mode
 
 ```tsx
 const { setMode } = useRaaghuTheme();
 setMode('dark');
 setMode('light');
+setMode('system');
 ```
+
+For client applications, prefer explicit `System`, `Light`, and `Dark` actions in
+settings menus or profile menus. That keeps manual mode selection predictable while
+still allowing the app to follow `prefers-color-scheme` when `system` is selected.
 
 ### 4. Controlled mode (parent drives the theme)
 

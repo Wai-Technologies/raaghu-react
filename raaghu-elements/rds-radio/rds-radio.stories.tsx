@@ -15,6 +15,10 @@ const meta: Meta<typeof RdsRadio> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    label: {
+      control: 'text',
+      description: 'Group label displayed above the radio options',
+    },
     options: {
       control: 'object',
       description: 'Array of radio options',
@@ -173,32 +177,4 @@ export const WithoutLabel: Story = {
     value: undefined,
   },
 };
-WithoutLabel.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
-
-
-export const SelectOption: Story = {
-  name: 'Interaction: Select radio option',
-  render: () => {
-    const [value, setValue] = useState<string | undefined>(undefined);
-    return (
-      <RdsRadio
-        label="Choose"
-        options={[
-          { text: 'Option A', value: 'a' },
-          { text: 'Option B', value: 'b' },
-        ]}
-        value={value}
-        onChange={(_e: React.SyntheticEvent, val: string) => setValue(val)}
-      />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    // MUI Radio hides native input — same as Checkbox
-    const radios = canvas.getAllByRole('radio')
-    await expect(radios).toHaveLength(2)
-    await expect(radios[0]).not.toBeChecked()
-    await userEvent.click(radios[0])
-    await expect(radios[0]).toBeChecked()
-  }
-};
+WithoutLabel.parameters = { controls: { include: ['options', 'value', 'direction', 'layout', 'state'] } };

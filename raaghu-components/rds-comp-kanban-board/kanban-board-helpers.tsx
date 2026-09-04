@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, type MouseEventHandler, type MouseEvent } from 'react';
 
 export interface KanbanAction {
   key: string;
@@ -7,12 +7,10 @@ export interface KanbanAction {
 
 export interface KanbanSubCard {
   ticketId: string;
-  ticketPriority?: string;
+  ticketPriority: string;
   ticketQuestion: string;
   ticketDate: string;
   SubcardId: number;
-  assignedToName?: string;
-  assignedTo?: string;
   actions: KanbanAction[];
 }
 
@@ -42,17 +40,17 @@ export interface RdsCompKanbanBoardProps {
     subText?: string;
     src?: string;
   }>;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   onSubCardOption?: (option: string, subCardIndex: number, subCardId: number) => void;
   onCardOption?: (option: string, cardIndex: number, cardId: number | undefined, cardKey: string) => void;
-  allTagsList?: unknown;
-  allCategoriesList?: unknown;
+  allTagsList?: any[];
+  allCategoriesList?: any[];
   onAddQuestionSaveHandler?: (data: Record<string, unknown>) => void;
-  addQuestionData?: Record<string, unknown>;
+  addQuestionData?: Record<string, any>;
   onSelectedTagsListChange?: (items: unknown) => void;
 }
 
-export const formatDate = (date: Date) => {
+const formatDate = (date: Date) => {
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
   const year = date.getFullYear();
@@ -64,7 +62,7 @@ export const formatDate = (date: Date) => {
   return `${ordinalSuffix(day)} ${month} ${year}`;
 };
 
-export const generateRandomId = () => {
+const generateRandomId = () => {
   return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
 };
 
@@ -77,7 +75,7 @@ export const colorClass = (colortype: string) => {
   return defaultClass;
 };
 
-export const priorityList = [
+const priorityList = [
   { label: "High", val: "High" },
   { label: "Moderate", val: "Moderate" },
   { label: "Low", val: "Low" },
@@ -94,11 +92,12 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   );
 
   const [boards, setBoards] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
-  const [totalRecords, setBoardsRecord] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
-
-  useEffect(() => {
+  const [prevBoardData, setPrevBoardData] = useState(props.boardData);
+  if (props.boardData !== prevBoardData) {
+    setPrevBoardData(props.boardData);
     setBoards(props.boardData ? [...props.boardData] : []);
-  }, [props.boardData]);
+  }
+  const [totalRecords, setBoardsRecord] = useState<boardInfo[]>(props.boardData ? [...props.boardData] : []);
 
   const [isBoardDropdownOpen, setIsBoardDropdownOpen] = useState<boolean[]>(
     props.boardData ? [...props.boardData.map(() => false)] : []
@@ -115,7 +114,7 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   const [ticketIdValue, setTicketIdValue] = useState<string>("");
   const [ticketPriorityValue, setTicketPriorityValue] = useState<string>("");
   const [ticketQuestionValue, setTicketQuestionValue] = useState<string>("");
-  const [ticketDateValue, setTicketDateValue] = useState<string>(formatDate(new Date()));
+  const [ticketDateValue, setTicketDateValue] = useState<string>(() => formatDate(new Date()));
   const [editAction, setEditAction] = useState<string>("edit");
   const [deleteAction, setDeleteAction] = useState<string>("delete");
   const [assignAction, setAssignAction] = useState<string>("assign");
@@ -265,13 +264,13 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     setBoardName(event.target.value);
   };
 
-  const toggleDropdown = (index: number, event: React.MouseEvent<HTMLElement>) => {
+  const toggleDropdown = (index: number, event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setSelectedCardIndex(index);
     setSelectedCard(boards[index]);
   };
 
-  const toggleSubCardDropdown = (subCardId: number, event: React.MouseEvent<HTMLElement>, subCard: KanbanSubCard, cardIndex: number) => {
+  const toggleSubCardDropdown = (subCardId: number, event: MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => {
     setSubCardAnchorEl(event.currentTarget);
     setSelectedSubCard(subCard);
     setSelectedCardIndex(cardIndex);
@@ -425,7 +424,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
 };
 
 export const createDragEndHandler = (boards: boardInfo[], setBoards: React.Dispatch<React.SetStateAction<boardInfo[]>>) => {
-  return (event: { active: { id: string | number; data: { current: { boardIndex?: number; subCardIndex?: number } } }; over: { id: string | number; data: { current: { boardIndex?: number; subCardIndex?: number } } } | null }) => {
+  return (event: any) => {
     const { active, over } = event;
     if (!over) return;
 

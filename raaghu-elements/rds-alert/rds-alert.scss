@@ -46,7 +46,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--rds-spacing-md);
+  gap: var(--rds-spacing-sm);
   width: 100%;
   font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-sm);
@@ -55,10 +55,6 @@
   border: 1px solid transparent;
   background: var(--rds-alert-info-bg);
 
-  &--success {
-    color: var(--rds-alert-success-text) !important;
-  }
-  
   &__actions {
     display: flex;
     justify-content: flex-end;
@@ -69,19 +65,11 @@
       margin-right: var(--rds-alert-link-margin-right, 10px);
     }
   }
-  &--error {
-    color: var(--rds-alert-error-text) !important;
-  }
-  &--warning {
-    color: var(--rds-alert-warning-text) !important;
-  }
-  &--info {
-    color: var(--rds-alert-info-text) !important;
-  }
   &__heading,
   &__heading--multiline,
-  &__description {
-    color: inherit !important;
+  &__description,
+  &__description-inline {
+    color: var(--rds-text-primary) !important;
   }
 
     &__heading--multiline {
@@ -135,6 +123,12 @@
       }
     }
   }
+  .MuiAlert-icon {
+    margin-right: 0;
+    padding: 0;
+    align-items: center;
+  }
+
   &__icon {
     display: flex;
     align-items: center;
@@ -154,24 +148,20 @@
   &.rds-alert--multiline .MuiAlert-icon {
     align-self: flex-start !important;
   }
-  .rds-alert--success &__icon,
-  .rds-alert--success .rds-alert__icon {
-    color: var(--rds-icon-primary-outline-default, var(--rds-alert-success-border)) !important;
+  &.rds-alert--success .rds-alert__icon {
+    color: var(--rds-alert-success-text) !important;
   }
 
-  .rds-alert--info &__icon,
-  .rds-alert--info .rds-alert__icon {
-    color: var(--rds-icon-neutral-outline-default, var(--rds-alert-info-border)) !important;
+  &.rds-alert--info .rds-alert__icon {
+    color: var(--rds-alert-info-text) !important;
   }
 
-  .rds-alert--warning &__icon,
-  .rds-alert--warning .rds-alert__icon {
-    color: var(--rds-icon-warning, var(--rds-alert-warning-border)) !important;
+  &.rds-alert--warning .rds-alert__icon {
+    color: var(--rds-alert-warning-text) !important;
   }
 
-  .rds-alert--error &__icon,
-  .rds-alert--error .rds-alert__icon {
-    color: var(--rds-icon-error, var(--rds-alert-error-border)) !important;
+  &.rds-alert--error .rds-alert__icon {
+    color: var(--rds-alert-error-text) !important;
   }
 
   &__content {
@@ -182,6 +172,7 @@
     display: flex;
     align-items: center;
     margin-top: 0;
+    color: var(--rds-text-primary) !important;
   }
 
   &__actions {
@@ -230,7 +221,7 @@
     border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-info-border);
 
     &.rds-alert--success {
-      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-success-border) !important;
+      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-loading-border, #3D98FF) !important;
     }
 
     &.rds-alert--error {
@@ -253,7 +244,7 @@
   border-left-style: solid !important;
 
   &.rds-alert--success {
-    border-left-color: var(--rds-alert-success-border) !important;
+    border-left-color: var(--rds-alert-loading-border, #3D98FF) !important;
   }
 
   &.rds-alert--error {
@@ -304,18 +295,30 @@
 
   .rds-alert.MuiAlert-root.rds-alert--info{
     background-color: var(--rds-alert-info-bg) !important;
+  }
+  .rds-alert.rds-alert--success .rds-alert__icon {
+    color: var(--rds-alert-success-text) !important;
+  }
+
+  .rds-alert.rds-alert--info .rds-alert__icon {
     color: var(--rds-alert-info-text) !important;
   }
-  .rds-alert--info .rds-alert__icon, .rds-alert .rds-alert--info .rds-alert__icon
-  {
-    color: var(--rds-alert-info-text) !important;
+
+  .rds-alert.rds-alert--warning .rds-alert__icon {
+    color: var(--rds-alert-warning-text) !important;
+  }
+
+  .rds-alert.rds-alert--error .rds-alert__icon {
+    color: var(--rds-alert-error-text) !important;
   }
 }
 
-.MuiAlert-message {
+.rds-alert .MuiAlert-message {
   flex: 1 1 auto;
   min-width: 0;
   display: block;
+  padding: 0;
+  color: var(--rds-text-primary) !important;
 }
 @media (max-width: 640px) {
   .rds-alert {
@@ -407,4 +410,28 @@
   border: none !important;
   font-size: var(--rds-alert-link-font-size, 0.8125rem) !important;
   padding: 0 var(--rds-spacing-xs, 4px);
+}
+
+.rds-alert__secondary-button.MuiButton-root {
+  background-color: transparent !important;
+  color: var(--rds-alert-secondary-text, #2d7ff9) !important;
+  border: none !important;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--rds-alert-secondary-bg-hover, #d9e8ff) !important;
+    color: var(--rds-alert-secondary-text, #2d7ff9) !important;
+  }
+}
+
+.rds-alert__secondary-button--error.MuiButton-root {
+  background-color: transparent !important;
+  color: var(--rds-alert-error-text, #bd0d1d) !important;
+  border: none !important;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--rds-alert-error-bg-hover, #fbd7d3) !important;
+    color: var(--rds-alert-error-text, #bd0d1d) !important;
+  }
 }

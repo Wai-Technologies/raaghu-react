@@ -509,9 +509,9 @@ describe('RdsStack', () => {
     });
 
     it('should handle very large number of children', () => {
-      const items = Array.from({ length: 50 }, (_, i) => (
-        <div key={i} data-testid={`item-${i}`}>
-          Item {i}
+      const items = Array.from({ length: 50 }, (_, itemNumber) => itemNumber + 1).map((itemNumber) => (
+        <div key={itemNumber} data-testid={`item-${itemNumber - 1}`}>
+          Item {itemNumber - 1}
         </div>
       ));
       const { container } = renderWithTheme(
@@ -729,7 +729,7 @@ describe('RdsStack', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsStack />);
+      const { container } = render(<RdsStack><div>Content</div></RdsStack>);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

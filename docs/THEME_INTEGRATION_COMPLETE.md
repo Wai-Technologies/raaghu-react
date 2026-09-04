@@ -109,6 +109,11 @@ function ThemeToggle() {
 }
 ```
 
+`toggleMode()` cycles `light -> dark -> system -> light`. For production apps,
+prefer explicit `setMode('system')`, `setMode('light')`, and `setMode('dark')`
+actions so users can choose between following the device theme and forcing a
+manual light or dark mode.
+
 ```scss
 // Component SCSS — always use tokens, never hardcode hex
 .rds-my-component {
@@ -134,7 +139,7 @@ To migrate a component from hardcoded hex to tokens:
    `tokens/design-tokens.ts` or `tokens/build-rds-css-vars.ts`
 3. Replace the hex with `var(--rds-{token-name})`
 4. Test in Storybook with both light and dark toolbar toggle
-5. Verify no visual regression via Chromatic
+5. Verify no visual regression via Storybook (`npm run test:storybook`) / manual review
 
 Common mappings:
 

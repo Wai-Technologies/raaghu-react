@@ -303,6 +303,27 @@ describe('RdsSidebar', () => {
       const searchInput = screen.getByTestId('rds-search');
       expect(searchInput).toHaveAttribute('placeholder', 'Search...');
     });
+
+    it('should render search in collapsed raaghu layout when showSearch=true', () => {
+      renderWithTheme(
+        <RdsSidebar items={mockItems} isOpen={true} showSearch={true} layout="raaghu" typeOf="collapse" />
+      );
+      expect(screen.getByTestId('rds-search')).toBeInTheDocument();
+    });
+
+    it('should render search in collapsed toolbar layout when showSearch=true', () => {
+      renderWithTheme(
+        <RdsSidebar items={mockItems} isOpen={true} showSearch={true} layout="toolbar" typeOf="collapse" />
+      );
+      expect(screen.getByTestId('rds-search')).toBeInTheDocument();
+    });
+
+    it('should not render search in collapsed toolbar layout when showSearch=false', () => {
+      renderWithTheme(
+        <RdsSidebar items={mockItems} isOpen={true} showSearch={false} layout="toolbar" typeOf="collapse" />
+      );
+      expect(screen.queryByTestId('rds-search')).not.toBeInTheDocument();
+    });
   });
 
   describe('Sidebar Width', () => {

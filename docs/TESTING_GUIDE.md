@@ -236,24 +236,18 @@ it('handles async operations', async () => {
 
 ### Minimum Coverage Thresholds
 
+All three test frameworks enforce the same threshold: **80%** across branches, functions, lines, and statements.
+
 ```javascript
-// jest.config.js
-module.exports = {
-  coverageThreshold: {
-    global: {
-      branches: 85,
-      functions: 85,
-      lines: 85,
-      statements: 85
-    },
-    './raaghu-elements/**/': {
-      branches: 90,
-      functions: 90,
-      lines: 90,
-      statements: 90
-    }
+// jest.config.js — enforced threshold
+coverageThreshold: {
+  global: {
+    branches: 80,
+    functions: 80,
+    lines: 80,
+    statements: 80
   }
-};
+}
 ```
 
 ### Coverage Commands
@@ -400,27 +394,6 @@ export const InteractionTest: Story = {
     await expect(button).toHaveFocus();
   },
 };
-```
-
-### Chromatic Integration
-
-```yaml
-# .github/workflows/chromatic.yml
-name: 'Chromatic'
-on: push
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: npm install
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 ```
 
 ## Performance Testing
@@ -610,3 +583,63 @@ screen.getByTestId('custom-element')
 ```
 
 This comprehensive testing guide ensures our component library maintains world-class quality standards through rigorous testing practices.
+
+---
+
+## Which Test Framework Should I Use?
+
+This repo uses three testing frameworks, each with a distinct role. Use the right one for the right job.
+
+### Decision Table
+
+| What you're testing | Framework to use | Config file |
+|---------------------|-----------------|-------------|
+| Component logic, props, events, accessibility | **Jest** + React Testing Library | `jest.config.js` |
+| Storybook story interactions and UI state | **Vitest** (via Storybook addon-vitest) | `vitest.config.ts` |
+| Visual / interaction smoke checks | **Vitest** Storybook tests | `npm run test:storybook` / `npm run test:visual` |
+
+---
+
+### Jest — Unit & Integration Tests
+
+**When**: Writing a `.test.tsx` file colocated with a component.
+
+**Runs via**: `npm test`
+
+**Best for**:
+- Rendering tests (`render`, `screen.getByRole`)
+- Event handling (`fireEvent`, `userEvent`)
+- Accessibility checks (`jest-axe`)
+- Prop validation
+- State and lifecycle
+
+```bash
+npm test                          # run all Jest tests
+npm test -- rds-button.test.tsx   # run one file
+npm run test:coverage             # run with coverage report
+```
+
+---
+
+### Vitest — Storybook Story Tests
+
+**When**: Adding a `play()` function to a `.stories.tsx` file.
+
+**Runs via**: `npm run test:storybook` or the Storybook UI (addon-vitest panel)
+
+**Best for**:
+- Testing visual states defined in stories
+- Interaction sequences (click, type, focus)
+- Storybook-specific assertions (`within(canvasElement)`)
+
+```bash
+npm run test:storybook            # run all story tests headlessly
+```
+
+Story tests are co-located with stories (the `play` function in each `StoryObj`). They run in the Storybook preview environment, so they can test real rendered output including CSS.
+
+---
+
+### Quick Rule
+
+> Write **Jest** tests first. Add a **Storybook play function** if the interaction is better shown visually. Run **`npm run test:storybook`** for story interaction / visual smoke checks.

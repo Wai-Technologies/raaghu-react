@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
+import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
 import { Button, Box } from '@mui/material';
 import { 
   Home, 
@@ -31,7 +32,7 @@ const meta: Meta<typeof RdsSidebar> = {
     layout: 'padded',
     docs: {
       story: {
-        height: '450px'
+        height: '450px',
       },
       description: {
         component: `
@@ -84,6 +85,14 @@ When a platform is specified, the component automatically displays the appropria
     showSearch: {
       control: 'boolean',
       description: 'Toggle whether the search box is shown in the sidebar',
+    },
+    hideMainParagraph: {
+      control: 'boolean',
+      description: 'Hide the main content area paragraph in the story preview',
+    },
+    hideToggleButton: {
+      control: 'boolean',
+      description: 'Hide the Open/Close sidebar toggle button in the story preview',
     },
   },
 };
@@ -141,28 +150,87 @@ const abpMenuItems = [
 ];
 
 const SidebarTemplate = (args: any) => {
-  const [open, setOpen] = useState(args.isOpen || false);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const logoSrc = useRaaghuLogoSrc();
+  const [open, setOpen] = useState(!!args.isOpen);
+  const [drawerContainer, setDrawerContainer] = useState<HTMLDivElement | null>(null);
+  const { hideMainParagraph, hideToggleButton, ...sidebarArgs } = args;
+  const sidebarWidth = sidebarArgs.width ?? 240;
+  // Embedded preview uses a local container — permanent avoids modal scroll/focus lock in Docs.
+  const variant = sidebarArgs.variant ?? 'permanent';
+  const isPermanent = variant === 'permanent';
+  const reserveSidebarColumn = open && (isPermanent || variant === 'temporary' || variant === 'persistent');
+
+  // Keep local open state in sync with the Storybook isOpen control
+  useEffect(() => {
+    setOpen(!!args.isOpen);
+  }, [args.isOpen]);
 
   return (
-    <Box sx={{ display: 'flex' }} ref={containerRef}>
-      {!args.hideToggleButton && (
-        <Button 
-          variant="contained" 
-          onClick={() => setOpen(!open)}
-          sx={{ mb: 2 }}
-        >
-          {open ? 'Close' : 'Open'} Sidebar
-        </Button>
-      )}
-      <RdsSidebar
-        {...args}
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        container={containerRef.current}
-      />
-      <Box sx={{ flexGrow: 1, p: 3 }}>
-        {!args.hideMainParagraph && <p>Main content area. The sidebar will slide over this content.</p>}
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        position: 'relative',
+        minHeight: 400,
+        bgcolor: 'background.default',
+        overflow: 'hidden',
+        borderRadius: 1,
+        color: 'text.primary',
+      }}
+    >
+      <Box
+        ref={setDrawerContainer}
+        sx={{
+          position: 'relative',
+          flexShrink: 0,
+          width: reserveSidebarColumn ? (isPermanent ? 'auto' : sidebarWidth) : 0,
+          minWidth: isPermanent && open ? sidebarWidth : undefined,
+          minHeight: 400,
+          overflow: 'hidden',
+        }}
+      >
+        <RdsSidebar
+          {...sidebarArgs}
+          avatarCollapsedSrc={logoSrc}
+          isOpen={open}
+          onClose={() => setOpen(false)}
+          container={drawerContainer}
+        />
+      </Box>
+      <Box
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          minWidth: 0,
+          alignSelf: 'flex-start',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          gap: 2,
+          flexWrap: 'wrap',
+        }}
+      >
+        {!hideToggleButton && (
+          <Button
+            variant="contained"
+            onClick={() => setOpen((prev: boolean) => !prev)}
+            sx={{ flexShrink: 0, whiteSpace: 'nowrap' }}
+          >
+            {open ? 'Close' : 'Open'} Sidebar
+          </Button>
+        )}
+        {!hideMainParagraph && (
+          <Box
+            component="p"
+            sx={{
+              m: 0,
+              flex: '1 1 14rem',
+              minWidth: 0,
+            }}
+          >
+            Main content area. The sidebar will slide over this content.
+          </Box>
+        )}
       </Box>
     </Box>
   );
@@ -179,7 +247,6 @@ export const Default = {
     isOpen: true,
     variant: 'permanent',
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     showLogo: true,
     showSearch: true,
     hideMainParagraph: true,
@@ -192,9 +259,13 @@ export const MailApp = {
   args: {
     items: mailItems,
     width: 280,
+    isOpen: true,
+    variant: 'permanent',
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    showSearch: true,
+    hideMainParagraph: false,
+    hideToggleButton: false,
   },
 };
 
@@ -207,7 +278,6 @@ export const NarrowSidebar = {
     variant: 'permanent',
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     hideToggleButton: true,
   },
   parameters: {
@@ -220,12 +290,15 @@ export const NarrowSidebar = {
 };
 
 export const Permanent: Story = {
+  render: (args) => {
+    const logoSrc = useRaaghuLogoSrc();
+    return <RdsSidebar {...args} avatarCollapsedSrc={logoSrc} />;
+  },
   args: {
     items: basicItems,
     isOpen: true,
     variant: 'permanent',
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     showLogo: true,
   },
 };
@@ -237,7 +310,6 @@ export const WideSidebar = {
     width: 250,
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
@@ -253,11 +325,14 @@ export const WithDisabledItems = {
     ],
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
 export const WithoutIcons: Story = {
+  render: (args) => {
+    const logoSrc = useRaaghuLogoSrc();
+    return <RdsSidebar {...args} avatarCollapsedSrc={logoSrc} />;
+  },
   args: {
     items: [
       { label: 'Home', onClick: () => {} },
@@ -269,6 +344,5 @@ export const WithoutIcons: Story = {
     variant: 'permanent',
     showLogo: true,
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };

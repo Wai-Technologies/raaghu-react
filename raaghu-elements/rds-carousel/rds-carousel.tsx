@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
+import clsx from 'clsx';
 import './rds-carousel.scss';
 
+const EMPTY_TITLES: string[] = [];
+const EMPTY_SUBTITLES: string[] = [];
+
 export interface RdsCarouselProps {
-  children: React.ReactNode[];
+  children: ReactNode[];
   autoPlay?: boolean;
   className?: string;
   autoPlayInterval?: number;
@@ -32,25 +36,28 @@ const RdsCarousel = ({
   type = 'circle',
   state,
   style = 'default',
-  titles = [],
-  subtitles = [],
+  titles,
+  subtitles,
   title,
   subtitle,
 }:RdsCarouselProps) => {
+  const resolvedTitles = titles ?? EMPTY_TITLES;
+  const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const prevStateRef = useRef(state);
+  if (state !== prevStateRef.current) {
+    prevStateRef.current = state;
+    if (state && !isNaN(parseInt(state))) {
+      const newStateIndex = parseInt(state) - 1;
+      if (newStateIndex >= 0 && newStateIndex < children.length) {
+        setCurrentIndex(newStateIndex);
+      }
+    }
+  }
   const tokens = useRdsTokens();
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
-  React.useEffect(() => {
-    if (state && !isNaN(parseInt(state))) {
-      const stateIndex = parseInt(state) - 1;
-      if (stateIndex >= 0 && stateIndex < children.length) {
-        setCurrentIndex(stateIndex);
-      }
-    }
-  }, [state, children.length]);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (autoPlay && children.length > 1) {
       const interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % children.length);
@@ -71,47 +78,57 @@ const RdsCarousel = ({
     setCurrentIndex(index);
   };
 
-  const getCarouselClasses = () => {
-    const baseClass = 'rds-carousel';
-    const styleClass = `${baseClass}--${style.replace(' ', '-')}`;
-    return [baseClass, styleClass, className].filter(Boolean).join(' ');
-  };
+  const carouselClassName = clsx(
+    'rds-carousel',
+    `rds-carousel--${style.replace(' ', '-')}`,
+    className,
+  );
 
   return (
     <Box 
-      className={getCarouselClasses()}
+      className={carouselClassName}
       sx={{ 
         position: 'relative', 
         height: height, 
         overflow: 'hidden',
-        width: '100%',
-        maxWidth: '100%',
+        width: 'min(100%, 100vw)',
+        maxWidth: '100vw',
+        minWidth: 0,
+        boxSizing: 'border-box',
         borderRadius: tokens.radius.md,
         backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
       }}
     >
       <Box
+        className="rds-carousel__track"
         sx={{
           display: 'flex',
           transform: `translateX(-${currentIndex * 100}%)`,
           transition: 'transform 0.3s ease-in-out',
           height: '100%',
+          width: '100%',
+          maxWidth: '100%',
+          minWidth: 0,
         }}
       >
         {children.map((child, index) => {
-          const displayTitle = (titles && titles[index]) ?? title ?? `Card Title`;
-          const displaySubtitle = (subtitles && subtitles[index]) ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
+          const displayTitle = resolvedTitles[index] ?? title ?? `Card Title`;
+          const displaySubtitle = resolvedSubtitles[index] ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
 
           return (
             <Box
-              key={index}
+              key={`${displayTitle}-${displaySubtitle}`}
               className="rds-carousel__slide"
               sx={{
-                minWidth: '100%',
+                flex: '0 0 100%',
+                minWidth: 0,
+                width: '100%',
+                maxWidth: '100%',
                 height: '100%',
                 position: 'relative',
                 display: 'flex',
                 flexDirection: hasTitleLayout ? 'column' : 'row',
+                boxSizing: 'border-box',
                 backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
               }}
             >
@@ -136,9 +153,12 @@ const RdsCarousel = ({
                   height: hasTitleLayout ? 'auto' : '100%',
                   flex: hasTitleLayout ? 1 : 'unset',
                   minHeight: 0,
+                  minWidth: 0,
                   width: '100%',
+                  maxWidth: '100%',
                   position: 'relative',
                   order: 1,
+                  boxSizing: 'border-box',
                 }}
               >
                 {child}
@@ -231,25 +251,27 @@ const RdsCarousel = ({
         >
           {children.map((_, index) => (
             <Box
-              key={index}
+              key={`rds-carousel-indicator-${index}`}
               onClick={() => goToSlide(index)}
-              className={`rds-carousel__indicator rds-carousel__indicator--${type} ${
-                currentIndex === index ? 'rds-carousel__indicator__active' : ''
-              }`}
+              className={clsx(
+                'rds-carousel__indicator',
+                `rds-carousel__indicator--${type}`,
+                currentIndex === index && 'rds-carousel__indicator__active',
+              )}
               sx={{
                 width: type === 'circle' ? tokens.space(1.5) : tokens.space(3),
                 height: type === 'circle' ? tokens.space(1.5) : tokens.space(0.5),
                 borderRadius: type === 'circle' ? tokens.radius.full : tokens.radius.sm,
+                // Use carousel-indicator tokens (present in both themes). Avoid
+                // --rds-neutral-* here — those light-theme-only vars are removed in dark mode.
                 backgroundColor:
                   currentIndex === index
                     ? tokens.color.primary
-                    : style === 'full width image'
-                      ? tokens.cssVar('neutral-0')
-                      : tokens.cssVar('neutral-400'),
+                    : tokens.cssVar('carousel-indicator-bg'),
                 opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
                 border:
                   style === 'full width image'
-                    ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('border-opacity-light')}`
+                    ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('carousel-indicator-bg')}`
                     : 'none',
                 cursor: 'pointer',
                 transition: 'background-color 0.2s, opacity 0.2s',
@@ -257,9 +279,7 @@ const RdsCarousel = ({
                   backgroundColor:
                     currentIndex === index
                       ? tokens.color.primary
-                      : style === 'full width image'
-                        ? tokens.cssVar('neutral-0')
-                        : tokens.cssVar('neutral-500'),
+                      : tokens.cssVar('carousel-indicator-bg-hover'),
                   opacity: 1,
                 },
               }}

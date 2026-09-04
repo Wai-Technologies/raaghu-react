@@ -132,8 +132,7 @@ describe('Accessibility', () => {
 | Style governance | No bare hex in SCSS |
 | Health check | Stories/tests/axe coverage |
 | Bundle size | Elements ≤500kB, Components ≤500kB |
-| Chromatic | Visual regression snapshots |
-| Playwright | Story render + visual smoke |
+| Storybook / Vitest | Story interaction and visual smoke checks |
 
 ---
 

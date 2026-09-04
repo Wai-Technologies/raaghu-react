@@ -1,47 +1,56 @@
 import React from 'react';
-import { TextField as MuiTextField, TextFieldProps } from '@mui/material';
+import { TextField as MuiTextField, type TextFieldProps } from '@mui/material';
+import type { FormHelperTextProps } from '@mui/material/FormHelperText';
+import clsx from 'clsx';
 import './rds-text-field.scss';
 
-export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required'> {
+export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required' | 'component'> {
   isRequired?: boolean;
   errorMessage?: string;
 }
 
-const RdsTextField: React.FC<RdsTextFieldProps> = ({
+const RdsTextField = ({
   isRequired = false,
   errorMessage,
   error,
   helperText,
   defaultValue,
   className,
-  FormHelperTextProps: formHelperTextProps,
+  FormHelperTextProps: legacyFormHelperTextProps,
+  slotProps: consumerSlotProps,
   ...props
-}) => {
-  const rootClassName = [
-    'rds-text-field',
-    className,
-  ].filter(Boolean).join(' ');
+}: RdsTextFieldProps) => {
+  const rootClassName = clsx('rds-text-field', className);
+  const consumerFormHelperTextProps =
+    typeof consumerSlotProps?.formHelperText === 'object' && consumerSlotProps?.formHelperText !== null
+      ? (consumerSlotProps.formHelperText as FormHelperTextProps)
+      : undefined;
 
-  const mergedHelperTextProps = {
-    ...formHelperTextProps,
-    className: [
+  const formHelperTextSlotProps: FormHelperTextProps = {
+    ...legacyFormHelperTextProps,
+    ...consumerFormHelperTextProps,
+    className: clsx(
       'rds-text-field__helper-text',
-      formHelperTextProps?.className,
-    ].filter(Boolean).join(' '),
+      legacyFormHelperTextProps?.className,
+      consumerFormHelperTextProps?.className,
+    ),
   };
-  
+
   // Handle defaultValue - only pass it if explicitly provided and no value prop is present
   // to prevent React warnings about controlled/uncontrolled components
   const fieldProps = defaultValue !== undefined && props.value === undefined
-    ? { defaultValue } 
+    ? { defaultValue }
     : {};
-    
+
   return (
     <MuiTextField
       error={error || !!errorMessage}
       helperText={errorMessage || helperText}
       required={isRequired}
-      FormHelperTextProps={mergedHelperTextProps}
+      slotProps={{
+        ...consumerSlotProps,
+        formHelperText: formHelperTextSlotProps,
+      }}
       {...fieldProps}
       {...props}
       className={rootClassName}

@@ -167,8 +167,9 @@ describe('RdsTable', () => {
       const { container } = renderWithTheme(
         <RdsTable columns={sortableColumns} rows={mockRows} />
       );
-      const headerContent = container.querySelector('.rds-table__header-content');
-      expect(headerContent).toHaveStyle({ cursor: 'pointer' });
+      const sortButton = container.querySelector('.rds-table__sort-button');
+      expect(sortButton).toBeInTheDocument();
+      expect(sortButton?.tagName).toBe('BUTTON');
     });
 
     it('should not make non-sortable columns clickable', () => {
@@ -839,7 +840,7 @@ describe('RdsTable', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsTable columns={mockColumns} rows={mockRows} />);
+      const { container } = renderWithTheme(<RdsTable columns={mockColumns} rows={mockRows} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

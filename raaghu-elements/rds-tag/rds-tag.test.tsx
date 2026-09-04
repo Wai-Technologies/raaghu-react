@@ -563,7 +563,7 @@ describe('RdsTag', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsTag />);
+      const { container } = renderWithTheme(<RdsTag label="Test Tag" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

@@ -508,6 +508,7 @@ describe('RdsBackdrop', () => {
       expect(container.querySelector('.MuiBackdrop-root')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsBackdrop {...defaultProps} />);
       const results = await axe(container);

@@ -510,11 +510,16 @@ describe('RdsAlert', () => {
           {...defaultProps}
           type="success"
           showButtons={true}
+          showSecondary={true}
           showPrimary={true}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
-      expect(buttons.every((btn) => btn.getAttribute('data-color') === 'primary')).toBe(true);
+      const primaryButton = buttons.find((btn) => btn.getAttribute('data-text') === 'Okay');
+      const secondaryButton = buttons.find((btn) => btn.getAttribute('data-text') === 'Cancel');
+
+      expect(primaryButton).toHaveAttribute('data-color', 'primary');
+      expect(secondaryButton).toHaveAttribute('data-color', 'info');
     });
   });
 

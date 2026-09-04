@@ -382,7 +382,7 @@ describe('RdsCompPolarAreaChart', () => {
           dataSets={[
             {
               label: 'Data',
-              data: Array.from({ length: 20 }, () => Math.random() * 100),
+              data: Array.from({ length: 20 }, (_, index) => (index + 1) * 3),
               backgroundColor: 'rgba(75, 192, 192, 0.5)',
             },
           ]}
@@ -730,6 +730,7 @@ describe('RdsCompPolarAreaChart', () => {
       expect(canvas).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompPolarAreaChart {...defaultProps} />);
       const results = await axe(container);

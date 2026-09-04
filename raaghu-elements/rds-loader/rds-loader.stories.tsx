@@ -15,6 +15,35 @@ const hideAllControls = {
   type: { table: { disable: true } },
 };
 
+/** Stage so overlay/non-overlay share one centering box. */
+const withOverlayStage = (Story: React.ComponentType) => (
+  <>
+    <style>{`
+      .rds-loader-story-stage .rds-loader.rds-loader--overlay {
+        position: absolute;
+      }
+    `}</style>
+    <div
+      className="rds-loader-story-stage"
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxSizing: 'border-box',
+      }}
+    >
+      <Story />
+    </div>
+  </>
+);
+
+const overlayStoryParameters = {
+  layout: 'fullscreen' as const,
+};
+
 const meta: Meta<typeof RdsLoader> = {
   title: 'Elements/Loader',
   component: RdsLoader,
@@ -23,6 +52,11 @@ const meta: Meta<typeof RdsLoader> = {
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],
+  args: {
+    overlay: false,
+    value: 0,
+    thickness: 3.6,
+  },
   argTypes: {
     variant: {
       control: 'select',
@@ -39,6 +73,10 @@ const meta: Meta<typeof RdsLoader> = {
     value: {
       control: { type: 'range', min: 0, max: 100 },
     },
+    label: {
+      control: 'text',
+      description: 'Optional loading label text',
+    },
     overlay: {
       control: 'boolean',
     },
@@ -46,22 +84,22 @@ const meta: Meta<typeof RdsLoader> = {
       control: { type: 'range', min: 1, max: 10 },
     },
     type: {
-            options: [
-                "line-wobble",
-                "loader-moving",
-                "loader-hash",
-                "loader-jump",
-                "sand",
-                "rolling-rock",
-                "loader-round",
-                "rotate",
-                "spin",
-                "triangle",
-                "spinner-ring",
-            ],
-            control: { type: "select" },
-            description: "Custom loader type. If specified, overrides variant and size.",
-        },
+      options: [
+        'line-wobble',
+        'loader-moving',
+        'loader-hash',
+        'loader-jump',
+        'sand',
+        'rolling-rock',
+        'loader-round',
+        'rotate',
+        'spin',
+        'triangle',
+        'spinner-ring',
+      ],
+      control: { type: 'select' },
+      description: 'Custom loader type. If specified, overrides variant and size.',
+    },
   },
 };
 
@@ -184,8 +222,12 @@ export const CircularDefault: Story = {
     size: 'medium',
     color: 'primary',
   },
+  decorators: [withOverlayStage],
+  parameters: {
+    ...overlayStoryParameters,
+    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] },
+  },
 };
-CircularDefault.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
 
 export const CircularWithLabel: Story = {
   args: {
@@ -194,8 +236,12 @@ export const CircularWithLabel: Story = {
     color: 'primary',
     label: 'Loading...',
   },
+  decorators: [withOverlayStage],
+  parameters: {
+    ...overlayStoryParameters,
+    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] },
+  },
 };
-CircularWithLabel.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
 
 export const CircularDeterminate: Story = {
   args: {
@@ -205,8 +251,12 @@ export const CircularDeterminate: Story = {
     value: 75,
     label: 'Progress',
   },
+  decorators: [withOverlayStage],
+  parameters: {
+    ...overlayStoryParameters,
+    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] },
+  },
 };
-CircularDeterminate.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
 
 export const LinearWithLabel: Story = {
   args: {
@@ -214,8 +264,12 @@ export const LinearWithLabel: Story = {
     color: 'primary',
     label: 'Loading content...',
   },
+  decorators: [withOverlayStage],
+  parameters: {
+    ...overlayStoryParameters,
+    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'size'] },
+  },
 };
-LinearWithLabel.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'size'] } };
 
 export const LinearDeterminate: Story = {
   args: {
@@ -224,8 +278,12 @@ export const LinearDeterminate: Story = {
     value: 60,
     label: 'Upload progress',
   },
+  decorators: [withOverlayStage],
+  parameters: {
+    ...overlayStoryParameters,
+    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'size'] },
+  },
 };
-LinearDeterminate.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'size'] } };
 
 export const LineWobbleWithLabel: Story = {
   args: {
@@ -341,7 +399,7 @@ export const WithOverlay: Story = {
     const [showOverlay, setShowOverlay] = useState(false);
 
     return (
-      <Box>
+      <Box sx={{ minHeight: '100vh', width: '100%', p: 2 }}>
         <Button
           variant="contained"
           onClick={() => {
@@ -368,6 +426,7 @@ export const WithOverlay: Story = {
   },
   argTypes: hideAllControls,
   parameters: {
+    layout: 'fullscreen',
     docs: {
       source: {
         code: `<RdsLoader

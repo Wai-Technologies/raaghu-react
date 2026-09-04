@@ -4,15 +4,19 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCommentBox, { useCommentsBoxLogic, DropdownMenu } from './rds-comp-comments-box';
-import { ColorPickerType } from '../rds-comp-color-picker/rds-comp-color-picker';
+import { ColorPickerType } from '../rds-comp-color-picker/rds-comp-color-picker.types';
 
 // Mock dependencies
 jest.mock('./rds-comp-comments-box.scss', () => ({}));
-jest.mock('../../raaghu-elements', () => ({
-  RdsAvatar: function MockRdsAvatar({ children, className, ...props }: any) {
+jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => ({
+  __esModule: true,
+  default: function MockRdsAvatar({ children, className, ...props }: any) {
     return <div data-testid="rds-avatar" className={className} {...props}>{children}</div>;
   },
-  RdsBox: function MockRdsBox({ children, className, ...props }: any) {
+}));
+jest.mock('../../raaghu-elements/rds-box/rds-box', () => ({
+  __esModule: true,
+  default: function MockRdsBox({ children, className, ...props }: any) {
     return <div data-testid="rds-box" className={className} {...props}>{children}</div>;
   },
 }));

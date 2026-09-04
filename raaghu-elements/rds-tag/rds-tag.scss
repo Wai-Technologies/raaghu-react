@@ -18,21 +18,29 @@
   text-align: center;
 }
 
-[data-theme="dark"]{
-    .MuiChip-filled .MuiChip-label,
-    .MuiChip-root:not(.MuiChip-outlined) .MuiChip-label {
-      color: var(--rds-text-primary);
-    }
-   
-    .MuiChip-outlined .MuiChip-label {
-      color: inherit;
-    }
+[data-theme="dark"] {
+  // Default filled tag — keep container tint visible against dark surfaces
+  .rds-tag.MuiChip-filled.MuiChip-colorDefault,
+  .rds-tag.MuiChip-colorDefault:not(.MuiChip-outlined) {
+    background-color: var(--rds-color-primary-container);
+    color: var(--rds-primary-main);
+  }
 
-    .MuiChip-filled .MuiChip-deleteIcon,
-    .MuiChip-root:not(.MuiChip-outlined) .MuiChip-deleteIcon {
-      color: var(--rds-text-primary) !important;
-    }
-    .MuiChip-outlined .MuiChip-deleteIcon{
-      color: inherit !important;
-    }
+  .rds-tag.MuiChip-filled.MuiChip-colorDefault .MuiChip-label,
+  .rds-tag.MuiChip-colorDefault:not(.MuiChip-outlined) .MuiChip-label {
+    color: var(--rds-primary-main);
+  }
+
+  .rds-tag.MuiChip-outlined .MuiChip-label {
+    color: inherit;
+  }
+
+  .rds-tag.MuiChip-filled.MuiChip-colorDefault .MuiChip-deleteIcon,
+  .rds-tag.MuiChip-colorDefault:not(.MuiChip-outlined) .MuiChip-deleteIcon {
+    color: var(--rds-primary-main) !important;
+  }
+
+  .rds-tag.MuiChip-outlined .MuiChip-deleteIcon {
+    color: inherit !important;
+  }
 }

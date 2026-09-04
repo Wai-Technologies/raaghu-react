@@ -1,4 +1,4 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import MuiTimeline from '@mui/lab/Timeline';
 import { 
   TimelineItem as MuiTimelineItem,
@@ -7,31 +7,31 @@ import {
   TimelineContent as MuiTimelineContent,
   TimelineDot as MuiTimelineDot,
   TimelineOppositeContent as MuiTimelineOppositeContent,
-  TimelineProps
+  type TimelineProps
 } from '@mui/lab';
 export interface RdsTimelineItem {
   id: string | number;
   title: string;
   description?: string;
   time?: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' | 'grey';
   variant?: 'filled' | 'outlined';
 }
 
-export interface RdsTimelineProps extends Omit<TimelineProps, 'children'> {
+export interface RdsTimelineProps extends Omit<TimelineProps, 'children' | 'component'> {
   items: RdsTimelineItem[];
   showTime?: boolean;
   alternating?: boolean;
 }
 
-const RdsTimeline: React.FC<RdsTimelineProps> = ({
+const RdsTimeline = ({
   items,
   showTime = false,
   alternating = false,
   position,
   ...props
-}) => {
+}: RdsTimelineProps) => {
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
   return (

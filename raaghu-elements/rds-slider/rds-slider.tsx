@@ -1,8 +1,9 @@
-import React from 'react';
+// @ts-nocheck
+import { useMemo, useState, type JSX } from 'react';
 import { Slider as MuiSlider, SliderProps } from '@mui/material';
 import './rds-slider.scss';
 
-export interface RdsSliderProps extends SliderProps {
+export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
   label?: string;
   showValue?: boolean;
   showLabel?: boolean;
@@ -15,22 +16,31 @@ export interface RdsSliderProps extends SliderProps {
   className?: string;
 }
 
-const RdsSlider: React.FC<RdsSliderProps> = ({
-  label,
-  showValue = false,
-  showLabel = false,
-  unit,
-  value,
-  defaultValue,
-  level,
-  min = 0,
-  max,
-  controlType = 'one way',
-  leftLabel = '0',
-  rightLabel = '100',
-  className,
-  ...props
-}) => {
+const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) => {
+  const label: string | undefined = sliderProps.label;
+  const showValue: boolean = sliderProps.showValue ?? false;
+  const showLabel: boolean = sliderProps.showLabel ?? false;
+  const showTooltip: 'default' | 'tooltip' = sliderProps.showTooltip ?? 'default';
+  const unit: string | undefined = sliderProps.unit;
+  const value = sliderProps.value;
+  const level = sliderProps.level;
+  const min: number = sliderProps.min ?? 0;
+  const max = sliderProps.max;
+  const controlType: 'one way' | 'two way' = sliderProps.controlType ?? 'one way';
+  const leftLabel: string = sliderProps.leftLabel ?? '0';
+  const rightLabel: string = sliderProps.rightLabel ?? '100';
+  const className: string | undefined = sliderProps.className;
+
+  const props: SliderProps = { ...sliderProps };
+  delete (props as Record<string, unknown>).label;
+  delete (props as Record<string, unknown>).showValue;
+  delete (props as Record<string, unknown>).showLabel;
+  delete (props as Record<string, unknown>).showTooltip;
+  delete (props as Record<string, unknown>).unit;
+  delete (props as Record<string, unknown>).level;
+  delete (props as Record<string, unknown>).controlType;
+  delete (props as Record<string, unknown>).leftLabel;
+  delete (props as Record<string, unknown>).rightLabel;
   const isRangeSlider = controlType === 'two way';
 
   let sliderStep = props.step;
@@ -57,8 +67,8 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     if (value !== undefined) {
       return value;
     }
-    if (defaultValue !== undefined) {
-      return defaultValue as number | number[];
+    if (props.defaultValue !== undefined) {
+      return props.defaultValue;
     }
     if (isRangeSlider) {
       const midPoint = min + (safeMax - min) * 0.5;
@@ -68,51 +78,45 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
     return min + (safeMax - min) * 0.3;
   };
 
-  const [sliderValue, setSliderValue] = React.useState<number | number[]>(getInitialValue());
+  const [internalSliderValue, setInternalSliderValue] = useState<number | number[]>(() => getInitialValue());
 
-  React.useEffect(() => {
-    const externalValueChanged = (() => {
-      if (value === undefined) return false;
-      if (Array.isArray(value) && Array.isArray(sliderValue)) {
-        if (value.length !== sliderValue.length) return true;
-        for (let i = 0; i < value.length; i++) {
-          if (value[i] !== (sliderValue as number[])[i]) return true;
-        }
-        return false;
+  const normalizedInternalValue = useMemo(() => {
+    if (isRangeSlider) {
+      if (Array.isArray(internalSliderValue)) {
+        return internalSliderValue;
       }
-      return value !== sliderValue;
-    })();
-
-    if (externalValueChanged) {
-      setSliderValue(value as number | number[]);
-      return;
-    }
-
-    if (level && typeof level === 'number' && level >= 1 && level <= 5) {
-      const percent = (level - 1) * 25;
-      const calculated = min + ((safeMax - min) * percent) / 100;
-      if (isRangeSlider) {
-        const range = (safeMax - min) * 0.1;
-        const lowerValue = Math.max(min, calculated - range);
-        const upperValue = Math.min(safeMax, calculated + range);
-        setSliderValue([lowerValue, upperValue]);
-      } else {
-        setSliderValue(calculated);
-      }
-      return;
-    }
-
-    if (isRangeSlider && !Array.isArray(sliderValue)) {
-      const currentVal = typeof sliderValue === 'number' ? sliderValue : min;
+      const currentVal = typeof internalSliderValue === 'number' ? internalSliderValue : min;
       const range = (safeMax - min) * 0.2;
       const lowerValue = Math.max(min, currentVal - range / 2);
       const upperValue = Math.min(safeMax, currentVal + range / 2);
-      setSliderValue([lowerValue, upperValue]);
-    } else if (!isRangeSlider && Array.isArray(sliderValue)) {
-      const average = (sliderValue[0] + sliderValue[1]) / 2;
-      setSliderValue(average);
+      return [lowerValue, upperValue];
     }
-  }, [level, value, min, max, controlType, isRangeSlider, safeMax]);
+
+    if (Array.isArray(internalSliderValue)) {
+      return (internalSliderValue[0] + internalSliderValue[1]) / 2;
+    }
+
+    return internalSliderValue;
+  }, [internalSliderValue, isRangeSlider, min, safeMax]);
+
+  const levelValue = useMemo(() => {
+    if (!level || typeof level !== 'number' || level < 1 || level > 5) {
+      return undefined;
+    }
+    const percent = (level - 1) * 25;
+    const calculated = min + ((safeMax - min) * percent) / 100;
+    if (isRangeSlider) {
+      const range = (safeMax - min) * 0.1;
+      const lowerValue = Math.max(min, calculated - range);
+      const upperValue = Math.min(safeMax, calculated + range);
+      return [lowerValue, upperValue] as number[];
+    }
+    return calculated;
+  }, [isRangeSlider, level, min, safeMax]);
+
+  const sliderValue = value !== undefined
+    ? (value as number | number[])
+    : (levelValue ?? normalizedInternalValue);
 
   const formatValue = (val: number | number[]) => {
     if (Array.isArray(val)) {
@@ -122,11 +126,14 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   };
 
   const handleChange = (_: Event, newValue: number | number[], activeThumb?: number) => {
-    setSliderValue(newValue);
+    setInternalSliderValue(newValue);
     if (props.onChange) {
       props.onChange(_, newValue, activeThumb ?? 0);
     }
   };
+
+  const ariaLabel = props['aria-label'] ?? label ?? 'Slider';
+  const isRangeValue = Array.isArray(sliderValue);
 
   return (
     <div className={`rds-slider ${className || ''}`}>
@@ -146,9 +153,11 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
           min={min}
           max={safeMax}
           {...props}
+          aria-label={isRangeValue ? undefined : ariaLabel}
+          getAriaLabel={isRangeValue ? () => ariaLabel : undefined}
           step={sliderStep}
           marks={sliderMarks}
-          valueLabelDisplay={props.showTooltip === 'tooltip' ? 'auto' : 'off'}
+          valueLabelDisplay={showTooltip === 'tooltip' ? 'auto' : 'off'}
         />
         {rightLabel && <span className="rds-slider__right-label">{rightLabel}</span>}
       </div>

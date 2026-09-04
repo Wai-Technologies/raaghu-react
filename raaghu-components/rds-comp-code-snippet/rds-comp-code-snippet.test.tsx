@@ -18,7 +18,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
 jest.mock('../../raaghu-elements/rds-button-dropdown/rds-button-dropdown', () => {
   return function MockRdsButtonDropdown({ onChange, options, buttonText, leftIcon, rightIcon, showSearch, showUserAvatar, showRadio, size, ...props }: any) {
     return (
-      <select data-testid="rds-button-dropdown" aria-label={buttonText || 'Select language'} onChange={(e) => onChange(e.target.value)} {...props}>
+      <select aria-label={buttonText || 'Select'} data-testid="rds-button-dropdown" onChange={(e) => onChange(e.target.value)} {...props}>
         {options?.map((opt: any) => (
           <option key={opt.id} value={opt.id}>
             {opt.label}
@@ -528,7 +528,6 @@ describe('RdsCompCodeSnippet', () => {
             {...defaultProps}
             language={lang}
             code="test"
-            key={lang}
           />
         );
       });
@@ -762,6 +761,7 @@ describe('RdsCompCodeSnippet', () => {
       expect(copyButton).toHaveAttribute('aria-label', 'Copy code');
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompCodeSnippet {...defaultProps} />);
       const results = await axe(container);

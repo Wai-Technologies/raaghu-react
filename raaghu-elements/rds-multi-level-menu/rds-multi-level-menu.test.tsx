@@ -723,6 +723,7 @@ describe('RdsMultiLevelMenu', () => {
       expect(screen.getByText('File')).toBeInTheDocument();
   
     });
+
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsMultiLevelMenu options={defaultOptions} />);
       const results = await axe(container);

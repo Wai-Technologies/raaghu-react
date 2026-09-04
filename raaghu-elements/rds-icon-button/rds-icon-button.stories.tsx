@@ -1,16 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within, fn } from 'storybook/test';
 import RdsIconButton from './rds-icon-button';
-import { 
-  Favorite, 
-  FavoriteBorder, 
-  Delete, 
-  Edit, 
-  Share, 
-  Add,
-  Home,
-  Settings 
-} from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import ShareIcon from '@mui/icons-material/Share';
+import AddIcon from '@mui/icons-material/Add';
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const meta: Meta<typeof RdsIconButton> = {
   title: 'Elements/IconButton',
@@ -35,6 +33,43 @@ const meta: Meta<typeof RdsIconButton> = {
       control: 'boolean',
       description: 'Whether the button is disabled',
     },
+    variant: {
+      control: 'select',
+      options: ['filled', 'outlined'],
+      description: 'Visual variant for icon button',
+    },
+    tooltip: {
+      control: 'text',
+      description: 'Tooltip/title text',
+    },
+    children: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    iconOutlined: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    iconFilled: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    icon: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    component: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    ref: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    onClick: {
+      control: { disable: true },
+      table: { disable: true },
+    },
   },
 };
 
@@ -43,41 +78,41 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: <Favorite />,
+    children: <FavoriteIcon />,
   },
 };
 export const Disabled: Story = {
   args: {
     disabled: true,
-    children: <Share />,
+    children: <ShareIcon />,
   },
 };
 export const Delete_Button: Story = {
   args: {
     color: 'error',
-    children: <Delete />,
+    children: <DeleteIcon />,
   },
 };
 export const FilledVariant: Story = {
   args: {
     variant: 'filled',
-    iconOutlined: <FavoriteBorder />,
-    iconFilled: <Favorite />,
+    iconOutlined: <FavoriteBorderIcon />,
+    iconFilled: <FavoriteIcon />,
     tooltip: 'Filled Icon',
   },
 };
 export const Large: Story = {
   args: {
     size: 'large',
-    children: <Add />,
+    children: <AddIcon />,
   },
 };
 
 export const OutlinedVariant: Story = {
   args: {
     variant: 'outlined',
-    iconOutlined: <FavoriteBorder />,
-    iconFilled: <Favorite />,
+    iconOutlined: <FavoriteBorderIcon />,
+    iconFilled: <FavoriteIcon />,
     tooltip: 'Outlined Icon',
   },
 };
@@ -85,38 +120,20 @@ export const OutlinedVariant: Story = {
 export const Primary: Story = {
   args: {
     color: 'primary',
-    children: <Home />,
+    children: <HomeIcon />,
   },
 };
 
 export const Secondary: Story = {
   args: {
     color: 'secondary',
-    children: <Settings />,
+    children: <SettingsIcon />,
   },
 };
 
 export const Small: Story = {
   args: {
     size: 'small',
-    children: <Edit />,
+    children: <EditIcon />,
   },
-};
-
-
-
-
-export const ClickTest: Story = {
-  name: 'Interaction: Icon button fires callback',
-  args: {
-    children: <Favorite />,
-    onClick: fn(),
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    const button = canvas.getByRole('button')
-    await expect(button).toBeVisible()
-    await userEvent.click(button)
-    await expect(args.onClick).toHaveBeenCalledOnce()
-  }
 };

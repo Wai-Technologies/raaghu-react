@@ -1,33 +1,36 @@
-import React from 'react';
+import { type ReactNode, isValidElement } from 'react';
 import {
   Backdrop as MuiBackdrop,
   BackdropProps,
   CircularProgress
 } from '@mui/material';
 
-export interface RdsBackdropProps extends Omit<BackdropProps, 'open'> {
+export interface RdsBackdropProps extends Omit<BackdropProps, 'open' | 'component'> {
   loading?: boolean;
-  loadingComponent?: React.ReactNode;
+  loadingComponent?: ReactNode;
   open?: boolean;
 }
 
-const RdsBackdrop: React.FC<RdsBackdropProps> = ({
+const RdsBackdrop = ({
   loading = false,
   loadingComponent,
   children,
   open,
   className = '',
   ...props
-}) => {
+}: RdsBackdropProps) => {
   const isOpen = open !== undefined ? open : loading;
 
-  const content = loading
-    ? (loadingComponent ?? <CircularProgress color="inherit" />)
-    : children;
+  const resolvedLoadingComponent =
+    loadingComponent != null && isValidElement(loadingComponent)
+      ? loadingComponent
+      : <CircularProgress color="inherit" />;
 
-  const backdropClassName = `rds-backdrop ${className}`.trim();
+  const content = loading ? resolvedLoadingComponent : children;
 
-  const { sx, ...restProps } = props as { sx?: BackdropProps['sx'] } & typeof props;
+  const backdropClassName = className ? `rds-backdrop ${className}` : 'rds-backdrop';
+
+  const { sx, ...restProps } = props;
 
   const backdropSx = {
     '&.rds-backdrop': {

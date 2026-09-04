@@ -6,6 +6,12 @@ $rds-stepper-breakpoint-sm: 420px;
   position: relative;
 }
 
+.rds-stepper--hide-labels {
+  .MuiStepLabel-labelContainer {
+    display: none;
+  }
+}
+
 @media (max-width: $rds-stepper-breakpoint-sm) {
   .rds-stepper {
     margin-left: var(--rds-stepper-mobile-offset-left);

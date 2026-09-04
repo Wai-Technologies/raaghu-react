@@ -20,6 +20,11 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        chartType: {
+            control: { type: "radio" },
+            options: ["scatter", "bar", "line"],
+            description: "Chart rendering type for the canvas and datasets.",
+        },
     },
 } satisfies Meta<typeof RdsCompScatterChart>;
 
@@ -29,9 +34,9 @@ type Story = StoryObj<typeof RdsCompScatterChart>;
 export const Default: Story = {
     args: {
         id: "Scatter_Chart",
+        chartType: "scatter",
         dataSets: [
             {
-                type: "scatter",
                 label: "Scatter Dataset",
                 data: [
                     { x: -10, y: 0 },
@@ -87,6 +92,7 @@ export const Default: Story = {
 export const WithMultiAxis: Story = {
     args: {
         id: "Scatter_Chart_Multi_Axis",
+        chartType: "scatter",
         dataSets: [
             {
                 label: "Scatter Dataset 1",

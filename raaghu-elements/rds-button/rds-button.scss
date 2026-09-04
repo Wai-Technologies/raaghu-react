@@ -68,8 +68,12 @@
       border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
     }
     
+    /* Match the outlined hover intent on press: no purple fill, only a
+       primary-colored border/text (slightly darker for press feedback). */
     &:active {
-      background-color: var(--rds-button-secondary-bg-active);
+      background-color: transparent;
+      color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main)));
+      border-color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main)));
     }
   }
 
@@ -103,30 +107,128 @@
   }
 
   &__state-hover {
-    &:hover {
+    /* Filled primary: force hover fill for Storybook/state control. */
+    &.MuiButton-contained.MuiButton-colorPrimary,
+    &.rds-button__primary.MuiButton-colorPrimary {
       background-color: var(--rds-button-primary-bg-hover) !important;
       transform: translateY(-1px);
       box-shadow: var(--rds-elevation-2);
+
+      &:hover {
+        background-color: var(--rds-button-primary-bg-hover) !important;
+        transform: translateY(-1px);
+        box-shadow: var(--rds-elevation-2);
+      }
+    }
+
+    /* Filled non-primary: elevation only — keep MUI color. */
+    &.MuiButton-contained:not(.MuiButton-colorPrimary) {
+      transform: translateY(-1px);
+      box-shadow: var(--rds-elevation-2);
+    }
+
+    /* Token outlined (primary): transparent fill + primary border/text. */
+    &.rds-button__secondary {
+      background-color: transparent !important;
+      color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+      border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent !important;
+        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        box-shadow: none;
+      }
+    }
+
+    /* Outlined non-primary: transparent fill only — keep MUI color/border. */
+    &.MuiButton-outlined:not(.rds-button__secondary) {
+      background-color: transparent !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent !important;
+        box-shadow: none;
+      }
+    }
+
+    /* Transparent/text: subtle hover surface, no elevation fill. */
+    &.MuiButton-text,
+    &.rds-button__text {
+      background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+      box-shadow: none;
+      transform: none;
+
+      &:hover {
+        background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+        box-shadow: none;
+        transform: none;
+      }
     }
   }
 
   &__state-selected {
-    background-color: var(--rds-button-primary-bg-active) !important;
-    box-shadow: var(--rds-elevation-1);
-
-    &:hover {
+    /* Filled primary: force active fill for Storybook/state control. */
+    &.MuiButton-contained.MuiButton-colorPrimary,
+    &.rds-button__primary.MuiButton-colorPrimary {
       background-color: var(--rds-button-primary-bg-active) !important;
+      box-shadow: var(--rds-elevation-1);
+
+      &:hover {
+        background-color: var(--rds-button-primary-bg-active) !important;
+      }
     }
 
-    &.MuiButton-outlined {
-      background-color: var(--rds-button-secondary-bg-active) !important;
-      border-color: var(--rds-button-secondary-border-active) !important;
-      color: var(--rds-button-secondary-text-active) !important;
+    /* Filled non-primary: elevation only — keep MUI color. */
+    &.MuiButton-contained:not(.MuiButton-colorPrimary) {
+      box-shadow: var(--rds-elevation-1);
     }
 
-    &.MuiButton-text {
+    /* Token outlined (primary): no fill — selected border/text only. */
+    &.rds-button__secondary {
+      background-color: transparent !important;
+      border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main))) !important;
+      color: var(--rds-button-secondary-text-active, var(--rds-primary-main)) !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent !important;
+        border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main))) !important;
+        color: var(--rds-button-secondary-text-active, var(--rds-primary-main)) !important;
+      }
+    }
+
+    /* Outlined non-primary: no fill — keep MUI selected color on border/text. */
+    &.MuiButton-outlined:not(.rds-button__secondary) {
+      background-color: transparent !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+
+    /* Transparent/text primary: token active styles. */
+    &.rds-button__text {
       background-color: var(--rds-button-text-bg-active) !important;
       color: var(--rds-button-text-color-active) !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: var(--rds-button-text-bg-active) !important;
+        color: var(--rds-button-text-color-active) !important;
+      }
+    }
+
+    /* Transparent/text non-primary: light selected tint — keep MUI color. */
+    &.MuiButton-text:not(.rds-button__text) {
+      background-color: color-mix(in srgb, currentColor 12%, transparent) !important;
+      box-shadow: none;
+
+      &:hover {
+        background-color: color-mix(in srgb, currentColor 12%, transparent) !important;
+      }
     }
   }
 
@@ -172,6 +274,25 @@
   &--textcase-unset {
     text-transform: none;
   }
+}
+
+/* Normalize MUI icon margins and provide a tighter gap for icon+text layout */
+.rds-button .MuiButton-startIcon,
+.rds-button .MuiButton-endIcon {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rds-button--layout-icon-text {
+  gap: var(--rds-spacing-xs);
+  padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+}
+
+.rds-button--has-icon .rds-button__icon {
+  /* ensure icon sizing doesn't introduce extra whitespace */
+  line-height: 0;
 }
 
 @keyframes rds-button-spin {
