@@ -4,11 +4,10 @@
 
 | Version | Supported |
 |---------|-----------|
-| 1.3.x   | Yes       |
-| 1.2.x   | No        |
-| < 1.2   | No        |
+| 2.0.x   | Yes       |
+| 1.3.x   | No        |
+| < 1.3   | No        |
 
-Only the latest minor release (1.3.x) receives security updates. Upgrade to the current version before reporting a vulnerability.
 
 ## Reporting a Vulnerability
 
