@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-09-04
+
 ### Changed
 
 - Dropped React 18 support on this branch: `peerDependencies` now require `react` / `react-dom` `^19.0.0` only (previously `>=18.0.0 || ^19.0.0`). React 18 consumers should use the dedicated React 18 branch/release line.
