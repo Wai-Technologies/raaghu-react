@@ -126,7 +126,12 @@ const RdsPagination = ({
         siblingCount={finalSiblingCount}
         boundaryCount={finalBoundaryCount}
         {...props}
-        renderItem={(item) => <MuiPaginationItem {...item} disableRipple />}
+        renderItem={(item) => (
+          <MuiPaginationItem
+            {...item}
+            {...({ disableRipple: true } as object)}
+          />
+        )}
       />
       )}
       {styleConfig.showPrevNext && (
