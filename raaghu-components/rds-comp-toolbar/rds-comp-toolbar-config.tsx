@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import clsx from "clsx";
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import RdsEmojiGenerator from '../rds-comp-emoji-generator/rds-comp-emoji-generator';
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { type ToolbarButtonConfig } from './rds-comp-toolbar-config-types';
@@ -207,7 +207,7 @@ export const ToolbarButton = ({
         )}
       </button>
 
-      {hasDropdown && isDropdownOpen && dropdownPos && ReactDOM.createPortal(
+      {hasDropdown && isDropdownOpen && dropdownPos && createPortal(
         <div
           className={clsx('rds-comp-toolbar__dropdown', portalThemeClass)}
           style={{

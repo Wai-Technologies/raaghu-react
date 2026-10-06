@@ -157,13 +157,13 @@ describe('RdsCompColorPicker', () => {
       expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
     });
 
-    it('button is disabled when isDisabled is true', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} isDisabled={true} />);
+    it('button is disabled when disabled is true', () => {
+      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} disabled={true} />);
       expect(screen.getByTestId('rds-button')).toBeDisabled();
     });
 
     it('button click does not toggle when disabled', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} isDisabled={true} />);
+      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} disabled={true} />);
       const button = screen.getByTestId('rds-button');
       fireEvent.click(button);
       expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
@@ -270,7 +270,7 @@ describe('RdsCompColorPicker', () => {
 
     it('does not change color when disabled', () => {
       const onChange = jest.fn();
-      render(<RdsCompColorPicker {...defaultProps} isDisabled={true} onChange={onChange} />);
+      render(<RdsCompColorPicker {...defaultProps} disabled={true} onChange={onChange} />);
       
       const changeButton = screen.getByTestId('grid-change-color');
       fireEvent.click(changeButton);
@@ -342,20 +342,20 @@ describe('RdsCompColorPicker', () => {
 
   describe('Disabled State', () => {
     it('component has aria-disabled attribute when disabled', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} isDisabled={true} />);
+      const { container } = render(<RdsCompColorPicker {...defaultProps} disabled={true} />);
       const picker = container.querySelector('.rds-comp-color-picker');
       expect(picker).toHaveAttribute('aria-disabled', 'true');
     });
 
     it('component does not have aria-disabled when not disabled', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} isDisabled={false} />);
+      const { container } = render(<RdsCompColorPicker {...defaultProps} disabled={false} />);
       const picker = container.querySelector('.rds-comp-color-picker');
       expect(picker).not.toHaveAttribute('aria-disabled');
     });
 
     it('does not allow color change on hue when disabled', () => {
       const onChange = jest.fn();
-      render(<RdsCompColorPicker {...defaultProps} isDisabled={true} onChange={onChange} />);
+      render(<RdsCompColorPicker {...defaultProps} disabled={true} onChange={onChange} />);
       
       const changeButton = screen.getByTestId('grid-change-color');
       fireEvent.click(changeButton);
@@ -492,13 +492,13 @@ describe('RdsCompColorPicker', () => {
 
     it('handles color change while disabled then enabled', () => {
       const onChange = jest.fn();
-      const { rerender } = render(<RdsCompColorPicker {...defaultProps} isDisabled={true} onChange={onChange} />);
+      const { rerender } = render(<RdsCompColorPicker {...defaultProps} disabled={true} onChange={onChange} />);
       
       const changeButton = screen.getByTestId('grid-change-color');
       fireEvent.click(changeButton);
       expect(onChange).not.toHaveBeenCalled();
       
-      rerender(<RdsCompColorPicker {...defaultProps} isDisabled={false} onChange={onChange} />);
+      rerender(<RdsCompColorPicker {...defaultProps} disabled={false} onChange={onChange} />);
       fireEvent.click(changeButton);
       expect(onChange).toHaveBeenCalled();
     });
@@ -522,7 +522,7 @@ describe('RdsCompColorPicker', () => {
     });
 
     it('disabled state is properly communicated', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} isDisabled={true} />);
+      const { container } = render(<RdsCompColorPicker {...defaultProps} disabled={true} />);
       const picker = container.querySelector('[aria-disabled="true"]');
       expect(picker).toBeInTheDocument();
     });

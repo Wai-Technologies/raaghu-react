@@ -1,8 +1,9 @@
 import type { PaletteOptions } from '@mui/material/styles';
-import { colorTokens } from '../../tokens/design-tokens';
+import { alphaTokens, colorTokens } from '../../tokens/design-tokens';
+import { contrastText } from '../../tokens/contrast';
 
-const white = '#ffffff';
-const black = '#000000';
+const white = colorTokens.neutral[0];
+const black = colorTokens.neutral[1000];
 
 /**
  * MUI palette must use resolved color strings (hex/rgba), not CSS variables.
@@ -27,37 +28,37 @@ export function lightMuiPalette(): PaletteOptions {
       main: p[700],
       light: p[100],
       dark: p[600],
-      contrastText: white,
+      contrastText: contrastText(p[700]),
     },
     secondary: {
       main: s[700],
       light: s[100],
       dark: s[750],
-      contrastText: white,
+      contrastText: contrastText(s[700]),
     },
     error: {
       main: e[700],
       light: e[100],
       dark: e[600],
-      contrastText: white,
+      contrastText: contrastText(e[700]),
     },
     warning: {
       main: w[700],
       light: w[100],
       dark: w[600],
-      contrastText: white,
+      contrastText: contrastText(w[700]),
     },
     success: {
       main: su[700],
       light: su[100],
       dark: su[600],
-      contrastText: white,
+      contrastText: contrastText(su[700]),
     },
     info: {
       main: i[400],
       light: i[50],
       dark: i[600],
-      contrastText: white,
+      contrastText: contrastText(i[400]),
     },
     background: {
       default: white,
@@ -70,10 +71,10 @@ export function lightMuiPalette(): PaletteOptions {
     },
     divider: n[300],
     action: {
-      hover: 'rgba(0, 0, 0, 0.04)',
-      selected: 'rgba(0, 0, 0, 0.08)',
-      disabled: 'rgba(0, 0, 0, 0.26)',
-      disabledBackground: 'rgba(0, 0, 0, 0.12)',
+      hover: alphaTokens.actionHoverLight,
+      selected: alphaTokens.actionSelectedLight,
+      disabled: alphaTokens.actionDisabledLight,
+      disabledBackground: alphaTokens.borderOpacityLight,
     },
   };
 }
@@ -94,37 +95,37 @@ export function darkMuiPalette(): PaletteOptions {
       main: p[200],
       light: p[100],
       dark: p[400],
-      contrastText: white,
+      contrastText: contrastText(p[200]),
     },
     secondary: {
       main: s[200],
       light: s[100],
       dark: s[250],
-      contrastText: white,
+      contrastText: contrastText(s[200]),
     },
     error: {
       main: e[200],
       light: e[100],
       dark: e[400],
-      contrastText: white,
+      contrastText: contrastText(e[200]),
     },
     warning: {
       main: w[200],
       light: w[100],
       dark: w[400],
-      contrastText: white,
+      contrastText: contrastText(w[200]),
     },
     success: {
       main: su[200],
       light: su[100],
       dark: su[400],
-      contrastText: white,
+      contrastText: contrastText(su[200]),
     },
     info: {
       main: p[200],
       light: p[100],
       dark: p[400],
-      contrastText: white,
+      contrastText: contrastText(p[200]),
     },
     background: {
       default: n[900],
@@ -137,10 +138,10 @@ export function darkMuiPalette(): PaletteOptions {
     },
     divider: n[700],
     action: {
-      hover: 'rgba(255, 255, 255, 0.08)',
-      selected: 'rgba(255, 255, 255, 0.16)',
-      disabled: 'rgba(255, 255, 255, 0.3)',
-      disabledBackground: 'rgba(255, 255, 255, 0.12)',
+      hover: alphaTokens.actionHoverDark,
+      selected: alphaTokens.actionActiveDark,
+      disabled: alphaTokens.actionDisabledDark,
+      disabledBackground: alphaTokens.borderOpacityDark,
     },
   };
 }

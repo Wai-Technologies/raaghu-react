@@ -23,7 +23,7 @@ export enum StyleType {
 
 export interface RdsCompColorPickerProps {
   value: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   label: string;
   type: ColorPickerType;
   showSwatches?: boolean;

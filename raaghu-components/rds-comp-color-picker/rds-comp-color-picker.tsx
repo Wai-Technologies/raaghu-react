@@ -21,7 +21,7 @@ interface ColorUpdate {
 }
 
 const RdsColorPicker = (props: RdsCompColorPickerProps) => {
-  const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, isDisabled, onChange } =
+  const { value, label, type, showSwatches, pickerType, showTabs, colorMode, style, disabled = false, onChange } =
     props;
   const getDefaultColorHex = useCallback(() => {
     if (value) {
@@ -144,9 +144,9 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   }, [updatePickerState]);
   
   const handleButtonClick = useCallback(() => {
-    if (isDisabled) return;
+    if (disabled) return;
     updatePickerState((prev) => ({ showPicker: !prev.showPicker }));
-  }, [isDisabled, updatePickerState]);
+  }, [disabled, updatePickerState]);
 
   const handleTabClick = useCallback((tab: "Grid" | "Spectrum") => {
     updatePickerState({ internalSelectedTab: tab });
@@ -160,7 +160,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   }, []);
 
   const handleChange = useCallback((newColor: ColorUpdate) => {
-    if (isDisabled) return;
+    if (disabled) return;
     let nextRgb = newColor.rgb ?? selectedColorState.rgb;
     let nextHex: string;
 
@@ -181,10 +181,10 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
     };
     updatePickerState({ internalColorState: next });
     if (onChange) onChange(nextHex);
-  }, [isDisabled, selectedColorState, onChange, rgbToHex, updatePickerState]);
+  }, [disabled, selectedColorState, onChange, rgbToHex, updatePickerState]);
 
   const handleHueChange = useCallback((newColor: ColorUpdate) => {
-    if (isDisabled) return;
+    if (disabled) return;
     const next = {
       ...selectedColorState,
       hex: newColor.hex,
@@ -194,12 +194,12 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
     };
     updatePickerState({ internalColorState: next });
     if (onChange) onChange(newColor.hex);
-  }, [isDisabled, selectedColorState, onChange, updatePickerState]);
+  }, [disabled, selectedColorState, onChange, updatePickerState]);
 
   const handleAlphaChange = useCallback((newColor: ColorUpdate) => {
-    if (isDisabled) return;
+    if (disabled) return;
     updatePickerState({ internalColorState: { ...selectedColorState, rgb: { ...selectedColorState.rgb, a: newColor.rgb?.a ?? selectedColorState.rgb.a } } });
-  }, [isDisabled, selectedColorState, updatePickerState]);
+  }, [disabled, selectedColorState, updatePickerState]);
 
   const getColorDisplayValue = useCallback(() => {
     return getColorDisplay(selectedColorMode, selectedColorState);
@@ -217,12 +217,12 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
 
   return (
     <Fragment>
-      <div className="rds-comp-color-picker" aria-disabled={isDisabled || undefined}>
+      <div className="rds-comp-color-picker" aria-disabled={disabled || undefined}>
         {(type === ColorPickerType.Button || type === ColorPickerType.ButtonExpanded) && (
           <RdsButton
             color="primary"
             style="filled"
-            disabled={isDisabled}
+            disabled={disabled}
             onClick={handleButtonClick}
           >
             {label || "Color Picker"}

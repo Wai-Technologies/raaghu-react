@@ -18,9 +18,9 @@ export interface RdsCompTextEditorProps {
     readOnly?: boolean;
     value?: string;
     label?: string;
-    isMandatory?: boolean;
+    isRequired?: boolean;
     labelClass?: string;
-    State?: string;
+    state?: string;
     showTitle?: boolean;
     rows?: number;
     resizable?: boolean;
@@ -55,9 +55,9 @@ const RdsCompTextEditor = ({
     readOnly,
     value,
     label,
-    isMandatory,
+    isRequired = false,
     labelClass,
-    State,
+    state,
     showTitle,
     rows,
     resizable,
@@ -123,10 +123,10 @@ const RdsCompTextEditor = ({
     const isEmpty = useMemo(() => editorState.getCurrentContent().getPlainText().trim() === "", [editorState]);
 
     const stateClass = clsx(
-        State === "Selected" && "rds-comp-text-editor--selected",
-        State === "Error" && "rds-comp-text-editor--error",
-        State === "Active" && "rds-comp-text-editor--active",
-        State === "Disabled" && "rds-comp-text-editor--disabled",
+        state === "Selected" && "rds-comp-text-editor--selected",
+        state === "Error" && "rds-comp-text-editor--error",
+        state === "Active" && "rds-comp-text-editor--active",
+        state === "Disabled" && "rds-comp-text-editor--disabled",
         isResizable && "rds-comp-text-editor--resizable"
     );
 
@@ -135,7 +135,7 @@ const RdsCompTextEditor = ({
             {showTitle && label && (
                 <Label className={clsx("rds-comp-text-editor-label", labelClass)}>
                     {label}
-                    {isMandatory && <span className="text-danger">*</span>}
+                    {isRequired && <span className="text-danger">*</span>}
                 </Label>
             )}
             <div id={id} className={clsx("rds-comp-text-editor", stateClass)}>
@@ -144,7 +144,7 @@ const RdsCompTextEditor = ({
                         key={placeholder}
                         editorState={editorState}
                         onEditorStateChange={handleEditorChange}
-                        readOnly={readOnly || State === "Disabled"}
+                        readOnly={readOnly || state === "Disabled"}
                         placeholder={placeholder}
                         ref={editorRef}
                         toolbarClassName="rds-comp-text-editor__toolbar"
@@ -155,7 +155,7 @@ const RdsCompTextEditor = ({
                     />
                 </Suspense>
             </div>
-            {isMandatory && isEmpty && isTouch && (
+            {isRequired && isEmpty && isTouch && (
                 <div className="form-control-feedback">
                     <span className="text-danger">{label} is required</span>
                 </div>

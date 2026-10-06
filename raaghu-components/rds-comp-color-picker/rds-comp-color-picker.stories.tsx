@@ -19,7 +19,7 @@ const meta: Meta = {
             control: 'select',
             options: ['Default', 'Button', 'Button-Expanded'],
         },
-        isDisabled: {
+        disabled: {
             control: 'boolean',
         },
         showSwatches: {
@@ -62,7 +62,7 @@ export const Default: Story = {
         showTabs: true,
         colorMode: ColorMode.HEX,
         style: StyleType.Type1,
-        isDisabled: false,
+        disabled: false,
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();

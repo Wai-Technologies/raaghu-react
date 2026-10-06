@@ -19,7 +19,7 @@ jest.mock('../rds-checkbox/rds-checkbox', () => {
         type="checkbox"
         data-testid={`checkbox-${props.id}`}
         checked={props.checked}
-        disabled={props.isDisabled}
+        disabled={props.disabled}
         onChange={props.onChange}
       />
     );

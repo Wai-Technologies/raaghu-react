@@ -4,8 +4,7 @@ import clsx from 'clsx';
 import './rds-checkbox.scss';
 
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
-  labeltext?: string;
-  isDisabled?: boolean;
+  label?: string;
   style?: 'square' | 'circular';
   state?: 'default' | 'disabled' | 'hover';
   status?: 'checked' | 'unchecked' | 'indeterminate';
@@ -15,9 +14,8 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'compone
 
 
 const RdsCheckbox = ({
-  labeltext,
-  isDisabled = false,
-  disabled,
+  label,
+  disabled = false,
   style = 'square',
   state = 'default',
   status,
@@ -28,7 +26,7 @@ const RdsCheckbox = ({
   onChange,
   ...props
 }:RdsCheckboxProps) => {
-  const isCheckboxDisabled = Boolean(disabled) || isDisabled || state === 'disabled';
+  const isCheckboxDisabled = disabled || state === 'disabled';
 
   const [internalChecked, setInternalChecked] = useState(status === 'checked');
   const prevStatusRef = useRef(status);
@@ -57,7 +55,7 @@ const RdsCheckbox = ({
     currentIndeterminate && 'rds-checkbox__indeterminate',
     state && state !== 'default' && `rds-checkbox__${state}`,
     color && color !== 'default' && `rds-checkbox__${color}`,
-    labeltext && !showText && 'rds-checkbox__text-hidden',
+    label && !showText && 'rds-checkbox__text-hidden',
     status && `rds-checkbox__${status}`,
     className,
   );
@@ -74,12 +72,12 @@ const RdsCheckbox = ({
     />
   );
 
-  if (labeltext) {
+  if (label) {
     return (
       <div className={checkboxClassName} style={cssStyle}>
         <FormControlLabel
           control={checkbox}
-          label={showText ? labeltext : ''}
+          label={showText ? label : ''}
           disabled={isCheckboxDisabled}
         />
       </div>

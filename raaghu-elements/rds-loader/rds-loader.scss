@@ -142,7 +142,7 @@
   margin: 0;
   box-sizing: border-box;
   background-color: var(--rds-overlay-backdrop, rgba(0, 0, 0, 0.5));
-  z-index: var(--rds-z-index-tooltip, 9999);
+  z-index: var(--rds-z-index-tooltip);
 
   .MuiTypography-root {
     color: var(--rds-neutral-0, #fff);

@@ -4,7 +4,7 @@ import type { FormHelperTextProps } from '@mui/material/FormHelperText';
 import clsx from 'clsx';
 import './rds-text-field.scss';
 
-export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required' | 'component'> {
+export interface RdsTextFieldProps extends Omit<TextFieldProps, 'component' | 'required'> {
   isRequired?: boolean;
   errorMessage?: string;
 }
@@ -46,13 +46,13 @@ const RdsTextField = ({
     <MuiTextField
       error={error || !!errorMessage}
       helperText={errorMessage || helperText}
-      required={isRequired}
       slotProps={{
         ...consumerSlotProps,
         formHelperText: formHelperTextSlotProps,
       }}
       {...fieldProps}
       {...props}
+      required={isRequired}
       className={rootClassName}
     />
   );

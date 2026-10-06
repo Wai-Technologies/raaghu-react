@@ -42,28 +42,28 @@ const RdsDatepicker = ({
     ...legacyProps
 }: RdsCompDatepickerProps) => {
     const legacyShowTitle = typeof legacyProps['showTitle'] === 'boolean' ? (legacyProps['showTitle'] as boolean) : undefined;
-    const legacyIsDisabled = typeof legacyProps['isDisabled'] === 'boolean' ? (legacyProps['isDisabled'] as boolean) : undefined;
-    const legacyIsMandatory = typeof legacyProps['isMandatory'] === 'boolean' ? (legacyProps['isMandatory'] as boolean) : undefined;
+    const legacyDisabled = typeof legacyProps['disabled'] === 'boolean' ? legacyProps['disabled'] : undefined;
+    const legacyIsRequired = typeof legacyProps['isRequired'] === 'boolean' ? legacyProps['isRequired'] : undefined;
     const legacyShowClearDate = typeof legacyProps['showClearDate'] === 'boolean' ? (legacyProps['showClearDate'] as boolean) : undefined;
     const legacyIsDefaultDate = typeof legacyProps['isDefaultDate'] === 'boolean' ? (legacyProps['isDefaultDate'] as boolean) : undefined;
 
     const showTitle = controls?.title ? controls.title === 'visible' : (legacyShowTitle ?? false);
-    const isDisabled = controls?.disabled ? controls.disabled === 'on' : (legacyIsDisabled ?? false);
-    const isMandatory = controls?.mandatory ? controls.mandatory === 'required' : (legacyIsMandatory ?? false);
+    const disabled = controls?.disabled ? controls.disabled === 'on' : (legacyDisabled ?? false);
+    const isRequired = controls?.mandatory ? controls.mandatory === 'required' : (legacyIsRequired ?? false);
     const showClearDate = controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false);
     const isDefaultDate = controls?.defaultDate ? controls.defaultDate === 'on' : (legacyIsDefaultDate ?? false);
 
     const {
         showTitle: _legacyShowTitle,
-        isDisabled: _legacyIsDisabled,
-        isMandatory: _legacyIsMandatory,
+        disabled: _legacyDisabled,
+        isRequired: _legacyIsRequired,
         showClearDate: _legacyShowClearDate,
         isDefaultDate: _legacyIsDefaultDate,
         ...restProps
     } = legacyProps as typeof legacyProps & {
         showTitle?: boolean;
-        isDisabled?: boolean;
-        isMandatory?: boolean;
+        disabled?: boolean;
+        isRequired?: boolean;
         showClearDate?: boolean;
         isDefaultDate?: boolean;
     };
@@ -146,13 +146,13 @@ const RdsDatepicker = ({
     }, [selectedDate, onDatePicker, updatePickerState]); 
     
     const toggleDropdown = useCallback(() => {
-        if (!isDisabled) {
+        if (!disabled) {
             updatePickerState((prev) => ({ isDropdownOpen: !prev.isDropdownOpen }));
         }
-    }, [isDisabled, updatePickerState]); 
+    }, [disabled, updatePickerState]); 
     
     const clearDate = useCallback(() => {
-        if (!isDisabled) {
+        if (!disabled) {
             updatePickerState({ startDate: null, endDate: null, dropdownDisplayValue: "" });
             if (typeof selectedDate === 'function') {
                 selectedDate(null);
@@ -164,7 +164,7 @@ const RdsDatepicker = ({
                 customDate([null, null]);
             }
         }
-    }, [isDisabled, selectedDate, onDatePicker, customDate, updatePickerState]);
+    }, [disabled, selectedDate, onDatePicker, customDate, updatePickerState]);
 
     const yesterdayClickHandler = useCallback(() => {
         updatePickerState({ activeList: "yesterday" });
@@ -256,8 +256,8 @@ const RdsDatepicker = ({
             state,
             layout,
             customDate,
-            isDisabled,
-            isMandatory,
+            disabled,
+            isRequired,
             placeholderText,
             type,
             changeIcon,
@@ -268,7 +268,7 @@ const RdsDatepicker = ({
         }),
         [
             restProps, selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, state, layout,
-            customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, showClearDate, isDefaultDate, clearDate,
+            customDate, disabled, isRequired, placeholderText, type, changeIcon, showClearDate, isDefaultDate, clearDate,
         ]
     );
 
@@ -279,7 +279,7 @@ const RdsDatepicker = ({
                 aria-hidden={!showTitle}
             >
                 {showTitle && titleText ? titleText : '\u00A0'}
-                {showTitle && isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
+                {showTitle && isRequired && <span className="rds-datepicker__mandatory-indicator"> *</span>}
             </label>
             {showState && renderDatePickerStateView(
                 state || DatePickerState.Default,

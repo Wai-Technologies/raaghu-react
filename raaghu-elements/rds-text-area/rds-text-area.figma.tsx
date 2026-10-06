@@ -22,6 +22,6 @@ figma.connect(
         "Bottom Outline" : TextareaStyle.BottomOutline
       }),
     },
-    example: (props) => <RdsTextArea {...props} isMandatory placeholder = "Enter Description" />,
+    example: (props) => <RdsTextArea {...props} required placeholder = "Enter Description" />,
   },
 )

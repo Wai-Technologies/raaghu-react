@@ -30,6 +30,7 @@ import {
   spacingExact,
   syntaxTokens,
 } from './design-tokens';
+import { contrastText } from './contrast';
 
 export type RdsThemeMode = 'light' | 'dark';
 
@@ -99,8 +100,8 @@ function sharedCssVars(): Record<string, string> {
     '--rds-z-index-base': String(zIndexTokens.base),
     '--rds-z-index-docked': String(zIndexTokens.docked),
     '--rds-z-index-raised': String(zIndexTokens.docked),   // alias: same as docked (10)
-    '--rds-z-index-layer-1': '1',
-    '--rds-z-index-layer-2': '2',
+    '--rds-z-index-layer-1': String(zIndexTokens.layer1),
+    '--rds-z-index-layer-2': String(zIndexTokens.above),
     '--rds-z-index-above': String(zIndexTokens.above),
     '--rds-z-index-layer-3': '3',
     '--rds-z-index-local-15': '15',
@@ -1031,7 +1032,8 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-primary-main': p[700],
     '--rds-primary-light': p[100],
     '--rds-primary-dark': p[600],
-    '--rds-primary-contrast-text': white,
+    '--rds-color-focus': p[800],
+    '--rds-primary-contrast-text': contrastText(p[700]),
     // ── Surface primary ──────────────────────────────────────────────────────
     '--rds-surface-primary-darker': p[800],
     '--rds-surface-primary-dark': p[700],
@@ -1048,17 +1050,17 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-secondary-main': s[700],
     '--rds-secondary-light': s[100],
     '--rds-secondary-dark': s[600],
-    '--rds-secondary-contrast-text': white,
+    '--rds-secondary-contrast-text': contrastText(s[700]),
     // ── Tertiary ─────────────────────────────────────────────────────────────
     '--rds-tertiary-main': t[500],
     '--rds-tertiary-light': t[100],
     '--rds-tertiary-dark': t[600],
-    '--rds-tertiary-contrast-text': white,
+    '--rds-tertiary-contrast-text': contrastText(t[500]),
     // ── Neutral scale ────────────────────────────────────────────────────────
     '--rds-neutral-main': n[700],
     '--rds-neutral-light': n[100],
     '--rds-neutral-dark': n[600],
-    '--rds-neutral-contrast-text': white,
+    '--rds-neutral-contrast-text': contrastText(n[700]),
     '--rds-neutral-0': white,
     '--rds-neutral-50': n[50],
     '--rds-neutral-100': n[100],
@@ -1080,19 +1082,19 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-error-main': e[700],
     '--rds-error-light': e[100],
     '--rds-error-dark': e[600],
-    '--rds-error-contrast-text': white,
+    '--rds-error-contrast-text': contrastText(e[700]),
     '--rds-warning-main': w[700],
     '--rds-warning-light': w[100],
     '--rds-warning-dark': w[600],
-    '--rds-warning-contrast-text': white,
+    '--rds-warning-contrast-text': contrastText(w[700]),
     '--rds-success-main': su[700],
     '--rds-success-light': su[100],
     '--rds-success-dark': su[600],
-    '--rds-success-contrast-text': white,
+    '--rds-success-contrast-text': contrastText(su[700]),
     '--rds-info-main': i[400],
     '--rds-info-light': i[50],
     '--rds-info-dark': i[600],
-    '--rds-info-contrast-text': white,
+    '--rds-info-contrast-text': contrastText(i[400]),
     // ── Background ───────────────────────────────────────────────────────────
     '--rds-background-default': n[50],
     '--rds-background-paper': white,
@@ -1107,18 +1109,18 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-border-default': n[300],
     '--rds-border-light': n[200],
     '--rds-border-dark': n[400],
-    '--rds-border-focus': 'var(--rds-primary-main)',
+    '--rds-border-focus': 'var(--rds-color-focus)',
     // ── Divider (alias for the most common border use-case in layouts) ────────
     '--rds-divider': n[200],
     '--rds-button-primary-bg': p[700],
     '--rds-button-primary-bg-hover': p[750],
     '--rds-button-primary-bg-active': p[800],
     '--rds-button-primary-bg-disabled': p[100],
-    '--rds-button-primary-text': white,
+    '--rds-button-primary-text': contrastText(p[700]),
     '--rds-button-primary-text-disabled': p[300],
     // ── App bar tokens (light theme)
     '--rds-appbar-bg': p[700],
-    '--rds-appbar-color': white,
+    '--rds-appbar-color': contrastText(p[700]),
     '--rds-appbar-shadow': 'var(--rds-elevation-1)',
     '--rds-appbar-separator-bg': 'var(--rds-border-light)',
     '--rds-appbar-secondary-bg': s[700],
@@ -1193,7 +1195,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-tooltip-text': white,
     '--rds-tooltip-border': n[900],
     // ── Focus ring ───────────────────────────────────────────────────────────
-    '--rds-focus-ring': '2px solid var(--rds-primary-main)',
+    '--rds-focus-ring': '2px solid var(--rds-color-focus)',
     // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-hover-bg': 'var(--rds-action-hover)',
     '--rds-color-disabled-bg': 'var(--rds-neutral-50)',
@@ -1287,7 +1289,10 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-primary-main': p[200],
     '--rds-primary-light': p[100],
     '--rds-primary-dark': p[400],
-    '--rds-primary-contrast-text': n[900],
+    '--rds-color-focus': p[250],
+    '--rds-border-focus': 'var(--rds-color-focus)',
+    '--rds-focus-ring': '2px solid var(--rds-color-focus)',
+    '--rds-primary-contrast-text': contrastText(p[200]),
     // ── Surface primary ──────────────────────────────────────────────────────
     '--rds-surface-primary-darker': p[200],
     '--rds-surface-primary-dark': p[400],
@@ -1304,7 +1309,7 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-secondary-main': s[200],
     '--rds-secondary-light': s[100],
     '--rds-secondary-dark': s[400],
-    '--rds-secondary-contrast-text': n[900],
+    '--rds-secondary-contrast-text': contrastText(s[200]),
     // ── Tertiary ─────────────────────────────────────────────────────────────
     '--rds-tertiary-main': t[200],
     '--rds-tertiary-light': t[100],
@@ -1347,7 +1352,7 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-button-primary-bg-hover': p[250],
     '--rds-button-primary-bg-active': p[400],
     '--rds-button-primary-bg-disabled': n[700],
-    '--rds-button-primary-text': n[900],
+    '--rds-button-primary-text': contrastText(p[200]),
     '--rds-button-primary-text-disabled': n[600],
     // ── Button secondary / outlined (dark) ───────────────────────────────────
     '--rds-button-secondary-bg': 'transparent',

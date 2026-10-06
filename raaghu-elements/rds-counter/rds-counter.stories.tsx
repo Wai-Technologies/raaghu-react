@@ -48,7 +48,7 @@ const meta: Meta<typeof RdsCounter> = {
       control: false,
     },
     showTitle: { control: 'boolean', },
-    isMandatory: { control: 'boolean', description: 'Show required indicator on label.' },
+    isRequired: { control: 'boolean', description: 'Show required indicator on label.' },
     state: {
       control: 'select',
       options: ['default', 'selected', 'disabled'],
@@ -80,7 +80,7 @@ export const Default: Story = {
     showInput: true,
     step: 1,
     showTitle: true,
-    isMandatory: false,
+    isRequired: false,
     placeholder: '00',
   },
   render: (args) => <RdsCounter {...args} />,
@@ -249,7 +249,7 @@ export const Interactive: Story = {
   },
   parameters: {
     controls: {
-      exclude: ['titleText', 'showTitle', 'isMandatory'],
+      exclude: ['titleText', 'showTitle', 'isRequired'],
     },
   },
   render: (args) => {

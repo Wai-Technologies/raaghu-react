@@ -15,12 +15,12 @@ function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): s
   }
 }
 
-export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component'> {
+export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component' | 'required'> {
   label?: string;
   placeholder?: string;
   hintText?: string;
   errorMessage?: string;
-  isMandatory?: boolean;
+  isRequired?: boolean;
   variant?: 'outlined' | 'filled' | 'standard';
   size?: 'small' | 'medium' | 'large';
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
@@ -37,7 +37,7 @@ const RdsInput = ({
   placeholder,
   hintText,
   errorMessage,
-  isMandatory = false,
+  isRequired = false,
   variant = 'outlined',
   size = 'small',
   layout = 'text',
@@ -254,7 +254,7 @@ const RdsInput = ({
       {titlePosition === 'title-above' && label && (
         <label className="rds-input__label">
           {label}
-          {isMandatory === true && (<span className="rds-input__asterisk">*</span>)}
+          {isRequired && (<span className="rds-input__asterisk">*</span>)}
         </label>
       )}
       <MuiTextField
@@ -263,7 +263,6 @@ const RdsInput = ({
         helperText={errorMessage || hintText}
         error={!!errorMessage || error || state === 'error'}
         disabled={disabled || state === 'disabled'}
-        required={isMandatory}
         variant={variant}
         size={size === 'large' ? 'medium' : size}
         type={inputType}
@@ -282,6 +281,7 @@ const RdsInput = ({
           },
         }}
         {...props}
+        required={isRequired}
       />
     </div>
   );

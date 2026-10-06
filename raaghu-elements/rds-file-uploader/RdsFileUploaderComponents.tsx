@@ -45,7 +45,7 @@ interface RdsFileListProps {
 interface UseFileUploaderProps {
   maxSize: number;
   maxFiles: number;
-  isMandatory: boolean;
+  isRequired: boolean;
   onFilesChange?: (files: FileWithProgress[]) => void;
   onUpload?: (files: File[]) => Promise<void>;
 }
@@ -68,7 +68,7 @@ function validateFile(file: File, maxSize: number): string | null {
 export const useFileUploader = ({
   maxSize,
   maxFiles,
-  isMandatory,
+  isRequired,
   onFilesChange,
   onUpload,
 }: UseFileUploaderProps) => {
@@ -91,7 +91,7 @@ export const useFileUploader = ({
     const updatedFiles = [...files, ...validFiles];
     setFiles(updatedFiles);
     onFilesChange?.(updatedFiles);
-    setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
+    setMandatoryError(isRequired && updatedFiles.length === 0 ? 'File is required.' : null);
 
     if (updatedFiles.length > 0) {
       const names = updatedFiles.map(fwp => fwp.file.name).join(', ');
@@ -105,7 +105,7 @@ export const useFileUploader = ({
     const updatedFiles = files.filter((_, i) => i !== index);
     setFiles(updatedFiles);
     onFilesChange?.(updatedFiles);
-    setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
+    setMandatoryError(isRequired && updatedFiles.length === 0 ? 'File is required.' : null);
 
     if (updatedFiles.length === 0) {
       setSelectedFileName(null);

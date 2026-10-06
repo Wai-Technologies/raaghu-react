@@ -6,7 +6,7 @@ import { type FileWithProgress } from './rds-file-uploader';
 interface RdsFileUploaderStandardViewProps {
   viewConfig: {
     showTitle: boolean;
-    isMandatory: boolean;
+    isRequired: boolean;
     showHint: boolean;
     showPreview: boolean;
   };
@@ -42,7 +42,7 @@ const RdsFileUploaderStandardView = ({
   children,
   title
 }: RdsFileUploaderStandardViewProps) => {
-  const { showTitle, isMandatory, showHint, showPreview } = viewConfig;
+  const { showTitle, isRequired, showHint, showPreview } = viewConfig;
   const { disabled, dragAndDrop, isDragOver, multiple } = interactionConfig;
 
   return (
@@ -50,7 +50,7 @@ const RdsFileUploaderStandardView = ({
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
           <Typography className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
-            {title || 'File'}{isMandatory && <span className="rds-file-uploader__mandatory">*</span>}
+            {title || 'File'}{isRequired && <span className="rds-file-uploader__mandatory">*</span>}
           </Typography>
         </Box>
       )}
@@ -128,7 +128,7 @@ const RdsFileUploaderStandardView = ({
         </Typography>
       </Box>
 
-      {isMandatory && mandatoryError && (
+      {isRequired && mandatoryError && (
         <Typography variant="caption" color="error" sx={{ mt: 1 }}>
           {mandatoryError}
         </Typography>

@@ -39,7 +39,7 @@ const buildDatePickerProps = ({
     onChange,
     customInput,
     wrapperClassName: "rds-datepicker__wrapper",
-    disabled: props.isDisabled,
+    disabled: props.disabled,
     placeholderText: props.placeholderText || "Select date",
     showMonthYearPicker: props.layout === "Month Picker",
     showYearPicker: props.layout === "Year Picker",
@@ -84,7 +84,7 @@ export const renderDatePickerStateView = (
             customInput: (
                 <CustomInputWithClear
                     placeholder={props.placeholderText || "Select date"}
-                    isDisabled={props.isDisabled}
+                    disabled={props.disabled}
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
@@ -106,7 +106,7 @@ export const renderDatePickerStateView = (
             customInput: (
                 <CustomInputWithClear
                     placeholder={props.placeholderText || "Select date"}
-                    isDisabled={props.isDisabled}
+                    disabled={props.disabled}
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
@@ -133,7 +133,7 @@ export const renderDatePickerStateView = (
             customInput: (
                 <CustomInputWithClear
                     placeholder={props.placeholderText || "Select date"}
-                    isDisabled={props.isDisabled}
+                    disabled={props.disabled}
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
@@ -189,7 +189,7 @@ export const renderDatePickerTypeView = (
             customInput: (
                 <CustomInputWithClear
                     placeholder={props.placeholderText || "Select date"}
-                    isDisabled={props.isDisabled}
+                    disabled={props.disabled}
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
@@ -216,7 +216,7 @@ export const renderDatePickerTypeView = (
             customInput: (
                 <CustomInputWithClear
                     placeholder={props.placeholderText || "Select date"}
-                    isDisabled={props.isDisabled}
+                    disabled={props.disabled}
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
@@ -264,7 +264,7 @@ export const renderDatePickerTypeView = (
                             ]}
                             popperContainer={({ children }: { children: React.ReactNode }) => <div>{children}</div>}
                             popperClassName="rds-datepicker__popper"
-                            disabled={props.isDisabled}
+                            disabled={props.disabled}
                             placeholderText={props.placeholderText || "Select date"}
                             showMonthYearPicker={props.layout === "Month Picker"}
                             showYearPicker={props.layout === "Year Picker"}

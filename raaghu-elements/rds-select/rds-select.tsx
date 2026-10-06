@@ -17,7 +17,7 @@ export interface RdsSelectOption {
   disabled?: boolean;
 }
 
-export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
+export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component' | 'required'> {
   label?: string;
   placeholder?: string;
   options: RdsSelectOption[];
@@ -25,7 +25,7 @@ export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'componen
   errorMessage?: string;
   isRequired?: boolean;
   inputPlaceholder?: string;
-  labelposition?: boolean;
+  labelPosition?: boolean;
   size?: 'small' | 'medium';
   className?: string;
 }
@@ -39,7 +39,7 @@ const RdsSelect = ({
   isRequired = false,
   error,
   inputPlaceholder,
-  labelposition = true,
+  labelPosition = true,
   size = 'small',
   className,
   ...props
@@ -51,17 +51,18 @@ const RdsSelect = ({
     <div className={clsx('rds-select', hasError && 'rds-select--error', className)}>
       <FormControl 
         fullWidth 
-        error={hasError} 
+        error={hasError}
+        required={isRequired}
         size={size}
         className="rds-select__form-control"
       >
-        {!labelposition && label && (
+        {!labelPosition && label && (
           <label className="rds-select__label">
             {label}
             {isRequired && <span className="rds-select__asterisk">*</span>}
           </label>
         )}
-        {labelposition && label && (
+        {labelPosition && label && (
           <InputLabel 
             id={labelId} 
             required={isRequired}
@@ -71,13 +72,13 @@ const RdsSelect = ({
           </InputLabel>
         )}
         <MuiSelect
-          labelId={labelposition && label ? labelId : undefined}
-          label={labelposition ? label : undefined}
+          labelId={labelPosition && label ? labelId : undefined}
+          label={labelPosition ? label : undefined}
           IconComponent={KeyboardArrowDownIcon}
           className="rds-select__field"
-          {...(!labelposition && { displayEmpty: !!placeholder || !!inputPlaceholder })}
+          {...(!labelPosition && { displayEmpty: !!placeholder || !!inputPlaceholder })}
           renderValue={
-            !labelposition
+            !labelPosition
               ? (selected) => {
                   const value = Array.isArray(selected) ? selected[0] : selected;
                   if (value === undefined || value === null || value === "") {

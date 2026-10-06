@@ -48,8 +48,8 @@ describe('RdsTextArea', () => {
       expect(labels.length).toBe(0);
     });
 
-    it('should show mandatory asterisk when isMandatory is true', () => {
-      render(<RdsTextArea label="Required Field" isMandatory={true} />);
+    it('should show mandatory asterisk when isRequired is true', () => {
+      render(<RdsTextArea label="Required Field" isRequired={true} />);
       expect(screen.getByText('*')).toBeInTheDocument();
     });
   });
@@ -208,25 +208,25 @@ describe('RdsTextArea', () => {
 
   describe('Mandatory Field Validation', () => {
     it('should not show error for mandatory field with value', () => {
-      render(<RdsTextArea isMandatory={true} value="some text" dataTestId="test-textarea" />);
+      render(<RdsTextArea isRequired={true} value="some text" dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).not.toHaveAttribute('aria-invalid', 'true');
     });
 
     it('should show error for mandatory field without value', () => {
-      render(<RdsTextArea isMandatory={true} value="" dataTestId="test-textarea" />);
+      render(<RdsTextArea isRequired={true} value="" dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
 
     it('should show error message for mandatory field', () => {
-      render(<RdsTextArea isMandatory={true} label="Required Field" value="" dataTestId="test-textarea" />);
+      render(<RdsTextArea isRequired={true} label="Required Field" value="" dataTestId="test-textarea" />);
       expect(screen.getByText('Required Field is required')).toBeInTheDocument();
     });
 
     it('should validate mandatory field on blur', async () => {
       const { container } = render(
-        <RdsTextArea isMandatory={true} label="Required Field" dataTestId="test-textarea" />
+        <RdsTextArea isRequired={true} label="Required Field" dataTestId="test-textarea" />
       );
       const textarea = screen.getByTestId('test-textarea');
       
@@ -240,18 +240,18 @@ describe('RdsTextArea', () => {
 
     it('should clear error when mandatory field gets a value', async () => {
       const { rerender } = render(
-        <RdsTextArea isMandatory={true} label="Required Field" value="" dataTestId="test-textarea" />
+        <RdsTextArea isRequired={true} label="Required Field" value="" dataTestId="test-textarea" />
       );
       expect(screen.getByText('Required Field is required')).toBeInTheDocument();
       
       rerender(
-        <RdsTextArea isMandatory={true} label="Required Field" value="some text" dataTestId="test-textarea" />
+        <RdsTextArea isRequired={true} label="Required Field" value="some text" dataTestId="test-textarea" />
       );
       expect(screen.queryByText('Required Field is required')).not.toBeInTheDocument();
     });
 
     it('should consider whitespace-only value as invalid', () => {
-      render(<RdsTextArea isMandatory={true} value="   " dataTestId="test-textarea" />);
+      render(<RdsTextArea isRequired={true} value="   " dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
@@ -346,7 +346,7 @@ describe('RdsTextArea', () => {
     it('should clear validation on reset', () => {
       const { rerender } = render(
         <RdsTextArea 
-          isMandatory={true} 
+          isRequired={true} 
           value="" 
           reset={false}
           dataTestId="test-textarea"
@@ -357,7 +357,7 @@ describe('RdsTextArea', () => {
       
       rerender(
         <RdsTextArea 
-          isMandatory={true} 
+          isRequired={true} 
           value="" 
           reset={true}
           dataTestId="test-textarea"
@@ -463,10 +463,10 @@ describe('RdsTextArea', () => {
       expect(results).toHaveNoViolations();
     });
 
-    it('should have aria-required when isMandatory', () => {
+    it('should have aria-required when isRequired', () => {
       render(
         <RdsTextArea 
-          isMandatory={true} 
+          isRequired={true} 
           dataTestId="test-textarea"
         />
       );
@@ -477,7 +477,7 @@ describe('RdsTextArea', () => {
     it('should not have aria-required when not mandatory', () => {
       render(
         <RdsTextArea 
-          isMandatory={false} 
+          isRequired={false} 
           dataTestId="test-textarea"
         />
       );
@@ -488,7 +488,7 @@ describe('RdsTextArea', () => {
     it('should have aria-describedby when error', () => {
       render(
         <RdsTextArea 
-          isMandatory={true}
+          isRequired={true}
           value=""
           dataTestId="test-textarea"
         />
@@ -638,7 +638,7 @@ describe('RdsTextArea', () => {
           state={TextareaState.Default}
           style={TextareaStyle.Pill}
           rows={6}
-          isMandatory={true}
+          isRequired={true}
           validationPattern={/^[\w.-]+@[\w.-]+\.\w+$/}
           validationMsg="Please enter a valid email"
           onChange={onChange}

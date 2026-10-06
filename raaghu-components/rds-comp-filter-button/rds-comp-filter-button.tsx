@@ -264,7 +264,7 @@ const RdsCompFilterButton = ({
                       <RdsCheckbox
                         key={value}
                         className="rds-filter-button__option"
-                        labeltext={value}
+                        label={value}
                         showText
                         color="primary"
                         size="small"

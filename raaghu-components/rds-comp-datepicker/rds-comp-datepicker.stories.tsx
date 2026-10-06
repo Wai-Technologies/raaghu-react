@@ -62,7 +62,7 @@ export const Default: Story = {
         type: "Custom",
         showTitle: true,
         titleText: "Date",
-        isMandatory : true,
+        required : true,
         placeholderText: "Select Date",
         changeIcon: "calendar",
         datePickerStyleType: DatePickerStyleType.Selector,
@@ -73,6 +73,6 @@ export const Default: Story = {
         await expect(input).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','title','isMandatory','placeholderText','datePickerStyleType'] } };
+Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','title','isRequired','placeholderText','datePickerStyleType'] } };
 
 

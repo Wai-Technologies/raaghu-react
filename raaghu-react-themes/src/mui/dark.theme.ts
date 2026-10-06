@@ -4,8 +4,8 @@ import { designSystemComponentOverrides } from './overrides';
 import { darkMuiPalette } from './palette';
 
 /**
- * Dark MUI theme — palette uses resolved hex from design-tokens.ts (required for MUI color math).
- * Runtime --rds-* CSS vars are injected separately for RDS SCSS via injectTokens().
+ * Base dark MUI theme. Same rules as light.theme.ts: rebrand through
+ * RaaghuThemeProvider brandOverrides, not by editing this file.
  */
 export const darkTheme = createTheme({
   breakpoints: {
@@ -22,7 +22,7 @@ export const darkTheme = createTheme({
 
   typography: {
     fontFamily: typographyTokens.fontFamily.primary,
-    fontSize: 14,
+    fontSize: typographyTokens.htmlFontSize,
     h1: { fontSize: typographyTokens.fontSize['5xl'], fontWeight: typographyTokens.fontWeight.bold, lineHeight: typographyTokens.lineHeight.tight },
     h2: { fontSize: typographyTokens.fontSize['4xl'], fontWeight: typographyTokens.fontWeight.bold, lineHeight: typographyTokens.lineHeight.tight },
     h3: { fontSize: typographyTokens.fontSize['3xl'], fontWeight: typographyTokens.fontWeight.semibold, lineHeight: typographyTokens.lineHeight.snug },

@@ -73,16 +73,16 @@ describe('RdsInput', () => {
 
     it('should show asterisk for mandatory field', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Required Field" titlePosition="title-above" isMandatory={true} />
+        <RdsInput label="Required Field" titlePosition="title-above" isRequired={true} />
       );
       const asterisk = container.querySelector('.rds-input__asterisk');
       expect(asterisk).toBeInTheDocument();
       expect(asterisk).toHaveTextContent('*');
     });
 
-    it('should not show asterisk when isMandatory is false', () => {
+    it('should not show asterisk when isRequired is false', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Optional Field" titlePosition="title-above" isMandatory={false} />
+        <RdsInput label="Optional Field" titlePosition="title-above" isRequired={false} />
       );
       const asterisk = container.querySelector('.rds-input__asterisk');
       expect(asterisk).not.toBeInTheDocument();
@@ -518,17 +518,17 @@ describe('RdsInput', () => {
   });
 
   describe('Required Field', () => {
-    it('should set required attribute when isMandatory is true', () => {
+    it('should set required attribute when isRequired is true', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Required" isMandatory={true} />
+        <RdsInput label="Required" isRequired={true} />
       );
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input?.required).toBe(true);
     });
 
-    it('should not set required attribute when isMandatory is false', () => {
+    it('should not set required attribute when isRequired is false', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Optional" isMandatory={false} />
+        <RdsInput label="Optional" isRequired={false} />
       );
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input?.required).toBe(false);
@@ -578,7 +578,7 @@ describe('RdsInput', () => {
         <RdsInput
           label="Complex Input"
           titlePosition="title-above"
-          isMandatory={true}
+          isRequired={true}
           layout="text"
           size="medium"
           style="pill"

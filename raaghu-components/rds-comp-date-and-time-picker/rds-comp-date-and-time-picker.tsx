@@ -64,8 +64,8 @@ export interface RdsCompDatePickerProps {
   changeIcon?: 'dashboard-settings' | 'date-picker';
   style?: 'default' | 'custom';
   type?: 'dropdown' | 'selector';
-  showSeconds?: boolean; // New prop to control seconds display
-  isRequired?: boolean; // New prop to show required indicator
+  showSeconds?: boolean;
+  isRequired?: boolean;
 }
 
 interface DateRangePreset {
@@ -955,9 +955,9 @@ export function DatePickerDemo() {
         </Typography>
 
         <Stack spacing={3}>
-          {demos.map(({ label, variant, layout, valueKey, style, showSeconds, isRequired }) => (
+          {demos.map(({ label, variant, layout, valueKey, style, showSeconds, isRequired: demoRequired }) => (
             <Box
-              key={`${valueKey}-${style || 'default'}-${showSeconds || 'default'}-${isRequired || 'false'}`}
+              key={`${valueKey}-${style || 'default'}-${showSeconds || 'default'}-${demoRequired || 'false'}`}
               className="rds-date-picker__demo-item"
             >
               <Typography variant="subtitle2" component="p" className="rds-date-picker__demo-label">
@@ -970,8 +970,8 @@ export function DatePickerDemo() {
                 onChange={handleChange(valueKey)}
                 style={style}
                 showSeconds={showSeconds}
-                isRequired={isRequired}
-                label={isRequired ? 'Required Field' : 'Optional Field'}
+                isRequired={demoRequired}
+                label={demoRequired ? 'Required Field' : 'Optional Field'}
               />
             </Box>
           ))}

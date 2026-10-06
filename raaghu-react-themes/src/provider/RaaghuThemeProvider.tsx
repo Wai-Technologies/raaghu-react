@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState, type ReactNode } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { darkTheme } from '../mui/dark.theme';
-import { lightTheme } from '../mui/light.theme';
+import { createRaaghuMuiTheme } from '../mui/createRaaghuMuiTheme';
 import {
   applyRaaghuTheme,
   getRaaghuThemeMode,
@@ -23,11 +22,12 @@ export interface RaaghuThemeProviderProps {
   initializeOnMount?: boolean;
   onModeChange?: (mode: RaaghuThemeMode) => void;
   /**
-   * Optional white-label / brand overrides applied on top of the base token set.
-   * Keys must be valid `--rds-*` CSS variable names.
+   * White-label overrides. Keys are `--rds-*` CSS variables.
+   * Concrete colors (`#hex`, `rgb()`, `hsl()`) also update the MUI theme.
+   * Every key updates SCSS. `var(--...)` values stay on the CSS side only.
    *
    * @example
-   * <RaaghuThemeProvider brandOverrides={{ '--rds-primary-main': '#FF6600' }}>
+   * <RaaghuThemeProvider brandOverrides={{ '--rds-primary-main': '#0B3D91' }}>
    *   <App />
    * </RaaghuThemeProvider>
    */
@@ -86,7 +86,10 @@ export function RaaghuThemeProvider({
   }, []);
 
   const effectiveMode = mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : resolveEffectiveMode(mode);
-  const muiTheme = effectiveMode === 'dark' ? darkTheme : lightTheme;
+  const muiTheme = useMemo(
+    () => createRaaghuMuiTheme(effectiveMode, brandOverrides),
+    [effectiveMode, brandOverrides],
+  );
 
   const setMode = useCallback(
     (next: RaaghuThemeMode) => {
@@ -109,12 +112,12 @@ export function RaaghuThemeProvider({
   };
 
   return (
-    <RaaghuThemeContext.Provider value={contextValue}>
+    <RaaghuThemeContext value={contextValue}>
       <ThemeProvider theme={muiTheme}>
         <CssBaseline />
         {children}
       </ThemeProvider>
-    </RaaghuThemeContext.Provider>
+    </RaaghuThemeContext>
   );
 }
 

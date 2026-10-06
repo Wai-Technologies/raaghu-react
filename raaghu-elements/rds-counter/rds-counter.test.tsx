@@ -319,18 +319,18 @@ describe('RdsCounter', () => {
       expect(container.querySelector('.rds-counter--selected')).toBeInTheDocument();
     });
 
-    it('should show mandatory indicator when isMandatory is true', () => {
+    it('should show mandatory indicator when isRequired is true', () => {
       const { container } = render(
-        <RdsCounter titleText="Items" isMandatory={true} showTitle={true} />
+        <RdsCounter titleText="Items" isRequired={true} showTitle={true} />
       );
       const mandatory = container.querySelector('.rds-counter__mandatory');
       expect(mandatory).toBeInTheDocument();
       expect(mandatory).toHaveStyle('visibility: visible');
     });
 
-    it('should hide mandatory indicator when isMandatory is false', () => {
+    it('should hide mandatory indicator when isRequired is false', () => {
       const { container } = render(
-        <RdsCounter titleText="Items" isMandatory={false} showTitle={true} />
+        <RdsCounter titleText="Items" isRequired={false} showTitle={true} />
       );
       const mandatory = container.querySelector('.rds-counter__mandatory');
       expect(mandatory).toHaveStyle('visibility: hidden');

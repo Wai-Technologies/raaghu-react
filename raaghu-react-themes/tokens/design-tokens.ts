@@ -1,6 +1,20 @@
 /**
- * Design Tokens for Raaghu Design System
- * These tokens define the foundation of the design system
+ * Design tokens — the only place to add a color, space, type size, radius, or shadow.
+ *
+ * Adding a token:
+ * 1. Add it here.
+ * 2. Emit a `--rds-*` variable in `build-rds-css-vars.ts`.
+ * 3. Use that variable in component SCSS. Do not paste a hex or a one-off px value.
+ *
+ * New components use `spacingTokens` and `typographyTokens`. `spacingExact` exists
+ * for legacy layouts; do not add new keys to it.
+ *
+ * A product overrides the brand without editing these files:
+ * `<RaaghuThemeProvider brandOverrides={{ '--rds-primary-main': '#0B3D91' }}>`.
+ * That updates both CSS variables and the MUI theme.
+ *
+ * Package direction: elements do not import components. Components may use elements.
+ * Layouts compose both. Pages compose layouts.
  */
 
 // Color Tokens
@@ -180,6 +194,8 @@ export const extendedBreakpointTokens = {
 
 // Typography Tokens
 export const typographyTokens = {
+  /** MUI `theme.typography.fontSize` (px). Matches `fontSize.sm` (0.875rem) at a 16px root. */
+  htmlFontSize: 14,
   fontFamily: {
     primary: '"Poppins", sans-serif',
     secondary: '"Poppins", sans-serif',
@@ -391,6 +407,8 @@ export const zIndexTokens = {
   hide: -1,
   auto: 'auto',
   base: 0,
+  /** Component-local stacking. Emitted as `--rds-z-index-layer-1`. */
+  layer1: 1,
   docked: 10,
   above: 2,
   dropdown: 1000,
@@ -929,6 +947,8 @@ export const alphaTokens = {
   // ── Light-theme action states ─────────────────────────────────────────────
   /** Hover state background (light) */
   actionHoverLight: 'rgba(0, 0, 0, 0.04)',
+  /** Selected state background (light). MUI `action.selected`. */
+  actionSelectedLight: 'rgba(0, 0, 0, 0.08)',
   /** Active state (light) */
   actionActiveLight: 'rgba(0, 0, 0, 0.54)',
   /** Disabled state (light) */

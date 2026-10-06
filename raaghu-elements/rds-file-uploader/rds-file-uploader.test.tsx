@@ -119,13 +119,13 @@ describe('RdsFileUploader', () => {
       expect(screen.queryByText('Upload Your Documents')).not.toBeInTheDocument();
     });
 
-    it('should show mandatory indicator when isMandatory is true', () => {
+    it('should show mandatory indicator when isRequired is true', () => {
       const { container } = render(
         <RdsFileUploader
           {...defaultProps}
           showTitle={true}
           mode="default"
-          isMandatory={true}
+          isRequired={true}
         />
       );
       const titleElement = container.querySelector('.rds-file-uploader__form-title');
@@ -615,7 +615,7 @@ describe('RdsFileUploader', () => {
         <RdsFileUploader
           {...defaultProps}
           showTitle={true}
-          isMandatory={true}
+          isRequired={true}
           mode="default"
         />
       );
@@ -640,7 +640,7 @@ describe('RdsFileUploader', () => {
           showPreview={true}
           dragAndDrop={true}
           showTitle={true}
-          isMandatory={true}
+          isRequired={true}
           showHint={true}
           hintText="Upload PDF or DOC files"
           placeholderImage="https://example.com/placeholder.png"
@@ -718,7 +718,7 @@ describe('RdsFileUploader', () => {
           mode="default"
           style="Drop Area - Side Icon"
           showHint={true}
-          isMandatory={true}
+          isRequired={true}
         />
       );
       expect(screen.getByTestId('drop-zone-side-icon')).toBeInTheDocument();
@@ -730,7 +730,7 @@ describe('RdsFileUploader', () => {
         <RdsFileUploader
           {...defaultProps}
           disabled={true}
-          isMandatory={true}
+          isRequired={true}
           showTitle={true}
           mode="default"
           onFilesChange={handleFilesChange}

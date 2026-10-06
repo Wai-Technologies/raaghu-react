@@ -63,7 +63,7 @@
     position: absolute !important;
     right: 7px !important;
     visibility: visible !important;
-    z-index: 2;
+    z-index: var(--rds-z-index-layer-2);
   }
 
   .MuiInputBase-input::placeholder,

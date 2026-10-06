@@ -18,7 +18,7 @@ export interface RdsFileUploaderProps extends RdsFileUploaderBaseProps {
   /** Legacy aliases still accepted by some consumers. */
   showPreview?: boolean;
   showTitle?: boolean;
-  isMandatory?: boolean;
+  isRequired?: boolean;
   showHint?: boolean;
 }
 
@@ -43,12 +43,12 @@ const RdsFileUploader = ({
 }: RdsFileUploaderProps) => {
   const legacyShowPreview = typeof legacyProps['showPreview'] === 'boolean' ? (legacyProps['showPreview'] as boolean) : undefined;
   const legacyShowTitle = typeof legacyProps['showTitle'] === 'boolean' ? (legacyProps['showTitle'] as boolean) : undefined;
-  const legacyIsMandatory = typeof legacyProps['isMandatory'] === 'boolean' ? (legacyProps['isMandatory'] as boolean) : undefined;
   const legacyShowHint = typeof legacyProps['showHint'] === 'boolean' ? (legacyProps['showHint'] as boolean) : undefined;
+  const legacyIsRequired = typeof legacyProps['isRequired'] === 'boolean' ? legacyProps['isRequired'] : undefined;
 
   const showPreview = display?.preview ? display.preview === 'visible' : (legacyShowPreview ?? true);
   const showTitle = display?.title ? display.title === 'visible' : (legacyShowTitle ?? false);
-  const isMandatory = display?.mandatory ? display.mandatory === 'required' : (legacyIsMandatory ?? false);
+  const isRequired = display?.mandatory ? display.mandatory === 'required' : (legacyIsRequired ?? false);
   const showHint = display?.hint ? display.hint === 'visible' : (legacyShowHint ?? false);
 
   const {
@@ -71,7 +71,7 @@ const RdsFileUploader = ({
   } = useFileUploader({
     maxSize,
     maxFiles,
-    isMandatory,
+    isRequired,
     onFilesChange,
     onUpload,
   });
@@ -82,7 +82,7 @@ const RdsFileUploader = ({
         <RdsFileUploaderStandardView
           viewConfig={{
             showTitle,
-            isMandatory,
+            isRequired,
             showHint,
             showPreview,
           }}
@@ -107,7 +107,7 @@ const RdsFileUploader = ({
         <Box className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`)} sx={{ width: '100%', maxWidth: '100%', minWidth: 0 }}>
           {showTitle && (
             <Typography className="rds-file-uploader__form-title" variant="subtitle1">
-              {title || 'File Upload'}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
+              {title || 'File Upload'}{isRequired && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
             </Typography>
           )}
 
@@ -163,7 +163,7 @@ const RdsFileUploader = ({
           <Box className="rds-file-uploader__hint-row">
             <Typography
               variant="caption"
-              className={clsx('rds-file-uploader__error-inline', isMandatory && mandatoryError && 'is-visible')}
+              className={clsx('rds-file-uploader__error-inline', isRequired && mandatoryError && 'is-visible')}
             >
               {mandatoryError || 'placeholder'}
             </Typography>

@@ -80,24 +80,24 @@ describe('RdsSelect', () => {
   });
 
   describe('Label Rendering', () => {
-    it('should render label when labelposition=true', () => {
+    it('should render label when labelPosition=true', () => {
       renderWithTheme(
         <RdsSelect 
           label="Select Option" 
           options={mockOptions}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       const labels = screen.getAllByText('Select Option');
       expect(labels.length).toBeGreaterThan(0);
     });
 
-    it('should render label when labelposition=false', () => {
+    it('should render label when labelPosition=false', () => {
       renderWithTheme(
         <RdsSelect 
           label="Select Option" 
           options={mockOptions}
-          labelposition={false}
+          labelPosition={false}
           inputPlaceholder="Choose..."
         />
       );
@@ -119,7 +119,7 @@ describe('RdsSelect', () => {
           label="Required Field" 
           options={mockOptions}
           isRequired={true}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       const asterisk = container.querySelector('[aria-hidden="true"]');
@@ -132,7 +132,7 @@ describe('RdsSelect', () => {
           label="Optional Field" 
           options={mockOptions}
           isRequired={false}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       const asterisks = container.querySelectorAll('[aria-hidden="true"]');
@@ -153,12 +153,12 @@ describe('RdsSelect', () => {
       expect(selectCombobox).toBeInTheDocument();
     });
 
-    it('should show inputPlaceholder with labelposition=false', () => {
+    it('should show inputPlaceholder with labelPosition=false', () => {
       renderWithTheme(
         <RdsSelect 
           inputPlaceholder="Pick one"
           options={mockOptions}
-          labelposition={false}
+          labelPosition={false}
           value=""
         />
       );
@@ -172,7 +172,7 @@ describe('RdsSelect', () => {
           placeholder="Placeholder"
           inputPlaceholder="InputPlaceholder"
           options={mockOptions}
-          labelposition={false}
+          labelPosition={false}
           value=""
         />
       );
@@ -477,7 +477,7 @@ describe('RdsSelect', () => {
         <RdsSelect 
           label="Select Option"
           options={mockOptions}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       const labels = screen.getAllByText('Select Option');
@@ -533,7 +533,7 @@ describe('RdsSelect', () => {
         <RdsSelect 
           label="Test Label"
           options={mockOptions}
-          labelposition={true}
+          labelPosition={true}
         />
       );
       
@@ -545,7 +545,7 @@ describe('RdsSelect', () => {
           <RdsSelect 
             label="Test Label"
             options={mockOptions}
-            labelposition={false}
+            labelPosition={false}
             inputPlaceholder="Choose..."
           />
         </ThemeProvider>
@@ -795,7 +795,7 @@ describe('RdsSelect', () => {
           size="medium"
           className="custom"
           value="option1"
-          labelposition={true}
+          labelPosition={true}
         />
       );
       

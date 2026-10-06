@@ -34,6 +34,7 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boole
   };
   /** Hides the clear-all control when the field width is at or below large mobile (414px). */
   hideClearAllOnMobile?: boolean;
+  isRequired?: boolean;
   [key: string]: unknown;
 }
 
@@ -55,7 +56,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   ...props
 }: RdsAutocompleteProps<T>) => {
   const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
-  const legacyIsMandatory = typeof props['isMandatory'] === 'boolean' ? (props['isMandatory'] as boolean) : undefined;
+  const legacyIsRequired = typeof props['isRequired'] === 'boolean' ? props['isRequired'] : undefined;
   const legacyShowHintText = typeof props['showHintText'] === 'boolean' ? (props['showHintText'] as boolean) : undefined;
   const legacyIsShowCheckbox = typeof props['isShowCheckbox'] === 'boolean' ? (props['isShowCheckbox'] as boolean) : undefined;
   const legacyIsShowRadio = typeof props['isShowRadio'] === 'boolean' ? (props['isShowRadio'] as boolean) : undefined;
@@ -64,7 +65,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   const legacyAllowMultiple = typeof props['allowMultiple'] === 'boolean' ? (props['allowMultiple'] as boolean) : undefined;
 
   const showTitle = display?.title ? display.title === 'visible' : (legacyShowTitle ?? true);
-  const isMandatory = display?.mandatory ? display.mandatory === 'required' : (legacyIsMandatory ?? false);
+  const isRequired = display?.mandatory ? display.mandatory === 'required' : (legacyIsRequired ?? false);
   const showHintText = display?.hint ? display.hint === 'visible' : (legacyShowHintText ?? false);
   const isShowCheckbox = optionDecorators?.checkbox ? optionDecorators.checkbox === 'visible' : (legacyIsShowCheckbox ?? false);
   const isShowRadio = optionDecorators?.radio ? optionDecorators.radio === 'visible' : (legacyIsShowRadio ?? false);
@@ -74,7 +75,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
 
   const {
     showTitle: _legacyShowTitle,
-    isMandatory: _legacyIsMandatory,
+    isRequired: _legacyIsRequired,
     showHintText: _legacyShowHintText,
     isShowCheckbox: _legacyIsShowCheckbox,
     isShowRadio: _legacyIsShowRadio,
@@ -84,7 +85,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
     ...muiAutocompleteProps
   } = props as typeof props & {
     showTitle?: boolean;
-    isMandatory?: boolean;
+    isRequired?: boolean;
     showHintText?: boolean;
     isShowCheckbox?: boolean;
     isShowRadio?: boolean;
@@ -161,7 +162,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
       {showTitle && label && (
         <label className={`rds-autocomplete__label rds-autocomplete__label--${selectSize}`}>
           {label}
-          {isMandatory && (
+          {isRequired && (
             <Typography
               component="span"
               className="rds-autocomplete__asterisk"

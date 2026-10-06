@@ -70,13 +70,13 @@ export const Default: Story = {
     state: 'default',
     label: 'Input Label',
     hintText: 'This is a hint text',
-    isMandatory: false,
+    isRequired: false,
     titlePosition: 'inline-title',
     error: false,
     disabled: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isRequired', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
@@ -92,14 +92,14 @@ Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 't
 export const Required: Story = {
   args: {
     label: 'Required Input',
-    isMandatory: true,
+    isRequired: true,
     placeholder: 'This field is required',
     size: 'small',
     layout: 'text',
     titlePosition: 'inline-title',
   },
 };
-Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'titlePosition'] } };
+Required.parameters = { controls: { include: ['label', 'isRequired', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
 export const WithLabel: Story = {
   args: {

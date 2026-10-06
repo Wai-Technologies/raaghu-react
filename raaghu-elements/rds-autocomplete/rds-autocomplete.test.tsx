@@ -76,16 +76,16 @@ describe('RdsAutocomplete', () => {
       expect(container.querySelector('.rds-autocomplete__label')).not.toBeInTheDocument();
     });
 
-    it('should display mandatory asterisk when isMandatory is true', () => {
+    it('should display mandatory asterisk when isRequired is true', () => {
       const { container } = render(
-        <RdsAutocomplete {...defaultProps} label="Required Field" isMandatory={true} showTitle={true} />
+        <RdsAutocomplete {...defaultProps} label="Required Field" isRequired={true} showTitle={true} />
       );
       expect(container.querySelector('.rds-autocomplete__asterisk')).toBeInTheDocument();
     });
 
-    it('should not display mandatory asterisk when isMandatory is false', () => {
+    it('should not display mandatory asterisk when isRequired is false', () => {
       const { container } = render(
-        <RdsAutocomplete {...defaultProps} label="Optional Field" isMandatory={false} showTitle={true} />
+        <RdsAutocomplete {...defaultProps} label="Optional Field" isRequired={false} showTitle={true} />
       );
       expect(container.querySelector('.rds-autocomplete__asterisk')).not.toBeInTheDocument();
     });
@@ -562,7 +562,7 @@ describe('RdsAutocomplete', () => {
           helperText="Choose from list"
           selectSize="large"
           variant="outlined"
-          isMandatory={true}
+          isRequired={true}
           showHintText={true}
           controlStyle="bottom line"
           isShowUser={true}
@@ -804,7 +804,7 @@ describe('RdsAutocomplete', () => {
           {...defaultProps}
           error={true}
           disabled={false}
-          isMandatory={true}
+          isRequired={true}
           showHintText={true}
           isShowCheckbox={true}
           isShowRadio={false}
@@ -877,7 +877,7 @@ describe('RdsAutocomplete', () => {
           showHintText={true}
           selectSize="medium"
           variant="outlined"
-          isMandatory={true}
+          isRequired={true}
           allowMultiple={false}
           isShowCheckbox={false}
           isShowRadio={false}

@@ -16,7 +16,7 @@ const meta: Meta<typeof RdsFormControl> = {
         'variant',
         'size',
         'error',
-        'required',
+        'isRequired',
         'disabled',
         'fullWidth',
         'isGroup',
@@ -28,7 +28,7 @@ const meta: Meta<typeof RdsFormControl> = {
     label: 'Email Address',
     helperText: "We'll never share your email.",
     error: false,
-    required: false,
+    isRequired: false,
     disabled: false,
     fullWidth: false,
     isGroup: false,
@@ -58,7 +58,7 @@ const meta: Meta<typeof RdsFormControl> = {
     error: {
       control: { type: 'boolean' },
     },
-    required: {
+    isRequired: {
       control: { type: 'boolean' },
     },
     fullWidth: {
@@ -67,10 +67,6 @@ const meta: Meta<typeof RdsFormControl> = {
     isGroup: {
       control: { type: 'boolean' },
       description: 'Wrap children in a FormGroup (e.g. checkbox/radio groups)',
-    },
-    isRequired: {
-      control: { type: 'boolean' },
-      table: { disable: true },
     },
     children: {
       control: { disable: true },
@@ -177,7 +173,7 @@ export const Required: Story = {
   args: {
     label: 'Email Address',
     helperText: 'This field is required.',
-    required: true,
+    isRequired: true,
     error: false,
   },
   render: (args) => (

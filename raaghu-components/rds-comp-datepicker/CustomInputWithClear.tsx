@@ -9,7 +9,7 @@ interface CustomInputWithClearProps {
   value?: string;
   onClick?: () => void;
   placeholder?: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   showClearDate?: boolean;
   clearDate?: () => void;
   changeIcon?: string;
@@ -22,7 +22,7 @@ export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithCl
       value,
       onClick,
       placeholder,
-      isDisabled,
+      disabled,
       showClearDate,
       clearDate,
       changeIcon,
@@ -32,7 +32,7 @@ export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithCl
   ) => {
     const handleTriggerClick = (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
-      if (isDisabled) return;
+      if (disabled) return;
       if (typeof openCustomPicker === "function") {
         openCustomPicker();
       } else if (typeof onClick === "function") {
@@ -47,22 +47,22 @@ export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithCl
         <RdsInput
           className={clsx(
             "rds-datepicker__input",
-            isDisabled && "rds-datepicker--disabled",
+            disabled && "rds-datepicker--disabled",
             showClearDate && value && "rds-datepicker__input--with-clear"
           )}
           value={value || ""}
           onClick={handleTriggerClick}
           placeholder={placeholder}
-          disabled={isDisabled}
+          disabled={disabled}
           ref={ref}
         />
         {showClearDate && value && (
           <button
             type="button"
-            className={clsx("rds-datepicker__clear-button", isDisabled && "rds-datepicker__input--disabled")}
+            className={clsx("rds-datepicker__clear-button", disabled && "rds-datepicker__input--disabled")}
             onClick={(e) => {
               e.stopPropagation();
-              if (!isDisabled) {
+              if (!disabled) {
                 clearDate?.();
               }
             }}
@@ -73,10 +73,10 @@ export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithCl
         )}
         <button
           type="button"
-          className={clsx("rds-datepicker__icon-container", isDisabled && "rds-datepicker--disabled")}
+          className={clsx("rds-datepicker__icon-container", disabled && "rds-datepicker--disabled")}
           onClick={handleTriggerClick}
           title="Open calendar"
-          disabled={isDisabled}
+          disabled={disabled}
           style={{ background: "transparent", border: "none" }}
         >
           {changeIcon === "dashboard_settings" ? (

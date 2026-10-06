@@ -9,7 +9,7 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 - Show Title"),
       titleText: figma.string("✏️ Change Title"),
-      isMandatory: figma.boolean("❗ - Is Mandatory"),
+      isRequired: figma.boolean("❗ - Is Mandatory"),
       disabled: figma.boolean("💡 State"),
     },
   example: (props) => <RdsCounter 

@@ -106,7 +106,7 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
         data-testid="date-picker-input"
         type="text"
         aria-label="Date picker"
-        disabled={props?.isDisabled || props?.disabled}
+        disabled={props?.disabled}
       />
     </div>
   ),
@@ -136,26 +136,26 @@ describe('RdsDatepicker', () => {
       expect(label).not.toBeInTheDocument();
     });
 
-    it('should render mandatory indicator when isMandatory is true', () => {
+    it('should render mandatory indicator when isRequired is true', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
           showTitle={true}
           titleText="Date"
-          isMandatory={true}
+          isRequired={true}
         />
       );
       const indicator = screen.getByText('*');
       expect(indicator).toBeInTheDocument();
     });
 
-    it('should not render mandatory indicator when isMandatory is false', () => {
+    it('should not render mandatory indicator when isRequired is false', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
           showTitle={true}
           titleText="Date"
-          isMandatory={false}
+          isRequired={false}
         />
       );
       const indicator = screen.queryByText('*');
@@ -245,21 +245,21 @@ describe('RdsDatepicker', () => {
   });
 
   describe('Disabled State', () => {
-    it('should render as disabled when isDisabled is true', () => {
+    it('should render as disabled when disabled is true', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
-          isDisabled={true}
+          disabled={true}
         />
       );
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
     });
 
-    it('should be interactive when isDisabled is false', () => {
+    it('should be interactive when disabled is false', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
-          isDisabled={false}
+          disabled={false}
         />
       );
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
@@ -580,8 +580,8 @@ describe('RdsDatepicker', () => {
         <RdsDatepicker
           {...defaultProps}
           showTitle={true}
-          isMandatory={true}
-          isDisabled={false}
+          isRequired={true}
+          disabled={false}
         />
       );
       expect(screen.getByText('*')).toBeInTheDocument();
@@ -590,8 +590,8 @@ describe('RdsDatepicker', () => {
         <RdsDatepicker
           {...defaultProps}
           showTitle={true}
-          isMandatory={false}
-          isDisabled={true}
+          isRequired={false}
+          disabled={true}
         />
       );
       expect(screen.queryByText('*')).not.toBeInTheDocument();
@@ -649,8 +649,8 @@ describe('RdsDatepicker', () => {
           state={DatePickerState.Default}
           layout={DatePickerLayout.Default}
           customDate={jest.fn()}
-          isDisabled={false}
-          isMandatory={true}
+          disabled={false}
+          isRequired={true}
           placeholderText="Pick a date"
           DatePickerLabel="Date"
           type="single"
@@ -724,7 +724,7 @@ describe('RdsDatepicker — keyboard navigation', () => {
   });
 
   it('does not focus input when disabled', async () => {
-    render(<RdsDatepicker isDisabled />);
+    render(<RdsDatepicker disabled />);
     const input = screen.getByTestId('date-picker-input');
     expect(input).toBeDisabled();
   });

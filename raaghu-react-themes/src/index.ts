@@ -10,7 +10,7 @@
 
 
 
-export { lightTheme, darkTheme } from './mui';
+export { lightTheme, darkTheme, createRaaghuMuiTheme } from './mui';
 export { designTokens } from '../tokens/design-tokens';
 export { injectTokens, buildRdsCssVars, buildStaticCssSnapshot, type RdsThemeMode, type RdsBrandOverrides } from '../tokens/build-rds-css-vars';
 

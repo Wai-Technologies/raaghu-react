@@ -1,4 +1,5 @@
 import {
+  useId,
   useRef,
   useState,
   type ReactNode,
@@ -20,7 +21,7 @@ export interface RdsTextAreaProps {
   state?: TextareaState;
   style?: TextareaStyle;
   showTitle?: boolean;
-  isMandatory?: boolean;
+  isRequired?: boolean;
   id?: string;
   dataTestId?: string;
   onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -36,24 +37,25 @@ export interface RdsTextAreaProps {
 }
 
 const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
+  const isRequired = Boolean(props.isRequired);
+  const fieldId = useId();
+  const assignedId = props.id || fieldId;
   const [isValid, setIsValid] = useState(true);
-  const [isMandatoryValid, setIsMandatoryValid] = useState(
-    !props.isMandatory || (props.value ?? '').trim().length > 0
+  const [hasValue, setHasValue] = useState(
+    !isRequired || (props.value ?? '').trim().length > 0
   );
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
   const prevResetRef = useRef(Boolean(props.reset));
   const prevStateRef = useRef(props.state);
   const prevValueRef = useRef(props.value);
-  const prevMandatoryRef = useRef(props.isMandatory);
-  const idRef = useRef<string>(props.id || `rds-textarea-${Math.random().toString(36).slice(2)}`);
-  const assignedId = props.id || idRef.current;
+  const prevMandatoryRef = useRef(isRequired);
   const errorId = `${assignedId}-error`;
 
   const reset = Boolean(props.reset);
   if (reset !== prevResetRef.current) {
     if (reset) {
       setIsValid(true);
-      setIsMandatoryValid(true);
+      setHasValue(true);
     }
     prevResetRef.current = reset;
   }
@@ -64,21 +66,21 @@ const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
     setCurrentState(propState);
   }
 
-  if (props.value !== prevValueRef.current || props.isMandatory !== prevMandatoryRef.current) {
+  if (props.value !== prevValueRef.current || isRequired !== prevMandatoryRef.current) {
     prevValueRef.current = props.value;
-    prevMandatoryRef.current = props.isMandatory;
-    if (props.isMandatory) {
-      setIsMandatoryValid((props.value || '').trim().length > 0);
+    prevMandatoryRef.current = isRequired;
+    if (isRequired) {
+      setHasValue((props.value || '').trim().length > 0);
     } else {
-      setIsMandatoryValid(true);
+      setHasValue(true);
     }
   }
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
-    if (props.isMandatory) {
-      setIsMandatoryValid(inputValue.trim().length > 0);
+    if (isRequired) {
+      setHasValue(inputValue.trim().length > 0);
     }
 
     if (props.validationPattern) {
@@ -102,8 +104,8 @@ const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
 
   const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
-    if (props.isMandatory) {
-      setIsMandatoryValid(inputValue.trim().length > 0);
+    if (isRequired) {
+      setHasValue(inputValue.trim().length > 0);
     }
 
     if (currentState === TextareaState.Active) {
@@ -139,10 +141,10 @@ const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
   };
 
   const isDisabled = currentState === TextareaState.Disabled;
-  const isError = currentState === TextareaState.Error || !isValid || (props.isMandatory && !isMandatoryValid);
+  const isError = currentState === TextareaState.Error || !isValid || (isRequired && !hasValue);
 
   const getValidationMessage = () => {
-    if (props.isMandatory && !isMandatoryValid) {
+    if (isRequired && !hasValue) {
       return `${props.label || 'Label'} is required`;
     }
     return props.validationMsg;
@@ -153,7 +155,7 @@ const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
       {props.showTitle !== false && props.label && (
         <label htmlFor={assignedId} className={`textarea-label ${isDisabled ? 'disabled' : ''}`}>
           {props.label}
-          {props.isMandatory && <span className="required-asterisk"> *</span>}
+          {isRequired && <span className="required-asterisk"> *</span>}
         </label>
       )}
       
@@ -178,7 +180,8 @@ const RdsTextArea = (props: RdsTextAreaProps): ReactNode => {
           value={props.value}
           onChange={handleChange}
           aria-invalid={isError}
-          aria-required={props.isMandatory ? true : undefined}
+          aria-required={isRequired ? true : undefined}
+          required={isRequired || undefined}
           aria-describedby={isError ? errorId : undefined}
         />
       </div>

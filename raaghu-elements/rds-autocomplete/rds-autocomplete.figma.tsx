@@ -9,7 +9,7 @@ figma.connect(
   {
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
+      isRequired: figma.boolean("❗ Is Mandatory"),
       showHintText: figma.boolean("🔤 Show Hint Text"),
       state: figma.enum("💡 State",{
         Default: "default",

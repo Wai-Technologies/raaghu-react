@@ -34,6 +34,8 @@ const resolveIcon = (icon?: ReactNode | string): ReactNode => {
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
   text?: string;
   isLoading?: boolean;
+  /** Replaces the default spinner while `isLoading` is true. */
+  loadingIndicator?: ReactNode;
   shape?: 'pill' | 'rectangle';
   state?: 'default' | 'hover' | 'disabled' | 'selected';
   layout?: 'icon+text' | 'icon-only' | 'text-only';
@@ -50,6 +52,7 @@ const RdsButton = ({
   text,
   children,
   isLoading = false,
+  loadingIndicator,
   disabled,
   shape = 'rectangle',
   sx,
@@ -141,6 +144,7 @@ const RdsButton = ({
 
   const renderContent = () => {
     if (isLoading) {
+      if (loadingIndicator) return loadingIndicator;
       return <RdsCompSpinner
         colorVariant="light"
         labelText={text || "Loading"}
@@ -205,13 +209,13 @@ const RdsButton = ({
         ...(hasIcons ? { padding: '6px' } : {}),
         ...sx,
       }}
+      aria-busy={isLoading || undefined}
       style={{
         ...shapeStyles as CSSProperties,
         ...textCaseStyles as CSSProperties,
         ...(style === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
         ...(style === 'filled' && filledTextColor ? { color: filledTextColor } : {}),
         ...(isLoading ? { opacity: 1 } : {}),
-        ...(sx as any),
       }}
       startIcon={getStartIcon()}
       endIcon={getEndIcon()}

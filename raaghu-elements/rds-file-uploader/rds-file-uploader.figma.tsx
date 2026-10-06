@@ -10,7 +10,7 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
       showHint: figma.boolean("💬 Show Hint"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
+      isRequired: figma.boolean("❗ Is Mandatory"),
       title: figma.string("✏️ Title"),
       style: figma.enum("✨ Style", {
         "Drop Area - Side Icon": "Drop Area - Side Icon",
@@ -45,7 +45,7 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
       showHint: figma.boolean("💬 Show Hint"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
+      isRequired: figma.boolean("❗ Is Mandatory"),
       title: figma.string("✏️ Title"),
       state:figma.enum("💡 State",{
         "Default": "default",

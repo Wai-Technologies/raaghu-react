@@ -51,8 +51,7 @@ const meta: Meta<typeof RdsAutocomplete> = {
       description: 'Show or hide the title/label',
       defaultValue: true,
     },
-    isMandatory: {
-      name: 'IsMandatory',
+    isRequired: {
       control: 'boolean',
       description: 'Show asterisk for required field',
     },
@@ -112,7 +111,7 @@ export const Default: Story = {
   args: {
     options,
     label: 'Choose an option',
-    isMandatory: true,
+    isRequired: true,
     placeholder: 'Start typing...',
     showHintText: true,
     selectSize: 'medium',
@@ -127,7 +126,7 @@ export const Default: Story = {
 };
 Default.parameters = { 
   controls: { 
-    include: ['options', 'label', 'isMandatory', 'placeholder', 'showHintText', 'selectSize', 'helperText', 'controlStyle', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'error', 'disabled', 'showTitle', 'state'] 
+    include: ['options', 'label', 'isRequired', 'placeholder', 'showHintText', 'selectSize', 'helperText', 'controlStyle', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'error', 'disabled', 'showTitle', 'state'] 
   } 
 };
 
@@ -135,7 +134,7 @@ export const Disabled: Story = {
   args: {
     options,
     label: 'Choose an option',
-    isMandatory: true,
+    isRequired: true,
     placeholder: 'Start typing...',
     disabled: true,
     isShowCheckbox: false,
@@ -147,7 +146,7 @@ export const Disabled: Story = {
 };
 Disabled.parameters = { 
   controls: { 
-    include: ['options', 'label', 'isMandatory', 'placeholder', 'disabled', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'selectSize'] 
+    include: ['options', 'label', 'isRequired', 'placeholder', 'disabled', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'selectSize'] 
   } 
 };
 
@@ -155,7 +154,7 @@ export const Error: Story = {
   args: {
     options,
     label: 'Choose an option',
-    isMandatory: true,
+    isRequired: true,
     placeholder: 'Start typing...',
     error: true,
     helperText: 'Please select a valid option',
@@ -168,7 +167,7 @@ export const Error: Story = {
 };
 Error.parameters = { 
   controls: { 
-    include: ['options', 'label', 'isMandatory', 'placeholder', 'error', 'helperText', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'selectSize', 'showHintText'] 
+    include: ['options', 'label', 'isRequired', 'placeholder', 'error', 'helperText', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'selectSize', 'showHintText'] 
   } 
 };
 
@@ -176,7 +175,7 @@ export const Filled: Story = {
   args: {
     options,
     label: 'Choose an option',
-    isMandatory: true,
+    isRequired: true,
     placeholder: 'Start typing...',
     variant: 'filled',
     isShowCheckbox: false,
@@ -188,7 +187,7 @@ export const Filled: Story = {
 };
 Filled.parameters = { 
   controls: { 
-    include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+    include: ['options', 'label', 'isRequired', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
   } 
 };
 
@@ -196,7 +195,7 @@ export const Standard: Story = {
   args: {
     options,
     label: 'Choose an option',
-    isMandatory: true,
+    isRequired: true,
     placeholder: 'Start typing...',
     variant: 'standard',
     isShowCheckbox: false,
@@ -208,7 +207,7 @@ export const Standard: Story = {
 };
 Standard.parameters = { 
   controls: { 
-    include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+    include: ['options', 'label', 'isRequired', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
   } 
 };
 
@@ -216,7 +215,7 @@ export const WithHelperText: Story = {
   args: {
     options,
     label: 'Choose an option',
-    isMandatory: true,
+    isRequired: true,
     placeholder: 'Start typing...',
     helperText: 'Select one of the available options',
     showHintText: true,
@@ -229,6 +228,6 @@ export const WithHelperText: Story = {
 };
 WithHelperText.parameters = { 
   controls: { 
-    include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+    include: ['options', 'label', 'isRequired', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
   } 
 };

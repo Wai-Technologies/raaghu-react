@@ -102,9 +102,9 @@ describe('RdsFormControl', () => {
       expect(label).not.toHaveClass('Mui-required');
     });
 
-    it('should prioritize required prop over isRequired', () => {
+    it('should mark the label required when isRequired is true', () => {
       const { container } = render(
-        <RdsFormControl {...defaultProps} isRequired={false} required={true} />
+        <RdsFormControl {...defaultProps} isRequired={true} />
       );
       const label = container.querySelector('.MuiFormLabel-root');
       expect(label).toHaveClass('Mui-required');

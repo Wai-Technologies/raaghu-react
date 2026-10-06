@@ -98,7 +98,7 @@ describe('RdsCompTextEditor', () => {
     id: 'test-editor',
     placeholder: 'Enter text here',
     label: 'Test Label',
-    isMandatory: false,
+    isRequired: false,
     readOnly: false,
     resizable: true,
     showTitle: true,
@@ -180,15 +180,15 @@ describe('RdsCompTextEditor', () => {
   });
 
   describe('Mandatory Indicator', () => {
-    it('should render mandatory indicator when isMandatory is true', async () => {
-      await renderEditor({ ...defaultProps, isMandatory: true });
+    it('should render mandatory indicator when isRequired is true', async () => {
+      await renderEditor({ ...defaultProps, isRequired: true });
       const asterisk = screen.getByText('*');
       expect(asterisk).toBeInTheDocument();
       expect(asterisk).toHaveClass('text-danger');
     });
 
-    it('should not render mandatory indicator when isMandatory is false', async () => {
-      await renderEditor({ ...defaultProps, isMandatory: false });
+    it('should not render mandatory indicator when isRequired is false', async () => {
+      await renderEditor({ ...defaultProps, isRequired: false });
       const asterisk = screen.queryByText('*');
       expect(asterisk).not.toBeInTheDocument();
     });
@@ -196,7 +196,7 @@ describe('RdsCompTextEditor', () => {
     it('should render required error when mandatory field is empty after touch', async () => {
       await renderEditor({
         ...defaultProps,
-        isMandatory: true,
+        isRequired: true,
         label: 'Required Field',
       });
 
@@ -211,7 +211,7 @@ describe('RdsCompTextEditor', () => {
     it('should not show error when field is not mandatory', async () => {
       await renderEditor({
         ...defaultProps,
-        isMandatory: false,
+        isRequired: false,
         label: 'Optional Field',
       });
 
@@ -226,7 +226,7 @@ describe('RdsCompTextEditor', () => {
     it('should hide error class on error message', async () => {
       await renderEditor({
         ...defaultProps,
-        isMandatory: true,
+        isRequired: true,
         label: 'Required Field',
       });
 
@@ -242,37 +242,37 @@ describe('RdsCompTextEditor', () => {
 
   describe('State Variants', () => {
     it('should apply selected state class', async () => {
-      await renderEditor({ ...defaultProps, State: 'Selected' });
+      await renderEditor({ ...defaultProps, state: 'Selected' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--selected');
     });
 
     it('should apply error state class', async () => {
-      await renderEditor({ ...defaultProps, State: 'Error' });
+      await renderEditor({ ...defaultProps, state: 'Error' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--error');
     });
 
     it('should apply active state class', async () => {
-      await renderEditor({ ...defaultProps, State: 'Active' });
+      await renderEditor({ ...defaultProps, state: 'Active' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--active');
     });
 
     it('should apply disabled state class', async () => {
-      await renderEditor({ ...defaultProps, State: 'Disabled' });
+      await renderEditor({ ...defaultProps, state: 'Disabled' });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--disabled');
     });
 
     it('should set readOnly when State is Disabled', async () => {
-      await renderEditor({ ...defaultProps, State: 'Disabled' });
+      await renderEditor({ ...defaultProps, state: 'Disabled' });
       const editor = screen.getByTestId('editor-content');
       expect(editor).toHaveAttribute('data-readonly', 'true');
     });
 
     it('should not apply state class when State is not provided', async () => {
-      await renderEditor({ ...defaultProps, State: undefined });
+      await renderEditor({ ...defaultProps, state: undefined });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).not.toHaveClass('rds-comp-text-editor--selected');
       expect(container).not.toHaveClass('rds-comp-text-editor--error');
@@ -295,7 +295,7 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('should be readOnly when State is Disabled regardless of readOnly prop', async () => {
-      await renderEditor({ ...defaultProps, readOnly: false, State: 'Disabled' });
+      await renderEditor({ ...defaultProps, readOnly: false, state: 'Disabled' });
       const editor = screen.getByTestId('editor-content');
       expect(editor).toHaveAttribute('data-readonly', 'true');
     });
@@ -403,9 +403,9 @@ describe('RdsCompTextEditor', () => {
         readOnly: true,
         value: '<p>Initial value</p>',
         label: 'Full Label',
-        isMandatory: true,
+        isRequired: true,
         labelClass: 'custom-label',
-        State: 'Active',
+        state: 'Active',
         showTitle: true,
         rows: 8,
         resizable: true,
@@ -440,7 +440,7 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('should combine multiple state classes', async () => {
-      await renderEditor({ ...defaultProps, State: 'Error', resizable: true });
+      await renderEditor({ ...defaultProps, state: 'Error', resizable: true });
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container?.className).toContain('rds-comp-text-editor');
       expect(container?.className).toContain('rds-comp-text-editor--error');
@@ -455,13 +455,13 @@ describe('RdsCompTextEditor', () => {
         id: 'complete-editor',
         placeholder: 'Enter your text',
         label: 'Complete Editor',
-        isMandatory: true,
+        isRequired: true,
         readOnly: false,
         resizable: true,
         showTitle: true,
         rows: 8,
         onChange,
-        State: 'Active',
+        state: 'Active',
       });
 
       expect(screen.getByText('Complete Editor')).toBeInTheDocument();
@@ -474,13 +474,13 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('should handle state transition from Active to Disabled', async () => {
-      const { rerender } = await renderEditor({ ...defaultProps, State: 'Active' });
+      const { rerender } = await renderEditor({ ...defaultProps, state: 'Active' });
 
       let container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--active');
       expect(container).not.toHaveClass('rds-comp-text-editor--disabled');
 
-      rerender(<RdsCompTextEditor {...defaultProps} State="Disabled" />);
+      rerender(<RdsCompTextEditor {...defaultProps} state="Disabled" />);
 
       container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--disabled');
@@ -489,7 +489,7 @@ describe('RdsCompTextEditor', () => {
 
     it('should handle editor interactions properly', async () => {
       const onChange = jest.fn();
-      await renderEditor({ ...defaultProps, onChange, isMandatory: true });
+      await renderEditor({ ...defaultProps, onChange, isRequired: true });
 
       const editor = screen.getByTestId('editor-content');
       fireEvent.blur(editor);
@@ -517,16 +517,16 @@ describe('RdsCompTextEditor', () => {
     });
 
     it('should handle undefined State prop gracefully', async () => {
-      const { container } = await renderEditor({ ...defaultProps, State: undefined });
+      const { container } = await renderEditor({ ...defaultProps, state: undefined });
       expect(container).toBeInTheDocument();
     });
 
     it('should handle rapid prop changes', async () => {
-      const { rerender } = await renderEditor({ ...defaultProps, State: 'Active' });
+      const { rerender } = await renderEditor({ ...defaultProps, state: 'Active' });
 
-      rerender(<RdsCompTextEditor {...defaultProps} State="Error" />);
-      rerender(<RdsCompTextEditor {...defaultProps} State="Disabled" />);
-      rerender(<RdsCompTextEditor {...defaultProps} State="Selected" />);
+      rerender(<RdsCompTextEditor {...defaultProps} state="Error" />);
+      rerender(<RdsCompTextEditor {...defaultProps} state="Disabled" />);
+      rerender(<RdsCompTextEditor {...defaultProps} state="Selected" />);
 
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--selected');

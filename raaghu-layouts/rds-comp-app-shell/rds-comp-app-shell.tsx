@@ -23,10 +23,11 @@ const TopbarSlot = ({ topbar, onMenuClick }: TopbarSlotProps) => {
 
   if (isValidElement(topbar)) {
     try {
-      const topbarElement = topbar as ReactElement<any>;
-      if (topbarElement.props && topbarElement.props.children && isValidElement(topbarElement.props.children)) {
-        const appBarChild = topbarElement.props.children as ReactElement<any>;
-        if (appBarChild.type && (appBarChild.type as any).displayName === 'RdsAppBar') {
+      const topbarElement = topbar as ReactElement<{ children?: ReactNode }>;
+      if (topbarElement.props?.children && isValidElement(topbarElement.props.children)) {
+        const appBarChild = topbarElement.props.children as ReactElement<{ onMenuClick?: () => void }>;
+        const appBarType = appBarChild.type as { displayName?: string };
+        if (appBarType?.displayName === 'RdsAppBar') {
           const clonedAppBar = cloneElement(appBarChild, {
             ...appBarChild.props,
             onMenuClick

@@ -21,7 +21,7 @@ export interface RdsCounterProps {
   placeholder?: string;
   controlsClassName?: string;
   showTitle?: boolean;
-  isMandatory?: boolean;
+  isRequired?: boolean;
   selected?: boolean;
   state?: 'default' | 'selected' | 'disabled';
 }
@@ -42,7 +42,7 @@ const RdsCounter = ({
   placeholder='00',
   controlsClassName,
   showTitle = true,
-  isMandatory = false,
+  isRequired = false,
   selected = false,
   state = 'default',
 }: RdsCounterProps) => {
@@ -200,7 +200,7 @@ const RdsCounter = ({
           `rds-counter__label--${size}`,
         )}>
           {titleText}
-          <span className="rds-counter__mandatory" style={{ visibility: isMandatory ? 'visible' : 'hidden' }}>*</span>
+          <span className="rds-counter__mandatory" style={{ visibility: isRequired ? 'visible' : 'hidden' }}>*</span>
         </Typography>
       )}
       {controlsElement}

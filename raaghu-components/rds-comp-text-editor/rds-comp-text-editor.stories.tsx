@@ -12,7 +12,7 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        State: {
+        state: {
             options: [
                 "Default"   ,
                 "Active"  ,
@@ -31,10 +31,10 @@ type Story = StoryObj<typeof RdsCompTextEditor>;
 
 export const Default: Story = {
     args: {
-        State: "Default",
+        state: "Default",
         showTitle: true,
         label:"Label",
-        isMandatory: false,
+        isRequired: false,
         rows:6,
         resizable:false,
         placeholder:"Enter Description"
@@ -44,4 +44,4 @@ export const Default: Story = {
         expect(editor).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory','rows','resizable','placeholder'] } };
+Default.parameters = { controls: { include: ['state', 'showTitle', 'label', 'isRequired','rows','resizable','placeholder'] } };

@@ -162,7 +162,7 @@ export const renderFormInputs = () => (
                     controlStyle="default"
                     helperText=""
                     hideClearAllOnMobile={true}
-                    isMandatory={false}
+                    isRequired={false}
                     isShowCheckbox={true}
                     isShowRadio={false}
                     isShowUser={true}

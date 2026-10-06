@@ -32,7 +32,7 @@ const meta: Meta<typeof RdsSelect> = {
     inputPlaceholder: {
       control: 'text',
     },
-    labelposition: {
+    labelPosition: {
       control: 'boolean',
     },
     isRequired: {
@@ -91,7 +91,7 @@ export const Default: Story = {
     label: 'Select Option',
     options: basicOptions,
     inputPlaceholder: 'Please select...',
-    labelposition: true,
+    labelPosition: true,
     size: 'small',
   },
 };
