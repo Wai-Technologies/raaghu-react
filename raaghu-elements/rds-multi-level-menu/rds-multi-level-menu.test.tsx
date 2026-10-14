@@ -855,3 +855,27 @@ describe('RdsMultiLevelMenu', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  const opts: MenuOption[] = [{ label: 'File', children: [{ label: 'New' }] }, { label: 'Edit' }];
+
+  it('uses children as trigger label and forwards className/rest/ref', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsMultiLevelMenu options={opts} className="x" data-testid="root" ref={ref}>Open me</RdsMultiLevelMenu>
+    );
+    expect(screen.getByText('Open me')).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass('rds-multi-level-menu', 'x');
+    expect(ref.current).toBe(container.firstChild);
+    expect(screen.getByTestId('root')).toBeInTheDocument();
+  });
+
+  it('ArrowRight opens submenu and ArrowLeft closes it', async () => {
+    render(<RdsMultiLevelMenu options={opts} />);
+    fireEvent.click(screen.getByText('Multi Level Menu'));
+    const item = screen.getByText('File').closest('li') as HTMLElement;
+    fireEvent.keyDown(item, { key: 'ArrowRight' });
+    const sub = await screen.findByText('New');
+    fireEvent.keyDown(sub.closest('li') as HTMLElement, { key: 'ArrowLeft' });
+    await waitFor(() => expect(screen.queryByText('New')).not.toBeInTheDocument());
+  });
+});

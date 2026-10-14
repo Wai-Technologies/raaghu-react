@@ -103,15 +103,13 @@ const dateRangePresets: DateRangePreset[] = [
 ];
 
 // Custom Layout Component for Date Range Picker with Presets
-const CustomDateRangeLayout = React.forwardRef<
-  HTMLDivElement,
-  { 
+const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, rangeValue }: {
     children: React.ReactNode;
     selectedPreset: string;
     onPresetSelect: (preset: DateRangePreset) => void;
     rangeValue: [Dayjs | null, Dayjs | null];
-  }
->(({ children, selectedPreset, onPresetSelect, rangeValue }, ref) => {
+    ref?: React.Ref<HTMLDivElement>;
+}) => {
   return (
     <div
       ref={ref}
@@ -142,7 +140,7 @@ const CustomDateRangeLayout = React.forwardRef<
       </div>
     </div>
   );
-});
+};
 
 // Utility helpers
 const formatRangeText = (
@@ -210,11 +208,11 @@ function RangeCalendar({
 }) {
   const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>([null, null]);
   const [currentMonth, setCurrentMonth] = React.useState(() => dayjs());
-  const prevValue0Ref = React.useRef(value[0]?.valueOf());
-  const prevValue1Ref = React.useRef(value[1]?.valueOf());
-  if (value[0]?.valueOf() !== prevValue0Ref.current || value[1]?.valueOf() !== prevValue1Ref.current) {
-    prevValue0Ref.current = value[0]?.valueOf();
-    prevValue1Ref.current = value[1]?.valueOf();
+  const [prevValue0, setPrevValue0] = React.useState(value[0]?.valueOf());
+  const [prevValue1, setPrevValue1] = React.useState(value[1]?.valueOf());
+  if (value[0]?.valueOf() !== prevValue0 || value[1]?.valueOf() !== prevValue1) {
+    setPrevValue0(value[0]?.valueOf());
+    setPrevValue1(value[1]?.valueOf());
     setDraft(value);
     if (value[0]) {
       setCurrentMonth(value[0]);

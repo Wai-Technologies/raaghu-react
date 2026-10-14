@@ -4,20 +4,20 @@ import Notifications from '@mui/icons-material/Notifications';
 import clsx from 'clsx';
 import './rds-badge.scss';
 
-export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero' | 'component'> {
+export interface RdsBadgeProps extends Omit<BadgeProps, 'component'> {
   children?: ReactNode;
-  showZero?: boolean;
-  max?: number;
   size?: 'small' | 'medium' | 'large';
   shape?: 'rectangle' | 'pill';
+  /** Placement of `icon` next to the content. Applies to the standalone badge (no `children`). */
   layout?: 'text' | 'icon' | 'icon-text' | 'text-icon';
+  /** Icon used by the `icon`, `icon-text` and `text-icon` layouts. Defaults to a bell. */
+  icon?: ReactNode;
   styleType?: 'primary' | 'outline' | 'transparent';
   state?: 'default' | 'disabled';
   colorVariant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'light' | 'success';
 }
 
-
-const RdsBadge= ({
+const RdsBadge = ({
   children,
   showZero = false,
   max = 99,
@@ -26,12 +26,15 @@ const RdsBadge= ({
   color = 'primary',
   shape = 'pill',
   layout = 'text',
+  icon,
   styleType = 'primary',
   state = 'default',
   colorVariant = 'primary',
+  className,
   ...props
-}:RdsBadgeProps) => {
+}: RdsBadgeProps) => {
   const isZeroContent = badgeContent === 0 || badgeContent === '0';
+  const isHidden = isZeroContent && !showZero;
 
   const bemClass = clsx(
     'rds-badge',
@@ -40,42 +43,31 @@ const RdsBadge= ({
     `rds-badge--${styleType}`,
     `rds-badge--${colorVariant || 'primary'}`,
     state === 'disabled' && 'rds-badge--disabled',
+    className,
   );
-  
-  
-  let badgeInner: ReactNode;
-  switch (layout) {
-    case 'icon':
-      badgeInner = <Notifications fontSize="small" sx={{ marginRight: 0 }} />;
-      break;
-    case 'icon-text':
-      badgeInner = <><Notifications fontSize="small" sx={{ marginRight: '6px' }} />{badgeContent?.toString()}</>;
-      break;
-    case 'text-icon':
-      badgeInner = <>{badgeContent?.toString()}<Notifications fontSize="small" sx={{ marginLeft: '6px' }} /></>;
-      break;
-    case 'text':
-    default:
-      badgeInner = badgeContent?.toString();
-      break;
-  }
-  
+
   if (!children) {
-    if (isZeroContent && !showZero) {
-      return null;
-    }
+    if (isHidden) return null;
+    const text = badgeContent?.toString();
+    const renderIcon = (margin: { marginLeft?: number | string; marginRight?: number | string }) =>
+      icon ?? <Notifications fontSize="small" sx={margin} />;
+    const badgeInner =
+      layout === 'icon' ? renderIcon({ marginRight: 0 })
+      : layout === 'icon-text' ? <>{renderIcon({ marginRight: '6px' })}{text}</>
+      : layout === 'text-icon' ? <>{text}{renderIcon({ marginLeft: '6px' })}</>
+      : text;
+
     return (
       <span className={bemClass}>
         <span className="rds-badge__badge">{badgeInner}</span>
       </span>
     );
   }
-  const shouldRenderBadge = !(isZeroContent && !showZero);
-  
-  if (!shouldRenderBadge) {
+
+  if (isHidden) {
     return <>{children}</>;
   }
-  
+
   return (
     <MuiBadge
       badgeContent={badgeContent}

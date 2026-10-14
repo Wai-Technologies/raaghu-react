@@ -12,8 +12,7 @@ interface MotionSnackbarTransitionProps extends React.HTMLAttributes<HTMLDivElem
   timeout?: number | { enter?: number; exit?: number; appear?: number };
 }
 
-const MotionSnackbarTransition = React.forwardRef<HTMLDivElement, MotionSnackbarTransitionProps>(
-  ({ in: isIn, children, onEnter, onEntered, onExit, onExited, onDismiss, durationMs, appear, timeout, ...rest }, ref) => {
+const MotionSnackbarTransition = ({ ref, in: isIn, children, onEnter, onEntered, onExit, onExited, onDismiss, durationMs, appear, timeout, ...rest }: MotionSnackbarTransitionProps & { ref?: React.Ref<HTMLDivElement> }) => {
     const onEnterRef = React.useRef(onEnter);
     const onEnteredRef = React.useRef(onEntered);
     const onExitRef = React.useRef(onExit);
@@ -26,8 +25,7 @@ const MotionSnackbarTransition = React.forwardRef<HTMLDivElement, MotionSnackbar
 
     if (!isIn) return null;
     return <div ref={ref} {...rest}>{children}</div>;
-  }
-);
+  };
 
 MotionSnackbarTransition.displayName = 'MotionSnackbarTransition';
 export default MotionSnackbarTransition;

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsFab, { RdsFabProps } from './rds-fab';
+import RdsFab, { type RdsFabProps } from './rds-fab';
 
 // Mock SCSS
 jest.mock('./rds-fab.scss', () => ({}));
@@ -723,6 +723,128 @@ describe('RdsFab', () => {
         />
       );
       expect(container).toBeInTheDocument();
+    });
+  });
+});
+
+describe('audit fixes', () => {
+  describe('G1-264: array / mixed children', () => {
+    it('renders mixed icon + text children', () => {
+      render(
+        <RdsFab variant="extended">
+          <span data-testid="mixed-icon">+</span> Add
+        </RdsFab>
+      );
+      const fab = document.querySelector('.MuiFab-root') as HTMLElement;
+      expect(screen.getByTestId('mixed-icon')).toBeInTheDocument();
+      expect(fab).toHaveTextContent('+ Add');
+    });
+
+    it('renders an array of element children', () => {
+      render(
+        <RdsFab>
+          {[<span key="a" data-testid="a">A</span>, <span key="b" data-testid="b">B</span>]}
+        </RdsFab>
+      );
+      expect(screen.getByTestId('a')).toBeInTheDocument();
+      expect(screen.getByTestId('b')).toBeInTheDocument();
+    });
+
+    it('renders fragment children', () => {
+      render(
+        <RdsFab>
+          <>
+            <span data-testid="frag-icon">+</span>
+            Text
+          </>
+        </RdsFab>
+      );
+      expect(screen.getByTestId('frag-icon')).toBeInTheDocument();
+      expect(screen.getByText('Text')).toBeInTheDocument();
+    });
+
+    it('keeps icon precedence over array children (unchanged behaviour)', () => {
+      render(
+        <RdsFab icon={<span data-testid="icon">I</span>}>
+          <span data-testid="c1">1</span>
+          <span data-testid="c2">2</span>
+        </RdsFab>
+      );
+      expect(screen.getByTestId('icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('c1')).not.toBeInTheDocument();
+    });
+
+    it('renders nothing for an array of empty children', () => {
+      const { container } = render(<RdsFab>{[null, false]}</RdsFab>);
+      expect(container.querySelector('.MuiFab-root')?.textContent).toBe('');
+    });
+  });
+
+  describe('G1-265: label as accessible name for icon-only FAB', () => {
+    it('uses label as aria-label when only the icon is shown', () => {
+      render(<RdsFab icon={<span>★</span>} label="Add item" />);
+      expect(screen.getByRole('button', { name: 'Add item' })).toBeInTheDocument();
+      expect(screen.queryByText('Add item')).not.toBeInTheDocument();
+    });
+
+    it('consumer aria-label wins over label', () => {
+      render(<RdsFab icon={<span>★</span>} label="Add item" aria-label="Create" />);
+      expect(document.querySelector('.MuiFab-root')).toHaveAttribute('aria-label', 'Create');
+    });
+
+    it('does not set aria-label when the label is visible (extended)', () => {
+      render(<RdsFab icon={<span>★</span>} label="Add" variant="extended" />);
+      expect(document.querySelector('.MuiFab-root')).not.toHaveAttribute('aria-label');
+    });
+
+    it('does not set aria-label when only the label is shown', () => {
+      render(<RdsFab label="Only label" />);
+      expect(document.querySelector('.MuiFab-root')).not.toHaveAttribute('aria-label');
+    });
+
+    it('does not set aria-label for an empty label', () => {
+      render(<RdsFab icon={<span>★</span>} label="" />);
+      expect(document.querySelector('.MuiFab-root')).not.toHaveAttribute('aria-label');
+    });
+
+    it('does not set aria-label when children are rendered', () => {
+      render(
+        <RdsFab label="Label">
+          <span>Child</span>
+        </RdsFab>
+      );
+      expect(document.querySelector('.MuiFab-root')).not.toHaveAttribute('aria-label');
+    });
+
+    it('has no axe violations for icon + label without aria-label', async () => {
+      const { container } = render(<RdsFab icon={<span>★</span>} label="Add item" />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('G1-266: sx merge', () => {
+    it('supports array sx overriding position styles', () => {
+      const { container } = render(
+        <RdsFab aria-label="x" icon={<span>★</span>} position="bottom-right" sx={[{ position: 'absolute' }]} />
+      );
+      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
+      expect(window.getComputedStyle(fab).position).toBe('absolute');
+    });
+
+    it('supports function sx', () => {
+      const { container } = render(
+        <RdsFab aria-label="x" icon={<span>★</span>} position="top-left" sx={() => ({ position: 'relative' })} />
+      );
+      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
+      expect(window.getComputedStyle(fab).position).toBe('relative');
+    });
+
+    it('keeps position styles when sx is an array without position', () => {
+      const { container } = render(
+        <RdsFab aria-label="x" icon={<span>★</span>} position="top-left" sx={[{ zIndex: 5 }]} />
+      );
+      const fab = container.querySelector('.MuiFab-root') as HTMLElement;
+      expect(window.getComputedStyle(fab).position).toBe('fixed');
     });
   });
 });

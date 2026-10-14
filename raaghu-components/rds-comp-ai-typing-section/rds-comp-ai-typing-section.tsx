@@ -196,7 +196,7 @@ const RdsCompAiTypingSectionComponent = ({
         <div className="rds-comp-ai-typing-section__autocomplete" style={autocompleteStyle}>
           <RdsAutocomplete
             controlStyle="default"
-            isMandatory={false}
+            required={false}
             label=""
             options={[{ label: "Raaghu", value: 1 }]}
             placeholder="Select Frontend"

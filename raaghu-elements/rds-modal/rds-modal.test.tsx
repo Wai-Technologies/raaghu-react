@@ -702,3 +702,16 @@ describe('RdsModal — keyboard navigation', () => {
     expect(screen.queryByLabelText('close')).not.toBeInTheDocument();
   });
 });
+describe('audit fixes', () => {
+  it('does not leak legacy props to the DOM and honours consumer open', () => {
+    render(<RdsModal onClose={jest.fn()} isOpen={false} open showCloseButton={false} title="T">body</RdsModal>);
+    expect(screen.getByRole('dialog')).not.toHaveAttribute('isopen');
+    expect(screen.getByRole('dialog')).not.toHaveAttribute('showclosebutton');
+  });
+  it('uses imageAlt, defaulting to Modal', () => {
+    const { rerender } = render(<RdsModal onClose={jest.fn()} imageSrc="a.png">b</RdsModal>);
+    expect(screen.getByAltText('Modal')).toBeInTheDocument();
+    rerender(<RdsModal onClose={jest.fn()} imageSrc="a.png" imageAlt="">b</RdsModal>);
+    expect(document.querySelector('img')).toHaveAttribute('alt', '');
+  });
+});

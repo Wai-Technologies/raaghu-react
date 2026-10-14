@@ -1,21 +1,31 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-area.scss";
 
-export interface lineprops {
+/** Props for {@link RdsCompAreaChart}. */
+export interface RdsCompAreaChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** X-axis labels. */
   labels: string[];
-  options: ChartOptions<"line">;
+  /** Chart.js options (never mutated). Defaults to `{}`. */
+  options?: ChartOptions<"line">;
+  /** Chart.js line datasets. */
   dataSets: ChartDataset<"line">[];
-  id: string;
-  isGradient: boolean;
+  /** Id of the canvas element. */
+  id?: string;
+  /** @deprecated Has no effect. Use a scriptable `backgroundColor` on the dataset instead. */
+  isGradient?: boolean;
+  /** Accessible label of the chart. Defaults to "Area chart". */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
+
+/** @deprecated Use RdsCompAreaChartProps. */
+export type lineprops = RdsCompAreaChartProps;
 
 const RdsCompAreaChart = ({
   labels,
@@ -24,45 +34,30 @@ const RdsCompAreaChart = ({
   id,
   isGradient,
   chartLabel,
-}: lineprops) => {
-  const chartRef = useRef<Chart | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
+  className,
+  ref,
+  ...rest
+}: RdsCompAreaChartProps) => {
+  if (isGradient !== undefined) {
+    warnDeprecatedProp("RdsCompAreaChart", "isGradient", "a scriptable `backgroundColor`");
+  }
 
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    chartRef.current?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = {
-      labels,
-      datasets: dataSets.map((dataset) =>
-        isGradient ? { ...dataset, backgroundColor: dataset.backgroundColor } : dataset
-      ),
-    };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
-
-    const areaCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart(
+    {
       type: "line",
-      data: chartData,
-      options: chartOptions,
-    });
-
-    chartRef.current = areaCanvas;
-    areaCanvas.canvas.style.height = "76vh";
-    areaCanvas.canvas.style.width = "100vh";
-
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, [labels, dataSets, options, isGradient, themeMode]);
+      labels,
+      datasets: dataSets,
+      options,
+      onCreate: (chart) => {
+        chart.canvas.style.height = "76vh";
+        chart.canvas.style.width = "100vh";
+      },
+    },
+    [labels, dataSets, options]
+  );
 
   return (
-    <div className="rds-comp-chart-area">
+    <div {...rest} ref={ref} className={clsx("rds-comp-chart-area", className)}>
       <canvas
         id={id}
         ref={canvasRef}

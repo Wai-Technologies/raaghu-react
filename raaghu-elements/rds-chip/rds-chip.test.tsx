@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsChip, { RdsChipProps } from './rds-chip';
+import { Chip as MuiChip } from '@mui/material';
 import { axe } from 'jest-axe';
 
 // Mock SCSS imports
@@ -785,5 +786,46 @@ describe('RdsChip', () => {
       const chip = container.querySelector('.MuiChip-root');
       expect(chip).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  // G1-207: `component` is no longer omitted, so link chips work.
+  it('renders an anchor with href when component="a"', () => {
+    renderWithTheme(<RdsChip label="Docs" component="a" href="/docs" clickable />);
+    const link = screen.getByRole('link', { name: 'Docs' });
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveAttribute('href', '/docs');
+    expect(link).toHaveClass('MuiChip-root', 'MuiChip-clickable');
+  });
+
+  it('accepts a custom component', () => {
+    const Custom = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>((p, ref) => (
+      <span ref={ref} data-testid="custom-root" {...p} />
+    ));
+    Custom.displayName = 'Custom';
+    renderWithTheme(<RdsChip label="Custom" component={Custom} />);
+    expect(screen.getByTestId('custom-root')).toHaveClass('MuiChip-root');
+  });
+
+  // G1-208: props pass straight through; default output is unchanged.
+  it('renders the same default markup as MUI Chip', () => {
+    const { container: rds } = renderWithTheme(<RdsChip label="Same" />);
+    const { container: mui } = renderWithTheme(<MuiChip label="Same" />);
+    expect(rds.innerHTML).toBe(mui.innerHTML);
+    expect(rds.firstElementChild?.tagName).toBe('DIV');
+  });
+
+  it('renders the same markup as MUI Chip with common props', () => {
+    const onDelete = jest.fn();
+    const props = { label: 'Tag', color: 'primary', variant: 'outlined', size: 'small', className: 'x' } as const;
+    const { container: rds } = renderWithTheme(<RdsChip {...props} onDelete={onDelete} />);
+    const { container: mui } = renderWithTheme(<MuiChip {...props} onDelete={onDelete} />);
+    expect(rds.innerHTML).toBe(mui.innerHTML);
+  });
+
+  it('does not apply the unused rds-chip class', () => {
+    const { container } = renderWithTheme(<RdsChip label="Plain" />);
+    expect(container.querySelector('.rds-chip')).toBeNull();
   });
 });

@@ -599,3 +599,12 @@ describe('RdsLayout', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('sets the header height css var and margin-top from sx only', () => {
+    const { container } = render(<RdsLayout headerHeight={72} header={{ title: 'T' }}>x</RdsLayout>);
+    const main = container.querySelector('main') as HTMLElement;
+    expect(main).toHaveStyle('margin-top: 72px');
+    expect(main.getAttribute('style')).toBeNull();
+    expect(container.firstChild).toHaveStyle('--rds-header-height: 72px');
+  });
+});

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsButtonDropdown, { RdsButtonDropdownProps, RdsButtonDropdownOption } from './rds-button-dropdown';
 import '@testing-library/jest-dom';
@@ -7,10 +7,16 @@ import { axe } from 'jest-axe';
 // Mock SCSS
 jest.mock('./rds-button-dropdown.scss', () => ({}));
 
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
+const mockButtonProps = jest.fn();
+
 // Mock child components
 jest.mock('../rds-button/rds-button', () => {
-  return function MockButton({ text, onClick, style, ...props }: any) {
-    return <button onClick={onClick} {...props}>{text}</button>;
+  return function MockButton(allProps: any) {
+    mockButtonProps(allProps);
+    const { text, onClick, style, children, ...props } = allProps;
+    return <button onClick={onClick} {...props}>{text ?? children}</button>;
   };
 });
 
@@ -37,19 +43,20 @@ jest.mock('../rds-checkbox/rds-checkbox', () => {
 });
 
 jest.mock('../rds-radio/rds-radio', () => {
-  return function MockRadio({ options, value, onChange, state }: any) {
+  return function MockRadio({ options, value, onChange, state, name }: any) {
     return (
       <div data-testid="radio-group">
         {options.map((opt: any) => (
           <label key={opt.value}>
             <input
               type="radio"
+              name={name}
               value={opt.value}
               checked={value === opt.value}
               onChange={onChange}
               disabled={state === 'disabled'}
             />
-            {opt.text}
+            {opt.label ?? opt.text}
           </label>
         ))}
       </div>
@@ -926,6 +933,206 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       
       expect(screen.getAllByRole('radio').length).toBe(3);
+    });
+  });
+});
+
+describe('audit fixes', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation') as { warnDeprecatedProp: jest.Mock };
+  const options: RdsButtonDropdownOption[] = [
+    { id: 1, label: 'Option 1' },
+    { id: 2, label: 'Option 2' },
+    { id: 3, label: 'Option 3' },
+  ];
+  const lastButtonProps = () => mockButtonProps.mock.calls[mockButtonProps.mock.calls.length - 1][0];
+
+  beforeEach(() => {
+    warnDeprecatedProp.mockClear();
+    mockButtonProps.mockClear();
+  });
+
+  describe('G1-150 onChange outside the state updater', () => {
+    it('calls onChange once per click with the next selection, also under StrictMode', () => {
+      const onChange = jest.fn();
+      render(
+        <StrictMode>
+          <RdsButtonDropdown options={options} multiple open onChange={onChange} />
+        </StrictMode>
+      );
+      fireEvent.click(screen.getByText('Button'));
+      fireEvent.click(screen.getAllByRole('checkbox')[0]);
+      fireEvent.click(screen.getAllByRole('checkbox')[1]);
+      fireEvent.click(screen.getAllByRole('checkbox')[0]);
+      expect(onChange.mock.calls).toEqual([[[1]], [[1, 2]], [[2]]]);
+    });
+
+    it('calls onChange once with the id string in single-select mode', () => {
+      const onChange = jest.fn();
+      render(
+        <StrictMode>
+          <RdsButtonDropdown options={options} onChange={onChange} />
+        </StrictMode>
+      );
+      fireEvent.click(screen.getByText('Button'));
+      fireEvent.click(screen.getAllByRole('radio')[1]);
+      expect(onChange.mock.calls).toEqual([['2']]);
+    });
+  });
+
+  describe('G1-151 controlled open / onOpen / onClose', () => {
+    it('opens from the open prop without a click', () => {
+      render(<RdsButtonDropdown options={options} open />);
+      expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
+    });
+
+    it('lets open={false} close a menu that state="selected" would keep open', () => {
+      render(<RdsButtonDropdown options={options} state="selected" open={false} />);
+      expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
+    });
+
+    it('keeps state="selected" open when open is not given', () => {
+      render(<RdsButtonDropdown options={options} state="selected" />);
+      expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
+    });
+
+    it('calls onOpen and onClose but lets the consumer decide when controlled', () => {
+      const onOpen = jest.fn();
+      const onClose = jest.fn();
+      const { rerender } = render(<RdsButtonDropdown options={options} open={false} onOpen={onOpen} onClose={onClose} />);
+      fireEvent.click(screen.getByText('Button'));
+      expect(onOpen).toHaveBeenCalledTimes(1);
+      expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
+
+      rerender(<RdsButtonDropdown options={options} open onOpen={onOpen} onClose={onClose} />);
+      fireEvent.click(screen.getByText('Button'));
+      expect(onClose).toHaveBeenCalledWith(expect.anything(), 'toggleInput');
+      expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
+    });
+
+    it('calls onOpen and onClose in uncontrolled mode too', () => {
+      const onOpen = jest.fn();
+      const onClose = jest.fn();
+      render(<RdsButtonDropdown options={options} onOpen={onOpen} onClose={onClose} />);
+      fireEvent.click(screen.getByText('Button'));
+      expect(onOpen).toHaveBeenCalledTimes(1);
+      expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
+      fireEvent.click(screen.getAllByRole('radio')[0]);
+      expect(onClose).toHaveBeenCalledWith(expect.anything(), 'selectOption');
+      expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('G1-152 forwarded trigger props', () => {
+    it('keeps the default trigger class list empty', () => {
+      render(<RdsButtonDropdown options={options} />);
+      expect(lastButtonProps().className).toBe('');
+    });
+
+    it('merges className with the styleType classes', () => {
+      render(<RdsButtonDropdown options={options} styleType="outline" className="custom" />);
+      expect(screen.getByText('Button')).toHaveClass('rds-button-dropdown__button', 'rds-button-dropdown--outline', 'custom');
+    });
+
+    it('forwards sx, id, aria-* and data-* to the trigger', () => {
+      const sx = { margin: 1 };
+      render(<RdsButtonDropdown options={options} sx={sx} id="trigger" aria-label="Pick one" data-testid="dd-trigger" />);
+      const trigger = screen.getByTestId('dd-trigger');
+      expect(trigger).toHaveAttribute('id', 'trigger');
+      expect(trigger).toHaveAttribute('aria-label', 'Pick one');
+      expect(lastButtonProps().sx).toBe(sx);
+    });
+
+    it('still ignores unknown non-aria/data props', () => {
+      const props = { options, title: 'ignored' } as unknown as RdsButtonDropdownProps;
+      render(<RdsButtonDropdown {...props} />);
+      expect(lastButtonProps().title).toBeUndefined();
+    });
+  });
+
+  describe('G1-153 trigger aria attributes', () => {
+    it('describes the popup and links the menu when open', () => {
+      render(<RdsButtonDropdown options={options} />);
+      const trigger = screen.getByText('Button');
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      expect(trigger).not.toHaveAttribute('aria-controls');
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      expect(trigger.getAttribute('aria-controls')).toBe(screen.getByTestId('rds-menu').id);
+    });
+  });
+
+  describe('renamed props', () => {
+    it('G1-155 children replaces buttonText; children wins and buttonText warns', () => {
+      render(<RdsButtonDropdown options={options} buttonText="Old">New</RdsButtonDropdown>);
+      expect(screen.getByText('New')).toBeInTheDocument();
+      expect(screen.queryByText('Old')).not.toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButtonDropdown', 'buttonText', '`children`');
+    });
+
+    it('G1-155 renders element children and does not warn', () => {
+      render(<RdsButtonDropdown options={options}><span>Rich</span></RdsButtonDropdown>);
+      expect(screen.getByText('Rich')).toBeInTheDocument();
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('G1-156 multiple replaces multiSelect; multiple wins and multiSelect warns', () => {
+      render(<RdsButtonDropdown options={options} multiSelect={false} multiple />);
+      fireEvent.click(screen.getByText('Button'));
+      expect(screen.getAllByRole('checkbox')).toHaveLength(3);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButtonDropdown', 'multiSelect', '`multiple`');
+    });
+
+    it('G1-158 startIcon/endIcon reach the trigger like leftIcon/rightIcon did', () => {
+      const start = <span>start</span>;
+      const end = <span>end</span>;
+      render(<RdsButtonDropdown options={options} startIcon={start} endIcon={end} />);
+      expect(lastButtonProps().changeLeftIcon).toBe(start);
+      expect(lastButtonProps().changeRightIcon).toBe(end);
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('G1-158 leftIcon/rightIcon still work, warn, and lose to the new names', () => {
+      const left = <span>left</span>;
+      const right = <span>right</span>;
+      const start = <span>start</span>;
+      render(<RdsButtonDropdown options={options} leftIcon={left} rightIcon={right} startIcon={start} />);
+      expect(lastButtonProps().changeLeftIcon).toBe(start);
+      expect(lastButtonProps().changeRightIcon).toBe(right);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButtonDropdown', 'leftIcon', '`startIcon`');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButtonDropdown', 'rightIcon', '`endIcon`');
+    });
+  });
+
+  describe('G1-162 value / defaultValue', () => {
+    it('follows a controlled value and reports changes without changing it', () => {
+      const onChange = jest.fn();
+      render(<RdsButtonDropdown options={options} multiple open value={[2]} onChange={onChange} />);
+      fireEvent.click(screen.getByText('Button'));
+      const checkboxes = screen.getAllByRole('checkbox');
+      expect(checkboxes[1]).toBeChecked();
+      fireEvent.click(checkboxes[0]);
+      expect(onChange).toHaveBeenCalledWith([2, 1]);
+      expect(screen.getAllByRole('checkbox')[0]).not.toBeChecked();
+    });
+
+    it('re-syncs when the controlled value changes', () => {
+      const { rerender } = render(<RdsButtonDropdown options={options} multiple open value={[1]} />);
+      expect(screen.getAllByRole('checkbox')[0]).toBeChecked();
+      rerender(<RdsButtonDropdown options={options} multiple open value={[3]} />);
+      expect(screen.getAllByRole('checkbox')[0]).not.toBeChecked();
+      expect(screen.getAllByRole('checkbox')[2]).toBeChecked();
+    });
+
+    it('seeds from defaultValue instead of option.checked', () => {
+      const seeded = [{ ...options[0], checked: true }, options[1], options[2]];
+      render(<RdsButtonDropdown options={seeded} multiple open defaultValue={[3]} />);
+      fireEvent.click(screen.getByText('Button'));
+      const checkboxes = screen.getAllByRole('checkbox');
+      expect(checkboxes[0]).not.toBeChecked();
+      expect(checkboxes[2]).toBeChecked();
+      fireEvent.click(checkboxes[2]);
+      expect(screen.getAllByRole('checkbox')[2]).not.toBeChecked();
     });
   });
 });

@@ -29,15 +29,15 @@
   },
   "homepage": "https://waiin.com/raaghu-open-source-design-system",
   "license": "Apache-2.0",
-  "main": "./dist/raaghu-react.umd.js",
-  "module": "./dist/raaghu-react.es.js",
+  "main": "./dist/raaghu-react.cjs",
+  "module": "./dist/raaghu-react.es.mjs",
   "types": "./dist/index.d.ts",
   "style": "./dist/raaghu-react.css",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/raaghu-react.es.js",
-      "require": "./dist/raaghu-react.umd.js"
+      "import": "./dist/raaghu-react.es.mjs",
+      "require": "./dist/raaghu-react.cjs"
     },
     "./styles.css": "./dist/raaghu-react.css",
     "./raaghu-react.css": "./dist/raaghu-react.css"

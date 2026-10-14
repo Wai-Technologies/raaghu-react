@@ -4,6 +4,10 @@ import RdsBottomNavigation, { RdsBottomNavigationProps, RdsBottomNavigationItem 
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-bottom-navigation.scss', () => ({}));
 
@@ -521,6 +525,102 @@ describe('RdsBottomNavigation', () => {
       const { container } = render(<RdsBottomNavigation {...defaultProps} />);
       const buttons = container.querySelectorAll('button');
       expect(buttons.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('audit fixes', () => {
+    const getActions = (container: HTMLElement) =>
+      container.querySelectorAll('.MuiBottomNavigationAction-root');
+
+    beforeEach(() => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
+    });
+
+    it('warns when the deprecated activeValue prop is used', () => {
+      render(<RdsBottomNavigation {...defaultProps} activeValue="home" />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBottomNavigation', 'activeValue', '`value`');
+    });
+
+    it('warns when the deprecated onItemChange prop is used', () => {
+      render(<RdsBottomNavigation {...defaultProps} onItemChange={jest.fn()} />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBottomNavigation', 'onItemChange', '`onChange`');
+    });
+
+    it('does not warn when value and onChange are used', () => {
+      render(<RdsBottomNavigation {...defaultProps} value="home" onChange={jest.fn()} />);
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('still selects the item given by the deprecated activeValue', () => {
+      const { container } = render(<RdsBottomNavigation {...defaultProps} activeValue="favorites" />);
+      expect(getActions(container)[1]).toHaveClass('Mui-selected');
+    });
+
+    it('selects the item given by value, and value wins over activeValue', () => {
+      const { container } = render(
+        <RdsBottomNavigation {...defaultProps} activeValue="favorites" value="profile" />
+      );
+      expect(getActions(container)[2]).toHaveClass('Mui-selected');
+      expect(getActions(container)[1]).not.toHaveClass('Mui-selected');
+    });
+
+    it('treats an empty-string value as set instead of falling back to activeValue', () => {
+      const items: RdsBottomNavigationItem[] = [
+        { label: 'None', value: '' },
+        { label: 'Home', value: 'home' },
+      ];
+      const { container } = render(<RdsBottomNavigation items={items} value="" activeValue="home" />);
+      expect(getActions(container)[0]).toHaveClass('Mui-selected');
+      expect(getActions(container)[1]).not.toHaveClass('Mui-selected');
+    });
+
+    it('calls onChange with the event and the new value, and still calls onItemChange', () => {
+      const onChange = jest.fn();
+      const onItemChange = jest.fn();
+      const { container } = render(
+        <RdsBottomNavigation {...defaultProps} onChange={onChange} onItemChange={onItemChange} />
+      );
+      fireEvent.click(getActions(container)[1]);
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange.mock.calls[0][0]).toHaveProperty('type', 'click');
+      expect(onChange.mock.calls[0][1]).toBe('favorites');
+      expect(onItemChange).toHaveBeenCalledWith('favorites');
+    });
+
+    it('keeps the selected item label hidden when showLabels is false', () => {
+      const { container } = render(
+        <RdsBottomNavigation {...defaultProps} value="home" showLabels={false} />
+      );
+      expect(getActions(container)[0]).toHaveClass('Mui-selected');
+      expect(screen.queryByText('Home')).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Home' })).toBeInTheDocument();
+    });
+
+    it('does not leak showLabels onto the DOM', () => {
+      const { container } = render(<RdsBottomNavigation {...defaultProps} showLabels />);
+      expect(container.querySelector('[showlabels]')).toBeNull();
+    });
+
+    it('renders duplicate item values without a duplicate-key warning', () => {
+      const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const items: RdsBottomNavigationItem[] = [
+        { label: 'Home', value: 'home' },
+        { label: 'Home 2', value: 'home' },
+      ];
+      render(<RdsBottomNavigation items={items} />);
+      const keyWarnings = errorSpy.mock.calls.filter((call) =>
+        call.some((arg) => typeof arg === 'string' && arg.includes('same key'))
+      );
+      expect(keyWarnings).toHaveLength(0);
+      errorSpy.mockRestore();
+    });
+
+    it('passes className and ref to the MUI root', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      const { container } = render(<RdsBottomNavigation {...defaultProps} className="custom" ref={ref} />);
+      const root = container.querySelector('.MuiBottomNavigation-root');
+      expect(root).toHaveClass('custom');
+      expect(ref.current).toBe(root);
     });
   });
 });

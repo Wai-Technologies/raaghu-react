@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactElement } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactElement } from 'react';
 import Measure, { BoundingRect, type MeasuredComponentProps } from 'react-measure';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
@@ -48,13 +48,8 @@ const RdsCompContribution = ({
   const columns = COLUMNS;
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === 'undefined' ? 1024 : window.innerWidth));
 
-  const handleResizeRef = useRef<() => void>(null!);
-  handleResizeRef.current = () => {
-    setViewportWidth(window.innerWidth);
-  };
-
   useEffect(() => {
-    const handler = () => handleResizeRef.current();
+    const handler = () => setViewportWidth(window.innerWidth);
     handler();
     window.addEventListener('resize', handler);
     return () => {

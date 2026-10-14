@@ -162,7 +162,7 @@ export const renderFormInputs = () => (
                     controlStyle="default"
                     helperText=""
                     hideClearAllOnMobile={true}
-                    isMandatory={false}
+                    required={false}
                     isShowCheckbox={true}
                     isShowRadio={false}
                     isShowUser={true}
@@ -177,7 +177,7 @@ export const renderFormInputs = () => (
                     placeholder="Add Team Members"
                     popupIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-xl)' }} />}
                     selectSize="medium"
-                    allowMultiple={true}
+                    multiple
                     showHintText={false}
                     userIcon={true}
                     openOnFocus={true}

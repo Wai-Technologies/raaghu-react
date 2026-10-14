@@ -940,3 +940,22 @@ describe('RdsSearch', () => {
     });
   });
 });
+describe('RdsSearch audit fixes', () => {
+  it('links the visible label to the input (G2-206)', () => {
+    render(<RdsSearch value="" onChange={jest.fn()} label="Find user" />);
+    expect(screen.getByLabelText('Find user')).toBe(screen.getByRole('textbox'));
+  });
+
+  it('keeps its own class when a consumer passes className (G2-207)', () => {
+    const { container } = render(<RdsSearch value="" onChange={jest.fn()} className="my-search" />);
+    const field = container.querySelector('.MuiTextField-root');
+    expect(field).toHaveClass('rds-search__input');
+    expect(field).toHaveClass('my-search');
+  });
+
+  it('accepts start/end as icon positions (G2-209)', () => {
+    const { container } = render(<RdsSearch value="" onChange={jest.fn()} iconPosition="end" />);
+    expect(container.querySelector('.MuiInputAdornment-positionEnd [aria-label="search"]')).toBeInTheDocument();
+    expect(container.querySelector('.MuiInputAdornment-positionStart')).not.toBeInTheDocument();
+  });
+});

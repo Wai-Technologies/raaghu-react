@@ -2,12 +2,14 @@ import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsStepper from './rds-stepper';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { RdsStepperStep } from './rds-stepper';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-stepper.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -641,5 +643,21 @@ describe('RdsStepper', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('warns when deprecated currentStep/direction are passed', () => {
+    renderWithTheme(<RdsStepper steps={createSteps(2)} currentStep={1} direction="vertical" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsStepper', 'currentStep', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsStepper', 'direction', expect.any(String));
+  });
+
+  it('renders a node as the optional caption', () => {
+    renderWithTheme(
+      <RdsStepper steps={[{ label: 'A', optional: <em>Custom caption</em> }, { label: 'B', optional: true }]} />
+    );
+    expect(screen.getByText('Custom caption')).toBeInTheDocument();
+    expect(screen.getByText('Optional')).toBeInTheDocument();
   });
 });

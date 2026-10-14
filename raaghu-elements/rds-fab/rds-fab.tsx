@@ -4,6 +4,11 @@ import './rds-fab.scss';
 
 export interface RdsFabProps extends Omit<FabProps, 'component'> {
   icon?: ReactNode;
+  /**
+   * Text shown in the extended variant (or alone when there is no icon/children).
+   * When only the icon is shown, it is used as the button's `aria-label`
+   * unless an explicit `aria-label` is passed.
+   */
   label?: string;
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
 }
@@ -27,6 +32,7 @@ const RdsFab = ({
   children,
   position,
   sx,
+  'aria-label': ariaLabel,
   ...props
 }: RdsFabProps) => {
   const positionStyles = position ? (POSITION_STYLES[position] ?? {}) : {};
@@ -35,26 +41,30 @@ const RdsFab = ({
   const resolvedIcon = isRenderableNode(icon) ? icon : undefined;
   const resolvedLabel = typeof label === 'string' ? label : undefined;
   const resolvedChildren = isRenderableNode(children) ? children : undefined;
+  // Multiple children (e.g. an icon followed by text) arrive as an array.
+  const arrayChildren = Array.isArray(children) ? children : undefined;
 
-  let fabContent;
+  let fabContent: ReactNode;
+  let isIconOnly = false;
   if (isExtended && resolvedIcon && resolvedLabel) {
     fabContent = <><span>{resolvedIcon}</span><span>{resolvedLabel}</span></>;
   } else if (resolvedChildren) {
     fabContent = resolvedChildren;
   } else if (resolvedIcon) {
     fabContent = resolvedIcon;
+    isIconOnly = true;
   } else if (resolvedLabel) {
     fabContent = resolvedLabel;
+  } else if (arrayChildren) {
+    fabContent = arrayChildren;
   } else {
     fabContent = null;
   }
   return (
     <MuiFab
-      sx={{
-        ...positionStyles,
-        ...sx,
-      }}
       {...props}
+      aria-label={ariaLabel ?? (isIconOnly && resolvedLabel ? resolvedLabel : undefined)}
+      sx={[positionStyles, ...(Array.isArray(sx) ? sx : [sx])]}
     >
       {fabContent}
     </MuiFab>

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
-import RdsAlert from './rds-alert';
+import RdsAlert, { type RdsAlertProps } from './rds-alert';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
@@ -10,11 +10,15 @@ const meta: Meta<typeof RdsAlert> = {
   title: 'Elements/Alert',
   component: RdsAlert,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
     controls: {
-            exclude: ['component', 'slots', 'slotProps', 'variant']
-        },
+      exclude: [
+        'component', 'slots', 'slotProps', 'variant',
+        // Deprecated props that have a direct replacement control
+        'type', 'changeIconName', 'content', 'actions',
+      ],
+    },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
@@ -22,7 +26,7 @@ const meta: Meta<typeof RdsAlert> = {
       control: 'text',
       description: 'The message to display in the alert',
     },
-    type: {
+    severity: {
       control: 'select',
       options: ['error', 'warning', 'info', 'success'],
       description: 'The type/severity of the alert',
@@ -34,88 +38,84 @@ const meta: Meta<typeof RdsAlert> = {
     },
     showIcon: {
       control: 'boolean',
-      description: 'Show the info icon in the alert',
-      defaultValue: true,
+      description: 'Show the icon in the alert',
     },
-    changeIconName: {
+    icon: {
       control: 'select',
-      options: ['Info', 'Success', 'Warning', 'Error', 'None'],
+      options: ['Default', 'Info', 'Success', 'Warning', 'Error', 'None'],
       mapping: {
+        Default: undefined,
         Info: <InfoOutlinedIcon />,
         Success: <CheckCircleOutlineIcon />,
         Warning: <WarningAmberIcon />,
         Error: <ErrorOutlineIcon />,
-        None: null,
+        None: false,
       },
-      description: 'Custom icon for the alert',
-      defaultValue: null,
+      description: 'Custom icon for the alert; `false` hides it',
     },
     showButtons: {
       control: 'boolean',
-      description: 'Show action buttons (Link, Cancel, Okay)',
-      defaultValue: true,
+      description: 'Show action buttons',
     },
     showTitle: {
       control: 'boolean',
       description: 'Show the heading title before the message',
-      defaultValue: false,
     },
     title: {
       control: 'text',
       description: 'Heading title text (bold)',
-      defaultValue: 'Heading Title.',
     },
     showDescription: {
       control: 'boolean',
-      description: 'Show the description below the heading',
-      defaultValue: true,
+      description: 'Show the description',
     },
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
       description: 'Alert size',
-      defaultValue: 'small',
     },
     multiline: {
       control: 'boolean',
-      description: 'Show heading and description on separate lines (multiline style)',
-      defaultValue: false,
+      description: 'Show heading and description on separate lines',
     },
     variantStyle: {
-      name: 'style', 
+      name: 'style',
       control: 'select',
       options: ['style1', 'style2', 'style3'],
       description: 'The style variant of the alert',
-      defaultValue: 'style1',
     },
     showLink: {
       control: 'boolean',
-      description: 'Show the Link button',
-      defaultValue: true,
+      description: 'Show the link button',
     },
     showSecondary: {
       control: 'boolean',
-      description: 'Show the Cancel button',
-      defaultValue: true,
+      description: 'Show the secondary (cancel) button',
     },
     showPrimary: {
       control: 'boolean',
-      description: 'Show the Okay button',
-      defaultValue: true,
+      description: 'Show the primary (confirm) button',
     },
+    linkText: { control: 'text', description: 'Label of the link button' },
+    secondaryText: { control: 'text', description: 'Label of the secondary button' },
+    primaryText: { control: 'text', description: 'Label of the primary button' },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const baseArgs = {
+  description: 'This is the description of the message bar.',
+  showIcon: true,
+  showTitle: true,
+  title: 'Heading Title.',
+} satisfies Partial<RdsAlertProps>;
+
 export const Default: Story = {
   args: {
-    description: 'This is the description of the message bar.',
-    type: 'info',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
+    ...baseArgs,
+    severity: 'info',
     size: 'medium',
     multiline: false,
     showDescription: true,
@@ -127,54 +127,21 @@ export const Default: Story = {
 };
 
 export const Error: Story = {
-  args: {
-    description: 'This is the description of the message bar.',
-    type: 'error',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
-  },
+  args: { ...baseArgs, severity: 'error' },
 };
 
 export const Filled: Story = {
-  args: {
-    description: 'This is the description of the message bar.',
-    type: 'success',
-    variant: 'filled',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
-  },
+  args: { ...baseArgs, severity: 'success', variant: 'filled' },
 };
 
 export const Outlined: Story = {
-  args: {
-    description: 'This is the description of the message bar.',
-    type: 'warning',
-    variant: 'outlined',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
-  },
+  args: { ...baseArgs, severity: 'warning', variant: 'outlined' },
 };
 
 export const Success: Story = {
-  args: {
-    description: 'This is the description of the message bar.',
-    type: 'success',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
-  },
+  args: { ...baseArgs, severity: 'success' },
 };
 
 export const Warning: Story = {
-  args: {
-    description: 'This is the description of the message bar.',
-    type: 'warning',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
-  },
+  args: { ...baseArgs, severity: 'warning' },
 };
-

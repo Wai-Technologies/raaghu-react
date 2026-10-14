@@ -3,6 +3,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsInput from './rds-input';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import SearchIcon from '@mui/icons-material/Search';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -661,5 +664,45 @@ describe('RdsInput', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsInput audit fixes', () => {
+  it('uses defaultValue as the initial uncontrolled value (G2-029)', () => {
+    render(<RdsInput label="Name" defaultValue="Ann" />);
+    expect(screen.getByRole('textbox')).toHaveValue('Ann');
+  });
+
+  it('passes the real event for phone input so name survives (G2-030)', () => {
+    const onChange = jest.fn();
+    render(<RdsInput layout="phone number" name="phone" onChange={onChange} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.input(input, { target: { value: '12ab3' } });
+    const event = onChange.mock.calls.at(-1)[0];
+    expect(event.target.name).toBe('phone');
+    expect(event.target.value).toBe('123');
+  });
+
+  it('links the visible label to the input (G2-039)', () => {
+    render(<RdsInput label="Email" titlePosition="title-above" />);
+    expect(screen.getByLabelText('Email')).toBe(screen.getByRole('textbox'));
+  });
+
+  it('names the input from label when the label is not shown (G2-028)', () => {
+    render(<RdsInput label="Search term" />);
+    expect(screen.getByRole('textbox', { name: 'Search term' })).toBeInTheDocument();
+  });
+
+  it('accepts helperText and required as the new names (G2-035)', () => {
+    render(<RdsInput label="City" titlePosition="title-above" helperText="Where you live" required />);
+    expect(screen.getByText('Where you live')).toBeInTheDocument();
+    expect(screen.getByText('*')).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toBeRequired();
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    render(<RdsInput hintText="Old hint" isMandatory />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsInput', 'hintText', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsInput', 'isMandatory', expect.any(String));
   });
 });

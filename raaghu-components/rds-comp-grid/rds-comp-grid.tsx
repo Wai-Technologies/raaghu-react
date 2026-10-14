@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, forwardRef, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler } from 'react';
+import { useState, useMemo, useRef, useEffect, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler, type Ref } from 'react';
 import {
   Box,
   TextField,
@@ -516,7 +516,8 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
   );
 };
 
-const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
+const RdsCompGrid = ({
+  ref,
   tableHeaders,
   tableData,
   controlledData,
@@ -558,7 +559,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
-}, ref) => {
+}: RdsCompGridProps & { ref?: Ref<RdsCompGridRef> }) => {
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -3284,7 +3285,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       )}
     </Card>
   );
-});
+};
 
 RdsCompGrid.displayName = 'RdsCompGrid';
 export default RdsCompGrid;

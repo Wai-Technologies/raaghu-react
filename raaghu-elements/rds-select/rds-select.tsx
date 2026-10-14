@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-select.scss';
 
 export interface RdsSelectOption {
@@ -18,16 +19,24 @@ export interface RdsSelectOption {
 }
 
 export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
+  /** Visible label text. */
   label?: string;
+  /** Placeholder shown when nothing is selected (only with `labelposition={false}`). */
   placeholder?: string;
+  /** Options rendered as menu items. */
   options: RdsSelectOption[];
+  /** Helper text shown below the select. */
   helperText?: string;
+  /** Error text shown below the select; also puts the select in the error state. */
   errorMessage?: string;
+  /** @deprecated Use `required` instead. */
   isRequired?: boolean;
+  /** @deprecated Use `placeholder` instead. */
   inputPlaceholder?: string;
+  /** `true` (default) renders a floating label; `false` renders the label above the field. */
   labelposition?: boolean;
+  /** Size of the select. @default 'small' */
   size?: 'small' | 'medium';
-  className?: string;
 }
 
 const RdsSelect = ({
@@ -36,7 +45,8 @@ const RdsSelect = ({
   options,
   helperText,
   errorMessage,
-  isRequired = false,
+  isRequired,
+  required,
   error,
   inputPlaceholder,
   labelposition = true,
@@ -44,7 +54,11 @@ const RdsSelect = ({
   className,
   ...props
 }: RdsSelectProps) => {
+  if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
+  if (inputPlaceholder !== undefined) warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
   const labelId = useId();
+  const isFieldRequired = required ?? isRequired ?? false;
+  const resolvedPlaceholder = inputPlaceholder || placeholder;
   const hasError = !!errorMessage || error;
   
   return (
@@ -56,34 +70,41 @@ const RdsSelect = ({
         className="rds-select__form-control"
       >
         {!labelposition && label && (
-          <label className="rds-select__label">
+          <label id={labelId} className="rds-select__label">
             {label}
-            {isRequired && <span className="rds-select__asterisk">*</span>}
+            {isFieldRequired && <span className="rds-select__asterisk">*</span>}
           </label>
         )}
         {labelposition && label && (
           <InputLabel 
             id={labelId} 
-            required={isRequired}
+            required={isFieldRequired}
             className="rds-select__input-label"
           >
             {label}
           </InputLabel>
         )}
         <MuiSelect
-          labelId={labelposition && label ? labelId : undefined}
+          labelId={label ? labelId : undefined}
           label={labelposition ? label : undefined}
           IconComponent={KeyboardArrowDownIcon}
           className="rds-select__field"
-          {...(!labelposition && { displayEmpty: !!placeholder || !!inputPlaceholder })}
+          {...(!labelposition && { displayEmpty: !!resolvedPlaceholder })}
           renderValue={
             !labelposition
               ? (selected) => {
+                  const labelFor = (v: unknown) => {
+                    const opt = options.find(o => String(o.value) === String(v));
+                    return opt ? opt.label : String(v);
+                  };
+                  if (Array.isArray(selected) && selected.length > 1) {
+                    return selected.map(labelFor).join(', ');
+                  }
                   const value = Array.isArray(selected) ? selected[0] : selected;
                   if (value === undefined || value === null || value === "") {
                     return (
                       <span className="rds-select__placeholder">
-                        {inputPlaceholder || placeholder || ''}
+                        {resolvedPlaceholder || ''}
                       </span>
                     );
                   }
@@ -92,7 +113,11 @@ const RdsSelect = ({
                 }
               : undefined
           }
+          {...(required !== undefined && { required })}
           {...props}
+          {...(isFieldRequired && {
+            SelectDisplayProps: { 'aria-required': true, ...props.SelectDisplayProps },
+          })}
         >
           {options.map((option) => (
             <MenuItem 

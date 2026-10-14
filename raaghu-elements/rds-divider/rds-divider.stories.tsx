@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import RdsDivider from './rds-divider';
 
 const meta: Meta<typeof RdsDivider> = {
@@ -19,8 +19,9 @@ const meta: Meta<typeof RdsDivider> = {
       control: 'select',
       options: ['horizontal', 'vertical'],
     },
-    dividerMessage: {
+    children: {
       control: 'text',
+      description: 'Text shown next to the line',
     },
     textAlign: {
       control: 'select',
@@ -33,10 +34,9 @@ const meta: Meta<typeof RdsDivider> = {
       control: 'boolean',
       defaultValue: true,
     },
-    iconName: {
-      control: 'text',
-      description: 'Enter the icon name to display (e.g., InfoOutlined, Add)',
-      defaultValue: 'InfoOutlined',
+    icon: {
+      control: false,
+      description: 'Icon shown next to the text (ReactNode). Defaults to an InfoOutlined icon',
     },
     size: {
       control: 'select',
@@ -59,10 +59,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    dividerMessage: 'Default Divider',
+    children: 'Default Divider',
     textAlign: 'center',
     iconShow: true,
-    iconName: 'InfoOutlined',
     size: 'medium',
     styleVariant: 'subtle',
   },
@@ -75,20 +74,18 @@ export const Vertical: Story = {
   args: {
     flexItem: true,
     layout: "vertical",
-    iconName: 'InfoOutlined',
   },
   parameters: {
-    controls: { exclude: ['layout', 'component', 'iconName', 'iconShow','dividerMessage', 'textAlign'] },
+    controls: { exclude: ['layout', 'component', 'icon', 'iconShow','children', 'textAlign'] },
   },
 };
 
 
 export const WithText: Story = {
   args: {
-    dividerMessage: 'OR',
+    children: 'OR',
     textAlign: 'center',
     iconShow: true,
-    iconName: 'InfoOutlined',
     size: 'medium',
     styleVariant: 'subtle',
   },
@@ -96,10 +93,9 @@ export const WithText: Story = {
 
 export const Flexed: Story = {
   args: {
-    dividerMessage: 'Flexed',
+    children: 'Flexed',
     flexItem: true,
     iconShow: true,
-    iconName: 'InfoOutlined',
     size: 'medium',
     styleVariant: 'subtle',
   },

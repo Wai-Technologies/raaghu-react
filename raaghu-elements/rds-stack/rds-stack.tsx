@@ -8,9 +8,13 @@ import clsx from 'clsx';
 import './rds-stack.scss';
 
 export interface RdsStackProps extends Omit<StackProps, 'component'> {
+  /** Items to stack. */
   children: ReactNode;
+  /** Alias of `spacing`; `spacing` wins when both are set (`spacing={0}` is honoured). */
   gap?: number | string;
+  /** `true` renders a default divider (vertical for row directions); a node is used as the divider. */
   divider?: boolean | ReactNode;
+  /** Colour of the default divider, applied via the `--rds-stack-divider-color` CSS variable. */
   dividerColor?: string;
 }
 
@@ -52,7 +56,7 @@ const RdsStack = ({
 
   return (
     <MuiStack
-      spacing={spacing || gap}
+      spacing={spacing ?? gap}
       {...restProps}
       className={rootClassName}
       style={mergedStyle}

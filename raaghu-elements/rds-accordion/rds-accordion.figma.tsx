@@ -9,13 +9,14 @@ figma.connect(
   {
     variant: { "📱 Layout": "Default" },
     props: {
-      ShowLeftIcon: figma.boolean("⬅️ Show Left Icon"),
+      showStartIcon: figma.boolean("⬅️ Show Left Icon"),
       title: figma.string("✏️ Title"),
       size: figma.enum("📏 Size", { Small: "small", Medium: "medium", Large: "large" }),
-      state: figma.enum("💡 State", { Default: "default", Hover: "hover", Selected: "selected" }),
+      selected: figma.enum("💡 State", { Default: false, Hover: false, Selected: true }),
     },
-    example: (props) => (
+    example: ({ showStartIcon, ...props }) => (
       <RdsAccordion {...props}
+       startIcon={showStartIcon ? undefined : null}
        defaultExpanded={false}
       >
         <RdsTypography color="text.secondary">
@@ -32,13 +33,14 @@ figma.connect(
   {
     variant: { "📱 Layout": "Expanded" },
     props: {
-      ShowLeftIcon: figma.boolean("⬅️ Show Left Icon"),
+      showStartIcon: figma.boolean("⬅️ Show Left Icon"),
       title: figma.string("✏️ Title"),
       size: figma.enum("📏 Size", { Small: "small", Medium: "medium", Large: "large" }),
-      state: figma.enum("💡 State", { Default: "default", Hover: "hover", Selected: "selected" }),
+      selected: figma.enum("💡 State", { Default: false, Hover: false, Selected: true }),
     },
-    example: (props) => (
+    example: ({ showStartIcon, ...props }) => (
       <RdsAccordion {...props}
+       startIcon={showStartIcon ? undefined : null}
        defaultExpanded={true}
        >
         <RdsTypography color="text.secondary">

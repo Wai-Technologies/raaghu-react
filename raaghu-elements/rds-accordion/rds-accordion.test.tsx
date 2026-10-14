@@ -4,9 +4,11 @@ import userEvent from '@testing-library/user-event';
 import RdsAccordion from './rds-accordion';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 // Mock SCSS
 jest.mock('./rds-accordion.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsAccordion', () => {
   const defaultProps = {
@@ -724,5 +726,63 @@ describe('RdsAccordion — keyboard navigation', () => {
     render(<RdsAccordion {...defaultProps} disabled />);
     const summary = screen.getByRole('button', { name: /accordion title/i });
     expect(summary).toBeDisabled();
+  });
+});
+
+describe('RdsAccordion audit fixes', () => {
+  const baseProps = {
+    title: 'Accordion Title',
+    children: <div>Accordion Content</div>,
+  };
+
+  it('keeps its own classes when a consumer passes className (G1-001)', () => {
+    const { container } = render(<RdsAccordion {...baseProps} className="my-accordion" />);
+    const root = container.querySelector('.MuiAccordion-root');
+    expect(root).toHaveClass('rds-accordion');
+    expect(root).toHaveClass('my-accordion');
+  });
+
+  it('updates the expanded class when toggled uncontrolled (G1-007)', async () => {
+    const { container } = render(<RdsAccordion {...baseProps} />);
+    const root = container.querySelector('.MuiAccordion-root');
+    expect(root).not.toHaveClass('rds-accordion--expanded');
+    await userEvent.click(screen.getByRole('button', { name: /accordion title/i }));
+    expect(root).toHaveClass('rds-accordion--expanded');
+  });
+
+  it('still calls a consumer onChange', async () => {
+    const onChange = jest.fn();
+    render(<RdsAccordion {...baseProps} onChange={onChange} />);
+    await userEvent.click(screen.getByRole('button', { name: /accordion title/i }));
+    expect(onChange).toHaveBeenCalledWith(expect.anything(), true);
+  });
+
+  it('maps variant onto the existing style classes (G1-006)', () => {
+    const { container } = render(<RdsAccordion {...baseProps} variant="underline" />);
+    expect(container.querySelector('.rds-accordion__container')).toHaveClass('rds-accordion--bottomline');
+  });
+
+  it('renders startIcon and hides it with null (G1-005)', () => {
+    const { rerender, container } = render(
+      <RdsAccordion {...baseProps} startIcon={<span data-testid="start-icon" />} />
+    );
+    expect(screen.getByTestId('start-icon')).toBeInTheDocument();
+    rerender(<RdsAccordion {...baseProps} startIcon={null} />);
+    expect(container.querySelector('.rds-accordion__icon')).not.toBeInTheDocument();
+  });
+
+  it('accepts a custom expandIcon (G1-011)', () => {
+    render(<RdsAccordion {...baseProps} expandIcon={<span data-testid="expand-icon" />} />);
+    expect(screen.getByTestId('expand-icon')).toBeInTheDocument();
+  });
+
+  it('applies the selected class from the selected prop (G1-004)', () => {
+    const { container } = render(<RdsAccordion {...baseProps} selected />);
+    expect(container.querySelector('.MuiAccordion-root')).toHaveClass('rds-accordion--selected');
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    render(<RdsAccordion {...baseProps} accordionStyle="bottomline" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAccordion', 'accordionStyle', expect.any(String));
   });
 });

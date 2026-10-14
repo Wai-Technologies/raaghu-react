@@ -399,17 +399,18 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                       />
                     ) : type === "ActivityUpdateCard" ? (
                       <RdsButtonDropdown
-                        buttonText={btn1Label}
                         styleType="outline"
                         options={activityDropdownOptions}
                         onChange={() => {}}
                         state="default"
                         showRadio={true}
                         showUserAvatar={true}
-                        multiSelect={false}
+                        multiple={false}
                         isShowLeftIcon={false}
-                        rightIcon={<ExpandMoreIcon />}
-                      />
+                        endIcon={<ExpandMoreIcon />}
+                      >
+                        {btn1Label}
+                      </RdsButtonDropdown>
                     ) : (
                       <RdsButton
                         style={resolvedBtn1Style}

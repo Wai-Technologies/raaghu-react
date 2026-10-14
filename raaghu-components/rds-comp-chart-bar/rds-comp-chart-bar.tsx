@@ -1,20 +1,26 @@
-import { useEffect, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
 import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-bar.scss";
 
-export interface RdsCompBarChartProps {
+/** Props for {@link RdsCompBarChart}. */
+export interface RdsCompBarChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** X-axis labels. */
   labels: string[];
+  /** Chart.js options (never mutated). `responsive` and `maintainAspectRatio` default to `true` / `false`. */
   options: ChartOptions<"bar">;
+  /** Chart.js bar datasets. */
   dataSets: ChartDataset<"bar">[];
+  /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
   height?: string | number;
+  /** Accessible label of the chart. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const applyBarCanvasSizing = (
@@ -52,35 +58,23 @@ const RdsCompBarChart = ({
   id,
   height,
   chartLabel,
+  className,
+  ref,
+  ...rest
 }: RdsCompBarChartProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
-
-    const barCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart(
+    {
       type: "bar",
-      data: chartData,
-      options: { ...chartOptions, responsive: true, maintainAspectRatio: false },
-    });
-
-    applyBarCanvasSizing(barCanvas, id, height);
-
-    return () => {
-      barCanvas.destroy();
-    };
-  }, [options, labels, dataSets, height, id, themeMode]);
+      labels,
+      datasets: dataSets,
+      options: { responsive: true, maintainAspectRatio: false, ...options },
+      onCreate: (chart) => applyBarCanvasSizing(chart, id, height),
+    },
+    [options, labels, dataSets, height, id]
+  );
 
   return (
-    <div className="rds-comp-chart-bar">
+    <div {...rest} ref={ref} className={clsx("rds-comp-chart-bar", className)}>
       <canvas
         data-testid={id}
         id={id}

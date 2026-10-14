@@ -1,4 +1,4 @@
-import { forwardRef, type MouseEvent } from "react";
+import { type MouseEvent, type Ref } from "react";
 
 interface ExampleCustomInputProps {
   value?: string;
@@ -7,8 +7,7 @@ interface ExampleCustomInputProps {
   onActivate?: () => void;
 }
 
-export const ExampleCustomInput = forwardRef<HTMLButtonElement, ExampleCustomInputProps>(
-  ({ value: _value, onClick, changeIcon: _changeIcon, onActivate }, ref) => {
+export const ExampleCustomInput = ({ ref, value: _value, onClick, changeIcon: _changeIcon, onActivate }: ExampleCustomInputProps & { ref?: Ref<HTMLButtonElement> }) => {
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
       onActivate?.();
       onClick?.(event);
@@ -24,7 +23,6 @@ export const ExampleCustomInput = forwardRef<HTMLButtonElement, ExampleCustomInp
         Custom
       </button>
     );
-  }
-);
+  };
 
 ExampleCustomInput.displayName = "ExampleCustomInput";

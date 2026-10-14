@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Typography, Box } from '@mui/material';
-import { Share, Favorite } from '@mui/icons-material';
+import Share from '@mui/icons-material/Share';
+import Favorite from '@mui/icons-material/Favorite';
 import RdsCardDetail from './rds-card-detail';
 import { expect } from 'storybook/test';
 

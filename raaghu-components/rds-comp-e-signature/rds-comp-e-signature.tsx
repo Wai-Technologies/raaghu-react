@@ -56,9 +56,9 @@ const RdsCompESignature = ({
   const updateUiState = (updates: Partial<typeof uiState>) => {
     setUiState((prev) => ({ ...prev, ...updates }));
   };
-  const prevPenColorRef = useRef(penColor);
-  if (penColor !== prevPenColorRef.current) {
-    prevPenColorRef.current = penColor;
+  const [prevPenColor, setPrevPenColor] = useState(penColor);
+  if (penColor !== prevPenColor) {
+    setPrevPenColor(penColor);
     updateUiState({ selectedColor: penColor });
   }
   const strokesRef = useRef<{ x: number; y: number; }[][]>([]);

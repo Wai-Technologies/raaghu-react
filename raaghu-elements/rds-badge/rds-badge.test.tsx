@@ -648,3 +648,23 @@ describe('RdsBadge', () => {
     });
   });
 });
+
+describe('RdsBadge audit fixes', () => {
+  it('keeps its own classes when a consumer passes className (G1-086)', () => {
+    const { container } = render(<RdsBadge badgeContent={4} className="my-badge"><span>Inbox</span></RdsBadge>);
+    const root = container.querySelector('.MuiBadge-root');
+    expect(root).toHaveClass('rds-badge');
+    expect(root).toHaveClass('my-badge');
+  });
+
+  it('forwards className on the standalone badge (G1-087)', () => {
+    const { container } = render(<RdsBadge badgeContent={4} className="my-badge" />);
+    expect(container.querySelector('.rds-badge')).toHaveClass('my-badge');
+  });
+
+  it('lets consumers replace the layout icon (G1-088)', () => {
+    render(<RdsBadge badgeContent={4} layout="icon-text" icon={<span data-testid="custom-badge-icon" />} />);
+    expect(screen.getByTestId('custom-badge-icon')).toBeInTheDocument();
+    expect(screen.getByText('4')).toBeInTheDocument();
+  });
+});

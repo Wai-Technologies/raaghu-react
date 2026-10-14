@@ -11,8 +11,7 @@ interface MotionPopoverTransitionProps extends React.HTMLAttributes<HTMLDivEleme
   timeout?: number | { enter?: number; exit?: number; appear?: number };
 }
 
-const MotionPopoverTransition = React.forwardRef<HTMLDivElement, MotionPopoverTransitionProps>(
-  ({ in: isIn, children, onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }, ref) => {
+const MotionPopoverTransition = ({ ref, in: isIn, children, onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }: MotionPopoverTransitionProps & { ref?: React.Ref<HTMLDivElement> }) => {
     const onEnterRef = React.useRef(onEnter);
     const onEnteredRef = React.useRef(onEntered);
     const onExitRef = React.useRef(onExit);
@@ -25,8 +24,7 @@ const MotionPopoverTransition = React.forwardRef<HTMLDivElement, MotionPopoverTr
 
     if (!isIn) return null;
     return <div ref={ref} style={{ transformOrigin: 'inherit' }} {...rest}>{children}</div>;
-  }
-);
+  };
 
 MotionPopoverTransition.displayName = 'MotionPopoverTransition';
 export default MotionPopoverTransition;

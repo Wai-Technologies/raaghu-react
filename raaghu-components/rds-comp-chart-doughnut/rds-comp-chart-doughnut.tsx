@@ -1,24 +1,29 @@
-import { useEffect, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
 import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  chartFont,
-  chartMutedColor,
-  chartTextColor,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import { chartFont, chartMutedColor, chartTextColor } from "../chart-utils";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-doughnut.scss";
 
-export interface RdsCompDoughnutProps {
+/** Props for {@link RdsCompDoughnutChart}. */
+export interface RdsCompDoughnutProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Slice labels. */
   labels: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"doughnut">;
+  /** Chart.js doughnut datasets. */
   dataSets: ChartDataset<"doughnut">[];
+  /** Id of the canvas element. */
   id: string;
+  /** Large text drawn in the centre. */
   titleText?: string;
+  /** Smaller text drawn under the title. */
   subTitleText?: string;
+  /** Accessible label of the chart. Defaults to "Doughnut chart" followed by the title and subtitle text, if any. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const createCenterTextPlugin = (title: string, subTitle: string) => ({
@@ -58,43 +63,41 @@ const RdsCompDoughnutChart = ({
   titleText = "",
   subTitleText = "",
   chartLabel,
+  className,
+  ref,
+  ...rest
 }: RdsCompDoughnutProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions, []);
-
-    const doughnutCanvas = new Chart(ctx, {
+  const defaultLabel = [
+    "Doughnut chart:",
+    ...[titleText, subTitleText].filter(Boolean),
+  ];
+  const { canvasRef } = useChart(
+    {
       type: "doughnut",
+      labels,
+      datasets: dataSets,
+      options,
+      themeAxes: [],
       plugins: [createCenterTextPlugin(titleText, subTitleText)],
-      data: chartData,
-      options: chartOptions,
-    });
-
-    doughnutCanvas.canvas.style.width = "66vh";
-    doughnutCanvas.canvas.style.height = "66vh";
-
-    return () => {
-      doughnutCanvas.destroy();
-    };
-  }, [labels, options, dataSets, titleText, subTitleText, themeMode]);
+      onCreate: (chart) => {
+        chart.canvas.style.width = "66vh";
+        chart.canvas.style.height = "66vh";
+      },
+    },
+    [labels, options, dataSets, titleText, subTitleText]
+  );
 
   return (
-    <div className="rds-comp-chart-doughnut">
+    <div {...rest} ref={ref} className={clsx("rds-comp-chart-doughnut", className)}>
       <canvas
         data-testid={id}
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Doughnut chart"}
+        aria-label={
+          chartLabel ??
+          (defaultLabel.length > 1 ? defaultLabel.join(" ") : "Doughnut chart")
+        }
       />
     </div>
   );

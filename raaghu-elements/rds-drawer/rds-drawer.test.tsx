@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent, within, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsDrawer, { RdsDrawerProps } from './rds-drawer';
 
 // Mock SCSS
 jest.mock('./rds-drawer.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
@@ -572,6 +573,185 @@ describe('RdsDrawer', () => {
       );
       const closeButton = screen.getByText('Close Navigation');
       expect(closeButton).toBeInTheDocument();
+    });
+  });
+});
+
+describe('audit fixes', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation') as { warnDeprecatedProp: jest.Mock };
+
+  beforeEach(() => {
+    warnDeprecatedProp.mockClear();
+  });
+
+  const getTrigger = (text = 'Open Drawer') => screen.getByText(text);
+  const getPaper = () => document.querySelector('.MuiDrawer-paper') as HTMLElement;
+
+  describe('G1-255 onClose / open are not overridden by rest props', () => {
+    it('closes on Escape in trigger mode and still calls the consumer onClose', async () => {
+      const onClose = jest.fn();
+      render(<RdsDrawer showTrigger onClose={onClose}><div>Content</div></RdsDrawer>);
+      fireEvent.click(getTrigger());
+      expect(getTrigger()).toHaveAttribute('aria-expanded', 'true');
+
+      fireEvent.keyDown(getPaper(), { key: 'Escape' });
+      expect(onClose).toHaveBeenCalledWith(expect.anything(), 'escapeKeyDown');
+      expect(getTrigger()).toHaveAttribute('aria-expanded', 'false');
+      await waitFor(() => expect(screen.queryByText('Content')).not.toBeInTheDocument());
+    });
+
+    it('closes on backdrop click in trigger mode and calls the consumer onClose', async () => {
+      const onClose = jest.fn();
+      render(<RdsDrawer showTrigger onClose={onClose}><div>Content</div></RdsDrawer>);
+      fireEvent.click(getTrigger());
+      fireEvent.click(document.querySelector('.MuiBackdrop-root') as HTMLElement);
+      expect(onClose).toHaveBeenCalledWith(expect.anything(), 'backdropClick');
+      await waitFor(() => expect(screen.queryByText('Content')).not.toBeInTheDocument());
+    });
+
+    it('closes an uncontrolled defaultOpen drawer without a trigger when onClose is given', async () => {
+      const onClose = jest.fn();
+      render(<RdsDrawer defaultOpen onClose={onClose}><div>Content</div></RdsDrawer>);
+      fireEvent.keyDown(getPaper(), { key: 'Escape' });
+      expect(onClose).toHaveBeenCalledTimes(1);
+      await waitFor(() => expect(screen.queryByText('Content')).not.toBeInTheDocument());
+    });
+
+    it('a consumer open still decides the open state in trigger mode', () => {
+      render(<RdsDrawer showTrigger open={false}><div>Content</div></RdsDrawer>);
+      fireEvent.click(getTrigger());
+      expect(screen.queryByText('Content')).not.toBeInTheDocument();
+    });
+
+    it('a controlled drawer stays open on Escape until the consumer changes open', () => {
+      const onClose = jest.fn();
+      render(<RdsDrawer open onClose={onClose}><div>Content</div></RdsDrawer>);
+      fireEvent.keyDown(getPaper(), { key: 'Escape' });
+      expect(onClose).toHaveBeenCalledWith(expect.anything(), 'escapeKeyDown');
+      expect(screen.getByText('Content')).toBeInTheDocument();
+    });
+  });
+
+  describe('G1-259 controlled trigger mode', () => {
+    it('trigger label and aria-expanded follow the controlled open prop', () => {
+      const { rerender } = render(
+        <RdsDrawer showTrigger open triggerText="Show" triggerTextWhenOpen="Hide"><div>Content</div></RdsDrawer>
+      );
+      expect(screen.getByText('Hide')).toHaveAttribute('aria-expanded', 'true');
+
+      rerender(<RdsDrawer showTrigger open={false} triggerText="Show" triggerTextWhenOpen="Hide"><div>Content</div></RdsDrawer>);
+      expect(screen.getByText('Show')).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('clicking the trigger does not desync from the controlled open prop', () => {
+      render(<RdsDrawer showTrigger open={false} triggerText="Show" triggerTextWhenOpen="Hide"><div>Content</div></RdsDrawer>);
+      fireEvent.click(screen.getByText('Show'));
+      expect(screen.getByText('Show')).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('triggerButtonProps.onClick can drive the controlled open prop', () => {
+      const Controlled = () => {
+        const [open, setOpen] = React.useState(false);
+        return (
+          <RdsDrawer
+            showTrigger
+            variant="persistent"
+            open={open}
+            triggerText="Show"
+            triggerTextWhenOpen="Hide"
+            triggerButtonProps={{ onClick: () => setOpen((o) => !o) }}
+          >
+            <div>Content</div>
+          </RdsDrawer>
+        );
+      };
+      render(<Controlled />);
+      fireEvent.click(screen.getByText('Show'));
+      expect(screen.getByText('Hide')).toHaveAttribute('aria-expanded', 'true');
+    });
+  });
+
+  describe('G1-257 sx merge', () => {
+    it('keeps the base paper width when the consumer styles the paper', () => {
+      render(<RdsDrawer open sx={{ '& .MuiDrawer-paper': { backgroundColor: 'red' } }}><div>Content</div></RdsDrawer>);
+      expect(getPaper()).toHaveStyle({ width: '251px', backgroundColor: 'red' });
+    });
+
+    it('accepts array and function sx', () => {
+      render(
+        <RdsDrawer open sx={[{ '& .MuiDrawer-paper': { color: 'blue' } }, () => ({ '& .MuiDrawer-paper': { opacity: 0.5 } })]}>
+          <div>Content</div>
+        </RdsDrawer>
+      );
+      expect(getPaper()).toHaveStyle({ width: '251px', color: 'blue', opacity: '0.5' });
+    });
+
+    it('lets the consumer sx override the base width', () => {
+      render(<RdsDrawer open sx={{ '& .MuiDrawer-paper': { width: 400 } }}><div>Content</div></RdsDrawer>);
+      expect(getPaper()).toHaveStyle({ width: '400px' });
+    });
+  });
+
+  describe('G1-258 anchor replaces position', () => {
+    it('defaults to the left anchor without a warning', () => {
+      render(<RdsDrawer open><div>Content</div></RdsDrawer>);
+      expect(getPaper()).toHaveClass('MuiDrawer-paperAnchorLeft');
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('anchor sets the side without a warning', () => {
+      render(<RdsDrawer open anchor="right"><div>Content</div></RdsDrawer>);
+      expect(getPaper()).toHaveClass('MuiDrawer-paperAnchorRight');
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('position still works and warns', () => {
+      render(<RdsDrawer open position="bottom"><div>Content</div></RdsDrawer>);
+      expect(getPaper()).toHaveClass('MuiDrawer-paperAnchorBottom');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsDrawer', 'position', '`anchor`');
+    });
+
+    it('anchor wins over position', () => {
+      render(<RdsDrawer open anchor="right" position="left"><div>Content</div></RdsDrawer>);
+      expect(getPaper()).toHaveClass('MuiDrawer-paperAnchorRight');
+    });
+  });
+
+  describe('G1-263 trigger aria attributes', () => {
+    it('sets aria-expanded and points aria-controls at the drawer root when open', () => {
+      render(<RdsDrawer showTrigger><div>Content</div></RdsDrawer>);
+      const trigger = getTrigger();
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      expect(trigger).not.toHaveAttribute('aria-controls');
+
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      const id = trigger.getAttribute('aria-controls') as string;
+      expect(id).toBeTruthy();
+      expect(document.getElementById(id)).toContainElement(getPaper());
+    });
+
+    it('uses a consumer id for aria-controls', () => {
+      render(<RdsDrawer showTrigger defaultOpen id="nav-drawer"><div>Content</div></RdsDrawer>);
+      expect(getTrigger()).toHaveAttribute('aria-controls', 'nav-drawer');
+      expect(document.getElementById('nav-drawer')).toContainElement(getPaper());
+    });
+
+    it('passes consumer PaperProps and slotProps.paper through unchanged in trigger mode', () => {
+      const { unmount } = render(
+        <RdsDrawer showTrigger defaultOpen PaperProps={{ className: 'my-paper' }}><div>Content</div></RdsDrawer>
+      );
+      expect(getPaper()).toHaveClass('my-paper');
+      unmount();
+      render(
+        <RdsDrawer showTrigger defaultOpen slotProps={{ paper: () => ({ className: 'fn-paper' }) }}><div>Content</div></RdsDrawer>
+      );
+      expect(getPaper()).toHaveClass('fn-paper');
+    });
+
+    it('has no axe violations with an open trigger drawer', async () => {
+      const { container } = render(<RdsDrawer showTrigger defaultOpen><div>Content</div></RdsDrawer>);
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 });

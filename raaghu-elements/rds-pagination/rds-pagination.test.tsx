@@ -776,3 +776,70 @@ describe('RdsPagination', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  const actualHelpers = jest.requireActual('./rds-pagination.helpers');
+
+  it('G2-118/120: legacy show* props are honoured but not forwarded to the DOM', () => {
+    const { container } = renderWithTheme(
+      <RdsPagination totalPages={10} showLegend showFirstLast={false} showManualInput showRecordsPerPage showDropdown showFirst showLast />
+    );
+    const nav = container.querySelector('nav')!;
+    ['showlegend', 'showfirstlast', 'showmanualinput', 'showrecordsperpage', 'showdropdown', 'showfirst', 'showlast'].forEach(attr =>
+      expect(nav.hasAttribute(attr)).toBe(false)
+    );
+    expect(screen.getByPlaceholderText('1')).toBeInTheDocument();
+  });
+
+  it('G2-121: uncontrolled mode keeps the legend and pagination in sync', async () => {
+    renderWithTheme(<RdsPagination totalPages={10} showLegend legendText="{current} of {total} items" />);
+    expect(screen.getByText('1 of 10 items')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Go to page 2' }));
+    expect(screen.getByText('2 of 10 items')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'page 2' })).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('G2-121: controlled mode does not move without the parent', async () => {
+    renderWithTheme(<RdsPagination totalPages={10} page={3} showLegend legendText="{current} of {total} items" />);
+    await userEvent.click(screen.getByRole('button', { name: 'Go to page 4' }));
+    expect(screen.getByText('3 of 10 items')).toBeInTheDocument();
+  });
+
+  it('G2-122/128: Enter in the page input passes the real keydown event to onChange', () => {
+    const onChange = jest.fn();
+    renderWithTheme(<RdsPagination totalPages={10} showManualInput onChange={onChange} />);
+    const input = screen.getByPlaceholderText('1');
+    fireEvent.change(input, { target: { value: '4' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ type: 'keydown' }), 4);
+  });
+
+  it('G2-123: each instance gets its own page-size label id', () => {
+    renderWithTheme(
+      <>
+        <RdsPagination totalPages={10} showRecordsPerPage />
+        <RdsPagination totalPages={10} showRecordsPerPage />
+      </>
+    );
+    const labels = screen.getAllByText('Records per page', { selector: 'label' });
+    expect(labels[0].id).not.toBe(labels[1].id);
+    expect(screen.getAllByLabelText(/records per page/i)).toHaveLength(2);
+  });
+
+  it('G2-127: a consumer renderItem wins over the internal one', () => {
+    renderWithTheme(
+      <RdsPagination totalPages={3} renderItem={(item) => <span data-testid="custom-item">{item.page}</span>} />
+    );
+    expect(screen.getAllByTestId('custom-item').length).toBeGreaterThan(0);
+  });
+
+  it('G2-132/133: sibling/boundary counts per style and on small screens', () => {
+    const calc = (style: string, small = false) =>
+      actualHelpers.calculatePaginationConfig(style, actualHelpers.getStyleConfig(style), small);
+    expect(calc('Style 2')).toEqual({ finalSiblingCount: 0, finalBoundaryCount: 1 });
+    expect(calc('Style 3')).toEqual({ finalSiblingCount: 0, finalBoundaryCount: 2 });
+    expect(calc('Style 9')).toEqual({ finalSiblingCount: 2, finalBoundaryCount: 0 });
+    expect(calc('Style 5')).toEqual({ finalSiblingCount: 0, finalBoundaryCount: 1 });
+    expect(calc('Style 9', true)).toEqual({ finalSiblingCount: 0, finalBoundaryCount: 1 });
+  });
+});

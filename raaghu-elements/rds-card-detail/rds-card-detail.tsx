@@ -16,6 +16,11 @@ export interface RdsCardDetailProps extends Omit<CardProps, 'component'> {
   subtitle?: string;
   image?: string;
   imageHeight?: number;
+  /**
+   * Alt text for `image`. Pass `''` for a purely decorative image.
+   * When omitted, the alt text falls back to `title`, then to `'Card image'`.
+   */
+  imageAlt?: string;
   actions?: ReactNode;
   children: ReactNode;
 }
@@ -25,8 +30,11 @@ const RdsCardDetail = ({
   subtitle,
   image,
   imageHeight = 140,
+  imageAlt,
   actions,
   children,
+  sx,
+  className,
   ...props
 }: RdsCardDetailProps) => {
   const { mode } = useRaaghuTheme();
@@ -46,11 +54,10 @@ const RdsCardDetail = ({
       }
     : {};
 
-  const mergedSx = Array.isArray(props.sx)
-    ? [...props.sx, elevationSx]
-    : [props.sx || {}, elevationSx];
+  // Base styles first so the consumer's `sx` always wins.
+  const mergedSx = [elevationSx, ...(Array.isArray(sx) ? sx : [sx])];
 
-  const mergedClassName = clsx('rds-card-detail', props.className);
+  const mergedClassName = clsx('rds-card-detail', className);
 
   return (
     <Card {...props} sx={mergedSx} className={mergedClassName}>
@@ -65,7 +72,7 @@ const RdsCardDetail = ({
           component="img"
           height={imageHeight}
           image={image}
-          alt={title || 'Card image'}
+          alt={imageAlt ?? (title || 'Card image')}
         />
       )}
       <CardContent>

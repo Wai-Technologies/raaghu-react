@@ -734,3 +734,30 @@ describe('RdsSlider — keyboard navigation', () => {
     expect(slider).toHaveAttribute('aria-valuenow', '50');
   });
 });
+
+describe('audit fixes', () => {
+  it('G2-252: calls onChange and updates internal state when uncontrolled', async () => {
+    const onChange = jest.fn();
+    renderWithTheme(<RdsSlider min={0} max={100} onChange={onChange} />);
+    const input = document.querySelector('input[type="range"]') as HTMLInputElement;
+    input.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][1]).toBe(31);
+    expect(input).toHaveValue('31');
+  });
+
+  it('G2-253: level is only the initial value; the thumb can move', async () => {
+    renderWithTheme(<RdsSlider level={3} min={0} max={100} />);
+    const input = document.querySelector('input[type="range"]') as HTMLInputElement;
+    input.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(input).toHaveValue('51');
+  });
+
+  it('G2-254: end labels default to min and max', () => {
+    renderWithTheme(<RdsSlider min={10} max={50} />);
+    expect(document.querySelector('.rds-slider__left-label')).toHaveTextContent('10');
+    expect(document.querySelector('.rds-slider__right-label')).toHaveTextContent('50');
+  });
+});

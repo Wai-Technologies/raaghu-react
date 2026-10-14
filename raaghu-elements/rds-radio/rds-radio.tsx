@@ -1,4 +1,4 @@
-import { useMemo, type ChangeEvent } from 'react';
+import { useId, type ChangeEvent } from 'react';
 import {
   Radio as MuiRadio,
   RadioGroup,
@@ -11,51 +11,65 @@ import {
   Typography
 } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-radio.scss';
 
 export interface RdsRadioOption {
   value: string;
-  text: string;
+  /** Option label. */
+  label?: string;
+  /** @deprecated Use `label`. */
+  text?: string;
   disabled?: boolean;
 }
 
 export interface RdsRadioProps extends Omit<RadioGroupProps, 'children' | 'component'> {
   options: RdsRadioOption[];
   label?: string;
-  direction?: 'row' | 'column';
   radioProps?: RadioProps;
   layout?: 'icon' | 'icon with label' | 'icon with bottom label';
   state?: 'default' | 'hover' | 'disabled';
   selected?: boolean;
+  /** @deprecated Use `row`. */
+  direction?: 'row' | 'column';
 }
 
-const RdsRadio= ({
+const RdsRadio = ({
   options,
   label,
-  direction = 'column',
+  direction,
+  row,
   radioProps,
   layout = 'icon with label',
   state = 'default',
   selected,
   ...props
-}:RdsRadioProps) => {
-  const radioRow = direction === 'row';
+}: RdsRadioProps) => {
+  if (direction !== undefined) warnDeprecatedProp('RdsRadio', 'direction', '`row`');
+  if (options.some(option => option.text !== undefined)) {
+    warnDeprecatedProp('RdsRadio', 'options[].text', '`options[].label`');
+  }
 
-  const effectiveValue: string | undefined = useMemo(() => {
+  const isRow = row ?? direction === 'row';
+  const groupId = useId();
+  // Radios in the bottom-label layout are plain inputs, so they need a shared name for arrow-key navigation.
+  const groupName = props.name ?? `rds-radio-${groupId}`;
+
+  const getEffectiveValue = (): string | undefined => {
     if (typeof selected === 'undefined') return props.value as string | undefined;
     if (selected === false) return undefined;
     if (props.value) return props.value as string;
-    const first = options.find(o => !o.disabled);
-    return first ? first.value : undefined;
-  }, [selected, props.value, options]);
+    return options.find(o => !o.disabled)?.value;
+  };
+  const effectiveValue = getEffectiveValue();
 
   const renderOption = (option: RdsRadioOption) => {
-    const optionDisabled = option.disabled ?? false;
-    const finalDisabled = optionDisabled || state === 'disabled';
-    
+    const optionLabel = option.label ?? option.text;
+    const finalDisabled = (option.disabled ?? false) || state === 'disabled';
+
     const commonProps = {
       value: option.value,
-      control: <MuiRadio {...radioProps} disabled={finalDisabled} disableRipple />,
+      control: <MuiRadio disableRipple {...radioProps} disabled={finalDisabled} />,
       disabled: finalDisabled,
     };
 
@@ -64,6 +78,7 @@ const RdsRadio= ({
     }
 
     if (layout === 'icon with bottom label') {
+      // Kept as-is: consumers may target this id (it can repeat across groups; see audit G2-169).
       const radioId = `rds-radio-${option.value}`;
       return (
         <Box
@@ -75,22 +90,20 @@ const RdsRadio= ({
           sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         >
           <label htmlFor={radioId} style={{ cursor: finalDisabled ? 'not-allowed' : 'pointer', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <MuiRadio 
-              {...radioProps} 
+            <MuiRadio
+              disableRipple
+              {...radioProps}
               id={radioId}
               value={option.value}
               disabled={finalDisabled}
               checked={effectiveValue === option.value}
-              name={props.name}
+              name={groupName}
               onChange={(event) => {
-                if (!finalDisabled) {
-                  if (typeof selected === 'undefined' && props.onChange) {
-                    props.onChange(event, option.value);
-                  }
+                if (!finalDisabled && typeof selected === 'undefined' && props.onChange) {
+                  props.onChange(event, option.value);
                 }
               }}
               className="rds-radio__option"
-              disableRipple
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -99,7 +112,7 @@ const RdsRadio= ({
                 padding: 'var(--rds-spacing-xs, 4px)'
               }}
             />
-            {option.text && (
+            {optionLabel && (
               <Typography
                 component="span"
                 className={clsx(
@@ -114,7 +127,7 @@ const RdsRadio= ({
                   textAlign: 'center'
                 }}
               >
-                {option.text}
+                {optionLabel}
               </Typography>
             )}
           </label>
@@ -126,7 +139,7 @@ const RdsRadio= ({
       <FormControlLabel
         {...commonProps}
         key={option.value}
-        label={option.text}
+        label={optionLabel}
         className={clsx(
           'rds-radio__option',
           'rds-radio__option--with-label',
@@ -136,24 +149,30 @@ const RdsRadio= ({
   };
 
   const { value: _ignoredValue, ...restProps } = props;
+  const labelId = label ? `${groupName}-label` : undefined;
 
   return (
-    <FormControl 
-      component="fieldset" 
+    <FormControl
+      component="fieldset"
       className={clsx(
         'rds-radio',
         `rds-radio--${layout.replace(/ /g, '-')}`,
         state !== 'default' && `rds-radio--${state}`,
       )}
     >
-      {label && <FormLabel component="legend" className="rds-radio__label">{label}</FormLabel>}
+      {label && <FormLabel component="legend" id={labelId} className="rds-radio__label">{label}</FormLabel>}
       {layout === 'icon with bottom label' ? (
-        <Box className="rds-radio__group" sx={{ display: 'flex', flexDirection: direction, gap: 'var(--rds-spacing-md, 16px)' }}>
+        <Box
+          className="rds-radio__group"
+          role="radiogroup"
+          aria-labelledby={labelId}
+          sx={{ display: 'flex', flexDirection: isRow ? 'row' : 'column', gap: 'var(--rds-spacing-md, 16px)' }}
+        >
           {options.map(renderOption)}
         </Box>
       ) : (
         <RadioGroup
-          row={radioRow}
+          row={isRow}
           className="rds-radio__group"
           value={effectiveValue}
           onChange={(e, val) => {

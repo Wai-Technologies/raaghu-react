@@ -1,6 +1,5 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { Typography, Box } from '@mui/material';
 import { useState } from 'react';
 import RdsDialog from './rds-dialog';
@@ -57,10 +56,11 @@ export const Default: Story = {
           size="medium"
           state="default"
           style="filled"
-          text=" Open Dialog"
           textCase="uppercase"
           onClick={() => setOpen(true)}
-        />
+        >
+          {' Open Dialog'}
+        </RdsButton>
         <RdsDialog
           {...args}
           open={open}
@@ -98,10 +98,11 @@ export const FullWidth: Story = {
           size="medium"
           state="default"
           style="filled"
-          text=" Open Dialog"
           textCase="uppercase"
           onClick={() => setOpen(true)}
-        />
+        >
+          {' Open Dialog'}
+        </RdsButton>
         <RdsDialog
           {...args}
           open={open}
@@ -137,10 +138,11 @@ export const Interactive: Story = {
           size="medium"
           state="default"
           style="filled"
-          text=" Open Dialog"
           textCase="uppercase"
           onClick={() => setOpen(true)}
-        />
+        >
+          {' Open Dialog'}
+        </RdsButton>
         <RdsDialog
           {...args}
           open={open}
@@ -182,10 +184,11 @@ export const LargeContent: Story = {
           size="medium"
           state="default"
           style="filled"
-          text=" Open Dialog"
           textCase="uppercase"
           onClick={() => setOpen(true)}
-        />
+        >
+          {' Open Dialog'}
+        </RdsButton>
         <RdsDialog
           {...args}
           open={open}
@@ -228,10 +231,11 @@ export const WithActions: Story = {
           size="medium"
           state="default"
           style="filled"
-          text=" Open Dialog"
           textCase="uppercase"
           onClick={() => setOpen(true)}
-        />
+        >
+          {' Open Dialog'}
+        </RdsButton>
         <RdsDialog
           {...args}
           open={open}
@@ -295,6 +299,8 @@ export const WithIcon: Story = {
         'variant',
         'ShowPrimary',
         'ShowSecondary',
+        'primaryText',
+        'secondaryText',
         'showTitle',
       ],
     },
@@ -317,10 +323,11 @@ export const WithIcon: Story = {
           size="medium"
           state="default"
           style="filled"
-          text=" Open Dialog"
           textCase="uppercase"
           onClick={() => setOpen(true)}
-        />
+        >
+          {' Open Dialog'}
+        </RdsButton>
         <RdsDialog open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
       </>
     );

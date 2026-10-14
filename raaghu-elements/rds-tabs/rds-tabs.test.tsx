@@ -8,6 +8,7 @@ import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-tabs.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('@mui/icons-material/Person', () => {
   return function MockPersonIcon() {
     return <div data-testid="person-icon">PersonIcon</div>;
@@ -699,5 +700,30 @@ describe('RdsTabs — keyboard navigation', () => {
     screen.getByRole('tab', { name: /alpha/i }).focus();
     await userEvent.keyboard('{ArrowRight}');
     expect(screen.getByRole('tab', { name: /gamma/i })).toHaveFocus();
+  });
+});
+
+describe('audit fixes', () => {
+  it('G2-325/326: keeps rds-tabs classes with a consumer className and does not spread state/level to the DOM', () => {
+    const { container } = renderWithTheme(
+      <RdsTabs tabs={mockTabs} className="custom-class" state="selected" level={2} />
+    );
+    const root = container.querySelector('.rds-tabs');
+    expect(root).toHaveClass('custom-class', 'rds-tabs--filled', 'rds-state--selected');
+    expect(root).not.toHaveAttribute('state');
+    expect(root).not.toHaveAttribute('level');
+  });
+
+  it('G2-328/329: value and orientation work; deprecated activeTab/type still apply', () => {
+    const { rerender } = renderWithTheme(<RdsTabs tabs={mockTabs} value="tab2" orientation="vertical" />);
+    expect(screen.getByRole('tablist')).toHaveAttribute('aria-orientation', 'vertical');
+    expect(screen.getAllByRole('tab')[1]).toHaveAttribute('aria-selected', 'true');
+    rerender(
+      <ThemeProvider theme={createTheme()}>
+        <RdsTabs tabs={mockTabs} activeTab="tab3" type="vertical" />
+      </ThemeProvider>
+    );
+    expect(screen.getByRole('tablist')).toHaveAttribute('aria-orientation', 'vertical');
+    expect(screen.getAllByRole('tab')[2]).toHaveAttribute('aria-selected', 'true');
   });
 });

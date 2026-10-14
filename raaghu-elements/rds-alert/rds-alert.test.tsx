@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsAlert, { RdsAlertProps } from './rds-alert';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 // Mock SCSS
 jest.mock('./rds-alert.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
@@ -14,12 +16,13 @@ jest.mock('../rds-button/rds-button', () => {
       <button
         className={props.className}
         data-testid="rds-button"
-        data-text={props.text}
+        data-text={props.text ?? props.children}
         data-style={props.style}
         data-size={props.size}
         data-color={props.color}
+        onClick={props.onClick}
       >
-        {props.text}
+        {props.text ?? props.children}
       </button>
     );
   };
@@ -802,5 +805,73 @@ describe('RdsAlert', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsAlert audit fixes', () => {
+  it('keeps its own classes when a consumer passes className (G1-013)', () => {
+    render(<RdsAlert description="Message" className="my-alert" />);
+    const alert = screen.getByRole('alert');
+    expect(alert).toHaveClass('rds-alert');
+    expect(alert).toHaveClass('rds-alert--info');
+    expect(alert).toHaveClass('my-alert');
+  });
+
+  it('wires the action buttons to callbacks and custom labels (G1-014)', () => {
+    const onLinkClick = jest.fn();
+    const onSecondaryClick = jest.fn();
+    const onPrimaryClick = jest.fn();
+    render(
+      <RdsAlert
+        description="Message"
+        linkText="Details"
+        secondaryText="Dismiss"
+        primaryText="Confirm"
+        onLinkClick={onLinkClick}
+        onSecondaryClick={onSecondaryClick}
+        onPrimaryClick={onPrimaryClick}
+      />
+    );
+    fireEvent.click(screen.getByText('Details'));
+    fireEvent.click(screen.getByText('Dismiss'));
+    fireEvent.click(screen.getByText('Confirm'));
+    expect(onLinkClick).toHaveBeenCalledTimes(1);
+    expect(onSecondaryClick).toHaveBeenCalledTimes(1);
+    expect(onPrimaryClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps the default buttons and labels (no visual change)', () => {
+    render(<RdsAlert description="Message" />);
+    expect(screen.getByText('Link')).toBeInTheDocument();
+    expect(screen.getByText('Cancel')).toBeInTheDocument();
+    expect(screen.getByText('Okay')).toBeInTheDocument();
+  });
+
+  it('uses severity (G1-015)', () => {
+    render(<RdsAlert description="Message" severity="error" />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-alert--error');
+  });
+
+  it('accepts the MUI icon prop and hides it with false (G1-016)', () => {
+    const { rerender, container } = render(
+      <RdsAlert description="Message" icon={<span data-testid="custom-alert-icon" />} />
+    );
+    expect(screen.getByTestId('custom-alert-icon')).toHaveClass('rds-alert__icon');
+    rerender(<RdsAlert description="Message" icon={false} />);
+    expect(container.querySelector('.MuiAlert-icon')).not.toBeInTheDocument();
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    render(<RdsAlert description="Message" type="warning" changeIconName={null} content={{ title: 'visible' }} actions={{ link: 'hidden' }} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'type', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'changeIconName', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'content', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAlert', 'actions', expect.any(String));
+  });
+
+  it('does not warn for the boolean props, which are the supported API', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(<RdsAlert description="Message" showTitle showLink={false} multiline />);
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
   });
 });

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
@@ -59,9 +59,9 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
     return "history";
   }, [style]);
   const [activeTab, setActiveTab] = useState(() => getInitialTab());
-  const prevStyleRef = useRef(style);
-  if (style !== prevStyleRef.current) {
-    prevStyleRef.current = style;
+  const [prevStyle, setPrevStyle] = useState(style);
+  if (style !== prevStyle) {
+    setPrevStyle(style);
     if (style === "Favourites" || style === "Favourites - New Folder") {
       setActiveTab("favourites");
     } else if (style === "Prompt History") {

@@ -1,11 +1,5 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-pie.scss";
 
 export interface RdsCompPieProps {
@@ -25,35 +19,17 @@ const RdsCompPieChart = ({
   id,
   chartLabel,
 }: RdsCompPieProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef = useRef<Chart | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const canvasElm = canvasRef.current;
-    if (!canvasElm) return;
-
-    const ctx = canvasElm.getContext("2d");
-    if (!ctx) return;
-    chartRef.current?.destroy();
-    Chart.getChart(canvasElm)?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions, []);
-
-    chartRef.current = new Chart(ctx, {
+  const { canvasRef } = useChart(
+    {
       type: "pie",
-      data: chartData,
-      options: { ...chartOptions, radius },
-    });
-
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, [labels, options, dataSets, radius, id, themeMode]);
+      labels,
+      datasets: dataSets,
+      options,
+      themeAxes: [],
+      overrides: { radius },
+    },
+    [labels, options, dataSets, radius, id]
+  );
 
   return (
     <div className="rds-comp-chart-pie">

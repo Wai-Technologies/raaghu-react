@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type MouseEventHandler, type ReactNode } from 'react';
 import {
   Dialog as MuiDialog,
   DialogTitle,
@@ -12,19 +12,41 @@ import { Close as CloseIcon } from '@mui/icons-material';
 import clsx from 'clsx';
 import './rds-modal.scss';
  
-export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'component'> {
+/** Props for {@link RdsModal}. Remaining props are forwarded to MUI `Dialog`. */
+export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'component' | 'onClose'> {
+  /** Heading text shown in the dialog title. */
   title?: string;
+  /** Figma open state; takes precedence over `isOpen`. When neither is set the modal is open. */
   visibility?: 'open' | 'closed';
-  onClose: () => void;
+  /** Direct open state; when passed it takes precedence over `visibility` and `isOpen`. */
+  open?: boolean;
+  /** Legacy open flag, used when `visibility` is not set. */
+  isOpen?: boolean;
+  /** Called with MUI's `(event, reason)` on backdrop/escape close; the close button passes the click event. */
+  onClose: DialogProps['onClose'];
+  /** Footer content (e.g. buttons). */
   actions?: ReactNode;
+  /** Figma close-button state; takes precedence over `showCloseButton`. */
   headerChrome?: 'closeable' | 'plain';
+  /** Legacy flag to show the close button. @default true */
+  showCloseButton?: boolean;
+  /** Icon shown in the header. */
   icon?: ReactNode;
+  /** Legacy flag to show `icon`. @default true */
+  showIcon?: boolean;
+  /** Figma media state controlling icon/image visibility. */
   media?: 'none' | 'icon' | 'image' | 'both';
+  /** Header image URL. */
   imageSrc?: string;
+  /** Alt text for `imageSrc` (an empty string marks it decorative). @default 'Modal' */
+  imageAlt?: string;
+  /** Figma body state; `'hidden'` hides `children`. */
   body?: 'visible' | 'hidden';
-  [key: string]: unknown;
+  /** Legacy flag to show `children`. @default true */
+  showDescription?: boolean;
 }
  
+/** Dialog with optional icon/image header, close button and actions, built on MUI `Dialog`. */
 const RdsModal= ({
   title,
   visibility,
@@ -35,13 +57,15 @@ const RdsModal= ({
   media,
   body,
   imageSrc,
+  imageAlt,
+  open,
+  isOpen: legacyIsOpen,
+  showCloseButton: legacyShowCloseButton,
+  showIcon: legacyShowIcon,
+  showDescription: legacyShowDescription,
   children,
   ...props
 }: RdsModalProps) => {
-  const legacyIsOpen = typeof props['isOpen'] === 'boolean' ? (props['isOpen'] as boolean) : undefined;
-  const legacyShowCloseButton = typeof props['showCloseButton'] === 'boolean' ? (props['showCloseButton'] as boolean) : undefined;
-  const legacyShowIcon = typeof props['showIcon'] === 'boolean' ? (props['showIcon'] as boolean) : undefined;
-  const legacyShowDescription = typeof props['showDescription'] === 'boolean' ? (props['showDescription'] as boolean) : undefined;
 
   const resolvedIsOpen = visibility === 'open' ? true : visibility === 'closed' ? false : (legacyIsOpen ?? true);
   const resolvedShowCloseButton = headerChrome === 'closeable' ? true : headerChrome === 'plain' ? false : (legacyShowCloseButton ?? true);
@@ -62,7 +86,7 @@ const RdsModal= ({
   const closeButton = resolvedShowCloseButton ? (
     <IconButton
       aria-label="close"
-      onClick={onClose}
+      onClick={onClose as unknown as MouseEventHandler<HTMLButtonElement> | undefined}
       className="rds-modal__close-button"
     >
       <CloseIcon />
@@ -71,7 +95,7 @@ const RdsModal= ({
 
   return (
     <MuiDialog
-      open={resolvedIsOpen}
+      open={open !== undefined ? open : resolvedIsOpen}
       onClose={onClose}
       {...props}
     >
@@ -93,7 +117,7 @@ const RdsModal= ({
                   <span className="rds-modal__icon">{icon}</span>
                 )}
                 {resolvedImageSrc && showImage && (
-                  <img src={resolvedImageSrc} alt="Modal" className="rds-modal__image" />
+                  <img src={resolvedImageSrc} alt={imageAlt ?? 'Modal'} className="rds-modal__image" />
                 )}
               </div>
             ) : null}

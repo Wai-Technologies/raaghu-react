@@ -224,7 +224,7 @@ const RdsCompProductTour = ({
                     {formInputsElement}
                     <Box className="rds-comp-product-tour__file-upload-container">
                         <Box className="rds-comp-product-tour__file-upload-container-wrapper">
-                            <RdsFileUploader accept=".pdf,.doc,.docx" dragAndDrop hintText="Maximum 5MB" isMandatory maxFiles={1} maxSize={2097152} mode="standard" onFilesChange={() => { }} showHint showPreview showTitle> {deleteIcon} </RdsFileUploader>
+                            <RdsFileUploader accept=".pdf,.doc,.docx" dragAndDrop helperText="Maximum 5MB" required maxFiles={1} maxSize={2097152} mode="standard" onFilesChange={() => { }} showHint showPreview showTitle> {deleteIcon} </RdsFileUploader>
                         </Box>
                     </Box>
                     {formNavigationElement}

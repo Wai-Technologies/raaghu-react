@@ -10,8 +10,8 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
       showHint: figma.boolean("💬 Show Hint"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
-      title: figma.string("✏️ Title"),
+      required: figma.boolean("❗ Is Mandatory"),
+      label: figma.string("✏️ Title"),
       style: figma.enum("✨ Style", {
         "Drop Area - Side Icon": "Drop Area - Side Icon",
         "Drop Area - Top Icon": "Drop Area - Top Icon",
@@ -30,7 +30,7 @@ figma.connect(
     multiple
     maxSize={10485760}
     showPreview
-    hintText="Maximum 5MB"
+    helperText="Maximum 5MB"
     mode="default"
     />,
   },
@@ -45,8 +45,8 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
       showHint: figma.boolean("💬 Show Hint"),
-      isMandatory: figma.boolean("❗ Is Mandatory"),
-      title: figma.string("✏️ Title"),
+      required: figma.boolean("❗ Is Mandatory"),
+      label: figma.string("✏️ Title"),
       state:figma.enum("💡 State",{
         "Default": "default",
         "Selected": "selected",
@@ -60,7 +60,7 @@ figma.connect(
     multiple
     maxSize={10485760}
     showPreview
-    hintText="Maximum 5MB"
+    helperText="Maximum 5MB"
     mode="standard"
     />,
   },

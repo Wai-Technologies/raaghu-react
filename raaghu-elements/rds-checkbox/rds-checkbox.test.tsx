@@ -3,6 +3,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCheckbox, { RdsCheckboxProps } from './rds-checkbox';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import { axe } from 'jest-axe';
 
 // Mock SCSS imports
@@ -743,5 +746,34 @@ describe('RdsCheckbox — keyboard navigation', () => {
     const checkbox = screen.getByRole('checkbox');
     checkbox.focus();
     expect(checkbox).toHaveFocus();
+  });
+});
+describe('RdsCheckbox audit fixes', () => {
+  it('keeps the checked class in sync with a controlled checked prop (G1-197)', () => {
+    const { container, rerender } = render(<RdsCheckbox checked onChange={() => {}} />);
+    expect(container.querySelector('.rds-checkbox')).toHaveClass('rds-checkbox__checked');
+    rerender(<RdsCheckbox checked={false} onChange={() => {}} />);
+    expect(container.querySelector('.rds-checkbox')).not.toHaveClass('rds-checkbox__checked');
+  });
+
+  it('honours defaultChecked (G1-197)', () => {
+    render(<RdsCheckbox label="Accept" defaultChecked />);
+    expect(screen.getByRole('checkbox')).toBeChecked();
+  });
+
+  it('accepts label and disabled as the new names (G1-199/G1-200)', () => {
+    render(<RdsCheckbox label="Terms" disabled />);
+    expect(screen.getByLabelText('Terms')).toBeDisabled();
+  });
+
+  it('keeps an accessible name when the label text is hidden (G1-202)', () => {
+    render(<RdsCheckbox label="Hidden label" showText={false} />);
+    expect(screen.getByRole('checkbox', { name: 'Hidden label' })).toBeInTheDocument();
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    render(<RdsCheckbox labeltext="Old" isDisabled />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCheckbox', 'labeltext', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCheckbox', 'isDisabled', expect.any(String));
   });
 });

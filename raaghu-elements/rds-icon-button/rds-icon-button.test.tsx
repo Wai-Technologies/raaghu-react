@@ -515,3 +515,17 @@ describe('RdsIconButton', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('keeps rds-icon-button classes when className is passed', () => {
+    render(<RdsIconButton className="mine" variant="outlined" icon={<span>i</span>} />);
+    const btn = screen.getByRole('button');
+    expect(btn).toHaveClass('rds-icon-button', 'rds-icon-button--outlined', 'mine');
+  });
+  it('uses string tooltip as aria-label, consumer wins', () => {
+    const { rerender } = render(<RdsIconButton tooltip="Save" icon={<span>i</span>} />);
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    rerender(<RdsIconButton tooltip="Save" aria-label="Other" icon={<span>i</span>} />);
+    expect(screen.getByRole('button', { name: 'Other' })).toBeInTheDocument();
+  });
+});

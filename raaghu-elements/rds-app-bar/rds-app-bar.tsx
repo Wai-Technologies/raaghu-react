@@ -2,7 +2,6 @@ import {
   Children,
   cloneElement,
   isValidElement,
-  useEffect,
   useState,
   type ReactElement,
   type ReactNode,
@@ -18,18 +17,37 @@ import {
   Drawer,
   Tabs,
   Tab,
+  useMediaQuery,
 } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Dehaze as DehazeIcon } from '@mui/icons-material';
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Person from '@mui/icons-material/Person';
 import Close from '@mui/icons-material/Close';
-import { ProfileMenu } from './ProfileMenu';
+import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
 import "./rds-app-bar.scss";
+
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
+
+/** Layout presets that have dedicated styles. Matching is case-insensitive; other strings are allowed. */
+export type RdsAppBarVariantStyle =
+  | 'withMenuButton'
+  | 'withActions'
+  | 'withTabs'
+  | 'withLogoAndTabs'
+  | 'withNotificationBadge'
+  | 'withUserProfile'
+  | 'logoSearchTabs'
+  | 'logoSearchTabsActions'
+  | 'logoTabsActions'
+  | 'dashboardWithLang'
+  | (string & {});
+
+export type RdsAppBarTab = string | { label: string; [key: string]: unknown };
+
 export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   title?: string;
   rightActions?: ReactNode;
@@ -42,22 +60,72 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   actions?: ReactNode;
   userName?: string;
   userEmail?: string;
+  /** Items of the profile menu shown when `userName` and `userEmail` are set. Defaults to "My Profile" and "Logout". */
+  profileMenuItems?: ProfileMenuItem[];
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
-  tabs?: Array<string | { label: string; [key: string]: unknown }>;
+  tabs?: RdsAppBarTab[];
   tabValue?: number;
   onTabChange?: (value: number) => void;
   subHeader?: ReactNode;
   showSearch?: boolean;
-  variantStyle?: string;
+  variantStyle?: RdsAppBarVariantStyle;
   overflowContent?: ReactNode;
+  /**
+   * Content after the tabs in the small-screen bottom bar of the `withMenuButton` layout.
+   * Defaults to the trial badge and "View Plans" button; pass `null` to show nothing.
+   */
+  bottomActions?: ReactNode;
 }
+
 const toolbarHeights: Record<RdsAppBarSize, number> = {
   small: 55,
   medium: 64,
   large: 80,
 };
+
+const DEFAULT_PROFILE_MENU_ITEMS: ProfileMenuItem[] = [
+  { label: 'My Profile', icon: <Person /> },
+  { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
+];
+
+const DEFAULT_BOTTOM_ACTIONS = (
+  <>
+    <span className="rds-appbar-badge">28 Days Left</span>
+    <RdsButton
+      style="filled"
+      color="primary"
+      textCase="capitalize"
+      sx={{
+        minWidth: 'auto',
+        fontWeight: 500,
+        fontSize: 'var(--rds-font-size-sm, 12px)',
+        boxShadow: 'none',
+        padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)'
+      }}
+    >
+      View Plans
+    </RdsButton>
+  </>
+);
+
+// Layouts that move the tabs into a bottom bar on tablets as well as phones.
+const TABLET_BOTTOM_NAV_VARIANTS = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
+
+// The CSS class strips spaces and punctuation, while the layout logic only lower-cases
+// ("With Menu Button" gets the class but not the mobile bottom bar), as it always has.
+const toVariantClass = (variantStyle?: string) =>
+  variantStyle ? variantStyle.toLowerCase().replace(/[^a-z0-9]+/g, '') : '';
+
+const getSmallScreenBreakpoint = (variant: string) => {
+  if (variant === 'withnotificationbadge') return 1280;
+  if (TABLET_BOTTOM_NAV_VARIANTS.includes(variant)) return 840;
+  return 420;
+};
+
+const getTabLabel = (tab: RdsAppBarTab, index: number) =>
+  typeof tab === 'string' ? tab : tab.label || String(index);
 
 const RdsAppBar = ({
   title,
@@ -66,12 +134,13 @@ const RdsAppBar = ({
   children,
   size = 'medium',
   logo,
-  showLogo = true, 
+  showLogo = true,
   onMenuClick,
   showMenuButton = false,
   actions,
   userName,
   userEmail,
+  profileMenuItems = DEFAULT_PROFILE_MENU_ITEMS,
   searchValue,
   onSearchChange,
   searchPlaceholder,
@@ -82,62 +151,119 @@ const RdsAppBar = ({
   showSearch = true,
   variantStyle,
   overflowContent,
+  bottomActions = DEFAULT_BOTTOM_ACTIONS,
+  elevation = 0,
+  className,
   ...props
-}:RdsAppBarProps) => {
+}: RdsAppBarProps) => {
   const tokens = useRdsTokens();
   const [overflowOpen, setOverflowOpen] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [localBottomActive, setLocalBottomActive] = useState(0);
 
-  useEffect(() => {
-    const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
-    const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
-    const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
-    const threshold = variantLower === 'withnotificationbadge' ? 1280 : needsTabletBottomNav ? 840 : 420;
+  const variant = variantStyle ? variantStyle.toLowerCase() : '';
+  const variantClass = toVariantClass(variantStyle);
+  const isSmallScreen = useMediaQuery(`(max-width:${getSmallScreenBreakpoint(variant)}px)`, { noSsr: true });
+  const hasControlledTabs = Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function';
 
-    // Storybook viewport addon can report the full manager width on the first paint
-    // before the iframe is resized — prefer layout width and keep observing.
-    const getViewportWidth = () =>
-      Math.min(
-        window.innerWidth || Number.POSITIVE_INFINITY,
-        document.documentElement?.clientWidth || Number.POSITIVE_INFINITY,
-        document.body?.clientWidth || Number.POSITIVE_INFINITY,
+  const renderBottomNavTabs = () =>
+    tabs?.map((tab, index) => {
+      const isActive = tabValue === index;
+      return (
+        <RdsButton
+          key={`${getTabLabel(tab, index)}-${index}`}
+          role="tab"
+          aria-selected={isActive}
+          onClick={() => onTabChange?.(index)}
+          className={clsx('rds-bottom-nav-tab', isActive && 'rds-bottom-nav-tab--active')}
+          style="transparent"
+          size="small"
+          layout="text-only"
+        >
+          {getTabLabel(tab, index)}
+        </RdsButton>
       );
+    });
 
-    const checkScreenSize = () => {
-      setIsSmallScreen(getViewportWidth() <= threshold);
-    };
+  // Overflow children become bottom-bar items on small screens; the active one is tracked locally.
+  const renderOverflowItems = () => {
+    if (!isValidElement<{ children?: ReactNode }>(overflowContent) || !overflowContent.props.children) {
+      return overflowContent;
+    }
+    return Children.toArray(overflowContent.props.children).map((child, index) => {
+      if (!isValidElement(child)) return <span key={`overflow-text-${index}`}>{child}</span>;
+      const childProps = (child as ReactElement<{ onClick?: (event: SyntheticEvent) => void; className?: string }>).props;
+      return cloneElement(child as ReactElement<Record<string, unknown>>, {
+        key: child.key ?? `overflow-item-${index}`,
+        onClick: (event: SyntheticEvent) => {
+          childProps.onClick?.(event);
+          setLocalBottomActive(index);
+        },
+        className: clsx(childProps.className, 'rds-bottom-nav-tab', localBottomActive === index && 'rds-bottom-nav-tab--active'),
+      });
+    });
+  };
 
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
+  const bottomBarSx = {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    zIndex: tokens.zIndex.dropdown,
+    borderTop: `1px solid ${tokens.cssVar('border-default')}`,
+    boxShadow: tokens.cssVar('elevation-2'),
+    backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface, #ffffff))',
+  } as const;
 
-    const resizeObserver =
-      typeof ResizeObserver !== 'undefined'
-        ? new ResizeObserver(() => checkScreenSize())
-        : null;
-    resizeObserver?.observe(document.documentElement);
+  const renderBottomBar = () => {
+    if (variant === 'withmenubutton') {
+      return (
+        <Box className="rds-bottom-navigation">
+          <Box className="rds-bottom-navigation-single-row">
+            {renderBottomNavTabs()}
+            {bottomActions}
+          </Box>
+        </Box>
+      );
+    }
+    if (hasControlledTabs) {
+      return (
+        <Box
+          className="rds-bottom-navigation"
+          role="tablist"
+          sx={{
+            ...bottomBarSx,
+            height: 56,
+            maxHeight: 56,
+            minHeight: 56,
+            padding: `0 ${tokens.space(2)}`,
+            overflow: 'hidden',
+            boxSizing: 'border-box',
+          }}
+        >
+          {renderBottomNavTabs()}
+        </Box>
+      );
+    }
+    if (overflowContent) {
+      return (
+        <Box
+          className="rds-bottom-navigation"
+          sx={{
+            ...bottomBarSx,
+            padding: `${tokens.space(1)} ${tokens.space(3)}`,
+            color: 'var(--rds-color-on-surface, var(--rds-text-primary, #212121))',
+          }}
+        >
+          {renderOverflowItems()}
+        </Box>
+      );
+    }
+    return null;
+  };
 
-    // Catch delayed Storybook iframe viewport application after reload.
-    const rafId = window.requestAnimationFrame(checkScreenSize);
-    const timeoutId = window.setTimeout(checkScreenSize, 100);
-
-    return () => {
-      window.removeEventListener('resize', checkScreenSize);
-      resizeObserver?.disconnect();
-      window.cancelAnimationFrame(rafId);
-      window.clearTimeout(timeoutId);
-    };
-  }, [variantStyle]);
-  const colorClass =
-    props.color === 'primary'
-      ? ' rds-header--primary'
-      : props.color === 'secondary'
-        ? ' rds-header--secondary'
-        : props.color === 'transparent'
-          ? ' rds-header--transparent'
-          : '';
- 
-  const variantClass = variantStyle ? ` rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}` : '';
   return (
     <MuiAppBar
       {...props}
@@ -148,11 +274,11 @@ const RdsAppBar = ({
         props.color === 'secondary' && 'rds-header--secondary',
         props.color === 'transparent' && 'rds-header--transparent',
         showMenuButton && 'rds-header--has-menu-button',
-        variantStyle && `rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}`,
-        props.className,
+        variantClass && `rds-header--variant-${variantClass}`,
+        className,
       )}
       color={props.color === 'transparent' ? 'transparent' : 'default'}
-      elevation={0}
+      elevation={elevation}
     >
       <MuiToolbar
         className={`rds-app-bar--size-${size}`}
@@ -168,35 +294,35 @@ const RdsAppBar = ({
               <DehazeIcon />
             </IconButton>
           )}
-         
+
           {showLogo && logo && <span className="rds-header__logo">{logo}</span>}
           {centerContent && <span className="rds-header__center-content">{centerContent}</span>}
-          {Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function' && (
+          {hasControlledTabs && (
             <Tabs
               className="rds-header__tabs-inline"
               value={tabValue}
-              onChange={(_, v) => onTabChange(v)}
+              onChange={(_, value) => onTabChange(value)}
               textColor="primary"
               indicatorColor="primary"
             >
-              {tabs.map((tab, idx) =>
+              {tabs.map((tab, index) =>
                 typeof tab === 'string' ? (
-                  <Tab label={tab} key={tab} />
+                  <Tab label={tab} key={`${tab}-${index}`} />
                 ) : (
-                  <Tab {...(tab as Record<string, unknown>)} key={tab.label || 'tab-item'} />
+                  <Tab {...tab} key={`${getTabLabel(tab, index)}-${index}`} />
                 )
               )}
             </Tabs>
           )}
           <span className="rds-header__title">{title}</span>
-          
+
           {showSearch && typeof searchValue === 'string' && typeof onSearchChange === 'function' && (
             <div className="rds-header__search-wrapper">
               <InputBase
                 className="rds-header__search"
                 placeholder={searchPlaceholder || 'Search…'}
                 value={searchValue}
-                onChange={e => onSearchChange(e.target.value)}
+                onChange={(event) => onSearchChange(event.target.value)}
               />
               {searchValue && (
                 <IconButton
@@ -214,20 +340,13 @@ const RdsAppBar = ({
 
           {userName && userEmail ? (
             <span className="rds-header__actions">
-              <ProfileMenu
-                name={userName}
-                email={userEmail}
-                menuItems={[
-                  { label: 'My Profile', icon: <Person />},
-                  { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
-                ]}
-              />
+              <ProfileMenu name={userName} email={userEmail} menuItems={profileMenuItems} />
             </span>
           ) : (
             actions && <span className="rds-header__actions">{actions}</span>
           )}
           {children}
-          {overflowContent && !isSmallScreen ? (
+          {overflowContent && !isSmallScreen && (
             <>
               <IconButton
                 className="rds-appbar-overflow-button"
@@ -240,7 +359,7 @@ const RdsAppBar = ({
                   <DehazeIcon />
                 </span>
               </IconButton>
-              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} slotProps={{ paper: { sx: { width: tokens.space(40) } } }}>
+              <Drawer anchor="right" open={overflowOpen} onClose={() => setOverflowOpen(false)} slotProps={{ paper: { sx: { width: tokens.space(40) } } }}>
                 <Box sx={{ p: tokens.space(2), height: '100%', boxSizing: 'border-box' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <IconButton onClick={() => setOverflowOpen(false)} aria-label="close">
@@ -251,143 +370,9 @@ const RdsAppBar = ({
                 </Box>
               </Drawer>
             </>
-          ) : null}
-          
-          {isSmallScreen && (
-            (variantStyle && variantStyle.toLowerCase() === 'withmenubutton') ? (
-              <Box className="rds-bottom-navigation">
-                <Box className="rds-bottom-navigation-single-row">
-                  {Array.isArray(tabs) && tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : t.label || String(i);
-                    const tabKey = typeof t === 'string' ? t : String((t as { label?: string }).label || 'tab-item');
-                    const isActive = tabValue === i;
-                    return (
-                      <RdsButton
-                        key={tabKey}
-                        role="tab"
-                        aria-selected={isActive}
-                        onClick={() => typeof onTabChange === 'function' && onTabChange(i)}
-                        className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
-                        style="transparent"
-                        size="small"
-                        layout="text-only"
-                        text={label}
-                      />
-                    );
-                  })}
-
-                  <span className="rds-appbar-badge">28 Days Left</span>
-                  <RdsButton
-                    style="filled"
-                    color="primary"
-                    text="View Plans"
-                    textCase="capitalize"
-                    sx={{
-                      minWidth: 'auto',
-                      fontWeight: 500,
-                      fontSize: 'var(--rds-font-size-sm, 12px)',
-                      boxShadow: 'none',
-                      padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)'
-                    }}
-                  />
-                </Box>
-              </Box>
-            ) : (
-              (Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function') ? (
-                <Box
-                  className="rds-bottom-navigation"
-                  role="tablist"
-                  sx={{
-                    position: 'fixed',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: 56,
-                    maxHeight: 56,
-                    minHeight: 56,
-                    padding: `0 ${tokens.space(2)}`,
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                    boxSizing: 'border-box',
-                    zIndex: tokens.zIndex.dropdown,
-                    borderTop: `1px solid ${tokens.cssVar('border-default')}`,
-                    boxShadow: tokens.cssVar('elevation-2'),
-                    backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface, #ffffff))',
-                  }}
-                >
-                  {tabs.map((t, i) => {
-                    const label = typeof t === 'string' ? t : t.label || String(i);
-                    const tabKey = typeof t === 'string' ? t : String((t as { label?: string }).label || 'tab-item');
-                    const isActive = tabValue === i;
-                    return (
-                      <RdsButton
-                        key={tabKey}
-                        role="tab"
-                        aria-selected={isActive}
-                        onClick={() => onTabChange(i)}
-                        className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
-                        style="transparent"
-                        size="small"
-                        layout="text-only"
-                        text={label}
-                      />
-                    );
-                  })}
-                </Box>
-              ) : (
-                overflowContent ? (
-                  <Box
-                    className="rds-bottom-navigation"
-                    sx={{
-                      position: 'fixed',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      padding: `${tokens.space(1)} ${tokens.space(3)}`,
-                      display: 'flex',
-                      justifyContent: 'space-around',
-                      alignItems: 'center',
-                      zIndex: tokens.zIndex.dropdown,
-                      borderTop: `1px solid ${tokens.cssVar('border-default')}`,
-                      boxShadow: tokens.cssVar('elevation-2'),
-                      backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface, #ffffff))',
-                      color: 'var(--rds-color-on-surface, var(--rds-text-primary, #212121))',
-                    }}
-                  >
-                    {isValidElement<{ children?: ReactNode }>(overflowContent) && overflowContent.props.children
-                      ? Children.toArray(overflowContent.props.children).map((child, i) => {
-                          if (isValidElement(child)) {
-                            const childProps = (child as ReactElement<{ onClick?: (e: SyntheticEvent) => void; className?: string }>).props;
-                            const existingOnClick = childProps.onClick;
-                            const childClassName = `${childProps.className ? `${childProps.className} ` : ''}rds-bottom-nav-tab`;
-                            const childKey = (child as ReactElement).key != null
-                              ? String((child as ReactElement).key)
-                              : String(childProps.className || 'overflow-item');
-                            return cloneElement(
-                              child as ReactElement<Record<string, unknown>>,
-                              {
-                                key: childKey,
-                                onClick: (e: SyntheticEvent) => {
-                                  existingOnClick?.(e);
-                                  setLocalBottomActive(i);
-                                },
-                                className: localBottomActive === i
-                                  ? `${childClassName} rds-bottom-nav-tab--active`
-                                  : childClassName,
-                              },
-                            );
-                          }
-                          return <span key={String(child)}>{child}</span>;
-                        })
-                      :
-                        overflowContent}
-                  </Box>
-                ) : null
-              )
-            )
           )}
+
+          {isSmallScreen && renderBottomBar()}
         </Box>
       </MuiToolbar>
 

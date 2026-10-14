@@ -626,3 +626,30 @@ describe('RdsList', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('updates internally and fires onCheckboxChange when uncontrolled', () => {
+    const onCheckboxChange = jest.fn();
+    render(<RdsList withCheckboxes onCheckboxChange={onCheckboxChange} items={[{ id: 1, primary: 'One' }]} />);
+    fireEvent.click(screen.getByText('One'));
+    expect(onCheckboxChange).toHaveBeenCalledWith(1, true);
+    fireEvent.click(screen.getByText('One'));
+    expect(onCheckboxChange).toHaveBeenLastCalledWith(1, false);
+  });
+
+  it('calls item.onClick with checkboxes enabled', () => {
+    const onClick = jest.fn();
+    render(<RdsList withCheckboxes items={[{ id: 1, primary: 'One', onClick }]} />);
+    fireEvent.click(screen.getByText('One'));
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('exposes aria-expanded and aria-controls on nested toggle', () => {
+    render(<RdsList items={[{ id: 1, primary: 'Parent', children: [{ id: 2, primary: 'Child' }] }]} />);
+    const btn = screen.getByRole('button');
+    expect(btn).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(btn);
+    expect(btn).toHaveAttribute('aria-expanded', 'true');
+    expect(document.getElementById(btn.getAttribute('aria-controls') as string)).toBeInTheDocument();
+  });
+});

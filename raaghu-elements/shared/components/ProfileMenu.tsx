@@ -1,5 +1,5 @@
-import { useState, useEffect, type ReactNode, type MouseEvent, type CSSProperties } from 'react';
-import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
+import { useState, type ReactNode, type MouseEvent, type CSSProperties } from 'react';
+import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem, useMediaQuery } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -57,24 +57,10 @@ export const ProfileMenu = ({
   menuItems,
 }: ProfileMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isSmallScreen, setIsSmallScreen] = useState(() => {
-    if (typeof window === 'undefined') {
-      return false;
-    }
-    return window.innerWidth <= 834;
-  });
+  const isSmallScreen = useMediaQuery('(max-width:834px)', { noSsr: true });
   const open = Boolean(anchorEl);
   const initials = shortName ?? getInitials(name);
   const items = menuItems && menuItems.length > 0 ? menuItems : DEFAULT_MENU_ITEMS;
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth <= 834);
-    };
-
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -87,7 +73,7 @@ export const ProfileMenu = ({
   return (
     <>
       <IconButton
-        aria-label="Draw"
+        aria-label={`Account menu for ${name}`}
         color="inherit"
         onClick={handleClick}
         size="small"
@@ -161,7 +147,7 @@ export const ProfileMenu = ({
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Box className="rds-profile-menu__header">
+        <Box className="rds-profile-menu__header" role="presentation">
           <Avatar className="rds-profile-menu__avatar-lg">{initials}</Avatar>
           <Box>
             <Box className="rds-profile-menu__name-lg">{name}</Box>

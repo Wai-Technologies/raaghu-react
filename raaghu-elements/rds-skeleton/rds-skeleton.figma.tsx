@@ -23,7 +23,7 @@ figma.connect(
       <RdsSkeleton
         height={200}
         width={200}
-        shape={props.shape}
+        variant={props.shape}
         frames={props.frames}
         animated={true}
       />
@@ -52,7 +52,7 @@ figma.connect(
       <RdsSkeleton
         height={200}
         width={200}
-        shape={props.shape}
+        variant={props.shape}
         frames={props.frames}
         animated={false}
       />

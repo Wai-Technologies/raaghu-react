@@ -4,13 +4,18 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBarChart from './rds-comp-chart-bar';
 
+// Mock deprecation warnings
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-comp-chart-bar.scss', () => ({}));
 
 // Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return class MockChart {
+    static configs: any[] = [];
     constructor(ctx: any, config: any) {
+      (MockChart as any).configs.push(config);
       this.ctx = ctx;
       this.config = config;
       this.canvas = ctx?.canvas || document.createElement('canvas');
@@ -792,5 +797,30 @@ describe('RdsCompBarChart', () => {
       const canvas = screen.getByTestId('sync-id');
       expect(canvas).toHaveAttribute('id', 'sync-id');
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompBarChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveClass('rds-comp-chart-bar');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('lets consumer options override responsive and maintainAspectRatio', () => {
+    jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    const Chart = jest.requireMock('chart.js/auto');
+    Chart.configs.length = 0;
+    render(<RdsCompBarChart {...defaultProps} options={{ responsive: false, maintainAspectRatio: true }} />);
+    expect(Chart.configs[0].options).toMatchObject({ responsive: false, maintainAspectRatio: true });
+    Chart.configs.length = 0;
+    render(<RdsCompBarChart {...defaultProps} id="other" />);
+    expect(Chart.configs[0].options).toMatchObject({ responsive: true, maintainAspectRatio: false });
   });
 });

@@ -1,32 +1,14 @@
-import { useRef, useState, type ChangeEvent, type DragEvent } from 'react';
+import { useRef, useState, type ChangeEvent, type Dispatch, type DragEvent, type SetStateAction } from 'react';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
-import { CloudUpload, Close } from '@mui/icons-material';
-import { type FileWithProgress } from './rds-file-uploader-types';
+import CloudUpload from '@mui/icons-material/CloudUpload';
+import Close from '@mui/icons-material/Close';
+import type { FileWithProgress, RdsFileUploaderProps } from './rds-file-uploader-types';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 
-interface RdsDropZoneSideIconProps {
-  mode: string;
-  isDragOver: boolean;
-  disabled: boolean;
-  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: DragEvent<HTMLDivElement>) => void;
-  openFileDialog: () => void;
-}
-
-interface RdsDropZoneWithButtonProps {
-  mode: string;
-  isDragOver: boolean;
-  disabled: boolean;
-  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: DragEvent<HTMLDivElement>) => void;
-  openFileDialog: () => void;
-}
-
-interface RdsDropZoneDefaultProps {
-  mode: string;
+/** Props shared by the three drop-zone layouts. */
+interface RdsDropZoneProps {
+  mode: NonNullable<RdsFileUploaderProps['mode']>;
   isDragOver: boolean;
   disabled: boolean;
   onDragOver: (e: DragEvent<HTMLDivElement>) => void;
@@ -46,6 +28,8 @@ interface UseFileUploaderProps {
   maxSize: number;
   maxFiles: number;
   isMandatory: boolean;
+  /** When `false`, a new selection or drop replaces the current file instead of appending. Defaults to `true`. */
+  multiple?: boolean;
   onFilesChange?: (files: FileWithProgress[]) => void;
   onUpload?: (files: File[]) => Promise<void>;
 }
@@ -69,26 +53,38 @@ export const useFileUploader = ({
   maxSize,
   maxFiles,
   isMandatory,
+  multiple = true,
   onFilesChange,
   onUpload,
 }: UseFileUploaderProps) => {
-  const [files, setFiles] = useState<FileWithProgress[]>([]);
+  const [files, setFilesState] = useState<FileWithProgress[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [mandatoryError, setMandatoryError] = useState<string | null>(null);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // Latest file list, written only from event handlers, so several drops/selections handled before
+  // the next render build on each other instead of on a stale `files` closure.
+  const latestFilesRef = useRef<FileWithProgress[]>([]);
 
-
+  const setFiles: Dispatch<SetStateAction<FileWithProgress[]>> = (action) => {
+    const next = typeof action === 'function' ? action(latestFilesRef.current) : action;
+    latestFilesRef.current = next;
+    setFilesState(next);
+  };
 
   const addFiles = (newFiles: File[]) => {
+    const current = latestFilesRef.current;
+    // Single-file mode: a new (non-empty) selection replaces the current file instead of appending.
+    const base = multiple || newFiles.length === 0 ? current : [];
+    const limit = multiple ? maxFiles : Math.min(maxFiles, 1);
     const validFiles: FileWithProgress[] = [];
     for (const file of newFiles) {
-      if (files.length + validFiles.length >= maxFiles) break;
+      if (base.length + validFiles.length >= limit) break;
       const error = validateFile(file, maxSize);
       validFiles.push({ file, progress: 0, error: error || undefined });
     }
-    const updatedFiles = [...files, ...validFiles];
+    const updatedFiles = [...base, ...validFiles];
     setFiles(updatedFiles);
     onFilesChange?.(updatedFiles);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
@@ -102,7 +98,7 @@ export const useFileUploader = ({
   };
 
   const removeFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
+    const updatedFiles = latestFilesRef.current.filter((_, i) => i !== index);
     setFiles(updatedFiles);
     onFilesChange?.(updatedFiles);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
@@ -119,11 +115,9 @@ export const useFileUploader = ({
     const selectedFiles = Array.from(event.target.files ?? []);
     if (selectedFiles.length === 0) return;
 
-    const fileNames = selectedFiles.map(file => file.name).join(', ');
-    setSelectedFileName(fileNames);
-
     addFiles(selectedFiles);
-    if (fileInputRef.current) fileInputRef.current.value = '';
+    // Reset the input that fired (default or standard view) so choosing the same file again fires `change`.
+    event.target.value = '';
   };
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
@@ -173,7 +167,7 @@ export const RdsDropZoneSideIcon = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}: RdsDropZoneSideIconProps) => {
+}: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
 
   return (
@@ -213,7 +207,7 @@ export const RdsDropZoneWithButton = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}: RdsDropZoneWithButtonProps) => {
+}: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
 
   return (
@@ -253,12 +247,13 @@ export const RdsDropZoneWithButton = ({
       </Box>
       <RdsButton
         style="filled"
-        text="Upload Files"
         className="rds-file-uploader__upload-btn"
         onClick={openFileDialog}
         disabled={disabled}
         sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
-      />
+      >
+        Upload Files
+      </RdsButton>
     </Paper>
   );
 };
@@ -271,7 +266,7 @@ export const RdsDropZoneDefault = ({
   onDragLeave,
   onDrop,
   openFileDialog,
-}: RdsDropZoneDefaultProps) => {
+}: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
 
   return (

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from 'storybook/test';
-import { Add, Edit, Favorite } from '@mui/icons-material';
+import Add from '@mui/icons-material/Add';
+import Edit from '@mui/icons-material/Edit';
+import Favorite from '@mui/icons-material/Favorite';
 import RdsFab from './rds-fab';
 
 const meta: Meta<typeof RdsFab> = {

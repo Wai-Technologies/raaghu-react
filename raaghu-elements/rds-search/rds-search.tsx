@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useEffect, useId, useRef, type ChangeEvent, type KeyboardEvent } from 'react';
 import { TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
 import type { InputProps } from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,16 +9,19 @@ import './rds-search.scss';
 export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange' | 'component'> {
   value: string;
   onChange: (value: string) => void;
+  /** Called with the current value on Enter, on the search button, and after `searchDelay` when `autoSearch` is on. */
   onSearch?: (value: string) => void;
   onClear?: () => void;
   placeholder?: string;
   showClearButton?: boolean;
   showSearchIcon?: boolean;
+  /** Calls `onSearch` automatically while typing (debounced by `searchDelay` ms). */
   autoSearch?: boolean;
   searchDelay?: number;
   label?: string;
   labelPosition?: 'top' | 'left' | 'right' | 'bottom';
-  iconPosition?: 'left' | 'right';
+  /** Side of the search icon. `start`/`end` are the same as `left`/`right`. */
+  iconPosition?: 'left' | 'right' | 'start' | 'end';
 }
 
 const RdsSearch = ({
@@ -38,9 +41,14 @@ const RdsSearch = ({
   fullWidth: fullWidthProp = false,
   InputProps: legacyInputProps,
   slotProps: consumerSlotProps,
+  className,
+  id,
   ...restProps
 }: RdsSearchProps) => {
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const generatedId = useId();
+  const inputId = id ?? `rds-search-${generatedId}`;
+  const iconAtEnd = iconPosition === 'right' || iconPosition === 'end';
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
@@ -51,10 +59,9 @@ const RdsSearch = ({
       if (searchTimeoutRef.current) {
         clearTimeout(searchTimeoutRef.current);
       }
-      const timeout = setTimeout(() => {
+      searchTimeoutRef.current = setTimeout(() => {
         onSearch(newValue);
       }, searchDelay);
-      searchTimeoutRef.current = timeout;
     }
   };
 
@@ -70,6 +77,7 @@ const RdsSearch = ({
     onClear?.();
   };
 
+  // `onKeyPress` (not keydown) because consumers trigger search with keypress events in tests.
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -104,89 +112,52 @@ const RdsSearch = ({
       ? (consumerSlotProps.input as InputProps)
       : undefined;
 
+  const searchButton = (edge: 'start' | 'end') => (
+    <IconButton onClick={handleSearch} edge={edge} size="small" aria-label="search" disabled={disabled}>
+      <SearchIcon fontSize="small" />
+    </IconButton>
+  );
+  const clearButton = (
+    <IconButton onClick={handleClear} edge="end" size="small" aria-label="clear" disabled={disabled}>
+      <ClearIcon fontSize="small" />
+    </IconButton>
+  );
+  const showClear = showClearButton && Boolean(value);
+
+  const renderEndAdornment = () => {
+    if (showSearchIcon && iconAtEnd) {
+      return (
+        <InputAdornment position="end">
+          {showClear && clearButton}
+          {searchButton('end')}
+        </InputAdornment>
+      );
+    }
+    if (showClear) {
+      return <InputAdornment position="end">{clearButton}</InputAdornment>;
+    }
+    return consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment;
+  };
+
   const inputSlotProps: InputProps = {
     ...legacyInputProps,
     ...consumerInputProps,
     startAdornment:
-      showSearchIcon && iconPosition === 'left'
-        ? (
-          <InputAdornment position="start">
-            <IconButton
-              onClick={handleSearch}
-              edge="start"
-              size="small"
-              aria-label="search"
-              disabled={disabled}
-            >
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </InputAdornment>
-        )
+      showSearchIcon && !iconAtEnd
+        ? <InputAdornment position="start">{searchButton('start')}</InputAdornment>
         : consumerInputProps?.startAdornment ?? legacyInputProps?.startAdornment,
-    endAdornment:
-      iconPosition === 'right' && showSearchIcon
-        ? (
-          <InputAdornment position="end">
-            {showClearButton && value ? (
-              <>
-                <IconButton
-                  onClick={handleClear}
-                  edge="end"
-                  size="small"
-                  aria-label="clear"
-                  disabled={disabled}
-                >
-                  <ClearIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  onClick={handleSearch}
-                  edge="end"
-                  size="small"
-                  aria-label="search"
-                  disabled={disabled}
-                >
-                  <SearchIcon fontSize="small" />
-                </IconButton>
-              </>
-            ) : (
-              <IconButton
-                onClick={handleSearch}
-                edge="end"
-                size="small"
-                aria-label="search"
-                disabled={disabled}
-              >
-                <SearchIcon fontSize="small" />
-              </IconButton>
-            )}
-          </InputAdornment>
-        )
-        : showClearButton && value
-          ? (
-            <InputAdornment position="end">
-              <IconButton
-                onClick={handleClear}
-                edge="end"
-                size="small"
-                aria-label="clear"
-                disabled={disabled}
-              >
-                <ClearIcon fontSize="small" />
-              </IconButton>
-            </InputAdornment>
-          )
-          : consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment,
+    endAdornment: renderEndAdornment(),
   };
 
   return (
     <div className={containerClasses}>
       {typeof label === 'string' && label.trim() !== '' && (
-        <label className={labelClasses}>
+        <label className={labelClasses} htmlFor={inputId}>
           {label}
         </label>
       )}
       <TextField
-        className="rds-search__input"
+        id={inputId}
         value={value}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
@@ -198,6 +169,7 @@ const RdsSearch = ({
           input: inputSlotProps,
         }}
         {...restProps}
+        className={clsx('rds-search__input', className)}
       />
     </div>
   );

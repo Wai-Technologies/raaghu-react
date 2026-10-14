@@ -24,8 +24,8 @@ jest.mock('../../raaghu-elements', () => ({
   RdsButton: ({ text, onClick, className, style, disabled, fullWidth, ...props }: any) => (
     <button onClick={onClick} className={className} disabled={disabled} data-testid="rds-button" {...props}>{text}</button>
   ),
-  RdsButtonDropdown: ({ buttonText, onClick, options, ...props }: any) => (
-    <button onClick={onClick} data-testid="rds-button-dropdown" {...props}>{buttonText}</button>
+  RdsButtonDropdown: ({ buttonText, children, onClick, options, ...props }: any) => (
+    <button onClick={onClick} data-testid="rds-button-dropdown" {...props}>{children ?? buttonText}</button>
   ),
   RdsAvatar: ({ src, className, ...props }: any) => (
     <img src={src} className={className} alt="avatar" data-testid="rds-avatar" {...props} />

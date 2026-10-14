@@ -750,4 +750,146 @@ describe('RdsCollapse', () => {
       expect(collapse).toBeInTheDocument();
     });
   });
+
+  describe('audit fixes', () => {
+    const getToggle = () => screen.getByRole('button');
+
+    // G1-209: onToggle alone must not make the component controlled
+    it('opens and closes when only onToggle is given, and still calls onToggle', () => {
+      const onToggle = jest.fn();
+      renderWithTheme(
+        <RdsCollapse title="Title" onToggle={onToggle}>{'Content'}</RdsCollapse>
+      );
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'false');
+
+      fireEvent.click(getToggle());
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
+      expect(onToggle).toHaveBeenLastCalledWith(true);
+
+      fireEvent.click(getToggle());
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'false');
+      expect(onToggle).toHaveBeenLastCalledWith(false);
+      expect(onToggle).toHaveBeenCalledTimes(2);
+    });
+
+    it('starts from defaultExpanded when expanded is not given', () => {
+      const onToggle = jest.fn();
+      renderWithTheme(
+        <RdsCollapse title="Title" defaultExpanded onToggle={onToggle}>{'Content'}</RdsCollapse>
+      );
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
+
+      fireEvent.click(getToggle());
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'false');
+      expect(onToggle).toHaveBeenCalledWith(false);
+    });
+
+    it('stays controlled when both expanded and onToggle are given', () => {
+      const onToggle = jest.fn();
+      const { rerender } = renderWithTheme(
+        <RdsCollapse title="Title" expanded={false} onToggle={onToggle}>{'Content'}</RdsCollapse>
+      );
+      fireEvent.click(getToggle());
+      expect(onToggle).toHaveBeenCalledWith(true);
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'false');
+
+      rerender(
+        <ThemeProvider theme={theme}>
+          <RdsCollapse title="Title" expanded={true} onToggle={onToggle}>{'Content'}</RdsCollapse>
+        </ThemeProvider>
+      );
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('expanded alone sets the initial state, follows prop changes and still toggles on click', () => {
+      const { rerender } = renderWithTheme(
+        <RdsCollapse title="Title" expanded={true}>{'Content'}</RdsCollapse>
+      );
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
+
+      fireEvent.click(getToggle());
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'false');
+
+      rerender(
+        <ThemeProvider theme={theme}>
+          <RdsCollapse title="Title" expanded={false}>{'Content'}</RdsCollapse>
+        </ThemeProvider>
+      );
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'false');
+
+      rerender(
+        <ThemeProvider theme={theme}>
+          <RdsCollapse title="Title" expanded={true}>{'Content'}</RdsCollapse>
+        </ThemeProvider>
+      );
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    // G1-210: switching from controlled to uncontrolled keeps the latest expanded value
+    it('keeps the latest expanded value when onToggle is removed', () => {
+      const onToggle = jest.fn();
+      const { rerender } = renderWithTheme(
+        <RdsCollapse title="Title" expanded={false} onToggle={onToggle}>{'Content'}</RdsCollapse>
+      );
+      rerender(
+        <ThemeProvider theme={theme}>
+          <RdsCollapse title="Title" expanded={true} onToggle={onToggle}>{'Content'}</RdsCollapse>
+        </ThemeProvider>
+      );
+      rerender(
+        <ThemeProvider theme={theme}>
+          <RdsCollapse title="Title" expanded={true}>{'Content'}</RdsCollapse>
+        </ThemeProvider>
+      );
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    // G1-211: toggle exposes its state and the region it controls
+    it('links the toggle button to the content region with aria-controls', () => {
+      const { container } = renderWithTheme(
+        <RdsCollapse title="Title">{'Content'}</RdsCollapse>
+      );
+      const controls = getToggle().getAttribute('aria-controls');
+      expect(controls).toBeTruthy();
+      const region = container.querySelector('.MuiCollapse-root');
+      expect(region).toHaveAttribute('id', controls);
+    });
+
+    it('uses a consumer id for the content region and aria-controls', () => {
+      const { container } = renderWithTheme(
+        <RdsCollapse title="Title" id="my-region">{'Content'}</RdsCollapse>
+      );
+      expect(getToggle()).toHaveAttribute('aria-controls', 'my-region');
+      expect(container.querySelector('.MuiCollapse-root')).toHaveAttribute('id', 'my-region');
+    });
+
+    it('keeps a single keyboard control: the header itself is not a button', () => {
+      renderWithTheme(<RdsCollapse title="Title">{'Content'}</RdsCollapse>);
+      expect(screen.getAllByRole('button')).toHaveLength(1);
+      expect(getToggle().tagName).toBe('BUTTON');
+    });
+
+    it('toggles once when the toggle button itself is clicked', () => {
+      const onToggle = jest.fn();
+      renderWithTheme(<RdsCollapse title="Title" onToggle={onToggle}>{'Content'}</RdsCollapse>);
+      fireEvent.click(getToggle());
+      expect(onToggle).toHaveBeenCalledTimes(1);
+    });
+
+    // G1-212: MUI `in` keeps precedence over the component state for the content area
+    it('lets MUI `in` decide the content state and reports it in aria-expanded', () => {
+      renderWithTheme(
+        <RdsCollapse title="Title" in={true}>{'Content'}</RdsCollapse>
+      );
+      expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('has no axe violations when expanded', async () => {
+      const { container } = render(
+        <RdsCollapse title="Title" defaultExpanded>{'Content'}</RdsCollapse>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
 });

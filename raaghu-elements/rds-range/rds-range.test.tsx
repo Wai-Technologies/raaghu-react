@@ -984,3 +984,18 @@ describe('RdsRange', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('G2-181: uses consumer min/max when leftLabel/rightLabel are not given', () => {
+    renderWithTheme(<RdsRange min={10} max={50} showLabel />);
+    const slider = screen.getByRole('slider');
+    expect(slider).toHaveAttribute('aria-valuemin', '10');
+    expect(slider).toHaveAttribute('aria-valuemax', '50');
+    expect(slider).toHaveAttribute('aria-valuenow', '10');
+  });
+
+  it('G2-184: keeps consumer slotProps alongside the tooltip value label', () => {
+    renderWithTheme(<RdsRange showTooltip value={30} slotProps={{ thumb: { 'data-testid': 'thumb' } as object }} />);
+    expect(screen.getByTestId('thumb')).toBeInTheDocument();
+    expect(screen.getByTestId('rds-tooltip')).toHaveAttribute('title', '30');
+  });
+});

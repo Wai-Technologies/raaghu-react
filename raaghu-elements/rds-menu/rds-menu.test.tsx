@@ -646,3 +646,19 @@ describe('RdsMenu', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('merges consumer list className and keeps menu role', () => {
+    render(<RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'A' }]} slotProps={{ list: { className: 'mine' } }} />);
+    const list = screen.getByRole('menu');
+    expect(list).toHaveClass('rds-menu__list');
+    expect(list).toHaveClass('mine');
+  });
+  it('passes the click event to item onClick and renders without items', () => {
+    const onClick = jest.fn();
+    render(<RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'A', onClick }]} />);
+    fireEvent.click(screen.getByText('A'));
+    expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
+    render(<RdsMenu open anchorEl={document.body}><li>Custom</li></RdsMenu>);
+    expect(screen.getByText('Custom')).toBeInTheDocument();
+  });
+});

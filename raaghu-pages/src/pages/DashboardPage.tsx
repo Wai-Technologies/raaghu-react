@@ -279,7 +279,7 @@ export default function DashboardPage() {
       <RdsSidebar
         avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
         avatarCollapsedSrc={logoSrc}
-        isOpen
+        open
         showLogo={false}
         variant="permanent"
         layout="raaghu"

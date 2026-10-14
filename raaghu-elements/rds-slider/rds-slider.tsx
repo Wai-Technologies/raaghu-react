@@ -1,55 +1,60 @@
-// @ts-nocheck
-import { useMemo, useState, type JSX } from 'react';
-import { Slider as MuiSlider, SliderProps } from '@mui/material';
+import { useState, type JSX } from 'react';
+import { Slider as MuiSlider, type SliderProps } from '@mui/material';
 import './rds-slider.scss';
 
+/** Props for {@link RdsSlider}. Extends MUI `SliderProps` (except `component`). */
 export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
+  /** Text shown in the label row (when `showLabel`) and used as the default aria-label. */
   label?: string;
+  /** Show the current value (with `unit`) in the label row. */
   showValue?: boolean;
+  /** Show `label` in the label row. */
   showLabel?: boolean;
+  /** `'tooltip'` shows MUI's value label on the thumb. */
   showTooltip?: 'default' | 'tooltip';
+  /** Unit suffix appended to displayed values. */
   unit?: string;
+  /** Initial position (1-5 maps to 0-100% of the range); re-applied when it changes. A controlled `value` wins. */
   level?: 1 | 2 | 3 | 4 | 5;
+  /** `'two way'` renders a range slider with two thumbs. */
   controlType?: 'one way' | 'two way';
+  /** Text left of the track. Defaults to `String(min)`; empty string hides it. */
   leftLabel?: string;
+  /** Text right of the track. Defaults to `String(max)`; empty string hides it. */
   rightLabel?: string;
   className?: string;
 }
 
-const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) => {
-  const label: string | undefined = sliderProps.label;
-  const showValue: boolean = sliderProps.showValue ?? false;
-  const showLabel: boolean = sliderProps.showLabel ?? false;
-  const showTooltip: 'default' | 'tooltip' = sliderProps.showTooltip ?? 'default';
-  const unit: string | undefined = sliderProps.unit;
-  const value = sliderProps.value;
-  const level = sliderProps.level;
-  const min: number = sliderProps.min ?? 0;
-  const max = sliderProps.max;
-  const controlType: 'one way' | 'two way' = sliderProps.controlType ?? 'one way';
-  const leftLabel: string = sliderProps.leftLabel ?? '0';
-  const rightLabel: string = sliderProps.rightLabel ?? '100';
-  const className: string | undefined = sliderProps.className;
-
-  const props: SliderProps = { ...sliderProps };
-  delete (props as Record<string, unknown>).label;
-  delete (props as Record<string, unknown>).showValue;
-  delete (props as Record<string, unknown>).showLabel;
-  delete (props as Record<string, unknown>).showTooltip;
-  delete (props as Record<string, unknown>).unit;
-  delete (props as Record<string, unknown>).level;
-  delete (props as Record<string, unknown>).controlType;
-  delete (props as Record<string, unknown>).leftLabel;
-  delete (props as Record<string, unknown>).rightLabel;
+/** Slider with optional label row, value readout, end labels and single/range modes. */
+const RdsSlider = (sliderProps: RdsSliderProps): JSX.Element => {
+  const {
+    label,
+    showValue = false,
+    showLabel = false,
+    showTooltip = 'default',
+    unit,
+    level,
+    controlType = 'one way',
+    leftLabel: leftLabelProp,
+    rightLabel: rightLabelProp,
+    className,
+    value,
+    onChange,
+    ...props
+  } = sliderProps;
+  const min: number = props.min ?? 0;
+  const max = props.max;
   const isRangeSlider = controlType === 'two way';
 
   let sliderStep = props.step;
   let sliderMarks = props.marks;
 
   const safeMax = typeof max === 'number' ? max : 100;
+  const leftLabel: string = leftLabelProp ?? String(min);
+  const rightLabel: string = rightLabelProp ?? String(safeMax);
 
   if (sliderMarks === true) {
-    if (typeof min !== 'number' || typeof safeMax !== 'number' || safeMax <= min) {
+    if (safeMax <= min) {
       sliderMarks = false;
     } else {
       if (sliderStep === undefined || sliderStep === null || sliderStep <= 0) {
@@ -63,9 +68,27 @@ const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) =>
       }
     }
   }
-  const getInitialValue = () => {
+
+  const getLevelValue = (): number | number[] | undefined => {
+    if (!level || typeof level !== 'number' || level < 1 || level > 5) {
+      return undefined;
+    }
+    const percent = (level - 1) * 25;
+    const calculated = min + ((safeMax - min) * percent) / 100;
+    if (isRangeSlider) {
+      const range = (safeMax - min) * 0.1;
+      return [Math.max(min, calculated - range), Math.min(safeMax, calculated + range)];
+    }
+    return calculated;
+  };
+
+  const getInitialValue = (): number | number[] => {
     if (value !== undefined) {
       return value;
+    }
+    const fromLevel = getLevelValue();
+    if (fromLevel !== undefined) {
+      return fromLevel;
     }
     if (props.defaultValue !== undefined) {
       return props.defaultValue;
@@ -78,45 +101,33 @@ const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) =>
     return min + (safeMax - min) * 0.3;
   };
 
-  const [internalSliderValue, setInternalSliderValue] = useState<number | number[]>(() => getInitialValue());
+  const [internalSliderValue, setInternalSliderValue] = useState<number | number[]>(getInitialValue);
 
-  const normalizedInternalValue = useMemo(() => {
+  // Re-sync the internal value when `level` changes (derived state, no effect needed).
+  const [prevLevel, setPrevLevel] = useState(level);
+  if (level !== prevLevel) {
+    setPrevLevel(level);
+    const fromLevel = getLevelValue();
+    if (fromLevel !== undefined) {
+      setInternalSliderValue(fromLevel);
+    }
+  }
+
+  const normalizeValue = (current: number | number[]): number | number[] => {
     if (isRangeSlider) {
-      if (Array.isArray(internalSliderValue)) {
-        return internalSliderValue;
+      if (Array.isArray(current)) {
+        return current;
       }
-      const currentVal = typeof internalSliderValue === 'number' ? internalSliderValue : min;
       const range = (safeMax - min) * 0.2;
-      const lowerValue = Math.max(min, currentVal - range / 2);
-      const upperValue = Math.min(safeMax, currentVal + range / 2);
-      return [lowerValue, upperValue];
+      return [Math.max(min, current - range / 2), Math.min(safeMax, current + range / 2)];
     }
-
-    if (Array.isArray(internalSliderValue)) {
-      return (internalSliderValue[0] + internalSliderValue[1]) / 2;
+    if (Array.isArray(current)) {
+      return (current[0] + current[1]) / 2;
     }
+    return current;
+  };
 
-    return internalSliderValue;
-  }, [internalSliderValue, isRangeSlider, min, safeMax]);
-
-  const levelValue = useMemo(() => {
-    if (!level || typeof level !== 'number' || level < 1 || level > 5) {
-      return undefined;
-    }
-    const percent = (level - 1) * 25;
-    const calculated = min + ((safeMax - min) * percent) / 100;
-    if (isRangeSlider) {
-      const range = (safeMax - min) * 0.1;
-      const lowerValue = Math.max(min, calculated - range);
-      const upperValue = Math.min(safeMax, calculated + range);
-      return [lowerValue, upperValue] as number[];
-    }
-    return calculated;
-  }, [isRangeSlider, level, min, safeMax]);
-
-  const sliderValue = value !== undefined
-    ? (value as number | number[])
-    : (levelValue ?? normalizedInternalValue);
+  const sliderValue: number | number[] = value !== undefined ? value : normalizeValue(internalSliderValue);
 
   const formatValue = (val: number | number[]) => {
     if (Array.isArray(val)) {
@@ -125,11 +136,9 @@ const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) =>
     return `${val}${unit || ''}`;
   };
 
-  const handleChange = (_: Event, newValue: number | number[], activeThumb?: number) => {
+  const handleChange: NonNullable<SliderProps['onChange']> = (event, newValue, activeThumb) => {
     setInternalSliderValue(newValue);
-    if (props.onChange) {
-      props.onChange(_, newValue, activeThumb ?? 0);
-    }
+    onChange?.(event, newValue, activeThumb);
   };
 
   const ariaLabel = props['aria-label'] ?? label ?? 'Slider';
@@ -140,19 +149,19 @@ const RdsSlider: (sliderProps: RdsSliderProps) => JSX.Element = (sliderProps) =>
       {(showLabel || showValue) && (
         <div className="rds-slider__label-row">
           {showLabel && <span className="rds-slider__label-text">{label}</span>}
-          {showValue && sliderValue !== undefined && (
+          {showValue && (
             <span className="rds-slider__value">{formatValue(sliderValue)}</span>
           )}
         </div>
       )}
       <div className="rds-slider__container">
         {leftLabel && <span className="rds-slider__left-label">{leftLabel}</span>}
-      <MuiSlider
-        value={sliderValue}
-        onChange={handleChange}
+        <MuiSlider
           min={min}
           max={safeMax}
           {...props}
+          value={sliderValue}
+          onChange={handleChange}
           aria-label={isRangeValue ? undefined : ariaLabel}
           getAriaLabel={isRangeValue ? () => ariaLabel : undefined}
           step={sliderStep}

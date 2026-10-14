@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsCardDetail, { RdsCardDetailProps } from './rds-card-detail';
+import RdsCardDetail, { type RdsCardDetailProps } from './rds-card-detail';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -788,6 +788,77 @@ describe('RdsCardDetail', () => {
       );
       expect(container.querySelector('.MuiPaper-root')).toBeInTheDocument();
       expect(container.querySelector('.MuiCard-root')).toBeInTheDocument();
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('G1-179: uses imageAlt as the image alt text when given', () => {
+      renderWithTheme(
+        <RdsCardDetail {...defaultProps} image="/img.jpg" title="Title" imageAlt="A mountain lake" />
+      );
+      expect(screen.getByAltText('A mountain lake')).toBeInTheDocument();
+      expect(screen.queryByAltText('Title')).not.toBeInTheDocument();
+    });
+
+    it('G1-179: imageAlt="" marks the image as decorative', () => {
+      const { container } = renderWithTheme(
+        <RdsCardDetail {...defaultProps} image="/img.jpg" title="Title" imageAlt="" />
+      );
+      expect(container.querySelector('img.MuiCardMedia-root')).toHaveAttribute('alt', '');
+    });
+
+    it('G1-179: keeps the title / "Card image" fallback when imageAlt is omitted', () => {
+      const { rerender } = renderWithTheme(
+        <RdsCardDetail {...defaultProps} image="/img.jpg" title="Title" />
+      );
+      expect(screen.getByAltText('Title')).toBeInTheDocument();
+      rerender(
+        <ThemeProvider theme={createTheme()}>
+          <RdsCardDetail {...defaultProps} image="/img.jpg" />
+        </ThemeProvider>
+      );
+      expect(screen.getByAltText('Card image')).toBeInTheDocument();
+    });
+
+    it('does not forward imageAlt to the Card root', () => {
+      const { container } = renderWithTheme(
+        <RdsCardDetail {...defaultProps} image="/img.jpg" imageAlt="x" />
+      );
+      expect(container.querySelector('.rds-card-detail')).not.toHaveAttribute('imagealt');
+    });
+
+    it('consumer sx is applied after the base styles (not overwritten)', () => {
+      const { container } = renderWithTheme(
+        <RdsCardDetail {...defaultProps} sx={{ border: '3px solid rgb(255, 0, 0)' }} />
+      );
+      const card = container.querySelector('.rds-card-detail') as HTMLElement;
+      expect(getComputedStyle(card).borderTopWidth).toBe('3px');
+    });
+
+    it('applies every entry of an sx array', () => {
+      const { container } = renderWithTheme(
+        <RdsCardDetail
+          {...defaultProps}
+          sx={[{ border: '2px solid rgb(0, 0, 255)' }, { padding: '5px' }]}
+        />
+      );
+      const style = getComputedStyle(container.querySelector('.rds-card-detail') as HTMLElement);
+      expect(style.borderTopWidth).toBe('2px');
+      expect(style.paddingTop).toBe('5px');
+    });
+
+    it('keeps the base border:none for the elevation variant when sx sets no border', () => {
+      const { container } = renderWithTheme(
+        <RdsCardDetail {...defaultProps} sx={{ padding: '4px' }} />
+      );
+      const card = container.querySelector('.rds-card-detail') as HTMLElement;
+      expect(getComputedStyle(card).paddingTop).toBe('4px');
+      // jsdom does not expand `border: none`, so read the emitted emotion rule instead.
+      const cardClass = Array.from(card.classList).find((c) => c.startsWith('css-'));
+      const rules = Array.from(document.styleSheets)
+        .flatMap((sheet) => Array.from(sheet.cssRules))
+        .map((rule) => rule.cssText.replace(/\s/g, ''));
+      expect(rules.some((r) => r.startsWith(`.${cardClass}{`) && r.includes('border:none'))).toBe(true);
     });
   });
 });

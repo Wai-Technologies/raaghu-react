@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef, type ReactNode } from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent } from 'react';
+import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import ChevronRight from '@mui/icons-material/ChevronRight';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
 import './rds-carousel.scss';
@@ -8,16 +9,25 @@ import './rds-carousel.scss';
 const EMPTY_TITLES: string[] = [];
 const EMPTY_SUBTITLES: string[] = [];
 
-export interface RdsCarouselProps {
-  children: ReactNode[];
+/**
+ * Root props are forwarded to the outer `Box` (`sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
+ * `style`, `type`, `title` and `height` are carousel props here, not the native attributes / system props.
+ */
+export interface RdsCarouselProps
+  extends Omit<BoxProps, 'children' | 'component' | 'style' | 'type' | 'title' | 'height'> {
+  /** The slides. A single child, an array or a fragment are all accepted. */
+  children?: ReactNode;
   autoPlay?: boolean;
   className?: string;
   autoPlayInterval?: number;
   showArrows?: boolean;
   showDots?: boolean;
   height?: string | number;
+  /** Indicator shape. */
   type?: 'circle' | 'line';
+  /** Active slide (1-based), mirrored from Figma. Changing it moves the carousel to that slide. */
   state?: '1' | '2' | '3' | '4';
+  /** Visual variant (Figma "Style"). */
   style?: 'default' | 'with title' | 'full width image';
   titles?: string[];
   subtitles?: string[];
@@ -40,16 +50,22 @@ const RdsCarousel = ({
   subtitles,
   title,
   subtitle,
-}:RdsCarouselProps) => {
+  sx,
+  ref,
+  ...rest
+}: RdsCarouselProps) => {
+  // Arrays are used as given (a `false` entry is still a slide, as before); a single child is one slide.
+  const slides: ReactNode[] = Array.isArray(children) ? children : children == null ? [] : [children];
+  const slideCount = slides.length;
   const resolvedTitles = titles ?? EMPTY_TITLES;
   const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const prevStateRef = useRef(state);
-  if (state !== prevStateRef.current) {
-    prevStateRef.current = state;
+  const [prevState, setPrevState] = useState(state);
+  if (state !== prevState) {
+    setPrevState(state);
     if (state && !isNaN(parseInt(state))) {
       const newStateIndex = parseInt(state) - 1;
-      if (newStateIndex >= 0 && newStateIndex < children.length) {
+      if (newStateIndex >= 0 && newStateIndex < slideCount) {
         setCurrentIndex(newStateIndex);
       }
     }
@@ -58,24 +74,31 @@ const RdsCarousel = ({
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
   useEffect(() => {
-    if (autoPlay && children.length > 1) {
+    if (autoPlay && slideCount > 1) {
       const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % children.length);
+        setCurrentIndex((prev) => (prev + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [autoPlay, autoPlayInterval, children.length]);
+  }, [autoPlay, autoPlayInterval, slideCount]);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % children.length);
+    setCurrentIndex((prev) => (prev + 1) % slideCount);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + children.length) % children.length);
+    setCurrentIndex((prev) => (prev - 1 + slideCount) % slideCount);
   };
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
+  };
+
+  const handleIndicatorKeyDown = (event: KeyboardEvent<HTMLDivElement>, index: number) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      goToSlide(index);
+    }
   };
 
   const carouselClassName = clsx(
@@ -85,19 +108,27 @@ const RdsCarousel = ({
   );
 
   return (
-    <Box 
+    <Box
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Carousel"
+      {...rest}
+      ref={ref}
       className={carouselClassName}
-      sx={{ 
-        position: 'relative', 
-        height: height, 
-        overflow: 'hidden',
-        width: 'min(100%, 100vw)',
-        maxWidth: '100vw',
-        minWidth: 0,
-        boxSizing: 'border-box',
-        borderRadius: tokens.radius.md,
-        backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
-      }}
+      sx={[
+        {
+          position: 'relative',
+          height: height,
+          overflow: 'hidden',
+          width: 'min(100%, 100vw)',
+          maxWidth: '100vw',
+          minWidth: 0,
+          boxSizing: 'border-box',
+          borderRadius: tokens.radius.md,
+          backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
       <Box
         className="rds-carousel__track"
@@ -111,13 +142,21 @@ const RdsCarousel = ({
           minWidth: 0,
         }}
       >
-        {children.map((child, index) => {
+        {slides.map((child, index) => {
           const displayTitle = resolvedTitles[index] ?? title ?? `Card Title`;
           const displaySubtitle = resolvedSubtitles[index] ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
+          // Keyed elements keep their own key; everything else falls back to the index.
+          const slideKey = isValidElement(child) && child.key != null ? child.key : `rds-carousel-slide-${index}`;
+          const isActive = index === currentIndex;
 
           return (
             <Box
-              key={`${displayTitle}-${displaySubtitle}`}
+              key={slideKey}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${slideCount}`}
+              // Each slide is exactly as wide as the clipped viewport, so only the active one is visible.
+              inert={!isActive}
               className="rds-carousel__slide"
               sx={{
                 flex: '0 0 100%',
@@ -147,7 +186,7 @@ const RdsCarousel = ({
                 </Box>
               )}
 
-              <Box 
+              <Box
                 className="rds-carousel__slide-content"
                 sx={{
                   height: hasTitleLayout ? 'auto' : '100%',
@@ -183,7 +222,7 @@ const RdsCarousel = ({
         })}
       </Box>
 
-      {showArrows && children.length > 1 && (
+      {showArrows && slideCount > 1 && (
         <>
           <IconButton
             aria-label="Previous slide"
@@ -236,7 +275,7 @@ const RdsCarousel = ({
         </>
       )}
 
-      {showDots && children.length > 1 && (
+      {showDots && slideCount > 1 && (
         <Box
           className="rds-carousel__indicators"
           sx={{
@@ -249,10 +288,15 @@ const RdsCarousel = ({
             zIndex: tokens.zIndex.layer2,
           }}
         >
-          {children.map((_, index) => (
+          {slides.map((_, index) => (
             <Box
               key={`rds-carousel-indicator-${index}`}
+              role="button"
+              tabIndex={0}
+              aria-label={`Go to slide ${index + 1}`}
+              aria-current={currentIndex === index ? 'true' : undefined}
               onClick={() => goToSlide(index)}
+              onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => handleIndicatorKeyDown(event, index)}
               className={clsx(
                 'rds-carousel__indicator',
                 `rds-carousel__indicator--${type}`,

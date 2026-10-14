@@ -9,6 +9,7 @@ import {
   Collapse,
   type DrawerProps,
   type SxProps,
+  type Theme,
 } from '@mui/material';
 import { 
   ExpandLess, 
@@ -28,6 +29,7 @@ import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-sidebar.scss';
 
 const ANZ_MENU_ITEMS: RdsSidebarItem[] = [
@@ -47,6 +49,7 @@ const ABP_MENU_ITEMS: RdsSidebarItem[] = [
   { label: 'Requests', icon: <RequestQuoteOutlined /> },
 ];
 
+/** A single navigation entry in {@link RdsSidebar}. */
 export interface RdsSidebarItem {
   label: string;
   icon?: ReactNode;
@@ -62,12 +65,30 @@ export interface RdsSidebarItem {
   href?: string;
 }
 
+/** Props for {@link RdsSidebar}. */
 export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'component'> {
+  /** Navigation items. Ignored when `platform` selects a built-in menu. */
   items: RdsSidebarItem[];
-  isOpen: boolean;
+  /** @deprecated Use `open`. */
+  isOpen?: boolean;
+  /** Whether the sidebar is open (MUI Drawer prop). Takes precedence over `isOpen`. */
+  open?: boolean;
+  /** Called when the drawer requests to close. */
   onClose?: () => void;
+  /** Expanded width in px. Widths below 200 render icon-only. */
   width?: number;
+  /** Shows the search box. */
   showSearch?: boolean;
+  /** Controlled search text. */
+  searchValue?: string;
+  /** Initial search text when uncontrolled. */
+  defaultSearchValue?: string;
+  /** Called when the search text changes. Items are not filtered by the sidebar. */
+  onSearchChange?: (value: string) => void;
+  /** User shown in the avatar area. Defaults to "Jane Doe" / "Designation". String values are expected by RdsAvatar. */
+  user?: { name?: string; subtitle?: string };
+  /** Custom logo node; replaces the default logo image when `showLogo` is on. */
+  logo?: ReactNode;
   layout?: 'raaghu' | 'list' | 'toolbar';
   typeOf?: 'collapse' | 'expanded' | 'fixed';
   platform?: 'abp-list' | 'anz-list';
@@ -80,10 +101,17 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
 const RdsSidebar = ({
   items,
   isOpen,
+  open,
   onClose,
   width = 240,
   variant = 'temporary',
   showSearch = true,
+  searchValue,
+  defaultSearchValue,
+  onSearchChange,
+  user,
+  logo,
+  className,
   typeOf = 'expanded',
   platform,
   avatarSrc,
@@ -95,7 +123,17 @@ const RdsSidebar = ({
   sx: propsSx,
   ...props
 }:RdsSidebarProps) => {
-  const [searchValue, setSearchValue] = useState("");
+  if (isOpen !== undefined) warnDeprecatedProp('RdsSidebar', 'isOpen', '`open`');
+  const resolvedOpen = open ?? isOpen ?? false;
+  const isSearchControlled = searchValue !== undefined;
+  const [innerSearch, setInnerSearch] = useState(defaultSearchValue ?? '');
+  const currentSearch = isSearchControlled ? searchValue : innerSearch;
+  const handleSearchChange = (value: string) => {
+    if (!isSearchControlled) setInnerSearch(value);
+    onSearchChange?.(value);
+  };
+  const userName = user?.name ?? 'Jane Doe';
+  const userSubtitle = user?.subtitle ?? 'Designation';
   const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
 
   const menuItems = platform === 'abp-list' ? ABP_MENU_ITEMS : 
@@ -123,7 +161,7 @@ const RdsSidebar = ({
     showSearchBox = showSearch;
   }
 
-  const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed');
+  const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed', className);
   const headerClasses = clsx('rds-sidebar__header', `rds-sidebar__header--${typeOf}`);
   const contentClasses = 'rds-sidebar__content';
   const navItemClasses = clsx('rds-sidebar__nav-item', `rds-sidebar__nav-item--${typeOf}`);
@@ -131,7 +169,7 @@ const RdsSidebar = ({
   const avatarContainerClasses = clsx('rds-sidebar__avatar-container', `rds-sidebar__avatar-container--${typeOf}`);
   const getLogoClass = () => clsx('rds-sidebar__logo', shouldShowIconsOnly ? 'rds-sidebar__logo--collapse' : 'rds-sidebar__logo--expanded');
 
-  const drawerSx: Record<string, unknown> = {
+  const drawerSx: SxProps<Theme> = {
     width: shouldShowIconsOnly ? 64 : width,
     flexShrink: 0,
     ['& .MuiDrawer-paper']: {
@@ -154,7 +192,7 @@ const RdsSidebar = ({
   };
 
   const searchIconOnlySize = 'var(--rds-sidebar-search-icon-only-size, var(--rds-menu-item-min-height, 40px))';
-  const searchSx = shouldShowIconsOnly
+  const searchSx: SxProps<Theme> = shouldShowIconsOnly
     ? {
         width: searchIconOnlySize,
         maxWidth: searchIconOnlySize,
@@ -211,14 +249,14 @@ const RdsSidebar = ({
 
   return (
     <MuiDrawer
-      open={isOpen}
+      open={resolvedOpen}
       onClose={onClose}
       variant={variant}
-      className={sidebarClasses}
       container={container}
       ModalProps={modalProps}
       {...props}
-      sx={[drawerSx, propsSx] as SxProps}
+      className={sidebarClasses}
+      sx={[drawerSx, ...(Array.isArray(propsSx) ? propsSx : [propsSx])]}
     >
       <div className={contentClasses}>
         {showLogo && (
@@ -232,16 +270,16 @@ const RdsSidebar = ({
               ) : (
                 <RdsAvatar
                   alt="User Avatar"
-                  subText="Designation"
+                  subText={userSubtitle}
                   displayStyle="with-name"
-                  title="Jane Doe"
+                  title={userName}
                   showDesignation
                   showName
                   activeDotBottom
                   src={avatarSrc}
                 />
               )
-            ) : (
+            ) : logo ?? (
               <img
                 src={shouldShowIconsOnly ? '/raaghu.png' : avatarCollapsedSrc}
                 alt="Raaghu Design System Logo"
@@ -265,13 +303,13 @@ const RdsSidebar = ({
                 iconPosition={shouldShowIconsOnly ? 'left' : 'right'}
                 label=""
                 labelPosition="top"
-                onChange={value => setSearchValue(value)}
+                onChange={handleSearchChange}
                 onSearch={() => {}}
                 placeholder={shouldShowIconsOnly ? '' : 'Search...'}
                 showClearButton={!shouldShowIconsOnly}
                 size="small"
                 variant="outlined"
-                value={searchValue}
+                value={currentSearch}
                 sx={searchSx}
               />
             </div>
@@ -291,7 +329,7 @@ const RdsSidebar = ({
                 disabled={item.disabled}
                 selected={item.active}
                 className={navButtonClasses}
-                aria-expanded={!!openMap[index]}
+                aria-expanded={item.children && item.children.length > 0 ? !!openMap[index] : undefined}
                 sx={{
                   minHeight: 'var(--rds-sidebar-nav-min-height, 48px)',
                   justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
@@ -316,7 +354,7 @@ const RdsSidebar = ({
                   {shouldShowIconsOnly && item.icon ? (
                     <RdsTooltip 
                       title={item.label} 
-                      style="right"
+                      placement="right"
                       arrow
                     >
                       {listItemButton}
@@ -355,7 +393,7 @@ const RdsSidebar = ({
                             {shouldShowIconsOnly && child.icon ? (
                               <RdsTooltip
                                 title={`${item.label} - ${child.label}`}
-                                style="right"
+                                placement="right"
                                 arrow
                               >
                                 {childListItemButton}
@@ -381,9 +419,9 @@ const RdsSidebar = ({
             {!shouldShowIconsOnly ? (
               <RdsAvatar
                 alt="User Avatar"
-                subText="Designation"
+                subText={userSubtitle}
                 displayStyle="with-name"
-                title="Jane Doe"
+                title={userName}
                 showDesignation
                 showName
                 activeDotBottom

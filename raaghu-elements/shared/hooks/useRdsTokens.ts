@@ -53,8 +53,7 @@ export const useRdsTokens = (): RdsTokens => {
 
   const baseRadius = theme.shape.borderRadius;
 
-  const space: Theme['spacing'] = ((...args: Parameters<Theme['spacing']>) =>
-    theme.spacing(...args)) as Theme['spacing'];
+  const space = theme.spacing;
 
   return {
     space,

@@ -810,3 +810,77 @@ describe('RdsAppBar', () => {
     });
   });
 });
+
+describe('RdsAppBar audit fixes', () => {
+  const mockSmallScreen = (matches: boolean) => {
+    window.matchMedia = jest.fn().mockImplementation((query: string) => ({
+      matches,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
+  };
+  const originalMatchMedia = window.matchMedia;
+  afterEach(() => {
+    window.matchMedia = originalMatchMedia;
+  });
+
+  it('keeps its own classes when a consumer passes className', () => {
+    const { container } = render(<RdsAppBar className="my-app-bar" />);
+    const header = container.querySelector('header');
+    expect(header).toHaveClass('rds-header');
+    expect(header).toHaveClass('my-app-bar');
+  });
+
+  it('lets consumers set elevation (G1-030)', () => {
+    const { container, rerender } = render(<RdsAppBar />);
+    expect(container.querySelector('header')).toHaveClass('MuiPaper-elevation0');
+    rerender(<RdsAppBar elevation={4} />);
+    expect(container.querySelector('header')).toHaveClass('MuiPaper-elevation4');
+  });
+
+  it('uses custom profile menu items and keeps the two defaults (G1-026)', () => {
+    const { rerender } = render(<RdsAppBar userName="Ann Lee" userEmail="ann@example.com" />);
+    expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('2');
+    rerender(
+      <RdsAppBar
+        userName="Ann Lee"
+        userEmail="ann@example.com"
+        profileMenuItems={[{ label: 'Profile', onClick: jest.fn() }, { label: 'Settings' }, { label: 'Sign out' }]}
+      />
+    );
+    expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('3');
+  });
+
+  it('shows the default bottom actions on small screens and allows replacing or hiding them (G1-025)', () => {
+    mockSmallScreen(true);
+    const tabs = ['Home', 'Reports'];
+    const { rerender } = render(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} />);
+    expect(screen.getByText('28 Days Left')).toBeInTheDocument();
+
+    rerender(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} bottomActions={<span>Upgrade</span>} />);
+    expect(screen.queryByText('28 Days Left')).not.toBeInTheDocument();
+    expect(screen.getByText('Upgrade')).toBeInTheDocument();
+
+    rerender(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} bottomActions={null} />);
+    expect(screen.queryByText('Upgrade')).not.toBeInTheDocument();
+    expect(screen.queryByText('View Plans')).not.toBeInTheDocument();
+  });
+
+  it('keeps "With Menu Button" (with spaces) off the mobile bottom bar, as before', () => {
+    mockSmallScreen(true);
+    render(<RdsAppBar variantStyle="With Menu Button" tabs={['Home']} />);
+    expect(screen.queryByText('28 Days Left')).not.toBeInTheDocument();
+  });
+
+  it('renders tabs with duplicate labels without key warnings (G1-034/G1-035)', () => {
+    const error = jest.spyOn(console, 'error').mockImplementation(() => {});
+    render(<RdsAppBar tabs={['Same', 'Same']} tabValue={0} onTabChange={jest.fn()} />);
+    expect(error.mock.calls.some(([msg]) => String(msg).includes('same key'))).toBe(false);
+    error.mockRestore();
+  });
+});

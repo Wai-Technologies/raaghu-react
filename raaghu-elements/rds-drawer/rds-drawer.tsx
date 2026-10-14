@@ -1,12 +1,22 @@
-import { useState, useCallback, type ReactNode, type ComponentProps } from 'react';
+import { useState, useId, type ReactNode, type ComponentProps } from 'react';
 import { Drawer as MuiDrawer, type DrawerProps } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-drawer.scss';
+
+type DrawerCloseEvent = Parameters<NonNullable<DrawerProps['onClose']>>[0];
+type DrawerCloseReason = Parameters<NonNullable<DrawerProps['onClose']>>[1];
 
 export interface RdsDrawerProps extends Omit<DrawerProps, 'component'> {
   children: ReactNode;
   width?: number | string;
+  /** @deprecated Use `anchor` instead. */
   position?: 'left' | 'right' | 'top' | 'bottom';
+  /**
+   * Renders a trigger button next to the drawer. Without `open` the trigger toggles the drawer's
+   * internal state. With `open` (controlled) the trigger reflects `open` (label, `aria-expanded`)
+   * and does not change it; wire `triggerButtonProps.onClick` to update `open`.
+   */
   showTrigger?: boolean;
   triggerText?: string;
   triggerTextWhenOpen?: string;
@@ -22,7 +32,7 @@ export interface RdsDrawerProps extends Omit<DrawerProps, 'component'> {
 const RdsDrawer = ({
   children,
   width = 251,
-  position = 'left',
+  position,
   anchor,
   sx,
   showTrigger = false,
@@ -35,21 +45,31 @@ const RdsDrawer = ({
   closeButtonProps,
   centerTrigger = false,
   triggerWrapperClassName,
+  open,
+  onClose,
+  id,
   ...props
 }: RdsDrawerProps) => {
-  const drawerAnchor = anchor || position;
-  const isControlled = !showTrigger && props.open !== undefined;
+  if (position !== undefined) warnDeprecatedProp('RdsDrawer', 'position', '`anchor`');
+
+  const drawerAnchor = anchor ?? position ?? 'left';
+  const isControlled = open !== undefined;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
-  const actualOpen = isControlled ? props.open : internalOpen;
+  const actualOpen = isControlled ? open : internalOpen;
+  const generatedId = useId();
 
-  const handleToggle = useCallback(() => {
-    if (!isControlled) setInternalOpen(!internalOpen);
-  }, [isControlled, internalOpen]);
+  const handleToggle = () => {
+    if (!isControlled) setInternalOpen((prev) => !prev);
+  };
 
-  const handleClose = useCallback((event: {} = {}, reason: 'backdropClick' | 'escapeKeyDown' | string = 'escapeKeyDown') => {
+  const handleClose = (event: DrawerCloseEvent = {}, reason: DrawerCloseReason | 'buttonClick' = 'escapeKeyDown') => {
     if (!isControlled) setInternalOpen(false);
-    props.onClose?.(event, reason as 'backdropClick' | 'escapeKeyDown');
-  }, [isControlled, props]);
+    onClose?.(event, reason as DrawerCloseReason);
+  };
+
+  // The trigger's aria-controls points at the drawer root (it only exists while open);
+  // a consumer `id` is kept, otherwise one is generated in trigger mode.
+  const drawerId = id ?? (showTrigger ? generatedId : undefined);
 
   const getButtonText = () => {
     if (triggerTextWhenOpen && actualOpen) {
@@ -84,22 +104,25 @@ const RdsDrawer = ({
   };
 
   const drawerContent = renderDrawerContent();
-  
+
   const drawerElement = (
     <MuiDrawer
+      {...props}
+      id={drawerId}
       anchor={drawerAnchor}
       open={actualOpen}
       onClose={handleClose}
-      sx={{
-        width: width,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
+      sx={[
+        {
           width: width,
-          boxSizing: 'border-box',
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: width,
+            boxSizing: 'border-box',
+          },
         },
-        ...sx,
-      }}
-      {...props}
+        ...(sx === undefined ? [] : Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
       {drawerContent}
     </MuiDrawer>
@@ -110,6 +133,8 @@ const RdsDrawer = ({
       <RdsButton
         text={getButtonText()}
         onClick={handleToggle}
+        aria-expanded={actualOpen}
+        aria-controls={actualOpen ? drawerId : undefined}
         color="primary"
         layout="text-only"
         shape="rectangle"

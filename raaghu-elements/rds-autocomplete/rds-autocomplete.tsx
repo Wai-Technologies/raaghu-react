@@ -1,20 +1,34 @@
-import { useEffect, useLayoutEffect, useMemo, useState, useRef, type FocusEvent, type ReactNode } from 'react';
-import { Autocomplete as MuiAutocomplete, TextField, Chip, type AutocompleteProps } from '@mui/material';
+import { useId, useLayoutEffect, useState, useRef, type FocusEvent, type ReactNode, type SyntheticEvent } from 'react';
+import {
+  Autocomplete as MuiAutocomplete,
+  TextField,
+  Chip,
+  type AutocompleteProps,
+  type AutocompleteValue,
+  type AutocompleteRenderValueGetItemProps,
+} from '@mui/material';
+import type { SxProps, Theme } from '@mui/material/styles';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-autocomplete.scss';
 
-export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boolean, false, false>, 'renderInput' | 'component'> {
+type RdsAutocompleteMuiProps<T> = AutocompleteProps<T, boolean, false, false>;
+
+export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>, 'renderInput' | 'component'> {
   label?: string;
   placeholder?: string;
   helperText?: string;
   error?: boolean;
-  disabled?: boolean; 
+  disabled?: boolean;
   variant?: 'standard' | 'outlined' | 'filled';
+  /** Marks the field as required: shows an asterisk after the label and sets `aria-required` on the input. */
+  required?: boolean;
   display?: {
     title?: 'visible' | 'hidden';
+    /** @deprecated Use `required` instead. */
     mandatory?: 'required' | 'optional';
     hint?: 'visible' | 'hidden';
   };
@@ -28,14 +42,64 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boole
   };
   userIcon?: ReactNode;
   popupIcon?: ReactNode;
+  /** @deprecated Use `openOnFocus` and `multiple` instead. */
   behavior?: {
     openOnFocus?: 'on' | 'off';
     multiple?: 'on' | 'off';
   };
   /** Hides the clear-all control when the field width is at or below large mobile (414px). */
   hideClearAllOnMobile?: boolean;
-  [key: string]: unknown;
+  /** Shows the label above the field. Defaults to `true`. `display.title` takes precedence. */
+  showTitle?: boolean;
+  /** Shows the helper text. Defaults to `false`. `display.hint` takes precedence. */
+  showHintText?: boolean;
+  /** Shows a checkbox before each option. Defaults to `false`. `optionDecorators.checkbox` takes precedence. */
+  isShowCheckbox?: boolean;
+  /** Shows a radio before each option. Defaults to `false`. `optionDecorators.radio` takes precedence. */
+  isShowRadio?: boolean;
+  /** Shows `userIcon` before each option. Defaults to `false`. `optionDecorators.user` takes precedence. */
+  isShowUser?: boolean;
+  /** @deprecated Use `required` instead. */
+  isMandatory?: boolean;
+  /** @deprecated Use `multiple` instead. */
+  allowMultiple?: boolean;
 }
+
+type SxArray = Extract<SxProps<Theme>, ReadonlyArray<unknown>>;
+const toSxArray = (sx: SxProps<Theme> | undefined): SxArray =>
+  (Array.isArray(sx) ? sx : sx ? [sx] : []) as SxArray;
+
+const LISTBOX_BASE_SX = {
+  '& .MuiAutocomplete-option': {
+    minWidth: 'fit-content',
+  },
+};
+
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && Object.getPrototypeOf(value) === Object.prototype;
+
+const shallowEqualObjects = (a: Record<string, unknown>, b: Record<string, unknown>) => {
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+  return keysA.length === keysB.length && keysA.every((key) => Object.prototype.hasOwnProperty.call(b, key) && Object.is(a[key], b[key]));
+};
+
+/** True when both option lists hold the same options, even if the arrays (or option objects) are new instances. */
+const sameOptions = (a: readonly unknown[] | undefined, b: readonly unknown[] | undefined) => {
+  if (a === b) return true;
+  if (!a || !b || a.length !== b.length) return false;
+  return a.every((option, index) => {
+    const other = b[index];
+    return Object.is(option, other) || (isPlainObject(option) && isPlainObject(other) && shallowEqualObjects(option, other));
+  });
+};
+
+const deriveSelection = <T,>(state: RdsAutocompleteProps<T>['state'], options: readonly T[] | undefined, multiple: boolean): T | T[] | null => {
+  if (state === 'selected' && options && options.length > 0) {
+    return multiple ? [options[0]] : options[0];
+  }
+  return multiple ? [] : null;
+};
 
 const RdsAutocomplete = <T extends { label?: string },>({
   label,
@@ -43,6 +107,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   helperText,
   error = false,
   variant = 'outlined',
+  required,
   display,
   selectSize = 'medium',
   controlStyle = 'default',
@@ -52,77 +117,90 @@ const RdsAutocomplete = <T extends { label?: string },>({
   popupIcon,
   behavior,
   hideClearAllOnMobile = false,
-  ...props
+  showTitle: showTitleProp,
+  showHintText: showHintTextProp,
+  isShowCheckbox: isShowCheckboxProp,
+  isShowRadio: isShowRadioProp,
+  isShowUser: isShowUserProp,
+  isMandatory,
+  allowMultiple,
+  openOnFocus: openOnFocusProp,
+  multiple: multipleProp,
+  id,
+  value,
+  defaultValue,
+  onChange,
+  open: openProp,
+  onOpen,
+  onClose,
+  sx,
+  slotProps,
+  ListboxProps,
+  getOptionLabel,
+  renderValue,
+  clearIcon,
+  disabled,
+  ...muiAutocompleteProps
 }: RdsAutocompleteProps<T>) => {
-  const legacyShowTitle = typeof props['showTitle'] === 'boolean' ? (props['showTitle'] as boolean) : undefined;
-  const legacyIsMandatory = typeof props['isMandatory'] === 'boolean' ? (props['isMandatory'] as boolean) : undefined;
-  const legacyShowHintText = typeof props['showHintText'] === 'boolean' ? (props['showHintText'] as boolean) : undefined;
-  const legacyIsShowCheckbox = typeof props['isShowCheckbox'] === 'boolean' ? (props['isShowCheckbox'] as boolean) : undefined;
-  const legacyIsShowRadio = typeof props['isShowRadio'] === 'boolean' ? (props['isShowRadio'] as boolean) : undefined;
-  const legacyIsShowUser = typeof props['isShowUser'] === 'boolean' ? (props['isShowUser'] as boolean) : undefined;
-  const legacyOpenOnFocus = typeof props['openOnFocus'] === 'boolean' ? (props['openOnFocus'] as boolean) : undefined;
-  const legacyAllowMultiple = typeof props['allowMultiple'] === 'boolean' ? (props['allowMultiple'] as boolean) : undefined;
+  if (display?.mandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'display.mandatory', '`required`');
+  if (behavior !== undefined) warnDeprecatedProp('RdsAutocomplete', 'behavior', '`openOnFocus` and `multiple`');
+  if (isMandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'isMandatory', '`required`');
+  if (allowMultiple !== undefined) warnDeprecatedProp('RdsAutocomplete', 'allowMultiple', '`multiple`');
 
-  const showTitle = display?.title ? display.title === 'visible' : (legacyShowTitle ?? true);
-  const isMandatory = display?.mandatory ? display.mandatory === 'required' : (legacyIsMandatory ?? false);
-  const showHintText = display?.hint ? display.hint === 'visible' : (legacyShowHintText ?? false);
-  const isShowCheckbox = optionDecorators?.checkbox ? optionDecorators.checkbox === 'visible' : (legacyIsShowCheckbox ?? false);
-  const isShowRadio = optionDecorators?.radio ? optionDecorators.radio === 'visible' : (legacyIsShowRadio ?? false);
-  const isShowUser = optionDecorators?.user ? optionDecorators.user === 'visible' : (legacyIsShowUser ?? false);
-  const openOnFocus = behavior?.openOnFocus ? behavior.openOnFocus === 'on' : (legacyOpenOnFocus ?? false);
-  const allowMultiple = behavior?.multiple ? behavior.multiple === 'on' : (legacyAllowMultiple ?? false);
+  const showTitle = display?.title ? display.title === 'visible' : (showTitleProp ?? true);
+  const isRequired = required ?? (display?.mandatory ? display.mandatory === 'required' : (isMandatory ?? false));
+  const showHintText = display?.hint ? display.hint === 'visible' : (showHintTextProp ?? false);
+  const isShowCheckbox = optionDecorators?.checkbox ? optionDecorators.checkbox === 'visible' : (isShowCheckboxProp ?? false);
+  const isShowRadio = optionDecorators?.radio ? optionDecorators.radio === 'visible' : (isShowRadioProp ?? false);
+  const isShowUser = optionDecorators?.user ? optionDecorators.user === 'visible' : (isShowUserProp ?? false);
+  const openOnFocus = openOnFocusProp ?? (behavior?.openOnFocus ? behavior.openOnFocus === 'on' : false);
+  const allowMultipleResolved = multipleProp ?? (behavior?.multiple ? behavior.multiple === 'on' : (allowMultiple ?? false));
 
-  const {
-    showTitle: _legacyShowTitle,
-    isMandatory: _legacyIsMandatory,
-    showHintText: _legacyShowHintText,
-    isShowCheckbox: _legacyIsShowCheckbox,
-    isShowRadio: _legacyIsShowRadio,
-    isShowUser: _legacyIsShowUser,
-    openOnFocus: _legacyOpenOnFocus,
-    allowMultiple: _legacyAllowMultiple,
-    ...muiAutocompleteProps
-  } = props as typeof props & {
-    showTitle?: boolean;
-    isMandatory?: boolean;
-    showHintText?: boolean;
-    isShowCheckbox?: boolean;
-    isShowRadio?: boolean;
-    isShowUser?: boolean;
-    openOnFocus?: boolean;
-    allowMultiple?: boolean;
+  const options = muiAutocompleteProps.options;
+  const generatedId = useId();
+  const inputId = id ?? `rds-autocomplete-${generatedId}`;
+
+  // Value: controlled when the consumer passes `value`, otherwise kept here (seeded from `defaultValue` or `state`).
+  const isValueControlled = value !== undefined;
+  const [selected, setSelected] = useState<T | T[] | null>(() =>
+    defaultValue !== undefined ? defaultValue : deriveSelection(state, options, allowMultipleResolved),
+  );
+  const [prevSelectionState, setPrevSelectionState] = useState({ state, options, allowMultiple: allowMultipleResolved });
+
+  // Re-derive only when `state`/`multiple` change or the options really change, not when a parent
+  // re-renders with a new (but equal) inline options array.
+  if (
+    state !== prevSelectionState.state ||
+    allowMultipleResolved !== prevSelectionState.allowMultiple ||
+    !sameOptions(options, prevSelectionState.options)
+  ) {
+    setPrevSelectionState({ state, options, allowMultiple: allowMultipleResolved });
+    setSelected(deriveSelection(state, options, allowMultipleResolved));
+  }
+
+  const currentValue = isValueControlled ? value : selected;
+
+  const handleChange = (
+    event: SyntheticEvent,
+    newValue: AutocompleteValue<T, boolean, false, false>,
+    reason: Parameters<NonNullable<RdsAutocompleteMuiProps<T>['onChange']>>[2],
+    details?: Parameters<NonNullable<RdsAutocompleteMuiProps<T>['onChange']>>[3],
+  ) => {
+    if (!isValueControlled) setSelected(newValue);
+    onChange?.(event, newValue, reason, details);
   };
 
-  const initialSelected = useMemo<T | T[] | null>(() => {
-    if (state === 'selected' && props.options && props.options.length > 0) {
-      return allowMultiple ? [props.options[0] as T] : (props.options[0] as T);
-    }
-    return allowMultiple ? [] : null;
-  }, [allowMultiple, props.options, state]);
+  // Open: controlled when the consumer passes `open`; otherwise `state='expanded'` keeps the list open.
+  const isOpenControlled = openProp !== undefined;
+  const [internalOpen, setInternalOpen] = useState(state === 'expanded');
+  const [prevExpandedState, setPrevExpandedState] = useState(state);
 
-  const [selected, setSelected] = useState<T | T[] | null>(initialSelected);
-  const prevSelectionStateRef = useRef({ state, options: props.options, allowMultiple });
-
-  if (
-    state !== prevSelectionStateRef.current.state ||
-    props.options !== prevSelectionStateRef.current.options ||
-    allowMultiple !== prevSelectionStateRef.current.allowMultiple
-  ) {
-    prevSelectionStateRef.current = { state, options: props.options, allowMultiple };
-    if (state === 'selected' && props.options && props.options.length > 0) {
-      setSelected(allowMultiple ? [props.options[0] as T] : (props.options[0] as T));
-    } else {
-      setSelected(allowMultiple ? [] : null);
-    }
+  if (state !== prevExpandedState) {
+    setPrevExpandedState(state);
+    setInternalOpen(state === 'expanded');
   }
 
-  const [open, setOpen] = useState(state === 'expanded');
-  const prevExpandedStateRef = useRef(state);
-
-  if (state !== prevExpandedStateRef.current) {
-    prevExpandedStateRef.current = state;
-    setOpen(state === 'expanded');
-  }
+  const open = isOpenControlled ? openProp : internalOpen;
 
   let sizeClass = '';
   if (selectSize === 'small') sizeClass = 'rds-autocomplete--small';
@@ -131,8 +209,8 @@ const RdsAutocomplete = <T extends { label?: string },>({
 
   const controlStyleClass = controlStyle === 'bottom line' ? 'rds-autocomplete__textfield--bottom-line' : '';
 
-  const selectedCount = allowMultiple && Array.isArray(selected) ? selected.length : 0;
-  const hideClearAll = allowMultiple && selectedCount <= 1;
+  const selectedCount = allowMultipleResolved && Array.isArray(currentValue) ? currentValue.length : 0;
+  const hideClearAll = allowMultipleResolved && selectedCount <= 1;
 
   // Measure the actual rendered width of this component via ResizeObserver
   // so the chip limit works correctly inside Storybook iframes and any container
@@ -156,78 +234,100 @@ const RdsAutocomplete = <T extends { label?: string },>({
   // ≤200px → 1 chip, ≤320px → 2 chips, >320px → 3 chips
   const responsiveLimitTags = containerWidth <= 200 ? 1 : containerWidth <= 320 ? 2 : 3;
 
+  const optionText = (option: T) => (getOptionLabel ? getOptionLabel(option) : option.label || String(option));
+
+  const renderChips: RdsAutocompleteMuiProps<T>['renderValue'] = (chipValue, getItemProps) => {
+    const values = Array.isArray(chipValue) ? chipValue : [chipValue];
+    const getChipProps = getItemProps as AutocompleteRenderValueGetItemProps<true>;
+    const limit = responsiveLimitTags;
+    const visibleTags = values.slice(0, limit);
+    const remainingCount = values.length - limit;
+
+    return (
+      <>
+        {visibleTags.map((option, index) => {
+          const { key: tagKey, ...restTagProps } = getChipProps({ index });
+          return (
+            <Chip
+              variant="filled"
+              label={optionText(option)}
+              size="small"
+              {...restTagProps}
+              key={tagKey ?? index}
+              className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
+            />
+          );
+        })}
+        {remainingCount > 0 && (
+          <Chip
+            variant="filled"
+            label={`+${remainingCount}`}
+            size="small"
+            className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize} rds-autocomplete__chip--overflow`}
+          />
+        )}
+      </>
+    );
+  };
+
+  type ListboxSlotProps = NonNullable<NonNullable<RdsAutocompleteMuiProps<T>['slotProps']>['listbox']>;
+  type ListboxSlotPropsObject = Exclude<ListboxSlotProps, (...args: never[]) => unknown>;
+  const consumerListbox = slotProps?.listbox;
+  // Our listbox styles first, then the consumer's (deprecated `ListboxProps`, then `slotProps.listbox`).
+  const mergeListbox = (consumer: ListboxSlotPropsObject | undefined) =>
+    ({
+      ...ListboxProps,
+      ...consumer,
+      sx: [LISTBOX_BASE_SX, ...toSxArray(ListboxProps?.sx), ...toSxArray(consumer?.sx)],
+    }) as ListboxSlotPropsObject;
+  const listboxSlotProps: ListboxSlotProps =
+    typeof consumerListbox === 'function'
+      ? (ownerState) => mergeListbox(consumerListbox(ownerState) as ListboxSlotPropsObject)
+      : mergeListbox(consumerListbox);
+
   return (
     <div ref={containerRef} className={`rds-autocomplete ${sizeClass} rds-autocomplete--root`}>
       {showTitle && label && (
-        <label className={`rds-autocomplete__label rds-autocomplete__label--${selectSize}`}>
+        <label htmlFor={inputId} className={`rds-autocomplete__label rds-autocomplete__label--${selectSize}`}>
           {label}
-          {isMandatory && (
+          {isRequired && (
             <Typography
               component="span"
+              aria-hidden="true"
               className="rds-autocomplete__asterisk"
               sx={{ color: 'var(--rds-error-main)', ml: 'var(--rds-spacing-micro)', fontSize: 'inherit', fontWeight: 700 }}
-            />
+            >
+              *
+            </Typography>
           )}
         </label>
       )}
     <MuiAutocomplete
       {...muiAutocompleteProps}
-      multiple={allowMultiple}
-      limitTags={allowMultiple ? responsiveLimitTags : undefined}
-      clearIcon={hideClearAll || shouldHideClearAll ? null : undefined}
-      renderTags={allowMultiple ? (value, getTagProps) => {
-        const limit = responsiveLimitTags;
-        const visibleTags = value.slice(0, limit);
-        const remainingCount = value.length - limit;
-        
-        return (
-          <>
-            {visibleTags.map((option, index) => {
-              const { key: tagKey, ...restTagProps } = getTagProps({ index });
-              return (
-              <Chip
-                variant="filled"
-                label={option.label || String(option)}
-                size="small"
-                {...restTagProps}
-                key={tagKey ?? index}
-                className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
-              />
-              );
-            })}
-            {remainingCount > 0 && (
-              <Chip
-                variant="filled"
-                label={`+${remainingCount}`}
-                size="small"
-                className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize} rds-autocomplete__chip--overflow`}
-              />
-            )}
-          </>
-        );
-      } : undefined}
-      sx={{ width: '100%' }}
-      ListboxProps={{
-        sx: {
-          '& .MuiAutocomplete-option': {
-            minWidth: 'fit-content',
-          }
-        }
-      }}
+      id={inputId}
+      getOptionLabel={getOptionLabel}
+      multiple={allowMultipleResolved}
+      limitTags={allowMultipleResolved ? responsiveLimitTags : undefined}
+      clearIcon={hideClearAll || shouldHideClearAll ? null : clearIcon}
+      renderValue={renderValue ?? (allowMultipleResolved ? renderChips : undefined)}
+      sx={[{ width: '100%' }, ...toSxArray(sx)]}
+      slotProps={{ ...slotProps, listbox: listboxSlotProps }}
       open={open}
-      onOpen={() => {
-        if (state !== 'expanded') {
-          setOpen(true);
+      onOpen={(event) => {
+        if (!isOpenControlled && state !== 'expanded') {
+          setInternalOpen(true);
         }
+        onOpen?.(event);
       }}
       onClose={(event, reason) => {
-        if (state !== 'expanded') {
-          setOpen(false);
+        if (!isOpenControlled && state !== 'expanded') {
+          setInternalOpen(false);
         }
+        onClose?.(event, reason);
       }}
-      disabled={props.disabled || state === 'disabled'}
-  value={selected}
-  onChange={(_, value) => setSelected(value)}
+      disabled={disabled || state === 'disabled'}
+      value={currentValue}
+      onChange={handleChange}
         renderOption={(optionProps, option, { selected: checked }) => {
           const { key: optionKey, ...optionLiProps } = optionProps;
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
@@ -238,7 +338,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             return (
               <li {...optionLiProps} key={optionKey}>
                 <Box sx={{ display: 'flex', alignItems: 'center', p: 0, ml: 0.2, mr: 3, gap: 1.5 }}>
-                  <span>{option.label || String(option)}</span>
+                  <span>{optionText(option)}</span>
                 </Box>
               </li>
             );
@@ -257,7 +357,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
                 {(isShowRadio) && (
                   <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
                 )}
-                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{option.label || String(option)}</span>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{optionText(option)}</span>
               </Box>
             </li>
           );
@@ -265,28 +365,35 @@ const RdsAutocomplete = <T extends { label?: string },>({
 
         popupIcon={popupIcon}
         renderInput={(params) => {
-          const shouldShowPlaceholder = allowMultiple
-            ? (Array.isArray(selected) ? selected.length === 0 : !selected)
-            : !selected;
+          const { inputProps: paramsInputProps, ...textFieldParams } = params;
+          const shouldShowPlaceholder = allowMultipleResolved
+            ? (Array.isArray(currentValue) ? currentValue.length === 0 : !currentValue)
+            : !currentValue;
 
           return (
             <TextField
-              {...params}
+              {...textFieldParams}
               placeholder={shouldShowPlaceholder ? placeholder : ''}
-              helperText={helperText ?? '\u00A0'}
+              helperText={helperText ?? ' '}
               error={error}
               variant={variant}
               className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
-              inputProps={{
-                ...params.inputProps,
-                'aria-label': label || placeholder || 'Autocomplete',
+              slotProps={{
+                htmlInput: {
+                  ...paramsInputProps,
+                  'aria-label': label || placeholder || 'Autocomplete',
+                  ...(isRequired ? { 'aria-required': true } : {}),
+                },
               }}
               onFocus={(e) => {
-                if (openOnFocus && state !== 'expanded') {
-                  setOpen(true);
+                if (openOnFocus && state !== 'expanded' && !open) {
+                  if (!isOpenControlled) {
+                    setInternalOpen(true);
+                  }
+                  onOpen?.(e);
                 }
-                if (params.inputProps?.onFocus) {
-                  params.inputProps.onFocus(e as FocusEvent<HTMLInputElement>);
+                if (paramsInputProps?.onFocus) {
+                  paramsInputProps.onFocus(e as FocusEvent<HTMLInputElement>);
                 }
               }}
             />

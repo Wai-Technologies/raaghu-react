@@ -59,9 +59,9 @@ const RdsCompFilterButton = ({
   const resolvedFilters = filters ?? EMPTY_FILTER_OPTIONS;
   const [isOpen, setIsOpen] = useState(false);
   const [localFilters, setLocalFilters] = useState<FilterOption[]>(resolvedFilters);
-  const prevFiltersRef = useRef(resolvedFilters);
-  if (resolvedFilters !== prevFiltersRef.current) {
-    prevFiltersRef.current = resolvedFilters;
+  const [prevFilters, setPrevFilters] = useState(resolvedFilters);
+  if (resolvedFilters !== prevFilters) {
+    setPrevFilters(resolvedFilters);
     setLocalFilters(resolvedFilters);
   }
   const [searchTerm, setSearchTerm] = useState('');

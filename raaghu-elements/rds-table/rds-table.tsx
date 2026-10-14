@@ -1,4 +1,4 @@
-import { useMemo, useState, type ChangeEvent, type ReactNode } from 'react';
+import { isValidElement, useMemo, useState, type ChangeEvent, type ReactNode } from 'react';
 import {
   TableContainer as MuiTableContainer,
   Table as MuiTable,
@@ -16,7 +16,14 @@ import SwapVertIcon from '@mui/icons-material/SwapVert';
 import clsx from 'clsx';
 import './rds-table.scss';
 
+const DEFAULT_ROWS_PER_PAGE_OPTIONS = [5, 10, 25];
 const EMPTY_SELECTED_ROWS: string[] = [];
+
+function sameIds(a: string[] | undefined, b: string[] | undefined): boolean {
+  if (a === b) return true;
+  if (!a || !b || a.length !== b.length) return false;
+  return a.every((id, i) => id === b[i]);
+}
 
 function getRowId(row: { id?: string | number; key?: string | number }, index: number): string {
   return String(row.id ?? row.key ?? index);
@@ -41,16 +48,35 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
   columns: RdsTableColumn[];
   rows: RdsTableRow[];
   pagination?: boolean;
+  /**
+   * Rows per page. Used as the initial value and re-applied whenever it changes;
+   * user paging still updates the table internally. @default 10
+   */
   pageSize?: number;
+  /**
+   * Zero-based page index. Used as the initial value and re-applied whenever it changes;
+   * user paging still updates the table internally. @default 0
+   */
   page?: number;
+  /** Total row count shown by the paginator (needed for `paginationMode="server"`). */
   totalRows?: number;
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
+  /**
+   * `'client'` slices `rows` per page; `'server'` renders `rows` as given (the current page)
+   * and uses `totalRows` for the count. @default 'client'
+   */
+  paginationMode?: 'client' | 'server';
+  /** Options for the rows-per-page selector. @default [5, 10, 25] */
+  rowsPerPageOptions?: number[];
   stickyHeader?: boolean;
   selectable?: boolean;
+  /**
+   * Selected row ids. With `onRowSelect` the selection is fully controlled by this prop;
+   * without it, the prop seeds (and re-syncs) the table's own selection.
+   */
   selectedRows?: string[];
   onRowSelect?: (selectedRows: string[]) => void;
-  className?: string;
   sortBy?: string;
   sortDirection?: 'asc' | 'desc';
   onSortChange?: (columnId: string | undefined, direction: 'asc' | 'desc' | undefined) => void;
@@ -58,6 +84,12 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
   defaultSortDirection?: 'asc' | 'desc';
 }
 
+/**
+ * RdsTable is a simple data table (MUI Table) with optional client/server pagination,
+ * row selection, per-column checkbox/radio cells and single-column sorting.
+ * For heavy use (large data sets, virtualization, column resizing, filtering, editing)
+ * prefer MUI X DataGrid instead.
+ */
 const RdsTable = ({
   columns,
   rows,
@@ -67,6 +99,8 @@ const RdsTable = ({
   totalRows,
   onPageChange,
   onPageSizeChange,
+  paginationMode = 'client',
+  rowsPerPageOptions = DEFAULT_ROWS_PER_PAGE_OPTIONS,
   stickyHeader = false,
   selectable = false,
   selectedRows,
@@ -79,13 +113,12 @@ const RdsTable = ({
   defaultSortDirection = 'asc',
   ...props
 }: RdsTableProps) => {
-  const resolvedSelectedRows = selectedRows ?? EMPTY_SELECTED_ROWS;
   const [tableState, setTableState] = useState({
-    internalSelectedRows: [] as string[],
+    internalSelectedRows: selectedRows ?? ([] as string[]),
     cellCheckboxSelected: new Set<string>(),
     cellRadioSelected: null as string | null,
-    internalPage: 0,
-    internalPageSize: 10,
+    internalPage: page,
+    internalPageSize: pageSize,
     internalSortBy: defaultSortBy as string | undefined,
     internalSortDirection: (defaultSortBy ? defaultSortDirection : undefined) as 'asc' | 'desc' | undefined,
   });
@@ -105,8 +138,20 @@ const RdsTable = ({
     }));
   };
 
-  const currentSelectedRows = onRowSelect ? resolvedSelectedRows : internalSelectedRows;
-  const handleRowSelection = onRowSelect || ((nextRows: string[]) => updateTableState({ internalSelectedRows: nextRows }));
+  // Re-sync internal state when the seeding props change (React 19: derive during render).
+  const [prevProps, setPrevProps] = useState({ page, pageSize, selectedRows });
+  if (page !== prevProps.page || pageSize !== prevProps.pageSize || !sameIds(selectedRows, prevProps.selectedRows)) {
+    const updates: Partial<typeof tableState> = {};
+    if (page !== prevProps.page) updates.internalPage = page;
+    if (pageSize !== prevProps.pageSize) updates.internalPageSize = pageSize;
+    if (selectedRows !== undefined && !sameIds(selectedRows, prevProps.selectedRows)) updates.internalSelectedRows = selectedRows;
+    setPrevProps({ page, pageSize, selectedRows });
+    updateTableState(updates);
+  }
+
+  // With `onRowSelect` the parent owns the selection (as before); otherwise `selectedRows` only seeds it.
+  const currentSelectedRows = onRowSelect ? (selectedRows ?? EMPTY_SELECTED_ROWS) : internalSelectedRows;
+  const handleRowSelection = onRowSelect ?? ((nextRows: string[]) => updateTableState({ internalSelectedRows: nextRows }));
   const sortBy = controlledSortBy !== undefined ? controlledSortBy : internalSortBy;
   const sortDirection = controlledSortDirection !== undefined ? controlledSortDirection : internalSortDirection;
 
@@ -194,7 +239,7 @@ const RdsTable = ({
     handleRowSelection(newSelected);
   };
 
-  const renderCellContent = (column: RdsTableColumn, value: ReactNode, row: RdsTableRow, rowIndex: number): ReactNode => {
+  const renderCellContent = (column: RdsTableColumn, value: ReactNode, row: RdsTableRow, rowIndex: number, rowNumber: number): ReactNode => {
     switch (column.type) {
       case 'checkbox': {
         const rowId = getRowId(row, rowIndex);
@@ -206,6 +251,7 @@ const RdsTable = ({
             onChange={() => toggleCellCheckbox(rowId)}
             size="small"
             disableRipple
+            slotProps={{ input: { 'aria-label': `Select ${column.label} for row ${rowNumber}` } }}
           />
           </div>
         );
@@ -219,15 +265,19 @@ const RdsTable = ({
             onChange={() => selectCellRadio(rowId)}
             size="small"
             disableRipple
+            slotProps={{ input: { 'aria-label': `Select ${column.label} for row ${rowNumber}` } }}
           />
         );
       }
       default:
         if (column.format) return column.format(value);
-        if (typeof value === 'string' || typeof value === 'number') return value;
+        if (typeof value === 'string' || typeof value === 'number' || isValidElement(value)) return value;
         return value == null ? '' : String(value);
     }
   };
+
+  const isClientPaged = pagination && paginationMode !== 'server';
+  const rowOffset = pagination ? internalPage * internalPageSize : 0;
 
   const isAllSelected = selectable && currentSelectedRows.length === rows.length && rows.length > 0;
   const isIndeterminate = selectable && currentSelectedRows.length > 0 && currentSelectedRows.length < rows.length;
@@ -249,6 +299,7 @@ const RdsTable = ({
                     onChange={handleSelectAll}
                     size="small"
                     disableRipple
+                    slotProps={{ input: { 'aria-label': 'Select all rows' } }}
                   />
                 </MuiTableCell>
               )}
@@ -283,6 +334,7 @@ const RdsTable = ({
                         }}
                         size="small"
                         disableRipple
+                        slotProps={{ input: { 'aria-label': `Select all ${column.label}` } }}
                       />
                       </div>
                     ) : column.sortable ? (
@@ -317,8 +369,9 @@ const RdsTable = ({
             </MuiTableRow>
           </MuiTableHead>
           <MuiTableBody className="rds-table__body">
-            {(pagination ? sortedRows.slice(internalPage * internalPageSize, (internalPage + 1) * internalPageSize) : sortedRows).map((row, index) => {
+            {(isClientPaged ? sortedRows.slice(rowOffset, rowOffset + internalPageSize) : sortedRows).map((row, index) => {
               const rowId = getRowId(row, index);
+              const rowNumber = rowOffset + index + 1;
               const isSelected = currentSelectedRows.includes(rowId);
               return (
                 <MuiTableRow 
@@ -334,6 +387,7 @@ const RdsTable = ({
                         onChange={() => handleSelectRow(rowId)}
                         size="small"
                         disableRipple
+                        slotProps={{ input: { 'aria-label': `Select row ${rowNumber}` } }}
                       />
                     </MuiTableCell>
                   )}
@@ -350,7 +404,7 @@ const RdsTable = ({
                         }}
                         className={cellClass}
                       >
-                        {renderCellContent(column, value, row, index) as ReactNode}
+                        {renderCellContent(column, value, row, index, rowNumber) as ReactNode}
                       </MuiTableCell>
                     );
                   })}
@@ -362,9 +416,9 @@ const RdsTable = ({
       </MuiTableContainer>
       {pagination && (
         <MuiTablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={rowsPerPageOptions}
           component="div"
-          count={totalRows || rows.length}
+          count={paginationMode === 'server' ? (totalRows ?? rows.length) : (totalRows || rows.length)}
           rowsPerPage={internalPageSize}
           page={internalPage}
           onPageChange={handleChangePage}

@@ -1,11 +1,5 @@
-import { useEffect, useRef } from "react";
-import Chart, { ChartConfiguration } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import { ChartConfiguration, type ChartData } from "chart.js/auto";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-scatter.scss";
 import { resolveScatterChartType, type ScatterChartType } from "./rds-comp-chart-scatter-utils";
 
@@ -73,38 +67,18 @@ const RdsCompScatterChart = ({
   chartLabel,
   chartType,
 }: RdsCompScatterChartProps) => {
-  const chartRef = useRef<Chart | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    chartRef.current?.destroy();
-
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const resolvedChartType = resolveScatterChartType(chartType);
-    const chartOptions = cloneChartOptions(options);
-    const chartData = {
+  const resolvedChartType = resolveScatterChartType(chartType);
+  const { canvasRef } = useChart<ScatterChartType>(
+    {
+      type: resolvedChartType,
       labels,
       datasets: dataSets.map((dataset) =>
         normalizeScatterDataset(dataset, resolvedChartType)
-      ),
-    };
-
-    attachChartData(chartOptions ?? {}, chartData);
-    applyChartThemeColors(chartOptions ?? {});
-
-    chartRef.current = new Chart(ctx, {
-      type: resolvedChartType,
-      data: chartData as any,
-      options: chartOptions,
-    });
-
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, [id, labels, options, dataSets, themeMode, chartType]);
+      ) as ChartData<ScatterChartType>["datasets"],
+      options: options as ChartConfiguration<ScatterChartType>["options"],
+    },
+    [id, labels, options, dataSets, chartType]
+  );
 
   return (
     <div className="rds-comp-chart-scatter">

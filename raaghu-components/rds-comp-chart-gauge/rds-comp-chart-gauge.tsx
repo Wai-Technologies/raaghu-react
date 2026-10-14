@@ -1,14 +1,10 @@
-import { useEffect, useRef } from "react";
 import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
-  applyChartThemeColors,
-  attachChartData,
   chartFont,
   chartMutedColor,
   chartTextColor,
-  cloneChartOptions,
-  useChartThemeMode,
 } from "../chart-utils";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-gauge.scss";
 
 export interface RdsCompGaugeProps {
@@ -58,25 +54,15 @@ const RdsCompGaugeChart = ({
   subTitleText = "",
   chartLabel,
 }: RdsCompGaugeProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions, []);
-
-    const gaugeCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart<"doughnut">(
+    {
       type: "doughnut",
+      labels,
+      datasets: dataSets,
+      options,
+      themeAxes: [],
       plugins: [createGaugeTextPlugin(titleText, subTitleText)],
-      data: chartData,
-      options: {
-        ...chartOptions,
+      overrides: (chartOptions) => ({
         rotation: -90,
         circumference: 180,
         maintainAspectRatio: false,
@@ -94,16 +80,14 @@ const RdsCompGaugeChart = ({
             ...options?.plugins?.legend,
           },
         },
+      }),
+      onCreate: (chart) => {
+        chart.canvas.style.width = "45vh";
+        chart.canvas.style.height = "45vh";
       },
-    });
-
-    gaugeCanvas.canvas.style.width = "45vh";
-    gaugeCanvas.canvas.style.height = "45vh";
-
-    return () => {
-      gaugeCanvas.destroy();
-    };
-  }, [labels, options, dataSets, titleText, subTitleText, themeMode]);
+    },
+    [labels, options, dataSets, titleText, subTitleText]
+  );
 
   return (
     <div className="rds-comp-chart-gauge">

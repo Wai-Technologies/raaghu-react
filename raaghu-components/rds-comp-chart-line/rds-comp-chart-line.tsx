@@ -1,12 +1,6 @@
-import { useEffect, useRef } from "react";
 import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  getCSSVar,
-  useChartThemeMode,
-} from "../chart-utils";
+import { getCSSVar } from "../chart-utils";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-line.scss";
 
 export interface RdsCompLineProps {
@@ -42,31 +36,16 @@ const RdsCompLineChart = ({
   id,
   chartLabel,
 }: RdsCompLineProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
-
-    const lineCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart(
+    {
       type: "line",
-      data: chartData,
-      options: chartOptions,
-    });
-
-    applyLineCanvasSizing(lineCanvas, id);
-
-    return () => {
-      lineCanvas.destroy();
-    };
-  }, [labels, options, dataSets, id, themeMode]);
+      labels,
+      datasets: dataSets,
+      options,
+      onCreate: (chart) => applyLineCanvasSizing(chart, id),
+    },
+    [labels, options, dataSets, id]
+  );
 
   return (
     <div className="rds-comp-chart-line">

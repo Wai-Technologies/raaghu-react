@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import RdsCard, { RdsCardProps } from './rds-card';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 // Mock SCSS
 jest.mock('./rds-card.scss', () => ({}));
@@ -53,6 +54,38 @@ jest.mock('@mui/icons-material', () => ({
   Share: () => <span data-testid="icon-share">ShareIcon</span>,
   Notifications: () => <span data-testid="icon-notification">NotificationIcon</span>,
 }));
+
+// The component imports each icon from its own module; same test ids as above.
+jest.mock('@mui/icons-material/Person', () => () => <span data-testid="icon-person">PersonIcon</span>);
+jest.mock('@mui/icons-material/Home', () => () => <span data-testid="icon-home">HomeIcon</span>);
+jest.mock('@mui/icons-material/Settings', () => () => <span data-testid="icon-settings">SettingsIcon</span>);
+jest.mock('@mui/icons-material/Favorite', () => () => <span data-testid="icon-favorite">FavoriteIcon</span>);
+jest.mock('@mui/icons-material/Star', () => () => <span data-testid="icon-star">StarIcon</span>);
+jest.mock('@mui/icons-material/Email', () => () => <span data-testid="icon-email">EmailIcon</span>);
+jest.mock('@mui/icons-material/Phone', () => () => <span data-testid="icon-phone">PhoneIcon</span>);
+jest.mock('@mui/icons-material/LocationOn', () => () => <span data-testid="icon-location">LocationIcon</span>);
+jest.mock('@mui/icons-material/Camera', () => () => <span data-testid="icon-camera">CameraIcon</span>);
+jest.mock('@mui/icons-material/Image', () => () => <span data-testid="icon-image">ImageIcon</span>);
+jest.mock('@mui/icons-material/MusicNote', () => () => <span data-testid="icon-music">MusicIcon</span>);
+jest.mock('@mui/icons-material/VideoLibrary', () => () => <span data-testid="icon-video">VideoIcon</span>);
+jest.mock('@mui/icons-material/Description', () => () => <span data-testid="icon-document">DocumentIcon</span>);
+jest.mock('@mui/icons-material/Folder', () => () => <span data-testid="icon-folder">FolderIcon</span>);
+jest.mock('@mui/icons-material/CalendarToday', () => () => <span data-testid="icon-calendar">CalendarIcon</span>);
+jest.mock('@mui/icons-material/AccessTime', () => () => <span data-testid="icon-clock">ClockIcon</span>);
+jest.mock('@mui/icons-material/Search', () => () => <span data-testid="icon-search">SearchIcon</span>);
+jest.mock('@mui/icons-material/Add', () => () => <span data-testid="icon-add">AddIcon</span>);
+jest.mock('@mui/icons-material/Edit', () => () => <span data-testid="icon-edit">EditIcon</span>);
+jest.mock('@mui/icons-material/Delete', () => () => <span data-testid="icon-delete">DeleteIcon</span>);
+jest.mock('@mui/icons-material/Check', () => () => <span data-testid="icon-check">CheckIcon</span>);
+jest.mock('@mui/icons-material/Close', () => () => <span data-testid="icon-close">CloseIcon</span>);
+jest.mock('@mui/icons-material/ArrowForward', () => () => <span data-testid="icon-arrow-forward">ArrowForwardIcon</span>);
+jest.mock('@mui/icons-material/ArrowBack', () => () => <span data-testid="icon-arrow-back">ArrowBackIcon</span>);
+jest.mock('@mui/icons-material/Download', () => () => <span data-testid="icon-download">DownloadIcon</span>);
+jest.mock('@mui/icons-material/Upload', () => () => <span data-testid="icon-upload">UploadIcon</span>);
+jest.mock('@mui/icons-material/Share', () => () => <span data-testid="icon-share">ShareIcon</span>);
+jest.mock('@mui/icons-material/Notifications', () => () => <span data-testid="icon-notification">NotificationIcon</span>);
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsCard', () => {
   const defaultProps: RdsCardProps = {};
@@ -774,6 +807,147 @@ describe('RdsCard', () => {
         <RdsCard showIcon={true} />
       );
       expect(screen.getByTestId('card-avatar')).toBeInTheDocument();
+    });
+  });
+});
+
+describe('RdsCard audit fixes', () => {
+  beforeEach(() => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+  });
+
+  describe('icon (G1-170)', () => {
+    it('still shows the person icon when neither icon nor changeIcon is given, without warning', () => {
+      const { container } = render(<RdsCard />);
+      expect(screen.getByTestId('icon-person')).toBeInTheDocument();
+      expect(container.querySelector('.rds-card__icon--person')).toBeInTheDocument();
+      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--icon-person');
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('renders a custom icon node inside the avatar', () => {
+      render(<RdsCard icon={<span data-testid="custom-icon" />} />);
+      expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('icon-person')).not.toBeInTheDocument();
+      expect(screen.getByTestId('card-avatar')).toHaveClass('rds-card__icon');
+    });
+
+    it('lets icon win over the deprecated changeIcon', () => {
+      render(<RdsCard icon={<span data-testid="custom-icon" />} changeIcon="home" />);
+      expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('icon-home')).not.toBeInTheDocument();
+    });
+
+    it('warns when changeIcon is used and keeps it working', () => {
+      render(<RdsCard changeIcon="star" />);
+      expect(screen.getByTestId('icon-star')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCard', 'changeIcon', '`icon`');
+    });
+
+    it.each([null, false])('hides the icon when icon is %p', (value) => {
+      render(<RdsCard icon={value} />);
+      expect(screen.queryByTestId('card-avatar')).not.toBeInTheDocument();
+      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--hide-icon');
+    });
+  });
+
+  describe('selected / disabled (G1-171)', () => {
+    it('adds no aria state by default', () => {
+      render(<RdsCard />);
+      const card = screen.getByTestId('card-root');
+      expect(card).not.toHaveAttribute('aria-disabled');
+      expect(card).not.toHaveAttribute('aria-current');
+      expect(card).not.toHaveAttribute('aria-selected');
+    });
+
+    it('disabled takes precedence over state and sets aria-disabled', () => {
+      render(<RdsCard state="hover" disabled />);
+      const card = screen.getByTestId('card-root');
+      expect(card).toHaveClass('rds-card--disabled');
+      expect(card).not.toHaveClass('rds-card--hover');
+      expect(card).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('selected takes precedence over state and sets aria-current', () => {
+      render(<RdsCard state="hover" selected />);
+      const card = screen.getByTestId('card-root');
+      expect(card).toHaveClass('rds-card--selected');
+      expect(card).toHaveAttribute('aria-current', 'true');
+      expect(card).not.toHaveAttribute('aria-selected');
+    });
+
+    it('uses aria-selected when the role supports it', () => {
+      render(<RdsCard role="option" selected />);
+      const card = screen.getByTestId('card-root');
+      expect(card).toHaveAttribute('aria-selected', 'true');
+      expect(card).not.toHaveAttribute('aria-current');
+    });
+
+    it('false booleans override the matching state', () => {
+      const { rerender } = render(<RdsCard state="disabled" disabled={false} />);
+      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--default');
+      expect(screen.getByTestId('card-root')).not.toHaveAttribute('aria-disabled');
+      rerender(<RdsCard state="selected" selected={false} />);
+      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--default');
+    });
+
+    it('disabled wins over selected', () => {
+      render(<RdsCard selected disabled />);
+      const card = screen.getByTestId('card-root');
+      expect(card).toHaveClass('rds-card--disabled');
+      expect(card).not.toHaveClass('rds-card--selected');
+      expect(card).not.toHaveAttribute('aria-current');
+    });
+
+    it('sets aria attributes for the Figma state values too', () => {
+      const { rerender } = render(<RdsCard state="disabled" />);
+      expect(screen.getByTestId('card-root')).toHaveAttribute('aria-disabled', 'true');
+      rerender(<RdsCard state="selected" />);
+      expect(screen.getByTestId('card-root')).toHaveAttribute('aria-current', 'true');
+    });
+
+    it('keeps aria attributes the consumer passes', () => {
+      render(<RdsCard disabled aria-disabled={false} selected={false} aria-current="page" />);
+      const card = screen.getByTestId('card-root');
+      expect(card).toHaveAttribute('aria-disabled', 'false');
+      expect(card).toHaveAttribute('aria-current', 'page');
+    });
+
+    it('has no axe violations when selected or disabled', async () => {
+      const { container, rerender } = render(<RdsCard title="Card" selected />);
+      expect(await axe(container)).toHaveNoViolations();
+      rerender(<RdsCard title="Card" disabled />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('typed legacy props (G1-172)', () => {
+    it('does not pass the show* booleans to the DOM', () => {
+      render(<RdsCard showIndicator showTitle showSubtext showDescription showIcon />);
+      const card = screen.getByTestId('card-root');
+      ['showindicator', 'showtitle', 'showsubtext', 'showdescription', 'showicon'].forEach((attr) => {
+        expect(card).not.toHaveAttribute(attr);
+      });
+    });
+
+    it('lets the content object take precedence over the show* booleans', () => {
+      render(<RdsCard title="Title" showTitle content={{ title: 'hidden' }} />);
+      expect(screen.queryByText('Title')).not.toBeInTheDocument();
+    });
+
+    it('does not warn for supported props', () => {
+      render(<RdsCard showIcon showTitle content={{ icon: 'visible' }} state="selected" style="outlined" />);
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('prop merging', () => {
+    it('keeps its own classes when a consumer passes className', () => {
+      render(<RdsCard className="mine" />);
+      const card = screen.getByTestId('card-root');
+      expect(card).toHaveClass('rds-card');
+      expect(card).toHaveClass('rds-card--layout-vertical');
+      expect(card).toHaveClass('mine');
     });
   });
 });

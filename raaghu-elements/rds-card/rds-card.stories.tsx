@@ -4,10 +4,69 @@ import RdsButton from '../rds-button/rds-button';
 import RdsBadge from '../rds-badge/rds-badge';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsInput from '../rds-input/rds-input';
-import { Typography, CardContent, CardActions } from '@mui/material';
-import { Edit } from '@mui/icons-material';
+import { CardContent, CardActions } from '@mui/material';
+import Person from '@mui/icons-material/Person';
+import Home from '@mui/icons-material/Home';
+import Settings from '@mui/icons-material/Settings';
+import Favorite from '@mui/icons-material/Favorite';
+import Star from '@mui/icons-material/Star';
+import Email from '@mui/icons-material/Email';
+import Phone from '@mui/icons-material/Phone';
+import LocationOn from '@mui/icons-material/LocationOn';
+import Camera from '@mui/icons-material/Camera';
+import Image from '@mui/icons-material/Image';
+import MusicNote from '@mui/icons-material/MusicNote';
+import VideoLibrary from '@mui/icons-material/VideoLibrary';
+import Description from '@mui/icons-material/Description';
+import Folder from '@mui/icons-material/Folder';
+import CalendarToday from '@mui/icons-material/CalendarToday';
+import AccessTime from '@mui/icons-material/AccessTime';
+import Search from '@mui/icons-material/Search';
+import Add from '@mui/icons-material/Add';
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
+import Check from '@mui/icons-material/Check';
+import Close from '@mui/icons-material/Close';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import Download from '@mui/icons-material/Download';
+import Upload from '@mui/icons-material/Upload';
+import Share from '@mui/icons-material/Share';
+import Notifications from '@mui/icons-material/Notifications';
 import { useState } from 'react';
 import { expect } from 'storybook/test';
+
+/** Icon choices for the `icon` control. */
+const ICONS = {
+  person: <Person />,
+  home: <Home />,
+  settings: <Settings />,
+  favorite: <Favorite />,
+  star: <Star />,
+  email: <Email />,
+  phone: <Phone />,
+  location: <LocationOn />,
+  camera: <Camera />,
+  image: <Image />,
+  music: <MusicNote />,
+  video: <VideoLibrary />,
+  document: <Description />,
+  folder: <Folder />,
+  calendar: <CalendarToday />,
+  clock: <AccessTime />,
+  search: <Search />,
+  add: <Add />,
+  edit: <Edit />,
+  delete: <Delete />,
+  check: <Check />,
+  close: <Close />,
+  arrow_forward: <ArrowForward />,
+  arrow_back: <ArrowBack />,
+  download: <Download />,
+  upload: <Upload />,
+  share: <Share />,
+  notification: <Notifications />,
+};
 
 const meta: Meta<typeof RdsCard> = {
   title: 'Elements/Card',
@@ -67,15 +126,19 @@ const meta: Meta<typeof RdsCard> = {
       control: 'boolean',
       description: 'Toggle this switch to show or hide the card\'s icon.',
     },
-    changeIcon: {
+    icon: {
       control: 'select',
-      options: [
-        'person', 'home', 'settings', 'favorite', 'star', 'email', 'phone', 'location', 
-        'camera', 'image', 'music', 'video', 'document', 'folder', 'calendar', 'clock', 
-        'search', 'add', 'edit', 'delete', 'check', 'close', 'arrow_forward', 'arrow_back', 
-        'download', 'upload', 'share', 'notification'
-      ],
-      description: 'Choose the icon to display.',
+      options: Object.keys(ICONS),
+      mapping: ICONS,
+      description: 'Choose the icon to display. Any React node can be passed; `null` or `false` hides it.',
+    },
+    selected: {
+      control: 'boolean',
+      description: 'Shows the card as selected and sets `aria-current` (or `aria-selected` for roles that support it). Takes precedence over `state`.',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Shows the card as disabled and sets `aria-disabled`. Takes precedence over `state` and `selected`.',
     },
     title: {
       control: 'text',
@@ -105,7 +168,7 @@ export const Default: Story = {
     showDescription: true,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
     cardSubtext: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
@@ -124,7 +187,7 @@ export const Default: Story = {
 };
 Default.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'selected', 'disabled', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
 
@@ -142,7 +205,7 @@ export const Elevated: Story = {
 };
 Elevated.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
 
@@ -156,7 +219,7 @@ export const Outlined: Story = {
 };
 Outlined.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
   } 
 };
 
@@ -178,7 +241,7 @@ export const WithActions: Story = {
 };
 WithActions.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
 export const WithAvatar: Story = {
@@ -191,13 +254,13 @@ export const WithAvatar: Story = {
     showDescription: false,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
     cardSubtext: 'Card Subtitle',
   } as any,
   parameters: {
     controls: {
-      include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'isEditing'],
+      include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'isEditing'],
     },
   },
   argTypes: {
@@ -345,7 +408,7 @@ export const WithAvatar: Story = {
 };
 WithAvatar.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
   } 
 };
 
@@ -359,7 +422,7 @@ export const WithBadges: Story = {
     showDescription: false,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
     cardSubtext: 'Card Subtitle',
     children: (
@@ -384,7 +447,7 @@ export const WithBadges: Story = {
 };
 WithBadges.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
 
@@ -398,7 +461,7 @@ export const WithButton: Story = {
     showDescription: true,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
     cardSubtext: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
@@ -424,7 +487,7 @@ export const WithButton: Story = {
 };
 WithButton.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']   } 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']   } 
 };
 
 export const WithCustomPadding: Story = {
@@ -437,7 +500,7 @@ export const WithCustomPadding: Story = {
 };
 WithCustomPadding.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
   } 
 };
 
@@ -451,7 +514,7 @@ export const WithImage: Story = {
     showDescription: false,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
     cardSubtext: 'Card Subtitle',
     children: (
@@ -494,7 +557,7 @@ export const WithImage: Story = {
 };
 WithImage.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
 
@@ -508,7 +571,7 @@ export const WithLinkButton: Story = {
     showDescription: true,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
     cardSubtext: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
@@ -524,7 +587,7 @@ export const WithLinkButton: Story = {
 };
 WithLinkButton.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
 
@@ -538,7 +601,7 @@ export const WithTags: Story = {
     showDescription: false,
     layout: 'vertical',
     showIcon: true,
-    changeIcon: 'person',
+    icon: 'person',
     title: 'Card Title',
     cardSubtext: 'Card Subtitle',
     children: (
@@ -564,7 +627,7 @@ export const WithTags: Story = {
 };
 WithTags.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
 

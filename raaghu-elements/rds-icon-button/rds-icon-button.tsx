@@ -1,21 +1,18 @@
-import { isValidElement, cloneElement, type ReactNode, type MouseEvent, type ElementType } from 'react';
+import { isValidElement, cloneElement, type ReactNode, type ReactElement, type ElementType } from 'react';
 import { IconButton as MuiIconButton, type IconButtonProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-icon-button.scss';
 
+/** Props for {@link RdsIconButton}. Extends MUI `IconButton` props. */
 export interface RdsIconButtonProps extends Omit<IconButtonProps, 'component'> {
   iconOutlined?: ReactNode;
   iconFilled?: ReactNode;
   variant?: 'outlined' | 'filled';
   tooltip?: string;
   icon?: ReactNode;
-  onClick?: (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void;
 }
 
-
-
-type RdsIconButtonComponentProps = { children?: ReactNode } & RdsIconButtonProps;
-
+/** Icon-only button with filled/outlined icon variants. A string `tooltip` is used as `title` and as the default `aria-label`. */
 const RdsIconButton = ({
   iconOutlined,
   iconFilled,
@@ -24,9 +21,9 @@ const RdsIconButton = ({
   icon,
   children,
   size,
-  onClick,
+  className: classNameProp,
   ...props
-}:RdsIconButtonComponentProps) => {
+}: RdsIconButtonProps) => {
 
   const getSizedIcon = (iconNode: ReactNode) => {
     if (isValidElement(iconNode)) {
@@ -36,7 +33,7 @@ const RdsIconButton = ({
       }
       const iconType = iconNode.type as ElementType & { muiName?: string };
       if (typeof iconType === 'function' && iconType.muiName && fontSize) {
-        return cloneElement(iconNode as React.ReactElement<{ fontSize?: typeof fontSize }>, { fontSize });
+        return cloneElement(iconNode as ReactElement<{ fontSize?: typeof fontSize }>, { fontSize });
       }
     }
     return iconNode;
@@ -56,16 +53,16 @@ const RdsIconButton = ({
   const className = clsx(
     'rds-icon-button',
     variant === 'outlined' && 'rds-icon-button--outlined',
-    props.className,
+    classNameProp,
   );
 
   return (
     <MuiIconButton
       title={tooltip}
+      aria-label={typeof tooltip === 'string' ? tooltip : undefined}
       size={size}
-      className={className}
-      onClick={onClick}
       {...props}
+      className={className}
     >
       {buttonContent}
     </MuiIconButton>

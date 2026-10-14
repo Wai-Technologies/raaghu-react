@@ -612,3 +612,11 @@ describe('RdsSpeedDial', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('passes the click event to the action onClick', () => {
+    const onClick = jest.fn();
+    render(<RdsSpeedDial actions={[{ icon: <Share />, name: 'Share', onClick }]} open ariaLabel="dial" />);
+    fireEvent.click(screen.getByRole('menuitem', { name: 'Share' }));
+    expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
+  });
+});

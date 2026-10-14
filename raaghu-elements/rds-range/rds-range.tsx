@@ -1,22 +1,36 @@
-import { useRef, useState, type ReactElement } from 'react';
+import { useState, type ReactElement } from 'react';
 import { Slider as MuiSlider, type SliderProps, Box, Typography } from '@mui/material';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
 import './rds-range.scss';
 
+/** Props for {@link RdsRange}. Extends MUI `SliderProps` (except `value`, `onChange`, `component`). */
 export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange' | 'component'> {
+  /** Controlled value: a number for one thumb, `[start, end]` for two. Omit for uncontrolled use. */
   value?: number | number[];
+  /** Called with the new value while a thumb moves. */
   onChange?: (value: number | number[]) => void;
+  /** Text shown above the slider; also the accessible name. */
   label?: string;
+  /** Shows the current value above the slider. */
   showValue?: boolean;
+  /** Uncontrolled two-thumb mode starting at `[min, max]` (when `type` is not `'one-way'`). */
   range?: boolean;
+  /** Formats the values shown in the header, tooltips and min/max labels. */
   formatValue?: (value: number) => string;
+  /** Shows the min and max values under the slider. */
   showLabel?: boolean;
+  /** Shows `label` above the slider. */
   textLabel?: boolean;
+  /** Shows an always-open value tooltip on each thumb. */
   showTooltip?: boolean;
+  /** Figma variant: one thumb or two. */
   type?: 'one-way' | 'two-way';
+  /** Figma level: initial one-way position in quarters of the range (`'1'` = min, `'5'` = max). */
   level?: '1' | '2' | '3' | '4' | '5';
+  /** Minimum value; takes precedence over `min`. Falls back to `min`, then 0. */
   leftLabel?: number;
+  /** Maximum value; takes precedence over `max`. Falls back to `max`, then 100. */
   rightLabel?: number;
 }
 
@@ -64,6 +78,10 @@ const RangeValueLabel = ({ children, value, formatValue }: RangeValueLabelProps)
   );
 };
 
+/**
+ * Slider for picking one value or a range, built on MUI `Slider`, with an optional
+ * header (label and value), min/max labels and always-open value tooltips.
+ */
 const RdsRange= ({
   value,
   onChange,
@@ -76,8 +94,10 @@ const RdsRange= ({
   showTooltip = false,
   type = 'one-way',
   level = '1',
-  leftLabel = 0,
-  rightLabel = 100,
+  leftLabel,
+  rightLabel,
+  slots,
+  slotProps,
   ...props
 }: RdsRangeProps) => {
   const min = leftLabel ?? props.min ?? 0;
@@ -88,11 +108,11 @@ const RdsRange= ({
     isControlled ? value : getDefaultRangeValue(type, level, range, min, max)
   );
 
-  const prevModeRef = useRef(`${type}-${level}-${min}-${max}-${range}`);
+  const [prevMode, setPrevMode] = useState(`${type}-${level}-${min}-${max}-${range}`);
 
   const modeKey = `${type}-${level}-${min}-${max}-${range}`;
-  if (!isControlled && modeKey !== prevModeRef.current) {
-    prevModeRef.current = modeKey;
+  if (!isControlled && modeKey !== prevMode) {
+    setPrevMode(modeKey);
     setInternalValue(getDefaultRangeValue(type, level, range, min, max));
   }
 
@@ -157,8 +177,8 @@ const RdsRange= ({
         onChange={handleChange}
         {...props}
         valueLabelDisplay={showTooltip ? "on" : "off"}
-        slots={showTooltip ? { valueLabel: RangeValueLabel } : undefined}
-        slotProps={showTooltip ? ({ valueLabel: { formatValue } } as any) : undefined}
+        slots={showTooltip ? { ...slots, valueLabel: RangeValueLabel } : slots}
+        slotProps={showTooltip ? ({ ...slotProps, valueLabel: { formatValue } } as SliderProps['slotProps']) : slotProps}
         marks={marks}
         min={min}
         max={max}

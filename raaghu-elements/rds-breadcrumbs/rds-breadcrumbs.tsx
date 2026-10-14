@@ -1,4 +1,4 @@
-import { useState, type ReactNode, type ElementType } from 'react';
+import { useState, type ReactNode, type ElementType, type KeyboardEvent, type MouseEvent } from 'react';
 import { Breadcrumbs as MuiBreadcrumbs, type BreadcrumbsProps, Link, Typography } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -43,31 +43,51 @@ const getDefaultIconForPosition = (index: number, label: string): string => {
   return positionIcons[index] || 'folder';
 };
 
+/** A built-in icon name (`'home'`, `'folder'`, `'category'`, `'business'`, `'inventory'`, `'star'`) or any icon element. */
+export type RdsBreadcrumbIcon = ReactNode;
+
+const isIconGiven = (value: RdsBreadcrumbIcon): boolean =>
+  value !== undefined && value !== null && value !== '' && typeof value !== 'boolean';
+
+/** Enter/Space activate an element that has `role="button"` (native `<a href>` already handles Enter). */
+const activateOnKey = (event: KeyboardEvent<HTMLElement>) => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    event.currentTarget.click();
+  }
+};
+
 export interface RdsBreadcrumbItem {
   label: string;
   href?: string;
-  /** @deprecated Prefer `href`. Kept for consumer compatibility. */
+  /** @deprecated – has no effect (only used to build the React key). Use `href`. */
   url?: string;
-  /** @deprecated Prefer `href`. Kept for consumer compatibility. */
+  /** @deprecated – has no effect (only used to build the React key). Use `href`. */
   routePath?: string;
-  onClick?: () => void;
+  /** Called when the item is clicked. Receives the click event (e.g. to call `preventDefault()` for client-side routing). */
+  onClick?: (event?: MouseEvent<HTMLElement>) => void;
   active?: boolean;
-  level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
-  layout?: 'pill background' | 'without background' | 'square background';
-  showIcon?: boolean; 
-  state?: 'default' | 'hover' | 'selected';
-  icon?: string;
-}
-
-export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' | 'component'> {
-  items: RdsBreadcrumbItem[];
-  separator?: ReactNode | BreadcrumbSeparator;
-  separatorType?: BreadcrumbSeparator;
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
   layout?: 'pill background' | 'without background' | 'square background';
   showIcon?: boolean;
   state?: 'default' | 'hover' | 'selected';
-  icon?: string;
+  /** Built-in icon name (see `RdsBreadcrumbIcon`) or any icon element. Overrides the component-level `icon`. */
+  icon?: RdsBreadcrumbIcon;
+}
+
+export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' | 'component'> {
+  items: RdsBreadcrumbItem[];
+  /** Separator between items. Takes precedence over `separatorType` when both are given. */
+  separator?: ReactNode | BreadcrumbSeparator;
+  /** Predefined separator character. Accepts the `BreadcrumbSeparator` enum or its string value (e.g. `'/'`). Ignored when `separator` is given. */
+  separatorType?: BreadcrumbSeparator | `${BreadcrumbSeparator}`;
+  level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
+  layout?: 'pill background' | 'without background' | 'square background';
+  showIcon?: boolean;
+  state?: 'default' | 'hover' | 'selected';
+  /** Built-in icon name (see `RdsBreadcrumbIcon`) or any icon element, used for every item that has no `icon` of its own. */
+  icon?: RdsBreadcrumbIcon;
+  /** Replaces the label of the first item. Not rendered as an HTML `title` attribute. */
   title?: string;
   autoIcons?: boolean;
 }
@@ -82,6 +102,7 @@ const RdsBreadcrumbs = ({
   showIcon = true,
   state,
   icon,
+  title,
   autoIcons = true,
   ...props
 }:RdsBreadcrumbsProps) => {
@@ -114,10 +135,10 @@ const RdsBreadcrumbs = ({
   };
 
   let filteredItems = getFilteredItems();
-  if (props.title && filteredItems.length > 0) {
+  if (title && filteredItems.length > 0) {
     filteredItems = filteredItems.map((item, index) => {
       if (index === 0) {
-        return { ...item, label: props.title! };
+        return { ...item, label: title };
       }
       return item;
     });
@@ -151,27 +172,33 @@ const RdsBreadcrumbs = ({
     }
   };
 
-  const getIconComponent = (itemIcon?: string, globalIcon?: string, index?: number, label?: string): ReactNode => {
-    let iconName: string;
-    if (itemIcon) {
+  const getIconComponent = (itemIcon?: RdsBreadcrumbIcon, globalIcon?: RdsBreadcrumbIcon, index?: number, label?: string): ReactNode => {
+    let iconName: RdsBreadcrumbIcon;
+    if (isIconGiven(itemIcon)) {
       iconName = itemIcon;
-    } else if (globalIcon) {
+    } else if (isIconGiven(globalIcon)) {
       iconName = globalIcon;
     } else if (autoIcons && index !== undefined && label !== undefined) {
       iconName = getDefaultIconForPosition(index, label);
     } else {
       iconName = 'home';
     }
-    
+
+    // Icon elements are rendered as given; strings keep using the built-in icon map.
+    if (typeof iconName !== 'string') {
+      return iconName;
+    }
+
     const IconComp = iconMap[iconName.toLowerCase()] || HomeOutlinedIcon;
     return <IconComp sx={{ fontSize: 20, verticalAlign: 'middle', mr: 0.5 }} color="inherit" />;
   };
 
   return (
-    <MuiBreadcrumbs 
-      separator={getSeparator()} 
-      className={breadcrumbsClass}
+    <MuiBreadcrumbs
+      aria-label="breadcrumb"
       {...props}
+      separator={getSeparator()}
+      className={breadcrumbsClass}
     >
       {filteredItems.map((item, index) => {
         const isLast = index === filteredItems.length - 1;
@@ -179,7 +206,7 @@ const RdsBreadcrumbs = ({
         const itemStateClass = getStateClass(item.state);
         const isSelected = (item.state === 'selected') || (state === 'selected' && !item.state);
 
-        let typographyClass = clsx(
+        const typographyClass = clsx(
           'rds-breadcrumbs__item',
           'rds-breadcrumbs__item__active',
           itemLayoutClass,
@@ -192,6 +219,10 @@ const RdsBreadcrumbs = ({
               key={`${item.label}-${item.routePath || item.url || index}`}
               className={typographyClass.trim()}
               onClick={() => setSelectedIdx(index)}
+              // The current page is plain text for assistive tech; other selectable items act as buttons.
+              {...(isLast
+                ? { 'aria-current': 'page' as const }
+                : { role: 'button', tabIndex: 0, onKeyDown: activateOnKey })}
               style={{ cursor: 'pointer' }}
             >
               {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
@@ -201,21 +232,27 @@ const RdsBreadcrumbs = ({
         }
 
         const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item__enable-hover' : '';
+        const isClickable = Boolean(item.onClick) || item.state === 'selected' || state === 'selected';
+        // An <a> without href is not keyboard-focusable: expose it as a button instead (same element, no visual change).
+        const buttonProps = !item.href && isClickable
+          ? { role: 'button', tabIndex: 0, onKeyDown: activateOnKey }
+          : {};
         return (
           <Link
             key={`${item.label}-${item.routePath || item.url || item.href || 'link'}`}
             color="inherit"
             href={item.href}
+            {...buttonProps}
             onClick={e => {
               if (item.state === 'selected' || state === 'selected') {
                 setSelectedIdx(index);
                 e.preventDefault();
               }
-              if (item.onClick) item.onClick();
+              if (item.onClick) item.onClick(e);
             }}
             underline="hover"
             className={`rds-breadcrumbs__item ${itemLayoutClass} ${itemStateClass} ${enableHoverClass}`.trim()}
-            sx={{ cursor: item.onClick || item.state === 'selected' || state === 'selected' ? 'pointer' : 'default' }}
+            sx={{ cursor: isClickable ? 'pointer' : 'default' }}
           >
             {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
             {item.label}

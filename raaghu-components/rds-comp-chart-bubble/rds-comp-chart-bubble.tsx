@@ -1,19 +1,24 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-bubble.scss";
 
-export interface RdsCompBubbleChartProps {
+/** Props for {@link RdsCompBubbleChart}. */
+export interface RdsCompBubbleChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Id of the canvas element. */
   id: string;
-  labels: string[];
+  /** Dataset labels. */
+  labels?: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"bubble">;
+  /** Chart.js bubble datasets. */
   dataSets: ChartDataset<"bubble">[];
+  /** Accessible label of the chart. */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const RdsCompBubbleChart = ({
@@ -22,33 +27,17 @@ const RdsCompBubbleChart = ({
   options,
   dataSets,
   chartLabel,
+  className,
+  ref,
+  ...rest
 }: RdsCompBubbleChartProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
-
-    const bubbleCanvas = new Chart(ctx, {
-      type: "bubble",
-      data: chartData,
-      options: chartOptions,
-    });
-
-    return () => {
-      bubbleCanvas.destroy();
-    };
-  }, [id, labels, options, dataSets, themeMode]);
+  const { canvasRef } = useChart(
+    { type: "bubble", labels, datasets: dataSets, options },
+    [labels, options, dataSets]
+  );
 
   return (
-    <div>
+    <div {...rest} ref={ref} className={clsx(className)}>
       <canvas
         data-testid={id}
         id={id}

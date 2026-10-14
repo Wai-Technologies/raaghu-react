@@ -735,3 +735,13 @@ describe('RdsStack', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('honours spacing={0} over gap', () => {
+    const { container } = renderWithTheme(
+      <RdsStack spacing={0} gap={4}><div>a</div><div>b</div></RdsStack>
+    );
+    expect(container.querySelector('.rds-stack')).toBeInTheDocument();
+    expect(getComputedStyle(container.querySelector('.rds-stack') as Element).gap || '0').not.toContain('32');
+  });
+});

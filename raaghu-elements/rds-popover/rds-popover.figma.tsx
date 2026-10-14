@@ -30,7 +30,7 @@ figma.connect(
         <RdsButton onClick={() => {}}>Open Popover</RdsButton>
         <RdsPopover
           {...props}
-          isOpen={true}
+          open={true}
           anchorEl={null}
           onClose={() => {}}
           title="Simple Popover"

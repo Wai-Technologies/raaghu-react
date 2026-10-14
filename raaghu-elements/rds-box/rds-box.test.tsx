@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import RdsBox, { RdsBoxProps } from './rds-box';
+import RdsBox, { type RdsBoxProps } from './rds-box';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -467,6 +467,45 @@ describe('RdsBox', () => {
       const { container } = render(<RdsBox {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('G1-114: forwards an intrinsic `component` string to MUI Box', () => {
+      const { container } = render(<RdsBox component="section">Section</RdsBox>);
+      const el = container.querySelector('.rds-box');
+      expect(el?.tagName).toBe('SECTION');
+      expect(el).toHaveClass('MuiBox-root');
+    });
+
+    it('G1-114: forwards a component type as `component`', () => {
+      const Custom = ({ className, children }: { className?: string; children?: React.ReactNode }) => (
+        <aside data-testid="custom-root" className={className}>{children}</aside>
+      );
+      render(<RdsBox component={Custom} className="extra">Inside</RdsBox>);
+      const el = screen.getByTestId('custom-root');
+      expect(el.tagName).toBe('ASIDE');
+      expect(el).toHaveClass('rds-box');
+      expect(el).toHaveClass('extra');
+      expect(el).toHaveTextContent('Inside');
+    });
+
+    it('G1-114: still renders a div when `component` is not passed', () => {
+      const { container } = render(<RdsBox>Default</RdsBox>);
+      expect(container.querySelector('.rds-box')?.tagName).toBe('DIV');
+    });
+
+    it('G1-117: `children` type comes from BoxProps (ReactNode)', () => {
+      const props: RdsBoxProps = { children: <span>typed child</span> };
+      render(<RdsBox {...props} />);
+      expect(screen.getByText('typed child')).toBeInTheDocument();
+    });
+
+    it('rest props cannot overwrite the merged className', () => {
+      const { container } = render(<RdsBox className="consumer" id="x" />);
+      const el = container.querySelector('#x');
+      expect(el).toHaveClass('rds-box');
+      expect(el).toHaveClass('consumer');
     });
   });
 });

@@ -16,9 +16,9 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   };
 });
 jest.mock('../../raaghu-elements/rds-button-dropdown/rds-button-dropdown', () => {
-  return function MockRdsButtonDropdown({ onChange, options, buttonText, leftIcon, rightIcon, showSearch, showUserAvatar, showRadio, size, ...props }: any) {
+  return function MockRdsButtonDropdown({ onChange, options, buttonText, children, leftIcon, rightIcon, startIcon, endIcon, showSearch, showUserAvatar, showRadio, size, ...props }: any) {
     return (
-      <select aria-label={buttonText || 'Select'} data-testid="rds-button-dropdown" onChange={(e) => onChange(e.target.value)} {...props}>
+      <select aria-label={children || buttonText || 'Select'} data-testid="rds-button-dropdown" onChange={(e) => onChange(e.target.value)} {...props}>
         {options?.map((opt: any) => (
           <option key={opt.id} value={opt.id}>
             {opt.label}

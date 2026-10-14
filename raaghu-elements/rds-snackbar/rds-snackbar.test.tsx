@@ -662,3 +662,13 @@ describe('RdsSnackbar', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('severity takes precedence over type', () => {
+    const { container } = render(<RdsSnackbar open message="Hi" severity="error" type="success" />);
+    expect(container.ownerDocument.querySelector('.MuiAlert-standardError')).toBeInTheDocument();
+  });
+  it('accepts a ReactNode message', () => {
+    render(<RdsSnackbar open message={<b>Bold msg</b>} />);
+    expect(screen.getByText('Bold msg')).toBeInTheDocument();
+  });
+});

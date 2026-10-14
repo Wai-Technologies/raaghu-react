@@ -1,4 +1,4 @@
-import { forwardRef, memo, useCallback, useEffect, useMemo, useState, type ReactElement, type ReactNode } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState, type ReactElement, type ReactNode, type Ref } from 'react';
 import clsx from 'clsx';
 import type { PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import dayjs, { Dayjs } from 'dayjs';
@@ -99,15 +99,13 @@ const DateCalendarPanel = memo(function DateCalendarPanel({
   );
 });
 
-export const CustomDateRangeLayout = forwardRef<
-  HTMLDivElement,
-  {
+export const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, rangeValue }: {
     children: ReactNode;
     selectedPreset: string;
     onPresetSelect: (preset: DateRangePreset) => void;
     rangeValue: [Dayjs | null, Dayjs | null];
-  }
->(({ children, selectedPreset, onPresetSelect, rangeValue }, ref) => {
+    ref?: Ref<HTMLDivElement>;
+}) => {
   return (
     <div
       ref={ref}
@@ -134,7 +132,7 @@ export const CustomDateRangeLayout = forwardRef<
       <div className="rds-date-picker__calendar-panel">{children}</div>
     </div>
   );
-});
+};
 
 export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }: {
   value: [Dayjs | null, Dayjs | null];

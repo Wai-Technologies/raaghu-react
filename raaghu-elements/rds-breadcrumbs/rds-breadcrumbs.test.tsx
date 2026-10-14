@@ -732,3 +732,129 @@ describe('RdsBreadcrumbs', () => {
     });
   });
 });
+
+describe('RdsBreadcrumbs audit fixes', () => {
+  const items: RdsBreadcrumbItem[] = [
+    { label: 'Home', href: '/' },
+    { label: 'Products', href: '/products' },
+    { label: 'Laptops' },
+  ];
+
+  it('accepts an icon element at component and item level; strings still use the icon map (G1-119)', () => {
+    render(
+      <RdsBreadcrumbs
+        items={[
+          { label: 'Home', icon: <span data-testid="item-node-icon" /> },
+          { label: 'Products', icon: 'star' },
+          { label: 'Laptops' },
+        ]}
+        icon={<span data-testid="global-node-icon" />}
+      />
+    );
+    expect(screen.getByTestId('item-node-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('star-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('global-node-icon')).toBeInTheDocument();
+  });
+
+  it('accepts separatorType as a plain string as well as the enum (G1-120)', () => {
+    const { container } = render(<RdsBreadcrumbs items={items} separatorType="»" />);
+    expect(container.textContent).toContain('»');
+    expect(BreadcrumbSeparator.DoubleArrow).toBe('»');
+  });
+
+  it('uses separator over separatorType when both are given (G1-121)', () => {
+    const { container } = render(
+      <RdsBreadcrumbs items={items} separator={<span data-testid="sep">•</span>} separatorType={BreadcrumbSeparator.Pipe} />
+    );
+    expect(screen.getAllByTestId('sep').length).toBe(2);
+    expect(container.textContent).not.toContain('|');
+  });
+
+  it('does not leak title onto the <nav> but still replaces the first label (G1-122)', () => {
+    const { container } = render(<RdsBreadcrumbs items={items} title="Dashboard" />);
+    expect(container.querySelector('nav')).not.toHaveAttribute('title');
+    expect(screen.getByText('Dashboard')).toBeInTheDocument();
+    expect(screen.queryByText('Home')).not.toBeInTheDocument();
+  });
+
+  it('forwards maxItems / itemsBeforeCollapse / itemsAfterCollapse to MUI (G1-123)', () => {
+    const many: RdsBreadcrumbItem[] = Array.from({ length: 6 }, (_, i) => ({ label: `Item ${i + 1}`, href: `/i${i + 1}` }));
+    render(<RdsBreadcrumbs items={many} maxItems={3} itemsBeforeCollapse={1} itemsAfterCollapse={1} />);
+    expect(screen.getByText('Item 1')).toBeInTheDocument();
+    expect(screen.getByText('Item 6')).toBeInTheDocument();
+    expect(screen.queryByText('Item 3')).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Show path')).toBeInTheDocument();
+  });
+
+  it('labels the nav "breadcrumb" by default and lets the consumer override it', () => {
+    const { container, rerender } = render(<RdsBreadcrumbs items={items} />);
+    expect(container.querySelector('nav')).toHaveAttribute('aria-label', 'breadcrumb');
+    rerender(<RdsBreadcrumbs items={items} aria-label="You are here" />);
+    expect(container.querySelector('nav')).toHaveAttribute('aria-label', 'You are here');
+  });
+
+  it('keeps className merged with its own classes', () => {
+    const { container } = render(<RdsBreadcrumbs items={items} className="mine" />);
+    const nav = container.querySelector('nav');
+    expect(nav).toHaveClass('rds-breadcrumbs', 'rds-breadcrumbs__plain', 'mine');
+  });
+
+  it('marks the last item aria-current="page" and keeps it out of the tab order (G1-126)', () => {
+    render(<RdsBreadcrumbs items={items} />);
+    const current = screen.getByText('Laptops').closest('[aria-current]') as HTMLElement;
+    expect(current).toHaveAttribute('aria-current', 'page');
+    expect(current).not.toHaveAttribute('role');
+    expect(current).not.toHaveAttribute('tabindex');
+    expect(screen.getByText('Home').closest('[aria-current]')).toBeNull();
+  });
+
+  it('makes a non-last active item keyboard operable (G1-126)', () => {
+    render(<RdsBreadcrumbs items={[{ label: 'Home', active: true }, { label: 'Laptops' }]} />);
+    const active = screen.getByText('Home').closest('[role="button"]') as HTMLElement;
+    expect(active).toHaveAttribute('tabindex', '0');
+    fireEvent.keyDown(active, { key: 'Enter' });
+    expect(active).toHaveClass('rds-breadcrumbs__item__selected');
+  });
+
+  it('makes an onClick-only link focusable and operable with Enter/Space (G1-127)', () => {
+    const onClick = jest.fn();
+    render(<RdsBreadcrumbs items={[{ label: 'Home', onClick }, { label: 'Current' }]} />);
+    const link = screen.getByText('Home').closest('a') as HTMLElement;
+    expect(link).not.toHaveAttribute('href');
+    expect(link).toHaveAttribute('role', 'button');
+    expect(link).toHaveAttribute('tabindex', '0');
+    fireEvent.keyDown(link, { key: 'Enter' });
+    fireEvent.keyDown(link, { key: ' ' });
+    expect(onClick).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not add a button role to links that have an href', () => {
+    render(<RdsBreadcrumbs items={[{ label: 'Home', href: '/', onClick: jest.fn() }, { label: 'Current' }]} />);
+    const link = screen.getByText('Home').closest('a') as HTMLElement;
+    expect(link).not.toHaveAttribute('role');
+    expect(link).not.toHaveAttribute('tabindex');
+  });
+
+  it('passes the click event to item onClick (G1-129)', () => {
+    const onClick = jest.fn((event?: React.MouseEvent<HTMLElement>) => event?.preventDefault());
+    render(<RdsBreadcrumbs items={[{ label: 'Home', href: '/', onClick }, { label: 'Current' }]} />);
+    fireEvent.click(screen.getByText('Home'));
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick.mock.calls[0][0]).toHaveProperty('type', 'click');
+  });
+
+  it('still accepts no-argument onClick handlers (G1-129)', () => {
+    const onClick = jest.fn(() => undefined);
+    const noArg: RdsBreadcrumbItem = { label: 'Home', href: '/', onClick };
+    render(<RdsBreadcrumbs items={[noArg, { label: 'Current' }]} />);
+    fireEvent.click(screen.getByText('Home'));
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('has no axe violations with onClick-only items and a current page', async () => {
+    const { container } = render(
+      <RdsBreadcrumbs items={[{ label: 'Home', onClick: jest.fn() }, { label: 'Products', href: '/p' }, { label: 'Current' }]} />
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
+});

@@ -8,9 +8,9 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=1290-3640",
   {
     props: {
-      isMandatory: figma.boolean("❗ Is Mandatory"),
+      required: figma.boolean("❗ Is Mandatory"),
       label: figma.string("✏️ Label"),
-      hintText: figma.string("✍ Hint Text"),
+      helperText: figma.string("✍ Hint Text"),
       placeholder: figma.string("📝 Placeholder - Text"),
       showIcon: figma.boolean("👀 - Show Icon"),
       layout: figma.enum("📱 Layout", {

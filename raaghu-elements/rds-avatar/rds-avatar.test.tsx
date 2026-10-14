@@ -716,3 +716,40 @@ describe('RdsAvatar', () => {
     });
   });
 });
+
+describe('RdsAvatar audit fixes', () => {
+  const avatars = [
+    { title: 'Ann Lee', src: 'a.png', alt: 'Ann' },
+    { title: 'Bob Ray', src: 'b.png' },
+  ];
+
+  it('forwards className to the root in stacking mode (G1-064)', () => {
+    const { container } = render(<RdsAvatar displayStyle="stacking" avatars={avatars} className="my-stack" />);
+    expect(container.querySelector('.rds-avatar__stacking')).toHaveClass('my-stack');
+  });
+
+  it('gives stacked avatars alt text, falling back to the title (G1-066)', () => {
+    const { container } = render(<RdsAvatar displayStyle="stacking" avatars={avatars} />);
+    const images = container.querySelectorAll('img');
+    expect(images[0]).toHaveAttribute('alt', 'Ann');
+    expect(images[1]).toHaveAttribute('alt', 'Bob Ray');
+  });
+
+  it('accepts an array sx without crashing', () => {
+    render(<RdsAvatar title="Ann Lee" sx={[{ m: 1 }, { p: 0 }]} />);
+    expect(screen.getByText('AL')).toBeInTheDocument();
+  });
+
+  it('exposes the status dots to assistive technology (G1-075)', () => {
+    const { container } = render(<RdsAvatar title="Ann Lee" activeDotTop />);
+    expect(container.querySelector('.rds-avatar__dot--top')).toHaveAttribute('role', 'img');
+  });
+
+  it('keeps the ring inside the avatar wrap for with-name and outside for name-bottom', () => {
+    const { container, rerender } = render(<RdsAvatar title="Ann Lee" activityRing displayStyle="with-name" />);
+    expect(container.querySelector('.rds-avatar__avatar-wrap > .rds-avatar__ring')).toBeInTheDocument();
+    rerender(<RdsAvatar title="Ann Lee" activityRing displayStyle="name-bottom" />);
+    expect(container.querySelector('.rds-avatar__avatar-outer > .rds-avatar__ring')).toBeInTheDocument();
+    expect(container.querySelector('.rds-avatar__avatar-wrap > .rds-avatar__ring')).not.toBeInTheDocument();
+  });
+});

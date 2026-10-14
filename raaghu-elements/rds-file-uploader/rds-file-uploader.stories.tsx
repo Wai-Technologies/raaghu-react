@@ -29,9 +29,9 @@ const meta: Meta<typeof RdsFileUploader> = {
   ],
   tags: ['autodocs', 'stable'],
   argTypes: {
-    title: {
+    label: {
       control: 'text',
-      description: 'Title text for the uploader',
+      description: 'Label text for the uploader',
       defaultValue: 'File Upload',
     },
     multiple: {
@@ -55,13 +55,13 @@ const meta: Meta<typeof RdsFileUploader> = {
     showTitle: {
       control: 'boolean',
     },
-    isMandatory: {
+    required: {
       control: 'boolean',
     },
     showHint: {
       control: 'boolean',
     },
-    hintText: {
+    helperText: {
       control: 'text',
     },
     mode: {
@@ -88,11 +88,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    title: 'Upload your files',
+    label: 'Upload your files',
     mode:'default',
     multiple: true,
     showTitle: true,
-    isMandatory: true,
+    required: true,
     maxFiles: 5,
     maxSize: 10 * 1024 * 1024,
     accept: ".png,.jpg,.jpeg,.doc,.pdf,.ppt",
@@ -101,7 +101,7 @@ export const Default: Story = {
     disabled: false,
     style:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -119,10 +119,10 @@ export const Default: Story = {
 
 export const SingleFile: Story = {
   args: {
-    title: 'Upload a single file',
+    label: 'Upload a single file',
     mode:'default',
     showTitle: true,
-    isMandatory: true,
+    required: true,
     multiple: false,
     maxFiles: 1,
     showPreview: true,
@@ -130,7 +130,7 @@ export const SingleFile: Story = {
     disabled: false,
     style:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -143,10 +143,10 @@ export const SingleFile: Story = {
 
 export const ImagesOnly: Story = {
   args: {
-    title: 'Upload images only',
+    label: 'Upload images only',
     showTitle: true,
     mode:'default',
-    isMandatory: true,
+    required: true,
     accept: "image/*",
     multiple: true,
     maxFiles: 3,
@@ -156,7 +156,7 @@ export const ImagesOnly: Story = {
     disabled: false,
     style:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -169,17 +169,17 @@ export const ImagesOnly: Story = {
 
 export const NoDragAndDrop: Story = {
   args: {
-    title: 'No drag and drop',
+    label: 'No drag and drop',
     showTitle: true,
     mode:'default',
-    isMandatory: true,
+    required: true,
     dragAndDrop: false,
     multiple: true,
     showPreview: true,
     disabled: false,
     style:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -192,17 +192,17 @@ export const NoDragAndDrop: Story = {
 
 export const NoPreview: Story = {
   args: {
-    title: 'No preview',
+    label: 'No preview',
     mode:'default',
     showTitle: true,
-    isMandatory: true,
+    required: true,
     showPreview: false,
     multiple: true,
     dragAndDrop: true,
     disabled: false,
     style:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -215,10 +215,10 @@ export const NoPreview: Story = {
 
 export const DocumentsOnly: Story = {
   args: {
-    title: 'Documents only',
+    label: 'Documents only',
     mode:'default',
     showTitle: true,
-    isMandatory: true,
+    required: true,
     accept: ".pdf,.doc,.docx,.txt",
     multiple: true,
     maxFiles: 10,
@@ -228,7 +228,7 @@ export const DocumentsOnly: Story = {
     disabled: false,
     style:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -241,17 +241,17 @@ export const DocumentsOnly: Story = {
 
 export const Disabled: Story = {
   args: {
-    title: 'Disabled uploader',
+    label: 'Disabled uploader',
     showTitle: true,
     mode:'default',
-    isMandatory: true,
+    required: true,
     disabled: true,
     multiple: true,
     showPreview: true,
     dragAndDrop: true,
     style:'Drop Area - Top Icon',
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
   },
   render: (args) => {
     const updatedArgs = {...args};
@@ -264,10 +264,10 @@ export const Disabled: Story = {
 
 export const WithValidation: Story = {
 args: {
-  title: 'With validation',
+  label: 'With validation',
   showTitle: true,
   mode:'default',
-  isMandatory: true,
+  required: true,
   multiple: true,
   maxFiles: 3,
   maxSize: 1 * 1024 * 1024,
@@ -276,7 +276,7 @@ args: {
   disabled: false,
   style:'Drop Area - Top Icon',
   showHint: true,
-  hintText: 'Maximum 5MB',
+  helperText: 'Maximum 5MB',
 },
 render: (args) => {
   const updatedArgs = {...args};
@@ -289,10 +289,10 @@ render: (args) => {
 
 export const Interactive: Story = {
 args: {
-  title: 'Interactive uploader',
+  label: 'Interactive uploader',
   showTitle: true,
   mode:'default',
-  isMandatory: true,
+  required: true,
   multiple: true,
   maxFiles: 5,
   accept: "image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -301,7 +301,7 @@ args: {
   disabled: false,
   style:'Drop Area - Top Icon',
   showHint: true,
-  hintText: 'Maximum 5MB',
+  helperText: 'Maximum 5MB',
 },
 render: (args) => {
   const updatedArgs = {...args};
@@ -314,11 +314,11 @@ render: (args) => {
 
 export const Standard: Story = {
   args: {
-    title: 'Standard uploader',
+    label: 'Standard uploader',
     showTitle: true,
-    isMandatory: true,
+    required: true,
     showHint: true,
-    hintText: 'Maximum 5MB',
+    helperText: 'Maximum 5MB',
     mode: 'standard',
     maxFiles: 1,
     multiple: false,

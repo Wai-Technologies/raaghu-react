@@ -1014,11 +1014,10 @@ export const ThumbnailViewContent = ({
           {accordionItems.map((item) => (
             <RdsAccordion
               key={item.id}
-              accordionStyle="borderhide"
+              variant="plain"
               size="medium"
-              state="default"
               title={item.title}
-              ShowLeftIcon={false}
+              startIcon={null}
             >
               <div className="rds-comp-details-pane__thumbnail-image-wrap">
                 <img 

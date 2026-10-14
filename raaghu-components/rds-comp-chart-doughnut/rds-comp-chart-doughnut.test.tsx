@@ -799,3 +799,29 @@ describe('RdsCompDoughnutChart', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompDoughnutChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveClass('rds-comp-chart-doughnut');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('appends title and subtitle to the default aria-label', () => {
+    const { container, rerender } = render(
+      <RdsCompDoughnutChart {...defaultProps} titleText="75%" subTitleText="Completed" />
+    );
+    const canvas = container.querySelector('canvas');
+    expect(canvas).toHaveAttribute('aria-label', 'Doughnut chart: 75% Completed');
+    rerender(<RdsCompDoughnutChart {...defaultProps} titleText="" subTitleText="" />);
+    expect(canvas).toHaveAttribute('aria-label', 'Doughnut chart');
+    rerender(<RdsCompDoughnutChart {...defaultProps} titleText="75%" chartLabel="Custom" />);
+    expect(canvas).toHaveAttribute('aria-label', 'Custom');
+  });
+});

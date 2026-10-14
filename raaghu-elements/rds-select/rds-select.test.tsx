@@ -7,6 +7,7 @@ import { axe } from 'jest-axe';
 
 // Mock the SCSS file
 jest.mock('./rds-select.scss');
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Helper function to render with theme
 const renderWithTheme = (component: React.ReactElement) => {
@@ -875,5 +876,36 @@ describe('RdsSelect — keyboard navigation', () => {
     select.focus();
     await userEvent.keyboard(' ');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+});
+describe('audit fixes', () => {
+  const opts: RdsSelectOption[] = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+  ];
+  const wrap = (ui: React.ReactElement) => render(<ThemeProvider theme={createTheme()}>{ui}</ThemeProvider>);
+
+  it('renders all selected labels for multiple (G2-215)', () => {
+    wrap(<RdsSelect options={opts} label="L" labelposition={false} multiple value={['option1', 'option2']} onChange={jest.fn()} />);
+    expect(screen.getByRole('combobox')).toHaveTextContent('Option 1, Option 2');
+  });
+
+  it('associates the label with the select (G2-216)', () => {
+    wrap(<RdsSelect options={opts} label="Pick" labelposition={false} value="" />);
+    expect(screen.getByRole('combobox')).toHaveAccessibleName(/Pick/);
+  });
+
+  it('supports placeholder and deprecated inputPlaceholder (G2-218)', () => {
+    wrap(<RdsSelect options={opts} label="L" labelposition={false} inputPlaceholder="Old" value="" />);
+    expect(screen.getByText('Old')).toBeInTheDocument();
+  });
+
+  it('sets aria-required for required and isRequired (G2-219/220)', () => {
+    const { unmount } = wrap(<RdsSelect options={opts} label="L" labelposition={false} required value="" />);
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
+    unmount();
+    wrap(<RdsSelect options={opts} label="L" labelposition={false} isRequired value="" />);
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
+    expect(screen.getAllByText('*')).toHaveLength(1);
   });
 });

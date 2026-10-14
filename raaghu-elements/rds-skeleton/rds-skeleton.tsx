@@ -1,17 +1,22 @@
 import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 export interface RdsSkeletonProps extends Omit<SkeletonProps, 'component'> {
+  /** Number of skeleton blocks to render. Values above 1 wrap them in a flex container. */
   frames?: number;
+  /** @deprecated Use `variant` instead. */
   shape?: 'text' | 'rectangular' | 'rounded' | 'circular';
+  /** Enables the default pulse animation. Ignored when `animation` is provided. */
   animated?: boolean;
+  /** Animation type; takes precedence over `animated`. */
   animation?: 'pulse' | 'wave' | false;
-  height?: number | string;
-  width?: number | string;
 }
 
+/** Placeholder block shown while content is loading. */
 const RdsSkeleton = ({
-  shape = 'text',
+  shape,
+  variant,
   frames = 1,
   animated = true,
   animation,
@@ -21,8 +26,15 @@ const RdsSkeleton = ({
   width,
   ...props
 }: RdsSkeletonProps) => {
-  const isText = shape === 'text';
-  const bemClass = clsx('rds-skeleton', `rds-skeleton--${shape}`, className);
+  if (shape !== undefined) warnDeprecatedProp('RdsSkeleton', 'shape', '`variant`');
+  const resolvedVariant = variant ?? shape ?? 'text';
+  const isText = resolvedVariant === 'text';
+  const bemClass = clsx('rds-skeleton', `rds-skeleton--${resolvedVariant}`, className);
+  const sizeSx = {
+    ...(height !== undefined && { height }),
+    ...(width !== undefined && { width }),
+  };
+  const mergedSx = [...(Array.isArray(sx) ? sx : [sx]), sizeSx];
 
   const animationValue = typeof animation !== 'undefined' ? animation : (animated ? 'pulse' : false);
 
@@ -45,10 +57,10 @@ const RdsSkeleton = ({
       >
         {Array.from({ length: frames }, (_, frameNumber) => frameNumber + 1).map((frameNumber) => (
           <MuiSkeleton
-            variant={shape}
+            variant={resolvedVariant}
             animation={animationValue}
             {...props}
-            sx={{ ...sx, height, width }}
+            sx={mergedSx}
             className={bemClass}
             key={frameNumber}
           />
@@ -59,10 +71,10 @@ const RdsSkeleton = ({
 
   return (
     <MuiSkeleton
-      variant={shape}
+      variant={resolvedVariant}
       animation={animationValue}
       {...props}
-      sx={{ ...sx, height, width }}
+      sx={mergedSx}
       className={bemClass}
     />
   );

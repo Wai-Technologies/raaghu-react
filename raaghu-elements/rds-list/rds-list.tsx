@@ -1,5 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState, type ReactNode, type ReactElement, Fragment } from 'react';
+import { useId, useState, type ReactNode, type ReactElement, type MouseEvent, Fragment } from 'react';
 import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListSubheader as MuiListSubheader,type ListProps, Divider } from '@mui/material';
 import clsx from 'clsx';
 import './rds-list.scss';
@@ -23,15 +23,23 @@ export interface RdsListSection {
 }
 
 export interface RdsListProps extends Omit<ListProps, 'component'> {
+  /** Items to render. */
   items?: RdsListItem[];
   /** Grouped sections with sticky subheaders — use instead of multiple lists in one scroll container. */
   sections?: RdsListSection[];
+  /** Item layout style. @default 'simple' */
   variant?: 'simple' | 'button' | 'icon' | 'avatar' | 'firebase';
+  /** Vertical alignment of item content. */
   alignItems?: 'flex-start' | 'center';
+  /** Remove horizontal item padding. */
   disableGutters?: boolean;
+  /** Render a divider between items. */
   withDividers?: boolean;
+  /** Show a checkbox for each item. */
   withCheckboxes?: boolean;
+  /** Called when an item's checkbox toggles. Without `checkedItems` the list still tracks checked state internally. */
   onCheckboxChange?: (id: string | number, checked: boolean) => void;
+  /** Controlled checked item ids. When omitted the list manages checked state itself. */
   checkedItems?: (string | number)[];
 }
 
@@ -56,6 +64,7 @@ const RdsList = ({
   ...props
 }: RdsListProps) => {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
+  const baseId = useId();
   const [internalChecked, setInternalChecked] = useState<(string | number)[]>([]);
   const isControlledChecked = checkedItems !== undefined;
   const effectiveCheckedItems = isControlledChecked
@@ -78,14 +87,13 @@ const RdsList = ({
   const handleCheckboxChange = (id: string | number) => () => {
     const isChecked = !effectiveCheckedItems.includes(id);
 
-    if (onCheckboxChange) {
-      onCheckboxChange(id, isChecked);
-    } else {
+    if (!isControlledChecked) {
       const newChecked = isChecked
         ? [...effectiveCheckedItems, id]
         : effectiveCheckedItems.filter(item => item !== id);
       setInternalChecked(newChecked);
     }
+    onCheckboxChange?.(id, isChecked);
   };
 
   const handleToggle = (id: string | number) => {
@@ -111,7 +119,11 @@ const RdsList = ({
             disablePadding
             className={clsx(getItemClass(item), isOpen && 'rds-list__item--expanded')}
           >
-            <MuiListItemButton onClick={() => handleToggle(item.id)}>
+            <MuiListItemButton
+              onClick={() => handleToggle(item.id)}
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? `${baseId}-${item.id}` : undefined}
+            >
               {item.icon && (
                 <MuiListItemIcon className="rds-list__icon">{item.icon}</MuiListItemIcon>
               )}
@@ -121,14 +133,13 @@ const RdsList = ({
               <MuiListItemText
                 primary={item.primary}
                 secondary={item.secondary}
-                primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
-                secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
+                slotProps={{ primary: { className: 'rds-list__content-primary', component: 'span' }, secondary: { className: 'rds-list__content-secondary', component: 'span' } }}
               />
               <ExpandIcon open={isOpen} />
             </MuiListItemButton>
           </MuiListItem>
           {isOpen && (
-            <MuiList disablePadding className="rds-list rds-list--nested">
+            <MuiList id={`${baseId}-${item.id}`} disablePadding className="rds-list rds-list--nested">
               {(item.children ?? []).map((child) =>
                 renderListItem(child)
               )}
@@ -144,7 +155,7 @@ const RdsList = ({
           <RdsCheckbox
             checked={effectiveCheckedItems.includes(item.id)}
             isDisabled={item.disabled}
-            onChange={(event, checked) => handleCheckboxChange(item.id)()}
+            onChange={() => handleCheckboxChange(item.id)()}
             style="square"
           />
         </MuiListItemIcon>
@@ -159,7 +170,12 @@ const RdsList = ({
       return (
         <MuiListItem disablePadding {...itemProps} key={item.id}>
           <MuiListItemButton
-            onClick={showCheckboxes ? handleCheckboxChange(item.id) : item.onClick}
+            onClick={showCheckboxes
+              ? (event: MouseEvent<HTMLElement>) => {
+                  handleCheckboxChange(item.id)();
+                  (item.onClick as ((e: MouseEvent<HTMLElement>) => void) | undefined)?.(event);
+                }
+              : item.onClick}
             disabled={item.disabled}
           >
             {icon}
@@ -171,8 +187,7 @@ const RdsList = ({
             <MuiListItemText
               primary={item.primary}
               secondary={item.secondary}
-              primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
-              secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
+              slotProps={{ primary: { className: 'rds-list__content-primary', component: 'span' }, secondary: { className: 'rds-list__content-secondary', component: 'span' } }}
             />
             {item.secondaryAction && (
               <span className="rds-list__secondary-action">{item.secondaryAction}</span>
@@ -197,8 +212,7 @@ const RdsList = ({
         <MuiListItemText
           primary={item.primary}
           secondary={item.secondary}
-          primaryTypographyProps={{ className: 'rds-list__content-primary', component: 'span' }}
-          secondaryTypographyProps={{ className: 'rds-list__content-secondary', component: 'span' }}
+          slotProps={{ primary: { className: 'rds-list__content-primary', component: 'span' }, secondary: { className: 'rds-list__content-secondary', component: 'span' } }}
         />
         {item.secondaryAction && (
           <span className="rds-list__secondary-action">{item.secondaryAction}</span>

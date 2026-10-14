@@ -1,4 +1,3 @@
-import { type ReactNode } from 'react';
 import {
   Grid as MuiGrid,
   type GridProps
@@ -6,17 +5,20 @@ import {
 import clsx from 'clsx';
 import './rds-grid.scss';
 
-export interface RdsGridProps extends Omit<GridProps, 'component'> {
-  children?: ReactNode;
-}
+/**
+ * Props for RdsGrid. Same as MUI `GridProps`, including the polymorphic
+ * `component` prop (e.g. `component="section"` or `component="ul"`).
+ */
+export type RdsGridProps = GridProps;
 
+/** Responsive layout grid (thin wrapper around MUI `Grid`) that adds the `rds-grid` class. */
 const RdsGrid = ({
   children,
+  className,
   ...props
 }: RdsGridProps) => {
-  const className = clsx('rds-grid', props.className);
   return (
-    <MuiGrid {...props} className={className}>
+    <MuiGrid {...props} className={clsx('rds-grid', className)}>
       {children}
     </MuiGrid>
   );

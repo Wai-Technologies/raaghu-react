@@ -1,7 +1,8 @@
-import { useRef, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
+import { useId, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
 import type { InputProps } from '@mui/material/Input';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-input.scss';
 
 function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): string {
@@ -16,28 +17,38 @@ function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): s
 }
 
 export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component'> {
+  /**
+   * Field label. Shown above the field with `titlePosition="title-above"` or inside it with
+   * `"inline-title"`; otherwise it is used as the input's accessible name only.
+   */
   label?: string;
   placeholder?: string;
-  hintText?: string;
+  /** Error text: shown as helper text and puts the field in the error state. */
   errorMessage?: string;
-  isMandatory?: boolean;
   variant?: 'outlined' | 'filled' | 'standard';
   size?: 'small' | 'medium' | 'large';
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
-  titlePosition?: string;
+  titlePosition?: 'title-above' | 'inline-title' | (string & {});
   style?: 'default' | 'pill' | 'bottom outline';
   state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
   showIcon?: boolean;
   iconPosition?: 'start' | 'end';
-  icon?: ReactNode; // Custom icon component provided by the user
+  /** Icon shown when `showIcon` is set. */
+  icon?: ReactNode;
+  /** @deprecated Use `helperText`. */
+  hintText?: string;
+  /** @deprecated Use `required`. */
+  isMandatory?: boolean;
 }
 
 const RdsInput = ({
   label,
   placeholder,
   hintText,
+  helperText,
   errorMessage,
-  isMandatory = false,
+  isMandatory,
+  required,
   variant = 'outlined',
   size = 'small',
   layout = 'text',
@@ -50,21 +61,29 @@ const RdsInput = ({
   error,
   disabled,
   value,
+  defaultValue,
   onChange,
   onFocus,
   onBlur,
+  id,
   InputProps: legacyInputProps,
   slotProps: consumerSlotProps,
   ...props
 }: RdsInputProps) => {
+  if (hintText !== undefined) warnDeprecatedProp('RdsInput', 'hintText', '`helperText`');
+  if (isMandatory !== undefined) warnDeprecatedProp('RdsInput', 'isMandatory', '`required`');
+
+  const isRequired = required ?? isMandatory ?? false;
+  const generatedId = useId();
+  const inputId = id ?? `rds-input-${generatedId}`;
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [internalValue, setInternalValue] = useState('');
-  const prevLayoutRef = useRef(layout);
+  const [internalValue, setInternalValue] = useState(defaultValue == null ? '' : String(defaultValue));
+  const [prevLayout, setPrevLayout] = useState(layout);
   const isControlled = value !== undefined;
 
-  if (layout !== prevLayoutRef.current) {
-    prevLayoutRef.current = layout;
+  if (layout !== prevLayout) {
+    setPrevLayout(layout);
     if (!isControlled) {
       setInternalValue('');
     }
@@ -120,15 +139,6 @@ const RdsInput = ({
   
   const renderIcon = () => {
     if (!showIcon) return null;
-    
-    if (icon) {
-      return (
-        <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
-          {icon}
-        </InputAdornment>
-      );
-    }
-    
     return (
       <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
         {icon}
@@ -199,17 +209,16 @@ const RdsInput = ({
       if (!isControlled) {
         setInternalValue(next);
       }
-      if (onChange) {
-        const event = {
-          ...e,
-          target: { ...target, value: next }
-        } as ChangeEvent<HTMLInputElement>;
-        onChange(event);
-      }
+      // Pass the real event (the input already holds the sanitised value) so `name`/`id` survive.
+      onChange?.(e as ChangeEvent<HTMLInputElement>);
     }
   };
   const computedPlaceholder = placeholder ?? getInputPlaceholder(layout);
   const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
+  // Without a visible label the label text still names the input for assistive technology.
+  const showsLabel = titlePosition === 'title-above' || titlePosition === 'inline-title';
+  const hiddenLabelProps: InputHTMLAttributes<HTMLInputElement> =
+    label && !showsLabel && !props['aria-label'] ? { 'aria-label': label } : {};
   const numericInputProps: InputHTMLAttributes<HTMLInputElement> =
     layout === 'phone number' || layout === 'number' || layout === 'card number'
       ? {
@@ -252,18 +261,19 @@ const RdsInput = ({
   return (
     <div className={clsx('rds-input', sizeClass, pillClass, stateClass, inlineTitleClass)}>
       {titlePosition === 'title-above' && label && (
-        <label className="rds-input__label">
+        <label className="rds-input__label" htmlFor={inputId}>
           {label}
-          {isMandatory === true && (<span className="rds-input__asterisk">*</span>)}
+          {isRequired && (<span className="rds-input__asterisk">*</span>)}
         </label>
       )}
       <MuiTextField
+        id={inputId}
         label={titlePosition === 'inline-title' ? label : ''}
         placeholder={computedPlaceholder}
-        helperText={errorMessage || hintText}
+        helperText={helperText ?? (errorMessage || hintText)}
         error={!!errorMessage || error || state === 'error'}
         disabled={disabled || state === 'disabled'}
-        required={isMandatory}
+        required={isRequired}
         variant={variant}
         size={size === 'large' ? 'medium' : size}
         type={inputType}
@@ -277,6 +287,7 @@ const RdsInput = ({
           ...consumerSlotProps,
           input: inputSlotProps,
           htmlInput: {
+            ...hiddenLabelProps,
             ...numericInputProps,
             ...consumerSlotProps?.htmlInput,
           },

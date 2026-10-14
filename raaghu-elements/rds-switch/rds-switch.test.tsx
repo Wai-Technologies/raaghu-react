@@ -628,4 +628,25 @@ describe('RdsSwitch', () => {
       expect(input).toHaveAttribute('name', 'test-name');
     });
   });
+
+  describe('audit fixes', () => {
+    it('merges consumer inputProps and slotProps.input onto the input', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch
+          label="L"
+          inputProps={{ 'data-a': '1' } as React.InputHTMLAttributes<HTMLInputElement>}
+          slotProps={{ input: { 'data-b': '2' } as React.InputHTMLAttributes<HTMLInputElement> }}
+        />
+      );
+      const input = container.querySelector('input[type="checkbox"]');
+      expect(input).toHaveAttribute('data-a', '1');
+      expect(input).toHaveAttribute('data-b', '2');
+      expect(input).toHaveAttribute('aria-label', 'L');
+    });
+
+    it('renders plain switch when showLabel is false even with a label', () => {
+      renderWithTheme(<RdsSwitch label="Hidden" showLabel={false} />);
+      expect(screen.queryByText('Hidden')).not.toBeInTheDocument();
+    });
+  });
 });

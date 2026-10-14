@@ -829,3 +829,21 @@ describe('RdsCompBubbleChart', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompBubbleChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('renders without labels', () => {
+    const { container } = render(<RdsCompBubbleChart {...defaultProps} labels={undefined} />);
+    expect(container.querySelector('canvas')).toBeInTheDocument();
+  });
+});

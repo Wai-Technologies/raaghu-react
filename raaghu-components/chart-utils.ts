@@ -82,16 +82,6 @@ export function cloneChartOptions<T>(options: T): T {
   return deepClonePreservingFunctions(options);
 }
 
-/** Attaches chart data to options when callers have not already done so. */
-export function attachChartData(
-  chartOptions: Record<string, any>,
-  chartData: { labels: unknown[]; datasets: unknown[] }
-): void {
-  if (!chartOptions.data) {
-    chartOptions.data = chartData;
-  }
-}
-
 export function getCSSVar(property: string, fallback = ''): string {
   if (typeof window === 'undefined') return fallback;
   const value = getComputedStyle(document.documentElement)
@@ -158,7 +148,7 @@ export function chartFont(
   return `${weightVal} ${sizeVal} ${family}`;
 }
 
-/** Mutable Chart.js options shape used by theme helpers (accepts Chart.js DeepPartial options). */
+/** Loose view of Chart.js options used internally while writing theme colours. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ChartOptionsLike = Record<string, any>;
 
@@ -170,15 +160,17 @@ type ChartOptionsLike = Record<string, any>;
  *  - legend label color
  *  - chart title color
  *  - tooltip title/body/label colors
- *  - dataset colors (resolves CSS variables in backgroundColor and borderColor)
  *
- * @param chartOptions  A mutable Chart.js options object (already deep-cloned)
- * @param axes          Which axis keys to apply scale colors to (default: ['x', 'y'])
+ * Dataset colours are resolved separately by {@link resolveDatasetColors}.
+ *
+ * @param options  A Chart.js options object that the caller owns (clone consumer options first)
+ * @param axes     Which axis keys to apply scale colors to (default: ['x', 'y'])
  */
-export function applyChartThemeColors(
-  chartOptions: ChartOptionsLike,
+export function applyChartThemeColors<TOptions extends object>(
+  options: TOptions,
   axes: string[] = ['x', 'y']
 ): void {
+  const chartOptions = options as ChartOptionsLike;
   const textColor   = chartTextColor();
   const gridColor   = chartGridColor();
   const tooltipBg   = chartTooltipBg();
@@ -199,19 +191,6 @@ export function applyChartThemeColors(
       scales[axis].ticks.color  = textColor;
       scales[axis].border.color = textColor;
       scales[axis].title.color  = textColor;
-    });
-  }
-
-  // ── Datasets ─────────────────────────────────────────────────────────────────
-  // Resolve CSS variables in dataset colors
-  if (chartOptions.data && chartOptions.data.datasets && Array.isArray(chartOptions.data.datasets)) {
-    chartOptions.data.datasets.forEach((dataset) => {
-      if (dataset.backgroundColor) {
-        dataset.backgroundColor = resolveColorValue(dataset.backgroundColor);
-      }
-      if (dataset.borderColor) {
-        dataset.borderColor = resolveColorValue(dataset.borderColor);
-      }
     });
   }
 
@@ -240,15 +219,31 @@ export function applyChartThemeColors(
 }
 
 /**
+ * Returns new dataset objects with `var(--rds-…)` colours in `backgroundColor` / `borderColor`
+ * resolved for the current theme. The consumer's datasets are never mutated, so the original
+ * `var()` strings are still there to re-resolve after a light/dark switch.
+ */
+export function resolveDatasetColors<T>(datasets: T[]): T[] {
+  return datasets.map((dataset) => {
+    const { backgroundColor, borderColor } = dataset as { backgroundColor?: unknown; borderColor?: unknown };
+    return {
+      ...dataset,
+      ...(backgroundColor ? { backgroundColor: resolveColorValue(backgroundColor) } : {}),
+      ...(borderColor ? { borderColor: resolveColorValue(borderColor) } : {}),
+    };
+  });
+}
+
+/**
  * Resolves CSS variable references in color values.
  * Handles both single color strings and arrays of color strings.
  * 
  * @param colorValue A color string with possible CSS var() syntax or array of such strings
  * @returns The resolved color value(s)
  */
-function resolveColorValue(colorValue: string | string[]): string | string[] {
+function resolveColorValue(colorValue: unknown): unknown {
   if (Array.isArray(colorValue)) {
-    return colorValue.map(color => resolveColorValue(color) as string);
+    return colorValue.map((color) => resolveColorValue(color));
   }
   
   if (typeof colorValue === 'string' && colorValue.includes('var(')) {

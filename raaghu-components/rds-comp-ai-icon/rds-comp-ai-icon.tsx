@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { forwardRef, memo, useEffect, useMemo, useState, type ComponentType, type MouseEventHandler, type SVGProps } from "react";
+import { memo, useEffect, useMemo, useState, type ComponentType, type MouseEventHandler, type SVGProps, type Ref } from "react";
 import "./rds-comp-ai-icon.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
@@ -43,8 +43,7 @@ export const registerMaterialIcons = (icons: Record<string, RdsIconComponent>) =
 const createMuiIconWrapper = (
   MuiIcon: RdsIconComponent
 ): ComponentType<SVGProps<SVGSVGElement>> =>
-  forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
-    ({ color, fontSize, className, style, ...restProps }, ref) => {
+  ({ ref, color, fontSize, className, style, ...restProps }: SVGProps<SVGSVGElement> & { ref?: Ref<SVGSVGElement> }) => {
       const combinedStyle = {
         ...style,
         ...(color && { color }),
@@ -52,8 +51,7 @@ const createMuiIconWrapper = (
       };
 
       return <MuiIcon ref={ref} className={className} style={combinedStyle} {...restProps} />;
-    }
-  );
+    };
 
 const resolveIconComponent = (
   iconName: string,

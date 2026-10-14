@@ -1,11 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import RdsFormControl, { RdsFormControlProps } from './rds-form-control';
+import RdsFormControl, { type RdsFormControlProps } from './rds-form-control';
 import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-form-control.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsFormControl', () => {
   const defaultProps: RdsFormControlProps = {
@@ -716,6 +717,162 @@ describe('RdsFormControl', () => {
       );
       const label = container.querySelector('.MuiFormLabel-root');
       expect(label).toHaveClass('Mui-disabled');
+    });
+  });
+});
+
+describe('audit fixes', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation') as {
+    warnDeprecatedProp: jest.Mock;
+  };
+
+  beforeEach(() => {
+    warnDeprecatedProp.mockClear();
+  });
+
+  describe('G1-293: required replaces isRequired', () => {
+    it('marks the label required via `required` without a deprecation warning', () => {
+      const { container } = render(
+        <RdsFormControl label="Name" required>
+          <input type="text" />
+        </RdsFormControl>
+      );
+      expect(container.querySelector('.MuiFormLabel-root')).toHaveClass('Mui-required');
+      expect(container.querySelector('.MuiFormLabel-asterisk')).toBeInTheDocument();
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('still supports isRequired and warns that it is deprecated', () => {
+      const { container } = render(
+        <RdsFormControl label="Name" isRequired>
+          <input type="text" />
+        </RdsFormControl>
+      );
+      expect(container.querySelector('.MuiFormLabel-root')).toHaveClass('Mui-required');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsFormControl', 'isRequired', '`required`');
+    });
+
+    it('lets `required` win over isRequired', () => {
+      const { container } = render(
+        <RdsFormControl label="Name" required={false} isRequired>
+          <input type="text" />
+        </RdsFormControl>
+      );
+      expect(container.querySelector('.MuiFormLabel-root')).not.toHaveClass('Mui-required');
+    });
+  });
+
+  describe('G1-296: FormLabel inherits required from FormControl context', () => {
+    it('renders exactly one asterisk when required', () => {
+      const { container } = render(
+        <RdsFormControl label="Name" required>
+          <input type="text" />
+        </RdsFormControl>
+      );
+      expect(container.querySelectorAll('.MuiFormLabel-asterisk')).toHaveLength(1);
+    });
+  });
+
+  describe('G1-292: group semantics', () => {
+    it('gives a group role and names it by the label when isGroup is set', () => {
+      render(
+        <RdsFormControl label="Preferences" isGroup>
+          <label><input type="checkbox" /> Option 1</label>
+        </RdsFormControl>
+      );
+      const group = screen.getByRole('group', { name: 'Preferences' });
+      expect(group).toHaveClass('rds-form-control');
+      expect(group.tagName).toBe('DIV');
+    });
+
+    it('does not add a role when isGroup is not set', () => {
+      const { container } = render(
+        <RdsFormControl label="Name">
+          <input type="text" />
+        </RdsFormControl>
+      );
+      const root = container.querySelector('.rds-form-control');
+      expect(root).not.toHaveAttribute('role');
+      expect(root).not.toHaveAttribute('aria-labelledby');
+      expect(container.querySelector('.MuiFormLabel-root')).not.toHaveAttribute('id');
+    });
+
+    it('keeps consumer role and aria-labelledby', () => {
+      const { container } = render(
+        <RdsFormControl label="Choice" isGroup role="radiogroup" aria-labelledby="external">
+          <label><input type="radio" /> A</label>
+        </RdsFormControl>
+      );
+      const root = container.querySelector('.rds-form-control');
+      expect(root).toHaveAttribute('role', 'radiogroup');
+      expect(root).toHaveAttribute('aria-labelledby', 'external');
+    });
+
+    it('does not override a consumer aria-label', () => {
+      const { container } = render(
+        <RdsFormControl label="Choice" isGroup aria-label="Custom name">
+          <label><input type="checkbox" /> A</label>
+        </RdsFormControl>
+      );
+      const root = container.querySelector('.rds-form-control');
+      expect(root).toHaveAttribute('aria-label', 'Custom name');
+      expect(root).not.toHaveAttribute('aria-labelledby');
+    });
+
+    it('supports component="fieldset" and renders the label as a legend', () => {
+      const { container } = render(
+        <RdsFormControl component="fieldset" label="Preferences" isGroup>
+          <label><input type="checkbox" /> Option 1</label>
+        </RdsFormControl>
+      );
+      const root = container.querySelector('.rds-form-control');
+      expect(root?.tagName).toBe('FIELDSET');
+      expect(container.querySelector('legend')).toHaveTextContent('Preferences');
+      expect(screen.getByRole('group', { name: 'Preferences' })).toBe(root);
+    });
+
+    it('has no axe violations as a labelled group', async () => {
+      const { container } = render(
+        <RdsFormControl label="Preferences" isGroup helperText="Pick any">
+          <label><input type="checkbox" /> Option 1</label>
+          <label><input type="checkbox" /> Option 2</label>
+        </RdsFormControl>
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('G1-295: helper text id', () => {
+    it('gives the helper text a generated id', () => {
+      const { container } = render(
+        <RdsFormControl label="Name" helperText="Help">
+          <input type="text" />
+        </RdsFormControl>
+      );
+      expect(container.querySelector('.MuiFormHelperText-root')?.id).toMatch(/^rds-form-control-.+-helper-text$/);
+    });
+
+    it('derives the helper text id from the consumer id', () => {
+      render(
+        <RdsFormControl id="email" label="Email" helperText="We never share it">
+          <input type="email" aria-describedby="email-helper-text" aria-label="Email" />
+        </RdsFormControl>
+      );
+      expect(screen.getByText('We never share it')).toHaveAttribute('id', 'email-helper-text');
+      expect(screen.getByRole('textbox')).toHaveAccessibleDescription('We never share it');
+    });
+  });
+
+  describe('className merge', () => {
+    it('keeps rds-form-control alongside a consumer className', () => {
+      const { container } = render(
+        <RdsFormControl className="mine" label="Name">
+          <input type="text" />
+        </RdsFormControl>
+      );
+      const root = container.querySelector('.MuiFormControl-root');
+      expect(root).toHaveClass('rds-form-control');
+      expect(root).toHaveClass('mine');
     });
   });
 });

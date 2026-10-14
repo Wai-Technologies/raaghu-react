@@ -4,8 +4,12 @@ import RdsBackdrop, { RdsBackdropProps } from './rds-backdrop';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
+import { createTheme, ThemeProvider } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
 // Mock SCSS
 jest.mock('./rds-backdrop.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsBackdrop', () => {
   const defaultProps: RdsBackdropProps = {
@@ -523,6 +527,126 @@ describe('RdsBackdrop', () => {
     it('should show loading indicator for accessibility', () => {
       const { container } = render(<RdsBackdrop loading={true} />);
       expect(container.querySelector('.MuiCircularProgress-root')).toBeInTheDocument();
+    });
+  });
+
+  describe('audit fixes', () => {
+    beforeEach(() => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
+    });
+
+    it('G1-079: accepts an array sx and still applies the base styles', () => {
+      const { container } = render(
+        <RdsBackdrop
+          open={true}
+          sx={[{ backgroundColor: 'rgb(255, 0, 0)' }, false, { color: 'rgb(0, 0, 255)' }]}
+        />
+      );
+      const root = container.querySelector('.rds-backdrop');
+      expect(root).toHaveStyle({ backgroundColor: 'rgb(255, 0, 0)', color: 'rgb(0, 0, 255)' });
+      expect(root).toHaveStyle({ position: 'fixed' });
+    });
+
+    it('G1-079: accepts a function sx', () => {
+      const { container } = render(
+        <RdsBackdrop open={true} sx={() => ({ backgroundColor: 'rgb(0, 128, 0)' })} />
+      );
+      expect(container.querySelector('.rds-backdrop')).toHaveStyle({ backgroundColor: 'rgb(0, 128, 0)' });
+    });
+
+    it('G1-079: consumer object sx overrides base styles', () => {
+      const { container } = render(
+        <RdsBackdrop open={true} sx={{ '&.rds-backdrop': { position: 'absolute' } }} />
+      );
+      expect(container.querySelector('.rds-backdrop')).toHaveStyle({ position: 'absolute' });
+    });
+
+    it('G1-081: z-index fallback follows theme.zIndex.modal', () => {
+      const { container } = render(
+        <ThemeProvider theme={createTheme({ zIndex: { modal: 1450 } })}>
+          <RdsBackdrop open={true} />
+        </ThemeProvider>
+      );
+      const root = container.querySelector('.rds-backdrop') as HTMLElement;
+      expect(getComputedStyle(root).zIndex).toBe('var(--rds-z-index-overlay, 1450)');
+    });
+
+    it('G1-081: default theme keeps z-index fallback 1300', () => {
+      const { container } = render(<RdsBackdrop open={true} />);
+      const root = container.querySelector('.rds-backdrop') as HTMLElement;
+      expect(getComputedStyle(root).zIndex).toBe('var(--rds-z-index-overlay, 1300)');
+    });
+
+    it('G1-083: renders a string loading indicator', () => {
+      const { container } = render(<RdsBackdrop loading={true} loadingIndicator="Please wait" />);
+      expect(screen.getByText('Please wait')).toBeInTheDocument();
+      expect(container.querySelector('.MuiCircularProgress-root')).not.toBeInTheDocument();
+    });
+
+    it('G1-083: renders a number loading indicator', () => {
+      render(<RdsBackdrop loading={true} loadingIndicator={42} />);
+      expect(screen.getByText('42')).toBeInTheDocument();
+    });
+
+    it('G1-083: renders an array loading indicator', () => {
+      render(
+        <RdsBackdrop loading={true} loadingIndicator={[<span key="a">One</span>, <span key="b">Two</span>]} />
+      );
+      expect(screen.getByText('One')).toBeInTheDocument();
+      expect(screen.getByText('Two')).toBeInTheDocument();
+    });
+
+    it('G1-083: falls back to the spinner for null, undefined and boolean', () => {
+      [null, undefined, true, false].forEach((value) => {
+        const { container, unmount } = render(<RdsBackdrop loading={true} loadingIndicator={value} />);
+        expect(container.querySelector('.MuiCircularProgress-root')).toBeInTheDocument();
+        unmount();
+      });
+    });
+
+    it('G1-083: deprecated loadingComponent also accepts a string', () => {
+      render(<RdsBackdrop loading={true} loadingComponent="Loading text" />);
+      expect(screen.getByText('Loading text')).toBeInTheDocument();
+    });
+
+    it('loadingIndicator renders a custom element', () => {
+      render(<RdsBackdrop loading={true} loadingIndicator={<span data-testid="indicator">Wait</span>} />);
+      expect(screen.getByTestId('indicator')).toBeInTheDocument();
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('loadingComponent warns as deprecated and still works', () => {
+      render(<RdsBackdrop loading={true} loadingComponent={<span>Old loader</span>} />);
+      expect(screen.getByText('Old loader')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBackdrop', 'loadingComponent', '`loadingIndicator`');
+    });
+
+    it('loadingIndicator wins over loadingComponent', () => {
+      render(
+        <RdsBackdrop
+          loading={true}
+          loadingIndicator={<span>New loader</span>}
+          loadingComponent={<span>Old loader</span>}
+        />
+      );
+      expect(screen.getByText('New loader')).toBeInTheDocument();
+      expect(screen.queryByText('Old loader')).not.toBeInTheDocument();
+    });
+
+    it('default spinner has an accessible name', () => {
+      const { container } = render(<RdsBackdrop loading={true} />);
+      const spinner = container.querySelector('.MuiCircularProgress-root');
+      expect(spinner).toHaveAttribute('role', 'progressbar');
+      expect(spinner).toHaveAttribute('aria-label', 'Loading');
+    });
+
+    it('explicit className and sx are not overwritten by rest props', () => {
+      const { container } = render(
+        <RdsBackdrop open={true} className="mine" data-testid="bd" />
+      );
+      const root = container.querySelector('[data-testid="bd"]');
+      expect(root).toHaveClass('rds-backdrop');
+      expect(root).toHaveClass('mine');
     });
   });
 });

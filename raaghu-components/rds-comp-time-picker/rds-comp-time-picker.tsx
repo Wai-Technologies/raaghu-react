@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import { useCallback, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import clsx from 'clsx';
 import './rds-comp-time-picker.scss';
 export { type RdsTimePickerProps } from './time-picker-types';
@@ -53,12 +53,12 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     }));
   }, []);
 
-  const prevValuePropRef = useRef(valueProp);
-  const prevStatePropRef = useRef(stateProp);
+  const [prevValueProp, setPrevValueProp] = useState(valueProp);
+  const [prevStateProp, setPrevStateProp] = useState(stateProp);
 
-  if (valueProp !== prevValuePropRef.current || stateProp !== prevStatePropRef.current) {
-    prevValuePropRef.current = valueProp;
-    prevStatePropRef.current = stateProp;
+  if (valueProp !== prevValueProp || stateProp !== prevStateProp) {
+    setPrevValueProp(valueProp);
+    setPrevStateProp(stateProp);
 
     if (valueProp !== undefined) {
       updatePickerState({ time: valueProp });

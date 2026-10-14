@@ -1,55 +1,86 @@
 import { type ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
 import './rds-file-uploader.scss';
 import RdsFileUploaderStandardView from './RdsFileUploaderStandardView';
-import { 
-  RdsDropZoneSideIcon, 
-  RdsDropZoneWithButton, 
-  RdsDropZoneDefault, 
+import {
+  RdsDropZoneSideIcon,
+  RdsDropZoneWithButton,
+  RdsDropZoneDefault,
   RdsFileList,
   useFileUploader
 } from './RdsFileUploaderComponents';
-export { type FileWithProgress, type RdsFileUploaderProps as RdsFileUploaderBaseProps } from './rds-file-uploader-types';
-import { type FileWithProgress, type RdsFileUploaderProps as RdsFileUploaderBaseProps } from './rds-file-uploader-types';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+export type { FileWithProgress, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
+import type { RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
-export interface RdsFileUploaderProps extends RdsFileUploaderBaseProps {
+/**
+ * Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
+ */
+export interface RdsFileUploaderProps extends RdsFileUploaderBaseProps, RdsFileUploaderRootProps {
+  /** Standard mode: content of the remove-file button shown next to the chosen file name. */
   children?: ReactNode;
-  /** Legacy aliases still accepted by some consumers. */
+  /** Shows the selected-file preview. Defaults to `true`. `display.preview` takes precedence. */
   showPreview?: boolean;
+  /** Shows the label above the uploader. Defaults to `false`. `display.title` takes precedence. */
   showTitle?: boolean;
+  /** @deprecated Use `required` instead. */
   isMandatory?: boolean;
+  /** Shows the helper text. Defaults to `false`. `display.hint` takes precedence. */
   showHint?: boolean;
 }
 
+type SxArray = Extract<SxProps<Theme>, ReadonlyArray<unknown>>;
+const toSxArray = (sx: SxProps<Theme> | undefined): SxArray =>
+  (Array.isArray(sx) ? sx : sx ? [sx] : []) as SxArray;
+
 const RdsFileUploader = ({
   onFilesChange,
+  label,
   title,
   onUpload,
   accept,
-  multiple = false,
+  multiple: multipleProp,
   maxSize = 10 * 1024 * 1024, // 10MB default
   maxFiles = 5,
   disabled = false,
   dragAndDrop = true,
+  required,
   display,
-  hintText = '',
+  helperText,
+  hintText,
   placeholderImage = '',
-  state = 'default',
+  state: _state,
   mode = 'standard',
   style,
   children,
-  ...legacyProps
+  showPreview: showPreviewProp,
+  showTitle: showTitleProp,
+  isMandatory: isMandatoryProp,
+  showHint: showHintProp,
+  className,
+  sx,
+  ...rest
 }: RdsFileUploaderProps) => {
-  const legacyShowPreview = typeof legacyProps['showPreview'] === 'boolean' ? (legacyProps['showPreview'] as boolean) : undefined;
-  const legacyShowTitle = typeof legacyProps['showTitle'] === 'boolean' ? (legacyProps['showTitle'] as boolean) : undefined;
-  const legacyIsMandatory = typeof legacyProps['isMandatory'] === 'boolean' ? (legacyProps['isMandatory'] as boolean) : undefined;
-  const legacyShowHint = typeof legacyProps['showHint'] === 'boolean' ? (legacyProps['showHint'] as boolean) : undefined;
+  if (title !== undefined) warnDeprecatedProp('RdsFileUploader', 'title', '`label`');
+  if (hintText !== undefined) warnDeprecatedProp('RdsFileUploader', 'hintText', '`helperText`');
+  if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsFileUploader', 'isMandatory', '`required`');
+  if (display?.mandatory !== undefined) warnDeprecatedProp('RdsFileUploader', 'display.mandatory', '`required`');
+
+  const legacyShowPreview = typeof showPreviewProp === 'boolean' ? showPreviewProp : undefined;
+  const legacyShowTitle = typeof showTitleProp === 'boolean' ? showTitleProp : undefined;
+  const legacyIsMandatory = typeof isMandatoryProp === 'boolean' ? isMandatoryProp : undefined;
+  const legacyShowHint = typeof showHintProp === 'boolean' ? showHintProp : undefined;
 
   const showPreview = display?.preview ? display.preview === 'visible' : (legacyShowPreview ?? true);
   const showTitle = display?.title ? display.title === 'visible' : (legacyShowTitle ?? false);
-  const isMandatory = display?.mandatory ? display.mandatory === 'required' : (legacyIsMandatory ?? false);
+  const isMandatory = required ?? (display?.mandatory ? display.mandatory === 'required' : (legacyIsMandatory ?? false));
   const showHint = display?.hint ? display.hint === 'visible' : (legacyShowHint ?? false);
+  const fieldLabel = label ?? title;
+  const hint = helperText ?? hintText ?? '';
+  // Native input `multiple` attribute (defaults to false, as before).
+  const multiple = multipleProp ?? false;
 
   const {
     files,
@@ -72,6 +103,9 @@ const RdsFileUploader = ({
     maxSize,
     maxFiles,
     isMandatory,
+    // Only an explicit `multiple={false}` switches to replace-on-select; when omitted, new files
+    // are appended (up to `maxFiles`) as before.
+    multiple: multipleProp !== false,
     onFilesChange,
     onUpload,
   });
@@ -80,6 +114,8 @@ const RdsFileUploader = ({
     <>
       {mode === 'standard' ? (
         <RdsFileUploaderStandardView
+          rootProps={{ ...rest, className, sx }}
+          accept={accept}
           viewConfig={{
             showTitle,
             isMandatory,
@@ -93,27 +129,31 @@ const RdsFileUploader = ({
             multiple,
           }}
           mandatoryError={mandatoryError}
-          hintText={hintText}
+          hintText={hint}
           selectedFileName={selectedFileName}
           handleFileSelect={handleFileSelect}
           addFiles={addFiles}
           setSelectedFileName={setSelectedFileName}
           setFiles={setFiles}
           onFilesChange={onFilesChange}
-         
-          title={title}
+
+          title={fieldLabel}
         >{children}</RdsFileUploaderStandardView>
       ) : (
-        <Box className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`)} sx={{ width: '100%', maxWidth: '100%', minWidth: 0 }}>
+        <Box
+          {...rest}
+          className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`, className)}
+          sx={[{ width: '100%', maxWidth: '100%', minWidth: 0 }, ...toSxArray(sx)]}
+        >
           {showTitle && (
             <Typography className="rds-file-uploader__form-title" variant="subtitle1">
-              {title || 'File Upload'}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
+              {fieldLabel || 'File Upload'}{isMandatory && <span className="rds-file-uploader__mandatory-asterisk"> *</span>}
             </Typography>
           )}
 
           {placeholderImage && files.length === 0 && (
             <Box sx={{ mb: 2, textAlign: 'center' }}>
-              <img className="rds-file-uploader__placeholder-img" src={placeholderImage} alt="placeholder" />
+              <img className="rds-file-uploader__placeholder-img" src={placeholderImage} alt="placeholder" aria-hidden="true" />
             </Box>
           )}
 
@@ -125,7 +165,7 @@ const RdsFileUploader = ({
             onChange={handleFileSelect}
             style={{ display: 'none' }}
             disabled={disabled}
-            aria-label={title || 'File upload'}
+            aria-label={fieldLabel || 'File upload'}
           />
 
           {style === 'Drop Area - Side Icon' ? (
@@ -172,7 +212,7 @@ const RdsFileUploader = ({
                 className={clsx('rds-file-uploader__hint', !showHint && 'is-hidden')}
                 variant="caption"
               >
-                {showHint ? (hintText || 'Maximum 5MB') : '\u00A0'}
+                {showHint ? (hint || 'Maximum 5MB') : ' '}
               </Typography>
             </div>
           </Box>

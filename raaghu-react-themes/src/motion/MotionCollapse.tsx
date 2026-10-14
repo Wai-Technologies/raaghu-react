@@ -9,21 +9,23 @@ interface MotionCollapseProps {
   timeout?: number | { appear?: number; enter?: number; exit?: number };
 }
 
-const MotionCollapse = React.forwardRef<HTMLDivElement, MotionCollapseProps>(
-  ({ in: isIn, children, onExited }, ref) => {
+const MotionCollapse = ({ ref, in: isIn, children, onExited }: MotionCollapseProps & { ref?: React.Ref<HTMLDivElement> }) => {
+    // Fire onExited after commit, not during render: render must stay pure so StrictMode's
+    // double render (and React 19's render replays) can't call it twice.
     const prevIsInRef = React.useRef(Boolean(isIn));
-    if (prevIsInRef.current && !isIn) {
-      onExited?.();
-    }
-    prevIsInRef.current = Boolean(isIn);
+    React.useEffect(() => {
+      if (prevIsInRef.current && !isIn) {
+        onExited?.();
+      }
+      prevIsInRef.current = Boolean(isIn);
+    }, [isIn, onExited]);
 
     return (
       <div ref={ref} style={{ overflow: 'hidden', display: isIn ? undefined : 'none' }}>
         {children}
       </div>
     );
-  }
-);
+  };
 
 MotionCollapse.displayName = 'MotionCollapse';
 export { MotionCollapse };

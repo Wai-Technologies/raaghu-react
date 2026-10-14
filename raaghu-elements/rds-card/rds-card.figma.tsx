@@ -1,6 +1,7 @@
 import React from "react"
 import RdsCard from "./rds-card"
 import RdsButton from "../rds-button/rds-button"
+import Person from "@mui/icons-material/Person"
 import figma from "@figma/code-connect"
 
 figma.connect(
@@ -25,7 +26,7 @@ figma.connect(
     example: (props) => (
       <RdsCard {...props}
             cardSubtext="Card Subtitle"
-            changeIcon="person"
+            icon={<Person />}
             description="In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo"
             layout="vertical"
             showDescription

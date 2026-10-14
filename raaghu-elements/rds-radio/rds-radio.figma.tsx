@@ -22,7 +22,7 @@ figma.connect(
     example: (props) => <RdsRadio
       options={[
         {
-          text: 'Option 1',
+          label: 'Option 1',
           value: 'option1'
         }
       ]}

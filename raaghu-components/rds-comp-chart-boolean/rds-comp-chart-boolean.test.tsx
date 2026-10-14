@@ -4,6 +4,9 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBooleanChart from './rds-comp-chart-boolean';
 
+// Mock deprecation warnings
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-comp-chart-boolean.scss', () => ({}));
 
@@ -718,5 +721,37 @@ describe('RdsCompBooleanChart', () => {
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompBooleanChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('adds no centre-icon plugin for a missing or unknown icon name', () => {
+    jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    const Chart = jest.requireMock('chart.js/auto');
+    Chart.mockClear();
+    render(<RdsCompBooleanChart {...defaultProps} centerIconName="nope" />);
+    render(<RdsCompBooleanChart {...defaultProps} centerIconName={undefined} id="b2" />);
+    expect(Chart.mock.calls[0][1].plugins).toBeUndefined();
+    expect(Chart.mock.calls[1][1].plugins).toBeUndefined();
+    Chart.mockClear();
+    render(<RdsCompBooleanChart {...defaultProps} id="b3" />);
+    expect(Chart.mock.calls[0][1].plugins).toHaveLength(1);
+  });
+
+  it('warns about deprecated chartStyle', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    render(<RdsCompBooleanChart {...defaultProps} chartStyle="x" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBooleanChart', 'chartStyle', 'nothing (it has no effect)');
   });
 });

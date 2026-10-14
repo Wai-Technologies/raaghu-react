@@ -1,75 +1,60 @@
-import { type CSSProperties, type FocusEvent, type ReactElement, type ReactNode } from 'react';
+import { type CSSProperties, type ReactElement, type ReactNode } from 'react';
 import { Tooltip as MuiTooltip, type TooltipProps } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-tooltip.scss';
-export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
+
+type Placement = NonNullable<TooltipProps['placement']>;
+
+export interface RdsTooltipProps extends Omit<TooltipProps, 'style' | 'title'> {
   children: ReactElement;
-  style?:
-    | 'top'
-    | 'bottom'
-    | 'left'
-    | 'right'
-    | 'top-start'
-    | 'top-end'
-    | 'bottom-start'
-    | 'bottom-end'
-    | 'left-start'
-    | 'left-end'
-    | 'right-start'
-    | 'right-end';
+  /** Tooltip content. */
+  title?: ReactNode;
+  /** Applied to the tooltip popper (not to the child). */
   className?: string;
   tooltipStyle?: CSSProperties;
   arrow?: boolean;
+  /** @deprecated Use `placement`. */
+  style?: Placement;
+  /** @deprecated Use `title`. */
   label?: ReactNode;
-  /** Storybook helper: whether to wrap children in a span (default is always true internally) */
+  /** @deprecated Has no effect; children are always wrapped in a span. */
   wrapper?: boolean;
 }
 
-const RdsTooltip= ({
+const RdsTooltip = ({
   children,
-  style = 'top',
+  style,
+  placement,
   title,
   label,
   className,
   tooltipStyle,
   arrow = false,
+  wrapper: _wrapper,
   ...props
-}:RdsTooltipProps) => {
+}: RdsTooltipProps) => {
+  if (style !== undefined) warnDeprecatedProp('RdsTooltip', 'style', '`placement`');
+  if (label !== undefined) warnDeprecatedProp('RdsTooltip', 'label', '`title`');
+
+  const resolvedPlacement: Placement = placement ?? style ?? 'top';
   const tooltipClass = clsx(
     'rds-tooltip',
-    `rds-tooltip--${(style).replace(/-.*/, '')}`,
+    `rds-tooltip--${resolvedPlacement.replace(/-.*/, '')}`,
     className
   );
 
-  const customStyle = {
-    ...(tooltipStyle || {}),
-  } as CSSProperties;
-
-  const { onOpen, onClose, ...restProps } = props;
-
-  const handleFocus = (e: FocusEvent<HTMLElement>) => {
-    if (onOpen) onOpen(e);
-  };
-  const handleBlur = (e: FocusEvent<HTMLElement>) => {
-    if (onClose) onClose(e);
-  };
-
+  // MUI already opens on focus/hover of the child, so no extra focus handlers are needed.
   return (
     <MuiTooltip
       title={title ?? label}
-      placement={style}
+      placement={resolvedPlacement}
       arrow={arrow}
       classes={{ popper: tooltipClass }}
-      sx={customStyle}
-      onOpen={onOpen}
-      onClose={onClose}
-      {...restProps}
+      sx={tooltipStyle}
+      {...props}
     >
-      <span
-        className="rds-tooltip__wrapper"
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      >
+      <span className="rds-tooltip__wrapper">
         {children}
       </span>
     </MuiTooltip>
@@ -77,11 +62,3 @@ const RdsTooltip= ({
 };
 RdsTooltip.displayName = 'RdsTooltip';
 export default RdsTooltip;
-
-/* Summary of Removed Items:
- * ❌ Unused props - None found
- * ❌ Unused imports - None found
- * ❌ Commented code - None found
- * ❌ Empty callbacks - None found
- * ✅ Formatting cleanup - Code is clean and production-ready
- */

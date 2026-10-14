@@ -4,6 +4,9 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAreaChart from './rds-comp-chart-area';
 
+// Mock deprecation warnings
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-comp-chart-area.scss', () => ({}));
 
@@ -846,5 +849,28 @@ describe('RdsCompAreaChart', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompAreaChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('my-class');
+    expect(root).toHaveClass('rds-comp-chart-area');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('warns about deprecated isGradient and renders without options/id', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    const { container } = render(
+      <RdsCompAreaChart labels={['a']} dataSets={[{ data: [1] }]} isGradient />
+    );
+    expect(container.querySelector('canvas')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAreaChart', 'isGradient', expect.any(String));
   });
 });

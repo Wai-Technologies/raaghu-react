@@ -736,4 +736,89 @@ describe('RdsContainer', () => {
       expect(muiContainer).toBeInTheDocument();
     });
   });
+
+  describe('audit fixes', () => {
+    const getRoot = (container: HTMLElement) =>
+      container.querySelector('.MuiContainer-root') as HTMLElement;
+
+    it('G1-218: applies every entry of an array sx', () => {
+      const { container } = renderWithTheme(
+        <RdsContainer
+          sx={[{ backgroundColor: 'red' }, { margin: '10px' }]}
+          {...defaultProps}
+        />
+      );
+      const root = getRoot(container);
+      expect(root).toHaveStyle('background-color: red');
+      expect(root).toHaveStyle('margin: 10px');
+    });
+
+    it('G1-218: skips falsy entries of an array sx', () => {
+      const { container } = renderWithTheme(
+        <RdsContainer
+          sx={[false, { margin: '10px' }]}
+          {...defaultProps}
+        />
+      );
+      expect(getRoot(container)).toHaveStyle('margin: 10px');
+    });
+
+    it('G1-218: applies a function sx', () => {
+      const { container } = renderWithTheme(
+        <RdsContainer
+          sx={(t) => ({ backgroundColor: t.palette.primary.main })}
+          {...defaultProps}
+        />
+      );
+      expect(getRoot(container)).toHaveStyle(`background-color: ${theme.palette.primary.main}`);
+    });
+
+    it('G1-218: keeps the default padding with array and function sx (not inspected)', () => {
+      const { container: c1 } = renderWithTheme(
+        <RdsContainer sx={[{ margin: '10px' }]} {...defaultProps} />
+      );
+      // jsdom drops `var()` values from inline styles, so only the marker attribute is checked.
+      expect(getRoot(c1).getAttribute('data-rds-container-padding')).toBe('applied');
+
+      const { container: c2 } = renderWithTheme(
+        <RdsContainer sx={() => ({ margin: '10px' })} {...defaultProps} />
+      );
+      expect(getRoot(c2).getAttribute('data-rds-container-padding')).toBe('applied');
+    });
+
+    it('G1-218: plain-object sx padding still turns the default padding off', () => {
+      const { container } = renderWithTheme(
+        <RdsContainer sx={{ px: 2 }} {...defaultProps} />
+      );
+      const root = getRoot(container);
+      expect(root.getAttribute('data-rds-container-padding')).toBeNull();
+    });
+
+    it('G1-218: combines the padding prop with an array sx', () => {
+      const { container } = renderWithTheme(
+        <RdsContainer padding="12px" sx={[{ margin: '10px' }]} {...defaultProps} />
+      );
+      const root = getRoot(container);
+      expect(root).toHaveStyle('padding: 12px');
+      expect(root).toHaveStyle('margin: 10px');
+    });
+
+    it('G1-220: padding={0} removes the padding (including gutters)', () => {
+      const { container } = renderWithTheme(
+        <RdsContainer padding={0} {...defaultProps} />
+      );
+      const root = getRoot(container);
+      expect(root.getAttribute('data-rds-container-padding')).toBeNull();
+      expect(root).toHaveStyle('padding-left: 0px');
+      expect(root).toHaveStyle('padding-right: 0px');
+    });
+
+    it('G1-219 (kept): a consumer style replaces the default padding style', () => {
+      const { container } = renderWithTheme(
+        <RdsContainer style={{ color: 'red' }} {...defaultProps} />
+      );
+      const root = getRoot(container);
+      expect(root.style.color).toBe('red');
+    });
+  });
 });

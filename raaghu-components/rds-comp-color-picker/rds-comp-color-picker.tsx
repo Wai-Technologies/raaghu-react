@@ -91,30 +91,30 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   const selectedColorState = internalColorState;
   
   const colorModeDropdownRef = useRef<HTMLDivElement>(null);
-  const prevTypeRef = useRef(type);
-  const prevPickerTypeRef = useRef(pickerType);
-  const prevColorModeRef = useRef(colorMode);
+  const [prevType, setPrevType] = useState(type);
+  const [prevPickerType, setPrevPickerType] = useState(pickerType);
+  const [prevColorMode, setPrevColorMode] = useState(colorMode);
 
-  if (type !== prevTypeRef.current) {
-    prevTypeRef.current = type;
+  if (type !== prevType) {
+    setPrevType(type);
     updatePickerState({ showPicker: type !== ColorPickerType.Button });
   }
 
-  if (pickerType && pickerType !== prevPickerTypeRef.current) {
-    prevPickerTypeRef.current = pickerType;
+  if (pickerType && pickerType !== prevPickerType) {
+    setPrevPickerType(pickerType);
     updatePickerState({ internalSelectedTab: pickerType as "Grid" | "Spectrum" });
   }
 
-  if (colorMode && colorMode !== prevColorModeRef.current) {
-    prevColorModeRef.current = colorMode;
+  if (colorMode && colorMode !== prevColorMode) {
+    setPrevColorMode(colorMode);
     updatePickerState({ internalSelectedColorMode: colorMode });
   }
 
   const selectedColorMode = internalSelectedColorMode;
 
-  const prevValueRef = useRef(value);
-  if (value && value.startsWith('#') && value !== prevValueRef.current) {
-    prevValueRef.current = value;
+  const [prevValue, setPrevValue] = useState(value);
+  if (value && value.startsWith('#') && value !== prevValue) {
+    setPrevValue(value);
     const rgb = hexToRgb(value);
     updatePickerState((prev) => ({
       internalColorState: {

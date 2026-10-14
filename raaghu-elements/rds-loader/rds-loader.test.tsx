@@ -627,3 +627,19 @@ describe('RdsLoader', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('forwards className, sx, ref and rest to the root', () => {
+    const ref = React.createRef<HTMLElement>();
+    renderWithTheme(<RdsLoader className="x" ref={ref} data-testid="r" sx={{ margin: '3px' }} />);
+    const el = screen.getByTestId('r');
+    expect(el).toHaveClass('x');
+    expect(ref.current).toBe(el);
+  });
+
+  it('forwards props on overlay and type paths', () => {
+    renderWithTheme(<RdsLoader overlay className="o" data-testid="o" />);
+    expect(screen.getByTestId('o')).toHaveClass('rds-loader--overlay', 'o');
+    renderWithTheme(<RdsLoader type="hash" className="t" data-testid="t" />);
+    expect(screen.getByTestId('t')).toHaveClass('t', 'my-5');
+  });
+});

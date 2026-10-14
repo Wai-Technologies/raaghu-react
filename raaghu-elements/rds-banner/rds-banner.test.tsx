@@ -3,9 +3,11 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import RdsBanner, { RdsBannerProps } from './rds-banner';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 // Mock SCSS
 jest.mock('./rds-banner.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
@@ -16,8 +18,9 @@ jest.mock('../rds-button/rds-button', () => {
         data-style={props.style}
         data-size={props.size}
         className={props.className}
+        onClick={props.onClick}
       >
-        {props.text}
+        {props.text ?? props.children}
       </button>
     );
   };
@@ -618,5 +621,140 @@ describe('RdsBanner', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsBanner audit fixes', () => {
+  beforeEach(() => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+  });
+
+  it('keeps its own classes when a consumer passes className (G1-096)', () => {
+    render(<RdsBanner description="Message" className="my-banner" />);
+    const banner = screen.getByRole('alert');
+    expect(banner).toHaveClass('rds-banner');
+    expect(banner).toHaveClass('rds-banner--info');
+    expect(banner).toHaveClass('rds-banner--full-width');
+    expect(banner).toHaveClass('my-banner');
+  });
+
+  it('lets a consumer action replace the whole action area, as before (G1-096)', () => {
+    const { container } = render(
+      <RdsBanner description="Message" action={<button data-testid="mui-action">Act</button>} />
+    );
+    expect(screen.getByTestId('mui-action')).toBeInTheDocument();
+    expect(container.querySelector('.rds-banner__action-container')).not.toBeInTheDocument();
+    expect(container.querySelector('.rds-banner__close-button')).not.toBeInTheDocument();
+  });
+
+  it('renders actions next to the close button without a warning', () => {
+    const { container } = render(
+      <RdsBanner description="Message" actions={<span data-testid="extra-action" />} />
+    );
+    expect(screen.getByTestId('extra-action')).toBeInTheDocument();
+    expect(container.querySelector('.rds-banner__close-button')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('passes a consumer icon through even when Icon is false, as before (G1-098)', () => {
+    render(<RdsBanner description="Message" Icon={false} icon={<span data-testid="forced-icon" />} />);
+    expect(screen.getByTestId('forced-icon')).toBeInTheDocument();
+  });
+
+  it('wires the action buttons to callbacks and custom labels (G1-097)', () => {
+    const onLinkClick = jest.fn();
+    const onSecondaryClick = jest.fn();
+    const onPrimaryClick = jest.fn();
+    render(
+      <RdsBanner
+        description="Message"
+        linkText="Details"
+        secondaryText="Dismiss"
+        primaryText="Confirm"
+        onLinkClick={onLinkClick}
+        onSecondaryClick={onSecondaryClick}
+        onPrimaryClick={onPrimaryClick}
+      />
+    );
+    fireEvent.click(screen.getByText('Details'));
+    fireEvent.click(screen.getByText('Dismiss'));
+    fireEvent.click(screen.getByText('Confirm'));
+    expect(onLinkClick).toHaveBeenCalledTimes(1);
+    expect(onSecondaryClick).toHaveBeenCalledTimes(1);
+    expect(onPrimaryClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps the default buttons and labels (no visual change)', () => {
+    render(<RdsBanner description="Message" />);
+    expect(screen.getByText('Link')).toBeInTheDocument();
+    expect(screen.getByText('Cancel')).toBeInTheDocument();
+    expect(screen.getByText('Okay')).toBeInTheDocument();
+  });
+
+  it('accepts the MUI icon prop and hides it with false (G1-098)', () => {
+    const { rerender, container } = render(
+      <RdsBanner description="Message" icon={<span data-testid="custom-banner-icon" />} />
+    );
+    expect(screen.getByTestId('custom-banner-icon')).toBeInTheDocument();
+    rerender(<RdsBanner description="Message" icon={false} />);
+    expect(container.querySelector('.MuiAlert-icon')).not.toBeInTheDocument();
+  });
+
+  it('uses severity, which wins over the deprecated type (G1-099)', () => {
+    const { rerender } = render(<RdsBanner description="Message" severity="error" />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-banner--error');
+    expect(screen.getByRole('alert')).toHaveClass('MuiAlert-standardError');
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+
+    rerender(<RdsBanner description="Message" severity="success" type="warning" />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-banner--success');
+    expect(screen.getByRole('alert')).not.toHaveClass('rds-banner--warning');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBanner', 'type', expect.any(String));
+  });
+
+  it('maps variantStyle to the same MUI variant as before (G1-106)', () => {
+    const { rerender } = render(<RdsBanner description="Message" variantStyle="style1" />);
+    expect(screen.getByRole('alert')).toHaveClass('MuiAlert-standardInfo');
+    rerender(<RdsBanner description="Message" variantStyle="style2" />);
+    expect(screen.getByRole('alert')).toHaveClass('MuiAlert-outlinedInfo');
+    rerender(<RdsBanner description="Message" variantStyle="style3" />);
+    expect(screen.getByRole('alert')).toHaveClass('MuiAlert-standardInfo');
+    rerender(<RdsBanner description="Message" variantStyle="style2" variant="filled" />);
+    expect(screen.getByRole('alert')).toHaveClass('MuiAlert-filledInfo');
+  });
+
+  it('adds no outline class for style3 (G1-106)', () => {
+    render(<RdsBanner description="Message" variantStyle="style3" showOutline />);
+    expect(screen.getByRole('alert').className).not.toMatch(/outline/);
+  });
+
+  it('lets the content/actionsConfig/layout objects override the legacy flags (G1-101)', () => {
+    const { container } = render(
+      <RdsBanner
+        description="Message"
+        Icon
+        closable
+        fullWidth
+        content={{ icon: 'hidden' }}
+        actionsConfig={{ close: 'hidden' }}
+        layout={{ width: 'auto' }}
+      />
+    );
+    expect(container.querySelector('.MuiAlert-icon')).not.toBeInTheDocument();
+    expect(container.querySelector('.rds-banner__close-button')).not.toBeInTheDocument();
+    expect(screen.getByRole('alert')).toHaveClass('rds-banner--auto-width');
+  });
+
+  it('does not forward the legacy flags to the DOM (G1-101)', () => {
+    render(<RdsBanner description="Message" showTitle multiline showOutline closable persistent fullWidth />);
+    const banner = screen.getByRole('alert');
+    ['showtitle', 'multiline', 'showoutline', 'closable', 'persistent', 'fullwidth'].forEach((attr) => {
+      expect(banner).not.toHaveAttribute(attr);
+    });
+  });
+
+  it('does not warn when no renamed props are used', () => {
+    render(<RdsBanner description="Message" showTitle showLink={false} multiline />);
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
   });
 });

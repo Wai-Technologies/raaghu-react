@@ -1,11 +1,5 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-polar-area.scss";
 
 export interface RdsCompPolarAreaChartProps {
@@ -25,37 +19,19 @@ const RdsCompPolarAreaChart = ({
   id,
   chartLabel,
 }: RdsCompPolarAreaChartProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartInstanceRef = useRef<Chart<"polarArea", number[], unknown> | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const canvasElm = canvasRef.current;
-    if (!canvasElm) return;
-
-    const ctx = canvasElm.getContext("2d");
-    if (!ctx) return;
-    chartInstanceRef.current?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions, []);
-
-    const polarCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart(
+    {
       type: "polarArea",
-      data: chartData,
-      options: chartOptions,
-    });
-
-    polarCanvas.canvas.style.height = `${radius}px`;
-    chartInstanceRef.current = polarCanvas;
-
-    return () => {
-      chartInstanceRef.current?.destroy();
-    };
-  }, [labels, options, dataSets, radius, id, themeMode]);
+      labels,
+      datasets: dataSets,
+      options,
+      themeAxes: [],
+      onCreate: (chart) => {
+        chart.canvas.style.height = `${radius}px`;
+      },
+    },
+    [labels, options, dataSets, radius, id]
+  );
 
   return (
     <div className="rds-comp-chart-polar-area-container">

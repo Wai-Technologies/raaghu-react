@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import clsx from 'clsx';
 import MuiTimeline from '@mui/lab/Timeline';
 import { 
   TimelineItem as MuiTimelineItem,
@@ -19,6 +20,7 @@ export interface RdsTimelineItem {
   variant?: 'filled' | 'outlined';
 }
 
+/** Vertical timeline built on MUI Lab `Timeline`. `alternating` is shorthand for `position="alternate"`. */
 export interface RdsTimelineProps extends Omit<TimelineProps, 'children' | 'component'> {
   items: RdsTimelineItem[];
   showTime?: boolean;
@@ -30,12 +32,13 @@ const RdsTimeline = ({
   showTime = false,
   alternating = false,
   position,
+  className,
   ...props
 }: RdsTimelineProps) => {
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
   return (
-    <MuiTimeline position={timelinePosition} {...props}>
+    <MuiTimeline position={timelinePosition} {...props} className={clsx('rds-timeline', className)}>
       {items.map((item, index) => (
           <MuiTimelineItem key={item.id}>
             {showTime && item.time && (

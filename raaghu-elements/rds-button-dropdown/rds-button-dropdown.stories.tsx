@@ -1,8 +1,8 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsButtonDropdown from './rds-button-dropdown';
-import { ArrowDropDown, Circle } from '@mui/icons-material';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
 
 const options = [
   { id: 1, label: 'Option 1', avatarSrc: '', checked: false },
@@ -26,7 +26,7 @@ const meta: Meta<typeof RdsButtonDropdown> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    buttonText: {
+    children: {
       control: 'text',
       description: 'Text to display on the button',
     },
@@ -34,7 +34,7 @@ const meta: Meta<typeof RdsButtonDropdown> = {
       control: 'object',
       description: 'Dropdown options',
     },
-    multiSelect: {
+    multiple: {
       control: 'boolean',
       description: 'Enable multi-select (checkbox) mode',
     },
@@ -80,9 +80,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    buttonText: 'Button',
+    children: 'Button',
     options,
-    multiSelect: false,
+    multiple: false,
     showSearch: false,
     state: 'default',
     size: 'medium',
@@ -90,48 +90,48 @@ export const Default: Story = {
     styleType: 'primary',
     shape: 'rectangle',
     buttonState: 'default',
-    rightIcon:<ArrowDropDown/>,
-    leftIcon:"circle",
+    endIcon: <ArrowDropDown />,
+    startIcon: <RadioButtonUnchecked />,
     showUserAvatar: true,
     showRadio: true,
     isShowLeftIcon: true,
     isShowRightIcon: true,
   },
 };
-Default.parameters = { controls: { include: ['buttonText', 'multiSelect', 'showSearch','state','showUserAvatar','showRadio','isShowLeftIcon','isShowRightIcon','size','layout','styleType','shape','buttonState'] } };
+Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch','state','showUserAvatar','showRadio','isShowLeftIcon','isShowRightIcon','size','layout','styleType','shape','buttonState'] } };
 
 export const MultiSelect: Story = {
   args: {
-    buttonText: 'Button',
+    children: 'Button',
     options,
-    multiSelect: true,
+    multiple: true,
     showSearch: false,
-    rightIcon:<ArrowDropDown/>,
-    leftIcon:"circle"
+    endIcon: <ArrowDropDown />,
+    startIcon: <RadioButtonUnchecked />
   },
 };
-MultiSelect.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','size','layout','styleType','shape','buttonState'] } };
+MultiSelect.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','styleType','shape','buttonState'] } };
 
 export const WithSearch: Story = {
   args: {
-    buttonText: 'Button',
+    children: 'Button',
     options,
-    multiSelect: false,
+    multiple: false,
     showSearch: true,
-    rightIcon:<ArrowDropDown/>,
-    leftIcon:"circle"
+    endIcon: <ArrowDropDown />,
+    startIcon: <RadioButtonUnchecked />
   },
 };
-WithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','size','layout','styleType','shape','buttonState'] } };
+WithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','styleType','shape','buttonState'] } };
 
 export const MultiSelectWithSearch: Story = {
   args: {
-    buttonText: 'Button',
+    children: 'Button',
     options,
-    multiSelect: true,
+    multiple: true,
     showSearch: true,
-    rightIcon:<ArrowDropDown/>,
-    leftIcon:"circle"
+    endIcon: <ArrowDropDown />,
+    startIcon: <RadioButtonUnchecked />
   },
 };
-MultiSelectWithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','size','layout','styleType','shape','buttonState'] } };
+MultiSelectWithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','styleType','shape','buttonState'] } };

@@ -6,6 +6,7 @@ import RdsRating from './rds-rating';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-rating.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
@@ -726,5 +727,45 @@ describe('RdsRating', () => {
     it('should have correct displayName', () => {
       expect(RdsRating.displayName).toBe('RdsRating');
     });
+  });
+});
+describe('audit fixes', () => {
+  it('merges consumer className onto the star rating', () => {
+    const { container } = renderWithTheme(<RdsRating className="custom" />);
+    const stars = container.querySelector('.rds-rating__stars');
+    expect(stars).toHaveClass('custom');
+  });
+
+  it('forwards slider a11y props and falls back to label', () => {
+    const { container } = renderWithTheme(<RdsRating type="slider" label="Quality" name="q" disabled />);
+    const input = container.querySelector('.MuiSlider-root input') as HTMLInputElement;
+    expect(input).toHaveAttribute('aria-label', 'Quality');
+    expect(input).toHaveAttribute('name', 'q');
+    expect(input).toBeDisabled();
+  });
+
+  it('ignores slider changes when readOnly', () => {
+    const onChange = jest.fn();
+    const { container } = renderWithTheme(<RdsRating type="slider" readOnly onChange={onChange} />);
+    const input = container.querySelector('.MuiSlider-root input') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 5 } });
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('renders custom slider labels', () => {
+    renderWithTheme(<RdsRating type="slider" sliderLabels={['Bad', 'Ok', 'Good']} />);
+    expect(screen.getByText('Bad')).toBeInTheDocument();
+    expect(screen.getByText('Good')).toBeInTheDocument();
+  });
+
+  it('snaps slider to max/2 and max', () => {
+    const { container } = renderWithTheme(<RdsRating type="slider" max={10} value={4} />);
+    expect(container.querySelector('.MuiSlider-root input')).toHaveAttribute('aria-valuenow', '5');
+  });
+
+  it('warns when maxStars is used', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    renderWithTheme(<RdsRating maxStars={4} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRating', 'maxStars', '`max`');
   });
 });

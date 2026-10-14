@@ -1,11 +1,13 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import RdsAutocomplete, { RdsAutocompleteProps } from './rds-autocomplete';
+import RdsAutocomplete, { type RdsAutocompleteProps } from './rds-autocomplete';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 // Mock SCSS
 jest.mock('./rds-autocomplete.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock checkbox component
 jest.mock('../rds-checkbox/rds-checkbox', () => {
@@ -915,5 +917,213 @@ describe('RdsAutocomplete', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsAutocomplete audit fixes', () => {
+  type Option = { label: string; value: number };
+  const makeOptions = (): Option[] => [
+    { label: 'Option 1', value: 1 },
+    { label: 'Option 2', value: 2 },
+    { label: 'Option 3', value: 3 },
+  ];
+  const getInput = (container: HTMLElement) => container.querySelector('input') as HTMLInputElement;
+  const openList = (container: HTMLElement) => fireEvent.mouseDown(getInput(container));
+
+  beforeEach(() => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+  });
+
+  it('shows a controlled value and reports selections through onChange (G1-042)', () => {
+    const options = makeOptions();
+    const onChange = jest.fn();
+    const { container, rerender } = render(
+      <RdsAutocomplete options={options} value={options[1]} onChange={onChange} />
+    );
+    expect(getInput(container).value).toBe('Option 2');
+
+    openList(container);
+    fireEvent.click(screen.getByRole('option', { name: 'Option 3' }));
+    expect(onChange).toHaveBeenCalledTimes(1);
+    const [event, value, reason] = onChange.mock.calls[0];
+    expect(event).toBeTruthy();
+    expect(value).toBe(options[2]);
+    expect(reason).toBe('selectOption');
+    // Controlled: the shown value follows the prop, not the click.
+    expect(getInput(container).value).toBe('Option 2');
+
+    rerender(<RdsAutocomplete options={options} value={options[2]} onChange={onChange} />);
+    expect(getInput(container).value).toBe('Option 3');
+  });
+
+  it('seeds the uncontrolled value from defaultValue and still calls onChange (G1-042)', () => {
+    const options = makeOptions();
+    const onChange = jest.fn();
+    const { container } = render(
+      <RdsAutocomplete options={options} defaultValue={options[0]} onChange={onChange} />
+    );
+    expect(getInput(container).value).toBe('Option 1');
+
+    openList(container);
+    fireEvent.click(screen.getByRole('option', { name: 'Option 2' }));
+    expect(onChange).toHaveBeenCalledWith(expect.anything(), options[1], 'selectOption', expect.anything());
+    expect(getInput(container).value).toBe('Option 2');
+  });
+
+  it('keeps the selection when the parent re-renders with an equal inline options array (G1-043)', () => {
+    const { container, rerender } = render(<RdsAutocomplete options={makeOptions()} />);
+    openList(container);
+    fireEvent.click(screen.getByRole('option', { name: 'Option 2' }));
+    expect(getInput(container).value).toBe('Option 2');
+
+    rerender(<RdsAutocomplete options={makeOptions()} />);
+    expect(getInput(container).value).toBe('Option 2');
+  });
+
+  it('re-derives the selected option when the options really change with state="selected" (G1-043)', () => {
+    const { container, rerender } = render(<RdsAutocomplete options={makeOptions()} state="selected" />);
+    expect(getInput(container).value).toBe('Option 1');
+
+    rerender(<RdsAutocomplete options={[{ label: 'Other', value: 9 }]} state="selected" />);
+    expect(getInput(container).value).toBe('Other');
+  });
+
+  it('shows a hidden-from-AT asterisk and sets aria-required with required (G1-044, G1-051)', () => {
+    const { container } = render(<RdsAutocomplete options={makeOptions()} label="Team" required />);
+    const asterisk = container.querySelector('.rds-autocomplete__asterisk');
+    expect(asterisk).toHaveTextContent('*');
+    expect(asterisk).toHaveAttribute('aria-hidden', 'true');
+    expect(getInput(container)).toHaveAttribute('aria-required', 'true');
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('does not set aria-required by default (G1-044)', () => {
+    const { container } = render(<RdsAutocomplete options={makeOptions()} label="Team" />);
+    expect(getInput(container)).not.toHaveAttribute('aria-required');
+    expect(container.querySelector('.rds-autocomplete__asterisk')).not.toBeInTheDocument();
+  });
+
+  it('keeps isMandatory and display.mandatory working, with deprecation warnings (G1-051)', () => {
+    const { container, unmount } = render(<RdsAutocomplete options={makeOptions()} label="Team" isMandatory />);
+    expect(container.querySelector('.rds-autocomplete__asterisk')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'isMandatory', '`required`');
+    unmount();
+
+    const second = render(<RdsAutocomplete options={makeOptions()} label="Team" display={{ mandatory: 'required' }} />);
+    expect(second.container.querySelector('.rds-autocomplete__asterisk')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'display.mandatory', '`required`');
+  });
+
+  it('lets required win over the deprecated props (G1-051)', () => {
+    const { container } = render(
+      <RdsAutocomplete options={makeOptions()} label="Team" required={false} isMandatory display={{ mandatory: 'required' }} />
+    );
+    expect(container.querySelector('.rds-autocomplete__asterisk')).not.toBeInTheDocument();
+  });
+
+  it('renders chips through renderValue with the same classes (G1-045)', () => {
+    const { container } = render(<RdsAutocomplete options={makeOptions()} multiple state="selected" selectSize="small" />);
+    const chip = container.querySelector('.rds-autocomplete__chip');
+    expect(chip).toHaveClass('rds-autocomplete__chip--small');
+    expect(chip).toHaveTextContent('Option 1');
+  });
+
+  it('merges consumer slotProps.listbox and keeps other slotProps (G1-046)', () => {
+    const { container } = render(
+      <RdsAutocomplete
+        options={makeOptions()}
+        slotProps={{ listbox: { className: 'my-listbox' }, paper: { className: 'my-paper' } }}
+      />
+    );
+    openList(container);
+    expect(screen.getByRole('listbox')).toHaveClass('my-listbox');
+    expect(document.querySelector('.my-paper')).toBeInTheDocument();
+  });
+
+  it('keeps the input aria-label after moving to slotProps.htmlInput (G1-047)', () => {
+    const { container } = render(<RdsAutocomplete options={makeOptions()} placeholder="Pick one" />);
+    expect(getInput(container)).toHaveAttribute('aria-label', 'Pick one');
+  });
+
+  it('lets a consumer open prop win over state="expanded" and calls onOpen/onClose (G1-048)', () => {
+    const onOpen = jest.fn();
+    const onClose = jest.fn();
+    const { container, rerender } = render(
+      <RdsAutocomplete options={makeOptions()} state="expanded" open={false} onOpen={onOpen} onClose={onClose} />
+    );
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+
+    openList(container);
+    expect(onOpen).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+
+    rerender(<RdsAutocomplete options={makeOptions()} state="expanded" open onOpen={onOpen} onClose={onClose} />);
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    fireEvent.keyDown(getInput(container), { key: 'Escape' });
+    expect(onClose).toHaveBeenCalledWith(expect.anything(), 'escape');
+  });
+
+  it('keeps state="expanded" open when no open prop is given (G1-048)', () => {
+    render(<RdsAutocomplete options={makeOptions()} state="expanded" />);
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+  });
+
+  it('uses the MUI multiple and openOnFocus booleans over the deprecated behavior object (G1-050)', () => {
+    const onOpen = jest.fn();
+    const { container } = render(
+      <RdsAutocomplete
+        options={makeOptions()}
+        state="selected"
+        multiple
+        openOnFocus
+        onOpen={onOpen}
+        behavior={{ multiple: 'off', openOnFocus: 'off' }}
+      />
+    );
+    expect(container.querySelector('.rds-autocomplete__chip')).toBeInTheDocument();
+    fireEvent.focus(getInput(container));
+    expect(onOpen).toHaveBeenCalled();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'behavior', '`openOnFocus` and `multiple`');
+  });
+
+  it('keeps behavior and allowMultiple working, with deprecation warnings (G1-050)', () => {
+    const first = render(<RdsAutocomplete options={makeOptions()} state="selected" behavior={{ multiple: 'on' }} />);
+    expect(first.container.querySelector('.rds-autocomplete__chip')).toBeInTheDocument();
+    first.unmount();
+
+    const second = render(<RdsAutocomplete options={makeOptions()} state="selected" allowMultiple />);
+    expect(second.container.querySelector('.rds-autocomplete__chip')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'allowMultiple', '`multiple`');
+  });
+
+  it('merges consumer sx after the base width and keeps className (G1-054)', () => {
+    const { container } = render(
+      <RdsAutocomplete options={makeOptions()} className="my-autocomplete" sx={{ maxWidth: '300px' }} />
+    );
+    const root = container.querySelector('.MuiAutocomplete-root') as HTMLElement;
+    expect(root).toHaveClass('my-autocomplete');
+    expect(root).toHaveStyle({ width: '100%', maxWidth: '300px' });
+  });
+
+  it('links the label to the input, respecting a consumer id (G1-055)', () => {
+    const { container, unmount } = render(<RdsAutocomplete options={makeOptions()} label="Team" />);
+    const label = container.querySelector('label.rds-autocomplete__label') as HTMLLabelElement;
+    expect(label.htmlFor).toBeTruthy();
+    expect(label.htmlFor).toBe(getInput(container).id);
+    unmount();
+
+    const second = render(<RdsAutocomplete options={makeOptions()} label="Team" id="team-field" />);
+    expect(second.container.querySelector('label.rds-autocomplete__label')).toHaveAttribute('for', 'team-field');
+    expect(getInput(second.container).id).toBe('team-field');
+  });
+
+  it('uses a consumer getOptionLabel for options and chips (G1-056)', () => {
+    const getOptionLabel = (option: Option) => `#${option.value}`;
+    const { container } = render(
+      <RdsAutocomplete options={makeOptions()} getOptionLabel={getOptionLabel} multiple state="selected" />
+    );
+    expect(container.querySelector('.rds-autocomplete__chip')).toHaveTextContent('#1');
+    openList(container);
+    expect(screen.getByRole('option', { name: '#2' })).toBeInTheDocument();
   });
 });

@@ -1,12 +1,8 @@
-import { useEffect, useRef } from "react";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import {
-  applyChartThemeColors,
-  attachChartData,
   chartTextColor,
-  cloneChartOptions,
-  useChartThemeMode,
 } from "../chart-utils";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-radar.scss";
 
 export interface RdsCompRadarProps {
@@ -50,83 +46,68 @@ const RdsCompRadarChart = ({
   chartLabel,
   radius,
 }: RdsCompRadarProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartInstanceRef = useRef<Chart | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const canvasElm = canvasRef.current;
-    if (!canvasElm) return;
-
-    const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
-    chartInstanceRef.current?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    applyChartThemeColors(chartOptions, ["r"]);
-
-    if (!chartOptions.scales) chartOptions.scales = {};
-    if (!chartOptions.scales.r) chartOptions.scales.r = {};
-    if (!chartOptions.scales.r.pointLabels) chartOptions.scales.r.pointLabels = {};
-    chartOptions.scales.r.pointLabels.color = chartTextColor();
-
-    const chartData = { labels, datasets: dataSets };
-    attachChartData(chartOptions, chartData);
-
-    const textColor = chartTextColor();
-
-    const passedLegend = chartOptions?.plugins?.legend || {};
-    const passedLabels = passedLegend.labels || {};
-
-    const radarCanvas = new Chart(ctx, {
+  const { canvasRef } = useChart<"radar">(
+    {
       type: "radar",
-      data: chartData,
-      options: {
-        ...chartOptions,
-        plugins: {
-          ...((chartOptions && chartOptions.plugins) || {}),
-          legend: {
-            position: "top",
-            align: "start",
-            ...passedLegend,
-            labels: {
-              usePointStyle: true,
-              pointStyle: "circle",
-              boxWidth: 8,
-              boxHeight: 8,
-              padding: 20,
-              ...passedLabels,
-              // ensure pointStyleWidth is not set (causes oval distortion)
-              pointStyleWidth: undefined,
-              font: {
-                size: getFontSizeFromVar("--rds-font-size-md", 12),
-                weight: getFontWeightFromVar("--rds-font-weight-medium", "500") as any,
-                family: "inherit",
-                ...(typeof passedLabels.font === "object" && passedLabels.font !== null
-                  ? passedLabels.font
-                  : {}),
+      labels,
+      datasets: dataSets,
+      options,
+      themeAxes: ["r"],
+      overrides: (chartOptions) => {
+        if (!chartOptions.scales) chartOptions.scales = {};
+        if (!chartOptions.scales.r) chartOptions.scales.r = {};
+        if (!chartOptions.scales.r.pointLabels) chartOptions.scales.r.pointLabels = {};
+        chartOptions.scales.r.pointLabels.color = chartTextColor();
+
+        const textColor = chartTextColor();
+
+        const passedLegend = chartOptions?.plugins?.legend || {};
+        const passedLabels = passedLegend.labels || {};
+
+        return {
+          scales: chartOptions.scales,
+          plugins: {
+            ...((chartOptions && chartOptions.plugins) || {}),
+            legend: {
+              position: "top",
+              align: "start",
+              ...passedLegend,
+              labels: {
+                usePointStyle: true,
+                pointStyle: "circle",
+                boxWidth: 8,
+                boxHeight: 8,
+                padding: 20,
+                ...passedLabels,
+                // ensure pointStyleWidth is not set (causes oval distortion)
+                pointStyleWidth: undefined,
+                font: {
+                  size: getFontSizeFromVar("--rds-font-size-md", 12),
+                  weight: getFontWeightFromVar("--rds-font-weight-medium", "500") as any,
+                  family: "inherit",
+                  ...(typeof passedLabels.font === "object" && passedLabels.font !== null
+                    ? passedLabels.font
+                    : {}),
+                },
+                color: textColor,
               },
-              color: textColor,
             },
           },
-        },
+        };
       },
-    });
-
-    if (radarCanvas?.canvas) {
-      if (radius) {
-        radarCanvas.canvas.style.height = `${radius}px`;
-      } else {
-        radarCanvas.canvas.style.height = "";
-        radarCanvas.canvas.style.width = "";
-      }
-    }
-
-    chartInstanceRef.current = radarCanvas;
-
-    return () => {
-      chartInstanceRef.current?.destroy();
-    };
-  }, [labels, options, dataSets, radius, id, themeMode]);
+      onCreate: (chart) => {
+        if (chart?.canvas) {
+          if (radius) {
+            chart.canvas.style.height = `${radius}px`;
+          } else {
+            chart.canvas.style.height = "";
+            chart.canvas.style.width = "";
+          }
+        }
+      },
+    },
+    [labels, options, dataSets, radius, id]
+  );
 
   return (
     <div className="rds-comp-chart-radar-container">

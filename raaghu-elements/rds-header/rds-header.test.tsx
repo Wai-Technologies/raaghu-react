@@ -537,3 +537,16 @@ describe('RdsHeader', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('renders uncontrolled tabs without tabValue/onTabChange', () => {
+    render(<RdsHeader tabs={['A', 'B']} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'B' }));
+    expect(screen.getByRole('tab', { name: 'B' })).toHaveAttribute('aria-selected', 'true');
+  });
+  it('lets consumer elevation win and labels the search input', () => {
+    const { container } = render(<RdsHeader elevation={4} searchValue="" onSearchChange={() => {}} searchPlaceholder="Find" />);
+    expect(container.querySelector('.MuiPaper-elevation4')).toBeInTheDocument();
+    expect(screen.getByLabelText('Find')).toBeInTheDocument();
+  });
+});

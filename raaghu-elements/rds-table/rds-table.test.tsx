@@ -846,3 +846,76 @@ describe('RdsTable', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  const makeRows = (n: number) =>
+    Array.from({ length: n }, (_, i) => ({ id: String(i), name: `Name ${i}`, email: `e${i}@x.com`, age: i }));
+
+  it('G2-308: uses page/pageSize as initial values and re-syncs when they change', () => {
+    const { container, rerender } = renderWithTheme(
+      <RdsTable columns={mockColumns} rows={makeRows(25)} pagination page={1} pageSize={5} />
+    );
+    expect(container.querySelectorAll('.rds-table__body .rds-table__row').length).toBe(5);
+    expect(screen.getByText('Name 5')).toBeInTheDocument();
+    rerender(
+      <ThemeProvider theme={createTheme()}>
+        <RdsTable columns={mockColumns} rows={makeRows(25)} pagination page={2} pageSize={5} />
+      </ThemeProvider>
+    );
+    expect(screen.getByText('Name 10')).toBeInTheDocument();
+  });
+
+  it('G2-308: user paging still works with a static page prop', () => {
+    const onPageChange = jest.fn();
+    renderWithTheme(
+      <RdsTable columns={mockColumns} rows={makeRows(25)} pagination page={0} onPageChange={onPageChange} />
+    );
+    fireEvent.click(screen.getByRole('button', { name: /next page/i }));
+    expect(onPageChange).toHaveBeenCalledWith(1);
+    expect(screen.getByText('Name 10')).toBeInTheDocument();
+  });
+
+  it('G2-309: server mode renders rows as given and uses totalRows', () => {
+    const { container } = renderWithTheme(
+      <RdsTable columns={mockColumns} rows={makeRows(12)} pagination paginationMode="server" totalRows={120} />
+    );
+    expect(container.querySelectorAll('.rds-table__body .rds-table__row').length).toBe(12);
+    expect(container.querySelector('.MuiTablePagination-root')?.textContent).toContain('120');
+  });
+
+  it('G2-310: renders React element cell values as-is', () => {
+    const rows = [{ id: '1', name: <strong data-testid="el">Bold</strong>, email: 'a', age: 1 }];
+    renderWithTheme(<RdsTable columns={mockColumns} rows={rows} />);
+    expect(screen.getByTestId('el')).toHaveTextContent('Bold');
+  });
+
+  it('G2-312: labels selection controls', () => {
+    const cols: RdsTableColumn[] = [...mockColumns, { id: 'pick', label: 'Pick', type: 'radio' }];
+    renderWithTheme(<RdsTable columns={cols} rows={mockRows} selectable />);
+    expect(screen.getByLabelText('Select all rows')).toBeInTheDocument();
+    expect(screen.getByLabelText('Select row 2')).toBeInTheDocument();
+    expect(screen.getByLabelText('Select Pick for row 3')).toBeInTheDocument();
+  });
+
+  it('G2-314: selectedRows seeds selection without onRowSelect and re-syncs', () => {
+    const { rerender } = renderWithTheme(
+      <RdsTable columns={mockColumns} rows={mockRows} selectable selectedRows={['1']} />
+    );
+    expect(screen.getByLabelText('Select row 1')).toBeChecked();
+    rerender(
+      <ThemeProvider theme={createTheme()}>
+        <RdsTable columns={mockColumns} rows={mockRows} selectable selectedRows={['2']} />
+      </ThemeProvider>
+    );
+    expect(screen.getByLabelText('Select row 1')).not.toBeChecked();
+    expect(screen.getByLabelText('Select row 2')).toBeChecked();
+  });
+
+  it('G2-317: honours rowsPerPageOptions', () => {
+    renderWithTheme(
+      <RdsTable columns={mockColumns} rows={makeRows(5)} pagination pageSize={50} rowsPerPageOptions={[50, 100]} />
+    );
+    fireEvent.mouseDown(screen.getByRole('combobox'));
+    expect(screen.getByRole('option', { name: '100' })).toBeInTheDocument();
+  });
+});

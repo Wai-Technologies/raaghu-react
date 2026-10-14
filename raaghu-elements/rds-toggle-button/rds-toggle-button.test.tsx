@@ -2,12 +2,14 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsToggleButton, { RdsToggleButtonOption } from './rds-toggle-button';
+import RdsToggleButton, { RdsToggleButtonOption, RdsStandaloneToggleButton } from './rds-toggle-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-toggle-button.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -885,5 +887,39 @@ describe('RdsToggleButton', () => {
         expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       });
     });
+  });
+});
+describe('audit fixes', () => {
+  it('uses consumer iconTextSpacing and spacing directly, keeps token default otherwise', () => {
+    const opts = [{ value: 'a', label: 'A', icon: <i>x</i> }, { value: 'b', label: 'B', icon: <i>y</i> }];
+    const { container, rerender } = render(<RdsToggleButton options={opts} />);
+    expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: 'var(--rds-spacing-xs, 8px)' });
+    rerender(<RdsToggleButton options={opts} iconTextSpacing={3} spacing={5} />);
+    expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: '3px' });
+    expect(container.querySelectorAll('.rds-toggle-button__button-wrapper')[1]).toHaveStyle({ marginLeft: 'var(--rds-toggle-button-spacing, 5px)' });
+  });
+
+  it('merges consumer className on the root and standalone button', () => {
+    const { container } = render(<RdsToggleButton options={mockOptions} className="custom" />);
+    expect(container.firstElementChild).toHaveClass('rds-toggle-button', 'custom');
+    render(<RdsStandaloneToggleButton className="mine">x</RdsStandaloneToggleButton>);
+    expect(screen.getByRole('button', { name: 'x' })).toHaveClass('rds-toggle-button__button', 'mine');
+  });
+
+  it('supports size and warns on deprecated inputSize', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    const { container, rerender } = render(<RdsToggleButton options={mockOptions} size="large" />);
+    expect(container.firstElementChild).toHaveClass('rds-toggle-button--large');
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    rerender(<RdsToggleButton options={mockOptions} inputSize="medium" />);
+    expect(container.firstElementChild).toHaveClass('rds-toggle-button--medium');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsToggleButton', 'inputSize', '`size`');
+  });
+
+  it('keeps aria-label only on the group, and aria-pressed still rendered', () => {
+    const { container } = render(<RdsToggleButton options={mockOptions} aria-label="Pick" value="option1" />);
+    expect(container.firstElementChild).not.toHaveAttribute('aria-label');
+    expect(screen.getByRole('group')).toHaveAttribute('aria-label', 'Pick');
+    expect(screen.getByRole('button', { name: 'Option 1' })).toHaveAttribute('aria-pressed', 'true');
   });
 });

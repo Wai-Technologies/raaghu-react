@@ -3,6 +3,9 @@ import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTooltip from './rds-tooltip';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -983,3 +986,49 @@ describe('RdsTooltip — keyboard navigation', () => {
   });
 });
 
+
+describe('RdsTooltip audit fixes', () => {
+  it('calls onOpen once when the child receives keyboard focus (G2-388)', async () => {
+    const onOpen = jest.fn();
+    renderWithTheme(
+      <RdsTooltip title="Tip" onOpen={onOpen}>
+        <button>Focus me</button>
+      </RdsTooltip>
+    );
+    // MUI opens on keyboard focus (focus-visible), so tab to the child like a keyboard user.
+    await userEvent.tab();
+    expect(screen.getByText('Focus me')).toHaveFocus();
+    await waitFor(() => expect(onOpen).toHaveBeenCalled());
+    expect(onOpen).toHaveBeenCalledTimes(1);
+  });
+
+  it('derives the popper class from placement (G2-387)', async () => {
+    renderWithTheme(
+      <RdsTooltip title="Tip" placement="left" open>
+        <button>Child</button>
+      </RdsTooltip>
+    );
+    await waitFor(() => expect(document.querySelector('.rds-tooltip')).toHaveClass('rds-tooltip--left'));
+  });
+
+  it('does not leak the wrapper prop to the DOM (G2-392)', () => {
+    const error = jest.spyOn(console, 'error').mockImplementation(() => {});
+    renderWithTheme(
+      <RdsTooltip title="Tip" wrapper>
+        <button>Child</button>
+      </RdsTooltip>
+    );
+    expect(error.mock.calls.some(([msg]) => String(msg).includes('wrapper'))).toBe(false);
+    error.mockRestore();
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    renderWithTheme(
+      <RdsTooltip label="Old" style="bottom">
+        <button>Child</button>
+      </RdsTooltip>
+    );
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTooltip', 'label', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTooltip', 'style', expect.any(String));
+  });
+});

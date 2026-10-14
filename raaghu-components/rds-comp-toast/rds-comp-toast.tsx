@@ -36,7 +36,6 @@ const ToastFooter = ({
                 <div className="rds-comp-toast__progress">
                     <RdsProgress
                         style="line"
-                        type="linear"
                         value={progressWidth}
                         variant="determinate"
                         color="primary"

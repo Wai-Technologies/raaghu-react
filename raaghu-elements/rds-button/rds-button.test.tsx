@@ -4,6 +4,9 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsButton from './rds-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsButton', () => {
   it('renders with text', () => {
@@ -91,5 +94,78 @@ describe('RdsButton — keyboard navigation', () => {
     render(<RdsButton text="Disabled Tab" disabled />);
     await userEvent.tab();
     expect(screen.getByRole('button')).not.toHaveFocus();
+  });
+});
+
+describe('RdsButton audit fixes', () => {
+  it('keeps its own classes when a consumer passes className (G1-134)', () => {
+    render(<RdsButton className="my-button">Save</RdsButton>);
+    const button = screen.getByRole('button', { name: 'Save' });
+    expect(button).toHaveClass('rds-button');
+    expect(button).toHaveClass('rds-button__state-default');
+    expect(button).toHaveClass('my-button');
+  });
+
+  it('converts theme-scaled sx numbers the way sx does instead of raw px (G1-136)', () => {
+    render(<RdsButton sx={{ padding: 2, minWidth: '120px' }}>Pad</RdsButton>);
+    const button = screen.getByRole('button', { name: 'Pad' });
+    expect(button.style.padding).toBe('16px');
+    expect(button.style.minWidth).toBe('120px');
+  });
+
+  it('does not copy shorthands or nested selectors into the inline style (G1-136)', () => {
+    render(<RdsButton sx={{ mr: 2, '&:hover': { color: 'red' } }}>Short</RdsButton>);
+    const button = screen.getByRole('button', { name: 'Short' });
+    expect(button.getAttribute('style')).not.toContain('mr');
+    expect(button.getAttribute('style')).not.toContain('hover');
+  });
+
+  it('accepts an array sx without crashing (G1-136)', () => {
+    render(<RdsButton sx={[{ m: 1 }, { p: 1 }]}>Array</RdsButton>);
+    expect(screen.getByRole('button', { name: 'Array' })).toBeInTheDocument();
+  });
+
+  it('supports loading as the replacement for isLoading (G1-138)', () => {
+    render(<RdsButton loading>Busy</RdsButton>);
+    const button = screen.getByRole('button');
+    expect(button).toBeDisabled();
+    expect(button).toHaveClass('rds-button__loading');
+  });
+
+  it('renders MUI startIcon and endIcon (G1-139/G1-140)', () => {
+    render(
+      <RdsButton startIcon={<span data-testid="start" />} endIcon={<span data-testid="end" />}>
+        Icons
+      </RdsButton>
+    );
+    expect(screen.getByTestId('start')).toBeInTheDocument();
+    expect(screen.getByTestId('end')).toBeInTheDocument();
+  });
+
+  it('gives icon-only buttons an accessible name from text (G1-144)', () => {
+    render(<RdsButton layout="icon-only" showLeftIcon changeLeftIcon="add" text="Add item" />);
+    expect(screen.getByRole('button', { name: 'Add item' })).toBeInTheDocument();
+  });
+
+  it('keeps the Raaghu icon props working', () => {
+    const { container } = render(<RdsButton showLeftIcon changeLeftIcon="delete" text="Remove" />);
+    expect(container.querySelector('.MuiButton-startIcon svg')).toBeInTheDocument();
+    expect(container.querySelector('.MuiButton-root')).toHaveClass('rds-button--has-icon');
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    render(<RdsButton text="Old" isLoading={false} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', 'text', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', 'isLoading', expect.any(String));
+  });
+
+  it('does not warn for the supported API', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(
+      <RdsButton style="filled" state="selected" layout="icon+text" showLeftIcon changeLeftIcon="add" showRightIcon changeRightIcon="save">
+        New
+      </RdsButton>
+    );
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
   });
 });

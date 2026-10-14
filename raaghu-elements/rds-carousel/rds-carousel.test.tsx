@@ -675,3 +675,192 @@ describe('RdsCarousel', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  const slides = [
+    <div key="a" data-testid="slide-a">Slide A</div>,
+    <div key="b" data-testid="slide-b">Slide B</div>,
+    <div key="c" data-testid="slide-c">Slide C</div>,
+  ];
+
+  const getSlides = (container: HTMLElement) =>
+    Array.from(container.querySelectorAll('.rds-carousel__slide'));
+
+  describe('G1-187 children', () => {
+    it('renders a single non-array child without crashing', () => {
+      const { container } = render(
+        <RdsCarousel>
+          <div>Only slide</div>
+        </RdsCarousel>
+      );
+      expect(screen.getByText('Only slide')).toBeInTheDocument();
+      expect(getSlides(container)).toHaveLength(1);
+      expect(container.querySelector('.rds-carousel__indicators')).not.toBeInTheDocument();
+      expect(container.querySelector('.rds-carousel__navigation')).not.toBeInTheDocument();
+    });
+
+    it('renders JSX children written inline (not an array)', () => {
+      const { container } = render(
+        <RdsCarousel>
+          <div>One</div>
+          <div>Two</div>
+        </RdsCarousel>
+      );
+      expect(getSlides(container)).toHaveLength(2);
+      expect(container.querySelectorAll('.rds-carousel__indicator')).toHaveLength(2);
+    });
+
+    it('renders nothing for empty children', () => {
+      const { container } = render(<RdsCarousel>{[]}</RdsCarousel>);
+      expect(getSlides(container)).toHaveLength(0);
+    });
+  });
+
+  describe('G1-183 keys', () => {
+    it('does not warn about duplicate keys when slides share a title', () => {
+      const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      render(
+        <RdsCarousel style="with title" title="Same">
+          <div>One</div>
+          <div>Two</div>
+          <div>Three</div>
+        </RdsCarousel>
+      );
+      const keyWarnings = errorSpy.mock.calls.filter((args) =>
+        args.some((arg) => typeof arg === 'string' && arg.includes('same key'))
+      );
+      expect(keyWarnings).toHaveLength(0);
+      errorSpy.mockRestore();
+    });
+  });
+
+  describe('G1-186 root props', () => {
+    it('forwards ref, id, data-* and event handlers to the root', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      const onMouseEnter = jest.fn();
+      const { container } = render(
+        <RdsCarousel ref={ref} id="hero" data-testid="carousel-root" onMouseEnter={onMouseEnter}>
+          {slides}
+        </RdsCarousel>
+      );
+      const root = container.querySelector('.rds-carousel') as HTMLElement;
+      expect(ref.current).toBe(root);
+      expect(root).toHaveAttribute('id', 'hero');
+      expect(screen.getByTestId('carousel-root')).toBe(root);
+      fireEvent.mouseEnter(root);
+      expect(onMouseEnter).toHaveBeenCalled();
+    });
+
+    it('merges className with the built-in classes', () => {
+      const { container } = render(
+        <RdsCarousel className="extra" style="with title">{slides}</RdsCarousel>
+      );
+      const root = container.querySelector('.rds-carousel');
+      expect(root).toHaveClass('rds-carousel', 'rds-carousel--with-title', 'extra');
+    });
+
+    it('merges sx (object and array) after the base styles', () => {
+      const { container, rerender } = render(
+        <RdsCarousel sx={{ marginTop: '7px' }}>{slides}</RdsCarousel>
+      );
+      let root = container.querySelector('.rds-carousel') as HTMLElement;
+      expect(getComputedStyle(root).marginTop).toBe('7px');
+      expect(getComputedStyle(root).overflow).toBe('hidden');
+
+      rerender(<RdsCarousel sx={[{ marginTop: '9px' }, { marginBottom: '3px' }]}>{slides}</RdsCarousel>);
+      root = container.querySelector('.rds-carousel') as HTMLElement;
+      expect(getComputedStyle(root).marginTop).toBe('9px');
+      expect(getComputedStyle(root).marginBottom).toBe('3px');
+    });
+  });
+
+  describe('G1-188 indicators', () => {
+    it('exposes the dots as labelled, focusable buttons with aria-current on the active one', () => {
+      const { container } = render(<RdsCarousel>{slides}</RdsCarousel>);
+      const dots = Array.from(container.querySelectorAll('.rds-carousel__indicator'));
+      expect(dots).toHaveLength(3);
+      dots.forEach((dot, index) => {
+        expect(dot).toHaveAttribute('role', 'button');
+        expect(dot).toHaveAttribute('tabindex', '0');
+        expect(dot).toHaveAttribute('aria-label', `Go to slide ${index + 1}`);
+      });
+      expect(dots[0]).toHaveAttribute('aria-current', 'true');
+      expect(dots[1]).not.toHaveAttribute('aria-current');
+      expect(screen.getByRole('button', { name: 'Go to slide 2' })).toBe(dots[1]);
+    });
+
+    it('navigates with Enter and Space', () => {
+      const { container } = render(<RdsCarousel>{slides}</RdsCarousel>);
+      const dots = container.querySelectorAll('.rds-carousel__indicator');
+      fireEvent.keyDown(dots[2], { key: 'Enter' });
+      expect(dots[2]).toHaveAttribute('aria-current', 'true');
+      expect(dots[2]).toHaveClass('rds-carousel__indicator__active');
+      fireEvent.keyDown(dots[1], { key: ' ' });
+      expect(dots[1]).toHaveAttribute('aria-current', 'true');
+      fireEvent.keyDown(dots[0], { key: 'a' });
+      expect(dots[1]).toHaveAttribute('aria-current', 'true');
+    });
+
+    it('keeps the prev/next arrow labels', () => {
+      render(<RdsCarousel>{slides}</RdsCarousel>);
+      expect(screen.getByRole('button', { name: 'Previous slide' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Next slide' })).toBeInTheDocument();
+    });
+  });
+
+  describe('G1-192 carousel pattern', () => {
+    it('labels the root as a carousel region (overridable)', () => {
+      const { container, rerender } = render(<RdsCarousel>{slides}</RdsCarousel>);
+      const root = container.querySelector('.rds-carousel');
+      expect(root).toHaveAttribute('role', 'region');
+      expect(root).toHaveAttribute('aria-roledescription', 'carousel');
+      expect(root).toHaveAttribute('aria-label', 'Carousel');
+
+      rerender(<RdsCarousel aria-label="Featured products">{slides}</RdsCarousel>);
+      expect(screen.getByRole('region', { name: 'Featured products' })).toBe(root);
+    });
+
+    it('marks slides as groups and makes off-screen slides inert', () => {
+      const { container } = render(<RdsCarousel>{slides}</RdsCarousel>);
+      const slideEls = getSlides(container);
+      slideEls.forEach((slide, index) => {
+        expect(slide).toHaveAttribute('role', 'group');
+        expect(slide).toHaveAttribute('aria-roledescription', 'slide');
+        expect(slide).toHaveAttribute('aria-label', `${index + 1} of 3`);
+      });
+      expect(slideEls[0]).not.toHaveAttribute('inert');
+      expect(slideEls[1]).toHaveAttribute('inert');
+      expect(slideEls[2]).toHaveAttribute('inert');
+
+      fireEvent.click(screen.getByRole('button', { name: 'Next slide' }));
+      expect(slideEls[0]).toHaveAttribute('inert');
+      expect(slideEls[1]).not.toHaveAttribute('inert');
+    });
+
+    it('has no axe violations in every style', async () => {
+      for (const style of ['default', 'with title', 'full width image'] as const) {
+        const { container, unmount } = render(<RdsCarousel style={style}>{slides}</RdsCarousel>);
+        const results = await axe(container);
+        expect(results).toHaveNoViolations();
+        unmount();
+      }
+    });
+  });
+
+  describe('G1-185 state sync', () => {
+    it('moves to the slide given by a changed state prop', () => {
+      const { container, rerender } = render(<RdsCarousel state="1">{slides}</RdsCarousel>);
+      rerender(<RdsCarousel state="3">{slides}</RdsCarousel>);
+      const dots = container.querySelectorAll('.rds-carousel__indicator');
+      expect(dots[2]).toHaveAttribute('aria-current', 'true');
+      expect(getSlides(container)[2]).not.toHaveAttribute('inert');
+    });
+
+    it('ignores a state outside the slide range', () => {
+      const { container, rerender } = render(<RdsCarousel state="1">{slides.slice(0, 2)}</RdsCarousel>);
+      rerender(<RdsCarousel state="4">{slides.slice(0, 2)}</RdsCarousel>);
+      const dots = container.querySelectorAll('.rds-carousel__indicator');
+      expect(dots[0]).toHaveAttribute('aria-current', 'true');
+    });
+  });
+});

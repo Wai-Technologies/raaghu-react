@@ -96,14 +96,6 @@ const meta: Meta<typeof RdsFormControl> = {
       control: { disable: true },
       table: { disable: true },
     },
-    slotProps: {
-      control: { disable: true },
-      table: { disable: true },
-    },
-    slots: {
-      control: { disable: true },
-      table: { disable: true },
-    },
   },
 };
 

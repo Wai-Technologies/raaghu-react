@@ -1,3 +1,4 @@
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -831,5 +832,35 @@ describe('RdsPopover', () => {
       expect(screen.getByText('Header')).toBeInTheDocument();
       expect(screen.getByLabelText('close')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  const anchor = document.createElement('button');
+  document.body.appendChild(anchor);
+
+  it('supports open and merges consumer paper slotProps with aria-labelledby', () => {
+    render(
+      <RdsPopover
+        open
+        onClose={jest.fn()}
+        anchorEl={anchor}
+        title="Heading"
+        slotProps={{ paper: { className: 'extra', 'data-testid': 'paper' } as any }}
+      >
+        <div>Body</div>
+      </RdsPopover>
+    );
+    const paper = screen.getByTestId('paper');
+    expect(paper).toHaveClass('rds-popover__paper', 'extra');
+    expect(paper.getAttribute('aria-labelledby')).toBe(screen.getByText('Heading').id);
+  });
+
+  it('keeps legacy isOpen working', () => {
+    render(
+      <RdsPopover isOpen onClose={jest.fn()} anchorEl={anchor}>
+        <div>Legacy</div>
+      </RdsPopover>
+    );
+    expect(screen.getByText('Legacy')).toBeInTheDocument();
   });
 });

@@ -249,7 +249,7 @@ const AppShellStory = (args: any) => {
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
                 avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                isOpen
+                open
                 items={sidebarItems}
                 variant="permanent"
                 layout="raaghu"
@@ -264,7 +264,7 @@ const AppShellStory = (args: any) => {
                 <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
                   avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                  isOpen
+                  open
                   items={sidebarItems}
                   variant="permanent"
                   layout="toolbar"
@@ -287,7 +287,7 @@ const AppShellStory = (args: any) => {
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
                 avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                isOpen
+                open
                 items={sidebarItems}
                 variant="permanent"
                 layout="raaghu"
@@ -297,7 +297,7 @@ const AppShellStory = (args: any) => {
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
                 avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                isOpen
+                open
                 items={sidebarItems}
                 variant="permanent"
                 layout="raaghu"
@@ -326,7 +326,7 @@ const AppShellStory = (args: any) => {
             <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
               avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-              isOpen
+              open
               items={sidebarItems}
               variant="permanent"
               layout="raaghu"
@@ -353,7 +353,7 @@ const AppShellStory = (args: any) => {
         <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
           avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-          isOpen
+          open
           items={sidebarItems}
           variant="permanent"
           layout="raaghu"
@@ -405,7 +405,7 @@ const AppShellStory = (args: any) => {
                 <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
                   avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                  isOpen
+                  open
                   items={[
                     {
                       icon: <Home />,

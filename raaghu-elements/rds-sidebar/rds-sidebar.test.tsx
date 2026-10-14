@@ -7,6 +7,7 @@ import { axe, configureAxe } from 'jest-axe';
 
 // Mock the SCSS file
 jest.mock('./rds-sidebar.scss');
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock child components
 jest.mock('../rds-avatar/rds-avatar', () => {
@@ -704,5 +705,57 @@ describe('RdsSidebar', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  const items: RdsSidebarItem[] = [
+    { label: 'Home', icon: <span>h</span> },
+    { label: 'Parent', icon: <span>p</span>, children: [{ label: 'Kid' }] },
+  ];
+
+  it('renders custom user name and default user', () => {
+    const { unmount } = renderWithTheme(
+      <RdsSidebar items={items} open variant="permanent" user={{ name: 'Ann', subtitle: 'Boss' }} />
+    );
+    expect(screen.getByText('Ann')).toBeInTheDocument();
+    unmount();
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" />);
+    expect(screen.getByText('Jane Doe')).toBeInTheDocument();
+  });
+
+  it('supports controlled and uncontrolled search', async () => {
+    const onSearchChange = jest.fn();
+    const { unmount } = renderWithTheme(
+      <RdsSidebar items={items} open variant="permanent" defaultSearchValue="abc" onSearchChange={onSearchChange} />
+    );
+    const input = screen.getByTestId('rds-search') as HTMLInputElement;
+    expect(input.value).toBe('abc');
+    await userEvent.type(input, 'd');
+    expect(input.value).toBe('abcd');
+    expect(onSearchChange).toHaveBeenCalledWith('abcd');
+    unmount();
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" searchValue="fixed" />);
+    const controlled = screen.getByTestId('rds-search') as HTMLInputElement;
+    await userEvent.type(controlled, 'x');
+    expect(controlled.value).toBe('fixed');
+  });
+
+  it('renders custom logo', () => {
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" showLogo logo={<span>MyLogo</span>} />);
+    expect(screen.getByText('MyLogo')).toBeInTheDocument();
+    expect(screen.queryByAltText('Raaghu Design System Logo')).not.toBeInTheDocument();
+  });
+
+  it('open overrides isOpen', () => {
+    renderWithTheme(<RdsSidebar items={items} open={false} isOpen />);
+    expect(screen.queryByText('Home')).not.toBeInTheDocument();
+  });
+
+  it('merges className and sets aria-expanded only on parents', () => {
+    const { container } = renderWithTheme(<RdsSidebar items={items} open variant="permanent" className="custom-x" />);
+    expect(container.querySelector('.rds-sidebar.custom-x')).toBeInTheDocument();
+    expect(screen.getByText('Home').closest('[role="button"], .MuiListItemButton-root')).not.toHaveAttribute('aria-expanded');
+    expect(screen.getByText('Parent').closest('.MuiListItemButton-root')).toHaveAttribute('aria-expanded', 'false');
   });
 });

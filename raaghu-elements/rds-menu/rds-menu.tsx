@@ -1,5 +1,6 @@
-import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type ReactNode } from 'react';
-import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
+import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type MouseEvent, type ReactNode } from 'react';
+import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, type MenuProps } from '@mui/material';
+import type { MenuOwnerState } from '@mui/material/Menu';
 import clsx from 'clsx';
 import './rds-menu.scss'
 
@@ -64,11 +65,13 @@ function renderMenuIcon(
   });
 }
 
+/** A single entry (item, header or divider) of an {@link RdsMenu}. */
 export interface RdsMenuItem {
   id: string | number;
   label?: string;
   icon?: ReactNode;
-  onClick?: () => void;
+  /** Called with the click event when the item is selected. The menu is not closed automatically. */
+  onClick?: (event: MouseEvent<HTMLLIElement>) => void;
   disabled?: boolean;
   divider?: boolean;
   shortcut?: string;
@@ -77,14 +80,18 @@ export interface RdsMenuItem {
 }
 
 export interface RdsMenuProps extends Omit<MenuProps, 'children' | 'component'> {
-  items: RdsMenuItem[];
+  /** Menu entries. May be omitted when `children` is supplied. */
+  items?: RdsMenuItem[];
+  /** Menu density/size; `small` renders dense rows. */
   size?: 'small' | 'medium' | 'large';
+  /** Custom menu content; when given, `items` is ignored. */
   children?: ReactNode;
 }
 
 
+/** Menu built from an `items` config (or custom `children`) on top of MUI `Menu`. */
 const RdsMenu = ({
-  items,
+  items = [],
   size,
   children,
   ...props
@@ -95,11 +102,21 @@ const RdsMenu = ({
   return (
       <MuiMenu
         {...props}
-        MenuListProps={{
-          ...props.MenuListProps,
-          role: 'menu',
-          dense,
-          className: menuListClassName,
+        slotProps={{
+          ...props.slotProps,
+          list: (ownerState: MenuOwnerState) => {
+            const slotList = props.slotProps?.list;
+            const resolved = (typeof slotList === 'function' ? slotList(ownerState) : slotList) ?? {};
+            const legacy = props.MenuListProps ?? {};
+            const sx = [legacy.sx, resolved.sx];
+            return {
+              ...legacy,
+              ...resolved,
+              dense,
+              className: clsx(menuListClassName, legacy.className, resolved.className),
+              sx: sx.flatMap((x) => (Array.isArray(x) ? x : x ? [x] : [])),
+            };
+          },
         }}
         className={menuClassName}
       >
@@ -119,8 +136,6 @@ const RdsMenu = ({
               key={item.id}
               onClick={item.onClick}
               disabled={item.disabled}
-              role="menuitem"
-              component="li"
               dense={dense}
               style={{
                 ...(item.color ? { 
@@ -147,13 +162,15 @@ const RdsMenu = ({
               <ListItemText
                 primary={item.label}
                 secondary={item.shortcut}
-                primaryTypographyProps={{ className: 'rds-menu__item__text', style: item.color ? { color: getColor(item.color) } : undefined }}
-                secondaryTypographyProps={{
-                  variant: 'body2',
-                  color: 'text.secondary',
-                  component: 'span',
-                  className: 'rds-menu__item__shortcut',
-                  sx: { textAlign: 'right', display: 'block' }
+                slotProps={{
+                  primary: { className: 'rds-menu__item__text', style: item.color ? { color: getColor(item.color) } : undefined },
+                  secondary: {
+                    variant: 'body2',
+                    color: 'text.secondary',
+                    component: 'span',
+                    className: 'rds-menu__item__shortcut',
+                    sx: { textAlign: 'right', display: 'block' },
+                  },
                 }}
               />
             </MuiMenuItem>

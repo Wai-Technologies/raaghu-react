@@ -1,16 +1,20 @@
-import React from 'react';
 import { TextField as MuiTextField, type TextFieldProps } from '@mui/material';
 import type { FormHelperTextProps } from '@mui/material/FormHelperText';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-text-field.scss';
 
-export interface RdsTextFieldProps extends Omit<TextFieldProps, 'required' | 'component'> {
+/** MUI `TextField` with Raaghu styling. `errorMessage` sets `error` and replaces `helperText`. */
+export interface RdsTextFieldProps extends Omit<TextFieldProps, 'component'> {
+  /** @deprecated Use `required` instead. */
   isRequired?: boolean;
+  /** Shorthand for `error` plus `helperText`. */
   errorMessage?: string;
 }
 
 const RdsTextField = ({
-  isRequired = false,
+  required,
+  isRequired,
   errorMessage,
   error,
   helperText,
@@ -20,6 +24,7 @@ const RdsTextField = ({
   slotProps: consumerSlotProps,
   ...props
 }: RdsTextFieldProps) => {
+  if (isRequired !== undefined) warnDeprecatedProp('RdsTextField', 'isRequired', '`required`');
   const rootClassName = clsx('rds-text-field', className);
   const consumerFormHelperTextProps =
     typeof consumerSlotProps?.formHelperText === 'object' && consumerSlotProps?.formHelperText !== null
@@ -46,7 +51,7 @@ const RdsTextField = ({
     <MuiTextField
       error={error || !!errorMessage}
       helperText={errorMessage || helperText}
-      required={isRequired}
+      required={required ?? isRequired ?? false}
       slotProps={{
         ...consumerSlotProps,
         formHelperText: formHelperTextSlotProps,

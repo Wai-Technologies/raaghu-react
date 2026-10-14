@@ -17,7 +17,7 @@ const meta: Meta<typeof RdsSnackbar> = {
       control: 'text',
       description: 'Message to display',
     },
-    type: {
+    severity: {
       control: 'select',
       options: ['error', 'warning', 'info', 'success'],
       description: 'Type of snackbar',
@@ -69,7 +69,7 @@ export const Success = {
   render: SnackbarTemplate,
   args: {
     message: 'Operation completed successfully!',
-    type: 'success',
+    severity: 'success',
   },
 };
 
@@ -77,7 +77,7 @@ export const Error = {
   render: SnackbarTemplate,
   args: {
     message: 'An error occurred. Please try again.',
-    type: 'error',
+    severity: 'error',
   },
 };
 
@@ -85,7 +85,7 @@ export const Warning = {
   render: SnackbarTemplate,
   args: {
     message: 'This action cannot be undone.',
-    type: 'warning',
+    severity: 'warning',
   },
 };
 
@@ -93,7 +93,7 @@ export const Info = {
   render: SnackbarTemplate,
   args: {
     message: 'Your changes have been saved.',
-    type: 'info',
+    severity: 'info',
   },
 };
 
@@ -101,7 +101,7 @@ export const AutoHide = {
   render: SnackbarTemplate,
   args: {
     message: 'This will disappear in 2 seconds',
-    type: 'info',
+    severity: 'info',
     autoHideDuration: 2000,
   },
 };

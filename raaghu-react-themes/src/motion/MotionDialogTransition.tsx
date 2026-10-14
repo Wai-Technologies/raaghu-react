@@ -11,8 +11,7 @@ interface MotionDialogTransitionProps extends React.HTMLAttributes<HTMLDivElemen
   timeout?: number | { enter?: number; exit?: number; appear?: number };
 }
 
-const MotionDialogTransition = React.forwardRef<HTMLDivElement, MotionDialogTransitionProps>(
-  ({ in: isIn, children, onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }, ref) => {
+const MotionDialogTransition = ({ ref, in: isIn, children, onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }: MotionDialogTransitionProps & { ref?: React.Ref<HTMLDivElement> }) => {
     const onEnterRef = React.useRef(onEnter);
     const onEnteredRef = React.useRef(onEntered);
     const onExitRef = React.useRef(onExit);
@@ -25,8 +24,7 @@ const MotionDialogTransition = React.forwardRef<HTMLDivElement, MotionDialogTran
 
     if (!isIn) return null;
     return <div ref={ref} {...rest}>{children}</div>;
-  }
-);
+  };
 
 MotionDialogTransition.displayName = 'MotionDialogTransition';
 export default MotionDialogTransition;

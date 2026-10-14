@@ -15,12 +15,11 @@ figma.connect(
       })
     },
     example: (props) => <RdsButtonDropdown 
-    buttonText="Button"
-    leftIcon={<CircleOutlinedIcon />}
-    rightIcon={<ExpandMoreOutlinedIcon/>}
+    startIcon={<CircleOutlinedIcon />}
+    endIcon={<ExpandMoreOutlinedIcon/>}
     showRadio
     showUserAvatar
-    multiSelect
+    multiple
     showSearch
     {...props}
      options={[
@@ -55,6 +54,8 @@ figma.connect(
       label: 'Option 5'
     },
   ]}
-    />,
+    >
+      Button
+    </RdsButtonDropdown>,
   },
 )

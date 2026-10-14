@@ -1,4 +1,4 @@
-import { forwardRef, type MouseEvent } from "react";
+import { type MouseEvent, type Ref } from "react";
 import clsx from "clsx";
 import CloseIcon from "@mui/icons-material/Close";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -16,9 +16,9 @@ interface CustomInputWithClearProps {
   openCustomPicker?: () => void;
 }
 
-export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithClearProps>(
-  (
+export const CustomInputWithClear = (
     {
+      ref,
       value,
       onClick,
       placeholder,
@@ -27,9 +27,7 @@ export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithCl
       clearDate,
       changeIcon,
       openCustomPicker,
-    },
-    ref
-  ) => {
+    }: CustomInputWithClearProps & { ref?: Ref<HTMLDivElement> }) => {
     const handleTriggerClick = (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
       if (isDisabled) return;
@@ -87,7 +85,6 @@ export const CustomInputWithClear = forwardRef<HTMLDivElement, CustomInputWithCl
         </button>
       </div>
     );
-  }
-);
+  };
 
 CustomInputWithClear.displayName = "CustomInputWithClear";

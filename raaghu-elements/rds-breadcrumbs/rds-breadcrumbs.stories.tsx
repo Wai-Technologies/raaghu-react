@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from 'storybook/test';
 import RdsBreadcrumbs, { BreadcrumbSeparator } from './rds-breadcrumbs';
 
 const meta: Meta<typeof RdsBreadcrumbs> = {
@@ -58,7 +57,7 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
     },
     icon: {
       control: 'text',
-      description: 'Icon to display in breadcrumb items',
+      description: "Icon to display in breadcrumb items: a built-in name ('home', 'folder', 'category', 'business', 'inventory', 'star') or any icon element",
     },
     separator: { control: { disable: true }, table: { disable: true } },
   },

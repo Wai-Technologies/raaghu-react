@@ -49,7 +49,7 @@ export const Default: Story = {
         </Button>
         <RdsPopover
           {...args}
-          isOpen={Boolean(anchorEl)}
+          open={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
           title="Simple Popover"
@@ -91,7 +91,7 @@ export const CustomPosition: Story = {
         </Button>
         <RdsPopover
           {...args}
-          isOpen={Boolean(anchorEl)}
+          open={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
           title="Custom Position"
@@ -142,7 +142,7 @@ export const WideContent: Story = {
         </Button>
         <RdsPopover
           {...args}
-          isOpen={Boolean(anchorEl)}
+          open={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
           title="Wide Content Popover"
@@ -192,7 +192,7 @@ export const WithCloseButton: Story = {
         </Button>
         <RdsPopover
           {...args}
-          isOpen={Boolean(anchorEl)}
+          open={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
           title="Popover with Close"
@@ -239,7 +239,7 @@ export const WithList: Story = {
           Open Menu Popover
         </Button>
         <RdsPopover
-          isOpen={Boolean(anchorEl)}
+          open={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
           title="Menu Options"

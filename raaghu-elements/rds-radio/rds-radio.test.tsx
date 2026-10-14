@@ -3,6 +3,9 @@ import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRadio, { RdsRadioOption } from './rds-radio';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import { axe } from 'jest-axe';
 
 // Mock SCSS import
@@ -1004,5 +1007,36 @@ describe('RdsRadio', () => {
     it('should have correct displayName', () => {
       expect(RdsRadio.displayName).toBe('RdsRadio');
     });
+  });
+});
+describe('RdsRadio audit fixes', () => {
+  const options = [
+    { label: 'One', value: 'one' },
+    { label: 'Two', value: 'two' },
+  ];
+
+  it('renders option labels from the label field (G2-172)', () => {
+    renderWithTheme(<RdsRadio options={options} />);
+    expect(screen.getByLabelText('One')).toBeInTheDocument();
+  });
+
+  it('lays options out in a row with the MUI row prop (G2-173)', () => {
+    const { container } = renderWithTheme(<RdsRadio options={options} row />);
+    expect(container.querySelector('.MuiRadioGroup-row')).toBeInTheDocument();
+  });
+
+  it('groups bottom-label radios for assistive technology and arrow keys (G2-168)', () => {
+    const { container } = renderWithTheme(<RdsRadio options={options} layout="icon with bottom label" label="Pick one" />);
+    const group = screen.getByRole('radiogroup', { name: 'Pick one' });
+    expect(group).toBeInTheDocument();
+    const names = Array.from(container.querySelectorAll('input[type="radio"]')).map(input => input.getAttribute('name'));
+    expect(names[0]).toBeTruthy();
+    expect(new Set(names).size).toBe(1);
+  });
+
+  it('reports deprecated props to the deprecation helper', () => {
+    renderWithTheme(<RdsRadio options={[{ text: 'Old', value: 'old' }]} direction="row" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRadio', 'direction', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRadio', 'options[].text', expect.any(String));
   });
 });

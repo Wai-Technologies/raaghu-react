@@ -7,6 +7,7 @@ import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-text-area.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsTextArea', () => {
   describe('Basic Rendering', () => {
@@ -739,5 +740,34 @@ describe('RdsTextArea', () => {
       render(<RdsTextArea label="Label Only" dataTestId="test-textarea" />);
       expect(screen.getByText('Label Only')).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('G2-343: accepts string state/style values', () => {
+    render(<RdsTextArea state="Disabled" style="Pill" dataTestId="ta" />);
+    const ta = screen.getByTestId('ta');
+    expect(ta).toBeDisabled();
+    expect(ta).toHaveClass('textarea-pill');
+  });
+
+  it('G2-346: passes className, name, maxLength, disabled, defaultValue and ref', () => {
+    const ref = React.createRef<HTMLTextAreaElement>();
+    const { container } = render(
+      <RdsTextArea ref={ref} className="root-x" name="notes" maxLength={10} defaultValue="hi" disabled data-testid="ta" />
+    );
+    const ta = screen.getByTestId('ta') as HTMLTextAreaElement;
+    expect(container.firstChild).toHaveClass('rds-textarea-container', 'root-x');
+    expect(ta).toHaveAttribute('name', 'notes');
+    expect(ta).toHaveAttribute('maxLength', '10');
+    expect(ta.value).toBe('hi');
+    expect(ta).toBeDisabled();
+    expect(ref.current).toBe(ta);
+  });
+
+  it('G2-350: required behaves like isMandatory', () => {
+    render(<RdsTextArea required label="Notes" value="" dataTestId="ta" />);
+    expect(screen.getByText('Notes is required')).toBeInTheDocument();
+    expect(screen.getByTestId('ta')).toHaveAttribute('aria-required', 'true');
   });
 });

@@ -11,8 +11,7 @@ interface MotionMenuTransitionProps extends React.HTMLAttributes<HTMLDivElement>
   timeout?: number | { enter?: number; exit?: number; appear?: number };
 }
 
-const MotionMenuTransition = React.forwardRef<HTMLDivElement, MotionMenuTransitionProps>(
-  ({ in: isIn, children, onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }, ref) => {
+const MotionMenuTransition = ({ ref, in: isIn, children, onEnter, onEntered, onExit, onExited, durationMs, appear, timeout, ...rest }: MotionMenuTransitionProps & { ref?: React.Ref<HTMLDivElement> }) => {
     const onEnterRef = React.useRef(onEnter);
     const onEnteredRef = React.useRef(onEntered);
     const onExitRef = React.useRef(onExit);
@@ -25,8 +24,7 @@ const MotionMenuTransition = React.forwardRef<HTMLDivElement, MotionMenuTransiti
 
     if (!isIn) return null;
     return <div ref={ref} style={{ transformOrigin: 'top center' }} {...rest}>{children}</div>;
-  }
-);
+  };
 
 MotionMenuTransition.displayName = 'MotionMenuTransition';
 export default MotionMenuTransition;

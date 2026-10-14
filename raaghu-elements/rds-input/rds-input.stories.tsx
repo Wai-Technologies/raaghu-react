@@ -69,14 +69,14 @@ export const Default: Story = {
     style: 'default',
     state: 'default',
     label: 'Input Label',
-    hintText: 'This is a hint text',
-    isMandatory: false,
+    helperText: 'This is a hint text',
+    required: false,
     titlePosition: 'inline-title',
     error: false,
     disabled: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'helperText', 'required', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
@@ -92,14 +92,14 @@ Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 't
 export const Required: Story = {
   args: {
     label: 'Required Input',
-    isMandatory: true,
+    required: true,
     placeholder: 'This field is required',
     size: 'small',
     layout: 'text',
     titlePosition: 'inline-title',
   },
 };
-Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'titlePosition'] } };
+Required.parameters = { controls: { include: ['label', 'required', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
 export const WithLabel: Story = {
   args: {
@@ -115,7 +115,7 @@ WithLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', '
 export const WithError: Story = {
   args: {
     label: 'Input with Error',
-    hintText: 'This field has an error',
+    helperText: 'This field has an error',
     placeholder: 'Invalid value',
     size: 'small',
     layout: 'text',
@@ -123,4 +123,4 @@ export const WithError: Story = {
     state: 'error',
   },
 };
-WithError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };
+WithError.parameters = { controls: { include: ['label', 'helperText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };

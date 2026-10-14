@@ -1,24 +1,38 @@
-import { type SyntheticEvent } from 'react';
-import { Snackbar as MuiSnackbar, Alert, type SnackbarProps } from '@mui/material';
+import { type ReactNode, type SyntheticEvent } from 'react';
+import { Snackbar as MuiSnackbar, Alert, type AlertColor, type SnackbarProps } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 export interface RdsSnackbarProps extends Omit<SnackbarProps, 'component'> {
-  message?: string;
-  type?: 'success' | 'error' | 'warning' | 'info';
+  /** Content of the alert; when set, the snackbar renders an Alert. */
+  message?: ReactNode;
+  /** @deprecated Use `severity` instead. */
+  type?: AlertColor;
+  /** Alert severity. Defaults to 'info'. */
+  severity?: AlertColor;
+  /** Shows the close button on the alert. */
   showCloseButton?: boolean;
+  /** Called when the snackbar closes (clickaway is ignored). */
   onClose?: () => void;
+  /** @deprecated Use `autoHideDuration` instead. */
   duration?: number;
 }
 
+/** Transient notification built on MUI Snackbar and Alert. */
 const RdsSnackbar = ({
   message,
-  type = 'info',
+  type,
+  severity,
   showCloseButton = true,
   onClose,
-  duration = 6000,
+  duration,
   autoHideDuration,
   children,
   ...props
 }: RdsSnackbarProps) => {
+  if (type !== undefined) warnDeprecatedProp('RdsSnackbar', 'type', '`severity`');
+  if (duration !== undefined) warnDeprecatedProp('RdsSnackbar', 'duration', '`autoHideDuration`');
+  const resolvedSeverity = severity ?? type ?? 'info';
+
   const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
@@ -29,19 +43,18 @@ const RdsSnackbar = ({
   };
 
   const content = message || children;
-  const alertTextColor = type ? `var(--rds-alert-${type}-text, var(--rds-text-primary))` : 'var(--rds-text-primary)';
+  const alertTextColor = resolvedSeverity ? `var(--rds-alert-${resolvedSeverity}-text, var(--rds-text-primary))` : 'var(--rds-text-primary)';
 
   return (
     <MuiSnackbar
-      open={props.open}
-      autoHideDuration={autoHideDuration || duration}
+      autoHideDuration={autoHideDuration || duration || 6000}
       onClose={handleClose}
       {...props}
     >
-      {type && message ? (
+      {resolvedSeverity && message ? (
         <Alert
           onClose={showCloseButton ? handleClose : undefined}
-          severity={type}
+          severity={resolvedSeverity}
           sx={{
             width: '100%',
             '& .MuiAlert-message': {

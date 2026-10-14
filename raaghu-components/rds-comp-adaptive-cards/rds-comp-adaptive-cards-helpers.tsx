@@ -157,13 +157,6 @@ export function InputFormCard(props: AdaptiveCardProps) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  const nameRef = React.useRef(name);
-  const emailRef = React.useRef(email);
-  const phoneRef = React.useRef(phone);
-  nameRef.current = name;
-  emailRef.current = email;
-  phoneRef.current = phone;
-
   return (
     <div>
       <div className="rds-adaptive-cards__input-form-label">{label}</div>
@@ -176,7 +169,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
           required 
           aria-label={nameLabel || 'Name'}
           value={nameValue !== undefined ? nameValue : name} 
-          onChange={onNameChange ? onNameChange : (e => { const v = e.target.value; setName(v); onChange?.({ name: v, email: emailRef.current, phone: phoneRef.current }); })} 
+          onChange={onNameChange ? onNameChange : (e => { const v = e.target.value; setName(v); onChange?.({ name: v, email, phone }); })} 
           name="name" 
         />
         {nameError && <div className="rds-adaptive-cards__error-message">{nameError}</div>}
@@ -190,7 +183,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
           type="email" 
           aria-label={emailLabel || 'Email'}
           value={emailValue !== undefined ? emailValue : email} 
-          onChange={onEmailChange ? onEmailChange : (e => { const v = e.target.value; setEmail(v); onChange?.({ name: nameRef.current, email: v, phone: phoneRef.current }); })} 
+          onChange={onEmailChange ? onEmailChange : (e => { const v = e.target.value; setEmail(v); onChange?.({ name, email: v, phone }); })} 
           name="email" 
         />
         {emailError && <div className="rds-adaptive-cards__error-message">{emailError}</div>}
@@ -204,7 +197,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
           type="tel" 
           aria-label={phoneLabel || 'Phone number'}
           value={phoneValue !== undefined ? phoneValue : phone} 
-          onChange={onPhoneChange ? onPhoneChange : (e => { const v = e.target.value; setPhone(v); onChange?.({ name: nameRef.current, email: emailRef.current, phone: v }); })} 
+          onChange={onPhoneChange ? onPhoneChange : (e => { const v = e.target.value; setPhone(v); onChange?.({ name, email, phone: v }); })} 
           name="phone" 
         />
         {phoneError && <div className="rds-adaptive-cards__error-message">{phoneError}</div>}

@@ -609,3 +609,14 @@ describe('RdsPaper', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('G2-136: applies padding={0}', () => {
+    render(<RdsPaper padding={0} data-testid="p">Content</RdsPaper>);
+    expect(screen.getByTestId('p')).toHaveStyle({ padding: '0px' });
+  });
+
+  it('G2-138: accepts an sx array', () => {
+    render(<RdsPaper padding={2} sx={[{ margin: '10px' }, false]} data-testid="p">Content</RdsPaper>);
+    expect(screen.getByTestId('p')).toHaveStyle({ margin: '10px', padding: '16px' });
+  });
+});

@@ -558,3 +558,14 @@ describe('RdsSkeleton', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('variant takes precedence over shape and drives the class', () => {
+    const { container } = render(<RdsSkeleton variant="circular" shape="rounded" />);
+    expect(container.querySelector('.rds-skeleton--circular')).toBeInTheDocument();
+  });
+  it('merges consumer sx and only sets height/width when defined', () => {
+    const { container } = render(<RdsSkeleton sx={{ height: 33 }} />);
+    expect(container.querySelector('.rds-skeleton')).toHaveStyle({ height: '33px' });
+  });
+});

@@ -7,6 +7,7 @@ import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-text-field.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -684,5 +685,18 @@ describe('RdsTextField', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('G2-357: required sets the input required; deprecated isRequired still works', () => {
+    const { container, rerender } = renderWithTheme(<RdsTextField required />);
+    expect((container.querySelector('input') as HTMLInputElement).required).toBe(true);
+    rerender(
+      <ThemeProvider theme={createTheme()}>
+        <RdsTextField isRequired />
+      </ThemeProvider>
+    );
+    expect((container.querySelector('input') as HTMLInputElement).required).toBe(true);
   });
 });

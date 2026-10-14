@@ -1,4 +1,6 @@
-import { useRef, useState, type MouseEvent } from 'react';
+import { useState, type MouseEvent, type KeyboardEvent, type HTMLAttributes, type ReactNode, type Ref } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import type { SxProps, Theme } from '@mui/material/styles';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -16,12 +18,24 @@ export type MenuOption = {
   children?: MenuOption[];
 };
 
-export interface RdsMultiLevelMenuProps {
+/** Props for {@link RdsMultiLevelMenu}. Extra props are forwarded to the root element. */
+export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'children'> {
+  /** Menu items; an item with `children` opens a nested submenu. */
   options: MenuOption[];
+  /** `expandable` opens submenus; `selectable` keeps a checked item. */
   type?: 'expandable' | 'selectable';
+  /** Size of the trigger button and menu items. */
   size?: 'default' | 'large';
+  /** Called with the chosen option. */
   onSelect?: (option: MenuOption) => void;
+  /** Figma state: forces the first item hovered or selected. */
   state?: 'default' | 'hover' | 'selected';
+  /** Trigger button label. Defaults to "Multi Level Menu". */
+  children?: ReactNode;
+  /** MUI system styles for the root element. */
+  sx?: SxProps<Theme>;
+  /** Ref to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 
@@ -43,14 +57,20 @@ export const RdsMultiLevelMenu = ({
   size = 'default',
   state = 'default',
   onSelect,
-}:RdsMultiLevelMenuProps) => {
+  children,
+  className,
+  sx,
+  ref,
+  ...rest
+}: RdsMultiLevelMenuProps) => {
+  const isMobile = useMediaQuery('(max-width:568px)', { noSsr: true });
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
-  const prevSizeRef = useRef(size);
+  const [prevSize, setPrevSize] = useState(size);
 
-  if (size !== prevSizeRef.current) {
-    prevSizeRef.current = size;
+  if (size !== prevSize) {
+    setPrevSize(size);
     setAnchorEls([null]);
     setOpenIndexes([]);
   }
@@ -62,7 +82,7 @@ export const RdsMultiLevelMenu = ({
     setOpenIndexes(newOpenIndexes);
   };
 
-  const handleMenuOpen = (event: MouseEvent<HTMLElement>, level: number, index: number) => {
+  const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
     const newAnchors = [...anchorEls];
     newAnchors[0] = event.currentTarget as HTMLElement;
     setAnchorEls(newAnchors.slice(0, 1));
@@ -85,7 +105,11 @@ export const RdsMultiLevelMenu = ({
   const renderMenu = (opts: MenuOption[], level = 0) => {
     const anchorEl = anchorEls[level];
     const open = Boolean(anchorEl);
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 568;
+    const closeAndFocusParent = () => {
+      const parent = anchorEl?.closest('li') ?? anchorEl;
+      handleMenuClose(level);
+      parent?.focus();
+    };
     return (
       <Menu
         anchorEl={anchorEl}
@@ -93,8 +117,14 @@ export const RdsMultiLevelMenu = ({
         onClose={() => handleMenuClose(level)}
         anchorOrigin={level > 0 && isMobile ? { vertical: 'bottom', horizontal: 'left' } : { vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        MenuListProps={{ autoFocusItem: open, disablePadding: true }}
+        {...(level > 0 ? { onKeyDown: (e: KeyboardEvent<HTMLElement>) => {
+          if (e.key === 'ArrowLeft' || e.key === 'Escape') {
+            e.stopPropagation();
+            closeAndFocusParent();
+          }
+        } } : {})}
         slotProps={{
+          list: { autoFocusItem: open, disablePadding: true },
           paper: {
             sx: level === 0
               ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset, 43px)', sm: 0 } }
@@ -127,6 +157,12 @@ export const RdsMultiLevelMenu = ({
                       }
                     : () => handleSelect(option, level, idx)
                 }
+                onKeyDown={isExpandable ? (e) => {
+                  if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    setSubmenuAnchor(level, e.currentTarget as HTMLElement, idx);
+                  }
+                } : undefined}
                 selected={type === 'selectable' && isSelected}
                 sx={{
                   ...menuItemStyle,
@@ -143,7 +179,7 @@ export const RdsMultiLevelMenu = ({
                   <Box className={'rds-mlm-leading'}>
                     {type === 'selectable' && isSelected ? <CheckIcon fontSize="small" /> : null}
                   </Box>
-                  <ListItemText primary={option.label} primaryTypographyProps={{ fontWeight: 400 }} />
+                  <ListItemText primary={option.label} slotProps={{ primary: { fontWeight: 400 } }} />
                   {!isExpandable && option.shortcut && (
                     <Box className={'rds-mlm-shortcut'}>{option.shortcut}</Box>
                   )}
@@ -176,16 +212,21 @@ export const RdsMultiLevelMenu = ({
   const rootMenuElement = renderMenu(options, 0);
 
   return (
-    <div className={clsx('rds-multi-level-menu', `type-${type}`)}>
+    <Box
+      {...rest}
+      ref={ref}
+      className={clsx('rds-multi-level-menu', `type-${type}`, className)}
+      sx={Array.isArray(sx) ? sx : [sx]}
+    >
       <RdsButton
         style="filled"
-        onClick={(e) => handleMenuOpen(e, 0, -1)}
+        onClick={(e) => handleMenuOpen(e)}
         size={size === 'large' ? 'large' : 'medium'}
       >
-        Multi Level Menu
+        {children ?? 'Multi Level Menu'}
       </RdsButton>
       {rootMenuElement}
-    </div>
+    </Box>
   );
 };
 

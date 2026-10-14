@@ -1,4 +1,4 @@
-import { type ElementType } from 'react';
+import type { ElementType, ReactNode } from 'react';
 import {
   Divider as MuiDivider,
   type DividerProps,
@@ -8,6 +8,7 @@ import {
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 const ICON_MAP: Record<string, ElementType> = {
   InfoOutlined: InfoOutlinedIcon,
@@ -31,45 +32,77 @@ const SIZE_STYLES: Record<string, { borderWidth: string; marginY: number }> = {
 const DEFAULT_SIZE_STYLES = { borderWidth: 'var(--rds-divider-border-width-md, 2px)', marginY: 2 };
 
 
+/**
+ * Props of `RdsDivider`. `textAlign` (`'left' | 'center' | 'right'`, default `'center'`) comes from
+ * MUI `DividerProps` and positions the text/icon content along the line.
+ *
+ * Where forwarded props land: every MUI `Divider` line receives the remaining props (`className`,
+ * `sx`, `style`, `aria-*`, handlers, …). `id` and `ref` are applied to exactly one element: the first
+ * line in DOM order (the leading line for `textAlign` `'center'`/`'right'`, the only line for
+ * `'left'` and for `layout="vertical"`).
+ */
 export interface RdsDividerProps extends Omit<DividerProps, 'component'> {
+  /** Text shown next to the line. Takes precedence over the deprecated `dividerMessage`. */
+  children?: ReactNode;
+  /** @deprecated Use `children` instead. */
   dividerMessage?: string;
-  textAlign?: 'left' | 'center' | 'right';
+  /** Figma layout. Defaults to `'horizontal'`. */
   layout?: 'horizontal' | 'vertical';
+  /** Shows the icon. Defaults to `true`. */
   iconShow?: boolean;
+  /**
+   * Icon shown next to the text when `iconShow` is on. Takes precedence over the deprecated
+   * `iconName`. `null`/`false` hide the icon. Defaults to an InfoOutlined icon.
+   */
+  icon?: ReactNode;
+  /** @deprecated Use `icon` instead. */
   iconName?: string;
+  /** Line thickness. Defaults to `'medium'`. */
   size?: 'small' | 'medium' | 'large';
+  /** Colour style. Defaults to `'subtle'`. */
   styleVariant?: 'subtle' | 'strong' | 'primary';
 }
 
-const RdsDivider= ({
+const RdsDivider = ({
+  children,
   dividerMessage,
   textAlign = 'center',
   layout = 'horizontal',
   iconShow = true,
-  iconName = 'InfoOutlined',
+  icon,
+  iconName,
   size = 'medium',
   styleVariant = 'subtle',
+  id,
+  ref,
   ...props
-}:RdsDividerProps) => {
+}: RdsDividerProps) => {
+  if (dividerMessage !== undefined) warnDeprecatedProp('RdsDivider', 'dividerMessage', '`children`');
+  if (iconName !== undefined) warnDeprecatedProp('RdsDivider', 'iconName', '`icon`');
+
+  // `children` wins over the deprecated `dividerMessage`.
+  const message: ReactNode = children ?? dividerMessage;
+  const hasMessage = message !== undefined && message !== null && message !== false && message !== '';
+
   const normalizedIconName = iconName?.trim();
   const IconComponent: ElementType = (normalizedIconName && ICON_MAP[normalizedIconName]) || InfoOutlinedIcon;
+  const showIcon = iconShow && icon !== null && icon !== false;
 
   const styleColors = STYLE_COLORS[styleVariant] ?? DEFAULT_STYLE_COLORS;
   const dividerLineColor = styleColors.dividerColor;
   const textColor = styleColors.textColor;
-  const iconBorderColor = styleColors.iconBorderColor;
   const iconColor = styleColors.iconColor;
 
   const sizeStyles = SIZE_STYLES[size] ?? DEFAULT_SIZE_STYLES;
 
-  const content = (dividerMessage || iconShow) && (
+  const content = (hasMessage || showIcon) && (
    <Box
     display="flex"
     alignItems="center"
     gap={{ xs: 0.3, sm: 0.3, md: 0.3, lg: 1.0 }}
-    px={dividerMessage ? 1 : (layout === 'horizontal' ? 2 : 0)}
+    px={hasMessage ? 1 : (layout === 'horizontal' ? 2 : 0)}
   >
-    {iconShow && (
+    {showIcon && (
       <Box
         sx={{
           width: 'var(--rds-divider-icon-box-size, 28px)',
@@ -77,14 +110,18 @@ const RdsDivider= ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          // A custom `icon` inherits the style colour (MUI icons default to `color="inherit"`).
+          ...(icon !== undefined && { color: iconColor }),
         }}
       >
-        <IconComponent sx={{ fontSize: 'var(--rds-divider-icon-size, 21px)', color: iconColor }} />
+        {icon !== undefined
+          ? icon
+          : <IconComponent sx={{ fontSize: 'var(--rds-divider-icon-size, 21px)', color: iconColor }} />}
       </Box>
     )}
-  {dividerMessage && (
+  {hasMessage && (
     <Typography variant="body2" sx={{ fontWeight: 'fontWeightMedium', color: textColor }}>
-      {dividerMessage}
+      {message}
     </Typography>
   )}
   </Box>
@@ -97,54 +134,42 @@ const RdsDivider= ({
         <Typography variant="body2" sx={{ mr: 1 }}>Left</Typography>
         <MuiDivider
           orientation="vertical"
-          sx={{ 
-            mx: 2, 
-            height: '80%', 
+          sx={{
+            mx: 2,
+            height: '80%',
             borderColor: dividerLineColor,
             borderWidth: sizeStyles.borderWidth,
           }}
           {...props}
+          id={id}
+          ref={ref}
         />
         <Typography variant="body2" sx={{ ml: 1 }}>Right</Typography>
       </Box>
     );
   }
 
+  const lineSx = {
+    flex: 1,
+    borderColor: dividerLineColor,
+    borderWidth: sizeStyles.borderWidth,
+  };
+  const hasLeadingLine = textAlign === 'center' || textAlign === 'right';
+  const hasTrailingLine = textAlign === 'center' || textAlign === 'left';
+  // `id` and `ref` go on the first line only, so the id stays unique and the ref is predictable.
+  const firstLineProps = { id, ref };
+
   return (
-    <Box 
-      display="flex" 
-      alignItems="center" 
-      width="100%" 
+    <Box
+      display="flex"
+      alignItems="center"
+      width="100%"
       my={sizeStyles.marginY}
     >
-      {textAlign === 'center' && (
-        <MuiDivider sx={{ 
-          flex: 1, 
-          borderColor: dividerLineColor,
-          borderWidth: sizeStyles.borderWidth,
-        }} {...props} />
-      )}
-      {textAlign === 'right' && (
-        <MuiDivider sx={{ 
-          flex: 1, 
-          borderColor: dividerLineColor,
-          borderWidth: sizeStyles.borderWidth,
-        }} {...props} />
-      )}
+      {hasLeadingLine && <MuiDivider sx={lineSx} {...props} {...firstLineProps} />}
       {content}
-      {textAlign === 'center' && (
-        <MuiDivider sx={{ 
-          flex: 1, 
-          borderColor: dividerLineColor,
-          borderWidth: sizeStyles.borderWidth,
-        }} {...props} />
-      )}
-      {textAlign === 'left' && (
-        <MuiDivider sx={{ 
-          flex: 1, 
-          borderColor: dividerLineColor,
-          borderWidth: sizeStyles.borderWidth,
-        }} {...props} />
+      {hasTrailingLine && (
+        <MuiDivider sx={lineSx} {...props} {...(hasLeadingLine ? undefined : firstLineProps)} />
       )}
     </Box>
   );

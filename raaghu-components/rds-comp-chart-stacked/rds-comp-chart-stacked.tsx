@@ -1,11 +1,4 @@
-import { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
-import {
-  applyChartThemeColors,
-  attachChartData,
-  cloneChartOptions,
-  useChartThemeMode,
-} from "../chart-utils";
+import { useChart } from "../use-chart";
 import "./rds-comp-chart-stacked.scss";
 
 export interface RdsCompStackedProps {
@@ -23,27 +16,13 @@ const RdsCompStackedChart = ({
   id,
   chartLabel,
 }: RdsCompStackedProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef = useRef<Chart | null>(null);
-  const themeMode = useChartThemeMode();
-
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-
-    chartRef.current?.destroy();
-
-    const chartOptions = cloneChartOptions(options);
-    const chartData = { labels, datasets: dataSets };
-
-    attachChartData(chartOptions, chartData);
-    applyChartThemeColors(chartOptions);
-
-    chartRef.current = new Chart(ctx, {
+  const { canvasRef } = useChart<"bar">(
+    {
       type: "bar",
-      data: chartData,
-      options: {
-        ...chartOptions,
+      labels,
+      datasets: dataSets,
+      options,
+      overrides: (chartOptions) => ({
         maintainAspectRatio: false,
         scales: {
           ...(chartOptions?.scales || {}),
@@ -59,13 +38,10 @@ const RdsCompStackedChart = ({
             },
           },
         },
-      },
-    });
-
-    return () => {
-      chartRef.current?.destroy();
-    };
-  }, [labels, dataSets, options, themeMode]);
+      }),
+    },
+    [labels, dataSets, options]
+  );
 
   return (
     <div className="stack-chart-container">

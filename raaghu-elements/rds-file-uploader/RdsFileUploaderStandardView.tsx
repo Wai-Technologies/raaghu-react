@@ -1,9 +1,14 @@
-import { useState, type ReactNode, type ChangeEvent, type Dispatch, type SetStateAction } from 'react';
+import { useId, type ReactNode, type ChangeEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material/styles';
+import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
-import { type FileWithProgress } from './rds-file-uploader';
+import type { FileWithProgress, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
 interface RdsFileUploaderStandardViewProps {
+  /** Props forwarded to the root `Box` (consumer `className`, `sx`, `ref`, `id`, `aria-*`…). */
+  rootProps?: RdsFileUploaderRootProps;
+  accept?: string;
   viewConfig: {
     showTitle: boolean;
     isMandatory: boolean;
@@ -28,7 +33,13 @@ interface RdsFileUploaderStandardViewProps {
   title?: string;
 }
 
+type SxArray = Extract<SxProps<Theme>, ReadonlyArray<unknown>>;
+const toSxArray = (sx: SxProps<Theme> | undefined): SxArray =>
+  (Array.isArray(sx) ? sx : sx ? [sx] : []) as SxArray;
+
 const RdsFileUploaderStandardView = ({
+  rootProps,
+  accept,
   viewConfig,
   interactionConfig,
   mandatoryError,
@@ -44,12 +55,18 @@ const RdsFileUploaderStandardView = ({
 }: RdsFileUploaderStandardViewProps) => {
   const { showTitle, isMandatory, showHint, showPreview } = viewConfig;
   const { disabled, dragAndDrop, isDragOver, multiple } = interactionConfig;
+  const { className, sx, ...restRootProps } = rootProps ?? {};
+  const titleId = useId();
 
   return (
-    <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>
+    <Box
+      {...restRootProps}
+      className={clsx('rds-file-uploader__standard', className)}
+      sx={[{ width: '100%' }, ...toSxArray(sx)]}
+    >
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
-          <Typography className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
+          <Typography id={titleId} className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
             {title || 'File'}{isMandatory && <span className="rds-file-uploader__mandatory">*</span>}
           </Typography>
         </Box>
@@ -78,12 +95,14 @@ const RdsFileUploaderStandardView = ({
             padding: 'var(--rds-file-uploader-upload-padding-y, 4px) var(--rds-file-uploader-upload-padding-x, 13px)',
             flexShrink: 0,
           }}
+          aria-describedby={showTitle ? titleId : undefined}
           {...({ component: 'label' } as Record<string, unknown>)}
         >
           Choose File
           <input
             type="file"
             hidden
+            accept={accept}
             multiple={multiple}
             disabled={disabled}
             onChange={handleFileSelect}
@@ -96,15 +115,13 @@ const RdsFileUploaderStandardView = ({
           noWrap
           sx={{ color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)' }}
         >
-          {showPreview
-            ? (selectedFileName ? selectedFileName : 'No file chosen')
-            : 'No file chosen'}
+          {selectedFileName || 'No file chosen'}
         </Typography>
         {showPreview && selectedFileName && (
           <IconButton
             className="rds-file-uploader__file-remove"
             size="small"
-            aria-label="Remove file"
+            aria-label={`Remove ${selectedFileName}`}
             onClick={() => {
               setSelectedFileName(null);
               setFiles([]);

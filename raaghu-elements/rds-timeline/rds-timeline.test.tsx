@@ -701,3 +701,12 @@ describe('RdsTimeline', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('G2-371: root gets rds-timeline merged with a consumer className', () => {
+    const { container } = render(
+      <RdsTimeline className="custom" items={[{ id: 1, title: 'Start' }]} />
+    );
+    expect(container.querySelector('.MuiTimeline-root')).toHaveClass('rds-timeline', 'custom');
+  });
+});

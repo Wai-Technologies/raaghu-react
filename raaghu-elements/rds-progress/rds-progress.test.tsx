@@ -5,6 +5,9 @@ import RdsProgress from './rds-progress';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
 // Mock SCSS
 jest.mock('./rds-progress.scss', () => ({}));
 
@@ -725,5 +728,40 @@ describe('RdsProgress', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('warns when deprecated type is passed', () => {
+    renderWithTheme(<RdsProgress type="circular" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsProgress', 'type', '`style`');
+  });
+
+  it('applies aria props to linear and circular', () => {
+    renderWithTheme(<RdsProgress aria-label="Upload" aria-labelledby="lbl" />);
+    const bar = screen.getByRole('progressbar');
+    expect(bar).toHaveAttribute('aria-label', 'Upload');
+    expect(bar).toHaveAttribute('aria-labelledby', 'lbl');
+  });
+
+  it('forwards className and rest props on every style', () => {
+    const { container } = renderWithTheme(<RdsProgress style="dash" className="extra" data-testid="root" />);
+    expect(screen.getByTestId('root')).toHaveClass('rds-progress', 'extra');
+    expect(container.querySelectorAll('.rds-progress__dash')).toHaveLength(5);
+  });
+
+  it('derives value from steps/totalSteps and uses totalSteps segments', () => {
+    const { container } = renderWithTheme(<RdsProgress style="block" steps={3} totalSteps={7} />);
+    expect(container.querySelectorAll('.rds-progress__block')).toHaveLength(7);
+    expect(container.querySelectorAll('.rds-progress__block--filled')).toHaveLength(3);
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(Math.round(300 / 7)));
+  });
+
+  it('exposes progressbar semantics on stepper and supports formatStepLabel and sx array', () => {
+    renderWithTheme(<RdsProgress style="block" steps={1} aria-label="Wizard" sx={[{ margin: 1 }]} formatStepLabel={(n) => `S${n}`} />);
+    const bar = screen.getByRole('progressbar');
+    expect(bar).toHaveAttribute('aria-label', 'Wizard');
+    expect(bar).toHaveAttribute('aria-valuemax', '100');
+    expect(screen.getByText('S2')).toBeInTheDocument();
   });
 });

@@ -143,16 +143,17 @@ const RdsCompCodeSnippet = ({
                 {showLanguage && (
                   <div className="rds-comp-code-snippet__language-dropdown">
                     <RdsButtonDropdown
-                      buttonText={selectedLanguage || (languageLabel as string)}
                       options={LANGUAGE_OPTIONS}
                       showSearch={false}
-                      leftIcon={<CodeOffIcon style={{ fontSize: 16 }} />}
-                      rightIcon={<KeyboardArrowDownIcon style={{ fontSize: 18 }} />}
+                      startIcon={<CodeOffIcon style={{ fontSize: 16 }} />}
+                      endIcon={<KeyboardArrowDownIcon style={{ fontSize: 18 }} />}
                       onChange={handleLanguageChange}
                       showUserAvatar={false}
                       showRadio={false}
                       size="small"
-                    />
+                    >
+                      {selectedLanguage || (languageLabel as string)}
+                    </RdsButtonDropdown>
                   </div>
                 )}
                 <RdsButton

@@ -1,13 +1,16 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { 
-  Popover as MuiPopover, 
-  type PopoverProps, 
+import { useId, useMemo, type ReactNode } from 'react';
+import {
+  Popover as MuiPopover,
+  type PopoverProps,
   Box,
   Typography,
-  IconButton 
+  IconButton,
+  useMediaQuery,
 } from '@mui/material';
-import { Close } from '@mui/icons-material';
+import Close from '@mui/icons-material/Close';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import './rds-popover.scss';
 
 function getPopoverArrowDirection(pos: string): string {
   if (pos.startsWith('top-')) return 'bottom';
@@ -54,37 +57,36 @@ const POPOVER_POSITION_MAP: Record<string, PositionMapEntry> = {
   'left-top':     { anchorOrigin: { vertical: 'top', horizontal: 'left' },     transformOrigin: { vertical: 'top', horizontal: 'right' } },
   'no-arrow':     { anchorOrigin: { vertical: 'bottom', horizontal: 'left' },  transformOrigin: { vertical: 'top', horizontal: 'left' } },
 };
-import './rds-popover.scss';
 
+/** Props for {@link RdsPopover}. */
 export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children' | 'component'> {
-  isOpen: boolean;
+  /** Whether the popover is open. Preferred over `isOpen`. */
+  open?: boolean;
+  /** @deprecated Use `open` instead. */
+  isOpen?: boolean;
+  /** Called when the popover requests to close (backdrop click, Escape, close button). */
   onClose: () => void;
+  /** Element the popover is anchored to. */
   anchorEl: Element | null;
+  /** Optional heading; also labels the popover for assistive technology. */
   title?: string;
+  /** Popover body content. */
   children: ReactNode;
+  /** Show a close icon button in the header. */
   showCloseButton?: boolean;
+  /** Width of the content container. */
   width?: number | string;
+  /** Max width of the content container. */
   maxWidth?: number | string;
+  /** Placement relative to the anchor; collapses to top/bottom-center on small screens. */
   position?: 'top-left' | 'top-center' | 'top-right' | 'right-top' | 'right-center' | 'right-bottom' | 'bottom-right' | 'bottom-center' | 'bottom-left' | 'left-bottom' | 'left-center' | 'left-top' | 'no-arrow';
 }
 
-const MOBILE_BREAKPOINT = 600;
-
 function useMobilePopoverPosition(position: string): string {
-  const [viewportWidth, setViewportWidth] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth : MOBILE_BREAKPOINT + 1
-  );
-
-  useEffect(() => {
-    function handleResize() {
-      setViewportWidth(window.innerWidth);
-    }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const isMobile = useMediaQuery('(max-width:600px)', { noSsr: true });
 
   return useMemo(() => {
-    if (viewportWidth > MOBILE_BREAKPOINT) {
+    if (!isMobile) {
       return position;
     }
 
@@ -104,10 +106,17 @@ function useMobilePopoverPosition(position: string): string {
       return 'bottom-center';
     }
     return position;
-  }, [viewportWidth, position]);
+  }, [isMobile, position]);
 }
 
-const RdsPopover= ({
+type PaperSlotProps = Record<string, unknown> & { className?: string; sx?: unknown };
+
+/**
+ * Popover anchored to an element, with an arrow, optional title and close button.
+ * Consumer `slotProps` are merged with the component's own paper props.
+ */
+const RdsPopover = ({
+  open,
   isOpen,
   onClose,
   anchorEl,
@@ -118,30 +127,48 @@ const RdsPopover= ({
   maxWidth = 'var(--rds-popover-container-max-width, 400px)',
   position = 'bottom-left',
   ...props
-}:RdsPopoverProps) => {
+}: RdsPopoverProps) => {
+  if (isOpen !== undefined) warnDeprecatedProp('RdsPopover', 'isOpen', '`open`');
+  const resolvedOpen = open ?? isOpen ?? false;
+  const titleId = useId();
   const effectivePosition = useMobilePopoverPosition(position);
 
   const currentPosition = POPOVER_POSITION_MAP[effectivePosition] || POPOVER_POSITION_MAP['bottom-left'];
   const arrowDirection = getPopoverArrowDirection(effectivePosition);
   const shouldShowArrow = effectivePosition !== 'no-arrow';
   const offset = getPopoverOffset(arrowDirection, shouldShowArrow);
-  
+
+  const { slotProps: consumerSlotProps, ...restProps } = props;
+  const ourPaperSx = {
+    transform: `translate(${offset.horizontal}px, ${offset.vertical}px) !important`,
+  };
+  const mergePaper = (consumerPaper?: PaperSlotProps) => {
+    const consumerSx = consumerPaper?.sx;
+    return {
+      ...(title ? { 'aria-labelledby': titleId } : {}),
+      ...consumerPaper,
+      className: clsx('rds-popover__paper', consumerPaper?.className),
+      sx: [
+        ourPaperSx,
+        ...(Array.isArray(consumerSx) ? consumerSx : consumerSx !== undefined ? [consumerSx] : []),
+      ],
+    };
+  };
+  const consumerPaper = (consumerSlotProps as { paper?: unknown } | undefined)?.paper;
+  const mergedPaper =
+    typeof consumerPaper === 'function'
+      ? (ownerState: unknown) => mergePaper((consumerPaper as (o: unknown) => PaperSlotProps)(ownerState))
+      : mergePaper(consumerPaper as PaperSlotProps | undefined);
+
   return (
     <MuiPopover
-      open={isOpen}
+      open={resolvedOpen}
       anchorEl={anchorEl}
       onClose={onClose}
       anchorOrigin={currentPosition.anchorOrigin}
       transformOrigin={currentPosition.transformOrigin}
-      slotProps={{
-        paper: {
-          className: 'rds-popover__paper',
-          sx: {
-            transform: `translate(${offset.horizontal}px, ${offset.vertical}px) !important`,
-          }
-        }
-      }}
-      {...props}
+      {...restProps}
+      slotProps={{ ...consumerSlotProps, paper: mergedPaper } as PopoverProps['slotProps']}
     >
       <Box 
         className="rds-popover__container"
@@ -158,7 +185,7 @@ const RdsPopover= ({
             sx={{ mb: title ? 1 : 0,}}
           >
             {title && (
-              <Typography variant="h6" component="div" className="rds-popover__title">
+              <Typography id={titleId} variant="h6" component="div" className="rds-popover__title">
                 {title}
               </Typography>
             )}

@@ -1,19 +1,24 @@
-import { Fragment, type CSSProperties, type ReactNode } from 'react';
+import { Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import {
   LinearProgress as MuiLinearProgress,
   CircularProgress as MuiCircularProgress,
   Box,
   Typography,
-  type SxProps
+  type SxProps,
+  type Theme
 } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-progress.scss';
 
-export interface RdsProgressProps {
+export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'color'> {
+  /** @deprecated Has no effect; rendering is chosen by style. */
   type?: 'linear' | 'circular';
+  /** Figma variant that selects the rendering: circular, line, stepper, dash or block. */
   style?: 'circular' | 'line' | 'stepper' | 'dash' | 'block';
   value?: number;
   valueBuffer?: number;
+  /** Completed steps; progress becomes `steps / totalSteps * 100` for every style. */
   steps?: 0 | 1 | 2 | 3 | 4 | 5;
   variant?: 'determinate' | 'indeterminate' | 'buffer' | 'query';
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
@@ -21,15 +26,18 @@ export interface RdsProgressProps {
   thickness?: number;
   showLabel?: boolean;
   label?: string;
+  /** Number of steps (stepper) or segments (dash/block). Defaults to 5. */
   totalSteps?: number;
   stepperType?: 'number' | 'circle';
-  sx?: CSSProperties;
+  sx?: SxProps<Theme>;
+  /** Custom content for each block segment; defaults to `Step n`. */
+  formatStepLabel?: (step: number) => ReactNode;
   'aria-label'?: string;
   'aria-labelledby'?: string;
 }
 
 const RdsProgress = ({
-  type = 'linear',
+  type,
   style = 'line',
   value,
   valueBuffer,
@@ -43,11 +51,18 @@ const RdsProgress = ({
   totalSteps = 5,
   stepperType = 'number',
   sx,
+  formatStepLabel,
+  className,
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   ...props
 }:RdsProgressProps) => {
-  const getProgressValue = () => steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style) ? steps * 20 : value;
+  if (type !== undefined) warnDeprecatedProp('RdsProgress', 'type', '`style`');
+  const hasSteps = steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style);
+  const getProgressValue = () => hasSteps ? (steps as number) / totalSteps * 100 : value;
+  const filledOf = (total: number) => hasSteps ? Math.ceil((steps as number) / totalSteps * total) : Math.ceil(((finalValue || 0) / 100) * total);
+  const sxArray = Array.isArray(sx) ? sx : [sx];
+  const resolvedAriaLabel = ariaLabel ?? (label || 'Progress');
 
   const getColorValue = () => ({
     primary: 'var(--rds-color-primary)', secondary: 'var(--rds-color-secondary)', error: 'var(--rds-color-error)',
@@ -59,14 +74,22 @@ const RdsProgress = ({
 
   const finalValue = getProgressValue();
   const colorValue = getColorValue();
+  const progressAria = {
+    role: 'progressbar',
+    'aria-valuenow': Math.round(finalValue || 0),
+    'aria-valuemin': 0,
+    'aria-valuemax': 100,
+    'aria-label': resolvedAriaLabel,
+    'aria-labelledby': ariaLabelledby,
+  };
 
   const renderWithLabel = (baseClasses: string, progressElement: ReactNode, labelPosition: 'overlay' | 'side') => {
-    if (!showLabel || variant !== 'determinate') return <div className={baseClasses}>{progressElement}</div>;
+    if (!showLabel || variant !== 'determinate') return <div {...props} className={clsx(baseClasses, className)}>{progressElement}</div>;
     
     const labelElement = <Typography variant={labelPosition === 'overlay' ? 'caption' : 'body2'} component="div" color="text.secondary" className="rds-progress__label">{label || `${Math.round(finalValue || 0)}%`}</Typography>;
     
     return labelPosition === 'overlay' ? (
-      <div className={baseClasses}>
+      <div {...props} className={clsx(baseClasses, className)}>
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
           {progressElement}
           <Box sx={{ top: 0, left: 0, bottom: 0, right: 0, position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -75,7 +98,7 @@ const RdsProgress = ({
         </Box>
       </div>
     ) : (
-      <div className={baseClasses}>
+      <div {...props} className={clsx(baseClasses, className)}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ width: '100%', mr: 1 }} className="rds-progress__bar">{progressElement}</Box>
           <Box sx={{ minWidth: 35 }}>{labelElement}</Box>
@@ -84,15 +107,15 @@ const RdsProgress = ({
     );
   };
 
-  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as 'determinate' | 'indeterminate'} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={label || 'Progress'} />, 'overlay');
+  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as 'determinate' | 'indeterminate'} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} aria-label={resolvedAriaLabel} aria-labelledby={ariaLabelledby} />, 'overlay');
 
-  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as 'determinate' | 'indeterminate' | 'buffer' | 'query'} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={label || 'Progress'} />, 'side');
+  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as 'determinate' | 'indeterminate' | 'buffer' | 'query'} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} aria-label={resolvedAriaLabel} aria-labelledby={ariaLabelledby} />, 'side');
 
   const renderStepper = () => {
-    const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);
+    const currentStep = filledOf(totalSteps);
     return (
-      <div className={`rds-progress rds-progress--stepper rds-progress--${color}`}>
-        <Box sx={{ display: 'flex', alignItems: 'center', ...sx }} className="rds-progress__stepper">
+      <div {...props} className={clsx('rds-progress', 'rds-progress--stepper', `rds-progress--${color}`, className)}>
+        <Box sx={[{ display: 'flex', alignItems: 'center' }, ...sxArray]} className="rds-progress__stepper" {...progressAria}>
           {Array.from({ length: totalSteps }, (_, stepNumber) => stepNumber + 1).map((stepNumber) => {
             const isCompleted = stepNumber <= currentStep;
             const isCurrent = stepNumber === currentStep;
@@ -125,13 +148,13 @@ const RdsProgress = ({
   };
 
   const renderSegmented = (type: 'dash' | 'block') => {
-    const count = 5;
-    const filledCount = Math.ceil(((finalValue || 0) / 100) * count);
+    const count = totalSteps;
+    const filledCount = filledOf(count);
     const isDash = type === 'dash';
     
     return (
-      <div className={`rds-progress rds-progress--${type} rds-progress--${color}`}>
-        <Box sx={{ display: 'flex', alignItems: 'center', ...sx }}>
+      <div {...props} className={clsx('rds-progress', `rds-progress--${type}`, `rds-progress--${color}`, className)}>
+        <Box sx={[{ display: 'flex', alignItems: 'center' }, ...sxArray]} {...progressAria}>
           <Box sx={{ display: 'flex', gap: isDash ? 0.5 : 0, alignItems: 'center' }}>
             {Array.from({ length: count }, (_, segmentNumber) => segmentNumber + 1).map((segmentNumber) => {
               const getBorderRadius = () => {
@@ -156,7 +179,7 @@ const RdsProgress = ({
                     ...(isDash ? {} : { display: 'flex', alignItems: 'center', justifyContent: 'center', color: segmentNumber <= filledCount ? 'var(--rds-color-white)' : 'var(--rds-color-gray-600)', fontWeight: 'var(--rds-font-weight-bold)', fontSize: 'var(--rds-font-size-sm)' })
                   }}
                 >
-                  {!isDash && `Step ${segmentNumber}`}
+                  {!isDash && (formatStepLabel?.(segmentNumber) ?? `Step ${segmentNumber}`)}
                 </Box>
               );
             })}

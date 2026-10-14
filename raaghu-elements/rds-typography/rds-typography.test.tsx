@@ -7,6 +7,7 @@ import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-typography.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -714,5 +715,14 @@ describe('RdsTypography', () => {
       const body = container.querySelector('.rds-typography--body1');
       expect(body).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('G2-397: component renders the given element while keeping the variant', () => {
+    render(<RdsTypography variant="h4" component="h2">Heading</RdsTypography>);
+    const el = screen.getByText('Heading');
+    expect(el.tagName).toBe('H2');
+    expect(el).toHaveClass('MuiTypography-h4', 'rds-typography--h4');
   });
 });

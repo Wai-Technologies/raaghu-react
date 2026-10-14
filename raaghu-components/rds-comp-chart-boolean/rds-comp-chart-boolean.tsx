@@ -1,16 +1,30 @@
-import { useEffect, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
 import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
 import { ChartIcons } from "./chart-icons";
-import { getCSSVar, useChartThemeMode } from "../chart-utils";
+import { getCSSVar } from "../chart-utils";
+import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
-export interface RdsCompBooleanChartProps {
+/** Props for {@link RdsCompBooleanChart}. */
+export interface RdsCompBooleanChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Slice labels. */
   labels: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"doughnut">;
+  /** Chart.js doughnut datasets. */
   dataSets: ChartDataset<"doughnut">[];
+  /** @deprecated It has no effect. */
   chartStyle?: string;
+  /** Id of the canvas element. */
   id: string;
+  /** Name of the icon drawn in the centre (a key of `ChartIcons`). No icon when missing or unknown. */
   centerIconName?: string;
+  /** Accessible label of the chart. Defaults to "Boolean chart". */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 /** Resolves CSS variables in SVG by replacing them with computed color values. */
@@ -29,55 +43,55 @@ const RdsCompBooleanChart = ({
   id,
   centerIconName = "",
   chartLabel,
+  chartStyle,
+  className,
+  ref,
+  ...rest
 }: RdsCompBooleanChartProps) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const themeMode = useChartThemeMode();
+  if (chartStyle !== undefined) {
+    warnDeprecatedProp("RdsCompBooleanChart", "chartStyle", "nothing (it has no effect)");
+  }
 
-  useEffect(() => {
-    const canvasElm = canvasRef.current;
-    const ctx = canvasElm?.getContext("2d");
-    if (!ctx) return;
+  const { canvasRef } = useChart(
+    () => {
+      const svg = ChartIcons[centerIconName];
+      const dataURL = svg
+        ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(resolveSvgCssVariables(svg))}`
+        : "";
 
-    const svg = ChartIcons[centerIconName];
-    const resolvedSvg = resolveSvgCssVariables(svg);
-    const encodedSVG = btoa(unescape(encodeURIComponent(resolvedSvg)));
-    const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
+      const centerIcon = {
+        id: "counter4",
+        afterDraw(chart: Chart) {
+          const chartCtx = chart.ctx;
+          chartCtx.save();
+          const myIconImage = new Image();
+          myIconImage.src = dataURL;
+          const iconSize = 30;
+          const x = chart.width / 2 - iconSize / 2;
+          const y = chart.height / 2 - iconSize / 2;
+          chartCtx.drawImage(myIconImage, x, y, iconSize, iconSize);
+          chartCtx.restore();
+        },
+      };
 
-    const centerIcon = {
-      id: "counter4",
-      afterDraw(chart: Chart) {
-        const chartCtx = chart.ctx;
-        chartCtx.save();
-        const myIconImage = new Image();
-        myIconImage.src = dataURL;
-        const iconSize = 30;
-        const x = chart.width / 2 - iconSize / 2;
-        const y = chart.height / 2 - iconSize / 2;
-        chartCtx.drawImage(myIconImage, x, y, iconSize, iconSize);
-        chartCtx.restore();
-      },
-    };
-
-    const boolCanvas = new Chart(ctx, {
-      type: "doughnut",
-      plugins: [centerIcon],
-      data: {
+      return {
+        type: "doughnut",
         labels,
         datasets: dataSets,
-      },
-      options,
-    });
-
-    boolCanvas.canvas.style.height = "var(--rds-comp-chart-boolean-size, 20vh)";
-    boolCanvas.canvas.style.width = "var(--rds-comp-chart-boolean-size, 20vh)";
-
-    return () => {
-      boolCanvas.destroy();
-    };
-  }, [labels, options, dataSets, centerIconName, themeMode]);
+        options,
+        themeAxes: false,
+        ...(svg && { plugins: [centerIcon] }),
+        onCreate: (chart) => {
+          chart.canvas.style.height = "var(--rds-comp-chart-boolean-size, 20vh)";
+          chart.canvas.style.width = "var(--rds-comp-chart-boolean-size, 20vh)";
+        },
+      };
+    },
+    [labels, options, dataSets, centerIconName]
+  );
 
   return (
-    <div>
+    <div {...rest} ref={ref} className={clsx(className)}>
       <canvas
         data-testid={id}
         id={id}

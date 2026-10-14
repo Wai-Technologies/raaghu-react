@@ -575,3 +575,152 @@ describe('RdsDialog', () => {
     });
   });
 });
+
+describe('RdsDialog audit fixes', () => {
+  const standardProps = { open: true, variant: 'standard' as const, ShowPrimary: true, ShowSecondary: true };
+
+  it('calls onPrimaryClick/onSecondaryClick instead of onClose and uses custom labels (G1-233)', () => {
+    const onClose = jest.fn();
+    const onPrimaryClick = jest.fn();
+    const onSecondaryClick = jest.fn();
+    render(
+      <RdsDialog
+        {...standardProps}
+        onClose={onClose}
+        primaryText="Delete"
+        secondaryText="Keep"
+        onPrimaryClick={onPrimaryClick}
+        onSecondaryClick={onSecondaryClick}
+      />
+    );
+    fireEvent.click(screen.getByText('Delete'));
+    fireEvent.click(screen.getByText('Keep'));
+    expect(onPrimaryClick).toHaveBeenCalledTimes(1);
+    expect(onSecondaryClick).toHaveBeenCalledTimes(1);
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it('keeps the default labels and calls onClose with only the click event without callbacks (G1-233)', () => {
+    const onClose = jest.fn();
+    render(<RdsDialog {...standardProps} onClose={onClose} />);
+    fireEvent.click(screen.getByText('Okay'));
+    fireEvent.click(screen.getByText('Cancel'));
+    fireEvent.click(screen.getByLabelText('close'));
+    expect(onClose).toHaveBeenCalledTimes(3);
+    onClose.mock.calls.forEach((call) => {
+      expect(call).toHaveLength(1);
+      expect(call[0]).toHaveProperty('type', 'click');
+    });
+  });
+
+  describe('with the real MUI Dialog and RdsButton', () => {
+    type Isolated = {
+      RealDialog: typeof RdsDialog;
+      warn: jest.Mock;
+    };
+
+    // Fresh copies of the component, MUI and RdsButton (not the mocks above) that share this file's React.
+    const load = (): Isolated => {
+      /* eslint-disable @typescript-eslint/no-require-imports -- fresh module instances with the real MUI */
+      const shared = ['react', 'react/jsx-runtime', 'react/jsx-dev-runtime', 'react-dom', 'react-dom/client'].map(
+        (name) => [name, require(name)] as const,
+      );
+      let loaded!: Isolated;
+      jest.isolateModules(() => {
+        shared.forEach(([name, mod]) => jest.doMock(name, () => mod));
+        jest.dontMock('@mui/material');
+        jest.dontMock('@mui/icons-material/Close');
+        jest.dontMock('../rds-button/rds-button');
+        jest.doMock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+        loaded = {
+          RealDialog: require('./rds-dialog').default,
+          warn: require('../shared/utils/deprecation').warnDeprecatedProp,
+        };
+      });
+      /* eslint-enable @typescript-eslint/no-require-imports */
+      return loaded;
+    };
+
+    let isolated: Isolated;
+    beforeEach(() => {
+      isolated = load();
+    });
+
+    it('merges consumer paper slotProps with its own classes (G1-235)', () => {
+      const { RealDialog } = isolated;
+      render(
+        <RealDialog
+          {...standardProps}
+          slotProps={{
+            paper: { className: 'my-paper', sx: { m: 1 } },
+            backdrop: { className: 'my-backdrop' },
+          }}
+        />
+      );
+      const paper = document.querySelector('.MuiDialog-paper');
+      expect(paper).toHaveClass('rds-dialog', 'rds-dialog__paper', 'my-paper');
+      expect(document.querySelector('.my-backdrop')).toBeInTheDocument();
+    });
+
+    it('supports function-form paper slotProps (G1-235)', () => {
+      const { RealDialog } = isolated;
+      render(
+        <RealDialog
+          {...standardProps}
+          slotProps={{ paper: () => ({ className: 'fn-paper' }) }}
+        />
+      );
+      expect(document.querySelector('.MuiDialog-paper')).toHaveClass('rds-dialog', 'rds-dialog__paper', 'fn-paper');
+    });
+
+    it('keeps its paper classes without consumer slotProps (G1-235)', () => {
+      const { RealDialog } = isolated;
+      render(<RealDialog {...standardProps} />);
+      expect(document.querySelector('.MuiDialog-paper')).toHaveClass('rds-dialog', 'rds-dialog__paper');
+    });
+
+    it('passes consumer slotProps through in the default variant (G1-235)', () => {
+      const { RealDialog } = isolated;
+      render(<RealDialog open slotProps={{ paper: { className: 'my-paper' } }} />);
+      expect(document.querySelector('.MuiDialog-paper')).toHaveClass('my-paper');
+    });
+
+    it('forwards MUI onClose(event, reason) (G1-234)', () => {
+      const { RealDialog } = isolated;
+      const onClose = jest.fn();
+      render(<RealDialog open onClose={onClose} />);
+      fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' });
+      expect(onClose).toHaveBeenCalledWith(expect.anything(), 'escapeKeyDown');
+    });
+
+    it('lets a consumer maxWidth win over size (G1-238)', () => {
+      const { RealDialog } = isolated;
+      render(<RealDialog open size="large" maxWidth="xs" />);
+      expect(document.querySelector('.MuiDialog-paper')).toHaveClass('MuiDialog-paperWidthXs');
+    });
+
+    it('maps size to maxWidth by default (G1-238)', () => {
+      const { RealDialog } = isolated;
+      render(<RealDialog open size="large" />);
+      expect(document.querySelector('.MuiDialog-paper')).toHaveClass('MuiDialog-paperWidthLg');
+    });
+
+    it('renders the button labels as RdsButton children, not the deprecated text prop (G1-243)', () => {
+      const { RealDialog, warn } = isolated;
+      render(<RealDialog {...standardProps} onClose={jest.fn()} />);
+      expect(screen.getByRole('button', { name: 'Okay' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+      expect(warn).not.toHaveBeenCalled();
+    });
+
+    it('labels the dialog by its title and names the close button', () => {
+      const { RealDialog } = isolated;
+      render(<RealDialog open title="My Title" onClose={jest.fn()} />);
+      const dialog = screen.getByRole('dialog');
+      const labelId = dialog.getAttribute('aria-labelledby');
+      expect(labelId).toBeTruthy();
+      expect(document.getElementById(labelId as string)).toHaveTextContent('My Title');
+      expect(screen.getByRole('button', { name: 'close' })).toBeInTheDocument();
+    });
+  });
+});

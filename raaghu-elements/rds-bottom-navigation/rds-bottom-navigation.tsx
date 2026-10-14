@@ -2,8 +2,9 @@ import { type SyntheticEvent, type ReactNode } from 'react';
 import {
   BottomNavigation as MuiBottomNavigation,
   BottomNavigationAction as MuiBottomNavigationAction,
-  BottomNavigationProps
+  type BottomNavigationProps
 } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-bottom-navigation.scss';
 
 export interface RdsBottomNavigationItem {
@@ -15,40 +16,43 @@ export interface RdsBottomNavigationItem {
 
 export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'children' | 'component'> {
   items: RdsBottomNavigationItem[];
+  /** @deprecated Use `value` instead. */
   activeValue?: string;
+  /** @deprecated Use `onChange` instead. */
   onItemChange?: (value: string) => void;
-  showLabels?: boolean;  
+  /** Shows the label of every item. When `false`, item labels are hidden. Defaults to `false`. */
+  showLabels?: boolean;
 }
 
 const RdsBottomNavigation = ({
   items,
   activeValue,
   onItemChange,
-  showLabels = false, 
+  showLabels = false,
   value,
   onChange,
   ...props
 }: RdsBottomNavigationProps) => {
+  if (activeValue !== undefined) warnDeprecatedProp('RdsBottomNavigation', 'activeValue', '`value`');
+  if (onItemChange !== undefined) warnDeprecatedProp('RdsBottomNavigation', 'onItemChange', '`onChange`');
+
   const handleChange = (event: SyntheticEvent, newValue: string) => {
-    if (onItemChange) {
-      onItemChange(newValue);
-    }
-    if (onChange) {
-      onChange(event, newValue);
-    }
+    onItemChange?.(newValue);
+    onChange?.(event, newValue);
   };
 
   return (
     <div className="rds-bottom-navigation">
       <MuiBottomNavigation
-        value={value || activeValue}
-        onChange={handleChange}
         {...props}
+        value={value ?? activeValue}
+        onChange={handleChange}
+        showLabels={showLabels}
       >
-        {items.map((item) => (
+        {items.map((item, index) => (
           <MuiBottomNavigationAction
-            key={item.value}
-            label={showLabels ? item.label : undefined}  
+            key={`${item.value}-${index}`}
+            label={showLabels ? item.label : undefined}
             value={item.value}
             icon={item.icon}
             disabled={item.disabled}

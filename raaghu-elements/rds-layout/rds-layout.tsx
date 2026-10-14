@@ -1,20 +1,27 @@
-import { type ReactNode, type CSSProperties } from 'react';
-import { Box, Container, type ContainerProps } from '@mui/material';
+import { type ReactNode } from 'react';
+import { Box, Container, type ContainerProps, type SxProps, type Theme } from '@mui/material';
 import RdsHeader from '../rds-header/rds-header';
 
+/** Props for {@link RdsLayout}. Extra props are forwarded to the inner MUI `Container`. */
 export interface RdsLayoutProps extends Omit<ContainerProps, 'children' | 'component'> {
+  /** Page content, rendered inside the inner `Container`. */
   children: ReactNode;
+  /** Config for the optional top `RdsHeader`. */
   header?: {
     title?: string;
     showMenuButton?: boolean;
     onMenuClick?: () => void;
     actions?: ReactNode;
   };
+  /** Render the header (requires `header`). Also offsets the content by `headerHeight`. @default true */
   showHeader?: boolean;
+  /** Header height in px, exposed as `--rds-header-height` and used as the content top margin. @default 64 */
   headerHeight?: number;
+  /** Content padding in theme spacing units. @default 3 */
   padding?: number;
 }
 
+/** Page layout shell: optional header above a padded, max-width content area. */
 const RdsLayout= ({
   children,
   header,
@@ -24,8 +31,9 @@ const RdsLayout= ({
   maxWidth = 'lg',
   ...props
 }:RdsLayoutProps) => {
+  const rootSx: SxProps<Theme> = { display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` };
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` } as CSSProperties}>
+    <Box sx={rootSx}>
       {showHeader && header && (
         <RdsHeader
           title={header.title}
@@ -44,7 +52,6 @@ const RdsLayout= ({
           flexGrow: 1,
           padding: padding,
         }}
-        style={showHeader ? { marginTop: `${headerHeight}px` } : undefined}
       >
         <Container maxWidth={maxWidth} {...props}>
           {children}
