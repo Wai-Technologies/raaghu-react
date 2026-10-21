@@ -128,7 +128,6 @@ const RdsCompAiAttachment = ({
     [addComment, onFileSelect, userData]
   );
 
-  // The click bubbles to the FabMenu item, which closes the menu.
   const openModal = useCallback(() => setShowModal(true), []);
 
   const closeModal = useCallback(() => {
@@ -222,7 +221,7 @@ const RdsCompAiAttachment = ({
         >
           <p className="text-muted rds-comp-ai-attachment__import-size">{modalText}</p>
           <RdsInput
-            hintText={hintText}
+            helperText={hintText}
             id={inputId}
             placeholder={inputPlaceholder}
             layout="text"

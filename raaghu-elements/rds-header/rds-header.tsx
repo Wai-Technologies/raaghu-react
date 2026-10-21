@@ -1,4 +1,4 @@
-import { useState, type ComponentProps, type ReactNode } from 'react';
+import { useState, type ComponentProps, type ReactNode, type SyntheticEvent } from 'react';
 import { AppBar as MuiAppBar, IconButton, type AppBarProps, InputBase, Tabs, Tab } from '@mui/material';
 import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -6,6 +6,7 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Person from '@mui/icons-material/Person';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-header.scss';
 
 /** Props for {@link RdsHeader}. Extends MUI `AppBar` props. */
@@ -15,16 +16,27 @@ export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
   onMenuClick?: () => void;
   showMenuButton?: boolean;
   actions?: ReactNode;
+  /** Signed-in user shown in the profile menu. */
+  user?: { name?: string; initials?: string; email?: string };
+  /** @deprecated Use `user.name` instead. */
   userName?: string;
+  /** @deprecated Use `user.initials` instead. */
   userShortName?: string;
+  /** @deprecated Use `user.email` instead. */
   userEmail?: string;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
   tabs?: Array<string | { label: string; [key: string]: unknown }>;
+  /** Selected tab index (controlled). */
+  tabsValue?: number;
+  /** Called with `(event, value)` when a tab is selected. */
+  onTabsChange?: (event: SyntheticEvent, value: number) => void;
+  /** @deprecated Use `tabsValue` instead. */
   tabValue?: number;
+  /** @deprecated Use `onTabsChange` instead. */
   onTabChange?: (value: number) => void;
-  /** Items of the profile menu shown when `userName`, `userShortName` and `userEmail` are set. Defaults to "My Profile" and "Logout". */
+  /** Items of the profile menu shown when `user.name`, `user.initials` and `user.email` are set. Defaults to "My Profile" and "Logout". */
   profileMenuItems?: ProfileMenuItem[];
   subHeader?: ReactNode;
   children?: ReactNode;
@@ -40,19 +52,31 @@ const RdsHeader = ({
   onSearchChange,
   searchPlaceholder,
   tabs,
+  tabsValue,
+  onTabsChange,
   tabValue,
   onTabChange,
+  user,
   subHeader,
   children,
-  userName,
-  userShortName,
-  userEmail,
+  userName: legacyUserName,
+  userShortName: legacyUserShortName,
+  userEmail: legacyUserEmail,
   profileMenuItems,
   elevation = 0,
   ...props
 }: RdsHeaderProps) => {
   const [innerTab, setInnerTab] = useState(0);
-  const currentTab = typeof tabValue === 'number' ? tabValue : innerTab;
+  if (tabValue !== undefined) warnDeprecatedProp('RdsHeader', 'tabValue', '`tabsValue`');
+  if (onTabChange) warnDeprecatedProp('RdsHeader', 'onTabChange', '`onTabsChange`');
+  if (legacyUserName !== undefined) warnDeprecatedProp('RdsHeader', 'userName', '`user.name`');
+  if (legacyUserShortName !== undefined) warnDeprecatedProp('RdsHeader', 'userShortName', '`user.initials`');
+  if (legacyUserEmail !== undefined) warnDeprecatedProp('RdsHeader', 'userEmail', '`user.email`');
+  const userName = user?.name ?? legacyUserName;
+  const userShortName = user?.initials ?? legacyUserShortName;
+  const userEmail = user?.email ?? legacyUserEmail;
+  const controlledTab = tabsValue ?? tabValue;
+  const currentTab = typeof controlledTab === 'number' ? controlledTab : innerTab;
   const colorClass =
     props.color === 'primary' ? 'rds-header--primary' :
     props.color === 'secondary' ? 'rds-header--secondary' :
@@ -124,7 +148,7 @@ const RdsHeader = ({
         <Tabs
           className="rds-header__tabs"
           value={currentTab}
-          onChange={(_, v: number) => { if (typeof tabValue !== 'number') setInnerTab(v); onTabChange?.(v); }}
+          onChange={(e, v: number) => { if (typeof controlledTab !== 'number') setInnerTab(v); onTabsChange?.(e, v); onTabChange?.(v); }}
           textColor="primary"
           indicatorColor="primary"
         >

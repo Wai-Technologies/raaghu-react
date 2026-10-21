@@ -145,9 +145,8 @@ export const renderFormInputs = () => (
                     placeholder="Enter Project Name"
                     size="small"
                     layout="text"
-                    showIcon={true}
                     variant="outlined"
-                    icon={<InfoOutlined sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
+                    endIcon={<InfoOutlined sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
                 />
             </Box>
             <Box className="rds-comp-product-tour__form-action-btn">

@@ -35,7 +35,7 @@ const meta: Meta<typeof RdsIconButton> = {
     },
     variant: {
       control: 'select',
-      options: ['filled', 'outlined'],
+      options: ['standard', 'outlined'],
       description: 'Visual variant for icon button',
     },
     tooltip: {
@@ -95,7 +95,7 @@ export const Delete_Button: Story = {
 };
 export const FilledVariant: Story = {
   args: {
-    variant: 'filled',
+    variant: 'standard',
     iconOutlined: <FavoriteBorderIcon />,
     iconFilled: <FavoriteIcon />,
     tooltip: 'Filled Icon',

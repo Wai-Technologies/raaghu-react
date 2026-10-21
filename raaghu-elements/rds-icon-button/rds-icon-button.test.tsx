@@ -5,8 +5,8 @@ import RdsIconButton, { RdsIconButtonProps } from './rds-icon-button';
 import { Favorite, FavoriteBorder, Delete, Edit, Add, Home, Settings } from '@mui/icons-material';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-icon-button.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -527,5 +527,17 @@ describe('audit fixes', () => {
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
     rerender(<RdsIconButton tooltip="Save" aria-label="Other" icon={<span>i</span>} />);
     expect(screen.getByRole('button', { name: 'Other' })).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes', () => {
+  it('standard variant renders like filled with iconFilled', () => {
+    render(<RdsIconButton variant="standard" iconFilled={<span data-testid="f" />} iconOutlined={<span data-testid="o" />} aria-label="x" />);
+    expect(screen.getByTestId('f')).toBeInTheDocument();
+    expect(screen.queryByTestId('o')).not.toBeInTheDocument();
+  });
+  it('filled variant still renders iconFilled', () => {
+    render(<RdsIconButton variant="filled" iconFilled={<span data-testid="f" />} aria-label="x" />);
+    expect(screen.getByTestId('f')).toBeInTheDocument();
   });
 });
