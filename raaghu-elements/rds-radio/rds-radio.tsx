@@ -1,4 +1,4 @@
-import { useId, type ChangeEvent } from 'react';
+import { useId, useState, type ChangeEvent } from 'react';
 import {
   Radio as MuiRadio,
   RadioGroup,
@@ -26,7 +26,12 @@ export interface RdsRadioOption {
 export interface RdsRadioProps extends Omit<RadioGroupProps, 'children' | 'component'> {
   options: RdsRadioOption[];
   label?: string;
+  /** @deprecated Use `slotProps.radio` instead. */
   radioProps?: RadioProps;
+  slotProps?: { radio?: RadioProps };
+  /** Where the option label sits: `none` (icon only), `end` or `bottom`. */
+  labelPlacement?: 'none' | 'end' | 'bottom';
+  /** Figma variant; `labelPlacement` takes precedence. */
   layout?: 'icon' | 'icon with label' | 'icon with bottom label';
   state?: 'default' | 'hover' | 'disabled';
   selected?: boolean;
@@ -34,13 +39,22 @@ export interface RdsRadioProps extends Omit<RadioGroupProps, 'children' | 'compo
   direction?: 'row' | 'column';
 }
 
+const placementLayouts = {
+  none: 'icon',
+  end: 'icon with label',
+  bottom: 'icon with bottom label',
+} as const;
+
 const RdsRadio = ({
   options,
   label,
   direction,
   row,
   radioProps,
-  layout = 'icon with label',
+  slotProps,
+  labelPlacement,
+  defaultValue,
+  layout: layoutProp = 'icon with label',
   state = 'default',
   selected,
   ...props
@@ -50,13 +64,16 @@ const RdsRadio = ({
     warnDeprecatedProp('RdsRadio', 'options[].text', '`options[].label`');
   }
 
+  if (radioProps !== undefined) warnDeprecatedProp('RdsRadio', 'radioProps', '`slotProps.radio`');
+  const layout = labelPlacement ? placementLayouts[labelPlacement] : layoutProp;
+  const mergedRadioProps = { ...radioProps, ...slotProps?.radio };
+  const [innerValue, setInnerValue] = useState<string | undefined>(defaultValue);
   const isRow = row ?? direction === 'row';
   const groupId = useId();
-  // Radios in the bottom-label layout are plain inputs, so they need a shared name for arrow-key navigation.
   const groupName = props.name ?? `rds-radio-${groupId}`;
 
   const getEffectiveValue = (): string | undefined => {
-    if (typeof selected === 'undefined') return props.value as string | undefined;
+    if (typeof selected === 'undefined') return (props.value as string | undefined) ?? (layout === 'icon with bottom label' ? innerValue : undefined);
     if (selected === false) return undefined;
     if (props.value) return props.value as string;
     return options.find(o => !o.disabled)?.value;
@@ -69,7 +86,7 @@ const RdsRadio = ({
 
     const commonProps = {
       value: option.value,
-      control: <MuiRadio disableRipple {...radioProps} disabled={finalDisabled} />,
+      control: <MuiRadio disableRipple {...mergedRadioProps} disabled={finalDisabled} />,
       disabled: finalDisabled,
     };
 
@@ -78,7 +95,6 @@ const RdsRadio = ({
     }
 
     if (layout === 'icon with bottom label') {
-      // Kept as-is: consumers may target this id (it can repeat across groups; see audit G2-169).
       const radioId = `rds-radio-${option.value}`;
       return (
         <Box
@@ -92,16 +108,16 @@ const RdsRadio = ({
           <label htmlFor={radioId} style={{ cursor: finalDisabled ? 'not-allowed' : 'pointer', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <MuiRadio
               disableRipple
-              {...radioProps}
+              {...mergedRadioProps}
               id={radioId}
               value={option.value}
               disabled={finalDisabled}
               checked={effectiveValue === option.value}
               name={groupName}
               onChange={(event) => {
-                if (!finalDisabled && typeof selected === 'undefined' && props.onChange) {
-                  props.onChange(event, option.value);
-                }
+                if (finalDisabled || typeof selected !== 'undefined') return;
+                if (props.value === undefined && defaultValue !== undefined) setInnerValue(option.value);
+                props.onChange?.(event, option.value);
               }}
               className="rds-radio__option"
               sx={{
@@ -175,6 +191,7 @@ const RdsRadio = ({
           row={isRow}
           className="rds-radio__group"
           value={effectiveValue}
+          defaultValue={defaultValue}
           onChange={(e, val) => {
             if (typeof selected === 'undefined' && props.onChange) {
               props.onChange(e as ChangeEvent<HTMLInputElement>, val);

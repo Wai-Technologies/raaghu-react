@@ -474,7 +474,7 @@ export const SelectionContent = ({
           <RdsSearch
             value={searchValue}
             onChange={handleSearchChange}
-            iconPosition="right"
+            iconPosition="end"
             labelPosition="top"
             placeholder="Search for Agents by Name or # ID"
             size="small"

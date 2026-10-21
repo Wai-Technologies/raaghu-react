@@ -9,7 +9,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=1509-4672",
   {
     props: {
-      position: figma.enum("💡 State", {
+      placement: figma.enum("💡 State", {
         "Top Left": "bottom-left",
         "Top Center": "top-center",
         "Top Right": "bottom-right",
@@ -22,8 +22,8 @@ figma.connect(
         "Right Bottom": "left-bottom",
         "Right Center": "left-center",
         "Right Top": "left-top",
-        "No Arrow": "no-arrow",
       }),
+      arrow: figma.enum("💡 State", { "No Arrow": false }),
     },
     example: (props) => (
       <span>

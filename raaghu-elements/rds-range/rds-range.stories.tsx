@@ -19,10 +19,10 @@ const meta: Meta<typeof RdsRange> = {
     label: {
       control: 'text',
     },
-    leftLabel: {
+    min: {
       control: 'number',
     },
-    rightLabel: {
+    max: {
       control: 'number',
     },
     step: {
@@ -42,7 +42,7 @@ const meta: Meta<typeof RdsRange> = {
     showValue: {
       control: 'boolean',
     },
-    showLabel: {
+    showMinMax: {
       control: 'boolean',
     },
     textLabel: {
@@ -70,10 +70,10 @@ export const Default: Story = {
   args: {
     type: 'one-way',
     level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     showValue: false,
-    showLabel: true,
+    showMinMax: true,
     textLabel: true,
     showTooltip: true,
   },
@@ -95,12 +95,12 @@ export const Default: Story = {
           label={args.label}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color={args.color}
@@ -120,10 +120,10 @@ export const Colors: Story = {
   args: {
     type: 'one-way',
     level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     showValue: true,
-    showLabel: false,
+    showMinMax: false,
     textLabel: false,
     showTooltip: false,
   },
@@ -152,12 +152,12 @@ export const Colors: Story = {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color="primary"
@@ -176,12 +176,12 @@ export const Colors: Story = {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color="secondary"
@@ -197,8 +197,8 @@ export const Colors: Story = {
 export const Disabled: Story = {
   args: {
     value: 60,
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     disabled: true,
     label: 'Disabled Slider',
     showValue: true,
@@ -210,10 +210,10 @@ export const Interactive: Story = {
   args: {
     type: 'one-way',
     level: '3',
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     showValue: true,
-    showLabel: false,
+    showMinMax: false,
     textLabel: false,
     showTooltip: false,
     
@@ -238,12 +238,12 @@ export const Interactive: Story = {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color={args.color}
@@ -263,12 +263,12 @@ export const Interactive: Story = {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel}
+          min={args.min}
+          max={args.max}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           step={args.step}
           disabled={args.disabled}
           color={args.color}
@@ -288,13 +288,13 @@ export const Interactive: Story = {
           }}
           type={args.type}
           level={args.level}
-          leftLabel={args.leftLabel}
-          rightLabel={args.rightLabel ?? 1000}
+          min={args.min}
+          max={args.max ?? 1000}
           step={args.step ?? 50}
           showValue={args.showValue}
-          showLabel={args.showLabel}
+          showMinMax={args.showMinMax}
           textLabel={args.textLabel}
-          showTooltip={args.showTooltip}
+          valueLabelDisplay={args.showTooltip ? 'on' : 'off'}
           disabled={args.disabled}
           color={args.color}
           size={args.size}
@@ -309,8 +309,8 @@ export const Interactive: Story = {
 export const RangeSlider: Story = {
   args: {
     value: [20, 80],
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     label: 'Price Range',
     showValue: true,
     textLabel: true,
@@ -320,8 +320,8 @@ export const RangeSlider: Story = {
 export const Steps: Story = {
   args: {
     value: 20,
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     step: 10,
     marks: true,
     label: 'Progress (10% steps)',
@@ -333,8 +333,8 @@ export const Steps: Story = {
 export const WithCustomFormat: Story = {
   args: {
     value: 50,
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     label: 'Temperature',
     showValue: true,
     textLabel: true,
@@ -345,8 +345,8 @@ export const WithCustomFormat: Story = {
 export const WithValue: Story = {
   args: {
     value: 50,
-    leftLabel: 0,
-    rightLabel: 100,
+    min: 0,
+    max: 100,
     label: 'Brightness',
     showValue: true,
     textLabel: true,

@@ -20,7 +20,7 @@ figma.connect(
       showLabel
       stepperType="circle"
       steps={4}
-      variant="determinate"
+      mode="determinate"
     />,
   },
 )

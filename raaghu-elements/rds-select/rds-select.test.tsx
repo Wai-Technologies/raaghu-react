@@ -5,11 +5,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSelect, { RdsSelectOption } from './rds-select';
 import { axe } from 'jest-axe';
 
-// Mock the SCSS file
 jest.mock('./rds-select.scss');
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Helper function to render with theme
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -598,7 +596,6 @@ describe('RdsSelect', () => {
         />
       );
       
-      // Verify initial option exists
       const selects = container.querySelectorAll('.rds-select__field');
       expect(selects.length).toBeGreaterThan(0);
       
@@ -611,7 +608,6 @@ describe('RdsSelect', () => {
         </ThemeProvider>
       );
       
-      // Open dropdown and verify new options are available
       const selectCombobox = screen.getByRole('combobox');
       fireEvent.mouseDown(selectCombobox);
       
@@ -907,5 +903,19 @@ describe('audit fixes', () => {
     wrap(<RdsSelect options={opts} label="L" labelposition={false} isRequired value="" />);
     expect(screen.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
     expect(screen.getAllByText('*')).toHaveLength(1);
+  });
+
+  it('shows error and helperText, and deprecated errorMessage still works', () => {
+    const { unmount } = wrap(<RdsSelect options={opts} label="L" error helperText="Pick one" value="" />);
+    expect(screen.getByText('Pick one')).toBeInTheDocument();
+    expect(document.querySelector('.rds-select--error')).toBeInTheDocument();
+    unmount();
+    wrap(<RdsSelect options={opts} label="L" errorMessage="Old error" value="" />);
+    expect(screen.getByText('Old error')).toBeInTheDocument();
+  });
+
+  it('labelPlacement top renders label above and wins over labelposition', () => {
+    wrap(<RdsSelect options={opts} label="Above" labelPlacement="top" labelposition value="" />);
+    expect(document.querySelector('label.rds-select__label')).toHaveTextContent('Above');
   });
 });

@@ -1,6 +1,7 @@
 import { useState, type ReactElement } from 'react';
 import { Slider as MuiSlider, type SliderProps, Box, Typography } from '@mui/material';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import clsx from 'clsx';
 import './rds-range.scss';
 
@@ -14,23 +15,25 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange' | 
   label?: string;
   /** Shows the current value above the slider. */
   showValue?: boolean;
-  /** Uncontrolled two-thumb mode starting at `[min, max]` (when `type` is not `'one-way'`). */
+  /** @deprecated Use `type="two-way"` instead. */
   range?: boolean;
   /** Formats the values shown in the header, tooltips and min/max labels. */
   formatValue?: (value: number) => string;
   /** Shows the min and max values under the slider. */
+  showMinMax?: boolean;
+  /** @deprecated Use `showMinMax` instead. */
   showLabel?: boolean;
   /** Shows `label` above the slider. */
   textLabel?: boolean;
-  /** Shows an always-open value tooltip on each thumb. */
+  /** @deprecated Use `valueLabelDisplay="on"` instead. */
   showTooltip?: boolean;
   /** Figma variant: one thumb or two. */
   type?: 'one-way' | 'two-way';
   /** Figma level: initial one-way position in quarters of the range (`'1'` = min, `'5'` = max). */
   level?: '1' | '2' | '3' | '4' | '5';
-  /** Minimum value; takes precedence over `min`. Falls back to `min`, then 0. */
+  /** @deprecated Use `min` instead. */
   leftLabel?: number;
-  /** Maximum value; takes precedence over `max`. Falls back to `max`, then 100. */
+  /** @deprecated Use `max` instead. */
   rightLabel?: number;
 }
 
@@ -89,9 +92,12 @@ const RdsRange= ({
   showValue = false,
   range = false,
   formatValue,
-  showLabel = false,
+  showMinMax,
+  showLabel,
   textLabel = true,
-  showTooltip = false,
+  showTooltip,
+  valueLabelDisplay,
+  defaultValue,
   type = 'one-way',
   level = '1',
   leftLabel,
@@ -100,12 +106,20 @@ const RdsRange= ({
   slotProps,
   ...props
 }: RdsRangeProps) => {
-  const min = leftLabel ?? props.min ?? 0;
-  const max = rightLabel ?? props.max ?? 100;
+  if (leftLabel !== undefined) warnDeprecatedProp('RdsRange', 'leftLabel', '`min`');
+  if (rightLabel !== undefined) warnDeprecatedProp('RdsRange', 'rightLabel', '`max`');
+  if (showLabel !== undefined) warnDeprecatedProp('RdsRange', 'showLabel', '`showMinMax`');
+  if (showTooltip !== undefined) warnDeprecatedProp('RdsRange', 'showTooltip', '`valueLabelDisplay`');
+  if (range) warnDeprecatedProp('RdsRange', 'range', '`type="two-way"`');
+  const min = props.min ?? leftLabel ?? 0;
+  const max = props.max ?? rightLabel ?? 100;
+  const minMaxVisible = showMinMax ?? showLabel ?? false;
+  const labelDisplay = valueLabelDisplay ?? (showTooltip ? 'on' : 'off');
+  const initialValue = () => defaultValue ?? getDefaultRangeValue(type, level, range, min, max);
   const isControlled = value !== undefined && value !== null;
 
   const [internalValue, setInternalValue] = useState<number | number[]>(() =>
-    isControlled ? value : getDefaultRangeValue(type, level, range, min, max)
+    isControlled ? value : initialValue()
   );
 
   const [prevMode, setPrevMode] = useState(`${type}-${level}-${min}-${max}-${range}`);
@@ -113,7 +127,7 @@ const RdsRange= ({
   const modeKey = `${type}-${level}-${min}-${max}-${range}`;
   if (!isControlled && modeKey !== prevMode) {
     setPrevMode(modeKey);
-    setInternalValue(getDefaultRangeValue(type, level, range, min, max));
+    setInternalValue(initialValue());
   }
 
   const effectiveValue = isControlled ? value : internalValue;
@@ -127,8 +141,8 @@ const RdsRange= ({
       type === 'one-way' && level && `rds-range--level-${level}`,
       type !== 'one-way' && 'rds-range--two-way',
       props.disabled && 'rds-range--disabled',
-      showTooltip && 'rds-range--with-tooltip',
-      showLabel && 'rds-range--with-labels',
+      labelDisplay === 'on' && 'rds-range--with-tooltip',
+      minMaxVisible && 'rds-range--with-labels',
       props.size && `rds-range--${props.size}`,
       props.color && `rds-range--${props.color}`,
     );
@@ -176,9 +190,9 @@ const RdsRange= ({
         value={effectiveValue}
         onChange={handleChange}
         {...props}
-        valueLabelDisplay={showTooltip ? "on" : "off"}
-        slots={showTooltip ? { ...slots, valueLabel: RangeValueLabel } : slots}
-        slotProps={showTooltip ? ({ ...slotProps, valueLabel: { formatValue } } as SliderProps['slotProps']) : slotProps}
+        valueLabelDisplay={labelDisplay}
+        slots={labelDisplay === 'on' ? { ...slots, valueLabel: RangeValueLabel } : slots}
+        slotProps={labelDisplay === 'on' ? ({ ...slotProps, valueLabel: { formatValue } } as SliderProps['slotProps']) : slotProps}
         marks={marks}
         min={min}
         max={max}
@@ -186,7 +200,7 @@ const RdsRange= ({
         aria-label={isRangeValue ? undefined : ariaLabel}
         getAriaLabel={isRangeValue ? () => ariaLabel : undefined}
       />
-      {showLabel && (
+      {minMaxVisible && (
         <Box className="rds-range__footer" sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="caption" color="text.secondary" className="rds-range__min-label">
             {formatMinMaxValue(min)}

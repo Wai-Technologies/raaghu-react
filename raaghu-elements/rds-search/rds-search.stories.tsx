@@ -4,7 +4,6 @@ import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import RdsSearch from './rds-search';
 
-// Shared styles for search results box - uses theme palette instead of hardcoded colors
 const searchResultsBoxSx = {
   p: 1,
   backgroundColor: (theme: any) => theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[100],
@@ -35,7 +34,7 @@ const meta: Meta<typeof RdsSearch> = {
     },
     iconPosition: {
       control: 'select',
-      options: ['left', 'right'],
+      options: ['start', 'end'],
       description: 'Position of the search icon relative to the input',
     },
     variant: {
@@ -58,11 +57,9 @@ const meta: Meta<typeof RdsSearch> = {
     showSearchIcon: {
       control: 'boolean',
     },
-    autoSearch: {
-      control: 'boolean',
-    },
-    searchDelay: {
+    debounce: {
       control: 'number',
+      description: 'Calls onSearch automatically while typing, debounced by this many ms',
     },
     component: {
       control: { disable: true },
@@ -115,7 +112,7 @@ export const Default: Story = {
     placeholder: 'Search...',
     label: 'Search',
     labelPosition: 'top',
-    iconPosition: 'left',
+    iconPosition: 'start',
     fullWidth: false,
   },
   render: (args) => {
@@ -123,7 +120,7 @@ export const Default: Story = {
     const [searchResults, setSearchResults] = useState<string[]>([]);
 
     const handleSearch = (value: string) => {
-      if (args.autoSearch) {
+      if (args.debounce !== undefined) {
         const mockResults = value 
           ? [`Result for "${value}"`]
           : [];
@@ -151,7 +148,7 @@ export const Default: Story = {
             />
           );
         })()}
-        {args.autoSearch && searchResults.length > 0 && (
+        {args.debounce !== undefined && searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
             <Box sx={searchResultsBoxSx}>
               {searchResults.map((result) => (
@@ -169,8 +166,7 @@ export const Default: Story = {
 
 export const AutoSearch: Story = {
   args: {
-    autoSearch: true,
-    searchDelay: 300,
+    debounce: 300,
   },
   render: (args) => {
     const [searchValue, setSearchValue] = useState('');

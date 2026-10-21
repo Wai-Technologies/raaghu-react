@@ -22,9 +22,9 @@ const meta: Meta<typeof RdsSelect> = {
       control: 'text',
       description: 'Helper text shown below the field',
     },
-    errorMessage: {
-      control: 'text',
-      description: 'Error text shown below the field',
+    error: {
+      control: 'boolean',
+      description: 'Puts the field in the error state',
     },
     placeholder: {
       control: 'text',
@@ -32,10 +32,11 @@ const meta: Meta<typeof RdsSelect> = {
     inputPlaceholder: {
       control: 'text',
     },
-    labelposition: {
-      control: 'boolean',
+    labelPlacement: {
+      control: 'select',
+      options: ['floating', 'top'],
     },
-    isRequired: {
+    required: {
       control: 'boolean',
     },
     size: {
@@ -91,7 +92,7 @@ export const Default: Story = {
     label: 'Select Option',
     options: basicOptions,
     inputPlaceholder: 'Please select...',
-    labelposition: true,
+    labelPlacement: 'floating',
     size: 'small',
   },
 };
@@ -99,7 +100,7 @@ export const Default: Story = {
 export const Required: Story = {
   args: {
     label: 'Required Field',
-    isRequired: true,
+    required: true,
     options: basicOptions,
   },
 };
@@ -119,7 +120,8 @@ export const WithDisabledOptions: Story = {
 export const WithError: Story = {
   args: {
     label: 'Select with Error',
-    errorMessage: 'Please select a valid option',
+    error: true,
+    helperText: 'Please select a valid option',
     options: basicOptions,
   },
 };

@@ -19,7 +19,7 @@ const meta: Meta<typeof RdsProgress> = {
       options: ['circular', 'line', 'stepper', 'dash', 'block'],
       description: 'The visual style of the progress indicator',
     },
-    variant: { control: 
+    mode: { control: 
       { type: 'select' },
       options: ['determinate', 'indeterminate', 'buffer', 'query'] 
     },
@@ -37,11 +37,11 @@ const meta: Meta<typeof RdsProgress> = {
       options: [0, 1, 2, 3, 4, 5],
       description: 'Progress steps (1=20%, 2=40%, 3=60%, 4=80%, 5=100%). Only works for circular, stepper, dash, and block styles.',
     },
-    stepperType: {
+    stepIcon: {
       control: {
         type: 'select',
       },
-      options: ['number', 'circle'],
+      options: ['number', 'dot'],
       description: 'The type of stepper indicator. Only applies when style is stepper.',
       if: { arg: 'style', eq: 'stepper' },
     },
@@ -54,7 +54,7 @@ type Story = StoryObj<typeof meta>;
 export const Circular: Story = {
   args: {
     style: 'circular',
-    variant: 'determinate',
+    mode: 'determinate',
     steps: 4,
     showLabel: true,
     color: 'primary',
@@ -64,37 +64,37 @@ export const Circular: Story = {
     await expect(progress).toBeInTheDocument();
   },
 };
-Circular.parameters = { controls: { include: ['style', 'variant', 'steps', 'showLabel', 'color', 'stepperType'] } };
+Circular.parameters = { controls: { include: ['style', 'mode', 'steps', 'showLabel', 'color', 'stepIcon'] } };
 
 export const Stepper: Story = {
   args: {
     style: 'stepper',
     steps: 2,
     color: 'primary',
-    stepperType: 'circle',
+    stepIcon: 'dot',
   },
 };
-Stepper.parameters = { controls: { include: ['style', 'steps', 'color', 'stepperType'] } };
+Stepper.parameters = { controls: { include: ['style', 'steps', 'color', 'stepIcon'] } };
 
 export const ColorVariants: Story = {
   args: {
-    variant: 'determinate',
+    mode: 'determinate',
     value: 60,
     color: 'secondary',
   },
 };
-ColorVariants.parameters = { controls: { include: ['variant', 'value', 'color'] } };
+ColorVariants.parameters = { controls: { include: ['mode', 'value', 'color'] } };
 
 export const Indeterminate: Story = {
   args: {
-    variant: 'indeterminate',
+    mode: 'indeterminate',
   },
 };
-Indeterminate.parameters = { controls: { include: ['variant'] } };
+Indeterminate.parameters = { controls: { include: ['mode'] } };
 
 export const Linear: Story = {
   args: {
-    variant: 'determinate',
+    mode: 'determinate',
     value: 75,
   },
   decorators: [
@@ -105,6 +105,6 @@ export const Linear: Story = {
     ),
   ],
 };
-Linear.parameters = { controls: { include: ['variant', 'value'] } };
+Linear.parameters = { controls: { include: ['mode', 'value'] } };
 
 export const Default: Story = { ...Circular };
