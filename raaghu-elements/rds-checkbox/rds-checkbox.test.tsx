@@ -8,7 +8,6 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import { axe } from 'jest-axe';
 
-// Mock SCSS imports
 jest.mock('./rds-checkbox.scss', () => ({}));
 
 const theme = createTheme();
@@ -775,5 +774,19 @@ describe('RdsCheckbox audit fixes', () => {
     render(<RdsCheckbox labeltext="Old" isDisabled />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCheckbox', 'labeltext', expect.any(String));
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCheckbox', 'isDisabled', expect.any(String));
+  });
+});
+
+describe('RdsCheckbox additive renames', () => {
+  it('uses variant over style for the shape', () => {
+    const { container } = renderWithTheme(<RdsCheckbox label="A" variant="circular" style="square" />);
+    expect(container.firstChild).toHaveClass('rds-checkbox__circular');
+    expect(container.firstChild).not.toHaveClass('rds-checkbox__square');
+  });
+
+  it('supports the indeterminate prop', () => {
+    const { container } = renderWithTheme(<RdsCheckbox label="A" indeterminate />);
+    expect(container.firstChild).toHaveClass('rds-checkbox__indeterminate');
+    expect(screen.getByRole('checkbox').getAttribute('data-indeterminate')).toBe('true');
   });
 });

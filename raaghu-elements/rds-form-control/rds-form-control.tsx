@@ -22,6 +22,8 @@ export interface RdsFormControlProps extends FormControlProps {
    * `aria-labelledby` is passed, or `component="fieldset"` is used (the label then
    * renders as a `legend`).
    */
+  group?: boolean;
+  /** @deprecated Use `group` instead. */
   isGroup?: boolean;
 }
 
@@ -30,13 +32,16 @@ const RdsFormControl = ({
   helperText,
   children,
   isRequired,
-  isGroup = false,
+  group,
+  isGroup,
   required,
   error,
   ...props
 }: RdsFormControlProps) => {
   if (isRequired !== undefined) warnDeprecatedProp('RdsFormControl', 'isRequired', '`required`');
 
+  if (isGroup !== undefined) warnDeprecatedProp('RdsFormControl', 'isGroup', '`group`');
+  const isGrouped = group ?? isGroup ?? false;
   const isRequiredProp = required ?? isRequired ?? false;
 
   const generatedId = useId();
@@ -46,9 +51,8 @@ const RdsFormControl = ({
 
   const isFieldset = props.component === 'fieldset';
   const hasLabel = Boolean(label);
-  // A fieldset is named natively by its legend; other roots need role + aria-labelledby.
   const groupA11yProps =
-    isGroup && !isFieldset
+    isGrouped && !isFieldset
       ? {
         ...(props.role === undefined ? { role: 'group' } : {}),
         ...(hasLabel && props['aria-labelledby'] === undefined && props['aria-label'] === undefined
@@ -57,7 +61,7 @@ const RdsFormControl = ({
       }
       : {};
 
-  const content = isGroup ? (
+  const content = isGrouped ? (
     <MuiFormGroup>{children}</MuiFormGroup>
   ) : (
     children
@@ -75,7 +79,7 @@ const RdsFormControl = ({
         <MuiFormLabel
           className="rds-form-control__label"
           {...(isFieldset ? { component: 'legend' as const } : {})}
-          {...(isGroup ? { id: labelId } : {})}
+          {...(isGrouped ? { id: labelId } : {})}
         >
           {label}
         </MuiFormLabel>

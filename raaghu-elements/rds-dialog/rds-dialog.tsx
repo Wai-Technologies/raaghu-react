@@ -4,6 +4,7 @@ import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, Dial
 import CloseIcon from '@mui/icons-material/Close';
 import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-dialog.scss';
 
 const SIZE_MAP = {
@@ -18,20 +19,25 @@ export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   title?: string;
   children?: ReactNode;
   actions?: ReactNode;
+  /** Shows the close button (Figma). */
   ShowDissmiss?: boolean;
+  /** Shows the close button. Takes precedence over `ShowDissmiss`. Defaults to `true`. */
+  showCloseButton?: boolean;
   /**
    * MUI's `onClose(event, reason)`: `reason` is `'backdropClick'` or `'escapeKeyDown'` when MUI closes the dialog.
    * The built-in close button (and, in the `standard` variant, the Cancel/Okay buttons when no
    * `onSecondaryClick`/`onPrimaryClick` is given) call it with the click event only, without a `reason`.
    */
   onClose?: DialogProps['onClose'];
-  variant?: 'standard' | 'default';
+  /** `confirm` is the centred layout with primary/secondary buttons. */
+  variant?: 'default' | 'confirm' | 'standard';
   /** Shows the primary button (`standard` variant only). */
   ShowPrimary?: boolean;
   /** Shows the secondary button (`standard` variant only). */
   ShowSecondary?: boolean;
+  /** @deprecated Omit `title` instead. */
   showTitle?: boolean;
-  /** Maps to MUI `maxWidth`; a `maxWidth` prop takes precedence. */
+  /** @deprecated Use `maxWidth` instead. A `maxWidth` prop takes precedence. */
   size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large' | false;
   /** Label of the primary button (`standard` variant). Defaults to `'Okay'`. */
   primaryText?: string;
@@ -71,13 +77,14 @@ const RdsDialog = ({
   title,
   children,
   actions,
-  ShowDissmiss = true,
+  ShowDissmiss,
+  showCloseButton: showCloseButtonProp,
   onClose,
   variant = 'default',
   ShowPrimary,
   ShowSecondary,
-  showTitle = true,
-  size = 'medium',
+  showTitle: showTitleProp,
+  size,
   primaryText = 'Okay',
   secondaryText = 'Cancel',
   onPrimaryClick,
@@ -85,27 +92,32 @@ const RdsDialog = ({
   slotProps,
   ...props
 }: RdsDialogProps) => {
-  // The buttons pass only the click event to `onClose`, as they always have.
+  if (showTitleProp !== undefined) warnDeprecatedProp('RdsDialog', 'showTitle', '`title={undefined}`');
+  if (size !== undefined) warnDeprecatedProp('RdsDialog', 'size', '`maxWidth`');
+  if (variant === 'standard') warnDeprecatedProp('RdsDialog', 'variant="standard"', '`variant="confirm"`');
+  const showTitle = showTitleProp ?? true;
+  const showClose = showCloseButtonProp ?? ShowDissmiss ?? true;
+  const resolvedSize = size ?? 'medium';
   const closeFromButton = (event: MouseEvent<HTMLButtonElement>) => {
     (onClose as ((event: MouseEvent<HTMLButtonElement>) => void) | undefined)?.(event);
   };
 
-  if (variant === 'standard') {
+  if (variant === 'confirm' || variant === 'standard') {
     return (
       <MuiDialog
         onClose={onClose}
-        maxWidth={size ? SIZE_MAP[size] : size}
+        maxWidth={resolvedSize ? SIZE_MAP[resolvedSize] : resolvedSize}
         {...props}
         slotProps={{
           ...slotProps,
           paper: mergePaperSlotProps({ className: 'rds-dialog rds-dialog__paper' }, slotProps?.paper),
         }}
       >
-        {((title && showTitle) || ShowDissmiss) && (
+        {((title && showTitle) || showClose) && (
           <DialogTitle className="rds-dialog__title">
             <div className="rds-dialog__title-inner">
               <div style={{ flex: 1 }}>{showTitle ? title : null}</div>
-              {ShowDissmiss && (
+              {showClose && (
                 <IconButton aria-label="close" className="rds-dialog__close-button" onClick={closeFromButton} size="medium" >
                   <CloseIcon />
                 </IconButton>
@@ -140,18 +152,18 @@ const RdsDialog = ({
   return (
   <MuiDialog
     onClose={onClose}
-    maxWidth={size ? SIZE_MAP[size] : size}
+    maxWidth={resolvedSize ? SIZE_MAP[resolvedSize] : resolvedSize}
     {...props}
     slotProps={slotProps}
   >
-      {((title && showTitle) || ShowDissmiss) && (
+      {((title && showTitle) || showClose) && (
         <DialogTitle
           sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: 1,
-            pr: ShowDissmiss ? 1 : undefined,
+            pr: showClose ? 1 : undefined,
           }}
         >
           <Box
@@ -165,7 +177,7 @@ const RdsDialog = ({
           >
             {showTitle ? title : null}
           </Box>
-          {ShowDissmiss && onClose && (
+          {showClose && onClose && (
             <IconButton
               aria-label="close"
               onClick={closeFromButton}

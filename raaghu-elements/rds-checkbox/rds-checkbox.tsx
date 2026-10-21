@@ -7,7 +7,10 @@ import './rds-checkbox.scss';
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
   /** Text shown next to the checkbox. */
   label?: string;
+  /** Checkbox shape (Figma). */
   style?: 'square' | 'circular';
+  /** Checkbox shape. Takes precedence over `style`. */
+  variant?: 'square' | 'circular';
   state?: 'default' | 'disabled' | 'hover';
   status?: 'checked' | 'unchecked' | 'indeterminate';
   /** Shows the label text. When hidden, the label is still used as the accessible name. */
@@ -25,6 +28,7 @@ const RdsCheckbox = ({
   isDisabled,
   disabled,
   style = 'square',
+  variant,
   state = 'default',
   status,
   showText = true,
@@ -33,6 +37,7 @@ const RdsCheckbox = ({
   color,
   checked: checkedProp,
   defaultChecked,
+  indeterminate,
   onChange,
   slotProps,
   ...props
@@ -53,9 +58,9 @@ const RdsCheckbox = ({
     }
   }
 
-  // A consumer `checked` controls the checkbox (and its classes); otherwise `status`/clicks do.
   const checked = checkedProp ?? internalChecked;
-  const currentIndeterminate = status === 'indeterminate';
+  const currentIndeterminate = indeterminate ?? status === 'indeterminate';
+  const shape = variant ?? style;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     setInternalChecked(value);
@@ -64,7 +69,7 @@ const RdsCheckbox = ({
 
   const checkboxClassName = clsx(
     'rds-checkbox',
-    style && `rds-checkbox__${style}`,
+    `rds-checkbox__${shape}`,
     checked && 'rds-checkbox__checked',
     isCheckboxDisabled && 'rds-checkbox__disabled',
     currentIndeterminate && 'rds-checkbox__indeterminate',
@@ -75,7 +80,6 @@ const RdsCheckbox = ({
     className,
   );
 
-  // Keep an accessible name when the visible label is hidden.
   const inputSlot = slotProps?.input;
   const needsHiddenLabel = Boolean(labelText) && !showText && !props['aria-label'] && typeof inputSlot !== 'function';
   const resolvedSlotProps = needsHiddenLabel

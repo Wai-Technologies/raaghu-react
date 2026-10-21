@@ -20,13 +20,12 @@ const meta: Meta = {
   tags: ['autodocs', 'stable'],
   argTypes: {
     open: { control: { type: 'boolean' } },
-  size: { control: { type: 'select' }, options: ['extra-small', 'small', 'medium', 'large', 'extra-large', false] },
+    maxWidth: { control: { type: 'select' }, options: ['xs', 'sm', 'md', 'lg', 'xl', false] },
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
-    variant: { control: { type: 'select' }, options: ['standard', 'default'] },
+    variant: { control: { type: 'select' }, options: ['default', 'confirm'] },
     ShowDissmiss: { control: 'boolean' },
-    showTitle: { control: 'boolean' },
     actions: { control: false },
     children: { control: false },
     ShowPrimary: {
@@ -70,7 +69,7 @@ export const Default: Story = {
     );
   },
   args: {
-    size: 'medium',
+    maxWidth: 'md',
     fullWidth: true,
     title: 'Dialog Title',
     children: (
@@ -113,7 +112,7 @@ export const FullWidth: Story = {
   },
   args: {
     fullWidth: true,
-  size: 'small',
+    maxWidth: 'sm',
     title: 'Full Width Dialog',
     children: (
       <Typography variant="body1">
@@ -151,7 +150,7 @@ export const Interactive: Story = {
           <Typography variant="body1" gutterBottom>
             This dialog can be opened and closed.
           </Typography>
-          {args.variant !== 'standard' && (
+          {args.variant !== 'confirm' && (
             <RdsButton style="filled" onClick={() => setOpen(false)}>
               Close
             </RdsButton>
@@ -163,7 +162,7 @@ export const Interactive: Story = {
   args: {
     title: 'Interactive Dialog',
     ShowDissmiss: true,
-    size: 'small',
+    maxWidth: 'sm',
     fullWidth: true,
     variant: 'default',
   },
@@ -198,7 +197,7 @@ export const LargeContent: Story = {
     );
   },
   args: {
-    size: 'medium',
+    maxWidth: 'md',
     fullWidth: true,
     title: 'Large Content Dialog',
     children: (
@@ -251,7 +250,7 @@ export const WithActions: Story = {
     );
   },
   args: {
-    size: 'medium',
+    maxWidth: 'md',
     fullWidth: true,
     title: 'Confirm Action',
     children: (
@@ -263,12 +262,12 @@ export const WithActions: Story = {
 };
 export const WithIcon: Story = {
   args: {
-    size: 'medium',
+    maxWidth: 'md',
     fullWidth: true,
     fullScreen: false,
     title: 'Title',
     ShowDissmiss: true,
-    variant: 'standard',
+    variant: 'confirm',
     ShowPrimary: true,
     ShowSecondary: true,
     children: (
@@ -291,7 +290,7 @@ export const WithIcon: Story = {
   parameters: {
     controls: {
       include: [
-        'size',
+        'maxWidth',
         'fullWidth',
         'fullScreen',
         'title',
@@ -301,7 +300,6 @@ export const WithIcon: Story = {
         'ShowSecondary',
         'primaryText',
         'secondaryText',
-        'showTitle',
       ],
     },
     docs: { disable: true },
@@ -309,7 +307,6 @@ export const WithIcon: Story = {
   },
 
   render: (args) => {
-    const { showTitle = true, ...rest } = args;
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -328,7 +325,7 @@ export const WithIcon: Story = {
         >
           {' Open Dialog'}
         </RdsButton>
-        <RdsDialog open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
+        <RdsDialog open={open} {...args} onClose={() => setOpen(false)} />
       </>
     );
   },

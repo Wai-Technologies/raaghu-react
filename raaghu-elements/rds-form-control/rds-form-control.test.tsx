@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsFormControl, { type RdsFormControlProps } from './rds-form-control';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-form-control.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -312,7 +312,6 @@ describe('RdsFormControl', () => {
         <RdsFormControl {...defaultProps} size="small" />
       );
       const formControl = container.querySelector('.MuiFormControl-root');
-      // Size prop is forwarded but may not result in a specific class
       expect(formControl).toBeInTheDocument();
     });
 
@@ -321,7 +320,6 @@ describe('RdsFormControl', () => {
         <RdsFormControl {...defaultProps} size="medium" />
       );
       const formControl = container.querySelector('.MuiFormControl-root');
-      // Size prop is forwarded but may not result in a specific class
       expect(formControl).toBeInTheDocument();
     });
   });
@@ -874,5 +872,17 @@ describe('audit fixes', () => {
       expect(root).toHaveClass('rds-form-control');
       expect(root).toHaveClass('mine');
     });
+  });
+});
+
+describe('RdsFormControl additive renames', () => {
+  beforeEach(() => (warnDeprecatedProp as jest.Mock).mockClear());
+
+  it('renders a named group with group and warns for isGroup', () => {
+    const { rerender } = render(<RdsFormControl label="L" group><input aria-label="i" /></RdsFormControl>);
+    expect(screen.getByRole('group', { name: 'L' })).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    rerender(<RdsFormControl label="L" isGroup><input aria-label="i" /></RdsFormControl>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsFormControl', 'isGroup', '`group`');
   });
 });

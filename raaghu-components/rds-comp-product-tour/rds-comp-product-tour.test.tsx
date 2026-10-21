@@ -46,7 +46,7 @@ jest.mock('@mui/icons-material', () => ({
 
 jest.mock('../../raaghu-elements/rds-carousel/rds-carousel', () => ({
   __esModule: true,
-  default: ({ children, state, height, style, type, showDots, showIndicators, showArrows, ...props }: any) => (
+  default: ({ children, state, height, style, type, showDots: _showDots, showIndicators, showArrows, ...props }: any) => (
     <div
       data-testid="rds-carousel"
       data-state={state}
@@ -77,7 +77,7 @@ jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => ({
 }));
 jest.mock('../../raaghu-elements/rds-file-uploader/rds-file-uploader', () => ({
   __esModule: true,
-  default: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onFilesChange, ...props }: any) => (
+  default: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onChange, ...props }: any) => (
     <div
       data-testid="rds-file-uploader"
       data-accept={accept}

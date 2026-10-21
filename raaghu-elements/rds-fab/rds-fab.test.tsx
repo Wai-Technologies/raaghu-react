@@ -3,8 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsFab, { type RdsFabProps } from './rds-fab';
+import * as deprecation from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-fab.scss', () => ({}));
 
 describe('RdsFab', () => {
@@ -66,7 +66,6 @@ describe('RdsFab', () => {
         />
       );
       expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      // Label should not be visible in regular variant
       expect(screen.queryByText('Action')).not.toBeInTheDocument();
     });
 
@@ -189,7 +188,6 @@ describe('RdsFab', () => {
         </RdsFab>
       );
       expect(screen.getByTestId('child')).toBeInTheDocument();
-      // Icon should not be rendered if children is provided
       expect(screen.queryByTestId('icon')).not.toBeInTheDocument();
     });
 
@@ -681,7 +679,6 @@ describe('RdsFab', () => {
       );
       const fab = document.querySelector('.MuiFab-root');
       fireEvent.click(fab as HTMLElement);
-      // Click on disabled button may or may not trigger depending on implementation
       expect(fab).toHaveAttribute('disabled');
     });
 
@@ -846,5 +843,22 @@ describe('audit fixes', () => {
       const fab = container.querySelector('.MuiFab-root') as HTMLElement;
       expect(window.getComputedStyle(fab).position).toBe('fixed');
     });
+  });
+});
+
+describe('RdsFab additive renames', () => {
+  const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
+  beforeEach(() => warn.mockClear());
+
+  it('renders startIcon and names the icon-only button by label', () => {
+    render(<RdsFab startIcon={<span data-testid="start-icon" />} label="Add" />);
+    expect(screen.getByTestId('start-icon')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Add' })).toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('warns for icon', () => {
+    render(<RdsFab icon={<span />} />);
+    expect(warn).toHaveBeenCalledWith('RdsFab', 'icon', '`startIcon`');
   });
 });

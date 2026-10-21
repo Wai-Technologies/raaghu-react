@@ -17,7 +17,8 @@ const ICON_MAP: Record<string, ElementType> = {
 };
 
 type StyleColors = { dividerColor: string; textColor: string; iconBorderColor: string; iconColor: string };
-const STYLE_COLORS: Record<string, StyleColors> = {
+type DividerColor = 'subtle' | 'strong' | 'primary';
+const STYLE_COLORS: Record<DividerColor, StyleColors> = {
   subtle: { dividerColor: 'divider', textColor: 'text.secondary', iconBorderColor: 'divider', iconColor: 'text.secondary' },
   strong: { dividerColor: 'divider', textColor: 'text.primary', iconBorderColor: 'divider', iconColor: 'text.primary' },
   primary: { dividerColor: 'var(--rds-primary-main)', textColor: 'var(--rds-primary-main)', iconBorderColor: 'var(--rds-primary-main)', iconColor: 'var(--rds-primary-main)' },
@@ -48,7 +49,7 @@ export interface RdsDividerProps extends Omit<DividerProps, 'component'> {
   dividerMessage?: string;
   /** Figma layout. Defaults to `'horizontal'`. */
   layout?: 'horizontal' | 'vertical';
-  /** Shows the icon. Defaults to `true`. */
+  /** @deprecated Use `icon={null}` to hide the icon instead. */
   iconShow?: boolean;
   /**
    * Icon shown next to the text when `iconShow` is on. Takes precedence over the deprecated
@@ -59,8 +60,10 @@ export interface RdsDividerProps extends Omit<DividerProps, 'component'> {
   iconName?: string;
   /** Line thickness. Defaults to `'medium'`. */
   size?: 'small' | 'medium' | 'large';
-  /** Colour style. Defaults to `'subtle'`. */
-  styleVariant?: 'subtle' | 'strong' | 'primary';
+  /** Colour style. `subtle`, `strong` and `primary` style the line, text and icon; other strings pass to the line elements. Defaults to `'subtle'`. */
+  color?: DividerColor | (string & {});
+  /** @deprecated Use `color` instead. */
+  styleVariant?: DividerColor;
 }
 
 const RdsDivider = ({
@@ -68,27 +71,31 @@ const RdsDivider = ({
   dividerMessage,
   textAlign = 'center',
   layout = 'horizontal',
-  iconShow = true,
+  iconShow,
   icon,
   iconName,
   size = 'medium',
-  styleVariant = 'subtle',
+  styleVariant,
+  color,
   id,
   ref,
   ...props
 }: RdsDividerProps) => {
   if (dividerMessage !== undefined) warnDeprecatedProp('RdsDivider', 'dividerMessage', '`children`');
+  if (iconShow !== undefined) warnDeprecatedProp('RdsDivider', 'iconShow', '`icon={null}`');
+  if (styleVariant !== undefined) warnDeprecatedProp('RdsDivider', 'styleVariant', '`color`');
   if (iconName !== undefined) warnDeprecatedProp('RdsDivider', 'iconName', '`icon`');
 
-  // `children` wins over the deprecated `dividerMessage`.
   const message: ReactNode = children ?? dividerMessage;
   const hasMessage = message !== undefined && message !== null && message !== false && message !== '';
 
   const normalizedIconName = iconName?.trim();
   const IconComponent: ElementType = (normalizedIconName && ICON_MAP[normalizedIconName]) || InfoOutlinedIcon;
-  const showIcon = iconShow && icon !== null && icon !== false;
+  const showIcon = (iconShow ?? true) && icon !== null && icon !== false;
 
-  const styleColors = STYLE_COLORS[styleVariant] ?? DEFAULT_STYLE_COLORS;
+  const isStyleColor = color !== undefined && Object.prototype.hasOwnProperty.call(STYLE_COLORS, color);
+  const styleColors = STYLE_COLORS[isStyleColor ? color as DividerColor : styleVariant ?? 'subtle'] ?? DEFAULT_STYLE_COLORS;
+  const lineProps = { ...props, color: isStyleColor ? undefined : color };
   const dividerLineColor = styleColors.dividerColor;
   const textColor = styleColors.textColor;
   const iconColor = styleColors.iconColor;
@@ -110,7 +117,6 @@ const RdsDivider = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          // A custom `icon` inherits the style colour (MUI icons default to `color="inherit"`).
           ...(icon !== undefined && { color: iconColor }),
         }}
       >
@@ -140,7 +146,7 @@ const RdsDivider = ({
             borderColor: dividerLineColor,
             borderWidth: sizeStyles.borderWidth,
           }}
-          {...props}
+          {...lineProps}
           id={id}
           ref={ref}
         />
@@ -156,7 +162,6 @@ const RdsDivider = ({
   };
   const hasLeadingLine = textAlign === 'center' || textAlign === 'right';
   const hasTrailingLine = textAlign === 'center' || textAlign === 'left';
-  // `id` and `ref` go on the first line only, so the id stays unique and the ref is predictable.
   const firstLineProps = { id, ref };
 
   return (
@@ -166,10 +171,10 @@ const RdsDivider = ({
       width="100%"
       my={sizeStyles.marginY}
     >
-      {hasLeadingLine && <MuiDivider sx={lineSx} {...props} {...firstLineProps} />}
+      {hasLeadingLine && <MuiDivider sx={lineSx} {...lineProps} {...firstLineProps} />}
       {content}
       {hasTrailingLine && (
-        <MuiDivider sx={lineSx} {...props} {...(hasLeadingLine ? undefined : firstLineProps)} />
+        <MuiDivider sx={lineSx} {...lineProps} {...(hasLeadingLine ? undefined : firstLineProps)} />
       )}
     </Box>
   );

@@ -1,8 +1,12 @@
 import { type ReactNode, type CSSProperties, isValidElement } from 'react';
 import { Fab as MuiFab, type FabProps } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-fab.scss';
 
 export interface RdsFabProps extends Omit<FabProps, 'component'> {
+  /** Icon shown in the button (before the label in the extended variant). */
+  startIcon?: ReactNode;
+  /** @deprecated Use `startIcon` instead. */
   icon?: ReactNode;
   /**
    * Text shown in the extended variant (or alone when there is no icon/children).
@@ -27,6 +31,7 @@ const isRenderableNode = (node: unknown): node is ReactNode =>
   isValidElement(node);
 
 const RdsFab = ({
+  startIcon,
   icon,
   label,
   children,
@@ -35,13 +40,14 @@ const RdsFab = ({
   'aria-label': ariaLabel,
   ...props
 }: RdsFabProps) => {
+  if (icon !== undefined) warnDeprecatedProp('RdsFab', 'icon', '`startIcon`');
   const positionStyles = position ? (POSITION_STYLES[position] ?? {}) : {};
 
   const isExtended = props.variant === 'extended';
-  const resolvedIcon = isRenderableNode(icon) ? icon : undefined;
+  const iconNode = startIcon ?? icon;
+  const resolvedIcon = isRenderableNode(iconNode) ? iconNode : undefined;
   const resolvedLabel = typeof label === 'string' ? label : undefined;
   const resolvedChildren = isRenderableNode(children) ? children : undefined;
-  // Multiple children (e.g. an icon followed by text) arrive as an array.
   const arrayChildren = Array.isArray(children) ? children : undefined;
 
   let fabContent: ReactNode;

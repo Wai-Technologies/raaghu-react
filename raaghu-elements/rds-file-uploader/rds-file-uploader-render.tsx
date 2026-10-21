@@ -4,5 +4,5 @@ import RdsFileUploader from './rds-file-uploader';
 
 export const RenderFileUploader = (args: RdsFileUploaderProps) => {
   const [files, setFiles] = useState<FileWithProgress[]>([]);
-  return <RdsFileUploader {...args} onFilesChange={setFiles} />;
+  return <RdsFileUploader {...args} onChange={(_, nextFiles) => setFiles(nextFiles)} />;
 };

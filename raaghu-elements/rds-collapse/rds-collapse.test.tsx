@@ -3,11 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCollapse, { RdsCollapseProps } from './rds-collapse';
 import { axe } from 'jest-axe';
+import * as deprecation from '../shared/utils/deprecation';
 
-// Mock SCSS imports
 jest.mock('./rds-collapse.scss', () => ({}));
 
-// Mock MUI ExpandMore icon
 jest.mock('@mui/icons-material/ExpandMore', () => {
   return function MockExpandMoreIcon() {
     return <span data-testid="ExpandMoreIcon">ExpandMoreIcon</span>;
@@ -91,7 +90,6 @@ describe('RdsCollapse', () => {
     it('should be collapsed by default', () => {
       const { container } = renderWithTheme(<RdsCollapse {...defaultProps} />);
       const collapse = container.querySelector('.MuiCollapse-entered');
-      // When collapsed, MuiCollapse doesn't have entered class
       expect(container.querySelector('.MuiCollapse-root')).toBeInTheDocument();
     });
 
@@ -132,17 +130,14 @@ describe('RdsCollapse', () => {
       renderWithTheme(<RdsCollapse {...defaultProps} expanded={false} />);
       const toggleButton = screen.getByRole('button');
       
-      // Expand
       fireEvent.click(toggleButton);
       await waitFor(() => {
         expect(screen.getByText('Content')).toBeInTheDocument();
       });
       
-      // Collapse
       fireEvent.click(toggleButton);
       await waitFor(() => {
         const collapse = document.querySelector('.MuiCollapse-hidden');
-        // Just verify button exists
         expect(toggleButton).toBeInTheDocument();
       });
     });
@@ -186,7 +181,6 @@ describe('RdsCollapse', () => {
       
       await waitFor(() => {
         const btnElement = toggleButton as HTMLElement;
-        // Button should have transform rotate when expanded
         expect(btnElement).toBeInTheDocument();
       });
     });
@@ -205,7 +199,6 @@ describe('RdsCollapse', () => {
       renderWithTheme(<RdsCollapse title="Section" >{"Content"}</RdsCollapse>);
       const title = screen.getByText('Section');
       expect(title).toBeInTheDocument();
-      // Title is rendered as DIV within Typography component
       expect(title.tagName).toBe('DIV');
     });
 
@@ -335,7 +328,6 @@ describe('RdsCollapse', () => {
         fireEvent.click(header);
       }
       
-      // onToggle should be called when clicking on the header area
       expect(onToggle).toHaveBeenCalled();
     });
   });
@@ -352,7 +344,6 @@ describe('RdsCollapse', () => {
         </ThemeProvider>
       );
       
-      // Should show content when expanded
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -381,7 +372,6 @@ describe('RdsCollapse', () => {
           unmountOnExit={true}
         />
       );
-      // Verify the component renders with MuiCollapse props
       const buttonElement = screen.getByRole('button');
       expect(buttonElement).toBeInTheDocument();
     });
@@ -677,7 +667,6 @@ describe('RdsCollapse', () => {
         <RdsCollapse {...defaultProps} />
       );
       const toggleButton = screen.getByRole('button');
-      // Should not throw when clicking
       fireEvent.click(toggleButton);
       expect(toggleButton).toBeInTheDocument();
     });
@@ -754,7 +743,6 @@ describe('RdsCollapse', () => {
   describe('audit fixes', () => {
     const getToggle = () => screen.getByRole('button');
 
-    // G1-209: onToggle alone must not make the component controlled
     it('opens and closes when only onToggle is given, and still calls onToggle', () => {
       const onToggle = jest.fn();
       renderWithTheme(
@@ -825,7 +813,6 @@ describe('RdsCollapse', () => {
       expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    // G1-210: switching from controlled to uncontrolled keeps the latest expanded value
     it('keeps the latest expanded value when onToggle is removed', () => {
       const onToggle = jest.fn();
       const { rerender } = renderWithTheme(
@@ -844,7 +831,6 @@ describe('RdsCollapse', () => {
       expect(getToggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    // G1-211: toggle exposes its state and the region it controls
     it('links the toggle button to the content region with aria-controls', () => {
       const { container } = renderWithTheme(
         <RdsCollapse title="Title">{'Content'}</RdsCollapse>
@@ -876,7 +862,6 @@ describe('RdsCollapse', () => {
       expect(onToggle).toHaveBeenCalledTimes(1);
     });
 
-    // G1-212: MUI `in` keeps precedence over the component state for the content area
     it('lets MUI `in` decide the content state and reports it in aria-expanded', () => {
       renderWithTheme(
         <RdsCollapse title="Title" in={true}>{'Content'}</RdsCollapse>
@@ -891,5 +876,22 @@ describe('RdsCollapse', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsCollapse additive renames', () => {
+  const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
+  beforeEach(() => warn.mockClear());
+
+  it('hides the toggle with hideToggle', () => {
+    render(<RdsCollapse title="T" hideToggle>c</RdsCollapse>);
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('warns for showToggleButton and lets hideToggle win', () => {
+    render(<RdsCollapse title="T" showToggleButton hideToggle>c</RdsCollapse>);
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(warn).toHaveBeenCalledWith('RdsCollapse', 'showToggleButton', '`hideToggle`');
   });
 });

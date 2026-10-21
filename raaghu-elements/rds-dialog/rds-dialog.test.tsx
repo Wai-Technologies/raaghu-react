@@ -3,11 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsDialog from './rds-dialog';
 import { axe } from 'jest-axe';
+import * as deprecation from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-dialog.scss', () => ({}));
 
-// Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return function MockRdsButton({ children, onClick, text, style, ...props }: any) {
     return (
@@ -18,7 +17,6 @@ jest.mock('../rds-button/rds-button', () => {
   };
 });
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
   Dialog: ({ children, onClose, maxWidth, open, ...props }: any) => {
@@ -50,7 +48,6 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/Close', () => {
   return function MockCloseIcon() {
     return <span data-testid="close-icon">CloseIcon</span>;
@@ -289,8 +286,6 @@ describe('RdsDialog', () => {
 
     it('should not render dialog actions element when no actions provided', () => {
       render(<RdsDialog {...defaultProps} />);
-      // In default variant, actions element is only shown if actions prop is provided
-      // So we check if our test action button exists
       expect(screen.queryByText('Test Action')).not.toBeInTheDocument();
     });
 
@@ -577,7 +572,7 @@ describe('RdsDialog', () => {
 });
 
 describe('RdsDialog audit fixes', () => {
-  const standardProps = { open: true, variant: 'standard' as const, ShowPrimary: true, ShowSecondary: true };
+  const standardProps = { open: true, variant: 'confirm' as const, ShowPrimary: true, ShowSecondary: true };
 
   it('calls onPrimaryClick/onSecondaryClick instead of onClose and uses custom labels (G1-233)', () => {
     const onClose = jest.fn();
@@ -619,7 +614,6 @@ describe('RdsDialog audit fixes', () => {
       warn: jest.Mock;
     };
 
-    // Fresh copies of the component, MUI and RdsButton (not the mocks above) that share this file's React.
     const load = (): Isolated => {
       /* eslint-disable @typescript-eslint/no-require-imports -- fresh module instances with the real MUI */
       const shared = ['react', 'react/jsx-runtime', 'react/jsx-dev-runtime', 'react-dom', 'react-dom/client'].map(
@@ -722,5 +716,27 @@ describe('RdsDialog audit fixes', () => {
       expect(document.getElementById(labelId as string)).toHaveTextContent('My Title');
       expect(screen.getByRole('button', { name: 'close' })).toBeInTheDocument();
     });
+  });
+});
+
+describe('RdsDialog additive renames', () => {
+  const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
+  beforeEach(() => warn.mockClear());
+
+  it('lets showCloseButton win over ShowDissmiss', () => {
+    render(<RdsDialog open title="T" onClose={jest.fn()} ShowDissmiss showCloseButton={false}>c</RdsDialog>);
+    expect(screen.queryByRole('button', { name: 'close' })).not.toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('renders the confirm variant and warns for standard, size and showTitle', () => {
+    const { rerender } = render(<RdsDialog open variant="confirm" ShowPrimary title="T">c</RdsDialog>);
+    expect(screen.getByText('Okay')).toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalled();
+    rerender(<RdsDialog open variant="standard" size="small" showTitle ShowPrimary title="T">c</RdsDialog>);
+    expect(screen.getByText('Okay')).toBeInTheDocument();
+    expect(warn).toHaveBeenCalledWith('RdsDialog', 'variant="standard"', '`variant="confirm"`');
+    expect(warn).toHaveBeenCalledWith('RdsDialog', 'size', '`maxWidth`');
+    expect(warn).toHaveBeenCalledWith('RdsDialog', 'showTitle', '`title={undefined}`');
   });
 });
