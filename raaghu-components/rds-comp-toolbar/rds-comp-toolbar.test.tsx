@@ -708,4 +708,46 @@ describe('RdsCompToolbar', () => {
       expect(rows.length).toBeGreaterThan(0);
     });
   });
+
+  describe('Audit fixes', () => {
+    it('disables buttons for DisabledOff, and disabled wins over state', () => {
+      const { rerender } = render(<RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOff} />);
+      expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-disabled', 'true');
+      rerender(<RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} disabled={false} />);
+      expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-disabled', 'false');
+    });
+
+    it('supports controlled value with onChange', () => {
+      const onChange = jest.fn();
+      render(<RdsCompToolbar {...defaultProps} value={['italic']} onChange={onChange} />);
+      expect(screen.getByTestId('toolbar-button-italic')).toHaveAttribute('data-is-active', 'true');
+      fireEvent.click(screen.getByTestId('toolbar-button-bold'));
+      expect(onChange).toHaveBeenCalledWith(['italic', 'bold']);
+      expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-active', 'false');
+    });
+
+    it('calls onOptionSelect with the parent action and the value', () => {
+      const onAction = jest.fn();
+      const onOptionSelect = jest.fn();
+      render(<RdsCompToolbar {...defaultProps} onAction={onAction} onOptionSelect={onOptionSelect} />);
+      fireEvent.click(screen.getByTestId('toolbar-button-color'));
+      fireEvent.click(screen.getByText('Option 1'));
+      expect(onOptionSelect).toHaveBeenCalledWith('color', 'option1');
+      expect(onAction).toHaveBeenCalledWith('option1');
+    });
+
+    it('renders custom items and forwards ref', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <RdsCompToolbar
+          {...defaultProps}
+          ref={ref}
+          items={[[{ icon: 'x', action: 'custom', ariaLabel: 'Custom', options: [{ label: 'A', value: 'a' }] }]]}
+        />
+      );
+      expect(screen.getByTestId('toolbar-button-custom')).toHaveAttribute('data-has-dropdown', 'true');
+      expect(screen.queryByTestId('toolbar-button-bold')).not.toBeInTheDocument();
+      expect(ref.current).toBe(screen.getByRole('toolbar'));
+    });
+  });
 });

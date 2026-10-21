@@ -53,3 +53,54 @@ export { default as RdsCompAiGradientTextWithIcon } from './rds-comp-ai-gradient
 export { default as RdsCompAiMessageBox } from './rds-comp-ai-message-box/rds-comp-ai-message-box';
 export { default as RdsCompAiChatHeader } from './rds-comp-ai-chat-header/rds-comp-ai-chat-header';
 // export { default as RdsCompDatePicker } from './rds-comp-date-and-time-picker/rds-comp-date-and-time-picker'; // INTERNAL: incomplete implementation — not part of public API
+
+// Public prop and helper types (G3-228, G3-229)
+export type { RdsCompSpinnerProps } from './rds-comp-spinner/rds-comp-spinner-types';
+export type { RdsCompContributionProps } from './rds-comp-contribution/rds-comp-contribution';
+export type { RdsCompColorPickerProps } from './rds-comp-color-picker/rds-comp-color-picker.types';
+export type { RdsCompToastProps, ToastCloseReason } from './rds-comp-toast/rds-comp-toast.types';
+export { ToastLayout, ToastState, ToastLeadingIcon, ToastPosition } from './rds-comp-toast/rds-comp-toast.types';
+export type { RdsScrollBarProps } from './rds-comp-scrollbar/rds-comp-scrollbar';
+export type { RdsCompTruncateTextProps } from './rds-comp-truncate-text/rds-comp-truncate-text';
+export type { RdsCompOffcanvasProps, RdsCompOffcanvasCloseReason } from './rds-comp-off-canvas/rds-comp-off-canvas';
+export type { RdsCompFilterButtonProps, RdsCompFilterButtonLocaleText } from './rds-comp-filter-button/rds-comp-filter-button';
+export type { RdsCompAreaChartProps } from './rds-comp-chart-area/rds-comp-chart-area';
+export type { RdsCompLineProps } from './rds-comp-chart-line/rds-comp-chart-line';
+export type { RdsCompPieProps } from './rds-comp-chart-pie/rds-comp-chart-pie';
+export type { RdsCompDoughnutProps } from './rds-comp-chart-doughnut/rds-comp-chart-doughnut';
+export type { RdsCompGaugeProps } from './rds-comp-chart-gauge/rds-comp-chart-gauge';
+export type { RdsCompBarChartProps } from './rds-comp-chart-bar/rds-comp-chart-bar';
+export type { RdsCompBooleanChartProps } from './rds-comp-chart-boolean/rds-comp-chart-boolean';
+export type { RdsCompMixedChartProps } from './rds-comp-chart-mixed/rds-comp-chart-mixed';
+export type { RdsCompPolarAreaChartProps } from './rds-comp-chart-polar-area/rds-comp-chart-polar-area';
+export type { RdsCompRadarProps } from './rds-comp-chart-radar/rds-comp-chart-radar';
+export type { RdsCompScatterChartProps } from './rds-comp-chart-scatter/rds-comp-chart-scatter';
+export type { RdsCompStackedProps } from './rds-comp-chart-stacked/rds-comp-chart-stacked';
+export type { RdsCompBubbleChartProps } from './rds-comp-chart-bubble/rds-comp-chart-bubble';
+export type { RdsCompAiChatBotProps } from './rds-comp-ai-chat-bot/rds-comp-ai-chat-bot';
+export type { RdsCompAudioPlayerProps } from './rds-comp-audio-player/rds-comp-audio-player';
+export type { RdsVideoPlayerProps } from './rds-comp-video-player/rds-comp-video-player';
+export type { RdsCompReviewsProps } from './rds-comp-reviews/rds-comp-reviews';
+export { ReviewStyle } from './rds-comp-reviews/rds-comp-reviews-types';
+export type { RdsCompTextEditorProps } from './rds-comp-text-editor/rds-comp-text-editor';
+export type { RdsCompMapProps } from './rds-comp-map/rds-comp-map';
+export type { RdsCompNotificationProps, NotificationItem } from './rds-comp-notification/rds-comp-notification.types';
+export { NotificationLayout, NotificationStyle, NotificationType } from './rds-comp-notification/rds-comp-notification.types';
+export type { RdsTimePickerProps, RdsTimePickerLocaleText, TimePickerColor } from './rds-comp-time-picker/time-picker-types';
+export type { RdsCompToolbarProps, ToolbarButtonConfig, ToolbarOption } from './rds-comp-toolbar/rds-comp-toolbar';
+export { ToolbarLayout, ToolbarType, ToolbarState } from './rds-comp-toolbar/rds-comp-toolbar';
+export type { RdsCompDatepickerProps } from './rds-comp-datepicker/rds-comp-datepicker.types';
+export type { RdsCompKanbanBoardProps, KanbanBoardInfo, KanbanSubCard, KanbanAction } from './rds-comp-kanban-board/kanban-board-helpers';
+export type { RdsCompProductTourProps } from './rds-comp-product-tour/product-tour-helpers';
+export type { RdsCompEmojiGeneratorProps } from './rds-comp-emoji-generator/rds-comp-emoji-generator';
+export type { RdsCompEmptyStateProps } from './rds-comp-empty-state/rds-comp-empty-state';
+export type { RdsCompESignatureProps } from './rds-comp-e-signature/rds-comp-e-signature';
+export type { RdsCompAiAttachmentProps } from './rds-comp-ai-attachment/rds-comp-ai-attachment';
+export type { RdsCompAiTypingSectionProps } from './rds-comp-ai-typing-section/rds-comp-ai-typing-section';
+export type { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu/rds-comp-ai-fab-menu';
+export type { RdsCompAiIconProps } from './rds-comp-ai-icon/rds-comp-ai-icon';
+export type { RdsCompAiGradientTextWithIconProps } from './rds-comp-ai-gradient-text-with-icon/rds-comp-ai-gradient-text-with-icon';
+export type { RdsCompAiMessageBoxProps } from './rds-comp-ai-message-box/rds-comp-ai-message-box';
+export type { RdsCompAiChatHeaderProps } from './rds-comp-ai-chat-header/rds-comp-ai-chat-header';
+/** @deprecated Pass the size as a string ('small' | 'medium' | 'large'). */
+export { ChatHeaderSize } from './rds-comp-ai-chat-header/rds-comp-ai-chat-header-types';
