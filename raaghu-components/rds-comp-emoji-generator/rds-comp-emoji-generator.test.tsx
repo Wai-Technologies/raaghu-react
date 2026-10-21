@@ -11,7 +11,7 @@ jest.mock('./rds-comp-emoji-generator.scss', () => ({}));
 jest.mock('@mui/material', () => ({
   Box: React.forwardRef(({ children, className, onClick, ...props }: any, ref: any) => (
     onClick ? (
-      <button type="button" ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } }}>
+      <button type="button" ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']} aria-label={props['aria-label']} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } }}>
         {children}
       </button>
     ) : (
@@ -123,6 +123,7 @@ jest.mock('./rds-comp-emoji-data', () => ({
     };
     return emojis[category] || [];
   },
+  getEmojiLabel: (emoji: string) => (emoji === '😊' ? 'smiling face' : undefined),
   searchEmojis: (term: string, category: any, skinTone: any) => {
     if (term.toLowerCase().includes('smile')) return ['😊', '😁', '😃'];
     if (term.toLowerCase().includes('dog')) return ['🐶', '🐕'];
@@ -674,5 +675,73 @@ describe('RdsEmojiGenerator', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('G5-023: applySkinTone picks the skin variant matching the tone', () => {
+    const actual = jest.requireActual('./rds-comp-emoji-data');
+    expect(actual.applySkinTone('👍️', 1)).toBe('👍🏻');
+    expect(actual.applySkinTone('👍️', 5)).toBe('👍🏿');
+  });
+
+  it('G5-024: camelCase aliases win over the legacy props', () => {
+    const { container } = render(
+      <RdsEmojiGenerator Type={EmojiGeneratorType.Default} variant={EmojiGeneratorType.QuickReactions} />
+    );
+    expect(container.querySelector('.rds-emoji-generator--quick')).toBeInTheDocument();
+    const { container: c2 } = render(<RdsEmojiGenerator showFooter={false} showSkinTone={false} />);
+    expect(c2.querySelector('.rds-emoji-generator__footer')).not.toBeInTheDocument();
+    expect(c2.querySelector('.rds-emoji-generator__skin-tone-button')).not.toBeInTheDocument();
+  });
+
+  it('G5-026: flags use the pinned CDN url and flagBaseUrl overrides it', () => {
+    const { container } = render(<RdsEmojiGenerator Category={EmojiCategory.Flags} />);
+    expect(container.querySelector('img')?.getAttribute('src')).toContain('twemoji@14.0.2');
+    const { container: c2 } = render(<RdsEmojiGenerator Category={EmojiCategory.Flags} flagBaseUrl="https://example.com/flags" />);
+    expect(c2.querySelector('img')?.getAttribute('src')).toMatch(/^https:\/\/example\.com\/flags\/.+\.png$/);
+  });
+
+  it('G5-030: quickReactions overrides the default quick emojis', () => {
+    const { container } = render(
+      <RdsEmojiGenerator Type={EmojiGeneratorType.QuickReactions} quickReactions={['🔥', '🎉']} />
+    );
+    expect(container.querySelectorAll('.rds-emoji-generator__emoji--quick')).toHaveLength(2);
+  });
+
+  it('G5-031: emoji elements are keyboard accessible with a label', () => {
+    const onEmojiSelect = jest.fn();
+    const { container } = render(<RdsEmojiGenerator onEmojiSelect={onEmojiSelect} />);
+    const first = container.querySelector('.rds-emoji-generator__emoji') as HTMLElement;
+    expect(first).toHaveAttribute('aria-label', 'smiling face');
+    fireEvent.keyDown(first, { key: 'Enter' });
+    expect(onEmojiSelect).toHaveBeenCalledWith('😊');
+  });
+
+  it('G5-032/033: labelled buttons and onMoreClick', () => {
+    const onEmojiSelect = jest.fn();
+    const onMoreClick = jest.fn();
+    render(
+      <RdsEmojiGenerator Type={EmojiGeneratorType.QuickReactions} onEmojiSelect={onEmojiSelect} onMoreClick={onMoreClick} />
+    );
+    fireEvent.click(screen.getByLabelText('More emojis'));
+    expect(onMoreClick).toHaveBeenCalledTimes(1);
+    expect(onEmojiSelect).not.toHaveBeenCalled();
+    render(<RdsEmojiGenerator State={SkinToneState.Expanded} />);
+    expect(screen.getByLabelText('Skin tone: Medium Light')).toBeInTheDocument();
+  });
+
+  it('G5-034: onCategoryChange fires on tab click', () => {
+    const onCategoryChange = jest.fn();
+    const { container } = render(<RdsEmojiGenerator onCategoryChange={onCategoryChange} />);
+    fireEvent.click(container.querySelectorAll('.rds-emoji-generator__category-chip')[1]);
+    expect(onCategoryChange).toHaveBeenCalledWith(EmojiCategory.AnimalsAndNature);
+  });
+
+  it('G5-035: className and ref reach the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(<RdsEmojiGenerator className="custom" ref={ref} />);
+    expect(container.querySelector('.rds-emoji-generator.custom')).toBeInTheDocument();
+    expect(ref.current).toBe(container.querySelector('.rds-emoji-generator'));
   });
 });

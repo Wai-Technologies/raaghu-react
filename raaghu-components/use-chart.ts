@@ -1,4 +1,4 @@
-import { useEffect, useRef, type DependencyList } from 'react';
+import { useEffect, useRef, type DependencyList, type RefObject } from 'react';
 import Chart, {
   type ChartConfiguration,
   type ChartData,
@@ -34,6 +34,12 @@ export interface UseChartConfig<TType extends ChartType> {
   onCreate?: (chart: Chart<TType>) => void;
 }
 
+/** What {@link useChart} returns. */
+export interface UseChartResult<TType extends ChartType> {
+  canvasRef: RefObject<HTMLCanvasElement | null>;
+  chartRef: RefObject<Chart<TType> | null>;
+}
+
 /**
  * Owns a Chart.js instance for one canvas: clone + theme the options, resolve `var(--rds-…)`
  * dataset colours into new objects (consumer datasets are never mutated), create the chart and
@@ -45,7 +51,7 @@ export interface UseChartConfig<TType extends ChartType> {
 export function useChart<TType extends ChartType>(
   config: UseChartConfig<TType> | ((ctx: CanvasRenderingContext2D) => UseChartConfig<TType>),
   deps: DependencyList
-) {
+): UseChartResult<TType> {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartRef = useRef<Chart<TType> | null>(null);
   const themeMode = useChartThemeMode();

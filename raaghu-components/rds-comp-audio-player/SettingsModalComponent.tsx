@@ -1,22 +1,35 @@
-import { memo } from "react";
+import { memo, type Ref, type RefObject } from "react";
 import { Slider } from "@mui/material";
 
 interface SettingsModalProps {
   showSettingsModal: boolean;
+  settingsModalRef?: RefObject<HTMLDivElement | null>;
   playbackSpeed: number;
   handlePlaybackSpeedChange: (event: Event, value: number | number[]) => void;
+  /** Called when Escape is pressed inside the dialog. */
+  onClose?: () => void;
 }
 
 export const SettingsModalComponent = memo(
   ({
     showSettingsModal,
+    settingsModalRef,
     playbackSpeed,
     handlePlaybackSpeedChange,
+    onClose,
   }: SettingsModalProps) => {
     if (!showSettingsModal) return null;
 
     return (
-      <div className="rds-comp-audio-player__settings-modal">
+      <div
+        ref={settingsModalRef as Ref<HTMLDivElement>}
+        className="rds-comp-audio-player__settings-modal"
+        role="dialog"
+        aria-label="Playback speed settings"
+        onKeyDown={(e) => {
+          if (e.key === "Escape") onClose?.();
+        }}
+      >
         <div className="rds-comp-audio-player__settings-header">
           <h3>Playback Speed</h3>
         </div>

@@ -1,15 +1,19 @@
 import { createElement, type RefObject, type ReactNode } from "react";
+import DatePicker, { type DatePickerProps } from "react-datepicker";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { CustomButtons } from "./CustomButtons";
-import { createRenderCustomHeader } from "./renderCustomHeader";
+import { RenderDefaultDropdownHeader, RenderMultiMonthHeader } from "./renderCustomHeader";
+
+/** Stable popper container (module scope so react-datepicker does not remount the popper each render). */
+const popperContainer = ({ children }: { children?: ReactNode }) => <div>{children}</div>;
 
 const getRenderCustomHeader = (layout: string, datePickerStyleType: string) => {
     if (layout === "Multi Month") {
-        return createRenderCustomHeader(false);
+        return RenderMultiMonthHeader;
     }
     if (layout === "Default" && datePickerStyleType === "Dropdown") {
-        return createRenderCustomHeader(true);
+        return RenderDefaultDropdownHeader;
     }
     return undefined;
 };
@@ -53,10 +57,12 @@ const buildDatePickerProps = ({
     dropdownMode: "select",
     dayClassName,
     ref: datePickerRef,
+    id: props.inputId,
+    ariaRequired: props.isMandatory ? "true" : undefined,
     renderCustomHeader,
     calendarClassName: props.layout === "Default" ? "rds-datepicker--layout-default" : undefined,
     ...overrides,
-};
+} as unknown as DatePickerProps;
 };
 
 export const renderDatePickerStateView = (
@@ -72,7 +78,6 @@ export const renderDatePickerStateView = (
     CustomInputWithClear: React.ElementType,
     CustomButtons: React.ElementType
 ) => {
-    const SafeDatePicker = props.SafeDatePicker;
 
     if (state === "Default") {
         const pickerProps = buildDatePickerProps({
@@ -93,7 +98,7 @@ export const renderDatePickerStateView = (
         });
         return (
             <div className="rds-datepicker__container rds-datepicker__container--default">
-                <SafeDatePicker {...pickerProps} />
+                <DatePicker {...pickerProps} />
             </div>
         );
     } else if (state === "Expanded") {
@@ -120,7 +125,7 @@ export const renderDatePickerStateView = (
         });
         return (
             <div className="rds-datepicker__container rds-datepicker__container--expanded">
-                <SafeDatePicker {...pickerProps} />
+                <DatePicker {...pickerProps} />
             </div>
         );
     } else if (state === "Selected") {
@@ -146,7 +151,7 @@ export const renderDatePickerStateView = (
         });
         return (
             <div className="rds-datepicker__container rds-datepicker__container--selected">
-                <SafeDatePicker {...pickerProps} />
+                <DatePicker {...pickerProps} />
             </div>
         );
     }
@@ -177,7 +182,6 @@ export const renderDatePickerTypeView = (
     CustomButtons: React.ElementType,
     customDropdownRef?: RefObject<HTMLDivElement | null>
 ) => {
-    const SafeDatePicker = props.SafeDatePicker;
 
     if (type === "Default") {
         const pickerProps = buildDatePickerProps({
@@ -198,7 +202,7 @@ export const renderDatePickerTypeView = (
         });
         return (
             <div className="rds-datepicker__container rds-datepicker__container--default-type">
-                <SafeDatePicker {...pickerProps} />
+                <DatePicker {...pickerProps} />
             </div>
         );
     } else if (type === "Custom") {
@@ -221,15 +225,17 @@ export const renderDatePickerTypeView = (
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
                     openCustomPicker={toggleDropdown}
+                    expanded={isDropdownOpen}
+                    controlsId={`${props.idPrefix}-presets`}
                 />
             ),
             overrides: { open: false },
         });
         return (
             <div className="rds-datepicker__custom-dropdown" ref={customDropdownRef}>
-                <SafeDatePicker {...pickerProps} />
+                <DatePicker {...pickerProps} />
               
-                <ul className={`rds-datepicker__dropdown-menu ${isDropdownOpen ? "rds-datepicker__dropdown-menu--show" : ""}`}>
+                <ul id={`${props.idPrefix}-presets`} className={`rds-datepicker__dropdown-menu ${isDropdownOpen ? "rds-datepicker__dropdown-menu--show" : ""}`}>
                     <li className="rds-datepicker__dropdown-item rds-datepicker__dropdown-item--header">
                         <strong className="rds-datepicker__dropdown-label">Custom Date</strong>
                         {dropdownDisplayValue ? (
@@ -237,20 +243,20 @@ export const renderDatePickerTypeView = (
                         ) : null}
                     </li>
 
-                    <li id="today" className={`rds-datepicker__dropdown-item ${activeList === "today" ? "rds-datepicker__dropdown-item--active" : ""}`}>
+                    <li id={`${props.idPrefix}-today`} className={`rds-datepicker__dropdown-item ${activeList === "today" ? "rds-datepicker__dropdown-item--active" : ""}`}>
                         <button type="button" className="rds-datepicker__dropdown-action" onClick={todayClickHandler}>Today</button>
                     </li>
-                    <li id="yesterday" className={`rds-datepicker__dropdown-item ${activeList === "yesterday" ? "rds-datepicker__dropdown-item--active" : ""}`}>
+                    <li id={`${props.idPrefix}-yesterday`} className={`rds-datepicker__dropdown-item ${activeList === "yesterday" ? "rds-datepicker__dropdown-item--active" : ""}`}>
                         <button type="button" className="rds-datepicker__dropdown-action" onClick={yesterdayClickHandler}>Yesterday</button>
                     </li>
-                    <li id="lastSeven" className={`rds-datepicker__dropdown-item ${activeList === "lastSeven" ? "rds-datepicker__dropdown-item--active" : ""}`}>
+                    <li id={`${props.idPrefix}-lastSeven`} className={`rds-datepicker__dropdown-item ${activeList === "lastSeven" ? "rds-datepicker__dropdown-item--active" : ""}`}>
                         <button type="button" className="rds-datepicker__dropdown-action" onClick={lastSevenDaysClickHandler}>Last 7 days</button>
                     </li>
-                    <li id="lastFourteen" className={`rds-datepicker__dropdown-item ${activeList === "lastFourteen" ? "rds-datepicker__dropdown-item--active" : ""}`}>
+                    <li id={`${props.idPrefix}-lastFourteen`} className={`rds-datepicker__dropdown-item ${activeList === "lastFourteen" ? "rds-datepicker__dropdown-item--active" : ""}`}>
                         <button type="button" className="rds-datepicker__dropdown-action" onClick={lastFourteenDaysClickHandler}>Last 14 days</button>
                     </li>
-                    <li id="custom" className={`rds-datepicker__dropdown-item rds-datepicker__dropdown-item--custom ${activeList === "custom" ? "rds-datepicker__dropdown-item--active" : ""}`}>
-                        <SafeDatePicker
+                    <li id={`${props.idPrefix}-custom`} className={`rds-datepicker__dropdown-item rds-datepicker__dropdown-item--custom ${activeList === "custom" ? "rds-datepicker__dropdown-item--active" : ""}`}>
+                        <DatePicker
                             selected={startDate || null}
                             onChange={onRangeChange}
                             startDate={startDate}
@@ -261,8 +267,8 @@ export const renderDatePickerTypeView = (
                                 { name: 'flip', options: { fallbackPlacements: ['left-start', 'bottom-start'] } },
                                 { name: 'preventOverflow', options: { boundary: 'viewport' } },
                                 { name: 'offset', options: { offset: [0, 8] } }
-                            ]}
-                            popperContainer={({ children }: { children: React.ReactNode }) => <div>{children}</div>}
+                            ] as unknown as DatePickerProps["popperModifiers"]}
+                            popperContainer={popperContainer}
                             popperClassName="rds-datepicker__popper"
                             disabled={props.isDisabled}
                             placeholderText={props.placeholderText || "Select date"}

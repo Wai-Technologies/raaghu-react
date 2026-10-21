@@ -38,13 +38,15 @@ const categoryGroupMap: Record<EmojiCategory, number[]> = {
 
 const emojiCache: Partial<Record<EmojiCategory, string[]>> = {};
 
-const emojiByLabelMap = new Map<string, Emoji>();
+const emojiByCharMap = new Map<string, Emoji>();
 for (const emoji of allEmojis) {
-  const label = (emoji.label || '').toLowerCase();
-  if (label && !emojiByLabelMap.has(label)) {
-    emojiByLabelMap.set(label, emoji);
+  if (!emojiByCharMap.has(emoji.emoji)) {
+    emojiByCharMap.set(emoji.emoji, emoji);
   }
 }
+
+/** Returns the human readable label of an emoji character (undefined when unknown). */
+export const getEmojiLabel = (emoji: string): string | undefined => emojiByCharMap.get(emoji)?.label;
 
 const escapeRegExp = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -62,9 +64,9 @@ export const applySkinTone = (emoji: string, skinTone: number): string => {
     return emoji;
   }
   
-  const emojiData = allEmojis.find(e => e.emoji === emoji);
-  if (emojiData && emojiData.skins && emojiData.skins.length > skinTone) {
-    return emojiData.skins[skinTone].emoji;
+  const skin = emojiByCharMap.get(emoji)?.skins?.find(s => s.tone === skinTone);
+  if (skin) {
+    return skin.emoji;
   }
   
   return emoji;
@@ -108,28 +110,4 @@ export const searchEmojis = (searchTerm: string, category?: EmojiCategory, skinT
     }
   }
   return matches;
-};
-
-export const getQuickReactionEmojis = (): string[] => {
-  const quickReactionNames = [
-    'grinning face',
-    'smiling face with heart-eyes', 
-    'star-struck',
-    'pouting face',
-    'thumbs up'
-  ];
-
-  const quickEmojis: string[] = [];
-  for (const name of quickReactionNames) {
-    const match = emojiByLabelMap.get(name);
-    if (match) {
-      quickEmojis.push(match.emoji);
-    }
-  }
-
-  if (quickEmojis.length < 5) {
-    return getEmojisByCategory(EmojiCategory.SmileysAndPeople).slice(0, 5);
-  }
-  
-  return quickEmojis;
 };

@@ -7,6 +7,7 @@ import RdsCompAiTypingSection, { RdsCompAiTypingSectionProps } from './rds-comp-
 
 // Mock SCSS
 jest.mock('./rds-comp-ai-typing-section.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock Material UI Icon
 jest.mock('@mui/icons-material/AutoAwesomeOutlined', () => {
@@ -616,6 +617,25 @@ it('handles emoji input', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box');
       expect(textarea).toHaveClass('rds-comp-ai-typing-section__input-box--muted-placeholder');
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('uses the placeholder prop over the deprecated placeholderText (G3-148)', () => {
+      const { container } = render(<RdsCompAiTypingSection placeholder="New" placeholderText="Old" />);
+      expect(container.querySelector('textarea')).toHaveAttribute('placeholder', 'New');
+    });
+
+    it('calls the project action callbacks (G3-139)', () => {
+      const onNewProjectClick = jest.fn();
+      const onImportFromFigmaClick = jest.fn();
+      render(
+        <RdsCompAiTypingSection onNewProjectClick={onNewProjectClick} onImportFromFigmaClick={onImportFromFigmaClick} />
+      );
+      fireEvent.click(screen.getByTestId('btn-New Project'));
+      fireEvent.click(screen.getByTestId('btn-Import From Figma'));
+      expect(onNewProjectClick).toHaveBeenCalled();
+      expect(onImportFromFigmaClick).toHaveBeenCalled();
     });
   });
 });

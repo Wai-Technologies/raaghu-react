@@ -34,7 +34,7 @@ export const Default: Story = {
     args: {
         type: 'Audio Player',
         showSettings: true,
-        showTranscript: true,
+        showVolume: true,
         showExport: true,
         showMoreOptions: true,
     }

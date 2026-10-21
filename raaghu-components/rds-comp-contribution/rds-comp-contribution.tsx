@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { useCallback, useEffect, useMemo, useState, type ReactElement } from 'react';
+import { useCallback, useEffect, useMemo, useState, type HTMLAttributes, type ReactElement, type Ref, type SVGProps } from 'react';
 import Measure, { BoundingRect, type MeasuredComponentProps } from 'react-measure';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
@@ -10,7 +10,10 @@ dayjs.extend(customParseFormat);
 
 const COLUMNS = 53;
 
-export interface RdsCompContributionProps {  
+type DataAttributes = { [key: `data-${string}`]: string | number | undefined };
+
+export interface RdsCompContributionProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   showMonthLabels?: boolean;
   showWeekLabels?: boolean;
   weekNames?: string[];
@@ -19,13 +22,17 @@ export interface RdsCompContributionProps {
   values: { [date: string]: number };
   until: string;
   dateFormat?: string;
-  weekLabelAttributes?: React.SVGProps<SVGTextElement>;
-  monthLabelAttributes?: React.SVGProps<SVGTextElement>;
-  panelAttributes?: React.SVGProps<SVGRectElement>;
+  weekLabelAttributes?: SVGProps<SVGTextElement> & DataAttributes;
+  monthLabelAttributes?: SVGProps<SVGTextElement> & DataAttributes;
+  panelAttributes?: SVGProps<SVGRectElement> & DataAttributes;
   monthLabelHeight?: number;
   weekLabelWidth?: number;
   panelSize?: number;
   panelMargin?: number;
+  /** Extra class name(s) merged onto the root element. */
+  className?: string;
+  /** Ref forwarded to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const RdsCompContribution = ({
@@ -44,7 +51,10 @@ const RdsCompContribution = ({
   weekLabelWidth = 24,
   panelSize = 11,
   panelMargin = 2,
-}) => {
+  className,
+  ref,
+  ...rest
+}: RdsCompContributionProps) => {
   const columns = COLUMNS;
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === 'undefined' ? 1024 : window.innerWidth));
 
@@ -276,14 +286,20 @@ const RdsCompContribution = ({
     <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
       {({ measureRef }: MeasuredComponentProps) => (
         <div
-          ref={measureRef}
-          className="rds-comp-contribution"
+          {...rest}
+          ref={(node) => {
+            measureRef(node);
+            if (typeof ref === 'function') ref(node);
+            else if (ref) ref.current = node;
+          }}
+          className={clsx('rds-comp-contribution', className)}
         >
           <div className="rds-comp-contribution__container">
             <div className="rds-comp-contribution__wrapper">
                       <SvgIcon
                 className="rds-comp-contribution__svg"
                 viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                role="img" aria-hidden={false} aria-label="Contribution graph"
                 sx={{ 
                   width: '100%', 
                   height: 'auto', 

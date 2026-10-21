@@ -778,3 +778,26 @@ describe('RdsCompContribution', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  const base = {
+    values: { '2024-01-01': 2 },
+    until: '2024-12-31',
+    panelColors: ['#eee', '#aaa', '#555'],
+    monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  };
+
+  it('G4-051: svg exposes an accessible name', () => {
+    render(<RdsCompContribution {...base} />);
+    expect(screen.getByTestId('svg-icon')).toHaveAttribute('aria-label', 'Contribution graph');
+  });
+
+  it('G4-055: root forwards className, ref and rest props', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(<RdsCompContribution {...base} className="custom" ref={ref} data-testid="root" />);
+    const root = container.querySelector('.rds-comp-contribution.custom');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute('data-testid', 'root');
+    expect(ref.current).toBe(root);
+  });
+});

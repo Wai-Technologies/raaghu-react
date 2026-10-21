@@ -48,6 +48,11 @@ jest.mock('react-datepicker', () => {
   };
 });
 
+// Captures the arguments the component passes to the (mocked) view renderers.
+const mockCaptured: { state?: any[]; type?: any[] } = {};
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock the utils
 jest.mock('./rds-comp-datepicker-utils', () => ({
   CustomButtons: ({ onClickYesterday, onClickToday, onClickLastSeven, onClickLastFourteen }: any) => (
@@ -92,15 +97,14 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
     fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
     return fourteenDaysAgo;
   },
-  renderDatePickerStateView: () => <div data-testid="state-view" />,
-  renderDatePickerTypeView: (
-    _type: any,
-    _startDate: any,
-    _endDate: any,
-    _handlerDateChange: any,
-    _onRangeChange: any,
-    props: any = {}
-  ) => (
+  renderDatePickerStateView: (...args: any[]) => {
+    mockCaptured.state = args;
+    return <div data-testid="state-view" />;
+  },
+  renderDatePickerTypeView: (...args: any[]) => {
+    mockCaptured.type = args;
+    const props: any = args[5] ?? {};
+    return (
     <div data-testid="type-view">
       <input
         data-testid="date-picker-input"
@@ -109,7 +113,8 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
         disabled={props?.isDisabled || props?.disabled}
       />
     </div>
-  ),
+    );
+  },
 }));
 
 describe('RdsDatepicker', () => {
@@ -727,5 +732,96 @@ describe('RdsDatepicker — keyboard navigation', () => {
     render(<RdsDatepicker isDisabled />);
     const input = screen.getByTestId('date-picker-input');
     expect(input).toBeDisabled();
+  });
+});
+
+describe('audit fixes', () => {
+  const { act } = jest.requireActual('@testing-library/react');
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+  const { CustomInputWithClear } = jest.requireActual('./CustomInputWithClear');
+  const { RenderDefaultDropdownHeader } = jest.requireActual('./renderCustomHeader');
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it('G4-088: top-level disabled/required win over legacy props', () => {
+    render(<RdsDatepicker isDisabled disabled={false} showTitle titleText="Date" isMandatory={false} required />);
+    expect(screen.getByTestId('date-picker-input')).not.toBeDisabled();
+    expect(screen.getByText('*')).toBeInTheDocument();
+  });
+
+  it('G4-089: isDisabled / isMandatory warn as deprecated', () => {
+    render(<RdsDatepicker isDisabled isMandatory />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'isDisabled', '`disabled`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'isMandatory', '`required`');
+  });
+
+  it('G4-091: visible label points at the input id', () => {
+    const { container } = render(<RdsDatepicker showTitle titleText="Date" />);
+    const label = container.querySelector('label.rds-datepicker__label');
+    expect(label?.getAttribute('for')).toBeTruthy();
+    expect(label?.getAttribute('for')).toBe(mockCaptured.type?.[5].inputId);
+  });
+
+  it('G4-094: clearing a date-time picker sets internal state to null', () => {
+    const onDatePicker = jest.fn();
+    render(<RdsDatepicker state={DatePickerState.Selected} dateForEdit="2024-12-25" onDatePicker={onDatePicker} />);
+    act(() => mockCaptured.state?.[3](null));
+    expect(onDatePicker).toHaveBeenCalledWith(null);
+    expect(mockCaptured.state?.[1]).toBeNull();
+  });
+
+  it('G4-097: presets use the current date at click time', () => {
+    jest.useFakeTimers({ now: new Date(2025, 0, 1, 12) });
+    const customDate = jest.fn();
+    render(<RdsDatepicker type="Custom" customDate={customDate} />);
+    jest.setSystemTime(new Date(2025, 0, 10, 12));
+    act(() => mockCaptured.type?.[12]());
+    expect(customDate.mock.calls[0][0][0].getDate()).toBe(9);
+  });
+
+  it('G4-098: dateForEdit and isDefaultDate changes still update the selection', () => {
+    const { rerender } = render(<RdsDatepicker dateForEdit="2024-12-25T00:00:00" />);
+    rerender(<RdsDatepicker dateForEdit="2024-12-26T00:00:00" />);
+    expect(mockCaptured.type?.[1].getDate()).toBe(26);
+    const { rerender: rerender2 } = render(<RdsDatepicker isDefaultDate={false} />);
+    rerender2(<RdsDatepicker isDefaultDate />);
+    expect(mockCaptured.type?.[1]).toBeInstanceOf(Date);
+  });
+
+  it('G4-101: header selects are labelled', () => {
+    render(
+      <RenderDefaultDropdownHeader date={new Date(2025, 0, 1)} monthDate={new Date(2025, 0, 1)} changeYear={jest.fn()} changeMonth={jest.fn()} />
+    );
+    expect(screen.getByRole('combobox', { name: 'Month' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Year' })).toBeInTheDocument();
+  });
+
+  it('G4-104: Escape closes the preset list; trigger exposes aria-expanded', () => {
+    render(<RdsDatepicker type="Custom" />);
+    act(() => mockCaptured.type?.[7]());
+    expect(mockCaptured.type?.[6]).toBe(true);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(mockCaptured.type?.[6]).toBe(false);
+
+    render(<CustomInputWithClear expanded controlsId="list" />);
+    expect(screen.getByRole('button', { name: 'Open calendar' })).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('G4-105: injected props reach the input; ref is the input; icon buttons are labelled', () => {
+    const onChange = jest.fn();
+    const onKeyDown = jest.fn();
+    const ref = React.createRef<HTMLInputElement>();
+    render(
+      <CustomInputWithClear ref={ref} id="dp-input" value="01/01/2025" onChange={onChange} onKeyDown={onKeyDown} showClearDate />
+    );
+    const input = document.getElementById('dp-input') as HTMLInputElement;
+    expect(ref.current).toBe(input);
+    fireEvent.change(input, { target: { value: '01/02/2025' } });
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    expect(onChange).toHaveBeenCalled();
+    expect(onKeyDown).toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: 'Clear date' })).toBeInTheDocument();
   });
 });

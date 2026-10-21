@@ -11,7 +11,7 @@ interface CustomHeaderProps {
 
 const SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-export const createRenderCustomHeader = (showNavigation: boolean) => {
+const createRenderCustomHeader = (showNavigation: boolean) => {
   const RenderCustomHeader = ({
     date,
     monthDate,
@@ -51,6 +51,7 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getMonth()}
               onChange={(e) => changeMonth(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--month"
+              aria-label="Month"
             >
               {months.map((m, idx) => (
                 <option key={m} value={idx}>
@@ -62,6 +63,7 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getFullYear()}
               onChange={(e) => changeYear(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--year"
+              aria-label="Year"
             >
               {years.map((y) => (
                 <option key={y} value={y}>
@@ -85,6 +87,7 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getMonth()}
               onChange={(e) => changeMonth(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--month"
+              aria-label="Month"
             >
               {months.map((m, idx) => (
                 <option key={m} value={idx}>
@@ -96,6 +99,7 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
               value={displayDate.getFullYear()}
               onChange={(e) => changeYear(Number(e.target.value))}
               className="rds-datepicker__header-select rds-datepicker__header-select--year"
+              aria-label="Year"
             >
               {years.map((y) => (
                 <option key={y} value={y}>
@@ -115,3 +119,9 @@ export const createRenderCustomHeader = (showNavigation: boolean) => {
 
   return RenderCustomHeader;
 };
+
+/** Header for the default layout with the Dropdown style (month/year selects plus prev/next buttons). Created once. */
+export const RenderDefaultDropdownHeader = createRenderCustomHeader(true);
+
+/** Header for the Multi Month layout (month/year selects only). Created once. */
+export const RenderMultiMonthHeader = createRenderCustomHeader(false);

@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
+import { useCallback, useId, useMemo, useRef, useState, type ChangeEvent, type HTMLAttributes, type Ref } from "react";
+import clsx from "clsx";
 import type { RdsBadgeProps } from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
@@ -7,8 +8,11 @@ import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsCompAiFabMenu from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
-export interface RdsCompAiAttachmentProps {
+export interface RdsCompAiAttachmentProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "onChange"> {
+  /** Registered icon name for the menu trigger. */
   menuIcon?: string;
   modalTitle?: string;
   hintText?: string;
@@ -19,12 +23,22 @@ export interface RdsCompAiAttachmentProps {
   uploadText?: string;
   importText?: string;
   modalText?: string;
+  /** @deprecated Has no effect. */
   image?: string;
   userData?: UserData[];
+  /** Called with the selected image file. */
   onFileSelect?: (file: File) => void;
+  /** Called on every change of the Figma URL field. */
+  onFigmaUrlChange?: (value: string) => void;
+  /** @deprecated Use `onFigmaUrlChange` instead (it fires on every change). */
   onFigmaSubmit?: (value: string) => void;
+  /** Called with the comment built from an uploaded image. */
+  onAddComment?: (comment: Comment) => void;
+  /** @deprecated Use `onAddComment` instead. */
   handleAddComment?: (comment: Comment) => void;
   menuAlignment?: "left" | "right";
+  /** Ref to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 /** @deprecated Use `RdsCompAiAttachmentProps` */
@@ -52,6 +66,7 @@ export interface Comment {
 
 registerMaterialIcons({ attachment_icon: AttachmentIcon });
 
+/** Attachment menu for the AI chat: upload from Figma (modal) or import an image from the device. */
 const RdsCompAiAttachment = ({
   menuIcon,
   modalTitle,
@@ -63,20 +78,34 @@ const RdsCompAiAttachment = ({
   uploadText,
   importText,
   modalText,
+  image,
   userData,
+  onFileSelect,
+  onFigmaUrlChange,
   onFigmaSubmit,
+  onAddComment,
   handleAddComment,
   menuAlignment = "left",
+  className,
+  ref,
+  ...rest
 }: RdsCompAiAttachmentProps) => {
+  if (image !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "image", "nothing (no effect)");
+  if (onFigmaSubmit !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "onFigmaSubmit", "`onFigmaUrlChange`");
+  if (handleAddComment !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "handleAddComment", "`onAddComment`");
+
   const [showModal, setShowModal] = useState(false);
   const [figmaUrl, setFigmaUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [, setCommentList] = useState<Comment[]>(userData?.[0]?.comments || []);
+  const inputId = useId();
+  const addComment = onAddComment ?? handleAddComment;
+  const figmaUrlChange = onFigmaUrlChange ?? onFigmaSubmit;
 
   const handleFileUpload = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
       if (!file?.type.startsWith("image/")) return;
+      onFileSelect?.(file);
 
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -88,8 +117,7 @@ const RdsCompAiAttachment = ({
           image: base64String,
         };
 
-        setCommentList((prev) => [...prev, newComment]);
-        handleAddComment?.(newComment);
+        addComment?.(newComment);
 
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
@@ -97,18 +125,11 @@ const RdsCompAiAttachment = ({
       };
       reader.readAsDataURL(file);
     },
-    [handleAddComment, userData]
+    [addComment, onFileSelect, userData]
   );
 
-  const openModal = useCallback((event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    setShowModal(true);
-
-    const fabMenu = document.querySelector(".fab-dropdown");
-    if (fabMenu?.classList.contains("show")) {
-      fabMenu.classList.remove("show");
-    }
-  }, []);
+  // The click bubbles to the FabMenu item, which closes the menu.
+  const openModal = useCallback(() => setShowModal(true), []);
 
   const closeModal = useCallback(() => {
     setShowModal(false);
@@ -122,9 +143,9 @@ const RdsCompAiAttachment = ({
   const handleFigmaInputChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setFigmaUrl(e.target.value);
-      onFigmaSubmit?.(e.target.value);
+      figmaUrlChange?.(e.target.value);
     },
-    [onFigmaSubmit]
+    [figmaUrlChange]
   );
 
   const listItems = useMemo(
@@ -132,13 +153,7 @@ const RdsCompAiAttachment = ({
       {
         key: "new",
         value: (
-          <button
-            type="button"
-            onClick={openModal}
-            className="rds-comp-ai-attachment__reset-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#modal1234"
-          >
+          <button type="button" onClick={openModal} className="rds-comp-ai-attachment__reset-btn">
             <span className="rds-comp-ai-attachment__upload-row">
               <span className="rds-comp-ai-attachment__upload-text">{uploadText}</span>
               {showBadge && (
@@ -177,9 +192,10 @@ const RdsCompAiAttachment = ({
   );
 
   return (
-    <>
+    <div {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)}>
       <input
         type="file"
+        accept="image/*"
         ref={fileInputRef}
         className="rds-comp-ai-attachment__file-input"
         style={{ display: "none" }}
@@ -187,16 +203,14 @@ const RdsCompAiAttachment = ({
         aria-label="Upload attachment"
       />
 
-      <div className="rds-comp-ai-attachment__dropdown">
-        <RdsCompAiFabMenu
-          menuIcon={menuIcon}
-          backgroundType="none"
-          id="attachment-text"
-          isShowBorder={true}
-          alignment={menuAlignment}
-          listItems={listItems}
-        />
-      </div>
+      <RdsCompAiFabMenu
+        menuIcon={menuIcon}
+        backgroundType="none"
+        dense
+        isShowBorder={true}
+        alignment={menuAlignment}
+        listItems={listItems}
+      />
 
       {showModal && (
         <RdsModal
@@ -209,18 +223,16 @@ const RdsCompAiAttachment = ({
           <p className="text-muted rds-comp-ai-attachment__import-size">{modalText}</p>
           <RdsInput
             hintText={hintText}
-            id="default-input"
+            id={inputId}
             placeholder={inputPlaceholder}
             layout="text"
             name="Enter Figma URL"
-            state="default"
-            style="default"
             value={figmaUrl}
             onChange={handleFigmaInputChange}
           />
         </RdsModal>
       )}
-    </>
+    </div>
   );
 };
 

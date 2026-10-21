@@ -1,18 +1,24 @@
 import clsx from "clsx";
-import { useCallback, useState, type Dispatch, type SetStateAction, type ChangeEvent } from "react";
+import { useCallback, useState, type Dispatch, type HTMLAttributes, type Ref, type SetStateAction } from "react";
 import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
 import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
-import { Comment as AttachmentComment } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
+import type { Comment as AttachmentComment } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
 import RdsCompAiChatHeader from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-ai-chat-bot.scss";
 
-export interface RdsCompAiChatBotProps {
+export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "title"> {
   aiLogoUrl: string;
   userAvatarUrl?: string;
   placeholderText?: string;
   messages: Message[];
   setMessages: Dispatch<SetStateAction<Message[]>>;
-  iconName: string;
+  /** @deprecated Has no effect. */
+  iconName?: string;
+  /** Title of the chat header. */
+  title?: string;
+  /** Ref to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 export interface Message {
@@ -22,6 +28,7 @@ export interface Message {
   sender: boolean;
 }
 
+/** AI chat: header, message list and the typing section. */
 const RdsCompAiChatBot = ({
   aiLogoUrl,
   userAvatarUrl,
@@ -29,21 +36,17 @@ const RdsCompAiChatBot = ({
   messages,
   setMessages,
   iconName,
+  title = "New Chat Started",
+  className,
+  ref,
+  ...rest
 }: RdsCompAiChatBotProps) => {
+  if (iconName !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "iconName", "nothing (no effect)");
+
   const [inputImage, setInputImage] = useState<string | null>(null);
 
-  const handleImageChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.[0]) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setInputImage(reader.result as string);
-    };
-    reader.readAsDataURL(e.target.files[0]);
-  }, []);
-
   const handleSendMessage = useCallback(
-    async (messageText: string, image?: string) => {
+    (messageText: string, image?: string) => {
       if (!messageText && !image) return;
 
       const newMessage: Message = {
@@ -59,42 +62,20 @@ const RdsCompAiChatBot = ({
     [inputImage, messages.length, setMessages]
   );
 
-  const handleAddComment = useCallback(
-    (comment: AttachmentComment) => {
-      if (!comment.image) return;
-
-      if (comment.image.startsWith("http")) {
-        setInputImage(comment.image);
-        return;
-      }
-
-      const byteString = atob(comment.image.split(",")[1]);
-      const mimeString = comment.image.split(",")[0].split(":")[1].split(";")[0];
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-
-      const blob = new Blob([ab], { type: mimeString });
-      const syntheticEvent = {
-        target: {
-          files: [blob],
-        },
-      } as unknown as ChangeEvent<HTMLInputElement>;
-
-      handleImageChange(syntheticEvent);
-    },
-    [handleImageChange]
-  );
+  // Accepts an http(s) URL or a data URL; anything else (e.g. a partly typed Figma URL) is ignored.
+  const handleAddComment = useCallback((comment: AttachmentComment) => {
+    const image = comment.image;
+    if (image && (image.startsWith("http") || /^data:[^,]*;base64,/.test(image))) {
+      setInputImage(image);
+    }
+  }, []);
 
   return (
-    <div className="rds-ai-chat-bot">
-      <div className="rds-ai-chat-bot__messages">
+    <div {...rest} ref={ref} className={clsx("rds-ai-chat-bot", className)}>
+      <div className="rds-ai-chat-bot__messages" role="log" aria-live="polite">
         <RdsCompAiChatHeader
           logoUrl={aiLogoUrl}
-          title="New Chat Started"
+          title={title}
           size="medium"
         />
         {messages.map((message) => (
@@ -108,7 +89,7 @@ const RdsCompAiChatBot = ({
             )}
           >
             <RdsCompAiMessageBox
-              avatar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
+              avatar={message.sender ? aiLogoUrl : userAvatarUrl}
               isImage={!!message.image}
               src={message.image}
             >
@@ -120,12 +101,11 @@ const RdsCompAiChatBot = ({
       <div className="rds-ai-chat-bot__input-wrapper">
         <div className="rds-ai-chat-bot__input">
           <RdsCompAiTypingSection
-            colorVariant="var(--rds-text-secondary)"
             onSend={handleSendMessage}
-            placeholderText={placeholderText || "Ask me anything"}
-            iconName={iconName}
+            placeholder={placeholderText || "Ask me anything"}
             onAddComment={handleAddComment}
             previewImage={inputImage || undefined}
+            iconName={iconName}
           />
         </div>
       </div>

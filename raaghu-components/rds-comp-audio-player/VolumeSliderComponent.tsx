@@ -3,7 +3,7 @@ import { Slider } from "@mui/material";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 interface VolumeSliderProps {
-  showTranscriptSlider: boolean;
+  showVolumeSlider: boolean;
   volumeSliderRef: RefObject<HTMLDivElement | null>;
   volumeLevel: number;
   handleVolumeChange: (event: Event, value: number | number[]) => void;
@@ -11,12 +11,12 @@ interface VolumeSliderProps {
 
 export const VolumeSliderComponent = memo(
   ({
-    showTranscriptSlider,
+    showVolumeSlider,
     volumeSliderRef,
     volumeLevel,
     handleVolumeChange,
   }: VolumeSliderProps) => {
-    if (!showTranscriptSlider) return null;
+    if (!showVolumeSlider) return null;
 
     return (
       <div ref={volumeSliderRef as Ref<HTMLDivElement>} className="rds-comp-audio-player__volume-slider-container">

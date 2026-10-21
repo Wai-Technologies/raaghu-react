@@ -72,7 +72,7 @@ jest.mock('../../raaghu-elements/rds-slider/rds-slider', () => {
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
-      <button data-testid={`rds-button-${props.text}`} className={`rds-button rds-button--${props.color}`}>
+      <button data-testid={`rds-button-${props.text}`} className={`rds-button rds-button--${props.color}`} onClick={props.onClick}>
         {props.text}
       </button>
     );
@@ -80,8 +80,10 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
 });
 
 // Mock RdsCompAiFabMenu
+const mockFabMenuProps: any[] = [];
 jest.mock('../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
   return function MockRdsCompAiFabMenu(props: any) {
+    mockFabMenuProps.push(props);
     return (
       <div data-testid="rds-fab-menu" data-menu-type={props.menuIcon}>
         FAB Menu
@@ -90,26 +92,38 @@ jest.mock('../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', (
   };
 });
 
-// Mock audio-player-components
-jest.mock('./audio-player-components', () => ({
-  VolumeSliderComponent: ({ showTranscriptSlider, volumeSliderRef, volumeLevel, handleVolumeChange }: any) => (
-    <div ref={volumeSliderRef} data-testid="volume-slider" style={{ display: showTranscriptSlider ? 'block' : 'none' }}>
+// Mock deprecation warnings
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
+// Mock audio player subcomponents
+jest.mock('./VolumeSliderComponent', () => ({
+  VolumeSliderComponent: ({ showVolumeSlider, volumeSliderRef, volumeLevel, handleVolumeChange }: any) => (
+    <div ref={volumeSliderRef} data-testid="volume-slider" style={{ display: showVolumeSlider ? 'block' : 'none' }}>
       <input type="range" min="0" max="100" value={volumeLevel} onChange={handleVolumeChange} />
     </div>
   ),
-  SettingsModalComponent: ({ showSettingsModal, playbackSpeed, handlePlaybackSpeedChange }: any) => (
+}));
+jest.mock('./SettingsModalComponent', () => ({
+  SettingsModalComponent:({ showSettingsModal, playbackSpeed, handlePlaybackSpeedChange }: any) => (
     <div data-testid="settings-modal" style={{ display: showSettingsModal ? 'block' : 'none' }}>
       <input type="range" min="0.5" max="2" step="0.25" value={playbackSpeed} onChange={handlePlaybackSpeedChange} />
     </div>
   ),
-  AudioEditionControls: ({ formatTime, getSelectedTimeRange, togglePlayPause, zoomLevel, handleZoomOut, handleZoomIn, handleZoomChange }: any) => (
-    <div data-testid="audio-edition-controls">
-      <button onClick={togglePlayPause}>Play/Pause</button>
-      <button onClick={handleZoomOut}>Zoom Out</button>
-      <button onClick={handleZoomIn}>Zoom In</button>
-      <input type="range" value={zoomLevel} onChange={handleZoomChange} data-testid="zoom-slider" />
-    </div>
-  ),
+}));
+const mockEditionProps: any[] = [];
+jest.mock('./AudioEditionControls', () => ({
+  AudioEditionControls: (props: any) => {
+    mockEditionProps.push(props);
+    const { togglePlayPause, zoomLevel, handleZoomOut, handleZoomIn, handleZoomChange } = props;
+    return (
+      <div data-testid="audio-edition-controls">
+        <button onClick={togglePlayPause}>Play/Pause</button>
+        <button onClick={handleZoomOut}>Zoom Out</button>
+        <button onClick={handleZoomIn}>Zoom In</button>
+        <input type="range" value={zoomLevel} onChange={handleZoomChange} data-testid="zoom-slider" />
+      </div>
+    );
+  },
 }));
 
 // Mock registerMaterialIcons function
@@ -636,5 +650,151 @@ describe('RdsCompAudioPlayer', () => {
       expect(container.querySelector('.rds-comp-audio-player__edition-waveform')).toBeInTheDocument();
       expect(container.querySelector('.rds-comp-audio-player__waveform-background')).toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+  const ActualEditionControls = jest.requireActual('./AudioEditionControls').AudioEditionControls;
+  const ActualSettingsModal = jest.requireActual('./SettingsModalComponent').SettingsModalComponent;
+  const noop = () => undefined;
+  const range = () => ({ startTime: 0, endTime: 1, selectedDuration: 1 });
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it('G3-151: renders a hidden <audio> in the editor and collapsed variants', () => {
+    const { container, rerender } = render(<RdsCompAudioPlayer src="a.mp3" type="Audio Edition" />);
+    expect(container.querySelector('audio')).not.toHaveAttribute('controls');
+    rerender(<RdsCompAudioPlayer src="a.mp3" type="Collapsed" />);
+    expect(container.querySelector('audio')).toHaveAttribute('src', 'a.mp3');
+  });
+
+  it('G3-152/153: isPlaying follows audio events and a rejected play() is caught', async () => {
+    jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockImplementation(() => Promise.reject(new Error('blocked')));
+    const { container } = render(<RdsCompAudioPlayer src="a.mp3" />);
+    const playBtn = screen.getByRole('button', { name: 'Play or pause' });
+    fireEvent.click(playBtn);
+    await waitFor(() => expect(playBtn).toHaveAttribute('aria-pressed', 'false'));
+    const audio = container.querySelector('audio') as HTMLAudioElement;
+    fireEvent.play(audio);
+    expect(playBtn).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.ended(audio);
+    expect(playBtn).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('G3-155: passes exportItems/moreItems; defaults have no junk field', () => {
+    mockFabMenuProps.length = 0;
+    const items = [{ key: 'a', value: 'A', onClick: jest.fn() }];
+    render(<RdsCompAudioPlayer src="a.mp3" showExport showMoreOptions exportItems={items} />);
+    expect(mockFabMenuProps.find((p) => p.menuIcon === 'share_icon').listItems).toBe(items);
+    const defaults = mockFabMenuProps.find((p) => p.menuIcon === 'pending_icon').listItems;
+    expect(defaults).toHaveLength(4);
+    expect(defaults[0]).not.toHaveProperty('some');
+  });
+
+  it('G3-156: Cancel/Save/Trim/Delete call their handlers with the trim range', () => {
+    mockEditionProps.length = 0;
+    const onCancel = jest.fn();
+    const onSave = jest.fn();
+    const onTrim = jest.fn();
+    const onDelete = jest.fn();
+    render(<RdsCompAudioPlayer src="a.mp3" type="Audio Edition" onCancel={onCancel} onSave={onSave} onTrim={onTrim} onDelete={onDelete} />);
+    fireEvent.click(screen.getByTestId('rds-button-Cancel'));
+    fireEvent.click(screen.getByTestId('rds-button-Save'));
+    const props = mockEditionProps[mockEditionProps.length - 1];
+    props.onTrim();
+    props.onDelete();
+    expect(onCancel).toHaveBeenCalled();
+    expect(onSave).toHaveBeenCalled();
+    expect(onTrim).toHaveBeenCalledWith({ start: 12, end: 108 });
+    expect(onDelete).toHaveBeenCalledWith({ start: 12, end: 108 });
+  });
+
+  it('G3-156: AudioEditionControls wires Trim and Delete buttons', () => {
+    const onTrim = jest.fn();
+    const onDelete = jest.fn();
+    render(
+      <ActualEditionControls formatTime={() => ''} getSelectedTimeRange={range} togglePlayPause={noop} zoomLevel={30}
+        handleZoomOut={noop} handleZoomIn={noop} handleZoomChange={noop} onTrim={onTrim} onDelete={onDelete} />
+    );
+    fireEvent.click(screen.getByText('Trim'));
+    fireEvent.click(screen.getByText('Delete'));
+    expect(onTrim).toHaveBeenCalled();
+    expect(onDelete).toHaveBeenCalled();
+  });
+
+  it('G3-158: renders a custom waveform', () => {
+    const { container } = render(<RdsCompAudioPlayer src="a.mp3" type="Audio Edition" waveform={[10, 20, 30]} />);
+    const svg = container.querySelector('.rds-comp-audio-player__waveform-background svg') as SVGElement;
+    expect(svg.querySelectorAll('rect')).toHaveLength(3);
+    expect(svg).toHaveAttribute('viewBox', '0 0 24 200');
+  });
+
+  it('G3-159: controls.volume shows the volume button; controls.transcript is a deprecated alias', () => {
+    const { rerender } = render(<RdsCompAudioPlayer src="a.mp3" controls={{ volume: 'visible' }} />);
+    expect(screen.getByRole('button', { name: 'Toggle volume' })).toBeInTheDocument();
+    rerender(<RdsCompAudioPlayer src="a.mp3" controls={{ transcript: 'visible' }} />);
+    expect(screen.getByRole('button', { name: 'Toggle volume' })).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAudioPlayer', 'controls.transcript', '`controls.volume`');
+  });
+
+  it('G3-160: variant maps to type and wins over type', () => {
+    const { container } = render(<RdsCompAudioPlayer src="a.mp3" type="Audio Player" variant="editor" />);
+    expect(container.querySelector('.rds-comp-audio-player__edition-container')).toBeInTheDocument();
+  });
+
+  it('G3-165: progress slider max follows the loaded duration', () => {
+    const { container } = render(<RdsCompAudioPlayer src="a.mp3" />);
+    expect(screen.getByTestId('rds-slider')).toHaveAttribute('max', '120');
+    const audio = container.querySelector('audio') as HTMLAudioElement;
+    Object.defineProperty(audio, 'duration', { value: 60, configurable: true });
+    fireEvent(audio, new Event('loadedmetadata'));
+    expect(screen.getByTestId('rds-slider')).toHaveAttribute('max', '60');
+  });
+
+  it('G3-166: audio volume starts at the UI volume', () => {
+    const { container } = render(<RdsCompAudioPlayer src="a.mp3" />);
+    expect((container.querySelector('audio') as HTMLAudioElement).volume).toBe(0.5);
+  });
+
+  it('G3-167: listeners attach to the audio mounted after a variant switch', () => {
+    const { container, rerender } = render(<RdsCompAudioPlayer src="a.mp3" type="Collapsed" />);
+    rerender(<RdsCompAudioPlayer src="a.mp3" type="Audio Player" />);
+    fireEvent.play(container.querySelector('audio') as HTMLAudioElement);
+    expect(screen.getByRole('button', { name: 'Play or pause' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('G3-168: zoom controls have accessible names', () => {
+    render(
+      <ActualEditionControls formatTime={() => ''} getSelectedTimeRange={range} togglePlayPause={noop} zoomLevel={30}
+        handleZoomOut={noop} handleZoomIn={noop} handleZoomChange={noop} />
+    );
+    expect(screen.getByRole('button', { name: 'Zoom out' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Zoom in' })).toBeInTheDocument();
+    expect(screen.getByRole('slider', { name: 'Zoom' })).toBeInTheDocument();
+  });
+
+  it('G3-169: settings dialog has a role/label and closes on Escape', () => {
+    const onClose = jest.fn();
+    render(<ActualSettingsModal showSettingsModal playbackSpeed={1} handlePlaybackSpeedChange={noop} onClose={onClose} />);
+    fireEvent.keyDown(screen.getByRole('dialog', { name: 'Playback speed settings' }), { key: 'Escape' });
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('G3-169: Escape closes the open settings modal', () => {
+    const { container } = render(<RdsCompAudioPlayer src="a.mp3" showSettings />);
+    fireEvent.click(container.querySelector('.rds-comp-audio-player__settings-button') as HTMLElement);
+    expect(screen.getByTestId('settings-modal')).toHaveStyle({ display: 'block' });
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.getByTestId('settings-modal')).toHaveStyle({ display: 'none' });
+  });
+
+  it('G3-170: forwards className, ref and rest props to the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(<RdsCompAudioPlayer src="a.mp3" ref={ref} className="custom" data-testid="root" />);
+    const root = screen.getByTestId('root');
+    expect(root).toHaveClass('rds-comp-audio-player__player', 'custom');
+    expect(ref.current).toBe(root);
+    expect(container.firstChild).toBe(root);
   });
 });

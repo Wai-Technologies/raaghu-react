@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -7,6 +7,7 @@ import RdsCompAiChatBot, { RdsCompAiChatBotProps, Message } from './rds-comp-ai-
 
 // Mock SCSS
 jest.mock('./rds-comp-ai-chat-bot.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock child components
 jest.mock('../rds-comp-ai-chat-header/rds-comp-ai-chat-header', () => {
@@ -37,22 +38,25 @@ jest.mock('../rds-comp-ai-message-box/rds-comp-ai-message-box', () => {
   };
 });
 
+const mockTypingProps: { current: any } = { current: null };
 jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
   return function MockRdsCompAiTypingSection({
     colorVariant,
     onSend,
+    placeholder,
     placeholderText,
     iconName,
     onAddComment,
     previewImage,
     ...props
   }: any) {
+    mockTypingProps.current = { onAddComment };
     return (
       <div data-testid="typing-section" {...props}>
         <input
           data-testid="message-input"
           type="text"
-          placeholder={placeholderText}
+          placeholder={placeholder ?? placeholderText}
           onKeyPress={(e: any) => {
             if (e.key === 'Enter') {
               onSend(e.target.value);
@@ -640,6 +644,32 @@ describe('RdsCompAiChatBot', () => {
         const firstChild = messagesSection.firstChild as HTMLElement;
         expect(firstChild).toHaveAttribute('data-testid', 'chat-header');
       }
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('ignores a partly typed Figma URL and accepts a data URL directly (G3-084, G3-085)', () => {
+      render(<RdsCompAiChatBot {...defaultProps} />);
+      expect(() => act(() => mockTypingProps.current.onAddComment({ image: 'h' }))).not.toThrow();
+      expect(screen.queryByTestId('image-preview')).not.toBeInTheDocument();
+      act(() => mockTypingProps.current.onAddComment({ image: 'data:image/png;base64,abc' }));
+      expect(screen.getByTestId('image-preview')).toHaveAttribute('src', 'data:image/png;base64,abc');
+    });
+
+    it('does not request "undefined" as the avatar URL (G3-089)', () => {
+      render(
+        <RdsCompAiChatBot {...defaultProps} userAvatarUrl={undefined} messages={[{ id: 1, text: 'Hi', sender: false }]} />
+      );
+      expect(screen.getByTestId('message-avatar')).not.toHaveAttribute('src', 'undefined');
+    });
+
+    it('supports title, className, rest props and a live message log (G3-090, G3-093, G3-096)', () => {
+      const { container } = render(
+        <RdsCompAiChatBot {...defaultProps} title="Support" className="custom" data-testid="root" />
+      );
+      expect(screen.getByTestId('header-title')).toHaveTextContent('Support');
+      expect(screen.getByTestId('root')).toHaveClass('rds-ai-chat-bot', 'custom');
+      expect(container.querySelector('.rds-ai-chat-bot__messages')).toHaveAttribute('role', 'log');
     });
   });
 });

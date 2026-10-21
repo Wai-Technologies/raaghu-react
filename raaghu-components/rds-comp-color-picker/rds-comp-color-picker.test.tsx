@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -19,7 +19,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
 });
 
 jest.mock('./color-picker-components', () => ({
-  ColorPickerGrid: function MockColorPickerGrid({ handleChange, selectedColorState, selectedColorMode }: any) {
+  ColorPickerGrid: jest.fn(function MockColorPickerGrid({ handleChange, selectedColorState, selectedColorMode }: any) {
     return (
       <div data-testid="color-picker-grid">
         <div data-testid="grid-color-state">{JSON.stringify(selectedColorState)}</div>
@@ -32,7 +32,7 @@ jest.mock('./color-picker-components', () => ({
         </button>
       </div>
     );
-  },
+  }),
   ColorPickerSpectrum: function MockColorPickerSpectrum({ handleChange, selectedColorState, selectedColorMode }: any) {
     return (
       <div data-testid="color-picker-spectrum">
@@ -54,6 +54,8 @@ jest.mock('./color-picker-components', () => ({
     return <div data-testid="gradient-editor" />;
   },
 }));
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 jest.mock('./color-utils', () => {
   const actual = jest.requireActual('./color-utils');
@@ -549,6 +551,130 @@ describe('RdsCompColorPicker', () => {
     it('uses Type 1 style by default', () => {
       const { container } = render(<RdsCompColorPicker {...defaultProps} />);
       expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
+    });
+  });
+
+  describe('audit fixes', () => {
+    const actual = jest.requireActual('./color-picker-components');
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    const colorState = { hex: '#0000FF', rgb: { r: 0, g: 0, b: 255, a: 0.5 } };
+    const infoProps = {
+      colorModeDropdownRef: { current: null },
+      selectedColorMode: ColorMode.HEX,
+      selectedColorState: colorState,
+      getColorDisplay: () => colorState.hex,
+    };
+
+    it('G4-002: spectrum click uses the current hue, not the red channel', () => {
+      const handleChange = jest.fn();
+      render(
+        <actual.ColorPickerSpectrum
+          {...infoProps}
+          selectedColorHex={colorState.hex}
+          handleChange={handleChange}
+          handleHueChange={jest.fn()}
+          handleAlphaChange={jest.fn()}
+          showColorModeDropdown={false}
+          setShowColorModeDropdown={jest.fn()}
+        />
+      );
+      const area = screen.getByLabelText('Pick color from spectrum');
+      area.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 } as DOMRect);
+      fireEvent.click(area, { clientX: 100, clientY: 0 });
+      expect(handleChange).toHaveBeenCalledWith(expect.objectContaining({ hex: '#0000FF' }));
+    });
+
+    it('G4-004: alpha change calls onChange with rgba and hex8', () => {
+      const onChange = jest.fn();
+      render(<RdsCompColorPicker {...defaultProps} onChange={onChange} />);
+      const Grid = jest.requireMock('./color-picker-components').ColorPickerGrid as jest.Mock;
+      const { handleAlphaChange } = Grid.mock.calls[Grid.mock.calls.length - 1][0];
+      act(() => handleAlphaChange({ hex: '#9751F2', rgb: { r: 151, g: 81, b: 242, a: 0.5 } }));
+      expect(onChange).toHaveBeenCalledWith('#9751F2', {
+        rgba: { r: 151, g: 81, b: 242, a: 0.5 },
+        hex8: '#9751F280',
+      });
+    });
+
+    it('G4-005: opacity input reflects alpha', () => {
+      render(<actual.ColorPickerInfo {...infoProps} showColorModeDropdown={false} setShowColorModeDropdown={jest.fn()} />);
+      expect(screen.getByLabelText('Opacity percentage')).toHaveValue('50%');
+    });
+
+    it('G4-006: radial gradient button gets the correct active class', () => {
+      render(
+        <actual.GradientEditor
+          gradientType="radial"
+          gradientDirection={0}
+          gradientStops={[{ offset: 0, color: '#000' }, { offset: 1, color: '#fff' }]}
+          onGradientTypeChange={jest.fn()}
+          onGradientDirectionChange={jest.fn()}
+          onGradientStopChange={jest.fn()}
+          onGradientPositionChange={jest.fn()}
+          onAddGradientStop={jest.fn()}
+          onRemoveGradientStop={jest.fn()}
+        />
+      );
+      expect(screen.getByText('Radial')).toHaveClass('rds-comp-color-picker__gradient-btn--active');
+    });
+
+    it('G4-008: add-swatch icon button is labelled and calls onAddSwatch', () => {
+      const onAddSwatch = jest.fn();
+      render(<actual.ColorSwatchesType1 handleChange={jest.fn()} onAddSwatch={onAddSwatch} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Add swatch' }));
+      expect(onAddSwatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('G4-009: "+" tile is keyboard operable', () => {
+      const onAddSwatch = jest.fn();
+      render(<actual.ColorSwatchesType2 handleChange={jest.fn()} onAddSwatch={onAddSwatch} />);
+      const tile = screen.getByRole('button', { name: 'Add swatch' });
+      expect(tile).toHaveAttribute('tabindex', '0');
+      fireEvent.keyDown(tile, { key: 'Enter' });
+      fireEvent.keyDown(tile, { key: ' ' });
+      expect(onAddSwatch).toHaveBeenCalledTimes(2);
+    });
+
+    it('G4-011: disabled wins over isDisabled; isDisabled warns; type defaults to Default', () => {
+      const { container } = render(<RdsCompColorPicker value="#9751F2" label="Pick Color" disabled isDisabled={false} />);
+      expect(container.querySelector('.rds-comp-color-picker')).toHaveAttribute('aria-disabled', 'true');
+      expect(container.querySelector('.rds-comp-color-picker__container')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompColorPicker', 'isDisabled', '`disabled`');
+    });
+
+    it('G4-012/G4-013: root forwards className, ref, rest and is a labelled group', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<RdsCompColorPicker {...defaultProps} ref={ref} className="custom" data-testid="cp-root" />);
+      const root = screen.getByTestId('cp-root');
+      expect(root).toHaveClass('rds-comp-color-picker', 'custom');
+      expect(ref.current).toBe(root);
+      expect(screen.getByRole('group', { name: 'Pick Color' })).toBe(root);
+    });
+
+    it('G4-018: tabs expose tablist/tab semantics', () => {
+      render(<RdsCompColorPicker {...defaultProps} showTabs />);
+      expect(screen.getByRole('tablist')).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: 'Grid' })).toHaveAttribute('aria-selected', 'true');
+      fireEvent.click(screen.getByRole('tab', { name: 'Spectrum' }));
+      expect(screen.getByRole('tab', { name: 'Spectrum' })).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('G4-019: colour-mode trigger has popup state and Escape closes', () => {
+      const setShow = jest.fn();
+      render(<actual.ColorPickerInfo {...infoProps} showColorModeDropdown setShowColorModeDropdown={setShow} />);
+      const trigger = screen.getByRole('button', { name: 'Change color mode' });
+      expect(trigger).toHaveAttribute('aria-haspopup', 'listbox');
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      fireEvent.keyDown(screen.getByRole('option', { name: 'RGB' }), { key: 'Escape' });
+      expect(setShow).toHaveBeenCalledWith(false);
+    });
+
+    it('G4-022: custom swatches replace the default list', () => {
+      const handleChange = jest.fn();
+      render(<actual.ColorSwatchesType1 handleChange={handleChange} swatches={['#123456']} />);
+      expect(screen.getAllByRole('button', { name: /^Select color/ })).toHaveLength(1);
+      fireEvent.click(screen.getByRole('button', { name: 'Select color #123456' }));
+      expect(handleChange).toHaveBeenCalledWith({ hex: '#123456' });
     });
   });
 });

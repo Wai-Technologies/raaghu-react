@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { memo, type Dispatch, type RefObject, type SetStateAction } from "react";
+import { memo, useRef, type Dispatch, type KeyboardEvent, type RefObject, type SetStateAction } from "react";
 import { HuePicker, AlphaPicker, type ColorResult } from "react-color";
 import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl } from "./color-utils";
 import { ColorMode } from "./rds-comp-color-picker.types";
@@ -137,12 +137,6 @@ export const ColorPickerGrid = memo(({
                     style={{ backgroundColor: bgColor }}
                     onClick={() => handleChange({ hex: clickHex, rgb: clickRgb })}
                     aria-label={`Select color ${clickHex}`}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleChange({ hex: clickHex, rgb: clickRgb });
-                      }
-                    }}
                   />
                 );
               })}
@@ -183,7 +177,15 @@ export const ColorPickerSpectrum = memo(({
   showSwatches,
   styleType,
   onSelectColorMode,
-}: SharedColorPickerProps & { selectedColorHex: string; showSwatches?: boolean; styleType?: string }) => {
+  swatches,
+  onAddSwatch,
+}: SharedColorPickerProps & {
+  selectedColorHex: string;
+  showSwatches?: boolean;
+  styleType?: string;
+  swatches?: string[];
+  onAddSwatch?: () => void;
+}) => {
   return (
     <div className="rds-comp-color-picker__spectrum-type1">    
       <div className="rds-comp-color-picker__color-grid-container rds-comp-color-picker__color-grid-container--spectrum">
@@ -192,9 +194,11 @@ export const ColorPickerSpectrum = memo(({
           className="rds-comp-color-picker__spectrum-area"
           style={{ backgroundColor: selectedColorHex }}
           onClick={(e) => {
+            // Pass the current hue (0-360), not a raw RGB channel (0-255).
+            const hue = selectedColorState.rgb ? (rgbToHsb(selectedColorState.rgb).h + 360) % 360 : 0;
             const result = handleSpectrumClick(
               e,
-              selectedColorState.rgb ? selectedColorState.rgb.r : 0,
+              hue,
               selectedColorState.rgb ? selectedColorState.rgb.a : 1
             );
             handleChange(result);
@@ -221,9 +225,9 @@ export const ColorPickerSpectrum = memo(({
       
       {showSwatches && (
         styleType === "Type 1" ? (
-          <ColorSwatchesType1 handleChange={handleChange} />
+          <ColorSwatchesType1 handleChange={handleChange} swatches={swatches} onAddSwatch={onAddSwatch} />
         ) : (
-          <ColorSwatchesType2 handleChange={handleChange} />
+          <ColorSwatchesType2 handleChange={handleChange} swatches={swatches} onAddSwatch={onAddSwatch} />
         )
       )}
     </div>
@@ -341,15 +345,27 @@ export const ColorPickerInfo = memo(({
   const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
   const hsb = rgbToHsb(rgb);
   const hsl = rgbToHsl(rgb);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeOnEscape = (e: KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === 'Escape' && showColorModeDropdown) {
+      e.preventDefault();
+      setShowColorModeDropdown(false);
+      triggerRef.current?.focus();
+    }
+  };
 
   return (
     <div className="rds-comp-color-picker__color-info">
       <div className="rds-comp-color-picker__dropdown-container" ref={colorModeDropdownRef}>
         <button
+          ref={triggerRef}
           type="button"
           className="rds-comp-color-picker__dropdown-button"
           onClick={() => setShowColorModeDropdown(!showColorModeDropdown)}
+          onKeyDown={closeOnEscape}
           aria-label="Change color mode"
+          aria-haspopup="listbox"
+          aria-expanded={showColorModeDropdown}
         >
           <div className="rds-comp-color-picker__color-circle" style={{ backgroundColor: selectedColorState.hex }}></div>
           <span className="rds-comp-color-picker__dropdown-label">{selectedColorMode}</span>
@@ -367,6 +383,7 @@ export const ColorPickerInfo = memo(({
                 aria-selected={selectedColorMode === mode}
                 className={clsx("rds-comp-color-picker__dropdown-item", selectedColorMode === mode && "active")}
                 onMouseDown={(e) => e.preventDefault()}
+                onKeyDown={closeOnEscape}
                 onClick={() => {
                   if (onSelectColorMode) onSelectColorMode(mode);
                   setShowColorModeDropdown(false);
@@ -388,7 +405,7 @@ export const ColorPickerInfo = memo(({
       <div className="rds-comp-color-picker__percent-wrapper">
         <input
           type="text"
-          value={`100%`}
+          value={`${Math.round((rgb.a ?? 1) * 100)}%`}
           readOnly
           className="rds-comp-color-picker__percent-input"
           aria-label="Opacity percentage"
@@ -398,7 +415,15 @@ export const ColorPickerInfo = memo(({
   );
 });
 
-export const ColorSwatchesType1 = memo(({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
+interface ColorSwatchesProps {
+  handleChange: (color: { hex: string }) => void;
+  /** Swatch colours; defaults to the built-in list for the style. */
+  swatches?: string[];
+  /** Called when the add-swatch control is activated. */
+  onAddSwatch?: () => void;
+}
+
+export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE_1, onAddSwatch }: ColorSwatchesProps) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
@@ -415,13 +440,15 @@ export const ColorSwatchesType1 = memo(({ handleChange }: { handleChange: (color
   style="transparent"
   text="Default Button"
   textCase="capitalize"
+  aria-label="Add swatch"
+  onClick={onAddSwatch}
 />
       </div>
       <div className="rds-comp-color-picker__swatch-list rds-comp-color-picker__swatch-list--vertical">
-        {SWATCHES_TYPE_1.map((hex) => {
+        {swatches.map((hex, index) => {
           const swatchHex = getSwatchHexDisplay(hex);
           return (
-          <button type="button" key={hex} className="rds-comp-color-picker__swatch-item" onClick={() => handleChange({ hex })} aria-label={`Select color ${swatchHex}`} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleChange({ hex }); } }}>
+          <button type="button" key={`${hex}-${index}`} className="rds-comp-color-picker__swatch-item" onClick={() => handleChange({ hex })} aria-label={`Select color ${swatchHex}`}>
             <div className="rds-comp-color-picker__swatch-color" style={{ backgroundColor: hex }} />
             <div className="rds-comp-color-picker__swatch-label">{swatchHex}</div>
           </button>
@@ -431,16 +458,28 @@ export const ColorSwatchesType1 = memo(({ handleChange }: { handleChange: (color
   );
 });
 
-export const ColorSwatchesType2 = memo(({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
+export const ColorSwatchesType2 = memo(({ handleChange, swatches = SWATCHES_TYPE_2, onAddSwatch }: ColorSwatchesProps) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
         <span>Swatches</span>
       </div>
       <div className="rds-comp-color-picker__swatch-grid">
-        <div className="rds-comp-color-picker__swatch-tile rds-comp-color-picker__swatch-tile--add">+</div>
-        {SWATCHES_TYPE_2.map(hex => (
-          <button type="button" key={hex} className="rds-comp-color-picker__swatch-tile" style={{ backgroundColor: hex }} aria-label={`Select color ${hex}`} onClick={() => handleChange({ hex })} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleChange({ hex }); } }} />
+        <div
+          className="rds-comp-color-picker__swatch-tile rds-comp-color-picker__swatch-tile--add"
+          role="button"
+          tabIndex={0}
+          aria-label="Add swatch"
+          onClick={() => onAddSwatch?.()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onAddSwatch?.();
+            }
+          }}
+        >+</div>
+        {swatches.map((hex, index) => (
+          <button type="button" key={`${hex}-${index}`} className="rds-comp-color-picker__swatch-tile" style={{ backgroundColor: hex }} aria-label={`Select color ${hex}`} onClick={() => handleChange({ hex })} />
         ))}
       </div>
     </div>
@@ -511,7 +550,7 @@ export const GradientEditor = memo(({
           type="button"
           className={clsx(
             "rds-comp-color-picker__gradient-btn",
-            gradientType === "radial" && "rds-comp_color-picker__gradient-btn--active"
+            gradientType === "radial" && "rds-comp-color-picker__gradient-btn--active"
           )}
           onClick={() => onGradientTypeChange("radial")}
         >

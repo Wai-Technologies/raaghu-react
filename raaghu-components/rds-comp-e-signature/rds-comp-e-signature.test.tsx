@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, createEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompESignature, { RdsCompESignatureProps } from './rds-comp-e-signature';
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock SCSS
 jest.mock('./rds-comp-e-signature.scss', () => ({}));
@@ -703,6 +705,157 @@ describe('RdsCompESignature', () => {
       const { container } = render(<RdsCompESignature />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('audit fixes', () => {
+    const makeCtx = () => ({
+      scale: jest.fn(),
+      beginPath: jest.fn(),
+      moveTo: jest.fn(),
+      lineTo: jest.fn(),
+      stroke: jest.fn(),
+      clearRect: jest.fn(),
+      strokeStyle: '',
+    });
+    let ctx: ReturnType<typeof makeCtx>;
+    beforeEach(() => {
+      ctx = makeCtx();
+      Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+        configurable: true,
+        value: jest.fn(() => ctx),
+      });
+    });
+    const drawStroke = (canvas: Element, x = 10) => {
+      fireEvent.mouseDown(canvas, { clientX: x, clientY: 10 });
+      fireEvent.mouseMove(canvas, { clientX: x + 50, clientY: 20 });
+      fireEvent.mouseUp(canvas);
+    };
+    const { RdsESignatureUpload, RdsESignatureChoose } = jest.requireActual('./rds-comp-e-signature-modes');
+    const sigs = [
+      { id: '1', name: 'Style 1', style: 'cursive', fullName: 'John Doe', initials: 'J.D' },
+      { id: '2', name: 'Style 2', style: 'print', fullName: 'John Doe', initials: 'J.D' },
+    ];
+
+    it('G5-003: new colour applies at stroke start and resize replays strokes', () => {
+      render(<RdsCompESignature />);
+      const canvas = screen.getByRole('img', { name: 'Signature drawing area' });
+      drawStroke(canvas);
+      fireEvent.click(screen.getByRole('radio', { name: 'Red' }));
+      fireEvent.mouseDown(canvas, { clientX: 10, clientY: 10 });
+      expect(ctx.strokeStyle).toBe('#FF0000');
+      fireEvent.mouseUp(canvas);
+      ctx.lineTo.mockClear();
+      fireEvent(window, new Event('resize'));
+      expect(ctx.lineTo).toHaveBeenCalled();
+    });
+
+    it('G5-004: Save calls onSave with the data URL and keeps the drawing', () => {
+      const onSave = jest.fn();
+      const onSignatureChange = jest.fn();
+      render(<RdsCompESignature onSave={onSave} onSignatureChange={onSignatureChange} />);
+      drawStroke(screen.getByRole('img'));
+      onSignatureChange.mockClear();
+      fireEvent.click(screen.getByLabelText('save'));
+      expect(onSave).toHaveBeenCalledWith('data:image/png;base64,mocked-signature');
+      expect(onSignatureChange).not.toHaveBeenCalled();
+    });
+
+    it('G5-005: Undo removes only the last stroke', () => {
+      const onSignatureChange = jest.fn();
+      render(<RdsCompESignature onSignatureChange={onSignatureChange} />);
+      const canvas = screen.getByRole('img');
+      drawStroke(canvas, 10);
+      drawStroke(canvas, 100);
+      fireEvent.click(screen.getByLabelText('undo'));
+      expect(onSignatureChange).toHaveBeenLastCalledWith('data:image/png;base64,mocked-signature');
+      fireEvent.click(screen.getByLabelText('undo'));
+      expect(onSignatureChange).toHaveBeenLastCalledWith(null);
+    });
+
+    it('G5-006: hovering out without drawing emits nothing', () => {
+      const onSignatureChange = jest.fn();
+      render(<RdsCompESignature onSignatureChange={onSignatureChange} />);
+      fireEvent.mouseLeave(screen.getByRole('img'));
+      expect(onSignatureChange).not.toHaveBeenCalled();
+    });
+
+    it('G5-007: touch pointers draw', () => {
+      const onSignatureChange = jest.fn();
+      render(<RdsCompESignature onSignatureChange={onSignatureChange} />);
+      const canvas = screen.getByRole('img');
+      const firePointer = (name: 'pointerDown' | 'pointerUp') => {
+        const ev = createEvent[name](canvas, { clientX: 10, clientY: 10 });
+        Object.defineProperty(ev, 'pointerType', { value: 'touch' });
+        fireEvent(canvas, ev);
+      };
+      firePointer('pointerDown');
+      firePointer('pointerUp');
+      expect(onSignatureChange).toHaveBeenCalledWith('data:image/png;base64,mocked-signature');
+    });
+
+    it('G5-008: canvas has an accessible name', () => {
+      render(<RdsCompESignature type="initials" />);
+      expect(screen.getByRole('img', { name: 'Initials drawing area' })).toBeInTheDocument();
+    });
+
+    it('G5-009: colour swatches are a keyboard-operable radiogroup', () => {
+      render(<RdsCompESignature />);
+      expect(screen.getByRole('radiogroup', { name: 'Pen colour' })).toBeInTheDocument();
+      const blue = screen.getByRole('radio', { name: 'Blue' });
+      expect(blue).toHaveAttribute('aria-checked', 'false');
+      fireEvent.keyDown(blue, { key: 'Enter' });
+      expect(screen.getByRole('radio', { name: 'Blue' })).toHaveAttribute('aria-checked', 'true');
+    });
+
+    it('G5-012: signatureData and height warn as deprecated', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      render(<RdsCompESignature signatureData="x" height={100} />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompESignature', 'signatureData', expect.any(String));
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompESignature', 'height', expect.any(String));
+    });
+
+    it('G5-014/G5-017: upload error matches the 5MB limit; placeholder spelled correctly', () => {
+      render(<RdsESignatureUpload type="fullname" disabled={false} />);
+      expect(screen.getByText('No File Chosen')).toBeInTheDocument();
+      const file = new File(['x'], 'big.png', { type: 'image/png' });
+      Object.defineProperty(file, 'size', { value: 6 * 1024 * 1024 });
+      fireEvent.change(screen.getByLabelText('Upload signature file'), { target: { files: [file] } });
+      expect(screen.getByText('File too large. Max size is 5MB')).toBeInTheDocument();
+    });
+
+    it('G5-015: choosing a style emits once; a second style keeps multi-select error', () => {
+      const onSignatureChange = jest.fn();
+      render(<RdsESignatureChoose type="fullname" disabled={false} predefinedSignatures={sigs} onSignatureChange={onSignatureChange} />);
+      const cards = screen.getAllByRole('button', { pressed: false });
+      fireEvent.click(cards[0]);
+      expect(onSignatureChange).toHaveBeenCalledTimes(1);
+      expect(onSignatureChange).toHaveBeenCalledWith('John Doe');
+      fireEvent.click(cards[1]);
+      expect(onSignatureChange).toHaveBeenLastCalledWith(null);
+      expect(screen.getByRole('alert')).toBeInTheDocument();
+    });
+
+    it('G5-016: "Create your own signature" is actionable only with onCreateCustom', () => {
+      const { rerender } = render(<RdsESignatureChoose type="fullname" disabled={false} predefinedSignatures={sigs} />);
+      expect(screen.queryByRole('button', { name: /Create your own signature/ })).not.toBeInTheDocument();
+      const onCreateCustom = jest.fn();
+      rerender(<RdsESignatureChoose type="fullname" disabled={false} predefinedSignatures={sigs} onCreateCustom={onCreateCustom} />);
+      fireEvent.keyDown(screen.getByRole('button', { name: /Create your own signature/ }), { key: 'Enter' });
+      expect(onCreateCustom).toHaveBeenCalledTimes(1);
+    });
+
+    it('G5-018: required={false} hides the asterisk', () => {
+      render(<RdsCompESignature required={false} />);
+      expect(screen.queryByText('*')).not.toBeInTheDocument();
+    });
+
+    it('G5-019: root forwards className, ref and rest props', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<RdsCompESignature ref={ref} className="custom" data-testid="root" />);
+      const root = screen.getByTestId('root');
+      expect(root).toHaveClass('rds-e-signature', 'custom');
+      expect(ref.current).toBe(root);
     });
   });
 });

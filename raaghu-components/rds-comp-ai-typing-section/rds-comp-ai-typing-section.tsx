@@ -5,20 +5,41 @@ import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsAutocomplete from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import RdsCompAiAttachment, {
-  Comment as AttachmentComment,
-} from "../../raaghu-components/rds-comp-ai-attachment/rds-comp-ai-attachment";
+  type Comment as AttachmentComment,
+} from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
 import RdsCompAiIcon, { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+
+export interface RdsCompAiTypingSectionOption {
+  label: string;
+  value: string | number;
+}
 
 export interface RdsCompAiTypingSectionProps {
+  /** @deprecated Has no effect. */
   colorVariant?: string;
+  /** Placeholder of the prompt input. */
+  placeholder?: string;
+  /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
-  iconName: string;
+  /** @deprecated Has no effect. */
+  iconName?: string;
+  /** Called with the prompt text (and image, if any) from the send button. */
   onSend?: (inputText: string, image?: string) => void;
   onAddComment?: (comment: AttachmentComment) => void;
   previewImage?: string;
+  /** @deprecated Has no effect. */
   type?: string;
   autoCompleteMaxWidth?: string;
+  /** Called when the "New Project" button is clicked. */
+  onNewProjectClick?: () => void;
+  /** Called when the "Import From Figma" button is clicked. */
+  onImportFromFigmaClick?: () => void;
+  /** Options of the frontend selector (defaults to Raaghu). */
+  autocompleteOptions?: RdsCompAiTypingSectionOption[];
 }
+
+const DEFAULT_AUTOCOMPLETE_OPTIONS: RdsCompAiTypingSectionOption[] = [{ label: "Raaghu", value: 1 }];
 
 registerMaterialIcons({
   enhance: AutoAwesomeOutlinedIcon,
@@ -26,13 +47,26 @@ registerMaterialIcons({
 
 const MOBILE_BREAKPOINT = 768;
 
+/** Prompt input of the AI chat, with the attachment menu, send button and project actions. */
 const RdsCompAiTypingSectionComponent = ({
+  colorVariant,
+  placeholder,
   placeholderText,
+  iconName,
   onSend,
   previewImage,
   onAddComment,
+  type,
   autoCompleteMaxWidth,
+  onNewProjectClick,
+  onImportFromFigmaClick,
+  autocompleteOptions = DEFAULT_AUTOCOMPLETE_OPTIONS,
 }: RdsCompAiTypingSectionProps) => {
+  if (colorVariant !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "colorVariant", "nothing (no effect)");
+  if (iconName !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "iconName", "nothing (no effect)");
+  if (type !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "type", "nothing (no effect)");
+  if (placeholderText !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "placeholderText", "`placeholder`");
+  const resolvedPlaceholder = placeholder ?? placeholderText;
   const [inputText, setInputText] = useState<string>("");
   const [isMobile, setIsMobile] = useState<boolean>(() => typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
@@ -45,24 +79,6 @@ const RdsCompAiTypingSectionComponent = ({
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleMicClick = useCallback(() => {
-    if (!("webkitSpeechRecognition" in window)) return;
-
-    const SpeechRecognitionCtor = window.webkitSpeechRecognition;
-    if (!SpeechRecognitionCtor) return;
-    const recognition = new SpeechRecognitionCtor();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = "en-US";
-
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
-      const transcript = event.results[0][0].transcript;
-      setInputText(transcript);
-    };
-
-    recognition.start();
   }, []);
 
   const handleSent = useCallback(() => {
@@ -113,7 +129,7 @@ const RdsCompAiTypingSectionComponent = ({
         >
           <textarea
             className="rds-comp-ai-typing-section__input-box rds-comp-ai-typing-section__input-box--muted-placeholder"
-            placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
+            placeholder={!enhancedImage ? resolvedPlaceholder || "Placeholder Text" : ""}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             title="Enter your prompt here"
@@ -124,7 +140,6 @@ const RdsCompAiTypingSectionComponent = ({
               <RdsCompAiIcon
                 colorVariant="primary"
                 height="24px"
-                isCursorPointer
                 name="enhance"
                 stroke
                 width="24px"
@@ -139,18 +154,18 @@ const RdsCompAiTypingSectionComponent = ({
           )}
         >
           <div className="rds-comp-ai-typing-section__action-icons">
-            <div className="rds-comp-ai-typing-section__attach" id="Premium">
+            <div className="rds-comp-ai-typing-section__attach">
               <RdsCompAiAttachment
                 badgeColor="primary"
                 badgeLabel="Premium"
-                handleAddComment={handleAddComment}
+                onAddComment={handleAddComment}
                 hintText="Hint Text"
                 importText="Import From This Device"
                 inputPlaceholder="Enter URL"
                 menuIcon="attachment_icon"
                 modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
                 modalTitle="Import From Figma"
-                onFigmaSubmit={handleFigmaSubmit}
+                onFigmaUrlChange={handleFigmaSubmit}
                 onFileSelect={handleFileSelect}
                 showBadge
                 uploadText="Upload From Figma"
@@ -165,6 +180,7 @@ const RdsCompAiTypingSectionComponent = ({
                 style="filled"
                 layout="icon-only"
                 onClick={handleSent}
+                aria-label="Send"
               />
             </div>
           </div>
@@ -178,6 +194,7 @@ const RdsCompAiTypingSectionComponent = ({
               changeLeftIcon="add"
               showLeftIcon
               text="New Project"
+              onClick={onNewProjectClick}
               style="filled"
               size={isMobile ? "small" : "medium"}
             />
@@ -188,6 +205,7 @@ const RdsCompAiTypingSectionComponent = ({
               changeLeftIcon="add"
               showLeftIcon
               text="Import From Figma"
+              onClick={onImportFromFigmaClick}
               style="outlined"
               size={isMobile ? "small" : "medium"}
             />
@@ -198,7 +216,7 @@ const RdsCompAiTypingSectionComponent = ({
             controlStyle="default"
             required={false}
             label=""
-            options={[{ label: "Raaghu", value: 1 }]}
+            options={autocompleteOptions}
             placeholder="Select Frontend"
             showHintText={false}
             showTitle={false}
