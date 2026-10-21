@@ -1,11 +1,11 @@
 import { useId } from 'react';
-import { 
-  Select as MuiSelect, 
-  FormControl, 
-  InputLabel, 
-  MenuItem, 
-  type SelectProps, 
-  FormHelperText 
+import {
+  Select as MuiSelect,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  type SelectProps,
+  FormHelperText,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import clsx from 'clsx';
@@ -18,7 +18,8 @@ export interface RdsSelectOption {
   disabled?: boolean;
 }
 
-export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
+export interface RdsSelectProps
+  extends Omit<SelectProps, 'children' | 'component'> {
   /** Visible label text. */
   label?: string;
   /** Placeholder shown when nothing is selected (only with `labelposition={false}`). */
@@ -29,8 +30,8 @@ export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'componen
   helperText?: string;
   /** Error text shown below the select; also puts the select in the error state. */
   errorMessage?: string;
-  /** @deprecated Use `required` instead. */
-  isRequired?: boolean;
+  /** Whether the select is required. */
+  required?: boolean;
   /** @deprecated Use `placeholder` instead. */
   inputPlaceholder?: string;
   /** `true` (default) renders a floating label; `false` renders the label above the field. */
@@ -45,8 +46,7 @@ const RdsSelect = ({
   options,
   helperText,
   errorMessage,
-  isRequired,
-  required,
+  required = false,
   error,
   inputPlaceholder,
   labelposition = true,
@@ -54,74 +54,106 @@ const RdsSelect = ({
   className,
   ...props
 }: RdsSelectProps) => {
-  if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
-  if (inputPlaceholder !== undefined) warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
+  if (inputPlaceholder !== undefined) {
+    warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
+  }
+
   const labelId = useId();
-  const isFieldRequired = required ?? isRequired ?? false;
   const resolvedPlaceholder = inputPlaceholder || placeholder;
   const hasError = !!errorMessage || error;
-  
+
   return (
-    <div className={clsx('rds-select', hasError && 'rds-select--error', className)}>
-      <FormControl 
-        fullWidth 
-        error={hasError} 
+    <div
+      className={clsx(
+        'rds-select',
+        hasError && 'rds-select--error',
+        className
+      )}
+    >
+      <FormControl
+        fullWidth
+        error={hasError}
+        required={required}
         size={size}
         className="rds-select__form-control"
       >
         {!labelposition && label && (
           <label id={labelId} className="rds-select__label">
             {label}
-            {isFieldRequired && <span className="rds-select__asterisk">*</span>}
+            {required && (
+              <span className="rds-select__asterisk">*</span>
+            )}
           </label>
         )}
+
         {labelposition && label && (
-          <InputLabel 
-            id={labelId} 
-            required={isFieldRequired}
+          <InputLabel
+            id={labelId}
+            required={required}
             className="rds-select__input-label"
           >
             {label}
           </InputLabel>
         )}
+
         <MuiSelect
           labelId={label ? labelId : undefined}
           label={labelposition ? label : undefined}
+          required={required}
           IconComponent={KeyboardArrowDownIcon}
           className="rds-select__field"
-          {...(!labelposition && { displayEmpty: !!resolvedPlaceholder })}
+          {...(!labelposition && {
+            displayEmpty: !!resolvedPlaceholder,
+          })}
           renderValue={
             !labelposition
               ? (selected) => {
-                  const labelFor = (v: unknown) => {
-                    const opt = options.find(o => String(o.value) === String(v));
-                    return opt ? opt.label : String(v);
+                  const labelFor = (value: unknown) => {
+                    const option = options.find(
+                      (item) => String(item.value) === String(value)
+                    );
+                    return option ? option.label : String(value);
                   };
+
                   if (Array.isArray(selected) && selected.length > 1) {
                     return selected.map(labelFor).join(', ');
                   }
-                  const value = Array.isArray(selected) ? selected[0] : selected;
-                  if (value === undefined || value === null || value === "") {
+
+                  const value = Array.isArray(selected)
+                    ? selected[0]
+                    : selected;
+
+                  if (
+                    value === undefined ||
+                    value === null ||
+                    value === ''
+                  ) {
                     return (
                       <span className="rds-select__placeholder">
                         {resolvedPlaceholder || ''}
                       </span>
                     );
                   }
-                  const selectedOption = options.find(opt => String(opt.value) === String(value));
+
+                  const selectedOption = options.find(
+                    (option) => String(option.value) === String(value)
+                  );
+
                   return selectedOption ? selectedOption.label : value;
                 }
               : undefined
           }
-          {...(required !== undefined && { required })}
           {...props}
-          {...(isFieldRequired && {
-            SelectDisplayProps: { 'aria-required': true, ...props.SelectDisplayProps },
+          {...(required && {
+            SelectDisplayProps: {
+              'aria-required': true,
+              ...props.SelectDisplayProps,
+            },
           })}
         >
           {options.map((option) => (
-            <MenuItem 
-              key={option.value} 
+            <MenuItem
+              key={option.value}
               value={option.value}
               disabled={option.disabled}
               className="rds-select__option"
@@ -130,6 +162,7 @@ const RdsSelect = ({
             </MenuItem>
           ))}
         </MuiSelect>
+
         {(helperText || errorMessage) && (
           <FormHelperText className="rds-select__helper-text">
             {errorMessage || helperText}
@@ -139,5 +172,7 @@ const RdsSelect = ({
     </div>
   );
 };
+
 RdsSelect.displayName = 'RdsSelect';
+
 export default RdsSelect;

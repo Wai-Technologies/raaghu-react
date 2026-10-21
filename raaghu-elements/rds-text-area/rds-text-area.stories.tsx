@@ -33,10 +33,7 @@ const meta: Meta<typeof RdsTextArea> = {
             options: ['Default', 'Pill', 'Bottom Outline'],
             description: 'Visual style variant of the text area'
         },
-        isMandatory: {
-            control: 'boolean',
-            description: 'Whether the field is required'
-        },
+       
         showTitle: {
             control: 'boolean',
             description: 'Whether to show the label (true = show, false = hide)'
@@ -53,7 +50,7 @@ export const Default: Story = {
         placeholder: "Enter Description",
         state: TextareaState.Default,
         style: TextareaStyle.Default,
-        isMandatory: false,
+        mandatory: false,
         showTitle: true,
         rows: 4
     }

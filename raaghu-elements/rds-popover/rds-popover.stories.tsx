@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
-import { Button, Typography, Box, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Button, Typography, List, ListItem, ListItemText } from '@mui/material';
 import React, { useState } from 'react';
 import RdsPopover from './rds-popover';
 import './rds-popover.scss';
@@ -9,16 +8,45 @@ const meta: Meta<typeof RdsPopover> = {
   title: 'Elements/Popover',
   component: RdsPopover,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    open: {
+      control: 'boolean',
+      description: 'Controls whether the popover is open.',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
     position: {
       control: 'select',
-      options: ['top-left', 'top-center', 'top-right', 'right-top', 'right-center', 'right-bottom', 'bottom-right', 'bottom-center', 'bottom-left', 'left-bottom', 'left-center', 'left-top', 'no-arrow'],
-      description: 'Position of the popover relative to the anchor element. Organized as [side]-[alignment], or "no-arrow" for a popover without an arrow',
-      defaultValue: 'bottom-left',
+      options: [
+        'top-left',
+        'top-center',
+        'top-right',
+        'right-top',
+        'right-center',
+        'right-bottom',
+        'bottom-right',
+        'bottom-center',
+        'bottom-left',
+        'left-bottom',
+        'left-center',
+        'left-top',
+        'no-arrow',
+      ],
+      description:
+        'Position of the popover relative to the anchor element. Organized as [side]-[alignment], or "no-arrow" for a popover without an arrow.',
+      table: {
+        defaultValue: { summary: 'bottom-left' },
+      },
+    },
+    showCloseButton: {
+      control: 'boolean',
+      description: 'Whether to show the close button.',
     },
   },
 };
@@ -28,6 +56,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    open: false,
     position: 'bottom-left',
     showCloseButton: false,
   },
@@ -47,6 +76,7 @@ export const Default: Story = {
         <Button variant="contained" onClick={handleClick}>
           Open Popover
         </Button>
+
         <RdsPopover
           {...args}
           open={Boolean(anchorEl)}
@@ -62,14 +92,13 @@ export const Default: Story = {
     );
   },
 };
-Default.parameters = { controls: { include: ['position', 'showCloseButton'] } };
+Default.parameters = {
+  controls: { include: ['open', 'position', 'showCloseButton'] },
+};
 
 export const CustomPosition: Story = {
-  argTypes: {
-    position: { table: { disable: true } },
-    showCloseButton: { control: 'boolean' },
-  },
   args: {
+    open: false,
     showCloseButton: false,
     position: 'no-arrow',
   },
@@ -89,6 +118,7 @@ export const CustomPosition: Story = {
         <Button variant="contained" color="success" onClick={handleClick}>
           Open Above Button
         </Button>
+
         <RdsPopover
           {...args}
           open={Boolean(anchorEl)}
@@ -112,14 +142,13 @@ export const CustomPosition: Story = {
     );
   },
 };
-CustomPosition.parameters = { controls: { include: ['showCloseButton'] } };
+CustomPosition.parameters = {
+  controls: { include: ['open', 'showCloseButton'] },
+};
 
 export const WideContent: Story = {
-  argTypes: {
-    position: { table: { disable: true } },
-    showCloseButton: { control: 'boolean' },
-  },
   args: {
+    open: false,
     showCloseButton: false,
     position: 'no-arrow',
     width: 500,
@@ -140,6 +169,7 @@ export const WideContent: Story = {
         <Button variant="outlined" color="warning" onClick={handleClick}>
           Open Wide Popover
         </Button>
+
         <RdsPopover
           {...args}
           open={Boolean(anchorEl)}
@@ -148,11 +178,16 @@ export const WideContent: Story = {
           title="Wide Content Popover"
         >
           <Typography paragraph>
-            This popover has a fixed width of 500px and contains more content to demonstrate how it handles larger amounts of text.
+            This popover has a fixed width of 500px and contains more content
+            to demonstrate how it handles larger amounts of text.
           </Typography>
+
           <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris.
           </Typography>
+
           <Box className="rds-popover-highlight-box">
             <Typography variant="body2">
               This is a highlighted section within the popover content.
@@ -163,14 +198,13 @@ export const WideContent: Story = {
     );
   },
 };
-WideContent.parameters = { controls: { include: ['showCloseButton'] } };
+WideContent.parameters = {
+  controls: { include: ['open', 'showCloseButton'] },
+};
 
 export const WithCloseButton: Story = {
-  argTypes: {
-    position: { table: { disable: true } },
-    showCloseButton: { control: 'boolean' },
-  },
   args: {
+    open: false,
     showCloseButton: true,
     position: 'no-arrow',
   },
@@ -190,6 +224,7 @@ export const WithCloseButton: Story = {
         <Button variant="outlined" onClick={handleClick}>
           Open with Close Button
         </Button>
+
         <RdsPopover
           {...args}
           open={Boolean(anchorEl)}
@@ -200,6 +235,7 @@ export const WithCloseButton: Story = {
           <Typography paragraph>
             This popover has a close button in the header.
           </Typography>
+
           <Typography>
             You can close it by clicking the X button or clicking outside.
           </Typography>
@@ -208,11 +244,13 @@ export const WithCloseButton: Story = {
     );
   },
 };
-WithCloseButton.parameters = { controls: { include: ['showCloseButton'] } };
+WithCloseButton.parameters = {
+  controls: { include: ['open', 'showCloseButton'] },
+};
 
 export const WithList: Story = {
-  argTypes: {
-    position: { table: { disable: true } },
+  args: {
+    open: false,
   },
   render: () => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
@@ -238,6 +276,7 @@ export const WithList: Story = {
         <Button variant="contained" color="secondary" onClick={handleClick}>
           Open Menu Popover
         </Button>
+
         <RdsPopover
           open={Boolean(anchorEl)}
           onClose={handleClose}
@@ -249,10 +288,13 @@ export const WithList: Story = {
         >
           <List dense>
             {menuItems.map((item) => (
-              <ListItem 
-                key={item} 
+              <ListItem
+                key={item}
                 onClick={handleClose}
-                sx={{ cursor: 'pointer', '&:hover': { backgroundColor: 'action.hover' } }}
+                sx={{
+                  cursor: 'pointer',
+                  '&:hover': { backgroundColor: 'action.hover' },
+                }}
               >
                 <ListItemText primary={item} />
               </ListItem>
@@ -263,4 +305,6 @@ export const WithList: Story = {
     );
   },
 };
-WithList.parameters = { controls: { include: [] } };
+WithList.parameters = {
+  controls: { include: ['open'] },
+};

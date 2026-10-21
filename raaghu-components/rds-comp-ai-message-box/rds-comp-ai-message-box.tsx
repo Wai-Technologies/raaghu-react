@@ -4,7 +4,7 @@ import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export interface RdsCompAiMessageBoxProps {
-  isImage?: boolean;
+  Image?: boolean;
   /** @deprecated Use `children` instead. */
   message?: string;
   /** Message text (shown under the sender name). */
@@ -27,7 +27,7 @@ const DEFAULT_IMAGE =
   "https://via.placeholder.com/480x320.png?text=Image+placeholder";
 
 const RdsCompAiMessageBox = memo(({
-  isImage,
+  Image,
   message,
   children,
   src,
@@ -56,7 +56,7 @@ const RdsCompAiMessageBox = memo(({
             title={name}
           />
         </div>
-        {isImage && (
+        {Image && (
           <div className="rds-comp-ai-message-box__image-wrapper">
             <img src={imageSrc} alt={imageAlt} className="rds-comp-ai-message-box__image" />
           </div>

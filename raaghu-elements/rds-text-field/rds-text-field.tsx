@@ -1,20 +1,17 @@
+
 import { TextField as MuiTextField, type TextFieldProps } from '@mui/material';
 import type { FormHelperTextProps } from '@mui/material/FormHelperText';
 import clsx from 'clsx';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-text-field.scss';
 
 /** MUI `TextField` with Raaghu styling. `errorMessage` sets `error` and replaces `helperText`. */
 export interface RdsTextFieldProps extends Omit<TextFieldProps, 'component'> {
-  /** @deprecated Use `required` instead. */
-  isRequired?: boolean;
   /** Shorthand for `error` plus `helperText`. */
   errorMessage?: string;
 }
 
 const RdsTextField = ({
   required,
-  isRequired,
   errorMessage,
   error,
   helperText,
@@ -24,10 +21,11 @@ const RdsTextField = ({
   slotProps: consumerSlotProps,
   ...props
 }: RdsTextFieldProps) => {
-  if (isRequired !== undefined) warnDeprecatedProp('RdsTextField', 'isRequired', '`required`');
   const rootClassName = clsx('rds-text-field', className);
+
   const consumerFormHelperTextProps =
-    typeof consumerSlotProps?.formHelperText === 'object' && consumerSlotProps?.formHelperText !== null
+    typeof consumerSlotProps?.formHelperText === 'object' &&
+    consumerSlotProps?.formHelperText !== null
       ? (consumerSlotProps.formHelperText as FormHelperTextProps)
       : undefined;
 
@@ -41,17 +39,17 @@ const RdsTextField = ({
     ),
   };
 
-  // Handle defaultValue - only pass it if explicitly provided and no value prop is present
-  // to prevent React warnings about controlled/uncontrolled components
-  const fieldProps = defaultValue !== undefined && props.value === undefined
-    ? { defaultValue }
-    : {};
+  // Pass defaultValue only when value is not provided.
+  const fieldProps =
+    defaultValue !== undefined && props.value === undefined
+      ? { defaultValue }
+      : {};
 
   return (
     <MuiTextField
       error={error || !!errorMessage}
       helperText={errorMessage || helperText}
-      required={required ?? isRequired ?? false}
+      required={required ?? false}
       slotProps={{
         ...consumerSlotProps,
         formHelperText: formHelperTextSlotProps,
@@ -62,5 +60,7 @@ const RdsTextField = ({
     />
   );
 };
+
 RdsTextField.displayName = 'RdsTextField';
+
 export default RdsTextField;

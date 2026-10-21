@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
 import { useRaaghuLogoSrc } from '../shared/hooks/useRaaghuLogoSrc';
 import { Button, Box } from '@mui/material';
-import { 
-  Home, 
-  Dashboard, 
-  Person, 
-  Settings, 
+import {
+  Home,
+  Dashboard,
+  Person,
+  Settings,
   Help,
   Inbox,
   Star,
@@ -21,14 +20,14 @@ import {
   ConfirmationNumber,
   Chat,
   Campaign,
-  Assignment
+  Assignment,
 } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsSidebar> = {
   title: 'Elements/Sidebar',
   component: RdsSidebar,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
     docs: {
       story: {
@@ -38,20 +37,20 @@ const meta: Meta<typeof RdsSidebar> = {
         component: `
 The Sidebar component supports different platforms with predefined menu items:
 
-- **ABP Platform** (\`platform="abp-list"\`): Shows Dashboard, Saas, Administration, Demo UI Components
-- **ANZ Platform** (\`platform="anz-list"\`): Shows Dashboard, Saas, Invoices, Ticket Allocation, Communication, Advertisements, Requests
+- **ABP Platform** (\`platform="abp-list"\`): Shows Dashboard, Saas, Invoices, Ticket Allocation, Communication, Advertisements, Requests
+- **ANZ Platform** (\`platform="anz-list"\`): Shows Dashboard, Saas, Administration, Demo UI Components
 
 When a platform is specified, the component automatically displays the appropriate menu items regardless of the \`items\` prop.
-        `
-      }
+        `,
+      },
     },
     controls: {
-    exclude: ['component', 'slots', 'slotProps', 'onClose'],
+      exclude: ['component', 'slots', 'slotProps', 'onClose'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    isOpen: {
+    open: {
       control: 'boolean',
       description: 'Whether the sidebar is open',
     },
@@ -114,13 +113,15 @@ const basicItems = [
   },
   { label: 'Profile', icon: <Person />, onClick: () => {} },
   { label: 'Settings', icon: <Settings />, onClick: () => {} },
-  { label: 'Requests', icon: <Drafts />,
+  {
+    label: 'Requests',
+    icon: <Drafts />,
     active: true,
     children: [
       { label: 'New Requests', icon: <Star />, onClick: () => {} },
       { label: 'Pending', icon: <Drafts />, onClick: () => {} },
       { label: 'Approved', icon: <Send />, onClick: () => {} },
-    ], 
+    ],
   },
   { label: 'Help', icon: <Help />, onClick: () => {} },
 ];
@@ -151,19 +152,21 @@ const abpMenuItems = [
 
 const SidebarTemplate = (args: any) => {
   const logoSrc = useRaaghuLogoSrc();
-  const [open, setOpen] = useState(!!args.isOpen);
+  const [open, setOpen] = useState(!!args.open);
   const [drawerContainer, setDrawerContainer] = useState<HTMLDivElement | null>(null);
   const { hideMainParagraph, hideToggleButton, ...sidebarArgs } = args;
   const sidebarWidth = sidebarArgs.width ?? 240;
   // Embedded preview uses a local container — permanent avoids modal scroll/focus lock in Docs.
   const variant = sidebarArgs.variant ?? 'permanent';
   const isPermanent = variant === 'permanent';
-  const reserveSidebarColumn = open && (isPermanent || variant === 'temporary' || variant === 'persistent');
+  const reserveSidebarColumn =
+    open &&
+    (isPermanent || variant === 'temporary' || variant === 'persistent');
 
-  // Keep local open state in sync with the Storybook isOpen control
+  // Keep local state in sync with the Storybook open control.
   useEffect(() => {
-    setOpen(!!args.isOpen);
-  }, [args.isOpen]);
+    setOpen(!!args.open);
+  }, [args.open]);
 
   return (
     <Box
@@ -191,12 +194,13 @@ const SidebarTemplate = (args: any) => {
       >
         <RdsSidebar
           {...sidebarArgs}
+          open={open}
           avatarCollapsedSrc={logoSrc}
-          isOpen={open}
           onClose={() => setOpen(false)}
           container={drawerContainer}
         />
       </Box>
+
       <Box
         sx={{
           flexGrow: 1,
@@ -219,6 +223,7 @@ const SidebarTemplate = (args: any) => {
             {open ? 'Close' : 'Open'} Sidebar
           </Button>
         )}
+
         {!hideMainParagraph && (
           <Box
             component="p"
@@ -236,17 +241,22 @@ const SidebarTemplate = (args: any) => {
   );
 };
 
-export const Default = {
+export const Default: Story = {
   render: SidebarTemplate,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const nav = canvasElement.querySelector('.MuiDrawer-root, [role="navigation"], nav') || canvasElement.firstElementChild;
+    const nav =
+      canvasElement.querySelector(
+        '.MuiDrawer-root, [role="navigation"], nav'
+      ) || canvasElement.firstElementChild;
+
     expect(nav).toBeTruthy();
   },
   args: {
     items: basicItems,
-    isOpen: true,
+    open: true,
     variant: 'permanent',
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarSrc:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     showLogo: true,
     showSearch: true,
     hideMainParagraph: true,
@@ -254,83 +264,95 @@ export const Default = {
   },
 };
 
-export const MailApp = {
+export const MailApp: Story = {
   render: SidebarTemplate,
   args: {
     items: mailItems,
     width: 280,
-    isOpen: true,
+    open: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarSrc:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     showSearch: true,
     hideMainParagraph: false,
     hideToggleButton: false,
   },
 };
 
-export const NarrowSidebar = {
+export const NarrowSidebar: Story = {
   render: SidebarTemplate,
   args: {
     items: basicItems,
-    width: 200, 
-    isOpen: true,
+    width: 200,
+    open: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarSrc:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     hideToggleButton: true,
   },
   parameters: {
     docs: {
       description: {
-        story: ``
-      }
-    }
-  }
+        story: '',
+      },
+    },
+  },
 };
 
 export const Permanent: Story = {
   render: (args) => {
     const logoSrc = useRaaghuLogoSrc();
+
     return <RdsSidebar {...args} avatarCollapsedSrc={logoSrc} />;
   },
   args: {
     items: basicItems,
-    isOpen: true,
+    open: true,
     variant: 'permanent',
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarSrc:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     showLogo: true,
   },
 };
 
-export const WideSidebar = {
+export const WideSidebar: Story = {
   render: SidebarTemplate,
   args: {
     items: basicItems,
     width: 250,
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarSrc:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
   },
 };
 
-export const WithDisabledItems = {
+export const WithDisabledItems: Story = {
   render: SidebarTemplate,
   args: {
     items: [
       { label: 'Home', icon: <Home />, onClick: () => {} },
-      { label: 'Dashboard', icon: <Dashboard />, onClick: () => {}, active: true },
+      {
+        label: 'Dashboard',
+        icon: <Dashboard />,
+        onClick: () => {},
+        active: true,
+      },
       { label: 'Profile', icon: <Person />, disabled: true },
       { label: 'Settings', icon: <Settings />, onClick: () => {} },
       { label: 'Help (Coming Soon)', icon: <Help />, disabled: true },
     ],
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarSrc:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
   },
 };
 
 export const WithoutIcons: Story = {
   render: (args) => {
     const logoSrc = useRaaghuLogoSrc();
+
     return <RdsSidebar {...args} avatarCollapsedSrc={logoSrc} />;
   },
   args: {
@@ -340,9 +362,10 @@ export const WithoutIcons: Story = {
       { label: 'Services', onClick: () => {} },
       { label: 'Contact', onClick: () => {} },
     ],
-    isOpen: true,
+    open: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarSrc:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
   },
 };

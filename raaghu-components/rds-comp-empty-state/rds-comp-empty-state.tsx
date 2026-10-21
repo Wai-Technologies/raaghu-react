@@ -35,7 +35,7 @@ export interface RdsCompEmptyStateProps extends Omit<BoxProps, "children" | "ref
   /** Plays the Lottie animation instead of the static image (illustration variant). */
   animated?: boolean;
   /** @deprecated Use `animated` instead. */
-  isContinueAnimate?: boolean;
+  ContinueAnimate?: boolean;
   /** Element used for the heading. Default `"h5"`. */
   titleComponent?: ElementType;
   ref?: Ref<HTMLDivElement>;
@@ -69,15 +69,15 @@ const RdsCompEmptyState = ({
   onButtonClick,
   action,
   animated,
-  isContinueAnimate,
+  ContinueAnimate,
   titleComponent = "h5",
   className = "",
   ...rest
 }: RdsCompEmptyStateProps) => {
-  if (isContinueAnimate !== undefined) {
-    warnDeprecatedProp("RdsCompEmptyState", "isContinueAnimate", "`animated`");
+  if (ContinueAnimate !== undefined) {
+    warnDeprecatedProp("RdsCompEmptyState", "ContinueAnimate", "`animated`");
   }
-  const isAnimated = animated ?? isContinueAnimate;
+  const isAnimated = animated ?? ContinueAnimate;
   const isMinimal = variant === "minimal";
   const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)", { noSsr: true });
   const pageIsDark = useSyncExternalStore(subscribeToTheme, isDarkThemeActive, getServerThemeSnapshot);

@@ -22,7 +22,7 @@ type Story = StoryObj<typeof RdsCompChat>;
 
 export const Default: Story = {
     args: {
-        isChatScreenEnabled: true,
+        ChatScreenEnabled: true,
         userData: [
             {
                 firstName: "Wai",
@@ -89,5 +89,5 @@ export const Default: Story = {
     },
 } satisfies Story;
 
-Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
+Default.parameters = { controls: { include: ["ChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
 

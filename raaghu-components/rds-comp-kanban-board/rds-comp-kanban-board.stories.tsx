@@ -11,7 +11,7 @@ const meta: Meta = {
             status: { type: 'stable' },
         layout: 'padded',
     controls: {
-    exclude: ['onSubCardOption', 'onCardOption', 'onAddQuestionSaveHandler', 'onSelectedTagsListChange', 'isIlliustrationSmall', 'illustration'],
+    exclude: ['onSubCardOption', 'onCardOption', 'onAddQuestionSaveHandler', 'onSelectedTagsListChange', 'IlliustrationSmall', 'illustration'],
     },
 
         docs: {

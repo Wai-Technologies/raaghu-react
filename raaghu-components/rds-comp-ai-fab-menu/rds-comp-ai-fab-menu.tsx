@@ -1,8 +1,19 @@
+
 import clsx from "clsx";
-import { useEffect, useId, useRef, useState, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
 import "./rds-comp-ai-fab-menu.scss";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
-import RdsCompAiIcon, { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
+import RdsCompAiIcon, {
+  registerMaterialIcons,
+} from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 import ListIcon from "@mui/icons-material/List";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
@@ -28,7 +39,15 @@ export interface RdsCompAiFabMenuItem {
 }
 
 export interface RdsCompAiFabMenuProps {
-  colorVariant?: "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "dark" | "light";
+  colorVariant?:
+    | "primary"
+    | "secondary"
+    | "success"
+    | "info"
+    | "warning"
+    | "danger"
+    | "dark"
+    | "light";
   size?: "small" | "medium" | "large";
   menuIcon?: string;
   /** @deprecated Has no effect. */
@@ -42,8 +61,8 @@ export interface RdsCompAiFabMenuProps {
   dense?: boolean;
   /** Accessible name of the trigger button. */
   "aria-label"?: string;
-  isShowBorder?: boolean;
-  isRectangular?: boolean;
+  showBorder?: boolean;
+  rectangular?: boolean;
   backgroundType?: "circular" | "rectangular" | "none";
   alignment?: "left" | "right";
   /** @deprecated Has no effect. */
@@ -52,10 +71,10 @@ export interface RdsCompAiFabMenuProps {
 
 const resolveBackgroundType = (
   backgroundType: RdsCompAiFabMenuProps["backgroundType"],
-  isRectangular?: boolean
+  rectangular?: boolean
 ): NonNullable<RdsCompAiFabMenuProps["backgroundType"]> => {
   if (backgroundType) return backgroundType;
-  return isRectangular ? "rectangular" : "circular";
+  return rectangular ? "rectangular" : "circular";
 };
 
 function RdsCompAiFabMenu({
@@ -67,31 +86,56 @@ function RdsCompAiFabMenu({
   id,
   dense,
   "aria-label": ariaLabel = "Open menu",
-  isShowBorder,
-  isRectangular,
+  showBorder,
+  rectangular,
   backgroundType,
   alignment = "left",
   menuiconWidth,
   menuiconHeight,
   onClick,
 }: RdsCompAiFabMenuProps) {
-  if (menuiconWidth !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconWidth", "nothing (no effect)");
-  if (menuiconHeight !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconHeight", "nothing (no effect)");
-  if (onClick !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "onClick", "nothing (no effect)");
+  if (menuiconWidth !== undefined) {
+    warnDeprecatedProp(
+      "RdsCompAiFabMenu",
+      "menuiconWidth",
+      "nothing (no effect)"
+    );
+  }
+
+  if (menuiconHeight !== undefined) {
+    warnDeprecatedProp(
+      "RdsCompAiFabMenu",
+      "menuiconHeight",
+      "nothing (no effect)"
+    );
+  }
+
+  if (onClick !== undefined) {
+    warnDeprecatedProp(
+      "RdsCompAiFabMenu",
+      "onClick",
+      "nothing (no effect)"
+    );
+  }
 
   const menuId = useId();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const resolvedBackgroundType = resolveBackgroundType(backgroundType, isRectangular);
+  const resolvedBackgroundType = resolveBackgroundType(
+    backgroundType,
+    rectangular
+  );
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   useEffect(() => {
     if (!isMenuOpen) return;
-    const handleClickOutside = (event: MouseEvent) => {
+
+    const handleClickOutside = (event: globalThis.MouseEvent) => {
       const target = event.target as Node;
+
       if (
         menuRef.current &&
         !menuRef.current.contains(target) &&
@@ -103,33 +147,56 @@ function RdsCompAiFabMenu({
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, [isMenuOpen]);
 
-  const handleItemClick = (itemOnClick?: () => void) => (event: ReactMouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    itemOnClick?.();
-    setIsMenuOpen(false);
-  };
+  const handleItemClick =
+    (itemOnClick?: () => void) =>
+    (event: ReactMouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      itemOnClick?.();
+      setIsMenuOpen(false);
+    };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
     if (!isMenuOpen) return;
+
     if (event.key === "Escape") {
       event.preventDefault();
       setIsMenuOpen(false);
       buttonRef.current?.focus();
       return;
     }
+
     const items = Array.from(
-      menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]') ?? []
+      menuRef.current?.querySelectorAll<HTMLElement>(
+        '[role="menuitem"]'
+      ) ?? []
     );
+
     if (!items.length) return;
-    const current = items.indexOf(document.activeElement as HTMLElement);
+
+    const current = items.indexOf(
+      document.activeElement as HTMLElement
+    );
+
     let next: number | undefined;
-    if (event.key === "ArrowDown") next = current < 0 ? 0 : (current + 1) % items.length;
-    else if (event.key === "ArrowUp") next = current < 0 ? items.length - 1 : (current - 1 + items.length) % items.length;
-    else if (event.key === "Home") next = 0;
-    else if (event.key === "End") next = items.length - 1;
+
+    if (event.key === "ArrowDown") {
+      next = current < 0 ? 0 : (current + 1) % items.length;
+    } else if (event.key === "ArrowUp") {
+      next =
+        current < 0
+          ? items.length - 1
+          : (current - 1 + items.length) % items.length;
+    } else if (event.key === "Home") {
+      next = 0;
+    } else if (event.key === "End") {
+      next = items.length - 1;
+    }
+
     if (next !== undefined) {
       event.preventDefault();
       items[next].focus();
@@ -137,13 +204,17 @@ function RdsCompAiFabMenu({
   };
 
   const iconColorVariant =
-    colorVariant === "dark" || colorVariant === "primary" || colorVariant === "danger"
+    colorVariant === "dark" ||
+    colorVariant === "primary" ||
+    colorVariant === "danger"
       ? "light"
       : "dark";
-  // When there is no background (transparent button), a "light" icon is invisible on light
-  // theme backgrounds. Use "primary" so the icon inherits the button's primary foreground color.
+
+  // Use the primary foreground color for transparent buttons.
   const resolvedIconColorVariant =
-    resolvedBackgroundType === "none" ? "primary" : iconColorVariant;
+    resolvedBackgroundType === "none"
+      ? "primary"
+      : iconColorVariant;
 
   return (
     <div
@@ -182,18 +253,20 @@ function RdsCompAiFabMenu({
           colorVariant={resolvedIconColorVariant}
         />
       </button>
+
       <div
         className={clsx(
           "rds-fab-menu__dropdown-container",
           `rds-fab-menu__dropdown-container--${alignment}`,
-          isMenuOpen && "rds-fab-menu__dropdown-container--open"
+          isMenuOpen &&
+            "rds-fab-menu__dropdown-container--open"
         )}
         ref={menuRef}
       >
         <div
           className={clsx(
             "rds-fab-menu__dropdown",
-            isShowBorder && "rds-fab-menu__dropdown--bordered",
+            showBorder && "rds-fab-menu__dropdown--bordered",
             isMenuOpen && "rds-fab-menu__dropdown--open"
           )}
           role="menu"
@@ -206,11 +279,13 @@ function RdsCompAiFabMenu({
               role="menuitem"
               className={clsx(
                 "rds-fab-menu__item",
-                (dense ?? id === "attachment-text") && "rds-fab-menu__item--compact"
+                (dense ?? id === "attachment-text") &&
+                  "rds-fab-menu__item--compact"
               )}
               onClick={handleItemClick(listItem.onClick)}
             >
-              {typeof listItem.icon === "string" || listItem.icon === undefined ? (
+              {typeof listItem.icon === "string" ||
+              listItem.icon === undefined ? (
                 <RdsCompAiIcon
                   name={listItem.icon}
                   height={listItem.iconHeight}
@@ -222,7 +297,10 @@ function RdsCompAiFabMenu({
               ) : (
                 listItem.icon
               )}
-              <span className="rds-fab-menu__item-text">{listItem.value}</span>
+
+              <span className="rds-fab-menu__item-text">
+                {listItem.value}
+              </span>
             </button>
           ))}
         </div>
@@ -232,4 +310,5 @@ function RdsCompAiFabMenu({
 }
 
 RdsCompAiFabMenu.displayName = "RdsCompAiFabMenu";
+
 export default RdsCompAiFabMenu;

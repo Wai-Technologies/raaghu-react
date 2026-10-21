@@ -149,7 +149,7 @@ const AutocompletePaper = (paperProps: PaperProps) => (
 );
 
 const NO_EFFECT_PROPS = [
-  'isIlliustrationSmall', 'noDataTitle', 'noDataHeaderTitle', 'illustration',
+  'IlliustrationSmall', 'noDataTitle', 'noDataHeaderTitle', 'illustration',
   'allowAddingDynamicData', 'onClick', 'addQuestionData',
 ] as const;
 
@@ -165,7 +165,7 @@ const RdsCompKanbanBoard = ({
   onBoardDataChange,
   onAddQuestionSaveHandler,
   onSelectedTagsListChange,
-  isIlliustrationSmall,
+  IlliustrationSmall,
   noDataTitle,
   noDataHeaderTitle,
   illustration,
@@ -178,7 +178,7 @@ const RdsCompKanbanBoard = ({
   ...rest
 }: RdsCompKanbanBoardProps) => {
   const noEffect = {
-    isIlliustrationSmall, noDataTitle, noDataHeaderTitle, illustration,
+    IlliustrationSmall, noDataTitle, noDataHeaderTitle, illustration,
     allowAddingDynamicData, onClick, addQuestionData: addQuestionDataProp,
   };
   NO_EFFECT_PROPS.forEach((key) => {

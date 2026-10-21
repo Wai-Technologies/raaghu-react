@@ -1,5 +1,14 @@
+
 import clsx from "clsx";
-import { memo, useMemo, type ComponentType, type KeyboardEvent, type MouseEventHandler, type SVGProps, type Ref } from "react";
+import {
+  memo,
+  useMemo,
+  type ComponentType,
+  type KeyboardEvent,
+  type MouseEventHandler,
+  type SVGProps,
+  type Ref,
+} from "react";
 import "./rds-comp-ai-icon.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
@@ -25,7 +34,9 @@ export const registerMaterialIcon = (
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
 };
 
-export const registerMaterialIcons = (icons: Record<string, RdsIconComponent>) => {
+export const registerMaterialIcons = (
+  icons: Record<string, RdsIconComponent>
+) => {
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
@@ -34,15 +45,29 @@ export const registerMaterialIcons = (icons: Record<string, RdsIconComponent>) =
 const createMuiIconWrapper = (
   MuiIcon: RdsIconComponent
 ): ComponentType<SVGProps<SVGSVGElement>> =>
-  ({ ref, color, fontSize, className, style, ...restProps }: SVGProps<SVGSVGElement> & { ref?: Ref<SVGSVGElement> }) => {
-      const combinedStyle = {
-        ...style,
-        ...(color && { color }),
-        ...(fontSize && { fontSize }),
-      };
-
-      return <MuiIcon ref={ref} className={className} style={combinedStyle} {...restProps} />;
+  ({
+    ref,
+    color,
+    fontSize,
+    className,
+    style,
+    ...restProps
+  }: SVGProps<SVGSVGElement> & { ref?: Ref<SVGSVGElement> }) => {
+    const combinedStyle = {
+      ...style,
+      ...(color && { color }),
+      ...(fontSize && { fontSize }),
     };
+
+    return (
+      <MuiIcon
+        ref={ref}
+        className={className}
+        style={combinedStyle}
+        {...restProps}
+      />
+    );
+  };
 
 const resolveIconComponent = (
   iconName: string,
@@ -50,9 +75,11 @@ const resolveIconComponent = (
 ): ComponentType<SVGProps<SVGSVGElement>> | null => {
   try {
     if (SvgIcon) return SvgIcon;
+
     if (iconName && materialIconsRegistry[iconName]) {
       return createMuiIconWrapper(materialIconsRegistry[iconName]);
     }
+
     return null;
   } catch {
     return null;
@@ -62,8 +89,19 @@ const resolveIconComponent = (
 export interface RdsCompAiIconProps
   extends Omit<
     SVGProps<SVGSVGElement>,
-    | "ref" | "width" | "height" | "name" | "fill" | "stroke" | "strokeWidth" | "onClick"
-    | "opacity" | "id" | "type" | "className" | "children"
+    | "ref"
+    | "width"
+    | "height"
+    | "name"
+    | "fill"
+    | "stroke"
+    | "strokeWidth"
+    | "onClick"
+    | "opacity"
+    | "id"
+    | "type"
+    | "className"
+    | "children"
   > {
   width?: string;
   height?: string;
@@ -77,8 +115,7 @@ export interface RdsCompAiIconProps
   onClick?: MouseEventHandler<HTMLElement | SVGSVGElement> | null;
   /** @deprecated Has no effect. */
   opacity?: string;
-  /** @deprecated Has no effect. */
-  isAnimate?: boolean;
+  animate?: boolean;
   /** @deprecated Use `className` instead. */
   classes?: string;
   className?: string;
@@ -98,15 +135,10 @@ export interface RdsCompAiIconProps
   iconPath?: string;
   /** @deprecated Has no effect. */
   type?: "icon" | "lottie";
-  /** @deprecated Has no effect. */
-  isHover?: boolean;
-  /** @deprecated Has no effect. */
-  isContinueAnimate?: boolean;
-  /** @deprecated Has no effect. */
+  hover?: boolean;
+  continueanimate?: boolean;
   hovered?: boolean;
-  /** @deprecated Has no effect. */
-  isHovered?: boolean;
-  isCursorPointer?: boolean;
+  cursorpointer?: boolean;
   strokeColor?: string;
   SvgIcon?: ComponentType<SVGProps<SVGSVGElement>>;
   position?: "center" | "top-left" | "none";
@@ -135,19 +167,18 @@ const RdsCompAiIconComponent = ({
   ariacontrols,
   imageUrl,
   id,
-  isCursorPointer,
+  cursorpointer,
   strokeColor,
   SvgIcon,
   position,
   borderRadius,
   opacity,
-  isAnimate,
+  animate,
   iconPath,
   type,
-  isHover,
-  isContinueAnimate,
+  hover,
+  continueanimate,
   hovered,
-  isHovered,
   "data-testid": dataTestIdAttr,
   "data-bs-dismiss": dataBsDismiss,
   "data-bs-target": dataBsTarget,
@@ -156,17 +187,69 @@ const RdsCompAiIconComponent = ({
   ...rest
 }: RdsCompAiIconProps) => {
   const noEffect: Record<string, unknown> = {
-    borderRadius, opacity, isAnimate, iconPath, type, isHover, isContinueAnimate, hovered, isHovered,
+    borderRadius,
+    opacity,
+    animate,
+    iconPath,
+    type,
+    hover,
+    continueanimate,
+    hovered,
   };
+
   Object.keys(noEffect).forEach((key) => {
-    if (noEffect[key] !== undefined) warnDeprecatedProp("RdsCompAiIcon", key, "nothing (it has no effect)");
+    if (noEffect[key] !== undefined) {
+      warnDeprecatedProp(
+        "RdsCompAiIcon",
+        key,
+        "nothing (it has no effect)"
+      );
+    }
   });
-  if (classes !== undefined) warnDeprecatedProp("RdsCompAiIcon", "classes", "`className`");
-  if (dataTestId !== undefined) warnDeprecatedProp("RdsCompAiIcon", "dataTestId", "`data-testid`");
-  if (databsdismiss !== undefined) warnDeprecatedProp("RdsCompAiIcon", "databsdismiss", "`data-bs-dismiss`");
-  if (databstarget !== undefined) warnDeprecatedProp("RdsCompAiIcon", "databstarget", "`data-bs-target`");
-  if (databstoggle !== undefined) warnDeprecatedProp("RdsCompAiIcon", "databstoggle", "`data-bs-toggle`");
-  if (ariacontrols !== undefined) warnDeprecatedProp("RdsCompAiIcon", "ariacontrols", "`aria-controls`");
+
+  if (classes !== undefined) {
+    warnDeprecatedProp("RdsCompAiIcon", "classes", "`className`");
+  }
+
+  if (dataTestId !== undefined) {
+    warnDeprecatedProp(
+      "RdsCompAiIcon",
+      "dataTestId",
+      "`data-testid`"
+    );
+  }
+
+  if (databsdismiss !== undefined) {
+    warnDeprecatedProp(
+      "RdsCompAiIcon",
+      "databsdismiss",
+      "`data-bs-dismiss`"
+    );
+  }
+
+  if (databstarget !== undefined) {
+    warnDeprecatedProp(
+      "RdsCompAiIcon",
+      "databstarget",
+      "`data-bs-target`"
+    );
+  }
+
+  if (databstoggle !== undefined) {
+    warnDeprecatedProp(
+      "RdsCompAiIcon",
+      "databstoggle",
+      "`data-bs-toggle`"
+    );
+  }
+
+  if (ariacontrols !== undefined) {
+    warnDeprecatedProp(
+      "RdsCompAiIcon",
+      "ariacontrols",
+      "`aria-controls`"
+    );
+  }
 
   const resolvedTestId = dataTestIdAttr ?? dataTestId;
   const resolvedDismiss = dataBsDismiss ?? databsdismiss;
@@ -197,26 +280,35 @@ const RdsCompAiIconComponent = ({
   const className = clsx(
     "rds-comp-ai-icon",
     classNameProp ?? classes,
-    isCursorPointer && "rds-comp-ai-icon--cursor",
+    cursorpointer && "rds-comp-ai-icon--cursor",
     colorVariant && `rds-comp-ai-icon--${colorVariant}`
   );
 
   if (IconComponent) {
     const Icon = IconComponent;
+
     const interactive = onClick
       ? {
           role: rest.role ?? "button",
           tabIndex: rest.tabIndex ?? 0,
           onKeyDown: (e: KeyboardEvent<SVGSVGElement>) => {
             rest.onKeyDown?.(e);
+
             if (e.defaultPrevented) return;
+
             if (e.key === "Enter" || e.key === " ") {
               if (e.key === " ") e.preventDefault();
-              onClick(e as unknown as Parameters<MouseEventHandler<SVGSVGElement>>[0]);
+
+              onClick(
+                e as unknown as Parameters<
+                  MouseEventHandler<SVGSVGElement>
+                >[0]
+              );
             }
           },
         }
       : {};
+
     return (
       <Icon
         {...rest}
@@ -260,7 +352,12 @@ const RdsCompAiIconComponent = ({
           type="button"
           className="rds-comp-ai-icon__button"
           onClick={onClick as MouseEventHandler<HTMLButtonElement>}
-          style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer" }}
+          style={{
+            border: "none",
+            background: "transparent",
+            padding: 0,
+            cursor: "pointer",
+          }}
           data-bs-dismiss={resolvedDismiss}
           data-bs-target={resolvedTarget}
           data-bs-toggle={resolvedToggle}
@@ -272,14 +369,14 @@ const RdsCompAiIconComponent = ({
       );
     }
 
-    return (
-      imageElement
-    );
+    return imageElement;
   }
 
   return null;
 };
 
 const RdsCompAiIcon = memo(RdsCompAiIconComponent);
+
 RdsCompAiIcon.displayName = "RdsCompAiIcon";
+
 export default RdsCompAiIcon;

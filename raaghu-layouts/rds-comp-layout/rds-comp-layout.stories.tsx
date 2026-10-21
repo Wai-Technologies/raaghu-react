@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsCompLayout> = {
   parameters: {
     layout: 'padded',
     controls: {
-      include: ['displayType', 'hasShadow'],
+      include: ['displayType', 'Shadow'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -50,7 +50,7 @@ const meta: Meta<typeof RdsCompLayout> = {
       options: ['Basic', 'Board','Boxify','Cardify','Collage','Gridify', 'Highlight', 'Matrix','Mosaic','Nexus','Pinboard','Sections','Snapshots','Splitz', 'Spotlight', 'Stacks','Dashboard','Relaxed'],
       description: 'Type of layout display style',
     },
-    hasShadow: {
+    Shadow: {
       control: 'boolean',
       description: 'Whether the layout has a shadow',
     },
@@ -63,7 +63,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     displayType: 'Basic',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard',
@@ -78,7 +78,7 @@ export const Default: Story = {
 export const Board: Story = {
   args: {
     displayType: 'Board',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -88,7 +88,7 @@ export const Board: Story = {
 export const Boxify: Story = {
   args: {
     displayType: 'Boxify',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -98,7 +98,7 @@ export const Boxify: Story = {
 export const Cardify: Story = {
   args: {
     displayType: 'Cardify',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard',
@@ -108,7 +108,7 @@ export const Cardify: Story = {
 export const Collage: Story = {
   args: {
     displayType: 'Collage',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -118,7 +118,7 @@ export const Collage: Story = {
 export const Gridify: Story = {
   args: {
     displayType: 'Gridify',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -128,7 +128,7 @@ export const Gridify: Story = {
 export const Highlight: Story = {
   args: {
     displayType: 'Highlight',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -138,7 +138,7 @@ export const Highlight: Story = {
 export const Matrix: Story = {
   args: {
     displayType: 'Matrix',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -148,7 +148,7 @@ export const Matrix: Story = {
 export const Mosaic: Story = {
   args: {
     displayType: 'Mosaic',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -157,7 +157,7 @@ export const Mosaic: Story = {
 export const Nexus: Story = {
   args: {
     displayType: 'Nexus',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -166,7 +166,7 @@ export const Nexus: Story = {
 export const Pinboard: Story = {
   args: {
     displayType: 'Pinboard',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -175,7 +175,7 @@ export const Pinboard: Story = {
 export const Sections: Story = {
   args: {
     displayType: 'Sections',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -184,7 +184,7 @@ export const Sections: Story = {
 export const Snapshots: Story = {
   args: {
     displayType: 'Snapshots',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -193,7 +193,7 @@ export const Snapshots: Story = {
 export const Splitz: Story = {
   args: {
     displayType: 'Splitz',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -202,7 +202,7 @@ export const Splitz: Story = {
 export const Spotlight: Story = {
   args: {
     displayType: 'Spotlight',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -211,7 +211,7 @@ export const Spotlight: Story = {
 export const Stacks: Story = {
   args: {
     displayType: 'Stacks',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -220,7 +220,7 @@ export const Stacks: Story = {
 export const Dashboard: Story = {
   args: {
     displayType: 'Dashboard',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 
@@ -229,7 +229,7 @@ export const Dashboard: Story = {
 export const Relaxed: Story = {
   args: {
     displayType: 'Relaxed',
-    hasShadow: false,
+    Shadow: false,
     spacing: 2,
     direction: 'column',
     mode: 'standard', 

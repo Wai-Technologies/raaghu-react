@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsSelect from './rds-select';
 
 const meta: Meta<typeof RdsSelect> = {
   title: 'Elements/Select',
   component: RdsSelect,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],
@@ -35,8 +34,9 @@ const meta: Meta<typeof RdsSelect> = {
     labelposition: {
       control: 'boolean',
     },
-    isRequired: {
+    required: {
       control: 'boolean',
+      description: 'Whether the select field is required',
     },
     size: {
       control: 'select',
@@ -90,16 +90,17 @@ export const Default: Story = {
   args: {
     label: 'Select Option',
     options: basicOptions,
-    inputPlaceholder: 'Please select...',
+    placeholder: 'Please select...',
     labelposition: true,
     size: 'small',
+    required: false,
   },
 };
 
 export const Required: Story = {
   args: {
     label: 'Required Field',
-    isRequired: true,
+    required: true,
     options: basicOptions,
   },
 };

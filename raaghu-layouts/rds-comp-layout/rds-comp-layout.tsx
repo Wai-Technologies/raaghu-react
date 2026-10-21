@@ -13,7 +13,7 @@ export interface RdsCompLayoutProps extends BoxProps {
   fullHeight?: boolean;
   fullWidth?: boolean;
   displayType?: 'Basic' | 'Board' | 'Boxify' | 'Cardify' | 'Collage'|'Gridify'|'Highlight'|'Matrix'|'Mosaic'| 'Nexus'|'Pinboard'|'Sections'|'Snapshots'|'Splitz'|'Spotlight' |'Stacks'| 'Dashboard'|'Relaxed';
-  hasShadow?: boolean;
+  Shadow?: boolean;
    mode?: 'standard',
 }
 
@@ -25,7 +25,7 @@ const RdsCompLayout= ({
   fullHeight = false,
   fullWidth = false,
   displayType,
-  hasShadow = false,
+  Shadow = false,
   wrap = false,
   justifyContent = 'flex-start',
   alignItems = 'stretch',
@@ -39,7 +39,7 @@ const RdsCompLayout= ({
  
     return (
   <>
- {mode ==='standard' ? (renderLayoutContent(displayType?? 'Basic', hasShadow)) : (
+ {mode ==='standard' ? (renderLayoutContent(displayType?? 'Basic', Shadow)) : (
   <Box
       className={layoutClass}
       sx={{

@@ -1,28 +1,41 @@
 import React from "react";
-import RdsCompAiIcon, { registerMaterialIcon, registerMaterialIcons } from "./rds-comp-ai-icon";
+import RdsCompAiIcon, {
+    registerMaterialIcon,
+    registerMaterialIcons,
+} from "./rds-comp-ai-icon";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, userEvent, within, fn, waitFor } from "storybook/test";
 
-const meta: Meta = {
-    title: 'Components/AI ChatBox/Icon',
+const meta: Meta<typeof RdsCompAiIcon> = {
+    title: "Components/AI ChatBox/Icon",
     component: RdsCompAiIcon,
     parameters: {
-            status: { type: 'stable' },
-        layout: 'padded',
+        status: { type: "stable" },
+        layout: "padded",
     },
-    tags: ['autodocs', 'stable'],
+    tags: ["autodocs", "stable"],
     argTypes: {
         colorVariant: {
-            options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
+            options: [
+                "primary",
+                "success",
+                "danger",
+                "warning",
+                "light",
+                "info",
+                "secondary",
+                "dark",
+            ],
             control: { type: "select" },
         },
         name: {
-            options: ["person-outline","users"],
+            options: ["person-outline", "users"],
             control: { type: "select" },
-            description: "Material-UI icon name (can be extended using registerMaterialIcon)",
-        }
+            description:
+                "Material-UI icon name (can be extended using registerMaterialIcon)",
+        },
     },
-} satisfies Meta<typeof RdsCompAiIcon>;
+};
 
 export default meta;
 type Story = StoryObj<typeof RdsCompAiIcon>;
@@ -35,11 +48,22 @@ export const Default: Story = {
         fill: false,
         stroke: true,
         colorVariant: "primary",
-        isCursorPointer: true,
+        cursorpointer: true,
     },
     play: async ({ canvasElement }) => {
         const el = canvasElement.firstElementChild;
         expect(el).toBeTruthy();
     },
-} satisfies Story;
-Default.parameters = { controls: { include: ['name', 'width', 'height','colorVariant', 'isCursorPointer'] } };
+};
+
+Default.parameters = {
+    controls: {
+        include: [
+            "name",
+            "width",
+            "height",
+            "colorVariant",
+            "cursorpointer",
+        ],
+    },
+};

@@ -46,7 +46,7 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'boolean',
       description: 'Whether the field is disabled',
     },
-    isRequired: {
+    required: {
       control: 'boolean',
       description: 'Whether the field is required',
     },
@@ -137,7 +137,7 @@ export const Standard: Story = {
 export const Required: Story = {
   args: {
     label: 'Required Field',
-    isRequired: true,
+    required: true,
     placeholder: 'This field is required',
   },
 };

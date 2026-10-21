@@ -33,7 +33,7 @@ export interface UserData {
 }
 
 export interface RdsCompChatProps {
-  isChatScreenEnabled: boolean;
+  ChatScreenEnabled: boolean;
   userData: UserData[];
   handleAddComment: (comment: Comment) => void;
   currentUserCommentBgColor?: string;
@@ -84,7 +84,7 @@ ChatMessage.displayName = "ChatMessage";
 const AVATAR_PROPS = { alt: "User Avatar", subText: "Designation", displayStyle: "with-name" as const, title: "Jane Doe", showDesignation: true, activeDotBottom: true, showName: true, src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" };
 
 const RdsCompChat = ({
-  isChatScreenEnabled,
+  ChatScreenEnabled,
   userData,
   handleAddComment: onAddComment,
   currentUserCommentBgColor = "var(--rds-primary-main)",
@@ -217,8 +217,8 @@ const RdsCompChat = ({
     return items;
   }, [userData]);
 
-  const showUserList = isChatScreenEnabled && (!state.isMobile || !state.showChatWindow);
-  const showChat = !isChatScreenEnabled || (state.isMobile ? state.showChatWindow : true);
+  const showUserList = ChatScreenEnabled && (!state.isMobile || !state.showChatWindow);
+  const showChat = !ChatScreenEnabled || (state.isMobile ? state.showChatWindow : true);
   const hasCommentText = state.commentText.trim().length > 0;
 
   return (
@@ -244,9 +244,9 @@ const RdsCompChat = ({
       )}
 
       {showChat && (
-        <div className={clsx("rds-comp-chat__window", !isChatScreenEnabled && "rds-comp-chat__window--full-width")}>
+        <div className={clsx("rds-comp-chat__window", !ChatScreenEnabled && "rds-comp-chat__window--full-width")}>
           <div className="rds-comp-chat__window-header">
-            {state.isMobile && isChatScreenEnabled && (
+            {state.isMobile && ChatScreenEnabled && (
               <button type="button" className="rds-comp-chat__back-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => updateState({ showChatWindow: false, selectedIndex: null })} aria-label="Back to user list">
                 <ArrowBackIcon fontSize="small" />
               </button>

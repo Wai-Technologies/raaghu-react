@@ -11,8 +11,8 @@ import {
   type SxProps,
   type Theme,
 } from '@mui/material';
-import { 
-  ExpandLess, 
+import {
+  ExpandLess,
   ExpandMore,
   DashboardOutlined,
   GroupsOutlined,
@@ -23,13 +23,12 @@ import {
   FolderOutlined,
   MailOutline,
   CampaignOutlined,
-  RequestQuoteOutlined
+  RequestQuoteOutlined,
 } from '@mui/icons-material';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-sidebar.scss';
 
 const ANZ_MENU_ITEMS: RdsSidebarItem[] = [
@@ -66,12 +65,11 @@ export interface RdsSidebarItem {
 }
 
 /** Props for {@link RdsSidebar}. */
-export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'component'> {
+export interface RdsSidebarProps
+  extends Omit<DrawerProps, 'children' | 'component'> {
   /** Navigation items. Ignored when `platform` selects a built-in menu. */
   items: RdsSidebarItem[];
-  /** @deprecated Use `open`. */
-  isOpen?: boolean;
-  /** Whether the sidebar is open (MUI Drawer prop). Takes precedence over `isOpen`. */
+  /** Whether the sidebar is open (MUI Drawer prop). */
   open?: boolean;
   /** Called when the drawer requests to close. */
   onClose?: () => void;
@@ -100,8 +98,7 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
 
 const RdsSidebar = ({
   items,
-  isOpen,
-  open,
+  open = false,
   onClose,
   width = 240,
   variant = 'temporary',
@@ -122,26 +119,29 @@ const RdsSidebar = ({
   ModalProps: modalPropsFromProps,
   sx: propsSx,
   ...props
-}:RdsSidebarProps) => {
-  if (isOpen !== undefined) warnDeprecatedProp('RdsSidebar', 'isOpen', '`open`');
-  const resolvedOpen = open ?? isOpen ?? false;
+}: RdsSidebarProps) => {
   const isSearchControlled = searchValue !== undefined;
   const [innerSearch, setInnerSearch] = useState(defaultSearchValue ?? '');
   const currentSearch = isSearchControlled ? searchValue : innerSearch;
+
   const handleSearchChange = (value: string) => {
     if (!isSearchControlled) setInnerSearch(value);
     onSearchChange?.(value);
   };
+
   const userName = user?.name ?? 'Jane Doe';
   const userSubtitle = user?.subtitle ?? 'Designation';
   const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
 
-  const menuItems = platform === 'abp-list' ? ABP_MENU_ITEMS : 
-                   platform === 'anz-list' ? ANZ_MENU_ITEMS : 
-                   items;
+  const menuItems =
+    platform === 'abp-list'
+      ? ABP_MENU_ITEMS
+      : platform === 'anz-list'
+        ? ANZ_MENU_ITEMS
+        : items;
 
   const toggleOpen = (idx: number) => {
-    setOpenMap(prev => ({ ...prev, [idx]: !prev[idx] }));
+    setOpenMap((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
   const isCollapsed = typeOf === 'collapse' || typeOf === 'fixed';
@@ -155,19 +155,44 @@ const RdsSidebar = ({
     showAvatar = true;
     showSearchBox = showSearch;
   }
+
   if (layout === 'raaghu' || layout === 'toolbar') {
     showAvatar = false;
-    // Keep search available in collapse/fixed (icon-only) mode when showSearch is true
+    // Keep search available in collapse/fixed (icon-only) mode when showSearch is true.
     showSearchBox = showSearch;
   }
 
-  const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed', className);
-  const headerClasses = clsx('rds-sidebar__header', `rds-sidebar__header--${typeOf}`);
+  const sidebarClasses = clsx(
+    'rds-sidebar',
+    `rds-sidebar--${typeOf}`,
+    isNarrowCollapsed && 'rds-sidebar--narrow-collapsed',
+    className
+  );
+  const headerClasses = clsx(
+    'rds-sidebar__header',
+    `rds-sidebar__header--${typeOf}`
+  );
   const contentClasses = 'rds-sidebar__content';
-  const navItemClasses = clsx('rds-sidebar__nav-item', `rds-sidebar__nav-item--${typeOf}`);
-  const navButtonClasses = clsx('rds-sidebar__nav-button', `rds-sidebar__nav-button--${typeOf}`);
-  const avatarContainerClasses = clsx('rds-sidebar__avatar-container', `rds-sidebar__avatar-container--${typeOf}`);
-  const getLogoClass = () => clsx('rds-sidebar__logo', shouldShowIconsOnly ? 'rds-sidebar__logo--collapse' : 'rds-sidebar__logo--expanded');
+  const navItemClasses = clsx(
+    'rds-sidebar__nav-item',
+    `rds-sidebar__nav-item--${typeOf}`
+  );
+  const navButtonClasses = clsx(
+    'rds-sidebar__nav-button',
+    `rds-sidebar__nav-button--${typeOf}`
+  );
+  const avatarContainerClasses = clsx(
+    'rds-sidebar__avatar-container',
+    `rds-sidebar__avatar-container--${typeOf}`
+  );
+
+  const getLogoClass = () =>
+    clsx(
+      'rds-sidebar__logo',
+      shouldShowIconsOnly
+        ? 'rds-sidebar__logo--collapse'
+        : 'rds-sidebar__logo--expanded'
+    );
 
   const drawerSx: SxProps<Theme> = {
     width: shouldShowIconsOnly ? 64 : width,
@@ -177,7 +202,8 @@ const RdsSidebar = ({
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
-      height: shouldShowIconsOnly && typeOf === 'fixed' ? '100vh' : '100%',
+      height:
+        shouldShowIconsOnly && typeOf === 'fixed' ? '100vh' : '100%',
       ...(shouldShowIconsOnly && {
         alignItems: 'center',
         overflow: 'hidden',
@@ -186,12 +212,14 @@ const RdsSidebar = ({
           top: 0,
           left: 0,
           zIndex: 'var(--rds-z-index-banner, 1200)',
-        })
-      })
-    }
+        }),
+      }),
+    },
   };
 
-  const searchIconOnlySize = 'var(--rds-sidebar-search-icon-only-size, var(--rds-menu-item-min-height, 40px))';
+  const searchIconOnlySize =
+    'var(--rds-sidebar-search-icon-only-size, var(--rds-menu-item-min-height, 40px))';
+
   const searchSx: SxProps<Theme> = shouldShowIconsOnly
     ? {
         width: searchIconOnlySize,
@@ -212,9 +240,11 @@ const RdsSidebar = ({
           backgroundColor: 'transparent',
         },
         '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: 'var(--rds-sidebar-search-icon-border-color, var(--rds-border-default))',
+          borderColor:
+            'var(--rds-sidebar-search-icon-border-color, var(--rds-border-default))',
           borderWidth: 'var(--rds-border-width-thin, 1px)',
-          borderRadius: 'var(--rds-sidebar-search-icon-border-radius, var(--rds-border-radius-sm, 4px))',
+          borderRadius:
+            'var(--rds-sidebar-search-icon-border-radius, var(--rds-border-radius-sm, 4px))',
         },
         '& .MuiInputBase-input': {
           display: 'none',
@@ -249,7 +279,7 @@ const RdsSidebar = ({
 
   return (
     <MuiDrawer
-      open={resolvedOpen}
+      open={open}
       onClose={onClose}
       variant={variant}
       container={container}
@@ -263,10 +293,7 @@ const RdsSidebar = ({
           <div className={headerClasses}>
             {layout === 'toolbar' ? (
               shouldShowIconsOnly ? (
-                <RdsAvatar
-                  activeDotBottom
-                  src={avatarSrc}
-                />
+                <RdsAvatar activeDotBottom src={avatarSrc} />
               ) : (
                 <RdsAvatar
                   alt="User Avatar"
@@ -279,15 +306,18 @@ const RdsSidebar = ({
                   src={avatarSrc}
                 />
               )
-            ) : logo ?? (
-              <img
-                src={shouldShowIconsOnly ? '/raaghu.png' : avatarCollapsedSrc}
-                alt="Raaghu Design System Logo"
-                className={getLogoClass()}
-              />
+            ) : (
+              logo ?? (
+                <img
+                  src={shouldShowIconsOnly ? '/raaghu.png' : avatarCollapsedSrc}
+                  alt="Raaghu Design System Logo"
+                  className={getLogoClass()}
+                />
+              )
             )}
           </div>
         )}
+
         {showSearchBox && (
           <>
             <div className="rds-sidebar__search-section">
@@ -296,7 +326,8 @@ const RdsSidebar = ({
             <div
               className={clsx(
                 'rds-sidebar__search-container',
-                shouldShowIconsOnly && 'rds-sidebar__search-container--icon-only',
+                shouldShowIconsOnly &&
+                  'rds-sidebar__search-container--icon-only'
               )}
             >
               <RdsSearch
@@ -315,6 +346,7 @@ const RdsSidebar = ({
             </div>
           </>
         )}
+
         <List className="rds-sidebar__nav-list">
           {menuItems.map((item, index) => {
             const listItemButton = (
@@ -329,44 +361,62 @@ const RdsSidebar = ({
                 disabled={item.disabled}
                 selected={item.active}
                 className={navButtonClasses}
-                aria-expanded={item.children && item.children.length > 0 ? !!openMap[index] : undefined}
+                aria-expanded={
+                  item.children && item.children.length > 0
+                    ? !!openMap[index]
+                    : undefined
+                }
                 sx={{
                   minHeight: 'var(--rds-sidebar-nav-min-height, 48px)',
-                  justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
+                  justifyContent: shouldShowIconsOnly
+                    ? 'center'
+                    : 'flex-start',
                   px: shouldShowIconsOnly ? 0 : 2,
                 }}
               >
                 {item.icon && (
-                  <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
+                  <ListItemIcon
+                    className={`rds-sidebar__nav-icon ${
+                      showLabels
+                        ? 'rds-sidebar__nav-icon--with-label'
+                        : 'rds-sidebar__nav-icon--no-label'
+                    }`}
+                  >
                     {item.icon}
                   </ListItemIcon>
                 )}
+
                 {showLabels && <ListItemText primary={item.label} />}
-                {item.children && item.children.length > 0 && !shouldShowIconsOnly && (
-                  (openMap[index]) ? <ExpandLess /> : <ExpandMore />
-                )}
+
+                {item.children &&
+                  item.children.length > 0 &&
+                  !shouldShowIconsOnly &&
+                  (openMap[index] ? <ExpandLess /> : <ExpandMore />)}
               </ListItemButton>
             );
 
             return (
-              <Fragment key={`${item.label}-${item.path || item.href || 'nav-item'}`}>
+              <Fragment
+                key={`${item.label}-${item.path || item.href || 'nav-item'}`}
+              >
                 <ListItem disablePadding className={navItemClasses}>
                   {shouldShowIconsOnly && item.icon ? (
-                    <RdsTooltip 
-                      title={item.label} 
-                      placement="right"
-                      arrow
-                    >
+                    <RdsTooltip title={item.label} placement="right" arrow>
                       {listItemButton}
                     </RdsTooltip>
                   ) : (
                     listItemButton
                   )}
                 </ListItem>
+
                 {item.children && item.children.length > 0 && (
-                  <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
+                  <Collapse
+                    in={!!openMap[index]}
+                    timeout="auto"
+                    unmountOnExit
+                  >
                     <List component="div" disablePadding>
-                      {item.children.map((child, cIdx) => {
+                      {item.children.map((child) => {
                         const childListItemButton = (
                           <ListItemButton
                             onClick={child.onClick}
@@ -374,22 +424,38 @@ const RdsSidebar = ({
                             selected={child.active}
                             className={navButtonClasses}
                             sx={{
-                                minHeight: 'var(--rds-sidebar-child-nav-min-height, 40px)',
-                              justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
+                              minHeight:
+                                'var(--rds-sidebar-child-nav-min-height, 40px)',
+                              justifyContent: shouldShowIconsOnly
+                                ? 'center'
+                                : 'flex-start',
                               px: shouldShowIconsOnly ? 0 : 4,
                             }}
                           >
                             {child.icon && (
-                              <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
+                              <ListItemIcon
+                                className={`rds-sidebar__nav-icon ${
+                                  showLabels
+                                    ? 'rds-sidebar__nav-icon--with-label'
+                                    : 'rds-sidebar__nav-icon--no-label'
+                                }`}
+                              >
                                 {child.icon}
                               </ListItemIcon>
                             )}
-                            {showLabels && <ListItemText primary={child.label} />}
+
+                            {showLabels && (
+                              <ListItemText primary={child.label} />
+                            )}
                           </ListItemButton>
                         );
 
                         return (
-                          <ListItem key={`${child.label}-${child.path || child.href || 'child-item'}`} disablePadding className={navItemClasses}>
+                          <ListItem
+                            key={`${child.label}-${child.path || child.href || 'child-item'}`}
+                            disablePadding
+                            className={navItemClasses}
+                          >
                             {shouldShowIconsOnly && child.icon ? (
                               <RdsTooltip
                                 title={`${item.label} - ${child.label}`}
@@ -411,9 +477,11 @@ const RdsSidebar = ({
             );
           })}
         </List>
+
         <div className="rds-sidebar__footer">
           <hr className="rds-sidebar__footer-divider" />
         </div>
+
         {showAvatar && (
           <div className={avatarContainerClasses}>
             {!shouldShowIconsOnly ? (
@@ -428,10 +496,7 @@ const RdsSidebar = ({
                 src={avatarSrc}
               />
             ) : (
-              <RdsAvatar
-                activeDotBottom
-                src={avatarSrc}
-              />
+              <RdsAvatar activeDotBottom src={avatarSrc} />
             )}
           </div>
         )}
@@ -439,5 +504,7 @@ const RdsSidebar = ({
     </MuiDrawer>
   );
 };
+
 RdsSidebar.displayName = 'RdsSidebar';
+
 export default RdsSidebar;
