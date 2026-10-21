@@ -1,3 +1,4 @@
+
 import { useState, type CSSProperties, type ChangeEvent } from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@mui/material';
 import clsx from 'clsx';
@@ -15,14 +16,11 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'compone
   cssStyle?: CSSProperties;
   /** @deprecated Use `label`. */
   labeltext?: string;
-  /** @deprecated Use `disabled`. */
-  isDisabled?: boolean;
 }
 
 const RdsCheckbox = ({
   label,
   labeltext,
-  isDisabled,
   disabled,
   style = 'square',
   state = 'default',
@@ -37,13 +35,16 @@ const RdsCheckbox = ({
   slotProps,
   ...props
 }: RdsCheckboxProps) => {
-  if (labeltext !== undefined) warnDeprecatedProp('RdsCheckbox', 'labeltext', '`label`');
-  if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
+  if (labeltext !== undefined) {
+    warnDeprecatedProp('RdsCheckbox', 'labeltext', '`label`');
+  }
 
   const labelText = label ?? labeltext;
-  const isCheckboxDisabled = Boolean(disabled) || Boolean(isDisabled) || state === 'disabled';
+  const isCheckboxDisabled = Boolean(disabled) || state === 'disabled';
 
-  const [internalChecked, setInternalChecked] = useState(status === 'checked' || Boolean(defaultChecked));
+  const [internalChecked, setInternalChecked] = useState(
+    status === 'checked' || Boolean(defaultChecked)
+  );
   const [prevStatus, setPrevStatus] = useState(status);
 
   if (status !== prevStatus) {
@@ -77,9 +78,20 @@ const RdsCheckbox = ({
 
   // Keep an accessible name when the visible label is hidden.
   const inputSlot = slotProps?.input;
-  const needsHiddenLabel = Boolean(labelText) && !showText && !props['aria-label'] && typeof inputSlot !== 'function';
+  const needsHiddenLabel =
+    Boolean(labelText) &&
+    !showText &&
+    !props['aria-label'] &&
+    typeof inputSlot !== 'function';
+
   const resolvedSlotProps = needsHiddenLabel
-    ? { ...slotProps, input: { 'aria-label': labelText, ...(inputSlot as object | undefined) } }
+    ? {
+        ...slotProps,
+        input: {
+          'aria-label': labelText,
+          ...(inputSlot as object | undefined),
+        },
+      }
     : slotProps;
 
   const checkbox = (
@@ -103,7 +115,9 @@ const RdsCheckbox = ({
           label={showText ? labelText : ''}
           disabled={isCheckboxDisabled}
         />
-      ) : checkbox}
+      ) : (
+        checkbox
+      )}
     </div>
   );
 };

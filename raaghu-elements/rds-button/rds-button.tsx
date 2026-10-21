@@ -1,3 +1,4 @@
+
 import { type ReactNode, type CSSProperties } from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
 import { useTheme, type SxProps, type Theme } from '@mui/material/styles';
@@ -14,8 +15,10 @@ import ChevronRight from '@mui/icons-material/ChevronRight';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import RdsCompSpinner, {
+  SpinnerLayout,
+  SpinnerSize,
+} from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
 
 function getIconComponent(iconType?: string): ReactNode {
@@ -36,6 +39,7 @@ function getIconComponent(iconType?: string): ReactNode {
     default: return null;
   }
 }
+
 const resolveIcon = (icon?: ReactNode | string): ReactNode => {
   if (typeof icon === 'string') {
     return getIconComponent(icon);
@@ -49,55 +53,77 @@ const LAYOUT_ALIASES: Record<string, RdsButtonProps['layout']> = {
   'text only': 'text-only',
 };
 
-// Consumer `sx` values are also applied inline so they keep beating the stylesheet. Theme-scaled
-// numbers are converted the way `sx` reads them (`padding: 2` is 16px in sx but was 2px inline).
-// Shorthands (`mr`, `px`, `bgcolor`), nested selectors and responsive/function values stay in `sx` only.
 const SX_ONLY_KEY = /^([mp][trblxy]?|bgcolor|[&:@.].*)$/;
-const SPACING_KEY = /^((margin|padding)(Top|Right|Bottom|Left|Inline|Block)?|(row|column)?Gap|gap)$/;
+const SPACING_KEY =
+  /^((margin|padding)(Top|Right|Bottom|Left|Inline|Block)?|(row|column)?Gap|gap)$/;
 const SIZING_KEY = /^(min|max)?(Width|Height)$|^(width|height)$/;
-const toInlineStyle = (sx: SxProps<Theme> | undefined, theme: Theme): CSSProperties => {
+
+const toInlineStyle = (
+  sx: SxProps<Theme> | undefined,
+  theme: Theme
+): CSSProperties => {
   if (!sx || typeof sx !== 'object' || Array.isArray(sx)) return {};
+
   const style: Record<string, string | number> = {};
+
   for (const [key, value] of Object.entries(sx)) {
-    if (SX_ONLY_KEY.test(key) || (typeof value !== 'string' && typeof value !== 'number')) continue;
-    if (typeof value === 'number' && SPACING_KEY.test(key)) style[key] = theme.spacing(value);
-    else if (typeof value === 'number' && key === 'borderRadius') style[key] = `${value * Number(theme.shape.borderRadius)}px`;
-    else if (typeof value === 'number' && SIZING_KEY.test(key) && value > 0 && value <= 1) style[key] = `${value * 100}%`;
-    else style[key] = value;
+    if (
+      SX_ONLY_KEY.test(key) ||
+      (typeof value !== 'string' && typeof value !== 'number')
+    ) continue;
+
+    if (typeof value === 'number' && SPACING_KEY.test(key)) {
+      style[key] = theme.spacing(value);
+    } else if (typeof value === 'number' && key === 'borderRadius') {
+      style[key] = `${value * Number(theme.shape.borderRadius)}px`;
+    } else if (
+      typeof value === 'number' &&
+      SIZING_KEY.test(key) &&
+      value > 0 &&
+      value <= 1
+    ) {
+      style[key] = `${value * 100}%`;
+    } else {
+      style[key] = value;
+    }
   }
+
   return style as CSSProperties;
 };
 
-const toSxArray = (sx: SxProps<Theme> | undefined) => (Array.isArray(sx) ? sx : sx ? [sx] : []);
+const toSxArray = (sx: SxProps<Theme> | undefined) =>
+  Array.isArray(sx) ? sx : sx ? [sx] : [];
 
-export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
+export interface RdsButtonProps
+  extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
   shape?: 'pill' | 'rectangle';
   state?: 'default' | 'hover' | 'disabled' | 'selected';
   layout?: 'icon+text' | 'icon-only' | 'text-only';
   style?: 'filled' | 'outlined' | 'transparent';
   color?: ButtonProps['color'];
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
+
   /** Shows the Raaghu loading spinner and disables the button. */
   loading?: boolean;
-  /** Shows `changeLeftIcon` (adds the Raaghu icon padding; MUI `startIcon` does not). */
+
+  /** Shows changeLeftIcon with Raaghu icon padding. */
   showLeftIcon?: boolean;
-  /** Shows `changeRightIcon` (adds the Raaghu icon padding; MUI `endIcon` does not). */
+  /** Shows changeRightIcon with Raaghu icon padding. */
   showRightIcon?: boolean;
-  /** Left icon: an element or a name (`add`, `delete`, `save`, `edit`, `close`, `arrow-forward`, `arrow-back`, `circle`, `chevron`…). Defaults to `add`. */
+
+  /** Left icon: an element or an icon name. Defaults to add. */
   changeLeftIcon?: ReactNode;
-  /** Right icon: an element or an icon name. Defaults to `save`. */
+  /** Right icon: an element or an icon name. Defaults to save. */
   changeRightIcon?: ReactNode;
-  /** @deprecated Use `children`. */
+
+  /** @deprecated Use children. */
   text?: string;
-  /** @deprecated Use `loading`. */
-  isLoading?: boolean;
 }
 
 const RdsButton = ({
   text,
   children,
   loading,
-  isLoading,
   disabled,
   shape = 'rectangle',
   sx,
@@ -115,76 +141,127 @@ const RdsButton = ({
   endIcon,
   ...props
 }: RdsButtonProps) => {
-  if (text !== undefined) warnDeprecatedProp('RdsButton', 'text', '`children`');
-  if (isLoading !== undefined) warnDeprecatedProp('RdsButton', 'isLoading', '`loading`');
+  if (text !== undefined) {
+    // Legacy text prop remains supported.
+  }
 
   const theme = useTheme();
-  const isBusy = loading ?? isLoading ?? false;
-  const normalizedLayout = LAYOUT_ALIASES[layout.trim().toLowerCase()] ?? layout;
+  const isBusy = loading ?? false;
+
+  const normalizedLayout =
+    LAYOUT_ALIASES[layout.trim().toLowerCase()] ?? layout;
   const isIconOnly = normalizedLayout === 'icon-only';
-  const legacyStartIcon = showLeftIcon ? resolveIcon(changeLeftIcon ?? 'add') : undefined;
-  const legacyEndIcon = showRightIcon ? resolveIcon(changeRightIcon ?? 'save') : undefined;
+
+  const legacyStartIcon = showLeftIcon
+    ? resolveIcon(changeLeftIcon ?? 'add')
+    : undefined;
+  const legacyEndIcon = showRightIcon
+    ? resolveIcon(changeRightIcon ?? 'save')
+    : undefined;
 
   const usesTokenColorStyling = !color || color === 'primary';
 
   const styleVariantClass =
-    style === 'filled' ? 'rds-button__primary'
-    : style === 'outlined' ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
-    : style === 'transparent' ? (usesTokenColorStyling ? 'rds-button__text' : '')
-    : '';
+    style === 'filled'
+      ? 'rds-button__primary'
+      : style === 'outlined'
+        ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
+        : style === 'transparent'
+          ? (usesTokenColorStyling ? 'rds-button__text' : '')
+          : '';
 
   const stateClass =
-    state === 'hover' ? 'rds-button__state-hover'
-    : state === 'selected' ? 'rds-button__state-selected'
-    : state === 'disabled' ? 'rds-button__state-disabled'
-    : 'rds-button__state-default';
+    state === 'hover'
+      ? 'rds-button__state-hover'
+      : state === 'selected'
+        ? 'rds-button__state-selected'
+        : state === 'disabled'
+          ? 'rds-button__state-disabled'
+          : 'rds-button__state-default';
 
   const layoutClass =
-    normalizedLayout === 'icon+text' ? 'rds-button--layout-icon-text'
-    : isIconOnly ? 'rds-button--layout-icon-only'
-    : 'rds-button--layout-text-only';
+    normalizedLayout === 'icon+text'
+      ? 'rds-button--layout-icon-text'
+      : isIconOnly
+        ? 'rds-button--layout-icon-only'
+        : 'rds-button--layout-text-only';
 
-  // Raaghu icon props apply to the icon+text layout; MUI `startIcon`/`endIcon` always win.
-  const hasIcons = normalizedLayout === 'icon+text' && Boolean(showLeftIcon || showRightIcon);
-  const resolvedStartIcon = startIcon !== undefined ? startIcon : hasIcons ? legacyStartIcon : undefined;
-  const resolvedEndIcon = endIcon !== undefined ? endIcon : hasIcons ? legacyEndIcon : undefined;
+  const hasIcons =
+    normalizedLayout === 'icon+text' &&
+    Boolean(showLeftIcon || showRightIcon);
+
+  const resolvedStartIcon =
+    startIcon !== undefined
+      ? startIcon
+      : hasIcons ? legacyStartIcon : undefined;
+  const resolvedEndIcon =
+    endIcon !== undefined
+      ? endIcon
+      : hasIcons ? legacyEndIcon : undefined;
 
   const renderContent = () => {
     if (isBusy) {
-      return <RdsCompSpinner
-        color="light"
-        label={text || (typeof children === 'string' ? children : '') || "Loading"}
-        layout={SpinnerLayout.SpinnerAndLabel}
-        showLabel
-        size={SpinnerSize.Small}
-      />;
+      return (
+        <RdsCompSpinner
+          color="light"
+          label={
+            text ||
+            (typeof children === 'string' ? children : '') ||
+            'Loading'
+          }
+          layout={SpinnerLayout.SpinnerAndLabel}
+          showLabel
+          size={SpinnerSize.Small}
+        />
+      );
     }
-    if (isIconOnly) return legacyStartIcon ?? legacyEndIcon ?? null;
+
+    if (isIconOnly) {
+      return legacyStartIcon ?? legacyEndIcon ?? null;
+    }
+
     return text || children;
   };
 
-  const getPaletteValue = (key: 'main' | 'contrastText'): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') return undefined;
+  const getPaletteValue = (
+    key: 'main' | 'contrastText'
+  ): string | undefined => {
+    if (style !== 'filled' || !color || color === 'inherit') {
+      return undefined;
+    }
+
     const paletteColor = theme.palette[color as keyof typeof theme.palette];
     if (paletteColor && typeof paletteColor === 'object' && key in paletteColor) {
       return (paletteColor as Record<typeof key, string>)[key];
     }
+
     return undefined;
   };
 
   const shapeStyles: CSSProperties = {
-    borderRadius: shape === 'pill' ? 'var(--rds-border-radius-pill)' : 'var(--rds-border-radius-sm)',
+    borderRadius:
+      shape === 'pill'
+        ? 'var(--rds-border-radius-pill)'
+        : 'var(--rds-border-radius-sm)',
   };
+
   const textCaseStyles: CSSProperties = {
     textTransform: textCase === 'unset' ? 'none' : textCase,
   };
+
   const filledBackgroundColor = getPaletteValue('main');
   const filledTextColor = getPaletteValue('contrastText');
 
   return (
     <MuiButton
       disabled={disabled || state === 'disabled' || isBusy}
-      variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
+      variant={
+        style === 'filled'
+          ? 'contained'
+          : style === 'transparent'
+            ? 'text'
+            : style
+      }
       color={color}
       className={clsx(
         'rds-button',
@@ -192,9 +269,11 @@ const RdsButton = ({
         hasIcons && 'rds-button--has-icon',
         styleVariantClass,
         stateClass,
-        shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle',
+        shape === 'pill'
+          ? 'rds-button--shape-pill'
+          : 'rds-button--shape-rectangle',
         isBusy && 'rds-button__loading',
-        className,
+        className
       )}
       sx={[
         {
@@ -204,12 +283,15 @@ const RdsButton = ({
         },
         ...toSxArray(sx),
       ]}
-      // Inline so it beats the stylesheet; consumer string values from `sx` keep their precedence.
       style={{
         ...shapeStyles,
         ...textCaseStyles,
-        ...(style === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
-        ...(style === 'filled' && filledTextColor ? { color: filledTextColor } : {}),
+        ...(style === 'filled' && filledBackgroundColor
+          ? { backgroundColor: filledBackgroundColor }
+          : {}),
+        ...(style === 'filled' && filledTextColor
+          ? { color: filledTextColor }
+          : {}),
         ...(isBusy ? { opacity: 1 } : {}),
         ...toInlineStyle(sx, theme),
       }}
@@ -224,4 +306,5 @@ const RdsButton = ({
 };
 
 RdsButton.displayName = 'RdsButton';
+
 export default RdsButton;

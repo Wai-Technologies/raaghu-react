@@ -1,10 +1,11 @@
+
 import { useId, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { Box, IconButton, InputBase, Typography, type BoxProps } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
-import "./rds-counter.scss";
+import './rds-counter.scss';
 
 /**
  * Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
@@ -34,12 +35,14 @@ export interface RdsCounterProps
   showTitle?: boolean;
   /** Marks the field as required: shows the asterisk next to the label and sets `aria-required` on the input. */
   required?: boolean;
+  /** New prop for marking the field as mandatory. */
+  mandatory?: boolean;
   selected?: boolean;
   /** Figma visual state. */
   state?: 'default' | 'selected' | 'disabled';
   /** @deprecated Use `label` instead. */
   titleText?: string;
-  /** @deprecated Use `required` instead. */
+  /** @deprecated Use `mandatory` instead. */
   isMandatory?: boolean;
 }
 
@@ -72,10 +75,11 @@ const RdsCounter = ({
   titleText,
   variant = 'default',
   layout = 'side-to-side',
-  placeholder='00',
+  placeholder = '00',
   controlsClassName,
   showTitle = true,
   required,
+  mandatory,
   isMandatory,
   selected = false,
   state = 'default',
@@ -84,17 +88,23 @@ const RdsCounter = ({
   ref,
   ...rest
 }: RdsCounterProps) => {
-  if (titleText !== undefined) warnDeprecatedProp('RdsCounter', 'titleText', '`label`');
-  if (isMandatory !== undefined) warnDeprecatedProp('RdsCounter', 'isMandatory', '`required`');
+  if (titleText !== undefined) {
+    warnDeprecatedProp('RdsCounter', 'titleText', '`label`');
+  }
+
+  if (isMandatory !== undefined) {
+    warnDeprecatedProp('RdsCounter', 'isMandatory', '`mandatory`');
+  }
 
   const labelText = label ?? titleText;
-  const isRequired = required ?? isMandatory ?? false;
+  const isRequired = mandatory ?? isMandatory ?? required ?? false;
   const inputId = `rds-counter-${useId()}`;
 
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] = useState<number | undefined>(
     typeof defaultValue === 'number' ? defaultValue : undefined
   );
+
   // Text being typed that is not (yet) inside [min, max]; committed (clamped) on blur.
   const [draft, setDraft] = useState<string | null>(null);
   const currentValue = isControlled ? value : internalValue;
@@ -123,17 +133,22 @@ const RdsCounter = ({
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const raw = event.target.value.trim();
+
     if (raw === '') {
       setDraft(null);
       updateValue(undefined);
       return;
     }
+
     if (raw === '-' && min < 0) {
       setDraft(raw);
       return;
     }
+
     const newValue = parseInt(raw, 10);
+
     if (isNaN(newValue)) return;
+
     if (newValue >= min && newValue <= max) {
       setDraft(null);
       updateValue(newValue);
@@ -145,10 +160,14 @@ const RdsCounter = ({
 
   const handleInputBlur = () => {
     if (draft === null) return;
+
     setDraft(null);
     const parsed = parseInt(draft, 10);
+
     if (isNaN(parsed)) return;
+
     const clamped = Math.min(Math.max(parsed, min), max);
+
     if (clamped !== currentValue) updateValue(clamped);
   };
 
@@ -200,16 +219,18 @@ const RdsCounter = ({
           'aria-label': labelText ? `${labelText} value` : 'counter value',
           ...(isRequired ? { 'aria-required': true } : {}),
           placeholder: placeholder,
-          style: { textAlign: 'center' }
+          style: { textAlign: 'center' },
         }}
       />
     ) : (
-      <Typography className={clsx(
-        'rds-counter__value',
-        `rds-counter__value--${valueVariant}`,
-        `rds-counter__value--${size}`,
-        isDisabled && 'rds-counter__value--disabled',
-      )}>
+      <Typography
+        className={clsx(
+          'rds-counter__value',
+          `rds-counter__value--${valueVariant}`,
+          `rds-counter__value--${size}`,
+          isDisabled && 'rds-counter__value--disabled',
+        )}
+      >
         {typeof currentValue === 'number' ? currentValue : placeholder}
       </Typography>
     )
@@ -232,6 +253,7 @@ const RdsCounter = ({
       <RemoveIcon className={`rds-counter__icon rds-counter__icon--${variant} rds-counter__icon--${size}`} />
     </IconButton>
   );
+
   const incButton = (
     <IconButton
       aria-label="Increase value"
@@ -258,15 +280,18 @@ const RdsCounter = ({
       `rds-counter__controls--layout-${layout}`,
       controlsClassName,
     );
+
     const valueNode = buildValue(variant === 'compact' ? 'compact' : 'default');
+
     if (layout === 'right-side') {
       return <Box className={base}>{valueNode}{decButton}{incButton}</Box>;
     }
+
     if (layout === 'bottom') {
       return (
         <Box className={base}>
           <Box className="rds-counter__value-wrapper">{valueNode}</Box>
-            <Box className="rds-counter__button-group">{decButton}{incButton}</Box>
+          <Box className="rds-counter__button-group">{decButton}{incButton}</Box>
         </Box>
       );
     }
@@ -288,7 +313,12 @@ const RdsCounter = ({
           )}
         >
           {labelText}
-          <span className="rds-counter__mandatory" style={{ visibility: isRequired ? 'visible' : 'hidden' }}>*</span>
+          <span
+            className="rds-counter__mandatory"
+            style={{ visibility: isRequired ? 'visible' : 'hidden' }}
+          >
+            *
+          </span>
         </Typography>
       )}
       {controlsElement}

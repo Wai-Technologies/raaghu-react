@@ -9,12 +9,12 @@ interface RdsFileUploaderStandardViewProps {
   /** Props forwarded to the root `Box` (consumer `className`, `sx`, `ref`, `id`, `aria-*`…). */
   rootProps?: RdsFileUploaderRootProps;
   accept?: string;
-  viewConfig: {
-    showTitle: boolean;
-    isMandatory: boolean;
-    showHint: boolean;
-    showPreview: boolean;
-  };
+ viewConfig: {
+  showTitle: boolean;
+  mandatory: boolean;
+  showHint: boolean;
+  showPreview: boolean;
+};
   interactionConfig: {
     disabled: boolean;
     dragAndDrop: boolean;
@@ -53,7 +53,7 @@ const RdsFileUploaderStandardView = ({
   children,
   title
 }: RdsFileUploaderStandardViewProps) => {
-  const { showTitle, isMandatory, showHint, showPreview } = viewConfig;
+const { showTitle, mandatory, showHint, showPreview } = viewConfig;
   const { disabled, dragAndDrop, isDragOver, multiple } = interactionConfig;
   const { className, sx, ...restRootProps } = rootProps ?? {};
   const titleId = useId();
@@ -67,7 +67,10 @@ const RdsFileUploaderStandardView = ({
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
           <Typography id={titleId} className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
-            {title || 'File'}{isMandatory && <span className="rds-file-uploader__mandatory">*</span>}
+            {title || 'File'}
+{mandatory && (
+  <span className="rds-file-uploader__mandatory">*</span>
+)}
           </Typography>
         </Box>
       )}
@@ -145,11 +148,12 @@ const RdsFileUploaderStandardView = ({
         </Typography>
       </Box>
 
-      {isMandatory && mandatoryError && (
-        <Typography variant="caption" color="error" sx={{ mt: 1 }}>
-          {mandatoryError}
-        </Typography>
-      )}
+   {mandatory && mandatoryError && (
+  <Typography variant="caption" color="error" sx={{ mt: 1 }}>
+    {mandatoryError}
+  </Typography>
+)}
+    
     </Box>
   );
 };
