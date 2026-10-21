@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import RdsSlider from './rds-slider';
 import { axe } from 'jest-axe';
 
-// Test helpers
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(<ThemeProvider theme={theme}>{component}</ThemeProvider>);
@@ -46,7 +45,6 @@ describe('RdsSlider', () => {
     it('should initialize with default value when not controlled', () => {
       renderWithTheme(<RdsSlider min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
-      // Default should be min + (max - min) * 0.3 = 0 + (100 - 0) * 0.3 = 30
       expect(parseInt(input.value)).toBe(30);
     });
 
@@ -91,9 +89,6 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider controlType="two way" min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       const value = parseInt(input.value);
-      // With range: midPoint = 0 + (100 - 0) * 0.5 = 50
-      // range = (100 - 0) * 0.2 = 20
-      // lower = 50 - 10 = 40, upper = 50 + 10 = 60
       expect(value).toBeGreaterThanOrEqual(0);
       expect(value).toBeLessThanOrEqual(100);
     });
@@ -239,7 +234,6 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider level={1} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       const value = parseInt(input.value);
-      // level 1 = 0% of range = min = 0
       expect(value).toBe(0);
     });
 
@@ -247,7 +241,6 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider level={3} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       const value = parseInt(input.value);
-      // level 3 = 50% of range = 0 + (100 - 0) * 0.5 = 50
       expect(value).toBe(50);
     });
 
@@ -255,7 +248,6 @@ describe('RdsSlider', () => {
       renderWithTheme(<RdsSlider level={5} min={0} max={100} />);
       const input = document.querySelector('input[type="range"]') as HTMLInputElement;
       const value = parseInt(input.value);
-      // level 5 = 100% of range = max = 100
       expect(value).toBe(100);
     });
 
@@ -759,5 +751,20 @@ describe('audit fixes', () => {
     renderWithTheme(<RdsSlider min={10} max={50} />);
     expect(document.querySelector('.rds-slider__left-label')).toHaveTextContent('10');
     expect(document.querySelector('.rds-slider__right-label')).toHaveTextContent('50');
+  });
+});
+describe('audit fixes 522-524', () => {
+  it('startLabel and endLabel win over leftLabel and rightLabel', () => {
+    renderWithTheme(<RdsSlider startLabel="A" endLabel="B" leftLabel="L" rightLabel="R" />);
+    expect(document.querySelector('.rds-slider__left-label')).toHaveTextContent('A');
+    expect(document.querySelector('.rds-slider__right-label')).toHaveTextContent('B');
+  });
+  it('valueLabelDisplay="on" shows the value label', () => {
+    renderWithTheme(<RdsSlider valueLabelDisplay="on" />);
+    expect(document.querySelector('.MuiSlider-valueLabel')).toBeInTheDocument();
+  });
+  it('legacy showTooltip="tooltip" still works', () => {
+    renderWithTheme(<RdsSlider showTooltip="tooltip" />);
+    expect(document.querySelector('.MuiSlider-thumb')).toBeInTheDocument();
   });
 });

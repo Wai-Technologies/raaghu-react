@@ -7,8 +7,10 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=1324-14474",
   {
     props: {
-      showTitle: figma.boolean("🆕 Show Title"),
-      label: figma.string("✏️ Label"),
+      label: figma.boolean("🆕 Show Title", {
+        true: figma.string("✏️ Label"),
+        false: undefined,
+      }),
       state: figma.enum("💡 State", {
         Default : TextareaState.Default,
         Active : TextareaState.Active,

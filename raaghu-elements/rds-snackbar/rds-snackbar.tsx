@@ -9,7 +9,9 @@ export interface RdsSnackbarProps extends Omit<SnackbarProps, 'component'> {
   type?: AlertColor;
   /** Alert severity. Defaults to 'info'. */
   severity?: AlertColor;
-  /** Shows the close button on the alert. */
+  /** Hides the close button on the alert. */
+  hideCloseButton?: boolean;
+  /** @deprecated Use `hideCloseButton` instead. */
   showCloseButton?: boolean;
   /** Called when the snackbar closes (clickaway is ignored). */
   onClose?: () => void;
@@ -22,7 +24,8 @@ const RdsSnackbar = ({
   message,
   type,
   severity,
-  showCloseButton = true,
+  hideCloseButton,
+  showCloseButton,
   onClose,
   duration,
   autoHideDuration,
@@ -32,6 +35,8 @@ const RdsSnackbar = ({
   if (type !== undefined) warnDeprecatedProp('RdsSnackbar', 'type', '`severity`');
   if (duration !== undefined) warnDeprecatedProp('RdsSnackbar', 'duration', '`autoHideDuration`');
   const resolvedSeverity = severity ?? type ?? 'info';
+  if (showCloseButton !== undefined) warnDeprecatedProp('RdsSnackbar', 'showCloseButton', '`hideCloseButton`');
+  const showClose = hideCloseButton === undefined ? showCloseButton ?? true : !hideCloseButton;
 
   const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -53,7 +58,7 @@ const RdsSnackbar = ({
     >
       {resolvedSeverity && message ? (
         <Alert
-          onClose={showCloseButton ? handleClose : undefined}
+          onClose={showClose ? handleClose : undefined}
           severity={resolvedSeverity}
           sx={{
             width: '100%',

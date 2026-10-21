@@ -4,10 +4,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSkeleton from './rds-skeleton';
 import { axe } from 'jest-axe';
 
-// Mock the SCSS file
 jest.mock('./rds-skeleton.scss');
 
-// Helper function to render with theme
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -259,7 +257,6 @@ describe('RdsSkeleton', () => {
         <RdsSkeleton frames={2} shape="circular" />
       );
       const skeletons = container.querySelectorAll('.rds-skeleton--circular');
-      // Count only the MuiSkeleton-root elements, not the parent
       const muiSkeletons = Array.from(skeletons).filter(el => el.classList.contains('MuiSkeleton-root'));
       expect(muiSkeletons.length).toBe(2);
     });
@@ -270,7 +267,6 @@ describe('RdsSkeleton', () => {
       );
       const skeletons = container.querySelectorAll('.MuiSkeleton-root');
       expect(skeletons.length).toBe(3);
-      // Verify each skeleton is a separate element
       skeletons.forEach(skeleton => {
         expect(skeleton).toBeInTheDocument();
       });
@@ -324,7 +320,6 @@ describe('RdsSkeleton', () => {
         <RdsSkeleton frames={3} height={60} />
       );
       const skeletons = container.querySelectorAll('.rds-skeleton:not(.rds-skeleton)');
-      // The parent has the class, individual skeletons should have the height
       const individualSkeletons = Array.from(container.querySelectorAll('.MuiSkeleton-root'));
       individualSkeletons.forEach(skeleton => {
         expect(skeleton).toHaveStyle('height: 60px');
@@ -460,7 +455,6 @@ describe('RdsSkeleton', () => {
         </div>
       );
       const allSkeletons = container.querySelectorAll('.rds-skeleton');
-      // 3 parents + 6 individual skeletons = 9 total
       expect(allSkeletons.length).toBe(9);
     });
 
@@ -504,7 +498,6 @@ describe('RdsSkeleton', () => {
       const { container } = renderWithTheme(
         <RdsSkeleton frames={0} />
       );
-      // When frames is 0, should still render something singular
       const skeletons = container.querySelectorAll('.rds-skeleton');
       expect(skeletons.length).toBeGreaterThan(0);
     });
@@ -567,5 +560,15 @@ describe('audit fixes', () => {
   it('merges consumer sx and only sets height/width when defined', () => {
     const { container } = render(<RdsSkeleton sx={{ height: 33 }} />);
     expect(container.querySelector('.rds-skeleton')).toHaveStyle({ height: '33px' });
+  });
+});
+describe('audit fixes 518', () => {
+  it('animation={false} disables animation', () => {
+    const { container } = render(<RdsSkeleton animation={false} />);
+    expect(container.querySelector('.MuiSkeleton-pulse')).toBeNull();
+  });
+  it('legacy animated={false} still disables animation', () => {
+    const { container } = render(<RdsSkeleton animated={false} />);
+    expect(container.querySelector('.MuiSkeleton-pulse')).toBeNull();
   });
 });

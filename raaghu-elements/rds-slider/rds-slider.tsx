@@ -1,5 +1,6 @@
 import { useState, type JSX } from 'react';
 import { Slider as MuiSlider, type SliderProps } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-slider.scss';
 
 /** Props for {@link RdsSlider}. Extends MUI `SliderProps` (except `component`). */
@@ -10,7 +11,7 @@ export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
   showValue?: boolean;
   /** Show `label` in the label row. */
   showLabel?: boolean;
-  /** `'tooltip'` shows MUI's value label on the thumb. */
+  /** @deprecated Use `valueLabelDisplay` instead. */
   showTooltip?: 'default' | 'tooltip';
   /** Unit suffix appended to displayed values. */
   unit?: string;
@@ -19,8 +20,12 @@ export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
   /** `'two way'` renders a range slider with two thumbs. */
   controlType?: 'one way' | 'two way';
   /** Text left of the track. Defaults to `String(min)`; empty string hides it. */
-  leftLabel?: string;
+  startLabel?: string;
   /** Text right of the track. Defaults to `String(max)`; empty string hides it. */
+  endLabel?: string;
+  /** @deprecated Use `startLabel` instead. */
+  leftLabel?: string;
+  /** @deprecated Use `endLabel` instead. */
   rightLabel?: string;
   className?: string;
 }
@@ -31,27 +36,33 @@ const RdsSlider = (sliderProps: RdsSliderProps): JSX.Element => {
     label,
     showValue = false,
     showLabel = false,
-    showTooltip = 'default',
+    showTooltip,
     unit,
     level,
-    controlType = 'one way',
+    controlType,
+    startLabel,
+    endLabel,
     leftLabel: leftLabelProp,
     rightLabel: rightLabelProp,
     className,
     value,
     onChange,
+    valueLabelDisplay,
     ...props
   } = sliderProps;
   const min: number = props.min ?? 0;
   const max = props.max;
+  if (showTooltip !== undefined) warnDeprecatedProp('RdsSlider', 'showTooltip', '`valueLabelDisplay`');
+  if (leftLabelProp !== undefined) warnDeprecatedProp('RdsSlider', 'leftLabel', '`startLabel`');
+  if (rightLabelProp !== undefined) warnDeprecatedProp('RdsSlider', 'rightLabel', '`endLabel`');
   const isRangeSlider = controlType === 'two way';
 
   let sliderStep = props.step;
   let sliderMarks = props.marks;
 
   const safeMax = typeof max === 'number' ? max : 100;
-  const leftLabel: string = leftLabelProp ?? String(min);
-  const rightLabel: string = rightLabelProp ?? String(safeMax);
+  const leftLabel: string = startLabel ?? leftLabelProp ?? String(min);
+  const rightLabel: string = endLabel ?? rightLabelProp ?? String(safeMax);
 
   if (sliderMarks === true) {
     if (safeMax <= min) {
@@ -103,7 +114,6 @@ const RdsSlider = (sliderProps: RdsSliderProps): JSX.Element => {
 
   const [internalSliderValue, setInternalSliderValue] = useState<number | number[]>(getInitialValue);
 
-  // Re-sync the internal value when `level` changes (derived state, no effect needed).
   const [prevLevel, setPrevLevel] = useState(level);
   if (level !== prevLevel) {
     setPrevLevel(level);
@@ -166,7 +176,7 @@ const RdsSlider = (sliderProps: RdsSliderProps): JSX.Element => {
           getAriaLabel={isRangeValue ? () => ariaLabel : undefined}
           step={sliderStep}
           marks={sliderMarks}
-          valueLabelDisplay={showTooltip === 'tooltip' ? 'auto' : 'off'}
+          valueLabelDisplay={valueLabelDisplay ?? (showTooltip === 'tooltip' ? 'auto' : 'off')}
         />
         {rightLabel && <span className="rds-slider__right-label">{rightLabel}</span>}
       </div>

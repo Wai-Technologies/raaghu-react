@@ -7,7 +7,6 @@ import { RdsStepperStep } from './rds-stepper';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-stepper.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -502,7 +501,6 @@ describe('RdsStepper', () => {
       renderWithTheme(
         <RdsStepper steps={steps} direction="vertical" currentStep={2} />
       );
-      // In vertical stepper, only active step content is shown in the collapsed state
       expect(screen.getByText('Active content')).toBeInTheDocument();
     });
 
@@ -659,5 +657,17 @@ describe('audit fixes', () => {
     );
     expect(screen.getByText('Custom caption')).toBeInTheDocument();
     expect(screen.getByText('Optional')).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes hideLabels', () => {
+  it('hides labels when hideLabels is true', () => {
+    const { container } = renderWithTheme(<RdsStepper steps={createSteps(2)} hideLabels />);
+    expect(container.querySelector('.rds-stepper--hide-labels')).toBeInTheDocument();
+  });
+
+  it('hideLabels={false} wins over showContent={false}', () => {
+    const { container } = renderWithTheme(<RdsStepper steps={createSteps(2)} hideLabels={false} showContent={false} />);
+    expect(container.querySelector('.rds-stepper--hide-labels')).not.toBeInTheDocument();
   });
 });

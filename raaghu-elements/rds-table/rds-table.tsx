@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-table.scss';
 
 const DEFAULT_ROWS_PER_PAGE_OPTIONS = [5, 10, 25];
@@ -41,12 +42,16 @@ export interface RdsTableColumn {
 
 type RdsTableRow = {
   id?: string | number;
+  /** @deprecated Use `id` instead. */
   key?: string | number;
 } & Record<string, ReactNode>;
 
 export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'> {
   columns: RdsTableColumn[];
   rows: RdsTableRow[];
+  /** Shows the paginator. @default false */
+  paginated?: boolean;
+  /** @deprecated Use `paginated` instead. */
   pagination?: boolean;
   /**
    * Rows per page. Used as the initial value and re-applied whenever it changes;
@@ -59,23 +64,31 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
    */
   page?: number;
   /** Total row count shown by the paginator (needed for `paginationMode="server"`). */
+  rowCount?: number;
+  /** @deprecated Use `rowCount` instead. */
   totalRows?: number;
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
   /**
    * `'client'` slices `rows` per page; `'server'` renders `rows` as given (the current page)
-   * and uses `totalRows` for the count. @default 'client'
+   * and uses `rowCount` for the count. @default 'client'
    */
   paginationMode?: 'client' | 'server';
   /** Options for the rows-per-page selector. @default [5, 10, 25] */
   rowsPerPageOptions?: number[];
   stickyHeader?: boolean;
   selectable?: boolean;
+  /** Controlled selected row ids. */
+  selected?: string[];
+  /** Called with the change event and the next selected row ids. */
+  onSelectionChange?: (event: ChangeEvent<HTMLInputElement>, ids: string[]) => void;
   /**
+   * @deprecated Use `selected` instead.
    * Selected row ids. With `onRowSelect` the selection is fully controlled by this prop;
    * without it, the prop seeds (and re-syncs) the table's own selection.
    */
   selectedRows?: string[];
+  /** @deprecated Use `onSelectionChange` instead. */
   onRowSelect?: (selectedRows: string[]) => void;
   sortBy?: string;
   sortDirection?: 'asc' | 'desc';
@@ -93,9 +106,11 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
 const RdsTable = ({
   columns,
   rows,
-  pagination = false,
+  paginated,
+  pagination,
   pageSize = 10,
   page = 0,
+  rowCount,
   totalRows,
   onPageChange,
   onPageSizeChange,
@@ -103,6 +118,8 @@ const RdsTable = ({
   rowsPerPageOptions = DEFAULT_ROWS_PER_PAGE_OPTIONS,
   stickyHeader = false,
   selectable = false,
+  selected,
+  onSelectionChange,
   selectedRows,
   onRowSelect,
   className = '',
@@ -113,6 +130,13 @@ const RdsTable = ({
   defaultSortDirection = 'asc',
   ...props
 }: RdsTableProps) => {
+  if (pagination !== undefined) warnDeprecatedProp('RdsTable', 'pagination', '`paginated`');
+  if (totalRows !== undefined) warnDeprecatedProp('RdsTable', 'totalRows', '`rowCount`');
+  if (selectedRows !== undefined) warnDeprecatedProp('RdsTable', 'selectedRows', '`selected`');
+  if (onRowSelect !== undefined) warnDeprecatedProp('RdsTable', 'onRowSelect', '`onSelectionChange`');
+  if (rows.some((row) => row.key !== undefined)) warnDeprecatedProp('RdsTable', 'rows[].key', '`rows[].id`');
+  const isPaginated = paginated ?? pagination ?? false;
+  const resolvedRowCount = rowCount ?? totalRows;
   const [tableState, setTableState] = useState({
     internalSelectedRows: selectedRows ?? ([] as string[]),
     cellCheckboxSelected: new Set<string>(),
@@ -138,7 +162,6 @@ const RdsTable = ({
     }));
   };
 
-  // Re-sync internal state when the seeding props change (React 19: derive during render).
   const [prevProps, setPrevProps] = useState({ page, pageSize, selectedRows });
   if (page !== prevProps.page || pageSize !== prevProps.pageSize || !sameIds(selectedRows, prevProps.selectedRows)) {
     const updates: Partial<typeof tableState> = {};
@@ -149,9 +172,13 @@ const RdsTable = ({
     updateTableState(updates);
   }
 
-  // With `onRowSelect` the parent owns the selection (as before); otherwise `selectedRows` only seeds it.
-  const currentSelectedRows = onRowSelect ? (selectedRows ?? EMPTY_SELECTED_ROWS) : internalSelectedRows;
-  const handleRowSelection = onRowSelect ?? ((nextRows: string[]) => updateTableState({ internalSelectedRows: nextRows }));
+  const controlledSelection = selected ?? (onRowSelect ? (selectedRows ?? EMPTY_SELECTED_ROWS) : undefined);
+  const currentSelectedRows = controlledSelection ?? internalSelectedRows;
+  const handleRowSelection = (event: ChangeEvent<HTMLInputElement>, nextRows: string[]) => {
+    if (controlledSelection === undefined) updateTableState({ internalSelectedRows: nextRows });
+    onSelectionChange?.(event, nextRows);
+    onRowSelect?.(nextRows);
+  };
   const sortBy = controlledSortBy !== undefined ? controlledSortBy : internalSortBy;
   const sortDirection = controlledSortDirection !== undefined ? controlledSortDirection : internalSortDirection;
 
@@ -226,17 +253,17 @@ const RdsTable = ({
   const handleSelectAll = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const allRowIds = rows.map((row, index) => getRowId(row, index));
-      handleRowSelection(allRowIds);
+      handleRowSelection(event, allRowIds);
     } else {
-      handleRowSelection([]);
+      handleRowSelection(event, []);
     }
   };
 
-  const handleSelectRow = (rowId: string) => {
+  const handleSelectRow = (event: ChangeEvent<HTMLInputElement>, rowId: string) => {
     const newSelected = currentSelectedRows.includes(rowId)
       ? currentSelectedRows.filter(id => id !== rowId)
       : [...currentSelectedRows, rowId];
-    handleRowSelection(newSelected);
+    handleRowSelection(event, newSelected);
   };
 
   const renderCellContent = (column: RdsTableColumn, value: ReactNode, row: RdsTableRow, rowIndex: number, rowNumber: number): ReactNode => {
@@ -276,8 +303,8 @@ const RdsTable = ({
     }
   };
 
-  const isClientPaged = pagination && paginationMode !== 'server';
-  const rowOffset = pagination ? internalPage * internalPageSize : 0;
+  const isClientPaged = isPaginated && paginationMode !== 'server';
+  const rowOffset = isPaginated ? internalPage * internalPageSize : 0;
 
   const isAllSelected = selectable && currentSelectedRows.length === rows.length && rows.length > 0;
   const isIndeterminate = selectable && currentSelectedRows.length > 0 && currentSelectedRows.length < rows.length;
@@ -384,7 +411,7 @@ const RdsTable = ({
                     <MuiTableCell padding="checkbox" className="rds-table__cell rds-table__cell--checkbox rds-table__checkbox">
                       <Checkbox
                         checked={isSelected}
-                        onChange={() => handleSelectRow(rowId)}
+                        onChange={(event) => handleSelectRow(event, rowId)}
                         size="small"
                         disableRipple
                         slotProps={{ input: { 'aria-label': `Select row ${rowNumber}` } }}
@@ -414,11 +441,11 @@ const RdsTable = ({
           </MuiTableBody>
         </MuiTable>
       </MuiTableContainer>
-      {pagination && (
+      {isPaginated && (
         <MuiTablePagination
           rowsPerPageOptions={rowsPerPageOptions}
           component="div"
-          count={paginationMode === 'server' ? (totalRows ?? rows.length) : (totalRows || rows.length)}
+          count={paginationMode === 'server' ? (resolvedRowCount ?? rows.length) : (resolvedRowCount || rows.length)}
           rowsPerPage={internalPageSize}
           page={internalPage}
           onPageChange={handleChangePage}

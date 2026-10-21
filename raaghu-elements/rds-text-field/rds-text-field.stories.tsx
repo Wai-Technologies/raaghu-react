@@ -19,9 +19,9 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'text',
       description: 'Label for the text field',
     },
-    errorMessage: {
+    helperText: {
       control: 'text',
-      description: 'Error message shown below the field',
+      description: 'Helper or error text shown below the field',
     },
     placeholder: {
       control: 'text',
@@ -46,7 +46,7 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'boolean',
       description: 'Whether the field is disabled',
     },
-    isRequired: {
+    required: {
       control: 'boolean',
       description: 'Whether the field is required',
     },
@@ -137,7 +137,7 @@ export const Standard: Story = {
 export const Required: Story = {
   args: {
     label: 'Required Field',
-    isRequired: true,
+    required: true,
     placeholder: 'This field is required',
   },
 };
@@ -145,7 +145,8 @@ export const Required: Story = {
 export const WithError: Story = {
   args: {
     label: 'Email',
-    errorMessage: 'Please enter a valid email address',
+    error: true,
+    helperText: 'Please enter a valid email address',
     defaultValue: 'invalid-email',
   },
 };

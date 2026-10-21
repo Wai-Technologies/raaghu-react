@@ -33,7 +33,9 @@ export interface RdsStepperProps extends Omit<StepperProps, 'children' | 'varian
   currentStep?: number;
   /** @deprecated Use `orientation` instead. */
   direction?: 'horizontal' | 'vertical';
-  /** When true, step label text is visible; when false, only step icons are shown. */
+  /** When true, only step icons are shown and label text is hidden. */
+  hideLabels?: boolean;
+  /** @deprecated Use `hideLabels` instead. */
   showContent?: boolean;
 }
 
@@ -41,7 +43,8 @@ const RdsStepper = ({
   steps,
   currentStep,
   direction,
-  showContent = true,
+  showContent,
+  hideLabels,
   activeStep,
   orientation,
   className,
@@ -52,10 +55,12 @@ const RdsStepper = ({
   if (direction !== undefined) warnDeprecatedProp('RdsStepper', 'direction', '`orientation`');
   const stepperActiveStep = activeStep !== undefined ? activeStep : (currentStep ?? 0);
   const stepperOrientation = orientation || (direction === 'vertical' ? 'vertical' : 'horizontal');
+  if (showContent !== undefined) warnDeprecatedProp('RdsStepper', 'showContent', '`hideLabels`');
+  const showLabels = hideLabels !== undefined ? !hideLabels : showContent ?? true;
   const isVertical = stepperOrientation === 'vertical';
   const rootClassName = clsx(
     'rds-stepper',
-    { 'rds-stepper--hide-labels': !showContent },
+    { 'rds-stepper--hide-labels': !showLabels },
     className,
   );
 
@@ -74,11 +79,11 @@ const RdsStepper = ({
           disabled={step.disabled}
         >
           <MuiStepLabel
-            optional={showContent && step.optional ? (step.optional === true ? 'Optional' : step.optional) : undefined}
+            optional={showLabels && step.optional ? (step.optional === true ? 'Optional' : step.optional) : undefined}
             error={step.error}
             aria-label={step.label}
           >
-            {showContent ? step.label : null}
+            {showLabels ? step.label : null}
           </MuiStepLabel>
           {isVertical && step.content && (
             <MuiStepContent>

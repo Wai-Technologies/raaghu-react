@@ -80,7 +80,7 @@ When a platform is specified, the component automatically displays the appropria
     platform: {
       control: 'select',
       options: ['abp-list', 'anz-list'],
-      description: 'Platform type for the sidebar',
+      description: 'Deprecated: pass `items` instead',
     },
     showSearch: {
       control: 'boolean',
@@ -105,7 +105,7 @@ const basicItems = [
   {
     label: 'Dashboard',
     icon: <Dashboard />,
-    active: true,
+    selected: true,
     children: [
       { label: 'Overview', icon: <Star />, onClick: () => {} },
       { label: 'Stats', icon: <Inbox />, onClick: () => {} },
@@ -115,7 +115,7 @@ const basicItems = [
   { label: 'Profile', icon: <Person />, onClick: () => {} },
   { label: 'Settings', icon: <Settings />, onClick: () => {} },
   { label: 'Requests', icon: <Drafts />,
-    active: true,
+    selected: true,
     children: [
       { label: 'New Requests', icon: <Star />, onClick: () => {} },
       { label: 'Pending', icon: <Drafts />, onClick: () => {} },
@@ -155,12 +155,10 @@ const SidebarTemplate = (args: any) => {
   const [drawerContainer, setDrawerContainer] = useState<HTMLDivElement | null>(null);
   const { hideMainParagraph, hideToggleButton, ...sidebarArgs } = args;
   const sidebarWidth = sidebarArgs.width ?? 240;
-  // Embedded preview uses a local container — permanent avoids modal scroll/focus lock in Docs.
   const variant = sidebarArgs.variant ?? 'permanent';
   const isPermanent = variant === 'permanent';
   const reserveSidebarColumn = open && (isPermanent || variant === 'temporary' || variant === 'persistent');
 
-  // Keep local open state in sync with the Storybook isOpen control
   useEffect(() => {
     setOpen(!!args.isOpen);
   }, [args.isOpen]);
@@ -246,7 +244,7 @@ export const Default = {
     items: basicItems,
     isOpen: true,
     variant: 'permanent',
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
     showSearch: true,
     hideMainParagraph: true,
@@ -262,7 +260,7 @@ export const MailApp = {
     isOpen: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showSearch: true,
     hideMainParagraph: false,
     hideToggleButton: false,
@@ -277,7 +275,7 @@ export const NarrowSidebar = {
     isOpen: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     hideToggleButton: true,
   },
   parameters: {
@@ -298,7 +296,7 @@ export const Permanent: Story = {
     items: basicItems,
     isOpen: true,
     variant: 'permanent',
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
   },
 };
@@ -309,7 +307,7 @@ export const WideSidebar = {
     items: basicItems,
     width: 250,
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
 };
 
@@ -318,13 +316,13 @@ export const WithDisabledItems = {
   args: {
     items: [
       { label: 'Home', icon: <Home />, onClick: () => {} },
-      { label: 'Dashboard', icon: <Dashboard />, onClick: () => {}, active: true },
+      { label: 'Dashboard', icon: <Dashboard />, onClick: () => {}, selected: true },
       { label: 'Profile', icon: <Person />, disabled: true },
       { label: 'Settings', icon: <Settings />, onClick: () => {} },
       { label: 'Help (Coming Soon)', icon: <Help />, disabled: true },
     ],
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
 };
 
@@ -336,13 +334,13 @@ export const WithoutIcons: Story = {
   args: {
     items: [
       { label: 'Home', onClick: () => {} },
-      { label: 'About', onClick: () => {}, active: true },
+      { label: 'About', onClick: () => {}, selected: true },
       { label: 'Services', onClick: () => {} },
       { label: 'Contact', onClick: () => {} },
     ],
     isOpen: true,
     variant: 'permanent',
     showLogo: true,
-    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
   },
 };

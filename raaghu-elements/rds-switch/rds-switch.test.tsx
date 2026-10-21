@@ -2,10 +2,12 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSwitch from './rds-switch';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-switch.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -472,7 +474,6 @@ describe('RdsSwitch', () => {
       );
       const input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       fireEvent.click(input);
-      // Note: onClick might still be called but onChange logic won't execute
       expect(input).toBeDisabled();
     });
   });
@@ -648,5 +649,18 @@ describe('RdsSwitch', () => {
       renderWithTheme(<RdsSwitch label="Hidden" showLabel={false} />);
       expect(screen.queryByText('Hidden')).not.toBeInTheDocument();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('warns when deprecated showLabel is passed', () => {
+    renderWithTheme(<RdsSwitch label="L" showLabel={false} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'showLabel', expect.any(String));
+  });
+
+  it('variant wins over style and style stays silent', () => {
+    const { container } = renderWithTheme(<RdsSwitch variant="style3" style="style1" />);
+    expect(container.querySelector('.rds-switch--style3')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalledWith('RdsSwitch', 'style', expect.any(String));
   });
 });

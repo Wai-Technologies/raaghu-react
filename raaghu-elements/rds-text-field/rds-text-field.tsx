@@ -8,7 +8,7 @@ import './rds-text-field.scss';
 export interface RdsTextFieldProps extends Omit<TextFieldProps, 'component'> {
   /** @deprecated Use `required` instead. */
   isRequired?: boolean;
-  /** Shorthand for `error` plus `helperText`. */
+  /** @deprecated Use `error` and `helperText` instead. */
   errorMessage?: string;
 }
 
@@ -25,6 +25,7 @@ const RdsTextField = ({
   ...props
 }: RdsTextFieldProps) => {
   if (isRequired !== undefined) warnDeprecatedProp('RdsTextField', 'isRequired', '`required`');
+  if (errorMessage !== undefined) warnDeprecatedProp('RdsTextField', 'errorMessage', '`error` and `helperText`');
   const rootClassName = clsx('rds-text-field', className);
   const consumerFormHelperTextProps =
     typeof consumerSlotProps?.formHelperText === 'object' && consumerSlotProps?.formHelperText !== null
@@ -41,8 +42,6 @@ const RdsTextField = ({
     ),
   };
 
-  // Handle defaultValue - only pass it if explicitly provided and no value prop is present
-  // to prevent React warnings about controlled/uncontrolled components
   const fieldProps = defaultValue !== undefined && props.value === undefined
     ? { defaultValue }
     : {};

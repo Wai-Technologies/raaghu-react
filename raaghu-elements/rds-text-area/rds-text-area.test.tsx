@@ -5,7 +5,6 @@ import RdsTextArea, { TextareaState, TextareaStyle, RdsTextAreaProps } from './r
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-text-area.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -202,7 +201,6 @@ describe('RdsTextArea', () => {
       rerender(<RdsTextArea value="ab" onChange={onChange} dataTestId="test-textarea" />);
       rerender(<RdsTextArea value="abc" onChange={onChange} dataTestId="test-textarea" />);
       
-      // onChange may not be called on rerender with prop changes
       expect(onChange.mock.calls.length).toBeGreaterThanOrEqual(0);
     });
   });
@@ -270,7 +268,6 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      // Change the value to trigger validation
       fireEvent.change(textarea, { target: { value: 'http://example.com' } });
       expect(textarea).not.toHaveAttribute('aria-invalid', 'true');
     });
@@ -286,7 +283,6 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      // Change the value to trigger validation
       fireEvent.change(textarea, { target: { value: 'invalid-url' } });
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
@@ -303,7 +299,6 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      // Change to invalid value to trigger error message
       fireEvent.change(textarea, { target: { value: 'invalid-url' } });
       expect(screen.getByText('Please enter a valid URL')).toBeInTheDocument();
     });
@@ -320,7 +315,6 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      // Change to valid multi-URL value
       fireEvent.change(textarea, { target: { value: 'http://example1.com\nhttp://example2.com' } });
       expect(textarea).not.toHaveAttribute('aria-invalid', 'true');
     });
@@ -337,7 +331,6 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      // Change to value with one invalid URL
       fireEvent.change(textarea, { target: { value: 'http://example.com\ninvalid-url' } });
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
@@ -353,7 +346,6 @@ describe('RdsTextArea', () => {
           dataTestId="test-textarea"
         />
       );
-      // The error message includes the default "Label" text
       expect(screen.getByText(/is required/)).toBeInTheDocument();
       
       rerender(
@@ -380,7 +372,6 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      // Trigger validation with invalid value
       fireEvent.change(textarea, { target: { value: 'invalid' } });
       expect(screen.getByText('Invalid URL')).toBeInTheDocument();
       
@@ -560,7 +551,6 @@ describe('RdsTextArea', () => {
     it('should not show error message by default', () => {
       render(<RdsTextArea dataTestId="test-textarea" />);
       const errorMessages = screen.queryAllByText(/.*is required|.*invalid|.*/i);
-      // Filter for actual error elements
       const errorElements = errorMessages.filter(el => el.classList.contains('error-message'));
       expect(errorElements.length).toBe(0);
     });
@@ -577,7 +567,6 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      // Change to invalid value to trigger validation
       fireEvent.change(textarea, { target: { value: 'invalid-url' } });
       expect(screen.getByText('Invalid URL')).toBeInTheDocument();
     });
@@ -594,7 +583,6 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      // Change to invalid value
       fireEvent.change(textarea, { target: { value: 'invalid-url' } });
       const errorElement = container.querySelector('.error-message');
       expect(errorElement).toBeInTheDocument();
@@ -653,21 +641,17 @@ describe('RdsTextArea', () => {
       
       const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
       
-      // Check rendering
       expect(screen.getByText('Email')).toBeInTheDocument();
       expect(textarea).toHaveClass('rds-textarea', 'textarea-default', 'textarea-pill', 'custom');
       expect(textarea).toHaveAttribute('aria-required', 'true');
       
-      // Check focus
       fireEvent.focus(textarea);
       expect(onFocus).toHaveBeenCalled();
       
-      // Type invalid value
       fireEvent.change(textarea, { target: { value: 'invalid' } });
       expect(onChange).toHaveBeenCalled();
       expect(screen.getByText('Please enter a valid email')).toBeInTheDocument();
       
-      // Type valid value
       fireEvent.change(textarea, { target: { value: 'test@example.com' } });
       await waitFor(() => {
         expect(screen.queryByText('Please enter a valid email')).not.toBeInTheDocument();
@@ -731,7 +715,6 @@ describe('RdsTextArea', () => {
     it('should handle zero rows property', () => {
       render(<RdsTextArea rows={0} dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
-      // When rows is 0, the component defaults to 4 rows
       const rowsValue = parseInt(textarea.getAttribute('rows') || '4');
       expect(rowsValue).toBeGreaterThanOrEqual(0);
     });
@@ -769,5 +752,25 @@ describe('audit fixes', () => {
     render(<RdsTextArea required label="Notes" value="" dataTestId="ta" />);
     expect(screen.getByText('Notes is required')).toBeInTheDocument();
     expect(screen.getByTestId('ta')).toHaveAttribute('aria-required', 'true');
+  });
+
+  it('B29: error forces the error state and helperText replaces validationMsg', () => {
+    render(<RdsTextArea error helperText="Bad" validationMsg="Old" data-testid="ta" />);
+    expect(screen.getByTestId('ta')).toHaveClass('textarea-error');
+    expect(screen.getByText('Bad')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
+  });
+
+  it('B29: variant wins over style', () => {
+    render(<RdsTextArea variant="Pill" style={TextareaStyle.BottomOutline} data-testid="ta" />);
+    expect(screen.getByTestId('ta')).toHaveClass('textarea-pill');
+  });
+
+  it('B29: deprecated dataTestId, showTitle, reset and validationMsg warn', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    render(<RdsTextArea dataTestId="t" showTitle reset validationMsg="m" />);
+    ['dataTestId', 'showTitle', 'reset', 'validationMsg'].forEach((p) =>
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTextArea', p, expect.any(String))
+    );
   });
 });

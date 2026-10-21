@@ -212,7 +212,7 @@ const AppShellStory = (args: any) => {
         onClick: () => {},
       },
       {
-        active: true,
+        selected: true,
         icon: <Dashboard />,
         label: "Dashboard",
         onClick: () => {},
@@ -248,7 +248,7 @@ const AppShellStory = (args: any) => {
             <BrowserRouter>
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                 open
                 items={sidebarItems}
                 variant="permanent"
@@ -263,7 +263,7 @@ const AppShellStory = (args: any) => {
               <BrowserRouter>
                 <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
-                  avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                  user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                   open
                   items={sidebarItems}
                   variant="permanent"
@@ -286,7 +286,7 @@ const AppShellStory = (args: any) => {
             <BrowserRouter>
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                 open
                 items={sidebarItems}
                 variant="permanent"
@@ -296,7 +296,7 @@ const AppShellStory = (args: any) => {
               />
               <RdsSidebar
                 avatarCollapsedSrc={logoSrc}
-                avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                 open
                 items={sidebarItems}
                 variant="permanent"
@@ -325,7 +325,7 @@ const AppShellStory = (args: any) => {
           <div>
             <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
-              avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+              user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
               open
               items={sidebarItems}
               variant="permanent"
@@ -352,7 +352,7 @@ const AppShellStory = (args: any) => {
       <BrowserRouter>
         <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
-          avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+          user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
           open
           items={sidebarItems}
           variant="permanent"
@@ -404,7 +404,7 @@ const AppShellStory = (args: any) => {
               <BrowserRouter>
                 <RdsSidebar
                   avatarCollapsedSrc={logoSrc}
-                  avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                  user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                   open
                   items={[
                     {
@@ -413,7 +413,7 @@ const AppShellStory = (args: any) => {
                       onClick: () => {},
                     },
                     {
-                      active: true,
+                      selected: true,
                       icon: <Dashboard />,
                       label: "Dashboard",
                       onClick: () => {},
@@ -482,7 +482,6 @@ const AppShellStory = (args: any) => {
             />
           )}
           
-          {/* Add bottom navigation for DoubleNav and TriPane */}
           {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && !mobileSidebarOpen && !mobileToolbarOpen && (
             <div className="rds-footer-navigation MuiBottomNavigation-root">
               <div style={{ 
