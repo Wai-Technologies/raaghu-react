@@ -27,6 +27,8 @@ jest.mock('react-svg-worldmap', () => ({
   ),
 }));
 
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-comp-map.scss', () => ({}));
 
@@ -622,5 +624,40 @@ describe('RdsCompMap', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsCompMap audit fixes', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+  const data = [{ country: 'US', value: 100 }, { country: 'IN', value: 50 }];
+
+  it('G6-008/009: renders from data + variant without deprecation warnings', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    const { container } = render(<RdsCompMap data={data} color="#FF0000" variant="heatmap" />);
+    expect(screen.getByText('IN: 50')).toBeInTheDocument();
+    expect(container.querySelector('.rds-comp-map--heatmap')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('G6-008/009: mapList and mapType still work and warn', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(<RdsCompMap mapList={data} color="#FF0000" mapType="default" />);
+    expect(screen.getByText('US: 100')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompMap', 'mapList', '`data`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompMap', 'mapType', '`variant`');
+  });
+
+  it('G6-010: forwards className, ref and rest props to the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RdsCompMap ref={ref} data={data} color="primary" className="extra" data-testid="map-root" aria-label="Sales map" />);
+    const root = screen.getByTestId('map-root');
+    expect(root).toHaveClass('rds-comp-map', 'extra');
+    expect(root).toHaveAttribute('aria-label', 'Sales map');
+    expect(ref.current).toBe(root);
+  });
+
+  it('G6-007: resolves a palette key to the theme colour', () => {
+    render(<RdsCompMap data={data} color="primary" />);
+    expect(screen.getByTestId('world-map').getAttribute('data-color')).toMatch(/^#/);
   });
 });

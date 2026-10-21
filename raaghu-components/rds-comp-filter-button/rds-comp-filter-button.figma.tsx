@@ -49,11 +49,11 @@ figma.connect(
       ]
     }
   ]}
-  leftIcon={<Circle sx={{fontSize: 16}} />}
+  startIcon={<Circle sx={{fontSize: 16}} />}
   onApply={() => {}}
   onClear={() => {}}
   onFiltersChange={() => {}}
-  rightIcon={<Circle sx={{fontSize: 16}} />}
+  endIcon={<Circle sx={{fontSize: 16}} />}
   shape="rectangle"
   showLeftIcon
   showRightIcon

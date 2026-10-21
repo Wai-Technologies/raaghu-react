@@ -1,4 +1,5 @@
 export interface Item {
+  id?: string | number;
   name: string;
   username?: string;
   date?: Date;
@@ -16,7 +17,7 @@ export enum VariantType {
   Default = "Default",
 }
 
-export enum RevieweStyle {
+export enum ReviewStyle {
   Style1 = "style1",
   Style2 = "style2",
   Style3 = "style3",
@@ -31,3 +32,8 @@ export enum RevieweStyle {
   Style12 = "style12",
   Style13 = "style13",
 }
+
+/** @deprecated Use `ReviewStyle` instead. */
+export const RevieweStyle = ReviewStyle;
+/** @deprecated Use `ReviewStyle` instead. */
+export type RevieweStyle = ReviewStyle;

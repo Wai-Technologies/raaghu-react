@@ -1,4 +1,4 @@
-import { useCallback, type ChangeEvent } from 'react';
+import { useCallback, useId, type ChangeEvent } from 'react';
 
 const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
 const MINUTES = Array.from({ length: 60 }, (_, i) => i);
@@ -19,7 +19,8 @@ export const CompactTimePicker = ({
   setTempMinute, 
   tempPeriod, 
   setTempPeriod
-}) => {
+}: CompactTimePickerProps) => {
+  const baseId = useId();
   const onHourChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const val = parseInt(e.target.value);
     setTempHour(val);
@@ -38,7 +39,7 @@ export const CompactTimePicker = ({
     <div className="time-controls-row">
       <div className="time-select-container">
         <select 
-          id="hours-select"
+          id={`${baseId}-hours`} aria-label="Hours"
           className="time-select" 
           value={tempHour.toString()} 
           onChange={onHourChange}
@@ -55,7 +56,7 @@ export const CompactTimePicker = ({
       
       <div className="time-select-container">
         <select 
-          id="minutes-select"
+          id={`${baseId}-minutes`} aria-label="Minutes"
           className="time-select" 
           value={tempMinute.toString()} 
           onChange={onMinuteChange}
@@ -70,7 +71,7 @@ export const CompactTimePicker = ({
       
       <div className="time-select-container">
         <select 
-          id="period-select"
+          id={`${baseId}-period`} aria-label="AM/PM"
           className="time-select" 
           value={tempPeriod} 
           onChange={onPeriodChange}
@@ -103,7 +104,7 @@ export const DefaultTimePicker = ({
   onIncrementMinute,
   onDecrementMinute,
   onTogglePeriod,
-}) => {
+}: DefaultTimePickerProps) => {
   return (
     <div className="time-values-display-row">
       <div className="time-value-display">
@@ -119,7 +120,7 @@ export const DefaultTimePicker = ({
       </div>
       <div className="time-value-display">
         <button type="button" className="time-control up" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={onTogglePeriod} aria-label="Toggle AM/PM up">▲</button>
-        <button type="button" className="time-value-period" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={onTogglePeriod}>{period}</button>
+        <button type="button" className="time-value-period" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={onTogglePeriod} aria-label="Toggle AM/PM">{period}</button>
         <button type="button" className="time-control down" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={onTogglePeriod} aria-label="Toggle AM/PM down">▼</button>
       </div>
     </div>

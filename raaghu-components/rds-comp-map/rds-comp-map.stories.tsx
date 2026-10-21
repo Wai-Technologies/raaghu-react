@@ -20,7 +20,7 @@ const meta: Meta = {
             control: { type: 'text' },
             description: 'Title text displayed above the map',
         },
-        mapType: {
+        variant: {
             control: { type: 'select' },
             options: ['default', 'heatmap'],
             description: 'Select the type of map visualization',
@@ -29,7 +29,7 @@ const meta: Meta = {
         color: {
             control: { type: 'color' },
             description: 'Primary color for the map visualization',
-            if: { arg: 'mapType', neq: 'heatmap' },
+            if: { arg: 'variant', neq: 'heatmap' },
         },
     },
 } satisfies Meta<typeof RdsCompMap>;
@@ -45,8 +45,8 @@ export const Default: Story = {
     args: {
         title: 'Map',
         color: '#A478E6',
-        mapType: 'default',
-        mapList: [
+        variant: 'default',
+        data: [
             { country: "cn", value: 1389618778 },
             { country: "in", value: 1311559204 },
             { country: "us", value: 331883986 },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import RdsCompToast from './rds-comp-toast';
 import {
   ToastLayout,
@@ -912,5 +912,67 @@ describe('RdsCompToast', () => {
         unmount();
       }
     }, 120000);
+  });
+});
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
+describe('audit fixes', () => {
+  const base = { layout: 'text', state: 'basic', showSubText: true, showHeader: true, showDismiss: true } as const;
+
+  it('G6-134 action slot replaces built-in buttons', () => {
+    render(<RdsCompToast {...base} layout="request" message="m" action={<button>Custom</button>} />);
+    expect(screen.getByText('Custom')).toBeInTheDocument();
+    expect(screen.queryByText('Accept')).not.toBeInTheDocument();
+  });
+
+  it('G6-135 controlled open and onClose reasons', () => {
+    const onClose = jest.fn();
+    const { rerender } = render(<RdsCompToast {...base} message="m" open={true} onClose={onClose} />);
+    fireEvent.click(screen.getByLabelText('Close'));
+    expect(onClose).toHaveBeenCalledWith(expect.anything(), 'closeClick');
+    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--visible');
+    rerender(<RdsCompToast {...base} message="m" open={false} onClose={onClose} />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--hidden');
+  });
+
+  it('G6-135/144 autoHideDuration fires timeout; null is sticky', () => {
+    jest.useFakeTimers();
+    const onClose = jest.fn();
+    const { unmount } = render(<RdsCompToast {...base} message="m" autoHideDuration={500} autohide={false} onClose={onClose} />);
+    act(() => { jest.advanceTimersByTime(600); });
+    expect(onClose).toHaveBeenCalledWith(null, 'timeout');
+    unmount();
+    render(<RdsCompToast {...base} message="m" autoHideDuration={null} autohide delay={100} />);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--visible');
+    jest.useRealTimers();
+  });
+
+  it('G6-136 resumed timer is cleared on unmount', () => {
+    jest.useFakeTimers();
+    const onClose = jest.fn();
+    const { unmount } = render(<RdsCompToast {...base} message="m" autoHideDuration={1000} pauseOnHover onClose={onClose} />);
+    const el = screen.getByRole('alert');
+    fireEvent.mouseEnter(el);
+    fireEvent.mouseLeave(el);
+    unmount();
+    act(() => { jest.advanceTimersByTime(2000); });
+    expect(onClose).not.toHaveBeenCalled();
+    jest.useRealTimers();
+  });
+
+  it('G6-140 title and message win over legacy props', () => {
+    render(<RdsCompToast {...base} title="New" headerText="Old" message="NewMsg" subText="OldMsg" />);
+    expect(screen.getByText('New')).toBeInTheDocument();
+    expect(screen.getByText('NewMsg')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
+  });
+
+  it('G6-142/143 string literals and optional leadingIcon', () => {
+    render(<RdsCompToast {...base} message="m" state="error" layout="download" position="bottomRight" />);
+    const el = screen.getByRole('alert');
+    expect(el).toHaveClass('rds-comp-toast--error');
+    expect(el).toHaveClass('rds-comp-toast--download');
   });
 });

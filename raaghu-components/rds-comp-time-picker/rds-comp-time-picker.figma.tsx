@@ -25,6 +25,6 @@ figma.connect(
         "Selected": "selected",
       }),
     },
-    example: (props) => <RdsCompTimePicker {...props} colorVariant="primary" disabled={false} />,
+    example: (props) => <RdsCompTimePicker {...props} color="primary" disabled={false} />,
   },
 )

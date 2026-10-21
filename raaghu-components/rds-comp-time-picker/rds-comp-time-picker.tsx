@@ -1,52 +1,85 @@
-import { useCallback, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import clsx from 'clsx';
 import './rds-comp-time-picker.scss';
 export { type RdsTimePickerProps } from './time-picker-types';
 import { type RdsTimePickerProps } from './time-picker-types';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
-import { 
-  getButtonClasses, 
-  getInputBorderClass, 
+import {
+  getButtonClasses,
+  getInputBorderClass,
   parseTimeFromValue,
-  getCurrentTime, 
-  formatTime 
+  getCurrentTime,
+  formatTime
 } from './time-picker-utils';
 
+interface PickerState {
+  showPicker: boolean;
+  hours: number;
+  minutes: number;
+  period: string;
+  time: string;
+  tempHour: number;
+  tempMinute: number;
+  tempPeriod: string;
+}
+
+const INITIAL_STATE: PickerState = {
+  showPicker: false,
+  hours: 12,
+  minutes: 0,
+  period: 'AM',
+  time: '',
+  tempHour: 12,
+  tempMinute: 0,
+  tempPeriod: 'AM',
+};
+
+const getValueUpdates = (value: string): Partial<PickerState> => {
+  if (!value) return { time: value };
+  const { hours, minutes, period } = parseTimeFromValue(value);
+  return { time: value, hours, minutes, period, tempHour: hours, tempMinute: minutes, tempPeriod: period };
+};
+
+const getSyncUpdates = (valueProp: string | undefined, stateProp: RdsTimePickerProps['state']): Partial<PickerState> => {
+  if (valueProp !== undefined) return getValueUpdates(valueProp);
+  if (stateProp === 'expanded') return { showPicker: true, time: '' };
+  if (stateProp === 'selected') return { showPicker: false, time: '12:00 AM' };
+  return { showPicker: false, time: '' };
+};
+
 const RdsCompTimePicker = (props: RdsTimePickerProps) => {
-  const { style: pickerStyle, onChange: onChangeProp, colorVariant, disabled, value: valueProp, state: stateProp } = props;
-  const [pickerState, setPickerState] = useState(() => {
-    const initial = {
-      showPicker: false,
-      hours: 12,
-      minutes: 0,
-      period: 'AM',
-      time: '',
-      tempHour: 12,
-      tempMinute: 0,
-      tempPeriod: 'AM',
-    } as const;
+  const {
+    style,
+    variant,
+    onChange: onChangeProp,
+    onOpen,
+    onClose,
+    colorVariant,
+    color,
+    disabled,
+    value: valueProp,
+    state: stateProp,
+    localeText,
+  } = props;
+  if (colorVariant !== undefined) warnDeprecatedProp('RdsCompTimePicker', 'colorVariant', '`color`');
+  const pickerStyle = variant ?? style;
+  const resolvedColor = color ?? colorVariant;
+  const nowText = localeText?.now ?? 'NOW';
+  const cancelText = localeText?.cancel ?? 'Cancel';
+  const setTimeText = localeText?.setTime ?? 'Set Time';
+  const placeholderText = localeText?.placeholder ?? '12:00 AM';
 
-    if (valueProp !== undefined) {
-      const base = { ...initial, time: valueProp } as any;
-      if (valueProp) {
-        const { hours: parsedHours, minutes: parsedMinutes, period: parsedPeriod } = parseTimeFromValue(valueProp);
-        base.hours = parsedHours;
-        base.minutes = parsedMinutes;
-        base.period = parsedPeriod;
-        base.tempHour = parsedHours;
-        base.tempMinute = parsedMinutes;
-        base.tempPeriod = parsedPeriod;
-      }
-      return base as any;
-    }
-
-    if (stateProp === 'expanded') return { ...initial, showPicker: true } as any;
-    if (stateProp === 'selected') return { ...initial, time: '12:00 AM' } as any;
-    return initial as any;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [pickerState, setPickerState] = useState<PickerState>(() => {
+    if (valueProp !== undefined) return { ...INITIAL_STATE, ...getValueUpdates(valueProp) };
+    if (stateProp === 'expanded') return { ...INITIAL_STATE, showPicker: true };
+    if (stateProp === 'selected') return { ...INITIAL_STATE, time: '12:00 AM' };
+    return INITIAL_STATE;
   });
   const { showPicker, hours, minutes, period, time, tempHour, tempMinute, tempPeriod } = pickerState;
-  const updatePickerState = useCallback((updates: Partial<typeof pickerState> | ((prev: typeof pickerState) => Partial<typeof pickerState>)) => {
+  const updatePickerState = useCallback((updates: Partial<PickerState> | ((prev: PickerState) => Partial<PickerState>)) => {
     setPickerState((prev) => ({
       ...prev,
       ...(typeof updates === 'function' ? updates(prev) : updates),
@@ -59,29 +92,16 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   if (valueProp !== prevValueProp || stateProp !== prevStateProp) {
     setPrevValueProp(valueProp);
     setPrevStateProp(stateProp);
-
-    if (valueProp !== undefined) {
-      updatePickerState({ time: valueProp });
-
-      if (valueProp) {
-        const { hours: parsedHours, minutes: parsedMinutes, period: parsedPeriod } = parseTimeFromValue(valueProp);
-        updatePickerState({
-          hours: parsedHours,
-          minutes: parsedMinutes,
-          period: parsedPeriod,
-          tempHour: parsedHours,
-          tempMinute: parsedMinutes,
-          tempPeriod: parsedPeriod,
-        });
-      }
-    } else if (stateProp === 'expanded') {
-      updatePickerState({ showPicker: true, time: '' });
-    } else if (stateProp === 'selected') {
-      updatePickerState({ showPicker: false, time: '12:00 AM' });
-    } else {
-      updatePickerState({ showPicker: false, time: '' });
-    }
+    setPickerState({ ...pickerState, ...getSyncUpdates(valueProp, stateProp) });
   }
+
+  const setOpen = useCallback((next: boolean) => {
+    updatePickerState({ showPicker: next });
+    if (next !== showPicker) {
+      if (next) onOpen?.();
+      else onClose?.();
+    }
+  }, [showPicker, onOpen, onClose, updatePickerState]);
 
   const togglePicker = useCallback(() => {
     if (!showPicker && pickerStyle === 'compact') {
@@ -91,15 +111,15 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
         updatePickerState({ tempHour: hours, tempMinute: minutes, tempPeriod: period });
       }
     }
-    updatePickerState((prev) => ({ showPicker: !prev.showPicker }));
-  }, [showPicker, pickerStyle, time, hours, minutes, period, updatePickerState]);
+    setOpen(!showPicker);
+  }, [showPicker, pickerStyle, time, hours, minutes, period, updatePickerState, setOpen]);
 
   const handleSetTime = useCallback((e?: ReactMouseEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
-    
+
     if (pickerStyle === 'compact') {
       const formattedTime = formatTime(tempHour, tempMinute, tempPeriod);
       updatePickerState({
@@ -108,21 +128,21 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
         period: tempPeriod,
         time: formattedTime,
       });
-      
+
       if (onChangeProp) {
         onChangeProp(formattedTime);
       }
     } else {
       const formattedTime = formatTime(hours, minutes, period);
       updatePickerState({ time: formattedTime });
-      
+
       if (onChangeProp) {
         onChangeProp(formattedTime);
       }
     }
-    
-    updatePickerState({ showPicker: false });
-  }, [pickerStyle, tempHour, tempMinute, tempPeriod, onChangeProp, hours, minutes, period, updatePickerState]);
+
+    setOpen(false);
+  }, [pickerStyle, tempHour, tempMinute, tempPeriod, onChangeProp, hours, minutes, period, updatePickerState, setOpen]);
 
   const handleCancel = useCallback(() => {
     updatePickerState({
@@ -134,12 +154,29 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       tempMinute: 0,
       tempPeriod: 'AM',
     });
-    
+
     if (onChangeProp) {
       onChangeProp('');
     }
-    updatePickerState({ showPicker: false });
-  }, [onChangeProp, updatePickerState]);
+    setOpen(false);
+  }, [onChangeProp, updatePickerState, setOpen]);
+
+  // Escape / outside click close the popup without touching the value.
+  useEffect(() => {
+    if (!showPicker) return undefined;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    const onPointerDown = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('mousedown', onPointerDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('mousedown', onPointerDown);
+    };
+  }, [showPicker, setOpen]);
 
   const setCurrentTime = useCallback(() => {
     const { hours: currentHours, minutes: currentMinutes, period: currentPeriod } = getCurrentTime();
@@ -154,7 +191,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
         period: currentPeriod,
         time: formattedTime,
       });
-      
+
       if (onChangeProp) {
         onChangeProp(formattedTime);
       }
@@ -170,12 +207,12 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const setTempMinute = useCallback((minute: number) => updatePickerState({ tempMinute: minute }), [updatePickerState]);
   const setTempPeriod = useCallback((p: string) => updatePickerState({ tempPeriod: p }), [updatePickerState]);
 
-  const variantClass = `time-picker-variant-${colorVariant || 'primary'}`;
-  const inputBorderClass = getInputBorderClass(colorVariant);
-  const buttonClasses = getButtonClasses(colorVariant);
+  const variantClass = `time-picker-variant-${resolvedColor || 'primary'}`;
+  const inputBorderClass = getInputBorderClass(resolvedColor);
+  const buttonClasses = getButtonClasses(resolvedColor);
 
   return (
-    <div className={`time-picker-container ${variantClass}`}>
+    <div ref={containerRef} className={`time-picker-container ${variantClass}`}>
       <div
         className={clsx("time-input-container", disabled && "disabled")}
       >
@@ -185,7 +222,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           value={valueProp !== undefined ? valueProp : time}
           readOnly
           disabled={disabled}
-          placeholder="12:00 AM"
+          placeholder={placeholderText}
           aria-label="Selected time"
           onClick={!disabled ? togglePicker : undefined}
           onKeyDown={!disabled ? (event) => {
@@ -207,27 +244,30 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       </div>
 
       {showPicker && (
-        <div className={clsx(
+        <div
+          role="dialog"
+          aria-label="Time picker"
+          className={clsx(
             "time-picker",
             pickerStyle === 'compact' ? "time-picker-compact" : "time-picker",
             inputBorderClass
           )}>
           <div className="row d-flex align-items-center justify-content-between">
             <div className={clsx("time-display", pickerStyle === 'compact' ? "time-display-compact" : "time-display")}>
-              {pickerStyle === 'compact' 
-                ? ((tempHour !== null && tempMinute !== null && tempPeriod)
+              {pickerStyle === 'compact'
+                ? (tempPeriod
                   ? formatTime(tempHour, tempMinute, tempPeriod)
                   : (time || '12:00 AM'))
                 : (time || '12:00 AM')}
             </div>
             <button type="button" className="now-button" onClick={setCurrentTime}>
-              NOW
+              {nowText}
             </button>
           </div>
           <hr className="time-divider" aria-hidden="true" />
-          
+
           <div className="time-values-container">
-            {pickerStyle === 'compact' 
+            {pickerStyle === 'compact'
               ? <CompactTimePicker
                   tempHour={tempHour}
                   setTempHour={setTempHour}
@@ -249,15 +289,15 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
             }
           </div>
           <hr className="time-divider" aria-hidden="true" />
-          
+
           <div className={clsx("buttons", pickerStyle === "compact" ? "buttons-compact" : "buttons")}>
-            <button type="button" className={buttonClasses.cancel} onClick={handleCancel}>Cancel</button>
+            <button type="button" className={buttonClasses.cancel} onClick={handleCancel}>{cancelText}</button>
             <button
               type="button"
               className={buttonClasses.setTime}
               onClick={handleSetTime}
             >
-              Set Time
+              {setTimeText}
             </button>
           </div>
         </div>

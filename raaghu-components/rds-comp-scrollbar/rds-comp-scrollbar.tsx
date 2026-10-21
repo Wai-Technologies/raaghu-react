@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useMemo, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import clsx from "clsx";
 import "./rds-comp-scrollbar.scss";
 export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 
 export interface RdsScrollBarProps {
-  type?: ScrollBarType;
-  position?: ScrollPosition;
+  type?: ScrollBarType | `${ScrollBarType}`;
+  position?: ScrollPosition | `${ScrollPosition}`;
   showButtons?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  /** Content rendered inside the scroll container; replaces the placeholder. */
+  children?: ReactNode;
 }
 
 const RdsCompScrollBar = ({
@@ -18,10 +20,11 @@ const RdsCompScrollBar = ({
   showButtons = true,
   startIcon,
   endIcon,
-}) => {
+  children,
+}: RdsScrollBarProps) => {
   const scrollContentRef = useRef<HTMLDivElement>(null);
 
-  const scrollToPosition = useCallback((pos: ScrollPosition) => {
+  const scrollToPosition = (pos: RdsScrollBarProps["position"]) => {
     const content = scrollContentRef.current;
     if (!content) return;
 
@@ -32,26 +35,13 @@ const RdsCompScrollBar = ({
     } else if (pos === ScrollPosition.End) {
       content.scrollTop = content.scrollHeight;
     }
-  }, []);
+  };
 
   useEffect(() => {
     scrollToPosition(position);
-  }, [position, type, scrollToPosition]);
+  }, [position]);
 
-  const rootClassName = useMemo(
-    () => clsx("rds-scrollbar", type === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple"),
-    [type]
-  );
-
-  const scrollToStart = useCallback(
-    () => scrollToPosition(ScrollPosition.Start),
-    [scrollToPosition]
-  );
-
-  const scrollToEnd = useCallback(
-    () => scrollToPosition(ScrollPosition.End),
-    [scrollToPosition]
-  );
+  const rootClassName = clsx("rds-scrollbar", type === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple");
 
   return (
     <div className={rootClassName}>
@@ -60,7 +50,7 @@ const RdsCompScrollBar = ({
           <button
             type="button"
             className="rds-scrollbar__button"
-            onClick={scrollToStart}
+            onClick={() => scrollToPosition(ScrollPosition.Start)}
             aria-label="Scroll to top"
           >
             {startIcon}
@@ -68,7 +58,7 @@ const RdsCompScrollBar = ({
           <button
             type="button"
             className="rds-scrollbar__button"
-            onClick={scrollToEnd}
+            onClick={() => scrollToPosition(ScrollPosition.End)}
             aria-label="Scroll to bottom"
           >
             {endIcon}
@@ -76,7 +66,7 @@ const RdsCompScrollBar = ({
         </div>
       )}
       <div className="rds-scrollbar__content" ref={scrollContentRef}>
-        <div className="rds-scrollbar__inner-content"></div>
+        {children ?? <div className="rds-scrollbar__inner-content"></div>}
       </div>
     </div>
   );

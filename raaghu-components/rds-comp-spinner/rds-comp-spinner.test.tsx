@@ -572,3 +572,30 @@ describe('RdsCompSpinner', () => {
     });
   });
 });
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+
+describe('audit fixes', () => {
+  it('uses new props and they win over deprecated ones', () => {
+    const { container } = render(
+      <RdsCompSpinner variant="grow" spinnerType="border" color="danger" colorVariant="info" label="New" labelText="Old" showLabel />
+    );
+    const spinner = screen.getByRole('status');
+    expect(spinner).toHaveClass('spinner-grow', 'text-danger');
+    expect(container.querySelector('.spinner-label')).toHaveTextContent('New');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompSpinner', 'labelText', expect.any(String));
+  });
+
+  it('labels the spinner and accepts string literals', () => {
+    const { container } = render(<RdsCompSpinner size="Large" showLabel label="Wait" />);
+    const spinner = screen.getByRole('status');
+    const label = container.querySelector('.spinner-label') as HTMLElement;
+    expect(spinner).toHaveAttribute('aria-labelledby', label.id);
+    expect(spinner).toHaveClass('spinner--large');
+  });
+
+  it('defaults aria-label to Loading', () => {
+    render(<RdsCompSpinner />);
+    expect(screen.getByRole('status')).toHaveAttribute('aria-label', 'Loading');
+  });
+});

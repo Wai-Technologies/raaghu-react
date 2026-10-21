@@ -15,7 +15,7 @@ const meta: Meta = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
-    colorVariant: {
+    color: {
       options: [
         "primary",
         "secondary",
@@ -48,7 +48,7 @@ type Story = StoryObj<typeof RdsCompTimePicker>;
 
 export const Default: Story = {
   args: {
-    colorVariant: "primary",
+    color: "primary",
     style: "default",
     state: "default",
   },

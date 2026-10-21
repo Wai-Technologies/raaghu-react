@@ -1,3 +1,5 @@
+import type { ReactNode, SyntheticEvent } from "react";
+
 export enum ToastLayout {
   Text = "text",
   Download = "download",
@@ -29,25 +31,46 @@ export enum ToastPosition {
   BottomRight = "bottomRight",
 }
 
+export type ToastCloseReason = "timeout" | "closeClick";
+
 export interface RdsCompToastProps {
+  /** Toast title. */
+  title?: string;
+  /** Toast body text. */
+  message?: string;
+  /** @deprecated Use `title` instead. */
   headerText?: string;
-  subText: string;
+  /** @deprecated Use `message` instead. */
+  subText?: string;
+  /** @deprecated Use `autoHideDuration` instead. */
   delay?: number;
+  /** @deprecated Use `autoHideDuration` instead. */
   autohide?: boolean;
+  /** Auto-hide delay in ms; `null` keeps the toast open. Wins over `delay`/`autohide`. */
+  autoHideDuration?: number | null;
+  /** Controlled visibility. When undefined the toast hides itself. */
+  open?: boolean;
+  /** Called when the toast hides itself (timeout or close button). */
+  onClose?: (event: Event | SyntheticEvent | null, reason: ToastCloseReason) => void;
+  /** Replaces the layout's built-in action buttons. */
+  action?: ReactNode;
   chrome?: {
     header?: "visible" | "hidden";
     leading?: "visible" | "hidden";
     dismiss?: "visible" | "hidden";
     subText?: "visible" | "hidden";
   };
-  layout: ToastLayout;
-  state: ToastState;
+  layout: ToastLayout | `${ToastLayout}`;
+  state: ToastState | `${ToastState}`;
   placeholder?: string;
   progressWidth?: number;
   filename?: string;
-  position?: ToastPosition;
-  leadingIcon: ToastLeadingIcon;
+  position?: ToastPosition | `${ToastPosition}`;
+  leadingIcon?: ToastLeadingIcon | `${ToastLeadingIcon}`;
   chatTime?: string;
   pauseOnHover?: boolean;
-  [key: string]: unknown;
+  showHeader?: boolean;
+  showLeading?: boolean;
+  showDismiss?: boolean;
+  showSubText?: boolean;
 }

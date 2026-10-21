@@ -25,7 +25,7 @@ const meta: Meta = {
       control: { type: 'select' },
       description: 'Choose between "default" (full text) or "hover" (truncated text with hover to expand).',
     },
-    text: {
+    children: {
       control: 'text',
       description: 'The content of the text that will be truncated or displayed fully based on the component state.',
     },
@@ -42,7 +42,7 @@ type Story = StoryObj<typeof RdsCompTruncatedText>;
 export const Default: Story = {
   args: {
     state: TruncateTextState.Hover,
-    text: 'This is a sample text',
+    children: 'This is a sample text',
     maxLength: 16,
   },
   play: async ({ canvas }) => {
@@ -52,6 +52,6 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['state', 'text', 'maxLength'] },
+  controls: { include: ['state', 'children', 'maxLength'] },
 };
 

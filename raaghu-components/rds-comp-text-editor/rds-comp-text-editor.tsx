@@ -1,14 +1,16 @@
-import { Suspense, lazy, useCallback, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useId, useMemo, useRef, useState } from "react";
+import type { ComponentType } from "react";
 import clsx from 'clsx';
 import { InputLabel as Label } from "@mui/material";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 const Editor = lazy(() =>
     import("react-draft-wysiwyg").then((m) => ({ default: m.Editor }))
-) as React.ComponentType<any>;
+) as ComponentType<any>;
 import "./rds-comp-text-editor.scss";
 
 export interface RdsCompTextEditorProps {
@@ -18,7 +20,11 @@ export interface RdsCompTextEditorProps {
     readOnly?: boolean;
     value?: string;
     label?: string;
+    /** @deprecated Use `required` instead. */
     isMandatory?: boolean;
+    required?: boolean;
+    error?: boolean;
+    disabled?: boolean;
     labelClass?: string;
     State?: string;
     showTitle?: boolean;
@@ -26,15 +32,9 @@ export interface RdsCompTextEditorProps {
     resizable?: boolean;
 }
 
-interface DraftContentState {
-    getPlainText(): string;
-}
+type DraftEditorState = ReturnType<typeof EditorState.createEmpty>;
 
-interface DraftEditorStateInstance {
-    getCurrentContent(): DraftContentState;
-}
-
-const createEditorStateFromValue = (value?: string, showTitle?: boolean) => {
+const createEditorStateFromValue = (value?: string, showTitle?: boolean): DraftEditorState => {
     if (value) {
         const contentBlock = htmlToDraft(value);
         if (contentBlock) {
@@ -56,24 +56,39 @@ const RdsCompTextEditor = ({
     value,
     label,
     isMandatory,
+    required,
+    error,
+    disabled,
     labelClass,
     State,
     showTitle,
     rows,
     resizable,
 }: RdsCompTextEditorProps) => {
-    const [editorState, setEditorState] = useState(() =>
-        createEditorStateFromValue('', false)
+    if (isMandatory !== undefined) warnDeprecatedProp('RdsCompTextEditor', 'isMandatory', '`required`');
+    const isRequired = required ?? isMandatory;
+    const isError = error ?? State === "Error";
+    const isDisabled = disabled ?? State === "Disabled";
+    const uid = useId();
+    const labelId = `${uid}-label`;
+    const errorId = `${uid}-error`;
+
+    const [editorState, setEditorState] = useState<DraftEditorState>(() =>
+        createEditorStateFromValue(value, false)
     );
-    const prevValueRef = useRef(value);
-    const prevShowTitleRef = useRef(showTitle);
-    if (value !== prevValueRef.current || showTitle !== prevShowTitleRef.current) {
-        prevValueRef.current = value;
-        prevShowTitleRef.current = showTitle;
-        setEditorState(createEditorStateFromValue(value, showTitle));
+    const [prevValue, setPrevValue] = useState(value);
+    const [prevShowTitle, setPrevShowTitle] = useState(showTitle);
+    const [lastEmitted, setLastEmitted] = useState<string | undefined>(undefined);
+    if (value !== prevValue || showTitle !== prevShowTitle) {
+        setPrevValue(value);
+        setPrevShowTitle(showTitle);
+        if (value !== lastEmitted || showTitle !== prevShowTitle) {
+            setLastEmitted(undefined);
+            setEditorState(createEditorStateFromValue(value, showTitle));
+        }
     }
     const [isTouch, setIsTouch] = useState(false);
-    const editorRef = useRef<any>(null);
+    const editorRef = useRef<unknown>(null);
 
     const computedRows = typeof rows === "number" && rows > 0 ? rows : 6;
     const lineHeightVar = "var(--rds-line-height-body, 26px)";
@@ -104,18 +119,19 @@ const RdsCompTextEditor = ({
                         reader.readAsDataURL(file);
                     }),
                 previewImage: true,
-                inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
+                inputAccept: "image/gif,image/jpeg,image/jpg,image/png",
                 alt: { present: true, mandatory: false },
             },
         }),
         [],
     );
 
-    const handleEditorChange = useCallback((state: any) => {
+    const handleEditorChange = useCallback((state: DraftEditorState) => {
         setEditorState(state);
         setIsTouch(true);
         if (onChange) {
             const htmlContent = draftToHtml(convertToRaw(state.getCurrentContent()));
+            setLastEmitted(htmlContent);
             onChange(htmlContent, { ops: [{ insert: htmlContent }] }, "user", editorRef.current);
         }
     }, [onChange]);
@@ -124,27 +140,31 @@ const RdsCompTextEditor = ({
 
     const stateClass = clsx(
         State === "Selected" && "rds-comp-text-editor--selected",
-        State === "Error" && "rds-comp-text-editor--error",
+        isError && "rds-comp-text-editor--error",
         State === "Active" && "rds-comp-text-editor--active",
-        State === "Disabled" && "rds-comp-text-editor--disabled",
+        isDisabled && "rds-comp-text-editor--disabled",
         isResizable && "rds-comp-text-editor--resizable"
     );
 
     return (
         <>
             {showTitle && label && (
-                <Label className={clsx("rds-comp-text-editor-label", labelClass)}>
+                <Label id={labelId} className={clsx("rds-comp-text-editor-label", labelClass)}>
                     {label}
-                    {isMandatory && <span className="text-danger">*</span>}
+                    {isRequired && <span className="text-danger">*</span>}
                 </Label>
             )}
-            <div id={id} className={clsx("rds-comp-text-editor", stateClass)}>
+            <div
+                id={id}
+                className={clsx("rds-comp-text-editor", stateClass)}
+                {...(showTitle && label ? { role: "group", "aria-labelledby": labelId } : {})}
+            >
                 <Suspense fallback={<div className="rds-comp-text-editor__loading" />}>
                     <Editor
-                        key={placeholder}
                         editorState={editorState}
                         onEditorStateChange={handleEditorChange}
-                        readOnly={readOnly || State === "Disabled"}
+                        readOnly={readOnly || isDisabled}
+                        ariaDescribedBy={isRequired && isEmpty && isTouch ? errorId : undefined}
                         placeholder={placeholder}
                         ref={editorRef}
                         toolbarClassName="rds-comp-text-editor__toolbar"
@@ -155,8 +175,8 @@ const RdsCompTextEditor = ({
                     />
                 </Suspense>
             </div>
-            {isMandatory && isEmpty && isTouch && (
-                <div className="form-control-feedback">
+            {isRequired && isEmpty && isTouch && (
+                <div className="form-control-feedback" id={errorId} role="alert">
                     <span className="text-danger">{label} is required</span>
                 </div>
             )}

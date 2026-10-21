@@ -661,3 +661,40 @@ describe('RdsCompTruncateText', () => {
     });
   });
 });
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
+describe('audit fixes', () => {
+  it('accepts children and has no aria-label', () => {
+    const { container } = render(<RdsCompTruncateText>Hello world</RdsCompTruncateText>);
+    expect(screen.getByText('Hello world')).toBeInTheDocument();
+    expect(container.querySelector('.rds-comp-truncate-text')).not.toHaveAttribute('aria-label');
+  });
+
+  it('is focusable when truncated and shows tooltip on focus', () => {
+    const { container } = render(
+      <RdsCompTruncateText maxLength={4} state={TruncateTextState.Hover}>
+        This is long
+      </RdsCompTruncateText>
+    );
+    const el = container.querySelector('.rds-comp-truncate-text') as HTMLElement;
+    expect(el).toHaveAttribute('tabindex', '0');
+    fireEvent.focus(el);
+    expect(screen.getByTestId('rds-tooltip')).toBeInTheDocument();
+  });
+
+  it('showTooltip overrides state', () => {
+    const { container } = render(
+      <RdsCompTruncateText showTooltip maxLength={4}>
+        This is long
+      </RdsCompTruncateText>
+    );
+    fireEvent.mouseEnter(container.querySelector('.rds-comp-truncate-text')!);
+    expect(screen.getByTestId('rds-tooltip')).toBeInTheDocument();
+  });
+
+  it('applies inline line clamp when lines > 5', () => {
+    render(<RdsCompTruncateText lines={8}>abc</RdsCompTruncateText>);
+    expect(screen.getByText('abc')).toHaveStyle({ overflow: 'hidden' });
+  });
+});

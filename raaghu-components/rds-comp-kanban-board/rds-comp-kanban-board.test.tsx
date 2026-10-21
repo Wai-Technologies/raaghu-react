@@ -2,8 +2,11 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
-import { boardInfo, RdsCompKanbanBoardProps } from './kanban-board-helpers';
+import { boardInfo, RdsCompKanbanBoardProps, colorClass } from './kanban-board-helpers';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { axe } from 'jest-axe';
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock SCSS
 jest.mock('./rds-comp-kanban-board.scss', () => ({}));
@@ -921,5 +924,99 @@ describe('RdsCompKanbanBoard', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('audit fixes', () => {
+  const base: RdsCompKanbanBoardProps = { boardData: mockBoardData, allowAddingNewCard: false, allowAddingNewSubCard: false };
+  const openBoardMenu = (i: number) => {
+    const headers = document.querySelectorAll('.kanban-board__header-button');
+    fireEvent.click(headers[i]);
+  };
+  const clickMenuItem = (text: string) => {
+    fireEvent.click(screen.getAllByTestId('menu-item').find((el) => el.textContent?.includes(text))!);
+  };
+
+  it('G5-115: renders the sub-card displayId, badge and description when present', () => {
+    const boardData = [{ ...mockBoardData[1], subCards: [{ ...mockBoardData[0].subCards[0], displayId: 'T-9', badge: 'Urgent', description: 'Real body' }] }];
+    render(<RdsCompKanbanBoard {...base} boardData={boardData} />);
+    expect(screen.getByText('T-9')).toBeInTheDocument();
+    expect(screen.getByTestId('rds-badge')).toHaveTextContent('Urgent');
+    expect(screen.getByText(/Real body/)).toBeInTheDocument();
+    expect(screen.queryByText('RDS110110')).not.toBeInTheDocument();
+  });
+
+  it('G5-116: renders the board name as given', () => {
+    render(<RdsCompKanbanBoard {...base} />);
+    expect(document.querySelectorAll('.card-name')[0]).toHaveTextContent('Board 1');
+  });
+
+  it('G5-117/G5-122: onBoardDataChange gets the new boards, new board appended last', () => {
+    const onBoardDataChange = jest.fn();
+    render(<RdsCompKanbanBoard {...base} allowAddingNewCard onBoardDataChange={onBoardDataChange} />);
+    fireEvent.change(screen.getByPlaceholderText('Enter Board Title'), { target: { value: 'New' } });
+    fireEvent.click(screen.getAllByTestId('button').find((b) => b.textContent?.includes('Add Board'))!);
+    const boards = onBoardDataChange.mock.calls[0][0];
+    expect(boards.map((b: boardInfo) => b.name)).toEqual(['Board 1', 'Board 2', 'New']);
+  });
+
+  it('G5-117: onBoardDataChange fires on board delete', () => {
+    const onBoardDataChange = jest.fn();
+    render(<RdsCompKanbanBoard {...base} onBoardDataChange={onBoardDataChange} />);
+    openBoardMenu(0);
+    clickMenuItem('Delete Board');
+    expect(onBoardDataChange).toHaveBeenCalledWith([mockBoardData[1]]);
+  });
+
+  it('G5-123/G5-126: Add Item disabled until a title, ticketId not taken from description', () => {
+    const onBoardDataChange = jest.fn();
+    const onAddQuestionSaveHandler = jest.fn();
+    render(<RdsCompKanbanBoard {...base} boardData={[mockBoardData[1]]} allowAddingNewSubCard allCategoriesList={[{ label: 'Cat', val: 'c1' }]} onBoardDataChange={onBoardDataChange} onAddQuestionSaveHandler={onAddQuestionSaveHandler} />);
+    fireEvent.click(screen.getByText('Add Item'));
+    const addBtn = () => screen.getAllByTestId('button').find((b) => b.textContent?.includes('Add Item'))!;
+    expect(addBtn()).toBeDisabled();
+    fireEvent.change(screen.getByPlaceholderText('Enter Title'), { target: { value: 'Title' } });
+    fireEvent.change(screen.getByPlaceholderText('Enter Description'), { target: { value: 'Desc' } });
+    expect(addBtn()).not.toBeDisabled();
+    fireEvent.click(addBtn());
+    const sub = onBoardDataChange.mock.calls[0][0][0].subCards[0];
+    expect(sub.ticketId).not.toBe('Desc');
+    expect(sub.description).toBe('Desc');
+    expect(onAddQuestionSaveHandler).toHaveBeenCalledWith({ title: 'Title', description: 'Desc' });
+  });
+
+  it('G5-124: deleting a board keeps the edit state on the right board', () => {
+    render(<RdsCompKanbanBoard {...base} />);
+    openBoardMenu(1);
+    clickMenuItem('Edit');
+    expect(screen.getByDisplayValue('Board 2')).toBeInTheDocument();
+    openBoardMenu(0);
+    clickMenuItem('Delete Board');
+    expect(screen.getByDisplayValue('Board 2')).toBeInTheDocument();
+  });
+
+  it('G5-125: onSubCardOption receives the sub-card index', () => {
+    const onSubCardOption = jest.fn();
+    render(<RdsCompKanbanBoard {...base} onSubCardOption={onSubCardOption} />);
+    fireEvent.click(document.querySelectorAll('.rds-kanban-board__subcard-dropdown-button')[1]);
+    clickMenuItem('Edit');
+    expect(onSubCardOption).toHaveBeenCalledWith('edit', 1, 2);
+  });
+
+  it('G5-129: warns for props that have no effect', () => {
+    render(<RdsCompKanbanBoard {...base} noDataTitle="x" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompKanbanBoard', 'noDataTitle', 'nothing (it has no effect)');
+  });
+
+  it('G5-137: forwards className, ref and rest to the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RdsCompKanbanBoard {...base} ref={ref} className="extra" data-foo="bar" />);
+    expect(ref.current).toHaveClass('rds-kanban-board-container', 'extra');
+    expect(ref.current).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('G5-139: colorClass has no stray spaces', () => {
+    expect(colorClass('')).toBe('kanban-primary');
+    expect(colorClass('success')).toBe('kanban-success');
   });
 });

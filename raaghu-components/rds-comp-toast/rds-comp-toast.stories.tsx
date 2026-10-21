@@ -89,11 +89,11 @@ const meta: Meta<typeof RdsCompToast> = {
             },
             description: "Position of the toast on screen"
         },
-        headerText: {
+        title: {
             control: "text",
             description: "Header text of the toast"
         },
-        subText: {
+        message: {
             control: "text", 
             description: "Subtitle or body text of the toast"
         },
@@ -122,9 +122,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         state: ToastState.Basic,
-        headerText: "Toast Headline",
+        title: "Toast Headline",
         showSubText: true,
-        subText: "This is a big sample placeholder text.",
+        message: "This is a big sample placeholder text.",
         showHeader: true,
         showLeading: true,
         leadingIcon: ToastLeadingIcon.Circle,

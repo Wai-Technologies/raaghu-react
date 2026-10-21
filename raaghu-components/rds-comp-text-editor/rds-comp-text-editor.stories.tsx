@@ -34,7 +34,7 @@ export const Default: Story = {
         State: "Default",
         showTitle: true,
         label:"Label",
-        isMandatory: false,
+        required: false,
         rows:6,
         resizable:false,
         placeholder:"Enter Description"
@@ -44,4 +44,4 @@ export const Default: Story = {
         expect(editor).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory','rows','resizable','placeholder'] } };
+Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'required','rows','resizable','placeholder'] } };

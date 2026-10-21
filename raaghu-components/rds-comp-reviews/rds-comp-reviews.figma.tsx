@@ -34,7 +34,7 @@ figma.connect(
     example: (props) => <RdsCompReviews
     {...props}
     variantType={VariantType.Default}
-    itemList={[
+    items={[
     {
       date: new Date('2025-08-21T12:20:52.202Z'),
       description: 'Awesome website and funnel for your business',

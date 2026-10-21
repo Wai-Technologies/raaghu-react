@@ -1,113 +1,178 @@
 import clsx from "clsx";
-import { type ReactNode, useState, useCallback, useMemo } from "react";
+import { type ReactNode, useId, useState } from "react";
 import { Drawer, Box } from "@mui/material";
-import type { DrawerProps } from "@mui/material";
-import { Close } from "@mui/icons-material";
+import type { DrawerProps, SxProps, Theme } from "@mui/material";
+import Close from "@mui/icons-material/Close";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-off-canvas.scss";
 export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
 import { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas-types';
+
+export type RdsCompOffcanvasCloseReason =
+  | NonNullable<Parameters<NonNullable<DrawerProps["onClose"]>>[1]>
+  | "closeButton";
+
 export interface RdsCompOffcanvasProps {
-  placement: RdsOffcanvasPlacement;
-  backDrop: RdsOffcanvasBackDrop;
+  placement?: RdsOffcanvasPlacement | `${RdsOffcanvasPlacement}`;
+  /** MUI anchor. Wins over `placement`. */
+  anchor?: DrawerProps["anchor"];
+  backDrop?: RdsOffcanvasBackDrop | `${RdsOffcanvasBackDrop}`;
+  /** Hides the backdrop. Wins over `backDrop`. */
+  hideBackdrop?: boolean;
   scrolling?: boolean;
+  /** @deprecated Use `disableEscapeKeyDown` instead. */
   preventEscapeKey?: boolean;
-  offId: string;
-  canvasTitle: string;
+  /** Disables closing with the Escape key. Wins over `preventEscapeKey`. */
+  disableEscapeKeyDown?: boolean;
+  /** @deprecated Use `id` instead. */
+  offId?: string;
+  id?: string;
+  /** @deprecated Use `title` instead. */
+  canvasTitle?: string;
+  title?: string;
+  /** @deprecated Use `width` instead. */
   offcanvaswidth?: number;
+  /** Width of the drawer panel; applied only when provided. */
+  width?: number | string;
+  /** Controlled open state. When defined the built-in trigger button is not rendered. */
+  open?: boolean;
   onShow?: () => void;
-  onClose?: () => void;
-  children?: ReactNode;
+  onClose?: (event?: unknown, reason?: RdsCompOffcanvasCloseReason) => void;
+  onOpen?: (data: boolean) => void;
+  /** @deprecated Use `onOpen` instead. */
   onclick?: (data: boolean) => void;
+  children?: ReactNode;
   className?: string;
+  /** Replaces the default footer buttons. */
+  actions?: ReactNode;
+  onSave?: () => void;
+  onRestoreDefault?: () => void;
+  slotProps?: DrawerProps["slotProps"];
   showPrimaryButton?: boolean;
   showSecondaryButton?: boolean;
   showTertiaryButton?: boolean;
 }
+
+type PaperProps = { sx?: SxProps<Theme>; [key: string]: unknown };
+
 const RdsCompOffcanvas = ({
   placement = RdsOffcanvasPlacement.End,
+  anchor,
   backDrop = RdsOffcanvasBackDrop.True,
+  hideBackdrop,
   scrolling = false,
   preventEscapeKey = true,
+  disableEscapeKeyDown,
   offId,
+  id,
   canvasTitle,
-  offcanvaswidth = 650,
+  title,
+  offcanvaswidth,
+  width,
+  open,
   onShow,
   onClose,
+  onOpen,
   children,
   onclick,
   className,
+  actions,
+  onSave,
+  onRestoreDefault,
+  slotProps,
   showPrimaryButton = false,
   showSecondaryButton = false,
   showTertiaryButton = false,
-}) => {
+}: RdsCompOffcanvasProps) => {
+  if (offId !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "offId", "`id`");
+  if (canvasTitle !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "canvasTitle", "`title`");
+  if (offcanvaswidth !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "offcanvaswidth", "`width`");
+  if (onclick !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "onclick", "`onOpen`");
+  if (preventEscapeKey !== true) warnDeprecatedProp("RdsCompOffcanvas", "preventEscapeKey", "`disableEscapeKeyDown`");
+
+  const uid = useId();
+  const titleId = `${uid}-title`;
+  const closeWrapId = `${uid}-close-btn`;
+  const footerId = `${uid}-btns`;
+  const isControlled = open !== undefined;
   const [internalOpen, setInternalOpen] = useState(false);
-  const drawerOpen = internalOpen;
-  const handleOpen = useCallback(() => {
-    if (onclick) onclick(true);
-    setInternalOpen(true);
+  const drawerOpen = isControlled ? open : internalOpen;
+  const resolvedTitle = title ?? canvasTitle;
+  const resolvedId = id ?? offId;
+  const resolvedWidth = width ?? offcanvaswidth;
+  const openHandler = onOpen ?? onclick;
+
+  const handleOpen = () => {
+    if (openHandler) openHandler(true);
+    if (!isControlled) setInternalOpen(true);
     if (onShow) onShow();
-  }, [onclick, onShow]);
-  const handleClose = useCallback(() => {
-    if (onClose) onClose();
-    setInternalOpen(false);
-  }, [onClose]);
-  const handleDrawerClose: DrawerProps["onClose"] = (_, reason) => {
+  };
+  const handleClose = (event?: unknown, reason: RdsCompOffcanvasCloseReason = "closeButton") => {
+    if (onClose) onClose(event, reason);
+    if (!isControlled) setInternalOpen(false);
+  };
+  const handleDrawerClose: DrawerProps["onClose"] = (event, reason) => {
     if (backDrop === RdsOffcanvasBackDrop.Static && reason === "backdropClick") {
       return;
     }
-    handleClose();
+    handleClose(event, reason);
   };
-  const getAnchor = useCallback(() => {
-    switch (placement) {
-      case RdsOffcanvasPlacement.Start:
-        return "left";
-      case RdsOffcanvasPlacement.End:
-        return "right";
-      case RdsOffcanvasPlacement.Top:
-        return "top";
-      case RdsOffcanvasPlacement.Bottom:
-        return "bottom";
-      default:
-        return "right";
-    }
-  }, [placement]);
-  const isCanvasTitle = useMemo(() => canvasTitle !== "" && canvasTitle !== undefined, [canvasTitle]);
-  const getBackdropProps = useCallback(() => {
-    if (backDrop === RdsOffcanvasBackDrop.False) {
-      return { hideBackdrop: true };
-    }
-    if (backDrop === RdsOffcanvasBackDrop.Static) {
+  const handleSave = (event?: unknown) => {
+    if (onSave) onSave();
+    handleClose(event, "closeButton");
+  };
+
+  const isCanvasTitle = resolvedTitle !== "" && resolvedTitle !== undefined;
+  const resolvedHideBackdrop = hideBackdrop ?? backDrop === RdsOffcanvasBackDrop.False;
+  const resolvedDisableEscape =
+    disableEscapeKeyDown ?? (backDrop === RdsOffcanvasBackDrop.Static ? true : !preventEscapeKey);
+
+  const paperSlot = slotProps?.paper;
+  const mergedSlotProps = {
+    ...slotProps,
+    paper: (ownerState: unknown) => {
+      const consumer = (
+        typeof paperSlot === "function" ? (paperSlot as (o: unknown) => object)(ownerState) : paperSlot
+      ) as PaperProps | undefined;
+      const sx = consumer?.sx;
       return {
-        disableEscapeKeyDown: true,
+        ...consumer,
+        ...(isCanvasTitle ? { "aria-labelledby": titleId } : {}),
+        ...(resolvedWidth !== undefined
+          ? { sx: [{ width: resolvedWidth }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])] }
+          : {}),
       };
-    }
-    return {};
-  }, [backDrop]);
+    },
+  } as DrawerProps["slotProps"];
+
   return (
     <>
       <div className="offcanvas-text">
+        {!isControlled && (
           <div className="offcanvas_btn">
             <RdsButton text="Open Off Canvas" style="filled" size="medium" onClick={handleOpen}/>
-          </div>        
+          </div>
+        )}
         <Drawer
-          anchor={getAnchor()}
+          anchor={(anchor ?? placement) as DrawerProps["anchor"]}
           open={drawerOpen}
           onClose={handleDrawerClose}
-          disableEscapeKeyDown={!preventEscapeKey}
-          {...getBackdropProps()}
+          disableEscapeKeyDown={resolvedDisableEscape}
+          hideBackdrop={resolvedHideBackdrop}
+          slotProps={mergedSlotProps}
           className={clsx("offcanvas-drawer", `placement-${placement}`)}
-          id={offId}>
+          id={resolvedId}>
           <Box className={clsx("offcanvas-container", scrolling && "scrolling")}>
             <Box className={clsx("offcanvas-header", !isCanvasTitle && "no-title")}>
               {isCanvasTitle ? (
                 <div className="offcanvas-title-wrap">
-                  <span className="offcanvas-title text-uppercase">{canvasTitle}</span>
+                  <span id={titleId} className="offcanvas-title text-uppercase">{resolvedTitle}</span>
                 </div>
               ) : null}
-              <div className="offcanvas-close-wrap" id="close-btn">
-                <RdsIconButton onClick={handleClose} tooltip={"Close"} className="offcanvas-close-button">
+              <div className="offcanvas-close-wrap" id={closeWrapId}>
+                <RdsIconButton onClick={handleClose} tooltip={"Close"} aria-label="Close" className="offcanvas-close-button">
                   <Close />
                 </RdsIconButton>
               </div>
@@ -116,23 +181,27 @@ const RdsCompOffcanvas = ({
               <div className="d-flex flex-column h-100">
                 {children}
               </div>
-              {(showPrimaryButton || showSecondaryButton || showTertiaryButton) && (
-                <Box className="d-flex justify-content-start mt-auto offcanvas-margin offcanvas-footer" id="offcanvas-btns">
-                  <Box className="tertiary-button-container">
-                    {showTertiaryButton && (
-                      <RdsButton text="RESTORE TO DEFAULT" style="transparent" size="medium" className="offcanvas-action-btn" />
-                    )}
-                  </Box>
-                  <Box className="secondary-button-container">
-                    {showSecondaryButton && (
-                      <RdsButton text="CANCEL" style="outlined" size="medium"  onClick={handleClose} className="offcanvas-cancel-btn"/>
-                    )}
-                  </Box>
-                  <Box className="primary-button-container">
-                    {showPrimaryButton && (
-                      <RdsButton text="SAVE" style="filled" size="medium" onClick={handleClose} className="offcanvas-action-btn" />
-                    )}
-                  </Box>
+              {(actions || showPrimaryButton || showSecondaryButton || showTertiaryButton) && (
+                <Box className="d-flex justify-content-start mt-auto offcanvas-margin offcanvas-footer" id={footerId}>
+                  {actions ? actions : (
+                    <>
+                      <Box className="tertiary-button-container">
+                        {showTertiaryButton && (
+                          <RdsButton text="RESTORE TO DEFAULT" style="transparent" size="medium" className="offcanvas-action-btn" onClick={onRestoreDefault} />
+                        )}
+                      </Box>
+                      <Box className="secondary-button-container">
+                        {showSecondaryButton && (
+                          <RdsButton text="CANCEL" style="outlined" size="medium" onClick={handleClose} className="offcanvas-cancel-btn"/>
+                        )}
+                      </Box>
+                      <Box className="primary-button-container">
+                        {showPrimaryButton && (
+                          <RdsButton text="SAVE" style="filled" size="medium" onClick={handleSave} className="offcanvas-action-btn" />
+                        )}
+                      </Box>
+                    </>
+                  )}
                 </Box>
               )}
             </Box>

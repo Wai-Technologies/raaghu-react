@@ -21,7 +21,7 @@ figma.connect(
       }),
     },
     example: (props) => <RdsCompTruncateText 
-    text={"This is a sample text"} 
+    children={"This is a sample text"} 
     maxLength={16} 
     state={props.state} />,
   },

@@ -59,23 +59,6 @@ body.dark .rds-comp-empty-state__icon--minimal {
     }
   }
 
-  &--minimal-animated {
-    .rds-comp-empty-state__title {
-      animation: rds-empty-state-content-rise 0.65s ease-out both;
-      animation-delay: 0.15s;
-    }
-
-    .rds-comp-empty-state__subtitle {
-      animation: rds-empty-state-content-rise 0.65s ease-out both;
-      animation-delay: 0.3s;
-    }
-
-    .rds-comp-empty-state__action {
-      animation: rds-empty-state-content-rise 0.65s ease-out both;
-      animation-delay: 0.45s;
-    }
-  }
-
   &__icon {
     display: flex;
     align-items: center;
@@ -87,10 +70,6 @@ body.dark .rds-comp-empty-state__icon--minimal {
 
     &--minimal {
       color: var(--rds-text-secondary);
-    }
-
-    &--minimal-animated {
-      overflow: visible;
     }
 
     img,
@@ -106,11 +85,9 @@ body.dark .rds-comp-empty-state__icon--minimal {
       box-sizing: border-box !important;
     }
 
-    &--animated,
-    &--minimal-animated {
+    &--animated {
       position: relative;
 
-      .rds-comp-empty-state__minimal-lottie-shell,
       & > div {
         width: 100% !important;
         height: 100% !important;
@@ -119,7 +96,6 @@ body.dark .rds-comp-empty-state__icon--minimal {
         display: block !important;
       }
 
-      .rds-comp-empty-state__minimal-lottie-shell > div svg,
       & > div svg {
         width: 100% !important;
         height: 100% !important;
@@ -127,25 +103,6 @@ body.dark .rds-comp-empty-state__icon--minimal {
         max-height: 100% !important;
         display: block !important;
       }
-    }
-  }
-
-  &__minimal-lottie-shell {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    clip-path: circle(46% at 50% 46%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    > div {
-      width: 128% !important;
-      height: 128% !important;
-      max-width: none !important;
-      max-height: none !important;
-      flex-shrink: 0;
     }
   }
 
@@ -259,14 +216,6 @@ body.dark .rds-comp-empty-state__icon--minimal {
 
 @media (prefers-reduced-motion: reduce) {
   .rds-comp-empty-state {
-    &--minimal-animated {
-      .rds-comp-empty-state__title,
-      .rds-comp-empty-state__subtitle,
-      .rds-comp-empty-state__action {
-        animation: none !important;
-      }
-    }
-
     &__button {
       transition: none !important;
 

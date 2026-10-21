@@ -10,10 +10,13 @@ import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-off-canvas.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock MUI components
 jest.mock('@mui/material', () => ({
-  Drawer: ({ children, anchor, open, onClose, className, id, ...props }: any) => (
+  Drawer: ({ children, anchor, open, onClose, className, id, slotProps, ...props }: any) => {
+    (globalThis as any).__drawerProps = { anchor, open, onClose, slotProps, ...props };
+    return (
     open ? (
       <div
         data-testid="drawer"
@@ -26,7 +29,8 @@ jest.mock('@mui/material', () => ({
         {children}
       </div>
     ) : null
-  ),
+    );
+  },
   Box: ({ children, className, id, ...props }: any) => (
     <div data-testid="box" className={className} id={id} {...props}>{children}</div>
   ),
@@ -951,6 +955,81 @@ describe('RdsCompOffcanvas', () => {
       const { container } = render(<RdsCompOffcanvas {...offcanvasProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('audit fixes', () => {
+    const lastDrawer = () => (globalThis as any).__drawerProps;
+    const paper = () => lastDrawer().slotProps.paper({});
+
+    it('G6-042 controlled open hides trigger and passes event/reason to onClose', () => {
+      const onClose = jest.fn();
+      render(<RdsCompOffcanvas {...defaultProps} open onClose={onClose} />);
+      expect(screen.queryByTestId('rds-button-open-off-canvas')).not.toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('rds-icon-button'));
+      expect(onClose).toHaveBeenCalledWith(expect.anything(), 'closeButton');
+      expect(screen.getByTestId('drawer')).toBeInTheDocument();
+    });
+
+    it('G6-044 width applied only when provided', () => {
+      const { unmount } = render(<RdsCompOffcanvas {...defaultProps} />);
+      expect(paper().sx).toBeUndefined();
+      unmount();
+      render(<RdsCompOffcanvas {...defaultProps} open width={400} />);
+      expect(paper().sx[0]).toEqual({ width: 400 });
+    });
+
+    it('G6-045 disableEscapeKeyDown wins over preventEscapeKey', () => {
+      render(<RdsCompOffcanvas {...defaultProps} open preventEscapeKey={true} disableEscapeKeyDown={false} />);
+      expect(lastDrawer().disableEscapeKeyDown).toBe(false);
+    });
+
+    it('G6-046 actions replace footer; onSave and onRestoreDefault are called', () => {
+      const onSave = jest.fn();
+      const onRestoreDefault = jest.fn();
+      const onClose = jest.fn();
+      const { unmount } = render(
+        <RdsCompOffcanvas {...defaultProps} open showPrimaryButton showTertiaryButton onSave={onSave} onRestoreDefault={onRestoreDefault} onClose={onClose} />
+      );
+      fireEvent.click(screen.getByTestId('rds-button-save'));
+      fireEvent.click(screen.getByTestId('rds-button-restore-to-default'));
+      expect(onSave).toHaveBeenCalled();
+      expect(onClose).toHaveBeenCalled();
+      expect(onRestoreDefault).toHaveBeenCalled();
+      unmount();
+      render(<RdsCompOffcanvas {...defaultProps} open showPrimaryButton actions={<span>custom</span>} />);
+      expect(screen.getByText('custom')).toBeInTheDocument();
+      expect(screen.queryByTestId('rds-button-save')).not.toBeInTheDocument();
+    });
+
+    it('G6-047 ids are generated', () => {
+      const { container } = render(<RdsCompOffcanvas {...defaultProps} open showPrimaryButton />);
+      expect(container.querySelector('#close-btn')).toBeNull();
+      expect(container.querySelector('#offcanvas-btns')).toBeNull();
+    });
+
+    it('G6-048/049 string literals, anchor and hideBackdrop win', () => {
+      render(<RdsCompOffcanvas placement="left" backDrop="false" anchor="bottom" hideBackdrop={false} open />);
+      expect(lastDrawer().anchor).toBe('bottom');
+      expect(lastDrawer().hideBackdrop).toBe(false);
+    });
+
+    it('G6-050 new names work and old ones warn', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      const onOpen = jest.fn();
+      render(<RdsCompOffcanvas title="New" id="new-id" onOpen={onOpen} canvasTitle="Old" />);
+      fireEvent.click(screen.getByTestId('rds-button-open-off-canvas'));
+      expect(onOpen).toHaveBeenCalledWith(true);
+      expect(screen.getByText('New')).toBeInTheDocument();
+      expect(screen.getByTestId('drawer')).toHaveAttribute('id', 'new-id');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompOffcanvas', 'canvasTitle', '`title`');
+    });
+
+    it('G6-052/053 close button labelled and paper labelled by title', () => {
+      render(<RdsCompOffcanvas {...defaultProps} open />);
+      expect(screen.getByTestId('rds-icon-button')).toHaveAttribute('aria-label', 'Close');
+      const titleEl = screen.getByText('Test Offcanvas');
+      expect(paper()['aria-labelledby']).toBe(titleEl.id);
     });
   });
 });

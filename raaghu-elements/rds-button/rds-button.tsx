@@ -152,8 +152,8 @@ const RdsButton = ({
   const renderContent = () => {
     if (isBusy) {
       return <RdsCompSpinner
-        colorVariant="light"
-        labelText={text || (typeof children === 'string' ? children : '') || "Loading"}
+        color="light"
+        label={text || (typeof children === 'string' ? children : '') || "Loading"}
         layout={SpinnerLayout.SpinnerAndLabel}
         showLabel
         size={SpinnerSize.Small}

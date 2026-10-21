@@ -20,28 +20,45 @@ export enum NotificationType {
 }
 
 export interface NotificationItem {
+  id?: string | number;
   userNotificationId?: string | number;
   title: string;
   time?: string;
-  description: string;
+  description?: string;
   image?: string;
   avatar?: string;
   icon?: ReactNode | string;
   status?: string;
   urlTitle?: string;
+  [key: string]: unknown;
 }
 
 export interface RdsCompNotificationProps {
-  notifications: any[];
+  notifications?: NotificationItem[];
   title?: string;
   description?: string;
   defaultImage?: string;
-  layout?: NotificationLayout;
-  style?: NotificationStyle;
-  type?: NotificationType;
+  layout?: NotificationLayout | `${NotificationLayout}`;
+  style?: NotificationStyle | `${NotificationStyle}`;
+  /** MUI-named alias for `type`. */
+  severity?: NotificationType | `${NotificationType}`;
+  /** @deprecated Use `severity` instead. */
+  type?: NotificationType | `${NotificationType}`;
   actions?: "none" | "primary" | "secondary" | "both";
   dismiss?: "visible" | "hidden";
-  onDismiss?: (event: any, notification: any) => void;
-  onAccept?: (event: MouseEvent<HTMLElement>, notification: any) => void;
-  [key: string]: unknown;
+  /** Label of the secondary (dismiss) button. Defaults to "DISMISS". */
+  dismissLabel?: string;
+  /** Label of the primary (accept) button. Defaults to "ACCEPT". */
+  acceptLabel?: string;
+  className?: string;
+  onDismiss?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
+  onAccept?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
+  /** Legacy boolean, still supported. */
+  showButton?: boolean;
+  /** Legacy boolean, still supported. */
+  showPrimaryButton?: boolean;
+  /** Legacy boolean, still supported. */
+  showSecondaryButton?: boolean;
+  /** Legacy boolean, still supported. */
+  showDismiss?: boolean;
 }

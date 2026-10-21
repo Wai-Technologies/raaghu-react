@@ -3,9 +3,13 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompTextEditor, { RdsCompTextEditorProps } from './rds-comp-text-editor';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import * as draft from 'draft-js';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 // Mock SCSS
 jest.mock('./rds-comp-text-editor.scss', () => ({}));
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock draft-js
 jest.mock('draft-js', () => ({
@@ -539,5 +543,49 @@ describe('RdsCompTextEditor', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     }, 15000);
+  });
+
+  describe('audit fixes', () => {
+    it('G6-105 seeds the editor from value on mount', async () => {
+      await renderEditor({ value: '<p>Hi</p>' });
+      expect((draft.ContentState.createFromBlockArray as jest.Mock)).toHaveBeenCalled();
+    });
+
+    it('G6-106 does not rebuild state when value echoes the emitted html', async () => {
+      const { rerender } = await renderEditor({ onChange: jest.fn() });
+      fireEvent.blur(screen.getByTestId('editor-content'));
+      (draft.ContentState.createFromBlockArray as jest.Mock).mockClear();
+      rerender(<RdsCompTextEditor onChange={jest.fn()} value="<p>Converted HTML</p>" />);
+      expect((draft.ContentState.createFromBlockArray as jest.Mock)).not.toHaveBeenCalled();
+      rerender(<RdsCompTextEditor onChange={jest.fn()} value="<p>Other</p>" />);
+      expect((draft.ContentState.createFromBlockArray as jest.Mock)).toHaveBeenCalled();
+    });
+
+    it('G6-110 error/disabled win over State', async () => {
+      await renderEditor({ State: 'Active', error: true, disabled: true });
+      const c = screen.getByTestId('draft-editor').parentElement;
+      expect(c).toHaveClass('rds-comp-text-editor--error', 'rds-comp-text-editor--disabled');
+      expect(screen.getByTestId('editor-content')).toHaveAttribute('data-readonly', 'true');
+    });
+
+    it('G6-111 required shows the asterisk', async () => {
+      await renderEditor({ ...defaultProps, isMandatory: undefined, required: true });
+      expect(screen.getByText('*')).toBeInTheDocument();
+      expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('G6-111 isMandatory warns', async () => {
+      await renderEditor({ ...defaultProps, isMandatory: true });
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompTextEditor', 'isMandatory', '`required`');
+    });
+
+    it('G6-112 wires label and error ids', async () => {
+      await renderEditor({ ...defaultProps, required: true });
+      const group = screen.getByRole('group');
+      expect(group).toHaveAttribute('aria-labelledby');
+      fireEvent.blur(screen.getByTestId('editor-content'));
+      await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Test Label is required'));
+      expect(screen.getByRole('alert')).toHaveAttribute('id');
+    });
   });
 });

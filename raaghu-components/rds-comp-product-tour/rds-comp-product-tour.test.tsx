@@ -6,6 +6,8 @@ import { RdsCompProductTourProps } from './product-tour-helpers';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-comp-product-tour.scss', () => ({}));
 
@@ -891,6 +893,62 @@ describe('RdsCompProductTour', () => {
       const { container } = render(<RdsCompProductTour {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('renders children instead of the mock form inputs and supports badge/imageSrc', () => {
+      const { rerender } = render(
+        <RdsCompProductTour state="Form" formTitle="F" badge="New"><div data-testid="custom-form" /></RdsCompProductTour>
+      );
+      expect(screen.getByTestId('custom-form')).toBeInTheDocument();
+      expect(screen.queryByTestId('rds-autocomplete')).not.toBeInTheDocument();
+      expect(screen.getByTestId('rds-badge')).toHaveAttribute('data-badge-content', 'New');
+      rerender(<RdsCompProductTour state="Form" formTitle="F" badge={null} />);
+      expect(screen.queryByTestId('rds-badge')).not.toBeInTheDocument();
+      rerender(<RdsCompProductTour state="GIF" imageSrc="/x.gif" />);
+      expect(document.querySelector('.rds-comp-product-tour__gif')).toHaveAttribute('src', '/x.gif');
+    });
+
+    it('supports title, dialog role and labelling', () => {
+      render(<RdsCompProductTour state="Image" title="My Title" />);
+      const dialog = screen.getByRole('dialog');
+      expect(screen.getByText('My Title')).toHaveAttribute('id', dialog.getAttribute('aria-labelledby'));
+    });
+
+    it('calls onNext/onBack/onSkip and labels arrows in every state', async () => {
+      const user = userEvent.setup();
+      const onNext = jest.fn(); const onBack = jest.fn(); const onSkip = jest.fn();
+      for (const state of ['Image', 'Carousel', 'GIF', 'Form'] as const) {
+        const { unmount } = render(
+          <RdsCompProductTour state={state} stepsIndicator="1/3" slides={mockSlides} onNext={onNext} onBack={onBack} onSkip={onSkip} />
+        );
+        await user.click(screen.getByRole('button', { name: 'Next' }));
+        await user.click(screen.getByRole('button', { name: 'Previous' }));
+        await user.click(screen.getByText('Skip'));
+        unmount();
+      }
+      expect(onNext).toHaveBeenCalledTimes(4);
+      expect(onBack).toHaveBeenCalledTimes(4);
+      expect(onSkip).toHaveBeenCalledTimes(4);
+    });
+
+    it('makes Skip keyboard operable only with onSkip', async () => {
+      const user = userEvent.setup();
+      const onSkip = jest.fn();
+      const { rerender } = render(<RdsCompProductTour state="Image" stepsIndicator="1/3" />);
+      expect(screen.getByText('Skip')).not.toHaveAttribute('role');
+      rerender(<RdsCompProductTour state="Image" stepsIndicator="1/3" onSkip={onSkip} />);
+      screen.getByRole('button', { name: 'Skip' }).focus();
+      await user.keyboard('{Enter}');
+      await user.keyboard(' ');
+      expect(onSkip).toHaveBeenCalledTimes(2);
+    });
+
+    it('syncs index when stepsIndicator changes', () => {
+      const { rerender } = render(<RdsCompProductTour state="Image" stepsIndicator="1/3" slides={mockSlides} />);
+      rerender(<RdsCompProductTour state="Image" stepsIndicator="3/3" slides={mockSlides} />);
+      expect(screen.getByText('3/3')).toBeInTheDocument();
     });
   });
 });

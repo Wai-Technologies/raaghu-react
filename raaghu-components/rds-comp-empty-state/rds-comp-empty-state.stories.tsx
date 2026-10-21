@@ -39,7 +39,7 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       control: { type: "number" },
       description: "Icon width (px if number). Default 150 for illustration, 72 for minimal",
     },
-    isContinueAnimate: {
+    animated: {
       control: { type: "boolean" },
       if: { arg: "variant", eq: "illustration" },
       description: "Enable full Lottie animation (illustration variant only)",
@@ -63,7 +63,7 @@ export const Default: Story = {
     label: "No Data Available",
     subLabel: "No data available at this moment. Would you like to add new data?",
     buttonText: "Add New Data",
-    isContinueAnimate: false,
+    animated: false,
   },
   play: async ({ canvasElement }) => {
     await expect(canvasElement.firstChild).toBeTruthy();
@@ -74,7 +74,7 @@ export const Animated: Story = {
   args: {
     ...Default.args,
     variant: "illustration",
-    isContinueAnimate: true,
+    animated: true,
   },
   argTypes: {
     variant: {

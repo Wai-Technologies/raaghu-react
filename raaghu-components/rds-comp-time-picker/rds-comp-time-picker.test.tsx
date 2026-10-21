@@ -6,6 +6,7 @@ import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-time-picker.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock MUI Icon
 jest.mock('@mui/icons-material/AccessTime', () => {
@@ -654,6 +655,42 @@ describe('RdsCompTimePicker', () => {
       const { container } = render(<RdsCompTimePicker {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('audit fixes', () => {
+    const open = () => fireEvent.click(screen.getByPlaceholderText('12:00 AM'));
+
+    it('closes on Escape and outside click without onChange; popup is a labelled dialog', () => {
+      const onChange = jest.fn();
+      const onOpen = jest.fn();
+      const onClose = jest.fn();
+      render(<RdsCompTimePicker value="3:30 PM" onChange={onChange} onOpen={onOpen} onClose={onClose} />);
+      open();
+      expect(screen.getByRole('dialog', { name: 'Time picker' })).toBeInTheDocument();
+      expect(onOpen).toHaveBeenCalledTimes(1);
+      fireEvent.keyDown(document, { key: 'Escape' });
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      open();
+      fireEvent.mouseDown(document.body);
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(onClose).toHaveBeenCalledTimes(2);
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('variant wins over style; color wins over colorVariant', () => {
+      const { container } = render(<RdsCompTimePicker style="default" variant="compact" colorVariant="info" color="success" />);
+      open();
+      expect(container.querySelector('.time-picker-compact')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('12:00 AM')).toHaveClass('border-success');
+    });
+
+    it('supports localeText', () => {
+      render(<RdsCompTimePicker localeText={{ now: 'Jetzt', cancel: 'Abbrechen', setTime: 'Setzen', placeholder: 'HH:MM' }} />);
+      fireEvent.click(screen.getByPlaceholderText('HH:MM'));
+      expect(screen.getByText('Jetzt')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Abbrechen' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Setzen' })).toBeInTheDocument();
     });
   });
 });

@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-spinner.scss";
 export { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
 import { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
@@ -40,18 +41,31 @@ const LEVEL_OPACITY: Record<SpinnerLevel, number> = {
 };
 
 const RdsCompSpinner = ({
-  spinnerType = "border",
+  variant,
+  spinnerType,
   width,
   height,
   showLabel = false,
+  label,
   labelText,
-  size,
-  layout,
+  size: sizeProp,
+  layout: layoutProp,
+  color,
   colorVariant,
-  level,
+  level: levelProp,
 }: RdsCompSpinnerProps) => {
-  const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
-  const colorClass = colorVariant ? `text-${colorVariant}` : "";
+  if (spinnerType !== undefined) warnDeprecatedProp("RdsCompSpinner", "spinnerType", "`variant`");
+  if (labelText !== undefined) warnDeprecatedProp("RdsCompSpinner", "labelText", "`label`");
+  if (colorVariant !== undefined) warnDeprecatedProp("RdsCompSpinner", "colorVariant", "`color`");
+  const labelId = useId();
+  const size = sizeProp as SpinnerSize | undefined;
+  const layout = layoutProp as SpinnerLayout | undefined;
+  const level = levelProp as SpinnerLevel | undefined;
+  const resolvedVariant = variant ?? spinnerType ?? "border";
+  const resolvedLabel = label ?? labelText;
+  const resolvedColor = color ?? colorVariant;
+  const spinnerClass = resolvedVariant === "grow" ? "spinner-grow" : "spinner-border";
+  const colorClass = resolvedColor ? `text-${resolvedColor}` : "";
 
   const dimensions = useMemo(() => {
     if (size && SIZE_DIMENSIONS[size]) {
@@ -67,11 +81,13 @@ const RdsCompSpinner = ({
 
   return (
     <div className={clsx("spinner-container", layoutClass)}>
-      {showLabel && <label className={clsx("spinner-label", labelSizeClass)}>{labelText}</label>}
+      {showLabel && <label id={labelId} className={clsx("spinner-label", labelSizeClass)}>{resolvedLabel}</label>}
       <output
         className={combinedClasses}
         style={{ width: dimensions.width, height: dimensions.height, opacity }}
         aria-live="polite"
+        aria-label={resolvedLabel ?? "Loading"}
+        aria-labelledby={showLabel ? labelId : undefined}
       />
     </div>
   );

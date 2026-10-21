@@ -721,3 +721,33 @@ describe('RdsCompVideoPlayer', () => {
     });
   });
 });
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
+describe('audit fixes', () => {
+  const src = 'https://example.com/video.mp4';
+
+  it('supports src and autoPlay, and loop override', async () => {
+    render(<RdsCompVideoPlayer src={src} autoPlay loop={false} />);
+    const player = await screen.findByTestId('react-player');
+    expect(player).toHaveAttribute('data-url', src);
+    expect(player).toHaveAttribute('data-playing', 'true');
+    expect(player).toHaveAttribute('data-loop', 'false');
+  });
+
+  it('makes wrapper inert and shows custom disabled message', () => {
+    const { container } = render(
+      <RdsCompVideoPlayer src={src} disabled disabledMessage="Nope" />
+    );
+    expect(container.querySelector('.rds-comp-video-player__wrapper')).toHaveAttribute('inert');
+    expect(screen.getByText('Nope')).toBeInTheDocument();
+  });
+
+  it('forwards rest/style/ref to root and passes title to config', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RdsCompVideoPlayer src={src} ref={ref} data-testid="root" style={{ margin: 3 }} title="T" />);
+    expect(ref.current).toBe(screen.getByTestId('root'));
+    const player = await screen.findByTestId('react-player');
+    expect(JSON.parse(player.getAttribute('data-config')!).file.attributes.title).toBe('T');
+  });
+});

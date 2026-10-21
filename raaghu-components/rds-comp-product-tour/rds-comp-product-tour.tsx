@@ -1,9 +1,11 @@
-import { useState, useMemo, useCallback, useRef } from 'react';
+import { useState, useMemo, useCallback, useId } from 'react';
+import type { FC } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, Paper } from '@mui/material';
 import RdsCarousel from '../../raaghu-elements/rds-carousel/rds-carousel';
 import RdsBadge from '../../raaghu-elements/rds-badge/rds-badge';
 import RdsFileUploader from '../../raaghu-elements/rds-file-uploader/rds-file-uploader';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import {
     RdsCompProductTourProps,
     parseSteps,
@@ -23,13 +25,20 @@ import './rds-comp-product-tour.scss';
 const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];
 const EMPTY_TAB_TITLES: string[] = [];
 
-const RdsCompProductTour = ({
+const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     state = "Image",
     topLeft = false,
     topRight = false,
     bottomLeft = false,
     bottomRight = false,
     header,
+    title,
+    badge,
+    imageSrc = '/assets/animation.gif',
+    children,
+    onNext,
+    onBack,
+    onSkip,
     description,
     stepsIndicator,
     controls,
@@ -39,11 +48,18 @@ const RdsCompProductTour = ({
     onClose,
     ...legacyProps
 }) => {
-    const legacyShowDismiss = typeof legacyProps['showDismiss'] === 'boolean' ? (legacyProps['showDismiss'] as boolean) : undefined;
-    const legacyShowPrimaryButton = typeof legacyProps['showPrimaryButton'] === 'boolean' ? (legacyProps['showPrimaryButton'] as boolean) : undefined;
-    const legacyShowSecondaryButton = typeof legacyProps['showSecondaryButton'] === 'boolean' ? (legacyProps['showSecondaryButton'] as boolean) : undefined;
-    const legacyShowTertiaryButton = typeof legacyProps['showTertiaryButton'] === 'boolean' ? (legacyProps['showTertiaryButton'] as boolean) : undefined;
-    const legacyShowVisualPlaceholder = typeof legacyProps['showVisualPlaceholder'] === 'boolean' ? (legacyProps['showVisualPlaceholder'] as boolean) : undefined;
+    if (header !== undefined) warnDeprecatedProp('RdsCompProductTour', 'header', '`title`');
+    const resolvedHeader = title ?? header;
+    const headerId = useId();
+    const rootProps = {
+        role: 'dialog' as const,
+        'aria-labelledby': resolvedHeader ? headerId : undefined
+    };
+    const legacyShowDismiss = typeof legacyProps.showDismiss === 'boolean' ? legacyProps.showDismiss : undefined;
+    const legacyShowPrimaryButton = typeof legacyProps.showPrimaryButton === 'boolean' ? legacyProps.showPrimaryButton : undefined;
+    const legacyShowSecondaryButton = typeof legacyProps.showSecondaryButton === 'boolean' ? legacyProps.showSecondaryButton : undefined;
+    const legacyShowTertiaryButton = typeof legacyProps.showTertiaryButton === 'boolean' ? legacyProps.showTertiaryButton : undefined;
+    const legacyShowVisualPlaceholder = typeof legacyProps.showVisualPlaceholder === 'boolean' ? legacyProps.showVisualPlaceholder : undefined;
 
     const showDismiss = controls?.dismiss ? controls.dismiss === 'visible' : (legacyShowDismiss ?? true);
     const showPrimaryButton = controls?.primary ? controls.primary === 'visible' : (legacyShowPrimaryButton ?? true);
@@ -66,12 +82,12 @@ const RdsCompProductTour = ({
         return Math.max(0, Math.min(parsed.numerator - 1, parsed.total - 1));
     });
 
-    const prevStepsIndicatorRef = useRef(stepsIndicator);
-    const prevTotalSlidesRef = useRef(totalSlides);
+    const [prevStepsIndicator, setPrevStepsIndicator] = useState(stepsIndicator);
+    const [prevTotalSlides, setPrevTotalSlides] = useState(totalSlides);
 
-    if (stepsIndicator !== prevStepsIndicatorRef.current || totalSlides !== prevTotalSlidesRef.current) {
-        prevStepsIndicatorRef.current = stepsIndicator;
-        prevTotalSlidesRef.current = totalSlides;
+    if (stepsIndicator !== prevStepsIndicator || totalSlides !== prevTotalSlides) {
+        setPrevStepsIndicator(stepsIndicator);
+        setPrevTotalSlides(totalSlides);
         if (stepsIndicator !== undefined) {
             const parsed = parseSteps(stepsIndicator);
             if (parsed && totalSlides > 0) {
@@ -99,42 +115,30 @@ const RdsCompProductTour = ({
         }
     }, [onClose]);
 
-    const cornerDotsElement = useMemo(
-        () => renderCornerDots(topLeft, topRight, bottomLeft, bottomRight),
-        [topLeft, topRight, bottomLeft, bottomRight]
-    );
-    const closeButtonElement = useMemo(
-        () => renderCloseButton(showDismiss, handleClose),
-        [showDismiss, handleClose]
-    );
-    const infoSectionElement = useMemo(
-        () => renderInfoSection(header, description),
-        [header, description]
-    );
-    const navRowElement = useMemo(
-        () => renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows"),
-        [currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext]
-    );
-    const carouselNavigationElement = useMemo(
-        () => renderCarouselNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext),
-        [currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext]
-    );
-    const gifNavigationElement = useMemo(
-        () => renderGifNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext),
-        [currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext]
-    );
-    const formInputsElement = useMemo(() => renderFormInputs(), []);
-    const formNavigationElement = useMemo(
-        () => renderFormNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext),
-        [currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, goPrev, goNext]
-    );
-    
+    const handleNext = () => {
+        goNext();
+        onNext?.();
+    };
+    const handleBack = () => {
+        goPrev();
+        onBack?.();
+    };
+
+    const cornerDotsElement = renderCornerDots(topLeft, topRight, bottomLeft, bottomRight);
+    const closeButtonElement = renderCloseButton(showDismiss, handleClose);
+    const infoSectionElement = renderInfoSection(resolvedHeader, description, headerId);
+    const navRowElement = renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows", onSkip);
+    const carouselNavigationElement = renderCarouselNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
+    const gifNavigationElement = renderGifNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
+    const formInputsElement = children ?? renderFormInputs();
+    const formNavigationElement = renderFormNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
+
     if (!isVisible) {
         return null;
     }
     if (state === "Image") {
         return (
-            <Paper className="rds-comp-product-tour__container rds-comp-product-tour__container--image">
+            <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--image">
                 {cornerDotsElement}
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
@@ -153,11 +157,11 @@ const RdsCompProductTour = ({
     }
     if (state === "Carousel") {
         return (
-            <Paper className="rds-comp-product-tour__container rds-comp-product-tour__container--carousel">
+            <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--carousel">
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__carousel-header">
-                    <Typography variant="h6" className="rds-comp-product-tour__carousel-title">{header}</Typography>
+                    <Typography variant="h6" id={headerId} className="rds-comp-product-tour__carousel-title">{resolvedHeader}</Typography>
                     <Typography variant="body2" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-wrapper">
@@ -179,18 +183,18 @@ const RdsCompProductTour = ({
     }
     if (state === "GIF") {
         return (
-            <Paper className="rds-comp-product-tour__container rds-comp-product-tour__container--animation">
+            <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--animation">
                 {cornerDotsElement}
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__animation-section">
-                        <img src="/assets/animation.gif" alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
+                        <img src={imageSrc} alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
                     </Box>
                 ) : (
                     <Box sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', width: '100%', background: 'transparent' }} />
                 )}
                 <Box className="rds-comp-product-tour__animation-info">
-                    <Typography variant="h5" className="rds-comp-product-tour__animation-title">{header}</Typography>
+                    <Typography variant="h5" id={headerId} className="rds-comp-product-tour__animation-title">{resolvedHeader}</Typography>
                     <Typography variant="body1" className="rds-comp-product-tour__animation-desc">{description}</Typography>
                 </Box>
                 {gifNavigationElement}
@@ -199,7 +203,7 @@ const RdsCompProductTour = ({
     }
     if (state === "Form") {
         return (
-            <Paper className="rds-comp-product-tour__container rds-comp-product-tour__container--form">
+            <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--form">
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__form-header">
@@ -209,8 +213,8 @@ const RdsCompProductTour = ({
                 </Box>
                 <Box className="rds-comp-product-tour__form-content">
                     <Box className="rds-comp-product-tour__form-title-badge-row">
-                        <Typography variant="h6" className="rds-comp-product-tour__form-title">{header}</Typography>
-                        <RdsBadge badgeContent="Badge" size="medium" colorVariant="primary" shape="pill" layout="text" />
+                        <Typography variant="h6" id={headerId} className="rds-comp-product-tour__form-title">{resolvedHeader}</Typography>
+                        {badge !== null && <RdsBadge badgeContent={badge === undefined ? "Badge" : badge} size="medium" colorVariant="primary" shape="pill" layout="text" />}
                     </Box>
                     <Typography variant="body2" className="rds-comp-product-tour__form-description">{description}</Typography>
                     <Box className="rds-comp-product-tour__form-tabs-wrapper">

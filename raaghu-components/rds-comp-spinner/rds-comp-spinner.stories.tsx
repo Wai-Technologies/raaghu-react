@@ -32,7 +32,7 @@ const meta: Meta = {
             control: { type: "select" },
             description: "Layout of the spinner",
         },
-        spinnerType: {
+        variant: {
             options: [
                 "grow",
                 "border"
@@ -40,7 +40,7 @@ const meta: Meta = {
             control: { type: "select" },
             description: "Type of spinner",
         },
-        colorVariant: {
+        color: {
             options: ["primary", "secondary", "success", "danger", "warning", "info", "dark"],
             control: { type: "select" },
             description: "Color variant of the spinner",
@@ -61,11 +61,11 @@ export const Default: Story = {
         layout: SpinnerLayout.LabelAndSpinner,
         size: SpinnerSize.Default,
         showLabel: true,
-        labelText:"Loading...",
-        spinnerType: 'border',
+        label:"Loading...",
+        variant: 'border',
         width: '50px',
         height: '50px',
-        colorVariant: 'primary',
+        color: 'primary',
         level: SpinnerLevel.Level04,
     },
     play: async ({ canvas }) => {
@@ -73,5 +73,5 @@ export const Default: Story = {
         await expect(spinner).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'showLabel', 'layout',"labelText", 'level'] } };
+Default.parameters = { controls: { include: ['variant','size','color', 'showLabel', 'layout',"label", 'level'] } };
 

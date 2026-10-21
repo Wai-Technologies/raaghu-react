@@ -20,13 +20,22 @@ export enum SpinnerLevel {
 }
 
 export interface RdsCompSpinnerProps {
+  /** Spinner animation: "border" or "grow". */
+  variant?: string;
+  /** @deprecated Use `variant` instead. */
   spinnerType?: string;
   width?: string;
   height?: string;
   showLabel?: boolean;
+  /** Label text shown when `showLabel` is true; also the accessible name. */
+  label?: string;
+  /** @deprecated Use `label` instead. */
   labelText?: string;
-  size?: SpinnerSize;
-  layout?: SpinnerLayout;
+  size?: SpinnerSize | `${SpinnerSize}`;
+  layout?: SpinnerLayout | `${SpinnerLayout}`;
+  /** Colour name applied as `text-{color}`. */
+  color?: string;
+  /** @deprecated Use `color` instead. */
   colorVariant?: string;
-  level?: SpinnerLevel;
+  level?: SpinnerLevel | `${SpinnerLevel}`;
 }

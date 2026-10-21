@@ -17,6 +17,8 @@ jest.mock('lottie-react', () => {
   };
 });
 
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-comp-empty-state.scss', () => ({}));
 
@@ -612,5 +614,46 @@ describe('RdsCompEmptyState', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsCompEmptyState audit fixes', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+
+  it('G5-053: animated renders Lottie; isContinueAnimate still works and warns', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    const { unmount } = render(<RdsCompEmptyState animated />);
+    expect(screen.getByTestId('emptyStateLottie')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    unmount();
+    render(<RdsCompEmptyState isContinueAnimate />);
+    expect(screen.getByTestId('emptyStateLottie')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompEmptyState', 'isContinueAnimate', '`animated`');
+  });
+
+  it('G5-045: action replaces the default button, null removes it', () => {
+    const { rerender } = render(<RdsCompEmptyState action={<a href="/new">Create</a>} />);
+    expect(screen.getByText('Create')).toBeInTheDocument();
+    expect(screen.queryByTestId('actionButton')).not.toBeInTheDocument();
+    rerender(<RdsCompEmptyState action={null} />);
+    expect(screen.queryByTestId('actionButton')).not.toBeInTheDocument();
+  });
+
+  it('G5-052: forwards className, ref and rest props to the root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RdsCompEmptyState ref={ref} className="extra" data-testid="es-root" aria-label="Nothing here" />);
+    const root = screen.getByTestId('es-root');
+    expect(root).toHaveClass('rds-comp-empty-state', 'extra');
+    expect(root).toHaveAttribute('aria-label', 'Nothing here');
+    expect(ref.current).toBe(root);
+  });
+
+  it('G5-043/049: artwork is hidden from assistive tech and follows theme toggles', async () => {
+    render(<RdsCompEmptyState label="No data" />);
+    expect(screen.getByTestId('icon')).toHaveAttribute('aria-hidden', 'true');
+    expect((screen.getByTestId('emptyStateImage') as HTMLImageElement).src).toContain('empty-state.png');
+    document.documentElement.setAttribute('data-theme', 'dark');
+    expect(await screen.findByTestId('emptyStateImage')).toHaveAttribute('src', expect.stringContaining('empty-state-dark.png'));
+    document.documentElement.removeAttribute('data-theme');
   });
 });

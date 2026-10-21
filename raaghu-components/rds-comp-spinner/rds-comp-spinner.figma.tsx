@@ -16,7 +16,7 @@ figma.connect(
   {
     props: {
       showLabel: figma.boolean("✏️ Show Label"),
-      labelText: figma.string("📝 Label Text"),
+      label: figma.string("📝 Label Text"),
       size: figma.enum("📏 Size", {
         "Small": SpinnerSize.Small,
         "Medium": SpinnerSize.Medium,
@@ -33,9 +33,9 @@ figma.connect(
     example: (props) => <RdsCompSpinner 
     {...props} 
     width="50px"
-    colorVariant="primary"
+    color="primary"
     height="50px"
-    spinnerType="border"
+    variant="border"
     />,
   },
 )

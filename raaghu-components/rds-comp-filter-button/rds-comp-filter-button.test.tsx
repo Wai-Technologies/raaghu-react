@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import { axe } from 'jest-axe';
 
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-comp-filter-button.scss', () => ({}));
 
@@ -44,6 +46,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
       >
         {startIcon}
         {text}
+        {props.children}
         {endIcon}
       </button>
     );
@@ -832,6 +835,56 @@ describe('RdsCompFilterButton', () => {
       const { container } = render(<RdsCompFilterButton />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('children wins over text and startIcon/endIcon win and null hides', () => {
+      renderComponent({ children: 'Kids', text: 'Old', startIcon: <span data-testid="s-icon" />, endIcon: null, leftIcon: <span data-testid="l-icon" /> });
+      const btn = screen.getByTestId('filter-trigger-button');
+      expect(btn).toHaveTextContent('Kids');
+      expect(screen.getByTestId('s-icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('l-icon')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('CircleOutlinedIcon')).not.toBeInTheDocument();
+    });
+
+    it('warns for deprecated props', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      renderComponent({ text: 'x', leftIcon: <span />, rightIcon: <span /> });
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompFilterButton', 'text', expect.any(String));
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompFilterButton', 'leftIcon', expect.any(String));
+    });
+
+    it('trigger exposes popover aria and toggles', () => {
+      renderComponent();
+      const btn = screen.getByTestId('filter-trigger-button');
+      expect(btn).toHaveAttribute('aria-haspopup', 'dialog');
+      expect(btn).toHaveAttribute('aria-expanded', 'false');
+      fireEvent.click(btn);
+      expect(btn).toHaveAttribute('aria-expanded', 'true');
+      expect(screen.getByTestId('popover')).toHaveAttribute('id', btn.getAttribute('aria-controls'));
+    });
+
+    it('per-filter icon wins over itemIcon and images have empty alt', () => {
+      const { container } = renderComponent({ itemIcon: 'a.png', filters: [{ id: 'f', name: 'F', values: ['v'], icon: 'b.png' }] });
+      fireEvent.click(screen.getByTestId('filter-trigger-button'));
+      const img = container.ownerDocument.querySelector('[src]') as HTMLElement;
+      expect(img.getAttribute('src')).toBe('b.png');
+      expect(img.getAttribute('alt')).toBe('');
+    });
+
+    it('localeText overrides labels and search resets on close', () => {
+      renderComponent({ localeText: { title: 'T', searchPlaceholder: 'S', apply: 'A', clearAll: 'C' } });
+      const btn = screen.getByTestId('filter-trigger-button');
+      fireEvent.click(btn);
+      expect(screen.getByText('T')).toBeInTheDocument();
+      expect(screen.getByText('A')).toBeInTheDocument();
+      expect(screen.getByText('C')).toBeInTheDocument();
+      fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'zz' } });
+      fireEvent.click(btn);
+      fireEvent.click(btn);
+      expect((screen.getByTestId('search-input') as HTMLInputElement).value).toBe('');
+      expect(screen.getByTestId('search-input')).toHaveAttribute('placeholder', 'S');
     });
   });
 });

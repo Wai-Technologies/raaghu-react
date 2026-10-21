@@ -74,7 +74,7 @@ export const Default: Story = {
         showTertiaryButton: true,
         showVisualPlaceholder: true,
         formTitle:" Getting Started Tour",
-        header: "Tour Title",
+        title: "Tour Title",
         description: "In a laoreet purus.Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.Aliquam erat vo.In a laoreet purus.Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.Aliquam erat vo.In a laoreet purus.",
         stepsIndicator: "1/3",
         tabTitle: ["Designers", "Developers", "Managers"],

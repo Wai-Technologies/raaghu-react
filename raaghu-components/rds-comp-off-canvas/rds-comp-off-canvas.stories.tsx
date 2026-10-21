@@ -52,12 +52,12 @@ export const Default: Story = {
     expect(buttons.length).toBeGreaterThan(0);
   },
   args: {
-    offId: "canvasExample",
-    canvasTitle: "NEW TENANT",
+    id: "canvasExample",
+    title: "NEW TENANT",
     scrolling: false,
     placement: RdsOffcanvasPlacement.End, 
     backDrop: RdsOffcanvasBackDrop.Static,
-    offcanvaswidth: 650,
+    width: 650,
     showPrimaryButton: true,
     showSecondaryButton: true,
     showTertiaryButton: true,

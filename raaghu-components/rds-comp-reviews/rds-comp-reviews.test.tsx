@@ -891,3 +891,45 @@ describe('RdsCompReviews', () => {
     });
   });
 });
+
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { ReviewStyle } from './rds-comp-reviews';
+
+describe('audit fixes', () => {
+  const base: Item = { name: 'A', username: 'a', description: 'd', rating: 4, likes: 5, dislikes: 2 };
+
+  it('accepts items and warns for itemList, variantType', () => {
+    render(<RdsCompReviews items={[base]} style={ReviewStyle.Style7} />);
+    expect(screen.getAllByTestId('card')).toHaveLength(1);
+    render(<RdsCompReviews itemList={[base]} style={ReviewStyle.Style7} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompReviews', 'itemList', expect.any(String));
+  });
+
+  it('re-syncs when item values change', () => {
+    const { rerender } = render(<RdsCompReviews items={[base]} style={ReviewStyle.Style7} />);
+    rerender(<RdsCompReviews items={[{ ...base, rating: 2, likes: 9 }]} style={ReviewStyle.Style7} />);
+    expect(screen.getByText('Rating: 2')).toBeInTheDocument();
+    expect(screen.getByText('9')).toBeInTheDocument();
+  });
+
+  it('calls callbacks and exposes labelled pressed buttons', () => {
+    const onLike = jest.fn(), onDislike = jest.fn(), onRatingChange = jest.fn();
+    render(<RdsCompReviews items={[base]} style={ReviewStyle.Style7} onLike={onLike} onDislike={onDislike} onRatingChange={onRatingChange} />);
+    const like = screen.getByLabelText('Like');
+    expect(like).toHaveAttribute('aria-pressed', 'false');
+    fireEvent.click(like);
+    fireEvent.click(screen.getByLabelText('Dislike'));
+    fireEvent.click(screen.getByTestId('rds-rating'));
+    expect(onLike).toHaveBeenCalledWith(base);
+    expect(onDislike).toHaveBeenCalledWith(base);
+    expect(onRatingChange).toHaveBeenCalledWith(base, 5);
+    expect(screen.getByLabelText('Like')).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('supports locale, formatDate and id keys', () => {
+    const item = { ...base, id: 1, date: new Date('2024-01-15') };
+    render(<RdsCompReviews items={[item]} style={ReviewStyle.Style4} formatDate={() => 'custom date'} />);
+    expect(screen.getByText('custom date')).toBeInTheDocument();
+  });
+});

@@ -1,21 +1,35 @@
-import { Suspense, lazy, useMemo, createElement, type ComponentType } from "react";
+import { Suspense, lazy, type HTMLAttributes, type Ref } from "react";
+import clsx from "clsx";
+import type { ReactPlayerProps } from "react-player";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-video-player.scss";
 export { VideoPlayerType } from './rds-comp-video-player-types';
 import { VideoPlayerType } from './rds-comp-video-player-types';
 
 const ReactPlayer = lazy(() => import("react-player"));
 
-export interface RdsVideoPlayerProps {
+export interface RdsVideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   width?: string | number;
   height?: string | number;
+  /** @deprecated Use `autoPlay` instead. */
   autoplay?: boolean;
+  autoPlay?: boolean;
   muted?: boolean;
-  videoLink: string;
+  /** @deprecated Use `src` instead. */
+  videoLink?: string;
+  src?: string;
   type?: VideoPlayerType;
   controls?: boolean;
   volume?: number;
   className?: string;
   disabled?: boolean;
+  /** Message shown over the player when disabled. */
+  disabledMessage?: string;
+  /** Defaults to `autoPlay && !disabled`. */
+  loop?: boolean;
+  /** Accessible title for the embedded player. */
+  title?: string;
+  ref?: Ref<HTMLDivElement>;
 }
 
 const formatVideoUrl = (videoLink: string): string => {
@@ -43,8 +57,9 @@ const formatVideoUrl = (videoLink: string): string => {
 const buildPlayerConfig = (
   type: VideoPlayerType,
   formattedUrl: string,
-  controls: boolean
-) => {
+  controls: boolean,
+  title?: string
+): ReactPlayerProps["config"] => {
   const isYouTubeUrl = formattedUrl.includes("youtube.com") || formattedUrl.includes("youtu.be");
   const isVimeoUrl = formattedUrl.includes("vimeo.com");
 
@@ -69,60 +84,72 @@ const buildPlayerConfig = (
           modestbranding: 1,
           rel: 0,
         },
+        ...(title !== undefined && { embedOptions: { title } }),
       },
     };
   }
 
   return {
-    file: { attributes: { preload: "auto" } },
+    file: { attributes: { preload: "auto", ...(title !== undefined && { title }) } },
   };
 };
 
 const RdsCompVideoPlayer = ({
   width = "100%",
   height = "auto",
-  autoplay = false,
+  autoplay,
+  autoPlay,
   muted = false,
   videoLink,
+  src,
   type = VideoPlayerType.Default,
   controls = true,
   volume = 0.8,
   className = "",
   disabled = false,
-}) => {
-  const formattedUrl = useMemo(() => formatVideoUrl(videoLink), [videoLink]);
-  const playerConfig = useMemo(
-    () => buildPlayerConfig(type, formattedUrl, controls),
-    [type, formattedUrl, controls]
-  );
-
-  const rootClassName = useMemo(
-    () =>
-      `rds-comp-video-player${disabled ? " rds-comp-video-player--disabled" : ""} ${className}`.trim(),
-    [disabled, className]
-  );
+  disabledMessage = "Video player is disabled",
+  loop,
+  title,
+  style,
+  ref,
+  ...rest
+}: RdsVideoPlayerProps) => {
+  if (autoplay !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "autoplay", "`autoPlay`");
+  if (videoLink !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "videoLink", "`src`");
+  const shouldAutoPlay = (autoPlay ?? autoplay ?? false) && !disabled;
+  const formattedUrl = formatVideoUrl(src ?? videoLink ?? "");
+  const playerConfig = buildPlayerConfig(type, formattedUrl, controls, title);
 
   return (
-    <div className={rootClassName}>
-      <div className="rds-comp-video-player__wrapper">
+    <div
+      {...rest}
+      ref={ref}
+      style={style}
+      className={clsx(
+        "rds-comp-video-player",
+        disabled && "rds-comp-video-player--disabled",
+        className
+      )}
+    >
+      <div className="rds-comp-video-player__wrapper" inert={disabled || undefined}>
         <Suspense
           fallback={
             <div className="rds-comp-video-player__loading" aria-label="Loading video player" />
           }
         >
-          {createElement(ReactPlayer as ComponentType<Record<string, unknown>>, {
-            key: `${formattedUrl}`,
-            url: formattedUrl,
-            width,
-            height,
-            playing: autoplay && !disabled,
-            loop: autoplay && !disabled,
-            muted,
-            controls,
-            volume,
-            config: playerConfig,
-            className: "rds-comp-video-player__player",
-          })}
+          <ReactPlayer
+            key={formattedUrl}
+            url={formattedUrl}
+            width={width}
+            height={height}
+            playing={shouldAutoPlay}
+            loop={loop ?? shouldAutoPlay}
+            muted={muted}
+            controls={controls}
+            volume={volume}
+            config={playerConfig}
+            className="rds-comp-video-player__player"
+          />
         </Suspense>
         {!controls && (
           <div className="rds-comp-video-player__controls-spacer" aria-hidden="true" />
@@ -130,7 +157,7 @@ const RdsCompVideoPlayer = ({
       </div>
       {disabled && (
         <div className="rds-comp-video-player__overlay">
-          <div className="rds-comp-video-player__disabled-message">Video player is disabled</div>
+          <div className="rds-comp-video-player__disabled-message">{disabledMessage}</div>
         </div>
       )}
     </div>

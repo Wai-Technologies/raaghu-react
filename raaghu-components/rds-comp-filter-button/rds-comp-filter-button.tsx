@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useCallback, useMemo, useRef, useState, type ReactNode, type MouseEvent as ReactMouseEvent } from 'react';
+import { useCallback, useId, useMemo, useRef, useState, type HTMLAttributes, type ReactNode, type MouseEvent as ReactMouseEvent } from 'react';
 import { 
   Box, 
   Typography, 
@@ -12,6 +12,7 @@ import {
 import { ExpandMore } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-filter-button.scss';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
@@ -20,14 +21,32 @@ export interface FilterOption {
   name: string;
   values: string[];
   selectedValues?: string[];
+  /** Optional image URL for this filter; wins over `itemIcon`. */
+  icon?: string;
 }
 
-export interface RdsCompFilterButtonProps {
+export interface RdsCompFilterButtonLocaleText {
+  title?: string;
+  searchPlaceholder?: string;
+  apply?: string;
+  clearAll?: string;
+}
+
+export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   shape?: 'rectangle' | 'pill';
+  /** Button label. Wins over `text`. */
+  children?: ReactNode;
+  /** @deprecated Use `children` instead. */
   text?: string;
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
+  /** Start icon. Wins over `leftIcon`; `null` hides it. */
+  startIcon?: ReactNode;
+  /** End icon. Wins over `rightIcon`; `null` hides it. */
+  endIcon?: ReactNode;
+  /** @deprecated Use `startIcon` instead. */
   leftIcon?: ReactNode;
+  /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
   filters?: FilterOption[];
   onFiltersChange?: (filters: FilterOption[]) => void;
@@ -36,17 +55,23 @@ export interface RdsCompFilterButtonProps {
   disabled?: boolean;
   className?: string;
   itemIcon?: string | ReactNode;
+  localeText?: RdsCompFilterButtonLocaleText;
 }
 
 const EMPTY_FILTER_OPTIONS: FilterOption[] = [];
+const DEFAULT_LEFT_ICON = <CircleOutlinedIcon sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />;
+const DEFAULT_RIGHT_ICON = <CircleOutlinedIcon sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />;
 
 const RdsCompFilterButton = ({
   shape = 'rectangle',
-  text = 'Filter',
+  children,
+  text,
   showLeftIcon = true,
   showRightIcon = true,
-  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
-  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
+  startIcon,
+  endIcon,
+  leftIcon,
+  rightIcon,
   filters,
   onFiltersChange,
   onApply,
@@ -54,8 +79,22 @@ const RdsCompFilterButton = ({
   disabled = false,
   className,
   itemIcon,
+  localeText,
   ...props
-}) => {
+}: RdsCompFilterButtonProps) => {
+  if (text !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'text', '`children`');
+  if (leftIcon !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'leftIcon', '`startIcon`');
+  if (rightIcon !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'rightIcon', '`endIcon`');
+  const popoverId = useId();
+  const labels = {
+    title: localeText?.title ?? 'Add Filters',
+    searchPlaceholder: localeText?.searchPlaceholder ?? 'Search',
+    apply: localeText?.apply ?? 'Apply',
+    clearAll: localeText?.clearAll ?? 'Clear All',
+  };
+  const resolvedStartIcon = startIcon !== undefined ? startIcon : (leftIcon !== undefined ? leftIcon : DEFAULT_LEFT_ICON);
+  const resolvedEndIcon = endIcon !== undefined ? endIcon : (rightIcon !== undefined ? rightIcon : DEFAULT_RIGHT_ICON);
+  const label: ReactNode = children ?? text ?? 'Filter';
   const resolvedFilters = filters ?? EMPTY_FILTER_OPTIONS;
   const [isOpen, setIsOpen] = useState(false);
   const [localFilters, setLocalFilters] = useState<FilterOption[]>(resolvedFilters);
@@ -65,12 +104,17 @@ const RdsCompFilterButton = ({
     setLocalFilters(resolvedFilters);
   }
   const [searchTerm, setSearchTerm] = useState('');
+  const [prevOpen, setPrevOpen] = useState(isOpen);
+  if (isOpen !== prevOpen) {
+    setPrevOpen(isOpen);
+    if (!isOpen) setSearchTerm('');
+  }
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleButtonClick = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = (event: ReactMouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+    setIsOpen((o) => !o);
+  };
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
@@ -112,7 +156,11 @@ const RdsCompFilterButton = ({
   }, [localFilters, onClear, onFiltersChange]);
 
   const activeFiltersCount = localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0);
-  const buttonText = activeFiltersCount > 0 ? `${text} (${activeFiltersCount})` : text;
+  const buttonText: ReactNode = activeFiltersCount > 0
+    ? (typeof label === 'string' || typeof label === 'number'
+      ? `${label} (${activeFiltersCount})`
+      : <>{label} ({activeFiltersCount})</>)
+    : label;
 
   const filteredFilters = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
@@ -138,19 +186,24 @@ const RdsCompFilterButton = ({
     <Box className={clsx("rds-comp-filter-button", className)} {...props}>
       <RdsButton
         ref={buttonRef}
-        text={buttonText}
         size={'medium'}
-        shape={shape as 'rectangle' | 'pill'}
+        shape={shape}
         layout={'icon+text'}
         style={'filled'}
         disabled={disabled}
-        startIcon={showLeftIcon ? leftIcon : undefined}
-        endIcon={showRightIcon ? rightIcon : undefined}
+        startIcon={showLeftIcon ? (resolvedStartIcon ?? undefined) : undefined}
+        endIcon={showRightIcon ? (resolvedEndIcon ?? undefined) : undefined}
         onClick={handleButtonClick}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+        aria-controls={popoverId}
         className={clsx("rds-button__primary", "rds-filter-button__trigger", isOpen && "rds-filter-button__trigger--open")}
-      />
+      >
+        {buttonText}
+      </RdsButton>
 
       <Popover
+        id={popoverId}
         open={isOpen}
         anchorEl={buttonRef.current}
         onClose={handleClose}
@@ -161,7 +214,7 @@ const RdsCompFilterButton = ({
         <Box className="rds-filter-button__content">
           <Box className="rds-filter-button__header">
             <Typography className="rds-filter-button__header-title">
-              Add Filters
+              {labels.title}
             </Typography>
           </Box>
 
@@ -169,7 +222,7 @@ const RdsCompFilterButton = ({
             <TextField
               fullWidth
               variant="outlined"
-              placeholder="Search"
+              placeholder={labels.searchPlaceholder}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               size="small"
@@ -237,9 +290,11 @@ const RdsCompFilterButton = ({
                   }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    {itemIcon ? (
+                    {filter.icon ? (
+                      <Box component="img" src={filter.icon} alt="" />
+                    ) : itemIcon ? (
                       typeof itemIcon === 'string' ? (
-                        <Box component="img" src={itemIcon} />
+                        <Box component="img" src={itemIcon} alt="" />
                       ) : (
                         itemIcon
                       )
@@ -289,19 +344,21 @@ const RdsCompFilterButton = ({
             <RdsButton
               style="filled"
               fullWidth
-              text="Apply"
               textCase="capitalize"
               onClick={handleApply}
               sx={{ py: 1 }}
-            />
+            >
+              {labels.apply}
+            </RdsButton>
             <RdsButton
               style="outlined"
               fullWidth
-              text="Clear All"
               textCase="capitalize"
               onClick={handleClearAll}
               sx={{ py: 1 }}
-            />
+            >
+              {labels.clearAll}
+            </RdsButton>
           </Box>
         </Box>
       </Popover>

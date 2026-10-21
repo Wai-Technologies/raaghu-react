@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast.types";
 
-export const getStateClass = (state: ToastState): string => {
-    const stateClass: Record<ToastState, string> = {
+export const getStateClass = (state: ToastState | `${ToastState}`): string => {
+    const stateClass: Record<string, string> = {
         [ToastState.Info]: "info",
         [ToastState.Success]: "success",
         [ToastState.Error]: "error",
@@ -11,8 +11,8 @@ export const getStateClass = (state: ToastState): string => {
     return stateClass[state] ?? stateClass[ToastState.Basic];
 };
 
-export const getLayoutClass = (layout: ToastLayout): string => {
-    const layoutClass: Record<ToastLayout, string> = {
+export const getLayoutClass = (layout: ToastLayout | `${ToastLayout}`): string => {
+    const layoutClass: Record<string, string> = {
         [ToastLayout.Download]: "download",
         [ToastLayout.Chat]: "chat",
         [ToastLayout.Request]: "request",
@@ -21,16 +21,16 @@ export const getLayoutClass = (layout: ToastLayout): string => {
     return layoutClass[layout] ?? layoutClass[ToastLayout.Text];
 };
 
-export const getLeadingIconClass = (leadingIcon: ToastLeadingIcon): string => {
-    const iconClass: Record<ToastLeadingIcon, string> = {
+export const getLeadingIconClass = (leadingIcon?: ToastLeadingIcon | `${ToastLeadingIcon}`): string => {
+    const iconClass: Record<string, string> = {
         [ToastLeadingIcon.Plus]: "plus",
         [ToastLeadingIcon.Circle]: "circle",
     };
-    return iconClass[leadingIcon] ?? iconClass[ToastLeadingIcon.Circle];
+    return iconClass[leadingIcon ?? ToastLeadingIcon.Circle] ?? iconClass[ToastLeadingIcon.Circle];
 };
 
-export const getPositionClasses = (position?: ToastPosition) => {
-    const positionClass: Record<ToastPosition, string> = {
+export const getPositionClasses = (position?: ToastPosition | `${ToastPosition}`) => {
+    const positionClass: Record<string, string> = {
         [ToastPosition.TopLeft]: "rds-comp-toast__container--top-left",
         [ToastPosition.TopCenter]: "rds-comp-toast__container--top-center",
         [ToastPosition.TopRight]: "rds-comp-toast__container--top-right",
@@ -44,7 +44,11 @@ export const getPositionClasses = (position?: ToastPosition) => {
     return position ? positionClass[position] : positionClass[ToastPosition.TopLeft];
 };
 
-export const useToastTimer = (autohide?: boolean, delay?: number) => {
+export const useToastTimer = (autohide?: boolean, delay?: number, onTimeout?: () => void) => {
+    const onTimeoutRef = useRef(onTimeout);
+    useEffect(() => {
+        onTimeoutRef.current = onTimeout;
+    }, [onTimeout]);
     const [showState, setShowState] = useState("show");
     const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const remainingRef = useRef<number>(delay ?? 3000);
@@ -52,7 +56,10 @@ export const useToastTimer = (autohide?: boolean, delay?: number) => {
 
     const startTimer = useCallback((duration: number) => {
         startTimeRef.current = Date.now();
-        timerRef.current = setTimeout(() => setShowState("hide"), duration);
+        timerRef.current = setTimeout(() => {
+            setShowState("hide");
+            onTimeoutRef.current?.();
+        }, duration);
     }, []);
 
     const pauseTimer = useCallback(() => {
@@ -73,9 +80,8 @@ export const useToastTimer = (autohide?: boolean, delay?: number) => {
             remainingRef.current = delay ?? 3000;
             startTimer(remainingRef.current);
         }
-        const timer = timerRef.current;
         return () => {
-            if (timer) clearTimeout(timer);
+            if (timerRef.current) clearTimeout(timerRef.current);
         };
     }, [autohide, delay, startTimer]);
 

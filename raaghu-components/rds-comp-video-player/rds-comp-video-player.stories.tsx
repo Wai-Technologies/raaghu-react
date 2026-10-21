@@ -44,7 +44,7 @@ const meta: Meta = {
             table: { disable: true },
             control: false,
         },
-        autoplay: {
+        autoPlay: {
             control: 'boolean',
             description: 'Auto-play the video when loaded',
         },
@@ -64,7 +64,7 @@ const meta: Meta = {
             control: 'boolean',
             description: 'Disable the video player',
         },
-        videoLink: {
+        src: {
             control: 'text',
             description: 'URL of the video to play',
         },
@@ -79,12 +79,12 @@ export const Default: Story = {
         type: VideoPlayerType.Default,
         width: "100%",
         height: "400px",
-        autoplay: false,
+        autoPlay: false,
         muted: false,
         controls: true,
         volume: 0.8,
         disabled: false,
-        videoLink: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();

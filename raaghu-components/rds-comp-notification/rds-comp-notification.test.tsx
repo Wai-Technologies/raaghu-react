@@ -10,9 +10,11 @@ import {
 } from './rds-comp-notification.types';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 // Mock SCSS
 jest.mock('./rds-comp-notification.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 // Mock MUI components
 jest.mock('@mui/material', () => ({
@@ -867,6 +869,57 @@ describe('RdsCompNotification', () => {
       const { container } = render(<RdsCompNotification {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('audit fixes', () => {
+    const two = [
+      { title: 'Same', description: 'a' },
+      { title: 'Other', description: 'b' },
+    ];
+
+    it('dismisses the clicked item using a stable key (G6-026)', () => {
+      render(<RdsCompNotification notifications={two} showDismiss />);
+      fireEvent.click(screen.getAllByTestId('rds-icon-button')[1]);
+      expect(screen.getByText('Same')).toBeInTheDocument();
+      expect(screen.queryByText('Other')).not.toBeInTheDocument();
+    });
+
+    it('resets dismissals when the notifications reference changes (G6-027)', () => {
+      const { rerender } = render(<RdsCompNotification notifications={two} showDismiss />);
+      fireEvent.click(screen.getAllByTestId('rds-icon-button')[0]);
+      expect(screen.queryByText('Same')).not.toBeInTheDocument();
+      rerender(<RdsCompNotification notifications={[...two]} showDismiss />);
+      expect(screen.getByText('Same')).toBeInTheDocument();
+    });
+
+    it('accepts string-literal layout/style/severity (G6-030/031)', () => {
+      const { container } = render(
+        <RdsCompNotification notifications={two} layout="vertical" style="avatar" severity="warning" type="error" />
+      );
+      expect(container.querySelector('.rds-comp-notification--type-warning')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-notification--layout-vertical')).toBeInTheDocument();
+    });
+
+    it('warns when deprecated type is used (G6-031)', () => {
+      render(<RdsCompNotification notifications={two} type="error" />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompNotification', 'type', '`severity`');
+    });
+
+    it('supports custom button labels (G6-037)', () => {
+      render(<RdsCompNotification notifications={two} actions="both" dismissLabel="Close" acceptLabel="Yes" />);
+      expect(screen.getAllByTestId('rds-button-close').length).toBe(2);
+      expect(screen.getAllByTestId('rds-button-yes').length).toBe(2);
+    });
+
+    it('sets role=status, item-title image alt, and forwards className (G6-038)', () => {
+      const { container } = render(
+        <RdsCompNotification notifications={two} style="image" className="extra" />
+      );
+      const card = screen.getAllByTestId('card')[0];
+      expect(card).toHaveAttribute('role', 'status');
+      expect(card).toHaveClass('extra');
+      expect(container.querySelector('img')).toHaveAttribute('alt', 'Same');
     });
   });
 });

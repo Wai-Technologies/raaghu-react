@@ -607,3 +607,16 @@ describe('RdsCompScrollBar', () => {
     });
   });
 });
+
+describe('audit fixes', () => {
+  it('renders children instead of the placeholder', () => {
+    const { container } = render(<RdsCompScrollBar><p>Hello</p></RdsCompScrollBar>);
+    expect(screen.getByText('Hello')).toBeInTheDocument();
+    expect(container.querySelector('.rds-scrollbar__inner-content')).not.toBeInTheDocument();
+  });
+
+  it('accepts string literal enums', () => {
+    const { container } = render(<RdsCompScrollBar type="Simple" position="End" />);
+    expect(container.querySelector('.rds-scrollbar--simple')).toBeInTheDocument();
+  });
+});

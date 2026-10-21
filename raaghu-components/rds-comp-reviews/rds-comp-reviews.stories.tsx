@@ -43,7 +43,7 @@ play: async ({ canvasElement }) => {
 args: {
         variantType: VariantType.Default,
         style: RevieweStyle.Style1,
-        itemList: [
+        items: [
             {
                 name: "Jane Doe",
                 username: "Software Developer",
@@ -59,4 +59,4 @@ args: {
     }
 } satisfies Story;
     
-Default.parameters = { controls: { include: ['itemList','style','variantType'] } };
+Default.parameters = { controls: { include: ['items','style','variantType'] } };
