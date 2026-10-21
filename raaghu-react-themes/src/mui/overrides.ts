@@ -143,9 +143,9 @@ export const designSystemComponentOverrides: Components<Theme> = {
   },
   MuiCard: {
     styleOverrides: {
-      root: ({ theme, ownerState }: any) => ({
+      root: ({ theme, ownerState }) => ({
         borderRadius: theme.shape.borderRadius,
-        // Only apply the default border for outlined variant; elevation variant uses MUI shadows
+        // Both variants get the divider border; outlined also drops the shadow
         ...(ownerState?.variant === 'outlined'
           ? { border: `1px solid ${theme.palette.divider}`, boxShadow: 'none' }
           : { border: `1px solid ${theme.palette.divider}` }),
@@ -181,7 +181,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
         borderRadius: theme.shape.borderRadius,
         fontWeight: theme.typography.fontWeightMedium,
       }),
-      filled: ({ theme, ownerState }: any) => {
+      filled: ({ theme, ownerState }) => {
         const colorKey = ownerState?.color as string | undefined;
 
         if (!colorKey || colorKey === 'default') {

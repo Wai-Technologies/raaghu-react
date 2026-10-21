@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState, type MouseEvent } from 'react';
 import RdsCompAppShell, { AppShellDisplayType } from '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell';
-import '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell.scss';
 import RdsAppBar from '@raaghu/elements/rds-app-bar/rds-app-bar';
 import RdsSidebar from '@raaghu/elements/rds-sidebar/rds-sidebar';
 import { useRaaghuLogoSrc } from '@raaghu/elements/shared/hooks/useRaaghuLogoSrc';
@@ -47,7 +46,6 @@ import {
   FlashOn as FlashIcon,
 } from '@mui/icons-material';
 
-// ─── Static data ────────────────────────────────────────────────────────────
 
 const KPI_CARDS = [
   {
@@ -126,13 +124,12 @@ const NAV_ITEMS = [
   { id: 'help',      label: 'Help',      icon: <HelpIcon />      },
 ];
 
-// ─── Component ───────────────────────────────────────────────────────────────
 
 export default function DashboardPage() {
   const [activeNav, setActiveNav] = useState('dashboard');
   const [themeMenuAnchor, setThemeMenuAnchor] = useState<HTMLElement | null>(null);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const { mode, setMode, isDark } = useRaaghuTheme();
 
   useEffect(() => {
@@ -141,7 +138,7 @@ export default function DashboardPage() {
     }
   }, [isMobile]);
 
-  const handleThemeMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+  const handleThemeMenuOpen = useCallback((event: MouseEvent<HTMLElement>) => {
     setThemeMenuAnchor(event.currentTarget);
   }, []);
 
@@ -162,7 +159,6 @@ export default function DashboardPage() {
 
   const logoSrc = useRaaghuLogoSrc();
 
-  // ── Topbar ──────────────────────────────────────────────────────────────
   const topbar = useMemo(() => (
     <div className="rds-appshell-appbar rds-appshell-appbar--fixed">
       <RdsAppBar
@@ -179,6 +175,7 @@ export default function DashboardPage() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
               <IconButton
                 size="small"
+                aria-label="notifications, 3 unread"
                 sx={{
                   color: 'text.secondary',
                   bgcolor: 'action.hover',
@@ -241,13 +238,13 @@ export default function DashboardPage() {
               </MenuItem>
               <MenuItem selected={mode === 'light'} onClick={() => handleThemeModeSelect('light')}>
                 <ListItemIcon>
-                  <MoonIcon fontSize="small" />
+                  <SunIcon fontSize="small" />
                 </ListItemIcon>
                 <MenuItemText primary="Light" secondary="Always use light theme" />
               </MenuItem>
               <MenuItem selected={mode === 'dark'} onClick={() => handleThemeModeSelect('dark')}>
                 <ListItemIcon>
-                  <SunIcon fontSize="small" />
+                  <MoonIcon fontSize="small" />
                 </ListItemIcon>
                 <MenuItemText primary="Dark" secondary="Always use dark theme" />
               </MenuItem>
@@ -258,7 +255,6 @@ export default function DashboardPage() {
     </div>
   ), [logoSrc, mode, themeMenuAnchor, isMobile, themeIcon, handleThemeMenuOpen, handleThemeMenuClose, handleThemeModeSelect]);
 
-  // ── Sidebar ─────────────────────────────────────────────────────────────
   // Default layout intentionally hides the sidebar logo (logo lives in AppBar).
   // We add a matching 64px header manually so the sidebar aligns with the AppBar.
   const sidebar = (
@@ -298,7 +294,6 @@ export default function DashboardPage() {
     </Box>
   );
 
-  // ── Main content ─────────────────────────────────────────────────────────
   const content = (
     <Box sx={{ p: { xs: 2, md: 3 }, minHeight: '100vh', bgcolor: 'background.default' }}>
       {/* Spacer so content clears the fixed AppBar */}
@@ -476,7 +471,7 @@ export default function DashboardPage() {
           {/* Activity list */}
           <List disablePadding>
             {ACTIVITY.map((item, i) => (
-              <React.Fragment key={`${item.user}-${i}`}>
+              <Fragment key={`${item.user}-${i}`}>
                 <ListItem
                   sx={{
                     px: 3,
@@ -502,8 +497,10 @@ export default function DashboardPage() {
                   <ListItemText
                     primary={item.user}
                     secondary={item.action}
-                    primaryTypographyProps={{ variant: 'body2', sx: { fontWeight: 600, mb: 0.25 } }}
-                    secondaryTypographyProps={{ variant: 'caption', sx: { color: 'text.secondary', lineHeight: 1.4 } }}
+                    slotProps={{
+                      primary: { variant: 'body2', sx: { fontWeight: 600, mb: 0.25 } },
+                      secondary: { variant: 'caption', sx: { color: 'text.secondary', lineHeight: 1.4 } },
+                    }}
                   />
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 0.75, ml: 2, flexShrink: 0 }}>
                     <Chip
@@ -527,7 +524,7 @@ export default function DashboardPage() {
                 {i < ACTIVITY.length - 1 && (
                   <Divider sx={{ borderColor: 'var(--rds-divider)', mx: 3 }} />
                 )}
-              </React.Fragment>
+              </Fragment>
             ))}
           </List>
         </Box>

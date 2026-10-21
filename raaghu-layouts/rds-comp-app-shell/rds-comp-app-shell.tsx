@@ -1,85 +1,100 @@
-import { ReactNode, ReactElement, useState, useEffect, isValidElement, cloneElement } from "react";
+import { ReactNode, ReactElement, Ref, HTMLAttributes, useState, useEffect, useCallback, isValidElement, cloneElement } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
+import clsx from "clsx";
 import "./rds-comp-app-shell.scss";
 import { AppShellDisplayType } from "./shell-types";
 export { AppShellDisplayType } from "./shell-types";
 import { GetShellLayoutCss } from "./shell-layout";
 
-export interface RdsCompAppShellProps {
+export interface RdsCompAppShellProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   displayType: AppShellDisplayType;
   topbar?: ReactNode;
   sidebar?: ReactNode;
   children?: ReactNode;
   mobileSidebarOpen?: boolean;
   onMobileSidebarToggle?: () => void;
+  /** Accessible label of the backdrop that closes the mobile sidebar. */
+  closeSidebarLabel?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
 }
 
-interface TopbarSlotProps {
-  topbar: ReactNode;
-  onMenuClick: () => void;
-}
-
-const TopbarSlot = ({ topbar, onMenuClick }: TopbarSlotProps) => {
+/** Wires the menu button of an `RdsAppBar` wrapped in a single container element. */
+const withMenuClick = (topbar: ReactNode, onMenuClick: () => void): ReactNode => {
   if (!topbar) return null;
-
-  if (isValidElement(topbar)) {
-    try {
-      const topbarElement = topbar as ReactElement<any>;
-      if (topbarElement.props && topbarElement.props.children && isValidElement(topbarElement.props.children)) {
-        const appBarChild = topbarElement.props.children as ReactElement<any>;
-        if (appBarChild.type && (appBarChild.type as any).displayName === 'RdsAppBar') {
-          const clonedAppBar = cloneElement(appBarChild, {
-            ...appBarChild.props,
-            onMenuClick
-          });
-          return cloneElement(topbarElement, {
-            ...topbarElement.props
-          }, clonedAppBar);
-        }
-      }
-    } catch (error) {
-      // Topbar clone failed — render without cloning
-    }
+  if (!isValidElement<{ children?: ReactNode }>(topbar)) return topbar;
+  const appBar = topbar.props.children;
+  if (!isValidElement(appBar) || (appBar.type as { displayName?: string }).displayName !== 'RdsAppBar') {
+    return topbar;
   }
-
-  return <>{topbar}</>;
+  return cloneElement(topbar, undefined, cloneElement(appBar as ReactElement<{ onMenuClick?: () => void }>, { onMenuClick }));
 };
-TopbarSlot.displayName = 'TopbarSlot';
 
-const RdsCompAppShell = (props: RdsCompAppShellProps) => {
+const RdsCompAppShell = ({
+  displayType,
+  topbar,
+  sidebar,
+  children,
+  mobileSidebarOpen: mobileSidebarOpenProp,
+  onMobileSidebarToggle,
+  closeSidebarLabel = "Close sidebar overlay",
+  className,
+  ...rest
+}: RdsCompAppShellProps) => {
   const [internalMobileSidebarOpen, setInternalMobileSidebarOpen] = useState(false);
   // Avoid animating the sidebar from a desktop first-paint when Storybook/viewport resizes to mobile.
   const [layoutReady, setLayoutReady] = useState(false);
 
-  const mobileSidebarOpen = props.mobileSidebarOpen ?? internalMobileSidebarOpen;
-  const handleMobileSidebarToggle = props.onMobileSidebarToggle ?? (() => setInternalMobileSidebarOpen(!internalMobileSidebarOpen));
+  const mobileSidebarOpen = mobileSidebarOpenProp ?? internalMobileSidebarOpen;
+  const toggleInternalSidebar = useCallback(() => setInternalMobileSidebarOpen((open) => !open), []);
+  const handleMobileSidebarToggle = onMobileSidebarToggle ?? toggleInternalSidebar;
+
+  useEffect(() => {
+    const isProduction = typeof process !== 'undefined' && process.env?.NODE_ENV === 'production';
+    if (!isProduction && mobileSidebarOpenProp !== undefined && !onMobileSidebarToggle) {
+      // eslint-disable-next-line no-console -- intentional developer-facing warning
+      console.warn('RdsCompAppShell: `mobileSidebarOpen` is controlled but `onMobileSidebarToggle` is missing, so the sidebar cannot be toggled.');
+    }
+  }, [mobileSidebarOpenProp, onMobileSidebarToggle]);
 
   useEffect(() => {
     const rafId = window.requestAnimationFrame(() => setLayoutReady(true));
     return () => window.cancelAnimationFrame(rafId);
   }, []);
 
+  useEffect(() => {
+    if (!mobileSidebarOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') handleMobileSidebarToggle();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mobileSidebarOpen, handleMobileSidebarToggle]);
+
   return (
-    <>
-      <div
-        className={`${GetShellLayoutCss(props.displayType)} ${mobileSidebarOpen ? 'mobile-sidebar-open' : ''} ${layoutReady ? 'rds-appshell--layout-ready' : ''}`}
-      >
-        <div className="sidebar-layout">
-          {props.sidebar}
-        </div>
-        <div className="topnav-layout">
-          <TopbarSlot topbar={props.topbar} onMenuClick={handleMobileSidebarToggle} />
-          {props.children}
-        </div>
-        {mobileSidebarOpen && (
-          <button
-            type="button"
-            className="mobile-sidebar-backdrop"
-            onClick={handleMobileSidebarToggle}
-            aria-label="Close sidebar overlay"
-          />
-        )}
+    <Box
+      {...rest}
+      className={clsx(
+        GetShellLayoutCss(displayType),
+        mobileSidebarOpen && 'mobile-sidebar-open',
+        layoutReady && 'rds-appshell--layout-ready',
+        className,
+      )}
+    >
+      <div className="sidebar-layout">{sidebar}</div>
+      <div className="topnav-layout">
+        {withMenuClick(topbar, handleMobileSidebarToggle)}
+        {children}
       </div>
-    </>
+      {mobileSidebarOpen && (
+        <button
+          type="button"
+          className="mobile-sidebar-backdrop"
+          onClick={handleMobileSidebarToggle}
+          aria-label={closeSidebarLabel}
+        />
+      )}
+    </Box>
   );
 };
 RdsCompAppShell.displayName = 'RdsCompAppShell';

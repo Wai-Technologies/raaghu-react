@@ -2,7 +2,11 @@
  * Performance monitoring and optimization utilities for Raaghu Design System
  */
 
-// Performance Metrics Interface
+const isDev = typeof process === 'undefined' || process.env?.NODE_ENV !== 'production';
+
+/** Oldest metrics are dropped beyond this many entries so the buffer cannot grow forever. */
+const MAX_METRICS = 500;
+
 export interface PerformanceMetrics {
   componentName: string;
   renderTime: number;
@@ -10,7 +14,6 @@ export interface PerformanceMetrics {
   timestamp: number;
 }
 
-// Performance Monitor Class
 export class PerformanceMonitor {
   private static metrics: PerformanceMetrics[] = [];
   private static isEnabled = true;
@@ -26,17 +29,10 @@ export class PerformanceMonitor {
   static recordMetric(componentName: string, duration: number): void {
     if (!this.isEnabled) return;
 
-    const metric: PerformanceMetrics = {
-      componentName,
-      renderTime: performance.now(),
-      duration,
-      timestamp: Date.now(),
-    };
+    this.metrics.push({ componentName, renderTime: performance.now(), duration, timestamp: Date.now() });
+    if (this.metrics.length > MAX_METRICS) this.metrics.shift();
 
-    this.metrics.push(metric);
-
-    // Log slow renders (> 16ms)
-    if (duration > 16) {
+    if (isDev && duration > 16) {
       console.warn(`Slow render detected: ${componentName} took ${duration}ms`);
     }
   }
@@ -52,39 +48,24 @@ export class PerformanceMonitor {
   static getAverageRenderTime(componentName: string): number {
     const componentMetrics = this.metrics.filter(m => m.componentName === componentName);
     if (componentMetrics.length === 0) return 0;
-    
-    const total = componentMetrics.reduce((sum, m) => sum + m.duration, 0);
-    return total / componentMetrics.length;
+    return componentMetrics.reduce((sum, m) => sum + m.duration, 0) / componentMetrics.length;
   }
 
   static getSlowComponents(threshold = 16): string[] {
-    const slowComponents = new Set<string>();
-    
-    this.metrics.forEach(metric => {
-      if (metric.duration > threshold) {
-        slowComponents.add(metric.componentName);
-      }
-    });
-    
-    return Array.from(slowComponents);
+    return [...new Set(this.metrics.filter(m => m.duration > threshold).map(m => m.componentName))];
   }
 }
 
-// Bundle Size Analyzer
 export class BundleSizeAnalyzer {
+  /**
+   * @deprecated Returns a random mock size, not a real measurement. Use the `size-limit` script instead.
+   */
   static async analyzeComponent(_componentName: string): Promise<number> {
-    // Mock implementation - in real scenario, this would analyze actual bundle sizes
-    const mockSize = Math.random() * 50000; // 0-50KB
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(mockSize), 100);
-    });
+    return new Promise((resolve) => setTimeout(() => resolve(Math.random() * 50000), 100));
   }
 
   static async getBundleSizeReport(): Promise<Record<string, number>> {
-    const components = [
-      'RdsButton', 'RdsCard', 'RdsModal', 'RdsTable', 'RdsForm'
-    ];
-
+    const components = ['RdsButton', 'RdsCard', 'RdsModal', 'RdsTable', 'RdsForm'];
     const entries = await Promise.all(
       components.map(async (component) => [component, await this.analyzeComponent(component)] as const)
     );
@@ -93,7 +74,6 @@ export class BundleSizeAnalyzer {
   }
 }
 
-// Memory Leak Detector
 export class MemoryLeakDetector {
   private static observers: Set<MutationObserver> = new Set();
   private static eventListeners: Set<() => void> = new Set();
@@ -112,15 +92,12 @@ export class MemoryLeakDetector {
   }
 
   static cleanup(): void {
-    // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers.clear();
 
-    // Remove event listeners
     this.eventListeners.forEach(cleanup => cleanup());
     this.eventListeners.clear();
 
-    // Clear timers
     this.timers.forEach(timer => clearTimeout(timer));
     this.timers.clear();
   }
@@ -130,7 +107,6 @@ export class MemoryLeakDetector {
   }
 }
 
-// Performance Timing Utilities
 export class PerformanceTimingUtils {
   private static timers: Map<string, number> = new Map();
 
@@ -140,20 +116,18 @@ export class PerformanceTimingUtils {
 
   static endTimer(name: string): number {
     const startTime = this.timers.get(name);
-    if (!startTime) {
-      console.warn(`Timer '${name}' was not started`);
+    if (startTime === undefined) {
+      if (isDev) console.warn(`Timer '${name}' was not started`);
       return 0;
     }
 
     const duration = performance.now() - startTime;
     this.timers.delete(name);
-    
     PerformanceMonitor.recordMetric(name, duration);
     return duration;
   }
 }
 
-// Export performance utilities
 export default {
   PerformanceMonitor,
   BundleSizeAnalyzer,

@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { Box, BoxProps } from '@mui/material';
+import clsx from 'clsx';
 
 export interface RdsCompLayoutItemProps extends BoxProps {
   children?: ReactNode;
@@ -14,24 +15,17 @@ const RdsCompLayoutItem = ({
   order,
   alignSelf,
   className,
+  sx,
   ...props
-}) => {
-  const itemClass = `rds-layout-item ${className || ''}`;
+}: RdsCompLayoutItemProps) => (
+  <Box
+    {...props}
+    className={clsx('rds-layout-item', className)}
+    sx={[{ flex, order, alignSelf }, ...(Array.isArray(sx) ? sx : [sx])]}
+  >
+    {children}
+  </Box>
+);
 
-  return (
-    <Box
-      className={itemClass}
-      sx={{
-        flex,
-        order,
-        alignSelf,
-        ...props.sx,
-      }}
-      {...props}
-    >
-      {children}
-    </Box>
-  );
-};
-
+RdsCompLayoutItem.displayName = 'RdsCompLayoutItem';
 export default RdsCompLayoutItem;
