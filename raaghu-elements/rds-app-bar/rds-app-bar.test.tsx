@@ -3,11 +3,11 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import RdsAppBar, { RdsAppBarProps, RdsAppBarSize } from './rds-app-bar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-app-bar.scss', () => ({}));
 
-// Mock ProfileMenu component
 jest.mock('./ProfileMenu', () => {
   return {
     ProfileMenu: ({ name, email, menuItems }: any) => (
@@ -20,7 +20,6 @@ jest.mock('./ProfileMenu', () => {
   };
 });
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/Clear', () => {
   return function GetAppIcon() {
     return <span data-testid="clear-icon">ClearIcon</span>;
@@ -457,7 +456,6 @@ describe('RdsAppBar', () => {
         { label: 'About' },
         { label: 'Contact' },
       ];
-      // Only test simple string tabs due to Tab component requirements
       render(
         <RdsAppBar
           {...defaultProps}
@@ -882,5 +880,50 @@ describe('RdsAppBar audit fixes', () => {
     render(<RdsAppBar tabs={['Same', 'Same']} tabValue={0} onTabChange={jest.fn()} />);
     expect(error.mock.calls.some(([msg]) => String(msg).includes('same key'))).toBe(false);
     error.mockRestore();
+  });
+});
+
+describe('RdsAppBar additive renames', () => {
+  beforeEach(() => (warnDeprecatedProp as jest.Mock).mockClear());
+
+  it('endSlot wins over rightActions and actions', () => {
+    render(<RdsAppBar endSlot={<b>new</b>} rightActions={<b>old-right</b>} actions={<b>old-actions</b>} />);
+    expect(screen.getByText('new')).toBeInTheDocument();
+    expect(screen.queryByText('old-right')).toBeNull();
+    expect(screen.queryByText('old-actions')).toBeNull();
+  });
+
+  it('rightActions, actions and centerContent still work and warn', () => {
+    render(<RdsAppBar rightActions={<b>r</b>} actions={<b>a</b>} centerContent={<b>c</b>} />);
+    expect(screen.getByText('r')).toBeInTheDocument();
+    expect(screen.getByText('a')).toBeInTheDocument();
+    expect(screen.getByText('c')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'rightActions', '`endSlot`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'actions', '`endSlot`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'centerContent', '`centerSlot`');
+  });
+
+  it('centerSlot wins over centerContent', () => {
+    render(<RdsAppBar centerSlot={<b>new</b>} centerContent={<b>old</b>} />);
+    expect(screen.getByText('new')).toBeInTheDocument();
+    expect(screen.queryByText('old')).toBeNull();
+  });
+
+  it('tabsProps value/onChange win over tabValue/onTabChange', () => {
+    const onTabChange = jest.fn();
+    const onChange = jest.fn();
+    render(<RdsAppBar tabs={['A', 'B']} tabValue={0} onTabChange={onTabChange} tabsProps={{ value: 1, onChange }} />);
+    expect(screen.getByRole('tab', { name: 'B' })).toHaveAttribute('aria-selected', 'true');
+    fireEvent.click(screen.getByRole('tab', { name: 'A' }));
+    expect(onChange).toHaveBeenCalledWith(expect.anything(), 0);
+    expect(onTabChange).not.toHaveBeenCalled();
+  });
+
+  it('tabValue/onTabChange still work (value signature) and warn', () => {
+    const onTabChange = jest.fn();
+    render(<RdsAppBar tabs={['A', 'B']} tabValue={0} onTabChange={onTabChange} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'B' }));
+    expect(onTabChange).toHaveBeenCalledWith(1);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAppBar', 'tabValue', '`tabsProps.value`');
   });
 });

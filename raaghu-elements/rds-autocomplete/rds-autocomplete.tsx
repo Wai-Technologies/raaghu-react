@@ -27,20 +27,28 @@ export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>
   /** Marks the field as required: shows an asterisk after the label and sets `aria-required` on the input. */
   required?: boolean;
   display?: {
+    /** @deprecated Use `showTitle` instead. */
     title?: 'visible' | 'hidden';
     /** @deprecated Use `required` instead. */
     mandatory?: 'required' | 'optional';
+    /** @deprecated Use `showHintText` instead. */
     hint?: 'visible' | 'hidden';
   };
   selectSize?: 'small' | 'medium' | 'large';
   controlStyle?: 'default' | 'bottom line';
   state?: 'default' | 'expanded' | 'selected' | 'disabled';
+  /** Decoration shown before each option: a checkbox, a radio, the option icon (`avatar`) or nothing. Takes precedence over `optionDecorators`. */
+  optionVariant?: 'checkbox' | 'radio' | 'avatar' | 'none';
+  /** @deprecated Use `optionVariant` instead. */
   optionDecorators?: {
     checkbox?: 'visible' | 'hidden';
     radio?: 'visible' | 'hidden';
     user?: 'visible' | 'hidden';
   };
+  /** @deprecated Use `getOptionIcon` instead. */
   userIcon?: ReactNode;
+  /** Returns the icon shown before an option when `optionVariant` is `avatar`. Takes precedence over `userIcon`. */
+  getOptionIcon?: (option: T) => ReactNode;
   popupIcon?: ReactNode;
   /** @deprecated Use `openOnFocus` and `multiple` instead. */
   behavior?: {
@@ -113,7 +121,9 @@ const RdsAutocomplete = <T extends { label?: string },>({
   controlStyle = 'default',
   state = 'default',
   optionDecorators,
+  optionVariant,
   userIcon,
+  getOptionIcon,
   popupIcon,
   behavior,
   hideClearAllOnMobile = false,
@@ -144,15 +154,22 @@ const RdsAutocomplete = <T extends { label?: string },>({
 }: RdsAutocompleteProps<T>) => {
   if (display?.mandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'display.mandatory', '`required`');
   if (behavior !== undefined) warnDeprecatedProp('RdsAutocomplete', 'behavior', '`openOnFocus` and `multiple`');
+  if (optionDecorators !== undefined) warnDeprecatedProp('RdsAutocomplete', 'optionDecorators', '`optionVariant`');
+  if (userIcon !== undefined) warnDeprecatedProp('RdsAutocomplete', 'userIcon', '`getOptionIcon`');
   if (isMandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'isMandatory', '`required`');
   if (allowMultiple !== undefined) warnDeprecatedProp('RdsAutocomplete', 'allowMultiple', '`multiple`');
 
   const showTitle = display?.title ? display.title === 'visible' : (showTitleProp ?? true);
   const isRequired = required ?? (display?.mandatory ? display.mandatory === 'required' : (isMandatory ?? false));
   const showHintText = display?.hint ? display.hint === 'visible' : (showHintTextProp ?? false);
-  const isShowCheckbox = optionDecorators?.checkbox ? optionDecorators.checkbox === 'visible' : (isShowCheckboxProp ?? false);
-  const isShowRadio = optionDecorators?.radio ? optionDecorators.radio === 'visible' : (isShowRadioProp ?? false);
-  const isShowUser = optionDecorators?.user ? optionDecorators.user === 'visible' : (isShowUserProp ?? false);
+  const showDecorator = (variant: 'checkbox' | 'radio' | 'avatar', key: 'checkbox' | 'radio' | 'user', legacy?: boolean) => {
+    if (optionVariant !== undefined) return optionVariant === variant;
+    const decorator = optionDecorators?.[key];
+    return decorator ? decorator === 'visible' : (legacy ?? false);
+  };
+  const isShowCheckbox = showDecorator('checkbox', 'checkbox', isShowCheckboxProp);
+  const isShowRadio = showDecorator('radio', 'radio', isShowRadioProp);
+  const isShowUser = showDecorator('avatar', 'user', isShowUserProp);
   const openOnFocus = openOnFocusProp ?? (behavior?.openOnFocus ? behavior.openOnFocus === 'on' : false);
   const allowMultipleResolved = multipleProp ?? (behavior?.multiple ? behavior.multiple === 'on' : (allowMultiple ?? false));
 
@@ -160,15 +177,12 @@ const RdsAutocomplete = <T extends { label?: string },>({
   const generatedId = useId();
   const inputId = id ?? `rds-autocomplete-${generatedId}`;
 
-  // Value: controlled when the consumer passes `value`, otherwise kept here (seeded from `defaultValue` or `state`).
   const isValueControlled = value !== undefined;
   const [selected, setSelected] = useState<T | T[] | null>(() =>
     defaultValue !== undefined ? defaultValue : deriveSelection(state, options, allowMultipleResolved),
   );
   const [prevSelectionState, setPrevSelectionState] = useState({ state, options, allowMultiple: allowMultipleResolved });
 
-  // Re-derive only when `state`/`multiple` change or the options really change, not when a parent
-  // re-renders with a new (but equal) inline options array.
   if (
     state !== prevSelectionState.state ||
     allowMultipleResolved !== prevSelectionState.allowMultiple ||
@@ -190,7 +204,6 @@ const RdsAutocomplete = <T extends { label?: string },>({
     onChange?.(event, newValue, reason, details);
   };
 
-  // Open: controlled when the consumer passes `open`; otherwise `state='expanded'` keeps the list open.
   const isOpenControlled = openProp !== undefined;
   const [internalOpen, setInternalOpen] = useState(state === 'expanded');
   const [prevExpandedState, setPrevExpandedState] = useState(state);
@@ -212,8 +225,6 @@ const RdsAutocomplete = <T extends { label?: string },>({
   const selectedCount = allowMultipleResolved && Array.isArray(currentValue) ? currentValue.length : 0;
   const hideClearAll = allowMultipleResolved && selectedCount <= 1;
 
-  // Measure the actual rendered width of this component via ResizeObserver
-  // so the chip limit works correctly inside Storybook iframes and any container
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(1024);
   useLayoutEffect(() => {
@@ -231,7 +242,6 @@ const RdsAutocomplete = <T extends { label?: string },>({
   const MOBILE_LG_MAX_WIDTH = 414;
   const shouldHideClearAll = hideClearAllOnMobile && containerWidth <= MOBILE_LG_MAX_WIDTH;
 
-  // ≤200px → 1 chip, ≤320px → 2 chips, >320px → 3 chips
   const responsiveLimitTags = containerWidth <= 200 ? 1 : containerWidth <= 320 ? 2 : 3;
 
   const optionText = (option: T) => (getOptionLabel ? getOptionLabel(option) : option.label || String(option));
@@ -273,7 +283,6 @@ const RdsAutocomplete = <T extends { label?: string },>({
   type ListboxSlotProps = NonNullable<NonNullable<RdsAutocompleteMuiProps<T>['slotProps']>['listbox']>;
   type ListboxSlotPropsObject = Exclude<ListboxSlotProps, (...args: never[]) => unknown>;
   const consumerListbox = slotProps?.listbox;
-  // Our listbox styles first, then the consumer's (deprecated `ListboxProps`, then `slotProps.listbox`).
   const mergeListbox = (consumer: ListboxSlotPropsObject | undefined) =>
     ({
       ...ListboxProps,
@@ -351,7 +360,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
                 )}
                 {(isShowUser) && (
                   <Box sx={{ display: 'flex', alignItems: 'center', p: '2px', flexShrink: 0 }}>
-                    {userIcon}
+                    {getOptionIcon ? getOptionIcon(option) : userIcon}
                   </Box>
                 )}
                 {(isShowRadio) && (

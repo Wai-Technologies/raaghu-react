@@ -4,9 +4,10 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCarousel, { RdsCarouselProps } from './rds-carousel';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-carousel.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsCarousel', () => {
   const defaultSlides = [
@@ -86,7 +87,6 @@ describe('RdsCarousel', () => {
       const nextButton = screen.getAllByRole('button')[1];
       fireEvent.click(nextButton);
       
-      // After clicking next, second slide should be visible
       expect(screen.getByTestId('slide-2')).toBeInTheDocument();
     });
 
@@ -95,7 +95,6 @@ describe('RdsCarousel', () => {
       const prevButton = screen.getAllByRole('button')[0];
       fireEvent.click(prevButton);
       
-      // After clicking prev from slide 2, should go to slide 1
       expect(screen.getByTestId('slide-1')).toBeInTheDocument();
     });
 
@@ -104,7 +103,6 @@ describe('RdsCarousel', () => {
       const prevButton = screen.getAllByRole('button')[0];
       fireEvent.click(prevButton);
       
-      // Should wrap to last slide
       expect(screen.getByTestId('slide-3')).toBeInTheDocument();
     });
 
@@ -113,7 +111,6 @@ describe('RdsCarousel', () => {
       const nextButton = screen.getAllByRole('button')[1];
       fireEvent.click(nextButton);
       
-      // Should wrap to first slide
       expect(screen.getByTestId('slide-1')).toBeInTheDocument();
     });
 
@@ -864,3 +861,47 @@ describe('audit fixes', () => {
     });
   });
 });
+
+describe('RdsCarousel additive renames', () => {
+  const slides = [<div key="a">A</div>, <div key="b">B</div>, <div key="c">C</div>];
+  const dots = (c: HTMLElement) => c.querySelectorAll('.rds-carousel__indicator');
+
+  beforeEach(() => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+  });
+
+  it('showIndicators wins over showDots and the old prop warns', () => {
+    const { container } = render(<RdsCarousel showIndicators showDots={false}>{slides}</RdsCarousel>);
+    expect(dots(container)).toHaveLength(3);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCarousel', 'showDots', '`showIndicators`');
+  });
+
+  it('defaultIndex seeds the starting slide', () => {
+    const { container } = render(<RdsCarousel defaultIndex={2}>{slides}</RdsCarousel>);
+    expect(dots(container)[2]).toHaveAttribute('aria-current', 'true');
+  });
+
+  it('variant wins over style', () => {
+    const { container } = render(<RdsCarousel variant="with title" style="default">{slides}</RdsCarousel>);
+    expect(container.firstElementChild).toHaveClass('rds-carousel--with-title');
+  });
+
+  it('items win over titles and subtitles, which warn', () => {
+    render(
+      <RdsCarousel variant="with title" items={[{ title: 'New T', subtitle: 'New S' }]} titles={['Old T']} subtitles={['Old S']}>
+        {slides}
+      </RdsCarousel>,
+    );
+    expect(screen.getByText('New T')).toBeInTheDocument();
+    expect(screen.getByText('New S')).toBeInTheDocument();
+    expect(screen.queryByText('Old T')).not.toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCarousel', 'titles', '`items`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCarousel', 'subtitles', '`items`');
+  });
+
+  it('indicatorVariant wins over type', () => {
+    const { container } = render(<RdsCarousel indicatorVariant="line" type="circle">{slides}</RdsCarousel>);
+    expect(dots(container)[0]).toHaveClass('rds-carousel__indicator--line');
+  });
+});
+

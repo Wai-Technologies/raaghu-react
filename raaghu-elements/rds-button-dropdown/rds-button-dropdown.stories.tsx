@@ -52,7 +52,7 @@ const meta: Meta<typeof RdsButtonDropdown> = {
       options: ['small', 'medium', 'large'],
       description: 'Size of the button',
     },
-    styleType: {
+    variant: {
       control: 'select',
       options: ['primary', 'secondary', 'outline', 'transparent'],
       description: 'Style of the button',
@@ -87,7 +87,7 @@ export const Default: Story = {
     state: 'default',
     size: 'medium',
     layout: 'icon+text',
-    styleType: 'primary',
+    variant: 'primary',
     shape: 'rectangle',
     buttonState: 'default',
     endIcon: <ArrowDropDown />,
@@ -98,7 +98,7 @@ export const Default: Story = {
     isShowRightIcon: true,
   },
 };
-Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch','state','showUserAvatar','showRadio','isShowLeftIcon','isShowRightIcon','size','layout','styleType','shape','buttonState'] } };
+Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch','state','showUserAvatar','showRadio','isShowLeftIcon','isShowRightIcon','size','layout','variant','shape','buttonState'] } };
 
 export const MultiSelect: Story = {
   args: {
@@ -110,7 +110,7 @@ export const MultiSelect: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-MultiSelect.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','styleType','shape','buttonState'] } };
+MultiSelect.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','variant','shape','buttonState'] } };
 
 export const WithSearch: Story = {
   args: {
@@ -122,7 +122,7 @@ export const WithSearch: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-WithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','styleType','shape','buttonState'] } };
+WithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','variant','shape','buttonState'] } };
 
 export const MultiSelectWithSearch: Story = {
   args: {
@@ -134,4 +134,4 @@ export const MultiSelectWithSearch: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-MultiSelectWithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','styleType','shape','buttonState'] } };
+MultiSelectWithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','variant','shape','buttonState'] } };

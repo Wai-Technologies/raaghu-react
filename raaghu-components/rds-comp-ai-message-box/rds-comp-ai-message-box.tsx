@@ -52,8 +52,8 @@ const RdsCompAiMessageBox = memo(({
             showDesignation
             showName={false}
             src={avatarSrc}
-            subText={children ?? message}
-            title={name}
+            description={children ?? message}
+            name={name}
           />
         </div>
         {isImage && (

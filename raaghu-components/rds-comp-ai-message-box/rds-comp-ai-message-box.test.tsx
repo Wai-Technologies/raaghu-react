@@ -6,17 +6,15 @@ import RdsCompAiMessageBox, { RdsCompAiMessageBoxProps } from './rds-comp-ai-mes
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-message-box.scss', () => ({}));
 
-// Mock RdsAvatar component
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   return function MockRdsAvatar(props: any) {
     return (
       <div
         data-testid="rds-avatar"
-        data-title={props.title}
-        data-subtext={props.subText}
+        data-title={props.name ?? props.title}
+        data-subtext={props.description ?? props.subText}
         data-src={props.src}
         data-show-name={props.showName}
         data-display-style={props.displayStyle}
@@ -27,7 +25,6 @@ jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   };
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiMessageBoxProps = {
   message: 'Test message',
   isImage: false,

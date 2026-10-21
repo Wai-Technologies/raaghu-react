@@ -157,7 +157,6 @@ const RdsSidebar = ({
   }
   if (layout === 'raaghu' || layout === 'toolbar') {
     showAvatar = false;
-    // Keep search available in collapse/fixed (icon-only) mode when showSearch is true
     showSearchBox = showSearch;
   }
 
@@ -264,18 +263,18 @@ const RdsSidebar = ({
             {layout === 'toolbar' ? (
               shouldShowIconsOnly ? (
                 <RdsAvatar
-                  activeDotBottom
+                  status="online"
                   src={avatarSrc}
                 />
               ) : (
                 <RdsAvatar
                   alt="User Avatar"
-                  subText={userSubtitle}
+                  description={userSubtitle}
                   displayStyle="with-name"
-                  title={userName}
+                  name={userName}
                   showDesignation
                   showName
-                  activeDotBottom
+                  status="online"
                   src={avatarSrc}
                 />
               )
@@ -419,17 +418,17 @@ const RdsSidebar = ({
             {!shouldShowIconsOnly ? (
               <RdsAvatar
                 alt="User Avatar"
-                subText={userSubtitle}
+                description={userSubtitle}
                 displayStyle="with-name"
-                title={userName}
+                name={userName}
                 showDesignation
                 showName
-                activeDotBottom
+                status="online"
                 src={avatarSrc}
               />
             ) : (
               <RdsAvatar
-                activeDotBottom
+                status="online"
                 src={avatarSrc}
               />
             )}

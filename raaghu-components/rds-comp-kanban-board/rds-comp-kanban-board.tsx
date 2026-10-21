@@ -107,7 +107,7 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
                 <RdsAvatar
                   displayStyle="stacking"
                   size="smallest"
-                  maxVisibleAvatars={2}
+                  max={2}
                   showRemainingCount={false}
                   avatars={avatarData}
                 />
@@ -143,7 +143,6 @@ const PlusIcon = (
   </svg>
 );
 
-// Hoisted so Autocomplete does not get a new Paper component type on every render.
 const AutocompletePaper = (paperProps: PaperProps) => (
   <Paper {...paperProps} className="rds-kanban-board__autocomplete-paper" />
 );
@@ -185,7 +184,6 @@ const RdsCompKanbanBoard = ({
     if (noEffect[key] !== undefined) warnDeprecatedProp('RdsCompKanbanBoard', key, 'nothing (it has no effect)');
   });
 
-  // allowAddingNewCard / allowAddingNewSubCard are intentionally not passed (same as before).
   const props: RdsCompKanbanBoardProps = {
     boardData, onSubCardOption, onCardOption, onBoardDataChange, onAddQuestionSaveHandler, onSelectedTagsListChange,
   };

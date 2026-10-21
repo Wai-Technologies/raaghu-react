@@ -15,7 +15,7 @@ const meta: Meta<typeof RdsCarousel> = {
   decorators: [
     (Story, context) => {
       if (context.args && context.args.style === 'full width image') {
-        context.args = { ...context.args, showDots: false };
+        context.args = { ...context.args, showIndicators: false };
       }
       return (
         <Box sx={{ width: '100%', maxWidth: '100vw', minWidth: 0, overflowX: 'hidden', p: 1 }}>
@@ -38,7 +38,7 @@ const meta: Meta<typeof RdsCarousel> = {
       control: 'boolean',
       description: 'Show navigation arrows for previous/next slide',
     },
-    showDots: {
+    showIndicators: {
     control: 'boolean',
     if: { arg: 'style', neq: 'full width image' },
     description: 'Show indicator dots/lines for slide navigation',
@@ -106,7 +106,7 @@ export const Default: Story = {
     ],
     autoPlay: false,
     showArrows: true,
-    showDots: true,
+    showIndicators: true,
     height: '400px',
     type: 'circle',
   style: 'default',
@@ -126,7 +126,7 @@ export const AutoPlay: Story = {
     autoPlay: true,
     autoPlayInterval: 2000,
     showArrows: true,
-    showDots: true,
+    showIndicators: true,
     height: '300px',
     style: 'default',
     className: 'rds-carousel--auto-play',
@@ -143,7 +143,7 @@ export const NoControls: Story = {
       <SampleSlide key={2} image="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80" text="No Controls 2" />,
     ],
     showArrows: false,
-    showDots: false,
+    showIndicators: false,
     height: '400px',
   title: 'No Controls Title',
   subtitle: 'No controls subtitle',

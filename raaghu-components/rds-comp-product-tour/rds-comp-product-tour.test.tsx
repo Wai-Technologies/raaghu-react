@@ -8,10 +8,8 @@ import { axe } from 'jest-axe';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-product-tour.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: ({ children, className, sx, ...props }: any) => {
     const style = sx ? Object.keys(sx).reduce((acc: any, key: string) => {
@@ -40,17 +38,15 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   Close: () => <span data-testid="close-icon">×</span>,
   InfoOutlined: () => <span data-testid="info-icon">ⓘ</span>,
   ExpandMore: () => <span data-testid="expand-icon">▼</span>,
 }));
 
-// Mock Raaghu elements
 jest.mock('../../raaghu-elements/rds-carousel/rds-carousel', () => ({
   __esModule: true,
-  default: ({ children, state, height, style, type, showDots, showArrows, ...props }: any) => (
+  default: ({ children, state, height, style, type, showDots, showIndicators, showArrows, ...props }: any) => (
     <div
       data-testid="rds-carousel"
       data-state={state}
@@ -322,7 +318,6 @@ describe('RdsCompProductTour', () => {
       const { container } = render(
         <RdsCompProductTour {...defaultProps} state="GIF" showVisualPlaceholder={false} />
       );
-        // When visual placeholder is disabled, the GIF element should not be rendered
         const gif = container.querySelector('.rds-comp-product-tour__gif');
         expect(gif).not.toBeInTheDocument();
     });
@@ -541,8 +536,6 @@ describe('RdsCompProductTour', () => {
       const currentImg = container.querySelector('.rds-comp-product-tour__image') as HTMLImageElement;
       expect(currentImg.src).toContain('/image1.jpg');
 
-      // Navigation would change the slide via button click
-      // This depends on button text/structure
     });
 
     it('should display steps indicator', () => {

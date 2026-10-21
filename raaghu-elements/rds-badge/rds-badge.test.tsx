@@ -4,7 +4,6 @@ import RdsBadge, { RdsBadgeProps } from './rds-badge';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-badge.scss', () => ({}));
 
 describe('RdsBadge', () => {
@@ -666,5 +665,33 @@ describe('RdsBadge audit fixes', () => {
     render(<RdsBadge badgeContent={4} layout="icon-text" icon={<span data-testid="custom-badge-icon" />} />);
     expect(screen.getByTestId('custom-badge-icon')).toBeInTheDocument();
     expect(screen.getByText('4')).toBeInTheDocument();
+  });
+});
+
+describe('RdsBadge audit fixes', () => {
+  it('startIcon/endIcon override layout-derived icons; null hides', () => {
+    const { container, rerender } = render(
+      <RdsBadge badgeContent={4} layout="icon-text" startIcon={<span data-testid="s" />} endIcon={<span data-testid="e" />} />
+    );
+    expect(screen.getByTestId('s')).toBeInTheDocument();
+    expect(screen.getByTestId('e')).toBeInTheDocument();
+    expect(container.querySelector('svg')).not.toBeInTheDocument();
+    rerender(<RdsBadge badgeContent={4} layout="icon-text" startIcon={null} />);
+    expect(container.querySelector('svg')).not.toBeInTheDocument();
+    expect(screen.getByText('4')).toBeInTheDocument();
+  });
+
+  it('disabled prop maps to the disabled class and wins over state', () => {
+    const { container, rerender } = render(<RdsBadge badgeContent={4} disabled />);
+    expect(container.querySelector('.rds-badge')).toHaveClass('rds-badge--disabled');
+    rerender(<RdsBadge badgeContent={4} state="disabled" disabled={false} />);
+    expect(container.querySelector('.rds-badge')).not.toHaveClass('rds-badge--disabled');
+  });
+
+  it('variant selects the style class; dot still reaches MUI', () => {
+    const { container, rerender } = render(<RdsBadge badgeContent={4} variant="outline" />);
+    expect(container.querySelector('.rds-badge')).toHaveClass('rds-badge--outline');
+    rerender(<RdsBadge variant="dot"><span>x</span></RdsBadge>);
+    expect(container.querySelector('.MuiBadge-dot')).toBeInTheDocument();
   });
 });

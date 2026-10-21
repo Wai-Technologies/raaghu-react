@@ -71,6 +71,7 @@ export type CardStyle = 'default' | 'outlined' | 'filled';
 export type CardLayout = 'vertical' | 'horizontal';
 export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
 export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component' | 'content'> {
+  /** @deprecated Use `sx` instead. */
   padding?: number | string;
   /** Visual state (Figma). `disabled` and `selected` take precedence when set. */
   state?: CardState;
@@ -108,6 +109,9 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'co
   changeIcon?: CardIconName;
   children?: ReactNode;
   title?: string;
+  /** Secondary line under the title. */
+  subtitle?: string;
+  /** @deprecated Use `subtitle` instead. */
   cardSubtext?: string;
   description?: string;
 }
@@ -132,6 +136,7 @@ const RdsCard = ({
   changeIcon,
   title,
   cardSubtext,
+  subtitle,
   description,
   'aria-disabled': ariaDisabledProp,
   'aria-selected': ariaSelectedProp,
@@ -139,8 +144,10 @@ const RdsCard = ({
   ...muiCardProps
 }: RdsCardProps) => {
   if (changeIcon !== undefined) warnDeprecatedProp('RdsCard', 'changeIcon', '`icon`');
+  if (cardSubtext !== undefined) warnDeprecatedProp('RdsCard', 'cardSubtext', '`subtitle`');
+  if (padding !== undefined) warnDeprecatedProp('RdsCard', 'padding', '`sx`');
+  const resolvedSubtitle = subtitle ?? cardSubtext;
 
-  // The show* booleans only count when they really are booleans, as before.
   const legacy = (value: unknown) => (typeof value === 'boolean' ? value : undefined);
   const iconHiddenByProp = icon === null || icon === false;
 
@@ -150,7 +157,6 @@ const RdsCard = ({
   const showDescription = content?.description ? content.description === 'visible' : (legacy(showDescriptionProp) ?? true);
   const showIcon = !iconHiddenByProp && (content?.icon ? content.icon === 'visible' : (legacy(showIconProp) ?? true));
 
-  // `disabled`/`selected` win over `state` when given; `disabled` wins over `selected`.
   const isDisabled = disabled ?? state === 'disabled';
   const isSelected = !isDisabled && (selected ?? state === 'selected');
   const resolvedState: CardState = isDisabled
@@ -204,13 +210,13 @@ const RdsCard = ({
           {title}
         </Typography>
       )}
-      {cardSubtext && showSubtext && (
+      {resolvedSubtitle && showSubtext && (
         <Typography
           variant="body2"
           component="p"
           className="rds-card__subtext"
         >
-          {cardSubtext}
+          {resolvedSubtitle}
         </Typography>
       )}
     </div>
