@@ -1,33 +1,49 @@
 import clsx from "clsx";
-import { memo } from "react";
+import type { ElementType, HTMLAttributes, Ref } from "react";
 import "./rds-comp-ai-chat-header.scss";
 export { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
-import { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
+import type { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
 
-export interface RdsCompAiChatHeaderProps {
+/** Props for {@link RdsCompAiChatHeader}. */
+export interface RdsCompAiChatHeaderProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  /** URL of the logo shown before the title. */
   logoUrl?: string;
+  /** Alt text of the logo. Default "Logo". */
+  logoAlt?: string;
+  /** Header title text. */
   title?: string;
-  size?: ChatHeaderSize;
+  /** Size of the title and logo. Default `'medium'`. */
+  size?: ChatHeaderSize | "small" | "medium" | "large";
+  /** Element used for the title. Default `'h3'`. */
+  component?: ElementType;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
-const RdsCompAiChatHeader = memo(({
+const RdsCompAiChatHeader = ({
   logoUrl,
+  logoAlt = "Logo",
   title,
-  size = ChatHeaderSize.Medium,
+  size = "medium",
+  component: Heading = "h3",
+  className,
+  ref,
+  ...rest
 }: RdsCompAiChatHeaderProps) => (
-  <div className="rds-comp-ai-chat-header">
+  <div {...rest} ref={ref} className={clsx("rds-comp-ai-chat-header", className)}>
     {logoUrl && (
       <img
         src={logoUrl}
-        alt="Logo"
+        alt={logoAlt}
         className={clsx("rds-comp-ai-chat-header__logo", `rds-comp-ai-chat-header__logo--${size}`)}
       />
     )}
-    <h3 className={clsx("rds-comp-ai-chat-header__text", `rds-comp-ai-chat-header__text--${size}`)}>
+    <Heading className={clsx("rds-comp-ai-chat-header__text", `rds-comp-ai-chat-header__text--${size}`)}>
       {title}
-    </h3>
+    </Heading>
   </div>
-));
+);
 
 RdsCompAiChatHeader.displayName = "RdsCompAiChatHeader";
 export default RdsCompAiChatHeader;

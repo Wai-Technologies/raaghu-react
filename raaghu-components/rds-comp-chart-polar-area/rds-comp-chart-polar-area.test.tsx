@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 import RdsCompPolarAreaChart from './rds-comp-chart-polar-area';
 
 // Mock Chart.js
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -768,5 +769,43 @@ describe('RdsCompPolarAreaChart', () => {
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+  const { radius: _radius, ...noRadius } = defaultProps;
+
+  beforeEach(() => {
+    ChartMock.mockClear();
+    warnDeprecatedProp.mockClear();
+    jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+  });
+  afterEach(() => jest.restoreAllMocks());
+
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompPolarAreaChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-polar-area-container', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('sets the canvas height from height, or from the deprecated radius with a warning', () => {
+    render(<RdsCompPolarAreaChart {...noRadius} height={320} />);
+    expect(ChartMock.mock.results[0].value.canvas.style.height).toBe('320px');
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+
+    render(<RdsCompPolarAreaChart {...noRadius} id="legacy" radius={250} />);
+    expect(ChartMock.mock.results[1].value.canvas.style.height).toBe('250px');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompPolarAreaChart', 'radius', '`height`');
+  });
+
+  it('leaves the canvas height alone when neither height nor radius is set', () => {
+    render(<RdsCompPolarAreaChart {...noRadius} />);
+    expect(ChartMock.mock.results[0].value.canvas.style.height).toBe('');
   });
 });

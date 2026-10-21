@@ -1,13 +1,24 @@
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import "./rds-comp-ai-message-box.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export interface RdsCompAiMessageBoxProps {
   isImage?: boolean;
+  /** @deprecated Use `children` instead. */
   message?: string;
+  /** Message text (shown under the sender name). */
+  children?: string;
   src?: string;
+  /** @deprecated Use `avatar` instead. */
   avtar?: string;
   avatar?: string;
+  /** Display name shown for the sender. */
+  name?: string;
+  /** Alt text for the avatar image. */
+  avatarAlt?: string;
+  /** Alt text for the attached image. */
+  imageAlt?: string;
 }
 
 const DEFAULT_AVATAR =
@@ -18,30 +29,36 @@ const DEFAULT_IMAGE =
 const RdsCompAiMessageBox = memo(({
   isImage,
   message,
+  children,
   src,
   avtar,
   avatar,
+  name = "Jane Doe",
+  avatarAlt = "User Avatar",
+  imageAlt = "",
 }: RdsCompAiMessageBoxProps) => {
-  const avatarSrc = useMemo(() => avatar ?? avtar ?? DEFAULT_AVATAR, [avatar, avtar]);
-  const imageSrc = useMemo(() => src ?? DEFAULT_IMAGE, [src]);
+  if (avtar !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "avtar", "`avatar`");
+  if (message !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "message", "`children`");
+  const avatarSrc = avatar ?? avtar ?? DEFAULT_AVATAR;
+  const imageSrc = src ?? DEFAULT_IMAGE;
 
   return (
     <div className="rds-comp-ai-message-box">
       <div className="rds-comp-ai-message-box__container">
         <div className="rds-comp-ai-message-box__row">
           <RdsAvatar
-            alt="User Avatar"
+            alt={avatarAlt}
             displayStyle="with-name"
             showDesignation
             showName={false}
             src={avatarSrc}
-            subText={message}
-            title="Jane Doe"
+            subText={children ?? message}
+            title={name}
           />
         </div>
         {isImage && (
           <div className="rds-comp-ai-message-box__image-wrapper">
-            <img src={imageSrc} alt="" className="rds-comp-ai-message-box__image" />
+            <img src={imageSrc} alt={imageAlt} className="rds-comp-ai-message-box__image" />
           </div>
         )}
       </div>

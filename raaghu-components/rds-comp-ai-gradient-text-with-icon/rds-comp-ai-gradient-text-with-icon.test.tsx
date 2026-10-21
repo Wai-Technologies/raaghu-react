@@ -754,3 +754,20 @@ describe('RdsCompAiGradientTextWithIcon', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('supports component prop', () => {
+    render(<RdsCompAiGradientTextWithIcon component="h2" title="T" />);
+    expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
+  });
+
+  it('applies className, ref and rest to root', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompAiGradientTextWithIcon ref={ref} className="extra" data-testid="root" title="T" />
+    );
+    const root = container.querySelector('.rds-gradient-text-with-icon');
+    expect(root).toHaveClass('extra');
+    expect(ref.current).toBe(root);
+    expect(screen.getByTestId('root')).toBe(root);
+  });
+});

@@ -1,49 +1,35 @@
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  chartFont,
-  chartMutedColor,
-  chartTextColor,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import type { ChartOptions, ChartDataset } from "chart.js/auto";
+import { createCenterTextPlugin } from "../chart-utils";
 import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-gauge.scss";
 
-export interface RdsCompGaugeProps {
+/** Props for {@link RdsCompGaugeChart}. */
+export interface RdsCompGaugeProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Segment labels. */
   labels: string[];
+  /** Chart.js options (never mutated). The gauge always uses `rotation: -90` and `circumference: 180`. */
   options: ChartOptions<"doughnut">;
+  /** Chart.js doughnut datasets that draw the gauge. */
   dataSets: ChartDataset<"doughnut">[];
+  /** Id of the canvas element. */
   id: string;
+  /** Large text drawn in the gauge. */
   titleText?: string;
+  /** Smaller text drawn under the title. */
   subTitleText?: string;
+  /** @deprecated Has no effect. Put the value in `dataSets` (e.g. `data: [value, maxValue - value]`). */
   value?: number;
+  /** @deprecated Has no effect. Put the value in `dataSets` (e.g. `data: [value, maxValue - value]`). */
   maxValue?: number;
+  /** Accessible label of the chart. Default "Gauge chart". */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
-
-const createGaugeTextPlugin = (title: string, subTitle: string) => ({
-  id: "gaugeText",
-  beforeDraw(chart: Chart) {
-    const {
-      ctx: canvasCtx,
-      chartArea: { top, width, height },
-    } = chart;
-    const primaryColor = chartTextColor();
-    const mutedColor = chartMutedColor();
-
-    canvasCtx.save();
-    canvasCtx.font = chartFont("bold", "xl");
-    canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = primaryColor;
-    canvasCtx.fillText(title, width / 2, top + height / 1.5);
-    canvasCtx.restore();
-
-    canvasCtx.save();
-    canvasCtx.font = chartFont("medium", "md");
-    canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = mutedColor;
-    canvasCtx.fillText(subTitle, width / 2, top + height / 1.2);
-    canvasCtx.restore();
-  },
-});
 
 const RdsCompGaugeChart = ({
   labels,
@@ -52,8 +38,16 @@ const RdsCompGaugeChart = ({
   id,
   titleText = "",
   subTitleText = "",
+  value,
+  maxValue,
   chartLabel,
+  className,
+  ref,
+  ...rest
 }: RdsCompGaugeProps) => {
+  if (value !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "value", "`dataSets`");
+  if (maxValue !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "maxValue", "`dataSets`");
+
   const { canvasRef } = useChart<"doughnut">(
     {
       type: "doughnut",
@@ -61,7 +55,16 @@ const RdsCompGaugeChart = ({
       datasets: dataSets,
       options,
       themeAxes: [],
-      plugins: [createGaugeTextPlugin(titleText, subTitleText)],
+      plugins: [
+        createCenterTextPlugin({
+          id: "gaugeText",
+          title: titleText,
+          subTitle: subTitleText,
+          titleY: ({ top, height }) => top + height / 1.5,
+          subTitleY: ({ top, height }) => top + height / 1.2,
+          subTitleSize: "md",
+        }),
+      ],
       overrides: (chartOptions) => ({
         rotation: -90,
         circumference: 180,
@@ -72,12 +75,13 @@ const RdsCompGaugeChart = ({
           legend: {
             display: chartOptions?.plugins?.legend?.display !== false,
             position: "top",
+            // The themed copy of the consumer's legend; its `labels` are merged below so the theme colour stays.
+            ...chartOptions?.plugins?.legend,
             labels: {
               usePointStyle: true,
               pointStyle: "circle",
               ...chartOptions?.plugins?.legend?.labels,
             },
-            ...options?.plugins?.legend,
           },
         },
       }),
@@ -90,7 +94,7 @@ const RdsCompGaugeChart = ({
   );
 
   return (
-    <div className="rds-comp-chart-gauge">
+    <div {...rest} ref={ref} className={clsx("rds-comp-chart-gauge", className)}>
       <canvas
         data-testid={id}
         id={id}

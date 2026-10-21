@@ -901,3 +901,15 @@ describe('RdsCompLineChart', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompLineChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-line', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+});

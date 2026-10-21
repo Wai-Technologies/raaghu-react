@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react';
+import type { ChartArea, ChartType, Plugin } from 'chart.js/auto';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 
 function getChartThemeMode(): string {
@@ -146,6 +147,59 @@ export function chartFont(
   const family = getCSSVar('--rds-font-family-base', 'Poppins');
 
   return `${weightVal} ${sizeVal} ${family}`;
+}
+
+/** Options for {@link createCenterTextPlugin}. */
+export interface CenterTextPluginOptions {
+  /** Chart.js plugin id. */
+  id: string;
+  /** Large text, drawn in the theme's text colour. */
+  title: string;
+  /** Smaller text, drawn in the theme's muted colour. */
+  subTitle: string;
+  /** Baseline y of the title, from the chart area. */
+  titleY: (area: ChartArea) => number;
+  /** Baseline y of the subtitle, from the chart area. */
+  subTitleY: (area: ChartArea) => number;
+  /** Font size of the subtitle. Default `'lg'`. */
+  subTitleSize?: Parameters<typeof chartFont>[1];
+  /** Line join left on the context after drawing. */
+  lineJoin?: CanvasLineJoin;
+}
+
+/** Inline plugin that draws a title and a muted subtitle centred in the chart (doughnut, gauge). */
+export function createCenterTextPlugin<TType extends ChartType = ChartType>({
+  id,
+  title,
+  subTitle,
+  titleY,
+  subTitleY,
+  subTitleSize = 'lg',
+  lineJoin,
+}: CenterTextPluginOptions): Plugin<TType> {
+  return {
+    id,
+    beforeDraw(chart) {
+      const { ctx, chartArea } = chart;
+      const x = chartArea.width / 2;
+
+      ctx.save();
+      ctx.font = chartFont('bold', 'xl');
+      ctx.textAlign = 'center';
+      ctx.fillStyle = chartTextColor();
+      ctx.fillText(title, x, titleY(chartArea));
+      ctx.restore();
+
+      ctx.save();
+      ctx.font = chartFont('medium', subTitleSize);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = chartMutedColor();
+      ctx.fillText(subTitle, x, subTitleY(chartArea));
+      ctx.restore();
+
+      if (lineJoin) ctx.lineJoin = lineJoin;
+    },
+  };
 }
 
 /** Loose view of Chart.js options used internally while writing theme colours. */

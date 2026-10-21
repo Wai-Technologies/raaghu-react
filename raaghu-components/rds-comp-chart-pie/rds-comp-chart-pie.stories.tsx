@@ -16,9 +16,6 @@ const meta: Meta = {
         }
     },
     tags: ['autodocs', 'stable'],
-    argTypes: {
-        radius: { control: 'number' }, 
-    },
 } satisfies Meta<typeof RdsCompPieChart>;
 
 export default meta;
@@ -27,10 +24,10 @@ type Story = StoryObj<typeof RdsCompPieChart>;
 export const Default: Story = {
     args: {
         id: "chart pie",
-        radius: 100,
         labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
         options: {
             circumference: 360,
+            radius: 100,
             maintainAspectRatio: false,
             animation: {
                 animateRotate: false,

@@ -5,6 +5,9 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiFabMenu, { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu';
 
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+
 // Mock SCSS
 jest.mock('./rds-comp-ai-fab-menu.scss', () => ({}));
 
@@ -365,6 +368,67 @@ describe('RdsCompAiFabMenu', () => {
       );
       expect(container.querySelector('.rds-fab-menu__button--circular')).toBeInTheDocument();
       expect(container.querySelector('.rds-fab-menu__button--rectangular')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('dense prop controls compact style, falling back to id', () => {
+      const { container } = render(<RdsCompAiFabMenu {...defaultProps} dense />);
+      expect(container.querySelector('.rds-fab-menu__item--compact')).toBeInTheDocument();
+      const r2 = render(<RdsCompAiFabMenu {...defaultProps} id="attachment-text" dense={false} />);
+      expect(r2.container.querySelector('.rds-fab-menu__item--compact')).not.toBeInTheDocument();
+    });
+
+    it('trigger exposes aria-haspopup, aria-controls and aria-label', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} aria-label="Actions" />);
+      const button = screen.getByTestId('fab-menu-btn');
+      expect(button).toHaveAttribute('aria-haspopup', 'menu');
+      expect(button).toHaveAttribute('aria-label', 'Actions');
+      expect(button).not.toHaveAttribute('aria-controls');
+      fireEvent.click(button);
+      expect(screen.getByRole('menu', { hidden: true })).toHaveAttribute('id', button.getAttribute('aria-controls'));
+    });
+
+    it('Escape closes the menu and focuses the trigger', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      const button = screen.getByTestId('fab-menu-btn');
+      fireEvent.click(button);
+      fireEvent.keyDown(screen.getByText('Item 1'), { key: 'Escape' });
+      expect(button).toHaveAttribute('aria-expanded', 'false');
+      expect(button).toHaveFocus();
+    });
+
+    it('arrow keys move focus between items with wrap', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      const button = screen.getByTestId('fab-menu-btn');
+      fireEvent.click(button);
+      const items = screen.getAllByRole('menuitem', { hidden: true });
+      fireEvent.keyDown(button, { key: 'ArrowDown' });
+      expect(items[0]).toHaveFocus();
+      fireEvent.keyDown(items[0], { key: 'ArrowUp' });
+      expect(items[2]).toHaveFocus();
+      fireEvent.keyDown(items[2], { key: 'ArrowDown' });
+      expect(items[0]).toHaveFocus();
+    });
+
+    it('warns for deprecated props', () => {
+      render(<RdsCompAiFabMenu {...defaultProps} menuiconWidth="1px" menuiconHeight="1px" onClick={() => {}} />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiFabMenu', 'menuiconWidth', expect.any(String));
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiFabMenu', 'onClick', expect.any(String));
+    });
+
+    it('does not listen to mousedown while closed', () => {
+      const spy = jest.spyOn(document, 'addEventListener');
+      render(<RdsCompAiFabMenu {...defaultProps} />);
+      expect(spy.mock.calls.some(([type]) => type === 'mousedown')).toBe(false);
+      fireEvent.click(screen.getByTestId('fab-menu-btn'));
+      expect(spy.mock.calls.some(([type]) => type === 'mousedown')).toBe(true);
+      spy.mockRestore();
+    });
+
+    it('renders a node icon as-is', () => {
+      render(<RdsCompAiFabMenu listItems={[{ key: 'a', value: 'A', icon: <b data-testid="custom-icon" /> }]} />);
+      expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
     });
   });
 

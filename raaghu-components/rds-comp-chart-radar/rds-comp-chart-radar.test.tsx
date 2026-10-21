@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 import RdsCompRadarChart from './rds-comp-chart-radar';
 
 // Mock Chart.js
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -865,5 +866,44 @@ describe('RdsCompRadarChart', () => {
       const { container } = render(<RdsCompRadarChart {...defaultProps} />);
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+  const props = defaultProps as React.ComponentProps<typeof RdsCompRadarChart>;
+
+  beforeEach(() => {
+    ChartMock.mockClear();
+    warnDeprecatedProp.mockClear();
+    jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+  });
+  afterEach(() => jest.restoreAllMocks());
+
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompRadarChart {...props} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-radar-container', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('sets the canvas height from height, or from the deprecated radius with a warning', () => {
+    render(<RdsCompRadarChart {...props} height={320} />);
+    expect(ChartMock.mock.results[0].value.canvas.style.height).toBe('320px');
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+
+    render(<RdsCompRadarChart {...props} id="legacy" radius={250} />);
+    expect(ChartMock.mock.results[1].value.canvas.style.height).toBe('250px');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompRadarChart', 'radius', '`height`');
+  });
+
+  it('uses numeric legend font size and weight with fallbacks', () => {
+    render(<RdsCompRadarChart {...props} />);
+    const font = ChartMock.mock.calls[0][1].options.plugins.legend.labels.font;
+    expect(font).toMatchObject({ size: 12, weight: 500, family: 'inherit' });
   });
 });

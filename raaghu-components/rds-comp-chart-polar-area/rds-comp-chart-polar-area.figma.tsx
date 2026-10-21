@@ -145,7 +145,7 @@ figma.connect(
             },
           },
         }}
-        radius={300}
+        height={300}
       />
     ),
   }

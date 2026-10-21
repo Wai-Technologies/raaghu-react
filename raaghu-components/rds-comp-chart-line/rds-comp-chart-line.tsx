@@ -1,14 +1,26 @@
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import type Chart from "chart.js/auto";
+import type { ChartOptions, ChartDataset } from "chart.js/auto";
 import { getCSSVar } from "../chart-utils";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-line.scss";
 
-export interface RdsCompLineProps {
+/** Props for {@link RdsCompLineChart}. */
+export interface RdsCompLineProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** X-axis labels. */
   labels: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"line">;
+  /** Chart.js line datasets. */
   dataSets: ChartDataset<"line">[];
+  /** Id of the canvas element. */
   id: string;
+  /** Accessible label of the chart. Default "Line chart". */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const applyLineCanvasSizing = (chart: Chart, chartId: string) => {
@@ -35,6 +47,9 @@ const RdsCompLineChart = ({
   dataSets,
   id,
   chartLabel,
+  className,
+  ref,
+  ...rest
 }: RdsCompLineProps) => {
   const { canvasRef } = useChart(
     {
@@ -48,7 +63,7 @@ const RdsCompLineChart = ({
   );
 
   return (
-    <div className="rds-comp-chart-line">
+    <div {...rest} ref={ref} className={clsx("rds-comp-chart-line", className)}>
       <canvas
         data-testid={id}
         id={id}

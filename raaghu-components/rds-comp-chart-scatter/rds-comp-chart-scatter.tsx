@@ -1,9 +1,20 @@
-import { ChartConfiguration, type ChartData } from "chart.js/auto";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import type { ChartConfiguration, ChartData, ChartDataset } from "chart.js/auto";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-scatter.scss";
 import { resolveScatterChartType, type ScatterChartType } from "./rds-comp-chart-scatter-utils";
 
 export type { ScatterChartType } from "./rds-comp-chart-scatter-utils";
+
+/** The dataset keys this file reads; Chart.js dataset types differ per chart type. */
+type DatasetColors = {
+  backgroundColor?: unknown;
+  borderColor?: unknown;
+  borderWidth?: unknown;
+  pointBackgroundColor?: unknown;
+  pointBorderColor?: unknown;
+};
 
 function resolveDatasetColor(
   color: unknown,
@@ -16,7 +27,7 @@ function resolveDatasetColor(
 }
 
 function normalizeScatterDataset(
-  dataset: any,
+  dataset: ChartDataset,
   chartType: ScatterChartType
 ) {
   const normalized = {
@@ -28,8 +39,9 @@ function normalizeScatterDataset(
     return normalized;
   }
 
+  const colors = dataset as DatasetColors;
   const lineColor = resolveDatasetColor(
-    dataset.borderColor ?? dataset.backgroundColor,
+    colors.borderColor ?? colors.backgroundColor,
     "rgb(255, 99, 132)"
   );
 
@@ -38,25 +50,35 @@ function normalizeScatterDataset(
     showLine: true,
     fill: false,
     borderColor: lineColor,
-    borderWidth: dataset.borderWidth ?? 2,
+    borderWidth: colors.borderWidth ?? 2,
     pointBackgroundColor: resolveDatasetColor(
-      dataset.pointBackgroundColor ?? dataset.backgroundColor,
+      colors.pointBackgroundColor ?? colors.backgroundColor,
       lineColor
     ),
     pointBorderColor: resolveDatasetColor(
-      dataset.pointBorderColor ?? dataset.backgroundColor,
+      colors.pointBorderColor ?? colors.backgroundColor,
       lineColor
     ),
   };
 }
 
-export interface RdsCompScatterChartProps {
-  labels: any[];
+/** Props for {@link RdsCompScatterChart}. */
+export interface RdsCompScatterChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Labels (optional for scatter data given as `{ x, y }` points). */
+  labels: unknown[];
+  /** Chart.js options (never mutated). */
   options: ChartConfiguration["options"];
+  /** Chart.js datasets. */
   dataSets: ChartConfiguration["data"]["datasets"];
+  /** Id of the canvas element. */
   id: string;
+  /** Accessible label of the chart. Default "Scatter chart". */
   chartLabel?: string;
+  /** Chart.js type to draw. `"line"` connects the points. Default `"scatter"`. */
   chartType?: ScatterChartType;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const RdsCompScatterChart = ({
@@ -66,6 +88,9 @@ const RdsCompScatterChart = ({
   dataSets,
   chartLabel,
   chartType,
+  className,
+  ref,
+  ...rest
 }: RdsCompScatterChartProps) => {
   const resolvedChartType = resolveScatterChartType(chartType);
   const { canvasRef } = useChart<ScatterChartType>(
@@ -81,7 +106,7 @@ const RdsCompScatterChart = ({
   );
 
   return (
-    <div className="rds-comp-chart-scatter">
+    <div {...rest} ref={ref} className={clsx("rds-comp-chart-scatter", className)}>
       <canvas
         id={id}
         ref={canvasRef}

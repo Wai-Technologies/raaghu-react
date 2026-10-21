@@ -971,3 +971,27 @@ describe('RdsCompStackedChart', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div and keeps the legacy class', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompStackedChart {...defaultProps} ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-stacked', 'stack-chart-container', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('no longer writes the dead bar percentages onto scales.x', () => {
+    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    ChartMock.mockClear();
+    const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    render(<RdsCompStackedChart {...defaultProps} />);
+    const x = ChartMock.mock.calls[0][1].options.scales.x;
+    expect(x).toMatchObject({ offset: true });
+    expect(x).not.toHaveProperty('categoryPercentage');
+    expect(x).not.toHaveProperty('barPercentage');
+    spy.mockRestore();
+  });
+});

@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
-import RdsCompAiChatHeader, { ChatHeaderSize } from "./rds-comp-ai-chat-header";
+import RdsCompAiChatHeader from "./rds-comp-ai-chat-header";
 
 const meta: Meta<typeof RdsCompAiChatHeader> = {
   title: "Components/AI ChatBox/Chat Header",
@@ -24,14 +24,6 @@ const meta: Meta<typeof RdsCompAiChatHeader> = {
   parameters: {
         status: { type: 'stable' },
     layout: "padded",
-    docs: {
-      source: {
-          transform: (code: string) => {
-              code = code.replace(/"(small|medium|large)"/g, '{ChatHeaderSize.$1}');
-              return code;
-          },
-      },
-  },
   },
   tags: ["autodocs", 'stable'],
 };
@@ -43,7 +35,7 @@ export const Default: Story = {
   args: {
     logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
     title: "New Chat Started",
-    size: ChatHeaderSize.Medium,
+    size: "medium",
   },
   play: async ({ canvasElement }) => {
     await expect(canvasElement.firstChild).toBeTruthy();

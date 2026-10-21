@@ -6,6 +6,8 @@ import RdsCompAiIcon, { RdsCompAiIconProps } from './rds-comp-ai-icon';
 
 // Mock SCSS
 jest.mock('./rds-comp-ai-icon.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 // Mock Material UI Icons - properly render all SVG props passed to them
 jest.mock('@mui/icons-material/PersonOutline', () => {
@@ -619,5 +621,40 @@ describe('RdsCompAiIcon', () => {
       icon = getIcon(container);
       expect(icon).toHaveStyle({ width: '40px', height: '40px' });
     });
+  });
+});
+describe('audit fixes', () => {
+  it('G3-118/119: deprecated props warn and keep working; rest passes through', () => {
+    const { container } = render(
+      <RdsCompAiIcon {...defaultProps} classes="old" dataTestId="old-id" isAnimate aria-label="x" data-foo="bar" />
+    );
+    const el = container.querySelector('svg')!;
+    expect(el).toHaveClass('old');
+    expect(el).toHaveAttribute('data-testid', 'old-id');
+    expect(el).toHaveAttribute('aria-label', 'x');
+    expect(el).toHaveAttribute('data-foo', 'bar');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiIcon', 'isAnimate', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiIcon', 'classes', '`className`');
+  });
+
+  it('G3-119: new names win over deprecated ones', () => {
+    const { container } = render(
+      <RdsCompAiIcon {...defaultProps} className="new" classes="old" data-testid="new-id" dataTestId="old-id" />
+    );
+    const el = container.querySelector('svg')!;
+    expect(el).toHaveClass('new');
+    expect(el).not.toHaveClass('old');
+    expect(el).toHaveAttribute('data-testid', 'new-id');
+  });
+
+  it('G3-120: clickable svg is keyboard accessible', () => {
+    const onClick = jest.fn();
+    const { container } = render(<RdsCompAiIcon {...defaultProps} onClick={onClick} />);
+    const el = container.querySelector('svg')!;
+    expect(el).toHaveAttribute('role', 'button');
+    expect(el).toHaveAttribute('tabindex', '0');
+    fireEvent.keyDown(el, { key: 'Enter' });
+    fireEvent.keyDown(el, { key: ' ' });
+    expect(onClick).toHaveBeenCalledTimes(2);
   });
 });

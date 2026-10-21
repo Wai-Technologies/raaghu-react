@@ -4,6 +4,8 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiMessageBox, { RdsCompAiMessageBoxProps } from './rds-comp-ai-message-box';
 
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 // Mock SCSS
 jest.mock('./rds-comp-ai-message-box.scss', () => ({}));
 
@@ -487,5 +489,19 @@ describe('RdsCompAiMessageBox', () => {
         container.querySelector('.rds-comp-ai-message-box__image-wrapper')
       ).not.toBeInTheDocument();
     });
+  });
+});
+describe('audit fixes', () => {
+  it('uses avtar as deprecated alias and children over message', () => {
+    render(<RdsCompAiMessageBox avtar="a.png" message="old">new</RdsCompAiMessageBox>);
+    const avatar = screen.getByTestId('rds-avatar');
+    expect(avatar).toHaveAttribute('data-src', 'a.png');
+    expect(avatar).toHaveAttribute('data-subtext', 'new');
+  });
+
+  it('supports name and imageAlt', () => {
+    const { container } = render(<RdsCompAiMessageBox name="Bob" imageAlt="pic" isImage />);
+    expect(screen.getByTestId('rds-avatar')).toHaveAttribute('data-title', 'Bob');
+    expect(container.querySelector('img')).toHaveAttribute('alt', 'pic');
   });
 });

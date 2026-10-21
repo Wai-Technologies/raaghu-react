@@ -23,14 +23,14 @@ jest.mock('../rds-comp-ai-chat-header/rds-comp-ai-chat-header', () => {
 });
 
 jest.mock('../rds-comp-ai-message-box/rds-comp-ai-message-box', () => {
-  return function MockRdsCompAiMessageBox({ avtar, isImage, message, src, ...props }: any) {
+  return function MockRdsCompAiMessageBox({ avatar, avtar, isImage, children, message, src, ...props }: any) {
     return (
       <div data-testid="message-box" {...props}>
-        <img src={avtar} alt="avatar" data-testid="message-avatar" />
+        <img src={avatar ?? avtar} alt="avatar" data-testid="message-avatar" />
         {isImage && src ? (
           <img src={src} alt="message" data-testid="message-image" />
         ) : (
-          <p data-testid="message-text">{message}</p>
+          <p data-testid="message-text">{children ?? message}</p>
         )}
       </div>
     );

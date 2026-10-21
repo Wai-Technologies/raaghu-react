@@ -1,41 +1,36 @@
-import { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import {
-  chartTextColor,
-} from "../chart-utils";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import type { ChartOptions, ChartDataset } from "chart.js/auto";
+import { chartTextColor, getCSSVar } from "../chart-utils";
 import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-radar.scss";
 
-export interface RdsCompRadarProps {
+/** Props for {@link RdsCompRadarChart}. */
+export interface RdsCompRadarProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** Point labels around the chart. */
   labels: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"radar">;
+  /** Chart.js radar datasets. */
   dataSets: ChartDataset<"radar">[];
+  /** Id of the canvas element. */
   id: string;
+  /** Accessible label of the chart. Default "Radar chart". */
   chartLabel?: string;
+  /** Canvas height in px. */
+  height?: number;
+  /** @deprecated Use `height` instead (this is the canvas height in px). */
   radius?: number;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
-const getFontSizeFromVar = (varName: string, fallback = 12) => {
-  try {
-    const value = getComputedStyle(document.documentElement)
-      .getPropertyValue(varName)
-      .trim();
-    if (!value) return fallback;
-    const parsed = parseInt(value.replace(/px$/, ""), 10);
-    return Number.isNaN(parsed) ? fallback : parsed;
-  } catch {
-    return fallback;
-  }
-};
-
-const getFontWeightFromVar = (varName: string, fallback: number | string = "500") => {
-  try {
-    const value = getComputedStyle(document.documentElement)
-      .getPropertyValue(varName)
-      .trim();
-    return value || fallback;
-  } catch {
-    return fallback;
-  }
+/** Numeric value of a CSS variable (e.g. `"14px"` → 14), or `fallback`. */
+const numericCSSVar = (varName: string, fallback: number) => {
+  const parsed = parseInt(getCSSVar(varName).replace(/px$/, ""), 10);
+  return Number.isNaN(parsed) ? fallback : parsed;
 };
 
 const RdsCompRadarChart = ({
@@ -44,8 +39,15 @@ const RdsCompRadarChart = ({
   dataSets,
   id,
   chartLabel,
+  height,
   radius,
+  className,
+  ref,
+  ...rest
 }: RdsCompRadarProps) => {
+  if (radius !== undefined) warnDeprecatedProp("RdsCompRadarChart", "radius", "`height`");
+  const canvasHeight = height ?? radius;
+
   const { canvasRef } = useChart<"radar">(
     {
       type: "radar",
@@ -82,8 +84,8 @@ const RdsCompRadarChart = ({
                 // ensure pointStyleWidth is not set (causes oval distortion)
                 pointStyleWidth: undefined,
                 font: {
-                  size: getFontSizeFromVar("--rds-font-size-md", 12),
-                  weight: getFontWeightFromVar("--rds-font-weight-medium", "500") as any,
+                  size: numericCSSVar("--rds-font-size-md", 12),
+                  weight: numericCSSVar("--rds-font-weight-medium", 500),
                   family: "inherit",
                   ...(typeof passedLabels.font === "object" && passedLabels.font !== null
                     ? passedLabels.font
@@ -97,8 +99,8 @@ const RdsCompRadarChart = ({
       },
       onCreate: (chart) => {
         if (chart?.canvas) {
-          if (radius) {
-            chart.canvas.style.height = `${radius}px`;
+          if (canvasHeight) {
+            chart.canvas.style.height = `${canvasHeight}px`;
           } else {
             chart.canvas.style.height = "";
             chart.canvas.style.width = "";
@@ -106,11 +108,15 @@ const RdsCompRadarChart = ({
         }
       },
     },
-    [labels, options, dataSets, radius, id]
+    [labels, options, dataSets, canvasHeight, id]
   );
 
   return (
-    <div className="rds-comp-chart-radar-container">
+    <div
+      {...rest}
+      ref={ref}
+      className={clsx("rds-comp-chart-radar-container", className)}
+    >
       <canvas
         id={id}
         ref={canvasRef}

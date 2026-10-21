@@ -1,7 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
-import Chart, { type ChartOptions, type ChartDataset } from "chart.js/auto";
-import { chartFont, chartMutedColor, chartTextColor } from "../chart-utils";
+import type { ChartOptions, ChartDataset } from "chart.js/auto";
+import { createCenterTextPlugin } from "../chart-utils";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-doughnut.scss";
 
@@ -26,35 +26,6 @@ export interface RdsCompDoughnutProps
   ref?: Ref<HTMLDivElement>;
 }
 
-const createCenterTextPlugin = (title: string, subTitle: string) => ({
-  id: "counter3",
-  beforeDraw(chart: Chart) {
-    const {
-      ctx: canvasCtx,
-      chartArea: { top, width, height },
-    } = chart;
-    const centerY = top + height / 2;
-    const primaryColor = chartTextColor();
-    const mutedColor = chartMutedColor();
-
-    canvasCtx.save();
-    canvasCtx.font = chartFont("bold", "xl");
-    canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = primaryColor;
-    canvasCtx.fillText(title, width / 2, centerY - 10);
-    canvasCtx.restore();
-
-    canvasCtx.save();
-    canvasCtx.font = chartFont("medium", "lg");
-    canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = mutedColor;
-    canvasCtx.fillText(subTitle, width / 2, centerY + 16);
-    canvasCtx.restore();
-
-    canvasCtx.lineJoin = "round";
-  },
-});
-
 const RdsCompDoughnutChart = ({
   labels,
   options,
@@ -78,7 +49,16 @@ const RdsCompDoughnutChart = ({
       datasets: dataSets,
       options,
       themeAxes: [],
-      plugins: [createCenterTextPlugin(titleText, subTitleText)],
+      plugins: [
+        createCenterTextPlugin({
+          id: "counter3",
+          title: titleText,
+          subTitle: subTitleText,
+          titleY: ({ top, height }) => top + height / 2 - 10,
+          subTitleY: ({ top, height }) => top + height / 2 + 16,
+          lineJoin: "round",
+        }),
+      ],
       onCreate: (chart) => {
         chart.canvas.style.width = "66vh";
         chart.canvas.style.height = "66vh";

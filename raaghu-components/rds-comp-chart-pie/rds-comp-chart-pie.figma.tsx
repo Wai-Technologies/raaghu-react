@@ -60,8 +60,8 @@ figma.connect(
             },
           },
           responsive: true,
+          radius: 100,
         }}
-        radius={100}
       />
     ),
   }

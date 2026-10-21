@@ -592,3 +592,24 @@ describe('RdsCompAiChatHeader', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompAiChatHeader title="Chat" ref={ref} className="my-class" data-foo="bar" />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-ai-chat-header', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+
+  it('accepts string sizes, a heading component and a logo alt', () => {
+    render(
+      <RdsCompAiChatHeader title="Chat" size="large" component="h2" logoUrl="logo.png" logoAlt="" />
+    );
+    const heading = screen.getByRole('heading', { level: 2, name: 'Chat' });
+    expect(heading).toHaveClass('rds-comp-ai-chat-header__text--large');
+    expect(document.querySelector('img')).toHaveAttribute('alt', '');
+  });
+});

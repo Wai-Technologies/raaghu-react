@@ -998,3 +998,20 @@ describe('RdsCompScatterChart', () => {
     });
   });
 });
+describe('audit fixes', () => {
+  it('forwards className, ref and rest props to the root div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <RdsCompScatterChart
+        {...(defaultProps as React.ComponentProps<typeof RdsCompScatterChart>)}
+        ref={ref}
+        className="my-class"
+        data-foo="bar"
+      />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root).toBe(ref.current);
+    expect(root).toHaveClass('rds-comp-chart-scatter', 'my-class');
+    expect(root).toHaveAttribute('data-foo', 'bar');
+  });
+});

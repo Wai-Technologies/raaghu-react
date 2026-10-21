@@ -3,7 +3,7 @@ import { useCallback, useState, type Dispatch, type SetStateAction, type ChangeE
 import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
 import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
 import { Comment as AttachmentComment } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
-import RdsCompAiChatHeader, { ChatHeaderSize } from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
+import RdsCompAiChatHeader from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
 import "./rds-comp-ai-chat-bot.scss";
 
 export interface RdsCompAiChatBotProps {
@@ -95,7 +95,7 @@ const RdsCompAiChatBot = ({
         <RdsCompAiChatHeader
           logoUrl={aiLogoUrl}
           title="New Chat Started"
-          size={ChatHeaderSize.Medium}
+          size="medium"
         />
         {messages.map((message) => (
           <div
@@ -108,11 +108,12 @@ const RdsCompAiChatBot = ({
             )}
           >
             <RdsCompAiMessageBox
-              avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
+              avatar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
               isImage={!!message.image}
-              message={message.text}
               src={message.image}
-            />
+            >
+              {message.text}
+            </RdsCompAiMessageBox>
           </div>
         ))}
       </div>

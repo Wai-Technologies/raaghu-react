@@ -1,13 +1,24 @@
-import { type ChartOptions, type ChartDataset, type ChartData } from "chart.js/auto";
+import type { HTMLAttributes, Ref } from "react";
+import clsx from "clsx";
+import type { ChartOptions, ChartDataset, ChartData } from "chart.js/auto";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-mixed.scss";
 
-export interface RdsCompMixedChartProps {
+/** Props for {@link RdsCompMixedChart}. */
+export interface RdsCompMixedChartProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
+  /** X-axis labels. */
   labels: string[];
+  /** Chart.js options (never mutated). */
   options: ChartOptions<"bar">;
+  /** Chart.js datasets; set `type: "line"` on a dataset to draw it as a line over the bars. */
   dataSets: ChartDataset[];
+  /** Id of the canvas element. */
   id: string;
+  /** Accessible label of the chart. Default "Mixed chart". */
   chartLabel?: string;
+  /** Ref forwarded to the root `<div>`. */
+  ref?: Ref<HTMLDivElement>;
 }
 
 const RdsCompMixedChart = ({
@@ -16,6 +27,9 @@ const RdsCompMixedChart = ({
   dataSets,
   id,
   chartLabel,
+  className,
+  ref,
+  ...rest
 }: RdsCompMixedChartProps) => {
   const { canvasRef } = useChart(
     {
@@ -28,7 +42,7 @@ const RdsCompMixedChart = ({
   );
 
   return (
-    <div className="rds-comp-chart-mixed">
+    <div {...rest} ref={ref} className={clsx("rds-comp-chart-mixed", className)}>
       <canvas
         className="rds-chart-canvas"
         data-testid={id}
