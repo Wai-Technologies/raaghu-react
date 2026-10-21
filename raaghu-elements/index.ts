@@ -81,6 +81,7 @@ export type { RdsBadgeProps } from './rds-badge/rds-badge';
 export type { RdsBottomNavigationProps, RdsBottomNavigationItem } from './rds-bottom-navigation/rds-bottom-navigation';
 export type { RdsBoxProps } from './rds-box/rds-box';
 export type { RdsBreadcrumbsProps, RdsBreadcrumbItem, RdsBreadcrumbIcon } from './rds-breadcrumbs/rds-breadcrumbs';
+export { BreadcrumbSeparator } from './rds-breadcrumbs/rds-breadcrumbs-types';
 export type { RdsContainerProps } from './rds-container/rds-container';
 export type { RdsDialogProps } from './rds-dialog/rds-dialog';
 export type { RdsDividerProps } from './rds-divider/rds-divider';

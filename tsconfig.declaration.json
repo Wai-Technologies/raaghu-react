@@ -36,6 +36,7 @@
     "**/*.test.*",
     "**/*.spec.*",
     "**/*.figma.*",
+    "types/jest-axe.d.ts",
     "raaghu-components/rds-comp-tree-structure/**",
     "raaghu-components/rds-comp-adaptive-cards/**",
     "raaghu-components/rds-comp-chat/**",

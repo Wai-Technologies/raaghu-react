@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState, type ReactNode } from 'react';
+import { createContext, use, useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { darkTheme } from '../mui/dark.theme';
@@ -8,7 +8,6 @@ import {
   getRaaghuThemeMode,
   initializeRaaghuTheme,
   prefersDarkColorScheme,
-  resolveEffectiveMode,
   type RaaghuThemeMode,
   type RdsBrandOverrides,
 } from './theme-utils';
@@ -39,8 +38,8 @@ export interface RaaghuThemeProviderProps {
  *
  * Usage:
  * ```tsx
- * import 'raaghu-react-themes/src/styles/index.scss';
- * import { RaaghuThemeProvider } from 'raaghu-react-themes';
+ * import '@waiin/raaghu-react/styles.css';
+ * import { RaaghuThemeProvider } from '@waiin/raaghu-react';
  *
  * <RaaghuThemeProvider>
  *   <App />
@@ -55,66 +54,65 @@ export function RaaghuThemeProvider({
   onModeChange,
   brandOverrides,
 }: Readonly<RaaghuThemeProviderProps>) {
-  const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(() => {
-    if (controlledMode !== undefined) {
-      return defaultMode;
-    }
-    if (initializeOnMount && typeof window !== 'undefined') {
-      return initializeRaaghuTheme();
-    }
-    return defaultMode;
-  });
+  const isControlled = controlledMode !== undefined;
+  const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(() =>
+    !isControlled && initializeOnMount && typeof window !== 'undefined' ? initializeRaaghuTheme() : defaultMode,
+  );
   const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(() =>
     typeof window !== 'undefined' ? prefersDarkColorScheme() : false,
   );
   const mode = controlledMode ?? internalMode;
 
+  // Compare overrides by value so an inline object literal does not re-inject every token on each render.
+  const brandOverridesKey = brandOverrides ? JSON.stringify(brandOverrides) : '';
+  const stableBrandOverrides = useMemo<RdsBrandOverrides | undefined>(
+    () => (brandOverridesKey ? JSON.parse(brandOverridesKey) : undefined),
+    [brandOverridesKey],
+  );
+
   useLayoutEffect(() => {
-    applyRaaghuTheme(mode, brandOverrides);
-  }, [mode, systemPrefersDark, brandOverrides]);
+    // A controlled mode belongs to the app, so only persist the uncontrolled preference.
+    applyRaaghuTheme(mode, stableBrandOverrides, { persist: !isControlled });
+  }, [mode, systemPrefersDark, stableBrandOverrides, isControlled]);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = () => {
-      setSystemPrefersDark(prefersDarkColorScheme());
-    };
-
+    const handler = () => setSystemPrefersDark(prefersDarkColorScheme());
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  const effectiveMode = mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : resolveEffectiveMode(mode);
+  const effectiveMode = mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : mode;
   const muiTheme = effectiveMode === 'dark' ? darkTheme : lightTheme;
 
   const setMode = useCallback(
     (next: RaaghuThemeMode) => {
-      if (controlledMode === undefined) {
-        setInternalMode(next);
-      }
+      if (!isControlled) setInternalMode(next);
       onModeChange?.(next);
     },
-    [controlledMode, onModeChange],
+    [isControlled, onModeChange],
   );
 
-  const contextValue = {
-    mode,
-    setMode,
-    toggleMode: () => {
-      const next = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
-      setMode(next);
-    },
-    isDark: effectiveMode === 'dark',
-  };
+  const contextValue = useMemo<RaaghuThemeContextValue>(
+    () => ({
+      mode,
+      setMode,
+      toggleMode: () => {
+        const next = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
+        setMode(next);
+      },
+      isDark: effectiveMode === 'dark',
+    }),
+    [mode, setMode, effectiveMode],
+  );
 
   return (
-    <RaaghuThemeContext.Provider value={contextValue}>
+    <RaaghuThemeContext value={contextValue}>
       <ThemeProvider theme={muiTheme}>
         <CssBaseline />
         {children}
       </ThemeProvider>
-    </RaaghuThemeContext.Provider>
+    </RaaghuThemeContext>
   );
 }
 
@@ -125,10 +123,10 @@ interface RaaghuThemeContextValue {
   isDark: boolean;
 }
 
-const RaaghuThemeContext = React.createContext<RaaghuThemeContextValue | null>(null);
+const RaaghuThemeContext = createContext<RaaghuThemeContextValue | null>(null);
 
 export function useRaaghuTheme(): RaaghuThemeContextValue {
-  const ctx = React.useContext(RaaghuThemeContext);
+  const ctx = use(RaaghuThemeContext);
   if (!ctx) {
     return {
       mode: getRaaghuThemeMode(),

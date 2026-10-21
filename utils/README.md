@@ -8,9 +8,8 @@ This folder contains utility modules that support development, testing, and qual
 |--------|------|--------|---------|
 | `performance` | `performance/index.ts` | Exported & active | Runtime performance monitoring and bundle analysis |
 | `accessibility` | `accessibility/index.ts` | Reference implementation | WCAG 2.1 AA helpers and validators |
-| `i18n` | `i18n/index.ts` | Reference implementation | i18next integration with 8-locale support |
+| `i18n` | `i18n/index.ts` | Reference implementation | Static locale strings (en, es); not connected to components |
 | `quality` | `quality/standards.ts` | Reference implementation | Component quality metrics and validators |
-| `test` | `test/setup.ts` | Used by Jest config | Browser API mocks for the test environment |
 
 ---
 
@@ -43,10 +42,10 @@ Classes available:
 
 ## `i18n/index.ts` — Reference Implementation
 
-Full i18next setup with support for 8 locales: `en`, `es`, `fr`, `de`, `ar`, `zh`, `ja`, `ko`. Includes RTL detection for Arabic.
+A static locale singleton (no i18next, no React context). It declares 8 locales (`en`, `es`, `fr`, `de`, `ar`, `zh`, `ja`, `ko`) but only `en` and `es` have strings. Includes RTL detection for Arabic.
 
 Classes available:
-- **`I18nManager`** — initialize i18next, switch locale, detect RTL
+- **`I18nManager`** — switch locale, detect RTL
 - Translation helpers for component-level string keys
 
 See `docs/LOCALIZATION_GUIDE.md` for how to use i18n in components.
@@ -62,18 +61,6 @@ Defines and validates component quality gates. Not wired into CI yet — availab
 - **`QualityReporter`** — formats validation results for CI output
 
 To run a manual quality check against the component library, you can import and call `ComponentValidator` in a script.
-
----
-
-## `test/setup.ts` — Jest Test Environment
-
-Loaded during Jest initialization via `jest.config.js`. Provides browser API mocks that jsdom does not include:
-
-- `window.matchMedia` — mocked for responsive component tests
-- `ResizeObserver` — mocked for layout-dependent components
-- `IntersectionObserver` — mocked for virtualized/lazy components
-
-Do not import this module directly in tests — Jest loads it automatically.
 
 ---
 

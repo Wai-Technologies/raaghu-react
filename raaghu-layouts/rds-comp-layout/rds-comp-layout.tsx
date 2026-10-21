@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { Box, type BoxProps } from '@mui/material';
+import clsx from 'clsx';
 import './rds-comp-layout.scss';
 import renderLayoutContent from './renderLayoutContent';
 
@@ -14,11 +15,10 @@ export interface RdsCompLayoutProps extends BoxProps {
   fullWidth?: boolean;
   displayType?: 'Basic' | 'Board' | 'Boxify' | 'Cardify' | 'Collage'|'Gridify'|'Highlight'|'Matrix'|'Mosaic'| 'Nexus'|'Pinboard'|'Sections'|'Snapshots'|'Splitz'|'Spotlight' |'Stacks'| 'Dashboard'|'Relaxed';
   hasShadow?: boolean;
-   mode?: 'standard',
+  mode?: 'standard';
 }
 
-
-const RdsCompLayout= ({
+const RdsCompLayout = ({
   children,
   spacing = 2,
   direction = 'column',
@@ -30,37 +30,35 @@ const RdsCompLayout= ({
   justifyContent = 'flex-start',
   alignItems = 'stretch',
   className,
-   mode,
+  mode,
+  sx,
   ...props
-}:RdsCompLayoutProps) => {
-  const layoutClass = `rds-layout ${direction} ${fullHeight ? 'full-height' : ''} ${fullWidth ? 'full-width' : ''} ${className || ''}`;
+}: RdsCompLayoutProps) => {
+  if (mode === 'standard') {
+    return renderLayoutContent(displayType ?? 'Basic', hasShadow);
+  }
 
-
- 
-    return (
-  <>
- {mode ==='standard' ? (renderLayoutContent(displayType?? 'Basic', hasShadow)) : (
-  <Box
-      className={layoutClass}
-      sx={{
-        display: 'flex',
-        flexDirection: direction,
-        flexWrap: wrap ? 'wrap' : 'nowrap',
-        justifyContent,
-        alignItems,
-        gap: spacing,
-        height: fullHeight ? '100%' : 'auto',
-        width: fullWidth ? '100%' : 'auto',
-        ...props.sx,
-      }}
+  return (
+    <Box
       {...props}
+      className={clsx('rds-layout', direction, fullHeight && 'full-height', fullWidth && 'full-width', className)}
+      sx={[
+        {
+          display: 'flex',
+          flexDirection: direction,
+          flexWrap: wrap ? 'wrap' : 'nowrap',
+          justifyContent,
+          alignItems,
+          gap: spacing,
+          height: fullHeight ? '100%' : 'auto',
+          width: fullWidth ? '100%' : 'auto',
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
       {children}
-    </Box>)}
-  </>
-
-
-    )
+    </Box>
+  );
 };
 RdsCompLayout.displayName = 'RdsCompLayout';
 export default RdsCompLayout;
