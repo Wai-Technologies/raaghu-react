@@ -23,6 +23,8 @@ export interface KanbanSubCard {
   ticketDate: string;
   SubcardId: number;
   actions: KanbanAction[];
+  assignedToName?: string;
+  assignedTo?: string;
   /** Identifier shown in the card header. Falls back to `RDS110110` when omitted. */
   displayId?: string;
   /** Badge label shown in the card header. Falls back to `Badge` when omitted. */
@@ -73,7 +75,7 @@ export interface RdsCompKanbanBoardProps extends Omit<HTMLAttributes<HTMLDivElem
   onBoardDataChange?: (boards: KanbanBoardInfo[]) => void;
   allTagsList?: any[];
   allCategoriesList?: any[];
-  onAddQuestionSaveHandler?: (data: Record<string, unknown>) => void;
+onAddQuestionSave?: (data: Record<string, unknown>) => void;
   /** @deprecated It has no effect. */
   addQuestionData?: Record<string, any>;
   onSelectedTagsListChange?: (items: unknown) => void;
@@ -327,7 +329,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     setSubCardInputsVisible(null);
     setAddQuestionFormData({});
 
-    props.onAddQuestionSaveHandler && props.onAddQuestionSaveHandler(addQuestionData);
+    props.onAddQuestionSave && props.onAddQuestionSave(addQuestionData);
   };
 
   const handleChange = (val: { value: string }, selectedCardId: number | undefined) => {

@@ -35,7 +35,7 @@ export interface UserData {
 export interface RdsCompChatProps {
   ChatScreenEnabled: boolean;
   userData: UserData[];
-  handleAddComment: (comment: Comment) => void;
+  onAddComment: (comment: Comment) => void;
   currentUserCommentBgColor?: string;
   currentUserCommentTextColor?: string;
   otherUserCommentBgColor?: string;
@@ -86,7 +86,7 @@ const AVATAR_PROPS = { alt: "User Avatar", subText: "Designation", displayStyle:
 const RdsCompChat = ({
   ChatScreenEnabled,
   userData,
-  handleAddComment: onAddComment,
+  onAddComment,
   currentUserCommentBgColor = "var(--rds-primary-main)",
   currentUserCommentTextColor = "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
   otherUserCommentBgColor = "var(--rds-neutral-300)",

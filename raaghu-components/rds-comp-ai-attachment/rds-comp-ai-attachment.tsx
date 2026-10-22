@@ -34,8 +34,6 @@ export interface RdsCompAiAttachmentProps
   onFigmaSubmit?: (value: string) => void;
   /** Called with the comment built from an uploaded image. */
   onAddComment?: (comment: Comment) => void;
-  /** @deprecated Use `onAddComment` instead. */
-  handleAddComment?: (comment: Comment) => void;
   menuAlignment?: "left" | "right";
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
@@ -84,32 +82,38 @@ const RdsCompAiAttachment = ({
   onFigmaUrlChange,
   onFigmaSubmit,
   onAddComment,
-  handleAddComment,
   menuAlignment = "left",
   className,
   ref,
   ...rest
 }: RdsCompAiAttachmentProps) => {
-  if (image !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "image", "nothing (no effect)");
-  if (onFigmaSubmit !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "onFigmaSubmit", "`onFigmaUrlChange`");
-  if (handleAddComment !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "handleAddComment", "`onAddComment`");
+  if (image !== undefined) {
+    warnDeprecatedProp("RdsCompAiAttachment", "image", "nothing (no effect)");
+  }
+
+  if (onFigmaSubmit !== undefined) {
+    warnDeprecatedProp("RdsCompAiAttachment", "onFigmaSubmit", "`onFigmaUrlChange`");
+  }
 
   const [showModal, setShowModal] = useState(false);
   const [figmaUrl, setFigmaUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputId = useId();
-  const addComment = onAddComment ?? handleAddComment;
+
   const figmaUrlChange = onFigmaUrlChange ?? onFigmaSubmit;
 
   const handleFileUpload = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
       if (!file?.type.startsWith("image/")) return;
+
       onFileSelect?.(file);
 
       const reader = new FileReader();
+
       reader.onloadend = () => {
         const base64String = reader.result as string;
+
         const newComment: Comment = {
           firstName: userData?.[0]?.firstName || "",
           lastName: userData?.[0]?.lastName || "",
@@ -117,15 +121,16 @@ const RdsCompAiAttachment = ({
           image: base64String,
         };
 
-        addComment?.(newComment);
+        onAddComment?.(newComment);
 
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }
       };
+
       reader.readAsDataURL(file);
     },
-    [addComment, onFileSelect, userData]
+    [onAddComment, onFileSelect, userData]
   );
 
   // The click bubbles to the FabMenu item, which closes the menu.
@@ -153,9 +158,16 @@ const RdsCompAiAttachment = ({
       {
         key: "new",
         value: (
-          <button type="button" onClick={openModal} className="rds-comp-ai-attachment__reset-btn">
+          <button
+            type="button"
+            onClick={openModal}
+            className="rds-comp-ai-attachment__reset-btn"
+          >
             <span className="rds-comp-ai-attachment__upload-row">
-              <span className="rds-comp-ai-attachment__upload-text">{uploadText}</span>
+              <span className="rds-comp-ai-attachment__upload-text">
+                {uploadText}
+              </span>
+
               {showBadge && (
                 <RdsBadge
                   colorVariant={badgeColor || "primary"}
@@ -174,7 +186,11 @@ const RdsCompAiAttachment = ({
       {
         key: "refresh",
         value: (
-          <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachment__reset-btn">
+          <button
+            type="button"
+            onClick={handleImportClick}
+            className="rds-comp-ai-attachment__reset-btn"
+          >
             {importText}
           </button>
         ),
@@ -192,7 +208,11 @@ const RdsCompAiAttachment = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)}>
+    <div
+      {...rest}
+      ref={ref}
+      className={clsx("rds-comp-ai-attachment__dropdown", className)}
+    >
       <input
         type="file"
         accept="image/*"
@@ -220,7 +240,10 @@ const RdsCompAiAttachment = ({
           actions={null}
           showCloseButton={true}
         >
-          <p className="text-muted rds-comp-ai-attachment__import-size">{modalText}</p>
+          <p className="text-muted rds-comp-ai-attachment__import-size">
+            {modalText}
+          </p>
+
           <RdsInput
             hintText={hintText}
             id={inputId}
@@ -237,4 +260,5 @@ const RdsCompAiAttachment = ({
 };
 
 RdsCompAiAttachment.displayName = "RdsCompAiAttachment";
+
 export default RdsCompAiAttachment;

@@ -234,7 +234,7 @@ export interface RdsCompGridProps {
   onActionSelection?: (rowData: GridRow, actionId: string) => void;
   onRowSelect?: (data: GridRow) => void;
   onRowClick?: (rowId: string) => void;
-  onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
+  onPagination?: (currentPage: number, recordsPerPage: number) => void;
   onSortChange?: (sortState: SortState) => void;
   onFilterChange?: (filterState: FilterState) => void;
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
@@ -545,7 +545,7 @@ const RdsCompGrid = ({
   onActionSelection,
   onRowSelect,
   onRowClick,
-  onPaginationHandler,
+  onPagination,
   onSortChange,
   onFilterChange,
   onFilterApiRequest,
@@ -1241,7 +1241,7 @@ const RdsCompGrid = ({
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    onPaginationHandler?.(page, recordsPerPage);
+    onPagination?.(page, recordsPerPage);
   };
 
   const handleRowSelect = (rowId: string, rowData: GridRow) => {
@@ -1656,12 +1656,12 @@ const RdsCompGrid = ({
     getCurrentPage: () => currentPage,
     setCurrentPage: (page: number) => {
       setCurrentPage(page);
-      onPaginationHandler?.(page, recordsPerPage);
+      onPagination?.(page, recordsPerPage);
     },
     getPageSize: () => recordsPerPage,
     setPageSize: (size: number) => {
       setCurrentPage(1);
-      onPaginationHandler?.(1, size);
+      onPagination?.(1, size);
     },
     getTotalPages: () => Math.ceil(currentData.length / recordsPerPage),
 
@@ -1770,7 +1770,7 @@ const RdsCompGrid = ({
     currentPage,
     setCurrentPage,
     recordsPerPage,
-    onPaginationHandler,
+    onPagination,
     visibleColumns,
     setVisibleColumns,
     handleColumnVisibilityChange,
