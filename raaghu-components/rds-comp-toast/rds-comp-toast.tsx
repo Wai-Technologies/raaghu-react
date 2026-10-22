@@ -11,6 +11,7 @@ import {
 } from "./rds-comp-toast.types";
 import {
     getLeadingIconClass,
+    anchorToPosition,
     getLayoutClass,
     getPositionClasses,
     getStateClass,
@@ -126,7 +127,13 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const effectiveAutohide = autoHideDuration !== undefined ? autoHideDuration !== null : props.autohide;
     const effectiveDelay = typeof autoHideDuration === 'number' ? autoHideDuration : props.delay;
 
-    const _stateClass = getStateClass(props.state);
+    if (props.leadingIcon !== undefined) warnDeprecatedProp('RdsCompToast', 'leadingIcon', '`icon`');
+    if (props.progressWidth !== undefined) warnDeprecatedProp('RdsCompToast', 'progressWidth', '`progress`');
+    const leadingIcon = props.icon ?? props.leadingIcon;
+    const progress = props.progress ?? props.progressWidth;
+    const position = props.anchorOrigin ? anchorToPosition(props.anchorOrigin) : props.position;
+
+    const _stateClass = getStateClass(props.severity ?? props.state);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
     const { onClose } = props;
@@ -139,7 +146,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     }, [setShowState, onClose]);
 
     return (
-        <div className={clsx("rds-comp-toast__container", getPositionClasses(props.position))}>
+        <div className={clsx("rds-comp-toast__container", getPositionClasses(position))}>
             <div
                 role="alert"
                 aria-live="assertive"
@@ -160,7 +167,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <div className="rds-comp-toast__header-content">
                             <div className="rds-comp-toast__leading-icon">
                                 {showLeading && props.layout !== ToastLayout.Chat && (
-                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
+                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(leadingIcon)}`)}></span>
                                 )}
                             </div>
 
@@ -193,7 +200,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <ToastFooter
                             layout={props.layout}
                             action={props.action}
-                            progressWidth={props.progressWidth}
+                            progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
                             includeButtonClassName={true}
@@ -206,7 +213,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <div className="rds-comp-toast__body-simple">
                             {showLeading && props.layout !== ToastLayout.Chat && (
                                 <div className="rds-comp-toast__leading-icon">
-                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(props.leadingIcon)}`)}></span>
+                                    <span className={clsx("rds-comp-toast__icon", `rds-comp-toast__icon--${getLeadingIconClass(leadingIcon)}`)}></span>
                                 </div>
                             )}
                             
@@ -227,7 +234,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         <ToastFooter
                             layout={props.layout}
                             action={props.action}
-                            progressWidth={props.progressWidth}
+                            progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
                             includeButtonClassName={false}

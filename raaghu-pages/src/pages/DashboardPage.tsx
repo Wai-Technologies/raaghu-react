@@ -602,12 +602,12 @@ export default function DashboardPage() {
   return (
     <RdsCompAppShell
       displayType={AppShellDisplayType.Default}
-      topbar={topbar}
+      header={topbar}
       sidebar={sidebar}
-      mobileSidebarOpen={isMobile ? mobileSidebarOpen : false}
-      onMobileSidebarToggle={() => {
+      sidebarOpen={isMobile ? mobileSidebarOpen : false}
+      onSidebarOpenChange={(open) => {
         if (isMobile) {
-          setMobileSidebarOpen(open => !open);
+          setMobileSidebarOpen(open);
         }
       }}
     >

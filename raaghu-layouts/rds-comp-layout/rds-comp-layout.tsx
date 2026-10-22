@@ -3,6 +3,14 @@ import { Box, type BoxProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-comp-layout.scss';
 import renderLayoutContent from './renderLayoutContent';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+
+type LayoutDisplayType = 'Basic' | 'Board' | 'Boxify' | 'Cardify' | 'Collage' | 'Gridify' | 'Highlight' | 'Matrix' | 'Mosaic' | 'Nexus' | 'Pinboard' | 'Sections' | 'Snapshots' | 'Splitz' | 'Spotlight' | 'Stacks' | 'Dashboard' | 'Relaxed';
+
+export type LayoutTemplate = Lowercase<LayoutDisplayType>;
+
+const toDisplayType = (template: LayoutTemplate) =>
+  (template.charAt(0).toUpperCase() + template.slice(1)) as LayoutDisplayType;
 
 export interface RdsCompLayoutProps extends BoxProps {
   children?: ReactNode;
@@ -13,7 +21,12 @@ export interface RdsCompLayoutProps extends BoxProps {
   alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline';
   fullHeight?: boolean;
   fullWidth?: boolean;
-  displayType?: 'Basic' | 'Board' | 'Boxify' | 'Cardify' | 'Collage'|'Gridify'|'Highlight'|'Matrix'|'Mosaic'| 'Nexus'|'Pinboard'|'Sections'|'Snapshots'|'Splitz'|'Spotlight' |'Stacks'| 'Dashboard'|'Relaxed';
+  /** Figma layout name, rendered when `mode` is `'standard'`. */
+  displayType?: LayoutDisplayType;
+  /** Renders the predefined layout template. */
+  template?: LayoutTemplate;
+  elevated?: boolean;
+  /** @deprecated Use `elevated` instead. */
   hasShadow?: boolean;
   mode?: 'standard';
 }
@@ -25,7 +38,9 @@ const RdsCompLayout = ({
   fullHeight = false,
   fullWidth = false,
   displayType,
-  hasShadow = false,
+  template,
+  elevated,
+  hasShadow,
   wrap = false,
   justifyContent = 'flex-start',
   alignItems = 'stretch',
@@ -34,8 +49,10 @@ const RdsCompLayout = ({
   sx,
   ...props
 }: RdsCompLayoutProps) => {
-  if (mode === 'standard') {
-    return renderLayoutContent(displayType ?? 'Basic', hasShadow);
+  if (hasShadow !== undefined) warnDeprecatedProp('RdsCompLayout', 'hasShadow', '`elevated`');
+
+  if (template || mode === 'standard') {
+    return renderLayoutContent(template ? toDisplayType(template) : displayType ?? 'Basic', elevated ?? hasShadow ?? false);
   }
 
   return (

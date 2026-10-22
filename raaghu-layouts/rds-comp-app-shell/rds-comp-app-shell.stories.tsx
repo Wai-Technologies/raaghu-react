@@ -616,9 +616,9 @@ const AppShellStory = (args: any) => {
   return (
     <RdsCompAppShell
       displayType={args.displayType}
-      mobileSidebarOpen={mobileSidebarOpen}
-      onMobileSidebarToggle={handleMobileSidebarToggle}
-      topbar={args.displayType !== AppShellDisplayType.SideNav ? renderTopbar() : renderTopbar()}
+      sidebarOpen={mobileSidebarOpen}
+      onSidebarOpenChange={handleMobileSidebarToggle}
+      header={renderTopbar()}
       sidebar={args.displayType !== AppShellDisplayType.TopNav ? renderSidebar() : undefined}
      
     >{renderChildren()}</RdsCompAppShell>

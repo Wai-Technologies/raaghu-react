@@ -9,10 +9,8 @@ import RdsCompToolbar, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-toolbar.scss', () => ({}));
 
-// Mock the toolbar config data and ToolbarButton component
 jest.mock('./rds-comp-toolbar-config-data', () => ({
   getToolbarConfig: jest.fn(() => ({
     sections: [
@@ -90,7 +88,6 @@ jest.mock('./rds-comp-toolbar-config', () => ({
   },
 }));
 
-// Mock MUI Icons (not fully needed since we're mocking ToolbarButton)
 jest.mock('@mui/icons-material', () => ({
   FormatBold: () => <span>Bold</span>,
   FormatItalic: () => <span>Italic</span>,
@@ -122,7 +119,6 @@ jest.mock('@mui/icons-material', () => ({
   Highlight: () => <span>Highlight</span>,
 }));
 
-// Mock emoji generator
 jest.mock('../rds-comp-emoji-generator/rds-comp-emoji-generator', () => {
   return function MockEmojiGenerator() {
     return <div data-testid="emoji-generator">Emoji Generator</div>;
@@ -443,7 +439,6 @@ describe('RdsCompToolbar', () => {
 
       fireEvent.click(boldButton);
 
-      // OnAction is still called even for disabled, it just doesn't toggle format
       expect(onAction).not.toHaveBeenCalled();
     });
   });
@@ -533,7 +528,6 @@ describe('RdsCompToolbar', () => {
       const sections = container.querySelectorAll('.rds-comp-toolbar__section');
       const dividers = container.querySelectorAll('.rds-comp-toolbar__divider');
       
-      // Number of dividers should be sections - 1 for primary layout
       if (sections.length > 1) {
         expect(dividers.length).toBe(sections.length - 1);
       }
@@ -748,6 +742,18 @@ describe('RdsCompToolbar', () => {
       expect(screen.getByTestId('toolbar-button-custom')).toHaveAttribute('data-has-dropdown', 'true');
       expect(screen.queryByTestId('toolbar-button-bold')).not.toBeInTheDocument();
       expect(ref.current).toBe(screen.getByRole('toolbar'));
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('variant is an alias of layout', () => {
+      render(<RdsCompToolbar variant="secondary" />);
+      expect(screen.getByRole('toolbar')).toHaveClass('rds-comp-toolbar--secondary');
+    });
+
+    it('preset is an alias of type', () => {
+      render(<RdsCompToolbar preset="misc" />);
+      expect(screen.getByRole('toolbar')).toHaveClass('rds-comp-toolbar--misc');
     });
   });
 });

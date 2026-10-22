@@ -5,13 +5,35 @@ import "./rds-comp-app-shell.scss";
 import { AppShellDisplayType } from "./shell-types";
 export { AppShellDisplayType } from "./shell-types";
 import { GetShellLayoutCss } from "./shell-layout";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+
+export type AppShellVariant = 'default' | 'top-nav' | 'side-nav' | 'double-nav' | 'tri-pane' | 'relaxing';
+
+const VARIANT_DISPLAY_TYPE: Record<AppShellVariant, AppShellDisplayType> = {
+  default: AppShellDisplayType.Default,
+  'top-nav': AppShellDisplayType.TopNav,
+  'side-nav': AppShellDisplayType.SideNav,
+  'double-nav': AppShellDisplayType.DoubleNav,
+  'tri-pane': AppShellDisplayType.TriPane,
+  relaxing: AppShellDisplayType.Relaxing,
+};
 
 export interface RdsCompAppShellProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  displayType: AppShellDisplayType;
+  /** Figma layout name. `variant` takes precedence. */
+  displayType?: AppShellDisplayType;
+  variant?: AppShellVariant;
+  header?: ReactNode;
+  /** @deprecated Use `header` instead. */
   topbar?: ReactNode;
   sidebar?: ReactNode;
   children?: ReactNode;
+  /** Controlled open state of the mobile sidebar. */
+  sidebarOpen?: boolean;
+  /** Called with the requested open state (menu button, backdrop, Escape). */
+  onSidebarOpenChange?: (open: boolean) => void;
+  /** @deprecated Use `sidebarOpen` instead. */
   mobileSidebarOpen?: boolean;
+  /** @deprecated Use `onSidebarOpenChange` instead. */
   onMobileSidebarToggle?: () => void;
   /** Accessible label of the backdrop that closes the mobile sidebar. */
   closeSidebarLabel?: string;
@@ -32,30 +54,51 @@ const withMenuClick = (topbar: ReactNode, onMenuClick: () => void): ReactNode =>
 
 const RdsCompAppShell = ({
   displayType,
+  variant,
+  header,
   topbar,
   sidebar,
   children,
-  mobileSidebarOpen: mobileSidebarOpenProp,
+  sidebarOpen,
+  onSidebarOpenChange,
+  mobileSidebarOpen,
   onMobileSidebarToggle,
   closeSidebarLabel = "Close sidebar overlay",
   className,
   ...rest
 }: RdsCompAppShellProps) => {
-  const [internalMobileSidebarOpen, setInternalMobileSidebarOpen] = useState(false);
-  // Avoid animating the sidebar from a desktop first-paint when Storybook/viewport resizes to mobile.
+  if (topbar !== undefined) warnDeprecatedProp('RdsCompAppShell', 'topbar', '`header`');
+  if (mobileSidebarOpen !== undefined) warnDeprecatedProp('RdsCompAppShell', 'mobileSidebarOpen', '`sidebarOpen`');
+  if (onMobileSidebarToggle !== undefined) warnDeprecatedProp('RdsCompAppShell', 'onMobileSidebarToggle', '`onSidebarOpenChange`');
+
+  const [internalOpen, setInternalOpen] = useState(false);
   const [layoutReady, setLayoutReady] = useState(false);
 
-  const mobileSidebarOpen = mobileSidebarOpenProp ?? internalMobileSidebarOpen;
-  const toggleInternalSidebar = useCallback(() => setInternalMobileSidebarOpen((open) => !open), []);
-  const handleMobileSidebarToggle = onMobileSidebarToggle ?? toggleInternalSidebar;
+  const openProp = sidebarOpen ?? mobileSidebarOpen;
+  const open = openProp ?? internalOpen;
+  const hasHandler = !!onSidebarOpenChange || !!onMobileSidebarToggle;
+
+  const requestOpen = useCallback((next: boolean) => {
+    if (onSidebarOpenChange) {
+      if (openProp === undefined) setInternalOpen(next);
+      onSidebarOpenChange(next);
+    } else if (onMobileSidebarToggle) {
+      onMobileSidebarToggle();
+    } else {
+      setInternalOpen(next);
+    }
+  }, [onSidebarOpenChange, onMobileSidebarToggle, openProp]);
+
+  const toggleSidebar = useCallback(() => requestOpen(!open), [requestOpen, open]);
+  const closeSidebar = useCallback(() => requestOpen(false), [requestOpen]);
 
   useEffect(() => {
     const isProduction = typeof process !== 'undefined' && process.env?.NODE_ENV === 'production';
-    if (!isProduction && mobileSidebarOpenProp !== undefined && !onMobileSidebarToggle) {
+    if (!isProduction && openProp !== undefined && !hasHandler) {
       // eslint-disable-next-line no-console -- intentional developer-facing warning
-      console.warn('RdsCompAppShell: `mobileSidebarOpen` is controlled but `onMobileSidebarToggle` is missing, so the sidebar cannot be toggled.');
+      console.warn('RdsCompAppShell: `sidebarOpen` is controlled but `onSidebarOpenChange` is missing, so the sidebar cannot be toggled.');
     }
-  }, [mobileSidebarOpenProp, onMobileSidebarToggle]);
+  }, [openProp, hasHandler]);
 
   useEffect(() => {
     const rafId = window.requestAnimationFrame(() => setLayoutReady(true));
@@ -63,34 +106,34 @@ const RdsCompAppShell = ({
   }, []);
 
   useEffect(() => {
-    if (!mobileSidebarOpen) return;
+    if (!open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') handleMobileSidebarToggle();
+      if (event.key === 'Escape') closeSidebar();
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [mobileSidebarOpen, handleMobileSidebarToggle]);
+  }, [open, closeSidebar]);
 
   return (
     <Box
       {...rest}
       className={clsx(
-        GetShellLayoutCss(displayType),
-        mobileSidebarOpen && 'mobile-sidebar-open',
+        GetShellLayoutCss(variant ? VARIANT_DISPLAY_TYPE[variant] : displayType),
+        open && 'mobile-sidebar-open',
         layoutReady && 'rds-appshell--layout-ready',
         className,
       )}
     >
       <div className="sidebar-layout">{sidebar}</div>
       <div className="topnav-layout">
-        {withMenuClick(topbar, handleMobileSidebarToggle)}
+        {withMenuClick(header ?? topbar, toggleSidebar)}
         {children}
       </div>
-      {mobileSidebarOpen && (
+      {open && (
         <button
           type="button"
           className="mobile-sidebar-backdrop"
-          onClick={handleMobileSidebarToggle}
+          onClick={closeSidebar}
           aria-label={closeSidebarLabel}
         />
       )}

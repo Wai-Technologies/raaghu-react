@@ -31,6 +31,11 @@ export enum ToastPosition {
   BottomRight = "bottomRight",
 }
 
+export interface ToastAnchorOrigin {
+  vertical: "top" | "middle" | "bottom";
+  horizontal: "left" | "center" | "right";
+}
+
 export type ToastCloseReason = "timeout" | "closeClick";
 
 export interface RdsCompToastProps {
@@ -61,12 +66,22 @@ export interface RdsCompToastProps {
     subText?: "visible" | "hidden";
   };
   layout: ToastLayout | `${ToastLayout}`;
-  state: ToastState | `${ToastState}`;
+  /** Figma state variant. */
+  state?: ToastState | `${ToastState}`;
+  /** Alias of `state`. Wins over `state`. */
+  severity?: ToastState | `${ToastState}`;
   placeholder?: string;
+  /** @deprecated Use `progress` instead. */
   progressWidth?: number;
+  /** Download progress, 0-100. */
+  progress?: number;
   filename?: string;
   position?: ToastPosition | `${ToastPosition}`;
+  /** Screen anchor. Wins over `position`. */
+  anchorOrigin?: ToastAnchorOrigin;
+  /** @deprecated Use `icon` instead. */
   leadingIcon?: ToastLeadingIcon | `${ToastLeadingIcon}`;
+  icon?: ToastLeadingIcon | `${ToastLeadingIcon}`;
   chatTime?: string;
   pauseOnHover?: boolean;
   showHeader?: boolean;

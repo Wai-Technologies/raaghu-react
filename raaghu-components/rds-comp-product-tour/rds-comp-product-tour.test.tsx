@@ -944,4 +944,31 @@ describe('RdsCompProductTour', () => {
       expect(screen.getByText('3/3')).toBeInTheDocument();
     });
   });
+
+  describe('audit fixes', () => {
+    it('variant, subtitle and items alias the old props', () => {
+      render(<RdsCompProductTour variant="Form" subtitle="Sub" items={['A', 'B']} />);
+      expect(screen.getByText('Sub')).toBeInTheDocument();
+      expect(screen.getByText('A')).toBeInTheDocument();
+      expect(screen.getByText('B')).toBeInTheDocument();
+    });
+
+    it('steps and activeStep render the same indicator', () => {
+      render(<RdsCompProductTour variant="Image" steps={4} activeStep={2} slides={mockSlides} />);
+      expect(screen.getByText('2/4')).toBeInTheDocument();
+    });
+
+    it('anchorCorner renders one dot and wins over booleans', () => {
+      const { container } = render(<RdsCompProductTour variant="Image" anchorCorner="bottom-right" topLeft />);
+      expect(container.querySelectorAll('.rds-comp-product-tour__corner-dot')).toHaveLength(1);
+      expect(container.querySelector('.rds-comp-product-tour__corner-dot--bottom-right')).toBeTruthy();
+    });
+
+    it('warns for deprecated props', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      render(<RdsCompProductTour state="Image" formTitle="x" tabTitle={['a']} stepsIndicator="1/2" topLeft />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'formTitle', '`subtitle`');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'topLeft', '`anchorCorner`');
+    });
+  });
 });
