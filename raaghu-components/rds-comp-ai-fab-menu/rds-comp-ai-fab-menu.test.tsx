@@ -8,10 +8,8 @@ import RdsCompAiFabMenu, { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu'
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-fab-menu.scss', () => ({}));
 
-// Mock Material UI Icons
 jest.mock('@mui/icons-material/List', () => {
   return function MockListIcon() {
     return <span data-testid="list-icon">List</span>;
@@ -42,7 +40,6 @@ jest.mock('@mui/icons-material/Download', () => {
   };
 });
 
-// Mock RdsCompAiIcon
 jest.mock('../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon', () => {
   return {
     __esModule: true,
@@ -57,7 +54,6 @@ jest.mock('../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon', () => {
   };
 });
 
-// Default props for testing
 const defaultListItems = [
   { key: 'item1', value: 'Item 1', icon: 'list', onClick: jest.fn() },
   { key: 'item2', value: 'Item 2', icon: 'refresh', onClick: jest.fn() },
@@ -246,7 +242,6 @@ describe('RdsCompAiFabMenu', () => {
       const { container } = render(<RdsCompAiFabMenu listItems={itemsWithDimensions} />);
       const icons = container.querySelectorAll('[data-testid="icon-list"]');
       expect(icons.length).toBeGreaterThan(0);
-      // Target the item icon, not the button icon
       const itemIcon = Array.from(icons).find((icon) => icon.getAttribute('data-height') === '20px');
       expect(itemIcon).toHaveAttribute('data-height', '20px');
       expect(itemIcon).toHaveAttribute('data-width', '20px');
@@ -424,6 +419,24 @@ describe('RdsCompAiFabMenu', () => {
       fireEvent.click(screen.getByTestId('fab-menu-btn'));
       expect(spy.mock.calls.some(([type]) => type === 'mousedown')).toBe(true);
       spy.mockRestore();
+    });
+
+    it('new names: items/label, placement, variant, color, bordered, icon', () => {
+      const { container } = render(
+        <RdsCompAiFabMenu items={[{ key: 'a', label: 'Alpha' }]} placement="right" variant="rounded" color="danger" bordered icon="list" />
+      );
+      expect(screen.getByText('Alpha')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu--right')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu__button--rectangular')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu__button--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-fab-menu__dropdown--bordered')).toBeInTheDocument();
+    });
+
+    it('maps variant text to no background and warns for old props', () => {
+      const { container } = render(<RdsCompAiFabMenu listItems={[{ key: 'a', value: 'A' }]} variant="text" backgroundType="circular" alignment="right" colorVariant="info" isShowBorder />);
+      expect(container.querySelector('.rds-fab-menu__button--none')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiFabMenu', 'listItems', '`items`');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiFabMenu', 'alignment', '`placement`');
     });
 
     it('renders a node icon as-is', () => {
@@ -612,10 +625,8 @@ describe('RdsCompAiFabMenu', () => {
       const button = container.querySelector('button');
       const dropdownContainer = container.querySelector('.rds-fab-menu__dropdown-container');
       if (button && dropdownContainer) {
-        // Check if button is in the DOM and appears before dropdown
         expect(button).toBeInTheDocument();
         expect(dropdownContainer).toBeInTheDocument();
-        // Both elements should exist in the same container
         const fabMenu = container.querySelector('.rds-fab-menu');
         expect(fabMenu?.contains(button)).toBe(true);
         expect(fabMenu?.contains(dropdownContainer)).toBe(true);

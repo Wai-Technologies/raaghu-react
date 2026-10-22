@@ -1,59 +1,77 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
-import type { ChartOptions, ChartDataset } from "chart.js/auto";
-import { createCenterTextPlugin } from "../chart-utils";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, createCenterTextPlugin, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-doughnut.scss";
 
 /** Props for {@link RdsCompDoughnutChart}. */
 export interface RdsCompDoughnutProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
-  /** Slice labels. */
-  labels: string[];
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"doughnut">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
   /** Chart.js options (never mutated). */
   options: ChartOptions<"doughnut">;
-  /** Chart.js doughnut datasets. */
-  dataSets: ChartDataset<"doughnut">[];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"doughnut">[];
   /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
   /** Large text drawn in the centre. */
   titleText?: string;
   /** Smaller text drawn under the title. */
+  subtitle?: string;
+  /** @deprecated Use `subtitle` instead. */
   subTitleText?: string;
   /** Accessible label of the chart. Defaults to "Doughnut chart" followed by the title and subtitle text, if any. */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
 }
 
 const RdsCompDoughnutChart = ({
+  data,
   labels,
   options,
   dataSets,
   id,
+  height,
+  width,
   titleText = "",
-  subTitleText = "",
+  subtitle,
+  subTitleText,
+  ariaLabel,
   chartLabel,
   className,
   ref,
   ...rest
 }: RdsCompDoughnutProps) => {
-  const defaultLabel = [
-    "Doughnut chart:",
-    ...[titleText, subTitleText].filter(Boolean),
-  ];
+  if (subTitleText !== undefined) {
+    warnDeprecatedProp("RdsCompDoughnutChart", "subTitleText", "`subtitle`");
+  }
+  const subTitle = subtitle ?? subTitleText ?? "";
+  const resolved = resolveChartData("RdsCompDoughnutChart", data, labels, dataSets);
+  const defaultLabel = ["Doughnut chart:", ...[titleText, subTitle].filter(Boolean)];
   const { canvasRef } = useChart(
     {
       type: "doughnut",
-      labels,
-      datasets: dataSets,
+      labels: resolved.labels,
+      datasets: resolved.datasets,
       options,
       themeAxes: [],
       plugins: [
         createCenterTextPlugin({
           id: "counter3",
           title: titleText,
-          subTitle: subTitleText,
+          subTitle,
           titleY: ({ top, height }) => top + height / 2 - 10,
           subTitleY: ({ top, height }) => top + height / 2 + 16,
           lineJoin: "round",
@@ -62,9 +80,10 @@ const RdsCompDoughnutChart = ({
       onCreate: (chart) => {
         chart.canvas.style.width = "66vh";
         chart.canvas.style.height = "66vh";
+        applyCanvasSize(chart.canvas, height, width);
       },
     },
-    [labels, options, dataSets, titleText, subTitleText]
+    [resolved.labels, options, resolved.datasets, titleText, subTitle, height, width]
   );
 
   return (
@@ -74,10 +93,12 @@ const RdsCompDoughnutChart = ({
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={
-          chartLabel ??
-          (defaultLabel.length > 1 ? defaultLabel.join(" ") : "Doughnut chart")
-        }
+        aria-label={resolveChartLabel(
+          "RdsCompDoughnutChart",
+          ariaLabel,
+          chartLabel,
+          defaultLabel.length > 1 ? defaultLabel.join(" ") : "Doughnut chart"
+        )}
       />
     </div>
   );

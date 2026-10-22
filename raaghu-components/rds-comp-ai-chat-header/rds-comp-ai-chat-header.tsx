@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import type { ElementType, HTMLAttributes, Ref } from "react";
 import "./rds-comp-ai-chat-header.scss";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 export { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
 import type { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
 
@@ -8,6 +9,8 @@ import type { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
 export interface RdsCompAiChatHeaderProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** URL of the logo shown before the title. */
+  avatarSrc?: string;
+  /** @deprecated Use `avatarSrc` instead. */
   logoUrl?: string;
   /** Alt text of the logo. Default "Logo". */
   logoAlt?: string;
@@ -22,6 +25,7 @@ export interface RdsCompAiChatHeaderProps
 }
 
 const RdsCompAiChatHeader = ({
+  avatarSrc,
   logoUrl,
   logoAlt = "Logo",
   title,
@@ -30,11 +34,14 @@ const RdsCompAiChatHeader = ({
   className,
   ref,
   ...rest
-}: RdsCompAiChatHeaderProps) => (
+}: RdsCompAiChatHeaderProps) => {
+  if (logoUrl !== undefined) warnDeprecatedProp("RdsCompAiChatHeader", "logoUrl", "`avatarSrc`");
+  const logoSrc = avatarSrc ?? logoUrl;
+  return (
   <div {...rest} ref={ref} className={clsx("rds-comp-ai-chat-header", className)}>
-    {logoUrl && (
+    {logoSrc && (
       <img
-        src={logoUrl}
+        src={logoSrc}
         alt={logoAlt}
         className={clsx("rds-comp-ai-chat-header__logo", `rds-comp-ai-chat-header__logo--${size}`)}
       />
@@ -43,7 +50,8 @@ const RdsCompAiChatHeader = ({
       {title}
     </Heading>
   </div>
-);
+  );
+};
 
 RdsCompAiChatHeader.displayName = "RdsCompAiChatHeader";
 export default RdsCompAiChatHeader;

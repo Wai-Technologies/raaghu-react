@@ -6,11 +6,9 @@ const meta: Meta = {
     title: "Components/AI ChatBox/Attachment",
     component: RdsCompAiAttachment,
     argTypes: {
-        badgeColor: {
+        placement: {
             control: { type: 'select' },
-            options: ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'light', 'success'],
-            description: 'Badge color variant',
-            defaultValue: 'primary',
+            options: ['start', 'end'],
         },
     },
     parameters: {
@@ -31,20 +29,22 @@ type Story = StoryObj<typeof RdsCompAiAttachment>;
 
 export const Default: Story = {
     args: {
-        menuIcon: "attachment_icon",
-        modalTitle: "Import From Figma",
-        hintText: "Hint Text",
-        inputPlaceholder: "Enter URL",
-        showBadge: true,
-        badgeLabel: "Premium",
-        badgeColor: "primary",
-        uploadText: "Upload From Figma",
-        importText: "Import From This Device",
-        modalText: "Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.",
-        menuAlignment: "left",
+        icon: "attachment_icon",
+        badge: "Premium",
+        badgeProps: { color: "primary" },
+        slotProps: {
+            menu: { uploadText: "Upload From Figma", importText: "Import From This Device" },
+            dialog: {
+                title: "Import From Figma",
+                text: "Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.",
+                hintText: "Hint Text",
+                placeholder: "Enter URL",
+            },
+        },
+        placement: "start",
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 }
-Default.parameters = { controls: { include: ['menuIcon', 'modalTitle', 'hintText', 'inputPlaceholder', 'showBadge', 'badgeLabel', 'badgeColor', 'uploadText', 'importText', 'modalText'] } };
+Default.parameters = { controls: { include: ['icon', 'badge', 'badgeProps', 'slotProps', 'placement'] } };

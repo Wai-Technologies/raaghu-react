@@ -1,6 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
-import { type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { type ChartData, type ChartOptions, type ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-bubble.scss";
 
@@ -9,13 +10,21 @@ export interface RdsCompBubbleChartProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
   /** Id of the canvas element. */
   id: string;
-  /** Dataset labels. */
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"bubble">;
+  /** @deprecated Use `data.labels` instead. */
   labels?: string[];
   /** Chart.js options (never mutated). */
   options: ChartOptions<"bubble">;
-  /** Chart.js bubble datasets. */
-  dataSets: ChartDataset<"bubble">[];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"bubble">[];
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
   /** Accessible label of the chart. */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
@@ -23,17 +32,28 @@ export interface RdsCompBubbleChartProps
 
 const RdsCompBubbleChart = ({
   id,
+  data,
   labels,
   options,
   dataSets,
+  height,
+  width,
+  ariaLabel,
   chartLabel,
   className,
   ref,
   ...rest
 }: RdsCompBubbleChartProps) => {
+  const resolved = resolveChartData("RdsCompBubbleChart", data, labels, dataSets);
   const { canvasRef } = useChart(
-    { type: "bubble", labels, datasets: dataSets, options },
-    [labels, options, dataSets]
+    {
+      type: "bubble",
+      labels: resolved.labels,
+      datasets: resolved.datasets,
+      options,
+      onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
+    },
+    [resolved.labels, options, resolved.datasets, height, width]
   );
 
   return (
@@ -45,7 +65,7 @@ const RdsCompBubbleChart = ({
         width={300}
         height={300}
         role="img"
-        aria-label={chartLabel ?? "Bubble chart"}
+        aria-label={resolveChartLabel("RdsCompBubbleChart", ariaLabel, chartLabel, "Bubble chart")}
       />
     </div>
   );

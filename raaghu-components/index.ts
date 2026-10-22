@@ -45,7 +45,6 @@ export { default as RdsCompAiGradientTextWithIcon } from './rds-comp-ai-gradient
 export { default as RdsCompAiMessageBox } from './rds-comp-ai-message-box/rds-comp-ai-message-box';
 export { default as RdsCompAiChatHeader } from './rds-comp-ai-chat-header/rds-comp-ai-chat-header';
 
-// Public prop and helper types
 export type { RdsCompSpinnerProps } from './rds-comp-spinner/rds-comp-spinner-types';
 export { SpinnerSize, SpinnerLayout, SpinnerLevel } from './rds-comp-spinner/rds-comp-spinner-types';
 export { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker/rds-comp-datepicker.types';
@@ -89,7 +88,7 @@ export type { RdsCompProductTourProps } from './rds-comp-product-tour/product-to
 export type { RdsCompEmojiGeneratorProps } from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export type { RdsCompEmptyStateProps } from './rds-comp-empty-state/rds-comp-empty-state';
 export type { RdsCompESignatureProps } from './rds-comp-e-signature/rds-comp-e-signature';
-export type { RdsCompAiAttachmentProps } from './rds-comp-ai-attachment/rds-comp-ai-attachment';
+export type { RdsCompAiAttachmentProps, RdsCompAiAttachmentBadgeProps, RdsCompAiAttachmentSlotProps } from './rds-comp-ai-attachment/rds-comp-ai-attachment';
 export type { RdsCompAiTypingSectionProps } from './rds-comp-ai-typing-section/rds-comp-ai-typing-section';
 export type { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu/rds-comp-ai-fab-menu';
 export type { RdsCompAiIconProps } from './rds-comp-ai-icon/rds-comp-ai-icon';

@@ -19,7 +19,7 @@ const meta: Meta = {
     ],
     tags: ['autodocs', 'stable'],
     argTypes: {
-        colorVariant: {
+        color: {
             options: [
                 "primary",
                 "secondary",
@@ -36,19 +36,19 @@ const meta: Meta = {
             options: ["small", "medium", "large"],
             control: { type: "select" },
         },
-        alignment: {
+        placement: {
             options: ["left", "right"],
             control: { type: "select" },
         },
-        menuIcon: {
+        icon: {
             options: ["list", "users", "person-outline", "refresh", "export", "delete", "download"],
             control: { type: "select" },
             description: "Icon for the fab menu button (icons registered by this component)"
         },
-        backgroundType: {
-            options: ["circular", "rectangular", "none"],
+        variant: {
+            options: ["circular", "rounded", "text"],
             control: { type: "select" },
-            description: "Background type for the menu button"
+            description: "Shape of the menu button"
         },
     },
 } satisfies Meta<typeof RdsCompAiFabMenu>;
@@ -58,21 +58,21 @@ type Story = StoryObj<typeof RdsCompAiFabMenu>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "light",
+        color: "light",
         size: "medium",
-        menuIcon: "list",
-        alignment: "left",
-        backgroundType: "circular",
-        listItems: [
-            { value: "New Role", key: "new", icon: "users", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Refresh", key: "refresh", icon: "refresh", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Export to excel", key: "export", icon: "export", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Delete", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Download", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
+        icon: "list",
+        placement: "left",
+        variant: "circular",
+        items: [
+            { label: "New Role", key: "new", icon: "users", iconWidth: "24px", iconHeight: "24px" },
+            { label: "Refresh", key: "refresh", icon: "refresh", iconWidth: "24px", iconHeight: "24px" },
+            { label: "Export to excel", key: "export", icon: "export", iconWidth: "24px", iconHeight: "24px" },
+            { label: "Delete", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
+            { label: "Download", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
         ]
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['colorVariant', 'menuIcon', 'size', 'backgroundType', 'alignment', 'listItems'] } };
+Default.parameters = { controls: { include: ['color', 'icon', 'size', 'variant', 'placement', 'items'] } };

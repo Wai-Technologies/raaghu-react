@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react';
 import type { ChartArea, ChartType, Plugin } from 'chart.js/auto';
+import { warnDeprecatedProp } from '../raaghu-elements/shared/utils/deprecation';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 
 function getChartThemeMode(): string {
@@ -78,7 +79,7 @@ export function cloneChartOptions<T>(options: T): T {
       return structuredClone(options);
     }
   } catch {
-    // Chart.js options often include functions that structuredClone cannot copy.
+    return deepClonePreservingFunctions(options);
   }
   return deepClonePreservingFunctions(options);
 }
@@ -103,7 +104,6 @@ export function chartMutedColor(): string {
  * Returns the current theme's grid line color for chart axes.
  */
 function chartGridColor(): string {
-  // Keep grid lines visibly light in dark mode across all charts.
   return isDarkMode()
     ? getCSSVar('--rds-comp-chart-grid-color-dark', 'rgba(255,255,255,0.28)')
     : getCSSVar('--rds-comp-chart-grid-color-light', 'rgba(0,0,0,0.12)');
@@ -230,7 +230,6 @@ export function applyChartThemeColors<TOptions extends object>(
   const tooltipBg   = chartTooltipBg();
   const tooltipText = chartTooltipTextColor();
 
-  // ── Scales ──────────────────────────────────────────────────────────────────
   if (axes.length > 0) {
     if (!chartOptions.scales) chartOptions.scales = {};
     const scales = chartOptions.scales;
@@ -248,19 +247,15 @@ export function applyChartThemeColors<TOptions extends object>(
     });
   }
 
-  // ── Plugins ─────────────────────────────────────────────────────────────────
   if (!chartOptions.plugins) chartOptions.plugins = {};
 
-  // Legend
   if (!chartOptions.plugins.legend)        chartOptions.plugins.legend        = {};
   if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
   chartOptions.plugins.legend.labels.color = textColor;
 
-  // Title
   if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
   chartOptions.plugins.title.color = textColor;
 
-  // Tooltip
   if (chartOptions.plugins.tooltip) {
     chartOptions.plugins.tooltip.backgroundColor = tooltipBg;
     chartOptions.plugins.tooltip.titleColor      = tooltipText;
@@ -301,7 +296,6 @@ function resolveColorValue(colorValue: unknown): unknown {
   }
   
   if (typeof colorValue === 'string' && colorValue.includes('var(')) {
-    // Extract CSS variable name from "var(--rds-..., fallback)"
     const varMatch = colorValue.match(/var\(([^,)]+)(?:,\s*([^)]+))?\)/);
     if (varMatch) {
       const varName = varMatch[1].trim();
@@ -311,4 +305,39 @@ function resolveColorValue(colorValue: unknown): unknown {
   }
   
   return colorValue;
+}
+
+export function resolveChartLabel(
+  component: string,
+  ariaLabel: string | undefined,
+  chartLabel: string | undefined,
+  fallback: string,
+): string {
+  if (chartLabel !== undefined) warnDeprecatedProp(component, 'chartLabel', '`ariaLabel`');
+  return ariaLabel ?? chartLabel ?? fallback;
+}
+
+export function resolveChartData<L, D extends unknown[]>(
+  component: string,
+  data: { labels?: L; datasets: D } | undefined,
+  labels: L | undefined,
+  dataSets: D | undefined,
+  warn = true,
+): { labels: L | undefined; datasets: D } {
+  if (warn && labels !== undefined) warnDeprecatedProp(component, 'labels', '`data`');
+  if (warn && dataSets !== undefined) warnDeprecatedProp(component, 'dataSets', '`data`');
+  return {
+    labels: data?.labels ?? labels,
+    datasets: data?.datasets ?? dataSets ?? ([] as unknown as D),
+  };
+}
+
+export function applyCanvasSize(
+  canvas: HTMLCanvasElement,
+  height?: string | number,
+  width?: string | number,
+) {
+  const css = (value: string | number) => (typeof value === 'number' ? `${value}px` : value);
+  if (height !== undefined) canvas.style.height = css(height);
+  if (width !== undefined) canvas.style.width = css(width);
 }
