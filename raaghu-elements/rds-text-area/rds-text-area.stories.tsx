@@ -50,7 +50,7 @@ export const Default: Story = {
         placeholder: "Enter Description",
         state: TextareaState.Default,
         style: TextareaStyle.Default,
-        mandatory: false,
+        required: false,
         showTitle: true,
         rows: 4
     }

@@ -44,7 +44,7 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   style?: TextareaStyle | `${TextareaStyle}`;
   showTitle?: boolean;
   /** Marks the field required: shows the asterisk and the empty-value error. */
-  mandatory?: boolean;
+  required?: boolean;
   /** Disables the textarea (same as `state="Disabled"`). */
   disabled?: boolean;
   /** Class name for the root container. Use `customClasses` for the textarea element. */
@@ -73,7 +73,7 @@ const RdsTextArea = ({
   state,
   style,
   showTitle,
-  mandatory,
+  required,
   disabled,
   className,
   ref,
@@ -92,8 +92,8 @@ const RdsTextArea = ({
   ...rest
 }: RdsTextAreaProps): ReactNode => {
   const [isValid, setIsValid] = useState(true);
-  const [isMandatoryValid, setIsMandatoryValid] = useState(
-    !mandatory || (value ?? defaultValue ?? "").trim().length > 0
+  const [isrequiredValid, setIsrequiredValid] = useState(
+    !required || (value ?? defaultValue ?? "").trim().length > 0
   );
   const [currentState, setCurrentState] = useState(
     state || TextareaState.Default
@@ -101,7 +101,7 @@ const RdsTextArea = ({
   const [prevReset, setPrevReset] = useState(Boolean(resetProp));
   const [prevState, setPrevState] = useState(state);
   const [prevValue, setPrevValue] = useState(value);
-  const [prevMandatory, setPrevMandatory] = useState(mandatory);
+  const [prevrequired, setPrevrequired] = useState(required);
 
   // useId is stable across server and client renders.
   const reactId = useId();
@@ -114,7 +114,7 @@ const RdsTextArea = ({
   if (reset !== prevReset) {
     if (reset) {
       setIsValid(true);
-      setIsMandatoryValid(true);
+      setIsrequiredValid(true);
     }
     setPrevReset(reset);
   }
@@ -126,22 +126,22 @@ const RdsTextArea = ({
     setCurrentState(propState);
   }
 
-  if (value !== prevValue || mandatory !== prevMandatory) {
+  if (value !== prevValue || required !== prevrequired) {
     setPrevValue(value);
-    setPrevMandatory(mandatory);
+    setPrevrequired(required);
 
-    if (mandatory) {
-      setIsMandatoryValid((value || "").trim().length > 0);
+    if (required) {
+      setIsrequiredValid((value || "").trim().length > 0);
     } else {
-      setIsMandatoryValid(true);
+      setIsrequiredValid(true);
     }
   }
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
-    if (mandatory) {
-      setIsMandatoryValid(inputValue.trim().length > 0);
+    if (required) {
+      setIsrequiredValid(inputValue.trim().length > 0);
     }
 
     if (validationPattern) {
@@ -170,8 +170,8 @@ const RdsTextArea = ({
   const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
-    if (mandatory) {
-      setIsMandatoryValid(inputValue.trim().length > 0);
+    if (required) {
+      setIsrequiredValid(inputValue.trim().length > 0);
     }
 
     if (currentState === TextareaState.Active) {
@@ -191,7 +191,7 @@ const RdsTextArea = ({
   const isError =
     effectiveState === TextareaState.Error ||
     !isValid ||
-    (mandatory && !isMandatoryValid);
+    (required && !isrequiredValid);
 
   const getStateClass = () => {
     switch (effectiveState) {
@@ -220,7 +220,7 @@ const RdsTextArea = ({
   };
 
   const getValidationMessage = () => {
-    if (mandatory && !isMandatoryValid) {
+    if (required && !isrequiredValid) {
       return `${label || "Label"} is required`;
     }
 
@@ -235,7 +235,7 @@ const RdsTextArea = ({
           className={`textarea-label ${isDisabled ? "disabled" : ""}`}
         >
           {label}
-          {mandatory && <span className="required-asterisk"> *</span>}
+          {required && <span className="required-asterisk"> *</span>}
         </label>
       )}
 
@@ -270,7 +270,7 @@ const RdsTextArea = ({
           defaultValue={value === undefined ? defaultValue : undefined}
           onChange={handleChange}
           aria-invalid={isError}
-          aria-required={mandatory ? true : undefined}
+          aria-required={required ? true : undefined}
           aria-describedby={isError ? errorId : undefined}
         />
       </div>

@@ -1,10 +1,8 @@
-
 import { useId, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { Box, IconButton, InputBase, Typography, type BoxProps } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import clsx from 'clsx';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-counter.scss';
 
 /**
@@ -35,15 +33,11 @@ export interface RdsCounterProps
   showTitle?: boolean;
   /** Marks the field as required: shows the asterisk next to the label and sets `aria-required` on the input. */
   required?: boolean;
-  /** New prop for marking the field as mandatory. */
-  mandatory?: boolean;
   selected?: boolean;
   /** Figma visual state. */
   state?: 'default' | 'selected' | 'disabled';
   /** @deprecated Use `label` instead. */
   titleText?: string;
-  /** @deprecated Use `mandatory` instead. */
-  isMandatory?: boolean;
 }
 
 /** Whether the typed number `n` is in range, or could still get there by typing more digits. */
@@ -51,13 +45,16 @@ const canReachRange = (n: number, min: number, max: number): boolean => {
   if (n >= min && n <= max) return true;
   const positive = n >= 0;
   if (positive ? max === Infinity : min === -Infinity) return true;
+
   for (let k = 1; k <= 15; k++) {
     const scale = 10 ** k;
     const lo = positive ? n * scale : n * scale - (scale - 1);
     const hi = positive ? n * scale + (scale - 1) : n * scale;
+
     if (hi >= min && lo <= max) return true;
     if (positive ? lo > max : hi < min) return false;
   }
+
   return false;
 };
 
@@ -78,9 +75,7 @@ const RdsCounter = ({
   placeholder = '00',
   controlsClassName,
   showTitle = true,
-  required,
-  mandatory,
-  isMandatory,
+  required = false,
   selected = false,
   state = 'default',
   className,
@@ -88,16 +83,7 @@ const RdsCounter = ({
   ref,
   ...rest
 }: RdsCounterProps) => {
-  if (titleText !== undefined) {
-    warnDeprecatedProp('RdsCounter', 'titleText', '`label`');
-  }
-
-  if (isMandatory !== undefined) {
-    warnDeprecatedProp('RdsCounter', 'isMandatory', '`mandatory`');
-  }
-
   const labelText = label ?? titleText;
-  const isRequired = mandatory ?? isMandatory ?? required ?? false;
   const inputId = `rds-counter-${useId()}`;
 
   const isControlled = value !== undefined;
@@ -118,6 +104,8 @@ const RdsCounter = ({
   };
 
   const handleIncrement = () => {
+    if (disabled || state === 'disabled') return;
+
     setDraft(null);
     const base = typeof currentValue === 'number' ? currentValue : min;
     const newValue = Math.min(base + step, max);
@@ -125,6 +113,8 @@ const RdsCounter = ({
   };
 
   const handleDecrement = () => {
+    if (disabled || state === 'disabled') return;
+
     setDraft(null);
     const base = typeof currentValue === 'number' ? currentValue : min;
     const newValue = Math.max(base - step, min);
@@ -177,6 +167,11 @@ const RdsCounter = ({
   const atMax = typeof currentValue === 'number' && currentValue >= max;
 
   const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (isDisabled && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+      event.preventDefault();
+      return;
+    }
+
     if (event.key === 'ArrowUp') {
       event.preventDefault();
       if (!atMax) handleIncrement();
@@ -217,8 +212,8 @@ const RdsCounter = ({
           ...(Number.isFinite(min) ? { min } : {}),
           ...(Number.isFinite(max) ? { max } : {}),
           'aria-label': labelText ? `${labelText} value` : 'counter value',
-          ...(isRequired ? { 'aria-required': true } : {}),
-          placeholder: placeholder,
+          ...(required ? { 'aria-required': true } : {}),
+          placeholder,
           style: { textAlign: 'center' },
         }}
       />
@@ -315,7 +310,7 @@ const RdsCounter = ({
           {labelText}
           <span
             className="rds-counter__mandatory"
-            style={{ visibility: isRequired ? 'visible' : 'hidden' }}
+            style={{ visibility: required ? 'visible' : 'hidden' }}
           >
             *
           </span>

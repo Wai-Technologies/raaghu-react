@@ -51,7 +51,7 @@ export interface RdsCompNavtabsProps {
   justified?: boolean;
   activeNavtabOrder?: (id: string | number | undefined) => void;
   activeNavTabId?: string | number;
-  isNextPressed?: boolean;
+  NextPressed?: boolean;
   onClick?: MouseEvent<HTMLElement>;
   layout?: string;
   style?: string;

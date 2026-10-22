@@ -8,10 +8,16 @@ const meta: Meta<typeof RdsCounter> = {
   title: 'Elements/Counter',
   component: RdsCounter,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'centered',
     controls: {
-    exclude: ['onChange', 'controlsClassName','disabled','defaultValue', 'titleText', 'isMandatory'],
+      exclude: [
+        'onChange',
+        'controlsClassName',
+        'disabled',
+        'defaultValue',
+        'titleText',
+      ],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -47,8 +53,13 @@ const meta: Meta<typeof RdsCounter> = {
     controlsClassName: {
       control: false,
     },
-    showTitle: { control: 'boolean', },
-    required: { control: 'boolean', description: 'Show required indicator on label.' },
+    showTitle: {
+      control: 'boolean',
+    },
+    required: {
+      control: 'boolean',
+      description: 'Show required indicator on label.',
+    },
     state: {
       control: 'select',
       options: ['default', 'selected', 'disabled'],
@@ -87,7 +98,11 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const buttons = canvasElement.querySelectorAll('button');
     expect(buttons.length).toBeGreaterThan(0);
-    const display = canvasElement.querySelector('input, [class*=value], [class*=count]') || canvasElement.firstElementChild;
+
+    const display =
+      canvasElement.querySelector('input, [class*=value], [class*=count]') ||
+      canvasElement.firstElementChild;
+
     expect(display).toBeTruthy();
   },
 };
@@ -126,27 +141,13 @@ export const Sizes: Story = {
     layout: 'side-to-side',
     placeholder: '00',
   },
-  render: (args) => {
-    return (
-      <Box className="rds-counter__responsive">
-        <RdsCounter
-          {...args}
-          label="Small"
-          size="small"
-        />
-        <RdsCounter
-          {...args}
-          label="Medium"
-          size="medium"
-        />
-        <RdsCounter
-          {...args}
-          label="Large"
-          size="large"
-        />
-      </Box>
-    );
-  },
+  render: (args) => (
+    <Box className="rds-counter__responsive">
+      <RdsCounter {...args} label="Small" size="small" />
+      <RdsCounter {...args} label="Medium" size="medium" />
+      <RdsCounter {...args} label="Large" size="large" />
+    </Box>
+  ),
 };
 
 export const CompactSizes: Story = {
@@ -157,27 +158,13 @@ export const CompactSizes: Story = {
     layout: 'side-to-side',
     placeholder: '00',
   },
-  render: (args) => {
-    return (
-      <Box className="rds-counter__responsive">
-        <RdsCounter
-          {...args}
-          label="Small"
-          size="small"
-        />
-        <RdsCounter
-          {...args}
-          label="Medium"
-          size="medium"
-        />
-        <RdsCounter
-          {...args}
-          label="Large"
-          size="large"
-        />
-      </Box>
-    );
-  },
+  render: (args) => (
+    <Box className="rds-counter__responsive">
+      <RdsCounter {...args} label="Small" size="small" />
+      <RdsCounter {...args} label="Medium" size="medium" />
+      <RdsCounter {...args} label="Large" size="large" />
+    </Box>
+  ),
 };
 
 export const WithConstraints: Story = {
@@ -215,6 +202,7 @@ export const Disabled: Story = {
   render: (args) => {
     const defaultDisabled = 5;
     const compactDisabled = 3;
+
     return (
       <Box className="rds-counter__responsive">
         <RdsCounter
@@ -253,25 +241,35 @@ export const Interactive: Story = {
   },
   render: (args) => {
     const [cart, setCart] = useState([
-      { id: 1, name: 'Apple', quantity: 2, price: 1.50 },
+      { id: 1, name: 'Apple', quantity: 2, price: 1.5 },
       { id: 2, name: 'Banana', quantity: 1, price: 0.75 },
-      { id: 3, name: 'Orange', quantity: 3, price: 2.00 },
+      { id: 3, name: 'Orange', quantity: 3, price: 2.0 },
     ]);
 
     const updateQuantity = (id: number, quantity: number) => {
-      setCart(prev => prev.map(item => 
-        item.id === id ? { ...item, quantity } : item
-      ));
+      setCart((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, quantity } : item,
+        ),
+      );
     };
 
-    const total = cart.reduce((sum, item) => sum + (item.quantity * item.price), 0);
+    const total = cart.reduce(
+      (sum, item) => sum + item.quantity * item.price,
+      0,
+    );
 
     const getControlsClassName = () => {
       if (args.variant === 'compact') {
-        if (args.size === 'large') return 'rds-counter__controls--large_interactive';
-        if (args.size === 'medium') return 'rds-counter__controls--medium_interactive';
+        if (args.size === 'large') {
+          return 'rds-counter__controls--large_interactive';
+        }
+        if (args.size === 'medium') {
+          return 'rds-counter__controls--medium_interactive';
+        }
         return 'rds-counter__controls--small_interactive';
       }
+
       return undefined;
     };
 
@@ -280,25 +278,36 @@ export const Interactive: Story = {
         <Box className="rds-counter__interactive__header">
           Shopping Cart
         </Box>
-        {cart.map(item => (
-          <Box key={item.id} className="rds-counter__interactive__item">
+
+        {cart.map((item) => (
+          <Box
+            key={item.id}
+            className="rds-counter__interactive__item"
+          >
             <Box className="rds-counter__interactive__item-details">
-              <Box className="rds-counter__interactive__item-details-name">{item.name}</Box>
+              <Box className="rds-counter__interactive__item-details-name">
+                {item.name}
+              </Box>
               <Box className="rds-counter__interactive__item-details-price">
                 ${item.price.toFixed(2)} each
               </Box>
             </Box>
+
             <RdsCounter
               {...args}
               value={item.quantity}
-              onChange={(quantity) => updateQuantity(item.id, quantity)}
+              onChange={(quantity) =>
+                updateQuantity(item.id, quantity)
+              }
               controlsClassName={getControlsClassName()}
             />
+
             <Box className="rds-counter__interactive__item-total">
               ${(item.quantity * item.price).toFixed(2)}
             </Box>
           </Box>
         ))}
+
         <Box className="rds-counter__interactive__footer">
           <span>Total:</span>
           <span>${total.toFixed(2)}</span>

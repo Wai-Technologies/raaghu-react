@@ -79,9 +79,9 @@ export interface RdsCompGridColumn {
   dataType?: string;
   dataLength?: number;
   required?: boolean;
-  isSort?: boolean;
-  isFilter?: boolean;
-  isResizable?: boolean;
+  Sort?: boolean;
+  Filter?: boolean;
+  Resizable?: boolean;
   showHeader?: boolean;
   showSubHeader?: boolean;
   showShuffleIcon?: boolean;
@@ -207,9 +207,9 @@ export interface RdsCompGridProps {
   controlledData?: GridRow[];
   onDataChange?: (newData: GridRow[]) => void;
   
-  isSort?: boolean;
-  isFilter?: boolean;
-  isResizable?: boolean;
+  Sort?: boolean;
+  Filter?: boolean;
+  Resizable?: boolean;
   enableCheckboxSelection?: boolean;
   enableRadioButtonSelection?: boolean;
   enableInlineEdit?: boolean;
@@ -252,7 +252,7 @@ export interface RdsCompGridProps {
   
   
   // Loading
-  isLoading?: boolean;
+  loading?: boolean;
 }
 
 const EditableCell = ({ 
@@ -522,9 +522,9 @@ const RdsCompGrid = ({
   tableData,
   controlledData,
   onDataChange,
-  isSort = true,
-  isFilter = true,
-  isResizable = true,
+  Sort = true,
+  Filter = true,
+  Resizable = true,
   enableCheckboxSelection = false,
   enableRadioButtonSelection = false,
   enableInlineEdit = false,
@@ -558,7 +558,7 @@ const RdsCompGrid = ({
   illustration = false,
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
-  isLoading = false,
+  loading = false,
 }: RdsCompGridProps & { ref?: Ref<RdsCompGridRef> }) => {
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
@@ -571,11 +571,11 @@ const RdsCompGrid = ({
   const [visibleColumns, setVisibleColumns] = useState<string[]>(
     tableHeaders.map(header => header.key)
   );
-  const [isFilterPopupOpen, setIsFilterPopupOpen] = useState(false);
+  const [FilterPopupOpen, setFilterPopupOpen] = useState(false);
   const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<string | null>(null);
   const [isColumnPanelExpanded, setIsColumnPanelExpanded] = useState(false);
-  const [isFilterExpanded, setIsFilterExpanded] = useState(false);
+  const [FilterExpanded, setFilterExpanded] = useState(false);
   const [filterConditions, setFilterConditions] = useState([
     { id: 1, column: '', operator: 'contains', value: '' },
     { id: 2, column: '', operator: 'contains', value: '' }
@@ -909,8 +909,8 @@ const RdsCompGrid = ({
       : visibleColumns.filter(key => key !== columnKey);
     setVisibleColumns(newVisibleColumns);
     
-    if (!isVisible && selectedColumnForFilter === columnKey && isFilterPopupOpen) {
-      setIsFilterPopupOpen(false);
+    if (!isVisible && selectedColumnForFilter === columnKey && FilterPopupOpen) {
+      setFilterPopupOpen(false);
       setSelectedColumnForFilter(null);
       setFilterAnchorEl(null);
     }
@@ -931,8 +931,8 @@ const RdsCompGrid = ({
       const newVisibleColumns = visibleColumns.filter(key => !keysArray.includes(key));
       setVisibleColumns(newVisibleColumns);
       
-      if (selectedColumnForFilter && isFilterPopupOpen && keysArray.includes(selectedColumnForFilter)) {
-        setIsFilterPopupOpen(false);
+      if (selectedColumnForFilter && FilterPopupOpen && keysArray.includes(selectedColumnForFilter)) {
+        setFilterPopupOpen(false);
         setSelectedColumnForFilter(null);
         setFilterAnchorEl(null);
       }
@@ -1010,31 +1010,31 @@ const RdsCompGrid = ({
     event.preventDefault();
     event.stopPropagation();
     
-    if (selectedColumnForFilter === columnKey && isFilterPopupOpen) {
-      setIsFilterPopupOpen(false);
+    if (selectedColumnForFilter === columnKey && FilterPopupOpen) {
+      setFilterPopupOpen(false);
       setSelectedColumnForFilter(null);
       setFilterAnchorEl(null);
       return;
     }
     
     if (selectedColumnForFilter !== columnKey) {
-      setIsFilterPopupOpen(false);
+      setFilterPopupOpen(false);
       setSelectedColumnForFilter(columnKey);
       setFilterAnchorEl(event.currentTarget);
       
       setTimeout(() => {
-        setIsFilterPopupOpen(true);
+        setFilterPopupOpen(true);
       }, 50);
     } else {
       setSelectedColumnForFilter(columnKey);
       setFilterAnchorEl(event.currentTarget);
-      setIsFilterPopupOpen(true);
+      setFilterPopupOpen(true);
     }
   };
 
   const handleFilterPopupClose = () => {
     setFilterAnchorEl(null);
-    setIsFilterPopupOpen(false);
+    setFilterPopupOpen(false);
     setTimeout(() => {
       setSelectedColumnForFilter(null);
     }, 100);
@@ -1045,7 +1045,7 @@ const RdsCompGrid = ({
     e.stopPropagation();
     
     const header = tableHeaders.find(h => h.key === columnKey);
-    if (header?.isResizable !== false) {
+    if (header?.Resizable !== false) {
       const currentWidth = columnWidths[columnKey] || header?.minWidth || 150;
       
       setIsResizing(true);
@@ -1060,7 +1060,7 @@ const RdsCompGrid = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isFilterPopupOpen && filterAnchorEl) {
+      if (FilterPopupOpen && filterAnchorEl) {
         const target = event.target as Element;
         if (!target.closest('.MuiPopover-root') && !target.closest('[data-filter-button]')) {
           handleFilterPopupClose();
@@ -1072,7 +1072,7 @@ const RdsCompGrid = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isFilterPopupOpen, filterAnchorEl]);
+  }, [FilterPopupOpen, filterAnchorEl]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -1118,16 +1118,16 @@ const RdsCompGrid = ({
 
   const handleColumnPanelToggle = () => {
     if (!isColumnPanelExpanded) {
-      setIsFilterExpanded(false);
+      setFilterExpanded(false);
     }
     setIsColumnPanelExpanded(!isColumnPanelExpanded);
   };
 
   const handleFilterToggle = () => {
-    if (!isFilterExpanded) {
+    if (!FilterExpanded) {
       setIsColumnPanelExpanded(false);
     }
-    setIsFilterExpanded(!isFilterExpanded);
+    setFilterExpanded(!FilterExpanded);
   };
 
   const handleFilterConditionChange = (id: number, field: string, value: unknown) => {
@@ -1802,7 +1802,7 @@ const RdsCompGrid = ({
     }
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <Card sx={{ p: 2 }}>
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
@@ -1952,7 +1952,7 @@ const RdsCompGrid = ({
           bgcolor: 'action.hover'
         }}>
           <Grid container spacing={2} alignItems="center">
-            {tableHeaders.filter(header => header.isFilter).map((header) => (
+            {tableHeaders.filter(header => header.Filter).map((header) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={header.key}>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <Typography variant="body2" fontWeight="medium" minWidth="87px">
@@ -2166,7 +2166,7 @@ const RdsCompGrid = ({
                           }
                         }}
                         sx={{
-                          cursor: enableColumnSwapping ? 'grab' : (isSort && header.isSort ? 'pointer' : 'default'),
+                          cursor: enableColumnSwapping ? 'grab' : (Sort && header.Sort ? 'pointer' : 'default'),
                           width: columnWidths[header.key] || header.minWidth || 150,
                           minWidth: header.minWidth || 50,
                           maxWidth: header.maxWidth || 800,
@@ -2202,7 +2202,7 @@ const RdsCompGrid = ({
                         }}
                         onClick={(e: MouseEvent) => {
                           e.stopPropagation();
-                          if (!customDragState.isDragging && isSort && header.isSort) {
+                          if (!customDragState.isDragging && Sort && header.Sort) {
                             handleSort(header.key);
                           }
                         }}
@@ -2226,7 +2226,7 @@ const RdsCompGrid = ({
                           {header.required && (
                             <Typography color="error" variant="caption">*</Typography>
                           )}
-                          {isSort && header.isSort && (
+                          {Sort && header.Sort && (
                             <Tooltip title="Sort">
                               <IconButton size="small" aria-label={`Sort by ${header.name}`}>
                                 {(() => {
@@ -2241,7 +2241,7 @@ const RdsCompGrid = ({
                               </IconButton>
                             </Tooltip>
                           )}
-                          {isFilter && header.isFilter && (
+                          {Filter && header.Filter && (
                             <Tooltip title="Click to open filters and column visibility">
                               <span>
                                 <IconButton 
@@ -2264,7 +2264,7 @@ const RdsCompGrid = ({
                           )}
                         </Stack>
                         
-                        {header.isResizable !== false && (
+                        {header.Resizable !== false && (
                           <Box
                             role="separator"
                             aria-label={`Resize ${header.name} column`}
@@ -2741,7 +2741,7 @@ const RdsCompGrid = ({
 
       {/* Filter and Column Visibility Popup */}
       <Popover
-        open={isFilterPopupOpen}
+        open={FilterPopupOpen}
         anchorEl={filterAnchorEl}
         onClose={handleFilterPopupClose}
         anchorOrigin={{
@@ -2935,13 +2935,13 @@ const RdsCompGrid = ({
               >
                 Filter
               </Typography>
-              {isFilterExpanded ? 
+              {FilterExpanded ? 
                 <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
                 <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
               }
             </Box>
             
-            {isFilterExpanded && (
+            {FilterExpanded && (
               <Box 
                 sx={{ 
                   p: 0.5,

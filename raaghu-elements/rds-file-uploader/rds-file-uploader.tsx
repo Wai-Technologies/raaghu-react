@@ -1,4 +1,3 @@
-
 import { type ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
@@ -37,8 +36,8 @@ export interface RdsFileUploaderProps
   /** Shows the label above the uploader. Defaults to false. `display.title` takes precedence. */
   showTitle?: boolean;
 
-  /** Marks the uploader as mandatory. */
-  mandatory?: boolean;
+  /** Marks the uploader as required. */
+  required?: boolean;
 
   /** Shows the helper text. Defaults to false. `display.hint` takes precedence. */
   showHint?: boolean;
@@ -60,7 +59,7 @@ const RdsFileUploader = ({
   maxFiles = 5,
   disabled = false,
   dragAndDrop = true,
-  required,
+  required = false,
   display,
   helperText,
   hintText,
@@ -71,7 +70,6 @@ const RdsFileUploader = ({
   children,
   showPreview: showPreviewProp,
   showTitle: showTitleProp,
-  mandatory: mandatoryProp,
   showHint: showHintProp,
   className,
   sx,
@@ -85,10 +83,6 @@ const RdsFileUploader = ({
     warnDeprecatedProp('RdsFileUploader', 'hintText', '`helperText`');
   }
 
-  if (display?.mandatory !== undefined) {
-    warnDeprecatedProp('RdsFileUploader', 'display.mandatory', '`required`');
-  }
-
   const showPreview = display?.preview
     ? display.preview === 'visible'
     : (showPreviewProp ?? true);
@@ -96,11 +90,6 @@ const RdsFileUploader = ({
   const showTitle = display?.title
     ? display.title === 'visible'
     : (showTitleProp ?? false);
-
-  const mandatory =
-    mandatoryProp ??
-    required ??
-    (display?.mandatory ? display.mandatory === 'required' : false);
 
   const showHint = display?.hint
     ? display.hint === 'visible'
@@ -130,7 +119,7 @@ const RdsFileUploader = ({
   } = useFileUploader({
     maxSize,
     maxFiles,
-    mandatory,
+    required,
     multiple: multipleProp !== false,
     onFilesChange,
     onUpload,
@@ -144,7 +133,7 @@ const RdsFileUploader = ({
           accept={accept}
           viewConfig={{
             showTitle,
-            mandatory,
+            required,
             showHint,
             showPreview,
           }}
@@ -182,7 +171,7 @@ const RdsFileUploader = ({
               variant="subtitle1"
             >
               {fieldLabel || 'File Upload'}
-              {mandatory && (
+              {required && (
                 <span className="rds-file-uploader__mandatory-asterisk">
                   {' '}*
                 </span>
@@ -249,7 +238,7 @@ const RdsFileUploader = ({
               variant="caption"
               className={clsx(
                 'rds-file-uploader__error-inline',
-                mandatory && mandatoryError && 'is-visible',
+                required && mandatoryError && 'is-visible',
               )}
             >
               {mandatoryError || 'placeholder'}
