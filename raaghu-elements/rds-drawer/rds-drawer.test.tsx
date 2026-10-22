@@ -3,12 +3,11 @@ import { render, screen, fireEvent, within, waitFor } from '@testing-library/rea
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsDrawer, { RdsDrawerProps } from './rds-drawer';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-drawer.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return jest.fn((props: any) => {
     const { text, children, onClick, style, shape, size, state, layout, color, textCase, isLoading, changeLeftIcon, changeRightIcon, showLeftIcon, showRightIcon, ...rest } = props;
@@ -45,7 +44,6 @@ describe('RdsDrawer', () => {
 
     it('should render MuiDrawer component', () => {
       render(<RdsDrawer {...defaultProps} />);
-      // Drawer renders in portal, so check document
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
     });
 
@@ -64,7 +62,6 @@ describe('RdsDrawer', () => {
   describe('Drawer Opening and Closing', () => {
     it('should be closed by default', () => {
       render(<RdsDrawer {...defaultProps} open={false} />);
-      // When closed, MUI drawer doesn't render to DOM
       const drawer = document.querySelector('.MuiDrawer-root');
       expect(drawer).not.toBeInTheDocument();
     });
@@ -82,7 +79,6 @@ describe('RdsDrawer', () => {
       const button = screen.getByText('Open Drawer');
       fireEvent.click(button);
       
-      // Drawer should be in the document after click
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
     });
 
@@ -97,7 +93,6 @@ describe('RdsDrawer', () => {
       const { rerender } = render(
         <RdsDrawer {...defaultProps} open={false} showTrigger={false} />
       );
-      // When closed, drawer is not in DOM
       expect(document.querySelector('.MuiDrawer-root')).not.toBeInTheDocument();
 
       rerender(<RdsDrawer {...defaultProps} open={true} showTrigger={false} />);
@@ -188,9 +183,8 @@ describe('RdsDrawer', () => {
           closeButtonProps={{ color: 'error' }}
         />
       );
-      // Verify RdsButton was called with color prop for close button
       const calls = MockRdsButton.mock.calls;
-      const closeButtonCall = calls.find(call => call[0]?.text === 'Close Drawer');
+      const closeButtonCall = calls.find(call => call[0]?.children === 'Close Drawer');
       expect(closeButtonCall).toBeDefined();
       expect(closeButtonCall[0]).toHaveProperty('color', 'error');
     });
@@ -203,7 +197,6 @@ describe('RdsDrawer', () => {
           open={true}
         />
       );
-      // Close button is in drawer portal, check it exists
       expect(screen.getByText('Close Drawer')).toBeInTheDocument();
     });
   });
@@ -438,7 +431,6 @@ describe('RdsDrawer', () => {
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
 
       rerender(<RdsDrawer {...defaultProps} open={false} showTrigger={false} />);
-      // Drawer should still be renderable after rerender with open={false}
       expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
     });
 
@@ -454,7 +446,6 @@ describe('RdsDrawer', () => {
       const button = screen.getByText('Open Drawer');
       fireEvent.click(button);
       
-      // Drawer should still be visible (controlled by prop)
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
     });
   });
@@ -753,5 +744,26 @@ describe('audit fixes', () => {
       const { container } = render(<RdsDrawer showTrigger defaultOpen><div>Content</div></RdsDrawer>);
       expect(await axe(container)).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsDrawer additive renames', () => {
+  beforeEach(() => (warnDeprecatedProp as jest.Mock).mockClear());
+
+  it('applies slotProps.trigger and slotProps.closeButton', () => {
+    render(
+      <RdsDrawer showTrigger showCloseButton defaultOpen slotProps={{ trigger: { children: 'Go' }, closeButton: { children: 'Done' } }}>
+        c
+      </RdsDrawer>
+    );
+    expect(screen.getByText('Go')).toBeInTheDocument();
+    expect(screen.getByText('Done')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('warns for triggerButtonProps and closeButtonProps', () => {
+    render(<RdsDrawer showTrigger triggerButtonProps={{}} closeButtonProps={{}}>c</RdsDrawer>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsDrawer', 'triggerButtonProps', '`slotProps.trigger`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsDrawer', 'closeButtonProps', '`slotProps.closeButton`');
   });
 });

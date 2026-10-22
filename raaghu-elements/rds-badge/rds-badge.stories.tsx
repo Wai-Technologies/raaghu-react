@@ -34,17 +34,15 @@ const meta: Meta<typeof RdsBadge> = {
       description: 'Badge layout',
       defaultValue: 'text',
     },
-    styleType: {
+    variant: {
       control: { type: 'select' },
-      options: ['primary', 'outline', 'transparent'],
-      description: 'Badge style',
-      defaultValue: 'primary',
+      options: ['standard', 'dot', 'primary', 'outline', 'transparent'],
+      description: 'MUI variant (standard, dot) or visual style (primary, outline, transparent)',
     },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'disabled'],
-      description: 'Badge state',
-      defaultValue: 'default',
+    disabled: {
+      control: 'boolean',
+      description: 'Disables the badge',
+      defaultValue: false,
     },
     colorVariant: {
       control: { type: 'select' },

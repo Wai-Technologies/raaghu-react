@@ -37,6 +37,7 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   onOpen?: (event: MouseEvent<HTMLElement>) => void;
   /** Called when the menu asks to close (trigger click, backdrop click, Escape, or a single-select choice). */
   onClose?: (event: object, reason: RdsButtonDropdownCloseReason) => void;
+  /** @deprecated Use `searchable`, `showAvatar` and `optionVariant` instead. */
   ui?: {
     search?: 'visible' | 'hidden';
     avatar?: 'visible' | 'hidden';
@@ -44,12 +45,20 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
     leftIcon?: 'visible' | 'hidden';
     rightIcon?: 'visible' | 'hidden';
   };
+  /** Shows the search field in the menu. Preferred over `ui.search`. */
+  searchable?: boolean;
+  /** Shows an avatar next to each option. Preferred over `ui.avatar`. */
+  showAvatar?: boolean;
+  /** Single-select options as `'radio'` or plain `'button'`s. Preferred over `ui.selection`. */
+  optionVariant?: 'radio' | 'button';
   onChange?: (selected: string[] | string) => void;
   /** Figma visual state. `'selected'` keeps the menu open when `open` is not set. */
   state?: 'default' | 'selected';
   buttonState?: 'default' | 'hover' | 'disabled' | 'selected';
   size?: 'small' | 'medium' | 'large';
   layout?: 'icon+text' | 'text-only' | 'icon-only';
+  /** Visual style. Preferred over `styleType`. */
+  variant?: 'primary' | 'secondary' | 'outline' | 'transparent';
   styleType?: 'primary' | 'secondary' | 'outline' | 'transparent';
   shape?: 'rectangle' | 'pill';
   /** Icon after the label. */
@@ -98,6 +107,10 @@ const RdsButtonDropdown = ({
   onOpen,
   onClose,
   ui,
+  searchable,
+  showAvatar,
+  optionVariant,
+  variant,
   state = 'default',
   endIcon,
   startIcon,
@@ -105,7 +118,7 @@ const RdsButtonDropdown = ({
   leftIcon,
   size = 'medium',
   layout = 'icon+text',
-  styleType = 'primary',
+  styleType: styleTypeProp = 'primary',
   shape = 'rectangle',
   buttonState = 'default',
   onChange,
@@ -124,19 +137,19 @@ const RdsButtonDropdown = ({
   if (rightIcon !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'rightIcon', '`endIcon`');
   if (leftIcon !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'leftIcon', '`startIcon`');
 
+  if (ui !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'ui', '`searchable`, `showAvatar` and `optionVariant`');
+  const styleType = variant ?? styleTypeProp;
   const label = children ?? buttonText ?? 'Button';
   const isMultiple = multiple ?? multiSelect ?? false;
   const resolvedRightIcon = endIcon !== undefined ? endIcon : rightIcon;
   const resolvedLeftIcon = startIcon !== undefined ? startIcon : leftIcon;
-  // Only `aria-*` and `data-*` attributes reach the trigger; other unknown props stay ignored as before.
   const forwardedAttributes = Object.fromEntries(
     Object.entries(rest).filter(([key]) => isForwardedAttribute(key)),
   );
 
-  // `ui` takes precedence; non-boolean values of the boolean props are ignored, as before.
-  const showSearch = ui?.search ? ui.search === 'visible' : flag(showSearchProp, false);
-  const showUserAvatar = ui?.avatar ? ui.avatar === 'visible' : flag(showUserAvatarProp, true);
-  const showRadio = ui?.selection ? ui.selection === 'radio' : flag(showRadioProp, true);
+  const showSearch = searchable ?? (ui?.search ? ui.search === 'visible' : flag(showSearchProp, false));
+  const showUserAvatar = showAvatar ?? (ui?.avatar ? ui.avatar === 'visible' : flag(showUserAvatarProp, true));
+  const showRadio = optionVariant ? optionVariant === 'radio' : ui?.selection ? ui.selection === 'radio' : flag(showRadioProp, true);
   const isShowLeftIcon = ui?.leftIcon ? ui.leftIcon === 'visible' : flag(isShowLeftIconProp, true);
   const isShowRightIcon = ui?.rightIcon ? ui.rightIcon === 'visible' : flag(isShowRightIconProp, true);
 
@@ -220,7 +233,6 @@ const RdsButtonDropdown = ({
           styleType === 'outline' && 'rds-button-dropdown--outline',
           className,
         )}
-        textCase="uppercase"
         aria-haspopup="menu"
         aria-expanded={isDropdownOpen}
         aria-controls={isDropdownOpen ? menuId : undefined}

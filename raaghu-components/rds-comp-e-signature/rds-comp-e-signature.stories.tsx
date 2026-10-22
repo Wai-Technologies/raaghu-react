@@ -12,14 +12,13 @@ const meta: Meta<typeof RdsCompESignature> = {
       exclude: [
         'mode',
         'onSignatureChange',
-        'signatureData',
-        'predefinedSignatures',
+        'defaultPenColor',
+        'options',
         'width',
         'height',
         'penColor',
         'title',
-        'disabledMessage',
-        'disabledFooterMessage',
+        'slotProps',
       ],
     },
     docs: {
@@ -39,7 +38,7 @@ const meta: Meta<typeof RdsCompESignature> = {
         defaultValue: { summary: 'fullname' },
       },
     },
-    colourSwatch: {
+    showColorPicker: {
       control: 'boolean',
       description: 'Show color palette for drawing',
       table: {
@@ -61,10 +60,10 @@ export const Draw: Story = {
   args: {
     mode: 'draw',
     type: 'fullname',
-    colourSwatch: true,
+    showColorPicker: true,
   },
   parameters: {
-    controls: { include: ['type', 'colourSwatch', 'disabled'] },
+    controls: { include: ['type', 'showColorPicker', 'disabled'] },
   },
   play: async ({ canvasElement }) => {
     const c = canvasElement.querySelector('canvas');

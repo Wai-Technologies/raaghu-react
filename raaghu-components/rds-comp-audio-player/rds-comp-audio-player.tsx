@@ -89,18 +89,18 @@ const formatTime = (time: number) =>
   `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, "0")}`;
 
 const EXPORT_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
-  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", value: "Share Link" },
-  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", value: "Export Audio" },
-  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", value: "Export Transcript" },
-  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", value: "Export Summary" },
-  { icon: "download", iconHeight: "22px", iconWidth: "22px", key: "download", value: "Export Mind Map" },
+  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", label: "Share Link" },
+  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", label: "Export Audio" },
+  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", label: "Export Transcript" },
+  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", label: "Export Summary" },
+  { icon: "download", iconHeight: "22px", iconWidth: "22px", key: "download", label: "Export Mind Map" },
 ];
 
 const MORE_OPTIONS_MENU_ITEMS: RdsCompAiFabMenuItem[] = [
-  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", value: "Move to folder" },
-  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", value: "Find & Replace" },
-  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", value: "Re-Transcribe" },
-  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", value: "Re-Summarize" },
+  { icon: "users", iconHeight: "22px", iconWidth: "22px", key: "new", label: "Move to folder" },
+  { icon: "refresh", iconHeight: "22px", iconWidth: "22px", key: "refresh", label: "Find & Replace" },
+  { icon: "export", iconHeight: "22px", iconWidth: "22px", key: "export", label: "Re-Transcribe" },
+  { icon: "delete", iconHeight: "22px", iconWidth: "22px", key: "delete", label: "Re-Summarize" },
 ];
 
 const DEFAULT_WAVEFORM: number[] = Array.from({ length: 150 }, (_, barIndex) =>
@@ -553,21 +553,21 @@ const RdsCompAudioPlayer = ({
             <CircleOutlinedIcon />
             {showExport && (
               <RdsCompAiFabMenu
-                alignment="right"
-                backgroundType="none"
-                colorVariant="secondary"
-                listItems={exportItems}
-                menuIcon="share_icon"
+                placement="right"
+                variant="text"
+                color="secondary"
+                items={exportItems}
+                icon="share_icon"
                 size="small"
               />
             )}
             {showMoreOptions && (
               <RdsCompAiFabMenu
-                alignment="right"
-                backgroundType="none"
-                colorVariant="secondary"
-                listItems={moreItems}
-                menuIcon="pending_icon"
+                placement="right"
+                variant="text"
+                color="secondary"
+                items={moreItems}
+                icon="pending_icon"
                 size="small"
               />
             )}

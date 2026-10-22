@@ -6,10 +6,8 @@ import { axe } from 'jest-axe';
 import RdsDatepicker from './rds-comp-datepicker';
 import { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker.types';
 
-// Mock SCSS module
 jest.mock('./rds-comp-datepicker.scss', () => ({}));
 
-// Mock react-datepicker
 jest.mock('react-datepicker', () => {
   return {
     __esModule: true,
@@ -48,12 +46,10 @@ jest.mock('react-datepicker', () => {
   };
 });
 
-// Captures the arguments the component passes to the (mocked) view renderers.
 const mockCaptured: { state?: any[]; type?: any[] } = {};
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock the utils
 jest.mock('./rds-comp-datepicker-utils', () => ({
   CustomButtons: ({ onClickYesterday, onClickToday, onClickLastSeven, onClickLastFourteen }: any) => (
     <div data-testid="custom-buttons">
@@ -176,7 +172,6 @@ describe('RdsDatepicker', () => {
           state={DatePickerState.Default}
         />
       );
-      // Component should render successfully with state prop
       expect(container).toBeInTheDocument();
     });
 
@@ -197,7 +192,6 @@ describe('RdsDatepicker', () => {
           isDefaultDate={true}
         />
       );
-      // Component should initialize with today's date
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
     });
 
@@ -221,7 +215,6 @@ describe('RdsDatepicker', () => {
           selectedDate={mockCallback}
         />
       );
-      // The callback would be called through the utility component handlers
       expect(mockCallback).toBeDefined();
     });
 
@@ -412,17 +405,14 @@ describe('RdsDatepicker', () => {
           state={DatePickerState.Default}
         />
       );
-      // Initial render should contain the component
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
       
-      // Rerender with type prop instead
       rerender(
         <RdsDatepicker
           {...defaultProps}
           type="range"
         />
       );
-      // Should still render type-view  
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
     });
   });
@@ -823,5 +813,33 @@ describe('audit fixes', () => {
     expect(onChange).toHaveBeenCalled();
     expect(onKeyDown).toHaveBeenCalled();
     expect(screen.getByRole('button', { name: 'Clear date' })).toBeInTheDocument();
+  });
+
+  it('B34: new names drive the same shared props as the old ones', () => {
+    render(<RdsDatepicker label="Date" placeholder="Pick" variant="dropdown" clearable openPickerIcon={<span>i</span>} />);
+    const props = mockCaptured.type?.[5];
+    expect(screen.getByText('Date')).toBeInTheDocument();
+    expect(props).toMatchObject({ placeholderText: 'Pick', datePickerStyleType: DatePickerStyleType.Dropdown, showClearDate: true, showTitle: true });
+    render(<CustomInputWithClear openPickerIcon={<span data-testid="own-icon" />} changeIcon="dashboard_settings" />);
+    expect(screen.getByTestId('own-icon')).toBeInTheDocument();
+  });
+
+  it('B34: value / defaultValue / onChange replace dateForEdit / isDefaultDate / onDatePicker', () => {
+    const onChange = jest.fn();
+    const { rerender } = render(<RdsDatepicker defaultValue="2024-12-25T00:00:00" onChange={onChange} />);
+    expect(mockCaptured.type?.[1].getDate()).toBe(25);
+    rerender(<RdsDatepicker value="2024-12-26T00:00:00" onChange={onChange} />);
+    expect(mockCaptured.type?.[1].getDate()).toBe(26);
+    rerender(<RdsDatepicker value={null} onChange={onChange} />);
+    expect(mockCaptured.type?.[1]).toBeNull();
+    act(() => mockCaptured.type?.[4]([null, null]));
+    expect(onChange).toHaveBeenCalledWith([null, null]);
+  });
+
+  it('B34: legacy names warn as deprecated', () => {
+    render(<RdsDatepicker dateForEdit="2024-12-25" onDatePicker={jest.fn()} placeholderText="x" changeIcon="calendar" showClearDate isDefaultDate controls={{ mandatory: 'required' }} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'dateForEdit', '`value`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'controls.mandatory', '`required`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'changeIcon', '`openPickerIcon`');
   });
 });

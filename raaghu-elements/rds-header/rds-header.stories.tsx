@@ -78,13 +78,13 @@ export const LogoSearchTabs: Story = {
     searchValue: '',
     searchPlaceholder: 'Search…',
     tabs: ['Home', 'Jobs', 'Marketplace'],
-    tabValue: 0,
+    tabsValue: 0,
     onSearchChange: () => {},
-    onTabChange: () => {},
+    onTabsChange: () => {},
     color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabsChange={(_, v) => { args.tabsValue = v; }} />
   ),
 };
 
@@ -93,18 +93,18 @@ export const LogoTabsActions: Story = {
     logo: headerThemeLogo,
     title: '',
     tabs: ['Dashboard', 'Projects', 'Calendar'],
-    tabValue: 0,
+    tabsValue: 0,
     actions: (
       <>
         <IconButton color="inherit"><Notifications /></IconButton>
         <Avatar sx={{ ml: 1 }}>JD</Avatar>
       </>
     ),
-    onTabChange: () => {},
+    onTabsChange: () => {},
     color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} color={args.color} onTabChange={v => { args.tabValue = v; }} />
+    <RdsHeader {...args} color={args.color} onTabsChange={(_, v) => { args.tabsValue = v; }} />
   ),
 };
 
@@ -115,7 +115,7 @@ export const LogoSearchTabsActions: Story = {
     searchValue: '',
     searchPlaceholder: 'Search…',
     tabs: ['Home', 'News', 'Marketplace', 'Jobs'],
-    tabValue: 0,
+    tabsValue: 0,
     actions: (
       <>
         <IconButton color="inherit"><Notifications /></IconButton>
@@ -123,11 +123,11 @@ export const LogoSearchTabsActions: Story = {
       </>
     ),
     onSearchChange: () => {},
-    onTabChange: () => {},
+    onTabsChange: () => {},
     color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabsChange={(_, v) => { args.tabsValue = v; }} />
   ),
 };
 
@@ -138,7 +138,7 @@ export const LogoSearchTabsActionsSubHeader: Story = {
     searchValue: '',
     searchPlaceholder: 'Search…',
     tabs: ['Home', 'News', 'Marketplace', 'Jobs'],
-    tabValue: 0,
+    tabsValue: 0,
     actions: (
       <>
         <IconButton color="inherit"><Notifications /></IconButton>
@@ -147,11 +147,11 @@ export const LogoSearchTabsActionsSubHeader: Story = {
     ),
     subHeader: <div>Sub-header content (filters, breadcrumbs, etc.)</div>,
     onSearchChange: () => {},
-    onTabChange: () => {},
+    onTabsChange: () => {},
     color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabsChange={(_, v) => { args.tabsValue = v; }} />
   ),
 };
 
@@ -171,16 +171,16 @@ export const Transparent: Story = {
       <IconButton color="inherit"><AccountCircle /></IconButton>
     ),
     tabs: ['Home', 'Explore', 'Profile'],
-    tabValue: 0,
+    tabsValue: 0,
   },
   parameters: {
     backgrounds: { default: 'transparent' },
   },
   render: (args) => {
-    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    const [tabValue, setTabValue] = React.useState(args.tabsValue ?? 0);
     return (
       <div style={{ minHeight: 100 }}>
-        <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
+        <RdsHeader {...args} color={args.color} tabsValue={tabValue} onTabsChange={(_, v) => setTabValue(v)} />
       </div>
     );
   },
@@ -232,13 +232,13 @@ export const WithTabs: Story = {
     title: '',
     logo: headerThemeLogo,
     tabs: ['HOME', 'NEWS', 'MARKETPLACE', 'JOBS'],
-    tabValue: 0,
+    tabsValue: 0,
     color: 'default',
   },
   render: (args) => {
-    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    const [tabValue, setTabValue] = React.useState(args.tabsValue ?? 0);
     return (
-      <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
+      <RdsHeader {...args} color={args.color} tabsValue={tabValue} onTabsChange={(_, v) => setTabValue(v)} />
     );
   },
 };
@@ -270,13 +270,13 @@ export const WithLogoAndTabs: Story = {
     logo: headerThemeLogo,
     title: '',
     tabs: ['Dashboard', 'Projects', 'Calendar'],
-    tabValue: 0,
+    tabsValue: 0,
     color: 'default',
   },
   render: (args) => {
-    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    const [tabValue, setTabValue] = React.useState(args.tabsValue ?? 0);
     return (
-      <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
+      <RdsHeader {...args} color={args.color} tabsValue={tabValue} onTabsChange={(_, v) => setTabValue(v)} />
     );
   },
 };

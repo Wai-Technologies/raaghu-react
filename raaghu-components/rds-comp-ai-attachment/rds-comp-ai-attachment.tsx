@@ -1,4 +1,4 @@
-import { useCallback, useId, useMemo, useRef, useState, type ChangeEvent, type HTMLAttributes, type Ref } from "react";
+import { isValidElement, useCallback, useId, useMemo, useRef, useState, type ChangeEvent, type HTMLAttributes, type ReactNode, type Ref } from "react";
 import clsx from "clsx";
 import type { RdsBadgeProps } from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
@@ -13,18 +13,38 @@ import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecati
 export interface RdsCompAiAttachmentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "onChange"> {
   /** Registered icon name for the menu trigger. */
+  icon?: string;
+  /** @deprecated Use `icon` instead. */
   menuIcon?: string;
+  /** @deprecated Use `slotProps.dialog.title` instead. */
   modalTitle?: string;
+  /** @deprecated Use `slotProps.dialog.hintText` instead. */
   hintText?: string;
+  /** @deprecated Use `slotProps.dialog.placeholder` instead. */
   inputPlaceholder?: string;
+  /** Badge content next to the upload item; shown when given. */
+  badge?: ReactNode;
+  /** @deprecated Use `badge` instead. */
   showBadge?: boolean;
+  /** @deprecated Use `badge` instead. */
   badgeLabel?: string;
+  /** Props passed to the badge; `color` sets its color variant. */
+  badgeProps?: RdsCompAiAttachmentBadgeProps;
+  /** @deprecated Use `badgeProps.color` instead. */
   badgeColor?: RdsBadgeProps["colorVariant"];
+  /** @deprecated Use `slotProps.menu.uploadText` instead. */
   uploadText?: string;
+  /** @deprecated Use `slotProps.menu.importText` instead. */
   importText?: string;
+  /** @deprecated Use `slotProps.dialog.text` instead. */
   modalText?: string;
+  /** Texts of the menu items and the Figma dialog. */
+  slotProps?: RdsCompAiAttachmentSlotProps;
   /** @deprecated Has no effect. */
   image?: string;
+  /** User the uploaded image comment is attributed to. */
+  currentUser?: Pick<UserData, "firstName" | "lastName">;
+  /** @deprecated Use `currentUser` instead. */
   userData?: UserData[];
   /** Called with the selected image file. */
   onFileSelect?: (file: File) => void;
@@ -36,9 +56,21 @@ export interface RdsCompAiAttachmentProps
   onAddComment?: (comment: Comment) => void;
   /** @deprecated Use `onAddComment` instead. */
   handleAddComment?: (comment: Comment) => void;
+  /** Side the menu opens to. */
+  placement?: "start" | "end";
+  /** @deprecated Use `placement` instead. */
   menuAlignment?: "left" | "right";
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+}
+
+export type RdsCompAiAttachmentBadgeProps = Omit<Partial<RdsBadgeProps>, "color"> & {
+  color?: RdsBadgeProps["colorVariant"];
+};
+
+export interface RdsCompAiAttachmentSlotProps {
+  menu?: { uploadText?: string; importText?: string };
+  dialog?: { title?: string; text?: string; hintText?: string; placeholder?: string };
 }
 
 /** @deprecated Use `RdsCompAiAttachmentProps` */
@@ -66,30 +98,57 @@ export interface Comment {
 
 registerMaterialIcons({ attachment_icon: AttachmentIcon });
 
+const DEPRECATED_PROPS = {
+  menuIcon: "`icon`",
+  modalTitle: "`slotProps.dialog.title`",
+  hintText: "`slotProps.dialog.hintText`",
+  inputPlaceholder: "`slotProps.dialog.placeholder`",
+  showBadge: "`badge`",
+  badgeLabel: "`badge`",
+  badgeColor: "`badgeProps.color`",
+  uploadText: "`slotProps.menu.uploadText`",
+  importText: "`slotProps.menu.importText`",
+  modalText: "`slotProps.dialog.text`",
+  userData: "`currentUser`",
+  menuAlignment: "`placement`",
+} as const;
+
+const PLACEMENT_ALIGNMENT = { start: "left", end: "right" } as const;
+
 /** Attachment menu for the AI chat: upload from Figma (modal) or import an image from the device. */
-const RdsCompAiAttachment = ({
-  menuIcon,
-  modalTitle,
-  hintText,
-  inputPlaceholder,
-  showBadge,
-  badgeLabel,
-  badgeColor,
-  uploadText,
-  importText,
-  modalText,
-  image,
-  userData,
-  onFileSelect,
-  onFigmaUrlChange,
-  onFigmaSubmit,
-  onAddComment,
-  handleAddComment,
-  menuAlignment = "left",
-  className,
-  ref,
-  ...rest
-}: RdsCompAiAttachmentProps) => {
+const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
+  const {
+    icon,
+    menuIcon,
+    modalTitle,
+    hintText,
+    inputPlaceholder,
+    badge,
+    showBadge,
+    badgeLabel,
+    badgeProps,
+    badgeColor,
+    uploadText,
+    importText,
+    modalText,
+    slotProps,
+    image,
+    currentUser,
+    userData,
+    onFileSelect,
+    onFigmaUrlChange,
+    onFigmaSubmit,
+    onAddComment,
+    handleAddComment,
+    placement,
+    menuAlignment,
+    className,
+    ref,
+    ...rest
+  } = props;
+  for (const [name, replacement] of Object.entries(DEPRECATED_PROPS)) {
+    if (props[name as keyof typeof DEPRECATED_PROPS] !== undefined) warnDeprecatedProp("RdsCompAiAttachment", name, replacement);
+  }
   if (image !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "image", "nothing (no effect)");
   if (onFigmaSubmit !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "onFigmaSubmit", "`onFigmaUrlChange`");
   if (handleAddComment !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "handleAddComment", "`onAddComment`");
@@ -100,6 +159,12 @@ const RdsCompAiAttachment = ({
   const inputId = useId();
   const addComment = onAddComment ?? handleAddComment;
   const figmaUrlChange = onFigmaUrlChange ?? onFigmaSubmit;
+  const user = currentUser ?? userData?.[0];
+  const alignment = placement ? PLACEMENT_ALIGNMENT[placement] : menuAlignment ?? "left";
+  const resolvedUploadText = slotProps?.menu?.uploadText ?? uploadText;
+  const resolvedImportText = slotProps?.menu?.importText ?? importText;
+  const dialog = slotProps?.dialog;
+  const badgeContent = badge !== undefined ? badge : showBadge ? badgeLabel || "" : null;
 
   const handleFileUpload = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -111,8 +176,8 @@ const RdsCompAiAttachment = ({
       reader.onloadend = () => {
         const base64String = reader.result as string;
         const newComment: Comment = {
-          firstName: userData?.[0]?.firstName || "",
-          lastName: userData?.[0]?.lastName || "",
+          firstName: user?.firstName || "",
+          lastName: user?.lastName || "",
           comment: "",
           image: base64String,
         };
@@ -125,10 +190,9 @@ const RdsCompAiAttachment = ({
       };
       reader.readAsDataURL(file);
     },
-    [addComment, onFileSelect, userData]
+    [addComment, onFileSelect, user]
   );
 
-  // The click bubbles to the FabMenu item, which closes the menu.
   const openModal = useCallback(() => setShowModal(true), []);
 
   const closeModal = useCallback(() => {
@@ -148,23 +212,25 @@ const RdsCompAiAttachment = ({
     [figmaUrlChange]
   );
 
-  const listItems = useMemo(
-    () => [
+  const listItems = useMemo(() => {
+    const { color, ...badgeRest } = badgeProps ?? {};
+    return [
       {
         key: "new",
-        value: (
+        label: (
           <button type="button" onClick={openModal} className="rds-comp-ai-attachment__reset-btn">
             <span className="rds-comp-ai-attachment__upload-row">
-              <span className="rds-comp-ai-attachment__upload-text">{uploadText}</span>
-              {showBadge && (
+              <span className="rds-comp-ai-attachment__upload-text">{resolvedUploadText}</span>
+              {badgeContent != null && badgeContent !== false && (
                 <RdsBadge
-                  colorVariant={badgeColor || "primary"}
                   layout="text"
                   shape="rectangle"
-                  badgeContent={badgeLabel || ""}
                   size="small"
                   state="default"
                   styleType="primary"
+                  {...badgeRest}
+                  colorVariant={color ?? badgeRest.colorVariant ?? (badgeColor || "primary")}
+                  {...(isValidElement(badgeContent) ? { startIcon: badgeContent } : { badgeContent })}
                 />
               )}
             </span>
@@ -173,23 +239,14 @@ const RdsCompAiAttachment = ({
       },
       {
         key: "refresh",
-        value: (
+        label: (
           <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachment__reset-btn">
-            {importText}
+            {resolvedImportText}
           </button>
         ),
       },
-    ],
-    [
-      openModal,
-      uploadText,
-      showBadge,
-      badgeColor,
-      badgeLabel,
-      handleImportClick,
-      importText,
-    ]
-  );
+    ];
+  }, [openModal, resolvedUploadText, badgeContent, badgeProps, badgeColor, handleImportClick, resolvedImportText]);
 
   return (
     <div {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)}>
@@ -204,27 +261,27 @@ const RdsCompAiAttachment = ({
       />
 
       <RdsCompAiFabMenu
-        menuIcon={menuIcon}
-        backgroundType="none"
+        icon={icon ?? menuIcon}
+        variant="text"
         dense
-        isShowBorder={true}
-        alignment={menuAlignment}
-        listItems={listItems}
+        bordered
+        placement={alignment}
+        items={listItems}
       />
 
       {showModal && (
         <RdsModal
           isOpen={showModal}
           onClose={closeModal}
-          title={modalTitle}
+          title={dialog?.title ?? modalTitle}
           actions={null}
           showCloseButton={true}
         >
-          <p className="text-muted rds-comp-ai-attachment__import-size">{modalText}</p>
+          <p className="text-muted rds-comp-ai-attachment__import-size">{dialog?.text ?? modalText}</p>
           <RdsInput
-            hintText={hintText}
+            helperText={dialog?.hintText ?? hintText}
             id={inputId}
-            placeholder={inputPlaceholder}
+            placeholder={dialog?.placeholder ?? inputPlaceholder}
             layout="text"
             name="Enter Figma URL"
             value={figmaUrl}

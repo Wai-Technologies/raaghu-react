@@ -23,23 +23,42 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
    */
   label?: string;
   placeholder?: string;
-  /** Error text: shown as helper text and puts the field in the error state. */
+  /** @deprecated Use `error` with `helperText` instead. */
   errorMessage?: string;
   variant?: 'outlined' | 'filled' | 'standard';
   size?: 'small' | 'medium' | 'large';
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
+  /** @deprecated Use `labelPlacement` instead. */
   titlePosition?: 'title-above' | 'inline-title' | (string & {});
+  /** Label placement: `top` shows it above the field, `inline` inside it. */
+  labelPlacement?: 'top' | 'inline';
   style?: 'default' | 'pill' | 'bottom outline';
+  /** Alias of `style`. */
+  shape?: 'default' | 'pill' | 'bottom outline';
   state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
+  /** Icon shown at the start of the field. */
+  startIcon?: ReactNode;
+  /** Icon shown at the end of the field. */
+  endIcon?: ReactNode;
+  /** @deprecated Use `startIcon` / `endIcon` instead. */
   showIcon?: boolean;
+  /** @deprecated Use `startIcon` / `endIcon` instead. */
   iconPosition?: 'start' | 'end';
-  /** Icon shown when `showIcon` is set. */
+  /** @deprecated Use `startIcon` / `endIcon` instead. */
   icon?: ReactNode;
   /** @deprecated Use `helperText`. */
   hintText?: string;
   /** @deprecated Use `required`. */
   isMandatory?: boolean;
 }
+
+const labelPlacementMap = { top: 'title-above', inline: 'inline-title' } as const;
+
+const renderAdornment = (node: ReactNode, position: 'start' | 'end') => (
+  <InputAdornment position={position} className={`rds-input__icon rds-input__icon--${position}`}>
+    {node}
+  </InputAdornment>
+);
 
 const RdsInput = ({
   label,
@@ -52,11 +71,15 @@ const RdsInput = ({
   variant = 'outlined',
   size = 'small',
   layout = 'text',
-  titlePosition,
-  style = 'default',
+  titlePosition: legacyTitlePosition,
+  labelPlacement,
+  style,
+  shape,
   state = 'default',
+  startIcon,
+  endIcon,
   showIcon = false,
-  iconPosition = 'end',
+  iconPosition,
   icon,
   error,
   disabled,
@@ -72,6 +95,17 @@ const RdsInput = ({
 }: RdsInputProps) => {
   if (hintText !== undefined) warnDeprecatedProp('RdsInput', 'hintText', '`helperText`');
   if (isMandatory !== undefined) warnDeprecatedProp('RdsInput', 'isMandatory', '`required`');
+  if (errorMessage !== undefined) warnDeprecatedProp('RdsInput', 'errorMessage', '`error` with `helperText`');
+  if (legacyTitlePosition !== undefined) warnDeprecatedProp('RdsInput', 'titlePosition', '`labelPlacement`');
+  if (showIcon) warnDeprecatedProp('RdsInput', 'showIcon', '`startIcon` / `endIcon`');
+  if (icon !== undefined) warnDeprecatedProp('RdsInput', 'icon', '`startIcon` / `endIcon`');
+  if (iconPosition !== undefined) warnDeprecatedProp('RdsInput', 'iconPosition', '`startIcon` / `endIcon`');
+
+  const titlePosition = labelPlacement ? labelPlacementMap[labelPlacement] : legacyTitlePosition;
+  const resolvedStyle = shape ?? style ?? 'default';
+  const legacyIconPosition = showIcon ? iconPosition ?? 'end' : undefined;
+  const adornment = (position: 'start' | 'end', node: ReactNode) =>
+    node != null ? renderAdornment(node, position) : legacyIconPosition === position ? renderAdornment(icon, position) : undefined;
 
   const isRequired = required ?? isMandatory ?? false;
   const generatedId = useId();
@@ -105,7 +139,7 @@ const RdsInput = ({
                      size === 'medium' ? 'rds-input--medium' : 
                      'rds-input--large';
 
-  const pillClass = style === 'pill' ? 'rds-input--pill' : style === 'bottom outline' ? 'rds-input--bottom-outline' : '';
+  const pillClass = resolvedStyle === 'pill' ? 'rds-input--pill' : resolvedStyle === 'bottom outline' ? 'rds-input--bottom-outline' : '';
   
   const isFocusedDefault = state === 'default' && isFocused;
   const active = state === 'active' || isFocusedDefault;
@@ -137,15 +171,6 @@ const RdsInput = ({
       inputType = 'text';
   }
   
-  const renderIcon = () => {
-    if (!showIcon) return null;
-    return (
-      <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
-        {icon}
-      </InputAdornment>
-    );
-  };
-
   const handleNumericKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const allowedKeys = [
       'Backspace',
@@ -209,13 +234,11 @@ const RdsInput = ({
       if (!isControlled) {
         setInternalValue(next);
       }
-      // Pass the real event (the input already holds the sanitised value) so `name`/`id` survive.
       onChange?.(e as ChangeEvent<HTMLInputElement>);
     }
   };
   const computedPlaceholder = placeholder ?? getInputPlaceholder(layout);
   const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
-  // Without a visible label the label text still names the input for assistive technology.
   const showsLabel = titlePosition === 'title-above' || titlePosition === 'inline-title';
   const hiddenLabelProps: InputHTMLAttributes<HTMLInputElement> =
     label && !showsLabel && !props['aria-label'] ? { 'aria-label': label } : {};
@@ -248,14 +271,8 @@ const RdsInput = ({
       ...legacyInputProps?.classes,
       ...consumerInputProps?.classes,
     },
-    startAdornment:
-      iconPosition === 'start' && showIcon
-        ? renderIcon()
-        : consumerInputProps?.startAdornment ?? legacyInputProps?.startAdornment,
-    endAdornment:
-      iconPosition === 'end' && showIcon
-        ? renderIcon()
-        : consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment,
+    startAdornment: adornment('start', startIcon) ?? consumerInputProps?.startAdornment ?? legacyInputProps?.startAdornment,
+    endAdornment: adornment('end', endIcon) ?? consumerInputProps?.endAdornment ?? legacyInputProps?.endAdornment,
   };
 
   return (

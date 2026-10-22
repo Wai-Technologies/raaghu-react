@@ -1,13 +1,15 @@
 import { isValidElement, cloneElement, type ReactNode, type ReactElement, type ElementType } from 'react';
 import { IconButton as MuiIconButton, type IconButtonProps } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-icon-button.scss';
 
 /** Props for {@link RdsIconButton}. Extends MUI `IconButton` props. */
 export interface RdsIconButtonProps extends Omit<IconButtonProps, 'component'> {
   iconOutlined?: ReactNode;
   iconFilled?: ReactNode;
-  variant?: 'outlined' | 'filled';
+  /** Visual variant. `'standard'` renders the same as `'filled'`, which is deprecated. */
+  variant?: 'outlined' | 'filled' | 'standard';
   tooltip?: string;
   icon?: ReactNode;
 }
@@ -16,7 +18,7 @@ export interface RdsIconButtonProps extends Omit<IconButtonProps, 'component'> {
 const RdsIconButton = ({
   iconOutlined,
   iconFilled,
-  variant = 'filled',
+  variant,
   tooltip,
   icon,
   children,
@@ -24,6 +26,8 @@ const RdsIconButton = ({
   className: classNameProp,
   ...props
 }: RdsIconButtonProps) => {
+  if (variant === 'filled') warnDeprecatedProp('RdsIconButton', "variant='filled'", "variant='standard'");
+  const isOutlined = variant === 'outlined';
 
   const getSizedIcon = (iconNode: ReactNode) => {
     if (isValidElement(iconNode)) {
@@ -40,9 +44,9 @@ const RdsIconButton = ({
   };
 
   let buttonContent: ReactNode = null;
-  if (variant === 'outlined' && iconOutlined) {
+  if (isOutlined && iconOutlined) {
     buttonContent = getSizedIcon(iconOutlined);
-  } else if (variant === 'filled' && iconFilled) {
+  } else if (!isOutlined && iconFilled) {
     buttonContent = getSizedIcon(iconFilled);
   } else if (icon) {
     buttonContent = getSizedIcon(icon);
@@ -52,7 +56,7 @@ const RdsIconButton = ({
 
   const className = clsx(
     'rds-icon-button',
-    variant === 'outlined' && 'rds-icon-button--outlined',
+    isOutlined && 'rds-icon-button--outlined',
     classNameProp,
   );
 

@@ -56,7 +56,7 @@ const meta: Meta<typeof RdsRating> = {
         'Right': 5,
       },
     },
-    colorVariant: {
+    color: {
       control: { type: 'select' },
       options: ['primary','success','danger','warning','light','info','secondary','dark'],
     },
@@ -104,7 +104,7 @@ export const Default: Story = {
     precision: { control: false },
     readOnly: { control: false },
     disabled: { control: false },
-    colorVariant: { control: false },
+    color: { control: false },
     level: {
       control: { type: 'select' },
       options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
@@ -129,11 +129,11 @@ export const WithColor: Story = {
   args: {
     value: 4,
     type: 'star',
-    colorVariant: 'primary',
+    color: 'primary',
     styles: 'filled',
   },
   parameters: {
-    controls: { include: ['value', 'type', 'colorVariant', 'styles', 'size', 'readOnly', 'disabled'] },
+    controls: { include: ['value', 'type', 'color', 'styles', 'size', 'readOnly', 'disabled'] },
   },
 };
 

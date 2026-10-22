@@ -3,11 +3,12 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Share, Print, Favorite } from '@mui/icons-material';
 import RdsSpeedDial, { RdsSpeedDialAction, RdsSpeedDialProps } from './rds-speed-dial';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-speed-dial.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsSpeedDial', () => {
   const mockActions: RdsSpeedDialAction[] = [
@@ -83,7 +84,6 @@ describe('RdsSpeedDial', () => {
 
     it('should render actions with correct tooltips', async () => {
       const { container } = render(<RdsSpeedDial {...defaultProps} ariaLabel="Test Speed Dial" open={true} />);
-      // MUI SpeedDialAction uses aria-label for tooltips
       const actionButtons = container.querySelectorAll('.MuiSpeedDialAction-fab');
       expect(actionButtons[0]).toHaveAttribute('aria-label', 'Share this item');
       expect(actionButtons[1]).toHaveAttribute('aria-label', 'Print this item');
@@ -138,7 +138,6 @@ describe('RdsSpeedDial', () => {
       const fab = container.querySelector('.MuiSpeedDial-fab');
       
       expect(fab).toBeInTheDocument();
-      // Click to open
       fireEvent.click(fab!);
       
       await waitFor(() => {
@@ -183,10 +182,8 @@ describe('RdsSpeedDial', () => {
       );
       const fab = container.querySelector('.MuiSpeedDial-fab');
       
-      // Open first
       fireEvent.click(fab!);
       
-      // Close
       fireEvent.click(fab!);
       
       await waitFor(() => {
@@ -200,17 +197,13 @@ describe('RdsSpeedDial', () => {
         <RdsSpeedDial {...defaultProps} open={true} onClose={onClose} />
       );
 
-      // Speed dial should be open
       const fab = container.querySelector('.MuiSpeedDial-fab') as HTMLButtonElement;
       expect(fab).toHaveAttribute('aria-expanded', 'true');
 
-      // Try to close by clicking fab
       fireEvent.click(fab);
 
-      // Wait a bit for state changes
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      // Even though onClose is called, the visible state should remain open because open={true}
       expect(fab).toHaveAttribute('aria-expanded', 'true');
     });
   });
@@ -276,7 +269,6 @@ describe('RdsSpeedDial', () => {
         {
           icon: <Share />,
           name: 'Share',
-          // No onClick provided
         },
       ];
 
@@ -407,7 +399,6 @@ describe('RdsSpeedDial', () => {
           open={true}
         />
       );
-      // MUI SpeedDialIcon renders both icons
       expect(screen.getByTestId('open-icon')).toBeInTheDocument();
     });
 
@@ -446,7 +437,6 @@ describe('RdsSpeedDial', () => {
       );
       const fab = container.querySelector('.MuiSpeedDial-fab');
 
-      // Rapid clicks
       fireEvent.click(fab!);
       fireEvent.click(fab!);
       fireEvent.click(fab!);
@@ -552,7 +542,6 @@ describe('RdsSpeedDial', () => {
 
       const fab = container.querySelector('.MuiSpeedDial-fab') as HTMLButtonElement;
       
-      // Click to open
       fireEvent.click(fab);
 
       await waitFor(() => {
@@ -584,13 +573,11 @@ describe('RdsSpeedDial', () => {
 
       const fab = container.querySelector('.MuiSpeedDial-fab') as HTMLElement;
 
-      // Open
       fireEvent.click(fab);
       await waitFor(() => {
         expect(onOpen).toHaveBeenCalled();
       });
 
-      // Click action
       const actionButton = container.querySelector('.MuiSpeedDialAction-fab');
       fireEvent.click(actionButton!);
 
@@ -618,5 +605,17 @@ describe('audit fixes', () => {
     render(<RdsSpeedDial actions={[{ icon: <Share />, name: 'Share', onClick }]} open ariaLabel="dial" />);
     fireEvent.click(screen.getByRole('menuitem', { name: 'Share' }));
     expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
+  });
+});
+
+describe('audit fixes', () => {
+  it('warns when deprecated tooltipTitle is passed', () => {
+    render(<RdsSpeedDial actions={[]} ariaLabel="" tooltipTitle="Legacy" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSpeedDial', 'tooltipTitle', expect.any(String));
+  });
+
+  it('prefers ariaLabel over tooltipTitle', () => {
+    render(<RdsSpeedDial actions={[]} ariaLabel="New" tooltipTitle="Legacy" />);
+    expect(screen.getByRole('button', { name: 'New' })).toBeInTheDocument();
   });
 });

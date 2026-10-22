@@ -349,7 +349,7 @@ export const RealEstateContent = ({
             autoPlay={false}
             height="200px"
             showArrows={false}
-            showDots={true}
+            showIndicators={true}
             style="default"
             type="circle"
           >
@@ -474,7 +474,7 @@ export const SelectionContent = ({
           <RdsSearch
             value={searchValue}
             onChange={handleSearchChange}
-            iconPosition="right"
+            iconPosition="end"
             labelPosition="top"
             placeholder="Search for Agents by Name or # ID"
             size="small"
@@ -501,8 +501,8 @@ export const SelectionContent = ({
                     showDesignation
                     showName
                     src={agent.avatar}
-                    subText={agent.designation}
-                    title={agent.name}
+                    description={agent.designation}
+                    name={agent.name}
                   />
                 </div>
               </div>

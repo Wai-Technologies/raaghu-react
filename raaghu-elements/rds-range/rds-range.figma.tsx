@@ -8,9 +8,9 @@ figma.connect(
   {
     variant: { "⚠️ Type": "One Way" },
     props: {
-      showLabel: figma.boolean("📝 Show label"),
+      showMinMax: figma.boolean("📝 Show label"),
     },
-    example: ({ showLabel }) => <RdsRange showLabel={showLabel} type="one-way" />,
+    example: ({ showMinMax }) => <RdsRange showMinMax={showMinMax} type="one-way" />,
   }
 )
 
@@ -20,9 +20,9 @@ figma.connect(
   {
     variant: { "⚠️ Type": "Two Way" },
     props: {
-      showLabel: figma.boolean("📝 Show label"),
+      showMinMax: figma.boolean("📝 Show label"),
     },
-    example: ({ showLabel }) => <RdsRange showTooltip={false} showLabel={showLabel} type="two-way" value={[0, 20]} />,
+    example: ({ showMinMax }) => <RdsRange valueLabelDisplay="off" showMinMax={showMinMax} type="two-way" value={[0, 20]} />,
   }
 )
 

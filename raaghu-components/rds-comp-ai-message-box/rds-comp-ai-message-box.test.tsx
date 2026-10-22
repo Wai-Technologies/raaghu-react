@@ -3,20 +3,19 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiMessageBox, { RdsCompAiMessageBoxProps } from './rds-comp-ai-message-box';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-message-box.scss', () => ({}));
 
-// Mock RdsAvatar component
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   return function MockRdsAvatar(props: any) {
     return (
       <div
         data-testid="rds-avatar"
-        data-title={props.title}
-        data-subtext={props.subText}
+        data-title={props.name ?? props.title}
+        data-subtext={props.description ?? props.subText}
         data-src={props.src}
         data-show-name={props.showName}
         data-display-style={props.displayStyle}
@@ -27,7 +26,6 @@ jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => {
   };
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiMessageBoxProps = {
   message: 'Test message',
   isImage: false,
@@ -503,5 +501,13 @@ describe('audit fixes', () => {
     const { container } = render(<RdsCompAiMessageBox name="Bob" imageAlt="pic" isImage />);
     expect(screen.getByTestId('rds-avatar')).toHaveAttribute('data-title', 'Bob');
     expect(container.querySelector('img')).toHaveAttribute('alt', 'pic');
+  });
+});
+
+describe('audit fixes: imageSrc', () => {
+  it('imageSrc shows the image without isImage and wins over src', () => {
+    const { container } = render(<RdsCompAiMessageBox imageSrc="new.png" src="old.png" />);
+    expect(container.querySelector('.rds-comp-ai-message-box__image')).toHaveAttribute('src', 'new.png');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiMessageBox', 'src', '`imageSrc`');
   });
 });

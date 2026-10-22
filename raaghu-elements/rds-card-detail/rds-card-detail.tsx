@@ -6,16 +6,22 @@ import {
   CardHeader,
   CardMedia,
   type CardProps,
+  type CardMediaProps,
 } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { useRaaghuTheme } from '../../raaghu-react-themes/src/provider/RaaghuThemeProvider';
 import './rds-card-detail.scss';
 
 export interface RdsCardDetailProps extends Omit<CardProps, 'component'> {
   title?: string;
   subtitle?: string;
+  /** @deprecated Use `slotProps.media.image` instead. */
   image?: string;
+  /** @deprecated Use `slotProps.media.height` instead. */
   imageHeight?: number;
+  /** Props for the media element; they win over `image` and `imageHeight`. */
+  slotProps?: { media?: Omit<CardMediaProps<'img'>, 'component'> };
   /**
    * Alt text for `image`. Pass `''` for a purely decorative image.
    * When omitted, the alt text falls back to `title`, then to `'Card image'`.
@@ -29,8 +35,9 @@ const RdsCardDetail = ({
   title,
   subtitle,
   image,
-  imageHeight = 140,
+  imageHeight,
   imageAlt,
+  slotProps,
   actions,
   children,
   sx,
@@ -38,13 +45,14 @@ const RdsCardDetail = ({
   ...props
 }: RdsCardDetailProps) => {
   const { mode } = useRaaghuTheme();
+  if (image !== undefined) warnDeprecatedProp('RdsCardDetail', 'image', '`slotProps.media.image`');
+  if (imageHeight !== undefined) warnDeprecatedProp('RdsCardDetail', 'imageHeight', '`slotProps.media.height`');
+  const { image: mediaImage = image, height: mediaHeight = imageHeight ?? 140, ...mediaProps } = slotProps?.media ?? {};
 
   const passedElevation = (props.elevation ?? 1) as number;
   const isElevationVariant = props.variant !== 'outlined';
   const isDarkMode = mode === 'dark';
 
-  // For elevation variant: remove border so the shadow is the visual indicator.
-  // In dark mode MUI doesn't render shadows natively, so we apply a custom shadow token.
   const elevationSx = isElevationVariant
     ? {
         border: 'none',
@@ -54,7 +62,6 @@ const RdsCardDetail = ({
       }
     : {};
 
-  // Base styles first so the consumer's `sx` always wins.
   const mergedSx = [elevationSx, ...(Array.isArray(sx) ? sx : [sx])];
 
   const mergedClassName = clsx('rds-card-detail', className);
@@ -67,12 +74,13 @@ const RdsCardDetail = ({
           subheader={subtitle}
         />
       )}
-      {image && (
+      {mediaImage && (
         <CardMedia
           component="img"
-          height={imageHeight}
-          image={image}
           alt={imageAlt ?? (title || 'Card image')}
+          {...mediaProps}
+          height={mediaHeight}
+          image={mediaImage}
         />
       )}
       <CardContent>

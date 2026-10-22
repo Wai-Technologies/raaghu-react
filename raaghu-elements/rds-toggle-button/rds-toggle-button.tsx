@@ -24,6 +24,8 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
   /** Allow several options to be selected at once. */
   multiple?: boolean;
   /** Keep at least one option selected. */
+  required?: boolean;
+  /** @deprecated Use `required` instead. */
   enforceSelected?: boolean;
   /** Layout direction of the group. */
   orientation?: 'horizontal' | 'vertical';
@@ -31,7 +33,7 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
   spacing?: number;
   /** Initially selected value(s) when uncontrolled. */
   defaultValue?: string | string[];
-  /** Gap in px between icon and label; when passed it overrides the spacing token. */
+  /** @deprecated Set the `--rds-spacing-xs` theme token instead. Gap in px between icon and label. */
   iconTextSpacing?: number;
   /** @deprecated Use `size` instead. */
   inputSize?: 'small' | 'medium' | 'large';
@@ -43,7 +45,8 @@ const RdsToggleButton = ({
   orientation = 'horizontal',
   spacing = 0,
   iconTextSpacing,
-  enforceSelected = false,
+  required,
+  enforceSelected,
   onChange,
   value: controlledValue,
   defaultValue,
@@ -54,12 +57,15 @@ const RdsToggleButton = ({
   className,
   ...otherProps
 }: RdsToggleButtonProps) => {
+  if (enforceSelected !== undefined) warnDeprecatedProp('RdsToggleButton', 'enforceSelected', '`required`');
+  if (iconTextSpacing !== undefined) warnDeprecatedProp('RdsToggleButton', 'iconTextSpacing', 'the `--rds-spacing-xs` theme token');
+  const mustSelect = required ?? enforceSelected ?? false;
   if (inputSize !== undefined) warnDeprecatedProp('RdsToggleButton', 'inputSize', '`size`');
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
     if (defaultValue !== undefined) {
       return defaultValue;
     }
-    if (enforceSelected && options.length > 0) {
+    if (mustSelect && options.length > 0) {
       return multiple ? [options[0].value] : options[0].value;
     }
     return multiple ? [] : '';
@@ -68,7 +74,7 @@ const RdsToggleButton = ({
   const rawValue = isControlled ? controlledValue : internalValue;
 
   let value = rawValue;
-  if (enforceSelected && options.length > 0) {
+  if (mustSelect && options.length > 0) {
     if (multiple) {
       const current = Array.isArray(rawValue) ? rawValue : [];
       value = current.length > 0 ? current : [options[0].value];
@@ -89,7 +95,7 @@ const RdsToggleButton = ({
   const iconGap = iconTextSpacing !== undefined ? `${iconTextSpacing}px` : 'var(--rds-spacing-xs, 8px)';
 
   const handleChange = (event: MouseEvent<HTMLElement>, newValue: string | string[] | null) => {
-    if (enforceSelected) {
+    if (mustSelect) {
       if (multiple && Array.isArray(newValue) && newValue.length === 0) {
         return;
       } else if (!multiple && newValue === null) {
@@ -113,7 +119,7 @@ const RdsToggleButton = ({
 
       if (index === -1) {
         newValue.push(optionValue);
-      } else if (!enforceSelected || newValue.length > 1) {
+      } else if (!mustSelect || newValue.length > 1) {
         newValue.splice(index, 1);
       } else {
         return;
@@ -121,7 +127,7 @@ const RdsToggleButton = ({
 
       handleChange(event, newValue);
     } else {
-      const newValue = value === optionValue && !enforceSelected ? null : optionValue;
+      const newValue = value === optionValue && !mustSelect ? null : optionValue;
       handleChange(event, newValue);
     }
   };

@@ -21,7 +21,7 @@ figma.connect(
     },
     example: (props) => <RdsCompOffcanvas 
     {...props}
-    placement={RdsOffcanvasPlacement.End} 
+    anchor={RdsOffcanvasPlacement.End}
     backDrop={RdsOffcanvasBackDrop.Static} 
     width={650}
     title="NEW TENANT"

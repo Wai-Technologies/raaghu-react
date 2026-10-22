@@ -4,9 +4,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTable, { RdsTableColumn, RdsTableProps } from './rds-table';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
+
 jest.mock('./rds-table.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('@mui/icons-material/SwapVert', () => {
   return function MockSwapVertIcon() {
     return <div data-testid="swap-vert-icon">SwapVert</div>;
@@ -917,5 +919,44 @@ describe('audit fixes', () => {
     );
     fireEvent.mouseDown(screen.getByRole('combobox'));
     expect(screen.getByRole('option', { name: '100' })).toBeInTheDocument();
+  });
+
+  it('539: paginated shows the paginator and wins over pagination', () => {
+    const { container } = renderWithTheme(
+      <RdsTable columns={mockColumns} rows={makeRows(3)} paginated pagination={false} />
+    );
+    expect(container.querySelector('.MuiTablePagination-root')).toBeInTheDocument();
+  });
+
+  it('540: rows[].key still works as row id and warns', () => {
+    const rows = [{ key: 'k1', name: 'A', email: 'a', age: 1 }];
+    const onSelectionChange = jest.fn();
+    renderWithTheme(<RdsTable columns={mockColumns} rows={rows} selectable onSelectionChange={onSelectionChange} />);
+    fireEvent.click(screen.getByLabelText('Select row 1'));
+    expect(onSelectionChange).toHaveBeenCalledWith(expect.anything(), ['k1']);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTable', 'rows[].key', '`rows[].id`');
+  });
+
+  it('541: selected is controlled and onSelectionChange receives event and ids', () => {
+    const onSelectionChange = jest.fn();
+    renderWithTheme(
+      <RdsTable columns={mockColumns} rows={mockRows} selectable selected={['1']} onSelectionChange={onSelectionChange} />
+    );
+    fireEvent.click(screen.getByLabelText('Select row 2'));
+    expect(onSelectionChange).toHaveBeenCalledWith(expect.objectContaining({ target: expect.anything() }), ['1', '2']);
+    expect(screen.getByLabelText('Select row 2')).not.toBeChecked();
+  });
+
+  it('541: onSelectionChange alone keeps selection uncontrolled', () => {
+    renderWithTheme(<RdsTable columns={mockColumns} rows={mockRows} selectable onSelectionChange={jest.fn()} />);
+    fireEvent.click(screen.getByLabelText('Select row 1'));
+    expect(screen.getByLabelText('Select row 1')).toBeChecked();
+  });
+
+  it('542: rowCount wins over totalRows', () => {
+    const { container } = renderWithTheme(
+      <RdsTable columns={mockColumns} rows={makeRows(3)} paginated rowCount={77} totalRows={100} />
+    );
+    expect(container.querySelector('.MuiTablePagination-root')?.textContent).toContain('77');
   });
 });

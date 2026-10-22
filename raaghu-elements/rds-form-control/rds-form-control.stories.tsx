@@ -19,7 +19,7 @@ const meta: Meta<typeof RdsFormControl> = {
         'required',
         'disabled',
         'fullWidth',
-        'isGroup',
+        'group',
       ],
     },
   },
@@ -31,7 +31,7 @@ const meta: Meta<typeof RdsFormControl> = {
     required: false,
     disabled: false,
     fullWidth: false,
-    isGroup: false,
+    group: false,
     variant: 'outlined',
     size: 'medium',
   },
@@ -64,7 +64,7 @@ const meta: Meta<typeof RdsFormControl> = {
     fullWidth: {
       control: { type: 'boolean' },
     },
-    isGroup: {
+    group: {
       control: { type: 'boolean' },
       description: 'Wrap children in a FormGroup (e.g. checkbox/radio groups)',
     },

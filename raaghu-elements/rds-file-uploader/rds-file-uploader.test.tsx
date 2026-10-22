@@ -8,13 +8,13 @@ import RdsFileUploader, { RdsFileUploaderProps, FileWithProgress } from './rds-f
 import { renderHook, act } from '@testing-library/react';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-file-uploader.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock sub-components
+let mockStandardViewProps: any;
 jest.mock('./RdsFileUploaderStandardView', () => {
   return function MockStandardView(props: any) {
+    mockStandardViewProps = props;
     return (
       <div data-testid="standard-view">
         <input type="file" aria-label="Choose file" onChange={props.handleFileSelect} />
@@ -327,7 +327,7 @@ describe('RdsFileUploader', () => {
       const { container } = render(
         <RdsFileUploader
           {...defaultProps}
-          maxSize={5 * 1024 * 1024} // 5MB
+          maxSize={5 * 1024 * 1024}
         />
       );
       expect(container).toBeInTheDocument();
@@ -367,8 +367,6 @@ describe('RdsFileUploader', () => {
           showPreview={true}
         />
       );
-      // File list is only shown when there are files
-      // Verify the component renders in default mode with showPreview enabled
       expect(container.querySelector('.rds-file-uploader')).toBeInTheDocument();
     });
 
@@ -380,9 +378,7 @@ describe('RdsFileUploader', () => {
           showPreview={false}
         />
       );
-      // File list should not render when showPreview is false and no files
       const fileListElement = screen.queryByTestId('file-list');
-      // When there are no files, file-list might not be rendered
       expect(fileListElement === null || fileListElement.children.length === 0).toBeTruthy();
     });
   });
@@ -443,7 +439,6 @@ describe('RdsFileUploader', () => {
           <div data-testid="custom-child">Custom Content</div>
         </RdsFileUploader>
       );
-      // Note: Children may be passed to standard view
       expect(screen.getByTestId('standard-view')).toBeInTheDocument();
     });
 
@@ -453,7 +448,6 @@ describe('RdsFileUploader', () => {
           <span>Custom upload area</span>
         </RdsFileUploader>
       );
-      // In standard mode, children are rendered in the standard view
       expect(screen.getByTestId('standard-view')).toBeInTheDocument();
     });
   });
@@ -536,7 +530,7 @@ describe('RdsFileUploader', () => {
       const { container } = render(
         <RdsFileUploader
           {...defaultProps}
-          maxSize={1024 * 1024 * 1024} // 1GB
+          maxSize={1024 * 1024 * 1024}
         />
       );
       expect(container).toBeInTheDocument();
@@ -960,5 +954,29 @@ describe('audit fixes', () => {
       expect(screen.getByText('b.pdf')).toBeInTheDocument();
       expect(screen.queryByText('a.pdf')).not.toBeInTheDocument();
     });
+  });
+});
+
+describe('RdsFileUploader additive renames', () => {
+  beforeEach(() => (warnDeprecatedProp as jest.Mock).mockClear());
+
+  it('uses variant over style and slotProps.placeholder', () => {
+    const { container } = render(
+      <RdsFileUploader mode="default" variant="Drop Area - Side Icon" style="Drop Area - With Upload Button" slotProps={{ placeholder: { src: 'p.png' } }} />
+    );
+    expect(screen.getByTestId('drop-zone-side-icon')).toBeInTheDocument();
+    expect(container.querySelector('img')).toHaveAttribute('src', 'p.png');
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('calls onChange with the event and files, and warns for onFilesChange', () => {
+    const onChange = jest.fn();
+    const onFilesChange = jest.fn();
+    render(<RdsFileUploader mode="standard" onChange={onChange} onFilesChange={onFilesChange} />);
+    const event = { type: 'click' };
+    act(() => mockStandardViewProps.onFilesChange([], event));
+    expect(onChange).toHaveBeenCalledWith(event, []);
+    expect(onFilesChange).toHaveBeenCalledWith([]);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsFileUploader', 'onFilesChange', '`onChange`');
   });
 });

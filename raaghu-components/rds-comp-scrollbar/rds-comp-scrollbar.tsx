@@ -5,6 +5,7 @@ export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 
 export interface RdsScrollBarProps {
+  variant?: ScrollBarType | `${ScrollBarType}`;
   type?: ScrollBarType | `${ScrollBarType}`;
   position?: ScrollPosition | `${ScrollPosition}`;
   showButtons?: boolean;
@@ -15,13 +16,15 @@ export interface RdsScrollBarProps {
 }
 
 const RdsCompScrollBar = ({
-  type = ScrollBarType.Mac,
+  variant,
+  type,
   position = ScrollPosition.Start,
   showButtons = true,
   startIcon,
   endIcon,
   children,
 }: RdsScrollBarProps) => {
+  const resolvedType = variant ?? type ?? ScrollBarType.Mac;
   const scrollContentRef = useRef<HTMLDivElement>(null);
 
   const scrollToPosition = (pos: RdsScrollBarProps["position"]) => {
@@ -41,11 +44,11 @@ const RdsCompScrollBar = ({
     scrollToPosition(position);
   }, [position]);
 
-  const rootClassName = clsx("rds-scrollbar", type === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple");
+  const rootClassName = clsx("rds-scrollbar", resolvedType === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple");
 
   return (
     <div className={rootClassName}>
-      {type === ScrollBarType.Mac && showButtons && (
+      {resolvedType === ScrollBarType.Mac && showButtons && (
         <div className="rds-scrollbar__controls">
           <button
             type="button"

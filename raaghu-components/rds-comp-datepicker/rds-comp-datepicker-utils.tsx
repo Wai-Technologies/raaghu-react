@@ -1,8 +1,7 @@
 import { createElement, type RefObject, type ReactNode } from "react";
 import DatePicker, { type DatePickerProps } from "react-datepicker";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { CustomButtons } from "./CustomButtons";
+import { renderPickerIcon } from "./CustomInputWithClear";
 import { RenderDefaultDropdownHeader, RenderMultiMonthHeader } from "./renderCustomHeader";
 
 /** Stable popper container (module scope so react-datepicker does not remount the popper each render). */
@@ -93,6 +92,7 @@ export const renderDatePickerStateView = (
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
+                    openPickerIcon={props.openPickerIcon}
                 />
             ),
         });
@@ -115,6 +115,7 @@ export const renderDatePickerStateView = (
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
+                    openPickerIcon={props.openPickerIcon}
                 />
             ),
             overrides: {
@@ -142,6 +143,7 @@ export const renderDatePickerStateView = (
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
+                    openPickerIcon={props.openPickerIcon}
                 />
             ),
             overrides: {
@@ -197,6 +199,7 @@ export const renderDatePickerTypeView = (
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
+                    openPickerIcon={props.openPickerIcon}
                 />
             ),
         });
@@ -224,6 +227,7 @@ export const renderDatePickerTypeView = (
                     showClearDate={props.showClearDate}
                     clearDate={props.clearDate}
                     changeIcon={props.changeIcon}
+                    openPickerIcon={props.openPickerIcon}
                     openCustomPicker={toggleDropdown}
                     expanded={isDropdownOpen}
                     controlsId={`${props.idPrefix}-presets`}
@@ -287,11 +291,7 @@ export const renderDatePickerTypeView = (
                             customInput={rangeCustomInput}
                         />
                         <span className="rds-datepicker__dropdown-custom-icon" aria-hidden="true">
-                            {props.changeIcon === "dashboard_settings" ? (
-                                <SettingsIcon className="rds-datepicker__calendar-icon" />
-                            ) : (
-                                <CalendarMonthIcon className="rds-datepicker__calendar-icon" />
-                            )}
+                            {renderPickerIcon(props.changeIcon, props.openPickerIcon)}
                         </span>
                     </li>
                 </ul>

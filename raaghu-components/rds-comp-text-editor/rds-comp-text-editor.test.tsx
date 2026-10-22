@@ -6,12 +6,10 @@ import { axe } from 'jest-axe';
 import * as draft from 'draft-js';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-comp-text-editor.scss', () => ({}));
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock draft-js
 jest.mock('draft-js', () => ({
   EditorState: {
     createEmpty: jest.fn(() => ({
@@ -34,7 +32,6 @@ jest.mock('draft-js', () => ({
   convertToRaw: jest.fn(() => ({})),
 }));
 
-// Mock html-to-draftjs
 jest.mock('html-to-draftjs', () => {
   return jest.fn((html) => {
     if (!html) return null;
@@ -44,15 +41,12 @@ jest.mock('html-to-draftjs', () => {
   });
 });
 
-// Mock draftjs-to-html
 jest.mock('draftjs-to-html', () => {
   return jest.fn(() => '<p>Converted HTML</p>');
 });
 
-// Mock react-draft-wysiwyg CSS
 jest.mock('react-draft-wysiwyg/dist/react-draft-wysiwyg.css', () => ({}));
 
-// Mock react-draft-wysiwyg
 jest.mock('react-draft-wysiwyg', () => ({
   Editor: React.forwardRef(({
     editorState,
@@ -81,7 +75,6 @@ jest.mock('react-draft-wysiwyg', () => ({
   )),
 }));
 
-// Mock MUI InputLabel
 jest.mock('@mui/material', () => ({
   InputLabel: ({ children, className }: any) => (
     <label data-testid="input-label" className={className}>
@@ -90,7 +83,6 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Helper: render and wait for the editor to finish async loading
 const renderEditor = async (props: RdsCompTextEditorProps) => {
   const result = render(<RdsCompTextEditor {...props} />);
   await screen.findByTestId('draft-editor');
@@ -587,5 +579,19 @@ describe('RdsCompTextEditor', () => {
       await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Test Label is required'));
       expect(screen.getByRole('alert')).toHaveAttribute('id');
     });
+  });
+});
+
+describe('audit fixes focused/defaultValue', () => {
+  it('focused applies the active class', async () => {
+    const { container } = await renderEditor({ label: "L", showTitle: true, focused: true });
+    expect(container.querySelector('.rds-comp-text-editor--active')).toBeInTheDocument();
+  });
+
+  it('defaultValue seeds the editor', async () => {
+    const htmlToDraft = jest.requireMock('html-to-draftjs');
+    htmlToDraft.mockClear();
+    await renderEditor({ defaultValue: '<p>seed</p>' });
+    expect(htmlToDraft).toHaveBeenCalledWith('<p>seed</p>');
   });
 });

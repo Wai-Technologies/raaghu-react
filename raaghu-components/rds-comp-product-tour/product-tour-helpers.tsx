@@ -6,11 +6,20 @@ import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomp
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import clsx from 'clsx';
 
+export type ProductTourVariant = "Image" | "Carousel" | "GIF" | "Form";
+export type ProductTourCorner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
 export interface RdsCompProductTourProps {
-    state: "Image" | "Carousel" | "GIF" | "Form";
+    state?: ProductTourVariant;
+    variant?: ProductTourVariant;
+    anchorCorner?: ProductTourCorner;
+    /** @deprecated Use `anchorCorner` instead. */
     topLeft?: boolean;
+    /** @deprecated Use `anchorCorner` instead. */
     topRight?: boolean;
+    /** @deprecated Use `anchorCorner` instead. */
     bottomLeft?: boolean;
+    /** @deprecated Use `anchorCorner` instead. */
     bottomRight?: boolean;
     /** @deprecated Use `title` instead. */
     header?: string;
@@ -22,6 +31,9 @@ export interface RdsCompProductTourProps {
     onBack?: () => void;
     onSkip?: () => void;
     description?: string;
+    steps?: number;
+    activeStep?: number;
+    /** @deprecated Use `steps` and `activeStep` instead. */
     stepsIndicator?: string;
     controls?: {
         dismiss?: 'visible' | 'hidden';
@@ -31,7 +43,11 @@ export interface RdsCompProductTourProps {
         visual?: 'visible' | 'hidden';
     };
     slides?: { id: number; imgUrl: string; }[];
+    subtitle?: string;
+    /** @deprecated Use `subtitle` instead. */
     formTitle?: string;
+    items?: string[];
+    /** @deprecated Use `items` instead. */
     tabTitle?: string[];
     onClose?: () => void;
     showDismiss?: boolean;
@@ -145,9 +161,8 @@ export const renderFormInputs = () => (
                     placeholder="Enter Project Name"
                     size="small"
                     layout="text"
-                    showIcon={true}
                     variant="outlined"
-                    icon={<InfoOutlined sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
+                    endIcon={<InfoOutlined sx={{ color: 'var(--rds-text-secondary)', fontSize: 'var(--rds-font-size-3xl)' }} />}
                 />
             </Box>
             <Box className="rds-comp-product-tour__form-action-btn">

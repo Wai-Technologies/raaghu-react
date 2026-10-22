@@ -27,7 +27,7 @@ export const Default: Story = {
     args: {
         id: "myChart",
         titleText: "Title",
-        subTitleText: "Subtext",
+        subtitle: "Subtext",
         labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
         options: {
             maintainAspectRatio: false,

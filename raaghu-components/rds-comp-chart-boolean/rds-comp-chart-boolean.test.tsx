@@ -4,13 +4,10 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBooleanChart from './rds-comp-chart-boolean';
 
-// Mock deprecation warnings
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-boolean.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return jest.fn().mockImplementation((ctx, config) => {
     return {
@@ -31,7 +28,6 @@ jest.mock('chart.js/auto', () => {
   });
 });
 
-// Mock chart-icons
 jest.mock('./chart-icons', () => ({
   ChartIcons: {
     circle: '<svg></svg>',
@@ -185,14 +181,12 @@ describe('RdsCompBooleanChart', () => {
     it('sets canvas height style', () => {
       const { container } = render(<RdsCompBooleanChart {...defaultProps} />);
       const canvas = container.querySelector('canvas') as HTMLCanvasElement;
-      // The component sets height to 20vh in the effect
       expect(canvas).toBeInTheDocument();
     });
 
     it('sets canvas width style', () => {
       const { container } = render(<RdsCompBooleanChart {...defaultProps} />);
       const canvas = container.querySelector('canvas') as HTMLCanvasElement;
-      // The component sets width to 20vh in the effect
       expect(canvas).toBeInTheDocument();
     });
   });
@@ -239,7 +233,6 @@ describe('RdsCompBooleanChart', () => {
     it('destroys chart on unmount', () => {
       const { unmount } = render(<RdsCompBooleanChart {...defaultProps} />);
       unmount();
-      // Component should cleanup without errors
       expect(true).toBe(true);
     });
 
@@ -251,7 +244,6 @@ describe('RdsCompBooleanChart', () => {
           labels={['Yes', 'No']}
         />
       );
-      // Component should update and destroy previous chart
       expect(true).toBe(true);
     });
   });
@@ -599,7 +591,6 @@ describe('RdsCompBooleanChart', () => {
       );
       const canvas2 = container.querySelector('canvas');
 
-      // Same canvas element should be present
       expect(canvas2).toBeInTheDocument();
     });
   });
@@ -753,5 +744,19 @@ describe('audit fixes', () => {
     const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
     render(<RdsCompBooleanChart {...defaultProps} chartStyle="x" />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBooleanChart', 'chartStyle', 'nothing (it has no effect)');
+  });
+});
+
+describe('additive prop renames', () => {
+  it('renders centerIcon over the chart and not when unused', () => {
+    const { container, rerender } = render(<RdsCompBooleanChart {...defaultProps} />);
+    expect(container.querySelector('span')).toBeNull();
+    rerender(<RdsCompBooleanChart {...defaultProps} centerIcon={<i data-testid="ic" />} />);
+    expect(screen.getByTestId('ic')).toBeInTheDocument();
+  });
+
+  it('ariaLabel wins over chartLabel', () => {
+    render(<RdsCompBooleanChart {...defaultProps} ariaLabel="New" chartLabel="Old" />);
+    expect(screen.getByRole('img')).toHaveAttribute('aria-label', 'New');
   });
 });

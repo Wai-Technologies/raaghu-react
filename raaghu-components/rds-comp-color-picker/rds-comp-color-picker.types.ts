@@ -6,6 +6,10 @@ export enum ColorPickerType {
   ButtonExpanded = "Button-Expanded",
 }
 
+export type ColorPickerVariant = 'inline' | 'button' | 'button-expanded';
+export type ColorPickerFormat = 'hex' | 'rgb' | 'hsb' | 'hsl';
+export type ColorPickerView = 'grid' | 'spectrum';
+
 export enum PickerType {
   Grid = "Grid",
   Spectrum = "Spectrum",
@@ -32,19 +36,36 @@ export interface ColorChangeDetails {
 }
 
 export interface RdsCompColorPickerProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'style' | 'children' | 'id'> {
-  value: string;
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'style' | 'children' | 'id' | 'defaultValue'> {
+  /** Selected colour. */
+  value?: string;
+  /** Initial colour for uncontrolled use. */
+  defaultValue?: string;
   /** Disables the picker. Takes precedence over `isDisabled`. */
   disabled?: boolean;
   /** @deprecated Use `disabled` instead. */
   isDisabled?: boolean;
   label: string;
-  /** Picker layout. Defaults to `ColorPickerType.Default`. */
+  /** Picker layout. Defaults to `'inline'`. */
+  variant?: ColorPickerVariant;
+  /** Figma alias of `variant`. */
   type?: ColorPickerType;
   showSwatches?: boolean;
+  /** Active view. */
+  view?: ColorPickerView;
+  /** Initial view. */
+  defaultView?: ColorPickerView;
+  /** @deprecated Use `view` instead. */
   pickerType?: PickerType;
   showTabs?: boolean;
+  /** Colour format shown in the value field. */
+  format?: ColorPickerFormat;
+  /** Initial colour format. */
+  defaultFormat?: ColorPickerFormat;
+  /** @deprecated Use `format` instead. */
   colorMode?: ColorMode;
+  /** Swatches layout; `'list'` is `StyleType.Type1` and `'grid'` is `StyleType.Type2`. */
+  swatchesVariant?: 'list' | 'grid';
   style?: StyleType;
   /**
    * Called with the 6-digit hex when the colour changes. When the opacity (alpha) slider

@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsTextArea> = {
             status: { type: 'stable' },
         layout: 'padded',
         controls: {
-            exclude: ['value', 'id', 'dataTestId', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']
+            exclude: ['value', 'id', 'dataTestId', 'data-testid', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']
         },
         docs: {
             source: {
@@ -37,9 +37,13 @@ const meta: Meta<typeof RdsTextArea> = {
             control: 'boolean',
             description: 'Whether the field is required'
         },
-        showTitle: {
+        error: {
             control: 'boolean',
-            description: 'Whether to show the label (true = show, false = hide)'
+            description: 'Forces the error appearance'
+        },
+        helperText: {
+            control: 'text',
+            description: 'Text shown under the field when it is in error'
         }
     } as any,
 } satisfies Meta<typeof RdsTextArea>;
@@ -54,7 +58,6 @@ export const Default: Story = {
         state: TextareaState.Default,
         style: TextareaStyle.Default,
         isMandatory: false,
-        showTitle: true,
         rows: 4
     }
 };

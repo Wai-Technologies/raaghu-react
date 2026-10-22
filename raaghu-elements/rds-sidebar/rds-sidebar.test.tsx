@@ -4,15 +4,14 @@ import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSidebar, { RdsSidebarItem } from './rds-sidebar';
 import { axe, configureAxe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock the SCSS file
 jest.mock('./rds-sidebar.scss');
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock child components
 jest.mock('../rds-avatar/rds-avatar', () => {
   return function MockAvatar(props: any) {
-    return <div data-testid="rds-avatar" className="rds-avatar">{props.title}</div>;
+    return <div data-testid="rds-avatar" className="rds-avatar" data-src={props.src}>{props.name ?? props.title}</div>;
   };
 });
 
@@ -36,7 +35,6 @@ jest.mock('../rds-tooltip/rds-tooltip', () => {
   };
 });
 
-// Helper function to render with theme
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -130,9 +128,7 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={mockItems} isOpen={false} />
       );
-      // When closed, sidebar should not be visible (or might not render in modal mode)
       const sidebar = document.querySelector('.rds-sidebar');
-      // Just verify it doesn't crash
       expect(sidebar).toBeNull();
     });
 
@@ -224,11 +220,9 @@ describe('RdsSidebar', () => {
       );
       
       const settingsButton = screen.getByText('Settings');
-      // Expand
       await user.click(settingsButton);
       expect(screen.getByText('Profile')).toBeInTheDocument();
       
-      // Collapse
       await user.click(settingsButton);
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
     });
@@ -260,11 +254,9 @@ describe('RdsSidebar', () => {
         <RdsSidebar items={items} isOpen={true} />
       );
       
-      // Expand parent
       const parentButton = screen.getByText('Parent');
       await user.click(parentButton);
       
-      // Click child
       const childButton = screen.getByText('Child');
       await user.click(childButton);
       expect(childOnClick).toHaveBeenCalled();
@@ -348,7 +340,6 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={mockItems} isOpen={true} width={150} />
       );
-      // Should have narrow-collapsed class when width < 200
       const sidebar = document.querySelector('.rds-sidebar');
       const hasNarrowClass = sidebar?.className.includes('rds-sidebar--narrow-collapsed');
       expect(hasNarrowClass).toBe(true);
@@ -472,7 +463,6 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={mockItems} isOpen={true} showLogo={true} layout="raaghu" avatarCollapsedSrc="/collapsed-logo.png" typeOf="collapse" />
       );
-      // Sidebar should render in collapsed mode
       expect(document.querySelector('.rds-sidebar--collapse')).toBeInTheDocument();
     });
   });
@@ -486,15 +476,12 @@ describe('RdsSidebar', () => {
       
       const settingsButton = screen.getByText('Settings');
       
-      // Expand
       await user.click(settingsButton);
       expect(screen.getByText('Profile')).toBeInTheDocument();
       
-      // Collapse
       await user.click(settingsButton);
       expect(screen.queryByText('Profile')).not.toBeInTheDocument();
       
-      // Expand again
       await user.click(settingsButton);
       expect(screen.getByText('Profile')).toBeInTheDocument();
     });
@@ -510,7 +497,6 @@ describe('RdsSidebar', () => {
       renderWithTheme(
         <RdsSidebar items={mockItems} isOpen={true} width={150} />
       );
-      // Sidebar should render with updated width
       expect(document.querySelector('.rds-sidebar')).toBeInTheDocument();
     });
 
@@ -758,4 +744,45 @@ describe('audit fixes', () => {
     expect(screen.getByText('Home').closest('[role="button"], .MuiListItemButton-root')).not.toHaveAttribute('aria-expanded');
     expect(screen.getByText('Parent').closest('.MuiListItemButton-root')).toHaveAttribute('aria-expanded', 'false');
   });
+
+  it('512: user.avatarSrc wins over deprecated avatarSrc', () => {
+    renderWithTheme(<RdsSidebar items={items} open variant="permanent" user={{ avatarSrc: '/new.png' }} avatarSrc="/old.png" />);
+    expect(screen.getByTestId('rds-avatar')).toHaveAttribute('data-src', '/new.png');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSidebar', 'avatarSrc', '`user.avatarSrc`');
+  });
+
+  it('514: items[].selected marks the item and wins over active', () => {
+    renderWithTheme(
+      <RdsSidebar items={[{ label: 'A', selected: true }, { label: 'B', selected: false, active: true }]} open variant="permanent" />
+    );
+    expect(screen.getByText('A').closest('.MuiListItemButton-root')).toHaveClass('Mui-selected');
+    expect(screen.getByText('B').closest('.MuiListItemButton-root')).not.toHaveClass('Mui-selected');
+  });
+
+  it('515: header and footer slots replace the default content', () => {
+    renderWithTheme(
+      <RdsSidebar items={items} open variant="permanent" header={<span>Head</span>} footer={<span>Foot</span>} />
+    );
+    expect(screen.getByText('Head').closest('.rds-sidebar__header')).toBeInTheDocument();
+    expect(screen.getByText('Foot').closest('.rds-sidebar__avatar-container')).toBeInTheDocument();
+    expect(screen.queryByTestId('rds-avatar')).not.toBeInTheDocument();
+  });
+
+  it('516: platform still selects the built-in menu and warns', () => {
+    renderWithTheme(<RdsSidebar items={[]} open variant="permanent" platform="abp-list" />);
+    expect(screen.getByText('Ticket Allocation')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSidebar', 'platform', '`items`');
+  });
+
+  it('517: collapsed wins over typeOf', () => {
+    const { container, rerender } = renderWithTheme(<RdsSidebar items={items} open variant="permanent" collapsed typeOf="expanded" />);
+    expect(container.querySelector('.rds-sidebar--collapse')).toBeInTheDocument();
+    rerender(
+      <ThemeProvider theme={createTheme()}>
+        <RdsSidebar items={items} open variant="permanent" collapsed={false} typeOf="fixed" />
+      </ThemeProvider>
+    );
+    expect(container.querySelector('.rds-sidebar--expanded')).toBeInTheDocument();
+  });
 });
+

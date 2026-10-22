@@ -8,10 +8,8 @@ import { axe } from 'jest-axe';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-product-tour.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: ({ children, className, sx, ...props }: any) => {
     const style = sx ? Object.keys(sx).reduce((acc: any, key: string) => {
@@ -40,17 +38,15 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   Close: () => <span data-testid="close-icon">×</span>,
   InfoOutlined: () => <span data-testid="info-icon">ⓘ</span>,
   ExpandMore: () => <span data-testid="expand-icon">▼</span>,
 }));
 
-// Mock Raaghu elements
 jest.mock('../../raaghu-elements/rds-carousel/rds-carousel', () => ({
   __esModule: true,
-  default: ({ children, state, height, style, type, showDots, showArrows, ...props }: any) => (
+  default: ({ children, state, height, style, type, showDots: _showDots, showIndicators, showArrows, ...props }: any) => (
     <div
       data-testid="rds-carousel"
       data-state={state}
@@ -81,7 +77,7 @@ jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => ({
 }));
 jest.mock('../../raaghu-elements/rds-file-uploader/rds-file-uploader', () => ({
   __esModule: true,
-  default: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onFilesChange, ...props }: any) => (
+  default: ({ accept, dragAndDrop, hintText, maxFiles, maxSize, onChange, ...props }: any) => (
     <div
       data-testid="rds-file-uploader"
       data-accept={accept}
@@ -322,7 +318,6 @@ describe('RdsCompProductTour', () => {
       const { container } = render(
         <RdsCompProductTour {...defaultProps} state="GIF" showVisualPlaceholder={false} />
       );
-        // When visual placeholder is disabled, the GIF element should not be rendered
         const gif = container.querySelector('.rds-comp-product-tour__gif');
         expect(gif).not.toBeInTheDocument();
     });
@@ -541,8 +536,6 @@ describe('RdsCompProductTour', () => {
       const currentImg = container.querySelector('.rds-comp-product-tour__image') as HTMLImageElement;
       expect(currentImg.src).toContain('/image1.jpg');
 
-      // Navigation would change the slide via button click
-      // This depends on button text/structure
     });
 
     it('should display steps indicator', () => {
@@ -949,6 +942,33 @@ describe('RdsCompProductTour', () => {
       const { rerender } = render(<RdsCompProductTour state="Image" stepsIndicator="1/3" slides={mockSlides} />);
       rerender(<RdsCompProductTour state="Image" stepsIndicator="3/3" slides={mockSlides} />);
       expect(screen.getByText('3/3')).toBeInTheDocument();
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('variant, subtitle and items alias the old props', () => {
+      render(<RdsCompProductTour variant="Form" subtitle="Sub" items={['A', 'B']} />);
+      expect(screen.getByText('Sub')).toBeInTheDocument();
+      expect(screen.getByText('A')).toBeInTheDocument();
+      expect(screen.getByText('B')).toBeInTheDocument();
+    });
+
+    it('steps and activeStep render the same indicator', () => {
+      render(<RdsCompProductTour variant="Image" steps={4} activeStep={2} slides={mockSlides} />);
+      expect(screen.getByText('2/4')).toBeInTheDocument();
+    });
+
+    it('anchorCorner renders one dot and wins over booleans', () => {
+      const { container } = render(<RdsCompProductTour variant="Image" anchorCorner="bottom-right" topLeft />);
+      expect(container.querySelectorAll('.rds-comp-product-tour__corner-dot')).toHaveLength(1);
+      expect(container.querySelector('.rds-comp-product-tour__corner-dot--bottom-right')).toBeTruthy();
+    });
+
+    it('warns for deprecated props', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      render(<RdsCompProductTour state="Image" formTitle="x" tabTitle={['a']} stepsIndicator="1/2" topLeft />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'formTitle', '`subtitle`');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'topLeft', '`anchorCorner`');
     });
   });
 });

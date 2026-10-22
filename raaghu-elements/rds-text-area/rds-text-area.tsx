@@ -35,7 +35,14 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   state?: TextareaState | `${TextareaState}`;
   /** Figma style variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
   style?: TextareaStyle | `${TextareaStyle}`;
+  /** @deprecated Omit `label` to hide the label. */
   showTitle?: boolean;
+  /** Forces the error appearance (same as `state="Error"`). */
+  error?: boolean;
+  /** Text shown under the field when it is in error. */
+  helperText?: string;
+  /** Style variant. Alias of the Figma `style`. */
+  variant?: TextareaStyle | `${TextareaStyle}`;
   /** Marks the field required: shows the asterisk and the empty-value error. */
   required?: boolean;
   /** @deprecated Use `required` instead. */
@@ -46,14 +53,17 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   className?: string;
   ref?: Ref<HTMLTextAreaElement>;
   id?: string;
+  /** @deprecated Use `data-testid` instead. */
   dataTestId?: string;
   onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClick?: (event: MouseEvent<HTMLTextAreaElement>) => void;
   onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
   onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
   onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
+  /** @deprecated Remount with a new `key` instead. */
   reset?: boolean;
   validationPattern?: RegExp;
+  /** @deprecated Use `helperText` instead. */
   validationMsg?: string;
   isMultiUrl?: boolean;
   customClasses?: string;
@@ -67,6 +77,9 @@ const RdsTextArea = ({
   defaultValue,
   state,
   style,
+  variant,
+  error,
+  helperText,
   showTitle,
   required,
   isMandatory: isMandatoryProp,
@@ -87,6 +100,11 @@ const RdsTextArea = ({
   customClasses,
   ...rest
 }: RdsTextAreaProps): ReactNode => {
+  if (showTitle !== undefined) warnDeprecatedProp('RdsTextArea', 'showTitle', 'omitting `label`');
+  if (dataTestId !== undefined) warnDeprecatedProp('RdsTextArea', 'dataTestId', '`data-testid`');
+  if (resetProp !== undefined) warnDeprecatedProp('RdsTextArea', 'reset', 'a new `key`');
+  if (validationMsg !== undefined) warnDeprecatedProp('RdsTextArea', 'validationMsg', '`helperText`');
+  const resolvedVariant = variant ?? style;
   if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsTextArea', 'isMandatory', '`required`');
   const isMandatory = required ?? isMandatoryProp;
   const [isValid, setIsValid] = useState(true);
@@ -98,7 +116,6 @@ const RdsTextArea = ({
   const [prevState, setPrevState] = useState(state);
   const [prevValue, setPrevValue] = useState(value);
   const [prevMandatory, setPrevMandatory] = useState(isMandatory);
-  // useId is stable across server and client renders (Math.random in render breaks hydration).
   const reactId = useId();
   const generatedId = `rds-textarea-${reactId}`;
   const assignedId = id || generatedId;
@@ -183,7 +200,7 @@ const RdsTextArea = ({
   };
 
   const getStyleClass = () => {
-    switch (style) {
+    switch (resolvedVariant) {
       case TextareaStyle.Pill:
         return "textarea-pill";
       case TextareaStyle.BottomOutline:
@@ -193,8 +210,7 @@ const RdsTextArea = ({
     }
   };
 
-  // `disabled` behaves like state="Disabled" without replacing the Figma state.
-  const effectiveState = disabled ? TextareaState.Disabled : currentState;
+  const effectiveState = disabled ? TextareaState.Disabled : error ? TextareaState.Error : currentState;
   const isDisabled = effectiveState === TextareaState.Disabled;
   const isError = effectiveState === TextareaState.Error || !isValid || (isMandatory && !isMandatoryValid);
 
@@ -202,7 +218,7 @@ const RdsTextArea = ({
     if (isMandatory && !isMandatoryValid) {
       return `${label || 'Label'} is required`;
     }
-    return validationMsg;
+    return helperText ?? validationMsg;
   };
 
   return (
@@ -217,8 +233,8 @@ const RdsTextArea = ({
       <div
         className={clsx(
           'textarea-wrapper',
-          style === TextareaStyle.Pill && 'textarea-pill-wrapper',
-          style === TextareaStyle.Pill && getStateClass()
+          resolvedVariant === TextareaStyle.Pill && 'textarea-pill-wrapper',
+          resolvedVariant === TextareaStyle.Pill && getStateClass()
         )}
       >
         <textarea

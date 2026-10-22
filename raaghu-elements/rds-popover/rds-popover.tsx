@@ -58,6 +58,8 @@ const POPOVER_POSITION_MAP: Record<string, PositionMapEntry> = {
   'no-arrow':     { anchorOrigin: { vertical: 'bottom', horizontal: 'left' },  transformOrigin: { vertical: 'top', horizontal: 'left' } },
 };
 
+type PopoverPlacement = 'top-left' | 'top-center' | 'top-right' | 'right-top' | 'right-center' | 'right-bottom' | 'bottom-right' | 'bottom-center' | 'bottom-left' | 'left-bottom' | 'left-center' | 'left-top';
+
 /** Props for {@link RdsPopover}. */
 export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children' | 'component'> {
   /** Whether the popover is open. Preferred over `isOpen`. */
@@ -78,7 +80,11 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children' 
   width?: number | string;
   /** Max width of the content container. */
   maxWidth?: number | string;
-  /** Placement relative to the anchor; collapses to top/bottom-center on small screens. */
+  /** Placement relative to the anchor; collapses to top/bottom-center on small screens. Takes precedence over `position`. */
+  placement?: PopoverPlacement;
+  /** Shows the arrow pointing at the anchor. Defaults to `true`. */
+  arrow?: boolean;
+  /** @deprecated Use `placement` and `arrow` instead (`'no-arrow'` becomes `arrow={false}`). */
   position?: 'top-left' | 'top-center' | 'top-right' | 'right-top' | 'right-center' | 'right-bottom' | 'bottom-right' | 'bottom-center' | 'bottom-left' | 'left-bottom' | 'left-center' | 'left-top' | 'no-arrow';
 }
 
@@ -125,17 +131,20 @@ const RdsPopover = ({
   showCloseButton = false,
   width,
   maxWidth = 'var(--rds-popover-container-max-width, 400px)',
-  position = 'bottom-left',
+  placement,
+  arrow = true,
+  position,
   ...props
 }: RdsPopoverProps) => {
   if (isOpen !== undefined) warnDeprecatedProp('RdsPopover', 'isOpen', '`open`');
+  if (position !== undefined) warnDeprecatedProp('RdsPopover', 'position', '`placement` and `arrow`');
   const resolvedOpen = open ?? isOpen ?? false;
   const titleId = useId();
-  const effectivePosition = useMobilePopoverPosition(position);
+  const effectivePosition = useMobilePopoverPosition(placement ?? position ?? 'bottom-left');
 
   const currentPosition = POPOVER_POSITION_MAP[effectivePosition] || POPOVER_POSITION_MAP['bottom-left'];
   const arrowDirection = getPopoverArrowDirection(effectivePosition);
-  const shouldShowArrow = effectivePosition !== 'no-arrow';
+  const shouldShowArrow = effectivePosition !== 'no-arrow' && arrow;
   const offset = getPopoverOffset(arrowDirection, shouldShowArrow);
 
   const { slotProps: consumerSlotProps, ...restProps } = props;

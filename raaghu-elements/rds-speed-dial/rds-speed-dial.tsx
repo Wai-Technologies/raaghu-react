@@ -5,6 +5,7 @@ import {
   SpeedDialIcon as MuiSpeedDialIcon,
   type SpeedDialProps
 } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import type { OpenReason, CloseReason } from '@mui/material/SpeedDial';
 
 /** A single action shown when the speed dial is open. */
@@ -26,7 +27,7 @@ export interface RdsSpeedDialProps extends Omit<SpeedDialProps, 'children' | 'co
   icon?: ReactNode;
   /** Icon of the main button while open (used with `icon`). */
   openIcon?: ReactNode;
-  /** Fallback accessible label when `ariaLabel` is not set. */
+  /** @deprecated Use `ariaLabel` instead. */
   tooltipTitle?: string;
 }
 
@@ -41,6 +42,7 @@ const RdsSpeedDial = ({
   onOpen,
   ...props
 }: RdsSpeedDialProps) => {
+  if (tooltipTitle !== undefined) warnDeprecatedProp('RdsSpeedDial', 'tooltipTitle', '`ariaLabel`');
   const [internalOpen, setInternalOpen] = useState(false);
   
   const isForceOpen = open === true;

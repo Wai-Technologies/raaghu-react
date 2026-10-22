@@ -6,10 +6,8 @@ import { axe } from 'jest-axe';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-filter-button.scss', () => ({}));
 
-// Mock RdsButton component
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return React.forwardRef((props: any, ref: any) => {
     const { 
@@ -26,7 +24,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
       ...rest 
     } = props;
     
-    // Filter out MUI-specific props that shouldn't go on a button element
     const cleanProps = Object.fromEntries(
       Object.entries(rest).filter(([key]) => 
         !['sx', 'variant', 'color', 'fullWidth', 'state', 'textCase', 'changeLeftIcon', 'changeRightIcon', 'showLeftIcon', 'showRightIcon', 'isLoading', 'children'].includes(key)
@@ -53,7 +50,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   });
 });
 
-// Mock MUI components
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return {
@@ -702,17 +698,14 @@ describe('RdsCompFilterButton', () => {
       
       renderComponent({ onFiltersChange, onApply, onClear });
       
-      // Open popover
       fireEvent.click(screen.getByTestId('filter-trigger-button'));
       expect(screen.getByTestId('popover')).toBeInTheDocument();
       
-      // Select filters
       const checkboxes = screen.getAllByTestId('filter-checkbox');
       fireEvent.click(checkboxes[0]);
       fireEvent.click(checkboxes[1]);
       expect(onFiltersChange).toHaveBeenCalled();
       
-      // Apply filters
       const applyButton = screen.getAllByRole('button').find(b => b.textContent === 'Apply');
       fireEvent.click(applyButton!);
       expect(onApply).toHaveBeenCalled();
@@ -825,7 +818,6 @@ describe('RdsCompFilterButton', () => {
       const searchInput = screen.getByTestId('search-input');
       fireEvent.change(searchInput, { target: { value: 'xyz123notfound' } });
       
-      // Component should still render without errors
       expect(screen.getByTestId('popover')).toBeInTheDocument();
     });
   });
@@ -885,6 +877,19 @@ describe('RdsCompFilterButton', () => {
       fireEvent.click(btn);
       expect((screen.getByTestId('search-input') as HTMLInputElement).value).toBe('');
       expect(screen.getByTestId('search-input')).toHaveAttribute('placeholder', 'S');
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('options wins over filters', () => {
+      render(<RdsCompFilterButton options={[{ id: 'o', name: 'Opt', values: ['a'], selectedValues: ['a'] }]} filters={mockFilters} />);
+      expect(screen.getByTestId('filter-trigger-button')).toHaveTextContent('(1)');
+    });
+
+    it('warns when deprecated filters is used', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      renderComponent();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompFilterButton', 'filters', '`options`');
     });
   });
 });

@@ -7,7 +7,9 @@ import './rds-drawer.scss';
 type DrawerCloseEvent = Parameters<NonNullable<DrawerProps['onClose']>>[0];
 type DrawerCloseReason = Parameters<NonNullable<DrawerProps['onClose']>>[1];
 
-export interface RdsDrawerProps extends Omit<DrawerProps, 'component'> {
+type DrawerButtonProps = Partial<ComponentProps<typeof RdsButton>>;
+
+export interface RdsDrawerProps extends Omit<DrawerProps, 'component' | 'slotProps'> {
   children: ReactNode;
   width?: number | string;
   /** @deprecated Use `anchor` instead. */
@@ -21,10 +23,14 @@ export interface RdsDrawerProps extends Omit<DrawerProps, 'component'> {
   triggerText?: string;
   triggerTextWhenOpen?: string;
   defaultOpen?: boolean;
-  triggerButtonProps?: Partial<ComponentProps<typeof RdsButton>>;
+  /** @deprecated Use `slotProps.trigger` instead. */
+  triggerButtonProps?: DrawerButtonProps;
   showCloseButton?: boolean;
   closeButtonText?: string;
-  closeButtonProps?: Partial<ComponentProps<typeof RdsButton>>;
+  /** @deprecated Use `slotProps.closeButton` instead. */
+  closeButtonProps?: DrawerButtonProps;
+  /** MUI Drawer slot props, plus `trigger` and `closeButton` for the built-in buttons. */
+  slotProps?: DrawerProps['slotProps'] & { trigger?: DrawerButtonProps; closeButton?: DrawerButtonProps };
   centerTrigger?: boolean;
   triggerWrapperClassName?: string;
 }
@@ -43,6 +49,7 @@ const RdsDrawer = ({
   showCloseButton = false,
   closeButtonText = 'Close Drawer',
   closeButtonProps,
+  slotProps,
   centerTrigger = false,
   triggerWrapperClassName,
   open,
@@ -52,6 +59,9 @@ const RdsDrawer = ({
 }: RdsDrawerProps) => {
   if (position !== undefined) warnDeprecatedProp('RdsDrawer', 'position', '`anchor`');
 
+  if (triggerButtonProps !== undefined) warnDeprecatedProp('RdsDrawer', 'triggerButtonProps', '`slotProps.trigger`');
+  if (closeButtonProps !== undefined) warnDeprecatedProp('RdsDrawer', 'closeButtonProps', '`slotProps.closeButton`');
+  const { trigger: triggerSlot, closeButton: closeButtonSlot, ...drawerSlotProps } = slotProps ?? {};
   const drawerAnchor = anchor ?? position ?? 'left';
   const isControlled = open !== undefined;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
@@ -67,8 +77,6 @@ const RdsDrawer = ({
     onClose?.(event, reason as DrawerCloseReason);
   };
 
-  // The trigger's aria-controls points at the drawer root (it only exists while open);
-  // a consumer `id` is kept, otherwise one is generated in trigger mode.
   const drawerId = id ?? (showTrigger ? generatedId : undefined);
 
   const getButtonText = () => {
@@ -85,7 +93,7 @@ const RdsDrawer = ({
           {children}
           <div className='rds-drawer-close-button'>
             <RdsButton
-              text={closeButtonText}
+              children={closeButtonText}
               onClick={() => handleClose({}, 'buttonClick')}
               color="primary"
               layout="text-only"
@@ -95,6 +103,7 @@ const RdsDrawer = ({
               style="filled"
               textCase="unset"
               {...closeButtonProps}
+              {...closeButtonSlot}
             />
           </div>
         </div>
@@ -108,6 +117,7 @@ const RdsDrawer = ({
   const drawerElement = (
     <MuiDrawer
       {...props}
+      slotProps={slotProps && drawerSlotProps}
       id={drawerId}
       anchor={drawerAnchor}
       open={actualOpen}
@@ -131,7 +141,7 @@ const RdsDrawer = ({
   if (showTrigger) {
     const triggerButton = (
       <RdsButton
-        text={getButtonText()}
+        children={getButtonText()}
         onClick={handleToggle}
         aria-expanded={actualOpen}
         aria-controls={actualOpen ? drawerId : undefined}
@@ -143,6 +153,7 @@ const RdsDrawer = ({
         style="filled"
         textCase="unset"
         {...triggerButtonProps}
+        {...triggerSlot}
       />
     );
 

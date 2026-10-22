@@ -19,6 +19,7 @@ export interface RdsCompTextEditorProps {
     placeholder?: string;
     readOnly?: boolean;
     value?: string;
+    defaultValue?: string;
     label?: string;
     /** @deprecated Use `required` instead. */
     isMandatory?: boolean;
@@ -27,6 +28,7 @@ export interface RdsCompTextEditorProps {
     disabled?: boolean;
     labelClass?: string;
     State?: string;
+    focused?: boolean;
     showTitle?: boolean;
     rows?: number;
     resizable?: boolean;
@@ -54,6 +56,7 @@ const RdsCompTextEditor = ({
     placeholder,
     readOnly,
     value,
+    defaultValue,
     label,
     isMandatory,
     required,
@@ -61,6 +64,7 @@ const RdsCompTextEditor = ({
     disabled,
     labelClass,
     State,
+    focused,
     showTitle,
     rows,
     resizable,
@@ -74,7 +78,7 @@ const RdsCompTextEditor = ({
     const errorId = `${uid}-error`;
 
     const [editorState, setEditorState] = useState<DraftEditorState>(() =>
-        createEditorStateFromValue(value, false)
+        createEditorStateFromValue(value ?? defaultValue, false)
     );
     const [prevValue, setPrevValue] = useState(value);
     const [prevShowTitle, setPrevShowTitle] = useState(showTitle);
@@ -141,7 +145,7 @@ const RdsCompTextEditor = ({
     const stateClass = clsx(
         State === "Selected" && "rds-comp-text-editor--selected",
         isError && "rds-comp-text-editor--error",
-        State === "Active" && "rds-comp-text-editor--active",
+        (focused || State === "Active") && "rds-comp-text-editor--active",
         isDisabled && "rds-comp-text-editor--disabled",
         isResizable && "rds-comp-text-editor--resizable"
     );

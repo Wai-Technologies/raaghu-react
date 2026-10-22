@@ -47,7 +47,7 @@ figma.connect(
             },
           },
         }}
-        subTitleText="Subtitle"
+        subtitle="Subtitle"
         titleText="Title"
       />
     ),

@@ -54,6 +54,9 @@ export interface RdsSidebarItem {
   label: string;
   icon?: ReactNode;
   onClick?: () => void;
+  /** Marks the item as the current one. */
+  selected?: boolean;
+  /** @deprecated Use `selected` instead. */
   active?: boolean;
   disabled?: boolean;
   typeOf?: 'collapse' | 'expanded' | 'fixed';
@@ -86,12 +89,20 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
   /** Called when the search text changes. Items are not filtered by the sidebar. */
   onSearchChange?: (value: string) => void;
   /** User shown in the avatar area. Defaults to "Jane Doe" / "Designation". String values are expected by RdsAvatar. */
-  user?: { name?: string; subtitle?: string };
+  user?: { name?: string; subtitle?: string; avatarSrc?: string };
   /** Custom logo node; replaces the default logo image when `showLogo` is on. */
   logo?: ReactNode;
+  /** Replaces the default header content (logo or toolbar avatar); shown even when `showLogo` is off. */
+  header?: ReactNode;
+  /** Replaces the default footer content (user avatar). */
+  footer?: ReactNode;
   layout?: 'raaghu' | 'list' | 'toolbar';
+  /** Collapses the sidebar to icons only. Takes precedence over `typeOf`. */
+  collapsed?: boolean;
   typeOf?: 'collapse' | 'expanded' | 'fixed';
+  /** @deprecated Pass `items` instead. */
   platform?: 'abp-list' | 'anz-list';
+  /** @deprecated Use `user.avatarSrc` instead. */
   avatarSrc?: string;
   avatarCollapsedSrc?: string;
   showLogo?: boolean;
@@ -111,8 +122,11 @@ const RdsSidebar = ({
   onSearchChange,
   user,
   logo,
+  header,
+  footer,
   className,
-  typeOf = 'expanded',
+  collapsed,
+  typeOf: typeOfProp = 'expanded',
   platform,
   avatarSrc,
   avatarCollapsedSrc,
@@ -124,7 +138,11 @@ const RdsSidebar = ({
   ...props
 }:RdsSidebarProps) => {
   if (isOpen !== undefined) warnDeprecatedProp('RdsSidebar', 'isOpen', '`open`');
+  if (platform !== undefined) warnDeprecatedProp('RdsSidebar', 'platform', '`items`');
+  if (avatarSrc !== undefined) warnDeprecatedProp('RdsSidebar', 'avatarSrc', '`user.avatarSrc`');
   const resolvedOpen = open ?? isOpen ?? false;
+  const typeOf = collapsed === undefined ? typeOfProp : collapsed ? 'collapse' : 'expanded';
+  const resolvedAvatarSrc = user?.avatarSrc ?? avatarSrc;
   const isSearchControlled = searchValue !== undefined;
   const [innerSearch, setInnerSearch] = useState(defaultSearchValue ?? '');
   const currentSearch = isSearchControlled ? searchValue : innerSearch;
@@ -139,6 +157,11 @@ const RdsSidebar = ({
   const menuItems = platform === 'abp-list' ? ABP_MENU_ITEMS : 
                    platform === 'anz-list' ? ANZ_MENU_ITEMS : 
                    items;
+
+  const isItemSelected = (item: RdsSidebarItem) => {
+    if (item.active !== undefined) warnDeprecatedProp('RdsSidebar', 'items[].active', '`items[].selected`');
+    return item.selected ?? item.active;
+  };
 
   const toggleOpen = (idx: number) => {
     setOpenMap(prev => ({ ...prev, [idx]: !prev[idx] }));
@@ -157,7 +180,6 @@ const RdsSidebar = ({
   }
   if (layout === 'raaghu' || layout === 'toolbar') {
     showAvatar = false;
-    // Keep search available in collapse/fixed (icon-only) mode when showSearch is true
     showSearchBox = showSearch;
   }
 
@@ -259,24 +281,24 @@ const RdsSidebar = ({
       sx={[drawerSx, ...(Array.isArray(propsSx) ? propsSx : [propsSx])]}
     >
       <div className={contentClasses}>
-        {showLogo && (
+        {(header != null || showLogo) && (
           <div className={headerClasses}>
-            {layout === 'toolbar' ? (
+            {header ?? (layout === 'toolbar' ? (
               shouldShowIconsOnly ? (
                 <RdsAvatar
-                  activeDotBottom
-                  src={avatarSrc}
+                  status="online"
+                  src={resolvedAvatarSrc}
                 />
               ) : (
                 <RdsAvatar
                   alt="User Avatar"
-                  subText={userSubtitle}
+                  description={userSubtitle}
                   displayStyle="with-name"
-                  title={userName}
+                  name={userName}
                   showDesignation
                   showName
-                  activeDotBottom
-                  src={avatarSrc}
+                  status="online"
+                  src={resolvedAvatarSrc}
                 />
               )
             ) : logo ?? (
@@ -285,7 +307,7 @@ const RdsSidebar = ({
                 alt="Raaghu Design System Logo"
                 className={getLogoClass()}
               />
-            )}
+            ))}
           </div>
         )}
         {showSearchBox && (
@@ -327,7 +349,7 @@ const RdsSidebar = ({
                   }
                 }}
                 disabled={item.disabled}
-                selected={item.active}
+                selected={isItemSelected(item)}
                 className={navButtonClasses}
                 aria-expanded={item.children && item.children.length > 0 ? !!openMap[index] : undefined}
                 sx={{
@@ -371,7 +393,7 @@ const RdsSidebar = ({
                           <ListItemButton
                             onClick={child.onClick}
                             disabled={child.disabled}
-                            selected={child.active}
+                            selected={isItemSelected(child)}
                             className={navButtonClasses}
                             sx={{
                                 minHeight: 'var(--rds-sidebar-child-nav-min-height, 40px)',
@@ -414,25 +436,26 @@ const RdsSidebar = ({
         <div className="rds-sidebar__footer">
           <hr className="rds-sidebar__footer-divider" />
         </div>
-        {showAvatar && (
+        {(footer != null || showAvatar) && (
           <div className={avatarContainerClasses}>
-            {!shouldShowIconsOnly ? (
+            {footer ?? (!shouldShowIconsOnly ? (
               <RdsAvatar
                 alt="User Avatar"
-                subText={userSubtitle}
+                description={userSubtitle}
                 displayStyle="with-name"
-                title={userName}
+                name={userName}
                 showDesignation
                 showName
-                activeDotBottom
-                src={avatarSrc}
+                status="online"
+                src={resolvedAvatarSrc}
               />
             ) : (
               <RdsAvatar
-                activeDotBottom
-                src={avatarSrc}
+                status="online"
+                src={resolvedAvatarSrc}
               />
-            )}
+            ))}
+
           </div>
         )}
       </div>

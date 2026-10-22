@@ -13,7 +13,7 @@ figma.connect(
       <RdsCompKanbanBoard
         
         addQuestionData={{}}
-        allCategoriesList={[
+        categoryOptions={[
           {
             label: "Category 1",
             val: "category1",
@@ -39,7 +39,7 @@ figma.connect(
             val: "category6",
           },
         ]}
-        allTagsList={[
+        tagOptions={[
           {
             label: "Tag 1",
             val: "tag1",
@@ -66,9 +66,9 @@ figma.connect(
           },
         ]}
         allowAddingDynamicData
-        allowAddingNewCard
-        allowAddingNewSubCard
-        boardData={[
+        allowAddColumn
+        allowAddCard
+        defaultColumns={[
           {
             actions: [
               {

@@ -15,6 +15,7 @@ export type RdsCompOffcanvasCloseReason =
   | "closeButton";
 
 export interface RdsCompOffcanvasProps {
+  /** @deprecated Use `anchor` instead. */
   placement?: RdsOffcanvasPlacement | `${RdsOffcanvasPlacement}`;
   /** MUI anchor. Wins over `placement`. */
   anchor?: DrawerProps["anchor"];
@@ -38,6 +39,7 @@ export interface RdsCompOffcanvasProps {
   width?: number | string;
   /** Controlled open state. When defined the built-in trigger button is not rendered. */
   open?: boolean;
+  /** @deprecated Use `onOpen` instead. */
   onShow?: () => void;
   onClose?: (event?: unknown, reason?: RdsCompOffcanvasCloseReason) => void;
   onOpen?: (data: boolean) => void;
@@ -58,7 +60,7 @@ export interface RdsCompOffcanvasProps {
 type PaperProps = { sx?: SxProps<Theme>; [key: string]: unknown };
 
 const RdsCompOffcanvas = ({
-  placement = RdsOffcanvasPlacement.End,
+  placement,
   anchor,
   backDrop = RdsOffcanvasBackDrop.True,
   hideBackdrop,
@@ -86,6 +88,8 @@ const RdsCompOffcanvas = ({
   showSecondaryButton = false,
   showTertiaryButton = false,
 }: RdsCompOffcanvasProps) => {
+  if (placement !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "placement", "`anchor`");
+  if (onShow !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "onShow", "`onOpen`");
   if (offId !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "offId", "`id`");
   if (canvasTitle !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "canvasTitle", "`title`");
   if (offcanvaswidth !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "offcanvaswidth", "`width`");
@@ -156,13 +160,13 @@ const RdsCompOffcanvas = ({
           </div>
         )}
         <Drawer
-          anchor={(anchor ?? placement) as DrawerProps["anchor"]}
+          anchor={(anchor ?? placement ?? RdsOffcanvasPlacement.End) as DrawerProps["anchor"]}
           open={drawerOpen}
           onClose={handleDrawerClose}
           disableEscapeKeyDown={resolvedDisableEscape}
           hideBackdrop={resolvedHideBackdrop}
           slotProps={mergedSlotProps}
-          className={clsx("offcanvas-drawer", `placement-${placement}`)}
+          className={clsx("offcanvas-drawer", `placement-${placement ?? RdsOffcanvasPlacement.End}`)}
           id={resolvedId}>
           <Box className={clsx("offcanvas-container", scrolling && "scrolling")}>
             <Box className={clsx("offcanvas-header", !isCanvasTitle && "no-title")}>

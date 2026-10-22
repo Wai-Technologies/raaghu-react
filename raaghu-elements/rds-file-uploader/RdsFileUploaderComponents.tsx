@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent, type Dispatch, type DragEvent, type SetStateAction } from 'react';
+import { useRef, useState, type ChangeEvent, type SyntheticEvent, type Dispatch, type DragEvent, type SetStateAction } from 'react';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import CloudUpload from '@mui/icons-material/CloudUpload';
@@ -20,7 +20,7 @@ interface RdsDropZoneProps {
 interface RdsFileListProps {
   files: FileWithProgress[];
   isUploading: boolean;
-  removeFile: (index: number) => void;
+  removeFile: (index: number, event?: SyntheticEvent) => void;
   formatFileSize: (bytes: number) => string;
 }
 
@@ -30,7 +30,7 @@ interface UseFileUploaderProps {
   isMandatory: boolean;
   /** When `false`, a new selection or drop replaces the current file instead of appending. Defaults to `true`. */
   multiple?: boolean;
-  onFilesChange?: (files: FileWithProgress[]) => void;
+  onFilesChange?: (files: FileWithProgress[], event?: SyntheticEvent) => void;
   onUpload?: (files: File[]) => Promise<void>;
 }
 
@@ -63,8 +63,6 @@ export const useFileUploader = ({
   const [mandatoryError, setMandatoryError] = useState<string | null>(null);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // Latest file list, written only from event handlers, so several drops/selections handled before
-  // the next render build on each other instead of on a stale `files` closure.
   const latestFilesRef = useRef<FileWithProgress[]>([]);
 
   const setFiles: Dispatch<SetStateAction<FileWithProgress[]>> = (action) => {
@@ -73,9 +71,8 @@ export const useFileUploader = ({
     setFilesState(next);
   };
 
-  const addFiles = (newFiles: File[]) => {
+  const addFiles = (newFiles: File[], event?: SyntheticEvent) => {
     const current = latestFilesRef.current;
-    // Single-file mode: a new (non-empty) selection replaces the current file instead of appending.
     const base = multiple || newFiles.length === 0 ? current : [];
     const limit = multiple ? maxFiles : Math.min(maxFiles, 1);
     const validFiles: FileWithProgress[] = [];
@@ -86,7 +83,7 @@ export const useFileUploader = ({
     }
     const updatedFiles = [...base, ...validFiles];
     setFiles(updatedFiles);
-    onFilesChange?.(updatedFiles);
+    onFilesChange?.(updatedFiles, event);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
 
     if (updatedFiles.length > 0) {
@@ -97,10 +94,10 @@ export const useFileUploader = ({
     }
   };
 
-  const removeFile = (index: number) => {
+  const removeFile = (index: number, event?: SyntheticEvent) => {
     const updatedFiles = latestFilesRef.current.filter((_, i) => i !== index);
     setFiles(updatedFiles);
-    onFilesChange?.(updatedFiles);
+    onFilesChange?.(updatedFiles, event);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
 
     if (updatedFiles.length === 0) {
@@ -115,8 +112,7 @@ export const useFileUploader = ({
     const selectedFiles = Array.from(event.target.files ?? []);
     if (selectedFiles.length === 0) return;
 
-    addFiles(selectedFiles);
-    // Reset the input that fired (default or standard view) so choosing the same file again fires `change`.
+    addFiles(selectedFiles, event);
     event.target.value = '';
   };
 
@@ -134,7 +130,7 @@ export const useFileUploader = ({
     event.preventDefault();
     setIsDragOver(false);
     const droppedFiles = Array.from(event.dataTransfer?.files ?? []);
-    addFiles(droppedFiles);
+    addFiles(droppedFiles, event);
   };
 
   const openFileDialog = () => fileInputRef.current?.click();
@@ -334,7 +330,7 @@ export const RdsFileList = ({
             aria-label="Remove file"
             className="rds-file-uploader__file-remove"
             size="small"
-            onClick={() => removeFile(index)}
+            onClick={(event) => removeFile(index, event)}
             disabled={isUploading}
             sx={{
               flexShrink: 0,

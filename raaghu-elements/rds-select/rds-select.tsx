@@ -21,19 +21,21 @@ export interface RdsSelectOption {
 export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
   /** Visible label text. */
   label?: string;
-  /** Placeholder shown when nothing is selected (only with `labelposition={false}`). */
+  /** Placeholder shown when nothing is selected (only with `labelPlacement="top"`). */
   placeholder?: string;
   /** Options rendered as menu items. */
   options: RdsSelectOption[];
   /** Helper text shown below the select. */
   helperText?: string;
-  /** Error text shown below the select; also puts the select in the error state. */
+  /** @deprecated Use `error` with `helperText` instead. */
   errorMessage?: string;
   /** @deprecated Use `required` instead. */
   isRequired?: boolean;
   /** @deprecated Use `placeholder` instead. */
   inputPlaceholder?: string;
-  /** `true` (default) renders a floating label; `false` renders the label above the field. */
+  /** `floating` (default) renders a floating label; `top` renders the label above the field. */
+  labelPlacement?: 'floating' | 'top';
+  /** @deprecated Use `labelPlacement` instead (`true` is `floating`, `false` is `top`). */
   labelposition?: boolean;
   /** Size of the select. @default 'small' */
   size?: 'small' | 'medium';
@@ -49,13 +51,17 @@ const RdsSelect = ({
   required,
   error,
   inputPlaceholder,
-  labelposition = true,
+  labelPlacement,
+  labelposition,
   size = 'small',
   className,
   ...props
 }: RdsSelectProps) => {
   if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
   if (inputPlaceholder !== undefined) warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
+  if (errorMessage !== undefined) warnDeprecatedProp('RdsSelect', 'errorMessage', '`error` with `helperText`');
+  if (labelposition !== undefined) warnDeprecatedProp('RdsSelect', 'labelposition', '`labelPlacement`');
+  const floatingLabel = labelPlacement ? labelPlacement === 'floating' : (labelposition ?? true);
   const labelId = useId();
   const isFieldRequired = required ?? isRequired ?? false;
   const resolvedPlaceholder = inputPlaceholder || placeholder;
@@ -69,13 +75,13 @@ const RdsSelect = ({
         size={size}
         className="rds-select__form-control"
       >
-        {!labelposition && label && (
+        {!floatingLabel && label && (
           <label id={labelId} className="rds-select__label">
             {label}
             {isFieldRequired && <span className="rds-select__asterisk">*</span>}
           </label>
         )}
-        {labelposition && label && (
+        {floatingLabel && label && (
           <InputLabel 
             id={labelId} 
             required={isFieldRequired}
@@ -86,12 +92,12 @@ const RdsSelect = ({
         )}
         <MuiSelect
           labelId={label ? labelId : undefined}
-          label={labelposition ? label : undefined}
+          label={floatingLabel ? label : undefined}
           IconComponent={KeyboardArrowDownIcon}
           className="rds-select__field"
-          {...(!labelposition && { displayEmpty: !!resolvedPlaceholder })}
+          {...(!floatingLabel && { displayEmpty: !!resolvedPlaceholder })}
           renderValue={
-            !labelposition
+            !floatingLabel
               ? (selected) => {
                   const labelFor = (v: unknown) => {
                     const opt = options.find(o => String(o.value) === String(v));

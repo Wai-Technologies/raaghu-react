@@ -46,7 +46,7 @@ const meta: Meta<typeof RdsList> = {
       include: [
         'dense',
         'disablePadding',
-        'withDividers',
+        'dividers',
         'disableGutters',
         'variant',
         'alignItems',
@@ -57,7 +57,7 @@ const meta: Meta<typeof RdsList> = {
   args: {
     dense: false,
     disablePadding: false,
-    withDividers: false,
+    dividers: false,
     disableGutters: false,
     variant: 'simple',
   },
@@ -68,7 +68,7 @@ const meta: Meta<typeof RdsList> = {
     disablePadding: {
       control: { type: 'boolean' },
     },
-    withDividers: {
+    dividers: {
       control: { type: 'boolean' },
       description: 'Show dividers between list items',
     },
@@ -78,21 +78,21 @@ const meta: Meta<typeof RdsList> = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['simple', 'button', 'icon', 'avatar', 'firebase'],
+      options: ['simple', 'button', 'icon', 'avatar', 'dense'],
     },
     alignItems: {
       control: { type: 'select' },
       options: [undefined, 'flex-start', 'center'],
     },
-    withCheckboxes: {
+    checkboxSelection: {
       control: { type: 'boolean' },
       table: { disable: true },
     },
-    checkedItems: {
+    checked: {
       control: { disable: true },
       table: { disable: true },
     },
-    onCheckboxChange: {
+    onCheckedChange: {
       control: { disable: true },
       table: { disable: true },
     },
@@ -139,7 +139,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const AlignItems: Story = {
   args: {
-    withDividers: true,
+    dividers: true,
     alignItems: 'flex-start',
     className: 'rds-list--align-responsive',
     items: [
@@ -207,17 +207,17 @@ export const CustomizedList: Story = {
         <span className="rds-list-demo__header-title">Firebase</span>
       </div>
       
-      <RdsList variant="firebase" items={firebaseOverviewItems} dense={args.dense} disablePadding={args.disablePadding} />
+      <RdsList variant="dense" items={firebaseOverviewItems} dense={args.dense} disablePadding={args.disablePadding} />
       
       <div className="rds-list-demo__section-header">Build</div>
-      <RdsList variant="firebase" items={firebaseBuildItems} dense={args.dense} disablePadding={args.disablePadding} />
+      <RdsList variant="dense" items={firebaseBuildItems} dense={args.dense} disablePadding={args.disablePadding} />
     </Paper>
   )
 };
 export const Dense: Story = {
   args: {
     dense: true,
-    withDividers: true,
+    dividers: true,
     items: [
       { id: 1, primary: 'Home', icon: <HomeIcon /> },
       { id: 2, primary: 'Profile', icon: <PersonIcon /> },
@@ -229,7 +229,7 @@ export const Dense: Story = {
 
 export const Folder: Story = {
   args: {
-    withDividers: true,
+    dividers: true,
     items: [
       { id: 1, primary: 'Photos', secondary: 'Jan 9, 2014', icon: <HomeIcon /> },
       { id: 2, primary: 'Work', secondary: 'Jan 7, 2014', icon: <SettingsIcon /> },
@@ -239,7 +239,7 @@ export const Folder: Story = {
 };
 export const Gutterless: Story = {
   args: {
-    withDividers: true,
+    dividers: true,
     disableGutters: true,
     items: [
       { id: 1, primary: 'Line item 1', secondaryAction: <CommentIcon /> },
@@ -250,7 +250,7 @@ export const Gutterless: Story = {
 };
 export const Inset: Story = {
   args: {
-    withDividers: true,
+    dividers: true,
     className: "rds-list--inset",
     items: [
       { id: 1, primary: 'Chelsea Otakan', icon: <StarIcon /> },
@@ -288,22 +288,22 @@ export const Interactive: Story = {
      
       <div>
         <div className="rds-list-demo__title">Text only</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveTextItems} dense={args.dense} disablePadding={args.disablePadding} />
+    <RdsList className="rds-list--align-responsive" dividers items={interactiveTextItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       <div>
         <div className="rds-list-demo__title">Icon with text</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveIconItems} dense={args.dense} disablePadding={args.disablePadding} />
+    <RdsList className="rds-list--align-responsive" dividers items={interactiveIconItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       <div>
         <div className="rds-list-demo__title">Avatar with text</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveAvatarItems} dense={args.dense} disablePadding={args.disablePadding} />
+    <RdsList className="rds-list--align-responsive" dividers items={interactiveAvatarItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       <div>
         <div className="rds-list-demo__title">Avatar with text and icon</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveCombinedItems} dense={args.dense} disablePadding={args.disablePadding} />
+    <RdsList className="rds-list--align-responsive" dividers items={interactiveCombinedItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
     </div>
   )
@@ -336,25 +336,16 @@ export const MultipleSelection: Story = {
     controls: { include: ['dense', 'disablePadding'] },
   },
   render: (args) => {
-    const [selectedItems, setSelectedItems] = React.useState<number[]>([2]);
-    
-    const handleCheckboxChange = (id: string | number, isChecked: boolean) => {
-      const numId = typeof id === 'string' ? parseInt(id) : id;
-      if (isChecked) {
-        setSelectedItems(prev => [...prev, numId as number]);
-      } else {
-        setSelectedItems(prev => prev.filter(item => item !== numId));
-      }
-    };
+    const [selectedItems, setSelectedItems] = React.useState<(string | number)[]>([2]);
     
     return (
       <div className="rds-list-demo__container">
         <div className="rds-list-demo__title">Interactive Multiple Selection</div>
         <RdsList
-          withDividers
-          withCheckboxes
-          checkedItems={selectedItems}
-          onCheckboxChange={handleCheckboxChange}
+          dividers
+          checkboxSelection
+          checked={selectedItems}
+          onCheckedChange={(_event, ids) => setSelectedItems(ids)}
           items={multiSelectionItems}
           dense={args.dense}
           disablePadding={args.disablePadding}
@@ -365,13 +356,13 @@ export const MultipleSelection: Story = {
 };
 export const Nested: Story = {
   args: {
-    withDividers: true,
+    dividers: true,
     items: nestedListItems
   }
 };
 export const Selected: Story = {
   args: {
-    withDividers: true,
+    dividers: true,
     items: [
       { id: 1, primary: 'Inbox', selected: true },
       { id: 2, primary: 'Drafts' },
@@ -425,7 +416,7 @@ export const StickySubheader: Story = {
   render: (args) => (
     <div className="rds-list-demo__container rds-list-demo__container--sticky">
       <RdsList
-        withDividers
+        dividers
         sections={subheaderSections.map((section) => ({
           title: section.title,
           items: section.items,
@@ -439,7 +430,7 @@ export const StickySubheader: Story = {
 
 export const WithIcons: Story = {
   args: {
-    withDividers: true,
+    dividers: true,
     items: [
       { id: 1, primary: 'Home', icon: <HomeIcon /> },
       { id: 2, primary: 'Profile', icon: <PersonIcon /> },
@@ -449,7 +440,7 @@ export const WithIcons: Story = {
 };
 export const WithSecondaryText: Story = {
   args: {
-  withDividers: true,
+  dividers: true,
   className: 'rds-list--align-responsive',
     items: [
       { id: 1, primary: 'Home', secondary: 'Navigate to home page', icon: <HomeIcon /> },
@@ -465,7 +456,7 @@ export const WithDividers: Story = {
       { id: 2, primary: 'Item 2', secondary: 'Description 2' },
       { id: 3, primary: 'Item 3', secondary: 'Description 3' },
     ],
-    withDividers: true,
+    dividers: true,
   },
 };
 
@@ -500,14 +491,6 @@ export const WithCheckbox: Story = {
   render: (args) => {
     const [checked, setChecked] = React.useState<(string | number)[]>([1]);
     
-    const handleCheckboxChange = (id: string | number, isChecked: boolean) => {
-      if (isChecked) {
-        setChecked(prev => [...prev, id]);
-      } else {
-        setChecked(prev => prev.filter(item => item !== id));
-      }
-    };
-    
     const itemsWithCustomCheckbox = checkboxItems.map(item => 
       item.id === 3 ? {
         ...item,
@@ -523,10 +506,10 @@ export const WithCheckbox: Story = {
       <div className="rds-list-demo__container rds-list--align-responsive">
         <div className="rds-list-demo__title">Different Checkbox States</div>
         <RdsList
-          withDividers
-          withCheckboxes
-          checkedItems={checked}
-          onCheckboxChange={handleCheckboxChange}
+          dividers
+          checkboxSelection
+          checked={checked}
+          onCheckedChange={(_event, ids) => setChecked(ids)}
           className="rds-list--align-responsive"
           items={itemsWithCustomCheckbox}
           dense={args.dense}
@@ -539,7 +522,7 @@ export const WithCheckbox: Story = {
 
 export const WithSwitch: Story = {
   args: {
-    withDividers: true,
+    dividers: true,
     items: [
       { id: 1, primary: 'Settings', icon: <Switch edge="end" /> },
       { id: 2, primary: 'Wi-Fi', icon: <Switch edge="end" /> },

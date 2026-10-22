@@ -17,7 +17,7 @@ figma.connect(
   {
     props: {},
     example: (props) => <RdsCompFilterButton
-  filters={[
+  options={[
     {
       id: 'filter1',
       name: 'Filter Name',

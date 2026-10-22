@@ -30,10 +30,6 @@ const meta: Meta<typeof RdsDivider> = {
     flexItem: {
       control: 'boolean',
     },
-    iconShow: {
-      control: 'boolean',
-      defaultValue: true,
-    },
     icon: {
       control: false,
       description: 'Icon shown next to the text (ReactNode). Defaults to an InfoOutlined icon',
@@ -44,7 +40,7 @@ const meta: Meta<typeof RdsDivider> = {
       description: 'Size of the divider',
       defaultValue: 'medium',
     },
-    styleVariant: {
+    color: {
       name: 'Layout',
       control: 'select',
       options: ['subtle', 'strong', 'primary'],
@@ -61,9 +57,8 @@ export const Default: Story = {
   args: {
     children: 'Default Divider',
     textAlign: 'center',
-    iconShow: true,
     size: 'medium',
-    styleVariant: 'subtle',
+    color: 'subtle',
   },
   play: async ({ canvasElement }) => {
     const hr = canvasElement.querySelector('hr, [role="separator"]');
@@ -76,7 +71,7 @@ export const Vertical: Story = {
     layout: "vertical",
   },
   parameters: {
-    controls: { exclude: ['layout', 'component', 'icon', 'iconShow','children', 'textAlign'] },
+    controls: { exclude: ['layout', 'component', 'icon', 'children', 'textAlign'] },
   },
 };
 
@@ -85,9 +80,8 @@ export const WithText: Story = {
   args: {
     children: 'OR',
     textAlign: 'center',
-    iconShow: true,
     size: 'medium',
-    styleVariant: 'subtle',
+    color: 'subtle',
   },
 };
 
@@ -95,8 +89,7 @@ export const Flexed: Story = {
   args: {
     children: 'Flexed',
     flexItem: true,
-    iconShow: true,
     size: 'medium',
-    styleVariant: 'subtle',
+    color: 'subtle',
   },
 };

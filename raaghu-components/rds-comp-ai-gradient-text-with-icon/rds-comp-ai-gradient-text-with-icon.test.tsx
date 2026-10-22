@@ -4,10 +4,11 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiGradientTextWithIcon, { RdsCompAiGradientTextProps } from './rds-comp-ai-gradient-text-with-icon';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+
 jest.mock('./rds-comp-ai-gradient-text-with-icon.scss', () => ({}));
 
-// Default props for testing
 const defaultProps: RdsCompAiGradientTextProps = {
   logoUrl: 'https://example.com/logo.jpg',
   title: 'Gradient Text',
@@ -234,7 +235,6 @@ describe('RdsCompAiGradientTextWithIcon', () => {
         />
       );
       const image = screen.getByRole('img');
-      // Component renders alt={title ?? ''} – the alt will equal the title prop
       expect(image).toHaveAttribute('alt', defaultProps.title);
     });
   });
@@ -424,9 +424,6 @@ describe('RdsCompAiGradientTextWithIcon', () => {
 
     it('renders with only showImage provided', () => {
       const { container } = render(<RdsCompAiGradientTextWithIcon showImage={true} />);
-      // showImage=true renders the image even without logoUrl.
-      // With no title the alt is '', making the img role="presentation" in ARIA,
-      // so query by CSS class instead of ARIA role.
       expect(container.querySelector('.rds-gradient-text-with-icon__logo')).toBeInTheDocument();
     });
 
@@ -718,7 +715,6 @@ describe('RdsCompAiGradientTextWithIcon', () => {
           showImage={true}
         />
       );
-      // No title → alt="" → ARIA role is "presentation"; query by class instead
       expect(container.querySelector('.rds-gradient-text-with-icon__logo')).toBeInTheDocument();
     });
 
@@ -769,5 +765,19 @@ describe('audit fixes', () => {
     expect(root).toHaveClass('extra');
     expect(ref.current).toBe(root);
     expect(screen.getByTestId('root')).toBe(root);
+  });
+});
+
+describe('audit fixes: icon', () => {
+  it('icon renders instead of the legacy logo props', () => {
+    render(<RdsCompAiGradientTextWithIcon title="T" icon={<i data-testid="ic" />} logo={<b data-testid="old" />} showIcon />);
+    expect(screen.getByTestId('ic')).toBeInTheDocument();
+    expect(screen.queryByTestId('old')).not.toBeInTheDocument();
+  });
+
+  it('legacy logo props still work and warn', () => {
+    render(<RdsCompAiGradientTextWithIcon title="T" logo={<b data-testid="old" />} showIcon />);
+    expect(screen.getByTestId('old')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiGradientTextWithIcon', 'logo', '`icon`');
   });
 });

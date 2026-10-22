@@ -5,7 +5,6 @@ import { axe } from 'jest-axe';
 import RdsCounter from './rds-counter';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS imports
 jest.mock('./rds-counter.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -672,5 +671,19 @@ describe('audit fixes', () => {
   it('has no axe violations with label and required', async () => {
     const { container } = render(<RdsCounter label="Guests" required />);
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe('RdsCounter additive renames', () => {
+  beforeEach(() => (warnDeprecatedProp as jest.Mock).mockClear());
+
+  it('applies slotProps.controls and warns for controlsClassName', () => {
+    const { container } = render(
+      <RdsCounter controlsClassName="old" slotProps={{ controls: { className: 'new', id: 'ctl' } }} />
+    );
+    const controls = container.querySelector('.rds-counter__controls');
+    expect(controls).toHaveClass('old', 'new');
+    expect(controls).toHaveAttribute('id', 'ctl');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCounter', 'controlsClassName', '`slotProps.controls.className`');
   });
 });

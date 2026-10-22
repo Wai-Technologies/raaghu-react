@@ -1,3 +1,5 @@
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -5,7 +7,6 @@ import RdsPaper from './rds-paper';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-paper.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -111,7 +112,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding={16}>Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // MUI converts padding numbers to theme spacing units
       expect(paper).toBeInTheDocument();
     });
 
@@ -213,7 +213,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding={16} sx={{ margin: '10px' }}>Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // Verify both padding and margin are applied
       expect(paper).toBeInTheDocument();
     });
 
@@ -234,7 +233,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding={16} sx={{ padding: '32px' }}>Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // sx should take precedence
       expect(paper).toBeInTheDocument();
     });
   });
@@ -449,7 +447,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding={0}>Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // When padding is 0, it should be applied
       expect(paper).toBeInTheDocument();
     });
 
@@ -476,7 +473,6 @@ describe('RdsPaper', () => {
         <RdsPaper padding="10px 20px 30px 40px">Content</RdsPaper>
       );
       const paper = container.querySelector('.MuiPaper-root');
-      // Verify component rendered with custom padding
       expect(paper).toBeInTheDocument();
     });
   });
@@ -618,5 +614,13 @@ describe('audit fixes', () => {
   it('G2-138: accepts an sx array', () => {
     render(<RdsPaper padding={2} sx={[{ margin: '10px' }, false]} data-testid="p">Content</RdsPaper>);
     expect(screen.getByTestId('p')).toHaveStyle({ margin: '10px', padding: '16px' });
+  });
+});
+
+describe('audit fixes', () => {
+  it('warns when deprecated padding is used and sx wins', () => {
+    const { container } = render(<RdsPaper padding={2} sx={{ p: '40px' }}>Content</RdsPaper>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsPaper', 'padding', '`sx.p`');
+    expect(container.firstChild).toHaveStyle({ padding: '40px' });
   });
 });

@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast.types";
+import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState, type ToastAnchorOrigin } from "./rds-comp-toast.types";
 
-export const getStateClass = (state: ToastState | `${ToastState}`): string => {
+export const getStateClass = (state?: ToastState | `${ToastState}`): string => {
     const stateClass: Record<string, string> = {
         [ToastState.Info]: "info",
         [ToastState.Success]: "success",
         [ToastState.Error]: "error",
         [ToastState.Basic]: "basic",
     };
-    return stateClass[state] ?? stateClass[ToastState.Basic];
+    return stateClass[state ?? ToastState.Basic] ?? stateClass[ToastState.Basic];
 };
 
 export const getLayoutClass = (layout: ToastLayout | `${ToastLayout}`): string => {
@@ -43,6 +43,9 @@ export const getPositionClasses = (position?: ToastPosition | `${ToastPosition}`
     };
     return position ? positionClass[position] : positionClass[ToastPosition.TopLeft];
 };
+
+export const anchorToPosition = ({ vertical, horizontal }: ToastAnchorOrigin) =>
+    `${vertical}${horizontal.charAt(0).toUpperCase()}${horizontal.slice(1)}` as `${ToastPosition}`;
 
 export const useToastTimer = (autohide?: boolean, delay?: number, onTimeout?: () => void) => {
     const onTimeoutRef = useRef(onTimeout);

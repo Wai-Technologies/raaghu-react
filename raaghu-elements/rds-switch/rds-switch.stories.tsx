@@ -23,11 +23,6 @@ const meta: Meta<typeof RdsSwitch> = {
       description: 'Control switch state for demo and Storybook',
       defaultValue: 'Off',
     },
-    showLabel: {
-      control: 'boolean',
-      description: 'Control to show/hide label',
-      defaultValue: true,
-    },
     style: {
       control: 'select',
       options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5"],
@@ -65,7 +60,6 @@ export const Default: Story = {
     layout: 'switch+label',
     style: 'style1',
     state: 'off',
-    showLabel: true,
   },
 };
 
@@ -81,7 +75,6 @@ export const Colors: Story = {
     label: 'Secondary Color',
     color: 'secondary',
     defaultChecked: true,
-    showLabel: true,
   },
 };
 

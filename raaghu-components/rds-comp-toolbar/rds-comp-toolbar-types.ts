@@ -26,8 +26,12 @@ export interface RdsCompToolbarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
   /** Figma layout: one row (`primary`) or one row per section (`secondary`). */
   layout?: ToolbarLayout;
+  /** Alias of `layout`; wins over `layout` when both are passed. */
+  variant?: `${ToolbarLayout}`;
   /** Built-in preset used when `items` is not passed. */
   type?: ToolbarType;
+  /** Alias of `type`; wins over `type` when both are passed. */
+  preset?: `${ToolbarType}`;
   /** Figma state. `disabled-on` and `disabled-off` disable the toolbar unless `disabled` is set. */
   state?: ToolbarState;
   /** Disables every button. Wins over `state`. */

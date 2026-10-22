@@ -351,7 +351,7 @@ const meta: Meta<typeof RdsAppBar> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['component', 'onMenuClick', 'actions', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
+    exclude: ['component', 'onMenuClick', 'actions', 'endSlot', 'centerSlot', 'tabsProps', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
   },
   },
   tags: ['autodocs', 'stable'],
@@ -510,7 +510,7 @@ const DynamicTemplate = (args: any) => {
         ...config,
         title: 'App Title',
   
-        rightActions: <Button color="inherit">Login</Button>,
+        endSlot: <Button color="inherit">Login</Button>,
       };
       break;
     case 'withsearch':
@@ -524,7 +524,7 @@ const DynamicTemplate = (args: any) => {
         ),
         searchValue,
         searchPlaceholder: args.searchPlaceholder || 'Search…',
-        rightActions: undefined,
+        endSlot: undefined,
       };
       break;
     case 'logosearchactions':
@@ -549,7 +549,7 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
-        rightActions: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
+        endSlot: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
@@ -695,7 +695,7 @@ const DynamicTemplate = (args: any) => {
         ...config,
         showLogo: config.showLogo,
         logo: logoImg,
-        rightActions: (
+        endSlot: (
           <div className="rds-appbar-tabs-container">
             <div className="rds-appbar-separator" />
             <div className="rds-appbar-tabs">
@@ -745,7 +745,7 @@ const DynamicTemplate = (args: any) => {
         ),
         showLogo: config.showLogo,
         
-        rightActions: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
+        endSlot: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
@@ -763,7 +763,7 @@ const DynamicTemplate = (args: any) => {
             <MenuIcon />
           </IconButton>
         ),
-        centerContent: (
+        centerSlot: (
           <div className="rds-withactions-center-buttons">
             <span className="rds-withactions-findjobs-topnav">
               <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
@@ -824,7 +824,7 @@ const DynamicTemplate = (args: any) => {
         ),
         showLogo: config.showLogo,
         tabs: ['Home', 'Agreement'],
-        rightActions: (
+        endSlot: (
           <div className="rds-appbar-actions-group">
             <span className="rds-appbar-badge">28 Days Left</span>
             <RdsButton style='filled' color="primary" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none', textTransform: 'none' }}>
@@ -867,7 +867,7 @@ const DynamicTemplate = (args: any) => {
     logo: logoImg,
     showLogo: config.showLogo,
   title: <span className="rds-dashboard-title" style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
-        rightActions: (
+        endSlot: (
           <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div className="rds-dashboard-top-icons" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -909,7 +909,7 @@ const DynamicTemplate = (args: any) => {
             <MenuIcon />
           </IconButton>
         ),
-        rightActions: <Button color="inherit">Login</Button>,
+        endSlot: <Button color="inherit">Login</Button>,
       };
   }
 

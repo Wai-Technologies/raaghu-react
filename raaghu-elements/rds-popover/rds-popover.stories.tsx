@@ -14,10 +14,10 @@ const meta: Meta<typeof RdsPopover> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    position: {
+    placement: {
       control: 'select',
-      options: ['top-left', 'top-center', 'top-right', 'right-top', 'right-center', 'right-bottom', 'bottom-right', 'bottom-center', 'bottom-left', 'left-bottom', 'left-center', 'left-top', 'no-arrow'],
-      description: 'Position of the popover relative to the anchor element. Organized as [side]-[alignment], or "no-arrow" for a popover without an arrow',
+      options: ['top-left', 'top-center', 'top-right', 'right-top', 'right-center', 'right-bottom', 'bottom-right', 'bottom-center', 'bottom-left', 'left-bottom', 'left-center', 'left-top'],
+      description: 'Position of the popover relative to the anchor element. Organized as [side]-[alignment]',
       defaultValue: 'bottom-left',
     },
   },
@@ -28,7 +28,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    position: 'bottom-left',
+    placement: 'bottom-left',
     showCloseButton: false,
   },
   render: (args) => {
@@ -62,16 +62,16 @@ export const Default: Story = {
     );
   },
 };
-Default.parameters = { controls: { include: ['position', 'showCloseButton'] } };
+Default.parameters = { controls: { include: ['placement', 'showCloseButton'] } };
 
 export const CustomPosition: Story = {
   argTypes: {
-    position: { table: { disable: true } },
+    placement: { table: { disable: true } },
     showCloseButton: { control: 'boolean' },
   },
   args: {
     showCloseButton: false,
-    position: 'no-arrow',
+    arrow: false,
   },
   render: (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
@@ -116,12 +116,12 @@ CustomPosition.parameters = { controls: { include: ['showCloseButton'] } };
 
 export const WideContent: Story = {
   argTypes: {
-    position: { table: { disable: true } },
+    placement: { table: { disable: true } },
     showCloseButton: { control: 'boolean' },
   },
   args: {
     showCloseButton: false,
-    position: 'no-arrow',
+    arrow: false,
     width: 500,
   },
   render: (args) => {
@@ -167,12 +167,12 @@ WideContent.parameters = { controls: { include: ['showCloseButton'] } };
 
 export const WithCloseButton: Story = {
   argTypes: {
-    position: { table: { disable: true } },
+    placement: { table: { disable: true } },
     showCloseButton: { control: 'boolean' },
   },
   args: {
     showCloseButton: true,
-    position: 'no-arrow',
+    arrow: false,
   },
   render: (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
@@ -212,7 +212,7 @@ WithCloseButton.parameters = { controls: { include: ['showCloseButton'] } };
 
 export const WithList: Story = {
   argTypes: {
-    position: { table: { disable: true } },
+    placement: { table: { disable: true } },
   },
   render: () => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
@@ -244,7 +244,7 @@ export const WithList: Story = {
           anchorEl={anchorEl}
           title="Menu Options"
           width={250}
-          position="no-arrow"
+          arrow={false}
           className="with-list-popover"
         >
           <List dense>

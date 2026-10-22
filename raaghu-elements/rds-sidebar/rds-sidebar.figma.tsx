@@ -34,7 +34,7 @@ figma.connect(
         onClick: () => {}
       },
       {
-        active: true,
+        selected: true,
         icon: <DashboardIcon />,
         label: 'Dashboard',
         onClick: () => {}
@@ -55,7 +55,7 @@ figma.connect(
         onClick: () => {}
       }
     ]} showLogo isOpen={true} {...props} 
-    avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+    user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
     avatarCollapsedSrc={RAAGHU_LOGO_LIGHT_URL}
     />,
   },

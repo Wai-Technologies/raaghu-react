@@ -14,7 +14,11 @@ function capitalizeFirstLetter(text: string): string {
 export interface RdsTabItem {
   id: string | number;
   label: string;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
+  /** @deprecated Use `startIcon` instead. */
   leftIcon?: ReactNode;
+  /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
   disabled?: boolean;
   title?: string; 
@@ -36,11 +40,13 @@ export type RdsTabsLayout =
   | 'pill';
 
 /**
- * Tab strip built on MUI `Tabs`. Pass `tabs` as data; select with `value` / `onChange`.
+ * Tab strip built on MUI `Tabs`. Pass `items` as data; select with `value` / `onChange`.
  * Figma props (`layout`, `state`, `showLeftIcon` / `showRightIcon`) stay supported.
  */
 export interface RdsTabsProps extends Omit<TabsProps, 'component'> {
-  tabs: RdsTabItem[];
+  items?: RdsTabItem[];
+  /** @deprecated Use `items` instead. */
+  tabs?: RdsTabItem[];
   /** @deprecated Use `value` instead. */
   activeTab?: string | number;
   /** @deprecated Use `onChange(event, value)` instead. */
@@ -48,7 +54,11 @@ export interface RdsTabsProps extends Omit<TabsProps, 'component'> {
   layout?: RdsTabsLayout;
   /** @deprecated Use `orientation` instead. */
   type?: 'horizontal' | 'vertical';
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
+  /** @deprecated Use `startIcon` instead. */
   leftIcon?: ReactNode;
+  /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
   showLeftIcon?: boolean; 
   showRightIcon?: boolean; 
@@ -57,6 +67,7 @@ export interface RdsTabsProps extends Omit<TabsProps, 'component'> {
 }
 
 const RdsTabs = ({
+  items,
   tabs,
   activeTab,
   onTabChange,
@@ -65,6 +76,8 @@ const RdsTabs = ({
   layout = 'filled',
   orientation,
   type,
+  startIcon,
+  endIcon,
   leftIcon,
   rightIcon,
   showLeftIcon = true,
@@ -77,6 +90,12 @@ const RdsTabs = ({
   if (activeTab !== undefined) warnDeprecatedProp('RdsTabs', 'activeTab', '`value`');
   if (onTabChange !== undefined) warnDeprecatedProp('RdsTabs', 'onTabChange', '`onChange`');
   if (type !== undefined) warnDeprecatedProp('RdsTabs', 'type', '`orientation`');
+  if (tabs !== undefined) warnDeprecatedProp('RdsTabs', 'tabs', '`items`');
+  if (leftIcon !== undefined) warnDeprecatedProp('RdsTabs', 'leftIcon', '`startIcon`');
+  if (rightIcon !== undefined) warnDeprecatedProp('RdsTabs', 'rightIcon', '`endIcon`');
+  const tabItems = items ?? tabs ?? [];
+  if (tabItems.some((tab) => tab.leftIcon !== undefined)) warnDeprecatedProp('RdsTabs', 'tabs[].leftIcon', '`items[].startIcon`');
+  if (tabItems.some((tab) => tab.rightIcon !== undefined)) warnDeprecatedProp('RdsTabs', 'tabs[].rightIcon', '`items[].endIcon`');
 
   const handleChange = (event: SyntheticEvent, newValue: string | number) => {
     if (onTabChange) {
@@ -89,13 +108,12 @@ const RdsTabs = ({
 
 const layoutClass = clsx(`rds-tabs--${layout}`, `rds-state--${state || 'default'}`);
 
-  const tabsWithIcons = tabs.map((tab) => ({
+  const tabsWithIcons = tabItems.map((tab) => ({
     ...tab,
-    leftIcon: showLeftIcon ? (tab.leftIcon ?? leftIcon ?? <PersonIcon fontSize="small" />) : undefined,
-    rightIcon: showRightIcon ? (tab.rightIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
+    leftIcon: showLeftIcon ? (tab.startIcon ?? tab.leftIcon ?? startIcon ?? leftIcon ?? <PersonIcon fontSize="small" />) : undefined,
+    rightIcon: showRightIcon ? (tab.endIcon ?? tab.rightIcon ?? endIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
   }));
 
-  // Keep Tabs uncontrolled unless a controlled value is explicitly provided.
   const providedValue = value ?? activeTab;
 
   return (

@@ -6,12 +6,12 @@ import { Avatar } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import '@testing-library/jest-dom';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-list.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock RdsCheckbox component
 jest.mock('../rds-checkbox/rds-checkbox', () => {
   return function DummyCheckbox(props: any) {
     return (
@@ -205,7 +205,6 @@ describe('RdsList', () => {
         <RdsList items={defaultItems} withDividers={true} />
       );
       const dividers = container.querySelectorAll('.MuiDivider-root');
-      // Should be items.length - 1 for simple lists
       expect(dividers.length).toBeGreaterThanOrEqual(1);
     });
   });
@@ -407,7 +406,6 @@ describe('RdsList', () => {
       const parentButton = screen.getByText('Parent Item').closest('button');
       if (parentButton) {
         fireEvent.click(parentButton);
-        // The nested list should now be visible
         expect(screen.getByText('Child Item')).toBeInTheDocument();
       }
     });
@@ -651,5 +649,30 @@ describe('audit fixes', () => {
     fireEvent.click(btn);
     expect(btn).toHaveAttribute('aria-expanded', 'true');
     expect(document.getElementById(btn.getAttribute('aria-controls') as string)).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes (renames)', () => {
+  const items = [{ id: 1, primary: 'One' }, { id: 2, primary: 'Two' }];
+
+  it('checkboxSelection, checked and onCheckedChange work', () => {
+    const onCheckedChange = jest.fn();
+    const { container } = render(<RdsList checkboxSelection checked={[1]} onCheckedChange={onCheckedChange} items={items} />);
+    const boxes = container.querySelectorAll('input[type="checkbox"]');
+    expect(boxes[0]).toBeChecked();
+    fireEvent.click(boxes[1]);
+    expect(onCheckedChange).toHaveBeenCalledWith(expect.anything(), [1, 2]);
+  });
+
+  it('dividers and variant dense match legacy output', () => {
+    const { container } = render(<RdsList dividers variant="dense" items={items} />);
+    expect(container.querySelectorAll('.rds-list__divider')).toHaveLength(1);
+    expect(container.querySelector('.rds-list--firebase')).toBeInTheDocument();
+  });
+
+  it('warns for deprecated props', () => {
+    render(<RdsList withDividers withCheckboxes checkedItems={[]} onCheckboxChange={() => {}} variant="firebase" items={items} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsList', 'withDividers', '`dividers`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsList', 'checkedItems', '`checked`');
   });
 });

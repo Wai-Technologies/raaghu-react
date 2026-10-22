@@ -19,7 +19,9 @@ registerMaterialIcons({
 
 export interface RdsCompAiFabMenuItem {
   key: string;
-  value: ReactNode;
+  label?: ReactNode;
+  /** @deprecated Use `label` instead. */
+  value?: ReactNode;
   /** Icon name (string) or a custom node rendered as-is. */
   icon?: string | ReactNode;
   iconWidth?: string;
@@ -28,49 +30,72 @@ export interface RdsCompAiFabMenuItem {
 }
 
 export interface RdsCompAiFabMenuProps {
+  color?: "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "dark" | "light";
+  /** @deprecated Use `color` instead. */
   colorVariant?: "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "dark" | "light";
   size?: "small" | "medium" | "large";
+  icon?: string;
+  /** @deprecated Use `icon` instead. */
   menuIcon?: string;
   /** @deprecated Has no effect. */
   menuiconWidth?: string;
   /** @deprecated Has no effect. */
   menuiconHeight?: string;
-  listItems: RdsCompAiFabMenuItem[];
+  items?: RdsCompAiFabMenuItem[];
+  /** @deprecated Use `items` instead. */
+  listItems?: RdsCompAiFabMenuItem[];
   className?: string;
   id?: string;
   /** Use the compact item style (defaults to `id === "attachment-text"`). */
   dense?: boolean;
   /** Accessible name of the trigger button. */
   "aria-label"?: string;
+  bordered?: boolean;
+  /** @deprecated Use `bordered` instead. */
   isShowBorder?: boolean;
+  /** @deprecated Use `variant="rounded"` instead. */
   isRectangular?: boolean;
+  variant?: "circular" | "rounded" | "text";
+  /** @deprecated Use `variant` instead (`rectangular` is `rounded`, `none` is `text`). */
   backgroundType?: "circular" | "rectangular" | "none";
+  placement?: "left" | "right";
+  /** @deprecated Use `placement` instead. */
   alignment?: "left" | "right";
   /** @deprecated Has no effect. */
   onClick?: () => void;
 }
 
+const VARIANT_TO_BACKGROUND = { circular: "circular", rounded: "rectangular", text: "none" } as const;
+
 const resolveBackgroundType = (
+  variant: RdsCompAiFabMenuProps["variant"],
   backgroundType: RdsCompAiFabMenuProps["backgroundType"],
   isRectangular?: boolean
 ): NonNullable<RdsCompAiFabMenuProps["backgroundType"]> => {
+  if (variant) return VARIANT_TO_BACKGROUND[variant];
   if (backgroundType) return backgroundType;
   return isRectangular ? "rectangular" : "circular";
 };
 
 function RdsCompAiFabMenu({
-  colorVariant = "primary",
+  color,
+  colorVariant,
   size,
-  menuIcon = "list",
+  icon,
+  menuIcon,
+  items,
   listItems,
   className = "",
   id,
   dense,
   "aria-label": ariaLabel = "Open menu",
+  bordered,
   isShowBorder,
   isRectangular,
+  variant,
   backgroundType,
-  alignment = "left",
+  placement,
+  alignment,
   menuiconWidth,
   menuiconHeight,
   onClick,
@@ -79,12 +104,26 @@ function RdsCompAiFabMenu({
   if (menuiconHeight !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconHeight", "nothing (no effect)");
   if (onClick !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "onClick", "nothing (no effect)");
 
+  if (colorVariant !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "colorVariant", "`color`");
+  if (menuIcon !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuIcon", "`icon`");
+  if (listItems !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "listItems", "`items`");
+  if (isShowBorder !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "isShowBorder", "`bordered`");
+  if (isRectangular !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "isRectangular", "`variant=\"rounded\"`");
+  if (backgroundType !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "backgroundType", "`variant`");
+  if (alignment !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "alignment", "`placement`");
+
+  const resolvedColor = color ?? colorVariant ?? "primary";
+  const resolvedIcon = icon ?? menuIcon ?? "list";
+  const resolvedItems = items ?? listItems ?? [];
+  const resolvedBordered = bordered ?? isShowBorder;
+  const resolvedPlacement = placement ?? alignment ?? "left";
+
   const menuId = useId();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const resolvedBackgroundType = resolveBackgroundType(backgroundType, isRectangular);
+  const resolvedBackgroundType = resolveBackgroundType(variant, backgroundType, isRectangular);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
@@ -137,11 +176,9 @@ function RdsCompAiFabMenu({
   };
 
   const iconColorVariant =
-    colorVariant === "dark" || colorVariant === "primary" || colorVariant === "danger"
+    resolvedColor === "dark" || resolvedColor === "primary" || resolvedColor === "danger"
       ? "light"
       : "dark";
-  // When there is no background (transparent button), a "light" icon is invisible on light
-  // theme backgrounds. Use "primary" so the icon inherits the button's primary foreground color.
   const resolvedIconColorVariant =
     resolvedBackgroundType === "none" ? "primary" : iconColorVariant;
 
@@ -149,10 +186,10 @@ function RdsCompAiFabMenu({
     <div
       className={clsx(
         "rds-fab-menu",
-        alignment === "right" && "rds-fab-menu--right",
+        resolvedPlacement === "right" && "rds-fab-menu--right",
         isMenuOpen && "rds-fab-menu--open"
       )}
-      data-alignment={alignment}
+      data-alignment={resolvedPlacement}
       data-open={isMenuOpen}
       onKeyDown={handleKeyDown}
     >
@@ -160,7 +197,7 @@ function RdsCompAiFabMenu({
         ref={buttonRef}
         className={clsx(
           "rds-fab-menu__button",
-          `rds-fab-menu__button--${colorVariant}`,
+          `rds-fab-menu__button--${resolvedColor}`,
           size && `rds-fab-menu__button--${size}`,
           `rds-fab-menu__button--${resolvedBackgroundType}`,
           className
@@ -174,7 +211,7 @@ function RdsCompAiFabMenu({
         data-testid="fab-menu-btn"
       >
         <RdsCompAiIcon
-          name={menuIcon}
+          name={resolvedIcon}
           fill={false}
           stroke={true}
           height="24px"
@@ -185,7 +222,7 @@ function RdsCompAiFabMenu({
       <div
         className={clsx(
           "rds-fab-menu__dropdown-container",
-          `rds-fab-menu__dropdown-container--${alignment}`,
+          `rds-fab-menu__dropdown-container--${resolvedPlacement}`,
           isMenuOpen && "rds-fab-menu__dropdown-container--open"
         )}
         ref={menuRef}
@@ -193,13 +230,13 @@ function RdsCompAiFabMenu({
         <div
           className={clsx(
             "rds-fab-menu__dropdown",
-            isShowBorder && "rds-fab-menu__dropdown--bordered",
+            resolvedBordered && "rds-fab-menu__dropdown--bordered",
             isMenuOpen && "rds-fab-menu__dropdown--open"
           )}
           role="menu"
           id={menuId}
         >
-          {listItems.map((listItem) => (
+          {resolvedItems.map((listItem) => (
             <button
               type="button"
               key={listItem.key}
@@ -222,7 +259,7 @@ function RdsCompAiFabMenu({
               ) : (
                 listItem.icon
               )}
-              <span className="rds-fab-menu__item-text">{listItem.value}</span>
+              <span className="rds-fab-menu__item-text">{listItem.label ?? listItem.value}</span>
             </button>
           ))}
         </div>

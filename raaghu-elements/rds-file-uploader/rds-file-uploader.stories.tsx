@@ -17,7 +17,7 @@ const meta: Meta<typeof RdsFileUploader> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['onFilesChange', 'onUpload'],
+    exclude: ['onChange', 'onFilesChange', 'onUpload'],
     },
   },
   decorators: [
@@ -340,7 +340,7 @@ export const Standard: Story = {
       updatedArgs.children = <DeleteIcon />;
     }
     
-    return <RdsFileUploader {...updatedArgs} onFilesChange={setFiles} />;
+    return <RdsFileUploader {...updatedArgs} onChange={(_, nextFiles) => setFiles(nextFiles)} />;
   },
 };
 

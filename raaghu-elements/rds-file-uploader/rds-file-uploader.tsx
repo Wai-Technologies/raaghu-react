@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode, SyntheticEvent } from 'react';
 import { Box, Typography } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
@@ -12,8 +12,8 @@ import {
   useFileUploader
 } from './RdsFileUploaderComponents';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
-export type { FileWithProgress, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
-import type { RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
+export type { FileWithProgress, FileUploaderVariant, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
+import type { FileWithProgress, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
 /**
  * Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
@@ -36,24 +36,28 @@ const toSxArray = (sx: SxProps<Theme> | undefined): SxArray =>
   (Array.isArray(sx) ? sx : sx ? [sx] : []) as SxArray;
 
 const RdsFileUploader = ({
+  onChange,
   onFilesChange,
   label,
   title,
   onUpload,
   accept,
   multiple: multipleProp,
-  maxSize = 10 * 1024 * 1024, // 10MB default
+  maxSize = 10 * 1024 * 1024,
   maxFiles = 5,
   disabled = false,
   dragAndDrop = true,
   required,
   display,
+  showFileList,
   helperText,
   hintText,
-  placeholderImage = '',
+  placeholderImage,
+  slotProps,
   state: _state,
   mode = 'standard',
   style,
+  variant,
   children,
   showPreview: showPreviewProp,
   showTitle: showTitleProp,
@@ -66,6 +70,9 @@ const RdsFileUploader = ({
   if (title !== undefined) warnDeprecatedProp('RdsFileUploader', 'title', '`label`');
   if (hintText !== undefined) warnDeprecatedProp('RdsFileUploader', 'hintText', '`helperText`');
   if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsFileUploader', 'isMandatory', '`required`');
+  if (onFilesChange !== undefined) warnDeprecatedProp('RdsFileUploader', 'onFilesChange', '`onChange`');
+  if (display !== undefined) warnDeprecatedProp('RdsFileUploader', 'display', '`showFileList`, `showTitle`, `showHint` and `required`');
+  if (placeholderImage !== undefined) warnDeprecatedProp('RdsFileUploader', 'placeholderImage', '`slotProps.placeholder.src`');
   if (display?.mandatory !== undefined) warnDeprecatedProp('RdsFileUploader', 'display.mandatory', '`required`');
 
   const legacyShowPreview = typeof showPreviewProp === 'boolean' ? showPreviewProp : undefined;
@@ -73,13 +80,18 @@ const RdsFileUploader = ({
   const legacyIsMandatory = typeof isMandatoryProp === 'boolean' ? isMandatoryProp : undefined;
   const legacyShowHint = typeof showHintProp === 'boolean' ? showHintProp : undefined;
 
-  const showPreview = display?.preview ? display.preview === 'visible' : (legacyShowPreview ?? true);
+  const showPreview = showFileList ?? (display?.preview ? display.preview === 'visible' : (legacyShowPreview ?? true));
+  const dropAreaStyle = variant ?? style;
+  const placeholderProps = { ...slotProps?.placeholder, src: slotProps?.placeholder?.src ?? placeholderImage };
+  const emitFilesChange = (nextFiles: FileWithProgress[], event?: SyntheticEvent) => {
+    onFilesChange?.(nextFiles);
+    onChange?.(event, nextFiles);
+  };
   const showTitle = display?.title ? display.title === 'visible' : (legacyShowTitle ?? false);
   const isMandatory = required ?? (display?.mandatory ? display.mandatory === 'required' : (legacyIsMandatory ?? false));
   const showHint = display?.hint ? display.hint === 'visible' : (legacyShowHint ?? false);
   const fieldLabel = label ?? title;
   const hint = helperText ?? hintText ?? '';
-  // Native input `multiple` attribute (defaults to false, as before).
   const multiple = multipleProp ?? false;
 
   const {
@@ -103,10 +115,8 @@ const RdsFileUploader = ({
     maxSize,
     maxFiles,
     isMandatory,
-    // Only an explicit `multiple={false}` switches to replace-on-select; when omitted, new files
-    // are appended (up to `maxFiles`) as before.
     multiple: multipleProp !== false,
-    onFilesChange,
+    onFilesChange: emitFilesChange,
     onUpload,
   });
 
@@ -135,7 +145,7 @@ const RdsFileUploader = ({
           addFiles={addFiles}
           setSelectedFileName={setSelectedFileName}
           setFiles={setFiles}
-          onFilesChange={onFilesChange}
+          onFilesChange={emitFilesChange}
 
           title={fieldLabel}
         >{children}</RdsFileUploaderStandardView>
@@ -151,9 +161,9 @@ const RdsFileUploader = ({
             </Typography>
           )}
 
-          {placeholderImage && files.length === 0 && (
+          {placeholderProps.src && files.length === 0 && (
             <Box sx={{ mb: 2, textAlign: 'center' }}>
-              <img className="rds-file-uploader__placeholder-img" src={placeholderImage} alt="placeholder" aria-hidden="true" />
+              <img alt="placeholder" aria-hidden="true" {...placeholderProps} className={clsx('rds-file-uploader__placeholder-img', placeholderProps.className)} />
             </Box>
           )}
 
@@ -168,7 +178,7 @@ const RdsFileUploader = ({
             aria-label={fieldLabel || 'File upload'}
           />
 
-          {style === 'Drop Area - Side Icon' ? (
+          {dropAreaStyle === 'Drop Area - Side Icon' ? (
             <RdsDropZoneSideIcon
               mode={mode || 'default'}
               isDragOver={isDragOver}
@@ -178,7 +188,7 @@ const RdsFileUploader = ({
               onDrop={handleDrop}
               openFileDialog={openFileDialog}
             />
-          ) : style === 'Drop Area - With Upload Button' ? (
+          ) : dropAreaStyle === 'Drop Area - With Upload Button' ? (
             <RdsDropZoneWithButton
               mode={mode || 'default'}
               isDragOver={isDragOver}

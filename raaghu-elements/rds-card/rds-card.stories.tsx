@@ -78,10 +78,6 @@ const meta: Meta<typeof RdsCard> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    padding: {
-      control: 'text',
-      description: 'Padding for the card content',
-    },
     elevation: {
       control: 'number',
       description: 'Elevation (shadow) of the card',
@@ -144,7 +140,7 @@ const meta: Meta<typeof RdsCard> = {
       control: 'text',
       description: 'Set the main title text for the card. This will be displayed as the primary heading.',
     },
-    cardSubtext: {
+    subtitle: {
       control: 'text',
       description: 'Set the subtitle text for the card. This will be displayed below the title.',
     },
@@ -170,7 +166,7 @@ export const Default: Story = {
     showIcon: true,
     icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
       <RdsButton
@@ -187,7 +183,7 @@ export const Default: Story = {
 };
 Default.parameters = { 
   controls: { 
-    include: ['state', 'selected', 'disabled', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'selected', 'disabled', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
   } 
 };
 
@@ -205,7 +201,7 @@ export const Elevated: Story = {
 };
 Elevated.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
   } 
 };
 
@@ -219,7 +215,7 @@ export const Outlined: Story = {
 };
 Outlined.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']  
   } 
 };
 
@@ -241,7 +237,7 @@ export const WithActions: Story = {
 };
 WithActions.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
   } 
 };
 export const WithAvatar: Story = {
@@ -256,11 +252,11 @@ export const WithAvatar: Story = {
     showIcon: true,
     icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
   } as any,
   parameters: {
     controls: {
-      include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'isEditing'],
+      include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'isEditing'],
     },
   },
   argTypes: {
@@ -274,7 +270,7 @@ export const WithAvatar: Story = {
     const [isEditMode, setIsEditMode] = useState(false);
     const [editableData, setEditableData] = useState({
       title: args.title || 'Card Title',
-      cardSubtext: args.cardSubtext || 'Card Subtitle',
+      subtitle: args.subtitle || 'Card Subtitle',
       avatarName: 'Jane Doe',
       avatarDesignation: 'Designation'
     });
@@ -305,7 +301,7 @@ export const WithAvatar: Story = {
       <RdsCard
         {...args}
         title={isEditMode ? undefined : editableData.title}
-        cardSubtext={isEditMode ? undefined : editableData.cardSubtext}
+        subtitle={isEditMode ? undefined : editableData.subtitle}
       >
         {isEditMode && (
           <div className="rds-card__editable-field">
@@ -319,8 +315,8 @@ export const WithAvatar: Story = {
               className="rds-card__input--title"
             />
             <RdsInput
-              value={tempData.cardSubtext}
-              onChange={(e) => handleInputChange('cardSubtext', e.target.value)}
+              value={tempData.subtitle}
+              onChange={(e) => handleInputChange('subtitle', e.target.value)}
               placeholder="Card Subtitle"
               variant="outlined"
               size="small"
@@ -408,7 +404,7 @@ export const WithAvatar: Story = {
 };
 WithAvatar.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']  
   } 
 };
 
@@ -424,7 +420,7 @@ export const WithBadges: Story = {
     showIcon: true,
     icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     children: (
       <div className="rds-card__badges">
         <RdsBadge 
@@ -447,7 +443,7 @@ export const WithBadges: Story = {
 };
 WithBadges.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
   } 
 };
 
@@ -463,7 +459,7 @@ export const WithButton: Story = {
     showIcon: true,
     icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
       <div className="rds-card__button-group">
@@ -487,7 +483,7 @@ export const WithButton: Story = {
 };
 WithButton.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']   } 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']   } 
 };
 
 export const WithCustomPadding: Story = {
@@ -495,12 +491,12 @@ export const WithCustomPadding: Story = {
     title: 'Card with Custom Padding',
     showDescription: true,
     description: 'This card has custom padding applied.',
-    padding: '24px',
+    sx: { padding: '24px' },
   },
 };
 WithCustomPadding.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']  
   } 
 };
 
@@ -516,7 +512,7 @@ export const WithImage: Story = {
     showIcon: true,
     icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     children: (
       <>
         <div className="rds-card__image">
@@ -557,7 +553,7 @@ export const WithImage: Story = {
 };
 WithImage.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
   } 
 };
 
@@ -573,7 +569,7 @@ export const WithLinkButton: Story = {
     showIcon: true,
     icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
       <RdsButton
@@ -587,7 +583,7 @@ export const WithLinkButton: Story = {
 };
 WithLinkButton.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
   } 
 };
 
@@ -603,7 +599,7 @@ export const WithTags: Story = {
     showIcon: true,
     icon: 'person',
     title: 'Card Title',
-    cardSubtext: 'Card Subtitle',
+    subtitle: 'Card Subtitle',
     children: (
       <>
         <div className="rds-card__tags">
@@ -627,7 +623,7 @@ export const WithTags: Story = {
 };
 WithTags.parameters = { 
   controls: { 
-    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
   } 
 };
 

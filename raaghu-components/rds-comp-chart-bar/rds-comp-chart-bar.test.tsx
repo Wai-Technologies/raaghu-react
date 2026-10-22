@@ -3,14 +3,12 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBarChart from './rds-comp-chart-bar';
+import { applyCanvasSize } from '../chart-utils';
 
-// Mock deprecation warnings
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-chart-bar.scss', () => ({}));
 
-// Mock Chart.js
 jest.mock('chart.js/auto', () => {
   return class MockChart {
     static configs: any[] = [];
@@ -822,5 +820,40 @@ describe('audit fixes', () => {
     Chart.configs.length = 0;
     render(<RdsCompBarChart {...defaultProps} id="other" />);
     expect(Chart.configs[0].options).toMatchObject({ responsive: true, maintainAspectRatio: false });
+  });
+});
+
+describe('additive prop renames', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+  const getChart = () => jest.requireMock('chart.js/auto');
+
+  it('ariaLabel wins over the deprecated chartLabel', () => {
+    render(<RdsCompBarChart {...defaultProps} ariaLabel="New" chartLabel="Old" />);
+    expect(screen.getByRole('img')).toHaveAttribute('aria-label', 'New');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBarChart', 'chartLabel', '`ariaLabel`');
+  });
+
+  it('uses data over labels and dataSets', () => {
+    const Chart = getChart();
+    Chart.configs.length = 0;
+    const data = { labels: ['A'], datasets: [{ data: [1] }] };
+    render(<RdsCompBarChart id="d" options={{}} data={data} />);
+    expect(Chart.configs[0].data.labels).toEqual(['A']);
+    expect(Chart.configs[0].data.datasets[0].data).toEqual([1]);
+  });
+
+  it('warns when labels or dataSets are passed', () => {
+    render(<RdsCompBarChart {...defaultProps} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBarChart', 'labels', '`data`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompBarChart', 'dataSets', '`data`');
+  });
+
+  it('applyCanvasSize sets only the passed dimensions', () => {
+    const canvas = document.createElement('canvas');
+    applyCanvasSize(canvas, undefined, 320);
+    expect(canvas.style.width).toBe('320px');
+    expect(canvas.style.height).toBe('');
+    applyCanvasSize(canvas, '50%');
+    expect(canvas.style.height).toBe('50%');
   });
 });

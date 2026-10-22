@@ -670,7 +670,6 @@ describe('RdsRating', () => {
         <RdsRating type="star" label="" />
       );
       const label = container.querySelector('.rds-rating__label');
-      // Empty string label should still render element
       if (label) {
         expect(label.textContent).toBe('');
       }
@@ -767,5 +766,21 @@ describe('audit fixes', () => {
     const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
     renderWithTheme(<RdsRating maxStars={4} />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRating', 'maxStars', '`max`');
+  });
+});
+
+describe('audit fixes', () => {
+  it('applies color and warns for colorVariant', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    const { container } = renderWithTheme(<RdsRating color="success" />);
+    expect(container.querySelector('.rds-rating--color-success')).toBeInTheDocument();
+    renderWithTheme(<RdsRating colorVariant="info" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRating', 'colorVariant', '`color`');
+  });
+
+  it('applies variant and defaultValue', () => {
+    const { container } = renderWithTheme(<RdsRating variant="filled" defaultValue={3} />);
+    expect(container.querySelector('.rds-rating--filled')).toBeInTheDocument();
+    expect(container.querySelector('input[value="3"]')).toBeChecked();
   });
 });

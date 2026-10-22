@@ -7,7 +7,7 @@ const meta: Meta<typeof RdsCompAiChatHeader> = {
   title: "Components/AI ChatBox/Chat Header",
   component: RdsCompAiChatHeader,
   argTypes: {
-    logoUrl: {
+    avatarSrc: {
       control: "text",
       description: "URL of the logo image",
     },
@@ -33,7 +33,7 @@ type Story = StoryObj<typeof RdsCompAiChatHeader>;
 
 export const Default: Story = {
   args: {
-    logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
+    avatarSrc: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
     title: "New Chat Started",
     size: "medium",
   },

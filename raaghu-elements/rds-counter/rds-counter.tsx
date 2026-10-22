@@ -28,8 +28,10 @@ export interface RdsCounterProps
   variant?: 'default' | 'compact';
   layout?: 'right-side' | 'side-to-side' | 'bottom';
   placeholder?: string;
-  /** Extra class names for the controls container (buttons + value). */
+  /** @deprecated Use `slotProps.controls.className` instead. */
   controlsClassName?: string;
+  /** Props for the inner parts. `controls` goes on the container of the buttons and value. */
+  slotProps?: { controls?: BoxProps };
   /** Show the label. */
   showTitle?: boolean;
   /** Marks the field as required: shows the asterisk next to the label and sets `aria-required` on the input. */
@@ -74,6 +76,7 @@ const RdsCounter = ({
   layout = 'side-to-side',
   placeholder='00',
   controlsClassName,
+  slotProps,
   showTitle = true,
   required,
   isMandatory,
@@ -85,6 +88,7 @@ const RdsCounter = ({
   ...rest
 }: RdsCounterProps) => {
   if (titleText !== undefined) warnDeprecatedProp('RdsCounter', 'titleText', '`label`');
+  if (controlsClassName !== undefined) warnDeprecatedProp('RdsCounter', 'controlsClassName', '`slotProps.controls.className`');
   if (isMandatory !== undefined) warnDeprecatedProp('RdsCounter', 'isMandatory', '`required`');
 
   const labelText = label ?? titleText;
@@ -95,7 +99,6 @@ const RdsCounter = ({
   const [internalValue, setInternalValue] = useState<number | undefined>(
     typeof defaultValue === 'number' ? defaultValue : undefined
   );
-  // Text being typed that is not (yet) inside [min, max]; committed (clamped) on blur.
   const [draft, setDraft] = useState<string | null>(null);
   const currentValue = isControlled ? value : internalValue;
 
@@ -138,7 +141,6 @@ const RdsCounter = ({
       setDraft(null);
       updateValue(newValue);
     } else if (canReachRange(newValue, min, max)) {
-      // Intermediate value (e.g. "1" on the way to "10" with min=5): show it, do not emit it.
       setDraft(String(newValue));
     }
   };
@@ -251,27 +253,31 @@ const RdsCounter = ({
   );
 
   const renderControls = () => {
-    const base = clsx(
-      'rds-counter__controls',
-      `rds-counter__controls--${variant}`,
-      `rds-counter__controls--${size}`,
-      `rds-counter__controls--layout-${layout}`,
-      controlsClassName,
-    );
+    const controlsProps = {
+      ...slotProps?.controls,
+      className: clsx(
+        'rds-counter__controls',
+        `rds-counter__controls--${variant}`,
+        `rds-counter__controls--${size}`,
+        `rds-counter__controls--layout-${layout}`,
+        controlsClassName,
+        slotProps?.controls?.className,
+      ),
+    };
     const valueNode = buildValue(variant === 'compact' ? 'compact' : 'default');
     if (layout === 'right-side') {
-      return <Box className={base}>{valueNode}{decButton}{incButton}</Box>;
+      return <Box {...controlsProps}>{valueNode}{decButton}{incButton}</Box>;
     }
     if (layout === 'bottom') {
       return (
-        <Box className={base}>
+        <Box {...controlsProps}>
           <Box className="rds-counter__value-wrapper">{valueNode}</Box>
             <Box className="rds-counter__button-group">{decButton}{incButton}</Box>
         </Box>
       );
     }
 
-    return <Box className={base}>{decButton}{valueNode}{incButton}</Box>;
+    return <Box {...controlsProps}>{decButton}{valueNode}{incButton}</Box>;
   };
 
   const controlsElement = renderControls();

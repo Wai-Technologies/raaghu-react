@@ -6,7 +6,6 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-accordion.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -521,22 +520,18 @@ describe('RdsAccordion', () => {
     });
 
     it('should handle rapid expansion toggling with controlled expanded', async () => {
-      // Test that controlled expanded prop works correctly
       const { container, rerender } = render(
         <RdsAccordion {...defaultProps} expanded={true} />
       );
 
-      // Initially expanded
       const summary = container.querySelector('[aria-expanded]');
       expect(summary).toHaveAttribute('aria-expanded', 'true');
 
-      // Toggle to collapsed
       rerender(
         <RdsAccordion {...defaultProps} expanded={false} />
       );
       expect(summary).toHaveAttribute('aria-expanded', 'false');
 
-      // Toggle back to expanded
       rerender(
         <RdsAccordion {...defaultProps} expanded={true} />
       );
@@ -571,7 +566,6 @@ describe('RdsAccordion', () => {
       expect(icon).toBeInTheDocument();
       expect(title).toBeInTheDocument();
 
-      // Icon should come before title
       const iconIndex = Array.from(header?.children || []).indexOf(icon as any);
       const titleIndex = Array.from(header?.children || []).indexOf(title as any);
       expect(iconIndex).toBeLessThan(titleIndex);
@@ -784,5 +778,19 @@ describe('RdsAccordion audit fixes', () => {
   it('reports deprecated props to the deprecation helper', () => {
     render(<RdsAccordion {...baseProps} accordionStyle="bottomline" />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAccordion', 'accordionStyle', expect.any(String));
+  });
+});
+
+describe('RdsAccordion animationDuration deprecation', () => {
+  it('still works via slotProps.transition.timeout and warns', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(<RdsAccordion title="T" animationDuration={0}><div>C</div></RdsAccordion>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAccordion', 'animationDuration', expect.any(String));
+  });
+
+  it('accepts slotProps.transition.timeout without warning', () => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+    render(<RdsAccordion title="T" slotProps={{ transition: { timeout: 0 } }}><div>C</div></RdsAccordion>);
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
   });
 });

@@ -28,8 +28,8 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    placement: {
-      options: ["top", "bottom", "end", "start"],
+    anchor: {
+      options: ["top", "bottom", "right", "left"],
       control: { type: "select" },
     },
     backDrop: {
@@ -55,7 +55,7 @@ export const Default: Story = {
     id: "canvasExample",
     title: "NEW TENANT",
     scrolling: false,
-    placement: RdsOffcanvasPlacement.End, 
+    anchor: RdsOffcanvasPlacement.End,
     backDrop: RdsOffcanvasBackDrop.Static,
     width: 650,
     showPrimaryButton: true,

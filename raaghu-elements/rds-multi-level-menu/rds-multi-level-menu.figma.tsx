@@ -8,13 +8,13 @@ figma.connect(
   {
     props: {
       size: figma.enum("📏 Size", {
-        Default: "default",
+        Default: "medium",
         Large: "large"
       })
     },
     example: (props) => <RdsMultiLevelMenu 
     {...props}
-    options={[
+    items={[
     {
       label: 'Option',
       shortcut: 'Shortcut'

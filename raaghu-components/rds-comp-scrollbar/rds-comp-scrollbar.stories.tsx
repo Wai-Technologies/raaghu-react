@@ -14,6 +14,7 @@ const meta: Meta = {
       docs:{
         source :{
           transform: (code: string) => {
+            code = code.replace(/variant="([^"]+)"/g, (match, p1) => `variant={ScrollBarType.${p1}}`);
             code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={ScrollBarType.${p1}}`);
             code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: ScrollBarType.${p1}`);
             code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={ScrollPosition.${p1}}`);
@@ -25,7 +26,7 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
     argTypes: {
-        type: {
+        variant: {
           control: "select",
           options: ["Mac", "Simple"],
           description: "Type of scrollbar",
@@ -47,7 +48,7 @@ type Story = StoryObj<typeof RdsScrollBar>;
 
 export const Default: Story = {
     args: {
-      type: ScrollBarType.Mac,
+      variant: ScrollBarType.Mac,
       position: ScrollPosition.Start,
       showButtons: true,
       startIcon: <ArrowDropUp />,
@@ -58,5 +59,5 @@ export const Default: Story = {
       expect(el).toBeTruthy();
     },
 } satisfies Story;
-   Default.parameters = { controls: { include: ['type', 'position', 'showButtons'] } };
+   Default.parameters = { controls: { include: ['variant', 'position', 'showButtons'] } };
     

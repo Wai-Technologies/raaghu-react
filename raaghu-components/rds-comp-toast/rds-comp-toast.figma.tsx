@@ -28,13 +28,13 @@ figma.connect(
     example: (props) => {
       const toastProps = {
         borderColor: "primary",
-        progressWidth: 40,
+        progress: 40,
         filename: "Filename.txt",
         title: "Toast Headline",
         placeholder: "Placeholder Text",
         message: "This is a big sample placeholder text.",
         showLeading: true,
-        leadingIcon: ToastLeadingIcon.Circle,
+        icon: ToastLeadingIcon.Circle,
         ...props,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any;

@@ -49,9 +49,6 @@ const LAYOUT_ALIASES: Record<string, RdsButtonProps['layout']> = {
   'text only': 'text-only',
 };
 
-// Consumer `sx` values are also applied inline so they keep beating the stylesheet. Theme-scaled
-// numbers are converted the way `sx` reads them (`padding: 2` is 16px in sx but was 2px inline).
-// Shorthands (`mr`, `px`, `bgcolor`), nested selectors and responsive/function values stay in `sx` only.
 const SX_ONLY_KEY = /^([mp][trblxy]?|bgcolor|[&:@.].*)$/;
 const SPACING_KEY = /^((margin|padding)(Top|Right|Bottom|Left|Inline|Block)?|(row|column)?Gap|gap)$/;
 const SIZING_KEY = /^(min|max)?(Width|Height)$|^(width|height)$/;
@@ -73,6 +70,8 @@ const toSxArray = (sx: SxProps<Theme> | undefined) => (Array.isArray(sx) ? sx : 
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
   shape?: 'pill' | 'rectangle';
   state?: 'default' | 'hover' | 'disabled' | 'selected';
+  /** Selected look. Preferred over `state="selected"`; wins over the `state`-derived selected look. */
+  selected?: boolean;
   layout?: 'icon+text' | 'icon-only' | 'text-only';
   style?: 'filled' | 'outlined' | 'transparent';
   color?: ButtonProps['color'];
@@ -109,6 +108,7 @@ const RdsButton = ({
   changeLeftIcon,
   changeRightIcon,
   state = 'default',
+  selected,
   textCase = 'uppercase',
   className,
   startIcon,
@@ -133,10 +133,11 @@ const RdsButton = ({
     : style === 'transparent' ? (usesTokenColorStyling ? 'rds-button__text' : '')
     : '';
 
+  const visualState = selected ? 'selected' : selected === false && state === 'selected' ? 'default' : state;
   const stateClass =
-    state === 'hover' ? 'rds-button__state-hover'
-    : state === 'selected' ? 'rds-button__state-selected'
-    : state === 'disabled' ? 'rds-button__state-disabled'
+    visualState === 'hover' ? 'rds-button__state-hover'
+    : visualState === 'selected' ? 'rds-button__state-selected'
+    : visualState === 'disabled' ? 'rds-button__state-disabled'
     : 'rds-button__state-default';
 
   const layoutClass =
@@ -144,7 +145,6 @@ const RdsButton = ({
     : isIconOnly ? 'rds-button--layout-icon-only'
     : 'rds-button--layout-text-only';
 
-  // Raaghu icon props apply to the icon+text layout; MUI `startIcon`/`endIcon` always win.
   const hasIcons = normalizedLayout === 'icon+text' && Boolean(showLeftIcon || showRightIcon);
   const resolvedStartIcon = startIcon !== undefined ? startIcon : hasIcons ? legacyStartIcon : undefined;
   const resolvedEndIcon = endIcon !== undefined ? endIcon : hasIcons ? legacyEndIcon : undefined;
@@ -204,7 +204,6 @@ const RdsButton = ({
         },
         ...toSxArray(sx),
       ]}
-      // Inline so it beats the stylesheet; consumer string values from `sx` keep their precedence.
       style={{
         ...shapeStyles,
         ...textCaseStyles,

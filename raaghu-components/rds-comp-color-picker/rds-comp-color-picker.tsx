@@ -12,6 +12,7 @@ import { colorTokens } from "../../raaghu-react-themes/tokens/design-tokens";
 import {
   ColorMode,
   ColorPickerType,
+  PickerType,
   type RdsCompColorPickerProps,
   StyleType,
 } from "./rds-comp-color-picker.types";
@@ -21,6 +22,14 @@ interface ColorUpdate {
   rgb?: { r: number; g: number; b: number; a?: number };
 }
 
+const VARIANT_TO_TYPE = {
+  inline: ColorPickerType.Default,
+  button: ColorPickerType.Button,
+  'button-expanded': ColorPickerType.ButtonExpanded,
+};
+const VIEW_TO_TAB = { grid: PickerType.Grid, spectrum: PickerType.Spectrum };
+const SWATCHES_VARIANT_TO_STYLE = { list: StyleType.Type1, grid: StyleType.Type2 };
+
 const hexToRgb = (hex: string) => (hex ? parseHexToRgb(hex) : { r: 0, g: 0, b: 0 });
 const toHex = (r: number, g: number, b: number) => rgbToHex(Math.round(r), Math.round(g), Math.round(b));
 const toHex8 = (hex: string, a: number) =>
@@ -28,14 +37,21 @@ const toHex8 = (hex: string, a: number) =>
 
 const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   const {
-    value,
+    value: valueProp,
+    defaultValue,
     label,
-    type = ColorPickerType.Default,
+    type: typeProp,
+    variant,
     showSwatches,
     pickerType,
+    view,
+    defaultView,
     showTabs,
-    colorMode,
+    colorMode: colorModeProp,
+    format,
+    defaultFormat,
     style,
+    swatchesVariant,
     disabled,
     isDisabled: isDisabledProp,
     onChange,
@@ -47,6 +63,15 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   } = props;
   if (isDisabledProp !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'isDisabled', '`disabled`');
   const isDisabled = disabled ?? isDisabledProp;
+  if (colorModeProp !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'colorMode', '`format`');
+  if (pickerType !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'pickerType', '`view`');
+  const value = valueProp ?? defaultValue;
+  const type = (variant && VARIANT_TO_TYPE[variant]) ?? typeProp ?? ColorPickerType.Default;
+  const colorMode = (format?.toUpperCase() as ColorMode | undefined) ?? colorModeProp;
+  const viewTab = (view && VIEW_TO_TAB[view]) ?? pickerType;
+  const initialColorMode = colorMode ?? (defaultFormat?.toUpperCase() as ColorMode | undefined);
+  const initialTab = viewTab ?? (defaultView && VIEW_TO_TAB[defaultView]);
+  const selectedStyle = (swatchesVariant && SWATCHES_VARIANT_TO_STYLE[swatchesVariant]) ?? style ?? StyleType.Type1;
 
   const getDefaultColorHex = useCallback(() => {
     if (value) {
@@ -61,7 +86,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
         }
       }
     } catch {
-      // ignore
+      return colorTokens.primary[400];
     }
     return colorTokens.primary[400];
   }, [value]);
@@ -75,8 +100,8 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
       rgb: { r: defaultRgb.r, g: defaultRgb.g, b: defaultRgb.b, a: 1 },
     },
     showPicker: type !== ColorPickerType.Button,
-    internalSelectedTab: (pickerType || "Grid") as "Grid" | "Spectrum",
-    internalSelectedColorMode: colorMode || ColorMode.HEX,
+    internalSelectedTab: (initialTab || "Grid") as "Grid" | "Spectrum",
+    internalSelectedColorMode: initialColorMode || ColorMode.HEX,
     showColorModeDropdown: false,
   });
   const {
@@ -94,13 +119,12 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   }, []);
 
   const selectedTab = internalSelectedTab;
-  const selectedStyle = style || StyleType.Type1;
   const selectedColorHex = internalColorState.hex;
   const selectedColorState = internalColorState;
 
   const colorModeDropdownRef = useRef<HTMLDivElement>(null);
   const [prevType, setPrevType] = useState(type);
-  const [prevPickerType, setPrevPickerType] = useState(pickerType);
+  const [prevPickerType, setPrevPickerType] = useState(viewTab);
   const [prevColorMode, setPrevColorMode] = useState(colorMode);
 
   if (type !== prevType) {
@@ -108,9 +132,9 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
     updatePickerState({ showPicker: type !== ColorPickerType.Button });
   }
 
-  if (pickerType && pickerType !== prevPickerType) {
-    setPrevPickerType(pickerType);
-    updatePickerState({ internalSelectedTab: pickerType as "Grid" | "Spectrum" });
+  if (viewTab && viewTab !== prevPickerType) {
+    setPrevPickerType(viewTab);
+    updatePickerState({ internalSelectedTab: viewTab as "Grid" | "Spectrum" });
   }
 
   if (colorMode && colorMode !== prevColorMode) {

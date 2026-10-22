@@ -4,10 +4,11 @@ import RdsBreadcrumbs, { RdsBreadcrumbItem, RdsBreadcrumbsProps, BreadcrumbSepar
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+
 jest.mock('./rds-breadcrumbs.scss', () => ({}));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/HomeOutlined', () => {
   return function HomeOutlinedIcon() {
     return <span data-testid="home-icon">HomeIcon</span>;
@@ -277,7 +278,6 @@ describe('RdsBreadcrumbs', () => {
         { label: 'No Icon Item' },
       ];
       const { container } = render(<RdsBreadcrumbs items={items} autoIcons={false} />);
-      // When autoIcons is false, component should render without auto-generated icons
       expect(container.querySelector('.rds-breadcrumbs')).toBeInTheDocument();
     });
 
@@ -445,7 +445,6 @@ describe('RdsBreadcrumbs', () => {
         { label: 'Products', href: '/products' },
       ];
       const { container } = render(<RdsBreadcrumbs items={items} />);
-      // Component renders breadcrumb items as clickable elements
       const breadcrumbLinks = container.querySelectorAll('.rds-breadcrumbs__item');
       expect(breadcrumbLinks.length).toBeGreaterThan(0);
     });
@@ -458,7 +457,6 @@ describe('RdsBreadcrumbs', () => {
         { label: 'Products', href: '/products', onClick: onClick2 },
       ];
       const { container } = render(<RdsBreadcrumbs items={items} />);
-      // Component handles multiple items with callbacks
       const breadcrumbLinks = container.querySelectorAll('.rds-breadcrumbs__item');
       expect(breadcrumbLinks.length).toBe(2);
     });
@@ -469,7 +467,6 @@ describe('RdsBreadcrumbs', () => {
         { label: 'Products', href: '/products' },
       ];
       const { container } = render(<RdsBreadcrumbs items={items} />);
-      // Component renders items with state classes applied
       const breadcrumbItems = container.querySelectorAll('.rds-breadcrumbs__item');
       expect(breadcrumbItems.length).toBeGreaterThan(0);
     });
@@ -479,7 +476,6 @@ describe('RdsBreadcrumbs', () => {
         { label: 'Home', href: '/', state: 'selected' },
       ];
       const { container } = render(<RdsBreadcrumbs items={items} />);
-      // Component handles selected state rendering
       const breadcrumbs = container.querySelector('.rds-breadcrumbs');
       expect(breadcrumbs).toHaveClass('rds-breadcrumbs__plain');
     });
@@ -538,7 +534,6 @@ describe('RdsBreadcrumbs', () => {
       const { container } = render(
         <RdsBreadcrumbs items={items} showIcon={true} layout="pill background" state="default" />
       );
-      // Component handles multiple items with different props
       const breadcrumbItems = container.querySelectorAll('.rds-breadcrumbs__item');
       expect(breadcrumbItems.length).toBe(3);
     });
@@ -856,5 +851,20 @@ describe('RdsBreadcrumbs audit fixes', () => {
       <RdsBreadcrumbs items={[{ label: 'Home', onClick: jest.fn() }, { label: 'Products', href: '/p' }, { label: 'Current' }]} />
     );
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe('audit fixes', () => {
+  beforeEach(() => (warnDeprecatedProp as jest.Mock).mockClear());
+
+  it('warns when autoIcons is passed and keeps its behaviour', () => {
+    render(<RdsBreadcrumbs items={[{ label: 'A' }, { label: 'B' }]} autoIcons={false} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBreadcrumbs', 'autoIcons', '`icon`');
+  });
+
+  it('warns when title is passed and still replaces the first label', () => {
+    render(<RdsBreadcrumbs items={[{ label: 'A' }, { label: 'B' }]} title="Start" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsBreadcrumbs', 'title', "the first item's `label`");
+    expect(screen.getByText('Start')).toBeInTheDocument();
   });
 });

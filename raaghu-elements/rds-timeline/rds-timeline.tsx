@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import MuiTimeline from '@mui/lab/Timeline';
 import { 
   TimelineItem as MuiTimelineItem,
@@ -14,7 +15,10 @@ export interface RdsTimelineItem {
   id: string | number;
   title: string;
   description?: string;
+  /** @deprecated Use `opposite` instead. */
   time?: string;
+  /** Content shown opposite the item. */
+  opposite?: ReactNode;
   icon?: ReactNode;
   color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' | 'grey';
   variant?: 'filled' | 'outlined';
@@ -24,6 +28,7 @@ export interface RdsTimelineItem {
 export interface RdsTimelineProps extends Omit<TimelineProps, 'children' | 'component'> {
   items: RdsTimelineItem[];
   showTime?: boolean;
+  /** @deprecated Use `position="alternate"` instead. */
   alternating?: boolean;
 }
 
@@ -35,15 +40,19 @@ const RdsTimeline = ({
   className,
   ...props
 }: RdsTimelineProps) => {
+  if (alternating) warnDeprecatedProp('RdsTimeline', 'alternating', '`position="alternate"`');
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
   return (
     <MuiTimeline position={timelinePosition} {...props} className={clsx('rds-timeline', className)}>
-      {items.map((item, index) => (
+      {items.map((item, index) => {
+        if (item.time !== undefined) warnDeprecatedProp('RdsTimeline', 'items[].time', '`items[].opposite`');
+        const opposite = item.opposite ?? (showTime ? item.time : undefined);
+        return (
           <MuiTimelineItem key={item.id}>
-            {showTime && item.time && (
+            {opposite && (
               <MuiTimelineOppositeContent color="text.secondary">
-                {item.time}
+                {opposite}
               </MuiTimelineOppositeContent>
             )}
             <MuiTimelineSeparator>
@@ -61,7 +70,8 @@ const RdsTimeline = ({
               )}
             </MuiTimelineContent>
           </MuiTimelineItem>
-        ))}
+        );
+      })}
     </MuiTimeline>
   );
 };

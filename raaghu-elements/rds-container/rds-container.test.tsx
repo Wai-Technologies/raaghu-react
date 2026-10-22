@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsContainer, { RdsContainerProps } from './rds-container';
 import { axe } from 'jest-axe';
+import * as deprecation from '../shared/utils/deprecation';
 
-// Mock SCSS imports
 jest.mock('./rds-container.scss', () => ({}));
 
 const theme = createTheme();
@@ -565,7 +565,6 @@ describe('RdsContainer', () => {
       );
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
       const style = muiContainer.getAttribute('style') || '';
-      // Number 0 is falsy in JS, so padding is not applied (same as when not provided)
       expect(style).not.toContain('padding');
     });
 
@@ -777,7 +776,6 @@ describe('RdsContainer', () => {
       const { container: c1 } = renderWithTheme(
         <RdsContainer sx={[{ margin: '10px' }]} {...defaultProps} />
       );
-      // jsdom drops `var()` values from inline styles, so only the marker attribute is checked.
       expect(getRoot(c1).getAttribute('data-rds-container-padding')).toBe('applied');
 
       const { container: c2 } = renderWithTheme(
@@ -820,5 +818,15 @@ describe('RdsContainer', () => {
       const root = getRoot(container);
       expect(root.style.color).toBe('red');
     });
+  });
+});
+
+describe('RdsContainer additive renames', () => {
+  const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
+  beforeEach(() => warn.mockClear());
+
+  it('warns for padding', () => {
+    render(<RdsContainer padding={2}>x</RdsContainer>);
+    expect(warn).toHaveBeenCalledWith('RdsContainer', 'padding', '`sx`');
   });
 });

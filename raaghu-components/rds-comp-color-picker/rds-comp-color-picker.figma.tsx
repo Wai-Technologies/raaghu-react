@@ -1,6 +1,6 @@
 import React from "react"
 import  RdsCompColorPicker from "./rds-comp-color-picker"
-import { ColorMode, ColorPickerType, PickerType } from "./rds-comp-color-picker.types"
+import { ColorPickerType } from "./rds-comp-color-picker.types"
 import figma from "@figma/code-connect"
 
 figma.connect(
@@ -18,8 +18,8 @@ figma.connect(
     example: (props) => <RdsCompColorPicker
       label="Color-Picker"
       value="#9751F2"
-      colorMode={ColorMode.HEX}
-      pickerType={PickerType.Grid}
+      format="hex"
+      view="grid"
       showSwatches
       showTabs
       {...props} />,

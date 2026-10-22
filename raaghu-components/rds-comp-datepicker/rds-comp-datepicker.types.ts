@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export enum DatePickerStyleType {
   Dropdown = "Dropdown",
   Selector = "Selector",
@@ -18,8 +20,24 @@ export enum DatePickerState {
 
 export interface RdsCompDatepickerProps {
   selectedDate?: (date: Date | null) => void;
+  /** Selected date; the picker re-syncs whenever it changes (`null` clears it). */
+  value?: Date | string | null;
+  /** Initial selected date. */
+  defaultValue?: Date | string | null;
+  /** Fires with the picked date, the picked range, or `[null, null]` when cleared. */
+  onChange?: (value: Date | null | [Date | null, Date | null]) => void;
+  /** Label text; shows the label unless `showTitle` / `controls.title` say otherwise. */
+  label?: string;
+  variant?: "dropdown" | "selector";
+  placeholder?: string;
+  /** Shows the clear-date button when a date is selected. */
+  clearable?: boolean;
+  /** Icon of the open-calendar button. */
+  openPickerIcon?: ReactNode;
+  /** @deprecated Use `value` instead. */
   dateForEdit?: string;
   titleText?: string;
+  /** @deprecated Use `onChange` instead. */
   onDatePicker?: (date: Date | [Date | null, Date | null]) => void;
   datePickerStyleType?: DatePickerStyleType;
   state?: DatePickerState;
@@ -28,13 +46,18 @@ export interface RdsCompDatepickerProps {
   controls?: {
     title?: "visible" | "hidden";
     disabled?: "on" | "off";
+    /** @deprecated Use `required` instead. */
     mandatory?: "required" | "optional";
+    /** @deprecated Use `clearable` instead. */
     clearDate?: "visible" | "hidden";
+    /** @deprecated Use `defaultValue` instead. */
     defaultDate?: "on" | "off";
   };
+  /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
   DatePickerLabel?: string;
   type?: string;
+  /** @deprecated Use `openPickerIcon` instead. */
   changeIcon?: "dashboard_settings" | string;
   /**
    * Disables the picker. When defined it wins over `controls.disabled` and the legacy `isDisabled`.
@@ -47,9 +70,9 @@ export interface RdsCompDatepickerProps {
   required?: boolean;
   /** Shows the title label (`titleText`). `controls.title` wins when set. */
   showTitle?: boolean;
-  /** Shows the clear-date button when a date is selected. `controls.clearDate` wins when set. */
+  /** @deprecated Use `clearable` instead. */
   showClearDate?: boolean;
-  /** Pre-selects today's date. `controls.defaultDate` wins when set. */
+  /** @deprecated Use `defaultValue` instead. */
   isDefaultDate?: boolean;
   /** @deprecated Use `disabled` instead. */
   isDisabled?: boolean;

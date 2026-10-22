@@ -4,12 +4,10 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiIcon, { RdsCompAiIconProps } from './rds-comp-ai-icon';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-icon.scss', () => ({}));
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
-// Mock Material UI Icons - properly render all SVG props passed to them
 jest.mock('@mui/icons-material/PersonOutline', () => {
   return React.forwardRef((props: any, ref: any) => (
     <svg
@@ -30,14 +28,12 @@ jest.mock('@mui/icons-material/GroupOutlined', () => {
   ));
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiIconProps = {
   name: 'person-outline',
   width: '24px',
   height: '24px',
 };
 
-// Helper to get the main icon SVG element
 const getIcon = (container: HTMLElement) => {
   return container.querySelector('.rds-comp-ai-icon');
 };
@@ -656,5 +652,16 @@ describe('audit fixes', () => {
     fireEvent.keyDown(el, { key: 'Enter' });
     fireEvent.keyDown(el, { key: ' ' });
     expect(onClick).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('audit fixes: aliases', () => {
+  it('src and component aliases work; imageUrl warns', () => {
+    const Custom = (props: any) => <svg {...props} />;
+    const { container, rerender } = render(<RdsCompAiIcon component={Custom} />);
+    expect(container.querySelector('svg.rds-comp-ai-icon__svg')).toBeInTheDocument();
+    rerender(<RdsCompAiIcon src="a.png" imageUrl="b.png" />);
+    expect(container.querySelector('img')).toHaveAttribute('src', 'a.png');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompAiIcon', 'imageUrl', '`src`');
   });
 });

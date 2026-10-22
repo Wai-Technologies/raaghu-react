@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsCounter> = {
         status: { type: 'stable' },
     layout: 'centered',
     controls: {
-    exclude: ['onChange', 'controlsClassName','disabled','defaultValue', 'titleText', 'isMandatory'],
+    exclude: ['onChange', 'controlsClassName', 'slotProps','disabled','defaultValue', 'titleText', 'isMandatory'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -43,9 +43,6 @@ const meta: Meta<typeof RdsCounter> = {
     },
     step: {
       control: 'number',
-    },
-    controlsClassName: {
-      control: false,
     },
     showTitle: { control: 'boolean', },
     required: { control: 'boolean', description: 'Show required indicator on label.' },

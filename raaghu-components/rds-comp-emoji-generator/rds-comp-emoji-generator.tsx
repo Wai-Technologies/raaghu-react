@@ -1,5 +1,5 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type Ref } from "react";
+import { useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
 import clsx from 'clsx';
 import {
     Box,
@@ -26,6 +26,7 @@ import FlagIcon from "@mui/icons-material/Flag";
 import "./rds-comp-emoji-generator.scss";
 import { getEmojiLabel, getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
 import { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 const SKIN_TONE_OPTIONS = [
     { value: 0, color: emojiSkinToneColors.default, label: "Default" },
@@ -98,6 +99,8 @@ export interface RdsCompEmojiGeneratorProps {
     "Show Skin Tone"?: boolean;
     "Show Footer"?: boolean;
     State?: SkinToneState;
+    /** Keeps the skin tone picker open inline; same as `State="Expanded"`. */
+    skinTonePickerOpen?: boolean;
     Category?: EmojiCategory;
     /** camelCase alias of `Type`; wins when defined. */
     variant?: EmojiGeneratorType;
@@ -107,6 +110,9 @@ export interface RdsCompEmojiGeneratorProps {
     showSkinTone?: boolean;
     /** camelCase alias of `"Show Footer"`; wins when defined. */
     showFooter?: boolean;
+    /** Called with the event and the emoji when one is picked. */
+    onChange?: (event: SyntheticEvent, emoji: string) => void;
+    /** @deprecated Use `onChange` instead. */
     onEmojiSelect?: (emoji: string) => void;
     maxEmojis?: number;
     /** Called when the user picks a category tab. */
@@ -134,11 +140,13 @@ const RdsCompEmojiGenerator = ({
     "Show Skin Tone": showSkinToneLegacy = true,
     "Show Footer": showFooterLegacy = true,
     State = SkinToneState.Default,
+    skinTonePickerOpen,
     Category: categoryLegacy,
     variant,
     category,
     showSkinTone: showSkinToneAlias,
     showFooter: showFooterAlias,
+    onChange,
     onEmojiSelect,
     maxEmojis = 80,
     onCategoryChange,
@@ -150,7 +158,9 @@ const RdsCompEmojiGenerator = ({
     ref,
     ...props
 }: RdsCompEmojiGeneratorProps) => {
+    if (onEmojiSelect !== undefined) warnDeprecatedProp('RdsCompEmojiGenerator', 'onEmojiSelect', '`onChange`');
     const Type = variant ?? typeLegacy;
+    const skinToneExpanded = skinTonePickerOpen ?? State === SkinToneState.Expanded;
     const showSkinTone = showSkinToneAlias ?? showSkinToneLegacy;
     const showFooter = showFooterAlias ?? showFooterLegacy;
     const categoryProp = category ?? categoryLegacy;
@@ -175,7 +185,10 @@ const RdsCompEmojiGenerator = ({
     const [selectedSkinTone, setSelectedSkinTone] = useState(0);
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
-    const handleEmojiClick = (e: string) => onEmojiSelect?.(e);
+    const handleEmojiClick = (e: string, event: SyntheticEvent) => {
+        onEmojiSelect?.(e);
+        onChange?.(event, e);
+    };
 
     const handleCategoryChange = (c: EmojiCategory) => {
         setSelectedCategory(c);
@@ -209,8 +222,8 @@ const RdsCompEmojiGenerator = ({
                         role="button"
                         tabIndex={0}
                         aria-label={getEmojiLabel(e) ?? e}
-                        onClick={() => handleEmojiClick(e)}
-                        onKeyDown={(ev: KeyboardEvent<HTMLElement>) => handleActivationKey(ev, () => handleEmojiClick(e))}
+                        onClick={(ev) => handleEmojiClick(e, ev)}
+                        onKeyDown={(ev: KeyboardEvent<HTMLElement>) => handleActivationKey(ev, () => handleEmojiClick(e, ev))}
                     >
                         {e}
                     </Box>
@@ -218,7 +231,7 @@ const RdsCompEmojiGenerator = ({
                 <IconButton
                   aria-label="More emojis"
                     className="rds-emoji-generator__plus"
-                    onClick={() => (onMoreClick ? onMoreClick() : onEmojiSelect?.('+'))}
+                    onClick={(ev) => (onMoreClick ? onMoreClick() : handleEmojiClick('+', ev))}
                     size="small"
                 >
                     <AddIcon />
@@ -257,7 +270,7 @@ const RdsCompEmojiGenerator = ({
                                     style={{ backgroundColor: SKIN_TONE_OPTIONS[selectedSkinTone].color }}
                                 />
 
-                                {State === SkinToneState.Expanded && (
+                                {skinToneExpanded && (
                                     <Box className="rds-emoji-generator__skin-tone-inline">
                                         <SkinTonePicker
                                             skinToneOptions={SKIN_TONE_OPTIONS}
@@ -270,7 +283,7 @@ const RdsCompEmojiGenerator = ({
                             </Box>
                         )}
                     </Box>
-                    {State !== SkinToneState.Expanded && (
+                    {!skinToneExpanded && (
                         <Popover
                             open={skinTonePopoverOpen}
                             anchorEl={skinToneAnchorEl}
@@ -331,8 +344,8 @@ const RdsCompEmojiGenerator = ({
                             role="button"
                             tabIndex={0}
                             aria-label={getEmojiLabel(e) ?? e}
-                            onClick={() => handleEmojiClick(e)}
-                            onKeyDown={(ev: KeyboardEvent<HTMLElement>) => handleActivationKey(ev, () => handleEmojiClick(e))}
+                            onClick={(ev) => handleEmojiClick(e, ev)}
+                            onKeyDown={(ev: KeyboardEvent<HTMLElement>) => handleActivationKey(ev, () => handleEmojiClick(e, ev))}
                         >
                             {isFlagEmoji(e) ? (
                                 <img
@@ -362,11 +375,10 @@ const RdsCompEmojiGenerator = ({
 };
 RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
 export default RdsCompEmojiGenerator;
+export const RdsCompEmojiPicker = RdsCompEmojiGenerator;
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
 
 function normalizeEmojiForTwemoji(emoji: string): string {
-    // Remove common variation selectors which Twemoji filenames don't include (U+FE0F, U+FE0E)
-    // Keep tag sequences and other codepoints Twemoji expects.
     return emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, '');
 }
 

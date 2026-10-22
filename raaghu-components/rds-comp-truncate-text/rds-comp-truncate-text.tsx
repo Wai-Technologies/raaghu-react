@@ -13,7 +13,9 @@ export interface RdsCompTruncateTextProps {
   children?: string;
   maxLength?: number;
   state?: TruncateTextState;
+  /** @deprecated Use `maxLines` instead. */
   lines?: number;
+  maxLines?: number;
   /** Force the tooltip on/off; wins over the state-derived behaviour. */
   showTooltip?: boolean;
 }
@@ -23,10 +25,13 @@ const RdsCompTruncateText = ({
   children,
   maxLength = 100,
   state = TruncateTextState.Default,
-  lines = 1,
+  lines: linesProp,
+  maxLines,
   showTooltip: showTooltipProp,
 }: RdsCompTruncateTextProps) => {
   if (text !== undefined) warnDeprecatedProp('RdsCompTruncateText', 'text', '`children`');
+  if (linesProp !== undefined) warnDeprecatedProp('RdsCompTruncateText', 'lines', '`maxLines`');
+  const lines = maxLines ?? linesProp ?? 1;
   const content = children ?? text ?? '';
   const [isActive, setIsActive] = useState(false);
 

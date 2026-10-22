@@ -29,7 +29,7 @@ export const Default: Story = {
     args: {
         id: "gaugeChart",
         titleText: "Title",
-        subTitleText: "Subtitle",
+        subtitle: "Subtitle",
         labels: ["Green", "Blue", "Yellow", "Orange", "Purple", "Red"],
         options: {
             maintainAspectRatio: false,
@@ -70,7 +70,7 @@ export const BlueYellowOrangePurpleRed: Story = {
     args: {
         id: "gaugeChart2",
         titleText: "Title",
-        subTitleText: "Subtitle", 
+        subtitle: "Subtitle", 
         labels: ["Blue", "Yellow", "Orange", "Purple", "Red"],
         options: {
             maintainAspectRatio: false,
@@ -106,7 +106,7 @@ export const YellowOrangePurpleRed: Story = {
     args: {
         id: "gaugeChart3",
         titleText: "Title",
-        subTitleText: "Subtitle",
+        subtitle: "Subtitle",
         labels: ["Yellow", "Orange", "Purple", "Red"], 
         options: {
             maintainAspectRatio: false,
@@ -141,7 +141,7 @@ export const OrangePurpleRed: Story = {
     args: {
         id: "gaugeChart4",
         titleText: "Title",
-        subTitleText: "Subtitle",
+        subtitle: "Subtitle",
         labels: ["Orange", "Purple", "Red"],
         options: {
             maintainAspectRatio: false,
@@ -175,7 +175,7 @@ export const PurpleRed: Story = {
     args: {
         id: "gaugeChart5",
         titleText: "Title", 
-        subTitleText: "Subtitle",
+        subtitle: "Subtitle",
         labels: ["Purple", "Red"],
         options: {
             maintainAspectRatio: false,
@@ -208,7 +208,7 @@ export const RedOnly: Story = {
     args: {
         id: "gaugeChart6",
         titleText: "Title",
-        subTitleText: "Subtitle",
+        subtitle: "Subtitle",
         labels: ["Red"],
         options: {
             maintainAspectRatio: false,

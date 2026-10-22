@@ -7,6 +7,7 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-breadcrumbs.scss';
 import clsx from 'clsx';
 export { BreadcrumbSeparator } from './rds-breadcrumbs-types';
@@ -87,8 +88,9 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' |
   state?: 'default' | 'hover' | 'selected';
   /** Built-in icon name (see `RdsBreadcrumbIcon`) or any icon element, used for every item that has no `icon` of its own. */
   icon?: RdsBreadcrumbIcon;
-  /** Replaces the label of the first item. Not rendered as an HTML `title` attribute. */
+  /** @deprecated Set the first item's `label` instead. Replaces the label of the first item; not rendered as an HTML `title` attribute. */
   title?: string;
+  /** @deprecated Pass `icon` explicitly instead. Picks a default icon per item position and label. Defaults to `true`. */
   autoIcons?: boolean;
 }
 
@@ -103,9 +105,12 @@ const RdsBreadcrumbs = ({
   state,
   icon,
   title,
-  autoIcons = true,
+  autoIcons: autoIconsProp,
   ...props
 }:RdsBreadcrumbsProps) => {
+  if (title !== undefined) warnDeprecatedProp('RdsBreadcrumbs', 'title', "the first item's `label`");
+  if (autoIconsProp !== undefined) warnDeprecatedProp('RdsBreadcrumbs', 'autoIcons', '`icon`');
+  const autoIcons = autoIconsProp ?? true;
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   
   const getSeparator = (): ReactNode => {
@@ -184,7 +189,6 @@ const RdsBreadcrumbs = ({
       iconName = 'home';
     }
 
-    // Icon elements are rendered as given; strings keep using the built-in icon map.
     if (typeof iconName !== 'string') {
       return iconName;
     }
@@ -219,7 +223,6 @@ const RdsBreadcrumbs = ({
               key={`${item.label}-${item.routePath || item.url || index}`}
               className={typographyClass.trim()}
               onClick={() => setSelectedIdx(index)}
-              // The current page is plain text for assistive tech; other selectable items act as buttons.
               {...(isLast
                 ? { 'aria-current': 'page' as const }
                 : { role: 'button', tabIndex: 0, onKeyDown: activateOnKey })}
@@ -233,7 +236,6 @@ const RdsBreadcrumbs = ({
 
         const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item__enable-hover' : '';
         const isClickable = Boolean(item.onClick) || item.state === 'selected' || state === 'selected';
-        // An <a> without href is not keyboard-focusable: expose it as a button instead (same element, no visual change).
         const buttonProps = !item.href && isClickable
           ? { role: 'button', tabIndex: 0, onKeyDown: activateOnKey }
           : {};
