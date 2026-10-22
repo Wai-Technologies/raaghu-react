@@ -11,6 +11,7 @@ export interface RdsCompReviewsProps {
   items?: Item[];
   /** @deprecated Use `items` instead. */
   itemList?: Item[];
+  variant?: ReviewStyle;
   style?: ReviewStyle;
   /** @deprecated Has no effect. */
   variantType?: VariantType;
@@ -37,6 +38,7 @@ const getItemKey = (item: Item, index: number): string =>
 const RdsCompReviews = ({
   items,
   itemList,
+  variant,
   style,
   variantType = VariantType.Default,
   locale,
@@ -60,7 +62,7 @@ const RdsCompReviews = ({
             <Grid key={getItemKey(item, index)} size={GRID_SIZE} style={{ display: "flex" }}>
               <ReviewStyleCard
                 item={item}
-                style={style}
+                style={variant ?? style}
                 locale={locale}
                 formatDate={formatDate}
                 onRatingChange={onRatingChange}

@@ -8,6 +8,7 @@ import RdsFileUploader from '../../raaghu-elements/rds-file-uploader/rds-file-up
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import {
     RdsCompProductTourProps,
+    ProductTourCorner,
     parseSteps,
     createEffectiveSlides,
     deleteIcon,
@@ -26,11 +27,13 @@ const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];
 const EMPTY_TAB_TITLES: string[] = [];
 
 const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
-    state = "Image",
-    topLeft = false,
-    topRight = false,
-    bottomLeft = false,
-    bottomRight = false,
+    state,
+    variant,
+    anchorCorner,
+    topLeft,
+    topRight,
+    bottomLeft,
+    bottomRight,
     header,
     title,
     badge,
@@ -40,16 +43,29 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     onBack,
     onSkip,
     description,
-    stepsIndicator,
+    steps,
+    activeStep,
+    stepsIndicator: legacyStepsIndicator,
     controls,
     slides,
+    subtitle,
     formTitle,
+    items,
     tabTitle,
     onClose,
     ...legacyProps
 }) => {
     if (header !== undefined) warnDeprecatedProp('RdsCompProductTour', 'header', '`title`');
+    if (formTitle !== undefined) warnDeprecatedProp('RdsCompProductTour', 'formTitle', '`subtitle`');
+    if (tabTitle !== undefined) warnDeprecatedProp('RdsCompProductTour', 'tabTitle', '`items`');
+    if (legacyStepsIndicator !== undefined) warnDeprecatedProp('RdsCompProductTour', 'stepsIndicator', '`steps` and `activeStep`');
+    Object.entries({ topLeft, topRight, bottomLeft, bottomRight }).forEach(([k, v]) => {
+        if (v !== undefined) warnDeprecatedProp('RdsCompProductTour', k, '`anchorCorner`');
+    });
+    const resolvedVariant = variant ?? state ?? "Image";
     const resolvedHeader = title ?? header;
+    const resolvedSubtitle = subtitle ?? formTitle;
+    const corner = (c: ProductTourCorner, legacy?: boolean) => anchorCorner !== undefined ? anchorCorner === c : legacy === true;
     const headerId = useId();
     const rootProps = {
         role: 'dialog' as const,
@@ -69,7 +85,8 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
 
     const [isVisible, setIsVisible] = useState(true);
     const resolvedSlides = slides ?? EMPTY_TOUR_SLIDES;
-    const resolvedTabTitle = tabTitle ?? EMPTY_TAB_TITLES;
+    const resolvedTabTitle = items ?? tabTitle ?? EMPTY_TAB_TITLES;
+    const stepsIndicator = steps !== undefined || activeStep !== undefined ? `${activeStep ?? 1}/${steps ?? resolvedSlides.length}` : legacyStepsIndicator;
 
     const parsedSteps = useMemo(() => parseSteps(stepsIndicator), [stepsIndicator]);
     const totalSlides = useMemo(() => parsedSteps?.total ?? resolvedSlides.length, [parsedSteps, resolvedSlides]);
@@ -124,7 +141,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
         onBack?.();
     };
 
-    const cornerDotsElement = renderCornerDots(topLeft, topRight, bottomLeft, bottomRight);
+    const cornerDotsElement = renderCornerDots(corner("top-left", topLeft), corner("top-right", topRight), corner("bottom-left", bottomLeft), corner("bottom-right", bottomRight));
     const closeButtonElement = renderCloseButton(showDismiss, handleClose);
     const infoSectionElement = renderInfoSection(resolvedHeader, description, headerId);
     const navRowElement = renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows", onSkip);
@@ -136,7 +153,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     if (!isVisible) {
         return null;
     }
-    if (state === "Image") {
+    if (resolvedVariant === "Image") {
         return (
             <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--image">
                 {cornerDotsElement}
@@ -155,7 +172,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
             </Paper>
         );
     }
-    if (state === "Carousel") {
+    if (resolvedVariant === "Carousel") {
         return (
             <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--carousel">
                 {cornerDotsElement}
@@ -181,7 +198,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
             </Paper>
         );
     }
-    if (state === "GIF") {
+    if (resolvedVariant === "GIF") {
         return (
             <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--animation">
                 {cornerDotsElement}
@@ -201,14 +218,14 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
             </Paper>
         );
     }
-    if (state === "Form") {
+    if (resolvedVariant === "Form") {
         return (
             <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--form">
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__form-header">
                     <Typography variant="h6" className="rds-comp-product-tour__form-subtitle">
-                       {formTitle}
+                       {resolvedSubtitle}
                     </Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__form-content">

@@ -15,7 +15,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=901-23708",
   {
     props: {
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Style 1": RevieweStyle.Style1,
         "Style 2": RevieweStyle.Style2,
         "Style 3": RevieweStyle.Style3,

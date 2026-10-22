@@ -7,12 +7,8 @@ import RdsCompOffcanvas, {
 } from './rds-comp-off-canvas';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-
-// Mock SCSS
 jest.mock('./rds-comp-off-canvas.scss', () => ({}));
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
-
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Drawer: ({ children, anchor, open, onClose, className, id, slotProps, ...props }: any) => {
     (globalThis as any).__drawerProps = { anchor, open, onClose, slotProps, ...props };
@@ -38,13 +34,9 @@ jest.mock('@mui/material', () => ({
     <div data-testid={`typography-${variant}`} className={className} {...props}>{children}</div>
   ),
 }));
-
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   Close: () => <span data-testid="close-icon">×</span>,
 }));
-
-// Mock RDS elements
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton({ text, onClick, className, style, size, ...props }: any) {
     return (
@@ -785,8 +777,6 @@ describe('RdsCompOffcanvas', () => {
           showPrimaryButton={true}
         />
       );
-
-      // Open
       const openButton = screen.getByTestId('rds-button-open-off-canvas');
       fireEvent.click(openButton);
 
@@ -794,8 +784,6 @@ describe('RdsCompOffcanvas', () => {
         expect(onclick).toHaveBeenCalledWith(true);
         expect(onShow).toHaveBeenCalled();
       });
-
-      // Close with button
       const saveButton = screen.getByTestId('rds-button-save');
       fireEvent.click(saveButton);
 
@@ -1030,6 +1018,19 @@ describe('RdsCompOffcanvas', () => {
       expect(screen.getByTestId('rds-icon-button')).toHaveAttribute('aria-label', 'Close');
       const titleEl = screen.getByText('Test Offcanvas');
       expect(paper()['aria-labelledby']).toBe(titleEl.id);
+    });
+  });
+
+  describe('audit fixes B29', () => {
+    it('placement and onShow warn and still work', () => {
+      const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+      const onShow = jest.fn();
+      render(<RdsCompOffcanvas placement="left" onShow={onShow} />);
+      fireEvent.click(screen.getByTestId('rds-button-open-off-canvas'));
+      expect(onShow).toHaveBeenCalled();
+      expect(screen.getByTestId('drawer')).toHaveAttribute('data-anchor', 'left');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompOffcanvas', 'placement', '`anchor`');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompOffcanvas', 'onShow', '`onOpen`');
     });
   });
 });

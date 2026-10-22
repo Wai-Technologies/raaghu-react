@@ -14,6 +14,7 @@ const meta: Meta = {
                 transform:(code:string) => {
                     code = code.replace(/variantType="([^"]+)"/g, (match, p1) => `variantType={VariantType.${p1.replace(/\s+/g, '')}}`)
                     code = code.replace(/variantType:\s*"([^"]+)"/g, (match, p1) => `variantType: VariantType.${p1.replace(/\s+/g, '')}`);
+                    code = code.replace(/variant="([^"]+)"/g, (match, p1) => `variant={RevieweStyle.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={RevieweStyle.${p1.replace(/\s+/g, '')}}`);
 
                     code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: RevieweStyle.${p1.replace(/\s+/g, '')}`);
@@ -24,7 +25,7 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        style: {
+        variant: {
             options: [ "style1", "style2", "style3","style4", "style5", "style6", "style7", "style8", "style9", "style10", "style11", "style12"],
             control: { type: "select" },
             description: "Style of the review component",
@@ -42,7 +43,7 @@ play: async ({ canvasElement }) => {
 },
 args: {
         variantType: VariantType.Default,
-        style: RevieweStyle.Style1,
+        variant: RevieweStyle.Style1,
         items: [
             {
                 name: "Jane Doe",
@@ -59,4 +60,4 @@ args: {
     }
 } satisfies Story;
     
-Default.parameters = { controls: { include: ['items','style','variantType'] } };
+Default.parameters = { controls: { include: ['items','variant','variantType'] } };

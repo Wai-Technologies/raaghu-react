@@ -924,4 +924,9 @@ describe('audit fixes', () => {
     render(<RdsCompReviews items={[item]} style={ReviewStyle.Style4} formatDate={() => 'custom date'} />);
     expect(screen.getByText('custom date')).toBeInTheDocument();
   });
+
+  it('variant wins over style', () => {
+    render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} style={ReviewStyle.Style4} />);
+    expect(screen.getByLabelText('Like')).toBeInTheDocument();
+  });
 });

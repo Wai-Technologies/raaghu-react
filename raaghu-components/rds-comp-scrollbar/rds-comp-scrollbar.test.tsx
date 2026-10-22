@@ -7,8 +7,6 @@ import RdsCompScrollBar, {
 } from './rds-comp-scrollbar';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-
-// Mock SCSS
 jest.mock('./rds-comp-scrollbar.scss', () => ({}));
 
 describe('RdsCompScrollBar', () => {
@@ -478,7 +476,6 @@ describe('RdsCompScrollBar', () => {
       const { container } = render(
         <RdsCompScrollBar {...defaultProps} type={undefined} />
       );
-      // Should default to Mac
       expect(container.querySelector('.rds-scrollbar')).toBeInTheDocument();
     });
 
@@ -486,7 +483,6 @@ describe('RdsCompScrollBar', () => {
       const { container } = render(
         <RdsCompScrollBar {...defaultProps} showButtons={undefined} />
       );
-      // Should default to true, so controls should render
       expect(container.querySelector('.rds-scrollbar')).toBeInTheDocument();
     });
 
@@ -617,6 +613,11 @@ describe('audit fixes', () => {
 
   it('accepts string literal enums', () => {
     const { container } = render(<RdsCompScrollBar type="Simple" position="End" />);
+    expect(container.querySelector('.rds-scrollbar--simple')).toBeInTheDocument();
+  });
+
+  it('variant wins over type', () => {
+    const { container } = render(<RdsCompScrollBar variant="Simple" type="Mac" />);
     expect(container.querySelector('.rds-scrollbar--simple')).toBeInTheDocument();
   });
 });

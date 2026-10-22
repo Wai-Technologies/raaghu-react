@@ -8,10 +8,8 @@ import { axe } from 'jest-axe';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-kanban-board.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Card: ({ children, ...props }: any) => <div data-testid="card" {...props}>{children}</div>,
   CardContent: ({ children, ...props }: any) => <div data-testid="card-content" {...props}>{children}</div>,
@@ -48,7 +46,6 @@ jest.mock('@mui/material', () => ({
   Paper: ({ children, ...props }: any) => <div data-testid="paper" {...props}>{children}</div>,
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   MoreVert: () => <span data-testid="more-vert-icon">⋮</span>,
   Close: () => <span data-testid="close-icon">✕</span>,
@@ -58,7 +55,6 @@ jest.mock('@mui/icons-material', () => ({
   DeleteIcon: () => <span data-testid="delete-icon">🗑</span>,
 }));
 
-// Mock @dnd-kit
 jest.mock('@dnd-kit/core', () => ({
   DndContext: ({ children }: any) => <div data-testid="dnd-context">{children}</div>,
   closestCenter: jest.fn(),
@@ -92,7 +88,6 @@ jest.mock('@dnd-kit/utilities', () => ({
   CSS: { Transform: { toString: () => '' } },
 }));
 
-// Mock Raaghu components
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
   return function MockRdsBadge({ badgeContent, ...props }: any) {
     return <span data-testid="rds-badge" {...props}>{badgeContent}</span>;
@@ -419,7 +414,6 @@ describe('RdsCompKanbanBoard', () => {
     it('should call onCardOption callback when menu item is clicked', () => {
       const onCardOption = jest.fn();
       renderComponent({ onCardOption });
-      // Menu interaction handled by component state
       expect(onCardOption).toBeDefined();
     });
 
@@ -451,14 +445,12 @@ describe('RdsCompKanbanBoard', () => {
     it('should render sub card dropdown button', () => {
       renderComponent();
       const iconButtons = screen.getAllByTestId('icon-button');
-      // First icon button is for board menu, others for sub cards
       expect(iconButtons.length).toBeGreaterThan(1);
     });
 
     it('should render sub card menu on dropdown click', async () => {
       renderComponent();
       const iconButtons = screen.getAllByTestId('icon-button');
-      // Click a sub card dropdown button (not the first one which is board menu)
       if (iconButtons[1]) {
         fireEvent.click(iconButtons[1]);
         await waitFor(() => {
@@ -1018,5 +1010,82 @@ describe('audit fixes', () => {
   it('G5-139: colorClass has no stray spaces', () => {
     expect(colorClass('')).toBe('kanban-primary');
     expect(colorClass('success')).toBe('kanban-success');
+  });
+});
+
+describe('audit fixes', () => {
+  const openMenu = (selector: string, i: number) => fireEvent.click(document.querySelectorAll(selector)[i]);
+  const clickItem = (text: string) =>
+    fireEvent.click(screen.getAllByTestId('menu-item').find((el) => el.textContent?.includes(text))!);
+
+  it('305/306: allowAddColumn and allowAddCard show the add controls', () => {
+    render(<RdsCompKanbanBoard defaultColumns={mockBoardData} allowAddColumn allowAddCard />);
+    expect(screen.getByPlaceholderText('Enter Board Title')).toBeInTheDocument();
+    expect(screen.getAllByText('Add Item').length).toBeGreaterThan(0);
+  });
+
+  it('305: warns for allowAddingNewCard', () => {
+    render(<RdsCompKanbanBoard defaultColumns={mockBoardData} allowAddingNewCard />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompKanbanBoard', 'allowAddingNewCard', '`allowAddColumn`');
+  });
+
+  it('307: categoryOptions wins over allCategoriesList', () => {
+    render(<RdsCompKanbanBoard defaultColumns={[mockBoardData[1]]} allowAddCard categoryOptions={[{ label: 'New', val: 'n' }]} allCategoriesList={[{ label: 'Old', val: 'o' }]} />);
+    fireEvent.click(screen.getByText('Add Item'));
+    expect(screen.getByText('New')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
+  });
+
+  it('308: card assignees override avatarData', () => {
+    const columns = [{ ...mockBoardData[1], subCards: [{ ...mockBoardData[0].subCards[1], assignees: [{ title: 'A' }] }] }];
+    render(<RdsCompKanbanBoard defaultColumns={columns} avatarData={[{ title: 'X' }, { title: 'Y' }]} />);
+    expect(screen.getByTestId('rds-avatar')).toHaveTextContent('1 avatars');
+  });
+
+  it('309: controlled columns only change through onColumnsChange', () => {
+    const onColumnsChange = jest.fn();
+    render(<RdsCompKanbanBoard columns={mockBoardData} onColumnsChange={onColumnsChange} />);
+    openMenu('.kanban-board__header-button', 0);
+    clickItem('Delete Board');
+    expect(onColumnsChange).toHaveBeenCalledWith([mockBoardData[1]]);
+    expect(screen.getByText('Board 1')).toBeInTheDocument();
+  });
+
+  it('309: defaultColumns is uncontrolled', () => {
+    render(<RdsCompKanbanBoard defaultColumns={mockBoardData} />);
+    openMenu('.kanban-board__header-button', 0);
+    clickItem('Delete Board');
+    expect(screen.queryByText('Board 1')).not.toBeInTheDocument();
+  });
+
+  it('311: onCardAdd gets the event and the new card', () => {
+    const onCardAdd = jest.fn();
+    const onAddQuestionSaveHandler = jest.fn();
+    render(<RdsCompKanbanBoard defaultColumns={[mockBoardData[1]]} allowAddCard onCardAdd={onCardAdd} onAddQuestionSaveHandler={onAddQuestionSaveHandler} />);
+    fireEvent.click(screen.getByText('Add Item'));
+    fireEvent.change(screen.getByPlaceholderText('Enter Title'), { target: { value: 'T' } });
+    fireEvent.click(screen.getAllByTestId('button').find((b) => b.textContent?.includes('Add Item'))!);
+    expect(onCardAdd).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), expect.objectContaining({ ticketQuestion: 'T' }));
+    expect(onAddQuestionSaveHandler).not.toHaveBeenCalled();
+  });
+
+  it('312: onColumnAction gets the event, action and column id', () => {
+    const onColumnAction = jest.fn();
+    const onCardOption = jest.fn();
+    render(<RdsCompKanbanBoard defaultColumns={mockBoardData} onColumnAction={onColumnAction} onCardOption={onCardOption} />);
+    openMenu('.kanban-board__header-button', 1);
+    clickItem('Edit');
+    expect(onColumnAction).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), { action: 'edit', columnId: 2 });
+    expect(onCardOption).not.toHaveBeenCalled();
+  });
+
+  it('314/315: onCardAction gets column and card ids, id/title aliases apply', () => {
+    const onCardAction = jest.fn();
+    const columns = [{ ...mockBoardData[0], subCards: [{ ...mockBoardData[0].subCards[1], id: 7, title: 'Alias title' }] }];
+    render(<RdsCompKanbanBoard defaultColumns={columns} onCardAction={onCardAction} />);
+    expect(screen.getByText('Alias title')).toBeInTheDocument();
+    openMenu('.rds-kanban-board__subcard-dropdown-button', 0);
+    clickItem('Edit');
+    expect(onCardAction).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), { action: 'edit', columnId: 1, cardId: 7 });
   });
 });

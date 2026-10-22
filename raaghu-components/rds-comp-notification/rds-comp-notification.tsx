@@ -25,20 +25,23 @@ const CustomBellIcon = () => (
 
 const EMPTY_NOTIFICATIONS: NotificationItem[] = [];
 
-// One stable key used for both rendering and dismissal.
 const getNotificationKey = (notification: NotificationItem, index: number): string | number =>
     notification.id ?? notification.userNotificationId ?? `${notification.title}-${index}`;
 
 const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string } = ({
-    notifications = EMPTY_NOTIFICATIONS,
+    items,
+    notifications: legacyNotifications,
     title,
+    fallbackImage,
     defaultImage,
-    layout = NotificationLayout.Horizontal,
-    style = NotificationStyle.Default,
+    orientation,
+    layout: figmaLayout,
+    variant,
+    style: figmaStyle,
     severity,
     type,
     actions = 'none',
-    dismiss = 'hidden',
+    dismiss,
     dismissLabel = 'DISMISS',
     acceptLabel = 'ACCEPT',
     description,
@@ -51,11 +54,17 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     showDismiss: legacyShowDismiss,
 }) => {
     if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`severity`');
+    if (legacyNotifications !== undefined) warnDeprecatedProp('RdsCompNotification', 'notifications', '`items`');
+    if (defaultImage !== undefined) warnDeprecatedProp('RdsCompNotification', 'defaultImage', '`fallbackImage`');
+    if (dismiss !== undefined) warnDeprecatedProp('RdsCompNotification', 'dismiss', '`showDismiss`');
     const resolvedType = severity ?? type ?? NotificationType.Info;
+    const notifications = items ?? legacyNotifications ?? EMPTY_NOTIFICATIONS;
+    const layout = orientation ?? figmaLayout ?? NotificationLayout.Horizontal;
+    const style = variant ?? figmaStyle ?? NotificationStyle.Default;
 
     const theme = useTheme();
     const resolvedDefaultImage =
-        defaultImage ?? getRaaghuLogoUrlFromDark(theme.palette.mode === 'dark');
+        fallbackImage ?? defaultImage ?? getRaaghuLogoUrlFromDark(theme.palette.mode === 'dark');
 
     const resolvedDismissVisible = dismiss === 'visible' || legacyShowDismiss === true;
     const resolvedShowPrimaryButton = actions === 'primary' || actions === 'both' || legacyShowPrimaryButton === true;
@@ -63,7 +72,6 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     const resolvedShowButton = actions !== 'none' || legacyShowButton === true || resolvedShowPrimaryButton || resolvedShowSecondaryButton;
 
     const [dismissedNotificationKeys, setDismissedNotificationKeys] = useState<Array<string | number>>([]);
-    // A new `notifications` reference is an authoritative reset: show everything again.
     const [prevNotifications, setPrevNotifications] = useState(notifications);
     const isReset = notifications !== prevNotifications;
     if (isReset) {
