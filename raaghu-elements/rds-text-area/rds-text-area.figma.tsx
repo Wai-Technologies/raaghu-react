@@ -18,12 +18,12 @@ figma.connect(
         Disabled : TextareaState.Disabled,
         Error : TextareaState.Error
       }),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         Default : TextareaStyle.Default,
         Pill : TextareaStyle.Pill,
         "Bottom Outline" : TextareaStyle.BottomOutline
       }),
     },
-    example: (props) => <RdsTextArea {...props} isMandatory placeholder = "Enter Description" />,
+    example: (props) => <RdsTextArea {...props} required placeholder = "Enter Description" />,
   },
 )

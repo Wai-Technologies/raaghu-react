@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import "./rds-comp-reviews.scss";
 import { ReviewStyleCard } from "./rds-comp-review-styles";
 import Grid from "@mui/material/Grid";
@@ -11,8 +12,10 @@ export interface RdsCompReviewsProps {
   items?: Item[];
   /** @deprecated Use `items` instead. */
   itemList?: Item[];
+  /** Visual style of the review cards. */
   variant?: ReviewStyle;
-  style?: ReviewStyle;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: ReviewStyle | CSSProperties;
   /** @deprecated Has no effect. */
   variantType?: VariantType;
   /** Locale used to format dates. Defaults to "en-GB". */
@@ -51,18 +54,20 @@ const RdsCompReviews = ({
   if (variantType !== VariantType.Default) {
     warnDeprecatedProp("RdsCompReviews", "variantType", "nothing (it has no effect)");
   }
+  const legacyStyle = typeof style === "string" ? style : undefined;
+  if (legacyStyle !== undefined) warnDeprecatedProp("RdsCompReviews", "style", "`variant`");
   const list = items ?? itemList ?? [];
   const showDefaultVariant = variantType === VariantType.Default;
 
   return (
-    <Box className="rds-comp-reviews">
+    <Box className="rds-comp-reviews" style={typeof style === "object" ? style : undefined}>
       {showDefaultVariant && (
         <Grid container spacing={2} wrap="wrap">
           {list.map((item, index) => (
             <Grid key={getItemKey(item, index)} size={GRID_SIZE} style={{ display: "flex" }}>
               <ReviewStyleCard
                 item={item}
-                style={variant ?? style}
+                variant={variant ?? legacyStyle}
                 locale={locale}
                 formatDate={formatDate}
                 onRatingChange={onRatingChange}

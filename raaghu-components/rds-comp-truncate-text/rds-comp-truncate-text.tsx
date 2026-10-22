@@ -69,7 +69,7 @@ const RdsCompTruncateText = ({
       className={className}
     >
       {showTooltip ? (
-        <RdsTooltip label={content} title={content} style="bottom" arrow>
+        <RdsTooltip label={content} title={content} placement="bottom" arrow>
           <span style={spanStyle}>{displayText}</span>
         </RdsTooltip>
       ) : (

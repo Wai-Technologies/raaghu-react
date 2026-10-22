@@ -1,4 +1,4 @@
-import { useId, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
+import { useId, type CSSProperties, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
@@ -7,14 +7,14 @@ import type { FileWithProgress, RdsFileUploaderRootProps } from './rds-file-uplo
 
 interface RdsFileUploaderStandardViewProps {
   /** Props forwarded to the root `Box` (consumer `className`, `sx`, `ref`, `id`, `aria-*`…). */
-  rootProps?: RdsFileUploaderRootProps;
+  rootProps?: RdsFileUploaderRootProps & { style?: CSSProperties };
   accept?: string;
-  viewConfig: {
-    showTitle: boolean;
-    isMandatory: boolean;
-    showHint: boolean;
-    showPreview: boolean;
-  };
+ viewConfig: {
+  showTitle: boolean;
+  mandatory: boolean;
+  showHint: boolean;
+  showPreview: boolean;
+};
   interactionConfig: {
     disabled: boolean;
     dragAndDrop: boolean;
@@ -53,7 +53,7 @@ const RdsFileUploaderStandardView = ({
   children,
   title
 }: RdsFileUploaderStandardViewProps) => {
-  const { showTitle, isMandatory, showHint, showPreview } = viewConfig;
+const { showTitle, mandatory, showHint, showPreview } = viewConfig;
   const { disabled, dragAndDrop, isDragOver, multiple } = interactionConfig;
   const { className, sx, ...restRootProps } = rootProps ?? {};
   const titleId = useId();
@@ -67,7 +67,10 @@ const RdsFileUploaderStandardView = ({
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
           <Typography id={titleId} className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
-            {title || 'File'}{isMandatory && <span className="rds-file-uploader__mandatory">*</span>}
+            {title || 'File'}
+{mandatory && (
+  <span className="rds-file-uploader__mandatory">*</span>
+)}
           </Typography>
         </Box>
       )}
@@ -85,7 +88,7 @@ const RdsFileUploaderStandardView = ({
         onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); addFiles(Array.from(e.dataTransfer.files), e); } : undefined}
       >
         <RdsButton
-          style="filled"
+          variant="filled"
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
           sx={{
@@ -145,11 +148,12 @@ const RdsFileUploaderStandardView = ({
         </Typography>
       </Box>
 
-      {isMandatory && mandatoryError && (
-        <Typography variant="caption" color="error" sx={{ mt: 1 }}>
-          {mandatoryError}
-        </Typography>
-      )}
+   {mandatory && mandatoryError && (
+  <Typography variant="caption" color="error" sx={{ mt: 1 }}>
+    {mandatoryError}
+  </Typography>
+)}
+    
     </Box>
   );
 };

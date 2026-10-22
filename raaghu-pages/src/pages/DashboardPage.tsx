@@ -388,7 +388,7 @@ export default function DashboardPage() {
             </Box>
 
             <LinearProgress
-              variant="determinate"
+              progressVariant="determinate"
               value={kpi.progress}
               sx={{
                 height: 4,
@@ -579,7 +579,7 @@ export default function DashboardPage() {
               78%
             </Typography>
             <LinearProgress
-              variant="determinate"
+              progressVariant="determinate"
               value={78}
               sx={{
                 height: 6,

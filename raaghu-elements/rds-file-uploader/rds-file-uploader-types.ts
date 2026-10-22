@@ -1,4 +1,4 @@
-import type { ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
+import type { CSSProperties, ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
 import type { BoxProps } from '@mui/material';
 
 /** Root `Box` props forwarded to the uploader's outer element (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, handlers…). */
@@ -55,8 +55,8 @@ export interface RdsFileUploaderProps {
   /** @deprecated – has no effect */
   state?: 'default' | 'selected';
   mode?: 'standard' | 'default';
-  /** Drop-area style (Figma). */
-  style?: FileUploaderVariant;
-  /** Drop-area style. Takes precedence over `style`. */
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: FileUploaderVariant | CSSProperties;
+  /** Drop-area style. */
   variant?: FileUploaderVariant;
 }

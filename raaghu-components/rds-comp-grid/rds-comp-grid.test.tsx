@@ -68,14 +68,23 @@ describe('RdsCompGrid', () => {
   describe('Feature Flags', () => {
     it('renders with sort enabled', () => {
       const { container } = render(
-        <RdsCompGrid tableHeaders={sampleColumns} tableData={sampleData} isSort />
+        <RdsCompGrid tableHeaders={sampleColumns} tableData={sampleData} sortable />
       );
       expect(container).toBeInTheDocument();
     });
 
+    it('still accepts deprecated isSort and isLoading aliases', () => {
+      const { container, rerender } = render(
+        <RdsCompGrid tableHeaders={sampleColumns} tableData={sampleData} isSort />
+      );
+      expect(container).toBeInTheDocument();
+      rerender(<RdsCompGrid tableHeaders={sampleColumns} tableData={sampleData} isLoading />);
+      expect(screen.getByText('Loading...')).toBeInTheDocument();
+    });
+
     it('renders with filter enabled', () => {
       const { container } = render(
-        <RdsCompGrid tableHeaders={sampleColumns} tableData={sampleData} isFilter />
+        <RdsCompGrid tableHeaders={sampleColumns} tableData={sampleData} filterable />
       );
       expect(container).toBeInTheDocument();
     });

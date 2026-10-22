@@ -118,7 +118,6 @@ const RdsAlert = ({
   const hasElementChildren = isValidElement(children);
   const mainText = description ?? (!hasElementChildren ? children : undefined);
 
-  // `icon` (MUI) wins over the deprecated `changeIconName`; `null`/`false` hide the icon.
   const customIcon = icon !== undefined ? icon : changeIconName;
   const iconNode: ReactNode =
     !showIcon || customIcon === null || customIcon === false
@@ -133,7 +132,7 @@ const RdsAlert = ({
   const secondaryButton = showSecondary && (
     <RdsButton
       className={isError ? 'rds-alert__secondary-button--error' : 'rds-alert__secondary-button'}
-      style="transparent"
+      variant="transparent"
       size="small"
       sx={multiline ? undefined : { mr: showPrimary ? 2 : 0 }}
       textCase="capitalize"
@@ -146,7 +145,7 @@ const RdsAlert = ({
   const primaryButton = showPrimary && (
     <RdsButton
       className="rds-alert__primary-button"
-      style="filled"
+      variant="filled"
       size="small"
       color={isError ? 'error' : 'primary'}
       textCase="capitalize"

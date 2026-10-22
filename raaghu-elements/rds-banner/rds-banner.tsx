@@ -142,9 +142,7 @@ const RdsBanner = ({
   }
 
   const resolvedSeverity: AlertColor = severity ?? type ?? 'info';
-  // `style2` maps to MUI's outlined variant; an explicit `variant` always wins.
   const muiVariant = variant ?? (variantStyle === 'style2' ? 'outlined' : 'standard');
-  // A consumer `icon` is passed to MUI as is (as before); otherwise the default icon, hidden by `showIcon`.
   const iconNode: ReactNode = icon !== undefined ? icon : showIcon ? <InfoOutlinedIcon /> : false;
 
   return (
@@ -162,7 +160,6 @@ const RdsBanner = ({
         showOutline && variantStyle !== 'style3' && `rds-banner--${variantStyle}-outline`,
         className,
       )}
-      // A consumer `action` replaces the whole action area, close button included (MUI behaviour).
       action={action !== undefined ? action : (
         <div className="rds-banner__action-container">
           {actions}
@@ -214,7 +211,7 @@ const RdsBanner = ({
               </RdsButton>
             )}
             {showPrimary && (
-              <RdsButton style="filled" size="small" className="rds-banner__primary-button" onClick={onPrimaryClick}>
+              <RdsButton variant="filled" size="small" className="rds-banner__primary-button" onClick={onPrimaryClick}>
                 {primaryText}
               </RdsButton>
             )}

@@ -256,8 +256,8 @@ describe('RdsCompDatePicker', () => {
       expect(screen.getByTestId('text-field-label')).toHaveTextContent('Select Date');
     });
 
-    it('should render with required indicator when isRequired is true', () => {
-      render(<RdsCompDatePicker label="Required Date" isRequired={true} />);
+    it('should render with required indicator when required is true', () => {
+      render(<RdsCompDatePicker label="Required Date" required />);
       const label = screen.getByTestId('text-field-label');
       expect(label).toBeInTheDocument();
     });
@@ -562,8 +562,8 @@ describe('RdsCompDatePicker', () => {
       expect(wrapper).toBeInTheDocument();
     });
 
-    it('should apply required class when isRequired', () => {
-      const { container } = render(<RdsCompDatePicker isRequired={true} />);
+    it('should apply required class when required', () => {
+      const { container } = render(<RdsCompDatePicker required />);
       const wrapper = container.querySelector('.rds-date-picker--required');
       expect(wrapper).toBeInTheDocument();
     });
@@ -643,7 +643,7 @@ describe('RdsCompDatePicker', () => {
       expect(iconButton).toHaveAttribute('aria-label');
     });
 
-    it('should have required attribute when isRequired', () => {
+    it('should have required attribute when isRequired (deprecated alias)', () => {
       render(<RdsCompDatePicker isRequired={true} />);
       const input = screen.getByTestId('text-field-input');
       expect(input.hasAttribute('required')).toBe(true);
@@ -717,8 +717,14 @@ describe('RdsCompDatePicker', () => {
   });
 
   describe('Range Presets', () => {
+    it('should still accept the deprecated style="custom"', () => {
+      render(<RdsCompDatePicker variant="daterange" appearance="custom" />);
+      fireEvent.click(screen.getByTestId('text-field-input'));
+      expect(screen.getByTestId('popover')).toBeInTheDocument();
+    });
+
     it('should have preset buttons in custom range layout', () => {
-      render(<RdsCompDatePicker variant="daterange" style="custom" />);
+      render(<RdsCompDatePicker variant="daterange" appearance="custom" />);
       const input = screen.getByTestId('text-field-input');
       fireEvent.click(input);
       expect(screen.getByTestId('popover')).toBeInTheDocument();
@@ -726,7 +732,7 @@ describe('RdsCompDatePicker', () => {
 
     it('should apply preset values when selected', () => {
       const handleChange = jest.fn();
-      render(<RdsCompDatePicker variant="daterange" style="custom" onChange={handleChange} />);
+      render(<RdsCompDatePicker variant="daterange" appearance="custom" onChange={handleChange} />);
       const input = screen.getByTestId('text-field-input');
       fireEvent.click(input);
       expect(screen.getByTestId('popover')).toBeInTheDocument();

@@ -12,7 +12,7 @@ figma.connect(
       showHint: figma.boolean("💬 Show Hint"),
       required: figma.boolean("❗ Is Mandatory"),
       label: figma.string("✏️ Title"),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Drop Area - Side Icon": "Drop Area - Side Icon",
         "Drop Area - Top Icon": "Drop Area - Top Icon",
         "Drop Area - With Upload Button": "Drop Area - With Upload Button",

@@ -139,7 +139,7 @@ const RdsDialog = ({
             <RdsButton
               onClick={onPrimaryClick ?? closeFromButton}
               className="rds-dialog__button rds-dialog__button__primary"
-              style="filled"
+              variant="filled"
             >
               {primaryText}
             </RdsButton>

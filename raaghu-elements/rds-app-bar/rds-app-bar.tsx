@@ -110,7 +110,7 @@ const DEFAULT_BOTTOM_ACTIONS = (
   <>
     <span className="rds-appbar-badge">28 Days Left</span>
     <RdsButton
-      style="filled"
+      variant="filled"
       color="primary"
       textCase="capitalize"
       sx={{

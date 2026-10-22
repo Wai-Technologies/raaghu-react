@@ -21,7 +21,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
         data-testid={`btn-${props.text || 'icon-only'}`}
         onClick={props.onClick}
         data-color={props.color}
-        data-style={props.style}
+        data-style={props.variant ?? props.placement ?? props.style}
         data-layout={props.layout}
         data-size={props.size}
       >

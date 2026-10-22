@@ -216,7 +216,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style1', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style1" />
+        <RdsSwitch variant="style1" />
       );
       const switchElement = container.querySelector('.rds-switch--style1');
       expect(switchElement).toBeInTheDocument();
@@ -224,7 +224,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style2', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style2" />
+        <RdsSwitch variant="style2" />
       );
       const switchElement = container.querySelector('.rds-switch--style2');
       expect(switchElement).toBeInTheDocument();
@@ -232,7 +232,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style3', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style3" />
+        <RdsSwitch variant="style3" />
       );
       const switchElement = container.querySelector('.rds-switch--style3');
       expect(switchElement).toBeInTheDocument();
@@ -240,7 +240,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style4', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style4" />
+        <RdsSwitch variant="style4" />
       );
       const switchElement = container.querySelector('.rds-switch--style4');
       expect(switchElement).toBeInTheDocument();
@@ -248,7 +248,7 @@ describe('RdsSwitch', () => {
 
     it('should apply style5', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style5" />
+        <RdsSwitch variant="style5" />
       );
       const switchElement = container.querySelector('.rds-switch--style5');
       expect(switchElement).toBeInTheDocument();
@@ -256,7 +256,7 @@ describe('RdsSwitch', () => {
 
     it('should map legacy style6 to style5', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style={'style6' as never} />
+        <RdsSwitch variant={'style6' as never} />
       );
       const switchElement = container.querySelector('.rds-switch--style5');
       expect(switchElement).toBeInTheDocument();
@@ -264,10 +264,17 @@ describe('RdsSwitch', () => {
 
     it('should handle style with spaces', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch style="style1" />
+        <RdsSwitch variant="style1" />
       );
       const switchElement = container.querySelector('.rds-switch--style1');
       expect(switchElement).toBeInTheDocument();
+    });
+
+    it('should apply CSSProperties style to the wrapper', () => {
+      const { container } = renderWithTheme(
+        <RdsSwitch style={{ marginTop: '12px' }} />
+      );
+      expect(container.querySelector('.rds-switch--row')).toHaveStyle('margin-top: 12px');
     });
   });
 
@@ -555,7 +562,7 @@ describe('RdsSwitch', () => {
         <RdsSwitch
           label={undefined}
           state={undefined}
-          style={undefined}
+          variant={undefined}
           layout={undefined}
         />
       );
@@ -564,14 +571,14 @@ describe('RdsSwitch', () => {
 
     it('should handle multiple state and style changes', async () => {
       const { container, rerender } = renderWithTheme(
-        <RdsSwitch state="on" style="style1" />
+        <RdsSwitch state="on" variant="style1" />
       );
       let input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       expect(input.checked).toBe(true);
 
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsSwitch state="off" style="style2" />
+          <RdsSwitch state="off" variant="style2" />
         </ThemeProvider>
       );
 
@@ -658,9 +665,9 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'showLabel', expect.any(String));
   });
 
-  it('variant wins over style and style stays silent', () => {
+  it('variant wins over a deprecated style string, which warns', () => {
     const { container } = renderWithTheme(<RdsSwitch variant="style3" style="style1" />);
     expect(container.querySelector('.rds-switch--style3')).toBeInTheDocument();
-    expect(warnDeprecatedProp).not.toHaveBeenCalledWith('RdsSwitch', 'style', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'style', expect.any(String));
   });
 });

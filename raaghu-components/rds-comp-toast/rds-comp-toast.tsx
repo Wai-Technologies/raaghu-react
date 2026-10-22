@@ -39,9 +39,9 @@ const ToastFooter = ({
             <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
                 <div className="rds-comp-toast__progress">
                     <RdsProgress
-                        style="line"
+                        shape="line"
                         value={progressWidth}
-                        variant="determinate"
+                        mode="determinate"
                         color="primary"
                         showLabel={true}
                         label={`${progressWidth}%`}
@@ -50,8 +50,8 @@ const ToastFooter = ({
                 <div className="rds-comp-toast__filename">{filename}</div>
                 <div className="rds-comp-toast__actions">
                     {action ?? (<>
-                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Cancel</RdsButton>
-                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Go To Downloads</RdsButton>
+                    <RdsButton className={buttonClassName} variant="transparent" textCase="capitalize" size="small">Cancel</RdsButton>
+                    <RdsButton className={buttonClassName} variant="filled" textCase="capitalize" size="small">Go To Downloads</RdsButton>
                     </>)}
                 </div>
             </div>
@@ -70,8 +70,8 @@ const ToastFooter = ({
                 </div>
                 <div className="rds-comp-toast__actions">
                     {action ?? (<>
-                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Reply</RdsButton>
-                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Mark As Read</RdsButton>
+                    <RdsButton className={buttonClassName} variant="filled" textCase="capitalize" size="small">Reply</RdsButton>
+                    <RdsButton className={buttonClassName} variant="transparent" textCase="capitalize" size="small">Mark As Read</RdsButton>
                     </>)}
                 </div>
             </div>
@@ -82,8 +82,8 @@ const ToastFooter = ({
             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
                 <div className="rds-comp-toast__actions">
                     {action ?? (<>
-                    <RdsButton className={buttonClassName} style="transparent" textCase="capitalize" size="small">Reject</RdsButton>
-                    <RdsButton className={buttonClassName} style="filled" textCase="capitalize" size="small">Accept</RdsButton>
+                    <RdsButton className={buttonClassName} variant="transparent" textCase="capitalize" size="small">Reject</RdsButton>
+                    <RdsButton className={buttonClassName} variant="filled" textCase="capitalize" size="small">Accept</RdsButton>
                     </>)}
                 </div>
             </div>

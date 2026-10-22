@@ -31,7 +31,7 @@ const meta: Meta<typeof RdsInput> = {
       control: "select",
       options: ['text', 'password', 'phone number', 'number', 'card number'],
     },
-    style: {
+    shape: {
       control: "select",
       options: ['default', 'pill', 'bottom outline'],
     },
@@ -66,7 +66,7 @@ export const Default: Story = {
   args: {
     size: 'small',
     layout: 'text',
-    style: 'default',
+    shape: 'default',
     state: 'default',
     label: 'Input Label',
     helperText: 'This is a hint text',

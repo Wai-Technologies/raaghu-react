@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import type { CSSProperties } from "react";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
@@ -16,7 +18,9 @@ export interface RdsCompDetailsPaneProps {
   favouritesTabLabel?: string;
   addtoscreen?: string;
   addtofolder?: string;
-  style?: string;
+  variant?: string;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: string | CSSProperties;
   headerSubText?: string;
   estateTitle?: string;
   estateDescription?: string;
@@ -44,27 +48,31 @@ const DEFAULT_OLDER_HISTORY_ITEMS = [
 
 const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   const {
+    variant: variantProp,
     style,
     historyItems: providedHistoryItems,
     olderHistoryItems: providedOlderHistoryItems,
   } = props;
+  const legacyVariant = typeof style === "string" ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp("RdsCompDetailsPane", "style", "`variant`");
+  const variant = variantProp ?? legacyVariant;
 
   const getInitialTab = useCallback(() => {
-    if (style === "Favourites" || style === "Favourites - New Folder") {
+    if (variant === "Favourites" || variant === "Favourites - New Folder") {
       return "favourites";
     }
-    if (style === "Prompt History") {
+    if (variant === "Prompt History") {
       return "history";
     }
     return "history";
-  }, [style]);
+  }, [variant]);
   const [activeTab, setActiveTab] = useState(() => getInitialTab());
-  const [prevStyle, setPrevStyle] = useState(style);
-  if (style !== prevStyle) {
-    setPrevStyle(style);
-    if (style === "Favourites" || style === "Favourites - New Folder") {
+  const [prevVariant, setPrevVariant] = useState(variant);
+  if (variant !== prevVariant) {
+    setPrevVariant(variant);
+    if (variant === "Favourites" || variant === "Favourites - New Folder") {
       setActiveTab("favourites");
-    } else if (style === "Prompt History") {
+    } else if (variant === "Prompt History") {
       setActiveTab("history");
     }
   }
@@ -82,8 +90,8 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   
   return (
     <>
-      <div className="rds-comp-details-pane" style={{ position: 'relative' }}>
-        {(props.style === "Favourites" || props.style === "Favourites - New Folder" || props.style === "Prompt History") ? (
+      <div className="rds-comp-details-pane" style={{ position: 'relative', ...(typeof style === 'object' ? style : undefined) }}>
+        {(variant === "Favourites" || variant === "Favourites - New Folder" || variant === "Prompt History") ? (
           <div>
             <h5 className="rds-comp-details-pane__header fw-bold">{props.headerText}</h5>
             <HistoryFavoritesTabs 
@@ -93,30 +101,30 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
               favouritesTabLabel={props.favouritesTabLabel}
               addtoscreen={props.addtoscreen || "Add to Screen"}
               addtofolder={props.addtofolder}
-              style={props.style}
+              style={variant}
               historyItems={historyItems}
               olderHistoryItems={olderHistoryItems}
               handleDeleteHistoryItem={handleDeleteHistoryItem}
               handleDeleteOlderHistoryItem={handleDeleteOlderHistoryItem}
             />
           </div>
-        ) : props.style === "Real Estate" ? (
+        ) : variant === "Real Estate" ? (
           <RealEstateContent 
             estateTitle={props.estateTitle}
             estateDescription={props.estateDescription}
             carouselImages={props.carouselImages}
           />
-        ) : props.style === "Selection" ? (
+        ) : variant === "Selection" ? (
           <SelectionContent 
             headerText={props.headerText}
             headerSubText={props.headerSubText}
           />
-        ) : props.style === "Toolbar" ? (
+        ) : variant === "Toolbar" ? (
           <ToolbarContent 
           figmaIconSrc={props.figmaIconSrc}
             storybookIconSrc={props.storybookIconSrc}
           />
-        ) : props.style === "Thumbnail View" ? (
+        ) : variant === "Thumbnail View" ? (
           <ThumbnailViewContent 
             thumbnailButtonName={props.thumbnailButtonName}
           />

@@ -68,10 +68,6 @@ const meta: Meta<typeof RdsFormControl> = {
       control: { type: 'boolean' },
       description: 'Wrap children in a FormGroup (e.g. checkbox/radio groups)',
     },
-    isRequired: {
-      control: { type: 'boolean' },
-      table: { disable: true },
-    },
     children: {
       control: { disable: true },
       table: { disable: true },
@@ -104,7 +100,9 @@ type Story = StoryObj<typeof meta>;
 
 export const WithTextField: Story = {
   play: async ({ canvasElement }) => {
-    const el = canvasElement.querySelector('input, select, textarea') || canvasElement.firstElementChild;
+    const el =
+      canvasElement.querySelector('input, select, textarea') ||
+      canvasElement.firstElementChild;
     expect(el).toBeTruthy();
   },
   render: (args) => (
@@ -139,7 +137,9 @@ export const WithSelect: Story = {
         <MenuItem value="ca">Canada</MenuItem>
         <MenuItem value="uk">United Kingdom</MenuItem>
         <MenuItem value="de">Germany</MenuItem>
-        <MenuItem value="gb">United Kingdom of Great Britain and Northern Ireland</MenuItem>
+        <MenuItem value="gb">
+          United Kingdom of Great Britain and Northern Ireland
+        </MenuItem>
       </Select>
     </RdsFormControl>
   ),
@@ -231,7 +231,7 @@ export const FullWidth: Story = {
 export const Small: Story = {
   args: {
     label: 'Small Size',
-    helperText: 'This is a small sized form control.',
+    helperText: 'This is a small sized field.',
     size: 'small',
     error: false,
   },

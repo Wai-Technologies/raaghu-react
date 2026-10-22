@@ -47,6 +47,7 @@ import {
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DragUpdate, DroppableProvided, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -78,8 +79,14 @@ export interface RdsCompGridColumn {
   dataType?: string;
   dataLength?: number;
   required?: boolean;
+  sortable?: boolean;
+  /** @deprecated Use `sortable` instead. */
   isSort?: boolean;
+  filterable?: boolean;
+  /** @deprecated Use `filterable` instead. */
   isFilter?: boolean;
+  resizable?: boolean;
+  /** @deprecated Use `resizable` instead. */
   isResizable?: boolean;
   showHeader?: boolean;
   showSubHeader?: boolean;
@@ -206,8 +213,14 @@ export interface RdsCompGridProps {
   controlledData?: GridRow[];
   onDataChange?: (newData: GridRow[]) => void;
   
+  sortable?: boolean;
+  /** @deprecated Use `sortable` instead. */
   isSort?: boolean;
+  filterable?: boolean;
+  /** @deprecated Use `filterable` instead. */
   isFilter?: boolean;
+  resizable?: boolean;
+  /** @deprecated Use `resizable` instead. */
   isResizable?: boolean;
   enableCheckboxSelection?: boolean;
   enableRadioButtonSelection?: boolean;
@@ -233,6 +246,8 @@ export interface RdsCompGridProps {
   onActionSelection?: (rowData: GridRow, actionId: string) => void;
   onRowSelect?: (data: GridRow) => void;
   onRowClick?: (rowId: string) => void;
+  onPagination?: (currentPage: number, recordsPerPage: number) => void;
+  /** @deprecated Use `onPagination` instead. */
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   onSortChange?: (sortState: SortState) => void;
   onFilterChange?: (filterState: FilterState) => void;
@@ -251,6 +266,8 @@ export interface RdsCompGridProps {
   
   
   // Loading
+  loading?: boolean;
+  /** @deprecated Use `loading` instead. */
   isLoading?: boolean;
 }
 
@@ -521,9 +538,12 @@ const RdsCompGrid = ({
   tableData,
   controlledData,
   onDataChange,
-  isSort = true,
-  isFilter = true,
-  isResizable = true,
+  sortable: sortableProp,
+  isSort,
+  filterable: filterableProp,
+  isFilter,
+  resizable: resizableProp,
+  isResizable,
   enableCheckboxSelection = false,
   enableRadioButtonSelection = false,
   enableInlineEdit = false,
@@ -544,6 +564,7 @@ const RdsCompGrid = ({
   onActionSelection,
   onRowSelect,
   onRowClick,
+  onPagination: onPaginationProp,
   onPaginationHandler,
   onSortChange,
   onFilterChange,
@@ -557,8 +578,22 @@ const RdsCompGrid = ({
   illustration = false,
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
-  isLoading = false,
+  loading: loadingProp,
+  isLoading,
 }: RdsCompGridProps & { ref?: Ref<RdsCompGridRef> }) => {
+  if (isSort !== undefined) warnDeprecatedProp('RdsCompGrid', 'isSort', '`sortable`');
+  if (isFilter !== undefined) warnDeprecatedProp('RdsCompGrid', 'isFilter', '`filterable`');
+  if (isResizable !== undefined) warnDeprecatedProp('RdsCompGrid', 'isResizable', '`resizable`');
+  if (isLoading !== undefined) warnDeprecatedProp('RdsCompGrid', 'isLoading', '`loading`');
+  if (onPaginationHandler !== undefined) warnDeprecatedProp('RdsCompGrid', 'onPaginationHandler', '`onPagination`');
+  if (tableHeaders.some(h => h.isSort !== undefined || h.isFilter !== undefined || h.isResizable !== undefined)) {
+    warnDeprecatedProp('RdsCompGrid', 'tableHeaders[].isSort/isFilter/isResizable', '`sortable`/`filterable`/`resizable`');
+  }
+  const sortable = sortableProp ?? isSort ?? true;
+  const filterable = filterableProp ?? isFilter ?? true;
+  const resizable = resizableProp ?? isResizable ?? true;
+  const loading = loadingProp ?? isLoading ?? false;
+  const onPagination = onPaginationProp ?? onPaginationHandler;
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -1043,7 +1078,7 @@ const RdsCompGrid = ({
     e.stopPropagation();
     
     const header = tableHeaders.find(h => h.key === columnKey);
-    if (header?.isResizable !== false) {
+    if ((header?.resizable ?? header?.isResizable) !== false) {
       const currentWidth = columnWidths[columnKey] || header?.minWidth || 150;
       
       setIsResizing(true);
@@ -1238,7 +1273,7 @@ const RdsCompGrid = ({
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    onPaginationHandler?.(page, recordsPerPage);
+    onPagination?.(page, recordsPerPage);
   };
 
   const handleRowSelect = (rowId: string, rowData: GridRow) => {
@@ -1653,12 +1688,12 @@ const RdsCompGrid = ({
     getCurrentPage: () => currentPage,
     setCurrentPage: (page: number) => {
       setCurrentPage(page);
-      onPaginationHandler?.(page, recordsPerPage);
+      onPagination?.(page, recordsPerPage);
     },
     getPageSize: () => recordsPerPage,
     setPageSize: (size: number) => {
       setCurrentPage(1);
-      onPaginationHandler?.(1, size);
+      onPagination?.(1, size);
     },
     getTotalPages: () => Math.ceil(currentData.length / recordsPerPage),
 
@@ -1767,7 +1802,7 @@ const RdsCompGrid = ({
     currentPage,
     setCurrentPage,
     recordsPerPage,
-    onPaginationHandler,
+    onPagination,
     visibleColumns,
     setVisibleColumns,
     handleColumnVisibilityChange,
@@ -1799,7 +1834,7 @@ const RdsCompGrid = ({
     }
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <Card sx={{ p: 2 }}>
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
@@ -1949,7 +1984,7 @@ const RdsCompGrid = ({
           bgcolor: 'action.hover'
         }}>
           <Grid container spacing={2} alignItems="center">
-            {tableHeaders.filter(header => header.isFilter).map((header) => (
+            {tableHeaders.filter(header => header.filterable ?? header.isFilter).map((header) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={header.key}>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <Typography variant="body2" fontWeight="medium" minWidth="87px">
@@ -2160,7 +2195,7 @@ const RdsCompGrid = ({
                           }
                         }}
                         sx={{
-                          cursor: enableColumnSwapping ? 'grab' : (isSort && header.isSort ? 'pointer' : 'default'),
+                          cursor: enableColumnSwapping ? 'grab' : (sortable && (header.sortable ?? header.isSort) ? 'pointer' : 'default'),
                           width: columnWidths[header.key] || header.minWidth || 150,
                           minWidth: header.minWidth || 50,
                           maxWidth: header.maxWidth || 800,
@@ -2196,7 +2231,7 @@ const RdsCompGrid = ({
                         }}
                         onClick={(e: MouseEvent) => {
                           e.stopPropagation();
-                          if (!customDragState.isDragging && isSort && header.isSort) {
+                          if (!customDragState.isDragging && sortable && (header.sortable ?? header.isSort)) {
                             handleSort(header.key);
                           }
                         }}
@@ -2220,7 +2255,7 @@ const RdsCompGrid = ({
                           {header.required && (
                             <Typography color="error" variant="caption">*</Typography>
                           )}
-                          {isSort && header.isSort && (
+                          {sortable && (header.sortable ?? header.isSort) && (
                             <Tooltip title="Sort">
                               <IconButton size="small" aria-label={`Sort by ${header.name}`}>
                                 {(() => {
@@ -2235,7 +2270,7 @@ const RdsCompGrid = ({
                               </IconButton>
                             </Tooltip>
                           )}
-                          {isFilter && header.isFilter && (
+                          {filterable && (header.filterable ?? header.isFilter) && (
                             <Tooltip title="Click to open filters and column visibility">
                               <span>
                                 <IconButton 
@@ -2258,7 +2293,7 @@ const RdsCompGrid = ({
                           )}
                         </Stack>
                         
-                        {header.isResizable !== false && (
+                        {(header.resizable ?? header.isResizable) !== false && (
                           <Box
                             role="separator"
                             aria-label={`Resize ${header.name} column`}
@@ -2686,7 +2721,7 @@ const RdsCompGrid = ({
                             <>
                               <RdsButton
                                 size="small"
-                                style="filled"
+                                variant="filled"
                                 color="primary"
                                 onClick={() => {
                                   handleRowEditSave(rowId);
@@ -2697,7 +2732,7 @@ const RdsCompGrid = ({
                               />
                               <RdsButton
                                 size="small"
-                                style="outlined"
+                                variant="outlined"
                                 color="secondary"
                                 onClick={handleRowEditCancel}
                                 showLeftIcon={true}
@@ -2708,7 +2743,7 @@ const RdsCompGrid = ({
                           ) : (
                             <RdsButton
                               size="small"
-                              style="outlined"
+                              variant="outlined"
                               color="primary"
                               onClick={() => handleRowEditStart(rowId, row)}
                               showLeftIcon={true}
@@ -3136,7 +3171,7 @@ const RdsCompGrid = ({
                   {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
                     <RdsButton
-                      style="filled"
+                      variant="filled"
                       color="primary"
                       size="small"
                       onClick={handleApplyFilter}
@@ -3162,7 +3197,7 @@ const RdsCompGrid = ({
                       }}
                     />
                     <RdsButton
-                      style="outlined"
+                      variant="outlined"
                       size="small"
                       onClick={handleClearAdvancedFilter}
                       text="Clear"
@@ -3192,7 +3227,7 @@ const RdsCompGrid = ({
                   {/* Clear All Filters Button */}
                   {Object.keys(filterState).length > 0 && (
                     <RdsButton
-                      style="transparent"
+                      variant="transparent"
                       size="small"
                       onClick={() => {
                         setFilterState({});

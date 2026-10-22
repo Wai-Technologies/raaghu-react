@@ -15,7 +15,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=8157-22064",
   {
     props: {
-      style:figma.enum("✨ Style",{
+      variant:figma.enum("✨ Style",{
         "Favourites": "Favourites",
         "Favourites - New Folder": "Favourites - New Folder",
         "Prompt History": "Prompt History",

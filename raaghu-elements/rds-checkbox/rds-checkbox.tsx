@@ -7,9 +7,9 @@ import './rds-checkbox.scss';
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
   /** Text shown next to the checkbox. */
   label?: string;
-  /** Checkbox shape (Figma). */
-  style?: 'square' | 'circular';
-  /** Checkbox shape. Takes precedence over `style`. */
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: 'square' | 'circular' | CSSProperties;
+  /** Checkbox shape. */
   variant?: 'square' | 'circular';
   state?: 'default' | 'disabled' | 'hover';
   status?: 'checked' | 'unchecked' | 'indeterminate';
@@ -27,7 +27,7 @@ const RdsCheckbox = ({
   labeltext,
   isDisabled,
   disabled,
-  style = 'square',
+  style,
   variant,
   state = 'default',
   status,
@@ -45,6 +45,10 @@ const RdsCheckbox = ({
   if (labeltext !== undefined) warnDeprecatedProp('RdsCheckbox', 'labeltext', '`label`');
   if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
 
+  const legacyShape = typeof style === 'string' ? style : undefined;
+  if (legacyShape !== undefined) warnDeprecatedProp('RdsCheckbox', 'style', '`variant`');
+  const styleObject = typeof style === 'object' ? style : undefined;
+
   const labelText = label ?? labeltext;
   const isCheckboxDisabled = Boolean(disabled) || Boolean(isDisabled) || state === 'disabled';
 
@@ -60,7 +64,7 @@ const RdsCheckbox = ({
 
   const checked = checkedProp ?? internalChecked;
   const currentIndeterminate = indeterminate ?? status === 'indeterminate';
-  const shape = variant ?? style;
+  const shape = variant ?? legacyShape ?? 'square';
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     setInternalChecked(value);
@@ -100,7 +104,7 @@ const RdsCheckbox = ({
   );
 
   return (
-    <div className={checkboxClassName} style={cssStyle}>
+    <div className={checkboxClassName} style={styleObject ? { ...cssStyle, ...styleObject } : cssStyle}>
       {labelText ? (
         <FormControlLabel
           control={checkbox}

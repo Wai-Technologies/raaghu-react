@@ -22,7 +22,7 @@ type Story = StoryObj<typeof RdsCompChat>;
 
 export const Default: Story = {
     args: {
-        isChatScreenEnabled: true,
+        chatScreenEnabled: true,
         userData: [
             {
                 firstName: "Wai",
@@ -82,12 +82,12 @@ export const Default: Story = {
         currentUserCommentTextColor: "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
         otherUserCommentBgColor: "var(--rds-neutral-300)",
         OtherUserCommentTextColor: "var(--rds-text-primary)",
-        handleAddComment: (comment) => {},
+        onAddComment: (comment) => {},
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
 
-Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
+Default.parameters = { controls: { include: ["chatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
 

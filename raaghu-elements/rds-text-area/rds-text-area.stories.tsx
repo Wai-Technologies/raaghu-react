@@ -9,13 +9,13 @@ const meta: Meta<typeof RdsTextArea> = {
             status: { type: 'stable' },
         layout: 'padded',
         controls: {
-            exclude: ['value', 'id', 'dataTestId', 'data-testid', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']
+            exclude: ['value', 'id', 'dataTestId', 'data-testid', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'multiUrl', 'isMultiUrl','customClasses']
         },
         docs: {
             source: {
                 transform: (code: string) => {
                     code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={TextareaState.${p1}}`);
-                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={TextareaStyle.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/variant="([^"]+)"/g, (match, p1) => `variant={TextareaStyle.${p1.replace(/\s+/g, "")}}`);
                     return code;
                 }
             }
@@ -28,12 +28,12 @@ const meta: Meta<typeof RdsTextArea> = {
             options: ['Default', 'Active', 'Selected', 'Disabled', 'Error'],
             description: 'Current state of the text area'
         },
-        style: {
+        variant: {
             control: 'select',
             options: ['Default', 'Pill', 'Bottom Outline'],
             description: 'Visual style variant of the text area'
         },
-        isMandatory: {
+        required: {
             control: 'boolean',
             description: 'Whether the field is required'
         },
@@ -56,8 +56,8 @@ export const Default: Story = {
         label: "Label",
         placeholder: "Enter Description",
         state: TextareaState.Default,
-        style: TextareaStyle.Default,
-        isMandatory: false,
+        variant: TextareaStyle.Default,
+        required: false,
         rows: 4
     }
 };

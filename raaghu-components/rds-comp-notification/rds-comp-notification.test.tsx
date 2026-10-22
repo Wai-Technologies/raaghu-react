@@ -180,7 +180,7 @@ describe('RdsCompNotification', () => {
       const { container } = render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Default}
+          variant={NotificationStyle.Default}
         />
       );
       const card = container.querySelector('.rds-comp-notification--style-default');
@@ -191,7 +191,7 @@ describe('RdsCompNotification', () => {
       const { container } = render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Avatar}
+          variant={NotificationStyle.Avatar}
         />
       );
       const card = container.querySelector('.rds-comp-notification--style-avatar');
@@ -202,7 +202,7 @@ describe('RdsCompNotification', () => {
       const { container } = render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Icon}
+          variant={NotificationStyle.Icon}
         />
       );
       const card = container.querySelector('.rds-comp-notification--style-icon');
@@ -213,7 +213,7 @@ describe('RdsCompNotification', () => {
       const { container } = render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Image}
+          variant={NotificationStyle.Image}
         />
       );
       const card = container.querySelector('.rds-comp-notification--style-image');
@@ -224,7 +224,7 @@ describe('RdsCompNotification', () => {
       const { container, rerender } = render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Default}
+          variant={NotificationStyle.Default}
         />
       );
       expect(
@@ -232,11 +232,22 @@ describe('RdsCompNotification', () => {
       ).toBeInTheDocument();
 
       rerender(
-        <RdsCompNotification {...defaultProps} style={NotificationStyle.Avatar} />
+        <RdsCompNotification {...defaultProps} variant={NotificationStyle.Avatar} />
       );
       expect(
         container.querySelector('.rds-comp-notification--style-avatar')
       ).toBeInTheDocument();
+    });
+
+    it('applies CSS style to the notification root card', () => {
+      const { container } = render(
+        <RdsCompNotification
+          {...defaultProps}
+          variant={NotificationStyle.Avatar}
+          style={{ marginTop: 8 }}
+        />
+      );
+      expect(container.querySelector('.rds-comp-notification')).toHaveStyle({ marginTop: '8px' });
     });
   });
 
@@ -488,7 +499,7 @@ describe('RdsCompNotification', () => {
       render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Avatar}
+          variant={NotificationStyle.Avatar}
           notifications={[{
             ...mockNotification,
             avatar: 'https://example.com/avatar.jpg'
@@ -503,7 +514,7 @@ describe('RdsCompNotification', () => {
       render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Avatar}
+          variant={NotificationStyle.Avatar}
           notifications={[{
             ...mockNotification,
             avatar: customAvatar
@@ -520,7 +531,7 @@ describe('RdsCompNotification', () => {
       render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Icon}
+          variant={NotificationStyle.Icon}
         />
       );
       expect(screen.getByTestId('card')).toBeInTheDocument();
@@ -531,7 +542,7 @@ describe('RdsCompNotification', () => {
       render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Icon}
+          variant={NotificationStyle.Icon}
           notifications={[{
             ...mockNotification,
             icon: customIcon
@@ -545,7 +556,7 @@ describe('RdsCompNotification', () => {
       render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Icon}
+          variant={NotificationStyle.Icon}
         />
       );
       expect(screen.getByTestId('card')).toBeInTheDocument();
@@ -557,7 +568,7 @@ describe('RdsCompNotification', () => {
       render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Image}
+          variant={NotificationStyle.Image}
           layout={NotificationLayout.Horizontal}
         />
       );
@@ -570,7 +581,7 @@ describe('RdsCompNotification', () => {
       render(
         <RdsCompNotification
           {...defaultProps}
-          style={NotificationStyle.Image}
+          variant={NotificationStyle.Image}
           layout={NotificationLayout.Horizontal}
           notifications={[{
             ...mockNotification,
@@ -596,7 +607,7 @@ describe('RdsCompNotification', () => {
         <RdsCompNotification
           {...defaultProps}
           layout={NotificationLayout.Vertical}
-          style={NotificationStyle.Avatar}
+          variant={NotificationStyle.Avatar}
           type={NotificationType.Success}
         />
       );
@@ -794,7 +805,7 @@ describe('RdsCompNotification', () => {
           title="Main Title"
           description="Main Description"
           layout={NotificationLayout.Horizontal}
-          style={NotificationStyle.Avatar}
+          variant={NotificationStyle.Avatar}
           type={NotificationType.Success}
           showButton={true}
           showPrimaryButton={true}
@@ -879,7 +890,7 @@ describe('RdsCompNotification', () => {
 
     it('accepts string-literal layout/style/severity (G6-030/031)', () => {
       const { container } = render(
-        <RdsCompNotification notifications={two} layout="vertical" style="avatar" severity="warning" type="error" />
+        <RdsCompNotification notifications={two} layout="vertical" variant="avatar" severity="warning" type="error" />
       );
       expect(container.querySelector('.rds-comp-notification--type-warning')).toBeInTheDocument();
       expect(container.querySelector('.rds-comp-notification--layout-vertical')).toBeInTheDocument();
@@ -898,7 +909,7 @@ describe('RdsCompNotification', () => {
 
     it('sets role=status, item-title image alt, and forwards className (G6-038)', () => {
       const { container } = render(
-        <RdsCompNotification notifications={two} style="image" className="extra" />
+        <RdsCompNotification notifications={two} variant="image" className="extra" />
       );
       const card = screen.getAllByTestId('card')[0];
       expect(card).toHaveAttribute('role', 'status');

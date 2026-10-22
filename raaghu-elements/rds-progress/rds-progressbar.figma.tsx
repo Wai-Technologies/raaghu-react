@@ -7,7 +7,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=591-8917",
   {
     props: {
-      style: figma.enum("✨ Style", {
+      shape: figma.enum("✨ Style", {
         "Circular": "circular",
         "Line": "line",
         "Stepper": "stepper",
