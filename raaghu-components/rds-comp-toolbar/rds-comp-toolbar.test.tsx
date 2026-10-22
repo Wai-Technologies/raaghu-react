@@ -3,7 +3,6 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompToolbar, {
   ToolbarLayout,
   ToolbarType,
-  ToolbarState,
   RdsCompToolbarProps,
 } from './rds-comp-toolbar';
 import '@testing-library/jest-dom';
@@ -129,7 +128,7 @@ describe('RdsCompToolbar', () => {
   const defaultProps: RdsCompToolbarProps = {
     layout: ToolbarLayout.Primary,
     type: ToolbarType.FullFeatured,
-    state: ToolbarState.On,
+
   };
 
   describe('Basic Rendering', () => {
@@ -247,38 +246,15 @@ describe('RdsCompToolbar', () => {
     });
   });
 
-  describe('State Variants', () => {
-    it('should apply On state class', () => {
-      render(<RdsCompToolbar {...defaultProps} state={ToolbarState.On} />);
-      const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--on');
+  describe('Disabled prop', () => {
+    it('applies disabled styling when disabled', () => {
+      render(<RdsCompToolbar {...defaultProps} disabled />);
+      expect(screen.getByRole('toolbar')).toHaveClass('rds-comp-toolbar--disabled');
     });
 
-    it('should apply Off state class', () => {
-      render(<RdsCompToolbar {...defaultProps} state={ToolbarState.Off} />);
-      const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--off');
-    });
-
-    it('should apply DisabledOn state class', () => {
+    it('should disable buttons when disabled', () => {
       render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} />
-      );
-      const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled-on');
-    });
-
-    it('should apply DisabledOff state class', () => {
-      render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOff} />
-      );
-      const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled-off');
-    });
-
-    it('should disable buttons when state is DisabledOn', () => {
-      render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} />
+        <RdsCompToolbar {...defaultProps} disabled={true} />
       );
       const buttons = screen.getAllByTestId(/toolbar-button-/);
       buttons.forEach((button) => {
@@ -286,8 +262,8 @@ describe('RdsCompToolbar', () => {
       });
     });
 
-    it('should not disable buttons when state is On', () => {
-      render(<RdsCompToolbar {...defaultProps} state={ToolbarState.On} />);
+    it('should not disable buttons when enabled', () => {
+      render(<RdsCompToolbar {...defaultProps} disabled={false} />);
       const buttons = screen.getAllByTestId(/toolbar-button-/);
       buttons.forEach((button) => {
         expect(button).toHaveAttribute('data-is-disabled', 'false');
@@ -325,7 +301,7 @@ describe('RdsCompToolbar', () => {
 
     it('should not toggle format when disabled', () => {
       render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} />
+        <RdsCompToolbar {...defaultProps} disabled={true} />
       );
       const boldButton = screen.getByTestId('toolbar-button-bold');
 
@@ -431,7 +407,7 @@ describe('RdsCompToolbar', () => {
       render(
         <RdsCompToolbar
           {...defaultProps}
-          state={ToolbarState.DisabledOn}
+          disabled={true}
           onAction={onAction}
         />
       );
@@ -478,7 +454,7 @@ describe('RdsCompToolbar', () => {
       render(
         <RdsCompToolbar
           type={ToolbarType.FullFeatured}
-          state={ToolbarState.On}
+          disabled={false}
         />
       );
       const toolbar = screen.getByRole('toolbar');
@@ -489,14 +465,14 @@ describe('RdsCompToolbar', () => {
       render(
         <RdsCompToolbar
           layout={ToolbarLayout.Primary}
-          state={ToolbarState.On}
+          disabled={false}
         />
       );
       const toolbar = screen.getByRole('toolbar');
       expect(toolbar).toHaveClass('rds-comp-toolbar--full-featured');
     });
 
-    it('should use default state of On', () => {
+    it('should not apply a disabled class by default', () => {
       render(
         <RdsCompToolbar
           layout={ToolbarLayout.Primary}
@@ -504,7 +480,7 @@ describe('RdsCompToolbar', () => {
         />
       );
       const toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--on');
+      expect(toolbar).not.toHaveClass('rds-comp-toolbar--disabled');
     });
 
     it('should use default empty className', () => {
@@ -541,7 +517,7 @@ describe('RdsCompToolbar', () => {
         <RdsCompToolbar
           layout={ToolbarLayout.Secondary}
           type={ToolbarType.InlineEditor}
-          state={ToolbarState.On}
+          disabled={false}
           onAction={onAction}
           className="custom-toolbar"
           data-testid="full-toolbar"
@@ -551,7 +527,7 @@ describe('RdsCompToolbar', () => {
       const toolbar = screen.getByTestId('full-toolbar');
       expect(toolbar).toHaveClass('rds-comp-toolbar--secondary');
       expect(toolbar).toHaveClass('rds-comp-toolbar--inline-editor');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--on');
+      expect(toolbar).not.toHaveClass('rds-comp-toolbar--disabled');
       expect(toolbar).toHaveClass('custom-toolbar');
     });
 
@@ -561,7 +537,7 @@ describe('RdsCompToolbar', () => {
         <RdsCompToolbar
           layout={ToolbarLayout.Primary}
           type={ToolbarType.FullFeatured}
-          state={ToolbarState.DisabledOn}
+          disabled={true}
           onAction={onAction}
           className="disabled-toolbar"
         />
@@ -570,7 +546,7 @@ describe('RdsCompToolbar', () => {
       const toolbar = screen.getByRole('toolbar');
       const buttons = screen.getAllByTestId(/toolbar-button-/);
 
-      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled-on');
+      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled');
       buttons.forEach((button) => {
         expect(button).toHaveAttribute('data-is-disabled', 'true');
       });
@@ -593,18 +569,18 @@ describe('RdsCompToolbar', () => {
 
     it('should handle state changes', () => {
       const { rerender } = render(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.On} />
+        <RdsCompToolbar {...defaultProps} disabled={false} />
       );
 
       let toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--on');
+      expect(toolbar).not.toHaveClass('rds-comp-toolbar--disabled');
 
       rerender(
-        <RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} />
+        <RdsCompToolbar {...defaultProps} disabled={true} />
       );
 
       toolbar = screen.getByRole('toolbar');
-      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled-on');
+      expect(toolbar).toHaveClass('rds-comp-toolbar--disabled');
     });
 
     it('should handle layout changes', () => {
@@ -705,9 +681,9 @@ describe('RdsCompToolbar', () => {
 
   describe('Audit fixes', () => {
     it('disables buttons for DisabledOff, and disabled wins over state', () => {
-      const { rerender } = render(<RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOff} />);
+      const { rerender } = render(<RdsCompToolbar {...defaultProps} disabled={true} />);
       expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-disabled', 'true');
-      rerender(<RdsCompToolbar {...defaultProps} state={ToolbarState.DisabledOn} disabled={false} />);
+      rerender(<RdsCompToolbar {...defaultProps} disabled={true} disabled={false} />);
       expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-disabled', 'false');
     });
 

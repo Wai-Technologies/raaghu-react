@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
-export { TreeLevel, NodeState, IconType, type TreeNode, type RdsCompTreeStructureProps } from './tree-structure-types';
+export { TreeLevel, IconType, type TreeNode, type RdsCompTreeStructureProps } from './tree-structure-types';
 import { type TreeNode, type RdsCompTreeStructureProps } from './tree-structure-types';
 
 const getLanguageFromFileName = (fileName: string): string | null => {

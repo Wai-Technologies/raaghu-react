@@ -34,11 +34,13 @@ const meta: Meta = {
       defaultValue: "default",
       description: "Style variant of the time picker",
     },
-    state: {
-      options: ["default", "expanded", "selected"],
-      control: { type: "select" },
-      defaultValue: "default",
-      description: "State of the time picker",
+    open: {
+      control: { type: "boolean" },
+      description: "Controls whether the time picker popup is open",
+    },
+    selected: {
+      control: { type: "boolean" },
+      description: "Applies the selected appearance to the input",
     },
   },
 } satisfies Meta<typeof RdsCompTimePicker>;
@@ -50,7 +52,7 @@ export const Default: Story = {
   args: {
     color: "primary",
     style: "default",
-    state: "default",
+    selected: false,
   },
   play: async ({ canvasElement }) => {
     const el = canvasElement.querySelector('input');

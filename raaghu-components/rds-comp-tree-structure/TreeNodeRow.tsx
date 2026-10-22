@@ -78,7 +78,7 @@ export const TreeNodeRow = ({
       <div
         className={clsx(
           'rds-comp-tree-structure__node',
-          props.state === 'Hover' && 'rds-comp-tree-structure__node--hover'
+          props.selected && 'rds-comp-tree-structure__node--selected'
         )}
         style={{ marginLeft: level * 20 }}
       >

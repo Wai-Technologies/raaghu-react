@@ -1,4 +1,4 @@
-import RdsTextArea, { TextareaStyle } from "./rds-text-area";
+import RdsTextArea from "./rds-text-area";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta = {
@@ -44,7 +44,7 @@ export const Default: Story = {
     args: {
         label: "Label",
         placeholder: "Enter Description",
-        style: TextareaStyle.Default,
+        style: 'Default',
         selected: false,
         isMandatory: false,
         rows: 4

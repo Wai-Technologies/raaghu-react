@@ -10,7 +10,6 @@ export type ProductTourVariant = "Image" | "Carousel" | "GIF" | "Form";
 export type ProductTourCorner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
 export interface RdsCompProductTourProps {
-    state?: ProductTourVariant;
     variant?: ProductTourVariant;
     anchorCorner?: ProductTourCorner;
     /** @deprecated Use `anchorCorner` instead. */

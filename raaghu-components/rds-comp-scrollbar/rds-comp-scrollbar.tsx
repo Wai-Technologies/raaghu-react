@@ -5,9 +5,9 @@ export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 
 export interface RdsScrollBarProps {
-  variant?: ScrollBarType | `${ScrollBarType}`;
-  type?: ScrollBarType | `${ScrollBarType}`;
-  position?: ScrollPosition | `${ScrollPosition}`;
+  variant?: ScrollBarType;
+  type?: ScrollBarType;
+  position?: ScrollPosition;
   showButtons?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;

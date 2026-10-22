@@ -1,5 +1,5 @@
 import React from "react"
-import RdsEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator"
+import RdsEmojiGenerator, { EmojiCategory, EmojiGeneratorType } from "./rds-comp-emoji-generator"
 import figma from "@figma/code-connect"
 
 figma.connect(

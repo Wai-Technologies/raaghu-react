@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
-import RdsCompTreeStructure, { IconType, NodeState, RdsCompTreeStructureProps, TreeLevel, defaultFileTypeIcons, getDefaultFileIcon } from './rds-comp-tree-structure';
+import RdsCompTreeStructure, { IconType, RdsCompTreeStructureProps, TreeLevel, defaultFileTypeIcons, getDefaultFileIcon } from './rds-comp-tree-structure';
 
 const meta: Meta = {
   title: 'Internal/Tree Structure',
@@ -13,9 +13,6 @@ const meta: Meta = {
         transform: (code: string) => {
           code = code.replace(/level="(Level1|Level2|Level3|Level4)"/g, 'level={TreeLevel.$1}');
           code = code.replace(/level:\s*"(Level1|Level2|Level3|Level4)"/g, 'level: TreeLevel.$1');
-          
-          code = code.replace(/state="(Default|Hover|Selected)"/g, 'state={NodeState.$1}');
-          code = code.replace(/state:\s*"(Default|Hover|Selected)"/g, 'state: NodeState.$1');
           
           code = code.replace(/type="(Circle|Folder)"/g, 'type={IconType.$1}');
           code = code.replace(/type:\s*"(Circle|Folder)"/g, 'type: IconType.$1');
@@ -45,10 +42,9 @@ const meta: Meta = {
       control: { type: "select" },
       description: "Icon type for folders. Choose between Circle or Folder icons."
     },
-    state: {
-      options: Object.values(NodeState),
-      control: { type: "select" },
-      description: "Node state: Default, Hover, or Selected. Controls node highlight style."
+    selected: {
+      control: "boolean",
+      description: "Applies the selected appearance to tree nodes."
     },
     Language: {
       options: [
@@ -96,7 +92,6 @@ export default meta;
 // export const Default: Story = {
 //   args: {
 //     level: TreeLevel.Level4,  // Use enum instead of string
-//     state: NodeState.Default, // Use enum instead of string
 //     showChewron: true,
 //     showCheckbox: true,
 //     showFolder: true,
@@ -222,7 +217,7 @@ export default meta;
 export const Default: StoryObj<RdsCompTreeStructureProps> = {
   args: {
     level: TreeLevel.Level2,
-    state: NodeState.Default,
+    selected: false,
     showChewron: true,
     showCheckbox: false,
     showFolder: true,

@@ -1,23 +1,26 @@
 import type { MouseEvent, ReactNode } from "react";
 
-export enum NotificationLayout {
-  Vertical = "vertical",
-  Horizontal = "horizontal",
-}
+export const NotificationLayout = {
+  Vertical: 'vertical',
+  Horizontal: 'horizontal',
+} as const;
+export type NotificationLayout = (typeof NotificationLayout)[keyof typeof NotificationLayout];
 
-export enum NotificationStyle {
-  Default = "default",
-  Avatar = "avatar",
-  Icon = "icon",
-  Image = "image",
-}
+export const NotificationStyle = {
+  Default: 'default',
+  Avatar: 'avatar',
+  Icon: 'icon',
+  Image: 'image',
+} as const;
+export type NotificationStyle = (typeof NotificationStyle)[keyof typeof NotificationStyle];
 
-export enum NotificationType {
-  Error = "error",
-  Info = "info",
-  Success = "success",
-  Warning = "warning",
-}
+export const NotificationType = {
+  Error: 'error',
+  Info: 'info',
+  Success: 'success',
+  Warning: 'warning',
+} as const;
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType];
 
 export interface NotificationItem {
   id?: string | number;
@@ -42,14 +45,14 @@ export interface RdsCompNotificationProps {
   fallbackImage?: string;
   /** @deprecated Use `fallbackImage` instead. */
   defaultImage?: string;
-  orientation?: NotificationLayout | `${NotificationLayout}`;
-  layout?: NotificationLayout | `${NotificationLayout}`;
-  variant?: NotificationStyle | `${NotificationStyle}`;
-  style?: NotificationStyle | `${NotificationStyle}`;
+  orientation?: NotificationLayout;
+  layout?: NotificationLayout;
+  variant?: NotificationStyle;
+  style?: NotificationStyle;
   /** MUI-named alias for `type`. */
-  severity?: NotificationType | `${NotificationType}`;
+  severity?: NotificationType;
   /** @deprecated Use `severity` instead. */
-  type?: NotificationType | `${NotificationType}`;
+  type?: NotificationType;
   actions?: "none" | "primary" | "secondary" | "both";
   /** @deprecated Use `showDismiss` instead. */
   dismiss?: "visible" | "hidden";

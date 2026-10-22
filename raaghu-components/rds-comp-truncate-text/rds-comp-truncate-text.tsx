@@ -3,8 +3,6 @@ import clsx from "clsx";
 import "./rds-comp-truncate-text.scss";
 import RdsTooltip from "../../raaghu-elements/rds-tooltip/rds-tooltip";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
-export { TruncateTextState } from './rds-comp-truncate-text-types';
-import { TruncateTextState } from './rds-comp-truncate-text-types';
 
 export interface RdsCompTruncateTextProps {
   /** @deprecated Use `children` instead. */
@@ -12,11 +10,10 @@ export interface RdsCompTruncateTextProps {
   /** Text to display (preferred over `text`). */
   children?: string;
   maxLength?: number;
-  state?: TruncateTextState;
   /** @deprecated Use `maxLines` instead. */
   lines?: number;
   maxLines?: number;
-  /** Force the tooltip on/off; wins over the state-derived behaviour. */
+  /** Force the tooltip on or off. */
   showTooltip?: boolean;
 }
 
@@ -24,7 +21,6 @@ const RdsCompTruncateText = ({
   text,
   children,
   maxLength = 100,
-  state = TruncateTextState.Default,
   lines: linesProp,
   maxLines,
   showTooltip: showTooltipProp,
@@ -34,10 +30,11 @@ const RdsCompTruncateText = ({
   const lines = maxLines ?? linesProp ?? 1;
   const content = children ?? text ?? '';
   const [isActive, setIsActive] = useState(false);
+  const resolvedMaxLength = Math.max(0, maxLength);
 
-  const tooltipEnabled = showTooltipProp ?? state === TruncateTextState.Hover;
-  const isLong = content.length > maxLength;
-  const isTruncated = state !== TruncateTextState.Default && isLong;
+  const tooltipEnabled = showTooltipProp ?? true;
+  const isLong = content.length > resolvedMaxLength;
+  const isTruncated = isLong;
 
   const activate = () => {
     if (tooltipEnabled) setIsActive(true);
@@ -46,7 +43,7 @@ const RdsCompTruncateText = ({
     if (tooltipEnabled) setIsActive(false);
   };
 
-  const displayText = isTruncated ? `${content.slice(0, maxLength)}...` : content;
+  const displayText = isTruncated ? `${content.slice(0, resolvedMaxLength)}...` : content;
 
   const className = clsx(
     "rds-comp-truncate-text",

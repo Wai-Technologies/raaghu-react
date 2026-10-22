@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsEmojiGenerator, { EmojiGeneratorType, SkinToneState, EmojiCategory } from './rds-comp-emoji-generator';
+import RdsEmojiGenerator, { EmojiGeneratorType, EmojiCategory } from './rds-comp-emoji-generator';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -93,10 +93,6 @@ jest.mock('./rds-comp-emoji-data', () => ({
   EmojiGeneratorType: {
     Default: 'Default',
     QuickReactions: 'QuickReactions',
-  },
-  SkinToneState: {
-    Default: 'Default',
-    Expanded: 'Expanded',
   },
   EmojiCategory: {
     SmileysAndPeople: 'SmileysAndPeople',
@@ -237,7 +233,7 @@ describe('RdsEmojiGenerator', () => {
     it('should search emojis when user types', () => {
       render(<RdsEmojiGenerator Type={EmojiGeneratorType.Default} />);
       const searchInput = screen.getByPlaceholderText('Search') as HTMLInputElement;
-      
+
       fireEvent.change(searchInput, { target: { value: 'smile' } });
       expect((searchInput as any).value).toBe('smile');
     });
@@ -245,7 +241,7 @@ describe('RdsEmojiGenerator', () => {
     it('should filter emojis based on search term', () => {
       render(<RdsEmojiGenerator Type={EmojiGeneratorType.Default} />);
       const searchInput = screen.getByPlaceholderText('Search');
-      
+
       fireEvent.change(searchInput, { target: { value: 'dog' } });
       expect(searchInput).toBeInTheDocument();
     });
@@ -253,10 +249,10 @@ describe('RdsEmojiGenerator', () => {
     it('should clear search when input is cleared', () => {
       render(<RdsEmojiGenerator Type={EmojiGeneratorType.Default} />);
       const searchInput = screen.getByPlaceholderText('Search') as HTMLInputElement;
-      
+
       fireEvent.change(searchInput, { target: { value: 'smile' } });
       expect((searchInput as any).value).toBe('smile');
-      
+
       fireEvent.change(searchInput, { target: { value: '' } });
       expect((searchInput as any).value).toBe('');
     });
@@ -290,7 +286,7 @@ describe('RdsEmojiGenerator', () => {
         <RdsEmojiGenerator
           Type={EmojiGeneratorType.Default}
           {...{ 'Show Skin Tone': true }}
-          State={'Expanded' as any}
+          skinTonePickerOpen
         />
       );
       const inlineOptions = container.querySelector('.rds-emoji-generator__skin-tone-inline');
@@ -302,7 +298,7 @@ describe('RdsEmojiGenerator', () => {
         <RdsEmojiGenerator
           Type={EmojiGeneratorType.Default}
           {...{ 'Show Skin Tone': true }}
-          State={'Expanded' as any}
+          skinTonePickerOpen
         />
       );
       const skinToneOptions = container.querySelectorAll('.rds-emoji-generator__skin-tone-option');
@@ -314,7 +310,7 @@ describe('RdsEmojiGenerator', () => {
         <RdsEmojiGenerator
           Type={EmojiGeneratorType.Default}
           {...{ 'Show Skin Tone': true }}
-          State={'Default' as any}
+
         />
       );
       const skinToneButton = container.querySelector('.rds-emoji-generator__skin-tone-button');
@@ -329,7 +325,7 @@ describe('RdsEmojiGenerator', () => {
         <RdsEmojiGenerator
           Type={EmojiGeneratorType.Default}
           {...{ 'Show Skin Tone': true }}
-          State={'Expanded' as any}
+          skinTonePickerOpen
         />
       );
       const skinToneOptions = container.querySelectorAll('.rds-emoji-generator__skin-tone-option');
@@ -563,7 +559,7 @@ describe('RdsEmojiGenerator', () => {
         <RdsEmojiGenerator
           Type={EmojiGeneratorType.Default}
           {...{ 'Show Skin Tone': true, 'Show Footer': true }}
-          State={'Default' as any}
+
           Category={EmojiCategory.SmileysAndPeople}
           onEmojiSelect={onEmojiSelect}
           maxEmojis={50}
@@ -592,10 +588,10 @@ describe('RdsEmojiGenerator', () => {
       );
       const searchInput = screen.getByPlaceholderText('Search');
       fireEvent.change(searchInput, { target: { value: 'smile' } });
-      
+
       const categoryButtons = container.querySelectorAll('button[data-variant]');
       fireEvent.click(categoryButtons[1]);
-      
+
       expect(searchInput).toBeInTheDocument();
       expect(categoryButtons[1]).toBeInTheDocument();
     });
@@ -604,13 +600,13 @@ describe('RdsEmojiGenerator', () => {
       const { container } = render(
         <RdsEmojiGenerator
           Type={EmojiGeneratorType.Default}
-          State={'Expanded' as any}
+          skinTonePickerOpen
           {...{ 'Show Skin Tone': true }}
         />
       );
       const categoryButtons = container.querySelectorAll('button[data-variant]');
       fireEvent.click(categoryButtons[2]);
-      
+
       expect(container.querySelector('.rds-emoji-generator__skin-tone-inline')).toBeInTheDocument();
     });
   });
@@ -622,7 +618,7 @@ describe('RdsEmojiGenerator', () => {
       );
       const searchInput = screen.getByPlaceholderText('Search');
       fireEvent.change(searchInput, { target: { value: 'nonexistent' } });
-      
+
       expect(container).toBeInTheDocument();
     });
 
@@ -649,12 +645,12 @@ describe('RdsEmojiGenerator', () => {
         <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
       );
       const categoryButtons = container.querySelectorAll('button[data-variant]');
-      
+
       fireEvent.click(categoryButtons[0]);
       fireEvent.click(categoryButtons[1]);
       fireEvent.click(categoryButtons[2]);
       fireEvent.click(categoryButtons[0]);
-      
+
       expect(container).toBeInTheDocument();
     });
 
@@ -724,7 +720,7 @@ describe('audit fixes', () => {
     fireEvent.click(screen.getByLabelText('More emojis'));
     expect(onMoreClick).toHaveBeenCalledTimes(1);
     expect(onEmojiSelect).not.toHaveBeenCalled();
-    render(<RdsEmojiGenerator State={SkinToneState.Expanded} />);
+    render(<RdsEmojiGenerator skinTonePickerOpen />);
     expect(screen.getByLabelText('Skin tone: Medium Light')).toBeInTheDocument();
   });
 

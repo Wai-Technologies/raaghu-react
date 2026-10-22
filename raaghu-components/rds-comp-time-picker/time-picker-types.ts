@@ -15,9 +15,9 @@ export interface RdsTimePickerProps {
   /** @deprecated Use `color` instead. */
   colorVariant?: TimePickerColor;
   color?: TimePickerColor;
-  /** Figma prop. */
-  state?: 'default' | 'expanded' | 'selected';
-  /** Popup open state (controlled). Wins over `state`. */
+  /** Applies the selected appearance to the input. */
+  selected?: boolean;
+  /** Popup open state (controlled). */
   open?: boolean;
   /** Initial popup open state (uncontrolled). */
   defaultOpen?: boolean;

@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import RdsCompToast from './rds-comp-toast';
 import {
   ToastLayout,
-  ToastState,
+  ToastSeverity,
   ToastLeadingIcon,
   ToastPosition,
   RdsCompToastProps,
@@ -42,7 +42,7 @@ describe('RdsCompToast', () => {
   const defaultProps: RdsCompToastProps = {
     subText: 'This is a toast message',
     layout: ToastLayout.Text,
-    state: ToastState.Basic,
+    severity: ToastSeverity.Basic,
     showLeading: true,
     leadingIcon: ToastLeadingIcon.Circle,
   };
@@ -82,29 +82,29 @@ describe('RdsCompToast', () => {
     });
   });
 
-  describe('State Variants', () => {
+  describe('Severity Variants', () => {
     it('should apply basic state class', () => {
-      render(<RdsCompToast {...defaultProps} state={ToastState.Basic} />);
+      render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Basic} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--basic');
     });
 
     it('should apply info state class', () => {
-      render(<RdsCompToast {...defaultProps} state={ToastState.Info} />);
+      render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Info} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--info');
       expect(alert).toHaveClass('rds-comp-toast--border-dark');
     });
 
     it('should apply success state class', () => {
-      render(<RdsCompToast {...defaultProps} state={ToastState.Success} />);
+      render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Success} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--success');
       expect(alert).toHaveClass('rds-comp-toast--border-primary');
     });
 
     it('should apply error state class', () => {
-      render(<RdsCompToast {...defaultProps} state={ToastState.Error} />);
+      render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Error} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
       expect(alert).toHaveClass('rds-comp-toast--border-danger');
@@ -112,12 +112,12 @@ describe('RdsCompToast', () => {
 
     it('should apply correct border color for each state', () => {
       const { rerender } = render(
-        <RdsCompToast {...defaultProps} state={ToastState.Basic} />
+        <RdsCompToast {...defaultProps} severity={ToastSeverity.Basic} />
       );
       let alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--border-light');
 
-      rerender(<RdsCompToast {...defaultProps} state={ToastState.Info} />);
+      rerender(<RdsCompToast {...defaultProps} severity={ToastSeverity.Info} />);
       alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--border-dark');
     });
@@ -682,7 +682,7 @@ describe('RdsCompToast', () => {
           headerText="Download Complete"
           subText="Your file has been downloaded"
           layout={ToastLayout.Download}
-          state={ToastState.Success}
+          severity={ToastSeverity.Success}
           showHeader={true}
           showSubText={true}
           showLeading={true}
@@ -709,7 +709,7 @@ describe('RdsCompToast', () => {
           headerText="Error Occurred"
           subText="Unable to process request"
           layout={ToastLayout.Text}
-          state={ToastState.Error}
+          severity={ToastSeverity.Error}
           showHeader={true}
           showSubText={true}
           position={ToastPosition.BottomLeft}
@@ -730,7 +730,7 @@ describe('RdsCompToast', () => {
           headerText="New Message"
           subText="You have a new message"
           layout={ToastLayout.Chat}
-          state={ToastState.Info}
+          severity={ToastSeverity.Info}
           showHeader={true}
           showLeading={false}
           leadingIcon={ToastLeadingIcon.Circle}
@@ -813,7 +813,7 @@ describe('RdsCompToast', () => {
         <RdsCompToast
           subText="Test"
           layout={ToastLayout.Text}
-          state={ToastState.Basic}
+          severity={ToastSeverity.Basic}
           showLeading={false}
           leadingIcon={ToastLeadingIcon.Circle}
         />
@@ -829,13 +829,13 @@ describe('RdsCompToast', () => {
           <RdsCompToast
             {...defaultProps}
             subText="First toast"
-            state={ToastState.Success}
+            severity={ToastSeverity.Success}
             showSubText={true}
           />
           <RdsCompToast
             {...defaultProps}
             subText="Second toast"
-            state={ToastState.Error}
+            severity={ToastSeverity.Error}
             showSubText={true}
           />
         </div>
@@ -914,7 +914,7 @@ describe('RdsCompToast', () => {
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('audit fixes', () => {
-  const base = { layout: 'text', state: 'basic', showSubText: true, showHeader: true, showDismiss: true } as const;
+  const base = { layout: 'text', severity: 'basic', showSubText: true, showHeader: true, showDismiss: true } as const;
 
   it('G6-134 action slot replaces built-in buttons', () => {
     render(<RdsCompToast {...base} layout="request" message="m" action={<button>Custom</button>} />);
@@ -966,7 +966,7 @@ describe('audit fixes', () => {
   });
 
   it('G6-142/143 string literals and optional leadingIcon', () => {
-    render(<RdsCompToast {...base} message="m" state="error" layout="download" position="bottomRight" />);
+    render(<RdsCompToast {...base} message="m" severity="error" layout="download" position="bottomRight" />);
     const el = screen.getByRole('alert');
     expect(el).toHaveClass('rds-comp-toast--error');
     expect(el).toHaveClass('rds-comp-toast--download');
@@ -974,7 +974,7 @@ describe('audit fixes', () => {
 });
 
 describe('audit fixes', () => {
-  const base = { layout: 'text', state: 'basic', showSubText: true, showHeader: true, showLeading: true } as const;
+  const base = { layout: 'text', severity: 'basic', showSubText: true, showHeader: true, showLeading: true } as const;
 
   it('icon wins over leadingIcon', () => {
     const { container } = render(<RdsCompToast {...base} icon="plus" leadingIcon="circle" message="m" />);

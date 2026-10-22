@@ -27,7 +27,7 @@ figma.connect(
       stepsIndicator: figma.string("Steps Indicator"),
       showVisualPlaceholder: figma.boolean("Show Visual Placeholder"),
       showDismiss: figma.boolean("Show Dismiss"),
-      state: figma.enum("💡 State", {
+      variant: figma.enum("💡 State", {
       "With Image": "Image",
       "With Carousal": "Carousel",
       "With GIF": "GIF",

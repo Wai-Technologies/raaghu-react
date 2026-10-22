@@ -133,7 +133,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const progress = props.progress ?? props.progressWidth;
     const position = props.anchorOrigin ? anchorToPosition(props.anchorOrigin) : props.position;
 
-    const _stateClass = getStateClass(props.severity ?? props.state);
+    const _stateClass = getStateClass(props.severity);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
     const { onClose } = props;

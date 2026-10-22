@@ -5,13 +5,12 @@ import { getAllNodeIds } from './tree-structure-utils';
 import { TreeNodeRow as DirectTreeNodeRow } from './TreeNodeRow';
 import { 
   TreeLevel,
-  NodeState,
   IconType,
   type RdsCompTreeStructureProps,
 } from './tree-structure-types';
 import { type TreeNode } from './tree-structure-types';
 
-export { TreeLevel, NodeState, IconType, type RdsCompTreeStructureProps } from './tree-structure-types';
+export { TreeLevel, IconType, type RdsCompTreeStructureProps } from './tree-structure-types';
 
 const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   const ResolvedTreeNodeRow = DirectTreeNodeRow ?? (FileType as any).TreeNodeRow ?? (FileType as any).default?.TreeNodeRow;

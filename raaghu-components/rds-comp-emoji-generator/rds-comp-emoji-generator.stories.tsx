@@ -1,6 +1,6 @@
 import { expect, within } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
-import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
+import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType } from "./rds-comp-emoji-generator";
 
 const meta: Meta = {
     title: 'Components/Emoji Generator',
@@ -29,10 +29,9 @@ const meta: Meta = {
             control: { type: "select" },
             description: "Category of emojis to display",
         },
-        State: {
-            options: Object.values(SkinToneState),
-            control: { type: "select" },
-            description: "State of skin tone selector (Default or Expanded)",
+        skinTonePickerOpen: {
+            control: { type: "boolean" },
+            description: "Keeps the skin tone picker open inline",
         },
         "Show Skin Tone": {
             control: { type: "boolean" },
@@ -67,7 +66,7 @@ export const Default: Story = {
         Category: EmojiCategory.SmileysAndPeople,
         "Show Skin Tone": true,
         "Show Footer": true,
-        State: SkinToneState.Default,
+        skinTonePickerOpen: false,
         maxEmojis: 80,
     },
     parameters: {
@@ -85,7 +84,7 @@ export const QuickReactions: Story = {
         Category: EmojiCategory.SmileysAndPeople,
         "Show Skin Tone": false,
         "Show Footer": false,
-        State: SkinToneState.Default,
+        skinTonePickerOpen: false,
         maxEmojis: 32,
     },
     parameters: {

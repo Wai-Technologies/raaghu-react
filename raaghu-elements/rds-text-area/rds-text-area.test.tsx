@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RdsTextArea, { TextareaStyle, RdsTextAreaProps } from './rds-text-area';
+import RdsTextArea, { RdsTextAreaProps } from './rds-text-area';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -95,14 +95,14 @@ describe('RdsTextArea', () => {
     });
 
     it('should apply pill style class', () => {
-      render(<RdsTextArea style={TextareaStyle.Pill} dataTestId="test-textarea" />);
+      render(<RdsTextArea style="Pill" dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveClass('textarea-pill');
       expect(textarea.closest('.textarea-pill-wrapper')).toBeTruthy();
     });
 
     it('should apply bottom outline style class', () => {
-      render(<RdsTextArea style={TextareaStyle.BottomOutline} dataTestId="test-textarea" />);
+      render(<RdsTextArea style="Bottom Outline" dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveClass('textarea-bottom-outline');
     });
@@ -504,7 +504,7 @@ describe('RdsTextArea', () => {
       render(
         <RdsTextArea 
           error
-          style={TextareaStyle.Pill}
+          style="Pill"
           customClasses="my-custom"
           dataTestId="test-textarea"
         />
@@ -590,7 +590,7 @@ describe('RdsTextArea', () => {
           label="Email"
           placeholder="Enter email"
           value=""
-          style={TextareaStyle.Pill}
+          style="Pill"
           rows={6}
           isMandatory={true}
           validationPattern={/^[\w.-]+@[\w.-]+\.\w+$/}
@@ -724,7 +724,7 @@ describe('audit fixes', () => {
   });
 
   it('B29: variant wins over style', () => {
-    render(<RdsTextArea variant="Pill" style={TextareaStyle.BottomOutline} data-testid="ta" />);
+    render(<RdsTextArea variant="Pill" style="Bottom Outline" data-testid="ta" />);
     expect(screen.getByTestId('ta')).toHaveClass('textarea-pill');
   });
 

@@ -1,5 +1,1 @@
-export enum TextareaStyle {
-  Default = "Default",
-  Pill = "Pill",
-  BottomOutline = "Bottom Outline"
-}
+export type TextareaStyle = 'Default' | 'Pill' | 'Bottom Outline';

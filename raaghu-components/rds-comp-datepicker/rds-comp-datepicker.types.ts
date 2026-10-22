@@ -1,16 +1,18 @@
 import type { ReactNode } from "react";
 
-export enum DatePickerStyleType {
-  Dropdown = "Dropdown",
-  Selector = "Selector",
-}
+export const DatePickerStyleType = {
+  Dropdown: 'Dropdown',
+  Selector: 'Selector',
+} as const;
+export type DatePickerStyleType = (typeof DatePickerStyleType)[keyof typeof DatePickerStyleType];
 
-export enum DatePickerLayout {
-  Default = "Default",
-  MonthPicker = "Month Picker",
-  YearPicker = "Year Picker",
-  MultiMonth = "Multi Month",
-}
+export const DatePickerLayout = {
+  Default: 'Default',
+  MonthPicker: 'Month Picker',
+  YearPicker: 'Year Picker',
+  MultiMonth: 'Multi Month',
+} as const;
+export type DatePickerLayout = (typeof DatePickerLayout)[keyof typeof DatePickerLayout];
 
 export interface RdsCompDatepickerProps {
   selectedDate?: (date: Date | null) => void;

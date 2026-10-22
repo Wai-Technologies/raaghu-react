@@ -273,10 +273,9 @@ const RdsButtonDropdown = ({
                   />
                 ) : showRadio ? (
                   <RdsRadio
-                    options={[{ value: opt.id.toString(), label: opt.label }]}
+                    options={[{ value: opt.id.toString(), label: opt.label, disabled: opt.disabled }]}
                     value={selected[0]?.toString()}
                     onChange={(event) => handleOptionChange(opt.id, event)}
-                    state={opt.disabled ? 'disabled' : 'default'}
                     layout="icon with label"
                     className={styleType === 'outline' ? 'rds-button-dropdown__button rds-button-dropdown--outline' : ''}
                   />

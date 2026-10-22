@@ -1,5 +1,5 @@
 import RdsCompToast from "./rds-comp-toast";
-import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast.types";
+import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastSeverity } from "./rds-comp-toast.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
@@ -18,8 +18,8 @@ const meta: Meta<typeof RdsCompToast> = {
             },
             source: {
                 transform: (code: string) => {
-                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={ToastState.${p1.replace(/\s+/g, "")}}`);;
-                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: ToastState.${p1.replace(/\s+/g, "")}`);
+                    code = code.replace(/severity="([^"]+)"/g, (match, p1) => `severity={ToastSeverity.${p1.replace(/\s+/g, "")}}`);;
+                    code = code.replace(/severity:\s*"([^"]+)"/g, (match, p1) => `severity: ToastSeverity.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={ToastLayout.${p1.replace(/\s+/g, "")}}`);;
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: ToastLayout.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/icon="([^"]+)"/g, (match, p1) => `icon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);;
@@ -31,25 +31,25 @@ const meta: Meta<typeof RdsCompToast> = {
             }
         }
     },
-    
+
     tags: ["autodocs", 'stable'],
     argTypes: {
-        state: {
-            options: Object.values(ToastState), 
-            control: { 
+        severity: {
+            options: Object.values(ToastSeverity),
+            control: {
                 type: "select",
                 labels: {
-                    [ToastState.Basic]: 'Basic',
-                    [ToastState.Info]: 'Info',
-                    [ToastState.Success]: 'Success',
-                    [ToastState.Error]: 'Error'
+                    [ToastSeverity.Basic]: 'Basic',
+                    [ToastSeverity.Info]: 'Info',
+                    [ToastSeverity.Success]: 'Success',
+                    [ToastSeverity.Error]: 'Error'
                 }
             },
-            description: "State variant of the toast notification"
+            description: "Severity of the toast notification"
         },
         layout: {
-            options: Object.values(ToastLayout), 
-            control: { 
+            options: Object.values(ToastLayout),
+            control: {
                 type: "select",
                 labels: {
                     [ToastLayout.Text]: 'Text',
@@ -61,8 +61,8 @@ const meta: Meta<typeof RdsCompToast> = {
             description: "Layout type of the toast"
         },
         icon: {
-            options: Object.values(ToastLeadingIcon), 
-            control: { 
+            options: Object.values(ToastLeadingIcon),
+            control: {
                 type: "select",
                 labels: {
                     [ToastLeadingIcon.Circle]: 'Circle',
@@ -73,11 +73,11 @@ const meta: Meta<typeof RdsCompToast> = {
         },
         position: {
             options: Object.values(ToastPosition),
-            control: { 
+            control: {
                 type: "select",
                 labels: {
                     [ToastPosition.TopLeft]: 'Top Left',
-                    [ToastPosition.TopCenter]: 'Top Center', 
+                    [ToastPosition.TopCenter]: 'Top Center',
                     [ToastPosition.TopRight]: 'Top Right',
                     [ToastPosition.MiddleLeft]: 'Middle Left',
                     [ToastPosition.MiddleCenter]: 'Middle Center',
@@ -94,7 +94,7 @@ const meta: Meta<typeof RdsCompToast> = {
             description: "Header text of the toast"
         },
         message: {
-            control: "text", 
+            control: "text",
             description: "Subtitle or body text of the toast"
         },
         showHeader: {
@@ -121,7 +121,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        state: ToastState.Basic,
+        severity: ToastSeverity.Basic,
         title: "Toast Headline",
         showSubText: true,
         message: "This is a big sample placeholder text.",

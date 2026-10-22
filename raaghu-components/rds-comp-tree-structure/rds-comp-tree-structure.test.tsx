@@ -2,14 +2,13 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
-import RdsCompTreeStructure, { TreeLevel, NodeState, IconType } from './rds-comp-tree-structure';
+import RdsCompTreeStructure, { TreeLevel, IconType } from './rds-comp-tree-structure';
 
 jest.mock('./rds-comp-tree-structure.scss', () => ({}));
 jest.mock('./fileTypeIcons', () => ({
   fileTypeIcons: {},
   getFileIcon: jest.fn(() => null),
   TreeLevel: { Level1: 'Level1', Level2: 'Level2', Level3: 'Level3', Level4: 'Level4' },
-  NodeState: { Default: 'Default', Hover: 'Hover', Selected: 'Selected' },
   IconType: { Circle: 'Circle', Folder: 'Folder' },
   getAllNodeIds: (nodes: any[]) => nodes.map((n: any) => n.id),
   TreeNode: ({ node }: any) => <div data-testid="tree-node">{node?.name}</div>,

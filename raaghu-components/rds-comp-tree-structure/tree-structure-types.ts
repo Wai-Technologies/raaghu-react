@@ -5,16 +5,11 @@ export enum TreeLevel {
   Level4 = "Level4",
 }
 
-export enum NodeState {
-  Default = "Default",
-  Hover = "Hover",
-  Selected = "Selected",
-}
-
-export enum IconType {
-  Circle = "Circle",
-  Folder = "Folder",
-}
+export const IconType = {
+  Circle: 'Circle',
+  Folder: 'Folder',
+} as const;
+export type IconType = (typeof IconType)[keyof typeof IconType];
 
 export interface TreeNode {
   id: number;
@@ -30,7 +25,7 @@ export interface RdsCompTreeStructureProps {
   showFolder?: boolean;
   showFile?: boolean;
   showCollapsed?: boolean;
-  state?: NodeState;
+  selected?: boolean;
   type?: IconType;
   showActions?: boolean;
   treeData?: TreeNode[];

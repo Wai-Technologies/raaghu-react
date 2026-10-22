@@ -42,12 +42,10 @@ const getValueUpdates = (value: string): Partial<PickerState> => {
   return { time: value, hours, minutes, period, tempHour: hours, tempMinute: minutes, tempPeriod: period };
 };
 
-const getSyncUpdates = (valueProp: string | undefined, stateProp: RdsTimePickerProps['state']): Partial<PickerState> => {
-  if (valueProp !== undefined) return getValueUpdates(valueProp);
-  if (stateProp === 'expanded') return { showPicker: true, time: '' };
-  if (stateProp === 'selected') return { showPicker: false, time: '12:00 AM' };
-  return { showPicker: false, time: '' };
-};
+const getSyncUpdates = (value: string | undefined): Partial<PickerState> =>
+  value === undefined
+    ? { time: '', hours: 12, minutes: 0, period: 'AM', tempHour: 12, tempMinute: 0, tempPeriod: 'AM' }
+    : getValueUpdates(value);
 
 const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const {
@@ -60,7 +58,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     color,
     disabled,
     value: valueProp,
-    state: stateProp,
+    selected = false,
     open: openProp,
     defaultOpen,
     localeText,
@@ -76,7 +74,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pickerState, setPickerState] = useState<PickerState>(() => ({
     ...INITIAL_STATE,
-    ...getSyncUpdates(valueProp, stateProp),
+    ...getSyncUpdates(valueProp),
     ...(defaultOpen !== undefined && { showPicker: defaultOpen }),
   }));
   const { showPicker: innerOpen, hours, minutes, period, time, tempHour, tempMinute, tempPeriod } = pickerState;
@@ -89,12 +87,10 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   }, []);
 
   const [prevValueProp, setPrevValueProp] = useState(valueProp);
-  const [prevStateProp, setPrevStateProp] = useState(stateProp);
 
-  if (valueProp !== prevValueProp || stateProp !== prevStateProp) {
+  if (valueProp !== prevValueProp) {
     setPrevValueProp(valueProp);
-    setPrevStateProp(stateProp);
-    setPickerState({ ...pickerState, ...getSyncUpdates(valueProp, stateProp) });
+    setPickerState({ ...pickerState, ...getSyncUpdates(valueProp) });
   }
 
   const setOpen = useCallback((next: boolean) => {
@@ -219,7 +215,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       >
         <input
           type="text"
-          className={`time-input ${inputBorderClass}`}
+          className={clsx("time-input", inputBorderClass, selected && "selected")}
           value={valueProp !== undefined ? valueProp : time}
           readOnly
           disabled={disabled}

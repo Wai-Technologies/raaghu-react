@@ -226,7 +226,6 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
                   layout="text"
                   shape="rectangle"
                   size="small"
-                  state="default"
                   styleType="primary"
                   {...badgeRest}
                   colorVariant={color ?? badgeRest.colorVariant ?? (badgeColor || "primary")}

@@ -17,7 +17,7 @@ export interface RdsCompAiChatHeaderProps
   /** Header title text. */
   title?: string;
   /** Size of the title and logo. Default `'medium'`. */
-  size?: ChatHeaderSize | "small" | "medium" | "large";
+  size?: ChatHeaderSize;
   /** Element used for the title. Default `'h3'`. */
   component?: ElementType;
   /** Ref forwarded to the root `<div>`. */

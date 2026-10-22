@@ -61,7 +61,7 @@ export { default as RdsFileUploader } from './rds-file-uploader/rds-file-uploade
 export {default as RdsButtonDropdown} from './rds-button-dropdown/rds-button-dropdown';
 export {default as RdsMultiLevelMenu} from './rds-multi-level-menu/rds-multi-level-menu';
 export {default as RdsTextArea} from './rds-text-area/rds-text-area';
-export { TextareaStyle } from './rds-text-area/rds-text-area';
+export type { TextareaStyle } from './rds-text-area/rds-text-area';
 
 export type { RdsButtonProps } from './rds-button/rds-button';
 export type { RdsTypographyProps } from './rds-typography/rds-typography';

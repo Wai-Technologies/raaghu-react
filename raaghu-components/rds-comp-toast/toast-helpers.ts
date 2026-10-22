@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState, type ToastAnchorOrigin } from "./rds-comp-toast.types";
+import { ToastLayout, ToastLeadingIcon, ToastPosition, ToastSeverity, type ToastAnchorOrigin } from "./rds-comp-toast.types";
 
-export const getStateClass = (state?: ToastState | `${ToastState}`): string => {
+export const getStateClass = (severity?: ToastSeverity | `${ToastSeverity}`): string => {
     const stateClass: Record<string, string> = {
-        [ToastState.Info]: "info",
-        [ToastState.Success]: "success",
-        [ToastState.Error]: "error",
-        [ToastState.Basic]: "basic",
+        [ToastSeverity.Info]: "info",
+        [ToastSeverity.Success]: "success",
+        [ToastSeverity.Error]: "error",
+        [ToastSeverity.Basic]: "basic",
     };
-    return stateClass[state ?? ToastState.Basic] ?? stateClass[ToastState.Basic];
+    return stateClass[severity ?? ToastSeverity.Basic] ?? stateClass[ToastSeverity.Basic];
 };
 
 export const getLayoutClass = (layout: ToastLayout | `${ToastLayout}`): string => {

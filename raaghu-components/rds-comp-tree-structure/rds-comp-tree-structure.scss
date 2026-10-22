@@ -19,11 +19,9 @@
     border-radius: var(--rds-border-radius-sm, 4px);
     transition: background-color var(--rds-transition-duration-short, 0.2s) ease;
     
-    // Node state modifiers
-    &--hover {
-      &:hover {
-        background-color: var(--rds-primary-light);
-      }
+    &:hover,
+    &:focus-visible {
+      background-color: var(--rds-primary-light);
     }
 
     &--selected {

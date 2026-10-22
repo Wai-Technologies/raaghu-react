@@ -1,5 +1,5 @@
 import React from "react"
-import  RdsCompTruncateText, { TruncateTextState }  from "./rds-comp-truncate-text"
+import  RdsCompTruncateText  from "./rds-comp-truncate-text"
 import figma from "@figma/code-connect"
 
 /**
@@ -15,14 +15,10 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=998-59",
   {
     props: {
-      state: figma.enum("💡 State", {
-        "Default": TruncateTextState.Default,
-        "Hover": TruncateTextState.Hover,
-      }),
     },
     example: (props) => <RdsCompTruncateText 
     children={"This is a sample text"} 
     maxLength={16} 
-    state={props.state} />,
+    />,
   },
 )

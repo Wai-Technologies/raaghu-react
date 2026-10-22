@@ -1,40 +1,33 @@
 import type { HTMLAttributes, Ref } from 'react';
 import type { ToolbarButtonConfig } from './rds-comp-toolbar-config-types';
 
-export enum ToolbarLayout {
-  Primary = 'primary',
-  Secondary = 'secondary'
-}
+export const ToolbarLayout = {
+  Primary: 'primary',
+  Secondary: 'secondary',
+} as const;
+export type ToolbarLayout = (typeof ToolbarLayout)[keyof typeof ToolbarLayout];
 
-export enum ToolbarType {
-  InlineEditor = 'inline-editor',
-  FullFeatured = 'full-featured',
-  MoreText = 'more-text',
-  MoreParagraph = 'more-paragraph',
-  MoreRichContent = 'more-rich-content',
-  Misc = 'misc'
-}
-
-export enum ToolbarState {
-  Off = 'off',
-  On = 'on',
-  DisabledOn = 'disabled-on',
-  DisabledOff = 'disabled-off'
-}
+export const ToolbarType = {
+  InlineEditor: 'inline-editor',
+  FullFeatured: 'full-featured',
+  MoreText: 'more-text',
+  MoreParagraph: 'more-paragraph',
+  MoreRichContent: 'more-rich-content',
+  Misc: 'misc',
+} as const;
+export type ToolbarType = (typeof ToolbarType)[keyof typeof ToolbarType];
 
 export interface RdsCompToolbarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
   /** Figma layout: one row (`primary`) or one row per section (`secondary`). */
   layout?: ToolbarLayout;
   /** Alias of `layout`; wins over `layout` when both are passed. */
-  variant?: `${ToolbarLayout}`;
+  variant?: ToolbarLayout;
   /** Built-in preset used when `items` is not passed. */
   type?: ToolbarType;
   /** Alias of `type`; wins over `type` when both are passed. */
-  preset?: `${ToolbarType}`;
-  /** Figma state. `disabled-on` and `disabled-off` disable the toolbar unless `disabled` is set. */
-  state?: ToolbarState;
-  /** Disables every button. Wins over `state`. */
+  preset?: ToolbarType;
+  /** Disables every button. */
   disabled?: boolean;
   /** Custom sections of buttons. Replaces the `type` preset. Give a button `options` to make it a dropdown. */
   items?: ToolbarButtonConfig[][];

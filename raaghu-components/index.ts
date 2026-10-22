@@ -52,7 +52,7 @@ export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canv
 export type { RdsCompContributionProps } from './rds-comp-contribution/rds-comp-contribution';
 export type { RdsCompColorPickerProps, ColorPickerVariant, ColorPickerFormat, ColorPickerView } from './rds-comp-color-picker/rds-comp-color-picker.types';
 export type { RdsCompToastProps, ToastCloseReason } from './rds-comp-toast/rds-comp-toast.types';
-export { ToastLayout, ToastState, ToastLeadingIcon, ToastPosition } from './rds-comp-toast/rds-comp-toast.types';
+export { ToastLayout, ToastSeverity, ToastLeadingIcon, ToastPosition } from './rds-comp-toast/rds-comp-toast.types';
 export type { RdsScrollBarProps } from './rds-comp-scrollbar/rds-comp-scrollbar';
 export type { RdsCompTruncateTextProps } from './rds-comp-truncate-text/rds-comp-truncate-text';
 export type { RdsCompOffcanvasProps, RdsCompOffcanvasCloseReason } from './rds-comp-off-canvas/rds-comp-off-canvas';
@@ -81,7 +81,7 @@ export type { RdsCompNotificationProps, NotificationItem } from './rds-comp-noti
 export { NotificationLayout, NotificationStyle, NotificationType } from './rds-comp-notification/rds-comp-notification.types';
 export type { RdsTimePickerProps, RdsTimePickerLocaleText, TimePickerColor } from './rds-comp-time-picker/time-picker-types';
 export type { RdsCompToolbarProps, ToolbarButtonConfig, ToolbarOption } from './rds-comp-toolbar/rds-comp-toolbar';
-export { ToolbarLayout, ToolbarType, ToolbarState } from './rds-comp-toolbar/rds-comp-toolbar';
+export { ToolbarLayout, ToolbarType } from './rds-comp-toolbar/rds-comp-toolbar';
 export type { RdsCompDatepickerProps } from './rds-comp-datepicker/rds-comp-datepicker.types';
 export type { RdsCompKanbanBoardProps, KanbanBoardInfo, KanbanSubCard, KanbanAction, KanbanColumn, KanbanCard, KanbanAssignee, KanbanOption } from './rds-comp-kanban-board/kanban-board-helpers';
 export type { RdsCompProductTourProps, ProductTourVariant, ProductTourCorner } from './rds-comp-product-tour/product-tour-helpers';

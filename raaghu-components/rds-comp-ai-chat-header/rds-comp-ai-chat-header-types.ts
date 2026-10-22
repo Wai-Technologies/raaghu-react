@@ -1,6 +1,7 @@
-/** @deprecated Pass the string values (`"small"`, `"medium"`, `"large"`) to `size` instead. */
-export enum ChatHeaderSize {
-  Small = "small",
-  Medium = "medium",
-  Large = "large",
-}
+export const ChatHeaderSize = {
+  Small: 'small',
+  Medium: 'medium',
+  Large: 'large',
+} as const;
+
+export type ChatHeaderSize = (typeof ChatHeaderSize)[keyof typeof ChatHeaderSize];

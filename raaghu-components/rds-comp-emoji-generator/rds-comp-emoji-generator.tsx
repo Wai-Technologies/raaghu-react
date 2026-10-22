@@ -25,7 +25,7 @@ import FlagIcon from "@mui/icons-material/Flag";
 
 import "./rds-comp-emoji-generator.scss";
 import { getEmojiLabel, getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
-import { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+import { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 const SKIN_TONE_OPTIONS = [
@@ -98,8 +98,7 @@ export interface RdsCompEmojiGeneratorProps {
     Type?: EmojiGeneratorType;
     "Show Skin Tone"?: boolean;
     "Show Footer"?: boolean;
-    State?: SkinToneState;
-    /** Keeps the skin tone picker open inline; same as `State="Expanded"`. */
+    /** Keeps the skin tone picker open inline. */
     skinTonePickerOpen?: boolean;
     Category?: EmojiCategory;
     /** camelCase alias of `Type`; wins when defined. */
@@ -139,7 +138,6 @@ const RdsCompEmojiGenerator = ({
     Type: typeLegacy = EmojiGeneratorType.Default,
     "Show Skin Tone": showSkinToneLegacy = true,
     "Show Footer": showFooterLegacy = true,
-    State = SkinToneState.Default,
     skinTonePickerOpen,
     Category: categoryLegacy,
     variant,
@@ -160,7 +158,7 @@ const RdsCompEmojiGenerator = ({
 }: RdsCompEmojiGeneratorProps) => {
     if (onEmojiSelect !== undefined) warnDeprecatedProp('RdsCompEmojiGenerator', 'onEmojiSelect', '`onChange`');
     const Type = variant ?? typeLegacy;
-    const skinToneExpanded = skinTonePickerOpen ?? State === SkinToneState.Expanded;
+    const skinToneExpanded = skinTonePickerOpen ?? false;
     const showSkinTone = showSkinToneAlias ?? showSkinToneLegacy;
     const showFooter = showFooterAlias ?? showFooterLegacy;
     const categoryProp = category ?? categoryLegacy;
@@ -376,7 +374,7 @@ const RdsCompEmojiGenerator = ({
 RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
 export default RdsCompEmojiGenerator;
 export const RdsCompEmojiPicker = RdsCompEmojiGenerator;
-export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+export { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
 
 function normalizeEmojiForTwemoji(emoji: string): string {
     return emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, '');

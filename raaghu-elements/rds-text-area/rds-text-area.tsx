@@ -11,8 +11,8 @@ import {
 } from "react";
 import clsx from 'clsx';
 import "./rds-text-area.scss";
-export { TextareaStyle } from './rds-text-area-types';
-import { TextareaStyle } from './rds-text-area-types';
+export type { TextareaStyle } from './rds-text-area-types';
+import type { TextareaStyle } from './rds-text-area-types';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 type NativeTextareaProps = Omit<
@@ -31,8 +31,8 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   value?: string;
   /** Initial value when `value` is not controlled. */
   defaultValue?: string;
-  /** Figma style variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
-  style?: TextareaStyle | `${TextareaStyle}`;
+  /** Figma style variant. */
+  style?: TextareaStyle;
   /** @deprecated Omit `label` to hide the label. */
   showTitle?: boolean;
   /** Forces the error appearance. */
@@ -42,7 +42,7 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   /** Text shown under the field when it is in error. */
   helperText?: string;
   /** Style variant. Alias of the Figma `style`. */
-  variant?: TextareaStyle | `${TextareaStyle}`;
+  variant?: TextareaStyle;
   /** Marks the field required: shows the asterisk and the empty-value error. */
   required?: boolean;
   /** @deprecated Use `required` instead. */
@@ -168,9 +168,9 @@ const RdsTextArea = ({
 
   const getStyleClass = () => {
     switch (resolvedVariant) {
-      case TextareaStyle.Pill:
+      case 'Pill':
         return "textarea-pill";
-      case TextareaStyle.BottomOutline:
+      case 'Bottom Outline':
         return "textarea-bottom-outline";
       default:
         return "textarea-style-default";
@@ -204,8 +204,8 @@ const RdsTextArea = ({
       <div
         className={clsx(
           'textarea-wrapper',
-          resolvedVariant === TextareaStyle.Pill && 'textarea-pill-wrapper',
-          resolvedVariant === TextareaStyle.Pill && stateClass
+          resolvedVariant === 'Pill' && 'textarea-pill-wrapper',
+          resolvedVariant === 'Pill' && stateClass
         )}
       >
         <textarea

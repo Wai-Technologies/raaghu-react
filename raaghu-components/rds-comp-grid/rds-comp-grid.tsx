@@ -57,21 +57,17 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export type GridRow = Record<string, unknown>;
 
-// Types and Enums
-export enum ActionPosition {
-  Right = "right",
-  Left = "left",
-}
+export const ActionPosition = {
+  Right: 'right',
+  Left: 'left',
+} as const;
+export type ActionPosition = (typeof ActionPosition)[keyof typeof ActionPosition];
 
-export enum State {
-  Default = "default",
-  Collapsed = "collapsed",
-}
-
-export enum ActionColumnStyle {
-  ShowDots = "show dots",
-  ShowButtonsDirectly = "show buttons directly",
-}
+export const ActionColumnStyle = {
+  ShowDots: 'show dots',
+  ShowButtonsDirectly: 'show buttons directly',
+} as const;
+export type ActionColumnStyle = (typeof ActionColumnStyle)[keyof typeof ActionColumnStyle];
 
 export interface RdsCompGridColumn {
   key: string;
@@ -220,7 +216,7 @@ export interface RdsCompGridProps {
   showHeader?: boolean;
   showSubHeader?: boolean;
   showAddNewColumn?: boolean;
-  state?: State;
+  collapsed?: boolean;
   
   actions?: RdsCompGridAction[];
   actionPosition?: ActionPosition;
@@ -534,7 +530,7 @@ const RdsCompGrid = ({
   showHeader = true,
   showSubHeader = true,
   showAddNewColumn = false,
-  state = State.Default,
+  collapsed = false,
   actions = [],
   actionPosition = ActionPosition.Right,
   actionColumnStyle = ActionColumnStyle.ShowDots,
@@ -560,7 +556,7 @@ const RdsCompGrid = ({
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
 }: RdsCompGridProps & { ref?: Ref<RdsCompGridRef> }) => {
-  const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
+  const [isCollapsed, setIsCollapsed] = useState(collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<string | null>(null);

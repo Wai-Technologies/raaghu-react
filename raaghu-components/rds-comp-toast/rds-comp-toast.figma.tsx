@@ -1,6 +1,6 @@
 import React from "react"
 import  RdsCompToast from "./rds-comp-toast"
-import { ToastLayout, ToastLeadingIcon, ToastState } from "./rds-comp-toast.types"
+import { ToastLayout, ToastLeadingIcon, ToastSeverity } from "./rds-comp-toast.types"
 import figma from "@figma/code-connect"
 
 figma.connect(
@@ -18,11 +18,11 @@ figma.connect(
         Chat: ToastLayout.Chat,
         Request: ToastLayout.Request,
       }),
-      state: figma.enum("💡 State", {
-        Basic: ToastState.Basic,
-        Success: ToastState.Success,
-        Error: ToastState.Error,
-        Info: ToastState.Info,
+      severity: figma.enum("💡 State", {
+        Basic: ToastSeverity.Basic,
+        Success: ToastSeverity.Success,
+        Error: ToastSeverity.Error,
+        Info: ToastSeverity.Info,
       }),
     },
     example: (props) => {

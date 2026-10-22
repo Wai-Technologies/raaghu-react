@@ -1,5 +1,5 @@
 import React from "react"
-import RdsTextArea, { TextareaStyle } from "./rds-text-area"
+import RdsTextArea from "./rds-text-area"
 import figma from "@figma/code-connect"
 
 figma.connect(
@@ -26,9 +26,9 @@ figma.connect(
         Error: true,
       }),
       style: figma.enum("✨ Style", {
-        Default : TextareaStyle.Default,
-        Pill : TextareaStyle.Pill,
-        "Bottom Outline" : TextareaStyle.BottomOutline
+        Default: 'Default',
+        Pill: 'Pill',
+        "Bottom Outline": 'Bottom Outline'
       }),
     },
     example: (props) => <RdsTextArea {...props} isMandatory placeholder = "Enter Description" />,

@@ -27,7 +27,6 @@ const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];
 const EMPTY_TAB_TITLES: string[] = [];
 
 const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
-    state,
     variant,
     anchorCorner,
     topLeft,
@@ -62,7 +61,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     Object.entries({ topLeft, topRight, bottomLeft, bottomRight }).forEach(([k, v]) => {
         if (v !== undefined) warnDeprecatedProp('RdsCompProductTour', k, '`anchorCorner`');
     });
-    const resolvedVariant = variant ?? state ?? "Image";
+    const resolvedVariant = variant ?? "Image";
     const resolvedHeader = title ?? header;
     const resolvedSubtitle = subtitle ?? formTitle;
     const corner = (c: ProductTourCorner, legacy?: boolean) => anchorCorner !== undefined ? anchorCorner === c : legacy === true;

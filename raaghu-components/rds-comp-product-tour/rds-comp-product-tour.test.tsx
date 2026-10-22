@@ -125,7 +125,7 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
 
 describe('RdsCompProductTour', () => {
   const defaultProps: RdsCompProductTourProps = {
-    state: 'Image',
+    variant: 'Image',
     header: 'Welcome',
     description: 'This is a tour step',
     stepsIndicator: '1/3',
@@ -152,7 +152,7 @@ describe('RdsCompProductTour', () => {
     });
 
     it('should render with Image state by default', () => {
-      const { container } = render(<RdsCompProductTour {...defaultProps} state="Image" />);
+      const { container } = render(<RdsCompProductTour {...defaultProps} variant="Image" />);
       expect(container.querySelector('.rds-comp-product-tour__container--image')).toBeInTheDocument();
     });
 
@@ -170,28 +170,28 @@ describe('RdsCompProductTour', () => {
   describe('State Variants', () => {
     it('should render Image state', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--image')).toBeInTheDocument();
     });
 
     it('should render Carousel state', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--carousel')).toBeInTheDocument();
     });
 
     it('should render GIF state', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="GIF" />
+        <RdsCompProductTour {...defaultProps} variant="GIF" />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--animation')).toBeInTheDocument();
     });
 
     it('should render Form state', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Form" formTitle="Sign Up" />
+        <RdsCompProductTour {...defaultProps} variant="Form" formTitle="Sign Up" />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--form')).toBeInTheDocument();
     });
@@ -200,14 +200,14 @@ describe('RdsCompProductTour', () => {
   describe('Image State', () => {
     it('should render image section', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} />
       );
       expect(container.querySelector('.rds-comp-product-tour__image-section')).toBeInTheDocument();
     });
 
     it('should display image from slides', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} />
       );
       const img = container.querySelector('.rds-comp-product-tour__image');
       expect(img).toHaveAttribute('src', '/image1.jpg');
@@ -215,14 +215,14 @@ describe('RdsCompProductTour', () => {
 
     it('should show visual placeholder by default', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} showVisualPlaceholder={true} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} showVisualPlaceholder={true} />
       );
       expect(container.querySelector('.rds-comp-product-tour__image-section')).toBeInTheDocument();
     });
 
     it('should hide visual placeholder when disabled', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} showVisualPlaceholder={false} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} showVisualPlaceholder={false} />
       );
       const section = container.querySelector('.rds-comp-product-tour__image-section');
       expect(section).toBeInTheDocument();
@@ -232,7 +232,7 @@ describe('RdsCompProductTour', () => {
 
     it('should render info and nav section', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} />
       );
       expect(container.querySelector('.rds-comp-product-tour__info-nav-section')).toBeInTheDocument();
     });
@@ -241,21 +241,21 @@ describe('RdsCompProductTour', () => {
   describe('Carousel State', () => {
     it('should render carousel container', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} />
       );
       expect(container.querySelector('.rds-comp-product-tour__carousel-wrapper')).toBeInTheDocument();
     });
 
     it('should render RdsCarousel component', () => {
       render(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} />
       );
       expect(screen.getByTestId('rds-carousel')).toBeInTheDocument();
     });
 
     it('should render carousel dots for each slide', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} />
       );
       const dots = container.querySelectorAll('.rds-comp-product-tour__carousel-dot');
       expect(dots.length).toBe(3);
@@ -263,7 +263,7 @@ describe('RdsCompProductTour', () => {
 
     it('should highlight active carousel dot', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} />
       );
       const dots = container.querySelectorAll('.rds-comp-product-tour__carousel-dot');
       expect(dots[0]).toHaveClass('rds-comp-product-tour__carousel-dot--active');
@@ -271,7 +271,7 @@ describe('RdsCompProductTour', () => {
 
     it('should render carousel header with title and description', () => {
       render(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} header="Carousel Title" description="Carousel Desc" />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} header="Carousel Title" description="Carousel Desc" />
       );
       expect(screen.getByText('Carousel Title')).toBeInTheDocument();
       expect(screen.getByText('Carousel Desc')).toBeInTheDocument();
@@ -280,7 +280,7 @@ describe('RdsCompProductTour', () => {
     it('should navigate carousel slides when next and previous are clicked', async () => {
       const user = userEvent.setup();
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} stepsIndicator="1/3" />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} stepsIndicator="1/3" />
       );
 
       expect(screen.getByText('1/3')).toBeInTheDocument();
@@ -301,14 +301,14 @@ describe('RdsCompProductTour', () => {
   describe('GIF State', () => {
     it('should render animation section', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="GIF" />
+        <RdsCompProductTour {...defaultProps} variant="GIF" />
       );
       expect(container.querySelector('.rds-comp-product-tour__animation-section')).toBeInTheDocument();
     });
 
     it('should display GIF image', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="GIF" showVisualPlaceholder={true} />
+        <RdsCompProductTour {...defaultProps} variant="GIF" showVisualPlaceholder={true} />
       );
       const gif = container.querySelector('.rds-comp-product-tour__gif');
       expect(gif).toHaveAttribute('src', '/assets/animation.gif');
@@ -316,7 +316,7 @@ describe('RdsCompProductTour', () => {
 
     it('should hide GIF placeholder when disabled', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="GIF" showVisualPlaceholder={false} />
+        <RdsCompProductTour {...defaultProps} variant="GIF" showVisualPlaceholder={false} />
       );
         const gif = container.querySelector('.rds-comp-product-tour__gif');
         expect(gif).not.toBeInTheDocument();
@@ -324,7 +324,7 @@ describe('RdsCompProductTour', () => {
 
     it('should render animation info section', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="GIF" header="GIF Tutorial" description="Watch this animation" />
+        <RdsCompProductTour {...defaultProps} variant="GIF" header="GIF Tutorial" description="Watch this animation" />
       );
       expect(container.querySelector('.rds-comp-product-tour__animation-info')).toBeInTheDocument();
       expect(screen.getByText('GIF Tutorial')).toBeInTheDocument();
@@ -335,21 +335,21 @@ describe('RdsCompProductTour', () => {
   describe('Form State', () => {
     it('should render form container', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Form" formTitle="Contact" />
+        <RdsCompProductTour {...defaultProps} variant="Form" formTitle="Contact" />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--form')).toBeInTheDocument();
     });
 
     it('should display form title', () => {
       render(
-        <RdsCompProductTour {...defaultProps} state="Form" formTitle="Contact Form" />
+        <RdsCompProductTour {...defaultProps} variant="Form" formTitle="Contact Form" />
       );
       expect(screen.getByText('Contact Form')).toBeInTheDocument();
     });
 
     it('should render badge in form', () => {
       render(
-        <RdsCompProductTour {...defaultProps} state="Form" formTitle="Form" header="Step 1" />
+        <RdsCompProductTour {...defaultProps} variant="Form" formTitle="Form" header="Step 1" />
       );
       expect(screen.getByTestId('rds-badge')).toBeInTheDocument();
     });
@@ -358,7 +358,7 @@ describe('RdsCompProductTour', () => {
       const { container } = render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Form"
+          variant="Form"
           formTitle="Form"
           tabTitle={['Tab 1', 'Tab 2', 'Tab 3']}
         />
@@ -370,14 +370,14 @@ describe('RdsCompProductTour', () => {
 
     it('should render file uploader', () => {
       render(
-        <RdsCompProductTour {...defaultProps} state="Form" formTitle="Form" />
+        <RdsCompProductTour {...defaultProps} variant="Form" formTitle="Form" />
       );
       expect(screen.getByTestId('rds-file-uploader')).toBeInTheDocument();
     });
 
     it('should pass correct file uploader props', () => {
       render(
-        <RdsCompProductTour {...defaultProps} state="Form" formTitle="Form" />
+        <RdsCompProductTour {...defaultProps} variant="Form" formTitle="Form" />
       );
       const uploader = screen.getByTestId('rds-file-uploader');
       expect(uploader).toHaveAttribute('data-accept', '.pdf,.doc,.docx');
@@ -455,7 +455,7 @@ describe('RdsCompProductTour', () => {
 
     it('should hide component when dismiss button clicked', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} showDismiss={true} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} showDismiss={true} variant="Image" slides={mockSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();
       const button = screen.getByTestId('icon-button');
@@ -467,7 +467,7 @@ describe('RdsCompProductTour', () => {
   describe('Buttons Display', () => {
     it('should not render buttons by default in Image state', () => {
       render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} showPrimaryButton={false} showSecondaryButton={false} showTertiaryButton={false} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} showPrimaryButton={false} showSecondaryButton={false} showTertiaryButton={false} />
       );
       const buttons = screen.queryAllByTestId(/rds-button/);
       expect(buttons.length).toBe(0);
@@ -475,7 +475,7 @@ describe('RdsCompProductTour', () => {
 
     it('should render primary button when enabled', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} showPrimaryButton={true} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} showPrimaryButton={true} />
       );
       const arrows = container.querySelector('.rds-comp-product-tour__arrows');
       expect(arrows).toBeInTheDocument();
@@ -485,7 +485,7 @@ describe('RdsCompProductTour', () => {
 
     it('should render secondary button when enabled', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} showSecondaryButton={true} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} showSecondaryButton={true} />
       );
       const arrows = container.querySelector('.rds-comp-product-tour__arrows');
       expect(arrows).toBeInTheDocument();
@@ -495,7 +495,7 @@ describe('RdsCompProductTour', () => {
 
     it('should render tertiary button when enabled', () => {
       const { container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} showTertiaryButton={true} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} showTertiaryButton={true} />
       );
       const skipBtn = container.querySelector('.rds-comp-product-tour__skip');
       expect(skipBtn).toBeInTheDocument();
@@ -505,7 +505,7 @@ describe('RdsCompProductTour', () => {
       const { container } = render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={mockSlides}
           showPrimaryButton={true}
           showSecondaryButton={true}
@@ -527,7 +527,7 @@ describe('RdsCompProductTour', () => {
       const { container } = render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={mockSlides}
           showPrimaryButton={true}
         />
@@ -542,7 +542,7 @@ describe('RdsCompProductTour', () => {
       render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={mockSlides}
           stepsIndicator="1/3"
         />
@@ -554,7 +554,7 @@ describe('RdsCompProductTour', () => {
       render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={mockSlides}
           stepsIndicator="2/3"
         />
@@ -566,7 +566,7 @@ describe('RdsCompProductTour', () => {
   describe('Header and Description', () => {
     it('should render header text', () => {
       render(
-        <RdsCompProductTour {...defaultProps} header="Tour Header" state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} header="Tour Header" variant="Image" slides={mockSlides} />
       );
       expect(screen.getByText('Tour Header')).toBeInTheDocument();
     });
@@ -576,7 +576,7 @@ describe('RdsCompProductTour', () => {
         <RdsCompProductTour
           {...defaultProps}
           description="Tour Description"
-          state="Image"
+          variant="Image"
           slides={mockSlides}
         />
       );
@@ -589,7 +589,7 @@ describe('RdsCompProductTour', () => {
           {...defaultProps}
           header="Header Text"
           description="Description Text"
-          state="Image"
+          variant="Image"
           slides={mockSlides}
         />
       );
@@ -603,7 +603,7 @@ describe('RdsCompProductTour', () => {
       const { container } = render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={mockSlides}
         />
       );
@@ -614,7 +614,7 @@ describe('RdsCompProductTour', () => {
       render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={[{ id: 1, imgUrl: '/single.jpg' }]}
         />
       );
@@ -625,7 +625,7 @@ describe('RdsCompProductTour', () => {
       render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={[]}
         />
       );
@@ -636,7 +636,7 @@ describe('RdsCompProductTour', () => {
       render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Carousel"
+          variant="Carousel"
           slides={mockSlides}
           showVisualPlaceholder={true}
         />
@@ -648,33 +648,33 @@ describe('RdsCompProductTour', () => {
   describe('State Transitions', () => {
     it('should handle state change from Image to Carousel', () => {
       const { rerender, container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--image')).toBeInTheDocument();
 
       rerender(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--carousel')).toBeInTheDocument();
     });
 
     it('should change state from Image to GIF', () => {
       const { rerender, container } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--image')).toBeInTheDocument();
 
-      rerender(<RdsCompProductTour {...defaultProps} state="GIF" />);
+      rerender(<RdsCompProductTour {...defaultProps} variant="GIF" />);
       expect(container.querySelector('.rds-comp-product-tour__container--animation')).toBeInTheDocument();
     });
 
     it('should change state from GIF to Form', () => {
       const { rerender, container } = render(
-        <RdsCompProductTour {...defaultProps} state="GIF" />
+        <RdsCompProductTour {...defaultProps} variant="GIF" />
       );
       expect(container.querySelector('.rds-comp-product-tour__container--animation')).toBeInTheDocument();
 
-      rerender(<RdsCompProductTour {...defaultProps} state="Form" formTitle="Form" />);
+      rerender(<RdsCompProductTour {...defaultProps} variant="Form" formTitle="Form" />);
       expect(container.querySelector('.rds-comp-product-tour__container--form')).toBeInTheDocument();
     });
   });
@@ -721,7 +721,7 @@ describe('RdsCompProductTour', () => {
     it('should render complete Image tour with all features', () => {
       render(
         <RdsCompProductTour
-          state="Image"
+          variant="Image"
           slides={mockSlides}
           header="Complete Tour"
           description="This is a complete tour"
@@ -745,7 +745,7 @@ describe('RdsCompProductTour', () => {
     it('should render complete Carousel tour', () => {
       render(
         <RdsCompProductTour
-          state="Carousel"
+          variant="Carousel"
           slides={mockSlides}
           header="Carousel Tour"
           description="Carousel description"
@@ -762,7 +762,7 @@ describe('RdsCompProductTour', () => {
     it('should render complete GIF tour', () => {
       render(
         <RdsCompProductTour
-          state="GIF"
+          variant="GIF"
           header="GIF Tour"
           description="GIF description"
           showDismiss={true}
@@ -776,7 +776,7 @@ describe('RdsCompProductTour', () => {
     it('should render complete Form tour', () => {
       render(
         <RdsCompProductTour
-          state="Form"
+          variant="Form"
           header="Form Tour"
           description="Form description"
           formTitle="Sign Up Form"
@@ -794,39 +794,39 @@ describe('RdsCompProductTour', () => {
   describe('Edge Cases', () => {
     it('should handle undefined header', () => {
       render(
-        <RdsCompProductTour {...defaultProps} header={undefined} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} header={undefined} variant="Image" slides={mockSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
 
     it('should handle undefined description', () => {
       render(
-        <RdsCompProductTour {...defaultProps} description={undefined} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} description={undefined} variant="Image" slides={mockSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
 
     it('should handle empty stepsIndicator', () => {
       render(
-        <RdsCompProductTour {...defaultProps} stepsIndicator="" state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} stepsIndicator="" variant="Image" slides={mockSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
 
     it('should handle invalid stepsIndicator', () => {
       render(
-        <RdsCompProductTour {...defaultProps} stepsIndicator="invalid" state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} stepsIndicator="invalid" variant="Image" slides={mockSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
 
     it('should handle rapid state changes', () => {
       const { rerender } = render(
-        <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Image" slides={mockSlides} />
       );
-      rerender(<RdsCompProductTour {...defaultProps} state="Carousel" slides={mockSlides} />);
-      rerender(<RdsCompProductTour {...defaultProps} state="GIF" />);
-      rerender(<RdsCompProductTour {...defaultProps} state="Form" formTitle="Form" />);
+      rerender(<RdsCompProductTour {...defaultProps} variant="Carousel" slides={mockSlides} />);
+      rerender(<RdsCompProductTour {...defaultProps} variant="GIF" />);
+      rerender(<RdsCompProductTour {...defaultProps} variant="Form" formTitle="Form" />);
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
 
@@ -836,7 +836,7 @@ describe('RdsCompProductTour', () => {
         imgUrl: `/image${i + 1}.jpg`,
       }));
       render(
-        <RdsCompProductTour {...defaultProps} state="Carousel" slides={largeSlides} />
+        <RdsCompProductTour {...defaultProps} variant="Carousel" slides={largeSlides} />
       );
       expect(screen.getByTestId('paper')).toBeInTheDocument();
     });
@@ -846,7 +846,7 @@ describe('RdsCompProductTour', () => {
       render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Form"
+          variant="Form"
           formTitle="Form"
           tabTitle={largeTabs}
         />
@@ -859,7 +859,7 @@ describe('RdsCompProductTour', () => {
       render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={mockSlides}
           header={longHeader}
         />
@@ -872,7 +872,7 @@ describe('RdsCompProductTour', () => {
       render(
         <RdsCompProductTour
           {...defaultProps}
-          state="Image"
+          variant="Image"
           slides={mockSlides}
           header={specialHeader}
         />
@@ -892,19 +892,19 @@ describe('RdsCompProductTour', () => {
   describe('audit fixes', () => {
     it('renders children instead of the mock form inputs and supports badge/imageSrc', () => {
       const { rerender } = render(
-        <RdsCompProductTour state="Form" formTitle="F" badge="New"><div data-testid="custom-form" /></RdsCompProductTour>
+        <RdsCompProductTour variant="Form" formTitle="F" badge="New"><div data-testid="custom-form" /></RdsCompProductTour>
       );
       expect(screen.getByTestId('custom-form')).toBeInTheDocument();
       expect(screen.queryByTestId('rds-autocomplete')).not.toBeInTheDocument();
       expect(screen.getByTestId('rds-badge')).toHaveAttribute('data-badge-content', 'New');
-      rerender(<RdsCompProductTour state="Form" formTitle="F" badge={null} />);
+      rerender(<RdsCompProductTour variant="Form" formTitle="F" badge={null} />);
       expect(screen.queryByTestId('rds-badge')).not.toBeInTheDocument();
-      rerender(<RdsCompProductTour state="GIF" imageSrc="/x.gif" />);
+      rerender(<RdsCompProductTour variant="GIF" imageSrc="/x.gif" />);
       expect(document.querySelector('.rds-comp-product-tour__gif')).toHaveAttribute('src', '/x.gif');
     });
 
     it('supports title, dialog role and labelling', () => {
-      render(<RdsCompProductTour state="Image" title="My Title" />);
+      render(<RdsCompProductTour variant="Image" title="My Title" />);
       const dialog = screen.getByRole('dialog');
       expect(screen.getByText('My Title')).toHaveAttribute('id', dialog.getAttribute('aria-labelledby'));
     });
@@ -914,7 +914,7 @@ describe('RdsCompProductTour', () => {
       const onNext = jest.fn(); const onBack = jest.fn(); const onSkip = jest.fn();
       for (const state of ['Image', 'Carousel', 'GIF', 'Form'] as const) {
         const { unmount } = render(
-          <RdsCompProductTour state={state} stepsIndicator="1/3" slides={mockSlides} onNext={onNext} onBack={onBack} onSkip={onSkip} />
+          <RdsCompProductTour variant={state} stepsIndicator="1/3" slides={mockSlides} onNext={onNext} onBack={onBack} onSkip={onSkip} />
         );
         await user.click(screen.getByRole('button', { name: 'Next' }));
         await user.click(screen.getByRole('button', { name: 'Previous' }));
@@ -929,9 +929,9 @@ describe('RdsCompProductTour', () => {
     it('makes Skip keyboard operable only with onSkip', async () => {
       const user = userEvent.setup();
       const onSkip = jest.fn();
-      const { rerender } = render(<RdsCompProductTour state="Image" stepsIndicator="1/3" />);
+      const { rerender } = render(<RdsCompProductTour variant="Image" stepsIndicator="1/3" />);
       expect(screen.getByText('Skip')).not.toHaveAttribute('role');
-      rerender(<RdsCompProductTour state="Image" stepsIndicator="1/3" onSkip={onSkip} />);
+      rerender(<RdsCompProductTour variant="Image" stepsIndicator="1/3" onSkip={onSkip} />);
       screen.getByRole('button', { name: 'Skip' }).focus();
       await user.keyboard('{Enter}');
       await user.keyboard(' ');
@@ -939,8 +939,8 @@ describe('RdsCompProductTour', () => {
     });
 
     it('syncs index when stepsIndicator changes', () => {
-      const { rerender } = render(<RdsCompProductTour state="Image" stepsIndicator="1/3" slides={mockSlides} />);
-      rerender(<RdsCompProductTour state="Image" stepsIndicator="3/3" slides={mockSlides} />);
+      const { rerender } = render(<RdsCompProductTour variant="Image" stepsIndicator="1/3" slides={mockSlides} />);
+      rerender(<RdsCompProductTour variant="Image" stepsIndicator="3/3" slides={mockSlides} />);
       expect(screen.getByText('3/3')).toBeInTheDocument();
     });
   });
@@ -966,7 +966,7 @@ describe('RdsCompProductTour', () => {
 
     it('warns for deprecated props', () => {
       const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
-      render(<RdsCompProductTour state="Image" formTitle="x" tabTitle={['a']} stepsIndicator="1/2" topLeft />);
+      render(<RdsCompProductTour variant="Image" formTitle="x" tabTitle={['a']} stepsIndicator="1/2" topLeft />);
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'formTitle', '`subtitle`');
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompProductTour', 'topLeft', '`anchorCorner`');
     });
