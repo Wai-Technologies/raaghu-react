@@ -5,6 +5,8 @@ import {
   useEffect,
   useCallback,
   type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
+  type SyntheticEvent,
   type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
   type Ref,
@@ -20,15 +22,26 @@ import './rds-comp-e-signature.scss';
 export interface RdsCompESignatureProps extends Omit<BoxProps, 'title' | 'width' | 'height' | 'ref' | 'children'> {
   /** Signature method shown: draw on a canvas, upload an image, or choose a predefined style. */
   mode?: 'draw' | 'upload' | 'choose';
+  /** Alias of `mode`; wins when defined. */
+  variant?: 'draw' | 'upload' | 'choose';
   /** Whether the signature is a full name or initials. */
   type?: 'fullname' | 'initials';
-  /** Shows the pen colour picker in draw mode. */
+  /** Alias of `type`; wins when defined. */
+  signatureType?: 'fullName' | 'initials';
+  /** Shows the pen colour picker in draw mode. Defaults to `true`. */
+  showColorPicker?: boolean;
+  /** @deprecated Use `showColorPicker` instead. */
   colourSwatch?: boolean;
   /** Disables all interaction. */
   disabled?: boolean;
-  /** Message shown on the canvas when disabled. */
+  /** Slot overrides: `disabledMessage` (canvas message) and `helperText` (footer message) when disabled. */
+  slotProps?: {
+    disabledMessage?: { children?: ReactNode };
+    helperText?: { children?: ReactNode };
+  };
+  /** @deprecated Use `slotProps.disabledMessage` instead. */
   disabledMessage?: string;
-  /** Footer message shown below the component when disabled. */
+  /** @deprecated Use `slotProps.helperText` instead. */
   disabledFooterMessage?: string;
   /** Called with the canvas data URL, uploaded file, chosen text, or `null` when cleared. */
   onSignatureChange?: (signature: string | File | null) => void;
@@ -39,13 +52,19 @@ export interface RdsCompESignatureProps extends Omit<BoxProps, 'title' | 'width'
   /** @deprecated Has no effect; it will be removed in the next major version. */
   signatureData?: string | File | null;
   /** Signature styles offered in choose mode. */
+  options?: PredefinedSignatureItem[];
+  /** @deprecated Use `options` instead. */
   predefinedSignatures?: PredefinedSignatureItem[];
   /** Maximum width (px) of the upload panel. */
   width?: number;
   /** @deprecated Has no effect; it will be removed in the next major version. */
   height?: number;
-  /** Initial pen colour in draw mode. */
+  /** Pen colour in draw mode; selects the colour whenever it changes. */
   penColor?: string;
+  /** Initial pen colour when `penColor` is not given. */
+  defaultPenColor?: string;
+  /** Called with the event and colour when a pen colour is picked. */
+  onPenColorChange?: (event: SyntheticEvent, color: string) => void;
   /** Heading shown in draw mode. */
   title?: string;
   /** Shows the required asterisk next to the headings. Defaults to `true`. */
@@ -77,20 +96,27 @@ const isTouchPointer = (e: ReactPointerEvent<HTMLCanvasElement>) =>
   e.pointerType === 'touch' || e.pointerType === 'pen';
 
 const RdsCompESignature = ({
-  mode = 'draw',
-  type = 'fullname',
-  colourSwatch = true,
+  mode: modeProp = 'draw',
+  variant,
+  type: typeProp = 'fullname',
+  signatureType,
+  showColorPicker,
+  colourSwatch,
   disabled = false,
-  disabledMessage = 'Draw option is currently disabled.\nClear uploaded signature to enable drawing.',
-  disabledFooterMessage = 'Another method already selected',
+  slotProps,
+  disabledMessage,
+  disabledFooterMessage,
   onSignatureChange,
   onSave,
   onCreateCustom,
   signatureData,
-  predefinedSignatures = DEFAULT_PREDEFINED_SIGNATURES,
+  options,
+  predefinedSignatures,
   width = 695,
   height,
   penColor = eSignaturePenColors.black,
+  defaultPenColor,
+  onPenColorChange,
   title = 'Draw Signature',
   required = true,
   className,
@@ -102,11 +128,22 @@ const RdsCompESignature = ({
 }: RdsCompESignatureProps) => {
   if (signatureData !== undefined) warnDeprecatedProp('RdsCompESignature', 'signatureData', 'nothing (it has no effect)');
   if (height !== undefined) warnDeprecatedProp('RdsCompESignature', 'height', 'nothing (it has no effect)');
+  if (colourSwatch !== undefined) warnDeprecatedProp('RdsCompESignature', 'colourSwatch', '`showColorPicker`');
+  if (disabledMessage !== undefined) warnDeprecatedProp('RdsCompESignature', 'disabledMessage', '`slotProps.disabledMessage`');
+  if (disabledFooterMessage !== undefined) warnDeprecatedProp('RdsCompESignature', 'disabledFooterMessage', '`slotProps.helperText`');
+  if (predefinedSignatures !== undefined) warnDeprecatedProp('RdsCompESignature', 'predefinedSignatures', '`options`');
+
+  const mode = variant ?? modeProp;
+  const type = signatureType ? (signatureType === 'initials' ? 'initials' : 'fullname') : typeProp;
+  const colorPickerShown = showColorPicker ?? colourSwatch ?? true;
+  const disabledText = slotProps?.disabledMessage?.children ?? disabledMessage ?? 'Draw option is currently disabled.\nClear uploaded signature to enable drawing.';
+  const footerText = slotProps?.helperText?.children ?? disabledFooterMessage ?? 'Another method already selected';
+  const signatureOptions = options ?? predefinedSignatures ?? DEFAULT_PREDEFINED_SIGNATURES;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [uiState, setUiState] = useState({
     isDrawing: false,
-    selectedColor: eSignaturePenColors.black,
+    selectedColor: defaultPenColor ?? eSignaturePenColors.black,
     isHovered: false,
     showLengthError: false,
     hasDrawn: false,
@@ -243,10 +280,15 @@ const RdsCompESignature = ({
     if (canvasRef.current) onSave?.(canvasRef.current.toDataURL());
   }, [onSave]);
 
+  const selectColor = (e: SyntheticEvent, color: string) => {
+    updateUiState({ selectedColor: color });
+    onPenColorChange?.(e, color);
+  };
+
   const handleSwatchKeyDown = (e: ReactKeyboardEvent<HTMLElement>, color: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      updateUiState({ selectedColor: color });
+      selectColor(e, color);
     }
   };
 
@@ -271,7 +313,7 @@ const RdsCompESignature = ({
           <Box className="rds-e-signature__canvas-header" aria-hidden={hasDrawn && !disabled}>
             {disabled ? (
               <Typography className="rds-e-signature__disabled-text">
-                {disabledMessage}
+                {disabledText}
               </Typography>
             ) : (
               <Typography className="rds-e-signature__canvas-title">
@@ -299,7 +341,7 @@ const RdsCompESignature = ({
         />
 
         <Box className="rds-e-signature__controls">
-          {colourSwatch && (
+          {colorPickerShown && (
             <Box className="rds-e-signature__color-palette" role="radiogroup" aria-label="Pen colour">
               {PEN_COLOR_OPTIONS.map(({ name, value: color }) => (
                 <Box
@@ -312,7 +354,7 @@ const RdsCompESignature = ({
                   aria-checked={selectedColor === color}
                   aria-label={name}
                   tabIndex={0}
-                  onClick={() => updateUiState({ selectedColor: color })}
+                  onClick={(e) => selectColor(e, color)}
                   onKeyDown={(e: ReactKeyboardEvent<HTMLElement>) => handleSwatchKeyDown(e, color)}
                   data-color={color}
                 >
@@ -346,8 +388,8 @@ const RdsCompESignature = ({
           Signature not clear. Please draw again.
         </Typography>
       )}
-      {disabled && disabledFooterMessage && (
-        <Typography className="rds-e-signature__disabled-footer">{disabledFooterMessage}</Typography>
+      {disabled && footerText && (
+        <Typography className="rds-e-signature__disabled-footer">{footerText}</Typography>
       )}
     </Box>
   );
@@ -366,7 +408,7 @@ const RdsCompESignature = ({
         <RdsESignatureUpload
           type={type}
           disabled={disabled}
-          disabledFooterMessage={disabledFooterMessage}
+          disabledFooterMessage={footerText}
           width={width}
           required={required}
           onSignatureChange={onSignatureChange}
@@ -376,7 +418,7 @@ const RdsCompESignature = ({
         <RdsESignatureChoose
           type={type}
           disabled={disabled}
-          predefinedSignatures={predefinedSignatures}
+          predefinedSignatures={signatureOptions}
           required={required}
           onSignatureChange={onSignatureChange}
           onCreateCustom={onCreateCustom}

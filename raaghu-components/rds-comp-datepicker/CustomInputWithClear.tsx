@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, type MouseEvent, type Ref } from "react";
+import { type InputHTMLAttributes, type MouseEvent, type ReactNode, type Ref } from "react";
 import clsx from "clsx";
 import CloseIcon from "@mui/icons-material/Close";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -18,6 +18,7 @@ interface CustomInputWithClearProps
   showClearDate?: boolean;
   clearDate?: () => void;
   changeIcon?: string;
+  openPickerIcon?: ReactNode;
   openCustomPicker?: () => void;
   /** When defined, the open button exposes `aria-expanded` (the popup it toggles is open). */
   expanded?: boolean;
@@ -26,6 +27,11 @@ interface CustomInputWithClearProps
   /** Ref to the underlying `<input>` element. */
   ref?: Ref<HTMLInputElement>;
 }
+
+export const renderPickerIcon = (changeIcon?: string, openPickerIcon?: ReactNode) =>
+  openPickerIcon ?? (changeIcon === "dashboard_settings"
+    ? <SettingsIcon className="rds-datepicker__calendar-icon" />
+    : <CalendarMonthIcon className="rds-datepicker__calendar-icon" />);
 
 export const CustomInputWithClear = (
     {
@@ -37,6 +43,7 @@ export const CustomInputWithClear = (
       showClearDate,
       clearDate,
       changeIcon,
+      openPickerIcon,
       openCustomPicker,
       expanded,
       controlsId,
@@ -112,11 +119,7 @@ export const CustomInputWithClear = (
           disabled={isDisabled}
           style={{ background: "transparent", border: "none" }}
         >
-          {changeIcon === "dashboard_settings" ? (
-            <SettingsIcon className="rds-datepicker__calendar-icon" />
-          ) : (
-            <CalendarMonthIcon className="rds-datepicker__calendar-icon" />
-          )}
+          {renderPickerIcon(changeIcon, openPickerIcon)}
         </button>
       </div>
     );

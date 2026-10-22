@@ -15,7 +15,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=20743-4032",
   {
     props: {
-      colourSwatch: figma.boolean("🎨 Colour Swatch"),
+      showColorPicker: figma.boolean("🎨 Colour Swatch"),
       mode: figma.enum("🌙 Mode", {
         "Draw": "draw",
         "Upload": "upload",

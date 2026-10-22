@@ -1,5 +1,5 @@
 import RdsCompColorPicker from "./rds-comp-color-picker";
-import { ColorMode, ColorPickerType, PickerType, StyleType } from "./rds-comp-color-picker.types";
+import { ColorPickerType, StyleType } from "./rds-comp-color-picker.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
@@ -27,9 +27,9 @@ const meta: Meta = {
                 type: 'boolean',
             },
         },
-        pickerType: {
+        view: {
             control:'select',
-            options: ['Grid', 'Spectrum'],
+            options: ['grid', 'spectrum'],
             
         },
         showTabs: {
@@ -37,9 +37,9 @@ const meta: Meta = {
                 type: 'boolean',
             },
         },
-        colorMode: {
+        format: {
             control: 'select',
-            options: ['HEX', 'RGB', 'HSB', 'HSL'],
+            options: ['hex', 'rgb', 'hsb', 'hsl'],
         },
         style: {
             control: 'select',
@@ -58,9 +58,9 @@ export const Default: Story = {
         label: "Color-Picker",
         type: ColorPickerType.Default,
         showSwatches: true,
-        pickerType: PickerType.Spectrum,
+        view: 'spectrum',
         showTabs: true,
-        colorMode: ColorMode.HEX,
+        format: 'hex',
         style: StyleType.Type1,
         isDisabled: false,
     },
@@ -68,5 +68,5 @@ export const Default: Story = {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['type','showSwatches', 'pickerType', 'showTabs', 'style'] } };
+Default.parameters = { controls: { include: ['type','showSwatches', 'view', 'showTabs', 'style'] } };
 

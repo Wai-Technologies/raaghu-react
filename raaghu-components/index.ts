@@ -31,7 +31,7 @@ export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
 export { default as RdsCompKanbanBoard} from './rds-comp-kanban-board/rds-comp-kanban-board';
 export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-product-tour';
-export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-comp-emoji-generator';
+export {default as RdsCompEmojiGenerator, RdsCompEmojiPicker} from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
 
@@ -50,7 +50,7 @@ export { SpinnerSize, SpinnerLayout, SpinnerLevel } from './rds-comp-spinner/rds
 export { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker/rds-comp-datepicker.types';
 export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas/rds-comp-off-canvas-types';
 export type { RdsCompContributionProps } from './rds-comp-contribution/rds-comp-contribution';
-export type { RdsCompColorPickerProps } from './rds-comp-color-picker/rds-comp-color-picker.types';
+export type { RdsCompColorPickerProps, ColorPickerVariant, ColorPickerFormat, ColorPickerView } from './rds-comp-color-picker/rds-comp-color-picker.types';
 export type { RdsCompToastProps, ToastCloseReason } from './rds-comp-toast/rds-comp-toast.types';
 export { ToastLayout, ToastState, ToastLeadingIcon, ToastPosition } from './rds-comp-toast/rds-comp-toast.types';
 export type { RdsScrollBarProps } from './rds-comp-scrollbar/rds-comp-scrollbar';

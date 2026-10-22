@@ -21,7 +21,7 @@ figma.connect(
       <RdsCompContribution
         dateFormat="YYYY-MM-DD"
         monthLabelHeight={28}
-        monthNames={[
+        monthLabels={[
           "Jan",
           "Feb",
           "Mar",
@@ -35,12 +35,12 @@ figma.connect(
           "Nov",
           "Dec",
         ]}
-        panelColors={["#F0F6FF", "#D9E8FF", "#A3C8FF", "#6FA7FF", "#4589FF"]}
+        colors={["#F0F6FF", "#D9E8FF", "#A3C8FF", "#6FA7FF", "#4589FF"]}
         panelMargin={2}
         panelSize={12}
         showMonthLabels
-        until="2023-12-31"
-        values={{
+        endDate="2023-12-31"
+        data={{
           "2023-01-01": 1,
           "2023-01-02": 0,
           "2023-01-03": 2,
@@ -408,7 +408,7 @@ figma.connect(
           "2023-12-31": 1,
         }}
         weekLabelWidth={24}
-        weekNames={["S", "M", "T", "W", "T", "F", "S"]}
+        weekdayLabels={["S", "M", "T", "W", "T", "F", "S"]}
       />
     ),
   }

@@ -22,13 +22,22 @@ export interface RdsCompEmptyStateProps extends Omit<BoxProps, "children" | "ref
   /** Heading text. */
   label?: string;
   /** Supporting text under the heading. */
+  description?: string;
+  /** @deprecated Use `description` instead. */
   subLabel?: string;
+  /** Artwork: an image URL or a custom node. */
+  image?: string | ReactNode;
+  /** Artwork size: one value for both sides, or `{ width, height }`. */
+  imageSize?: string | number | { width?: string | number; height?: string | number };
+  /** @deprecated Use `imageSize` instead. */
   iconHeight?: string | number;
+  /** @deprecated Use `imageSize` instead. */
   iconWidth?: string | number;
+  /** @deprecated Use `image` instead. */
   iconPath?: string;
-  /** Text of the default action button. */
+  /** @deprecated Use `action` instead. */
   buttonText?: string;
-  /** Click handler of the default action button. */
+  /** @deprecated Use `action` instead. */
   onButtonClick?: () => void;
   /** Replaces the default action button. Pass `null` to render no action. */
   action?: ReactNode;
@@ -48,7 +57,6 @@ const isDarkThemeActive = (): boolean =>
   document.documentElement.getAttribute("data-theme") === "dark" ||
   document.body.classList.contains("dark");
 
-// Re-render when the page theme attribute/class is toggled.
 const subscribeToTheme = (onChange: () => void) => {
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
@@ -61,7 +69,10 @@ const RdsCompEmptyState = ({
   mode,
   variant = "illustration",
   label,
+  description,
   subLabel,
+  image,
+  imageSize,
   iconHeight,
   iconWidth,
   iconPath,
@@ -77,25 +88,37 @@ const RdsCompEmptyState = ({
   if (isContinueAnimate !== undefined) {
     warnDeprecatedProp("RdsCompEmptyState", "isContinueAnimate", "`animated`");
   }
+  const deprecatedProps = { subLabel, iconHeight, iconWidth, iconPath, buttonText, onButtonClick };
+  const replacements = { subLabel: "`description`", iconHeight: "`imageSize`", iconWidth: "`imageSize`", iconPath: "`image`", buttonText: "`action`", onButtonClick: "`action`" };
+  (Object.keys(deprecatedProps) as (keyof typeof deprecatedProps)[]).forEach((name) => {
+    if (deprecatedProps[name] !== undefined) warnDeprecatedProp("RdsCompEmptyState", name, replacements[name]);
+  });
+  const text = description ?? subLabel;
+  const imageValue = image ?? iconPath;
+  const imageUrl = typeof imageValue === "string" ? imageValue : undefined;
   const isAnimated = animated ?? isContinueAnimate;
   const isMinimal = variant === "minimal";
   const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)", { noSsr: true });
   const pageIsDark = useSyncExternalStore(subscribeToTheme, isDarkThemeActive, getServerThemeSnapshot);
 
   const defaultSize = isMinimal ? 72 : 150;
-  const width = toCss(iconWidth ?? defaultSize);
-  const height = toCss(iconHeight ?? iconWidth ?? defaultSize);
+  const size = typeof imageSize === "object" ? imageSize : { width: imageSize, height: imageSize };
+  const sizeWidth = size.width ?? iconWidth;
+  const width = toCss(sizeWidth ?? defaultSize);
+  const height = toCss(size.height ?? iconHeight ?? sizeWidth ?? defaultSize);
   const useDarkVariant = mode === "Dark NRA" || (!mode && pageIsDark);
 
   const resolvedImage = useDarkVariant ? emptyStateDarkPng : emptyStatePng;
   const resolvedAnimation = useDarkVariant ? illustrationDark : illustrationLight;
-  const imageSrc = iconPath || resolvedImage;
+  const imageSrc = imageUrl || resolvedImage;
   const isDarkMode = mode === "Dark NRA";
 
   const titleColor = isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-text-primary)";
 
   let iconContent: ReactNode;
-  if (isMinimal && !iconPath) {
+  if (imageValue != null && typeof imageValue !== "string") {
+    iconContent = imageValue;
+  } else if (isMinimal && !imageValue) {
     iconContent = (
       <SearchOffOutlinedIcon
         className="rds-comp-empty-state__minimal-icon"
@@ -117,7 +140,7 @@ const RdsCompEmptyState = ({
   } else {
     iconContent = (
       <img
-        src={isMinimal ? iconPath : imageSrc}
+        src={isMinimal ? imageUrl : imageSrc}
         alt={label || mode || "Empty state"}
         loading="lazy"
         style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
@@ -150,7 +173,6 @@ const RdsCompEmptyState = ({
       )}
     >
       <Box className="rds-comp-empty-state__content">
-        {/* Decorative artwork: the heading carries the meaning. */}
         <Box
           className={clsx(
             "rds-comp-empty-state__icon",
@@ -189,7 +211,7 @@ const RdsCompEmptyState = ({
           </Typography>
         )}
 
-        {subLabel && (
+        {text && (
           <Typography
             variant="body1"
             className="rds-comp-empty-state__subtitle"
@@ -203,7 +225,7 @@ const RdsCompEmptyState = ({
               color: titleColor,
             }}
           >
-            {subLabel}
+            {text}
           </Typography>
         )}
 
