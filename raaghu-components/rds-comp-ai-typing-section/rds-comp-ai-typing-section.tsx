@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
+import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import "./rds-comp-ai-typing-section.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsAutocomplete, { type RdsAutocompleteProps } from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
@@ -23,7 +23,7 @@ export interface RdsCompAiTypingSectionProps {
   /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
   /** @deprecated Has no effect. */
-  iconName?: string;
+  iconName?: ReactNode;
   /** Called with the prompt text (and image, if any) from the send button. */
   onSend?: (inputText: string, image?: string) => void;
   onAddComment?: (comment: AttachmentComment) => void;

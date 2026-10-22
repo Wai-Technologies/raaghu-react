@@ -704,7 +704,7 @@ describe('RdsCompAiFabMenu', () => {
     });
 
     it('renders variation of menu icons', () => {
-      const icons = ['list', 'refresh', 'download', 'delete'];
+      const icons = ['list', 'refresh', 'download', 'delete'] as const;
       icons.forEach((icon) => {
         const { container, unmount } = render(
           <RdsCompAiFabMenu listItems={[]} menuIcon={icon} />

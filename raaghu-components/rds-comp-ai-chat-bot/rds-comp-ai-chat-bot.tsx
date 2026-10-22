@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useCallback, useState, type Dispatch, type HTMLAttributes, type Ref, type SetStateAction } from "react";
+import { useCallback, useState, type Dispatch, type HTMLAttributes, type ReactNode, type Ref, type SetStateAction } from "react";
 import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
 import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
 import type { Comment as AttachmentComment } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
@@ -26,7 +26,7 @@ export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElemen
   /** Appends sent messages to `messages`. */
   setMessages?: Dispatch<SetStateAction<Message[]>>;
   /** @deprecated Has no effect. */
-  iconName?: string;
+  iconName?: ReactNode;
   /** Title of the chat header. */
   title?: string;
   /** Ref to the root element. */

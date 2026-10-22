@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, type ReactNode } from "react";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
@@ -24,8 +24,8 @@ export interface RdsCompDetailsPaneProps {
   historyItems?: { id: number; name: string }[];
   olderHistoryItems?: { id: number; name: string }[];
   carouselImages?: { src: string; alt: string }[];
-   figmaIconSrc?: string;
-  storybookIconSrc?: string;
+  figmaIconSrc?: string | ReactNode;
+  storybookIconSrc?: string | ReactNode;
 }
 
 const DEFAULT_HISTORY_ITEMS = [

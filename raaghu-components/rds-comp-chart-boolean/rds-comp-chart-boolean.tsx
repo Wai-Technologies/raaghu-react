@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode, Ref } from "react";
 import clsx from "clsx";
 import Chart, { type ChartData, type ChartOptions, type ChartDataset } from "chart.js/auto";
-import { ChartIcons } from "./chart-icons";
+import { ChartIcons, type ChartIconName } from "./chart-icons";
 import { applyCanvasSize, getCSSVar, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -28,7 +28,7 @@ export interface RdsCompBooleanChartProps
   /** Node shown over the centre of the chart. Takes precedence over `centerIconName`. */
   centerIcon?: ReactNode;
   /** @deprecated Use `centerIcon` instead. Name of the icon drawn in the centre (a key of `ChartIcons`). */
-  centerIconName?: string;
+  centerIconName?: ChartIconName;
   /** Accessible label of the chart. Defaults to "Boolean chart". */
   ariaLabel?: string;
   /** @deprecated Use `ariaLabel` instead. */

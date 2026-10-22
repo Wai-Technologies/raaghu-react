@@ -1,6 +1,6 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
-import type { ChartData } from "chart.js/auto";
+import type { ChartData, ChartOptions } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-stacked.scss";
@@ -11,11 +11,11 @@ export interface RdsCompStackedProps
   /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
   data?: ChartData<"bar">;
   /** @deprecated Use `data.labels` instead. */
-  labels?: any[];
+  labels?: ChartData<"bar">["labels"];
   /** Chart.js bar options (never mutated). Set `scales.x.stacked` / `scales.y.stacked` to stack the bars. */
-  options: any;
+  options: ChartOptions<"bar">;
   /** @deprecated Use `data.datasets` instead. */
-  dataSets?: any[];
+  dataSets?: ChartData<"bar">["datasets"];
   /** Id of the canvas element. */
   id: string;
   /** Canvas height (number = px). */

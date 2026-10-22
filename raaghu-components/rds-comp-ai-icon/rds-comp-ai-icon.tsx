@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { memo, useMemo, type ComponentType, type KeyboardEvent, type MouseEventHandler, type SVGProps, type Ref } from "react";
+import { memo, useMemo, type ComponentType, type KeyboardEvent, type MouseEventHandler, type SVGProps, type Ref, type ReactNode } from "react";
 import "./rds-comp-ai-icon.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
@@ -97,7 +97,7 @@ export interface RdsCompAiIconProps
   imageUrl?: string;
   id?: string;
   /** @deprecated Has no effect. */
-  iconPath?: string;
+  iconPath?: ReactNode;
   /** @deprecated Has no effect. */
   type?: "icon" | "lottie";
   /** @deprecated Has no effect. */

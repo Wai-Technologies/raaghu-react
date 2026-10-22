@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useId, useRef, useState, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties, type ReactElement, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
 import "./rds-comp-ai-fab-menu.scss";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import RdsCompAiIcon, { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
@@ -17,13 +17,25 @@ registerMaterialIcons({
   download: DownloadIcon,
 });
 
+export type RdsCompAiFabMenuIconName =
+  | "users"
+  | "person-outline"
+  | "list"
+  | "refresh"
+  | "export"
+  | "delete"
+  | "download"
+  | "attachment_icon"
+  | "enhance";
+export type RdsCompAiFabMenuIcon = RdsCompAiFabMenuIconName | ReactElement;
+
 export interface RdsCompAiFabMenuItem {
   key: string;
   label?: ReactNode;
   /** @deprecated Use `label` instead. */
   value?: ReactNode;
-  /** Icon name (string) or a custom node rendered as-is. */
-  icon?: string | ReactNode;
+  /** Built-in icon name or a custom icon element. */
+  icon?: RdsCompAiFabMenuIcon;
   iconWidth?: string;
   iconHeight?: string;
   onClick?: () => void;
@@ -34,13 +46,13 @@ export interface RdsCompAiFabMenuProps {
   /** @deprecated Use `color` instead. */
   colorVariant?: "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "dark" | "light";
   size?: "small" | "medium" | "large";
-  icon?: string;
+  icon?: RdsCompAiFabMenuIcon;
   /** @deprecated Use `icon` instead. */
-  menuIcon?: string;
+  menuIcon?: RdsCompAiFabMenuIcon;
   /** @deprecated Has no effect. */
-  menuiconWidth?: string;
+  menuiconWidth?: CSSProperties['width'];
   /** @deprecated Has no effect. */
-  menuiconHeight?: string;
+  menuiconHeight?: CSSProperties['height'];
   items?: RdsCompAiFabMenuItem[];
   /** @deprecated Use `items` instead. */
   listItems?: RdsCompAiFabMenuItem[];
@@ -210,14 +222,18 @@ function RdsCompAiFabMenu({
         aria-label={ariaLabel}
         data-testid="fab-menu-btn"
       >
-        <RdsCompAiIcon
-          name={resolvedIcon}
-          fill={false}
-          stroke={true}
-          height="24px"
-          width="24px"
-          colorVariant={resolvedIconColorVariant}
-        />
+        {typeof resolvedIcon === "string" ? (
+          <RdsCompAiIcon
+            name={resolvedIcon}
+            fill={false}
+            stroke={true}
+            height="24px"
+            width="24px"
+            colorVariant={resolvedIconColorVariant}
+          />
+        ) : (
+          resolvedIcon
+        )}
       </button>
       <div
         className={clsx(

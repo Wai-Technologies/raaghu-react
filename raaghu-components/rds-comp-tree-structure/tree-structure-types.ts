@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export enum TreeLevel {
   Level1 = "Level1",
   Level2 = "Level2",
@@ -30,7 +32,8 @@ export interface RdsCompTreeStructureProps {
   showActions?: boolean;
   treeData?: TreeNode[];
   Language?: string;
-  iconName?: string;
+  /** @deprecated Has no effect. */
+  iconName?: ReactNode;
   text?: string;
   fileTypeIcons?: { [key: string]: React.ReactNode };
   getFileIcon?: (fileType: string) => React.ReactNode;

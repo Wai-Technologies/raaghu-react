@@ -1,4 +1,4 @@
-import { useState, type ReactNode, type ElementType, type KeyboardEvent, type MouseEvent } from 'react';
+import { useState, type ReactNode, type ReactElement, type ElementType, type KeyboardEvent, type MouseEvent } from 'react';
 import { Breadcrumbs as MuiBreadcrumbs, type BreadcrumbsProps, Link, Typography } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -44,8 +44,8 @@ const getDefaultIconForPosition = (index: number, label: string): string => {
   return positionIcons[index] || 'folder';
 };
 
-/** A built-in icon name (`'home'`, `'folder'`, `'category'`, `'business'`, `'inventory'`, `'star'`) or any icon element. */
-export type RdsBreadcrumbIcon = ReactNode;
+/** A built-in icon name or a custom icon element. */
+export type RdsBreadcrumbIcon = keyof typeof iconMap | ReactElement;
 
 const isIconGiven = (value: RdsBreadcrumbIcon): boolean =>
   value !== undefined && value !== null && value !== '' && typeof value !== 'boolean';

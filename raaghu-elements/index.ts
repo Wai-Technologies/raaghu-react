@@ -84,7 +84,7 @@ export type { RdsBreadcrumbsProps, RdsBreadcrumbItem, RdsBreadcrumbIcon } from '
 export { BreadcrumbSeparator } from './rds-breadcrumbs/rds-breadcrumbs-types';
 export type { RdsContainerProps } from './rds-container/rds-container';
 export type { RdsDialogProps } from './rds-dialog/rds-dialog';
-export type { RdsDividerProps } from './rds-divider/rds-divider';
+export type { RdsDividerProps, RdsDividerIconName } from './rds-divider/rds-divider';
 export type { RdsModalProps } from './rds-modal/rds-modal';
 export type { RdsDrawerProps } from './rds-drawer/rds-drawer';
 export type { RdsFabProps } from './rds-fab/rds-fab';

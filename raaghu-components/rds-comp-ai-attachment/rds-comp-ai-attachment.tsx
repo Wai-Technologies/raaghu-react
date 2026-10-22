@@ -5,17 +5,17 @@ import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
 import "./rds-comp-ai-attachment.scss";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
-import RdsCompAiFabMenu from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
+import RdsCompAiFabMenu, { type RdsCompAiFabMenuIcon } from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export interface RdsCompAiAttachmentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "onChange"> {
-  /** Registered icon name for the menu trigger. */
-  icon?: string;
+  /** Built-in icon name or a custom icon element for the menu trigger. */
+  icon?: RdsCompAiFabMenuIcon;
   /** @deprecated Use `icon` instead. */
-  menuIcon?: string;
+  menuIcon?: RdsCompAiFabMenuIcon;
   /** @deprecated Use `slotProps.dialog.title` instead. */
   modalTitle?: string;
   /** @deprecated Use `slotProps.dialog.hintText` instead. */
