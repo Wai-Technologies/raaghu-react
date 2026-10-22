@@ -1,3 +1,4 @@
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsTooltip from './rds-tooltip';
 import Delete from '@mui/icons-material/Delete';
@@ -25,16 +26,23 @@ const meta: Meta<typeof RdsTooltip> = {
       control: 'boolean',
       description: 'Whether to show arrow',
     },
-    placement: {
+    variant: {
       control: 'select',
       options: [
-        'top', 'bottom', 'left', 'right',
-        'top-start', 'top-end',
-        'bottom-start', 'bottom-end',
-        'left-start', 'left-end',
-        'right-start', 'right-end',
+        'top',
+        'bottom',
+        'left',
+        'right',
+        'top-start',
+        'top-end',
+        'bottom-start',
+        'bottom-end',
+        'left-start',
+        'left-end',
+        'right-start',
+        'right-end',
       ],
-      description: 'Placement of the tooltip',
+      description: 'Tooltip placement variant',
     },
   },
 };
@@ -42,10 +50,25 @@ const meta: Meta<typeof RdsTooltip> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const controls = { controls: { include: ['title', 'placement', 'arrow'] } };
+const controls = {
+  controls: {
+    include: ['title', 'variant', 'arrow'],
+  },
+};
 
-const textButton = (label: string, style: 'filled' | 'outlined' | 'transparent') => (
-  <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style={style} textCase="unset">
+const textButton = (
+  label: string,
+  variant: 'filled' | 'outlined' | 'transparent'
+) => (
+  <RdsButton
+    color="primary"
+    layout="text-only"
+    shape="rectangle"
+    size="medium"
+    state="default"
+    variant={variant}
+    textCase="unset"
+  >
     {label}
   </RdsButton>
 );
@@ -59,7 +82,7 @@ const iconButton = (icon: ReactNode, label: string) => (
     showLeftIcon
     size="medium"
     state="default"
-    style="transparent"
+    variant="transparent"
     aria-label={label}
   />
 );
@@ -68,7 +91,7 @@ export const Default: Story = {
   args: {
     title: 'This is a tooltip',
     children: textButton('Hover me', 'filled'),
-    placement: 'top',
+    variant: 'top',
     arrow: false,
   },
   parameters: controls,
@@ -78,7 +101,7 @@ export const OnIconButton: Story = {
   args: {
     title: 'Delete item',
     children: iconButton(<Delete />, 'Delete item'),
-    placement: 'top',
+    variant: 'top',
   },
   parameters: controls,
 };
@@ -88,7 +111,7 @@ export const WithArrow: Story = {
     title: 'Tooltip with arrow',
     arrow: true,
     children: textButton('Arrow tooltip', 'outlined'),
-    placement: 'top',
+    variant: 'top',
   },
   parameters: controls,
 };
@@ -96,7 +119,7 @@ export const WithArrow: Story = {
 export const Different_Placements: Story = {
   args: {
     title: 'Top placement',
-    placement: 'top',
+    variant: 'top',
     children: textButton('Top', 'transparent'),
   },
   parameters: controls,
@@ -104,9 +127,10 @@ export const Different_Placements: Story = {
 
 export const LongText: Story = {
   args: {
-    title: 'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
+    title:
+      'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
     children: iconButton(<HelpIcon />, 'Help'),
-    placement: 'top',
+    variant: 'top',
   },
   parameters: controls,
 };

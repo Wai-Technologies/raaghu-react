@@ -31,12 +31,14 @@ const RdsDatepicker = ({
     titleText,
     onDatePicker,
     datePickerStyleType,
+    style,
     state,
     layout,
     customDate,
     controls,
     placeholderText,
-    type,
+    variant: variantProp,
+    type: legacyType,
     changeIcon,
     disabled,
     required,
@@ -47,6 +49,7 @@ const RdsDatepicker = ({
     isDefaultDate: isDefaultDateProp,
     ...restProps
 }: RdsCompDatepickerProps) => {
+    const variant = variantProp ?? legacyType;
     if (isDisabledProp !== undefined) warnDeprecatedProp('RdsCompDatepicker', 'isDisabled', '`disabled`');
     if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsCompDatepicker', 'isMandatory', '`required`');
 
@@ -219,7 +222,7 @@ const RdsDatepicker = ({
     }, [state]);
 
     useEffect(() => {
-        if (!isDropdownOpen || type !== "Custom") return;
+        if (!isDropdownOpen || variant !== "Custom") return;
 
         const handlePointerDown = (event: MouseEvent | TouchEvent) => {
             const target = event.target as Node | null;
@@ -250,7 +253,7 @@ const RdsDatepicker = ({
             document.removeEventListener("touchstart", handlePointerDown);
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, [isDropdownOpen, type, updatePickerState]);
+    }, [isDropdownOpen, variant, updatePickerState]);
 
     const sharedProps = useMemo(
         () => ({
@@ -267,7 +270,7 @@ const RdsDatepicker = ({
             isDisabled,
             isMandatory,
             placeholderText,
-            type,
+            variant,
             changeIcon,
             showClearDate,
             isDefaultDate,
@@ -277,13 +280,13 @@ const RdsDatepicker = ({
         }),
         [
             restProps, selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, state, layout,
-            customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, showClearDate, isDefaultDate, clearDate,
+            customDate, isDisabled, isMandatory, placeholderText, variant, changeIcon, showClearDate, isDefaultDate, clearDate,
             inputId, baseId,
         ]
     );
 
     return (
-        <>
+        <div className="rds-datepicker" style={style}>
             <label
                 className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
                 aria-hidden={!showTitle}
@@ -306,7 +309,7 @@ const RdsDatepicker = ({
                 CustomButtons
             )}
             {showType && renderDatePickerTypeView(
-                type || 'Default',
+                variant || 'Default',
                 startDate,
                 endDate,
                 handlerDateChange,
@@ -328,7 +331,7 @@ const RdsDatepicker = ({
                 CustomButtons,
                 customDropdownRef
             )}
-        </>
+        </div>
     );
 };
 RdsDatepicker.displayName = "RdsCompDatepicker";

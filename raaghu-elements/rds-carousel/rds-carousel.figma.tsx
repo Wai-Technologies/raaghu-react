@@ -8,7 +8,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=1539-9671",
   {
     props: {
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Default": "default",
         "With Title": "with title",
         "Full Width Image": "full width image",

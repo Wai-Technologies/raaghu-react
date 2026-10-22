@@ -21,8 +21,7 @@ figma.connect(
         Default: DatePickerStyleType.Dropdown,
         Selector: DatePickerStyleType.Selector,
       }),
-
-      type: figma.enum("⚠️ Type", {
+      variant: figma.enum("Variant", {
         Default: "Default",
         Custom: "Custom",
       })

@@ -1,4 +1,4 @@
-import type { HTMLAttributes, Ref } from "react";
+import type { CSSProperties, HTMLAttributes, Ref } from "react";
 
 export enum ColorPickerType {
   Default = "Default",
@@ -32,7 +32,7 @@ export interface ColorChangeDetails {
 }
 
 export interface RdsCompColorPickerProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'style' | 'children' | 'id'> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'children' | 'id'> {
   value: string;
   /** Disables the picker. Takes precedence over `isDisabled`. */
   disabled?: boolean;
@@ -45,7 +45,8 @@ export interface RdsCompColorPickerProps
   pickerType?: PickerType;
   showTabs?: boolean;
   colorMode?: ColorMode;
-  style?: StyleType;
+  variant?: StyleType;
+  style?: CSSProperties;
   /**
    * Called with the 6-digit hex when the colour changes. When the opacity (alpha) slider
    * changes, a second argument with `rgba` and `hex8` is passed as well.
@@ -53,7 +54,7 @@ export interface RdsCompColorPickerProps
   onChange?: (colorHex: string, details?: ColorChangeDetails) => void;
   /** Called when the "add swatch" control in the swatches section is activated. */
   onAddSwatch?: () => void;
-  /** Custom swatch colours. Defaults to the built-in list for the selected `style`. */
+  /** Custom swatch colours. Defaults to the built-in list for the selected `variant`. */
   swatches?: string[];
   /** Ref to the root `div`. */
   ref?: Ref<HTMLDivElement>;

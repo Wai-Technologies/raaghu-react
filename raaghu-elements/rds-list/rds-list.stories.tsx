@@ -514,7 +514,7 @@ export const WithCheckbox: Story = {
         icon: <RdsCheckbox 
           status="indeterminate"
           checked={checked.includes(3)}
-          style="square"
+          variant="square"
         />
       } : item
     );
@@ -549,4 +549,3 @@ export const WithSwitch: Story = {
 };
 
 export const Default: Story = { ...AlignItems };
-

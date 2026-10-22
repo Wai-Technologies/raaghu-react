@@ -1,4 +1,10 @@
-import { type ReactElement, type ReactNode, type AriaAttributes } from 'react';
+
+import {
+  type ReactElement,
+  type ReactNode,
+  type AriaAttributes,
+  type CSSProperties,
+} from 'react';
 import { Card as MuiCard, type CardProps, Avatar, Typography } from '@mui/material';
 import Person from '@mui/icons-material/Person';
 import Home from '@mui/icons-material/Home';
@@ -64,23 +70,73 @@ const ICON_MAP: Record<string, ReactElement> = {
 };
 
 /** Roles on which `aria-selected` is allowed; other roles get `aria-current` instead. */
-const ARIA_SELECTED_ROLES = new Set(['option', 'tab', 'row', 'gridcell', 'columnheader', 'rowheader', 'treeitem']);
+const ARIA_SELECTED_ROLES = new Set([
+  'option',
+  'tab',
+  'row',
+  'gridcell',
+  'columnheader',
+  'rowheader',
+  'treeitem',
+]);
 
 export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
 export type CardStyle = 'default' | 'outlined' | 'filled';
 export type CardLayout = 'vertical' | 'horizontal';
-export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
-export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component' | 'content'> {
+export type CardIconName =
+  | 'person'
+  | 'home'
+  | 'settings'
+  | 'favorite'
+  | 'star'
+  | 'email'
+  | 'phone'
+  | 'location'
+  | 'camera'
+  | 'image'
+  | 'music'
+  | 'video'
+  | 'document'
+  | 'folder'
+  | 'calendar'
+  | 'clock'
+  | 'search'
+  | 'add'
+  | 'edit'
+  | 'delete'
+  | 'check'
+  | 'close'
+  | 'arrow_forward'
+  | 'arrow_back'
+  | 'download'
+  | 'upload'
+  | 'share'
+  | 'notification';
+
+export interface RdsCardProps
+  extends Omit<CardProps, 'children' | 'component' | 'content'> {
   padding?: number | string;
+
   /** Visual state (Figma). `disabled` and `selected` take precedence when set. */
   state?: CardState;
+
   /** Shows the card as selected and sets `aria-selected` (or `aria-current`). Takes precedence over `state`. */
   selected?: boolean;
+
   /** Shows the card as disabled and sets `aria-disabled`. Takes precedence over `state` and `selected`. */
   disabled?: boolean;
-  /** Visual style (Figma): `'default'`, `'outlined'` or `'filled'`. */
-  style?: CardStyle;
+
+  /** Visual appearance of the card: `default`, `outlined` or `filled`. */
+  variant?: CardStyle;
+
+  /**
+   * @deprecated Use `variant` for card appearance.
+   * Use a CSSProperties object for inline CSS styling.
+   */
+  style?: CardStyle | CSSProperties;
+
   layout?: CardLayout;
+
   /**
    * Shows or hides each section with `'visible'`/`'hidden'`. When a key is set it takes precedence
    * over the matching `show*` boolean.
@@ -92,20 +148,28 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'co
     description?: 'visible' | 'hidden';
     icon?: 'visible' | 'hidden';
   };
+
   /** Shows the indicator strip. Defaults to `true`. */
   showIndicator?: boolean;
+
   /** Shows `title`. Defaults to `true`. */
   showTitle?: boolean;
+
   /** Shows `cardSubtext`. Defaults to `true`. */
   showSubtext?: boolean;
+
   /** Shows `description`. Defaults to `true`. */
   showDescription?: boolean;
+
   /** Shows the icon. Defaults to `true`. Use `icon={false}` to hide it as well. */
   showIcon?: boolean;
+
   /** Icon shown in the avatar. Takes precedence over `changeIcon`; `null`/`false` hide it. Defaults to a person icon. */
   icon?: ReactNode;
+
   /** @deprecated Use `icon` instead. */
   changeIcon?: CardIconName;
+
   children?: ReactNode;
   title?: string;
   cardSubtext?: string;
@@ -120,7 +184,8 @@ const RdsCard = ({
   selected,
   disabled,
   className,
-  style: cardStyleProp = 'default',
+  variant,
+  style,
   layout = 'vertical',
   content,
   showIndicator: showIndicatorProp,
@@ -138,21 +203,61 @@ const RdsCard = ({
   'aria-current': ariaCurrentProp,
   ...muiCardProps
 }: RdsCardProps) => {
-  if (changeIcon !== undefined) warnDeprecatedProp('RdsCard', 'changeIcon', '`icon`');
+  if (changeIcon !== undefined) {
+    warnDeprecatedProp('RdsCard', 'changeIcon', '`icon`');
+  }
+
+  if (
+    style === 'default' ||
+    style === 'outlined' ||
+    style === 'filled'
+  ) {
+    warnDeprecatedProp('RdsCard', 'style', '`variant`');
+  }
+
+  // Resolve the new prop first, falling back to the deprecated appearance prop.
+  const cardStyleProp: CardStyle =
+    variant ??
+    (style === 'default' || style === 'outlined' || style === 'filled'
+      ? style
+      : 'default');
+
+  // Preserve normal CSS style objects.
+  const customStyle: CSSProperties =
+    typeof style === 'object' && style !== null ? style : {};
 
   // The show* booleans only count when they really are booleans, as before.
-  const legacy = (value: unknown) => (typeof value === 'boolean' ? value : undefined);
+  const legacy = (value: unknown) =>
+    typeof value === 'boolean' ? value : undefined;
+
   const iconHiddenByProp = icon === null || icon === false;
 
-  const showIndicator = content?.indicator ? content.indicator === 'visible' : (legacy(showIndicatorProp) ?? true);
-  const showTitle = content?.title ? content.title === 'visible' : (legacy(showTitleProp) ?? true);
-  const showSubtext = content?.subtext ? content.subtext === 'visible' : (legacy(showSubtextProp) ?? true);
-  const showDescription = content?.description ? content.description === 'visible' : (legacy(showDescriptionProp) ?? true);
-  const showIcon = !iconHiddenByProp && (content?.icon ? content.icon === 'visible' : (legacy(showIconProp) ?? true));
+  const showIndicator = content?.indicator
+    ? content.indicator === 'visible'
+    : (legacy(showIndicatorProp) ?? true);
+
+  const showTitle = content?.title
+    ? content.title === 'visible'
+    : (legacy(showTitleProp) ?? true);
+
+  const showSubtext = content?.subtext
+    ? content.subtext === 'visible'
+    : (legacy(showSubtextProp) ?? true);
+
+  const showDescription = content?.description
+    ? content.description === 'visible'
+    : (legacy(showDescriptionProp) ?? true);
+
+  const showIcon =
+    !iconHiddenByProp &&
+    (content?.icon
+      ? content.icon === 'visible'
+      : (legacy(showIconProp) ?? true));
 
   // `disabled`/`selected` win over `state` when given; `disabled` wins over `selected`.
   const isDisabled = disabled ?? state === 'disabled';
   const isSelected = !isDisabled && (selected ?? state === 'selected');
+
   const resolvedState: CardState = isDisabled
     ? 'disabled'
     : isSelected
@@ -161,11 +266,18 @@ const RdsCard = ({
         ? 'default'
         : state;
 
-  const useAriaSelected = typeof muiCardProps.role === 'string' && ARIA_SELECTED_ROLES.has(muiCardProps.role);
+  const useAriaSelected =
+    typeof muiCardProps.role === 'string' &&
+    ARIA_SELECTED_ROLES.has(muiCardProps.role);
+
   const ariaProps: AriaAttributes = {
     'aria-disabled': ariaDisabledProp ?? (isDisabled || undefined),
-    'aria-selected': ariaSelectedProp ?? (useAriaSelected && isSelected ? true : undefined),
-    'aria-current': ariaCurrentProp ?? (!useAriaSelected && isSelected ? true : undefined),
+    'aria-selected':
+      ariaSelectedProp ??
+      (useAriaSelected && isSelected ? true : undefined),
+    'aria-current':
+      ariaCurrentProp ??
+      (!useAriaSelected && isSelected ? true : undefined),
   };
 
   const hasCustomIcon = icon !== undefined && !iconHiddenByProp;
@@ -185,10 +297,18 @@ const RdsCard = ({
     className,
   );
 
-  const cardInlineStyle = padding ? { padding } : undefined;
+  const cardInlineStyle: CSSProperties = {
+    ...customStyle,
+    ...(padding !== undefined ? { padding } : {}),
+  };
 
   const iconElement = !showIcon ? null : (
-    <Avatar className={clsx('rds-card__icon', !hasCustomIcon && `rds-card__icon--${iconName}`)}>
+    <Avatar
+      className={clsx(
+        'rds-card__icon',
+        !hasCustomIcon && `rds-card__icon--${iconName}`,
+      )}
+    >
       {hasCustomIcon ? icon : (ICON_MAP[iconName] ?? <Person />)}
     </Avatar>
   );
@@ -204,6 +324,7 @@ const RdsCard = ({
           {title}
         </Typography>
       )}
+
       {cardSubtext && showSubtext && (
         <Typography
           variant="body2"
@@ -216,40 +337,41 @@ const RdsCard = ({
     </div>
   );
 
-  const descriptionAndChildrenElement = !description && !children ? null : (
-    <div className="rds-card__below-content">
-      {description && showDescription && (
-        <Typography
-          variant="body2"
-          component="p"
-          className="rds-card__description"
-        >
-          {description}
-        </Typography>
-      )}
-      {children && (
-        <div className="rds-card__additional-content">
-          {children}
-        </div>
-      )}
-    </div>
-  );
+  const descriptionAndChildrenElement =
+    !description && !children ? null : (
+      <div className="rds-card__below-content">
+        {description && showDescription && (
+          <Typography
+            variant="body2"
+            component="p"
+            className="rds-card__description"
+          >
+            {description}
+          </Typography>
+        )}
+
+        {children && (
+          <div className="rds-card__additional-content">
+            {children}
+          </div>
+        )}
+      </div>
+    );
 
   return (
     <MuiCard
       {...muiCardProps}
       {...ariaProps}
       className={cardClassName}
-      sx={[
-        cardInlineStyle,
-        ...(Array.isArray(sx) ? sx : [sx]),
-      ]}
+      style={cardInlineStyle}
+      sx={sx}
     >
       {showIndicator && (
         <div className="rds-card__indicator">
           <div className="rds-card__indicator-icon"></div>
         </div>
       )}
+
       {layout === 'horizontal' ? (
         <>
           <div className="rds-card__header-row">
@@ -258,10 +380,12 @@ const RdsCard = ({
                 {iconElement}
               </div>
             )}
+
             <div className="rds-card__header-text">
               {headerTextElement}
             </div>
           </div>
+
           {descriptionAndChildrenElement}
         </>
       ) : (
@@ -271,6 +395,7 @@ const RdsCard = ({
               {iconElement}
             </div>
           )}
+
           {headerTextElement}
           {descriptionAndChildrenElement}
         </div>
@@ -280,4 +405,5 @@ const RdsCard = ({
 };
 
 RdsCard.displayName = 'RdsCard';
+
 export default RdsCard;

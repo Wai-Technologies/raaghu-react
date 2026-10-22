@@ -272,14 +272,27 @@ describe('RdsDatepicker', () => {
   });
 
   describe('Props Handling', () => {
-    it('should accept datePickerStyleType prop', () => {
+    it('should accept variant prop', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
-          datePickerStyleType={DatePickerStyleType.Dropdown}
+          variant="Custom"
         />
       );
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
+      expect(mockCaptured.type?.[0]).toBe("Custom");
+    });
+
+    it('applies CSS style to the root element and forwards datePickerStyleType', () => {
+      const { container } = render(
+        <RdsDatepicker
+          {...defaultProps}
+          datePickerStyleType={DatePickerStyleType.Dropdown}
+          style={{ marginTop: 8 }}
+        />
+      );
+      expect(container.firstElementChild).toHaveStyle({ marginTop: '8px' });
+      expect(mockCaptured.type?.[5].datePickerStyleType).toBe(DatePickerStyleType.Dropdown);
     });
 
     it('should accept layout prop', () => {
@@ -474,6 +487,7 @@ describe('RdsDatepicker', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
+          variant="Custom"
           datePickerStyleType={DatePickerStyleType.Dropdown}
         />
       );
@@ -484,6 +498,7 @@ describe('RdsDatepicker', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
+          variant="Default"
           datePickerStyleType={DatePickerStyleType.Selector}
         />
       );
@@ -650,7 +665,7 @@ describe('RdsDatepicker', () => {
           titleText="Select Date"
           showTitle={true}
           onDatePicker={jest.fn()}
-          datePickerStyleType={DatePickerStyleType.Dropdown}
+          variant="Custom"
           state={DatePickerState.Default}
           layout={DatePickerLayout.Default}
           customDate={jest.fn()}
@@ -775,7 +790,7 @@ describe('audit fixes', () => {
   it('G4-097: presets use the current date at click time', () => {
     jest.useFakeTimers({ now: new Date(2025, 0, 1, 12) });
     const customDate = jest.fn();
-    render(<RdsDatepicker type="Custom" customDate={customDate} />);
+    render(<RdsDatepicker variant="Custom" customDate={customDate} />);
     jest.setSystemTime(new Date(2025, 0, 10, 12));
     act(() => mockCaptured.type?.[12]());
     expect(customDate.mock.calls[0][0][0].getDate()).toBe(9);
@@ -799,7 +814,7 @@ describe('audit fixes', () => {
   });
 
   it('G4-104: Escape closes the preset list; trigger exposes aria-expanded', () => {
-    render(<RdsDatepicker type="Custom" />);
+    render(<RdsDatepicker variant="Custom" />);
     act(() => mockCaptured.type?.[7]());
     expect(mockCaptured.type?.[6]).toBe(true);
     fireEvent.keyDown(document, { key: 'Escape' });

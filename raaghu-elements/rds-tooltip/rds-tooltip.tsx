@@ -1,3 +1,4 @@
+
 import { type CSSProperties, type ReactElement, type ReactNode } from 'react';
 import { Tooltip as MuiTooltip, type TooltipProps } from '@mui/material';
 import clsx from 'clsx';
@@ -14,6 +15,8 @@ export interface RdsTooltipProps extends Omit<TooltipProps, 'style' | 'title'> {
   className?: string;
   tooltipStyle?: CSSProperties;
   arrow?: boolean;
+  /** Tooltip placement. */
+  variant?: Placement;
   /** @deprecated Use `placement`. */
   style?: Placement;
   /** @deprecated Use `title`. */
@@ -24,6 +27,7 @@ export interface RdsTooltipProps extends Omit<TooltipProps, 'style' | 'title'> {
 
 const RdsTooltip = ({
   children,
+  variant,
   style,
   placement,
   title,
@@ -34,17 +38,22 @@ const RdsTooltip = ({
   wrapper: _wrapper,
   ...props
 }: RdsTooltipProps) => {
-  if (style !== undefined) warnDeprecatedProp('RdsTooltip', 'style', '`placement`');
-  if (label !== undefined) warnDeprecatedProp('RdsTooltip', 'label', '`title`');
+  if (style !== undefined) {
+    warnDeprecatedProp('RdsTooltip', 'style', '`variant`');
+  }
+  if (label !== undefined) {
+    warnDeprecatedProp('RdsTooltip', 'label', '`title`');
+  }
 
-  const resolvedPlacement: Placement = placement ?? style ?? 'top';
+  const resolvedPlacement: Placement = placement ?? variant ?? style ?? 'top';
+
   const tooltipClass = clsx(
     'rds-tooltip',
     `rds-tooltip--${resolvedPlacement.replace(/-.*/, '')}`,
     className
   );
 
-  // MUI already opens on focus/hover of the child, so no extra focus handlers are needed.
+  // MUI opens on focus/hover of the child, so no extra focus handlers are needed.
   return (
     <MuiTooltip
       title={title ?? label}
@@ -60,5 +69,7 @@ const RdsTooltip = ({
     </MuiTooltip>
   );
 };
+
 RdsTooltip.displayName = 'RdsTooltip';
+
 export default RdsTooltip;

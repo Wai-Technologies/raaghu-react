@@ -12,14 +12,14 @@ const meta: Meta<typeof RdsProgress> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    style: {
+    variant: {
       control: {
         type: 'select',
       },
       options: ['circular', 'line', 'stepper', 'dash', 'block'],
       description: 'The visual style of the progress indicator',
     },
-    variant: { control: 
+    progressVariant: { control:
       { type: 'select' },
       options: ['determinate', 'indeterminate', 'buffer', 'query'] 
     },
@@ -35,15 +35,15 @@ const meta: Meta<typeof RdsProgress> = {
         type: 'select',
       },
       options: [0, 1, 2, 3, 4, 5],
-      description: 'Progress steps (1=20%, 2=40%, 3=60%, 4=80%, 5=100%). Only works for circular, stepper, dash, and block styles.',
+      description: 'Progress steps (1=20%, 2=40%, 3=60%, 4=80%, 5=100%). Only works for circular, stepper, dash, and block variants.',
     },
     stepperType: {
       control: {
         type: 'select',
       },
       options: ['number', 'circle'],
-      description: 'The type of stepper indicator. Only applies when style is stepper.',
-      if: { arg: 'style', eq: 'stepper' },
+      description: 'The type of stepper indicator. Only applies when variant is stepper.',
+      if: { arg: 'variant', eq: 'stepper' },
     },
   }
 };
@@ -53,8 +53,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Circular: Story = {
   args: {
-    style: 'circular',
-    variant: 'determinate',
+    variant: 'circular',
+    progressVariant: 'determinate',
     steps: 4,
     showLabel: true,
     color: 'primary',
@@ -64,37 +64,37 @@ export const Circular: Story = {
     await expect(progress).toBeInTheDocument();
   },
 };
-Circular.parameters = { controls: { include: ['style', 'variant', 'steps', 'showLabel', 'color', 'stepperType'] } };
+Circular.parameters = { controls: { include: ['variant', 'progressVariant', 'steps', 'showLabel', 'color', 'stepperType'] } };
 
 export const Stepper: Story = {
   args: {
-    style: 'stepper',
+    variant: 'stepper',
     steps: 2,
     color: 'primary',
     stepperType: 'circle',
   },
 };
-Stepper.parameters = { controls: { include: ['style', 'steps', 'color', 'stepperType'] } };
+Stepper.parameters = { controls: { include: ['variant', 'steps', 'color', 'stepperType'] } };
 
 export const ColorVariants: Story = {
   args: {
-    variant: 'determinate',
+    progressVariant: 'determinate',
     value: 60,
     color: 'secondary',
   },
 };
-ColorVariants.parameters = { controls: { include: ['variant', 'value', 'color'] } };
+ColorVariants.parameters = { controls: { include: ['progressVariant', 'value', 'color'] } };
 
 export const Indeterminate: Story = {
   args: {
-    variant: 'indeterminate',
+    progressVariant: 'indeterminate',
   },
 };
-Indeterminate.parameters = { controls: { include: ['variant'] } };
+Indeterminate.parameters = { controls: { include: ['progressVariant'] } };
 
 export const Linear: Story = {
   args: {
-    variant: 'determinate',
+    progressVariant: 'determinate',
     value: 75,
   },
   decorators: [
@@ -105,6 +105,6 @@ export const Linear: Story = {
     ),
   ],
 };
-Linear.parameters = { controls: { include: ['variant', 'value'] } };
+Linear.parameters = { controls: { include: ['progressVariant', 'value'] } };
 
 export const Default: Story = { ...Circular };

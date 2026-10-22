@@ -160,7 +160,7 @@ export const renderDatePickerStateView = (
 };
 
 export const renderDatePickerTypeView = (
-    type: string,
+    variant: string,
     startDate: Date | null,
     endDate: Date | null,
     handlerDateChange: (date: Date | null) => void,
@@ -183,7 +183,7 @@ export const renderDatePickerTypeView = (
     customDropdownRef?: RefObject<HTMLDivElement | null>
 ) => {
 
-    if (type === "Default") {
+    if (variant === "Default") {
         const pickerProps = buildDatePickerProps({
             startDate,
             onChange: handlerDateChange,
@@ -205,7 +205,7 @@ export const renderDatePickerTypeView = (
                 <DatePicker {...pickerProps} />
             </div>
         );
-    } else if (type === "Custom") {
+    } else if (variant === "Custom") {
         const todayButtonElement = <CustomButtons />;
         const rangeCustomInput = createElement(ExampleCustomInput, {
             changeIcon: props.changeIcon,

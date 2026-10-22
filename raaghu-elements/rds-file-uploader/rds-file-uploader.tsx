@@ -66,7 +66,7 @@ const RdsFileUploader = ({
   placeholderImage = '',
   state: _state,
   mode = 'standard',
-  style,
+  variant,
   children,
   showPreview: showPreviewProp,
   showTitle: showTitleProp,
@@ -201,7 +201,7 @@ const RdsFileUploader = ({
             aria-label={fieldLabel || 'File upload'}
           />
 
-          {style === 'Drop Area - Side Icon' ? (
+          {variant === 'Drop Area - Side Icon' ? (
             <RdsDropZoneSideIcon
               mode={mode || 'default'}
               isDragOver={isDragOver}
@@ -211,7 +211,7 @@ const RdsFileUploader = ({
               onDrop={handleDrop}
               openFileDialog={openFileDialog}
             />
-          ) : style === 'Drop Area - With Upload Button' ? (
+          ) : variant === 'Drop Area - With Upload Button' ? (
             <RdsDropZoneWithButton
               mode={mode || 'default'}
               isDragOver={isDragOver}

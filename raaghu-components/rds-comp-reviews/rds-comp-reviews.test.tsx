@@ -97,7 +97,7 @@ describe('RdsCompReviews', () => {
 
   const defaultProps: RdsCompReviewsProps = {
     itemList: [defaultItem],
-    style: RevieweStyle.Style1,
+    variant: RevieweStyle.Style1,
     variantType: VariantType.Default,
   };
 
@@ -153,7 +153,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[defaultItem]}
         />
       );
@@ -167,7 +167,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style2}
+          variant={RevieweStyle.Style2}
           itemList={[defaultItem]}
         />
       );
@@ -179,7 +179,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style3}
+          variant={RevieweStyle.Style3}
           itemList={[defaultItem]}
         />
       );
@@ -191,7 +191,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style4}
+          variant={RevieweStyle.Style4}
           itemList={[defaultItem]}
         />
       );
@@ -203,7 +203,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style5}
+          variant={RevieweStyle.Style5}
           itemList={[defaultItem]}
         />
       );
@@ -215,7 +215,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style6}
+          variant={RevieweStyle.Style6}
           itemList={[defaultItem]}
         />
       );
@@ -229,7 +229,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[defaultItem]}
         />
       );
@@ -242,7 +242,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style8}
+          variant={RevieweStyle.Style8}
           itemList={[defaultItem]}
         />
       );
@@ -254,7 +254,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style9}
+          variant={RevieweStyle.Style9}
           itemList={[defaultItem]}
         />
       );
@@ -267,7 +267,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style10}
+          variant={RevieweStyle.Style10}
           itemList={[defaultItem]}
         />
       );
@@ -281,7 +281,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style11}
+          variant={RevieweStyle.Style11}
           itemList={[defaultItem]}
         />
       );
@@ -294,7 +294,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style12}
+          variant={RevieweStyle.Style12}
           itemList={[defaultItem]}
         />
       );
@@ -308,7 +308,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={undefined}
+          variant={undefined}
           itemList={[defaultItem]}
         />
       );
@@ -319,7 +319,7 @@ describe('RdsCompReviews', () => {
     it('should render nothing for unknown style', () => {
       render(
         <RdsCompReviews
-          {...{ ...defaultProps, style: 'unknown' as any }}
+          {...{ ...defaultProps, variant: 'unknown' as any }}
           itemList={[defaultItem]}
         />
       );
@@ -376,7 +376,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[item]}
         />
       );
@@ -389,7 +389,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[item]}
         />
       );
@@ -402,7 +402,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[item]}
         />
       );
@@ -420,7 +420,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[defaultItem]}
         />
       );
@@ -435,7 +435,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[item]}
         />
       );
@@ -447,7 +447,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[item]}
         />
       );
@@ -459,7 +459,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[item]}
         />
       );
@@ -471,7 +471,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[item]}
         />
       );
@@ -482,7 +482,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[defaultItem]}
         />
       );
@@ -502,7 +502,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[defaultItem]}
         />
       );
@@ -526,7 +526,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style3}
+          variant={RevieweStyle.Style3}
           itemList={[item]}
         />
       );
@@ -540,7 +540,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style4}
+          variant={RevieweStyle.Style4}
           itemList={[item]}
         />
       );
@@ -578,7 +578,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={items}
         />
       );
@@ -598,7 +598,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={items}
         />
       );
@@ -613,7 +613,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[defaultItem]}
         />
       );
@@ -627,7 +627,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style3}
+          variant={RevieweStyle.Style3}
           itemList={[defaultItem]}
         />
       );
@@ -639,7 +639,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style5}
+          variant={RevieweStyle.Style5}
           itemList={[defaultItem]}
         />
       );
@@ -655,7 +655,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style11}
+          variant={RevieweStyle.Style11}
           itemList={[item]}
         />
       );
@@ -667,7 +667,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style12}
+          variant={RevieweStyle.Style12}
           itemList={[item]}
         />
       );
@@ -679,7 +679,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style11}
+          variant={RevieweStyle.Style11}
           itemList={[item]}
         />
       );
@@ -702,7 +702,7 @@ describe('RdsCompReviews', () => {
       const { container } = render(
         <RdsCompReviews 
           itemList={items}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           variantType={VariantType.Default} 
         />
       );
@@ -730,13 +730,24 @@ describe('RdsCompReviews', () => {
         const { unmount, container } = render(
           <RdsCompReviews
             itemList={[defaultItem]}
-            style={style}
+            variant={style}
             variantType={VariantType.Default}
           />
         );
         expect(container.querySelector('.rds-comp-reviews')).toBeInTheDocument();
         unmount();
       });
+    });
+
+    it('applies CSS style to the root element', () => {
+      const { container } = render(
+        <RdsCompReviews
+          items={[defaultItem]}
+          variant={RevieweStyle.Style1}
+          style={{ marginTop: 8 }}
+        />
+      );
+      expect(container.querySelector('.rds-comp-reviews')).toHaveStyle({ marginTop: '8px' });
     });
   });
 
@@ -759,7 +770,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[completeItem]}
         />
       );
@@ -777,7 +788,7 @@ describe('RdsCompReviews', () => {
       const { rerender } = render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[defaultItem]}
         />
       );
@@ -788,7 +799,7 @@ describe('RdsCompReviews', () => {
       rerender(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style7}
+          variant={RevieweStyle.Style7}
           itemList={[defaultItem]}
         />
       );
@@ -838,7 +849,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[item]}
         />
       );
@@ -851,7 +862,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[item]}
         />
       );
@@ -874,7 +885,7 @@ describe('RdsCompReviews', () => {
       render(
         <RdsCompReviews
           {...defaultProps}
-          style={RevieweStyle.Style1}
+          variant={RevieweStyle.Style1}
           itemList={[item]}
         />
       );
@@ -900,22 +911,22 @@ describe('audit fixes', () => {
   const base: Item = { name: 'A', username: 'a', description: 'd', rating: 4, likes: 5, dislikes: 2 };
 
   it('accepts items and warns for itemList, variantType', () => {
-    render(<RdsCompReviews items={[base]} style={ReviewStyle.Style7} />);
+    render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} />);
     expect(screen.getAllByTestId('card')).toHaveLength(1);
-    render(<RdsCompReviews itemList={[base]} style={ReviewStyle.Style7} />);
+    render(<RdsCompReviews itemList={[base]} variant={ReviewStyle.Style7} />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompReviews', 'itemList', expect.any(String));
   });
 
   it('re-syncs when item values change', () => {
-    const { rerender } = render(<RdsCompReviews items={[base]} style={ReviewStyle.Style7} />);
-    rerender(<RdsCompReviews items={[{ ...base, rating: 2, likes: 9 }]} style={ReviewStyle.Style7} />);
+    const { rerender } = render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} />);
+    rerender(<RdsCompReviews items={[{ ...base, rating: 2, likes: 9 }]} variant={ReviewStyle.Style7} />);
     expect(screen.getByText('Rating: 2')).toBeInTheDocument();
     expect(screen.getByText('9')).toBeInTheDocument();
   });
 
   it('calls callbacks and exposes labelled pressed buttons', () => {
     const onLike = jest.fn(), onDislike = jest.fn(), onRatingChange = jest.fn();
-    render(<RdsCompReviews items={[base]} style={ReviewStyle.Style7} onLike={onLike} onDislike={onDislike} onRatingChange={onRatingChange} />);
+    render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} onLike={onLike} onDislike={onDislike} onRatingChange={onRatingChange} />);
     const like = screen.getByLabelText('Like');
     expect(like).toHaveAttribute('aria-pressed', 'false');
     fireEvent.click(like);
@@ -929,7 +940,7 @@ describe('audit fixes', () => {
 
   it('supports locale, formatDate and id keys', () => {
     const item = { ...base, id: 1, date: new Date('2024-01-15') };
-    render(<RdsCompReviews items={[item]} style={ReviewStyle.Style4} formatDate={() => 'custom date'} />);
+    render(<RdsCompReviews items={[item]} variant={ReviewStyle.Style4} formatDate={() => 'custom date'} />);
     expect(screen.getByText('custom date')).toBeInTheDocument();
   });
 });

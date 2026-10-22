@@ -42,7 +42,7 @@ const meta: Meta = {
             options: ["Default", "Expanded", "Selected"],
             control: { type: "select" },
         },
-        type: {
+        variant: {
             options: ["Default", "Custom"],
             control: { type: "select" },
         },
@@ -59,7 +59,7 @@ type Story = StoryObj<typeof RdsCompDatepicker>;
 export const Default: Story = {
     args: {
         state: DatePickerState.Default,
-        type: "Custom",
+        variant: "Custom",
         showTitle: true,
         titleText: "Date",
         required: true,
@@ -73,6 +73,4 @@ export const Default: Story = {
         await expect(input).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','title','required','placeholderText','datePickerStyleType'] } };
-
-
+Default.parameters = { controls: { include: ['state','variant','changeIcon','layout', 'showTitle','title','required','placeholderText','datePickerStyleType'] } };

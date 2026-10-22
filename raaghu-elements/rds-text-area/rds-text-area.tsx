@@ -12,6 +12,7 @@ import {
 } from "react";
 import clsx from "clsx";
 import "./rds-text-area.scss";
+
 export { TextareaState, TextareaStyle } from "./rds-text-area-types";
 import { TextareaState, TextareaStyle } from "./rds-text-area-types";
 
@@ -40,8 +41,8 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   defaultValue?: string;
   /** Figma state. Accepts the `TextareaState` enum or its string value (e.g. `"Disabled"`). */
   state?: TextareaState | `${TextareaState}`;
-  /** Figma style variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
-  style?: TextareaStyle | `${TextareaStyle}`;
+  /** Visual variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
+  variant?: TextareaStyle | `${TextareaStyle}`;
   showTitle?: boolean;
   /** Marks the field required: shows the asterisk and the empty-value error. */
   required?: boolean;
@@ -71,7 +72,7 @@ const RdsTextArea = ({
   value,
   defaultValue,
   state,
-  style,
+  variant,
   showTitle,
   required,
   disabled,
@@ -208,8 +209,8 @@ const RdsTextArea = ({
     }
   };
 
-  const getStyleClass = () => {
-    switch (style) {
+  const getVariantClass = () => {
+    switch (variant) {
       case TextareaStyle.Pill:
         return "textarea-pill";
       case TextareaStyle.BottomOutline:
@@ -242,8 +243,8 @@ const RdsTextArea = ({
       <div
         className={clsx(
           "textarea-wrapper",
-          style === TextareaStyle.Pill && "textarea-pill-wrapper",
-          style === TextareaStyle.Pill && getStateClass()
+          variant === TextareaStyle.Pill && "textarea-pill-wrapper",
+          variant === TextareaStyle.Pill && getStateClass()
         )}
       >
         <textarea
@@ -253,7 +254,7 @@ const RdsTextArea = ({
           className={clsx(
             "rds-textarea",
             getStateClass(),
-            getStyleClass(),
+            getVariantClass(),
             customClasses
           )}
           disabled={isDisabled}

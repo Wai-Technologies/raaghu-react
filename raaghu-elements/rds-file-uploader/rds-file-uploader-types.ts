@@ -2,7 +2,7 @@ import type { Ref } from 'react';
 import type { BoxProps } from '@mui/material';
 
 /** Root `Box` props forwarded to the uploader's outer element (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, handlers…). */
-export type RdsFileUploaderRootProps = Omit<BoxProps, 'style' | 'title' | 'onChange' | 'children' | 'display' | 'component' | 'ref'> & {
+export type RdsFileUploaderRootProps = Omit<BoxProps, 'title' | 'onChange' | 'children' | 'display' | 'component' | 'ref'> & {
   ref?: Ref<HTMLDivElement>;
 };
 
@@ -44,5 +44,5 @@ export interface RdsFileUploaderProps {
   /** @deprecated – has no effect */
   state?: 'default' | 'selected';
   mode?: 'standard' | 'default';
-  style?: 'Drop Area - Side Icon' | 'Drop Area - Top Icon' | 'Drop Area - With Upload Button';
+  variant?: 'Drop Area - Side Icon' | 'Drop Area - Top Icon' | 'Drop Area - With Upload Button';
 }

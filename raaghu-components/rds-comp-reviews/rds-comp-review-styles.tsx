@@ -51,7 +51,7 @@ FeedbackActions.displayName = "FeedbackActions";
 
 export interface ReviewStyleCardProps {
   item: Item;
-  style?: ReviewStyle;
+  variant?: ReviewStyle;
   locale?: string;
   formatDate?: (date: Date) => string;
   onRatingChange?: (item: Item, value: number) => void;
@@ -61,7 +61,7 @@ export interface ReviewStyleCardProps {
 
 export const ReviewStyleCard = ({
   item,
-  style,
+  variant,
   locale = "en-GB",
   formatDate: customFormatDate,
   onRatingChange,
@@ -69,7 +69,7 @@ export const ReviewStyleCard = ({
   onDislike,
 }: ReviewStyleCardProps) => {
   const getInitialRating = () =>
-    style === ReviewStyle.Style11 || style === ReviewStyle.Style12
+    variant === ReviewStyle.Style11 || variant === ReviewStyle.Style12
       ? 1
       : item.rating || 4.5;
 
@@ -124,7 +124,7 @@ export const ReviewStyleCard = ({
     onDislike?.(item);
   };
 
-  switch (style) {
+  switch (variant) {
     case ReviewStyle.Style1:
       return (
         <Card sx={{ height: "100%" }}>

@@ -23,7 +23,7 @@ figma.connect(
         "Small": "small",
         "Medium": "medium"
       }),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Default": "default",
         "Pill": "pill",
         "Bottom Outline": "bottom outline"

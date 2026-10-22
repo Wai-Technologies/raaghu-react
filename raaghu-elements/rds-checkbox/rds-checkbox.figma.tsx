@@ -19,7 +19,7 @@ figma.connect(
         "Hover": "hover",
         "Disabled": "disabled",
       }),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Square": "square",
         "Circular": "circular",
       }),

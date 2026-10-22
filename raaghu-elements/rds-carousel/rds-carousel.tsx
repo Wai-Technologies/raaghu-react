@@ -1,4 +1,4 @@
-import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent } from 'react';
+import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
 import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
@@ -11,7 +11,7 @@ const EMPTY_SUBTITLES: string[] = [];
 
 /**
  * Root props are forwarded to the outer `Box` (`sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
- * `style`, `type`, `title` and `height` are carousel props here, not the native attributes / system props.
+ * `variant`, `type`, `title` and `height` are carousel props here, not the native attributes / system props.
  */
 export interface RdsCarouselProps
   extends Omit<BoxProps, 'children' | 'component' | 'style' | 'type' | 'title' | 'height'> {
@@ -23,12 +23,13 @@ export interface RdsCarouselProps
   showArrows?: boolean;
   showDots?: boolean;
   height?: string | number;
+  style?: CSSProperties;
   /** Indicator shape. */
   type?: 'circle' | 'line';
   /** Active slide (1-based), mirrored from Figma. Changing it moves the carousel to that slide. */
   state?: '1' | '2' | '3' | '4';
   /** Visual variant (Figma "Style"). */
-  style?: 'default' | 'with title' | 'full width image';
+  variant?: 'default' | 'with title' | 'full width image';
   titles?: string[];
   subtitles?: string[];
   title?: string;
@@ -45,7 +46,8 @@ const RdsCarousel = ({
   height = '400px',
   type = 'circle',
   state,
-  style = 'default',
+  style,
+  variant = 'default',
   titles,
   subtitles,
   title,
@@ -71,7 +73,7 @@ const RdsCarousel = ({
     }
   }
   const tokens = useRdsTokens();
-  const hasTitleLayout = style === 'with title' || style === 'full width image';
+  const hasTitleLayout = variant === 'with title' || variant === 'full width image';
 
   useEffect(() => {
     if (autoPlay && slideCount > 1) {
@@ -103,7 +105,7 @@ const RdsCarousel = ({
 
   const carouselClassName = clsx(
     'rds-carousel',
-    `rds-carousel--${style.replace(' ', '-')}`,
+    `rds-carousel--${variant.replace(' ', '-')}`,
     className,
   );
 
@@ -115,6 +117,7 @@ const RdsCarousel = ({
       {...rest}
       ref={ref}
       className={carouselClassName}
+      style={style}
       sx={[
         {
           position: 'relative',
@@ -125,7 +128,7 @@ const RdsCarousel = ({
           minWidth: 0,
           boxSizing: 'border-box',
           borderRadius: tokens.radius.md,
-          backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
+          backgroundColor: variant === 'full width image' ? tokens.color.surface : 'transparent',
         },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
@@ -168,10 +171,10 @@ const RdsCarousel = ({
                 display: 'flex',
                 flexDirection: hasTitleLayout ? 'column' : 'row',
                 boxSizing: 'border-box',
-                backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
+                backgroundColor: variant === 'full width image' ? tokens.color.surface : 'transparent',
               }}
             >
-              {style === 'with title' && (
+              {variant === 'with title' && (
                 <Box className="rds-carousel__title-content rds-carousel__title-content--top">
                   {displayTitle && (
                     <Typography className="rds-carousel__title-text" variant="h5" component="h3">
@@ -203,7 +206,7 @@ const RdsCarousel = ({
                 {child}
               </Box>
 
-              {style === 'full width image' && (
+              {variant === 'full width image' && (
                 <Box className="rds-carousel__title-content rds-carousel__title-content--bottom">
                   {displayTitle && (
                     <Typography className="rds-carousel__title-text" variant="h5" component="h3">
@@ -232,9 +235,9 @@ const RdsCarousel = ({
               position: 'absolute',
               left: tokens.space(1),
               top:
-                style === 'with title'
+                variant === 'with title'
                   ? 'calc(50% + 50px)'
-                  : style === 'full width image'
+                  : variant === 'full width image'
                     ? 'calc(50% - 50px)'
                     : '50%',
               transform: 'translateY(-50%)',
@@ -256,9 +259,9 @@ const RdsCarousel = ({
               position: 'absolute',
               right: tokens.space(1),
               top:
-                style === 'with title'
+                variant === 'with title'
                   ? 'calc(50% + 50px)'
-                  : style === 'full width image'
+                  : variant === 'full width image'
                     ? 'calc(50% - 50px)'
                     : '50%',
               transform: 'translateY(-50%)',
@@ -312,9 +315,9 @@ const RdsCarousel = ({
                   currentIndex === index
                     ? tokens.color.primary
                     : tokens.cssVar('carousel-indicator-bg'),
-                opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
+                opacity: currentIndex === index || variant !== 'full width image' ? 1 : 0.8,
                 border:
-                  style === 'full width image'
+                  variant === 'full width image'
                     ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('carousel-indicator-bg')}`
                     : 'none',
                 cursor: 'pointer',

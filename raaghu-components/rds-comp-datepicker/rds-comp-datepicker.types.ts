@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 export enum DatePickerStyleType {
   Dropdown = "Dropdown",
   Selector = "Selector",
@@ -22,6 +24,7 @@ export interface RdsCompDatepickerProps {
   titleText?: string;
   onDatePicker?: (date: Date | [Date | null, Date | null]) => void;
   datePickerStyleType?: DatePickerStyleType;
+  style?: CSSProperties;
   state?: DatePickerState;
   layout?: DatePickerLayout;
   customDate?: (dates: [Date | null, Date | null]) => void;
@@ -34,6 +37,8 @@ export interface RdsCompDatepickerProps {
   };
   placeholderText?: string;
   DatePickerLabel?: string;
+  variant?: "Default" | "Custom";
+  /** @deprecated Use `variant` instead. */
   type?: string;
   changeIcon?: "dashboard_settings" | string;
   /**

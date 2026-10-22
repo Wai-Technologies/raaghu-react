@@ -3,6 +3,7 @@ import {
   useState,
   type InputHTMLAttributes,
   type ReactNode,
+  type CSSProperties,
   type ChangeEvent,
   type KeyboardEvent,
   type FormEvent,
@@ -48,11 +49,14 @@ export interface RdsInputProps
   placeholder?: string;
   /** Error text: shown as helper text and puts the field in the error state. */
   errorMessage?: string;
-  variant?: 'outlined' | 'filled' | 'standard';
+  /** MUI TextField rendering variant. */
+  inputVariant?: TextFieldProps['variant'];
   size?: 'small' | 'medium' | 'large';
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
   titlePosition?: 'title-above' | 'inline-title' | (string & {});
-  style?: 'default' | 'pill' | 'bottom outline';
+  /** Visual input appearance. */
+  variant?: 'default' | 'pill' | 'bottom outline';
+  style?: CSSProperties;
   state?: 'default' | 'active' | 'selected' | 'error' | 'disabled';
   showIcon?: boolean;
   iconPosition?: 'start' | 'end';
@@ -71,11 +75,12 @@ const RdsInput = ({
   errorMessage,
   mandatory,
   required,
-  variant = 'outlined',
+  inputVariant = 'outlined',
   size = 'small',
   layout = 'text',
   titlePosition,
-  style = 'default',
+  variant = 'default',
+  style,
   state = 'default',
   showIcon = false,
   iconPosition = 'end',
@@ -138,9 +143,9 @@ const RdsInput = ({
         : 'rds-input--large';
 
   const pillClass =
-    style === 'pill'
+    variant === 'pill'
       ? 'rds-input--pill'
-      : style === 'bottom outline'
+      : variant === 'bottom outline'
         ? 'rds-input--bottom-outline'
         : '';
 
@@ -337,6 +342,7 @@ const RdsInput = ({
         stateClass,
         inlineTitleClass,
       )}
+      style={style}
     >
       {titlePosition === 'title-above' && label && (
         <label className="rds-input__label" htmlFor={inputId}>
@@ -353,7 +359,7 @@ const RdsInput = ({
         error={!!errorMessage || error || state === 'error'}
         disabled={disabled || state === 'disabled'}
         required={isRequired}
-        variant={variant}
+        variant={inputVariant}
         size={size === 'large' ? 'medium' : size}
         type={inputType}
         fullWidth

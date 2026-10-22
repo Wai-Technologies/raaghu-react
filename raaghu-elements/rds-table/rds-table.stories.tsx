@@ -237,8 +237,8 @@ const defaultColumns = [
           color="primary"
           stepperType="circle"
           steps={4}
-          style="line"
-          variant="determinate"
+          variant="line"
+          progressVariant="determinate"
         />
         <span className="rds-table__progress-text">Text</span>
       </div>

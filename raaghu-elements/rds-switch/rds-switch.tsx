@@ -1,16 +1,17 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState, type ChangeEvent, type CSSProperties } from 'react';
 import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-switch.scss';
 
-/** Props for {@link RdsSwitch}. Extends MUI `SwitchProps` (except `style`/`component`). */
-export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'> {
+/** Props for {@link RdsSwitch}. Extends MUI `SwitchProps` (except `component`). */
+export interface RdsSwitchProps extends Omit<SwitchProps, 'component'> {
   label?: string;
   labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';
   state?: 'off' | 'on' | 'disabled on' | 'disabled off';
   showLabel?: boolean;
-  style?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
+  variant?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
+  style?: CSSProperties;
 }
 
 const layoutToPlacement: Record<NonNullable<RdsSwitchProps['layout']>, RdsSwitchProps['labelPlacement']> = {
@@ -40,7 +41,8 @@ const RdsSwitch = ({
   labelPlacement,
   layout,
   state,
-  style: styleProp = 'style1',
+  variant = 'style1',
+  style,
   showLabel,
   ...props
 }:RdsSwitchProps) => {
@@ -87,7 +89,7 @@ const RdsSwitch = ({
     }
   };
 
-  const normalizedStyleRaw = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
+  const normalizedStyleRaw = variant.replace(/\s+/g, '').toLowerCase();
   // style6 was removed when consolidating duplicate styles; map legacy value to style5.
   const normalizedStyleType = normalizedStyleRaw === 'style6' ? 'style5' : normalizedStyleRaw;
   const normalizedColor = props.color ? String(props.color).toLowerCase().replace(/[^a-z0-9_-]/g, '-') : 'primary';
@@ -125,7 +127,7 @@ const RdsSwitch = ({
 
   if (label && showLabel !== false) {
     return (
-      <div className="rds-switch--row">
+      <div className="rds-switch--row" style={style}>
         <FormControlLabel
           className={styleClass}
           control={<MuiSwitch {...switchProps} />}
@@ -136,7 +138,7 @@ const RdsSwitch = ({
     );
   }
   return (
-    <div className="rds-switch--row">
+    <div className="rds-switch--row" style={style}>
       <MuiSwitch {...switchProps} />
     </div>
   );

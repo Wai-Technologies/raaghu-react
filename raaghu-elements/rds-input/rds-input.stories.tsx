@@ -23,9 +23,14 @@ const meta: Meta<typeof RdsInput> = {
       control: "select",
       options: ['text', 'password', 'phone number', 'number', 'card number'],
     },
-    style: {
+    variant: {
       control: "select",
       options: ['default', 'pill', 'bottom outline'],
+    },
+    inputVariant: {
+      control: 'select',
+      options: ['outlined', 'filled', 'standard'],
+      description: 'MUI TextField rendering variant',
     },
     state: {
       control: "select",
@@ -66,7 +71,7 @@ export const Default: Story = {
   args: {
     size: 'small',
     layout: 'text',
-    style: 'default',
+    variant: 'default',
     state: 'default',
     label: 'Input Label',
     helperText: 'This is a hint text',
@@ -76,7 +81,7 @@ export const Default: Story = {
     disabled: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'helperText', 'required', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'variant', 'inputVariant', 'state', 'label', 'helperText', 'required', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',

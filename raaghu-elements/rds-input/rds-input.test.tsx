@@ -183,7 +183,7 @@ describe('RdsInput', () => {
   describe('Input Styles', () => {
     it('should apply pill style class', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Pill Input" style="pill" />
+        <RdsInput label="Pill Input" variant="pill" />
       );
       const input = container.querySelector('.rds-input--pill');
       expect(input).toBeInTheDocument();
@@ -191,7 +191,7 @@ describe('RdsInput', () => {
 
     it('should apply bottom outline style class', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Bottom Outline Input" style="bottom outline" />
+        <RdsInput label="Bottom Outline Input" variant="bottom outline" />
       );
       const input = container.querySelector('.rds-input--bottom-outline');
       expect(input).toBeInTheDocument();
@@ -205,6 +205,13 @@ describe('RdsInput', () => {
       expect(input).toBeInTheDocument();
       expect(input).not.toHaveClass('rds-input--pill');
       expect(input).not.toHaveClass('rds-input--bottom-outline');
+    });
+
+    it('should apply CSSProperties style to the input wrapper', () => {
+      const { container } = renderWithTheme(
+        <RdsInput label="Styled Input" style={{ marginTop: '12px' }} />
+      );
+      expect(container.querySelector('.rds-input')).toHaveStyle('margin-top: 12px');
     });
   });
 
@@ -538,8 +545,8 @@ describe('RdsInput', () => {
     });
   });
 
-  describe('Variant Support', () => {
-    it('should render outlined variant by default', () => {
+  describe('Input Variant Support', () => {
+    it('should render outlined input variant by default', () => {
       const { container } = renderWithTheme(
         <RdsInput label="Input" />
       );
@@ -547,12 +554,11 @@ describe('RdsInput', () => {
       expect(textField).toBeInTheDocument();
     });
 
-    it('should accept variant prop', () => {
+    it('should accept the MUI inputVariant prop', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Input" variant="filled" />
+        <RdsInput label="Input" inputVariant="filled" />
       );
-      const textField = container.querySelector('.MuiTextField-root');
-      expect(textField).toBeInTheDocument();
+      expect(container.querySelector('.MuiFilledInput-root')).toBeInTheDocument();
     });
   });
 
@@ -584,7 +590,7 @@ describe('RdsInput', () => {
           isMandatory={true}
           layout="text"
           size="medium"
-          style="pill"
+          variant="pill"
           state="active"
           placeholder="Enter text"
           hintText="This is a hint"

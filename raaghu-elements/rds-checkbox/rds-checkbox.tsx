@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-checkbox.scss';
 
-export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
+export interface RdsCheckboxProps extends Omit<CheckboxProps, 'component'> {
   /** Text shown next to the checkbox. */
   label?: string;
-  style?: 'square' | 'circular';
+  variant?: 'square' | 'circular';
   state?: 'default' | 'disabled' | 'hover';
   status?: 'checked' | 'unchecked' | 'indeterminate';
   /** Shows the label text. When hidden, the label is still used as the accessible name. */
@@ -22,11 +22,12 @@ const RdsCheckbox = ({
   label,
   labeltext,
   disabled,
-  style = 'square',
+  variant = 'square',
   state = 'default',
   status,
   showText = true,
   className,
+  style,
   cssStyle,
   color,
   checked: checkedProp,
@@ -65,7 +66,7 @@ const RdsCheckbox = ({
 
   const checkboxClassName = clsx(
     'rds-checkbox',
-    style && `rds-checkbox__${style}`,
+    variant && `rds-checkbox__${variant}`,
     checked && 'rds-checkbox__checked',
     isCheckboxDisabled && 'rds-checkbox__disabled',
     currentIndeterminate && 'rds-checkbox__indeterminate',
@@ -108,7 +109,7 @@ const RdsCheckbox = ({
   );
 
   return (
-    <div className={checkboxClassName} style={cssStyle}>
+    <div className={checkboxClassName} style={{ ...cssStyle, ...style }}>
       {labelText ? (
         <FormControlLabel
           control={checkbox}

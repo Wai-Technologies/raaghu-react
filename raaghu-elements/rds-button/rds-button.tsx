@@ -94,12 +94,23 @@ const toInlineStyle = (
 const toSxArray = (sx: SxProps<Theme> | undefined) =>
   Array.isArray(sx) ? sx : sx ? [sx] : [];
 
+type ButtonAppearance = 'filled' | 'outlined' | 'transparent';
+
 export interface RdsButtonProps
-  extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
+  extends Omit<ButtonProps, 'variant' | 'component'> {
   shape?: 'pill' | 'rectangle';
   state?: 'default' | 'hover' | 'disabled' | 'selected';
   layout?: 'icon+text' | 'icon-only' | 'text-only';
-  style?: 'filled' | 'outlined' | 'transparent';
+
+  /** Controls the visual appearance of the button. */
+  variant?: ButtonAppearance;
+
+  /**
+   * @deprecated Use variant for button appearance.
+   * Use a CSSProperties object for inline CSS styling.
+   */
+  style?: ButtonAppearance | CSSProperties;
+
   color?: ButtonProps['color'];
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
 
@@ -127,6 +138,7 @@ const RdsButton = ({
   disabled,
   shape = 'rectangle',
   sx,
+  variant,
   style,
   color = 'primary',
   layout = 'icon+text',
@@ -148,6 +160,19 @@ const RdsButton = ({
   const theme = useTheme();
   const isBusy = loading ?? false;
 
+  // Support the deprecated appearance-style prop.
+  const appearanceVariant: ButtonAppearance | undefined =
+    variant ??
+    (style === 'filled' ||
+    style === 'outlined' ||
+    style === 'transparent'
+      ? style
+      : undefined);
+
+  // Only treat an object-valued style as CSS.
+  const customStyle: CSSProperties =
+    typeof style === 'object' && style !== null ? style : {};
+
   const normalizedLayout =
     LAYOUT_ALIASES[layout.trim().toLowerCase()] ?? layout;
   const isIconOnly = normalizedLayout === 'icon-only';
@@ -162,11 +187,11 @@ const RdsButton = ({
   const usesTokenColorStyling = !color || color === 'primary';
 
   const styleVariantClass =
-    style === 'filled'
+    appearanceVariant === 'filled'
       ? 'rds-button__primary'
-      : style === 'outlined'
+      : appearanceVariant === 'outlined'
         ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
-        : style === 'transparent'
+        : appearanceVariant === 'transparent'
           ? (usesTokenColorStyling ? 'rds-button__text' : '')
           : '';
 
@@ -226,7 +251,7 @@ const RdsButton = ({
   const getPaletteValue = (
     key: 'main' | 'contrastText'
   ): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') {
+    if (appearanceVariant !== 'filled' || !color || color === 'inherit') {
       return undefined;
     }
 
@@ -256,11 +281,13 @@ const RdsButton = ({
     <MuiButton
       disabled={disabled || state === 'disabled' || isBusy}
       variant={
-        style === 'filled'
+        appearanceVariant === 'filled'
           ? 'contained'
-          : style === 'transparent'
+          : appearanceVariant === 'transparent'
             ? 'text'
-            : style
+            : appearanceVariant === 'outlined'
+              ? 'outlined'
+              : undefined
       }
       color={color}
       className={clsx(
@@ -284,12 +311,13 @@ const RdsButton = ({
         ...toSxArray(sx),
       ]}
       style={{
+        ...customStyle,
         ...shapeStyles,
         ...textCaseStyles,
-        ...(style === 'filled' && filledBackgroundColor
+        ...(appearanceVariant === 'filled' && filledBackgroundColor
           ? { backgroundColor: filledBackgroundColor }
           : {}),
-        ...(style === 'filled' && filledTextColor
+        ...(appearanceVariant === 'filled' && filledTextColor
           ? { color: filledTextColor }
           : {}),
         ...(isBusy ? { opacity: 1 } : {}),

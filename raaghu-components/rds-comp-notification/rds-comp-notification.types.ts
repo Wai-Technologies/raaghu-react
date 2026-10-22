@@ -1,4 +1,4 @@
-import type { MouseEvent, ReactNode } from "react";
+import type { CSSProperties, MouseEvent, ReactNode } from "react";
 
 export enum NotificationLayout {
   Vertical = "vertical",
@@ -39,7 +39,8 @@ export interface RdsCompNotificationProps {
   description?: string;
   defaultImage?: string;
   layout?: NotificationLayout | `${NotificationLayout}`;
-  style?: NotificationStyle | `${NotificationStyle}`;
+  variant?: NotificationStyle | `${NotificationStyle}`;
+  style?: CSSProperties;
   /** MUI-named alias for `type`. */
   severity?: NotificationType | `${NotificationType}`;
   /** @deprecated Use `severity` instead. */

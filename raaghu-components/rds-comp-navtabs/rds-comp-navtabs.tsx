@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import { type CSSProperties, type ReactNode, useCallback, useMemo, useState } from "react";
 import "./rds-comp-navtabs.scss";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 
@@ -54,7 +54,8 @@ export interface RdsCompNavtabsProps {
   NextPressed?: boolean;
   onClick?: MouseEvent<HTMLElement>;
   layout?: string;
-  style?: string;
+  variant?: string;
+  style?: CSSProperties;
   iconOnly?: boolean;
   id?: string;
 }
@@ -68,6 +69,7 @@ const RdsCompNavtabs = ({
   activeNavtabOrder,
   activeNavTabId: activeNavTabIdProp,
   layout,
+  variant,
   style,
   iconOnly,
   id,
@@ -86,8 +88,8 @@ const RdsCompNavtabs = ({
   }, [activeNavtabOrder, isControlled]);
 
   const getNavClasses = useCallback(() => {
-    const isHorizontalStyle = HORIZONTAL_STYLES.has(style || "");
-    const extraClasses = STYLE_EXTRA_CLASSES[style || ""] ?? ["nav-tabs"];
+    const isHorizontalStyle = HORIZONTAL_STYLES.has(variant || "");
+    const extraClasses = STYLE_EXTRA_CLASSES[variant || ""] ?? ["nav-tabs"];
 
     return clsx(
       "rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs",
@@ -100,11 +102,11 @@ const RdsCompNavtabs = ({
       justified && "nav-justified",
       iconOnly && ["nav-icon-only", "rds-comp-navtabs__nav--icon-align"]
     );
-  }, [fill, iconOnly, id, justified, layout, style, type]);
+  }, [fill, iconOnly, id, justified, layout, variant, type]);
 
   const getNavLinkClasses = useCallback((navtabsItem: { id: unknown; disabled?: boolean }) => {
     const isActive = navtabsItem.id === activeNavTabId;
-    const isActiveSelected = isActive && ACTIVE_SELECTED_STYLES.has(style || "");
+    const isActiveSelected = isActive && ACTIVE_SELECTED_STYLES.has(variant || "");
 
     return clsx(
       "nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link",
@@ -117,7 +119,7 @@ const RdsCompNavtabs = ({
       !isActive && ["inactive", "rds-comp-navtabs__nav-link--inactive"],
       navtabsItem.disabled && "disabled"
     );
-  }, [activeNavTabId, layout, style, type]);
+  }, [activeNavTabId, layout, variant, type]);
 
   const navClasses = useMemo(() => getNavClasses(), [getNavClasses]);
 
@@ -126,7 +128,7 @@ const RdsCompNavtabs = ({
   }
 
   return (
-    <div className="rds-comp-navtabs">
+    <div className="rds-comp-navtabs" style={style}>
       <ul
         className={navClasses}
         id={id === "features" ? "features" : ""}

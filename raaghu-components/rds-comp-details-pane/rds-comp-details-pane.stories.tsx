@@ -16,7 +16,7 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        style: {
+        variant: {
             options: ["Favourites", "Favourites - New Folder", "Prompt History", "Real Estate","Selection","Toolbar","Thumbnail View"],
             control: { type: "select" },
         },
@@ -43,7 +43,7 @@ export const Default: Story = {
         favouritesTabLabel: "Favourites",
         addtoscreen: "Add to Screen",
         addtofolder: "Add to Folder",
-        style: "Favourites",        
+        variant: "Favourites",
         estateTitle: "Serene Studio Housing",
         estateDescription: "This studio room is located in Major city. The famous Amazon and Amazonia beaches are approximately 10 minutes walk from here. The room has a kitchenette with basic utensils for cooking. There is a private attached bathroom. We have a smart tv for your entertainment. We provide complimentary Wi-Fi to our guests who also want to work.",
         carouselImages: [
@@ -54,4 +54,4 @@ export const Default: Story = {
         storybookIconSrc: storybookIconSrc,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style'] } };
+Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','variant'] } };

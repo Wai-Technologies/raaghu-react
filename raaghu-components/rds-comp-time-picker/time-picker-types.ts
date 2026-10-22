@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 export type TimePickerColor = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
 
 export interface RdsTimePickerLocaleText {
@@ -8,10 +10,9 @@ export interface RdsTimePickerLocaleText {
 }
 
 export interface RdsTimePickerProps {
-  /** Figma prop: layout variant of the picker. */
-  style?: 'default' | 'compact';
-  /** Alias of `style`; wins over `style` when both are passed. */
+  /** Layout variant of the picker. */
   variant?: 'default' | 'compact';
+  style?: CSSProperties;
   /** @deprecated Use `color` instead. */
   colorVariant?: TimePickerColor;
   color?: TimePickerColor;

@@ -24,7 +24,7 @@ figma.connect(
         Vertical: NotificationLayout.Vertical,
         Horizontal: NotificationLayout.Horizontal,
       }),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         Default: NotificationStyle.Default,
         Avatar: NotificationStyle.Avatar,
         Icon: NotificationStyle.Icon,

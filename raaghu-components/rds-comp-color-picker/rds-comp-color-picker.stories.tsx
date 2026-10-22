@@ -41,7 +41,7 @@ const meta: Meta = {
             control: 'select',
             options: ['HEX', 'RGB', 'HSB', 'HSL'],
         },
-        style: {
+        variant: {
             control: 'select',
             options: ['Type 1', 'Type 2'],
         },
@@ -61,12 +61,11 @@ export const Default: Story = {
         pickerType: PickerType.Spectrum,
         showTabs: true,
         colorMode: ColorMode.HEX,
-        style: StyleType.Type1,
+        variant: StyleType.Type1,
         isDisabled: false,
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['type','showSwatches', 'pickerType', 'showTabs', 'style'] } };
-
+Default.parameters = { controls: { include: ['type','showSwatches', 'pickerType', 'showTabs', 'variant'] } };

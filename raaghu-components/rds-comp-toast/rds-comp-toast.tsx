@@ -38,9 +38,9 @@ const ToastFooter = ({
             <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
                 <div className="rds-comp-toast__progress">
                     <RdsProgress
-                        style="line"
+                        variant="line"
                         value={progressWidth}
-                        variant="determinate"
+                        progressVariant="determinate"
                         color="primary"
                         showLabel={true}
                         label={`${progressWidth}%`}

@@ -26,7 +26,7 @@ export interface HistoryFavoriteTabsProps {
   favouritesTabLabel?: string;
   addtoscreen?: string;
   addtofolder?: string;
-  style?: string;
+  variant?: string;
   historyItems: { id: number; name: string }[];
   olderHistoryItems: { id: number; name: string }[];
   handleDeleteHistoryItem: (id: number) => void;
@@ -149,7 +149,7 @@ export const HistoryFavoritesTabs = ({
   favouritesTabLabel = "Favourites",
   addtoscreen = "Add to screen",
   addtofolder = "Add to folder",
-  style,
+  variant,
   historyItems,
   olderHistoryItems,
   handleDeleteHistoryItem,
@@ -305,7 +305,7 @@ export const HistoryFavoritesTabs = ({
         )}
         {activeTab === "favourites" && (
           <div className="rds-comp-details-pane__footer-fixed">
-            {style === "Favourites - New Folder" ? (
+            {variant === "Favourites - New Folder" ? (
               <RdsButton
                 color="primary"
                 size="medium"
@@ -350,7 +350,7 @@ export const RealEstateContent = ({
             height="200px"
             showArrows={false}
             showDots={true}
-            style="default"
+            variant="default"
             type="circle"
           >
             {resolvedCarouselImages.map((image, index) => (

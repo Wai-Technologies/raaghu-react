@@ -1,4 +1,5 @@
 import "./rds-comp-reviews.scss";
+import type { CSSProperties } from "react";
 import { ReviewStyleCard } from "./rds-comp-review-styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -11,7 +12,8 @@ export interface RdsCompReviewsProps {
   items?: Item[];
   /** @deprecated Use `items` instead. */
   itemList?: Item[];
-  style?: ReviewStyle;
+  variant?: ReviewStyle;
+  style?: CSSProperties;
   /** @deprecated Has no effect. */
   variantType?: VariantType;
   /** Locale used to format dates. Defaults to "en-GB". */
@@ -37,6 +39,7 @@ const getItemKey = (item: Item, index: number): string =>
 const RdsCompReviews = ({
   items,
   itemList,
+  variant,
   style,
   variantType = VariantType.Default,
   locale,
@@ -53,14 +56,14 @@ const RdsCompReviews = ({
   const showDefaultVariant = variantType === VariantType.Default;
 
   return (
-    <Box className="rds-comp-reviews">
+    <Box className="rds-comp-reviews" style={style}>
       {showDefaultVariant && (
         <Grid container spacing={2} wrap="wrap">
           {list.map((item, index) => (
             <Grid key={getItemKey(item, index)} size={GRID_SIZE} style={{ display: "flex" }}>
               <ReviewStyleCard
                 item={item}
-                style={style}
+                variant={variant}
                 locale={locale}
                 formatDate={formatDate}
                 onRatingChange={onRatingChange}

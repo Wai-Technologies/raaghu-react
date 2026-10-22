@@ -47,6 +47,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
         pickerType,
         showTabs,
         colorMode,
+        variant,
         style,
         disabled,
         onChange,
@@ -138,7 +139,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
     );
 
     const selectedTab = internalSelectedTab;
-    const selectedStyle = style || StyleType.Type1;
+    const selectedStyle = variant || StyleType.Type1;
     const selectedColorHex = internalColorState.hex;
     const selectedColorState = internalColorState;
     const selectedColorMode = internalSelectedColorMode;
@@ -390,6 +391,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
                 "rds-comp-color-picker",
                 className
             )}
+            style={style}
             aria-disabled={disabled || undefined}
         >
             {(type === ColorPickerType.Button ||

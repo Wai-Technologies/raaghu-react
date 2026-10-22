@@ -72,7 +72,7 @@ const meta: Meta<typeof RdsFileUploader> = {
       control: 'select',
       options: ['default', 'selected']
     },
-    style: {
+    variant: {
       control: 'select',
       options: [
         'Drop Area - Top Icon',
@@ -99,7 +99,7 @@ export const Default: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
     helperText: 'Maximum 5MB',
   },
@@ -128,7 +128,7 @@ export const SingleFile: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
     helperText: 'Maximum 5MB',
   },
@@ -154,7 +154,7 @@ export const ImagesOnly: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
     helperText: 'Maximum 5MB',
   },
@@ -177,7 +177,7 @@ export const NoDragAndDrop: Story = {
     multiple: true,
     showPreview: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
     helperText: 'Maximum 5MB',
   },
@@ -200,7 +200,7 @@ export const NoPreview: Story = {
     multiple: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
     helperText: 'Maximum 5MB',
   },
@@ -226,7 +226,7 @@ export const DocumentsOnly: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
     helperText: 'Maximum 5MB',
   },
@@ -249,7 +249,7 @@ export const Disabled: Story = {
     multiple: true,
     showPreview: true,
     dragAndDrop: true,
-    style:'Drop Area - Top Icon',
+    variant:'Drop Area - Top Icon',
     showHint: true,
     helperText: 'Maximum 5MB',
   },
@@ -274,7 +274,7 @@ args: {
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
-  style:'Drop Area - Top Icon',
+  variant:'Drop Area - Top Icon',
   showHint: true,
   helperText: 'Maximum 5MB',
 },
@@ -299,7 +299,7 @@ args: {
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
-  style:'Drop Area - Top Icon',
+  variant:'Drop Area - Top Icon',
   showHint: true,
   helperText: 'Maximum 5MB',
 },
@@ -343,5 +343,4 @@ export const Standard: Story = {
     return <RdsFileUploader {...updatedArgs} onFilesChange={setFiles} />;
   },
 };
-
 

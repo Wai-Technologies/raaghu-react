@@ -156,7 +156,7 @@ const RdsList = ({
             checked={effectiveCheckedItems.includes(item.id)}
             isDisabled={item.disabled}
             onChange={() => handleCheckboxChange(item.id)()}
-            style="square"
+            variant="square"
           />
         </MuiListItemIcon>
       ) : null;
