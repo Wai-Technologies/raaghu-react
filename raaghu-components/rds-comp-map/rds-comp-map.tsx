@@ -1,6 +1,7 @@
+
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import type { HTMLAttributes, ReactNode, Ref } from 'react';
+import type { HTMLAttributes, Ref } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { getCSSVar } from '../chart-utils';
 import { WorldMap } from 'react-svg-worldmap';
@@ -10,11 +11,19 @@ import { componentTokens, mapTokens } from '../../raaghu-react-themes/tokens/des
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 /** Theme palette keys that `color` resolves to `theme.palette[color].main`. */
-export type RdsCompMapPaletteColor = 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
+export type RdsCompMapPaletteColor =
+    | 'primary'
+    | 'secondary'
+    | 'error'
+    | 'warning'
+    | 'info'
+    | 'success';
 
-export interface RdsCompMapProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'color' | 'children'> {
-    /** Heading shown above the map. */
-    title?: ReactNode;
+export interface RdsCompMapProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'color' | 'children'> {
+    /** Heading text shown above the map. */
+  
+title?: string;
     /** Values per country (ISO 3166-1 alpha-2 code). */
     data?: Array<{ country: string; value: number }>;
     /** @deprecated Use `data` instead. */
@@ -32,9 +41,16 @@ export interface RdsCompMapProps extends Omit<HTMLAttributes<HTMLDivElement>, 't
     ref?: Ref<HTMLDivElement>;
 }
 
-type MapSize = "sm" | "md" | "lg" | "xl" | "xxl" | "responsive" | undefined;
+type MapSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'responsive' | undefined;
 
-const PALETTE_KEYS: readonly string[] = ['primary', 'secondary', 'error', 'warning', 'info', 'success'];
+const PALETTE_KEYS: readonly string[] = [
+    'primary',
+    'secondary',
+    'error',
+    'warning',
+    'info',
+    'success',
+];
 
 const getMapSize = (): MapSize => {
     if (typeof window !== 'undefined') {
@@ -77,10 +93,12 @@ const interpolateColor = (t: number, palette: string[]) => {
     const r = a[0] + (b[0] - a[0]) * frac;
     const g = a[1] + (b[1] - a[1]) * frac;
     const bl = a[2] + (b[2] - a[2]) * frac;
+
     return rgbToHex(r, g, bl);
 };
 
-const heatMapPalette: string[] = componentTokens.map?.heatmapPalette || Object.values(mapTokens.heatmap);
+const heatMapPalette: string[] =
+    componentTokens.map?.heatmapPalette || Object.values(mapTokens.heatmap);
 
 const RdsCompMap = (props: RdsCompMapProps) => {
     const {
@@ -97,47 +115,66 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         ...rest
     } = props;
 
-    if (mapList !== undefined) warnDeprecatedProp('RdsCompMap', 'mapList', '`data`');
-    if (mapType !== undefined) warnDeprecatedProp('RdsCompMap', 'mapType', '`variant`');
+    if (mapList !== undefined) {
+        warnDeprecatedProp('RdsCompMap', 'mapList', '`data`');
+    }
+
+    if (mapType !== undefined) {
+        warnDeprecatedProp('RdsCompMap', 'mapType', '`variant`');
+    }
 
     const theme = useTheme();
     const resolvedVariant = variant ?? mapType ?? 'default';
     const resolvedData = (data ?? mapList ?? []) as Data;
+
     const resolvedColor = PALETTE_KEYS.includes(color)
         ? theme.palette[color as RdsCompMapPaletteColor].main
         : color;
 
     const defaultStylingFunction = (context: CountryContext) => {
         const range = context.maxValue - context.minValue;
-        const normalizedValue = range > 0 ? ((context.countryValue as number) - context.minValue) / range : 0;
-        const opacityLevel = Math.min(1, 0.1 + (1.5 * normalizedValue));
+        const normalizedValue =
+            range > 0
+                ? ((context.countryValue as number) - context.minValue) / range
+                : 0;
+
+        const opacityLevel = Math.min(1, 0.1 + 1.5 * normalizedValue);
+
         const isHighlighted = highlightedCountries?.some(
             (code) => code.toUpperCase() === context.countryCode.toUpperCase()
         );
+
         return {
             fill: isHighlighted ? getCSSVar('--rds-info-main') : resolvedColor,
             fillOpacity: opacityLevel,
             stroke: getCSSVar('--rds-success-main'),
             strokeWidth: 1,
             strokeOpacity: 0.2,
-            cursor: "pointer"
+            cursor: 'pointer',
         };
     };
 
     const heatMapStylingFunction = (context: CountryContext) => {
-        const intensity = ((context.countryValue as number) - context.minValue) / (context.maxValue - context.minValue) || 0;
+        const intensity =
+            ((context.countryValue as number) - context.minValue) /
+                (context.maxValue - context.minValue) || 0;
+
         const mappedColor = interpolateColor(intensity, heatMapPalette);
+
         return {
             fill: mappedColor,
-            fillOpacity: 0.7 + (0.3 * intensity),
+            fillOpacity: 0.7 + 0.3 * intensity,
             stroke: 'var(--rds-border-dark)',
             strokeWidth: 0.5,
             strokeOpacity: 0.7,
-            cursor: 'pointer'
+            cursor: 'pointer',
         };
     };
 
-    const stylingFunction = resolvedVariant === 'heatmap' ? heatMapStylingFunction : defaultStylingFunction;
+    const stylingFunction =
+        resolvedVariant === 'heatmap'
+            ? heatMapStylingFunction
+            : defaultStylingFunction;
 
     const [mapSize, setMapSize] = useState<MapSize>(() => getMapSize());
 
@@ -156,11 +193,16 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         <div
             {...rest}
             ref={ref}
-            className={clsx("rds-comp-map", resolvedVariant === 'heatmap' && "rds-comp-map--heatmap", className)}
+            className={clsx(
+                'rds-comp-map',
+                resolvedVariant === 'heatmap' && 'rds-comp-map--heatmap',
+                className
+            )}
         >
             {title && (
                 <div className="rds-comp-map__label">{title}</div>
             )}
+
             <div className="rds-comp-map__center">
                 <div className="rds-comp-map__worldmap-host">
                     <WorldMap
@@ -175,6 +217,8 @@ const RdsCompMap = (props: RdsCompMapProps) => {
             </div>
         </div>
     );
-}
-RdsCompMap.displayName = "RdsCompMap";
+};
+
+RdsCompMap.displayName = 'RdsCompMap';
+
 export default RdsCompMap;
