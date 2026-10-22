@@ -32,7 +32,10 @@ export interface RdsCompToolbarProps
   type?: ToolbarType;
   /** Alias of `type`; wins over `type` when both are passed. */
   preset?: `${ToolbarType}`;
-  /** Figma state. `disabled-on` and `disabled-off` disable the toolbar unless `disabled` is set. */
+  /**
+   * Figma state. `disabled-on` and `disabled-off` both disable interaction unless `disabled` is set.
+   * Visually: `disabled-on` keeps a full-opacity “on” bar; `disabled-off` uses a dimmed “off” look.
+   */
   state?: ToolbarState;
   /** Disables every button. Wins over `state`. */
   disabled?: boolean;

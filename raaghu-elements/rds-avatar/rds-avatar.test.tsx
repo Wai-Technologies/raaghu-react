@@ -765,6 +765,12 @@ describe('RdsAvatar additive renames', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'activeDotBottom', expect.any(String));
   });
 
+  it('statusPosition="both" shows top and bottom dots', () => {
+    const { container } = render(<RdsAvatar name="Ann Lee" status="online" statusPosition="both" />);
+    expect(container.querySelector('.rds-avatar__dot--top')).toBeInTheDocument();
+    expect(container.querySelector('.rds-avatar__dot--bottom')).toBeInTheDocument();
+  });
+
   it('color wins over colorVariant, which warns', () => {
     const { container } = render(<RdsAvatar name="Ann" color="danger" colorVariant="info" />);
     expect(container.querySelector('.rds-avatar--danger')).toBeInTheDocument();

@@ -95,7 +95,8 @@ const RdsCounter = ({
   const isRequired = required ?? isMandatory ?? false;
   const inputId = `rds-counter-${useId()}`;
 
-  const isControlled = value !== undefined;
+  /** Only a numeric `value` is controlled (Storybook may pass `{}` for unset object controls). */
+  const isControlled = typeof value === 'number';
   const [internalValue, setInternalValue] = useState<number | undefined>(
     typeof defaultValue === 'number' ? defaultValue : undefined
   );

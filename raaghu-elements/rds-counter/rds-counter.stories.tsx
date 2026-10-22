@@ -59,7 +59,31 @@ const meta: Meta<typeof RdsCounter> = {
       control: 'text',
       description: 'Label text displayed above the counter',
     },
+    value: {
+      control: { type: 'number' },
+      description: 'Controlled value. Leave unset for uncontrolled (plus/minus update internal state).',
+    },
+    selected: { control: false, table: { disable: true } },
   },
+};
+
+const CounterWithState = (args: React.ComponentProps<typeof RdsCounter>) => {
+  const [count, setCount] = useState<number | undefined>(
+    typeof args.value === 'number' ? args.value : typeof args.defaultValue === 'number' ? args.defaultValue : undefined
+  );
+  React.useEffect(() => {
+    if (typeof args.value === 'number') setCount(args.value);
+  }, [args.value]);
+  return (
+    <RdsCounter
+      {...args}
+      value={count}
+      onChange={(next) => {
+        setCount(next);
+        args.onChange?.(next);
+      }}
+    />
+  );
 };
 
 export default meta;
@@ -79,8 +103,9 @@ export const Default: Story = {
     showTitle: true,
     required: false,
     placeholder: '00',
+    defaultValue: 0,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
   play: async ({ canvasElement }) => {
     const buttons = canvasElement.querySelectorAll('button');
     expect(buttons.length).toBeGreaterThan(0);
@@ -100,8 +125,9 @@ export const Compact: Story = {
     disabled: false,
     showInput: true,
     placeholder: '00',
+    defaultValue: 1,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
 };
 
 export const WithoutInput: Story = {
@@ -112,8 +138,9 @@ export const WithoutInput: Story = {
     max: 10,
     layout: 'side-to-side',
     placeholder: '00',
+    defaultValue: 0,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
 };
 
 export const Sizes: Story = {
@@ -185,8 +212,9 @@ export const WithConstraints: Story = {
     step: 1,
     layout: 'side-to-side',
     placeholder: '00',
+    defaultValue: 2,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
 };
 
 export const StepExample: Story = {
@@ -197,8 +225,9 @@ export const StepExample: Story = {
     step: 5,
     layout: 'side-to-side',
     placeholder: '00',
+    defaultValue: 0,
   },
-  render: (args) => <RdsCounter {...args} />,
+  render: (args) => <CounterWithState {...args} />,
 };
 
 export const Disabled: Story = {

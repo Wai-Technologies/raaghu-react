@@ -105,9 +105,10 @@
       justify-content: center;
       align-items: center;
       padding: 0 var(--rds-spacing-3);
-      color: var(--rds-primary-contrast-text);
+      color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+      background: transparent !important;
       border-radius: var(--rds-border-radius-md);
-      border: none;
+      border: 1px solid var(--rds-color-primary, var(--rds-primary-main)) !important;
       box-shadow: none;
       box-sizing: border-box;
       font-family: var(--rds-font-family-base);
@@ -117,6 +118,13 @@
       text-align: center;
       vertical-align: middle;
       text-transform: none;
+
+      &:hover,
+      &:focus-visible {
+        background: transparent !important;
+        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+      }
     }
 
     .rds-dialog__button.rds-dialog__button__primary-link {
@@ -196,7 +204,7 @@
     border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
 
     &:hover {
-      background: var(--rds-color-primary-hover-bg);
+      background: color-mix(in srgb, var(--rds-primary-main, var(--rds-color-primary)) 8%, transparent);
     }
 
     &__primary {
@@ -220,11 +228,22 @@
     }
 
     &__dismiss {
-      color: var(--rds-color-primary, var(--rds-primary-main));
-      background: transparent;
+      color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+      background: transparent !important;
+      border: 1px solid var(--rds-color-primary, var(--rds-primary-main)) !important;
+      box-shadow: none !important;
 
-      &:hover {
-        background: var(--rds-color-primary-hover-bg);
+      &:hover,
+      &:focus-visible {
+        background: transparent !important;
+        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+      }
+
+      &:active {
+        background: transparent !important;
+        color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main))) !important;
+        border-color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main))) !important;
       }
     }
   }

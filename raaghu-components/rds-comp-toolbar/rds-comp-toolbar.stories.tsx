@@ -126,6 +126,8 @@ export const Default: Story = {
         layout: ToolbarLayout.Primary,
         type: ToolbarType.FullFeatured,
         state: ToolbarState.On,
+        /** Helps distinguish Disabled On (active formats muted) from Disabled Off. */
+        defaultValue: ['bold', 'italic'],
     },
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
