@@ -48,6 +48,8 @@ export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivEle
   leftIcon?: ReactNode;
   /** @deprecated Use `endIcon` instead. */
   rightIcon?: ReactNode;
+  options?: FilterOption[];
+  /** @deprecated Use `options` instead. */
   filters?: FilterOption[];
   onFiltersChange?: (filters: FilterOption[]) => void;
   onApply?: (selectedFilters: FilterOption[]) => void;
@@ -72,6 +74,7 @@ const RdsCompFilterButton = ({
   endIcon,
   leftIcon,
   rightIcon,
+  options,
   filters,
   onFiltersChange,
   onApply,
@@ -85,6 +88,7 @@ const RdsCompFilterButton = ({
   if (text !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'text', '`children`');
   if (leftIcon !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'leftIcon', '`startIcon`');
   if (rightIcon !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'rightIcon', '`endIcon`');
+  if (filters !== undefined) warnDeprecatedProp('RdsCompFilterButton', 'filters', '`options`');
   const popoverId = useId();
   const labels = {
     title: localeText?.title ?? 'Add Filters',
@@ -95,7 +99,7 @@ const RdsCompFilterButton = ({
   const resolvedStartIcon = startIcon !== undefined ? startIcon : (leftIcon !== undefined ? leftIcon : DEFAULT_LEFT_ICON);
   const resolvedEndIcon = endIcon !== undefined ? endIcon : (rightIcon !== undefined ? rightIcon : DEFAULT_RIGHT_ICON);
   const label: ReactNode = children ?? text ?? 'Filter';
-  const resolvedFilters = filters ?? EMPTY_FILTER_OPTIONS;
+  const resolvedFilters = options ?? filters ?? EMPTY_FILTER_OPTIONS;
   const [isOpen, setIsOpen] = useState(false);
   const [localFilters, setLocalFilters] = useState<FilterOption[]>(resolvedFilters);
   const [prevFilters, setPrevFilters] = useState(resolvedFilters);

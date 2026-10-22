@@ -686,8 +686,8 @@ describe('audit fixes', () => {
     mockFabMenuProps.length = 0;
     const items = [{ key: 'a', value: 'A', onClick: jest.fn() }];
     render(<RdsCompAudioPlayer src="a.mp3" showExport showMoreOptions exportItems={items} />);
-    expect(mockFabMenuProps.find((p) => p.menuIcon === 'share_icon').listItems).toBe(items);
-    const defaults = mockFabMenuProps.find((p) => p.menuIcon === 'pending_icon').listItems;
+    expect(mockFabMenuProps.find((p) => p.icon === 'share_icon').items).toBe(items);
+    const defaults = mockFabMenuProps.find((p) => p.icon === 'pending_icon').items;
     expect(defaults).toHaveLength(4);
     expect(defaults[0]).not.toHaveProperty('some');
   });

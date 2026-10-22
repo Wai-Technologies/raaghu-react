@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import "./rds-comp-ai-typing-section.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-import RdsAutocomplete from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
+import RdsAutocomplete, { type RdsAutocompleteProps } from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import RdsCompAiAttachment, {
   type Comment as AttachmentComment,
@@ -27,10 +27,16 @@ export interface RdsCompAiTypingSectionProps {
   /** Called with the prompt text (and image, if any) from the send button. */
   onSend?: (inputText: string, image?: string) => void;
   onAddComment?: (comment: AttachmentComment) => void;
+  /** Image sent with the prompt when no image was picked. */
+  imageSrc?: string;
+  /** @deprecated Use `imageSrc` instead. */
   previewImage?: string;
   /** @deprecated Has no effect. */
   type?: string;
+  /** @deprecated Use `slotProps.autocomplete.sx` instead. */
   autoCompleteMaxWidth?: string;
+  /** Props passed to inner slots; `autocomplete.sx` is merged into the frontend selector. */
+  slotProps?: { autocomplete?: Partial<RdsAutocompleteProps<RdsCompAiTypingSectionOption>> };
   /** Called when the "New Project" button is clicked. */
   onNewProjectClick?: () => void;
   /** Called when the "Import From Figma" button is clicked. */
@@ -47,6 +53,16 @@ registerMaterialIcons({
 
 const MOBILE_BREAKPOINT = 768;
 
+const ATTACHMENT_SLOT_PROPS = {
+  menu: { uploadText: "Upload From Figma", importText: "Import From This Device" },
+  dialog: {
+    title: "Import From Figma",
+    text: "Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.",
+    hintText: "Hint Text",
+    placeholder: "Enter URL",
+  },
+};
+
 /** Prompt input of the AI chat, with the attachment menu, send button and project actions. */
 const RdsCompAiTypingSectionComponent = ({
   colorVariant,
@@ -54,10 +70,12 @@ const RdsCompAiTypingSectionComponent = ({
   placeholderText,
   iconName,
   onSend,
+  imageSrc,
   previewImage,
   onAddComment,
   type,
   autoCompleteMaxWidth,
+  slotProps,
   onNewProjectClick,
   onImportFromFigmaClick,
   autocompleteOptions = DEFAULT_AUTOCOMPLETE_OPTIONS,
@@ -66,7 +84,11 @@ const RdsCompAiTypingSectionComponent = ({
   if (iconName !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "iconName", "nothing (no effect)");
   if (type !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "type", "nothing (no effect)");
   if (placeholderText !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "placeholderText", "`placeholder`");
+  if (previewImage !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "previewImage", "`imageSrc`");
+  if (autoCompleteMaxWidth !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "autoCompleteMaxWidth", "`slotProps.autocomplete.sx`");
   const resolvedPlaceholder = placeholder ?? placeholderText;
+  const resolvedImage = imageSrc ?? previewImage;
+  const { sx: autocompleteSx, ...autocompleteSlotProps } = slotProps?.autocomplete ?? {};
   const [inputText, setInputText] = useState<string>("");
   const [isMobile, setIsMobile] = useState<boolean>(() => typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
@@ -82,10 +104,10 @@ const RdsCompAiTypingSectionComponent = ({
   }, []);
 
   const handleSent = useCallback(() => {
-    onSend?.(inputText, enhancedImage || previewImage);
+    onSend?.(inputText, enhancedImage || resolvedImage);
     setInputText("");
     setEnhancedImage(null);
-  }, [enhancedImage, inputText, onSend, previewImage]);
+  }, [enhancedImage, inputText, onSend, resolvedImage]);
 
   const handleFileSelect = useCallback((file: File) => {
     const reader = new FileReader();
@@ -156,20 +178,14 @@ const RdsCompAiTypingSectionComponent = ({
           <div className="rds-comp-ai-typing-section__action-icons">
             <div className="rds-comp-ai-typing-section__attach">
               <RdsCompAiAttachment
-                badgeColor="primary"
-                badgeLabel="Premium"
+                badge="Premium"
+                badgeProps={{ color: "primary" }}
                 onAddComment={handleAddComment}
-                hintText="Hint Text"
-                importText="Import From This Device"
-                inputPlaceholder="Enter URL"
-                menuIcon="attachment_icon"
-                modalText="Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file."
-                modalTitle="Import From Figma"
+                icon="attachment_icon"
                 onFigmaUrlChange={handleFigmaSubmit}
                 onFileSelect={handleFileSelect}
-                showBadge
-                uploadText="Upload From Figma"
-                menuAlignment="right"
+                placement="end"
+                slotProps={ATTACHMENT_SLOT_PROPS}
               />
             </div>
             <div className="rds-comp-ai-typing-section__send">
@@ -220,6 +236,8 @@ const RdsCompAiTypingSectionComponent = ({
             placeholder="Select Frontend"
             showHintText={false}
             showTitle={false}
+            {...autocompleteSlotProps}
+            sx={autocompleteSx}
           />
         </div>
       </div>

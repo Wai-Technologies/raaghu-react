@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompEmptyState, { RdsCompEmptyStateProps } from './rds-comp-empty-state';
 import { axe } from 'jest-axe';
 
-// Mock Lottie
 jest.mock('lottie-react', () => {
   return (props: any) => {
     return (
@@ -19,10 +18,8 @@ jest.mock('lottie-react', () => {
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-empty-state.scss', () => ({}));
 
-// Mock images
 jest.mock('./empty-state.png', () => 'empty-state.png');
 jest.mock('./empty-state-dark.png', () => 'empty-state-dark.png');
 jest.mock('./illustration-light.json', () => ({ default: {} }));
@@ -40,7 +37,6 @@ jest.mock('@mui/icons-material/SearchOffOutlined', () => {
   );
 });
 
-// Mock MUI components
 jest.mock('@mui/material', () => {
   const actual = jest.requireActual('@mui/material');
   return {
@@ -265,14 +261,12 @@ describe('RdsCompEmptyState', () => {
       renderComponent({ label: 'No Data', mode: 'Dark NRA' });
       const label = screen.getByTestId('labelElement');
       expect(label).toBeInTheDocument();
-      // MUI sx prop applies color via CSS class, not inline style
     });
 
     it('should have correct styling for subLabel in Dark NRA mode', () => {
       renderComponent({ subLabel: 'Add data', mode: 'Dark NRA' });
       const subLabel = screen.getByTestId('sublabelElement');
       expect(subLabel).toBeInTheDocument();
-      // MUI sx prop applies color via CSS class, not inline style
     });
   });
 
@@ -655,5 +649,36 @@ describe('RdsCompEmptyState audit fixes', () => {
     document.documentElement.setAttribute('data-theme', 'dark');
     expect(await screen.findByTestId('emptyStateImage')).toHaveAttribute('src', expect.stringContaining('empty-state-dark.png'));
     document.documentElement.removeAttribute('data-theme');
+  });
+});
+
+describe('RdsCompEmptyState doc-09 renames', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+
+  it('description replaces subLabel', () => {
+    render(<RdsCompEmptyState label="Nothing" description="Add some" />);
+    expect(screen.getByTestId('sublabelElement')).toHaveTextContent('Add some');
+  });
+
+  it('legacy subLabel still renders and warns', () => {
+    render(<RdsCompEmptyState subLabel="Older" />);
+    expect(screen.getByTestId('sublabelElement')).toHaveTextContent('Older');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompEmptyState', 'subLabel', '`description`');
+  });
+
+  it('image accepts a url or a node', () => {
+    const { unmount } = render(<RdsCompEmptyState image="/custom.png" />);
+    expect(screen.getByTestId('emptyStateImage')).toHaveAttribute('src', '/custom.png');
+    unmount();
+    render(<RdsCompEmptyState image={<span data-testid="custom-art" />} />);
+    expect(screen.getByTestId('custom-art')).toBeInTheDocument();
+  });
+
+  it('imageSize sets both sides or each side', () => {
+    const { unmount } = render(<RdsCompEmptyState imageSize={80} />);
+    expect(screen.getByTestId('icon')).toHaveStyle({ width: '80px', height: '80px' });
+    unmount();
+    render(<RdsCompEmptyState imageSize={{ width: 60, height: 40 }} />);
+    expect(screen.getByTestId('icon')).toHaveStyle({ width: '60px', height: '40px' });
   });
 });

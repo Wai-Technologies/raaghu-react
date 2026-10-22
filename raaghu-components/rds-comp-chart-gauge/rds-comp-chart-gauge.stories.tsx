@@ -29,8 +29,26 @@ export const Default: Story = {
     args: {
         id: "gaugeChart",
         titleText: "Title",
-        subTitleText: "Subtitle",
-        labels: ["Green", "Blue", "Yellow", "Orange", "Purple", "Red"],
+        subtitle: "Subtitle",
+        data: {
+            labels: ["Green", "Blue", "Yellow", "Orange", "Purple", "Red"],
+            datasets: [
+                {
+                    label: "Gauge Data",
+                    data: [15, 10, 25, 5, 15, 30],
+                    backgroundColor: [
+                        "#28a745",
+                        "#17a2b8", 
+                        "#ffc107",
+                        "#fd7e14",
+                        "#6f42c1",
+                        "#dc3545"
+                    ],
+                    borderWidth: 0,
+                    cutout: "70%"
+                }
+            ],
+        },
         options: {
             maintainAspectRatio: false,
             plugins: {
@@ -43,22 +61,6 @@ export const Default: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                label: "Gauge Data",
-                data: [15, 10, 25, 5, 15, 30],
-                backgroundColor: [
-                    "#28a745",
-                    "#17a2b8", 
-                    "#ffc107",
-                    "#fd7e14",
-                    "#6f42c1",
-                    "#dc3545"
-                ],
-                borderWidth: 0,
-                cutout: "70%"
-            }
-        ]
     },
     play: async ({ canvas }) => {
         const chart = await canvas.findByRole('img');
@@ -70,8 +72,25 @@ export const BlueYellowOrangePurpleRed: Story = {
     args: {
         id: "gaugeChart2",
         titleText: "Title",
-        subTitleText: "Subtitle", 
-        labels: ["Blue", "Yellow", "Orange", "Purple", "Red"],
+        subtitle: "Subtitle", 
+        data: {
+            labels: ["Blue", "Yellow", "Orange", "Purple", "Red"],
+            datasets: [
+                {
+                    label: "Gauge Data",
+                    data: [20, 20, 20, 20, 20],
+                    backgroundColor: [
+                        "#17a2b8",
+                        "#ffc107", 
+                        "#fd7e14",
+                        "#6f42c1",
+                        "#dc3545"
+                    ],
+                    borderWidth: 0,
+                    cutout: "70%"
+                }
+            ],
+        },
         options: {
             maintainAspectRatio: false,
             plugins: {
@@ -84,21 +103,6 @@ export const BlueYellowOrangePurpleRed: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                label: "Gauge Data",
-                data: [20, 20, 20, 20, 20],
-                backgroundColor: [
-                    "#17a2b8",
-                    "#ffc107", 
-                    "#fd7e14",
-                    "#6f42c1",
-                    "#dc3545"
-                ],
-                borderWidth: 0,
-                cutout: "70%"
-            }
-        ]
     }
 } satisfies Story;
 
@@ -106,8 +110,24 @@ export const YellowOrangePurpleRed: Story = {
     args: {
         id: "gaugeChart3",
         titleText: "Title",
-        subTitleText: "Subtitle",
-        labels: ["Yellow", "Orange", "Purple", "Red"], 
+        subtitle: "Subtitle",
+        data: {
+            labels: ["Yellow", "Orange", "Purple", "Red"],
+            datasets: [
+                {
+                    label: "Gauge Data",
+                    data: [25, 25, 25, 25],
+                    backgroundColor: [
+                        "#ffc107",
+                        "#fd7e14",
+                        "#6f42c1", 
+                        "#dc3545"
+                    ],
+                    borderWidth: 0,
+                    cutout: "70%"
+                }
+            ],
+        }, 
         options: {
             maintainAspectRatio: false,
             plugins: {
@@ -120,20 +140,6 @@ export const YellowOrangePurpleRed: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                label: "Gauge Data",
-                data: [25, 25, 25, 25],
-                backgroundColor: [
-                    "#ffc107",
-                    "#fd7e14",
-                    "#6f42c1", 
-                    "#dc3545"
-                ],
-                borderWidth: 0,
-                cutout: "70%"
-            }
-        ]
     }
 } satisfies Story;
 
@@ -141,8 +147,23 @@ export const OrangePurpleRed: Story = {
     args: {
         id: "gaugeChart4",
         titleText: "Title",
-        subTitleText: "Subtitle",
-        labels: ["Orange", "Purple", "Red"],
+        subtitle: "Subtitle",
+        data: {
+            labels: ["Orange", "Purple", "Red"],
+            datasets: [
+                {
+                    label: "Gauge Data", 
+                    data: [33.3, 33.3, 33.4],
+                    backgroundColor: [
+                        "#fd7e14",
+                        "#6f42c1",
+                        "#dc3545"
+                    ],
+                    borderWidth: 0,
+                    cutout: "70%"
+                }
+            ],
+        },
         options: {
             maintainAspectRatio: false,
             plugins: {
@@ -155,19 +176,6 @@ export const OrangePurpleRed: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                label: "Gauge Data", 
-                data: [33.3, 33.3, 33.4],
-                backgroundColor: [
-                    "#fd7e14",
-                    "#6f42c1",
-                    "#dc3545"
-                ],
-                borderWidth: 0,
-                cutout: "70%"
-            }
-        ]
     }
 } satisfies Story;
 
@@ -175,8 +183,22 @@ export const PurpleRed: Story = {
     args: {
         id: "gaugeChart5",
         titleText: "Title", 
-        subTitleText: "Subtitle",
-        labels: ["Purple", "Red"],
+        subtitle: "Subtitle",
+        data: {
+            labels: ["Purple", "Red"],
+            datasets: [
+                {
+                    label: "Gauge Data",
+                    data: [50, 50],
+                    backgroundColor: [
+                        "#6f42c1",
+                        "#dc3545"
+                    ],
+                    borderWidth: 0,
+                    cutout: "70%"
+                }
+            ],
+        },
         options: {
             maintainAspectRatio: false,
             plugins: {
@@ -189,18 +211,6 @@ export const PurpleRed: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                label: "Gauge Data",
-                data: [50, 50],
-                backgroundColor: [
-                    "#6f42c1",
-                    "#dc3545"
-                ],
-                borderWidth: 0,
-                cutout: "70%"
-            }
-        ]
     }
 } satisfies Story;
 
@@ -208,8 +218,21 @@ export const RedOnly: Story = {
     args: {
         id: "gaugeChart6",
         titleText: "Title",
-        subTitleText: "Subtitle",
-        labels: ["Red"],
+        subtitle: "Subtitle",
+        data: {
+            labels: ["Red"],
+            datasets: [
+                {
+                    label: "Gauge Data",
+                    data: [100],
+                    backgroundColor: [
+                        "#dc3545"
+                    ],
+                    borderWidth: 0,
+                    cutout: "70%"
+                }
+            ],
+        },
         options: {
             maintainAspectRatio: false,
             plugins: {
@@ -222,17 +245,6 @@ export const RedOnly: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                label: "Gauge Data",
-                data: [100],
-                backgroundColor: [
-                    "#dc3545"
-                ],
-                borderWidth: 0,
-                cutout: "70%"
-            }
-        ]
     }
 } satisfies Story;
 

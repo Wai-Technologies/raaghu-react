@@ -6,7 +6,6 @@ import RdsTabs, { RdsTabItem, RdsTabsLayout } from './rds-tabs';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-tabs.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('@mui/icons-material/Person', () => {
@@ -430,7 +429,6 @@ describe('RdsTabs', () => {
       );
       const tabs = container.querySelectorAll('[role="tab"]');
       tabs.forEach(tab => {
-        // Check that tab has disabled attribute or aria-disabled
         const isDisabled = tab.hasAttribute('disabled') || tab.getAttribute('aria-disabled') === 'true';
         expect(isDisabled).toBe(true);
       });
@@ -629,7 +627,6 @@ describe('RdsTabs', () => {
         <RdsTabs tabs={disabledTabs} />
       );
       const tab = container.querySelector('[role="tab"]');
-      // Check that tab is actually disabled (either has disabled attribute or proper aria-disabled)
       const isDisabled = tab?.hasAttribute('disabled') || tab?.classList.contains('Mui-disabled');
       expect(isDisabled).toBe(true);
     });
@@ -725,5 +722,29 @@ describe('audit fixes', () => {
     );
     expect(screen.getByRole('tablist')).toHaveAttribute('aria-orientation', 'vertical');
     expect(screen.getAllByRole('tab')[2]).toHaveAttribute('aria-selected', 'true');
+  });
+
+  it('548: items renders tabs and wins over deprecated tabs', () => {
+    renderWithTheme(<RdsTabs items={[{ id: 'x', label: 'xray' }]} tabs={mockTabs} />);
+    expect(screen.getAllByRole('tab')).toHaveLength(1);
+    expect(screen.getByRole('tab', { name: /xray/i })).toBeInTheDocument();
+  });
+
+  it('545: startIcon/endIcon win over deprecated leftIcon/rightIcon at component and item level', () => {
+    renderWithTheme(
+      <RdsTabs
+        items={[{ id: 'a', label: 'a', startIcon: <i data-testid="item-start" />, leftIcon: <i data-testid="item-left" /> }, { id: 'b', label: 'b' }]}
+        startIcon={<i data-testid="start" />}
+        leftIcon={<i data-testid="left" />}
+        endIcon={<i data-testid="end" />}
+        rightIcon={<i data-testid="right" />}
+      />
+    );
+    expect(screen.getByTestId('item-start')).toBeInTheDocument();
+    expect(screen.getByTestId('start')).toBeInTheDocument();
+    expect(screen.getAllByTestId('end')).toHaveLength(2);
+    expect(screen.queryByTestId('item-left')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('left')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('right')).not.toBeInTheDocument();
   });
 });

@@ -2,12 +2,24 @@ import clsx from 'clsx';
 import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 import type { ReactNode } from 'react';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
+type AvatarColor = 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+const avatarColors: readonly string[] = ['primary', 'success', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'];
 type AvatarSize = 'smallest' | 'small' | 'medium' | 'large' | 'largest';
 
-export interface RdsAvatarProps extends Omit<AvatarProps, 'component'> {
-  colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'> {
+  /** Color of the activity ring and status dot. Other strings are passed through to the root element, as before. */
+  color?: AvatarColor | (string & {});
+  /** @deprecated Use `color` instead. */
+  colorVariant?: AvatarColor;
+  /** Name shown beside/below the avatar; its initials fill the avatar. */
+  name?: string;
+  /** @deprecated Use `name` instead. */
   title?: string;
+  /** Secondary text (e.g. designation) shown beside/below the avatar. */
+  description?: string;
+  /** @deprecated Use `description` instead. */
   subText?: string;
   size?: AvatarSize;
   displayStyle?: 'with-name' | 'name-bottom' | 'stacking';
@@ -21,12 +33,24 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component'> {
     /** Has no effect. */
     colorVariant?: string;
   }>;
+  /** Maximum avatars shown in stacking mode. */
+  max?: number;
+  /** @deprecated Use `max` instead. */
   maxVisibleAvatars?: number;
   activityRing?: boolean;
+  /** Shows a status dot when `'online'`; `'offline'` shows none. */
+  status?: 'online' | 'offline';
+  /** Which corner the status dot is shown on. */
+  statusPosition?: 'top' | 'bottom';
+  /** @deprecated Use `status` and `statusPosition="top"` instead. */
   activeDotTop?: boolean;
+  /** @deprecated Use `status` and `statusPosition="bottom"` instead. */
   activeDotBottom?: boolean;
+  /** @deprecated Omit `name` to hide the name. */
   showName?: boolean;
+  /** @deprecated Omit `description` to hide the designation. */
   showDesignation?: boolean;
+  /** @deprecated Keep `max` at or above the avatar count to hide the +N badge. */
   showRemainingCount?: boolean;
 }
 
@@ -60,28 +84,50 @@ const toSxArray = (sx: AvatarProps['sx']) => (Array.isArray(sx) ? sx : sx ? [sx]
 const allInitials = (title: string) => title.split(' ').map(n => n[0]).join('').toUpperCase();
 
 const RdsAvatar = ({
-  colorVariant = 'primary',
-  title,
+  color,
+  colorVariant: colorVariantProp,
+  name,
+  title: titleProp,
+  description,
   subText,
   size = 'medium',
   displayStyle = 'with-name',
   avatars,
-  maxVisibleAvatars = 3,
+  max,
+  maxVisibleAvatars,
   children,
   sx,
   className,
   activityRing = false,
-  activeDotTop = false,
-  activeDotBottom = false,
+  status,
+  statusPosition = 'bottom',
+  activeDotTop: activeDotTopProp,
+  activeDotBottom: activeDotBottomProp,
   showName = true,
   showDesignation = true,
   showRemainingCount = true,
   ...props
 }: RdsAvatarProps) => {
+  if (colorVariantProp !== undefined) warnDeprecatedProp('RdsAvatar', 'colorVariant', '`color`');
+  if (titleProp !== undefined) warnDeprecatedProp('RdsAvatar', 'title', '`name`');
+  if (subText !== undefined) warnDeprecatedProp('RdsAvatar', 'subText', '`description`');
+  if (maxVisibleAvatars !== undefined) warnDeprecatedProp('RdsAvatar', 'maxVisibleAvatars', '`max`');
+  if (activeDotTopProp !== undefined) warnDeprecatedProp('RdsAvatar', 'activeDotTop', '`status` and `statusPosition`');
+  if (activeDotBottomProp !== undefined) warnDeprecatedProp('RdsAvatar', 'activeDotBottom', '`status` and `statusPosition`');
+
+  const isPaletteColor = color !== undefined && avatarColors.includes(color);
+  const colorVariant = (isPaletteColor ? (color as AvatarColor) : colorVariantProp) ?? 'primary';
+  const title = name ?? titleProp;
+  const subTextResolved = description ?? subText;
+  const maxResolved = max ?? maxVisibleAvatars ?? 3;
+  const showDot = (position: 'top' | 'bottom', legacy?: boolean) =>
+    status !== undefined ? status === 'online' && statusPosition === position : !!legacy;
+  const activeDotTop = showDot('top', activeDotTopProp);
+  const activeDotBottom = showDot('bottom', activeDotBottomProp);
 
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
-    const visibleAvatars = avatars.slice(0, maxVisibleAvatars);
-    const remainingCount = Math.max(0, avatars.length - maxVisibleAvatars);
+    const visibleAvatars = avatars.slice(0, maxResolved);
+    const remainingCount = Math.max(0, avatars.length - maxResolved);
     const overlapOffset = overlapOffsets[size] ?? -22;
     const avatarSize = sizeStyles[size].width;
     const itemCount = visibleAvatars.length + (remainingCount > 0 && showRemainingCount ? 1 : 0);
@@ -127,7 +173,7 @@ const RdsAvatar = ({
             className={`plus-indicator plus-indecator-${size}`}
             style={{
               marginLeft: `${overlapOffset}px`,
-              zIndex: maxVisibleAvatars + 1,
+              zIndex: maxResolved + 1,
               fontSize: overflowFontSize[size] ?? '0.875rem',
             }}
           >
@@ -151,11 +197,10 @@ const RdsAvatar = ({
 
   const ring = activityRing && <span className="rds-avatar__ring" aria-hidden="true" />;
 
-  // `ringInside`: the with-name layout renders the ring inside the avatar wrap, the others outside it.
   const renderAvatar = (initials: ReactNode, ringInside = false) => (
     <span className="rds-avatar__avatar-wrap">
       {ringInside && ring}
-      <MuiAvatar sx={[sizeStyles[size], ...toSxArray(sx)]} className={className} {...props}>
+      <MuiAvatar sx={[sizeStyles[size], ...toSxArray(sx)]} className={className} color={isPaletteColor ? undefined : color} {...props}>
         {initials}
       </MuiAvatar>
       {activeDotTop && <span className="rds-avatar__dot rds-avatar__dot--top" role="img" aria-label="active status top" />}
@@ -168,9 +213,8 @@ const RdsAvatar = ({
         {renderAvatar(title ? allInitials(title) : children, true)}
 
         <div className="rds-avatar__info">
-          {/* `#avatarname` is a styling hook in rds-avatar.scss and rds-app-bar.scss. */}
           {showName && title && <div className="rds-avatar__name" id='avatarname'>{title}</div>}
-          {showDesignation && subText && <div className="rds-avatar__designation">{subText}</div>}
+          {showDesignation && subTextResolved && <div className="rds-avatar__designation">{subTextResolved}</div>}
         </div>
       </div>
     );
@@ -185,7 +229,7 @@ const RdsAvatar = ({
         </span>
         <div className="rds-avatar__info rds-avatar__info--center">
           {showName && title && <div className="rds-avatar__name">{title}</div>}
-          {showDesignation && subText && <div className="rds-avatar__designation">{subText}</div>}
+          {showDesignation && subTextResolved && <div className="rds-avatar__designation">{subTextResolved}</div>}
         </div>
       </div>
     );

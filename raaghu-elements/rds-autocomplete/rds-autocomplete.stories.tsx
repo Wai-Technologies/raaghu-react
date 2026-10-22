@@ -120,7 +120,7 @@ export const Default: Story = {
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
-    userIcon: <UserIcon />,
+    getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
@@ -140,7 +140,7 @@ export const Disabled: Story = {
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
-    userIcon: <UserIcon />,
+    getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
@@ -161,7 +161,7 @@ export const Error: Story = {
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
-    userIcon: <UserIcon />,
+    getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
@@ -181,7 +181,7 @@ export const Filled: Story = {
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
-    userIcon: <UserIcon />,
+    getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
@@ -201,7 +201,7 @@ export const Standard: Story = {
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
-    userIcon: <UserIcon />,
+    getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
@@ -222,7 +222,7 @@ export const WithHelperText: Story = {
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
-    userIcon: <UserIcon />,
+    getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };

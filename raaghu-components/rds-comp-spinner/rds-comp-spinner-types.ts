@@ -33,6 +33,8 @@ export interface RdsCompSpinnerProps {
   labelText?: string;
   size?: SpinnerSize | `${SpinnerSize}`;
   layout?: SpinnerLayout | `${SpinnerLayout}`;
+  /** Label position relative to the spinner; wins over `layout`. */
+  labelPlacement?: "top" | "bottom" | "start" | "end";
   /** Colour name applied as `text-{color}`. */
   color?: string;
   /** @deprecated Use `color` instead. */

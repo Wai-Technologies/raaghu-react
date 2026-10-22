@@ -44,7 +44,6 @@ import {
   SwapVert as ArrowUpDownIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  Visibility as ViewIcon,
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
@@ -452,7 +451,7 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
       case 'delete':
         return <DeleteIcon fontSize="small" />;
       case 'view':
-        return <ViewIcon fontSize="small" />;
+        return <VisibilityIcon fontSize="small" />;
       default:
         return <MoreIcon fontSize="small" />;
     }
@@ -578,7 +577,6 @@ const RdsCompGrid = ({
   const [FilterExpanded, setFilterExpanded] = useState(false);
   const [filterConditions, setFilterConditions] = useState([
     { id: 1, column: '', operator: 'contains', value: '' },
-    { id: 2, column: '', operator: 'contains', value: '' }
   ]);
   const [columnFilterStates, setColumnFilterStates] = useState<{[columnKey: string]: {operator: string, value: string}}>({});
   const [columnWidths, setColumnWidths] = useState<{[columnKey: string]: number}>(() => {
@@ -1193,7 +1191,6 @@ const RdsCompGrid = ({
   const handleClearAdvancedFilter = () => {
     setFilterConditions([
       { id: 1, column: '', operator: 'contains', value: '' },
-      { id: 2, column: '', operator: 'contains', value: '' }
     ]);
     
     if (selectedColumnForFilter) {
@@ -1970,12 +1967,9 @@ const RdsCompGrid = ({
                       value={filterState[header.key]?.operator || 'contains'}
                       onChange={(e) => handleFilterChange(header.key, filterState[header.key]?.value || '', e.target.value as FilterState[string]['operator'])}
                     >
-                      <MenuItem value="contains">Contains</MenuItem>
-                      <MenuItem value="equals">Equals</MenuItem>
-                      <MenuItem value="startsWith">Starts With</MenuItem>
-                      <MenuItem value="endsWith">Ends With</MenuItem>
-                      <MenuItem value="greaterThan">Greater Than</MenuItem>
-                      <MenuItem value="lessThan">Less Than</MenuItem>
+                      {getOperatorsForDataType(header.dataType || 'string').map((op) => (
+                        <MenuItem key={op.value} value={op.value}>{op.label}</MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </Stack>
@@ -3138,41 +3132,6 @@ const RdsCompGrid = ({
                       </Box>
                     );
                   })()}
-
-                  {/* Logical Operator */}
-                  {/* <FormControl size="small" sx={{ minWidth: 120 }}>
-                    <Select
-                      value={logicalOperator}
-                      onChange={(e) => setLogicalOperator(e.target.value)}
-                    >
-                      <MenuItem value="and">And</MenuItem>
-                      <MenuItem value="or">Or</MenuItem>
-                    </Select>
-                  </FormControl> */}
-
-                  {/* Second Condition */}
-                  {/* <Box>
-                    <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
-                      <Select
-                        value={filterConditions[1].operator}
-                        onChange={(e) => handleFilterConditionChange(2, 'operator', e.target.value)}
-                      >
-                        <MenuItem value="contains">Contains</MenuItem>
-                        <MenuItem value="equals">Equals</MenuItem>
-                        <MenuItem value="startsWith">Starts With</MenuItem>
-                        <MenuItem value="endsWith">Ends With</MenuItem>
-                        <MenuItem value="greaterThan">Greater Than</MenuItem>
-                        <MenuItem value="lessThan">Less Than</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <TextField
-                      placeholder="Enter value..."
-                      value={filterConditions[1].value}
-                      onChange={(e) => handleFilterConditionChange(2, 'value', e.target.value)}
-                      size="small"
-                      fullWidth
-                    />
-                  </Box> */}
 
                   {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>

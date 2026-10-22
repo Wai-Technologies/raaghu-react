@@ -129,6 +129,8 @@ export interface RdsCompAiIconProps
   databstoggle?: string;
   /** @deprecated Use `aria-controls` instead. */
   ariacontrols?: string;
+  src?: string;
+  /** @deprecated Use `src` instead. */
   imageUrl?: string;
   id?: string;
   /** @deprecated Has no effect. */
@@ -141,6 +143,7 @@ export interface RdsCompAiIconProps
   cursorpointer?: boolean;
   strokeColor?: string;
   SvgIcon?: ComponentType<SVGProps<SVGSVGElement>>;
+  component?: ComponentType<SVGProps<SVGSVGElement>>;
   position?: "center" | "top-left" | "none";
   "data-testid"?: string;
   "data-bs-dismiss"?: string;
@@ -165,11 +168,13 @@ const RdsCompAiIconComponent = ({
   databstarget,
   databstoggle,
   ariacontrols,
+  src,
   imageUrl,
   id,
   cursorpointer,
   strokeColor,
-  SvgIcon,
+  SvgIcon: SvgIconProp,
+  component,
   position,
   borderRadius,
   opacity,
@@ -251,6 +256,10 @@ const RdsCompAiIconComponent = ({
     );
   }
 
+  if (imageUrl !== undefined) warnDeprecatedProp("RdsCompAiIcon", "imageUrl", "`src`");
+  const SvgIcon = component ?? SvgIconProp;
+  const imageSrc = src ?? imageUrl;
+
   const resolvedTestId = dataTestIdAttr ?? dataTestId;
   const resolvedDismiss = dataBsDismiss ?? databsdismiss;
   const resolvedTarget = dataBsTarget ?? databstarget;
@@ -328,11 +337,11 @@ const RdsCompAiIconComponent = ({
     );
   }
 
-  if (imageUrl) {
+  if (imageSrc) {
     const imageElement = (
       <img
         {...(onClick ? {} : (rest as object))}
-        src={imageUrl}
+        src={imageSrc}
         alt=""
         className={clsx(className, "rds-comp-ai-icon__img")}
         id={id}

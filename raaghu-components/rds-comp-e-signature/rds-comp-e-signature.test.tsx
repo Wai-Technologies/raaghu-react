@@ -6,10 +6,8 @@ import RdsCompESignature, { RdsCompESignatureProps } from './rds-comp-e-signatur
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-e-signature.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: ({ children, className, ...props }: any) => (
     <div className={className} {...props}>
@@ -36,7 +34,6 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock icons
 jest.mock('@mui/icons-material', () => ({
   Brush: () => <span data-testid="brush-icon">Brush</span>,
   Save: () => <span data-testid="save-icon">Save</span>,
@@ -44,7 +41,6 @@ jest.mock('@mui/icons-material', () => ({
   Undo: () => <span data-testid="undo-icon">Undo</span>,
 }));
 
-// Mock sub-components
 jest.mock('./rds-comp-e-signature-modes', () => ({
   RdsESignatureUpload: ({ type, disabled, onSignatureChange }: any) => (
     <div data-testid="e-signature-upload">
@@ -190,7 +186,6 @@ describe('RdsCompESignature', () => {
       const canvas = container.querySelector('canvas');
       if (canvas) {
         fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
-        // Component should mark hasDrawn as true internally
       }
       expect(canvas).toBeInTheDocument();
     });
@@ -202,7 +197,6 @@ describe('RdsCompESignature', () => {
         fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
         rerender(<RdsCompESignature mode="draw" />);
       }
-      // Canvas header should be hidden after drawing starts
       expect(canvas).toBeInTheDocument();
     });
   });
@@ -237,7 +231,6 @@ describe('RdsCompESignature', () => {
       const { container } = render(<RdsCompESignature mode="draw" colourSwatch={true} />);
       const colorButtons = container.querySelectorAll('.rds-e-signature__color-button');
       fireEvent.click(colorButtons[1]); // Click blue
-      // Color should be updated (blue #0066ff)
       expect(colorButtons).toHaveLength(3);
     });
 
@@ -346,7 +339,6 @@ describe('RdsCompESignature', () => {
         fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
         fireEvent.mouseMove(canvas, { clientX: 110, clientY: 110 });
       }
-      // Drawing should not trigger callback when disabled
       expect(canvas).toBeInTheDocument();
     });
   });
@@ -368,7 +360,6 @@ describe('RdsCompESignature', () => {
         fireEvent.mouseEnter(mainBox);
         fireEvent.mouseLeave(mainBox);
       }
-      // Hover class should be removed
       expect(mainBox).toBeInTheDocument();
     });
 
@@ -450,7 +441,6 @@ describe('RdsCompESignature', () => {
         fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
         fireEvent.mouseUp(canvas);
       }
-      // Callback should be triggered after drawing
       expect(canvas).toBeInTheDocument();
     });
 
@@ -494,7 +484,6 @@ describe('RdsCompESignature', () => {
           onSignatureChange={onSignatureChange}
         />
       );
-      // Clear action would be triggered by delete or undo button
       expect(screen.getByLabelText('delete')).toBeInTheDocument();
     });
 
@@ -515,8 +504,6 @@ describe('RdsCompESignature', () => {
       const { container } = render(
         <RdsCompESignature mode="draw" />
       );
-      // Error would show if signature doesn't meet requirements
-      // For now, just verify error element structure
       const errorDiv = container.querySelector('.rds-e-signature__error');
       expect(errorDiv).not.toBeInTheDocument(); // Initially no error
     });
@@ -525,7 +512,6 @@ describe('RdsCompESignature', () => {
       const { container } = render(
         <RdsCompESignature mode="draw" />
       );
-      // Error message should have role="alert" when showing
       const errorMsg = container.querySelector('[role="alert"]');
       expect(errorMsg).not.toBeInTheDocument(); // Initially no error
     });
@@ -694,7 +680,6 @@ describe('RdsCompESignature', () => {
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
       
-      // Simulate window resize
       fireEvent.resize(window);
       expect(canvas).toBeInTheDocument();
     });
@@ -856,6 +841,49 @@ describe('RdsCompESignature', () => {
       const root = screen.getByTestId('root');
       expect(root).toHaveClass('rds-e-signature', 'custom');
       expect(ref.current).toBe(root);
+    });
+  });
+
+  describe('doc-09 renames', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+
+    it('showColorPicker hides the picker and colourSwatch warns', () => {
+      const { rerender } = render(<RdsCompESignature showColorPicker={false} />);
+      expect(screen.queryByRole('radiogroup')).not.toBeInTheDocument();
+      rerender(<RdsCompESignature colourSwatch={false} />);
+      expect(screen.queryByRole('radiogroup')).not.toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompESignature', 'colourSwatch', '`showColorPicker`');
+    });
+
+    it('variant and signatureType alias mode and type', () => {
+      render(<RdsCompESignature variant="choose" signatureType="initials" />);
+      expect(screen.getByTestId('e-signature-choose')).toBeInTheDocument();
+      expect(screen.getByText('initials')).toBeInTheDocument();
+    });
+
+    it('options replaces predefinedSignatures', () => {
+      const options = [{ id: 'a', name: 'A', style: 's', fullName: 'F', initials: 'I' }];
+      render(<RdsCompESignature variant="choose" options={options} />);
+      expect(screen.getByTestId('signature-count')).toHaveTextContent('1');
+    });
+
+    it('slotProps override the disabled messages', () => {
+      render(
+        <RdsCompESignature
+          disabled
+          slotProps={{ disabledMessage: { children: 'Locked canvas' }, helperText: { children: 'Locked footer' } }}
+        />
+      );
+      expect(screen.getByText('Locked canvas')).toBeInTheDocument();
+      expect(screen.getByText('Locked footer')).toBeInTheDocument();
+    });
+
+    it('defaultPenColor sets the initial colour and onPenColorChange reports picks', () => {
+      const onPenColorChange = jest.fn();
+      render(<RdsCompESignature defaultPenColor="#FF0000" onPenColorChange={onPenColorChange} />);
+      expect(screen.getByRole('radio', { name: 'Red' })).toHaveAttribute('aria-checked', 'true');
+      fireEvent.click(screen.getByRole('radio', { name: 'Blue' }));
+      expect(onPenColorChange).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), expect.any(String));
     });
   });
 });

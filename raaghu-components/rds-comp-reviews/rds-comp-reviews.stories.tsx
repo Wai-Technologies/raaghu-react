@@ -1,7 +1,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
-import RdsCompReviews, { ReviewStyle, VariantType } from "./rds-comp-reviews";
+import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews";
 
 const meta: Meta = { 
     title: "Components/Reviews",
@@ -14,9 +14,10 @@ const meta: Meta = {
                 transform:(code:string) => {
                     code = code.replace(/variantType="([^"]+)"/g, (match, p1) => `variantType={VariantType.${p1.replace(/\s+/g, '')}}`)
                     code = code.replace(/variantType:\s*"([^"]+)"/g, (match, p1) => `variantType: VariantType.${p1.replace(/\s+/g, '')}`);
-                    code = code.replace(/variant="([^"]+)"/g, (match, p1) => `variant={ReviewStyle.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/variant="([^"]+)"/g, (match, p1) => `variant={RevieweStyle.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={RevieweStyle.${p1.replace(/\s+/g, '')}}`);
 
-                    code = code.replace(/variant:\s*"([^"]+)"/g, (match, p1) => `variant: ReviewStyle.${p1.replace(/\s+/g, '')}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: RevieweStyle.${p1.replace(/\s+/g, '')}`);
                     return code;
             }
         }
@@ -27,7 +28,7 @@ const meta: Meta = {
         variant: {
             options: [ "style1", "style2", "style3","style4", "style5", "style6", "style7", "style8", "style9", "style10", "style11", "style12"],
             control: { type: "select" },
-            description: "Appearance variant of the review component",
+            description: "Style of the review component",
         },
     },
 } satisfies Meta<typeof RdsCompReviews>;
@@ -42,7 +43,7 @@ play: async ({ canvasElement }) => {
 },
 args: {
         variantType: VariantType.Default,
-        variant: ReviewStyle.Style1,
+        variant: RevieweStyle.Style1,
         items: [
             {
                 name: "Jane Doe",

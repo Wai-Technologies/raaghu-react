@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsSelect from './rds-select';
 
 const meta: Meta<typeof RdsSelect> = {
   title: 'Elements/Select',
   component: RdsSelect,
   parameters: {
-    status: { type: 'stable' },
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],
@@ -21,9 +22,9 @@ const meta: Meta<typeof RdsSelect> = {
       control: 'text',
       description: 'Helper text shown below the field',
     },
-    errorMessage: {
-      control: 'text',
-      description: 'Error text shown below the field',
+    error: {
+      control: 'boolean',
+      description: 'Puts the field in the error state',
     },
     placeholder: {
       control: 'text',
@@ -31,12 +32,12 @@ const meta: Meta<typeof RdsSelect> = {
     inputPlaceholder: {
       control: 'text',
     },
-    labelposition: {
-      control: 'boolean',
+    labelPlacement: {
+      control: 'select',
+      options: ['floating', 'top'],
     },
     required: {
       control: 'boolean',
-      description: 'Whether the select field is required',
     },
     size: {
       control: 'select',
@@ -90,10 +91,9 @@ export const Default: Story = {
   args: {
     label: 'Select Option',
     options: basicOptions,
-    placeholder: 'Please select...',
-    labelposition: true,
+    inputPlaceholder: 'Please select...',
+    labelPlacement: 'floating',
     size: 'small',
-    required: false,
   },
 };
 
@@ -120,7 +120,8 @@ export const WithDisabledOptions: Story = {
 export const WithError: Story = {
   args: {
     label: 'Select with Error',
-    errorMessage: 'Please select a valid option',
+    error: true,
+    helperText: 'Please select a valid option',
     options: basicOptions,
   },
 };

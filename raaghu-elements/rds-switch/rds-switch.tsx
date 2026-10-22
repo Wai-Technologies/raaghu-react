@@ -1,17 +1,20 @@
-import { useState, type ChangeEvent, type CSSProperties } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-switch.scss';
 
-/** Props for {@link RdsSwitch}. Extends MUI `SwitchProps` (except `component`). */
-export interface RdsSwitchProps extends Omit<SwitchProps, 'component'> {
+/** Props for {@link RdsSwitch}. Extends MUI `SwitchProps` (except `style`/`component`). */
+export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'> {
   label?: string;
   labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';
   state?: 'off' | 'on' | 'disabled on' | 'disabled off';
+  /** @deprecated Omit `label` instead. */
   showLabel?: boolean;
+  /** Visual style; wins over `style` when both are set. */
   variant?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
-  style?: CSSProperties;
+  style?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
 }
 
 const layoutToPlacement: Record<NonNullable<RdsSwitchProps['layout']>, RdsSwitchProps['labelPlacement']> = {
@@ -41,16 +44,16 @@ const RdsSwitch = ({
   labelPlacement,
   layout,
   state,
-  variant = 'style1',
   style,
+  variant,
   showLabel,
   ...props
 }:RdsSwitchProps) => {
+  if (showLabel !== undefined) warnDeprecatedProp('RdsSwitch', 'showLabel', 'omitting `label`');
+  const styleProp = variant ?? style ?? 'style1';
   const normalizedLayout = normalizeLayout(layout);
   const normalizedState = normalizeState(state);
 
-  // labelPlacement takes priority over layout when explicitly provided;
-  // fall back to layout mapping, then default to 'end'
   const effectivePlacement: RdsSwitchProps['labelPlacement'] =
     labelPlacement
       ? labelPlacement
@@ -89,8 +92,7 @@ const RdsSwitch = ({
     }
   };
 
-  const normalizedStyleRaw = variant.replace(/\s+/g, '').toLowerCase();
-  // style6 was removed when consolidating duplicate styles; map legacy value to style5.
+  const normalizedStyleRaw = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
   const normalizedStyleType = normalizedStyleRaw === 'style6' ? 'style5' : normalizedStyleRaw;
   const normalizedColor = props.color ? String(props.color).toLowerCase().replace(/[^a-z0-9_-]/g, '-') : 'primary';
   const styleClass = clsx('rds-switch', `rds-switch--${normalizedStyleType}`, `rds-switch--color-${normalizedColor}`);
@@ -127,7 +129,7 @@ const RdsSwitch = ({
 
   if (label && showLabel !== false) {
     return (
-      <div className="rds-switch--row" style={style}>
+      <div className="rds-switch--row">
         <FormControlLabel
           className={styleClass}
           control={<MuiSwitch {...switchProps} />}
@@ -138,7 +140,7 @@ const RdsSwitch = ({
     );
   }
   return (
-    <div className="rds-switch--row" style={style}>
+    <div className="rds-switch--row">
       <MuiSwitch {...switchProps} />
     </div>
   );

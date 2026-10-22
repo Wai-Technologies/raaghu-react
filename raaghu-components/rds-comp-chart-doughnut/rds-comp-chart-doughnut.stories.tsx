@@ -27,8 +27,26 @@ export const Default: Story = {
     args: {
         id: "myChart",
         titleText: "Title",
-        subTitleText: "Subtext",
-        labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
+        subtitle: "Subtext",
+        data: {
+            labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
+            datasets: [
+                {
+                    label: "Dataset 1",
+                    data: [15, 25, 20, 15, 25],
+                    backgroundColor: [
+                        "#ff6384",
+                        "#ff9f40",
+                        "#ffcd56",
+                        "#4bc0c0",
+                        "#0000FF"
+                    ],
+                    borderColor: [
+                        "#fff",
+                    ],
+                }
+            ],
+        },
         options: {
             maintainAspectRatio: false,
             type: "doughnut",
@@ -49,22 +67,6 @@ export const Default: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                label: "Dataset 1",
-                data: [15, 25, 20, 15, 25],
-                backgroundColor: [
-                    "#ff6384",
-                    "#ff9f40",
-                    "#ffcd56",
-                    "#4bc0c0",
-                    "#0000FF"
-                ],
-                borderColor: [
-                    "#fff",
-                ],
-            }
-        ],
 
     
     },
@@ -77,7 +79,42 @@ export const Default: Story = {
 export const Advanced: Story = {
     args: {
         id: "doughnutchart",
-        labels: ['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%'],
+        data: {
+            labels: ['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%'],
+            datasets: [
+                {
+    
+                    label: "Total Sales",
+                    data: [85, 0, 0, 15],
+                    backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
+                    weight: 0.2,
+                    borderRadius: 20,
+                    borderColor: ["transparent"]
+                },
+                {
+                    weight: 0.2
+                },
+                {
+                    label: "Revenue",
+                    data: [0, 75, 0, 25],
+                    backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
+                    weight: 0.2,
+                    borderRadius: 20,
+                    borderColor: ["transparent"]
+                },
+                {
+                    weight: 0.2
+                },
+                {
+                    label: "Expenses",
+                    data: [0, 0, 55, 45],
+                    backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
+                    weight: 0.2,
+                    borderRadius: 20,
+                    borderColor: ["transparent"]
+                },
+            ],
+        },
         options: {
             animationEnabled: true,
             title: {
@@ -139,39 +176,6 @@ export const Advanced: Story = {
             },
             scales: {},
         },
-        dataSets: [
-            {
-
-                label: "Total Sales",
-                data: [85, 0, 0, 15],
-                backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                weight: 0.2,
-                borderRadius: 20,
-                borderColor: ["transparent"]
-            },
-            {
-                weight: 0.2
-            },
-            {
-                label: "Revenue",
-                data: [0, 75, 0, 25],
-                backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                weight: 0.2,
-                borderRadius: 20,
-                borderColor: ["transparent"]
-            },
-            {
-                weight: 0.2
-            },
-            {
-                label: "Expenses",
-                data: [0, 0, 55, 45],
-                backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                weight: 0.2,
-                borderRadius: 20,
-                borderColor: ["transparent"]
-            },
-        ]
     }
 };
 

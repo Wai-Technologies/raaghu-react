@@ -4,10 +4,10 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsEmojiGenerator, { EmojiGeneratorType, SkinToneState, EmojiCategory } from './rds-comp-emoji-generator';
 
-// Mock SCSS
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+
 jest.mock('./rds-comp-emoji-generator.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: React.forwardRef(({ children, className, onClick, ...props }: any, ref: any) => (
     onClick ? (
@@ -76,7 +76,6 @@ jest.mock('@mui/material', () => ({
   ),
 }));
 
-// Mock icons
 jest.mock('@mui/icons-material', () => ({
   Search: () => <span data-testid="search-icon">Search</span>,
   Add: () => <span data-testid="add-icon">Add</span>,
@@ -90,7 +89,6 @@ jest.mock('@mui/icons-material', () => ({
   Flag: () => <span data-testid="flag-icon">Flag</span>,
 }));
 
-// Mock emoji data
 jest.mock('./rds-comp-emoji-data', () => ({
   EmojiGeneratorType: {
     Default: 'Default',
@@ -323,7 +321,6 @@ describe('RdsEmojiGenerator', () => {
       if (skinToneButton) {
         fireEvent.click(skinToneButton);
       }
-      // Popover should be rendered
       expect(container).toBeInTheDocument();
     });
 
@@ -743,5 +740,36 @@ describe('audit fixes', () => {
     const { container } = render(<RdsEmojiGenerator className="custom" ref={ref} />);
     expect(container.querySelector('.rds-emoji-generator.custom')).toBeInTheDocument();
     expect(ref.current).toBe(container.querySelector('.rds-emoji-generator'));
+  });
+});
+
+describe('doc-09 renames', () => {
+  const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+
+  it('onChange receives the event and emoji; onEmojiSelect still works and warns', () => {
+    const onChange = jest.fn();
+    const onEmojiSelect = jest.fn();
+    const { container } = render(<RdsEmojiGenerator onChange={onChange} onEmojiSelect={onEmojiSelect} />);
+    fireEvent.click(container.querySelector('.rds-emoji-generator__emoji') as Element);
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }), expect.any(String));
+    expect(onEmojiSelect).toHaveBeenCalledWith(expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompEmojiGenerator', 'onEmojiSelect', '`onChange`');
+  });
+
+  it('onChange receives the plus sign when no onMoreClick is given', () => {
+    const onChange = jest.fn();
+    render(<RdsEmojiGenerator variant={EmojiGeneratorType.QuickReactions} onChange={onChange} />);
+    fireEvent.click(screen.getByLabelText('More emojis'));
+    expect(onChange).toHaveBeenCalledWith(expect.anything(), '+');
+  });
+
+  it('skinTonePickerOpen expands the picker inline like State=Expanded', () => {
+    const { container } = render(<RdsEmojiGenerator skinTonePickerOpen />);
+    expect(container.querySelector('.rds-emoji-generator__skin-tone-inline')).toBeInTheDocument();
+  });
+
+  it('RdsCompEmojiPicker is an alias of the component', () => {
+    const mod = jest.requireActual('./rds-comp-emoji-generator');
+    expect(mod.RdsCompEmojiPicker).toBe(mod.default);
   });
 });

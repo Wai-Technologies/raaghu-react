@@ -28,30 +28,32 @@ export const Default: Story = {
     args: {
         id: "Polar_Area_chart",
         height: 300,
-        dataSets: [
-            {
-                label: "Dataset 1",
-                data: [100, 70, 80, 96, 87, 77],
-                backgroundColor: [
-                    "rgba(255, 99, 132, 0.5)",
-                    "rgba(54, 162, 235, 0.5)",
-                    "rgba(255, 206, 86, 0.5)",
-                    "rgba(75, 192, 192, 0.5)",
-                    "rgba(153, 102, 255, 0.5)",
-                    "rgba(167, 145, 78, 0.5)"
-                ],
-                    borderColor: [
-                        "#f8bbd0", 
-                        "#90caf9", 
-                        "#fff9c4", 
-                        "#b2ebf2", 
-                        "#ce93d8", 
-                        "#ffe0b2"  
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [
+                {
+                    label: "Dataset 1",
+                    data: [100, 70, 80, 96, 87, 77],
+                    backgroundColor: [
+                        "rgba(255, 99, 132, 0.5)",
+                        "rgba(54, 162, 235, 0.5)",
+                        "rgba(255, 206, 86, 0.5)",
+                        "rgba(75, 192, 192, 0.5)",
+                        "rgba(153, 102, 255, 0.5)",
+                        "rgba(167, 145, 78, 0.5)"
                     ],
-                   borderWidth: 3,
-            }
-        ],
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                        borderColor: [
+                            "#f8bbd0", 
+                            "#90caf9", 
+                            "#fff9c4", 
+                            "#b2ebf2", 
+                            "#ce93d8", 
+                            "#ffe0b2"  
+                        ],
+                       borderWidth: 3,
+                }
+            ],
+        },
         options: {
             maintainAspectRatio: false,
             animation: {

@@ -4,14 +4,12 @@ import RdsButtonDropdown, { RdsButtonDropdownProps, RdsButtonDropdownOption } fr
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-button-dropdown.scss', () => ({}));
 
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const mockButtonProps = jest.fn();
 
-// Mock child components
 jest.mock('../rds-button/rds-button', () => {
   return function MockButton(allProps: any) {
     mockButtonProps(allProps);
@@ -138,7 +136,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
       
-      // Click on menu to trigger onClose
       fireEvent.click(screen.getByTestId('rds-menu'));
       expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
     });
@@ -170,7 +167,6 @@ describe('RdsButtonDropdown', () => {
       const button = screen.getByText('Button');
       fireEvent.click(button);
       
-      // Simulate radio selection - look for radio inputs
       const radios = screen.getAllByRole('radio');
       fireEvent.click(radios[0]);
       
@@ -184,7 +180,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
       
-      // Simulate selecting by clicking menu to close
       fireEvent.click(screen.getByTestId('rds-menu'));
       expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
     });
@@ -234,7 +229,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(checkboxes[0]);
       fireEvent.click(checkboxes[1]);
       
-      // onChange may only be called once if mock prevents multiple updates
       expect(onChange).toHaveBeenCalled();
     });
 
@@ -245,11 +239,9 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       expect(screen.queryByTestId('rds-menu')).toBeInTheDocument();
       
-      // Select option - dropdown should remain open in multi-select
       const checkboxes = screen.getAllByRole('checkbox');
       fireEvent.click(checkboxes[0]);
       
-      // In mock, dropdown behavior may vary
       expect(button).toBeInTheDocument();
     });
 
@@ -290,7 +282,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(checkboxes[0]);
       const callCount2 = onChange.mock.calls.length;
       
-      // Verify at least one call was made for selection
       expect(callCount1).toBeGreaterThanOrEqual(1);
     });
   });
@@ -644,7 +635,6 @@ describe('RdsButtonDropdown', () => {
       fireEvent.click(button);
       
       const radios = screen.getAllByRole('radio');
-      // Verify second radio is marked as disabled
       expect(radios[1]).toHaveAttribute('disabled');
       expect(radios[0]).not.toHaveAttribute('disabled');
     });
@@ -1133,6 +1123,16 @@ describe('audit fixes', () => {
       expect(checkboxes[2]).toBeChecked();
       fireEvent.click(checkboxes[2]);
       expect(screen.getAllByRole('checkbox')[2]).not.toBeChecked();
+    });
+  });
+
+  describe('audit fixes', () => {
+    it('prefers variant, searchable, showAvatar and optionVariant over styleType and ui', () => {
+      render(<RdsButtonDropdown options={options} variant="outline" styleType="primary" searchable showAvatar={false} optionVariant="button" ui={{ search: 'hidden', avatar: 'visible', selection: 'radio' }} open />);
+      expect(screen.getByText('Button')).toHaveClass('rds-button-dropdown--outline');
+      expect(screen.getByPlaceholderText('Search')).toBeInTheDocument();
+      expect(screen.queryAllByRole('radio')).toHaveLength(0);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButtonDropdown', 'ui', '`searchable`, `showAvatar` and `optionVariant`');
     });
   });
 });

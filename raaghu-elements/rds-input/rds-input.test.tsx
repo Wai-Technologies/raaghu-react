@@ -10,7 +10,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-input.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -116,8 +115,6 @@ describe('RdsInput', () => {
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input?.type).toBe('password');
 
-      // Password toggle would be through an icon button in real implementation
-      // This test verifies the component renders without errors
       expect(input).toBeInTheDocument();
     });
 
@@ -522,7 +519,6 @@ describe('RdsInput', () => {
       
       fireEvent.change(input, { target: { value: '+1234567890' } });
       
-      // The component should not prevent this change
       expect(input).toBeInTheDocument();
     });
   });
@@ -710,5 +706,34 @@ describe('RdsInput audit fixes', () => {
     render(<RdsInput hintText="Old hint" isMandatory />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsInput', 'hintText', expect.any(String));
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsInput', 'isMandatory', expect.any(String));
+  });
+
+  it('shows helperText as the error text when error is set (453)', () => {
+    render(<RdsInput label="Name" error helperText="Required field" />);
+    expect(screen.getByText('Required field')).toHaveClass('Mui-error');
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('renders startIcon and endIcon (457)', () => {
+    const { container } = render(<RdsInput startIcon={<span data-testid="s" />} endIcon={<span data-testid="e" />} />);
+    expect(container.querySelector('.rds-input__icon--start')).toContainElement(screen.getByTestId('s'));
+    expect(container.querySelector('.rds-input__icon--end')).toContainElement(screen.getByTestId('e'));
+  });
+
+  it('applies shape as an alias of style (459)', () => {
+    const { container } = render(<RdsInput shape="pill" style="bottom outline" />);
+    expect(container.querySelector('.rds-input')).toHaveClass('rds-input--pill');
+  });
+
+  it('places the label with labelPlacement (460)', () => {
+    const { container } = render(<RdsInput label="Email" labelPlacement="top" titlePosition="inline-title" />);
+    expect(container.querySelector('.rds-input__label')).toHaveTextContent('Email');
+  });
+
+  it('warns for the renamed props', () => {
+    render(<RdsInput errorMessage="x" titlePosition="title-above" showIcon iconPosition="start" icon={<span />} />);
+    ['errorMessage', 'titlePosition', 'showIcon', 'iconPosition', 'icon'].forEach((name) =>
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsInput', name, expect.any(String)),
+    );
   });
 });

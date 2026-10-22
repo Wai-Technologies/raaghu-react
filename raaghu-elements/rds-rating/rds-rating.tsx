@@ -5,7 +5,10 @@ import StarIcon from '@mui/icons-material/Star';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-rating.scss';
 
-export interface RdsRatingProps extends Omit<RatingProps, 'component'> {
+type RatingStyle = 'default' | 'filled' | 'outlined';
+type RatingColor = 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+
+export interface RdsRatingProps extends Omit<RatingProps, 'component' | 'color'> {
   /** Text label rendered before the rating. */
   label?: string;
   /** Show the numeric value next to the rating. */
@@ -17,8 +20,13 @@ export interface RdsRatingProps extends Omit<RatingProps, 'component'> {
   /** Rating display: stars or a three-point slider. */
   type?: 'star' | 'slider';
   level?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right';
-  styles?: 'default' | 'filled' | 'outlined';
-  colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+  styles?: RatingStyle;
+  /** Visual style of the stars. */
+  variant?: RatingStyle;
+  /** Color of the rating. */
+  color?: RatingColor;
+  /** @deprecated Use `color` instead. */
+  colorVariant?: RatingColor;
 }
 
 const snapToAllowed = (val: number | null | undefined, maxValue = 5): number => {
@@ -56,15 +64,21 @@ const RdsRating = ({
   max,
   value,
   type = 'star',
-  styles = 'default',
+  styles,
+  variant,
   level,
+  color,
   colorVariant,
+  defaultValue,
   onChange,
   precision: precisionProp,
   ...props
 }: RdsRatingProps) => {
   if (maxStars !== undefined) warnDeprecatedProp('RdsRating', 'maxStars', '`max`');
+  if (colorVariant !== undefined) warnDeprecatedProp('RdsRating', 'colorVariant', '`color`');
   const maxRating = max || maxStars || 5;
+  const resolvedStyle = variant ?? styles ?? 'default';
+  const resolvedColor = color ?? colorVariant;
 
   const [internalValue, setInternalValue] = useState<number | null>(() => {
     if (type === 'slider') {
@@ -73,14 +87,14 @@ const RdsRating = ({
         return snapToAllowed(levelVal, maxRating);
       }
       if (value !== undefined) return snapToAllowed(value, maxRating);
-      return 0;
+      return defaultValue === undefined ? 0 : snapToAllowed(defaultValue, maxRating);
     } else {
       if (level !== undefined) {
         const levelVal = getLevelValue(level);
         return levelVal !== undefined ? levelVal : null;
       }
       if (value !== undefined) return value;
-      return null;
+      return defaultValue ?? null;
     }
   });
   
@@ -153,8 +167,8 @@ const RdsRating = ({
       value={currentValue}
       precision={precision === undefined ? undefined : precision}
       onChange={handleStarChange}
-      className={clsx(`rds-rating__stars rds-rating__stars--${styles} ${colorVariant ? `rds-rating__stars--color-${colorVariant}` : ''}`, className)}
-      emptyIcon={styles === 'filled' ? <StarIcon className="rds-rating__star-icon rds-rating__star-icon--empty" fontSize="inherit" /> : undefined}
+      className={clsx(`rds-rating__stars rds-rating__stars--${resolvedStyle} ${resolvedColor ? `rds-rating__stars--color-${resolvedColor}` : ''}`, className)}
+      emptyIcon={resolvedStyle === 'filled' ? <StarIcon className="rds-rating__star-icon rds-rating__star-icon--empty" fontSize="inherit" /> : undefined}
       {...props}
     />
   );
@@ -173,7 +187,7 @@ const RdsRating = ({
           name={props.name}
           aria-label={props['aria-label'] ?? label ?? 'Rating'}
           aria-labelledby={props['aria-labelledby']}
-          className={`rds-rating__slider ${colorVariant ? `rds-rating__slider--color-${colorVariant}` : ''}`}
+          className={`rds-rating__slider ${resolvedColor ? `rds-rating__slider--color-${resolvedColor}` : ''}`}
         />
         {showValue && currentValue !== undefined && currentValue !== null && (
           <span className="rds-rating__value">
@@ -190,7 +204,7 @@ const RdsRating = ({
   );
 
   return (
-  <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass()} ${colorVariant ? `rds-rating--color-${colorVariant}` : ''}`}>
+  <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} rds-rating--${resolvedStyle} ${getPositionClass()} ${resolvedColor ? `rds-rating--color-${resolvedColor}` : ''}`}>
       {label && <span className="rds-rating__label">{label}</span>}
       {type === 'slider' ? renderSliderRating() : renderStarRating()}
       {showValue && currentValue !== undefined && (

@@ -1,12 +1,10 @@
 import {
   useState,
   type ChangeEvent,
-  type Dispatch,
   type HTMLAttributes,
   type MouseEvent,
   type MouseEventHandler,
   type Ref,
-  type SetStateAction,
 } from 'react';
 import type { DragEndEvent } from '@dnd-kit/core';
 import type { SxProps, Theme } from '@mui/material';
@@ -16,6 +14,17 @@ export interface KanbanAction {
   value: string;
 }
 
+export interface KanbanAssignee {
+  title: string;
+  subText?: string;
+  src?: string;
+}
+
+export interface KanbanOption {
+  label: string;
+  val: string | number;
+}
+
 export interface KanbanSubCard {
   ticketId: string;
   ticketPriority: string;
@@ -23,14 +32,22 @@ export interface KanbanSubCard {
   ticketDate: string;
   SubcardId: number;
   actions: KanbanAction[];
-  assignedToName?: string;
-  assignedTo?: string;
   /** Identifier shown in the card header. Falls back to `RDS110110` when omitted. */
   displayId?: string;
   /** Badge label shown in the card header. Falls back to `Badge` when omitted. */
   badge?: string;
   /** Body text shown under the question. When omitted the legacy body is rendered. */
   description?: string;
+  /** Card id. Takes precedence over `SubcardId`. */
+  id?: number;
+  /** Card title. Takes precedence over `ticketQuestion`. */
+  title?: string;
+  /** Avatars shown on this card. Takes precedence over `avatarData`. */
+  assignees?: KanbanAssignee[];
+  /** Category picked in the add form; only set on the card passed to `onCardAdd`. */
+  categoryId?: string | number;
+  /** Tags picked in the add form; only set on the card passed to `onCardAdd`. */
+  tags?: KanbanOption[];
 }
 
 export interface KanbanBoardInfo {
@@ -47,6 +64,10 @@ export interface KanbanBoardInfo {
 
 /** Legacy name of {@link KanbanBoardInfo}. */
 export type boardInfo = KanbanBoardInfo;
+export type KanbanColumn = KanbanBoardInfo;
+export type KanbanCard = KanbanSubCard;
+
+export const cardIdOf = (card: KanbanSubCard) => card.id ?? card.SubcardId;
 
 export interface RdsCompKanbanBoardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> {
   /** @deprecated It has no effect. */
@@ -57,25 +78,48 @@ export interface RdsCompKanbanBoardProps extends Omit<HTMLAttributes<HTMLDivElem
   noDataHeaderTitle?: string | undefined;
   /** @deprecated It has no effect. */
   illustration?: boolean;
+  /** Controlled columns. */
+  columns?: KanbanColumn[];
+  /** Initial columns when uncontrolled. */
+  defaultColumns?: KanbanColumn[];
+  /** @deprecated Use `columns` or `defaultColumns` instead. */
   boardData?: KanbanBoardInfo[];
+  /** Shows the "Add Board" column. */
+  allowAddColumn?: boolean;
+  /** @deprecated Use `allowAddColumn` instead. */
   allowAddingNewCard?: boolean;
+  /** Shows the "Add Item" button in each column. */
+  allowAddCard?: boolean;
+  /** @deprecated Use `allowAddCard` instead. */
   allowAddingNewSubCard?: boolean;
   /** @deprecated It has no effect. */
   allowAddingDynamicData?: boolean;
-  avatarData?: Array<{
-    title: string;
-    subText?: string;
-    src?: string;
-  }>;
+  /** Avatars shown on cards without their own `assignees`. */
+  avatarData?: KanbanAssignee[];
   /** @deprecated It has no effect. */
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  /** Called when a card menu action is clicked. */
+  onCardAction?: (event: MouseEvent<HTMLElement>, details: { action: string; columnId: number | undefined; cardId: number }) => void;
+  /** @deprecated Use `onCardAction` instead. */
   onSubCardOption?: (option: string, subCardIndex: number, subCardId: number) => void;
+  /** Called when a column menu action is clicked. */
+  onColumnAction?: (event: MouseEvent<HTMLElement>, details: { action: string; columnId: number | undefined }) => void;
+  /** @deprecated Use `onColumnAction` instead. */
   onCardOption?: (option: string, cardIndex: number, cardId: number | undefined, cardKey: string) => void;
-  /** Called with the updated boards after a drag, add, rename or delete. */
+  /** Called with the updated columns after a drag, add, rename or delete. */
+  onColumnsChange?: (columns: KanbanColumn[]) => void;
+  /** @deprecated Use `onColumnsChange` instead. */
   onBoardDataChange?: (boards: KanbanBoardInfo[]) => void;
+  tagOptions?: KanbanOption[];
+  /** @deprecated Use `tagOptions` instead. */
   allTagsList?: any[];
+  categoryOptions?: KanbanOption[];
+  /** @deprecated Use `categoryOptions` instead. */
   allCategoriesList?: any[];
-onAddQuestionSave?: (data: Record<string, unknown>) => void;
+  /** Called with the new card when "Add Item" is clicked. */
+  onCardAdd?: (event: MouseEvent<HTMLElement>, card: KanbanCard) => void;
+  /** @deprecated Use `onCardAdd` instead. */
+  onAddQuestionSaveHandler?: (data: Record<string, unknown>) => void;
   /** @deprecated It has no effect. */
   addQuestionData?: Record<string, any>;
   onSelectedTagsListChange?: (items: unknown) => void;
@@ -102,7 +146,6 @@ const formatDate = (date: Date) => {
 const generateRandomId = (): number => {
   const cryptoApi = typeof globalThis !== 'undefined' ? globalThis.crypto : undefined;
   if (cryptoApi && typeof cryptoApi.randomUUID === 'function') {
-    // 13 hex digits = 52 bits, always a safe integer.
     return parseInt(cryptoApi.randomUUID().replace(/-/g, '').slice(0, 13), 16);
   }
   return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
@@ -116,16 +159,19 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   const [showAddBoardBtn, setShowAddBoardBtn] = useState(props.allowAddingNewCard ? false : true);
   const [addButton, setAddButton] = useState(props.allowAddingNewSubCard ? true : false);
   const [showBoard, setShowBoard] = useState(true);
-  const [isEditingBoardName, setIsEditingBoardName] = useState<boolean[]>(
-    props.boardData ? [...props.boardData.map(() => false)] : []
-  );
+  const initial = props.columns ?? props.defaultColumns ?? props.boardData;
+  const [isEditingBoardName, setIsEditingBoardName] = useState<boolean[]>(initial ? initial.map(() => false) : []);
 
-  const [boards, setBoards] = useState<KanbanBoardInfo[]>(props.boardData ? [...props.boardData] : []);
+  const [innerBoards, setInnerBoards] = useState<KanbanBoardInfo[]>(() => [...(props.defaultColumns ?? props.boardData ?? [])]);
   const [prevBoardData, setPrevBoardData] = useState(props.boardData);
   if (props.boardData !== prevBoardData) {
     setPrevBoardData(props.boardData);
-    setBoards(props.boardData ? [...props.boardData] : []);
+    setInnerBoards(props.boardData ? [...props.boardData] : []);
   }
+  const boards = props.columns ?? innerBoards;
+  const setBoards = (next: KanbanBoardInfo[]) => {
+    if (props.columns === undefined) setInnerBoards(next);
+  };
 
   const [subCardInputsVisible, setSubCardInputsVisible] = useState<number | null>(null);
 
@@ -191,7 +237,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
 
   const commitBoards = (next: KanbanBoardInfo[]) => {
     setBoards(next);
-    props.onBoardDataChange?.(next);
+    props.onColumnsChange?.(next);
   };
 
   const handleShowInputBox = () => {
@@ -268,7 +314,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
         i === index
           ? {
               ...card,
-              subCards: card.subCards.filter((subCard: KanbanSubCard) => subCard.SubcardId !== subCardId),
+              subCards: card.subCards.filter((subCard: KanbanSubCard) => cardIdOf(subCard) !== subCardId),
             }
           : card
       )
@@ -276,8 +322,9 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     handleClose();
   };
 
-  const handleCardOptionClick = (action: string, cardIndex: number, cardId: number | undefined, cardKey: string) => {
-    props.onCardOption && props.onCardOption(action, cardIndex, cardId, cardKey);
+  const handleCardOptionClick = (event: MouseEvent<HTMLElement>, action: string, cardIndex: number, cardId: number | undefined, cardKey: string) => {
+    if (props.onColumnAction) props.onColumnAction(event, { action, columnId: cardId });
+    else props.onCardOption?.(action, cardIndex, cardId, cardKey);
     switch (action) {
       case EDIT_ACTION:
         editBoardName(cardIndex);
@@ -290,9 +337,10 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     handleClose();
   };
 
-  const handleOptionClick = (action: string, boardIndex: number, subCardId: number) => {
-    const subCardIndex = boards[boardIndex]?.subCards.findIndex((sc: KanbanSubCard) => sc.SubcardId === subCardId) ?? -1;
-    props.onSubCardOption && props.onSubCardOption(action, subCardIndex, subCardId);
+  const handleOptionClick = (event: MouseEvent<HTMLElement>, action: string, boardIndex: number, subCardId: number) => {
+    const subCardIndex = boards[boardIndex]?.subCards.findIndex((sc: KanbanSubCard) => cardIdOf(sc) === subCardId) ?? -1;
+    if (props.onCardAction) props.onCardAction(event, { action, columnId: boards[boardIndex]?.cardId, cardId: subCardId });
+    else props.onSubCardOption?.(action, subCardIndex, subCardId);
     if (action === DELETE_ACTION) {
       deleteSubCard(boardIndex, subCardId);
     }
@@ -303,7 +351,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     setSubCardInputsVisible(index);
   };
 
-  const onAddSubCardClick = (index: number) => {
+  const onAddSubCardClick = (event: MouseEvent<HTMLElement>, index: number) => {
     const subCardId = generateRandomId();
     const newSubcard: KanbanSubCard = {
       ticketId: String(subCardId),
@@ -329,7 +377,14 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     setSubCardInputsVisible(null);
     setAddQuestionFormData({});
 
-    props.onAddQuestionSave && props.onAddQuestionSave(addQuestionData);
+    const { supportCategoryId, supportTagIds } = addQuestionData;
+    if (props.onCardAdd) {
+      props.onCardAdd(event, {
+        ...newSubcard,
+        ...(supportCategoryId !== undefined && { categoryId: supportCategoryId as string | number }),
+        ...(supportTagIds !== undefined && { tags: supportTagIds as KanbanOption[] }),
+      });
+    } else props.onAddQuestionSaveHandler?.(addQuestionData);
   };
 
   const handleChange = (val: { value: string }, selectedCardId: number | undefined) => {
@@ -373,8 +428,8 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
 
 export const createDragEndHandler = (
   boards: KanbanBoardInfo[],
-  setBoards: Dispatch<SetStateAction<KanbanBoardInfo[]>>,
-  onBoardDataChange?: (boards: KanbanBoardInfo[]) => void,
+  setBoards: (next: KanbanBoardInfo[]) => void,
+  onColumnsChange?: (columns: KanbanColumn[]) => void,
 ) => {
   return (event: DragEndEvent) => {
     const { active, over } = event;
@@ -416,6 +471,6 @@ export const createDragEndHandler = (
       newBoards[destBoardIndex] = { ...newBoards[destBoardIndex], subCards: destSubCards };
     }
     setBoards(newBoards);
-    onBoardDataChange?.(newBoards);
+    onColumnsChange?.(newBoards);
   };
 };

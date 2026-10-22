@@ -1,10 +1,11 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useId, useState, type ReactNode, type ReactElement, type MouseEvent, Fragment } from 'react';
+import { useId, useState, type ReactNode, type ReactElement, type MouseEvent, type SyntheticEvent, Fragment } from 'react';
 import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListSubheader as MuiListSubheader,type ListProps, Divider } from '@mui/material';
 import clsx from 'clsx';
 import './rds-list.scss';
 import {Paper } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 export interface RdsListItem {
   id: string | number;
   primary: string;
@@ -28,18 +29,26 @@ export interface RdsListProps extends Omit<ListProps, 'component'> {
   /** Grouped sections with sticky subheaders — use instead of multiple lists in one scroll container. */
   sections?: RdsListSection[];
   /** Item layout style. @default 'simple' */
-  variant?: 'simple' | 'button' | 'icon' | 'avatar' | 'firebase';
+  variant?: 'simple' | 'button' | 'icon' | 'avatar' | 'dense' | 'firebase';
   /** Vertical alignment of item content. */
   alignItems?: 'flex-start' | 'center';
   /** Remove horizontal item padding. */
   disableGutters?: boolean;
   /** Render a divider between items. */
-  withDividers?: boolean;
+  dividers?: boolean;
   /** Show a checkbox for each item. */
-  withCheckboxes?: boolean;
-  /** Called when an item's checkbox toggles. Without `checkedItems` the list still tracks checked state internally. */
-  onCheckboxChange?: (id: string | number, checked: boolean) => void;
+  checkboxSelection?: boolean;
+  /** Called with the event and the new checked ids when an item's checkbox toggles. Without `checked` the list still tracks checked state internally. */
+  onCheckedChange?: (event: SyntheticEvent, ids: (string | number)[]) => void;
   /** Controlled checked item ids. When omitted the list manages checked state itself. */
+  checked?: (string | number)[];
+  /** @deprecated Use `dividers` instead. */
+  withDividers?: boolean;
+  /** @deprecated Use `checkboxSelection` instead. */
+  withCheckboxes?: boolean;
+  /** @deprecated Use `onCheckedChange` instead. */
+  onCheckboxChange?: (id: string | number, checked: boolean) => void;
+  /** @deprecated Use `checked` instead. */
   checkedItems?: (string | number)[];
 }
 
@@ -55,6 +64,10 @@ const RdsList = ({
   variant = 'simple',
   alignItems,
   disableGutters,
+  dividers: dividersProp,
+  checkboxSelection,
+  onCheckedChange,
+  checked,
   withDividers,
   withCheckboxes,
   onCheckboxChange,
@@ -63,16 +76,23 @@ const RdsList = ({
   dense,
   ...props
 }: RdsListProps) => {
+  if (withDividers !== undefined) warnDeprecatedProp('RdsList', 'withDividers', '`dividers`');
+  if (withCheckboxes !== undefined) warnDeprecatedProp('RdsList', 'withCheckboxes', '`checkboxSelection`');
+  if (onCheckboxChange !== undefined) warnDeprecatedProp('RdsList', 'onCheckboxChange', '`onCheckedChange`');
+  if (checkedItems !== undefined) warnDeprecatedProp('RdsList', 'checkedItems', '`checked`');
+  if (variant === 'firebase') warnDeprecatedProp('RdsList', 'variant="firebase"', '`variant="dense"`');
+  const dividers = dividersProp ?? withDividers;
+  const controlledChecked = checked ?? checkedItems;
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
   const baseId = useId();
   const [internalChecked, setInternalChecked] = useState<(string | number)[]>([]);
-  const isControlledChecked = checkedItems !== undefined;
+  const isControlledChecked = controlledChecked !== undefined;
   const effectiveCheckedItems = isControlledChecked
-    ? (Array.isArray(checkedItems) ? checkedItems : [])
+    ? (Array.isArray(controlledChecked) ? controlledChecked : [])
     : internalChecked;
-  const showCheckboxes = withCheckboxes === true;
+  const showCheckboxes = (checkboxSelection ?? withCheckboxes) === true;
 
-  const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
+  const variantClass = variant === 'firebase' || variant === 'dense' ? 'rds-list--firebase' : '';
   const denseClass = dense ? 'rds-list--dense' : '';
   const rootClass = clsx('rds-list', variantClass, denseClass, className);
 
@@ -84,16 +104,15 @@ const RdsList = ({
     disableGutters && 'rds-list__item--no-gutters',
   );
 
-  const handleCheckboxChange = (id: string | number) => () => {
+  const handleCheckboxChange = (id: string | number, event: SyntheticEvent) => {
     const isChecked = !effectiveCheckedItems.includes(id);
+    const newChecked = isChecked
+      ? [...effectiveCheckedItems, id]
+      : effectiveCheckedItems.filter(item => item !== id);
 
-    if (!isControlledChecked) {
-      const newChecked = isChecked
-        ? [...effectiveCheckedItems, id]
-        : effectiveCheckedItems.filter(item => item !== id);
-      setInternalChecked(newChecked);
-    }
+    if (!isControlledChecked) setInternalChecked(newChecked);
     onCheckboxChange?.(id, isChecked);
+    onCheckedChange?.(event, newChecked);
   };
 
   const handleToggle = (id: string | number) => {
@@ -155,8 +174,8 @@ const RdsList = ({
           <RdsCheckbox
             checked={effectiveCheckedItems.includes(item.id)}
             isDisabled={item.disabled}
-            onChange={() => handleCheckboxChange(item.id)()}
-            variant="square"
+            onChange={(event) => handleCheckboxChange(item.id, event)}
+            style="square"
           />
         </MuiListItemIcon>
       ) : null;
@@ -172,7 +191,7 @@ const RdsList = ({
           <MuiListItemButton
             onClick={showCheckboxes
               ? (event: MouseEvent<HTMLElement>) => {
-                  handleCheckboxChange(item.id)();
+                  handleCheckboxChange(item.id, event);
                   (item.onClick as ((e: MouseEvent<HTMLElement>) => void) | undefined)?.(event);
                 }
               : item.onClick}
@@ -222,7 +241,7 @@ const RdsList = ({
   };
 
   const renderItems = (sectionItems: RdsListItem[]): ReactNode[] => {
-    if (withDividers) {
+    if (dividers) {
       const sectionChildren: ReactNode[] = [];
       sectionItems.forEach((item, idx) => {
         const hasChildren = Array.isArray(item.children) && item.children.length > 0;

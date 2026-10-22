@@ -1,6 +1,7 @@
 import { useId, useState, type ReactNode } from 'react';
 import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButton } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-collapse.scss';
 
 export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle' | 'component'> {
@@ -19,7 +20,9 @@ export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onTo
   defaultExpanded?: boolean;
   /** Called with the new expanded state on every toggle. */
   onToggle?: (expanded: boolean) => void;
-  /** Shows the toggle button and makes the header clickable. Defaults to `true`. */
+  /** Hides the toggle button and makes the header non-clickable. Defaults to `false`. */
+  hideToggle?: boolean;
+  /** @deprecated Use `hideToggle` instead. */
   showToggleButton?: boolean;
 }
 
@@ -29,19 +32,20 @@ const RdsCollapse = ({
   expanded,
   defaultExpanded,
   onToggle,
-  showToggleButton = true,
+  hideToggle,
+  showToggleButton,
   in: inProp,
   id: idProp,
   ...props
 }: RdsCollapseProps) => {
+  if (showToggleButton !== undefined) warnDeprecatedProp('RdsCollapse', 'showToggleButton', '`hideToggle`');
+  const showToggle = hideToggle === undefined ? (showToggleButton ?? true) : !hideToggle;
   const generatedId = useId();
   const contentId = idProp ?? generatedId;
 
-  // Controlled only when the consumer owns both the value and the change handler.
   const isControlled = expanded !== undefined && onToggle !== undefined;
   const [internalExpanded, setInternalExpanded] = useState(expanded ?? defaultExpanded ?? false);
 
-  // Re-sync the internal state when the `expanded` prop changes (derive-from-props pattern).
   const [prevExpanded, setPrevExpanded] = useState(expanded);
   if (expanded !== prevExpanded) {
     setPrevExpanded(expanded);
@@ -49,7 +53,6 @@ const RdsCollapse = ({
   }
 
   const currentExpanded = isControlled ? expanded : internalExpanded;
-  // MUI's `in` takes precedence over the component state for the content area.
   const contentOpen = inProp ?? currentExpanded;
   const hasTitle = typeof title === 'string' && title !== '';
 
@@ -61,25 +64,23 @@ const RdsCollapse = ({
 
   return (
     <Box>
-      {(hasTitle || showToggleButton) && (
-        // The header enlarges the pointer hit area; the IconButton inside is the single
-        // keyboard/screen-reader control (clicks on it bubble up to this handler).
+      {(hasTitle || showToggle) && (
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
             gap: 1,
-            cursor: showToggleButton ? 'pointer' : 'default',
+            cursor: showToggle ? 'pointer' : 'default',
             py: 1,
           }}
-          onClick={showToggleButton ? handleToggle : undefined}
+          onClick={showToggle ? handleToggle : undefined}
         >
           {hasTitle && (
             <Typography variant="h6" component="div">
               {title}
             </Typography>
           )}
-          {showToggleButton && (
+          {showToggle && (
             <IconButton
               aria-label={currentExpanded ? 'Collapse' : 'Expand'}
               aria-expanded={contentOpen}

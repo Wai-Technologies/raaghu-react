@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, type ChangeEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { useRef, useState, useCallback, type ChangeEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from 'react';
 import clsx from 'clsx';
 import { Box, Typography } from '@mui/material';
 import { Delete } from '@mui/icons-material';
@@ -14,7 +14,7 @@ export interface PredefinedSignatureItem {
 export interface RdsESignatureUploadProps {
   type: 'fullname' | 'initials';
   disabled: boolean;
-  disabledFooterMessage?: string;
+  disabledFooterMessage?: ReactNode;
   width?: number;
   /** Shows the required asterisks. Defaults to `true`. */
   required?: boolean;

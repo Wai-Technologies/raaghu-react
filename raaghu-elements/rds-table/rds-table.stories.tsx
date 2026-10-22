@@ -17,7 +17,7 @@ const meta: Meta<typeof RdsTable> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      exclude: ['rows', 'columns','onRowAction','onPageChange','onPageSizeChange','selectedRows','onRowSelect','className','component'],
+      exclude: ['rows', 'columns','onRowAction','onPageChange','onPageSizeChange','selected','onSelectionChange','selectedRows','onRowSelect','className','component'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -366,8 +366,8 @@ export const Default: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(_, ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -391,8 +391,8 @@ export const SmallSize: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(_, ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -412,8 +412,8 @@ export const StickyHeader: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(_, ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -433,8 +433,8 @@ export const LargeDataset: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(_, ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -459,8 +459,8 @@ export const WithActions: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(_, ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -488,8 +488,8 @@ export const Empty: Story = {
     return (
       <RdsTable
         {...args}
-        selectedRows={selected}
-        onRowSelect={setSelected}
+        selected={selected}
+        onSelectionChange={(_, ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />

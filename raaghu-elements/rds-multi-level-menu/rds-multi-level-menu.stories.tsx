@@ -16,14 +16,14 @@ const meta = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    type: {
+    variant: {
       control: { type: 'select' },
       options: ['expandable', 'selectable'],
       description: 'Defines the menu behavior, either expandable sub-menus or selectable items',
     },
     size: {
       control: { type: 'select' },
-      options: ['default', 'large'],
+      options: ['medium', 'large'],
       description: 'Sets the size of the menu items',
     },
     state: {
@@ -63,7 +63,7 @@ export const Default:Story ={
      expect(buttons.length).toBeGreaterThan(0);
    },
    render: (args) => {
-     const base: MenuOption[] = args.options ?? [];
+     const base: MenuOption[] = args.items ?? [];
      if (args.size === 'large') {
        const templateWithChildren = base.find(o => Array.isArray(o.children) && o.children.length > 0);
        const firstExtra: MenuOption = templateWithChildren
@@ -78,14 +78,14 @@ export const Default:Story ={
          : { label: 'Option', shortcut: 'Shortcut' };
        const secondExtra: MenuOption = { label: 'Option', shortcut: 'Shortcut' };
        const computedOptions: MenuOption[] = [...base, firstExtra, secondExtra];
-       return <RdsMultiLevelMenu {...args} options={computedOptions} />;
+       return <RdsMultiLevelMenu {...args} items={computedOptions} />;
      }
-     return <RdsMultiLevelMenu {...args} options={base} />;
+     return <RdsMultiLevelMenu {...args} items={base} />;
    },
    args: {
-      options: options,
-      type: 'expandable',
-      size: 'default',
+      items: options,
+      variant: 'expandable',
+      size: 'medium',
       state: 'default',
    }
 }

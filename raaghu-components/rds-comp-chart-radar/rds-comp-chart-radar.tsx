@@ -1,7 +1,13 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
-import type { ChartOptions, ChartDataset } from "chart.js/auto";
-import { chartTextColor, getCSSVar } from "../chart-utils";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import {
+  applyCanvasSize,
+  chartTextColor,
+  getCSSVar,
+  resolveChartData,
+  resolveChartLabel,
+} from "../chart-utils";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-radar.scss";
@@ -9,18 +15,24 @@ import "./rds-comp-chart-radar.scss";
 /** Props for {@link RdsCompRadarChart}. */
 export interface RdsCompRadarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
-  /** Point labels around the chart. */
-  labels: string[];
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"radar">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
   /** Chart.js options (never mutated). */
   options: ChartOptions<"radar">;
-  /** Chart.js radar datasets. */
-  dataSets: ChartDataset<"radar">[];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"radar">[];
   /** Id of the canvas element. */
   id: string;
   /** Accessible label of the chart. Default "Radar chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
-  /** Canvas height in px. */
-  height?: number;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
   /** @deprecated Use `height` instead (this is the canvas height in px). */
   radius?: number;
   /** Ref forwarded to the root `<div>`. */
@@ -34,12 +46,15 @@ const numericCSSVar = (varName: string, fallback: number) => {
 };
 
 const RdsCompRadarChart = ({
+  data,
   labels,
   options,
   dataSets,
   id,
+  ariaLabel,
   chartLabel,
   height,
+  width,
   radius,
   className,
   ref,
@@ -47,12 +62,13 @@ const RdsCompRadarChart = ({
 }: RdsCompRadarProps) => {
   if (radius !== undefined) warnDeprecatedProp("RdsCompRadarChart", "radius", "`height`");
   const canvasHeight = height ?? radius;
+  const resolved = resolveChartData("RdsCompRadarChart", data, labels, dataSets, false);
 
   const { canvasRef } = useChart<"radar">(
     {
       type: "radar",
-      labels,
-      datasets: dataSets,
+      labels: resolved.labels,
+      datasets: resolved.datasets,
       options,
       themeAxes: ["r"],
       overrides: (chartOptions) => {
@@ -81,7 +97,6 @@ const RdsCompRadarChart = ({
                 boxHeight: 8,
                 padding: 20,
                 ...passedLabels,
-                // ensure pointStyleWidth is not set (causes oval distortion)
                 pointStyleWidth: undefined,
                 font: {
                   size: numericCSSVar("--rds-font-size-md", 12),
@@ -100,15 +115,16 @@ const RdsCompRadarChart = ({
       onCreate: (chart) => {
         if (chart?.canvas) {
           if (canvasHeight) {
-            chart.canvas.style.height = `${canvasHeight}px`;
+            applyCanvasSize(chart.canvas, canvasHeight);
           } else {
             chart.canvas.style.height = "";
             chart.canvas.style.width = "";
           }
+          applyCanvasSize(chart.canvas, undefined, width);
         }
       },
     },
-    [labels, options, dataSets, canvasHeight, id]
+    [resolved.labels, options, resolved.datasets, canvasHeight, width, id]
   );
 
   return (
@@ -121,7 +137,7 @@ const RdsCompRadarChart = ({
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Radar chart"}
+        aria-label={resolveChartLabel("RdsCompRadarChart", ariaLabel, chartLabel, "Radar chart")}
       />
     </div>
   );

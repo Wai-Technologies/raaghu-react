@@ -5,10 +5,9 @@ import { axe } from 'jest-axe';
 import RdsCompContribution from './rds-comp-contribution';
 import dayjs from 'dayjs';
 
-// Mock the SCSS file
 jest.mock('./rds-comp-contribution.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock react-measure
 jest.mock('react-measure', () => {
   return function MockMeasure({ children, onResize }: any) {
     React.useEffect(() => {
@@ -22,7 +21,6 @@ jest.mock('react-measure', () => {
   };
 });
 
-// Mock MUI SvgIcon
 jest.mock('@mui/material/SvgIcon', () => {
   return function MockSvgIcon({ children, className, viewBox, sx, ...props }: any) {
     return (
@@ -799,5 +797,42 @@ describe('audit fixes', () => {
     expect(root).toBeInTheDocument();
     expect(root).toHaveAttribute('data-testid', 'root');
     expect(ref.current).toBe(root);
+  });
+});
+
+describe('audit fixes', () => {
+  const base = {
+    data: { '2024-12-30': 1 },
+    colors: ['#ffffff', '#808080'],
+    weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    showWeekLabels: true,
+  };
+
+  it('renders with the new prop names and slotProps', () => {
+    const { container } = render(
+      <RdsCompContribution
+        {...base}
+        endDate={dayjs('2024-12-31')}
+        slotProps={{ panel: { 'data-x': 'p' }, weekLabel: { 'data-x': 'w' }, monthLabel: { 'data-x': 'm' } }}
+      />
+    );
+    expect(container.querySelector('rect[data-date="2024-12-30"]')).toHaveAttribute('fill', '#808080');
+    expect(container.querySelector('rect[data-x="p"]')).toBeInTheDocument();
+    expect(container.querySelector('text[data-x="w"]')).toHaveTextContent('S');
+    expect(container.querySelector('text[data-x="m"]')).toBeInTheDocument();
+  });
+
+  it('accepts a Date endDate', () => {
+    const { container } = render(<RdsCompContribution {...base} endDate={new Date(2024, 11, 31)} />);
+    expect(container.querySelector('rect[data-date="2024-12-31"]')).toBeInTheDocument();
+  });
+
+  it('warns for deprecated props', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    render(<RdsCompContribution values={{}} until="2024-12-31" panelColors={['#fff']} weekNames={[]} monthNames={[]} panelAttributes={{}} />);
+    ['values', 'until', 'panelColors', 'weekNames', 'monthNames', 'panelAttributes'].forEach((name) =>
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompContribution', name, expect.any(String))
+    );
   });
 });

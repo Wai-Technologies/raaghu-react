@@ -8,7 +8,6 @@ import { axe } from 'jest-axe';
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-progress.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -557,7 +556,6 @@ describe('RdsProgress', () => {
           </ThemeProvider>
         );
       }
-      // Verify progress component renders
       const progress = container.querySelector('.rds-progress--line');
       expect(progress).toBeInTheDocument();
     });
@@ -770,5 +768,22 @@ describe('audit fixes', () => {
     expect(bar).toHaveAttribute('aria-label', 'Wizard');
     expect(bar).toHaveAttribute('aria-valuemax', '100');
     expect(screen.getByText('S2')).toBeInTheDocument();
+  });
+});
+
+describe('doc-09 renames', () => {
+  it('mode replaces variant and variant warns', () => {
+    const { container } = render(<RdsProgress mode="determinate" value={40} showLabel />);
+    expect(screen.getByText('40%')).toBeInTheDocument();
+    expect(container.querySelector('.rds-progress--indeterminate')).toBeNull();
+    render(<RdsProgress variant="determinate" value={10} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsProgress', 'variant', '`mode`');
+  });
+
+  it('stepIcon dot matches stepperType circle silently', () => {
+    const { container } = render(<RdsProgress style="stepper" stepIcon="dot" steps={2} />);
+    expect(container.querySelectorAll('.rds-progress__stepper-inner-dot')).toHaveLength(5);
+    const legacy = render(<RdsProgress style="stepper" stepperType="circle" steps={2} />);
+    expect(legacy.container.querySelectorAll('.rds-progress__stepper-inner-dot')).toHaveLength(5);
   });
 });

@@ -1,5 +1,6 @@
 import RdsCompDatepicker from "./rds-comp-datepicker";
-import { DatePickerLayout, DatePickerState, DatePickerStyleType, type RdsCompDatepickerProps } from "./rds-comp-datepicker.types";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { DatePickerLayout, DatePickerState } from "./rds-comp-datepicker.types";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
@@ -17,8 +18,6 @@ const meta: Meta = {
             source:{
                 transform: (code: string) => {
                    
-                    code = code.replace(/datePickerStyleType="([^"]+)"/g, (match, p1) => `datePickerStyleType={DatePickerStyleType.${p1.replace(/\s+/g, '')}}`);
-                    code = code.replace(/datePickerStyleType:\s*"([^"]+)"/g, (match, p1) => `datePickerStyleType: DatePickerStyleType.${p1.replace(/\s+/g, '')}`);
                     code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={DatePickerLayout.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: DatePickerLayout.${p1.replace(/\s+/g, '')}`);
                     code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={DatePickerState.${p1.replace(/\s+/g, '')}}`);
@@ -30,8 +29,8 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        datePickerStyleType: {
-            options: ["Dropdown", "Selector"],
+        variant: {
+            options: ["dropdown", "selector"],
             control: { type: "select" },
         },
         layout: {
@@ -42,12 +41,13 @@ const meta: Meta = {
             options: ["Default", "Expanded", "Selected"],
             control: { type: "select" },
         },
-        variant: {
+        type: {
             options: ["Default", "Custom"],
             control: { type: "select" },
         },
-        changeIcon: {
+        openPickerIcon: {
             options: ["calendar", "dashboard_settings"],
+            mapping: { calendar: undefined, dashboard_settings: <SettingsIcon className="rds-datepicker__calendar-icon" /> },
             control: { type: "select" },
         },
     },
@@ -59,13 +59,13 @@ type Story = StoryObj<typeof RdsCompDatepicker>;
 export const Default: Story = {
     args: {
         state: DatePickerState.Default,
-        variant: "Custom",
+        type: "Custom",
         showTitle: true,
-        titleText: "Date",
+        label: "Date",
         required: true,
-        placeholderText: "Select Date",
-        changeIcon: "calendar",
-        datePickerStyleType: DatePickerStyleType.Selector,
+        placeholder: "Select Date",
+        openPickerIcon: "calendar",
+        variant: "selector",
         layout: DatePickerLayout.Default,
     },
     play: async ({ canvas }) => {
@@ -73,4 +73,6 @@ export const Default: Story = {
         await expect(input).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['state','variant','changeIcon','layout', 'showTitle','title','required','placeholderText','datePickerStyleType'] } };
+Default.parameters = { controls: { include: ['state','type','openPickerIcon','layout','showTitle','label','required','placeholder','variant'] } };
+
+

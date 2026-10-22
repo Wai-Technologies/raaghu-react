@@ -20,7 +20,7 @@ figma.connect(
       showSecondaryButton: figma.boolean("🔶 Show Secondary Button"),
       showPrimaryButton: figma.boolean("🔷 Show Primary Button"),
       showButton: figma.boolean("🕹️ Show Button"),
-      layout: figma.enum("📱 Layout", {
+      orientation: figma.enum("📱 Layout", {
         Vertical: NotificationLayout.Vertical,
         Horizontal: NotificationLayout.Horizontal,
       }),

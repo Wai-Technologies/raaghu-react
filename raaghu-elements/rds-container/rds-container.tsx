@@ -3,10 +3,11 @@ import {
   Container as MuiContainer,
   type ContainerProps
 } from '@mui/material';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 export interface RdsContainerProps extends Omit<ContainerProps, 'component'> {
   children: ReactNode;
-  /** Padding on all sides (theme spacing for numbers, any CSS length for strings). `0` removes the padding. */
+  /** @deprecated Use `sx` instead. Padding on all sides (theme spacing for numbers, any CSS length for strings). `0` removes the padding. */
   padding?: number | string;
 }
 
@@ -16,9 +17,7 @@ const RdsContainer = ({
   sx,
   ...props
 }: RdsContainerProps) => {
-  // The default padding is used when neither `padding` nor a plain-object `sx` with
-  // `padding`/`p`/`px`/`py` is given. Array and function `sx` are not inspected, so the
-  // default padding still applies with them (it is inline and wins over their padding).
+  if (padding !== undefined) warnDeprecatedProp('RdsContainer', 'padding', '`sx`');
   const applyDefaultPadding =
     padding === undefined &&
     !(sx && typeof sx === 'object' && ('padding' in sx || 'p' in sx || 'px' in sx || 'py' in sx));
@@ -31,7 +30,6 @@ const RdsContainer = ({
         padding !== undefined && { padding },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
-      // Spread last on purpose: a consumer `style` replaces the default padding style.
       {...props}
     >
       {children}

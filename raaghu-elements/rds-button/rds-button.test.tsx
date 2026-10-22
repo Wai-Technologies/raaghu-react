@@ -98,6 +98,13 @@ describe('RdsButton — keyboard navigation', () => {
 });
 
 describe('RdsButton audit fixes', () => {
+  it('lets selected override the state-derived look', () => {
+    const { rerender } = render(<RdsButton state="selected" selected={false}>A</RdsButton>);
+    expect(screen.getByRole('button')).toHaveClass('rds-button__state-default');
+    rerender(<RdsButton selected>A</RdsButton>);
+    expect(screen.getByRole('button')).toHaveClass('rds-button__state-selected');
+  });
+
   it('keeps its own classes when a consumer passes className (G1-134)', () => {
     render(<RdsButton className="my-button">Save</RdsButton>);
     const button = screen.getByRole('button', { name: 'Save' });

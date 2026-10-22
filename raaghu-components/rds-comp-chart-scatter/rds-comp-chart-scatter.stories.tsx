@@ -19,13 +19,6 @@ const meta: Meta = {
 
     },
     tags: ['autodocs', 'stable'],
-    argTypes: {
-        chartType: {
-            control: { type: "radio" },
-            options: ["scatter", "bar", "line"],
-            description: "Chart rendering type for the canvas and datasets.",
-        },
-    },
 } satisfies Meta<typeof RdsCompScatterChart>;
 
 export default meta;
@@ -34,25 +27,26 @@ type Story = StoryObj<typeof RdsCompScatterChart>;
 export const Default: Story = {
     args: {
         id: "Scatter_Chart",
-        chartType: "scatter",
-        dataSets: [
-            {
-                label: "Scatter Dataset",
-                data: [
-                    { x: -10, y: 0 },
-                    { x: -8, y: 3 },
-                    { x: -5, y: 5 },
-                    { x: 0, y: 9 },
-                    { x: 4, y: 3 },
-                    { x: 9, y: 5 },
-                    { x: 0.5, y: 5.5 }
-                ],
-                backgroundColor: "rgb(255, 99, 132)",
-                pointStyle: 'triangle',
-                pointRadius: 8,
-            }
-        ],
-        labels: ["January", "February", "March", "April"],
+        data: {
+            labels: ["January", "February", "March", "April"],
+            datasets: [
+                {
+                    label: "Scatter Dataset",
+                    data: [
+                        { x: -10, y: 0 },
+                        { x: -8, y: 3 },
+                        { x: -5, y: 5 },
+                        { x: 0, y: 9 },
+                        { x: 4, y: 3 },
+                        { x: 9, y: 5 },
+                        { x: 0.5, y: 5.5 }
+                    ],
+                    backgroundColor: "rgb(255, 99, 132)",
+                    pointStyle: 'triangle',
+                    pointRadius: 8,
+                }
+            ],
+        },
         options: {
             responsive: true,
             maintainAspectRatio: false,
@@ -92,32 +86,33 @@ export const Default: Story = {
 export const WithMultiAxis: Story = {
     args: {
         id: "Scatter_Chart_Multi_Axis",
-        chartType: "scatter",
-        dataSets: [
-            {
-                label: "Scatter Dataset 1",
-                data: [
-                    { x: -10, y: 0 },
-                    { x: -3, y: 7 },
-                    { x: 9, y: 5 },
-                    { x: 0.5, y: 5.5 }
-                ],
-                backgroundColor: "rgb(255, 99, 132)",
-                yAxisID: "y",
-            },
-            {
-                label: "Scatter Dataset 2",
-                data: [
-                    { x: -20, y: 9 },
-                    { x: 10, y: -10 },
-                    { x: 20, y: 15 },
-                    { x: 1.5, y: 15.5 }
-                ],
-                backgroundColor: "rgb(155, 99, 132)",
-                yAxisID: "y",
-            }
-        ],
-        labels: ["January", "February", "March", "April"],
+        data: {
+            labels: ["January", "February", "March", "April"],
+            datasets: [
+                {
+                    label: "Scatter Dataset 1",
+                    data: [
+                        { x: -10, y: 0 },
+                        { x: -3, y: 7 },
+                        { x: 9, y: 5 },
+                        { x: 0.5, y: 5.5 }
+                    ],
+                    backgroundColor: "rgb(255, 99, 132)",
+                    yAxisID: "y",
+                },
+                {
+                    label: "Scatter Dataset 2",
+                    data: [
+                        { x: -20, y: 9 },
+                        { x: 10, y: -10 },
+                        { x: 20, y: 15 },
+                        { x: 1.5, y: 15.5 }
+                    ],
+                    backgroundColor: "rgb(155, 99, 132)",
+                    yAxisID: "y",
+                }
+            ],
+        },
         options: {
             responsive: true,
             maintainAspectRatio: false,

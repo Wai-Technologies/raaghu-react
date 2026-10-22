@@ -1,4 +1,5 @@
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -7,7 +8,6 @@ import RdsPopover from './rds-popover';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-popover.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -105,7 +105,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // When popover is open, content is visible
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -120,8 +119,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // MUI Popover handles Escape key internally
-      // Just verify that popover is open when rendering
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -148,8 +145,6 @@ describe('RdsPopover', () => {
           </RdsPopover>
         </ThemeProvider>
       );
-      // MUI Popover renders DOM but component handles visibility
-      // Just verify no errors occur during rerender
       expect(true).toBe(true);
     });
   });
@@ -179,7 +174,6 @@ describe('RdsPopover', () => {
           Content
         </RdsPopover>
       );
-      // Only content should be provided when title is not provided
       expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
@@ -862,5 +856,23 @@ describe('audit fixes', () => {
       </RdsPopover>
     );
     expect(screen.getByText('Legacy')).toBeInTheDocument();
+  });
+});
+
+describe('audit fixes', () => {
+  it('renders the arrow with placement and hides it with arrow={false}', () => {
+    const anchor = document.createElement('div');
+    document.body.appendChild(anchor);
+    const { rerender } = render(<RdsPopover open onClose={jest.fn()} anchorEl={anchor} placement="top-center">Content</RdsPopover>);
+    expect(document.querySelector('.rds-popover__arrow--top-center')).toBeInTheDocument();
+    rerender(<RdsPopover open onClose={jest.fn()} anchorEl={anchor} placement="top-center" arrow={false}>Content</RdsPopover>);
+    expect(document.querySelector('.rds-popover__arrow')).not.toBeInTheDocument();
+  });
+
+  it('warns when deprecated position is used', () => {
+    const anchor = document.createElement('div');
+    document.body.appendChild(anchor);
+    render(<RdsPopover open onClose={jest.fn()} anchorEl={anchor} position="top-left">Content</RdsPopover>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsPopover', 'position', '`placement` and `arrow`');
   });
 });

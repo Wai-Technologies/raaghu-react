@@ -45,10 +45,9 @@ const meta: Meta<typeof RdsButton> = {
       options: ['pill', 'rectangle'],
       description: 'The shape of the button',
     },
-    textCase: {
-      control: { type: "select" },
-      options: ["uppercase", "lowercase", "capitalize", "unset"],
-      description: 'The text case of the button',
+    selected: {
+      control: 'boolean',
+      description: 'Selected look (preferred over state="selected")',
     },
     state: {
       control: 'select',
@@ -91,7 +90,6 @@ export const Default: Story = {
     disabled: false,
     loading: false,
     shape: 'rectangle',
-    textCase: 'uppercase',
     state: 'default',
     layout: 'text-only',
     showLeftIcon: true,

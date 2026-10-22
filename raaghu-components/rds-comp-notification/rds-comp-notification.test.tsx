@@ -11,12 +11,8 @@ import {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
-
-// Mock SCSS
 jest.mock('./rds-comp-notification.scss', () => ({}));
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
-
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Card: ({ children, className, ...props }: any) => (
     <div data-testid="card" className={className} {...props}>{children}</div>
@@ -43,13 +39,9 @@ jest.mock('@mui/material', () => ({
     <img data-testid="avatar" src={src} alt="Avatar" {...props} />
   ),
 }));
-
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   Close: () => <span data-testid="close-icon">×</span>,
 }));
-
-// Mock RDS elements
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => ({
   __esModule: true,
   default: ({ text, onClick, className, style, color, size }: any) => (
@@ -362,7 +354,6 @@ describe('RdsCompNotification', () => {
           showDismiss={true}
         />
       );
-      // The old notification should still be displayed if we pass the same props
       expect(screen.getByText('Test Notification')).toBeInTheDocument();
     });
   });
@@ -499,7 +490,6 @@ describe('RdsCompNotification', () => {
           notifications={[notificationWithoutTime]}
         />
       );
-      // Check that the notification is rendered but time is not
       expect(screen.getByText('Test')).toBeInTheDocument();
     });
   });
@@ -516,7 +506,6 @@ describe('RdsCompNotification', () => {
           }]}
         />
       );
-      // Avatar mock is rendered as img
       expect(screen.getAllByTestId('avatar').length).toBeGreaterThan(0);
     });
 
@@ -786,7 +775,6 @@ describe('RdsCompNotification', () => {
         />
       );
       const acceptButton = screen.getByTestId('rds-button-accept');
-      // Should not throw
       fireEvent.click(acceptButton);
       expect(acceptButton).toBeInTheDocument();
     });
@@ -845,12 +833,8 @@ describe('RdsCompNotification', () => {
           onDismiss={onDismiss}
         />
       );
-
-      // Click accept
       fireEvent.click(screen.getByTestId('rds-button-accept'));
       expect(onAccept).toHaveBeenCalled();
-
-      // Click dismiss via button
       fireEvent.click(screen.getByTestId('rds-button-dismiss'));
       expect(onDismiss).toHaveBeenCalled();
     });
@@ -932,5 +916,34 @@ describe('RdsCompNotification', () => {
       expect(card).toHaveClass('extra');
       expect(container.querySelector('img')).toHaveAttribute('alt', 'Same');
     });
+  });
+});
+
+describe('audit fixes', () => {
+  const list = [{ id: 1, title: 'One' }];
+
+  it('renders items and warns for notifications', () => {
+    render(<RdsCompNotification items={list} />);
+    expect(screen.getByText('One')).toBeInTheDocument();
+    render(<RdsCompNotification notifications={list} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompNotification', 'notifications', '`items`');
+  });
+
+  it('uses fallbackImage and warns for defaultImage', () => {
+    const { container } = render(<RdsCompNotification items={list} variant="image" fallbackImage="/fb.png" defaultImage="/old.png" />);
+    expect(container.querySelector('img')).toHaveAttribute('src', '/fb.png');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompNotification', 'defaultImage', '`fallbackImage`');
+  });
+
+  it('orientation and variant win over layout and style', () => {
+    const { container } = render(<RdsCompNotification items={list} orientation="vertical" layout="horizontal" variant="icon" style="avatar" />);
+    expect(container.querySelector('.rds-comp-notification--layout-vertical')).toBeInTheDocument();
+    expect(container.querySelector('.rds-comp-notification--style-icon')).toBeInTheDocument();
+  });
+
+  it('warns for dismiss and still shows the dismiss icon', () => {
+    render(<RdsCompNotification items={list} dismiss="visible" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompNotification', 'dismiss', '`showDismiss`');
+    expect(screen.getByTestId('rds-icon-button')).toBeInTheDocument();
   });
 });

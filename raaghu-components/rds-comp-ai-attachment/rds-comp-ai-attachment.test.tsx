@@ -5,18 +5,15 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiAttachment, { RdsCompAiAttachmentProps, UserData, Comment } from './rds-comp-ai-attachment';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-attachment.scss', () => ({}));
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock Material UI Icons
 jest.mock('@mui/icons-material/Attachment', () => {
   return function MockAttachmentIcon() {
     return <span data-testid="attachment-icon">Attachment</span>;
   };
 });
 
-// Mock child components
 jest.mock('../../raaghu-elements/rds-badge/rds-badge', () => {
   return function MockRdsBadge({ badgeContent, colorVariant, styleType, ...props }: any) {
     return (
@@ -72,16 +69,16 @@ jest.mock('../../raaghu-elements/rds-input/rds-input', () => {
 });
 
 jest.mock('../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
-  return function MockRdsCompAiFabMenu({ listItems, menuIcon, alignment, backgroundType, isShowBorder, dense, ...props }: any) {
+  return function MockRdsCompAiFabMenu({ items, listItems, icon, menuIcon, placement, alignment, variant: _variant, backgroundType: _backgroundType, bordered: _bordered, isShowBorder: _isShowBorder, dense: _dense, ...props }: any) {
     return (
-      <div data-testid="rds-fab-menu" data-alignment={alignment} {...props}>
+      <div data-testid="rds-fab-menu" data-alignment={placement ?? alignment} {...props}>
         <button data-testid="fab-menu-trigger" style={{ cursor: 'pointer' }}>
-          {menuIcon}
+          {icon ?? menuIcon}
         </button>
         <div data-testid="fab-menu-items">
-          {listItems?.map((item: any, idx: number) => (
+          {(items ?? listItems)?.map((item: any, idx: number) => (
             <div key={item.key || idx} data-testid={`fab-item-${item.key}`} style={{ cursor: 'pointer' }}>
-              {item.value}
+              {item.label ?? item.value}
             </div>
           ))}
         </div>
@@ -218,10 +215,8 @@ describe('RdsCompAiAttachment', () => {
 
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Create a mock image file
       const file = new File(['test'], 'test.jpg', { type: 'image/jpeg' });
 
-      // Mock FileReader
       const mockRead = jest.fn();
       const mockFileReader = jest.fn(function (this: any) {
         this.readAsDataURL = mockRead;
@@ -253,12 +248,10 @@ describe('RdsCompAiAttachment', () => {
 
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Create a non-image file
       const file = new File(['test'], 'test.pdf', { type: 'application/pdf' });
 
       fireEvent.change(fileInput, { target: { files: [file] } });
 
-      // Should not call handleAddComment for non-image files
       expect(handleAddComment).not.toHaveBeenCalled();
     });
 
@@ -266,7 +259,6 @@ describe('RdsCompAiAttachment', () => {
       const { container } = render(<RdsCompAiAttachment {...defaultProps} />);
       const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
 
-      // Mock FileReader
       const mockReadAsDataURL = jest.fn();
       const mockFileReader = jest.fn(function (this: any) {
         this.readAsDataURL = mockReadAsDataURL;
@@ -470,6 +462,34 @@ describe('RdsCompAiAttachment', () => {
       const root = screen.getByTestId('root');
       expect(root).toHaveClass('rds-comp-ai-attachment__dropdown', 'custom');
       expect(container.querySelector('input[type="file"]')).toHaveAttribute('accept', 'image/*');
+    });
+
+    it("uses icon, placement, badge and badgeProps.color over the deprecated props", () => {
+      render(<RdsCompAiAttachment {...defaultProps} icon="new_icon" placement="end" badge="Pro" badgeProps={{ color: "success" }} />);
+      expect(screen.getByTestId("fab-menu-trigger")).toHaveTextContent("new_icon");
+      expect(screen.getByTestId("rds-fab-menu")).toHaveAttribute("data-alignment", "right");
+      expect(screen.getByTestId("rds-badge")).toHaveTextContent("Pro");
+      expect(screen.getByTestId("rds-badge")).toHaveAttribute("data-color", "success");
+    });
+
+    it("uses slotProps texts and currentUser over the deprecated props", () => {
+      mockReader();
+      const onAddComment = jest.fn();
+      const { container } = render(
+        <RdsCompAiAttachment
+          {...defaultProps}
+          currentUser={{ firstName: "Ann", lastName: "Lee" }}
+          onAddComment={onAddComment}
+          slotProps={{ menu: { uploadText: "Up", importText: "Imp" }, dialog: { title: "T", text: "Body", placeholder: "P" } }}
+        />
+      );
+      expect(screen.getByText("Imp")).toBeInTheDocument();
+      fireEvent.click(screen.getByText("Up"));
+      expect(screen.getByTestId("modal-title")).toHaveTextContent("T");
+      expect(screen.getByText("Body")).toBeInTheDocument();
+      expect(screen.getByTestId("rds-input")).toHaveAttribute("placeholder", "P");
+      fireEvent.change(container.querySelector("input[type=\"file\"]")!, { target: { files: [new File(["x"], "a.png", { type: "image/png" })] } });
+      expect(onAddComment).toHaveBeenCalledWith(expect.objectContaining({ firstName: "Ann", lastName: "Lee" }));
     });
   });
 });

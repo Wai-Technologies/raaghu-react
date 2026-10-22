@@ -1,6 +1,7 @@
 import { Paper, Box } from '@mui/material';
+import type { RdsCompLayoutProps } from './rds-comp-layout';
 
-const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
+const renderLayoutContent = (displayType: NonNullable<RdsCompLayoutProps['displayType']>, hasShadow: boolean) => {
 
   if (displayType === 'Basic') {
     return (

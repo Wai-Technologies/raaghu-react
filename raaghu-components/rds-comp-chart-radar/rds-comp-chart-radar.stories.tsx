@@ -27,15 +27,82 @@ type Story = StoryObj<typeof RdsCompRadarChart>;
 export const Default: Story = {
     args: {
         id: "Radar_Chart",
-        labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "June",
-            "July"
-        ],
+        data: {
+            labels: [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "June",
+                "July"
+            ],
+            datasets: [
+                {
+                    "label": "Dataset 1",
+                    "data": [
+                        0.5,
+                        0.8,
+                        0.4,
+                        0.6,
+                        0.7,
+                        0.2,
+                        0.9
+                    ],
+                    "borderColor": [
+                        "#ff9f40"
+                    ],
+                    "backgroundColor": [
+                        "rgba(255, 99, 132, 0.2)"
+                    ],
+                    "fill": false,
+                    "pointStyle": "circle",
+                    "pointRadius": 2
+                },
+                {
+                    "label": "Dataset 2",
+                    "data": [
+                        0.9,
+                        0.3,
+                        0.8,
+                        0.9,
+                        0.1,
+                        0.7,
+                        0.2
+                    ],
+                    "borderColor": [
+                        "#ff6384"
+                    ],
+                    "backgroundColor": [
+                        "rgba(255, 206, 86, 0.2)"
+                    ],
+                    "fill": true,
+                    "pointStyle": "circle",
+                    "pointRadius": 2
+                },
+                {
+                    "label": "Dataset 3",
+                    "data": [
+                        0.7,
+                        0.2,
+                        0.1,
+                        0.9,
+                        0.8,
+                        0.4,
+                        0.7
+                    ],
+                    "borderColor": [
+                        "#83BE5A"
+                    ],
+                    "backgroundColor": [
+                        "rgba(255, 240, 204, 0.2)"
+                    ],
+                    "fill": false,
+                    "pointStyle": "circle",
+                    "pointRadius": 2
+                }
+            ],
+        },
         options: {
             "responsive": false,
             "chartArea": {
@@ -149,71 +216,6 @@ export const Default: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                "label": "Dataset 1",
-                "data": [
-                    0.5,
-                    0.8,
-                    0.4,
-                    0.6,
-                    0.7,
-                    0.2,
-                    0.9
-                ],
-                "borderColor": [
-                    "#ff9f40"
-                ],
-                "backgroundColor": [
-                    "rgba(255, 99, 132, 0.2)"
-                ],
-                "fill": false,
-                "pointStyle": "circle",
-                "pointRadius": 2
-            },
-            {
-                "label": "Dataset 2",
-                "data": [
-                    0.9,
-                    0.3,
-                    0.8,
-                    0.9,
-                    0.1,
-                    0.7,
-                    0.2
-                ],
-                "borderColor": [
-                    "#ff6384"
-                ],
-                "backgroundColor": [
-                    "rgba(255, 206, 86, 0.2)"
-                ],
-                "fill": true,
-                "pointStyle": "circle",
-                "pointRadius": 2
-            },
-            {
-                "label": "Dataset 3",
-                "data": [
-                    0.7,
-                    0.2,
-                    0.1,
-                    0.9,
-                    0.8,
-                    0.4,
-                    0.7
-                ],
-                "borderColor": [
-                    "#83BE5A"
-                ],
-                "backgroundColor": [
-                    "rgba(255, 240, 204, 0.2)"
-                ],
-                "fill": false,
-                "pointStyle": "circle",
-                "pointRadius": 2
-            }
-        ],
 
 
     },

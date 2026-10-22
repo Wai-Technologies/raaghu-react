@@ -87,7 +87,6 @@ export const ToolbarButton = ({
   const [dropdownPos, setDropdownPos] = useState<DropdownPosition | null>(null);
   const [portalThemeClass, setPortalThemeClass] = useState<string | null>(null);
 
-  // Measure after layout (not during render) and follow scroll/resize while open.
   useLayoutEffect(() => {
     const button = buttonRef.current;
     if (!isDropdownOpen || !button) {
@@ -105,7 +104,6 @@ export const ToolbarButton = ({
     };
   }, [isDropdownOpen]);
 
-  // Move focus into the menu when it first appears.
   const isMenuShown = dropdownPos !== null;
   useLayoutEffect(() => {
     if (isMenuShown) {

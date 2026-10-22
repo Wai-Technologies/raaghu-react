@@ -5,11 +5,9 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-autocomplete.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock checkbox component
 jest.mock('../rds-checkbox/rds-checkbox', () => {
   return function MockRdsCheckbox(props: any) {
     return <input type="checkbox" data-testid="rds-checkbox" checked={props.status === 'checked'} readOnly {...props} />;
@@ -949,7 +947,6 @@ describe('RdsAutocomplete audit fixes', () => {
     expect(event).toBeTruthy();
     expect(value).toBe(options[2]);
     expect(reason).toBe('selectOption');
-    // Controlled: the shown value follows the prop, not the click.
     expect(getInput(container).value).toBe('Option 2');
 
     rerender(<RdsAutocomplete options={options} value={options[2]} onChange={onChange} />);
@@ -1125,5 +1122,50 @@ describe('RdsAutocomplete audit fixes', () => {
     expect(container.querySelector('.rds-autocomplete__chip')).toHaveTextContent('#1');
     openList(container);
     expect(screen.getByRole('option', { name: '#2' })).toBeInTheDocument();
+  });
+});
+
+describe('RdsAutocomplete additive renames', () => {
+  const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+  const open = (c: HTMLElement) => fireEvent.mouseDown(c.querySelector('input') as HTMLInputElement);
+  beforeEach(() => (warnDeprecatedProp as jest.Mock).mockClear());
+
+  it('optionVariant wins over optionDecorators', () => {
+    const { container } = render(
+      <RdsAutocomplete options={options} optionVariant="radio" optionDecorators={{ checkbox: 'visible' }} />
+    );
+    open(container);
+    expect(document.querySelectorAll('input[type="radio"]').length).toBe(2);
+    expect(document.querySelectorAll('input[type="checkbox"]').length).toBe(0);
+  });
+
+  it('optionDecorators still works and warns', () => {
+    const { container } = render(<RdsAutocomplete options={options} optionDecorators={{ radio: 'visible' }} />);
+    open(container);
+    expect(document.querySelectorAll('input[type="radio"]').length).toBe(2);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'optionDecorators', '`optionVariant`');
+  });
+
+  it('getOptionIcon wins over userIcon per option', () => {
+    const { container } = render(
+      <RdsAutocomplete
+        options={options}
+        optionVariant="avatar"
+        userIcon={<i data-testid="old" />}
+        getOptionIcon={(o) => <i data-testid={`icon-${o.label}`} />}
+      />
+    );
+    open(container);
+    expect(screen.getByTestId('icon-Option 1')).toBeInTheDocument();
+    expect(screen.queryByTestId('old')).toBeNull();
+  });
+
+  it('userIcon still works and warns', () => {
+    const { container } = render(
+      <RdsAutocomplete options={options} isShowUser userIcon={<i data-testid="old" />} />
+    );
+    open(container);
+    expect(screen.getAllByTestId('old').length).toBe(2);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'userIcon', '`getOptionIcon`');
   });
 });

@@ -18,6 +18,10 @@ export interface RdsTimePickerProps {
   color?: TimePickerColor;
   /** Figma prop. */
   state?: 'default' | 'expanded' | 'selected';
+  /** Popup open state (controlled). Wins over `state`. */
+  open?: boolean;
+  /** Initial popup open state (uncontrolled). */
+  defaultOpen?: boolean;
   onChange?: (time: string) => void;
   /** Fired when the popup opens. */
   onOpen?: () => void;

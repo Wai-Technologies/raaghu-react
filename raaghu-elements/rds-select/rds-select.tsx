@@ -1,11 +1,11 @@
 import { useId } from 'react';
-import {
-  Select as MuiSelect,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  type SelectProps,
-  FormHelperText,
+import { 
+  Select as MuiSelect, 
+  FormControl, 
+  InputLabel, 
+  MenuItem, 
+  type SelectProps, 
+  FormHelperText 
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import clsx from 'clsx';
@@ -18,23 +18,24 @@ export interface RdsSelectOption {
   disabled?: boolean;
 }
 
-export interface RdsSelectProps
-  extends Omit<SelectProps, 'children' | 'component'> {
+export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
   /** Visible label text. */
   label?: string;
-  /** Placeholder shown when nothing is selected (only with `labelposition={false}`). */
+  /** Placeholder shown when nothing is selected (only with `labelPlacement="top"`). */
   placeholder?: string;
   /** Options rendered as menu items. */
   options: RdsSelectOption[];
   /** Helper text shown below the select. */
   helperText?: string;
-  /** Error text shown below the select; also puts the select in the error state. */
+  /** @deprecated Use `error` with `helperText` instead. */
   errorMessage?: string;
-  /** Whether the select is required. */
-  required?: boolean;
+  /** @deprecated Use `required` instead. */
+  isRequired?: boolean;
   /** @deprecated Use `placeholder` instead. */
   inputPlaceholder?: string;
-  /** `true` (default) renders a floating label; `false` renders the label above the field. */
+  /** `floating` (default) renders a floating label; `top` renders the label above the field. */
+  labelPlacement?: 'floating' | 'top';
+  /** @deprecated Use `labelPlacement` instead (`true` is `floating`, `false` is `top`). */
   labelposition?: boolean;
   /** Size of the select. @default 'small' */
   size?: 'small' | 'medium';
@@ -46,114 +47,87 @@ const RdsSelect = ({
   options,
   helperText,
   errorMessage,
-  required = false,
+  isRequired,
+  required,
   error,
   inputPlaceholder,
-  labelposition = true,
+  labelPlacement,
+  labelposition,
   size = 'small',
   className,
   ...props
 }: RdsSelectProps) => {
-  if (inputPlaceholder !== undefined) {
-    warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
-  }
-
+  if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
+  if (inputPlaceholder !== undefined) warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
+  if (errorMessage !== undefined) warnDeprecatedProp('RdsSelect', 'errorMessage', '`error` with `helperText`');
+  if (labelposition !== undefined) warnDeprecatedProp('RdsSelect', 'labelposition', '`labelPlacement`');
+  const floatingLabel = labelPlacement ? labelPlacement === 'floating' : (labelposition ?? true);
   const labelId = useId();
+  const isFieldRequired = required ?? isRequired ?? false;
   const resolvedPlaceholder = inputPlaceholder || placeholder;
   const hasError = !!errorMessage || error;
-
+  
   return (
-    <div
-      className={clsx(
-        'rds-select',
-        hasError && 'rds-select--error',
-        className
-      )}
-    >
-      <FormControl
-        fullWidth
-        error={hasError}
-        required={required}
+    <div className={clsx('rds-select', hasError && 'rds-select--error', className)}>
+      <FormControl 
+        fullWidth 
+        error={hasError} 
         size={size}
         className="rds-select__form-control"
       >
-        {!labelposition && label && (
+        {!floatingLabel && label && (
           <label id={labelId} className="rds-select__label">
             {label}
-            {required && (
-              <span className="rds-select__asterisk">*</span>
-            )}
+            {isFieldRequired && <span className="rds-select__asterisk">*</span>}
           </label>
         )}
-
-        {labelposition && label && (
-          <InputLabel
-            id={labelId}
-            required={required}
+        {floatingLabel && label && (
+          <InputLabel 
+            id={labelId} 
+            required={isFieldRequired}
             className="rds-select__input-label"
           >
             {label}
           </InputLabel>
         )}
-
         <MuiSelect
           labelId={label ? labelId : undefined}
-          label={labelposition ? label : undefined}
-          required={required}
+          label={floatingLabel ? label : undefined}
           IconComponent={KeyboardArrowDownIcon}
           className="rds-select__field"
-          {...(!labelposition && {
-            displayEmpty: !!resolvedPlaceholder,
-          })}
+          {...(!floatingLabel && { displayEmpty: !!resolvedPlaceholder })}
           renderValue={
-            !labelposition
+            !floatingLabel
               ? (selected) => {
-                  const labelFor = (value: unknown) => {
-                    const option = options.find(
-                      (item) => String(item.value) === String(value)
-                    );
-                    return option ? option.label : String(value);
+                  const labelFor = (v: unknown) => {
+                    const opt = options.find(o => String(o.value) === String(v));
+                    return opt ? opt.label : String(v);
                   };
-
                   if (Array.isArray(selected) && selected.length > 1) {
                     return selected.map(labelFor).join(', ');
                   }
-
-                  const value = Array.isArray(selected)
-                    ? selected[0]
-                    : selected;
-
-                  if (
-                    value === undefined ||
-                    value === null ||
-                    value === ''
-                  ) {
+                  const value = Array.isArray(selected) ? selected[0] : selected;
+                  if (value === undefined || value === null || value === "") {
                     return (
                       <span className="rds-select__placeholder">
                         {resolvedPlaceholder || ''}
                       </span>
                     );
                   }
-
-                  const selectedOption = options.find(
-                    (option) => String(option.value) === String(value)
-                  );
-
+                  const selectedOption = options.find(opt => String(opt.value) === String(value));
                   return selectedOption ? selectedOption.label : value;
                 }
               : undefined
           }
+          {...(required !== undefined && { required })}
           {...props}
-          {...(required && {
-            SelectDisplayProps: {
-              'aria-required': true,
-              ...props.SelectDisplayProps,
-            },
+          {...(isFieldRequired && {
+            SelectDisplayProps: { 'aria-required': true, ...props.SelectDisplayProps },
           })}
         >
           {options.map((option) => (
-            <MenuItem
-              key={option.value}
+            <MenuItem 
+              key={option.value} 
               value={option.value}
               disabled={option.disabled}
               className="rds-select__option"
@@ -162,7 +136,6 @@ const RdsSelect = ({
             </MenuItem>
           ))}
         </MuiSelect>
-
         {(helperText || errorMessage) && (
           <FormHelperText className="rds-select__helper-text">
             {errorMessage || helperText}
@@ -172,7 +145,5 @@ const RdsSelect = ({
     </div>
   );
 };
-
 RdsSelect.displayName = 'RdsSelect';
-
 export default RdsSelect;

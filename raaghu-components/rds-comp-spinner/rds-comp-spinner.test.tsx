@@ -9,7 +9,6 @@ import RdsCompSpinner, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-spinner.scss', () => ({}));
 
 describe('RdsCompSpinner', () => {
@@ -597,5 +596,19 @@ describe('audit fixes', () => {
   it('defaults aria-label to Loading', () => {
     render(<RdsCompSpinner />);
     expect(screen.getByRole('status')).toHaveAttribute('aria-label', 'Loading');
+  });
+});
+
+describe('audit fixes labelPlacement', () => {
+  it('maps labelPlacement to layout and wins over layout', () => {
+    const { container } = render(<RdsCompSpinner showLabel label="x" labelPlacement="top" layout="Label on bottom" />);
+    expect(container.firstChild).toHaveClass('spinner-container--label-top');
+  });
+
+  it('maps start and end', () => {
+    const a = render(<RdsCompSpinner labelPlacement="start" />);
+    expect(a.container.firstChild).toHaveClass('spinner-container--label-spinner');
+    const b = render(<RdsCompSpinner labelPlacement="end" />);
+    expect(b.container.firstChild).toHaveClass('spinner-container--spinner-label');
   });
 });

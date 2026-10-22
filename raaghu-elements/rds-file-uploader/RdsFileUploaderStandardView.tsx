@@ -1,4 +1,4 @@
-import { useId, type ReactNode, type ChangeEvent, type Dispatch, type SetStateAction } from 'react';
+import { useId, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
@@ -25,10 +25,10 @@ interface RdsFileUploaderStandardViewProps {
   hintText: string;
   selectedFileName: string | null;
   handleFileSelect: (e: ChangeEvent<HTMLInputElement>) => void;
-  addFiles: (files: File[]) => void;
+  addFiles: (files: File[], event?: SyntheticEvent) => void;
   setSelectedFileName: (name: string | null) => void;
   setFiles: Dispatch<SetStateAction<FileWithProgress[]>>;
-  onFilesChange?: (files: FileWithProgress[]) => void;
+  onFilesChange?: (files: FileWithProgress[], event?: SyntheticEvent) => void;
   children?: ReactNode;
   title?: string;
 }
@@ -85,7 +85,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
         }}
         onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); } : undefined}
         onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); } : undefined}
-        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); addFiles(Array.from(e.dataTransfer.files)); } : undefined}
+        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); addFiles(Array.from(e.dataTransfer.files), e); } : undefined}
       >
         <RdsButton
           style="filled"
@@ -125,10 +125,10 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
             className="rds-file-uploader__file-remove"
             size="small"
             aria-label={`Remove ${selectedFileName}`}
-            onClick={() => {
+            onClick={(event) => {
               setSelectedFileName(null);
               setFiles([]);
-              onFilesChange?.([]);
+              onFilesChange?.([], event);
             }}
             disabled={disabled}
             sx={{ ml: 'var(--rds-spacing-xs, 4px)' }}

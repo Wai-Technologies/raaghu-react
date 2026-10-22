@@ -25,7 +25,7 @@ figma.connect(
         width={200}
         variant={props.shape}
         frames={props.frames}
-        animated={true}
+        animation="pulse"
       />
     ),
   },
@@ -54,7 +54,7 @@ figma.connect(
         width={200}
         variant={props.shape}
         frames={props.frames}
-        animated={false}
+        animation={false}
       />
     ),
   },

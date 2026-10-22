@@ -18,7 +18,7 @@ figma.connect(
   {
     props: {
       showButtons: figma.boolean("🕹️ - Show Buttons"),
-      type: figma.enum("⚠️ Type", {
+      variant: figma.enum("⚠️ Type", {
         "Mac": ScrollBarType.Mac,
         "Simple": ScrollBarType.Simple,
       }),

@@ -1,6 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
-import type { ChartOptions, ChartDataset } from "chart.js/auto";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-chart-polar-area.scss";
@@ -8,31 +9,40 @@ import "./rds-comp-chart-polar-area.scss";
 /** Props for {@link RdsCompPolarAreaChart}. */
 export interface RdsCompPolarAreaChartProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
-  /** Segment labels. */
-  labels: string[];
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"polarArea">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
   /** Chart.js options (never mutated). */
   options: ChartOptions<"polarArea">;
-  /** Chart.js polar area datasets. */
-  dataSets: ChartDataset<"polarArea">[];
-  /** Canvas height in px. */
-  height?: number;
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"polarArea">[];
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
   /** @deprecated Use `height` instead (this is the canvas height in px). */
   radius?: number;
   /** Id of the canvas element. */
   id: string;
   /** Accessible label of the chart. Default "Polar area chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
 }
 
 const RdsCompPolarAreaChart = ({
+  data,
   labels,
   options,
   dataSets,
   height,
+  width,
   radius,
   id,
+  ariaLabel,
   chartLabel,
   className,
   ref,
@@ -40,20 +50,18 @@ const RdsCompPolarAreaChart = ({
 }: RdsCompPolarAreaChartProps) => {
   if (radius !== undefined) warnDeprecatedProp("RdsCompPolarAreaChart", "radius", "`height`");
   const canvasHeight = height ?? radius;
+  const resolved = resolveChartData("RdsCompPolarAreaChart", data, labels, dataSets, false);
 
   const { canvasRef } = useChart(
     {
       type: "polarArea",
-      labels,
-      datasets: dataSets,
+      labels: resolved.labels,
+      datasets: resolved.datasets,
       options,
       themeAxes: [],
-      onCreate: (chart) => {
-        // Without a height, Chart.js keeps its own size (HEAD wrote the invalid "undefinedpx" here).
-        if (canvasHeight !== undefined) chart.canvas.style.height = `${canvasHeight}px`;
-      },
+      onCreate: (chart) => applyCanvasSize(chart.canvas, canvasHeight, width),
     },
-    [labels, options, dataSets, canvasHeight, id]
+    [resolved.labels, options, resolved.datasets, canvasHeight, width, id]
   );
 
   return (
@@ -66,7 +74,7 @@ const RdsCompPolarAreaChart = ({
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Polar area chart"}
+        aria-label={resolveChartLabel("RdsCompPolarAreaChart", ariaLabel, chartLabel, "Polar area chart")}
       />
     </div>
   );

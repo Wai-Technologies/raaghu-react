@@ -12,7 +12,7 @@ figma.connect(
       label: figma.string("✏️ Label"),
       helperText: figma.string("✍ Hint Text"),
       placeholder: figma.string("📝 Placeholder - Text"),
-      showIcon: figma.boolean("👀 - Show Icon"),
+      endIcon: figma.boolean("👀 - Show Icon", { true: <Info />, false: undefined }),
       layout: figma.enum("📱 Layout", {
         "Text": "text",
         "Password": "password",
@@ -37,7 +37,6 @@ figma.connect(
       }),
     },
       example: (props) => <RdsInput
-      titlePosition="title-above"
-      icon={<Info />} iconPosition="end" {...props} />,
+      labelPlacement="top" {...props} />,
   },
 )

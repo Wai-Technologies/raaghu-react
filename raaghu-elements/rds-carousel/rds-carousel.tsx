@@ -1,7 +1,8 @@
-import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
+import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent } from 'react';
 import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
 import './rds-carousel.scss';
@@ -9,9 +10,11 @@ import './rds-carousel.scss';
 const EMPTY_TITLES: string[] = [];
 const EMPTY_SUBTITLES: string[] = [];
 
+type CarouselVariant = 'default' | 'with title' | 'full width image';
+
 /**
  * Root props are forwarded to the outer `Box` (`sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
- * `variant`, `type`, `title` and `height` are carousel props here, not the native attributes / system props.
+ * `style`, `type`, `title` and `height` are carousel props here, not the native attributes / system props.
  */
 export interface RdsCarouselProps
   extends Omit<BoxProps, 'children' | 'component' | 'style' | 'type' | 'title' | 'height'> {
@@ -21,16 +24,28 @@ export interface RdsCarouselProps
   className?: string;
   autoPlayInterval?: number;
   showArrows?: boolean;
+  /** Shows the slide indicators. Defaults to `true`. */
+  showIndicators?: boolean;
+  /** @deprecated Use `showIndicators` instead. */
   showDots?: boolean;
   height?: string | number;
-  style?: CSSProperties;
-  /** Indicator shape. */
+  /** Indicator shape (Figma "Type"). */
   type?: 'circle' | 'line';
+  /** Indicator shape. Takes precedence over `type`. */
+  indicatorVariant?: 'circle' | 'line';
+  /** Slide shown first (0-based). Read on mount only. */
+  defaultIndex?: number;
   /** Active slide (1-based), mirrored from Figma. Changing it moves the carousel to that slide. */
   state?: '1' | '2' | '3' | '4';
   /** Visual variant (Figma "Style"). */
-  variant?: 'default' | 'with title' | 'full width image';
+  style?: CarouselVariant;
+  /** Visual variant. Takes precedence over `style`. */
+  variant?: CarouselVariant;
+  /** Per-slide title and subtitle; they win over `titles`/`subtitles`. */
+  items?: { title?: ReactNode; subtitle?: ReactNode }[];
+  /** @deprecated Use `items` instead. */
   titles?: string[];
+  /** @deprecated Use `items` instead. */
   subtitles?: string[];
   title?: string;
   subtitle?: string;
@@ -42,12 +57,16 @@ const RdsCarousel = ({
   autoPlay = false,
   autoPlayInterval = 3000,
   showArrows = true,
-  showDots = true,
+  showIndicators,
+  showDots,
   height = '400px',
-  type = 'circle',
+  type,
+  indicatorVariant,
+  defaultIndex,
   state,
-  style,
-  variant = 'default',
+  style: styleProp,
+  variant,
+  items,
   titles,
   subtitles,
   title,
@@ -56,12 +75,17 @@ const RdsCarousel = ({
   ref,
   ...rest
 }: RdsCarouselProps) => {
-  // Arrays are used as given (a `false` entry is still a slide, as before); a single child is one slide.
+  if (showDots !== undefined) warnDeprecatedProp('RdsCarousel', 'showDots', '`showIndicators`');
+  if (titles !== undefined) warnDeprecatedProp('RdsCarousel', 'titles', '`items`');
+  if (subtitles !== undefined) warnDeprecatedProp('RdsCarousel', 'subtitles', '`items`');
+  const style = variant ?? styleProp ?? 'default';
+  const indicatorType = indicatorVariant ?? type ?? 'circle';
+  const indicatorsVisible = showIndicators ?? showDots ?? true;
   const slides: ReactNode[] = Array.isArray(children) ? children : children == null ? [] : [children];
   const slideCount = slides.length;
   const resolvedTitles = titles ?? EMPTY_TITLES;
   const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(defaultIndex !== undefined && defaultIndex >= 0 && defaultIndex < slideCount ? Math.floor(defaultIndex) : 0);
   const [prevState, setPrevState] = useState(state);
   if (state !== prevState) {
     setPrevState(state);
@@ -73,7 +97,7 @@ const RdsCarousel = ({
     }
   }
   const tokens = useRdsTokens();
-  const hasTitleLayout = variant === 'with title' || variant === 'full width image';
+  const hasTitleLayout = style === 'with title' || style === 'full width image';
 
   useEffect(() => {
     if (autoPlay && slideCount > 1) {
@@ -105,7 +129,7 @@ const RdsCarousel = ({
 
   const carouselClassName = clsx(
     'rds-carousel',
-    `rds-carousel--${variant.replace(' ', '-')}`,
+    `rds-carousel--${style.replace(' ', '-')}`,
     className,
   );
 
@@ -117,7 +141,6 @@ const RdsCarousel = ({
       {...rest}
       ref={ref}
       className={carouselClassName}
-      style={style}
       sx={[
         {
           position: 'relative',
@@ -128,7 +151,7 @@ const RdsCarousel = ({
           minWidth: 0,
           boxSizing: 'border-box',
           borderRadius: tokens.radius.md,
-          backgroundColor: variant === 'full width image' ? tokens.color.surface : 'transparent',
+          backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
         },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
@@ -146,9 +169,8 @@ const RdsCarousel = ({
         }}
       >
         {slides.map((child, index) => {
-          const displayTitle = resolvedTitles[index] ?? title ?? `Card Title`;
-          const displaySubtitle = resolvedSubtitles[index] ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
-          // Keyed elements keep their own key; everything else falls back to the index.
+          const displayTitle = items?.[index]?.title ?? resolvedTitles[index] ?? title ?? `Card Title`;
+          const displaySubtitle = items?.[index]?.subtitle ?? resolvedSubtitles[index] ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
           const slideKey = isValidElement(child) && child.key != null ? child.key : `rds-carousel-slide-${index}`;
           const isActive = index === currentIndex;
 
@@ -158,7 +180,6 @@ const RdsCarousel = ({
               role="group"
               aria-roledescription="slide"
               aria-label={`${index + 1} of ${slideCount}`}
-              // Each slide is exactly as wide as the clipped viewport, so only the active one is visible.
               inert={!isActive}
               className="rds-carousel__slide"
               sx={{
@@ -171,10 +192,10 @@ const RdsCarousel = ({
                 display: 'flex',
                 flexDirection: hasTitleLayout ? 'column' : 'row',
                 boxSizing: 'border-box',
-                backgroundColor: variant === 'full width image' ? tokens.color.surface : 'transparent',
+                backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
               }}
             >
-              {variant === 'with title' && (
+              {style === 'with title' && (
                 <Box className="rds-carousel__title-content rds-carousel__title-content--top">
                   {displayTitle && (
                     <Typography className="rds-carousel__title-text" variant="h5" component="h3">
@@ -206,7 +227,7 @@ const RdsCarousel = ({
                 {child}
               </Box>
 
-              {variant === 'full width image' && (
+              {style === 'full width image' && (
                 <Box className="rds-carousel__title-content rds-carousel__title-content--bottom">
                   {displayTitle && (
                     <Typography className="rds-carousel__title-text" variant="h5" component="h3">
@@ -235,9 +256,9 @@ const RdsCarousel = ({
               position: 'absolute',
               left: tokens.space(1),
               top:
-                variant === 'with title'
+                style === 'with title'
                   ? 'calc(50% + 50px)'
-                  : variant === 'full width image'
+                  : style === 'full width image'
                     ? 'calc(50% - 50px)'
                     : '50%',
               transform: 'translateY(-50%)',
@@ -259,9 +280,9 @@ const RdsCarousel = ({
               position: 'absolute',
               right: tokens.space(1),
               top:
-                variant === 'with title'
+                style === 'with title'
                   ? 'calc(50% + 50px)'
-                  : variant === 'full width image'
+                  : style === 'full width image'
                     ? 'calc(50% - 50px)'
                     : '50%',
               transform: 'translateY(-50%)',
@@ -278,7 +299,7 @@ const RdsCarousel = ({
         </>
       )}
 
-      {showDots && slideCount > 1 && (
+      {indicatorsVisible && slideCount > 1 && (
         <Box
           className="rds-carousel__indicators"
           sx={{
@@ -302,22 +323,20 @@ const RdsCarousel = ({
               onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => handleIndicatorKeyDown(event, index)}
               className={clsx(
                 'rds-carousel__indicator',
-                `rds-carousel__indicator--${type}`,
+                `rds-carousel__indicator--${indicatorType}`,
                 currentIndex === index && 'rds-carousel__indicator__active',
               )}
               sx={{
-                width: type === 'circle' ? tokens.space(1.5) : tokens.space(3),
-                height: type === 'circle' ? tokens.space(1.5) : tokens.space(0.5),
-                borderRadius: type === 'circle' ? tokens.radius.full : tokens.radius.sm,
-                // Use carousel-indicator tokens (present in both themes). Avoid
-                // --rds-neutral-* here — those light-theme-only vars are removed in dark mode.
+                width: indicatorType === 'circle' ? tokens.space(1.5) : tokens.space(3),
+                height: indicatorType === 'circle' ? tokens.space(1.5) : tokens.space(0.5),
+                borderRadius: indicatorType === 'circle' ? tokens.radius.full : tokens.radius.sm,
                 backgroundColor:
                   currentIndex === index
                     ? tokens.color.primary
                     : tokens.cssVar('carousel-indicator-bg'),
-                opacity: currentIndex === index || variant !== 'full width image' ? 1 : 0.8,
+                opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
                 border:
-                  variant === 'full width image'
+                  style === 'full width image'
                     ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('carousel-indicator-bg')}`
                     : 'none',
                 cursor: 'pointer',

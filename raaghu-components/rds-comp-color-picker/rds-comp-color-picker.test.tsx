@@ -6,8 +6,8 @@ import { axe } from 'jest-axe';
 import RdsCompColorPicker from './rds-comp-color-picker';
 import { ColorPickerType, PickerType, ColorMode, StyleType } from './rds-comp-color-picker.types';
 
-// Mock dependencies
 jest.mock('./rds-comp-color-picker.scss', () => ({}));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton({ children, onClick, disabled, style, color, ...props }: any) {
     return (
@@ -69,7 +69,6 @@ jest.mock('./color-utils', () => {
   };
 });
 
-// Mock navigator.clipboard
 Object.assign(navigator, {
   clipboard: {
     writeText: jest.fn(() => Promise.resolve()),
@@ -147,14 +146,11 @@ describe('RdsCompColorPicker', () => {
       render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
       const button = screen.getByTestId('rds-button');
       
-      // Initially hidden
       expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
       
-      // Click to show
       fireEvent.click(button);
       expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
       
-      // Click to hide
       fireEvent.click(button);
       expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
     });
@@ -375,7 +371,6 @@ describe('RdsCompColorPicker', () => {
     it('shows swatches when showSwatches is true', () => {
       const { rerender } = render(<RdsCompColorPicker {...defaultProps} showSwatches={false} />);
       rerender(<RdsCompColorPicker {...defaultProps} showSwatches={true} showTabs={true} pickerType={PickerType.Spectrum} />);
-      // Component renders with showSwatches prop passed through
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
   });
@@ -429,14 +424,11 @@ describe('RdsCompColorPicker', () => {
     it('renders both Grid and Spectrum pickers when tabs are shown', () => {
       const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
       
-      // Initially Grid is shown
       expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
       
-      // Click to Spectrum tab
       const tabs = container.querySelectorAll('.rds-comp-color-picker__tab');
       fireEvent.click(tabs[1]);
       
-      // Now Spectrum is shown
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
   });
@@ -452,11 +444,9 @@ describe('RdsCompColorPicker', () => {
       const button = screen.getByTestId('rds-button');
       expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
       
-      // Click to hide
       fireEvent.click(button);
       expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
       
-      // Click to show again
       fireEvent.click(button);
       expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
     });
@@ -489,7 +479,6 @@ describe('RdsCompColorPicker', () => {
       render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
       const button = screen.getByTestId('rds-button');
       
-      // Start hidden, click 1 (show), click 2 (hide), click 3 (show)
       fireEvent.click(button);
       fireEvent.click(button);
       fireEvent.click(button);
@@ -681,5 +670,31 @@ describe('RdsCompColorPicker', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Select color #123456' }));
       expect(handleChange).toHaveBeenCalledWith({ hex: '#123456' });
     });
+  });
+});
+
+describe('audit fixes', () => {
+  it('format, view and variant map to the legacy enum values', () => {
+    render(<RdsCompColorPicker label="c" value="#123456" format="rgb" view="spectrum" variant="inline" />);
+    expect(screen.getByTestId('spectrum-color-mode')).toHaveTextContent('RGB');
+  });
+
+  it('defaultFormat and defaultView set the initial state and defaultValue the colour', () => {
+    render(<RdsCompColorPicker label="c" defaultValue="#123456" defaultFormat="hsl" defaultView="spectrum" />);
+    expect(screen.getByTestId('spectrum-color-mode')).toHaveTextContent('HSL');
+    expect(screen.getByTestId('spectrum-color-state')).toHaveTextContent('#123456');
+  });
+
+  it('variant button hides the picker until clicked', () => {
+    render(<RdsCompColorPicker label="c" value="#123456" variant="button" />);
+    expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
+  });
+
+  it('warns for colorMode and pickerType but not the Figma type prop', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    render(<RdsCompColorPicker label="c" value="#123456" type={ColorPickerType.Default} colorMode={ColorMode.RGB} pickerType={PickerType.Grid} />);
+    expect(warnDeprecatedProp).not.toHaveBeenCalledWith('RdsCompColorPicker', 'type', expect.anything());
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompColorPicker', 'colorMode', '`format`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompColorPicker', 'pickerType', '`view`');
   });
 });

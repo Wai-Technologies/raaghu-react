@@ -5,8 +5,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsRange from './rds-range';
 import { axe } from 'jest-axe';
 
-// Mock SCSS and tooltip imports
 jest.mock('./rds-range.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 jest.mock('../rds-tooltip/rds-tooltip', () => {
   return ({ children, title }: any) => <div data-testid="rds-tooltip" title={title}>{children}</div>;
 });
@@ -370,7 +370,6 @@ describe('RdsRange', () => {
         />
       );
       
-      // Tooltip is rendered and contains the formatted value
       const tooltip = screen.getByTestId('rds-tooltip');
       expect(tooltip).toBeInTheDocument();
     });
@@ -538,7 +537,6 @@ describe('RdsRange', () => {
         />
       );
       
-      // Marks should be rendered by MUI slider
       expect(screen.getByText('0%')).toBeInTheDocument();
     });
 
@@ -684,7 +682,6 @@ describe('RdsRange', () => {
       const slider = container.querySelector('input[type="range"]') as HTMLInputElement;
       slider.focus();
       
-      // Arrow keys should adjust the slider value
       expect(document.activeElement).toBe(slider);
     });
 
@@ -773,7 +770,6 @@ describe('RdsRange', () => {
         />
       );
 
-      // Value should not be displayed when showValue is false
       let valueText = container.querySelector('.rds-range__value');
       expect(valueText).not.toBeInTheDocument();
 
@@ -783,7 +779,6 @@ describe('RdsRange', () => {
         </ThemeProvider>
       );
 
-      // Value should be displayed when showValue is true
       valueText = container.querySelector('.rds-range__value');
       expect(valueText).toBeInTheDocument();
     });
@@ -997,5 +992,29 @@ describe('audit fixes', () => {
     renderWithTheme(<RdsRange showTooltip value={30} slotProps={{ thumb: { 'data-testid': 'thumb' } as object }} />);
     expect(screen.getByTestId('thumb')).toBeInTheDocument();
     expect(screen.getByTestId('rds-tooltip')).toHaveAttribute('title', '30');
+  });
+});
+
+describe('audit fixes', () => {
+  it('prefers min/max over leftLabel/rightLabel and warns', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    renderWithTheme(<RdsRange min={10} max={50} leftLabel={0} rightLabel={100} showMinMax />);
+    expect(screen.getByText('10')).toBeInTheDocument();
+    expect(screen.getByText('50')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRange', 'leftLabel', '`min`');
+  });
+
+  it('shows min/max footer with showMinMax and uses defaultValue', () => {
+    const { container } = renderWithTheme(<RdsRange showMinMax defaultValue={30} showValue />);
+    expect(container.querySelector('.rds-range__footer')).toBeInTheDocument();
+    expect(container.querySelector('.rds-range__value')).toHaveTextContent('30');
+  });
+
+  it('shows value tooltip with valueLabelDisplay on and warns for showTooltip', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    renderWithTheme(<RdsRange valueLabelDisplay="on" value={30} />);
+    expect(screen.getByTestId('rds-tooltip')).toHaveAttribute('title', '30');
+    renderWithTheme(<RdsRange showTooltip />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRange', 'showTooltip', '`valueLabelDisplay`');
   });
 });

@@ -7,10 +7,8 @@ import RdsCompTruncateText, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-truncate-text.scss', () => ({}));
 
-// Mock RdsTooltip component
 jest.mock('../../raaghu-elements/rds-tooltip/rds-tooltip', () => {
   return function MockRdsTooltip({ children, label, title, style, arrow }: any) {
     return (
@@ -372,7 +370,6 @@ describe('RdsCompTruncateText', () => {
           state={TruncateTextState.Hover}
         />
       );
-      // Negative maxLength should behave similar to 0
       expect(screen.getByText('...')).toBeInTheDocument();
     });
 
@@ -532,14 +529,12 @@ describe('RdsCompTruncateText', () => {
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       
-      // First cycle
       fireEvent.mouseEnter(mainDiv!);
       expect(screen.getByTestId('rds-tooltip')).toBeInTheDocument();
       
       fireEvent.mouseLeave(mainDiv!);
       expect(screen.queryByTestId('rds-tooltip')).not.toBeInTheDocument();
       
-      // Second cycle
       fireEvent.mouseEnter(mainDiv!);
       expect(screen.getByTestId('rds-tooltip')).toBeInTheDocument();
       
@@ -625,7 +620,6 @@ describe('RdsCompTruncateText', () => {
         );
       }
       
-      // End state: i=4, 4%2===0, so final state is Hover
       const span = container.querySelector('span');
       expect(span?.textContent).toContain('...');
     });
@@ -639,11 +633,9 @@ describe('RdsCompTruncateText', () => {
         />
       );
       
-      // Before hover - should have span without tooltip
       let spans = container.querySelectorAll('span');
       expect(spans.length).toBeGreaterThan(0);
       
-      // After hover - should have span inside tooltip
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       fireEvent.mouseEnter(mainDiv!);
       
@@ -696,5 +688,18 @@ describe('audit fixes', () => {
   it('applies inline line clamp when lines > 5', () => {
     render(<RdsCompTruncateText lines={8}>abc</RdsCompTruncateText>);
     expect(screen.getByText('abc')).toHaveStyle({ overflow: 'hidden' });
+  });
+});
+
+describe('audit fixes maxLines', () => {
+  it('maxLines wins over lines', () => {
+    const { container } = render(<RdsCompTruncateText maxLines={3} lines={2}>abc</RdsCompTruncateText>);
+    expect(container.querySelector('.rds-comp-truncate-text')).toHaveClass('rds-comp-truncate-text--lines-3');
+  });
+
+  it('lines warns', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
+    render(<RdsCompTruncateText lines={2}>abc</RdsCompTruncateText>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompTruncateText', 'lines', '`maxLines`');
   });
 });

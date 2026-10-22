@@ -26,7 +26,7 @@ export interface HistoryFavoriteTabsProps {
   favouritesTabLabel?: string;
   addtoscreen?: string;
   addtofolder?: string;
-  variant?: string;
+  style?: string;
   historyItems: { id: number; name: string }[];
   olderHistoryItems: { id: number; name: string }[];
   handleDeleteHistoryItem: (id: number) => void;
@@ -149,7 +149,7 @@ export const HistoryFavoritesTabs = ({
   favouritesTabLabel = "Favourites",
   addtoscreen = "Add to screen",
   addtofolder = "Add to folder",
-  variant,
+  style,
   historyItems,
   olderHistoryItems,
   handleDeleteHistoryItem,
@@ -305,7 +305,7 @@ export const HistoryFavoritesTabs = ({
         )}
         {activeTab === "favourites" && (
           <div className="rds-comp-details-pane__footer-fixed">
-            {variant === "Favourites - New Folder" ? (
+            {style === "Favourites - New Folder" ? (
               <RdsButton
                 color="primary"
                 size="medium"
@@ -349,8 +349,8 @@ export const RealEstateContent = ({
             autoPlay={false}
             height="200px"
             showArrows={false}
-            showDots={true}
-            variant="default"
+            showIndicators={true}
+            style="default"
             type="circle"
           >
             {resolvedCarouselImages.map((image, index) => (
@@ -474,7 +474,7 @@ export const SelectionContent = ({
           <RdsSearch
             value={searchValue}
             onChange={handleSearchChange}
-            iconPosition="right"
+            iconPosition="end"
             labelPosition="top"
             placeholder="Search for Agents by Name or # ID"
             size="small"
@@ -501,8 +501,8 @@ export const SelectionContent = ({
                     showDesignation
                     showName
                     src={agent.avatar}
-                    subText={agent.designation}
-                    title={agent.name}
+                    description={agent.designation}
+                    name={agent.name}
                   />
                 </div>
               </div>

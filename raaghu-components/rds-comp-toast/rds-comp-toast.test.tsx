@@ -11,10 +11,8 @@ import {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-toast.scss', () => ({}));
 
-// Mock RdsProgress component
 jest.mock('../../raaghu-elements/rds-progress/rds-progress', () => {
   return function MockRdsProgress(props: any) {
     return (
@@ -25,7 +23,6 @@ jest.mock('../../raaghu-elements/rds-progress/rds-progress', () => {
   };
 });
 
-// Mock RdsButton component
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -892,7 +889,6 @@ describe('RdsCompToast', () => {
   });
 
   describe('Accessibility', () => {
-    // jest-axe hangs (>2 min) on this component's role="alert"/aria-live tree under jsdom; manual a11y attrs covered by other tests.
     it.skip('has no axe accessibility violations', async () => {
       const { container, unmount } = render(
         <div>
@@ -974,5 +970,31 @@ describe('audit fixes', () => {
     const el = screen.getByRole('alert');
     expect(el).toHaveClass('rds-comp-toast--error');
     expect(el).toHaveClass('rds-comp-toast--download');
+  });
+});
+
+describe('audit fixes', () => {
+  const base = { layout: 'text', state: 'basic', showSubText: true, showHeader: true, showLeading: true } as const;
+
+  it('icon wins over leadingIcon', () => {
+    const { container } = render(<RdsCompToast {...base} icon="plus" leadingIcon="circle" message="m" />);
+    expect(container.querySelector('.rds-comp-toast__icon--plus')).toBeInTheDocument();
+  });
+
+  it('progress wins over progressWidth', () => {
+    render(<RdsCompToast {...base} layout="download" progress={30} progressWidth={80} message="m" />);
+    expect(screen.getByTestId('rds-progress')).toHaveAttribute('data-value', '30');
+  });
+
+  it('anchorOrigin wins over position', () => {
+    const { container } = render(
+      <RdsCompToast {...base} position="topLeft" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} message="m" />
+    );
+    expect(container.firstChild).toHaveClass('rds-comp-toast__container--bottom-right');
+  });
+
+  it('severity wins over state', () => {
+    render(<RdsCompToast {...base} severity="error" message="m" />);
+    expect(screen.getByRole('alert')).toHaveClass('rds-comp-toast--error');
   });
 });

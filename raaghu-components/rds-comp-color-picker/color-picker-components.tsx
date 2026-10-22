@@ -245,7 +245,6 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
       </div>
       <div className="rds-comp-color-picker__sliders">
         <div className="rds-comp-color-picker__slider-container">
-          {/* @ts-ignore - React Color TypeScript issues */}
           <HuePicker
             color={selectedColorState.hex}
             onChange={handleHueChange}
@@ -256,7 +255,6 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
           />
         </div>       
         <div className="rds-comp-color-picker__slider-container rds-comp-color-picker__alpha-slider-container">
-          {/* @ts-ignore - React Color TypeScript issues */}
           <AlphaPicker
             color={selectedColorState.rgb}
             onChange={handleAlphaChange}

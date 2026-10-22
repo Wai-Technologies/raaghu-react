@@ -1,4 +1,3 @@
-
 import type { ReactNode, MouseEvent } from 'react';
 import clsx from 'clsx';
 import {
@@ -25,56 +24,55 @@ import {
 } from '@mui/material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import { MoreVert as MoreVertIcon, Close as CloseIcon, Delete as DeleteIcon } from '@mui/icons-material';
-import RdsBadge from '../../raaghu-elements/rds-badge/rds-badge';
-import RdsAvatar from '../../raaghu-elements/rds-avatar/rds-avatar';
+import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
+import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import {
   RdsCompKanbanBoardProps,
   useKanbanBoardState,
   createEventHandlers,
   createDragEndHandler,
   colorClass,
+  cardIdOf,
   KanbanSubCard,
   KanbanAction,
+  type KanbanAssignee,
 } from './kanban-board-helpers';
 
 interface SortableSubCardProps {
   subCard: KanbanSubCard;
   subCardIndex: number;
   boardIndex: number;
-  avatarData?: Array<{ title: string; subText?: string; src?: string }>;
+  avatarData?: KanbanAssignee[];
   toggleSubCardDropdown: (id: number, e: MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => void;
 }
 
 const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggleSubCardDropdown }: SortableSubCardProps) => {
+  const cardId = cardIdOf(subCard);
+  const title = subCard.title ?? subCard.ticketQuestion;
+  const avatars = subCard.assignees ?? avatarData;
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id: subCard.SubcardId,
+    id: cardId,
     data: { type: 'subCard', boardIndex, subCardIndex },
   });
-
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
   };
-
   return (
     <Box ref={setNodeRef} style={style} {...attributes} {...listeners} className="sub-card rds-kanban-board__sub-card">
       <Card variant="outlined" className="rds-kanban-board__sub-card-card">
         <CardContent className="rds-kanban-board__sub-card-content">
           <Box className="rds-kanban-board__sub-card-header">
             <Box className="rds-kanban-board__sub-card-header-left">
-              <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">
-                {subCard.displayId ?? 'RDS110110'}
-              </Typography>
+              <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">{subCard.displayId ?? 'RDS110110'}</Typography>
             </Box>
             <Box className="rds-kanban-board__sub-card-header-right">
               <RdsBadge badgeContent={subCard.badge ?? 'Badge'} color="secondary" size="small" shape="rectangle" colorVariant="secondary" />
               <IconButton
                 size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleSubCardDropdown(subCard.SubcardId, e, subCard, boardIndex);
-                }}
+                onClick={(e) => { e.stopPropagation(); toggleSubCardDropdown(cardId, e, subCard, boardIndex); }}
                 onPointerDown={(e) => e.stopPropagation()}
                 className="btn-sm rds-kanban-board__subcard-dropdown-button"
                 aria-label="More options"
@@ -83,18 +81,17 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
               </IconButton>
             </Box>
           </Box>
-
           <Box className="rds-kanban-board__sub-card-body">
             <Typography variant="body2" className="f-14 fw-400 rds-kanban-board__sub-card-text">
               {subCard.description !== undefined ? (
                 <>
-                  {subCard.ticketQuestion && <><strong>{subCard.ticketQuestion}</strong><br /></>}
+                  {title && <><strong>{title}</strong><br /></>}
                   {subCard.description}
                 </>
-              ) : subCard.ticketQuestion && subCard.ticketId &&
-                subCard.ticketQuestion !== 'Question 1' && subCard.ticketQuestion !== 'Question 2' ? (
+              ) : title && subCard.ticketId &&
+               title !== 'Question 1' && title !== 'Question 2' ? (
                 <>
-                  <strong>{subCard.ticketQuestion}</strong><br />
+                  <strong>{title}</strong><br />
                   {subCard.ticketId}
                 </>
               ) : (
@@ -106,19 +103,18 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
               )}
             </Typography>
           </Box>
-
           <Box className="rds-kanban-board__sub-card-footer">
             <Typography variant="caption" className="f-12 fw-500 rds-kanban-board__sub-card-footer-left">
               {subCard.ticketDate}
             </Typography>
             <Box className="rds-kanban-board__sub-card-footer-right">
-              {avatarData && (
+              {avatars && (
                 <RdsAvatar
                   displayStyle="stacking"
                   size="smallest"
-                  maxVisibleAvatars={2}
+                  max={2}
                   showRemainingCount={false}
-                  avatars={avatarData}
+                  avatars={avatars}
                 />
               )}
             </Box>
@@ -137,7 +133,6 @@ interface DroppableColumnProps {
 
 const DroppableColumn = ({ boardIndex, subCardIds, children }: DroppableColumnProps) => {
   const { setNodeRef } = useDroppable({ id: `column-${boardIndex}` });
-
   return (
     <SortableContext items={subCardIds} strategy={verticalListSortingStrategy}>
       <Box ref={setNodeRef} className="sub-cards-container rds-kanban-board__sub-cards-container">
@@ -157,8 +152,38 @@ const AutocompletePaper = (paperProps: PaperProps) => (
   <Paper {...paperProps} className="rds-kanban-board__autocomplete-paper" />
 );
 
+const NO_EFFECT = 'nothing (it has no effect)';
+const DEPRECATED_PROPS: Record<string, string> = {
+  isIlliustrationSmall: NO_EFFECT,
+  noDataTitle: NO_EFFECT,
+  noDataHeaderTitle: NO_EFFECT,
+  illustration: NO_EFFECT,
+  allowAddingDynamicData: NO_EFFECT,
+  onClick: NO_EFFECT,
+  addQuestionData: NO_EFFECT,
+  boardData: '`columns` or `defaultColumns`',
+  onBoardDataChange: '`onColumnsChange`',
+  allowAddingNewCard: '`allowAddColumn`',
+  allowAddingNewSubCard: '`allowAddCard`',
+  allTagsList: '`tagOptions`',
+  allCategoriesList: '`categoryOptions`',
+  onAddQuestionSaveHandler: '`onCardAdd`',
+  onCardOption: '`onColumnAction`',
+  onSubCardOption: '`onCardAction`',
+};
+
 const RdsCompKanbanBoard = ({
   avatarData,
+  columns,
+  defaultColumns,
+  onColumnsChange,
+  allowAddColumn,
+  allowAddCard,
+  tagOptions,
+  categoryOptions,
+  onCardAdd,
+  onColumnAction,
+  onCardAction,
   allowAddingNewCard,
   allowAddingNewSubCard,
   allCategoriesList,
@@ -167,25 +192,41 @@ const RdsCompKanbanBoard = ({
   onSubCardOption,
   onCardOption,
   onBoardDataChange,
-  onAddQuestionSave,
+  onAddQuestionSaveHandler,
   onSelectedTagsListChange,
+  isIlliustrationSmall,
+  noDataTitle,
+  noDataHeaderTitle,
+  illustration,
+  allowAddingDynamicData,
+  onClick,
+  addQuestionData: addQuestionDataProp,
   className,
   sx,
   ref,
-  onClick: _onClick,
   ...rest
 }: RdsCompKanbanBoardProps) => {
-  const props: RdsCompKanbanBoardProps = {
-    boardData,
-    onSubCardOption,
-    onCardOption,
-    onBoardDataChange,
-    onAddQuestionSave,
-    onSelectedTagsListChange,
+  const legacy = {
+    isIlliustrationSmall, noDataTitle, noDataHeaderTitle, illustration,
+    allowAddingDynamicData, onClick, addQuestionData: addQuestionDataProp,
+    boardData, onBoardDataChange, allowAddingNewCard, allowAddingNewSubCard, allTagsList, allCategoriesList,
+    onAddQuestionSaveHandler, onCardOption, onSubCardOption,
   };
+  Object.entries(legacy).forEach(([key, value]) => {
+    if (value !== undefined) warnDeprecatedProp('RdsCompKanbanBoard', key, DEPRECATED_PROPS[key]);
+  });
 
+  const showAddColumn = allowAddColumn ?? allowAddingNewCard;
+  const showAddCard = allowAddCard ?? allowAddingNewSubCard;
+  const resolvedTagOptions = tagOptions ?? allTagsList;
+  const resolvedCategoryOptions = categoryOptions ?? allCategoriesList;
+  const handleColumnsChange = onColumnsChange ?? onBoardDataChange;
+
+  const props: RdsCompKanbanBoardProps = {
+    columns, defaultColumns, boardData, onColumnsChange: handleColumnsChange,
+    onCardAction, onSubCardOption, onColumnAction, onCardOption, onCardAdd, onAddQuestionSaveHandler, onSelectedTagsListChange,
+  };
   const state = useKanbanBoardState(props);
-
   const {
     boardName, boards, showBoard, isEditingBoardName, showAddBoardBtn,
     addButton, subCardInputsVisible, anchorEl, subCardAnchorEl,
@@ -193,7 +234,6 @@ const RdsCompKanbanBoard = ({
   } = state;
 
   const handlers = createEventHandlers(state, props);
-
   const {
     handleShowInputBox, onAddButtonClick, onCancel, handleDataChanges,
     toggleDropdown, toggleSubCardDropdown, handleClose, handleCardOptionClick,
@@ -201,7 +241,7 @@ const RdsCompKanbanBoard = ({
     handleAddQuestionDataChanges, onSelectedCreators,
   } = handlers;
 
-  const onDragEnd = createDragEndHandler(boards, state.setBoards, onBoardDataChange);
+  const onDragEnd = createDragEndHandler(boards, state.setBoards, handleColumnsChange);
 
   const handleCloseSubCardInput = () => {
     state.setSubCardInputsVisible(null);
@@ -217,9 +257,9 @@ const RdsCompKanbanBoard = ({
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
       <Box {...rest} ref={ref} className={clsx('rds-kanban-board-container', className)} sx={sx}>
-        {allowAddingNewCard !== undefined && (
+        {showAddColumn !== undefined && (
           <>
-            {showAddBoardBtn && allowAddingNewCard && (
+            {showAddBoardBtn && showAddColumn && (
               <Box>
                 <Box className={`kanban-board ${colorClass('primary')}`}>
                   <Card className="kanban-board__card kanban-board__card--add-board-320">
@@ -227,9 +267,7 @@ const RdsCompKanbanBoard = ({
                       <Box className="kanban-board__card-header">
                         <Box className="kanban-board__header-content">
                           <Box className="kanban-board__title-area">
-                            <Typography variant="subtitle1" className="card-name f-14 fw-400">
-                              {boardName || 'Board 1'}
-                            </Typography>
+                            <Typography variant="subtitle1" className="card-name f-14 fw-400">{boardName || 'Board 1'}</Typography>
                             <Typography variant="body2" className="f-14 fw-400 kanban-board__title-count">(0)</Typography>
                           </Box>
                         </Box>
@@ -238,14 +276,7 @@ const RdsCompKanbanBoard = ({
                         </IconButton>
                       </Box>
                       <Box className="add-board add-board--with-input">
-                        <TextField
-                          fullWidth
-                          size="small"
-                          placeholder="Enter Board Title"
-                          value={boardName}
-                          onChange={handleDataChanges}
-                          className="rds-kanban-board__input-field"
-                        />
+                        <TextField fullWidth size="small" placeholder="Enter Board Title" value={boardName} onChange={handleDataChanges} className="rds-kanban-board__input-field" />
                         <Box className="add-item-btn btn-margin rds-kanban-board__button-container">
                           <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button" text="Add Board" />
                           <IconButton size="small" onClick={onCancel} className="rds-kanban-board__close-button" aria-label="Close">
@@ -258,8 +289,7 @@ const RdsCompKanbanBoard = ({
                 </Box>
               </Box>
             )}
-
-            {!showAddBoardBtn && allowAddingNewCard && addButton && (
+            {!showAddBoardBtn && showAddColumn && addButton && (
               <Box>
                 <Box className={`kanban-board ${colorClass('primary')}`}>
                   <Card className="kanban-board__card kanban-board__card--add-board-280">
@@ -267,9 +297,7 @@ const RdsCompKanbanBoard = ({
                       <Box className="kanban-board__card-header">
                         <Box className="kanban-board__header-content">
                           <Box className="kanban-board__title-area">
-                            <Typography variant="subtitle1" className="card-name f-14 fw-400">
-                              {boardName || 'Board 1'}
-                            </Typography>
+                            <Typography variant="subtitle1" className="card-name f-14 fw-400">{boardName || 'Board 1'}</Typography>
                             <Typography variant="body2" className="f-14 fw-400 kanban-board__title-count">(0)</Typography>
                           </Box>
                         </Box>
@@ -287,12 +315,11 @@ const RdsCompKanbanBoard = ({
             )}
           </>
         )}
-
         {boards.map((card, index) => (
           <Box key={card.cardId}>
             {showBoard && card.name && (
               <Box className={`kanban-board ${colorClass(card.colorType)}`}>
-                <Card className={clsx('kanban-board__card', card.subCards && card.subCards.length === 0 && 'kanban-board__card--empty-board')}>
+                <Card className={clsx("kanban-board__card", card.subCards && card.subCards.length === 0 && "kanban-board__card--empty-board")}>
                   <CardContent className="kanban-board__card-content">
                     <Box className="kanban-board__card-header">
                       <Box className="kanban-board__header-content">
@@ -310,29 +337,19 @@ const RdsCompKanbanBoard = ({
                             size="small"
                             value={boardName}
                             onChange={handleDataChanges}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                handleChange({ value: (e.target as HTMLInputElement).value }, card.cardId);
-                              }
-                            }}
+                            onKeyDown={(e) => { if (e.key === "Enter") { handleChange({ value: (e.target as HTMLInputElement).value }, card.cardId); } }}
                             autoFocus
                           />
                         )}
                       </Box>
-                      <IconButton
-                        size="small"
-                        onClick={(e) => toggleDropdown(index, e)}
-                        className="btn-sm kanban-board__header-button"
-                        aria-label="More options"
-                      >
+                      <IconButton size="small" onClick={(e) => toggleDropdown(index, e)} className="btn-sm kanban-board__header-button" aria-label="More options">
                         <MoreVertIcon />
                       </IconButton>
                     </Box>
-
-                    <DroppableColumn boardIndex={index} subCardIds={card.subCards.map((sc) => sc.SubcardId)}>
+                    <DroppableColumn boardIndex={index} subCardIds={card.subCards.map(cardIdOf)}>
                       {card.subCards.map((subCard, subCardIndex) => (
                         <SortableSubCard
-                          key={subCard.SubcardId}
+                          key={cardIdOf(subCard)}
                           subCard={subCard}
                           subCardIndex={subCardIndex}
                           boardIndex={index}
@@ -340,8 +357,7 @@ const RdsCompKanbanBoard = ({
                           toggleSubCardDropdown={toggleSubCardDropdown}
                         />
                       ))}
-
-                      {allowAddingNewSubCard && (
+                      {showAddCard && (
                         <>
                           {subCardInputsVisible === index ? (
                             <Box className="rds-kanban-board__add-item-form">
@@ -350,48 +366,27 @@ const RdsCompKanbanBoard = ({
                                 <Select
                                   label="Category"
                                   value={addQuestionData?.supportCategoryId ?? ''}
-                                  onChange={(e) => handleAddQuestionDataChanges(e.target.value, 'supportCategoryId')}
-                                  MenuProps={{ slotProps: { paper: { className: 'rds-kanban-board__select-menu' } } }}
+                                  onChange={(e) => handleAddQuestionDataChanges(e.target.value, "supportCategoryId")}
+                                  MenuProps={{ slotProps: { paper: { className: "rds-kanban-board__select-menu" } } }}
                                 >
-                                  {allCategoriesList?.map((category: any) => (
+                                  {resolvedCategoryOptions?.map((category: any) => (
                                     <MenuItem key={category.val} value={category.val}>{category.label}</MenuItem>
                                   ))}
                                 </Select>
                               </FormControl>
-
-                              <TextField
-                                fullWidth
-                                size="small"
-                                label="Title"
-                                placeholder="Enter Title"
-                                value={addQuestionData?.title || ''}
-                                onChange={(e) => handleAddQuestionDataChanges(e.target.value, 'title')}
-                                className="rds-kanban-board__input-field"
-                              />
-
-                              <TextField
-                                fullWidth
-                                size="small"
-                                label="Description"
-                                placeholder="Enter Description"
-                                multiline
-                                rows={2}
-                                value={addQuestionData?.description || ''}
-                                onChange={(e) => handleAddQuestionDataChanges(e.target.value, 'description')}
-                                className="rds-kanban-board__input-field"
-                              />
-
+                              <TextField fullWidth size="small" label="Title" placeholder="Enter Title" value={addQuestionData?.title || ""} onChange={(e) => handleAddQuestionDataChanges(e.target.value, "title")} className="rds-kanban-board__input-field" />
+                              <TextField fullWidth size="small" label="Description" placeholder="Enter Description" multiline rows={2} value={addQuestionData?.description || ""} onChange={(e) => handleAddQuestionDataChanges(e.target.value, "description")} className="rds-kanban-board__input-field" />
                               <Autocomplete
                                 multiple
                                 size="small"
-                                options={allTagsList || []}
+                                options={resolvedTagOptions || []}
                                 getOptionLabel={(option: any) => option.label}
                                 value={(Array.isArray(addQuestionData?.supportTagIds) ? addQuestionData.supportTagIds : []) as any[]}
                                 onChange={(_event, value) => onSelectedCreators(value)}
                                 className="rds-kanban-board__autocomplete"
                                 renderInput={(params) => {
                                   const currentTags = addQuestionData?.supportTagIds || [];
-                                  const placeholderText = Array.isArray(currentTags) && currentTags.length > 0 ? '' : 'Select Tags';
+                                  const placeholderText = Array.isArray(currentTags) && currentTags.length > 0 ? "" : "Select Tags";
                                   return <TextField {...params} label="Tags" placeholder={placeholderText} />;
                                 }}
                                 PaperComponent={AutocompletePaper}
@@ -404,18 +399,8 @@ const RdsCompKanbanBoard = ({
                                   },
                                 }}
                               />
-
                               <Box className="add-item-btn btn-margin add-board rds-kanban-board__button-container">
-                                <RdsButton
-                                  style="outlined"
-                                  size="medium"
-                                  showLeftIcon
-                                  changeLeftIcon={PlusIcon}
-                                  onClick={() => onAddSubCardClick(index)}
-                                  disabled={isNewItemTitleEmpty}
-                                  className="rds-kanban-board__add-button"
-                                  text="Add Item"
-                                />
+                                <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={(e: MouseEvent<HTMLElement>) => onAddSubCardClick(e, index)} disabled={isNewItemTitleEmpty} className="rds-kanban-board__add-button" text="Add Item" />
                                 <IconButton size="small" onClick={handleCloseSubCardInput} className="close-board rds-kanban-board__close-button" aria-label="Close">
                                   <CloseIcon fontSize="small" />
                                 </IconButton>
@@ -423,16 +408,7 @@ const RdsCompKanbanBoard = ({
                             </Box>
                           ) : (
                             <Box className="add-item-btn add-board rds-kanban-board__add-item-simple">
-                              <RdsButton
-                                style="outlined"
-                                size="medium"
-                                showLeftIcon
-                                changeLeftIcon={PlusIcon}
-                                onClick={() => addSubCard(index)}
-                                fullWidth
-                                className="rds-kanban-board__add-button"
-                                text="Add Item"
-                              />
+                              <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={() => addSubCard(index)} fullWidth className="rds-kanban-board__add-button" text="Add Item" />
                             </Box>
                           )}
                         </>
@@ -445,58 +421,48 @@ const RdsCompKanbanBoard = ({
           </Box>
         ))}
       </Box>
-
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        className="dropdown-menu"
-        disablePortal
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        slotProps={{ paper: { className: 'rds-kanban-board__menu-paper' } }}
-      >
-        <MenuItem
-          onClick={() => handleCardOptionClick('delete', selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')}
-          className="rds-kanban-board__menu-item"
-        >
-          <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
-        </MenuItem>
-        {selectedCard?.actions?.map((option: KanbanAction) => (
-          <MenuItem
-            key={option.value ?? option.key}
-            onClick={() => handleCardOptionClick(option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')}
-            className="rds-kanban-board__menu-item"
-          >
-            {option.key}
-          </MenuItem>
-        ))}
-      </Menu>
-
-      <Menu
-        anchorEl={subCardAnchorEl}
-        open={Boolean(subCardAnchorEl)}
-        onClose={handleClose}
-        className="dropdown-menu"
-        disablePortal
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        slotProps={{ paper: { className: 'rds-kanban-board__menu-paper' } }}
-      >
-        {selectedSubCard?.actions?.map((option: KanbanAction) => (
-          <MenuItem
-            key={option.value ?? option.key}
-            onClick={() => handleOptionClick(option.value, selectedCardIndex, selectedSubCard?.SubcardId)}
-            className="rds-kanban-board__menu-item"
-          >
-            {option.key}
-          </MenuItem>
-        ))}
-      </Menu>
+      {(() => {
+        const sharedMenuProps = {
+          onClose: handleClose,
+          className: "dropdown-menu",
+          disablePortal: true,
+          anchorOrigin: { vertical: 'top' as const, horizontal: 'right' as const },
+          transformOrigin: { vertical: 'top' as const, horizontal: 'right' as const },
+          slotProps: { paper: { className: "rds-kanban-board__menu-paper" } },
+        };
+        return (
+          <>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              {...sharedMenuProps}
+            >
+              <MenuItem onClick={(e) => handleCardOptionClick(e, "delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
+                <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
+              </MenuItem>
+              {selectedCard?.actions?.map((option: KanbanAction) => (
+                <MenuItem key={option.value ?? option.key} onClick={(e) => handleCardOptionClick(e, option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
+                  {option.key}
+                </MenuItem>
+              ))}
+            </Menu>
+            <Menu
+              anchorEl={subCardAnchorEl}
+              open={Boolean(subCardAnchorEl)}
+              {...sharedMenuProps}
+            >
+              {selectedSubCard?.actions?.map((option: KanbanAction) => (
+                <MenuItem key={option.value ?? option.key} onClick={(e) => selectedSubCard && handleOptionClick(e, option.value, selectedCardIndex, cardIdOf(selectedSubCard))} className="rds-kanban-board__menu-item">
+                  {option.key}
+                </MenuItem>
+              ))}
+            </Menu>
+          </>
+        );
+      })()}
     </DndContext>
   );
 };
 
-RdsCompKanbanBoard.displayName = 'RdsCompKanbanBoard';
-
+RdsCompKanbanBoard.displayName = "RdsCompKanbanBoard";
 export default RdsCompKanbanBoard;

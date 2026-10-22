@@ -1,4 +1,4 @@
-import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
 export enum NotificationLayout {
   Vertical = "vertical",
@@ -34,18 +34,24 @@ export interface NotificationItem {
 }
 
 export interface RdsCompNotificationProps {
+  items?: NotificationItem[];
+  /** @deprecated Use `items` instead. */
   notifications?: NotificationItem[];
   title?: string;
   description?: string;
+  fallbackImage?: string;
+  /** @deprecated Use `fallbackImage` instead. */
   defaultImage?: string;
+  orientation?: NotificationLayout | `${NotificationLayout}`;
   layout?: NotificationLayout | `${NotificationLayout}`;
   variant?: NotificationStyle | `${NotificationStyle}`;
-  style?: CSSProperties;
+  style?: NotificationStyle | `${NotificationStyle}`;
   /** MUI-named alias for `type`. */
   severity?: NotificationType | `${NotificationType}`;
   /** @deprecated Use `severity` instead. */
   type?: NotificationType | `${NotificationType}`;
   actions?: "none" | "primary" | "secondary" | "both";
+  /** @deprecated Use `showDismiss` instead. */
   dismiss?: "visible" | "hidden";
   /** Label of the secondary (dismiss) button. Defaults to "DISMISS". */
   dismissLabel?: string;
@@ -60,6 +66,5 @@ export interface RdsCompNotificationProps {
   showPrimaryButton?: boolean;
   /** Legacy boolean, still supported. */
   showSecondaryButton?: boolean;
-  /** Legacy boolean, still supported. */
   showDismiss?: boolean;
 }

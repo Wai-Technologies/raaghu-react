@@ -1,5 +1,5 @@
 import React from "react"
-import RdsCompReviews, { ReviewStyle, VariantType } from "./rds-comp-reviews"
+import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews"
 import figma from "@figma/code-connect"
 
 /**
@@ -16,19 +16,19 @@ figma.connect(
   {
     props: {
       variant: figma.enum("✨ Style", {
-        "Style 1": ReviewStyle.Style1,
-        "Style 2": ReviewStyle.Style2,
-        "Style 3": ReviewStyle.Style3,
-        "Style 4": ReviewStyle.Style4,
-        "Style 5": ReviewStyle.Style5,
-        "Style 6": ReviewStyle.Style6,
-        "Style 7": ReviewStyle.Style7,
-        "Style 8": ReviewStyle.Style8,
-        "Style 9": ReviewStyle.Style9,
-        "Style 10": ReviewStyle.Style10,
-        "Style 11": ReviewStyle.Style11,
-        "Style 12": ReviewStyle.Style12,
-        "Style 13": ReviewStyle.Style13,
+        "Style 1": RevieweStyle.Style1,
+        "Style 2": RevieweStyle.Style2,
+        "Style 3": RevieweStyle.Style3,
+        "Style 4": RevieweStyle.Style4,
+        "Style 5": RevieweStyle.Style5,
+        "Style 6": RevieweStyle.Style6,
+        "Style 7": RevieweStyle.Style7,
+        "Style 8": RevieweStyle.Style8,
+        "Style 9": RevieweStyle.Style9,
+        "Style 10": RevieweStyle.Style10,
+        "Style 11": RevieweStyle.Style11,
+        "Style 12": RevieweStyle.Style12,
+        "Style 13": RevieweStyle.Style13,
       }),
     },
     example: (props) => <RdsCompReviews

@@ -36,9 +36,9 @@ export const Default: Story = {
     );
   },
   args: {
-    aiLogoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
-    userAvatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
-    placeholderText: "Ask a followup",
+    assistantAvatar: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu_icon.png",
+    userAvatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
+    placeholder: "Ask a followup",
     iconName: "enhancer"
   },
   play: async ({ canvasElement }) => {

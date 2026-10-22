@@ -17,7 +17,7 @@ const meta: Meta<typeof RdsCollapse> = {
     expanded: {
       control: 'boolean',
     },
-    showToggleButton: {
+    hideToggle: {
       control: 'boolean',
     },
     title: { control: { disable: true }, table: { disable: true } },
@@ -73,7 +73,7 @@ export const Expanded: Story = {
 export const NoTitle: Story = {
   args: {
     expanded: false,
-    showToggleButton: true,
+    hideToggle: false,
     children: (
       <Box className="rds-collapse__story-box rds-collapse__story-box--secondary" sx={{ p: 2, borderRadius: 1 }}>
         <RdsTypography variant="h6" gutterBottom>
@@ -91,7 +91,7 @@ export const NoToggleButton: Story = {
   args: {
     title: 'No Toggle Button',
     expanded: true,
-    showToggleButton: false,
+    hideToggle: true,
     children: (
       <Box className="rds-collapse__story-box rds-collapse__story-box--success" sx={{ p: 2, borderRadius: 1 }}>
         <RdsTypography variant="body1">

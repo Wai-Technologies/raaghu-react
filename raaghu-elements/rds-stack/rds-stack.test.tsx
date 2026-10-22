@@ -3,11 +3,12 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Divider } from '@mui/material';
 import RdsStack from './rds-stack';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-stack.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   const theme = createTheme({
@@ -743,5 +744,12 @@ describe('audit fixes', () => {
     );
     expect(container.querySelector('.rds-stack')).toBeInTheDocument();
     expect(getComputedStyle(container.querySelector('.rds-stack') as Element).gap || '0').not.toContain('32');
+  });
+});
+
+describe('audit fixes', () => {
+  it('warns when deprecated gap is passed', () => {
+    render(<RdsStack gap={2}><div>a</div><div>b</div></RdsStack>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsStack', 'gap', expect.any(String));
   });
 });

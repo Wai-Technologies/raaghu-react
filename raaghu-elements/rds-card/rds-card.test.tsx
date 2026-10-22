@@ -5,10 +5,8 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-card.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   ...jest.requireActual('@mui/material'),
   Card: ({ children, className, sx, ...props }: any) => (
@@ -23,7 +21,6 @@ jest.mock('@mui/material', () => ({
   },
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   Person: () => <span data-testid="icon-person">PersonIcon</span>,
   Home: () => <span data-testid="icon-home">HomeIcon</span>,
@@ -55,7 +52,6 @@ jest.mock('@mui/icons-material', () => ({
   Notifications: () => <span data-testid="icon-notification">NotificationIcon</span>,
 }));
 
-// The component imports each icon from its own module; same test ids as above.
 jest.mock('@mui/icons-material/Person', () => () => <span data-testid="icon-person">PersonIcon</span>);
 jest.mock('@mui/icons-material/Home', () => () => <span data-testid="icon-home">HomeIcon</span>);
 jest.mock('@mui/icons-material/Settings', () => () => <span data-testid="icon-settings">SettingsIcon</span>);
@@ -393,7 +389,6 @@ describe('RdsCard', () => {
       const { container } = render(
         <RdsCard {...defaultProps} padding="20px" />
       );
-      // Verify card renders with padding prop
       expect(screen.getByTestId('card-root')).toBeInTheDocument();
     });
 
@@ -951,3 +946,22 @@ describe('RdsCard audit fixes', () => {
     });
   });
 });
+
+describe('RdsCard additive renames', () => {
+  beforeEach(() => {
+    (warnDeprecatedProp as jest.Mock).mockClear();
+  });
+
+  it('renders subtitle and prefers it over cardSubtext', () => {
+    render(<RdsCard subtitle="New" cardSubtext="Old" />);
+    expect(screen.getByText('New')).toBeInTheDocument();
+    expect(screen.queryByText('Old')).not.toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCard', 'cardSubtext', '`subtitle`');
+  });
+
+  it('warns for padding', () => {
+    render(<RdsCard title="T" padding={8} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCard', 'padding', '`sx`');
+  });
+});
+

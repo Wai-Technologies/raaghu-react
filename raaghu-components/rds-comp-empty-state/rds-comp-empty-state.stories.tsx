@@ -27,26 +27,18 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       control: { type: "text" },
       description: "Main title text",
     },
-    subLabel: {
+    description: {
       control: { type: "text" },
       description: "Subtitle or description text",
     },
-    iconHeight: {
+    imageSize: {
       control: { type: "number" },
-      description: "Icon height (px if number). Default 150 for illustration, 72 for minimal",
-    },
-    iconWidth: {
-      control: { type: "number" },
-      description: "Icon width (px if number). Default 150 for illustration, 72 for minimal",
+      description: "Image size (px if number). Default 150 for illustration, 72 for minimal",
     },
     animated: {
       control: { type: "boolean" },
       if: { arg: "variant", eq: "illustration" },
       description: "Enable full Lottie animation (illustration variant only)",
-    },
-    buttonText: {
-      control: { type: "text" },
-      description: "Text to display on the action button",
     },
     className: {
       table: { disable: true },
@@ -61,8 +53,7 @@ export const Default: Story = {
   args: {
     variant: "illustration",
     label: "No Data Available",
-    subLabel: "No data available at this moment. Would you like to add new data?",
-    buttonText: "Add New Data",
+    description: "No data available at this moment. Would you like to add new data?",
     animated: false,
   },
   play: async ({ canvasElement }) => {

@@ -1,10 +1,14 @@
-import type { CSSProperties, HTMLAttributes, Ref } from "react";
+import type { HTMLAttributes, Ref } from "react";
 
 export enum ColorPickerType {
   Default = "Default",
   Button = "Button",
   ButtonExpanded = "Button-Expanded",
 }
+
+export type ColorPickerVariant = 'inline' | 'button' | 'button-expanded';
+export type ColorPickerFormat = 'hex' | 'rgb' | 'hsb' | 'hsl';
+export type ColorPickerView = 'grid' | 'spectrum';
 
 export enum PickerType {
   Grid = "Grid",
@@ -32,21 +36,37 @@ export interface ColorChangeDetails {
 }
 
 export interface RdsCompColorPickerProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'children' | 'id'> {
-  value: string;
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'style' | 'children' | 'id' | 'defaultValue'> {
+  /** Selected colour. */
+  value?: string;
+  /** Initial colour for uncontrolled use. */
+  defaultValue?: string;
   /** Disables the picker. Takes precedence over `isDisabled`. */
   disabled?: boolean;
   /** @deprecated Use `disabled` instead. */
   isDisabled?: boolean;
   label: string;
-  /** Picker layout. Defaults to `ColorPickerType.Default`. */
+  /** Picker layout. Defaults to `'inline'`. */
+  variant?: ColorPickerVariant;
+  /** Figma alias of `variant`. */
   type?: ColorPickerType;
   showSwatches?: boolean;
+  /** Active view. */
+  view?: ColorPickerView;
+  /** Initial view. */
+  defaultView?: ColorPickerView;
+  /** @deprecated Use `view` instead. */
   pickerType?: PickerType;
   showTabs?: boolean;
+  /** Colour format shown in the value field. */
+  format?: ColorPickerFormat;
+  /** Initial colour format. */
+  defaultFormat?: ColorPickerFormat;
+  /** @deprecated Use `format` instead. */
   colorMode?: ColorMode;
-  variant?: StyleType;
-  style?: CSSProperties;
+  /** Swatches layout; `'list'` is `StyleType.Type1` and `'grid'` is `StyleType.Type2`. */
+  swatchesVariant?: 'list' | 'grid';
+  style?: StyleType;
   /**
    * Called with the 6-digit hex when the colour changes. When the opacity (alpha) slider
    * changes, a second argument with `rgba` and `hex8` is passed as well.
@@ -54,7 +74,7 @@ export interface RdsCompColorPickerProps
   onChange?: (colorHex: string, details?: ColorChangeDetails) => void;
   /** Called when the "add swatch" control in the swatches section is activated. */
   onAddSwatch?: () => void;
-  /** Custom swatch colours. Defaults to the built-in list for the selected `variant`. */
+  /** Custom swatch colours. Defaults to the built-in list for the selected `style`. */
   swatches?: string[];
   /** Ref to the root `div`. */
   ref?: Ref<HTMLDivElement>;

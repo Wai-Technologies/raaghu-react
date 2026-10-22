@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState, type MouseEvent } from 'react';
 import RdsCompAppShell, { AppShellDisplayType } from '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell';
-import '@raaghu/layouts/rds-comp-app-shell/rds-comp-app-shell.scss';
 import RdsAppBar from '@raaghu/elements/rds-app-bar/rds-app-bar';
 import RdsSidebar from '@raaghu/elements/rds-sidebar/rds-sidebar';
 import { useRaaghuLogoSrc } from '@raaghu/elements/shared/hooks/useRaaghuLogoSrc';
@@ -47,7 +46,6 @@ import {
   FlashOn as FlashIcon,
 } from '@mui/icons-material';
 
-// ─── Static data ────────────────────────────────────────────────────────────
 
 const KPI_CARDS = [
   {
@@ -126,13 +124,12 @@ const NAV_ITEMS = [
   { id: 'help',      label: 'Help',      icon: <HelpIcon />      },
 ];
 
-// ─── Component ───────────────────────────────────────────────────────────────
 
 export default function DashboardPage() {
   const [activeNav, setActiveNav] = useState('dashboard');
   const [themeMenuAnchor, setThemeMenuAnchor] = useState<HTMLElement | null>(null);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const { mode, setMode, isDark } = useRaaghuTheme();
 
   useEffect(() => {
@@ -141,7 +138,7 @@ export default function DashboardPage() {
     }
   }, [isMobile]);
 
-  const handleThemeMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+  const handleThemeMenuOpen = useCallback((event: MouseEvent<HTMLElement>) => {
     setThemeMenuAnchor(event.currentTarget);
   }, []);
 
@@ -162,7 +159,6 @@ export default function DashboardPage() {
 
   const logoSrc = useRaaghuLogoSrc();
 
-  // ── Topbar ──────────────────────────────────────────────────────────────
   const topbar = useMemo(() => (
     <div className="rds-appshell-appbar rds-appshell-appbar--fixed">
       <RdsAppBar
@@ -179,6 +175,7 @@ export default function DashboardPage() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
               <IconButton
                 size="small"
+                aria-label="notifications, 3 unread"
                 sx={{
                   color: 'text.secondary',
                   bgcolor: 'action.hover',
@@ -241,13 +238,13 @@ export default function DashboardPage() {
               </MenuItem>
               <MenuItem selected={mode === 'light'} onClick={() => handleThemeModeSelect('light')}>
                 <ListItemIcon>
-                  <MoonIcon fontSize="small" />
+                  <SunIcon fontSize="small" />
                 </ListItemIcon>
                 <MenuItemText primary="Light" secondary="Always use light theme" />
               </MenuItem>
               <MenuItem selected={mode === 'dark'} onClick={() => handleThemeModeSelect('dark')}>
                 <ListItemIcon>
-                  <SunIcon fontSize="small" />
+                  <MoonIcon fontSize="small" />
                 </ListItemIcon>
                 <MenuItemText primary="Dark" secondary="Always use dark theme" />
               </MenuItem>
@@ -258,9 +255,6 @@ export default function DashboardPage() {
     </div>
   ), [logoSrc, mode, themeMenuAnchor, isMobile, themeIcon, handleThemeMenuOpen, handleThemeMenuClose, handleThemeModeSelect]);
 
-  // ── Sidebar ─────────────────────────────────────────────────────────────
-  // Default layout intentionally hides the sidebar logo (logo lives in AppBar).
-  // We add a matching 64px header manually so the sidebar aligns with the AppBar.
   const sidebar = (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Box
@@ -277,7 +271,7 @@ export default function DashboardPage() {
         <img src={logoSrc} alt="Raaghu Design System" style={{ height: 26, objectFit: 'contain' }} />
       </Box>
       <RdsSidebar
-        avatarSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+        user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
         avatarCollapsedSrc={logoSrc}
         open
         showLogo={false}
@@ -286,7 +280,7 @@ export default function DashboardPage() {
         items={NAV_ITEMS.map(item => ({
           icon: item.icon,
           label: item.label,
-          active: activeNav === item.id,
+          selected: activeNav === item.id,
           onClick: () => {
             setActiveNav(item.id);
             if (isMobile) {
@@ -298,13 +292,10 @@ export default function DashboardPage() {
     </Box>
   );
 
-  // ── Main content ─────────────────────────────────────────────────────────
   const content = (
     <Box sx={{ p: { xs: 2, md: 3 }, minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Spacer so content clears the fixed AppBar */}
       <Toolbar />
 
-      {/* Page header */}
       <Box sx={{ mb: 3.5, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
         <Box>
           <Typography variant="h5" sx={{ fontWeight: 700, letterSpacing: '-0.3px' }}>
@@ -329,7 +320,6 @@ export default function DashboardPage() {
         />
       </Box>
 
-      {/* KPI cards — 4 cols desktop, 2 cols tablet, 1 col mobile */}
       <Box
         sx={{
           display: 'grid',
@@ -355,7 +345,6 @@ export default function DashboardPage() {
               },
             }}
           >
-            {/* Icon + label row */}
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
                 {kpi.label}
@@ -376,12 +365,10 @@ export default function DashboardPage() {
               </Box>
             </Box>
 
-            {/* Value */}
             <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5, letterSpacing: '-0.5px', lineHeight: 1 }}>
               {kpi.value}
             </Typography>
 
-            {/* Trend */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1.5 }}>
               {kpi.trendUp
                 ? <TrendingUp sx={{ fontSize: 15, color: '#059669' }} />
@@ -400,7 +387,6 @@ export default function DashboardPage() {
               </Typography>
             </Box>
 
-            {/* Progress bar */}
             <LinearProgress
               progressVariant="determinate"
               value={kpi.progress}
@@ -418,7 +404,6 @@ export default function DashboardPage() {
         ))}
       </Box>
 
-      {/* Two-column row: Activity + Quick Stats */}
       <Box
         sx={{
           display: 'grid',
@@ -426,7 +411,6 @@ export default function DashboardPage() {
           gap: 2.5,
         }}
       >
-        {/* Recent activity */}
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -436,7 +420,6 @@ export default function DashboardPage() {
             boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
           }}
         >
-          {/* Section header */}
           <Box
             sx={{
               px: 3,
@@ -473,10 +456,9 @@ export default function DashboardPage() {
             </Typography>
           </Box>
 
-          {/* Activity list */}
           <List disablePadding>
             {ACTIVITY.map((item, i) => (
-              <React.Fragment key={`${item.user}-${i}`}>
+              <Fragment key={`${item.user}-${i}`}>
                 <ListItem
                   sx={{
                     px: 3,
@@ -502,8 +484,10 @@ export default function DashboardPage() {
                   <ListItemText
                     primary={item.user}
                     secondary={item.action}
-                    primaryTypographyProps={{ variant: 'body2', sx: { fontWeight: 600, mb: 0.25 } }}
-                    secondaryTypographyProps={{ variant: 'caption', sx: { color: 'text.secondary', lineHeight: 1.4 } }}
+                    slotProps={{
+                      primary: { variant: 'body2', sx: { fontWeight: 600, mb: 0.25 } },
+                      secondary: { variant: 'caption', sx: { color: 'text.secondary', lineHeight: 1.4 } },
+                    }}
                   />
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 0.75, ml: 2, flexShrink: 0 }}>
                     <Chip
@@ -527,14 +511,12 @@ export default function DashboardPage() {
                 {i < ACTIVITY.length - 1 && (
                   <Divider sx={{ borderColor: 'var(--rds-divider)', mx: 3 }} />
                 )}
-              </React.Fragment>
+              </Fragment>
             ))}
           </List>
         </Box>
 
-        {/* Quick Stats sidebar panel */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-          {/* System health */}
           <Box
             sx={{
               bgcolor: 'background.paper',
@@ -581,7 +563,6 @@ export default function DashboardPage() {
             </Box>
           </Box>
 
-          {/* Goal card */}
           <Box
             sx={{
               p: 2.5,
@@ -621,12 +602,12 @@ export default function DashboardPage() {
   return (
     <RdsCompAppShell
       displayType={AppShellDisplayType.Default}
-      topbar={topbar}
+      header={topbar}
       sidebar={sidebar}
-      mobileSidebarOpen={isMobile ? mobileSidebarOpen : false}
-      onMobileSidebarToggle={() => {
+      sidebarOpen={isMobile ? mobileSidebarOpen : false}
+      onSidebarOpenChange={(open) => {
         if (isMobile) {
-          setMobileSidebarOpen(open => !open);
+          setMobileSidebarOpen(open);
         }
       }}
     >

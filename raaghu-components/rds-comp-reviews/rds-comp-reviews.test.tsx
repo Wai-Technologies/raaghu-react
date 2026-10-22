@@ -9,10 +9,8 @@ import RdsCompReviews, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-reviews.scss', () => ({}));
 
-// Mock MUI components
 jest.mock('@mui/material', () => ({
   Grid: ({ children, container, spacing, wrap }: any) => (
     <div data-testid="grid" data-spacing={spacing} data-wrap={wrap} data-container={container}>
@@ -41,16 +39,14 @@ jest.mock('@mui/material', () => ({
   }),
 }));
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material', () => ({
   ThumbUpAltIcon: () => <span data-testid="thumb-up-icon">👍</span>,
   ThumbDownAltIcon: () => <span data-testid="thumb-down-icon">👎</span>,
 }));
 
-// Mock RDS elements
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => ({
   __esModule: true,
-  default: ({ title, src, displayStyle, size, showName, showDesignation, subText, alt }: any) => (
+  default: ({ name, title = name, src, displayStyle, size, showName, showDesignation, description, subText = description, alt }: any) => (
     <div
       data-testid="rds-avatar"
       data-title={title}
@@ -409,7 +405,6 @@ describe('RdsCompReviews', () => {
       const rating = screen.getByTestId('rds-rating');
       expect(rating).toHaveAttribute('data-value', '3');
       fireEvent.click(rating);
-      // Rating state updates after click
       await waitFor(() => {
         const updatedRating = screen.getByTestId('rds-rating');
         expect(updatedRating).toHaveAttribute('data-value');
@@ -544,7 +539,6 @@ describe('RdsCompReviews', () => {
           itemList={[item]}
         />
       );
-      // Should not crash and still render
       expect(screen.getByText('John Doe')).toBeInTheDocument();
     });
   });
@@ -777,7 +771,6 @@ describe('RdsCompReviews', () => {
 
       const avatars = screen.getAllByTestId('rds-avatar');
       expect(avatars.some(a => a.getAttribute('data-title') === 'Complete User')).toBeTruthy();
-      // Style7 shows Complete User, date, rating, description, and interaction counts
       const allText = screen.getByTestId('card').textContent || '';
       expect(allText).toContain('Complete User');
       expect(screen.getByText('This is a complete review')).toBeInTheDocument();
@@ -844,7 +837,6 @@ describe('RdsCompReviews', () => {
     });
 
     it('should handle zero rating', () => {
-      // Note: rating || 4.5 in component means 0 becomes 4.5
       const item = { ...defaultItem, rating: 0.5 };
       render(
         <RdsCompReviews
@@ -942,5 +934,10 @@ describe('audit fixes', () => {
     const item = { ...base, id: 1, date: new Date('2024-01-15') };
     render(<RdsCompReviews items={[item]} variant={ReviewStyle.Style4} formatDate={() => 'custom date'} />);
     expect(screen.getByText('custom date')).toBeInTheDocument();
+  });
+
+  it('variant wins over style', () => {
+    render(<RdsCompReviews items={[base]} variant={ReviewStyle.Style7} style={ReviewStyle.Style4} />);
+    expect(screen.getByLabelText('Like')).toBeInTheDocument();
   });
 });

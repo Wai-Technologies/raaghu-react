@@ -63,8 +63,10 @@ function ToolbarSectionButtons({
  * Active formats can be controlled with `value`/`onChange`.
  */
 const RdsCompToolbar = ({
-  layout = ToolbarLayout.Primary,
-  type = ToolbarType.FullFeatured,
+  layout: layoutProp = ToolbarLayout.Primary,
+  variant,
+  type: typeProp = ToolbarType.FullFeatured,
+  preset,
   state = ToolbarState.On,
   disabled,
   items,
@@ -78,6 +80,8 @@ const RdsCompToolbar = ({
   ref,
   ...props
 }: RdsCompToolbarProps) => {
+  const layout = variant ?? layoutProp;
+  const type = preset ?? typeProp;
   const [internalFormats, setInternalFormats] = useState<string[]>(defaultValue ?? []);
   const activeFormats = value ?? internalFormats;
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);

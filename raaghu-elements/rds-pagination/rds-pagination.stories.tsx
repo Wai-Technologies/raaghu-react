@@ -16,7 +16,6 @@ const meta: Meta<typeof RdsPagination> = {
         'pageSize',
         'onPageSizeChange',
         'onChange',
-        'onPageChange',
         'pageSizeOptions',
         'controls',
         'totalPages',
@@ -31,7 +30,6 @@ const meta: Meta<typeof RdsPagination> = {
     pageSize: { control: false },
     onPageSizeChange: { control: false },
     onChange: { control: false },
-    onPageChange: { control: false },
     pageSizeOptions: { control: false },
     ref: { control: false },
     count: {
@@ -69,7 +67,7 @@ const meta: Meta<typeof RdsPagination> = {
       control: 'boolean',
       description: 'Show last page button',
     },
-    showDropdown: {
+    showPageSize: {
       control: 'boolean',
       description: 'Show records per page dropdown',
     },
@@ -89,7 +87,7 @@ const meta: Meta<typeof RdsPagination> = {
       control: 'boolean',
       description: 'Show last page button (independent control)',
     },
-    showManualInput: {
+    showPageInput: {
       control: 'boolean',
       description: 'Show manual page input (Go to [input] Page)',
     },
@@ -115,15 +113,14 @@ export const Default: Story = {
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}
-        onPageChange={setPage}
         onPageSizeChange={setPageSize}
         pageSizeOptions={[10, 25, 50]}
-        showDropdown={args.showDropdown}
+        showPageSize={args.showPageSize}
         showLegend={args.showLegend}
         legendText={args.legendText}
         showFirst={args.showFirst}
         showLast={args.showLast}
-        showManualInput={args.showManualInput}
+        showPageInput={args.showPageInput}
         paginationStyle={args.paginationStyle}
       />
     );
@@ -131,10 +128,9 @@ export const Default: Story = {
   args: {
     count: 50,
     page: 1,
-    showDropdown: false,
+    showPageSize: false,
     showLegend: false,
-    legendText: "{current} of {total} items",
-    showManualInput: true,
+    showPageInput: true,
     paginationStyle: 'Style 1',
   },
   parameters: {
@@ -143,12 +139,12 @@ export const Default: Story = {
         'count',
         'page',
         'paginationStyle',
-        'showDropdown',
+        'showPageSize',
         'showLegend',
         'legendText',
         'showFirst',
         'showLast',
-        'showManualInput',
+        'showPageInput',
         'size',
         'variant',
         'shape',
@@ -176,37 +172,35 @@ export const Advanced: Story = {
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}
-        onPageChange={setPage}
         onPageSizeChange={setPageSize}
         pageSizeOptions={[10, 25, 50, 100]}
         showFirstLast={false}
-        showDropdown={args.showDropdown}
+        showPageSize={args.showPageSize}
         showLegend={args.showLegend}
         legendText={args.legendText}
         showFirst={args.showFirst}
         showLast={args.showLast}
-        showManualInput={args.showManualInput}
+        showPageInput={args.showPageInput}
         paginationStyle={args.paginationStyle}
       />
     );
   },
   args: {
-    showDropdown: false,
+    showPageSize: false,
     showLegend: false,
-    legendText: "{current} of {total} items",
-    showManualInput: true,
+    showPageInput: true,
     paginationStyle: 'Style 1',
   },
   parameters: {
     controls: {
       include: [
         'paginationStyle',
-        'showDropdown',
+        'showPageSize',
         'showLegend',
         'legendText',
         'showFirst',
         'showLast',
-        'showManualInput',
+        'showPageInput',
         'size',
         'variant',
         'shape',

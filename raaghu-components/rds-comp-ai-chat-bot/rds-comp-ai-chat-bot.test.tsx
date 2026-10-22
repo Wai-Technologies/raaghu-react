@@ -5,17 +5,15 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAiChatBot, { RdsCompAiChatBotProps, Message } from './rds-comp-ai-chat-bot';
 
-// Mock SCSS
 jest.mock('./rds-comp-ai-chat-bot.scss', () => ({}));
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock child components
 jest.mock('../rds-comp-ai-chat-header/rds-comp-ai-chat-header', () => {
   const ChatHeaderSize = { Small: 'small', Medium: 'medium', Large: 'large' } as const;
-  function MockRdsCompAiChatHeader({ logoUrl, title, ...props }: any) {
+  function MockRdsCompAiChatHeader({ avatarSrc, logoUrl, title, ...props }: any) {
     return (
       <div data-testid="chat-header" {...props}>
-        <img src={logoUrl} alt="logo" data-testid="header-logo" />
+        <img src={avatarSrc ?? logoUrl} alt="logo" data-testid="header-logo" />
         <h2 data-testid="header-title">{title}</h2>
       </div>
     );
@@ -24,12 +22,12 @@ jest.mock('../rds-comp-ai-chat-header/rds-comp-ai-chat-header', () => {
 });
 
 jest.mock('../rds-comp-ai-message-box/rds-comp-ai-message-box', () => {
-  return function MockRdsCompAiMessageBox({ avatar, avtar, isImage, children, message, src, ...props }: any) {
+  return function MockRdsCompAiMessageBox({ avatar, avtar, isImage, imageSrc, children, message, src, ...props }: any) {
     return (
       <div data-testid="message-box" {...props}>
         <img src={avatar ?? avtar} alt="avatar" data-testid="message-avatar" />
-        {isImage && src ? (
-          <img src={src} alt="message" data-testid="message-image" />
+        {(imageSrc ?? (isImage && src)) ? (
+          <img src={imageSrc ?? src} alt="message" data-testid="message-image" />
         ) : (
           <p data-testid="message-text">{children ?? message}</p>
         )}
@@ -48,8 +46,10 @@ jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
     iconName,
     onAddComment,
     previewImage,
+    imageSrc,
     ...props
   }: any) {
+    previewImage = imageSrc ?? previewImage;
     mockTypingProps.current = { onAddComment };
     return (
       <div data-testid="typing-section" {...props}>
@@ -101,7 +101,6 @@ jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
   };
 });
 
-// Default props for testing
 const defaultProps: RdsCompAiChatBotProps = {
   aiLogoUrl: 'https://example.com/ai-logo.jpg',
   userAvatarUrl: 'https://example.com/user-avatar.jpg',
@@ -670,6 +669,32 @@ describe('RdsCompAiChatBot', () => {
       expect(screen.getByTestId('header-title')).toHaveTextContent('Support');
       expect(screen.getByTestId('root')).toHaveClass('rds-ai-chat-bot', 'custom');
       expect(container.querySelector('.rds-ai-chat-bot__messages')).toHaveAttribute('role', 'log');
+    });
+
+    it("uses assistantAvatar, userAvatar and placeholder over the deprecated names", () => {
+      render(
+        <RdsCompAiChatBot
+          {...defaultProps}
+          assistantAvatar="a.png"
+          userAvatar="u.png"
+          placeholder="New"
+          messages={[{ id: 1, text: "Hi", role: "user" }, { id: 2, text: "Yo", role: "assistant", sender: false }]}
+        />
+      );
+      expect(screen.getByTestId("header-logo")).toHaveAttribute("src", "a.png");
+      const avatars = screen.getAllByTestId("message-avatar");
+      expect(avatars[0]).toHaveAttribute("src", "u.png");
+      expect(avatars[1]).toHaveAttribute("src", "a.png");
+      expect(screen.getByTestId("message-input")).toHaveAttribute("placeholder", "New");
+    });
+
+    it("calls onSend with the sent user message", () => {
+      const onSend = jest.fn();
+      render(<RdsCompAiChatBot assistantAvatar="a.png" messages={[]} onSend={onSend} />);
+      const input = screen.getByTestId("message-input") as HTMLInputElement;
+      input.value = "Hello";
+      fireEvent.click(screen.getByTestId("send-button"));
+      expect(onSend).toHaveBeenCalledWith(expect.objectContaining({ text: "Hello", role: "user" }));
     });
   });
 });

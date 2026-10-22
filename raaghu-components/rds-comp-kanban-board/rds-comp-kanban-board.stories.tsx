@@ -11,13 +11,13 @@ const meta: Meta = {
             status: { type: 'stable' },
         layout: 'padded',
     controls: {
-  exclude: ['onSubCardOption', 'onCardOption', 'onAddQuestionSave', 'onSelectedTagsListChange', 'IlliustrationSmall', 'illustration'],
+    exclude: ['onCardAction', 'onColumnAction', 'onCardAdd', 'onColumnsChange', 'onSubCardOption', 'onCardOption', 'onAddQuestionSaveHandler', 'onBoardDataChange', 'onSelectedTagsListChange', 'isIlliustrationSmall', 'illustration'],
     },
 
         docs: {
     description: {
         component: 
-            'The **Kanban Board** component is a customizable UI element designed to display and manage tasks or items in a Kanban-style board format. It supports features such as dynamic card creation, sub-card management, and customizable actions for cards and sub-cards. The component uses a `boardData` array to define board items, with properties like `cardId`, `status`, `name`, `subCards`, and `actions`. This component is ideal for project management tools, task tracking systems, or any application requiring a visual workflow management interface. Fully customizable, the Kanban Board component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
+            'The **Kanban Board** component is a customizable UI element designed to display and manage tasks or items in a Kanban-style board format. It supports features such as dynamic card creation, sub-card management, and customizable actions for cards and sub-cards. The component uses a `columns` (or `defaultColumns`) array to define board items, with properties like `cardId`, `status`, `name`, `subCards`, and `actions`. This component is ideal for project management tools, task tracking systems, or any application requiring a visual workflow management interface. Fully customizable, the Kanban Board component ensures a seamless user experience while maintaining consistency with your design system and functional requirements.'
     },
 }
     },
@@ -110,12 +110,12 @@ export const Default: Story = {
         expect(el).toBeTruthy();
     },
     args: {
-        allowAddingNewCard: true,
-        boardData: sampleItems,
-        allowAddingNewSubCard: true,
+        allowAddColumn: true,
+        defaultColumns: sampleItems,
+        allowAddCard: true,
         avatarData: kanbanAvatarData,
 
-        allCategoriesList: [
+        categoryOptions: [
             { label: "Category 1", val: "category1" },
             { label: "Category 2", val: "category2" },
             { label: "Category 3", val: "category3" },
@@ -123,7 +123,7 @@ export const Default: Story = {
             { label: "Category 5", val: "category5" },
             { label: "Category 6", val: "category6" },
         ],
-        allTagsList: [
+        tagOptions: [
             { label: "Tag 1", val: "tag1" },
             { label: "Tag 2", val: "tag2" },
             { label: "Tag 3", val: "tag3" },

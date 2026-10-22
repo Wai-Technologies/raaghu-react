@@ -141,7 +141,7 @@ export const ReviewStyleCard = ({
             >
               <RdsAvatar
                 src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                title={item.name}
+                name={item.name}
                 size="medium"
                 displayStyle="name-bottom"
               />
@@ -206,8 +206,8 @@ export const ReviewStyleCard = ({
           <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
             <RdsAvatar
               src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-              title={item.name}
-              subText={formatDate(item.date)}
+              name={item.name}
+              description={formatDate(item.date)}
               size="medium"
               displayStyle="with-name"
             />
@@ -263,7 +263,7 @@ export const ReviewStyleCard = ({
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <RdsAvatar
               src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-              title={item.name}
+              name={item.name}
               size="medium"
               showDesignation={false}
               showName={false}
@@ -347,7 +347,7 @@ export const ReviewStyleCard = ({
             >
               <RdsAvatar
                 src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                title={item.name}
+                name={item.name}
                 size={isXs ? "small" : "medium"}
                 showDesignation={false}
                 showName={false}
@@ -429,7 +429,7 @@ export const ReviewStyleCard = ({
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <RdsAvatar
               src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-              title={item.name}
+              name={item.name}
               size="medium"
               showDesignation={false}
               showName={false}
@@ -513,7 +513,7 @@ export const ReviewStyleCard = ({
             <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
               <RdsAvatar
                 src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                title={item.name}
+                name={item.name}
                 alt={item.name}
                 showName={false}
                 size="medium"

@@ -9,7 +9,7 @@ const meta: Meta = {
             status: { type: 'stable' },
         layout: 'padded',
     controls: {
-    exclude: ['onEmojiSelect'],
+    exclude: ['onChange'],
     },
         docs: {
             description: {
@@ -46,7 +46,7 @@ const meta: Meta = {
             control: { type: "number", min: 10, max: 200, step: 10 },
             description: "Maximum number of emojis to display in grid",
         },
-        onEmojiSelect: {
+        onChange: {
             action: 'emoji-selected',
             description: "Callback when emoji is clicked",
         },

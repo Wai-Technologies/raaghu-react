@@ -1,6 +1,8 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
 import type { ChartConfiguration, ChartData, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-scatter.scss";
 import { resolveScatterChartType, type ScatterChartType } from "./rds-comp-chart-scatter-utils";
@@ -65,17 +67,25 @@ function normalizeScatterDataset(
 /** Props for {@link RdsCompScatterChart}. */
 export interface RdsCompScatterChartProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
-  /** Labels (optional for scatter data given as `{ x, y }` points). */
-  labels: unknown[];
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: unknown[];
   /** Chart.js options (never mutated). */
   options: ChartConfiguration["options"];
-  /** Chart.js datasets. */
-  dataSets: ChartConfiguration["data"]["datasets"];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartConfiguration["data"]["datasets"];
   /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
   /** Accessible label of the chart. Default "Scatter chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
-  /** Chart.js type to draw. `"line"` connects the points. Default `"scatter"`. */
+  /** @deprecated Use `showLine` on the datasets to connect the points. Chart.js type to draw. Default `"scatter"`. */
   chartType?: ScatterChartType;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
@@ -83,26 +93,40 @@ export interface RdsCompScatterChartProps
 
 const RdsCompScatterChart = ({
   id,
+  data,
   labels,
   options,
   dataSets,
+  height,
+  width,
+  ariaLabel,
   chartLabel,
   chartType,
   className,
   ref,
   ...rest
 }: RdsCompScatterChartProps) => {
+  if (chartType !== undefined) {
+    warnDeprecatedProp("RdsCompScatterChart", "chartType", "`showLine` on the datasets");
+  }
   const resolvedChartType = resolveScatterChartType(chartType);
+  const resolved = resolveChartData<unknown[], ChartDataset[]>(
+    "RdsCompScatterChart",
+    data as { labels?: unknown[]; datasets: ChartDataset[] } | undefined,
+    labels,
+    dataSets as ChartDataset[] | undefined
+  );
   const { canvasRef } = useChart<ScatterChartType>(
     {
       type: resolvedChartType,
-      labels,
-      datasets: dataSets.map((dataset) =>
+      labels: resolved.labels,
+      datasets: resolved.datasets.map((dataset) =>
         normalizeScatterDataset(dataset, resolvedChartType)
       ) as ChartData<ScatterChartType>["datasets"],
       options: options as ChartConfiguration<ScatterChartType>["options"],
+      onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
     },
-    [id, labels, options, dataSets, chartType]
+    [id, resolved.labels, options, resolved.datasets, chartType, height, width]
   );
 
   return (
@@ -111,7 +135,7 @@ const RdsCompScatterChart = ({
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Scatter chart"}
+        aria-label={resolveChartLabel("RdsCompScatterChart", ariaLabel, chartLabel, "Scatter chart")}
       />
     </div>
   );

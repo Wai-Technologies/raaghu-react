@@ -10,13 +10,14 @@ import {
 } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-modal.scss';
  
 /** Props for {@link RdsModal}. Remaining props are forwarded to MUI `Dialog`. */
 export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'component' | 'onClose'> {
   /** Heading text shown in the dialog title. */
   title?: string;
-  /** Figma open state; takes precedence over `isOpen`. When neither is set the modal is open. */
+  /** @deprecated Use `open` instead. Takes precedence over `isOpen`. When nothing is set the modal is open. */
   visibility?: 'open' | 'closed';
   /** Direct open state; when passed it takes precedence over `visibility` and `isOpen`. */
   open?: boolean;
@@ -26,7 +27,9 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'com
   onClose: DialogProps['onClose'];
   /** Footer content (e.g. buttons). */
   actions?: ReactNode;
-  /** Figma close-button state; takes precedence over `showCloseButton`. */
+  /** Hides the close button; takes precedence over `headerChrome` and `showCloseButton`. */
+  hideCloseButton?: boolean;
+  /** @deprecated Use `hideCloseButton` instead. */
   headerChrome?: 'closeable' | 'plain';
   /** Legacy flag to show the close button. @default true */
   showCloseButton?: boolean;
@@ -34,13 +37,13 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'com
   icon?: ReactNode;
   /** Legacy flag to show `icon`. @default true */
   showIcon?: boolean;
-  /** Figma media state controlling icon/image visibility. */
+  /** @deprecated Control icon/image with `icon`, `showIcon` and `imageSrc` instead. */
   media?: 'none' | 'icon' | 'image' | 'both';
   /** Header image URL. */
   imageSrc?: string;
   /** Alt text for `imageSrc` (an empty string marks it decorative). @default 'Modal' */
   imageAlt?: string;
-  /** Figma body state; `'hidden'` hides `children`. */
+  /** @deprecated Use `showDescription` instead. */
   body?: 'visible' | 'hidden';
   /** Legacy flag to show `children`. @default true */
   showDescription?: boolean;
@@ -52,6 +55,7 @@ const RdsModal= ({
   visibility,
   onClose,
   actions,
+  hideCloseButton,
   headerChrome,
   icon,
   media,
@@ -67,8 +71,12 @@ const RdsModal= ({
   ...props
 }: RdsModalProps) => {
 
+  if (visibility !== undefined) warnDeprecatedProp('RdsModal', 'visibility', '`open`');
+  if (headerChrome !== undefined) warnDeprecatedProp('RdsModal', 'headerChrome', '`hideCloseButton`');
+  if (media !== undefined) warnDeprecatedProp('RdsModal', 'media', '`icon`, `showIcon` and `imageSrc`');
+  if (body !== undefined) warnDeprecatedProp('RdsModal', 'body', '`showDescription`');
   const resolvedIsOpen = visibility === 'open' ? true : visibility === 'closed' ? false : (legacyIsOpen ?? true);
-  const resolvedShowCloseButton = headerChrome === 'closeable' ? true : headerChrome === 'plain' ? false : (legacyShowCloseButton ?? true);
+  const resolvedShowCloseButton = hideCloseButton !== undefined ? !hideCloseButton : headerChrome ? headerChrome === 'closeable' : (legacyShowCloseButton ?? true);
   const resolvedShowDescription = body === 'visible' ? true : body === 'hidden' ? false : (legacyShowDescription ?? true);
   const resolvedShowIcon = media === 'none'
     ? false

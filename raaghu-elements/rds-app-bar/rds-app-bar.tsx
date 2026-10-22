@@ -17,6 +17,7 @@ import {
   Drawer,
   Tabs,
   Tab,
+  type TabsProps,
   useMediaQuery,
 } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
@@ -28,6 +29,7 @@ import Close from '@mui/icons-material/Close';
 import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import "./rds-app-bar.scss";
 
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
@@ -50,13 +52,22 @@ export type RdsAppBarTab = string | { label: string; [key: string]: unknown };
 
 export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   title?: string;
+  /** Content at the right of the bar. Takes precedence over `rightActions` and `actions`. */
+  endSlot?: ReactNode;
+  /** Content in the centre of the bar. Takes precedence over `centerContent`. */
+  centerSlot?: ReactNode;
+  /** @deprecated Use `endSlot` instead. */
   rightActions?: ReactNode;
+  /** @deprecated Use `centerSlot` instead. */
   centerContent?: ReactNode;
   size?: RdsAppBarSize;
   logo?: ReactNode;
+  /** @deprecated The logo is shown whenever `logo` is provided. Documentation only: still works. */
   showLogo?: boolean;
   onMenuClick?: () => void;
+  /** @deprecated The menu button is decided by `onMenuClick`. Documentation only: still works. */
   showMenuButton?: boolean;
+  /** @deprecated Use `endSlot` instead. */
   actions?: ReactNode;
   userName?: string;
   userEmail?: string;
@@ -66,9 +77,14 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
   tabs?: RdsAppBarTab[];
+  /** @deprecated Use `tabsProps.value` instead. */
   tabValue?: number;
+  /** @deprecated Use `tabsProps.onChange` instead. */
   onTabChange?: (value: number) => void;
+  /** Props for the tabs. `value` and `onChange(event, value)` take precedence over `tabValue` and `onTabChange`. */
+  tabsProps?: Partial<TabsProps>;
   subHeader?: ReactNode;
+  /** @deprecated Search is shown when `onSearchChange` is provided. Documentation only: still works. */
   showSearch?: boolean;
   variantStyle?: RdsAppBarVariantStyle;
   overflowContent?: ReactNode;
@@ -110,11 +126,8 @@ const DEFAULT_BOTTOM_ACTIONS = (
   </>
 );
 
-// Layouts that move the tabs into a bottom bar on tablets as well as phones.
 const TABLET_BOTTOM_NAV_VARIANTS = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
 
-// The CSS class strips spaces and punctuation, while the layout logic only lower-cases
-// ("With Menu Button" gets the class but not the mobile bottom bar), as it always has.
 const toVariantClass = (variantStyle?: string) =>
   variantStyle ? variantStyle.toLowerCase().replace(/[^a-z0-9]+/g, '') : '';
 
@@ -129,8 +142,11 @@ const getTabLabel = (tab: RdsAppBarTab, index: number) =>
 
 const RdsAppBar = ({
   title,
+  endSlot,
+  centerSlot,
   rightActions,
   centerContent,
+  tabsProps,
   children,
   size = 'medium',
   logo,
@@ -156,24 +172,36 @@ const RdsAppBar = ({
   className,
   ...props
 }: RdsAppBarProps) => {
+  if (rightActions !== undefined) warnDeprecatedProp('RdsAppBar', 'rightActions', '`endSlot`');
+  if (actions !== undefined) warnDeprecatedProp('RdsAppBar', 'actions', '`endSlot`');
+  if (centerContent !== undefined) warnDeprecatedProp('RdsAppBar', 'centerContent', '`centerSlot`');
+  if (tabValue !== undefined) warnDeprecatedProp('RdsAppBar', 'tabValue', '`tabsProps.value`');
+  if (onTabChange !== undefined) warnDeprecatedProp('RdsAppBar', 'onTabChange', '`tabsProps.onChange`');
+
   const tokens = useRdsTokens();
+  const endContent = endSlot ?? rightActions;
+  const centerResolved = centerSlot ?? centerContent;
+  const tabValueResolved = tabsProps?.value ?? tabValue;
+  const hasTabHandler = Boolean(tabsProps?.onChange ?? onTabChange);
+  const handleTabChange = (event: SyntheticEvent, value: number) =>
+    tabsProps?.onChange ? tabsProps.onChange(event, value) : onTabChange?.(value);
   const [overflowOpen, setOverflowOpen] = useState(false);
   const [localBottomActive, setLocalBottomActive] = useState(0);
 
   const variant = variantStyle ? variantStyle.toLowerCase() : '';
   const variantClass = toVariantClass(variantStyle);
   const isSmallScreen = useMediaQuery(`(max-width:${getSmallScreenBreakpoint(variant)}px)`, { noSsr: true });
-  const hasControlledTabs = Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function';
+  const hasControlledTabs = Array.isArray(tabs) && typeof tabValueResolved === 'number' && hasTabHandler;
 
   const renderBottomNavTabs = () =>
     tabs?.map((tab, index) => {
-      const isActive = tabValue === index;
+      const isActive = tabValueResolved === index;
       return (
         <RdsButton
           key={`${getTabLabel(tab, index)}-${index}`}
           role="tab"
           aria-selected={isActive}
-          onClick={() => onTabChange?.(index)}
+          onClick={(event) => handleTabChange(event, index)}
           className={clsx('rds-bottom-nav-tab', isActive && 'rds-bottom-nav-tab--active')}
           style="transparent"
           size="small"
@@ -184,7 +212,6 @@ const RdsAppBar = ({
       );
     });
 
-  // Overflow children become bottom-bar items on small screens; the active one is tracked locally.
   const renderOverflowItems = () => {
     if (!isValidElement<{ children?: ReactNode }>(overflowContent) || !overflowContent.props.children) {
       return overflowContent;
@@ -296,12 +323,13 @@ const RdsAppBar = ({
           )}
 
           {showLogo && logo && <span className="rds-header__logo">{logo}</span>}
-          {centerContent && <span className="rds-header__center-content">{centerContent}</span>}
+          {centerResolved && <span className="rds-header__center-content">{centerResolved}</span>}
           {hasControlledTabs && (
             <Tabs
-              className="rds-header__tabs-inline"
-              value={tabValue}
-              onChange={(_, value) => onTabChange(value)}
+              {...tabsProps}
+              className={clsx('rds-header__tabs-inline', tabsProps?.className)}
+              value={tabValueResolved}
+              onChange={handleTabChange}
               textColor="primary"
               indicatorColor="primary"
             >
@@ -336,14 +364,14 @@ const RdsAppBar = ({
               )}
             </div>
           )}
-          {rightActions && <span className="rds-header__right-actions">{rightActions}</span>}
+          {endContent && <span className="rds-header__right-actions">{endContent}</span>}
 
           {userName && userEmail ? (
             <span className="rds-header__actions">
               <ProfileMenu name={userName} email={userEmail} menuItems={profileMenuItems} />
             </span>
           ) : (
-            actions && <span className="rds-header__actions">{actions}</span>
+            endSlot === undefined && actions && <span className="rds-header__actions">{actions}</span>
           )}
           {children}
           {overflowContent && !isSmallScreen && (

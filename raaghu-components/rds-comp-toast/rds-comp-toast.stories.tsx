@@ -22,8 +22,8 @@ const meta: Meta<typeof RdsCompToast> = {
                     code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: ToastState.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={ToastLayout.${p1.replace(/\s+/g, "")}}`);;
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: ToastLayout.${p1.replace(/\s+/g, "")}`);
-                    code = code.replace(/leadingIcon="([^"]+)"/g, (match, p1) => `leadingIcon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);;
-                    code = code.replace(/leadingIcon:\s*"([^"]+)"/g, (match, p1) => `leadingIcon: ToastLeadingIcon.${p1.replace(/\s+/g, "")}`);
+                    code = code.replace(/icon="([^"]+)"/g, (match, p1) => `icon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);;
+                    code = code.replace(/icon:\s*"([^"]+)"/g, (match, p1) => `icon: ToastLeadingIcon.${p1.replace(/\s+/g, "")}`);
                     code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={ToastPosition.${p1.replace(/\s+/g, "")}}`);;
                     code = code.replace(/position:\s*"([^"]+)"/g, (match, p1) => `position: ToastPosition.${p1.replace(/\s+/g, "")}`);
                     return code;
@@ -60,7 +60,7 @@ const meta: Meta<typeof RdsCompToast> = {
             },
             description: "Layout type of the toast"
         },
-        leadingIcon: {
+        icon: {
             options: Object.values(ToastLeadingIcon), 
             control: { 
                 type: "select",
@@ -127,11 +127,11 @@ export const Default: Story = {
         message: "This is a big sample placeholder text.",
         showHeader: true,
         showLeading: true,
-        leadingIcon: ToastLeadingIcon.Circle,
+        icon: ToastLeadingIcon.Circle,
         layout: ToastLayout.Text,
         position: ToastPosition.TopLeft,
         showDismiss: true,
-        progressWidth: 40,
+        progress: 40,
         filename: "Filename.txt",
         placeholder: "Placeholder Text",
         chatTime: "12:29 PM"

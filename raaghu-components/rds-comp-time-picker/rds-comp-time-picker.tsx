@@ -61,6 +61,8 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     disabled,
     value: valueProp,
     state: stateProp,
+    open: openProp,
+    defaultOpen,
     localeText,
   } = props;
   if (colorVariant !== undefined) warnDeprecatedProp('RdsCompTimePicker', 'colorVariant', '`color`');
@@ -72,13 +74,13 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const placeholderText = localeText?.placeholder ?? '12:00 AM';
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [pickerState, setPickerState] = useState<PickerState>(() => {
-    if (valueProp !== undefined) return { ...INITIAL_STATE, ...getValueUpdates(valueProp) };
-    if (stateProp === 'expanded') return { ...INITIAL_STATE, showPicker: true };
-    if (stateProp === 'selected') return { ...INITIAL_STATE, time: '12:00 AM' };
-    return INITIAL_STATE;
-  });
-  const { showPicker, hours, minutes, period, time, tempHour, tempMinute, tempPeriod } = pickerState;
+  const [pickerState, setPickerState] = useState<PickerState>(() => ({
+    ...INITIAL_STATE,
+    ...getSyncUpdates(valueProp, stateProp),
+    ...(defaultOpen !== undefined && { showPicker: defaultOpen }),
+  }));
+  const { showPicker: innerOpen, hours, minutes, period, time, tempHour, tempMinute, tempPeriod } = pickerState;
+  const showPicker = openProp ?? innerOpen;
   const updatePickerState = useCallback((updates: Partial<PickerState> | ((prev: PickerState) => Partial<PickerState>)) => {
     setPickerState((prev) => ({
       ...prev,
@@ -161,7 +163,6 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     setOpen(false);
   }, [onChangeProp, updatePickerState, setOpen]);
 
-  // Escape / outside click close the popup without touching the value.
   useEffect(() => {
     if (!showPicker) return undefined;
     const onKeyDown = (event: KeyboardEvent) => {

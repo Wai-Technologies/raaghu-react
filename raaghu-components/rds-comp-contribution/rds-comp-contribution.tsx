@@ -1,10 +1,11 @@
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { useCallback, useEffect, useMemo, useState, type HTMLAttributes, type ReactElement, type Ref, type SVGProps } from 'react';
 import Measure, { BoundingRect, type MeasuredComponentProps } from 'react-measure';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
 import SvgIcon from '@mui/material/SvgIcon';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 dayjs.extend(customParseFormat);
 
@@ -16,14 +17,39 @@ export interface RdsCompContributionProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   showMonthLabels?: boolean;
   showWeekLabels?: boolean;
+  /** Short names for Sunday..Saturday. */
+  weekdayLabels?: string[];
+  /** Names for January..December. */
+  monthLabels?: string[];
+  /** @deprecated Use `weekdayLabels` instead. */
   weekNames?: string[];
+  /** @deprecated Use `monthLabels` instead. */
   monthNames?: string[];
+  /** Colours by contribution count; the last colour is used for higher counts. */
+  colors?: string[];
+  /** @deprecated Use `colors` instead. */
   panelColors?: string[];
-  values: { [date: string]: number };
-  until: string;
+  /** Contribution counts keyed by date, formatted with `dateFormat`. */
+  data?: { [date: string]: number };
+  /** @deprecated Use `data` instead. */
+  values?: { [date: string]: number };
+  /** Last day shown. Strings are parsed with `dateFormat`. */
+  endDate?: Dayjs | Date | string;
+  /** @deprecated Use `endDate` instead. */
+  until?: string;
+  /** Format of the `data` keys and of string dates. */
   dateFormat?: string;
+  /** Props merged onto the week labels, month labels and panels. */
+  slotProps?: {
+    weekLabel?: SVGProps<SVGTextElement> & DataAttributes;
+    monthLabel?: SVGProps<SVGTextElement> & DataAttributes;
+    panel?: SVGProps<SVGRectElement> & DataAttributes;
+  };
+  /** @deprecated Use `slotProps.weekLabel` instead. */
   weekLabelAttributes?: SVGProps<SVGTextElement> & DataAttributes;
+  /** @deprecated Use `slotProps.monthLabel` instead. */
   monthLabelAttributes?: SVGProps<SVGTextElement> & DataAttributes;
+  /** @deprecated Use `slotProps.panel` instead. */
   panelAttributes?: SVGProps<SVGRectElement> & DataAttributes;
   monthLabelHeight?: number;
   weekLabelWidth?: number;
@@ -38,15 +64,21 @@ export interface RdsCompContributionProps
 const RdsCompContribution = ({
   showMonthLabels = true,
   showWeekLabels = false,
-  weekNames,
-  monthNames,
-  panelColors,
-  values,
-  until,
+  weekdayLabels,
+  monthLabels: monthLabelsProp,
+  weekNames: weekNamesProp,
+  monthNames: monthNamesProp,
+  colors,
+  panelColors: panelColorsProp,
+  data,
+  values: valuesProp,
+  endDate,
+  until: untilProp,
   dateFormat = 'YYYY-MM-DD',
-  weekLabelAttributes,
-  monthLabelAttributes,
-  panelAttributes,
+  slotProps,
+  weekLabelAttributes: weekLabelAttributesProp,
+  monthLabelAttributes: monthLabelAttributesProp,
+  panelAttributes: panelAttributesProp,
   monthLabelHeight = 28,
   weekLabelWidth = 24,
   panelSize = 11,
@@ -55,6 +87,27 @@ const RdsCompContribution = ({
   ref,
   ...rest
 }: RdsCompContributionProps) => {
+  const deprecated: [string, unknown, string][] = [
+    ['weekNames', weekNamesProp, 'weekdayLabels'],
+    ['monthNames', monthNamesProp, 'monthLabels'],
+    ['panelColors', panelColorsProp, 'colors'],
+    ['values', valuesProp, 'data'],
+    ['until', untilProp, 'endDate'],
+    ['weekLabelAttributes', weekLabelAttributesProp, 'slotProps.weekLabel'],
+    ['monthLabelAttributes', monthLabelAttributesProp, 'slotProps.monthLabel'],
+    ['panelAttributes', panelAttributesProp, 'slotProps.panel'],
+  ];
+  deprecated.forEach(([name, value, replacement]) => {
+    if (value !== undefined) warnDeprecatedProp('RdsCompContribution', name, "`" + replacement + "`");
+  });
+  const weekNames = weekdayLabels ?? weekNamesProp;
+  const monthNames = monthLabelsProp ?? monthNamesProp;
+  const panelColors = colors ?? panelColorsProp;
+  const values = data ?? valuesProp;
+  const until = endDate ?? untilProp;
+  const weekLabelAttributes = slotProps?.weekLabel ?? weekLabelAttributesProp;
+  const monthLabelAttributes = slotProps?.monthLabel ?? monthLabelAttributesProp;
+  const panelAttributes = slotProps?.panel ?? panelAttributesProp;
   const columns = COLUMNS;
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === 'undefined' ? 1024 : window.innerWidth));
 
@@ -89,8 +142,8 @@ const RdsCompContribution = ({
     };
   }, [dynamicPanelMargin, dynamicPanelSize, monthLabelHeight, weekLabelWidth]);
 
-  const makeCalendarData = useCallback((history: { [k: string]: number }, lastDay: string, columnCount: number) => {
-    const d = dayjs(lastDay, dateFormat);
+  const makeCalendarData = useCallback((history: { [k: string]: number }, lastDay: Dayjs | Date | string, columnCount: number) => {
+    const d = typeof lastDay === 'string' ? dayjs(lastDay, dateFormat) : dayjs(lastDay);
     const lastWeekend = d.endOf('week');
     const endDate = d.endOf('day');
   

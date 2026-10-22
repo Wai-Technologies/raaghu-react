@@ -6,6 +6,7 @@ import RdsSearch from './rds-search';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-search.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
@@ -246,10 +247,8 @@ describe('RdsSearch', () => {
       
       const input = screen.getByRole('textbox') as HTMLInputElement;
       
-      // Type 'test' character by character
       await userEvent.type(input, 'test');
       
-      // Verify onChange was called for each character typed
       expect(handleChange).toHaveBeenCalled();
       expect(handleChange).toHaveBeenCalledTimes(4);
       expect(handleChange).toHaveBeenCalledWith('t');
@@ -957,5 +956,22 @@ describe('RdsSearch audit fixes', () => {
     const { container } = render(<RdsSearch value="" onChange={jest.fn()} iconPosition="end" />);
     expect(container.querySelector('.MuiInputAdornment-positionEnd [aria-label="search"]')).toBeInTheDocument();
     expect(container.querySelector('.MuiInputAdornment-positionStart')).not.toBeInTheDocument();
+  });
+
+  it('debounce enables auto search with that delay', async () => {
+    const onSearch = jest.fn();
+    render(<RdsSearch value="" onChange={jest.fn()} onSearch={onSearch} debounce={50} />);
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'abc' } });
+    expect(onSearch).not.toHaveBeenCalled();
+    await waitFor(() => expect(onSearch).toHaveBeenCalledWith('abc'));
+  });
+
+  it('warns for deprecated left/right icon positions only', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    warnDeprecatedProp.mockClear();
+    const { rerender } = render(<RdsSearch value="" onChange={jest.fn()} iconPosition="start" />);
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    rerender(<RdsSearch value="" onChange={jest.fn()} iconPosition="right" />);
+    expect(warnDeprecatedProp).toHaveBeenCalled();
   });
 });

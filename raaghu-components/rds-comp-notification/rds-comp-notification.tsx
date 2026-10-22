@@ -25,21 +25,23 @@ const CustomBellIcon = () => (
 
 const EMPTY_NOTIFICATIONS: NotificationItem[] = [];
 
-// One stable key used for both rendering and dismissal.
 const getNotificationKey = (notification: NotificationItem, index: number): string | number =>
     notification.id ?? notification.userNotificationId ?? `${notification.title}-${index}`;
 
 const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string } = ({
-    notifications = EMPTY_NOTIFICATIONS,
+    items,
+    notifications: legacyNotifications,
     title,
+    fallbackImage,
     defaultImage,
-    layout = NotificationLayout.Horizontal,
-    variant = NotificationStyle.Default,
-    style,
+    orientation,
+    layout: figmaLayout,
+    variant,
+    style: figmaStyle,
     severity,
     type,
     actions = 'none',
-    dismiss = 'hidden',
+    dismiss,
     dismissLabel = 'DISMISS',
     acceptLabel = 'ACCEPT',
     description,
@@ -52,11 +54,17 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     showDismiss: legacyShowDismiss,
 }) => {
     if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`severity`');
+    if (legacyNotifications !== undefined) warnDeprecatedProp('RdsCompNotification', 'notifications', '`items`');
+    if (defaultImage !== undefined) warnDeprecatedProp('RdsCompNotification', 'defaultImage', '`fallbackImage`');
+    if (dismiss !== undefined) warnDeprecatedProp('RdsCompNotification', 'dismiss', '`showDismiss`');
     const resolvedType = severity ?? type ?? NotificationType.Info;
+    const notifications = items ?? legacyNotifications ?? EMPTY_NOTIFICATIONS;
+    const layout = orientation ?? figmaLayout ?? NotificationLayout.Horizontal;
+    const style = variant ?? figmaStyle ?? NotificationStyle.Default;
 
     const theme = useTheme();
     const resolvedDefaultImage =
-        defaultImage ?? getRaaghuLogoUrlFromDark(theme.palette.mode === 'dark');
+        fallbackImage ?? defaultImage ?? getRaaghuLogoUrlFromDark(theme.palette.mode === 'dark');
 
     const resolvedDismissVisible = dismiss === 'visible' || legacyShowDismiss === true;
     const resolvedShowPrimaryButton = actions === 'primary' || actions === 'both' || legacyShowPrimaryButton === true;
@@ -64,7 +72,6 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     const resolvedShowButton = actions !== 'none' || legacyShowButton === true || resolvedShowPrimaryButton || resolvedShowSecondaryButton;
 
     const [dismissedNotificationKeys, setDismissedNotificationKeys] = useState<Array<string | number>>([]);
-    // A new `notifications` reference is an authoritative reset: show everything again.
     const [prevNotifications, setPrevNotifications] = useState(notifications);
     const isReset = notifications !== prevNotifications;
     if (isReset) {
@@ -81,7 +88,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
         onDismiss?.(event, notification);
     };
 
-    const isHorizontalImage = layout === NotificationLayout.Horizontal && variant === NotificationStyle.Image;
+    const isHorizontalImage = layout === NotificationLayout.Horizontal && style === NotificationStyle.Image;
 
     return (
         <Fragment>
@@ -89,11 +96,10 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                 <Card
                     role="status"
                     key={key}
-                    style={style}
                     className={clsx(
                       "rds-comp-notification",
                       `rds-comp-notification--layout-${layout}`,
-                      `rds-comp-notification--style-${variant}`,
+                      `rds-comp-notification--style-${style}`,
                       `rds-comp-notification--type-${resolvedType}`,
                       className
                     )}
@@ -127,7 +133,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         className="rds-comp-notification__header"
                         sx={{ display: "flex", alignItems: layout === NotificationLayout.Horizontal ? "center" : "flex-start", flexDirection: layout === NotificationLayout.Horizontal ? "row" : "column", marginBottom: 1, }}>
 
-                        {variant === NotificationStyle.Image &&
+                        {style === NotificationStyle.Image &&
                             (layout === NotificationLayout.Vertical ||
                                 layout === NotificationLayout.Horizontal) && (
                                 <Box
@@ -142,7 +148,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                                     )}
                                 </Box>
                             )}
-                        {variant === NotificationStyle.Image && layout === NotificationLayout.Vertical && (
+                        {style === NotificationStyle.Image && layout === NotificationLayout.Vertical && (
                             <Box className="rds-comp-notification__image-container">
                             <Box
                                 component="img"
@@ -151,14 +157,14 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                                 />
                             </Box>
                         )}
-                        {variant === NotificationStyle.Avatar && (
+                        {style === NotificationStyle.Avatar && (
                             <Avatar
                                 src={
                                     notification.avatar ||
                                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
                                 }
                                 sx={{ width: 40, height: 40, marginRight: 2 }} />)}
-                        {variant === NotificationStyle.Icon && (
+                        {style === NotificationStyle.Icon && (
                             <Box className="rds-comp-notification__icon" sx={{ marginRight: 2, display: "flex", alignItems: "center", width: 38, height: 38 }}>
                                 {typeof notification.icon === 'string' ? (
                                     <CustomBellIcon />
@@ -168,7 +174,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                             </Box>
                         )}
 
-                        {variant !== NotificationStyle.Image && (
+                        {style !== NotificationStyle.Image && (
                                 <Box
                                     className="rds-comp-notification__title-section"
                                     sx={{ flexGrow: 1, marginTop: layout === NotificationLayout.Vertical ? 0 : 0.125 }}
@@ -197,7 +203,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                     <CardContent
                         className="rds-comp-notification__body"
                         sx={{
-                            padding: 0, marginTop: 1, marginLeft: layout === NotificationLayout.Horizontal && (variant === NotificationStyle.Avatar || variant === NotificationStyle.Icon) ? 5 : 0, "&:last-child": { paddingBottom: 0 },
+                            padding: 0, marginTop: 1, marginLeft: layout === NotificationLayout.Horizontal && (style === NotificationStyle.Avatar || style === NotificationStyle.Icon) ? 5 : 0, "&:last-child": { paddingBottom: 0 },
                         }}>
                         <Typography
                             variant="body2"

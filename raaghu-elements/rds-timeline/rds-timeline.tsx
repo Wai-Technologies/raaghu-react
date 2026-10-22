@@ -1,20 +1,21 @@
 import { type ReactNode } from 'react';
 import clsx from 'clsx';
-import MuiTimeline from '@mui/lab/Timeline';
-import { 
-  TimelineItem as MuiTimelineItem,
-  TimelineSeparator as MuiTimelineSeparator,
-  TimelineConnector as MuiTimelineConnector,
-  TimelineContent as MuiTimelineContent,
-  TimelineDot as MuiTimelineDot,
-  TimelineOppositeContent as MuiTimelineOppositeContent,
-  type TimelineProps
-} from '@mui/lab';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import MuiTimeline, { type TimelineProps } from '@mui/lab/Timeline';
+import MuiTimelineItem from '@mui/lab/TimelineItem';
+import MuiTimelineSeparator from '@mui/lab/TimelineSeparator';
+import MuiTimelineConnector from '@mui/lab/TimelineConnector';
+import MuiTimelineContent from '@mui/lab/TimelineContent';
+import MuiTimelineDot from '@mui/lab/TimelineDot';
+import MuiTimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 export interface RdsTimelineItem {
   id: string | number;
   title: string;
   description?: string;
+  /** @deprecated Use `opposite` instead. */
   time?: string;
+  /** Content shown opposite the item. */
+  opposite?: ReactNode;
   icon?: ReactNode;
   color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' | 'grey';
   variant?: 'filled' | 'outlined';
@@ -24,6 +25,7 @@ export interface RdsTimelineItem {
 export interface RdsTimelineProps extends Omit<TimelineProps, 'children' | 'component'> {
   items: RdsTimelineItem[];
   showTime?: boolean;
+  /** @deprecated Use `position="alternate"` instead. */
   alternating?: boolean;
 }
 
@@ -35,15 +37,19 @@ const RdsTimeline = ({
   className,
   ...props
 }: RdsTimelineProps) => {
+  if (alternating) warnDeprecatedProp('RdsTimeline', 'alternating', '`position="alternate"`');
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
   return (
     <MuiTimeline position={timelinePosition} {...props} className={clsx('rds-timeline', className)}>
-      {items.map((item, index) => (
+      {items.map((item, index) => {
+        if (item.time !== undefined) warnDeprecatedProp('RdsTimeline', 'items[].time', '`items[].opposite`');
+        const opposite = item.opposite ?? (showTime ? item.time : undefined);
+        return (
           <MuiTimelineItem key={item.id}>
-            {showTime && item.time && (
+            {opposite && (
               <MuiTimelineOppositeContent color="text.secondary">
-                {item.time}
+                {opposite}
               </MuiTimelineOppositeContent>
             )}
             <MuiTimelineSeparator>
@@ -61,7 +67,8 @@ const RdsTimeline = ({
               )}
             </MuiTimelineContent>
           </MuiTimelineItem>
-        ))}
+        );
+      })}
     </MuiTimeline>
   );
 };

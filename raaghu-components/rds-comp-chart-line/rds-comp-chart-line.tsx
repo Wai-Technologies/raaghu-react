@@ -1,23 +1,31 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
 import type Chart from "chart.js/auto";
-import type { ChartOptions, ChartDataset } from "chart.js/auto";
-import { getCSSVar } from "../chart-utils";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
+import { applyCanvasSize, getCSSVar, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-line.scss";
 
 /** Props for {@link RdsCompLineChart}. */
 export interface RdsCompLineProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children"> {
-  /** X-axis labels. */
-  labels: string[];
+  /** Chart.js data (labels and datasets). Takes precedence over `labels` and `dataSets`. */
+  data?: ChartData<"line">;
+  /** @deprecated Use `data.labels` instead. */
+  labels?: string[];
   /** Chart.js options (never mutated). */
   options: ChartOptions<"line">;
-  /** Chart.js line datasets. */
-  dataSets: ChartDataset<"line">[];
+  /** @deprecated Use `data.datasets` instead. */
+  dataSets?: ChartDataset<"line">[];
   /** Id of the canvas element. */
   id: string;
+  /** Canvas height (number = px). */
+  height?: string | number;
+  /** Canvas width (number = px). */
+  width?: string | number;
   /** Accessible label of the chart. Default "Line chart". */
+  ariaLabel?: string;
+  /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
@@ -42,24 +50,32 @@ const applyLineCanvasSizing = (chart: Chart, chartId: string) => {
 };
 
 const RdsCompLineChart = ({
+  data,
   labels,
   options,
   dataSets,
   id,
+  height,
+  width,
+  ariaLabel,
   chartLabel,
   className,
   ref,
   ...rest
 }: RdsCompLineProps) => {
+  const resolved = resolveChartData("RdsCompLineChart", data, labels, dataSets);
   const { canvasRef } = useChart(
     {
       type: "line",
-      labels,
-      datasets: dataSets,
+      labels: resolved.labels,
+      datasets: resolved.datasets,
       options,
-      onCreate: (chart) => applyLineCanvasSizing(chart, id),
+      onCreate: (chart) => {
+        applyLineCanvasSizing(chart, id);
+        applyCanvasSize(chart.canvas, height, width);
+      },
     },
-    [labels, options, dataSets, id]
+    [resolved.labels, options, resolved.datasets, id, height, width]
   );
 
   return (
@@ -69,7 +85,7 @@ const RdsCompLineChart = ({
         id={id}
         ref={canvasRef}
         role="img"
-        aria-label={chartLabel ?? "Line chart"}
+        aria-label={resolveChartLabel("RdsCompLineChart", ariaLabel, chartLabel, "Line chart")}
       />
     </div>
   );

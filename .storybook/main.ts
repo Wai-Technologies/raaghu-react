@@ -8,10 +8,10 @@ const config: StorybookConfig = {
   stories: [
     '../stories/Introduction.mdx',
     '../stories/**/*.mdx',
-    "../raaghu-elements/**/**/*.stories.@(js|jsx|ts|tsx)",
+    "../raaghu-elements/**/*.stories.@(js|jsx|ts|tsx)",
     // Exclude internal/paid components (grid=paid, tree-structure=internal, date-and-time-picker=internal)
     "../raaghu-components/!(rds-comp-grid|rds-comp-tree-structure|rds-comp-date-and-time-picker)/**/*.stories.@(js|jsx|ts|tsx)",
-    "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
+    "../raaghu-layouts/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
     {
@@ -40,7 +40,11 @@ const config: StorybookConfig = {
     reactDocgenTypescriptOptions: {
       tsconfigPath: 'tsconfig.library.json',
       shouldExtractLiteralValuesFromEnum: true,
-      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+      propFilter: (prop) => {
+        if ((prop.tags && 'deprecated' in prop.tags) || /(^|\n)\s*@deprecated\b/.test(prop.description ?? '')) return false;
+        const files = [...(prop.declarations ?? []), ...(prop.parent ? [prop.parent] : [])].map((d) => d.fileName);
+        return files.some((file) => !/node_modules/.test(file));
+      },
       exclude: ['**/*.test.tsx', '**/*.spec.tsx', '**/*.test.ts', '**/*.spec.ts'],
     },
   },

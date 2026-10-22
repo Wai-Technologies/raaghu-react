@@ -19,26 +19,27 @@ import {
 } from './rds-comp-datepicker-utils';
 import {
     DatePickerState,
+    DatePickerStyleType,
     type RdsCompDatepickerProps,
 } from './rds-comp-datepicker.types';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 const asBoolean = (value: unknown): boolean | undefined => (typeof value === 'boolean' ? value : undefined);
+const toDate = (value?: Date | string | null) => (value ? new Date(value) : null);
+const styleTypeByVariant = { dropdown: DatePickerStyleType.Dropdown, selector: DatePickerStyleType.Selector };
 
 const RdsDatepicker = ({
     selectedDate,
     dateForEdit,
-    titleText,
+    titleText: titleTextProp,
     onDatePicker,
-    datePickerStyleType,
-    style,
+    datePickerStyleType: datePickerStyleTypeProp,
     state,
     layout,
     customDate,
     controls,
-    placeholderText,
-    variant: variantProp,
-    type: legacyType,
+    placeholderText: placeholderTextProp,
+    type,
     changeIcon,
     disabled,
     required,
@@ -47,11 +48,31 @@ const RdsDatepicker = ({
     isMandatory: isMandatoryProp,
     showClearDate: showClearDateProp,
     isDefaultDate: isDefaultDateProp,
+    value,
+    defaultValue,
+    onChange,
+    label,
+    variant,
+    placeholder,
+    clearable,
+    openPickerIcon,
     ...restProps
 }: RdsCompDatepickerProps) => {
-    const variant = variantProp ?? legacyType;
-    if (isDisabledProp !== undefined) warnDeprecatedProp('RdsCompDatepicker', 'isDisabled', '`disabled`');
-    if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsCompDatepicker', 'isMandatory', '`required`');
+    ([
+        [isDisabledProp, 'isDisabled', '`disabled`'],
+        [isMandatoryProp, 'isMandatory', '`required`'],
+        [controls?.mandatory, 'controls.mandatory', '`required`'],
+        [dateForEdit, 'dateForEdit', '`value`'],
+        [onDatePicker, 'onDatePicker', '`onChange`'],
+        [placeholderTextProp, 'placeholderText', '`placeholder`'],
+        [changeIcon, 'changeIcon', '`openPickerIcon`'],
+        [showClearDateProp, 'showClearDate', '`clearable`'],
+        [controls?.clearDate, 'controls.clearDate', '`clearable`'],
+        [isDefaultDateProp, 'isDefaultDate', '`defaultValue`'],
+        [controls?.defaultDate, 'controls.defaultDate', '`defaultValue`'],
+    ] as const).forEach(([used, prop, replacement]) => {
+        if (used !== undefined) warnDeprecatedProp('RdsCompDatepicker', prop, replacement);
+    });
 
     const legacyShowTitle = asBoolean(showTitleProp);
     const legacyIsDisabled = asBoolean(isDisabledProp);
@@ -59,17 +80,22 @@ const RdsDatepicker = ({
     const legacyShowClearDate = asBoolean(showClearDateProp);
     const legacyIsDefaultDate = asBoolean(isDefaultDateProp);
 
-    const showTitle = controls?.title ? controls.title === 'visible' : (legacyShowTitle ?? false);
+    const titleText = label ?? titleTextProp;
+    const placeholderText = placeholder ?? placeholderTextProp;
+    const datePickerStyleType = variant ? styleTypeByVariant[variant] : datePickerStyleTypeProp;
+    const editValue = value !== undefined ? value : dateForEdit;
+
+    const showTitle = controls?.title ? controls.title === 'visible' : (legacyShowTitle ?? label !== undefined);
     const isDisabled = disabled ?? (controls?.disabled ? controls.disabled === 'on' : (legacyIsDisabled ?? false));
     const isMandatory = required ?? (controls?.mandatory ? controls.mandatory === 'required' : (legacyIsMandatory ?? false));
-    const showClearDate = controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false);
+    const showClearDate = clearable ?? (controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false));
     const isDefaultDate = controls?.defaultDate ? controls.defaultDate === 'on' : (legacyIsDefaultDate ?? false);
 
     const baseId = useId();
     const inputId = `rds-datepicker-${baseId}`;
 
     const [pickerState, setPickerState] = useState(() => {
-        const start = dateForEdit ? new Date(dateForEdit) : (isDefaultDate ? new Date() : null);
+        const start = toDate(editValue) ?? toDate(defaultValue) ?? (isDefaultDate ? new Date() : null);
         return {
             dropdownDisplayValue: start ? start.toDateString().slice(4) : "",
             activeList: "custom",
@@ -86,15 +112,19 @@ const RdsDatepicker = ({
         }));
     }, []);
 
-    // Derive internal state from props during render (React 19 prev-state pattern).
-    const [prevDateForEdit, setPrevDateForEdit] = useState(dateForEdit);
-    if (dateForEdit !== prevDateForEdit) {
-        setPrevDateForEdit(dateForEdit);
-        if (dateForEdit) {
-            const newDate = new Date(dateForEdit);
-            updatePickerState({ startDate: newDate, dropdownDisplayValue: newDate.toDateString().slice(4) });
+    const [prevEditValue, setPrevEditValue] = useState(editValue);
+    if (editValue !== prevEditValue) {
+        setPrevEditValue(editValue);
+        if (editValue || value !== undefined) {
+            const newDate = toDate(editValue);
+            updatePickerState({ startDate: newDate, dropdownDisplayValue: newDate ? newDate.toDateString().slice(4) : "" });
         }
     }
+
+    const emitChange = useCallback((next: Date | null | [Date | null, Date | null]) => {
+        if (typeof onDatePicker === 'function') onDatePicker(next as Date);
+        onChange?.(next);
+    }, [onDatePicker, onChange]);
 
     const [defaultsInitialized, setDefaultsInitialized] = useState(isDefaultDate);
     if (isDefaultDate && !defaultsInitialized) {
@@ -122,27 +152,22 @@ const RdsDatepicker = ({
                 (end ? " - " + end.toDateString().slice(4) : "") : "",
             isDropdownOpen: false,
         });
-        if (typeof onDatePicker === 'function') {
-            onDatePicker([start, end]);
-        }
-    }, [customDate, onDatePicker, updatePickerState]);
+        emitChange([start, end]);
+    }, [customDate, emitChange, updatePickerState]);
 
     const handlerDateChange = useCallback((date: Date | null) => {
         updatePickerState({ startDate: date });
         if (typeof selectedDate === 'function') selectedDate(date);
-        if (typeof onDatePicker === 'function') onDatePicker(date as Date);
-    }, [selectedDate, onDatePicker, updatePickerState]);
+        emitChange(date);
+    }, [selectedDate, emitChange, updatePickerState]);
 
     const handlerDateTimeChange = useCallback((date: any) => {
-        // Cleared → keep internal state in sync with what the callbacks receive (null).
         updatePickerState({ startDate: date ?? null });
         if (typeof selectedDate === 'function') {
             selectedDate(date);
         }
-        if (typeof onDatePicker === 'function') {
-            onDatePicker(date);
-        }
-    }, [selectedDate, onDatePicker, updatePickerState]);
+        emitChange(date);
+    }, [selectedDate, emitChange, updatePickerState]);
 
     const toggleDropdown = useCallback(() => {
         if (!isDisabled) {
@@ -156,14 +181,12 @@ const RdsDatepicker = ({
             if (typeof selectedDate === 'function') {
                 selectedDate(null);
             }
-            if (typeof onDatePicker === 'function') {
-                onDatePicker([null, null]);
-            }
+            emitChange([null, null]);
             if (typeof customDate === 'function') {
                 customDate([null, null]);
             }
         }
-    }, [isDisabled, selectedDate, onDatePicker, customDate, updatePickerState]);
+    }, [isDisabled, selectedDate, emitChange, customDate, updatePickerState]);
 
     const yesterdayClickHandler = useCallback(() => {
         const today = new Date();
@@ -222,7 +245,7 @@ const RdsDatepicker = ({
     }, [state]);
 
     useEffect(() => {
-        if (!isDropdownOpen || variant !== "Custom") return;
+        if (!isDropdownOpen || type !== "Custom") return;
 
         const handlePointerDown = (event: MouseEvent | TouchEvent) => {
             const target = event.target as Node | null;
@@ -253,7 +276,7 @@ const RdsDatepicker = ({
             document.removeEventListener("touchstart", handlePointerDown);
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, [isDropdownOpen, variant, updatePickerState]);
+    }, [isDropdownOpen, type, updatePickerState]);
 
     const sharedProps = useMemo(
         () => ({
@@ -270,8 +293,9 @@ const RdsDatepicker = ({
             isDisabled,
             isMandatory,
             placeholderText,
-            variant,
+            type,
             changeIcon,
+            openPickerIcon,
             showClearDate,
             isDefaultDate,
             clearDate,
@@ -280,13 +304,13 @@ const RdsDatepicker = ({
         }),
         [
             restProps, selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, state, layout,
-            customDate, isDisabled, isMandatory, placeholderText, variant, changeIcon, showClearDate, isDefaultDate, clearDate,
+            customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, openPickerIcon, showClearDate, isDefaultDate, clearDate,
             inputId, baseId,
         ]
     );
 
     return (
-        <div className="rds-datepicker" style={style}>
+        <>
             <label
                 className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
                 aria-hidden={!showTitle}
@@ -309,7 +333,7 @@ const RdsDatepicker = ({
                 CustomButtons
             )}
             {showType && renderDatePickerTypeView(
-                variant || 'Default',
+                type || 'Default',
                 startDate,
                 endDate,
                 handlerDateChange,
@@ -331,7 +355,7 @@ const RdsDatepicker = ({
                 CustomButtons,
                 customDropdownRef
             )}
-        </div>
+        </>
     );
 };
 RdsDatepicker.displayName = "RdsCompDatepicker";

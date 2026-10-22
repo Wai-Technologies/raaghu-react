@@ -5,12 +5,13 @@ import {
   Divider
 } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-stack.scss';
 
 export interface RdsStackProps extends Omit<StackProps, 'component'> {
   /** Items to stack. */
   children: ReactNode;
-  /** Alias of `spacing`; `spacing` wins when both are set (`spacing={0}` is honoured). */
+  /** @deprecated Use `spacing` instead. `spacing` wins when both are set (`spacing={0}` is honoured). */
   gap?: number | string;
   /** `true` renders a default divider (vertical for row directions); a node is used as the divider. */
   divider?: boolean | ReactNode;
@@ -26,11 +27,11 @@ const RdsStack = ({
   dividerColor,
   ...props
 }: RdsStackProps) => {
+  if (gap !== undefined) warnDeprecatedProp('RdsStack', 'gap', '`spacing`');
   let stackDivider: ReactNode | undefined = undefined;
 
   if (typeof divider === 'boolean') {
     if (divider) {
-      // MUI Stack defaults to column; row* directions use a vertical divider.
       const dir = (props.direction && typeof props.direction === 'string')
         ? props.direction
         : 'column';

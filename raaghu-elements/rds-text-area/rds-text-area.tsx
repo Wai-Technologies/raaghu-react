@@ -1,4 +1,3 @@
-
 import {
   useId,
   useState,
@@ -10,22 +9,15 @@ import {
   type Ref,
   type TextareaHTMLAttributes,
 } from "react";
-import clsx from "clsx";
+import clsx from 'clsx';
 import "./rds-text-area.scss";
-
-export { TextareaState, TextareaStyle } from "./rds-text-area-types";
-import { TextareaState, TextareaStyle } from "./rds-text-area-types";
+export { TextareaState, TextareaStyle } from './rds-text-area-types';
+import { TextareaState, TextareaStyle } from './rds-text-area-types';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 type NativeTextareaProps = Omit<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
-  | "style"
-  | "value"
-  | "defaultValue"
-  | "onChange"
-  | "onClick"
-  | "onKeyDown"
-  | "onFocus"
-  | "onBlur"
+  'style' | 'value' | 'defaultValue' | 'onChange' | 'onClick' | 'onKeyDown' | 'onFocus' | 'onBlur'
 >;
 
 /**
@@ -41,27 +33,39 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   defaultValue?: string;
   /** Figma state. Accepts the `TextareaState` enum or its string value (e.g. `"Disabled"`). */
   state?: TextareaState | `${TextareaState}`;
-  /** Visual variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
-  variant?: TextareaStyle | `${TextareaStyle}`;
+  /** Figma style variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
+  style?: TextareaStyle | `${TextareaStyle}`;
+  /** @deprecated Omit `label` to hide the label. */
   showTitle?: boolean;
+  /** Forces the error appearance (same as `state="Error"`). */
+  error?: boolean;
+  /** Text shown under the field when it is in error. */
+  helperText?: string;
+  /** Style variant. Alias of the Figma `style`. */
+  variant?: TextareaStyle | `${TextareaStyle}`;
   /** Marks the field required: shows the asterisk and the empty-value error. */
   required?: boolean;
+  /** @deprecated Use `required` instead. */
+  isMandatory?: boolean;
   /** Disables the textarea (same as `state="Disabled"`). */
   disabled?: boolean;
   /** Class name for the root container. Use `customClasses` for the textarea element. */
   className?: string;
   ref?: Ref<HTMLTextAreaElement>;
   id?: string;
+  /** @deprecated Use `data-testid` instead. */
   dataTestId?: string;
   onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClick?: (event: MouseEvent<HTMLTextAreaElement>) => void;
   onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
   onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
   onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
+  /** @deprecated Remount with a new `key` instead. */
   reset?: boolean;
   validationPattern?: RegExp;
+  /** @deprecated Use `helperText` instead. */
   validationMsg?: string;
-  multiUrl?: boolean;
+  isMultiUrl?: boolean;
   customClasses?: string;
 }
 
@@ -72,9 +76,13 @@ const RdsTextArea = ({
   value,
   defaultValue,
   state,
+  style,
   variant,
+  error,
+  helperText,
   showTitle,
   required,
+  isMandatory: isMandatoryProp,
   disabled,
   className,
   ref,
@@ -88,66 +96,66 @@ const RdsTextArea = ({
   reset: resetProp,
   validationPattern,
   validationMsg,
-  multiUrl,
+  isMultiUrl,
   customClasses,
   ...rest
 }: RdsTextAreaProps): ReactNode => {
+  if (showTitle !== undefined) warnDeprecatedProp('RdsTextArea', 'showTitle', 'omitting `label`');
+  if (dataTestId !== undefined) warnDeprecatedProp('RdsTextArea', 'dataTestId', '`data-testid`');
+  if (resetProp !== undefined) warnDeprecatedProp('RdsTextArea', 'reset', 'a new `key`');
+  if (validationMsg !== undefined) warnDeprecatedProp('RdsTextArea', 'validationMsg', '`helperText`');
+  const resolvedVariant = variant ?? style;
+  if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsTextArea', 'isMandatory', '`required`');
+  const isMandatory = required ?? isMandatoryProp;
   const [isValid, setIsValid] = useState(true);
-  const [isrequiredValid, setIsrequiredValid] = useState(
-    !required || (value ?? defaultValue ?? "").trim().length > 0
+  const [isMandatoryValid, setIsMandatoryValid] = useState(
+    !isMandatory || (value ?? defaultValue ?? '').trim().length > 0
   );
-  const [currentState, setCurrentState] = useState(
-    state || TextareaState.Default
-  );
+  const [currentState, setCurrentState] = useState(state || TextareaState.Default);
   const [prevReset, setPrevReset] = useState(Boolean(resetProp));
   const [prevState, setPrevState] = useState(state);
   const [prevValue, setPrevValue] = useState(value);
-  const [prevrequired, setPrevrequired] = useState(required);
-
-  // useId is stable across server and client renders.
+  const [prevMandatory, setPrevMandatory] = useState(isMandatory);
   const reactId = useId();
   const generatedId = `rds-textarea-${reactId}`;
   const assignedId = id || generatedId;
   const errorId = `${assignedId}-error`;
 
   const reset = Boolean(resetProp);
-
   if (reset !== prevReset) {
     if (reset) {
       setIsValid(true);
-      setIsrequiredValid(true);
+      setIsMandatoryValid(true);
     }
     setPrevReset(reset);
   }
 
   const propState = state || TextareaState.Default;
-
   if (propState !== prevState) {
     setPrevState(propState);
     setCurrentState(propState);
   }
 
-  if (value !== prevValue || required !== prevrequired) {
+  if (value !== prevValue || isMandatory !== prevMandatory) {
     setPrevValue(value);
-    setPrevrequired(required);
-
-    if (required) {
-      setIsrequiredValid((value || "").trim().length > 0);
+    setPrevMandatory(isMandatory);
+    if (isMandatory) {
+      setIsMandatoryValid((value || '').trim().length > 0);
     } else {
-      setIsrequiredValid(true);
+      setIsMandatoryValid(true);
     }
   }
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
-    if (required) {
-      setIsrequiredValid(inputValue.trim().length > 0);
+    if (isMandatory) {
+      setIsMandatoryValid(inputValue.trim().length > 0);
     }
 
     if (validationPattern) {
       const urlPattern = validationPattern;
-      const urlValid = multiUrl
+      const urlValid = isMultiUrl
         ? inputValue.split("\n").every((url) => urlPattern.test(url))
         : urlPattern.test(inputValue);
 
@@ -158,41 +166,23 @@ const RdsTextArea = ({
   };
 
   const handleFocus = (e: FocusEvent<HTMLTextAreaElement>) => {
-    if (
-      currentState !== TextareaState.Disabled &&
-      currentState !== TextareaState.Error
-    ) {
+    if (currentState !== TextareaState.Disabled && currentState !== TextareaState.Error) {
       setCurrentState(TextareaState.Active);
     }
-
     onFocus?.(e);
   };
 
   const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
-
-    if (required) {
-      setIsrequiredValid(inputValue.trim().length > 0);
+    if (isMandatory) {
+      setIsMandatoryValid(inputValue.trim().length > 0);
     }
 
     if (currentState === TextareaState.Active) {
-      setCurrentState(
-        inputValue ? TextareaState.Selected : TextareaState.Default
-      );
+      setCurrentState(inputValue ? TextareaState.Selected : TextareaState.Default);
     }
-
     onBlur?.(e);
   };
-
-  const effectiveState = disabled
-    ? TextareaState.Disabled
-    : currentState;
-
-  const isDisabled = effectiveState === TextareaState.Disabled;
-  const isError =
-    effectiveState === TextareaState.Error ||
-    !isValid ||
-    (required && !isrequiredValid);
 
   const getStateClass = () => {
     switch (effectiveState) {
@@ -209,8 +199,8 @@ const RdsTextArea = ({
     }
   };
 
-  const getVariantClass = () => {
-    switch (variant) {
+  const getStyleClass = () => {
+    switch (resolvedVariant) {
       case TextareaStyle.Pill:
         return "textarea-pill";
       case TextareaStyle.BottomOutline:
@@ -220,43 +210,38 @@ const RdsTextArea = ({
     }
   };
 
-  const getValidationMessage = () => {
-    if (required && !isrequiredValid) {
-      return `${label || "Label"} is required`;
-    }
+  const effectiveState = disabled ? TextareaState.Disabled : error ? TextareaState.Error : currentState;
+  const isDisabled = effectiveState === TextareaState.Disabled;
+  const isError = effectiveState === TextareaState.Error || !isValid || (isMandatory && !isMandatoryValid);
 
-    return validationMsg;
+  const getValidationMessage = () => {
+    if (isMandatory && !isMandatoryValid) {
+      return `${label || 'Label'} is required`;
+    }
+    return helperText ?? validationMsg;
   };
 
   return (
-    <div className={clsx("rds-textarea-container", className)}>
+    <div className={clsx('rds-textarea-container', className)}>
       {showTitle !== false && label && (
-        <label
-          htmlFor={assignedId}
-          className={`textarea-label ${isDisabled ? "disabled" : ""}`}
-        >
+        <label htmlFor={assignedId} className={`textarea-label ${isDisabled ? 'disabled' : ''}`}>
           {label}
-          {required && <span className="required-asterisk"> *</span>}
+          {isMandatory && <span className="required-asterisk"> *</span>}
         </label>
       )}
-
+      
       <div
         className={clsx(
-          "textarea-wrapper",
-          variant === TextareaStyle.Pill && "textarea-pill-wrapper",
-          variant === TextareaStyle.Pill && getStateClass()
+          'textarea-wrapper',
+          resolvedVariant === TextareaStyle.Pill && 'textarea-pill-wrapper',
+          resolvedVariant === TextareaStyle.Pill && getStateClass()
         )}
       >
         <textarea
           {...rest}
           ref={ref}
           id={assignedId}
-          className={clsx(
-            "rds-textarea",
-            getStateClass(),
-            getVariantClass(),
-            customClasses
-          )}
+          className={clsx('rds-textarea', getStateClass(), getStyleClass(), customClasses)}
           disabled={isDisabled}
           rows={rows || 4}
           placeholder={placeholder}
@@ -264,27 +249,22 @@ const RdsTextArea = ({
           onKeyDown={onKeyDown}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          {...(dataTestId !== undefined && {
-            "data-testid": dataTestId,
-          })}
+          {...(dataTestId !== undefined && { 'data-testid': dataTestId })}
           value={value}
           defaultValue={value === undefined ? defaultValue : undefined}
           onChange={handleChange}
           aria-invalid={isError}
-          aria-required={required ? true : undefined}
+          aria-required={isMandatory ? true : undefined}
           aria-describedby={isError ? errorId : undefined}
         />
       </div>
-
+      
       {isError && getValidationMessage() && (
-        <div id={errorId} className="error-message">
-          {getValidationMessage()}
-        </div>
+        <div id={errorId} className="error-message">{getValidationMessage()}</div>
       )}
     </div>
   );
 };
 
-RdsTextArea.displayName = "RdsTextArea";
-
+RdsTextArea.displayName = 'RdsTextArea';
 export default RdsTextArea;

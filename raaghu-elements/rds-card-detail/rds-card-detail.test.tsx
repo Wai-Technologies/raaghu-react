@@ -4,9 +4,10 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCardDetail, { type RdsCardDetailProps } from './rds-card-detail';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-card-detail.scss', () => ({}));
+jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 describe('RdsCardDetail', () => {
   const defaultProps: RdsCardDetailProps = {
@@ -749,7 +750,6 @@ describe('RdsCardDetail', () => {
           subtitle="Secondary"
         />
       );
-      // MUI CardHeader renders title text content
       expect(screen.getByText('Main Title')).toBeInTheDocument();
       expect(container.querySelector('.MuiCardHeader-title')).toBeInTheDocument();
     });
@@ -853,7 +853,6 @@ describe('RdsCardDetail', () => {
       );
       const card = container.querySelector('.rds-card-detail') as HTMLElement;
       expect(getComputedStyle(card).paddingTop).toBe('4px');
-      // jsdom does not expand `border: none`, so read the emitted emotion rule instead.
       const cardClass = Array.from(card.classList).find((c) => c.startsWith('css-'));
       const rules = Array.from(document.styleSheets)
         .flatMap((sheet) => Array.from(sheet.cssRules))
@@ -862,3 +861,19 @@ describe('RdsCardDetail', () => {
     });
   });
 });
+
+describe('RdsCardDetail slotProps.media', () => {
+  it('uses slotProps.media over image/imageHeight and warns for the old props', () => {
+    const { container } = render(
+      <RdsCardDetail image="old.png" imageHeight={50} slotProps={{ media: { image: 'new.png', height: 200 } }}>
+        x
+      </RdsCardDetail>,
+    );
+    const img = container.querySelector('img') as HTMLImageElement;
+    expect(img).toHaveAttribute('src', 'new.png');
+    expect(img).toHaveAttribute('height', '200');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCardDetail', 'image', '`slotProps.media.image`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCardDetail', 'imageHeight', '`slotProps.media.height`');
+  });
+});
+

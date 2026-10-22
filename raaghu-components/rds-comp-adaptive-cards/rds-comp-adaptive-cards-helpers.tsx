@@ -1,4 +1,4 @@
-import React, { useMemo, useState, type ChangeEvent } from "react";
+import { useMemo, useState, type ChangeEvent, type ReactNode } from "react";
 import clsx from 'clsx';
 import RdsRadio from "../../raaghu-elements/rds-radio/rds-radio";
 import RdsCard from "../../raaghu-elements/rds-card/rds-card";
@@ -223,7 +223,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
       <div className="rds-adaptive-cards__content">
         <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__small-text">{smallText}</RdsTypography>
         <ImageList cols={4} className="rds-adaptive-cards__image-list">
-          {(images ?? []).reduce<React.ReactNode[]>((items, src, index) => {
+          {(images ?? []).reduce<ReactNode[]>((items, src, index) => {
             if (!src) {
               return items;
             }

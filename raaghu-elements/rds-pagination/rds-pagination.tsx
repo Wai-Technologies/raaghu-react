@@ -1,8 +1,9 @@
-import { useId, useState, type ChangeEvent, type KeyboardEvent, type SyntheticEvent } from 'react';
+import { useId, useState, type ChangeEvent, type KeyboardEvent, type ReactNode, type SyntheticEvent } from 'react';
 import { Pagination as MuiPagination, PaginationItem as MuiPaginationItem, type PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography, useMediaQuery } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-pagination.scss';
 
 /**
@@ -13,11 +14,11 @@ import './rds-pagination.scss';
 export interface RdsPaginationProps extends Omit<PaginationProps, 'component'> {
   /** Total number of records (or pages when `count` is used for pages). See `count`. */
   totalPages?: number;
-  /** Current page (1-based). Same as MUI `page`; `page` wins when both are set. Omit both for uncontrolled mode. */
+  /** @deprecated Use `page` instead. */
   currentPage?: number;
-  /** Called with the new page number whenever the page changes. */
+  /** @deprecated Use `onChange` instead. */
   onPageChange?: (page: number) => void;
-  /** Visibility of the optional controls. Takes precedence over the matching `show*` boolean props. */
+  /** @deprecated Use `showFirstLast`, `showFirst`, `showLast`, `showPageSize`, `showPageInput` and `showLegend` instead. */
   controls?: {
     firstLast?: 'visible' | 'hidden';
     recordsPerPage?: 'visible' | 'hidden';
@@ -33,15 +34,21 @@ export interface RdsPaginationProps extends Omit<PaginationProps, 'component'> {
   pageSize?: number;
   /** Called with the new page size when the dropdown changes. */
   onPageSizeChange?: (size: number) => void;
-  /** Legend template. Placeholders: `{current}`, `{total}`, `{page}`, `{totalPages}`. */
+  /** @deprecated Use `labelDisplayedRows` instead. */
   legendText?: string;
+  /** Renders the legend from the displayed range (`from`-`to`), total records `count`, current `page` and `totalPages`. Takes precedence over `legendText`. */
+  labelDisplayedRows?: (info: { from: number; to: number; count: number; page: number; totalPages: number }) => ReactNode;
+  /** Shows the "Records per page" dropdown. Takes precedence over the deprecated `showDropdown`, `showRecordsPerPage` and `controls`. */
+  showPageSize?: boolean;
+  /** Shows the "Go to [input] Page" field. Takes precedence over the deprecated `showManualInput` and `controls`. */
+  showPageInput?: boolean;
   /** Predefined Figma style (`'Style 1'`–`'Style 11'`) that decides which controls are shown. */
   paginationStyle?: 'Style 1' | 'Style 2' | 'Style 3' | 'Style 4' | 'Style 5' | 'Style 6' | 'Style 7' | 'Style 8' | 'Style 9' | 'Style 10' | 'Style 11';
   /** Shows both the first and last page buttons (same as `controls.firstLast`). Defaults to `true`. */
   showFirstLast?: boolean;
-  /** Shows the "Records per page" dropdown (same as `controls.recordsPerPage`). */
+  /** @deprecated Use `showPageSize` instead. */
   showRecordsPerPage?: boolean;
-  /** Shows the "Records per page" dropdown (same as `controls.dropdown`). */
+  /** @deprecated Use `showPageSize` instead. */
   showDropdown?: boolean;
   /** Shows the legend text, e.g. "1-10 of 50 items" (same as `controls.legend`). */
   showLegend?: boolean;
@@ -49,7 +56,7 @@ export interface RdsPaginationProps extends Omit<PaginationProps, 'component'> {
   showFirst?: boolean;
   /** Shows the last page button (same as `controls.last`). */
   showLast?: boolean;
-  /** Shows the "Go to [input] Page" field (same as `controls.manualInput`). */
+  /** @deprecated Use `showPageInput` instead. */
   showManualInput?: boolean;
 }
 
@@ -73,7 +80,10 @@ const RdsPagination = ({
   renderItem,
   pageSizeOptions = [10, 50, 100, 500],
   pageSize: pageSizeProp,
-  legendText = "{current} of {total} items",
+  legendText,
+  labelDisplayedRows,
+  showPageSize,
+  showPageInput,
   paginationStyle = 'Style 1',
   onPageSizeChange,
   showFirstLast: legacyShowFirstLast,
@@ -85,6 +95,12 @@ const RdsPagination = ({
   showManualInput: legacyShowManualInput,
   ...props
 }: RdsPaginationProps) => {
+  if (controls !== undefined) warnDeprecatedProp('RdsPagination', 'controls', '`showFirstLast`, `showFirst`, `showLast`, `showPageSize`, `showPageInput` and `showLegend`');
+  if (currentPage !== undefined) warnDeprecatedProp('RdsPagination', 'currentPage', '`page`');
+  if (onPageChange !== undefined) warnDeprecatedProp('RdsPagination', 'onPageChange', '`onChange`');
+  if (legendText !== undefined) warnDeprecatedProp('RdsPagination', 'legendText', '`labelDisplayedRows`');
+  if (legacyShowRecordsPerPage !== undefined || legacyShowDropdown !== undefined) warnDeprecatedProp('RdsPagination', 'showRecordsPerPage/showDropdown', '`showPageSize`');
+  if (legacyShowManualInput !== undefined) warnDeprecatedProp('RdsPagination', 'showManualInput', '`showPageInput`');
   const showFirstLast = controls?.firstLast ? controls.firstLast === 'visible' : (asBoolean(legacyShowFirstLast) ?? true);
   const showRecordsPerPage = controls?.recordsPerPage ? controls.recordsPerPage === 'visible' : (asBoolean(legacyShowRecordsPerPage) ?? false);
   const showDropdown = controls?.dropdown ? controls.dropdown === 'visible' : (asBoolean(legacyShowDropdown) ?? false);
@@ -140,17 +156,25 @@ const RdsPagination = ({
     }
   };
   const currentPageNumber = isControlled ? (controlledPage || 1) : innerPage;
-  const legendTextGenerated = generateLegendText(legendText, currentPageNumber, pageSize, totalRecords, totalPagesCalc);
+  const legendTextGenerated = labelDisplayedRows
+    ? labelDisplayedRows({
+        from: (currentPageNumber - 1) * pageSize + 1,
+        to: Math.min(currentPageNumber * pageSize, totalRecords),
+        count: totalRecords,
+        page: currentPageNumber,
+        totalPages: totalPagesCalc,
+      })
+    : generateLegendText(legendText ?? '{current} of {total} items', currentPageNumber, pageSize, totalRecords, totalPagesCalc);
 
   const showFirstBtn = (styleConfig.showFirstControl !== false) && (showFirst || showFirstLast);
   const showLastBtn = (styleConfig.showLastControl !== false) && (showLast || showFirstLast);
-  const shouldShowDropdown = showDropdown || showRecordsPerPage ||
-    (styleConfig.showDropdownControl && showDropdown !== false && showRecordsPerPage !== false);
+  const shouldShowDropdown = showPageSize ?? (showDropdown || showRecordsPerPage ||
+    (styleConfig.showDropdownControl && showDropdown !== false && showRecordsPerPage !== false));
   const shouldShowLegend = showLegend ||
     (styleConfig.showLegendControl && showLegend !== false) ||
     (paginationStyle === 'Style 6');
-  const shouldShowManualInput = showManualInput ||
-    (styleConfig.showManualInputControl && showManualInput !== false);
+  const shouldShowManualInput = showPageInput ?? (showManualInput ||
+    (styleConfig.showManualInputControl && showManualInput !== false));
   return (
     <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}`}>
       {styleConfig.showPagination && (

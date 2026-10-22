@@ -7,9 +7,9 @@ export interface RdsSkeletonProps extends Omit<SkeletonProps, 'component'> {
   frames?: number;
   /** @deprecated Use `variant` instead. */
   shape?: 'text' | 'rectangular' | 'rounded' | 'circular';
-  /** Enables the default pulse animation. Ignored when `animation` is provided. */
+  /** @deprecated Use `animation` instead. */
   animated?: boolean;
-  /** Animation type; takes precedence over `animated`. */
+  /** Animation type; `false` disables it. Defaults to 'pulse'. */
   animation?: 'pulse' | 'wave' | false;
 }
 
@@ -18,7 +18,7 @@ const RdsSkeleton = ({
   shape,
   variant,
   frames = 1,
-  animated = true,
+  animated,
   animation,
   sx,
   className = '',
@@ -36,7 +36,8 @@ const RdsSkeleton = ({
   };
   const mergedSx = [...(Array.isArray(sx) ? sx : [sx]), sizeSx];
 
-  const animationValue = typeof animation !== 'undefined' ? animation : (animated ? 'pulse' : false);
+  if (animated !== undefined) warnDeprecatedProp('RdsSkeleton', 'animated', '`animation`');
+  const animationValue = animation ?? (animated === false ? false : 'pulse');
 
   if (frames > 1) {
     return (

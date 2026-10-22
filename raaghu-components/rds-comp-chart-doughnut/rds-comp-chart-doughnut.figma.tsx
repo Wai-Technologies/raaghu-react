@@ -59,7 +59,7 @@ figma.connect(
           scales: {},
           type: "doughnut",
         }}
-        subTitleText="deioj"
+        subtitle="deioj"
         titleText="35 k"
       />
     ),

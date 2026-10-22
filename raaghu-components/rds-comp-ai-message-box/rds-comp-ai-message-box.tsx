@@ -4,11 +4,15 @@ import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export interface RdsCompAiMessageBoxProps {
-  Image?: boolean;
+  /** Image shown below the message. */
+  imageSrc?: string;
+  /** @deprecated Pass `imageSrc` instead. */
+  isImage?: boolean;
   /** @deprecated Use `children` instead. */
   message?: string;
   /** Message text (shown under the sender name). */
   children?: string;
+  /** @deprecated Use `imageSrc` instead. */
   src?: string;
   /** @deprecated Use `avatar` instead. */
   avtar?: string;
@@ -27,7 +31,8 @@ const DEFAULT_IMAGE =
   "https://via.placeholder.com/480x320.png?text=Image+placeholder";
 
 const RdsCompAiMessageBox = memo(({
-  Image,
+  imageSrc,
+  isImage,
   message,
   children,
   src,
@@ -40,7 +45,9 @@ const RdsCompAiMessageBox = memo(({
   if (avtar !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "avtar", "`avatar`");
   if (message !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "message", "`children`");
   const avatarSrc = avatar ?? avtar ?? DEFAULT_AVATAR;
-  const imageSrc = src ?? DEFAULT_IMAGE;
+  if (isImage !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "isImage", "`imageSrc`");
+  if (src !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "src", "`imageSrc`");
+  const resolvedImageSrc = imageSrc ?? src ?? DEFAULT_IMAGE;
 
   return (
     <div className="rds-comp-ai-message-box">
@@ -52,13 +59,13 @@ const RdsCompAiMessageBox = memo(({
             showDesignation
             showName={false}
             src={avatarSrc}
-            subText={children ?? message}
-            title={name}
+            description={children ?? message}
+            name={name}
           />
         </div>
-        {Image && (
+        {(isImage || imageSrc !== undefined) && (
           <div className="rds-comp-ai-message-box__image-wrapper">
-            <img src={imageSrc} alt={imageAlt} className="rds-comp-ai-message-box__image" />
+            <img src={resolvedImageSrc} alt={imageAlt} className="rds-comp-ai-message-box__image" />
           </div>
         )}
       </div>

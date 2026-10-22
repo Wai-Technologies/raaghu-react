@@ -15,7 +15,6 @@ import './rds-accordion.scss';
 type AccordionVariant = 'outlined' | 'underline' | 'plain';
 type LegacyAccordionStyle = 'border' | 'bottomline' | 'borderhide';
 
-// The stylesheet is keyed on the legacy class names, so map the new variant onto them.
 const VARIANT_CLASS: Record<AccordionVariant, LegacyAccordionStyle> = {
   outlined: 'border',
   underline: 'bottomline',
@@ -29,13 +28,13 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'co
   variant?: AccordionVariant;
   /** Icon shown before the title. Pass `null` to hide it. Defaults to an "add" icon. */
   startIcon?: ReactNode;
-  /** Icon used for the expand indicator. Defaults to a chevron. */
+  /** Icon used for the expand indicator. Pass `null` to hide it. Defaults to a chevron. */
   expandIcon?: ReactNode;
   /** Highlights the accordion as selected. */
   selected?: boolean;
   defaultExpanded?: boolean;
   size?: 'small' | 'medium' | 'large';
-  /** Duration of the expand/collapse animation in milliseconds. Defaults to MUI's automatic timing. */
+  /** @deprecated Use `slotProps.transition.timeout` instead. */
   animationDuration?: number;
   /** @deprecated Use `startIcon={null}` to hide the icon. */
   ShowLeftIcon?: boolean;
@@ -85,6 +84,7 @@ const RdsAccordion = ({
   if (ShowLeftIcon !== undefined) warnDeprecatedProp('RdsAccordion', 'ShowLeftIcon', '`startIcon={null}`');
   if (changeleftIcon !== undefined) warnDeprecatedProp('RdsAccordion', 'changeleftIcon', '`startIcon`');
   if (icon !== undefined) warnDeprecatedProp('RdsAccordion', 'icon', '`startIcon`');
+  if (animationDuration !== undefined) warnDeprecatedProp('RdsAccordion', 'animationDuration', '`slotProps.transition.timeout`');
   if (accordionStyle !== undefined) warnDeprecatedProp('RdsAccordion', 'accordionStyle', '`variant`');
 
   const [isHovered, setIsHovered] = useState(false);
@@ -101,7 +101,6 @@ const RdsAccordion = ({
     onChange?.(event, expanded);
   };
 
-  // `state="hover"` applies the hover style while the pointer is over the accordion.
   const handleMouseEnter = (event: MouseEvent<HTMLDivElement>) => {
     onMouseEnter?.(event);
     if (state === 'hover') setIsHovered(true);
@@ -138,11 +137,11 @@ const RdsAccordion = ({
         className={accordionClassName}
       >
         <MuiAccordionSummary
-          expandIcon={expandIcon ?? <ExpandMoreIcon />}
+          expandIcon={expandIcon !== undefined ? expandIcon : <ExpandMoreIcon />}
           className="rds-accordion__summary"
         >
           <div className="rds-accordion__header">
-            {resolvedStartIcon != null && resolvedStartIcon !== false && (
+            {resolvedStartIcon != null && (
               <span className="rds-accordion__icon">{resolvedStartIcon}</span>
             )}
             <Typography component="span" className="rds-accordion__title">

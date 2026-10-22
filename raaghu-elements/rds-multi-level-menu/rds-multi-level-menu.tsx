@@ -10,6 +10,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import RdsButton from '../rds-button/rds-button';
 import { Box } from '@mui/material';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-multi-level-menu.scss';
 
 export type MenuOption = {
@@ -21,11 +22,15 @@ export type MenuOption = {
 /** Props for {@link RdsMultiLevelMenu}. Extra props are forwarded to the root element. */
 export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'children'> {
   /** Menu items; an item with `children` opens a nested submenu. */
-  options: MenuOption[];
+  items?: MenuOption[];
+  /** @deprecated Use `items` instead. */
+  options?: MenuOption[];
   /** `expandable` opens submenus; `selectable` keeps a checked item. */
+  variant?: 'expandable' | 'selectable';
+  /** Figma alias of `variant`. */
   type?: 'expandable' | 'selectable';
-  /** Size of the trigger button and menu items. */
-  size?: 'default' | 'large';
+  /** Size of the trigger button and menu items. `'default'` is deprecated; use `'medium'`. */
+  size?: 'medium' | 'default' | 'large';
   /** Called with the chosen option. */
   onSelect?: (option: MenuOption) => void;
   /** Figma state: forces the first item hovered or selected. */
@@ -52,9 +57,11 @@ const menuPaperStyle = {
 
 
 export const RdsMultiLevelMenu = ({
+  items,
   options,
-  type = 'expandable',
-  size = 'default',
+  variant,
+  type: typeProp,
+  size: sizeProp = 'medium',
   state = 'default',
   onSelect,
   children,
@@ -63,6 +70,10 @@ export const RdsMultiLevelMenu = ({
   ref,
   ...rest
 }: RdsMultiLevelMenuProps) => {
+  if (options !== undefined) warnDeprecatedProp('RdsMultiLevelMenu', 'options', '`items`');
+  if (sizeProp === 'default') warnDeprecatedProp('RdsMultiLevelMenu', 'size="default"', '`size="medium"`');
+  const type = variant ?? typeProp ?? 'expandable';
+  const size = sizeProp === 'medium' ? 'default' : sizeProp;
   const isMobile = useMediaQuery('(max-width:568px)', { noSsr: true });
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
@@ -209,7 +220,7 @@ export const RdsMultiLevelMenu = ({
     );
   };
 
-  const rootMenuElement = renderMenu(options, 0);
+  const rootMenuElement = renderMenu(items ?? options ?? [], 0);
 
   return (
     <Box

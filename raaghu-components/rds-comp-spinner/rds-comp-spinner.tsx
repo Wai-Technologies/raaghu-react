@@ -33,6 +33,13 @@ const LAYOUT_CLASS: Record<SpinnerLayout, string> = {
   [SpinnerLayout.LabelOnTop]: "spinner-container--label-top",
 };
 
+const PLACEMENT_LAYOUT: Record<NonNullable<RdsCompSpinnerProps["labelPlacement"]>, SpinnerLayout> = {
+  top: SpinnerLayout.LabelOnTop,
+  bottom: SpinnerLayout.LabelOnBottom,
+  start: SpinnerLayout.LabelAndSpinner,
+  end: SpinnerLayout.SpinnerAndLabel,
+};
+
 const LEVEL_OPACITY: Record<SpinnerLevel, number> = {
   [SpinnerLevel.Level01]: 0.25,
   [SpinnerLevel.Level02]: 0.5,
@@ -50,6 +57,7 @@ const RdsCompSpinner = ({
   labelText,
   size: sizeProp,
   layout: layoutProp,
+  labelPlacement,
   color,
   colorVariant,
   level: levelProp,
@@ -59,7 +67,7 @@ const RdsCompSpinner = ({
   if (colorVariant !== undefined) warnDeprecatedProp("RdsCompSpinner", "colorVariant", "`color`");
   const labelId = useId();
   const size = sizeProp as SpinnerSize | undefined;
-  const layout = layoutProp as SpinnerLayout | undefined;
+  const layout = (labelPlacement ? PLACEMENT_LAYOUT[labelPlacement] : layoutProp) as SpinnerLayout | undefined;
   const level = levelProp as SpinnerLevel | undefined;
   const resolvedVariant = variant ?? spinnerType ?? "border";
   const resolvedLabel = label ?? labelText;
