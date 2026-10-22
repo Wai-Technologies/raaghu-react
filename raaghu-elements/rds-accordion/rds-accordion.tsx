@@ -1,10 +1,11 @@
-import { useState, type ReactNode, type MouseEvent, type SyntheticEvent } from 'react';
+
+import { useState, type ReactNode, type SyntheticEvent } from 'react';
 import {
   Accordion as MuiAccordion,
   AccordionSummary as MuiAccordionSummary,
   AccordionDetails as MuiAccordionDetails,
   type AccordionProps,
-  Typography
+  Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
@@ -15,13 +16,15 @@ import './rds-accordion.scss';
 type AccordionVariant = 'outlined' | 'underline' | 'plain';
 type LegacyAccordionStyle = 'border' | 'bottomline' | 'borderhide';
 
+// The stylesheet is keyed on the legacy class names, so map the new variant onto them.
 const VARIANT_CLASS: Record<AccordionVariant, LegacyAccordionStyle> = {
   outlined: 'border',
   underline: 'bottomline',
   plain: 'borderhide',
 };
 
-export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'component' | 'variant'> {
+export interface RdsAccordionProps
+  extends Omit<AccordionProps, 'children' | 'component' | 'variant'> {
   title: string;
   children: ReactNode;
   /** Visual style of the accordion. Defaults to `'outlined'`. */
@@ -34,7 +37,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'co
   selected?: boolean;
   defaultExpanded?: boolean;
   size?: 'small' | 'medium' | 'large';
-  /** @deprecated Use `slotProps.transition.timeout` instead. */
+  /** Duration of the expand/collapse animation in milliseconds. Defaults to MUI's automatic timing. */
   animationDuration?: number;
   /** @deprecated Use `startIcon={null}` to hide the icon. */
   ShowLeftIcon?: boolean;
@@ -44,8 +47,6 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'co
   icon?: ReactNode;
   /** @deprecated Use `variant` (`'outlined' | 'underline' | 'plain'`). */
   accordionStyle?: LegacyAccordionStyle;
-  /** Visual state. `hover` applies the hover style while the pointer is over the accordion. */
-  state?: 'default' | 'hover' | 'selected';
 }
 
 const resolveStartIcon = (
@@ -65,7 +66,7 @@ const RdsAccordion = ({
   variant,
   startIcon,
   expandIcon,
-  selected,
+  selected = false,
   defaultExpanded = false,
   size = 'medium',
   animationDuration,
@@ -73,26 +74,28 @@ const RdsAccordion = ({
   changeleftIcon,
   icon,
   accordionStyle,
-  state,
   className,
   slotProps,
   onChange,
-  onMouseEnter,
-  onMouseLeave,
   ...props
 }: RdsAccordionProps) => {
-  if (ShowLeftIcon !== undefined) warnDeprecatedProp('RdsAccordion', 'ShowLeftIcon', '`startIcon={null}`');
-  if (changeleftIcon !== undefined) warnDeprecatedProp('RdsAccordion', 'changeleftIcon', '`startIcon`');
-  if (icon !== undefined) warnDeprecatedProp('RdsAccordion', 'icon', '`startIcon`');
-  if (animationDuration !== undefined) warnDeprecatedProp('RdsAccordion', 'animationDuration', '`slotProps.transition.timeout`');
-  if (accordionStyle !== undefined) warnDeprecatedProp('RdsAccordion', 'accordionStyle', '`variant`');
+  if (ShowLeftIcon !== undefined) {
+    warnDeprecatedProp('RdsAccordion', 'ShowLeftIcon', '`startIcon={null}`');
+  }
+  if (changeleftIcon !== undefined) {
+    warnDeprecatedProp('RdsAccordion', 'changeleftIcon', '`startIcon`');
+  }
+  if (icon !== undefined) {
+    warnDeprecatedProp('RdsAccordion', 'icon', '`startIcon`');
+  }
+  if (accordionStyle !== undefined) {
+    warnDeprecatedProp('RdsAccordion', 'accordionStyle', '`variant`');
+  }
 
-  const [isHovered, setIsHovered] = useState(false);
   const [uncontrolledExpanded, setUncontrolledExpanded] = useState(defaultExpanded);
   const isControlled = typeof props.expanded === 'boolean';
   const isExpanded = isControlled ? Boolean(props.expanded) : uncontrolledExpanded;
   const isDisabled = props.disabled;
-  const isSelected = selected ?? state === 'selected';
   const styleClass = variant ? VARIANT_CLASS[variant] : accordionStyle ?? 'border';
   const resolvedStartIcon = resolveStartIcon(startIcon, ShowLeftIcon, changeleftIcon, icon);
 
@@ -101,29 +104,26 @@ const RdsAccordion = ({
     onChange?.(event, expanded);
   };
 
-  const handleMouseEnter = (event: MouseEvent<HTMLDivElement>) => {
-    onMouseEnter?.(event);
-    if (state === 'hover') setIsHovered(true);
-  };
-  const handleMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
-    onMouseLeave?.(event);
-    if (state === 'hover') setIsHovered(false);
-  };
-
   const accordionClassName = clsx(
     'rds-accordion',
     size && `rds-accordion--${size}`,
     `rds-accordion--${styleClass}`,
     isExpanded && 'rds-accordion--expanded',
-    !isDisabled && isSelected && 'rds-accordion--selected',
-    !isDisabled && state === 'hover' && isHovered && 'rds-accordion--hover',
+    !isDisabled && selected && 'rds-accordion--selected',
     isDisabled && 'rds-accordion--disabled',
     className,
   );
 
-  const mergedSlotProps = animationDuration === undefined
-    ? slotProps
-    : { ...slotProps, transition: { timeout: animationDuration, ...slotProps?.transition } };
+  const mergedSlotProps =
+    animationDuration === undefined
+      ? slotProps
+      : {
+          ...slotProps,
+          transition: {
+            timeout: animationDuration,
+            ...slotProps?.transition,
+          },
+        };
 
   return (
     <div className={clsx('rds-accordion__container', `rds-accordion--${styleClass}`)}>
@@ -131,8 +131,6 @@ const RdsAccordion = ({
         {...props}
         expanded={isExpanded}
         onChange={handleChange}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         slotProps={mergedSlotProps}
         className={accordionClassName}
       >
@@ -149,10 +147,9 @@ const RdsAccordion = ({
             </Typography>
           </div>
         </MuiAccordionSummary>
+
         <MuiAccordionDetails className="rds-accordion__details">
-          <div className="rds-accordion__details-panel">
-            {children}
-          </div>
+          <div className="rds-accordion__details-panel">{children}</div>
         </MuiAccordionDetails>
       </MuiAccordion>
     </div>

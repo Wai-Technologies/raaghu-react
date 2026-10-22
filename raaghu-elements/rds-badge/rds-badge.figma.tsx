@@ -15,10 +15,7 @@ figma.connect(
         "Icon only": "icon",
         "Left Icon+Text": "icon-text", 
         "Right Icon+Text": "text-icon" }),
-      state:figma.enum("💡 State", {
-          Default: "default",
-          Disabled: "disabled",
-        }),
+      disabled: figma.boolean("🚫 Disabled"),
       colorVariant: figma.enum("⚠️ Type", {
         "Primary": "primary",
         "Secondary": "secondary",

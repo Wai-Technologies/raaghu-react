@@ -16,12 +16,8 @@ figma.connect(
         "Outlined": "outlined",
         "Filled": "filled"
       }),
-      state: figma.enum("💡 State",  {
-        "Default": "default",
-        "Hover": "hover",
-        "Selected": "selected",
-        "Disabled": "disabled"
-      }),
+      selected: figma.boolean("Selected"),
+      disabled: figma.boolean("Disabled"),
     },
     example: (props) => (
       <RdsCard {...props}

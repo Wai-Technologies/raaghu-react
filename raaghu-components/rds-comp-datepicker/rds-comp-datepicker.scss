@@ -12,6 +12,10 @@
     &--default, &--expanded {
       margin-bottom: 1rem;
     }
+
+    .rds-datepicker--selected .rds-datepicker__input {
+      border-color: var(--rds-border-selected, var(--rds-primary-main));
+    }
     
     &--selected {
       margin-top: 0.25rem;
@@ -1480,4 +1484,3 @@ font-weight: bold;
     border-bottom: none !important;
   }
 }
-

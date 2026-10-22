@@ -306,6 +306,14 @@ describe('RdsMultiLevelMenu', () => {
   });
 
   describe('Selectable Menu Type', () => {
+    it('marks the first menu item selected when selected is true', async () => {
+      renderWithTheme(
+        <RdsMultiLevelMenu options={defaultOptions} type="selectable" selected />
+      );
+      await userEvent.click(screen.getByTestId('rds-button'));
+      expect(screen.getByText('File').closest('.MuiMenuItem-root')).toHaveClass('Mui-selected');
+    });
+
     it('should render selectable menu items', async () => {
       renderWithTheme(
         <RdsMultiLevelMenu options={defaultOptions} type="selectable" />
@@ -406,9 +414,9 @@ describe('RdsMultiLevelMenu', () => {
   });
 
   describe('Menu State Props', () => {
-    it('should apply hover state force class', async () => {
+    it('uses native hover styling without a forced hover state', async () => {
       renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} state="hover" />
+        <RdsMultiLevelMenu options={defaultOptions} />
       );
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
@@ -416,14 +424,19 @@ describe('RdsMultiLevelMenu', () => {
       expect(screen.getByText('File')).toBeInTheDocument();
     });
 
-    it('should apply selected state force class', async () => {
+    it('should apply selected styling to the selected menu item', async () => {
       renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} state="selected" type="expandable" />
+        <RdsMultiLevelMenu
+          options={defaultOptions}
+          variant="selectable"
+        />
       );
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
-      
-      expect(screen.getByText('File')).toBeInTheDocument();
+      await userEvent.click(screen.getByText('File'));
+      await userEvent.click(button);
+
+      expect(screen.getByText('File').closest('.MuiMenuItem-root')).toHaveClass('Mui-selected');
     });
 
     it('should use default state when not specified', async () => {
@@ -778,9 +791,9 @@ describe('RdsMultiLevelMenu', () => {
       expect(onSelect).toHaveBeenCalled();
     });
 
-    it('should accept state prop', () => {
+    it('should render without a forced hover state', () => {
       const { container } = renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} state="hover" />
+        <RdsMultiLevelMenu options={defaultOptions} />
       );
       const button = screen.getByTestId('rds-button');
       fireEvent.click(button);

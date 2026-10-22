@@ -20,7 +20,8 @@
       font-weight: var(--rds-font-weight-regular, 400);
     }
 
-    &__enable-hover:hover {
+    &:hover,
+    &:focus-visible {
       background-color: var(--rds-color-primary-light);
       color: var(--rds-color-primary);
     }
@@ -39,7 +40,8 @@
       padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
       border-radius: var(--rds-border-radius-pill, 20px);
 
-      &__enable-hover:hover {
+      &:hover,
+      &:focus-visible {
         background-color: var(--rds-color-primary-light);
         color: var(--rds-color-primary);
       }
@@ -59,7 +61,8 @@
       padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
       border-radius: var(--rds-border-radius, 4px);
 
-      &__enable-hover:hover {
+      &:hover,
+      &:focus-visible {
         background-color: var(--rds-color-primary-light);
         color: var(--rds-color-primary);
       }
@@ -79,7 +82,8 @@
       padding: var(--rds-breadcrumbs-item-padding-y, var(--rds-spacing-xs, 2px)) var(--rds-breadcrumbs-item-padding-x, var(--rds-spacing-sm, 4px));
       color: var(--rds-color-text-primary);
 
-      &__enable-hover:hover {
+      &:hover,
+      &:focus-visible {
         color: var(--rds-color-primary-dark);
         text-decoration: underline;
       }

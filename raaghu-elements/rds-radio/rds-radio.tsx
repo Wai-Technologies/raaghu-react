@@ -33,8 +33,8 @@ export interface RdsRadioProps extends Omit<RadioGroupProps, 'children' | 'compo
   labelPlacement?: 'none' | 'end' | 'bottom';
   /** Figma variant; `labelPlacement` takes precedence. */
   layout?: 'icon' | 'icon with label' | 'icon with bottom label';
-  state?: 'default' | 'hover' | 'disabled';
   selected?: boolean;
+  disabled?: boolean;
   /** @deprecated Use `row`. */
   direction?: 'row' | 'column';
 }
@@ -55,7 +55,7 @@ const RdsRadio = ({
   labelPlacement,
   defaultValue,
   layout: layoutProp = 'icon with label',
-  state = 'default',
+  disabled = false,
   selected,
   ...props
 }: RdsRadioProps) => {
@@ -82,7 +82,7 @@ const RdsRadio = ({
 
   const renderOption = (option: RdsRadioOption) => {
     const optionLabel = option.label ?? option.text;
-    const finalDisabled = (option.disabled ?? false) || state === 'disabled';
+    const finalDisabled = (option.disabled ?? false) || disabled;
 
     const commonProps = {
       value: option.value,
@@ -173,7 +173,7 @@ const RdsRadio = ({
       className={clsx(
         'rds-radio',
         `rds-radio--${layout.replace(/ /g, '-')}`,
-        state !== 'default' && `rds-radio--${state}`,
+        disabled && 'rds-radio--disabled',
       )}
     >
       {label && <FormLabel component="legend" id={labelId} className="rds-radio__label">{label}</FormLabel>}

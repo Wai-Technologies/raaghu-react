@@ -108,32 +108,25 @@ describe('RdsCheckbox', () => {
       expect(checkboxContainer).toBeInTheDocument();
     });
 
-    it('should apply disabled state class when state is disabled', () => {
+    it('should apply disabled class when disabled is true', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} state="disabled" />
+        <RdsCheckbox {...defaultProps} disabled />
       );
       const checkboxContainer = container.querySelector('.rds-checkbox');
       expect(checkboxContainer).toHaveClass('rds-checkbox__disabled');
     });
 
-    it('should apply hover state class when state is hover', () => {
+    it('does not add a state class for hover interactions', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} state="hover" />
+        <RdsCheckbox {...defaultProps} />
       );
+      fireEvent.mouseEnter(screen.getByRole('checkbox'));
       const checkboxContainer = container.querySelector('.rds-checkbox');
-      expect(checkboxContainer).toHaveClass('rds-checkbox__hover');
+      expect(checkboxContainer).not.toHaveClass('rds-checkbox__hover');
     });
 
-    it('should apply default state class when state is default', () => {
-      const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} state="default" />
-      );
-      const checkboxContainer = container.querySelector('.rds-checkbox');
-      expect(checkboxContainer).toBeInTheDocument();
-    });
-
-    it('should disable checkbox when state is disabled', () => {
-      renderWithTheme(<RdsCheckbox {...defaultProps} state="disabled" />);
+    it('should disable checkbox when disabled is true', () => {
+      renderWithTheme(<RdsCheckbox {...defaultProps} disabled />);
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeDisabled();
     });
@@ -247,9 +240,9 @@ describe('RdsCheckbox', () => {
       expect(label).toHaveAttribute('class');
     });
 
-    it('should prioritize isDisabled over state', () => {
+    it('should support the deprecated isDisabled prop', () => {
       renderWithTheme(
-        <RdsCheckbox {...defaultProps} isDisabled={true} state="default" />
+        <RdsCheckbox {...defaultProps} isDisabled />
       );
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeDisabled();
@@ -381,7 +374,7 @@ describe('RdsCheckbox', () => {
         <RdsCheckbox
           {...defaultProps}
           style="circular"
-          state="disabled"
+          disabled
         />
       );
       const checkboxContainer = container.querySelector('.rds-checkbox');
@@ -413,7 +406,6 @@ describe('RdsCheckbox', () => {
         <RdsCheckbox
           labeltext="Complete"
           style="square"
-          state="default"
           status="checked"
           showText={true}
           isDisabled={false}
@@ -624,20 +616,6 @@ describe('RdsCheckbox', () => {
       expect(container2.querySelector('.rds-checkbox__circular')).toBeInTheDocument();
     });
 
-    it('should accept valid state values', () => {
-      const { unmount } = renderWithTheme(<RdsCheckbox {...defaultProps} state="default" />);
-      expect(screen.getByRole('checkbox')).toBeInTheDocument();
-      unmount();
-
-      const { unmount: unmount2 } = renderWithTheme(<RdsCheckbox {...defaultProps} state="disabled" />);
-      const checkboxes = screen.getAllByRole('checkbox');
-      expect(checkboxes[checkboxes.length - 1]).toBeDisabled();
-      unmount2();
-
-      renderWithTheme(<RdsCheckbox {...defaultProps} state="hover" />);
-      expect(screen.getByRole('checkbox')).toBeInTheDocument();
-    });
-
     it('should accept valid status values', () => {
       const { unmount } = renderWithTheme(<RdsCheckbox {...defaultProps} status="checked" />);
       let checkbox = screen.getByRole('checkbox') as HTMLInputElement;
@@ -694,7 +672,7 @@ describe('RdsCheckbox', () => {
       expect(checkboxContainer).toHaveClass('rds-checkbox__square');
     });
 
-    it('should have state as default by default', () => {
+    it('should render by default without a visual state prop', () => {
       renderWithTheme(<RdsCheckbox {...defaultProps} />);
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeInTheDocument();

@@ -53,7 +53,6 @@ export const Default: Story = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
           style="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
@@ -95,7 +94,6 @@ export const FullWidth: Story = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
           style="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
@@ -135,7 +133,6 @@ export const Interactive: Story = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
           style="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
@@ -181,7 +178,6 @@ export const LargeContent: Story = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
           style="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
@@ -228,7 +224,6 @@ export const WithActions: Story = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
           style="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
@@ -318,7 +313,6 @@ export const WithIcon: Story = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
           style="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}

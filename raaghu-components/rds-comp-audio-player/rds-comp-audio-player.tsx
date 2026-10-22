@@ -617,7 +617,6 @@ const RdsCompAudioPlayer = ({
               text="Cancel"
               layout="text-only"
               shape="rectangle"
-              state="default"
               style="transparent"
               onClick={onCancel}
             />
@@ -627,7 +626,6 @@ const RdsCompAudioPlayer = ({
               text="Save"
               layout="text-only"
               shape="rectangle"
-              state="default"
               style="filled"
               onClick={onSave}
             />

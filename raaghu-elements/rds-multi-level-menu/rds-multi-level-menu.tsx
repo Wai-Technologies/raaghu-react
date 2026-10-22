@@ -1,4 +1,4 @@
-import { useState, type MouseEvent, type KeyboardEvent, type HTMLAttributes, type ReactNode, type Ref } from 'react';
+import { useEffect, useState, type MouseEvent, type KeyboardEvent, type HTMLAttributes, type ReactNode, type Ref } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { SxProps, Theme } from '@mui/material/styles';
 import Menu from '@mui/material/Menu';
@@ -31,10 +31,10 @@ export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivEleme
   type?: 'expandable' | 'selectable';
   /** Size of the trigger button and menu items. `'default'` is deprecated; use `'medium'`. */
   size?: 'medium' | 'default' | 'large';
+  /** Selects the first item when using the selectable variant. */
+  selected?: boolean;
   /** Called with the chosen option. */
   onSelect?: (option: MenuOption) => void;
-  /** Figma state: forces the first item hovered or selected. */
-  state?: 'default' | 'hover' | 'selected';
   /** Trigger button label. Defaults to "Multi Level Menu". */
   children?: ReactNode;
   /** MUI system styles for the root element. */
@@ -62,7 +62,7 @@ export const RdsMultiLevelMenu = ({
   variant,
   type: typeProp,
   size: sizeProp = 'medium',
-  state = 'default',
+  selected = false,
   onSelect,
   children,
   className,
@@ -77,8 +77,17 @@ export const RdsMultiLevelMenu = ({
   const isMobile = useMediaQuery('(max-width:568px)', { noSsr: true });
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
-  const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number[]>(() => (selected ? [0] : []));
   const [prevSize, setPrevSize] = useState(size);
+
+  useEffect(() => {
+    setSelectedIndex((current) => {
+      const next = selected ? [0] : [];
+      return current.length === next.length && current.every((index, position) => index === next[position])
+        ? current
+        : next;
+    });
+  }, [selected]);
 
   if (size !== prevSize) {
     setPrevSize(size);
@@ -148,15 +157,10 @@ export const RdsMultiLevelMenu = ({
         {opts.map((option, idx) => {
           const hasChildren = !!option.children && option.children.length > 0;
           const isExpandable = type === 'expandable' && hasChildren;
-          let isSelected = selectedIndex[level] === idx;
-          const isForcedHover = state === 'hover' && idx === 0;
-          const isForcedSelected = state === 'selected' && idx === 0;
+          const isSelected = type === 'selectable' && selectedIndex[level] === idx;
           const subMenuElement = isExpandable && openIndexes[level] === idx
             ? renderMenu(option.children!, level + 1)
             : null;
-          if (isForcedSelected && type === 'selectable') {
-            isSelected = true;
-          }
           return (
             <Box key={option.label + idx} sx={{ position: 'relative' }}>
               <MenuItem
@@ -174,14 +178,12 @@ export const RdsMultiLevelMenu = ({
                     setSubmenuAnchor(level, e.currentTarget as HTMLElement, idx);
                   }
                 } : undefined}
-                selected={type === 'selectable' && isSelected}
+                selected={isSelected}
                 sx={{
                   ...menuItemStyle,
                 }}
                 className={clsx(
                   size === 'large' && 'large',
-                  isForcedHover && 'force-hover',
-                  isForcedSelected && type !== 'selectable' && 'force-selected',
                   isExpandable && openIndexes[level] === idx && 'expanded-open',
                 )}
                 disableRipple={isExpandable}

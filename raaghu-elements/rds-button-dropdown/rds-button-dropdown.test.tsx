@@ -528,14 +528,23 @@ describe('RdsButtonDropdown', () => {
       expect(screen.getByText('Button')).toBeInTheDocument();
     });
 
-    it('should accept buttonState prop', () => {
+    it('should disable the trigger when disabled is true', () => {
       render(
         <RdsButtonDropdown 
           {...defaultProps}
-          buttonState="disabled"
+          disabled
         />
       );
-      expect(screen.getByText('Button')).toBeInTheDocument();
+      const trigger = screen.getByRole('button');
+      expect(trigger).toBeDisabled();
+      fireEvent.click(trigger);
+      expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
+    });
+
+    it('should apply the selected trigger treatment when selected is true', () => {
+      render(<RdsButtonDropdown {...defaultProps} selected />);
+      const buttonProps = mockButtonProps.mock.calls[mockButtonProps.mock.calls.length - 1][0];
+      expect(buttonProps.selected).toBe(true);
     });
 
     it('should show right and left icons', () => {
@@ -778,16 +787,6 @@ describe('RdsButtonDropdown', () => {
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
     });
 
-    it('should accept state prop', () => {
-      render(
-        <RdsButtonDropdown 
-          options={defaultOptions}
-          state="selected"
-        />
-      );
-      expect(screen.getByText('Button')).toBeInTheDocument();
-    });
-
     it('should accept all styling props', () => {
       render(
         <RdsButtonDropdown 
@@ -975,13 +974,15 @@ describe('audit fixes', () => {
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
     });
 
-    it('lets open={false} close a menu that state="selected" would keep open', () => {
-      render(<RdsButtonDropdown options={options} state="selected" open={false} />);
+    it('keeps a controlled closed menu closed', () => {
+      render(<RdsButtonDropdown options={options} open={false} />);
       expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
     });
 
-    it('keeps state="selected" open when open is not given', () => {
-      render(<RdsButtonDropdown options={options} state="selected" />);
+    it('starts closed unless open is controlled or the trigger is clicked', () => {
+      render(<RdsButtonDropdown options={options} />);
+      expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
+      fireEvent.click(screen.getByText('Button'));
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
     });
 

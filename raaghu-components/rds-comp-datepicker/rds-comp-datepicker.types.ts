@@ -12,12 +12,6 @@ export enum DatePickerLayout {
   MultiMonth = "Multi Month",
 }
 
-export enum DatePickerState {
-  Default = "Default",
-  Expanded = "Expanded",
-  Selected = "Selected",
-}
-
 export interface RdsCompDatepickerProps {
   selectedDate?: (date: Date | null) => void;
   /** Selected date; the picker re-syncs whenever it changes (`null` clears it). */
@@ -32,6 +26,8 @@ export interface RdsCompDatepickerProps {
   placeholder?: string;
   /** Shows the clear-date button when a date is selected. */
   clearable?: boolean;
+  /** Applies the selected appearance to the date picker. */
+  selected?: boolean;
   /** Icon of the open-calendar button. */
   openPickerIcon?: ReactNode;
   /** @deprecated Use `value` instead. */
@@ -40,7 +36,6 @@ export interface RdsCompDatepickerProps {
   /** @deprecated Use `onChange` instead. */
   onDatePicker?: (date: Date | [Date | null, Date | null]) => void;
   datePickerStyleType?: DatePickerStyleType;
-  state?: DatePickerState;
   layout?: DatePickerLayout;
   customDate?: (dates: [Date | null, Date | null]) => void;
   controls?: {

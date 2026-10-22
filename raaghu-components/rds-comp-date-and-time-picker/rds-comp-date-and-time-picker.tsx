@@ -60,7 +60,6 @@ export interface RdsCompDatePickerProps {
     };
     [key: string]: unknown;
   };
-  state?: 'default' | 'expanded' | 'selected';
   changeIcon?: 'dashboard-settings' | 'date-picker';
   style?: 'default' | 'custom';
   type?: 'dropdown' | 'selector';

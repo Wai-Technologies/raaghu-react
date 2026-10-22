@@ -35,7 +35,7 @@
 
 
 .rds-mlm-paper .MuiMenuItem-root:hover,
-.rds-mlm-paper .MuiMenuItem-root.force-hover,
+.rds-mlm-paper .MuiMenuItem-root:focus-visible,
 .rds-mlm-paper .MuiMenuItem-root:active,
 .rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible {
   background-color: var(--rds-background-surface-hover);
@@ -43,15 +43,13 @@
 
 
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
-.rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
-.rds-mlm-paper .MuiMenuItem-root.force-selected {
+.rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover {
   background-color: var(--rds-primary-light) !important;
   color: var(--rds-primary-main) !important;
 }
 
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover .rds-mlm-shortcut,
-.rds-mlm-paper .MuiMenuItem-root.force-selected .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut {
@@ -103,7 +101,6 @@
   justify-content: center;
   margin-right: var(--rds-spacing-sm, 8px);
 }
-
 
 
 

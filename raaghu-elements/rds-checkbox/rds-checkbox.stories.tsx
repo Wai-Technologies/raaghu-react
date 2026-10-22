@@ -30,11 +30,6 @@ const meta: Meta<typeof RdsCheckbox> = {
       options: ['square', 'circular'],
       description: 'Visual style variant of the checkbox',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'disabled', 'hover'],
-      description: 'State of the checkbox (default, disabled, hover)',
-    },
     showText: {
       control: 'boolean',
       description: 'Whether to show the label text',

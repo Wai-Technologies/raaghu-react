@@ -1,5 +1,5 @@
 import React from "react"
-import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area"
+import RdsTextArea, { TextareaStyle } from "./rds-text-area"
 import figma from "@figma/code-connect"
 
 figma.connect(
@@ -11,12 +11,19 @@ figma.connect(
         true: figma.string("✏️ Label"),
         false: undefined,
       }),
-      state: figma.enum("💡 State", {
-        Default : TextareaState.Default,
-        Active : TextareaState.Active,
-        Selected : TextareaState.Selected,
-        Disabled : TextareaState.Disabled,
-        Error : TextareaState.Error
+      disabled: figma.enum("💡 State", {
+        Default: false,
+        Active: false,
+        Selected: false,
+        Disabled: true,
+        Error: false,
+      }),
+      error: figma.enum("💡 State", {
+        Default: false,
+        Active: false,
+        Selected: false,
+        Disabled: false,
+        Error: true,
       }),
       style: figma.enum("✨ Style", {
         Default : TextareaStyle.Default,

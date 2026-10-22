@@ -7,7 +7,7 @@ import './rds-badge.scss';
 export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant'> {
   /** MUI badge variant (`standard` | `dot`), or the visual style (`primary` | `outline` | `transparent`). Preferred over `styleType`. */
   variant?: BadgeProps['variant'] | 'primary' | 'outline' | 'transparent';
-  /** Disables the badge. Preferred over `state="disabled"`. */
+  /** Disables the badge. */
   disabled?: boolean;
   /** Icon before the content (standalone badge). Overrides the `layout`-derived icon; `null` hides it. */
   startIcon?: ReactNode;
@@ -21,7 +21,6 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant'>
   /** Icon used by the `icon`, `icon-text` and `text-icon` layouts. Defaults to a bell. */
   icon?: ReactNode;
   styleType?: 'primary' | 'outline' | 'transparent';
-  state?: 'default' | 'disabled';
   colorVariant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'light' | 'success';
 }
 
@@ -40,7 +39,6 @@ const RdsBadge = ({
   variant,
   disabled,
   styleType = 'primary',
-  state = 'default',
   colorVariant = 'primary',
   className,
   ...props
@@ -50,7 +48,7 @@ const RdsBadge = ({
   const isStyleVariant = variant === 'primary' || variant === 'outline' || variant === 'transparent';
   const resolvedStyleType = isStyleVariant ? variant : styleType;
   const muiVariant = isStyleVariant ? undefined : variant;
-  const isDisabled = disabled ?? state === 'disabled';
+  const isDisabled = disabled ?? false;
 
   const bemClass = clsx(
     'rds-badge',

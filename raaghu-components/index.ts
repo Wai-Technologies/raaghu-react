@@ -47,7 +47,7 @@ export { default as RdsCompAiChatHeader } from './rds-comp-ai-chat-header/rds-co
 
 export type { RdsCompSpinnerProps } from './rds-comp-spinner/rds-comp-spinner-types';
 export { SpinnerSize, SpinnerLayout, SpinnerLevel } from './rds-comp-spinner/rds-comp-spinner-types';
-export { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker/rds-comp-datepicker.types';
+export { DatePickerStyleType, DatePickerLayout } from './rds-comp-datepicker/rds-comp-datepicker.types';
 export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canvas/rds-comp-off-canvas-types';
 export type { RdsCompContributionProps } from './rds-comp-contribution/rds-comp-contribution';
 export type { RdsCompColorPickerProps, ColorPickerVariant, ColorPickerFormat, ColorPickerView } from './rds-comp-color-picker/rds-comp-color-picker.types';

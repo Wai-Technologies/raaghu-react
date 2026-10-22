@@ -90,8 +90,7 @@
     }
   }
 
-  &:disabled:not(.rds-button__loading),
-  &__disabled {
+  &:disabled:not(.rds-button__loading) {
     background-color: var(--rds-button-primary-bg-disabled) !important;
     color: var(--rds-button-primary-text-disabled) !important;
     cursor: not-allowed;
@@ -106,8 +105,8 @@
     }
   }
 
-  &__state-hover {
-    /* Filled primary: force hover fill for Storybook/state control. */
+  &:hover:not(:disabled):not(.rds-button--selected) {
+    /* Filled primary: apply hover fill and elevation. */
     &.MuiButton-contained.MuiButton-colorPrimary,
     &.rds-button__primary.MuiButton-colorPrimary {
       background-color: var(--rds-button-primary-bg-hover) !important;
@@ -168,8 +167,8 @@
     }
   }
 
-  &__state-selected {
-    /* Filled primary: force active fill for Storybook/state control. */
+  &--selected {
+    /* Filled primary: apply the selected treatment. */
     &.MuiButton-contained.MuiButton-colorPrimary,
     &.rds-button__primary.MuiButton-colorPrimary {
       background-color: var(--rds-button-primary-bg-active) !important;
@@ -232,7 +231,7 @@
     }
   }
 
-  &__state-disabled {
+  &:disabled {
     background-color: var(--rds-button-primary-bg-disabled) !important;
     color: var(--rds-button-primary-text-disabled) !important;
     cursor: not-allowed !important;
@@ -255,10 +254,6 @@
       background-color: transparent !important;
       color: var(--rds-button-text-color-disabled) !important;
     }
-  }
-
-  &__state-default {
-    transition: all var(--rds-transition-base);
   }
 
   /* Explicit shape classes to ensure shape control applies */

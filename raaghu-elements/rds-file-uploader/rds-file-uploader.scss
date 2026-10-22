@@ -265,6 +265,13 @@
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
+
+    &--selected {
+      .rds-file-uploader__drop-zone,
+      .rds-file-uploader__input-row {
+        border-color: var(--rds-border-selected, var(--rds-primary-main, #3390e6)) !important;
+      }
+    }
     display: flex;
     align-items: center;
     justify-content: space-between;

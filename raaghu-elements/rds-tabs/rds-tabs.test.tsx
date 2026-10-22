@@ -84,12 +84,11 @@ describe('RdsTabs', () => {
       expect(tabsElement).toBeInTheDocument();
     });
 
-    it('should apply state class', () => {
+    it('should mark the selected tab using the value prop', () => {
       const { container } = renderWithTheme(
-        <RdsTabs tabs={mockTabs} state="selected" />
+        <RdsTabs tabs={mockTabs} value="tab1" />
       );
-      const tabsElement = container.querySelector('.rds-state--selected');
-      expect(tabsElement).toBeInTheDocument();
+      expect(container.querySelector('[role="tab"][aria-selected="true"]')).toBeInTheDocument();
     });
   });
 
@@ -574,16 +573,14 @@ describe('RdsTabs', () => {
       expect(container).toBeInTheDocument();
     });
 
-    it('should work with custom state and layout', () => {
+    it('should work with layout and native hover styling', () => {
       const { container } = renderWithTheme(
         <RdsTabs 
           tabs={mockTabs}
           layout="line-bottom"
-          state="hover"
         />
       );
       expect(container.querySelector('.rds-tabs--line-bottom')).toBeInTheDocument();
-      expect(container.querySelector('.rds-state--hover')).toBeInTheDocument();
     });
   });
 
@@ -701,12 +698,12 @@ describe('RdsTabs — keyboard navigation', () => {
 });
 
 describe('audit fixes', () => {
-  it('G2-325/326: keeps rds-tabs classes with a consumer className and does not spread state/level to the DOM', () => {
+  it('G2-325/326: keeps rds-tabs classes with a consumer className and does not spread level to the DOM', () => {
     const { container } = renderWithTheme(
-      <RdsTabs tabs={mockTabs} className="custom-class" state="selected" level={2} />
+      <RdsTabs tabs={mockTabs} className="custom-class" value="tab1" level={2} />
     );
     const root = container.querySelector('.rds-tabs');
-    expect(root).toHaveClass('custom-class', 'rds-tabs--filled', 'rds-state--selected');
+    expect(root).toHaveClass('custom-class', 'rds-tabs--filled');
     expect(root).not.toHaveAttribute('state');
     expect(root).not.toHaveAttribute('level');
   });

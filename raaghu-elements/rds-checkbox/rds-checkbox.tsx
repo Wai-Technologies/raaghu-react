@@ -11,7 +11,6 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'compone
   style?: 'square' | 'circular';
   /** Checkbox shape. Takes precedence over `style`. */
   variant?: 'square' | 'circular';
-  state?: 'default' | 'disabled' | 'hover';
   status?: 'checked' | 'unchecked' | 'indeterminate';
   /** Shows the label text. When hidden, the label is still used as the accessible name. */
   showText?: boolean;
@@ -29,7 +28,6 @@ const RdsCheckbox = ({
   disabled,
   style = 'square',
   variant,
-  state = 'default',
   status,
   showText = true,
   className,
@@ -46,7 +44,7 @@ const RdsCheckbox = ({
   if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
 
   const labelText = label ?? labeltext;
-  const isCheckboxDisabled = Boolean(disabled) || Boolean(isDisabled) || state === 'disabled';
+  const isCheckboxDisabled = Boolean(disabled) || Boolean(isDisabled);
 
   const [internalChecked, setInternalChecked] = useState(status === 'checked' || Boolean(defaultChecked));
   const [prevStatus, setPrevStatus] = useState(status);
@@ -73,7 +71,6 @@ const RdsCheckbox = ({
     checked && 'rds-checkbox__checked',
     isCheckboxDisabled && 'rds-checkbox__disabled',
     currentIndeterminate && 'rds-checkbox__indeterminate',
-    state && state !== 'default' && `rds-checkbox__${state}`,
     color && color !== 'default' && `rds-checkbox__${color}`,
     labelText && !showText && 'rds-checkbox__text-hidden',
     status && `rds-checkbox__${status}`,

@@ -50,7 +50,6 @@ const SnackbarTemplate = (args: any) => {
         layout="text-only"
         shape="rectangle"
         size="medium"
-        state="default"
         style="filled"
         text="Show Snackbar"
         textCase="unset"

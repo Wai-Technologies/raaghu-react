@@ -99,7 +99,6 @@ const RdsDrawer = ({
               layout="text-only"
               shape="rectangle"
               size="medium"
-              state="default"
               style="filled"
               textCase="unset"
               {...closeButtonProps}
@@ -149,7 +148,6 @@ const RdsDrawer = ({
         layout="text-only"
         shape="rectangle"
         size="medium"
-        state="default"
         style="filled"
         textCase="unset"
         {...triggerButtonProps}

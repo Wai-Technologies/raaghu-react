@@ -334,43 +334,27 @@ describe('RdsBreadcrumbs', () => {
     });
   });
 
-  describe('States', () => {
-    it('should render default state', () => {
-      render(<RdsBreadcrumbs {...defaultProps} state="default" />);
+  describe('Semantic selection and CSS interaction states', () => {
+    it('renders links without forcing an interaction state', () => {
+      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
       expect(screen.getByText('Home')).toBeInTheDocument();
+      expect(container.querySelector('.rds-breadcrumbs__item__enable-hover')).not.toBeInTheDocument();
     });
 
-    it('should render hover state', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} state="hover" />
-      );
-      expect(container.querySelector('.rds-breadcrumbs__item__enable-hover')).toBeInTheDocument();
-    });
-
-    it('should render selected state', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} state="selected" />
-      );
+    it('renders an item as selected when selected is true', () => {
+      const { container } = render(<RdsBreadcrumbs items={[{ label: 'Home', href: '/', selected: true }]} />);
       expect(container.querySelector('.rds-breadcrumbs__item__selected')).toBeInTheDocument();
     });
 
-    it('should apply item-level state', () => {
+    it('applies item-level selected and uses CSS for hover and focus', () => {
       const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', state: 'hover' },
-        { label: 'Products', state: 'selected' },
+        { label: 'Home', href: '/' },
+        { label: 'Products', selected: true },
       ];
       const { container } = render(<RdsBreadcrumbs items={items} />);
-      expect(container.querySelector('.rds-breadcrumbs__item__enable-hover')).toBeInTheDocument();
       expect(container.querySelector('.rds-breadcrumbs__item__selected')).toBeInTheDocument();
-    });
-
-    it('should prioritize item state over global state', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', state: 'hover' },
-        { label: 'Products', state: 'selected' },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} state="default" />);
-      expect(container.querySelector('.rds-breadcrumbs__item__enable-hover')).toBeInTheDocument();
+      fireEvent.focus(screen.getByText('Home'));
+      expect(container.querySelector('.rds-breadcrumbs__item__enable-hover')).not.toBeInTheDocument();
     });
   });
 
@@ -463,7 +447,7 @@ describe('RdsBreadcrumbs', () => {
 
     it('should set selected state on item click', () => {
       const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/', state: 'selected' },
+        { label: 'Home', href: '/', selected: true },
         { label: 'Products', href: '/products' },
       ];
       const { container } = render(<RdsBreadcrumbs items={items} />);
@@ -471,11 +455,12 @@ describe('RdsBreadcrumbs', () => {
       expect(breadcrumbItems.length).toBeGreaterThan(0);
     });
 
-    it('should prevent default link behavior when state is selected', () => {
+    it('should prevent default link behavior for a selected item', () => {
       const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/', state: 'selected' },
+        { label: 'Home', href: '/', selected: true },
       ];
       const { container } = render(<RdsBreadcrumbs items={items} />);
+      fireEvent.click(screen.getByText('Home'));
       const breadcrumbs = container.querySelector('.rds-breadcrumbs');
       expect(breadcrumbs).toHaveClass('rds-breadcrumbs__plain');
     });
@@ -506,7 +491,7 @@ describe('RdsBreadcrumbs', () => {
     it('should handle all customization props together', () => {
       const onClick = jest.fn();
       const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/', layout: 'pill background', icon: 'home', state: 'hover' },
+        { label: 'Home', href: '/', layout: 'pill background', icon: 'home' },
         { label: 'Products', href: '/products', layout: 'square background', onClick },
         { label: 'Current Page' },
       ];
@@ -532,7 +517,7 @@ describe('RdsBreadcrumbs', () => {
         { label: 'Electronics' },
       ];
       const { container } = render(
-        <RdsBreadcrumbs items={items} showIcon={true} layout="pill background" state="default" />
+        <RdsBreadcrumbs items={items} showIcon={true} layout="pill background" />
       );
       const breadcrumbItems = container.querySelectorAll('.rds-breadcrumbs__item');
       expect(breadcrumbItems.length).toBe(3);
@@ -586,12 +571,14 @@ describe('RdsBreadcrumbs', () => {
       expect(screen.getByText('Home')).toBeInTheDocument();
     });
 
-    it('should handle rapid state changes', () => {
-      const { rerender } = render(<RdsBreadcrumbs {...defaultProps} state="default" />);
-      rerender(<RdsBreadcrumbs {...defaultProps} state="hover" />);
-      rerender(<RdsBreadcrumbs {...defaultProps} state="selected" />);
-      rerender(<RdsBreadcrumbs {...defaultProps} state="default" />);
-      expect(screen.getByText('Home')).toBeInTheDocument();
+    it('updates the selected item through the selected boolean', () => {
+      const { rerender } = render(
+        <RdsBreadcrumbs items={[{ label: 'Home', selected: true }, { label: 'Products' }]} />
+      );
+      expect(screen.getByText('Home')).toHaveClass('rds-breadcrumbs__item__selected');
+      rerender(<RdsBreadcrumbs items={[{ label: 'Home' }, { label: 'Products', selected: true }]} />);
+      expect(screen.getByText('Home')).not.toHaveClass('rds-breadcrumbs__item__selected');
+      expect(screen.getByText('Products')).toHaveClass('rds-breadcrumbs__item__selected');
     });
 
     it('should handle items with/without href mixed', () => {
@@ -664,10 +651,8 @@ describe('RdsBreadcrumbs', () => {
       expect(screen.queryByTestId('home-icon')).not.toBeInTheDocument();
     });
 
-    it('should accept state prop', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} state="selected" />
-      );
+    it('should accept selected on an item', () => {
+      const { container } = render(<RdsBreadcrumbs items={[{ label: 'Home', selected: true }]} />);
       expect(container.querySelector('.rds-breadcrumbs__item__selected')).toBeInTheDocument();
     });
 

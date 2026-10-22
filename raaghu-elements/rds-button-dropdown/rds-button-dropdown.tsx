@@ -33,6 +33,10 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   defaultValue?: Array<string | number>;
   /** Opens the menu (controlled). When not set, the trigger toggles it. */
   open?: boolean;
+  /** Disables the trigger button. */
+  disabled?: boolean;
+  /** Applies the selected treatment to the trigger button. */
+  selected?: boolean;
   /** Called when the trigger asks to open the menu. */
   onOpen?: (event: MouseEvent<HTMLElement>) => void;
   /** Called when the menu asks to close (trigger click, backdrop click, Escape, or a single-select choice). */
@@ -52,9 +56,6 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   /** Single-select options as `'radio'` or plain `'button'`s. Preferred over `ui.selection`. */
   optionVariant?: 'radio' | 'button';
   onChange?: (selected: string[] | string) => void;
-  /** Figma visual state. `'selected'` keeps the menu open when `open` is not set. */
-  state?: 'default' | 'selected';
-  buttonState?: 'default' | 'hover' | 'disabled' | 'selected';
   size?: 'small' | 'medium' | 'large';
   layout?: 'icon+text' | 'text-only' | 'icon-only';
   /** Visual style. Preferred over `styleType`. */
@@ -104,6 +105,8 @@ const RdsButtonDropdown = ({
   value,
   defaultValue,
   open,
+  disabled = false,
+  selected: isButtonSelected,
   onOpen,
   onClose,
   ui,
@@ -111,7 +114,6 @@ const RdsButtonDropdown = ({
   showAvatar,
   optionVariant,
   variant,
-  state = 'default',
   endIcon,
   startIcon,
   rightIcon,
@@ -120,7 +122,6 @@ const RdsButtonDropdown = ({
   layout = 'icon+text',
   styleType: styleTypeProp = 'primary',
   shape = 'rectangle',
-  buttonState = 'default',
   onChange,
   showSearch: showSearchProp,
   showUserAvatar: showUserAvatarProp,
@@ -171,9 +172,7 @@ const RdsButtonDropdown = ({
   });
   const selected = isValueControlled ? value : selectedState;
 
-  const isDropdownOpen = isOpenControlled
-    ? open
-    : state === 'selected' ? Boolean(anchorEl) || anchorEl === null : Boolean(anchorEl);
+  const isDropdownOpen = isOpenControlled ? open : Boolean(anchorEl);
 
   const requestClose = (event: object, reason: RdsButtonDropdownCloseReason) => {
     if (!isOpenControlled) setAnchorEl(null);
@@ -221,7 +220,8 @@ const RdsButtonDropdown = ({
         layout={layout}
         shape={shape}
         color="primary"
-        state={buttonState}
+        disabled={disabled}
+        selected={isButtonSelected}
         style={
           styleType === 'transparent' ? 'transparent' :
           styleType === 'primary' ? 'filled' :

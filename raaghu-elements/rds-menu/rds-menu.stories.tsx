@@ -64,7 +64,6 @@ export const Default: Story = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          state="default"
           style="outlined"
           textCase="uppercase" onClick={handleClick} />
         <RdsMenu
@@ -158,7 +157,7 @@ export const Dense: Story = {
 
     return (
       <>
-        <RdsButton text="Dense" color="primary" layout="text-only" shape="rectangle" size="small" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="Dense" color="primary" layout="text-only" shape="rectangle" size="small" style="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -203,7 +202,7 @@ export const WithCustomColor: Story = {
 
     return (
       <>
-        <RdsButton text="Custom Color" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="Custom Color" color="primary" layout="text-only" shape="rectangle" size="medium" style="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -240,7 +239,7 @@ export const WithDisabled: Story = {
 
     return (
       <>
-        <RdsButton text="With Disabled" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="With Disabled" color="primary" layout="text-only" shape="rectangle" size="medium" style="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -298,7 +297,6 @@ export const CustomizedMenu: Story = {
           layout="text-only"
           shape="rectangle"
           size="medium"
-          state="default"
           style="outlined"
           textCase="uppercase"
         />

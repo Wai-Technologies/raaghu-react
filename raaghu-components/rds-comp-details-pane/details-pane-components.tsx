@@ -425,7 +425,6 @@ export const RealEstateContent = ({
   showLeftIcon
   showRightIcon
   size="medium"
-  state="default"
   style="filled"
   text=" Add Guests"
   textCase="uppercase"
@@ -524,7 +523,6 @@ export const SelectionContent = ({
                       },
                     ]}
                     radioProps={{ name: 'agent-selection' }}
-                    state="default"
                     value={selectedAgent}
                   />
                 </div>

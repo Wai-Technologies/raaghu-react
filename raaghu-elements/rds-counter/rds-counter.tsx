@@ -37,8 +37,6 @@ export interface RdsCounterProps
   /** Marks the field as required: shows the asterisk next to the label and sets `aria-required` on the input. */
   required?: boolean;
   selected?: boolean;
-  /** Figma visual state. */
-  state?: 'default' | 'selected' | 'disabled';
   /** @deprecated Use `label` instead. */
   titleText?: string;
   /** @deprecated Use `required` instead. */
@@ -81,7 +79,6 @@ const RdsCounter = ({
   required,
   isMandatory,
   selected = false,
-  state = 'default',
   className,
   sx,
   ref,
@@ -154,8 +151,8 @@ const RdsCounter = ({
     if (clamped !== currentValue) updateValue(clamped);
   };
 
-  const isSelected = state === 'selected' || selected;
-  const isDisabled = state === 'disabled' || disabled;
+  const isSelected = selected;
+  const isDisabled = disabled;
   const atMin = typeof currentValue === 'number' && currentValue <= min;
   const atMax = typeof currentValue === 'number' && currentValue >= max;
 

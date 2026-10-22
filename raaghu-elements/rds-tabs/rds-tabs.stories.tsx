@@ -13,18 +13,18 @@ const meta: Meta<typeof RdsTabs> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      include: ['items', 'value', 'orientation', 'layout', 'title', 'state', 'startIcon', 'endIcon', 'showLeftIcon', 'showRightIcon', 'level'],
+      include: ['items', 'value', 'orientation', 'layout', 'title', 'startIcon', 'endIcon', 'showLeftIcon', 'showRightIcon', 'level'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
     items: {
       control: 'object',
-      description: 'Array of tab configurations',
+      description: "Tab configurations. Set an item's disabled property to disable that tab.",
     },
     value: {
       control: 'number',
-      description: 'Index of the active tab',
+      description: 'Value/id of the selected tab.',
     },
     orientation: {
       control: 'select',
@@ -53,12 +53,6 @@ const meta: Meta<typeof RdsTabs> = {
       control: 'text',
       description: 'Override label for the active tab (applies in story render only)',
       defaultValue: '',
-    },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'selected', 'disabled'],
-      description: 'Control tab state for demo and Storybook',
-      defaultValue: 'default',
     },
     startIcon: {
       control: 'select',
@@ -97,7 +91,7 @@ const sampleTabs = [
   { id: 0, label: 'Tab 1', icon: undefined, disabled: false },
   { id: 1, label: 'Tab 2', icon: undefined, disabled: false },
   { id: 2, label: 'Tab 3', icon: undefined, disabled: false },
-  { id: 3, label: 'Tab 4', icon: undefined, disabled: false },
+  { id: 3, label: 'Tab 4', icon: undefined, disabled: true },
   { id: 4, label: 'Tab 5', icon: undefined, disabled: false },
   { id: 5, label: 'Tab 6', icon: undefined, disabled: false },
   { id: 6, label: 'Tab 7', icon: undefined, disabled: false },
@@ -147,7 +141,6 @@ export const ManyTabs: Story = {
     startIcon: 'Person',
     endIcon: 'Add',
     orientation: "horizontal",
-    state: "default",
     level: 5
   },
   render: (args) => {

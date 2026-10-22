@@ -61,12 +61,12 @@ export { default as RdsFileUploader } from './rds-file-uploader/rds-file-uploade
 export {default as RdsButtonDropdown} from './rds-button-dropdown/rds-button-dropdown';
 export {default as RdsMultiLevelMenu} from './rds-multi-level-menu/rds-multi-level-menu';
 export {default as RdsTextArea} from './rds-text-area/rds-text-area';
-export { TextareaState, TextareaStyle } from './rds-text-area/rds-text-area';
+export { TextareaStyle } from './rds-text-area/rds-text-area';
 
 export type { RdsButtonProps } from './rds-button/rds-button';
 export type { RdsTypographyProps } from './rds-typography/rds-typography';
 export type { RdsTextFieldProps } from './rds-text-field/rds-text-field';
-export type { RdsCardProps, CardState, CardStyle, CardLayout, CardIconName } from './rds-card/rds-card';
+export type { RdsCardProps, CardStyle, CardLayout, CardIconName } from './rds-card/rds-card';
 export type { RdsChipProps } from './rds-chip/rds-chip';
 export type { RdsAvatarProps } from './rds-avatar/rds-avatar';
 export type { RdsCheckboxProps } from './rds-checkbox/rds-checkbox';

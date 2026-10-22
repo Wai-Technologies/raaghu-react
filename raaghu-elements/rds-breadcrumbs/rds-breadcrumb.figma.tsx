@@ -26,7 +26,6 @@ figma.connect(
         separator={BreadcrumbSeparator.GreaterThan}
         showIcon={true}
         icon="home"
-        state="hover"
         items={[
           {
             href: '/',

@@ -11,11 +11,15 @@ const meta = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-    exclude: ['onSelect'],
+      include: ['items', 'variant', 'size', 'selected', 'children'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    items: {
+      control: 'object',
+      description: 'Menu options. Use variant="selectable" to highlight an item after it is clicked.',
+    },
     variant: {
       control: { type: 'select' },
       options: ['expandable', 'selectable'],
@@ -26,10 +30,9 @@ const meta = {
       options: ['medium', 'large'],
       description: 'Sets the size of the menu items',
     },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'hover', 'selected'],
-      description: 'Sets the visual state of the menu items',
+    selected: {
+      control: 'boolean',
+      description: 'Selects the first item when using the selectable variant',
     },
   },
 } satisfies Meta<typeof RdsMultiLevelMenu>;
@@ -86,6 +89,15 @@ export const Default:Story ={
       items: options,
       variant: 'expandable',
       size: 'medium',
-      state: 'default',
+      selected: false,
    }
 }
+
+export const Selectable: Story = {
+  args: {
+    items: options,
+    variant: 'selectable',
+    size: 'medium',
+    selected: false,
+  },
+};

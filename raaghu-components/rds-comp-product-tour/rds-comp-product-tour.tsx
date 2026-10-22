@@ -124,7 +124,6 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
         if (!effectiveSlides || effectiveSlides.length === 0) return;
         setCurrentIndex((i) => (i - 1 + totalSlides) % totalSlides);
     }, [effectiveSlides, totalSlides]);
-    const carouselState = String(currentIndex + 1);
     const handleClose = useCallback(() => {
         setIsVisible(false);
         if (onClose) {
@@ -182,7 +181,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                     <Typography variant="body2" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-wrapper">
-                    <RdsCarousel showIndicators={false} showArrows={false} type="circle" style="default" height="var(--rds-carousel-height, 300px)" state={carouselState as unknown as '1' | '2' | '3' | '4' | undefined}>
+                    <RdsCarousel showIndicators={false} showArrows={false} type="circle" style="default" height="var(--rds-carousel-height, 300px)" activeIndex={currentIndex}>
                         {showVisualPlaceholder ? effectiveSlides.map((slide, index) => (
                             <img key={slide.imgUrl || `slide-${index}`} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
                         )) : []}

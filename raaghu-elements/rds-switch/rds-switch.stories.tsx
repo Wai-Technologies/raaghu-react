@@ -17,11 +17,13 @@ const meta: Meta<typeof RdsSwitch> = {
       description: 'Layout of the switch and label',
       defaultValue: 'Switch + Label',
     },
-    state: {
-      control: 'select',
-      options: ["Off", "On", "Disabled On", "Disabled Off"],
-      description: 'Control switch state for demo and Storybook',
-      defaultValue: 'Off',
+    defaultChecked: {
+      control: 'boolean',
+      description: 'Initial checked state for an uncontrolled switch',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disable the switch',
     },
     style: {
       control: 'select',
@@ -59,7 +61,7 @@ export const Default: Story = {
     label: 'Default Switch',
     layout: 'switch+label',
     style: 'style1',
-    state: 'off',
+    defaultChecked: false,
   },
 };
 

@@ -234,8 +234,8 @@ describe('RdsCounter', () => {
       expect(container.querySelector('.rds-counter--disabled')).toBeInTheDocument();
     });
 
-    it('should respect state="disabled" prop', () => {
-      render(<RdsCounter state="disabled" />);
+    it('should respect disabled prop', () => {
+      render(<RdsCounter disabled />);
       const buttons = screen.getAllByRole('button');
       buttons.forEach(button => {
         expect(button).toBeDisabled();
@@ -315,8 +315,13 @@ describe('RdsCounter', () => {
       expect(container.querySelector('.rds-counter--selected')).toBeInTheDocument();
     });
 
-    it('should apply selected class when state="selected"', () => {
-      const { container } = render(<RdsCounter state="selected" />);
+    it('should not apply selected class when selected is false', () => {
+      const { container } = render(<RdsCounter selected={false} />);
+      expect(container.querySelector('.rds-counter--selected')).not.toBeInTheDocument();
+    });
+
+    it('should apply selected class when selected is true', () => {
+      const { container } = render(<RdsCounter selected />);
       expect(container.querySelector('.rds-counter--selected')).toBeInTheDocument();
     });
 

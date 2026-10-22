@@ -174,7 +174,7 @@ describe('RdsAutocomplete', () => {
         <RdsAutocomplete
           {...defaultProps}
           placeholder="Select..."
-          state="selected"
+          selected
           allowMultiple={false}
         />
       );
@@ -188,7 +188,6 @@ describe('RdsAutocomplete', () => {
           {...defaultProps}
           placeholder="Select..."
           allowMultiple={true}
-          state="default"
         />
       );
       const input = container.querySelector('input');
@@ -267,8 +266,8 @@ describe('RdsAutocomplete', () => {
       expect(input?.disabled).toBe(false);
     });
 
-    it('should disable input when state is disabled', () => {
-      const { container } = render(<RdsAutocomplete {...defaultProps} state="disabled" />);
+    it('disables input with disabled', () => {
+      const { container } = render(<RdsAutocomplete {...defaultProps} disabled />);
       const input = container.querySelector('input');
       expect(input?.disabled).toBe(true);
     });
@@ -341,34 +340,34 @@ describe('RdsAutocomplete', () => {
     });
   });
 
-  describe('State Variations', () => {
-    it('should render with default state', () => {
-      const { container } = render(<RdsAutocomplete {...defaultProps} state="default" />);
+  describe('Semantic State Props', () => {
+    it('should render with default semantic props', () => {
+      const { container } = render(<RdsAutocomplete {...defaultProps} />);
       expect(container.querySelector('.rds-autocomplete')).toBeInTheDocument();
     });
 
-    it('should open dropdown when state is expanded', () => {
-      const { container } = render(<RdsAutocomplete {...defaultProps} state="expanded" />);
+    it('opens the dropdown when open is true', () => {
+      const { container } = render(<RdsAutocomplete {...defaultProps} open />);
       expect(container.querySelector('input')).toBeInTheDocument();
     });
 
-    it('should select first option when state is selected', () => {
+    it('selects the first option when selected', () => {
       const { container } = render(
-        <RdsAutocomplete {...defaultProps} state="selected" allowMultiple={false} />
+        <RdsAutocomplete {...defaultProps} selected allowMultiple={false} />
       );
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input?.value).toBeTruthy();
     });
 
-    it('should disable input when state is disabled', () => {
-      const { container } = render(<RdsAutocomplete {...defaultProps} state="disabled" />);
+    it('disables input with disabled', () => {
+      const { container } = render(<RdsAutocomplete {...defaultProps} disabled />);
       const input = container.querySelector('input');
       expect(input?.disabled).toBe(true);
     });
 
-    it('should select first option for multiple when state is selected', () => {
+    it('selects the first option in multiple mode when selected', () => {
       const { container } = render(
-        <RdsAutocomplete {...defaultProps} state="selected" allowMultiple={true} />
+        <RdsAutocomplete {...defaultProps} selected allowMultiple={true} />
       );
       expect(container.querySelector('.rds-autocomplete__chip')).toBeInTheDocument();
     });
@@ -391,7 +390,7 @@ describe('RdsAutocomplete', () => {
 
     it('should render tags for selected items in multiple mode', () => {
       const { container } = render(
-        <RdsAutocomplete {...defaultProps} allowMultiple={true} state="selected" />
+        <RdsAutocomplete {...defaultProps} allowMultiple={true} selected />
       );
       expect(container.querySelector('.rds-autocomplete__chip')).toBeInTheDocument();
     });
@@ -402,21 +401,21 @@ describe('RdsAutocomplete', () => {
         value: i + 1,
       }));
       const { container } = render(
-        <RdsAutocomplete options={manyOptions} allowMultiple={true} state="selected" />
+        <RdsAutocomplete options={manyOptions} allowMultiple={true} selected />
       );
       expect(container.querySelector('.rds-autocomplete__chip')).toBeInTheDocument();
     });
 
     it('should apply chip size class for small', () => {
       const { container } = render(
-        <RdsAutocomplete {...defaultProps} allowMultiple={true} state="selected" selectSize="small" />
+        <RdsAutocomplete {...defaultProps} allowMultiple={true} selected selectSize="small" />
       );
       expect(container.querySelector('.rds-autocomplete__chip--small')).toBeInTheDocument();
     });
 
     it('should apply chip size class for large', () => {
       const { container } = render(
-        <RdsAutocomplete {...defaultProps} allowMultiple={true} state="selected" selectSize="large" />
+        <RdsAutocomplete {...defaultProps} allowMultiple={true} selected selectSize="large" />
       );
       expect(container.querySelector('.rds-autocomplete__chip--large')).toBeInTheDocument();
     });
@@ -594,7 +593,7 @@ describe('RdsAutocomplete', () => {
           selectSize="large"
           variant="filled"
           controlStyle="bottom line"
-          state="expanded"
+          open
         />
       );
       expect(container.querySelector('.rds-autocomplete--large')).toBeInTheDocument();
@@ -639,12 +638,12 @@ describe('RdsAutocomplete', () => {
     });
 
     it('should not select multiple by default', () => {
-      const { container } = render(<RdsAutocomplete {...defaultProps} state="selected" />);
+      const { container } = render(<RdsAutocomplete {...defaultProps} selected />);
       const chips = container.querySelectorAll('.rds-autocomplete__chip');
       expect(chips.length).toBe(0);
     });
 
-    it('should use default state as default', () => {
+    it('should be enabled by default', () => {
       const { container } = render(<RdsAutocomplete {...defaultProps} />);
       const input = container.querySelector('input');
       expect(input?.disabled).toBe(false);
@@ -704,7 +703,7 @@ describe('RdsAutocomplete', () => {
       expect(container.querySelector('input')).toBeInTheDocument();
     });
 
-    it('should handle rapid state changes', () => {
+    it('should handle rapid open and close interactions', () => {
       const { container } = render(<RdsAutocomplete {...defaultProps} />);
       const input = container.querySelector('input') as HTMLInputElement;
       
@@ -716,9 +715,9 @@ describe('RdsAutocomplete', () => {
       expect(input).toBeInTheDocument();
     });
 
-    it('should handle disabled state', () => {
+    it('should handle the disabled prop', () => {
       const { container } = render(
-        <RdsAutocomplete {...defaultProps} state="disabled" />
+        <RdsAutocomplete {...defaultProps} disabled />
       );
       const input = container.querySelector('input');
       expect(input?.disabled).toBe(true);
@@ -730,7 +729,6 @@ describe('RdsAutocomplete', () => {
           {...defaultProps}
           placeholder="Select items..."
           allowMultiple={true}
-          state="default"
         />
       );
       const input = container.querySelector('input');
@@ -786,16 +784,22 @@ describe('RdsAutocomplete', () => {
       expect(filledContainer.querySelector('.MuiAutocomplete-root')).toBeInTheDocument();
     });
 
-    it('should accept valid state prop values', () => {
+    it('should accept semantic selected and open props', () => {
       const { container: defaultContainer } = render(
-        <RdsAutocomplete {...defaultProps} state="default" />
+        <RdsAutocomplete {...defaultProps} />
       );
       expect(defaultContainer.querySelector('.rds-autocomplete')).toBeInTheDocument();
 
-      const { container: expandedContainer } = render(
-        <RdsAutocomplete {...defaultProps} state="expanded" />
+      const { container: selectedContainer } = render(
+        <RdsAutocomplete {...defaultProps} selected />
       );
-      expect(expandedContainer.querySelector('.rds-autocomplete')).toBeInTheDocument();
+      expect((selectedContainer.querySelector('input') as HTMLInputElement).value).toBe('Option 1');
+
+      const { container: openContainer } = render(
+        <RdsAutocomplete {...defaultProps} open />
+      );
+      expect(openContainer.querySelector('.rds-autocomplete')).toBeInTheDocument();
+      expect(screen.getAllByRole('listbox').length).toBeGreaterThan(0);
     });
 
     it('should handle boolean props correctly', () => {
@@ -888,14 +892,14 @@ describe('RdsAutocomplete', () => {
       expect(container.querySelector('.rds-autocomplete--medium')).toBeInTheDocument();
     });
 
-    it('should handle state changes', () => {
+    it('should handle disabled prop changes', () => {
       const { container, rerender } = render(
-        <RdsAutocomplete {...defaultProps} state="default" disabled={false} />
+        <RdsAutocomplete {...defaultProps} disabled={false} />
       );
       let input = container.querySelector('input');
       expect(input?.disabled).toBe(false);
 
-      rerender(<RdsAutocomplete {...defaultProps} state="disabled" />);
+      rerender(<RdsAutocomplete {...defaultProps} disabled />);
       input = container.querySelector('input');
       expect(input?.disabled).toBe(true);
     });
@@ -977,11 +981,11 @@ describe('RdsAutocomplete audit fixes', () => {
     expect(getInput(container).value).toBe('Option 2');
   });
 
-  it('re-derives the selected option when the options really change with state="selected" (G1-043)', () => {
-    const { container, rerender } = render(<RdsAutocomplete options={makeOptions()} state="selected" />);
+  it('re-derives the selected option when the options really change with selected (G1-043)', () => {
+    const { container, rerender } = render(<RdsAutocomplete options={makeOptions()} selected />);
     expect(getInput(container).value).toBe('Option 1');
 
-    rerender(<RdsAutocomplete options={[{ label: 'Other', value: 9 }]} state="selected" />);
+    rerender(<RdsAutocomplete options={[{ label: 'Other', value: 9 }]} selected />);
     expect(getInput(container).value).toBe('Other');
   });
 
@@ -1019,7 +1023,7 @@ describe('RdsAutocomplete audit fixes', () => {
   });
 
   it('renders chips through renderValue with the same classes (G1-045)', () => {
-    const { container } = render(<RdsAutocomplete options={makeOptions()} multiple state="selected" selectSize="small" />);
+    const { container } = render(<RdsAutocomplete options={makeOptions()} multiple selected selectSize="small" />);
     const chip = container.querySelector('.rds-autocomplete__chip');
     expect(chip).toHaveClass('rds-autocomplete__chip--small');
     expect(chip).toHaveTextContent('Option 1');
@@ -1042,11 +1046,11 @@ describe('RdsAutocomplete audit fixes', () => {
     expect(getInput(container)).toHaveAttribute('aria-label', 'Pick one');
   });
 
-  it('lets a consumer open prop win over state="expanded" and calls onOpen/onClose (G1-048)', () => {
+  it('uses the open prop as controlled and calls onOpen/onClose (G1-048)', () => {
     const onOpen = jest.fn();
     const onClose = jest.fn();
     const { container, rerender } = render(
-      <RdsAutocomplete options={makeOptions()} state="expanded" open={false} onOpen={onOpen} onClose={onClose} />
+      <RdsAutocomplete options={makeOptions()} open={false} onOpen={onOpen} onClose={onClose} />
     );
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
@@ -1054,14 +1058,14 @@ describe('RdsAutocomplete audit fixes', () => {
     expect(onOpen).toHaveBeenCalledTimes(1);
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
-    rerender(<RdsAutocomplete options={makeOptions()} state="expanded" open onOpen={onOpen} onClose={onClose} />);
+    rerender(<RdsAutocomplete options={makeOptions()} open onOpen={onOpen} onClose={onClose} />);
     expect(screen.getByRole('listbox')).toBeInTheDocument();
     fireEvent.keyDown(getInput(container), { key: 'Escape' });
     expect(onClose).toHaveBeenCalledWith(expect.anything(), 'escape');
   });
 
-  it('keeps state="expanded" open when no open prop is given (G1-048)', () => {
-    render(<RdsAutocomplete options={makeOptions()} state="expanded" />);
+  it('opens the list while the open prop is true (G1-048)', () => {
+    render(<RdsAutocomplete options={makeOptions()} open />);
     expect(screen.getByRole('listbox')).toBeInTheDocument();
   });
 
@@ -1070,7 +1074,7 @@ describe('RdsAutocomplete audit fixes', () => {
     const { container } = render(
       <RdsAutocomplete
         options={makeOptions()}
-        state="selected"
+        selected
         multiple
         openOnFocus
         onOpen={onOpen}
@@ -1084,11 +1088,11 @@ describe('RdsAutocomplete audit fixes', () => {
   });
 
   it('keeps behavior and allowMultiple working, with deprecation warnings (G1-050)', () => {
-    const first = render(<RdsAutocomplete options={makeOptions()} state="selected" behavior={{ multiple: 'on' }} />);
+    const first = render(<RdsAutocomplete options={makeOptions()} selected behavior={{ multiple: 'on' }} />);
     expect(first.container.querySelector('.rds-autocomplete__chip')).toBeInTheDocument();
     first.unmount();
 
-    const second = render(<RdsAutocomplete options={makeOptions()} state="selected" allowMultiple />);
+    const second = render(<RdsAutocomplete options={makeOptions()} selected allowMultiple />);
     expect(second.container.querySelector('.rds-autocomplete__chip')).toBeInTheDocument();
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'allowMultiple', '`multiple`');
   });
@@ -1117,7 +1121,7 @@ describe('RdsAutocomplete audit fixes', () => {
   it('uses a consumer getOptionLabel for options and chips (G1-056)', () => {
     const getOptionLabel = (option: Option) => `#${option.value}`;
     const { container } = render(
-      <RdsAutocomplete options={makeOptions()} getOptionLabel={getOptionLabel} multiple state="selected" />
+      <RdsAutocomplete options={makeOptions()} getOptionLabel={getOptionLabel} multiple selected />
     );
     expect(container.querySelector('.rds-autocomplete__chip')).toHaveTextContent('#1');
     openList(container);

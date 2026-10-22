@@ -139,12 +139,6 @@
     }
   }
 
-  &--hover {
-    .MuiRadio-root:hover {
-      background-color: transparent;
-    }
-  }
-
   &:focus-visible {
     outline: var(--rds-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset, 2px);

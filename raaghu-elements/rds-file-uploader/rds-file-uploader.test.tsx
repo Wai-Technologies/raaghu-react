@@ -96,6 +96,16 @@ describe('RdsFileUploader', () => {
       const uploader = container.querySelector('.rds-file-uploader');
       expect(uploader).toBeInTheDocument();
     });
+
+    it('should apply the selected appearance in standard mode', () => {
+      render(<RdsFileUploader selected />);
+      expect(mockStandardViewProps.rootProps.className).toContain('rds-file-uploader--selected');
+    });
+
+    it('should apply the selected appearance in default mode', () => {
+      const { container } = render(<RdsFileUploader selected mode="default" />);
+      expect(container.querySelector('.rds-file-uploader')).toHaveClass('rds-file-uploader--selected');
+    });
   });
 
   describe('Title and Label Rendering', () => {
@@ -452,28 +462,6 @@ describe('RdsFileUploader', () => {
     });
   });
 
-  describe('State Props', () => {
-    it('should accept state prop with default value', () => {
-      const { container } = render(
-        <RdsFileUploader
-          {...defaultProps}
-          state="default"
-        />
-      );
-      expect(container).toBeInTheDocument();
-    });
-
-    it('should accept state prop with selected value', () => {
-      const { container } = render(
-        <RdsFileUploader
-          {...defaultProps}
-          state="selected"
-        />
-      );
-      expect(container).toBeInTheDocument();
-    });
-  });
-
   describe('Edge Cases', () => {
     it('should handle empty title', () => {
       const { container } = render(
@@ -642,7 +630,6 @@ describe('RdsFileUploader', () => {
           showHint={true}
           hintText="Upload PDF or DOC files"
           placeholderImage="https://example.com/placeholder.png"
-          state="default"
           mode="default"
           style="Drop Area - With Upload Button"
         />

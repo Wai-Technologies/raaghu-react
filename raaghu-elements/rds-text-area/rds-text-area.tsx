@@ -11,8 +11,8 @@ import {
 } from "react";
 import clsx from 'clsx';
 import "./rds-text-area.scss";
-export { TextareaState, TextareaStyle } from './rds-text-area-types';
-import { TextareaState, TextareaStyle } from './rds-text-area-types';
+export { TextareaStyle } from './rds-text-area-types';
+import { TextareaStyle } from './rds-text-area-types';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 type NativeTextareaProps = Omit<
@@ -31,14 +31,14 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   value?: string;
   /** Initial value when `value` is not controlled. */
   defaultValue?: string;
-  /** Figma state. Accepts the `TextareaState` enum or its string value (e.g. `"Disabled"`). */
-  state?: TextareaState | `${TextareaState}`;
   /** Figma style variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
   style?: TextareaStyle | `${TextareaStyle}`;
   /** @deprecated Omit `label` to hide the label. */
   showTitle?: boolean;
-  /** Forces the error appearance (same as `state="Error"`). */
+  /** Forces the error appearance. */
   error?: boolean;
+  /** Applies the selected appearance. */
+  selected?: boolean;
   /** Text shown under the field when it is in error. */
   helperText?: string;
   /** Style variant. Alias of the Figma `style`. */
@@ -47,7 +47,7 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   required?: boolean;
   /** @deprecated Use `required` instead. */
   isMandatory?: boolean;
-  /** Disables the textarea (same as `state="Disabled"`). */
+  /** Disables the textarea. */
   disabled?: boolean;
   /** Class name for the root container. Use `customClasses` for the textarea element. */
   className?: string;
@@ -75,10 +75,10 @@ const RdsTextArea = ({
   placeholder,
   value,
   defaultValue,
-  state,
   style,
   variant,
   error,
+  selected = false,
   helperText,
   showTitle,
   required,
@@ -111,9 +111,7 @@ const RdsTextArea = ({
   const [isMandatoryValid, setIsMandatoryValid] = useState(
     !isMandatory || (value ?? defaultValue ?? '').trim().length > 0
   );
-  const [currentState, setCurrentState] = useState(state || TextareaState.Default);
   const [prevReset, setPrevReset] = useState(Boolean(resetProp));
-  const [prevState, setPrevState] = useState(state);
   const [prevValue, setPrevValue] = useState(value);
   const [prevMandatory, setPrevMandatory] = useState(isMandatory);
   const reactId = useId();
@@ -128,12 +126,6 @@ const RdsTextArea = ({
       setIsMandatoryValid(true);
     }
     setPrevReset(reset);
-  }
-
-  const propState = state || TextareaState.Default;
-  if (propState !== prevState) {
-    setPrevState(propState);
-    setCurrentState(propState);
   }
 
   if (value !== prevValue || isMandatory !== prevMandatory) {
@@ -165,38 +157,13 @@ const RdsTextArea = ({
     onChange?.(e);
   };
 
-  const handleFocus = (e: FocusEvent<HTMLTextAreaElement>) => {
-    if (currentState !== TextareaState.Disabled && currentState !== TextareaState.Error) {
-      setCurrentState(TextareaState.Active);
-    }
-    onFocus?.(e);
-  };
-
   const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
     if (isMandatory) {
       setIsMandatoryValid(inputValue.trim().length > 0);
     }
 
-    if (currentState === TextareaState.Active) {
-      setCurrentState(inputValue ? TextareaState.Selected : TextareaState.Default);
-    }
     onBlur?.(e);
-  };
-
-  const getStateClass = () => {
-    switch (effectiveState) {
-      case TextareaState.Active:
-        return "textarea-active";
-      case TextareaState.Selected:
-        return "textarea-selected";
-      case TextareaState.Error:
-        return "textarea-error";
-      case TextareaState.Disabled:
-        return "textarea-disabled";
-      default:
-        return "textarea-default";
-    }
   };
 
   const getStyleClass = () => {
@@ -210,9 +177,13 @@ const RdsTextArea = ({
     }
   };
 
-  const effectiveState = disabled ? TextareaState.Disabled : error ? TextareaState.Error : currentState;
-  const isDisabled = effectiveState === TextareaState.Disabled;
-  const isError = effectiveState === TextareaState.Error || !isValid || (isMandatory && !isMandatoryValid);
+  const isDisabled = Boolean(disabled);
+  const isError = Boolean(error) || !isValid || (isMandatory && !isMandatoryValid);
+  const stateClass = clsx(
+    isError && 'textarea-error',
+    isDisabled && 'textarea-disabled',
+    selected && 'textarea-selected'
+  );
 
   const getValidationMessage = () => {
     if (isMandatory && !isMandatoryValid) {
@@ -234,20 +205,20 @@ const RdsTextArea = ({
         className={clsx(
           'textarea-wrapper',
           resolvedVariant === TextareaStyle.Pill && 'textarea-pill-wrapper',
-          resolvedVariant === TextareaStyle.Pill && getStateClass()
+          resolvedVariant === TextareaStyle.Pill && stateClass
         )}
       >
         <textarea
           {...rest}
           ref={ref}
           id={assignedId}
-          className={clsx('rds-textarea', getStateClass(), getStyleClass(), customClasses)}
+          className={clsx('rds-textarea', stateClass, getStyleClass(), customClasses)}
           disabled={isDisabled}
           rows={rows || 4}
-          placeholder={placeholder}
+          placeholder={placeholder ?? ' '}
           onClick={onClick}
           onKeyDown={onKeyDown}
-          onFocus={handleFocus}
+          onFocus={onFocus}
           onBlur={handleBlur}
           {...(dataTestId !== undefined && { 'data-testid': dataTestId })}
           value={value}

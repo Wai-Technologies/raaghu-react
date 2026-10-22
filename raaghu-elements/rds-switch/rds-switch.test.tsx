@@ -152,57 +152,41 @@ describe('RdsSwitch', () => {
     });
   });
 
-  describe('State Property', () => {
-    it('should render in on state', () => {
+  describe('Checked Property', () => {
+    it('should render checked when defaultChecked is true', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="on" />
+        <RdsSwitch defaultChecked />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeChecked();
     });
 
-    it('should render in off state', () => {
+    it('should render unchecked when defaultChecked is false', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="off" />
+        <RdsSwitch defaultChecked={false} />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).not.toBeChecked();
     });
 
-    it('should render in disabled on state', () => {
+    it('should render checked and disabled from semantic props', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="disabled on" />
+        <RdsSwitch disabled defaultChecked />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeDisabled();
       expect(input).toBeChecked();
     });
 
-    it('should render in disabled off state', () => {
+    it('should render unchecked and disabled from semantic props', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="disabled off" />
+        <RdsSwitch disabled defaultChecked={false} />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeDisabled();
       expect(input).not.toBeChecked();
     });
 
-    it('should handle state with extra spaces', () => {
-      const { container } = renderWithTheme(
-        <RdsSwitch state="on" />
-      );
-      const input = container.querySelector('input[type="checkbox"]');
-      expect(input).toBeChecked();
-    });
-
-    it('should handle disabled on state', () => {
-      const { container } = renderWithTheme(
-        <RdsSwitch state="disabled on" />
-      );
-      const input = container.querySelector('input[type="checkbox"]');
-      expect(input).toBeDisabled();
-      expect(input).toBeChecked();
-    });
   });
 
   describe('Style Variations', () => {
@@ -330,17 +314,17 @@ describe('RdsSwitch', () => {
       expect(input).toBeDisabled();
     });
 
-    it('should disable switch when state is disabled on', () => {
+    it('should disable a checked switch', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="disabled on" />
+        <RdsSwitch disabled defaultChecked />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeDisabled();
     });
 
-    it('should disable switch when state is disabled off', () => {
+    it('should disable an unchecked switch', () => {
       const { container } = renderWithTheme(
-        <RdsSwitch state="disabled off" />
+        <RdsSwitch disabled defaultChecked={false} />
       );
       const input = container.querySelector('input[type="checkbox"]');
       expect(input).toBeDisabled();
@@ -423,16 +407,16 @@ describe('RdsSwitch', () => {
       expect(input.checked).toBe(initialState);
     });
 
-    it('should update state when state prop changes', async () => {
+    it('should update when the controlled checked prop changes', async () => {
       const { container, rerender } = renderWithTheme(
-        <RdsSwitch state="off" />
+        <RdsSwitch checked={false} />
       );
       let input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       expect(input.checked).toBe(false);
 
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsSwitch state="on" />
+          <RdsSwitch checked />
         </ThemeProvider>
       );
 
@@ -554,7 +538,6 @@ describe('RdsSwitch', () => {
       const { container } = renderWithTheme(
         <RdsSwitch
           label={undefined}
-          state={undefined}
           style={undefined}
           layout={undefined}
         />
@@ -562,16 +545,16 @@ describe('RdsSwitch', () => {
       expect(container).toBeInTheDocument();
     });
 
-    it('should handle multiple state and style changes', async () => {
+    it('should handle checked and style changes', async () => {
       const { container, rerender } = renderWithTheme(
-        <RdsSwitch state="on" style="style1" />
+        <RdsSwitch checked style="style1" />
       );
       let input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       expect(input.checked).toBe(true);
 
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsSwitch state="off" style="style2" />
+          <RdsSwitch checked={false} style="style2" />
         </ThemeProvider>
       );
 

@@ -1,33 +1,18 @@
-import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from 'storybook/test';
+import RdsTextArea, { TextareaStyle } from "./rds-text-area";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-const meta: Meta<typeof RdsTextArea> = {
+const meta = {
     title: 'Elements/Text Area',
     component: RdsTextArea,
     parameters: {
-            status: { type: 'stable' },
+        status: { type: 'stable' },
         layout: 'padded',
         controls: {
             exclude: ['value', 'id', 'dataTestId', 'data-testid', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']
-        },
-        docs: {
-            source: {
-                transform: (code: string) => {
-                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={TextareaState.${p1}}`);
-                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={TextareaStyle.${p1.replace(/\s+/g, "")}}`);
-                    return code;
-                }
-            }
         }
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        state: {
-            control: 'select',
-            options: ['Default', 'Active', 'Selected', 'Disabled', 'Error'],
-            description: 'Current state of the text area'
-        },
         style: {
             control: 'select',
             options: ['Default', 'Pill', 'Bottom Outline'],
@@ -41,22 +26,26 @@ const meta: Meta<typeof RdsTextArea> = {
             control: 'boolean',
             description: 'Forces the error appearance'
         },
+        selected: {
+            control: 'boolean',
+            description: 'Applies the selected appearance'
+        },
         helperText: {
             control: 'text',
             description: 'Text shown under the field when it is in error'
         }
-    } as any,
+    }
 } satisfies Meta<typeof RdsTextArea>;
 
 export default meta;
-type Story = StoryObj<typeof RdsTextArea>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
         label: "Label",
         placeholder: "Enter Description",
-        state: TextareaState.Default,
         style: TextareaStyle.Default,
+        selected: false,
         isMandatory: false,
         rows: 4
     }

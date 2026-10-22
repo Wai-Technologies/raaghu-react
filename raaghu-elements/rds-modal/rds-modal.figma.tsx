@@ -20,7 +20,6 @@ figma.connect(
           onClick={() => {}}
           shape="rectangle"
           size="medium"
-          state="default"
           style="filled"
           textCase="uppercase"
         >
@@ -36,11 +35,10 @@ figma.connect(
             This is a basic modal with default settings. You can put any content here.
           </span>
                   <RdsButton>Cancel</RdsButton>
-                  <RdsButton color="primary" textCase="uppercase" layout="text-only"  shape="rectangle"  size="medium"  state="default"  style="filled">Delete</RdsButton>
+                  <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" style="filled">Delete</RdsButton>
         </RdsModal>
       </>
     ),
   },
 )
-
 

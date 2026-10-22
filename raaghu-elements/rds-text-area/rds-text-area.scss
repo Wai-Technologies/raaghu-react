@@ -24,14 +24,6 @@
       background-color: var(--rds-background-paper);
       transition: border-color var(--rds-transition-base, 0.2s) ease-in-out;
 
-      &.textarea-active {
-        border-color: var(--rds-primary-main);
-      }
-
-      &.textarea-selected {
-        border-color: var(--rds-border-selected);
-      }
-
       &.textarea-disabled {
         background-color: var(--rds-background-disabled);
         border-color: var(--rds-border-disabled);
@@ -76,6 +68,23 @@
       outline: none;
     }
 
+    &:focus-visible:not(.textarea-disabled):not(.textarea-error) {
+      outline: var(--rds-focus-ring-width, 2px) solid var(--rds-primary-main);
+      outline-offset: var(--rds-focus-ring-offset, 2px);
+    }
+
+    &:not(:placeholder-shown):not(:focus):not(.textarea-disabled):not(.textarea-error) {
+      border-color: var(--rds-border-selected);
+
+      &.textarea-bottom-outline {
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
+      }
+    }
+
+    &.textarea-selected:not(.textarea-disabled):not(.textarea-error) {
+      border-color: var(--rds-border-selected);
+    }
+
     &.textarea-style-default {
       border-radius: var(--rds-border-radius-md, 4px);
     }
@@ -91,26 +100,6 @@
       border-bottom: var(--rds-textarea-bottom-border-width, 2px) solid var(--rds-border-default) !important;
       padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
       background-color: var(--rds-background-paper);
-    }
-
-    &.textarea-default {
-      border-color: var(--rds-border-default);
-    }
-
-    &.textarea-active {
-      border-color: var(--rds-primary-main);
-
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
-      }
-    }
-
-    &.textarea-selected {
-      border-color: var(--rds-border-selected);
-
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
-      }
     }
 
     &.textarea-disabled {
@@ -158,22 +147,6 @@
       background-color: var(--rds-background-paper) !important;
       color: var(--rds-text-primary) !important;
       border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
-    }
-
-    &.textarea-active {
-      border-color: var(--rds-primary-main);
-
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
-      }
-    }
-
-    &.textarea-selected {
-      border-color: var(--rds-border-selected);
-
-      &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
-      }
     }
 
     &.textarea-disabled {

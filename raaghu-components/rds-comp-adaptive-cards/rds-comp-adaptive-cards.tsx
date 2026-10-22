@@ -402,7 +402,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                         styleType="outline"
                         options={activityDropdownOptions}
                         onChange={() => {}}
-                        state="default"
                         showRadio={true}
                         showUserAvatar={true}
                         multiple={false}

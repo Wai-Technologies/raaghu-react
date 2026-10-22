@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RdsTextArea, { TextareaState, TextareaStyle, RdsTextAreaProps } from './rds-text-area';
+import RdsTextArea, { TextareaStyle, RdsTextAreaProps } from './rds-text-area';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
@@ -54,69 +54,36 @@ describe('RdsTextArea', () => {
     });
   });
 
-  describe('States', () => {
-    it('should render default state by default', () => {
-      render(<RdsTextArea dataTestId="test-textarea" />);
+  describe('Semantic appearance', () => {
+    it('uses the error prop for error styling and accessibility', () => {
+      render(<RdsTextArea error dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-default');
+      expect(textarea).toHaveClass('textarea-error');
+      expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
 
-    it('should apply active state class', () => {
-      render(<RdsTextArea state={TextareaState.Active} dataTestId="test-textarea" />);
+    it('uses the disabled prop for disabled styling and behavior', () => {
+      render(<RdsTextArea disabled dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-active');
+      expect(textarea).toHaveClass('textarea-disabled');
+      expect(textarea).toBeDisabled();
     });
 
-    it('should apply selected state class', () => {
-      render(<RdsTextArea state={TextareaState.Selected} dataTestId="test-textarea" />);
+    it('retains the error appearance when focused', () => {
+      render(<RdsTextArea error dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-selected');
-    });
-
-    it('should apply error state class', () => {
-      render(<RdsTextArea state={TextareaState.Error} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
+      fireEvent.focus(textarea);
       expect(textarea).toHaveClass('textarea-error');
     });
 
-    it('should apply disabled state class', () => {
-      render(<RdsTextArea state={TextareaState.Disabled} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-disabled');
+    it('uses the current value for the filled appearance', () => {
+      render(<RdsTextArea value="Existing text" placeholder="Write here" dataTestId="test-textarea" />);
+      expect(screen.getByTestId('test-textarea')).toHaveValue('Existing text');
     });
 
-    it('should disable textarea when state is Disabled', () => {
-      render(<RdsTextArea state={TextareaState.Disabled} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
-      expect(textarea.disabled).toBe(true);
-    });
-
-    it('should transition to active state on focus', async () => {
-      const { container } = render(
-        <RdsTextArea state={TextareaState.Default} dataTestId="test-textarea" />
-      );
-      const textarea = screen.getByTestId('test-textarea');
-      
-      fireEvent.focus(textarea);
-      await waitFor(() => {
-        expect(textarea).toHaveClass('textarea-active');
-      });
-    });
-
-    it('should not change disabled state on focus', () => {
-      render(<RdsTextArea state={TextareaState.Disabled} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      
-      fireEvent.focus(textarea);
-      expect(textarea).toHaveClass('textarea-disabled');
-    });
-
-    it('should not change error state on focus', () => {
-      render(<RdsTextArea state={TextareaState.Error} dataTestId="test-textarea" />);
-      const textarea = screen.getByTestId('test-textarea');
-      
-      fireEvent.focus(textarea);
-      expect(textarea).toHaveClass('textarea-error');
+    it('applies the selected appearance when selected is true', () => {
+      render(<RdsTextArea selected dataTestId="test-textarea" />);
+      expect(screen.getByTestId('test-textarea')).toHaveClass('textarea-selected');
     });
   });
 
@@ -440,7 +407,7 @@ describe('RdsTextArea', () => {
     it('should have aria-invalid attribute', () => {
       render(
         <RdsTextArea 
-          state={TextareaState.Error} 
+          error
           dataTestId="test-textarea"
         />
       );
@@ -533,17 +500,17 @@ describe('RdsTextArea', () => {
       expect(textarea).toHaveClass('custom-class', 'another-class');
     });
 
-    it('should apply custom classes with state and style classes', () => {
+    it('should apply custom classes with semantic and style classes', () => {
       render(
         <RdsTextArea 
-          state={TextareaState.Active}
+          error
           style={TextareaStyle.Pill}
           customClasses="my-custom"
           dataTestId="test-textarea"
         />
       );
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('rds-textarea', 'textarea-active', 'textarea-pill', 'my-custom');
+      expect(textarea).toHaveClass('rds-textarea', 'textarea-error', 'textarea-pill', 'my-custom');
     });
   });
 
@@ -594,7 +561,7 @@ describe('RdsTextArea', () => {
       const { container } = render(
         <RdsTextArea 
           label="Text Area" 
-          state={TextareaState.Disabled}
+          disabled
         />
       );
       const label = container.querySelector('.textarea-label');
@@ -605,7 +572,6 @@ describe('RdsTextArea', () => {
       const { container } = render(
         <RdsTextArea 
           label="Text Area" 
-          state={TextareaState.Default}
         />
       );
       const label = container.querySelector('.textarea-label');
@@ -624,7 +590,6 @@ describe('RdsTextArea', () => {
           label="Email"
           placeholder="Enter email"
           value=""
-          state={TextareaState.Default}
           style={TextareaStyle.Pill}
           rows={6}
           isMandatory={true}
@@ -642,7 +607,7 @@ describe('RdsTextArea', () => {
       const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
       
       expect(screen.getByText('Email')).toBeInTheDocument();
-      expect(textarea).toHaveClass('rds-textarea', 'textarea-default', 'textarea-pill', 'custom');
+      expect(textarea).toHaveClass('rds-textarea', 'textarea-error', 'textarea-pill', 'custom');
       expect(textarea).toHaveAttribute('aria-required', 'true');
       
       fireEvent.focus(textarea);
@@ -658,21 +623,18 @@ describe('RdsTextArea', () => {
       });
     });
 
-    it('should handle state changes gracefully', () => {
+    it('should handle semantic appearance changes gracefully', () => {
       const { rerender } = render(
-        <RdsTextArea state={TextareaState.Default} dataTestId="test-textarea" />
+        <RdsTextArea dataTestId="test-textarea" />
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      expect(textarea).toHaveClass('textarea-default');
+      expect(textarea).toHaveClass('textarea-style-default');
       
-      rerender(<RdsTextArea state={TextareaState.Active} dataTestId="test-textarea" />);
-      expect(textarea).toHaveClass('textarea-active');
-      
-      rerender(<RdsTextArea state={TextareaState.Error} dataTestId="test-textarea" />);
+      rerender(<RdsTextArea error dataTestId="test-textarea" />);
       expect(textarea).toHaveClass('textarea-error');
       
-      rerender(<RdsTextArea state={TextareaState.Disabled} dataTestId="test-textarea" />);
+      rerender(<RdsTextArea disabled dataTestId="test-textarea" />);
       expect(textarea).toHaveClass('textarea-disabled');
     });
   });
@@ -727,8 +689,8 @@ describe('RdsTextArea', () => {
 });
 
 describe('audit fixes', () => {
-  it('G2-343: accepts string state/style values', () => {
-    render(<RdsTextArea state="Disabled" style="Pill" dataTestId="ta" />);
+  it('G2-343: accepts string style values', () => {
+    render(<RdsTextArea disabled style="Pill" dataTestId="ta" />);
     const ta = screen.getByTestId('ta');
     expect(ta).toBeDisabled();
     expect(ta).toHaveClass('textarea-pill');

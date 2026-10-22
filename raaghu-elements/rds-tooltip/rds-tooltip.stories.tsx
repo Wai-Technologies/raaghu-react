@@ -45,7 +45,7 @@ type Story = StoryObj<typeof meta>;
 const controls = { controls: { include: ['title', 'placement', 'arrow'] } };
 
 const textButton = (label: string, style: 'filled' | 'outlined' | 'transparent') => (
-  <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style={style} textCase="unset">
+  <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" style={style} textCase="unset">
     {label}
   </RdsButton>
 );
@@ -58,7 +58,6 @@ const iconButton = (icon: ReactNode, label: string) => (
     shape="rectangle"
     showLeftIcon
     size="medium"
-    state="default"
     style="transparent"
     aria-label={label}
   />
