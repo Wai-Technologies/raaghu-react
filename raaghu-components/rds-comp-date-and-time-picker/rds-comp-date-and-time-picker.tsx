@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, type ReactNode, type Ref } from 'react';
 import clsx from 'clsx';
 import './rds-comp-date-and-time-picker.scss';
 import dayjs, { Dayjs } from 'dayjs';
@@ -104,11 +104,11 @@ const dateRangePresets: DateRangePreset[] = [
 
 // Custom Layout Component for Date Range Picker with Presets
 const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, rangeValue }: {
-    children: React.ReactNode;
+    children: ReactNode;
     selectedPreset: string;
     onPresetSelect: (preset: DateRangePreset) => void;
     rangeValue: [Dayjs | null, Dayjs | null];
-    ref?: React.Ref<HTMLDivElement>;
+    ref?: Ref<HTMLDivElement>;
 }) => {
   return (
     <div
@@ -206,10 +206,10 @@ function RangeCalendar({
   maxDate?: Dayjs;
   multiMonth?: boolean;
 }) {
-  const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>([null, null]);
-  const [currentMonth, setCurrentMonth] = React.useState(() => dayjs());
-  const [prevValue0, setPrevValue0] = React.useState(value[0]?.valueOf());
-  const [prevValue1, setPrevValue1] = React.useState(value[1]?.valueOf());
+  const [draft, setDraft] = useState<[Dayjs | null, Dayjs | null]>([null, null]);
+  const [currentMonth, setCurrentMonth] = useState(() => dayjs());
+  const [prevValue0, setPrevValue0] = useState(value[0]?.valueOf());
+  const [prevValue1, setPrevValue1] = useState(value[1]?.valueOf());
   if (value[0]?.valueOf() !== prevValue0 || value[1]?.valueOf() !== prevValue1) {
     setPrevValue0(value[0]?.valueOf());
     setPrevValue1(value[1]?.valueOf());
@@ -309,7 +309,7 @@ function RangeTime({
   
   // Calculate dynamic minTime for end time picker based on start time
   // Allow selecting the same time or any time after start time
-  const endMinTime = React.useMemo(() => {
+  const endMinTime = useMemo(() => {
     if (start) {
       return start; // Allow same time or later
     }
@@ -318,7 +318,7 @@ function RangeTime({
   
   // Calculate dynamic maxTime for start time picker based on end time
   // Allow selecting the same time or any time before end time
-  const startMaxTime = React.useMemo(() => {
+  const startMaxTime = useMemo(() => {
     if (end) {
       return end; // Allow same time or earlier
     }

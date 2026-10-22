@@ -28,20 +28,81 @@ type Story = StoryObj<typeof RdsCompStackedChart>;
 export const Default: Story = {
     args: {
         id: "Stacked_Chart",
-        labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ],
+        data: {
+            labels: [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ],
+            datasets: [
+                {
+                    "label": "My Second dataset",
+                    "data": [
+                        140,
+                        140,
+                        170,
+                        235,
+                        125,
+                        125,
+                        110,
+                        140,
+                        140,
+                        170,
+                        230,
+                        80
+                    ],
+                    "borderColor": "white",
+                    "backgroundColor": "#62D5D9"
+                },
+                {
+                    "label": "My Third dataset",
+                    "data": [
+                        90,
+                        185,
+                        110,
+                        90,
+                        230,
+                        75,
+                        230,
+                        80,
+                        180,
+                        185,
+                        185,
+                        330
+                    ],
+                    "borderColor": "white",
+                    "backgroundColor": "#928AE0"
+                },
+                {
+                    "label": "My Fourth dataset",
+                    "data": [
+                        150,
+                        201,
+                        160,
+                        203,
+                        151,
+                        205,
+                        206,
+                        207,
+                        208,
+                        209,
+                        210,
+                        211
+                    ],
+                    "borderColor": "white",
+                    "backgroundColor": "#EDB371"
+                }
+            ],
+        },
         options: {
             "radius": 3,
             "pointStyle": "triangle",
@@ -185,68 +246,6 @@ export const Default: Story = {
                 }
             }
         },
-        dataSets: [
-            {
-                "label": "My Second dataset",
-                "data": [
-                    140,
-                    140,
-                    170,
-                    235,
-                    125,
-                    125,
-                    110,
-                    140,
-                    140,
-                    170,
-                    230,
-                    80
-                ],
-                "borderColor": "white",
-                "backgroundColor": "#62D5D9",
-                "fill": true
-            },
-            {
-                "label": "My Third dataset",
-                "data": [
-                    90,
-                    185,
-                    110,
-                    90,
-                    230,
-                    75,
-                    230,
-                    80,
-                    180,
-                    185,
-                    185,
-                    330
-                ],
-                "borderColor": "white",
-                "backgroundColor": "#928AE0",
-                "fill": true
-            },
-            {
-                "label": "My Fourth dataset",
-                "data": [
-                    150,
-                    201,
-                    160,
-                    203,
-                    151,
-                    205,
-                    206,
-                    207,
-                    208,
-                    209,
-                    210,
-                    211
-                ],
-                "borderColor": "white",
-                "backgroundColor": "#EDB371",
-                "fill": true
-            }
-        ],
 
 
     },

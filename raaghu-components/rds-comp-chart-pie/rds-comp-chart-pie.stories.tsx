@@ -24,7 +24,24 @@ type Story = StoryObj<typeof RdsCompPieChart>;
 export const Default: Story = {
     args: {
         id: "chart pie",
-        labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
+        data: {
+            labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
+            datasets: [
+                {
+                    label: "Dataset1",
+                    data: [20, 10, 20, 40, 10],
+                    backgroundColor: [
+                        "#ff6384",
+                        "#ff9f40",
+                        "#ffcd56",
+                        "#4bc0c0",
+                        "#059bff",
+                    ],
+                    borderColor: ["#fff"],
+                    borderWidth: 1,
+                },
+            ],
+        },
         options: {
             circumference: 360,
             radius: 100,
@@ -53,21 +70,6 @@ export const Default: Story = {
                 },
             },
         },
-        dataSets: [
-            {
-                label: "Dataset1",
-                data: [20, 10, 20, 40, 10],
-                backgroundColor: [
-                    "#ff6384",
-                    "#ff9f40",
-                    "#ffcd56",
-                    "#4bc0c0",
-                    "#059bff",
-                ],
-                borderColor: ["#fff"],
-                borderWidth: 1,
-            },
-        ],
     },
     play: async ({ canvas }) => {
         const chart = await canvas.findByRole('img');

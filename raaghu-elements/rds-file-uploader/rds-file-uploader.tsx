@@ -178,37 +178,24 @@ const RdsFileUploader = ({
             aria-label={fieldLabel || 'File upload'}
           />
 
-          {dropAreaStyle === 'Drop Area - Side Icon' ? (
-            <RdsDropZoneSideIcon
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          ) : dropAreaStyle === 'Drop Area - With Upload Button' ? (
-            <RdsDropZoneWithButton
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          ) : (
-            <RdsDropZoneDefault
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          )}
+          {(() => {
+            const dropZoneProps = {
+              mode: mode || 'default',
+              isDragOver,
+              disabled,
+              onDragOver: handleDragOver,
+              onDragLeave: handleDragLeave,
+              onDrop: handleDrop,
+              openFileDialog,
+            };
+            if (dropAreaStyle === 'Drop Area - Side Icon') {
+              return <RdsDropZoneSideIcon {...dropZoneProps} />;
+            }
+            if (dropAreaStyle === 'Drop Area - With Upload Button') {
+              return <RdsDropZoneWithButton {...dropZoneProps} />;
+            }
+            return <RdsDropZoneDefault {...dropZoneProps} />;
+          })()}
 
           <Box className="rds-file-uploader__hint-row">
             <Typography

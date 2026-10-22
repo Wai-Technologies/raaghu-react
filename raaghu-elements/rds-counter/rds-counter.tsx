@@ -193,16 +193,18 @@ const RdsCounter = ({
           `rds-counter__input--${size}`,
           isDisabled && 'rds-counter__input--disabled',
         )}
-        inputProps={{
-          id: inputId,
-          inputMode: 'numeric',
-          pattern: '[0-9]*',
-          ...(Number.isFinite(min) ? { min } : {}),
-          ...(Number.isFinite(max) ? { max } : {}),
-          'aria-label': labelText ? `${labelText} value` : 'counter value',
-          ...(isRequired ? { 'aria-required': true } : {}),
-          placeholder: placeholder,
-          style: { textAlign: 'center' }
+        slotProps={{
+          input: {
+            id: inputId,
+            inputMode: 'numeric',
+            pattern: '[0-9]*',
+            ...(Number.isFinite(min) ? { min } : {}),
+            ...(Number.isFinite(max) ? { max } : {}),
+            'aria-label': labelText ? `${labelText} value` : 'counter value',
+            ...(isRequired ? { 'aria-required': true } : {}),
+            placeholder: placeholder,
+            style: { textAlign: 'center' }
+          }
         }}
       />
     ) : (

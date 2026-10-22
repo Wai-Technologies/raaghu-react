@@ -111,6 +111,9 @@ const DEPRECATED_PROPS = {
   modalText: "`slotProps.dialog.text`",
   userData: "`currentUser`",
   menuAlignment: "`placement`",
+  image: "nothing (no effect)",
+  onFigmaSubmit: "`onFigmaUrlChange`",
+  handleAddComment: "`onAddComment`",
 } as const;
 
 const PLACEMENT_ALIGNMENT = { start: "left", end: "right" } as const;
@@ -149,9 +152,6 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
   for (const [name, replacement] of Object.entries(DEPRECATED_PROPS)) {
     if (props[name as keyof typeof DEPRECATED_PROPS] !== undefined) warnDeprecatedProp("RdsCompAiAttachment", name, replacement);
   }
-  if (image !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "image", "nothing (no effect)");
-  if (onFigmaSubmit !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "onFigmaSubmit", "`onFigmaUrlChange`");
-  if (handleAddComment !== undefined) warnDeprecatedProp("RdsCompAiAttachment", "handleAddComment", "`onAddComment`");
 
   const [showModal, setShowModal] = useState(false);
   const [figmaUrl, setFigmaUrl] = useState("");
