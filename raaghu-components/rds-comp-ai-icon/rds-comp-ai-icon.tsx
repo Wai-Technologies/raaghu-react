@@ -116,6 +116,8 @@ export interface RdsCompAiIconProps
   /** @deprecated Has no effect. */
   opacity?: string;
   animate?: boolean;
+  /** @deprecated Use `animate` instead. */
+  isAnimate?: boolean;
   /** @deprecated Use `className` instead. */
   classes?: string;
   className?: string;
@@ -138,9 +140,17 @@ export interface RdsCompAiIconProps
   /** @deprecated Has no effect. */
   type?: "icon" | "lottie";
   hover?: boolean;
-  continueanimate?: boolean;
+  /** @deprecated Use `hover` instead. */
+  isHover?: boolean;
+  continuousAnimate?: boolean;
+  /** @deprecated Use `continuousAnimate` instead. */
+  isContinueAnimate?: boolean;
   hovered?: boolean;
-  cursorpointer?: boolean;
+  /** @deprecated Use `hovered` instead. */
+  isHovered?: boolean;
+  cursorPointer?: boolean;
+  /** @deprecated Use `cursorPointer` instead. */
+  isCursorPointer?: boolean;
   strokeColor?: string;
   SvgIcon?: ComponentType<SVGProps<SVGSVGElement>>;
   component?: ComponentType<SVGProps<SVGSVGElement>>;
@@ -171,7 +181,8 @@ const RdsCompAiIconComponent = ({
   src,
   imageUrl,
   id,
-  cursorpointer,
+  cursorPointer: cursorPointerProp,
+  isCursorPointer,
   strokeColor,
   SvgIcon: SvgIconProp,
   component,
@@ -179,11 +190,15 @@ const RdsCompAiIconComponent = ({
   borderRadius,
   opacity,
   animate,
+  isAnimate,
   iconPath,
   type,
   hover,
-  continueanimate,
+  isHover,
+  continuousAnimate,
+  isContinueAnimate,
   hovered,
+  isHovered,
   "data-testid": dataTestIdAttr,
   "data-bs-dismiss": dataBsDismiss,
   "data-bs-target": dataBsTarget,
@@ -191,6 +206,12 @@ const RdsCompAiIconComponent = ({
   "aria-controls": ariaControls,
   ...rest
 }: RdsCompAiIconProps) => {
+  if (isAnimate !== undefined) warnDeprecatedProp("RdsCompAiIcon", "isAnimate", "`animate`");
+  if (isHover !== undefined) warnDeprecatedProp("RdsCompAiIcon", "isHover", "`hover`");
+  if (isContinueAnimate !== undefined) warnDeprecatedProp("RdsCompAiIcon", "isContinueAnimate", "`continuousAnimate`");
+  if (isHovered !== undefined) warnDeprecatedProp("RdsCompAiIcon", "isHovered", "`hovered`");
+  if (isCursorPointer !== undefined) warnDeprecatedProp("RdsCompAiIcon", "isCursorPointer", "`cursorPointer`");
+  const cursorPointer = cursorPointerProp ?? isCursorPointer;
   const noEffect: Record<string, unknown> = {
     borderRadius,
     opacity,
@@ -198,7 +219,7 @@ const RdsCompAiIconComponent = ({
     iconPath,
     type,
     hover,
-    continueanimate,
+    continuousAnimate,
     hovered,
   };
 
@@ -289,7 +310,7 @@ const RdsCompAiIconComponent = ({
   const className = clsx(
     "rds-comp-ai-icon",
     classNameProp ?? classes,
-    cursorpointer && "rds-comp-ai-icon--cursor",
+    cursorPointer && "rds-comp-ai-icon--cursor",
     colorVariant && `rds-comp-ai-icon--${colorVariant}`
   );
 

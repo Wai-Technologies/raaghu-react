@@ -150,7 +150,7 @@ const RdsDrawer = ({
         shape="rectangle"
         size="medium"
         state="default"
-        style="filled"
+        variant="filled"
         textCase="unset"
         {...triggerButtonProps}
         {...triggerSlot}

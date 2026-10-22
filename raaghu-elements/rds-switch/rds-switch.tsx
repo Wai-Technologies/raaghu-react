@@ -1,8 +1,10 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState, type ChangeEvent, type CSSProperties } from 'react';
 import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-switch.scss';
+
+type SwitchVariant = 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
 
 /** Props for {@link RdsSwitch}. Extends MUI `SwitchProps` (except `style`/`component`). */
 export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'> {
@@ -12,9 +14,10 @@ export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'>
   state?: 'off' | 'on' | 'disabled on' | 'disabled off';
   /** @deprecated Omit `label` instead. */
   showLabel?: boolean;
-  /** Visual style; wins over `style` when both are set. */
-  variant?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
-  style?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5';
+  /** Visual variant. */
+  variant?: SwitchVariant;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: SwitchVariant | CSSProperties;
 }
 
 const layoutToPlacement: Record<NonNullable<RdsSwitchProps['layout']>, RdsSwitchProps['labelPlacement']> = {
@@ -50,7 +53,10 @@ const RdsSwitch = ({
   ...props
 }:RdsSwitchProps) => {
   if (showLabel !== undefined) warnDeprecatedProp('RdsSwitch', 'showLabel', 'omitting `label`');
-  const styleProp = variant ?? style ?? 'style1';
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsSwitch', 'style', '`variant`');
+  const styleProp = variant ?? legacyVariant ?? 'style1';
+  const rowStyle = typeof style === 'object' ? style : undefined;
   const normalizedLayout = normalizeLayout(layout);
   const normalizedState = normalizeState(state);
 
@@ -120,8 +126,7 @@ const RdsSwitch = ({
     checked: isControlled ? props.checked : internalChecked,
     disabled,
     onChange: handleChange,
-    className: clsx(styleClass, props.className),
-    slotProps: {
+    className: clsx(styleClass, props.className),    slotProps: {
       ...restProps.slotProps,
       input: mergedInput,
     },
@@ -129,7 +134,7 @@ const RdsSwitch = ({
 
   if (label && showLabel !== false) {
     return (
-      <div className="rds-switch--row">
+      <div className="rds-switch--row" style={rowStyle}>
         <FormControlLabel
           className={styleClass}
           control={<MuiSwitch {...switchProps} />}
@@ -140,7 +145,7 @@ const RdsSwitch = ({
     );
   }
   return (
-    <div className="rds-switch--row">
+    <div className="rds-switch--row" style={rowStyle}>
       <MuiSwitch {...switchProps} />
     </div>
   );

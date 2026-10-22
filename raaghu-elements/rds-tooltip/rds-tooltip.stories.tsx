@@ -26,7 +26,7 @@ const meta: Meta<typeof RdsTooltip> = {
       control: 'boolean',
       description: 'Whether to show arrow',
     },
-    variant: {
+    placement: {
       control: 'select',
       options: [
         'top',
@@ -42,7 +42,7 @@ const meta: Meta<typeof RdsTooltip> = {
         'right-start',
         'right-end',
       ],
-      description: 'Tooltip placement variant',
+      description: 'Tooltip placement',
     },
   },
 };
@@ -52,7 +52,7 @@ type Story = StoryObj<typeof meta>;
 
 const controls = {
   controls: {
-    include: ['title', 'variant', 'arrow'],
+    include: ['title', 'placement', 'arrow'],
   },
 };
 
@@ -91,7 +91,7 @@ export const Default: Story = {
   args: {
     title: 'This is a tooltip',
     children: textButton('Hover me', 'filled'),
-    variant: 'top',
+    placement: 'top',
     arrow: false,
   },
   parameters: controls,
@@ -101,7 +101,7 @@ export const OnIconButton: Story = {
   args: {
     title: 'Delete item',
     children: iconButton(<Delete />, 'Delete item'),
-    variant: 'top',
+    placement: 'top',
   },
   parameters: controls,
 };
@@ -111,7 +111,7 @@ export const WithArrow: Story = {
     title: 'Tooltip with arrow',
     arrow: true,
     children: textButton('Arrow tooltip', 'outlined'),
-    variant: 'top',
+    placement: 'top',
   },
   parameters: controls,
 };
@@ -119,7 +119,7 @@ export const WithArrow: Story = {
 export const Different_Placements: Story = {
   args: {
     title: 'Top placement',
-    variant: 'top',
+    placement: 'top',
     children: textButton('Top', 'transparent'),
   },
   parameters: controls,
@@ -130,7 +130,7 @@ export const LongText: Story = {
     title:
       'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
     children: iconButton(<HelpIcon />, 'Help'),
-    variant: 'top',
+    placement: 'top',
   },
   parameters: controls,
 };

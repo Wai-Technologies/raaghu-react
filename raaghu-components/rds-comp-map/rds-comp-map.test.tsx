@@ -4,7 +4,6 @@ import RdsCompMap, { RdsCompMapProps } from './rds-comp-map';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock react-svg-worldmap
 jest.mock('react-svg-worldmap', () => ({
   WorldMap: ({ data, styleFunction, color, title, size }: any) => (
     <div
@@ -29,7 +28,6 @@ jest.mock('react-svg-worldmap', () => ({
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock SCSS
 jest.mock('./rds-comp-map.scss', () => ({}));
 
 describe('RdsCompMap', () => {
@@ -48,7 +46,6 @@ describe('RdsCompMap', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    // Mock window.innerWidth
     Object.defineProperty(window, 'innerWidth', {
       writable: true,
       configurable: true,
@@ -69,6 +66,13 @@ describe('RdsCompMap', () => {
     it('should render title when provided', () => {
       render(<RdsCompMap {...defaultProps} title="Test Title" />);
       expect(screen.getByText('Test Title')).toBeInTheDocument();
+    });
+
+    it('should render header and still render a ReactNode title', () => {
+      const { rerender } = render(<RdsCompMap {...defaultProps} header={<b>Rich</b>} />);
+      expect(screen.getByText('Rich')).toBeInTheDocument();
+      rerender(<RdsCompMap {...defaultProps} title={<i>Legacy</i> as unknown as string} />);
+      expect(screen.getByText('Legacy')).toBeInTheDocument();
     });
 
     it('should not render title when not provided', () => {
@@ -179,7 +183,6 @@ describe('RdsCompMap', () => {
 
     it('should handle empty string title', () => {
       const { container } = render(<RdsCompMap {...defaultProps} title="" />);
-      // Empty string is falsy in JavaScript, so the label won't render
       expect(container.querySelector('.rds-comp-map__label')).not.toBeInTheDocument();
     });
 
@@ -199,7 +202,6 @@ describe('RdsCompMap', () => {
         value: 1024,
       });
       render(<RdsCompMap {...defaultProps} />);
-      // Wait for component to set size
       waitFor(() => {
         const worldMap = screen.getByTestId('world-map');
         expect(worldMap).toHaveAttribute('data-map-size', 'lg');
@@ -255,14 +257,12 @@ describe('RdsCompMap', () => {
       });
       render(<RdsCompMap {...defaultProps} />);
 
-      // Change window width
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         configurable: true,
         value: 400,
       });
 
-      // Trigger resize event
       fireEvent(window, new Event('resize'));
 
       waitFor(() => {
@@ -300,7 +300,6 @@ describe('RdsCompMap', () => {
       });
       render(<RdsCompMap {...defaultProps} />);
 
-      // Simulate rapid resize events
       for (let i = 0; i < 5; i++) {
         Object.defineProperty(window, 'innerWidth', {
           writable: true,
@@ -455,7 +454,6 @@ describe('RdsCompMap', () => {
       const { container } = render(
         <RdsCompMap {...defaultProps} title="" />
       );
-      // Empty string is falsy in JavaScript, so the label won't render
       expect(container.querySelector('.rds-comp-map__label')).not.toBeInTheDocument();
     });
 

@@ -346,7 +346,7 @@ const RdsCompFilterButton = ({
             backgroundColor: 'var(--rds-background-paper)'
           }}>
             <RdsButton
-              style="filled"
+              variant="filled"
               fullWidth
               textCase="capitalize"
               onClick={handleApply}
@@ -355,7 +355,7 @@ const RdsCompFilterButton = ({
               {labels.apply}
             </RdsButton>
             <RdsButton
-              style="outlined"
+              variant="outlined"
               fullWidth
               textCase="capitalize"
               onClick={handleClearAll}

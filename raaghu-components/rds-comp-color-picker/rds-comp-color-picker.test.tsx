@@ -331,9 +331,9 @@ describe('RdsCompColorPicker', () => {
       expect(colorMode).toContain('RGB');
     });
 
-    it('updates variant when variant prop changes', () => {
-      const { container, rerender } = render(<RdsCompColorPicker {...defaultProps} variant={StyleType.Type1} />);
-      rerender(<RdsCompColorPicker {...defaultProps} variant={StyleType.Type2} />);
+    it('updates swatchesVariant when prop changes', () => {
+      const { container, rerender } = render(<RdsCompColorPicker {...defaultProps} swatchesVariant="list" />);
+      rerender(<RdsCompColorPicker {...defaultProps} swatchesVariant="grid" />);
       expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
     });
 

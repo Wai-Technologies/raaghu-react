@@ -141,19 +141,19 @@ describe('RdsCard', () => {
 
   describe('Card Styles', () => {
     it('should render default style', () => {
-      render(<RdsCard {...defaultProps} style="default" />);
+      render(<RdsCard {...defaultProps} variant="default" />);
       const card = screen.getByTestId('card-root');
       expect(card).toHaveClass('rds-card--style-default');
     });
 
     it('should render outlined style', () => {
-      render(<RdsCard {...defaultProps} style="outlined" />);
+      render(<RdsCard {...defaultProps} variant="outlined" />);
       const card = screen.getByTestId('card-root');
       expect(card).toHaveClass('rds-card--style-outlined');
     });
 
     it('should render filled style', () => {
-      render(<RdsCard {...defaultProps} style="filled" />);
+      render(<RdsCard {...defaultProps} variant="filled" />);
       const card = screen.getByTestId('card-root');
       expect(card).toHaveClass('rds-card--style-filled');
     });
@@ -462,7 +462,7 @@ describe('RdsCard', () => {
           cardSubtext="This is a subtext"
           description="This is a description"
           state="selected"
-          style="outlined"
+          variant="outlined"
           layout="horizontal"
           changeIcon="star"
           showIndicator={true}
@@ -931,8 +931,13 @@ describe('RdsCard audit fixes', () => {
     });
 
     it('does not warn for supported props', () => {
-      render(<RdsCard showIcon showTitle content={{ icon: 'visible' }} state="selected" style="outlined" />);
+      render(<RdsCard showIcon showTitle content={{ icon: 'visible' }} state="selected" variant="outlined" />);
       expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('warns when a variant string is passed to deprecated style', () => {
+      render(<RdsCard style="outlined" />);
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCard', 'style', '`variant`');
     });
   });
 

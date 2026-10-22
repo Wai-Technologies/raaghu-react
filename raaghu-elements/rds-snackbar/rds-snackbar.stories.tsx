@@ -51,7 +51,7 @@ const SnackbarTemplate = (args: any) => {
         shape="rectangle"
         size="medium"
         state="default"
-        style="filled"
+        variant="filled"
         text="Show Snackbar"
         textCase="unset"
         onClick={() => setOpen(true)}

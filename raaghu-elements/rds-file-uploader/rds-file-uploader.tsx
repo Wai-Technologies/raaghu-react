@@ -81,7 +81,10 @@ const RdsFileUploader = ({
   const legacyShowHint = typeof showHintProp === 'boolean' ? showHintProp : undefined;
 
   const showPreview = showFileList ?? (display?.preview ? display.preview === 'visible' : (legacyShowPreview ?? true));
-  const dropAreaStyle = variant ?? style;
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsFileUploader', 'style', '`variant`');
+  const styleObject = typeof style === 'object' ? style : undefined;
+  const dropAreaStyle = variant ?? legacyVariant;
   const placeholderProps = { ...slotProps?.placeholder, src: slotProps?.placeholder?.src ?? placeholderImage };
   const emitFilesChange = (nextFiles: FileWithProgress[], event?: SyntheticEvent) => {
     onFilesChange?.(nextFiles);
@@ -124,11 +127,11 @@ const RdsFileUploader = ({
     <>
       {mode === 'standard' ? (
         <RdsFileUploaderStandardView
-          rootProps={{ ...rest, className, sx }}
+          rootProps={{ ...rest, className, sx, style: styleObject }}
           accept={accept}
           viewConfig={{
             showTitle,
-            isMandatory,
+            mandatory: isMandatory,
             showHint,
             showPreview,
           }}
@@ -152,6 +155,7 @@ const RdsFileUploader = ({
       ) : (
         <Box
           {...rest}
+          style={styleObject}
           className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`, className)}
           sx={[{ width: '100%', maxWidth: '100%', minWidth: 0 }, ...toSxArray(sx)]}
         >

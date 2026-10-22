@@ -95,8 +95,8 @@ const RdsCompCodeSnippet = ({
       await navigator.clipboard.writeText(currentCode);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      // Failed to copy text
+    } catch {
+      setCopied(false);
     }
   }, [currentCode]);
 
@@ -127,7 +127,7 @@ const RdsCompCodeSnippet = ({
                 onClick={handleCopy}
                 aria-label="Copy code"
                 size="small"
-                style="outlined"
+                variant="outlined"
                 text={copied ? "Copied!" : "Copy Code"}
                 showLeftIcon={true}
                 textCase="unset"
@@ -161,7 +161,7 @@ const RdsCompCodeSnippet = ({
                   onClick={handleCopy}
                   aria-label="Copy code"
                   size="small"
-                  style="outlined"
+                  variant="outlined"
                   text={copied ? "Copied!" : "Copy Code"}
                   showLeftIcon={true}
                   textCase="unset"
@@ -187,7 +187,7 @@ const RdsCompCodeSnippet = ({
             </div>
             <div className="rds-comp-code-snippet__footer">
               <div className="rds-comp-code-snippet__show-more">
-                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" state="default" style="transparent" text="Show More" />
+                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" state="default" variant="transparent" text="Show More" />
               </div>
             </div>
           </>

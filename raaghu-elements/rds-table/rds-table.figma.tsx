@@ -110,8 +110,8 @@ figma.connect(
               color="primary"
               stepperType="circle"
               steps={4}
-              variant="line"
-              progressVariant="determinate"
+              shape="line"
+              mode="determinate"
             />
             <span>{value}</span>
         </div>

@@ -242,7 +242,7 @@ export const RdsDropZoneWithButton = ({
         </Typography>
       </Box>
       <RdsButton
-        style="filled"
+        variant="filled"
         className="rds-file-uploader__upload-btn"
         onClick={openFileDialog}
         disabled={disabled}

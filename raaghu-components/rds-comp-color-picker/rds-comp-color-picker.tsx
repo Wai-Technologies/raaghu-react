@@ -71,7 +71,9 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   const viewTab = (view && VIEW_TO_TAB[view]) ?? pickerType;
   const initialColorMode = colorMode ?? (defaultFormat?.toUpperCase() as ColorMode | undefined);
   const initialTab = viewTab ?? (defaultView && VIEW_TO_TAB[defaultView]);
-  const selectedStyle = (swatchesVariant && SWATCHES_VARIANT_TO_STYLE[swatchesVariant]) ?? style ?? StyleType.Type1;
+  const legacyStyle = typeof style === 'string' ? style : undefined;
+  if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'style', '`swatchesVariant`');
+  const selectedStyle = (swatchesVariant && SWATCHES_VARIANT_TO_STYLE[swatchesVariant]) ?? legacyStyle ?? StyleType.Type1;
 
   const getDefaultColorHex = useCallback(() => {
     if (value) {
@@ -249,12 +251,13 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
       {...rest}
       ref={ref}
       className={clsx("rds-comp-color-picker", className)}
+      style={typeof style === 'object' ? style : undefined}
       aria-disabled={isDisabled || undefined}
     >
       {(type === ColorPickerType.Button || type === ColorPickerType.ButtonExpanded) && (
         <RdsButton
           color="primary"
-          style="filled"
+          variant="filled"
           disabled={isDisabled}
           onClick={handleButtonClick}
         >

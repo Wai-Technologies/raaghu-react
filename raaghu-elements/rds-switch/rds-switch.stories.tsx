@@ -23,7 +23,7 @@ const meta: Meta<typeof RdsSwitch> = {
       description: 'Control switch state for demo and Storybook',
       defaultValue: 'Off',
     },
-    style: {
+    variant: {
       control: 'select',
       options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5"],
       mapping: {
@@ -58,7 +58,7 @@ export const Default: Story = {
   args: {
     label: 'Default Switch',
     layout: 'switch+label',
-    style: 'style1',
+    variant: 'style1',
     state: 'off',
   },
 };

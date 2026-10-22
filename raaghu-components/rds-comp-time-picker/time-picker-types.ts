@@ -12,7 +12,8 @@ export interface RdsTimePickerLocaleText {
 export interface RdsTimePickerProps {
   /** Layout variant of the picker. */
   variant?: 'default' | 'compact';
-  style?: CSSProperties;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: 'default' | 'compact' | CSSProperties;
   /** @deprecated Use `color` instead. */
   colorVariant?: TimePickerColor;
   color?: TimePickerColor;

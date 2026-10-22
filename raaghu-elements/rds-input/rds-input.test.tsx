@@ -75,16 +75,16 @@ describe('RdsInput', () => {
 
     it('should show asterisk for mandatory field', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Required Field" titlePosition="title-above" isMandatory={true} />
+        <RdsInput label="Required Field" titlePosition="title-above" required />
       );
       const asterisk = container.querySelector('.rds-input__asterisk');
       expect(asterisk).toBeInTheDocument();
       expect(asterisk).toHaveTextContent('*');
     });
 
-    it('should not show asterisk when isMandatory is false', () => {
+    it('should not show asterisk when required is false', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Optional Field" titlePosition="title-above" isMandatory={false} />
+        <RdsInput label="Optional Field" titlePosition="title-above" required={false} />
       );
       const asterisk = container.querySelector('.rds-input__asterisk');
       expect(asterisk).not.toBeInTheDocument();
@@ -180,7 +180,7 @@ describe('RdsInput', () => {
   describe('Input Styles', () => {
     it('should apply pill style class', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Pill Input" variant="pill" />
+        <RdsInput label="Pill Input" shape="pill" />
       );
       const input = container.querySelector('.rds-input--pill');
       expect(input).toBeInTheDocument();
@@ -188,7 +188,7 @@ describe('RdsInput', () => {
 
     it('should apply bottom outline style class', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Bottom Outline Input" variant="bottom outline" />
+        <RdsInput label="Bottom Outline Input" shape="bottom outline" />
       );
       const input = container.querySelector('.rds-input--bottom-outline');
       expect(input).toBeInTheDocument();
@@ -524,17 +524,17 @@ describe('RdsInput', () => {
   });
 
   describe('Required Field', () => {
-    it('should set required attribute when isMandatory is true', () => {
+    it('should set required attribute when required is true', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Required" isMandatory={true} />
+        <RdsInput label="Required" required />
       );
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input?.required).toBe(true);
     });
 
-    it('should not set required attribute when isMandatory is false', () => {
+    it('should not set required attribute when required is false', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Optional" isMandatory={false} />
+        <RdsInput label="Optional" required={false} />
       );
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input?.required).toBe(false);
@@ -550,9 +550,9 @@ describe('RdsInput', () => {
       expect(textField).toBeInTheDocument();
     });
 
-    it('should accept the MUI inputVariant prop', () => {
+    it('should accept the MUI variant prop', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Input" inputVariant="filled" />
+        <RdsInput label="Input" variant="filled" />
       );
       expect(container.querySelector('.MuiFilledInput-root')).toBeInTheDocument();
     });
@@ -583,10 +583,10 @@ describe('RdsInput', () => {
         <RdsInput
           label="Complex Input"
           titlePosition="title-above"
-          isMandatory={true}
+          required
           layout="text"
           size="medium"
-          variant="pill"
+          shape="pill"
           state="active"
           placeholder="Enter text"
           hintText="This is a hint"
@@ -720,9 +720,12 @@ describe('RdsInput audit fixes', () => {
     expect(container.querySelector('.rds-input__icon--end')).toContainElement(screen.getByTestId('e'));
   });
 
-  it('applies shape as an alias of style (459)', () => {
+  it('prefers shape over the deprecated style string and forwards style objects (459)', () => {
     const { container } = render(<RdsInput shape="pill" style="bottom outline" />);
     expect(container.querySelector('.rds-input')).toHaveClass('rds-input--pill');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsInput', 'style', expect.any(String));
+    const { container: c2 } = render(<RdsInput style={{ marginTop: '12px' }} />);
+    expect(c2.querySelector('.rds-input')).toHaveStyle({ marginTop: '12px' });
   });
 
   it('places the label with labelPlacement (460)', () => {

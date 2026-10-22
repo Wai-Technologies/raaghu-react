@@ -37,7 +37,7 @@ describe('RdsButton', () => {
   });
 
   it('applies correct variant styles', () => {
-  render(<RdsButton text="Primary" style="filled" />);
+  render(<RdsButton text="Primary" variant="filled" />);
     expect(screen.getByRole('button')).toHaveClass('MuiButton-contained');
   });
 
@@ -53,7 +53,7 @@ describe('RdsButton', () => {
   });
 
   it('has no axe accessibility violations', async () => {
-    const { container } = render(<RdsButton text="Axe Test Button" color="primary" style="filled" />);
+    const { container } = render(<RdsButton text="Axe Test Button" color="primary" variant="filled" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
@@ -169,10 +169,15 @@ describe('RdsButton audit fixes', () => {
   it('does not warn for the supported API', () => {
     (warnDeprecatedProp as jest.Mock).mockClear();
     render(
-      <RdsButton style="filled" state="selected" layout="icon+text" showLeftIcon changeLeftIcon="add" showRightIcon changeRightIcon="save">
+      <RdsButton variant="filled" state="selected" layout="icon+text" showLeftIcon changeLeftIcon="add" showRightIcon changeRightIcon="save">
         New
       </RdsButton>
     );
     expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('warns when a variant string is passed to deprecated style', () => {
+    render(<RdsButton style="filled">Old</RdsButton>);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', 'style', '`variant`');
   });
 });

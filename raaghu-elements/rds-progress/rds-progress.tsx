@@ -1,4 +1,4 @@
-import { Fragment, type HTMLAttributes, type ReactNode } from 'react';
+import { Fragment, type CSSProperties, type HTMLAttributes, type ReactNode } from 'react';
 import {
   LinearProgress as MuiLinearProgress,
   CircularProgress as MuiCircularProgress,
@@ -11,11 +11,15 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-progress.scss';
 
+type ProgressShape = 'circular' | 'line' | 'stepper' | 'dash' | 'block';
+
 export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'color'> {
-  /** @deprecated Has no effect; rendering is chosen by style. */
+  /** @deprecated Has no effect; rendering is chosen by `shape`. */
   type?: 'linear' | 'circular';
-  /** Figma variant that selects the rendering: circular, line, stepper, dash or block. */
-  style?: 'circular' | 'line' | 'stepper' | 'dash' | 'block';
+  /** Selects the rendering: circular, line, stepper, dash or block. */
+  shape?: ProgressShape;
+  /** @deprecated Passing a shape string is deprecated; use `shape`. Pass CSSProperties for inline styles. */
+  style?: ProgressShape | CSSProperties;
   value?: number;
   valueBuffer?: number;
   /** Completed steps; progress becomes `steps / totalSteps * 100` for every style. */
@@ -43,7 +47,8 @@ export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 
 const RdsProgress = ({
   type,
-  style = 'line',
+  style: styleProp,
+  shape,
   value,
   valueBuffer,
   steps,
@@ -62,9 +67,13 @@ const RdsProgress = ({
   className,
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
-  ...props
+  ...restProps
 }:RdsProgressProps) => {
-  if (type !== undefined) warnDeprecatedProp('RdsProgress', 'type', '`style`');
+  if (type !== undefined) warnDeprecatedProp('RdsProgress', 'type', '`shape`');
+  const legacyShape = typeof styleProp === 'string' ? styleProp : undefined;
+  if (legacyShape !== undefined) warnDeprecatedProp('RdsProgress', 'style', '`shape`');
+  const style = shape ?? legacyShape ?? 'line';
+  const props = { ...restProps, style: typeof styleProp === 'object' ? styleProp : undefined };
   if (variant !== undefined) warnDeprecatedProp('RdsProgress', 'variant', '`mode`');
   const resolvedMode = mode ?? variant ?? 'indeterminate';
   const isDot = stepIcon ? stepIcon === 'dot' : stepperType === 'circle';

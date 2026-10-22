@@ -13,17 +13,17 @@ const meta: Meta<typeof RdsCompGrid> = {
     layout: 'padded',
   },
   argTypes: {
-    Sort: {
+    sortable: {
       control: 'boolean',
       description: 'Enable sorting functionality for columns',
       defaultValue: true,
     },
-    Filter: {
+    filterable: {
       control: 'boolean',
       description: 'Enable filtering functionality for columns',
       defaultValue: true,
     },
-    Resizable: {
+    resizable: {
       control: 'boolean',
       description: 'Enable column resizing functionality',
       defaultValue: true,
@@ -105,8 +105,8 @@ type Story = StoryObj<typeof RdsCompGrid>;
 export const Default: Story = {
   args: {
     tableHeaders: [
-      { key: 'id', name: 'ID', dataType: 'number' as const, Sort: true, Filter: true, Resizable: true, isEditable: false, minWidth: 80, colWidth: '100px' },
-      { key: 'name', name: 'Name', dataType: 'string' as const, Sort: true, Filter: true, Resizable: true, isEditable: true, minWidth: 150, colWidth: '200px' },
+      { key: 'id', name: 'ID', dataType: 'number' as const, sortable: true, filterable: true, resizable: true, isEditable: false, minWidth: 80, colWidth: '100px' },
+      { key: 'name', name: 'Name', dataType: 'string' as const, sortable: true, filterable: true, resizable: true, isEditable: true, minWidth: 150, colWidth: '200px' },
     ],
     tableData: [],
   },

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { type CSSProperties, type ReactNode, useCallback, useMemo, useState } from "react";
 import "./rds-comp-navtabs.scss";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 const STYLE_EXTRA_CLASSES: Record<string, string[]> = {
   "Top Select": ["top-select", "rds-comp-navtabs__nav--top-select"],
@@ -51,11 +52,14 @@ export interface RdsCompNavtabsProps {
   justified?: boolean;
   activeNavtabOrder?: (id: string | number | undefined) => void;
   activeNavTabId?: string | number;
-  NextPressed?: boolean;
+  nextPressed?: boolean;
+  /** @deprecated Use `nextPressed` instead. */
+  isNextPressed?: boolean;
   onClick?: MouseEvent<HTMLElement>;
   layout?: string;
   variant?: string;
-  style?: CSSProperties;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: string | CSSProperties;
   iconOnly?: boolean;
   id?: string;
 }
@@ -69,11 +73,16 @@ const RdsCompNavtabs = ({
   activeNavtabOrder,
   activeNavTabId: activeNavTabIdProp,
   layout,
-  variant,
+  variant: variantProp,
   style,
+  isNextPressed,
   iconOnly,
   id,
 }: RdsCompNavtabsProps) => {
+  const legacyVariant = typeof style === "string" ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp("RdsCompNavtabs", "style", "`variant`");
+  if (isNextPressed !== undefined) warnDeprecatedProp("RdsCompNavtabs", "isNextPressed", "`nextPressed`");
+  const variant = variantProp ?? legacyVariant;
   const [internalActiveNavTabId, setInternalActiveNavTabId] = useState<string | number | undefined>(
     activeNavTabIdProp ?? navtabsItems?.[0]?.id
   );
@@ -128,7 +137,7 @@ const RdsCompNavtabs = ({
   }
 
   return (
-    <div className="rds-comp-navtabs" style={style}>
+    <div className="rds-comp-navtabs" style={typeof style === "object" ? style : undefined}>
       <ul
         className={navClasses}
         id={id === "features" ? "features" : ""}

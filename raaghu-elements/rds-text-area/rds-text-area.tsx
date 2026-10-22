@@ -3,6 +3,7 @@ import {
   useState,
   type ReactNode,
   type ChangeEvent,
+  type CSSProperties,
   type FocusEvent,
   type KeyboardEvent,
   type MouseEvent,
@@ -33,15 +34,15 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   defaultValue?: string;
   /** Figma state. Accepts the `TextareaState` enum or its string value (e.g. `"Disabled"`). */
   state?: TextareaState | `${TextareaState}`;
-  /** Figma style variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
-  style?: TextareaStyle | `${TextareaStyle}`;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: TextareaStyle | `${TextareaStyle}` | CSSProperties;
   /** @deprecated Omit `label` to hide the label. */
   showTitle?: boolean;
   /** Forces the error appearance (same as `state="Error"`). */
   error?: boolean;
   /** Text shown under the field when it is in error. */
   helperText?: string;
-  /** Style variant. Alias of the Figma `style`. */
+  /** Style variant. Accepts the `TextareaStyle` enum or its string value (e.g. `"Pill"`). */
   variant?: TextareaStyle | `${TextareaStyle}`;
   /** Marks the field required: shows the asterisk and the empty-value error. */
   required?: boolean;
@@ -65,6 +66,9 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   validationPattern?: RegExp;
   /** @deprecated Use `helperText` instead. */
   validationMsg?: string;
+  /** Validates each line against `validationPattern` separately. */
+  multiUrl?: boolean;
+  /** @deprecated Use `multiUrl` instead. */
   isMultiUrl?: boolean;
   customClasses?: string;
 }
@@ -96,6 +100,7 @@ const RdsTextArea = ({
   reset: resetProp,
   validationPattern,
   validationMsg,
+  multiUrl,
   isMultiUrl,
   customClasses,
   ...rest
@@ -104,7 +109,11 @@ const RdsTextArea = ({
   if (dataTestId !== undefined) warnDeprecatedProp('RdsTextArea', 'dataTestId', '`data-testid`');
   if (resetProp !== undefined) warnDeprecatedProp('RdsTextArea', 'reset', 'a new `key`');
   if (validationMsg !== undefined) warnDeprecatedProp('RdsTextArea', 'validationMsg', '`helperText`');
-  const resolvedVariant = variant ?? style;
+  if (isMultiUrl !== undefined) warnDeprecatedProp('RdsTextArea', 'isMultiUrl', '`multiUrl`');
+  const isMultiLine = multiUrl ?? isMultiUrl;
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsTextArea', 'style', '`variant`');
+  const resolvedVariant = variant ?? legacyVariant;
   if (isMandatoryProp !== undefined) warnDeprecatedProp('RdsTextArea', 'isMandatory', '`required`');
   const isMandatory = required ?? isMandatoryProp;
   const [isValid, setIsValid] = useState(true);
@@ -155,7 +164,7 @@ const RdsTextArea = ({
 
     if (validationPattern) {
       const urlPattern = validationPattern;
-      const urlValid = isMultiUrl
+      const urlValid = isMultiLine
         ? inputValue.split("\n").every((url) => urlPattern.test(url))
         : urlPattern.test(inputValue);
 
@@ -222,7 +231,7 @@ const RdsTextArea = ({
   };
 
   return (
-    <div className={clsx('rds-textarea-container', className)}>
+    <div className={clsx('rds-textarea-container', className)} style={typeof style === 'object' ? style : undefined}>
       {showTitle !== false && label && (
         <label htmlFor={assignedId} className={`textarea-label ${isDisabled ? 'disabled' : ''}`}>
           {label}

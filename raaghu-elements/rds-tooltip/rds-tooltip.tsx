@@ -16,9 +16,9 @@ export interface RdsTooltipProps extends Omit<TooltipProps, 'style' | 'title'> {
   tooltipStyle?: CSSProperties;
   arrow?: boolean;
   /** Tooltip placement. */
-  variant?: Placement;
-  /** @deprecated Use `placement`. */
-  style?: Placement;
+  placement?: Placement;
+  /** @deprecated Passing a placement string is deprecated; use `placement`. Pass CSSProperties for inline styles. */
+  style?: Placement | CSSProperties;
   /** @deprecated Use `title`. */
   label?: ReactNode;
   /** @deprecated Has no effect; children are always wrapped in a span. */
@@ -27,7 +27,6 @@ export interface RdsTooltipProps extends Omit<TooltipProps, 'style' | 'title'> {
 
 const RdsTooltip = ({
   children,
-  variant,
   style,
   placement,
   title,
@@ -38,14 +37,15 @@ const RdsTooltip = ({
   wrapper: _wrapper,
   ...props
 }: RdsTooltipProps) => {
-  if (style !== undefined) {
-    warnDeprecatedProp('RdsTooltip', 'style', '`variant`');
+  const legacyPlacement = typeof style === 'string' ? style : undefined;
+  if (legacyPlacement !== undefined) {
+    warnDeprecatedProp('RdsTooltip', 'style', '`placement`');
   }
   if (label !== undefined) {
     warnDeprecatedProp('RdsTooltip', 'label', '`title`');
   }
 
-  const resolvedPlacement: Placement = placement ?? variant ?? style ?? 'top';
+  const resolvedPlacement: Placement = placement ?? legacyPlacement ?? 'top';
 
   const tooltipClass = clsx(
     'rds-tooltip',
@@ -53,7 +53,6 @@ const RdsTooltip = ({
     className
   );
 
-  // MUI opens on focus/hover of the child, so no extra focus handlers are needed.
   return (
     <MuiTooltip
       title={title ?? label}
@@ -63,7 +62,7 @@ const RdsTooltip = ({
       sx={tooltipStyle}
       {...props}
     >
-      <span className="rds-tooltip__wrapper">
+      <span className="rds-tooltip__wrapper" style={typeof style === 'object' ? style : undefined}>
         {children}
       </span>
     </MuiTooltip>

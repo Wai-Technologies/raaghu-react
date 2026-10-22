@@ -48,7 +48,7 @@ export const Default: Story = {
         fill: false,
         stroke: true,
         colorVariant: "primary",
-        cursorpointer: true,
+        cursorPointer: true,
     },
     play: async ({ canvasElement }) => {
         const el = canvasElement.firstElementChild;
@@ -63,7 +63,7 @@ Default.parameters = {
             "width",
             "height",
             "colorVariant",
-            "cursorpointer",
+            "cursorPointer",
         ],
     },
 };

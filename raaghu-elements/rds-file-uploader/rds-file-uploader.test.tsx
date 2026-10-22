@@ -129,7 +129,7 @@ describe('RdsFileUploader', () => {
           {...defaultProps}
           showTitle={true}
           mode="default"
-          isMandatory={true}
+          required
         />
       );
       const titleElement = container.querySelector('.rds-file-uploader__form-title');
@@ -613,7 +613,7 @@ describe('RdsFileUploader', () => {
         <RdsFileUploader
           {...defaultProps}
           showTitle={true}
-          isMandatory={true}
+          required
           mode="default"
         />
       );
@@ -638,7 +638,7 @@ describe('RdsFileUploader', () => {
           showPreview={true}
           dragAndDrop={true}
           showTitle={true}
-          isMandatory={true}
+          required
           showHint={true}
           hintText="Upload PDF or DOC files"
           placeholderImage="https://example.com/placeholder.png"
@@ -716,7 +716,7 @@ describe('RdsFileUploader', () => {
           mode="default"
           variant="Drop Area - Side Icon"
           showHint={true}
-          isMandatory={true}
+          required
         />
       );
       expect(screen.getByTestId('drop-zone-side-icon')).toBeInTheDocument();
@@ -728,7 +728,7 @@ describe('RdsFileUploader', () => {
         <RdsFileUploader
           {...defaultProps}
           disabled={true}
-          isMandatory={true}
+          required
           showTitle={true}
           mode="default"
           onFilesChange={handleFilesChange}
@@ -747,7 +747,7 @@ describe('audit fixes', () => {
   const fileNames = (files: FileWithProgress[]) => files.map((f) => f.file.name);
 
   const standardViewProps = (overrides: Record<string, unknown> = {}) => ({
-    viewConfig: { showTitle: true, isMandatory: false, showHint: false, showPreview: true },
+    viewConfig: { showTitle: true, mandatory: false, showHint: false, showPreview: true },
     interactionConfig: { disabled: false, dragAndDrop: true, isDragOver: false, multiple: false },
     mandatoryError: null,
     hintText: '',
@@ -914,7 +914,7 @@ describe('audit fixes', () => {
     });
 
     it('G1-286 shows the chosen file name even when the preview is hidden', () => {
-      const hiddenPreview = { showTitle: false, isMandatory: false, showHint: false, showPreview: false };
+      const hiddenPreview = { showTitle: false, mandatory: false, showHint: false, showPreview: false };
       const { rerender } = render(<ActualStandardView {...standardViewProps({ viewConfig: hiddenPreview })} />);
       expect(screen.getByText('No file chosen')).toBeInTheDocument();
       rerender(<ActualStandardView {...standardViewProps({ viewConfig: hiddenPreview, selectedFileName: 'a.pdf' })} />);
@@ -964,11 +964,17 @@ describe('RdsFileUploader additive renames', () => {
 
   it('uses variant over style and slotProps.placeholder', () => {
     const { container } = render(
-      <RdsFileUploader mode="default" variant="Drop Area - Side Icon" style="Drop Area - With Upload Button" slotProps={{ placeholder: { src: 'p.png' } }} />
+      <RdsFileUploader mode="default" variant="Drop Area - Side Icon" slotProps={{ placeholder: { src: 'p.png' } }} />
     );
     expect(screen.getByTestId('drop-zone-side-icon')).toBeInTheDocument();
     expect(container.querySelector('img')).toHaveAttribute('src', 'p.png');
     expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('still accepts a variant string through the deprecated style prop', () => {
+    render(<RdsFileUploader mode="default" style="Drop Area - Side Icon" />);
+    expect(screen.getByTestId('drop-zone-side-icon')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsFileUploader', 'style', expect.any(String));
   });
 
   it('calls onChange with the event and files, and warns for onFilesChange', () => {

@@ -4,10 +4,8 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompDetailsPane, { RdsCompDetailsPaneProps } from './rds-comp-details-pane';
 
-// Mock SCSS
 jest.mock('./rds-comp-details-pane.scss', () => ({}));
 
-// Mock sub-components
 jest.mock('./details-pane-components', () => ({
   HistoryFavoritesTabs: ({ activeTab, setActiveTab, historyTabLabel, favouritesTabLabel }: any) => (
     <div data-testid="history-favorites-tabs">
@@ -170,6 +168,11 @@ describe('RdsCompDetailsPane', () => {
       expect(container.querySelector('.rds-comp-details-pane')).toHaveStyle({ marginTop: '8px' });
       expect(screen.getByTestId('selection-content')).toBeInTheDocument();
     });
+  });
+
+  it('still accepts a deprecated style string as the variant', () => {
+    render(<RdsCompDetailsPane headerText="Legacy" variant="Selection" />);
+    expect(screen.getByTestId('selection-content')).toBeInTheDocument();
   });
 
   describe('Tab Management', () => {

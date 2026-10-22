@@ -1,4 +1,4 @@
-import { type ReactElement, type ReactNode, type AriaAttributes } from 'react';
+import { type ReactElement, type ReactNode, type AriaAttributes, type CSSProperties } from 'react';
 import { Card as MuiCard, type CardProps, Avatar, Typography } from '@mui/material';
 import Person from '@mui/icons-material/Person';
 import Home from '@mui/icons-material/Home';
@@ -70,7 +70,7 @@ export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
 export type CardStyle = 'default' | 'outlined' | 'filled';
 export type CardLayout = 'vertical' | 'horizontal';
 export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
-export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component' | 'content'> {
+export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component' | 'content' | 'variant'> {
   /** @deprecated Use `sx` instead. */
   padding?: number | string;
   /** Visual state (Figma). `disabled` and `selected` take precedence when set. */
@@ -79,8 +79,10 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'co
   selected?: boolean;
   /** Shows the card as disabled and sets `aria-disabled`. Takes precedence over `state` and `selected`. */
   disabled?: boolean;
-  /** Visual style (Figma): `'default'`, `'outlined'` or `'filled'`. */
-  style?: CardStyle;
+  /** Visual variant (Figma): `'default'`, `'outlined'` or `'filled'`. MUI's `'elevation'` is still accepted. */
+  variant?: CardStyle | CardProps['variant'];
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: CardStyle | CSSProperties;
   layout?: CardLayout;
   /**
    * Shows or hides each section with `'visible'`/`'hidden'`. When a key is set it takes precedence
@@ -124,7 +126,8 @@ const RdsCard = ({
   selected,
   disabled,
   className,
-  style: cardStyleProp = 'default',
+  style,
+  variant,
   layout = 'vertical',
   content,
   showIndicator: showIndicatorProp,
@@ -146,6 +149,9 @@ const RdsCard = ({
   if (changeIcon !== undefined) warnDeprecatedProp('RdsCard', 'changeIcon', '`icon`');
   if (cardSubtext !== undefined) warnDeprecatedProp('RdsCard', 'cardSubtext', '`subtitle`');
   if (padding !== undefined) warnDeprecatedProp('RdsCard', 'padding', '`sx`');
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsCard', 'style', '`variant`');
+  const cardVariant: CardStyle = (variant && variant !== 'elevation' ? variant : undefined) ?? legacyVariant ?? 'default';
   const resolvedSubtitle = subtitle ?? cardSubtext;
 
   const legacy = (value: unknown) => (typeof value === 'boolean' ? value : undefined);
@@ -180,7 +186,7 @@ const RdsCard = ({
   const cardClassName = clsx(
     'rds-card',
     `rds-card--${resolvedState}`,
-    `rds-card--style-${cardStyleProp}`,
+    `rds-card--style-${cardVariant}`,
     `rds-card--layout-${layout}`,
     showIndicator && 'rds-card--with-indicator',
     !showTitle && 'rds-card--hide-title',
@@ -245,7 +251,9 @@ const RdsCard = ({
     <MuiCard
       {...muiCardProps}
       {...ariaProps}
+      variant={variant === 'outlined' || variant === 'elevation' ? variant : undefined}
       className={cardClassName}
+      style={typeof style === 'object' ? style : undefined}
       sx={[
         cardInlineStyle,
         ...(Array.isArray(sx) ? sx : [sx]),

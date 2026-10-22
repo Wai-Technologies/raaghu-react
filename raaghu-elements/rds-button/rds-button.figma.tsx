@@ -15,7 +15,7 @@ figma.connect(
         "Rectangle": "rectangle",
         "Pill": "pill",
       }),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Filled": "filled",
         "Outlined": "outlined",
         "Transparent": "transparent",

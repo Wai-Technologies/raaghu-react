@@ -1,4 +1,4 @@
-import { useId, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
+import { useId, type CSSProperties, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
@@ -7,7 +7,7 @@ import type { FileWithProgress, RdsFileUploaderRootProps } from './rds-file-uplo
 
 interface RdsFileUploaderStandardViewProps {
   /** Props forwarded to the root `Box` (consumer `className`, `sx`, `ref`, `id`, `aria-*`…). */
-  rootProps?: RdsFileUploaderRootProps;
+  rootProps?: RdsFileUploaderRootProps & { style?: CSSProperties };
   accept?: string;
  viewConfig: {
   showTitle: boolean;
@@ -88,7 +88,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
         onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); addFiles(Array.from(e.dataTransfer.files), e); } : undefined}
       >
         <RdsButton
-          style="filled"
+          variant="filled"
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
           sx={{

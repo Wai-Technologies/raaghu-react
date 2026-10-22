@@ -65,7 +65,7 @@ export const Default: Story = {
           showLeftIcon
           size="medium"
           state="default"
-          style="outlined"
+          variant="outlined"
           textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
@@ -158,7 +158,7 @@ export const Dense: Story = {
 
     return (
       <>
-        <RdsButton text="Dense" color="primary" layout="text-only" shape="rectangle" size="small" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="Dense" color="primary" layout="text-only" shape="rectangle" size="small" state="default" variant="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -203,7 +203,7 @@ export const WithCustomColor: Story = {
 
     return (
       <>
-        <RdsButton text="Custom Color" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="Custom Color" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" variant="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
@@ -240,7 +240,7 @@ export const WithDisabled: Story = {
 
     return (
       <>
-        <RdsButton text="With Disabled" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsButton text="With Disabled" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" variant="outlined" textCase="uppercase" onClick={handleClick} />
         <RdsMenu
           {...{ ...args, items: undefined }}
           anchorEl={anchorEl}

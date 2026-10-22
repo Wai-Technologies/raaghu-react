@@ -49,7 +49,7 @@ describe('RdsTextArea', () => {
     });
 
     it('should show mandatory asterisk when isMandatory is true', () => {
-      render(<RdsTextArea label="Required Field" isMandatory={true} />);
+      render(<RdsTextArea label="Required Field" required />);
       expect(screen.getByText('*')).toBeInTheDocument();
     });
   });
@@ -128,14 +128,14 @@ describe('RdsTextArea', () => {
     });
 
     it('should apply pill style class', () => {
-      render(<RdsTextArea style={TextareaStyle.Pill} dataTestId="test-textarea" />);
+      render(<RdsTextArea variant={TextareaStyle.Pill} dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveClass('textarea-pill');
       expect(textarea.closest('.textarea-pill-wrapper')).toBeTruthy();
     });
 
     it('should apply bottom outline style class', () => {
-      render(<RdsTextArea style={TextareaStyle.BottomOutline} dataTestId="test-textarea" />);
+      render(<RdsTextArea variant={TextareaStyle.BottomOutline} dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveClass('textarea-bottom-outline');
     });
@@ -207,25 +207,25 @@ describe('RdsTextArea', () => {
 
   describe('Mandatory Field Validation', () => {
     it('should not show error for mandatory field with value', () => {
-      render(<RdsTextArea isMandatory={true} value="some text" dataTestId="test-textarea" />);
+      render(<RdsTextArea required value="some text" dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).not.toHaveAttribute('aria-invalid', 'true');
     });
 
     it('should show error for mandatory field without value', () => {
-      render(<RdsTextArea isMandatory={true} value="" dataTestId="test-textarea" />);
+      render(<RdsTextArea required value="" dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
 
     it('should show error message for mandatory field', () => {
-      render(<RdsTextArea isMandatory={true} label="Required Field" value="" dataTestId="test-textarea" />);
+      render(<RdsTextArea required label="Required Field" value="" dataTestId="test-textarea" />);
       expect(screen.getByText('Required Field is required')).toBeInTheDocument();
     });
 
     it('should validate mandatory field on blur', async () => {
       const { container } = render(
-        <RdsTextArea isMandatory={true} label="Required Field" dataTestId="test-textarea" />
+        <RdsTextArea required label="Required Field" dataTestId="test-textarea" />
       );
       const textarea = screen.getByTestId('test-textarea');
       
@@ -239,18 +239,18 @@ describe('RdsTextArea', () => {
 
     it('should clear error when mandatory field gets a value', async () => {
       const { rerender } = render(
-        <RdsTextArea isMandatory={true} label="Required Field" value="" dataTestId="test-textarea" />
+        <RdsTextArea required label="Required Field" value="" dataTestId="test-textarea" />
       );
       expect(screen.getByText('Required Field is required')).toBeInTheDocument();
       
       rerender(
-        <RdsTextArea isMandatory={true} label="Required Field" value="some text" dataTestId="test-textarea" />
+        <RdsTextArea required label="Required Field" value="some text" dataTestId="test-textarea" />
       );
       expect(screen.queryByText('Required Field is required')).not.toBeInTheDocument();
     });
 
     it('should consider whitespace-only value as invalid', () => {
-      render(<RdsTextArea isMandatory={true} value="   " dataTestId="test-textarea" />);
+      render(<RdsTextArea required value="   " dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
@@ -309,7 +309,7 @@ describe('RdsTextArea', () => {
         <RdsTextArea 
           value="" 
           validationPattern={urlPattern}
-          isMultiUrl={true}
+          multiUrl
           dataTestId="test-textarea"
         />
       );
@@ -325,7 +325,7 @@ describe('RdsTextArea', () => {
         <RdsTextArea 
           value="" 
           validationPattern={urlPattern}
-          isMultiUrl={true}
+          multiUrl
           dataTestId="test-textarea"
         />
       );
@@ -340,7 +340,7 @@ describe('RdsTextArea', () => {
     it('should clear validation on reset', () => {
       const { rerender } = render(
         <RdsTextArea 
-          isMandatory={true} 
+          required 
           value="" 
           reset={false}
           dataTestId="test-textarea"
@@ -350,7 +350,7 @@ describe('RdsTextArea', () => {
       
       rerender(
         <RdsTextArea 
-          isMandatory={true} 
+          required 
           value="" 
           reset={true}
           dataTestId="test-textarea"
@@ -458,7 +458,7 @@ describe('RdsTextArea', () => {
     it('should have aria-required when isMandatory', () => {
       render(
         <RdsTextArea 
-          isMandatory={true} 
+          required 
           dataTestId="test-textarea"
         />
       );
@@ -469,7 +469,7 @@ describe('RdsTextArea', () => {
     it('should not have aria-required when not mandatory', () => {
       render(
         <RdsTextArea 
-          isMandatory={false} 
+          required={false} 
           dataTestId="test-textarea"
         />
       );
@@ -480,7 +480,7 @@ describe('RdsTextArea', () => {
     it('should have aria-describedby when error', () => {
       render(
         <RdsTextArea 
-          isMandatory={true}
+          required
           value=""
           dataTestId="test-textarea"
         />
@@ -537,7 +537,7 @@ describe('RdsTextArea', () => {
       render(
         <RdsTextArea 
           state={TextareaState.Active}
-          style={TextareaStyle.Pill}
+          variant={TextareaStyle.Pill}
           customClasses="my-custom"
           dataTestId="test-textarea"
         />
@@ -625,9 +625,9 @@ describe('RdsTextArea', () => {
           placeholder="Enter email"
           value=""
           state={TextareaState.Default}
-          style={TextareaStyle.Pill}
+          variant={TextareaStyle.Pill}
           rows={6}
-          isMandatory={true}
+          required
           validationPattern={/^[\w.-]+@[\w.-]+\.\w+$/}
           validationMsg="Please enter a valid email"
           onChange={onChange}
@@ -728,7 +728,7 @@ describe('RdsTextArea', () => {
 
 describe('audit fixes', () => {
   it('G2-343: accepts string state/style values', () => {
-    render(<RdsTextArea state="Disabled" style="Pill" dataTestId="ta" />);
+    render(<RdsTextArea state="Disabled" variant="Pill" dataTestId="ta" />);
     const ta = screen.getByTestId('ta');
     expect(ta).toBeDisabled();
     expect(ta).toHaveClass('textarea-pill');
@@ -761,9 +761,18 @@ describe('audit fixes', () => {
     expect(screen.queryByText('Old')).not.toBeInTheDocument();
   });
 
-  it('B29: variant wins over style', () => {
-    render(<RdsTextArea variant="Pill" style={TextareaStyle.BottomOutline} data-testid="ta" />);
+  it('B29: variant wins over the deprecated style string, and style accepts CSSProperties', () => {
+    const { container } = render(<RdsTextArea variant="Pill" style={TextareaStyle.BottomOutline} data-testid="ta" />);
     expect(screen.getByTestId('ta')).toHaveClass('textarea-pill');
+    const { container: c2 } = render(<RdsTextArea style={{ marginTop: '12px' }} />);
+    expect(c2.firstChild).toHaveStyle({ marginTop: '12px' });
+    expect(container).toBeInTheDocument();
+  });
+
+  it('isMultiUrl still works as a deprecated alias of multiUrl', () => {
+    const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
+    render(<RdsTextArea isMultiUrl validationPattern={/^a$/} data-testid="ta" />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTextArea', 'isMultiUrl', expect.any(String));
   });
 
   it('B29: deprecated dataTestId, showTitle, reset and validationMsg warn', () => {

@@ -665,9 +665,9 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'showLabel', expect.any(String));
   });
 
-  it('variant wins over style and style stays silent', () => {
+  it('variant wins over a deprecated style string, which warns', () => {
     const { container } = renderWithTheme(<RdsSwitch variant="style3" style="style1" />);
     expect(container.querySelector('.rds-switch--style3')).toBeInTheDocument();
-    expect(warnDeprecatedProp).not.toHaveBeenCalledWith('RdsSwitch', 'style', expect.any(String));
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'style', expect.any(String));
   });
 });

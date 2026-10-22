@@ -1,7 +1,7 @@
 
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import type { HTMLAttributes, Ref } from 'react';
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { getCSSVar } from '../chart-utils';
 import { WorldMap } from 'react-svg-worldmap';
@@ -21,9 +21,10 @@ export type RdsCompMapPaletteColor =
 
 export interface RdsCompMapProps
     extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'color' | 'children'> {
-    /** Heading text shown above the map. */
-  
-title?: string;
+    /** Heading text shown above the map. Passing anything other than a string is deprecated; use `header`. */
+    title?: string | ReactNode;
+    /** Rich heading content shown above the map; wins over `title`. */
+    header?: ReactNode;
     /** Values per country (ISO 3166-1 alpha-2 code). */
     data?: Array<{ country: string; value: number }>;
     /** @deprecated Use `data` instead. */
@@ -83,7 +84,6 @@ const interpolateColor = (t: number, palette: string[]) => {
     const idx = Math.floor(scaled);
     const frac = scaled - idx;
 
-    // Only 6-digit hex can be blended; other colour formats snap to the nearest stop.
     if (!HEX6.test(palette[idx]) || !HEX6.test(palette[idx + 1])) {
         return frac < 0.5 ? palette[idx] : palette[idx + 1];
     }
@@ -108,6 +108,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         data,
         mapList,
         title,
+        header,
         highlightedCountries,
         valueSuffix = '',
         className,
@@ -117,6 +118,10 @@ const RdsCompMap = (props: RdsCompMapProps) => {
 
     if (mapList !== undefined) {
         warnDeprecatedProp('RdsCompMap', 'mapList', '`data`');
+    }
+
+    if (title !== undefined && typeof title !== 'string') {
+        warnDeprecatedProp('RdsCompMap', 'title (non-string)', '`header`');
     }
 
     if (mapType !== undefined) {
@@ -199,8 +204,8 @@ const RdsCompMap = (props: RdsCompMapProps) => {
                 className
             )}
         >
-            {title && (
-                <div className="rds-comp-map__label">{title}</div>
+            {(header ?? title) && (
+                <div className="rds-comp-map__label">{header ?? title}</div>
             )}
 
             <div className="rds-comp-map__center">

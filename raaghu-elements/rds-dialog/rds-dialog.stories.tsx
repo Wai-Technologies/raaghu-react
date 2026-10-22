@@ -54,7 +54,7 @@ export const Default: Story = {
           showLeftIcon
           size="medium"
           state="default"
-          style="filled"
+          variant="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
         >
@@ -96,7 +96,7 @@ export const FullWidth: Story = {
           showLeftIcon
           size="medium"
           state="default"
-          style="filled"
+          variant="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
         >
@@ -136,7 +136,7 @@ export const Interactive: Story = {
           showLeftIcon
           size="medium"
           state="default"
-          style="filled"
+          variant="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
         >
@@ -151,7 +151,7 @@ export const Interactive: Story = {
             This dialog can be opened and closed.
           </Typography>
           {args.variant !== 'confirm' && (
-            <RdsButton style="filled" onClick={() => setOpen(false)}>
+            <RdsButton variant="filled" onClick={() => setOpen(false)}>
               Close
             </RdsButton>
           )}
@@ -182,7 +182,7 @@ export const LargeContent: Story = {
           showLeftIcon
           size="medium"
           state="default"
-          style="filled"
+          variant="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
         >
@@ -229,7 +229,7 @@ export const WithActions: Story = {
           showLeftIcon
           size="medium"
           state="default"
-          style="filled"
+          variant="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
         >
@@ -241,8 +241,8 @@ export const WithActions: Story = {
           onClose={() => setOpen(false)}
           actions={(
             <>
-              <RdsButton style="outlined" color="primary" onClick={() => setOpen(false)}>Cancel</RdsButton>
-              <RdsButton style="filled" color="primary" onClick={() => setOpen(false)}>Confirm</RdsButton>
+              <RdsButton variant="outlined" color="primary" onClick={() => setOpen(false)}>Cancel</RdsButton>
+              <RdsButton variant="filled" color="primary" onClick={() => setOpen(false)}>Confirm</RdsButton>
             </>
           )}
         />
@@ -319,7 +319,7 @@ export const WithIcon: Story = {
           showLeftIcon
           size="medium"
           state="default"
-          style="filled"
+          variant="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
         >

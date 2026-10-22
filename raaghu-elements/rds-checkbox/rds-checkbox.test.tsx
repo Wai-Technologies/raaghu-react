@@ -791,6 +791,14 @@ describe('RdsCheckbox additive renames', () => {
     expect(container.firstChild).not.toHaveClass('rds-checkbox__square');
   });
 
+  it('accepts CSSProperties and a legacy variant string through style', () => {
+    const { container, rerender } = renderWithTheme(<RdsCheckbox label="A" style={{ marginTop: '12px' }} />);
+    expect(container.firstChild).toHaveStyle({ marginTop: '12px' });
+    expect(container.firstChild).toHaveClass('rds-checkbox__square');
+    rerender(<RdsCheckbox label="A" variant="circular" />);
+    expect(container.firstChild).toHaveClass('rds-checkbox__circular');
+  });
+
   it('supports the indeterminate prop', () => {
     const { container } = renderWithTheme(<RdsCheckbox label="A" indeterminate />);
     expect(container.firstChild).toHaveClass('rds-checkbox__indeterminate');

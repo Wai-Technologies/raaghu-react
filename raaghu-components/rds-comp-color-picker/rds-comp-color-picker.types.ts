@@ -1,4 +1,4 @@
-import type { HTMLAttributes, Ref } from "react";
+import type { CSSProperties, HTMLAttributes, Ref } from "react";
 
 export enum ColorPickerType {
   Default = "Default",
@@ -66,7 +66,8 @@ export interface RdsCompColorPickerProps
   colorMode?: ColorMode;
   /** Swatches layout; `'list'` is `StyleType.Type1` and `'grid'` is `StyleType.Type2`. */
   swatchesVariant?: 'list' | 'grid';
-  style?: StyleType;
+  /** @deprecated Passing a variant string is deprecated; use `swatchesVariant`. Pass CSSProperties for inline styles. */
+  style?: StyleType | CSSProperties;
   /**
    * Called with the 6-digit hex when the colour changes. When the opacity (alpha) slider
    * changes, a second argument with `rgba` and `hex8` is passed as well.

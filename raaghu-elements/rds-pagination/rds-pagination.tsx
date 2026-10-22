@@ -201,14 +201,14 @@ const RdsPagination = ({
       )}
       {styleConfig.showPrevNext && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <RdsButton style="filled" size="small" disabled={currentPageNumber <= 1} onClick={(event) => handleChange(event, currentPageNumber - 1)}>
+          <RdsButton variant="filled" size="small" disabled={currentPageNumber <= 1} onClick={(event) => handleChange(event, currentPageNumber - 1)}>
             {paginationStyle === 'Style 10' || paginationStyle === 'Style 11' ? (
               <KeyboardArrowLeft />
             ) : (
               'Prev'
             )}
           </RdsButton>
-          <RdsButton style="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={(event) => handleChange(event, currentPageNumber + 1)}>
+          <RdsButton variant="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={(event) => handleChange(event, currentPageNumber + 1)}>
             {paginationStyle === 'Style 10' ? (
               <KeyboardArrowRight />
             ) : (
@@ -218,7 +218,7 @@ const RdsPagination = ({
         </Box>
       )}
       {styleConfig.showNextOnly && (
-        <RdsButton style="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={(event) => handleChange(event, currentPageNumber + 1)}>Next</RdsButton>
+        <RdsButton variant="filled" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={(event) => handleChange(event, currentPageNumber + 1)}>Next</RdsButton>
       )}
       {shouldShowDropdown && (
       <FormControl size="small" className={`pagination-dropdown ${styleConfig.styleClass || ''}`}>
