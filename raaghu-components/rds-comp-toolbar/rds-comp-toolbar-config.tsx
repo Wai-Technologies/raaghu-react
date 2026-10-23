@@ -63,14 +63,14 @@ export const ToolbarButton = ({
   options,
   ariaLabel,
   isActive,
-  isDisabled,
+  disabled,
   dropdownAction,
   onClick,
   onDropdownSelect,
   onDropdownClose,
 }: ToolbarButtonConfig & {
   isActive: boolean;
-  isDisabled: boolean;
+  disabled: boolean;
   dropdownAction?: string | null;
   onClick: () => void;
   onDropdownSelect?: (parentAction: string, option: string) => void;
@@ -137,9 +137,9 @@ export const ToolbarButton = ({
       <button
         ref={buttonRef}
         type="button"
-        className={clsx("rds-comp-toolbar__button", isActive && "rds-comp-toolbar__button--active", isDisabled && "rds-comp-toolbar__button--disabled")}
+        className={clsx("rds-comp-toolbar__button", isActive && "rds-comp-toolbar__button--active", disabled && "rds-comp-toolbar__button--disabled")}
         onClick={onClick}
-        disabled={isDisabled}
+        disabled={disabled}
         aria-label={ariaLabel || action}
         aria-haspopup={hasDropdown ? (isEmoji ? 'dialog' : 'menu') : undefined}
         aria-pressed={isActive}
@@ -180,7 +180,7 @@ export const ToolbarButton = ({
               key={option.value}
               className="rds-comp-toolbar__dropdown-item"
               onClick={() => onDropdownSelect?.(action, option.value)}
-              disabled={isDisabled}
+              disabled={disabled}
             >
               {option.label}
             </button>

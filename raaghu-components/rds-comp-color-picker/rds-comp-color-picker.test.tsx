@@ -7,7 +7,22 @@ import RdsCompColorPicker from './rds-comp-color-picker';
 import { ColorPickerType, PickerType, ColorMode, StyleType } from './rds-comp-color-picker.types';
 
 jest.mock('./rds-comp-color-picker.scss', () => ({}));
-jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => {
+  const warnDeprecatedProp = jest.fn();
+  return {
+    warnDeprecatedProp,
+    resolveDeprecatedProp: (
+      canonical: unknown,
+      legacy: unknown,
+      component: string,
+      legacyName: string,
+      replacement: string,
+    ) => {
+      if (legacy !== undefined) warnDeprecatedProp(component, legacyName, replacement);
+      return canonical !== undefined ? canonical : legacy;
+    },
+  };
+});
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton({ children, onClick, disabled, style, color, ...props }: any) {
     return (
@@ -54,8 +69,6 @@ jest.mock('./color-picker-components', () => ({
     return <div data-testid="gradient-editor" />;
   },
 }));
-
-jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 jest.mock('./color-utils', () => {
   const actual = jest.requireActual('./color-utils');
@@ -139,8 +152,8 @@ describe('RdsCompColorPicker', () => {
       expect(grid()).not.toBeInTheDocument();
     });
 
-    it('button is disabled and click does not toggle when isDisabled is true', () => {
-      setup({ type: ColorPickerType.Button, isDisabled: true });
+    it('button is disabled and click does not toggle when disabled is true', () => {
+      setup({ type: ColorPickerType.Button, disabled: true });
       const button = screen.getByTestId('rds-button');
       expect(button).toBeDisabled();
       fireEvent.click(button);
@@ -221,7 +234,7 @@ describe('RdsCompColorPicker', () => {
 
     it('does not change color when disabled', () => {
       const onChange = jest.fn();
-      setup({ isDisabled: true, onChange });
+      setup({ disabled: true, onChange });
       fireEvent.click(screen.getByTestId('grid-change-color'));
       expect(onChange).not.toHaveBeenCalled();
     });
@@ -280,13 +293,13 @@ describe('RdsCompColorPicker', () => {
 
   describe('Disabled State', () => {
     it('component has aria-disabled attribute when disabled', () => {
-      const { container } = setup({ isDisabled: true });
+      const { container } = setup({ disabled: true });
       expect(container.querySelector('.rds-comp-color-picker')).toHaveAttribute('aria-disabled', 'true');
       expect(container.querySelector('[aria-disabled="true"]')).toBeInTheDocument();
     });
 
     it('component does not have aria-disabled when not disabled', () => {
-      const { container } = setup({ isDisabled: false });
+      const { container } = setup({ disabled: false });
       expect(container.querySelector('.rds-comp-color-picker')).not.toHaveAttribute('aria-disabled');
     });
   });
@@ -370,11 +383,11 @@ describe('RdsCompColorPicker', () => {
 
     it('handles color change while disabled then enabled', () => {
       const onChange = jest.fn();
-      const { rerender } = setup({ isDisabled: true, onChange });
+      const { rerender } = setup({ disabled: true, onChange });
       const changeButton = screen.getByTestId('grid-change-color');
       fireEvent.click(changeButton);
       expect(onChange).not.toHaveBeenCalled();
-      rerender(<RdsCompColorPicker {...defaultProps} isDisabled={false} onChange={onChange} />);
+      rerender(<RdsCompColorPicker {...defaultProps} disabled={false} onChange={onChange} />);
       fireEvent.click(changeButton);
       expect(onChange).toHaveBeenCalled();
     });

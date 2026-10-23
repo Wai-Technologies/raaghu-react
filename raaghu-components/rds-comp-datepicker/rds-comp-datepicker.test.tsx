@@ -48,7 +48,22 @@ jest.mock('react-datepicker', () => {
 
 const mockCaptured: { type?: any[] } = {};
 
-jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../../raaghu-elements/shared/utils/deprecation', () => {
+  const warnDeprecatedProp = jest.fn();
+  return {
+    warnDeprecatedProp,
+    resolveDeprecatedProp: (
+      canonical: unknown,
+      legacy: unknown,
+      component: string,
+      legacyName: string,
+      replacement: string,
+    ) => {
+      if (legacy !== undefined) warnDeprecatedProp(component, legacyName, replacement);
+      return canonical !== undefined ? canonical : legacy;
+    },
+  };
+});
 
 jest.mock('./rds-comp-datepicker-utils', () => ({
   CustomButtons: ({ onClickYesterday, onClickToday, onClickLastSeven, onClickLastFourteen }: any) => (
@@ -132,13 +147,13 @@ describe('RdsDatepicker', () => {
       expect(screen.queryByText('Select Date')).not.toBeInTheDocument();
     });
 
-    it('should render mandatory indicator when isMandatory is true', () => {
-      setup({ showTitle: true, titleText: 'Date', isMandatory: true });
+    it('should render mandatory indicator when required is true', () => {
+      setup({ showTitle: true, titleText: 'Date', required: true });
       expect(screen.getByText('*')).toBeInTheDocument();
     });
 
-    it('should not render mandatory indicator when isMandatory is false', () => {
-      setup({ showTitle: true, titleText: 'Date', isMandatory: false });
+    it('should not render mandatory indicator when required is false', () => {
+      setup({ showTitle: true, titleText: 'Date', required: false });
       expect(screen.queryByText('*')).not.toBeInTheDocument();
     });
   });
@@ -181,8 +196,8 @@ describe('RdsDatepicker', () => {
   });
 
   describe('Disabled State', () => {
-    it.each([true, false])('should render when isDisabled is %s', (isDisabled) => {
-      setup({ isDisabled });
+    it.each([true, false])('should render when disabled is %s', (disabled) => {
+      setup({ disabled });
       expectTypeView();
     });
   });
@@ -271,9 +286,9 @@ describe('RdsDatepicker', () => {
 
   describe('Multiple Rerenders', () => {
     it('should handle multiple prop changes', () => {
-      const { rerender } = setup({ showTitle: true, isMandatory: true, isDisabled: false });
+      const { rerender } = setup({ showTitle: true, required: true, disabled: false });
       expect(screen.getByText('*')).toBeInTheDocument();
-      rerender(<RdsDatepicker {...defaultProps} showTitle={true} isMandatory={false} isDisabled={true} />);
+      rerender(<RdsDatepicker {...defaultProps} showTitle={true} required={false} disabled={true} />);
       expect(screen.queryByText('*')).not.toBeInTheDocument();
     });
   });
@@ -309,8 +324,8 @@ describe('RdsDatepicker', () => {
           datePickerStyleType={DatePickerStyleType.Dropdown}
           layout={DatePickerLayout.Default}
           customDate={jest.fn()}
-          isDisabled={false}
-          isMandatory={true}
+          disabled={false}
+          required={true}
           placeholderText="Pick a date"
           type="single"
           changeIcon="dashboard_settings"
@@ -366,7 +381,7 @@ describe('RdsDatepicker — keyboard navigation', () => {
   });
 
   it('does not focus input when disabled', async () => {
-    render(<RdsDatepicker isDisabled />);
+    render(<RdsDatepicker disabled />);
     const input = screen.getByTestId('date-picker-input');
     expect(input).toBeDisabled();
   });

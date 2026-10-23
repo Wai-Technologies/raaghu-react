@@ -46,7 +46,10 @@ export interface RdsCompNavtabsProps {
     disabled?: boolean;
     id: string | number;
     count?: number; 
-    colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "warning" | "light" | "success";  
+    /** Accent color for the tab badge/count. `danger` is accepted as an alias of `error` via consumers. */
+    color?: "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "light" | "success";
+    /** @deprecated Use `color`. */
+    colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "error" | "warning" | "light" | "success";
   }[];
   type: "default" | "tabs";
   fill?: boolean;
@@ -174,7 +177,7 @@ const RdsCompNavtabs = ({
                   <RdsBadge 
                     shape="pill" 
                     size="small" 
-                    colorVariant={navtabsItem.colorVariant}
+                    color={navtabsItem.color ?? navtabsItem.colorVariant}
                     className="" 
                   />
                 </span>

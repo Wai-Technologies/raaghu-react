@@ -9,7 +9,7 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
 
 export interface RdsButtonDropdownOption {
   id: string | number;
@@ -60,6 +60,7 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   layout?: 'icon+text' | 'text-only' | 'icon-only';
   /** Visual style. Preferred over `styleType`. */
   variant?: 'primary' | 'secondary' | 'outline' | 'transparent';
+  /** @deprecated Use `variant`. */
   styleType?: 'primary' | 'secondary' | 'outline' | 'transparent';
   shape?: 'rectangle' | 'pill';
   /** Icon after the label. */
@@ -73,8 +74,12 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   /** Single-select options as radios (`true`) or plain buttons (`false`). `ui.selection` takes precedence. Defaults to `true`. */
   showRadio?: boolean;
   /** Shows the start icon. `ui.leftIcon` takes precedence. Defaults to `true`. */
+  showLeftIcon?: boolean;
+  /** @deprecated Use `showLeftIcon`. */
   isShowLeftIcon?: boolean;
   /** Shows the end icon. `ui.rightIcon` takes precedence. Defaults to `true`. */
+  showRightIcon?: boolean;
+  /** @deprecated Use `showRightIcon`. */
   isShowRightIcon?: boolean;
   /** Class name added to the trigger button. */
   className?: string;
@@ -123,12 +128,14 @@ const RdsButtonDropdown = ({
   leftIcon,
   size = 'medium',
   layout = 'icon+text',
-  styleType: styleTypeProp = 'primary',
+  styleType: styleTypeProp,
   shape = 'rectangle',
   onChange,
   showSearch: showSearchProp,
   showUserAvatar: showUserAvatarProp,
   showRadio: showRadioProp,
+  showLeftIcon: showLeftIconProp,
+  showRightIcon: showRightIconProp,
   isShowLeftIcon: isShowLeftIconProp,
   isShowRightIcon: isShowRightIconProp,
   className,
@@ -143,7 +150,7 @@ const RdsButtonDropdown = ({
   if (leftIcon !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'leftIcon', '`startIcon`');
 
   if (ui !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'ui', '`searchable`, `showAvatar` and `optionVariant`');
-  const styleType = variant ?? styleTypeProp;
+  const styleType = resolveDeprecatedProp(variant, styleTypeProp, 'RdsButtonDropdown', 'styleType', '`variant`') ?? 'primary';
   const label = children ?? buttonText ?? 'Button';
   const isMultiple = multiple ?? multiSelect ?? false;
   const resolvedRightIcon = endIcon !== undefined ? endIcon : rightIcon;
@@ -151,8 +158,22 @@ const RdsButtonDropdown = ({
   const showSearch = searchable ?? (ui?.search ? ui.search === 'visible' : flag(showSearchProp, false));
   const showUserAvatar = showAvatar ?? (ui?.avatar ? ui.avatar === 'visible' : flag(showUserAvatarProp, true));
   const showRadio = optionVariant ? optionVariant === 'radio' : ui?.selection ? ui.selection === 'radio' : flag(showRadioProp, true);
-  const isShowLeftIcon = ui?.leftIcon ? ui.leftIcon === 'visible' : flag(isShowLeftIconProp, true);
-  const isShowRightIcon = ui?.rightIcon ? ui.rightIcon === 'visible' : flag(isShowRightIconProp, true);
+  const resolvedShowLeftIcon = resolveDeprecatedProp(
+    showLeftIconProp,
+    isShowLeftIconProp,
+    'RdsButtonDropdown',
+    'isShowLeftIcon',
+    '`showLeftIcon`',
+  );
+  const resolvedShowRightIcon = resolveDeprecatedProp(
+    showRightIconProp,
+    isShowRightIconProp,
+    'RdsButtonDropdown',
+    'isShowRightIcon',
+    '`showRightIcon`',
+  );
+  const isShowLeftIcon = ui?.leftIcon ? ui.leftIcon === 'visible' : flag(resolvedShowLeftIcon, true);
+  const isShowRightIcon = ui?.rightIcon ? ui.rightIcon === 'visible' : flag(resolvedShowRightIcon, true);
 
   const menuId = useId();
   const isOpenControlled = open !== undefined;

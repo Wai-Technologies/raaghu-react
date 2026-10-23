@@ -21,7 +21,7 @@ import {
     DatePickerStyleType,
     type RdsCompDatepickerProps,
 } from './rds-comp-datepicker.types';
-import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 const asBoolean = (value: unknown): boolean | undefined => (typeof value === 'boolean' ? value : undefined);
 const toDate = (value?: Date | string | null) => (value ? new Date(value) : null);
@@ -62,8 +62,6 @@ const RdsDatepicker = ({
     ...restProps
 }: RdsCompDatepickerProps) => {
     ([
-        [isDisabledProp, 'isDisabled', '`disabled`'],
-        [isMandatoryProp, 'isMandatory', '`required`'],
         [controls?.mandatory, 'controls.mandatory', '`required`'],
         [dateForEdit, 'dateForEdit', '`value`'],
         [onDatePicker, 'onDatePicker', '`onChange`'],
@@ -78,8 +76,20 @@ const RdsDatepicker = ({
     });
 
     const legacyShowTitle = asBoolean(showTitleProp);
-    const legacyIsDisabled = asBoolean(isDisabledProp);
-    const legacyIsMandatory = asBoolean(isMandatoryProp);
+    const topLevelDisabled = resolveDeprecatedProp(
+        disabled,
+        asBoolean(isDisabledProp),
+        'RdsCompDatepicker',
+        'isDisabled',
+        '`disabled`',
+    );
+    const topLevelRequired = resolveDeprecatedProp(
+        required,
+        asBoolean(isMandatoryProp),
+        'RdsCompDatepicker',
+        'isMandatory',
+        '`required`',
+    );
     const legacyShowClearDate = asBoolean(showClearDateProp);
     const legacyIsDefaultDate = asBoolean(isDefaultDateProp);
 
@@ -91,8 +101,8 @@ const RdsDatepicker = ({
     const showTitle = controls?.title
         ? controls.title === 'visible'
         : (legacyShowTitle ?? (label !== undefined || datePickerLabel !== undefined));
-    const isDisabled = disabled ?? (controls?.disabled ? controls.disabled === 'on' : (legacyIsDisabled ?? false));
-    const isMandatory = required ?? (controls?.mandatory ? controls.mandatory === 'required' : (legacyIsMandatory ?? false));
+    const isDisabled = topLevelDisabled ?? (controls?.disabled ? controls.disabled === 'on' : false);
+    const isMandatory = topLevelRequired ?? (controls?.mandatory ? controls.mandatory === 'required' : false);
     const showClearDate = clearable ?? (controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false));
     const isDefaultDate = controls?.defaultDate ? controls.defaultDate === 'on' : (legacyIsDefaultDate ?? false);
 

@@ -1,4 +1,4 @@
-import { Fragment, useState, type ReactNode } from 'react';
+import { Fragment, isValidElement, useState, type ReactNode } from 'react';
 import {
   Drawer as MuiDrawer,
   List,
@@ -31,6 +31,22 @@ import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-sidebar.scss';
+
+/** Use only values that React can render as children (guards Storybook `{}` controls). */
+const asReactNode = (value: ReactNode): ReactNode => {
+  if (value == null || typeof value === 'boolean') return undefined;
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'bigint') {
+    return value;
+  }
+  if (isValidElement(value)) return value;
+  if (Array.isArray(value)) {
+    const safe = value
+      .map((item) => asReactNode(item as ReactNode))
+      .filter((item) => item !== undefined);
+    return safe.length > 0 ? safe : undefined;
+  }
+  return undefined;
+};
 
 const ANZ_MENU_ITEMS: RdsSidebarItem[] = [
   { label: 'Dashboard', icon: <DashboardOutlined /> },
@@ -153,6 +169,9 @@ const RdsSidebar = ({
   const userName = user?.name ?? 'Jane Doe';
   const userSubtitle = user?.subtitle ?? 'Designation';
   const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
+  const resolvedLogo = asReactNode(logo);
+  const resolvedHeader = asReactNode(header);
+  const resolvedFooter = asReactNode(footer);
 
   const menuItems = platform === 'abp-list' ? ABP_MENU_ITEMS : 
                    platform === 'anz-list' ? ANZ_MENU_ITEMS : 
@@ -281,9 +300,9 @@ const RdsSidebar = ({
       sx={[drawerSx, ...(Array.isArray(propsSx) ? propsSx : [propsSx])]}
     >
       <div className={contentClasses}>
-        {(header != null || showLogo) && (
+        {(resolvedHeader != null || showLogo) && (
           <div className={headerClasses}>
-            {header ?? (layout === 'toolbar' ? (
+            {resolvedHeader ?? (layout === 'toolbar' ? (
               shouldShowIconsOnly ? (
                 <RdsAvatar
                   status="online"
@@ -301,7 +320,7 @@ const RdsSidebar = ({
                   src={resolvedAvatarSrc}
                 />
               )
-            ) : logo ?? (
+            ) : resolvedLogo ?? (
               <img
                 src={shouldShowIconsOnly ? '/raaghu.png' : avatarCollapsedSrc}
                 alt="Raaghu Design System Logo"
@@ -339,6 +358,7 @@ const RdsSidebar = ({
         )}
         <List className="rds-sidebar__nav-list">
           {menuItems.map((item, index) => {
+            const itemIcon = asReactNode(item.icon);
             const listItemButton = (
               <ListItemButton
                 onClick={() => {
@@ -358,9 +378,9 @@ const RdsSidebar = ({
                   px: shouldShowIconsOnly ? 0 : 2,
                 }}
               >
-                {item.icon && (
+                {itemIcon && (
                   <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
-                    {item.icon}
+                    {itemIcon}
                   </ListItemIcon>
                 )}
                 {showLabels && <ListItemText primary={item.label} />}
@@ -373,7 +393,7 @@ const RdsSidebar = ({
             return (
               <Fragment key={`${item.label}-${item.path || item.href || 'nav-item'}`}>
                 <ListItem disablePadding className={navItemClasses}>
-                  {shouldShowIconsOnly && item.icon ? (
+                  {shouldShowIconsOnly && itemIcon ? (
                     <RdsTooltip 
                       title={item.label} 
                       placement="right"
@@ -389,6 +409,7 @@ const RdsSidebar = ({
                   <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       {item.children.map((child, cIdx) => {
+                        const childIcon = asReactNode(child.icon);
                         const childListItemButton = (
                           <ListItemButton
                             onClick={child.onClick}
@@ -401,9 +422,9 @@ const RdsSidebar = ({
                               px: shouldShowIconsOnly ? 0 : 4,
                             }}
                           >
-                            {child.icon && (
+                            {childIcon && (
                               <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
-                                {child.icon}
+                                {childIcon}
                               </ListItemIcon>
                             )}
                             {showLabels && <ListItemText primary={child.label} />}
@@ -412,7 +433,7 @@ const RdsSidebar = ({
 
                         return (
                           <ListItem key={`${child.label}-${child.path || child.href || 'child-item'}`} disablePadding className={navItemClasses}>
-                            {shouldShowIconsOnly && child.icon ? (
+                            {shouldShowIconsOnly && childIcon ? (
                               <RdsTooltip
                                 title={`${item.label} - ${child.label}`}
                                 placement="right"
@@ -436,9 +457,9 @@ const RdsSidebar = ({
         <div className="rds-sidebar__footer">
           <hr className="rds-sidebar__footer-divider" />
         </div>
-        {(footer != null || showAvatar) && (
+        {(resolvedFooter != null || showAvatar) && (
           <div className={avatarContainerClasses}>
-            {footer ?? (!shouldShowIconsOnly ? (
+            {resolvedFooter ?? (!shouldShowIconsOnly ? (
               <RdsAvatar
                 alt="User Avatar"
                 description={userSubtitle}

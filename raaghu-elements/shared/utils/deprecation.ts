@@ -15,3 +15,21 @@ export function warnDeprecatedProp(component: string, prop: string, replacement:
   // eslint-disable-next-line no-console -- intentional developer-facing warning
   console.warn(`[${component}] The \`${prop}\` prop is deprecated and will be removed in the next major version. Use ${replacement} instead.`);
 }
+
+/**
+ * Prefers the canonical prop value. When a legacy value is provided, warns once
+ * (even if canonical is also set). Canonical wins when both are defined.
+ */
+export function resolveDeprecatedProp<T>(
+  canonical: T | undefined,
+  legacy: T | undefined,
+  component: string,
+  legacyName: string,
+  replacement: string,
+): T | undefined {
+  if (legacy !== undefined) {
+    warnDeprecatedProp(component, legacyName, replacement);
+  }
+  if (canonical !== undefined) return canonical;
+  return legacy;
+}

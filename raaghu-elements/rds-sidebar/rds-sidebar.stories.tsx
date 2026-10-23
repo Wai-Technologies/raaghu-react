@@ -46,7 +46,18 @@ When a platform is specified, the component automatically displays the appropria
       }
     },
     controls: {
-    exclude: ['component', 'slots', 'slotProps', 'onClose'],
+      // Whitelist only interactive, design-relevant props (hides MUI Drawer noise + slots).
+      include: [
+        'isOpen',
+        'width',
+        'variant',
+        'anchor',
+        'layout',
+        'typeOf',
+        'showLogo',
+        'showSearch',
+        'user',
+      ],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -56,7 +67,7 @@ When a platform is specified, the component automatically displays the appropria
       description: 'Whether the sidebar is open',
     },
     width: {
-      control: 'number',
+      control: { type: 'number', min: 64, max: 400, step: 8 },
       description: 'Width of the sidebar in pixels',
     },
     variant: {
@@ -72,28 +83,35 @@ When a platform is specified, the component automatically displays the appropria
     layout: {
       control: 'select',
       options: ['raaghu', 'list', 'toolbar'],
+      description: 'Sidebar layout style',
     },
     typeOf: {
       control: 'select',
       options: ['collapse', 'expanded', 'fixed'],
-    },
-    platform: {
-      control: 'select',
-      options: ['abp-list', 'anz-list'],
-      description: 'Deprecated: pass `items` instead',
+      description: 'Collapse / expand behavior',
     },
     showSearch: {
       control: 'boolean',
       description: 'Toggle whether the search box is shown in the sidebar',
     },
-    hideMainParagraph: {
+    showLogo: {
       control: 'boolean',
-      description: 'Hide the main content area paragraph in the story preview',
+      description: 'Show the default logo in the sidebar header',
     },
-    hideToggleButton: {
-      control: 'boolean',
-      description: 'Hide the Open/Close sidebar toggle button in the story preview',
+    user: {
+      control: 'object',
+      description: 'User shown in the avatar area (`name`, `subtitle`, `avatarSrc`)',
     },
+  },
+  args: {
+    isOpen: true,
+    width: 240,
+    variant: 'permanent',
+    anchor: 'left',
+    layout: 'raaghu',
+    typeOf: 'expanded',
+    showLogo: true,
+    showSearch: true,
   },
 };
 

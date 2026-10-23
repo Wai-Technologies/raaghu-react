@@ -55,7 +55,10 @@ export interface KanbanBoardInfo {
   name: string;
   status?: string;
   subCardIndex: number;
-  colorType: "primary" | "success" | "warning" | "error";
+  /** Column accent color. Preferred over `colorType`. */
+  color?: "primary" | "success" | "warning" | "error";
+  /** @deprecated Use `color`. */
+  colorType?: "primary" | "success" | "warning" | "error";
   actions: KanbanAction[];
   key: string;
   subCards: KanbanSubCard[];
@@ -249,7 +252,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     const newBoard: KanbanBoardInfo = {
       cardId: generateRandomId(),
       name: boardName,
-      colorType: "primary",
+      color: "primary",
       subCardIndex: boards.length,
       subCards: [],
       actions: [],

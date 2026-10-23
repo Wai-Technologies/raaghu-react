@@ -64,6 +64,8 @@ interface SkinTonePickerProps {
     skinToneOptions: typeof SKIN_TONE_OPTIONS;
     selectedSkinTone: number;
     onSelect: (tone: number) => void;
+    size?: "small" | "medium";
+    /** @deprecated Use `size`. */
     buttonSize?: "small" | "medium";
 }
 
@@ -71,6 +73,7 @@ const SkinTonePicker = ({
     skinToneOptions,
     selectedSkinTone,
     onSelect,
+    size,
     buttonSize,
 }: SkinTonePickerProps) => (
     <>
@@ -86,7 +89,7 @@ const SkinTonePicker = ({
                     boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
                 }}
                 title={o.label}
-                size={buttonSize}
+                size={size ?? buttonSize}
             />
         ))}
     </>
@@ -265,7 +268,7 @@ const RdsCompEmojiGenerator = ({
                                             skinToneOptions={SKIN_TONE_OPTIONS}
                                             selectedSkinTone={selectedSkinTone}
                                             onSelect={handleSkinToneSelect}
-                                            buttonSize="small"
+                                            size="small"
                                         />
                                     </Box>
                                 )}

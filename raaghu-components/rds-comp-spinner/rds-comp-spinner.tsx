@@ -27,6 +27,22 @@ const LABEL_SIZE_CLASS: Partial<Record<SpinnerSize, string>> = {
   [SpinnerSize.Large]: "spinner-label--large",
 };
 
+const LEGACY_SIZE_MAP: Record<string, SpinnerSize> = {
+  Default: SpinnerSize.Default,
+  Small: SpinnerSize.Small,
+  Medium: SpinnerSize.Medium,
+  Large: SpinnerSize.Large,
+  default: SpinnerSize.Default,
+  small: SpinnerSize.Small,
+  medium: SpinnerSize.Medium,
+  large: SpinnerSize.Large,
+};
+
+const normalizeSpinnerSize = (value: string | undefined): SpinnerSize | undefined => {
+  if (value === undefined) return undefined;
+  return LEGACY_SIZE_MAP[value] ?? (value as SpinnerSize);
+};
+
 const LAYOUT_CLASS: Record<SpinnerLayout, string> = {
   [SpinnerLayout.LabelOnBottom]: "spinner-container--label-bottom",
   [SpinnerLayout.LabelAndSpinner]: "spinner-container--label-spinner",
@@ -71,7 +87,7 @@ const RdsCompSpinner = ({
   if (labelText !== undefined) warnDeprecatedProp("RdsCompSpinner", "labelText", "`label`");
   if (colorVariant !== undefined) warnDeprecatedProp("RdsCompSpinner", "colorVariant", "`color`");
   const labelId = useId();
-  const size = sizeProp as SpinnerSize | undefined;
+  const size = normalizeSpinnerSize(sizeProp);
   const layout = (labelPlacement ? PLACEMENT_LAYOUT[labelPlacement] : layoutProp) as SpinnerLayout | undefined;
   const level = levelProp as SpinnerLevel | undefined;
   const resolvedVariant = variant ?? spinnerType ?? "border";

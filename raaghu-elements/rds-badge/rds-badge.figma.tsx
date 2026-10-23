@@ -16,16 +16,16 @@ figma.connect(
         "Left Icon+Text": "icon-text", 
         "Right Icon+Text": "text-icon" }),
       disabled: figma.boolean("🚫 Disabled"),
-      colorVariant: figma.enum("⚠️ Type", {
+      color: figma.enum("⚠️ Type", {
         "Primary": "primary",
         "Secondary": "secondary",
         "Tertiary": "tertiary",
-        "Danger": "danger",
+        "Danger": "error",
         "Warning": "warning",
         "Light": "light",
         "Success": "success",
       }),
-      styleType: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Primary": "primary",
         "Outline": "outline",
         "Transparent": "transparent",

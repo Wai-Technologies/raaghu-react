@@ -22,7 +22,7 @@ const meta: Meta = {
             control: 'select',
             options: ['Default', 'Button', 'Button-Expanded'],
         },
-        isDisabled: {
+        disabled: {
             control: 'boolean',
         },
         showSwatches: {
@@ -65,10 +65,10 @@ export const Default: Story = {
         showTabs: true,
         format: 'hex',
         swatchesVariant: 'list',
-        isDisabled: false,
+        disabled: false,
     },
     play: async ({ canvasElement }) => {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['type','showSwatches', 'view', 'showTabs', 'swatchesVariant', 'className', 'sx', 'ref'] } };
+Default.parameters = { controls: { include: ['type','showSwatches', 'view', 'showTabs', 'swatchesVariant', 'disabled', 'className', 'sx', 'ref'] } };

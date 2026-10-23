@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import RdsCompChat from "./rds-comp-chat";
 import figma from "@figma/code-connect";
 
@@ -26,7 +26,7 @@ figma.connect(
         userData={[
           {
             activeDotButton: true,
-            colorVariant: "primary",
+            color: "primary",
             comments: [
               {
                 comment: "Hi, How are you?",
@@ -48,11 +48,11 @@ figma.connect(
             size: "medium",
             status: "Typing....",
             time: "13.00",
-            withProfilePic: true,
+            showProfilePic: true,
           },
           {
             activeDotButton: false,
-            colorVariant: "primary",
+            color: "primary",
             comments: [],
             firstName: "John",
             lastName: "Doe",
@@ -63,11 +63,11 @@ figma.connect(
             size: "medium",
             status: "Developer",
             time: "13.00",
-            withProfilePic: true,
+            showProfilePic: true,
           },
           {
             activeDotButton: false,
-            colorVariant: "primary",
+            color: "primary",
             comments: [],
             firstName: "Smith",
             lastName: "Hense",
@@ -78,10 +78,11 @@ figma.connect(
             size: "medium",
             status: "Company Owner",
             time: "13.00",
-            withProfilePic: true,
+            showProfilePic: true,
           },
         ]}
       />
     ),
   }
 );
+

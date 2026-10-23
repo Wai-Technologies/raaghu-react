@@ -2,11 +2,19 @@ import { type ReactNode } from 'react';
 import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
 import clsx from 'clsx';
+import { resolveDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-badge.scss';
+
+type BadgePaletteColor = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'error' | 'warning' | 'light' | 'success';
+type BadgeStyleVariant = 'primary' | 'outline' | 'transparent';
+
+const PALETTE_COLORS: readonly string[] = ['primary', 'secondary', 'tertiary', 'danger', 'error', 'warning', 'light', 'success'];
+const STYLE_VARIANTS: readonly string[] = ['primary', 'outline', 'transparent'];
 
 export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant'> {
   /** MUI badge variant (`standard` | `dot`), or the visual style (`primary` | `outline` | `transparent`). Preferred over `styleType`. */
-  variant?: BadgeProps['variant'] | 'primary' | 'outline' | 'transparent';
+  variant?: BadgeProps['variant'] | BadgeStyleVariant;
   /** Disables the badge. */
   disabled?: boolean;
   /** Icon before the content (standalone badge). Overrides the `layout`-derived icon; `null` hides it. */
@@ -20,8 +28,15 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant'>
   layout?: 'text' | 'icon' | 'icon-text' | 'text-icon';
   /** Icon used by the `icon`, `icon-text` and `text-icon` layouts. Defaults to a bell. */
   icon?: ReactNode;
-  styleType?: 'primary' | 'outline' | 'transparent';
-  colorVariant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'light' | 'success';
+  /** @deprecated Use `variant` (`primary` | `outline` | `transparent`). */
+  styleType?: BadgeStyleVariant;
+  /**
+   * Palette used for standalone / BEM styling.
+   * Prefer this over `colorVariant`. `danger` is normalized to `error`.
+   */
+  color?: BadgeProps['color'] | BadgePaletteColor;
+  /** @deprecated Use `color`. */
+  colorVariant?: BadgePaletteColor;
 }
 
 const RdsBadge = ({
@@ -30,7 +45,7 @@ const RdsBadge = ({
   max = 99,
   badgeContent,
   size = 'medium',
-  color = 'primary',
+  color: colorProp,
   shape = 'pill',
   layout = 'text',
   icon,
@@ -38,23 +53,44 @@ const RdsBadge = ({
   endIcon,
   variant,
   disabled,
-  styleType = 'primary',
-  colorVariant = 'primary',
+  styleType,
+  colorVariant,
   className,
   ...props
 }: RdsBadgeProps) => {
   const isZeroContent = badgeContent === 0 || badgeContent === '0';
   const isHidden = isZeroContent && !showZero;
-  const isStyleVariant = variant === 'primary' || variant === 'outline' || variant === 'transparent';
-  const resolvedStyleType = isStyleVariant ? variant : styleType;
+  const isStyleVariant = variant !== undefined && STYLE_VARIANTS.includes(variant);
+  const resolvedStyleType =
+    resolveDeprecatedProp(
+      isStyleVariant ? (variant as BadgeStyleVariant) : undefined,
+      styleType,
+      'RdsBadge',
+      'styleType',
+      '`variant`',
+    ) ?? 'primary';
   const muiVariant = isStyleVariant ? undefined : variant;
+
+  const paletteFromColor =
+    colorProp !== undefined && typeof colorProp === 'string' && PALETTE_COLORS.includes(colorProp)
+      ? (colorProp as BadgePaletteColor)
+      : undefined;
+  const bemColor = normalizePaletteColor(
+    resolveDeprecatedProp(paletteFromColor, colorVariant, 'RdsBadge', 'colorVariant', '`color`') ?? 'primary',
+  );
+
+  const color = colorProp ?? 'primary';
+  const muiColor =
+    color === 'danger' || colorVariant === 'danger'
+      ? 'error'
+      : (color as BadgeProps['color']);
 
   const bemClass = clsx(
     'rds-badge',
     `rds-badge--${size}`,
     `rds-badge--${shape}`,
     `rds-badge--${resolvedStyleType}`,
-    `rds-badge--${colorVariant || 'primary'}`,
+    `rds-badge--${bemColor || 'primary'}`,
     disabled && 'rds-badge--disabled',
     className,
   );
@@ -93,7 +129,7 @@ const RdsBadge = ({
       badgeContent={badgeContent}
       showZero={showZero}
       max={max}
-      color={color}
+      color={muiColor}
       variant={muiVariant}
       {...props}
       className={bemClass}

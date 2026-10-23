@@ -12,12 +12,12 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-autocomplete.scss';
 
 type RdsAutocompleteMuiProps<T> = AutocompleteProps<T, boolean, false, false>;
 
-export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>, 'renderInput' | 'component'> {
+export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>, 'renderInput' | 'component' | 'size'> {
   label?: string;
   placeholder?: string;
   helperText?: string;
@@ -34,6 +34,9 @@ export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>
     /** @deprecated Use `showHintText` instead. */
     hint?: 'visible' | 'hidden';
   };
+  /** Control size. */
+  size?: 'small' | 'medium' | 'large';
+  /** @deprecated Use `size`. */
   selectSize?: 'small' | 'medium' | 'large';
   controlStyle?: 'default' | 'bottom line';
   /** Selects the first available option when no value/defaultValue is provided. */
@@ -63,10 +66,16 @@ export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>
   /** Shows the helper text. Defaults to `false`. `display.hint` takes precedence. */
   showHintText?: boolean;
   /** Shows a checkbox before each option. Defaults to `false`. `optionDecorators.checkbox` takes precedence. */
+  showCheckbox?: boolean;
+  /** @deprecated Use `showCheckbox`. */
   isShowCheckbox?: boolean;
   /** Shows a radio before each option. Defaults to `false`. `optionDecorators.radio` takes precedence. */
+  showRadio?: boolean;
+  /** @deprecated Use `showRadio`. */
   isShowRadio?: boolean;
   /** Shows `userIcon` before each option. Defaults to `false`. `optionDecorators.user` takes precedence. */
+  showUser?: boolean;
+  /** @deprecated Use `showUser`. */
   isShowUser?: boolean;
   /** @deprecated Use `required` instead. */
   isMandatory?: boolean;
@@ -118,7 +127,8 @@ const RdsAutocomplete = <T extends { label?: string },>({
   variant = 'outlined',
   required,
   display,
-  selectSize = 'medium',
+  size: sizeProp,
+  selectSize,
   controlStyle = 'default',
   selected: isSelected = false,
   optionDecorators,
@@ -130,6 +140,9 @@ const RdsAutocomplete = <T extends { label?: string },>({
   hideClearAllOnMobile = false,
   showTitle: showTitleProp,
   showHintText: showHintTextProp,
+  showCheckbox: showCheckboxProp,
+  showRadio: showRadioProp,
+  showUser: showUserProp,
   isShowCheckbox: isShowCheckboxProp,
   isShowRadio: isShowRadioProp,
   isShowUser: isShowUserProp,
@@ -160,6 +173,9 @@ const RdsAutocomplete = <T extends { label?: string },>({
   if (isMandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'isMandatory', '`required`');
   if (allowMultiple !== undefined) warnDeprecatedProp('RdsAutocomplete', 'allowMultiple', '`multiple`');
 
+  const selectSizeResolved =
+    resolveDeprecatedProp(sizeProp, selectSize, 'RdsAutocomplete', 'selectSize', '`size`') ?? 'medium';
+
   const showTitle = display?.title ? display.title === 'visible' : (showTitleProp ?? true);
   const isRequired = required ?? (display?.mandatory ? display.mandatory === 'required' : (isMandatory ?? false));
   const showHintText = display?.hint ? display.hint === 'visible' : (showHintTextProp ?? false);
@@ -168,9 +184,21 @@ const RdsAutocomplete = <T extends { label?: string },>({
     const decorator = optionDecorators?.[key];
     return decorator ? decorator === 'visible' : (legacy ?? false);
   };
-  const isShowCheckbox = showDecorator('checkbox', 'checkbox', isShowCheckboxProp);
-  const isShowRadio = showDecorator('radio', 'radio', isShowRadioProp);
-  const isShowUser = showDecorator('avatar', 'user', isShowUserProp);
+  const isShowCheckbox = showDecorator(
+    'checkbox',
+    'checkbox',
+    resolveDeprecatedProp(showCheckboxProp, isShowCheckboxProp, 'RdsAutocomplete', 'isShowCheckbox', '`showCheckbox`'),
+  );
+  const isShowRadio = showDecorator(
+    'radio',
+    'radio',
+    resolveDeprecatedProp(showRadioProp, isShowRadioProp, 'RdsAutocomplete', 'isShowRadio', '`showRadio`'),
+  );
+  const isShowUser = showDecorator(
+    'avatar',
+    'user',
+    resolveDeprecatedProp(showUserProp, isShowUserProp, 'RdsAutocomplete', 'isShowUser', '`showUser`'),
+  );
   const openOnFocus = openOnFocusProp ?? (behavior?.openOnFocus ? behavior.openOnFocus === 'on' : false);
   const allowMultipleResolved = multipleProp ?? (behavior?.multiple ? behavior.multiple === 'on' : (allowMultiple ?? false));
 
@@ -214,8 +242,8 @@ const RdsAutocomplete = <T extends { label?: string },>({
   };
 
   let sizeClass = '';
-  if (selectSize === 'small') sizeClass = 'rds-autocomplete--small';
-  else if (selectSize === 'large') sizeClass = 'rds-autocomplete--large';
+  if (selectSizeResolved === 'small') sizeClass = 'rds-autocomplete--small';
+  else if (selectSizeResolved === 'large') sizeClass = 'rds-autocomplete--large';
   else sizeClass = 'rds-autocomplete--medium';
 
   const controlStyleClass = controlStyle === 'bottom line' ? 'rds-autocomplete__textfield--bottom-line' : '';
@@ -262,7 +290,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
               size="small"
               {...restTagProps}
               key={tagKey ?? index}
-              className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
+              className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSizeResolved}`}
             />
           );
         })}
@@ -271,7 +299,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             variant="filled"
             label={`+${remainingCount}`}
             size="small"
-            className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize} rds-autocomplete__chip--overflow`}
+            className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSizeResolved} rds-autocomplete__chip--overflow`}
           />
         )}
       </>
@@ -295,7 +323,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   return (
     <div ref={containerRef} className={`rds-autocomplete ${sizeClass} rds-autocomplete--root`}>
       {showTitle && label && (
-        <label htmlFor={inputId} className={`rds-autocomplete__label rds-autocomplete__label--${selectSize}`}>
+        <label htmlFor={inputId} className={`rds-autocomplete__label rds-autocomplete__label--${selectSizeResolved}`}>
           {label}
           {isRequired && (
             <Typography

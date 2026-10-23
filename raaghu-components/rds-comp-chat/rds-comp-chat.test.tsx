@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
@@ -26,7 +26,7 @@ jest.mock('../rds-comp-emoji-generator/rds-comp-emoji-generator', () => {
   return function MockRdsCompEmojiGenerator(props: any) {
     return (
       <div data-testid="emoji-generator">
-        <button onClick={() => props.onEmojiSelect?.('😊')}>Select Emoji</button>
+        <button onClick={() => props.onEmojiSelect?.('ðŸ˜Š')}>Select Emoji</button>
       </div>
     );
   };
@@ -45,7 +45,7 @@ const defaultUserData: UserData[] = [
     activeDotButton: true,
     status: 'online',
     size: 'medium',
-    colorVariant: 'primary',
+    color: 'primary',
     time: '10:30 AM',
     profilePic: 'https://example.com/john.jpg',
     messageStatus: 'Online',
@@ -54,7 +54,7 @@ const defaultUserData: UserData[] = [
       { firstName: 'Jane', lastName: 'Smith', comment: 'Hi there!' },
     ],
     profileType: 'user',
-    withProfilePic: true,
+    showProfilePic: true,
   },
   {
     firstName: 'Jane',
@@ -62,7 +62,7 @@ const defaultUserData: UserData[] = [
     activeDotButton: false,
     status: 'away',
     size: 'medium',
-    colorVariant: 'secondary',
+    color: 'secondary',
     time: '9:45 AM',
     profilePic: 'https://example.com/jane.jpg',
     messageStatus: 'Away',
@@ -323,7 +323,7 @@ describe('RdsCompChat', () => {
       
       const input = screen.getByPlaceholderText('Type comment...') as HTMLInputElement;
       await waitFor(() => {
-        expect(input.value).toContain('😊');
+        expect(input.value).toContain('ðŸ˜Š');
       });
     });
 
@@ -716,3 +716,4 @@ describe('RdsCompChat', () => {
     });
   });
 });
+

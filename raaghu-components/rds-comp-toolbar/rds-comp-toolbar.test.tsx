@@ -58,7 +58,7 @@ jest.mock('./rds-comp-toolbar-config', () => ({
     hasDropdown, 
     ariaLabel, 
     isActive, 
-    isDisabled, 
+    disabled, 
     dropdownAction,
     onClick,
     onDropdownSelect 
@@ -70,10 +70,10 @@ jest.mock('./rds-comp-toolbar-config', () => ({
       data-action={action}
       data-has-dropdown={hasDropdown}
       data-is-active={isActive}
-      data-is-disabled={isDisabled}
+      data-is-disabled={disabled}
       data-is-dropdown-open={isDropdownOpen}
       aria-label={ariaLabel}
-      onClick={isDisabled ? undefined : onClick}
+      onClick={disabled ? undefined : onClick}
     >
       {icon}
       {hasDropdown && isDropdownOpen && (

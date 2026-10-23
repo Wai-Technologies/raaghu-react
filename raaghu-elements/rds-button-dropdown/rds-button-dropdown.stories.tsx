@@ -109,11 +109,11 @@ export const Default: Story = {
     startIcon: <RadioButtonUnchecked />,
     showUserAvatar: true,
     showRadio: true,
-    isShowLeftIcon: true,
-    isShowRightIcon: true,
+    showLeftIcon: true,
+    showRightIcon: true,
   },
 };
-Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'showUserAvatar', 'showRadio', 'isShowLeftIcon', 'isShowRightIcon', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
+Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'showUserAvatar', 'showRadio', 'showLeftIcon', 'showRightIcon', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
 
 export const MultiSelect: Story = {
   args: {

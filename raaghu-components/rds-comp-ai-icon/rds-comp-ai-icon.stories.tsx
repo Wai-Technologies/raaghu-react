@@ -19,11 +19,11 @@ const meta: Meta<typeof RdsCompAiIcon> = {
         sx: { control: "object", description: "MUI system styles applied to the rendered icon." },
         ref: { control: false, description: "React ref to the rendered icon element; assign it in code." },
         svgIcon: { control: false, description: "Custom SVG icon component." },
-        colorVariant: {
+        color: {
             options: [
                 "primary",
                 "success",
-                "danger",
+                "error",
                 "warning",
                 "light",
                 "info",
@@ -51,7 +51,7 @@ export const Default: Story = {
         height: "24px",
         fill: false,
         stroke: true,
-        colorVariant: "primary",
+        color: "primary",
         cursorPointer: true,
     },
     play: async ({ canvasElement }) => {
@@ -66,7 +66,7 @@ Default.parameters = {
             "name",
             "width",
             "height",
-            "colorVariant",
+            "color",
             "cursorPointer",
             "className",
             "sx",

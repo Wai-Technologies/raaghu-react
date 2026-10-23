@@ -234,7 +234,7 @@ function RdsCompAiFabMenu({
             stroke={true}
             height="24px"
             width="24px"
-            colorVariant={resolvedIconColorVariant}
+            color={resolvedIconColorVariant}
           />
         ) : (
           resolvedIcon

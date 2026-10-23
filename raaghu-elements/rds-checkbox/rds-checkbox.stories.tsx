@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsCheckbox> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    labelText: {
+    label: {
       control: 'text',
       description: 'Label text for the checkbox',
     },
@@ -52,27 +52,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    labelText: 'Default Checkbox',
+    label: 'Default Checkbox',
   },
 };
 
 export const Checked: Story = {
   args: {
-    labelText: 'Checked Checkbox',
+    label: 'Checked Checkbox',
     status: 'checked',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    labelText: 'Disabled Checkbox',
+    label: 'Disabled Checkbox',
     disabled: true,
   },
 };
 
 export const DisabledChecked: Story = {
   args: {
-    labelText: 'Disabled Checked',
+    label: 'Disabled Checked',
     status: 'checked',
     disabled: true,
   },
@@ -80,14 +80,14 @@ export const DisabledChecked: Story = {
 
 export const Indeterminate: Story = {
   args: {
-    labelText: 'Indeterminate Checkbox',
+    label: 'Indeterminate Checkbox',
     status: 'indeterminate',
   },
 };
 
 export const Primary: Story = {
   args: {
-    labelText: 'Primary Color',
+    label: 'Primary Color',
     color: 'primary',
     status: 'checked',
   },
@@ -95,7 +95,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    labelText: 'Secondary Color',
+    label: 'Secondary Color',
     color: 'secondary',
     status: 'checked',
   },
@@ -103,7 +103,7 @@ export const Secondary: Story = {
 
 export const Small: Story = {
   args: {
-    labelText: 'Small Checkbox',
+    label: 'Small Checkbox',
     size: 'small',
   },
 };

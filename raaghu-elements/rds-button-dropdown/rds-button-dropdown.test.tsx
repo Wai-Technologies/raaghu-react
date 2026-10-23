@@ -6,7 +6,22 @@ import { axe } from 'jest-axe';
 
 jest.mock('./rds-button-dropdown.scss', () => ({}));
 
-jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../shared/utils/deprecation', () => {
+  const warnDeprecatedProp = jest.fn();
+  return {
+    warnDeprecatedProp,
+    resolveDeprecatedProp: (
+      canonical: unknown,
+      legacy: unknown,
+      component: string,
+      legacyName: string,
+      replacement: string,
+    ) => {
+      if (legacy !== undefined) warnDeprecatedProp(component, legacyName, replacement);
+      return canonical !== undefined ? canonical : legacy;
+    },
+  };
+});
 
 const mockButtonProps = jest.fn();
 

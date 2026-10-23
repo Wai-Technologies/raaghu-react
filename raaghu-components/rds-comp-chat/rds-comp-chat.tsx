@@ -24,12 +24,18 @@ export interface UserData {
   activeDotButton: boolean;
   status: string;
   size: string;
-  colorVariant: string;
+  /** User accent color. Preferred over `colorVariant`. */
+  color?: string;
+  /** @deprecated Use `color`. */
+  colorVariant?: string;
   time: string;
   profilePic: string;
   messageStatus: string;
   comments: Comment[];
   profileType?: string;
+  /** Shows the profile picture. Preferred over `withProfilePic`. */
+  showProfilePic?: boolean;
+  /** @deprecated Use `showProfilePic`. */
   withProfilePic?: boolean;
   style?: string;
 }

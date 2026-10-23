@@ -9,6 +9,7 @@ import { type ToolbarButtonConfig } from "./rds-comp-toolbar-config-types";
 export type { ToolbarButtonConfig, ToolbarConfig, ToolbarOption } from "./rds-comp-toolbar-config-types";
 import { getToolbarConfig } from "./rds-comp-toolbar-config-data";
 import { buttonHasDropdown, isEmojiAction } from "./rds-comp-toolbar-dropdown-options";
+import { resolveDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toolbar.scss";
 
 
@@ -16,7 +17,7 @@ function ToolbarSectionButtons({
   section,
   sectionIndex,
   isActive,
-  isDisabled,
+  disabled,
   openDropdown,
   handleFormatClick,
   handleDropdownSelect,
@@ -25,7 +26,7 @@ function ToolbarSectionButtons({
   section: ToolbarButtonConfig[];
   sectionIndex: number;
   isActive: (format: string) => boolean;
-  isDisabled: boolean;
+  disabled: boolean;
   openDropdown: string | null;
   handleFormatClick: (format: string, hasDropdown?: boolean) => void;
   handleDropdownSelect: (parentAction: string, option: string) => void;
@@ -46,7 +47,7 @@ function ToolbarSectionButtons({
               options={button.options}
               ariaLabel={button.ariaLabel}
               isActive={isActive(button.action)}
-              isDisabled={isDisabled}
+              disabled={disabled}
               dropdownAction={openDropdown}
               onClick={() => handleFormatClick(button.action, hasDropdown)}
               onDropdownSelect={handleDropdownSelect}
@@ -68,7 +69,8 @@ const RdsCompToolbar = ({
   variant,
   type: typeProp = ToolbarType.FullFeatured,
   preset,
-  disabled,
+  disabled: disabledProp,
+  isDisabled: isDisabledProp,
   items,
   value,
   defaultValue,
@@ -87,7 +89,9 @@ const RdsCompToolbar = ({
   const activeFormats = value ?? internalFormats;
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
-  const isDisabled = Boolean(disabled);
+  const isToolbarDisabled = Boolean(
+    resolveDeprecatedProp(disabledProp, isDisabledProp, 'RdsCompToolbar', 'isDisabled', '`disabled`'),
+  );
   const sections = items ?? getToolbarConfig(type).sections;
 
   const handleRef = useForkRef(toolbarRef, ref);
@@ -111,7 +115,7 @@ const RdsCompToolbar = ({
   };
 
   const handleFormatClick = (format: string, hasDropdown?: boolean) => {
-    if (isDisabled) return;
+    if (isToolbarDisabled) return;
 
     if (hasDropdown) {
       setOpenDropdown(openDropdown === format ? null : format);
@@ -144,7 +148,7 @@ const RdsCompToolbar = ({
       section={section}
       sectionIndex={sectionIndex}
       isActive={isActive}
-      isDisabled={isDisabled}
+      disabled={isToolbarDisabled}
       openDropdown={openDropdown}
       handleFormatClick={handleFormatClick}
       handleDropdownSelect={handleDropdownSelect}
@@ -159,14 +163,14 @@ const RdsCompToolbar = ({
         "rds-comp-toolbar",
         layout === ToolbarLayout.Primary ? "rds-comp-toolbar--primary" : "rds-comp-toolbar--secondary",
         `rds-comp-toolbar--${type}`,
-        isDisabled && "rds-comp-toolbar--disabled",
+        isToolbarDisabled && "rds-comp-toolbar--disabled",
         className
       )}
       data-testid={testId}
       sx={sx}
       role="toolbar"
       aria-label={`${type} toolbar`}
-      aria-disabled={isDisabled || undefined}
+      aria-disabled={isToolbarDisabled || undefined}
       {...props}
     >
       {layout === ToolbarLayout.Primary ? (

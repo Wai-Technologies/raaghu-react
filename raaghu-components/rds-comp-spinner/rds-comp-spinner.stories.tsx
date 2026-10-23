@@ -26,7 +26,7 @@ const meta: Meta = {
         sx: { control: 'object', description: 'MUI system styles applied to the spinner root.' },
         ref: { control: false, description: 'React ref to the spinner root; assign it in code.' },
         size: {
-            options: ["Default", "Small", "Large",],
+            options: ["default", "small", "medium", "large"],
             control: { type: "select" },
             description: "Size of the spinner",
         },
@@ -44,9 +44,9 @@ const meta: Meta = {
             description: "Type of spinner",
         },
         color: {
-            options: ["primary", "secondary", "success", "danger", "warning", "info", "dark"],
+            options: ["primary", "secondary", "success", "error", "warning", "info", "dark"],
             control: { type: "select" },
-            description: "Color variant of the spinner",
+            description: "Color of the spinner (`danger` still accepted as an alias of `error`)",
         },
         level: {
             options: ["01", "02", "03", "04"],

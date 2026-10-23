@@ -1,10 +1,14 @@
+/** Canonical lowercase size tokens. Enum keys stay PascalCase for existing call sites. */
 export const SpinnerSize = {
-  Default: 'Default',
-  Small: 'Small',
-  Large: 'Large',
-  Medium: 'Medium',
+  Default: 'default',
+  Small: 'small',
+  Large: 'large',
+  Medium: 'medium',
 } as const;
 export type SpinnerSize = (typeof SpinnerSize)[keyof typeof SpinnerSize];
+
+/** @deprecated PascalCase string sizes; use `SpinnerSize.Small` / `'small'` etc. */
+export type SpinnerSizeLegacy = 'Default' | 'Small' | 'Medium' | 'Large';
 
 export const SpinnerLayout = {
   LabelOnBottom: 'Label on bottom',
@@ -37,7 +41,7 @@ export interface RdsCompSpinnerProps {
   label?: string;
   /** @deprecated Use `label` instead. */
   labelText?: string;
-  size?: SpinnerSize;
+  size?: SpinnerSize | SpinnerSizeLegacy;
   layout?: SpinnerLayout;
   /** Label position relative to the spinner; wins over `layout`. */
   labelPlacement?: "top" | "bottom" | "start" | "end";

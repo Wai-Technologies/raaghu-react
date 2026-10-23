@@ -31,3 +31,42 @@ describe('warnDeprecatedProp', () => {
     expect(warn).not.toHaveBeenCalled();
   });
 });
+
+describe('resolveDeprecatedProp', () => {
+  const originalEnv = process.env.NODE_ENV;
+  afterEach(() => {
+    process.env.NODE_ENV = originalEnv;
+    jest.restoreAllMocks();
+  });
+
+  const load = () => {
+    let fn!: typeof import('./deprecation').resolveDeprecatedProp;
+    jest.isolateModules(() => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports -- fresh module instance per test
+      fn = require('./deprecation').resolveDeprecatedProp;
+    });
+    return fn;
+  };
+
+  it('returns canonical when both are set and still warns about legacy', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const resolveDeprecatedProp = load();
+    expect(resolveDeprecatedProp(true, false, 'RdsX', 'isDisabled', '`disabled`')).toBe(true);
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0][0]).toContain('isDisabled');
+  });
+
+  it('returns legacy and warns when only legacy is set', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const resolveDeprecatedProp = load();
+    expect(resolveDeprecatedProp(undefined, 'small', 'RdsX', 'selectSize', '`size`')).toBe('small');
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0][0]).toContain('selectSize');
+  });
+
+  it('returns undefined when neither is set', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    expect(load()(undefined, undefined, 'RdsX', 'old', '`new`')).toBeUndefined();
+    expect(warn).not.toHaveBeenCalled();
+  });
+});

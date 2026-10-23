@@ -78,7 +78,7 @@ const sampleItems: boardInfo[] = [
         status: "unassigned",
         name: "Board 1",
         subCardIndex: 0,
-        colorType: "primary",
+        color: "primary",
         actions: moreCardOptions,
         subCards: [
             {

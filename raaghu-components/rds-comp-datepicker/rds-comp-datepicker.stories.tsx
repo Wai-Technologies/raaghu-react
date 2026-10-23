@@ -74,4 +74,4 @@ export const Default: Story = {
         await expect(input).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['type','openPickerIcon','layout','showTitle','datePickerLabel','required','placeholder','variant','selected','className','sx','ref'] } };
+Default.parameters = { controls: { include: ['type','openPickerIcon','layout','showTitle','datePickerLabel','required','disabled','placeholder','variant','selected','className','sx','ref'] } };

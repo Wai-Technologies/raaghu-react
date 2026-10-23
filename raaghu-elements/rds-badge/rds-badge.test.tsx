@@ -168,7 +168,7 @@ describe('RdsBadge', () => {
       const { container } = render(
         <RdsBadge {...defaultProps} colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-badge--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--error')).toBeInTheDocument();
     });
 
     it('should apply warning color', () => {
@@ -334,7 +334,7 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--large')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--rectangle')).toBeInTheDocument();
       expect(container.querySelector('.rds-badge--outline')).toBeInTheDocument();
-      expect(container.querySelector('.rds-badge--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-badge--error')).toBeInTheDocument();
     });
 
     it('should handle size, shape, and color variations', () => {
@@ -560,7 +560,8 @@ describe('RdsBadge', () => {
         const { container } = render(
           <RdsBadge badgeContent={5} colorVariant={color} />
         );
-        expect(container.querySelector(`.rds-badge--${color}`)).toBeInTheDocument();
+        const expected = color === 'danger' ? 'error' : color;
+        expect(container.querySelector(`.rds-badge--${expected}`)).toBeInTheDocument();
       });
     });
   });

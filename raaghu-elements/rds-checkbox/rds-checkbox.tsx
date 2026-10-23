@@ -5,7 +5,7 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-checkbox.scss';
 
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
-  /** Text shown next to the checkbox. Takes precedence over `label`. */
+  /** @deprecated Use `label`. Takes precedence over `label` when both are set. */
   labelText?: string;
   /** Text shown next to the checkbox. */
   label?: string;
@@ -41,6 +41,7 @@ const RdsCheckbox = ({
   ...props
 }: RdsCheckboxProps) => {
   if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
+  if (labelText !== undefined) warnDeprecatedProp('RdsCheckbox', 'labelText', '`label`');
 
   const legacyShape = typeof style === 'string' ? style : undefined;
   if (legacyShape !== undefined) warnDeprecatedProp('RdsCheckbox', 'style', '`variant`');

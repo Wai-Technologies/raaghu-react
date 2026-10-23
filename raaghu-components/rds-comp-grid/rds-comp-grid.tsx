@@ -49,7 +49,7 @@ import {
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DragUpdate, DroppableProvided, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -584,14 +584,13 @@ const RdsCompGrid = ({
   if (isSort !== undefined) warnDeprecatedProp('RdsCompGrid', 'isSort', '`sortable`');
   if (isFilter !== undefined) warnDeprecatedProp('RdsCompGrid', 'isFilter', '`filterable`');
   if (isResizable !== undefined) warnDeprecatedProp('RdsCompGrid', 'isResizable', '`resizable`');
-  if (isLoading !== undefined) warnDeprecatedProp('RdsCompGrid', 'isLoading', '`loading`');
   if (onPaginationHandler !== undefined) warnDeprecatedProp('RdsCompGrid', 'onPaginationHandler', '`onPagination`');
   if (tableHeaders.some(h => h.isSort !== undefined || h.isFilter !== undefined || h.isResizable !== undefined)) {
     warnDeprecatedProp('RdsCompGrid', 'tableHeaders[].isSort/isFilter/isResizable', '`sortable`/`filterable`/`resizable`');
   }
   const sortable = sortableProp ?? isSort ?? true;
   const filterable = filterableProp ?? isFilter ?? true;
-  const loading = loadingProp ?? isLoading ?? false;
+  const loading = resolveDeprecatedProp(loadingProp, isLoading, 'RdsCompGrid', 'isLoading', '`loading`') ?? false;
   const onPagination = onPaginationProp ?? onPaginationHandler;
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());

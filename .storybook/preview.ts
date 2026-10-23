@@ -9,6 +9,10 @@ import '../raaghu-react-themes/src/styles/index.scss';
 import './custom-theme.css';
 import { getDocsTheme } from './storybook-docs-theme';
 import './storybook-theme-sync';
+import {
+  reactNodeArgTypes,
+  sanitizeReactNodeArgs,
+} from './sanitize-react-node-args';
 
 const preview: Preview = {
   initialGlobals: {
@@ -30,6 +34,15 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+  },
+  // Disable object editors for ReactNode slots (Storybook often yields `{}`).
+  argTypes: {
+    ...reactNodeArgTypes,
+    ref: { control: false },
+    component: { control: false },
+    slots: { control: false },
+    slotProps: { control: false },
+    container: { control: false },
   },
   parameters: {
     controls: {
@@ -93,6 +106,12 @@ const preview: Preview = {
         theme: docsTheme,
       };
 
+      // Drop `{}` (and other plain objects) from ReactNode args before render.
+      const safeArgs = sanitizeReactNodeArgs(
+        (context.args ?? {}) as Record<string, unknown>,
+      );
+      context.args = safeArgs;
+
       return React.createElement(
         RaaghuThemeProvider,
         {
@@ -100,7 +119,8 @@ const preview: Preview = {
           // Theme persistence is handled outside Storybook; avoid fighting toolbar globals.
           initializeOnMount: false,
         },
-        React.createElement(Story),
+        // Pass sanitized args so CSF render functions cannot receive `{}` slots.
+        React.createElement(Story, { args: safeArgs }),
       );
     },
   ],

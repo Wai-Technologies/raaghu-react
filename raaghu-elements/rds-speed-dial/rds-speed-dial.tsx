@@ -72,7 +72,7 @@ const RdsSpeedDial = ({
       onClose={handleClose}
       {...props}
     >
-      {actions.map((action) => (
+      {(actions ?? []).map((action) => (
         <MuiSpeedDialAction
           key={action.name}
           icon={action.icon}

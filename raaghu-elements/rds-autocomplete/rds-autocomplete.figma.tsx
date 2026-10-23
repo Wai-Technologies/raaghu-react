@@ -16,7 +16,7 @@ figma.connect(
       disabled: figma.boolean("🚫 Disabled"),
       error: figma.boolean("⚠️ Error"),
       readOnly: figma.boolean("🔒 Read Only"),
-      selectSize: figma.enum("📏 Size",  {
+      size: figma.enum("📏 Size",  {
         "Small": "small",
         "Medium": "medium",
         "Large": "large"
@@ -30,9 +30,9 @@ figma.connect(
         placeholder="Search here..."
         label="Label"
         helperText="Select one of the available options"
-        isShowRadio
-        isShowUser
-        isShowCheckbox
+        showRadio
+        showUser
+        showCheckbox
         userIcon={<PersonIcon />}
         options={[
         {

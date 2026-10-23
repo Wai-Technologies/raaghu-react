@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import clsx from 'clsx';
 import "./rds-comp-color-picker.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { getColorDisplay, normalizeHex, parseHexToRgb, resolveColorToHex, rgbToHex } from "./color-utils";
 import {
   ColorPickerGrid,
@@ -63,8 +63,13 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
     ref,
     ...rest
   } = props;
-  if (isDisabledProp !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'isDisabled', '`disabled`');
-  const isDisabled = disabled ?? isDisabledProp;
+  const isDisabled = resolveDeprecatedProp(
+    disabled,
+    isDisabledProp,
+    'RdsCompColorPicker',
+    'isDisabled',
+    '`disabled`',
+  );
   if (colorModeProp !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'colorMode', '`format`');
   if (pickerType !== undefined) warnDeprecatedProp('RdsCompColorPicker', 'pickerType', '`view`');
   const value = valueProp ?? defaultValue;

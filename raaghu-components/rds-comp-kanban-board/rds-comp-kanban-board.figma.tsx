@@ -81,7 +81,7 @@ figma.connect(
               },
             ],
             cardId: 1,
-            colorType: "primary",
+            color: "primary",
             key: "",
             name: "Board 1",
             status: "unassigned",

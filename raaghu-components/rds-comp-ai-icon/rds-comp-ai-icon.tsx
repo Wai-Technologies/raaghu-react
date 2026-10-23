@@ -4,7 +4,8 @@ import { memo, useMemo, type ComponentType, type KeyboardEvent, type MouseEventH
 import "./rds-comp-ai-icon.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
-import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 
@@ -99,6 +100,9 @@ export interface RdsCompAiIconProps
   > {
   width?: string;
   height?: string;
+  /** Palette class (`rds-comp-ai-icon--{color}`). `danger` is normalized to `error`. */
+  color?: string;
+  /** @deprecated Use `color`. */
   colorVariant?: string;
   name?: string;
   fill?: boolean;
@@ -162,6 +166,7 @@ export interface RdsCompAiIconProps
 const RdsCompAiIconComponent = ({
   width,
   height,
+  color,
   colorVariant,
   name,
   fill,
@@ -259,11 +264,15 @@ const RdsCompAiIconComponent = ({
     [height, width, strokeWidth, position]
   );
 
+  const resolvedColor = normalizePaletteColor(
+    resolveDeprecatedProp(color, colorVariant, "RdsCompAiIcon", "colorVariant", "`color`"),
+  );
+
   const className = clsx(
     "rds-comp-ai-icon",
     classNameProp ?? classes,
     cursorPointer && "rds-comp-ai-icon--cursor",
-    colorVariant && `rds-comp-ai-icon--${colorVariant}`
+    resolvedColor && `rds-comp-ai-icon--${resolvedColor}`
   );
 
   if (IconComponent) {

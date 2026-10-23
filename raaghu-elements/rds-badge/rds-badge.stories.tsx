@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsBadge> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      exclude: ['component', 'slots', 'slotProps', 'color', 'children'],
+      exclude: ['component', 'slots', 'slotProps', 'colorVariant', 'styleType', 'children'],
     },
   },
   tags: ['autodocs', 'stable'],
@@ -44,10 +44,10 @@ const meta: Meta<typeof RdsBadge> = {
       description: 'Disables the badge',
       defaultValue: false,
     },
-    colorVariant: {
+    color: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'light', 'success'],
-      description: 'Badge color variant',
+      options: ['primary', 'secondary', 'tertiary', 'error', 'warning', 'light', 'success'],
+      description: 'Badge palette color (`danger` maps to `error`)',
       defaultValue: 'primary',
     },
   component: { control: { disable: true }, table: { disable: true } },

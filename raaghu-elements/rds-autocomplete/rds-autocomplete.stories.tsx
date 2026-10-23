@@ -63,7 +63,7 @@ const meta: Meta<typeof RdsAutocomplete> = {
       defaultValue: true,    
       description: 'Toggle to show or hide hint text'
     },
-    selectSize: {
+    size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
       defaultValue: 'medium',
@@ -83,17 +83,17 @@ const meta: Meta<typeof RdsAutocomplete> = {
       control: { type: 'boolean' },
       description: 'Control whether the options list is open',
     },
-    isShowCheckbox: {
+    showCheckbox: {
       control: { type: 'boolean' },
       description: 'Show checkbox with options only',
       defaultValue: false,
     },
-    isShowRadio: {
+    showRadio: {
       control: { type: 'boolean' },
       description: 'Show radio buttons with options only',
       defaultValue: false,
     },
-    isShowUser: {
+    showUser: {
       control: { type: 'boolean' },
       description: 'Show user icon with options only',
       defaultValue: false,
@@ -119,19 +119,19 @@ export const Default: Story = {
     required: true,
     placeholder: 'Start typing...',
     showHintText: true,
-    selectSize: 'medium',
+    size: 'medium',
     helperText: 'Select one of the available options',
     controlStyle: 'default',
-    isShowCheckbox: false,
-    isShowRadio: false,
-    isShowUser: false,
+    showCheckbox: false,
+    showRadio: false,
+    showUser: false,
     getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
 Default.parameters = { 
   controls: { 
-  include: ['options', 'label', 'required', 'placeholder', 'showHintText', 'selectSize', 'helperText', 'controlStyle', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'error', 'disabled', 'readOnly', 'selected', 'open', 'showTitle']
+  include: ['options', 'label', 'required', 'placeholder', 'showHintText', 'size', 'helperText', 'controlStyle', 'showCheckbox', 'showRadio', 'showUser', 'variant', 'error', 'disabled', 'readOnly', 'selected', 'open', 'showTitle']
   } 
 };
 
@@ -142,16 +142,16 @@ export const Disabled: Story = {
     required: true,
     placeholder: 'Start typing...',
     disabled: true,
-    isShowCheckbox: false,
-    isShowRadio: false,
-    isShowUser: false,
+    showCheckbox: false,
+    showRadio: false,
+    showUser: false,
     getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
 Disabled.parameters = { 
   controls: { 
-    include: ['options', 'label', 'required', 'placeholder', 'disabled', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'selectSize'] 
+    include: ['options', 'label', 'required', 'placeholder', 'disabled', 'showCheckbox', 'showRadio', 'showUser', 'variant', 'size'] 
   } 
 };
 
@@ -163,16 +163,16 @@ export const Error: Story = {
     placeholder: 'Start typing...',
     error: true,
     helperText: 'Please select a valid option',
-    isShowCheckbox: false,
-    isShowRadio: false,
-    isShowUser: false,
+    showCheckbox: false,
+    showRadio: false,
+    showUser: false,
     getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
 Error.parameters = { 
   controls: { 
-    include: ['options', 'label', 'required', 'placeholder', 'error', 'helperText', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'selectSize', 'showHintText'] 
+    include: ['options', 'label', 'required', 'placeholder', 'error', 'helperText', 'showCheckbox', 'showRadio', 'showUser', 'variant', 'size', 'showHintText'] 
   } 
 };
 
@@ -183,16 +183,16 @@ export const Filled: Story = {
     required: true,
     placeholder: 'Start typing...',
     variant: 'filled',
-    isShowCheckbox: false,
-    isShowRadio: false,
-    isShowUser: false,
+    showCheckbox: false,
+    showRadio: false,
+    showUser: false,
     getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
 Filled.parameters = { 
   controls: { 
-    include: ['options', 'label', 'required', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+    include: ['options', 'label', 'required', 'placeholder', 'variant', 'showCheckbox', 'showRadio', 'showUser', 'size'] 
   } 
 };
 
@@ -203,16 +203,16 @@ export const Standard: Story = {
     required: true,
     placeholder: 'Start typing...',
     variant: 'standard',
-    isShowCheckbox: false,
-    isShowRadio: false,
-    isShowUser: false,
+    showCheckbox: false,
+    showRadio: false,
+    showUser: false,
     getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
 Standard.parameters = { 
   controls: { 
-    include: ['options', 'label', 'required', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+    include: ['options', 'label', 'required', 'placeholder', 'variant', 'showCheckbox', 'showRadio', 'showUser', 'size'] 
   } 
 };
 
@@ -224,15 +224,15 @@ export const WithHelperText: Story = {
     placeholder: 'Start typing...',
     helperText: 'Select one of the available options',
     showHintText: true,
-    isShowCheckbox: false,
-    isShowRadio: false,
-    isShowUser: false,
+    showCheckbox: false,
+    showRadio: false,
+    showUser: false,
     getOptionIcon: () => <UserIcon />,
     popupIcon: <PopupIcon />,
   },
 };
 WithHelperText.parameters = { 
   controls: { 
-    include: ['options', 'label', 'required', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+    include: ['options', 'label', 'required', 'placeholder', 'variant', 'showCheckbox', 'showRadio', 'showUser', 'size'] 
   } 
 };

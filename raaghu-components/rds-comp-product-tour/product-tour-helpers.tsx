@@ -220,9 +220,9 @@ export const renderFormInputs = () => (
                     helperText=""
                     hideClearAllOnMobile={true}
                     required={false}
-                    isShowCheckbox={true}
-                    isShowRadio={false}
-                    isShowUser={true}
+                    showCheckbox={true}
+                    showRadio={false}
+                    showUser={true}
                     label={undefined}
                     options={[
                         { label: 'Option 1', value: 1 },

@@ -30,6 +30,8 @@ export interface RdsCompToolbarProps
   preset?: `${ToolbarType}`;
   /** Disables every button. */
   disabled?: boolean;
+  /** @deprecated Use `disabled`. */
+  isDisabled?: boolean;
   /** Custom sections of buttons. Replaces the `type` preset. Give a button `options` to make it a dropdown. */
   items?: ToolbarButtonConfig[][];
   /** Active formats (controlled). */

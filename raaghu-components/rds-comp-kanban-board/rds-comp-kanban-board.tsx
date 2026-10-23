@@ -69,7 +69,7 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
               <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">{subCard.displayId ?? 'RDS110110'}</Typography>
             </Box>
             <Box className="rds-kanban-board__sub-card-header-right">
-              <RdsBadge badgeContent={subCard.badge ?? 'Badge'} color="secondary" size="small" shape="rectangle" colorVariant="secondary" />
+              <RdsBadge badgeContent={subCard.badge ?? 'Badge'} color="secondary" size="small" shape="rectangle" />
               <IconButton
                 size="small"
                 onClick={(e) => { e.stopPropagation(); toggleSubCardDropdown(cardId, e, subCard, boardIndex); }}
@@ -318,7 +318,7 @@ const RdsCompKanbanBoard = ({
         {boards.map((card, index) => (
           <Box key={card.cardId}>
             {showBoard && card.name && (
-              <Box className={`kanban-board ${colorClass(card.colorType)}`}>
+              <Box className={`kanban-board ${colorClass(card.color ?? card.colorType ?? 'primary')}`}>
                 <Card className={clsx("kanban-board__card", card.subCards && card.subCards.length === 0 && "kanban-board__card--empty-board")}>
                   <CardContent className="kanban-board__card-content">
                     <Box className="kanban-board__card-header">

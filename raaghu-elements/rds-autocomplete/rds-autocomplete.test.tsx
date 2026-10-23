@@ -6,7 +6,22 @@ import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 jest.mock('./rds-autocomplete.scss', () => ({}));
-jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../shared/utils/deprecation', () => {
+  const warnDeprecatedProp = jest.fn();
+  return {
+    warnDeprecatedProp,
+    resolveDeprecatedProp: (
+      canonical: unknown,
+      legacy: unknown,
+      component: string,
+      legacyName: string,
+      replacement: string,
+    ) => {
+      if (legacy !== undefined) warnDeprecatedProp(component, legacyName, replacement);
+      return canonical !== undefined ? canonical : legacy;
+    },
+  };
+});
 
 jest.mock('../rds-checkbox/rds-checkbox', () => {
   return function MockRdsCheckbox(props: any) {
@@ -69,20 +84,20 @@ describe('RdsAutocomplete', () => {
       else asterisk.not.toBeInTheDocument();
     });
 
-    it.each([['large', 'large'], ['small', 'small'], [undefined, 'medium']])('label size class for selectSize=%s', (selectSize, cls) => {
-      const { container } = setup({ label: 'Label', showTitle: true, selectSize });
+    it.each([['large', 'large'], ['small', 'small'], [undefined, 'medium']])('label size class for size=%s', (size, cls) => {
+      const { container } = setup({ label: 'Label', showTitle: true, size });
       expect(q(container, `.rds-autocomplete__label--${cls}`)).toBeInTheDocument();
     });
   });
 
   describe('Size Variants', () => {
-    it.each([['small', 'small'], [undefined, 'medium'], ['large', 'large']])('selectSize=%s applies --%s', (selectSize, cls) => {
-      const { container } = setup({ selectSize });
+    it.each([['small', 'small'], [undefined, 'medium'], ['large', 'large']])('size=%s applies --%s', (size, cls) => {
+      const { container } = setup({ size });
       expect(q(container, `.rds-autocomplete--${cls}`)).toBeInTheDocument();
     });
 
     it('should apply size class to textfield', () => {
-      const { container } = setup({ selectSize: 'large' });
+      const { container } = setup({ size: 'large' });
       expect(q(container, '.rds-autocomplete__textfield.rds-autocomplete--large')).toBeInTheDocument();
     });
   });
@@ -244,9 +259,9 @@ describe('RdsAutocomplete', () => {
     });
 
     it.each([[undefined, '.rds-autocomplete__chip'], ['small', '.rds-autocomplete__chip--small'], ['large', '.rds-autocomplete__chip--large']])(
-      'chip class for selectSize=%s',
-      (selectSize, sel) => {
-        const { container } = setup({ allowMultiple: true, selected: true, selectSize });
+      'chip class for size=%s',
+      (size, sel) => {
+        const { container } = setup({ allowMultiple: true, selected: true, size });
         expect(q(container, sel)).toBeInTheDocument();
       }
     );
@@ -311,9 +326,9 @@ describe('RdsAutocomplete', () => {
         label: 'Department',
         placeholder: 'Select department...',
         helperText: 'Choose from list',
-        selectSize: 'large',
+        size: 'large',
         variant: 'outlined',
-        isMandatory: true,
+        required: true,
         showHintText: true,
         controlStyle: 'bottom line',
         isShowUser: true,
@@ -331,7 +346,7 @@ describe('RdsAutocomplete', () => {
     });
 
     it('should handle all size and style combinations', () => {
-      const { container } = setup({ selectSize: 'large', variant: 'filled', controlStyle: 'bottom line', open: true });
+      const { container } = setup({ size: 'large', variant: 'filled', controlStyle: 'bottom line', open: true });
       expect(q(container, '.rds-autocomplete--large')).toBeInTheDocument();
       expect(q(container, '.rds-autocomplete__textfield--bottom-line')).toBeInTheDocument();
     });
@@ -431,7 +446,7 @@ describe('RdsAutocomplete', () => {
         placeholder: 'Type name...',
         helperText: 'Start typing to search',
         showHintText: true,
-        selectSize: 'medium',
+        size: 'medium',
         variant: 'outlined',
         isMandatory: true,
         allowMultiple: false,
@@ -560,10 +575,16 @@ describe('RdsAutocomplete audit fixes', () => {
   });
 
   it('renders chips through renderValue with the same classes (G1-045)', () => {
-    const { container } = render(<RdsAutocomplete options={makeOptions()} multiple selected selectSize="small" />);
+    const { container } = render(<RdsAutocomplete options={makeOptions()} multiple selected size="small" />);
     const chip = container.querySelector('.rds-autocomplete__chip');
     expect(chip).toHaveClass('rds-autocomplete__chip--small');
     expect(chip).toHaveTextContent('Option 1');
+  });
+
+  it('keeps selectSize as a deprecated alias of size', () => {
+    const { container } = render(<RdsAutocomplete options={makeOptions()} selectSize="large" />);
+    expect(container.querySelector('.rds-autocomplete--large')).toBeInTheDocument();
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'selectSize', '`size`');
   });
 
   it('merges consumer slotProps.listbox and keeps other slotProps (G1-046)', () => {

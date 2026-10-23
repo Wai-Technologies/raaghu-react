@@ -1,4 +1,4 @@
-import RdsCompChat from "./rds-comp-chat";
+﻿import RdsCompChat from "./rds-comp-chat";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
 
@@ -10,7 +10,7 @@ const meta: Meta = {
         layout: "padded",
         docs: {
     description: {
-        component: 'The **Chat** element is a customizable chat interface component designed for displaying and managing real-time conversations between multiple users. It supports a user list with profile details, status indicators, avatars, and message history. Each user can have a series of comments, and the chat screen can be enabled or disabled as needed. The component allows for visual customization, including separate background and text colors for current user and other users’ messages, making it easy to match different design themes. It also provides hooks for handling new comments, enabling interactive and dynamic chat experiences suitable for messaging features in web applications.'
+        component: 'The **Chat** element is a customizable chat interface component designed for displaying and managing real-time conversations between multiple users. It supports a user list with profile details, status indicators, avatars, and message history. Each user can have a series of comments, and the chat screen can be enabled or disabled as needed. The component allows for visual customization, including separate background and text colors for current user and other usersâ€™ messages, making it easy to match different design themes. It also provides hooks for handling new comments, enabling interactive and dynamic chat experiences suitable for messaging features in web applications.'
     }
 }
     },
@@ -35,11 +35,11 @@ export const Default: Story = {
                 activeDotButton: true,
                 status: "Typing....",
                 size: "medium",
-                colorVariant: "primary",
+                color: "primary",
                 time: "13.00",
                 profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
                 profileType: "icon",
-                withProfilePic: true,
+                showProfilePic: true,
                 messageStatus: "",
                 comments: [
                     {
@@ -60,12 +60,12 @@ export const Default: Story = {
                 activeDotButton: false,
                 status: "Developer",
                 size: "medium",
-                colorVariant: "primary",
+                color: "primary",
                 time: "13.00",
                 profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s",
                 messageStatus: "",
                 profileType: "icon",
-                withProfilePic: true,
+                showProfilePic: true,
                 comments: []
             },
             {
@@ -74,12 +74,12 @@ export const Default: Story = {
                 activeDotButton: false,
                 status: "Company Owner",
                 size: "medium",
-                colorVariant: "primary",
+                color: "primary",
                 time: "13.00",
                 profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0m5Cy4lXCbuyG54L0vuo3i5-ALavHe9KmhWA_wDM&s",
                 messageStatus: "",
                 profileType: "icon",
-                withProfilePic: true,
+                showProfilePic: true,
                 comments: []
             }
         ],
@@ -95,3 +95,4 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = { controls: { include: ["chatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "otherUserCommentTextColor", "className", "sx", "ref"] } };
+
