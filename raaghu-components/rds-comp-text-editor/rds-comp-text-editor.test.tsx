@@ -11,7 +11,7 @@ jest.mock('./rds-comp-text-editor.scss', () => ({}));
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
 jest.mock('draft-js', () => ({
-  Editorstate: {
+  EditorState: {
     createEmpty: jest.fn(() => ({
       getCurrentContent: jest.fn(() => ({
         getPlainText: jest.fn(() => ''),
@@ -21,7 +21,7 @@ jest.mock('draft-js', () => ({
       getCurrentContent: jest.fn(() => contentState),
     })),
   },
-  Contentstate: {
+  ContentState: {
     createFromBlockArray: jest.fn(() => ({
       getPlainText: jest.fn(() => ''),
     })),

@@ -255,15 +255,12 @@ export interface RdsCompGridProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   onRowSwap?: (fromIndex: number, toIndex: number, newData: GridRow[]) => void;
   onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void;
   
-  // Styling
   classes?: string;
   fontWeight?: string;
   illustration?: boolean;
   noDataTitle?: string;
   noDataHeaderTitle?: string;
   
-  
-  // Loading
   loading?: boolean;
   /** @deprecated Use `loading` instead. */
   isLoading?: boolean;
@@ -594,7 +591,6 @@ const RdsCompGrid = ({
   }
   const sortable = sortableProp ?? isSort ?? true;
   const filterable = filterableProp ?? isFilter ?? true;
-  const resizable = resizableProp ?? isResizable ?? true;
   const loading = loadingProp ?? isLoading ?? false;
   const onPagination = onPaginationProp ?? onPaginationHandler;
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
@@ -1670,7 +1666,6 @@ const RdsCompGrid = ({
       onFilterChange?.(newFilterState);
     },
 
-    // Sorting
     getSortState: () => ({ column: sortColumn, direction: sortDirection }),
     setSort: (column: string, direction: 'asc' | 'desc') => {
       setSortColumn(column);
@@ -1721,13 +1716,11 @@ const RdsCompGrid = ({
       setColumnWidths(initialWidths);
     },
 
-    // Grid State
     isCollapsed: () => isCollapsed,
     toggleCollapse: () => setIsCollapsed(!isCollapsed),
     expand: () => setIsCollapsed(false),
     collapse: () => setIsCollapsed(true),
 
-    // Editing
     startEdit: (rowId: string, columnKey?: string) => {
       if (enableInlineEdit) {
         if (inlineEditMode === 'row') {
@@ -2631,8 +2624,6 @@ const RdsCompGrid = ({
                                 '& .senior, & .lead, & .pending, & .active': {
                                   color: 'text.primary',
                                 },
-                                // Style attribute selectors removed - using CSS classes instead
-                                // See rds-comp-grid.scss for themed cell styling classes
                               }}
                             >
                               {cellText}
@@ -2716,7 +2707,6 @@ const RdsCompGrid = ({
                       </TableCell>
                     )}
 
-                    {/* Row editing controls */}
                     {enableInlineEdit && inlineEditMode === 'row' && (
                       <TableCell sx={{ borderRight: 'none' }}>
                         <Stack direction="row" spacing={0.5}>
@@ -2771,7 +2761,6 @@ const RdsCompGrid = ({
         </TableContainer>
       )}
 
-      {/* Filter and Column Visibility Popup */}
       <Popover
         open={isFilterPopupOpen}
         anchorEl={filterAnchorEl}
@@ -3171,7 +3160,6 @@ const RdsCompGrid = ({
                     );
                   })()}
 
-                  {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
                     <RdsButton
                       variant="filled"
@@ -3227,7 +3215,6 @@ const RdsCompGrid = ({
                     />
                   </Stack>
                   
-                  {/* Clear All Filters Button */}
                   {Object.keys(filterState).length > 0 && (
                     <RdsButton
                       variant="transparent"

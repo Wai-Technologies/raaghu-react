@@ -103,7 +103,6 @@ const RdsTabs = ({
     }
   };
 
-const layoutClass = clsx(`rds-tabs--${layout}`);
 
   const tabsWithIcons = tabItems.map((tab) => ({
     ...tab,
@@ -119,7 +118,7 @@ const layoutClass = clsx(`rds-tabs--${layout}`);
       onChange={handleChange}
       orientation={orientation ?? type ?? 'horizontal'}
       {...props}
-      className={clsx('rds-tabs', layoutClass, className)}
+      className={clsx('rds-tabs', `rds-tabs--${layout}`, className)}
     >
       {tabsWithIcons.map((tab) => {
         const labelContent = (

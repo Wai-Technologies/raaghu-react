@@ -10,8 +10,7 @@ import {
   RealEstateContent,
   SelectionContent,
   ToolbarContent,
-  ThumbnailViewContent,
-  FigmaUIKitButton
+  ThumbnailViewContent
 } from "./details-pane-components";
 
 

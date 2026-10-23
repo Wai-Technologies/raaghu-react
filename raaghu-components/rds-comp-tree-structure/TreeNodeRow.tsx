@@ -127,7 +127,6 @@ export const TreeNodeRow = ({
             <span className="rds-comp-tree-structure__icon rds-comp-tree-structure__icon--file">
               {props.getFileIcon ?
                 props.getFileIcon(node.language || props.language || 'Default') :
-                // minimal fallback: render nothing if no icon provider
                 <span />
               }
             </span>

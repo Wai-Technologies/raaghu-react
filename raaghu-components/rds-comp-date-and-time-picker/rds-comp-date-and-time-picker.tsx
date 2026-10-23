@@ -111,7 +111,6 @@ const dateRangePresets: DateRangePreset[] = [
   },
 ];
 
-// Custom Layout Component for Date Range Picker with Presets
 const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, rangeValue }: {
     children: ReactNode;
     selectedPreset: string;
@@ -124,7 +123,6 @@ const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, 
       ref={ref}
       className="rds-date-picker__custom-layout"
     >
-      {/* Preset Options Panel */}
       <div className="rds-date-picker__preset-panel">
         <ul className="rds-date-picker__preset-list">
           {dateRangePresets.map((preset) => (
@@ -143,7 +141,6 @@ const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, 
         </ul>
       </div>
       
-      {/* Calendar/Content Panel */}
       <div className="rds-date-picker__calendar-panel">
         {children}
       </div>
@@ -151,7 +148,6 @@ const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, 
   );
 };
 
-// Utility helpers
 const formatRangeText = (
   variant: 'daterange' | 'timerange' | 'datetimerange',
   value: [Dayjs | null, Dayjs | null],
@@ -242,7 +238,6 @@ function RangeCalendar({
     }
   };
 
-  // Handle month navigation
   const handleMonthChange = (newMonth: Dayjs) => {
     setCurrentMonth(newMonth);
   };
@@ -306,18 +301,14 @@ function RangeTime({
 }) {
   const [start, end] = value;
   
-  // Handle start time change with validation
   const handleStartTimeChange = (newStart: Dayjs | null) => {
     onChange([newStart, end]);
   };
   
-  // Handle end time change with validation
   const handleEndTimeChange = (newEnd: Dayjs | null) => {
     onChange([start, newEnd]);
   };
   
-  // Calculate dynamic minTime for end time picker based on start time
-  // Allow selecting the same time or any time after start time
   const endMinTime = useMemo(() => {
     if (start) {
       return start; // Allow same time or later
@@ -325,8 +316,6 @@ function RangeTime({
     return minTime;
   }, [start, minTime]);
   
-  // Calculate dynamic maxTime for start time picker based on end time
-  // Allow selecting the same time or any time before end time
   const startMaxTime = useMemo(() => {
     if (end) {
       return end; // Allow same time or earlier
@@ -387,57 +376,6 @@ function RangeTime({
         />
       </div>
     </div>
-  );
-}
-
-function SingleDateTime({
-  value,
-  onChange,
-  showSeconds,
-  minDate,
-  maxDate,
-  minTime,
-  maxTime,
-}: {
-  value: Dayjs | null;
-  onChange: (v: Dayjs | null) => void;
-  showSeconds: boolean;
-  minDate?: Dayjs;
-  maxDate?: Dayjs;
-  minTime?: Dayjs;
-  maxTime?: Dayjs;
-}) {
-  const handleTimeChange = (newTime: Dayjs | null) => {
-    onChange(newTime);
-  };
-
-  return (
-    <Box className="rds-date-picker__range-datetime">
-      <DateCalendar
-        value={value}
-        onChange={onChange}
-        minDate={minDate}
-        maxDate={maxDate}
-        displayWeekNumber
-        slotProps={{
-          calendarHeader: {
-            format: 'MMMM YYYY',
-          },
-        }}
-      />
-      <Box className="rds-date-picker__range-datetime-divider" />
-      <Box>
-        <Box className="rds-date-picker__range-datetime-time-label">Time</Box>
-        <TimeClock
-          value={value}
-          onChange={handleTimeChange}
-          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
-          ampm
-          minTime={minTime}
-          maxTime={maxTime}
-        />
-      </Box>
-    </Box>
   );
 }
 
@@ -527,7 +465,6 @@ export default function RdsCompDatePicker({
   required,
   isRequired: legacyRequired,
 }: RdsCompDatePickerProps) {
-  // State management
   if (legacyRequired !== undefined) warnDeprecatedProp('RdsCompDatePicker', 'isRequired', '`required`');
   const legacyStyle = typeof styleProp === 'string' ? styleProp : undefined;
   if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompDatePicker', 'style', '`appearance`');
@@ -543,7 +480,6 @@ export default function RdsCompDatePicker({
   const [selectedPreset, setSelectedPreset] = useState<string>('custom');
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  // Handle preset selection
   const handlePresetSelect = useCallback((preset: DateRangePreset) => {
     setSelectedPreset(preset.key);
     if (preset.key !== 'custom') {
@@ -553,7 +489,6 @@ export default function RdsCompDatePicker({
     }
   }, [onChange]);
 
-  // Event handlers
   const handleDateChange = useCallback((newValue: Dayjs | Date | null) => {
     const normalizedValue =
       newValue === null ? null : dayjs.isDayjs(newValue) ? newValue : dayjs(newValue);
@@ -566,7 +501,6 @@ export default function RdsCompDatePicker({
     onChange?.(newValue);
   }, [onChange]);
 
-  // Format label with required indicator
   const formattedLabel = useMemo(() => {
     if (!label) return undefined;
     return isRequired ? (
@@ -577,7 +511,6 @@ export default function RdsCompDatePicker({
     ) : label;
   }, [label, isRequired]);
 
-  // Common props for all pickers
   const baseProps = useMemo(() => {
     const {
       InputLabelProps: legacyInputLabelProps,
@@ -621,7 +554,6 @@ export default function RdsCompDatePicker({
   };
   }, [disabled, readOnly, size, minDate, maxDate, error, formattedLabel, placeholder, isRequired, slotProps]);
 
-  // Props specific to single value pickers
   const singlePickerProps = useMemo(() => ({
     ...baseProps,
     value: dateValue,
@@ -631,7 +563,6 @@ export default function RdsCompDatePicker({
     format,
   }), [baseProps, dateValue, handleDateChange, minTime, maxTime, format]);
 
-  // Custom combined field for range variants
   const handleRangeFieldOpen = useCallback((anchor: HTMLElement) => {
     if (!disabled) {
       setAnchorEl(anchor);
@@ -768,7 +699,6 @@ export default function RdsCompDatePicker({
     handlePresetSelect, handleRangeChange, handleClearRange,
   ]);
 
-  // Get the appropriate picker component
   const getDatePickerByLayout = useCallback(() => {
     switch (layout) {
       case 'Year Picker':
@@ -790,7 +720,6 @@ export default function RdsCompDatePicker({
         );
       
       case 'Multi Month':
-        // Use range field with two calendars to mimic multi-month range selection
         return renderRangeField();
       
       case 'Default':
@@ -812,7 +741,6 @@ export default function RdsCompDatePicker({
     }
   }, [layout, singlePickerProps, format, renderRangeField]);
 
-  // Get the appropriate picker component
   const getPickerComponent = useCallback(() => {
     switch (variant) {
       case 'time':
@@ -939,7 +867,6 @@ const DEMO_CONFIGS: DemoConfig[] = [
   { label: 'Date Time Range Picker (with seconds)', variant: 'datetimerange', layout: undefined, valueKey: 'datetimerange', showSeconds: true },
 ];
 
-// Demo component showing all variants
 export function DatePickerDemo() {
   const [values, setValues] = useState<DemoValues>({
     date: dayjs(),
@@ -958,9 +885,6 @@ export function DatePickerDemo() {
   };
 
   const demos = DEMO_CONFIGS;
-
-  // Define a default minDate for demo purposes
-  const minDate = dayjs().subtract(1, 'year');
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

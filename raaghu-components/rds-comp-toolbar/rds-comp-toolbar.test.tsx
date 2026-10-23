@@ -683,7 +683,7 @@ describe('RdsCompToolbar', () => {
     it('disables buttons for DisabledOff, and disabled wins over state', () => {
       const { rerender } = render(<RdsCompToolbar {...defaultProps} disabled={true} />);
       expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-disabled', 'true');
-      rerender(<RdsCompToolbar {...defaultProps} disabled={true} disabled={false} />);
+      rerender(<RdsCompToolbar {...defaultProps} disabled={false} />);
       expect(screen.getByTestId('toolbar-button-bold')).toHaveAttribute('data-is-disabled', 'false');
     });
 

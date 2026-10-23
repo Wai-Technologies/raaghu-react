@@ -8,7 +8,6 @@ import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
 import {
         type RdsCompToastProps,
         ToastLayout,
-        ToastLeadingIcon,
 } from "./rds-comp-toast.types";
 import {
     getLeadingIconClass,

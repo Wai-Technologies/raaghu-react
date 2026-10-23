@@ -1,4 +1,3 @@
-
 import type { ElementType, ReactNode } from 'react';
 import {
   Divider as MuiDivider,
@@ -19,91 +18,42 @@ const ICON_MAP = {
 
 export type RdsDividerIconName = keyof typeof ICON_MAP;
 
-type StyleColors = {
-  dividerColor: string;
-  textColor: string;
-  iconBorderColor: string;
-  iconColor: string;
-};
+type StyleColors = { dividerColor: string; textColor: string; iconBorderColor: string; iconColor: string };
 
 type DividerColor = 'subtle' | 'strong' | 'primary';
 
 const STYLE_COLORS: Record<DividerColor, StyleColors> = {
-  subtle: {
-    dividerColor: 'divider',
-    textColor: 'text.secondary',
-    iconBorderColor: 'divider',
-    iconColor: 'text.secondary',
-  },
-  strong: {
-    dividerColor: 'divider',
-    textColor: 'text.primary',
-    iconBorderColor: 'divider',
-    iconColor: 'text.primary',
-  },
-  primary: {
-    dividerColor: 'var(--rds-primary-main)',
-    textColor: 'var(--rds-primary-main)',
-    iconBorderColor: 'var(--rds-primary-main)',
-    iconColor: 'var(--rds-primary-main)',
-  },
+  subtle: { dividerColor: 'divider', textColor: 'text.secondary', iconBorderColor: 'divider', iconColor: 'text.secondary' },
+  strong: { dividerColor: 'divider', textColor: 'text.primary', iconBorderColor: 'divider', iconColor: 'text.primary' },
+  primary: { dividerColor: 'var(--rds-primary-main)', textColor: 'var(--rds-primary-main)', iconBorderColor: 'var(--rds-primary-main)', iconColor: 'var(--rds-primary-main)' },
 };
 
-const DEFAULT_STYLE_COLORS: StyleColors = {
-  dividerColor: 'var(--rds-border-default)',
-  textColor: 'var(--rds-text-secondary)',
-  iconBorderColor: 'var(--rds-border-default)',
-  iconColor: 'var(--rds-text-secondary)',
-};
+const DEFAULT_STYLE_COLORS: StyleColors = { dividerColor: 'var(--rds-border-default)', textColor: 'var(--rds-text-secondary)', iconBorderColor: 'var(--rds-border-default)', iconColor: 'var(--rds-text-secondary)' };
 
-const SIZE_STYLES: Record<
-  string,
-  { borderWidth: string; marginY: number }
-> = {
-  small: {
-    borderWidth: 'var(--rds-divider-border-width-sm, 1px)',
-    marginY: 2,
-  },
-  medium: {
-    borderWidth: 'var(--rds-divider-border-width-md, 2px)',
-    marginY: 2,
-  },
-  large: {
-    borderWidth: 'var(--rds-divider-border-width-lg, 3px)',
-    marginY: 2,
-  },
+const SIZE_STYLES: Record<string, { borderWidth: string; marginY: number }> = {
+  small: { borderWidth: 'var(--rds-divider-border-width-sm, 1px)', marginY: 2 },
+  medium: { borderWidth: 'var(--rds-divider-border-width-md, 2px)', marginY: 2 },
+  large: { borderWidth: 'var(--rds-divider-border-width-lg, 3px)', marginY: 2 },
 };
-
-const DEFAULT_SIZE_STYLES = {
-  borderWidth: 'var(--rds-divider-border-width-md, 2px)',
-  marginY: 2,
-};
+const DEFAULT_SIZE_STYLES = SIZE_STYLES.medium;
 
 export interface RdsDividerProps extends Omit<DividerProps, 'component'> {
   /** Text shown next to the line. Takes precedence over the deprecated `dividerMessage`. */
   children?: ReactNode;
-
   /** @deprecated Use `children` instead. */
   dividerMessage?: string;
-
   /** Figma layout. Defaults to `'horizontal'`. */
   layout?: 'horizontal' | 'vertical';
-
   /** @deprecated Use `icon={null}` to hide the icon instead. */
   iconShow?: boolean;
-
-  /** Icon selected by name. Defaults to `InfoOutlined`. Use `null` or `false` to hide the icon. */
-  icon?: RdsDividerIconName | null | false;
-
+  /** Icon node or icon name. Defaults to `InfoOutlined`. Use `null` or `false` to hide the icon. */
+  icon?: RdsDividerIconName | ReactNode;
   /** @deprecated Use `icon` instead. */
   iconName?: RdsDividerIconName;
-
   /** Line thickness. Defaults to `'medium'`. */
   size?: 'small' | 'medium' | 'large';
-
   /** Colour style. Defaults to `'subtle'`. */
   color?: DividerColor | (string & {});
-
   /** @deprecated Use `color` instead. */
   styleVariant?: DividerColor;
 }
@@ -123,55 +73,24 @@ const RdsDivider = ({
   ref,
   ...props
 }: RdsDividerProps) => {
-  if (dividerMessage !== undefined) {
-    warnDeprecatedProp('RdsDivider', 'dividerMessage', '`children`');
-  }
-
-  if (iconShow !== undefined) {
-    warnDeprecatedProp('RdsDivider', 'iconShow', '`icon={null}`');
-  }
-
-  if (styleVariant !== undefined) {
-    warnDeprecatedProp('RdsDivider', 'styleVariant', '`color`');
-  }
-
-  if (iconName !== undefined) {
-    warnDeprecatedProp('RdsDivider', 'iconName', '`icon`');
-  }
+  if (dividerMessage !== undefined) warnDeprecatedProp('RdsDivider', 'dividerMessage', '`children`');
+  if (iconShow !== undefined) warnDeprecatedProp('RdsDivider', 'iconShow', '`icon={null}`');
+  if (styleVariant !== undefined) warnDeprecatedProp('RdsDivider', 'styleVariant', '`color`');
+  if (iconName !== undefined) warnDeprecatedProp('RdsDivider', 'iconName', '`icon`');
 
   const message: ReactNode = children ?? dividerMessage;
 
-  const hasMessage =
-    message !== undefined &&
-    message !== null &&
-    message !== false &&
-    message !== '';
+  const hasMessage = message !== undefined && message !== null && message !== false && message !== '';
 
-  // The new `icon` prop takes precedence over the deprecated `iconName`.
-  const selectedIcon = icon !== undefined ? icon : iconName;
-  const IconComponent: ElementType =
-    selectedIcon && selectedIcon in ICON_MAP
-      ? ICON_MAP[selectedIcon as RdsDividerIconName]
-      : InfoOutlinedIcon;
+  const iconKey = typeof icon === 'string' ? icon : typeof iconName === 'string' ? iconName.trim() : undefined;
+  const IconComponent: ElementType = ICON_MAP[iconKey as RdsDividerIconName] ?? InfoOutlinedIcon;
+  const customIcon = icon !== undefined && typeof icon !== 'string' ? icon : undefined;
 
-  const showIcon =
-    (iconShow ?? true) &&
-    selectedIcon !== null &&
-    selectedIcon !== false;
+  const showIcon = (iconShow ?? true) && icon !== null && icon !== false;
 
-  const isStyleColor =
-    color !== undefined &&
-    Object.prototype.hasOwnProperty.call(STYLE_COLORS, color);
-
-  const styleColors =
-    STYLE_COLORS[
-      isStyleColor ? (color as DividerColor) : (styleVariant ?? 'subtle')
-    ] ?? DEFAULT_STYLE_COLORS;
-
-  const lineProps = {
-    ...props,
-    color: isStyleColor ? undefined : color,
-  };
+  const isStyleColor = color !== undefined && Object.prototype.hasOwnProperty.call(STYLE_COLORS, color);
+  const styleColors = STYLE_COLORS[isStyleColor ? (color as DividerColor) : (styleVariant ?? 'subtle')] ?? DEFAULT_STYLE_COLORS;
+  const lineProps = { ...props, color: isStyleColor ? undefined : color };
 
   const dividerLineColor = styleColors.dividerColor;
   const textColor = styleColors.textColor;
@@ -197,12 +116,7 @@ const RdsDivider = ({
             color: iconColor,
           }}
         >
-          <IconComponent
-            sx={{
-              fontSize: 'var(--rds-divider-icon-size, 21px)',
-              color: iconColor,
-            }}
-          />
+          {customIcon ?? <IconComponent sx={{ fontSize: 'var(--rds-divider-icon-size, 21px)', color: iconColor }} />}
         </Box>
       )}
 
@@ -256,11 +170,8 @@ const RdsDivider = ({
     borderWidth: sizeStyles.borderWidth,
   };
 
-  const hasLeadingLine =
-    textAlign === 'center' || textAlign === 'right';
-
-  const hasTrailingLine =
-    textAlign === 'center' || textAlign === 'left';
+  const hasLeadingLine = textAlign === 'center' || textAlign === 'right';
+  const hasTrailingLine = textAlign === 'center' || textAlign === 'left';
 
   const firstLineProps = { id, ref };
 
@@ -272,21 +183,13 @@ const RdsDivider = ({
       my={sizeStyles.marginY}
     >
       {hasLeadingLine && (
-        <MuiDivider
-          sx={lineSx}
-          {...lineProps}
-          {...firstLineProps}
-        />
+        <MuiDivider sx={lineSx} {...lineProps} {...firstLineProps} />
       )}
 
       {content}
 
       {hasTrailingLine && (
-        <MuiDivider
-          sx={lineSx}
-          {...lineProps}
-          {...(hasLeadingLine ? undefined : firstLineProps)}
-        />
+        <MuiDivider sx={lineSx} {...lineProps} {...(hasLeadingLine ? undefined : firstLineProps)} />
       )}
     </Box>
   );

@@ -48,7 +48,6 @@ const RdsBadge = ({
   const isStyleVariant = variant === 'primary' || variant === 'outline' || variant === 'transparent';
   const resolvedStyleType = isStyleVariant ? variant : styleType;
   const muiVariant = isStyleVariant ? undefined : variant;
-  const isDisabled = disabled ?? false;
 
   const bemClass = clsx(
     'rds-badge',
@@ -56,7 +55,7 @@ const RdsBadge = ({
     `rds-badge--${shape}`,
     `rds-badge--${resolvedStyleType}`,
     `rds-badge--${colorVariant || 'primary'}`,
-    isDisabled && 'rds-badge--disabled',
+    disabled && 'rds-badge--disabled',
     className,
   );
 

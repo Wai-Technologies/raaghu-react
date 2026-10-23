@@ -66,7 +66,6 @@ const RdsLoader = ({ className, sx, ref, ...props }: RdsLoaderProps) => {
     );
   }
 
-  // Overlay sits on a dark backdrop — keep label/value text light for contrast in light mode
   const overlayTextSx = overlay
     ? { color: 'var(--rds-neutral-0, #fff)' }
     : undefined;

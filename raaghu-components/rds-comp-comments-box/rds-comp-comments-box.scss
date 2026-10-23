@@ -18,7 +18,6 @@
     opacity: 1;
   }
 
-  // Keep every comment-box avatar identical (32×32, primary, no ring padding)
   .rds-avatar {
     flex-shrink: 0;
 
@@ -46,7 +45,6 @@
     box-shadow: none !important;
   }
   
-  // Figma Commentbox State=Comment Hover — fixed card width (matches tablet), padding/gap spacing-md, radius-s
   &--hover {
     display: flex;
     align-items: stretch;
@@ -150,7 +148,6 @@
     }
   }
   
-  // Figma Commentbox State=Commentbox Thread, Type=Floating — hug ~416×453, padding spacing/md, gap 4px, radius-s
   &--thread {
     display: flex;
     flex-direction: column;
@@ -167,7 +164,6 @@
     box-shadow: none;
     overflow: visible;
 
-    // Compact icon buttons — MUI defaults to 40×40 and collapses the header into the author row
     .MuiIconButton-root.rds-comments-box__more-btn,
     .MuiIconButton-root.rds-comments-box__pushpin-btn,
     .MuiIconButton-root.rds-comments-box__close-btn {
@@ -229,7 +225,6 @@
       }
     }
 
-    // Figma: full-width hairline under header, then breathing room before author row
     .rds-comments-box__thread-divider {
       display: block;
       box-sizing: border-box;
@@ -361,7 +356,6 @@
     .rds-comments-box__preview {
       display: block;
       box-sizing: border-box;
-      // Stay inside comment-content: fixed 200px + avatar indent overflows on ~320px viewports
       width: min(200px, calc(100% - (var(--rds-comments-avatar-size, 32px) + var(--rds-spacing-sm, 8px))));
       max-width: min(200px, calc(100% - (var(--rds-comments-avatar-size, 32px) + var(--rds-spacing-sm, 8px)))) !important;
       height: auto;
@@ -519,7 +513,6 @@
     }
   }
 
-  // Figma Commentbox State=Comment Posted — 32px avatar + unread badge on circle edge
   &--posted {
     display: inline-flex;
     align-items: flex-start;
@@ -579,8 +572,6 @@
       color: var(--rds-primary-contrast-text, #fff) !important;
     }
 
-    // 10px badge on circular avatar NE edge: ~30% inside / ~70% outside (no paper ring)
-    // Square corner math (-7px) sits fully outside the circle; -2px aligns to the arc.
     .rds-comments-box__dot {
       position: absolute !important;
       width: 10px !important;
@@ -603,7 +594,6 @@
     }
   }
 
-  // Figma Commentbox State=Typing: 392×80 — avatar 32px + 12px gap + 342px input
   &--typing {
     max-width: 392px !important;
     width: 392px;
@@ -816,7 +806,6 @@
       }
     }
 
-    // Typing dropdowns: same width as typing section, open a bit below the box
     .rds-comments-box__emoji-dropdown,
     .rds-comments-box__attachment-dropdown-menu,
     .rds-comments-box__mention-dropdown {
@@ -2324,7 +2313,6 @@
   border-top-color: var(--rds-neutral-600, #7d7d7d) !important;
 }
 
-// Typing — dark mode: paper surface + transparent input (no nested light/dark chrome)
 [data-theme="dark"] .rds-comments-box--typing,
 .dark-theme .rds-comments-box--typing {
   .rds-comments-box__typing-box {

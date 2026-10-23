@@ -41,7 +41,6 @@ const RdsCompTruncateText = ({
 
   const tooltipEnabled = showTooltipProp ?? true;
   const isLong = content.length > resolvedMaxLength;
-  const isTruncated = isLong;
 
   const activate = () => {
     if (tooltipEnabled) setIsActive(true);
@@ -50,7 +49,7 @@ const RdsCompTruncateText = ({
     if (tooltipEnabled) setIsActive(false);
   };
 
-  const displayText = isTruncated ? `${content.slice(0, resolvedMaxLength)}...` : content;
+  const displayText = isLong ? `${content.slice(0, resolvedMaxLength)}...` : content;
 
   const className = clsx(
     "rds-comp-truncate-text",
@@ -72,7 +71,7 @@ const RdsCompTruncateText = ({
       onMouseLeave={deactivate}
       onFocus={activate}
       onBlur={deactivate}
-      tabIndex={isTruncated ? 0 : undefined}
+      tabIndex={isLong ? 0 : undefined}
       className={className}
       sx={sx}
     >

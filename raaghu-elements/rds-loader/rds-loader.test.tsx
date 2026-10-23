@@ -5,7 +5,6 @@ import RdsLoader from './rds-loader';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-loader.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
@@ -291,7 +290,6 @@ describe('RdsLoader', () => {
       );
       const overlayBox = container.firstChild as HTMLElement;
       expect(overlayBox).toBeInTheDocument();
-      // Check that it's a overlay container with flex display
       const childCircularProgress = overlayBox.querySelector('.MuiCircularProgress-root');
       expect(childCircularProgress).toBeInTheDocument();
     });
@@ -544,7 +542,6 @@ describe('RdsLoader', () => {
 
       expect(screen.getByText('Processing...')).toBeInTheDocument();
       expect(screen.getByText('60%')).toBeInTheDocument();
-      // Check that loader is rendered
       const circularProgress = container.querySelector('.MuiCircularProgress-root');
       expect(circularProgress).toBeInTheDocument();
     });

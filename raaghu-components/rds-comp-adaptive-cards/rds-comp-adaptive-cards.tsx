@@ -89,7 +89,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     cardText,
     closeIcon,
     label,
-    block,
     images,
     leagueName,
     leagueAvatar,

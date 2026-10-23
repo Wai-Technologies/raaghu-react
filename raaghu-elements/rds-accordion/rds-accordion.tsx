@@ -16,7 +16,6 @@ import './rds-accordion.scss';
 type AccordionVariant = 'outlined' | 'underline' | 'plain';
 type LegacyAccordionStyle = 'border' | 'bottomline' | 'borderhide';
 
-// The stylesheet is keyed on the legacy class names, so map the new variant onto them.
 const VARIANT_CLASS: Record<AccordionVariant, LegacyAccordionStyle> = {
   outlined: 'border',
   underline: 'bottomline',
@@ -37,7 +36,7 @@ export interface RdsAccordionProps
   selected?: boolean;
   defaultExpanded?: boolean;
   size?: 'small' | 'medium' | 'large';
-  /** Duration of the expand/collapse animation in milliseconds. Defaults to MUI's automatic timing. */
+  /** @deprecated Use `slotProps.transition.timeout` instead. */
   animationDuration?: number;
   /** Shows the leading icon. Defaults to `true`. */
   showLeftIcon?: boolean;
@@ -84,6 +83,9 @@ const RdsAccordion = ({
   }
   if (accordionStyle !== undefined) {
     warnDeprecatedProp('RdsAccordion', 'accordionStyle', '`variant`');
+  }
+  if (animationDuration !== undefined) {
+    warnDeprecatedProp('RdsAccordion', 'animationDuration', '`slotProps.transition.timeout`');
   }
 
   const [uncontrolledExpanded, setUncontrolledExpanded] = useState(defaultExpanded);

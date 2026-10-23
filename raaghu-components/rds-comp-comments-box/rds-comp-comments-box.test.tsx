@@ -5,7 +5,6 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCommentBox, { useCommentsBoxLogic, DropdownMenu } from './rds-comp-comments-box';
 
-// Mock dependencies
 jest.mock('./rds-comp-comments-box.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => ({
   __esModule: true,

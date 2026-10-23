@@ -95,7 +95,6 @@ const meta: Meta<typeof RdsCounter> = {
       control: { type: 'number' },
       description: 'Controlled value. Leave unset for uncontrolled (plus/minus update internal state).',
     },
-    selected: { control: false, table: { disable: true } },
   },
 };
 

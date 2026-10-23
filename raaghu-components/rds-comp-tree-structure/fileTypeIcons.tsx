@@ -1,27 +1,5 @@
 import { fileTypeIconColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { type ReactNode, type MouseEvent, type ChangeEvent } from 'react';
-import clsx from 'clsx';
-// Import all necessary Material-UI icons
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import FolderIcon from '@mui/icons-material/Folder';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import OpenWithIcon from '@mui/icons-material/OpenWith';
-import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
 export { TreeLevel, IconType, type TreeNode, type RdsCompTreeStructureProps } from './tree-structure-types';
-import { type TreeNode, type RdsCompTreeStructureProps } from './tree-structure-types';
-
-const getLanguageFromFileName = (fileName: string): string | null => {
-  const extensionMap: { [key: string]: string } = {};
-  if (fileName.toLowerCase().includes('dockerfile')) return 'Docker';
-  if (fileName.toLowerCase().includes('.eslintrc')) return 'ESLint';
-  if (fileName.toLowerCase().includes('gulpfile')) return 'Gulp';
-  if (fileName.toLowerCase().includes('.git')) return 'Git';
-  if (fileName.toLowerCase().includes('.github')) return 'GitHub';
-  const extension = fileName.split('.').pop()?.toLowerCase();
-  return extension ? extensionMap[extension] || null : null;
-};
 
 export { getAllNodeIds } from './tree-structure-utils';
 export const fileTypeIcons = {
@@ -137,12 +115,10 @@ export const fileTypeIcons = {
   )
 };
 
-// Function to get file icon
 export const getFileIcon = (fileType: string) => {
   return fileTypeIcons[fileType as keyof typeof fileTypeIcons] || fileTypeIcons.Default;
 };
 
-// TreeNodeRow component
 export { TreeNodeRow } from './TreeNodeRow';
 
 export default fileTypeIcons;

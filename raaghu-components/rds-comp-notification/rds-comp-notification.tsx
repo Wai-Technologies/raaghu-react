@@ -96,7 +96,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     const isHorizontalImage = layout === NotificationLayout.Horizontal && style === NotificationStyle.Image;
 
     return (
-        <Box {...rest} ref={ref} className={clsx("rds-comp-notification-list", className)} sx={[{ display: 'flex', flexDirection: 'column' }, sx]}>
+        <Box {...rest} ref={ref} className={clsx("rds-comp-notification-list", className)} sx={[{ display: 'flex', flexDirection: 'column' }, ...(Array.isArray(sx) ? sx : [sx])]}>
             {visibleNotifications.map(({ notification, key }) => (
                 <Card
                     role="status"

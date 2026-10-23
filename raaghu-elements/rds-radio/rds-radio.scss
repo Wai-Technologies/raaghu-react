@@ -1,7 +1,6 @@
 .rds-radio {
   display: block;
   position: relative;
-  /* use centralized tokens */
 
   &__group {
     gap: var(--rds-spacing-sm, 8px);

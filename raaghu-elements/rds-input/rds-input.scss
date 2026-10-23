@@ -51,12 +51,10 @@
     background-color: var(--rds-background-paper);
     transition: border-color var(--rds-transition-base), box-shadow var(--rds-transition-base);
 
-    // Ensure the MUI input wrapper centers its content vertically
     &.MuiInputBase-root {
       align-items: center;
     }
 
-    // Center the actual input element and placeholder text vertically
     .MuiInputBase-input {
       display: flex;
       align-items: center;
@@ -393,8 +391,6 @@
     opacity: 1 !important;
   }
 }
-
-// MuiInputLabel shrink background uses the default background token automatically
 
 .css-1t6h741-MuiFormHelperText-root {
   margin-left: var(--rds-border-radius-none) !important;

@@ -7,7 +7,6 @@ import { getAllNodeIds } from './tree-structure-utils';
 import { TreeNodeRow as DirectTreeNodeRow } from './TreeNodeRow';
 import { 
   TreeLevel,
-  IconType,
   type RdsCompTreeStructureProps,
 } from './tree-structure-types';
 import { type TreeNode } from './tree-structure-types';

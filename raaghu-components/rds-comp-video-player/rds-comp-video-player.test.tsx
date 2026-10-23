@@ -7,10 +7,8 @@ import RdsCompVideoPlayer, {
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
-// Mock SCSS
 jest.mock('./rds-comp-video-player.scss', () => ({}));
 
-// Mock ReactPlayer
 jest.mock('react-player', () => ({
   __esModule: true,
   default: function MockReactPlayer({

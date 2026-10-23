@@ -28,7 +28,7 @@ export type RdsCompAiFabMenuIconName =
   | "download"
   | "attachment_icon"
   | "enhance";
-export type RdsCompAiFabMenuIcon = RdsCompAiFabMenuIconName | ReactElement;
+export type RdsCompAiFabMenuIcon = RdsCompAiFabMenuIconName | (string & {}) | ReactElement;
 
 export interface RdsCompAiFabMenuItem {
   key: string;

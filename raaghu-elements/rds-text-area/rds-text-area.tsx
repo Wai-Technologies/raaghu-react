@@ -144,11 +144,7 @@ const RdsTextArea = ({
   if (value !== prevValue || isMandatory !== prevMandatory) {
     setPrevValue(value);
     setPrevMandatory(isMandatory);
-    if (isMandatory) {
-      setIsMandatoryValid((value || '').trim().length > 0);
-    } else {
-      setIsMandatoryValid(true);
-    }
+    setIsMandatoryValid(!isMandatory || (value || '').trim().length > 0);
   }
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -159,12 +155,11 @@ const RdsTextArea = ({
     }
 
     if (validationPattern) {
-      const urlPattern = validationPattern;
-      const urlValid = isMultiLine
-        ? inputValue.split("\n").every((url) => urlPattern.test(url))
-        : urlPattern.test(inputValue);
-
-      setIsValid(urlValid);
+      setIsValid(
+        isMultiLine
+          ? inputValue.split("\n").every((url) => validationPattern.test(url))
+          : validationPattern.test(inputValue)
+      );
     }
 
     onChange?.(e);

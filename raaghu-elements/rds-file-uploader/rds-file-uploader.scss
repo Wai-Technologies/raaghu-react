@@ -286,7 +286,6 @@
     align-self: flex-end;
     text-align: right;
     white-space: nowrap;
-    //padding-right: var(--rds-file-uploader-hint-padding-right, 10px);
     width: auto;
   }
   &__hint-wrapper {
@@ -432,7 +431,6 @@
   }
 }
 
-// Small mobile: 320px - 414px
 @include bp.between(420, 834) {
   .rds-file-uploader {
     width: 100% !important;

@@ -81,7 +81,6 @@ const content = (
   </RdsTypography>
 );
 
-// Keeps the story controlled so toggling `defaultExpanded` in the controls panel takes effect.
 const ControlledAccordion = ({ defaultExpanded = false, ...args }: RdsAccordionProps) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
   useEffect(() => setExpanded(defaultExpanded), [defaultExpanded]);

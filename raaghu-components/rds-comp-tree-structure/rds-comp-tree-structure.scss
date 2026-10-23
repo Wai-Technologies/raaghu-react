@@ -1,15 +1,11 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
-// RDS Tree Structure Component Styles
 .rds-comp-tree-structure {
-  // Base tree structure styles
   
-  // Tree node container
   &__node-container {
     position: relative;
   }
   
-  // Tree node
   &__node {
     display: flex;
     align-items: center;
@@ -29,7 +25,6 @@
     }
   }
   
-  // Node content
   &__node-content {
     display: flex;
     align-items: center;
@@ -38,12 +33,10 @@
     flex: 1;
   }
   
-  // Node children container
   &__node-children {
     margin-left: var(--rds-spacing-lg, 20px);
   }
   
-  // Chevron icon (plain arrow, no boxed border)
   &__chevron {
     display: inline-flex;
     align-items: center;
@@ -76,7 +69,6 @@
     }
   }
   
-  // Checkbox container to prevent event bubbling
   &__checkbox-container {
     display: flex;
     align-items: center;
@@ -84,7 +76,6 @@
     margin-bottom: var(--rds-spacing-xs, 4px);
   }
   
-  // Icons
   &__icon {
     margin-right: var(--rds-spacing-xs, 8px);
     margin-top: 0;
@@ -118,13 +109,11 @@
     }
   }
   
-  // Node text
   &__text {
     margin-left: var(--rds-spacing-xs, 2px);
     color: var(--rds-text-primary);
   }
   
-  // Action buttons
   &__actions {
     display: flex;
     margin-left: var(--rds-spacing-md, 15px);
@@ -157,7 +146,6 @@
   }
 }
 
-// Responsive styles
 @include bp.down(md) {
   .rds-comp-tree-structure {
     &__node {

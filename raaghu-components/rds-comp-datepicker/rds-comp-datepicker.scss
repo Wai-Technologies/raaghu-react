@@ -810,8 +810,6 @@ font-weight: bold;
   justify-content: center;
 }
 
-// Vertical alignment for default react-datepicker header navigation
-// (Selector style with month/year text, and Dropdown style without custom header)
 .react-datepicker:not(:has(.rds-datepicker__custom-header-group)) {
   .react-datepicker__header {
     padding-top: 0.5rem;
@@ -1018,32 +1016,22 @@ font-weight: bold;
 @include bp.between(576, 991) {
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker--multi-month,
   .rds-datepicker__dropdown-menu--show .react-datepicker--multi-month {
-    // margin-left: var(--rds-spacing-160) !important;
     margin-top: var(--rds-spacing-hairline) !important;
-    // width: calc(63vw - 40px) !important;
   }
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .rds-date-picker--multi-month .react-datepicker,
   .rds-datepicker__dropdown-menu--show .rds-date-picker--multi-month .react-datepicker {
-    // margin-left: var(--rds-spacing-160) !important;
     margin-top: var(--rds-spacing-hairline) !important;
-    // width: calc(63vw - 40px) !important;
   }
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker:has(.react-datepicker__month-container:nth-child(2)),
   .rds-datepicker__dropdown-menu--show .react-datepicker:has(.react-datepicker__month-container:nth-child(2)) {
-    // margin-left: var(--rds-spacing-160) !important;
     margin-top: var(--rds-spacing-hairline) !important;
-    // width: calc(63vw - 40px) !important;
   }.rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker[style*="min-width"],
   .rds-datepicker__dropdown-menu--show .react-datepicker[style*="min-width"] {
-    // margin-left: var(--rds-spacing-160) !important;
     margin-top: var(--rds-spacing-hairline) !important;
-    // width: calc(63vw - 40px) !important;
   }
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker[style*="display: flex"],
   .rds-datepicker__dropdown-menu--show .react-datepicker[style*="display: flex"] {
-    // margin-left: var(--rds-spacing-160) !important;
     margin-top: var(--rds-spacing-hairline) !important;
-    // width: calc(63vw - 40px) !important;
   }
 }
 
@@ -1203,11 +1191,7 @@ font-weight: bold;
   }
 }
 
-// ============================================================
-// Dark mode overrides — Default layout
-// ============================================================
 [data-theme="dark"] {
-  // Calendar popup background
   .react-datepicker,
   .react-datepicker__month,
   .react-datepicker__header,
@@ -1215,13 +1199,10 @@ font-weight: bold;
     background-color: var(--rds-background-paper, #1e1e2e) !important;
   }
 
-  // Month background that was hardcoded to white
   .react-datepicker__month {
     background-color: var(--rds-background-paper, #1e1e2e) !important;
   }
 
-  // Month/year title text (e.g. "June 2025")
-  // Month Picker header (e.g. "2026") and Year Picker header (e.g. "2017 - 2028")
   .react-datepicker__current-month,
   .react-datepicker-year-header,
   .rds-datepicker__custom-header {
@@ -1256,29 +1237,24 @@ font-weight: bold;
     background-position: calc(100% - 8px) calc(50% - 2px), calc(100% - 5px) calc(50% - 2px) !important;
   }
 
-  // Day-of-week header names (Su Mo Tu We …)
   .react-datepicker__day-name {
     color: #ffffff !important;
   }
 
-  // Day numbers
   .react-datepicker__day {
     color: #ffffff !important;
   }
 
-  // Days in range
   .react-datepicker__day--in-range {
     color: #ffffff !important;
   }
 
-  // Hover / focus state
   .react-datepicker__day:hover,
   .react-datepicker__day:focus {
     color: #ffffff !important;
     outline: none !important;
   }
 
-  // Selected / keyboard-selected day
   .react-datepicker__day--selected,
   .react-datepicker__day--keyboard-selected {
     background-color: var(--rds-primary-main) !important;
@@ -1286,13 +1262,11 @@ font-weight: bold;
     border-color: var(--rds-primary-main) !important;
   }
 
-  // Range start / end
   .react-datepicker__day--range-start,
   .react-datepicker__day--range-end {
     color: #ffffff !important;
   }
 
-  // Today highlight
   .react-datepicker__day--today {
     color: #ffffff !important;
   }
@@ -1303,18 +1277,15 @@ font-weight: bold;
     background-color: var(--rds-primary-main) !important;
   }
 
-  // Outside-month days (dimmed but still visible)
   .react-datepicker__day--outside-month {
     color: rgba(255, 255, 255, 0.4) !important;
   }
 
-  // Footer / today-button area
   .react-datepicker__today-button,
   .react-datepicker__footer {
     background-color: var(--rds-background-paper, #1e1e2e) !important;
   }
 
-  // Cancel / Apply button text
   .rds-datepicker__button-wrapper {
     .rds-button.MuiButton-outlined,
     .rds-button.MuiButton-root {
@@ -1323,7 +1294,6 @@ font-weight: bold;
     }
   }
 
-  // Month/year dropdown overlays
   .react-datepicker__month-dropdown,
   .react-datepicker__year-dropdown {
     background-color: var(--rds-background-paper, #1e1e2e) !important;
@@ -1386,13 +1356,11 @@ font-weight: bold;
     border-right-color: #ffffff !important;
   }
 
-  // Navigation arrow chevrons
   .react-datepicker__navigation-icon::before,
   .rds-datepicker__nav-icon::before {
     border-color: #ffffff !important;
   }
 
-  // Month Picker — year header and month name cells
   .react-datepicker__year-text,
   .react-datepicker__month-text {
     color: #ffffff !important;
@@ -1412,7 +1380,6 @@ font-weight: bold;
     color: #ffffff !important;
   }
 
-  // Year Picker — container header background
   .react-datepicker__year--container .react-datepicker__header,
   .react-datepicker__monthPicker .react-datepicker__header {
     background-color: var(--rds-background-paper, #1e1e2e) !important;

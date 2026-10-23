@@ -78,9 +78,8 @@ const RdsCompTextEditor = ({
 }: RdsCompTextEditorProps) => {
     if (isMandatory !== undefined) warnDeprecatedProp('RdsCompTextEditor', 'isMandatory', '`required`');
     const isRequired = required ?? isMandatory;
-    const resolvedState = state;
-    const isError = error ?? resolvedState === "Error";
-    const isDisabled = disabled ?? resolvedState === "Disabled";
+    const isError = error ?? state === "Error";
+    const isDisabled = disabled ?? state === "Disabled";
     const uid = useId();
     const labelId = `${uid}-label`;
     const errorId = `${uid}-error`;
@@ -151,9 +150,9 @@ const RdsCompTextEditor = ({
     const isEmpty = useMemo(() => editorState.getCurrentContent().getPlainText().trim() === "", [editorState]);
 
     const stateClass = clsx(
-        resolvedState === "Selected" && "rds-comp-text-editor--selected",
+        state === "Selected" && "rds-comp-text-editor--selected",
         isError && "rds-comp-text-editor--error",
-        (focused || resolvedState === "Active") && "rds-comp-text-editor--active",
+        (focused || state === "Active") && "rds-comp-text-editor--active",
         isDisabled && "rds-comp-text-editor--disabled",
         isResizable && "rds-comp-text-editor--resizable"
     );
