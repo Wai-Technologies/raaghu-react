@@ -212,71 +212,17 @@ const RdsCompAiIconComponent = ({
   if (isHovered !== undefined) warnDeprecatedProp("RdsCompAiIcon", "isHovered", "`hovered`");
   if (isCursorPointer !== undefined) warnDeprecatedProp("RdsCompAiIcon", "isCursorPointer", "`cursorPointer`");
   const cursorPointer = cursorPointerProp ?? isCursorPointer;
-  const noEffect: Record<string, unknown> = {
-    borderRadius,
-    opacity,
-    animate,
-    iconPath,
-    type,
-    hover,
-    continuousAnimate,
-    hovered,
-  };
-
+  const noEffect: Record<string, unknown> = { borderRadius, opacity, animate, iconPath, type, hover, continuousAnimate, hovered };
   Object.keys(noEffect).forEach((key) => {
-    if (noEffect[key] !== undefined) {
-      warnDeprecatedProp(
-        "RdsCompAiIcon",
-        key,
-        "nothing (it has no effect)"
-      );
-    }
+    if (noEffect[key] !== undefined) warnDeprecatedProp("RdsCompAiIcon", key, "nothing (it has no effect)");
   });
 
-  if (classes !== undefined) {
-    warnDeprecatedProp("RdsCompAiIcon", "classes", "`className`");
-  }
-
-  if (dataTestId !== undefined) {
-    warnDeprecatedProp(
-      "RdsCompAiIcon",
-      "dataTestId",
-      "`data-testid`"
-    );
-  }
-
-  if (databsdismiss !== undefined) {
-    warnDeprecatedProp(
-      "RdsCompAiIcon",
-      "databsdismiss",
-      "`data-bs-dismiss`"
-    );
-  }
-
-  if (databstarget !== undefined) {
-    warnDeprecatedProp(
-      "RdsCompAiIcon",
-      "databstarget",
-      "`data-bs-target`"
-    );
-  }
-
-  if (databstoggle !== undefined) {
-    warnDeprecatedProp(
-      "RdsCompAiIcon",
-      "databstoggle",
-      "`data-bs-toggle`"
-    );
-  }
-
-  if (ariacontrols !== undefined) {
-    warnDeprecatedProp(
-      "RdsCompAiIcon",
-      "ariacontrols",
-      "`aria-controls`"
-    );
-  }
-
+  if (classes !== undefined) warnDeprecatedProp("RdsCompAiIcon", "classes", "`className`");
+  if (dataTestId !== undefined) warnDeprecatedProp("RdsCompAiIcon", "dataTestId", "`data-testid`");
+  if (databsdismiss !== undefined) warnDeprecatedProp("RdsCompAiIcon", "databsdismiss", "`data-bs-dismiss`");
+  if (databstarget !== undefined) warnDeprecatedProp("RdsCompAiIcon", "databstarget", "`data-bs-target`");
+  if (databstoggle !== undefined) warnDeprecatedProp("RdsCompAiIcon", "databstoggle", "`data-bs-toggle`");
+  if (ariacontrols !== undefined) warnDeprecatedProp("RdsCompAiIcon", "ariacontrols", "`aria-controls`");
   if (imageUrl !== undefined) warnDeprecatedProp("RdsCompAiIcon", "imageUrl", "`src`");
   const SvgIcon = component ?? SvgIconProp;
   const imageSrc = src ?? imageUrl;

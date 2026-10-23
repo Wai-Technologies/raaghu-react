@@ -23,43 +23,30 @@ const renderWithTheme = (component: React.ReactElement, isDark = false) => {
   );
 };
 
+const wrap = (ui: React.ReactElement) => <ThemeProvider theme={createTheme()}>{ui}</ThemeProvider>;
+
 describe('RdsProgress', () => {
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress />
-      );
+      const { container } = renderWithTheme(<RdsProgress />);
       expect(container).toBeInTheDocument();
+      expect(container.querySelector('.rds-progress')).toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
       expect(RdsProgress.displayName).toBe('RdsProgress');
     });
 
-    it('should render default linear progress', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress />
-      );
-      const progress = container.querySelector('.rds-progress');
-      expect(progress).toBeInTheDocument();
-    });
-
     it('should apply correct CSS classes', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress type="linear" shape="line" />
-      );
-      const progress = container.querySelector('.rds-progress--line');
-      expect(progress).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsProgress type="linear" shape="line" />);
+      expect(container.querySelector('.rds-progress--line')).toBeInTheDocument();
     });
   });
 
   describe('Linear Progress', () => {
     it('should render linear progress with line variant', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress type="linear" shape="line" value={50} mode="determinate" />
-      );
-      const lineProgress = container.querySelector('.rds-progress--line');
-      expect(lineProgress).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsProgress type="linear" shape="line" value={50} mode="determinate" />);
+      expect(container.querySelector('.rds-progress--line')).toBeInTheDocument();
     });
 
     it('should render with different values', () => {
@@ -67,52 +54,25 @@ describe('RdsProgress', () => {
         <RdsProgress type="linear" shape="line" value={25} mode="determinate" />
       );
       expect(container).toBeInTheDocument();
-
-      rerender(
-        <ThemeProvider theme={createTheme()}>
-          <RdsProgress type="linear" shape="line" value={75} mode="determinate" />
-        </ThemeProvider>
-      );
+      rerender(wrap(<RdsProgress type="linear" shape="line" value={75} mode="determinate" />));
       expect(container).toBeInTheDocument();
     });
 
     it('should render with label', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          type="linear" 
-          shape="line"
-          value={50} 
-          mode="determinate"
-          showLabel={true}
-          label="Loading"
-        />
+      renderWithTheme(
+        <RdsProgress type="linear" shape="line" value={50} mode="determinate" showLabel={true} label="Loading" />
       );
       expect(screen.getByText('Loading')).toBeInTheDocument();
     });
 
     it('should show percentage as label when no label provided', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          type="linear" 
-          shape="line"
-          value={50} 
-          mode="determinate"
-          showLabel={true}
-        />
-      );
+      renderWithTheme(<RdsProgress type="linear" shape="line" value={50} mode="determinate" showLabel={true} />);
       expect(screen.getByText('50%')).toBeInTheDocument();
     });
 
     it('should render indeterminate variant', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          type="linear" 
-          shape="line"
-          mode="indeterminate"
-        />
-      );
-      const progress = container.querySelector('.rds-progress--indeterminate');
-      expect(progress).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsProgress type="linear" shape="line" mode="indeterminate" />);
+      expect(container.querySelector('.rds-progress--indeterminate')).toBeInTheDocument();
     });
   });
 
@@ -121,424 +81,166 @@ describe('RdsProgress', () => {
       const { container } = renderWithTheme(
         <RdsProgress type="circular" shape="circular" value={50} mode="determinate" />
       );
-      const circularProgress = container.querySelector('.rds-progress--circular');
-      expect(circularProgress).toBeInTheDocument();
+      expect(container.querySelector('.rds-progress--circular')).toBeInTheDocument();
     });
 
     it('should render with custom size and thickness', () => {
       const { container } = renderWithTheme(
-        <RdsProgress 
-          type="circular" 
-          shape="circular"
-          value={50} 
-          mode="determinate"
-          size={100}
-          thickness={5}
-        />
+        <RdsProgress type="circular" shape="circular" value={50} mode="determinate" size={100} thickness={5} />
       );
       expect(container).toBeInTheDocument();
     });
 
     it('should render with indeterminate variant', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          type="circular" 
-          shape="circular"
-          mode="indeterminate"
-        />
-      );
-      const progress = container.querySelector('.rds-progress--circular');
-      expect(progress).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsProgress type="circular" shape="circular" mode="indeterminate" />);
+      expect(container.querySelector('.rds-progress--circular')).toBeInTheDocument();
     });
 
     it('should show label overlay for determinate', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          type="circular" 
-          shape="circular"
-          value={60} 
-          mode="determinate"
-          showLabel={true}
-          label="Complete"
-        />
+      renderWithTheme(
+        <RdsProgress type="circular" shape="circular" value={60} mode="determinate" showLabel={true} label="Complete" />
       );
       expect(screen.getByText('Complete')).toBeInTheDocument();
     });
 
     it('should show percentage in center for circular with label', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          type="circular" 
-          shape="circular"
-          value={75} 
-          mode="determinate"
-          showLabel={true}
-        />
-      );
+      renderWithTheme(<RdsProgress type="circular" shape="circular" value={75} mode="determinate" showLabel={true} />);
       expect(screen.getByText('75%')).toBeInTheDocument();
     });
   });
 
   describe('Stepper Progress', () => {
-    it('should render stepper with number type', () => {
+    it.each(['number', 'circle'] as const)('should render stepper with %s type', (stepperType) => {
       const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          value={40} 
-          totalSteps={5}
-          stepperType="number"
-        />
+        <RdsProgress shape="stepper" value={40} totalSteps={5} stepperType={stepperType} />
       );
-      const stepper = container.querySelector('.rds-progress--stepper');
-      expect(stepper).toBeInTheDocument();
-    });
-
-    it('should render stepper with circle type', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          value={40} 
-          totalSteps={5}
-          stepperType="circle"
-        />
-      );
-      const stepper = container.querySelector('.rds-progress--stepper');
-      expect(stepper).toBeInTheDocument();
-    });
-
-    it('should display correct number of steps', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          value={40} 
-          totalSteps={3}
-          stepperType="number"
-        />
-      );
-      const steps = container.querySelectorAll('.rds-progress__stepper-step');
-      expect(steps.length).toBe(3);
+      expect(container.querySelector('.rds-progress--stepper')).toBeInTheDocument();
     });
 
     it('should mark completed steps', () => {
       const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          value={60} 
-          totalSteps={5}
-          stepperType="number"
-        />
+        <RdsProgress shape="stepper" value={60} totalSteps={5} stepperType="number" />
       );
-      const completedSteps = container.querySelectorAll('.rds-progress__stepper-step--completed');
-      expect(completedSteps.length).toBeGreaterThan(0);
+      expect(container.querySelectorAll('.rds-progress__stepper-step--completed').length).toBeGreaterThan(0);
     });
 
     it('should show connectors between steps', () => {
       const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          value={40} 
-          totalSteps={5}
-          stepperType="number"
-        />
+        <RdsProgress shape="stepper" value={40} totalSteps={5} stepperType="number" />
       );
-      const connectors = container.querySelectorAll('.rds-progress__stepper-connector');
-      expect(connectors.length).toBe(4); // 5 steps = 4 connectors
+      expect(container.querySelectorAll('.rds-progress__stepper-connector').length).toBe(4);
     });
 
     it('should handle different totalSteps values', () => {
       const { container, rerender } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          value={40} 
-          totalSteps={3}
-          stepperType="number"
-        />
+        <RdsProgress shape="stepper" value={40} totalSteps={3} stepperType="number" />
       );
-      let steps = container.querySelectorAll('.rds-progress__stepper-step');
-      expect(steps.length).toBe(3);
-
-      rerender(
-        <ThemeProvider theme={createTheme()}>
-          <RdsProgress 
-            shape="stepper"
-            value={40} 
-            totalSteps={7}
-            stepperType="number"
-          />
-        </ThemeProvider>
-      );
-      steps = container.querySelectorAll('.rds-progress__stepper-step');
-      expect(steps.length).toBe(7);
+      expect(container.querySelectorAll('.rds-progress__stepper-step').length).toBe(3);
+      rerender(wrap(<RdsProgress shape="stepper" value={40} totalSteps={7} stepperType="number" />));
+      expect(container.querySelectorAll('.rds-progress__stepper-step').length).toBe(7);
     });
   });
 
   describe('Dash Progress', () => {
-    it('should render dash progress', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="dash"
-          value={50} 
-        />
-      );
-      const dash = container.querySelector('.rds-progress--dash');
-      expect(dash).toBeInTheDocument();
-    });
-
-    it('should display dash segments', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="dash"
-          value={50} 
-        />
-      );
-      const segments = container.querySelectorAll('.rds-progress__dash');
-      expect(segments.length).toBe(5);
+    it('should render dash progress with segments', () => {
+      const { container } = renderWithTheme(<RdsProgress shape="dash" value={50} />);
+      expect(container.querySelector('.rds-progress--dash')).toBeInTheDocument();
+      expect(container.querySelectorAll('.rds-progress__dash').length).toBe(5);
     });
 
     it('should fill correct number of dash segments', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="dash"
-          value={60} 
-        />
-      );
-      const filledSegments = container.querySelectorAll('.rds-progress__dash--filled');
-      expect(filledSegments.length).toBeGreaterThan(0);
+      const { container } = renderWithTheme(<RdsProgress shape="dash" value={60} />);
+      expect(container.querySelectorAll('.rds-progress__dash--filled').length).toBeGreaterThan(0);
     });
 
     it('should handle different values for dash progress', () => {
-      const { container, rerender } = renderWithTheme(
-        <RdsProgress 
-          shape="dash"
-          value={20} 
-        />
-      );
-      let filledSegments = container.querySelectorAll('.rds-progress__dash--filled');
-      const initialFilled = filledSegments.length;
-
-      rerender(
-        <ThemeProvider theme={createTheme()}>
-          <RdsProgress 
-            shape="dash"
-            value={80} 
-          />
-        </ThemeProvider>
-      );
-      filledSegments = container.querySelectorAll('.rds-progress__dash--filled');
-      expect(filledSegments.length).toBeGreaterThan(initialFilled);
+      const { container, rerender } = renderWithTheme(<RdsProgress shape="dash" value={20} />);
+      const initialFilled = container.querySelectorAll('.rds-progress__dash--filled').length;
+      rerender(wrap(<RdsProgress shape="dash" value={80} />));
+      expect(container.querySelectorAll('.rds-progress__dash--filled').length).toBeGreaterThan(initialFilled);
     });
   });
 
   describe('Block Progress', () => {
-    it('should render block progress', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="block"
-          value={50} 
-        />
-      );
-      const block = container.querySelector('.rds-progress--block');
-      expect(block).toBeInTheDocument();
-    });
-
-    it('should display block segments', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="block"
-          value={50} 
-        />
-      );
-      const segments = container.querySelectorAll('.rds-progress__block');
-      expect(segments.length).toBe(5);
+    it('should render block progress with segments', () => {
+      const { container } = renderWithTheme(<RdsProgress shape="block" value={50} />);
+      expect(container.querySelector('.rds-progress--block')).toBeInTheDocument();
+      expect(container.querySelectorAll('.rds-progress__block').length).toBe(5);
     });
 
     it('should fill correct number of block segments', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="block"
-          value={60} 
-        />
-      );
-      const filledSegments = container.querySelectorAll('.rds-progress__block--filled');
-      expect(filledSegments.length).toBeGreaterThan(0);
+      const { container } = renderWithTheme(<RdsProgress shape="block" value={60} />);
+      expect(container.querySelectorAll('.rds-progress__block--filled').length).toBeGreaterThan(0);
     });
 
     it('should show step labels in blocks', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="block"
-          value={40} 
-        />
-      );
+      renderWithTheme(<RdsProgress shape="block" value={40} />);
       expect(screen.getByText('Step 1')).toBeInTheDocument();
       expect(screen.getByText('Step 2')).toBeInTheDocument();
     });
   });
 
   describe('Steps Prop', () => {
-    it('should handle steps prop with value 0', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          steps={0}
-        />
-      );
-      expect(container).toBeInTheDocument();
-    });
-
-    it('should handle steps prop with value 5', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          steps={5}
-        />
-      );
+    it.each([0, 5] as const)('should handle steps prop with value %s', (steps) => {
+      const { container } = renderWithTheme(<RdsProgress shape="line" steps={steps} />);
       expect(container).toBeInTheDocument();
     });
 
     it('should calculate progress from steps', () => {
       const { container, rerender } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          steps={2}
-          totalSteps={5}
-          stepperType="number"
-        />
+        <RdsProgress shape="stepper" steps={2} totalSteps={5} stepperType="number" />
       );
-      let completedSteps = container.querySelectorAll('.rds-progress__stepper-step--completed');
-      const initialCompleted = completedSteps.length;
-
-      rerender(
-        <ThemeProvider theme={createTheme()}>
-          <RdsProgress 
-            shape="stepper"
-            steps={4}
-            totalSteps={5}
-            stepperType="number"
-          />
-        </ThemeProvider>
-      );
-      completedSteps = container.querySelectorAll('.rds-progress__stepper-step--completed');
-      expect(completedSteps.length).toBeGreaterThan(initialCompleted);
+      const initialCompleted = container.querySelectorAll('.rds-progress__stepper-step--completed').length;
+      rerender(wrap(<RdsProgress shape="stepper" steps={4} totalSteps={5} stepperType="number" />));
+      expect(container.querySelectorAll('.rds-progress__stepper-step--completed').length).toBeGreaterThan(initialCompleted);
     });
   });
 
   describe('Color Variants', () => {
-    const colors = ['primary', 'secondary', 'error', 'info', 'success', 'warning'];
-
-    colors.forEach(color => {
-      it(`should render with color: ${color}`, () => {
-        const { container } = renderWithTheme(
-          <RdsProgress 
-            shape="line"
-            value={50} 
-            color={color as any}
-            mode="determinate"
-          />
-        );
-        const progress = container.querySelector(`.rds-progress--${color}`);
-        expect(progress).toBeInTheDocument();
-      });
+    it.each(['primary', 'secondary', 'error', 'info', 'success', 'warning'])('should render with color: %s', (color) => {
+      const { container } = renderWithTheme(
+        <RdsProgress shape="line" value={50} color={color as any} mode="determinate" />
+      );
+      expect(container.querySelector(`.rds-progress--${color}`)).toBeInTheDocument();
     });
   });
 
   describe('Variants', () => {
     it('should render with determinate variant', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          value={50} 
-          mode="determinate"
-        />
-      );
+      const { container } = renderWithTheme(<RdsProgress shape="line" value={50} mode="determinate" />);
       expect(container).toBeInTheDocument();
     });
 
     it('should render with indeterminate variant', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          mode="indeterminate"
-        />
-      );
-      const progress = container.querySelector('.rds-progress--indeterminate');
-      expect(progress).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsProgress shape="line" mode="indeterminate" />);
+      expect(container.querySelector('.rds-progress--indeterminate')).toBeInTheDocument();
     });
 
     it('should render with buffer variant', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          variant="buffer"
-          value={50}
-          valueBuffer={75}
-        />
-      );
+      const { container } = renderWithTheme(<RdsProgress shape="line" variant="buffer" value={50} valueBuffer={75} />);
       expect(container).toBeInTheDocument();
     });
 
     it('should render with query variant', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          variant="query"
-        />
-      );
+      const { container } = renderWithTheme(<RdsProgress shape="line" variant="query" />);
       expect(container).toBeInTheDocument();
     });
   });
 
   describe('Theme Integration', () => {
-    it('should render with light theme', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress shape="line" value={50} mode="determinate" />,
-        false
-      );
-      expect(container).toBeInTheDocument();
-    });
-
-    it('should render with dark theme', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress shape="line" value={50} mode="determinate" />,
-        true
-      );
+    it.each([false, true])('should render with theme dark=%s', (dark) => {
+      const { container } = renderWithTheme(<RdsProgress shape="line" value={50} mode="determinate" />, dark);
       expect(container).toBeInTheDocument();
     });
   });
 
   describe('Custom SX Props', () => {
-    it('should accept sx prop for linear', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          value={50} 
-          mode="determinate"
-          sx={{ marginTop: '20px' }}
-        />
-      );
-      expect(container).toBeInTheDocument();
-    });
-
-    it('should accept sx prop for circular', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="circular"
-          value={50} 
-          mode="determinate"
-          sx={{ marginTop: '20px' }}
-        />
-      );
-      expect(container).toBeInTheDocument();
-    });
-
-    it('should accept sx prop for stepper', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          value={40}
-          sx={{ marginTop: '20px' }}
-        />
-      );
+    it.each([
+      ['linear', 'line', 50],
+      ['circular', 'circular', 50],
+      ['stepper', 'stepper', 40],
+    ] as const)('should accept sx prop for %s', (_n, shape, value) => {
+      const { container } = renderWithTheme(<RdsProgress shape={shape} value={value} mode="determinate" sx={{ marginTop: '20px' }} />);
       expect(container).toBeInTheDocument();
     });
   });
@@ -548,37 +250,22 @@ describe('RdsProgress', () => {
       const { rerender, container } = renderWithTheme(
         <RdsProgress shape="line" value={10} mode="determinate" showLabel={true} />
       );
-
       for (let i = 20; i <= 100; i += 10) {
-        rerender(
-          <ThemeProvider theme={createTheme()}>
-            <RdsProgress shape="line" value={i} mode="determinate" showLabel={true} />
-          </ThemeProvider>
-        );
+        rerender(wrap(<RdsProgress shape="line" value={i} mode="determinate" showLabel={true} />));
       }
-      const progress = container.querySelector('.rds-progress--line');
-      expect(progress).toBeInTheDocument();
+      expect(container.querySelector('.rds-progress--line')).toBeInTheDocument();
     });
 
     it('should handle visual variant changes', () => {
-      const { rerender } = renderWithTheme(
-        <RdsProgress shape="line" value={50} mode="determinate" />
-      );
-      const lineProgress = document.querySelector('.rds-progress--line');
-      expect(lineProgress).toBeInTheDocument();
-
-      rerender(
-        <ThemeProvider theme={createTheme()}>
-          <RdsProgress shape="circular" value={50} mode="determinate" />
-        </ThemeProvider>
-      );
-      const circularProgress = document.querySelector('.rds-progress--circular');
-      expect(circularProgress).toBeInTheDocument();
+      const { rerender } = renderWithTheme(<RdsProgress shape="line" value={50} mode="determinate" />);
+      expect(document.querySelector('.rds-progress--line')).toBeInTheDocument();
+      rerender(wrap(<RdsProgress shape="circular" value={50} mode="determinate" />));
+      expect(document.querySelector('.rds-progress--circular')).toBeInTheDocument();
     });
 
     it('should work with all props combined', () => {
       const { container } = renderWithTheme(
-        <RdsProgress 
+        <RdsProgress
           type="linear"
           shape="line"
           value={60}
@@ -592,130 +279,59 @@ describe('RdsProgress', () => {
       expect(container.querySelector('.rds-progress--success')).toBeInTheDocument();
     });
 
-    it('should handle 0 value', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          value={0} 
-          mode="determinate"
-          showLabel={true}
-        />
-      );
-      expect(screen.getByText('0%')).toBeInTheDocument();
-    });
-
-    it('should handle 100 value', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          value={100} 
-          mode="determinate"
-          showLabel={true}
-        />
-      );
-      expect(screen.getByText('100%')).toBeInTheDocument();
+    it.each([0, 100])('should handle %s value', (value) => {
+      renderWithTheme(<RdsProgress shape="line" value={value} mode="determinate" showLabel={true} />);
+      expect(screen.getByText(`${value}%`)).toBeInTheDocument();
     });
 
     it('should handle values exceeding 100', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="dash"
-          value={150}
-        />
-      );
+      const { container } = renderWithTheme(<RdsProgress shape="dash" value={150} />);
       expect(container).toBeInTheDocument();
     });
 
     it('should render stepper with all step states', () => {
       const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="stepper"
-          value={45}
-          totalSteps={5}
-          stepperType="number"
-        />
+        <RdsProgress shape="stepper" value={45} totalSteps={5} stepperType="number" />
       );
-      const completedSteps = container.querySelectorAll('.rds-progress__stepper-step--completed');
-      const currentStep = container.querySelectorAll('.rds-progress__stepper-step--current');
-      const upcomingSteps = container.querySelectorAll('.rds-progress__stepper-step--upcoming');
-      
-      expect(completedSteps.length + currentStep.length + upcomingSteps.length).toBe(5);
+      const count = (s: string) => container.querySelectorAll(`.rds-progress__stepper-step--${s}`).length;
+      expect(count('completed') + count('current') + count('upcoming')).toBe(5);
     });
 
     it('should handle custom size and thickness for circular', () => {
       const { container } = renderWithTheme(
-        <RdsProgress 
-          type="circular"
-          shape="circular"
-          value={50}
-          mode="determinate"
-          size={150}
-          thickness={8}
-        />
+        <RdsProgress type="circular" shape="circular" value={50} mode="determinate" size={150} thickness={8} />
       );
       expect(container).toBeInTheDocument();
     });
 
     it('should correctly display steps as progress values', () => {
-      const { rerender } = renderWithTheme(
-        <RdsProgress 
-          shape="block"
-          steps={1}
-        />
-      );
-      let filledSegments = document.querySelectorAll('.rds-progress__block--filled');
-      const step1Filled = filledSegments.length;
-
-      rerender(
-        <ThemeProvider theme={createTheme()}>
-          <RdsProgress 
-            shape="block"
-            steps={3}
-          />
-        </ThemeProvider>
-      );
-      filledSegments = document.querySelectorAll('.rds-progress__block--filled');
-      expect(filledSegments.length).toBeGreaterThan(step1Filled);
+      const { rerender } = renderWithTheme(<RdsProgress shape="block" steps={1} />);
+      const step1Filled = document.querySelectorAll('.rds-progress__block--filled').length;
+      rerender(wrap(<RdsProgress shape="block" steps={3} />));
+      expect(document.querySelectorAll('.rds-progress__block--filled').length).toBeGreaterThan(step1Filled);
     });
   });
 
   describe('Edge Cases', () => {
     it('should render with undefined value', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress shape="line" mode="indeterminate" />
-      );
+      const { container } = renderWithTheme(<RdsProgress shape="line" mode="indeterminate" />);
       expect(container).toBeInTheDocument();
     });
 
     it('should render with no props provided', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress />
-      );
-      const progress = container.querySelector('.rds-progress');
-      expect(progress).toBeInTheDocument();
+      const { container } = renderWithTheme(<RdsProgress />);
+      expect(container.querySelector('.rds-progress')).toBeInTheDocument();
     });
 
     it('should handle label without showLabel', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          value={50} 
-          mode="determinate"
-          showLabel={false}
-          label="Should not appear"
-        />
+      renderWithTheme(
+        <RdsProgress shape="line" value={50} mode="determinate" showLabel={false} label="Should not appear" />
       );
       expect(screen.queryByText('Should not appear')).not.toBeInTheDocument();
     });
 
     it('should handle negative value gracefully', () => {
-      const { container } = renderWithTheme(
-        <RdsProgress 
-          shape="line"
-          value={-10} 
-          mode="determinate"
-        />
-      );
+      const { container } = renderWithTheme(<RdsProgress shape="line" value={-10} mode="determinate" />);
       expect(container).toBeInTheDocument();
     });
   });
@@ -723,8 +339,7 @@ describe('RdsProgress', () => {
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsProgress aria-label="Loading progress" shape="line" />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 });
@@ -736,9 +351,7 @@ describe('audit fixes', () => {
   });
 
   it('forwards CSSProperties style to the root', () => {
-    const { container } = renderWithTheme(
-      <RdsProgress shape="line" style={{ marginTop: '12px' }} />
-    );
+    const { container } = renderWithTheme(<RdsProgress shape="line" style={{ marginTop: '12px' }} />);
     expect(container.querySelector('.rds-progress')).toHaveStyle('margin-top: 12px');
   });
 
@@ -763,7 +376,9 @@ describe('audit fixes', () => {
   });
 
   it('exposes progressbar semantics on stepper and supports formatStepLabel and sx array', () => {
-    renderWithTheme(<RdsProgress shape="block" steps={1} aria-label="Wizard" sx={[{ margin: 1 }]} formatStepLabel={(n) => `S${n}`} />);
+    renderWithTheme(
+      <RdsProgress shape="block" steps={1} aria-label="Wizard" sx={[{ margin: 1 }]} formatStepLabel={(n) => `S${n}`} />
+    );
     const bar = screen.getByRole('progressbar');
     expect(bar).toHaveAttribute('aria-label', 'Wizard');
     expect(bar).toHaveAttribute('aria-valuemax', '100');

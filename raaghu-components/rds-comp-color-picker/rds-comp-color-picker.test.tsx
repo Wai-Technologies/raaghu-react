@@ -81,6 +81,10 @@ const defaultProps = {
   type: ColorPickerType.Default,
 };
 
+const setup = (p: Record<string, any> = {}) => render(<RdsCompColorPicker {...defaultProps} {...p} />);
+const tabsOf = (container: HTMLElement) => container.querySelectorAll('.rds-comp-color-picker__tab');
+const grid = () => screen.queryByTestId('color-picker-grid');
+
 describe('RdsCompColorPicker', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -88,204 +92,145 @@ describe('RdsCompColorPicker', () => {
 
   describe('Basic Rendering', () => {
     it('renders the component without crashing', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} />);
+      const { container } = setup();
       expect(container).toBeInTheDocument();
+      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-color-picker__container')).toBeInTheDocument();
     });
 
     it('has correct display name', () => {
       expect(RdsCompColorPicker.displayName).toBe('RdsCompColorPicker');
     });
-
-    it('renders color picker container', () => {
-      render(<RdsCompColorPicker {...defaultProps} />);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
-    });
-
-    it('renders with correct root class', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} />);
-      expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
-    });
-
-    it('renders main container', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} />);
-      expect(container.querySelector('.rds-comp-color-picker__container')).toBeInTheDocument();
-    });
   });
 
   describe('Color Picker Type Variants', () => {
     it('renders Default type with visible picker', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Default} />);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
+      setup({ type: ColorPickerType.Default });
+      expect(grid()).toBeInTheDocument();
     });
 
     it('renders Button type with hidden picker initially', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
+      setup({ type: ColorPickerType.Button });
       expect(screen.getByTestId('rds-button')).toBeInTheDocument();
-      expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
+      expect(grid()).not.toBeInTheDocument();
     });
 
     it('renders ButtonExpanded type with visible button and picker', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.ButtonExpanded} />);
+      setup({ type: ColorPickerType.ButtonExpanded });
       expect(screen.getByTestId('rds-button')).toBeInTheDocument();
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
+      expect(grid()).toBeInTheDocument();
     });
 
     it('displays button text with label', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} label="Select Color" />);
+      setup({ type: ColorPickerType.Button, label: 'Select Color' });
       expect(screen.getByTestId('rds-button')).toHaveTextContent('Select Color');
-    });
-
-    it('uses default label when not provided', () => {
-      render(<RdsCompColorPicker value="#9751F2" label="Color Picker" type={ColorPickerType.Button} />);
-      expect(screen.getByTestId('rds-button')).toHaveTextContent('Color Picker');
     });
   });
 
   describe('Button Interactions', () => {
     it('toggles picker visibility when button clicked', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
+      setup({ type: ColorPickerType.Button });
       const button = screen.getByTestId('rds-button');
-      
-      expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
-      
+      expect(grid()).not.toBeInTheDocument();
       fireEvent.click(button);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
-      
+      expect(grid()).toBeInTheDocument();
       fireEvent.click(button);
-      expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
+      expect(grid()).not.toBeInTheDocument();
     });
 
-    it('button is disabled when isDisabled is true', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} isDisabled={true} />);
-      expect(screen.getByTestId('rds-button')).toBeDisabled();
-    });
-
-    it('button click does not toggle when disabled', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} isDisabled={true} />);
+    it('button is disabled and click does not toggle when isDisabled is true', () => {
+      setup({ type: ColorPickerType.Button, isDisabled: true });
       const button = screen.getByTestId('rds-button');
+      expect(button).toBeDisabled();
       fireEvent.click(button);
-      expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
+      expect(grid()).not.toBeInTheDocument();
     });
   });
 
   describe('Tab Selection', () => {
     it('renders tabs when showTabs is true', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
-      expect(container.querySelectorAll('.rds-comp-color-picker__tab').length).toBe(2);
+      const { container } = setup({ showTabs: true });
+      expect(tabsOf(container).length).toBe(2);
     });
 
     it('does not render tabs when showTabs is false', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={false} />);
-      expect(container.querySelectorAll('.rds-comp-color-picker__tab').length).toBe(0);
+      const { container } = setup({ showTabs: false });
+      expect(tabsOf(container).length).toBe(0);
     });
 
     it('Grid tab is active by default', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
-      const gridTab = container.querySelectorAll('.rds-comp-color-picker__tab')[0];
-      expect(gridTab).toHaveClass('rds-comp-color-picker__tab--active');
+      const { container } = setup({ showTabs: true });
+      expect(tabsOf(container)[0]).toHaveClass('rds-comp-color-picker__tab--active');
     });
 
     it('switches to Spectrum tab when clicked', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
-      const spectrumTab = container.querySelectorAll('.rds-comp-color-picker__tab')[1];
+      const { container } = setup({ showTabs: true });
+      const spectrumTab = tabsOf(container)[1];
       fireEvent.click(spectrumTab);
-      
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
-      expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
+      expect(grid()).not.toBeInTheDocument();
       expect(spectrumTab).toHaveClass('rds-comp-color-picker__tab--active');
     });
 
     it('switches back to Grid tab when clicked', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
-      const [gridTab, spectrumTab] = container.querySelectorAll('.rds-comp-color-picker__tab');
-      
+      const { container } = setup({ showTabs: true });
+      const [gridTab, spectrumTab] = tabsOf(container);
       fireEvent.click(spectrumTab);
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
-      
       fireEvent.click(gridTab);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
+      expect(grid()).toBeInTheDocument();
     });
 
     it('respects pickerType prop for initial tab', () => {
-      render(<RdsCompColorPicker {...defaultProps} showTabs={true} pickerType={PickerType.Spectrum} />);
+      setup({ showTabs: true, pickerType: PickerType.Spectrum });
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
   });
 
   describe('Color Mode Selection', () => {
     it('defaults to HEX color mode', () => {
-      render(<RdsCompColorPicker {...defaultProps} />);
-      const gridColorMode = screen.getByTestId('grid-color-mode');
-      expect(gridColorMode).toHaveTextContent('HEX');
+      setup();
+      expect(screen.getByTestId('grid-color-mode')).toHaveTextContent('HEX');
     });
 
-    it('accepts colorMode prop for RGB', () => {
-      render(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.RGB} />);
-      const gridColorMode = screen.getByTestId('grid-color-mode');
-      expect(gridColorMode).toHaveTextContent('RGB');
-    });
-
-    it('accepts colorMode prop for HSB', () => {
-      render(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.HSB} />);
-      const gridColorMode = screen.getByTestId('grid-color-mode');
-      expect(gridColorMode).toHaveTextContent('HSB');
-    });
-
-    it('accepts colorMode prop for HSL', () => {
-      render(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.HSL} />);
-      const gridColorMode = screen.getByTestId('grid-color-mode');
-      expect(gridColorMode).toHaveTextContent('HSL');
+    it.each([ColorMode.HEX, ColorMode.RGB, ColorMode.HSB, ColorMode.HSL])('accepts colorMode prop for %s', (mode) => {
+      setup({ colorMode: mode });
+      expect(screen.getByTestId('grid-color-mode')).toHaveTextContent(String(mode));
     });
   });
 
   describe('Color Changes', () => {
     it('calls onChange callback when color changes', async () => {
       const onChange = jest.fn();
-      render(<RdsCompColorPicker {...defaultProps} onChange={onChange} />);
-      
-      const changeButton = screen.getByTestId('grid-change-color');
-      fireEvent.click(changeButton);
-      
+      setup({ onChange });
+      fireEvent.click(screen.getByTestId('grid-change-color'));
       await waitFor(() => {
         expect(onChange).toHaveBeenCalledWith('#FF0000');
       });
     });
 
     it('updates color state when color changes', async () => {
-      render(<RdsCompColorPicker {...defaultProps} />);
-      
-      const colorStateBefore = screen.getByTestId('grid-color-state').textContent;
-      expect(colorStateBefore).toContain('#9751F2');
-      
-      const changeButton = screen.getByTestId('grid-change-color');
-      fireEvent.click(changeButton);
-      
+      setup();
+      expect(screen.getByTestId('grid-color-state').textContent).toContain('#9751F2');
+      fireEvent.click(screen.getByTestId('grid-change-color'));
       await waitFor(() => {
-        const colorStateAfter = screen.getByTestId('grid-color-state').textContent;
-        expect(colorStateAfter).toContain('#FF0000');
+        expect(screen.getByTestId('grid-color-state').textContent).toContain('#FF0000');
       });
     });
 
     it('does not change color when disabled', () => {
       const onChange = jest.fn();
-      render(<RdsCompColorPicker {...defaultProps} isDisabled={true} onChange={onChange} />);
-      
-      const changeButton = screen.getByTestId('grid-change-color');
-      fireEvent.click(changeButton);
-      
+      setup({ isDisabled: true, onChange });
+      fireEvent.click(screen.getByTestId('grid-change-color'));
       expect(onChange).not.toHaveBeenCalled();
     });
 
     it('switches to Spectrum and changes color', async () => {
       const onChange = jest.fn();
-      const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} onChange={onChange} />);
-      
-      const tabs = container.querySelectorAll('.rds-comp-color-picker__tab');
-      fireEvent.click(tabs[1]);
-      
-      const changeButton = screen.getByTestId('spectrum-change-color');
-      fireEvent.click(changeButton);
-      
+      const { container } = setup({ showTabs: true, onChange });
+      fireEvent.click(tabsOf(container)[1]);
+      fireEvent.click(screen.getByTestId('spectrum-change-color'));
       await waitFor(() => {
         expect(onChange).toHaveBeenCalledWith('#00FF00');
       });
@@ -294,206 +239,141 @@ describe('RdsCompColorPicker', () => {
 
   describe('Props Updates', () => {
     it('updates color when value prop changes', () => {
-      const { rerender } = render(<RdsCompColorPicker {...defaultProps} value="#9751F2" />);
-      
-      let colorState = screen.getByTestId('grid-color-state').textContent;
-      expect(colorState).toContain('#9751F2');
-      
+      const { rerender } = setup({ value: '#9751F2' });
+      expect(screen.getByTestId('grid-color-state').textContent).toContain('#9751F2');
       rerender(<RdsCompColorPicker {...defaultProps} value="#FF0000" />);
-      
-      colorState = screen.getByTestId('grid-color-state').textContent;
-      expect(colorState).toContain('#FF0000');
+      expect(screen.getByTestId('grid-color-state').textContent).toContain('#FF0000');
     });
 
     it('updates tab when pickerType prop changes', () => {
-      const { rerender } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} pickerType={PickerType.Grid} />);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
-      
+      const { rerender } = setup({ showTabs: true, pickerType: PickerType.Grid });
+      expect(grid()).toBeInTheDocument();
       rerender(<RdsCompColorPicker {...defaultProps} showTabs={true} pickerType={PickerType.Spectrum} />);
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
 
     it('updates picker visibility when type prop changes', () => {
-      const { rerender } = render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
-      expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
-      
+      const { rerender } = setup({ type: ColorPickerType.Button });
+      expect(grid()).not.toBeInTheDocument();
       rerender(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Default} />);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
+      expect(grid()).toBeInTheDocument();
     });
 
     it('updates color mode when colorMode prop changes', () => {
-      const { rerender } = render(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.HEX} />);
-      let colorMode = screen.getByTestId('grid-color-mode').textContent;
-      expect(colorMode).toContain('HEX');
-      
+      const { rerender } = setup({ colorMode: ColorMode.HEX });
+      expect(screen.getByTestId('grid-color-mode').textContent).toContain('HEX');
       rerender(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.RGB} />);
-      colorMode = screen.getByTestId('grid-color-mode').textContent;
-      expect(colorMode).toContain('RGB');
+      expect(screen.getByTestId('grid-color-mode').textContent).toContain('RGB');
     });
 
     it('updates swatchesVariant when prop changes', () => {
-      const { container, rerender } = render(<RdsCompColorPicker {...defaultProps} swatchesVariant="list" />);
+      const { container, rerender } = setup({ swatchesVariant: 'list' });
       rerender(<RdsCompColorPicker {...defaultProps} swatchesVariant="grid" />);
       expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
     });
 
     it('applies CSS style to the root element', () => {
-      render(<RdsCompColorPicker {...defaultProps} style={{ marginTop: 8 }} />);
+      setup({ style: { marginTop: 8 } });
       expect(document.querySelector('.rds-comp-color-picker')).toHaveStyle({ marginTop: '8px' });
     });
   });
 
   describe('Disabled State', () => {
     it('component has aria-disabled attribute when disabled', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} isDisabled={true} />);
-      const picker = container.querySelector('.rds-comp-color-picker');
-      expect(picker).toHaveAttribute('aria-disabled', 'true');
+      const { container } = setup({ isDisabled: true });
+      expect(container.querySelector('.rds-comp-color-picker')).toHaveAttribute('aria-disabled', 'true');
+      expect(container.querySelector('[aria-disabled="true"]')).toBeInTheDocument();
     });
 
     it('component does not have aria-disabled when not disabled', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} isDisabled={false} />);
-      const picker = container.querySelector('.rds-comp-color-picker');
-      expect(picker).not.toHaveAttribute('aria-disabled');
-    });
-
-    it('does not allow color change on hue when disabled', () => {
-      const onChange = jest.fn();
-      render(<RdsCompColorPicker {...defaultProps} isDisabled={true} onChange={onChange} />);
-      
-      const changeButton = screen.getByTestId('grid-change-color');
-      fireEvent.click(changeButton);
-      
-      expect(onChange).not.toHaveBeenCalled();
+      const { container } = setup({ isDisabled: false });
+      expect(container.querySelector('.rds-comp-color-picker')).not.toHaveAttribute('aria-disabled');
     });
   });
 
   describe('Swatches', () => {
     it('shows swatches when showSwatches is true', () => {
-      const { rerender } = render(<RdsCompColorPicker {...defaultProps} showSwatches={false} />);
-      rerender(<RdsCompColorPicker {...defaultProps} showSwatches={true} showTabs={true} pickerType={PickerType.Spectrum} />);
+      const { rerender } = setup({ showSwatches: false });
+      rerender(
+        <RdsCompColorPicker {...defaultProps} showSwatches={true} showTabs={true} pickerType={PickerType.Spectrum} />
+      );
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
   });
 
   describe('Initial State', () => {
-    it('initializes with correct default color hex', () => {
-      render(<RdsCompColorPicker value="#9751F2" label="Pick Color" type={ColorPickerType.Default} />);
-      const colorState = screen.getByTestId('grid-color-state').textContent;
-      expect(colorState).toContain('#9751F2');
-    });
-
-    it('initializes with default rgb values when value prop is HEX', () => {
-      render(<RdsCompColorPicker {...defaultProps} />);
-      const colorState = JSON.parse(screen.getByTestId('grid-color-state').textContent || '{}');
-      expect(colorState.rgb).toBeDefined();
-      expect(colorState.rgb.r).toBe(151);
-      expect(colorState.rgb.g).toBe(81);
-      expect(colorState.rgb.b).toBe(242);
+    it('initializes with correct default color hex and rgb values', () => {
+      setup();
+      const state = JSON.parse(screen.getByTestId('grid-color-state').textContent || '{}');
+      expect(state.hex).toContain('#9751F2');
+      expect(state.rgb).toBeDefined();
+      expect(state.rgb.r).toBe(151);
+      expect(state.rgb.g).toBe(81);
+      expect(state.rgb.b).toBe(242);
     });
 
     it('initializes with default purple color when no value provided', () => {
-      render(<RdsCompColorPicker value="" label="Pick Color" type={ColorPickerType.Default} />);
-      const colorState = screen.getByTestId('grid-color-state').textContent;
-      expect(colorState).toContain('#');
-    });
-  });
-
-  describe('Multiple Color Mode Support', () => {
-    it('can display color in HEX format', () => {
-      render(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.HEX} />);
-      expect(screen.getByTestId('grid-color-mode')).toHaveTextContent('HEX');
-    });
-
-    it('can display color in RGB format', () => {
-      render(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.RGB} />);
-      expect(screen.getByTestId('grid-color-mode')).toHaveTextContent('RGB');
-    });
-
-    it('can display color in HSB format', () => {
-      render(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.HSB} />);
-      expect(screen.getByTestId('grid-color-mode')).toHaveTextContent('HSB');
-    });
-
-    it('can display color in HSL format', () => {
-      render(<RdsCompColorPicker {...defaultProps} colorMode={ColorMode.HSL} />);
-      expect(screen.getByTestId('grid-color-mode')).toHaveTextContent('HSL');
+      setup({ value: '' });
+      expect(screen.getByTestId('grid-color-state').textContent).toContain('#');
     });
   });
 
   describe('Picker Type Combination', () => {
     it('renders both Grid and Spectrum pickers when tabs are shown', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
-      
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
-      
-      const tabs = container.querySelectorAll('.rds-comp-color-picker__tab');
-      fireEvent.click(tabs[1]);
-      
+      const { container } = setup({ showTabs: true });
+      expect(grid()).toBeInTheDocument();
+      fireEvent.click(tabsOf(container)[1]);
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
   });
 
   describe('Button Type with Different Props', () => {
-    it('Button type with label displays label', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} label="Choose" />);
-      expect(screen.getByTestId('rds-button')).toHaveTextContent('Choose');
-    });
-
     it('ButtonExpanded type always shows picker initially', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.ButtonExpanded} />);
+      setup({ type: ColorPickerType.ButtonExpanded });
       const button = screen.getByTestId('rds-button');
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
-      
+      expect(grid()).toBeInTheDocument();
       fireEvent.click(button);
-      expect(screen.queryByTestId('color-picker-grid')).not.toBeInTheDocument();
-      
+      expect(grid()).not.toBeInTheDocument();
       fireEvent.click(button);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
+      expect(grid()).toBeInTheDocument();
     });
   });
 
   describe('Edge Cases', () => {
     it('handles empty value gracefully', () => {
-      render(<RdsCompColorPicker value="" label="Color" type={ColorPickerType.Default} />);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
+      setup({ value: '' });
+      expect(grid()).toBeInTheDocument();
     });
 
     it('handles undefined onChange callback', () => {
-      render(<RdsCompColorPicker {...defaultProps} onChange={undefined} />);
-      const changeButton = screen.getByTestId('grid-change-color');
-      expect(() => fireEvent.click(changeButton)).not.toThrow();
+      setup({ onChange: undefined });
+      expect(() => fireEvent.click(screen.getByTestId('grid-change-color'))).not.toThrow();
     });
 
     it('handles rapid tab switches', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
-      const tabs = container.querySelectorAll('.rds-comp-color-picker__tab');
-      
+      const { container } = setup({ showTabs: true });
+      const tabs = tabsOf(container);
       fireEvent.click(tabs[1]);
       fireEvent.click(tabs[0]);
       fireEvent.click(tabs[1]);
-      
       expect(screen.getByTestId('color-picker-spectrum')).toBeInTheDocument();
     });
 
     it('handles rapid button clicks', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
+      setup({ type: ColorPickerType.Button });
       const button = screen.getByTestId('rds-button');
-      
       fireEvent.click(button);
       fireEvent.click(button);
       fireEvent.click(button);
-      
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
+      expect(grid()).toBeInTheDocument();
     });
 
     it('handles color change while disabled then enabled', () => {
       const onChange = jest.fn();
-      const { rerender } = render(<RdsCompColorPicker {...defaultProps} isDisabled={true} onChange={onChange} />);
-      
+      const { rerender } = setup({ isDisabled: true, onChange });
       const changeButton = screen.getByTestId('grid-change-color');
       fireEvent.click(changeButton);
       expect(onChange).not.toHaveBeenCalled();
-      
       rerender(<RdsCompColorPicker {...defaultProps} isDisabled={false} onChange={onChange} />);
       fireEvent.click(changeButton);
       expect(onChange).toHaveBeenCalled();
@@ -501,50 +381,16 @@ describe('RdsCompColorPicker', () => {
   });
 
   describe('Accessibility', () => {
-    it('renders with Fragment wrapper', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} />);
-      expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
-    });
-  
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
-    });
-
-    it('button has proper semantic structure', () => {
-      render(<RdsCompColorPicker {...defaultProps} type={ColorPickerType.Button} />);
-      expect(screen.getByTestId('rds-button')).toBeInTheDocument();
-    });
-
-    it('disabled state is properly communicated', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} isDisabled={true} />);
-      const picker = container.querySelector('[aria-disabled="true"]');
-      expect(picker).toBeInTheDocument();
+      const { container } = setup();
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 
   describe('Default Props Behavior', () => {
-    it('uses Default type when type not specified', () => {
-      const { container } = render(
-        <RdsCompColorPicker value="#9751F2" label="Color" type={ColorPickerType.Default} />
-      );
-      expect(container.querySelector('.rds-comp-color-picker__container')).toBeInTheDocument();
-    });
-
     it('uses Grid picker type by default', () => {
-      render(<RdsCompColorPicker {...defaultProps} showTabs={true} />);
-      expect(screen.getByTestId('color-picker-grid')).toBeInTheDocument();
-    });
-
-    it('uses HEX color mode by default', () => {
-      render(<RdsCompColorPicker {...defaultProps} />);
-      expect(screen.getByTestId('grid-color-mode')).toHaveTextContent('HEX');
-    });
-
-    it('uses Type 1 style by default', () => {
-      const { container } = render(<RdsCompColorPicker {...defaultProps} />);
-      expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
+      setup({ showTabs: true });
+      expect(grid()).toBeInTheDocument();
     });
   });
 
@@ -580,7 +426,7 @@ describe('RdsCompColorPicker', () => {
 
     it('G4-004: alpha change calls onChange with rgba and hex8', () => {
       const onChange = jest.fn();
-      render(<RdsCompColorPicker {...defaultProps} onChange={onChange} />);
+      setup({ onChange });
       const Grid = jest.requireMock('./color-picker-components').ColorPickerGrid as jest.Mock;
       const { handleAlphaChange } = Grid.mock.calls[Grid.mock.calls.length - 1][0];
       act(() => handleAlphaChange({ hex: '#9751F2', rgb: { r: 151, g: 81, b: 242, a: 0.5 } }));
@@ -638,7 +484,7 @@ describe('RdsCompColorPicker', () => {
 
     it('G4-012/G4-013: root forwards className, ref, rest and is a labelled group', () => {
       const ref = React.createRef<HTMLDivElement>();
-      render(<RdsCompColorPicker {...defaultProps} ref={ref} className="custom" data-testid="cp-root" />);
+      setup({ ref, className: 'custom', 'data-testid': 'cp-root' });
       const root = screen.getByTestId('cp-root');
       expect(root).toHaveClass('rds-comp-color-picker', 'custom');
       expect(ref.current).toBe(root);
@@ -646,7 +492,7 @@ describe('RdsCompColorPicker', () => {
     });
 
     it('G4-018: tabs expose tablist/tab semantics', () => {
-      render(<RdsCompColorPicker {...defaultProps} showTabs />);
+      setup({ showTabs: true });
       expect(screen.getByRole('tablist')).toBeInTheDocument();
       expect(screen.getByRole('tab', { name: 'Grid' })).toHaveAttribute('aria-selected', 'true');
       fireEvent.click(screen.getByRole('tab', { name: 'Spectrum' }));
@@ -692,7 +538,15 @@ describe('audit fixes', () => {
 
   it('warns for colorMode and pickerType but not the Figma type prop', () => {
     const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
-    render(<RdsCompColorPicker label="c" value="#123456" type={ColorPickerType.Default} colorMode={ColorMode.RGB} pickerType={PickerType.Grid} />);
+    render(
+      <RdsCompColorPicker
+        label="c"
+        value="#123456"
+        type={ColorPickerType.Default}
+        colorMode={ColorMode.RGB}
+        pickerType={PickerType.Grid}
+      />
+    );
     expect(warnDeprecatedProp).not.toHaveBeenCalledWith('RdsCompColorPicker', 'type', expect.anything());
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompColorPicker', 'colorMode', '`format`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompColorPicker', 'pickerType', '`view`');

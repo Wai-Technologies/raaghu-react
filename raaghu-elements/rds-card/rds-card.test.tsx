@@ -85,272 +85,135 @@ jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() 
 
 describe('RdsCard', () => {
   const defaultProps: RdsCardProps = {};
+  const setup = (p: any = {}, children?: React.ReactNode) =>
+    render(<RdsCard {...defaultProps} {...p}>{children}</RdsCard>);
+  const root = () => screen.getByTestId('card-root');
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      render(<RdsCard {...defaultProps} />);
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
+      setup();
+      expect(root()).toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
       expect(RdsCard.displayName).toBe('RdsCard');
     });
 
-    it('should render MUI Card component', () => {
-      render(<RdsCard {...defaultProps} />);
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
-    });
-
-    it('should render with default props', () => {
-      render(<RdsCard {...defaultProps} />);
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
-    });
-
     it('should render with custom className', () => {
-      render(<RdsCard {...defaultProps} className="custom-class" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('custom-class');
+      setup({ className: 'custom-class' });
+      expect(root()).toHaveClass('custom-class');
     });
   });
 
-  describe('Card States', () => {
-    it('should render default state', () => {
-      render(<RdsCard {...defaultProps} state="default" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--default');
-    });
-
-    it('should render hover state', () => {
-      render(<RdsCard {...defaultProps} state="hover" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--hover');
-    });
-
-    it('should render selected state', () => {
-      render(<RdsCard {...defaultProps} state="selected" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--selected');
-    });
-
-    it('should render disabled state', () => {
-      render(<RdsCard {...defaultProps} state="disabled" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--disabled');
-    });
-  });
-
-  describe('Card Styles', () => {
-    it('should render default style', () => {
-      render(<RdsCard {...defaultProps} variant="default" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--style-default');
-    });
-
-    it('should render outlined style', () => {
-      render(<RdsCard {...defaultProps} variant="outlined" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--style-outlined');
-    });
-
-    it('should render filled style', () => {
-      render(<RdsCard {...defaultProps} variant="filled" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--style-filled');
-    });
-  });
-
-  describe('Card Layouts', () => {
-    it('should render vertical layout', () => {
-      render(<RdsCard {...defaultProps} layout="vertical" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--layout-vertical');
-    });
-
-    it('should render horizontal layout', () => {
-      render(<RdsCard {...defaultProps} layout="horizontal" />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--layout-horizontal');
+  describe('Card States, Styles and Layouts', () => {
+    it.each([
+      [{ state: 'default' }, 'rds-card--default'],
+      [{ state: 'hover' }, 'rds-card--hover'],
+      [{ state: 'selected' }, 'rds-card--selected'],
+      [{ state: 'disabled' }, 'rds-card--disabled'],
+      [{ variant: 'default' }, 'rds-card--style-default'],
+      [{ variant: 'outlined' }, 'rds-card--style-outlined'],
+      [{ variant: 'filled' }, 'rds-card--style-filled'],
+      [{ layout: 'vertical' }, 'rds-card--layout-vertical'],
+      [{ layout: 'horizontal' }, 'rds-card--layout-horizontal'],
+      [{}, 'rds-card--default'],
+      [{}, 'rds-card--style-default'],
+      [{}, 'rds-card--layout-vertical'],
+    ])('props %j -> class %s', (props, cls) => {
+      setup(props);
+      expect(root()).toHaveClass(cls);
     });
   });
 
   describe('Indicators', () => {
-    it('should show indicator by default', () => {
-      const { container } = render(<RdsCard {...defaultProps} />);
-      expect(container.querySelector('.rds-card__indicator')).toBeInTheDocument();
-    });
-
-    it('should show indicator when showIndicator is true', () => {
-      const { container } = render(
-        <RdsCard {...defaultProps} showIndicator={true} />
-      );
-      expect(container.querySelector('.rds-card__indicator')).toBeInTheDocument();
-    });
-
-    it('should not show indicator when showIndicator is false', () => {
-      const { container } = render(
-        <RdsCard {...defaultProps} showIndicator={false} />
-      );
-      expect(container.querySelector('.rds-card__indicator')).not.toBeInTheDocument();
+    it.each([[undefined, true], [true, true], [false, false]])('showIndicator=%p renders indicator: %p', (v, shown) => {
+      const { container } = setup(v === undefined ? {} : { showIndicator: v });
+      const indicator = expect(container.querySelector('.rds-card__indicator'));
+      if (shown) indicator.toBeInTheDocument();
+      else indicator.not.toBeInTheDocument();
     });
 
     it('should apply with-indicator class when showIndicator is true', () => {
-      render(<RdsCard {...defaultProps} showIndicator={true} />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--with-indicator');
+      setup({ showIndicator: true });
+      expect(root()).toHaveClass('rds-card--with-indicator');
     });
 
     it('should not apply with-indicator class when showIndicator is false', () => {
-      render(<RdsCard {...defaultProps} showIndicator={false} />);
-      const card = screen.getByTestId('card-root');
-      expect(card).not.toHaveClass('rds-card--with-indicator');
+      setup({ showIndicator: false });
+      expect(root()).not.toHaveClass('rds-card--with-indicator');
     });
   });
 
   describe('Icon Rendering', () => {
-    it('should show icon by default', () => {
-      render(<RdsCard {...defaultProps} />);
-      expect(screen.getByTestId('icon-person')).toBeInTheDocument();
-    });
-
-    it('should show icon when showIcon is true', () => {
-      render(<RdsCard {...defaultProps} showIcon={true} />);
+    it.each([undefined, true])('should show icon when showIcon is %p', (v) => {
+      setup(v === undefined ? {} : { showIcon: v });
       expect(screen.getByTestId('icon-person')).toBeInTheDocument();
     });
 
     it('should not show icon when showIcon is false', () => {
-      render(<RdsCard {...defaultProps} showIcon={false} />);
+      setup({ showIcon: false });
       expect(screen.queryByTestId('icon-person')).not.toBeInTheDocument();
     });
 
-    it('should render person icon by default', () => {
-      render(<RdsCard {...defaultProps} changeIcon="person" />);
-      expect(screen.getByTestId('icon-person')).toBeInTheDocument();
-    });
-
-    it('should render home icon', () => {
-      render(<RdsCard {...defaultProps} changeIcon="home" />);
-      expect(screen.getByTestId('icon-home')).toBeInTheDocument();
-    });
-
-    it('should render settings icon', () => {
-      render(<RdsCard {...defaultProps} changeIcon="settings" />);
-      expect(screen.getByTestId('icon-settings')).toBeInTheDocument();
-    });
-
-    it('should render favorite icon', () => {
-      render(<RdsCard {...defaultProps} changeIcon="favorite" />);
-      expect(screen.getByTestId('icon-favorite')).toBeInTheDocument();
-    });
-
-    it('should render star icon', () => {
-      render(<RdsCard {...defaultProps} changeIcon="star" />);
-      expect(screen.getByTestId('icon-star')).toBeInTheDocument();
-    });
-
-    it('should render email icon', () => {
-      render(<RdsCard {...defaultProps} changeIcon="email" />);
-      expect(screen.getByTestId('icon-email')).toBeInTheDocument();
-    });
-
-    it('should render phone icon', () => {
-      render(<RdsCard {...defaultProps} changeIcon="phone" />);
-      expect(screen.getByTestId('icon-phone')).toBeInTheDocument();
+    it.each([
+      ['person', 'icon-person'],
+      ['home', 'icon-home'],
+      ['settings', 'icon-settings'],
+      ['favorite', 'icon-favorite'],
+      ['star', 'icon-star'],
+      ['email', 'icon-email'],
+      ['phone', 'icon-phone'],
+      ['location', 'icon-location'],
+      ['camera', 'icon-camera'],
+      ['image', 'icon-image'],
+      ['music', 'icon-music'],
+      ['video', 'icon-video'],
+      ['document', 'icon-document'],
+      ['folder', 'icon-folder'],
+      ['add', 'icon-add'],
+      ['edit', 'icon-edit'],
+      ['delete', 'icon-delete'],
+      ['search', 'icon-search'],
+      ['arrow_forward', 'icon-arrow-forward'],
+      ['arrow_back', 'icon-arrow-back'],
+    ])('should render %s icon', (icon, testId) => {
+      setup({ changeIcon: icon, showIcon: true });
+      expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
 
     it('should apply icon class', () => {
-      const { container } = render(
-        <RdsCard {...defaultProps} changeIcon="home" />
-      );
-      const icon = container.querySelector('.rds-card__icon--home');
-      expect(icon).toBeInTheDocument();
+      const { container } = setup({ changeIcon: 'home' });
+      expect(container.querySelector('.rds-card__icon--home')).toBeInTheDocument();
     });
 
     it('should apply hide-icon class when showIcon is false', () => {
-      render(<RdsCard {...defaultProps} showIcon={false} />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--hide-icon');
+      setup({ showIcon: false });
+      expect(root()).toHaveClass('rds-card--hide-icon');
     });
   });
 
   describe('Text Content', () => {
-    it('should render title when provided and showTitle is true', () => {
-      render(
-        <RdsCard 
-          {...defaultProps} 
-          title="Card Title"
-          showTitle={true}
-        />
-      );
-      expect(screen.getByText('Card Title')).toBeInTheDocument();
-    });
-
-    it('should not render title when showTitle is false', () => {
-      render(
-        <RdsCard 
-          {...defaultProps} 
-          title="Card Title"
-          showTitle={false}
-        />
-      );
-      expect(screen.queryByText('Card Title')).not.toBeInTheDocument();
-    });
-
-    it('should render subtext when provided and showSubtext is true', () => {
-      render(
-        <RdsCard 
-          {...defaultProps} 
-          cardSubtext="Subtext content"
-          showSubtext={true}
-        />
-      );
-      expect(screen.getByText('Subtext content')).toBeInTheDocument();
-    });
-
-    it('should not render subtext when showSubtext is false', () => {
-      render(
-        <RdsCard 
-          {...defaultProps} 
-          cardSubtext="Subtext content"
-          showSubtext={false}
-        />
-      );
-      expect(screen.queryByText('Subtext content')).not.toBeInTheDocument();
-    });
-
-    it('should render description when provided and showDescription is true', () => {
-      render(
-        <RdsCard 
-          {...defaultProps} 
-          description="Description content"
-          showDescription={true}
-        />
-      );
-      expect(screen.getByText('Description content')).toBeInTheDocument();
-    });
-
-    it('should not render description when showDescription is false', () => {
-      render(
-        <RdsCard 
-          {...defaultProps} 
-          description="Description content"
-          showDescription={false}
-        />
-      );
-      expect(screen.queryByText('Description content')).not.toBeInTheDocument();
+    it.each([
+      ['title', 'Card Title', 'showTitle'],
+      ['cardSubtext', 'Subtext content', 'showSubtext'],
+      ['description', 'Description content', 'showDescription'],
+    ])('%s is rendered or hidden by its toggle', (prop, text, toggle) => {
+      const { unmount } = setup({ [prop]: text, [toggle]: true });
+      expect(screen.getByText(text)).toBeInTheDocument();
+      unmount();
+      setup({ [prop]: text, [toggle]: false });
+      expect(screen.queryByText(text)).not.toBeInTheDocument();
     });
 
     it('should render all text content together', () => {
-      render(
-        <RdsCard 
-          {...defaultProps} 
-          title="Title"
-          cardSubtext="Subtext"
-          description="Description"
-          showTitle={true}
-          showSubtext={true}
-          showDescription={true}
-        />
-      );
+      setup({
+        title: 'Title',
+        cardSubtext: 'Subtext',
+        description: 'Description',
+        showTitle: true,
+        showSubtext: true,
+        showDescription: true,
+      });
       expect(screen.getByText('Title')).toBeInTheDocument();
       expect(screen.getByText('Subtext')).toBeInTheDocument();
       expect(screen.getByText('Description')).toBeInTheDocument();
@@ -359,448 +222,181 @@ describe('RdsCard', () => {
 
   describe('Children Support', () => {
     it('should render children', () => {
-      render(
-        <RdsCard {...defaultProps}>
-          <div>Child content</div>
-        </RdsCard>
-      );
+      setup({}, <div>Child content</div>);
       expect(screen.getByText('Child content')).toBeInTheDocument();
     });
 
-    it('should render without children', () => {
-      render(<RdsCard {...defaultProps} />);
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
-    });
-
     it('should render multiple children', () => {
-      render(
-        <RdsCard {...defaultProps}>
-          <div>Child 1</div>
-          <div>Child 2</div>
-        </RdsCard>
-      );
+      setup({}, <><div>Child 1</div><div>Child 2</div></>);
       expect(screen.getByText('Child 1')).toBeInTheDocument();
       expect(screen.getByText('Child 2')).toBeInTheDocument();
     });
   });
 
   describe('Padding and Styling', () => {
-    it('should apply padding when provided', () => {
-      const { container } = render(
-        <RdsCard {...defaultProps} padding="20px" />
-      );
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
-    });
-
-    it('should accept numeric padding', () => {
-      const { container } = render(
-        <RdsCard {...defaultProps} padding={16} />
-      );
-      const card = screen.getByTestId('card-root');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('should accept string padding', () => {
-      const { container } = render(
-        <RdsCard {...defaultProps} padding="1rem" />
-      );
-      const card = screen.getByTestId('card-root');
-      expect(card).toBeInTheDocument();
-    });
-
-    it('should accept sx prop', () => {
-      render(
-        <RdsCard {...defaultProps} sx={{ backgroundColor: 'red' }} />
-      );
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
-    });
-
-    it('should merge sx prop with inline padding styles', () => {
-      render(
-        <RdsCard 
-          {...defaultProps} 
-          padding="16px"
-          sx={{ backgroundColor: 'blue' }}
-        />
-      );
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
+    it.each([
+      [{ padding: '20px' }],
+      [{ padding: 16 }],
+      [{ padding: '1rem' }],
+      [{ sx: { backgroundColor: 'red' } }],
+      [{ padding: '16px', sx: { backgroundColor: 'blue' } }],
+      [{ elevation: 8 }],
+    ])('accepts %j', (props) => {
+      setup(props);
+      expect(root()).toBeInTheDocument();
     });
   });
 
   describe('MUI Card Props', () => {
     it('should accept data-testid prop', () => {
-      render(
-        <RdsCard {...defaultProps} data-testid="custom-card" />
-      );
+      setup({ 'data-testid': 'custom-card' });
       expect(screen.getByTestId('custom-card')).toBeInTheDocument();
     });
 
-    it('should accept elevation prop', () => {
-      render(
-        <RdsCard {...defaultProps} elevation={8} />
-      );
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
-    });
-
     it('should maintain other MUI Card props', () => {
-      render(
-        <RdsCard 
-          {...defaultProps}
-          role="article"
-        />
-      );
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveAttribute('role', 'article');
+      setup({ role: 'article' });
+      expect(root()).toHaveAttribute('role', 'article');
     });
   });
 
   describe('Combined Props', () => {
     it('should render with all customization props', () => {
-      render(
-        <RdsCard 
-          title="Full Card"
-          cardSubtext="This is a subtext"
-          description="This is a description"
-          state="selected"
-          variant="outlined"
-          layout="horizontal"
-          changeIcon="star"
-          showIndicator={true}
-          showTitle={true}
-          showSubtext={true}
-          showDescription={true}
-          showIcon={true}
-          padding="16px"
-          className="custom"
-        >
-          <div>Extra content</div>
-        </RdsCard>
+      setup(
+        {
+          title: 'Full Card',
+          cardSubtext: 'This is a subtext',
+          description: 'This is a description',
+          state: 'selected',
+          variant: 'outlined',
+          layout: 'horizontal',
+          changeIcon: 'star',
+          showIndicator: true,
+          showTitle: true,
+          showSubtext: true,
+          showDescription: true,
+          showIcon: true,
+          padding: '16px',
+          className: 'custom',
+        },
+        <div>Extra content</div>
       );
-      
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--selected');
-      expect(card).toHaveClass('rds-card--style-outlined');
-      expect(card).toHaveClass('rds-card--layout-horizontal');
-      expect(card).toHaveClass('custom');
+      expect(root()).toHaveClass('rds-card--selected', 'rds-card--style-outlined', 'rds-card--layout-horizontal', 'custom');
       expect(screen.getByText('Full Card')).toBeInTheDocument();
       expect(screen.getByTestId('icon-star')).toBeInTheDocument();
     });
 
     it('should handle vertical layout with all features', () => {
-      render(
-        <RdsCard 
-          title="Vertical Card"
-          cardSubtext="Subtext"
-          layout="vertical"
-          changeIcon="home"
-          showIcon={true}
-        />
-      );
-      
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--layout-vertical');
+      setup({ title: 'Vertical Card', cardSubtext: 'Subtext', layout: 'vertical', changeIcon: 'home', showIcon: true });
+      expect(root()).toHaveClass('rds-card--layout-vertical');
       expect(screen.getByTestId('icon-home')).toBeInTheDocument();
-    });
-  });
-
-  describe('Icon Variants', () => {
-    it('should render all available icon types', () => {
-      const iconTests = [
-        { icon: 'location', testId: 'icon-location' },
-        { icon: 'camera', testId: 'icon-camera' },
-        { icon: 'image', testId: 'icon-image' },
-        { icon: 'music', testId: 'icon-music' },
-        { icon: 'video', testId: 'icon-video' },
-        { icon: 'document', testId: 'icon-document' },
-        { icon: 'folder', testId: 'icon-folder' },
-      ];
-
-      iconTests.forEach(({ icon, testId }) => {
-        const { unmount } = render(
-          <RdsCard 
-            changeIcon={icon as any}
-            showIcon={true}
-          />
-        );
-        expect(screen.getByTestId(testId)).toBeInTheDocument();
-        unmount();
-      });
-    });
-
-    it('should render action icons', () => {
-      const actionIcons = [
-        { icon: 'add', testId: 'icon-add' },
-        { icon: 'edit', testId: 'icon-edit' },
-        { icon: 'delete', testId: 'icon-delete' },
-        { icon: 'search', testId: 'icon-search' },
-      ];
-
-      actionIcons.forEach(({ icon, testId }) => {
-        const { unmount } = render(
-          <RdsCard 
-            changeIcon={icon as any}
-            showIcon={true}
-          />
-        );
-        expect(screen.getByTestId(testId)).toBeInTheDocument();
-        unmount();
-      });
-    });
-
-    it('should render navigation icons', () => {
-      const navIcons = [
-        { icon: 'arrow_forward', testId: 'icon-arrow-forward' },
-        { icon: 'arrow_back', testId: 'icon-arrow-back' },
-      ];
-
-      navIcons.forEach(({ icon, testId }) => {
-        const { unmount } = render(
-          <RdsCard 
-            changeIcon={icon as any}
-            showIcon={true}
-          />
-        );
-        expect(screen.getByTestId(testId)).toBeInTheDocument();
-        unmount();
-      });
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle empty title string', () => {
-      render(
-        <RdsCard
-          title=""
-          showTitle={true}
-        />
-      );
-      expect(screen.getByTestId('card-root')).toBeInTheDocument();
+      setup({ title: '', showTitle: true });
+      expect(root()).toBeInTheDocument();
     });
 
     it('should handle very long title', () => {
       const longTitle = 'This is a very long title that should wrap properly within the card component';
-      render(
-        <RdsCard
-          title={longTitle}
-          showTitle={true}
-        />
-      );
+      setup({ title: longTitle, showTitle: true });
       expect(screen.getByText(longTitle)).toBeInTheDocument();
     });
 
     it('should handle special characters in text', () => {
-      render(
-        <RdsCard
-          title="Card & Title @ Special <>"
-          cardSubtext="Subtext with special chars"
-          showTitle={true}
-          showSubtext={true}
-        />
-      );
+      setup({ title: 'Card & Title @ Special <>', cardSubtext: 'Subtext with special chars', showTitle: true, showSubtext: true });
       expect(screen.getByText('Card & Title @ Special <>')).toBeInTheDocument();
     });
 
     it('should handle unicode characters', () => {
-      render(
-        <RdsCard
-          title="Card Title 🎉"
-          cardSubtext="Subtext with emoji ❤️"
-          showTitle={true}
-          showSubtext={true}
-        />
-      );
+      setup({ title: 'Card Title 🎉', cardSubtext: 'Subtext with emoji ❤️', showTitle: true, showSubtext: true });
       expect(screen.getByText('Card Title 🎉')).toBeInTheDocument();
       expect(screen.getByText('Subtext with emoji ❤️')).toBeInTheDocument();
     });
 
     it('should handle rapid prop changes', () => {
-      const { rerender } = render(
-        <RdsCard state="default" />
-      );
-      
+      const { rerender } = render(<RdsCard state="default" />);
       rerender(<RdsCard state="hover" />);
       rerender(<RdsCard state="selected" />);
       rerender(<RdsCard state="disabled" />);
-      
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--disabled');
+      expect(root()).toHaveClass('rds-card--disabled');
     });
 
     it('should handle layout toggle', () => {
-      const { rerender } = render(
-        <RdsCard layout="vertical" />
-      );
-      
-      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--layout-vertical');
-      
+      const { rerender } = render(<RdsCard layout="vertical" />);
+      expect(root()).toHaveClass('rds-card--layout-vertical');
       rerender(<RdsCard layout="horizontal" />);
-      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--layout-horizontal');
+      expect(root()).toHaveClass('rds-card--layout-horizontal');
     });
 
     it('should handle icon change', () => {
-      const { rerender } = render(
-        <RdsCard changeIcon="person" showIcon={true} />
-      );
-      
+      const { rerender } = render(<RdsCard changeIcon="person" showIcon={true} />);
       expect(screen.getByTestId('icon-person')).toBeInTheDocument();
-      
       rerender(<RdsCard changeIcon="home" showIcon={true} />);
       expect(screen.getByTestId('icon-home')).toBeInTheDocument();
     });
   });
 
   describe('Default Props', () => {
-    it('should have state as default by default', () => {
-      render(<RdsCard />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--default');
-    });
-
-    it('should have showIndicator as true by default', () => {
-      const { container } = render(<RdsCard />);
-      expect(container.querySelector('.rds-card__indicator')).toBeInTheDocument();
-    });
-
-    it('should have style as default by default', () => {
-      render(<RdsCard />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--style-default');
-    });
-
-    it('should have layout as vertical by default', () => {
-      render(<RdsCard />);
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--layout-vertical');
-    });
-
-    it('should have showIcon as true by default', () => {
-      render(<RdsCard />);
-      expect(screen.getByTestId('icon-person')).toBeInTheDocument();
-    });
-
     it('should have showTitle as true by default', () => {
       render(<RdsCard title="Test" />);
       expect(screen.getByText('Test')).toBeInTheDocument();
     });
-
-    it('should have changeIcon as person by default', () => {
-      render(<RdsCard showIcon={true} />);
-      expect(screen.getByTestId('icon-person')).toBeInTheDocument();
-    });
   });
 
   describe('Visibility Toggles', () => {
-    it('should hide only title', () => {
-      render(
-        <RdsCard 
-          title="Title"
-          cardSubtext="Subtext"
-          description="Description"
-          showTitle={false}
-          showSubtext={true}
-          showDescription={true}
-        />
-      );
-      expect(screen.queryByText('Title')).not.toBeInTheDocument();
-      expect(screen.getByText('Subtext')).toBeInTheDocument();
-      expect(screen.getByText('Description')).toBeInTheDocument();
+    it.each([
+      ['showTitle', 'Title'],
+      ['showSubtext', 'Subtext'],
+      ['showDescription', 'Description'],
+    ])('should hide only %s', (toggle, hidden) => {
+      setup({
+        title: 'Title',
+        cardSubtext: 'Subtext',
+        description: 'Description',
+        showTitle: true,
+        showSubtext: true,
+        showDescription: true,
+        [toggle]: false,
+      });
+      ['Title', 'Subtext', 'Description'].forEach((text) => {
+        const query = expect(screen.queryByText(text));
+        if (text === hidden) query.not.toBeInTheDocument();
+        else query.toBeInTheDocument();
+      });
     });
 
-    it('should hide only subtext', () => {
-      render(
-        <RdsCard 
-          title="Title"
-          cardSubtext="Subtext"
-          description="Description"
-          showTitle={true}
-          showSubtext={false}
-          showDescription={true}
-        />
-      );
-      expect(screen.getByText('Title')).toBeInTheDocument();
-      expect(screen.queryByText('Subtext')).not.toBeInTheDocument();
-      expect(screen.getByText('Description')).toBeInTheDocument();
-    });
-
-    it('should hide only description', () => {
-      render(
-        <RdsCard 
-          title="Title"
-          cardSubtext="Subtext"
-          description="Description"
-          showTitle={true}
-          showSubtext={true}
-          showDescription={false}
-        />
-      );
-      expect(screen.getByText('Title')).toBeInTheDocument();
-      expect(screen.getByText('Subtext')).toBeInTheDocument();
-      expect(screen.queryByText('Description')).not.toBeInTheDocument();
-    });
-
-    it('should apply hide-title class', () => {
-      render(
-        <RdsCard 
-          title="Title"
-          showTitle={false}
-        />
-      );
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--hide-title');
-    });
-
-    it('should apply hide-subtext class', () => {
-      render(
-        <RdsCard 
-          cardSubtext="Subtext"
-          showSubtext={false}
-        />
-      );
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--hide-subtext');
-    });
-
-    it('should apply hide-description class', () => {
-      render(
-        <RdsCard 
-          description="Description"
-          showDescription={false}
-        />
-      );
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--hide-description');
+    it.each([
+      [{ title: 'Title', showTitle: false }, 'rds-card--hide-title'],
+      [{ cardSubtext: 'Subtext', showSubtext: false }, 'rds-card--hide-subtext'],
+      [{ description: 'Description', showDescription: false }, 'rds-card--hide-description'],
+    ])('should apply hide class for %j', (props, cls) => {
+      setup(props);
+      expect(root()).toHaveClass(cls);
     });
   });
 
   describe('Accessibility', () => {
     it('should render with semantic heading for title', () => {
-      render(
-        <RdsCard title="Card Title" showTitle={true} />
-      );
+      setup({ title: 'Card Title', showTitle: true });
       const heading = screen.getByRole('heading');
       expect(heading).toBeInTheDocument();
       expect(heading).toHaveTextContent('Card Title');
-  
     });
 
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsCard {...defaultProps} />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      const { container } = setup();
+      expect(await axe(container)).toHaveNoViolations();
     });
 
     it('should render with proper role when provided', () => {
-      render(
-        <RdsCard role="article" />
-      );
-      const card = screen.getByTestId('card-root');
-      expect(card).toHaveAttribute('role', 'article');
+      setup({ role: 'article' });
+      expect(root()).toHaveAttribute('role', 'article');
     });
 
     it('should have proper Avatar for icon', () => {
-      render(
-        <RdsCard showIcon={true} />
-      );
+      setup({ showIcon: true });
       expect(screen.getByTestId('card-avatar')).toBeInTheDocument();
     });
   });

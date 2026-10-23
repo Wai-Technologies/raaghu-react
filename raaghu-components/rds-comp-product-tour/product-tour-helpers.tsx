@@ -8,11 +8,21 @@ import clsx from 'clsx';
 
 export type ProductTourVariant = "Image" | "Carousel" | "GIF" | "Form";
 export type ProductTourCorner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+/** Single corner, pair shortcuts (`top` / `bottom`), all four (`all`), or an explicit list. */
+export type ProductTourAnchorCorner = ProductTourCorner | "all" | "top" | "bottom" | ProductTourCorner[];
 
 export interface RdsCompProductTourProps {
     state?: ProductTourVariant;
     variant?: ProductTourVariant;
-    anchorCorner?: ProductTourCorner;
+    /**
+     * Which corner anchor dots to show.
+     * - `"top-left"` | `"top-right"` | `"bottom-left"` | `"bottom-right"` — one dot
+     * - `"top"` — top-left + top-right
+     * - `"bottom"` — bottom-left + bottom-right
+     * - `"all"` — all four dots
+     * - `ProductTourCorner[]` — any combination, e.g. `["top-left", "bottom-right"]`
+     */
+    anchorCorner?: ProductTourAnchorCorner;
     /** @deprecated Use `anchorCorner` instead. */
     topLeft?: boolean;
     /** @deprecated Use `anchorCorner` instead. */
@@ -105,6 +115,36 @@ export const deleteIcon = (
         <path d="M1 3.81H13M4.46 3.76V3.3C4.46 2.69 4.73 2.1 5.21 1.67C5.69 1.24 6.34 1 7.01 1C7.69 1 8.34 1.24 8.82 1.67C9.3 2.1 9.57 2.69 9.57 3.3V3.76M5.51 5.57V10.62M8.52 5.57V10.62M2.53 3.81H11.5V12.08C11.5 12.2 11.48 12.32 11.43 12.43C11.38 12.54 11.3 12.64 11.21 12.73C11.12 12.81 11.01 12.88 10.89 12.93C10.77 12.97 10.63 13 10.5 13H3.53C3.26 13 3.01 12.9 2.82 12.73C2.63 12.55 2.53 12.32 2.53 12.08V3.81H2.53Z" stroke="var(--rds-error-main)" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
+
+export const resolveCornerDots = (
+    anchorCorner?: ProductTourAnchorCorner,
+    legacy?: { topLeft?: boolean; topRight?: boolean; bottomLeft?: boolean; bottomRight?: boolean }
+): { topLeft: boolean; topRight: boolean; bottomLeft: boolean; bottomRight: boolean } => {
+    if (anchorCorner !== undefined) {
+        if (anchorCorner === "all") {
+            return { topLeft: true, topRight: true, bottomLeft: true, bottomRight: true };
+        }
+        if (anchorCorner === "top") {
+            return { topLeft: true, topRight: true, bottomLeft: false, bottomRight: false };
+        }
+        if (anchorCorner === "bottom") {
+            return { topLeft: false, topRight: false, bottomLeft: true, bottomRight: true };
+        }
+        const selected = Array.isArray(anchorCorner) ? anchorCorner : [anchorCorner];
+        return {
+            topLeft: selected.includes("top-left"),
+            topRight: selected.includes("top-right"),
+            bottomLeft: selected.includes("bottom-left"),
+            bottomRight: selected.includes("bottom-right"),
+        };
+    }
+    return {
+        topLeft: legacy?.topLeft === true,
+        topRight: legacy?.topRight === true,
+        bottomLeft: legacy?.bottomLeft === true,
+        bottomRight: legacy?.bottomRight === true,
+    };
+};
 
 export const renderCornerDots = (topLeft: boolean, topRight: boolean, bottomLeft: boolean, bottomRight: boolean) => (
     <>

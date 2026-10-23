@@ -24,6 +24,9 @@ describe('RdsDrawer', () => {
     open: true,
     children: <div>Drawer Content</div>,
   };
+  const setup = (p: any = {}) => render(<RdsDrawer {...defaultProps} {...p} />);
+  const drawerRoot = () => document.querySelector('.MuiDrawer-root');
+  const buttonCount = (container: HTMLElement) => container.querySelectorAll('[data-testid="rds-button"]').length;
 
   let MockRdsButton: jest.Mock;
 
@@ -34,7 +37,7 @@ describe('RdsDrawer', () => {
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      const { container } = render(<RdsDrawer {...defaultProps} />);
+      const { container } = setup();
       expect(container).toBeInTheDocument();
     });
 
@@ -43,527 +46,252 @@ describe('RdsDrawer', () => {
     });
 
     it('should render MuiDrawer component', () => {
-      render(<RdsDrawer {...defaultProps} />);
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      setup();
+      expect(drawerRoot()).toBeInTheDocument();
     });
 
     it('should render children content', () => {
-      render(<RdsDrawer {...defaultProps} />);
+      setup();
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
     });
 
     it('should not show trigger button by default', () => {
-      const { container } = render(<RdsDrawer {...defaultProps} showTrigger={false} />);
-      const buttons = container.querySelectorAll('[data-testid="rds-button"]');
-      expect(buttons.length).toBe(0);
+      const { container } = setup({ showTrigger: false });
+      expect(buttonCount(container)).toBe(0);
     });
   });
 
   describe('Drawer Opening and Closing', () => {
     it('should be closed by default', () => {
-      render(<RdsDrawer {...defaultProps} open={false} />);
-      const drawer = document.querySelector('.MuiDrawer-root');
-      expect(drawer).not.toBeInTheDocument();
+      setup({ open: false });
+      expect(drawerRoot()).not.toBeInTheDocument();
     });
 
     it('should open when open prop is true', () => {
-      render(<RdsDrawer {...defaultProps} />);
-      const drawer = document.querySelector('.MuiDrawer-root');
-      expect(drawer).toBeInTheDocument();
+      setup();
+      expect(drawerRoot()).toBeInTheDocument();
     });
 
     it('should toggle drawer when trigger button is clicked', () => {
-      render(
-        <RdsDrawer {...defaultProps} showTrigger={true} defaultOpen={false} />
-      );
-      const button = screen.getByText('Open Drawer');
-      fireEvent.click(button);
-      
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      setup({ showTrigger: true, defaultOpen: false });
+      fireEvent.click(screen.getByText('Open Drawer'));
+      expect(drawerRoot()).toBeInTheDocument();
     });
 
     it('should use defaultOpen prop to set initial state', () => {
-      render(
-        <RdsDrawer {...defaultProps} defaultOpen={true} />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      setup({ defaultOpen: true });
+      expect(drawerRoot()).toBeInTheDocument();
     });
 
     it('should handle controlled open state', () => {
-      const { rerender } = render(
-        <RdsDrawer {...defaultProps} open={false} showTrigger={false} />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).not.toBeInTheDocument();
-
+      const { rerender } = setup({ open: false, showTrigger: false });
+      expect(drawerRoot()).not.toBeInTheDocument();
       rerender(<RdsDrawer {...defaultProps} open={true} showTrigger={false} />);
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      expect(drawerRoot()).toBeInTheDocument();
     });
   });
 
   describe('Trigger Button', () => {
     it('should show trigger button when showTrigger is true', () => {
-      const { container } = render(
-        <RdsDrawer {...defaultProps} showTrigger={true} />
-      );
-      const buttons = container.querySelectorAll('[data-testid="rds-button"]');
-      expect(buttons.length).toBeGreaterThan(0);
+      const { container } = setup({ showTrigger: true });
+      expect(buttonCount(container)).toBeGreaterThan(0);
     });
 
     it('should display custom trigger text', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showTrigger={true}
-          triggerText="Custom Open"
-        />
-      );
+      setup({ showTrigger: true, triggerText: 'Custom Open' });
       expect(screen.getByText('Custom Open')).toBeInTheDocument();
     });
 
     it('should display default trigger text', () => {
-      render(<RdsDrawer {...defaultProps} showTrigger={true} />);
+      setup({ showTrigger: true });
       expect(screen.getByText('Open Drawer')).toBeInTheDocument();
     });
 
     it('should toggle drawer on trigger button click', () => {
-      render(<RdsDrawer {...defaultProps} showTrigger={true} />);
-      const button = screen.getByText('Open Drawer');
-      
-      fireEvent.click(button);
+      setup({ showTrigger: true });
+      fireEvent.click(screen.getByText('Open Drawer'));
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
     });
   });
 
   describe('Close Button', () => {
     it('should not show close button by default', () => {
-      render(<RdsDrawer {...defaultProps} showCloseButton={false} />);
-      const closeButtons = screen.queryAllByText('Close Drawer');
-      expect(closeButtons.length).toBe(0);
+      setup({ showCloseButton: false });
+      expect(screen.queryAllByText('Close Drawer').length).toBe(0);
     });
 
     it('should show close button when showCloseButton is true', () => {
-      render(<RdsDrawer {...defaultProps} showCloseButton={true} open={true} />);
+      setup({ showCloseButton: true });
       expect(screen.getByText('Close Drawer')).toBeInTheDocument();
     });
 
     it('should display custom close button text', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showCloseButton={true}
-          closeButtonText="Custom Close"
-          open={true}
-        />
-      );
+      setup({ showCloseButton: true, closeButtonText: 'Custom Close' });
       expect(screen.getByText('Custom Close')).toBeInTheDocument();
     });
 
-    it('should close drawer when close button is clicked', () => {
-      const onClose = jest.fn();
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showCloseButton={true}
-          open={true}
-          onClose={onClose}
-        />
-      );
-      const closeButton = screen.getByText('Close Drawer');
-      fireEvent.click(closeButton);
-      
-      expect(onClose).toHaveBeenCalled();
-    });
-
     it('should accept close button props', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showCloseButton={true}
-          open={true}
-          closeButtonProps={{ color: 'error' }}
-        />
-      );
-      const calls = MockRdsButton.mock.calls;
-      const closeButtonCall = calls.find(call => call[0]?.children === 'Close Drawer');
+      setup({ showCloseButton: true, closeButtonProps: { color: 'error' } });
+      const closeButtonCall = MockRdsButton.mock.calls.find(call => call[0]?.children === 'Close Drawer');
       expect(closeButtonCall).toBeDefined();
       expect(closeButtonCall[0]).toHaveProperty('color', 'error');
-    });
-
-    it('should render close button in separate container', () => {
-      const { container } = render(
-        <RdsDrawer
-          {...defaultProps}
-          showCloseButton={true}
-          open={true}
-        />
-      );
-      expect(screen.getByText('Close Drawer')).toBeInTheDocument();
     });
   });
 
   describe('Drawer Position/Anchor', () => {
-    it('should render left drawer by default', () => {
-      render(<RdsDrawer {...defaultProps} position="left" />);
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-
-    it('should render right drawer', () => {
-      render(
-        <RdsDrawer {...defaultProps} position="right" />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-
-    it('should render top drawer', () => {
-      render(
-        <RdsDrawer {...defaultProps} position="top" />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-
-    it('should render bottom drawer', () => {
-      render(
-        <RdsDrawer {...defaultProps} position="bottom" />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-
-    it('should use anchor prop if provided', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          position="left"
-          anchor="right"
-          open={true}
-        />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+    it.each([
+      [{ position: 'left' }],
+      [{ position: 'right' }],
+      [{ position: 'top' }],
+      [{ position: 'bottom' }],
+      [{ position: 'left', anchor: 'right' }],
+    ])('should render drawer for %j', (props) => {
+      setup(props);
+      expect(drawerRoot()).toBeInTheDocument();
     });
   });
 
-  describe('Drawer Width', () => {
-    it('should use default width of 251', () => {
-      render(<RdsDrawer {...defaultProps} />);
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-
-    it('should apply custom numeric width', () => {
-      render(
-        <RdsDrawer {...defaultProps} width={300} open={true} />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-
-    it('should apply custom string width', () => {
-      render(
-        <RdsDrawer {...defaultProps} width="400px" open={true} />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+  describe('Drawer Width and SX', () => {
+    it.each([
+      [{}],
+      [{ width: 300 }],
+      [{ width: '400px' }],
+      [{ sx: { backgroundColor: 'red' } }],
+      [{ sx: { padding: '20px' } }],
+    ])('should render drawer for %j', (props) => {
+      setup(props);
+      expect(drawerRoot()).toBeInTheDocument();
     });
   });
 
   describe('Trigger Wrapper', () => {
-    it('should center trigger button when centerTrigger is true', () => {
-      const { container } = render(
-        <RdsDrawer
-          {...defaultProps}
-          showTrigger={true}
-          centerTrigger={true}
-        />
-      );
-      const wrapper = container.querySelector('.rds-drawer-trigger-wrapper');
-      expect(wrapper).toBeInTheDocument();
-    });
-
-    it('should not use wrapper div when centerTrigger is false', () => {
-      const { container } = render(
-        <RdsDrawer
-          {...defaultProps}
-          showTrigger={true}
-          centerTrigger={false}
-        />
-      );
-      const wrapper = container.querySelector('.rds-drawer-trigger-wrapper');
-      expect(wrapper).not.toBeInTheDocument();
-    });
-
-    it('should use custom trigger wrapper className', () => {
-      const { container } = render(
-        <RdsDrawer
-          {...defaultProps}
-          showTrigger={true}
-          centerTrigger={true}
-          triggerWrapperClassName="custom-wrapper"
-        />
-      );
-      const wrapper = container.querySelector('.custom-wrapper');
-      expect(wrapper).toBeInTheDocument();
-    });
-
-    it('should use default wrapper className when not provided', () => {
-      const { container } = render(
-        <RdsDrawer
-          {...defaultProps}
-          showTrigger={true}
-          centerTrigger={true}
-          triggerWrapperClassName={undefined}
-        />
-      );
-      const wrapper = container.querySelector('.rds-drawer-trigger-wrapper');
-      expect(wrapper).toBeInTheDocument();
+    it.each([
+      [{ centerTrigger: true }, '.rds-drawer-trigger-wrapper', true],
+      [{ centerTrigger: false }, '.rds-drawer-trigger-wrapper', false],
+      [{ centerTrigger: true, triggerWrapperClassName: 'custom-wrapper' }, '.custom-wrapper', true],
+      [{ centerTrigger: true, triggerWrapperClassName: undefined }, '.rds-drawer-trigger-wrapper', true],
+    ])('trigger wrapper for %j: %s present=%p', (props, sel, present) => {
+      const { container } = setup({ showTrigger: true, ...props });
+      const wrapper = expect(container.querySelector(sel));
+      if (present) wrapper.toBeInTheDocument();
+      else wrapper.not.toBeInTheDocument();
     });
   });
 
   describe('onClose Handler', () => {
-    it('should call onClose when close button is clicked', () => {
+    it('should call onClose with correct arguments when close button is clicked', () => {
       const onClose = jest.fn();
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showCloseButton={true}
-          open={true}
-          onClose={onClose}
-        />
-      );
-      const closeButton = screen.getByText('Close Drawer');
-      fireEvent.click(closeButton);
-      
-      expect(onClose).toHaveBeenCalled();
-    });
-
-    it('should call onClose with correct arguments', () => {
-      const onClose = jest.fn();
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showCloseButton={true}
-          open={true}
-          onClose={onClose}
-        />
-      );
-      const closeButton = screen.getByText('Close Drawer');
-      fireEvent.click(closeButton);
-      
+      setup({ showCloseButton: true, onClose });
+      fireEvent.click(screen.getByText('Close Drawer'));
       expect(onClose).toHaveBeenCalledWith({}, 'buttonClick');
     });
 
     it('should not call onClose when controlled component', () => {
       const onClose = jest.fn();
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          open={true}
-          onClose={onClose}
-          showTrigger={false}
-        />
-      );
+      setup({ onClose, showTrigger: false });
       expect(onClose).not.toHaveBeenCalled();
     });
   });
 
   describe('Custom Content', () => {
     it('should render custom children', () => {
-      const customContent = <div data-testid="custom-content">Custom Content</div>;
-      render(<RdsDrawer {...defaultProps} open={true} >{customContent}</RdsDrawer>);
+      render(<RdsDrawer {...defaultProps}><div data-testid="custom-content">Custom Content</div></RdsDrawer>);
       expect(screen.getByTestId('custom-content')).toBeInTheDocument();
     });
 
     it('should render complex children structure', () => {
-      const complexContent = (
-        <div>
-          <h2>Title</h2>
-          <p>Description</p>
-          <button>Action</button>
-        </div>
+      render(
+        <RdsDrawer {...defaultProps}>
+          <div>
+            <h2>Title</h2>
+            <p>Description</p>
+            <button>Action</button>
+          </div>
+        </RdsDrawer>
       );
-      render(<RdsDrawer {...defaultProps} open={true} >{complexContent}</RdsDrawer>);
       expect(screen.getByText('Title')).toBeInTheDocument();
       expect(screen.getByText('Description')).toBeInTheDocument();
     });
 
     it('should wrap children with close button when showCloseButton is true', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showCloseButton={true}
-          open={true}
-        />
-      );
+      setup({ showCloseButton: true });
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
       expect(screen.getByText('Close Drawer')).toBeInTheDocument();
     });
   });
 
-  describe('SX Prop', () => {
-    it('should accept and merge sx prop', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          sx={{ backgroundColor: 'red' }}
-        />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-
-    it('should merge custom sx with default sx', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          sx={{ padding: '20px' }}
-        />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-  });
-
   describe('Controlled vs Uncontrolled', () => {
     it('should work as uncontrolled component when showTrigger is true', () => {
-      render(
-        <RdsDrawer {...defaultProps} showTrigger={true} defaultOpen={false} />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      setup({ showTrigger: true, defaultOpen: false });
+      expect(drawerRoot()).toBeInTheDocument();
     });
 
     it('should work as controlled component when open prop is provided', () => {
-      const { rerender } = render(
-        <RdsDrawer {...defaultProps} open={true} showTrigger={false} />
-      );
+      const { rerender } = setup({ showTrigger: false });
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
-
       rerender(<RdsDrawer {...defaultProps} open={false} showTrigger={false} />);
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      expect(drawerRoot()).toBeInTheDocument();
     });
 
     it('should not update internal state when controlled', () => {
-      const { container } = render(
-        <RdsDrawer
-          {...defaultProps}
-          open={true}
-          showTrigger={true}
-          onClose={jest.fn()}
-        />
-      );
-      const button = screen.getByText('Open Drawer');
-      fireEvent.click(button);
-      
+      setup({ showTrigger: true, onClose: jest.fn() });
+      fireEvent.click(screen.getByText('Open Drawer'));
       expect(screen.getByText('Drawer Content')).toBeInTheDocument();
     });
   });
 
   describe('MUI Props Forwarding', () => {
     it('should forward MUI props to Drawer component', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          open={true}
-          data-testid="custom-drawer"
-        />
-      );
+      setup({ 'data-testid': 'custom-drawer' });
       expect(document.querySelector('[data-testid="custom-drawer"]')).toBeInTheDocument();
     });
 
-    it('should support variant prop', () => {
-      render(
-        <RdsDrawer {...defaultProps} open={true} variant="temporary" />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-    });
-
-    it('should support transitionDuration prop', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          open={true}
-          transitionDuration={500}
-        />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+    it.each([[{ variant: 'temporary' }], [{ transitionDuration: 500 }]])('should support %j', (props) => {
+      setup(props);
+      expect(drawerRoot()).toBeInTheDocument();
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle rapid trigger clicks', () => {
-      render(
-        <RdsDrawer {...defaultProps} showTrigger={true} defaultOpen={false} />
-      );
+      setup({ showTrigger: true, defaultOpen: false });
       const button = screen.getByText('Open Drawer');
-      
       fireEvent.click(button);
       fireEvent.click(button);
       fireEvent.click(button);
-      
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      expect(drawerRoot()).toBeInTheDocument();
     });
 
     it('should handle empty children', () => {
-      render(
-        <RdsDrawer open={true} >{<div></div>}</RdsDrawer>
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      render(<RdsDrawer open={true}><div></div></RdsDrawer>);
+      expect(drawerRoot()).toBeInTheDocument();
     });
 
     it('should handle null props gracefully', () => {
-      render(
-        <RdsDrawer
-          open={true}
-          {...defaultProps}
-          triggerButtonProps={null as any}
-          closeButtonProps={null as any}
-        />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
+      setup({ triggerButtonProps: null, closeButtonProps: null });
+      expect(drawerRoot()).toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
-    it('should render proper semantic structure', () => {
-      render(
-        <RdsDrawer open={true} {...defaultProps} />
-      );
-      expect(document.querySelector('.MuiDrawer-root')).toBeInTheDocument();
-  
-    });
-
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsDrawer {...defaultProps} />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      const { container } = setup();
+      expect(await axe(container)).toHaveNoViolations();
     });
 
     it('should support aria-label on drawer', () => {
-      render(
-        <RdsDrawer
-          open={true}
-          {...defaultProps}
-          aria-label="Navigation drawer"
-        />
-      );
+      setup({ 'aria-label': 'Navigation drawer' });
       expect(document.querySelector('[aria-label="Navigation drawer"]')).toBeInTheDocument();
     });
 
     it('should render trigger button that is keyboard accessible', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showTrigger={true}
-          triggerText="Open Navigation"
-        />
-      );
-      const button = screen.getByText('Open Navigation');
-      expect(button).toBeInTheDocument();
+      setup({ showTrigger: true, triggerText: 'Open Navigation' });
+      expect(screen.getByText('Open Navigation')).toBeInTheDocument();
     });
 
     it('should render close button that is keyboard accessible', () => {
-      render(
-        <RdsDrawer
-          {...defaultProps}
-          showCloseButton={true}
-          closeButtonText="Close Navigation"
-          open={true}
-        />
-      );
-      const closeButton = screen.getByText('Close Navigation');
-      expect(closeButton).toBeInTheDocument();
+      setup({ showCloseButton: true, closeButtonText: 'Close Navigation' });
+      expect(screen.getByText('Close Navigation')).toBeInTheDocument();
     });
   });
 });

@@ -28,16 +28,8 @@ jest.mock('@mui/icons-material/NotificationImportant', () => {
 });
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
-  const theme = createTheme({
-    palette: {
-      mode: isDark ? 'dark' : 'light',
-    },
-  });
-  return render(
-    <ThemeProvider theme={theme}>
-      {component}
-    </ThemeProvider>
-  );
+  const theme = createTheme({ palette: { mode: isDark ? 'dark' : 'light' } });
+  return render(<ThemeProvider theme={theme}>{component}</ThemeProvider>);
 };
 
 describe('RdsDivider', () => {
@@ -60,8 +52,7 @@ describe('RdsDivider', () => {
 
     it('should render horizontal layout by default', () => {
       const { container } = renderWithTheme(<RdsDivider {...defaultProps} />);
-      const divider = container.querySelector('.MuiDivider-root');
-      expect(divider).not.toHaveClass('MuiDivider-vertical');
+      expect(container.querySelector('.MuiDivider-root')).not.toHaveClass('MuiDivider-vertical');
     });
 
     it('should apply flexbox styling to root container', () => {
@@ -81,22 +72,16 @@ describe('RdsDivider', () => {
 
     it('should not render message Typography when dividerMessage is undefined', () => {
       const { container } = renderWithTheme(<RdsDivider dividerMessage={undefined} />);
-      const typography = container.querySelector('.MuiTypography-body2');
       expect(container).toBeInTheDocument();
     });
 
     it('should render message with correct Typography variant', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Test Message" />
-      );
-      const typography = container.querySelector('.MuiTypography-body2');
-      expect(typography).toHaveTextContent('Test Message');
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Test Message" />);
+      expect(container.querySelector('.MuiTypography-body2')).toHaveTextContent('Test Message');
     });
 
     it('should render message with bold font weight', () => {
-      renderWithTheme(
-        <RdsDivider dividerMessage="Bold Text" />
-      );
+      renderWithTheme(<RdsDivider dividerMessage="Bold Text" />);
       const typography = screen.getByText('Bold Text');
       expect(typography).toBeInTheDocument();
       expect(typography).toHaveClass('MuiTypography-body2');
@@ -105,56 +90,30 @@ describe('RdsDivider', () => {
 
   describe('Text Alignment', () => {
     it('should render with center alignment by default', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Center" />
-      );
-      const dividers = container.querySelectorAll('.MuiDivider-root');
-      expect(dividers.length).toBeGreaterThan(1);
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Center" />);
+      expect(container.querySelectorAll('.MuiDivider-root').length).toBeGreaterThan(1);
     });
 
-    it('should render with left alignment', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Left" textAlign="left" />
-      );
-      const dividers = container.querySelectorAll('.MuiDivider-root');
-      expect(dividers.length).toBeGreaterThan(0);
+    it.each(['left', 'right'] as const)('should render with %s alignment', (textAlign) => {
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Aligned" textAlign={textAlign} />);
+      expect(container.querySelectorAll('.MuiDivider-root').length).toBeGreaterThan(0);
     });
 
-    it('should render with right alignment', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Right" textAlign="right" />
-      );
-      const dividers = container.querySelectorAll('.MuiDivider-root');
-      expect(dividers.length).toBeGreaterThan(0);
-    });
-
-    it('should render message in correct position for center alignment', () => {
-      renderWithTheme(<RdsDivider dividerMessage="Center Text" textAlign="center" />);
-      expect(screen.getByText('Center Text')).toBeInTheDocument();
-    });
-
-    it('should render message in correct position for left alignment', () => {
-      renderWithTheme(<RdsDivider dividerMessage="Left Text" textAlign="left" />);
-      expect(screen.getByText('Left Text')).toBeInTheDocument();
-    });
-
-    it('should render message in correct position for right alignment', () => {
-      renderWithTheme(<RdsDivider dividerMessage="Right Text" textAlign="right" />);
-      expect(screen.getByText('Right Text')).toBeInTheDocument();
+    it.each(['center', 'left', 'right'] as const)('should render message in correct position for %s alignment', (textAlign) => {
+      renderWithTheme(<RdsDivider dividerMessage="Aligned Text" textAlign={textAlign} />);
+      expect(screen.getByText('Aligned Text')).toBeInTheDocument();
     });
   });
 
   describe('Layout Variations', () => {
     it('should render horizontal layout by default', () => {
       const { container } = renderWithTheme(<RdsDivider layout="horizontal" />);
-      const divider = container.querySelector('.MuiDivider-root');
-      expect(divider).not.toHaveClass('MuiDivider-vertical');
+      expect(container.querySelector('.MuiDivider-root')).not.toHaveClass('MuiDivider-vertical');
     });
 
     it('should render vertical layout', () => {
       const { container } = renderWithTheme(<RdsDivider layout="vertical" />);
-      const divider = container.querySelector('.MuiDivider-vertical');
-      expect(divider).toBeInTheDocument();
+      expect(container.querySelector('.MuiDivider-vertical')).toBeInTheDocument();
     });
 
     it('should display side labels in vertical layout', () => {
@@ -166,15 +125,14 @@ describe('RdsDivider', () => {
     it('should apply correct height styling for vertical layout', () => {
       const { container } = renderWithTheme(<RdsDivider layout="vertical" />);
       const rootBox = container.firstChild as HTMLElement;
-        expect(rootBox).toHaveStyle('height: var(--rds-divider-vertical-container-height, 120px)');
+      expect(rootBox).toHaveStyle('height: var(--rds-divider-vertical-container-height, 120px)');
       expect(rootBox).toHaveStyle('display: flex');
       expect(rootBox).toHaveStyle('align-items: center');
     });
 
     it('should render vertical divider with proper orientation', () => {
       const { container } = renderWithTheme(<RdsDivider layout="vertical" />);
-      const divider = container.querySelector('.MuiDivider-vertical');
-      expect(divider).toHaveStyle('height: 80%');
+      expect(container.querySelector('.MuiDivider-vertical')).toHaveStyle('height: 80%');
     });
   });
 
@@ -185,168 +143,59 @@ describe('RdsDivider', () => {
     });
 
     it('should not show icon when iconShow is false', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider iconShow={false} dividerMessage="No Icon" />
-      );
+      const { container } = renderWithTheme(<RdsDivider iconShow={false} dividerMessage="No Icon" />);
       expect(container.querySelector('[data-testid="info-icon"]')).not.toBeInTheDocument();
     });
 
-    it('should render default InfoOutlined icon', () => {
-      renderWithTheme(<RdsDivider iconShow={true} dividerMessage="Default Icon" />);
-      expect(screen.getByTestId('info-icon')).toBeInTheDocument();
-    });
-
-    it('should render Add icon when specified', () => {
-      renderWithTheme(
-        <RdsDivider iconShow={true} iconName="Add" dividerMessage="Add Icon" />
-      );
-      expect(screen.getByTestId('add-icon')).toBeInTheDocument();
-    });
-
-    it('should render NotificationImportant icon when specified', () => {
-      renderWithTheme(
-        <RdsDivider
-          iconShow={true}
-          iconName="Notification"
-          dividerMessage="Notification Icon"
-        />
-      );
-      expect(screen.getByTestId('notification-icon')).toBeInTheDocument();
-    });
-
-    it('should fallback to InfoOutlined icon for invalid icon name', () => {
-      renderWithTheme(
-        <RdsDivider
-          iconShow={true}
-          iconName="InvalidIcon"
-          dividerMessage="Fallback Icon"
-        />
-      );
-      expect(screen.getByTestId('info-icon')).toBeInTheDocument();
-    });
-
-    it('should handle icon name with whitespace', () => {
-      renderWithTheme(
-        <RdsDivider
-          iconShow={true}
-          iconName="  Add  "
-          dividerMessage="Trimmed Icon"
-        />
-      );
-      expect(screen.getByTestId('add-icon')).toBeInTheDocument();
+    it.each([
+      ['Add', 'add-icon'],
+      ['Notification', 'notification-icon'],
+      ['InvalidIcon', 'info-icon'],
+      ['  Add  ', 'add-icon'],
+    ])('should render icon for iconName "%s"', (iconName, testId) => {
+      renderWithTheme(<RdsDivider iconShow={true} iconName={iconName} dividerMessage="Icon" />);
+      expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
 
     it('should render icon container with correct dimensions', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider iconShow={true} dividerMessage="Icon Container" />
-      );
-      const icons = container.querySelectorAll('[data-testid*="icon"]');
-      expect(icons.length).toBeGreaterThan(0);
+      const { container } = renderWithTheme(<RdsDivider iconShow={true} dividerMessage="Icon Container" />);
+      expect(container.querySelectorAll('[data-testid*="icon"]').length).toBeGreaterThan(0);
     });
 
     it('should not render icon container when iconShow is false', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider iconShow={false} dividerMessage="No Icon Container" />
-      );
-      const iconElements = container.querySelectorAll('[data-testid*="icon"]');
-      expect(iconElements.length).toBe(0);
+      const { container } = renderWithTheme(<RdsDivider iconShow={false} dividerMessage="No Icon Container" />);
+      expect(container.querySelectorAll('[data-testid*="icon"]').length).toBe(0);
     });
   });
 
   describe('Size Variants', () => {
-    it('should apply small size with 1px border width', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider size="small" dividerMessage="Small" />
-      );
-      const dividers = container.querySelectorAll('.MuiDivider-root');
-      expect(dividers.length).toBeGreaterThan(0);
-    });
-
-    it('should apply medium size with 2px border width by default', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider size="medium" dividerMessage="Medium" />
-      );
-      const dividers = container.querySelectorAll('.MuiDivider-root');
-      expect(dividers.length).toBeGreaterThan(0);
-    });
-
-    it('should apply large size with 3px border width', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider size="large" dividerMessage="Large" />
-      );
-      const dividers = container.querySelectorAll('.MuiDivider-root');
-      expect(dividers.length).toBeGreaterThan(0);
-    });
-
-    it('should use medium size as default', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Default Size" />
-      );
-      const dividers = container.querySelectorAll('.MuiDivider-root');
-      expect(dividers.length).toBeGreaterThan(0);
+    it.each(['small', 'medium', 'large', undefined] as const)('should render dividers for size %s', (size) => {
+      const { container } = renderWithTheme(<RdsDivider size={size} dividerMessage="Sized" />);
+      expect(container.querySelectorAll('.MuiDivider-root').length).toBeGreaterThan(0);
     });
   });
 
   describe('Style Variants', () => {
-    it('should apply subtle style by default', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Subtle" styleVariant="subtle" />
-      );
-      expect(screen.getByText('Subtle')).toBeInTheDocument();
-    });
-
-    it('should apply strong style', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Strong" styleVariant="strong" />
-      );
-      expect(screen.getByText('Strong')).toBeInTheDocument();
-    });
-
-    it('should apply primary style', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Primary" styleVariant="primary" />
-      );
-      expect(screen.getByText('Primary')).toBeInTheDocument();
+    it.each(['subtle', 'strong', 'primary'] as const)('should apply %s style', (styleVariant) => {
+      renderWithTheme(<RdsDivider dividerMessage="Styled" styleVariant={styleVariant} />);
+      expect(screen.getByText('Styled')).toBeInTheDocument();
     });
   });
 
   describe('Theme Integration', () => {
-    it('should adapt colors for light theme', () => {
-      renderWithTheme(<RdsDivider dividerMessage="Light Theme" />, false);
-      expect(screen.getByText('Light Theme')).toBeInTheDocument();
+    it.each([false, true])('should adapt colors for theme (dark=%s)', (isDark) => {
+      renderWithTheme(<RdsDivider dividerMessage="Themed" />, isDark);
+      expect(screen.getByText('Themed')).toBeInTheDocument();
     });
 
-    it('should adapt colors for dark theme', () => {
-      renderWithTheme(<RdsDivider dividerMessage="Dark Theme" />, true);
-      expect(screen.getByText('Dark Theme')).toBeInTheDocument();
-    });
-
-    it('should apply different colors for dark theme subtle variant', () => {
-      renderWithTheme(
-        <RdsDivider dividerMessage="Dark Subtle" styleVariant="subtle" />,
-        true
-      );
-      expect(screen.getByText('Dark Subtle')).toBeInTheDocument();
-    });
-
-    it('should apply different colors for dark theme strong variant', () => {
-      renderWithTheme(
-        <RdsDivider dividerMessage="Dark Strong" styleVariant="strong" />,
-        true
-      );
-      expect(screen.getByText('Dark Strong')).toBeInTheDocument();
+    it.each(['subtle', 'strong'] as const)('should apply different colors for dark theme %s variant', (styleVariant) => {
+      renderWithTheme(<RdsDivider dividerMessage="Dark Variant" styleVariant={styleVariant} />, true);
+      expect(screen.getByText('Dark Variant')).toBeInTheDocument();
     });
 
     it('should use theme primary color for primary variant', () => {
-      const theme = createTheme({
-        palette: {
-          mode: 'light',
-          primary: {
-            main: '#1976d2',
-          },
-        },
-      });
-      const { container } = render(
+      const theme = createTheme({ palette: { mode: 'light', primary: { main: '#1976d2' } } });
+      render(
         <ThemeProvider theme={theme}>
           <RdsDivider dividerMessage="Primary" styleVariant="primary" />
         </ThemeProvider>
@@ -357,98 +206,71 @@ describe('RdsDivider', () => {
 
   describe('MUI Props Forwarding', () => {
     it('should forward MUI Divider props', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider {...defaultProps} data-testid="custom-divider" />
-      );
+      const { container } = renderWithTheme(<RdsDivider {...defaultProps} data-testid="custom-divider" />);
       expect(container.querySelector('[data-testid="custom-divider"]')).toBeInTheDocument();
     });
 
     it('should accept standard HTML attributes', () => {
       const { container } = renderWithTheme(
-        <RdsDivider
-          {...defaultProps}
-          className="custom-class"
-          aria-label="test-divider"
-        />
+        <RdsDivider {...defaultProps} className="custom-class" aria-label="test-divider" />
       );
-      const element = container.querySelector('[aria-label="test-divider"]');
-      expect(element).toBeInTheDocument();
+      expect(container.querySelector('[aria-label="test-divider"]')).toBeInTheDocument();
     });
 
     it('should support id attribute', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider {...defaultProps} id="divider-test" />
-      );
+      const { container } = renderWithTheme(<RdsDivider {...defaultProps} id="divider-test" />);
       expect(container.querySelector('#divider-test')).toBeInTheDocument();
     });
   });
 
   describe('Content Layout', () => {
     it('should render content wrapper with flex display', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Test" iconShow={true} />
-      );
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Test" iconShow={true} />);
       expect(container.querySelector('[role="img"]') || screen.getByText('Test')).toBeInTheDocument();
     });
 
     it('should render both icon and message together', () => {
-      renderWithTheme(
-        <RdsDivider dividerMessage="Message" iconShow={true} iconName="Add" />
-      );
+      renderWithTheme(<RdsDivider dividerMessage="Message" iconShow={true} iconName="Add" />);
       expect(screen.getByTestId('add-icon')).toBeInTheDocument();
       expect(screen.getByText('Message')).toBeInTheDocument();
     });
 
     it('should render only message without icon', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Message Only" iconShow={false} />
-      );
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Message Only" iconShow={false} />);
       expect(screen.getByText('Message Only')).toBeInTheDocument();
       expect(container.querySelector('[data-testid*="icon"]')).not.toBeInTheDocument();
     });
 
     it('should render only icon without message', () => {
-      renderWithTheme(
-        <RdsDivider dividerMessage={undefined} iconShow={true} />
-      );
+      renderWithTheme(<RdsDivider dividerMessage={undefined} iconShow={true} />);
       expect(screen.getByTestId('info-icon')).toBeInTheDocument();
     });
 
     it('should apply proper gap between icon and message', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Spaced" iconShow={true} />
-      );
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Spaced" iconShow={true} />);
       expect(container.querySelector('.MuiBox-root')).toBeInTheDocument();
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle empty divider message', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="" iconShow={false} />
-      );
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="" iconShow={false} />);
       expect(container).toBeInTheDocument();
     });
 
     it('should handle null icon name', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Test" iconName={null as any} />
-      );
+      renderWithTheme(<RdsDivider dividerMessage="Test" iconName={null as any} />);
       expect(screen.getByTestId('info-icon')).toBeInTheDocument();
     });
 
     it('should handle undefined layout prop', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Test" layout={undefined as any} />
-      );
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Test" layout={undefined as any} />);
       expect(container.querySelector('.MuiDivider-root')).not.toHaveClass('MuiDivider-vertical');
     });
 
     it('should handle all size variants without errors', () => {
       ['small', 'medium', 'large'].forEach((size) => {
-        const { container: tempContainer } = renderWithTheme(
-          <RdsDivider dividerMessage="Size Test" size={size as any} />
-        );
+        const { container: tempContainer } = renderWithTheme(<RdsDivider dividerMessage="Size Test" size={size as any} />);
         expect(tempContainer).toBeInTheDocument();
       });
     });
@@ -465,11 +287,8 @@ describe('RdsDivider', () => {
 
   describe('Accessibility', () => {
     it('should be semantically correct', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Accessible Divider" />
-      );
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Accessible Divider" />);
       expect(container.querySelector('.MuiDivider-root')).toBeInTheDocument();
-  
     });
 
     it('has no axe accessibility violations', async () => {
@@ -479,9 +298,7 @@ describe('RdsDivider', () => {
     });
 
     it('should support aria-label', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Test" aria-label="section-divider" />
-      );
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Test" aria-label="section-divider" />);
       expect(container.querySelector('[aria-label="section-divider"]')).toBeInTheDocument();
     });
 
@@ -491,9 +308,7 @@ describe('RdsDivider', () => {
     });
 
     it('should support role attribute', () => {
-      const { container } = renderWithTheme(
-        <RdsDivider dividerMessage="Test" role="separator" />
-      );
+      const { container } = renderWithTheme(<RdsDivider dividerMessage="Test" role="separator" />);
       expect(container.querySelector('[role="separator"]')).toBeInTheDocument();
     });
   });
@@ -551,6 +366,8 @@ describe('RdsDivider audit fixes', () => {
   });
 
   describe('icon (G1-248)', () => {
+    const custom = <span data-testid="custom-icon" />;
+
     it('keeps the InfoOutlined icon by default', () => {
       renderWithTheme(<RdsDivider />);
       expect(screen.getByTestId('info-icon')).toBeInTheDocument();
@@ -558,13 +375,13 @@ describe('RdsDivider audit fixes', () => {
     });
 
     it('renders a custom icon node', () => {
-      renderWithTheme(<RdsDivider icon={<span data-testid="custom-icon" />}>Text</RdsDivider>);
+      renderWithTheme(<RdsDivider icon={custom}>Text</RdsDivider>);
       expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
       expect(screen.queryByTestId('info-icon')).not.toBeInTheDocument();
     });
 
     it('icon wins over the deprecated iconName', () => {
-      renderWithTheme(<RdsDivider icon={<span data-testid="custom-icon" />} iconName="Add">Text</RdsDivider>);
+      renderWithTheme(<RdsDivider icon={custom} iconName="Add">Text</RdsDivider>);
       expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
       expect(screen.queryByTestId('add-icon')).not.toBeInTheDocument();
     });
@@ -575,7 +392,7 @@ describe('RdsDivider audit fixes', () => {
     });
 
     it('iconShow={false} hides a custom icon', () => {
-      renderWithTheme(<RdsDivider iconShow={false} icon={<span data-testid="custom-icon" />}>Text</RdsDivider>);
+      renderWithTheme(<RdsDivider iconShow={false} icon={custom}>Text</RdsDivider>);
       expect(screen.queryByTestId('custom-icon')).not.toBeInTheDocument();
     });
 
@@ -589,8 +406,7 @@ describe('RdsDivider audit fixes', () => {
   describe('children (G1-249)', () => {
     it('renders children as the divider text', () => {
       renderWithTheme(<RdsDivider>OR</RdsDivider>);
-      const text = screen.getByText('OR');
-      expect(text).toHaveClass('MuiTypography-body2');
+      expect(screen.getByText('OR')).toHaveClass('MuiTypography-body2');
       expect(warnDeprecatedProp).not.toHaveBeenCalled();
     });
 

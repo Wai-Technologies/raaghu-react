@@ -15,7 +15,11 @@ const meta: Meta = {
             options: ["Image", "Carousel", "Form", "GIF"],
             control: { type: "select" },
         },
-anchorCorner: {            options: ["top-left", "top-right", "bottom-left", "bottom-right"],            control: { type: "select" },        },
+        anchorCorner: {
+            options: ["top-left", "top-right", "bottom-left", "bottom-right", "top", "bottom", "all"],
+            control: { type: "select" },
+            description: "Corner dots: one corner, `top` (both top), `bottom` (both bottom), or `all` (four dots).",
+        },
         showDismiss: {
             name: "Show Dismiss",
             control: { type: "boolean" },
