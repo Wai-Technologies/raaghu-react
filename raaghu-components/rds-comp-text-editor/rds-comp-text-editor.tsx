@@ -28,7 +28,7 @@ export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivEleme
     error?: boolean;
     disabled?: boolean;
     labelClass?: string;
-    State?: string;
+    state?: string;
     focused?: boolean;
     showTitle?: boolean;
     rows?: number;
@@ -66,7 +66,7 @@ const RdsCompTextEditor = ({
     error,
     disabled,
     labelClass,
-    State,
+    state,
     focused,
     showTitle,
     rows,
@@ -78,8 +78,9 @@ const RdsCompTextEditor = ({
 }: RdsCompTextEditorProps) => {
     if (isMandatory !== undefined) warnDeprecatedProp('RdsCompTextEditor', 'isMandatory', '`required`');
     const isRequired = required ?? isMandatory;
-    const isError = error ?? State === "Error";
-    const isDisabled = disabled ?? State === "Disabled";
+    const resolvedState = state;
+    const isError = error ?? resolvedState === "Error";
+    const isDisabled = disabled ?? resolvedState === "Disabled";
     const uid = useId();
     const labelId = `${uid}-label`;
     const errorId = `${uid}-error`;
@@ -150,9 +151,9 @@ const RdsCompTextEditor = ({
     const isEmpty = useMemo(() => editorState.getCurrentContent().getPlainText().trim() === "", [editorState]);
 
     const stateClass = clsx(
-        State === "Selected" && "rds-comp-text-editor--selected",
+        resolvedState === "Selected" && "rds-comp-text-editor--selected",
         isError && "rds-comp-text-editor--error",
-        (focused || State === "Active") && "rds-comp-text-editor--active",
+        (focused || resolvedState === "Active") && "rds-comp-text-editor--active",
         isDisabled && "rds-comp-text-editor--disabled",
         isResizable && "rds-comp-text-editor--resizable"
     );

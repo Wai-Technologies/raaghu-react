@@ -786,7 +786,7 @@ export const ToolbarContent = ({
                   </RdsTypography>
                   <div>
                     <RdsCompTreeStructure
-                      Language="TypeScript"
+                      language="TypeScript"
                       level={TreeLevel.Level3}
                       showActions
                       showChewron
@@ -901,7 +901,7 @@ export const ToolbarContent = ({
   type={IconType.Folder}
 />
 <RdsCompTreeStructure
-  Language="TypeScript"
+  language="TypeScript"
   level={TreeLevel.Level2}
   showActions
   showChewron

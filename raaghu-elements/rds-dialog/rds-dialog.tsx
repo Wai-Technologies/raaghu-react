@@ -19,9 +19,8 @@ export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   title?: string;
   children?: ReactNode;
   actions?: ReactNode;
-  /** Shows the close button (Figma). */
-  ShowDissmiss?: boolean;
-  /** Shows the close button. Takes precedence over `ShowDissmiss`. Defaults to `true`. */
+  showDissmiss?: boolean;
+  /** Shows the close button. Takes precedence over `showDissmiss`. Defaults to `true`. */
   showCloseButton?: boolean;
   /**
    * MUI's `onClose(event, reason)`: `reason` is `'backdropClick'` or `'escapeKeyDown'` when MUI closes the dialog.
@@ -32,9 +31,9 @@ export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   /** `confirm` is the centred layout with primary/secondary buttons. */
   variant?: 'default' | 'confirm' | 'standard';
   /** Shows the primary button (`standard` variant only). */
-  ShowPrimary?: boolean;
+  showPrimary?: boolean;
   /** Shows the secondary button (`standard` variant only). */
-  ShowSecondary?: boolean;
+  showSecondary?: boolean;
   /** @deprecated Omit `title` instead. */
   showTitle?: boolean;
   /** @deprecated Use `maxWidth` instead. A `maxWidth` prop takes precedence. */
@@ -77,12 +76,12 @@ const RdsDialog = ({
   title,
   children,
   actions,
-  ShowDissmiss,
+  showDissmiss,
   showCloseButton: showCloseButtonProp,
   onClose,
   variant = 'default',
-  ShowPrimary,
-  ShowSecondary,
+  showPrimary,
+  showSecondary,
   showTitle: showTitleProp,
   size,
   primaryText = 'Okay',
@@ -96,7 +95,7 @@ const RdsDialog = ({
   if (size !== undefined) warnDeprecatedProp('RdsDialog', 'size', '`maxWidth`');
   if (variant === 'standard') warnDeprecatedProp('RdsDialog', 'variant="standard"', '`variant="confirm"`');
   const showTitle = showTitleProp ?? true;
-  const showClose = showCloseButtonProp ?? ShowDissmiss ?? true;
+  const showClose = showCloseButtonProp ?? showDissmiss ?? true;
   const resolvedSize = size ?? 'medium';
   const closeFromButton = (event: MouseEvent<HTMLButtonElement>) => {
     (onClose as ((event: MouseEvent<HTMLButtonElement>) => void) | undefined)?.(event);
@@ -127,7 +126,7 @@ const RdsDialog = ({
         )}
         <DialogContent className="rds-dialog__content" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', textAlign: 'center' }}>{children}</DialogContent>
         <DialogActions className="rds-dialog__actions">
-          {ShowSecondary && (
+          {showSecondary && (
             <RdsButton
               onClick={onSecondaryClick ?? closeFromButton}
               className="rds-dialog__button rds-dialog__button__dismiss"
@@ -135,7 +134,7 @@ const RdsDialog = ({
               {secondaryText}
             </RdsButton>
           )}
-          {ShowPrimary && (
+          {showPrimary && (
             <RdsButton
               onClick={onPrimaryClick ?? closeFromButton}
               className="rds-dialog__button rds-dialog__button__primary"

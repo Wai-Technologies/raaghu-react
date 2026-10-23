@@ -381,14 +381,14 @@ describe('RdsCompOffcanvas', () => {
       });
     });
 
-    it('should call onclick callback when opened', async () => {
-      const onclick = jest.fn();
-      render(<RdsCompOffcanvas {...defaultProps} onclick={onclick} />);
+    it('should call onClick callback when opened', async () => {
+      const onClick = jest.fn();
+      render(<RdsCompOffcanvas {...defaultProps} onClick={onClick} />);
       const openButton = screen.getByTestId('rds-button-open-off-canvas');
       fireEvent.click(openButton);
 
       await waitFor(() => {
-        expect(onclick).toHaveBeenCalledWith(true);
+        expect(onClick).toHaveBeenCalledWith(true);
       });
     });
   });
@@ -766,14 +766,14 @@ describe('RdsCompOffcanvas', () => {
     it('should handle complete workflow', async () => {
       const onShow = jest.fn();
       const onClose = jest.fn();
-      const onclick = jest.fn();
+      const onClick = jest.fn();
 
       render(
         <RdsCompOffcanvas
           {...defaultProps}
           onShow={onShow}
           onClose={onClose}
-          onclick={onclick}
+          onClick={onClick}
           showPrimaryButton={true}
         />
       );
@@ -781,7 +781,7 @@ describe('RdsCompOffcanvas', () => {
       fireEvent.click(openButton);
 
       await waitFor(() => {
-        expect(onclick).toHaveBeenCalledWith(true);
+        expect(onClick).toHaveBeenCalledWith(true);
         expect(onShow).toHaveBeenCalled();
       });
       const saveButton = screen.getByTestId('rds-button-save');
@@ -869,7 +869,7 @@ describe('RdsCompOffcanvas', () => {
           {...defaultProps}
           onShow={undefined}
           onClose={undefined}
-          onclick={undefined}
+          onClick={undefined}
         />
       );
       const openButton = screen.getByTestId('rds-button-open-off-canvas');
@@ -1011,6 +1011,15 @@ describe('RdsCompOffcanvas', () => {
       expect(screen.getByText('New')).toBeInTheDocument();
       expect(screen.getByTestId('drawer')).toHaveAttribute('id', 'new-id');
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompOffcanvas', 'canvasTitle', '`title`');
+    });
+
+    it('supports onClick and gives it precedence over onOpen', () => {
+      const onClick = jest.fn();
+      const onOpen = jest.fn();
+      render(<RdsCompOffcanvas onClick={onClick} onOpen={onOpen} />);
+      fireEvent.click(screen.getByTestId('rds-button-open-off-canvas'));
+      expect(onClick).toHaveBeenCalledWith(true);
+      expect(onOpen).not.toHaveBeenCalled();
     });
 
     it('G6-052/053 close button labelled and paper labelled by title', () => {

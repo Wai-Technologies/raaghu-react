@@ -143,7 +143,7 @@ describe('RdsEmojiGenerator', () => {
     });
 
     it('should render search field in Default type', () => {
-      render(<RdsEmojiGenerator Type={EmojiGeneratorType.Default} />);
+      render(<RdsEmojiGenerator type={EmojiGeneratorType.Default} />);
       const searchInput = screen.getByPlaceholderText('Search');
       expect(searchInput).toBeInTheDocument();
     });
@@ -151,24 +151,29 @@ describe('RdsEmojiGenerator', () => {
 
   describe('Type Variants', () => {
     it('should render Default type', () => {
-      const { container } = render(<RdsEmojiGenerator Type={EmojiGeneratorType.Default} />);
+      const { container } = render(<RdsEmojiGenerator type={EmojiGeneratorType.Default} />);
       expect(container.querySelector('.rds-emoji-generator')).toHaveClass('rds-emoji-generator');
       expect(screen.getByPlaceholderText('Search')).toBeInTheDocument();
     });
 
     it('should render QuickReactions type', () => {
-      const { container } = render(<RdsEmojiGenerator Type={EmojiGeneratorType.QuickReactions} />);
+      const { container } = render(<RdsEmojiGenerator type={EmojiGeneratorType.QuickReactions} />);
+      expect(container.querySelector('.rds-emoji-generator--quick')).toBeInTheDocument();
+    });
+
+    it('should render QuickReactions using the lowerCamelCase type prop', () => {
+      const { container } = render(<RdsEmojiGenerator type={EmojiGeneratorType.QuickReactions} />);
       expect(container.querySelector('.rds-emoji-generator--quick')).toBeInTheDocument();
     });
 
     it('should render quick emoji buttons in QuickReactions type', () => {
-      const { container } = render(<RdsEmojiGenerator Type={EmojiGeneratorType.QuickReactions} />);
+      const { container } = render(<RdsEmojiGenerator type={EmojiGeneratorType.QuickReactions} />);
       const quickEmojis = container.querySelectorAll('.rds-emoji-generator__emoji--quick');
       expect(quickEmojis.length).toBeGreaterThan(0);
     });
 
     it('should render plus button in QuickReactions type', () => {
-      render(<RdsEmojiGenerator Type={EmojiGeneratorType.QuickReactions} />);
+      render(<RdsEmojiGenerator type={EmojiGeneratorType.QuickReactions} />);
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();
     });
   });
@@ -176,7 +181,7 @@ describe('RdsEmojiGenerator', () => {
   describe('Category Navigation', () => {
     it('should render all category tabs', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       const categoryButtons = container.querySelectorAll('button[data-variant]');
       expect(categoryButtons.length).toBe(8);
@@ -185,8 +190,8 @@ describe('RdsEmojiGenerator', () => {
     it('should have initial category selected', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          Category={EmojiCategory.SmileysAndPeople}
+          type={EmojiGeneratorType.Default}
+          category={EmojiCategory.SmileysAndPeople}
         />
       );
       expect(container).toBeInTheDocument();
@@ -194,7 +199,7 @@ describe('RdsEmojiGenerator', () => {
 
     it('should change category when tab clicked', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       const categoryButtons = container.querySelectorAll('button[data-variant]');
       fireEvent.click(categoryButtons[1]);
@@ -204,8 +209,8 @@ describe('RdsEmojiGenerator', () => {
     it('should display category title', () => {
       render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          Category={EmojiCategory.SmileysAndPeople}
+          type={EmojiGeneratorType.Default}
+          category={EmojiCategory.SmileysAndPeople}
         />
       );
       const title = screen.getByText(/Smileys & People|Emojis/);
@@ -215,8 +220,8 @@ describe('RdsEmojiGenerator', () => {
     it('should still change category from chip clicks when Category prop is initially provided', () => {
       render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          Category={EmojiCategory.SmileysAndPeople}
+          type={EmojiGeneratorType.Default}
+          category={EmojiCategory.SmileysAndPeople}
         />
       );
 
@@ -231,7 +236,7 @@ describe('RdsEmojiGenerator', () => {
 
   describe('Search Functionality', () => {
     it('should search emojis when user types', () => {
-      render(<RdsEmojiGenerator Type={EmojiGeneratorType.Default} />);
+      render(<RdsEmojiGenerator type={EmojiGeneratorType.Default} />);
       const searchInput = screen.getByPlaceholderText('Search') as HTMLInputElement;
 
       fireEvent.change(searchInput, { target: { value: 'smile' } });
@@ -239,7 +244,7 @@ describe('RdsEmojiGenerator', () => {
     });
 
     it('should filter emojis based on search term', () => {
-      render(<RdsEmojiGenerator Type={EmojiGeneratorType.Default} />);
+      render(<RdsEmojiGenerator type={EmojiGeneratorType.Default} />);
       const searchInput = screen.getByPlaceholderText('Search');
 
       fireEvent.change(searchInput, { target: { value: 'dog' } });
@@ -247,7 +252,7 @@ describe('RdsEmojiGenerator', () => {
     });
 
     it('should clear search when input is cleared', () => {
-      render(<RdsEmojiGenerator Type={EmojiGeneratorType.Default} />);
+      render(<RdsEmojiGenerator type={EmojiGeneratorType.Default} />);
       const searchInput = screen.getByPlaceholderText('Search') as HTMLInputElement;
 
       fireEvent.change(searchInput, { target: { value: 'smile' } });
@@ -262,8 +267,8 @@ describe('RdsEmojiGenerator', () => {
     it('should render skin tone button when showSkinTone is true', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Skin Tone': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showSkinTone: true }}
         />
       );
       const skinToneButton = container.querySelector('.rds-emoji-generator__skin-tone-button');
@@ -273,8 +278,8 @@ describe('RdsEmojiGenerator', () => {
     it('should not render skin tone button when showSkinTone is false', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Skin Tone': false }}
+          type={EmojiGeneratorType.Default}
+          {...{ showSkinTone: false }}
         />
       );
       const skinToneButton = container.querySelector('.rds-emoji-generator__skin-tone-button');
@@ -284,8 +289,8 @@ describe('RdsEmojiGenerator', () => {
     it('should render inline skin tone options in Expanded state', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Skin Tone': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showSkinTone: true }}
           skinTonePickerOpen
         />
       );
@@ -296,8 +301,8 @@ describe('RdsEmojiGenerator', () => {
     it('should have 6 skin tone options in expanded state', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Skin Tone': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showSkinTone: true }}
           skinTonePickerOpen
         />
       );
@@ -308,8 +313,8 @@ describe('RdsEmojiGenerator', () => {
     it('should show popover in Default state when skin tone button clicked', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Skin Tone': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showSkinTone: true }}
 
         />
       );
@@ -323,8 +328,8 @@ describe('RdsEmojiGenerator', () => {
     it('should change selected skin tone', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Skin Tone': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showSkinTone: true }}
           skinTonePickerOpen
         />
       );
@@ -337,7 +342,7 @@ describe('RdsEmojiGenerator', () => {
   describe('Emoji Display', () => {
     it('should render emoji grid', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       const grid = container.querySelector('.rds-emoji-generator__grid-container');
       expect(grid).toBeInTheDocument();
@@ -346,8 +351,8 @@ describe('RdsEmojiGenerator', () => {
     it('should display emojis', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          Category={EmojiCategory.SmileysAndPeople}
+          type={EmojiGeneratorType.Default}
+          category={EmojiCategory.SmileysAndPeople}
         />
       );
       const emojis = container.querySelectorAll('.rds-emoji-generator__emoji');
@@ -357,7 +362,7 @@ describe('RdsEmojiGenerator', () => {
     it('should respect maxEmojis prop', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
+          type={EmojiGeneratorType.Default}
           maxEmojis={10}
         />
       );
@@ -368,8 +373,8 @@ describe('RdsEmojiGenerator', () => {
     it('should render flag emoji as image', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          Category={EmojiCategory.Flags}
+          type={EmojiGeneratorType.Default}
+          category={EmojiCategory.Flags}
         />
       );
       const flagImages = container.querySelectorAll('.rds-emoji-generator__emoji-image');
@@ -381,8 +386,8 @@ describe('RdsEmojiGenerator', () => {
     it('should render footer when showFooter is true', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Footer': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showFooter: true }}
         />
       );
       const footer = container.querySelector('.rds-emoji-generator__footer');
@@ -392,8 +397,8 @@ describe('RdsEmojiGenerator', () => {
     it('should not render footer when showFooter is false', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Footer': false }}
+          type={EmojiGeneratorType.Default}
+          {...{ showFooter: false }}
         />
       );
       const footer = container.querySelector('.rds-emoji-generator__footer');
@@ -403,8 +408,8 @@ describe('RdsEmojiGenerator', () => {
     it('should display footer text', () => {
       render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Footer': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showFooter: true }}
         />
       );
       expect(screen.getByText("What's your mood?")).toBeInTheDocument();
@@ -413,8 +418,8 @@ describe('RdsEmojiGenerator', () => {
     it('should display footer emoji', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Footer': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showFooter: true }}
         />
       );
       const footerEmoji = container.querySelector('.rds-emoji-generator__footer-emoji');
@@ -427,7 +432,7 @@ describe('RdsEmojiGenerator', () => {
       const onEmojiSelect = jest.fn();
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
+          type={EmojiGeneratorType.Default}
           onEmojiSelect={onEmojiSelect}
         />
       );
@@ -442,7 +447,7 @@ describe('RdsEmojiGenerator', () => {
       const onEmojiSelect = jest.fn();
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.QuickReactions}
+          type={EmojiGeneratorType.QuickReactions}
           onEmojiSelect={onEmojiSelect}
         />
       );
@@ -457,7 +462,7 @@ describe('RdsEmojiGenerator', () => {
       const onEmojiSelect = jest.fn();
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.QuickReactions}
+          type={EmojiGeneratorType.QuickReactions}
           onEmojiSelect={onEmojiSelect}
         />
       );
@@ -470,7 +475,7 @@ describe('RdsEmojiGenerator', () => {
 
     it('should handle undefined onEmojiSelect gracefully', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       const emoji = container.querySelector('.rds-emoji-generator__emoji');
       expect(() => {
@@ -492,7 +497,7 @@ describe('RdsEmojiGenerator', () => {
     it('should pass all props to root element', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
+          type={EmojiGeneratorType.Default}
           data-testid="custom-test-id"
         />
       );
@@ -508,21 +513,21 @@ describe('RdsEmojiGenerator', () => {
 
     it('should have search container class', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       expect(container.querySelector('.rds-emoji-generator__search')).toBeInTheDocument();
     });
 
     it('should have categories class', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       expect(container.querySelector('.rds-emoji-generator__categories')).toBeInTheDocument();
     });
 
     it('should have grid class', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       expect(container.querySelector('.rds-emoji-generator__grid')).toBeInTheDocument();
     });
@@ -532,8 +537,8 @@ describe('RdsEmojiGenerator', () => {
     it('should highlight selected category', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          Category={EmojiCategory.FoodAndDrink}
+          type={EmojiGeneratorType.Default}
+          category={EmojiCategory.FoodAndDrink}
         />
       );
       const selectedChip = container.querySelector('button[data-color="primary"]');
@@ -543,8 +548,8 @@ describe('RdsEmojiGenerator', () => {
     it('should update category title when category changes', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          Category={EmojiCategory.AnimalsAndNature}
+          type={EmojiGeneratorType.Default}
+          category={EmojiCategory.AnimalsAndNature}
         />
       );
       const title = container.querySelector('.rds-emoji-generator__category-title-text');
@@ -557,10 +562,10 @@ describe('RdsEmojiGenerator', () => {
       const onEmojiSelect = jest.fn();
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
-          {...{ 'Show Skin Tone': true, 'Show Footer': true }}
+          type={EmojiGeneratorType.Default}
+          {...{ showSkinTone: true, showFooter: true }}
 
-          Category={EmojiCategory.SmileysAndPeople}
+          category={EmojiCategory.SmileysAndPeople}
           onEmojiSelect={onEmojiSelect}
           maxEmojis={50}
         />
@@ -574,7 +579,7 @@ describe('RdsEmojiGenerator', () => {
       const onEmojiSelect = jest.fn();
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.QuickReactions}
+          type={EmojiGeneratorType.QuickReactions}
           onEmojiSelect={onEmojiSelect}
         />
       );
@@ -584,7 +589,7 @@ describe('RdsEmojiGenerator', () => {
 
     it('should handle category switching with search', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       const searchInput = screen.getByPlaceholderText('Search');
       fireEvent.change(searchInput, { target: { value: 'smile' } });
@@ -599,9 +604,9 @@ describe('RdsEmojiGenerator', () => {
     it('should handle expanded skin tone state with category change', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
+          type={EmojiGeneratorType.Default}
           skinTonePickerOpen
-          {...{ 'Show Skin Tone': true }}
+          {...{ showSkinTone: true }}
         />
       );
       const categoryButtons = container.querySelectorAll('button[data-variant]');
@@ -614,7 +619,7 @@ describe('RdsEmojiGenerator', () => {
   describe('Edge Cases', () => {
     it('should handle empty search results gracefully', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       const searchInput = screen.getByPlaceholderText('Search');
       fireEvent.change(searchInput, { target: { value: 'nonexistent' } });
@@ -625,7 +630,7 @@ describe('RdsEmojiGenerator', () => {
     it('should handle maxEmojis as 0', () => {
       const { container } = render(
         <RdsEmojiGenerator
-          Type={EmojiGeneratorType.Default}
+          type={EmojiGeneratorType.Default}
           maxEmojis={0}
         />
       );
@@ -635,14 +640,14 @@ describe('RdsEmojiGenerator', () => {
 
     it('should handle undefined Category prop', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       expect(container.querySelector('.rds-emoji-generator')).toBeInTheDocument();
     });
 
     it('should handle rapid category changes', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       const categoryButtons = container.querySelectorAll('button[data-variant]');
 
@@ -656,7 +661,7 @@ describe('RdsEmojiGenerator', () => {
 
     it('should render with no onEmojiSelect callback', () => {
       const { container } = render(
-        <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
+        <RdsEmojiGenerator type={EmojiGeneratorType.Default} />
       );
       expect(container.querySelector('.rds-emoji-generator')).toBeInTheDocument();
     });
@@ -678,9 +683,9 @@ describe('audit fixes', () => {
     expect(actual.applySkinTone('👍️', 5)).toBe('👍🏿');
   });
 
-  it('G5-024: camelCase aliases win over the legacy props', () => {
+  it('G5-024: type takes precedence over variant', () => {
     const { container } = render(
-      <RdsEmojiGenerator Type={EmojiGeneratorType.Default} variant={EmojiGeneratorType.QuickReactions} />
+      <RdsEmojiGenerator type={EmojiGeneratorType.QuickReactions} variant={EmojiGeneratorType.Default} />
     );
     expect(container.querySelector('.rds-emoji-generator--quick')).toBeInTheDocument();
     const { container: c2 } = render(<RdsEmojiGenerator showFooter={false} showSkinTone={false} />);
@@ -689,15 +694,15 @@ describe('audit fixes', () => {
   });
 
   it('G5-026: flags use the pinned CDN url and flagBaseUrl overrides it', () => {
-    const { container } = render(<RdsEmojiGenerator Category={EmojiCategory.Flags} />);
+    const { container } = render(<RdsEmojiGenerator category={EmojiCategory.Flags} />);
     expect(container.querySelector('img')?.getAttribute('src')).toContain('twemoji@14.0.2');
-    const { container: c2 } = render(<RdsEmojiGenerator Category={EmojiCategory.Flags} flagBaseUrl="https://example.com/flags" />);
+    const { container: c2 } = render(<RdsEmojiGenerator category={EmojiCategory.Flags} flagBaseUrl="https://example.com/flags" />);
     expect(c2.querySelector('img')?.getAttribute('src')).toMatch(/^https:\/\/example\.com\/flags\/.+\.png$/);
   });
 
   it('G5-030: quickReactions overrides the default quick emojis', () => {
     const { container } = render(
-      <RdsEmojiGenerator Type={EmojiGeneratorType.QuickReactions} quickReactions={['🔥', '🎉']} />
+      <RdsEmojiGenerator type={EmojiGeneratorType.QuickReactions} quickReactions={['🔥', '🎉']} />
     );
     expect(container.querySelectorAll('.rds-emoji-generator__emoji--quick')).toHaveLength(2);
   });
@@ -715,7 +720,7 @@ describe('audit fixes', () => {
     const onEmojiSelect = jest.fn();
     const onMoreClick = jest.fn();
     render(
-      <RdsEmojiGenerator Type={EmojiGeneratorType.QuickReactions} onEmojiSelect={onEmojiSelect} onMoreClick={onMoreClick} />
+      <RdsEmojiGenerator type={EmojiGeneratorType.QuickReactions} onEmojiSelect={onEmojiSelect} onMoreClick={onMoreClick} />
     );
     fireEvent.click(screen.getByLabelText('More emojis'));
     expect(onMoreClick).toHaveBeenCalledTimes(1);
@@ -759,7 +764,38 @@ describe('doc-09 renames', () => {
     expect(onChange).toHaveBeenCalledWith(expect.anything(), '+');
   });
 
-  it('skinTonePickerOpen expands the picker inline like State=Expanded', () => {
+  it('type takes precedence over variant', () => {
+    warnDeprecatedProp.mockClear();
+    const { container } = render(
+      <RdsEmojiGenerator
+        type={EmojiGeneratorType.Default}
+        variant={EmojiGeneratorType.QuickReactions}
+      />
+    );
+    expect(container.querySelector('.rds-emoji-generator--quick')).not.toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Search')).toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('uses lowerCamelCase category and display props', () => {
+    warnDeprecatedProp.mockClear();
+    const { container } = render(
+      <RdsEmojiGenerator
+        category={EmojiCategory.Flags}
+        showSkinTone={true}
+        showFooter={false}
+      />,
+    );
+    expect(container.querySelector('.rds-emoji-generator__category-chip--selected')).toHaveAttribute(
+      'title',
+      'Flags',
+    );
+    expect(container.querySelector('.rds-emoji-generator__skin-tone-button')).toBeInTheDocument();
+    expect(container.querySelector('.rds-emoji-generator__footer')).not.toBeInTheDocument();
+    expect(warnDeprecatedProp).not.toHaveBeenCalled();
+  });
+
+  it('skinTonePickerOpen expands the picker inline', () => {
     const { container } = render(<RdsEmojiGenerator skinTonePickerOpen />);
     expect(container.querySelector('.rds-emoji-generator__skin-tone-inline')).toBeInTheDocument();
   });

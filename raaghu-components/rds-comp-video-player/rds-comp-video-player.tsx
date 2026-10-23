@@ -12,8 +12,6 @@ const ReactPlayer = lazy(() => import("react-player"));
 export interface RdsVideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   width?: string | number;
   height?: string | number;
-  /** @deprecated Use `autoPlay` instead. */
-  autoplay?: boolean;
   autoPlay?: boolean;
   muted?: boolean;
   /** @deprecated Use `src` instead. */
@@ -100,7 +98,6 @@ const buildPlayerConfig = (
 const RdsCompVideoPlayer = ({
   width = "100%",
   height = "auto",
-  autoplay,
   autoPlay,
   muted = false,
   videoLink,
@@ -118,9 +115,8 @@ const RdsCompVideoPlayer = ({
   ref,
   ...rest
 }: RdsVideoPlayerProps) => {
-  if (autoplay !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "autoplay", "`autoPlay`");
   if (videoLink !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "videoLink", "`src`");
-  const shouldAutoPlay = (autoPlay ?? autoplay ?? false) && !disabled;
+  const shouldAutoPlay = (autoPlay ?? false) && !disabled;
   const formattedUrl = formatVideoUrl(src ?? videoLink ?? "");
   const playerConfig = buildPlayerConfig(type, formattedUrl, controls, title);
 

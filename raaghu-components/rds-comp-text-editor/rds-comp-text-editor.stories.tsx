@@ -15,7 +15,7 @@ const meta: Meta = {
         className: { control: 'text', description: 'CSS class applied to the text editor root.' },
         sx: { control: 'object', description: 'MUI system styles applied to the text editor root.' },
         ref: { control: false, description: 'React ref to the text editor root; assign it in code.' },
-        State: {
+        state: {
             options: [
                 "Default"   ,
                 "Active"  ,
@@ -34,7 +34,7 @@ type Story = StoryObj<typeof RdsCompTextEditor>;
 
 export const Default: Story = {
     args: {
-        State: "Default",
+        state: "Default",
         showTitle: true,
         label:"Label",
         required: false,
@@ -47,4 +47,4 @@ export const Default: Story = {
         expect(editor).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'required','rows','resizable','placeholder','className','sx','ref'] } };
+Default.parameters = { controls: { include: ['state', 'showTitle', 'label', 'required','rows','resizable','placeholder','className','sx','ref'] } };

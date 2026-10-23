@@ -114,7 +114,8 @@ export interface RdsCompAiIconProps
   isHovered?: boolean;
   isCursorPointer?: boolean;
   strokeColor?: string;
-  SvgIcon?: ComponentType<SVGProps<SVGSVGElement>>;
+  /** Preferred custom SVG icon component. */
+  svgIcon?: ComponentType<SVGProps<SVGSVGElement>>;
   component?: ComponentType<SVGProps<SVGSVGElement>>;
   position?: "center" | "top-left" | "none";
   "data-testid"?: string;
@@ -147,7 +148,7 @@ const RdsCompAiIconComponent = ({
   id,
   isCursorPointer,
   strokeColor,
-  SvgIcon: SvgIconProp,
+  svgIcon,
   component,
   position,
   borderRadius,
@@ -187,7 +188,7 @@ const RdsCompAiIconComponent = ({
   if (ariacontrols !== undefined) warnDeprecatedProp("RdsCompAiIcon", "ariacontrols", "`aria-controls`");
 
   if (imageUrl !== undefined) warnDeprecatedProp("RdsCompAiIcon", "imageUrl", "`src`");
-  const SvgIcon = component ?? SvgIconProp;
+  const resolvedSvgIcon = svgIcon ?? component;
   const imageSrc = src ?? imageUrl;
 
   const resolvedTestId = dataTestIdAttr ?? dataTestId;
@@ -199,8 +200,8 @@ const RdsCompAiIconComponent = ({
   const normalizedName = name?.toLowerCase() ?? "";
 
   const IconComponent = useMemo(
-    () => resolveIconComponent(normalizedName, SvgIcon),
-    [normalizedName, SvgIcon]
+    () => resolveIconComponent(normalizedName, resolvedSvgIcon),
+    [normalizedName, resolvedSvgIcon]
   );
 
   const style = useMemo(

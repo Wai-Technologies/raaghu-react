@@ -178,38 +178,48 @@ describe('RdsAccordion', () => {
   });
 
   describe('Icon Display', () => {
-    it('should display default AddIcon when ShowLeftIcon is true', () => {
-      render(<RdsAccordion {...defaultProps} ShowLeftIcon={true} />);
+    it('should display default AddIcon when showLeftIcon is true', () => {
+      render(<RdsAccordion {...defaultProps} showLeftIcon={true} />);
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();
     });
 
-    it('should hide icon when ShowLeftIcon is false', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} ShowLeftIcon={false} />);
+    it('should hide icon when showLeftIcon is false', () => {
+      const { container } = render(<RdsAccordion {...defaultProps} showLeftIcon={false} />);
       expect(container.querySelector('.rds-accordion__icon')).not.toBeInTheDocument();
+    });
+
+    it('should render changeLeftIcon', () => {
+      render(
+        <RdsAccordion
+          {...defaultProps}
+          changeLeftIcon={<span data-testid="camel-case-icon">Custom</span>}
+        />
+      );
+      expect(screen.getByTestId('camel-case-icon')).toBeInTheDocument();
     });
 
     it('should display custom icon when provided', () => {
       render(
         <RdsAccordion
           {...defaultProps}
-          changeleftIcon={<span data-testid="custom-icon">Custom</span>}
+          changeLeftIcon={<span data-testid="custom-icon">Custom</span>}
         />
       );
       expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
     });
 
-    it('should hide icon when changeleftIcon is null', () => {
+    it('should hide icon when changeLeftIcon is null', () => {
       const { container } = render(
-        <RdsAccordion {...defaultProps} ShowLeftIcon={true} changeleftIcon={null} />
+        <RdsAccordion {...defaultProps} showLeftIcon={true} changeLeftIcon={null} />
       );
       expect(container.querySelector('.rds-accordion__icon')).not.toBeInTheDocument();
     });
 
-    it('should use changeleftIcon over default icon', () => {
+    it('should use changeLeftIcon over default icon', () => {
       render(
         <RdsAccordion
           {...defaultProps}
-          changeleftIcon={<span data-testid="custom-icon">Custom</span>}
+          changeLeftIcon={<span data-testid="custom-icon">Custom</span>}
           icon={<span data-testid="icon-prop">Icon Prop</span>}
         />
       );
@@ -414,8 +424,8 @@ describe('RdsAccordion', () => {
           accordionStyle="bottomline"
           state="selected"
           defaultExpanded={true}
-          ShowLeftIcon={true}
-          changeleftIcon={<span data-testid="custom-icon">Icon</span>}
+          showLeftIcon={true}
+          changeLeftIcon={<span data-testid="custom-icon">Icon</span>}
         >
           <div>Custom Content</div>
         </RdsAccordion>
@@ -557,7 +567,7 @@ describe('RdsAccordion', () => {
     });
 
     it('should have icon in correct location', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} ShowLeftIcon={true} />);
+      const { container } = render(<RdsAccordion {...defaultProps} showLeftIcon={true} />);
 
       const header = container.querySelector('.rds-accordion__header');
       const icon = header?.querySelector('.rds-accordion__icon');
@@ -583,7 +593,7 @@ describe('RdsAccordion', () => {
   });
 
   describe('Default Props Tests', () => {
-    it('should use default ShowLeftIcon value', () => {
+    it('should use default showLeftIcon value', () => {
       render(<RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>);
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();
     });
@@ -593,7 +603,7 @@ describe('RdsAccordion', () => {
         <RdsAccordion
           title="Title"
          
-          ShowLeftIcon={true}
+          showLeftIcon={true}
         >{<div>Content</div>}</RdsAccordion>
       );
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();

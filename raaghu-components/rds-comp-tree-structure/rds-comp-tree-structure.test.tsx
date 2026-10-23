@@ -40,6 +40,19 @@ const sampleTreeData = [
 ];
 
 describe('RdsCompTreeStructure', () => {
+  it('uses the language prop for file icons', () => {
+    const getFileIcon = jest.fn(() => null);
+    render(
+      <RdsCompTreeStructure
+        showFile
+        language="TypeScript"
+        getFileIcon={getFileIcon}
+        treeData={[{ id: 1, name: 'index' }]}
+      />,
+    );
+    expect(getFileIcon).toHaveBeenCalledWith('TypeScript');
+  });
+
   describe('Basic Rendering', () => {
     it('renders without crashing', () => {
       const { container } = render(

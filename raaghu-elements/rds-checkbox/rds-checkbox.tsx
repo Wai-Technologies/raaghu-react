@@ -5,6 +5,8 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-checkbox.scss';
 
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'component'> {
+  /** Text shown next to the checkbox. Takes precedence over `label`. */
+  labelText?: string;
   /** Text shown next to the checkbox. */
   label?: string;
   /** Checkbox shape (Figma). */
@@ -15,15 +17,13 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'compone
   /** Shows the label text. When hidden, the label is still used as the accessible name. */
   showText?: boolean;
   cssStyle?: CSSProperties;
-  /** @deprecated Use `label`. */
-  labeltext?: string;
   /** @deprecated Use `disabled`. */
   isDisabled?: boolean;
 }
 
 const RdsCheckbox = ({
+  labelText,
   label,
-  labeltext,
   isDisabled,
   disabled,
   style = 'square',
@@ -40,10 +40,9 @@ const RdsCheckbox = ({
   slotProps,
   ...props
 }: RdsCheckboxProps) => {
-  if (labeltext !== undefined) warnDeprecatedProp('RdsCheckbox', 'labeltext', '`label`');
   if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
 
-  const labelText = label ?? labeltext;
+  const resolvedLabelText = labelText ?? label;
   const isCheckboxDisabled = Boolean(disabled) || Boolean(isDisabled);
 
   const [internalChecked, setInternalChecked] = useState(status === 'checked' || Boolean(defaultChecked));
@@ -72,15 +71,15 @@ const RdsCheckbox = ({
     isCheckboxDisabled && 'rds-checkbox__disabled',
     currentIndeterminate && 'rds-checkbox__indeterminate',
     color && color !== 'default' && `rds-checkbox__${color}`,
-    labelText && !showText && 'rds-checkbox__text-hidden',
+    resolvedLabelText && !showText && 'rds-checkbox__text-hidden',
     status && `rds-checkbox__${status}`,
     className,
   );
 
   const inputSlot = slotProps?.input;
-  const needsHiddenLabel = Boolean(labelText) && !showText && !props['aria-label'] && typeof inputSlot !== 'function';
+  const needsHiddenLabel = Boolean(resolvedLabelText) && !showText && !props['aria-label'] && typeof inputSlot !== 'function';
   const resolvedSlotProps = needsHiddenLabel
-    ? { ...slotProps, input: { 'aria-label': labelText, ...(inputSlot as object | undefined) } }
+    ? { ...slotProps, input: { 'aria-label': resolvedLabelText, ...(inputSlot as object | undefined) } }
     : slotProps;
 
   const checkbox = (
@@ -98,10 +97,10 @@ const RdsCheckbox = ({
 
   return (
     <div className={checkboxClassName} style={cssStyle}>
-      {labelText ? (
+      {resolvedLabelText ? (
         <FormControlLabel
           control={checkbox}
-          label={showText ? labelText : ''}
+          label={showText ? resolvedLabelText : ''}
           disabled={isCheckboxDisabled}
         />
       ) : checkbox}

@@ -49,7 +49,7 @@ const meta: Meta = {
       control: "boolean",
       description: "Applies the selected appearance to tree nodes."
     },
-    Language: {
+    language: {
       options: [
         "CSS",
         "Cplus",
@@ -103,7 +103,7 @@ export default meta;
 //     showActions: true,
 //     showCollapsed: false,
 //     type: IconType.Folder,  // Use enum instead of string
-//     Language: "TypeScript",
+//     language: "TypeScript",
 //     treeData: [
 //       {
 //         id: 1,
@@ -214,7 +214,7 @@ export default meta;
 // } satisfies Story;
 
 // Default.parameters = {
-//   controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'Language', 'type', 'treeData'] },
+//   controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'language', 'type', 'treeData'] },
 // };
 
 export const Default: StoryObj<RdsCompTreeStructureProps> = {

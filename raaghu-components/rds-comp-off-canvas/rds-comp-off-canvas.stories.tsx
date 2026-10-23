@@ -39,6 +39,10 @@ const meta: Meta = {
     showPrimaryButton: { control: 'boolean' },
     showSecondaryButton: { control: 'boolean' },
     showTertiaryButton: { control: 'boolean' },
+    onClick: {
+      action: 'opened',
+      description: 'Called with true when the canvas is opened.',
+    },
     sx: {
       control: 'object',
       description: 'MUI system styles applied to the off-canvas Drawer.',

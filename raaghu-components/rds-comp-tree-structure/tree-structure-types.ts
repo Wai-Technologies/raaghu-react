@@ -32,7 +32,7 @@ export interface RdsCompTreeStructureProps {
   type?: IconType;
   showActions?: boolean;
   treeData?: TreeNode[];
-  Language?: string;
+  language?: string;
   /** @deprecated Has no effect. */
   iconName?: ReactNode;
   text?: string;

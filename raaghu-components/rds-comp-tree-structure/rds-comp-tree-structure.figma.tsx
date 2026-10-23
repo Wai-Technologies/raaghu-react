@@ -23,7 +23,7 @@ figma.connect(
       }),
     },
     example: (props) => <RdsCompTreeStructure {...props} 
-    Language="CSS"
+    language="CSS"
     showActions
     showCheckbox
     showChewron

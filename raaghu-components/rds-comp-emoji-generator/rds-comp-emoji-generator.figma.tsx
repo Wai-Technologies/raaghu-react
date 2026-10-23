@@ -7,7 +7,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=9141-36081",
   {
     props: {
-      Type: figma.enum("Type", {
+      type: figma.enum("Type", {
         "Default": EmojiGeneratorType.Default,
         "Quick Reactions": EmojiGeneratorType.QuickReactions,
       }),

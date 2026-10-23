@@ -31,6 +31,7 @@ const RdsDatepicker = ({
     selectedDate,
     dateForEdit,
     titleText: titleTextProp,
+    datePickerLabel,
     onDatePicker,
     datePickerStyleType: datePickerStyleTypeProp,
     layout,
@@ -82,12 +83,14 @@ const RdsDatepicker = ({
     const legacyShowClearDate = asBoolean(showClearDateProp);
     const legacyIsDefaultDate = asBoolean(isDefaultDateProp);
 
-    const titleText = label ?? titleTextProp;
+    const titleText = label ?? datePickerLabel ?? titleTextProp;
     const placeholderText = placeholder ?? placeholderTextProp;
     const datePickerStyleType = variant ? styleTypeByVariant[variant] : datePickerStyleTypeProp;
     const editValue = value !== undefined ? value : dateForEdit;
 
-    const showTitle = controls?.title ? controls.title === 'visible' : (legacyShowTitle ?? label !== undefined);
+    const showTitle = controls?.title
+        ? controls.title === 'visible'
+        : (legacyShowTitle ?? (label !== undefined || datePickerLabel !== undefined));
     const isDisabled = disabled ?? (controls?.disabled ? controls.disabled === 'on' : (legacyIsDisabled ?? false));
     const isMandatory = required ?? (controls?.mandatory ? controls.mandatory === 'required' : (legacyIsMandatory ?? false));
     const showClearDate = clearable ?? (controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false));

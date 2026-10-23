@@ -40,7 +40,7 @@ export interface RdsCompChatProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   currentUserCommentBgColor?: string;
   currentUserCommentTextColor?: string;
   otherUserCommentBgColor?: string;
-  OtherUserCommentTextColor?: string;
+  otherUserCommentTextColor?: string;
   ref?: Ref<HTMLDivElement>;
   sx?: SxProps<Theme>;
 }
@@ -93,12 +93,13 @@ const RdsCompChat = ({
   currentUserCommentBgColor = "var(--rds-primary-main)",
   currentUserCommentTextColor = "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
   otherUserCommentBgColor = "var(--rds-neutral-300)",
-  OtherUserCommentTextColor = "var(--rds-text-primary)",
+  otherUserCommentTextColor,
   className,
   ref,
   sx,
   ...rest
 }: RdsCompChatProps) => {
+  const resolvedOtherUserCommentTextColor = otherUserCommentTextColor ?? "var(--rds-text-primary)";
 
   const [state, setState] = useState({
     isMobile: window.innerWidth <= 600,
@@ -293,7 +294,7 @@ const RdsCompChat = ({
                       currentUserCommentBgColor={currentUserCommentBgColor}
                       otherUserCommentBgColor={otherUserCommentBgColor}
                       currentUserCommentTextColor={currentUserCommentTextColor}
-                      otherUserCommentTextColor={OtherUserCommentTextColor}
+                      otherUserCommentTextColor={resolvedOtherUserCommentTextColor}
                     />
                   );
                 })}

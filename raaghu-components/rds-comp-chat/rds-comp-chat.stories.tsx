@@ -86,7 +86,7 @@ export const Default: Story = {
         currentUserCommentBgColor: "var(--rds-primary-main)",
         currentUserCommentTextColor: "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
         otherUserCommentBgColor: "var(--rds-neutral-300)",
-        OtherUserCommentTextColor: "var(--rds-text-primary)",
+        otherUserCommentTextColor: "var(--rds-text-primary)",
         handleAddComment: (comment) => {},
     },
     play: async ({ canvasElement }) => {
@@ -94,4 +94,4 @@ export const Default: Story = {
     },
 } satisfies Story;
 
-Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor", "className", "sx", "ref"] } };
+Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "otherUserCommentTextColor", "className", "sx", "ref"] } };

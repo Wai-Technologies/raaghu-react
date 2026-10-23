@@ -25,7 +25,7 @@ jest.mock('../rds-menu/rds-menu', () => {
 });
 
 jest.mock('../rds-checkbox/rds-checkbox', () => {
-  return function MockCheckbox({ checked, onChange, labeltext, isDisabled }: any) {
+  return function MockCheckbox({ checked, onChange, labelText, isDisabled }: any) {
     return (
       <label data-testid="checkbox">
         <input
@@ -34,7 +34,7 @@ jest.mock('../rds-checkbox/rds-checkbox', () => {
           onChange={onChange}
           disabled={isDisabled}
         />
-        {labeltext}
+        {labelText}
       </label>
     );
   };

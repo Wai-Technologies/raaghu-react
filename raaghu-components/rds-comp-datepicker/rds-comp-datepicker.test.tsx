@@ -286,14 +286,15 @@ describe('RdsDatepicker', () => {
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
     });
 
-    it('should accept DatePickerLabel prop', () => {
+    it('supports datePickerLabel', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
-          DatePickerLabel="Pick Date"
+          datePickerLabel="Pick Date"
+          showTitle
         />
       );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+      expect(screen.getByText('Pick Date')).toBeInTheDocument();
     });
 
     it('should accept changeIcon prop', () => {
@@ -543,7 +544,7 @@ describe('RdsDatepicker', () => {
             {...defaultProps}
             titleText={undefined}
             placeholderText={undefined}
-            DatePickerLabel={undefined}
+            datePickerLabel={undefined}
           />
         );
       }).not.toThrow();
@@ -575,7 +576,6 @@ describe('RdsDatepicker', () => {
           isDisabled={false}
           isMandatory={true}
           placeholderText="Pick a date"
-          DatePickerLabel="Date"
           type="single"
           changeIcon="dashboard_settings"
           showClearDate={true}

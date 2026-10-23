@@ -273,7 +273,7 @@ const RdsButtonDropdown = ({
                     checked={selected.includes(opt.id)}
                     onChange={() => handleOptionChange(opt.id)}
                     isDisabled={opt.disabled}
-                    labeltext= {opt.label}
+                    labelText= {opt.label}
                   />
                 ) : showRadio ? (
                   <RdsRadio

@@ -53,7 +53,7 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   };
   /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
-  DatePickerLabel?: string;
+  datePickerLabel?: string;
   type?: string;
   /** @deprecated Use `openPickerIcon` instead. */
   changeIcon?: "dashboard_settings" | string;

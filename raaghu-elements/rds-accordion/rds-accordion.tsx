@@ -39,10 +39,10 @@ export interface RdsAccordionProps
   size?: 'small' | 'medium' | 'large';
   /** Duration of the expand/collapse animation in milliseconds. Defaults to MUI's automatic timing. */
   animationDuration?: number;
-  /** @deprecated Use `startIcon={null}` to hide the icon. */
-  ShowLeftIcon?: boolean;
-  /** @deprecated Use `startIcon`. */
-  changeleftIcon?: ReactNode;
+  /** Shows the leading icon. Defaults to `true`. */
+  showLeftIcon?: boolean;
+  /** Custom leading icon. */
+  changeLeftIcon?: ReactNode;
   /** @deprecated Use `startIcon`. */
   icon?: ReactNode;
   /** @deprecated Use `variant` (`'outlined' | 'underline' | 'plain'`). */
@@ -51,13 +51,13 @@ export interface RdsAccordionProps
 
 const resolveStartIcon = (
   startIcon: ReactNode | undefined,
-  ShowLeftIcon: boolean | undefined,
-  changeleftIcon: ReactNode | undefined,
+  showLeftIcon: boolean | undefined,
+  changeLeftIcon: ReactNode | undefined,
   icon: ReactNode | undefined,
 ): ReactNode => {
   if (startIcon !== undefined) return startIcon;
-  if (ShowLeftIcon === false || changeleftIcon === null) return null;
-  return changeleftIcon ?? icon ?? <AddIcon fontSize="small" />;
+  if (showLeftIcon === false || changeLeftIcon === null) return null;
+  return changeLeftIcon ?? icon ?? <AddIcon fontSize="small" />;
 };
 
 const RdsAccordion = ({
@@ -70,8 +70,8 @@ const RdsAccordion = ({
   defaultExpanded = false,
   size = 'medium',
   animationDuration,
-  ShowLeftIcon,
-  changeleftIcon,
+  showLeftIcon,
+  changeLeftIcon,
   icon,
   accordionStyle,
   className,
@@ -79,12 +79,6 @@ const RdsAccordion = ({
   onChange,
   ...props
 }: RdsAccordionProps) => {
-  if (ShowLeftIcon !== undefined) {
-    warnDeprecatedProp('RdsAccordion', 'ShowLeftIcon', '`startIcon={null}`');
-  }
-  if (changeleftIcon !== undefined) {
-    warnDeprecatedProp('RdsAccordion', 'changeleftIcon', '`startIcon`');
-  }
   if (icon !== undefined) {
     warnDeprecatedProp('RdsAccordion', 'icon', '`startIcon`');
   }
@@ -97,7 +91,7 @@ const RdsAccordion = ({
   const isExpanded = isControlled ? Boolean(props.expanded) : uncontrolledExpanded;
   const isDisabled = props.disabled;
   const styleClass = variant ? VARIANT_CLASS[variant] : accordionStyle ?? 'border';
-  const resolvedStartIcon = resolveStartIcon(startIcon, ShowLeftIcon, changeleftIcon, icon);
+  const resolvedStartIcon = resolveStartIcon(startIcon, showLeftIcon, changeLeftIcon, icon);
 
   const handleChange = (event: SyntheticEvent, expanded: boolean) => {
     if (!isControlled) setUncontrolledExpanded(expanded);

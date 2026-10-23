@@ -271,23 +271,23 @@ describe('RdsCompVideoPlayer', () => {
   });
 
   describe('Autoplay Prop', () => {
-    it('should not autoplay by default', () => {
+    it('should not autoPlay by default', () => {
       render(<RdsCompVideoPlayer {...defaultProps} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-playing', 'false');
     });
 
-    it('should autoplay when autoplay is true', () => {
-      render(<RdsCompVideoPlayer {...defaultProps} autoplay={true} />);
+    it('should autoPlay when autoPlay is true', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoPlay={true} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-playing', 'true');
     });
 
-    it('should not autoplay when disabled even if autoplay is true', () => {
+    it('should not autoPlay when disabled even if autoPlay is true', () => {
       render(
         <RdsCompVideoPlayer
           {...defaultProps}
-          autoplay={true}
+          autoPlay={true}
           disabled={true}
         />
       );
@@ -295,23 +295,23 @@ describe('RdsCompVideoPlayer', () => {
       expect(player).toHaveAttribute('data-playing', 'false');
     });
 
-    it('should loop when autoplay is true', () => {
-      render(<RdsCompVideoPlayer {...defaultProps} autoplay={true} />);
+    it('should loop when autoPlay is true', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoPlay={true} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-loop', 'true');
     });
 
-    it('should not loop when autoplay is false', () => {
-      render(<RdsCompVideoPlayer {...defaultProps} autoplay={false} />);
+    it('should not loop when autoPlay is false', () => {
+      render(<RdsCompVideoPlayer {...defaultProps} autoPlay={false} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-loop', 'false');
     });
 
-    it('should not loop when disabled even if autoplay is true', () => {
+    it('should not loop when disabled even if autoPlay is true', () => {
       render(
         <RdsCompVideoPlayer
           {...defaultProps}
-          autoplay={true}
+          autoPlay={true}
           disabled={true}
         />
       );
@@ -435,11 +435,11 @@ describe('RdsCompVideoPlayer', () => {
       expect(screen.getByText('Video player is disabled')).toBeInTheDocument();
     });
 
-    it('should not autoplay when disabled', () => {
+    it('should not autoPlay when disabled', () => {
       render(
         <RdsCompVideoPlayer
           {...defaultProps}
-          autoplay={true}
+          autoPlay={true}
           disabled={true}
         />
       );
@@ -513,7 +513,7 @@ describe('RdsCompVideoPlayer', () => {
           type={VideoPlayerType.YouTube}
           width="1280px"
           height="720px"
-          autoplay={true}
+          autoPlay={true}
           muted={true}
           controls={false}
           volume={0.5}
@@ -533,7 +533,7 @@ describe('RdsCompVideoPlayer', () => {
       render(
         <RdsCompVideoPlayer
           videoLink="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          autoplay={true}
+          autoPlay={true}
           muted={false}
           volume={1}
           disabled={true}
@@ -662,7 +662,7 @@ describe('RdsCompVideoPlayer', () => {
       expect(style.height).toBe('auto');
     });
 
-    it('should use default autoplay of false', () => {
+    it('should use default autoPlay of false', () => {
       render(<RdsCompVideoPlayer videoLink="https://example.com/video.mp4" />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-playing', 'false');

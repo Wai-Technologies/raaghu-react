@@ -15,6 +15,7 @@ const meta: Meta = {
         className: { control: "text", description: "CSS class applied to the rendered icon." },
         sx: { control: "object", description: "MUI system styles applied to the rendered icon." },
         ref: { control: false, description: "React ref to the rendered icon element; assign it in code." },
+        svgIcon: { control: false, description: "Custom SVG icon component." },
         colorVariant: {
             options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
             control: { type: "select" },

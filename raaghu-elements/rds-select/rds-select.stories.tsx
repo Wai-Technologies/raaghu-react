@@ -36,6 +36,10 @@ const meta: Meta<typeof RdsSelect> = {
       control: 'select',
       options: ['floating', 'top'],
     },
+    labelPosition: {
+      control: 'boolean',
+      description: 'Use a floating label when true, or place it above the field when false.',
+    },
     required: {
       control: 'boolean',
     },
