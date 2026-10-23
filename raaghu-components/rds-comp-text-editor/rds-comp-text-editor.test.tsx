@@ -76,6 +76,9 @@ jest.mock('react-draft-wysiwyg', () => ({
 }));
 
 jest.mock('@mui/material', () => ({
+  Box: React.forwardRef(({ children, className, sx: _sx, ...props }: any, ref: any) => (
+    <div {...props} ref={ref} className={className}>{children}</div>
+  )),
   InputLabel: ({ children, className }: any) => (
     <label data-testid="input-label" className={className}>
       {children}

@@ -11,6 +11,9 @@ const meta: Meta = {
     },
     tags: ["autodocs", 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the product tour root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the product tour root.' },
+        ref: { control: false, description: 'React ref to the product tour root; assign it in code.' },
         variant: {
             options: ["Image", "Carousel", "Form", "GIF"],
             control: { type: "select" },

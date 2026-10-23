@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
+import type { SxProps, Theme } from '@mui/material';
 
 export enum TreeLevel {
   Level1 = "Level1",
@@ -45,4 +46,7 @@ export interface RdsCompTreeStructureProps {
   onCreateSubUnit?: (node: TreeNode) => void;
   onMoveNode?: (id: number) => void;
   onCheckboxChange?: (nodeId: number, checked: boolean) => void;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }

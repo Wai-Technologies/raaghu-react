@@ -1,4 +1,5 @@
-import type { ReactNode, SyntheticEvent } from "react";
+import type { ReactNode, Ref, SyntheticEvent } from "react";
+import type { SxProps, Theme } from "@mui/material";
 
 export const ToastLayout = {
   Text: 'text',
@@ -90,4 +91,7 @@ export interface RdsCompToastProps {
   showLeading?: boolean;
   showDismiss?: boolean;
   showSubText?: boolean;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }

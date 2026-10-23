@@ -16,6 +16,9 @@ const meta: Meta<typeof RdsCompContribution> = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the contribution chart root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the contribution chart root.' },
+    ref: { control: false, description: 'React ref to the contribution chart root; assign it in code.' },
     showMonthLabels: {
       description: 'Whether to show month labels at the top of the contribution graph',
       control: { type: "boolean" },
@@ -81,7 +84,7 @@ export const Default: Story = {
   },
   parameters: {
     controls: {
-      include: ["showMonthLabels"]
+      include: ["showMonthLabels", "className", "sx", "ref"]
     },
     docs: {
       description: {
@@ -93,5 +96,4 @@ export const Default: Story = {
     await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
-
 

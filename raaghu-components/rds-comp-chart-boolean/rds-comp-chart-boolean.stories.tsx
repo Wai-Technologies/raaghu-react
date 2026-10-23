@@ -18,6 +18,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the chart container.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the chart container.' },
+        ref: { control: false, description: 'React ref to the chart container; assign it in code.' },
         centerIconName: {
             options: ["users", "headset", "circle"],
             control: { type: "select" },

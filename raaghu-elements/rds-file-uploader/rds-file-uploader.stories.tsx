@@ -33,6 +33,9 @@ const meta: Meta<typeof RdsFileUploader> = {
         'showHint',
         'required',
         'helperText',
+        'className',
+        'sx',
+        'ref',
       ],
     },
   },
@@ -45,6 +48,21 @@ const meta: Meta<typeof RdsFileUploader> = {
   ],
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the uploader root.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the uploader root.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the uploader root. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
     label: {
       control: 'text',
       description: 'Label text for the uploader',

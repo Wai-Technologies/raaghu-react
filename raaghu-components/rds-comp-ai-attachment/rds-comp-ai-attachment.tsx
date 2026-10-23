@@ -9,6 +9,8 @@ import RdsCompAiFabMenu, { type RdsCompAiFabMenuIcon } from "../rds-comp-ai-fab-
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
 export interface RdsCompAiAttachmentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "onChange"> {
@@ -62,6 +64,7 @@ export interface RdsCompAiAttachmentProps
   menuAlignment?: "left" | "right";
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 export type RdsCompAiAttachmentBadgeProps = Omit<Partial<RdsBadgeProps>, "color"> & {
@@ -144,6 +147,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
     menuAlignment,
     className,
     ref,
+    sx,
     ...rest
   } = props;
   for (const [name, replacement] of Object.entries(DEPRECATED_PROPS)) {
@@ -248,7 +252,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
   }, [openModal, resolvedUploadText, badgeContent, badgeProps, badgeColor, handleImportClick, resolvedImportText]);
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)} sx={sx}>
       <input
         type="file"
         accept="image/*"
@@ -288,7 +292,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
           />
         </RdsModal>
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -699,10 +699,11 @@ describe('audit fixes', () => {
   it('G2-346: passes className, name, maxLength, disabled, defaultValue and ref', () => {
     const ref = React.createRef<HTMLTextAreaElement>();
     const { container } = render(
-      <RdsTextArea ref={ref} className="root-x" name="notes" maxLength={10} defaultValue="hi" disabled data-testid="ta" />
+      <RdsTextArea ref={ref} className="root-x" sx={{ marginTop: '7px' }} name="notes" maxLength={10} defaultValue="hi" disabled data-testid="ta" />
     );
     const ta = screen.getByTestId('ta') as HTMLTextAreaElement;
     expect(container.firstChild).toHaveClass('rds-textarea-container', 'root-x');
+    expect(container.firstChild).toHaveStyle('margin-top: 7px');
     expect(ta).toHaveAttribute('name', 'notes');
     expect(ta).toHaveAttribute('maxLength', '10');
     expect(ta.value).toBe('hi');

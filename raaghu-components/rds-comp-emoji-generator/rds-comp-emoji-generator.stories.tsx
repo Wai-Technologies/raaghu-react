@@ -19,6 +19,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the emoji generator root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the emoji generator root.' },
+        ref: { control: false, description: 'React ref to the emoji generator root; assign it in code.' },
         Type: {
             options: Object.values(EmojiGeneratorType),
             control: { type: "select" },

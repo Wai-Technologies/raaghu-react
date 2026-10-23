@@ -30,6 +30,9 @@ const meta: Meta<typeof RdsCompESignature> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the signature component root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the signature component root.' },
+    ref: { control: false, description: 'React ref to the signature component root; assign it in code.' },
     type: {
       control: 'select',
       options: ['fullname', 'initials'],
@@ -63,7 +66,7 @@ export const Draw: Story = {
     showColorPicker: true,
   },
   parameters: {
-    controls: { include: ['type', 'showColorPicker', 'disabled'] },
+    controls: { include: ['type', 'showColorPicker', 'disabled', 'className', 'sx', 'ref'] },
   },
   play: async ({ canvasElement }) => {
     const c = canvasElement.querySelector('canvas');
@@ -77,7 +80,7 @@ export const Upload: Story = {
     type: 'fullname',
   },
   parameters: {
-    controls: { include: ['type', 'disabled'] },
+    controls: { include: ['type', 'disabled', 'className', 'sx', 'ref'] },
   },
 };
 
@@ -87,6 +90,6 @@ export const Choose: Story = {
     type: 'fullname',
   },
   parameters: {
-    controls: { include: ['type', 'disabled'] },
+    controls: { include: ['type', 'disabled', 'className', 'sx', 'ref'] },
   },
 };

@@ -1,4 +1,4 @@
-import { useId, useState, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useId, useState, type ChangeEvent, type KeyboardEvent, type Ref } from 'react';
 import { Box, IconButton, InputBase, Typography, type BoxProps } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -10,7 +10,10 @@ import "./rds-counter.scss";
  * Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
  */
 export interface RdsCounterProps
-  extends Omit<BoxProps, 'children' | 'component' | 'onChange' | 'defaultValue' | 'placeholder'> {
+  extends Omit<BoxProps, 'children' | 'component' | 'onChange' | 'defaultValue' | 'placeholder' | 'className' | 'sx' | 'ref'> {
+  className?: string;
+  sx?: BoxProps['sx'];
+  ref?: Ref<HTMLDivElement>;
   /** Controlled value. When set (even without `onChange`) the counter is controlled. */
   value?: number;
   /** Called with the new value. Only values inside `[min, max]` are emitted. */

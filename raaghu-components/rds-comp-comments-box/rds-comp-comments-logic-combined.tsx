@@ -1,11 +1,16 @@
-import { useState, type ImgHTMLAttributes, type ReactNode, type SVGProps } from 'react';
+import { useState, type ImgHTMLAttributes, type ReactNode, type Ref, type SVGProps } from 'react';
+import clsx from 'clsx';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import RdsAvatar from '../../raaghu-elements/rds-avatar/rds-avatar';
 import RdsBox from '../../raaghu-elements/rds-box/rds-box';
 import './rds-comp-comments-box.scss';
 
 export interface RdsCommentBoxProps {
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
   svgEditPath?: string;
   svgDeletePath?: string;
   imgSrc?: string;
@@ -38,11 +43,18 @@ export interface RdsCommentBoxProps {
   score?: string;
 }
 
-export const RdsCommentBoxLogic = ({ avatarInitials = 'RD', placeholderText, typingPlaceholderText }: RdsCommentBoxProps) => {
+export const RdsCommentBoxLogic = ({
+  avatarInitials = 'RD',
+  placeholderText,
+  typingPlaceholderText,
+  className,
+  sx,
+  ref,
+}: RdsCommentBoxProps) => {
   const [draft, setDraft] = useState('');
 
   return (
-    <RdsBox className="rds-comments-box rds-comments-box--composer">
+    <RdsBox ref={ref} className={clsx('rds-comments-box rds-comments-box--composer', className)} sx={sx}>
       <RdsAvatar size="small" showName={false} showDesignation={false} className="rds-comments-box__avatar">
         {avatarInitials || 'RD'}
       </RdsAvatar>

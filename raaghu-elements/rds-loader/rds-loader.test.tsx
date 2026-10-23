@@ -629,7 +629,7 @@ describe('RdsLoader', () => {
 });
 describe('audit fixes', () => {
   it('forwards className, sx, ref and rest to the root', () => {
-    const ref = React.createRef<HTMLElement>();
+    const ref = React.createRef<HTMLDivElement>();
     renderWithTheme(<RdsLoader className="x" ref={ref} data-testid="r" sx={{ margin: '3px' }} />);
     const el = screen.getByTestId('r');
     expect(el).toHaveClass('x');

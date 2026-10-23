@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useId, useMemo } from "react";
+import { Box } from "@mui/material";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-spinner.scss";
 export { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
@@ -61,6 +62,10 @@ const RdsCompSpinner = ({
   color,
   colorVariant,
   level: levelProp,
+  className,
+  sx,
+  ref,
+  ...rest
 }: RdsCompSpinnerProps) => {
   if (spinnerType !== undefined) warnDeprecatedProp("RdsCompSpinner", "spinnerType", "`variant`");
   if (labelText !== undefined) warnDeprecatedProp("RdsCompSpinner", "labelText", "`label`");
@@ -88,7 +93,7 @@ const RdsCompSpinner = ({
   const opacity = level ? LEVEL_OPACITY[level] ?? 1 : 1;
 
   return (
-    <div className={clsx("spinner-container", layoutClass)}>
+    <Box {...rest} ref={ref} className={clsx("spinner-container", layoutClass, className)} sx={sx}>
       {showLabel && <label id={labelId} className={clsx("spinner-label", labelSizeClass)}>{resolvedLabel}</label>}
       <output
         className={combinedClasses}
@@ -97,7 +102,7 @@ const RdsCompSpinner = ({
         aria-label={resolvedLabel ?? "Loading"}
         aria-labelledby={showLabel ? labelId : undefined}
       />
-    </div>
+    </Box>
   );
 };
 

@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import Chart, { type ChartData, type ChartOptions, type ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
@@ -28,6 +30,7 @@ export interface RdsCompBarChartProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const applyBarCanvasSizing = (
@@ -65,6 +68,7 @@ const RdsCompBarChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompBarChartProps) => {
   const resolved = resolveChartData("RdsCompBarChart", data, labels, dataSets);
@@ -80,7 +84,7 @@ const RdsCompBarChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-chart-bar", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-bar", className)} sx={sx}>
       <canvas
         data-testid={id}
         id={id}
@@ -88,7 +92,7 @@ const RdsCompBarChart = ({
         role="img"
         aria-label={resolveChartLabel("RdsCompBarChart", ariaLabel, chartLabel, "Bar chart")}
       />
-    </div>
+    </Box>
   );
 };
 

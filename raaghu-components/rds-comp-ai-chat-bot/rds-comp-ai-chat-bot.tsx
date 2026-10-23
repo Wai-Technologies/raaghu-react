@@ -6,6 +6,8 @@ import type { Comment as AttachmentComment } from "../rds-comp-ai-attachment/rds
 import RdsCompAiChatHeader from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-ai-chat-bot.scss";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
 export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "title"> {
   /** Avatar of the assistant, also shown in the header. */
@@ -31,6 +33,7 @@ export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElemen
   title?: string;
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 export interface Message {
@@ -60,6 +63,7 @@ const RdsCompAiChatBot = ({
   title = "New Chat Started",
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompAiChatBotProps) => {
   if (iconName !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "iconName", "nothing (no effect)");
@@ -99,7 +103,7 @@ const RdsCompAiChatBot = ({
   }, []);
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-ai-chat-bot", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-ai-chat-bot", className)} sx={sx}>
       <div className="rds-ai-chat-bot__messages" role="log" aria-live="polite">
         <RdsCompAiChatHeader
           avatarSrc={assistantSrc}
@@ -136,7 +140,7 @@ const RdsCompAiChatBot = ({
           />
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

@@ -11,6 +11,9 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the truncated text root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the truncated text root.' },
+    ref: { control: false, description: 'React ref to the truncated text root; assign it in code.' },
     children: {
       control: 'text',
       description: 'The content of the text that will be truncated or displayed fully based on the component state.',
@@ -42,5 +45,5 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['children', 'maxLength', 'showTooltip'] },
+  controls: { include: ['children', 'maxLength', 'showTooltip', 'className', 'sx', 'ref'] },
 };

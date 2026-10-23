@@ -21,6 +21,7 @@ export type MenuOption = {
 
 /** Props for {@link RdsMultiLevelMenu}. Extra props are forwarded to the root element. */
 export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'children'> {
+  className?: string;
   /** Menu items; an item with `children` opens a nested submenu. */
   items?: MenuOption[];
   /** @deprecated Use `items` instead. */

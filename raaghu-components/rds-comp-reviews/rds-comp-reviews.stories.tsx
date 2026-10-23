@@ -25,6 +25,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the reviews root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the reviews root.' },
+        ref: { control: false, description: 'React ref to the reviews root; assign it in code.' },
         variant: {
             options: [ "style1", "style2", "style3","style4", "style5", "style6", "style7", "style8", "style9", "style10", "style11", "style12"],
             control: { type: "select" },
@@ -60,4 +63,4 @@ args: {
     }
 } satisfies Story;
     
-Default.parameters = { controls: { include: ['items','variant','variantType'] } };
+Default.parameters = { controls: { include: ['items','variant','variantType','className','sx','ref'] } };

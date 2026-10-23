@@ -1,3 +1,6 @@
+import type { Ref } from 'react';
+import type { SxProps, Theme } from '@mui/material';
+
 export type TimePickerColor = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
 
 export interface RdsTimePickerLocaleText {
@@ -30,4 +33,8 @@ export interface RdsTimePickerProps {
   disabled?: boolean;
   /** Overrides for the visible texts. */
   localeText?: RdsTimePickerLocaleText;
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  [key: `data-${string}`]: string | number | undefined;
 }

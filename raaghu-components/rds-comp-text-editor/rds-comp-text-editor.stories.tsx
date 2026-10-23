@@ -12,6 +12,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the text editor root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the text editor root.' },
+        ref: { control: false, description: 'React ref to the text editor root; assign it in code.' },
         State: {
             options: [
                 "Default"   ,
@@ -44,4 +47,4 @@ export const Default: Story = {
         expect(editor).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'required','rows','resizable','placeholder'] } };
+Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'required','rows','resizable','placeholder','className','sx','ref'] } };

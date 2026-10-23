@@ -1,6 +1,6 @@
-import { useRef, useState, useCallback, type ChangeEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from 'react';
+import { useRef, useState, useCallback, type ChangeEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode, type Ref } from 'react';
 import clsx from 'clsx';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, type SxProps, type Theme } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
 export interface PredefinedSignatureItem {
@@ -12,6 +12,9 @@ export interface PredefinedSignatureItem {
 }
 
 export interface RdsESignatureUploadProps {
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
   type: 'fullname' | 'initials';
   disabled: boolean;
   disabledFooterMessage?: ReactNode;
@@ -31,6 +34,10 @@ export const RdsESignatureUpload = ({
   width,
   required = true,
   onSignatureChange,
+  className,
+  sx,
+  ref,
+  ...rest
 }: RdsESignatureUploadProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploadHovered, setIsUploadHovered] = useState(false);
@@ -77,7 +84,7 @@ export const RdsESignatureUpload = ({
   }, [disabled]);
 
   return (
-    <Box className="rds-e-signature__upload-container" style={{ maxWidth: width ? `${width}px` : '100%' }}>
+    <Box {...rest} ref={ref} className={clsx("rds-e-signature__upload-container", className)} sx={[{ maxWidth: width ? `${width}px` : '100%' }, sx]}>
       <Typography variant="h6" className="rds-e-signature__title">
         {type === 'initials' ? 'Upload Initial' : 'Upload Signature'}
         {required && <span className="rds-e-signature__required">*</span>}
@@ -143,6 +150,9 @@ export const RdsESignatureUpload = ({
 };
 
 export interface RdsESignatureChooseProps {
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
   type: 'fullname' | 'initials';
   disabled: boolean;
   predefinedSignatures: PredefinedSignatureItem[];
@@ -160,6 +170,10 @@ export const RdsESignatureChoose = ({
   required = true,
   onSignatureChange,
   onCreateCustom,
+  className,
+  sx,
+  ref,
+  ...rest
 }: RdsESignatureChooseProps) => {
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const multipleChooseError = selectedStyles.length > 1;
@@ -187,7 +201,7 @@ export const RdsESignatureChoose = ({
   };
 
   return (
-    <Box className="rds-e-signature__choose-container">
+    <Box {...rest} ref={ref} className={clsx("rds-e-signature__choose-container", className)} sx={sx}>
       <Typography variant="h6" className="rds-e-signature__title">
         Choose Signature
         {required && <span className="rds-e-signature__required">*</span>}

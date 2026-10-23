@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
@@ -31,6 +33,7 @@ export interface RdsCompPolarAreaChartProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompPolarAreaChart = ({
@@ -46,6 +49,7 @@ const RdsCompPolarAreaChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompPolarAreaChartProps) => {
   if (radius !== undefined) warnDeprecatedProp("RdsCompPolarAreaChart", "radius", "`height`");
@@ -65,10 +69,11 @@ const RdsCompPolarAreaChart = ({
   );
 
   return (
-    <div
+    <Box
       {...rest}
       ref={ref}
       className={clsx("rds-comp-chart-polar-area-container", className)}
+      sx={sx}
     >
       <canvas
         id={id}
@@ -76,7 +81,7 @@ const RdsCompPolarAreaChart = ({
         role="img"
         aria-label={resolveChartLabel("RdsCompPolarAreaChart", ariaLabel, chartLabel, "Polar area chart")}
       />
-    </div>
+    </Box>
   );
 };
 

@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type Chart from "chart.js/auto";
 import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, getCSSVar, resolveChartData, resolveChartLabel } from "../chart-utils";
@@ -29,6 +31,7 @@ export interface RdsCompLineProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const applyLineCanvasSizing = (chart: Chart, chartId: string) => {
@@ -61,6 +64,7 @@ const RdsCompLineChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompLineProps) => {
   const resolved = resolveChartData("RdsCompLineChart", data, labels, dataSets);
@@ -79,7 +83,7 @@ const RdsCompLineChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-chart-line", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-line", className)} sx={sx}>
       <canvas
         data-testid={id}
         id={id}
@@ -87,7 +91,7 @@ const RdsCompLineChart = ({
         role="img"
         aria-label={resolveChartLabel("RdsCompLineChart", ariaLabel, chartLabel, "Line chart")}
       />
-    </div>
+    </Box>
   );
 };
 

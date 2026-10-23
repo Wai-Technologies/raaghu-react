@@ -22,6 +22,9 @@ export const SpinnerLevel = {
 } as const;
 export type SpinnerLevel = (typeof SpinnerLevel)[keyof typeof SpinnerLevel];
 
+import type { Ref } from "react";
+import type { SxProps, Theme } from "@mui/material";
+
 export interface RdsCompSpinnerProps {
   /** Spinner animation: "border" or "grow". */
   variant?: string;
@@ -43,4 +46,7 @@ export interface RdsCompSpinnerProps {
   /** @deprecated Use `color` instead. */
   colorVariant?: string;
   level?: SpinnerLevel;
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
 }

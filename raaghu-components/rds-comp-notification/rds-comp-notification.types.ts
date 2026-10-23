@@ -1,4 +1,5 @@
-import type { MouseEvent, ReactNode } from "react";
+import type { HTMLAttributes, MouseEvent, ReactNode, Ref } from "react";
+import type { SxProps, Theme } from "@mui/material";
 
 export const NotificationLayout = {
   Vertical: 'vertical',
@@ -36,7 +37,7 @@ export interface NotificationItem {
   [key: string]: unknown;
 }
 
-export interface RdsCompNotificationProps {
+export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "style" | "children"> {
   items?: NotificationItem[];
   /** @deprecated Use `items` instead. */
   notifications?: NotificationItem[];
@@ -60,7 +61,8 @@ export interface RdsCompNotificationProps {
   dismissLabel?: string;
   /** Label of the primary (accept) button. Defaults to "ACCEPT". */
   acceptLabel?: string;
-  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
   onDismiss?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
   onAccept?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
   /** Legacy boolean, still supported. */

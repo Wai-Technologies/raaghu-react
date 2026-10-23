@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useCallback, type ReactNode, type SyntheticEvent } from "react";
+import { Box } from "@mui/material";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
@@ -146,7 +147,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     }, [setShowState, onClose]);
 
     return (
-        <div className={clsx("rds-comp-toast__container", getPositionClasses(position))}>
+        <Box ref={props.ref} className={clsx("rds-comp-toast__container", getPositionClasses(position), props.className)} sx={props.sx}>
             <div
                 role="alert"
                 aria-live="assertive"
@@ -242,7 +243,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                     </div>
                 )}
             </div>
-        </div>
+        </Box>
     );
 };
 ToastFooter.displayName = "ToastFooter";

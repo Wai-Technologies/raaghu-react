@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import { type ReactNode, type Ref, useCallback, useMemo, useState } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-navtabs.scss";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 
@@ -57,6 +58,9 @@ export interface RdsCompNavtabsProps {
   style?: string;
   iconOnly?: boolean;
   id?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }
 
 const RdsCompNavtabs = ({
@@ -71,6 +75,9 @@ const RdsCompNavtabs = ({
   style,
   iconOnly,
   id,
+  className,
+  sx,
+  ref,
 }: RdsCompNavtabsProps) => {
   const [internalActiveNavTabId, setInternalActiveNavTabId] = useState<string | number | undefined>(
     activeNavTabIdProp ?? navtabsItems?.[0]?.id
@@ -126,7 +133,7 @@ const RdsCompNavtabs = ({
   }
 
   return (
-    <div className="rds-comp-navtabs">
+    <Box ref={ref} className={clsx("rds-comp-navtabs", className)} sx={sx}>
       <ul
         className={navClasses}
         id={id === "features" ? "features" : ""}
@@ -166,7 +173,7 @@ const RdsCompNavtabs = ({
         ))}
       </ul>
       {children}
-    </div>
+    </Box>
   );
 };
 RdsCompNavtabs.displayName = "RdsCompNavtabs";

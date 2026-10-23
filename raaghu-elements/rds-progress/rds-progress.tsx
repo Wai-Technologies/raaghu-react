@@ -1,4 +1,4 @@
-import { Fragment, type HTMLAttributes, type ReactNode } from 'react';
+import { Fragment, type HTMLAttributes, type ReactNode, type Ref } from 'react';
 import {
   LinearProgress as MuiLinearProgress,
   CircularProgress as MuiCircularProgress,
@@ -11,7 +11,8 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-progress.scss';
 
-export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'color'> {
+export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'color' | 'className'> {
+  className?: string;
   /** @deprecated Has no effect; rendering is chosen by style. */
   type?: 'linear' | 'circular';
   /** Figma variant that selects the rendering: circular, line, stepper, dash or block. */
@@ -35,6 +36,8 @@ export interface RdsProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   /** Figma variant; `circle` renders dots like `stepIcon="dot"`. */
   stepperType?: 'number' | 'circle';
   sx?: SxProps<Theme>;
+  /** Ref to the root element. */
+  ref?: Ref<HTMLDivElement>;
   /** Custom content for each block segment; defaults to `Step n`. */
   formatStepLabel?: (step: number) => ReactNode;
   'aria-label'?: string;
@@ -58,6 +61,7 @@ const RdsProgress = ({
   stepIcon,
   stepperType = 'number',
   sx,
+  ref,
   formatStepLabel,
   className,
   'aria-label': ariaLabel,
@@ -94,26 +98,26 @@ const RdsProgress = ({
   };
 
   const renderWithLabel = (baseClasses: string, progressElement: ReactNode, labelPosition: 'overlay' | 'side') => {
-    if (!showLabel || resolvedMode !== 'determinate') return <div {...props} className={clsx(baseClasses, className)}>{progressElement}</div>;
+    if (!showLabel || resolvedMode !== 'determinate') return <Box {...props} ref={ref} className={clsx(baseClasses, className)} sx={sx}>{progressElement}</Box>;
     
     const labelElement = <Typography variant={labelPosition === 'overlay' ? 'caption' : 'body2'} component="div" color="text.secondary" className="rds-progress__label">{label || `${Math.round(finalValue || 0)}%`}</Typography>;
     
     return labelPosition === 'overlay' ? (
-      <div {...props} className={clsx(baseClasses, className)}>
+      <Box {...props} ref={ref} className={clsx(baseClasses, className)} sx={sx}>
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
           {progressElement}
           <Box sx={{ top: 0, left: 0, bottom: 0, right: 0, position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {labelElement}
           </Box>
         </Box>
-      </div>
+      </Box>
     ) : (
-      <div {...props} className={clsx(baseClasses, className)}>
+      <Box {...props} ref={ref} className={clsx(baseClasses, className)} sx={sx}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ width: '100%', mr: 1 }} className="rds-progress__bar">{progressElement}</Box>
           <Box sx={{ minWidth: 35 }}>{labelElement}</Box>
         </Box>
-      </div>
+      </Box>
     );
   };
 
@@ -124,7 +128,7 @@ const RdsProgress = ({
   const renderStepper = () => {
     const currentStep = filledOf(totalSteps);
     return (
-      <div {...props} className={clsx('rds-progress', 'rds-progress--stepper', `rds-progress--${color}`, className)}>
+      <Box {...props} ref={ref} className={clsx('rds-progress', 'rds-progress--stepper', `rds-progress--${color}`, className)} sx={sx}>
         <Box sx={[{ display: 'flex', alignItems: 'center' }, ...sxArray]} className="rds-progress__stepper" {...progressAria}>
           {Array.from({ length: totalSteps }, (_, stepNumber) => stepNumber + 1).map((stepNumber) => {
             const isCompleted = stepNumber <= currentStep;
@@ -153,7 +157,7 @@ const RdsProgress = ({
             );
           })}
         </Box>
-      </div>
+      </Box>
     );
   };
 
@@ -163,7 +167,7 @@ const RdsProgress = ({
     const isDash = type === 'dash';
     
     return (
-      <div {...props} className={clsx('rds-progress', `rds-progress--${type}`, `rds-progress--${color}`, className)}>
+      <Box {...props} ref={ref} className={clsx('rds-progress', `rds-progress--${type}`, `rds-progress--${color}`, className)} sx={sx}>
         <Box sx={[{ display: 'flex', alignItems: 'center' }, ...sxArray]} {...progressAria}>
           <Box sx={{ display: 'flex', gap: isDash ? 0.5 : 0, alignItems: 'center' }}>
             {Array.from({ length: count }, (_, segmentNumber) => segmentNumber + 1).map((segmentNumber) => {
@@ -195,7 +199,7 @@ const RdsProgress = ({
             })}
           </Box>
         </Box>
-      </div>
+      </Box>
     );
   };
 

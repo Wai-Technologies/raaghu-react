@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartData, ChartOptions } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
@@ -28,6 +30,7 @@ export interface RdsCompStackedProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompStackedChart = ({
@@ -42,6 +45,7 @@ const RdsCompStackedChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompStackedProps) => {
   const resolved = resolveChartData("RdsCompStackedChart", data, labels, dataSets);
@@ -72,10 +76,11 @@ const RdsCompStackedChart = ({
   );
 
   return (
-    <div
+    <Box
       {...rest}
       ref={ref}
       className={clsx("rds-comp-chart-stacked", "stack-chart-container", className)}
+      sx={sx}
     >
       <canvas
         id={id}
@@ -83,7 +88,7 @@ const RdsCompStackedChart = ({
         role="img"
         aria-label={resolveChartLabel("RdsCompStackedChart", ariaLabel, chartLabel, "Stacked chart")}
       />
-    </div>
+    </Box>
   );
 };
 

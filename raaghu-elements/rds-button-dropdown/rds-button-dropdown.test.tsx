@@ -1033,10 +1033,15 @@ describe('audit fixes', () => {
       expect(lastButtonProps().sx).toBe(sx);
     });
 
-    it('still ignores unknown non-aria/data props', () => {
-      const props = { options, title: 'ignored' } as unknown as RdsButtonDropdownProps;
-      render(<RdsButtonDropdown {...props} />);
-      expect(lastButtonProps().title).toBeUndefined();
+    it('forwards native button props and the trigger ref', () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      const onClick = jest.fn();
+      render(<RdsButtonDropdown options={options} title="Details" ref={ref} onClick={onClick} />);
+      const trigger = screen.getByRole('button', { name: 'Button' });
+      expect(trigger).toHaveAttribute('title', 'Details');
+      expect(ref.current).toBe(trigger);
+      fireEvent.click(trigger);
+      expect(onClick).toHaveBeenCalledTimes(1);
     });
   });
 

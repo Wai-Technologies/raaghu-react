@@ -12,6 +12,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: "text", description: "CSS class applied to the rendered icon." },
+        sx: { control: "object", description: "MUI system styles applied to the rendered icon." },
+        ref: { control: false, description: "React ref to the rendered icon element; assign it in code." },
         colorVariant: {
             options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],
             control: { type: "select" },
@@ -42,4 +45,4 @@ export const Default: Story = {
         expect(el).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['name', 'width', 'height','colorVariant', 'isCursorPointer'] } };
+Default.parameters = { controls: { include: ['name', 'width', 'height','colorVariant', 'isCursorPointer', 'className', 'sx', 'ref'] } };

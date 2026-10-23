@@ -1,4 +1,4 @@
-import { useId, useState, type AriaAttributes, type ReactNode, type MouseEvent } from 'react';
+import { useId, useState, type HTMLAttributes, type ReactNode, type MouseEvent, type Ref } from 'react';
 import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
 import './rds-button-dropdown.scss';
@@ -21,7 +21,7 @@ export interface RdsButtonDropdownOption {
 
 export type RdsButtonDropdownCloseReason = 'backdropClick' | 'escapeKeyDown' | 'toggleInput' | 'selectOption';
 
-export interface RdsButtonDropdownProps extends AriaAttributes {
+export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'style'> {
   /** Trigger label. Defaults to `'Button'`. */
   children?: ReactNode;
   options: RdsButtonDropdownOption[];
@@ -80,6 +80,9 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   className?: string;
   /** Styles applied to the trigger button. */
   sx?: SxProps<Theme>;
+  /** Ref to the trigger button. */
+  ref?: Ref<HTMLButtonElement>;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** Id of the trigger button. */
   id?: string;
   /** @deprecated Use `children` instead. */
@@ -93,7 +96,6 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   [key: `data-${string}`]: string | number | boolean | undefined;
 }
 
-const isForwardedAttribute = (key: string) => key.startsWith('aria-') || key.startsWith('data-');
 const flag = (value: unknown, fallback: boolean) => (typeof value === 'boolean' ? value : fallback);
 
 const RdsButtonDropdown = ({
@@ -109,6 +111,7 @@ const RdsButtonDropdown = ({
   selected: isButtonSelected,
   onOpen,
   onClose,
+  onClick,
   ui,
   searchable,
   showAvatar,
@@ -130,6 +133,7 @@ const RdsButtonDropdown = ({
   isShowRightIcon: isShowRightIconProp,
   className,
   sx,
+  ref,
   id,
   ...rest
 }: RdsButtonDropdownProps) => {
@@ -144,10 +148,6 @@ const RdsButtonDropdown = ({
   const isMultiple = multiple ?? multiSelect ?? false;
   const resolvedRightIcon = endIcon !== undefined ? endIcon : rightIcon;
   const resolvedLeftIcon = startIcon !== undefined ? startIcon : leftIcon;
-  const forwardedAttributes = Object.fromEntries(
-    Object.entries(rest).filter(([key]) => isForwardedAttribute(key)),
-  );
-
   const showSearch = searchable ?? (ui?.search ? ui.search === 'visible' : flag(showSearchProp, false));
   const showUserAvatar = showAvatar ?? (ui?.avatar ? ui.avatar === 'visible' : flag(showUserAvatarProp, true));
   const showRadio = optionVariant ? optionVariant === 'radio' : ui?.selection ? ui.selection === 'radio' : flag(showRadioProp, true);
@@ -206,12 +206,16 @@ const RdsButtonDropdown = ({
 
   return (
     <>
-      <RdsButton
-        {...forwardedAttributes}
+        <RdsButton
+          {...rest}
         id={id}
-        sx={sx}
-        text={typeof label === 'string' ? label : undefined}
-        onClick={handleDropdownButtonClick}
+          ref={ref}
+          sx={sx}
+          text={typeof label === 'string' ? label : undefined}
+          onClick={(event) => {
+            onClick?.(event);
+            handleDropdownButtonClick(event);
+          }}
         showRightIcon={isShowRightIcon}
         showLeftIcon={isShowLeftIcon}
         changeRightIcon={isDropdownOpen ? <KeyboardArrowUpIcon /> : resolvedRightIcon}

@@ -52,7 +52,15 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     items,
     tabTitle,
     onClose,
-    ...legacyProps
+    showDismiss: legacyShowDismissProp,
+    showPrimaryButton: legacyShowPrimaryButtonProp,
+    showSecondaryButton: legacyShowSecondaryButtonProp,
+    showTertiaryButton: legacyShowTertiaryButtonProp,
+    showVisualPlaceholder: legacyShowVisualPlaceholderProp,
+    className,
+    sx,
+    ref,
+    ...rest
 }) => {
     if (header !== undefined) warnDeprecatedProp('RdsCompProductTour', 'header', '`title`');
     if (formTitle !== undefined) warnDeprecatedProp('RdsCompProductTour', 'formTitle', '`subtitle`');
@@ -67,14 +75,18 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     const corner = (c: ProductTourCorner, legacy?: boolean) => anchorCorner !== undefined ? anchorCorner === c : legacy === true;
     const headerId = useId();
     const rootProps = {
+        ...rest,
         role: 'dialog' as const,
-        'aria-labelledby': resolvedHeader ? headerId : undefined
+        'aria-labelledby': resolvedHeader ? headerId : undefined,
+        className,
+        sx,
+        ref,
     };
-    const legacyShowDismiss = typeof legacyProps.showDismiss === 'boolean' ? legacyProps.showDismiss : undefined;
-    const legacyShowPrimaryButton = typeof legacyProps.showPrimaryButton === 'boolean' ? legacyProps.showPrimaryButton : undefined;
-    const legacyShowSecondaryButton = typeof legacyProps.showSecondaryButton === 'boolean' ? legacyProps.showSecondaryButton : undefined;
-    const legacyShowTertiaryButton = typeof legacyProps.showTertiaryButton === 'boolean' ? legacyProps.showTertiaryButton : undefined;
-    const legacyShowVisualPlaceholder = typeof legacyProps.showVisualPlaceholder === 'boolean' ? legacyProps.showVisualPlaceholder : undefined;
+    const legacyShowDismiss = legacyShowDismissProp;
+    const legacyShowPrimaryButton = legacyShowPrimaryButtonProp;
+    const legacyShowSecondaryButton = legacyShowSecondaryButtonProp;
+    const legacyShowTertiaryButton = legacyShowTertiaryButtonProp;
+    const legacyShowVisualPlaceholder = legacyShowVisualPlaceholderProp;
 
     const showDismiss = controls?.dismiss ? controls.dismiss === 'visible' : (legacyShowDismiss ?? true);
     const showPrimaryButton = controls?.primary ? controls.primary === 'visible' : (legacyShowPrimaryButton ?? true);

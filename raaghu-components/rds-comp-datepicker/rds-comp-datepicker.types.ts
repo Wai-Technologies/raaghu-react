@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, Ref } from "react";
+import type { SxProps, Theme } from "@mui/material";
 
 export const DatePickerStyleType = {
   Dropdown: 'Dropdown',
@@ -14,7 +15,7 @@ export const DatePickerLayout = {
 } as const;
 export type DatePickerLayout = (typeof DatePickerLayout)[keyof typeof DatePickerLayout];
 
-export interface RdsCompDatepickerProps {
+export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "style" | "onChange" | "children"> {
   selectedDate?: (date: Date | null) => void;
   /** Selected date; the picker re-syncs whenever it changes (`null` clears it). */
   value?: Date | string | null;
@@ -77,4 +78,8 @@ export interface RdsCompDatepickerProps {
   isMandatory?: boolean;
   /** Has no effect: the preset list manages its own open state. Kept for backwards compatibility. */
   isDropdownOpen?: boolean;
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
+  /** Ref forwarded to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }

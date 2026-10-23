@@ -16,6 +16,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the map root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the map root.' },
+        ref: { control: false, description: 'React ref to the map root; assign it in code.' },
         title: {
             control: { type: 'text' },
             description: 'Title text displayed above the map',
@@ -77,4 +80,3 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-

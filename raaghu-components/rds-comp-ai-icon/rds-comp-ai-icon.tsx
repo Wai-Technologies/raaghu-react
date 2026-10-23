@@ -4,6 +4,8 @@ import "./rds-comp-ai-icon.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
 /** Accepts MUI SvgIcon components and plain SVG React components. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -82,6 +84,8 @@ export interface RdsCompAiIconProps
   /** @deprecated Use `className` instead. */
   classes?: string;
   className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<Element>;
   /** @deprecated Use `data-testid` instead. */
   dataTestId?: string;
   /** @deprecated Use `data-bs-dismiss` instead. */
@@ -131,6 +135,8 @@ const RdsCompAiIconComponent = ({
   onClick,
   classes,
   className: classNameProp,
+  sx,
+  ref,
   dataTestId,
   databsdismiss,
   databstarget,
@@ -160,6 +166,13 @@ const RdsCompAiIconComponent = ({
   "aria-controls": ariaControls,
   ...rest
 }: RdsCompAiIconProps) => {
+  const setRootRef = (element: Element | null) => {
+    if (typeof ref === "function") {
+      ref(element);
+    } else if (ref) {
+      ref.current = element;
+    }
+  };
   const noEffect: Record<string, unknown> = {
     borderRadius, opacity, isAnimate, iconPath, type, isHover, isContinueAnimate, hovered, isHovered,
   };
@@ -227,13 +240,16 @@ const RdsCompAiIconComponent = ({
         }
       : {};
     return (
-      <Icon
+      <Box
+        component={Icon}
         {...rest}
+        ref={setRootRef}
         className={clsx(className, "rds-comp-ai-icon__svg")}
         onClick={onClick || undefined}
         id={id}
         data-testid={resolvedTestId}
         style={style}
+        sx={sx}
         data-bs-dismiss={resolvedDismiss}
         data-bs-target={resolvedTarget}
         data-bs-toggle={resolvedToggle}
@@ -247,14 +263,17 @@ const RdsCompAiIconComponent = ({
 
   if (imageSrc) {
     const imageElement = (
-      <img
+      <Box
+        component="img"
         {...(onClick ? {} : (rest as object))}
+        ref={onClick ? undefined : setRootRef}
         src={imageSrc}
         alt=""
         className={clsx(className, "rds-comp-ai-icon__img")}
         id={id}
         data-testid={resolvedTestId}
         style={style}
+        sx={onClick ? undefined : sx}
         data-bs-dismiss={resolvedDismiss}
         data-bs-target={resolvedTarget}
         data-bs-toggle={resolvedToggle}
@@ -264,12 +283,15 @@ const RdsCompAiIconComponent = ({
 
     if (onClick) {
       return (
-        <button
+        <Box
+          component="button"
           {...(rest as object)}
+          ref={setRootRef}
           type="button"
-          className="rds-comp-ai-icon__button"
+          className={clsx("rds-comp-ai-icon__button", classNameProp ?? classes)}
           onClick={onClick as MouseEventHandler<HTMLButtonElement>}
           style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer" }}
+          sx={sx}
           data-bs-dismiss={resolvedDismiss}
           data-bs-target={resolvedTarget}
           data-bs-toggle={resolvedToggle}
@@ -277,7 +299,7 @@ const RdsCompAiIconComponent = ({
           aria-label={normalizedName || "icon button"}
         >
           {imageElement}
-        </button>
+        </Box>
       );
     }
 

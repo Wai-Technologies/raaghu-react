@@ -1,4 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
+import { Box } from "@mui/material";
+import clsx from "clsx";
 import "./rds-comp-tree-structure.scss";
 import * as FileType from './fileTypeIcons';
 import { getAllNodeIds } from './tree-structure-utils';
@@ -57,8 +59,9 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   }, []);
 
   const maxLevel = useMemo(() => getMaxLevelFromEnum(props.level), [getMaxLevelFromEnum, props.level]);
+  const { className, sx, ref } = props;
   return (
-    <div className="rds-comp-tree-structure">
+    <Box ref={ref} className={clsx("rds-comp-tree-structure", className)} sx={sx}>
       {props.treeData?.map((node: TreeNode) => (
         <ResolvedTreeNodeRow
           key={node.id}
@@ -73,7 +76,7 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
           onCheckboxClick={handleCheckboxClick}
         />
       ))}
-    </div>
+    </Box>
   );
 };
 

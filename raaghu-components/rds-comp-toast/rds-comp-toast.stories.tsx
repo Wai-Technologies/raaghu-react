@@ -34,6 +34,9 @@ const meta: Meta<typeof RdsCompToast> = {
 
     tags: ["autodocs", 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the toast root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the toast root.' },
+        ref: { control: false, description: 'React ref to the toast root; assign it in code.' },
         severity: {
             options: Object.values(ToastSeverity),
             control: {

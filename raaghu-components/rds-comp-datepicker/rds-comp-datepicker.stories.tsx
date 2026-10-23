@@ -27,6 +27,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the date picker root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the date picker root.' },
+        ref: { control: false, description: 'React ref to the date picker root; assign it in code.' },
         variant: {
             options: ["dropdown", "selector"],
             control: { type: "select" },
@@ -71,4 +74,4 @@ export const Default: Story = {
         await expect(input).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['type','openPickerIcon','layout','showTitle','label','required','placeholder','variant','selected'] } };
+Default.parameters = { controls: { include: ['type','openPickerIcon','layout','showTitle','label','required','placeholder','variant','selected','className','sx','ref'] } };

@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import clsx from 'clsx';
+import { Box } from '@mui/material';
+import { useForkRef } from '@mui/material/utils';
 import './rds-comp-time-picker.scss';
 export { type RdsTimePickerProps } from './time-picker-types';
 import { type RdsTimePickerProps } from './time-picker-types';
@@ -62,6 +64,10 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     open: openProp,
     defaultOpen,
     localeText,
+    className,
+    sx,
+    ref,
+    ...rest
   } = props;
   if (colorVariant !== undefined) warnDeprecatedProp('RdsCompTimePicker', 'colorVariant', '`color`');
   const pickerStyle = variant ?? style;
@@ -72,6 +78,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const placeholderText = localeText?.placeholder ?? '12:00 AM';
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const rootRef = useForkRef(containerRef, ref);
   const [pickerState, setPickerState] = useState<PickerState>(() => ({
     ...INITIAL_STATE,
     ...getSyncUpdates(valueProp),
@@ -209,7 +216,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const buttonClasses = getButtonClasses(resolvedColor);
 
   return (
-    <div ref={containerRef} className={`time-picker-container ${variantClass}`}>
+    <Box {...rest} ref={rootRef} className={clsx(`time-picker-container ${variantClass}`, className)} sx={sx}>
       <div
         className={clsx("time-input-container", disabled && "disabled")}
       >
@@ -299,7 +306,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           </div>
         </div>
       )}
-    </div>
+    </Box>
   );
 };
 RdsCompTimePicker.displayName = "RdsCompTimePicker";

@@ -14,6 +14,9 @@ const meta: Meta = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
+    className: { control: "text", description: "CSS class applied to the chat container." },
+    sx: { control: "object", description: "MUI system styles applied to the chat container." },
+    ref: { control: false, description: "React ref to the chat container; assign it in code." },
     iconName: {
       table: { disable: true },
     },

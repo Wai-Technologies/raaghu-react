@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler, type Ref } from 'react';
+import { useState, useMemo, useRef, useEffect, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler, type Ref, type HTMLAttributes } from 'react';
 import {
   Box,
   TextField,
@@ -23,6 +23,8 @@ import {
   Card,
   Tooltip,
   Popover,
+  type SxProps,
+  type Theme,
   List,
   ListItem,
   ListItemText,
@@ -196,7 +198,7 @@ export interface RdsCompGridRef {
   getSelectedRowCount: () => number;
 }
 
-export interface RdsCompGridProps {
+export interface RdsCompGridProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'ref'> {
   tableHeaders: RdsCompGridColumn[];
   tableData: GridRow[];
 
@@ -249,6 +251,8 @@ export interface RdsCompGridProps {
   
   // Loading
   isLoading?: boolean;
+  sx?: SxProps<Theme>;
+  ref?: Ref<RdsCompGridRef>;
 }
 
 const EditableCell = ({ 
@@ -514,6 +518,8 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
 
 const RdsCompGrid = ({
   ref,
+  className,
+  sx,
   tableHeaders,
   tableData,
   controlledData,
@@ -555,7 +561,8 @@ const RdsCompGrid = ({
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
-}: RdsCompGridProps & { ref?: Ref<RdsCompGridRef> }) => {
+  ...rest
+}: RdsCompGridProps) => {
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -1800,7 +1807,7 @@ const RdsCompGrid = ({
 
   if (isLoading) {
     return (
-      <Card sx={{ p: 2 }}>
+      <Card {...rest} className={className} sx={[{ p: 2 }, sx]}>
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
           <Typography variant="h6" color="text.secondary">
             Loading...
@@ -1812,7 +1819,7 @@ const RdsCompGrid = ({
 
   if (tableData.length === 0) {
     return (
-      <Card sx={{ p: 2 }}>
+      <Card {...rest} className={className} sx={[{ p: 2 }, sx]}>
         {showHeader && (
           <Box p={2} borderBottom="1px solid" borderColor="divider">
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
@@ -1865,7 +1872,7 @@ const RdsCompGrid = ({
   }
 
   return (
-    <Card sx={{
+    <Card {...rest} className={className} sx={[{
       bgcolor: 'background.paper',
       color: 'text.primary',
       '& .MuiTableCell-root': {
@@ -1890,7 +1897,7 @@ const RdsCompGrid = ({
         border: '2px dashed',
         borderColor: 'var(--rds-primary-main)',
       },
-    }}>
+    }, sx]}>
       {showHeader && (
         <Box
           ref={headerScrollRef}

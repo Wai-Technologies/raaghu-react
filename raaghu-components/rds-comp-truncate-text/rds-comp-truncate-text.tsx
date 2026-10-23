@@ -1,10 +1,11 @@
-import { useState, type CSSProperties } from "react";
+import { useState, type CSSProperties, type HTMLAttributes, type Ref } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import clsx from "clsx";
 import "./rds-comp-truncate-text.scss";
 import RdsTooltip from "../../raaghu-elements/rds-tooltip/rds-tooltip";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
-export interface RdsCompTruncateTextProps {
+export interface RdsCompTruncateTextProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
   /** @deprecated Use `children` instead. */
   text?: string;
   /** Text to display (preferred over `text`). */
@@ -15,6 +16,8 @@ export interface RdsCompTruncateTextProps {
   maxLines?: number;
   /** Force the tooltip on or off. */
   showTooltip?: boolean;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
 }
 
 const RdsCompTruncateText = ({
@@ -24,6 +27,10 @@ const RdsCompTruncateText = ({
   lines: linesProp,
   maxLines,
   showTooltip: showTooltipProp,
+  className: classNameProp,
+  sx,
+  ref,
+  ...rest
 }: RdsCompTruncateTextProps) => {
   if (text !== undefined) warnDeprecatedProp('RdsCompTruncateText', 'text', '`children`');
   if (linesProp !== undefined) warnDeprecatedProp('RdsCompTruncateText', 'lines', '`maxLines`');
@@ -47,7 +54,8 @@ const RdsCompTruncateText = ({
 
   const className = clsx(
     "rds-comp-truncate-text",
-    lines > 1 && lines <= 5 && `rds-comp-truncate-text--lines-${lines}`
+    lines > 1 && lines <= 5 && `rds-comp-truncate-text--lines-${lines}`,
+    classNameProp
   );
   const spanStyle: CSSProperties | undefined =
     lines > 5
@@ -57,13 +65,16 @@ const RdsCompTruncateText = ({
   const showTooltip = tooltipEnabled && isActive && isLong;
 
   return (
-    <div
+    <Box
+      {...rest}
+      ref={ref}
       onMouseEnter={activate}
       onMouseLeave={deactivate}
       onFocus={activate}
       onBlur={deactivate}
       tabIndex={isTruncated ? 0 : undefined}
       className={className}
+      sx={sx}
     >
       {showTooltip ? (
         <RdsTooltip label={content} title={content} style="bottom" arrow>
@@ -72,7 +83,7 @@ const RdsCompTruncateText = ({
       ) : (
         <span style={spanStyle}>{displayText}</span>
       )}
-    </div>
+    </Box>
   );
 };
 

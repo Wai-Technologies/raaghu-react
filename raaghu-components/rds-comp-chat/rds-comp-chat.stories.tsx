@@ -14,7 +14,12 @@ const meta: Meta = {
     }
 }
     },
-    tags: ["autodocs", 'stable']
+    tags: ["autodocs", 'stable'],
+    argTypes: {
+        className: { control: "text", description: "CSS class applied to the chat container." },
+        sx: { control: "object", description: "MUI system styles applied to the chat container." },
+        ref: { control: false, description: "React ref to the chat container; assign it in code." },
+    },
 } satisfies Meta<typeof RdsCompChat>;
 
 export default meta;
@@ -89,5 +94,4 @@ export const Default: Story = {
     },
 } satisfies Story;
 
-Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
-
+Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor", "className", "sx", "ref"] } };

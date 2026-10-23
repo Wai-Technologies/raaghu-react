@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { Box } from "@mui/material";
 import clsx from 'clsx';
 import type DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -54,6 +55,9 @@ const RdsDatepicker = ({
     clearable,
     selected = false,
     openPickerIcon,
+    className,
+    sx,
+    ref,
     ...restProps
 }: RdsCompDatepickerProps) => {
     ([
@@ -281,7 +285,7 @@ const RdsDatepicker = ({
     );
 
     return (
-        <div className={clsx('rds-datepicker', selected && 'rds-datepicker--selected')}>
+        <Box ref={ref} className={clsx('rds-datepicker', selected && 'rds-datepicker--selected', className)} sx={sx}>
             <label
                 className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
                 aria-hidden={!showTitle}
@@ -313,7 +317,7 @@ const RdsDatepicker = ({
                 CustomButtons,
                 customDropdownRef
             )}
-        </div>
+        </Box>
     );
 };
 RdsDatepicker.displayName = "RdsCompDatepicker";

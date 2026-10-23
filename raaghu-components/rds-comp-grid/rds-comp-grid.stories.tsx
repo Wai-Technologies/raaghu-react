@@ -95,6 +95,11 @@ const meta: Meta<typeof RdsCompGrid> = {
     },
   },
   tags: ['autodocs', 'stable'],
+  argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the grid root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the grid root.' },
+    ref: { control: false, description: 'React ref to the grid imperative API; assign it in code.' },
+  },
 };
 
 export default meta;

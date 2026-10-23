@@ -25,11 +25,29 @@ const meta: Meta<typeof RdsCounter> = {
             'showTitle',
             'required',
             'placeholder',
+            'className',
+            'sx',
+            'ref',
           ],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the root element.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the root element.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the root element. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],

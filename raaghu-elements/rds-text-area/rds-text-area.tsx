@@ -10,6 +10,8 @@ import {
   type TextareaHTMLAttributes,
 } from "react";
 import clsx from 'clsx';
+import type { SxProps, Theme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 import "./rds-text-area.scss";
 export type { TextareaStyle } from './rds-text-area-types';
 import type { TextareaStyle } from './rds-text-area-types';
@@ -51,6 +53,7 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   disabled?: boolean;
   /** Class name for the root container. Use `customClasses` for the textarea element. */
   className?: string;
+  sx?: SxProps<Theme>;
   ref?: Ref<HTMLTextAreaElement>;
   id?: string;
   /** @deprecated Use `data-testid` instead. */
@@ -85,6 +88,7 @@ const RdsTextArea = ({
   isMandatory: isMandatoryProp,
   disabled,
   className,
+  sx,
   ref,
   id,
   dataTestId,
@@ -193,7 +197,7 @@ const RdsTextArea = ({
   };
 
   return (
-    <div className={clsx('rds-textarea-container', className)}>
+    <Box className={clsx('rds-textarea-container', className)} sx={sx}>
       {showTitle !== false && label && (
         <label htmlFor={assignedId} className={`textarea-label ${isDisabled ? 'disabled' : ''}`}>
           {label}
@@ -233,7 +237,7 @@ const RdsTextArea = ({
       {isError && getValidationMessage() && (
         <div id={errorId} className="error-message">{getValidationMessage()}</div>
       )}
-    </div>
+    </Box>
   );
 };
 

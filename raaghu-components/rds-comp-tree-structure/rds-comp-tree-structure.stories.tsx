@@ -24,6 +24,9 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the tree structure root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the tree structure root.' },
+    ref: { control: false, description: 'React ref to the tree structure root; assign it in code.' },
     level: {
       control: {
         type: 'select',

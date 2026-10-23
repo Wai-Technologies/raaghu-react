@@ -1,4 +1,5 @@
 import type { HTMLAttributes, Ref } from "react";
+import type { SxProps, Theme } from "@mui/material";
 
 export const ColorPickerType = {
   Default: 'Default',
@@ -80,6 +81,8 @@ export interface RdsCompColorPickerProps
   onAddSwatch?: () => void;
   /** Custom swatch colours. Defaults to the built-in list for the selected `style`. */
   swatches?: string[];
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
   /** Ref to the root `div`. */
   ref?: Ref<HTMLDivElement>;
 }

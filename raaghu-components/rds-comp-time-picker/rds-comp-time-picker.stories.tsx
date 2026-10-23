@@ -15,6 +15,9 @@ const meta: Meta = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the time picker root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the time picker root.' },
+    ref: { control: false, description: 'React ref to the time picker root; assign it in code.' },
     color: {
       options: [
         "primary",

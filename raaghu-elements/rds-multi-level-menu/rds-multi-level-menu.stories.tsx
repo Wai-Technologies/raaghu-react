@@ -11,11 +11,26 @@ const meta = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      include: ['items', 'variant', 'size', 'selected', 'children'],
+      include: ['items', 'variant', 'size', 'selected', 'children', 'className', 'sx', 'ref'],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the menu root.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the menu root.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the menu root. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
     items: {
       control: 'object',
       description: 'Menu options. Use variant="selectable" to highlight an item after it is clicked.',

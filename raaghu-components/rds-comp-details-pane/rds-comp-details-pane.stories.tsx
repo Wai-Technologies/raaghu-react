@@ -16,6 +16,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the details pane root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the details pane root.' },
+        ref: { control: false, description: 'React ref to the details pane root; assign it in code.' },
         style: {
             options: ["Favourites", "Favourites - New Folder", "Prompt History", "Real Estate","Selection","Toolbar","Thumbnail View"],
             control: { type: "select" },
@@ -54,4 +57,4 @@ export const Default: Story = {
         storybookIconSrc: storybookIconSrc,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style'] } };
+Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style','className','sx','ref'] } };

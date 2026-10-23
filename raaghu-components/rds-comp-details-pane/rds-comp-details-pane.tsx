@@ -1,4 +1,8 @@
 import { useState, useCallback, type ReactNode } from "react";
+import type { Ref } from "react";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material";
+import clsx from "clsx";
 import "./rds-comp-details-pane.scss";
 import {
   HistoryFavoritesTabs,
@@ -26,6 +30,9 @@ export interface RdsCompDetailsPaneProps {
   carouselImages?: { src: string; alt: string }[];
   figmaIconSrc?: string | ReactNode;
   storybookIconSrc?: string | ReactNode;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }
 
 const DEFAULT_HISTORY_ITEMS = [
@@ -47,6 +54,9 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
     style,
     historyItems: providedHistoryItems,
     olderHistoryItems: providedOlderHistoryItems,
+    className,
+    sx,
+    ref,
   } = props;
 
   const getInitialTab = useCallback(() => {
@@ -82,7 +92,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   
   return (
     <>
-      <div className="rds-comp-details-pane" style={{ position: 'relative' }}>
+      <Box ref={ref} className={clsx("rds-comp-details-pane", className)} sx={[{ position: 'relative' }, sx]}>
         {(props.style === "Favourites" || props.style === "Favourites - New Folder" || props.style === "Prompt History") ? (
           <div>
             <h5 className="rds-comp-details-pane__header fw-bold">{props.headerText}</h5>
@@ -122,7 +132,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
           />
         ) : null        
         }
-      </div>
+      </Box>
     </>
   );
 };
