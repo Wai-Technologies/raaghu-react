@@ -213,9 +213,9 @@ describe('RdsInput', () => {
   });
 
   describe('Input States', () => {
-    it('should apply error state class', () => {
+    it('should apply error class from the semantic error prop', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Error Input" state="error" />
+        <RdsInput label="Error Input" error />
       );
       const input = container.querySelector('.rds-input--error');
       expect(input).toBeInTheDocument();
@@ -229,9 +229,9 @@ describe('RdsInput', () => {
       expect(input).toBeInTheDocument();
     });
 
-    it('should apply disabled state class', () => {
+    it('should apply disabled class from the semantic disabled prop', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Disabled Input" state="disabled" />
+        <RdsInput label="Disabled Input" disabled />
       );
       const input = container.querySelector('.rds-input--disabled');
       expect(input).toBeInTheDocument();
@@ -245,17 +245,16 @@ describe('RdsInput', () => {
       expect(input).toBeInTheDocument();
     });
 
-    it('should apply active state class', () => {
-      const { container } = renderWithTheme(
-        <RdsInput label="Active Input" state="active" />
-      );
-      const inputDiv = container.querySelector('.rds-input--active');
-      expect(inputDiv).toBeInTheDocument();
+    it('should receive native focus without a visual state prop', () => {
+      renderWithTheme(<RdsInput label="Active Input" />);
+      const input = screen.getByRole('textbox');
+      input.focus();
+      expect(input).toHaveFocus();
     });
 
-    it('should apply selected state class', () => {
+    it('should apply selected class from the semantic selected prop', () => {
       const { container } = renderWithTheme(
-        <RdsInput label="Selected Input" state="selected" />
+        <RdsInput label="Selected Input" selected />
       );
       const input = container.querySelector('.rds-input--selected');
       expect(input).toBeInTheDocument();
@@ -587,7 +586,6 @@ describe('RdsInput', () => {
           layout="text"
           size="medium"
           shape="pill"
-          state="active"
           placeholder="Enter text"
           hintText="This is a hint"
           showIcon={true}

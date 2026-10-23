@@ -41,6 +41,9 @@ const meta: Meta<typeof RdsCompAppShell> = {
   },
   tags: ["autodocs", 'stable'],
   argTypes: {
+    className: { control: 'text', description: 'CSS class applied to the application shell root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the application shell root.' },
+    ref: { control: false, description: 'React ref to the application shell root; assign it in code.' },
     displayType: {
       control: { type: "select" },
       options: [
@@ -620,6 +623,8 @@ const AppShellStory = (args: any) => {
       onSidebarOpenChange={handleMobileSidebarToggle}
       header={renderTopbar()}
       sidebar={args.displayType !== AppShellDisplayType.TopNav ? renderSidebar() : undefined}
+      className={args.className}
+      sx={args.sx}
      
     >{renderChildren()}</RdsCompAppShell>
   );

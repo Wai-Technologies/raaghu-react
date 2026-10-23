@@ -19,6 +19,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the chart container.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the chart container.' },
+        ref: { control: false, description: 'React ref to the chart container; assign it in code.' },
     },
 } satisfies Meta<typeof RdsCompGaugeChart>;
 
@@ -247,4 +250,3 @@ export const RedOnly: Story = {
         },
     }
 } satisfies Story;
-

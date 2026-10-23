@@ -15,6 +15,10 @@ const meta: Meta<typeof RdsCompAiIcon> = {
     },
     tags: ["autodocs", "stable"],
     argTypes: {
+        className: { control: "text", description: "CSS class applied to the rendered icon." },
+        sx: { control: "object", description: "MUI system styles applied to the rendered icon." },
+        ref: { control: false, description: "React ref to the rendered icon element; assign it in code." },
+        svgIcon: { control: false, description: "Custom SVG icon component." },
         colorVariant: {
             options: [
                 "primary",
@@ -64,6 +68,9 @@ Default.parameters = {
             "height",
             "colorVariant",
             "cursorPointer",
+            "className",
+            "sx",
+            "ref",
         ],
     },
 };

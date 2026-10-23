@@ -47,12 +47,7 @@ const meta: Meta<typeof RdsButton> = {
     },
     selected: {
       control: 'boolean',
-      description: 'Selected look (preferred over state="selected")',
-    },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'disabled', 'selected'],
-      description: 'The state of the button',
+      description: 'Applies the selected treatment for toggle-style buttons',
     },
     layout: {
       control: 'select',
@@ -90,7 +85,6 @@ export const Default: Story = {
     disabled: false,
     loading: false,
     shape: 'rectangle',
-    state: 'default',
     layout: 'text-only',
     showLeftIcon: true,
     showRightIcon: false,
@@ -178,4 +172,3 @@ export const WithStartIcon: Story = {
     changeLeftIcon: 'add',
   },
 };
-

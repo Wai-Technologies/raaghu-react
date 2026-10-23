@@ -20,12 +20,8 @@ figma.connect(
         "Outlined": "outlined",
         "Transparent": "transparent",
       }),
-      state: figma.enum("💡 State", {
-        "Default": "default",
-        "Hover": "hover",
-        "Selected": "selected",
-        "Disabled": "disabled",
-      }),
+      selected: figma.boolean("Selected"),
+      disabled: figma.boolean("Disabled"),
       layout: figma.enum("📱 Layout", {
         "Icon+Text": "icon+text",
         "Icon Only": "icon-only",

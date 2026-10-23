@@ -146,70 +146,69 @@ describe('RdsAccordion', () => {
 
   describe('State Variants', () => {
     it('should apply default state (default)', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} state="default" />);
+      const { container } = render(<RdsAccordion {...defaultProps} />);
       const accordion = container.querySelector('.rds-accordion');
       expect(accordion).not.toHaveClass('rds-accordion--selected');
       expect(accordion).not.toHaveClass('rds-accordion--hover');
     });
 
     it('should apply selected state', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} state="selected" />);
+      const { container } = render(<RdsAccordion {...defaultProps} selected />);
       expect(container.querySelector('.rds-accordion--selected')).toBeInTheDocument();
     });
 
-    it('should apply hover state on mouse enter', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} state="hover" />);
+    it('leaves hover styling to CSS and adds no hover class', () => {
+      const { container } = render(<RdsAccordion {...defaultProps} />);
       const accordion = container.querySelector('.rds-accordion');
 
       fireEvent.mouseEnter(accordion!);
-      expect(accordion).toHaveClass('rds-accordion--hover');
-    });
-
-    it('should remove hover state on mouse leave', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} state="hover" />);
-      const accordion = container.querySelector('.rds-accordion');
-
-      fireEvent.mouseEnter(accordion!);
-      expect(accordion).toHaveClass('rds-accordion--hover');
-
-      fireEvent.mouseLeave(accordion!);
       expect(accordion).not.toHaveClass('rds-accordion--hover');
     });
   });
 
   describe('Icon Display', () => {
-    it('should display default AddIcon when ShowLeftIcon is true', () => {
-      render(<RdsAccordion {...defaultProps} ShowLeftIcon={true} />);
+    it('should display default AddIcon when showLeftIcon is true', () => {
+      render(<RdsAccordion {...defaultProps} showLeftIcon={true} />);
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();
     });
 
-    it('should hide icon when ShowLeftIcon is false', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} ShowLeftIcon={false} />);
+    it('should hide icon when showLeftIcon is false', () => {
+      const { container } = render(<RdsAccordion {...defaultProps} showLeftIcon={false} />);
       expect(container.querySelector('.rds-accordion__icon')).not.toBeInTheDocument();
+    });
+
+    it('should render changeLeftIcon', () => {
+      render(
+        <RdsAccordion
+          {...defaultProps}
+          changeLeftIcon={<span data-testid="camel-case-icon">Custom</span>}
+        />
+      );
+      expect(screen.getByTestId('camel-case-icon')).toBeInTheDocument();
     });
 
     it('should display custom icon when provided', () => {
       render(
         <RdsAccordion
           {...defaultProps}
-          changeleftIcon={<span data-testid="custom-icon">Custom</span>}
+          changeLeftIcon={<span data-testid="custom-icon">Custom</span>}
         />
       );
       expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
     });
 
-    it('should hide icon when changeleftIcon is null', () => {
+    it('should hide icon when changeLeftIcon is null', () => {
       const { container } = render(
-        <RdsAccordion {...defaultProps} ShowLeftIcon={true} changeleftIcon={null} />
+        <RdsAccordion {...defaultProps} showLeftIcon={true} changeLeftIcon={null} />
       );
       expect(container.querySelector('.rds-accordion__icon')).not.toBeInTheDocument();
     });
 
-    it('should use changeleftIcon over default icon', () => {
+    it('should use changeLeftIcon over default icon', () => {
       render(
         <RdsAccordion
           {...defaultProps}
-          changeleftIcon={<span data-testid="custom-icon">Custom</span>}
+          changeLeftIcon={<span data-testid="custom-icon">Custom</span>}
           icon={<span data-testid="icon-prop">Icon Prop</span>}
         />
       );
@@ -320,39 +319,6 @@ describe('RdsAccordion', () => {
     });
   });
 
-  describe('Mouse Events', () => {
-    it('should track hover state', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} state="hover" />);
-      const accordion = container.querySelector('.rds-accordion');
-
-      expect(accordion).not.toHaveClass('rds-accordion--hover');
-      fireEvent.mouseEnter(accordion!);
-      expect(accordion).toHaveClass('rds-accordion--hover');
-    });
-
-    it('should remove hover state on mouse leave', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} state="hover" />);
-      const accordion = container.querySelector('.rds-accordion');
-
-      fireEvent.mouseEnter(accordion!);
-      fireEvent.mouseLeave(accordion!);
-      expect(accordion).not.toHaveClass('rds-accordion--hover');
-    });
-
-    it('should handle multiple hover cycles', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} state="hover" />);
-      const accordion = container.querySelector('.rds-accordion');
-
-      for (let i = 0; i < 5; i++) {
-        fireEvent.mouseEnter(accordion!);
-        expect(accordion).toHaveClass('rds-accordion--hover');
-
-        fireEvent.mouseLeave(accordion!);
-        expect(accordion).not.toHaveClass('rds-accordion--hover');
-      }
-    });
-  });
-
   describe('Props Validation', () => {
     it('should render with minimal required props', () => {
       render(<RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>);
@@ -412,10 +378,10 @@ describe('RdsAccordion', () => {
           title="Custom Title"
           size="large"
           accordionStyle="bottomline"
-          state="selected"
+          selected
           defaultExpanded={true}
-          ShowLeftIcon={true}
-          changeleftIcon={<span data-testid="custom-icon">Icon</span>}
+          showLeftIcon={true}
+          changeLeftIcon={<span data-testid="custom-icon">Icon</span>}
         >
           <div>Custom Content</div>
         </RdsAccordion>
@@ -435,7 +401,7 @@ describe('RdsAccordion', () => {
           {...defaultProps}
           size="medium"
           accordionStyle="borderhide"
-          state="selected"
+          selected
         />
       );
 
@@ -460,7 +426,6 @@ describe('RdsAccordion', () => {
       const { container } = render(
         <RdsAccordion
           {...defaultProps}
-          state="hover"
           disabled={true}
         />
       );
@@ -498,24 +463,12 @@ describe('RdsAccordion', () => {
       expect(screen.getByText('Título con 中文 और हिन्दी')).toBeInTheDocument();
     });
 
-    it('should handle rapid state changes', () => {
-      const { container, rerender } = render(
-        <RdsAccordion {...defaultProps} state="default" />
-      );
+    it('should handle rapid selected changes', () => {
+      const { container, rerender } = render(<RdsAccordion {...defaultProps} />);
 
-      const states = ['default', 'selected', 'hover', 'default', 'selected'] as const;
-
-      for (const newState of states) {
-        rerender(
-          <RdsAccordion {...defaultProps} state={newState} />
-        );
-        const accordion = container.querySelector('.rds-accordion');
-
-        if (newState === 'selected') {
-          expect(accordion).toHaveClass('rds-accordion--selected');
-        } else {
-          expect(accordion).not.toHaveClass('rds-accordion--selected');
-        }
+      for (const selected of [false, true, false, true]) {
+        rerender(<RdsAccordion {...defaultProps} selected={selected} />);
+        expect(container.querySelector('.rds-accordion')?.classList.contains('rds-accordion--selected')).toBe(selected);
       }
     });
 
@@ -557,7 +510,7 @@ describe('RdsAccordion', () => {
     });
 
     it('should have icon in correct location', () => {
-      const { container } = render(<RdsAccordion {...defaultProps} ShowLeftIcon={true} />);
+      const { container } = render(<RdsAccordion {...defaultProps} showLeftIcon={true} />);
 
       const header = container.querySelector('.rds-accordion__header');
       const icon = header?.querySelector('.rds-accordion__icon');
@@ -583,7 +536,7 @@ describe('RdsAccordion', () => {
   });
 
   describe('Default Props Tests', () => {
-    it('should use default ShowLeftIcon value', () => {
+    it('should use default showLeftIcon value', () => {
       render(<RdsAccordion title="Title" >{<div>Content</div>}</RdsAccordion>);
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();
     });
@@ -593,7 +546,7 @@ describe('RdsAccordion', () => {
         <RdsAccordion
           title="Title"
          
-          ShowLeftIcon={true}
+          showLeftIcon={true}
         >{<div>Content</div>}</RdsAccordion>
       );
       expect(screen.getByTestId('AddIcon')).toBeInTheDocument();

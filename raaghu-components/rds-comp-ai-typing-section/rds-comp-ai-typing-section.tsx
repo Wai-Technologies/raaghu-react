@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
+import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import "./rds-comp-ai-typing-section.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsAutocomplete, { type RdsAutocompleteProps } from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
@@ -15,7 +17,7 @@ export interface RdsCompAiTypingSectionOption {
   value: string | number;
 }
 
-export interface RdsCompAiTypingSectionProps {
+export interface RdsCompAiTypingSectionProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /** @deprecated Has no effect. */
   colorVariant?: string;
   /** Placeholder of the prompt input. */
@@ -23,7 +25,7 @@ export interface RdsCompAiTypingSectionProps {
   /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
   /** @deprecated Has no effect. */
-  iconName?: string;
+  iconName?: ReactNode;
   /** Called with the prompt text (and image, if any) from the send button. */
   onSend?: (inputText: string, image?: string) => void;
   onAddComment?: (comment: AttachmentComment) => void;
@@ -43,6 +45,8 @@ export interface RdsCompAiTypingSectionProps {
   onImportFromFigmaClick?: () => void;
   /** Options of the frontend selector (defaults to Raaghu). */
   autocompleteOptions?: RdsCompAiTypingSectionOption[];
+  ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const DEFAULT_AUTOCOMPLETE_OPTIONS: RdsCompAiTypingSectionOption[] = [{ label: "Raaghu", value: 1 }];
@@ -79,6 +83,10 @@ const RdsCompAiTypingSectionComponent = ({
   onNewProjectClick,
   onImportFromFigmaClick,
   autocompleteOptions = DEFAULT_AUTOCOMPLETE_OPTIONS,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompAiTypingSectionProps) => {
   if (colorVariant !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "colorVariant", "nothing (no effect)");
   if (iconName !== undefined) warnDeprecatedProp("RdsCompAiTypingSection", "iconName", "nothing (no effect)");
@@ -141,7 +149,7 @@ const RdsCompAiTypingSectionComponent = ({
   );
 
   return (
-    <div className="rds-comp-ai-typing-section">
+    <Box {...rest} ref={ref} className={clsx("rds-comp-ai-typing-section", className)} sx={sx}>
       <div className="rds-comp-ai-typing-section__input-wrapper">
         <div
           className={clsx(
@@ -241,7 +249,7 @@ const RdsCompAiTypingSectionComponent = ({
           />
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

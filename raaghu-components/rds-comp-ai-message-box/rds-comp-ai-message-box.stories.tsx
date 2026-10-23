@@ -12,6 +12,9 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: { control: "text", description: "CSS class applied to the message box container." },
+    sx: { control: "object", description: "MUI system styles applied to the message box container." },
+    ref: { control: false, description: "React ref to the message box container; assign it in code." },
     avtar: {
       table: { disable: true },
     },

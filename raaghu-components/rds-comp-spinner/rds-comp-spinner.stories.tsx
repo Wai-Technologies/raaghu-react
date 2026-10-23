@@ -22,6 +22,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the spinner root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the spinner root.' },
+        ref: { control: false, description: 'React ref to the spinner root; assign it in code.' },
         size: {
             options: ["Default", "Small", "Large",],
             control: { type: "select" },
@@ -73,5 +76,4 @@ export const Default: Story = {
         await expect(spinner).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['variant','size','color', 'showLabel', 'layout',"label", 'level'] } };
-
+Default.parameters = { controls: { include: ['variant','size','color', 'showLabel', 'layout',"label", 'level', 'className', 'sx', 'ref'] } };

@@ -89,7 +89,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     cardText,
     closeIcon,
     label,
-    block,
     images,
     leagueName,
     leagueAvatar,
@@ -402,7 +401,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                         styleType="outline"
                         options={activityDropdownOptions}
                         onChange={() => {}}
-                        state="default"
                         showRadio={true}
                         showUserAvatar={true}
                         multiple={false}

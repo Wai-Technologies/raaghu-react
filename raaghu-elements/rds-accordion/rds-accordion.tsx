@@ -1,10 +1,11 @@
-import { useState, type ReactNode, type MouseEvent, type SyntheticEvent } from 'react';
+
+import { useState, type ReactNode, type SyntheticEvent } from 'react';
 import {
   Accordion as MuiAccordion,
   AccordionSummary as MuiAccordionSummary,
   AccordionDetails as MuiAccordionDetails,
   type AccordionProps,
-  Typography
+  Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
@@ -21,7 +22,8 @@ const VARIANT_CLASS: Record<AccordionVariant, LegacyAccordionStyle> = {
   plain: 'borderhide',
 };
 
-export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'component' | 'variant'> {
+export interface RdsAccordionProps
+  extends Omit<AccordionProps, 'children' | 'component' | 'variant'> {
   title: string;
   children: ReactNode;
   /** Visual style of the accordion. Defaults to `'outlined'`. */
@@ -36,27 +38,25 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children' | 'co
   size?: 'small' | 'medium' | 'large';
   /** @deprecated Use `slotProps.transition.timeout` instead. */
   animationDuration?: number;
-  /** @deprecated Use `startIcon={null}` to hide the icon. */
-  ShowLeftIcon?: boolean;
-  /** @deprecated Use `startIcon`. */
-  changeleftIcon?: ReactNode;
+  /** Shows the leading icon. Defaults to `true`. */
+  showLeftIcon?: boolean;
+  /** Custom leading icon. */
+  changeLeftIcon?: ReactNode;
   /** @deprecated Use `startIcon`. */
   icon?: ReactNode;
   /** @deprecated Use `variant` (`'outlined' | 'underline' | 'plain'`). */
   accordionStyle?: LegacyAccordionStyle;
-  /** Visual state. `hover` applies the hover style while the pointer is over the accordion. */
-  state?: 'default' | 'hover' | 'selected';
 }
 
 const resolveStartIcon = (
   startIcon: ReactNode | undefined,
-  ShowLeftIcon: boolean | undefined,
-  changeleftIcon: ReactNode | undefined,
+  showLeftIcon: boolean | undefined,
+  changeLeftIcon: ReactNode | undefined,
   icon: ReactNode | undefined,
 ): ReactNode => {
   if (startIcon !== undefined) return startIcon;
-  if (ShowLeftIcon === false || changeleftIcon === null) return null;
-  return changeleftIcon ?? icon ?? <AddIcon fontSize="small" />;
+  if (showLeftIcon === false || changeLeftIcon === null) return null;
+  return changeLeftIcon ?? icon ?? <AddIcon fontSize="small" />;
 };
 
 const RdsAccordion = ({
@@ -65,49 +65,39 @@ const RdsAccordion = ({
   variant,
   startIcon,
   expandIcon,
-  selected,
+  selected = false,
   defaultExpanded = false,
   size = 'medium',
   animationDuration,
-  ShowLeftIcon,
-  changeleftIcon,
+  showLeftIcon,
+  changeLeftIcon,
   icon,
   accordionStyle,
-  state,
   className,
   slotProps,
   onChange,
-  onMouseEnter,
-  onMouseLeave,
   ...props
 }: RdsAccordionProps) => {
-  if (ShowLeftIcon !== undefined) warnDeprecatedProp('RdsAccordion', 'ShowLeftIcon', '`startIcon={null}`');
-  if (changeleftIcon !== undefined) warnDeprecatedProp('RdsAccordion', 'changeleftIcon', '`startIcon`');
-  if (icon !== undefined) warnDeprecatedProp('RdsAccordion', 'icon', '`startIcon`');
-  if (animationDuration !== undefined) warnDeprecatedProp('RdsAccordion', 'animationDuration', '`slotProps.transition.timeout`');
-  if (accordionStyle !== undefined) warnDeprecatedProp('RdsAccordion', 'accordionStyle', '`variant`');
+  if (icon !== undefined) {
+    warnDeprecatedProp('RdsAccordion', 'icon', '`startIcon`');
+  }
+  if (accordionStyle !== undefined) {
+    warnDeprecatedProp('RdsAccordion', 'accordionStyle', '`variant`');
+  }
+  if (animationDuration !== undefined) {
+    warnDeprecatedProp('RdsAccordion', 'animationDuration', '`slotProps.transition.timeout`');
+  }
 
-  const [isHovered, setIsHovered] = useState(false);
   const [uncontrolledExpanded, setUncontrolledExpanded] = useState(defaultExpanded);
   const isControlled = typeof props.expanded === 'boolean';
   const isExpanded = isControlled ? Boolean(props.expanded) : uncontrolledExpanded;
   const isDisabled = props.disabled;
-  const isSelected = selected ?? state === 'selected';
   const styleClass = variant ? VARIANT_CLASS[variant] : accordionStyle ?? 'border';
-  const resolvedStartIcon = resolveStartIcon(startIcon, ShowLeftIcon, changeleftIcon, icon);
+  const resolvedStartIcon = resolveStartIcon(startIcon, showLeftIcon, changeLeftIcon, icon);
 
   const handleChange = (event: SyntheticEvent, expanded: boolean) => {
     if (!isControlled) setUncontrolledExpanded(expanded);
     onChange?.(event, expanded);
-  };
-
-  const handleMouseEnter = (event: MouseEvent<HTMLDivElement>) => {
-    onMouseEnter?.(event);
-    if (state === 'hover') setIsHovered(true);
-  };
-  const handleMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
-    onMouseLeave?.(event);
-    if (state === 'hover') setIsHovered(false);
   };
 
   const accordionClassName = clsx(
@@ -115,15 +105,21 @@ const RdsAccordion = ({
     size && `rds-accordion--${size}`,
     `rds-accordion--${styleClass}`,
     isExpanded && 'rds-accordion--expanded',
-    !isDisabled && isSelected && 'rds-accordion--selected',
-    !isDisabled && state === 'hover' && isHovered && 'rds-accordion--hover',
+    !isDisabled && selected && 'rds-accordion--selected',
     isDisabled && 'rds-accordion--disabled',
     className,
   );
 
-  const mergedSlotProps = animationDuration === undefined
-    ? slotProps
-    : { ...slotProps, transition: { timeout: animationDuration, ...slotProps?.transition } };
+  const mergedSlotProps =
+    animationDuration === undefined
+      ? slotProps
+      : {
+          ...slotProps,
+          transition: {
+            timeout: animationDuration,
+            ...slotProps?.transition,
+          },
+        };
 
   return (
     <div className={clsx('rds-accordion__container', `rds-accordion--${styleClass}`)}>
@@ -131,8 +127,6 @@ const RdsAccordion = ({
         {...props}
         expanded={isExpanded}
         onChange={handleChange}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         slotProps={mergedSlotProps}
         className={accordionClassName}
       >
@@ -149,10 +143,9 @@ const RdsAccordion = ({
             </Typography>
           </div>
         </MuiAccordionSummary>
+
         <MuiAccordionDetails className="rds-accordion__details">
-          <div className="rds-accordion__details-panel">
-            {children}
-          </div>
+          <div className="rds-accordion__details-panel">{children}</div>
         </MuiAccordionDetails>
       </MuiAccordion>
     </div>

@@ -25,12 +25,6 @@ figma.connect(
         "Line - Top Solid": "line-top-solid",
         "Pill": "pill"
       }),
-      state: figma.enum("💡 State", {
-        "Default": "default",
-        "Hover": "hover",
-        "Selected": "selected",
-        "Disabled": "disabled"
-      }),
     },
     example: (props) => <RdsTabs 
     items={[

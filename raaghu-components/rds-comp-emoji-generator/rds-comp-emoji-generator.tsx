@@ -25,7 +25,7 @@ import FlagIcon from "@mui/icons-material/Flag";
 
 import "./rds-comp-emoji-generator.scss";
 import { getEmojiLabel, getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
-import { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+import { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 const SKIN_TONE_OPTIONS = [
@@ -95,21 +95,16 @@ const SkinTonePicker = ({
 SkinTonePicker.displayName = 'SkinTonePicker';
 
 export interface RdsCompEmojiGeneratorProps {
-    Type?: EmojiGeneratorType;
-    "Show Skin Tone"?: boolean;
-    "Show Footer"?: boolean;
-    State?: SkinToneState;
-    /** Keeps the skin tone picker open inline; same as `State="Expanded"`. */
-    skinTonePickerOpen?: boolean;
-    Category?: EmojiCategory;
-    /** camelCase alias of `Type`; wins when defined. */
-    variant?: EmojiGeneratorType;
-    /** camelCase alias of `Category`; wins when defined. */
-    category?: EmojiCategory;
-    /** camelCase alias of `"Show Skin Tone"`; wins when defined. */
+    /** Type of emoji generator. Defaults to `EmojiGeneratorType.Default`. */
+    type?: EmojiGeneratorType;
     showSkinTone?: boolean;
-    /** camelCase alias of `"Show Footer"`; wins when defined. */
     showFooter?: boolean;
+    /** Keeps the skin tone picker open inline. */
+    skinTonePickerOpen?: boolean;
+    /** Alias of `type`; `type` wins when both are passed. */
+    variant?: EmojiGeneratorType;
+    /** Category of emojis to display. */
+    category?: EmojiCategory;
     /** Called with the event and the emoji when one is picked. */
     onChange?: (event: SyntheticEvent, emoji: string) => void;
     /** @deprecated Use `onChange` instead. */
@@ -136,16 +131,12 @@ export type RdsEmojiGeneratorProps = RdsCompEmojiGeneratorProps;
 
 
 const RdsCompEmojiGenerator = ({
-    Type: typeLegacy = EmojiGeneratorType.Default,
-    "Show Skin Tone": showSkinToneLegacy = true,
-    "Show Footer": showFooterLegacy = true,
-    State = SkinToneState.Default,
+    type: typeProp,
     skinTonePickerOpen,
-    Category: categoryLegacy,
     variant,
     category,
-    showSkinTone: showSkinToneAlias,
-    showFooter: showFooterAlias,
+    showSkinTone = true,
+    showFooter = true,
     onChange,
     onEmojiSelect,
     maxEmojis = 80,
@@ -159,11 +150,9 @@ const RdsCompEmojiGenerator = ({
     ...props
 }: RdsCompEmojiGeneratorProps) => {
     if (onEmojiSelect !== undefined) warnDeprecatedProp('RdsCompEmojiGenerator', 'onEmojiSelect', '`onChange`');
-    const Type = variant ?? typeLegacy;
-    const skinToneExpanded = skinTonePickerOpen ?? State === SkinToneState.Expanded;
-    const showSkinTone = showSkinToneAlias ?? showSkinToneLegacy;
-    const showFooter = showFooterAlias ?? showFooterLegacy;
-    const categoryProp = category ?? categoryLegacy;
+    const resolvedType = typeProp ?? variant ?? EmojiGeneratorType.Default;
+    const skinToneExpanded = skinTonePickerOpen ?? false;
+    const categoryProp = category;
     const rootRef = useRef<HTMLDivElement | null>(null);
     const setRootRef = (node: HTMLDivElement | null) => {
         rootRef.current = node;
@@ -212,7 +201,7 @@ const RdsCompEmojiGenerator = ({
         [filteredEmojis, maxEmojis]
     );
 
-    if (Type === EmojiGeneratorType.QuickReactions) {
+    if (resolvedType === EmojiGeneratorType.QuickReactions) {
         return (
             <Box ref={setRootRef} className={clsx("rds-emoji-generator rds-emoji-generator--quick", className)} sx={sx} {...props}>
                 {quickReactions.map((e) => (
@@ -242,7 +231,7 @@ const RdsCompEmojiGenerator = ({
 
     return (
     <Box ref={setRootRef} className={clsx("rds-emoji-generator", className)} sx={sx} {...props}>
-            {Type === EmojiGeneratorType.Default && (
+            {resolvedType === EmojiGeneratorType.Default && (
                 <Box className="rds-emoji-generator__search">
                     <Box className="rds-emoji-generator__search-container">
                         <TextField
@@ -362,7 +351,7 @@ const RdsCompEmojiGenerator = ({
                 </Box>
             </Box>
 
-            {showFooter && Type === EmojiGeneratorType.Default && (
+            {showFooter && resolvedType === EmojiGeneratorType.Default && (
                 <Box className="rds-emoji-generator__footer">
                     <Typography className="rds-emoji-generator__footer-emoji">🙂</Typography>
                     <Typography className="rds-emoji-generator__footer-text" variant="body2">
@@ -376,7 +365,7 @@ const RdsCompEmojiGenerator = ({
 RdsCompEmojiGenerator.displayName = 'RdsCompEmojiGenerator';
 export default RdsCompEmojiGenerator;
 export const RdsCompEmojiPicker = RdsCompEmojiGenerator;
-export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
+export { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
 
 function normalizeEmojiForTwemoji(emoji: string): string {
     return emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, '');

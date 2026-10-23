@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsCheckbox> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
-    label: {
+    labelText: {
       control: 'text',
       description: 'Label text for the checkbox',
     },
@@ -29,11 +29,6 @@ const meta: Meta<typeof RdsCheckbox> = {
       control: 'select',
       options: ['square', 'circular'],
       description: 'Visual style variant of the checkbox',
-    },
-    state: {
-      control: 'select',
-      options: ['default', 'disabled', 'hover'],
-      description: 'State of the checkbox (default, disabled, hover)',
     },
     showText: {
       control: 'boolean',
@@ -57,27 +52,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Default Checkbox',
+    labelText: 'Default Checkbox',
   },
 };
 
 export const Checked: Story = {
   args: {
-    label: 'Checked Checkbox',
+    labelText: 'Checked Checkbox',
     status: 'checked',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Disabled Checkbox',
+    labelText: 'Disabled Checkbox',
     disabled: true,
   },
 };
 
 export const DisabledChecked: Story = {
   args: {
-    label: 'Disabled Checked',
+    labelText: 'Disabled Checked',
     status: 'checked',
     disabled: true,
   },
@@ -85,14 +80,14 @@ export const DisabledChecked: Story = {
 
 export const Indeterminate: Story = {
   args: {
-    label: 'Indeterminate Checkbox',
+    labelText: 'Indeterminate Checkbox',
     status: 'indeterminate',
   },
 };
 
 export const Primary: Story = {
   args: {
-    label: 'Primary Color',
+    labelText: 'Primary Color',
     color: 'primary',
     status: 'checked',
   },
@@ -100,7 +95,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    label: 'Secondary Color',
+    labelText: 'Secondary Color',
     color: 'secondary',
     status: 'checked',
   },
@@ -108,7 +103,7 @@ export const Secondary: Story = {
 
 export const Small: Story = {
   args: {
-    label: 'Small Checkbox',
+    labelText: 'Small Checkbox',
     size: 'small',
   },
 };

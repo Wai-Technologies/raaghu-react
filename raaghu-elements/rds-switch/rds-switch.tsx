@@ -11,7 +11,6 @@ export interface RdsSwitchProps extends Omit<SwitchProps, 'style' | 'component'>
   label?: string;
   labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';
-  state?: 'off' | 'on' | 'disabled on' | 'disabled off';
   /** @deprecated Omit `label` instead. */
   showLabel?: boolean;
   /** Visual variant. */
@@ -32,21 +31,15 @@ const normalizeLayout = (layout?: string): RdsSwitchProps['layout'] | undefined 
   return layout.trim().toLowerCase().replace(/ +/g, '') as RdsSwitchProps['layout'];
 };
 
-const normalizeState = (state?: string): RdsSwitchProps['state'] | undefined => {
-  if (!state) return undefined;
-  return state.trim().toLowerCase().replace(/ +/g, ' ') as RdsSwitchProps['state'];
-};
-
 /**
  * Switch toggle with optional label, built on MUI `Switch`.
- * Supports controlled (`checked`) and uncontrolled (`defaultChecked` / `state`) usage;
+ * Supports controlled (`checked`) and uncontrolled (`defaultChecked`) usage;
  * `labelPlacement` takes priority over `layout`.
  */
 const RdsSwitch = ({
   label,
   labelPlacement,
   layout,
-  state,
   style,
   variant,
   showLabel,
@@ -58,7 +51,6 @@ const RdsSwitch = ({
   const styleProp = variant ?? legacyVariant ?? 'style1';
   const rowStyle = typeof style === 'object' ? style : undefined;
   const normalizedLayout = normalizeLayout(layout);
-  const normalizedState = normalizeState(state);
 
   const effectivePlacement: RdsSwitchProps['labelPlacement'] =
     labelPlacement
@@ -67,27 +59,11 @@ const RdsSwitch = ({
         ? layoutToPlacement[normalizedLayout]
         : 'end';
 
-  const disabled = normalizedState === 'disabled on' || normalizedState === 'disabled off' || props.disabled;
+  const disabled = props.disabled ?? false;
 
   const isControlled = typeof props.checked === 'boolean';
 
-  const [internalChecked, setInternalChecked] = useState(() => {
-    if (isControlled) return props.checked as boolean;
-    if (normalizedState === 'on' || normalizedState === 'disabled on') return true;
-    if (normalizedState === 'off' || normalizedState === 'disabled off') return false;
-    return Boolean(props.defaultChecked);
-  });
-
-  const [prevNormalizedState, setPrevNormalizedState] = useState(normalizedState);
-  const [prevDefaultChecked, setPrevDefaultChecked] = useState(props.defaultChecked);
-
-  if (!isControlled && (normalizedState !== prevNormalizedState || props.defaultChecked !== prevDefaultChecked)) {
-    setPrevNormalizedState(normalizedState);
-    setPrevDefaultChecked(props.defaultChecked);
-    if (normalizedState === 'on' || normalizedState === 'disabled on') setInternalChecked(true);
-    else if (normalizedState === 'off' || normalizedState === 'disabled off') setInternalChecked(false);
-    else setInternalChecked(Boolean(props.defaultChecked));
-  }
+  const [internalChecked, setInternalChecked] = useState(Boolean(props.defaultChecked));
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     if (!isControlled && !disabled) {

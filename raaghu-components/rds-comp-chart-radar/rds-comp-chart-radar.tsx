@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
 import {
   applyCanvasSize,
@@ -37,6 +39,7 @@ export interface RdsCompRadarProps
   radius?: number;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 /** Numeric value of a CSS variable (e.g. `"14px"` → 14), or `fallback`. */
@@ -58,6 +61,7 @@ const RdsCompRadarChart = ({
   radius,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompRadarProps) => {
   if (radius !== undefined) warnDeprecatedProp("RdsCompRadarChart", "radius", "`height`");
@@ -128,10 +132,11 @@ const RdsCompRadarChart = ({
   );
 
   return (
-    <div
+    <Box
       {...rest}
       ref={ref}
       className={clsx("rds-comp-chart-radar-container", className)}
+      sx={sx}
     >
       <canvas
         id={id}
@@ -139,7 +144,7 @@ const RdsCompRadarChart = ({
         role="img"
         aria-label={resolveChartLabel("RdsCompRadarChart", ariaLabel, chartLabel, "Radar chart")}
       />
-    </div>
+    </Box>
   );
 };
 

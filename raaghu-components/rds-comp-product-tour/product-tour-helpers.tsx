@@ -1,4 +1,5 @@
-import type { KeyboardEvent, ReactNode } from 'react';
+import type { HTMLAttributes, KeyboardEvent, ReactNode, Ref } from 'react';
+import type { SxProps, Theme } from '@mui/material';
 import { Box, Typography, IconButton } from '@mui/material';
 import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
 import RdsInput from '../../raaghu-elements/rds-input/rds-input';
@@ -9,8 +10,7 @@ import clsx from 'clsx';
 export type ProductTourVariant = "Image" | "Carousel" | "GIF" | "Form";
 export type ProductTourCorner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
-export interface RdsCompProductTourProps {
-    state?: ProductTourVariant;
+export interface RdsCompProductTourProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'children'> {
     variant?: ProductTourVariant;
     anchorCorner?: ProductTourCorner;
     /** @deprecated Use `anchorCorner` instead. */
@@ -55,6 +55,8 @@ export interface RdsCompProductTourProps {
     showSecondaryButton?: boolean;
     showTertiaryButton?: boolean;
     showVisualPlaceholder?: boolean;
+    sx?: SxProps<Theme>;
+    ref?: Ref<HTMLDivElement>;
 }
 
 export const parseSteps = (s?: string) => {

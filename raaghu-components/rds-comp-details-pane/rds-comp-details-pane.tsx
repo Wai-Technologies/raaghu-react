@@ -1,5 +1,8 @@
-import { useState, useCallback } from "react";
-import type { CSSProperties } from "react";
+import { useState, useCallback, type ReactNode } from "react";
+import type { CSSProperties, Ref } from "react";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material";
+import clsx from "clsx";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-details-pane.scss";
 import {
@@ -7,8 +10,7 @@ import {
   RealEstateContent,
   SelectionContent,
   ToolbarContent,
-  ThumbnailViewContent,
-  FigmaUIKitButton
+  ThumbnailViewContent
 } from "./details-pane-components";
 
 
@@ -28,8 +30,11 @@ export interface RdsCompDetailsPaneProps {
   historyItems?: { id: number; name: string }[];
   olderHistoryItems?: { id: number; name: string }[];
   carouselImages?: { src: string; alt: string }[];
-   figmaIconSrc?: string;
-  storybookIconSrc?: string;
+  figmaIconSrc?: string | ReactNode;
+  storybookIconSrc?: string | ReactNode;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }
 
 const DEFAULT_HISTORY_ITEMS = [
@@ -52,6 +57,9 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
     style,
     historyItems: providedHistoryItems,
     olderHistoryItems: providedOlderHistoryItems,
+    className,
+    sx,
+    ref,
   } = props;
   const legacyVariant = typeof style === "string" ? style : undefined;
   if (legacyVariant !== undefined) warnDeprecatedProp("RdsCompDetailsPane", "style", "`variant`");
@@ -90,7 +98,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   
   return (
     <>
-      <div className="rds-comp-details-pane" style={{ position: 'relative', ...(typeof style === 'object' ? style : undefined) }}>
+      <Box ref={ref} className={clsx("rds-comp-details-pane", className)} sx={[{ position: 'relative' }, ...(Array.isArray(sx) ? sx : [sx])]} style={typeof style === 'object' ? style : undefined}>
         {(variant === "Favourites" || variant === "Favourites - New Folder" || variant === "Prompt History") ? (
           <div>
             <h5 className="rds-comp-details-pane__header fw-bold">{props.headerText}</h5>
@@ -130,7 +138,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
           />
         ) : null        
         }
-      </div>
+      </Box>
     </>
   );
 };

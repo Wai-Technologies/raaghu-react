@@ -11,11 +11,43 @@ const meta: Meta<typeof RdsCounter> = {
         status: { type: 'stable' },
     layout: 'centered',
     controls: {
-    exclude: ['onChange', 'controlsClassName', 'slotProps','disabled','defaultValue', 'titleText', 'isMandatory'],
+          include: [
+            'label',
+            'min',
+            'max',
+            'step',
+            'size',
+            'variant',
+            'layout',
+            'disabled',
+            'selected',
+            'showInput',
+            'showTitle',
+            'required',
+            'placeholder',
+            'className',
+            'sx',
+            'ref',
+          ],
     },
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the root element.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the root element.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the root element. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
@@ -31,6 +63,11 @@ const meta: Meta<typeof RdsCounter> = {
     },
     disabled: {
       control: 'boolean',
+      description: 'Disables the counter and its controls',
+    },
+    selected: {
+      control: 'boolean',
+      description: 'Applies the selected visual treatment',
     },
     showInput: {
       control: 'boolean',
@@ -46,11 +83,6 @@ const meta: Meta<typeof RdsCounter> = {
     },
     showTitle: { control: 'boolean', },
     required: { control: 'boolean', description: 'Show required indicator on label.' },
-    state: {
-      control: 'select',
-      options: ['default', 'selected', 'disabled'],
-      description: 'Visual state: Default, Selected or Disabled',
-    },
     placeholder: {
       control: 'text',
       description: 'Placeholder text shown when input is empty',
@@ -63,7 +95,6 @@ const meta: Meta<typeof RdsCounter> = {
       control: { type: 'number' },
       description: 'Controlled value. Leave unset for uncontrolled (plus/minus update internal state).',
     },
-    selected: { control: false, table: { disable: true } },
   },
 };
 

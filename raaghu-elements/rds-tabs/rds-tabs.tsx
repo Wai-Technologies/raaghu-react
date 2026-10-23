@@ -22,7 +22,6 @@ export interface RdsTabItem {
   rightIcon?: ReactNode;
   disabled?: boolean;
   title?: string; 
-  state?: 'default' | 'hover' | 'selected' | 'disabled'; 
   level?: number;
 }
 
@@ -41,7 +40,7 @@ export type RdsTabsLayout =
 
 /**
  * Tab strip built on MUI `Tabs`. Pass `items` as data; select with `value` / `onChange`.
- * Figma props (`layout`, `state`, `showLeftIcon` / `showRightIcon`) stay supported.
+ * Presentation uses `layout`; selection and unavailable tabs use `value` and item-level `disabled`.
  */
 export interface RdsTabsProps extends Omit<TabsProps, 'component'> {
   items?: RdsTabItem[];
@@ -62,8 +61,7 @@ export interface RdsTabsProps extends Omit<TabsProps, 'component'> {
   rightIcon?: ReactNode;
   showLeftIcon?: boolean; 
   showRightIcon?: boolean; 
-  state?: 'default' | 'hover' | 'selected' | 'disabled'; 
-  level?: number; 
+  level?: number;
 }
 
 const RdsTabs = ({
@@ -82,7 +80,6 @@ const RdsTabs = ({
   rightIcon,
   showLeftIcon = true,
   showRightIcon = true,
-  state,
   level: _level,
   className,
   ...props
@@ -106,7 +103,6 @@ const RdsTabs = ({
     }
   };
 
-const layoutClass = clsx(`rds-tabs--${layout}`, `rds-state--${state || 'default'}`);
 
   const tabsWithIcons = tabItems.map((tab) => ({
     ...tab,
@@ -122,7 +118,7 @@ const layoutClass = clsx(`rds-tabs--${layout}`, `rds-state--${state || 'default'
       onChange={handleChange}
       orientation={orientation ?? type ?? 'horizontal'}
       {...props}
-      className={clsx('rds-tabs', layoutClass, className)}
+      className={clsx('rds-tabs', `rds-tabs--${layout}`, className)}
     >
       {tabsWithIcons.map((tab) => {
         const labelContent = (

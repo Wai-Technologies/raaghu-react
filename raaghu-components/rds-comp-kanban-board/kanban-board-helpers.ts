@@ -112,16 +112,16 @@ export interface RdsCompKanbanBoardProps extends Omit<HTMLAttributes<HTMLDivElem
   onBoardDataChange?: (boards: KanbanBoardInfo[]) => void;
   tagOptions?: KanbanOption[];
   /** @deprecated Use `tagOptions` instead. */
-  allTagsList?: any[];
+  allTagsList?: KanbanOption[];
   categoryOptions?: KanbanOption[];
   /** @deprecated Use `categoryOptions` instead. */
-  allCategoriesList?: any[];
+  allCategoriesList?: KanbanOption[];
   /** Called with the new card when "Add Item" is clicked. */
   onCardAdd?: (event: MouseEvent<HTMLElement>, card: KanbanCard) => void;
   /** @deprecated Use `onCardAdd` instead. */
   onAddQuestionSaveHandler?: (data: Record<string, unknown>) => void;
   /** @deprecated It has no effect. */
-  addQuestionData?: Record<string, any>;
+  addQuestionData?: Record<string, unknown>;
   onSelectedTagsListChange?: (items: unknown) => void;
   className?: string;
   sx?: SxProps<Theme>;

@@ -35,8 +35,10 @@ export interface RdsCarouselProps
   indicatorVariant?: 'circle' | 'line';
   /** Slide shown first (0-based). Read on mount only. */
   defaultIndex?: number;
-  /** Active slide (1-based), mirrored from Figma. Changing it moves the carousel to that slide. */
-  state?: '1' | '2' | '3' | '4';
+  /** Active slide index (0-based). When set, changing it moves the carousel to that slide. */
+  activeIndex?: number;
+  /** Called when the user requests a different slide while `activeIndex` is controlled. */
+  onActiveIndexChange?: (index: number) => void;
   /** Visual variant (Figma "Style"). */
   variant?: CarouselVariant;
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
@@ -63,7 +65,8 @@ const RdsCarousel = ({
   type,
   indicatorVariant,
   defaultIndex,
-  state,
+  activeIndex,
+  onActiveIndexChange,
   style: styleProp,
   variant,
   items,
@@ -87,39 +90,43 @@ const RdsCarousel = ({
   const slideCount = slides.length;
   const resolvedTitles = titles ?? EMPTY_TITLES;
   const resolvedSubtitles = subtitles ?? EMPTY_SUBTITLES;
-  const [currentIndex, setCurrentIndex] = useState(defaultIndex !== undefined && defaultIndex >= 0 && defaultIndex < slideCount ? Math.floor(defaultIndex) : 0);
-  const [prevState, setPrevState] = useState(state);
-  if (state !== prevState) {
-    setPrevState(state);
-    if (state && !isNaN(parseInt(state))) {
-      const newStateIndex = parseInt(state) - 1;
-      if (newStateIndex >= 0 && newStateIndex < slideCount) {
-        setCurrentIndex(newStateIndex);
-      }
+  const initialIndex = defaultIndex ?? 0;
+  const [uncontrolledIndex, setUncontrolledIndex] = useState(
+    Number.isInteger(initialIndex) && initialIndex >= 0 && initialIndex < slideCount ? initialIndex : 0
+  );
+  const currentIndex =
+    activeIndex !== undefined && Number.isInteger(activeIndex) && activeIndex >= 0 && activeIndex < slideCount
+      ? activeIndex
+      : uncontrolledIndex;
+  const changeIndex = (index: number) => {
+    if (activeIndex !== undefined) {
+      onActiveIndexChange?.(index);
+    } else {
+      setUncontrolledIndex(index);
     }
-  }
+  };
   const tokens = useRdsTokens();
   const hasTitleLayout = style === 'with title' || style === 'full width image';
 
   useEffect(() => {
     if (autoPlay && slideCount > 1) {
       const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % slideCount);
+        changeIndex((currentIndex + 1) % slideCount);
       }, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [autoPlay, autoPlayInterval, slideCount]);
+  }, [activeIndex, autoPlay, autoPlayInterval, currentIndex, onActiveIndexChange, slideCount]);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % slideCount);
+    changeIndex((currentIndex + 1) % slideCount);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + slideCount) % slideCount);
+    changeIndex((currentIndex - 1 + slideCount) % slideCount);
   };
 
   const goToSlide = (index: number) => {
-    setCurrentIndex(index);
+    changeIndex(index);
   };
 
   const handleIndicatorKeyDown = (event: KeyboardEvent<HTMLDivElement>, index: number) => {

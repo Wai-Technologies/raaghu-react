@@ -15,6 +15,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the color picker root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the color picker root.' },
+        ref: { control: false, description: 'React ref to the color picker root; assign it in code.' },
         type: {
             control: 'select',
             options: ['Default', 'Button', 'Button-Expanded'],
@@ -68,5 +71,4 @@ export const Default: Story = {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['type','showSwatches', 'view', 'showTabs', 'swatchesVariant'] } };
-
+Default.parameters = { controls: { include: ['type','showSwatches', 'view', 'showTabs', 'swatchesVariant', 'className', 'sx', 'ref'] } };

@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsDatepicker from './rds-comp-datepicker';
-import { DatePickerStyleType, DatePickerLayout, DatePickerState } from './rds-comp-datepicker.types';
+import { DatePickerStyleType, DatePickerLayout } from './rds-comp-datepicker.types';
 
 jest.mock('./rds-comp-datepicker.scss', () => ({}));
 
@@ -46,7 +46,7 @@ jest.mock('react-datepicker', () => {
   };
 });
 
-const mockCaptured: { state?: any[]; type?: any[] } = {};
+const mockCaptured: { type?: any[] } = {};
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -93,10 +93,6 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
     fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
     return fourteenDaysAgo;
   },
-  renderDatePickerStateView: (...args: any[]) => {
-    mockCaptured.state = args;
-    return <div data-testid="state-view" />;
-  },
   renderDatePickerTypeView: (...args: any[]) => {
     mockCaptured.type = args;
     const props: any = args[5] ?? {};
@@ -123,6 +119,11 @@ describe('RdsDatepicker', () => {
       render(<RdsDatepicker {...defaultProps} />);
       const container = screen.getByTestId('type-view');
       expect(container).toBeInTheDocument();
+    });
+
+    it('applies the selected appearance when selected is true', () => {
+      const { container } = render(<RdsDatepicker {...defaultProps} selected />);
+      expect(container.querySelector('.rds-datepicker')).toHaveClass('rds-datepicker--selected');
     });
 
     it('should render with title when showTitle is true', () => {
@@ -165,16 +166,6 @@ describe('RdsDatepicker', () => {
   });
 
   describe('State Management', () => {
-    it('should render state view when state prop is provided', () => {
-      const { container } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          state={DatePickerState.Default}
-        />
-      );
-      expect(container).toBeInTheDocument();
-    });
-
     it('should render type view when type prop is provided', () => {
       render(
         <RdsDatepicker
@@ -285,16 +276,6 @@ describe('RdsDatepicker', () => {
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
     });
 
-    it('should accept state prop', () => {
-      const { container } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          state={DatePickerState.Default}
-        />
-      );
-      expect(container).toBeInTheDocument();
-    });
-
     it('should accept placeholderText prop', () => {
       render(
         <RdsDatepicker
@@ -305,14 +286,15 @@ describe('RdsDatepicker', () => {
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
     });
 
-    it('should accept DatePickerLabel prop', () => {
+    it('supports datePickerLabel', () => {
       render(
         <RdsDatepicker
           {...defaultProps}
-          DatePickerLabel="Pick Date"
+          datePickerLabel="Pick Date"
+          showTitle
         />
       );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+      expect(screen.getByText('Pick Date')).toBeInTheDocument();
     });
 
     it('should accept changeIcon prop', () => {
@@ -359,58 +341,6 @@ describe('RdsDatepicker', () => {
         <RdsDatepicker
           {...defaultProps}
           dateForEdit="2024-12-26"
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-  });
-
-  describe('State Transitions', () => {
-    it('should transition to Expanded state', () => {
-      const { rerender } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          state={DatePickerState.Default}
-        />
-      );
-      rerender(
-        <RdsDatepicker
-          {...defaultProps}
-          state={DatePickerState.Expanded}
-        />
-      );
-      expect(screen.getByTestId('state-view')).toBeInTheDocument();
-    });
-
-    it('should transition to Selected state', () => {
-      const { rerender } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          state={DatePickerState.Default}
-        />
-      );
-      rerender(
-        <RdsDatepicker
-          {...defaultProps}
-          state={DatePickerState.Selected}
-        />
-      );
-      expect(screen.getByTestId('state-view')).toBeInTheDocument();
-    });
-
-    it('should transition from state view to type view', () => {
-      const { rerender } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          state={DatePickerState.Default}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-      
-      rerender(
-        <RdsDatepicker
-          {...defaultProps}
-          type="range"
         />
       );
       expect(screen.getByTestId('type-view')).toBeInTheDocument();
@@ -614,7 +544,7 @@ describe('RdsDatepicker', () => {
             {...defaultProps}
             titleText={undefined}
             placeholderText={undefined}
-            DatePickerLabel={undefined}
+            datePickerLabel={undefined}
           />
         );
       }).not.toThrow();
@@ -641,13 +571,11 @@ describe('RdsDatepicker', () => {
           showTitle={true}
           onDatePicker={jest.fn()}
           datePickerStyleType={DatePickerStyleType.Dropdown}
-          state={DatePickerState.Default}
           layout={DatePickerLayout.Default}
           customDate={jest.fn()}
           isDisabled={false}
           isMandatory={true}
           placeholderText="Pick a date"
-          DatePickerLabel="Date"
           type="single"
           changeIcon="dashboard_settings"
           showClearDate={true}
@@ -756,10 +684,10 @@ describe('audit fixes', () => {
 
   it('G4-094: clearing a date-time picker sets internal state to null', () => {
     const onDatePicker = jest.fn();
-    render(<RdsDatepicker state={DatePickerState.Selected} dateForEdit="2024-12-25" onDatePicker={onDatePicker} />);
-    act(() => mockCaptured.state?.[3](null));
+    render(<RdsDatepicker dateForEdit="2024-12-25" onDatePicker={onDatePicker} />);
+    act(() => mockCaptured.type?.[3](null));
     expect(onDatePicker).toHaveBeenCalledWith(null);
-    expect(mockCaptured.state?.[1]).toBeNull();
+    expect(mockCaptured.type?.[1]).toBeNull();
   });
 
   it('G4-097: presets use the current date at click time', () => {

@@ -19,6 +19,10 @@ const meta: Meta = {
     ],
     tags: ['autodocs', 'stable'],
     argTypes: {
+        sx: {
+            control: 'object',
+            description: 'MUI system styles applied to the menu root.',
+        },
         color: {
             options: [
                 "primary",
@@ -75,4 +79,4 @@ export const Default: Story = {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['color', 'icon', 'size', 'variant', 'placement', 'items'] } };
+Default.parameters = { controls: { include: ['color', 'icon', 'size', 'variant', 'placement', 'items', 'sx'] } };

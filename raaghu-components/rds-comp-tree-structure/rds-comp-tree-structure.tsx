@@ -1,22 +1,22 @@
 import { useCallback, useMemo, useState } from "react";
+import { Box } from "@mui/material";
+import clsx from "clsx";
 import "./rds-comp-tree-structure.scss";
 import * as FileType from './fileTypeIcons';
 import { getAllNodeIds } from './tree-structure-utils';
 import { TreeNodeRow as DirectTreeNodeRow } from './TreeNodeRow';
 import { 
   TreeLevel,
-  NodeState,
-  IconType,
   type RdsCompTreeStructureProps,
 } from './tree-structure-types';
 import { type TreeNode } from './tree-structure-types';
 
-export { TreeLevel, NodeState, IconType, type RdsCompTreeStructureProps } from './tree-structure-types';
+export { TreeLevel, IconType, type RdsCompTreeStructureProps } from './tree-structure-types';
 
 const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   const ResolvedTreeNodeRow = DirectTreeNodeRow ?? (FileType as any).TreeNodeRow ?? (FileType as any).default?.TreeNodeRow;
   const [expandedNodeIds, setExpandedNodeIds] = useState<number[]>(() =>
-    props.showCollapsed ? getAllNodeIds(props.treeData) : []
+    props.showCollapsed ? getAllNodeIds(props.treeData ?? []) : []
   );
   const [hoveredNodeId, setHoveredNodeId] = useState<number | null>(null);
   const [checkedNodeIds, setCheckedNodeIds] = useState<number[]>(props.checkedNodes || []);
@@ -58,8 +58,9 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   }, []);
 
   const maxLevel = useMemo(() => getMaxLevelFromEnum(props.level), [getMaxLevelFromEnum, props.level]);
+  const { className, sx, ref } = props;
   return (
-    <div className="rds-comp-tree-structure">
+    <Box ref={ref} className={clsx("rds-comp-tree-structure", className)} sx={sx}>
       {props.treeData?.map((node: TreeNode) => (
         <ResolvedTreeNodeRow
           key={node.id}
@@ -74,7 +75,7 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
           onCheckboxClick={handleCheckboxClick}
         />
       ))}
-    </div>
+    </Box>
   );
 };
 

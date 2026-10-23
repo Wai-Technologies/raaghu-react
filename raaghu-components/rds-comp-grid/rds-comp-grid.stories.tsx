@@ -1,15 +1,12 @@
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import React, { useRef, useState } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Button, Box, Stack, Typography, Divider } from '@mui/material';
-import RdsCompGrid, { RdsCompGridColumn, RdsCompGridAction, ActionPosition, State, ActionColumnStyle, RdsCompGridRef } from './rds-comp-grid';
+import RdsCompGrid, { ActionPosition, ActionColumnStyle } from './rds-comp-grid';
 
 const meta: Meta<typeof RdsCompGrid> = {
   title: 'Internal/Grid',
   component: RdsCompGrid,
   parameters: {
-        status: { type: 'stable' },
+    status: { type: 'stable' },
     layout: 'padded',
   },
   argTypes: {
@@ -77,11 +74,9 @@ const meta: Meta<typeof RdsCompGrid> = {
       description: 'Enable pagination',
       defaultValue: false,
     },
-    state: {
-      control: 'select',
-      options: [State.Default, State.Collapsed],
-      description: 'Initial state of the grid',
-      defaultValue: State.Default,
+    collapsed: {
+      control: 'boolean',
+      description: 'Whether the grid starts collapsed',
     },
     actionPosition: {
       control: 'select',
@@ -95,6 +90,9 @@ const meta: Meta<typeof RdsCompGrid> = {
       description: 'Style of action column',
       defaultValue: ActionColumnStyle.ShowDots,
     },
+    className: { control: 'text', description: 'CSS class applied to the grid root.' },
+    sx: { control: 'object', description: 'MUI system styles applied to the grid root.' },
+    ref: { control: false, description: 'React ref to the grid imperative API; assign it in code.' },
   },
   tags: ['autodocs', 'stable'],
 };

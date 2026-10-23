@@ -17,7 +17,7 @@ const renderWithTheme = (component: React.ReactElement) => {
 };
 
 const defaultProps: RdsCheckboxProps = {
-  labeltext: 'Test Checkbox',
+  labelText: 'Test Checkbox',
   showText: true,
 };
 
@@ -33,12 +33,12 @@ describe('RdsCheckbox', () => {
       expect(RdsCheckbox.displayName).toBe('RdsCheckbox');
     });
 
-    it('should render with label when labeltext is provided', () => {
-      renderWithTheme(<RdsCheckbox labeltext="Test Label" showText={true} />);
+    it('should render with label when labelText is provided', () => {
+      renderWithTheme(<RdsCheckbox labelText="Test Label" showText={true} />);
       expect(screen.getByText('Test Label')).toBeInTheDocument();
     });
 
-    it('should render without label when labeltext is not provided', () => {
+    it('should render without label when labelText is not provided', () => {
       renderWithTheme(<RdsCheckbox />);
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeInTheDocument();
@@ -115,32 +115,25 @@ describe('RdsCheckbox', () => {
       expect(checkboxContainer).toBeInTheDocument();
     });
 
-    it('should apply disabled state class when state is disabled', () => {
+    it('should apply disabled class when disabled is true', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} state="disabled" />
+        <RdsCheckbox {...defaultProps} disabled />
       );
       const checkboxContainer = container.querySelector('.rds-checkbox');
       expect(checkboxContainer).toHaveClass('rds-checkbox__disabled');
     });
 
-    it('should apply hover state class when state is hover', () => {
+    it('does not add a state class for hover interactions', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} state="hover" />
+        <RdsCheckbox {...defaultProps} />
       );
+      fireEvent.mouseEnter(screen.getByRole('checkbox'));
       const checkboxContainer = container.querySelector('.rds-checkbox');
-      expect(checkboxContainer).toHaveClass('rds-checkbox__hover');
+      expect(checkboxContainer).not.toHaveClass('rds-checkbox__hover');
     });
 
-    it('should apply default state class when state is default', () => {
-      const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} state="default" />
-      );
-      const checkboxContainer = container.querySelector('.rds-checkbox');
-      expect(checkboxContainer).toBeInTheDocument();
-    });
-
-    it('should disable checkbox when state is disabled', () => {
-      renderWithTheme(<RdsCheckbox {...defaultProps} state="disabled" />);
+    it('should disable checkbox when disabled is true', () => {
+      renderWithTheme(<RdsCheckbox {...defaultProps} disabled />);
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeDisabled();
     });
@@ -199,28 +192,28 @@ describe('RdsCheckbox', () => {
   describe('Label Text Visibility', () => {
     it('should show label text when showText is true', () => {
       renderWithTheme(
-        <RdsCheckbox labeltext="Visible Label" showText={true} />
+        <RdsCheckbox labelText="Visible Label" showText={true} />
       );
       expect(screen.getByText('Visible Label')).toBeInTheDocument();
     });
 
     it('should hide label text when showText is false', () => {
       renderWithTheme(
-        <RdsCheckbox labeltext="Hidden Label" showText={false} />
+        <RdsCheckbox labelText="Hidden Label" showText={false} />
       );
       expect(screen.queryByText('Hidden Label')).not.toBeInTheDocument();
     });
 
-    it('should apply text-hidden class when labeltext exists but showText is false', () => {
+    it('should apply text-hidden class when labelText exists but showText is false', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox labeltext="Test" showText={false} />
+        <RdsCheckbox labelText="Test" showText={false} />
       );
       const checkboxContainer = container.querySelector('.rds-checkbox');
       expect(checkboxContainer).toHaveClass('rds-checkbox__text-hidden');
     });
 
     it('should show text by default when showText is not specified', () => {
-      renderWithTheme(<RdsCheckbox labeltext="Default Text" />);
+      renderWithTheme(<RdsCheckbox labelText="Default Text" />);
       expect(screen.getByText('Default Text')).toBeInTheDocument();
     });
   });
@@ -248,15 +241,15 @@ describe('RdsCheckbox', () => {
 
     it('should disable label when isDisabled is true', () => {
       renderWithTheme(
-        <RdsCheckbox labeltext="Test" isDisabled={true} />
+        <RdsCheckbox labelText="Test" isDisabled={true} />
       );
       const label = screen.getByText('Test').closest('label');
       expect(label).toHaveAttribute('class');
     });
 
-    it('should prioritize isDisabled over state', () => {
+    it('should support the deprecated isDisabled prop', () => {
       renderWithTheme(
-        <RdsCheckbox {...defaultProps} isDisabled={true} state="default" />
+        <RdsCheckbox {...defaultProps} isDisabled />
       );
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeDisabled();
@@ -388,7 +381,7 @@ describe('RdsCheckbox', () => {
         <RdsCheckbox
           {...defaultProps}
           variant="circular"
-          state="disabled"
+          disabled
         />
       );
       const checkboxContainer = container.querySelector('.rds-checkbox');
@@ -399,7 +392,7 @@ describe('RdsCheckbox', () => {
     it('should handle multiple states and styles together', () => {
       const { container } = renderWithTheme(
         <RdsCheckbox
-          labeltext="Complex"
+          labelText="Complex"
           variant="circular"
           status="indeterminate"
           showText={true}
@@ -418,9 +411,8 @@ describe('RdsCheckbox', () => {
       const onChange = jest.fn();
       const { container } = renderWithTheme(
         <RdsCheckbox
-          labeltext="Complete"
+          labelText="Complete"
           variant="square"
-          state="default"
           status="checked"
           showText={true}
           isDisabled={false}
@@ -473,22 +465,22 @@ describe('RdsCheckbox', () => {
   });
 
   describe('Edge Cases', () => {
-    it('should handle empty labeltext', () => {
-      renderWithTheme(<RdsCheckbox {...defaultProps} labeltext="" />);
+    it('should handle empty labelText', () => {
+      renderWithTheme(<RdsCheckbox {...defaultProps} labelText="" />);
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeInTheDocument();
     });
 
-    it('should handle labeltext with special characters', () => {
+    it('should handle labelText with special characters', () => {
       renderWithTheme(
-        <RdsCheckbox labeltext="Test & Special <Characters>" />
+        <RdsCheckbox labelText="Test & Special <Characters>" />
       );
       expect(screen.getByText('Test & Special <Characters>')).toBeInTheDocument();
     });
 
-    it('should handle very long labeltext', () => {
+    it('should handle very long labelText', () => {
       const longText = 'A'.repeat(100);
-      renderWithTheme(<RdsCheckbox labeltext={longText} />);
+      renderWithTheme(<RdsCheckbox labelText={longText} />);
       expect(screen.getByText(longText)).toBeInTheDocument();
     });
 
@@ -512,7 +504,7 @@ describe('RdsCheckbox', () => {
       expect(onChange).toHaveBeenCalledTimes(3);
     });
 
-    it('should handle checkbox without FormControlLabel when no labeltext', () => {
+    it('should handle checkbox without FormControlLabel when no labelText', () => {
       const { container } = renderWithTheme(<RdsCheckbox />);
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeInTheDocument();
@@ -520,9 +512,9 @@ describe('RdsCheckbox', () => {
       expect(formLabel).not.toBeInTheDocument();
     });
 
-    it('should handle checkbox with FormControlLabel when labeltext provided', () => {
+    it('should handle checkbox with FormControlLabel when labelText provided', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox labeltext="With Label" />
+        <RdsCheckbox labelText="With Label" />
       );
       const formLabel = container.querySelector('label');
       expect(formLabel).toBeInTheDocument();
@@ -557,9 +549,9 @@ describe('RdsCheckbox', () => {
       expect(checkbox).toHaveAttribute('disabled');
     });
 
-    it('should support label association when labeltext provided', () => {
+    it('should support label association when labelText provided', () => {
       renderWithTheme(
-        <RdsCheckbox labeltext="Associated Label" />
+        <RdsCheckbox labelText="Associated Label" />
       );
       const label = screen.getByText('Associated Label');
       expect(label).toBeInTheDocument();
@@ -582,7 +574,7 @@ describe('RdsCheckbox', () => {
     it('should combine all classes correctly', () => {
       const { container } = renderWithTheme(
         <RdsCheckbox
-          labeltext="Test"
+          labelText="Test"
           variant="circular"
           status="checked"
           color="primary"
@@ -608,8 +600,8 @@ describe('RdsCheckbox', () => {
   });
 
   describe('Props Validation', () => {
-    it('should accept string labeltext', () => {
-      renderWithTheme(<RdsCheckbox labeltext="String Label" />);
+    it('should accept string labelText', () => {
+      renderWithTheme(<RdsCheckbox labelText="String Label" />);
       expect(screen.getByText('String Label')).toBeInTheDocument();
     });
 
@@ -631,20 +623,6 @@ describe('RdsCheckbox', () => {
       expect(container2.querySelector('.rds-checkbox__circular')).toBeInTheDocument();
     });
 
-    it('should accept valid state values', () => {
-      const { unmount } = renderWithTheme(<RdsCheckbox {...defaultProps} state="default" />);
-      expect(screen.getByRole('checkbox')).toBeInTheDocument();
-      unmount();
-
-      const { unmount: unmount2 } = renderWithTheme(<RdsCheckbox {...defaultProps} state="disabled" />);
-      const checkboxes = screen.getAllByRole('checkbox');
-      expect(checkboxes[checkboxes.length - 1]).toBeDisabled();
-      unmount2();
-
-      renderWithTheme(<RdsCheckbox {...defaultProps} state="hover" />);
-      expect(screen.getByRole('checkbox')).toBeInTheDocument();
-    });
-
     it('should accept valid status values', () => {
       const { unmount } = renderWithTheme(<RdsCheckbox {...defaultProps} status="checked" />);
       let checkbox = screen.getByRole('checkbox') as HTMLInputElement;
@@ -663,12 +641,12 @@ describe('RdsCheckbox', () => {
 
     it('should accept boolean showText', () => {
       renderWithTheme(
-        <RdsCheckbox labeltext="Test" showText={true} />
+        <RdsCheckbox labelText="Test" showText={true} />
       );
       expect(screen.getByText('Test')).toBeInTheDocument();
 
       renderWithTheme(
-        <RdsCheckbox labeltext="Test2" showText={false} />
+        <RdsCheckbox labelText="Test2" showText={false} />
       );
       expect(screen.queryByText('Test2')).not.toBeInTheDocument();
     });
@@ -701,7 +679,7 @@ describe('RdsCheckbox', () => {
       expect(checkboxContainer).toHaveClass('rds-checkbox__square');
     });
 
-    it('should have state as default by default', () => {
+    it('should render by default without a visual state prop', () => {
       renderWithTheme(<RdsCheckbox {...defaultProps} />);
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeInTheDocument();
@@ -709,7 +687,7 @@ describe('RdsCheckbox', () => {
 
     it('should have showText as true by default', () => {
       renderWithTheme(
-        <RdsCheckbox labeltext="Default Text" />
+        <RdsCheckbox labelText="Default Text" />
       );
       expect(screen.getByText('Default Text')).toBeInTheDocument();
     });
@@ -724,14 +702,14 @@ describe('RdsCheckbox', () => {
 
 describe('RdsCheckbox — keyboard navigation', () => {
   it('is focusable via Tab', async () => {
-    renderWithTheme(<RdsCheckbox labeltext="Focus Test" showText />);
+    renderWithTheme(<RdsCheckbox labelText="Focus Test" showText />);
     await userEvent.tab();
     expect(screen.getByRole('checkbox')).toHaveFocus();
   });
 
   it('toggles checked state on Space key', async () => {
     const handleChange = jest.fn();
-    renderWithTheme(<RdsCheckbox labeltext="Toggle" showText onChange={handleChange} />);
+    renderWithTheme(<RdsCheckbox labelText="Toggle" showText onChange={handleChange} />);
     const checkbox = screen.getByRole('checkbox');
     checkbox.focus();
     await userEvent.keyboard(' ');
@@ -740,7 +718,7 @@ describe('RdsCheckbox — keyboard navigation', () => {
 
   it('does not toggle when disabled', async () => {
     const handleChange = jest.fn();
-    renderWithTheme(<RdsCheckbox labeltext="Disabled" showText disabled onChange={handleChange} />);
+    renderWithTheme(<RdsCheckbox labelText="Disabled" showText disabled onChange={handleChange} />);
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).toBeDisabled();
     await userEvent.keyboard(' ');
@@ -748,7 +726,7 @@ describe('RdsCheckbox — keyboard navigation', () => {
   });
 
   it('sets focus on the underlying checkbox input', async () => {
-    renderWithTheme(<RdsCheckbox labeltext="Input Focus" showText />);
+    renderWithTheme(<RdsCheckbox labelText="Input Focus" showText />);
     const checkbox = screen.getByRole('checkbox');
     checkbox.focus();
     expect(checkbox).toHaveFocus();
@@ -778,13 +756,18 @@ describe('RdsCheckbox audit fixes', () => {
   });
 
   it('reports deprecated props to the deprecation helper', () => {
-    render(<RdsCheckbox labeltext="Old" isDisabled />);
-    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCheckbox', 'labeltext', expect.any(String));
+    render(<RdsCheckbox labelText="Old" isDisabled />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCheckbox', 'isDisabled', expect.any(String));
   });
 });
 
 describe('RdsCheckbox additive renames', () => {
+  it('supports labelText and gives it precedence over label', () => {
+    renderWithTheme(<RdsCheckbox labelText="Canonical" label="Existing" />);
+    expect(screen.getByText('Canonical')).toBeInTheDocument();
+    expect(screen.queryByText('Existing')).not.toBeInTheDocument();
+  });
+
   it('uses variant over style for the shape', () => {
     const { container } = renderWithTheme(<RdsCheckbox label="A" variant="circular" style="square" />);
     expect(container.firstChild).toHaveClass('rds-checkbox__circular');

@@ -2,6 +2,8 @@ import { memo, type ElementType, type HTMLAttributes, type ReactNode, type Ref }
 import clsx from "clsx";
 import "./rds-comp-ai-gradient-text-with-icon.scss";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
 export interface RdsCompAiGradientTextWithIconProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
@@ -19,6 +21,7 @@ export interface RdsCompAiGradientTextWithIconProps
   /** Element used for the heading. Defaults to `h6`. */
   component?: ElementType;
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 /** @deprecated Use `RdsCompAiGradientTextWithIconProps` instead. */
@@ -34,6 +37,7 @@ const RdsCompAiGradientTextWithIcon = memo(({
   component: Heading = "h6",
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompAiGradientTextWithIconProps) => {
   const legacy: Record<string, unknown> = { logoUrl, logo, showImage, showIcon };
@@ -41,7 +45,7 @@ const RdsCompAiGradientTextWithIcon = memo(({
     if (legacy[key] !== undefined) warnDeprecatedProp("RdsCompAiGradientTextWithIcon", key, "`icon`");
   });
   return (
-    <div {...rest} ref={ref} className={clsx("rds-gradient-text-with-icon", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-gradient-text-with-icon", className)} sx={sx}>
       {icon ?? (
         <>
           {showImage && <img src={logoUrl} className="rds-gradient-text-with-icon__logo" alt={title ?? ''} />}
@@ -49,7 +53,7 @@ const RdsCompAiGradientTextWithIcon = memo(({
         </>
       )}
       <Heading className="rds-gradient-text-with-icon__title">{title}</Heading>
-    </div>
+    </Box>
   );
 });
 

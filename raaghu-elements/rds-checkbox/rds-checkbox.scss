@@ -25,8 +25,9 @@
     color: var(--rds-border-default);
     transition: var(--rds-checkbox-transition);
 
-    &:hover {
+    &:hover:not(.Mui-disabled) {
       background-color: transparent;
+      color: var(--rds-primary-main);
     }
 
     &:active,
@@ -61,12 +62,6 @@
 
     .MuiFormControlLabel-label {
       color: var(--rds-text-disabled);
-    }
-  }
-
-  &__hover {
-    .MuiCheckbox-root:not(.Mui-disabled) {
-      color: var(--rds-primary-main);
     }
   }
 

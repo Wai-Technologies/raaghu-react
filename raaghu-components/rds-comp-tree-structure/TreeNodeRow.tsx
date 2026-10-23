@@ -78,7 +78,7 @@ export const TreeNodeRow = ({
       <div
         className={clsx(
           'rds-comp-tree-structure__node',
-          props.state === 'Hover' && 'rds-comp-tree-structure__node--hover'
+          props.selected && 'rds-comp-tree-structure__node--selected'
         )}
         style={{ marginLeft: level * 20 }}
       >
@@ -126,8 +126,7 @@ export const TreeNodeRow = ({
           {props.showFile && (
             <span className="rds-comp-tree-structure__icon rds-comp-tree-structure__icon--file">
               {props.getFileIcon ?
-                props.getFileIcon(node.language || props.Language || 'Default') :
-                // minimal fallback: render nothing if no icon provider
+                props.getFileIcon(node.language || props.language || 'Default') :
                 <span />
               }
             </span>

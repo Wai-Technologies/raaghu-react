@@ -1,4 +1,5 @@
-import { Suspense, lazy, useCallback, useId, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useId, useMemo, useRef, useState, type HTMLAttributes, type Ref } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import type { ComponentType } from "react";
 import clsx from 'clsx';
 import { InputLabel as Label } from "@mui/material";
@@ -13,7 +14,7 @@ const Editor = lazy(() =>
 ) as ComponentType<any>;
 import "./rds-comp-text-editor.scss";
 
-export interface RdsCompTextEditorProps {
+export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange" | "style"> {
     id?: string;
     onChange?(value: string, delta: unknown, source: unknown, editor: unknown): void;
     placeholder?: string;
@@ -27,11 +28,13 @@ export interface RdsCompTextEditorProps {
     error?: boolean;
     disabled?: boolean;
     labelClass?: string;
-    State?: string;
+    state?: string;
     focused?: boolean;
     showTitle?: boolean;
     rows?: number;
     resizable?: boolean;
+    sx?: SxProps<Theme>;
+    ref?: Ref<HTMLDivElement>;
 }
 
 type DraftEditorState = ReturnType<typeof EditorState.createEmpty>;
@@ -63,16 +66,20 @@ const RdsCompTextEditor = ({
     error,
     disabled,
     labelClass,
-    State,
+    state,
     focused,
     showTitle,
     rows,
     resizable,
+    className,
+    sx,
+    ref,
+    ...rest
 }: RdsCompTextEditorProps) => {
     if (isMandatory !== undefined) warnDeprecatedProp('RdsCompTextEditor', 'isMandatory', '`required`');
     const isRequired = required ?? isMandatory;
-    const isError = error ?? State === "Error";
-    const isDisabled = disabled ?? State === "Disabled";
+    const isError = error ?? state === "Error";
+    const isDisabled = disabled ?? state === "Disabled";
     const uid = useId();
     const labelId = `${uid}-label`;
     const errorId = `${uid}-error`;
@@ -143,9 +150,9 @@ const RdsCompTextEditor = ({
     const isEmpty = useMemo(() => editorState.getCurrentContent().getPlainText().trim() === "", [editorState]);
 
     const stateClass = clsx(
-        State === "Selected" && "rds-comp-text-editor--selected",
+        state === "Selected" && "rds-comp-text-editor--selected",
         isError && "rds-comp-text-editor--error",
-        (focused || State === "Active") && "rds-comp-text-editor--active",
+        (focused || state === "Active") && "rds-comp-text-editor--active",
         isDisabled && "rds-comp-text-editor--disabled",
         isResizable && "rds-comp-text-editor--resizable"
     );
@@ -158,9 +165,12 @@ const RdsCompTextEditor = ({
                     {isRequired && <span className="text-danger">*</span>}
                 </Label>
             )}
-            <div
+            <Box
+                {...rest}
                 id={id}
-                className={clsx("rds-comp-text-editor", stateClass)}
+                ref={ref}
+                className={clsx("rds-comp-text-editor", stateClass, className)}
+                sx={sx}
                 {...(showTitle && label ? { role: "group", "aria-labelledby": labelId } : {})}
             >
                 <Suspense fallback={<div className="rds-comp-text-editor__loading" />}>
@@ -178,7 +188,7 @@ const RdsCompTextEditor = ({
                         toolbar={toolbarConfig}
                     />
                 </Suspense>
-            </div>
+            </Box>
             {isRequired && isEmpty && isTouch && (
                 <div className="form-control-feedback" id={errorId} role="alert">
                     <span className="text-danger">{label} is required</span>

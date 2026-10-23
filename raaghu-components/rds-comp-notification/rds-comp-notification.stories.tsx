@@ -33,6 +33,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the notification root and cards.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the notification root.' },
+        ref: { control: false, description: 'React ref to the notification root; assign it in code.' },
         title: {
             control: { type: 'text' },
             description: 'Title for all notifications (overrides notification.title)',
@@ -110,8 +113,7 @@ export const Default: Story = {
 
 Default.parameters = {
     controls: {
-        include: ['title', 'description', 'fallbackImage', 'orientation', 'variant', 'type', 'items', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss']
+        include: ['title', 'description', 'fallbackImage', 'orientation', 'variant', 'type', 'items', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss', 'className', 'sx', 'ref']
     }
 };
-
 

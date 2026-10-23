@@ -27,7 +27,6 @@ const EMPTY_TOUR_SLIDES: RdsCompProductTourProps['slides'] = [];
 const EMPTY_TAB_TITLES: string[] = [];
 
 const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
-    state,
     variant,
     anchorCorner,
     topLeft,
@@ -53,7 +52,15 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     items,
     tabTitle,
     onClose,
-    ...legacyProps
+    showDismiss: legacyShowDismissProp,
+    showPrimaryButton: legacyShowPrimaryButtonProp,
+    showSecondaryButton: legacyShowSecondaryButtonProp,
+    showTertiaryButton: legacyShowTertiaryButtonProp,
+    showVisualPlaceholder: legacyShowVisualPlaceholderProp,
+    className,
+    sx,
+    ref,
+    ...rest
 }) => {
     if (header !== undefined) warnDeprecatedProp('RdsCompProductTour', 'header', '`title`');
     if (formTitle !== undefined) warnDeprecatedProp('RdsCompProductTour', 'formTitle', '`subtitle`');
@@ -62,20 +69,24 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     Object.entries({ topLeft, topRight, bottomLeft, bottomRight }).forEach(([k, v]) => {
         if (v !== undefined) warnDeprecatedProp('RdsCompProductTour', k, '`anchorCorner`');
     });
-    const resolvedVariant = variant ?? state ?? "Image";
+    const resolvedVariant = variant ?? "Image";
     const resolvedHeader = title ?? header;
     const resolvedSubtitle = subtitle ?? formTitle;
     const corner = (c: ProductTourCorner, legacy?: boolean) => anchorCorner !== undefined ? anchorCorner === c : legacy === true;
     const headerId = useId();
     const rootProps = {
+        ...rest,
         role: 'dialog' as const,
-        'aria-labelledby': resolvedHeader ? headerId : undefined
+        'aria-labelledby': resolvedHeader ? headerId : undefined,
+        className,
+        sx,
+        ref,
     };
-    const legacyShowDismiss = typeof legacyProps.showDismiss === 'boolean' ? legacyProps.showDismiss : undefined;
-    const legacyShowPrimaryButton = typeof legacyProps.showPrimaryButton === 'boolean' ? legacyProps.showPrimaryButton : undefined;
-    const legacyShowSecondaryButton = typeof legacyProps.showSecondaryButton === 'boolean' ? legacyProps.showSecondaryButton : undefined;
-    const legacyShowTertiaryButton = typeof legacyProps.showTertiaryButton === 'boolean' ? legacyProps.showTertiaryButton : undefined;
-    const legacyShowVisualPlaceholder = typeof legacyProps.showVisualPlaceholder === 'boolean' ? legacyProps.showVisualPlaceholder : undefined;
+    const legacyShowDismiss = legacyShowDismissProp;
+    const legacyShowPrimaryButton = legacyShowPrimaryButtonProp;
+    const legacyShowSecondaryButton = legacyShowSecondaryButtonProp;
+    const legacyShowTertiaryButton = legacyShowTertiaryButtonProp;
+    const legacyShowVisualPlaceholder = legacyShowVisualPlaceholderProp;
 
     const showDismiss = controls?.dismiss ? controls.dismiss === 'visible' : (legacyShowDismiss ?? true);
     const showPrimaryButton = controls?.primary ? controls.primary === 'visible' : (legacyShowPrimaryButton ?? true);
@@ -124,7 +135,6 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
         if (!effectiveSlides || effectiveSlides.length === 0) return;
         setCurrentIndex((i) => (i - 1 + totalSlides) % totalSlides);
     }, [effectiveSlides, totalSlides]);
-    const carouselState = String(currentIndex + 1);
     const handleClose = useCallback(() => {
         setIsVisible(false);
         if (onClose) {
@@ -182,7 +192,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                     <Typography variant="body2" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-wrapper">
-                    <RdsCarousel showIndicators={false} showArrows={false} type="circle" variant="default" height="var(--rds-carousel-height, 300px)" state={carouselState as unknown as '1' | '2' | '3' | '4' | undefined}>
+                    <RdsCarousel showIndicators={false} showArrows={false} type="circle" variant="default" height="var(--rds-carousel-height, 300px)" activeIndex={currentIndex}>
                         {showVisualPlaceholder ? effectiveSlides.map((slide, index) => (
                             <img key={slide.imgUrl || `slide-${index}`} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
                         )) : []}

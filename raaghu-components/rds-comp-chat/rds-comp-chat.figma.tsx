@@ -17,7 +17,7 @@ figma.connect(
     props: {},
     example: (props) => (
       <RdsCompChat
-        OtherUserCommentTextColor="var(--rds-text-primary)"
+        otherUserCommentTextColor="var(--rds-text-primary)"
         currentUserCommentBgColor="var(--rds-primary-main)"
         currentUserCommentTextColor="var(--rds-primary-contrast-text, var(--rds-neutral-0))"
         onAddComment={() => {}}

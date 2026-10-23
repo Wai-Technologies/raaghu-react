@@ -1,6 +1,6 @@
 import React from "react"
 import  RdsDatepicker from "./rds-comp-datepicker"
-import { DatePickerLayout, DatePickerState } from "./rds-comp-datepicker.types"
+import { DatePickerLayout } from "./rds-comp-datepicker.types"
 import figma from "@figma/code-connect"
 
 
@@ -12,11 +12,6 @@ figma.connect(
       required: figma.boolean("❗ - Is Mandatory"),
       showTitle: figma.boolean("🆕 - Show Title"),
       placeholder: figma.string("✏️ Placeholder Text"),
-      state: figma.enum("💡 State", {
-        Default: DatePickerState.Default,
-        Expanded: DatePickerState.Expanded,
-        Selected: DatePickerState.Selected,
-      }),
       variant: figma.enum("⚠️ Type", {
         Default: "dropdown",
         Selector: "selector",

@@ -10,14 +10,14 @@ figma.connect(
       showTitle: figma.boolean("🆕 - Show Title"),
       label: figma.string("✏️ Change Title"),
       required: figma.boolean("❗ - Is Mandatory"),
-      disabled: figma.boolean("💡 State"),
+      disabled: figma.boolean("Disabled"),
+      selected: figma.boolean("Selected"),
     },
   example: (props) => <RdsCounter 
   min={0} 
   max={50} 
   {...props} 
   placeholder={'0'} 
-  disabled={false}
   onChange={() => {}} />, 
   },
 )

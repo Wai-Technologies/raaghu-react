@@ -34,7 +34,7 @@ export interface RdsCompEmptyStateProps extends Omit<BoxProps, "children" | "ref
   /** @deprecated Use `imageSize` instead. */
   iconWidth?: string | number;
   /** @deprecated Use `image` instead. */
-  iconPath?: string;
+  iconPath?: string | ReactNode;
   /** @deprecated Use `action` instead. */
   buttonText?: string;
   /** @deprecated Use `action` instead. */

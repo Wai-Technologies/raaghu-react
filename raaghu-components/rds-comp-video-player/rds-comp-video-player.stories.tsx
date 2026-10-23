@@ -68,6 +68,10 @@ const meta: Meta = {
             control: 'text',
             description: 'URL of the video to play',
         },
+        sx: {
+            control: 'object',
+            description: 'MUI system styles applied to the video player root.',
+        },
     },
 } satisfies Meta<typeof RdsCompVideoPlayer>;
 

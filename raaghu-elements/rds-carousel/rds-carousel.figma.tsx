@@ -13,11 +13,11 @@ figma.connect(
         "With Title": "with title",
         "Full Width Image": "full width image",
       }),
-      state: figma.enum("💡 State", {
-        "1": "1",
-        "2": "2", 
-        "3": "3",
-        "4": "4"
+      activeIndex: figma.enum("💡 Active Slide", {
+        "1": 0,
+        "2": 1,
+        "3": 2,
+        "4": 3,
       }),
     },
     example: (props) => (

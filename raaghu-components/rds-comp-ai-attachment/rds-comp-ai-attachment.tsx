@@ -5,17 +5,19 @@ import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
 import "./rds-comp-ai-attachment.scss";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
-import RdsCompAiFabMenu from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
+import RdsCompAiFabMenu, { type RdsCompAiFabMenuIcon } from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
 export interface RdsCompAiAttachmentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "id" | "children" | "onChange"> {
-  /** Registered icon name for the menu trigger. */
-  icon?: string;
+  /** Built-in icon name or a custom icon element for the menu trigger. */
+  icon?: RdsCompAiFabMenuIcon;
   /** @deprecated Use `icon` instead. */
-  menuIcon?: string;
+  menuIcon?: RdsCompAiFabMenuIcon;
   /** @deprecated Use `slotProps.dialog.title` instead. */
   modalTitle?: string;
   /** @deprecated Use `slotProps.dialog.hintText` instead. */
@@ -62,6 +64,7 @@ export interface RdsCompAiAttachmentProps
   menuAlignment?: "left" | "right";
   /** Ref to the root element. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 export type RdsCompAiAttachmentBadgeProps = Omit<Partial<RdsBadgeProps>, "color"> & {
@@ -147,6 +150,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
     menuAlignment,
     className,
     ref,
+    sx,
     ...rest
   } = props;
   for (const [name, replacement] of Object.entries(DEPRECATED_PROPS)) {
@@ -226,7 +230,6 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
                   layout="text"
                   shape="rectangle"
                   size="small"
-                  state="default"
                   styleType="primary"
                   {...badgeRest}
                   colorVariant={color ?? badgeRest.colorVariant ?? (badgeColor || "primary")}
@@ -249,7 +252,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
   }, [openModal, resolvedUploadText, badgeContent, badgeProps, badgeColor, handleImportClick, resolvedImportText]);
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)} sx={sx}>
       <input
         type="file"
         accept="image/*"
@@ -289,7 +292,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
           />
         </RdsModal>
       )}
-    </div>
+    </Box>
   );
 };
 

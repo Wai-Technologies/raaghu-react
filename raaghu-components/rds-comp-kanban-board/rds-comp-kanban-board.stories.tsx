@@ -23,6 +23,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the Kanban board root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the Kanban board root.' },
+        ref: { control: false, description: 'React ref to the Kanban board root; assign it in code.' },
         noDataTitle: {
             table: { disable: true },
         },

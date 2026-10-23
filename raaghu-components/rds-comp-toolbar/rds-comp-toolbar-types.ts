@@ -1,43 +1,34 @@
 import type { HTMLAttributes, Ref } from 'react';
+import type { SxProps, Theme } from '@mui/material';
 import type { ToolbarButtonConfig } from './rds-comp-toolbar-config-types';
 
-export enum ToolbarLayout {
-  Primary = 'primary',
-  Secondary = 'secondary'
-}
+export const ToolbarLayout = {
+  Primary: 'primary',
+  Secondary: 'secondary',
+} as const;
+export type ToolbarLayout = (typeof ToolbarLayout)[keyof typeof ToolbarLayout];
 
-export enum ToolbarType {
-  InlineEditor = 'inline-editor',
-  FullFeatured = 'full-featured',
-  MoreText = 'more-text',
-  MoreParagraph = 'more-paragraph',
-  MoreRichContent = 'more-rich-content',
-  Misc = 'misc'
-}
-
-export enum ToolbarState {
-  Off = 'off',
-  On = 'on',
-  DisabledOn = 'disabled-on',
-  DisabledOff = 'disabled-off'
-}
+export const ToolbarType = {
+  InlineEditor: 'inline-editor',
+  FullFeatured: 'full-featured',
+  MoreText: 'more-text',
+  MoreParagraph: 'more-paragraph',
+  MoreRichContent: 'more-rich-content',
+  Misc: 'misc',
+} as const;
+export type ToolbarType = (typeof ToolbarType)[keyof typeof ToolbarType];
 
 export interface RdsCompToolbarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
   /** Figma layout: one row (`primary`) or one row per section (`secondary`). */
   layout?: ToolbarLayout;
   /** Alias of `layout`; wins over `layout` when both are passed. */
-  variant?: `${ToolbarLayout}`;
+  variant?: ToolbarLayout;
   /** Built-in preset used when `items` is not passed. */
   type?: ToolbarType;
   /** Alias of `type`; wins over `type` when both are passed. */
   preset?: `${ToolbarType}`;
-  /**
-   * Figma state. `disabled-on` and `disabled-off` both disable interaction unless `disabled` is set.
-   * Visually: `disabled-on` keeps a full-opacity “on” bar; `disabled-off` uses a dimmed “off” look.
-   */
-  state?: ToolbarState;
-  /** Disables every button. Wins over `state`. */
+  /** Disables every button. */
   disabled?: boolean;
   /** Custom sections of buttons. Replaces the `type` preset. Give a button `options` to make it a dropdown. */
   items?: ToolbarButtonConfig[][];
@@ -52,6 +43,8 @@ export interface RdsCompToolbarProps
   /** Called when a dropdown option or emoji is chosen, with the parent button action and the chosen value. */
   onOptionSelect?: (action: string, value: string) => void;
   className?: string;
+  /** MUI system styles applied to the toolbar root. */
+  sx?: SxProps<Theme>;
   'data-testid'?: string;
   ref?: Ref<HTMLDivElement>;
 }

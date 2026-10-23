@@ -19,6 +19,9 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the navigation tabs root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the navigation tabs root.' },
+        ref: { control: false, description: 'React ref to the navigation tabs root; assign it in code.' },
         layout: {
             options: [
                 "Horizontal",
@@ -71,5 +74,5 @@ export const Default: Story = {
         await expect(tab).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'variant'] } };
+Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'variant', 'className', 'sx', 'ref'] } };
 

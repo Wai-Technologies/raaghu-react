@@ -1,4 +1,5 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, Ref } from 'react';
+import type { SxProps, Theme } from '@mui/material';
 
 export type TimePickerColor = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
 
@@ -17,9 +18,9 @@ export interface RdsTimePickerProps {
   /** @deprecated Use `color` instead. */
   colorVariant?: TimePickerColor;
   color?: TimePickerColor;
-  /** Figma prop. */
-  state?: 'default' | 'expanded' | 'selected';
-  /** Popup open state (controlled). Wins over `state`. */
+  /** Applies the selected appearance to the input. */
+  selected?: boolean;
+  /** Popup open state (controlled). */
   open?: boolean;
   /** Initial popup open state (uncontrolled). */
   defaultOpen?: boolean;
@@ -32,4 +33,8 @@ export interface RdsTimePickerProps {
   disabled?: boolean;
   /** Overrides for the visible texts. */
   localeText?: RdsTimePickerLocaleText;
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  [key: `data-${string}`]: string | number | undefined;
 }

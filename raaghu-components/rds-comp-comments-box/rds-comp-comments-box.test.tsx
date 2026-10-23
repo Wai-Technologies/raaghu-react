@@ -1,12 +1,10 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCommentBox, { useCommentsBoxLogic, DropdownMenu } from './rds-comp-comments-box';
-import { ColorPickerType } from '../rds-comp-color-picker/rds-comp-color-picker.types';
 
-// Mock dependencies
 jest.mock('./rds-comp-comments-box.scss', () => ({}));
 jest.mock('../../raaghu-elements/rds-avatar/rds-avatar', () => ({
   __esModule: true,
@@ -39,15 +37,8 @@ jest.mock('@mui/icons-material/InsertDriveFile', () => {
   };
 });
 
-jest.mock('./rds-comp-comments-logic-combined', () => ({
-  RdsCommentBoxLogic: function MockCommentBoxLogic() {
-    return <div data-testid="comment-box-logic" />;
-  },
-}));
-
 const defaultProps = {
   avatarInitials: 'JD',
-  state: 'default' as const,
 };
 
 describe('RdsCommentBox', () => {
@@ -57,83 +48,38 @@ describe('RdsCommentBox', () => {
 
   describe('Basic Rendering', () => {
     it('renders the component without crashing', () => {
-      const { container } = render(<RdsCommentBox {...defaultProps} state="default" />);
+      const { container } = render(<RdsCommentBox {...defaultProps} />);
       expect(container).toBeInTheDocument();
     });
 
-    it('renders default state with Avatar', () => {
-      render(<RdsCommentBox {...defaultProps} state="default" />);
+    it('renders the interactive composer with an avatar and input', () => {
+      render(<RdsCommentBox {...defaultProps} />);
       expect(screen.getByTestId('rds-avatar')).toBeInTheDocument();
       expect(screen.getByTestId('rds-avatar')).toHaveTextContent('JD');
+      expect(screen.getByRole('textbox')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'send comment' })).toBeDisabled();
     });
 
     it('renders with default avatar initials when not provided', () => {
-      render(<RdsCommentBox state="default" avatarInitials="RD" />);
+      render(<RdsCommentBox avatarInitials="RD" />);
       expect(screen.getByTestId('rds-avatar')).toHaveTextContent('RD');
     });
 
-    it('renders RdsBox with correct class for default state', () => {
-      render(<RdsCommentBox {...defaultProps} state="default" />);
-      expect(screen.getByTestId('rds-box')).toHaveClass('rds-comments-box', 'rds-comments-box--default');
+    it('uses the existing placeholder props and allows sending a draft', async () => {
+      render(<RdsCommentBox {...defaultProps} placeholderText="Write a comment" />);
+      const input = screen.getByRole('textbox');
+      await userEvent.type(input, 'Hello');
+      expect(input).toHaveValue('Hello');
+      const sendButton = screen.getByRole('button', { name: 'send comment' });
+      expect(sendButton).toBeEnabled();
+      await userEvent.click(sendButton);
+      expect(input).toHaveValue('');
     });
 
-    it('renders RdsCommentBoxLogic when state is not default', () => {
-      render(<RdsCommentBox {...defaultProps} state="selected" />);
-      expect(screen.getByTestId('comment-box-logic')).toBeInTheDocument();
-    });
-
-    it('renders RdsCommentBoxLogic when state is undefined', () => {
-      render(<RdsCommentBox {...defaultProps} state="default" />);
-      expect(screen.getByTestId('rds-box')).toBeInTheDocument();
-    });
-  });
-
-  describe('Avatar Display', () => {
-    it('displays correct avatar initials', () => {
-      render(<RdsCommentBox avatarInitials="AB" state="default" />);
-      expect(screen.getByTestId('rds-avatar')).toHaveTextContent('AB');
-    });
-
-    it('displays avatar with correct class', () => {
-      render(<RdsCommentBox {...defaultProps} state="default" />);
-      const avatar = screen.getByTestId('rds-avatar');
-      expect(avatar).toHaveClass('rds-comments-box__avatar');
-    });
-
-    it('has RdsAvatar component rendered', () => {
-      render(<RdsCommentBox {...defaultProps} state="default" />);
-      expect(screen.getByTestId('rds-avatar')).toBeInTheDocument();
-    });
-
-    it('avatar is child of RdsBox', () => {
-      render(<RdsCommentBox {...defaultProps} state="default" />);
-      const box = screen.getByTestId('rds-box');
-      const avatar = screen.getByTestId('rds-avatar');
-      expect(box).toContainElement(avatar);
-    });
-  });
-
-  describe('State Variants', () => {
-    it('renders default state when state prop is "default"', () => {
-      render(<RdsCommentBox {...defaultProps} state="default" />);
-      expect(screen.getByTestId('rds-box')).toBeInTheDocument();
-      expect(screen.queryByTestId('comment-box-logic')).not.toBeInTheDocument();
-    });
-
-    it('renders logic component when state is other than default', () => {
-      render(<RdsCommentBox {...defaultProps} state="comment Thread" />);
-      expect(screen.getByTestId('comment-box-logic')).toBeInTheDocument();
-    });
-
-    it('renders logic component when state is undefined', () => {
-      render(<RdsCommentBox avatarInitials="JD" state="default" />);
-      expect(screen.getByTestId('rds-box')).toBeInTheDocument();
-    });
-
-    it('renders logic component with all props passed through', () => {
-      const props = { ...defaultProps, state: 'comment Posted' as const, customProp: 'value' };
-      render(<RdsCommentBox {...props} />);
-      expect(screen.getByTestId('comment-box-logic')).toBeInTheDocument();
+    it('shows a focusable comment input', async () => {
+      render(<RdsCommentBox {...defaultProps} />);
+      await userEvent.tab();
+      expect(screen.getByRole('textbox')).toHaveFocus();
     });
   });
 });

@@ -82,11 +82,6 @@ const meta: Meta<typeof RdsCard> = {
       control: 'number',
       description: 'Elevation (shadow) of the card',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'selected', 'disabled'],
-      description: 'Choose between four states Default, Hover, Disabled, and Selected to visually indicate the card\'s interaction status.',
-    },
     showIndicator: {
       control: 'boolean',
       description: 'Toggle this switch to show or hide the card\'s indicator, depending on the design needs.',
@@ -125,11 +120,11 @@ const meta: Meta<typeof RdsCard> = {
     },
     selected: {
       control: 'boolean',
-      description: 'Shows the card as selected and sets `aria-current` (or `aria-selected` for roles that support it). Takes precedence over `state`.',
+      description: 'Shows the card as selected and sets `aria-current` (or `aria-selected` for roles that support it).',
     },
     disabled: {
       control: 'boolean',
-      description: 'Shows the card as disabled and sets `aria-disabled`. Takes precedence over `state` and `selected`.',
+      description: 'Shows the card as disabled and sets `aria-disabled`.',
     },
     title: {
       control: 'text',
@@ -151,7 +146,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    state: 'default',
     variant: 'default',
     showIndicator: true,
     showTitle: true,
@@ -178,7 +172,7 @@ export const Default: Story = {
 };
 Default.parameters = { 
   controls: { 
-    include: ['state', 'selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
@@ -196,7 +190,7 @@ export const Elevated: Story = {
 };
 Elevated.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
@@ -210,13 +204,12 @@ export const Outlined: Story = {
 };
 Outlined.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']  
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithActions: Story = {
   args: {
-    state: 'default',
     title: 'Card with Actions',
     showDescription: true,
     description: 'This card includes action buttons at the bottom.',
@@ -232,12 +225,11 @@ export const WithActions: Story = {
 };
 WithActions.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 export const WithAvatar: Story = {
   args: {
-    state: 'default',
     variant: 'default',
     showIndicator: true,
     showTitle: true,
@@ -251,7 +243,7 @@ export const WithAvatar: Story = {
   } as any,
   parameters: {
     controls: {
-      include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'isEditing'],
+      include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'isEditing'],
     },
   },
   argTypes: {
@@ -399,13 +391,12 @@ export const WithAvatar: Story = {
 };
 WithAvatar.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']  
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithBadges: Story = {
   args: {
-    state: 'default',
     variant: 'default',
     showIndicator: true,
     showTitle: true,
@@ -438,13 +429,12 @@ export const WithBadges: Story = {
 };
 WithBadges.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithButton: Story = {
   args: {
-    state: 'default',
     variant: 'default',
     showIndicator: true,
     showTitle: true,
@@ -478,7 +468,7 @@ export const WithButton: Story = {
 };
 WithButton.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']   } 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']   }
 };
 
 export const WithCustomPadding: Story = {
@@ -491,13 +481,12 @@ export const WithCustomPadding: Story = {
 };
 WithCustomPadding.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']  
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithImage: Story = {
   args: {
-    state: 'default',
     variant: 'default',
     showIndicator: true,
     showTitle: true,
@@ -548,13 +537,12 @@ export const WithImage: Story = {
 };
 WithImage.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithLinkButton: Story = {
   args: {
-    state: 'default',
     variant: 'default',
     showIndicator: true,
     showTitle: true,
@@ -578,13 +566,12 @@ export const WithLinkButton: Story = {
 };
 WithLinkButton.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
 
 export const WithTags: Story = {
   args: {
-    state: 'default',
     variant: 'default',
     showIndicator: true,
     showTitle: true,
@@ -618,7 +605,6 @@ export const WithTags: Story = {
 };
 WithTags.parameters = { 
   controls: { 
-    include: ['state', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant'] 
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
   } 
 };
-

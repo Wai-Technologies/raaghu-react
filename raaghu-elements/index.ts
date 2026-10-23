@@ -61,12 +61,12 @@ export { default as RdsFileUploader } from './rds-file-uploader/rds-file-uploade
 export {default as RdsButtonDropdown} from './rds-button-dropdown/rds-button-dropdown';
 export {default as RdsMultiLevelMenu} from './rds-multi-level-menu/rds-multi-level-menu';
 export {default as RdsTextArea} from './rds-text-area/rds-text-area';
-export { TextareaState, TextareaStyle } from './rds-text-area/rds-text-area';
+export type { TextareaStyle } from './rds-text-area/rds-text-area';
 
 export type { RdsButtonProps } from './rds-button/rds-button';
 export type { RdsTypographyProps } from './rds-typography/rds-typography';
 export type { RdsTextFieldProps } from './rds-text-field/rds-text-field';
-export type { RdsCardProps, CardState, CardStyle, CardLayout, CardIconName } from './rds-card/rds-card';
+export type { RdsCardProps, CardStyle, CardLayout, CardIconName } from './rds-card/rds-card';
 export type { RdsChipProps } from './rds-chip/rds-chip';
 export type { RdsAvatarProps } from './rds-avatar/rds-avatar';
 export type { RdsCheckboxProps } from './rds-checkbox/rds-checkbox';
@@ -84,7 +84,7 @@ export type { RdsBreadcrumbsProps, RdsBreadcrumbItem, RdsBreadcrumbIcon } from '
 export { BreadcrumbSeparator } from './rds-breadcrumbs/rds-breadcrumbs-types';
 export type { RdsContainerProps } from './rds-container/rds-container';
 export type { RdsDialogProps } from './rds-dialog/rds-dialog';
-export type { RdsDividerProps } from './rds-divider/rds-divider';
+export type { RdsDividerProps, RdsDividerIconName } from './rds-divider/rds-divider';
 export type { RdsModalProps } from './rds-modal/rds-modal';
 export type { RdsDrawerProps } from './rds-drawer/rds-drawer';
 export type { RdsFabProps } from './rds-fab/rds-fab';

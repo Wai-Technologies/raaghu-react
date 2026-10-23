@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Box } from "@mui/material";
 import clsx from 'clsx';
 import "./rds-comp-color-picker.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
@@ -57,6 +58,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
     onChange,
     onAddSwatch,
     swatches,
+    sx,
     className,
     ref,
     ...rest
@@ -245,12 +247,13 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   }, [updatePickerState]);
 
   return (
-    <div
+    <Box
       role={label ? "group" : undefined}
       aria-label={label || undefined}
       {...rest}
       ref={ref}
       className={clsx("rds-comp-color-picker", className)}
+      sx={sx}
       style={typeof style === 'object' ? style : undefined}
       aria-disabled={isDisabled || undefined}
     >
@@ -326,7 +329,7 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
           )}
         </div>
       )}
-    </div>
+    </Box>
   );
 };
 RdsColorPicker.displayName = "RdsCompColorPicker";

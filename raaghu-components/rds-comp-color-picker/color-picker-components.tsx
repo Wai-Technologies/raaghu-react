@@ -432,7 +432,6 @@ export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE
   shape="rectangle"
   showLeftIcon
   size="small"
-  state="default"
   variant="transparent"
   text="Default Button"
   textCase="capitalize"

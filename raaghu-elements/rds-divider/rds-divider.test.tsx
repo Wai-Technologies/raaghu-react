@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsDivider, { RdsDividerProps } from './rds-divider';
+import RdsDivider, { RdsDividerProps, RdsDividerIconName } from './rds-divider';
 import '@testing-library/jest-dom';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { axe } from 'jest-axe';
@@ -218,7 +218,7 @@ describe('RdsDivider', () => {
       renderWithTheme(
         <RdsDivider
           iconShow={true}
-          iconName="InvalidIcon"
+          iconName={'InvalidIcon' as RdsDividerIconName}
           dividerMessage="Fallback Icon"
         />
       );
@@ -229,7 +229,7 @@ describe('RdsDivider', () => {
       renderWithTheme(
         <RdsDivider
           iconShow={true}
-          iconName="  Add  "
+          iconName={'  Add  ' as RdsDividerIconName}
           dividerMessage="Trimmed Icon"
         />
       );

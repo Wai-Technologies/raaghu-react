@@ -1,23 +1,27 @@
-import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import type { CSSProperties, HTMLAttributes, MouseEvent, ReactNode, Ref } from "react";
+import type { SxProps, Theme } from "@mui/material";
 
-export enum NotificationLayout {
-  Vertical = "vertical",
-  Horizontal = "horizontal",
-}
+export const NotificationLayout = {
+  Vertical: 'vertical',
+  Horizontal: 'horizontal',
+} as const;
+export type NotificationLayout = (typeof NotificationLayout)[keyof typeof NotificationLayout];
 
-export enum NotificationStyle {
-  Default = "default",
-  Avatar = "avatar",
-  Icon = "icon",
-  Image = "image",
-}
+export const NotificationStyle = {
+  Default: 'default',
+  Avatar: 'avatar',
+  Icon: 'icon',
+  Image: 'image',
+} as const;
+export type NotificationStyle = (typeof NotificationStyle)[keyof typeof NotificationStyle];
 
-export enum NotificationType {
-  Error = "error",
-  Info = "info",
-  Success = "success",
-  Warning = "warning",
-}
+export const NotificationType = {
+  Error: 'error',
+  Info: 'info',
+  Success: 'success',
+  Warning: 'warning',
+} as const;
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType];
 
 export interface NotificationItem {
   id?: string | number;
@@ -33,7 +37,7 @@ export interface NotificationItem {
   [key: string]: unknown;
 }
 
-export interface RdsCompNotificationProps {
+export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "style" | "children"> {
   items?: NotificationItem[];
   /** @deprecated Use `items` instead. */
   notifications?: NotificationItem[];
@@ -48,9 +52,9 @@ export interface RdsCompNotificationProps {
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
   style?: NotificationStyle | `${NotificationStyle}` | CSSProperties;
   /** MUI-named alias for `type`. */
-  severity?: NotificationType | `${NotificationType}`;
+  severity?: NotificationType;
   /** @deprecated Use `severity` instead. */
-  type?: NotificationType | `${NotificationType}`;
+  type?: NotificationType;
   actions?: "none" | "primary" | "secondary" | "both";
   /** @deprecated Use `showDismiss` instead. */
   dismiss?: "visible" | "hidden";
@@ -58,7 +62,8 @@ export interface RdsCompNotificationProps {
   dismissLabel?: string;
   /** Label of the primary (accept) button. Defaults to "ACCEPT". */
   acceptLabel?: string;
-  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
   onDismiss?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
   onAccept?: (event: MouseEvent<HTMLElement>, notification: NotificationItem) => void;
   /** Legacy boolean, still supported. */

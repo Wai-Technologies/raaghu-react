@@ -11,12 +11,11 @@ figma.connect(
       showTitle: figma.boolean("🆕 Show Title"),
       required: figma.boolean("❗ Is Mandatory"),
       showHintText: figma.boolean("🔤 Show Hint Text"),
-      state: figma.enum("💡 State",{
-        Default: "default",
-        Expanded: "expanded",
-        Selected: "selected",
-        Disabled: "disabled"
-      }),
+      open: figma.boolean("💡 Open"),
+      selected: figma.boolean("✅ Selected"),
+      disabled: figma.boolean("🚫 Disabled"),
+      error: figma.boolean("⚠️ Error"),
+      readOnly: figma.boolean("🔒 Read Only"),
       selectSize: figma.enum("📏 Size",  {
         "Small": "small",
         "Medium": "medium",

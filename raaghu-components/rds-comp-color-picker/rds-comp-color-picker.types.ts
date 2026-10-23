@@ -1,31 +1,36 @@
 import type { CSSProperties, HTMLAttributes, Ref } from "react";
+import type { SxProps, Theme } from "@mui/material";
 
-export enum ColorPickerType {
-  Default = "Default",
-  Button = "Button",
-  ButtonExpanded = "Button-Expanded",
-}
+export const ColorPickerType = {
+  Default: 'Default',
+  Button: 'Button',
+  ButtonExpanded: 'Button-Expanded',
+} as const;
+export type ColorPickerType = (typeof ColorPickerType)[keyof typeof ColorPickerType];
 
 export type ColorPickerVariant = 'inline' | 'button' | 'button-expanded';
 export type ColorPickerFormat = 'hex' | 'rgb' | 'hsb' | 'hsl';
 export type ColorPickerView = 'grid' | 'spectrum';
 
-export enum PickerType {
-  Grid = "Grid",
-  Spectrum = "Spectrum",
-}
+export const PickerType = {
+  Grid: 'Grid',
+  Spectrum: 'Spectrum',
+} as const;
+export type PickerType = (typeof PickerType)[keyof typeof PickerType];
 
-export enum ColorMode {
-  HEX = "HEX",
-  RGB = "RGB",
-  HSB = "HSB",
-  HSL = "HSL",
-}
+export const ColorMode = {
+  HEX: 'HEX',
+  RGB: 'RGB',
+  HSB: 'HSB',
+  HSL: 'HSL',
+} as const;
+export type ColorMode = (typeof ColorMode)[keyof typeof ColorMode];
 
-export enum StyleType {
-  Type1 = "Type 1",
-  Type2 = "Type 2",
-}
+export const StyleType = {
+  Type1: 'Type 1',
+  Type2: 'Type 2',
+} as const;
+export type StyleType = (typeof StyleType)[keyof typeof StyleType];
 
 /** Extra colour details passed as the second `onChange` argument. */
 export interface ColorChangeDetails {
@@ -77,6 +82,8 @@ export interface RdsCompColorPickerProps
   onAddSwatch?: () => void;
   /** Custom swatch colours. Defaults to the built-in list for the selected `style`. */
   swatches?: string[];
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
   /** Ref to the root `div`. */
   ref?: Ref<HTMLDivElement>;
 }

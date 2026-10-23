@@ -3,11 +3,14 @@ import "./rds-comp-reviews.scss";
 import { ReviewStyleCard } from "./rds-comp-review-styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import type { HTMLAttributes, Ref } from "react";
+import type { SxProps, Theme } from "@mui/material";
+import clsx from "clsx";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 export { type Item, VariantType, ReviewStyle, RevieweStyle } from "./rds-comp-reviews-types";
 import { type Item, VariantType, type ReviewStyle } from "./rds-comp-reviews-types";
 
-export interface RdsCompReviewsProps {
+export interface RdsCompReviewsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
   /** Reviews to render. */
   items?: Item[];
   /** @deprecated Use `items` instead. */
@@ -25,6 +28,8 @@ export interface RdsCompReviewsProps {
   onRatingChange?: (item: Item, value: number) => void;
   onLike?: (item: Item) => void;
   onDislike?: (item: Item) => void;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
 }
 
 const GRID_SIZE = {
@@ -49,6 +54,10 @@ const RdsCompReviews = ({
   onRatingChange,
   onLike,
   onDislike,
+  className,
+  sx,
+  ref,
+  ...rest
 }: RdsCompReviewsProps) => {
   if (itemList !== undefined) warnDeprecatedProp("RdsCompReviews", "itemList", "`items`");
   if (variantType !== VariantType.Default) {
@@ -60,7 +69,7 @@ const RdsCompReviews = ({
   const showDefaultVariant = variantType === VariantType.Default;
 
   return (
-    <Box className="rds-comp-reviews" style={typeof style === "object" ? style : undefined}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-reviews", className)} sx={sx} style={typeof style === "object" ? style : undefined}>
       {showDefaultVariant && (
         <Grid container spacing={2} wrap="wrap">
           {list.map((item, index) => (

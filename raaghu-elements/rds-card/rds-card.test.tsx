@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import RdsCard, { RdsCardProps } from './rds-card';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -115,25 +115,27 @@ describe('RdsCard', () => {
 
   describe('Card States', () => {
     it('should render default state', () => {
-      render(<RdsCard {...defaultProps} state="default" />);
+      render(<RdsCard {...defaultProps} />);
       const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--default');
+      expect(card).not.toHaveClass('rds-card--selected', 'rds-card--disabled');
     });
 
     it('should render hover state', () => {
-      render(<RdsCard {...defaultProps} state="hover" />);
+      const { container } = render(<RdsCard {...defaultProps} />);
+      fireEvent.mouseEnter(screen.getByTestId('card-root'));
       const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--hover');
+      expect(card).not.toHaveClass('rds-card--hover');
+      expect(container.querySelector('.rds-card--hover')).not.toBeInTheDocument();
     });
 
     it('should render selected state', () => {
-      render(<RdsCard {...defaultProps} state="selected" />);
+      render(<RdsCard {...defaultProps} selected />);
       const card = screen.getByTestId('card-root');
       expect(card).toHaveClass('rds-card--selected');
     });
 
     it('should render disabled state', () => {
-      render(<RdsCard {...defaultProps} state="disabled" />);
+      render(<RdsCard {...defaultProps} disabled />);
       const card = screen.getByTestId('card-root');
       expect(card).toHaveClass('rds-card--disabled');
     });
@@ -461,7 +463,7 @@ describe('RdsCard', () => {
           title="Full Card"
           cardSubtext="This is a subtext"
           description="This is a description"
-          state="selected"
+          selected
           variant="outlined"
           layout="horizontal"
           changeIcon="star"
@@ -615,12 +617,11 @@ describe('RdsCard', () => {
 
     it('should handle rapid prop changes', () => {
       const { rerender } = render(
-        <RdsCard state="default" />
+        <RdsCard />
       );
       
-      rerender(<RdsCard state="hover" />);
-      rerender(<RdsCard state="selected" />);
-      rerender(<RdsCard state="disabled" />);
+      rerender(<RdsCard selected />);
+      rerender(<RdsCard disabled />);
       
       const card = screen.getByTestId('card-root');
       expect(card).toHaveClass('rds-card--disabled');
@@ -650,10 +651,10 @@ describe('RdsCard', () => {
   });
 
   describe('Default Props', () => {
-    it('should have state as default by default', () => {
+    it('should not have selected or disabled classes by default', () => {
       render(<RdsCard />);
       const card = screen.getByTestId('card-root');
-      expect(card).toHaveClass('rds-card--default');
+      expect(card).not.toHaveClass('rds-card--selected', 'rds-card--disabled');
     });
 
     it('should have showIndicator as true by default', () => {
@@ -855,16 +856,15 @@ describe('RdsCard audit fixes', () => {
       expect(card).not.toHaveAttribute('aria-selected');
     });
 
-    it('disabled takes precedence over state and sets aria-disabled', () => {
-      render(<RdsCard state="hover" disabled />);
+    it('disabled sets aria-disabled', () => {
+      render(<RdsCard disabled />);
       const card = screen.getByTestId('card-root');
       expect(card).toHaveClass('rds-card--disabled');
-      expect(card).not.toHaveClass('rds-card--hover');
       expect(card).toHaveAttribute('aria-disabled', 'true');
     });
 
-    it('selected takes precedence over state and sets aria-current', () => {
-      render(<RdsCard state="hover" selected />);
+    it('selected sets aria-current', () => {
+      render(<RdsCard selected />);
       const card = screen.getByTestId('card-root');
       expect(card).toHaveClass('rds-card--selected');
       expect(card).toHaveAttribute('aria-current', 'true');
@@ -878,14 +878,6 @@ describe('RdsCard audit fixes', () => {
       expect(card).not.toHaveAttribute('aria-current');
     });
 
-    it('false booleans override the matching state', () => {
-      const { rerender } = render(<RdsCard state="disabled" disabled={false} />);
-      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--default');
-      expect(screen.getByTestId('card-root')).not.toHaveAttribute('aria-disabled');
-      rerender(<RdsCard state="selected" selected={false} />);
-      expect(screen.getByTestId('card-root')).toHaveClass('rds-card--default');
-    });
-
     it('disabled wins over selected', () => {
       render(<RdsCard selected disabled />);
       const card = screen.getByTestId('card-root');
@@ -894,10 +886,10 @@ describe('RdsCard audit fixes', () => {
       expect(card).not.toHaveAttribute('aria-current');
     });
 
-    it('sets aria attributes for the Figma state values too', () => {
-      const { rerender } = render(<RdsCard state="disabled" />);
+    it('sets aria attributes for disabled and selected props', () => {
+      const { rerender } = render(<RdsCard disabled />);
       expect(screen.getByTestId('card-root')).toHaveAttribute('aria-disabled', 'true');
-      rerender(<RdsCard state="selected" />);
+      rerender(<RdsCard selected />);
       expect(screen.getByTestId('card-root')).toHaveAttribute('aria-current', 'true');
     });
 
@@ -931,7 +923,7 @@ describe('RdsCard audit fixes', () => {
     });
 
     it('does not warn for supported props', () => {
-      render(<RdsCard showIcon showTitle content={{ icon: 'visible' }} state="selected" variant="outlined" />);
+      render(<RdsCard showIcon showTitle content={{ icon: 'visible' }} selected variant="outlined" />);
       expect(warnDeprecatedProp).not.toHaveBeenCalled();
     });
 
@@ -969,4 +961,3 @@ describe('RdsCard additive renames', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCard', 'padding', '`sx`');
   });
 });
-

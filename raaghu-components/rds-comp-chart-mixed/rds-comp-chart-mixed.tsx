@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartOptions, ChartDataset, ChartData } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
@@ -28,6 +30,7 @@ export interface RdsCompMixedChartProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompMixedChart = ({
@@ -42,6 +45,7 @@ const RdsCompMixedChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompMixedChartProps) => {
   const resolved = resolveChartData("RdsCompMixedChart", data, labels, dataSets);
@@ -57,7 +61,7 @@ const RdsCompMixedChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-chart-mixed", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-mixed", className)} sx={sx}>
       <canvas
         className="rds-chart-canvas"
         data-testid={id}
@@ -66,7 +70,7 @@ const RdsCompMixedChart = ({
         role="img"
         aria-label={resolveChartLabel("RdsCompMixedChart", ariaLabel, chartLabel, "Mixed chart")}
       />
-    </div>
+    </Box>
   );
 };
 

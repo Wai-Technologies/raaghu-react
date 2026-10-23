@@ -136,6 +136,14 @@ describe('RdsCompEmptyState', () => {
       expect(screen.queryByTestId('emptyStateMinimalIcon')).not.toBeInTheDocument();
     });
 
+    it('should render a custom icon node from iconPath', () => {
+      renderComponent({
+        iconPath: <span data-testid="custom-icon">Custom icon</span>,
+        isContinueAnimate: false,
+      });
+      expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+    });
+
     it('should default to illustration variant', () => {
       renderComponent({ isContinueAnimate: false });
       expect(screen.getByTestId('emptyStateImage')).toBeInTheDocument();

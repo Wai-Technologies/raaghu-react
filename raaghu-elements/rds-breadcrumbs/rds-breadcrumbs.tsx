@@ -1,4 +1,4 @@
-import { useState, type ReactNode, type ElementType, type KeyboardEvent, type MouseEvent } from 'react';
+import { useState, type ReactNode, type ReactElement, type ElementType, type KeyboardEvent, type MouseEvent } from 'react';
 import { Breadcrumbs as MuiBreadcrumbs, type BreadcrumbsProps, Link, Typography } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -44,8 +44,8 @@ const getDefaultIconForPosition = (index: number, label: string): string => {
   return positionIcons[index] || 'folder';
 };
 
-/** A built-in icon name (`'home'`, `'folder'`, `'category'`, `'business'`, `'inventory'`, `'star'`) or any icon element. */
-export type RdsBreadcrumbIcon = ReactNode;
+/** A built-in icon name or a custom icon element. */
+export type RdsBreadcrumbIcon = keyof typeof iconMap | ReactElement;
 
 const isIconGiven = (value: RdsBreadcrumbIcon): boolean =>
   value !== undefined && value !== null && value !== '' && typeof value !== 'boolean';
@@ -68,10 +68,10 @@ export interface RdsBreadcrumbItem {
   /** Called when the item is clicked. Receives the click event (e.g. to call `preventDefault()` for client-side routing). */
   onClick?: (event?: MouseEvent<HTMLElement>) => void;
   active?: boolean;
+  selected?: boolean;
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
   layout?: 'pill background' | 'without background' | 'square background';
   showIcon?: boolean;
-  state?: 'default' | 'hover' | 'selected';
   /** Built-in icon name (see `RdsBreadcrumbIcon`) or any icon element. Overrides the component-level `icon`. */
   icon?: RdsBreadcrumbIcon;
 }
@@ -85,7 +85,6 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children' |
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
   layout?: 'pill background' | 'without background' | 'square background';
   showIcon?: boolean;
-  state?: 'default' | 'hover' | 'selected';
   /** Built-in icon name (see `RdsBreadcrumbIcon`) or any icon element, used for every item that has no `icon` of its own. */
   icon?: RdsBreadcrumbIcon;
   /** @deprecated Set the first item's `label` instead. Replaces the label of the first item; not rendered as an HTML `title` attribute. */
@@ -102,7 +101,6 @@ const RdsBreadcrumbs = ({
   layout = 'without background',
   className,
   showIcon = true,
-  state,
   icon,
   title,
   autoIcons: autoIconsProp,
@@ -164,19 +162,6 @@ const RdsBreadcrumbs = ({
 
   const breadcrumbsClass = clsx('rds-breadcrumbs', getLayoutClass(), className);
   
-  const getStateClass = (itemState?: string) => {
-    const activeState = itemState || state || 'default';
-    switch (activeState) {
-      case 'hover':
-        return 'rds-breadcrumbs__item__hover';
-      case 'selected':
-        return 'rds-breadcrumbs__item__selected';
-      case 'default':
-      default:
-        return '';
-    }
-  };
-
   const getIconComponent = (itemIcon?: RdsBreadcrumbIcon, globalIcon?: RdsBreadcrumbIcon, index?: number, label?: string): ReactNode => {
     let iconName: RdsBreadcrumbIcon;
     if (isIconGiven(itemIcon)) {
@@ -207,8 +192,7 @@ const RdsBreadcrumbs = ({
       {filteredItems.map((item, index) => {
         const isLast = index === filteredItems.length - 1;
         const itemLayoutClass = getLayoutClass(item.layout);
-        const itemStateClass = getStateClass(item.state);
-        const isSelected = (item.state === 'selected') || (state === 'selected' && !item.state);
+        const isSelected = item.selected === true;
 
         const typographyClass = clsx(
           'rds-breadcrumbs__item',
@@ -234,8 +218,7 @@ const RdsBreadcrumbs = ({
           );
         }
 
-        const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item__enable-hover' : '';
-        const isClickable = Boolean(item.onClick) || item.state === 'selected' || state === 'selected';
+        const isClickable = Boolean(item.onClick) || item.selected === true;
         const buttonProps = !item.href && isClickable
           ? { role: 'button', tabIndex: 0, onKeyDown: activateOnKey }
           : {};
@@ -246,14 +229,14 @@ const RdsBreadcrumbs = ({
             href={item.href}
             {...buttonProps}
             onClick={e => {
-              if (item.state === 'selected' || state === 'selected') {
+              if (item.selected) {
                 setSelectedIdx(index);
                 e.preventDefault();
               }
               if (item.onClick) item.onClick(e);
             }}
             underline="hover"
-            className={`rds-breadcrumbs__item ${itemLayoutClass} ${itemStateClass} ${enableHoverClass}`.trim()}
+            className={clsx('rds-breadcrumbs__item', itemLayoutClass, item.selected && 'rds-breadcrumbs__item__selected')}
             sx={{ cursor: isClickable ? 'pointer' : 'default' }}
           >
             {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}

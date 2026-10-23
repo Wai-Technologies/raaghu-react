@@ -1,18 +1,22 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import clsx from "clsx";
 import "./rds-comp-scrollbar.scss";
 export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 
-export interface RdsScrollBarProps {
-  variant?: ScrollBarType | `${ScrollBarType}`;
-  type?: ScrollBarType | `${ScrollBarType}`;
-  position?: ScrollPosition | `${ScrollPosition}`;
+export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
+  variant?: ScrollBarType;
+  type?: ScrollBarType;
+  position?: ScrollPosition;
   showButtons?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   /** Content rendered inside the scroll container; replaces the placeholder. */
   children?: ReactNode;
+  className?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
 }
 
 const RdsCompScrollBar = ({
@@ -23,6 +27,10 @@ const RdsCompScrollBar = ({
   startIcon,
   endIcon,
   children,
+  className,
+  sx,
+  ref,
+  ...rest
 }: RdsScrollBarProps) => {
   const resolvedType = variant ?? type ?? ScrollBarType.Mac;
   const scrollContentRef = useRef<HTMLDivElement>(null);
@@ -47,7 +55,7 @@ const RdsCompScrollBar = ({
   const rootClassName = clsx("rds-scrollbar", resolvedType === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple");
 
   return (
-    <div className={rootClassName}>
+    <Box {...rest} ref={ref} className={clsx(rootClassName, className)} sx={sx}>
       {resolvedType === ScrollBarType.Mac && showButtons && (
         <div className="rds-scrollbar__controls">
           <button
@@ -71,7 +79,7 @@ const RdsCompScrollBar = ({
       <div className="rds-scrollbar__content" ref={scrollContentRef}>
         {children ?? <div className="rds-scrollbar__inner-content"></div>}
       </div>
-    </div>
+    </Box>
   );
 };
 

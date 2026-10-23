@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompBooleanChart from './rds-comp-chart-boolean';
+import type { ChartIconName } from './chart-icons';
 
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
@@ -708,7 +709,7 @@ describe('RdsCompBooleanChart', () => {
 
     it('plugin handles missing icon gracefully', () => {
       const { container } = render(
-        <RdsCompBooleanChart {...defaultProps} centerIconName="nonexistent" />
+        <RdsCompBooleanChart {...defaultProps} centerIconName={"nonexistent" as ChartIconName} />
       );
       expect(container.querySelector('canvas')).toBeInTheDocument();
     });
@@ -731,7 +732,7 @@ describe('audit fixes', () => {
     jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
     const Chart = jest.requireMock('chart.js/auto');
     Chart.mockClear();
-    render(<RdsCompBooleanChart {...defaultProps} centerIconName="nope" />);
+    render(<RdsCompBooleanChart {...defaultProps} centerIconName={"nope" as ChartIconName} />);
     render(<RdsCompBooleanChart {...defaultProps} centerIconName={undefined} id="b2" />);
     expect(Chart.mock.calls[0][1].plugins).toBeUndefined();
     expect(Chart.mock.calls[1][1].plugins).toBeUndefined();

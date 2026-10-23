@@ -1,7 +1,9 @@
 import type { HTMLAttributes, ReactNode, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import Chart, { type ChartData, type ChartOptions, type ChartDataset } from "chart.js/auto";
-import { ChartIcons } from "./chart-icons";
+import { ChartIcons, type ChartIconName } from "./chart-icons";
 import { applyCanvasSize, getCSSVar, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -28,13 +30,14 @@ export interface RdsCompBooleanChartProps
   /** Node shown over the centre of the chart. Takes precedence over `centerIconName`. */
   centerIcon?: ReactNode;
   /** @deprecated Use `centerIcon` instead. Name of the icon drawn in the centre (a key of `ChartIcons`). */
-  centerIconName?: string;
+  centerIconName?: ChartIconName;
   /** Accessible label of the chart. Defaults to "Boolean chart". */
   ariaLabel?: string;
   /** @deprecated Use `ariaLabel` instead. */
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 /** Resolves CSS variables in SVG by replacing them with computed color values. */
@@ -61,6 +64,7 @@ const RdsCompBooleanChart = ({
   chartStyle,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompBooleanChartProps) => {
   if (chartStyle !== undefined) {
@@ -123,7 +127,7 @@ const RdsCompBooleanChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx(className)}>
+    <Box {...rest} ref={ref} className={clsx(className)} sx={sx}>
       {hasCenterIcon ? (
         <span style={{ position: "relative", display: "inline-block" }}>
           {canvas}
@@ -143,7 +147,7 @@ const RdsCompBooleanChart = ({
       ) : (
         canvas
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -65,7 +65,6 @@ const textButton = (
     layout="text-only"
     shape="rectangle"
     size="medium"
-    state="default"
     variant={variant}
     textCase="unset"
   >
@@ -81,7 +80,6 @@ const iconButton = (icon: ReactNode, label: string) => (
     shape="rectangle"
     showLeftIcon
     size="medium"
-    state="default"
     variant="transparent"
     aria-label={label}
   />

@@ -152,7 +152,7 @@
     border-radius: 0 var(--rds-border-radius-sm, 2px) var(--rds-border-radius-sm, 2px) 0;
   }
   
-  &--hover {
+  &:hover:not(.rds-card--disabled):not(.rds-card--selected) {
     box-shadow: var(--rds-elevation-2, 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08));
     background-color: var(--rds-card-bg-hover, var(--rds-color-gray-200)) !important;
   }

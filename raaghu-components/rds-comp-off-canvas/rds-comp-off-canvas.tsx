@@ -43,10 +43,12 @@ export interface RdsCompOffcanvasProps {
   onShow?: () => void;
   onClose?: (event?: unknown, reason?: RdsCompOffcanvasCloseReason) => void;
   onOpen?: (data: boolean) => void;
-  /** @deprecated Use `onOpen` instead. */
-  onclick?: (data: boolean) => void;
+  /** Callback invoked when the canvas is opened. */
+  onClick?: (data: boolean) => void;
   children?: ReactNode;
   className?: string;
+  /** MUI system styles applied to the Drawer root. */
+  sx?: DrawerProps["sx"];
   /** Replaces the default footer buttons. */
   actions?: ReactNode;
   onSave?: () => void;
@@ -77,9 +79,10 @@ const RdsCompOffcanvas = ({
   onShow,
   onClose,
   onOpen,
+  onClick,
   children,
-  onclick,
   className,
+  sx,
   actions,
   onSave,
   onRestoreDefault,
@@ -93,7 +96,6 @@ const RdsCompOffcanvas = ({
   if (offId !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "offId", "`id`");
   if (canvasTitle !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "canvasTitle", "`title`");
   if (offcanvaswidth !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "offcanvaswidth", "`width`");
-  if (onclick !== undefined) warnDeprecatedProp("RdsCompOffcanvas", "onclick", "`onOpen`");
   if (preventEscapeKey !== true) warnDeprecatedProp("RdsCompOffcanvas", "preventEscapeKey", "`disableEscapeKeyDown`");
 
   const uid = useId();
@@ -106,7 +108,7 @@ const RdsCompOffcanvas = ({
   const resolvedTitle = title ?? canvasTitle;
   const resolvedId = id ?? offId;
   const resolvedWidth = width ?? offcanvaswidth;
-  const openHandler = onOpen ?? onclick;
+  const openHandler = onClick ?? onOpen;
 
   const handleOpen = () => {
     if (openHandler) openHandler(true);
@@ -165,6 +167,7 @@ const RdsCompOffcanvas = ({
           onClose={handleDrawerClose}
           disableEscapeKeyDown={resolvedDisableEscape}
           hideBackdrop={resolvedHideBackdrop}
+          sx={sx}
           slotProps={mergedSlotProps}
           className={clsx("offcanvas-drawer", `placement-${placement ?? RdsOffcanvasPlacement.End}`)}
           id={resolvedId}>

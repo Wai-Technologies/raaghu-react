@@ -1,4 +1,5 @@
 import { Suspense, lazy, type HTMLAttributes, type Ref } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import clsx from "clsx";
 import type { ReactPlayerProps } from "react-player";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -11,8 +12,6 @@ const ReactPlayer = lazy(() => import("react-player"));
 export interface RdsVideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   width?: string | number;
   height?: string | number;
-  /** @deprecated Use `autoPlay` instead. */
-  autoplay?: boolean;
   autoPlay?: boolean;
   muted?: boolean;
   /** @deprecated Use `src` instead. */
@@ -22,6 +21,8 @@ export interface RdsVideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>
   controls?: boolean;
   volume?: number;
   className?: string;
+  /** MUI system styles applied to the video player root. */
+  sx?: SxProps<Theme>;
   disabled?: boolean;
   /** Message shown over the player when disabled. */
   disabledMessage?: string;
@@ -97,7 +98,6 @@ const buildPlayerConfig = (
 const RdsCompVideoPlayer = ({
   width = "100%",
   height = "auto",
-  autoplay,
   autoPlay,
   muted = false,
   videoLink,
@@ -106,6 +106,7 @@ const RdsCompVideoPlayer = ({
   controls = true,
   volume = 0.8,
   className = "",
+  sx,
   disabled = false,
   disabledMessage = "Video player is disabled",
   loop,
@@ -114,17 +115,17 @@ const RdsCompVideoPlayer = ({
   ref,
   ...rest
 }: RdsVideoPlayerProps) => {
-  if (autoplay !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "autoplay", "`autoPlay`");
   if (videoLink !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "videoLink", "`src`");
-  const shouldAutoPlay = (autoPlay ?? autoplay ?? false) && !disabled;
+  const shouldAutoPlay = (autoPlay ?? false) && !disabled;
   const formattedUrl = formatVideoUrl(src ?? videoLink ?? "");
   const playerConfig = buildPlayerConfig(type, formattedUrl, controls, title);
 
   return (
-    <div
+    <Box
       {...rest}
       ref={ref}
       style={style}
+      sx={sx}
       className={clsx(
         "rds-comp-video-player",
         disabled && "rds-comp-video-player--disabled",
@@ -160,7 +161,7 @@ const RdsCompVideoPlayer = ({
           <div className="rds-comp-video-player__disabled-message">{disabledMessage}</div>
         </div>
       )}
-    </div>
+    </Box>
   );
 };
 

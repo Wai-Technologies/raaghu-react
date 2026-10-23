@@ -51,12 +51,10 @@
     background-color: var(--rds-background-paper);
     transition: border-color var(--rds-transition-base), box-shadow var(--rds-transition-base);
 
-    // Ensure the MUI input wrapper centers its content vertically
     &.MuiInputBase-root {
       align-items: center;
     }
 
-    // Center the actual input element and placeholder text vertically
     .MuiInputBase-input {
       display: flex;
       align-items: center;
@@ -142,24 +140,21 @@
     }
   }
 
-  &__active {
-    .rds-input__field {
-      border-color: var(--rds-primary-main);
-    }
-
-    .rds-input__label {
-      color: var(--rds-primary-main);
-    }
-
-    .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-primary-main) !important;
-      border-width: var(--rds-input-border-width-thick);
-    }
-  }
-
   &__selected {
     .rds-input__field {
       border-color: var(--rds-primary-main);
+    }
+
+    &:focus-within:not(.rds-input--error):not(.rds-input--disabled) {
+      .rds-input__label,
+      .MuiFormLabel-root.Mui-focused {
+        color: var(--rds-primary-main);
+      }
+
+      .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-primary-main) !important;
+        border-width: var(--rds-input-border-width-thick);
+      }
     }
 
     .rds-input__label {
@@ -280,8 +275,7 @@
       }
     }
 
-    &.rds-input--active,
-    &__active {
+    &:focus-within:not(.rds-input--error):not(.rds-input--disabled) {
       .MuiOutlinedInput-root,
       .MuiFilledInput-root,
       .MuiInputBase-root,
@@ -323,21 +317,6 @@
 
     .MuiFormHelperText-root.Mui-error {
       color: var(--rds-error-main) !important;
-    }
-  }
-
-  &--active {
-    .MuiFormLabel-root.Mui-focused {
-      color: var(--rds-text-secondary) !important;
-    }
-
-    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-border-default) !important;
-      border-width: var(--rds-input-border-width-thin);
-    }
-
-    .MuiOutlinedInput-root.Mui-focused {
-      box-shadow: none !important;
     }
   }
 
@@ -412,8 +391,6 @@
     opacity: 1 !important;
   }
 }
-
-// MuiInputLabel shrink background uses the default background token automatically
 
 .css-1t6h741-MuiFormHelperText-root {
   margin-left: var(--rds-border-radius-none) !important;

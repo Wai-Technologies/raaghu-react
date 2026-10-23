@@ -35,8 +35,8 @@ export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'componen
   inputPlaceholder?: string;
   /** `floating` (default) renders a floating label; `top` renders the label above the field. */
   labelPlacement?: 'floating' | 'top';
-  /** @deprecated Use `labelPlacement` instead (`true` is `floating`, `false` is `top`). */
-  labelposition?: boolean;
+  /** `true` renders a floating label; `false` renders the label above the field. */
+  labelPosition?: boolean;
   /** Size of the select. @default 'small' */
   size?: 'small' | 'medium';
 }
@@ -52,7 +52,7 @@ const RdsSelect = ({
   error,
   inputPlaceholder,
   labelPlacement,
-  labelposition,
+  labelPosition,
   size = 'small',
   className,
   ...props
@@ -60,8 +60,9 @@ const RdsSelect = ({
   if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
   if (inputPlaceholder !== undefined) warnDeprecatedProp('RdsSelect', 'inputPlaceholder', '`placeholder`');
   if (errorMessage !== undefined) warnDeprecatedProp('RdsSelect', 'errorMessage', '`error` with `helperText`');
-  if (labelposition !== undefined) warnDeprecatedProp('RdsSelect', 'labelposition', '`labelPlacement`');
-  const floatingLabel = labelPlacement ? labelPlacement === 'floating' : (labelposition ?? true);
+  const floatingLabel = labelPlacement
+    ? labelPlacement === 'floating'
+    : (labelPosition ?? true);
   const labelId = useId();
   const isFieldRequired = required ?? isRequired ?? false;
   const resolvedPlaceholder = inputPlaceholder || placeholder;

@@ -1,24 +1,21 @@
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, Ref } from "react";
+import type { SxProps, Theme } from "@mui/material";
 
-export enum DatePickerStyleType {
-  Dropdown = "Dropdown",
-  Selector = "Selector",
-}
+export const DatePickerStyleType = {
+  Dropdown: 'Dropdown',
+  Selector: 'Selector',
+} as const;
+export type DatePickerStyleType = (typeof DatePickerStyleType)[keyof typeof DatePickerStyleType];
 
-export enum DatePickerLayout {
-  Default = "Default",
-  MonthPicker = "Month Picker",
-  YearPicker = "Year Picker",
-  MultiMonth = "Multi Month",
-}
+export const DatePickerLayout = {
+  Default: 'Default',
+  MonthPicker: 'Month Picker',
+  YearPicker: 'Year Picker',
+  MultiMonth: 'Multi Month',
+} as const;
+export type DatePickerLayout = (typeof DatePickerLayout)[keyof typeof DatePickerLayout];
 
-export enum DatePickerState {
-  Default = "Default",
-  Expanded = "Expanded",
-  Selected = "Selected",
-}
-
-export interface RdsCompDatepickerProps {
+export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "style" | "onChange" | "children"> {
   selectedDate?: (date: Date | null) => void;
   /** Selected date; the picker re-syncs whenever it changes (`null` clears it). */
   value?: Date | string | null;
@@ -32,6 +29,8 @@ export interface RdsCompDatepickerProps {
   placeholder?: string;
   /** Shows the clear-date button when a date is selected. */
   clearable?: boolean;
+  /** Applies the selected appearance to the date picker. */
+  selected?: boolean;
   /** Icon of the open-calendar button. */
   openPickerIcon?: ReactNode;
   /** @deprecated Use `value` instead. */
@@ -40,7 +39,6 @@ export interface RdsCompDatepickerProps {
   /** @deprecated Use `onChange` instead. */
   onDatePicker?: (date: Date | [Date | null, Date | null]) => void;
   datePickerStyleType?: DatePickerStyleType;
-  state?: DatePickerState;
   layout?: DatePickerLayout;
   customDate?: (dates: [Date | null, Date | null]) => void;
   controls?: {
@@ -55,7 +53,7 @@ export interface RdsCompDatepickerProps {
   };
   /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
-  DatePickerLabel?: string;
+  datePickerLabel?: string;
   type?: string;
   /** @deprecated Use `openPickerIcon` instead. */
   changeIcon?: "dashboard_settings" | string;
@@ -80,4 +78,8 @@ export interface RdsCompDatepickerProps {
   isMandatory?: boolean;
   /** Has no effect: the preset list manages its own open state. Kept for backwards compatibility. */
   isDropdownOpen?: boolean;
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
+  /** Ref forwarded to the root element. */
+  ref?: Ref<HTMLDivElement>;
 }

@@ -4,6 +4,8 @@ import "./rds-comp-ai-chat-header.scss";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 export { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
 import type { ChatHeaderSize } from './rds-comp-ai-chat-header-types';
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
 /** Props for {@link RdsCompAiChatHeader}. */
 export interface RdsCompAiChatHeaderProps
@@ -17,11 +19,12 @@ export interface RdsCompAiChatHeaderProps
   /** Header title text. */
   title?: string;
   /** Size of the title and logo. Default `'medium'`. */
-  size?: ChatHeaderSize | "small" | "medium" | "large";
+  size?: ChatHeaderSize;
   /** Element used for the title. Default `'h3'`. */
   component?: ElementType;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompAiChatHeader = ({
@@ -33,12 +36,13 @@ const RdsCompAiChatHeader = ({
   component: Heading = "h3",
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompAiChatHeaderProps) => {
   if (logoUrl !== undefined) warnDeprecatedProp("RdsCompAiChatHeader", "logoUrl", "`avatarSrc`");
   const logoSrc = avatarSrc ?? logoUrl;
   return (
-  <div {...rest} ref={ref} className={clsx("rds-comp-ai-chat-header", className)}>
+  <Box {...rest} ref={ref} className={clsx("rds-comp-ai-chat-header", className)} sx={sx}>
     {logoSrc && (
       <img
         src={logoSrc}
@@ -49,7 +53,7 @@ const RdsCompAiChatHeader = ({
     <Heading className={clsx("rds-comp-ai-chat-header__text", `rds-comp-ai-chat-header__text--${size}`)}>
       {title}
     </Heading>
-  </div>
+  </Box>
   );
 };
 

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { Box } from "@mui/material";
 import clsx from 'clsx';
 import type DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,11 +15,9 @@ import {
     getLastFourteenDaysDate,
 } from './rds-comp-datepicker-helpers';
 import {
-    renderDatePickerStateView,
     renderDatePickerTypeView
 } from './rds-comp-datepicker-utils';
 import {
-    DatePickerState,
     DatePickerStyleType,
     type RdsCompDatepickerProps,
 } from './rds-comp-datepicker.types';
@@ -32,9 +31,9 @@ const RdsDatepicker = ({
     selectedDate,
     dateForEdit,
     titleText: titleTextProp,
+    datePickerLabel,
     onDatePicker,
     datePickerStyleType: datePickerStyleTypeProp,
-    state,
     layout,
     customDate,
     controls,
@@ -55,7 +54,11 @@ const RdsDatepicker = ({
     variant,
     placeholder,
     clearable,
+    selected = false,
     openPickerIcon,
+    className,
+    sx,
+    ref,
     ...restProps
 }: RdsCompDatepickerProps) => {
     ([
@@ -80,12 +83,14 @@ const RdsDatepicker = ({
     const legacyShowClearDate = asBoolean(showClearDateProp);
     const legacyIsDefaultDate = asBoolean(isDefaultDateProp);
 
-    const titleText = label ?? titleTextProp;
+    const titleText = label ?? datePickerLabel ?? titleTextProp;
     const placeholderText = placeholder ?? placeholderTextProp;
     const datePickerStyleType = variant ? styleTypeByVariant[variant] : datePickerStyleTypeProp;
     const editValue = value !== undefined ? value : dateForEdit;
 
-    const showTitle = controls?.title ? controls.title === 'visible' : (legacyShowTitle ?? label !== undefined);
+    const showTitle = controls?.title
+        ? controls.title === 'visible'
+        : (legacyShowTitle ?? (label !== undefined || datePickerLabel !== undefined));
     const isDisabled = disabled ?? (controls?.disabled ? controls.disabled === 'on' : (legacyIsDisabled ?? false));
     const isMandatory = required ?? (controls?.mandatory ? controls.mandatory === 'required' : (legacyIsMandatory ?? false));
     const showClearDate = clearable ?? (controls?.clearDate ? controls.clearDate === 'visible' : (legacyShowClearDate ?? false));
@@ -133,11 +138,7 @@ const RdsDatepicker = ({
         updatePickerState({ startDate: now, dropdownDisplayValue: now.toDateString().slice(4) });
     }
     const datePickerRef = useRef<DatePicker | null>(null);
-    const expandedDatePickerRef = useRef<DatePicker | null>(null);
-    const selectedDatePickerRef = useRef<DatePicker | null>(null);
     const customDropdownRef = useRef<HTMLDivElement | null>(null);
-    const showState = state === DatePickerState.Expanded || state === DatePickerState.Selected;
-    const showType = !showState;
 
     const onRangeChange = useCallback((dates: [Date | null, Date | null]) => {
         if (customDate && typeof customDate === 'function') {
@@ -158,14 +159,6 @@ const RdsDatepicker = ({
     const handlerDateChange = useCallback((date: Date | null) => {
         updatePickerState({ startDate: date });
         if (typeof selectedDate === 'function') selectedDate(date);
-        emitChange(date);
-    }, [selectedDate, emitChange, updatePickerState]);
-
-    const handlerDateTimeChange = useCallback((date: any) => {
-        updatePickerState({ startDate: date ?? null });
-        if (typeof selectedDate === 'function') {
-            selectedDate(date);
-        }
         emitChange(date);
     }, [selectedDate, emitChange, updatePickerState]);
 
@@ -231,20 +224,6 @@ const RdsDatepicker = ({
     const dayClassName = useCallback((date: Date) => getDayClassName(date, startDate), [startDate]);
 
     useEffect(() => {
-        if (state === DatePickerState.Expanded) {
-            const timeoutId = window.setTimeout(() => {
-                if (expandedDatePickerRef.current) {
-                    expandedDatePickerRef.current.setOpen(true);
-                }
-            }, 100);
-
-            return () => {
-                window.clearTimeout(timeoutId);
-            };
-        }
-    }, [state]);
-
-    useEffect(() => {
         if (!isDropdownOpen || type !== "Custom") return;
 
         const handlePointerDown = (event: MouseEvent | TouchEvent) => {
@@ -287,7 +266,6 @@ const RdsDatepicker = ({
             showTitle,
             onDatePicker,
             datePickerStyleType,
-            state,
             layout,
             customDate,
             isDisabled,
@@ -303,14 +281,14 @@ const RdsDatepicker = ({
             idPrefix: baseId,
         }),
         [
-            restProps, selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, state, layout,
+            restProps, selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, layout,
             customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, openPickerIcon, showClearDate, isDefaultDate, clearDate,
             inputId, baseId,
         ]
     );
 
     return (
-        <>
+        <Box ref={ref} className={clsx('rds-datepicker', selected && 'rds-datepicker--selected', className)} sx={sx}>
             <label
                 className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
                 aria-hidden={!showTitle}
@@ -319,20 +297,7 @@ const RdsDatepicker = ({
                 {showTitle && titleText ? titleText : ' '}
                 {showTitle && isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
             </label>
-            {showState && renderDatePickerStateView(
-                state || DatePickerState.Default,
-                startDate,
-                handlerDateChange,
-                handlerDateTimeChange,
-                sharedProps,
-                datePickerRef,
-                expandedDatePickerRef,
-                selectedDatePickerRef,
-                dayClassName,
-                CustomInputWithClear,
-                CustomButtons
-            )}
-            {showType && renderDatePickerTypeView(
+            {renderDatePickerTypeView(
                 type || 'Default',
                 startDate,
                 endDate,
@@ -355,7 +320,7 @@ const RdsDatepicker = ({
                 CustomButtons,
                 customDropdownRef
             )}
-        </>
+        </Box>
     );
 };
 RdsDatepicker.displayName = "RdsCompDatepicker";

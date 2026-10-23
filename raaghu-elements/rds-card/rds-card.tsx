@@ -66,18 +66,15 @@ const ICON_MAP: Record<string, ReactElement> = {
 /** Roles on which `aria-selected` is allowed; other roles get `aria-current` instead. */
 const ARIA_SELECTED_ROLES = new Set(['option', 'tab', 'row', 'gridcell', 'columnheader', 'rowheader', 'treeitem']);
 
-export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
 export type CardStyle = 'default' | 'outlined' | 'filled';
 export type CardLayout = 'vertical' | 'horizontal';
 export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
 export interface RdsCardProps extends Omit<CardProps, 'children' | 'style' | 'component' | 'content' | 'variant'> {
   /** @deprecated Use `sx` instead. */
   padding?: number | string;
-  /** Visual state (Figma). `disabled` and `selected` take precedence when set. */
-  state?: CardState;
-  /** Shows the card as selected and sets `aria-selected` (or `aria-current`). Takes precedence over `state`. */
+  /** Shows the card as selected and sets `aria-selected` (or `aria-current`). */
   selected?: boolean;
-  /** Shows the card as disabled and sets `aria-disabled`. Takes precedence over `state` and `selected`. */
+  /** Shows the card as disabled and sets `aria-disabled`. */
   disabled?: boolean;
   /** Visual variant (Figma): `'default'`, `'outlined'` or `'filled'`. MUI's `'elevation'` is still accepted. */
   variant?: CardStyle | CardProps['variant'];
@@ -122,7 +119,6 @@ const RdsCard = ({
   padding,
   children,
   sx,
-  state = 'default',
   selected,
   disabled,
   className,
@@ -163,15 +159,8 @@ const RdsCard = ({
   const showDescription = content?.description ? content.description === 'visible' : (legacy(showDescriptionProp) ?? true);
   const showIcon = !iconHiddenByProp && (content?.icon ? content.icon === 'visible' : (legacy(showIconProp) ?? true));
 
-  const isDisabled = disabled ?? state === 'disabled';
-  const isSelected = !isDisabled && (selected ?? state === 'selected');
-  const resolvedState: CardState = isDisabled
-    ? 'disabled'
-    : isSelected
-      ? 'selected'
-      : state === 'disabled' || state === 'selected'
-        ? 'default'
-        : state;
+  const isDisabled = Boolean(disabled);
+  const isSelected = !isDisabled && Boolean(selected);
 
   const useAriaSelected = typeof muiCardProps.role === 'string' && ARIA_SELECTED_ROLES.has(muiCardProps.role);
   const ariaProps: AriaAttributes = {
@@ -185,7 +174,8 @@ const RdsCard = ({
 
   const cardClassName = clsx(
     'rds-card',
-    `rds-card--${resolvedState}`,
+    isDisabled && 'rds-card--disabled',
+    isSelected && 'rds-card--selected',
     `rds-card--style-${cardVariant}`,
     `rds-card--layout-${layout}`,
     showIndicator && 'rds-card--with-indicator',

@@ -32,10 +32,9 @@ const meta: Meta<typeof RdsRadio> = {
       options: ['icon', 'icon with label', 'icon with bottom label'],
       description: 'Layout configuration for radio buttons',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'disabled'],
-      description: 'State of the radio buttons',
+    disabled: {
+      control: 'boolean',
+      description: 'Disable all radio options',
     },
       value: {
         control: 'text',
@@ -92,7 +91,7 @@ export const Default: Story = {
     selected: true,
   },
 };
-Default.parameters = { controls: { include: ['label','options','value','selected', 'row','layout','state'] } };
+Default.parameters = { controls: { include: ['label','options','value','selected', 'row','layout','disabled'] } };
 
 
 export const Horizontal: Story = {
@@ -113,7 +112,7 @@ export const Horizontal: Story = {
     value: undefined,
   },
 };
-Horizontal.parameters = { controls: { include: ['label','options','value', 'row','layout','state'] } };
+Horizontal.parameters = { controls: { include: ['label','options','value', 'row','layout','disabled'] } };
 
 export const WithDisabledOptions: Story = {
   render: (args) => {
@@ -137,7 +136,7 @@ export const WithDisabledOptions: Story = {
     value: undefined,
   },
 };
-WithDisabledOptions.parameters = { controls: { include: ['label','options','value', 'row','layout','state'] } };
+WithDisabledOptions.parameters = { controls: { include: ['label','options','value', 'row','layout','disabled'] } };
 
 
 export const WithSelectedValue: Story = {
@@ -157,7 +156,7 @@ export const WithSelectedValue: Story = {
     value: undefined,
   },
 };
-WithSelectedValue.parameters = { controls: { include: ['label','options','value', 'row','layout','state'] } };
+WithSelectedValue.parameters = { controls: { include: ['label','options','value', 'row','layout','disabled'] } };
 
 
 export const WithoutLabel: Story = {
@@ -176,4 +175,4 @@ export const WithoutLabel: Story = {
     value: undefined,
   },
 };
-WithoutLabel.parameters = { controls: { include: ['options', 'value', 'row', 'layout', 'state'] } };
+WithoutLabel.parameters = { controls: { include: ['options', 'value', 'row', 'layout', 'disabled'] } };
