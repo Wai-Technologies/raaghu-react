@@ -7,6 +7,9 @@ const meta: Meta<typeof RdsCompAiChatHeader> = {
   title: "Components/AI ChatBox/Chat Header",
   component: RdsCompAiChatHeader,
   argTypes: {
+    className: { control: "text", description: "CSS class applied to the header container." },
+    sx: { control: "object", description: "MUI system styles applied to the header container." },
+    ref: { control: false, description: "React ref to the header container; assign it in code." },
     avatarSrc: {
       control: "text",
       description: "URL of the logo image",

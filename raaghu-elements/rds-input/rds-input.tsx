@@ -16,7 +16,7 @@ function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): s
   }
 }
 
-export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component'> {
+export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component' | 'focused'> {
   /**
    * Field label. Shown above the field with `titlePosition="title-above"` or inside it with
    * `"inline-title"`; otherwise it is used as the input's accessible name only.
@@ -36,7 +36,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   style?: 'default' | 'pill' | 'bottom outline' | CSSProperties;
   /** Field shape. */
   shape?: 'default' | 'pill' | 'bottom outline';
-  state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
+  selected?: boolean;
   /** Icon shown at the start of the field. */
   startIcon?: ReactNode;
   /** Icon shown at the end of the field. */
@@ -76,7 +76,7 @@ const RdsInput = ({
   labelPlacement,
   style,
   shape,
-  state = 'default',
+  selected = false,
   startIcon,
   endIcon,
   showIcon = false,
@@ -114,7 +114,6 @@ const RdsInput = ({
   const generatedId = useId();
   const inputId = id ?? `rds-input-${generatedId}`;
   const [showPassword, setShowPassword] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue == null ? '' : String(defaultValue));
   const [prevLayout, setPrevLayout] = useState(layout);
   const isControlled = value !== undefined;
@@ -144,19 +143,7 @@ const RdsInput = ({
 
   const pillClass = resolvedStyle === 'pill' ? 'rds-input--pill' : resolvedStyle === 'bottom outline' ? 'rds-input--bottom-outline' : '';
   
-  const isFocusedDefault = state === 'default' && isFocused;
-  const active = state === 'active' || isFocusedDefault;
-
-  let stateClass = '';
-  if (state === 'error' || error) {
-    stateClass = 'rds-input--error';
-  } else if (state === 'disabled' || disabled) {
-    stateClass = 'rds-input--disabled';
-  } else if (state === 'selected' || isFocusedDefault) {
-    stateClass = 'rds-input--selected';
-  } else if (state === 'active') {
-    stateClass = 'rds-input--active';
-  }
+  const resolvedError = !!errorMessage || !!error;
 
   let inputType: string = 'text';
   switch (layout) {
@@ -269,8 +256,6 @@ const RdsInput = ({
       consumerInputProps?.className,
     ),
     classes: {
-      root: active ? 'Mui-focused' : '',
-      focused: active ? 'Mui-focused' : '',
       ...legacyInputProps?.classes,
       ...consumerInputProps?.classes,
     },
@@ -280,9 +265,16 @@ const RdsInput = ({
 
   return (
     <div
-      className={clsx('rds-input', sizeClass, pillClass, stateClass, inlineTitleClass)}
       style={typeof style === 'object' ? style : undefined}
-    >
+      className={clsx(
+      'rds-input',
+      sizeClass,
+      pillClass,
+      inlineTitleClass,
+      resolvedError && 'rds-input--error',
+      disabled && 'rds-input--disabled',
+      selected && 'rds-input--selected',
+    )}>
       {titlePosition === 'title-above' && label && (
         <label className="rds-input__label" htmlFor={inputId}>
           {label}
@@ -294,18 +286,17 @@ const RdsInput = ({
         label={titlePosition === 'inline-title' ? label : ''}
         placeholder={computedPlaceholder}
         helperText={helperText ?? (errorMessage || hintText)}
-        error={!!errorMessage || error || state === 'error'}
-        disabled={disabled || state === 'disabled'}
+        error={resolvedError}
+        disabled={disabled}
         required={isRequired}
         variant={variant}
         size={size === 'large' ? 'medium' : size}
         type={inputType}
         fullWidth
-        focused={active}
         value={currentValue}
         onChange={handleInternalChange}
-        onFocus={(e) => { setIsFocused(true); onFocus?.(e); }}
-        onBlur={(e) => { setIsFocused(false); onBlur?.(e); }}
+        onFocus={onFocus}
+        onBlur={onBlur}
         slotProps={{
           ...consumerSlotProps,
           input: inputSlotProps,

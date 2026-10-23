@@ -25,7 +25,7 @@ jest.mock('../rds-menu/rds-menu', () => {
 });
 
 jest.mock('../rds-checkbox/rds-checkbox', () => {
-  return function MockCheckbox({ checked, onChange, labeltext, isDisabled }: any) {
+  return function MockCheckbox({ checked, onChange, labelText, isDisabled }: any) {
     return (
       <label data-testid="checkbox">
         <input
@@ -34,14 +34,14 @@ jest.mock('../rds-checkbox/rds-checkbox', () => {
           onChange={onChange}
           disabled={isDisabled}
         />
-        {labeltext}
+        {labelText}
       </label>
     );
   };
 });
 
 jest.mock('../rds-radio/rds-radio', () => {
-  return function MockRadio({ options, value, onChange, state, name }: any) {
+  return function MockRadio({ options, value, onChange, disabled, name }: any) {
     return (
       <div data-testid="radio-group">
         {options.map((opt: any) => (
@@ -52,7 +52,7 @@ jest.mock('../rds-radio/rds-radio', () => {
               value={opt.value}
               checked={value === opt.value}
               onChange={onChange}
-              disabled={state === 'disabled'}
+              disabled={opt.disabled || disabled}
             />
             {opt.label ?? opt.text}
           </label>
@@ -277,16 +277,32 @@ describe('RdsButtonDropdown', () => {
       [{ layout: 'text-only' }],
       [{ styleType: 'secondary' }],
       [{ shape: 'pill' }],
-      [{ buttonState: 'disabled' }],
+      [{ disabled: true }],
       [{ isShowLeftIcon: true, isShowRightIcon: true, leftIcon: <span>Left</span>, rightIcon: <span>Right</span> }],
       [{ multiSelect: true }],
       [{ showSearch: true }],
-      [{ state: 'selected' }],
+      [{ selected: true }],
       [{ size: 'small', layout: 'icon-only', styleType: 'outline', shape: 'pill' }],
       [{ onChange: jest.fn() }],
     ])('should accept %p', (props) => {
       setup(props as any);
       expect(screen.getByText('Button')).toBeInTheDocument();
+    });
+  });
+
+  describe('Disabled and selected props', () => {
+    it('should disable the trigger when disabled is true', () => {
+      render(<RdsButtonDropdown {...defaultProps} disabled />);
+      const trigger = screen.getByRole('button');
+      expect(trigger).toBeDisabled();
+      fireEvent.click(trigger);
+      expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
+    });
+
+    it('should apply the selected trigger treatment when selected is true', () => {
+      render(<RdsButtonDropdown {...defaultProps} selected />);
+      const buttonProps = mockButtonProps.mock.calls[mockButtonProps.mock.calls.length - 1][0];
+      expect(buttonProps.selected).toBe(true);
     });
   });
 
@@ -416,13 +432,15 @@ describe('audit fixes', () => {
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
     });
 
-    it('lets open={false} close a menu that state="selected" would keep open', () => {
-      render(<RdsButtonDropdown options={options} state="selected" open={false} />);
+    it('keeps a controlled closed menu closed', () => {
+      render(<RdsButtonDropdown options={options} open={false} />);
       expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
     });
 
-    it('keeps state="selected" open when open is not given', () => {
-      render(<RdsButtonDropdown options={options} state="selected" />);
+    it('starts closed unless open is controlled or the trigger is clicked', () => {
+      render(<RdsButtonDropdown options={options} />);
+      expect(screen.queryByTestId('rds-menu')).not.toBeInTheDocument();
+      fireEvent.click(screen.getByText('Button'));
       expect(screen.getByTestId('rds-menu')).toBeInTheDocument();
     });
 
@@ -473,10 +491,15 @@ describe('audit fixes', () => {
       expect(lastButtonProps().sx).toBe(sx);
     });
 
-    it('still ignores unknown non-aria/data props', () => {
-      const props = { options, title: 'ignored' } as unknown as RdsButtonDropdownProps;
-      render(<RdsButtonDropdown {...props} />);
-      expect(lastButtonProps().title).toBeUndefined();
+    it('forwards native button props and the trigger ref', () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      const onClick = jest.fn();
+      render(<RdsButtonDropdown options={options} title="Details" ref={ref} onClick={onClick} />);
+      const trigger = screen.getByRole('button', { name: 'Button' });
+      expect(trigger).toHaveAttribute('title', 'Details');
+      expect(ref.current).toBe(trigger);
+      fireEvent.click(trigger);
+      expect(onClick).toHaveBeenCalledTimes(1);
     });
   });
 

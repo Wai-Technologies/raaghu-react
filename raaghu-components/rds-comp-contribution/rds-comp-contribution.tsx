@@ -1,6 +1,8 @@
 import dayjs, { type Dayjs } from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { useCallback, useEffect, useMemo, useState, type HTMLAttributes, type ReactElement, type Ref, type SVGProps } from 'react';
+import { Box } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import Measure, { BoundingRect, type MeasuredComponentProps } from 'react-measure';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
@@ -59,6 +61,8 @@ export interface RdsCompContributionProps
   className?: string;
   /** Ref forwarded to the root element. */
   ref?: Ref<HTMLDivElement>;
+  /** MUI system styles applied to the root element. */
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompContribution = ({
@@ -84,6 +88,7 @@ const RdsCompContribution = ({
   panelSize = 11,
   panelMargin = 2,
   className,
+  sx,
   ref,
   ...rest
 }: RdsCompContributionProps) => {
@@ -338,7 +343,7 @@ const RdsCompContribution = ({
   return (
     <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
       {({ measureRef }: MeasuredComponentProps) => (
-        <div
+        <Box
           {...rest}
           ref={(node) => {
             measureRef(node);
@@ -346,6 +351,7 @@ const RdsCompContribution = ({
             else if (ref) ref.current = node;
           }}
           className={clsx('rds-comp-contribution', className)}
+          sx={sx}
         >
           <div className="rds-comp-contribution__container">
             <div className="rds-comp-contribution__wrapper">
@@ -366,7 +372,7 @@ const RdsCompContribution = ({
               </SvgIcon>
             </div>
           </div>
-        </div>
+        </Box>
       )}
     </Measure>
   );

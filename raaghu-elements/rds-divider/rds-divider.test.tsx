@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import RdsDivider, { RdsDividerProps } from './rds-divider';
+import RdsDivider, { RdsDividerProps, RdsDividerIconName } from './rds-divider';
 import '@testing-library/jest-dom';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import { axe } from 'jest-axe';
@@ -153,7 +153,7 @@ describe('RdsDivider', () => {
       ['InvalidIcon', 'info-icon'],
       ['  Add  ', 'add-icon'],
     ])('should render icon for iconName "%s"', (iconName, testId) => {
-      renderWithTheme(<RdsDivider iconShow={true} iconName={iconName} dividerMessage="Icon" />);
+      renderWithTheme(<RdsDivider iconShow={true} iconName={iconName as RdsDividerIconName} dividerMessage="Icon" />);
       expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
 

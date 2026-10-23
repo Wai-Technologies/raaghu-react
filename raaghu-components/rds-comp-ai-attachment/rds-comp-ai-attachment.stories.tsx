@@ -6,6 +6,9 @@ const meta: Meta = {
     title: "Components/AI ChatBox/Attachment",
     component: RdsCompAiAttachment,
     argTypes: {
+        className: { control: "text", description: "CSS class applied to the component container." },
+        sx: { control: "object", description: "MUI system styles applied to the component container." },
+        ref: { control: false, description: "React ref to the component container; assign it in code." },
         placement: {
             control: { type: 'select' },
             options: ['start', 'end'],
@@ -47,4 +50,4 @@ export const Default: Story = {
         await expect(canvasElement.firstChild).toBeTruthy();
     },
 }
-Default.parameters = { controls: { include: ['icon', 'badge', 'badgeProps', 'slotProps', 'placement'] } };
+Default.parameters = { controls: { include: ['icon', 'badge', 'badgeProps', 'slotProps', 'placement', 'className', 'sx', 'ref'] } };

@@ -1,35 +1,40 @@
-import type { ReactNode, SyntheticEvent } from "react";
+import type { ReactNode, Ref, SyntheticEvent } from "react";
+import type { SxProps, Theme } from "@mui/material";
 
-export enum ToastLayout {
-  Text = "text",
-  Download = "download",
-  Chat = "chat",
-  Request = "request",
-}
+export const ToastLayout = {
+  Text: 'text',
+  Download: 'download',
+  Chat: 'chat',
+  Request: 'request',
+} as const;
+export type ToastLayout = (typeof ToastLayout)[keyof typeof ToastLayout];
 
-export enum ToastState {
-  Basic = "basic",
-  Info = "info",
-  Success = "success",
-  Error = "error",
-}
+export const ToastSeverity = {
+  Basic: 'basic',
+  Info: 'info',
+  Success: 'success',
+  Error: 'error',
+} as const;
+export type ToastSeverity = (typeof ToastSeverity)[keyof typeof ToastSeverity];
 
-export enum ToastLeadingIcon {
-  Circle = "circle",
-  Plus = "plus",
-}
+export const ToastLeadingIcon = {
+  Circle: 'circle',
+  Plus: 'plus',
+} as const;
+export type ToastLeadingIcon = (typeof ToastLeadingIcon)[keyof typeof ToastLeadingIcon];
 
-export enum ToastPosition {
-  TopLeft = "topLeft",
-  TopCenter = "topCenter",
-  TopRight = "topRight",
-  MiddleLeft = "middleLeft",
-  MiddleCenter = "middleCenter",
-  MiddleRight = "middleRight",
-  BottomLeft = "bottomLeft",
-  BottomCenter = "bottomCenter",
-  BottomRight = "bottomRight",
-}
+export const ToastPosition = {
+  TopLeft: 'topLeft',
+  TopCenter: 'topCenter',
+  TopRight: 'topRight',
+  MiddleLeft: 'middleLeft',
+  MiddleCenter: 'middleCenter',
+  MiddleRight: 'middleRight',
+  BottomLeft: 'bottomLeft',
+  BottomCenter: 'bottomCenter',
+  BottomRight: 'bottomRight',
+} as const;
+export type ToastPosition = (typeof ToastPosition)[keyof typeof ToastPosition];
 
 export interface ToastAnchorOrigin {
   vertical: "top" | "middle" | "bottom";
@@ -65,27 +70,28 @@ export interface RdsCompToastProps {
     dismiss?: "visible" | "hidden";
     subText?: "visible" | "hidden";
   };
-  layout: ToastLayout | `${ToastLayout}`;
-  /** Figma state variant. */
-  state?: ToastState | `${ToastState}`;
-  /** Alias of `state`. Wins over `state`. */
-  severity?: ToastState | `${ToastState}`;
+  layout: ToastLayout;
+  /** Severity and visual treatment of the toast. */
+  severity?: ToastSeverity;
   placeholder?: string;
   /** @deprecated Use `progress` instead. */
   progressWidth?: number;
   /** Download progress, 0-100. */
   progress?: number;
   filename?: string;
-  position?: ToastPosition | `${ToastPosition}`;
+  position?: ToastPosition;
   /** Screen anchor. Wins over `position`. */
   anchorOrigin?: ToastAnchorOrigin;
   /** @deprecated Use `icon` instead. */
-  leadingIcon?: ToastLeadingIcon | `${ToastLeadingIcon}`;
-  icon?: ToastLeadingIcon | `${ToastLeadingIcon}`;
+  leadingIcon?: ToastLeadingIcon;
+  icon?: ToastLeadingIcon;
   chatTime?: string;
   pauseOnHover?: boolean;
   showHeader?: boolean;
   showLeading?: boolean;
   showDismiss?: boolean;
   showSubText?: boolean;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }

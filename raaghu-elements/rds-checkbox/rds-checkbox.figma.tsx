@@ -14,11 +14,7 @@ figma.connect(
         "Checked": "checked",
         "Indeterminate": "indeterminate",
       }),
-      state: figma.enum("💡 State", {
-        "Default": "default",
-        "Hover": "hover",
-        "Disabled": "disabled",
-      }),
+      disabled: figma.boolean("💡 Disabled"),
       variant: figma.enum("✨ Style", {
         "Square": "square",
         "Circular": "circular",

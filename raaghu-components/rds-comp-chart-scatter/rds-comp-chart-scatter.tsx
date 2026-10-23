@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartConfiguration, ChartData, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -89,6 +91,7 @@ export interface RdsCompScatterChartProps
   chartType?: ScatterChartType;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompScatterChart = ({
@@ -104,6 +107,7 @@ const RdsCompScatterChart = ({
   chartType,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompScatterChartProps) => {
   if (chartType !== undefined) {
@@ -130,14 +134,14 @@ const RdsCompScatterChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-chart-scatter", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-scatter", className)} sx={sx}>
       <canvas
         id={id}
         ref={canvasRef}
         role="img"
         aria-label={resolveChartLabel("RdsCompScatterChart", ariaLabel, chartLabel, "Scatter chart")}
       />
-    </div>
+    </Box>
   );
 };
 

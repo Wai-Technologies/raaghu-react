@@ -28,12 +28,26 @@ figma.connect(
         "Pill": "pill",
         "Bottom Outline": "bottom outline"
       }),
-      state: figma.enum("💡 State",  {
-        "Default": "default",
-        "Active": "active",
-        "Selected": "selected",
-        "Error": "error",
-        "Disabled": "disabled"
+      selected: figma.enum("💡 State", {
+        "Default": false,
+        "Active": false,
+        "Selected": true,
+        "Error": false,
+        "Disabled": false,
+      }),
+      error: figma.enum("💡 State", {
+        "Default": false,
+        "Active": false,
+        "Selected": false,
+        "Error": true,
+        "Disabled": false,
+      }),
+      disabled: figma.enum("💡 State", {
+        "Default": false,
+        "Active": false,
+        "Selected": false,
+        "Error": false,
+        "Disabled": true,
       }),
     },
       example: (props) => <RdsInput

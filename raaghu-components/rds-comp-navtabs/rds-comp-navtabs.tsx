@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { type CSSProperties, type ReactNode, useCallback, useMemo, useState } from "react";
+import { type CSSProperties, type MouseEvent, type ReactNode, type Ref, useCallback, useMemo, useState } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-navtabs.scss";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -62,6 +63,9 @@ export interface RdsCompNavtabsProps {
   style?: string | CSSProperties;
   iconOnly?: boolean;
   id?: string;
+  sx?: SxProps<Theme>;
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
 }
 
 const RdsCompNavtabs = ({
@@ -78,6 +82,9 @@ const RdsCompNavtabs = ({
   isNextPressed,
   iconOnly,
   id,
+  className,
+  sx,
+  ref,
 }: RdsCompNavtabsProps) => {
   const legacyVariant = typeof style === "string" ? style : undefined;
   if (legacyVariant !== undefined) warnDeprecatedProp("RdsCompNavtabs", "style", "`variant`");
@@ -137,7 +144,7 @@ const RdsCompNavtabs = ({
   }
 
   return (
-    <div className="rds-comp-navtabs" style={typeof style === "object" ? style : undefined}>
+    <Box ref={ref} className={clsx("rds-comp-navtabs", className)} sx={sx} style={typeof style === "object" ? style : undefined}>
       <ul
         className={navClasses}
         id={id === "features" ? "features" : ""}
@@ -177,7 +184,7 @@ const RdsCompNavtabs = ({
         ))}
       </ul>
       {children}
-    </div>
+    </Box>
   );
 };
 RdsCompNavtabs.displayName = "RdsCompNavtabs";

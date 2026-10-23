@@ -507,7 +507,7 @@ describe('RdsCompAiChatHeader', () => {
   });
 
   describe('Enum Values', () => {
-    it('exports ChatHeaderSize enum with correct values', () => {
+    it('exports ChatHeaderSize constants with correct values', () => {
       expect(ChatHeaderSize.Small).toBe('small');
       expect(ChatHeaderSize.Medium).toBe('medium');
       expect(ChatHeaderSize.Large).toBe('large');

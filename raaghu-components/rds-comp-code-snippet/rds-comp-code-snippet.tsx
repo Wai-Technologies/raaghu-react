@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useCallback, useMemo, useState, type ComponentType, type CSSProperties } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-code-snippet.scss";
 import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
 import CodeOffIcon from '@mui/icons-material/CodeOff';
@@ -61,6 +62,8 @@ export interface RdsCompCodeSnippetProps {
   type?: "singleLine" | "multiLine";
   maxHeight?: string;
   className?: string;
+  /** MUI system styles applied to the code snippet root. */
+  sx?: SxProps<Theme>;
   sampleCodeSnippets?: Record<string, string>;
 }
 
@@ -72,6 +75,7 @@ const RdsCompCodeSnippet = ({
   type = "multiLine",
   maxHeight,
   className = "",
+  sx,
   sampleCodeSnippets,
 }: RdsCompCodeSnippetProps) => {
   const [copied, setCopied] = useState(false);
@@ -105,7 +109,7 @@ const RdsCompCodeSnippet = ({
   const highlighterStyle = theme === 'dark' ? darkStyle : atomOneLightStyle;
 
   return (
-    <div className={clsx("rds-comp-code-snippet", `rds-comp-code-snippet--${theme}`, `rds-comp-code-snippet--${type}`, className)}>
+    <Box className={clsx("rds-comp-code-snippet", `rds-comp-code-snippet--${theme}`, `rds-comp-code-snippet--${type}`, className)} sx={sx}>
       <div className="rds-comp-code-snippet__container">
         {type === "singleLine" ? (
           <div className="rds-comp-code-snippet__toolbar rds-comp-code-snippet__toolbar--single-line">
@@ -187,13 +191,13 @@ const RdsCompCodeSnippet = ({
             </div>
             <div className="rds-comp-code-snippet__footer">
               <div className="rds-comp-code-snippet__show-more">
-                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" state="default" variant="transparent" text="Show More" />
+                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" variant="transparent" text="Show More" />
               </div>
             </div>
           </>
         )}
       </div>
-    </div>
+    </Box>
   );
 };
 RdsCompCodeSnippet.displayName = 'RdsCompCodeSnippet';

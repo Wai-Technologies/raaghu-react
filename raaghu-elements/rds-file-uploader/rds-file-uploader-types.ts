@@ -31,6 +31,8 @@ export interface RdsFileUploaderProps {
   maxSize?: number;
   maxFiles?: number;
   disabled?: boolean;
+  /** Applies the selected appearance to the uploader. */
+  selected?: boolean;
   dragAndDrop?: boolean;
   /** Marks the field as required: shows an asterisk after the label and reports the empty-field error. */
   required?: boolean;
@@ -52,8 +54,6 @@ export interface RdsFileUploaderProps {
   placeholderImage?: string;
   /** Props for the inner parts. `placeholder` is the image shown before any file is chosen (default mode). */
   slotProps?: { placeholder?: ImgHTMLAttributes<HTMLImageElement> };
-  /** @deprecated – has no effect */
-  state?: 'default' | 'selected';
   mode?: 'standard' | 'default';
   /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
   style?: FileUploaderVariant | CSSProperties;

@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import { type ChartData, type ChartOptions, type ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
@@ -28,6 +30,7 @@ export interface RdsCompBubbleChartProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompBubbleChart = ({
@@ -42,6 +45,7 @@ const RdsCompBubbleChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompBubbleChartProps) => {
   const resolved = resolveChartData("RdsCompBubbleChart", data, labels, dataSets);
@@ -57,7 +61,7 @@ const RdsCompBubbleChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx(className)}>
+    <Box {...rest} ref={ref} className={clsx(className)} sx={sx}>
       <canvas
         data-testid={id}
         id={id}
@@ -67,7 +71,7 @@ const RdsCompBubbleChart = ({
         role="img"
         aria-label={resolveChartLabel("RdsCompBubbleChart", ariaLabel, chartLabel, "Bubble chart")}
       />
-    </div>
+    </Box>
   );
 };
 

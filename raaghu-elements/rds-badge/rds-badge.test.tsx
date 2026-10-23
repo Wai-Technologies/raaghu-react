@@ -199,16 +199,16 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
     });
 
-    it('should apply disabled class when state is disabled', () => {
+    it('should apply disabled class when disabled is true', () => {
       const { container } = render(
-        <RdsBadge {...defaultProps} state="disabled" />
+        <RdsBadge {...defaultProps} disabled />
       );
       expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
     });
 
-    it('should not show disabled when state is default', () => {
+    it('should not show disabled when disabled is false', () => {
       const { container } = render(
-        <RdsBadge {...defaultProps} state="default" />
+        <RdsBadge {...defaultProps} disabled={false} />
       );
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
     });
@@ -326,7 +326,7 @@ describe('RdsBadge', () => {
           layout="icon-text"
           styleType="outline"
           colorVariant="danger"
-          state="default"
+          disabled={false}
         >
           <span>Content</span>
         </RdsBadge>
@@ -356,7 +356,7 @@ describe('RdsBadge', () => {
         <RdsBadge
           badgeContent={3}
           colorVariant="warning"
-          state="disabled"
+          disabled
         />
       );
       expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
@@ -409,7 +409,7 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--primary')).toBeInTheDocument();
     });
 
-    it('should use default state as default', () => {
+    it('should be enabled by default', () => {
       const { container } = render(<RdsBadge badgeContent={5} />);
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
     });
@@ -482,16 +482,16 @@ describe('RdsBadge', () => {
       expect(screen.getByText('Second')).toBeInTheDocument();
     });
 
-    it('should handle rapid state changes', () => {
+    it('should handle rapid disabled prop changes', () => {
       const { rerender, container } = render(
-        <RdsBadge badgeContent={5} state="default" />
+        <RdsBadge badgeContent={5} disabled={false} />
       );
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
 
-      rerender(<RdsBadge badgeContent={5} state="disabled" />);
+      rerender(<RdsBadge badgeContent={5} disabled />);
       expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
 
-      rerender(<RdsBadge badgeContent={5} state="default" />);
+      rerender(<RdsBadge badgeContent={5} disabled={false} />);
       expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
     });
   });
@@ -543,20 +543,6 @@ describe('RdsBadge', () => {
           <RdsBadge badgeContent={5} styleType={style} />
         );
         expect(container.querySelector(`.rds-badge--${style}`)).toBeInTheDocument();
-      });
-    });
-
-    it('should accept valid state prop values', () => {
-      const states: Array<'default' | 'disabled'> = ['default', 'disabled'];
-      states.forEach(state => {
-        const { container } = render(
-          <RdsBadge badgeContent={5} state={state} />
-        );
-        if (state === 'disabled') {
-          expect(container.querySelector('.rds-badge--disabled')).toBeInTheDocument();
-        } else {
-          expect(container.querySelector('.rds-badge--disabled')).not.toBeInTheDocument();
-        }
       });
     });
 
@@ -681,10 +667,10 @@ describe('RdsBadge audit fixes', () => {
     expect(screen.getByText('4')).toBeInTheDocument();
   });
 
-  it('disabled prop maps to the disabled class and wins over state', () => {
+  it('disabled prop maps to the disabled class', () => {
     const { container, rerender } = render(<RdsBadge badgeContent={4} disabled />);
     expect(container.querySelector('.rds-badge')).toHaveClass('rds-badge--disabled');
-    rerender(<RdsBadge badgeContent={4} state="disabled" disabled={false} />);
+    rerender(<RdsBadge badgeContent={4} disabled={false} />);
     expect(container.querySelector('.rds-badge')).not.toHaveClass('rds-badge--disabled');
   });
 

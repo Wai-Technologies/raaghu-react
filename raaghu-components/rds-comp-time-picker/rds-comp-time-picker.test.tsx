@@ -56,7 +56,6 @@ describe('RdsCompTimePicker', () => {
   const defaultProps: RdsTimePickerProps = {
     variant: 'default',
     colorVariant: 'primary',
-    state: 'default',
   };
 
   beforeEach(() => {
@@ -146,29 +145,22 @@ describe('RdsCompTimePicker', () => {
     });
   });
 
-  describe('State Variants', () => {
-    it('should initialize picker closed with default state', () => {
-      render(<RdsCompTimePicker {...defaultProps} state="default" />);
+  describe('Open and selected props', () => {
+    it('initializes picker closed by default', () => {
+      render(<RdsCompTimePicker {...defaultProps} />);
       expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
     });
 
-    it('should initialize picker open with expanded state', () => {
-      render(<RdsCompTimePicker {...defaultProps} state="expanded" />);
+    it('initializes picker open with defaultOpen', () => {
+      render(<RdsCompTimePicker {...defaultProps} defaultOpen />);
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
     });
 
-    it('should set time to 12:00 AM with selected state', () => {
-      render(<RdsCompTimePicker {...defaultProps} state="selected" />);
-      const input = screen.getByPlaceholderText('12:00 AM') as HTMLInputElement;
-      expect(input.value).toBe('12:00 AM');
-    });
-
-    it('should close picker when state changes from expanded to default', () => {
-      const { rerender } = render(<RdsCompTimePicker {...defaultProps} state="expanded" />);
-      expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
-
-      rerender(<RdsCompTimePicker {...defaultProps} state="default" />);
-      expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
+    it('applies selected appearance without inventing a time value', () => {
+      render(<RdsCompTimePicker {...defaultProps} selected />);
+      const input = screen.getByPlaceholderText('12:00 AM');
+      expect(input).toHaveClass('selected');
+      expect(input).toHaveValue('');
     });
   });
 
@@ -459,7 +451,7 @@ describe('RdsCompTimePicker', () => {
         <RdsCompTimePicker
           variant="compact"
           colorVariant="success"
-          state="expanded"
+          defaultOpen
           onChange={onChange}
           disabled={false}
         />
@@ -531,11 +523,6 @@ describe('RdsCompTimePicker', () => {
       expect(screen.getByPlaceholderText('12:00 AM')).toBeInTheDocument();
     });
 
-    it('should handle undefined state prop', () => {
-      render(<RdsCompTimePicker {...defaultProps} state={undefined} />);
-      expect(screen.getByPlaceholderText('12:00 AM')).toBeInTheDocument();
-    });
-
     it('should handle rapid open/close toggling', () => {
       render(<RdsCompTimePicker {...defaultProps} />);
       const input = screen.getByPlaceholderText('12:00 AM');
@@ -545,14 +532,14 @@ describe('RdsCompTimePicker', () => {
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
     });
 
-    it('should handle multiple state changes', () => {
-      const { rerender } = render(<RdsCompTimePicker {...defaultProps} state="default" />);
+    it('should handle controlled open changes', () => {
+      const { rerender } = render(<RdsCompTimePicker {...defaultProps} open={false} />);
       expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
 
-      rerender(<RdsCompTimePicker {...defaultProps} state="expanded" />);
+      rerender(<RdsCompTimePicker {...defaultProps} open />);
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
 
-      rerender(<RdsCompTimePicker {...defaultProps} state="selected" />);
+      rerender(<RdsCompTimePicker {...defaultProps} open={false} />);
       expect(screen.queryByTestId('default-time-picker')).not.toBeInTheDocument();
     });
   });
@@ -612,7 +599,6 @@ describe('RdsCompTimePicker', () => {
             <RdsCompTimePicker
               variant={style}
               colorVariant={color}
-              state="default"
             />
           );
           expect(screen.getByPlaceholderText('12:00 AM')).toBeInTheDocument();
@@ -687,8 +673,8 @@ describe('RdsCompTimePicker', () => {
   });
 
   describe('audit fixes', () => {
-    it('open controls the popup and wins over state', () => {
-      const { rerender } = render(<RdsCompTimePicker {...defaultProps} state="expanded" open={false} />);
+    it('open controls the popup', () => {
+      const { rerender } = render(<RdsCompTimePicker {...defaultProps} defaultOpen open={false} />);
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
       rerender(<RdsCompTimePicker {...defaultProps} open />);
       expect(screen.getByRole('dialog')).toBeInTheDocument();

@@ -40,6 +40,9 @@ const meta: Meta<typeof RdsAutocomplete> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    readOnly: {
+      control: { type: 'boolean' },
+    },
     label: {
       name: 'Title',
       control: 'text',
@@ -72,11 +75,13 @@ const meta: Meta<typeof RdsAutocomplete> = {
       defaultValue: 'default',
       description: 'Input style: default (with underline/border) or bottom line (no underline)',
     },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'expanded', 'selected', 'disabled'],
-      defaultValue: 'default',
-      description: 'Controls the state of the autocomplete component',
+    selected: {
+      control: { type: 'boolean' },
+      description: 'Select the first option when no value or defaultValue is provided',
+    },
+    open: {
+      control: { type: 'boolean' },
+      description: 'Control whether the options list is open',
     },
     isShowCheckbox: {
       control: { type: 'boolean' },
@@ -126,7 +131,7 @@ export const Default: Story = {
 };
 Default.parameters = { 
   controls: { 
-    include: ['options', 'label', 'required', 'placeholder', 'showHintText', 'selectSize', 'helperText', 'controlStyle', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'error', 'disabled', 'showTitle', 'state'] 
+  include: ['options', 'label', 'required', 'placeholder', 'showHintText', 'selectSize', 'helperText', 'controlStyle', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'error', 'disabled', 'readOnly', 'selected', 'open', 'showTitle']
   } 
 };
 

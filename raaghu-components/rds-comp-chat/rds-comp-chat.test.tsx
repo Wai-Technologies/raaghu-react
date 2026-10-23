@@ -526,7 +526,7 @@ describe('RdsCompChat', () => {
         <RdsCompChat
           {...defaultProps}
           currentUserCommentTextColor="#FFFFFF"
-          OtherUserCommentTextColor="#000000"
+          otherUserCommentTextColor="#000000"
         />
       );
       expect(container.querySelector('.rds-comp-chat__window')).toBeInTheDocument();

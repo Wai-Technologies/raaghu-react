@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
   argTypes: {
     items: {
       control: 'object',
-      description: 'Array of breadcrumb items',
+      description: 'Array of breadcrumb items. Each item supports `label`, `href`, `active`, `selected`, `level`, `layout`, `showIcon`, `icon`, and `onClick`. Set `selected: true` on an item to display it as selected.',
     },
     title: {
       control: 'text',
@@ -50,11 +50,6 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       control: 'boolean',
       description: 'Show icon in breadcrumb items',
     },
-    state: {
-      control: 'select',
-      options: ['default', 'hover', 'selected'],
-      description: 'Breadcrumb item state',
-    },
     icon: {
       control: 'text',
       description: "Icon to display in breadcrumb items: a built-in name ('home', 'folder', 'category', 'business', 'inventory', 'star') or any icon element",
@@ -78,7 +73,6 @@ export const Default: Story = {
     title: 'Home',
     layout: 'without background',
     showIcon: true,
-    state: 'default',
     level: 'level3',
     separatorType: BreadcrumbSeparator.GreaterThan,
     autoIcons: false,
@@ -96,8 +90,21 @@ export const Simple: Story = {
     ],
     layout: 'without background',
     showIcon: false,
-    state: 'default',
     level: 'level2',
+    separatorType: BreadcrumbSeparator.GreaterThan,
+  },
+};
+
+export const WithSelectedItem: Story = {
+  args: {
+    items: [
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products', selected: true },
+      { label: 'Category', href: '/products/category' },
+      { label: 'Current Page', active: true },
+    ],
+    layout: 'without background',
+    showIcon: true,
     separatorType: BreadcrumbSeparator.GreaterThan,
   },
 };
@@ -113,7 +120,6 @@ export const WithClickHandlers: Story = {
     ],
     layout: 'pill background',
     showIcon: true,
-    state: 'default',
     separatorType: BreadcrumbSeparator.Arrow,
     autoIcons: false,
     level: 'level3',

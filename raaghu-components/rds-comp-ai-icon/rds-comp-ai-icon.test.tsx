@@ -656,6 +656,16 @@ describe('audit fixes', () => {
 });
 
 describe('audit fixes: aliases', () => {
+  it('prefers svgIcon over component', () => {
+    const Canonical = jest.fn(() => <svg />);
+    const Other = jest.fn(() => <svg />);
+    render(
+      <RdsCompAiIcon svgIcon={Canonical} component={Other}  />,
+    );
+    expect(Canonical).toHaveBeenCalled();
+    expect(Other).not.toHaveBeenCalled();
+  });
+
   it('src and component aliases work; imageUrl warns', () => {
     const Custom = (props: any) => <svg {...props} />;
     const { container, rerender } = render(<RdsCompAiIcon component={Custom} />);

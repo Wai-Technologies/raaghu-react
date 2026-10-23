@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RdsCompTruncateText, {
-  TruncateTextState,
   RdsCompTruncateTextProps,
 } from './rds-comp-truncate-text';
 import '@testing-library/jest-dom';
@@ -29,13 +28,12 @@ describe('RdsCompTruncateText', () => {
   const defaultProps: RdsCompTruncateTextProps = {
     text: 'This is a longer text that should be truncated',
     maxLength: 15,
-    state: TruncateTextState.Default,
   };
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
       render(<RdsCompTruncateText {...defaultProps} />);
-      expect(screen.getByText(/This is a longer/)).toBeInTheDocument();
+      expect(screen.getByText('This is a longe...')).toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
@@ -50,56 +48,52 @@ describe('RdsCompTruncateText', () => {
 
     it('should render text in a span element', () => {
       render(<RdsCompTruncateText {...defaultProps} />);
-      const spans = screen.getAllByText(/This is a longer/);
+      const spans = screen.getAllByText('This is a longe...');
       expect(spans.length).toBeGreaterThan(0);
       expect(spans[0].tagName).toBe('SPAN');
     });
   });
 
-  describe('Default State Behavior', () => {
-    it('should display full text in Default state', () => {
+  describe('Truncation behavior', () => {
+    it('truncates text longer than maxLength', () => {
       const shortText = 'Short text';
       render(
         <RdsCompTruncateText
           text={shortText}
           maxLength={5}
-          state={TruncateTextState.Default}
         />
       );
-      expect(screen.getByText(shortText)).toBeInTheDocument();
+      expect(screen.getByText('Short...')).toBeInTheDocument();
     });
 
-    it('should display full text even when it exceeds maxLength in Default state', () => {
+    it('truncates long text regardless of hover state', () => {
       const longText = 'This is a very long text that exceeds the maximum length';
       render(
         <RdsCompTruncateText
           text={longText}
           maxLength={10}
-          state={TruncateTextState.Default}
         />
       );
-      expect(screen.getByText(longText)).toBeInTheDocument();
+      expect(screen.getByText('This is a ...')).toBeInTheDocument();
     });
 
-    it('should not display tooltip in Default state', () => {
+    it('does not show a tooltip until the truncated text is hovered', () => {
       render(
         <RdsCompTruncateText
           text="Long text here"
           maxLength={5}
-          state={TruncateTextState.Default}
         />
       );
       const tooltip = screen.queryByTestId('rds-tooltip');
       expect(tooltip).not.toBeInTheDocument();
     });
 
-    it('should not truncate text in Default state regardless of length', () => {
+    it('does not truncate text shorter than maxLength', () => {
       const text = 'A very long piece of text';
       render(
         <RdsCompTruncateText
           text={text}
-          maxLength={5}
-          state={TruncateTextState.Default}
+          maxLength={50}
         />
       );
       expect(screen.getByText(text)).toBeInTheDocument();
@@ -113,7 +107,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={shortText}
           maxLength={20}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText(shortText)).toBeInTheDocument();
@@ -124,7 +118,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="Short"
           maxLength={20}
-          state={TruncateTextState.Hover}
+
         />
       );
       const tooltip = screen.queryByTestId('rds-tooltip');
@@ -137,7 +131,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={text}
           maxLength={5}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText(text)).toBeInTheDocument();
@@ -150,7 +144,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('This is...')).toBeInTheDocument();
@@ -161,7 +155,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
       const tooltip = screen.queryByTestId('rds-tooltip');
@@ -173,12 +167,12 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       fireEvent.mouseEnter(mainDiv!);
-      
+
       const tooltip = screen.getByTestId('rds-tooltip');
       expect(tooltip).toBeInTheDocument();
     });
@@ -188,15 +182,15 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
-      
+
       fireEvent.mouseEnter(mainDiv!);
       let tooltip: HTMLElement | null = screen.getByTestId('rds-tooltip');
       expect(tooltip).toBeInTheDocument();
-      
+
       fireEvent.mouseLeave(mainDiv!);
       tooltip = screen.queryByTestId('rds-tooltip');
       expect(tooltip).not.toBeInTheDocument();
@@ -210,12 +204,12 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={longText}
           maxLength={10}
-          state={TruncateTextState.Hover}
+
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       fireEvent.mouseEnter(mainDiv!);
-      
+
       const tooltip = screen.getByTestId('rds-tooltip');
       expect(tooltip).toHaveAttribute('data-label', longText);
     });
@@ -226,12 +220,12 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={longText}
           maxLength={10}
-          state={TruncateTextState.Hover}
+
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       fireEvent.mouseEnter(mainDiv!);
-      
+
       const tooltip = screen.getByTestId('rds-tooltip');
       expect(tooltip).toHaveAttribute('data-title', longText);
     });
@@ -241,12 +235,12 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       fireEvent.mouseEnter(mainDiv!);
-      
+
       const tooltip = screen.getByTestId('rds-tooltip');
       expect(tooltip).toHaveAttribute('data-style', 'bottom');
     });
@@ -256,12 +250,12 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       fireEvent.mouseEnter(mainDiv!);
-      
+
       const tooltip = screen.getByTestId('rds-tooltip');
       expect(tooltip).toHaveAttribute('data-arrow', 'true');
     });
@@ -273,7 +267,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="123456789"
           maxLength={5}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('12345...')).toBeInTheDocument();
@@ -284,7 +278,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={4}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('This...')).toBeInTheDocument();
@@ -295,7 +289,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="Exact"
           maxLength={5}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('Exact')).toBeInTheDocument();
@@ -307,7 +301,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="Hello"
           maxLength={1}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('H...')).toBeInTheDocument();
@@ -319,7 +313,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={longText}
           maxLength={10}
-          state={TruncateTextState.Hover}
+
         />
       );
       const truncated = 'A'.repeat(10) + '...';
@@ -333,7 +327,6 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="Test"
           maxLength={10}
-          state={TruncateTextState.Default}
         />
       );
       expect(screen.getByText('Test')).toBeInTheDocument();
@@ -344,7 +337,6 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text=""
           maxLength={10}
-          state={TruncateTextState.Default}
         />
       );
       const mainDiv = document.querySelector('.rds-comp-truncate-text');
@@ -356,7 +348,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="Text"
           maxLength={0}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('...')).toBeInTheDocument();
@@ -367,7 +359,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="Text"
           maxLength={-5}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('...')).toBeInTheDocument();
@@ -379,10 +371,9 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={specialText}
           maxLength={10}
-          state={TruncateTextState.Default}
         />
       );
-      expect(screen.getByText(specialText)).toBeInTheDocument();
+      expect(screen.getByText('Hello @#$%...')).toBeInTheDocument();
     });
 
     it('should handle text with unicode characters', () => {
@@ -391,7 +382,6 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={unicodeText}
           maxLength={20}
-          state={TruncateTextState.Default}
         />
       );
       expect(screen.getByText(unicodeText)).toBeInTheDocument();
@@ -403,7 +393,6 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={textWithNewlines}
           maxLength={50}
-          state={TruncateTextState.Default}
         />
       );
       const span = container.querySelector('span');
@@ -418,7 +407,6 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={textWithSpaces}
           maxLength={50}
-          state={TruncateTextState.Default}
         />
       );
       const span = container.querySelector('span');
@@ -426,49 +414,23 @@ describe('RdsCompTruncateText', () => {
     });
   });
 
-  describe('State Switching', () => {
-    it('should switch from Default to Hover state', () => {
+  describe('Prop updates', () => {
+    it('keeps text truncated across rerenders', () => {
       const { rerender } = render(
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Default}
         />
       );
-      
-      expect(screen.getByText('This is a long text')).toBeInTheDocument();
-      
-      rerender(
-        <RdsCompTruncateText
-          text="This is a long text"
-          maxLength={7}
-          state={TruncateTextState.Hover}
-        />
-      );
-      
       expect(screen.getByText('This is...')).toBeInTheDocument();
-    });
 
-    it('should switch from Hover to Default state', () => {
-      const { rerender } = render(
-        <RdsCompTruncateText
-          text="This is a long text"
-          maxLength={7}
-          state={TruncateTextState.Hover}
-        />
-      );
-      
-      expect(screen.getByText('This is...')).toBeInTheDocument();
-      
       rerender(
         <RdsCompTruncateText
-          text="This is a long text"
+          text="A different long text"
           maxLength={7}
-          state={TruncateTextState.Default}
         />
       );
-      
-      expect(screen.getByText('This is a long text')).toBeInTheDocument();
+      expect(screen.getByText('A diffe...')).toBeInTheDocument();
     });
   });
 
@@ -478,20 +440,18 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="First text"
           maxLength={20}
-          state={TruncateTextState.Default}
         />
       );
-      
+
       expect(screen.getByText('First text')).toBeInTheDocument();
-      
+
       rerender(
         <RdsCompTruncateText
           text="Second text"
           maxLength={20}
-          state={TruncateTextState.Default}
         />
       );
-      
+
       expect(screen.getByText('Second text')).toBeInTheDocument();
     });
 
@@ -500,20 +460,20 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={20}
-          state={TruncateTextState.Hover}
+
         />
       );
-      
+
       expect(screen.getByText('This is a long text')).toBeInTheDocument();
-      
+
       rerender(
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
-      
+
       expect(screen.getByText('This is...')).toBeInTheDocument();
     });
   });
@@ -524,37 +484,37 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
-      
+
       fireEvent.mouseEnter(mainDiv!);
       expect(screen.getByTestId('rds-tooltip')).toBeInTheDocument();
-      
+
       fireEvent.mouseLeave(mainDiv!);
       expect(screen.queryByTestId('rds-tooltip')).not.toBeInTheDocument();
-      
+
       fireEvent.mouseEnter(mainDiv!);
       expect(screen.getByTestId('rds-tooltip')).toBeInTheDocument();
-      
+
       fireEvent.mouseLeave(mainDiv!);
       expect(screen.queryByTestId('rds-tooltip')).not.toBeInTheDocument();
     });
 
-    it('should not toggle tooltip in Default state on mouse events', () => {
+    it('does not show tooltip when showTooltip is false', () => {
       const { container } = render(
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Default}
+          showTooltip={false}
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
-      
+
       fireEvent.mouseEnter(mainDiv!);
       expect(screen.queryByTestId('rds-tooltip')).not.toBeInTheDocument();
-      
+
       fireEvent.mouseLeave(mainDiv!);
       expect(screen.queryByTestId('rds-tooltip')).not.toBeInTheDocument();
     });
@@ -566,7 +526,7 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="12345"
           maxLength={4}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('1234...')).toBeInTheDocument();
@@ -578,12 +538,12 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text={fullText}
           maxLength={10}
-          state={TruncateTextState.Hover}
+
         />
       );
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       fireEvent.mouseEnter(mainDiv!);
-      
+
       const tooltip = screen.getByTestId('rds-tooltip');
       expect(tooltip).toHaveAttribute('data-label', fullText);
       expect(tooltip).toHaveAttribute('data-title', fullText);
@@ -594,51 +554,49 @@ describe('RdsCompTruncateText', () => {
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
       expect(screen.getByText('This is...')).toBeInTheDocument();
       expect(screen.queryByTestId('rds-tooltip')).not.toBeInTheDocument();
     });
 
-    it('should maintain consistent behavior with rapid state changes', () => {
+    it('maintains consistent truncation across repeated rerenders', () => {
       const { rerender, container } = render(
         <RdsCompTruncateText
           text="Long text here"
           maxLength={5}
-          state={TruncateTextState.Default}
         />
       );
-      
+
       for (let i = 0; i < 5; i++) {
         rerender(
           <RdsCompTruncateText
             text="Long text here"
             maxLength={5}
-            state={i % 2 === 0 ? TruncateTextState.Hover : TruncateTextState.Default}
           />
         );
       }
-      
+
       const span = container.querySelector('span');
       expect(span?.textContent).toContain('...');
     });
 
-    it('should render truncated text inside span when in Hover state with long text', () => {
+    it('renders truncated text inside span and shows the tooltip on hover', () => {
       const { container } = render(
         <RdsCompTruncateText
           text="This is a long text"
           maxLength={7}
-          state={TruncateTextState.Hover}
+
         />
       );
-      
+
       let spans = container.querySelectorAll('span');
       expect(spans.length).toBeGreaterThan(0);
-      
+
       const mainDiv = container.querySelector('.rds-comp-truncate-text');
       fireEvent.mouseEnter(mainDiv!);
-      
+
       const tooltip = screen.getByTestId('rds-tooltip');
       spans = tooltip.querySelectorAll('span');
       expect(spans.length).toBeGreaterThan(0);
@@ -665,7 +623,7 @@ describe('audit fixes', () => {
 
   it('is focusable when truncated and shows tooltip on focus', () => {
     const { container } = render(
-      <RdsCompTruncateText maxLength={4} state={TruncateTextState.Hover}>
+      <RdsCompTruncateText maxLength={4}>
         This is long
       </RdsCompTruncateText>
     );

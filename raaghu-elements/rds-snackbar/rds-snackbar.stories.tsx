@@ -50,7 +50,6 @@ const SnackbarTemplate = (args: any) => {
         layout="text-only"
         shape="rectangle"
         size="medium"
-        state="default"
         variant="filled"
         text="Show Snackbar"
         textCase="unset"
@@ -106,4 +105,4 @@ export const AutoHide = {
   },
 };
 
-export const Default: Story = { ...Success };
+export const Default: Story = { ...Success } as Story;

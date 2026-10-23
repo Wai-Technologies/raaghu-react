@@ -15,9 +15,8 @@ const meta: Meta<typeof RdsAccordion> = {
     controls: {
       exclude: [
         'disableGutters', 'expanded', 'TransitionComponent', 'TransitionProps', 'slots', 'slotProps',
-        'component', 'children', 'classes', 'onChange', 'sx', 'expandIcon',
-        // Deprecated props that have a direct replacement control (variant, startIcon)
-        'ShowLeftIcon', 'changeleftIcon', 'icon', 'accordionStyle',
+        'component', 'children', 'classes', 'onChange', 'sx', 'expandIcon', 'startIcon',
+        'icon', 'accordionStyle',
       ],
     },
   },
@@ -50,7 +49,11 @@ const meta: Meta<typeof RdsAccordion> = {
       options: ['default', 'hover', 'selected'],
       description: 'Visual state: default, hover (hover style while the pointer is over it) or selected.',
     },
-    startIcon: {
+    showLeftIcon: {
+      control: 'boolean',
+      description: 'Show or hide the leading icon.',
+    },
+    changeLeftIcon: {
       control: 'select',
       options: ['Default', 'Add', 'ExpandMore', 'ArrowDropDown', 'None'],
       mapping: {
@@ -60,7 +63,7 @@ const meta: Meta<typeof RdsAccordion> = {
         ArrowDropDown: <ArrowDropDownIcon />,
         None: null,
       },
-      description: 'Icon before the title; `null` hides it',
+      description: 'Choose the leading icon. `Default` uses the default add icon.',
     },
     children: {
       control: false,
@@ -78,7 +81,6 @@ const content = (
   </RdsTypography>
 );
 
-// Keeps the story controlled so toggling `defaultExpanded` in the controls panel takes effect.
 const ControlledAccordion = ({ defaultExpanded = false, ...args }: RdsAccordionProps) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
   useEffect(() => setExpanded(defaultExpanded), [defaultExpanded]);
@@ -92,7 +94,7 @@ const baseArgs = {
   variant: 'outlined',
   state: 'default',
   defaultExpanded: false,
-  startIcon: null,
+  showLeftIcon: true,
   children: content,
 } satisfies Partial<RdsAccordionProps>;
 
@@ -108,7 +110,7 @@ export const Default: Story = {
 };
 
 export const CustomIcon: Story = {
-  args: { ...baseArgs, title: 'Custom Icon Accordion', variant: 'underline', startIcon: <ArrowDropDownIcon /> },
+  args: { ...baseArgs, title: 'Custom Icon Accordion', variant: 'underline', changeLeftIcon: 'ArrowDropDown' },
   render: (args) => <ControlledAccordion {...args} />,
 };
 

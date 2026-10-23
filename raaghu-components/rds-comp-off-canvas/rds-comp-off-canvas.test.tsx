@@ -180,14 +180,14 @@ describe('RdsCompOffcanvas', () => {
       await waitFor(() => expect(screen.getByTestId('drawer')).toBeInTheDocument());
     });
 
-    it('should call onShow and onclick when opened', async () => {
+    it('should call onShow and onClick when opened', async () => {
       const onShow = jest.fn();
-      const onclick = jest.fn();
-      setup({ onShow, onclick });
+      const onClick = jest.fn();
+      setup({ onShow, onClick });
       fireEvent.click(openButton());
       await waitFor(() => {
         expect(onShow).toHaveBeenCalled();
-        expect(onclick).toHaveBeenCalledWith(true);
+        expect(onClick).toHaveBeenCalledWith(true);
       });
     });
   });
@@ -303,11 +303,11 @@ describe('RdsCompOffcanvas', () => {
     it('should handle complete workflow', async () => {
       const onShow = jest.fn();
       const onClose = jest.fn();
-      const onclick = jest.fn();
-      setup({ onShow, onClose, onclick, showPrimaryButton: true });
+      const onClick = jest.fn();
+      setup({ onShow, onClose, onClick, showPrimaryButton: true });
       fireEvent.click(openButton());
       await waitFor(() => {
-        expect(onclick).toHaveBeenCalledWith(true);
+        expect(onClick).toHaveBeenCalledWith(true);
         expect(onShow).toHaveBeenCalled();
       });
       fireEvent.click(screen.getByTestId('rds-button-save'));
@@ -338,7 +338,7 @@ describe('RdsCompOffcanvas', () => {
       [{ canvasTitle: undefined }],
       [{ preventEscapeKey: true }],
       [{ preventEscapeKey: false }],
-      [{ onShow: undefined, onClose: undefined, onclick: undefined }],
+      [{ onShow: undefined, onClose: undefined, onClick: undefined }],
       [{ offcanvaswidth: 100 }],
       [{ offcanvaswidth: 2000 }],
     ])('should open drawer with %j', async props => {
@@ -433,6 +433,15 @@ describe('RdsCompOffcanvas', () => {
       render(<RdsCompOffcanvas placement="left" backDrop="false" anchor="bottom" hideBackdrop={false} open />);
       expect(lastDrawer().anchor).toBe('bottom');
       expect(lastDrawer().hideBackdrop).toBe(false);
+    });
+
+    it('supports onClick and gives it precedence over onOpen', () => {
+      const onClick = jest.fn();
+      const onOpen = jest.fn();
+      render(<RdsCompOffcanvas onClick={onClick} onOpen={onOpen} />);
+      fireEvent.click(screen.getByTestId('rds-button-open-off-canvas'));
+      expect(onClick).toHaveBeenCalledWith(true);
+      expect(onOpen).not.toHaveBeenCalled();
     });
 
     it('G6-050 new names work and old ones warn', () => {

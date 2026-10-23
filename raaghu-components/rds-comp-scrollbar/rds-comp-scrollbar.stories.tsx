@@ -26,6 +26,9 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
     argTypes: {
+        className: { control: 'text', description: 'CSS class applied to the scrollbar root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the scrollbar root.' },
+        ref: { control: false, description: 'React ref to the scrollbar root; assign it in code.' },
         variant: {
           control: "select",
           options: ["Mac", "Simple"],
@@ -59,5 +62,5 @@ export const Default: Story = {
       expect(el).toBeTruthy();
     },
 } satisfies Story;
-   Default.parameters = { controls: { include: ['variant', 'position', 'showButtons'] } };
+   Default.parameters = { controls: { include: ['variant', 'position', 'showButtons', 'className', 'sx', 'ref'] } };
     

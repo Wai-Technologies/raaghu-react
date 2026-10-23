@@ -2,7 +2,9 @@ import type { Ref } from 'react';
 import { Box, Typography, LinearProgress, CircularProgress, type BoxProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-loader.scss';
-export interface RdsLoaderProps extends Omit<BoxProps, 'type' | 'color' | 'variant' | 'ref' | 'children'> {
+export interface RdsLoaderProps extends Omit<BoxProps, 'type' | 'color' | 'variant' | 'ref' | 'children' | 'className' | 'sx'> {
+  className?: string;
+  sx?: BoxProps['sx'];
   /** Loader shape for the MUI-based loaders. @default 'circular' */
   variant?: 'linear' | 'circular';
   /** Loader size. @default 'medium' */
@@ -20,7 +22,7 @@ export interface RdsLoaderProps extends Omit<BoxProps, 'type' | 'color' | 'varia
   /** Name of a CSS-only loader style (e.g. `hash`, `rotate`); when set it replaces the MUI loaders. */
   type?: string;
   /** Ref to the root element. */
-  ref?: Ref<HTMLElement>;
+  ref?: Ref<HTMLDivElement>;
 }
 
 /** Loading indicator: MUI linear/circular progress or a CSS-only loader selected via `type`. */
@@ -64,7 +66,6 @@ const RdsLoader = ({ className, sx, ref, ...props }: RdsLoaderProps) => {
     );
   }
 
-  // Overlay sits on a dark backdrop — keep label/value text light for contrast in light mode
   const overlayTextSx = overlay
     ? { color: 'var(--rds-neutral-0, #fff)' }
     : undefined;

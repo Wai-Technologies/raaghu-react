@@ -108,12 +108,9 @@ describe('RdsInput', () => {
 
   describe('Input States', () => {
     it.each([
-      [{ state: 'error' }, 'error'],
       [{ error: true }, 'error'],
-      [{ state: 'disabled' }, 'disabled'],
       [{ disabled: true }, 'disabled'],
-      [{ state: 'active' }, 'active'],
-      [{ state: 'selected' }, 'selected'],
+      [{ selected: true }, 'selected'],
     ])('should apply state class for %j', (props, cls) => {
       const { container } = setup(props);
       expect(container.querySelector(`.rds-input--${cls}`)).toBeInTheDocument();
@@ -259,7 +256,6 @@ describe('RdsInput', () => {
         layout: 'text',
         size: 'medium',
         shape: 'pill',
-        state: 'active',
         placeholder: 'Enter text',
         hintText: 'This is a hint',
         showIcon: true,

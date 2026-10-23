@@ -50,16 +50,7 @@
     padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 10px);
   }
 
-  &--off {
-    opacity: 0.7;
-  }
-
-  &--on {
-    opacity: 1;
-  }
-
-  /* Disabled while “on”: full-opacity bar, muted active look */
-  &--disabled-on {
+  &--disabled {
     pointer-events: none;
     opacity: 1;
     background: var(--rds-color-surface-variant);
@@ -72,25 +63,6 @@
       &--active {
         background: var(--rds-color-surface-container);
         opacity: 0.7;
-      }
-    }
-  }
-
-  /* Disabled while “off”: dimmed bar (matches --off), no active emphasis */
-  &--disabled-off {
-    pointer-events: none;
-    opacity: 0.55;
-    background: var(--rds-color-surface);
-
-    .rds-comp-toolbar__button {
-      color: var(--rds-color-on-surface-variant);
-      opacity: 0.45;
-      cursor: not-allowed;
-      background: transparent;
-
-      &--active {
-        background: transparent;
-        opacity: 0.45;
       }
     }
   }

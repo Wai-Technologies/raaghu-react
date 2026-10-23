@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, type ReactNode } from "react";
 import clsx from 'clsx';
 import { 
   History, 
@@ -48,8 +48,8 @@ export interface SelectionContentProps {
 
 export interface ToolbarContentProps {
   initialTab?: string;
-  figmaIconSrc?: string;
-  storybookIconSrc?: string;
+  figmaIconSrc?: string | ReactNode;
+  storybookIconSrc?: string | ReactNode;
 }
 
 const TOOLBAR_TABS = [
@@ -68,8 +68,8 @@ export interface FigmaUIKitButtonProps {
   text?: string;
   onClick?: () => void;
   className?: string;
-  storybookIconSrc?: string;
-  figmaIconSrc?: string;
+  storybookIconSrc?: string | ReactNode;
+  figmaIconSrc?: string | ReactNode;
   iconAlt?: string;
 }
 
@@ -77,8 +77,8 @@ export interface StorybookButtonProps {
   text?: string;
   onClick?: () => void;
   className?: string;
-  figmaIconSrc?: string;
-  storybookIconSrc?: string;
+  figmaIconSrc?: string | ReactNode;
+  storybookIconSrc?: string | ReactNode;
   iconAlt?: string;
 }
 
@@ -101,11 +101,13 @@ export const FigmaUIKitButton = ({
     >
        {figmaIconSrc && (
         <span className="rds-comp-details-pane__figma-icon-wrapper" aria-hidden>
-          <img 
-            src={figmaIconSrc} 
-            alt={iconAlt} 
-            className="rds-comp-details-pane__figma-icon"
-          />
+          {typeof figmaIconSrc === 'string' ? (
+            <img
+              src={figmaIconSrc}
+              alt={iconAlt}
+              className="rds-comp-details-pane__figma-icon"
+            />
+          ) : figmaIconSrc}
         </span>
       )}
       <span className="rds-comp-details-pane__figma-button-text">{text}</span>
@@ -129,11 +131,13 @@ export const StorybookButton = ({
     >
       {storybookIconSrc && (
         <span className="rds-comp-details-pane__storybook-icon-wrapper" aria-hidden>
-          <img 
-            src={storybookIconSrc} 
-            alt={iconAlt} 
-            className="rds-comp-details-pane__storybook-icon"
-          />
+          {typeof storybookIconSrc === 'string' ? (
+            <img
+              src={storybookIconSrc}
+              alt={iconAlt}
+              className="rds-comp-details-pane__storybook-icon"
+            />
+          ) : storybookIconSrc}
         </span>
       )}
     
@@ -425,7 +429,6 @@ export const RealEstateContent = ({
   showLeftIcon
   showRightIcon
   size="medium"
-  state="default"
   variant="filled"
   text=" Add Guests"
   textCase="uppercase"
@@ -524,7 +527,6 @@ export const SelectionContent = ({
                       },
                     ]}
                     radioProps={{ name: 'agent-selection' }}
-                    state="default"
                     value={selectedAgent}
                   />
                 </div>
@@ -784,7 +786,7 @@ export const ToolbarContent = ({
                   </RdsTypography>
                   <div>
                     <RdsCompTreeStructure
-                      Language="TypeScript"
+                      language="TypeScript"
                       level={TreeLevel.Level3}
                       showActions
                       showChewron
@@ -899,7 +901,7 @@ export const ToolbarContent = ({
   type={IconType.Folder}
 />
 <RdsCompTreeStructure
-  Language="TypeScript"
+  language="TypeScript"
   level={TreeLevel.Level2}
   showActions
   showChewron

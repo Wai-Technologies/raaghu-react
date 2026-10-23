@@ -18,7 +18,7 @@ figma.connect(
       showTitle: figma.boolean("✏️Show Title"),
       label: figma.string("📝Label"),
       required: figma.boolean("❗ Is Mandatory"),
-      State: figma.enum("💡 State", {
+      state: figma.enum("💡 State", {
         "Default": "Default",
         "Active": "Active",
         "Selected": "Selected",

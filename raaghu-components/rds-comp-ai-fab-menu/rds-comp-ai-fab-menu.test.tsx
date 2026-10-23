@@ -285,6 +285,14 @@ describe('RdsCompAiFabMenu', () => {
       expect(button).toBeInTheDocument();
     });
 
+    it('applies sx styles to the menu root', () => {
+      const { container } = render(
+        <RdsCompAiFabMenu {...defaultProps} sx={{ marginTop: '17px' }} />
+      );
+      const root = container.querySelector('.rds-fab-menu');
+      expect(root).toHaveStyle({ marginTop: '17px' });
+    });
+
     it('renders with left alignment by default', () => {
       const { container } = render(
         <RdsCompAiFabMenu listItems={defaultListItems} />
@@ -704,7 +712,7 @@ describe('RdsCompAiFabMenu', () => {
     });
 
     it('renders variation of menu icons', () => {
-      const icons = ['list', 'refresh', 'download', 'delete'];
+      const icons = ['list', 'refresh', 'download', 'delete'] as const;
       icons.forEach((icon) => {
         const { container, unmount } = render(
           <RdsCompAiFabMenu listItems={[]} menuIcon={icon} />

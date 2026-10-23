@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useCallback, type ReactNode, type SyntheticEvent } from "react";
+import { Box } from "@mui/material";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
@@ -7,7 +8,6 @@ import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
 import {
         type RdsCompToastProps,
         ToastLayout,
-        ToastLeadingIcon,
 } from "./rds-comp-toast.types";
 import {
     getLeadingIconClass,
@@ -133,7 +133,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const progress = props.progress ?? props.progressWidth;
     const position = props.anchorOrigin ? anchorToPosition(props.anchorOrigin) : props.position;
 
-    const _stateClass = getStateClass(props.severity ?? props.state);
+    const _stateClass = getStateClass(props.severity);
     const borderColor = `rds-comp-toast--border-${BORDER_TOKEN_MAP[_stateClass] || 'light'}`;
 
     const { onClose } = props;
@@ -146,7 +146,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     }, [setShowState, onClose]);
 
     return (
-        <div className={clsx("rds-comp-toast__container", getPositionClasses(position))}>
+        <Box ref={props.ref} className={clsx("rds-comp-toast__container", getPositionClasses(position), props.className)} sx={props.sx}>
             <div
                 role="alert"
                 aria-live="assertive"
@@ -242,7 +242,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                     </div>
                 )}
             </div>
-        </div>
+        </Box>
     );
 };
 ToastFooter.displayName = "ToastFooter";

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import type { FC, MouseEvent } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -46,12 +46,15 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     acceptLabel = 'ACCEPT',
     description,
     className,
+    sx,
+    ref,
     onDismiss,
     onAccept,
     showButton: legacyShowButton,
     showPrimaryButton: legacyShowPrimaryButton,
     showSecondaryButton: legacyShowSecondaryButton,
     showDismiss: legacyShowDismiss,
+    ...rest
 }) => {
     if (type !== undefined) warnDeprecatedProp('RdsCompNotification', 'type', '`severity`');
     if (legacyNotifications !== undefined) warnDeprecatedProp('RdsCompNotification', 'notifications', '`items`');
@@ -93,7 +96,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     const isHorizontalImage = layout === NotificationLayout.Horizontal && style === NotificationStyle.Image;
 
     return (
-        <Fragment>
+        <Box {...rest} ref={ref} className={clsx("rds-comp-notification-list", className)} sx={[{ display: 'flex', flexDirection: 'column' }, ...(Array.isArray(sx) ? sx : [sx])]}>
             {visibleNotifications.map(({ notification, key }) => (
                 <Card
                     role="status"
@@ -236,7 +239,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                     </Box>
                 </Card>
             ))}
-        </Fragment>
+        </Box>
     );
 };
 RdsCompNotification.displayName = "RdsCompNotification";

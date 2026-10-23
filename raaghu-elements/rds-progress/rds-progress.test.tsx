@@ -368,6 +368,14 @@ describe('audit fixes', () => {
     expect(container.querySelectorAll('.rds-progress__dash')).toHaveLength(5);
   });
 
+  it('forwards sx and ref to the root element', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    renderWithTheme(<RdsProgress style="stepper" ref={ref} data-testid="root" sx={{ marginTop: '7px' }} />);
+    const root = screen.getByTestId('root');
+    expect(root).toHaveStyle('margin-top: 7px');
+    expect(ref.current).toBe(root);
+  });
+
   it('derives value from steps/totalSteps and uses totalSteps segments', () => {
     const { container } = renderWithTheme(<RdsProgress shape="block" steps={3} totalSteps={7} />);
     expect(container.querySelectorAll('.rds-progress__block')).toHaveLength(7);

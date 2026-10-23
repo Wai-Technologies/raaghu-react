@@ -67,11 +67,11 @@ describe('RdsCarousel', () => {
 
     it.each([
       ['next from first', undefined, nextBtn, 2],
-      ['prev from second', '2', prevBtn, 1],
-      ['wrap to last on prev from first', '1', prevBtn, 3],
-      ['wrap to first on next from last', '3', nextBtn, 1],
-    ])('should navigate: %s', (_n, state, btn, expected) => {
-      setup(state ? { state } : {});
+      ['prev from second', 1, prevBtn, 1],
+      ['wrap to last on prev from first', 0, prevBtn, 3],
+      ['wrap to first on next from last', 2, nextBtn, 1],
+    ])('should navigate: %s', (_n, defaultIndex, btn, expected) => {
+      setup(defaultIndex === undefined ? {} : { defaultIndex });
       fireEvent.click(btn());
       expect(slide(expected)).toBeInTheDocument();
     });
@@ -183,17 +183,17 @@ describe('RdsCarousel', () => {
   });
 
   describe('State Management', () => {
-    it.each(['2', '3'])('should set initial slide from state prop %s', (state) => {
-      setup({ state });
-      expect(slide(Number(state))).toBeInTheDocument();
+    it.each([1, 2])('should set initial slide from activeIndex %s', (activeIndex) => {
+      setup({ activeIndex });
+      expect(slide(activeIndex + 1)).toBeInTheDocument();
     });
 
-    it('should update slide when state changes', () => {
-      const { rerender } = setup({ state: '1' });
+    it('should update slide when activeIndex changes', () => {
+      const { rerender } = setup({ activeIndex: 0 });
       expect(slide(1)).toBeInTheDocument();
       rerender(
         <ThemeProvider theme={createTheme()}>
-          <RdsCarousel {...defaultProps} state="3" />
+          <RdsCarousel {...defaultProps} activeIndex={2} />
         </ThemeProvider>
       );
       expect(slide(3)).toBeInTheDocument();
@@ -538,18 +538,26 @@ describe('audit fixes', () => {
     });
   });
 
-  describe('G1-185 state sync', () => {
-    it('moves to the slide given by a changed state prop', () => {
-      const { container, rerender } = render(<RdsCarousel state="1">{slides}</RdsCarousel>);
-      rerender(<RdsCarousel state="3">{slides}</RdsCarousel>);
+  describe('controlled activeIndex sync', () => {
+    it('notifies the parent when a controlled slide change is requested', () => {
+      const onActiveIndexChange = jest.fn();
+      render(<RdsCarousel activeIndex={0} onActiveIndexChange={onActiveIndexChange}>{slides}</RdsCarousel>);
+      fireEvent.click(screen.getAllByRole('button')[1]);
+      expect(onActiveIndexChange).toHaveBeenCalledWith(1);
+      expect(getSlides(document.body)[0]).not.toHaveAttribute('inert');
+    });
+
+    it('moves to the slide given by a changed activeIndex prop', () => {
+      const { container, rerender } = render(<RdsCarousel activeIndex={0}>{slides}</RdsCarousel>);
+      rerender(<RdsCarousel activeIndex={2}>{slides}</RdsCarousel>);
       const dots = container.querySelectorAll('.rds-carousel__indicator');
       expect(dots[2]).toHaveAttribute('aria-current', 'true');
       expect(getSlides(container)[2]).not.toHaveAttribute('inert');
     });
 
-    it('ignores a state outside the slide range', () => {
-      const { container, rerender } = render(<RdsCarousel state="1">{slides.slice(0, 2)}</RdsCarousel>);
-      rerender(<RdsCarousel state="4">{slides.slice(0, 2)}</RdsCarousel>);
+    it('ignores an activeIndex outside the slide range', () => {
+      const { container, rerender } = render(<RdsCarousel activeIndex={0}>{slides.slice(0, 2)}</RdsCarousel>);
+      rerender(<RdsCarousel activeIndex={3}>{slides.slice(0, 2)}</RdsCarousel>);
       const dots = container.querySelectorAll('.rds-carousel__indicator');
       expect(dots[0]).toHaveAttribute('aria-current', 'true');
     });

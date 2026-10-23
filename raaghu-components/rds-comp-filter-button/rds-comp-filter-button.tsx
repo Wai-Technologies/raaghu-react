@@ -9,6 +9,7 @@ import {
   AccordionDetails,
   TextField,
 } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
@@ -56,6 +57,8 @@ export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivEle
   onClear?: () => void;
   disabled?: boolean;
   className?: string;
+  /** MUI system styles applied to the filter button root. */
+  sx?: SxProps<Theme>;
   itemIcon?: string | ReactNode;
   localeText?: RdsCompFilterButtonLocaleText;
 }
@@ -81,6 +84,7 @@ const RdsCompFilterButton = ({
   onClear,
   disabled = false,
   className,
+  sx,
   itemIcon,
   localeText,
   ...props
@@ -187,7 +191,7 @@ const RdsCompFilterButton = ({
   }, [localFilters, searchTerm]);
 
   return (
-    <Box className={clsx("rds-comp-filter-button", className)} {...props}>
+    <Box className={clsx("rds-comp-filter-button", className)} sx={sx} {...props}>
       <RdsButton
         ref={buttonRef}
         size={'medium'}
@@ -323,7 +327,7 @@ const RdsCompFilterButton = ({
                       <RdsCheckbox
                         key={value}
                         className="rds-filter-button__option"
-                        labeltext={value}
+                        labelText={value}
                         showText
                         color="primary"
                         size="small"

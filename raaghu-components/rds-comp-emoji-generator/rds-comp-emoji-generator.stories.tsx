@@ -1,6 +1,6 @@
 import { expect, within } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
-import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
+import RdsCompEmojiGenerator, { EmojiCategory, EmojiGeneratorType } from "./rds-comp-emoji-generator";
 
 const meta: Meta = {
     title: 'Components/Emoji Generator',
@@ -19,26 +19,28 @@ const meta: Meta = {
     },
     tags: ['autodocs', 'stable'],
     argTypes: {
-        Type: {
+        className: { control: 'text', description: 'CSS class applied to the emoji generator root.' },
+        sx: { control: 'object', description: 'MUI system styles applied to the emoji generator root.' },
+        ref: { control: false, description: 'React ref to the emoji generator root; assign it in code.' },
+        type: {
             options: Object.values(EmojiGeneratorType),
             control: { type: "select" },
             description: "Type of emoji generator - Default shows full interface, Quick Reactions shows simplified version",
         },
-        Category: {
+        category: {
             options: Object.values(EmojiCategory),
             control: { type: "select" },
             description: "Category of emojis to display",
         },
-        State: {
-            options: Object.values(SkinToneState),
-            control: { type: "select" },
-            description: "State of skin tone selector (Default or Expanded)",
+        skinTonePickerOpen: {
+            control: { type: "boolean" },
+            description: "Keeps the skin tone picker open inline",
         },
-        "Show Skin Tone": {
+        showSkinTone: {
             control: { type: "boolean" },
             description: "Show skin tone selector toggle",
         },
-        "Show Footer": {
+        showFooter: {
             control: { type: "boolean" },
             description: "Show 'What's your mood?' footer section",
         },
@@ -63,11 +65,11 @@ export const Default: Story = {
         expect(btn).toBeTruthy();
     },
     args: {
-        Type: EmojiGeneratorType.Default,
-        Category: EmojiCategory.SmileysAndPeople,
-        "Show Skin Tone": true,
-        "Show Footer": true,
-        State: SkinToneState.Default,
+        type: EmojiGeneratorType.Default,
+        category: EmojiCategory.SmileysAndPeople,
+        showSkinTone: true,
+        showFooter: true,
+        skinTonePickerOpen: false,
         maxEmojis: 80,
     },
     parameters: {
@@ -81,11 +83,11 @@ export const Default: Story = {
 
 export const QuickReactions: Story = {
     args: {
-        Type: EmojiGeneratorType.QuickReactions,
-        Category: EmojiCategory.SmileysAndPeople,
-        "Show Skin Tone": false,
-        "Show Footer": false,
-        State: SkinToneState.Default,
+        type: EmojiGeneratorType.QuickReactions,
+        category: EmojiCategory.SmileysAndPeople,
+        showSkinTone: false,
+        showFooter: false,
+        skinTonePickerOpen: false,
         maxEmojis: 32,
     },
     parameters: {

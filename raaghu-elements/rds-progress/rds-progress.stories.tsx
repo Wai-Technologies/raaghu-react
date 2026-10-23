@@ -12,6 +12,21 @@ const meta: Meta<typeof RdsProgress> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the progress root.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the progress root.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the progress root. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
     shape: {
       control: {
         type: 'select',
@@ -64,7 +79,7 @@ export const Circular: Story = {
     await expect(progress).toBeInTheDocument();
   },
 };
-Circular.parameters = { controls: { include: ['shape', 'mode', 'steps', 'showLabel', 'color', 'stepIcon'] } };
+Circular.parameters = { controls: { include: ['shape', 'mode', 'steps', 'showLabel', 'color', 'stepIcon', 'className', 'sx', 'ref'] } };
 
 export const Stepper: Story = {
   args: {
@@ -74,7 +89,7 @@ export const Stepper: Story = {
     stepIcon: 'dot',
   },
 };
-Stepper.parameters = { controls: { include: ['shape', 'steps', 'color', 'stepIcon'] } };
+Stepper.parameters = { controls: { include: ['shape', 'steps', 'color', 'stepIcon', 'className', 'sx', 'ref'] } };
 
 export const ColorVariants: Story = {
   args: {
@@ -83,14 +98,14 @@ export const ColorVariants: Story = {
     color: 'secondary',
   },
 };
-ColorVariants.parameters = { controls: { include: ['mode', 'value', 'color'] } };
+ColorVariants.parameters = { controls: { include: ['mode', 'value', 'color', 'className', 'sx', 'ref'] } };
 
 export const Indeterminate: Story = {
   args: {
     mode: 'indeterminate',
   },
 };
-Indeterminate.parameters = { controls: { include: ['mode'] } };
+Indeterminate.parameters = { controls: { include: ['mode', 'className', 'sx', 'ref'] } };
 
 export const Linear: Story = {
   args: {
@@ -105,6 +120,6 @@ export const Linear: Story = {
     ),
   ],
 };
-Linear.parameters = { controls: { include: ['mode', 'value'] } };
+Linear.parameters = { controls: { include: ['mode', 'value', 'className', 'sx', 'ref'] } };
 
 export const Default: Story = { ...Circular };

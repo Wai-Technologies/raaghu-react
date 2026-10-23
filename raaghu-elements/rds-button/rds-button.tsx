@@ -71,8 +71,7 @@ type ButtonVariant = 'filled' | 'outlined' | 'transparent';
 
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
   shape?: 'pill' | 'rectangle';
-  state?: 'default' | 'hover' | 'disabled' | 'selected';
-  /** Selected look. Preferred over `state="selected"`; wins over the `state`-derived selected look. */
+  /** Applies the selected visual treatment, for toggle-style buttons. */
   selected?: boolean;
   layout?: 'icon+text' | 'icon-only' | 'text-only';
   variant?: ButtonVariant;
@@ -112,7 +111,6 @@ const RdsButton = ({
   showRightIcon,
   changeLeftIcon,
   changeRightIcon,
-  state = 'default',
   selected,
   textCase = 'uppercase',
   className,
@@ -140,13 +138,6 @@ const RdsButton = ({
     : buttonVariant === 'outlined' ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
     : buttonVariant === 'transparent' ? (usesTokenColorStyling ? 'rds-button__text' : '')
     : '';
-
-  const visualState = selected ? 'selected' : selected === false && state === 'selected' ? 'default' : state;
-  const stateClass =
-    visualState === 'hover' ? 'rds-button__state-hover'
-    : visualState === 'selected' ? 'rds-button__state-selected'
-    : visualState === 'disabled' ? 'rds-button__state-disabled'
-    : 'rds-button__state-default';
 
   const layoutClass =
     normalizedLayout === 'icon+text' ? 'rds-button--layout-icon-text'
@@ -191,7 +182,7 @@ const RdsButton = ({
 
   return (
     <MuiButton
-      disabled={disabled || state === 'disabled' || isBusy}
+      disabled={disabled || isBusy}
       variant={buttonVariant === 'filled' ? 'contained' : buttonVariant === 'transparent' ? 'text' : buttonVariant}
       color={color}
       className={clsx(
@@ -199,7 +190,7 @@ const RdsButton = ({
         layoutClass,
         hasIcons && 'rds-button--has-icon',
         styleVariantClass,
-        stateClass,
+        selected && 'rds-button--selected',
         shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle',
         isBusy && 'rds-button__loading',
         className,
@@ -224,6 +215,7 @@ const RdsButton = ({
       startIcon={resolvedStartIcon}
       endIcon={resolvedEndIcon}
       aria-label={props['aria-label'] ?? (isIconOnly ? text : undefined)}
+      aria-pressed={selected}
       {...props}
     >
       {renderContent()}

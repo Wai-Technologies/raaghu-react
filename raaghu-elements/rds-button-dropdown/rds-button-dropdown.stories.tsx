@@ -26,6 +26,21 @@ const meta: Meta<typeof RdsButtonDropdown> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    className: {
+      control: 'text',
+      description: 'CSS class applied to the trigger button.',
+      table: { category: 'Root props' },
+    },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the trigger button.',
+      table: { category: 'Root props' },
+    },
+    ref: {
+      control: false,
+      description: 'React ref to the trigger button. Assign in code; refs cannot be set through Controls.',
+      table: { category: 'Root props' },
+    },
     children: {
       control: 'text',
       description: 'Text to display on the button',
@@ -42,11 +57,18 @@ const meta: Meta<typeof RdsButtonDropdown> = {
       control: 'boolean',
       description: 'Show search input in dropdown',
     },
-    state: {
-      control: 'select',
-        options: ['default', 'selected'],
-        description: 'State of the dropdown',
-      },
+    open: {
+      control: 'boolean',
+      description: 'Whether the dropdown menu is open',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the trigger button is disabled',
+    },
+    selected: {
+      control: 'boolean',
+      description: 'Whether the trigger button has the selected treatment',
+    },
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
@@ -67,11 +89,6 @@ const meta: Meta<typeof RdsButtonDropdown> = {
       options: ['rectangle', 'pill'],
       description: 'Shape of the button',
     },
-    buttonState: {
-      control: 'select',
-      options: ['default', 'hover', 'disabled', 'selected'],
-      description: 'Visual state of the inner button (does not change dropdown open logic)',
-    },
   },
 };
 export default meta;
@@ -84,12 +101,10 @@ export const Default: Story = {
     options,
     multiple: false,
     showSearch: false,
-    state: 'default',
     size: 'medium',
     layout: 'icon+text',
     variant: 'primary',
     shape: 'rectangle',
-    buttonState: 'default',
     endIcon: <ArrowDropDown />,
     startIcon: <RadioButtonUnchecked />,
     showUserAvatar: true,
@@ -98,7 +113,7 @@ export const Default: Story = {
     isShowRightIcon: true,
   },
 };
-Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch','state','showUserAvatar','showRadio','isShowLeftIcon','isShowRightIcon','size','layout','variant','shape','buttonState'] } };
+Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'showUserAvatar', 'showRadio', 'isShowLeftIcon', 'isShowRightIcon', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
 
 export const MultiSelect: Story = {
   args: {
@@ -110,7 +125,7 @@ export const MultiSelect: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-MultiSelect.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','variant','shape','buttonState'] } };
+MultiSelect.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
 
 export const WithSearch: Story = {
   args: {
@@ -122,7 +137,7 @@ export const WithSearch: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-WithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','variant','shape','buttonState'] } };
+WithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
 
 export const MultiSelectWithSearch: Story = {
   args: {
@@ -134,4 +149,4 @@ export const MultiSelectWithSearch: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-MultiSelectWithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch','size','layout','variant','shape','buttonState'] } };
+MultiSelectWithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };

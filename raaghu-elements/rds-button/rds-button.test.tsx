@@ -83,17 +83,17 @@ describe('RdsButton — keyboard navigation', () => {
 });
 
 describe('RdsButton audit fixes', () => {
-  it('lets selected override the state-derived look', () => {
-    const { rerender } = render(<RdsButton state="selected" selected={false}>A</RdsButton>);
-    expect(screen.getByRole('button')).toHaveClass('rds-button__state-default');
+  it('applies the selected treatment when selected is true', () => {
+    const { rerender } = render(<RdsButton selected={false}>A</RdsButton>);
+    expect(screen.getByRole('button')).not.toHaveClass('rds-button--selected');
     rerender(<RdsButton selected>A</RdsButton>);
-    expect(screen.getByRole('button')).toHaveClass('rds-button__state-selected');
+    expect(screen.getByRole('button')).toHaveClass('rds-button--selected');
   });
 
   it('keeps its own classes when a consumer passes className (G1-134)', () => {
     render(<RdsButton className="my-button">Save</RdsButton>);
     const button = screen.getByRole('button', { name: 'Save' });
-    expect(button).toHaveClass('rds-button', 'rds-button__state-default', 'my-button');
+    expect(button).toHaveClass('rds-button', 'my-button');
   });
 
   it('converts theme-scaled sx numbers the way sx does instead of raw px (G1-136)', () => {
@@ -149,7 +149,7 @@ describe('RdsButton audit fixes', () => {
   it('does not warn for the supported API', () => {
     (warnDeprecatedProp as jest.Mock).mockClear();
     render(
-      <RdsButton variant="filled" state="selected" layout="icon+text" showLeftIcon changeLeftIcon="add" showRightIcon changeRightIcon="save">
+      <RdsButton variant="filled" selected layout="icon+text" showLeftIcon changeLeftIcon="add" showRightIcon changeRightIcon="save">
         New
       </RdsButton>
     );

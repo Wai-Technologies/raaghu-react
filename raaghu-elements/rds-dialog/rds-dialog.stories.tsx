@@ -25,7 +25,6 @@ const DialogWithOpenControl = (args: DialogArgs) => {
         shape="rectangle"
         showLeftIcon
         size="medium"
-        state="default"
         variant="filled"
         textCase="uppercase"
         onClick={() => setOpen(true)}
@@ -62,13 +61,13 @@ const meta: Meta = {
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
     variant: { control: { type: 'select' }, options: ['default', 'confirm'] },
-    ShowDissmiss: { control: 'boolean' },
+    showDissmiss: { control: 'boolean' },
     actions: { control: false },
     children: { control: false },
-    ShowPrimary: {
+    showPrimary: {
       control: 'boolean'
     },
-    ShowSecondary: {
+    showSecondary: {
       control: 'boolean'
     }
   },
@@ -78,7 +77,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: (args) => <DialogWithOpenControl {...args} />,
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
   args: {
     open: false,
     maxWidth: 'md',
@@ -98,7 +97,7 @@ export const Default: Story = {
 };
 
 export const FullWidth: Story = {
-  render: (args) => <DialogWithOpenControl {...args} />,
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
   args: {
     open: false,
     fullWidth: true,
@@ -113,11 +112,11 @@ export const FullWidth: Story = {
 };
 
 export const Interactive: Story = {
-  render: (args) => <DialogWithOpenControl {...args} />,
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
   args: {
     open: false,
     title: 'Interactive Dialog',
-    ShowDissmiss: true,
+    showDissmiss: true,
     maxWidth: 'sm',
     fullWidth: true,
     variant: 'default',
@@ -130,7 +129,7 @@ export const Interactive: Story = {
 };
 
 export const LargeContent: Story = {
-  render: (args) => <DialogWithOpenControl {...args} />,
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
   args: {
     open: false,
     maxWidth: 'md',
@@ -164,7 +163,6 @@ export const WithActions: Story = {
           layout="text-only"
           shape="rectangle"
           size="medium"
-          state="default"
           variant="filled"
           textCase="uppercase"
           onClick={() => setOpen(true)}
@@ -204,10 +202,10 @@ export const WithIcon: Story = {
     fullWidth: true,
     fullScreen: false,
     title: 'Title',
-    ShowDissmiss: true,
+    showDissmiss: true,
     variant: 'confirm',
-    ShowPrimary: true,
-    ShowSecondary: true,
+    showPrimary: true,
+    showSecondary: true,
     children: (
       <Box display="flex" flexDirection="column" alignItems="center" width="100%" sx={{ mt: 1, mb: 1 }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2, mt: 1 }}>
@@ -222,8 +220,8 @@ export const WithIcon: Story = {
     ),
   },
   argTypes: {
-    ShowPrimary: { control: false },
-    ShowSecondary: { control: false },
+    showPrimary: { control: false },
+    showSecondary: { control: false },
   },
   parameters: {
     controls: {
@@ -232,10 +230,10 @@ export const WithIcon: Story = {
         'fullWidth',
         'fullScreen',
         'title',
-        'ShowDissmiss',
+        'showDissmiss',
         'variant',
-        'ShowPrimary',
-        'ShowSecondary',
+        'showPrimary',
+        'showSecondary',
         'primaryText',
         'secondaryText',
       ],
@@ -244,5 +242,5 @@ export const WithIcon: Story = {
 
   },
 
-  render: (args) => <DialogWithOpenControl {...args} />,
+  render: (args) => <DialogWithOpenControl {...(args as DialogArgs)} />,
 };

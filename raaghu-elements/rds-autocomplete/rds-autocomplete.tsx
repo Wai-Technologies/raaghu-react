@@ -36,7 +36,8 @@ export interface RdsAutocompleteProps<T> extends Omit<RdsAutocompleteMuiProps<T>
   };
   selectSize?: 'small' | 'medium' | 'large';
   controlStyle?: 'default' | 'bottom line';
-  state?: 'default' | 'expanded' | 'selected' | 'disabled';
+  /** Selects the first available option when no value/defaultValue is provided. */
+  selected?: boolean;
   /** Decoration shown before each option: a checkbox, a radio, the option icon (`avatar`) or nothing. Takes precedence over `optionDecorators`. */
   optionVariant?: 'checkbox' | 'radio' | 'avatar' | 'none';
   /** @deprecated Use `optionVariant` instead. */
@@ -102,8 +103,8 @@ const sameOptions = (a: readonly unknown[] | undefined, b: readonly unknown[] | 
   });
 };
 
-const deriveSelection = <T,>(state: RdsAutocompleteProps<T>['state'], options: readonly T[] | undefined, multiple: boolean): T | T[] | null => {
-  if (state === 'selected' && options && options.length > 0) {
+const deriveSelection = <T,>(selected: boolean, options: readonly T[] | undefined, multiple: boolean): T | T[] | null => {
+  if (selected && options && options.length > 0) {
     return multiple ? [options[0]] : options[0];
   }
   return multiple ? [] : null;
@@ -119,7 +120,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   display,
   selectSize = 'medium',
   controlStyle = 'default',
-  state = 'default',
+  selected: isSelected = false,
   optionDecorators,
   optionVariant,
   userIcon,
@@ -179,17 +180,17 @@ const RdsAutocomplete = <T extends { label?: string },>({
 
   const isValueControlled = value !== undefined;
   const [selected, setSelected] = useState<T | T[] | null>(() =>
-    defaultValue !== undefined ? defaultValue : deriveSelection(state, options, allowMultipleResolved),
+    defaultValue !== undefined ? defaultValue : deriveSelection(isSelected, options, allowMultipleResolved),
   );
-  const [prevSelectionState, setPrevSelectionState] = useState({ state, options, allowMultiple: allowMultipleResolved });
+  const [prevSelectionProps, setPrevSelectionProps] = useState({ selected: isSelected, options, allowMultiple: allowMultipleResolved });
 
   if (
-    state !== prevSelectionState.state ||
-    allowMultipleResolved !== prevSelectionState.allowMultiple ||
-    !sameOptions(options, prevSelectionState.options)
+    isSelected !== prevSelectionProps.selected ||
+    allowMultipleResolved !== prevSelectionProps.allowMultiple ||
+    !sameOptions(options, prevSelectionProps.options)
   ) {
-    setPrevSelectionState({ state, options, allowMultiple: allowMultipleResolved });
-    setSelected(deriveSelection(state, options, allowMultipleResolved));
+    setPrevSelectionProps({ selected: isSelected, options, allowMultiple: allowMultipleResolved });
+    setSelected(deriveSelection(isSelected, options, allowMultipleResolved));
   }
 
   const currentValue = isValueControlled ? value : selected;
@@ -205,17 +206,11 @@ const RdsAutocomplete = <T extends { label?: string },>({
   };
 
   const isOpenControlled = openProp !== undefined;
-  const [internalOpen, setInternalOpen] = useState(state === 'expanded');
-  const [prevExpandedState, setPrevExpandedState] = useState(state);
-
-  if (state !== prevExpandedState) {
-    setPrevExpandedState(state);
-    setInternalOpen(state === 'expanded');
-  }
+  const [internalOpen, setInternalOpen] = useState(false);
 
   const open = isOpenControlled ? openProp : internalOpen;
   const setUncontrolledOpen = (next: boolean) => {
-    if (!isOpenControlled && state !== 'expanded') setInternalOpen(next);
+    if (!isOpenControlled) setInternalOpen(next);
   };
 
   let sizeClass = '';
@@ -333,7 +328,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
         setUncontrolledOpen(false);
         onClose?.(event, reason);
       }}
-      disabled={disabled || state === 'disabled'}
+      disabled={disabled}
       value={currentValue}
       onChange={handleChange}
         renderOption={(optionProps, option, { selected: checked }) => {
@@ -394,7 +389,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
                 },
               }}
               onFocus={(e) => {
-                if (openOnFocus && state !== 'expanded' && !open) {
+                if (openOnFocus && !open) {
                   setUncontrolledOpen(true);
                   onOpen?.(e);
                 }

@@ -1,5 +1,7 @@
 
 import clsx from 'clsx';
+import { Box } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import { useEffect, useState } from 'react';
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -39,6 +41,8 @@ export interface RdsCompMapProps
     highlightedCountries?: string[];
     /** Text appended to values in the tooltip. */
     valueSuffix?: string;
+    /** MUI system styles applied to the root element. */
+    sx?: SxProps<Theme>;
     ref?: Ref<HTMLDivElement>;
 }
 
@@ -112,6 +116,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         highlightedCountries,
         valueSuffix = '',
         className,
+        sx,
         ref,
         ...rest
     } = props;
@@ -195,7 +200,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
     }, []);
 
     return (
-        <div
+        <Box
             {...rest}
             ref={ref}
             className={clsx(
@@ -203,6 +208,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
                 resolvedVariant === 'heatmap' && 'rds-comp-map--heatmap',
                 className
             )}
+            sx={sx}
         >
             {(header ?? title) && (
                 <div className="rds-comp-map__label">{header ?? title}</div>
@@ -220,7 +226,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
                     />
                 </div>
             </div>
-        </div>
+        </Box>
     );
 };
 

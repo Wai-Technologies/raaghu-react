@@ -75,7 +75,6 @@ describe('RdsCounter', () => {
       [{ showInput: true, variant: 'compact' }, '.rds-counter__input--compact'],
       [{ disabled: true }, '.rds-counter--disabled'],
       [{ selected: true }, '.rds-counter--selected'],
-      [{ state: 'selected' }, '.rds-counter--selected'],
     ])('applies class for %j -> %s', hasClass);
 
     it('should render placeholder correctly', () => {
@@ -115,8 +114,15 @@ describe('RdsCounter', () => {
     });
   });
 
+  describe('Selected State', () => {
+    it('does not apply selected class when selected is false', () => {
+      const { container } = render(<RdsCounter selected={false} />);
+      expect(container.querySelector('.rds-counter--selected')).not.toBeInTheDocument();
+    });
+  });
+
   describe('Disabled State', () => {
-    it.each([{ disabled: true }, { state: 'disabled' }])('disables buttons for %j', (props) => {
+    it.each([{ disabled: true }])('disables buttons for %j', (props) => {
       render(<RdsCounter {...(props as any)} />);
       screen.getAllByRole('button').forEach(button => expect(button).toBeDisabled());
     });

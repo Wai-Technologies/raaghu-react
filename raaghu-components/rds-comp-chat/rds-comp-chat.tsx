@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEvent } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback, memo, type ChangeEvent, type HTMLAttributes, type Ref } from "react";
 import clsx from 'clsx';
 import "./rds-comp-chat.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
@@ -7,6 +7,7 @@ import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCompEmojiGenerator from "../rds-comp-emoji-generator/rds-comp-emoji-generator";
 import Box from "@mui/material/Box";
+import type { SxProps, Theme } from "@mui/material/styles";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 export interface Comment {
@@ -33,7 +34,7 @@ export interface UserData {
   style?: string;
 }
 
-export interface RdsCompChatProps {
+export interface RdsCompChatProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   chatScreenEnabled?: boolean;
   /** @deprecated Use `chatScreenEnabled` instead. */
   isChatScreenEnabled?: boolean;
@@ -44,7 +45,9 @@ export interface RdsCompChatProps {
   currentUserCommentBgColor?: string;
   currentUserCommentTextColor?: string;
   otherUserCommentBgColor?: string;
-  OtherUserCommentTextColor?: string;
+  otherUserCommentTextColor?: string;
+  ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 interface ChatMessageProps {
@@ -97,8 +100,13 @@ const RdsCompChat = ({
   currentUserCommentBgColor = "var(--rds-primary-main)",
   currentUserCommentTextColor = "var(--rds-primary-contrast-text, var(--rds-neutral-0))",
   otherUserCommentBgColor = "var(--rds-neutral-300)",
-  OtherUserCommentTextColor = "var(--rds-text-primary)"
+  otherUserCommentTextColor,
+  className,
+  ref,
+  sx,
+  ...rest
 }: RdsCompChatProps) => {
+  const resolvedOtherUserCommentTextColor = otherUserCommentTextColor ?? "var(--rds-text-primary)";
   if (isChatScreenEnabled !== undefined) warnDeprecatedProp('RdsCompChat', 'isChatScreenEnabled', '`chatScreenEnabled`');
   if (handleAddCommentProp !== undefined) warnDeprecatedProp('RdsCompChat', 'handleAddComment', '`onAddComment`');
   const chatScreenEnabled = chatScreenEnabledProp ?? isChatScreenEnabled;
@@ -233,7 +241,7 @@ const RdsCompChat = ({
   const hasCommentText = state.commentText.trim().length > 0;
 
   return (
-    <div className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile")}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chat", state.isMobile && "rds-comp-chat--mobile", className)} sx={sx}>
       {showUserList && (
         <div className="rds-comp-chat__screen">
           <div className="rds-comp-chat__screen-header">
@@ -297,7 +305,7 @@ const RdsCompChat = ({
                       currentUserCommentBgColor={currentUserCommentBgColor}
                       otherUserCommentBgColor={otherUserCommentBgColor}
                       currentUserCommentTextColor={currentUserCommentTextColor}
-                      otherUserCommentTextColor={OtherUserCommentTextColor}
+                      otherUserCommentTextColor={resolvedOtherUserCommentTextColor}
                     />
                   );
                 })}
@@ -361,7 +369,7 @@ const RdsCompChat = ({
           <canvas ref={canvasRef} className="rds-comp-chat__canvas-hidden" />
         </div>
       )}
-    </div>
+    </Box>
   );
 };
 

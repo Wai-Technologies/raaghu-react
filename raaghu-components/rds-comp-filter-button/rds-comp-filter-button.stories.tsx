@@ -54,6 +54,10 @@ const meta: Meta = {
     className: {
       control: false,
     },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the filter button root.',
+    },
     itemIcon: {
       control: false,
     },
@@ -128,7 +132,6 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['shape', 'text', 'showLeftIcon', 'showRightIcon', 'disabled'] },
+  controls: { include: ['shape', 'text', 'showLeftIcon', 'showRightIcon', 'disabled', 'sx'] },
 };
-
 

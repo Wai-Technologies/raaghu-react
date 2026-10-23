@@ -35,10 +35,6 @@ const meta: Meta<typeof RdsInput> = {
       control: "select",
       options: ['default', 'pill', 'bottom outline'],
     },
-    state: {
-      control: "select",
-      options: ['default', 'active', 'selected', 'error', 'disabled'],
-    },
     startIcon: {
       control: 'select',
       options: ['none', 'search', 'person', 'email', 'home'],
@@ -67,16 +63,16 @@ export const Default: Story = {
     size: 'small',
     layout: 'text',
     shape: 'default',
-    state: 'default',
     label: 'Input Label',
     helperText: 'This is a hint text',
     required: false,
     labelPlacement: 'inline',
     error: false,
     disabled: false,
+    selected: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'helperText', 'required', 'labelPlacement', 'error', 'disabled','startIcon', 'endIcon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'shape', 'label', 'helperText', 'required', 'labelPlacement', 'error', 'disabled', 'readOnly', 'selected','startIcon', 'endIcon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
@@ -84,10 +80,10 @@ export const Disabled: Story = {
     size: 'small',
     labelPlacement: 'inline',
     layout: 'text',
-    state: 'disabled',
+    disabled: true,
   },
 };
-Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'labelPlacement', 'layout', 'state'] } };
+Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'labelPlacement', 'layout', 'disabled'] } };
 
 export const Required: Story = {
   args: {
@@ -120,7 +116,7 @@ export const WithError: Story = {
     size: 'small',
     layout: 'text',
     labelPlacement: 'inline',
-    state: 'error',
+    error: true,
   },
 };
-WithError.parameters = { controls: { include: ['label', 'helperText', 'placeholder', 'size', 'layout', 'labelPlacement', 'state'] } };
+WithError.parameters = { controls: { include: ['label', 'helperText', 'placeholder', 'size', 'layout', 'labelPlacement', 'error'] } };

@@ -44,6 +44,7 @@ const RdsFileUploader = ({
   maxSize = 10 * 1024 * 1024,
   maxFiles = 5,
   disabled = false,
+  selected = false,
   dragAndDrop = true,
   required,
   display,
@@ -52,7 +53,6 @@ const RdsFileUploader = ({
   hintText,
   placeholderImage,
   slotProps,
-  state: _state,
   mode = 'standard',
   style,
   variant,
@@ -63,6 +63,7 @@ const RdsFileUploader = ({
   showHint: showHintProp,
   className,
   sx,
+  ref,
   ...rest
 }: RdsFileUploaderProps) => {
   if (title !== undefined) warnDeprecatedProp('RdsFileUploader', 'title', '`label`');
@@ -125,7 +126,7 @@ const RdsFileUploader = ({
     <>
       {mode === 'standard' ? (
         <RdsFileUploaderStandardView
-          rootProps={{ ...rest, className, sx, style: styleObject }}
+          rootProps={{ ...rest, className: clsx(className, selected && 'rds-file-uploader--selected'), sx, ref, style: styleObject }}
           accept={accept}
           viewConfig={{
             showTitle,
@@ -153,8 +154,9 @@ const RdsFileUploader = ({
       ) : (
         <Box
           {...rest}
+          ref={ref}
           style={styleObject}
-          className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`, className)}
+          className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`, selected && 'rds-file-uploader--selected', className)}
           sx={[{ width: '100%', maxWidth: '100%', minWidth: 0 }, ...toSxArray(sx)]}
         >
           {showTitle && (

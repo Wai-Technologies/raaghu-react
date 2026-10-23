@@ -197,11 +197,10 @@ describe('RdsRadio', () => {
   });
 
   describe('State Variations', () => {
-    it('should render in default state', () => {
+    it('should render with semantic props omitted by default', () => {
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="default"
           name="test-radio"
         />
       );
@@ -211,24 +210,11 @@ describe('RdsRadio', () => {
       expect(radio).not.toHaveClass('rds-radio--hover');
     });
 
-    it('should render in hover state', () => {
+    it('should render in disabled state from the disabled prop', () => {
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="hover"
-          name="test-radio"
-        />
-      );
-      
-      const radio = container.querySelector('.rds-radio--hover');
-      expect(radio).toBeInTheDocument();
-    });
-
-    it('should render in disabled state', () => {
-      const { container } = renderWithTheme(
-        <RdsRadio 
-          options={defaultOptions}
-          state="disabled"
+          disabled
           name="test-radio"
         />
       );
@@ -237,11 +223,11 @@ describe('RdsRadio', () => {
       expect(radio).toBeInTheDocument();
     });
 
-    it('should disable all radios in disabled state', () => {
+    it('should disable all radios when disabled is true', () => {
       renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="disabled"
+          disabled
           name="test-radio"
         />
       );
@@ -286,11 +272,11 @@ describe('RdsRadio', () => {
       expect(radio3).not.toHaveAttribute('disabled');
     });
 
-    it('should disable options in disabled state even if not marked disabled', () => {
+    it('should disable all options even if none are individually marked disabled', () => {
       renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="disabled"
+          disabled
           name="test-radio"
         />
       );
@@ -416,7 +402,7 @@ describe('RdsRadio', () => {
       const { container } = renderWithTheme(
         <RdsRadio 
           options={defaultOptions}
-          state="disabled"
+          disabled
           name="test-radio"
           onChange={handleChange}
         />

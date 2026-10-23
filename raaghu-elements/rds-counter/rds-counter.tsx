@@ -1,4 +1,4 @@
-import { useId, useState, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useId, useState, type ChangeEvent, type KeyboardEvent, type Ref } from 'react';
 import { Box, IconButton, InputBase, Typography, type BoxProps } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -8,7 +8,10 @@ import "./rds-counter.scss";
 
 /** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
 export interface RdsCounterProps
-  extends Omit<BoxProps, 'children' | 'component' | 'onChange' | 'defaultValue' | 'placeholder'> {
+  extends Omit<BoxProps, 'children' | 'component' | 'onChange' | 'defaultValue' | 'placeholder' | 'className' | 'sx' | 'ref'> {
+  className?: string;
+  sx?: BoxProps['sx'];
+  ref?: Ref<HTMLDivElement>;
   /** Controlled value. When set (even without `onChange`) the counter is controlled. */
   value?: number;
   /** Called with the new value. Only values inside `[min, max]` are emitted. */
@@ -35,8 +38,6 @@ export interface RdsCounterProps
   /** Marks the field as required: shows the asterisk next to the label and sets `aria-required` on the input. */
   required?: boolean;
   selected?: boolean;
-  /** Figma visual state. */
-  state?: 'default' | 'selected' | 'disabled';
   /** @deprecated Use `label` instead. */
   titleText?: string;
   /** @deprecated Use `required` instead. */
@@ -79,7 +80,6 @@ const RdsCounter = ({
   required,
   isMandatory,
   selected = false,
-  state = 'default',
   className,
   sx,
   ref,
@@ -153,8 +153,8 @@ const RdsCounter = ({
     if (clamped !== currentValue) updateValue(clamped);
   };
 
-  const isSelected = state === 'selected' || selected;
-  const isDisabled = state === 'disabled' || disabled;
+  const isSelected = selected;
+  const isDisabled = disabled;
   const atMin = typeof currentValue === 'number' && currentValue <= min;
   const atMax = typeof currentValue === 'number' && currentValue >= max;
 

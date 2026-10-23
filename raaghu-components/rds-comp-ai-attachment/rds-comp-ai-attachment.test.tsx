@@ -108,7 +108,7 @@ describe('RdsCompAiAttachment', () => {
   ];
 
   const defaultProps: RdsCompAiAttachmentProps = {
-    menuIcon: 'attach',
+    menuIcon: <span>attach</span>,
     modalTitle: 'Import Design',
     hintText: 'Enter Figma URL',
     inputPlaceholder: 'https://figma.com/...',
@@ -302,7 +302,7 @@ describe('RdsCompAiAttachment', () => {
       render(
         <RdsCompAiAttachment
           {...defaultProps}
-          menuIcon="custom-icon"
+          menuIcon={<span>custom-icon</span>}
         />
       );
       expect(screen.getByTestId('fab-menu-trigger')).toHaveTextContent('custom-icon');
@@ -465,7 +465,7 @@ describe('RdsCompAiAttachment', () => {
     });
 
     it("uses icon, placement, badge and badgeProps.color over the deprecated props", () => {
-      render(<RdsCompAiAttachment {...defaultProps} icon="new_icon" placement="end" badge="Pro" badgeProps={{ color: "success" }} />);
+      render(<RdsCompAiAttachment {...defaultProps} icon={<span>new_icon</span>} placement="end" badge="Pro" badgeProps={{ color: "success" }} />);
       expect(screen.getByTestId("fab-menu-trigger")).toHaveTextContent("new_icon");
       expect(screen.getByTestId("rds-fab-menu")).toHaveAttribute("data-alignment", "right");
       expect(screen.getByTestId("rds-badge")).toHaveTextContent("Pro");

@@ -102,8 +102,8 @@ describe('RdsDialog', () => {
       expect(screen.queryByText('Hidden Title')).not.toBeInTheDocument();
     });
 
-    it('should render title element even when showTitle is false if ShowDissmiss is true', () => {
-      setup({ title: 'Test', showTitle: false, ShowDissmiss: true });
+    it('should render title element even when showTitle is false if showDissmiss is true', () => {
+      setup({ title: 'Test', showTitle: false, showDissmiss: true });
       expect(dialogTitle()).toBeInTheDocument();
     });
   });
@@ -128,21 +128,21 @@ describe('RdsDialog', () => {
     });
   });
 
-  describe('Close Button (ShowDissmiss)', () => {
-    it('should render close button when ShowDissmiss is true', () => {
-      setup({ ShowDissmiss: true });
+  describe('Close Button (showDissmiss)', () => {
+    it('should render close button when showDissmiss is true', () => {
+      setup({ showDissmiss: true });
       expect(screen.getByTestId('icon-button-close')).toBeInTheDocument();
       expect(screen.getByTestId('close-icon')).toBeInTheDocument();
     });
 
-    it('should not render close button when ShowDissmiss is false', () => {
-      setup({ ShowDissmiss: false });
+    it('should not render close button when showDissmiss is false', () => {
+      setup({ showDissmiss: false });
       expect(screen.queryByTestId('icon-button-close')).not.toBeInTheDocument();
     });
 
     it('should call onClose when close button is clicked', () => {
       const mockOnClose = jest.fn();
-      setup({ onClose: mockOnClose, ShowDissmiss: true });
+      setup({ onClose: mockOnClose, showDissmiss: true });
       fireEvent.click(screen.getByTestId('icon-button-close'));
       expect(mockOnClose).toHaveBeenCalledTimes(1);
     });
@@ -203,25 +203,25 @@ describe('RdsDialog', () => {
   });
 
   describe('Primary and Secondary Actions (Standard Variant)', () => {
-    it('should render secondary button when ShowSecondary is true', () => {
-      setup({ variant: 'standard', ShowSecondary: true, onClose: jest.fn() });
+    it('should render secondary button when showSecondary is true', () => {
+      setup({ variant: 'standard', showSecondary: true, onClose: jest.fn() });
       expect(screen.getByText('Cancel')).toBeInTheDocument();
     });
 
-    it('should render primary button when ShowPrimary is true', () => {
-      setup({ variant: 'standard', ShowPrimary: true });
+    it('should render primary button when showPrimary is true', () => {
+      setup({ variant: 'standard', showPrimary: true });
       expect(screen.getByText('Okay')).toBeInTheDocument();
     });
 
     it('should render both primary and secondary buttons', () => {
-      setup({ variant: 'standard', ShowPrimary: true, ShowSecondary: true, onClose: jest.fn() });
+      setup({ variant: 'standard', showPrimary: true, showSecondary: true, onClose: jest.fn() });
       expect(screen.getByText('Cancel')).toBeInTheDocument();
       expect(screen.getByText('Okay')).toBeInTheDocument();
     });
 
     it.each([
-      ['secondary', 'ShowSecondary', 'Cancel'],
-      ['primary', 'ShowPrimary', 'Okay'],
+      ['secondary', 'showSecondary', 'Cancel'],
+      ['primary', 'showPrimary', 'Okay'],
     ])('should call onClose when %s button is clicked', (_n, prop, text) => {
       const mockOnClose = jest.fn();
       setup({ variant: 'standard', [prop]: true, onClose: mockOnClose });
@@ -232,7 +232,7 @@ describe('RdsDialog', () => {
 
   describe('Event Handlers', () => {
     it('should handle undefined onClose gracefully', () => {
-      render(<RdsDialog open={true} ShowDissmiss={true} />);
+      render(<RdsDialog open={true} showDissmiss={true} />);
       expect(root()).toBeInTheDocument();
     });
   });
@@ -244,7 +244,7 @@ describe('RdsDialog', () => {
     });
 
     it('should have proper aria-label on close button', () => {
-      setup({ ShowDissmiss: true });
+      setup({ showDissmiss: true });
       expect(screen.getByLabelText('close')).toBeInTheDocument();
     });
 
@@ -265,7 +265,7 @@ describe('RdsDialog', () => {
 
   describe('Props Combination Tests', () => {
     it('should render with title, content, and close button', () => {
-      setup({ title: 'Complex Dialog', ShowDissmiss: true, showTitle: true }, <p>Dialog Content</p>);
+      setup({ title: 'Complex Dialog', showDissmiss: true, showTitle: true }, <p>Dialog Content</p>);
       expect(screen.getByText('Complex Dialog')).toBeInTheDocument();
       expect(screen.getByText('Dialog Content')).toBeInTheDocument();
       expect(screen.getByTestId('icon-button-close')).toBeInTheDocument();
@@ -276,9 +276,9 @@ describe('RdsDialog', () => {
         {
           variant: 'standard',
           title: 'Full Featured',
-          ShowDissmiss: true,
-          ShowPrimary: true,
-          ShowSecondary: true,
+          showDissmiss: true,
+          showPrimary: true,
+          showSecondary: true,
           showTitle: true,
           size: 'large',
           onClose: jest.fn(),
@@ -327,7 +327,7 @@ describe('RdsDialog', () => {
 });
 
 describe('RdsDialog audit fixes', () => {
-  const standardProps = { open: true, variant: 'confirm' as const, ShowPrimary: true, ShowSecondary: true };
+  const standardProps = { open: true, variant: 'confirm' as const, showPrimary: true, showSecondary: true };
 
   it('calls onPrimaryClick/onSecondaryClick instead of onClose and uses custom labels (G1-233)', () => {
     const onClose = jest.fn();
@@ -473,17 +473,25 @@ describe('RdsDialog additive renames', () => {
   const warn = jest.spyOn(deprecation, 'warnDeprecatedProp');
   beforeEach(() => warn.mockClear());
 
-  it('lets showCloseButton win over ShowDissmiss', () => {
-    render(<RdsDialog open title="T" onClose={jest.fn()} ShowDissmiss showCloseButton={false}>c</RdsDialog>);
+  it('lets showCloseButton win over showDissmiss', () => {
+    render(<RdsDialog open title="T" onClose={jest.fn()} showDissmiss showCloseButton={false}>c</RdsDialog>);
     expect(screen.queryByRole('button', { name: 'close' })).not.toBeInTheDocument();
     expect(warn).not.toHaveBeenCalled();
   });
 
+  it('supports lowerCamelCase button props', () => {
+    render(<RdsDialog open variant="confirm" showDissmiss={false} showPrimary showSecondary>c</RdsDialog>);
+    expect(screen.queryByRole('button', { name: 'close' })).not.toBeInTheDocument();
+    expect(screen.getByText('Okay')).toBeInTheDocument();
+    expect(screen.getByText('Cancel')).toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalled();
+  });
+
   it('renders the confirm variant and warns for standard, size and showTitle', () => {
-    const { rerender } = render(<RdsDialog open variant="confirm" ShowPrimary title="T">c</RdsDialog>);
+    const { rerender } = render(<RdsDialog open variant="confirm" showPrimary title="T">c</RdsDialog>);
     expect(screen.getByText('Okay')).toBeInTheDocument();
     expect(warn).not.toHaveBeenCalled();
-    rerender(<RdsDialog open variant="standard" size="small" showTitle ShowPrimary title="T">c</RdsDialog>);
+    rerender(<RdsDialog open variant="standard" size="small" showTitle showPrimary title="T">c</RdsDialog>);
     expect(screen.getByText('Okay')).toBeInTheDocument();
     expect(warn).toHaveBeenCalledWith('RdsDialog', 'variant="standard"', '`variant="confirm"`');
     expect(warn).toHaveBeenCalledWith('RdsDialog', 'size', '`maxWidth`');

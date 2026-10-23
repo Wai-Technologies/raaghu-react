@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler, type Ref } from 'react';
+import { useState, useMemo, useRef, useEffect, useImperativeHandle, Fragment, type ReactNode, type MouseEvent, type KeyboardEvent, type UIEventHandler, type Ref, type HTMLAttributes } from 'react';
 import {
   Box,
   TextField,
@@ -23,6 +23,8 @@ import {
   Card,
   Tooltip,
   Popover,
+  type SxProps,
+  type Theme,
   List,
   ListItem,
   ListItemText,
@@ -57,21 +59,17 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export type GridRow = Record<string, unknown>;
 
-// Types and Enums
-export enum ActionPosition {
-  Right = "right",
-  Left = "left",
-}
+export const ActionPosition = {
+  Right: 'right',
+  Left: 'left',
+} as const;
+export type ActionPosition = (typeof ActionPosition)[keyof typeof ActionPosition];
 
-export enum State {
-  Default = "default",
-  Collapsed = "collapsed",
-}
-
-export enum ActionColumnStyle {
-  ShowDots = "show dots",
-  ShowButtonsDirectly = "show buttons directly",
-}
+export const ActionColumnStyle = {
+  ShowDots: 'show dots',
+  ShowButtonsDirectly: 'show buttons directly',
+} as const;
+export type ActionColumnStyle = (typeof ActionColumnStyle)[keyof typeof ActionColumnStyle];
 
 export interface RdsCompGridColumn {
   key: string;
@@ -206,7 +204,7 @@ export interface RdsCompGridRef {
   getSelectedRowCount: () => number;
 }
 
-export interface RdsCompGridProps {
+export interface RdsCompGridProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'ref'> {
   tableHeaders: RdsCompGridColumn[];
   tableData: GridRow[];
 
@@ -232,7 +230,7 @@ export interface RdsCompGridProps {
   showHeader?: boolean;
   showSubHeader?: boolean;
   showAddNewColumn?: boolean;
-  state?: State;
+  collapsed?: boolean;
   
   actions?: RdsCompGridAction[];
   actionPosition?: ActionPosition;
@@ -257,18 +255,17 @@ export interface RdsCompGridProps {
   onRowSwap?: (fromIndex: number, toIndex: number, newData: GridRow[]) => void;
   onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void;
   
-  // Styling
   classes?: string;
   fontWeight?: string;
   illustration?: boolean;
   noDataTitle?: string;
   noDataHeaderTitle?: string;
   
-  
-  // Loading
   loading?: boolean;
   /** @deprecated Use `loading` instead. */
   isLoading?: boolean;
+  sx?: SxProps<Theme>;
+  ref?: Ref<RdsCompGridRef>;
 }
 
 const EditableCell = ({ 
@@ -534,6 +531,8 @@ const ActionMenu = ({ row, actions, onActionSelection }: {
 
 const RdsCompGrid = ({
   ref,
+  className,
+  sx,
   tableHeaders,
   tableData,
   controlledData,
@@ -553,7 +552,7 @@ const RdsCompGrid = ({
   showHeader = true,
   showSubHeader = true,
   showAddNewColumn = false,
-  state = State.Default,
+  collapsed = false,
   actions = [],
   actionPosition = ActionPosition.Right,
   actionColumnStyle = ActionColumnStyle.ShowDots,
@@ -580,7 +579,8 @@ const RdsCompGrid = ({
   noDataHeaderTitle = 'Data Grid',
   loading: loadingProp,
   isLoading,
-}: RdsCompGridProps & { ref?: Ref<RdsCompGridRef> }) => {
+  ...rest
+}: RdsCompGridProps) => {
   if (isSort !== undefined) warnDeprecatedProp('RdsCompGrid', 'isSort', '`sortable`');
   if (isFilter !== undefined) warnDeprecatedProp('RdsCompGrid', 'isFilter', '`filterable`');
   if (isResizable !== undefined) warnDeprecatedProp('RdsCompGrid', 'isResizable', '`resizable`');
@@ -591,10 +591,9 @@ const RdsCompGrid = ({
   }
   const sortable = sortableProp ?? isSort ?? true;
   const filterable = filterableProp ?? isFilter ?? true;
-  const resizable = resizableProp ?? isResizable ?? true;
   const loading = loadingProp ?? isLoading ?? false;
   const onPagination = onPaginationProp ?? onPaginationHandler;
-  const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
+  const [isCollapsed, setIsCollapsed] = useState(collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
@@ -1667,7 +1666,6 @@ const RdsCompGrid = ({
       onFilterChange?.(newFilterState);
     },
 
-    // Sorting
     getSortState: () => ({ column: sortColumn, direction: sortDirection }),
     setSort: (column: string, direction: 'asc' | 'desc') => {
       setSortColumn(column);
@@ -1718,13 +1716,11 @@ const RdsCompGrid = ({
       setColumnWidths(initialWidths);
     },
 
-    // Grid State
     isCollapsed: () => isCollapsed,
     toggleCollapse: () => setIsCollapsed(!isCollapsed),
     expand: () => setIsCollapsed(false),
     collapse: () => setIsCollapsed(true),
 
-    // Editing
     startEdit: (rowId: string, columnKey?: string) => {
       if (enableInlineEdit) {
         if (inlineEditMode === 'row') {
@@ -1836,7 +1832,7 @@ const RdsCompGrid = ({
 
   if (loading) {
     return (
-      <Card sx={{ p: 2 }}>
+      <Card {...rest} className={className} sx={[{ p: 2 }, sx]}>
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
           <Typography variant="h6" color="text.secondary">
             Loading...
@@ -1848,7 +1844,7 @@ const RdsCompGrid = ({
 
   if (tableData.length === 0) {
     return (
-      <Card sx={{ p: 2 }}>
+      <Card {...rest} className={className} sx={[{ p: 2 }, sx]}>
         {showHeader && (
           <Box p={2} borderBottom="1px solid" borderColor="divider">
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
@@ -1901,7 +1897,7 @@ const RdsCompGrid = ({
   }
 
   return (
-    <Card sx={{
+    <Card {...rest} className={className} sx={[{
       bgcolor: 'background.paper',
       color: 'text.primary',
       '& .MuiTableCell-root': {
@@ -1926,7 +1922,7 @@ const RdsCompGrid = ({
         border: '2px dashed',
         borderColor: 'var(--rds-primary-main)',
       },
-    }}>
+    }, sx]}>
       {showHeader && (
         <Box
           ref={headerScrollRef}
@@ -2628,8 +2624,6 @@ const RdsCompGrid = ({
                                 '& .senior, & .lead, & .pending, & .active': {
                                   color: 'text.primary',
                                 },
-                                // Style attribute selectors removed - using CSS classes instead
-                                // See rds-comp-grid.scss for themed cell styling classes
                               }}
                             >
                               {cellText}
@@ -2713,7 +2707,6 @@ const RdsCompGrid = ({
                       </TableCell>
                     )}
 
-                    {/* Row editing controls */}
                     {enableInlineEdit && inlineEditMode === 'row' && (
                       <TableCell sx={{ borderRight: 'none' }}>
                         <Stack direction="row" spacing={0.5}>
@@ -2768,7 +2761,6 @@ const RdsCompGrid = ({
         </TableContainer>
       )}
 
-      {/* Filter and Column Visibility Popup */}
       <Popover
         open={isFilterPopupOpen}
         anchorEl={filterAnchorEl}
@@ -3168,7 +3160,6 @@ const RdsCompGrid = ({
                     );
                   })()}
 
-                  {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
                     <RdsButton
                       variant="filled"
@@ -3224,7 +3215,6 @@ const RdsCompGrid = ({
                     />
                   </Stack>
                   
-                  {/* Clear All Filters Button */}
                   {Object.keys(filterState).length > 0 && (
                     <RdsButton
                       variant="transparent"

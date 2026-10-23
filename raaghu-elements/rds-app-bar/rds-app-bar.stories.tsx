@@ -766,10 +766,10 @@ const DynamicTemplate = (args: any) => {
         centerSlot: (
           <div className="rds-withactions-center-buttons">
             <span className="rds-withactions-findjobs-topnav">
-              <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" variant="filled" text="Find Jobs" textCase="uppercase" />
+              <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Find Jobs" textCase="uppercase" />
             </span>
-            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" variant="transparent" text="Login" textCase="uppercase" />
-            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" variant="transparent" text="Employers" textCase="uppercase" />
+            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="transparent" text="Login" textCase="uppercase" />
+            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" variant="transparent" text="Employers" textCase="uppercase" />
           </div>
         ),
         
@@ -779,7 +779,7 @@ const DynamicTemplate = (args: any) => {
         overflowContent: (
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <span className="rds-withactions-findjobs-mobile">
-              <RdsButton color="primary" layout="text-only" shape="rectangle" size="small" state="default" variant="filled" text="Find Jobs" textCase="uppercase" />
+              <RdsButton color="primary" layout="text-only" shape="rectangle" size="small" variant="filled" text="Find Jobs" textCase="uppercase" />
             </span>
             <Button variant="text" size="small">Community</Button>
             <Button variant="text" size="small">Jobs</Button>
@@ -1033,5 +1033,4 @@ WithMenuButton.parameters = { controls: { include: ['title', 'showLogo', 'size',
 
 export const DashboardWithLang: Story = { args: { variantStyle: 'dashboardWithLang', color: 'default', showSearch: false } as any, render: DynamicTemplate };
 DashboardWithLang.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
-
 

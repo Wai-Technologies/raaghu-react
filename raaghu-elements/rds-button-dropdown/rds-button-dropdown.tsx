@@ -1,4 +1,4 @@
-import { useId, useState, type AriaAttributes, type ReactNode, type MouseEvent } from 'react';
+import { useId, useState, type HTMLAttributes, type ReactNode, type MouseEvent, type Ref } from 'react';
 import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
 import './rds-button-dropdown.scss';
@@ -21,7 +21,7 @@ export interface RdsButtonDropdownOption {
 
 export type RdsButtonDropdownCloseReason = 'backdropClick' | 'escapeKeyDown' | 'toggleInput' | 'selectOption';
 
-export interface RdsButtonDropdownProps extends AriaAttributes {
+export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'style'> {
   /** Trigger label. Defaults to `'Button'`. */
   children?: ReactNode;
   options: RdsButtonDropdownOption[];
@@ -33,6 +33,10 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   defaultValue?: Array<string | number>;
   /** Opens the menu (controlled). When not set, the trigger toggles it. */
   open?: boolean;
+  /** Disables the trigger button. */
+  disabled?: boolean;
+  /** Applies the selected treatment to the trigger button. */
+  selected?: boolean;
   /** Called when the trigger asks to open the menu. */
   onOpen?: (event: MouseEvent<HTMLElement>) => void;
   /** Called when the menu asks to close (trigger click, backdrop click, Escape, or a single-select choice). */
@@ -52,9 +56,6 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   /** Single-select options as `'radio'` or plain `'button'`s. Preferred over `ui.selection`. */
   optionVariant?: 'radio' | 'button';
   onChange?: (selected: string[] | string) => void;
-  /** Figma visual state. `'selected'` keeps the menu open when `open` is not set. */
-  state?: 'default' | 'selected';
-  buttonState?: 'default' | 'hover' | 'disabled' | 'selected';
   size?: 'small' | 'medium' | 'large';
   layout?: 'icon+text' | 'text-only' | 'icon-only';
   /** Visual style. Preferred over `styleType`. */
@@ -79,6 +80,9 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   className?: string;
   /** Styles applied to the trigger button. */
   sx?: SxProps<Theme>;
+  /** Ref to the trigger button. */
+  ref?: Ref<HTMLButtonElement>;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** Id of the trigger button. */
   id?: string;
   /** @deprecated Use `children` instead. */
@@ -92,7 +96,6 @@ export interface RdsButtonDropdownProps extends AriaAttributes {
   [key: `data-${string}`]: string | number | boolean | undefined;
 }
 
-const isForwardedAttribute = (key: string) => key.startsWith('aria-') || key.startsWith('data-');
 const flag = (value: unknown, fallback: boolean) => (typeof value === 'boolean' ? value : fallback);
 
 const RdsButtonDropdown = ({
@@ -104,14 +107,16 @@ const RdsButtonDropdown = ({
   value,
   defaultValue,
   open,
+  disabled = false,
+  selected: isButtonSelected,
   onOpen,
   onClose,
+  onClick,
   ui,
   searchable,
   showAvatar,
   optionVariant,
   variant,
-  state = 'default',
   endIcon,
   startIcon,
   rightIcon,
@@ -120,7 +125,6 @@ const RdsButtonDropdown = ({
   layout = 'icon+text',
   styleType: styleTypeProp = 'primary',
   shape = 'rectangle',
-  buttonState = 'default',
   onChange,
   showSearch: showSearchProp,
   showUserAvatar: showUserAvatarProp,
@@ -129,6 +133,7 @@ const RdsButtonDropdown = ({
   isShowRightIcon: isShowRightIconProp,
   className,
   sx,
+  ref,
   id,
   ...rest
 }: RdsButtonDropdownProps) => {
@@ -143,10 +148,6 @@ const RdsButtonDropdown = ({
   const isMultiple = multiple ?? multiSelect ?? false;
   const resolvedRightIcon = endIcon !== undefined ? endIcon : rightIcon;
   const resolvedLeftIcon = startIcon !== undefined ? startIcon : leftIcon;
-  const forwardedAttributes = Object.fromEntries(
-    Object.entries(rest).filter(([key]) => isForwardedAttribute(key)),
-  );
-
   const showSearch = searchable ?? (ui?.search ? ui.search === 'visible' : flag(showSearchProp, false));
   const showUserAvatar = showAvatar ?? (ui?.avatar ? ui.avatar === 'visible' : flag(showUserAvatarProp, true));
   const showRadio = optionVariant ? optionVariant === 'radio' : ui?.selection ? ui.selection === 'radio' : flag(showRadioProp, true);
@@ -171,9 +172,7 @@ const RdsButtonDropdown = ({
   });
   const selected = isValueControlled ? value : selectedState;
 
-  const isDropdownOpen = isOpenControlled
-    ? open
-    : state === 'selected' ? Boolean(anchorEl) || anchorEl === null : Boolean(anchorEl);
+  const isDropdownOpen = isOpenControlled ? open : Boolean(anchorEl);
 
   const requestClose = (event: object, reason: RdsButtonDropdownCloseReason) => {
     if (!isOpenControlled) setAnchorEl(null);
@@ -207,12 +206,16 @@ const RdsButtonDropdown = ({
 
   return (
     <>
-      <RdsButton
-        {...forwardedAttributes}
+        <RdsButton
+          {...rest}
         id={id}
-        sx={sx}
-        text={typeof label === 'string' ? label : undefined}
-        onClick={handleDropdownButtonClick}
+          ref={ref}
+          sx={sx}
+          text={typeof label === 'string' ? label : undefined}
+          onClick={(event) => {
+            onClick?.(event);
+            handleDropdownButtonClick(event);
+          }}
         showRightIcon={isShowRightIcon}
         showLeftIcon={isShowLeftIcon}
         changeRightIcon={isDropdownOpen ? <KeyboardArrowUpIcon /> : resolvedRightIcon}
@@ -221,7 +224,8 @@ const RdsButtonDropdown = ({
         layout={layout}
         shape={shape}
         color="primary"
-        state={buttonState}
+        disabled={disabled}
+        selected={isButtonSelected}
         style={
           styleType === 'transparent' ? 'transparent' :
           styleType === 'primary' ? 'filled' :
@@ -269,14 +273,13 @@ const RdsButtonDropdown = ({
                     checked={selected.includes(opt.id)}
                     onChange={() => handleOptionChange(opt.id)}
                     isDisabled={opt.disabled}
-                    labeltext= {opt.label}
+                    labelText= {opt.label}
                   />
                 ) : showRadio ? (
                   <RdsRadio
-                    options={[{ value: opt.id.toString(), label: opt.label }]}
+                    options={[{ value: opt.id.toString(), label: opt.label, disabled: opt.disabled }]}
                     value={selected[0]?.toString()}
                     onChange={(event) => handleOptionChange(opt.id, event)}
-                    state={opt.disabled ? 'disabled' : 'default'}
                     layout="icon with label"
                     className={styleType === 'outline' ? 'rds-button-dropdown__button rds-button-dropdown--outline' : ''}
                   />

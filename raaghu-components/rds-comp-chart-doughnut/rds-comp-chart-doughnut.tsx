@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, createCenterTextPlugin, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
@@ -35,6 +37,7 @@ export interface RdsCompDoughnutProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompDoughnutChart = ({
@@ -52,6 +55,7 @@ const RdsCompDoughnutChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompDoughnutProps) => {
   if (subTitleText !== undefined) {
@@ -87,7 +91,7 @@ const RdsCompDoughnutChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-chart-doughnut", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-doughnut", className)} sx={sx}>
       <canvas
         data-testid={id}
         id={id}
@@ -100,7 +104,7 @@ const RdsCompDoughnutChart = ({
           defaultLabel.length > 1 ? defaultLabel.join(" ") : "Doughnut chart"
         )}
       />
-    </div>
+    </Box>
   );
 };
 

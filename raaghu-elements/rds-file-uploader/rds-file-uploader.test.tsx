@@ -95,6 +95,16 @@ describe('RdsFileUploader', () => {
       const { container } = setup({ mode: 'default' });
       expect(container.querySelector('.rds-file-uploader')).toBeInTheDocument();
     });
+
+    it('should apply the selected appearance in standard mode', () => {
+      render(<RdsFileUploader selected />);
+      expect(mockStandardViewProps.rootProps.className).toContain('rds-file-uploader--selected');
+    });
+
+    it('should apply the selected appearance in default mode', () => {
+      const { container } = render(<RdsFileUploader selected mode="default" />);
+      expect(container.querySelector('.rds-file-uploader')).toHaveClass('rds-file-uploader--selected');
+    });
   });
 
   describe('Title and Label Rendering', () => {
@@ -194,8 +204,6 @@ describe('RdsFileUploader', () => {
       [{ maxSize: 5 * 1024 * 1024 }],
       [{ maxFiles: 3 }],
       [{}],
-      [{ state: 'default' }],
-      [{ state: 'selected' }],
       [{ showTitle: true, title: '' }],
       [{ onFilesChange: jest.fn() }],
       [{ onFilesChange: undefined }],
@@ -292,7 +300,6 @@ describe('RdsFileUploader', () => {
           showHint={true}
           hintText="Upload PDF or DOC files"
           placeholderImage="https://example.com/placeholder.png"
-          state="default"
           mode="default"
           variant="Drop Area - With Upload Button"
         />

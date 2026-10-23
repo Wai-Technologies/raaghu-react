@@ -17,10 +17,6 @@ figma.connect(
         "Drop Area - Top Icon": "Drop Area - Top Icon",
         "Drop Area - With Upload Button": "Drop Area - With Upload Button",
       }),
-      state:figma.enum("💡 State",{
-        "Default": "default",
-        "Selected": "selected",
-      }),
     },
     example: (props) => <RdsFileUploader 
     {...props}
@@ -47,10 +43,6 @@ figma.connect(
       showHint: figma.boolean("💬 Show Hint"),
       required: figma.boolean("❗ Is Mandatory"),
       label: figma.string("✏️ Title"),
-      state:figma.enum("💡 State",{
-        "Default": "default",
-        "Selected": "selected",
-      }),
     },
     example: (props) => <RdsFileUploader 
     {...props}

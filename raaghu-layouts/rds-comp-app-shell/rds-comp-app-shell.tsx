@@ -18,7 +18,7 @@ const VARIANT_DISPLAY_TYPE: Record<AppShellVariant, AppShellDisplayType> = {
   relaxing: AppShellDisplayType.Relaxing,
 };
 
-export interface RdsCompAppShellProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+export interface RdsCompAppShellProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'ref'> {
   /** Figma layout name. `variant` takes precedence. */
   displayType?: AppShellDisplayType;
   variant?: AppShellVariant;
@@ -65,6 +65,8 @@ const RdsCompAppShell = ({
   onMobileSidebarToggle,
   closeSidebarLabel = "Close sidebar overlay",
   className,
+  sx,
+  ref,
   ...rest
 }: RdsCompAppShellProps) => {
   if (topbar !== undefined) warnDeprecatedProp('RdsCompAppShell', 'topbar', '`header`');
@@ -117,12 +119,14 @@ const RdsCompAppShell = ({
   return (
     <Box
       {...rest}
+      ref={ref}
       className={clsx(
         GetShellLayoutCss(variant ? VARIANT_DISPLAY_TYPE[variant] : displayType),
         open && 'mobile-sidebar-open',
         layoutReady && 'rds-appshell--layout-ready',
         className,
       )}
+      sx={sx}
     >
       <div className="sidebar-layout">{sidebar}</div>
       <div className="topnav-layout">

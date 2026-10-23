@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, Fragment } from "react";
+import Box from "@mui/material/Box";
 import { useForkRef } from "@mui/material/utils";
-export { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
-import { ToolbarLayout, ToolbarType, ToolbarState, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
+export { ToolbarLayout, ToolbarType, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
+import { ToolbarLayout, ToolbarType, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
 import clsx from 'clsx';
 import { ToolbarButton } from "./rds-comp-toolbar-config";
 import { type ToolbarButtonConfig } from "./rds-comp-toolbar-config-types";
@@ -67,7 +68,6 @@ const RdsCompToolbar = ({
   variant,
   type: typeProp = ToolbarType.FullFeatured,
   preset,
-  state = ToolbarState.On,
   disabled,
   items,
   value,
@@ -76,6 +76,7 @@ const RdsCompToolbar = ({
   onAction,
   onOptionSelect,
   className = '',
+  sx,
   'data-testid': testId,
   ref,
   ...props
@@ -86,7 +87,7 @@ const RdsCompToolbar = ({
   const activeFormats = value ?? internalFormats;
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
-  const isDisabled = disabled ?? (state === ToolbarState.DisabledOn || state === ToolbarState.DisabledOff);
+  const isDisabled = Boolean(disabled);
   const sections = items ?? getToolbarConfig(type).sections;
 
   const handleRef = useForkRef(toolbarRef, ref);
@@ -152,16 +153,17 @@ const RdsCompToolbar = ({
   );
 
   return (
-    <div
+    <Box
       ref={handleRef}
       className={clsx(
         "rds-comp-toolbar",
         layout === ToolbarLayout.Primary ? "rds-comp-toolbar--primary" : "rds-comp-toolbar--secondary",
         `rds-comp-toolbar--${type}`,
-        `rds-comp-toolbar--${state}`,
+        isDisabled && "rds-comp-toolbar--disabled",
         className
       )}
       data-testid={testId}
+      sx={sx}
       role="toolbar"
       aria-label={`${type} toolbar`}
       aria-disabled={isDisabled || undefined}
@@ -183,7 +185,7 @@ const RdsCompToolbar = ({
           </div>
         ))
       )}
-    </div>
+    </Box>
   );
 };
 RdsCompToolbar.displayName = "RdsCompToolbar";

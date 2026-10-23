@@ -1,5 +1,7 @@
 import type { HTMLAttributes, Ref } from "react";
 import clsx from "clsx";
+import { Box } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartData, ChartOptions, ChartDataset } from "chart.js/auto";
 import { applyCanvasSize, createCenterTextPlugin, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { useChart } from "../use-chart";
@@ -39,6 +41,7 @@ export interface RdsCompGaugeProps
   chartLabel?: string;
   /** Ref forwarded to the root `<div>`. */
   ref?: Ref<HTMLDivElement>;
+  sx?: SxProps<Theme>;
 }
 
 const RdsCompGaugeChart = ({
@@ -58,6 +61,7 @@ const RdsCompGaugeChart = ({
   chartLabel,
   className,
   ref,
+  sx,
   ...rest
 }: RdsCompGaugeProps) => {
   if (value !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "value", "`dataSets`");
@@ -112,7 +116,7 @@ const RdsCompGaugeChart = ({
   );
 
   return (
-    <div {...rest} ref={ref} className={clsx("rds-comp-chart-gauge", className)}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-gauge", className)} sx={sx}>
       <canvas
         data-testid={id}
         id={id}
@@ -120,7 +124,7 @@ const RdsCompGaugeChart = ({
         role="img"
         aria-label={resolveChartLabel("RdsCompGaugeChart", ariaLabel, chartLabel, "Gauge chart")}
       />
-    </div>
+    </Box>
   );
 };
 

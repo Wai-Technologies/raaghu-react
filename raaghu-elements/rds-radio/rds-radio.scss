@@ -1,7 +1,6 @@
 .rds-radio {
   display: block;
   position: relative;
-  /* use centralized tokens */
 
   &__group {
     gap: var(--rds-spacing-sm, 8px);
@@ -136,12 +135,6 @@
 
     .MuiFormControlLabel-label {
       color: var(--rds-text-disabled, var(--rds-color-text-disabled));
-    }
-  }
-
-  &--hover {
-    .MuiRadio-root:hover {
-      background-color: transparent;
     }
   }
 

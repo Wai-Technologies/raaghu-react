@@ -1,25 +1,21 @@
 import type { Emoji } from 'emojibase';
 import data from 'emojibase-data/en/data.json';
 
-export enum EmojiGeneratorType {
-  Default = "Default",
-  QuickReactions = "Quick Reactions",
-}
+export const EmojiGeneratorType = {
+  Default: 'Default',
+  QuickReactions: 'Quick Reactions',
+} as const;
+export type EmojiGeneratorType = (typeof EmojiGeneratorType)[keyof typeof EmojiGeneratorType];
 
 export enum EmojiCategory {
   SmileysAndPeople = "SmileysAndPeople",
-  AnimalsAndNature = "AnimalsAndNature", 
+  AnimalsAndNature = "AnimalsAndNature",
   FoodAndDrink = "FoodAndDrink",
   TravelAndPlaces = "TravelAndPlaces",
   Activities = "Activities",
   Objects = "Objects",
   Symbols = "Symbols",
   Flags = "Flags",
-}
-
-export enum SkinToneState {
-  Default = "Default",
-  Expanded = "Expanded",
 }
 
 const allEmojis: Emoji[] = (data as unknown as Emoji[])
@@ -63,18 +59,18 @@ export const applySkinTone = (emoji: string, skinTone: number): string => {
   if (skinTone === 0 || !skinToneModifiers[skinTone]) {
     return emoji;
   }
-  
+
   const skin = emojiByCharMap.get(emoji)?.skins?.find(s => s.tone === skinTone);
   if (skin) {
     return skin.emoji;
   }
-  
+
   return emoji;
 };
 
 export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 0): string[] => {
   const cacheKey = `${category}_${skinTone}` as keyof typeof emojiCache;
-  
+
   if (!emojiCache[cacheKey]) {
     const groups = new Set(categoryGroupMap[category] || []);
     const baseEmojis = allEmojis.reduce<string[]>((acc, emoji) => {
@@ -83,7 +79,7 @@ export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 
       }
       return acc;
     }, []).filter(Boolean);
-    
+
     emojiCache[cacheKey] = baseEmojis;
   }
   return emojiCache[cacheKey] as string[];
