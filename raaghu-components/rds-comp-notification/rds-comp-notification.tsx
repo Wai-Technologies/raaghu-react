@@ -37,7 +37,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     orientation,
     layout: figmaLayout,
     variant,
-    style: figmaStyle,
+    style: styleProp,
     severity,
     type,
     actions = 'none',
@@ -63,7 +63,9 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
     const resolvedType = severity ?? type ?? NotificationType.Info;
     const notifications = items ?? legacyNotifications ?? EMPTY_NOTIFICATIONS;
     const layout = orientation ?? figmaLayout ?? NotificationLayout.Horizontal;
-    const style = variant ?? figmaStyle ?? NotificationStyle.Default;
+    const legacyStyle = typeof styleProp === 'string' ? styleProp : undefined;
+    if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompNotification', 'style', '`variant`');
+    const style = variant ?? legacyStyle ?? NotificationStyle.Default;
 
     const theme = useTheme();
     const resolvedDefaultImage =
@@ -106,6 +108,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                       `rds-comp-notification--type-${resolvedType}`,
                       className
                     )}
+                    style={typeof styleProp === 'object' ? styleProp : undefined}
                     sx={{ padding: isHorizontalImage ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: isHorizontalImage ? "flex" : "block",overflow: "hidden"
                     }}>
 
@@ -227,7 +230,7 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                                     />
                                 )}
                                 {resolvedShowPrimaryButton && (
-                                    <RdsButton text={acceptLabel} size="small" style="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
+                                    <RdsButton text={acceptLabel} size="small" variant="transparent" color="primary" onClick={(e) => onAccept?.(e, notification)} className="rds-comp-notification__primary-button"
                                     />
                                 )}
                             </>

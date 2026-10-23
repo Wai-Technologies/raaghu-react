@@ -152,7 +152,7 @@ const RdsCompEmptyState = ({
   const resolvedAction =
     action === undefined ? (
       <RdsButton
-        style="filled"
+        variant="filled"
         className="rds-comp-empty-state__button"
         onClick={onButtonClick}
         data-testid="actionButton"

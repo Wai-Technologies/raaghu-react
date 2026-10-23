@@ -29,21 +29,23 @@ type Story = StoryObj<typeof RdsCompBubbleChart>;
 export const Default: Story = {
     args: {
         id: "bubblecha",
-        labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
-        dataSets: [
-            {
-                label: "Dataset 1",
-                data: [90, 97, 20, 30, 40, 50, 60, 70],
-                borderColor: ["red"],
-                backgroundColor: ["rgba(255, 99, 132)"],
-            },
-            {
-                label: "Dataset 2",
-                data: [90, 80, 70, 60, 50, 40, 30, 90, 98],
-                borderColor: ["orange"],
-                backgroundColor: ["rgba(255, 206, 86)"],
-            }
-        ],
+        data: {
+            labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            datasets: [
+                {
+                    label: "Dataset 1",
+                    data: [90, 97, 20, 30, 40, 50, 60, 70],
+                    borderColor: ["red"],
+                    backgroundColor: ["rgba(255, 99, 132)"],
+                },
+                {
+                    label: "Dataset 2",
+                    data: [90, 80, 70, 60, 50, 40, 30, 90, 98],
+                    borderColor: ["orange"],
+                    backgroundColor: ["rgba(255, 206, 86)"],
+                }
+            ],
+        },
 
 
         options: {

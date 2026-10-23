@@ -278,7 +278,7 @@ const RdsCompKanbanBoard = ({
                       <Box className="add-board add-board--with-input">
                         <TextField fullWidth size="small" placeholder="Enter Board Title" value={boardName} onChange={handleDataChanges} className="rds-kanban-board__input-field" />
                         <Box className="add-item-btn btn-margin rds-kanban-board__button-container">
-                          <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button" text="Add Board" />
+                          <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button" text="Add Board" />
                           <IconButton size="small" onClick={onCancel} className="rds-kanban-board__close-button" aria-label="Close">
                             <CloseIcon />
                           </IconButton>
@@ -306,7 +306,7 @@ const RdsCompKanbanBoard = ({
                         </IconButton>
                       </Box>
                       <Box className="add-board add-board--center-button">
-                        <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={handleShowInputBox} fullWidth className="rds-kanban-board__add-button" text="Add Board" />
+                        <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={handleShowInputBox} fullWidth className="rds-kanban-board__add-button" text="Add Board" />
                       </Box>
                     </CardContent>
                   </Card>
@@ -400,7 +400,7 @@ const RdsCompKanbanBoard = ({
                                 }}
                               />
                               <Box className="add-item-btn btn-margin add-board rds-kanban-board__button-container">
-                                <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={(e: MouseEvent<HTMLElement>) => onAddSubCardClick(e, index)} disabled={isNewItemTitleEmpty} className="rds-kanban-board__add-button" text="Add Item" />
+                                <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={(e: MouseEvent<HTMLElement>) => onAddSubCardClick(e, index)} disabled={isNewItemTitleEmpty} className="rds-kanban-board__add-button" text="Add Item" />
                                 <IconButton size="small" onClick={handleCloseSubCardInput} className="close-board rds-kanban-board__close-button" aria-label="Close">
                                   <CloseIcon fontSize="small" />
                                 </IconButton>
@@ -408,7 +408,7 @@ const RdsCompKanbanBoard = ({
                             </Box>
                           ) : (
                             <Box className="add-item-btn add-board rds-kanban-board__add-item-simple">
-                              <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={() => addSubCard(index)} fullWidth className="rds-kanban-board__add-button" text="Add Item" />
+                              <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={() => addSubCard(index)} fullWidth className="rds-kanban-board__add-button" text="Add Item" />
                             </Box>
                           )}
                         </>
@@ -421,41 +421,45 @@ const RdsCompKanbanBoard = ({
           </Box>
         ))}
       </Box>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        className="dropdown-menu"
-        disablePortal={true}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        slotProps={{ paper: { className: "rds-kanban-board__menu-paper" } }}
-      >
-        <MenuItem onClick={(e) => handleCardOptionClick(e, "delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
-          <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
-        </MenuItem>
-        {selectedCard?.actions?.map((option: KanbanAction) => (
-          <MenuItem key={option.value ?? option.key} onClick={(e) => handleCardOptionClick(e, option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
-            {option.key}
-          </MenuItem>
-        ))}
-      </Menu>
-      <Menu
-        anchorEl={subCardAnchorEl}
-        open={Boolean(subCardAnchorEl)}
-        onClose={handleClose}
-        className="dropdown-menu"
-        disablePortal={true}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        slotProps={{ paper: { className: "rds-kanban-board__menu-paper" } }}
-      >
-        {selectedSubCard?.actions?.map((option: KanbanAction) => (
-          <MenuItem key={option.value ?? option.key} onClick={(e) => selectedSubCard && handleOptionClick(e, option.value, selectedCardIndex, cardIdOf(selectedSubCard))} className="rds-kanban-board__menu-item">
-            {option.key}
-          </MenuItem>
-        ))}
-      </Menu>
+      {(() => {
+        const sharedMenuProps = {
+          onClose: handleClose,
+          className: "dropdown-menu",
+          disablePortal: true,
+          anchorOrigin: { vertical: 'top' as const, horizontal: 'right' as const },
+          transformOrigin: { vertical: 'top' as const, horizontal: 'right' as const },
+          slotProps: { paper: { className: "rds-kanban-board__menu-paper" } },
+        };
+        return (
+          <>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              {...sharedMenuProps}
+            >
+              <MenuItem onClick={(e) => handleCardOptionClick(e, "delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
+                <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
+              </MenuItem>
+              {selectedCard?.actions?.map((option: KanbanAction) => (
+                <MenuItem key={option.value ?? option.key} onClick={(e) => handleCardOptionClick(e, option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key ?? '')} className="rds-kanban-board__menu-item">
+                  {option.key}
+                </MenuItem>
+              ))}
+            </Menu>
+            <Menu
+              anchorEl={subCardAnchorEl}
+              open={Boolean(subCardAnchorEl)}
+              {...sharedMenuProps}
+            >
+              {selectedSubCard?.actions?.map((option: KanbanAction) => (
+                <MenuItem key={option.value ?? option.key} onClick={(e) => selectedSubCard && handleOptionClick(e, option.value, selectedCardIndex, cardIdOf(selectedSubCard))} className="rds-kanban-board__menu-item">
+                  {option.key}
+                </MenuItem>
+              ))}
+            </Menu>
+          </>
+        );
+      })()}
     </DndContext>
   );
 };

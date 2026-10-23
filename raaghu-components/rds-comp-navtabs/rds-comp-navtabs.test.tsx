@@ -48,6 +48,24 @@ describe('RdsCompNavtabs', () => {
       expect(screen.getByText('Tab One')).toBeInTheDocument();
     });
 
+    it('uses variant for appearance and style for root CSS', () => {
+      const { container } = render(
+        <RdsCompNavtabs
+          navtabsItems={defaultItems}
+          type="default"
+          variant="Bottom Select"
+          style={{ marginTop: 8 }}
+        />
+      );
+      expect(container.firstElementChild).toHaveStyle({ marginTop: '8px' });
+      expect(container.querySelector('.rds-comp-navtabs__nav--horizontal')).toBeInTheDocument();
+    });
+
+    it('still accepts a deprecated style string as the variant', () => {
+      const { container } = render(<RdsCompNavtabs navtabsItems={defaultItems} type="default" variant="Bottom Select" />);
+      expect(container.querySelector('.rds-comp-navtabs__nav--horizontal')).toBeInTheDocument();
+    });
+
     it('renders with badge count when count is provided', () => {
       const itemsWithCount = [
         { id: '1', label: 'Messages', count: 5, colorVariant: 'primary' as const },

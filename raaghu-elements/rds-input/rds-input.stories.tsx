@@ -31,7 +31,7 @@ const meta: Meta<typeof RdsInput> = {
       control: "select",
       options: ['text', 'password', 'phone number', 'number', 'card number'],
     },
-    style: {
+    shape: {
       control: "select",
       options: ['default', 'pill', 'bottom outline'],
     },
@@ -62,7 +62,7 @@ export const Default: Story = {
   args: {
     size: 'small',
     layout: 'text',
-    style: 'default',
+    shape: 'default',
     label: 'Input Label',
     helperText: 'This is a hint text',
     required: false,
@@ -72,7 +72,7 @@ export const Default: Story = {
     selected: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'label', 'helperText', 'required', 'labelPlacement', 'error', 'disabled', 'readOnly', 'selected','startIcon', 'endIcon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'shape', 'label', 'helperText', 'required', 'labelPlacement', 'error', 'disabled', 'readOnly', 'selected','startIcon', 'endIcon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',

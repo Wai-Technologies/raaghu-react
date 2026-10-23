@@ -201,7 +201,7 @@ const RdsCompAiTypingSectionComponent = ({
                 color="primary"
                 changeLeftIcon="add"
                 showLeftIcon
-                style="filled"
+                variant="filled"
                 layout="icon-only"
                 onClick={handleSent}
                 aria-label="Send"
@@ -219,7 +219,7 @@ const RdsCompAiTypingSectionComponent = ({
               showLeftIcon
               text="New Project"
               onClick={onNewProjectClick}
-              style="filled"
+              variant="filled"
               size={isMobile ? "small" : "medium"}
             />
           </div>
@@ -230,7 +230,7 @@ const RdsCompAiTypingSectionComponent = ({
               showLeftIcon
               text="Import From Figma"
               onClick={onImportFromFigmaClick}
-              style="outlined"
+              variant="outlined"
               size={isMobile ? "small" : "medium"}
             />
           </div>

@@ -20,8 +20,8 @@ figma.connect(
         otherUserCommentTextColor="var(--rds-text-primary)"
         currentUserCommentBgColor="var(--rds-primary-main)"
         currentUserCommentTextColor="var(--rds-primary-contrast-text, var(--rds-neutral-0))"
-        handleAddComment={() => {}}
-        isChatScreenEnabled
+        onAddComment={() => {}}
+        chatScreenEnabled
         otherUserCommentBgColor="var(--rds-neutral-300)"
         userData={[
           {

@@ -354,7 +354,7 @@ export const RealEstateContent = ({
             height="200px"
             showArrows={false}
             showIndicators={true}
-            style="default"
+            variant="default"
             type="circle"
           >
             {resolvedCarouselImages.map((image, index) => (
@@ -429,7 +429,7 @@ export const RealEstateContent = ({
   showLeftIcon
   showRightIcon
   size="medium"
-  style="filled"
+  variant="filled"
   text=" Add Guests"
   textCase="uppercase"
 />
@@ -449,7 +449,7 @@ const SELECTION_AGENTS = [
 
 export const SelectionContent = ({
   headerSubText = "Agent Information"
-}) => {
+}: SelectionContentProps) => {
   const agents = SELECTION_AGENTS;
 
   const [searchValue, setSearchValue] = useState<string>("");
@@ -669,7 +669,7 @@ export const ToolbarContent = ({
                       color="primary"
                       size="small"
                       layout="text-only"
-                      style="filled"
+                      variant="filled"
                       text="Primary"
                       fullWidth
                     />
@@ -677,7 +677,7 @@ export const ToolbarContent = ({
                       color="primary"
                       size="small"
                       layout="text-only"
-                      style="filled"
+                      variant="filled"
                       text="Primary"
                       fullWidth
                     />
@@ -685,7 +685,7 @@ export const ToolbarContent = ({
                       color="primary"
                       size="small"
                       layout="text-only"
-                      style="filled"
+                      variant="filled"
                       text="Primary"
                       fullWidth
                     />
@@ -693,7 +693,7 @@ export const ToolbarContent = ({
                       color="primary"
                       size="small"
                       layout="text-only"
-                      style="filled"
+                      variant="filled"
                       text="Primary"
                       fullWidth
                     />

@@ -115,7 +115,6 @@ export const ColorPickerGrid = memo(({
                   const hue = colIndex * (360 / 11);
                   const lightness = 12 + rowIndex * 8;
                   bgColor = `hsl(${hue}, 100%, ${lightness}%)`;
-                  // Convert HSL to RGB for hex color
                   const l = lightness / 100;
                   const a = 1 * Math.min(l, 1 - l);
                   const f = (n: number) => {
@@ -194,7 +193,6 @@ export const ColorPickerSpectrum = memo(({
           className="rds-comp-color-picker__spectrum-area"
           style={{ backgroundColor: selectedColorHex }}
           onClick={(e) => {
-            // Pass the current hue (0-360), not a raw RGB channel (0-255).
             const hue = selectedColorState.rgb ? (rgbToHsb(selectedColorState.rgb).h + 360) % 360 : 0;
             const result = handleSpectrumClick(
               e,
@@ -245,7 +243,6 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
       </div>
       <div className="rds-comp-color-picker__sliders">
         <div className="rds-comp-color-picker__slider-container">
-          {/* @ts-ignore - React Color TypeScript issues */}
           <HuePicker
             color={selectedColorState.hex}
             onChange={handleHueChange}
@@ -256,7 +253,6 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
           />
         </div>       
         <div className="rds-comp-color-picker__slider-container rds-comp-color-picker__alpha-slider-container">
-          {/* @ts-ignore - React Color TypeScript issues */}
           <AlphaPicker
             color={selectedColorState.rgb}
             onChange={handleAlphaChange}
@@ -436,7 +432,7 @@ export const ColorSwatchesType1 = memo(({ handleChange, swatches = SWATCHES_TYPE
   shape="rectangle"
   showLeftIcon
   size="small"
-  style="transparent"
+  variant="transparent"
   text="Default Button"
   textCase="capitalize"
   aria-label="Add swatch"

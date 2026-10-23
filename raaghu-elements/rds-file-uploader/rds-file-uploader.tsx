@@ -82,7 +82,10 @@ const RdsFileUploader = ({
   const legacyShowHint = typeof showHintProp === 'boolean' ? showHintProp : undefined;
 
   const showPreview = showFileList ?? (display?.preview ? display.preview === 'visible' : (legacyShowPreview ?? true));
-  const dropAreaStyle = variant ?? style;
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsFileUploader', 'style', '`variant`');
+  const styleObject = typeof style === 'object' ? style : undefined;
+  const dropAreaStyle = variant ?? legacyVariant;
   const placeholderProps = { ...slotProps?.placeholder, src: slotProps?.placeholder?.src ?? placeholderImage };
   const emitFilesChange = (nextFiles: FileWithProgress[], event?: SyntheticEvent) => {
     onFilesChange?.(nextFiles);
@@ -125,11 +128,11 @@ const RdsFileUploader = ({
     <>
       {mode === 'standard' ? (
         <RdsFileUploaderStandardView
-          rootProps={{ ...rest, className: clsx(className, selected && 'rds-file-uploader--selected'), sx, ref }}
+          rootProps={{ ...rest, className: clsx(className, selected && 'rds-file-uploader--selected'), sx, ref, style: styleObject }}
           accept={accept}
           viewConfig={{
             showTitle,
-            isMandatory,
+            mandatory: isMandatory,
             showHint,
             showPreview,
           }}
@@ -154,6 +157,7 @@ const RdsFileUploader = ({
         <Box
           {...rest}
           ref={ref}
+          style={styleObject}
           className={clsx('rds-file-uploader', `rds-file-uploader--mode-${mode}`, selected && 'rds-file-uploader--selected', className)}
           sx={[{ width: '100%', maxWidth: '100%', minWidth: 0 }, ...toSxArray(sx)]}
         >
@@ -180,37 +184,24 @@ const RdsFileUploader = ({
             aria-label={fieldLabel || 'File upload'}
           />
 
-          {dropAreaStyle === 'Drop Area - Side Icon' ? (
-            <RdsDropZoneSideIcon
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          ) : dropAreaStyle === 'Drop Area - With Upload Button' ? (
-            <RdsDropZoneWithButton
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          ) : (
-            <RdsDropZoneDefault
-              mode={mode || 'default'}
-              isDragOver={isDragOver}
-              disabled={disabled}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              openFileDialog={openFileDialog}
-            />
-          )}
+          {(() => {
+            const dropZoneProps = {
+              mode: mode || 'default',
+              isDragOver,
+              disabled,
+              onDragOver: handleDragOver,
+              onDragLeave: handleDragLeave,
+              onDrop: handleDrop,
+              openFileDialog,
+            };
+            if (dropAreaStyle === 'Drop Area - Side Icon') {
+              return <RdsDropZoneSideIcon {...dropZoneProps} />;
+            }
+            if (dropAreaStyle === 'Drop Area - With Upload Button') {
+              return <RdsDropZoneWithButton {...dropZoneProps} />;
+            }
+            return <RdsDropZoneDefault {...dropZoneProps} />;
+          })()}
 
           <Box className="rds-file-uploader__hint-row">
             <Typography

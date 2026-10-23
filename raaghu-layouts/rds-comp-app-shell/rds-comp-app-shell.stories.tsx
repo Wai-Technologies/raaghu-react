@@ -315,7 +315,7 @@ const AppShellStory = (args: any) => {
             <RdsCompDetailsPane
               headerSubText="Agent Information"
               headerText="Bayshore Transportation System"
-              style="Selection"
+              variant="Selection"
             />
           </div>
         </div>
@@ -341,7 +341,7 @@ const AppShellStory = (args: any) => {
           </div>
           <div id="detail-pane-one-three-one">
             <RdsCompDetailsPane 
-              style="Toolbar" 
+              variant="Toolbar"
               headerText={""} 
               figmaIconSrc="assets/figma.png"
               storybookIconSrc="assets/storybook.png"
@@ -471,7 +471,7 @@ const AppShellStory = (args: any) => {
               <RdsCompDetailsPane
                 headerSubText="Agent Information"
                 headerText={args.displayType === AppShellDisplayType.TriPane ? "Toolbar" : "Bayshore Transportation System"}
-                style={args.displayType === AppShellDisplayType.TriPane ? "Toolbar" : "Selection"}
+                variant={args.displayType === AppShellDisplayType.TriPane ? "Toolbar" : "Selection"}
                 figmaIconSrc={args.displayType === AppShellDisplayType.TriPane ? "assets/figma.png" : undefined}
                 storybookIconSrc={args.displayType === AppShellDisplayType.TriPane ? "assets/storybook.png" : undefined}
               />

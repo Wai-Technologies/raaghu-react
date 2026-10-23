@@ -25,7 +25,7 @@ const meta: Meta<typeof RdsCheckbox> = {
       control: 'boolean',
       description: 'Whether the checkbox is disabled',
     },
-    style: {
+    variant: {
       control: 'select',
       options: ['square', 'circular'],
       description: 'Visual style variant of the checkbox',

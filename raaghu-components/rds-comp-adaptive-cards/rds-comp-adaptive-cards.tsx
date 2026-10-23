@@ -379,7 +379,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               {type === "RestaurantOrder" ? (
                 showBtn1 ? (
                   <RdsButton
-                    style="filled"
+                    variant="filled"
                     className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order rds-button__primary"
                     fullWidth
                     text={btn1Label}
@@ -391,7 +391,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   {showBtn1 &&
                     (type === "InputForm" ? (
                       <RdsButton
-                        style="filled"
+                        variant="filled"
                         className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button rds-button__primary"
                         fullWidth
                         text={btn1Label}

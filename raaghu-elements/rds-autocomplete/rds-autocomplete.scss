@@ -189,14 +189,37 @@
     pointer-events: none;
   }
 
-  .MuiAutocomplete-hasPopupIcon.css-n3hv1h-MuiAutocomplete-root .MuiFilledInput-root, .MuiAutocomplete-hasClearIcon.css-n3hv1h-MuiAutocomplete-root .MuiFilledInput-root {
-    padding-bottom: var(--rds-spacing-20-px);
+  /* Filled variant: label is external, so drop MUI floating-label top padding
+     and vertically center the placeholder / input text. */
+  .MuiFilledInput-root {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    min-height: inherit;
+
+    &.MuiInputBase-sizeSmall,
+    &.MuiInputBase-adornedEnd,
+    &.MuiInputBase-adornedStart {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .MuiFilledInput-input,
+    .MuiAutocomplete-input {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      height: 100% !important;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+    }
   }
 
-  .css-1jcag7i-MuiAutocomplete-root, .css-1koemet {
-    .MuiFilledInput-root {
-      padding-top: var(--rds-spacing-0) !important;
-    }
+  .MuiAutocomplete-hasPopupIcon .MuiFilledInput-root,
+  .MuiAutocomplete-hasClearIcon .MuiFilledInput-root {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 
   .MuiFormHelperText-root {

@@ -31,7 +31,7 @@ export interface RdsAccordionProps
   variant?: AccordionVariant;
   /** Icon shown before the title. Pass `null` to hide it. Defaults to an "add" icon. */
   startIcon?: ReactNode;
-  /** Icon used for the expand indicator. Defaults to a chevron. */
+  /** Icon used for the expand indicator. Pass `null` to hide it. Defaults to a chevron. */
   expandIcon?: ReactNode;
   /** Highlights the accordion as selected. */
   selected?: boolean;
@@ -129,11 +129,11 @@ const RdsAccordion = ({
         className={accordionClassName}
       >
         <MuiAccordionSummary
-          expandIcon={expandIcon ?? <ExpandMoreIcon />}
+          expandIcon={expandIcon !== undefined ? expandIcon : <ExpandMoreIcon />}
           className="rds-accordion__summary"
         >
           <div className="rds-accordion__header">
-            {resolvedStartIcon != null && resolvedStartIcon !== false && (
+            {resolvedStartIcon != null && (
               <span className="rds-accordion__icon">{resolvedStartIcon}</span>
             )}
             <Typography component="span" className="rds-accordion__title">

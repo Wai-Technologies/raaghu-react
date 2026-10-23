@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type ChangeEvent } from 'react';
+import { useState, useRef, type CSSProperties, type ChangeEvent } from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
@@ -9,9 +9,9 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style' | 'compone
   labelText?: string;
   /** Text shown next to the checkbox. */
   label?: string;
-  /** Checkbox shape (Figma). */
-  style?: 'square' | 'circular';
-  /** Checkbox shape. Takes precedence over `style`. */
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: 'square' | 'circular' | CSSProperties;
+  /** Checkbox shape. */
   variant?: 'square' | 'circular';
   status?: 'checked' | 'unchecked' | 'indeterminate';
   /** Shows the label text. When hidden, the label is still used as the accessible name. */
@@ -26,7 +26,7 @@ const RdsCheckbox = ({
   label,
   isDisabled,
   disabled,
-  style = 'square',
+  style,
   variant,
   status,
   showText = true,
@@ -42,14 +42,18 @@ const RdsCheckbox = ({
 }: RdsCheckboxProps) => {
   if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
 
+  const legacyShape = typeof style === 'string' ? style : undefined;
+  if (legacyShape !== undefined) warnDeprecatedProp('RdsCheckbox', 'style', '`variant`');
+  const styleObject = typeof style === 'object' ? style : undefined;
+
   const resolvedLabelText = labelText ?? label;
   const isCheckboxDisabled = Boolean(disabled) || Boolean(isDisabled);
 
   const [internalChecked, setInternalChecked] = useState(status === 'checked' || Boolean(defaultChecked));
-  const [prevStatus, setPrevStatus] = useState(status);
+  const prevStatusRef = useRef(status);
 
-  if (status !== prevStatus) {
-    setPrevStatus(status);
+  if (status !== prevStatusRef.current) {
+    prevStatusRef.current = status;
     if (status !== undefined) {
       setInternalChecked(status === 'checked');
     }
@@ -57,7 +61,7 @@ const RdsCheckbox = ({
 
   const checked = checkedProp ?? internalChecked;
   const currentIndeterminate = indeterminate ?? status === 'indeterminate';
-  const shape = variant ?? style;
+  const shape = variant ?? legacyShape ?? 'square';
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, value: boolean) => {
     setInternalChecked(value);
@@ -96,7 +100,7 @@ const RdsCheckbox = ({
   );
 
   return (
-    <div className={checkboxClassName} style={cssStyle}>
+    <div className={checkboxClassName} style={styleObject ? { ...cssStyle, ...styleObject } : cssStyle}>
       {resolvedLabelText ? (
         <FormControlLabel
           control={checkbox}

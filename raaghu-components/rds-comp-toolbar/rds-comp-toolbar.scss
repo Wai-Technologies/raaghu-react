@@ -52,12 +52,18 @@
 
   &--disabled {
     pointer-events: none;
+    opacity: 1;
     background: var(--rds-color-surface-variant);
-  }
 
-  &--disabled {
     .rds-comp-toolbar__button {
       color: var(--rds-color-on-surface-variant);
+      opacity: 0.55;
+      cursor: not-allowed;
+
+      &--active {
+        background: var(--rds-color-surface-container);
+        opacity: 0.7;
+      }
     }
   }
 

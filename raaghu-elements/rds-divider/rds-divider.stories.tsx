@@ -30,6 +30,14 @@ const meta: Meta<typeof RdsDivider> = {
     flexItem: {
       control: 'boolean',
     },
+    iconShow: {
+      name: 'show icon',
+      control: 'boolean',
+      description: 'Show the icon next to the divider text. Set false (or icon={null}) to hide.',
+      table: {
+        defaultValue: { summary: 'true' },
+      },
+    },
     icon: {
       control: false,
       description: 'Icon shown next to the text (ReactNode). Defaults to an InfoOutlined icon',
@@ -41,10 +49,10 @@ const meta: Meta<typeof RdsDivider> = {
       defaultValue: 'medium',
     },
     color: {
-      name: 'Layout',
+      name: 'color',
       control: 'select',
       options: ['subtle', 'strong', 'primary'],
-      description: 'Style appearance of the divider (displayed as Layout in controls)',
+      description: 'Style appearance of the divider',
       defaultValue: 'subtle',
     },
   },
@@ -59,6 +67,7 @@ export const Default: Story = {
     textAlign: 'center',
     size: 'medium',
     color: 'subtle',
+    iconShow: true,
   },
   play: async ({ canvasElement }) => {
     const hr = canvasElement.querySelector('hr, [role="separator"]');

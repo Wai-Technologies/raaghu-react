@@ -67,12 +67,16 @@ const toInlineStyle = (sx: SxProps<Theme> | undefined, theme: Theme): CSSPropert
 
 const toSxArray = (sx: SxProps<Theme> | undefined) => (Array.isArray(sx) ? sx : sx ? [sx] : []);
 
+type ButtonVariant = 'filled' | 'outlined' | 'transparent';
+
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
   shape?: 'pill' | 'rectangle';
   /** Applies the selected visual treatment, for toggle-style buttons. */
   selected?: boolean;
   layout?: 'icon+text' | 'icon-only' | 'text-only';
-  style?: 'filled' | 'outlined' | 'transparent';
+  variant?: ButtonVariant;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: ButtonVariant | CSSProperties;
   color?: ButtonProps['color'];
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
   /** Shows the Raaghu loading spinner and disables the button. */
@@ -100,6 +104,7 @@ const RdsButton = ({
   shape = 'rectangle',
   sx,
   style,
+  variant,
   color = 'primary',
   layout = 'icon+text',
   showLeftIcon,
@@ -116,6 +121,9 @@ const RdsButton = ({
   if (text !== undefined) warnDeprecatedProp('RdsButton', 'text', '`children`');
   if (isLoading !== undefined) warnDeprecatedProp('RdsButton', 'isLoading', '`loading`');
 
+  const legacyVariant = typeof style === 'string' ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsButton', 'style', '`variant`');
+  const buttonVariant = variant ?? legacyVariant;
   const theme = useTheme();
   const isBusy = loading ?? isLoading ?? false;
   const normalizedLayout = LAYOUT_ALIASES[layout.trim().toLowerCase()] ?? layout;
@@ -126,9 +134,9 @@ const RdsButton = ({
   const usesTokenColorStyling = !color || color === 'primary';
 
   const styleVariantClass =
-    style === 'filled' ? 'rds-button__primary'
-    : style === 'outlined' ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
-    : style === 'transparent' ? (usesTokenColorStyling ? 'rds-button__text' : '')
+    buttonVariant === 'filled' ? 'rds-button__primary'
+    : buttonVariant === 'outlined' ? (usesTokenColorStyling ? 'rds-button__secondary' : '')
+    : buttonVariant === 'transparent' ? (usesTokenColorStyling ? 'rds-button__text' : '')
     : '';
 
   const layoutClass =
@@ -155,7 +163,7 @@ const RdsButton = ({
   };
 
   const getPaletteValue = (key: 'main' | 'contrastText'): string | undefined => {
-    if (style !== 'filled' || !color || color === 'inherit') return undefined;
+    if (buttonVariant !== 'filled' || !color || color === 'inherit') return undefined;
     const paletteColor = theme.palette[color as keyof typeof theme.palette];
     if (paletteColor && typeof paletteColor === 'object' && key in paletteColor) {
       return (paletteColor as Record<typeof key, string>)[key];
@@ -175,7 +183,7 @@ const RdsButton = ({
   return (
     <MuiButton
       disabled={disabled || isBusy}
-      variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
+      variant={buttonVariant === 'filled' ? 'contained' : buttonVariant === 'transparent' ? 'text' : buttonVariant}
       color={color}
       className={clsx(
         'rds-button',
@@ -198,10 +206,11 @@ const RdsButton = ({
       style={{
         ...shapeStyles,
         ...textCaseStyles,
-        ...(style === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
-        ...(style === 'filled' && filledTextColor ? { color: filledTextColor } : {}),
+        ...(buttonVariant === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
+        ...(buttonVariant === 'filled' && filledTextColor ? { color: filledTextColor } : {}),
         ...(isBusy ? { opacity: 1 } : {}),
         ...toInlineStyle(sx, theme),
+        ...(typeof style === 'object' ? style : undefined),
       }}
       startIcon={resolvedStartIcon}
       endIcon={resolvedEndIcon}

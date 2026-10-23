@@ -331,10 +331,15 @@ describe('RdsCompColorPicker', () => {
       expect(colorMode).toContain('RGB');
     });
 
-    it('updates style when style prop changes', () => {
-      const { container, rerender } = render(<RdsCompColorPicker {...defaultProps} style={StyleType.Type1} />);
-      rerender(<RdsCompColorPicker {...defaultProps} style={StyleType.Type2} />);
+    it('updates swatchesVariant when prop changes', () => {
+      const { container, rerender } = render(<RdsCompColorPicker {...defaultProps} swatchesVariant="list" />);
+      rerender(<RdsCompColorPicker {...defaultProps} swatchesVariant="grid" />);
       expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
+    });
+
+    it('applies CSS style to the root element', () => {
+      render(<RdsCompColorPicker {...defaultProps} style={{ marginTop: 8 }} />);
+      expect(document.querySelector('.rds-comp-color-picker')).toHaveStyle({ marginTop: '8px' });
     });
   });
 

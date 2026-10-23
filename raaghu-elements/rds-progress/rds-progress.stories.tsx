@@ -27,14 +27,14 @@ const meta: Meta<typeof RdsProgress> = {
       description: 'React ref to the progress root. Assign in code; refs cannot be set through Controls.',
       table: { category: 'Root props' },
     },
-    style: {
+    shape: {
       control: {
         type: 'select',
       },
       options: ['circular', 'line', 'stepper', 'dash', 'block'],
-      description: 'The visual style of the progress indicator',
+      description: 'The shape of the progress indicator',
     },
-    mode: { control: 
+    mode: { control:
       { type: 'select' },
       options: ['determinate', 'indeterminate', 'buffer', 'query'] 
     },
@@ -57,8 +57,8 @@ const meta: Meta<typeof RdsProgress> = {
         type: 'select',
       },
       options: ['number', 'dot'],
-      description: 'The type of stepper indicator. Only applies when style is stepper.',
-      if: { arg: 'style', eq: 'stepper' },
+      description: 'The type of stepper indicator. Only applies when shape is stepper.',
+      if: { arg: 'shape', eq: 'stepper' },
     },
   }
 };
@@ -68,7 +68,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Circular: Story = {
   args: {
-    style: 'circular',
+    shape: 'circular',
     mode: 'determinate',
     steps: 4,
     showLabel: true,
@@ -79,17 +79,17 @@ export const Circular: Story = {
     await expect(progress).toBeInTheDocument();
   },
 };
-Circular.parameters = { controls: { include: ['style', 'mode', 'steps', 'showLabel', 'color', 'stepIcon', 'className', 'sx', 'ref'] } };
+Circular.parameters = { controls: { include: ['shape', 'mode', 'steps', 'showLabel', 'color', 'stepIcon', 'className', 'sx', 'ref'] } };
 
 export const Stepper: Story = {
   args: {
-    style: 'stepper',
+    shape: 'stepper',
     steps: 2,
     color: 'primary',
     stepIcon: 'dot',
   },
 };
-Stepper.parameters = { controls: { include: ['style', 'steps', 'color', 'stepIcon', 'className', 'sx', 'ref'] } };
+Stepper.parameters = { controls: { include: ['shape', 'steps', 'color', 'stepIcon', 'className', 'sx', 'ref'] } };
 
 export const ColorVariants: Story = {
   args: {

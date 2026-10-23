@@ -254,6 +254,8 @@ describe('RdsRating', () => {
         <RdsRating type="star" level={4} value={2} />
       );
       expect(container.querySelector('.rds-rating')).toBeInTheDocument();
+      // precision 0.5 → 2 icon nodes per star; level=4 ⇒ 8 filled (value=2 would be 4)
+      expect(container.querySelectorAll('.MuiRating-iconFilled').length).toBe(8);
     });
   });
 

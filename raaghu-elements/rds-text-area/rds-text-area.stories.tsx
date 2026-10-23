@@ -8,7 +8,7 @@ const meta = {
         status: { type: 'stable' },
         layout: 'padded',
         controls: {
-            exclude: ['value', 'id', 'dataTestId', 'data-testid', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']
+            exclude: ['value', 'id', 'dataTestId', 'data-testid', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'multiUrl', 'isMultiUrl', 'customClasses']
         }
     },
     tags: ['autodocs', 'stable'],
@@ -28,12 +28,12 @@ const meta = {
             description: 'React ref to the textarea element. Assign in code; refs cannot be set through Controls.',
             table: { category: 'Root props' }
         },
-        style: {
+        variant: {
             control: 'select',
             options: ['Default', 'Pill', 'Bottom Outline'],
             description: 'Visual style variant of the text area'
         },
-        isMandatory: {
+        required: {
             control: 'boolean',
             description: 'Whether the field is required'
         },
@@ -59,9 +59,9 @@ export const Default: Story = {
     args: {
         label: "Label",
         placeholder: "Enter Description",
-        style: 'Default',
+        variant: 'Default',
         selected: false,
-        isMandatory: false,
+        required: false,
         rows: 4
     }
 };

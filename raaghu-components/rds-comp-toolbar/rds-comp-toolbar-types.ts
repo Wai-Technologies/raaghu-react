@@ -27,7 +27,7 @@ export interface RdsCompToolbarProps
   /** Built-in preset used when `items` is not passed. */
   type?: ToolbarType;
   /** Alias of `type`; wins over `type` when both are passed. */
-  preset?: ToolbarType;
+  preset?: `${ToolbarType}`;
   /** Disables every button. */
   disabled?: boolean;
   /** Custom sections of buttons. Replaces the `type` preset. Give a button `options` to make it a dropdown. */

@@ -1,7 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within, fn } from 'storybook/test';
 import { Star, StarBorder } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
 import RdsRating from './rds-rating';
+
+const levelToNumber = (level: unknown): number | undefined => {
+  if (level === 'Left') return 0;
+  if (level === 'Mid') return 2.5;
+  if (level === 'Right') return 5;
+  return typeof level === 'number' ? level : undefined;
+};
 
 const meta: Meta<typeof RdsRating> = {
   title: 'Elements/Rating',
@@ -84,8 +92,23 @@ const basicRatingControls = [
 
 export const Default: Story = {
   args: {
-    value: 3,
     type: 'star',
+    level: 3,
+  },
+  render: (args) => {
+    const fromLevel = levelToNumber(args.level);
+    const [value, setValue] = useState<number | null>(fromLevel ?? 3);
+    useEffect(() => {
+      if (fromLevel !== undefined) setValue(fromLevel);
+    }, [fromLevel]);
+    return (
+      <RdsRating
+        {...args}
+        level={undefined}
+        value={value}
+        onChange={(_, next) => setValue(next)}
+      />
+    );
   },
   argTypes: {
     type: {

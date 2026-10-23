@@ -233,7 +233,7 @@ export const RdsMultiLevelMenu = ({
       sx={Array.isArray(sx) ? sx : [sx]}
     >
       <RdsButton
-        style="filled"
+        variant="filled"
         onClick={(e) => handleMenuOpen(e)}
         size={size === 'large' ? 'large' : 'medium'}
       >

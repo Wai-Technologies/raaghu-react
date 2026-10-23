@@ -15,7 +15,7 @@ figma.connect(
         "Indeterminate": "indeterminate",
       }),
       disabled: figma.boolean("💡 Disabled"),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Square": "square",
         "Circular": "circular",
       }),

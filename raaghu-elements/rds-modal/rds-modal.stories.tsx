@@ -49,7 +49,7 @@ const ModalTemplate = (args: any) => {
 
   return (
     <>
-      <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" style="filled" onClick={() => setOpen(true)}>
+      <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" onClick={() => setOpen(true)}>
         Open Modal
       </RdsButton>
       <RdsModal
@@ -110,10 +110,10 @@ export const WithActions = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          style="outlined"
+          variant="outlined"
           text="Cancel"
           textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" style="filled" text="Delete" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
       </>
     ),
   },
@@ -142,7 +142,7 @@ export const WithoutCloseButton = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          style="outlined"
+          variant="outlined"
           text="Cancel"
           textCase="uppercase" />    ),
   },
@@ -181,10 +181,10 @@ export const LargeModal = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          style="outlined"
+          variant="outlined"
           text="Cancel"
           textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" style="filled" text="Delete" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
       </>
     ),
   },
@@ -214,10 +214,10 @@ export const SmallModal = {
           shape="rectangle"
           showLeftIcon
           size="medium"
-          style="outlined"
+          variant="outlined"
           text="Cancel"
           textCase="uppercase" />
-        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" style="filled" text="Delete" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" variant="filled" text="Delete" />
       </>
     ),
   },

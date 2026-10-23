@@ -1,4 +1,4 @@
-import type { HTMLAttributes, MouseEvent, ReactNode, Ref } from "react";
+import type { CSSProperties, HTMLAttributes, MouseEvent, ReactNode, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
 
 export const NotificationLayout = {
@@ -46,10 +46,11 @@ export interface RdsCompNotificationProps extends Omit<HTMLAttributes<HTMLDivEle
   fallbackImage?: string;
   /** @deprecated Use `fallbackImage` instead. */
   defaultImage?: string;
-  orientation?: NotificationLayout;
-  layout?: NotificationLayout;
-  variant?: NotificationStyle;
-  style?: NotificationStyle;
+  orientation?: NotificationLayout | `${NotificationLayout}`;
+  layout?: NotificationLayout | `${NotificationLayout}`;
+  variant?: NotificationStyle | `${NotificationStyle}`;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: NotificationStyle | `${NotificationStyle}` | CSSProperties;
   /** MUI-named alias for `type`. */
   severity?: NotificationType;
   /** @deprecated Use `severity` instead. */

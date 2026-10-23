@@ -1,8 +1,9 @@
 import clsx from "clsx";
-import { type ReactNode, type Ref, useCallback, useMemo, useState } from "react";
+import { type CSSProperties, type MouseEvent, type ReactNode, type Ref, useCallback, useMemo, useState } from "react";
 import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-navtabs.scss";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 
 const STYLE_EXTRA_CLASSES: Record<string, string[]> = {
   "Top Select": ["top-select", "rds-comp-navtabs__nav--top-select"],
@@ -52,10 +53,14 @@ export interface RdsCompNavtabsProps {
   justified?: boolean;
   activeNavtabOrder?: (id: string | number | undefined) => void;
   activeNavTabId?: string | number;
+  nextPressed?: boolean;
+  /** @deprecated Use `nextPressed` instead. */
   isNextPressed?: boolean;
   onClick?: MouseEvent<HTMLElement>;
   layout?: string;
-  style?: string;
+  variant?: string;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: string | CSSProperties;
   iconOnly?: boolean;
   id?: string;
   sx?: SxProps<Theme>;
@@ -72,13 +77,19 @@ const RdsCompNavtabs = ({
   activeNavtabOrder,
   activeNavTabId: activeNavTabIdProp,
   layout,
+  variant: variantProp,
   style,
+  isNextPressed,
   iconOnly,
   id,
   className,
   sx,
   ref,
 }: RdsCompNavtabsProps) => {
+  const legacyVariant = typeof style === "string" ? style : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp("RdsCompNavtabs", "style", "`variant`");
+  if (isNextPressed !== undefined) warnDeprecatedProp("RdsCompNavtabs", "isNextPressed", "`nextPressed`");
+  const variant = variantProp ?? legacyVariant;
   const [internalActiveNavTabId, setInternalActiveNavTabId] = useState<string | number | undefined>(
     activeNavTabIdProp ?? navtabsItems?.[0]?.id
   );
@@ -93,8 +104,8 @@ const RdsCompNavtabs = ({
   }, [activeNavtabOrder, isControlled]);
 
   const getNavClasses = useCallback(() => {
-    const isHorizontalStyle = HORIZONTAL_STYLES.has(style || "");
-    const extraClasses = STYLE_EXTRA_CLASSES[style || ""] ?? ["nav-tabs"];
+    const isHorizontalStyle = HORIZONTAL_STYLES.has(variant || "");
+    const extraClasses = STYLE_EXTRA_CLASSES[variant || ""] ?? ["nav-tabs"];
 
     return clsx(
       "rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs",
@@ -107,11 +118,11 @@ const RdsCompNavtabs = ({
       justified && "nav-justified",
       iconOnly && ["nav-icon-only", "rds-comp-navtabs__nav--icon-align"]
     );
-  }, [fill, iconOnly, id, justified, layout, style, type]);
+  }, [fill, iconOnly, id, justified, layout, variant, type]);
 
   const getNavLinkClasses = useCallback((navtabsItem: { id: unknown; disabled?: boolean }) => {
     const isActive = navtabsItem.id === activeNavTabId;
-    const isActiveSelected = isActive && ACTIVE_SELECTED_STYLES.has(style || "");
+    const isActiveSelected = isActive && ACTIVE_SELECTED_STYLES.has(variant || "");
 
     return clsx(
       "nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link",
@@ -124,7 +135,7 @@ const RdsCompNavtabs = ({
       !isActive && ["inactive", "rds-comp-navtabs__nav-link--inactive"],
       navtabsItem.disabled && "disabled"
     );
-  }, [activeNavTabId, layout, style, type]);
+  }, [activeNavTabId, layout, variant, type]);
 
   const navClasses = useMemo(() => getNavClasses(), [getNavClasses]);
 
@@ -133,7 +144,7 @@ const RdsCompNavtabs = ({
   }
 
   return (
-    <Box ref={ref} className={clsx("rds-comp-navtabs", className)} sx={sx}>
+    <Box ref={ref} className={clsx("rds-comp-navtabs", className)} sx={sx} style={typeof style === "object" ? style : undefined}>
       <ul
         className={navClasses}
         id={id === "features" ? "features" : ""}

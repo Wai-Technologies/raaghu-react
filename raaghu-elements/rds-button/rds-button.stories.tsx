@@ -17,11 +17,11 @@ const meta: Meta<typeof RdsButton> = {
       control: 'text',
       description: 'The button label',
     },
-    style: {
-      control: 'select',
-      options: ['filled', 'outlined', 'transparent'],
-      description: 'The style of the button',
-    },
+ variant: {
+  control: 'select',
+  options: ['filled', 'outlined', 'transparent'],
+  description: 'The visual variant of the button',
+},
     color: {
       control: 'select',
       options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
@@ -79,7 +79,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Default Button',
-    style: 'filled',
+    variant: 'filled',
     color: 'primary',
     size: 'medium',
     disabled: false,
@@ -104,7 +104,7 @@ export const Large: Story = {
   args: {
     children: 'Large Button',
     size: 'large',
-    style: 'filled',
+   variant: 'filled',
   },
 };
 
@@ -112,21 +112,21 @@ export const Loading: Story = {
   args: {
     children: 'Loading Button',
     loading: true,
-    style: 'filled',
+    variant: 'filled',
   },
 };
 
 export const Outlined: Story = {
   args: {
     children: 'Outlined Button',
-    style: 'outlined',
+    variant: 'outlined',
   },
 };
 
 export const Primary: Story = {
   args: {
     children: 'Primary Button',
-    style: 'filled',
+    variant: 'filled',
     color: 'primary',
   },
 };
@@ -134,7 +134,7 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     children: 'Secondary Button',
-    style: 'filled',
+   variant: 'filled',
     color: 'secondary',
   },
 };
@@ -143,21 +143,21 @@ export const Small: Story = {
   args: {
     children: 'Small Button',
     size: 'small',
-    style: 'filled',
+    variant: 'filled',
   },
 };
 
 export const Transparent: Story = {
   args: {
     children: 'Transparent Button',
-    style: 'transparent',
+   variant: 'transparent',
   },
 };
 
 export const WithEndIcon: Story = {
   args: {
     children: 'Save Item',
-    style: 'filled',
+   variant: 'filled',
     color: 'primary',
     showRightIcon: true,
     changeRightIcon: 'save',
@@ -167,7 +167,7 @@ export const WithEndIcon: Story = {
 export const WithStartIcon: Story = {
   args: {
     children: 'Add Item',
-    style: 'filled',
+    variant: 'filled',
     showLeftIcon: true,
     changeLeftIcon: 'add',
   },

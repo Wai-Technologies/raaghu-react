@@ -54,7 +54,7 @@ jest.mock('./time-picker-utils', () => ({
 
 describe('RdsCompTimePicker', () => {
   const defaultProps: RdsTimePickerProps = {
-    style: 'default',
+    variant: 'default',
     colorVariant: 'primary',
   };
 
@@ -96,28 +96,28 @@ describe('RdsCompTimePicker', () => {
 
   describe('Style Variants', () => {
     it('should render default time picker style', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="default" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="default" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
     });
 
     it('should render compact time picker style', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="compact" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="compact" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(screen.getByTestId('compact-time-picker')).toBeInTheDocument();
     });
 
     it('should add time-picker-compact class for compact style', () => {
-      const { container } = render(<RdsCompTimePicker {...defaultProps} style="compact" />);
+      const { container } = render(<RdsCompTimePicker {...defaultProps} variant="compact" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(container.querySelector('.time-picker-compact')).toBeInTheDocument();
     });
 
     it('should add time-picker class for default style', () => {
-      const { container } = render(<RdsCompTimePicker {...defaultProps} style="default" />);
+      const { container } = render(<RdsCompTimePicker {...defaultProps} variant="default" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(container.querySelector('.time-picker')).toBeInTheDocument();
@@ -182,7 +182,7 @@ describe('RdsCompTimePicker', () => {
     });
 
     it('should parse time from value prop', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="default" value="3:30 PM" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="default" value="3:30 PM" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(screen.getByTestId('default-hour')).toHaveTextContent('3');
@@ -323,7 +323,7 @@ describe('RdsCompTimePicker', () => {
     });
 
     it('should set current time on NOW button click (default style)', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="default" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="default" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       const nowBtn = screen.getByText('NOW');
@@ -332,7 +332,7 @@ describe('RdsCompTimePicker', () => {
     });
 
     it('should set current time on NOW button click (compact style)', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="compact" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="compact" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       const nowBtn = screen.getByText('NOW');
@@ -394,7 +394,7 @@ describe('RdsCompTimePicker', () => {
 
   describe('Compact Style Special Behavior', () => {
     it('should use temp variables for compact style', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="compact" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="compact" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(screen.getByTestId('compact-time-picker')).toBeInTheDocument();
@@ -402,7 +402,7 @@ describe('RdsCompTimePicker', () => {
     });
 
     it('should preserve previously set time in compact on second open', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="compact" value="3:30 PM" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="compact" value="3:30 PM" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       const setTimeBtn = screen.getByRole('button', { name: /set time/i });
@@ -412,7 +412,7 @@ describe('RdsCompTimePicker', () => {
     });
 
     it('should display correct time in compact picker after set', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="compact" value="5:45 PM" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="compact" value="5:45 PM" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(screen.getByTestId('compact-hour')).toHaveTextContent('5');
@@ -423,14 +423,14 @@ describe('RdsCompTimePicker', () => {
 
   describe('Default Style Special Behavior', () => {
     it('should use regular variables for default style', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="default" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="default" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(screen.getByTestId('default-time-picker')).toBeInTheDocument();
     });
 
     it('should apply time controls for default style', () => {
-      render(<RdsCompTimePicker {...defaultProps} style="default" />);
+      render(<RdsCompTimePicker {...defaultProps} variant="default" />);
       const input = screen.getByPlaceholderText('12:00 AM');
       fireEvent.click(input);
       expect(screen.getByTestId('default-hour')).toHaveTextContent('12');
@@ -449,7 +449,7 @@ describe('RdsCompTimePicker', () => {
       const onChange = jest.fn();
       render(
         <RdsCompTimePicker
-          style="compact"
+          variant="compact"
           colorVariant="success"
           defaultOpen
           onChange={onChange}
@@ -514,7 +514,7 @@ describe('RdsCompTimePicker', () => {
 
   describe('Edge Cases', () => {
     it('should handle undefined style prop', () => {
-      render(<RdsCompTimePicker {...defaultProps} style={undefined} />);
+      render(<RdsCompTimePicker {...defaultProps} variant={undefined} />);
       expect(screen.getByPlaceholderText('12:00 AM')).toBeInTheDocument();
     });
 
@@ -550,7 +550,7 @@ describe('RdsCompTimePicker', () => {
       render(
         <RdsCompTimePicker
           {...defaultProps}
-          style="default"
+          variant="default"
           colorVariant="primary"
           value=""
           onChange={onChange}
@@ -597,7 +597,7 @@ describe('RdsCompTimePicker', () => {
         colors.forEach((color) => {
           const { unmount } = render(
             <RdsCompTimePicker
-              style={style}
+              variant={style}
               colorVariant={color}
             />
           );
@@ -655,11 +655,12 @@ describe('RdsCompTimePicker', () => {
       expect(onChange).not.toHaveBeenCalled();
     });
 
-    it('variant wins over style; color wins over colorVariant', () => {
-      const { container } = render(<RdsCompTimePicker style="default" variant="compact" colorVariant="info" color="success" />);
+    it('applies CSS style and variant layout; color wins over colorVariant', () => {
+      const { container } = render(<RdsCompTimePicker style={{ marginTop: 8 }} variant="compact" colorVariant="info" color="success" />);
       open();
       expect(container.querySelector('.time-picker-compact')).toBeInTheDocument();
       expect(screen.getByPlaceholderText('12:00 AM')).toHaveClass('border-success');
+      expect(container.querySelector('.time-picker-container')).toHaveStyle({ marginTop: '8px' });
     });
 
     it('supports localeText', () => {

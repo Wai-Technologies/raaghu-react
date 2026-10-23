@@ -9,13 +9,13 @@ import { axe } from 'jest-axe';
 jest.mock('./rds-comp-truncate-text.scss', () => ({}));
 
 jest.mock('../../raaghu-elements/rds-tooltip/rds-tooltip', () => {
-  return function MockRdsTooltip({ children, label, title, style, arrow }: any) {
+  return function MockRdsTooltip({ children, label, title, placement, arrow }: any) {
     return (
       <div
         data-testid="rds-tooltip"
         data-label={label}
         data-title={title}
-        data-style={style}
+        data-style={placement}
         data-arrow={arrow}
       >
         {children}

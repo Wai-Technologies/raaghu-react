@@ -23,7 +23,7 @@ figma.connect(
     },
     example: (props) => <RdsCompEmptyState 
         mode={props.mode}
-        action={<RdsButton style="filled">Add New Data</RdsButton>}
+        action={<RdsButton variant="filled">Add New Data</RdsButton>}
         imageSize={150}
         label="No Data Available"
         description="No data available at this moment. Would you like to add new data?"

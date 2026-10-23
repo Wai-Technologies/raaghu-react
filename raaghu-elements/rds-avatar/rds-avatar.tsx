@@ -40,11 +40,18 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'>
   activityRing?: boolean;
   /** Shows a status dot when `'online'`; `'offline'` shows none. */
   status?: 'online' | 'offline';
-  /** Which corner the status dot is shown on. */
-  statusPosition?: 'top' | 'bottom';
-  /** @deprecated Use `status` and `statusPosition="top"` instead. */
+  /** Which corner(s) the status dot is shown on. Use `'both'` for top and bottom dots. */
+  statusPosition?: 'top' | 'bottom' | 'both';
+  /**
+   * Show the top status dot. Can be combined with `activeDotBottom` to show both.
+   * When `status` is set, prefer `statusPosition` (`'top' | 'bottom' | 'both'`).
+   * @deprecated Prefer `status="online"` with `statusPosition`.
+   */
   activeDotTop?: boolean;
-  /** @deprecated Use `status` and `statusPosition="bottom"` instead. */
+  /**
+   * Show the bottom status dot. Can be combined with `activeDotTop` to show both.
+   * @deprecated Prefer `status="online"` with `statusPosition`.
+   */
   activeDotBottom?: boolean;
   /** @deprecated Omit `name` to hide the name. */
   showName?: boolean;
@@ -120,8 +127,13 @@ const RdsAvatar = ({
   const title = name ?? titleProp;
   const subTextResolved = description ?? subText;
   const maxResolved = max ?? maxVisibleAvatars ?? 3;
-  const showDot = (position: 'top' | 'bottom', legacy?: boolean) =>
-    status !== undefined ? status === 'online' && statusPosition === position : !!legacy;
+  const showDot = (position: 'top' | 'bottom', legacy?: boolean) => {
+    if (status !== undefined) {
+      if (status !== 'online') return false;
+      return statusPosition === 'both' || statusPosition === position;
+    }
+    return !!legacy;
+  };
   const activeDotTop = showDot('top', activeDotTopProp);
   const activeDotBottom = showDot('bottom', activeDotBottomProp);
 

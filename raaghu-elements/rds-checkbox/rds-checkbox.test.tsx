@@ -67,34 +67,41 @@ describe('RdsCheckbox', () => {
       expect(checkboxContainer).toHaveStyle('margin-top: 16px');
       expect(checkboxContainer).toHaveStyle('padding: 8px');
     });
+
+    it('should apply CSSProperties from style to the wrapper', () => {
+      const { container } = renderWithTheme(
+        <RdsCheckbox {...defaultProps} style={{ marginTop: '12px' }} />
+      );
+      expect(container.querySelector('.rds-checkbox')).toHaveStyle('margin-top: 12px');
+    });
   });
 
-  describe('Style Variants', () => {
-    it('should apply square style by default', () => {
+  describe('Shape Variants', () => {
+    it('should apply the square variant by default', () => {
       const { container } = renderWithTheme(<RdsCheckbox {...defaultProps} />);
       const checkboxContainer = container.querySelector('.rds-checkbox');
       expect(checkboxContainer).toHaveClass('rds-checkbox__square');
     });
 
-    it('should apply square style when explicitly set', () => {
+    it('should apply the square variant when explicitly set', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} style="square" />
+        <RdsCheckbox {...defaultProps} variant="square" />
       );
       const checkboxContainer = container.querySelector('.rds-checkbox');
       expect(checkboxContainer).toHaveClass('rds-checkbox__square');
     });
 
-    it('should apply circular style when set', () => {
+    it('should apply the circular variant when set', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} style="circular" />
+        <RdsCheckbox {...defaultProps} variant="circular" />
       );
       const checkboxContainer = container.querySelector('.rds-checkbox');
       expect(checkboxContainer).toHaveClass('rds-checkbox__circular');
     });
 
-    it('should not apply style class when style is undefined', () => {
+    it('should not apply variant class when variant is undefined', () => {
       const { container } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} style={undefined} />
+        <RdsCheckbox {...defaultProps} variant={undefined} />
       );
       const checkboxContainer = container.querySelector('.rds-checkbox');
       expect(checkboxContainer).not.toHaveClass('rds-checkbox__undefined');
@@ -360,7 +367,7 @@ describe('RdsCheckbox', () => {
       const { container } = renderWithTheme(
         <RdsCheckbox
           {...defaultProps}
-          style="square"
+          variant="square"
           status="checked"
         />
       );
@@ -373,7 +380,7 @@ describe('RdsCheckbox', () => {
       const { container } = renderWithTheme(
         <RdsCheckbox
           {...defaultProps}
-          style="circular"
+          variant="circular"
           disabled
         />
       );
@@ -386,7 +393,7 @@ describe('RdsCheckbox', () => {
       const { container } = renderWithTheme(
         <RdsCheckbox
           labelText="Complex"
-          style="circular"
+          variant="circular"
           status="indeterminate"
           showText={true}
           color="primary"
@@ -405,7 +412,7 @@ describe('RdsCheckbox', () => {
       const { container } = renderWithTheme(
         <RdsCheckbox
           labelText="Complete"
-          style="square"
+          variant="square"
           status="checked"
           showText={true}
           isDisabled={false}
@@ -568,7 +575,7 @@ describe('RdsCheckbox', () => {
       const { container } = renderWithTheme(
         <RdsCheckbox
           labelText="Test"
-          style="circular"
+          variant="circular"
           status="checked"
           color="primary"
           className="custom"
@@ -604,14 +611,14 @@ describe('RdsCheckbox', () => {
       expect(checkbox).toBeDisabled();
     });
 
-    it('should accept valid style values', () => {
+    it('should accept valid variant values', () => {
       const { container: container1 } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} style="square" />
+        <RdsCheckbox {...defaultProps} variant="square" />
       );
       expect(container1.querySelector('.rds-checkbox__square')).toBeInTheDocument();
 
       const { container: container2 } = renderWithTheme(
-        <RdsCheckbox {...defaultProps} style="circular" />
+        <RdsCheckbox {...defaultProps} variant="circular" />
       );
       expect(container2.querySelector('.rds-checkbox__circular')).toBeInTheDocument();
     });
@@ -664,7 +671,7 @@ describe('RdsCheckbox', () => {
       expect(checkbox).not.toBeDisabled();
     });
 
-    it('should have style as square by default', () => {
+    it('should have variant as square by default', () => {
       const { container } = renderWithTheme(
         <RdsCheckbox {...defaultProps} />
       );
@@ -765,6 +772,14 @@ describe('RdsCheckbox additive renames', () => {
     const { container } = renderWithTheme(<RdsCheckbox label="A" variant="circular" style="square" />);
     expect(container.firstChild).toHaveClass('rds-checkbox__circular');
     expect(container.firstChild).not.toHaveClass('rds-checkbox__square');
+  });
+
+  it('accepts CSSProperties and a legacy variant string through style', () => {
+    const { container, rerender } = renderWithTheme(<RdsCheckbox label="A" style={{ marginTop: '12px' }} />);
+    expect(container.firstChild).toHaveStyle({ marginTop: '12px' });
+    expect(container.firstChild).toHaveClass('rds-checkbox__square');
+    rerender(<RdsCheckbox label="A" variant="circular" />);
+    expect(container.firstChild).toHaveClass('rds-checkbox__circular');
   });
 
   it('supports the indeterminate prop', () => {

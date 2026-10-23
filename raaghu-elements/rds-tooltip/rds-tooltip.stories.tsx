@@ -1,3 +1,4 @@
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsTooltip from './rds-tooltip';
 import Delete from '@mui/icons-material/Delete';
@@ -28,13 +29,20 @@ const meta: Meta<typeof RdsTooltip> = {
     placement: {
       control: 'select',
       options: [
-        'top', 'bottom', 'left', 'right',
-        'top-start', 'top-end',
-        'bottom-start', 'bottom-end',
-        'left-start', 'left-end',
-        'right-start', 'right-end',
+        'top',
+        'bottom',
+        'left',
+        'right',
+        'top-start',
+        'top-end',
+        'bottom-start',
+        'bottom-end',
+        'left-start',
+        'left-end',
+        'right-start',
+        'right-end',
       ],
-      description: 'Placement of the tooltip',
+      description: 'Tooltip placement',
     },
   },
 };
@@ -42,10 +50,24 @@ const meta: Meta<typeof RdsTooltip> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const controls = { controls: { include: ['title', 'placement', 'arrow'] } };
+const controls = {
+  controls: {
+    include: ['title', 'placement', 'arrow'],
+  },
+};
 
-const textButton = (label: string, style: 'filled' | 'outlined' | 'transparent') => (
-  <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" style={style} textCase="unset">
+const textButton = (
+  label: string,
+  variant: 'filled' | 'outlined' | 'transparent'
+) => (
+  <RdsButton
+    color="primary"
+    layout="text-only"
+    shape="rectangle"
+    size="medium"
+    variant={variant}
+    textCase="unset"
+  >
     {label}
   </RdsButton>
 );
@@ -58,7 +80,7 @@ const iconButton = (icon: ReactNode, label: string) => (
     shape="rectangle"
     showLeftIcon
     size="medium"
-    style="transparent"
+    variant="transparent"
     aria-label={label}
   />
 );
@@ -103,7 +125,8 @@ export const Different_Placements: Story = {
 
 export const LongText: Story = {
   args: {
-    title: 'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
+    title:
+      'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
     children: iconButton(<HelpIcon />, 'Help'),
     placement: 'top',
   },

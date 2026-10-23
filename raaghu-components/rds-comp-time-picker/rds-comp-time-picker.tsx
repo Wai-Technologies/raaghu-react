@@ -70,7 +70,9 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     ...rest
   } = props;
   if (colorVariant !== undefined) warnDeprecatedProp('RdsCompTimePicker', 'colorVariant', '`color`');
-  const pickerStyle = variant ?? style;
+  const legacyStyle = typeof style === 'string' ? style : undefined;
+  if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompTimePicker', 'style', '`variant`');
+  const pickerStyle = variant ?? legacyStyle ?? 'default';
   const resolvedColor = color ?? colorVariant;
   const nowText = localeText?.now ?? 'NOW';
   const cancelText = localeText?.cancel ?? 'Cancel';
@@ -216,7 +218,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const buttonClasses = getButtonClasses(resolvedColor);
 
   return (
-    <Box {...rest} ref={rootRef} className={clsx(`time-picker-container ${variantClass}`, className)} sx={sx}>
+    <Box {...rest} ref={rootRef} className={clsx(`time-picker-container ${variantClass}`, className)} sx={sx} style={typeof style === 'object' ? style : undefined}>
       <div
         className={clsx("time-input-container", disabled && "disabled")}
       >

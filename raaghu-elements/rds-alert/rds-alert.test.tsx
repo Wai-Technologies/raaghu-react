@@ -5,11 +5,9 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-alert.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -17,7 +15,7 @@ jest.mock('../rds-button/rds-button', () => {
         className={props.className}
         data-testid="rds-button"
         data-text={props.text ?? props.children}
-        data-style={props.style}
+        data-style={props.variant ?? props.placement ?? props.style}
         data-size={props.size}
         data-color={props.color}
         onClick={props.onClick}
@@ -28,7 +26,6 @@ jest.mock('../rds-button/rds-button', () => {
   };
 });
 
-// Mock MUI Icons
 jest.mock('@mui/icons-material/InfoOutlined', () => {
   return function MockInfoIcon() {
     return <span data-testid="info-icon">InfoIcon</span>;
@@ -312,7 +309,6 @@ describe('RdsAlert', () => {
 
     it('should apply icon class to default icon', () => {
       render(<RdsAlert {...defaultProps} />);
-      // The default icon is rendered by the mocked InfoIcon component
       expect(screen.getByTestId('info-icon')).toBeInTheDocument();
     });
   });
@@ -540,7 +536,6 @@ describe('RdsAlert', () => {
         <RdsAlert {...defaultProps} className="custom-class" />
       );
       const alert = screen.getByRole('alert');
-      // Verify the alert exists and custom class is applied
       expect(alert).toBeInTheDocument();
       expect(alert).toHaveClass('custom-class');
     });
@@ -556,7 +551,6 @@ describe('RdsAlert', () => {
         />
       );
       const alert = screen.getByRole('alert');
-      // Verify alert exists with MUI error styling and custom class
       expect(alert).toBeInTheDocument();
       expect(alert).toHaveClass('MuiAlert-colorError');
       expect(alert).toHaveClass('my-custom-class');

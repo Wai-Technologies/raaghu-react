@@ -1,4 +1,4 @@
-import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent } from 'react';
+import { useState, useEffect, isValidElement, type ReactNode, type KeyboardEvent, type CSSProperties } from 'react';
 import { Box, IconButton, Typography, type BoxProps } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
@@ -40,9 +40,9 @@ export interface RdsCarouselProps
   /** Called when the user requests a different slide while `activeIndex` is controlled. */
   onActiveIndexChange?: (index: number) => void;
   /** Visual variant (Figma "Style"). */
-  style?: CarouselVariant;
-  /** Visual variant. Takes precedence over `style`. */
   variant?: CarouselVariant;
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: CarouselVariant | CSSProperties;
   /** Per-slide title and subtitle; they win over `titles`/`subtitles`. */
   items?: { title?: ReactNode; subtitle?: ReactNode }[];
   /** @deprecated Use `items` instead. */
@@ -81,7 +81,9 @@ const RdsCarousel = ({
   if (showDots !== undefined) warnDeprecatedProp('RdsCarousel', 'showDots', '`showIndicators`');
   if (titles !== undefined) warnDeprecatedProp('RdsCarousel', 'titles', '`items`');
   if (subtitles !== undefined) warnDeprecatedProp('RdsCarousel', 'subtitles', '`items`');
-  const style = variant ?? styleProp ?? 'default';
+  const legacyVariant = typeof styleProp === 'string' ? styleProp : undefined;
+  if (legacyVariant !== undefined) warnDeprecatedProp('RdsCarousel', 'style', '`variant`');
+  const style = variant ?? legacyVariant ?? 'default';
   const indicatorType = indicatorVariant ?? type ?? 'circle';
   const indicatorsVisible = showIndicators ?? showDots ?? true;
   const slides: ReactNode[] = Array.isArray(children) ? children : children == null ? [] : [children];
@@ -147,6 +149,7 @@ const RdsCarousel = ({
       aria-label="Carousel"
       {...rest}
       ref={ref}
+      style={typeof styleProp === 'object' ? styleProp : undefined}
       className={carouselClassName}
       sx={[
         {

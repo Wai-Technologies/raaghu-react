@@ -1,3 +1,4 @@
+
 import { type CSSProperties, type ReactElement, type ReactNode } from 'react';
 import { Tooltip as MuiTooltip, type TooltipProps } from '@mui/material';
 import clsx from 'clsx';
@@ -14,8 +15,10 @@ export interface RdsTooltipProps extends Omit<TooltipProps, 'style' | 'title'> {
   className?: string;
   tooltipStyle?: CSSProperties;
   arrow?: boolean;
-  /** @deprecated Use `placement`. */
-  style?: Placement;
+  /** Tooltip placement. */
+  placement?: Placement;
+  /** @deprecated Passing a placement string is deprecated; use `placement`. Pass CSSProperties for inline styles. */
+  style?: Placement | CSSProperties;
   /** @deprecated Use `title`. */
   label?: ReactNode;
   /** @deprecated Has no effect; children are always wrapped in a span. */
@@ -34,17 +37,22 @@ const RdsTooltip = ({
   wrapper: _wrapper,
   ...props
 }: RdsTooltipProps) => {
-  if (style !== undefined) warnDeprecatedProp('RdsTooltip', 'style', '`placement`');
-  if (label !== undefined) warnDeprecatedProp('RdsTooltip', 'label', '`title`');
+  const legacyPlacement = typeof style === 'string' ? style : undefined;
+  if (legacyPlacement !== undefined) {
+    warnDeprecatedProp('RdsTooltip', 'style', '`placement`');
+  }
+  if (label !== undefined) {
+    warnDeprecatedProp('RdsTooltip', 'label', '`title`');
+  }
 
-  const resolvedPlacement: Placement = placement ?? style ?? 'top';
+  const resolvedPlacement: Placement = placement ?? legacyPlacement ?? 'top';
+
   const tooltipClass = clsx(
     'rds-tooltip',
     `rds-tooltip--${resolvedPlacement.replace(/-.*/, '')}`,
     className
   );
 
-  // MUI already opens on focus/hover of the child, so no extra focus handlers are needed.
   return (
     <MuiTooltip
       title={title ?? label}
@@ -54,11 +62,13 @@ const RdsTooltip = ({
       sx={tooltipStyle}
       {...props}
     >
-      <span className="rds-tooltip__wrapper">
+      <span className="rds-tooltip__wrapper" style={typeof style === 'object' ? style : undefined}>
         {children}
       </span>
     </MuiTooltip>
   );
 };
+
 RdsTooltip.displayName = 'RdsTooltip';
+
 export default RdsTooltip;

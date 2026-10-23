@@ -57,15 +57,16 @@ const meta: Meta<typeof RdsAvatar> = {
     },
     statusPosition: {
       control: 'select',
-      options: ['top', 'bottom'],
+      options: ['top', 'bottom', 'both'],
+      description: 'Status dot corner. Use "both" to show top and bottom dots together.',
     },
     activeDotTop: {
       control: 'boolean',
-      description: 'Show dot at top',
+      description: 'Show top dot (combine with activeDotBottom for both). Ignored when status is set.',
     },
     activeDotBottom: {
       control: 'boolean',
-      description: 'Show dot at bottom',
+      description: 'Show bottom dot (combine with activeDotTop for both). Ignored when status is set.',
     },
     max: {
       control: { type: 'number', min: 1, max: 5, step: 1 },
@@ -293,7 +294,8 @@ export const WithInitials: Story = {
     showName: true,
     showDesignation: true,
     activityRing: true,
-    activeDotTop: true,
+    status: 'online',
+    statusPosition: 'both',
     color: 'primary',
   },
   parameters: {

@@ -27,7 +27,7 @@ figma.connect(
         "Top Label + Switch": "toplabel+switch",
         "Bottom Label + Switch": "bottomlabel+switch",
       }),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Style 1": "style1",
         "Style 2": "style2",
         "Style 3": "style3",

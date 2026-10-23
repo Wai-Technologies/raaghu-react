@@ -35,30 +35,32 @@ export const Default: Story = {
     args: {
         id: "BooleanId",
         centerIconName: "users",
-        dataSets: [
-            {
-                label: "Dataset 1",
-                data: [20, 10],
-                fillStyle: "blue",
-                fillRect: [200, 100, 40, 10],
-                backgroundColor: [
-                    "#01AE9D",
-                    "#E1E1E1"
-
-                ],
-                borderColor: [
-                    "#fff",
-                ],
-                borderWidth: 1,
-                cutout: "90%",
-                title: {
-                    text: "Doughnut Chart",
-                    verticalAlign: "center",
-                    dockInsidePlotArea: true
-                },
-            }
-        ],
-        labels: ["green", "grey"],
+        data: {
+            labels: ["green", "grey"],
+            datasets: [
+                {
+                    label: "Dataset 1",
+                    data: [20, 10],
+                    fillStyle: "blue",
+                    fillRect: [200, 100, 40, 10],
+                    backgroundColor: [
+                        "#01AE9D",
+                        "#E1E1E1"
+    
+                    ],
+                    borderColor: [
+                        "#fff",
+                    ],
+                    borderWidth: 1,
+                    cutout: "90%",
+                    title: {
+                        text: "Doughnut Chart",
+                        verticalAlign: "center",
+                        dockInsidePlotArea: true
+                    },
+                }
+            ],
+        },
 
         options: {
             maintainAspectRatio: false,

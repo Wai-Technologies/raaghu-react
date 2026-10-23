@@ -50,7 +50,7 @@ const SnackbarTemplate = (args: any) => {
         layout="text-only"
         shape="rectangle"
         size="medium"
-        style="filled"
+        variant="filled"
         text="Show Snackbar"
         textCase="unset"
         onClick={() => setOpen(true)}
@@ -105,4 +105,4 @@ export const AutoHide = {
   },
 };
 
-export const Default: Story = { ...Success };
+export const Default: Story = { ...Success } as Story;

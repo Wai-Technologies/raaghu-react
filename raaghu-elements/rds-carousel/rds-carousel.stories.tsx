@@ -24,7 +24,7 @@ const meta: Meta<typeof RdsCarousel> = {
   },
   decorators: [
     (Story, context) => {
-      if (context.args && context.args.style === 'full width image') {
+      if (context.args && context.args.variant === 'full width image') {
         context.args = { ...context.args, showIndicators: false };
       }
       return (
@@ -50,7 +50,7 @@ const meta: Meta<typeof RdsCarousel> = {
     },
     showIndicators: {
     control: 'boolean',
-    if: { arg: 'style', neq: 'full width image' },
+    if: { arg: 'variant', neq: 'full width image' },
     description: 'Show indicator dots/lines for slide navigation',
     },
     height: {
@@ -70,7 +70,7 @@ const meta: Meta<typeof RdsCarousel> = {
       action: 'active index changed',
       description: 'Called when a user interaction requests a different slide while activeIndex is controlled.',
     },
-    style: {
+    variant: {
       control: 'select',
       options: ['default', 'with title', 'full width image'],
       description: 'Carousel style variant: default, with title overlay, or full width image',
@@ -122,7 +122,7 @@ export const Default: Story = {
     showIndicators: true,
     height: '400px',
     type: 'circle',
-  style: 'default',
+  variant: 'default',
   title: 'Card Title',
   subtitle: 'In a laoreet purus. Integer turpis quam, laoreet id',
   },
@@ -140,7 +140,7 @@ export const AutoPlay: Story = {
     showArrows: true,
     showIndicators: true,
     height: '300px',
-    style: 'default',
+    variant: 'default',
     className: 'rds-carousel--auto-play',
   title: 'Auto Slide Title',
   subtitle: 'Auto-play subtitle text',

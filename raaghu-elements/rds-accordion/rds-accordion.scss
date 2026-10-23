@@ -126,12 +126,12 @@
     &:not(:last-child) {
       border-bottom: 1px solid var(--rds-accordion-item-divider-color) !important;
     }
-    }
     
     &.Mui-expanded {
       margin: 0 !important;
     }
   }
+}
 
 
 .rds-accordion {
@@ -338,7 +338,6 @@
         .rds-accordion__summary::after {
           display: block !important;
           background: var(--rds-color-on-surface) !important;
-          // height: 1px !important;
         }
 
         .rds-accordion__details-panel {
@@ -376,7 +375,7 @@
   &--small {
     .rds-accordion__summary {
       min-height: var(--rds-accordion-summary-height-sm, 32px) !important;
-      padding: 0 var(--rds-accordion-summary-padding-sm, 8px) !important;
+      padding: 0 var(--rds-accordion-summary-padding-sm-x, 8px) !important;
       
       .MuiAccordionSummary-content {
         margin: var(--rds-accordion-summary-content-margin-sm, 6px) 0 !important;

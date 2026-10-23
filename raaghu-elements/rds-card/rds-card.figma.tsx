@@ -11,7 +11,7 @@ figma.connect(
     props: {
       showTitle: figma.boolean("🆕 Show Title"),
       showIndicator: figma.boolean("👀 Show Indicator"),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         "Default": "default",
         "Outlined": "outlined",
         "Filled": "filled"
@@ -32,7 +32,7 @@ figma.connect(
           >
         <RdsButton
           size="small"
-          style="transparent"
+          variant="transparent"
           sx={{
             mt: 1,
             p: 0,

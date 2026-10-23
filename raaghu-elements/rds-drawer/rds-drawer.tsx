@@ -99,7 +99,7 @@ const RdsDrawer = ({
               layout="text-only"
               shape="rectangle"
               size="medium"
-              style="filled"
+              variant="filled"
               textCase="unset"
               {...closeButtonProps}
               {...closeButtonSlot}
@@ -148,7 +148,7 @@ const RdsDrawer = ({
         layout="text-only"
         shape="rectangle"
         size="medium"
-        style="filled"
+        variant="filled"
         textCase="unset"
         {...triggerButtonProps}
         {...triggerSlot}

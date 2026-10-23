@@ -29,7 +29,7 @@ const meta: Meta = {
             ],
             control: { type: "select" },
         },
-        style: {
+        variant: {
             options: [
                 "Bottom Select",
                 "Top Select",
@@ -65,7 +65,7 @@ export const Default: Story = {
             { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
             { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
         ],
-        style: "Bottom Select",
+        variant: "Bottom Select",
         justified: false,
         layout: "Horizontal"
     },
@@ -74,5 +74,5 @@ export const Default: Story = {
         await expect(tab).toBeInTheDocument();
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'style', 'className', 'sx', 'ref'] } };
+Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'variant', 'className', 'sx', 'ref'] } };
 

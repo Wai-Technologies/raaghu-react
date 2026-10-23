@@ -1,16 +1,13 @@
 import { type ReactNode } from 'react';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
-import MuiTimeline from '@mui/lab/Timeline';
-import { 
-  TimelineItem as MuiTimelineItem,
-  TimelineSeparator as MuiTimelineSeparator,
-  TimelineConnector as MuiTimelineConnector,
-  TimelineContent as MuiTimelineContent,
-  TimelineDot as MuiTimelineDot,
-  TimelineOppositeContent as MuiTimelineOppositeContent,
-  type TimelineProps
-} from '@mui/lab';
+import MuiTimeline, { type TimelineProps } from '@mui/lab/Timeline';
+import MuiTimelineItem from '@mui/lab/TimelineItem';
+import MuiTimelineSeparator from '@mui/lab/TimelineSeparator';
+import MuiTimelineConnector from '@mui/lab/TimelineConnector';
+import MuiTimelineContent from '@mui/lab/TimelineContent';
+import MuiTimelineDot from '@mui/lab/TimelineDot';
+import MuiTimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 export interface RdsTimelineItem {
   id: string | number;
   title: string;

@@ -25,12 +25,12 @@ figma.connect(
         Disabled: false,
         Error: true,
       }),
-      style: figma.enum("✨ Style", {
+      variant: figma.enum("✨ Style", {
         Default: 'Default',
         Pill: 'Pill',
         "Bottom Outline": 'Bottom Outline'
       }),
     },
-    example: (props) => <RdsTextArea {...props} isMandatory placeholder = "Enter Description" />,
+    example: (props) => <RdsTextArea {...props} required placeholder = "Enter Description" />,
   },
 )

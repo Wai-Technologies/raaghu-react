@@ -29,7 +29,19 @@ type Story = StoryObj<typeof RdsCompLineChart>;
 
 export const Default: Story = {
     args: {        
-        labels: ["January", "February", "March", "April", "May", "Jun", "July"],
+        data: {
+            labels: ["January", "February", "March", "April", "May", "Jun", "July"],
+            datasets: [
+                {
+                    label: "My First Dataset",
+                    data: [65, 59, 80, 78, 56, 55, 40],
+                    fill: false,
+                    borderColor: "rgb(75, 192, 192)",
+                    tension: 0.1,
+                    backgroundColor: "red"
+                },
+            ],
+        },
         options: {
             pointStyle: "star",
             radius: 7,
@@ -61,16 +73,6 @@ export const Default: Story = {
                 intersect: false,
             }
         },
-        dataSets: [
-            {
-                label: "My First Dataset",
-                data: [65, 59, 80, 78, 56, 55, 40],
-                fill: false,
-                borderColor: "rgb(75, 192, 192)",
-                tension: 0.1,
-                backgroundColor: "red"
-            },
-        ],
         id: "linechart",
     },
     play: async ({ canvas }) => {

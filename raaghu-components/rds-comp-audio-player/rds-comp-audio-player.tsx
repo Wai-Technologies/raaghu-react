@@ -617,7 +617,7 @@ const RdsCompAudioPlayer = ({
               text="Cancel"
               layout="text-only"
               shape="rectangle"
-              style="transparent"
+              variant="transparent"
               onClick={onCancel}
             />
             <RdsButton
@@ -626,7 +626,7 @@ const RdsCompAudioPlayer = ({
               text="Save"
               layout="text-only"
               shape="rectangle"
-              style="filled"
+              variant="filled"
               onClick={onSave}
             />
           </div>

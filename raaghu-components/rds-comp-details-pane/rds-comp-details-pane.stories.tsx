@@ -19,7 +19,7 @@ const meta: Meta = {
         className: { control: 'text', description: 'CSS class applied to the details pane root.' },
         sx: { control: 'object', description: 'MUI system styles applied to the details pane root.' },
         ref: { control: false, description: 'React ref to the details pane root; assign it in code.' },
-        style: {
+        variant: {
             options: ["Favourites", "Favourites - New Folder", "Prompt History", "Real Estate","Selection","Toolbar","Thumbnail View"],
             control: { type: "select" },
         },
@@ -46,7 +46,7 @@ export const Default: Story = {
         favouritesTabLabel: "Favourites",
         addtoscreen: "Add to Screen",
         addtofolder: "Add to Folder",
-        style: "Favourites",        
+        variant: "Favourites",
         estateTitle: "Serene Studio Housing",
         estateDescription: "This studio room is located in Major city. The famous Amazon and Amazonia beaches are approximately 10 minutes walk from here. The room has a kitchenette with basic utensils for cooking. There is a private attached bathroom. We have a smart tv for your entertainment. We provide complimentary Wi-Fi to our guests who also want to work.",
         carouselImages: [
@@ -57,4 +57,4 @@ export const Default: Story = {
         storybookIconSrc: storybookIconSrc,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style','className','sx','ref'] } };
+Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','variant','className','sx','ref'] } };

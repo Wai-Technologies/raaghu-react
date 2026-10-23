@@ -90,7 +90,7 @@ export const FlexContainer: Story = {
   layout="text-only"
   shape="rectangle"
   size="medium"
-  style="filled"
+  variant="filled"
   text="Button 1"
   textCase="capitalize"
 />,
@@ -100,7 +100,7 @@ export const FlexContainer: Story = {
   layout="text-only"
   shape="rectangle"
   size="medium"
-  style="outlined"
+  variant="outlined"
   text="Button 2"
   textCase="capitalize"
 />,
@@ -110,7 +110,7 @@ export const FlexContainer: Story = {
   layout="text-only"
   shape="rectangle"
   size="medium"
-  style="transparent"
+  variant="transparent"
   text="Button 3"
   textCase="capitalize"
 />
@@ -129,7 +129,7 @@ export const FlexContainer: Story = {
     layout="text-only"
     shape="rectangle"
     size="medium"
-    style="filled"
+    variant="filled"
     text="Button 1"
     textCase="capitalize"
   />
@@ -138,7 +138,7 @@ export const FlexContainer: Story = {
     layout="text-only"
     shape="rectangle"
     size="medium"
-    style="outlined"
+    variant="outlined"
     text="Button 2"
     textCase="capitalize"
   />
@@ -147,7 +147,7 @@ export const FlexContainer: Story = {
     layout="text-only"
     shape="rectangle"
     size="medium"
-    style="transparent"
+    variant="transparent"
     text="Button 3"
     textCase="capitalize"
   />

@@ -31,11 +31,11 @@ const meta: Meta = {
       defaultValue: "primary",
       description: "Color variant of the time picker",
     },
-    style: {
+    variant: {
       options: ["default", "compact"],
       control: { type: "select" },
       defaultValue: "default",
-      description: "Style variant of the time picker",
+      description: "Layout variant of the time picker",
     },
     open: {
       control: { type: "boolean" },
@@ -54,7 +54,7 @@ type Story = StoryObj<typeof RdsCompTimePicker>;
 export const Default: Story = {
   args: {
     color: "primary",
-    style: "default",
+    variant: "default",
     selected: false,
   },
   play: async ({ canvasElement }) => {

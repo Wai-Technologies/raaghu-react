@@ -95,7 +95,8 @@ const RdsCounter = ({
   const isRequired = required ?? isMandatory ?? false;
   const inputId = `rds-counter-${useId()}`;
 
-  const isControlled = value !== undefined;
+  /** Only a numeric `value` is controlled (Storybook may pass `{}` for unset object controls). */
+  const isControlled = typeof value === 'number';
   const [internalValue, setInternalValue] = useState<number | undefined>(
     typeof defaultValue === 'number' ? defaultValue : undefined
   );
@@ -193,16 +194,18 @@ const RdsCounter = ({
           `rds-counter__input--${size}`,
           isDisabled && 'rds-counter__input--disabled',
         )}
-        inputProps={{
-          id: inputId,
-          inputMode: 'numeric',
-          pattern: '[0-9]*',
-          ...(Number.isFinite(min) ? { min } : {}),
-          ...(Number.isFinite(max) ? { max } : {}),
-          'aria-label': labelText ? `${labelText} value` : 'counter value',
-          ...(isRequired ? { 'aria-required': true } : {}),
-          placeholder: placeholder,
-          style: { textAlign: 'center' }
+        slotProps={{
+          input: {
+            id: inputId,
+            inputMode: 'numeric',
+            pattern: '[0-9]*',
+            ...(Number.isFinite(min) ? { min } : {}),
+            ...(Number.isFinite(max) ? { max } : {}),
+            'aria-label': labelText ? `${labelText} value` : 'counter value',
+            ...(isRequired ? { 'aria-required': true } : {}),
+            placeholder: placeholder,
+            style: { textAlign: 'center' }
+          }
         }}
       />
     ) : (

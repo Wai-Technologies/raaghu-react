@@ -28,7 +28,55 @@ type Story = StoryObj<typeof RdsCompAreaChart>;
 export const Default: Story = {
     args: {
         id: "area chart",
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [
+                {
+                    label: "Sales",
+                    data: [450, 350, 750, 590, 280, 620, 100, 750, 250, 650, 380, 330],
+                    borderColor: "#4DCFFF",
+                    backgroundColor: (context: ScriptableContext<"line">) => {
+    
+                        const ctx = context.chart.ctx;
+    
+                        const gradient = ctx.createLinearGradient(0, 25, 0, 210);
+    
+                        gradient.addColorStop(0.1, "rgba(25, 70, 186, 1)");
+    
+                        gradient.addColorStop(1, "rgba(25, 70, 186, 0.08)");
+    
+                        return gradient;
+    
+                    },
+                    fill: true,
+                    pointRadius: 2,
+                    tension: 0.4,
+                },
+                {
+                    label: "Revenue",
+                    data: [350, 380, 650, 150, 280, 480, 490, 570, 320, 480, 380, 440],
+                    borderColor: "#863BFF",
+                    pointBackgroundColor: "#863BFF",
+                    backgroundColor: (context: ScriptableContext<"line">) => {
+    
+                        const ctx = context.chart.ctx;
+    
+                        const gradient = ctx.createLinearGradient(0, 25, 0, 210);
+    
+                        gradient.addColorStop(0.1, "rgba(48, 22, 194, 1)");
+    
+                        gradient.addColorStop(1, "rgba(48, 22, 194, 0.08)");
+    
+                        return gradient;
+    
+                    },
+    
+                    fill: true,
+                    pointRadius: 2,
+                    tension: 0.4,
+                }
+            ],
+        },
         options: {
             radius: 0,
             pointStyle: "circle",
@@ -100,52 +148,6 @@ export const Default: Story = {
                 usePointStyle: true,
             },
         },
-        dataSets: [
-            {
-                label: "Sales",
-                data: [450, 350, 750, 590, 280, 620, 100, 750, 250, 650, 380, 330],
-                borderColor: "#4DCFFF",
-                backgroundColor: (context: ScriptableContext<"line">) => {
-
-                    const ctx = context.chart.ctx;
-
-                    const gradient = ctx.createLinearGradient(0, 25, 0, 210);
-
-                    gradient.addColorStop(0.1, "rgba(25, 70, 186, 1)");
-
-                    gradient.addColorStop(1, "rgba(25, 70, 186, 0.08)");
-
-                    return gradient;
-
-                },
-                fill: true,
-                pointRadius: 2,
-                tension: 0.4,
-            },
-            {
-                label: "Revenue",
-                data: [350, 380, 650, 150, 280, 480, 490, 570, 320, 480, 380, 440],
-                borderColor: "#863BFF",
-                pointBackgroundColor: "#863BFF",
-                backgroundColor: (context: ScriptableContext<"line">) => {
-
-                    const ctx = context.chart.ctx;
-
-                    const gradient = ctx.createLinearGradient(0, 25, 0, 210);
-
-                    gradient.addColorStop(0.1, "rgba(48, 22, 194, 1)");
-
-                    gradient.addColorStop(1, "rgba(48, 22, 194, 0.08)");
-
-                    return gradient;
-
-                },
-
-                fill: true,
-                pointRadius: 2,
-                tension: 0.4,
-            }
-        ],
         isGradient: true,
     },
      parameters: {

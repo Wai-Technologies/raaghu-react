@@ -130,6 +130,8 @@ const RdsDialog = ({
             <RdsButton
               onClick={onSecondaryClick ?? closeFromButton}
               className="rds-dialog__button rds-dialog__button__dismiss"
+              variant="outlined"
+              textCase="uppercase"
             >
               {secondaryText}
             </RdsButton>
@@ -138,7 +140,8 @@ const RdsDialog = ({
             <RdsButton
               onClick={onPrimaryClick ?? closeFromButton}
               className="rds-dialog__button rds-dialog__button__primary"
-              style="filled"
+              variant="filled"
+              textCase="uppercase"
             >
               {primaryText}
             </RdsButton>

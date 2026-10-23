@@ -1,4 +1,4 @@
-import type { Ref } from 'react';
+import type { CSSProperties, Ref } from 'react';
 import type { SxProps, Theme } from '@mui/material';
 
 export type TimePickerColor = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
@@ -11,10 +11,10 @@ export interface RdsTimePickerLocaleText {
 }
 
 export interface RdsTimePickerProps {
-  /** Figma prop: layout variant of the picker. */
-  style?: 'default' | 'compact';
-  /** Alias of `style`; wins over `style` when both are passed. */
+  /** Layout variant of the picker. */
   variant?: 'default' | 'compact';
+  /** @deprecated Passing a variant string is deprecated; use `variant`. Pass CSSProperties for inline styles. */
+  style?: 'default' | 'compact' | CSSProperties;
   /** @deprecated Use `color` instead. */
   colorVariant?: TimePickerColor;
   color?: TimePickerColor;

@@ -301,21 +301,21 @@ describe('RdsCarousel', () => {
   describe('Styles', () => {
     it('should apply default style', () => {
       const { container } = renderWithTheme(
-        <RdsCarousel {...defaultProps} style="default" />
+        <RdsCarousel {...defaultProps} variant="default" />
       );
       expect(container.querySelector('.rds-carousel--default')).toBeInTheDocument();
     });
 
     it('should apply with-title style', () => {
       const { container } = renderWithTheme(
-        <RdsCarousel {...defaultProps} style="with title" />
+        <RdsCarousel {...defaultProps} variant="with title" />
       );
       expect(container.querySelector('.rds-carousel--with-title')).toBeInTheDocument();
     });
 
     it('should apply full-width-image style', () => {
       const { container } = renderWithTheme(
-        <RdsCarousel {...defaultProps} style="full width image" />
+        <RdsCarousel {...defaultProps} variant="full width image" />
       );
       const carousel = container.querySelector('.rds-carousel');
       expect(carousel).toHaveClass('rds-carousel--full-width');
@@ -326,7 +326,7 @@ describe('RdsCarousel', () => {
       renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           titles={['Title 1', 'Title 2', 'Title 3']}
         />
       );
@@ -337,7 +337,7 @@ describe('RdsCarousel', () => {
       renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           subtitles={['Subtitle 1', 'Subtitle 2', 'Subtitle 3']}
         />
       );
@@ -350,7 +350,7 @@ describe('RdsCarousel', () => {
       renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           titles={['Custom Title 1', 'Custom Title 2', 'Custom Title 3']}
         />
       );
@@ -361,7 +361,7 @@ describe('RdsCarousel', () => {
       renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           title="Global Title"
         />
       );
@@ -373,7 +373,7 @@ describe('RdsCarousel', () => {
       renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           titles={['Individual Title', 'Global Title', 'Global Title']}
           title="Global Title"
         />
@@ -385,7 +385,7 @@ describe('RdsCarousel', () => {
       renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           subtitles={['Custom Sub 1', 'Custom Sub 2', 'Custom Sub 3']}
         />
       );
@@ -396,7 +396,7 @@ describe('RdsCarousel', () => {
       renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           subtitle="Global Subtitle"
         />
       );
@@ -408,7 +408,7 @@ describe('RdsCarousel', () => {
       const { container } = renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           titles={['Slide 1 Title', 'Slide 2 Title', 'Slide 3 Title']}
         />
       );
@@ -475,7 +475,7 @@ describe('RdsCarousel', () => {
       renderWithTheme(
         <RdsCarousel 
           {...defaultProps}
-          style="with title"
+          variant="with title"
           titles={[]}
         />
       );
@@ -660,7 +660,7 @@ describe('RdsCarousel', () => {
           showDots={true}
           height="600px"
           type="line"
-          style="with title"
+          variant="with title"
           className="custom-carousel"
           titles={['T1', 'T2', 'T3']}
           subtitles={['S1', 'S2', 'S3']}
@@ -717,7 +717,7 @@ describe('audit fixes', () => {
     it('does not warn about duplicate keys when slides share a title', () => {
       const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       render(
-        <RdsCarousel style="with title" title="Same">
+        <RdsCarousel variant="with title" title="Same">
           <div>One</div>
           <div>Two</div>
           <div>Three</div>
@@ -750,10 +750,18 @@ describe('audit fixes', () => {
 
     it('merges className with the built-in classes', () => {
       const { container } = render(
-        <RdsCarousel className="extra" style="with title">{slides}</RdsCarousel>
+        <RdsCarousel className="extra" variant="with title">{slides}</RdsCarousel>
       );
       const root = container.querySelector('.rds-carousel');
       expect(root).toHaveClass('rds-carousel', 'rds-carousel--with-title', 'extra');
+    });
+
+    it('forwards CSSProperties style to the root', () => {
+      const { container } = render(
+        <RdsCarousel style={{ marginTop: '12px' }}>{slides}</RdsCarousel>
+      );
+      const root = container.querySelector('.rds-carousel') as HTMLElement;
+      expect(root.style.marginTop).toBe('12px');
     });
 
     it('merges sx (object and array) after the base styles', () => {
@@ -834,9 +842,9 @@ describe('audit fixes', () => {
       expect(slideEls[1]).not.toHaveAttribute('inert');
     });
 
-    it('has no axe violations in every style', async () => {
-      for (const style of ['default', 'with title', 'full width image'] as const) {
-        const { container, unmount } = render(<RdsCarousel style={style}>{slides}</RdsCarousel>);
+    it('has no axe violations in every variant', async () => {
+      for (const variant of ['default', 'with title', 'full width image'] as const) {
+        const { container, unmount } = render(<RdsCarousel variant={variant}>{slides}</RdsCarousel>);
         const results = await axe(container);
         expect(results).toHaveNoViolations();
         unmount();

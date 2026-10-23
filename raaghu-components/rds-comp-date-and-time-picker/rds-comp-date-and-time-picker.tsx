@@ -1,5 +1,6 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, type CSSProperties, type ReactNode, type Ref } from 'react';
 import clsx from 'clsx';
+import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-date-and-time-picker.scss';
 import dayjs, { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -64,10 +65,16 @@ export interface RdsCompDatePickerProps {
     [key: string]: unknown;
   };
   changeIcon?: 'dashboard-settings' | 'date-picker';
-  style?: 'default' | 'custom';
+  /** Picker appearance. */
+  appearance?: 'default' | 'custom';
+  /** @deprecated Passing a variant string is deprecated; use `appearance`. Pass CSSProperties for inline styles. */
+  style?: 'default' | 'custom' | CSSProperties;
   type?: 'dropdown' | 'selector';
-  showSeconds?: boolean; // New prop to control seconds display
-  isRequired?: boolean; // New prop to show required indicator
+  showSeconds?: boolean;
+  /** Shows the required indicator. */
+  required?: boolean;
+  /** @deprecated Use `required` instead. */
+  isRequired?: boolean;
 }
 
 interface DateRangePreset {
@@ -106,11 +113,11 @@ const dateRangePresets: DateRangePreset[] = [
 
 // Custom Layout Component for Date Range Picker with Presets
 const CustomDateRangeLayout = ({ ref, children, selectedPreset, onPresetSelect, rangeValue }: {
-    children: React.ReactNode;
+    children: ReactNode;
     selectedPreset: string;
     onPresetSelect: (preset: DateRangePreset) => void;
     rangeValue: [Dayjs | null, Dayjs | null];
-    ref?: React.Ref<HTMLDivElement>;
+    ref?: Ref<HTMLDivElement>;
 }) => {
   return (
     <div
@@ -208,10 +215,10 @@ function RangeCalendar({
   maxDate?: Dayjs;
   multiMonth?: boolean;
 }) {
-  const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>([null, null]);
-  const [currentMonth, setCurrentMonth] = React.useState(() => dayjs());
-  const [prevValue0, setPrevValue0] = React.useState(value[0]?.valueOf());
-  const [prevValue1, setPrevValue1] = React.useState(value[1]?.valueOf());
+  const [draft, setDraft] = useState<[Dayjs | null, Dayjs | null]>([null, null]);
+  const [currentMonth, setCurrentMonth] = useState(() => dayjs());
+  const [prevValue0, setPrevValue0] = useState(value[0]?.valueOf());
+  const [prevValue1, setPrevValue1] = useState(value[1]?.valueOf());
   if (value[0]?.valueOf() !== prevValue0 || value[1]?.valueOf() !== prevValue1) {
     setPrevValue0(value[0]?.valueOf());
     setPrevValue1(value[1]?.valueOf());
@@ -311,7 +318,7 @@ function RangeTime({
   
   // Calculate dynamic minTime for end time picker based on start time
   // Allow selecting the same time or any time after start time
-  const endMinTime = React.useMemo(() => {
+  const endMinTime = useMemo(() => {
     if (start) {
       return start; // Allow same time or later
     }
@@ -320,7 +327,7 @@ function RangeTime({
   
   // Calculate dynamic maxTime for start time picker based on end time
   // Allow selecting the same time or any time before end time
-  const startMaxTime = React.useMemo(() => {
+  const startMaxTime = useMemo(() => {
     if (end) {
       return end; // Allow same time or earlier
     }
@@ -514,11 +521,18 @@ export default function RdsCompDatePicker({
   sx,
   size = 'medium',
   slotProps,
-  style = 'default',
+  appearance,
+  style: styleProp,
   showSeconds = true,
-  isRequired = false,
+  required,
+  isRequired: legacyRequired,
 }: RdsCompDatePickerProps) {
   // State management
+  if (legacyRequired !== undefined) warnDeprecatedProp('RdsCompDatePicker', 'isRequired', '`required`');
+  const legacyStyle = typeof styleProp === 'string' ? styleProp : undefined;
+  if (legacyStyle !== undefined) warnDeprecatedProp('RdsCompDatePicker', 'style', '`appearance`');
+  const style = appearance ?? legacyStyle ?? 'default';
+  const isRequired = required ?? legacyRequired ?? false;
   const [dateValue, setDateValue] = useState<Dayjs | null>(
     Array.isArray(value) ? value[0] : (value as Dayjs | null) || null
   );
@@ -741,8 +755,8 @@ export default function RdsCompDatePicker({
               </>
             )}
             <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
-              <RdsButton style="transparent" size="small" text="Clear" onClick={handleClearRange} />
-              <RdsButton style="filled" size="small" text="Apply" onClick={handleClosePopover} />
+              <RdsButton variant="transparent" size="small" text="Clear" onClick={handleClearRange} />
+              <RdsButton variant="filled" size="small" text="Apply" onClick={handleClosePopover} />
             </Box>
           </Paper>
         </Popover>
@@ -879,7 +893,7 @@ export default function RdsCompDatePicker({
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box className={containerClasses} sx={sx}>
+      <Box className={containerClasses} sx={sx} style={typeof styleProp === 'object' ? styleProp : undefined}>
         <div className="rds-date-picker__field-wrapper">
           {getPickerComponent()}
           {helperText ? <div className="rds-date-picker__helper">{helperText}</div> : null}
@@ -906,21 +920,21 @@ type DemoConfig = {
   variant: RdsCompDatePickerProps['variant'];
   layout?: RdsCompDatePickerProps['layout'];
   valueKey: keyof DemoValues;
-  style?: RdsCompDatePickerProps['style'];
+  appearance?: RdsCompDatePickerProps['appearance'];
   showSeconds?: boolean;
-  isRequired?: boolean;
+  required?: boolean;
 };
 
 const DEMO_CONFIGS: DemoConfig[] = [
   { label: 'Date Picker (Default)', variant: 'date', layout: 'Default', valueKey: 'date' },
-  { label: 'Date Picker (Required)', variant: 'date', layout: 'Default', valueKey: 'date', isRequired: true },
+  { label: 'Date Picker (Required)', variant: 'date', layout: 'Default', valueKey: 'date', required: true },
   { label: 'Year Picker', variant: 'date', layout: 'Year Picker', valueKey: 'year' },
   { label: 'Month Picker', variant: 'date', layout: 'Month Picker', valueKey: 'month' },
   { label: 'Multi Month', variant: 'date', layout: 'Multi Month', valueKey: 'multimonth' },
   { label: 'Time Picker (with seconds)', variant: 'time', layout: undefined, valueKey: 'time', showSeconds: true },
   { label: 'Date Time Picker (without seconds)', variant: 'datetime', layout: undefined, valueKey: 'datetime', showSeconds: false },
   { label: 'Date Range Picker', variant: 'daterange', layout: undefined, valueKey: 'daterange' },
-  { label: 'Custom Date Range Picker', variant: 'daterange', layout: undefined, valueKey: 'daterange', style: 'custom' },
+  { label: 'Custom Date Range Picker', variant: 'daterange', layout: undefined, valueKey: 'daterange', appearance: 'custom' },
   { label: 'Time Range Picker (with seconds)', variant: 'timerange', layout: undefined, valueKey: 'timerange', showSeconds: true },
   { label: 'Date Time Range Picker (with seconds)', variant: 'datetimerange', layout: undefined, valueKey: 'datetimerange', showSeconds: true },
 ];
@@ -956,9 +970,9 @@ export function DatePickerDemo() {
         </Typography>
 
         <Stack spacing={3}>
-          {demos.map(({ label, variant, layout, valueKey, style, showSeconds, isRequired }) => (
+          {demos.map(({ label, variant, layout, valueKey, appearance, showSeconds, required }) => (
             <Box
-              key={`${valueKey}-${style || 'default'}-${showSeconds || 'default'}-${isRequired || 'false'}`}
+              key={`${valueKey}-${appearance || 'default'}-${showSeconds || 'default'}-${required || 'false'}`}
               className="rds-date-picker__demo-item"
             >
               <Typography variant="subtitle2" component="p" className="rds-date-picker__demo-label">
@@ -969,10 +983,10 @@ export function DatePickerDemo() {
                 layout={layout}
                 value={values[valueKey]}
                 onChange={handleChange(valueKey)}
-                style={style}
+                appearance={appearance}
                 showSeconds={showSeconds}
-                isRequired={isRequired}
-                label={isRequired ? 'Required Field' : 'Optional Field'}
+                required={required}
+                label={required ? 'Required Field' : 'Optional Field'}
               />
             </Box>
           ))}

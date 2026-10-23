@@ -1,4 +1,4 @@
-import { useId, useState, type InputHTMLAttributes, type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
+import { useId, useState, type CSSProperties, type InputHTMLAttributes,type ReactNode, type ChangeEvent, type KeyboardEvent, type FormEvent } from 'react';
 import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
 import type { InputProps } from '@mui/material/Input';
 import clsx from 'clsx';
@@ -32,8 +32,9 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   titlePosition?: 'title-above' | 'inline-title' | (string & {});
   /** Label placement: `top` shows it above the field, `inline` inside it. */
   labelPlacement?: 'top' | 'inline';
-  style?: 'default' | 'pill' | 'bottom outline';
-  /** Alias of `style`. */
+  /** @deprecated Passing a variant string is deprecated; use `shape`. Pass CSSProperties for inline styles. */
+  style?: 'default' | 'pill' | 'bottom outline' | CSSProperties;
+  /** Field shape. */
   shape?: 'default' | 'pill' | 'bottom outline';
   selected?: boolean;
   /** Icon shown at the start of the field. */
@@ -102,7 +103,9 @@ const RdsInput = ({
   if (iconPosition !== undefined) warnDeprecatedProp('RdsInput', 'iconPosition', '`startIcon` / `endIcon`');
 
   const titlePosition = labelPlacement ? labelPlacementMap[labelPlacement] : legacyTitlePosition;
-  const resolvedStyle = shape ?? style ?? 'default';
+  const legacyShape = typeof style === 'string' ? style : undefined;
+  if (legacyShape !== undefined) warnDeprecatedProp('RdsInput', 'style', '`shape`');
+  const resolvedStyle = shape ?? legacyShape ?? 'default';
   const legacyIconPosition = showIcon ? iconPosition ?? 'end' : undefined;
   const adornment = (position: 'start' | 'end', node: ReactNode) =>
     node != null ? renderAdornment(node, position) : legacyIconPosition === position ? renderAdornment(icon, position) : undefined;
@@ -261,7 +264,9 @@ const RdsInput = ({
   };
 
   return (
-    <div className={clsx(
+    <div
+      style={typeof style === 'object' ? style : undefined}
+      className={clsx(
       'rds-input',
       sizeClass,
       pillClass,

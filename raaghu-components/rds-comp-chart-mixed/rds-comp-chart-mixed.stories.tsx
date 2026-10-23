@@ -32,26 +32,28 @@ type Story = StoryObj<typeof RdsCompMixedChart>;
 export const Default: Story = {
     args: {
         id: "mixed_chart",
-        dataSets: [
-            {
-                type: "bar",
-                label: "Bar Dataset",
-                data: [0, 37, -3, 70, -25, 50, -24],
-                backgroundColor: "rgb(248, 188, 198)",
-                borderColor: "rgb(248, 188, 198)",
-                order: 0
-            },
-            {
-                type: "line",
-                label: "Line Dataset",
-                data: [25, 5, 90, 78, 17, 17, -98],
-                borderColor: "blue",
-                backgroundColor: "blue",
-                order: 1
-            }
-        ],
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    type: "bar",
+                    label: "Bar Dataset",
+                    data: [0, 37, -3, 70, -25, 50, -24],
+                    backgroundColor: "rgb(248, 188, 198)",
+                    borderColor: "rgb(248, 188, 198)",
+                    order: 0
+                },
+                {
+                    type: "line",
+                    label: "Line Dataset",
+                    data: [25, 5, 90, 78, 17, 17, -98],
+                    borderColor: "blue",
+                    backgroundColor: "blue",
+                    order: 1
+                }
+            ],
+        },
 
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
 
         options: {
             radius: 10,
