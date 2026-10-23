@@ -15,9 +15,7 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 export type { FileWithProgress, FileUploaderVariant, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 import type { FileWithProgress, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
-/**
- * Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
- */
+/** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
 export interface RdsFileUploaderProps extends RdsFileUploaderBaseProps, RdsFileUploaderRootProps {
   /** Standard mode: content of the remove-file button shown next to the chosen file name. */
   children?: ReactNode;

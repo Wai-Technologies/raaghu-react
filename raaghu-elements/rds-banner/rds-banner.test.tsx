@@ -5,11 +5,9 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
-// Mock SCSS
 jest.mock('./rds-banner.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock RdsButton component
 jest.mock('../rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -31,11 +29,13 @@ describe('RdsBanner', () => {
     title: 'Banner Title',
     description: 'Banner Description',
   };
+  const setup = (p: RdsBannerProps = {}) => render(<RdsBanner {...defaultProps} {...p} />);
+  const has = (container: HTMLElement, sel: string) => expect(container.querySelector(sel)).toBeInTheDocument();
+  const hasNot = (container: HTMLElement, sel: string) => expect(container.querySelector(sel)).not.toBeInTheDocument();
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner')).toBeInTheDocument();
+      has(setup().container, '.rds-banner');
     });
 
     it('should have correct displayName', () => {
@@ -43,41 +43,34 @@ describe('RdsBanner', () => {
     });
 
     it('should render MUI Alert component', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.MuiAlert-root')).toBeInTheDocument();
+      has(setup().container, '.MuiAlert-root');
     });
 
     it('should render with default props', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--medium')).toBeInTheDocument();
-      expect(container.querySelector('.rds-banner--info')).toBeInTheDocument();
-    });
-
-    it('should render banner with info type by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--info')).toBeInTheDocument();
+      const { container } = setup();
+      has(container, '.rds-banner--medium');
+      has(container, '.rds-banner--info');
+      has(container, '.rds-banner--style1');
+      has(container, '.rds-banner--full-width');
     });
 
     it('should render content wrapper', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner__content-wrapper')).toBeInTheDocument();
+      has(setup().container, '.rds-banner__content-wrapper');
     });
   });
 
   describe('Title Display', () => {
     it('should display title when showTitle is true', () => {
-      render(<RdsBanner {...defaultProps} showTitle={true} />);
+      setup({ showTitle: true });
       expect(screen.getByText('Banner Title')).toBeInTheDocument();
     });
 
     it('should not display title when showTitle is false', () => {
-      const { container } = render(<RdsBanner {...defaultProps} showTitle={false} />);
-      expect(container.querySelector('.rds-banner__heading')).not.toBeInTheDocument();
+      hasNot(setup({ showTitle: false }).container, '.rds-banner__heading');
     });
 
     it('should apply heading class to title', () => {
-      const { container } = render(<RdsBanner {...defaultProps} showTitle={true} />);
-      expect(container.querySelector('.rds-banner__heading')).toBeInTheDocument();
+      has(setup({ showTitle: true }).container, '.rds-banner__heading');
     });
 
     it('should use default title when not provided', () => {
@@ -86,31 +79,22 @@ describe('RdsBanner', () => {
     });
 
     it('should apply multiline heading class in multiline mode', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} showTitle={true} multiline={true} />
-      );
-      expect(container.querySelector('.rds-banner__heading--multiline')).toBeInTheDocument();
+      has(setup({ showTitle: true, multiline: true }).container, '.rds-banner__heading--multiline');
     });
   });
 
   describe('Description Display', () => {
     it('should display description when showDescription is true', () => {
-      render(<RdsBanner {...defaultProps} showDescription={true} />);
+      setup({ showDescription: true });
       expect(screen.getByText('Banner Description')).toBeInTheDocument();
     });
 
     it('should not display description when showDescription is false', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} showDescription={false} />
-      );
-      expect(container.querySelector('.rds-banner__description')).not.toBeInTheDocument();
+      hasNot(setup({ showDescription: false }).container, '.rds-banner__description');
     });
 
     it('should display description in multiline mode', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} multiline={true} showDescription={true} />
-      );
-      expect(container.querySelector('.rds-banner__description')).toBeInTheDocument();
+      has(setup({ multiline: true, showDescription: true }).container, '.rds-banner__description');
     });
 
     it('should render children as description', () => {
@@ -119,176 +103,86 @@ describe('RdsBanner', () => {
     });
   });
 
-  describe('Type Variants', () => {
-    it('should apply info type by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--info')).toBeInTheDocument();
+  describe('Type, Size and Style Variants', () => {
+    it.each(['success', 'warning', 'error', 'info'] as const)('should apply %s type', (type) => {
+      has(setup({ type }).container, `.rds-banner--${type}`);
     });
 
-    it('should apply success type', () => {
-      const { container } = render(<RdsBanner {...defaultProps} type="success" />);
-      expect(container.querySelector('.rds-banner--success')).toBeInTheDocument();
+    it.each(['small', 'medium', 'large'] as const)('should apply %s size class', (size) => {
+      has(setup({ size }).container, `.rds-banner--${size}`);
     });
 
-    it('should apply warning type', () => {
-      const { container } = render(<RdsBanner {...defaultProps} type="warning" />);
-      expect(container.querySelector('.rds-banner--warning')).toBeInTheDocument();
+    it.each(['style1', 'style2', 'style3'] as const)('should apply %s variant', (variantStyle) => {
+      has(setup({ variantStyle }).container, `.rds-banner--${variantStyle}`);
     });
 
-    it('should apply error type', () => {
-      const { container } = render(<RdsBanner {...defaultProps} type="error" />);
-      expect(container.querySelector('.rds-banner--error')).toBeInTheDocument();
-    });
-  });
-
-  describe('Size Variants', () => {
-    it('should apply small size class', () => {
-      const { container } = render(<RdsBanner {...defaultProps} size="small" />);
-      expect(container.querySelector('.rds-banner--small')).toBeInTheDocument();
-    });
-
-    it('should apply medium size class by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--medium')).toBeInTheDocument();
-    });
-
-    it('should apply large size class', () => {
-      const { container } = render(<RdsBanner {...defaultProps} size="large" />);
-      expect(container.querySelector('.rds-banner--large')).toBeInTheDocument();
-    });
-  });
-
-  describe('Style Variants', () => {
-    it('should apply style1 by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--style1')).toBeInTheDocument();
-    });
-
-    it('should apply style2 variant', () => {
-      const { container } = render(<RdsBanner {...defaultProps} variantStyle="style2" />);
-      expect(container.querySelector('.rds-banner--style2')).toBeInTheDocument();
-    });
-
-    it('should apply style3 variant', () => {
-      const { container } = render(<RdsBanner {...defaultProps} variantStyle="style3" />);
-      expect(container.querySelector('.rds-banner--style3')).toBeInTheDocument();
-    });
-
-    it('should apply outlined style for style1', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} variantStyle="style1" showOutline={true} />
-      );
-      expect(container.querySelector('.rds-banner--style1-outline')).toBeInTheDocument();
-    });
-
-    it('should apply outlined style for style2', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} variantStyle="style2" showOutline={true} />
-      );
-      expect(container.querySelector('.rds-banner--style2-outline')).toBeInTheDocument();
+    it.each(['style1', 'style2'] as const)('should apply outlined style for %s', (variantStyle) => {
+      has(setup({ variantStyle, showOutline: true }).container, `.rds-banner--${variantStyle}-outline`);
     });
   });
 
   describe('Icon Display', () => {
     it('should render icon by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} Icon={true} />);
-      expect(container.querySelector('.MuiAlert-icon')).toBeInTheDocument();
+      has(setup({ Icon: true }).container, '.MuiAlert-icon');
     });
 
     it('should not render icon when Icon is false', () => {
-      const { container } = render(<RdsBanner {...defaultProps} Icon={false} />);
-      expect(container.querySelector('.MuiAlert-icon')).not.toBeInTheDocument();
+      hasNot(setup({ Icon: false }).container, '.MuiAlert-icon');
     });
   });
 
   describe('Close Button', () => {
+    const closeBtn = (container: HTMLElement) => container.querySelector('.rds-banner__close-button') as HTMLElement;
+
     it('should render close button when closable is true', () => {
-      const { container } = render(<RdsBanner {...defaultProps} closable={true} />);
-      expect(container.querySelector('.rds-banner__close-button')).toBeInTheDocument();
+      has(setup({ closable: true }).container, '.rds-banner__close-button');
     });
 
     it('should not render close button when closable is false', () => {
-      const { container } = render(<RdsBanner {...defaultProps} closable={false} />);
-      expect(container.querySelector('.rds-banner__close-button')).not.toBeInTheDocument();
+      hasNot(setup({ closable: false }).container, '.rds-banner__close-button');
     });
 
     it('should close banner when close button is clicked', () => {
-      const { container } = render(<RdsBanner {...defaultProps} closable={true} />);
-      const closeButton = container.querySelector('.rds-banner__close-button') as HTMLElement;
-      fireEvent.click(closeButton);
-      expect(container.querySelector('.rds-banner')).not.toBeInTheDocument();
+      const { container } = setup({ closable: true });
+      fireEvent.click(closeBtn(container));
+      hasNot(container, '.rds-banner');
     });
 
     it('should call onClose handler when close button is clicked', () => {
       const onClose = jest.fn();
-      const { container } = render(
-        <RdsBanner {...defaultProps} closable={true} onClose={onClose} />
-      );
-      const closeButton = container.querySelector('.rds-banner__close-button') as HTMLElement;
-      fireEvent.click(closeButton);
+      const { container } = setup({ closable: true, onClose });
+      fireEvent.click(closeBtn(container));
       expect(onClose).toHaveBeenCalled();
     });
 
     it('should remain visible when persistent is true', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} closable={true} persistent={true} />
-      );
-      const closeButton = container.querySelector('.rds-banner__close-button') as HTMLElement;
-      fireEvent.click(closeButton);
-      expect(container.querySelector('.rds-banner')).toBeInTheDocument();
+      const { container } = setup({ closable: true, persistent: true });
+      fireEvent.click(closeBtn(container));
+      has(container, '.rds-banner');
     });
 
     it('should have aria-label on close button', () => {
-      const { container } = render(<RdsBanner {...defaultProps} closable={true} />);
-      const closeButton = container.querySelector('.rds-banner__close-button');
-      expect(closeButton).toHaveAttribute('aria-label', 'close');
+      const { container } = setup({ closable: true });
+      expect(closeBtn(container)).toHaveAttribute('aria-label', 'close');
     });
   });
 
   describe('Action Buttons', () => {
-    it('should render link button when showLink is true', () => {
-      const { container } = render(<RdsBanner {...defaultProps} showLink={true} />);
-      expect(container.querySelector('.rds-banner__link-button')).toBeInTheDocument();
-      expect(screen.getByText('Link')).toBeInTheDocument();
-    });
-
-    it('should not render link button when showLink is false', () => {
-      const { container } = render(<RdsBanner {...defaultProps} showLink={false} />);
-      expect(container.querySelector('.rds-banner__link-button')).not.toBeInTheDocument();
-    });
-
-    it('should render secondary button when showSecondary is true', () => {
-      const { container } = render(<RdsBanner {...defaultProps} showSecondary={true} />);
-      expect(container.querySelector('.rds-banner__secondary-button')).toBeInTheDocument();
-      expect(screen.getByText('Cancel')).toBeInTheDocument();
-    });
-
-    it('should not render secondary button when showSecondary is false', () => {
-      const { container } = render(<RdsBanner {...defaultProps} showSecondary={false} />);
-      expect(container.querySelector('.rds-banner__secondary-button')).not.toBeInTheDocument();
-    });
-
-    it('should render primary button when showPrimary is true', () => {
-      const { container } = render(<RdsBanner {...defaultProps} showPrimary={true} />);
-      expect(container.querySelector('.rds-banner__primary-button')).toBeInTheDocument();
-      expect(screen.getByText('Okay')).toBeInTheDocument();
-    });
-
-    it('should not render primary button when showPrimary is false', () => {
-      const { container } = render(<RdsBanner {...defaultProps} showPrimary={false} />);
-      expect(container.querySelector('.rds-banner__primary-button')).not.toBeInTheDocument();
+    it.each([
+      ['showLink', 'link', 'Link'],
+      ['showSecondary', 'secondary', 'Cancel'],
+      ['showPrimary', 'primary', 'Okay'],
+    ] as const)('should render %s button only when true', (prop, name, label) => {
+      const on = setup({ [prop]: true });
+      has(on.container, `.rds-banner__${name}-button`);
+      expect(screen.getByText(label)).toBeInTheDocument();
+      on.unmount();
+      hasNot(setup({ [prop]: false }).container, `.rds-banner__${name}-button`);
     });
 
     it('should render all action buttons', () => {
-      const { container } = render(
-        <RdsBanner
-          {...defaultProps}
-          showLink={true}
-          showSecondary={true}
-          showPrimary={true}
-        />
-      );
-      expect(container.querySelector('.rds-banner__actions')).toBeInTheDocument();
+      const { container } = setup({ showLink: true, showSecondary: true, showPrimary: true });
+      has(container, '.rds-banner__actions');
       expect(screen.getByText('Link')).toBeInTheDocument();
       expect(screen.getByText('Cancel')).toBeInTheDocument();
       expect(screen.getByText('Okay')).toBeInTheDocument();
@@ -297,52 +191,35 @@ describe('RdsBanner', () => {
 
   describe('Width Variants', () => {
     it('should apply full width class by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--full-width')).toBeInTheDocument();
+      has(setup().container, '.rds-banner--full-width');
     });
 
     it('should apply auto width when fullWidth is false', () => {
-      const { container } = render(<RdsBanner {...defaultProps} fullWidth={false} />);
-      expect(container.querySelector('.rds-banner--auto-width')).toBeInTheDocument();
+      has(setup({ fullWidth: false }).container, '.rds-banner--auto-width');
     });
   });
 
   describe('Multiline Mode', () => {
     it('should render in multiline mode when enabled', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} multiline={true} showTitle={true} showDescription={true} />
-      );
-      expect(container.querySelector('.rds-banner__heading--multiline')).toBeInTheDocument();
+      has(setup({ multiline: true, showTitle: true, showDescription: true }).container, '.rds-banner__heading--multiline');
     });
 
     it('should render title and description separately in multiline mode', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} multiline={true} showTitle={true} showDescription={true} />
-      );
-      expect(container.querySelector('.rds-banner__description')).toBeInTheDocument();
+      has(setup({ multiline: true, showTitle: true, showDescription: true }).container, '.rds-banner__description');
     });
 
     it('should render inline in non-multiline mode', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} multiline={false} showTitle={true} showDescription={true} />
-      );
-      expect(container.querySelector('span')).toBeInTheDocument();
+      has(setup({ multiline: false, showTitle: true, showDescription: true }).container, 'span');
     });
   });
 
   describe('Custom Content', () => {
     it('should accept custom className', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} className="custom-class" />
-      );
-      expect(container.querySelector('.custom-class')).toBeInTheDocument();
+      has(setup({ className: 'custom-class' }).container, '.custom-class');
     });
 
     it('should render custom actions', () => {
-      const customAction = <button data-testid="custom-action">Custom</button>;
-      render(
-        <RdsBanner {...defaultProps} actions={customAction} />
-      );
+      setup({ actions: <button data-testid="custom-action">Custom</button> });
       expect(screen.getByTestId('custom-action')).toBeInTheDocument();
     });
 
@@ -357,10 +234,7 @@ describe('RdsBanner', () => {
     });
 
     it('should accept variant prop', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps} variant="outlined" />
-      );
-      expect(container.querySelector('.MuiAlert-outlinedInfo')).toBeInTheDocument();
+      has(setup({ variant: 'outlined' }).container, '.MuiAlert-outlinedInfo');
     });
   });
 
@@ -383,40 +257,25 @@ describe('RdsBanner', () => {
           showPrimary={true}
         />
       );
-      expect(container.querySelector('.rds-banner--large')).toBeInTheDocument();
-      expect(container.querySelector('.rds-banner--success')).toBeInTheDocument();
-      expect(container.querySelector('.rds-banner--style2')).toBeInTheDocument();
+      has(container, '.rds-banner--large');
+      has(container, '.rds-banner--success');
+      has(container, '.rds-banner--style2');
       expect(screen.getByText('Custom Title')).toBeInTheDocument();
       expect(screen.getByText('Custom Description')).toBeInTheDocument();
     });
 
-    it('should handle multiple style and size combinations', () => {
-      const styles = ['style1', 'style2', 'style3'] as const;
-      const sizes = ['small', 'medium', 'large'] as const;
-      
-      styles.forEach(style => {
-        sizes.forEach(size => {
-          const { container } = render(
-            <RdsBanner {...defaultProps} variantStyle={style} size={size} />
-          );
-          expect(container.querySelector(`.rds-banner--${style}`)).toBeInTheDocument();
-          expect(container.querySelector(`.rds-banner--${size}`)).toBeInTheDocument();
-        });
-      });
+    it.each(
+      (['style1', 'style2', 'style3'] as const).flatMap((s) => (['small', 'medium', 'large'] as const).map((z) => [s, z] as const))
+    )('should handle style %s with size %s', (variantStyle, size) => {
+      const { container } = setup({ variantStyle, size });
+      has(container, `.rds-banner--${variantStyle}`);
+      has(container, `.rds-banner--${size}`);
     });
 
-    it('should handle all type variants with styling', () => {
-      const types = ['success', 'warning', 'error', 'info'] as const;
-      const styles = ['style1', 'style2', 'style3'] as const;
-      
-      types.forEach(type => {
-        styles.forEach(style => {
-          const { container } = render(
-            <RdsBanner {...defaultProps} type={type} variantStyle={style} />
-          );
-          expect(container.querySelector(`.rds-banner--${type}`)).toBeInTheDocument();
-        });
-      });
+    it.each(
+      (['success', 'warning', 'error', 'info'] as const).flatMap((t) => (['style1', 'style2', 'style3'] as const).map((s) => [t, s] as const))
+    )('should handle type %s with styling %s', (type, variantStyle) => {
+      has(setup({ type, variantStyle }).container, `.rds-banner--${type}`);
     });
   });
 
@@ -426,62 +285,36 @@ describe('RdsBanner', () => {
       expect(screen.getByText('Heading Title.')).toBeInTheDocument();
     });
 
-    it('should use default type as info', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--info')).toBeInTheDocument();
-    });
-
-    it('should use default size as medium', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--medium')).toBeInTheDocument();
-    });
-
-    it('should use default variantStyle as style1', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--style1')).toBeInTheDocument();
-    });
-
     it('should show description by default', () => {
-      render(<RdsBanner {...defaultProps} />);
+      setup();
       expect(screen.getByText('Banner Description')).toBeInTheDocument();
     });
 
     it('should have Icon enabled by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.MuiAlert-icon')).toBeInTheDocument();
+      has(setup().container, '.MuiAlert-icon');
     });
 
     it('should have closable enabled by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner__close-button')).toBeInTheDocument();
+      has(setup().container, '.rds-banner__close-button');
     });
 
     it('should show all buttons by default', () => {
-      render(<RdsBanner {...defaultProps} />);
+      setup();
       expect(screen.getByText('Link')).toBeInTheDocument();
       expect(screen.getByText('Cancel')).toBeInTheDocument();
       expect(screen.getByText('Okay')).toBeInTheDocument();
     });
 
-    it('should have fullWidth enabled by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
-      expect(container.querySelector('.rds-banner--full-width')).toBeInTheDocument();
-    });
-
     it('should have persistent disabled by default', () => {
-      const { container } = render(<RdsBanner {...defaultProps} closable={true} />);
-      const closeButton = container.querySelector('.rds-banner__close-button') as HTMLElement;
-      fireEvent.click(closeButton);
-      expect(container.querySelector('.rds-banner')).not.toBeInTheDocument();
+      const { container } = setup({ closable: true });
+      fireEvent.click(container.querySelector('.rds-banner__close-button') as HTMLElement);
+      hasNot(container, '.rds-banner');
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle empty description', () => {
-      const { container } = render(
-        <RdsBanner title="Title" description="" showDescription={true} />
-      );
-      expect(container.querySelector('.rds-banner')).toBeInTheDocument();
+      has(render(<RdsBanner title="Title" description="" showDescription={true} />).container, '.rds-banner');
     });
 
     it('should handle very long title', () => {
@@ -492,105 +325,50 @@ describe('RdsBanner', () => {
 
     it('should handle very long description', () => {
       const longDesc = 'Very long description. '.repeat(50);
-      render(
-        <RdsBanner title="Title" description={longDesc} showDescription={true} />
-      );
+      render(<RdsBanner title="Title" description={longDesc} showDescription={true} />);
       expect(screen.getByText(longDesc.trim())).toBeInTheDocument();
     });
 
     it('should handle special characters in title', () => {
-      render(
-        <RdsBanner
-          title="Title & <Special>"
-          description="Desc"
-          showTitle={true}
-        />
-      );
+      render(<RdsBanner title="Title & <Special>" description="Desc" showTitle={true} />);
       expect(screen.getByText('Title & <Special>')).toBeInTheDocument();
     });
 
     it('should handle unicode characters', () => {
-      render(
-        <RdsBanner
-          title="标题"
-          description="説明"
-          showTitle={true}
-          showDescription={true}
-        />
-      );
+      render(<RdsBanner title="标题" description="説明" showTitle={true} showDescription={true} />);
       expect(screen.getByText('标题')).toBeInTheDocument();
       expect(screen.getByText('説明')).toBeInTheDocument();
     });
 
     it('should handle null/undefined children gracefully', () => {
-      const { container } = render(
-        <RdsBanner {...defaultProps}>{null}</RdsBanner>
-      );
-      expect(container.querySelector('.rds-banner')).toBeInTheDocument();
+      has(render(<RdsBanner {...defaultProps}>{null}</RdsBanner>).container, '.rds-banner');
     });
 
     it('should handle rapid close/reopen cycles', () => {
-      const { rerender, container } = render(
-        <RdsBanner {...defaultProps} closable={true} persistent={false} />
-      );
-      expect(container.querySelector('.rds-banner')).toBeInTheDocument();
+      has(setup({ closable: true, persistent: false }).container, '.rds-banner');
     });
 
     it('should render without any optional props', () => {
-      const { container } = render(<RdsBanner />);
-      expect(container.querySelector('.rds-banner')).toBeInTheDocument();
+      has(render(<RdsBanner />).container, '.rds-banner');
     });
   });
 
   describe('Props Validation', () => {
-    it('should accept valid type values', () => {
-      const types = ['success', 'warning', 'error', 'info'] as const;
-      types.forEach(type => {
-        const { container } = render(
-          <RdsBanner {...defaultProps} type={type} />
-        );
-        expect(container.querySelector(`.rds-banner--${type}`)).toBeInTheDocument();
-      });
-    });
-
-    it('should accept valid size values', () => {
-      const sizes = ['small', 'medium', 'large'] as const;
-      sizes.forEach(size => {
-        const { container } = render(
-          <RdsBanner {...defaultProps} size={size} />
-        );
-        expect(container.querySelector(`.rds-banner--${size}`)).toBeInTheDocument();
-      });
-    });
-
-    it('should accept valid style values', () => {
-      const styles = ['style1', 'style2', 'style3'] as const;
-      styles.forEach(style => {
-        const { container } = render(
-          <RdsBanner {...defaultProps} variantStyle={style} />
-        );
-        expect(container.querySelector(`.rds-banner--${style}`)).toBeInTheDocument();
-      });
-    });
-
     it('should accept boolean props correctly', () => {
-      const { container } = render(
-        <RdsBanner
-          {...defaultProps}
-          Icon={true}
-          showTitle={true}
-          showDescription={true}
-          multiline={true}
-          showLink={true}
-          showSecondary={true}
-          showPrimary={true}
-          closable={true}
-          persistent={true}
-          fullWidth={true}
-          showOutline={true}
-        />
-      );
-      expect(container.querySelector('.rds-banner')).toBeInTheDocument();
+      const { container } = setup({
+        Icon: true,
+        showTitle: true,
+        showDescription: true,
+        multiline: true,
+        showLink: true,
+        showSecondary: true,
+        showPrimary: true,
+        closable: true,
+        persistent: true,
+        fullWidth: true,
+        showOutline: true,
+      });
+      has(container, '.rds-banner');
     });
 
     it('should accept ReactNode for actions', () => {
@@ -600,7 +378,7 @@ describe('RdsBanner', () => {
           <button>Action 2</button>
         </div>
       );
-      render(<RdsBanner {...defaultProps} actions={customActions} />);
+      setup({ actions: customActions });
       expect(screen.getByTestId('custom-actions')).toBeInTheDocument();
     });
 
@@ -617,7 +395,7 @@ describe('RdsBanner', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsBanner {...defaultProps} />);
+      const { container } = setup();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

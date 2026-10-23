@@ -84,7 +84,7 @@ export type { RdsCompToolbarProps, ToolbarButtonConfig, ToolbarOption } from './
 export { ToolbarLayout, ToolbarType } from './rds-comp-toolbar/rds-comp-toolbar';
 export type { RdsCompDatepickerProps } from './rds-comp-datepicker/rds-comp-datepicker.types';
 export type { RdsCompKanbanBoardProps, KanbanBoardInfo, KanbanSubCard, KanbanAction, KanbanColumn, KanbanCard, KanbanAssignee, KanbanOption } from './rds-comp-kanban-board/kanban-board-helpers';
-export type { RdsCompProductTourProps, ProductTourVariant, ProductTourCorner } from './rds-comp-product-tour/product-tour-helpers';
+export type { RdsCompProductTourProps, ProductTourVariant, ProductTourCorner, ProductTourAnchorCorner } from './rds-comp-product-tour/product-tour-helpers';
 export type { RdsCompEmojiGeneratorProps } from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export type { RdsCompEmptyStateProps } from './rds-comp-empty-state/rds-comp-empty-state';
 export type { RdsCompESignatureProps } from './rds-comp-e-signature/rds-comp-e-signature';

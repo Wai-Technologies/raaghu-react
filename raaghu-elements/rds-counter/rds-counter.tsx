@@ -6,9 +6,7 @@ import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import "./rds-counter.scss";
 
-/**
- * Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…).
- */
+/** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
 export interface RdsCounterProps
   extends Omit<BoxProps, 'children' | 'component' | 'onChange' | 'defaultValue' | 'placeholder' | 'className' | 'sx' | 'ref'> {
   className?: string;

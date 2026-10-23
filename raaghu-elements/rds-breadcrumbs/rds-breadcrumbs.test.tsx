@@ -58,57 +58,35 @@ describe('RdsBreadcrumbs', () => {
     { label: 'Electronics', href: '/products/electronics' },
     { label: 'Laptops' },
   ];
-
-  const defaultProps: RdsBreadcrumbsProps = {
-    items: defaultItems,
-  };
+  const defaultProps: RdsBreadcrumbsProps = { items: defaultItems };
+  const setup = (p: Partial<RdsBreadcrumbsProps> = {}) => render(<RdsBreadcrumbs {...defaultProps} {...p} />);
+  const list = (...i: RdsBreadcrumbItem[]) => i;
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
+      const { container } = setup();
       expect(container.querySelector('.rds-breadcrumbs')).toBeInTheDocument();
+      expect(container.querySelector('.MuiBreadcrumbs-root')).toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
       expect(RdsBreadcrumbs.displayName).toBe('RdsBreadcrumbs');
     });
-
-    it('should render MUI Breadcrumbs component', () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
-      expect(container.querySelector('.MuiBreadcrumbs-root')).toBeInTheDocument();
-    });
-
-    it('should render rds-breadcrumbs wrapper', () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
-      expect(container.querySelector('.rds-breadcrumbs')).toBeInTheDocument();
-    });
-
-    it('should render with default props', () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
-      expect(container.querySelector('.MuiBreadcrumbs-root')).toBeInTheDocument();
-    });
   });
 
   describe('Items Rendering', () => {
     it('should render all items', () => {
-      render(<RdsBreadcrumbs {...defaultProps} />);
-      expect(screen.getByText('Home')).toBeInTheDocument();
-      expect(screen.getByText('Products')).toBeInTheDocument();
-      expect(screen.getByText('Electronics')).toBeInTheDocument();
-      expect(screen.getByText('Laptops')).toBeInTheDocument();
+      setup();
+      ['Home', 'Products', 'Electronics', 'Laptops'].forEach((t) => expect(screen.getByText(t)).toBeInTheDocument());
     });
 
     it('should render single item', () => {
-      const singleItem: RdsBreadcrumbItem[] = [{ label: 'Home', href: '/' }];
-      render(<RdsBreadcrumbs items={singleItem} />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home', href: '/' }]} />);
       expect(screen.getByText('Home')).toBeInTheDocument();
     });
 
     it('should render many items', () => {
-      const manyItems = Array.from({ length: 10 }, (_, i) => ({
-        label: `Item ${i + 1}`,
-        href: `/item-${i + 1}`,
-      }));
+      const manyItems = Array.from({ length: 10 }, (_, i) => ({ label: `Item ${i + 1}`, href: `/item-${i + 1}` }));
       render(<RdsBreadcrumbs items={manyItems} />);
       expect(screen.getByText('Item 1')).toBeInTheDocument();
       expect(screen.getByText('Item 10')).toBeInTheDocument();
@@ -119,135 +97,65 @@ describe('RdsBreadcrumbs', () => {
       expect(container.querySelector('.MuiBreadcrumbs-root')).toBeInTheDocument();
     });
 
-    it('should render items with href links', () => {
-      render(<RdsBreadcrumbs {...defaultProps} />);
-      const homeLink = screen.getByText('Home').closest('a');
-      expect(homeLink).toHaveAttribute('href', '/');
-    });
-
-    it('should render last item without link', () => {
-      render(<RdsBreadcrumbs {...defaultProps} />);
-      const lastItem = screen.getByText('Laptops');
-      expect(lastItem.tagName).not.toBe('A');
+    it('should render items with href links and last item without link', () => {
+      setup();
+      expect(screen.getByText('Home').closest('a')).toHaveAttribute('href', '/');
+      expect(screen.getByText('Laptops').tagName).not.toBe('A');
     });
   });
 
   describe('Separators', () => {
     it('should render default separator (NavigateNext icon)', () => {
-      render(<RdsBreadcrumbs {...defaultProps} />);
-      const separators = screen.getAllByTestId('navigate-next-icon');
-      expect(separators.length).toBeGreaterThan(0);
+      setup();
+      expect(screen.getAllByTestId('navigate-next-icon').length).toBeGreaterThan(0);
     });
 
     it('should render custom separator string', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separator=" > " />
-      );
+      const { container } = setup({ separator: ' > ' });
       expect(container.textContent).toContain('>');
     });
 
-    it('should render greater than separator', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separatorType={BreadcrumbSeparator.GreaterThan} />
-      );
-      expect(container.textContent).toContain('>');
-    });
-
-    it('should render slash separator', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separatorType={BreadcrumbSeparator.Slash} />
-      );
-      expect(container.textContent).toContain('/');
-    });
-
-    it('should render arrow separator', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separatorType={BreadcrumbSeparator.Arrow} />
-      );
-      expect(container.textContent).toContain('→');
-    });
-
-    it('should render double arrow separator', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separatorType={BreadcrumbSeparator.DoubleArrow} />
-      );
-      expect(container.textContent).toContain('»');
-    });
-
-    it('should render pipe separator', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separatorType={BreadcrumbSeparator.Pipe} />
-      );
-      expect(container.textContent).toContain('|');
-    });
-
-    it('should render dash separator', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separatorType={BreadcrumbSeparator.Dash} />
-      );
-      expect(container.textContent).toContain('-');
-    });
-
-    it('should render plus separator', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separatorType={BreadcrumbSeparator.Plus} />
-      );
-      expect(container.textContent).toContain('+');
+    it.each([
+      [BreadcrumbSeparator.GreaterThan, '>'],
+      [BreadcrumbSeparator.Slash, '/'],
+      [BreadcrumbSeparator.Arrow, '→'],
+      [BreadcrumbSeparator.DoubleArrow, '»'],
+      [BreadcrumbSeparator.Pipe, '|'],
+      [BreadcrumbSeparator.Dash, '-'],
+      [BreadcrumbSeparator.Plus, '+'],
+    ])('should render separatorType %s', (separatorType, text) => {
+      const { container } = setup({ separatorType });
+      expect(container.textContent).toContain(text);
     });
 
     it('should render custom ReactNode separator', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separator={<span data-testid="custom-sep">•</span>} />
-      );
-      const separators = screen.getAllByTestId('custom-sep');
-      expect(separators.length).toBeGreaterThan(0);
+      setup({ separator: <span data-testid="custom-sep">•</span> });
+      expect(screen.getAllByTestId('custom-sep').length).toBeGreaterThan(0);
     });
 
     it('should prioritize separator prop over separatorType', () => {
-      const { container } = render(
-        <RdsBreadcrumbs
-          {...defaultProps}
-          separator=" @ "
-          separatorType={BreadcrumbSeparator.Slash}
-        />
-      );
+      const { container } = setup({ separator: ' @ ', separatorType: BreadcrumbSeparator.Slash });
       expect(container.textContent).toContain('@');
     });
   });
 
   describe('Layouts', () => {
-    it('should render without background layout by default', () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
-      expect(container.querySelector('.rds-breadcrumbs__plain')).toBeInTheDocument();
-    });
-
-    it('should render pill background layout', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} layout="pill background" />
-      );
-      expect(container.querySelector('.rds-breadcrumbs__pill')).toBeInTheDocument();
-    });
-
-    it('should render square background layout', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} layout="square background" />
-      );
-      expect(container.querySelector('.rds-breadcrumbs__square')).toBeInTheDocument();
-    });
-
-    it('should render without background layout explicitly', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} layout="without background" />
-      );
-      expect(container.querySelector('.rds-breadcrumbs__plain')).toBeInTheDocument();
+    it.each([
+      [undefined, 'plain'],
+      ['pill background', 'pill'],
+      ['square background', 'square'],
+      ['without background', 'plain'],
+    ])('should render layout %s', (layout, cls) => {
+      const { container } = setup({ layout: layout as RdsBreadcrumbsProps['layout'] });
+      expect(container.querySelector(`.rds-breadcrumbs__${cls}`)).toBeInTheDocument();
     });
 
     it('should apply item-level layout', () => {
-      const itemsWithLayout: RdsBreadcrumbItem[] = [
+      const layoutItems = list(
         { label: 'Home', href: '/', layout: 'pill background' },
-        { label: 'Products', href: '/products', layout: 'square background' },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={itemsWithLayout} />);
+        { label: 'Products', href: '/products', layout: 'square background' }
+      );
+      const { container } = render(<RdsBreadcrumbs items={layoutItems} />);
       expect(container.querySelector('.rds-breadcrumbs__pill')).toBeInTheDocument();
       expect(container.querySelector('.rds-breadcrumbs__square')).toBeInTheDocument();
     });
@@ -255,88 +163,54 @@ describe('RdsBreadcrumbs', () => {
 
   describe('Icons', () => {
     it('should render icons by default', () => {
-      render(<RdsBreadcrumbs {...defaultProps} />);
+      setup();
       expect(screen.getByTestId('home-icon')).toBeInTheDocument();
     });
 
     it('should not render icons when showIcon is false', () => {
-      render(<RdsBreadcrumbs {...defaultProps} showIcon={false} />);
+      setup({ showIcon: false });
       expect(screen.queryByTestId('home-icon')).not.toBeInTheDocument();
     });
 
     it('should render icons based on autoIcons', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home' },
-        { label: 'Products' },
-      ];
-      render(<RdsBreadcrumbs items={items} autoIcons={true} />);
+      render(<RdsBreadcrumbs items={list({ label: 'Home' }, { label: 'Products' })} autoIcons={true} />);
       expect(screen.getByTestId('home-icon')).toBeInTheDocument();
     });
 
     it('should not render icons when autoIcons is false', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'No Icon Item' },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} autoIcons={false} />);
+      const { container } = render(<RdsBreadcrumbs items={[{ label: 'No Icon Item' }]} autoIcons={false} />);
       expect(container.querySelector('.rds-breadcrumbs')).toBeInTheDocument();
     });
 
     it('should use item-specific icon', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', icon: 'star' },
-      ];
-      render(<RdsBreadcrumbs items={items} />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home', icon: 'star' }]} />);
       expect(screen.getByTestId('star-icon')).toBeInTheDocument();
     });
 
     it('should use global icon when item icon is not set', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home' },
-      ];
-      render(<RdsBreadcrumbs items={items} icon="folder" />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home' }]} icon="folder" />);
       expect(screen.getByTestId('folder-icon')).toBeInTheDocument();
     });
 
     it('should prioritize item icon over global icon', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', icon: 'star' },
-      ];
-      render(<RdsBreadcrumbs items={items} icon="folder" />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home', icon: 'star' }]} icon="folder" />);
       expect(screen.getByTestId('star-icon')).toBeInTheDocument();
     });
 
-    it('should assign default icon based on position', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home' },
-        { label: 'Folder' },
-      ];
-      render(<RdsBreadcrumbs items={items} />);
-      expect(screen.getByTestId('home-icon')).toBeInTheDocument();
-    });
-
-    it('should assign icon based on label content', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home' },
-        { label: 'Products', icon: undefined },
-      ];
-      render(<RdsBreadcrumbs items={items} autoIcons={true} />);
+    it('should assign default icon based on position and label', () => {
+      render(<RdsBreadcrumbs items={list({ label: 'Home' }, { label: 'Folder' })} />);
       expect(screen.getByTestId('home-icon')).toBeInTheDocument();
     });
 
     it('should not render icon when item showIcon is false', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', showIcon: false },
-        { label: 'Products' },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
-      const homeText = screen.getByText('Home');
-      expect(homeText.querySelector('[data-testid]')).not.toBeInTheDocument();
+      render(<RdsBreadcrumbs items={list({ label: 'Home', showIcon: false }, { label: 'Products' })} />);
+      expect(screen.getByText('Home').querySelector('[data-testid]')).not.toBeInTheDocument();
     });
   });
 
   describe('Semantic selection and CSS interaction states', () => {
     it('renders links without forcing an interaction state', () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
+      const { container } = setup();
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(container.querySelector('.rds-breadcrumbs__item__enable-hover')).not.toBeInTheDocument();
     });
@@ -347,11 +221,7 @@ describe('RdsBreadcrumbs', () => {
     });
 
     it('applies item-level selected and uses CSS for hover and focus', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/' },
-        { label: 'Products', selected: true },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
+      const { container } = render(<RdsBreadcrumbs items={list({ label: 'Home', href: '/' }, { label: 'Products', selected: true })} />);
       expect(container.querySelector('.rds-breadcrumbs__item__selected')).toBeInTheDocument();
       fireEvent.focus(screen.getByText('Home'));
       expect(container.querySelector('.rds-breadcrumbs__item__enable-hover')).not.toBeInTheDocument();
@@ -360,50 +230,41 @@ describe('RdsBreadcrumbs', () => {
 
   describe('Level Filtering', () => {
     it('should render all items when no level is set', () => {
-      render(<RdsBreadcrumbs {...defaultProps} />);
+      setup();
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByText('Laptops')).toBeInTheDocument();
     });
 
     it('should limit to level1', () => {
-      render(<RdsBreadcrumbs {...defaultProps} level="level1" />);
+      setup({ level: 'level1' });
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.queryByText('Products')).not.toBeInTheDocument();
     });
 
     it('should limit to level2', () => {
-      render(<RdsBreadcrumbs {...defaultProps} level="level2" />);
+      setup({ level: 'level2' });
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByText('Products')).toBeInTheDocument();
       expect(screen.queryByText('Electronics')).not.toBeInTheDocument();
     });
 
     it('should limit to level3', () => {
-      render(<RdsBreadcrumbs {...defaultProps} level="level3" />);
+      setup({ level: 'level3' });
       expect(screen.getByText('Electronics')).toBeInTheDocument();
       expect(screen.queryByText('Laptops')).not.toBeInTheDocument();
     });
 
-    it('should limit to level4', () => {
-      render(<RdsBreadcrumbs {...defaultProps} level="level4" />);
-      expect(screen.getByText('Laptops')).toBeInTheDocument();
-    });
-
-    it('should limit to level5', () => {
-      render(<RdsBreadcrumbs {...defaultProps} level="level5" />);
+    it.each(['level4', 'level5'] as const)('should limit to %s', (level) => {
+      setup({ level });
       expect(screen.getByText('Laptops')).toBeInTheDocument();
     });
   });
 
   describe('Title Prop', () => {
-    it('should replace first item label with title', () => {
-      render(<RdsBreadcrumbs {...defaultProps} title="Dashboard" />);
+    it('should replace first item label with title and preserve other items', () => {
+      setup({ title: 'Dashboard' });
       expect(screen.getByText('Dashboard')).toBeInTheDocument();
       expect(screen.queryByText('Home')).not.toBeInTheDocument();
-    });
-
-    it('should preserve other items when title is set', () => {
-      render(<RdsBreadcrumbs {...defaultProps} title="Dashboard" />);
       expect(screen.getByText('Products')).toBeInTheDocument();
       expect(screen.getByText('Electronics')).toBeInTheDocument();
     });
@@ -414,7 +275,7 @@ describe('RdsBreadcrumbs', () => {
     });
 
     it('should work with level filtering', () => {
-      render(<RdsBreadcrumbs {...defaultProps} title="Dashboard" level="level2" />);
+      setup({ title: 'Dashboard', level: 'level2' });
       expect(screen.getByText('Dashboard')).toBeInTheDocument();
       expect(screen.getByText('Products')).toBeInTheDocument();
       expect(screen.queryByText('Electronics')).not.toBeInTheDocument();
@@ -422,159 +283,91 @@ describe('RdsBreadcrumbs', () => {
   });
 
   describe('Click Handlers', () => {
-    it('should call item onClick callback', () => {
-      const onClick = jest.fn();
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/', onClick },
-        { label: 'Products', href: '/products' },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
-      const breadcrumbLinks = container.querySelectorAll('.rds-breadcrumbs__item');
-      expect(breadcrumbLinks.length).toBeGreaterThan(0);
+    it('should render items with onClick callbacks', () => {
+      const clickItems = list(
+        { label: 'Home', href: '/', onClick: jest.fn() },
+        { label: 'Products', href: '/products', onClick: jest.fn() }
+      );
+      const { container } = render(<RdsBreadcrumbs items={clickItems} />);
+      expect(container.querySelectorAll('.rds-breadcrumbs__item').length).toBe(2);
     });
 
-    it('should handle multiple onClick callbacks', () => {
-      const onClick1 = jest.fn();
-      const onClick2 = jest.fn();
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/', onClick: onClick1 },
-        { label: 'Products', href: '/products', onClick: onClick2 },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
-      const breadcrumbLinks = container.querySelectorAll('.rds-breadcrumbs__item');
-      expect(breadcrumbLinks.length).toBe(2);
-    });
-
-    it('should set selected state on item click', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/', selected: true },
-        { label: 'Products', href: '/products' },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
-      const breadcrumbItems = container.querySelectorAll('.rds-breadcrumbs__item');
-      expect(breadcrumbItems.length).toBeGreaterThan(0);
-    });
-
-    it('should prevent default link behavior for a selected item', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/', selected: true },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
-      fireEvent.click(screen.getByText('Home'));
-      const breadcrumbs = container.querySelector('.rds-breadcrumbs');
-      expect(breadcrumbs).toHaveClass('rds-breadcrumbs__plain');
+    it('should render selected item with plain layout', () => {
+      const selItems = list({ label: 'Home', href: '/', selected: true }, { label: 'Products', href: '/products' });
+      const { container } = render(<RdsBreadcrumbs items={selItems} />);
+      expect(container.querySelectorAll('.rds-breadcrumbs__item').length).toBeGreaterThan(0);
+      expect(container.querySelector('.rds-breadcrumbs')).toHaveClass('rds-breadcrumbs__plain');
     });
   });
 
   describe('Active Items', () => {
     it('should render active item as Typography not Link', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', active: true },
-      ];
-      render(<RdsBreadcrumbs items={items} />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home', active: true }]} />);
       expect(screen.getByText('Home').tagName).not.toBe('A');
     });
 
-    it('should render last item as Typography', () => {
-      render(<RdsBreadcrumbs {...defaultProps} />);
+    it('should render last item as Typography with item class', () => {
+      setup();
       expect(screen.getByText('Laptops').tagName).not.toBe('A');
-    });
-
-    it('should apply active class to Typography items', () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
-      const lastItem = screen.getByText('Laptops');
-      expect(lastItem).toHaveClass('rds-breadcrumbs__item');
+      expect(screen.getByText('Laptops')).toHaveClass('rds-breadcrumbs__item');
     });
   });
 
   describe('Combined Props', () => {
     it('should handle all customization props together', () => {
-      const onClick = jest.fn();
-      const items: RdsBreadcrumbItem[] = [
+      const combined = list(
         { label: 'Home', href: '/', layout: 'pill background', icon: 'home' },
-        { label: 'Products', href: '/products', layout: 'square background', onClick },
-        { label: 'Current Page' },
-      ];
+        { label: 'Products', href: '/products', layout: 'square background', onClick: jest.fn() },
+        { label: 'Current Page' }
+      );
       const { container } = render(
-        <RdsBreadcrumbs
-          items={items}
-          separator=" > "
-          level="level3"
-          showIcon={true}
-          title="Navigation"
-        />
+        <RdsBreadcrumbs items={combined} separator=" > " level="level3" showIcon={true} title="Navigation" />
       );
       expect(container.querySelector('.rds-breadcrumbs')).toBeInTheDocument();
       expect(screen.getByText('Navigation')).toBeInTheDocument();
     });
 
     it('should handle multiple interactions', () => {
-      const onClick1 = jest.fn();
-      const onClick2 = jest.fn();
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', onClick: onClick1 },
-        { label: 'Products', onClick: onClick2 },
-        { label: 'Electronics' },
-      ];
-      const { container } = render(
-        <RdsBreadcrumbs items={items} showIcon={true} layout="pill background" />
+      const multi = list(
+        { label: 'Home', onClick: jest.fn() },
+        { label: 'Products', onClick: jest.fn() },
+        { label: 'Electronics' }
       );
-      const breadcrumbItems = container.querySelectorAll('.rds-breadcrumbs__item');
-      expect(breadcrumbItems.length).toBe(3);
+      const { container } = render(
+        <RdsBreadcrumbs items={multi} showIcon={true} layout="pill background" />
+      );
+      expect(container.querySelectorAll('.rds-breadcrumbs__item').length).toBe(3);
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle breadcrumb with empty label', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: '' },
-      ];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
+      const { container } = render(<RdsBreadcrumbs items={[{ label: '' }]} />);
       expect(container.querySelector('.MuiBreadcrumbs-root')).toBeInTheDocument();
     });
 
     it('should handle very long label text', () => {
       const longLabel = 'This is a very long breadcrumb label that might wrap or truncate';
-      const items: RdsBreadcrumbItem[] = [
-        { label: longLabel },
-      ];
-      render(<RdsBreadcrumbs items={items} />);
+      render(<RdsBreadcrumbs items={[{ label: longLabel }]} />);
       expect(screen.getByText(longLabel)).toBeInTheDocument();
     });
 
-    it('should handle special characters in label', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home & Settings' },
-        { label: 'User @ Profile' },
-      ];
-      render(<RdsBreadcrumbs items={items} />);
-      expect(screen.getByText('Home & Settings')).toBeInTheDocument();
-      expect(screen.getByText('User @ Profile')).toBeInTheDocument();
-    });
-
-    it('should handle unicode characters in label', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: '🏠 Home' },
-        { label: '📦 Products' },
-      ];
-      render(<RdsBreadcrumbs items={items} />);
-      expect(screen.getByText('🏠 Home')).toBeInTheDocument();
-      expect(screen.getByText('📦 Products')).toBeInTheDocument();
+    it.each([
+      ['special', ['Home & Settings', 'User @ Profile']],
+      ['unicode', ['🏠 Home', '📦 Products']],
+    ])('should handle %s characters in label', (_n, labels) => {
+      render(<RdsBreadcrumbs items={labels.map((label) => ({ label }))} />);
+      labels.forEach((l) => expect(screen.getByText(l)).toBeInTheDocument());
     });
 
     it('should handle items with undefined onClick', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', onClick: undefined },
-      ];
-      render(<RdsBreadcrumbs items={items} />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home', onClick: undefined }]} />);
       fireEvent.click(screen.getByText('Home'));
       expect(screen.getByText('Home')).toBeInTheDocument();
     });
 
     it('updates the selected item through the selected boolean', () => {
-      const { rerender } = render(
-        <RdsBreadcrumbs items={[{ label: 'Home', selected: true }, { label: 'Products' }]} />
-      );
+      const { rerender } = render(<RdsBreadcrumbs items={[{ label: 'Home', selected: true }, { label: 'Products' }]} />);
       expect(screen.getByText('Home')).toHaveClass('rds-breadcrumbs__item__selected');
       rerender(<RdsBreadcrumbs items={[{ label: 'Home' }, { label: 'Products', selected: true }]} />);
       expect(screen.getByText('Home')).not.toHaveClass('rds-breadcrumbs__item__selected');
@@ -582,133 +375,79 @@ describe('RdsBreadcrumbs', () => {
     });
 
     it('should handle items with/without href mixed', () => {
-      const items: RdsBreadcrumbItem[] = [
-        { label: 'Home', href: '/' },
-        { label: 'Page', onClick: () => {} },
-        { label: 'Current' },
-      ];
-      render(<RdsBreadcrumbs items={items} />);
+      const mixed = list({ label: 'Home', href: '/' }, { label: 'Page', onClick: () => {} }, { label: 'Current' });
+      render(<RdsBreadcrumbs items={mixed} />);
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByText('Current')).toBeInTheDocument();
     });
 
     it('should handle items with only required props', () => {
-      const items: RdsBreadcrumbItem[] = [{ label: 'Simple' }];
-      render(<RdsBreadcrumbs items={items} />);
+      const { container } = render(<RdsBreadcrumbs items={[{ label: 'Simple' }]} />);
       expect(screen.getByText('Simple')).toBeInTheDocument();
+      expect(container.querySelector('.rds-breadcrumbs')).toBeInTheDocument();
     });
 
     it('should handle component re-render with different items', () => {
-      const { rerender } = render(
-        <RdsBreadcrumbs items={[{ label: 'First' }]} />
-      );
+      const { rerender } = render(<RdsBreadcrumbs items={[{ label: 'First' }]} />);
       expect(screen.getByText('First')).toBeInTheDocument();
       rerender(<RdsBreadcrumbs items={[{ label: 'Second' }]} />);
       expect(screen.getByText('Second')).toBeInTheDocument();
-    });
-
-    it('should handle component without any optional props', () => {
-      const items: RdsBreadcrumbItem[] = [{ label: 'Basic' }];
-      const { container } = render(<RdsBreadcrumbs items={items} />);
-      expect(container.querySelector('.rds-breadcrumbs')).toBeInTheDocument();
     });
   });
 
   describe('Props Validation', () => {
     it('should accept items array', () => {
-      const { container } = render(<RdsBreadcrumbs items={defaultItems} />);
+      const { container } = setup();
       expect(container.querySelectorAll('.rds-breadcrumbs__item').length).toBeGreaterThan(0);
     });
 
     it('should accept separator prop', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separator=" / " />
-      );
+      const { container } = setup({ separator: ' / ' });
       expect(container.textContent).toContain('/');
     });
 
-    it('should accept separatorType prop', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} separatorType={BreadcrumbSeparator.Arrow} />
-      );
-      expect(container.textContent).toContain('→');
-    });
-
-    it('should accept layout prop', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} layout="pill background" />
-      );
-      expect(container.querySelector('.rds-breadcrumbs__pill')).toBeInTheDocument();
-    });
-
     it('should accept level prop', () => {
-      render(<RdsBreadcrumbs {...defaultProps} level="level2" />);
+      setup({ level: 'level2' });
       expect(screen.getByText('Products')).toBeInTheDocument();
     });
 
-    it('should accept showIcon boolean prop', () => {
-      render(<RdsBreadcrumbs {...defaultProps} showIcon={false} />);
-      expect(screen.queryByTestId('home-icon')).not.toBeInTheDocument();
-    });
-
-    it('should accept selected on an item', () => {
-      const { container } = render(<RdsBreadcrumbs items={[{ label: 'Home', selected: true }]} />);
-      expect(container.querySelector('.rds-breadcrumbs__item__selected')).toBeInTheDocument();
-    });
-
-    it('should accept icon prop', () => {
-      const items: RdsBreadcrumbItem[] = [{ label: 'Test' }];
-      render(<RdsBreadcrumbs items={items} icon="folder" />);
-      expect(screen.getByTestId('folder-icon')).toBeInTheDocument();
-    });
-
     it('should accept title prop', () => {
-      render(<RdsBreadcrumbs {...defaultProps} title="Custom Title" />);
+      setup({ title: 'Custom Title' });
       expect(screen.getByText('Custom Title')).toBeInTheDocument();
     });
 
     it('should accept autoIcons boolean prop', () => {
-      const items: RdsBreadcrumbItem[] = [{ label: 'Home' }];
-      render(<RdsBreadcrumbs items={items} autoIcons={false} />);
+      render(<RdsBreadcrumbs items={[{ label: 'Home' }]} autoIcons={false} />);
       expect(screen.getByText('Home')).toBeInTheDocument();
     });
 
     it('should accept className prop', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} className="custom-class" />
-      );
+      const { container } = setup({ className: 'custom-class' });
       expect(container.querySelector('.custom-class')).toBeInTheDocument();
     });
 
     it('should accept MUI Breadcrumbs props', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} data-testid="custom-breadcrumbs" />
-      );
+      const { container } = setup({ 'data-testid': 'custom-breadcrumbs' } as Partial<RdsBreadcrumbsProps>);
       expect(container.querySelector('[data-testid="custom-breadcrumbs"]')).toBeInTheDocument();
     });
   });
 
   describe('MUI Integration', () => {
     it('should spread MUI props to Breadcrumbs', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} maxItems={2} />
-      );
+      const { container } = setup({ maxItems: 2 });
       expect(container.querySelector('.MuiBreadcrumbs-root')).toBeInTheDocument();
     });
 
     it('should accept aria attributes', () => {
-      const { container } = render(
-        <RdsBreadcrumbs {...defaultProps} aria-label="Breadcrumb navigation" />
-      );
+      const { container } = setup({ 'aria-label': 'Breadcrumb navigation' } as Partial<RdsBreadcrumbsProps>);
       expect(container.querySelector('[aria-label="Breadcrumb navigation"]')).toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsBreadcrumbs {...defaultProps} />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      const { container } = setup();
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 });
@@ -743,9 +482,8 @@ describe('RdsBreadcrumbs audit fixes', () => {
   });
 
   it('uses separator over separatorType when both are given (G1-121)', () => {
-    const { container } = render(
-      <RdsBreadcrumbs items={items} separator={<span data-testid="sep">•</span>} separatorType={BreadcrumbSeparator.Pipe} />
-    );
+    const sep = <span data-testid="sep">•</span>;
+    const { container } = render(<RdsBreadcrumbs items={items} separator={sep} separatorType={BreadcrumbSeparator.Pipe} />);
     expect(screen.getAllByTestId('sep').length).toBe(2);
     expect(container.textContent).not.toContain('|');
   });
@@ -758,7 +496,7 @@ describe('RdsBreadcrumbs audit fixes', () => {
   });
 
   it('forwards maxItems / itemsBeforeCollapse / itemsAfterCollapse to MUI (G1-123)', () => {
-    const many: RdsBreadcrumbItem[] = Array.from({ length: 6 }, (_, i) => ({ label: `Item ${i + 1}`, href: `/i${i + 1}` }));
+    const many = Array.from({ length: 6 }, (_, i) => ({ label: `Item ${i + 1}`, href: `/i${i + 1}` }));
     render(<RdsBreadcrumbs items={many} maxItems={3} itemsBeforeCollapse={1} itemsAfterCollapse={1} />);
     expect(screen.getByText('Item 1')).toBeInTheDocument();
     expect(screen.getByText('Item 6')).toBeInTheDocument();
@@ -775,8 +513,7 @@ describe('RdsBreadcrumbs audit fixes', () => {
 
   it('keeps className merged with its own classes', () => {
     const { container } = render(<RdsBreadcrumbs items={items} className="mine" />);
-    const nav = container.querySelector('nav');
-    expect(nav).toHaveClass('rds-breadcrumbs', 'rds-breadcrumbs__plain', 'mine');
+    expect(container.querySelector('nav')).toHaveClass('rds-breadcrumbs', 'rds-breadcrumbs__plain', 'mine');
   });
 
   it('marks the last item aria-current="page" and keeps it out of the tab order (G1-126)', () => {

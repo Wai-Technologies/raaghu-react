@@ -52,11 +52,15 @@ jest.mock('@mui/icons-material/Close', () => {
 
 describe('RdsAppBar', () => {
   const defaultProps: RdsAppBarProps = {};
+  const setup = (p: RdsAppBarProps = {}) => render(<RdsAppBar {...defaultProps} {...p} />);
+  const has = (container: HTMLElement, sel: string) => expect(container.querySelector(sel)).toBeInTheDocument();
+  const hasNot = (container: HTMLElement, sel: string) => expect(container.querySelector(sel)).not.toBeInTheDocument();
+  const searchProps = { showSearch: true, onSearchChange: jest.fn() };
+  const user = { userName: 'John Doe', userEmail: 'john@example.com' };
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      expect(container.querySelector('.rds-header')).toBeInTheDocument();
+      has(setup().container, '.rds-header');
     });
 
     it('should have correct displayName', () => {
@@ -64,337 +68,163 @@ describe('RdsAppBar', () => {
     });
 
     it('should render AppBar element', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      expect(container.querySelector('header')).toBeInTheDocument();
+      has(setup().container, 'header');
     });
 
     it('should render toolbar', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      expect(container.querySelector('.rds-app-bar--size-medium')).toBeInTheDocument();
+      has(setup().container, '.rds-app-bar--size-medium');
     });
 
     it('should render header toolbar container', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      expect(container.querySelector('.rds-header__toolbar')).toBeInTheDocument();
+      has(setup().container, '.rds-header__toolbar');
     });
 
     it('should render with default color', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} color="primary" />);
-      expect(container.querySelector('.rds-header--primary')).toBeInTheDocument();
+      has(setup({ color: 'primary' }).container, '.rds-header--primary');
     });
   });
 
   describe('Title Display', () => {
     it('should display title when provided', () => {
-      render(<RdsAppBar {...defaultProps} title="Test App Bar" />);
+      setup({ title: 'Test App Bar' });
       expect(screen.getByText('Test App Bar')).toBeInTheDocument();
     });
 
     it('should not display title when not provided', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      const titleElement = container.querySelector('.rds-header__title');
-      expect(titleElement?.textContent).toBe('');
+      expect(setup().container.querySelector('.rds-header__title')?.textContent).toBe('');
     });
 
     it('should display long title text', () => {
       const longTitle = 'A'.repeat(100);
-      render(<RdsAppBar {...defaultProps} title={longTitle} />);
+      setup({ title: longTitle });
       expect(screen.getByText(longTitle)).toBeInTheDocument();
     });
 
     it('should display special characters in title', () => {
-      render(
-        <RdsAppBar
-          {...defaultProps}
-          title="Test <App> & Bar!"
-        />
-      );
-      expect(
-        screen.getByText(/Test.*App.*Bar/)
-      ).toBeInTheDocument();
+      setup({ title: 'Test <App> & Bar!' });
+      expect(screen.getByText(/Test.*App.*Bar/)).toBeInTheDocument();
     });
   });
 
   describe('Logo Display', () => {
+    const logoElement = <span data-testid="test-logo">Logo</span>;
+
     it('should display logo when showLogo is true and logo is provided', () => {
-      const logoElement = <span data-testid="test-logo">Logo</span>;
-      render(
-        <RdsAppBar {...defaultProps} logo={logoElement} showLogo={true} />
-      );
+      setup({ logo: logoElement, showLogo: true });
       expect(screen.getByTestId('test-logo')).toBeInTheDocument();
     });
 
     it('should not display logo when showLogo is false', () => {
-      const logoElement = <span data-testid="test-logo">Logo</span>;
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          logo={logoElement}
-          showLogo={false}
-        />
-      );
-      const logo = container.querySelector('.rds-header__logo');
-      expect(logo).not.toBeInTheDocument();
+      hasNot(setup({ logo: logoElement, showLogo: false }).container, '.rds-header__logo');
     });
 
     it('should not display logo when logo is not provided', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} showLogo={true} />
-      );
-      const logo = container.querySelector('.rds-header__logo');
-      expect(logo).not.toBeInTheDocument();
+      hasNot(setup({ showLogo: true }).container, '.rds-header__logo');
     });
 
     it('should apply logo class to logo element', () => {
-      const logoElement = <span data-testid="test-logo">Logo</span>;
-      const { container } = render(
-        <RdsAppBar {...defaultProps} logo={logoElement} showLogo={true} />
-      );
-      const logo = container.querySelector('.rds-header__logo');
-      expect(logo).toBeInTheDocument();
+      has(setup({ logo: logoElement, showLogo: true }).container, '.rds-header__logo');
     });
   });
 
   describe('Menu Button', () => {
     it('should display menu button when showMenuButton is true', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} showMenuButton={true} />
-      );
-      const menuButton = container.querySelector('[aria-label="menu"]');
-      expect(menuButton).toBeInTheDocument();
+      has(setup({ showMenuButton: true }).container, '[aria-label="menu"]');
     });
 
     it('should not display menu button when showMenuButton is false', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} showMenuButton={false} />
-      );
-      const menuButton = container.querySelector('[aria-label="menu"]');
-      expect(menuButton).not.toBeInTheDocument();
+      hasNot(setup({ showMenuButton: false }).container, '[aria-label="menu"]');
     });
 
     it('should call onMenuClick when menu button is clicked', () => {
       const onMenuClick = jest.fn();
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showMenuButton={true}
-          onMenuClick={onMenuClick}
-        />
-      );
-      const menuButton = container.querySelector('[aria-label="menu"]');
-      fireEvent.click(menuButton!);
+      const { container } = setup({ showMenuButton: true, onMenuClick });
+      fireEvent.click(container.querySelector('[aria-label="menu"]')!);
       expect(onMenuClick).toHaveBeenCalled();
     });
 
     it('should display dehaze icon in menu button', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} showMenuButton={true} />
-      );
+      setup({ showMenuButton: true });
       expect(screen.getByTestId('dehaze-icon')).toBeInTheDocument();
     });
   });
 
   describe('Size Variants', () => {
-    it('should apply small size class', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} size="small" />
-      );
-      expect(container.querySelector('.rds-app-bar--size-small')).toBeInTheDocument();
+    it.each(['small', 'medium', 'large'] as const)('should apply %s size class', (size) => {
+      has(setup({ size }).container, `.rds-app-bar--size-${size}`);
     });
 
     it('should apply medium size class by default', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      expect(container.querySelector('.rds-app-bar--size-medium')).toBeInTheDocument();
-    });
-
-    it('should apply large size class', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} size="large" />
-      );
-      expect(container.querySelector('.rds-app-bar--size-large')).toBeInTheDocument();
-    });
-
-    it('should have correct toolbar height for small size', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} size="small" />
-      );
-      const toolbar = container.querySelector('.rds-app-bar--size-small');
-      expect(toolbar).toBeInTheDocument();
-    });
-
-    it('should have correct toolbar height for medium size', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} size="medium" />
-      );
-      const toolbar = container.querySelector('.rds-app-bar--size-medium');
-      expect(toolbar).toBeInTheDocument();
+      has(setup().container, '.rds-app-bar--size-medium');
     });
 
     it('should have correct toolbar height for large size', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} size="large" />
-      );
-      const toolbar = container.querySelector('.rds-app-bar--size-large[style*="height"]');
-      expect(toolbar).toBeInTheDocument();
+      has(setup({ size: 'large' }).container, '.rds-app-bar--size-large[style*="height"]');
     });
   });
 
   describe('Color Variants', () => {
-    it('should apply primary color class', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} color="primary" />
-      );
-      expect(container.querySelector('.rds-header--primary')).toBeInTheDocument();
-    });
-
-    it('should apply secondary color class', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} color="secondary" />
-      );
-      expect(container.querySelector('.rds-header--secondary')).toBeInTheDocument();
-    });
-
-    it('should apply transparent color class', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} color="transparent" />
-      );
-      expect(container.querySelector('.rds-header--transparent')).toBeInTheDocument();
-    });
-
-    it('should apply primary color when color is primary', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} color="primary" />
-      );
-      expect(container.querySelector('.rds-header--primary')).toBeInTheDocument();
+    it.each(['primary', 'secondary', 'transparent'] as const)('should apply %s color class', (color) => {
+      has(setup({ color }).container, `.rds-header--${color}`);
     });
   });
 
   describe('Center Content', () => {
+    const centerContent = <span data-testid="center-content">Center</span>;
+
     it('should display center content when provided', () => {
-      const centerContent = <span data-testid="center-content">Center</span>;
-      render(<RdsAppBar {...defaultProps} centerContent={centerContent} />);
+      setup({ centerContent });
       expect(screen.getByTestId('center-content')).toBeInTheDocument();
     });
 
     it('should not display center content when not provided', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      const centerContent = container.querySelector('.rds-header__center-content');
-      expect(centerContent).not.toBeInTheDocument();
+      hasNot(setup().container, '.rds-header__center-content');
     });
 
     it('should apply center content class', () => {
-      const centerContent = <span data-testid="center-content">Center</span>;
-      const { container } = render(
-        <RdsAppBar {...defaultProps} centerContent={centerContent} />
-      );
-      expect(container.querySelector('.rds-header__center-content')).toBeInTheDocument();
+      has(setup({ centerContent }).container, '.rds-header__center-content');
     });
   });
 
   describe('Search Functionality', () => {
     it('should display search input when showSearch is true and searchValue is provided', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showSearch={true}
-          searchValue="test"
-          onSearchChange={jest.fn()}
-        />
-      );
-      const searchInput = container.querySelector('.rds-header__search');
-      expect(searchInput).toBeInTheDocument();
+      has(setup({ ...searchProps, searchValue: 'test' }).container, '.rds-header__search');
     });
 
     it('should not display search input when showSearch is false', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showSearch={false}
-          searchValue="test"
-          onSearchChange={jest.fn()}
-        />
-      );
-      expect(container.querySelector('.rds-header__search')).not.toBeInTheDocument();
+      hasNot(setup({ ...searchProps, showSearch: false, searchValue: 'test' }).container, '.rds-header__search');
     });
 
     it('should display search input with custom placeholder', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showSearch={true}
-          searchValue="test"
-          searchPlaceholder="Type here..."
-          onSearchChange={jest.fn()}
-        />
-      );
-      const input = container.querySelector('.rds-header__search input');
-      expect(input).toHaveAttribute('placeholder', 'Type here...');
+      const { container } = setup({ ...searchProps, searchValue: 'test', searchPlaceholder: 'Type here...' });
+      expect(container.querySelector('.rds-header__search input')).toHaveAttribute('placeholder', 'Type here...');
     });
 
     it('should display default search placeholder', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showSearch={true}
-          searchValue=""
-          onSearchChange={jest.fn()}
-        />
-      );
-      const input = container.querySelector('.rds-header__search input');
-      expect(input).toHaveAttribute('placeholder', 'Search…');
+      const { container } = setup({ ...searchProps, searchValue: '' });
+      expect(container.querySelector('.rds-header__search input')).toHaveAttribute('placeholder', 'Search…');
     });
 
     it('should call onSearchChange when search value changes', () => {
       const onSearchChange = jest.fn();
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showSearch={true}
-          searchValue="test"
-          onSearchChange={onSearchChange}
-        />
-      );
+      const { container } = setup({ showSearch: true, searchValue: 'test', onSearchChange });
       const input = container.querySelector('.rds-header__search input') as HTMLInputElement;
       fireEvent.change(input, { target: { value: 'new value' } });
       expect(onSearchChange).toHaveBeenCalledWith('new value');
     });
 
     it('should display clear button when search value is not empty', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showSearch={true}
-          searchValue="test"
-          onSearchChange={jest.fn()}
-        />
-      );
-      expect(container.querySelector('.rds-header__search-clear')).toBeInTheDocument();
+      has(setup({ ...searchProps, searchValue: 'test' }).container, '.rds-header__search-clear');
     });
 
     it('should not display clear button when search value is empty', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showSearch={true}
-          searchValue=""
-          onSearchChange={jest.fn()}
-        />
-      );
-      expect(container.querySelector('.rds-header__search-clear')).not.toBeInTheDocument();
+      hasNot(setup({ ...searchProps, searchValue: '' }).container, '.rds-header__search-clear');
     });
 
     it('should clear search value when clear button is clicked', () => {
       const onSearchChange = jest.fn();
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          showSearch={true}
-          searchValue="test"
-          onSearchChange={onSearchChange}
-        />
-      );
-      const clearButton = container.querySelector('.rds-header__search-clear');
-      fireEvent.click(clearButton!);
+      const { container } = setup({ showSearch: true, searchValue: 'test', onSearchChange });
+      fireEvent.click(container.querySelector('.rds-header__search-clear')!);
       expect(onSearchChange).toHaveBeenCalledWith('');
     });
   });
@@ -403,33 +233,15 @@ describe('RdsAppBar', () => {
     const tabs = ['Tab 1', 'Tab 2', 'Tab 3'];
 
     it('should display tabs when tabs array is provided', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          tabs={tabs}
-          tabValue={0}
-          onTabChange={jest.fn()}
-        />
-      );
-      expect(container.querySelector('.rds-header__tabs-inline')).toBeInTheDocument();
+      has(setup({ tabs, tabValue: 0, onTabChange: jest.fn() }).container, '.rds-header__tabs-inline');
     });
 
     it('should not display tabs when tabs is not provided', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} tabValue={0} onTabChange={jest.fn()} />
-      );
-      expect(container.querySelector('.rds-header__tabs-inline')).not.toBeInTheDocument();
+      hasNot(setup({ tabValue: 0, onTabChange: jest.fn() }).container, '.rds-header__tabs-inline');
     });
 
     it('should display all tabs', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          tabs={tabs}
-          tabValue={0}
-          onTabChange={jest.fn()}
-        />
-      );
+      setup({ tabs, tabValue: 0, onTabChange: jest.fn() });
       tabs.forEach((tab) => {
         expect(screen.getByText(tab)).toBeInTheDocument();
       });
@@ -437,149 +249,90 @@ describe('RdsAppBar', () => {
 
     it('should call onTabChange when tab is clicked', () => {
       const onTabChange = jest.fn();
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          tabs={tabs}
-          tabValue={0}
-          onTabChange={onTabChange}
-        />
-      );
-      const tabButtons = container.querySelectorAll('[role="tab"]');
-      fireEvent.click(tabButtons[1]);
+      const { container } = setup({ tabs, tabValue: 0, onTabChange });
+      fireEvent.click(container.querySelectorAll('[role="tab"]')[1]);
       expect(onTabChange).toHaveBeenCalledWith(1);
     });
 
     it('should render tabs with object labels', () => {
-      const tabsWithObjects = [
-        { label: 'Home' },
-        { label: 'About' },
-        { label: 'Contact' },
-      ];
-      render(
-        <RdsAppBar
-          {...defaultProps}
-          tabs={['Home', 'About', 'Contact']}
-          tabValue={0}
-          onTabChange={jest.fn()}
-        />
-      );
+      setup({ tabs: ['Home', 'About', 'Contact'], tabValue: 0, onTabChange: jest.fn() });
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByText('About')).toBeInTheDocument();
     });
   });
 
   describe('Profile Menu / Actions', () => {
+    const actions = <span data-testid="custom-actions">Actions</span>;
+
     it('should display profile menu when userName and userEmail are provided', () => {
-      render(
-        <RdsAppBar
-          {...defaultProps}
-          userName="John Doe"
-          userEmail="john@example.com"
-        />
-      );
+      setup(user);
       expect(screen.getByTestId('profile-menu')).toBeInTheDocument();
     });
 
     it('should display user name in profile menu', () => {
-      render(
-        <RdsAppBar
-          {...defaultProps}
-          userName="John Doe"
-          userEmail="john@example.com"
-        />
-      );
+      setup(user);
       expect(screen.getByTestId('profile-name')).toHaveTextContent('John Doe');
     });
 
     it('should display user email in profile menu', () => {
-      render(
-        <RdsAppBar
-          {...defaultProps}
-          userName="John Doe"
-          userEmail="john@example.com"
-        />
-      );
+      setup(user);
       expect(screen.getByTestId('profile-email')).toHaveTextContent('john@example.com');
     });
 
     it('should not display profile menu when userName is not provided', () => {
-      render(
-        <RdsAppBar
-          {...defaultProps}
-          userEmail="john@example.com"
-        />
-      );
+      setup({ userEmail: 'john@example.com' });
       expect(screen.queryByTestId('profile-menu')).not.toBeInTheDocument();
     });
 
     it('should display actions when userName and userEmail are not provided', () => {
-      const actions = <span data-testid="custom-actions">Actions</span>;
-      render(<RdsAppBar {...defaultProps} actions={actions} />);
+      setup({ actions });
       expect(screen.getByTestId('custom-actions')).toBeInTheDocument();
     });
 
     it('should prefer profile menu over actions', () => {
-      const actions = <span data-testid="custom-actions">Actions</span>;
-      render(
-        <RdsAppBar
-          {...defaultProps}
-          userName="John Doe"
-          userEmail="john@example.com"
-          actions={actions}
-        />
-      );
+      setup({ ...user, actions });
       expect(screen.getByTestId('profile-menu')).toBeInTheDocument();
       expect(screen.queryByTestId('custom-actions')).not.toBeInTheDocument();
     });
   });
 
   describe('Right Actions', () => {
+    const rightActions = <span data-testid="right-actions">Right</span>;
+
     it('should display right actions when provided', () => {
-      const rightActions = <span data-testid="right-actions">Right</span>;
-      render(<RdsAppBar {...defaultProps} rightActions={rightActions} />);
+      setup({ rightActions });
       expect(screen.getByTestId('right-actions')).toBeInTheDocument();
     });
 
     it('should not display right actions when not provided', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      const rightActions = container.querySelector('.rds-header__right-actions');
-      expect(rightActions).not.toBeInTheDocument();
+      hasNot(setup().container, '.rds-header__right-actions');
     });
 
     it('should apply right actions class', () => {
-      const rightActions = <span data-testid="right-actions">Right</span>;
-      const { container } = render(
-        <RdsAppBar {...defaultProps} rightActions={rightActions} />
-      );
-      expect(container.querySelector('.rds-header__right-actions')).toBeInTheDocument();
+      has(setup({ rightActions }).container, '.rds-header__right-actions');
     });
   });
 
   describe('SubHeader', () => {
+    const subHeader = <div data-testid="sub-header">Sub Header</div>;
+
     it('should display sub header when provided', () => {
-      const subHeader = <div data-testid="sub-header">Sub Header</div>;
-      render(<RdsAppBar {...defaultProps} subHeader={subHeader} />);
+      setup({ subHeader });
       expect(screen.getByTestId('sub-header')).toBeInTheDocument();
     });
 
     it('should not display sub header when not provided', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      expect(container.querySelector('.rds-header__sub-header')).not.toBeInTheDocument();
+      hasNot(setup().container, '.rds-header__sub-header');
     });
 
     it('should apply sub header class', () => {
-      const subHeader = <div data-testid="sub-header">Sub Header</div>;
-      const { container } = render(
-        <RdsAppBar {...defaultProps} subHeader={subHeader} />
-      );
-      expect(container.querySelector('.rds-header__sub-header')).toBeInTheDocument();
+      has(setup({ subHeader }).container, '.rds-header__sub-header');
     });
   });
 
   describe('Children', () => {
     it('should render children elements', () => {
-      const { container } = render(
+      render(
         <RdsAppBar {...defaultProps}>
           <span data-testid="child-element">Child</span>
         </RdsAppBar>
@@ -601,17 +354,12 @@ describe('RdsAppBar', () => {
 
   describe('Custom ClassName', () => {
     it('should apply custom className to root element', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} className="custom-header" />
-      );
-      const header = container.querySelector('.rds-header');
-      expect(header).toHaveClass('custom-header');
+      const { container } = setup({ className: 'custom-header' });
+      expect(container.querySelector('.rds-header')).toHaveClass('custom-header');
     });
 
     it('should maintain base classes with custom className', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} className="custom-class" />
-      );
+      const { container } = setup({ className: 'custom-class' });
       const header = container.querySelector('.rds-header');
       expect(header).toHaveClass('rds-header');
       expect(header).toHaveClass('custom-class');
@@ -620,18 +368,12 @@ describe('RdsAppBar', () => {
 
   describe('Variant Styles', () => {
     it('should apply variant style class', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} variantStyle="WithMenuButton" />
-      );
-      expect(container.querySelector('.rds-header--variant-withmenubutton')).toBeInTheDocument();
+      has(setup({ variantStyle: 'WithMenuButton' }).container, '.rds-header--variant-withmenubutton');
     });
 
     it('should normalize variant style class names', () => {
-      const { container } = render(
-        <RdsAppBar {...defaultProps} variantStyle="With Menu Button" />
-      );
-      const header = container.querySelector('.rds-header');
-      expect(header?.className).toMatch(/rds-header--variant-/);
+      const { container } = setup({ variantStyle: 'With Menu Button' });
+      expect(container.querySelector('.rds-header')?.className).toMatch(/rds-header--variant-/);
     });
   });
 
@@ -643,8 +385,7 @@ describe('RdsAppBar', () => {
 
     it('should handle empty title', () => {
       const { container } = render(<RdsAppBar title="" />);
-      const titleElement = container.querySelector('.rds-header__title');
-      expect(titleElement?.textContent).toBe('');
+      expect(container.querySelector('.rds-header__title')?.textContent).toBe('');
     });
 
     it('should accept MUI AppBar props', () => {
@@ -655,14 +396,11 @@ describe('RdsAppBar', () => {
 
   describe('Combined Props Tests', () => {
     it('should render app bar with all props customized', () => {
-      const rightActions = <span data-testid="right-actions">Right</span>;
-      const centerContent = <span data-testid="center-content">Center</span>;
-
       render(
         <RdsAppBar
           title="Complete App Bar"
-          rightActions={rightActions}
-          centerContent={centerContent}
+          rightActions={<span data-testid="right-actions">Right</span>}
+          centerContent={<span data-testid="center-content">Center</span>}
           size="large"
           showMenuButton={true}
           onMenuClick={jest.fn()}
@@ -671,76 +409,44 @@ describe('RdsAppBar', () => {
           onSearchChange={jest.fn()}
         />
       );
-
       expect(screen.getByText('Complete App Bar')).toBeInTheDocument();
       expect(screen.getByTestId('right-actions')).toBeInTheDocument();
       expect(screen.getByTestId('center-content')).toBeInTheDocument();
     });
 
     it('should render with color and size variants', () => {
-      const { container } = render(
-        <RdsAppBar
-          color="secondary"
-          size="small"
-          title="Styled App Bar"
-        />
-      );
-
-      expect(container.querySelector('.rds-header--secondary')).toBeInTheDocument();
-      expect(container.querySelector('.rds-app-bar--size-small')).toBeInTheDocument();
+      const { container } = render(<RdsAppBar color="secondary" size="small" title="Styled App Bar" />);
+      has(container, '.rds-header--secondary');
+      has(container, '.rds-app-bar--size-small');
     });
 
     it('should handle profile menu with tabs and search', () => {
-      const tabs = ['Home', 'About'];
-      render(
-        <RdsAppBar
-          {...defaultProps}
-          tabs={tabs}
-          tabValue={0}
-          onTabChange={jest.fn()}
-          showSearch={true}
-          searchValue=""
-          onSearchChange={jest.fn()}
-          userName="User"
-          userEmail="user@test.com"
-        />
-      );
-
+      setup({
+        tabs: ['Home', 'About'],
+        tabValue: 0,
+        onTabChange: jest.fn(),
+        ...searchProps,
+        searchValue: '',
+        userName: 'User',
+        userEmail: 'user@test.com',
+      });
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByTestId('profile-menu')).toBeInTheDocument();
     });
   });
 
   describe('Default Props Tests', () => {
-    it('should use default size as medium', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      expect(container.querySelector('.rds-app-bar--size-medium')).toBeInTheDocument();
-    });
-
     it('should use default showLogo as true', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          logo={<span data-testid="logo">Logo</span>}
-        />
-      );
+      setup({ logo: <span data-testid="logo">Logo</span> });
       expect(screen.getByTestId('logo')).toBeInTheDocument();
     });
 
     it('should use default showMenuButton as false', () => {
-      const { container } = render(<RdsAppBar {...defaultProps} />);
-      expect(container.querySelector('[aria-label="menu"]')).not.toBeInTheDocument();
+      hasNot(setup().container, '[aria-label="menu"]');
     });
 
     it('should use default showSearch as true', () => {
-      const { container } = render(
-        <RdsAppBar
-          {...defaultProps}
-          searchValue=""
-          onSearchChange={jest.fn()}
-        />
-      );
-      expect(container.querySelector('.rds-header__search')).toBeInTheDocument();
+      has(setup({ searchValue: '', onSearchChange: jest.fn() }).container, '.rds-header__search');
     });
   });
 
@@ -753,45 +459,23 @@ describe('RdsAppBar', () => {
 
     it('should handle special characters in search', () => {
       const specialValue = '<>&"';
-      const { container } = render(
-        <RdsAppBar
-          showSearch={true}
-          searchValue={specialValue}
-          onSearchChange={jest.fn()}
-        />
-      );
+      const { container } = render(<RdsAppBar showSearch={true} searchValue={specialValue} onSearchChange={jest.fn()} />);
       const input = container.querySelector('.rds-header__search input') as HTMLInputElement;
       expect(input.value).toBe(specialValue);
     });
 
     it('should handle rapid tab changes', () => {
       const onTabChange = jest.fn();
-      const { container } = render(
-        <RdsAppBar
-          tabs={['Tab 1', 'Tab 2']}
-          tabValue={0}
-          onTabChange={onTabChange}
-        />
-      );
-
+      const { container } = render(<RdsAppBar tabs={['Tab 1', 'Tab 2']} tabValue={0} onTabChange={onTabChange} />);
       const tabButtons = container.querySelectorAll('[role="tab"]');
       fireEvent.click(tabButtons[1]);
       fireEvent.click(tabButtons[0]);
-
       expect(onTabChange).toHaveBeenCalledTimes(1);
       expect(onTabChange).toHaveBeenNthCalledWith(1, 1);
     });
 
     it('should handle empty tabs array', () => {
-      const { container } = render(
-        <RdsAppBar
-          tabs={[]}
-          tabValue={0}
-          onTabChange={jest.fn()}
-        />
-      );
-      const tabsContainer = container.querySelector('.rds-header__tabs-inline');
-      expect(tabsContainer).toBeInTheDocument();
+      has(render(<RdsAppBar tabs={[]} tabValue={0} onTabChange={jest.fn()} />).container, '.rds-header__tabs-inline');
     });
 
     it('should handle whitespace in title', () => {

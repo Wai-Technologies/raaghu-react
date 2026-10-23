@@ -209,6 +209,9 @@ const RdsAutocomplete = <T extends { label?: string },>({
   const [internalOpen, setInternalOpen] = useState(false);
 
   const open = isOpenControlled ? openProp : internalOpen;
+  const setUncontrolledOpen = (next: boolean) => {
+    if (!isOpenControlled) setInternalOpen(next);
+  };
 
   let sizeClass = '';
   if (selectSize === 'small') sizeClass = 'rds-autocomplete--small';
@@ -318,15 +321,11 @@ const RdsAutocomplete = <T extends { label?: string },>({
       slotProps={{ ...slotProps, listbox: listboxSlotProps }}
       open={open}
       onOpen={(event) => {
-        if (!isOpenControlled) {
-          setInternalOpen(true);
-        }
+        setUncontrolledOpen(true);
         onOpen?.(event);
       }}
       onClose={(event, reason) => {
-        if (!isOpenControlled) {
-          setInternalOpen(false);
-        }
+        setUncontrolledOpen(false);
         onClose?.(event, reason);
       }}
       disabled={disabled}
@@ -391,14 +390,10 @@ const RdsAutocomplete = <T extends { label?: string },>({
               }}
               onFocus={(e) => {
                 if (openOnFocus && !open) {
-                  if (!isOpenControlled) {
-                    setInternalOpen(true);
-                  }
+                  setUncontrolledOpen(true);
                   onOpen?.(e);
                 }
-                if (paramsInputProps?.onFocus) {
-                  paramsInputProps.onFocus(e as FocusEvent<HTMLInputElement>);
-                }
+                paramsInputProps?.onFocus?.(e as FocusEvent<HTMLInputElement>);
               }}
             />
           );

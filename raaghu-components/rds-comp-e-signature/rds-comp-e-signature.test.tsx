@@ -79,25 +79,24 @@ describe('RdsCompESignature', () => {
     });
   });
 
+
+  const setup = (p: any = {}) => render(<RdsCompESignature mode="draw" {...p} />);
+  const q = (container: HTMLElement, sel: string) => container.querySelector(sel);
+
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
       const { container } = render(<RdsCompESignature />);
-      expect(container.querySelector('.rds-e-signature')).toBeInTheDocument();
+      expect(q(container, '.rds-e-signature')).toBeInTheDocument();
+      expect(q(container, '.rds-e-signature--draw')).toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
       expect(RdsCompESignature.displayName).toBe('RdsCompESignature');
     });
 
-    it('should render in draw mode by default', () => {
-      const { container } = render(<RdsCompESignature />);
-      expect(container.querySelector('.rds-e-signature--draw')).toBeInTheDocument();
-    });
-
     it('should render canvas in draw mode', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      const canvas = container.querySelector('canvas');
-      expect(canvas).toBeInTheDocument();
+      const { container } = setup();
+      expect(q(container, 'canvas')).toBeInTheDocument();
     });
 
     it('should render title with required indicator', () => {
@@ -107,281 +106,189 @@ describe('RdsCompESignature', () => {
     });
 
     it('should use default title "Draw Signature"', () => {
-      render(<RdsCompESignature mode="draw" />);
+      setup();
       expect(screen.getByRole('heading', { name: /Draw Signature/ })).toBeInTheDocument();
     });
   });
 
   describe('Mode Variants', () => {
     it('should render draw mode', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      expect(container.querySelector('.rds-e-signature--draw')).toBeInTheDocument();
-      expect(container.querySelector('canvas')).toBeInTheDocument();
+      const { container } = setup();
+      expect(q(container, '.rds-e-signature--draw')).toBeInTheDocument();
+      expect(q(container, 'canvas')).toBeInTheDocument();
     });
 
-    it('should render upload mode', () => {
-      render(<RdsCompESignature mode="upload" />);
-      expect(screen.getByTestId('e-signature-upload')).toBeInTheDocument();
+    it.each([['upload', 'e-signature-upload'], ['choose', 'e-signature-choose']])('should render %s mode', (mode, id) => {
+      render(<RdsCompESignature mode={mode as any} />);
+      expect(screen.getByTestId(id)).toBeInTheDocument();
     });
 
-    it('should render choose mode', () => {
-      render(<RdsCompESignature mode="choose" />);
-      expect(screen.getByTestId('e-signature-choose')).toBeInTheDocument();
-    });
-
-    it('should pass type prop to upload mode', () => {
-      render(<RdsCompESignature mode="upload" type="initials" />);
-      expect(screen.getByText('initials')).toBeInTheDocument();
-    });
-
-    it('should pass type prop to choose mode', () => {
-      render(<RdsCompESignature mode="choose" type="fullname" />);
-      expect(screen.getByText('fullname')).toBeInTheDocument();
+    it.each([['upload', 'initials'], ['choose', 'fullname']])('should pass type prop to %s mode', (mode, type) => {
+      render(<RdsCompESignature mode={mode as any} type={type as any} />);
+      expect(screen.getByText(type)).toBeInTheDocument();
     });
   });
 
   describe('Type Variants', () => {
-    it('should use fullname type by default', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      expect(container.querySelector('.rds-e-signature--type-fullname')).toBeInTheDocument();
-    });
-
-    it('should render fullname type', () => {
-      const { container } = render(<RdsCompESignature mode="draw" type="fullname" />);
-      expect(container.querySelector('.rds-e-signature--type-fullname')).toBeInTheDocument();
-    });
-
-    it('should render initials type', () => {
-      const { container } = render(<RdsCompESignature mode="draw" type="initials" />);
-      expect(container.querySelector('.rds-e-signature--type-initials')).toBeInTheDocument();
+    it.each([[undefined, 'fullname'], ['fullname', 'fullname'], ['initials', 'initials']])('type=%s -> class type-%s', (type, cls) => {
+      const { container } = setup({ type });
+      expect(q(container, `.rds-e-signature--type-${cls}`)).toBeInTheDocument();
     });
 
     it('should show "Draw Signature" for fullname type', () => {
-      render(<RdsCompESignature mode="draw" type="fullname" />);
+      setup({ type: 'fullname' });
       expect(screen.getByRole('heading', { name: /Draw Signature/ })).toBeInTheDocument();
     });
 
     it('should show "Draw Initial" for initials type', () => {
-      render(<RdsCompESignature mode="draw" type="initials" />);
+      setup({ type: 'initials' });
       expect(screen.getByText('Draw Initial')).toBeInTheDocument();
     });
   });
 
   describe('Draw Mode - Canvas Interaction', () => {
-    it('should render canvas element', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      const canvas = container.querySelector('canvas');
-      expect(canvas).toBeInTheDocument();
-    });
-
     it('should have canvas with 100% width and height', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      const canvas = container.querySelector('canvas');
+      const { container } = setup();
+      const canvas = q(container, 'canvas');
       expect(canvas).toHaveStyle('width: 100%');
       expect(canvas).toHaveStyle('height: 100%');
     });
 
-    it('should detect drawing has started', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      const canvas = container.querySelector('canvas');
-      if (canvas) {
-        fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
-      }
+    it.each([
+      ['mouse down', { disabled: false }, ['mouseDown']],
+      ['mouse down and up', {}, ['mouseDown', 'mouseUp']],
+      ['mouse down and up without callback', { onSignatureChange: undefined }, ['mouseDown', 'mouseUp']],
+      ['disabled drawing', { disabled: true }, ['mouseDown', 'mouseMove']],
+    ])('canvas survives %s', (_n, props, events) => {
+      const { container } = setup({ onSignatureChange: jest.fn(), ...props });
+      const canvas = q(container, 'canvas') as Element;
+      events.forEach((ev) => (fireEvent as any)[ev](canvas, { clientX: 100, clientY: 100 }));
       expect(canvas).toBeInTheDocument();
     });
 
     it('should hide canvas header when drawing starts', () => {
-      const { container, rerender } = render(<RdsCompESignature mode="draw" />);
-      const canvas = container.querySelector('canvas');
-      if (canvas) {
-        fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
-        rerender(<RdsCompESignature mode="draw" />);
-      }
+      const { container, rerender } = setup();
+      const canvas = q(container, 'canvas') as Element;
+      fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
+      rerender(<RdsCompESignature mode="draw" />);
+      expect(canvas).toBeInTheDocument();
+    });
+
+    it('should handle canvas resize event', () => {
+      const { container } = setup();
+      const canvas = q(container, 'canvas');
+      expect(canvas).toBeInTheDocument();
+      fireEvent.resize(window);
       expect(canvas).toBeInTheDocument();
     });
   });
 
   describe('Color Palette', () => {
     it('should render color swatch by default', () => {
-      const { container } = render(<RdsCompESignature mode="draw" colourSwatch={true} />);
-      const colorPalette = container.querySelector('.rds-e-signature__color-palette');
-      expect(colorPalette).toBeInTheDocument();
+      const { container } = setup({ colourSwatch: true });
+      expect(q(container, '.rds-e-signature__color-palette')).toBeInTheDocument();
     });
 
     it('should not render color swatch when disabled', () => {
-      const { container } = render(<RdsCompESignature mode="draw" colourSwatch={false} />);
-      const colorPalette = container.querySelector('.rds-e-signature__color-palette');
-      expect(colorPalette).not.toBeInTheDocument();
+      const { container } = setup({ colourSwatch: false });
+      expect(q(container, '.rds-e-signature__color-palette')).not.toBeInTheDocument();
     });
 
     it('should have three color options', () => {
-      const { container } = render(<RdsCompESignature mode="draw" colourSwatch={true} />);
-      const colorButtons = container.querySelectorAll('.rds-e-signature__color-button');
-      expect(colorButtons.length).toBe(3);
+      const { container } = setup({ colourSwatch: true });
+      expect(container.querySelectorAll('.rds-e-signature__color-button').length).toBe(3);
     });
 
     it('should have default black color selected', () => {
-      const { container } = render(<RdsCompESignature mode="draw" colourSwatch={true} />);
-      const selectedColor = container.querySelector('.rds-e-signature__color-button--selected');
+      const { container } = setup({ colourSwatch: true });
+      const selectedColor = q(container, '.rds-e-signature__color-button--selected');
       expect(selectedColor).toBeInTheDocument();
       expect(selectedColor).toHaveAttribute('data-color');
     });
 
     it('should change selected color when clicked', () => {
-      const { container } = render(<RdsCompESignature mode="draw" colourSwatch={true} />);
+      const { container } = setup({ colourSwatch: true });
       const colorButtons = container.querySelectorAll('.rds-e-signature__color-button');
-      fireEvent.click(colorButtons[1]); // Click blue
+      fireEvent.click(colorButtons[1]);
       expect(colorButtons).toHaveLength(3);
     });
 
     it('should show checkmark on selected color', () => {
-      const { container } = render(<RdsCompESignature mode="draw" colourSwatch={true} />);
-      const selectedButton = container.querySelector('.rds-e-signature__color-button--selected');
-      const checkmark = selectedButton?.querySelector('.rds-e-signature__checkmark');
-      expect(checkmark).toBeInTheDocument();
+      const { container } = setup({ colourSwatch: true });
+      const selectedButton = q(container, '.rds-e-signature__color-button--selected');
+      expect(selectedButton?.querySelector('.rds-e-signature__checkmark')).toBeInTheDocument();
     });
   });
 
   describe('Action Buttons', () => {
-    it('should render undo button', () => {
-      render(<RdsCompESignature mode="draw" />);
-      const undoButton = screen.getByLabelText('undo');
-      expect(undoButton).toBeInTheDocument();
-    });
-
-    it('should render save button', () => {
-      render(<RdsCompESignature mode="draw" />);
-      const saveButton = screen.getByLabelText('save');
-      expect(saveButton).toBeInTheDocument();
-    });
-
-    it('should render delete button', () => {
-      render(<RdsCompESignature mode="draw" />);
-      const deleteButton = screen.getByLabelText('delete');
-      expect(deleteButton).toBeInTheDocument();
+    it.each(['undo', 'save', 'delete'])('should render %s button', (label) => {
+      setup();
+      expect(screen.getByLabelText(label)).toBeInTheDocument();
     });
 
     it('should have correct icons for buttons', () => {
-      render(<RdsCompESignature mode="draw" />);
-      expect(screen.getByTestId('brush-icon')).toBeInTheDocument();
-      expect(screen.getByTestId('save-icon')).toBeInTheDocument();
-      expect(screen.getByTestId('delete-icon')).toBeInTheDocument();
-      expect(screen.getByTestId('undo-icon')).toBeInTheDocument();
+      setup();
+      ['brush', 'save', 'delete', 'undo'].forEach((n) => expect(screen.getByTestId(`${n}-icon`)).toBeInTheDocument());
     });
 
     it('should disable buttons when disabled prop is true', () => {
-      render(<RdsCompESignature mode="draw" disabled={true} />);
-      const undoButton = screen.getByLabelText('undo');
-      const saveButton = screen.getByLabelText('save');
-      const deleteButton = screen.getByLabelText('delete');
-      expect(undoButton).toBeDisabled();
-      expect(saveButton).toBeDisabled();
-      expect(deleteButton).toBeDisabled();
+      setup({ disabled: true });
+      ['undo', 'save', 'delete'].forEach((l) => expect(screen.getByLabelText(l)).toBeDisabled());
     });
   });
 
   describe('Disabled State', () => {
     it('should apply disabled class when disabled', () => {
-      const { container } = render(<RdsCompESignature mode="draw" disabled={true} />);
-      expect(container.querySelector('.rds-e-signature--disabled')).toBeInTheDocument();
+      const { container } = setup({ disabled: true });
+      expect(q(container, '.rds-e-signature--disabled')).toBeInTheDocument();
     });
 
     it('should show disabled message when disabled', () => {
-      render(<RdsCompESignature mode="draw" disabled={true} />);
+      setup({ disabled: true });
       expect(screen.getByText(/Draw option is currently disabled/)).toBeInTheDocument();
     });
 
     it('should use custom disabled message', () => {
-      const customMessage = 'This feature is locked';
-      render(
-        <RdsCompESignature
-          mode="draw"
-          disabled={true}
-          disabledMessage={customMessage}
-        />
-      );
-      expect(screen.getByText(customMessage)).toBeInTheDocument();
+      setup({ disabled: true, disabledMessage: 'This feature is locked' });
+      expect(screen.getByText('This feature is locked')).toBeInTheDocument();
     });
 
     it('should show disabled footer message', () => {
-      render(
-        <RdsCompESignature
-          mode="draw"
-          disabled={true}
-          disabledFooterMessage="Upload method already selected"
-        />
-      );
+      setup({ disabled: true, disabledFooterMessage: 'Upload method already selected' });
       expect(screen.getByText('Upload method already selected')).toBeInTheDocument();
     });
 
     it('should not show disabled footer message when empty', () => {
-      const { container } = render(
-        <RdsCompESignature
-          mode="draw"
-          disabled={true}
-          disabledFooterMessage=""
-        />
-      );
-      expect(container.querySelector('.rds-e-signature__disabled-footer')).not.toBeInTheDocument();
-    });
-
-    it('should prevent drawing when disabled', () => {
-      const onSignatureChange = jest.fn();
-      const { container } = render(
-        <RdsCompESignature
-          mode="draw"
-          disabled={true}
-          onSignatureChange={onSignatureChange}
-        />
-      );
-      const canvas = container.querySelector('canvas');
-      if (canvas) {
-        fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
-        fireEvent.mouseMove(canvas, { clientX: 110, clientY: 110 });
-      }
-      expect(canvas).toBeInTheDocument();
+      const { container } = setup({ disabled: true, disabledFooterMessage: '' });
+      expect(q(container, '.rds-e-signature__disabled-footer')).not.toBeInTheDocument();
     });
   });
 
   describe('Hover State', () => {
     it('should apply hover class on mouse enter when not disabled', () => {
-      const { container } = render(<RdsCompESignature mode="draw" disabled={false} />);
-      const mainBox = container.querySelector('.rds-e-signature');
-      if (mainBox) {
-        fireEvent.mouseEnter(mainBox);
-      }
-      expect(container.querySelector('.rds-e-signature--hover')).toBeInTheDocument();
+      const { container } = setup({ disabled: false });
+      fireEvent.mouseEnter(q(container, '.rds-e-signature') as Element);
+      expect(q(container, '.rds-e-signature--hover')).toBeInTheDocument();
     });
 
     it('should remove hover class on mouse leave', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      const mainBox = container.querySelector('.rds-e-signature');
-      if (mainBox) {
-        fireEvent.mouseEnter(mainBox);
-        fireEvent.mouseLeave(mainBox);
-      }
+      const { container } = setup();
+      const mainBox = q(container, '.rds-e-signature') as Element;
+      fireEvent.mouseEnter(mainBox);
+      fireEvent.mouseLeave(mainBox);
       expect(mainBox).toBeInTheDocument();
     });
 
     it('should not apply hover class when disabled', () => {
-      const { container } = render(<RdsCompESignature mode="draw" disabled={true} />);
-      const mainBox = container.querySelector('.rds-e-signature');
-      if (mainBox) {
-        fireEvent.mouseEnter(mainBox);
-      }
-      expect(container.querySelector('.rds-e-signature--hover')).not.toBeInTheDocument();
+      const { container } = setup({ disabled: true });
+      fireEvent.mouseEnter(q(container, '.rds-e-signature') as Element);
+      expect(q(container, '.rds-e-signature--hover')).not.toBeInTheDocument();
     });
   });
 
   describe('Props Propagation', () => {
-    it('should pass type prop to upload mode', () => {
-      render(
-        <RdsCompESignature
-          mode="upload"
-          type="initials"
-          disabled={true}
-        />
-      );
+    it('should pass type and disabled props to upload mode', () => {
+      render(<RdsCompESignature mode="upload" type="initials" disabled={true} />);
       expect(screen.getByText('initials')).toBeInTheDocument();
       expect(screen.getByText('disabled')).toBeInTheDocument();
     });
@@ -391,12 +298,7 @@ describe('RdsCompESignature', () => {
         { id: '1', name: 'Sig 1', style: 'cursive', fullName: 'Jane Doe', initials: 'J.D' },
         { id: '2', name: 'Sig 2', style: 'script', fullName: 'Jane Doe', initials: 'J.D' },
       ];
-      render(
-        <RdsCompESignature
-          mode="choose"
-          predefinedSignatures={signatures}
-        />
-      );
+      render(<RdsCompESignature mode="choose" predefinedSignatures={signatures} />);
       expect(screen.getByTestId('signature-count')).toHaveTextContent('2');
     });
 
@@ -406,290 +308,132 @@ describe('RdsCompESignature', () => {
     });
 
     it('should pass width prop to upload mode', () => {
-      render(
-        <RdsCompESignature
-          mode="upload"
-          width={500}
-        />
-      );
+      render(<RdsCompESignature mode="upload" width={500} />);
       expect(screen.getByTestId('e-signature-upload')).toBeInTheDocument();
     });
 
     it('should pass pen color prop', () => {
-      const { container } = render(
-        <RdsCompESignature
-          mode="draw"
-          penColor="#FF0000"
-          colourSwatch={true}
-        />
-      );
-      expect(container.querySelector('.rds-e-signature__color-button')).toBeInTheDocument();
+      const { container } = setup({ penColor: '#FF0000', colourSwatch: true });
+      expect(q(container, '.rds-e-signature__color-button')).toBeInTheDocument();
     });
   });
 
   describe('Signature Change Callback', () => {
-    it('should trigger onSignatureChange when canvas drawing stops', () => {
-      const onSignatureChange = jest.fn();
-      const { container } = render(
-        <RdsCompESignature
-          mode="draw"
-          onSignatureChange={onSignatureChange}
-        />
-      );
-      const canvas = container.querySelector('canvas');
-      if (canvas) {
-        fireEvent.mouseDown(canvas, { clientX: 100, clientY: 100 });
-        fireEvent.mouseUp(canvas);
-      }
-      expect(canvas).toBeInTheDocument();
-    });
-
     it('should call onSignatureChange from upload mode', () => {
       const onSignatureChange = jest.fn();
-      render(
-        <RdsCompESignature
-          mode="upload"
-          onSignatureChange={onSignatureChange}
-        />
-      );
-      const uploadButton = screen.getByText('Upload');
-      fireEvent.click(uploadButton);
+      render(<RdsCompESignature mode="upload" onSignatureChange={onSignatureChange} />);
+      fireEvent.click(screen.getByText('Upload'));
       expect(onSignatureChange).toHaveBeenCalledWith('uploadedFile');
     });
 
     it('should call onSignatureChange from choose mode', () => {
       const onSignatureChange = jest.fn();
-      const signatures = [
-        { id: '1', name: 'Style 1', style: 'cursive', fullName: 'John Doe', initials: 'J.D' },
-      ];
-      render(
-        <RdsCompESignature
-          mode="choose"
-          predefinedSignatures={signatures}
-          onSignatureChange={onSignatureChange}
-        />
-      );
-      const chooseButton = screen.getByText('Choose');
-      fireEvent.click(chooseButton);
+      const signatures = [{ id: '1', name: 'Style 1', style: 'cursive', fullName: 'John Doe', initials: 'J.D' }];
+      render(<RdsCompESignature mode="choose" predefinedSignatures={signatures} onSignatureChange={onSignatureChange} />);
+      fireEvent.click(screen.getByText('Choose'));
       expect(onSignatureChange).toHaveBeenCalled();
     });
   });
 
   describe('Clear Canvas', () => {
-    it('should clear canvas and call callback with null', () => {
-      const onSignatureChange = jest.fn();
-      render(
-        <RdsCompESignature
-          mode="draw"
-          onSignatureChange={onSignatureChange}
-        />
-      );
+    it('should render delete button with callback present', () => {
+      setup({ onSignatureChange: jest.fn() });
       expect(screen.getByLabelText('delete')).toBeInTheDocument();
     });
 
     it('should be disabled when component is disabled', () => {
-      render(
-        <RdsCompESignature
-          mode="draw"
-          disabled={true}
-        />
-      );
-      const deleteButton = screen.getByLabelText('delete');
-      expect(deleteButton).toBeDisabled();
+      setup({ disabled: true });
+      expect(screen.getByLabelText('delete')).toBeDisabled();
     });
   });
 
   describe('Error Handling', () => {
-    it('should show error message for invalid signature', () => {
-      const { container } = render(
-        <RdsCompESignature mode="draw" />
-      );
-      const errorDiv = container.querySelector('.rds-e-signature__error');
-      expect(errorDiv).not.toBeInTheDocument(); // Initially no error
-    });
-
-    it('should show error role alert', () => {
-      const { container } = render(
-        <RdsCompESignature mode="draw" />
-      );
-      const errorMsg = container.querySelector('[role="alert"]');
-      expect(errorMsg).not.toBeInTheDocument(); // Initially no error
+    it('should show no error initially', () => {
+      const { container } = setup();
+      expect(q(container, '.rds-e-signature__error')).not.toBeInTheDocument();
+      expect(q(container, '[role="alert"]')).not.toBeInTheDocument();
     });
   });
 
   describe('CSS Classes', () => {
-    it('should have correct base class', () => {
-      const { container } = render(<RdsCompESignature />);
-      expect(container.querySelector('.rds-e-signature')).toBeInTheDocument();
-    });
-
-    it('should have draw container class in draw mode', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      expect(container.querySelector('.rds-e-signature__draw-container')).toBeInTheDocument();
-    });
-
-    it('should have canvas container class', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      expect(container.querySelector('.rds-e-signature__canvas-container')).toBeInTheDocument();
-    });
-
-    it('should have controls class', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      expect(container.querySelector('.rds-e-signature__controls')).toBeInTheDocument();
-    });
-
-    it('should have action buttons class', () => {
-      const { container } = render(<RdsCompESignature mode="draw" />);
-      expect(container.querySelector('.rds-e-signature__actions')).toBeInTheDocument();
+    it.each([
+      '.rds-e-signature__draw-container',
+      '.rds-e-signature__canvas-container',
+      '.rds-e-signature__controls',
+      '.rds-e-signature__actions',
+    ])('should have %s in draw mode', (cls) => {
+      const { container } = setup();
+      expect(q(container, cls)).toBeInTheDocument();
     });
   });
 
   describe('Integration', () => {
     it('should render complete draw mode with all features', () => {
-      const { container } = render(
-        <RdsCompESignature
-          mode="draw"
-          type="fullname"
-          colourSwatch={true}
-          disabled={false}
-          title="Sign Here"
-        />
-      );
-      expect(container.querySelector('.rds-e-signature--draw')).toBeInTheDocument();
-      expect(container.querySelector('.rds-e-signature--type-fullname')).toBeInTheDocument();
-      expect(container.querySelector('.rds-e-signature__color-palette')).toBeInTheDocument();
+      const { container } = setup({ type: 'fullname', colourSwatch: true, disabled: false, title: 'Sign Here' });
+      expect(q(container, '.rds-e-signature--draw')).toBeInTheDocument();
+      expect(q(container, '.rds-e-signature--type-fullname')).toBeInTheDocument();
+      expect(q(container, '.rds-e-signature__color-palette')).toBeInTheDocument();
       expect(screen.getByText('Sign Here')).toBeInTheDocument();
     });
 
     it('should support mode switching via props', () => {
-      const { rerender, container } = render(
-        <RdsCompESignature mode="draw" />
-      );
-      expect(container.querySelector('.rds-e-signature--draw')).toBeInTheDocument();
-
+      const { rerender, container } = setup();
+      expect(q(container, '.rds-e-signature--draw')).toBeInTheDocument();
       rerender(<RdsCompESignature mode="upload" />);
       expect(screen.getByTestId('e-signature-upload')).toBeInTheDocument();
-
       rerender(<RdsCompESignature mode="choose" />);
       expect(screen.getByTestId('e-signature-choose')).toBeInTheDocument();
     });
 
     it('should handle rapid mode changes', () => {
-      const { rerender, container } = render(
-        <RdsCompESignature mode="draw" />
-      );
-      
+      const { rerender, container } = setup();
       rerender(<RdsCompESignature mode="upload" />);
       rerender(<RdsCompESignature mode="choose" />);
       rerender(<RdsCompESignature mode="draw" />);
-      
-      expect(container.querySelector('.rds-e-signature--draw')).toBeInTheDocument();
+      expect(q(container, '.rds-e-signature--draw')).toBeInTheDocument();
     });
 
     it('should maintain callback reference across re-renders', () => {
       const onSignatureChange = jest.fn();
-      const { rerender } = render(
-        <RdsCompESignature
-          mode="draw"
-          onSignatureChange={onSignatureChange}
-        />
-      );
-      
-      rerender(
-        <RdsCompESignature
-          mode="draw"
-          onSignatureChange={onSignatureChange}
-        />
-      );
-      
+      const { rerender } = setup({ onSignatureChange });
+      rerender(<RdsCompESignature mode="draw" onSignatureChange={onSignatureChange} />);
       expect(onSignatureChange).not.toHaveBeenCalled();
     });
 
     it('should render with all optional props', () => {
-      const customSignatures = [
-        { id: '1', name: 'Custom 1', style: 'bold', fullName: 'Test User', initials: 'TU' },
-      ];
-
-      const { container } = render(
-        <RdsCompESignature
-          mode="draw"
-          type="initials"
-          colourSwatch={true}
-          disabled={false}
-          disabledMessage="Custom disabled message"
-          disabledFooterMessage="Custom footer message"
-          predefinedSignatures={customSignatures}
-          width={800}
-          penColor="#FF0000"
-          title="Custom Signature"
-        />
-      );
-
-      expect(container.querySelector('.rds-e-signature')).toBeInTheDocument();
+      const customSignatures = [{ id: '1', name: 'Custom 1', style: 'bold', fullName: 'Test User', initials: 'TU' }];
+      const { container } = setup({
+        type: 'initials',
+        colourSwatch: true,
+        disabled: false,
+        disabledMessage: 'Custom disabled message',
+        disabledFooterMessage: 'Custom footer message',
+        predefinedSignatures: customSignatures,
+        width: 800,
+        penColor: '#FF0000',
+        title: 'Custom Signature',
+      });
+      expect(q(container, '.rds-e-signature')).toBeInTheDocument();
       expect(screen.getByText('Custom Signature')).toBeInTheDocument();
     });
   });
 
   describe('Edge Cases', () => {
-    it('should handle undefined onSignatureChange', () => {
-      const { container } = render(
-        <RdsCompESignature mode="draw" />
-      );
-      const canvas = container.querySelector('canvas');
-      if (canvas) {
-        fireEvent.mouseDown(canvas);
-        fireEvent.mouseUp(canvas);
-      }
-      expect(canvas).toBeInTheDocument();
-    });
-
     it('should handle empty disabled message', () => {
-      const { container } = render(
-        <RdsCompESignature
-          mode="draw"
-          disabled={true}
-          disabledMessage=""
-        />
-      );
+      const { container } = setup({ disabled: true, disabledMessage: '' });
       expect(container).toBeInTheDocument();
     });
 
     it('should handle null predefined signatures', () => {
-      const { container } = render(
-        <RdsCompESignature
-          mode="choose"
-          predefinedSignatures={[]}
-        />
-      );
+      const { container } = render(<RdsCompESignature mode="choose" predefinedSignatures={[]} />);
       expect(container).toBeInTheDocument();
-    });
-
-    it('should render with default pen color', () => {
-      const { container } = render(
-        <RdsCompESignature mode="draw" colourSwatch={true} />
-      );
-      const selectedButton = container.querySelector('.rds-e-signature__color-button--selected');
-      expect(selectedButton).toBeInTheDocument();
-      expect(selectedButton).toHaveAttribute('data-color');
-    });
-
-    it('should handle canvas resize event', () => {
-      const { container } = render(
-        <RdsCompESignature mode="draw" />
-      );
-      const canvas = container.querySelector('canvas');
-      expect(canvas).toBeInTheDocument();
-      
-      fireEvent.resize(window);
-      expect(canvas).toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompESignature />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 

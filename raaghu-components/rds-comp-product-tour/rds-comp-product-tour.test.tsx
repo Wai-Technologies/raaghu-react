@@ -964,6 +964,25 @@ describe('RdsCompProductTour', () => {
       expect(container.querySelector('.rds-comp-product-tour__corner-dot--bottom-right')).toBeTruthy();
     });
 
+    it('anchorCorner="all" shows all four corner dots', () => {
+      const { container } = render(<RdsCompProductTour variant="Image" anchorCorner="all" />);
+      expect(container.querySelectorAll('.rds-comp-product-tour__corner-dot')).toHaveLength(4);
+    });
+
+    it('anchorCorner="top" shows only the top two dots', () => {
+      const { container } = render(<RdsCompProductTour variant="Image" anchorCorner="top" />);
+      expect(container.querySelectorAll('.rds-comp-product-tour__corner-dot')).toHaveLength(2);
+      expect(container.querySelector('.rds-comp-product-tour__corner-dot--top-left')).toBeTruthy();
+      expect(container.querySelector('.rds-comp-product-tour__corner-dot--top-right')).toBeTruthy();
+    });
+
+    it('anchorCorner="bottom" shows only the bottom two dots', () => {
+      const { container } = render(<RdsCompProductTour variant="Image" anchorCorner="bottom" />);
+      expect(container.querySelectorAll('.rds-comp-product-tour__corner-dot')).toHaveLength(2);
+      expect(container.querySelector('.rds-comp-product-tour__corner-dot--bottom-left')).toBeTruthy();
+      expect(container.querySelector('.rds-comp-product-tour__corner-dot--bottom-right')).toBeTruthy();
+    });
+
     it('warns for deprecated props', () => {
       const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
       render(<RdsCompProductTour variant="Image" formTitle="x" tabTitle={['a']} stepsIndicator="1/2" topLeft />);

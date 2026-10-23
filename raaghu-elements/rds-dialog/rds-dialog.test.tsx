@@ -59,6 +59,10 @@ describe('RdsDialog', () => {
     open: true,
     onClose: jest.fn(),
   };
+  const setup = (p: Record<string, any> = {}, children?: React.ReactNode) =>
+    render(<RdsDialog {...defaultProps} {...p}>{children}</RdsDialog>);
+  const root = () => screen.getByTestId('dialog-root');
+  const dialogTitle = () => screen.getByTestId('dialog-title');
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -66,94 +70,58 @@ describe('RdsDialog', () => {
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
-      render(<RdsDialog {...defaultProps} />);
-      expect(screen.getByTestId('dialog-root')).toBeInTheDocument();
+      setup();
+      expect(root()).toBeInTheDocument();
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 
     it('should not render when open is false', () => {
-      render(<RdsDialog {...defaultProps} open={false} />);
+      setup({ open: false });
       expect(screen.queryByTestId('dialog-root')).not.toBeInTheDocument();
     });
 
     it('should have correct displayName', () => {
       expect(RdsDialog.displayName).toBe('RdsDialog');
     });
-
-    it('should render with default dialog role', () => {
-      render(<RdsDialog {...defaultProps} />);
-      expect(screen.getByRole('dialog')).toBeInTheDocument();
-    });
   });
 
   describe('Title Props', () => {
     it('should render title when provided', () => {
-      render(<RdsDialog {...defaultProps} title="Test Dialog Title" />);
+      setup({ title: 'Test Dialog Title' });
       expect(screen.getByText('Test Dialog Title')).toBeInTheDocument();
     });
 
     it('should render title element when showTitle is true', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          title="Test Title"
-          showTitle={true}
-        />
-      );
-      expect(screen.getByTestId('dialog-title')).toBeInTheDocument();
+      setup({ title: 'Test Title', showTitle: true });
+      expect(dialogTitle()).toBeInTheDocument();
       expect(screen.getByText('Test Title')).toBeInTheDocument();
     });
 
     it('should not render title when showTitle is false', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          title="Hidden Title"
-          showTitle={false}
-        />
-      );
+      setup({ title: 'Hidden Title', showTitle: false });
       expect(screen.queryByText('Hidden Title')).not.toBeInTheDocument();
     });
 
     it('should render title element even when showTitle is false if showDissmiss is true', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          title="Test"
-          showTitle={false}
-          showDissmiss={true}
-        />
-      );
-      expect(screen.getByTestId('dialog-title')).toBeInTheDocument();
+      setup({ title: 'Test', showTitle: false, showDissmiss: true });
+      expect(dialogTitle()).toBeInTheDocument();
     });
   });
 
   describe('Children and Content', () => {
     it('should render children content', () => {
-      render(
-        <RdsDialog {...defaultProps}>
-          <div>Dialog Content</div>
-        </RdsDialog>
-      );
+      setup({}, <div>Dialog Content</div>);
       expect(screen.getByText('Dialog Content')).toBeInTheDocument();
-    });
-
-    it('should render dialog content element', () => {
-      render(
-        <RdsDialog {...defaultProps}>
-          <p>Test Content</p>
-        </RdsDialog>
-      );
       expect(screen.getByTestId('dialog-content')).toBeInTheDocument();
     });
 
     it('should render complex children', () => {
-      render(
-        <RdsDialog {...defaultProps}>
-          <div>
-            <h1>Header</h1>
-            <p>Description</p>
-          </div>
-        </RdsDialog>
+      setup(
+        {},
+        <div>
+          <h1>Header</h1>
+          <p>Description</p>
+        </div>
       );
       expect(screen.getByText('Header')).toBeInTheDocument();
       expect(screen.getByText('Description')).toBeInTheDocument();
@@ -162,145 +130,73 @@ describe('RdsDialog', () => {
 
   describe('Close Button (showDissmiss)', () => {
     it('should render close button when showDissmiss is true', () => {
-      render(<RdsDialog {...defaultProps} showDissmiss={true} />);
+      setup({ showDissmiss: true });
       expect(screen.getByTestId('icon-button-close')).toBeInTheDocument();
+      expect(screen.getByTestId('close-icon')).toBeInTheDocument();
     });
 
     it('should not render close button when showDissmiss is false', () => {
-      render(<RdsDialog {...defaultProps} showDissmiss={false} />);
+      setup({ showDissmiss: false });
       expect(screen.queryByTestId('icon-button-close')).not.toBeInTheDocument();
     });
 
     it('should call onClose when close button is clicked', () => {
       const mockOnClose = jest.fn();
-      render(
-        <RdsDialog
-          {...defaultProps}
-          onClose={mockOnClose}
-          showDissmiss={true}
-        />
-      );
+      setup({ onClose: mockOnClose, showDissmiss: true });
       fireEvent.click(screen.getByTestId('icon-button-close'));
       expect(mockOnClose).toHaveBeenCalledTimes(1);
-    });
-
-    it('should show close icon when showDissmiss is true', () => {
-      render(<RdsDialog {...defaultProps} showDissmiss={true} />);
-      expect(screen.getByTestId('close-icon')).toBeInTheDocument();
     });
   });
 
   describe('Variants', () => {
-    it('should render with standard variant', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          title="Standard Dialog"
-        />
-      );
-      expect(screen.getByText('Standard Dialog')).toBeInTheDocument();
-    });
-
-    it('should render with default variant', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="default"
-          title="Default Dialog"
-        />
-      );
-      expect(screen.getByText('Default Dialog')).toBeInTheDocument();
-    });
-
-    it('should use standard variant when explicitly set', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          title="Test"
-        />
-      );
-      expect(screen.getByTestId('dialog-title')).toBeInTheDocument();
+    it.each(['standard', 'default'])('should render with %s variant', (variant) => {
+      setup({ variant, title: `${variant} Dialog` });
+      expect(screen.getByText(`${variant} Dialog`)).toBeInTheDocument();
+      expect(dialogTitle()).toBeInTheDocument();
     });
 
     it('should use default variant by default', () => {
-      render(<RdsDialog {...defaultProps} title="Test" />);
-      expect(screen.getByTestId('dialog-title')).toBeInTheDocument();
+      setup({ title: 'Test' });
+      expect(dialogTitle()).toBeInTheDocument();
     });
   });
 
   describe('Size Props', () => {
-    const sizes = ['extra-small', 'small', 'medium', 'large', 'extra-large'] as const;
-
-    sizes.forEach((size) => {
-      it(`should render with ${size} size`, () => {
-        render(
-          <RdsDialog
-            {...defaultProps}
-            size={size}
-            title="Test"
-          />
-        );
-        expect(screen.getByTestId('dialog-root')).toBeInTheDocument();
-      });
-    });
-
-    it('should render with false size', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          size={false}
-          title="Test"
-        />
-      );
-      expect(screen.getByTestId('dialog-root')).toBeInTheDocument();
-    });
+    it.each(['extra-small', 'small', 'medium', 'large', 'extra-large', false] as const)(
+      'should render with %s size',
+      (size) => {
+        setup({ size, title: 'Test' });
+        expect(root()).toBeInTheDocument();
+      }
+    );
 
     it('should use medium size by default', () => {
-      render(<RdsDialog {...defaultProps} title="Test" />);
-      expect(screen.getByTestId('dialog-root')).toBeInTheDocument();
+      setup({ title: 'Test' });
+      expect(root()).toBeInTheDocument();
     });
   });
 
   describe('Actions Props', () => {
     it('should render actions when provided', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          actions={<button>Action Button</button>}
-        />
-      );
+      setup({ actions: <button>Action Button</button> });
       expect(screen.getByText('Action Button')).toBeInTheDocument();
-    });
-
-    it('should render dialog actions element when actions provided', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          actions={<button>Test Action</button>}
-        />
-      );
       expect(screen.getByTestId('dialog-actions')).toBeInTheDocument();
     });
 
     it('should not render dialog actions element when no actions provided', () => {
-      render(<RdsDialog {...defaultProps} />);
+      setup();
       expect(screen.queryByText('Test Action')).not.toBeInTheDocument();
     });
 
     it('should render multiple action buttons', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          actions={
-            <>
-              <button>Cancel</button>
-              <button>Save</button>
-            </>
-          }
-        />
-      );
+      setup({
+        actions: (
+          <>
+            <button>Cancel</button>
+            <button>Save</button>
+          </>
+        ),
+      });
       expect(screen.getByText('Cancel')).toBeInTheDocument();
       expect(screen.getByText('Save')).toBeInTheDocument();
     });
@@ -308,199 +204,86 @@ describe('RdsDialog', () => {
 
   describe('Primary and Secondary Actions (Standard Variant)', () => {
     it('should render secondary button when showSecondary is true', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          showSecondary={true}
-          onClose={jest.fn()}
-        />
-      );
+      setup({ variant: 'standard', showSecondary: true, onClose: jest.fn() });
       expect(screen.getByText('Cancel')).toBeInTheDocument();
     });
 
     it('should render primary button when showPrimary is true', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          showPrimary={true}
-        />
-      );
+      setup({ variant: 'standard', showPrimary: true });
       expect(screen.getByText('Okay')).toBeInTheDocument();
     });
 
     it('should render both primary and secondary buttons', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          showPrimary={true}
-          showSecondary={true}
-          onClose={jest.fn()}
-        />
-      );
+      setup({ variant: 'standard', showPrimary: true, showSecondary: true, onClose: jest.fn() });
       expect(screen.getByText('Cancel')).toBeInTheDocument();
       expect(screen.getByText('Okay')).toBeInTheDocument();
     });
 
-    it('should call onClose when secondary button is clicked', () => {
+    it.each([
+      ['secondary', 'showSecondary', 'Cancel'],
+      ['primary', 'showPrimary', 'Okay'],
+    ])('should call onClose when %s button is clicked', (_n, prop, text) => {
       const mockOnClose = jest.fn();
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          showSecondary={true}
-          onClose={mockOnClose}
-        />
-      );
-      fireEvent.click(screen.getByText('Cancel'));
-      expect(mockOnClose).toHaveBeenCalledTimes(1);
-    });
-
-    it('should call onClose when primary button is clicked', () => {
-      const mockOnClose = jest.fn();
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          showPrimary={true}
-          onClose={mockOnClose}
-        />
-      );
-      fireEvent.click(screen.getByText('Okay'));
+      setup({ variant: 'standard', [prop]: true, onClose: mockOnClose });
+      fireEvent.click(screen.getByText(text));
       expect(mockOnClose).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('Event Handlers', () => {
-    it('should call onClose when provided', () => {
-      const mockOnClose = jest.fn();
-      render(
-        <RdsDialog
-          {...defaultProps}
-          onClose={mockOnClose}
-          showDissmiss={true}
-        />
-      );
-      fireEvent.click(screen.getByTestId('icon-button-close'));
-      expect(mockOnClose).toHaveBeenCalled();
-    });
-
     it('should handle undefined onClose gracefully', () => {
-      render(
-        <RdsDialog
-          open={true}
-          showDissmiss={true}
-        />
-      );
-      expect(screen.getByTestId('dialog-root')).toBeInTheDocument();
+      render(<RdsDialog open={true} showDissmiss={true} />);
+      expect(root()).toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
-    it('should have role="dialog"', () => {
-      render(<RdsDialog {...defaultProps} />);
-      expect(screen.getByRole('dialog')).toBeInTheDocument();
-  
-    });
-
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsDialog open={true} title="Test Dialog" onClose={jest.fn()} />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      expect(await axe(container)).toHaveNoViolations();
     });
 
     it('should have proper aria-label on close button', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          showDissmiss={true}
-        />
-      );
+      setup({ showDissmiss: true });
       expect(screen.getByLabelText('close')).toBeInTheDocument();
     });
 
     it('should have role="dialog" for standard variant', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          title="Test"
-        />
-      );
+      setup({ variant: 'standard', title: 'Test' });
       expect(screen.getByRole('dialog')).toBeInTheDocument();
-    });
-
-    it('should have proper title structure for accessibility', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          title="Accessible Title"
-          showTitle={true}
-        />
-      );
-      expect(screen.getByText('Accessible Title')).toBeInTheDocument();
     });
   });
 
   describe('CSS Classes', () => {
-    it('should apply rds-dialog class to dialog paper in standard variant', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          title="Test"
-        />
-      );
-      expect(screen.getByTestId('dialog-root')).toBeInTheDocument();
-    });
-
     it('should render dialog with correct structure', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          title="Test Title"
-          variant="standard"
-        />
-      );
-      expect(screen.getByTestId('dialog-title')).toBeInTheDocument();
+      setup({ title: 'Test Title', variant: 'standard' });
+      expect(root()).toBeInTheDocument();
+      expect(dialogTitle()).toBeInTheDocument();
       expect(screen.getByTestId('dialog-content')).toBeInTheDocument();
     });
   });
 
   describe('Props Combination Tests', () => {
     it('should render with title, content, and close button', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          title="Complex Dialog"
-          showDissmiss={true}
-          showTitle={true}
-        >
-          <p>Dialog Content</p>
-        </RdsDialog>
-      );
+      setup({ title: 'Complex Dialog', showDissmiss: true, showTitle: true }, <p>Dialog Content</p>);
       expect(screen.getByText('Complex Dialog')).toBeInTheDocument();
       expect(screen.getByText('Dialog Content')).toBeInTheDocument();
       expect(screen.getByTestId('icon-button-close')).toBeInTheDocument();
     });
 
     it('should render standard variant with all features', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="standard"
-          title="Full Featured"
-          showDissmiss={true}
-          showPrimary={true}
-          showSecondary={true}
-          showTitle={true}
-          size="large"
-          onClose={jest.fn()}
-        >
-          <p>Content</p>
-        </RdsDialog>
+      setup(
+        {
+          variant: 'standard',
+          title: 'Full Featured',
+          showDissmiss: true,
+          showPrimary: true,
+          showSecondary: true,
+          showTitle: true,
+          size: 'large',
+          onClose: jest.fn(),
+        },
+        <p>Content</p>
       );
       expect(screen.getByText('Full Featured')).toBeInTheDocument();
       expect(screen.getByText('Content')).toBeInTheDocument();
@@ -510,16 +293,9 @@ describe('RdsDialog', () => {
     });
 
     it('should render default variant with custom actions', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          variant="default"
-          title="With Actions"
-          showTitle={true}
-          actions={<button>Custom Action</button>}
-        >
-          <p>Content</p>
-        </RdsDialog>
+      setup(
+        { variant: 'default', title: 'With Actions', showTitle: true, actions: <button>Custom Action</button> },
+        <p>Content</p>
       );
       expect(screen.getByText('With Actions')).toBeInTheDocument();
       expect(screen.getByText('Custom Action')).toBeInTheDocument();
@@ -529,43 +305,22 @@ describe('RdsDialog', () => {
 
   describe('Edge Cases', () => {
     it('should handle empty title', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          title=""
-          showTitle={true}
-        />
-      );
-      expect(screen.getByTestId('dialog-title')).toBeInTheDocument();
-    });
-
-    it('should handle undefined children', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          title="Test"
-        />
-      );
-      expect(screen.getByTestId('dialog-root')).toBeInTheDocument();
+      setup({ title: '', showTitle: true });
+      expect(dialogTitle()).toBeInTheDocument();
     });
 
     it('should handle undefined title', () => {
-      render(
-        <RdsDialog
-          {...defaultProps}
-          showTitle={true}
-        />
-      );
-      expect(screen.getByTestId('dialog-title')).toBeInTheDocument();
+      setup({ showTitle: true });
+      expect(dialogTitle()).toBeInTheDocument();
+    });
+
+    it('should handle undefined children', () => {
+      setup({ title: 'Test' });
+      expect(root()).toBeInTheDocument();
     });
 
     it('should not render dialog when open is not true', () => {
-      render(
-        <RdsDialog
-          open={false}
-          title="Not Visible"
-        />
-      );
+      render(<RdsDialog open={false} title="Not Visible" />);
       expect(screen.queryByText('Not Visible')).not.toBeInTheDocument();
     });
   });
@@ -658,12 +413,7 @@ describe('RdsDialog audit fixes', () => {
 
     it('supports function-form paper slotProps (G1-235)', () => {
       const { RealDialog } = isolated;
-      render(
-        <RealDialog
-          {...standardProps}
-          slotProps={{ paper: () => ({ className: 'fn-paper' }) }}
-        />
-      );
+      render(<RealDialog {...standardProps} slotProps={{ paper: () => ({ className: 'fn-paper' }) }} />);
       expect(document.querySelector('.MuiDialog-paper')).toHaveClass('rds-dialog', 'rds-dialog__paper', 'fn-paper');
     });
 
@@ -730,17 +480,7 @@ describe('RdsDialog additive renames', () => {
   });
 
   it('supports lowerCamelCase button props', () => {
-    render(
-      <RdsDialog
-        open
-        variant="confirm"
-        showDissmiss={false}
-        showPrimary
-        showSecondary
-      >
-        c
-      </RdsDialog>,
-    );
+    render(<RdsDialog open variant="confirm" showDissmiss={false} showPrimary showSecondary>c</RdsDialog>);
     expect(screen.queryByRole('button', { name: 'close' })).not.toBeInTheDocument();
     expect(screen.getByText('Okay')).toBeInTheDocument();
     expect(screen.getByText('Cancel')).toBeInTheDocument();

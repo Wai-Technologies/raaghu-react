@@ -4,10 +4,8 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsCompAudioPlayer from './rds-comp-audio-player';
 
-// Mock SCSS
 jest.mock('./rds-comp-audio-player.scss', () => ({}));
 
-// Mock Material UI Icons
 jest.mock('@mui/icons-material/Forward10Outlined', () => {
   return function MockForward10Icon() {
     return <span>Forward10</span>;
@@ -50,7 +48,6 @@ jest.mock('@mui/icons-material/SettingsSuggestSharp', () => {
   };
 });
 
-// Mock RdsSlider
 jest.mock('../../raaghu-elements/rds-slider/rds-slider', () => {
   return function MockRdsSlider(props: any) {
     return (
@@ -68,7 +65,6 @@ jest.mock('../../raaghu-elements/rds-slider/rds-slider', () => {
   };
 });
 
-// Mock RdsButton
 jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   return function MockRdsButton(props: any) {
     return (
@@ -79,7 +75,6 @@ jest.mock('../../raaghu-elements/rds-button/rds-button', () => {
   };
 });
 
-// Mock RdsCompAiFabMenu
 const mockFabMenuProps: any[] = [];
 jest.mock('../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
   return function MockRdsCompAiFabMenu(props: any) {
@@ -92,10 +87,8 @@ jest.mock('../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', (
   };
 });
 
-// Mock deprecation warnings
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-// Mock audio player subcomponents
 jest.mock('./VolumeSliderComponent', () => ({
   VolumeSliderComponent: ({ showVolumeSlider, volumeSliderRef, volumeLevel, handleVolumeChange }: any) => (
     <div ref={volumeSliderRef} data-testid="volume-slider" style={{ display: showVolumeSlider ? 'block' : 'none' }}>
@@ -126,7 +119,6 @@ jest.mock('./AudioEditionControls', () => ({
   },
 }));
 
-// Mock registerMaterialIcons function
 jest.mock('../rds-comp-ai-icon/rds-comp-ai-icon', () => ({
   registerMaterialIcons: jest.fn(),
 }));
@@ -140,10 +132,14 @@ const defaultProps = {
   showMoreOptions: true,
 };
 
+const setup = (p: Record<string, any> = {}) => render(<RdsCompAudioPlayer {...defaultProps} {...p} />);
+const playerSetup = (p: Record<string, any> = {}) => setup({ type: 'Audio Player', ...p });
+const q = (c: HTMLElement, cls: string) => c.querySelector(`.rds-comp-audio-player__${cls}`);
+
 describe('RdsCompAudioPlayer', () => {
   describe('Basic Rendering', () => {
     it('renders the component without crashing', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} />);
+      const { container } = setup();
       expect(container).toBeInTheDocument();
     });
 
@@ -152,7 +148,7 @@ describe('RdsCompAudioPlayer', () => {
     });
 
     it('renders audio element with src', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} />);
+      const { container } = setup();
       const audio = container.querySelector('audio');
       expect(audio).toBeInTheDocument();
       expect(audio).toHaveAttribute('src', defaultProps.src);
@@ -161,246 +157,155 @@ describe('RdsCompAudioPlayer', () => {
 
   describe('Audio Player Type', () => {
     it('renders Audio Player layout', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const player = container.querySelector('.rds-comp-audio-player__player');
+      const { container } = playerSetup();
+      const player = q(container, 'player');
       expect(player).toBeInTheDocument();
       expect(player).toHaveClass('rds-comp-audio-player__player--image-layout');
     });
 
-    it('renders main controls in Audio Player', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const mainControls = container.querySelector('.rds-comp-audio-player__main-controls');
-      expect(mainControls).toBeInTheDocument();
-    });
-
-    it('renders play button', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const playBtn = container.querySelector('.rds-comp-audio-player__play-btn');
-      expect(playBtn).toBeInTheDocument();
-    });
-
-    it('renders skip backward button', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const skipBackwardBtn = container.querySelector('.rds-comp-audio-player__control-btn');
-      expect(skipBackwardBtn).toBeInTheDocument();
-    });
-
-    it('renders skip forward button', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const buttons = container.querySelectorAll('.rds-comp-audio-player__control-btn');
-      expect(buttons.length).toBeGreaterThanOrEqual(2);
+    it('renders main controls, play and skip buttons in Audio Player', () => {
+      const { container } = playerSetup();
+      expect(q(container, 'main-controls')).toBeInTheDocument();
+      expect(q(container, 'play-btn')).toBeInTheDocument();
+      expect(q(container, 'control-btn')).toBeInTheDocument();
+      expect(container.querySelectorAll('.rds-comp-audio-player__control-btn').length).toBeGreaterThanOrEqual(2);
     });
 
     it('renders audio slider', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const slider = screen.getByTestId('rds-slider');
-      expect(slider).toBeInTheDocument();
+      playerSetup();
+      expect(screen.getByTestId('rds-slider')).toBeInTheDocument();
     });
 
-    it('renders current time display', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const currentTime = container.querySelector('.rds-comp-audio-player__current-time');
+    it('renders current and total time display', () => {
+      const { container } = playerSetup();
+      const currentTime = q(container, 'current-time');
       expect(currentTime).toBeInTheDocument();
       expect(currentTime).toHaveTextContent('0:00');
-    });
-
-    it('renders total time display', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const totalTime = container.querySelector('.rds-comp-audio-player__total-time');
-      expect(totalTime).toBeInTheDocument();
+      expect(q(container, 'total-time')).toBeInTheDocument();
     });
   });
 
   describe('Collapsed Type', () => {
     it('renders Collapsed layout', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Collapsed" />);
-      const collapsed = container.querySelector('.rds-comp-audio-player__collapsed-container');
-      expect(collapsed).toBeInTheDocument();
+      const { container } = setup({ type: 'Collapsed' });
+      expect(q(container, 'collapsed-container')).toBeInTheDocument();
     });
 
     it('renders icon circle in collapsed view', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Collapsed" />);
-      const iconCircle = container.querySelector('.rds-comp-audio-player__icon-circle--purple');
-      expect(iconCircle).toBeInTheDocument();
+      const { container } = setup({ type: 'Collapsed' });
+      expect(q(container, 'icon-circle--purple')).toBeInTheDocument();
     });
 
     it('does not render main controls in collapsed view', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Collapsed" />);
-      const mainControls = container.querySelector('.rds-comp-audio-player__main-controls');
-      expect(mainControls).not.toBeInTheDocument();
+      const { container } = setup({ type: 'Collapsed' });
+      expect(q(container, 'main-controls')).not.toBeInTheDocument();
     });
   });
 
   describe('Audio Edition Type', () => {
     it('renders Audio Edition layout', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const editionContainer = container.querySelector('.rds-comp-audio-player__edition-container');
-      expect(editionContainer).toBeInTheDocument();
+      const { container } = setup({ type: 'Audio Edition' });
+      expect(q(container, 'edition-container')).toBeInTheDocument();
     });
 
     it('renders Cancel and Save buttons in Audio Edition', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const cancelBtn = screen.getByTestId('rds-button-Cancel');
-      const saveBtn = screen.getByTestId('rds-button-Save');
-      expect(cancelBtn).toBeInTheDocument();
-      expect(saveBtn).toBeInTheDocument();
+      setup({ type: 'Audio Edition' });
+      expect(screen.getByTestId('rds-button-Cancel')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-button-Save')).toBeInTheDocument();
     });
 
-    it('renders waveform in Audio Edition', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const waveform = container.querySelector('.rds-comp-audio-player__edition-waveform');
-      expect(waveform).toBeInTheDocument();
-    });
-
-    it('renders time marks in Audio Edition', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const timeMarks = container.querySelectorAll('.rds-comp-audio-player__edition-timemark');
-      expect(timeMarks.length).toBeGreaterThan(0);
-    });
-
-    it('renders waveform SVG', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const svg = container.querySelector('svg');
-      expect(svg).toBeInTheDocument();
+    it('renders waveform, time marks and SVG in Audio Edition', () => {
+      const { container } = setup({ type: 'Audio Edition' });
+      expect(q(container, 'edition-waveform')).toBeInTheDocument();
+      expect(container.querySelectorAll('.rds-comp-audio-player__edition-timemark').length).toBeGreaterThan(0);
+      expect(container.querySelector('svg')).toBeInTheDocument();
     });
 
     it('renders audio edition controls', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const controls = screen.getByTestId('audio-edition-controls');
-      expect(controls).toBeInTheDocument();
+      setup({ type: 'Audio Edition' });
+      expect(screen.getByTestId('audio-edition-controls')).toBeInTheDocument();
     });
 
     it('renders left and right trim handles', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const trimBars = container.querySelectorAll('.rds-comp-audio-player__waveform-blue-bar');
-      expect(trimBars.length).toBeGreaterThanOrEqual(2);
+      const { container } = setup({ type: 'Audio Edition' });
+      expect(container.querySelectorAll('.rds-comp-audio-player__waveform-blue-bar').length).toBeGreaterThanOrEqual(2);
     });
   });
 
   describe('Settings Button', () => {
     it('renders settings button when showSettings is true', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showSettings={true} />
-      );
-      const settingsBtn = container.querySelector('.rds-comp-audio-player__settings-button');
-      expect(settingsBtn).toBeInTheDocument();
+      const { container } = playerSetup({ showSettings: true });
+      expect(q(container, 'settings-button')).toBeInTheDocument();
     });
 
     it('does not render settings button when showSettings is false', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showSettings={false} />
-      );
-      const settingsBtn = container.querySelector('.rds-comp-audio-player__settings-button');
-      expect(settingsBtn).not.toBeInTheDocument();
+      const { container } = playerSetup({ showSettings: false });
+      expect(q(container, 'settings-button')).not.toBeInTheDocument();
     });
 
     it('toggles settings modal on click', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showSettings={true} />
-      );
-      const settingsBtn = container.querySelector('.rds-comp-audio-player__settings-button') as HTMLElement;
+      const { container } = playerSetup({ showSettings: true });
       const settingsModal = screen.getByTestId('settings-modal');
-      
       expect(settingsModal).toHaveStyle({ display: 'none' });
-      fireEvent.click(settingsBtn);
+      fireEvent.click(q(container, 'settings-button') as HTMLElement);
       expect(settingsModal).toHaveStyle({ display: 'block' });
     });
   });
 
   describe('Transcript Button', () => {
     it('renders transcript button when showTranscript is true', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showTranscript={true} />
-      );
-      const transcriptBtn = container.querySelector('button[class*="transcript"]');
-      // The transcript button is rendered but doesn't have a specific class
-      expect(container.querySelector('.rds-comp-audio-player__extra-controls')).toBeInTheDocument();
+      const { container } = playerSetup({ showTranscript: true });
+      expect(q(container, 'extra-controls')).toBeInTheDocument();
     });
 
     it('does not render transcript button when showTranscript is false', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showTranscript={false} />
-      );
-      const volumeSlider = screen.getByTestId('volume-slider');
-      // Volume slider shouldn't be visible if transcript is not shown
-      expect(volumeSlider).toHaveStyle({ display: 'none' });
+      playerSetup({ showTranscript: false });
+      expect(screen.getByTestId('volume-slider')).toHaveStyle({ display: 'none' });
     });
   });
 
-  describe('Export Menu', () => {
+  describe('Export and More Options Menu', () => {
     it('renders export menu when showExport is true', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" showExport={true} />);
-      const fabMenus = screen.getAllByTestId('rds-fab-menu');
-      expect(fabMenus.length).toBeGreaterThanOrEqual(1);
+      playerSetup({ showExport: true });
+      expect(screen.getAllByTestId('rds-fab-menu').length).toBeGreaterThanOrEqual(1);
     });
 
-    it('does not render export menu when showExport is false', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showExport={false} showMoreOptions={false} />
-      );
-      const fabMenus = container.querySelectorAll('[data-testid="rds-fab-menu"]');
-      expect(fabMenus.length).toBe(0);
-    });
-  });
-
-  describe('More Options Menu', () => {
     it('renders more options menu when showMoreOptions is true', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" showMoreOptions={true} />);
-      const fabMenus = screen.getAllByTestId('rds-fab-menu');
-      expect(fabMenus.length).toBeGreaterThanOrEqual(1);
+      playerSetup({ showMoreOptions: true });
+      expect(screen.getAllByTestId('rds-fab-menu').length).toBeGreaterThanOrEqual(1);
     });
 
-    it('does not render more options menu when showMoreOptions is false', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showMoreOptions={false} showExport={false} />
-      );
-      const fabMenus = container.querySelectorAll('[data-testid="rds-fab-menu"]');
-      expect(fabMenus.length).toBe(0);
+    it.each([
+      ['showExport', { showExport: false, showMoreOptions: false }],
+      ['showMoreOptions', { showMoreOptions: false, showExport: false }],
+    ])('does not render menus when %s is false', (_n, props) => {
+      const { container } = playerSetup(props);
+      expect(container.querySelectorAll('[data-testid="rds-fab-menu"]').length).toBe(0);
     });
   });
 
   describe('Icon Circle', () => {
-    it('renders purple icon circle in Audio Player', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      const iconCircle = container.querySelector('.rds-comp-audio-player__icon-circle--purple');
-      expect(iconCircle).toBeInTheDocument();
-    });
-
-    it('renders settings icon in extra controls', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      const extraControls = container.querySelector('.rds-comp-audio-player__extra-controls');
-      expect(extraControls).toBeInTheDocument();
+    it('renders purple icon circle and extra controls in Audio Player', () => {
+      const { container } = playerSetup();
+      expect(q(container, 'icon-circle--purple')).toBeInTheDocument();
+      expect(q(container, 'extra-controls')).toBeInTheDocument();
     });
   });
 
   describe('Volume Control', () => {
-    it('renders volume slider component', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
+    it('renders volume slider component hidden initially', () => {
+      playerSetup({ showTranscript: true });
       const volumeSlider = screen.getByTestId('volume-slider');
       expect(volumeSlider).toBeInTheDocument();
-    });
-
-    it('volume slider is hidden initially', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" showTranscript={true} />);
-      const volumeSlider = screen.getByTestId('volume-slider');
       expect(volumeSlider).toHaveStyle({ display: 'none' });
     });
   });
 
   describe('Settings Modal', () => {
-    it('renders settings modal component', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" showSettings={true} />);
+    it('renders settings modal component hidden initially', () => {
+      playerSetup({ showSettings: true });
       const settingsModal = screen.getByTestId('settings-modal');
       expect(settingsModal).toBeInTheDocument();
-    });
-
-    it('settings modal is hidden initially', () => {
-      render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" showSettings={true} />);
-      const settingsModal = screen.getByTestId('settings-modal');
       expect(settingsModal).toHaveStyle({ display: 'none' });
     });
   });
@@ -421,118 +326,52 @@ describe('RdsCompAudioPlayer', () => {
     });
 
     it('renders with all features enabled', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} />);
-      expect(container.querySelector('.rds-comp-audio-player__settings-button')).toBeInTheDocument();
+      const { container } = setup();
+      expect(q(container, 'settings-button')).toBeInTheDocument();
     });
 
     it('renders with different audio source', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer
-          {...defaultProps}
-          src="https://different-source.com/audio.wav"
-        />
-      );
-      const audio = container.querySelector('audio');
-      expect(audio).toHaveAttribute('src', 'https://different-source.com/audio.wav');
+      const { container } = setup({ src: 'https://different-source.com/audio.wav' });
+      expect(container.querySelector('audio')).toHaveAttribute('src', 'https://different-source.com/audio.wav');
     });
   });
 
   describe('Mobile Responsiveness', () => {
     it('responds to window resize', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />);
-      const initialTimeMarks = container.querySelectorAll('.rds-comp-audio-player__edition-timemark').length;
-      
-      // Simulate window resize to mobile
+      const { container } = setup({ type: 'Audio Edition' });
       global.innerWidth = 500;
       fireEvent.resize(window);
-      
-      // Component should still render
-      expect(container.querySelector('.rds-comp-audio-player__edition-container')).toBeInTheDocument();
+      expect(q(container, 'edition-container')).toBeInTheDocument();
     });
   });
 
   describe('Audio Element Properties', () => {
-    it('audio element has correct src attribute', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} />);
-      const audio = container.querySelector('audio');
-      expect(audio).toHaveAttribute('src', defaultProps.src);
-    });
-
     it('audio element is rendered in main controls', () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" />);
-      const mainControls = container.querySelector('.rds-comp-audio-player__main-controls');
-      const audio = mainControls?.querySelector('audio');
-      expect(audio).toBeInTheDocument();
-    });
-  });
-
-  describe('Extra Controls', () => {
-    it('renders extra controls section', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      const extraControls = container.querySelector('.rds-comp-audio-player__extra-controls');
-      expect(extraControls).toBeInTheDocument();
-    });
-
-    it('renders correct number of circle icons', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      const extraControls = container.querySelector('.rds-comp-audio-player__extra-controls');
-      expect(extraControls).toBeInTheDocument();
-    });
-  });
-
-  describe('Time Formatting', () => {
-    it('displays formatted time correctly', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      const currentTime = container.querySelector('.rds-comp-audio-player__current-time');
-      expect(currentTime).toHaveTextContent('0:00');
+      const { container } = playerSetup();
+      expect(q(container, 'main-controls')?.querySelector('audio')).toBeInTheDocument();
     });
   });
 
   describe('Edge Cases', () => {
     it('handles empty src gracefully', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer
-          {...defaultProps}
-          src=""
-        />
-      );
+      const { container } = setup({ src: '' });
       expect(container).toBeInTheDocument();
     });
 
     it('handles very long audio source URL', () => {
       const longUrl = 'https://example.com/' + 'a'.repeat(500) + '/audio.mp3';
-      const { container } = render(
-        <RdsCompAudioPlayer
-          {...defaultProps}
-          src={longUrl}
-        />
-      );
-      const audio = container.querySelector('audio');
-      expect(audio).toHaveAttribute('src', longUrl);
+      const { container } = setup({ src: longUrl });
+      expect(container.querySelector('audio')).toHaveAttribute('src', longUrl);
     });
 
-    it('renders all three types without errors', () => {
-      const types: Array<'Collapsed' | 'Audio Player' | 'Audio Edition'> = ['Collapsed', 'Audio Player', 'Audio Edition'];
-      
-      types.forEach(type => {
-        const { container, unmount } = render(
-          <RdsCompAudioPlayer {...defaultProps} type={type} />
-        );
-        expect(container).toBeInTheDocument();
-        unmount();
-      });
+    it.each(['Collapsed', 'Audio Player', 'Audio Edition'])('renders %s type without errors', (type) => {
+      const { container } = setup({ type });
+      expect(container).toBeInTheDocument();
     });
 
     it('handles toggling all boolean props', () => {
-      const { rerender } = render(<RdsCompAudioPlayer {...defaultProps} />);
+      const { rerender } = setup();
       expect(screen.getByTestId('settings-modal')).toBeInTheDocument();
-      
       rerender(
         <RdsCompAudioPlayer
           {...defaultProps}
@@ -542,113 +381,54 @@ describe('RdsCompAudioPlayer', () => {
           showMoreOptions={false}
         />
       );
-      // Component should still render without errors
       expect(screen.getByTestId('volume-slider')).toBeInTheDocument();
     });
   });
 
   describe('Re-render Behavior', () => {
     it('updates src on prop change', () => {
-      const { rerender, container } = render(
-        <RdsCompAudioPlayer {...defaultProps} src="https://first.com/audio.mp3" />
-      );
-      let audio = container.querySelector('audio');
-      expect(audio).toHaveAttribute('src', 'https://first.com/audio.mp3');
-
-      rerender(
-        <RdsCompAudioPlayer {...defaultProps} src="https://second.com/audio.mp3" />
-      );
-      audio = container.querySelector('audio');
-      expect(audio).toHaveAttribute('src', 'https://second.com/audio.mp3');
+      const { rerender, container } = setup({ src: 'https://first.com/audio.mp3' });
+      expect(container.querySelector('audio')).toHaveAttribute('src', 'https://first.com/audio.mp3');
+      rerender(<RdsCompAudioPlayer {...defaultProps} src="https://second.com/audio.mp3" />);
+      expect(container.querySelector('audio')).toHaveAttribute('src', 'https://second.com/audio.mp3');
     });
 
     it('updates type on prop change', () => {
-      const { rerender, container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      expect(container.querySelector('.rds-comp-audio-player__player')).toBeInTheDocument();
-
-      rerender(
-        <RdsCompAudioPlayer {...defaultProps} type="Collapsed" />
-      );
-      expect(container.querySelector('.rds-comp-audio-player__collapsed-container')).toBeInTheDocument();
+      const { rerender, container } = playerSetup();
+      expect(q(container, 'player')).toBeInTheDocument();
+      rerender(<RdsCompAudioPlayer {...defaultProps} type="Collapsed" />);
+      expect(q(container, 'collapsed-container')).toBeInTheDocument();
     });
 
     it('shows/hides settings button on prop change', () => {
-      const { rerender, container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showSettings={true} />
-      );
-      expect(container.querySelector('.rds-comp-audio-player__settings-button')).toBeInTheDocument();
-
-      rerender(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" showSettings={false} />
-      );
-      expect(container.querySelector('.rds-comp-audio-player__settings-button')).not.toBeInTheDocument();
+      const { rerender, container } = playerSetup({ showSettings: true });
+      expect(q(container, 'settings-button')).toBeInTheDocument();
+      rerender(<RdsCompAudioPlayer {...defaultProps} type="Audio Player" showSettings={false} />);
+      expect(q(container, 'settings-button')).not.toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
-    it('waveform trim handles have aria attributes', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />
-      );
-      const trimBars = container.querySelectorAll('.rds-comp-audio-player__waveform-blue-bar');
-      trimBars.forEach(bar => {
+    it('waveform trim handles have aria attributes and are keyboard accessible', () => {
+      const { container } = setup({ type: 'Audio Edition' });
+      container.querySelectorAll('.rds-comp-audio-player__waveform-blue-bar').forEach((bar) => {
         expect(bar).toHaveAttribute('role', 'slider');
         expect(bar).toHaveAttribute('aria-label');
-      });
-    });
-    
-    it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsCompAudioPlayer {...defaultProps} />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
-    }, 15000);
-
-    it('trim handles are keyboard accessible', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />
-      );
-      const trimBars = container.querySelectorAll('.rds-comp-audio-player__waveform-blue-bar');
-      trimBars.forEach(bar => {
         expect(bar).toHaveAttribute('tabIndex', '0');
       });
     });
 
-    it('buttons are keyboard accessible', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      const buttons = container.querySelectorAll('button');
-      buttons.forEach(btn => {
-        expect(btn).toBeInTheDocument();
-      });
-    });
+    it('has no axe accessibility violations', async () => {
+      const { container } = setup();
+      expect(await axe(container)).toHaveNoViolations();
+    }, 15000);
   });
 
   describe('CSS Classes', () => {
-    it('applies correct CSS classes in Audio Player', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      expect(container.querySelector('.rds-comp-audio-player__player')).toHaveClass('rds-comp-audio-player__player--image-layout');
-      expect(container.querySelector('.rds-comp-audio-player__main-controls')).toBeInTheDocument();
-    });
-
-    it('applies muted class to current time', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Player" />
-      );
-      const currentTime = container.querySelector('.rds-comp-audio-player__current-time');
-      expect(currentTime).toBeInTheDocument();
-    });
-
     it('applies correct classes to waveform elements', () => {
-      const { container } = render(
-        <RdsCompAudioPlayer {...defaultProps} type="Audio Edition" />
-      );
-      expect(container.querySelector('.rds-comp-audio-player__edition-waveform')).toBeInTheDocument();
-      expect(container.querySelector('.rds-comp-audio-player__waveform-background')).toBeInTheDocument();
+      const { container } = setup({ type: 'Audio Edition' });
+      expect(q(container, 'edition-waveform')).toBeInTheDocument();
+      expect(q(container, 'waveform-background')).toBeInTheDocument();
     });
   });
 });

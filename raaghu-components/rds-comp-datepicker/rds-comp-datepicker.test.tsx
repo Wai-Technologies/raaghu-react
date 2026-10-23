@@ -113,383 +113,153 @@ describe('RdsDatepicker', () => {
   const defaultProps = {
     isDropdownOpen: false,
   };
+  const setup = (p: Record<string, any> = {}) => render(<RdsDatepicker {...defaultProps} {...p} />);
+  const expectTypeView = () => expect(screen.getByTestId('type-view')).toBeInTheDocument();
 
   describe('Basic Rendering', () => {
     it('should render component', () => {
-      render(<RdsDatepicker {...defaultProps} />);
-      const container = screen.getByTestId('type-view');
-      expect(container).toBeInTheDocument();
-    });
-
-    it('applies the selected appearance when selected is true', () => {
-      const { container } = render(<RdsDatepicker {...defaultProps} selected />);
-      expect(container.querySelector('.rds-datepicker')).toHaveClass('rds-datepicker--selected');
+      setup();
+      expectTypeView();
     });
 
     it('should render with title when showTitle is true', () => {
-      render(<RdsDatepicker {...defaultProps} showTitle={true} titleText="Select Date" />);
-      const label = screen.getByText('Select Date');
-      expect(label).toBeInTheDocument();
+      setup({ showTitle: true, titleText: 'Select Date' });
+      expect(screen.getByText('Select Date')).toBeInTheDocument();
     });
 
     it('should not render title when showTitle is false', () => {
-      render(<RdsDatepicker {...defaultProps} showTitle={false} titleText="Select Date" />);
-      const label = screen.queryByText('Select Date');
-      expect(label).not.toBeInTheDocument();
+      setup({ showTitle: false, titleText: 'Select Date' });
+      expect(screen.queryByText('Select Date')).not.toBeInTheDocument();
     });
 
     it('should render mandatory indicator when isMandatory is true', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          showTitle={true}
-          titleText="Date"
-          isMandatory={true}
-        />
-      );
-      const indicator = screen.getByText('*');
-      expect(indicator).toBeInTheDocument();
+      setup({ showTitle: true, titleText: 'Date', isMandatory: true });
+      expect(screen.getByText('*')).toBeInTheDocument();
     });
 
     it('should not render mandatory indicator when isMandatory is false', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          showTitle={true}
-          titleText="Date"
-          isMandatory={false}
-        />
-      );
-      const indicator = screen.queryByText('*');
-      expect(indicator).not.toBeInTheDocument();
+      setup({ showTitle: true, titleText: 'Date', isMandatory: false });
+      expect(screen.queryByText('*')).not.toBeInTheDocument();
     });
   });
 
   describe('State Management', () => {
+
     it('should render type view when type prop is provided', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          type="range"
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+      setup({ type: 'range' });
+      expectTypeView();
     });
 
-    it('should initialize with default date when isDefaultDate is true', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          isDefaultDate={true}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should initialize without date when isDefaultDate is false', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          isDefaultDate={false}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+    it.each([true, false])('should initialize with isDefaultDate=%s', (isDefaultDate) => {
+      setup({ isDefaultDate });
+      expectTypeView();
     });
   });
 
   describe('Date Callbacks', () => {
-    it('should call selectedDate callback when date is selected', () => {
+    it.each([
+      ['selectedDate', {}],
+      ['onDatePicker', {}],
+      ['customDate', { type: 'range' }],
+    ])('should accept %s callback', (prop, extra) => {
       const mockCallback = jest.fn();
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          selectedDate={mockCallback}
-        />
-      );
+      setup({ [prop]: mockCallback, ...extra });
       expect(mockCallback).toBeDefined();
     });
+  });
 
-    it('should call onDatePicker callback when date is picked', () => {
-      const mockCallback = jest.fn();
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          onDatePicker={mockCallback}
-        />
-      );
-      expect(mockCallback).toBeDefined();
+  describe('Selected and label', () => {
+    it('applies the selected appearance when selected is true', () => {
+      const { container } = setup({ selected: true });
+      expect(container.querySelector('.rds-datepicker')).toHaveClass('rds-datepicker--selected');
     });
 
-    it('should call customDate callback for range selections', () => {
-      const mockCallback = jest.fn();
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          customDate={mockCallback}
-          type="range"
-        />
-      );
-      expect(mockCallback).toBeDefined();
+    it('supports datePickerLabel', () => {
+      setup({ datePickerLabel: 'Pick Date', showTitle: true });
+      expect(screen.getByText('Pick Date')).toBeInTheDocument();
     });
   });
 
   describe('Disabled State', () => {
-    it('should render as disabled when isDisabled is true', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          isDisabled={true}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should be interactive when isDisabled is false', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          isDisabled={false}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+    it.each([true, false])('should render when isDisabled is %s', (isDisabled) => {
+      setup({ isDisabled });
+      expectTypeView();
     });
   });
 
   describe('Props Handling', () => {
-    it('should accept datePickerStyleType prop', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          datePickerStyleType={DatePickerStyleType.Dropdown}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+    it.each([
+      ['datePickerStyleType', DatePickerStyleType.Dropdown],
+      ['layout', DatePickerLayout.Default],
+      ['placeholderText', 'Select a date'],
+      ['changeIcon', 'dashboard_settings'],
+      ['showClearDate', true],
+    ])('should accept %s prop', (prop, value) => {
+      setup({ [prop]: value });
+      expectTypeView();
     });
 
-    it('should accept layout prop', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          layout={DatePickerLayout.Default}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should accept placeholderText prop', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          placeholderText="Select a date"
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('supports datePickerLabel', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          datePickerLabel="Pick Date"
-          showTitle
-        />
-      );
-      expect(screen.getByText('Pick Date')).toBeInTheDocument();
-    });
-
-    it('should accept changeIcon prop', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          changeIcon="dashboard_settings"
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should accept showClearDate prop', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          showClearDate={true}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
   });
 
   describe('Date Edit', () => {
     it('should set date from dateForEdit prop', () => {
-      const testDate = '2024-12-25';
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          dateForEdit={testDate}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+      setup({ dateForEdit: '2024-12-25' });
+      expectTypeView();
     });
 
     it('should update when dateForEdit prop changes', () => {
-      const { rerender } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          dateForEdit="2024-12-25"
-        />
-      );
-      rerender(
-        <RdsDatepicker
-          {...defaultProps}
-          dateForEdit="2024-12-26"
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+      const { rerender } = setup({ dateForEdit: '2024-12-25' });
+      rerender(<RdsDatepicker {...defaultProps} dateForEdit="2024-12-26" />);
+      expectTypeView();
     });
   });
 
-  describe('Layout Options', () => {
-    it('should render with Default layout', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          layout={DatePickerLayout.Default}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+
+  describe('Layout Options and Style Types', () => {
+    it.each([
+      DatePickerLayout.Default,
+      DatePickerLayout.MonthPicker,
+      DatePickerLayout.YearPicker,
+      DatePickerLayout.MultiMonth,
+    ])('should render with layout %s', (layout) => {
+      setup({ layout });
+      expectTypeView();
     });
 
-    it('should render with Month Picker layout', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          layout={DatePickerLayout.MonthPicker}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should render with Year Picker layout', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          layout={DatePickerLayout.YearPicker}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should render with Multi Month layout', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          layout={DatePickerLayout.MultiMonth}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-  });
-
-  describe('Style Types', () => {
-    it('should render with Dropdown style', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          datePickerStyleType={DatePickerStyleType.Dropdown}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should render with Selector style', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          datePickerStyleType={DatePickerStyleType.Selector}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+    it.each([DatePickerStyleType.Dropdown, DatePickerStyleType.Selector])('should render with style %s', (datePickerStyleType) => {
+      setup({ datePickerStyleType });
+      expectTypeView();
     });
   });
 
   describe('Type Variations', () => {
-    it('should render single date type', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          type="single"
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should render range type', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          type="range"
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
-    });
-
-    it('should render datetime type', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          type="datetime"
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+    it.each(['single', 'range', 'datetime'])('should render %s type', (type) => {
+      setup({ type });
+      expectTypeView();
     });
   });
 
   describe('Label Rendering', () => {
+    const label = (container: HTMLElement) => container.querySelector('.rds-datepicker__label');
+
     it('should apply correct class to label when showTitle is true', () => {
-      const { container } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          showTitle={true}
-          titleText="Date"
-        />
-      );
-      const label = container.querySelector('.rds-datepicker__label');
-      expect(label).not.toHaveClass('rds-datepicker__label--hidden');
+      const { container } = setup({ showTitle: true, titleText: 'Date' });
+      expect(label(container)).not.toHaveClass('rds-datepicker__label--hidden');
     });
 
     it('should apply hidden class to label when showTitle is false', () => {
-      const { container } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          showTitle={false}
-          titleText="Date"
-        />
-      );
-      const label = container.querySelector('.rds-datepicker__label');
-      expect(label).toHaveClass('rds-datepicker__label--hidden');
+      const { container } = setup({ showTitle: false, titleText: 'Date' });
+      expect(label(container)).toHaveClass('rds-datepicker__label--hidden');
     });
 
     it('should have aria-hidden attribute when showTitle is false', () => {
-      const { container } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          showTitle={false}
-          titleText="Date"
-        />
-      );
-      const label = container.querySelector('.rds-datepicker__label');
-      expect(label).toHaveAttribute('aria-hidden', 'true');
+      const { container } = setup({ showTitle: false, titleText: 'Date' });
+      expect(label(container)).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('should not have aria-hidden attribute when showTitle is true', () => {
-      const { container } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          showTitle={true}
-          titleText="Date"
-        />
-      );
-      const label = container.querySelector('.rds-datepicker__label');
-      expect(label).toHaveAttribute('aria-hidden', 'false');
+      const { container } = setup({ showTitle: true, titleText: 'Date' });
+      expect(label(container)).toHaveAttribute('aria-hidden', 'false');
     });
   });
 
@@ -501,24 +271,9 @@ describe('RdsDatepicker', () => {
 
   describe('Multiple Rerenders', () => {
     it('should handle multiple prop changes', () => {
-      const { rerender } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          showTitle={true}
-          isMandatory={true}
-          isDisabled={false}
-        />
-      );
+      const { rerender } = setup({ showTitle: true, isMandatory: true, isDisabled: false });
       expect(screen.getByText('*')).toBeInTheDocument();
-      
-      rerender(
-        <RdsDatepicker
-          {...defaultProps}
-          showTitle={true}
-          isMandatory={false}
-          isDisabled={true}
-        />
-      );
+      rerender(<RdsDatepicker {...defaultProps} showTitle={true} isMandatory={false} isDisabled={true} />);
       expect(screen.queryByText('*')).not.toBeInTheDocument();
     });
   });
@@ -526,38 +281,19 @@ describe('RdsDatepicker', () => {
   describe('Edge Cases', () => {
     it('should handle undefined callbacks gracefully', () => {
       expect(() => {
-        render(
-          <RdsDatepicker
-            {...defaultProps}
-            selectedDate={undefined}
-            onDatePicker={undefined}
-            customDate={undefined}
-          />
-        );
+        setup({ selectedDate: undefined, onDatePicker: undefined, customDate: undefined });
       }).not.toThrow();
     });
 
     it('should handle undefined optional props', () => {
       expect(() => {
-        render(
-          <RdsDatepicker
-            {...defaultProps}
-            titleText={undefined}
-            placeholderText={undefined}
-            datePickerLabel={undefined}
-          />
-        );
+        setup({ titleText: undefined, placeholderText: undefined, datePickerLabel: undefined });
       }).not.toThrow();
     });
 
     it('should handle null dateForEdit', () => {
-      render(
-        <RdsDatepicker
-          {...defaultProps}
-          dateForEdit={undefined}
-        />
-      );
-      expect(screen.getByTestId('type-view')).toBeInTheDocument();
+      setup({ dateForEdit: undefined });
+      expectTypeView();
     });
   });
 
@@ -589,33 +325,16 @@ describe('RdsDatepicker', () => {
 
     it('should maintain state across multiple interactions', () => {
       const mockCallback = jest.fn();
-      const { rerender } = render(
-        <RdsDatepicker
-          {...defaultProps}
-          onDatePicker={mockCallback}
-          showTitle={true}
-          titleText="Date"
-        />
-      );
-      
+      const { rerender } = setup({ onDatePicker: mockCallback, showTitle: true, titleText: 'Date' });
       expect(screen.getByText('Date')).toBeInTheDocument();
-      
-      rerender(
-        <RdsDatepicker
-          {...defaultProps}
-          onDatePicker={mockCallback}
-          showTitle={false}
-          titleText="Date"
-        />
-      );
-      
+      rerender(<RdsDatepicker {...defaultProps} onDatePicker={mockCallback} showTitle={false} titleText="Date" />);
       expect(screen.queryByText('Date')).not.toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsDatepicker {...defaultProps} />);
+      const { container } = setup();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

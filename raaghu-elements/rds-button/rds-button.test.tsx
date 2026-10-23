@@ -26,24 +26,17 @@ describe('RdsButton', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  it('disables button when loading', () => {
-    render(<RdsButton text="Loading" isLoading={true} />);
+  it.each([['isLoading'], ['disabled']])('disables button when %s is true', prop => {
+    render(<RdsButton text="Btn" {...{ [prop]: true }} />);
     expect(screen.getByRole('button')).toBeDisabled();
   });
 
-  it('disables button when disabled prop is true', () => {
-    render(<RdsButton text="Disabled" disabled={true} />);
-    expect(screen.getByRole('button')).toBeDisabled();
-  });
-
-  it('applies correct variant styles', () => {
-  render(<RdsButton text="Primary" variant="filled" />);
-    expect(screen.getByRole('button')).toHaveClass('MuiButton-contained');
-  });
-
-  it('applies correct size', () => {
-    render(<RdsButton text="Large" size="large" />);
-    expect(screen.getByRole('button')).toHaveClass('MuiButton-sizeLarge');
+  it.each([
+    [{ variant: 'filled' }, 'MuiButton-contained'],
+    [{ size: 'large' }, 'MuiButton-sizeLarge'],
+  ])('applies %j as class %s', (props, cls) => {
+    render(<RdsButton text="Btn" {...(props as any)} />);
+    expect(screen.getByRole('button')).toHaveClass(cls);
   });
 
   it('has proper accessibility attributes', () => {
@@ -66,19 +59,11 @@ describe('RdsButton — keyboard navigation', () => {
     expect(screen.getByRole('button')).toHaveFocus();
   });
 
-  it('activates on Enter key', async () => {
+  it.each([['Enter', '{Enter}'], ['Space', ' ']])('activates on %s key', async (_name, key) => {
     const handleClick = jest.fn();
-    render(<RdsButton text="Press Enter" onClick={handleClick} />);
+    render(<RdsButton text="Press" onClick={handleClick} />);
     screen.getByRole('button').focus();
-    await userEvent.keyboard('{Enter}');
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-
-  it('activates on Space key', async () => {
-    const handleClick = jest.fn();
-    render(<RdsButton text="Press Space" onClick={handleClick} />);
-    screen.getByRole('button').focus();
-    await userEvent.keyboard(' ');
+    await userEvent.keyboard(key);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
@@ -108,8 +93,7 @@ describe('RdsButton audit fixes', () => {
   it('keeps its own classes when a consumer passes className (G1-134)', () => {
     render(<RdsButton className="my-button">Save</RdsButton>);
     const button = screen.getByRole('button', { name: 'Save' });
-    expect(button).toHaveClass('rds-button');
-    expect(button).toHaveClass('my-button');
+    expect(button).toHaveClass('rds-button', 'my-button');
   });
 
   it('converts theme-scaled sx numbers the way sx does instead of raw px (G1-136)', () => {
@@ -139,11 +123,7 @@ describe('RdsButton audit fixes', () => {
   });
 
   it('renders MUI startIcon and endIcon (G1-139/G1-140)', () => {
-    render(
-      <RdsButton startIcon={<span data-testid="start" />} endIcon={<span data-testid="end" />}>
-        Icons
-      </RdsButton>
-    );
+    render(<RdsButton startIcon={<span data-testid="start" />} endIcon={<span data-testid="end" />}>Icons</RdsButton>);
     expect(screen.getByTestId('start')).toBeInTheDocument();
     expect(screen.getByTestId('end')).toBeInTheDocument();
   });
@@ -161,8 +141,9 @@ describe('RdsButton audit fixes', () => {
 
   it('reports deprecated props to the deprecation helper', () => {
     render(<RdsButton text="Old" isLoading={false} />);
-    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', 'text', expect.any(String));
-    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', 'isLoading', expect.any(String));
+    ['text', 'isLoading'].forEach(name =>
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', name, expect.any(String))
+    );
   });
 
   it('does not warn for the supported API', () => {

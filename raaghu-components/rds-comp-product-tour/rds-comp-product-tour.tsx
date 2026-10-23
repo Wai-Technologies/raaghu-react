@@ -8,10 +8,10 @@ import RdsFileUploader from '../../raaghu-elements/rds-file-uploader/rds-file-up
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import {
     RdsCompProductTourProps,
-    ProductTourCorner,
     parseSteps,
     createEffectiveSlides,
     deleteIcon,
+    resolveCornerDots,
     renderCornerDots,
     renderCloseButton,
     renderNavRow,
@@ -72,7 +72,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     const resolvedVariant = variant ?? "Image";
     const resolvedHeader = title ?? header;
     const resolvedSubtitle = subtitle ?? formTitle;
-    const corner = (c: ProductTourCorner, legacy?: boolean) => anchorCorner !== undefined ? anchorCorner === c : legacy === true;
+    const corners = resolveCornerDots(anchorCorner, { topLeft, topRight, bottomLeft, bottomRight });
     const headerId = useId();
     const rootProps = {
         ...rest,
@@ -151,7 +151,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
         onBack?.();
     };
 
-    const cornerDotsElement = renderCornerDots(corner("top-left", topLeft), corner("top-right", topRight), corner("bottom-left", bottomLeft), corner("bottom-right", bottomRight));
+    const cornerDotsElement = renderCornerDots(corners.topLeft, corners.topRight, corners.bottomLeft, corners.bottomRight);
     const closeButtonElement = renderCloseButton(showDismiss, handleClose);
     const infoSectionElement = renderInfoSection(resolvedHeader, description, headerId);
     const navRowElement = renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows", onSkip);

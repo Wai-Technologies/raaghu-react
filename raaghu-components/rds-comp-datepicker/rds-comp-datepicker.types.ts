@@ -57,9 +57,7 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   type?: string;
   /** @deprecated Use `openPickerIcon` instead. */
   changeIcon?: "dashboard_settings" | string;
-  /**
-   * Disables the picker. When defined it wins over `controls.disabled` and the legacy `isDisabled`.
-   */
+  /** Disables the picker. When defined it wins over `controls.disabled` and the legacy `isDisabled`. */
   disabled?: boolean;
   /**
    * Marks the field as required (shows the `*` next to the title and sets `aria-required`).

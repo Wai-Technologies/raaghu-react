@@ -4,9 +4,6 @@
 }
 
 .rds-filter-button__popover.MuiPopover-paper {
-  position: absolute !important;
-  top: var(--rds-filter-popover-top, 55px) !important;
-  left: 0 !important;
   width: var(--rds-filter-popover-width, 380px) !important;
   max-height: var(--rds-filter-popover-max-height, 450px) !important;
   border-radius: var(--rds-border-radius, 8px) !important;

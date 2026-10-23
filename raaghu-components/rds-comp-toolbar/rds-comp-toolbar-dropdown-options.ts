@@ -1,113 +1,32 @@
 import type { ToolbarButtonConfig, ToolbarOption } from './rds-comp-toolbar-config-types';
 
-/** Built-in dropdown options for the preset actions. */
-export function getToolbarDropdownOptions(action: string): ToolbarOption[] {
-  switch (action) {
-    case 'textFormat':
-      return [
-        { label: 'Heading 1', value: 'h1' },
-        { label: 'Heading 2', value: 'h2' },
-        { label: 'Heading 3', value: 'h3' },
-        { label: 'Normal text', value: 'normal' },
-        { label: 'Title', value: 'title' },
-        { label: 'Subtitle', value: 'subtitle' }
-      ];
-    case 'paragraph':
-      return [
-        { label: 'Normal', value: 'normal' },
-        { label: 'H1', value: 'h1' },
-        { label: 'H2', value: 'h2' },
-        { label: 'H3', value: 'h3' }
-      ];
-    case 'textColor':
-    case 'textColor2':
-      return [
-        { label: 'Black', value: 'black' },
-        { label: 'Red', value: 'red' },
-        { label: 'Blue', value: 'blue' },
-        { label: 'Green', value: 'green' },
-        { label: 'Orange', value: 'orange' },
-        { label: 'Purple', value: 'purple' }
-      ];
-    case 'bulletList':
-    case 'bulletList2':
-      return [
-        { label: 'Bullet List', value: 'bullet' },
-        { label: 'Numbered List', value: 'numbered' },
-        { label: 'Checklist', value: 'checklist' }
-      ];
-    case 'numberList':
-      return [
-        { label: 'Numbered List', value: 'numbered' },
-        { label: 'Roman Numerals', value: 'roman' },
-        { label: 'Letters', value: 'letters' }
-      ];
-    case 'fontStyle':
-      return [
-        { label: 'Arial', value: 'arial' },
-        { label: 'Times New Roman', value: 'times' },
-        { label: 'Helvetica', value: 'helvetica' },
-        { label: 'Georgia', value: 'georgia' },
-        { label: 'Verdana', value: 'verdana' }
-      ];
-    case 'fontSize':
-      return [
-        { label: '8pt', value: '8' },
-        { label: '10pt', value: '10' },
-        { label: '12pt', value: '12' },
-        { label: '14pt', value: '14' },
-        { label: '16pt', value: '16' },
-        { label: '18pt', value: '18' },
-        { label: '24pt', value: '24' }
-      ];
-    case 'marker':
-      return [
-        { label: 'Yellow Highlight', value: 'yellow' },
-        { label: 'Green Highlight', value: 'green' },
-        { label: 'Blue Highlight', value: 'blue' },
-        { label: 'Pink Highlight', value: 'pink' }
-      ];
-    case 'highlight':
-      return [
-        { label: 'Yellow', value: 'yellow' },
-        { label: 'Green', value: 'green' },
-        { label: 'Blue', value: 'blue' },
-        { label: 'Pink', value: 'pink' },
-        { label: 'Remove Highlight', value: 'none' }
-      ];
-    case 'outdent2':
-      return [
-        { label: 'Decrease Indent', value: 'decrease' },
-        { label: 'Remove All Indent', value: 'remove-all' }
-      ];
-    case 'indent2':
-      return [
-        { label: 'Increase Indent', value: 'increase' },
-        { label: 'Tab Indent', value: 'tab' }
-      ];
-    case 'paragraphPlus':
-      return [
-        { label: 'Add Line Break', value: 'line-break' },
-        { label: 'Add Paragraph', value: 'paragraph' },
-        { label: 'Add Section', value: 'section' }
-      ];
-    case 'markerPlus':
-      return [
-        { label: 'Marker Tools', value: 'tools' },
-        { label: 'Custom Color', value: 'custom' },
-        { label: 'Marker Settings', value: 'settings' }
-      ];
-    case 'quote':
-      return [
-        { label: 'Blockquote', value: 'blockquote' },
-        { label: 'Inline Quote', value: 'inline' },
-        { label: 'Citation', value: 'citation' }
-      ];
-    default:
-      return [];
-  }
-}
+const o = (...pairs: [label: string, value: string][]): ToolbarOption[] => pairs.map(([label, value]) => ({ label, value }));
 
+const textColors = o(['Black', 'black'], ['Red', 'red'], ['Blue', 'blue'], ['Green', 'green'], ['Orange', 'orange'], ['Purple', 'purple']);
+const bulletLists = o(['Bullet List', 'bullet'], ['Numbered List', 'numbered'], ['Checklist', 'checklist']);
+
+const dropdownOptions: Record<string, ToolbarOption[]> = {
+  textFormat: o(['Heading 1', 'h1'], ['Heading 2', 'h2'], ['Heading 3', 'h3'], ['Normal text', 'normal'], ['Title', 'title'], ['Subtitle', 'subtitle']),
+  paragraph: o(['Normal', 'normal'], ['H1', 'h1'], ['H2', 'h2'], ['H3', 'h3']),
+  textColor: textColors,
+  textColor2: textColors,
+  bulletList: bulletLists,
+  bulletList2: bulletLists,
+  numberList: o(['Numbered List', 'numbered'], ['Roman Numerals', 'roman'], ['Letters', 'letters']),
+  fontStyle: o(['Arial', 'arial'], ['Times New Roman', 'times'], ['Helvetica', 'helvetica'], ['Georgia', 'georgia'], ['Verdana', 'verdana']),
+  fontSize: o(['8pt', '8'], ['10pt', '10'], ['12pt', '12'], ['14pt', '14'], ['16pt', '16'], ['18pt', '18'], ['24pt', '24']),
+  marker: o(['Yellow Highlight', 'yellow'], ['Green Highlight', 'green'], ['Blue Highlight', 'blue'], ['Pink Highlight', 'pink']),
+  highlight: o(['Yellow', 'yellow'], ['Green', 'green'], ['Blue', 'blue'], ['Pink', 'pink'], ['Remove Highlight', 'none']),
+  outdent2: o(['Decrease Indent', 'decrease'], ['Remove All Indent', 'remove-all']),
+  indent2: o(['Increase Indent', 'increase'], ['Tab Indent', 'tab']),
+  paragraphPlus: o(['Add Line Break', 'line-break'], ['Add Paragraph', 'paragraph'], ['Add Section', 'section']),
+  markerPlus: o(['Marker Tools', 'tools'], ['Custom Color', 'custom'], ['Marker Settings', 'settings']),
+  quote: o(['Blockquote', 'blockquote'], ['Inline Quote', 'inline'], ['Citation', 'citation']),
+};
+
+/** Built-in dropdown options for the preset actions. */
+export const getToolbarDropdownOptions = (action: string): ToolbarOption[] =>
+  Object.hasOwn(dropdownOptions, action) ? dropdownOptions[action] : [];
 export const isEmojiAction = (action: string) => action === 'emoji' || action === 'insertEmoji';
 
 export const getButtonOptions = (button: Pick<ToolbarButtonConfig, 'action' | 'options'>): ToolbarOption[] =>
