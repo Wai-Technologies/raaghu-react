@@ -1,4 +1,5 @@
 import { Suspense, lazy, type HTMLAttributes, type Ref } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import clsx from "clsx";
 import type { ReactPlayerProps } from "react-player";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -22,6 +23,8 @@ export interface RdsVideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>
   controls?: boolean;
   volume?: number;
   className?: string;
+  /** MUI system styles applied to the video player root. */
+  sx?: SxProps<Theme>;
   disabled?: boolean;
   /** Message shown over the player when disabled. */
   disabledMessage?: string;
@@ -106,6 +109,7 @@ const RdsCompVideoPlayer = ({
   controls = true,
   volume = 0.8,
   className = "",
+  sx,
   disabled = false,
   disabledMessage = "Video player is disabled",
   loop,
@@ -121,10 +125,11 @@ const RdsCompVideoPlayer = ({
   const playerConfig = buildPlayerConfig(type, formattedUrl, controls, title);
 
   return (
-    <div
+    <Box
       {...rest}
       ref={ref}
       style={style}
+      sx={sx}
       className={clsx(
         "rds-comp-video-player",
         disabled && "rds-comp-video-player--disabled",
@@ -160,7 +165,7 @@ const RdsCompVideoPlayer = ({
           <div className="rds-comp-video-player__disabled-message">{disabledMessage}</div>
         </div>
       )}
-    </div>
+    </Box>
   );
 };
 

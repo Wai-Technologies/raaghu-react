@@ -19,6 +19,7 @@ import EventIcon from '@mui/icons-material/Event';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import type { SxProps, Theme } from '@mui/material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import './rds-comp-date-and-time-picker.scss';
 
@@ -48,6 +49,8 @@ export interface RdsCompDatePickerProps {
   maxTime?: Dayjs;
   format?: string;
   className?: string;
+  /** MUI system styles applied to the date picker root. */
+  sx?: SxProps<Theme>;
   size?: 'small' | 'medium';
   slotProps?: {
     textField?: {
@@ -508,6 +511,7 @@ export default function RdsCompDatePicker({
   maxTime,
   format,
   className,
+  sx,
   size = 'medium',
   slotProps,
   style = 'default',
@@ -875,12 +879,12 @@ export default function RdsCompDatePicker({
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className={containerClasses}>
+      <Box className={containerClasses} sx={sx}>
         <div className="rds-date-picker__field-wrapper">
           {getPickerComponent()}
           {helperText ? <div className="rds-date-picker__helper">{helperText}</div> : null}
         </div>
-      </div>
+      </Box>
     </LocalizationProvider>
   );
 }

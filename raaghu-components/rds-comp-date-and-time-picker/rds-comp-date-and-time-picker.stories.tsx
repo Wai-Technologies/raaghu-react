@@ -69,6 +69,10 @@ const meta: Meta = {
         isRequired: {
             control: { type: 'boolean' },
             description: 'Whether the field is required (shows * indicator)'
+        },
+        sx: {
+            control: 'object',
+            description: 'MUI system styles applied to the date picker root.',
         }
     },
 } satisfies Meta<typeof RdsCompDatePicker>;

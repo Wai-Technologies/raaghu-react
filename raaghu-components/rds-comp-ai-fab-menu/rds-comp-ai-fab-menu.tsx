@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactElement, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
+import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-ai-fab-menu.scss";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import RdsCompAiIcon, { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
@@ -75,6 +76,8 @@ export interface RdsCompAiFabMenuProps {
   alignment?: "left" | "right";
   /** @deprecated Has no effect. */
   onClick?: () => void;
+  /** MUI system styles applied to the menu root. */
+  sx?: SxProps<Theme>;
 }
 
 const VARIANT_TO_BACKGROUND = { circular: "circular", rounded: "rectangular", text: "none" } as const;
@@ -111,6 +114,7 @@ function RdsCompAiFabMenu({
   menuiconWidth,
   menuiconHeight,
   onClick,
+  sx,
 }: RdsCompAiFabMenuProps) {
   if (menuiconWidth !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconWidth", "nothing (no effect)");
   if (menuiconHeight !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconHeight", "nothing (no effect)");
@@ -195,12 +199,13 @@ function RdsCompAiFabMenu({
     resolvedBackgroundType === "none" ? "primary" : iconColorVariant;
 
   return (
-    <div
+    <Box
       className={clsx(
         "rds-fab-menu",
         resolvedPlacement === "right" && "rds-fab-menu--right",
         isMenuOpen && "rds-fab-menu--open"
       )}
+      sx={sx}
       data-alignment={resolvedPlacement}
       data-open={isMenuOpen}
       onKeyDown={handleKeyDown}
@@ -280,7 +285,7 @@ function RdsCompAiFabMenu({
           ))}
         </div>
       </div>
-    </div>
+    </Box>
   );
 }
 

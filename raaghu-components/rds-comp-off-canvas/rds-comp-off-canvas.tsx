@@ -47,6 +47,8 @@ export interface RdsCompOffcanvasProps {
   onclick?: (data: boolean) => void;
   children?: ReactNode;
   className?: string;
+  /** MUI system styles applied to the Drawer root. */
+  sx?: DrawerProps["sx"];
   /** Replaces the default footer buttons. */
   actions?: ReactNode;
   onSave?: () => void;
@@ -80,6 +82,7 @@ const RdsCompOffcanvas = ({
   children,
   onclick,
   className,
+  sx,
   actions,
   onSave,
   onRestoreDefault,
@@ -165,6 +168,7 @@ const RdsCompOffcanvas = ({
           onClose={handleDrawerClose}
           disableEscapeKeyDown={resolvedDisableEscape}
           hideBackdrop={resolvedHideBackdrop}
+          sx={sx}
           slotProps={mergedSlotProps}
           className={clsx("offcanvas-drawer", `placement-${placement ?? RdsOffcanvasPlacement.End}`)}
           id={resolvedId}>

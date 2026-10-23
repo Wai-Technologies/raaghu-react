@@ -17,7 +17,7 @@ export { TreeLevel, IconType, type RdsCompTreeStructureProps } from './tree-stru
 const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   const ResolvedTreeNodeRow = DirectTreeNodeRow ?? (FileType as any).TreeNodeRow ?? (FileType as any).default?.TreeNodeRow;
   const [expandedNodeIds, setExpandedNodeIds] = useState<number[]>(() =>
-    props.showCollapsed ? getAllNodeIds(props.treeData) : []
+    props.showCollapsed ? getAllNodeIds(props.treeData ?? []) : []
   );
   const [hoveredNodeId, setHoveredNodeId] = useState<number | null>(null);
   const [checkedNodeIds, setCheckedNodeIds] = useState<number[]>(props.checkedNodes || []);

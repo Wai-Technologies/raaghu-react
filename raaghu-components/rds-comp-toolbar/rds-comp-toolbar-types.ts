@@ -1,4 +1,5 @@
 import type { HTMLAttributes, Ref } from 'react';
+import type { SxProps, Theme } from '@mui/material';
 import type { ToolbarButtonConfig } from './rds-comp-toolbar-config-types';
 
 export const ToolbarLayout = {
@@ -42,6 +43,8 @@ export interface RdsCompToolbarProps
   /** Called when a dropdown option or emoji is chosen, with the parent button action and the chosen value. */
   onOptionSelect?: (action: string, value: string) => void;
   className?: string;
+  /** MUI system styles applied to the toolbar root. */
+  sx?: SxProps<Theme>;
   'data-testid'?: string;
   ref?: Ref<HTMLDivElement>;
 }

@@ -59,6 +59,11 @@ describe('RdsCompTreeStructure', () => {
       const { container } = render(<RdsCompTreeStructure treeData={[]} />);
       expect(container.querySelector('.rds-comp-tree-structure')).toBeInTheDocument();
     });
+
+    it('renders with showCollapsed true when treeData is omitted', () => {
+      const { container } = render(<RdsCompTreeStructure showCollapsed />);
+      expect(container.querySelector('.rds-comp-tree-structure')).toBeInTheDocument();
+    });
   });
 
   describe('Expand/Collapse', () => {

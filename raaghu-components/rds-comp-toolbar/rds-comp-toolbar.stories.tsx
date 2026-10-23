@@ -82,6 +82,10 @@ const meta: Meta<typeof RdsCompToolbar> = {
             control: 'boolean',
             description: 'Disables every toolbar button',
         },
+        sx: {
+            control: 'object',
+            description: 'MUI system styles applied to the toolbar root.',
+        },
     },
     tags: ['autodocs', 'stable'],
 } satisfies Meta<typeof RdsCompToolbar>;

@@ -285,6 +285,14 @@ describe('RdsCompAiFabMenu', () => {
       expect(button).toBeInTheDocument();
     });
 
+    it('applies sx styles to the menu root', () => {
+      const { container } = render(
+        <RdsCompAiFabMenu {...defaultProps} sx={{ marginTop: '17px' }} />
+      );
+      const root = container.querySelector('.rds-fab-menu');
+      expect(root).toHaveStyle({ marginTop: '17px' });
+    });
+
     it('renders with left alignment by default', () => {
       const { container } = render(
         <RdsCompAiFabMenu listItems={defaultListItems} />

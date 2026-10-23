@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, Fragment } from "react";
+import Box from "@mui/material/Box";
 import { useForkRef } from "@mui/material/utils";
 export { ToolbarLayout, ToolbarType, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
 import { ToolbarLayout, ToolbarType, type RdsCompToolbarProps } from './rds-comp-toolbar-types';
@@ -75,6 +76,7 @@ const RdsCompToolbar = ({
   onAction,
   onOptionSelect,
   className = '',
+  sx,
   'data-testid': testId,
   ref,
   ...props
@@ -151,7 +153,7 @@ const RdsCompToolbar = ({
   );
 
   return (
-    <div
+    <Box
       ref={handleRef}
       className={clsx(
         "rds-comp-toolbar",
@@ -161,6 +163,7 @@ const RdsCompToolbar = ({
         className
       )}
       data-testid={testId}
+      sx={sx}
       role="toolbar"
       aria-label={`${type} toolbar`}
       aria-disabled={isDisabled || undefined}
@@ -182,7 +185,7 @@ const RdsCompToolbar = ({
           </div>
         ))
       )}
-    </div>
+    </Box>
   );
 };
 RdsCompToolbar.displayName = "RdsCompToolbar";

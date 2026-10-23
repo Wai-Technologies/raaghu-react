@@ -111,6 +111,10 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
       control: { type: 'boolean' },
       description: 'Whether to show line numbers',
     },
+    sx: {
+      control: 'object',
+      description: 'MUI system styles applied to the code snippet root.',
+    },
   },
 };
 
@@ -129,4 +133,3 @@ export const Default: Story = {
     await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
-
