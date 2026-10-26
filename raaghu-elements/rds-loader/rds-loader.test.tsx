@@ -637,6 +637,6 @@ describe('audit fixes', () => {
     renderWithTheme(<RdsLoader overlay className="o" data-testid="o" />);
     expect(screen.getByTestId('o')).toHaveClass('rds-loader--overlay', 'o');
     renderWithTheme(<RdsLoader type="hash" className="t" data-testid="t" />);
-    expect(screen.getByTestId('t')).toHaveClass('t', 'my-5');
+    expect(screen.getByTestId('t')).toHaveClass('t', 'rds-loader__type-wrap');
   });
 });

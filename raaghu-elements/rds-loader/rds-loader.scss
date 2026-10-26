@@ -120,6 +120,12 @@
   transform: translate(-50%, -50%);
 }
 
+.rds-loader__type-wrap {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--rds-spacing-xl, 3rem);
+}
+
 .rds-loader__label-wrap {
   margin-top: var(--rds-spacing-sm, 12px);
   text-align: center;

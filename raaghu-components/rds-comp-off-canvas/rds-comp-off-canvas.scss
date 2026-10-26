@@ -6,6 +6,7 @@
   font-size: var(--font-size-xl, 18px);
   font-style: normal;
   font-weight: var(--font-weight-medium, 500);
+  text-transform: uppercase;
 }
 
 .offcanvas-drawer .MuiDrawer-paper {
@@ -79,8 +80,17 @@
   overflow: auto;
 }
 
+.offcanvas-body-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
 .offcanvas-footer {
   display: flex;
+  justify-content: flex-start;
   gap: var(--rds-spacing-sm);
   margin-top: auto;
   padding-top: var(--rds-spacing-md);

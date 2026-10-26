@@ -393,7 +393,7 @@ const RdsAppBar = ({
 
           {userName && userEmail ? (
             <span className="rds-header__actions">
-              <ProfileMenu name={userName} email={userEmail} menuItems={profileMenuItems} />
+              <ProfileMenu name={userName} email={userEmail} items={profileMenuItems} />
             </span>
           ) : (
             endSlot === undefined && actions && <span className="rds-header__actions">{actions}</span>

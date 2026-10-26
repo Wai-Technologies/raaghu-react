@@ -71,7 +71,7 @@ export const ReviewStyleCard = ({
   const getInitialRating = () =>
     variant === ReviewStyle.Style11 || variant === ReviewStyle.Style12
       ? 1
-      : item.rating || 4.5;
+      : item.rating ?? 0;
 
   const formatDate = (date?: Date) => {
     if (!date) return "Date not available";
@@ -84,8 +84,8 @@ export const ReviewStyleCard = ({
   };
 
   const [rating, setRating] = useState(getInitialRating);
-  const [likes, setLikes] = useState(item.likes || 35);
-  const [dislikes, setDislikes] = useState(item.dislikes || 10);
+  const [likes, setLikes] = useState(item.likes ?? 0);
+  const [dislikes, setDislikes] = useState(item.dislikes ?? 0);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [prevRating, setPrevRating] = useState(item.rating);
@@ -97,11 +97,11 @@ export const ReviewStyleCard = ({
   }
   if (item.likes !== prevLikes) {
     setPrevLikes(item.likes);
-    setLikes(item.likes || 35);
+    setLikes(item.likes ?? 0);
   }
   if (item.dislikes !== prevDislikes) {
     setPrevDislikes(item.dislikes);
-    setDislikes(item.dislikes || 10);
+    setDislikes(item.dislikes ?? 0);
   }
   const isXs = useMediaQuery("(max-width: 600px)");
 
@@ -140,7 +140,7 @@ export const ReviewStyleCard = ({
               }}
             >
               <RdsAvatar
-                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+                src={item.imageUrl}
                 name={item.name}
                 size="medium"
                 displayStyle="name-bottom"
@@ -205,7 +205,7 @@ export const ReviewStyleCard = ({
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
             <RdsAvatar
-              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+              src={item.imageUrl}
               name={item.name}
               description={formatDate(item.date)}
               size="medium"
@@ -262,7 +262,7 @@ export const ReviewStyleCard = ({
         <Card sx={{ p: 3, height: "100%" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <RdsAvatar
-              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+              src={item.imageUrl}
               name={item.name}
               size="medium"
               showDesignation={false}
@@ -346,7 +346,7 @@ export const ReviewStyleCard = ({
               }}
             >
               <RdsAvatar
-                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+                src={item.imageUrl}
                 name={item.name}
                 size={isXs ? "small" : "medium"}
                 showDesignation={false}
@@ -428,7 +428,7 @@ export const ReviewStyleCard = ({
         <Card sx={{ p: 3, height: "100%" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <RdsAvatar
-              src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+              src={item.imageUrl}
               name={item.name}
               size="medium"
               showDesignation={false}
@@ -512,7 +512,7 @@ export const ReviewStyleCard = ({
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
               <RdsAvatar
-                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+                src={item.imageUrl}
                 name={item.name}
                 alt={item.name}
                 showName={false}
@@ -542,7 +542,7 @@ export const ReviewStyleCard = ({
                 readOnly={false}
                 precision={0.5}
               />
-              <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
+              <Typography className="rating-value">{item.reviews ?? "0"}</Typography>
             </Box>
             <Typography variant="body1" sx={{ textAlign: "center" }}>
               {item.description}
@@ -578,7 +578,7 @@ export const ReviewStyleCard = ({
                 readOnly={false}
                 precision={0.5}
               />
-              <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
+              <Typography className="rating-value">{item.reviews ?? "0"}</Typography>
             </Box>
             <Typography variant="body1" sx={{ textAlign: "center" }}>
               {item.description}

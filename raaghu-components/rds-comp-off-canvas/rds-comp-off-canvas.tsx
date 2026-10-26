@@ -169,13 +169,13 @@ const RdsCompOffcanvas = ({
           hideBackdrop={resolvedHideBackdrop}
           sx={sx}
           slotProps={mergedSlotProps}
-          className={clsx("offcanvas-drawer", `placement-${placement ?? RdsOffcanvasPlacement.End}`)}
+          className={clsx("offcanvas-drawer", `placement-${placement ?? RdsOffcanvasPlacement.End}`, className)}
           id={resolvedId}>
           <Box className={clsx("offcanvas-container", scrolling && "scrolling")}>
             <Box className={clsx("offcanvas-header", !isCanvasTitle && "no-title")}>
               {isCanvasTitle ? (
                 <div className="offcanvas-title-wrap">
-                  <span id={titleId} className="offcanvas-title text-uppercase">{resolvedTitle}</span>
+                  <span id={titleId} className="offcanvas-title">{resolvedTitle}</span>
                 </div>
               ) : null}
               <div className="offcanvas-close-wrap" id={closeWrapId}>
@@ -184,12 +184,12 @@ const RdsCompOffcanvas = ({
                 </RdsIconButton>
               </div>
             </Box>
-            <Box className={clsx("offcanvas-body", className, scrolling && "scrolling")}>
-              <div className="d-flex flex-column h-100">
+            <Box className={clsx("offcanvas-body", scrolling && "scrolling")}>
+              <div className="offcanvas-body-inner">
                 {children}
               </div>
               {(actions || showPrimaryButton || showSecondaryButton || showTertiaryButton) && (
-                <Box className="d-flex justify-content-start mt-auto offcanvas-margin offcanvas-footer" id={footerId}>
+                <Box className="offcanvas-margin offcanvas-footer" id={footerId}>
                   {actions ? actions : (
                     <>
                       <Box className="tertiary-button-container">

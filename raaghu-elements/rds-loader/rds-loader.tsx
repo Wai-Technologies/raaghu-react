@@ -53,7 +53,7 @@ const RdsLoader = ({ className, sx, ref, ...props }: RdsLoaderProps) => {
       <Root
         {...(rest as object)}
         ref={ref as Ref<HTMLDivElement>}
-        className={clsx('d-flex justify-content-center my-5', className)}
+        className={clsx('rds-loader__type-wrap', className)}
         {...(sx ? { sx } : {})}
       >
         <div className={classes} />

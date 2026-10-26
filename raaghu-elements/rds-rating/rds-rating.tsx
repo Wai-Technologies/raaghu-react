@@ -128,16 +128,9 @@ const RdsRating = ({
       : sanitizePrecision(precisionProp !== undefined ? precisionProp : 0.5);
 
   const handleStarChange = (event: SyntheticEvent, newValue: number | null) => {
-    let finalValue: number | null = newValue;
-    
-    if (newValue === currentValue && newValue !== 0) {
-      finalValue = 0;
-    }
-    
-    setInternalValue(finalValue);
-    
+    setInternalValue(newValue);
     if (onChange) {
-      onChange(event, finalValue);
+      onChange(event, newValue);
     }
   };
 

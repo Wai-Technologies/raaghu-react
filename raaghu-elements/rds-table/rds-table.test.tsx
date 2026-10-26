@@ -292,6 +292,17 @@ describe('RdsTable', () => {
       expect(checkbox).toBeChecked();
     });
 
+    it('should call onCellSelectionChange for checkbox cells', () => {
+      const onCellSelectionChange = jest.fn();
+      const { container } = setup({ columns: checkboxColumns, onCellSelectionChange });
+      const checkbox = container.querySelector('.rds-table__body input[type="checkbox"]') as HTMLInputElement;
+      fireEvent.click(checkbox);
+      expect(onCellSelectionChange).toHaveBeenCalled();
+      const selection = onCellSelectionChange.mock.calls[0][1];
+      expect(selection.checkbox).toHaveLength(1);
+      expect(selection.radio).toBeNull();
+    });
+
     it('should select all checkbox cells in column', () => {
       const { container } = setup({ columns: checkboxColumns });
       fireEvent.click(container.querySelector('.rds-table__head .rds-table__checkbox input[type="checkbox"]')!);

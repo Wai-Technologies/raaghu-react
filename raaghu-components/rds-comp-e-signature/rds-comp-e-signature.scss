@@ -793,8 +793,6 @@
 :root[data-theme="dark"] .rds-e-signature__upload-panel,
 [data-theme="dark"] .rds-e-signature__choose-panel,
 :root[data-theme="dark"] .rds-e-signature__choose-panel,
-[data-theme="dark"] .rds-e-signature__canvas-container,
-:root[data-theme="dark"] .rds-e-signature__canvas-container,
 [data-theme="dark"] .rds-e-signature__file-row,
 :root[data-theme="dark"] .rds-e-signature__file-row,
 [data-theme="dark"] .rds-e-signature__mini-card,
@@ -806,6 +804,13 @@
   background: var(--rds-color-surface-dark, #1f1f1f) !important;
   border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
   color: var(--rds-color-neutral-0, #ffffff);
+}
+
+[data-theme="dark"] .rds-e-signature__canvas-container,
+:root[data-theme="dark"] .rds-e-signature__canvas-container {
+  background: var(--rds-color-neutral-0, #ffffff) !important;
+  border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
+  color: var(--rds-color-neutral-1000, #000000);
 }
 
 [data-theme="dark"] .rds-e-signature__upload-panel--hover,

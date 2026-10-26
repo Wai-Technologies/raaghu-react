@@ -131,7 +131,7 @@ const RdsHeader = ({
               name={userName}
               shortName={userShortName}
               email={userEmail}
-              menuItems={profileMenuItems}
+              items={profileMenuItems}
             />
           </span>
         ) : (

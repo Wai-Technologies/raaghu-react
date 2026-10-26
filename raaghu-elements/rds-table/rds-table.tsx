@@ -96,6 +96,11 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
   onSortChange?: (columnId: string | undefined, direction: 'asc' | 'desc' | undefined) => void;
   defaultSortBy?: string;
   defaultSortDirection?: 'asc' | 'desc';
+  /** Fired when per-column checkbox/radio cell selection changes. */
+  onCellSelectionChange?: (
+    event: ChangeEvent<HTMLInputElement>,
+    selection: { checkbox: string[]; radio: string | null }
+  ) => void;
 }
 
 /**
@@ -129,6 +134,7 @@ const RdsTable = ({
   onSortChange,
   defaultSortBy,
   defaultSortDirection = 'asc',
+  onCellSelectionChange,
   ...props
 }: RdsTableProps) => {
   if (pagination !== undefined) warnDeprecatedProp('RdsTable', 'pagination', '`paginated`');
@@ -221,16 +227,16 @@ const RdsTable = ({
 
 
 
-  const toggleCellCheckbox = (rowId: string) => {
-    updateTableState(prev => {
-      const next = new Set(prev.cellCheckboxSelected);
-      if (next.has(rowId)) next.delete(rowId); else next.add(rowId);
-      return { cellCheckboxSelected: next };
-    });
+  const toggleCellCheckbox = (event: ChangeEvent<HTMLInputElement>, rowId: string) => {
+    const next = new Set(cellCheckboxSelected);
+    if (next.has(rowId)) next.delete(rowId); else next.add(rowId);
+    updateTableState({ cellCheckboxSelected: next });
+    onCellSelectionChange?.(event, { checkbox: Array.from(next), radio: cellRadioSelected });
   };
 
-  const selectCellRadio = (rowId: string) => {
+  const selectCellRadio = (event: ChangeEvent<HTMLInputElement>, rowId: string) => {
     updateTableState({ cellRadioSelected: rowId });
+    onCellSelectionChange?.(event, { checkbox: Array.from(cellCheckboxSelected), radio: rowId });
   };
 
   const checkboxRowIds = useMemo<string[]>(
@@ -276,7 +282,7 @@ const RdsTable = ({
           <div className="rds-table__checkbox">
           <Checkbox
             checked={isChecked}
-            onChange={() => toggleCellCheckbox(rowId)}
+            onChange={(event) => toggleCellCheckbox(event, rowId)}
             size="small"
             disableRipple
             slotProps={{ input: { 'aria-label': `Select ${column.label} for row ${rowNumber}` } }}
@@ -290,7 +296,7 @@ const RdsTable = ({
         return (
           <Radio
             checked={isChecked}
-            onChange={() => selectCellRadio(rowId)}
+            onChange={(event) => selectCellRadio(event, rowId)}
             size="small"
             disableRipple
             slotProps={{ input: { 'aria-label': `Select ${column.label} for row ${rowNumber}` } }}
@@ -354,11 +360,14 @@ const RdsTable = ({
                         indeterminate={isCellCheckboxIndeterminate}
                         checked={isAllCellCheckboxSelected}
                         onChange={(e) => {
-                          if (e.target.checked) {
-                            updateTableState({ cellCheckboxSelected: new Set(checkboxRowIds) });
-                          } else {
-                            updateTableState({ cellCheckboxSelected: new Set() });
-                          }
+                          const next = e.target.checked
+                            ? new Set(checkboxRowIds)
+                            : new Set<string>();
+                          updateTableState({ cellCheckboxSelected: next });
+                          onCellSelectionChange?.(e, {
+                            checkbox: Array.from(next),
+                            radio: cellRadioSelected,
+                          });
                         }}
                         size="small"
                         disableRipple

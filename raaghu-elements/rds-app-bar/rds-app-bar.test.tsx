@@ -10,11 +10,11 @@ jest.mock('./rds-app-bar.scss', () => ({}));
 
 jest.mock('./ProfileMenu', () => {
   return {
-    ProfileMenu: ({ name, email, menuItems }: any) => (
+    ProfileMenu: ({ name, email, items, menuItems }: any) => (
       <div data-testid="profile-menu">
         <div data-testid="profile-name">{name}</div>
         <div data-testid="profile-email">{email}</div>
-        <div data-testid="profile-menu-items">{menuItems?.length || 0}</div>
+        <div data-testid="profile-menu-items">{(items ?? menuItems)?.length || 0}</div>
       </div>
     ),
   };

@@ -194,18 +194,20 @@ describe('RdsCompReviews', () => {
     });
 
     it.each([
-      [undefined, 'https://source.unsplash.com/random/200x200/?portrait'],
+      [undefined, null],
       ['https://custom.com/image.jpg', 'https://custom.com/image.jpg'],
     ])('should use imageUrl %s -> %s', (imageUrl, src) => {
       setup({ itemList: [{ ...defaultItem, imageUrl }] });
-      expect(screen.getByTestId('rds-avatar')).toHaveAttribute('data-src', src);
+      const avatar = screen.getByTestId('rds-avatar');
+      if (src === null) expect(avatar).not.toHaveAttribute('data-src');
+      else expect(avatar).toHaveAttribute('data-src', src);
     });
   });
 
   describe('Rating Display', () => {
     it.each([
       [5, '5'],
-      [undefined, '4.5'],
+      [undefined, '0'],
       [0.5, '0.5'],
       [3.7, '3.7'],
     ])('should show rating %s as %s', (rating, expected) => {
@@ -233,8 +235,8 @@ describe('RdsCompReviews', () => {
     it.each([
       [{ likes: 100 }, '100'],
       [{ dislikes: 25 }, '25'],
-      [{ likes: undefined }, '35'],
-      [{ dislikes: undefined }, '10'],
+      [{ likes: undefined }, '0'],
+      [{ dislikes: undefined }, '0'],
     ])('should display counts for %j', (over, text) => {
       withItem(S.Style7, over);
       expect(screen.getByText(text)).toBeInTheDocument();
@@ -306,12 +308,12 @@ describe('RdsCompReviews', () => {
 
   describe('Reviews Summary Rating', () => {
     it.each([
-      [11, '4.75'],
-      [12, '4.75'],
-      [11, undefined],
-    ])('should display reviews summary for Style%i (reviews: %s)', (n, reviews) => {
+      [11, '4.75', '4.75'],
+      [12, '4.75', '4.75'],
+      [11, undefined, '0'],
+    ])('should display reviews summary for Style%i (reviews: %s)', (n, reviews, expected) => {
       withItem(S[`Style${n}`], { reviews });
-      expect(screen.getByText('4.75')).toBeInTheDocument();
+      expect(screen.getByText(expected)).toBeInTheDocument();
     });
   });
 

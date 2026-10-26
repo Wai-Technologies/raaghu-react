@@ -61,7 +61,7 @@ export const useRdsTokens = (): RdsTokens => {
       sm: toRadiusValue(baseRadius, 1),
       md: toRadiusValue(baseRadius, 2),
       lg: toRadiusValue(baseRadius, 3),
-      full: toRadiusValue(baseRadius, 999),
+      full: '9999px',
     },
     color: {
       primary: theme.palette.primary.main,

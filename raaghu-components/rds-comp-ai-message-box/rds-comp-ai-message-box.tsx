@@ -30,11 +30,6 @@ export interface RdsCompAiMessageBoxProps extends Omit<HTMLAttributes<HTMLDivEle
   sx?: SxProps<Theme>;
 }
 
-const DEFAULT_AVATAR =
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
-const DEFAULT_IMAGE =
-  "https://via.placeholder.com/480x320.png?text=Image+placeholder";
-
 const RdsCompAiMessageBox = memo(({
   imageSrc,
   isImage,
@@ -53,10 +48,11 @@ const RdsCompAiMessageBox = memo(({
 }: RdsCompAiMessageBoxProps) => {
   if (avtar !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "avtar", "`avatar`");
   if (message !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "message", "`children`");
-  const avatarSrc = avatar ?? avtar ?? DEFAULT_AVATAR;
+  const avatarSrc = avatar ?? avtar;
   if (isImage !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "isImage", "`imageSrc`");
   if (src !== undefined) warnDeprecatedProp("RdsCompAiMessageBox", "src", "`imageSrc`");
-  const resolvedImageSrc = imageSrc ?? src ?? DEFAULT_IMAGE;
+  const resolvedImageSrc = imageSrc ?? src;
+  const showImage = resolvedImageSrc !== undefined && resolvedImageSrc !== "";
 
   return (
     <Box {...rest} ref={ref} className={clsx("rds-comp-ai-message-box", className)} sx={sx}>
@@ -72,7 +68,7 @@ const RdsCompAiMessageBox = memo(({
             name={name}
           />
         </div>
-        {(isImage || imageSrc !== undefined) && (
+        {showImage && (
           <div className="rds-comp-ai-message-box__image-wrapper">
             <img src={resolvedImageSrc} alt={imageAlt} className="rds-comp-ai-message-box__image" />
           </div>

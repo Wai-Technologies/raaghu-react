@@ -153,7 +153,7 @@ describe('RdsCompOffcanvas', () => {
 
     it('should render title with uppercase class', async () => {
       await openCanvas({ canvasTitle: 'Test Title' });
-      expect(screen.getByText('Test Title')).toHaveClass('text-uppercase');
+      expect(screen.getByText('Test Title')).toHaveClass('offcanvas-title');
     });
   });
 
@@ -251,11 +251,12 @@ describe('RdsCompOffcanvas', () => {
   });
 
   describe('CSS Classes', () => {
-    it('should apply custom className to the offcanvas-body', async () => {
+    it('should apply custom className to the Drawer root', async () => {
       await openCanvas({ className: 'custom-class' });
-      const bodyBox = getBox('offcanvas-body');
-      expect(bodyBox).toHaveClass('custom-class');
-      expect(bodyBox).toHaveClass('offcanvas-body');
+      const drawer = screen.getByTestId('drawer');
+      expect(drawer).toHaveClass('custom-class');
+      expect(drawer).toHaveClass('offcanvas-drawer');
+      expect(getBox('offcanvas-body')).not.toHaveClass('custom-class');
     });
 
     it.each([
