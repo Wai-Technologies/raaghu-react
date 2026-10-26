@@ -696,5 +696,33 @@ describe('RdsCompAiChatBot', () => {
       fireEvent.click(screen.getByTestId("send-button"));
       expect(onSend).toHaveBeenCalledWith(expect.objectContaining({ text: "Hello", role: "user" }));
     });
+
+    it("assigns message ids from max existing id + 1 (G3-087)", () => {
+      const onSend = jest.fn();
+      render(
+        <RdsCompAiChatBot
+          assistantAvatar="a.png"
+          messages={[{ id: 1, text: "kept", role: "user" }, { id: 5, text: "gap", role: "assistant" }]}
+          onSend={onSend}
+        />
+      );
+      const input = screen.getByTestId("message-input") as HTMLInputElement;
+      input.value = "Next";
+      fireEvent.click(screen.getByTestId("send-button"));
+      expect(onSend).toHaveBeenCalledWith(expect.objectContaining({ id: 6, text: "Next" }));
+    });
+
+    it("warns that setMessages is deprecated in favour of onSend (G3-086)", () => {
+      const { warnDeprecatedProp } = jest.requireMock("../../raaghu-elements/shared/utils/deprecation");
+      (warnDeprecatedProp as jest.Mock).mockClear();
+      render(
+        <RdsCompAiChatBot assistantAvatar="a.png" messages={[]} setMessages={jest.fn()} onSend={jest.fn()} />
+      );
+      expect(warnDeprecatedProp).toHaveBeenCalledWith(
+        "RdsCompAiChatBot",
+        "setMessages",
+        "`onSend` (parent-owned `messages`)"
+      );
+    });
   });
 });

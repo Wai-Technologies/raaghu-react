@@ -442,6 +442,29 @@ describe('audit fixes', () => {
     expect(screen.getByRole('combobox', { name: 'Year' })).toBeInTheDocument();
   });
 
+  it('G4-090: minDate reaches the picker view and rest lands on the root', () => {
+    const minDate = new Date(2020, 0, 1);
+    const { container } = render(<RdsDatepicker data-testid="dp-root" minDate={minDate} />);
+    expect(container.querySelector('[data-testid="dp-root"]')).toBeInTheDocument();
+    expect(mockCaptured.type?.[5]?.minDate).toBe(minDate);
+  });
+
+  it('G4-102: year options follow minDate/maxDate', () => {
+    render(
+      <RenderDefaultDropdownHeader
+        date={new Date(2025, 0, 1)}
+        monthDate={new Date(2025, 0, 1)}
+        changeYear={jest.fn()}
+        changeMonth={jest.fn()}
+        minDate={new Date(2024, 0, 1)}
+        maxDate={new Date(2026, 0, 1)}
+      />
+    );
+    const year = screen.getByRole('combobox', { name: 'Year' });
+    const values = Array.from(year.querySelectorAll('option')).map((o) => o.getAttribute('value'));
+    expect(values).toEqual(['2024', '2025', '2026']);
+  });
+
   it('G4-104: Escape closes the preset list; trigger exposes aria-expanded', () => {
     render(<RdsDatepicker type="Custom" />);
     act(() => mockCaptured.type?.[7]());

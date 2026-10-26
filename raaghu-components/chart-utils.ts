@@ -3,15 +3,9 @@ import type { ChartArea, ChartType, Plugin } from 'chart.js/auto';
 import { warnDeprecatedProp } from '../raaghu-elements/shared/utils/deprecation';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 
+/** Snapshot key for chart re-renders; uses the shared theme helper (G3-005). */
 function getChartThemeMode(): string {
-  if (typeof document === 'undefined') return 'light';
-  const attr = document.documentElement.getAttribute('data-theme') || 'light';
-  const hasDarkClass =
-    document.documentElement.classList.contains('theme-dark') ||
-    document.documentElement.classList.contains('rds-theme--dark') ||
-    document.body?.classList.contains('theme-dark') ||
-    document.body?.classList.contains('dark-theme');
-  return hasDarkClass ? 'dark' : attr;
+  return isDarkMode() ? 'dark' : 'light';
 }
 
 export function useChartThemeMode(): string {
@@ -213,7 +207,7 @@ type ChartOptionsLike = Record<string, any>;
  *  - axis ticks, grid lines, borders, and titles (for x/y/r axes)
  *  - legend label color
  *  - chart title color
- *  - tooltip title/body/label colors
+ *  - tooltip background / title / body colours (series swatches keep Chart.js defaults)
  *
  * Dataset colours are resolved separately by {@link resolveDatasetColors}.
  *
@@ -256,15 +250,12 @@ export function applyChartThemeColors<TOptions extends object>(
   if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
   chartOptions.plugins.title.color = textColor;
 
-  if (chartOptions.plugins.tooltip) {
-    chartOptions.plugins.tooltip.backgroundColor = tooltipBg;
-    chartOptions.plugins.tooltip.titleColor      = tooltipText;
-    chartOptions.plugins.tooltip.bodyColor       = tooltipText;
-    chartOptions.plugins.tooltip.labelColor      = () => ({
-      borderColor:     textColor,
-      backgroundColor: textColor,
-    });
-  }
+  // Always theme tooltips (G3-004). Do not override labelColor — that forced every
+  // series swatch to textColor so users could not tell series apart (G3-003).
+  if (!chartOptions.plugins.tooltip) chartOptions.plugins.tooltip = {};
+  chartOptions.plugins.tooltip.backgroundColor = tooltipBg;
+  chartOptions.plugins.tooltip.titleColor      = tooltipText;
+  chartOptions.plugins.tooltip.bodyColor       = tooltipText;
 }
 
 /**

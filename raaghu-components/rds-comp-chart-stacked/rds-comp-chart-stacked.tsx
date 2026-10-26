@@ -14,7 +14,7 @@ export interface RdsCompStackedProps
   data?: ChartData<"bar">;
   /** @deprecated Use `data.labels` instead. */
   labels?: ChartData<"bar">["labels"];
-  /** Chart.js bar options (never mutated). Set `scales.x.stacked` / `scales.y.stacked` to stack the bars. */
+  /** Chart.js bar options (never mutated). Axes default to `stacked: true`; pass `false` to opt out. */
   options: ChartOptions<"bar">;
   /** @deprecated Use `data.datasets` instead. */
   dataSets?: ChartData<"bar">["datasets"];
@@ -60,6 +60,7 @@ const RdsCompStackedChart = ({
         scales: {
           ...(chartOptions?.scales || {}),
           x: {
+            stacked: true,
             ...(chartOptions?.scales?.x || {}),
             offset: true,
             ticks: {
@@ -67,6 +68,10 @@ const RdsCompStackedChart = ({
               padding: 20,
               align: "center",
             },
+          },
+          y: {
+            stacked: true,
+            ...(chartOptions?.scales?.y || {}),
           },
         },
       }),

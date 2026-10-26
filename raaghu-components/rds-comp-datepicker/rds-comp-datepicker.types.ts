@@ -31,6 +31,12 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   clearable?: boolean;
   /** Applies the selected appearance to the date picker. */
   selected?: boolean;
+  /** Earliest selectable date (forwarded to react-datepicker). */
+  minDate?: Date;
+  /** Latest selectable date (forwarded to react-datepicker). */
+  maxDate?: Date;
+  /** Locale for month names / formatting (forwarded to react-datepicker). */
+  locale?: string;
   /** Icon of the open-calendar button. */
   openPickerIcon?: ReactNode;
   /** @deprecated Use `value` instead. */

@@ -994,4 +994,15 @@ describe('audit fixes', () => {
     expect(x).not.toHaveProperty('barPercentage');
     spy.mockRestore();
   });
+
+  it('defaults x/y axes to stacked (G3-066)', () => {
+    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    ChartMock.mockClear();
+    const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    render(<RdsCompStackedChart {...defaultProps} />);
+    const scales = ChartMock.mock.calls[0][1].options.scales;
+    expect(scales.x).toMatchObject({ stacked: true });
+    expect(scales.y).toMatchObject({ stacked: true });
+    spy.mockRestore();
+  });
 });

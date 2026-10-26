@@ -261,10 +261,8 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           <div className="row d-flex align-items-center justify-content-between">
             <div className={clsx("time-display", pickerStyle === 'compact' ? "time-display-compact" : "time-display")}>
               {pickerStyle === 'compact'
-                ? (tempPeriod
-                  ? formatTime(tempHour, tempMinute, tempPeriod)
-                  : (time || '12:00 AM'))
-                : (time || '12:00 AM')}
+                ? formatTime(tempHour, tempMinute, tempPeriod || 'AM')
+                : (time || '')}
             </div>
             <button type="button" className="now-button" onClick={setCurrentTime}>
               {nowText}

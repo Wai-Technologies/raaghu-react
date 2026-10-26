@@ -154,21 +154,31 @@ const RdsColorPicker = (props: RdsCompColorPickerProps) => {
   const selectedColorMode = internalSelectedColorMode;
 
   const [prevValue, setPrevValue] = useState(value);
-  if (value && value.startsWith('#') && value !== prevValue) {
+  if (value !== undefined && value !== prevValue) {
     setPrevValue(value);
-    const parsed = { hex: value, rgb: hexToRgb(value) };
-    updatePickerState((prev) => ({
-      internalColorState: {
-        ...prev.internalColorState,
-        hex: parsed.hex,
-        rgb: {
-          r: parsed.rgb.r,
-          g: parsed.rgb.g,
-          b: parsed.rgb.b,
-          a: prev.internalColorState.rgb.a,
-        },
-      },
-    }));
+    if (value) {
+      const trimmed = value.trim();
+      const isHex = /^#[0-9A-Fa-f]{3,8}$/.test(trimmed);
+      const resolved = isHex
+        ? { hex: normalizeHex(trimmed), rgb: { ...hexToRgb(normalizeHex(trimmed)), a: 1 } }
+        : resolveColorToHex(trimmed);
+      // Skip opaque-black fallback for unparseable non-hex (keep prior colour).
+      const explicitlyBlack = /^(#0{3}([0-9A-Fa-f]{3})?|#000000|black|rgb\(\s*0\s*,\s*0\s*,\s*0)/i.test(trimmed);
+      if (!(resolved.hex === '#000000' && !isHex && !explicitlyBlack)) {
+        updatePickerState((prev) => ({
+          internalColorState: {
+            ...prev.internalColorState,
+            hex: resolved.hex,
+            rgb: {
+              r: resolved.rgb.r,
+              g: resolved.rgb.g,
+              b: resolved.rgb.b,
+              a: prev.internalColorState.rgb.a,
+            },
+          },
+        }));
+      }
+    }
   }
 
   useEffect(() => {

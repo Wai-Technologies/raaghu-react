@@ -586,4 +586,11 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompColorPicker', 'colorMode', '`format`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompColorPicker', 'pickerType', '`view`');
   });
+
+  it('syncs non-hex controlled values (G4-014)', () => {
+    const { rerender } = render(<RdsCompColorPicker label="c" value="#123456" />);
+    expect(screen.getByTestId('grid-color-state').textContent).toContain('#123456');
+    rerender(<RdsCompColorPicker label="c" value="rgb(255, 0, 0)" />);
+    expect(screen.getByTestId('grid-color-state').textContent).toContain('#FF0000');
+  });
 });

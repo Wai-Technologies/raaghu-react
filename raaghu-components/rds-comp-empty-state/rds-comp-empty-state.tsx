@@ -132,6 +132,7 @@ const RdsCompEmptyState = ({
   }, [shouldLoadLottie, useDarkVariant]);
 
   const titleColor = isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-text-primary)";
+  const subtitleColor = "var(--rds-text-secondary)";
 
   let iconContent: ReactNode;
   if (imageValue != null && typeof imageValue !== "string") {
@@ -218,13 +219,6 @@ const RdsCompEmptyState = ({
             component={titleComponent}
             className="rds-comp-empty-state__title"
             data-testid="labelElement"
-            style={{
-              color: isDarkMode ? "#ffffff" : "#000000",
-              fontSize: "20px",
-              fontWeight: 600,
-              marginBottom: "8px",
-              marginTop: "24px",
-            }}
             sx={{
               fontSize: "20px",
               fontWeight: 600,
@@ -242,13 +236,9 @@ const RdsCompEmptyState = ({
             variant="body1"
             className="rds-comp-empty-state__subtitle"
             data-testid="sublabelElement"
-            style={{
-              textAlign: "center",
-              color: isDarkMode ? "#ffffff" : "#000000",
-            }}
             sx={{
               textAlign: "center",
-              color: titleColor,
+              color: subtitleColor,
             }}
           >
             {text}

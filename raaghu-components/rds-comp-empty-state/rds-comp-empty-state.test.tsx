@@ -660,6 +660,20 @@ describe('RdsCompEmptyState audit fixes', () => {
   });
 });
 
+describe('RdsCompEmptyState audit fixes', () => {
+  it('titles use theme tokens without inline hex colours (G5-044)', () => {
+    render(<RdsCompEmptyState label="Empty" description="Nothing here" />);
+    const title = screen.getByTestId('labelElement');
+    const subtitle = screen.getByTestId('sublabelElement');
+    expect(title).not.toHaveStyle({ color: '#000000' });
+    expect(title).not.toHaveStyle({ color: '#ffffff' });
+    expect(subtitle).not.toHaveStyle({ color: '#000000' });
+    expect(subtitle).not.toHaveStyle({ color: '#ffffff' });
+    expect(title).toHaveClass('rds-comp-empty-state__title');
+    expect(subtitle).toHaveClass('rds-comp-empty-state__subtitle');
+  });
+});
+
 describe('RdsCompEmptyState doc-09 renames', () => {
   const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
 

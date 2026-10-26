@@ -143,6 +143,7 @@ export {
   RAAGHU_LOGO_DARK_URL,
   getRaaghuLogoUrl,
   getRaaghuLogoUrlFromDark,
+  setRaaghuLogoBase,
 } from './shared/constants/raaghu-logo';
 export { useRaaghuLogoSrc } from './shared/hooks/useRaaghuLogoSrc';
 export { RaaghuLogoImg } from './shared/components/RaaghuLogoImg';

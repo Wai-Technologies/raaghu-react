@@ -54,12 +54,17 @@ const RdsDatepicker = ({
     placeholder,
     clearable,
     selected = false,
+    minDate,
+    maxDate,
+    locale,
     openPickerIcon,
     className,
     sx,
     ref,
+    isDropdownOpen: _isDropdownOpen,
     ...restProps
 }: RdsCompDatepickerProps) => {
+    void _isDropdownOpen;
     ([
         [controls?.mandatory, 'controls.mandatory', '`required`'],
         [dateForEdit, 'dateForEdit', '`value`'],
@@ -268,7 +273,6 @@ const RdsDatepicker = ({
 
     const sharedProps = useMemo(
         () => ({
-            ...restProps,
             selectedDate,
             dateForEdit,
             titleText,
@@ -288,16 +292,19 @@ const RdsDatepicker = ({
             clearDate,
             inputId,
             idPrefix: baseId,
+            minDate,
+            maxDate,
+            locale,
         }),
         [
-            restProps, selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, layout,
+            selectedDate, dateForEdit, titleText, showTitle, onDatePicker, datePickerStyleType, layout,
             customDate, isDisabled, isMandatory, placeholderText, type, changeIcon, openPickerIcon, showClearDate, isDefaultDate, clearDate,
-            inputId, baseId,
+            inputId, baseId, minDate, maxDate, locale,
         ]
     );
 
     return (
-        <Box ref={ref} className={clsx('rds-datepicker', selected && 'rds-datepicker--selected', className)} sx={sx}>
+        <Box {...restProps} ref={ref} className={clsx('rds-datepicker', selected && 'rds-datepicker--selected', className)} sx={sx}>
             <label
                 className={clsx("rds-datepicker__label", !showTitle && "rds-datepicker__label--hidden")}
                 aria-hidden={!showTitle}

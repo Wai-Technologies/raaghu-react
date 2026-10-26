@@ -6,12 +6,18 @@ import { RenderDefaultDropdownHeader, RenderMultiMonthHeader } from "./renderCus
 /** Stable popper container (module scope so react-datepicker does not remount the popper each render). */
 const popperContainer = ({ children }: { children?: ReactNode }) => <div>{children}</div>;
 
-const getRenderCustomHeader = (layout: string, datePickerStyleType: string) => {
+const getRenderCustomHeader = (
+    layout: string,
+    datePickerStyleType: string,
+    bounds?: { minDate?: Date; maxDate?: Date; locale?: string }
+) => {
     if (layout === "Multi Month") {
-        return RenderMultiMonthHeader;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (headerProps: any) => <RenderMultiMonthHeader {...headerProps} {...bounds} />;
     }
     if (layout === "Default" && datePickerStyleType === "Dropdown") {
-        return RenderDefaultDropdownHeader;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (headerProps: any) => <RenderDefaultDropdownHeader {...headerProps} {...bounds} />;
     }
     return undefined;
 };
@@ -33,7 +39,11 @@ const buildDatePickerProps = ({
     customInput: ReactNode;
     overrides?: Record<string, any>;
 }) => {
-    const renderCustomHeader = getRenderCustomHeader(props.layout, props.datePickerStyleType);
+    const renderCustomHeader = getRenderCustomHeader(props.layout, props.datePickerStyleType, {
+        minDate: props.minDate,
+        maxDate: props.maxDate,
+        locale: props.locale,
+    });
     const usesCustomHeaderDropdown = Boolean(renderCustomHeader);
 
     return {
@@ -60,6 +70,9 @@ const buildDatePickerProps = ({
     calendarClassName: ["rds-datepicker__calendar", props.layout === "Default" ? "rds-datepicker--layout-default" : undefined]
         .filter(Boolean)
         .join(" ") || undefined,
+    minDate: props.minDate,
+    maxDate: props.maxDate,
+    locale: props.locale,
     ...overrides,
 } as unknown as DatePickerProps;
 };

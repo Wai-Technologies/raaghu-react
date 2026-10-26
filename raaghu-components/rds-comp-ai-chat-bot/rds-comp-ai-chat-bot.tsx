@@ -23,9 +23,12 @@ export interface RdsCompAiChatBotProps extends Omit<HTMLAttributes<HTMLDivElemen
   /** @deprecated Use `placeholder` instead. */
   placeholderText?: string;
   messages: Message[];
-  /** Called with the message the user sent. */
+  /** Called with the message the user sent. Prefer this over `setMessages`. */
   onSend?: (message: Message) => void;
-  /** Appends sent messages to `messages`. */
+  /**
+   * Appends sent messages to `messages`.
+   * @deprecated Use `onSend` and update `messages` in the parent instead.
+   */
   setMessages?: Dispatch<SetStateAction<Message[]>>;
   /** @deprecated Has no effect. */
   iconName?: ReactNode;
@@ -70,6 +73,7 @@ const RdsCompAiChatBot = ({
   if (aiLogoUrl !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "aiLogoUrl", "`assistantAvatar`");
   if (userAvatarUrl !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "userAvatarUrl", "`userAvatar`");
   if (placeholderText !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "placeholderText", "`placeholder`");
+  if (setMessages !== undefined) warnDeprecatedProp("RdsCompAiChatBot", "setMessages", "`onSend` (parent-owned `messages`)");
   if (messages.some((m) => m.sender !== undefined && m.role === undefined)) warnDeprecatedProp("RdsCompAiChatBot", "Message.sender", "`Message.role`");
   const assistantSrc = assistantAvatar ?? aiLogoUrl;
   const userSrc = userAvatar ?? userAvatarUrl;
@@ -80,8 +84,11 @@ const RdsCompAiChatBot = ({
     (messageText: string, image?: string) => {
       if (!messageText && !image) return;
 
+      const nextId =
+        messages.reduce((max, m) => (typeof m.id === "number" && m.id > max ? m.id : max), 0) + 1;
+
       const newMessage: Message = {
-        id: messages.length + 1,
+        id: nextId,
         text: messageText,
         image: image || inputImage || undefined,
         role: "user",
@@ -92,7 +99,7 @@ const RdsCompAiChatBot = ({
       onSend?.(newMessage);
       setInputImage(null);
     },
-    [inputImage, messages.length, onSend, setMessages]
+    [inputImage, messages, onSend, setMessages]
   );
 
   const handleAddComment = useCallback((comment: AttachmentComment) => {

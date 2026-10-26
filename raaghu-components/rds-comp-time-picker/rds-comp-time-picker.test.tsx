@@ -686,5 +686,13 @@ describe('RdsCompTimePicker', () => {
       fireEvent.keyDown(document, { key: 'Escape' });
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
+
+    it('does not invent a panel time when value is empty (G6-124)', () => {
+      const { container } = render(<RdsCompTimePicker {...defaultProps} defaultOpen />);
+      const display = container.querySelector('.time-display');
+      expect(display).toBeInTheDocument();
+      expect(display?.textContent?.trim()).toBe('');
+      expect(screen.getByPlaceholderText('12:00 AM')).toHaveValue('');
+    });
   });
 });
