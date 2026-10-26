@@ -20,57 +20,62 @@ const meta = {
         },
     },
     tags: ["autodocs", "stable"],
-    argTypes: {
-        className: {
-            control: "text",
-            description: "CSS class applied to the chart container.",
-        },
-        sx: {
-            control: "object",
-            description: "MUI system styles applied to the chart container.",
-        },
-        ref: {
-            control: false,
-            description: "React ref to the chart container; assign it in code.",
-        },
-        data: {
-            description: "Chart data containing labels and datasets.",
-        },
-        subtitle: {
-            control: "text",
-            description: "Smaller text displayed below the gauge title.",
-        },
-        ariaLabel: {
-            control: "text",
-            description: "Accessible label for the chart.",
-        },
-
-        // Hide deprecated aliases from the Docs table.
-        labels: {
-            control: false,
-            table: { disable: true },
-        },
-        dataSets: {
-            control: false,
-            table: { disable: true },
-        },
-        subTitleText: {
-            control: false,
-            table: { disable: true },
-        },
-        chartLabel: {
-            control: false,
-            table: { disable: true },
-        },
-        value: {
-            control: false,
-            table: { disable: true },
-        },
-        maxValue: {
-            control: false,
-            table: { disable: true },
-        },
+  argTypes: {
+    data: {
+        control: "object",
+        description: "Chart.js data containing labels and datasets.",
     },
+    options: {
+        control: "object",
+        description: "Chart.js configuration options.",
+    },
+    className: {
+        control: "text",
+        description: "CSS class applied to the chart container.",
+    },
+    sx: {
+        control: "object",
+        description: "MUI system styles applied to the chart container.",
+    },
+    ref: {
+        control: false,
+        description: "React ref to the chart container; assign it in code.",
+    },
+    subtitle: {
+        control: "text",
+        description: "Smaller text displayed below the gauge title.",
+    },
+    ariaLabel: {
+        control: "text",
+        description: "Accessible label for the chart.",
+    },
+
+    // Hide deprecated aliases from the Docs table.
+    labels: {
+        control: false,
+        table: { disable: true },
+    },
+    dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+    subTitleText: {
+        control: false,
+        table: { disable: true },
+    },
+    chartLabel: {
+        control: false,
+        table: { disable: true },
+    },
+    value: {
+        control: false,
+        table: { disable: true },
+    },
+    maxValue: {
+        control: false,
+        table: { disable: true },
+    },
+},
 } satisfies Meta<typeof RdsCompGaugeChart>;
 
 export default meta;

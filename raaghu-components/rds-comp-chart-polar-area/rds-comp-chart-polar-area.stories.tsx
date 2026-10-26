@@ -17,10 +17,41 @@ const meta: Meta = {
         
     },
     tags: ['autodocs', 'stable'],
-    argTypes: {
-        className: { control: 'text', description: 'CSS class applied to the chart container.' },
-        sx: { control: 'object', description: 'MUI system styles applied to the chart container.' },
-        ref: { control: false, description: 'React ref to the chart container; assign it in code.' },
+      argTypes: {
+        data: {
+            description: "Chart.js data containing labels and datasets.",
+            control: "object",
+        },
+        options: {
+            description: "Chart.js configuration options.",
+            control: "object",
+        },
+        height: {
+            control: "number",
+            description: "Height of the chart.",
+        },
+        width: {
+            control: "text",
+            description: "Width of the chart.",
+        },
+        className: {
+            control: "text",
+            description: "CSS class applied to the chart container.",
+        },
+        sx: {
+            control: "object",
+            description: "MUI system styles applied to the chart container.",
+        },
+        ref: {
+            control: false,
+            description: "React ref to the chart container; assign it in code.",
+        },
+
+        // Hide deprecated props from Storybook documentation.
+        labels: { control: false, table: { disable: true } },
+        dataSets: { control: false, table: { disable: true } },
+        chartLabel: { control: false, table: { disable: true } },
+       
     },
 } satisfies Meta<typeof RdsCompPolarAreaChart>;
 
@@ -84,7 +115,7 @@ export const Default: Story = {
     },
     parameters: {
         controls: {
-            exclude: ['chartStyle'],
+            // No chartStyle exclusion needed.
         },
     },
     play: async ({ canvas }) => {

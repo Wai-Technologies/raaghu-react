@@ -16,11 +16,42 @@ const meta: Meta = {
         }
     },
     tags: ['autodocs', 'stable'],
-    argTypes: {
-        className: { control: 'text', description: 'CSS class applied to the chart container.' },
-        sx: { control: 'object', description: 'MUI system styles applied to the chart container.' },
-        ref: { control: false, description: 'React ref to the chart container; assign it in code.' },
+   argTypes: {
+    data: {
+        control: "object",
+        description: "Chart.js data containing labels and datasets.",
     },
+    options: {
+        control: "object",
+        description: "Chart.js configuration options.",
+    },
+    className: {
+        control: "text",
+        description: "CSS class applied to the chart container.",
+    },
+    sx: {
+        control: "object",
+        description: "MUI system styles applied to the chart container.",
+    },
+    ref: {
+        control: false,
+        description: "React ref to the chart container; assign it in code.",
+    },
+
+    // Hide deprecated aliases from Storybook documentation.
+    labels: {
+        control: false,
+        table: { disable: true },
+    },
+    dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+    chartLabel: {
+        control: false,
+        table: { disable: true },
+    },
+},
 } satisfies Meta<typeof RdsCompPieChart>;
 
 export default meta;
@@ -28,7 +59,7 @@ type Story = StoryObj<typeof RdsCompPieChart>;
 
 export const Default: Story = {
     args: {
-        id: "chart pie",
+       id: "chart-pie",
         data: {
             labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
             datasets: [

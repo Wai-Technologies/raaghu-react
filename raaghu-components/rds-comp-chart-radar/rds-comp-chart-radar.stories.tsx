@@ -17,24 +17,52 @@ const meta = {
         },
     },
     tags: ["autodocs", "stable"],
-    argTypes: {
-        className: {
-            control: "text",
-            description: "CSS class applied to the chart container.",
-        },
-        sx: {
-            control: "object",
-            description: "MUI system styles applied to the chart container.",
-        },
-        ref: {
-            control: false,
-            description: "React ref to the chart container; assign it in code.",
-        },
-        labels: { table: { disable: true } },
-        dataSets: { table: { disable: true } },
-        chartLabel: { table: { disable: true } },
-        radius: { table: { disable: true } },
+argTypes: {
+    data: {
+        description: "Chart.js data containing labels and datasets.",
+        control: "object",
     },
+    options: {
+        description: "Chart.js configuration options.",
+        control: "object",
+    },
+    height: {
+        control: "number",
+        description: "Canvas height in pixels.",
+    },
+    width: {
+        control: "number",
+        description: "Canvas width in pixels.",
+    },
+    className: {
+        control: "text",
+        description: "CSS class applied to the chart container.",
+    },
+    sx: {
+        control: "object",
+        description: "MUI system styles applied to the chart container.",
+    },
+    ref: {
+        control: false,
+        description: "React ref to the chart container; assign it in code.",
+    },
+    labels: {
+        control: false,
+        table: { disable: true },
+    },
+    dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+    chartLabel: {
+        control: false,
+        table: { disable: true },
+    },
+    radius: {
+        control: false,
+        table: { disable: true },
+    },
+},
 } satisfies Meta<typeof RdsCompRadarChart>;
 
 export default meta;

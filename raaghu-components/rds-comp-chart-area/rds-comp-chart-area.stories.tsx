@@ -18,23 +18,24 @@ const meta = {
     },
   },
   tags: ["autodocs", "stable"],
-   argTypes: {
+argTypes: {
     data: {
-      description:
-        "Chart data containing labels and datasets. Edit labels and dataset values inside this object.",
-      control: "object",
+        description: "Chart.js data containing labels and datasets. Controls are disabled because datasets use gradient functions.",
+        control: false,
     },
     options: {
-      description: "Chart.js configuration options.",
-      control: "object",
+        description: "Chart.js configuration options.",
+        control: "object",
     },
-
-    // Hide deprecated props from Storybook documentation.
-    labels: { control: false, table: { disable: true } },
-    dataSets: { control: false, table: { disable: true } },
-    isGradient: { control: false, table: { disable: true } },
-    chartLabel: { control: false, table: { disable: true } },
-  },
+    labels: {
+        control: false,
+        table: { disable: true },
+    },
+    dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+},
 } satisfies Meta<typeof RdsCompAreaChart>;
 
 export default meta;

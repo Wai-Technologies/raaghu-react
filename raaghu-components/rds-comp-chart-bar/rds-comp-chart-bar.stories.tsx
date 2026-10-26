@@ -28,6 +28,18 @@ const meta = {
       description: "Chart.js configuration options.",
       control: "object",
     },
+    height: {
+  control: "text",
+  description: "Height of the chart.",
+},
+sx: {
+  control: "object",
+  description: "MUI system styles applied to the chart container.",
+},
+className: {
+  control: "text",
+  description: "CSS class applied to the chart container.",
+},
 
     // Hide deprecated props from Storybook documentation.
     labels: { control: false, table: { disable: true } },

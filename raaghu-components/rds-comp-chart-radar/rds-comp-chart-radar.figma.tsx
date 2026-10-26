@@ -1,4 +1,4 @@
-import React from "react";
+
 import RdsCompRadarChart from "./rds-comp-chart-radar";
 import figma from "@figma/code-connect";
 
@@ -6,14 +6,7 @@ figma.connect(
     RdsCompRadarChart,
     "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=10004-2478",
     {
-        props: {
-            showDataset2: figma.boolean("Show Dataset 2"),
-            showYAxisData: figma.boolean("Show Y Axis Data"),
-            showLegend: figma.boolean("Show Legend"),
-            showDataset1: figma.boolean("Show Dataset 1"),
-            showDataset3: figma.boolean("Show Dataset 3"),
-        },
-        example: (props) => (
+        example: () => (
             <RdsCompRadarChart
                 data={{
                     labels: [
@@ -114,7 +107,6 @@ figma.connect(
                         },
                     },
                 }}
-                {...props}
             />
         ),
     },

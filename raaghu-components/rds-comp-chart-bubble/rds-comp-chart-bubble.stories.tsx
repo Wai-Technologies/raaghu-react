@@ -18,43 +18,44 @@ const meta = {
         },
     },
     tags: ["autodocs", "stable"],
-    argTypes: {
-        className: {
-            control: "text",
-            description: "CSS class applied to the chart container.",
-        },
-        sx: {
-            control: "object",
-            description: "MUI system styles applied to the chart container.",
-        },
-        ref: {
-            control: false,
-            description: "React ref to the chart container; assign it in code.",
-        },
-
-        // Current API
-        data: {
-            description: "Chart data containing labels and datasets.",
-        },
-        ariaLabel: {
-            control: "text",
-            description: "Accessible label for the chart.",
-        },
-
-        // Hide deprecated aliases from the Docs table.
-        labels: {
-            control: false,
-            table: { disable: true },
-        },
-        dataSets: {
-            control: false,
-            table: { disable: true },
-        },
-        chartLabel: {
-            control: false,
-            table: { disable: true },
-        },
+   argTypes: {
+    data: {
+        control: "object",
+        description: "Chart.js data containing labels and datasets.",
     },
+    options: {
+        control: "object",
+        description: "Chart.js configuration options.",
+    },
+    className: {
+        control: "text",
+        description: "CSS class applied to the chart container.",
+    },
+    sx: {
+        control: "object",
+        description: "MUI system styles applied to the chart container.",
+    },
+    ref: {
+        control: false,
+        description: "React ref to the chart container; assign it in code.",
+    },
+    ariaLabel: {
+        control: "text",
+        description: "Accessible label for the chart.",
+    },
+    labels: {
+        control: false,
+        table: { disable: true },
+    },
+    dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+    chartLabel: {
+        control: false,
+        table: { disable: true },
+    },
+},
 } satisfies Meta<typeof RdsCompBubbleChart>;
 
 export default meta;

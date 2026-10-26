@@ -19,43 +19,50 @@ const meta = {
     },
   },
   tags: ["autodocs", "stable"],
-   argTypes: {
+  argTypes: {
     data: {
-      description:
-        "Chart data containing labels and datasets. Edit data.labels for category names and data.datasets for values and styling.",
-      control: "object",
+        control: "object",
+        description: "Chart.js data containing labels and datasets.",
     },
     options: {
-      description: "Chart.js configuration options.",
-      control: "object",
+        control: "object",
+        description: "Chart.js configuration options.",
     },
     centerIcon: {
-      description: "React node displayed in the center of the chart.",
-      control: false,
+        control: false,
+        description: "React node displayed in the center of the chart.",
+    },
+    height: {
+        control: "text",
+        description: "Height of the chart.",
+    },
+    width: {
+        control: "text",
+        description: "Width of the chart.",
     },
 
-    // Hide deprecated props from Storybook documentation.
+    // Hide deprecated aliases from Storybook documentation.
     labels: {
-      control: false,
-      table: { disable: true },
+        control: false,
+        table: { disable: true },
     },
     dataSets: {
-      control: false,
-      table: { disable: true },
+        control: false,
+        table: { disable: true },
     },
     centerIconName: {
-      control: false,
-      table: { disable: true },
+        control: false,
+        table: { disable: true },
     },
     chartLabel: {
-      control: false,
-      table: { disable: true },
+        control: false,
+        table: { disable: true },
     },
     chartStyle: {
-      control: false,
-      table: { disable: true },
+        control: false,
+        table: { disable: true },
     },
-  },
+},
 } satisfies Meta<typeof RdsCompBooleanChart>;
 
 export default meta;
@@ -85,7 +92,7 @@ export const Default: Story = {
       plugins: {
         title: {
           display: true,
-          text: "Doughnut Chart",
+          text: "Boolean Chart",
         },
         legend: {
           display: false,
