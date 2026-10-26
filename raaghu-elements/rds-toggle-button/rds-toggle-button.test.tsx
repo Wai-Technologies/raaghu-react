@@ -468,7 +468,7 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} spacing={0} />
       );
-      const group = container.querySelector('.rds-toggle-button__custom-group');
+      const group = container.querySelector('.rds-toggle-button__group--spaced');
       expect(group).not.toBeInTheDocument();
     });
 
@@ -476,8 +476,11 @@ describe('RdsToggleButton', () => {
       const { container } = renderWithTheme(
         <RdsToggleButton options={mockOptions} spacing={16} />
       );
-      const group = container.querySelector('.rds-toggle-button__custom-group');
+      const group = container.querySelector('.rds-toggle-button__group--spaced');
       expect(group).toBeInTheDocument();
+      expect(container.querySelector('.rds-toggle-button')).toHaveStyle({
+        '--rds-toggle-button-spacing': '16px',
+      });
     });
 
     it('should apply spacing class to toggle button', () => {
@@ -884,7 +887,8 @@ describe('audit fixes', () => {
     expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: 'var(--rds-spacing-xs, 8px)' });
     rerender(<RdsToggleButton options={opts} iconTextSpacing={3} spacing={5} />);
     expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: '3px' });
-    expect(container.querySelectorAll('.rds-toggle-button__button-wrapper')[1]).toHaveStyle({ marginLeft: 'var(--rds-toggle-button-spacing, 5px)' });
+    expect(container.querySelector('.rds-toggle-button')).toHaveStyle({ '--rds-toggle-button-spacing': '5px' });
+    expect(container.querySelector('.rds-toggle-button__group--spaced')).toBeInTheDocument();
   });
 
   it('merges consumer className on the root and standalone button', () => {

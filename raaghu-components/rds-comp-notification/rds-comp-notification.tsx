@@ -165,11 +165,10 @@ const RdsCompNotification: FC<RdsCompNotificationProps> & { displayName?: string
                         )}
                         {style === NotificationStyle.Avatar && (
                             <Avatar
-                                src={
-                                    notification.avatar ||
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
-                                }
-                                sx={{ width: 40, height: 40, marginRight: 2 }} />)}
+                                src={notification.avatar}
+                                sx={{ width: 40, height: 40, marginRight: 2 }}
+                            />
+                        )}
                         {style === NotificationStyle.Icon && (
                             <Box className="rds-comp-notification__icon" sx={{ marginRight: 2, display: "flex", alignItems: "center", width: 38, height: 38 }}>
                                 {typeof notification.icon === 'string' ? (

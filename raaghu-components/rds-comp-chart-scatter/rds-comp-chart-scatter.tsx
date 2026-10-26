@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { ChartConfiguration, ChartData, ChartDataset } from "chart.js/auto";
-import { applyCanvasSize, resolveChartData, resolveChartLabel } from "../chart-utils";
+import { applyCanvasSize, getCSSVar, resolveChartData, resolveChartLabel } from "../chart-utils";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { useChart } from "../use-chart";
 import "./rds-comp-chart-scatter.scss";
@@ -46,7 +46,7 @@ function normalizeScatterDataset(
   const colors = dataset as DatasetColors;
   const lineColor = resolveDatasetColor(
     colors.borderColor ?? colors.backgroundColor,
-    "rgb(255, 99, 132)"
+    getCSSVar("--rds-primary-main", "rgb(255, 99, 132)")
   );
 
   return {

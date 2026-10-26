@@ -255,13 +255,15 @@
 
 }
 
-.form-control-feedback {
+.rds-comp-text-editor__required {
+  color: var(--rds-color-error);
+  margin-left: 0.15em;
+}
+
+.rds-comp-text-editor__error {
   margin-top: var(--rds-spacing-xs, 0.5rem);
-  
-  .text-danger {
-    color: var(--rds-color-error);
-    font-size: var(--rds-font-size-small, 0.875rem);
-  }
+  color: var(--rds-color-error);
+  font-size: var(--rds-font-size-small, 0.875rem);
 }
 
 .rdw-link-modal-input,.rdw-image-modal-size-input,.rdw-image-modal-alt-input{

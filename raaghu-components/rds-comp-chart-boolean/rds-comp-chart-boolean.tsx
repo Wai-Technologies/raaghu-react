@@ -84,17 +84,21 @@ const RdsCompBooleanChart = ({
         ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(resolveSvgCssVariables(svg))}`
         : "";
 
+      const iconImage = dataURL ? new Image() : null;
+      if (iconImage) {
+        iconImage.src = dataURL;
+      }
+
       const centerIconPlugin = {
         id: "counter4",
         afterDraw(chart: Chart) {
+          if (!iconImage?.complete) return;
           const chartCtx = chart.ctx;
           chartCtx.save();
-          const myIconImage = new Image();
-          myIconImage.src = dataURL;
           const iconSize = 30;
           const x = chart.width / 2 - iconSize / 2;
           const y = chart.height / 2 - iconSize / 2;
-          chartCtx.drawImage(myIconImage, x, y, iconSize, iconSize);
+          chartCtx.drawImage(iconImage, x, y, iconSize, iconSize);
           chartCtx.restore();
         },
       };
@@ -104,12 +108,17 @@ const RdsCompBooleanChart = ({
         labels: resolved.labels,
         datasets: resolved.datasets,
         options,
-        themeAxes: false,
+        themeAxes: [],
         ...(svg && { plugins: [centerIconPlugin] }),
         onCreate: (chart) => {
           chart.canvas.style.height = "var(--rds-comp-chart-boolean-size, 20vh)";
           chart.canvas.style.width = "var(--rds-comp-chart-boolean-size, 20vh)";
           applyCanvasSize(chart.canvas, height, width);
+          if (iconImage && !iconImage.complete) {
+            iconImage.onload = () => {
+              chart.draw();
+            };
+          }
         },
       };
     },

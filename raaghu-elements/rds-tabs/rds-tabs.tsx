@@ -78,8 +78,8 @@ const RdsTabs = ({
   endIcon,
   leftIcon,
   rightIcon,
-  showLeftIcon = true,
-  showRightIcon = true,
+  showLeftIcon = false,
+  showRightIcon = false,
   level: _level,
   className,
   ...props
@@ -104,11 +104,15 @@ const RdsTabs = ({
   };
 
 
-  const tabsWithIcons = tabItems.map((tab) => ({
-    ...tab,
-    leftIcon: showLeftIcon ? (tab.startIcon ?? tab.leftIcon ?? startIcon ?? leftIcon ?? <PersonIcon fontSize="small" />) : undefined,
-    rightIcon: showRightIcon ? (tab.endIcon ?? tab.rightIcon ?? endIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
-  }));
+  const tabsWithIcons = tabItems.map((tab) => {
+    const resolvedStart = tab.startIcon ?? tab.leftIcon ?? startIcon ?? leftIcon;
+    const resolvedEnd = tab.endIcon ?? tab.rightIcon ?? endIcon ?? rightIcon;
+    return {
+      ...tab,
+      leftIcon: showLeftIcon ? (resolvedStart ?? <PersonIcon fontSize="small" />) : resolvedStart,
+      rightIcon: showRightIcon ? (resolvedEnd ?? <AddIcon fontSize="small" />) : resolvedEnd,
+    };
+  });
 
   const providedValue = value ?? activeTab;
 

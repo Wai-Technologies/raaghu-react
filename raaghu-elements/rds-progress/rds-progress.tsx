@@ -140,9 +140,9 @@ const RdsProgress = ({
       <Box {...props} ref={ref} className={clsx('rds-progress', 'rds-progress--stepper', `rds-progress--${color}`, className)} sx={sx}>
         <Box sx={[{ display: 'flex', alignItems: 'center' }, ...sxArray]} className="rds-progress__stepper" {...progressAria}>
           {Array.from({ length: totalSteps }, (_, stepNumber) => stepNumber + 1).map((stepNumber) => {
-            const isCompleted = stepNumber <= currentStep;
             const isCurrent = stepNumber === currentStep;
-            const stepClass = isCompleted ? 'completed' : isCurrent ? 'current' : 'upcoming';
+            const isCompleted = stepNumber < currentStep;
+            const stepClass = isCurrent ? 'current' : isCompleted ? 'completed' : 'upcoming';
             const typeClass = isDot ? 'rds-progress__stepper-step--circle' : 'rds-progress__stepper-step--number';
             return (
               <Fragment key={stepNumber}>
@@ -158,7 +158,7 @@ const RdsProgress = ({
                 </Box>
                 {stepNumber < totalSteps && (
                   <Box
-                    className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`}
+                    className={`rds-progress__stepper-connector ${isCompleted || isCurrent ? 'rds-progress__stepper-connector--completed' : ''}`}
                       sx={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
                   />
                 )}

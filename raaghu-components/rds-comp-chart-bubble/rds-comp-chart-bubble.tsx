@@ -60,14 +60,17 @@ const RdsCompBubbleChart = ({
     [resolved.labels, options, resolved.datasets, height, width]
   );
 
+  const canvasWidth = typeof width === "number" ? width : 300;
+  const canvasHeight = typeof height === "number" ? height : 300;
+
   return (
-    <Box {...rest} ref={ref} className={clsx(className)} sx={sx}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-chart-bubble", className)} sx={sx}>
       <canvas
         data-testid={id}
         id={id}
         ref={canvasRef}
-        width={300}
-        height={300}
+        width={canvasWidth}
+        height={canvasHeight}
         role="img"
         aria-label={resolveChartLabel("RdsCompBubbleChart", ariaLabel, chartLabel, "Bubble chart")}
       />

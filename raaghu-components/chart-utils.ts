@@ -181,7 +181,7 @@ export function createCenterTextPlugin<TType extends ChartType = ChartType>({
     id,
     beforeDraw(chart) {
       const { ctx, chartArea } = chart;
-      const x = chartArea.width / 2;
+      const x = chartArea.left + chartArea.width / 2;
 
       ctx.save();
       ctx.font = chartFont('bold', 'xl');

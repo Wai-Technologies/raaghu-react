@@ -2,14 +2,19 @@
   display: block;
   position: relative;
 
-  // Focus and disabled states are handled by Material-UI
+  &__title {
+    font-weight: var(--rds-font-weight-bold, 700);
+  }
+
+  &__description {
+    margin-top: var(--rds-timeline-description-margin-top, var(--rds-spacing-xs));
+    color: var(--rds-text-secondary);
+  }
 }
-
-
 
 .rds-timeline.MuiTimeline-root {
   .MuiTimelineContent-root {
-    div {
+    .rds-timeline__description {
       color: var(--rds-text-secondary);
     }
   }

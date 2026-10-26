@@ -6,6 +6,7 @@ import "./rds-comp-ai-typing-section.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsAutocomplete, { type RdsAutocompleteProps } from "../../raaghu-elements/rds-autocomplete/rds-autocomplete";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import Send from "@mui/icons-material/Send";
 import RdsCompAiAttachment, {
   type Comment as AttachmentComment,
   type RdsCompAiAttachmentSlotProps,
@@ -217,7 +218,7 @@ const RdsCompAiTypingSectionComponent = ({
             <div className="rds-comp-ai-typing-section__send">
               <RdsButton
                 color="primary"
-                changeLeftIcon="add"
+                changeLeftIcon={<Send />}
                 showLeftIcon
                 variant="filled"
                 layout="icon-only"

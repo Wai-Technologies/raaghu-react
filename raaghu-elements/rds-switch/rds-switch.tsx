@@ -82,15 +82,14 @@ const RdsSwitch = ({
   const { defaultChecked: _, inputProps, ...restProps } = props;
   const slotInput = restProps.slotProps?.input;
 
-  const computedAriaLabel: string =
+  const computedAriaLabel: string | undefined =
     (typeof props['aria-label'] === 'string' ? props['aria-label'] : undefined) ||
-    (typeof label === 'string' ? label : undefined) ||
-    'Switch';
+    (typeof label === 'string' && label ? label : undefined);
 
   const mergeInput = (consumerInput: object | undefined) => ({
     ...consumerInput,
     ...(inputProps ?? {}),
-    'aria-label': computedAriaLabel,
+    ...(computedAriaLabel !== undefined && { 'aria-label': computedAriaLabel }),
   });
   const mergedInput =
     typeof slotInput === 'function'

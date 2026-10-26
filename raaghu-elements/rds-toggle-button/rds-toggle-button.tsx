@@ -55,6 +55,7 @@ const RdsToggleButton = ({
   disabled,
   color,
   className,
+  sx,
   ...otherProps
 }: RdsToggleButtonProps) => {
   if (enforceSelected !== undefined) warnDeprecatedProp('RdsToggleButton', 'enforceSelected', '`required`');
@@ -108,92 +109,8 @@ const RdsToggleButton = ({
     onChange?.(event, newValue);
   };
 
-  const handleCustomButtonClick = (event: MouseEvent<HTMLElement>, optionValue: string) => {
-    if (disabled) {
-      return;
-    }
-
-    if (multiple) {
-      const newValue = Array.isArray(value) ? [...value] : [];
-      const index = newValue.indexOf(optionValue);
-
-      if (index === -1) {
-        newValue.push(optionValue);
-      } else if (!mustSelect || newValue.length > 1) {
-        newValue.splice(index, 1);
-      } else {
-        return;
-      }
-
-      handleChange(event, newValue);
-    } else {
-      const newValue = value === optionValue && !mustSelect ? null : optionValue;
-      handleChange(event, newValue);
-    }
-  };
-
   const groupAriaLabel = (otherProps['aria-label'] as string | undefined) || 'Toggle button group';
-
-  const renderButtons = () => {
-    if (spacing === 0) {
-      return options.map((option) => (
-        <MuiToggleButton
-          key={option.value}
-          value={option.value}
-          disabled={disabled || option.disabled}
-          className={`rds-toggle-button__button ${sizeClass}`}
-          size={effectiveSize}
-          aria-label={option.label || `Option ${option.value}`}
-        >
-          {option.icon && (
-            <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconGap : 0 }}>
-              {option.icon}
-            </span>
-          )}
-          {option.label}
-        </MuiToggleButton>
-      ));
-    }
-
-    return options.map((option, index) => {
-      const isSelected = multiple ?
-        Array.isArray(value) && value.includes(option.value) :
-        value === option.value;
-      const spacingStyle = index === 0 ? {} : {
-        [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: `var(--rds-toggle-button-spacing, ${spacing}px)`
-      };
-
-      return (
-        <div
-          key={option.value}
-          className="rds-toggle-button__button-wrapper"
-          style={spacingStyle}
-        >
-          <MuiToggleButton
-            value={option.value}
-            disabled={disabled || option.disabled}
-            className={clsx('rds-toggle-button__button', 'rds-toggle-button__button--spaced', sizeClass)}
-            size={effectiveSize}
-            onClick={(e) => handleCustomButtonClick(e, option.value)}
-            selected={isSelected}
-            aria-label={option.label || `Option ${option.value}`}
-            color={color}
-            fullWidth={orientation === 'vertical'}
-          >
-            {option.icon && (
-              <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconGap : 0 }}>
-                {option.icon}
-              </span>
-            )}
-            {option.label}
-          </MuiToggleButton>
-        </div>
-      );
-    });
-  };
-
   const useCustomSpacing = spacing > 0;
-
   const countClass = effectiveSize === 'large' && options.length === 3 ? 'rds-toggle-button--large-three' : '';
 
   return (
@@ -207,26 +124,63 @@ const RdsToggleButton = ({
         options.length > 3 && 'rds-toggle-button--wrap-mobile',
         className,
       )}
+      style={useCustomSpacing ? { ['--rds-toggle-button-spacing' as string]: `${spacing}px` } : undefined}
     >
-      {useCustomSpacing ? (
-        <fieldset className="rds-toggle-button__custom-group" aria-label={groupAriaLabel}>
-          {renderButtons()}
-        </fieldset>
-      ) : (
-        <MuiToggleButtonGroup
-          exclusive={!multiple}
-          orientation={orientation}
-          onChange={handleChange}
-          value={value}
-          size={effectiveSize}
-          color={color}
-          {...otherProps}
-          aria-label={groupAriaLabel}
-          className="rds-toggle-button__group"
-        >
-          {renderButtons()}
-        </MuiToggleButtonGroup>
-      )}
+      <MuiToggleButtonGroup
+        exclusive={!multiple}
+        orientation={orientation}
+        onChange={handleChange}
+        value={value}
+        size={effectiveSize}
+        color={color}
+        disabled={disabled}
+        {...otherProps}
+        aria-label={groupAriaLabel}
+        className={clsx('rds-toggle-button__group', useCustomSpacing && 'rds-toggle-button__group--spaced')}
+        sx={[
+          useCustomSpacing && {
+            gap: 'var(--rds-toggle-button-spacing)',
+            backgroundColor: 'transparent',
+            '& .MuiToggleButtonGroup-grouped': {
+              borderRadius: 'var(--rds-border-radius-sm, 4px)',
+              border: '1px solid',
+              borderColor: 'divider',
+              margin: 0,
+              '&:not(:first-of-type)': {
+                marginLeft: 0,
+                marginTop: 0,
+                borderLeft: '1px solid',
+                borderTop: '1px solid',
+                borderColor: 'divider',
+              },
+              '&.Mui-selected + .MuiToggleButtonGroup-grouped.Mui-selected': {
+                borderLeft: '1px solid',
+                borderTop: '1px solid',
+                borderColor: 'divider',
+              },
+            },
+          },
+          ...(Array.isArray(sx) ? sx : sx != null ? [sx] : []),
+        ]}
+      >
+        {options.map((option) => (
+          <MuiToggleButton
+            key={option.value}
+            value={option.value}
+            disabled={disabled || option.disabled}
+            className={clsx('rds-toggle-button__button', useCustomSpacing && 'rds-toggle-button__button--spaced', sizeClass)}
+            size={effectiveSize}
+            aria-label={option.label || `Option ${option.value}`}
+          >
+            {option.icon && (
+              <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconGap : 0 }}>
+                {option.icon}
+              </span>
+            )}
+            {option.label}
+          </MuiToggleButton>
+        ))}
+      </MuiToggleButtonGroup>
     </div>
   );
 };

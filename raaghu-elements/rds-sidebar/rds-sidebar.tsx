@@ -102,7 +102,7 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
   searchValue?: string;
   /** Initial search text when uncontrolled. */
   defaultSearchValue?: string;
-  /** Called when the search text changes. Items are not filtered by the sidebar. */
+  /** Called when the search text changes. The sidebar also filters items by label. */
   onSearchChange?: (value: string) => void;
   /** User shown in the avatar area. Defaults to "Jane Doe" / "Designation". String values are expected by RdsAvatar. */
   user?: { name?: string; subtitle?: string; avatarSrc?: string };
@@ -173,9 +173,26 @@ const RdsSidebar = ({
   const resolvedHeader = asReactNode(header);
   const resolvedFooter = asReactNode(footer);
 
-  const menuItems = platform === 'abp-list' ? ABP_MENU_ITEMS : 
-                   platform === 'anz-list' ? ANZ_MENU_ITEMS : 
+  const baseMenuItems = platform === 'abp-list' ? ABP_MENU_ITEMS :
+                   platform === 'anz-list' ? ANZ_MENU_ITEMS :
                    items;
+
+  const searchQuery = currentSearch.trim().toLowerCase();
+  const menuItems = !searchQuery
+    ? baseMenuItems
+    : baseMenuItems
+        .map((item) => {
+          const labelMatch = item.label.toLowerCase().includes(searchQuery);
+          const matchedChildren = item.children?.filter((child) =>
+            child.label.toLowerCase().includes(searchQuery)
+          );
+          if (labelMatch) return item;
+          if (matchedChildren && matchedChildren.length > 0) {
+            return { ...item, children: matchedChildren };
+          }
+          return null;
+        })
+        .filter((item): item is RdsSidebarItem => item !== null);
 
   const isItemSelected = (item: RdsSidebarItem) => {
     if (item.active !== undefined) warnDeprecatedProp('RdsSidebar', 'items[].active', '`items[].selected`');
@@ -359,10 +376,13 @@ const RdsSidebar = ({
         <List className="rds-sidebar__nav-list">
           {menuItems.map((item, index) => {
             const itemIcon = asReactNode(item.icon);
+            const hasChildren = !!(item.children && item.children.length);
+            const itemHref = !hasChildren ? (item.href || item.path) : undefined;
             const listItemButton = (
               <ListItemButton
+                {...(itemHref ? { component: 'a' as const, href: itemHref } : {})}
                 onClick={() => {
-                  if (item.children && item.children.length) {
+                  if (hasChildren) {
                     toggleOpen(index);
                   } else {
                     item.onClick && item.onClick();
@@ -371,7 +391,7 @@ const RdsSidebar = ({
                 disabled={item.disabled}
                 selected={isItemSelected(item)}
                 className={navButtonClasses}
-                aria-expanded={item.children && item.children.length > 0 ? !!openMap[index] : undefined}
+                aria-expanded={hasChildren ? !!openMap[index] : undefined}
                 sx={{
                   minHeight: 'var(--rds-sidebar-nav-min-height, 48px)',
                   justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
@@ -384,7 +404,7 @@ const RdsSidebar = ({
                   </ListItemIcon>
                 )}
                 {showLabels && <ListItemText primary={item.label} />}
-                {item.children && item.children.length > 0 && !shouldShowIconsOnly && (
+                {hasChildren && !shouldShowIconsOnly && (
                   (openMap[index]) ? <ExpandLess /> : <ExpandMore />
                 )}
               </ListItemButton>
@@ -405,13 +425,15 @@ const RdsSidebar = ({
                     listItemButton
                   )}
                 </ListItem>
-                {item.children && item.children.length > 0 && (
+                {hasChildren && (
                   <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      {item.children.map((child, cIdx) => {
+                      {item.children!.map((child, cIdx) => {
                         const childIcon = asReactNode(child.icon);
+                        const childHref = child.href || child.path;
                         const childListItemButton = (
                           <ListItemButton
+                            {...(childHref ? { component: 'a' as const, href: childHref } : {})}
                             onClick={child.onClick}
                             disabled={child.disabled}
                             selected={isItemSelected(child)}

@@ -909,9 +909,9 @@ describe('audit fixes', () => {
     render(<RdsCompGaugeChart {...defaultProps} />);
     const plugin = ChartMock.mock.calls[0][1].plugins[0];
     const ctx = { save: jest.fn(), restore: jest.fn(), fillText: jest.fn() };
-    plugin.beforeDraw({ ctx, chartArea: { top: 10, width: 280, height: 300 } });
+    plugin.beforeDraw({ ctx, chartArea: { left: 40, top: 10, width: 280, height: 300 } });
     expect(plugin.id).toBe('gaugeText');
-    expect(ctx.fillText).toHaveBeenNthCalledWith(1, 'Completion', 140, 210);
-    expect(ctx.fillText).toHaveBeenNthCalledWith(2, '75%', 140, 260);
+    expect(ctx.fillText).toHaveBeenNthCalledWith(1, 'Completion', 180, 210);
+    expect(ctx.fillText).toHaveBeenNthCalledWith(2, '75%', 180, 260);
   });
 });

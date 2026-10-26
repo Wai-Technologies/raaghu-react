@@ -8,7 +8,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import RdsSlider from "../../raaghu-elements/rds-slider/rds-slider";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import MusicNote from "@mui/icons-material/MusicNote";
+import Pause from "@mui/icons-material/Pause";
+import PlayArrow from "@mui/icons-material/PlayArrow";
 import SettingsSuggestSharpIcon from "@mui/icons-material/SettingsSuggestSharp";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsCompAiFabMenu, { type RdsCompAiFabMenuItem } from "../../raaghu-components/rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
@@ -212,8 +214,8 @@ const RdsCompAudioPlayer = ({
   const timeMarkConfig = useMemo(
     () =>
       isMobileView
-        ? { interval: "00:30", count: 5 }
-        : { interval: "00:10", count: 13 },
+        ? { intervalSec: 30, count: 5 }
+        : { intervalSec: 10, count: 13 },
     [isMobileView]
   );
 
@@ -482,7 +484,7 @@ const RdsCompAudioPlayer = ({
       {resolvedType === "Collapsed" && (
         <div {...rootProps("rds-comp-audio-player__collapsed-container")}>
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple">
-            <CircleOutlinedIcon />
+            <MusicNote />
           </span>
           <span className="rds-comp-audio-player__icon-settings">
             <SettingsSuggestSharpIcon />
@@ -493,7 +495,7 @@ const RdsCompAudioPlayer = ({
       {resolvedType === "Audio Player" && (
         <div {...rootProps("rds-comp-audio-player__player rds-comp-audio-player__player--image-layout")}>
           <span className="rds-comp-audio-player__icon-circle rds-comp-audio-player__icon-circle--purple">
-            <CircleOutlinedIcon />
+            <MusicNote />
           </span>
           <div className="rds-comp-audio-player__main-controls">
             {audioNode}
@@ -512,7 +514,7 @@ const RdsCompAudioPlayer = ({
               aria-label="Play or pause"
               aria-pressed={isPlaying}
             >
-              <CircleOutlinedIcon />
+              {isPlaying ? <Pause /> : <PlayArrow />}
             </button>
             <button
               type="button"
@@ -550,7 +552,6 @@ const RdsCompAudioPlayer = ({
                 <SettingsIcon />
               </button>
             )}
-            <CircleOutlinedIcon />
             {showExport && (
               <RdsCompAiFabMenu
                 placement="right"
@@ -571,7 +572,6 @@ const RdsCompAudioPlayer = ({
                 size="small"
               />
             )}
-            <CircleOutlinedIcon />
             <div className="rds-comp-audio-player__volume-control">
               {showVolume && (
                 <button
@@ -631,9 +631,9 @@ const RdsCompAudioPlayer = ({
             />
           </div>
           <div className="rds-comp-audio-player__edition-timemarks">
-            {Array.from({ length: timeMarkConfig.count }, (_, markNumber) => markNumber + 1).map((markNumber) => (
-              <span key={`timemark-${markNumber}`} className="rds-comp-audio-player__edition-timemark">
-                {timeMarkConfig.interval}
+            {Array.from({ length: timeMarkConfig.count }, (_, index) => (
+              <span key={`timemark-${index}`} className="rds-comp-audio-player__edition-timemark">
+                {formatTime(index * timeMarkConfig.intervalSec)}
               </span>
             ))}
           </div>

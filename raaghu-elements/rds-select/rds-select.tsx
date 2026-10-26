@@ -21,7 +21,7 @@ export interface RdsSelectOption {
 export interface RdsSelectProps extends Omit<SelectProps, 'children' | 'component'> {
   /** Visible label text. */
   label?: string;
-  /** Placeholder shown when nothing is selected (only with `labelPlacement="top"`). */
+  /** Placeholder shown when nothing is selected. */
   placeholder?: string;
   /** Options rendered as menu items. */
   options: RdsSelectOption[];
@@ -96,9 +96,9 @@ const RdsSelect = ({
           label={floatingLabel ? label : undefined}
           IconComponent={KeyboardArrowDownIcon}
           className="rds-select__field"
-          {...(!floatingLabel && { displayEmpty: !!resolvedPlaceholder })}
+          {...(!!resolvedPlaceholder && { displayEmpty: true })}
           renderValue={
-            !floatingLabel
+            resolvedPlaceholder || !floatingLabel
               ? (selected) => {
                   const labelFor = (v: unknown) => {
                     const opt = options.find(o => String(o.value) === String(v));

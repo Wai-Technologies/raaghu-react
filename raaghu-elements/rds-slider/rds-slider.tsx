@@ -9,7 +9,7 @@ export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
   label?: string;
   /** Show the current value (with `unit`) in the label row. */
   showValue?: boolean;
-  /** Show `label` in the label row. */
+  /** Show `label` in the label row. Defaults to true when `label` is set. */
   showLabel?: boolean;
   /** @deprecated Use `valueLabelDisplay` instead. */
   showTooltip?: 'default' | 'tooltip';
@@ -35,7 +35,7 @@ const RdsSlider = (sliderProps: RdsSliderProps): ReactElement => {
   const {
     label,
     showValue = false,
-    showLabel = false,
+    showLabel,
     showTooltip,
     unit,
     level,
@@ -55,6 +55,7 @@ const RdsSlider = (sliderProps: RdsSliderProps): ReactElement => {
   if (showTooltip !== undefined) warnDeprecatedProp('RdsSlider', 'showTooltip', '`valueLabelDisplay`');
   if (leftLabelProp !== undefined) warnDeprecatedProp('RdsSlider', 'leftLabel', '`startLabel`');
   if (rightLabelProp !== undefined) warnDeprecatedProp('RdsSlider', 'rightLabel', '`endLabel`');
+  const labelVisible = showLabel ?? Boolean(label);
   const isRangeSlider = controlType === 'two way';
 
   let sliderStep = props.step;
@@ -156,9 +157,9 @@ const RdsSlider = (sliderProps: RdsSliderProps): ReactElement => {
 
   return (
     <div className={`rds-slider ${className || ''}`}>
-      {(showLabel || showValue) && (
+      {(labelVisible || showValue) && (
         <div className="rds-slider__label-row">
-          {showLabel && <span className="rds-slider__label-text">{label}</span>}
+          {labelVisible && <span className="rds-slider__label-text">{label}</span>}
           {showValue && (
             <span className="rds-slider__value">{formatValue(sliderValue)}</span>
           )}

@@ -1,8 +1,7 @@
 import { Suspense, lazy, useCallback, useId, useMemo, useRef, useState, type HTMLAttributes, type Ref } from "react";
-import { Box, type SxProps, type Theme } from "@mui/material";
+import { Box, FormHelperText, InputLabel as Label, type SxProps, type Theme } from "@mui/material";
 import type { ComponentType } from "react";
 import clsx from 'clsx';
-import { InputLabel as Label } from "@mui/material";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
@@ -171,7 +170,7 @@ const RdsCompTextEditor = ({
             {showTitle && label && (
                 <Label id={labelId} className={clsx("rds-comp-text-editor-label", labelClass)}>
                     {label}
-                    {isRequired && <span className="text-danger">*</span>}
+                    {isRequired && <span className="rds-comp-text-editor__required" aria-hidden>*</span>}
                 </Label>
             )}
             <Box
@@ -199,9 +198,9 @@ const RdsCompTextEditor = ({
                 </Suspense>
             </Box>
             {isRequired && isEmpty && isTouch && (
-                <div className="form-control-feedback" id={errorId} role="alert">
-                    <span className="text-danger">{label} is required</span>
-                </div>
+                <FormHelperText id={errorId} error role="alert" className="rds-comp-text-editor__error">
+                    {label} is required
+                </FormHelperText>
             )}
         </>
     );

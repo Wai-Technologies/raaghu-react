@@ -2,7 +2,10 @@ import { memo } from "react";
 import { Slider } from "@mui/material";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import ContentCut from "@mui/icons-material/ContentCut";
+import DeleteOutline from "@mui/icons-material/DeleteOutline";
+import Pause from "@mui/icons-material/Pause";
+import PlayArrow from "@mui/icons-material/PlayArrow";
 
 interface AudioEditionControlsProps {
   formatTime: (time: number) => string;
@@ -43,15 +46,21 @@ export const AudioEditionControls = memo(
           </span>
         </div>
         <div className="rds-comp-audio-player__edition-buttons">
-          <button type="button" className="rds-comp-audio-player__edition-btn" onClick={onTrim}>
-            <CircleOutlinedIcon className="rds-comp-audio-player__btn-icon" />
+          <button type="button" className="rds-comp-audio-player__edition-btn" onClick={onTrim} aria-label="Trim">
+            <ContentCut className="rds-comp-audio-player__btn-icon" />
             <span>Trim</span>
           </button>
-          <button type="button" className="rds-comp-audio-player__play-btn" onClick={togglePlayPause} aria-pressed={isPlaying}>
-            <CircleOutlinedIcon />
+          <button
+            type="button"
+            className="rds-comp-audio-player__play-btn"
+            onClick={togglePlayPause}
+            aria-label="Play or pause"
+            aria-pressed={isPlaying}
+          >
+            {isPlaying ? <Pause /> : <PlayArrow />}
           </button>
-          <button type="button" className="rds-comp-audio-player__edition-btn rds-comp-audio-player__edition-btn--active" onClick={onDelete}>
-            <CircleOutlinedIcon className="rds-comp-audio-player__btn-icon" />
+          <button type="button" className="rds-comp-audio-player__edition-btn rds-comp-audio-player__edition-btn--active" onClick={onDelete} aria-label="Delete">
+            <DeleteOutline className="rds-comp-audio-player__btn-icon" />
             <span>Delete</span>
           </button>
         </div>

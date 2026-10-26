@@ -267,9 +267,6 @@ const RdsCompKanbanBoard = ({
                             <Typography variant="body2" className="f-14 fw-400 kanban-board__title-count">(0)</Typography>
                           </Box>
                         </Box>
-                        <IconButton size="small" className="btn-sm kanban-board__header-button" aria-label="Close">
-                          <MoreVertIcon />
-                        </IconButton>
                       </Box>
                       <Box className="add-board add-board--with-input">
                         <TextField fullWidth size="small" placeholder="Enter Board Title" value={boardName} onChange={handleDataChanges} className="rds-kanban-board__input-field" />
@@ -297,9 +294,6 @@ const RdsCompKanbanBoard = ({
                             <Typography variant="body2" className="f-14 fw-400 kanban-board__title-count">(0)</Typography>
                           </Box>
                         </Box>
-                        <IconButton size="small" className="btn-sm kanban-board__header-button" aria-label="More options">
-                          <MoreVertIcon />
-                        </IconButton>
                       </Box>
                       <Box className="add-board add-board--center-button">
                         <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={handleShowInputBox} fullWidth className="rds-kanban-board__add-button" text="Add Board" />

@@ -57,7 +57,9 @@ const buildDatePickerProps = ({
     id: props.inputId,
     ariaRequired: props.isMandatory ? "true" : undefined,
     renderCustomHeader,
-    calendarClassName: props.layout === "Default" ? "rds-datepicker--layout-default" : undefined,
+    calendarClassName: ["rds-datepicker__calendar", props.layout === "Default" ? "rds-datepicker--layout-default" : undefined]
+        .filter(Boolean)
+        .join(" ") || undefined,
     ...overrides,
 } as unknown as DatePickerProps;
 };
@@ -185,7 +187,7 @@ export const renderDatePickerTypeView = (
                             monthsShown={props.layout === "Multi Month" ? 3 : 1}
                             dayClassName={dayClassName}
                             renderCustomHeader={getRenderCustomHeader(props.layout, props.datePickerStyleType)}
-                            calendarClassName={props.layout === "Default" ? "rds-datepicker--layout-default" : undefined}
+                            calendarClassName={["rds-datepicker__calendar", props.layout === "Default" ? "rds-datepicker--layout-default" : undefined].filter(Boolean).join(" ") || undefined}
                             customInput={rangeCustomInput}
                         />
                         <span className="rds-datepicker__dropdown-custom-icon" aria-hidden="true">

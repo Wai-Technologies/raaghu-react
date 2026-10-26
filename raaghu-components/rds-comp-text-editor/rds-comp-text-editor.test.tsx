@@ -84,6 +84,16 @@ jest.mock('@mui/material', () => ({
       {children}
     </label>
   ),
+  FormHelperText: ({ children, className, error, id, role }: any) => (
+    <p
+      data-testid="form-helper-text"
+      id={id}
+      role={role}
+      className={[className, error ? 'Mui-error' : ''].filter(Boolean).join(' ')}
+    >
+      {children}
+    </p>
+  ),
 }));
 
 const renderEditor = async (props: RdsCompTextEditorProps) => {
@@ -183,7 +193,7 @@ describe('RdsCompTextEditor', () => {
       await renderEditor({ ...defaultProps, isMandatory: true });
       const asterisk = screen.getByText('*');
       expect(asterisk).toBeInTheDocument();
-      expect(asterisk).toHaveClass('text-danger');
+      expect(asterisk).toHaveClass('rds-comp-text-editor__required');
     });
 
     it('should not render mandatory indicator when isMandatory is false', async () => {
@@ -234,7 +244,7 @@ describe('RdsCompTextEditor', () => {
 
       await waitFor(() => {
         const error = screen.getByText('Required Field is required');
-        expect(error).toHaveClass('text-danger');
+        expect(error).toHaveClass('rds-comp-text-editor__error', 'Mui-error');
       });
     });
   });

@@ -1,6 +1,5 @@
-import { useState, type ReactElement } from 'react';
+import { useState } from 'react';
 import { Slider as MuiSlider, type SliderProps, Box, Typography } from '@mui/material';
-import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import clsx from 'clsx';
 import './rds-range.scss';
@@ -37,12 +36,6 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange' | 
   rightLabel?: number;
 }
 
-interface RangeValueLabelProps {
-  children: ReactElement;
-  value: number;
-  formatValue?: (value: number) => string;
-}
-
 const calculateLevelValue = (level: string, min: number, max: number): number => {
   const levelNum = parseInt(level);
   if (levelNum < 1 || levelNum > 5) return min;
@@ -67,20 +60,6 @@ const getDefaultRangeValue = (
   return min;
 };
 
-const RangeValueLabel = ({ children, value, formatValue }: RangeValueLabelProps) => {
-  const title = formatValue ? formatValue(value) : value.toString();
-  return (
-    <RdsTooltip
-      arrow
-      title={title}
-      placement="top"
-      open={true}
-    >
-      {children}
-    </RdsTooltip>
-  );
-};
-
 /**
  * Slider for picking one value or a range, built on MUI `Slider`, with an optional
  * header (label and value), min/max labels and always-open value tooltips.
@@ -97,13 +76,12 @@ const RdsRange= ({
   textLabel = true,
   showTooltip,
   valueLabelDisplay,
+  valueLabelFormat,
   defaultValue,
   type = 'one-way',
   level = '1',
   leftLabel,
   rightLabel,
-  slots,
-  slotProps,
   ...props
 }: RdsRangeProps) => {
   if (leftLabel !== undefined) warnDeprecatedProp('RdsRange', 'leftLabel', '`min`');
@@ -191,8 +169,7 @@ const RdsRange= ({
         onChange={handleChange}
         {...props}
         valueLabelDisplay={labelDisplay}
-        slots={labelDisplay === 'on' ? { ...slots, valueLabel: RangeValueLabel } : slots}
-        slotProps={labelDisplay === 'on' ? ({ ...slotProps, valueLabel: { formatValue } } as SliderProps['slotProps']) : slotProps}
+        valueLabelFormat={valueLabelFormat ?? formatValue}
         marks={marks}
         min={min}
         max={max}

@@ -11,6 +11,7 @@ import {
   type TableProps,
   Checkbox,
   Radio,
+  TableSortLabel,
 } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import clsx from 'clsx';
@@ -365,26 +366,33 @@ const RdsTable = ({
                       />
                       </div>
                     ) : column.sortable ? (
-                      <button
+                      <TableSortLabel
+                        component="button"
                         type="button"
+                        active={active}
+                        direction={active ? sortDirection ?? 'asc' : 'asc'}
+                        onClick={() => handleSort(column)}
                         className={clsx(
                           'rds-table__header-content',
                           'rds-table__sort-button',
                           active && 'rds-table__sort-button--active'
                         )}
+                        IconComponent={(iconProps) => (
+                          <SwapVertIcon
+                            {...iconProps}
+                            aria-hidden
+                            className={clsx(
+                              iconProps.className,
+                              'rds-table__sort-icon',
+                              sortDirection === 'desc' && active && 'rds-table__sort-icon--desc'
+                            )}
+                            fontSize="small"
+                          />
+                        )}
                         aria-label={active ? `Sort ${column.label} ${sortDirection}` : `Sort ${column.label}`}
-                        onClick={() => handleSort(column)}
                       >
                         <span className="rds-table__header-label">{column.label}</span>
-                        <SwapVertIcon
-                          aria-hidden
-                          className={clsx(
-                            'rds-table__sort-icon',
-                            sortDirection === 'desc' && active && 'rds-table__sort-icon--desc'
-                          )}
-                          fontSize="small"
-                        />
-                      </button>
+                      </TableSortLabel>
                     ) : (
                       <div>
                         <span className="rds-table__header-label">{column.label}</span>

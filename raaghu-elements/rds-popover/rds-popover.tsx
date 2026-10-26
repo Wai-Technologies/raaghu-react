@@ -149,7 +149,8 @@ const RdsPopover = ({
 
   const { slotProps: consumerSlotProps, ...restProps } = props;
   const ourPaperSx = {
-    transform: `translate(${offset.horizontal}px, ${offset.vertical}px) !important`,
+    ...(offset.horizontal !== 0 && { ml: `${offset.horizontal}px` }),
+    ...(offset.vertical !== 0 && { mt: `${offset.vertical}px` }),
   };
   const mergePaper = (consumerPaper?: PaperSlotProps) => {
     const consumerSx = consumerPaper?.sx;

@@ -24,70 +24,21 @@
   }
 
   &--spaced {
-    .rds-toggle-button__custom-group {
+    .rds-toggle-button__group--spaced {
       display: flex;
       flex-direction: inherit;
       width: 100%;
-      border: none;
-      margin: 0;
-      padding: 0;
-      min-inline-size: 0;
-    }
-  
-    .rds-toggle-button__button-wrapper {
-      display: inline-flex;
-      width: 100%;
-      
-      &--first .rds-toggle-button__button {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-      
-      &--last .rds-toggle-button__button {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-      
-      &--middle .rds-toggle-button__button {
-        border-radius: 0;
-      }
-      
-      &--single .rds-toggle-button__button {
-        border-radius: var(--rds-border-radius-sm);
-      }
+      gap: var(--rds-toggle-button-spacing, 0px);
+      background-color: transparent;
 
-      .rds-toggle-button__button {
+      .MuiToggleButtonGroup-grouped {
         flex: 1;
       }
     }
 
-    &.rds-toggle-button--vertical {
-      .rds-toggle-button__custom-group {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .rds-toggle-button__button-wrapper {
-        width: 100%;
-        
-        &--first .rds-toggle-button__button {
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-          border-top-left-radius: var(--rds-border-radius-sm, 4px);
-          border-top-right-radius: var(--rds-border-radius-sm, 4px);
-        }
-        
-        &--last .rds-toggle-button__button {
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-          border-bottom-left-radius: var(--rds-border-radius-sm, 4px);
-          border-bottom-right-radius: var(--rds-border-radius-sm, 4px);
-        }
-        
-        &--middle .rds-toggle-button__button {
-          border-radius: 0;
-        }
-      }
+    &.rds-toggle-button--vertical .rds-toggle-button__group--spaced {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
   
@@ -162,7 +113,7 @@
   }
 }
 
-.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+.rds-toggle-button--spaced .rds-toggle-button__group--spaced {
   display: flex;
   flex-wrap: nowrap;
   max-width: 100%;
@@ -172,7 +123,7 @@
   .rds-toggle-button { width: 100%; max-width:100%; overflow-x:hidden; }
 
   .rds-toggle-button__group,
-  .rds-toggle-button--spaced .rds-toggle-button__custom-group {
+  .rds-toggle-button--spaced .rds-toggle-button__group--spaced {
     flex-wrap: nowrap;
     overflow: hidden; // hide any stray pixel overflow
     width: 100%;
@@ -200,29 +151,18 @@
 
   .rds-toggle-button__icon { margin-right: var(--rds-spacing-xs, 4px) !important; }
 
-  .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { 
-    margin-left: 0 !important; 
-  }
-
-  .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper { 
-    width:auto; 
+  .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__group--spaced .rds-toggle-button__button { 
     flex:1 1 50%;
     min-width:50%;
     max-width:50%;
-  }
-  .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper .rds-toggle-button__button { 
-    flex:1 1 auto; 
-    width:100%;
-    max-width:100%;
-    min-width:0; 
     padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px);
     box-sizing:border-box;
   }
 
-  .rds-toggle-button--spaced .rds-toggle-button__custom-group { min-width:0; flex-wrap:wrap; }
+  .rds-toggle-button--spaced .rds-toggle-button__group--spaced { min-width:0; flex-wrap:wrap; }
 
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical):not(.rds-toggle-button--spaced) .rds-toggle-button__group,
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical).rds-toggle-button--spaced .rds-toggle-button__custom-group {
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical).rds-toggle-button--spaced .rds-toggle-button__group--spaced {
     flex-wrap: wrap;
   }
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root,
@@ -231,24 +171,21 @@
     max-width:50%;
   }
   
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(1),
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper:nth-child(1) .rds-toggle-button__button {
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(1) {
     border-top-left-radius: var(--rds-border-radius-sm, 4px) !important;
     border-top-right-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
   
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(2),
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper:nth-child(2) .rds-toggle-button__button {
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(2) {
     border-top-right-radius: var(--rds-border-radius-sm, 4px) !important;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
   
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3),
-  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper:nth-child(3) .rds-toggle-button__button {
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3) {
     flex:1 1 100%;
     max-width:100%;
     border-bottom-left-radius: var(--rds-border-radius-sm, 4px) !important;
@@ -259,7 +196,7 @@
 
   @supports (flex-wrap: wrap) {
     .rds-toggle-button.is-wrap .rds-toggle-button__group,
-    .rds-toggle-button.is-wrap.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+    .rds-toggle-button.is-wrap.rds-toggle-button--spaced .rds-toggle-button__group--spaced {
       flex-wrap: wrap;
     }
   }
@@ -267,7 +204,7 @@
 
 @include bp.down(600) {
     .rds-toggle-button--wrap-mobile .rds-toggle-button__group,
-    .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+    .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__group--spaced {
       flex-wrap: wrap;
     }
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root,
@@ -275,29 +212,25 @@
       flex: 1 1 50%;
     }
     
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(1),
-    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(1) .rds-toggle-button__button {
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(1) {
       border-top-left-radius: var(--rds-border-radius-sm, 4px);
       border-bottom-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(2),
-    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(2) .rds-toggle-button__button {
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(2) {
       border-top-right-radius: var(--rds-border-radius-sm, 4px);
       border-bottom-right-radius: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3),
-    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(3) .rds-toggle-button__button {
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3) {
       border-bottom-left-radius: var(--rds-border-radius-sm, 4px);
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
-    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(4),
-    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(4) .rds-toggle-button__button {
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(4) {
       border-bottom-right-radius: var(--rds-border-radius-sm, 4px);
       border-top-left-radius: 0;
       border-top-right-radius: 0;
@@ -309,7 +242,7 @@
   .rds-toggle-button { width:100%; max-width:100%; }
 
   .rds-toggle-button__group,
-  .rds-toggle-button--spaced .rds-toggle-button__custom-group { 
+  .rds-toggle-button--spaced .rds-toggle-button__group--spaced { 
     flex-wrap: nowrap; 
     width:100%;
     max-width:100%;
@@ -323,8 +256,6 @@
     font-size: var(--rds-font-size-sm, 0.8rem); 
     box-sizing:border-box; 
   }
-
-  .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { margin-left:0 !important; }
 }
 
 .rds-toggle-button__group {

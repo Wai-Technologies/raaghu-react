@@ -2,7 +2,9 @@ import { type ReactNode, type CSSProperties } from 'react';
 import {
   Stack as MuiStack,
   type StackProps,
-  Divider
+  Divider,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
@@ -19,27 +21,50 @@ export interface RdsStackProps extends Omit<StackProps, 'component'> {
   dividerColor?: string;
 }
 
+type DirectionValue = NonNullable<StackProps['direction']>;
+
+function orientationForDirection(dir: string): 'horizontal' | 'vertical' {
+  return dir.includes('row') ? 'vertical' : 'horizontal';
+}
+
 const RdsStack = ({
   children,
   gap,
   spacing,
   divider,
   dividerColor,
+  direction = 'column',
   ...props
 }: RdsStackProps) => {
   if (gap !== undefined) warnDeprecatedProp('RdsStack', 'gap', '`spacing`');
+  const theme = useTheme();
+  const upSm = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
+  const upMd = useMediaQuery(theme.breakpoints.up('md'), { noSsr: true });
+  const upLg = useMediaQuery(theme.breakpoints.up('lg'), { noSsr: true });
+  const upXl = useMediaQuery(theme.breakpoints.up('xl'), { noSsr: true });
+
+  const resolveDirection = (value: DirectionValue): string => {
+    if (typeof value === 'string') return value;
+    if (value && typeof value === 'object') {
+      const map = value as Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', string>>;
+      if (upXl && map.xl != null) return map.xl;
+      if (upLg && map.lg != null) return map.lg;
+      if (upMd && map.md != null) return map.md;
+      if (upSm && map.sm != null) return map.sm;
+      return map.xs ?? 'column';
+    }
+    return 'column';
+  };
+
   let stackDivider: ReactNode | undefined = undefined;
 
   if (typeof divider === 'boolean') {
     if (divider) {
-      const dir = (props.direction && typeof props.direction === 'string')
-        ? props.direction
-        : 'column';
-      const orientation = dir.includes('row') ? 'vertical' : 'horizontal';
+      const orientation = orientationForDirection(resolveDirection(direction));
       stackDivider = (
         <Divider
           className="rds-stack__divider"
-          orientation={orientation as 'horizontal' | 'vertical'}
+          orientation={orientation}
           flexItem
         />
       );
@@ -58,6 +83,7 @@ const RdsStack = ({
   return (
     <MuiStack
       spacing={spacing ?? gap}
+      direction={direction}
       {...restProps}
       className={rootClassName}
       style={mergedStyle}

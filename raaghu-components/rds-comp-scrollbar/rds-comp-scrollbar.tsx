@@ -1,5 +1,7 @@
 import { useEffect, useRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
 import { Box, type SxProps, type Theme } from "@mui/material";
+import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import clsx from "clsx";
 import "./rds-comp-scrollbar.scss";
 export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
@@ -55,7 +57,12 @@ const RdsCompScrollBar = ({
   const rootClassName = clsx("rds-scrollbar", resolvedType === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple");
 
   return (
-    <Box {...rest} ref={ref} className={clsx(rootClassName, className)} sx={sx}>
+    <Box
+      {...rest}
+      ref={ref}
+      className={clsx(rootClassName, className)}
+      sx={[{ height: 300 }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+    >
       {resolvedType === ScrollBarType.Mac && showButtons && (
         <div className="rds-scrollbar__controls">
           <button
@@ -64,7 +71,7 @@ const RdsCompScrollBar = ({
             onClick={() => scrollToPosition(ScrollPosition.Start)}
             aria-label="Scroll to top"
           >
-            {startIcon}
+            {startIcon ?? <KeyboardArrowUp fontSize="small" />}
           </button>
           <button
             type="button"
@@ -72,7 +79,7 @@ const RdsCompScrollBar = ({
             onClick={() => scrollToPosition(ScrollPosition.End)}
             aria-label="Scroll to bottom"
           >
-            {endIcon}
+            {endIcon ?? <KeyboardArrowDown fontSize="small" />}
           </button>
         </div>
       )}

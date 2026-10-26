@@ -7,10 +7,6 @@ import { axe } from 'jest-axe';
 
 jest.mock('./rds-range.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
-jest.mock('../rds-tooltip/rds-tooltip', () => {
-  return ({ children, title }: any) => <div data-testid="rds-tooltip" title={title}>{children}</div>;
-});
-
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -362,7 +358,7 @@ describe('RdsRange', () => {
     });
 
     it('should display formatted value in tooltip', () => {
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <RdsRange 
           value={75}
           showTooltip={true}
@@ -370,8 +366,7 @@ describe('RdsRange', () => {
         />
       );
       
-      const tooltip = screen.getByTestId('rds-tooltip');
-      expect(tooltip).toBeInTheDocument();
+      expect(container.querySelector('.MuiSlider-valueLabel')).toHaveTextContent('75%');
     });
   });
 
@@ -989,9 +984,11 @@ describe('audit fixes', () => {
   });
 
   it('G2-184: keeps consumer slotProps alongside the tooltip value label', () => {
-    renderWithTheme(<RdsRange showTooltip value={30} slotProps={{ thumb: { 'data-testid': 'thumb' } as object }} />);
+    const { container } = renderWithTheme(
+      <RdsRange showTooltip value={30} slotProps={{ thumb: { 'data-testid': 'thumb' } as object }} />,
+    );
     expect(screen.getByTestId('thumb')).toBeInTheDocument();
-    expect(screen.getByTestId('rds-tooltip')).toHaveAttribute('title', '30');
+    expect(container.querySelector('.MuiSlider-valueLabel')).toHaveTextContent('30');
   });
 });
 
@@ -1012,8 +1009,8 @@ describe('audit fixes', () => {
 
   it('shows value tooltip with valueLabelDisplay on and warns for showTooltip', () => {
     const { warnDeprecatedProp } = jest.requireMock('../shared/utils/deprecation');
-    renderWithTheme(<RdsRange valueLabelDisplay="on" value={30} />);
-    expect(screen.getByTestId('rds-tooltip')).toHaveAttribute('title', '30');
+    const { container } = renderWithTheme(<RdsRange valueLabelDisplay="on" value={30} />);
+    expect(container.querySelector('.MuiSlider-valueLabel')).toHaveTextContent('30');
     renderWithTheme(<RdsRange showTooltip />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRange', 'showTooltip', '`valueLabelDisplay`');
   });
