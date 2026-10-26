@@ -672,6 +672,13 @@ describe('RdsCompEmptyState audit fixes', () => {
     expect(title).toHaveClass('rds-comp-empty-state__title');
     expect(subtitle).toHaveClass('rds-comp-empty-state__subtitle');
   });
+
+  it('default action button keeps the filled class without grey override hooks (G5-046)', () => {
+    const { container } = render(<RdsCompEmptyState label="Empty" />);
+    const button = container.querySelector('.rds-comp-empty-state__button');
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('rds-button');
+  });
 });
 
 describe('RdsCompEmptyState doc-09 renames', () => {

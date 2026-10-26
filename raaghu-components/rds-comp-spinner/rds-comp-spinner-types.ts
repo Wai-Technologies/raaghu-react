@@ -29,19 +29,27 @@ export type SpinnerLevel = (typeof SpinnerLevel)[keyof typeof SpinnerLevel];
 import type { Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
 
+/**
+ * Indeterminate spinner.
+ * @deprecated Prefer `RdsLoader` from `raaghu-elements` for indeterminate loading,
+ * and `RdsProgress` for determinate progress (G6-098).
+ */
 export interface RdsCompSpinnerProps {
   /** Spinner animation: "border" or "grow". */
   variant?: string;
   /** @deprecated Use `variant` instead. */
   spinnerType?: string;
+  /** @deprecated Prefer `size` (token or px number). */
   width?: string;
+  /** @deprecated Prefer `size` (token or px number). */
   height?: string;
   showLabel?: boolean;
   /** Label text shown when `showLabel` is true; also the accessible name. */
   label?: string;
   /** @deprecated Use `label` instead. */
   labelText?: string;
-  size?: SpinnerSize | SpinnerSizeLegacy;
+  /** Token size, legacy PascalCase size, or a pixel number (G6-102). */
+  size?: SpinnerSize | SpinnerSizeLegacy | number;
   layout?: SpinnerLayout;
   /** Label position relative to the spinner; wins over `layout`. */
   labelPlacement?: "top" | "bottom" | "start" | "end";

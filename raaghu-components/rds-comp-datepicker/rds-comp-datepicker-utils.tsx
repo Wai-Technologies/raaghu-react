@@ -181,11 +181,6 @@ export const renderDatePickerTypeView = (
                             endDate={endDate}
                             selectsRange
                             popperPlacement="right-start"
-                            popperModifiers={[
-                                { name: 'flip', options: { fallbackPlacements: ['left-start', 'bottom-start'] } },
-                                { name: 'preventOverflow', options: { boundary: 'viewport' } },
-                                { name: 'offset', options: { offset: [0, 8] } }
-                            ] as unknown as DatePickerProps["popperModifiers"]}
                             popperContainer={popperContainer}
                             popperClassName="rds-datepicker__popper"
                             disabled={props.isDisabled}

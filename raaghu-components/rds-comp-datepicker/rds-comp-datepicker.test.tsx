@@ -519,4 +519,15 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'controls.mandatory', '`required`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'changeIcon', '`openPickerIcon`');
   });
+
+  it('G4-087: selectedDate and customDate warn in favour of onChange', () => {
+    render(<RdsDatepicker selectedDate={jest.fn()} customDate={jest.fn()} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'selectedDate', '`onChange`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'customDate', '`onChange`');
+  });
+
+  it('G4-109: locale is forwarded on shared picker props', () => {
+    render(<RdsDatepicker type="Custom" locale="de-DE" defaultValue={new Date(2025, 0, 15)} />);
+    expect(mockCaptured.type?.[5]?.locale).toBe('de-DE');
+  });
 });

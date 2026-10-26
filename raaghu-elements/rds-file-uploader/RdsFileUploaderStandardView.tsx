@@ -100,7 +100,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
             flexShrink: 0,
           }}
           aria-describedby={showTitle ? titleId : undefined}
-          {...({ component: 'label' } as Record<string, unknown>)}
+          component="label"
         >
           Choose File
           <input

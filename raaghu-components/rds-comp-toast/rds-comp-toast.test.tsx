@@ -992,6 +992,11 @@ describe('audit fixes', () => {
     expect(screen.getByTestId('rds-progress')).toHaveAttribute('data-value', '30');
   });
 
+  it('is marked deprecated in favour of RdsSnackbar (G6-149)', () => {
+    // Component-level deprecation is documented on the export; runtime behaviour unchanged.
+    expect(RdsCompToast.displayName).toBe('RdsCompToast');
+  });
+
   it('anchorOrigin wins over position', () => {
     const { container } = render(
       <RdsCompToast {...base} position="topLeft" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} message="m" />

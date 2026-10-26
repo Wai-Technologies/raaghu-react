@@ -38,8 +38,11 @@ const LEGACY_SIZE_MAP: Record<string, SpinnerSize> = {
   large: SpinnerSize.Large,
 };
 
-const normalizeSpinnerSize = (value: string | undefined): SpinnerSize | undefined => {
+const normalizeSpinnerSize = (
+  value: string | number | undefined
+): SpinnerSize | number | undefined => {
   if (value === undefined) return undefined;
+  if (typeof value === "number") return value;
   return LEGACY_SIZE_MAP[value] ?? (value as SpinnerSize);
 };
 
@@ -64,6 +67,9 @@ const LEVEL_OPACITY: Record<SpinnerLevel, number> = {
   [SpinnerLevel.Level04]: 1,
 };
 
+/**
+ * @deprecated Prefer `RdsLoader` for indeterminate loading (G6-098).
+ */
 const RdsCompSpinner = ({
   variant,
   spinnerType,
@@ -95,17 +101,21 @@ const RdsCompSpinner = ({
   const resolvedColor = color ?? colorVariant;
   const spinnerClass = resolvedVariant === "grow" ? "spinner-grow" : "spinner-border";
   const colorClass = resolvedColor ? `text-${resolvedColor}` : "";
+  const tokenSize = typeof size === "string" ? size : undefined;
 
   const dimensions = useMemo(() => {
+    if (typeof size === "number") {
+      return { width: `${size}px`, height: `${size}px` };
+    }
     if (size && SIZE_DIMENSIONS[size]) {
       return SIZE_DIMENSIONS[size];
     }
     return { width, height };
   }, [size, width, height]);
 
-  const combinedClasses = clsx(spinnerClass, colorClass, size && SIZE_CLASS[size]);
+  const combinedClasses = clsx(spinnerClass, colorClass, tokenSize && SIZE_CLASS[tokenSize]);
   const layoutClass = layout ? LAYOUT_CLASS[layout] : "spinner-container--default";
-  const labelSizeClass = size ? LABEL_SIZE_CLASS[size] ?? "spinner-label--default" : "spinner-label--default";
+  const labelSizeClass = tokenSize ? LABEL_SIZE_CLASS[tokenSize] ?? "spinner-label--default" : "spinner-label--default";
   const opacity = level ? LEVEL_OPACITY[level] ?? 1 : 1;
 
   return (

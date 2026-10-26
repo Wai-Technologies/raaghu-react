@@ -886,10 +886,27 @@ describe('audit fixes', () => {
     expect(root).toHaveAttribute('data-foo', 'bar');
   });
 
-  it('warns that value and maxValue have no effect', () => {
+  it('warns that value and maxValue are deprecated in favour of dataSets', () => {
     render(<RdsCompGaugeChart {...defaultProps} />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompGaugeChart', 'value', '`dataSets`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompGaugeChart', 'maxValue', '`dataSets`');
+  });
+
+  it('builds doughnut data from value/maxValue when datasets are omitted (G3-040)', () => {
+    const ChartMock = jest.requireMock('chart.js/auto') as jest.Mock;
+    ChartMock.mockClear();
+    const spy = jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({} as any);
+    render(
+      <RdsCompGaugeChart
+        id="gauge-from-value"
+        options={defaultProps.options}
+        value={40}
+        maxValue={100}
+      />
+    );
+    const datasets = ChartMock.mock.calls[0][1].data.datasets;
+    expect(datasets[0].data).toEqual([40, 60]);
+    spy.mockRestore();
   });
 
   it('keeps the theme colour and point style when consumer legend labels are passed', () => {

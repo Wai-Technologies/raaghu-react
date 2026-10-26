@@ -53,7 +53,7 @@ const toSxArray = (sx: SxProps<Theme> | undefined) => (Array.isArray(sx) ? sx : 
 
 type ButtonVariant = 'filled' | 'outlined' | 'transparent';
 
-export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 'component'> {
+export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   shape?: 'pill' | 'rectangle';
   /** Applies the selected visual treatment, for toggle-style buttons. */
   selected?: boolean;

@@ -94,6 +94,9 @@ const BORDER_TOKEN_MAP: Record<string, string> = {
     error: 'error',
 };
 
+/**
+ * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
+ */
 const RdsCompToast = (props: RdsCompToastProps) => {
     const legacyShowHeader = typeof props['showHeader'] === 'boolean' ? (props['showHeader'] as boolean) : undefined;
     const legacyShowLeading = typeof props['showLeading'] === 'boolean' ? (props['showLeading'] as boolean) : undefined;

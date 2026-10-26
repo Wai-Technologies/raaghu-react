@@ -364,11 +364,9 @@
   }
 
     &__file-row:focus-within {
-      /* remove prominent focus border/outline when interacting with the file input/button
-         to avoid an unwanted border in both light and dark themes */
+      /* Keep row chrome calm; keyboard focus stays on the control via :focus-visible (G5-022). */
       border-color: var(--rds-color-neutral-300, #e0e0e0);
       box-shadow: none !important;
-      outline: none !important;
     }
 
   &__upload-content {

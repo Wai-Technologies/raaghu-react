@@ -31,9 +31,14 @@ export interface RdsCompGaugeProps
   subtitle?: string;
   /** @deprecated Use `subtitle` instead. */
   subTitleText?: string;
-  /** @deprecated Has no effect. Put the value in `dataSets` (e.g. `data: [value, maxValue - value]`). */
+  /**
+   * @deprecated Prefer `data.datasets` / `dataSets`. When those are omitted, builds
+   * `[value, maxValue - value]` (G3-040).
+   */
   value?: number;
-  /** @deprecated Has no effect. Put the value in `dataSets` (e.g. `data: [value, maxValue - value]`). */
+  /**
+   * @deprecated Prefer `data.datasets` / `dataSets`. Used with `value` when datasets are omitted.
+   */
   maxValue?: number;
   /** Accessible label of the chart. Default "Gauge chart". */
   ariaLabel?: string;
@@ -69,12 +74,25 @@ const RdsCompGaugeChart = ({
   if (subTitleText !== undefined) warnDeprecatedProp("RdsCompGaugeChart", "subTitleText", "`subtitle`");
   const subTitle = subtitle ?? subTitleText ?? "";
   const resolved = resolveChartData("RdsCompGaugeChart", data, labels, dataSets);
+  const hasExplicitDatasets = (data?.datasets?.length ?? 0) > 0 || (dataSets?.length ?? 0) > 0;
+  const gaugeFromValue =
+    !hasExplicitDatasets && value !== undefined && maxValue !== undefined && maxValue > 0
+      ? ([
+          {
+            data: [value, Math.max(0, maxValue - value)],
+            backgroundColor: ["var(--rds-success-main, #4CAF50)", "var(--rds-neutral-200, #E0E0E0)"],
+            borderWidth: 0,
+          },
+        ] as ChartDataset<"doughnut">[])
+      : undefined;
+  const chartLabels = resolved.labels ?? (gaugeFromValue ? (["Value", "Remainder"] as string[]) : undefined);
+  const chartDatasets = gaugeFromValue ?? resolved.datasets;
 
   const { canvasRef } = useChart<"doughnut">(
     {
       type: "doughnut",
-      labels: resolved.labels,
-      datasets: resolved.datasets,
+      labels: chartLabels,
+      datasets: chartDatasets,
       options,
       themeAxes: [],
       plugins: [
@@ -112,7 +130,7 @@ const RdsCompGaugeChart = ({
         applyCanvasSize(chart.canvas, height, width);
       },
     },
-    [resolved.labels, options, resolved.datasets, titleText, subTitle, height, width]
+    [chartLabels, options, chartDatasets, titleText, subTitle, height, width]
   );
 
   return (
