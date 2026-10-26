@@ -1448,7 +1448,15 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-offcanvas-cancel-color': miscTokens.offcanvasCancelColor,
     '--rds-color-surface-variant-hover-dark': surfaceTokens.darkVariantHover,
     '--rds-color-disabled-container-dark': surfaceTokens.darkDisabledContainer,
-    // ── App bar dark tokens ───────────────────────────────────────────────────
+    // ── App bar (dark): same keys as light so SCSS need not remap via [data-theme] ─
+    '--rds-appbar-bg': appBarTokens.darkBg,
+    '--rds-appbar-color': white,
+    '--rds-appbar-shadow': 'rgba(0, 0, 0, 0.5)',
+    '--rds-appbar-separator-bg': white,
+    '--rds-appbar-secondary-bg': appBarTokens.darkSecondaryBg,
+    '--rds-appbar-badge-bg': appBarTokens.darkBadgeBg,
+    '--rds-appbar-badge-color': appBarTokens.darkBadgeColor,
+    // Aliases kept for any leftover `*-dark` consumers
     '--rds-appbar-bg-dark': appBarTokens.darkBg,
     '--rds-appbar-secondary-bg-dark': appBarTokens.darkSecondaryBg,
     '--rds-appbar-badge-bg-dark': appBarTokens.darkBadgeBg,

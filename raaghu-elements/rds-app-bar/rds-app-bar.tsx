@@ -28,6 +28,7 @@ import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { rdsAppBarSx } from './rds-app-bar.styles';
 import "./rds-app-bar.scss";
 
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
@@ -143,6 +144,7 @@ const RdsAppBar = ({
   bottomActions,
   elevation = 0,
   className,
+  sx,
   ...props
 }: RdsAppBarProps) => {
   if (rightActions !== undefined) warnDeprecatedProp('RdsAppBar', 'rightActions', '`endSlot`');
@@ -164,7 +166,23 @@ const RdsAppBar = ({
   const variant = variantStyle ? variantStyle.toLowerCase() : '';
   const variantClass = toVariantClass(variantStyle);
   const isSmallScreen = useMediaQuery(`(max-width:${getSmallScreenBreakpoint(variant)}px)`, { noSsr: true });
+  const isNarrowMobile = useMediaQuery('(max-width:420px)', { noSsr: true });
+  const isExtraNarrowMobile = useMediaQuery('(max-width:320px)', { noSsr: true });
   const hasControlledTabs = Array.isArray(tabs) && typeof tabValueResolved === 'number' && hasTabHandler;
+  const showInlineTabs = hasControlledTabs && !isSmallScreen;
+  const isWithMenuButton = variant === 'withmenubutton';
+  const isLogoSearchTabs = variantClass === 'logosearchtabs';
+  const isLogoSearchTabsActions = variantClass === 'logosearchtabsactions';
+  const isLogoTabsActions = variantClass === 'logotabsactions';
+  const isDashboardWithLang = variantClass === 'dashboardwithlang';
+  const isWithActions = variantClass === 'withactions';
+  const isWithTabs = variantClass === 'withtabs';
+  const isWithLogoAndTabs = variantClass === 'withlogoandtabs';
+  const isWithNotificationBadge = variantClass === 'withnotificationbadge';
+  const isTabletChromeVariant = isWithActions || isWithTabs || isWithLogoAndTabs || isWithNotificationBadge;
+  const bottomNavActive = isSmallScreen && (
+    isWithMenuButton || hasControlledTabs || Boolean(overflowContent)
+  );
 
   const renderBottomNavTabs = () =>
     tabs?.map((tab, index) => {
@@ -218,10 +236,26 @@ const RdsAppBar = ({
   } as const;
 
   const renderBottomBar = () => {
-    if (variant === 'withmenubutton') {
+    if (isWithMenuButton) {
       return (
-        <Box className="rds-bottom-navigation">
-          <Box className="rds-bottom-navigation-single-row">
+        <Box
+          className="rds-bottom-navigation"
+          sx={{
+            ...bottomBarSx,
+            minHeight: 56,
+            padding: `${tokens.space(1)} ${tokens.space(1.5)}`,
+            boxSizing: 'border-box',
+          }}
+        >
+          <Box
+            className="rds-bottom-navigation-single-row"
+            sx={{
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            }}
+          >
             {renderBottomNavTabs()}
             {bottomActions}
           </Box>
@@ -275,10 +309,28 @@ const RdsAppBar = ({
         props.color === 'transparent' && 'rds-header--transparent',
         showMenuButton && 'rds-header--has-menu-button',
         variantClass && `rds-header--variant-${variantClass}`,
+        bottomNavActive && 'rds-header--bottom-nav-active',
+        isWithMenuButton && isSmallScreen && 'rds-header--withmenubutton-compact',
+        isWithMenuButton && isNarrowMobile && 'rds-header--withmenubutton-narrow',
+        isLogoSearchTabs && isNarrowMobile && 'rds-header--logosearchtabs-compact',
+        isLogoSearchTabs && isExtraNarrowMobile && 'rds-header--logosearchtabs-narrow',
+        isLogoSearchTabsActions && isNarrowMobile && 'rds-header--logosearchtabsactions-compact',
+        isLogoTabsActions && isNarrowMobile && 'rds-header--logotabsactions-compact',
+        isLogoTabsActions && isExtraNarrowMobile && 'rds-header--logotabsactions-narrow',
+        isDashboardWithLang && isNarrowMobile && 'rds-header--dashboardwithlang-compact',
+        isDashboardWithLang && isExtraNarrowMobile && 'rds-header--dashboardwithlang-narrow',
+        isTabletChromeVariant && isSmallScreen && 'rds-header--tablet-compact',
+        isWithActions && isSmallScreen && 'rds-header--withactions-compact',
+        isWithActions && isNarrowMobile && 'rds-header--withactions-narrow',
+        isWithActions && isExtraNarrowMobile && 'rds-header--withactions-xs',
+        isWithNotificationBadge && isSmallScreen && 'rds-header--withnotificationbadge-compact',
+        isNarrowMobile && 'rds-header--mobile-toolbar',
+        isExtraNarrowMobile && 'rds-header--mobile-toolbar-xs',
         className,
       )}
       color={props.color === 'transparent' ? 'transparent' : 'default'}
       elevation={elevation}
+      sx={[...rdsAppBarSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >
       <MuiToolbar
         className={`rds-app-bar--size-${size}`}
@@ -297,7 +349,7 @@ const RdsAppBar = ({
 
           {showLogo && logo && <span className="rds-header__logo">{logo}</span>}
           {centerResolved && <span className="rds-header__center-content">{centerResolved}</span>}
-          {hasControlledTabs && (
+          {showInlineTabs && (
             <Tabs
               {...tabsProps}
               className={clsx('rds-header__tabs-inline', tabsProps?.className)}

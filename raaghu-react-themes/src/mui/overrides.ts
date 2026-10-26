@@ -3,23 +3,30 @@ import { alpha, type Components, type Theme } from '@mui/material/styles';
 export const designSystemComponentOverrides: Components<Theme> = {
   MuiInputBase: {
     styleOverrides: {
-      root: ({ theme }) => ({
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: theme.palette.background.paper,
-        color: theme.palette.text.primary,
-        transition: theme.transitions.create(['border-color', 'box-shadow', 'background-color']),
-      }),
-      input: ({ theme }) => ({
-        // Longhands so MuiSelect can override paddingRight for the chevron
-        paddingTop: theme.spacing(1.25),
-        paddingBottom: theme.spacing(1.25),
-        paddingLeft: theme.spacing(1.5),
-        paddingRight: theme.spacing(1.5),
-        '&::placeholder': {
-          color: theme.palette.text.secondary,
-          opacity: 1,
-        },
-      }),
+      root: ({ theme }) => {
+        // Prefer theme.vars so light/dark colorSchemes swap at runtime via data-theme.
+        const palette = theme.vars?.palette ?? theme.palette;
+        return {
+          borderRadius: theme.shape.borderRadius,
+          backgroundColor: palette.background.paper,
+          color: palette.text.primary,
+          transition: theme.transitions.create(['border-color', 'box-shadow', 'background-color']),
+        };
+      },
+      input: ({ theme }) => {
+        const palette = theme.vars?.palette ?? theme.palette;
+        return {
+          // Longhands so MuiSelect can override paddingRight for the chevron
+          paddingTop: theme.spacing(1.25),
+          paddingBottom: theme.spacing(1.25),
+          paddingLeft: theme.spacing(1.5),
+          paddingRight: theme.spacing(1.5),
+          '&::placeholder': {
+            color: palette.text.secondary,
+            opacity: 1,
+          },
+        };
+      },
     },
   },
   MuiOutlinedInput: {
