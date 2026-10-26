@@ -1,45 +1,16 @@
 import clsx from "clsx";
 import { memo, useRef, type Dispatch, type KeyboardEvent, type RefObject, type SetStateAction } from "react";
-import { HuePicker, AlphaPicker, type ColorResult } from "react-color";
-import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl } from "./color-utils";
+import { Slider } from "@mui/material";
+import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl, hsvToRgb } from "./color-utils";
 import { ColorMode } from "./rds-comp-color-picker.types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
-const SLIDER_TRACK_HEIGHT = "12px";
-const SLIDER_POINTER_SIZE = 12;
-
-const SliderPointer = ({ direction }: { direction?: string }) => {
-  if (direction === "vertical") {
-    return (
-      <div
-        className="rds-comp-color-picker__slider-pointer"
-        style={{
-          width: SLIDER_POINTER_SIZE,
-          height: SLIDER_POINTER_SIZE,
-          borderRadius: "50%",
-          transform: `translate(-3px, -${SLIDER_POINTER_SIZE / 2}px)`,
-          backgroundColor: "#ffffff",
-          boxShadow: "0 0 2px rgba(0, 0, 0, 0.6)",
-        }}
-      />
-    );
-  }
-
-  return (
-    <div
-      className="rds-comp-color-picker__slider-pointer"
-      style={{
-        width: SLIDER_POINTER_SIZE,
-        height: SLIDER_POINTER_SIZE,
-        borderRadius: "50%",
-        backgroundColor: "#ffffff",
-        boxShadow: "0 0 2px rgba(0, 0, 0, 0.6)",
-      }}
-    />
-  );
-};
+const HUE_TRACK_GRADIENT =
+  "linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)";
+const CHECKERBOARD =
+  "linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)";
 
 const GRID_ROWS = Array.from({ length: 10 }, (_, i) => i);
 const GRID_COLS = Array.from({ length: 11 }, (_, i) => i);
@@ -64,8 +35,8 @@ interface ColorUpdate {
 interface SharedColorPickerProps {
   handleChange: (color: ColorUpdate) => void;
   selectedColorState: ColorState;
-  handleHueChange: (color: ColorResult) => void;
-  handleAlphaChange: (color: ColorResult) => void;
+  handleHueChange: (color: ColorUpdate) => void;
+  handleAlphaChange: (color: ColorUpdate) => void;
   colorModeDropdownRef: RefObject<HTMLDivElement | null>;
   selectedColorMode: ColorMode;
   showColorModeDropdown: boolean;
@@ -233,9 +204,15 @@ export const ColorPickerSpectrum = memo(({
 });
 export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, handleAlphaChange }: {
   selectedColorState: ColorState;
-  handleHueChange: (color: ColorResult) => void;
-  handleAlphaChange: (color: ColorResult) => void;
+  handleHueChange: (color: ColorUpdate) => void;
+  handleAlphaChange: (color: ColorUpdate) => void;
 }) => {
+  const hsb = rgbToHsb(selectedColorState.rgb);
+  const hue = ((hsb.h % 360) + 360) % 360;
+  const alphaPct = Math.round((selectedColorState.rgb.a ?? 1) * 100);
+  const { r, g, b } = selectedColorState.rgb;
+  const solid = `rgb(${r}, ${g}, ${b})`;
+
   return (
     <div className="rds-comp-color-picker__sliders-row">
       <div className="rds-comp-color-picker__eyedropper" aria-hidden="true">
@@ -243,23 +220,72 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
       </div>
       <div className="rds-comp-color-picker__sliders">
         <div className="rds-comp-color-picker__slider-container">
-          <HuePicker
-            color={selectedColorState.hex}
-            onChange={handleHueChange}
-            width="230px"
-            height={SLIDER_TRACK_HEIGHT}
-            {...({ pointer: SliderPointer, direction: "horizontal" } as Record<string, unknown>)}
+          <Slider
             className="rds-comp-color-picker__hue-picker"
+            min={0}
+            max={360}
+            value={hue}
+            aria-label="Hue"
+            onChange={(_, value) => {
+              const nextHue = Array.isArray(value) ? value[0] : value;
+              const rgb = hsvToRgb(nextHue / 360, hsb.s / 100, hsb.b / 100);
+              handleHueChange({
+                hex: rgbToHex(rgb.r, rgb.g, rgb.b),
+                rgb: { ...rgb, a: selectedColorState.rgb.a },
+              });
+            }}
+            sx={{
+              color: 'transparent',
+              height: 12,
+              padding: '6px 0',
+              '& .MuiSlider-rail': {
+                opacity: 1,
+                background: HUE_TRACK_GRADIENT,
+                borderRadius: 'var(--rds-border-radius-lg, 8px)',
+              },
+              '& .MuiSlider-track': { background: 'transparent', border: 'none' },
+              '& .MuiSlider-thumb': {
+                width: 12,
+                height: 12,
+                backgroundColor: '#fff',
+                boxShadow: '0 0 2px rgba(0, 0, 0, 0.6)',
+              },
+            }}
           />
-        </div>       
+        </div>
         <div className="rds-comp-color-picker__slider-container rds-comp-color-picker__alpha-slider-container">
-          <AlphaPicker
-            color={selectedColorState.rgb}
-            onChange={handleAlphaChange}
-            width="230px"
-            height={SLIDER_TRACK_HEIGHT}
-            {...({ pointer: SliderPointer, direction: "horizontal" } as Record<string, unknown>)}
+          <Slider
             className="rds-comp-color-picker__alpha-picker"
+            min={0}
+            max={100}
+            value={alphaPct}
+            aria-label="Opacity"
+            onChange={(_, value) => {
+              const pct = Array.isArray(value) ? value[0] : value;
+              handleAlphaChange({
+                hex: selectedColorState.hex,
+                rgb: { ...selectedColorState.rgb, a: pct / 100 },
+              });
+            }}
+            sx={{
+              color: 'transparent',
+              height: 12,
+              padding: '6px 0',
+              '& .MuiSlider-rail': {
+                opacity: 1,
+                backgroundImage: `linear-gradient(to right, transparent, ${solid}), ${CHECKERBOARD}`,
+                backgroundSize: '100% 100%, 8px 8px',
+                backgroundPosition: '0 0, 0 0, 0 4px, 4px -4px',
+                borderRadius: 'var(--rds-border-radius-lg, 8px)',
+              },
+              '& .MuiSlider-track': { background: 'transparent', border: 'none' },
+              '& .MuiSlider-thumb': {
+                width: 12,
+                height: 12,
+                backgroundColor: '#fff',
+                boxShadow: '0 0 2px rgba(0, 0, 0, 0.6)',
+              },
+            }}
           />
         </div>
       </div>

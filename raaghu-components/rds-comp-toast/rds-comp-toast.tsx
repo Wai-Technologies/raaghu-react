@@ -85,11 +85,13 @@ const ToastFooter = ({
     return null;
 };
 
+/** Maps severity → border modifier using palette severity names (not Bootstrap aliases). */
 const BORDER_TOKEN_MAP: Record<string, string> = {
-    basic: 'light',
-    info: 'dark',
-    success: 'primary',
-    error: 'danger',
+    basic: 'basic',
+    info: 'info',
+    success: 'success',
+    warning: 'warning',
+    error: 'error',
 };
 
 const RdsCompToast = (props: RdsCompToastProps) => {

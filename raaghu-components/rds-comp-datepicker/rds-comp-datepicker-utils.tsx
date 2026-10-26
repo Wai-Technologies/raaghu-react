@@ -1,6 +1,5 @@
 import { createElement, type RefObject, type ReactNode } from "react";
 import DatePicker, { type DatePickerProps } from "react-datepicker";
-import { CustomButtons } from "./CustomButtons";
 import { renderPickerIcon } from "./CustomInputWithClear";
 import { RenderDefaultDropdownHeader, RenderMultiMonthHeader } from "./renderCustomHeader";
 
@@ -49,7 +48,6 @@ const buildDatePickerProps = ({
     showPreviousMonths: true,
     monthsShown: props.layout === "Multi Month" ? 3 : 1,
     scrollableMonthYearDropdown: props.datePickerStyleType === "Dropdown",
-    todayButton: <CustomButtons />,
     peekNextMonth: true,
     showMonthDropdown: props.datePickerStyleType === "Dropdown" && !usesCustomHeaderDropdown,
     showYearDropdown: props.datePickerStyleType === "Dropdown" && !usesCustomHeaderDropdown,
@@ -84,7 +82,6 @@ export const renderDatePickerTypeView = (
     dayClassName: (date: Date) => string,
     CustomInputWithClear: React.ElementType,
     ExampleCustomInput: React.ElementType,
-    CustomButtons: React.ElementType,
     customDropdownRef?: RefObject<HTMLDivElement | null>
 ) => {
 
@@ -112,7 +109,6 @@ export const renderDatePickerTypeView = (
             </div>
         );
     } else if (type === "Custom") {
-        const todayButtonElement = <CustomButtons />;
         const rangeCustomInput = createElement(ExampleCustomInput, {
             changeIcon: props.changeIcon,
             onActivate: customClickHandler,
@@ -181,7 +177,6 @@ export const renderDatePickerTypeView = (
                             placeholderText={props.placeholderText || "Select date"}
                             showMonthYearPicker={props.layout === "Month Picker"}
                             showYearPicker={props.layout === "Year Picker"}
-                            todayButton={todayButtonElement}
                             peekNextMonth={true}
                             showMonthDropdown={props.datePickerStyleType === "Dropdown" && !getRenderCustomHeader(props.layout, props.datePickerStyleType)}
                             showYearDropdown={props.datePickerStyleType === "Dropdown" && !getRenderCustomHeader(props.layout, props.datePickerStyleType)}

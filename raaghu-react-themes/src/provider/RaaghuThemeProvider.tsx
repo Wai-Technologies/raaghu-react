@@ -1,4 +1,5 @@
-import { createContext, use, useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, use, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useIsomorphicLayoutEffect } from '../utils/use-isomorphic-layout-effect';
 import { ThemeProvider, useColorScheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createRaaghuTheme, raaghuTheme } from '../mui/raaghu.theme';
@@ -37,7 +38,7 @@ function MuiColorSchemeSync({ mode }: Readonly<{ mode: RaaghuThemeMode }>) {
   // Resolve system → light|dark so MUI `data-theme` matches injectTokens / logo hooks.
   const effectiveMode = mode === 'system' ? (prefersDarkColorScheme() ? 'dark' : 'light') : mode;
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     setMode(effectiveMode);
   }, [effectiveMode, setMode]);
 
@@ -85,7 +86,7 @@ export function RaaghuThemeProvider({
     [stableBrandOverrides],
   );
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     applyRaaghuTheme(mode, stableBrandOverrides, { persist: !isControlled });
   }, [mode, systemPrefersDark, stableBrandOverrides, isControlled]);
 

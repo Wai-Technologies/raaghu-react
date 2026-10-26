@@ -612,4 +612,24 @@ describe('audit fixes focused/defaultValue', () => {
     await renderEditor({ defaultValue: '<p>seed</p>' });
     expect(htmlToDraft).toHaveBeenCalledWith('<p>seed</p>');
   });
+
+  it('G6-108: sanitizeEditorHtml strips script tags', () => {
+    const { sanitizeEditorHtml } = jest.requireActual('./sanitize-html') as typeof import('./sanitize-html');
+    expect(sanitizeEditorHtml('<p>ok</p><script>alert(1)</script>')).toBe('<p>ok</p>');
+    expect(sanitizeEditorHtml('<img src="javascript:alert(1)">')).not.toContain('javascript:');
+  });
+
+  it('G6-108: onChange emits sanitised HTML', async () => {
+    const draftToHtml = jest.requireMock('draftjs-to-html') as jest.Mock;
+    draftToHtml.mockReturnValueOnce('<p>safe</p><script>x</script>');
+    const onChange = jest.fn();
+    await renderEditor({ onChange });
+    fireEvent.blur(screen.getByTestId('editor-content'));
+    expect(onChange).toHaveBeenCalledWith(
+      '<p>safe</p>',
+      expect.any(Object),
+      'user',
+      expect.any(Object),
+    );
+  });
 });

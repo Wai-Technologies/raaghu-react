@@ -846,4 +846,24 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsPagination', 'currentPage', '`page`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsPagination', 'controls', expect.any(String));
   });
+
+  it('G2-117: count is always records; pageCount sets pages', () => {
+    const actualHelpers = jest.requireActual('./rds-pagination.helpers') as typeof import('./rds-pagination.helpers');
+    expect(actualHelpers.calculateTotalPages(50, undefined, 10)).toEqual({
+      totalPagesCalc: 5,
+      totalRecords: 50,
+    });
+    expect(actualHelpers.calculateTotalPages(undefined, 100, 10)).toEqual({
+      totalPagesCalc: 10,
+      totalRecords: 100,
+    });
+    expect(actualHelpers.calculateTotalPages(undefined, undefined, 10, 7)).toEqual({
+      totalPagesCalc: 7,
+      totalRecords: 70,
+    });
+    expect(actualHelpers.calculateTotalPages(200, undefined, 25, 4)).toEqual({
+      totalPagesCalc: 4,
+      totalRecords: 200,
+    });
+  });
 });

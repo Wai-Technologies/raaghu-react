@@ -1,5 +1,4 @@
 import type { Emoji } from 'emojibase';
-import data from 'emojibase-data/en/data.json';
 
 export const EmojiGeneratorType = {
   Default: 'Default',
@@ -18,9 +17,6 @@ export enum EmojiCategory {
   Flags = "Flags",
 }
 
-const allEmojis: Emoji[] = (data as unknown as Emoji[])
-  .filter(e => !!e.emoji && !(e.version && parseFloat(e.version.toString()) >= 12.0) && e.emoji.length <= 7);
-
 const categoryGroupMap: Record<EmojiCategory, number[]> = {
   [EmojiCategory.SmileysAndPeople]: [0, 1],
   [EmojiCategory.AnimalsAndNature]: [3],
@@ -32,14 +28,42 @@ const categoryGroupMap: Record<EmojiCategory, number[]> = {
   [EmojiCategory.Flags]: [9],
 };
 
-const emojiCache: Partial<Record<EmojiCategory, string[]>> = {};
-
+let allEmojis: Emoji[] = [];
+const emojiCache: Partial<Record<string, string[]>> = {};
 const emojiByCharMap = new Map<string, Emoji>();
-for (const emoji of allEmojis) {
-  if (!emojiByCharMap.has(emoji.emoji)) {
-    emojiByCharMap.set(emoji.emoji, emoji);
+let loadPromise: Promise<void> | null = null;
+
+const indexEmojis = (data: Emoji[]) => {
+  allEmojis = data.filter(
+    (e) => !!e.emoji && !(e.version && parseFloat(e.version.toString()) >= 12.0) && e.emoji.length <= 7,
+  );
+  emojiByCharMap.clear();
+  for (const key of Object.keys(emojiCache)) {
+    delete emojiCache[key];
   }
-}
+  for (const emoji of allEmojis) {
+    if (!emojiByCharMap.has(emoji.emoji)) {
+      emojiByCharMap.set(emoji.emoji, emoji);
+    }
+    const stripped = emoji.emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, '');
+    if (stripped !== emoji.emoji && !emojiByCharMap.has(stripped)) {
+      emojiByCharMap.set(stripped, emoji);
+    }
+  }
+};
+
+/** Lazy-loads the 735 KB emojibase dataset (G5-028). Safe to call repeatedly. */
+export const ensureEmojiData = (): Promise<void> => {
+  if (allEmojis.length > 0) return Promise.resolve();
+  if (!loadPromise) {
+    loadPromise = import('emojibase-data/en/data.json').then((mod) => {
+      indexEmojis(mod.default as unknown as Emoji[]);
+    });
+  }
+  return loadPromise;
+};
+
+export const isEmojiDataReady = (): boolean => allEmojis.length > 0;
 
 /** Returns the human readable label of an emoji character (undefined when unknown). */
 export const getEmojiLabel = (emoji: string): string | undefined => emojiByCharMap.get(emoji)?.label;
@@ -55,12 +79,15 @@ const skinToneModifiers = [
   '\u{1F3FF}',
 ];
 
+const lookupEmoji = (emoji: string): Emoji | undefined =>
+  emojiByCharMap.get(emoji) ?? emojiByCharMap.get(emoji.replace(/\uFE0F/g, '').replace(/\uFE0E/g, ''));
+
 export const applySkinTone = (emoji: string, skinTone: number): string => {
   if (skinTone === 0 || !skinToneModifiers[skinTone]) {
     return emoji;
   }
 
-  const skin = emojiByCharMap.get(emoji)?.skins?.find(s => s.tone === skinTone);
+  const skin = lookupEmoji(emoji)?.skins?.find(s => s.tone === skinTone);
   if (skin) {
     return skin.emoji;
   }
@@ -69,7 +96,8 @@ export const applySkinTone = (emoji: string, skinTone: number): string => {
 };
 
 export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 0): string[] => {
-  const cacheKey = `${category}_${skinTone}` as keyof typeof emojiCache;
+  if (allEmojis.length === 0) return [];
+  const cacheKey = `${category}_${skinTone}`;
 
   if (!emojiCache[cacheKey]) {
     const groups = new Set(categoryGroupMap[category] || []);
@@ -86,6 +114,7 @@ export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 
 };
 
 export const searchEmojis = (searchTerm: string, category?: EmojiCategory, skinTone: number = 0): string[] => {
+  if (allEmojis.length === 0) return [];
   const term = searchTerm.trim().toLowerCase();
   if (!term) return [];
   const pool = category ? new Set(getEmojisByCategory(category, skinTone)) : null;

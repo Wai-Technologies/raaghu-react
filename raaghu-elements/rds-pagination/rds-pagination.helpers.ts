@@ -194,7 +194,7 @@ export const getStyleConfig = (style: string): StyleConfig => {
 
 /**
  * Sibling/boundary counts for `MuiPagination`. Style 2/7 are fixed at 0/1; other styles use
- * their config (default 0/1). On small screens (`isSmallScreen`, ≤ 480px) it is always 0/1.
+ * their config (default 0/1). On small screens (`isSmallScreen`, â‰¤ 480px) it is always 0/1.
  */
 export const calculatePaginationConfig = (
   paginationStyle: string,
@@ -211,22 +211,35 @@ export const calculatePaginationConfig = (
   return { finalSiblingCount, finalBoundaryCount };
 };
 
+/**
+ * G2-117: `count` is always total records; optional `pageCount` is explicit pages.
+ * Legacy `totalPages` is treated as total records when `count` is omitted.
+ */
 export const calculateTotalPages = (
   count: number | undefined,
   totalPages: number | undefined,
-  pageSize: number
+  pageSize: number,
+  pageCount?: number
 ) => {
- 
-  let totalPagesCalc = 1;
-  let totalRecords = 0;
-  if (typeof count === 'number' && count > 1 && (!totalPages || totalPages < 2)) {
-    totalPagesCalc = count;
-    totalRecords = count * pageSize;
-  } else {
-    
-    totalRecords = count || totalPages || 1;
-    totalPagesCalc = Math.ceil(totalRecords / pageSize);
+  const size = pageSize > 0 ? pageSize : 1;
+
+  if (typeof pageCount === 'number' && pageCount > 0) {
+    const totalRecords =
+      typeof count === 'number' && count >= 0
+        ? count
+        : typeof totalPages === 'number' && totalPages >= 0
+          ? totalPages
+          : pageCount * size;
+    return { totalPagesCalc: pageCount, totalRecords };
   }
+
+  const totalRecords =
+    typeof count === 'number' && count >= 0
+      ? count
+      : typeof totalPages === 'number' && totalPages >= 0
+        ? totalPages
+        : 1;
+  const totalPagesCalc = Math.max(1, Math.ceil(totalRecords / size));
 
   return { totalPagesCalc, totalRecords };
 };

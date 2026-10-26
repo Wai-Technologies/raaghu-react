@@ -66,14 +66,6 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => {
 });
 
 jest.mock('./rds-comp-datepicker-utils', () => ({
-  CustomButtons: ({ onClickYesterday, onClickToday, onClickLastSeven, onClickLastFourteen }: any) => (
-    <div data-testid="custom-buttons">
-      <button data-testid="yesterday-btn" onClick={onClickYesterday}>Yesterday</button>
-      <button data-testid="today-btn" onClick={onClickToday}>Today</button>
-      <button data-testid="last-7-btn" onClick={onClickLastSeven}>Last 7 Days</button>
-      <button data-testid="last-14-btn" onClick={onClickLastFourteen}>Last 14 Days</button>
-    </div>
-  ),
   CustomInputWithClear: ({ value, onClick, onClear }: any) => (
     <div data-testid="custom-input">
       <input data-testid="custom-input-field" value={value} readOnly onClick={onClick} />

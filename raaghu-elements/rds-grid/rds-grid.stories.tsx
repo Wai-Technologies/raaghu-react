@@ -76,3 +76,37 @@ export const Container: Story = {
     ),
   },
 };
+
+/**
+ * MUI Grid v7 uses the `size` prop (replacing `xs` / `sm` / `md` / … item props).
+ * Pass a number for all breakpoints, or an object for responsive widths.
+ */
+export const ResponsiveSize: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'MUI Grid v7: set item width with `size` (e.g. `size={6}` or `size={{ xs: 12, md: 6 }}`). Legacy `xs`/`md` props are no longer the primary API.',
+      },
+    },
+  },
+  args: {
+    container: true,
+    spacing: 2,
+    sx: { p: 2 },
+    children: (
+      <>
+        <RdsGrid size={{ xs: 12, md: 6 }}>
+          <Paper sx={{ p: 2, textAlign: 'center' }}>
+            <Typography>size xs:12 / md:6</Typography>
+          </Paper>
+        </RdsGrid>
+        <RdsGrid size={{ xs: 12, md: 6 }}>
+          <Paper sx={{ p: 2, textAlign: 'center' }}>
+            <Typography>size xs:12 / md:6</Typography>
+          </Paper>
+        </RdsGrid>
+      </>
+    ),
+  },
+};

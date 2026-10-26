@@ -165,35 +165,15 @@
 
   &__hue-picker {
     margin-bottom: var(--rds-spacing-sm);
-
-    .hue-horizontal {
-      border-radius: var(--rds-border-radius-lg) !important;
-      height: 12px !important;
-    }
-
-    .hue-horizontal > div {
-      top: 50% !important;
-      transform: translate(-50%, -50%) !important;
-    }
+    width: 100%;
+    max-width: 230px;
   }
 
   &__alpha-picker {
-    > div > div:last-child {
-      margin: 0 !important;
-      border-radius: var(--rds-border-radius-lg) !important;
-      height: 12px !important;
-    }
-
-    > div > div:last-child > div {
-      top: 50% !important;
-      transform: translate(-50%, -50%) !important;
-    }
+    width: 100%;
+    max-width: 230px;
   }
 
-  &__slider-pointer {
-    box-sizing: border-box;
-  }
-  
   &__color-info {
     display: flex;
     align-items: center;

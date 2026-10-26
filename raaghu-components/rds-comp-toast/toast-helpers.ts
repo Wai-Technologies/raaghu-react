@@ -5,6 +5,7 @@ export const getStateClass = (severity?: ToastSeverity | `${ToastSeverity}`): st
     const stateClass: Record<string, string> = {
         [ToastSeverity.Info]: "info",
         [ToastSeverity.Success]: "success",
+        [ToastSeverity.Warning]: "warning",
         [ToastSeverity.Error]: "error",
         [ToastSeverity.Basic]: "basic",
     };

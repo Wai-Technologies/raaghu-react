@@ -104,6 +104,8 @@ jest.mock('./rds-comp-emoji-data', () => ({
     Symbols: 'Symbols',
     Flags: 'Flags',
   },
+  ensureEmojiData: () => Promise.resolve(),
+  isEmojiDataReady: () => true,
   getEmojisByCategory: (category: any, skinTone: any) => {
     const emojis: any = {
       SmileysAndPeople: ['😊', '😂', '❤️', '😍'],
@@ -444,10 +446,20 @@ describe('RdsEmojiGenerator', () => {
 });
 
 describe('audit fixes', () => {
-  it('G5-023: applySkinTone picks the skin variant matching the tone', () => {
+  it('G5-023: applySkinTone picks the skin variant matching the tone', async () => {
     const actual = jest.requireActual('./rds-comp-emoji-data');
+    await actual.ensureEmojiData();
     expect(actual.applySkinTone('👍️', 1)).toBe('👍🏻');
     expect(actual.applySkinTone('👍️', 5)).toBe('👍🏿');
+  });
+
+  it('G5-028: ensureEmojiData lazy-loads emojibase JSON once', async () => {
+    const actual = jest.requireActual('./rds-comp-emoji-data');
+    await actual.ensureEmojiData();
+    expect(actual.isEmojiDataReady()).toBe(true);
+    expect(actual.getEmojisByCategory(actual.EmojiCategory.SmileysAndPeople).length).toBeGreaterThan(0);
+    await actual.ensureEmojiData();
+    expect(actual.isEmojiDataReady()).toBe(true);
   });
 
   it('G5-024: type takes precedence over variant', () => {

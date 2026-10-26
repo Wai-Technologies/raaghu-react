@@ -46,6 +46,7 @@ function ToolbarSectionButtons({
               hasDropdown={hasDropdown}
               options={button.options}
               ariaLabel={button.ariaLabel}
+              className={button.className}
               isActive={isActive(button.action)}
               disabled={disabled}
               dropdownAction={openDropdown}

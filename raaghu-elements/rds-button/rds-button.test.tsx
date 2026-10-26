@@ -8,6 +8,22 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
+const mockUseFormStatus = jest.fn(() => ({
+  pending: false,
+  data: null,
+  method: null,
+  action: null,
+}));
+
+jest.mock('react-dom', () => ({
+  ...jest.requireActual('react-dom'),
+  useFormStatus: () => mockUseFormStatus(),
+}));
+
+beforeEach(() => {
+  mockUseFormStatus.mockReturnValue({ pending: false, data: null, method: null, action: null });
+});
+
 describe('RdsButton', () => {
   it('renders with text', () => {
     render(<RdsButton text="Test Button" />);
@@ -162,5 +178,25 @@ describe('RdsButton audit fixes', () => {
   it('warns when a variant string is passed to deprecated style', () => {
     render(<RdsButton style="filled">Old</RdsButton>);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButton', 'style', '`variant`');
+  });
+
+  it('follows useFormStatus pending for submit buttons when loading is omitted (#18)', () => {
+    mockUseFormStatus.mockReturnValue({ pending: true, data: null, method: null, action: null });
+    render(<RdsButton type="submit">Save</RdsButton>);
+    const button = screen.getByRole('button');
+    expect(button).toBeDisabled();
+    expect(button).toHaveClass('rds-button__loading');
+  });
+
+  it('does not follow form pending for non-submit buttons (#18)', () => {
+    mockUseFormStatus.mockReturnValue({ pending: true, data: null, method: null, action: null });
+    render(<RdsButton type="button">Cancel</RdsButton>);
+    expect(screen.getByRole('button')).not.toBeDisabled();
+  });
+
+  it('lets explicit loading={false} win over form pending (#18)', () => {
+    mockUseFormStatus.mockReturnValue({ pending: true, data: null, method: null, action: null });
+    render(<RdsButton type="submit" loading={false}>Save</RdsButton>);
+    expect(screen.getByRole('button')).not.toBeDisabled();
   });
 });
