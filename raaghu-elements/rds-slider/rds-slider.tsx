@@ -1,4 +1,4 @@
-import { useState, type JSX } from 'react';
+import { useState, type ReactElement } from 'react';
 import { Slider as MuiSlider, type SliderProps } from '@mui/material';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-slider.scss';
@@ -31,7 +31,7 @@ export interface RdsSliderProps extends Omit<SliderProps, 'component'> {
 }
 
 /** Slider with optional label row, value readout, end labels and single/range modes. */
-const RdsSlider = (sliderProps: RdsSliderProps): JSX.Element => {
+const RdsSlider = (sliderProps: RdsSliderProps): ReactElement => {
   const {
     label,
     showValue = false,

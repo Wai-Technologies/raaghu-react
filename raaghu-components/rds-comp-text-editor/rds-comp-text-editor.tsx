@@ -8,6 +8,7 @@ import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import { sanitizeEditorHtml } from "./sanitize-html";
 
 const Editor = lazy(() =>
     import("react-draft-wysiwyg").then((m) => ({ default: m.Editor }))
@@ -33,6 +34,8 @@ export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivEleme
     showTitle?: boolean;
     rows?: number;
     resizable?: boolean;
+    /** Upload handler for toolbar images. Return a public URL (or data URL). When omitted, files are read as base64 data URLs. */
+    onImageUpload?: (file: File) => Promise<string> | string;
     sx?: SxProps<Theme>;
     ref?: Ref<HTMLDivElement>;
 }
@@ -41,7 +44,7 @@ type DraftEditorState = ReturnType<typeof EditorState.createEmpty>;
 
 const createEditorStateFromValue = (value?: string, showTitle?: boolean): DraftEditorState => {
     if (value) {
-        const contentBlock = htmlToDraft(value);
+        const contentBlock = htmlToDraft(sanitizeEditorHtml(value));
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
             return EditorState.createWithContent(contentState);
@@ -71,6 +74,7 @@ const RdsCompTextEditor = ({
     showTitle,
     rows,
     resizable,
+    onImageUpload,
     className,
     sx,
     ref,
@@ -124,24 +128,29 @@ const RdsCompTextEditor = ({
                 uploadEnabled: true,
                 alignmentEnabled: true,
                 uploadCallback: (file: File) =>
-                    new Promise<{ data: { link: string } }>((resolve) => {
-                        const reader = new FileReader();
-                        reader.onload = () => resolve({ data: { link: reader.result as string } });
-                        reader.readAsDataURL(file);
-                    }),
+                    Promise.resolve(
+                        onImageUpload
+                            ? onImageUpload(file)
+                            : new Promise<string>((resolve, reject) => {
+                                const reader = new FileReader();
+                                reader.onload = () => resolve(reader.result as string);
+                                reader.onerror = () => reject(reader.error);
+                                reader.readAsDataURL(file);
+                            }),
+                    ).then((link) => ({ data: { link } })),
                 previewImage: true,
                 inputAccept: "image/gif,image/jpeg,image/jpg,image/png",
                 alt: { present: true, mandatory: false },
             },
         }),
-        [],
+        [onImageUpload],
     );
 
     const handleEditorChange = useCallback((state: DraftEditorState) => {
         setEditorState(state);
         setIsTouch(true);
         if (onChange) {
-            const htmlContent = draftToHtml(convertToRaw(state.getCurrentContent()));
+            const htmlContent = sanitizeEditorHtml(draftToHtml(convertToRaw(state.getCurrentContent())));
             setLastEmitted(htmlContent);
             onChange(htmlContent, { ops: [{ insert: htmlContent }] }, "user", editorRef.current);
         }

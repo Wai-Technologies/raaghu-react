@@ -8,6 +8,9 @@ import './rds-grid.scss';
 /**
  * Props for RdsGrid. Same as MUI `GridProps`, including the polymorphic
  * `component` prop (e.g. `component="section"` or `component="ul"`).
+ *
+ * MUI Grid v7 item sizing uses `size` (number or `{ xs, sm, md, … }`), not the
+ * legacy `xs` / `sm` / `md` props as the primary API. See the ResponsiveSize story.
  */
 export type RdsGridProps = GridProps;
 

@@ -1,9 +1,8 @@
 import dayjs, { type Dayjs } from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { useCallback, useEffect, useMemo, useState, type HTMLAttributes, type ReactElement, type Ref, type SVGProps } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type HTMLAttributes, type Ref, type SVGProps } from 'react';
 import { Box } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material';
-import Measure, { BoundingRect, type MeasuredComponentProps } from 'react-measure';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
 import SvgIcon from '@mui/material/SvgIcon';
@@ -114,6 +113,7 @@ const RdsCompContribution = ({
   const monthLabelAttributes = slotProps?.monthLabel ?? monthLabelAttributesProp;
   const panelAttributes = slotProps?.panel ?? panelAttributesProp;
   const columns = COLUMNS;
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === 'undefined' ? 1024 : window.innerWidth));
 
   useEffect(() => {
@@ -124,6 +124,30 @@ const RdsCompContribution = ({
       window.removeEventListener('resize', handler);
     };
   }, []);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver((entries) => {
+      const width = entries[0]?.contentRect?.width;
+      if (typeof width === 'number' && width > 0) {
+        setViewportWidth(width);
+      }
+    });
+    ro.observe(el);
+    const initial = el.getBoundingClientRect().width;
+    if (initial > 0) setViewportWidth(initial);
+    return () => ro.disconnect();
+  }, []);
+
+  const setRootRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      rootRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) ref.current = node;
+    },
+    [ref],
+  );
 
   const isMobile = viewportWidth <= 414;
   const { dynamicPanelSize, dynamicPanelMargin } = useMemo(() => {
@@ -170,12 +194,6 @@ const RdsCompContribution = ({
     }
     return result;
   }, [dateFormat]);
-  
-  const updateSize = useCallback((size?: BoundingRect) => {
-    if (!size) return;
-
-    setViewportWidth(size.width);
-  }, []);
 
   const contributions = useMemo(() => {
     if (!values || !until || !panelColors) return null;
@@ -341,40 +359,34 @@ const RdsCompContribution = ({
   const svgHeight = 7 * (dynamicPanelSize + dynamicPanelMargin) + monthLabelHeight;
 
   return (
-    <Measure bounds onResize={(rect) => updateSize(rect.bounds)}>
-      {({ measureRef }: MeasuredComponentProps) => (
-        <Box
-          {...rest}
-          ref={(node) => {
-            measureRef(node);
-            if (typeof ref === 'function') ref(node);
-            else if (ref) ref.current = node;
-          }}
-          className={clsx('rds-comp-contribution', className)}
-          sx={sx}
-        >
-          <div className="rds-comp-contribution__container">
-            <div className="rds-comp-contribution__wrapper">
-                      <SvgIcon
-                className="rds-comp-contribution__svg"
-                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-                role="img" aria-hidden={false} aria-label="Contribution graph"
-                sx={{ 
-                  width: '100%', 
-                  height: 'auto', 
-                  maxWidth: '100%',
-                  minWidth: 'unset'
-                }}
-              >
-                        {weekLabels}
-                        {contributionPanels}
-                        {monthLabels}
-              </SvgIcon>
-            </div>
-          </div>
-        </Box>
-      )}
-    </Measure>
+    <Box
+      {...rest}
+      ref={setRootRef}
+      className={clsx('rds-comp-contribution', className)}
+      sx={sx}
+    >
+      <div className="rds-comp-contribution__container">
+        <div className="rds-comp-contribution__wrapper">
+          <SvgIcon
+            className="rds-comp-contribution__svg"
+            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+            role="img"
+            aria-hidden={false}
+            aria-label="Contribution graph"
+            sx={{
+              width: '100%',
+              height: 'auto',
+              maxWidth: '100%',
+              minWidth: 'unset',
+            }}
+          >
+            {weekLabels}
+            {contributionPanels}
+            {monthLabels}
+          </SvgIcon>
+        </div>
+      </div>
+    </Box>
   );
 };
 RdsCompContribution.displayName = "RdsCompContribution";

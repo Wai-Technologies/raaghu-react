@@ -418,6 +418,28 @@ describe('RdsCompColorPicker', () => {
       getColorDisplay: () => colorState.hex,
     };
 
+    it('G4-003: hue and opacity use MUI sliders (no react-color)', () => {
+      const handleHueChange = jest.fn();
+      const handleAlphaChange = jest.fn();
+      render(
+        <actual.ColorPickerSliders
+          selectedColorState={colorState}
+          handleHueChange={handleHueChange}
+          handleAlphaChange={handleAlphaChange}
+        />
+      );
+      const hue = screen.getByRole('slider', { name: 'Hue' });
+      const opacity = screen.getByRole('slider', { name: 'Opacity' });
+      expect(hue).toBeInTheDocument();
+      expect(opacity).toBeInTheDocument();
+      fireEvent.change(hue, { target: { value: '120' } });
+      expect(handleHueChange).toHaveBeenCalled();
+      fireEvent.change(opacity, { target: { value: '25' } });
+      expect(handleAlphaChange).toHaveBeenCalledWith(
+        expect.objectContaining({ rgb: expect.objectContaining({ a: 0.25 }) }),
+      );
+    });
+
     it('G4-002: spectrum click uses the current hue, not the red channel', () => {
       const handleChange = jest.fn();
       render(

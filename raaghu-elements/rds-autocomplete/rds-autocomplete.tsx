@@ -1,4 +1,5 @@
-import { useId, useLayoutEffect, useState, useRef, type FocusEvent, type ReactNode, type SyntheticEvent } from 'react';
+import { useId, useState, useRef, type FocusEvent, type ReactNode, type SyntheticEvent } from 'react';
+import { useIsomorphicLayoutEffect } from '../shared/utils/use-isomorphic-layout-effect';
 import {
   Autocomplete as MuiAutocomplete,
   TextField,
@@ -253,7 +254,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(1024);
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver((entries) => {
