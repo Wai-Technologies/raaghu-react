@@ -1,10 +1,5 @@
 import { useState, type ReactNode, type MouseEvent, type CSSProperties } from 'react';
 import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem, useMediaQuery } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import Brightness5Icon from '@mui/icons-material/Brightness5';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import LogoutIcon from '@mui/icons-material/Logout';
 import RdsAvatar from '../../rds-avatar/rds-avatar';
 import '../styles/rds-profile-menu.scss';
 
@@ -36,31 +31,19 @@ const getInitials = (name: string): string =>
     .join('')
     .toUpperCase();
 
-const DEFAULT_MENU_ITEMS: ProfileMenuItem[] = [
-  { label: 'My Profile', icon: <PersonIcon fontSize="small" /> },
-  { label: 'Theme', icon: <Brightness5Icon fontSize="small" /> },
-  { label: 'Setting', icon: <SettingsIcon fontSize="small" /> },
-  { label: 'Help', icon: <HelpOutlineIcon fontSize="small" /> },
-  {
-    label: 'Logout',
-    icon: <LogoutIcon fontSize="small" />,
-    sx: { borderRadius: '0 0 var(--rds-border-radius-lg, 8px) var(--rds-border-radius-lg, 8px)' },
-  },
-];
-
 export const ProfileMenu = ({
   name,
   email,
   variant = 'rich',
   shortName,
-  designation = 'Developer',
+  designation,
   menuItems,
 }: ProfileMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isSmallScreen = useMediaQuery('(max-width:834px)', { noSsr: true });
   const open = Boolean(anchorEl);
   const initials = shortName ?? getInitials(name);
-  const items = menuItems && menuItems.length > 0 ? menuItems : DEFAULT_MENU_ITEMS;
+  const items = menuItems ?? [];
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

@@ -5,6 +5,7 @@ import CloudUpload from '@mui/icons-material/CloudUpload';
 import Close from '@mui/icons-material/Close';
 import type { FileWithProgress, RdsFileUploaderProps } from './rds-file-uploader-types';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
+import { formatAcceptLabel, formatFileSize } from './rds-file-uploader-utils';
 
 /** Props shared by the three drop-zone layouts. */
 interface RdsDropZoneProps {
@@ -15,6 +16,8 @@ interface RdsDropZoneProps {
   onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
   onDrop: (e: DragEvent<HTMLDivElement>) => void;
   openFileDialog: () => void;
+  /** The file input `accept` value; shown to the user as the list of allowed file types. */
+  accept?: string;
 }
 
 interface RdsFileListProps {
@@ -32,14 +35,6 @@ interface UseFileUploaderProps {
   multiple?: boolean;
   onFilesChange?: (files: FileWithProgress[], event?: SyntheticEvent) => void;
   onUpload?: (files: File[]) => Promise<void>;
-}
-
-function formatFileSize(bytes: number): string {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
 function validateFile(file: File, maxSize: number): string | null {
@@ -142,7 +137,6 @@ export const useFileUploader = ({
     mandatoryError,
     selectedFileName,
     fileInputRef,
-    formatFileSize,
     removeFile,
     handleFileSelect,
     handleDragOver,
@@ -163,6 +157,7 @@ export const RdsDropZoneSideIcon = ({
   onDragLeave,
   onDrop,
   openFileDialog,
+  accept,
 }: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
 
@@ -185,7 +180,7 @@ export const RdsDropZoneSideIcon = ({
           Drag and Drop files or <button type="button" className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
         </Typography>
         <Typography className="rds-file-uploader__info rds-file-uploader__info--left" variant="caption">
-          (PNG, JPG, DOC, PDF, PPT)
+          ({formatAcceptLabel(accept)})
         </Typography>
       </Box>
       <Box sx={{ ml: tokens.space(2), display: 'flex', alignItems: 'center' }}>
@@ -262,6 +257,7 @@ export const RdsDropZoneDefault = ({
   onDragLeave,
   onDrop,
   openFileDialog,
+  accept,
 }: RdsDropZoneProps) => {
   const tokens = useRdsTokens();
 
@@ -289,7 +285,7 @@ export const RdsDropZoneDefault = ({
         Drag and Drop files or <button type="button" className="rds-file-uploader__browse-link" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); if (!disabled) openFileDialog(); } }}>Browse</button>
       </Typography>
       <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
-        (PNG, JPG, DOC, PDF, PPT)
+        ({formatAcceptLabel(accept)})
       </Typography>
     </Paper>
   );
@@ -322,6 +318,11 @@ export const RdsFileList = ({
             >
               {fileWithProgress.file.name}
             </Typography>
+            {fileWithProgress.error && (
+              <Typography component="span" variant="caption" color="error" role="alert" sx={{ display: 'block' }}>
+                {fileWithProgress.error}
+              </Typography>
+            )}
           </Box>
           <Typography component="span" className="rds-file-uploader__file-item-size">
             {formatFileSize(fileWithProgress.file.size)}

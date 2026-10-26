@@ -14,9 +14,10 @@ RaaghuThemeProvider
               └── document.documentElement  ← --rds-* vars updated
 ```
 
-MUI's `ThemeProvider` is also updated simultaneously — `RaaghuThemeProvider`
-switches between `lightTheme` and `darkTheme` (from `src/mui/`) which both
-mirror the token values.
+MUI's `ThemeProvider` uses a single `raaghuTheme` with light/dark `colorSchemes`
+and CSS variables (`data-theme` selector). Mode changes call `useColorScheme`
+and keep `theme.palette` / `--mui-palette-*` in sync with `--rds-*` (including
+`brandOverrides`).
 
 ---
 

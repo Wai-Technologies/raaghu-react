@@ -23,8 +23,6 @@ import {
 import RdsButton from '../rds-button/rds-button';
 import ClearIcon from '@mui/icons-material/Clear';
 import DehazeIcon from '@mui/icons-material/Dehaze';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Person from '@mui/icons-material/Person';
 import Close from '@mui/icons-material/Close';
 import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
@@ -71,7 +69,7 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   actions?: ReactNode;
   userName?: string;
   userEmail?: string;
-  /** Items of the profile menu shown when `userName` and `userEmail` are set. Defaults to "My Profile" and "Logout". */
+  /** Items of the profile menu shown when `userName` and `userEmail` are set. Pass explicitly; there is no demo default. */
   profileMenuItems?: ProfileMenuItem[];
   searchValue?: string;
   onSearchChange?: (value: string) => void;
@@ -90,7 +88,7 @@ export interface RdsAppBarProps extends Omit<AppBarProps, 'component'> {
   overflowContent?: ReactNode;
   /**
    * Content after the tabs in the small-screen bottom bar of the `withMenuButton` layout.
-   * Defaults to the trial badge and "View Plans" button; pass `null` to show nothing.
+   * No demo content by default; pass nodes (e.g. a trial badge) when needed.
    */
   bottomActions?: ReactNode;
 }
@@ -100,31 +98,6 @@ const toolbarHeights: Record<RdsAppBarSize, number> = {
   medium: 64,
   large: 80,
 };
-
-const DEFAULT_PROFILE_MENU_ITEMS: ProfileMenuItem[] = [
-  { label: 'My Profile', icon: <Person /> },
-  { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
-];
-
-const DEFAULT_BOTTOM_ACTIONS = (
-  <>
-    <span className="rds-appbar-badge">28 Days Left</span>
-    <RdsButton
-      variant="filled"
-      color="primary"
-      textCase="capitalize"
-      sx={{
-        minWidth: 'auto',
-        fontWeight: 500,
-        fontSize: 'var(--rds-font-size-sm, 12px)',
-        boxShadow: 'none',
-        padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)'
-      }}
-    >
-      View Plans
-    </RdsButton>
-  </>
-);
 
 const TABLET_BOTTOM_NAV_VARIANTS = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
 
@@ -156,7 +129,7 @@ const RdsAppBar = ({
   actions,
   userName,
   userEmail,
-  profileMenuItems = DEFAULT_PROFILE_MENU_ITEMS,
+  profileMenuItems,
   searchValue,
   onSearchChange,
   searchPlaceholder,
@@ -167,7 +140,7 @@ const RdsAppBar = ({
   showSearch = true,
   variantStyle,
   overflowContent,
-  bottomActions = DEFAULT_BOTTOM_ACTIONS,
+  bottomActions,
   elevation = 0,
   className,
   ...props

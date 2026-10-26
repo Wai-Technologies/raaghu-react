@@ -236,11 +236,6 @@
   }
 }
 
-
-.MuiButton-containedSuccess, .MuiButton-containedPrimary, .MuiButton-containedSecondary {
-  color: var(--rds-color-on-primary) !important;
-}
-
 @include bp.down(mobile-sm) {
   .with-list-popover .rds-popover__container {
     max-width: var(--rds-popover-list-mobile-max-width, 220px) !important;

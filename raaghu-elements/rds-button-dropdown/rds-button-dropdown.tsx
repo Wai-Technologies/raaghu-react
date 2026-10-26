@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import './rds-button-dropdown.scss';
 import RdsButton from '../rds-button/rds-button';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RdsMenu from '../rds-menu/rds-menu';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import RdsRadio from '../rds-radio/rds-radio';
@@ -21,7 +22,7 @@ export interface RdsButtonDropdownOption {
 
 export type RdsButtonDropdownCloseReason = 'backdropClick' | 'escapeKeyDown' | 'toggleInput' | 'selectOption';
 
-export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'style'> {
+export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'onChange' | 'style' | 'defaultValue' | 'value'> {
   /** Trigger label. Defaults to `'Button'`. */
   children?: ReactNode;
   options: RdsButtonDropdownOption[];
@@ -73,7 +74,7 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   showUserAvatar?: boolean;
   /** Single-select options as radios (`true`) or plain buttons (`false`). `ui.selection` takes precedence. Defaults to `true`. */
   showRadio?: boolean;
-  /** Shows the start icon. `ui.leftIcon` takes precedence. Defaults to `true`. */
+  /** Shows the start icon. `ui.leftIcon` takes precedence. Defaults to true when `startIcon`/`leftIcon` is set. */
   showLeftIcon?: boolean;
   /** @deprecated Use `showLeftIcon`. */
   isShowLeftIcon?: boolean;
@@ -172,7 +173,7 @@ const RdsButtonDropdown = ({
     'isShowRightIcon',
     '`showRightIcon`',
   );
-  const isShowLeftIcon = ui?.leftIcon ? ui.leftIcon === 'visible' : flag(resolvedShowLeftIcon, true);
+  const isShowLeftIcon = ui?.leftIcon ? ui.leftIcon === 'visible' : flag(resolvedShowLeftIcon, resolvedLeftIcon != null);
   const isShowRightIcon = ui?.rightIcon ? ui.rightIcon === 'visible' : flag(resolvedShowRightIcon, true);
 
   const menuId = useId();
@@ -239,7 +240,7 @@ const RdsButtonDropdown = ({
           }}
         showRightIcon={isShowRightIcon}
         showLeftIcon={isShowLeftIcon}
-        changeRightIcon={isDropdownOpen ? <KeyboardArrowUpIcon /> : resolvedRightIcon}
+        changeRightIcon={isDropdownOpen ? <KeyboardArrowUpIcon /> : (resolvedRightIcon ?? <KeyboardArrowDownIcon />)}
         changeLeftIcon={resolvedLeftIcon}
         size={size}
         layout={layout}

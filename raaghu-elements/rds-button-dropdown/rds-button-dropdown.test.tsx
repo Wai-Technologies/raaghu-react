@@ -552,6 +552,18 @@ describe('audit fixes', () => {
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButtonDropdown', 'multiSelect', '`multiple`');
     });
 
+    it('G1-149 defaults the closed trigger to a chevron, not Add/Save', () => {
+      render(<RdsButtonDropdown options={options} />);
+      const props = lastButtonProps();
+      expect(props.showLeftIcon).toBe(false);
+      expect(props.showRightIcon).toBe(true);
+      expect(props.changeLeftIcon).toBeUndefined();
+      expect(React.isValidElement(props.changeRightIcon)).toBe(true);
+      expect((props.changeRightIcon as React.ReactElement).type).toBe(
+        jest.requireActual('@mui/icons-material/KeyboardArrowDown').default,
+      );
+    });
+
     it('G1-158 startIcon/endIcon reach the trigger like leftIcon/rightIcon did', () => {
       const start = <span>start</span>;
       const end = <span>end</span>;

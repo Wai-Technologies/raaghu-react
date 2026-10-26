@@ -116,10 +116,10 @@ describe('RdsDivider', () => {
       expect(container.querySelector('.MuiDivider-vertical')).toBeInTheDocument();
     });
 
-    it('should display side labels in vertical layout', () => {
+    it('should not render hardcoded side labels in vertical layout', () => {
       renderWithTheme(<RdsDivider layout="vertical" />);
-      expect(screen.getByText('Left')).toBeInTheDocument();
-      expect(screen.getByText('Right')).toBeInTheDocument();
+      expect(screen.queryByText('Left')).not.toBeInTheDocument();
+      expect(screen.queryByText('Right')).not.toBeInTheDocument();
     });
 
     it('should apply correct height styling for vertical layout', () => {
@@ -260,6 +260,11 @@ describe('RdsDivider', () => {
 
     it('should handle null icon name', () => {
       renderWithTheme(<RdsDivider dividerMessage="Test" iconName={null as any} />);
+      expect(screen.queryByTestId('info-icon')).not.toBeInTheDocument();
+    });
+
+    it('should fall back to the info icon for null icon name when iconShow is true', () => {
+      renderWithTheme(<RdsDivider dividerMessage="Test" iconShow iconName={null as any} />);
       expect(screen.getByTestId('info-icon')).toBeInTheDocument();
     });
 
@@ -368,10 +373,20 @@ describe('RdsDivider audit fixes', () => {
   describe('icon (G1-248)', () => {
     const custom = <span data-testid="custom-icon" />;
 
-    it('keeps the InfoOutlined icon by default', () => {
-      renderWithTheme(<RdsDivider />);
-      expect(screen.getByTestId('info-icon')).toBeInTheDocument();
+    it('shows no icon by default (G1-245)', () => {
+      const { container } = renderWithTheme(<RdsDivider>Text</RdsDivider>);
+      expect(container.querySelector('[data-testid*="icon"]')).not.toBeInTheDocument();
       expect(warnDeprecatedProp).not.toHaveBeenCalled();
+    });
+
+    it('shows the InfoOutlined icon when iconShow is true without an icon', () => {
+      renderWithTheme(<RdsDivider iconShow>Text</RdsDivider>);
+      expect(screen.getByTestId('info-icon')).toBeInTheDocument();
+    });
+
+    it('shows a named icon without iconShow', () => {
+      renderWithTheme(<RdsDivider icon="Add">Text</RdsDivider>);
+      expect(screen.getByTestId('add-icon')).toBeInTheDocument();
     });
 
     it('renders a custom icon node', () => {

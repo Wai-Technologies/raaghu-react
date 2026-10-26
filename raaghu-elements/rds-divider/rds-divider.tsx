@@ -46,7 +46,7 @@ export interface RdsDividerProps extends Omit<DividerProps, 'component'> {
   layout?: 'horizontal' | 'vertical';
   /** @deprecated Use `icon={null}` to hide the icon instead. */
   iconShow?: boolean;
-  /** Icon node or icon name. Defaults to `InfoOutlined`. Use `null` or `false` to hide the icon. */
+  /** Icon node or icon name. No icon is shown unless this (or `iconName`) is provided. Use `null` or `false` to hide the icon. */
   icon?: RdsDividerIconName | ReactNode;
   /** @deprecated Use `icon` instead. */
   iconName?: RdsDividerIconName;
@@ -86,7 +86,8 @@ const RdsDivider = ({
   const IconComponent: ElementType = ICON_MAP[iconKey as RdsDividerIconName] ?? InfoOutlinedIcon;
   const customIcon = icon !== undefined && typeof icon !== 'string' ? icon : undefined;
 
-  const showIcon = (iconShow ?? true) && icon !== null && icon !== false;
+  const hasExplicitIcon = (icon !== undefined && icon !== null && icon !== false) || (iconName !== undefined && iconName !== null);
+  const showIcon = icon !== null && icon !== false && (iconShow ?? hasExplicitIcon);
 
   const isStyleColor = color !== undefined && Object.prototype.hasOwnProperty.call(STYLE_COLORS, color);
   const styleColors = STYLE_COLORS[isStyleColor ? (color as DividerColor) : (styleVariant ?? 'subtle')] ?? DEFAULT_STYLE_COLORS;
@@ -140,10 +141,6 @@ const RdsDivider = ({
           height: 'var(--rds-divider-vertical-container-height, 120px)',
         }}
       >
-        <Typography variant="body2" sx={{ mr: 1 }}>
-          Left
-        </Typography>
-
         <MuiDivider
           orientation="vertical"
           sx={{
@@ -156,10 +153,6 @@ const RdsDivider = ({
           id={id}
           ref={ref}
         />
-
-        <Typography variant="body2" sx={{ ml: 1 }}>
-          Right
-        </Typography>
       </Box>
     );
   }

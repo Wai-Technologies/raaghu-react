@@ -1,6 +1,7 @@
 import { useId, type CSSProperties, type ReactNode, type ChangeEvent, type SyntheticEvent, type Dispatch, type SetStateAction } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
+import Close from '@mui/icons-material/Close';
 import clsx from 'clsx';
 import RdsButton from '../rds-button/rds-button';
 import type { FileWithProgress, RdsFileUploaderRootProps } from './rds-file-uploader-types';
@@ -133,7 +134,7 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
             disabled={disabled}
             sx={{ ml: 'var(--rds-spacing-xs, 4px)' }}
           >
-            {children}
+            {children ?? <Close />}
           </IconButton>
         )}
       </Box>

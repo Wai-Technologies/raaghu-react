@@ -23,13 +23,13 @@ export interface RdsAlertProps extends Omit<AlertProps, 'component' | 'content'>
   showDescription?: boolean;
   /** Puts the heading and message on separate lines. Defaults to `false`. */
   multiline?: boolean;
-  /** Shows the action buttons area. Defaults to `true`. */
+  /** Shows the action buttons area. Defaults to `false`. */
   showButtons?: boolean;
-  /** Shows the link button. Defaults to `true`. */
+  /** Shows the link button. Defaults to `false`. */
   showLink?: boolean;
-  /** Shows the secondary (cancel) button. Defaults to `true`. */
+  /** Shows the secondary (cancel) button. Defaults to `false`. */
   showSecondary?: boolean;
-  /** Shows the primary (confirm) button. Defaults to `true`. */
+  /** Shows the primary (confirm) button. Defaults to `false`. */
   showPrimary?: boolean;
   /** Label of the link button. Defaults to `'Link'`. */
   linkText?: string;
@@ -82,10 +82,10 @@ const RdsAlert = ({
   showTitle: showTitleProp = false,
   showDescription: showDescriptionProp = true,
   multiline: multilineProp = false,
-  showButtons: showButtonsProp = true,
-  showLink: showLinkProp = true,
-  showSecondary: showSecondaryProp = true,
-  showPrimary: showPrimaryProp = true,
+  showButtons: showButtonsProp = false,
+  showLink: showLinkProp = false,
+  showSecondary: showSecondaryProp = false,
+  showPrimary: showPrimaryProp = false,
   linkText = 'Link',
   secondaryText = 'Cancel',
   primaryText = 'Okay',

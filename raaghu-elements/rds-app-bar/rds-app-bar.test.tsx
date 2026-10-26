@@ -525,9 +525,9 @@ describe('RdsAppBar audit fixes', () => {
     expect(container.querySelector('header')).toHaveClass('MuiPaper-elevation4');
   });
 
-  it('uses custom profile menu items and keeps the two defaults (G1-026)', () => {
+  it('has no demo profile menu items by default and accepts custom ones (G1-026)', () => {
     const { rerender } = render(<RdsAppBar userName="Ann Lee" userEmail="ann@example.com" />);
-    expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('2');
+    expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('0');
     rerender(
       <RdsAppBar
         userName="Ann Lee"
@@ -538,24 +538,23 @@ describe('RdsAppBar audit fixes', () => {
     expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('3');
   });
 
-  it('shows the default bottom actions on small screens and allows replacing or hiding them (G1-025)', () => {
+  it('has no demo bottom actions by default and allows custom content (G1-025)', () => {
     mockSmallScreen(true);
     const tabs = ['Home', 'Reports'];
     const { rerender } = render(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} />);
-    expect(screen.getByText('28 Days Left')).toBeInTheDocument();
+    expect(screen.queryByText('28 Days Left')).not.toBeInTheDocument();
+    expect(screen.queryByText('View Plans')).not.toBeInTheDocument();
 
     rerender(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} bottomActions={<span>Upgrade</span>} />);
-    expect(screen.queryByText('28 Days Left')).not.toBeInTheDocument();
     expect(screen.getByText('Upgrade')).toBeInTheDocument();
 
     rerender(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} bottomActions={null} />);
     expect(screen.queryByText('Upgrade')).not.toBeInTheDocument();
-    expect(screen.queryByText('View Plans')).not.toBeInTheDocument();
   });
 
   it('keeps "With Menu Button" (with spaces) off the mobile bottom bar, as before', () => {
     mockSmallScreen(true);
-    render(<RdsAppBar variantStyle="With Menu Button" tabs={['Home']} />);
+    render(<RdsAppBar variantStyle="With Menu Button" tabs={['Home']} bottomActions={<span>28 Days Left</span>} />);
     expect(screen.queryByText('28 Days Left')).not.toBeInTheDocument();
   });
 

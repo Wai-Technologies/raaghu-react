@@ -1,6 +1,6 @@
 import { type ReactNode, type CSSProperties } from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
-import { useTheme, type SxProps, type Theme } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
 import Add from '@mui/icons-material/Add';
 import Delete from '@mui/icons-material/Delete';
@@ -14,7 +14,6 @@ import ChevronRight from '@mui/icons-material/ChevronRight';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-button.scss';
 
@@ -49,22 +48,6 @@ const LAYOUT_ALIASES: Record<string, RdsButtonProps['layout']> = {
   'text only': 'text-only',
 };
 
-const SX_ONLY_KEY = /^([mp][trblxy]?|bgcolor|[&:@.].*)$/;
-const SPACING_KEY = /^((margin|padding)(Top|Right|Bottom|Left|Inline|Block)?|(row|column)?Gap|gap)$/;
-const SIZING_KEY = /^(min|max)?(Width|Height)$|^(width|height)$/;
-const toInlineStyle = (sx: SxProps<Theme> | undefined, theme: Theme): CSSProperties => {
-  if (!sx || typeof sx !== 'object' || Array.isArray(sx)) return {};
-  const style: Record<string, string | number> = {};
-  for (const [key, value] of Object.entries(sx)) {
-    if (SX_ONLY_KEY.test(key) || (typeof value !== 'string' && typeof value !== 'number')) continue;
-    if (typeof value === 'number' && SPACING_KEY.test(key)) style[key] = theme.spacing(value);
-    else if (typeof value === 'number' && key === 'borderRadius') style[key] = `${value * Number(theme.shape.borderRadius)}px`;
-    else if (typeof value === 'number' && SIZING_KEY.test(key) && value > 0 && value <= 1) style[key] = `${value * 100}%`;
-    else style[key] = value;
-  }
-  return style as CSSProperties;
-};
-
 const toSxArray = (sx: SxProps<Theme> | undefined) => (Array.isArray(sx) ? sx : sx ? [sx] : []);
 
 type ButtonVariant = 'filled' | 'outlined' | 'transparent';
@@ -79,7 +62,7 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 
   style?: ButtonVariant | CSSProperties;
   color?: ButtonProps['color'];
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
-  /** Shows the Raaghu loading spinner and disables the button. */
+  /** Shows the MUI loading indicator and disables the button. */
   loading?: boolean;
   /** Shows `changeLeftIcon` (adds the Raaghu icon padding; MUI `startIcon` does not). */
   showLeftIcon?: boolean;
@@ -124,7 +107,6 @@ const RdsButton = ({
   const legacyVariant = typeof style === 'string' ? style : undefined;
   if (legacyVariant !== undefined) warnDeprecatedProp('RdsButton', 'style', '`variant`');
   const buttonVariant = variant ?? legacyVariant;
-  const theme = useTheme();
   const isBusy = loading ?? isLoading ?? false;
   const normalizedLayout = LAYOUT_ALIASES[layout.trim().toLowerCase()] ?? layout;
   const isIconOnly = normalizedLayout === 'icon-only';
@@ -149,26 +131,8 @@ const RdsButton = ({
   const resolvedEndIcon = endIcon !== undefined ? endIcon : hasIcons ? legacyEndIcon : undefined;
 
   const renderContent = () => {
-    if (isBusy) {
-      return <RdsCompSpinner
-        color="light"
-        label={text || (typeof children === 'string' ? children : '') || "Loading"}
-        layout={SpinnerLayout.SpinnerAndLabel}
-        showLabel
-        size={SpinnerSize.Small}
-      />;
-    }
     if (isIconOnly) return legacyStartIcon ?? legacyEndIcon ?? null;
     return text || children;
-  };
-
-  const getPaletteValue = (key: 'main' | 'contrastText'): string | undefined => {
-    if (buttonVariant !== 'filled' || !color || color === 'inherit') return undefined;
-    const paletteColor = theme.palette[color as keyof typeof theme.palette];
-    if (paletteColor && typeof paletteColor === 'object' && key in paletteColor) {
-      return (paletteColor as Record<typeof key, string>)[key];
-    }
-    return undefined;
   };
 
   const shapeStyles: CSSProperties = {
@@ -177,12 +141,11 @@ const RdsButton = ({
   const textCaseStyles: CSSProperties = {
     textTransform: textCase === 'unset' ? 'none' : textCase,
   };
-  const filledBackgroundColor = getPaletteValue('main');
-  const filledTextColor = getPaletteValue('contrastText');
 
   return (
     <MuiButton
       disabled={disabled || isBusy}
+      loading={isBusy}
       variant={buttonVariant === 'filled' ? 'contained' : buttonVariant === 'transparent' ? 'text' : buttonVariant}
       color={color}
       className={clsx(
@@ -206,10 +169,7 @@ const RdsButton = ({
       style={{
         ...shapeStyles,
         ...textCaseStyles,
-        ...(buttonVariant === 'filled' && filledBackgroundColor ? { backgroundColor: filledBackgroundColor } : {}),
-        ...(buttonVariant === 'filled' && filledTextColor ? { color: filledTextColor } : {}),
         ...(isBusy ? { opacity: 1 } : {}),
-        ...toInlineStyle(sx, theme),
         ...(typeof style === 'object' ? style : undefined),
       }}
       startIcon={resolvedStartIcon}

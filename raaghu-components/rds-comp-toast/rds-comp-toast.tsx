@@ -3,7 +3,6 @@ import { useCallback, type ReactNode, type SyntheticEvent } from "react";
 import { Box } from "@mui/material";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-toast.scss";
-import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
 import {
         type RdsCompToastProps,
@@ -23,7 +22,6 @@ const ToastFooter = ({
     progressWidth,
     filename,
     placeholder,
-    includeButtonClassName,
     action,
 }: {
     action?: ReactNode;
@@ -31,9 +29,7 @@ const ToastFooter = ({
     progressWidth?: number;
     filename?: string;
     placeholder?: string;
-    includeButtonClassName: boolean;
 }) => {
-    const buttonClassName = includeButtonClassName ? "rds-comp-toast__action-btn" : undefined;
     if (layout === ToastLayout.Download) {
         return (
             <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
@@ -48,12 +44,9 @@ const ToastFooter = ({
                     />
                 </div>
                 <div className="rds-comp-toast__filename">{filename}</div>
-                <div className="rds-comp-toast__actions">
-                    {action ?? (<>
-                    <RdsButton className={buttonClassName} variant="transparent" textCase="capitalize" size="small">Cancel</RdsButton>
-                    <RdsButton className={buttonClassName} variant="filled" textCase="capitalize" size="small">Go To Downloads</RdsButton>
-                    </>)}
-                </div>
+                {action != null && (
+                <div className="rds-comp-toast__actions">{action}</div>
+                )}
             </div>
         );
     }
@@ -68,24 +61,17 @@ const ToastFooter = ({
                         aria-label={placeholder || 'Toast reply input'}
                     />
                 </div>
-                <div className="rds-comp-toast__actions">
-                    {action ?? (<>
-                    <RdsButton className={buttonClassName} variant="filled" textCase="capitalize" size="small">Reply</RdsButton>
-                    <RdsButton className={buttonClassName} variant="transparent" textCase="capitalize" size="small">Mark As Read</RdsButton>
-                    </>)}
-                </div>
+                {action != null && (
+                <div className="rds-comp-toast__actions">{action}</div>
+                )}
             </div>
         );
     }
     if (layout === ToastLayout.Request) {
+        if (action == null) return null;
         return (
             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
-                <div className="rds-comp-toast__actions">
-                    {action ?? (<>
-                    <RdsButton className={buttonClassName} variant="transparent" textCase="capitalize" size="small">Reject</RdsButton>
-                    <RdsButton className={buttonClassName} variant="filled" textCase="capitalize" size="small">Accept</RdsButton>
-                    </>)}
-                </div>
+                <div className="rds-comp-toast__actions">{action}</div>
             </div>
         );
     }
@@ -203,7 +189,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
-                            includeButtonClassName={true}
                         />
                     </div>
                 )}
@@ -237,7 +222,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             progressWidth={progress}
                             filename={props.filename}
                             placeholder={props.placeholder}
-                            includeButtonClassName={false}
                         />
                     </div>
                 )}

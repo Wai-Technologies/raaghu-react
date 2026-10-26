@@ -33,6 +33,10 @@ export const Default: Story = {
         placeholderText: "How can Raaghu help you today?",
         iconName: "enhancer",
         type: "default",
+        attachmentBadge: "Premium",
+        onNewProjectClick: fn(),
+        onImportFromFigmaClick: fn(),
+        autocompleteOptions: [{ label: "Raaghu", value: 1 }],
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['placeholderText', 'className', 'sx', 'ref'] } };

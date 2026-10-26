@@ -114,6 +114,7 @@ const mockBoardData: boardInfo[] = [
         ticketId: 'TKT001',
         ticketPriority: 'High',
         ticketQuestion: 'Sample Question 1',
+        badge: 'Open',
         ticketDate: '15 Feb 2024',
         SubcardId: 1,
         assignedToName: 'John Doe',
@@ -124,6 +125,7 @@ const mockBoardData: boardInfo[] = [
         ticketId: 'TKT002',
         ticketPriority: 'Low',
         ticketQuestion: 'Sample Question 2',
+        badge: 'Closed',
         ticketDate: '16 Feb 2024',
         SubcardId: 2,
         actions: [{ key: 'Edit', value: 'edit' }],
@@ -250,10 +252,13 @@ describe('RdsCompKanbanBoard', () => {
       expect(findTypography('Feb 2024')).toBeInTheDocument();
     });
 
-    it('should render sample text when ticketQuestion is default', () => {
+    it('should render the title and no sample text when ticketQuestion is default', () => {
       const subCard = { ticketId: '', ticketQuestion: 'Question 1', ticketDate: '15 Feb 2024', SubcardId: 1, actions: [] };
       renderComponent({ boardData: [makeBoard('Test Board', 'primary', [subCard], 'test')] });
-      expect(findTypography('This is a sample text')).toBeInTheDocument();
+      expect(screen.queryByText(/This is a sample text/)).not.toBeInTheDocument();
+      expect(screen.getByText('Question 1')).toBeInTheDocument();
+      expect(screen.queryByText('RDS110110')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rds-badge')).not.toBeInTheDocument();
     });
   });
 

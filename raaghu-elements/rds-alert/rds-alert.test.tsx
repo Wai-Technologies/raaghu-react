@@ -762,19 +762,19 @@ describe('RdsAlert', () => {
       expect(container.querySelector('.rds-alert--multiline')).not.toBeInTheDocument();
     });
 
-    it('should use default showButtons as true', () => {
-      const { container } = render(<RdsAlert showButtons={true} />);
+    it('should show the actions area when showButtons is true', () => {
+      const { container } = render(<RdsAlert showButtons={true} showLink={true} />);
       expect(container.querySelector('.rds-alert__actions')).toBeInTheDocument();
     });
 
-    it('should use default showLink as true', () => {
+    it('should show the link button when showLink is true', () => {
       const { container } = render(
         <RdsAlert showButtons={true} showLink={true} />
       );
       expect(container.querySelector('.rds-alert__link-button')).toBeInTheDocument();
     });
 
-    it('should use default showPrimary as true', () => {
+    it('should show the primary button when showPrimary is true', () => {
       render(<RdsAlert showButtons={true} showPrimary={true} />);
       const buttons = screen.getAllByTestId('rds-button');
       const primaryButton = buttons.find(
@@ -783,7 +783,7 @@ describe('RdsAlert', () => {
       expect(primaryButton).toBeInTheDocument();
     });
 
-    it('should use default showSecondary as true', () => {
+    it('should show the secondary button when showSecondary is true', () => {
       render(<RdsAlert showButtons={true} showSecondary={true} />);
       const buttons = screen.getAllByTestId('rds-button');
       const secondaryButton = buttons.find(
@@ -818,6 +818,10 @@ describe('RdsAlert audit fixes', () => {
     render(
       <RdsAlert
         description="Message"
+        showButtons
+        showLink
+        showSecondary
+        showPrimary
         linkText="Details"
         secondaryText="Dismiss"
         primaryText="Confirm"
@@ -834,11 +838,11 @@ describe('RdsAlert audit fixes', () => {
     expect(onPrimaryClick).toHaveBeenCalledTimes(1);
   });
 
-  it('keeps the default buttons and labels (no visual change)', () => {
+  it('hides action buttons by default (G1-014)', () => {
     render(<RdsAlert description="Message" />);
-    expect(screen.getByText('Link')).toBeInTheDocument();
-    expect(screen.getByText('Cancel')).toBeInTheDocument();
-    expect(screen.getByText('Okay')).toBeInTheDocument();
+    expect(screen.queryByText('Link')).not.toBeInTheDocument();
+    expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
+    expect(screen.queryByText('Okay')).not.toBeInTheDocument();
   });
 
   it('uses severity (G1-015)', () => {

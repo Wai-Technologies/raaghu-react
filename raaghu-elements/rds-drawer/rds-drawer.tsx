@@ -11,6 +11,7 @@ type DrawerButtonProps = Partial<ComponentProps<typeof RdsButton>>;
 
 export interface RdsDrawerProps extends Omit<DrawerProps, 'component' | 'slotProps'> {
   children: ReactNode;
+  /** Width for `left`/`right` anchors (defaults to 251). Applied as the height for `top`/`bottom` anchors. */
   width?: number | string;
   /** @deprecated Use `anchor` instead. */
   position?: 'left' | 'right' | 'top' | 'bottom';
@@ -37,7 +38,7 @@ export interface RdsDrawerProps extends Omit<DrawerProps, 'component' | 'slotPro
 
 const RdsDrawer = ({
   children,
-  width = 251,
+  width,
   position,
   anchor,
   sx,
@@ -76,6 +77,9 @@ const RdsDrawer = ({
     if (!isControlled) setInternalOpen(false);
     onClose?.(event, reason as DrawerCloseReason);
   };
+
+  const isSideAnchor = drawerAnchor === 'left' || drawerAnchor === 'right';
+  const sizeSx = isSideAnchor ? { width: width ?? 251 } : width === undefined ? {} : { height: width };
 
   const drawerId = id ?? (showTrigger ? generatedId : undefined);
 
@@ -123,10 +127,10 @@ const RdsDrawer = ({
       onClose={handleClose}
       sx={[
         {
-          width: width,
+          ...sizeSx,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: width,
+            ...sizeSx,
             boxSizing: 'border-box',
           },
         },

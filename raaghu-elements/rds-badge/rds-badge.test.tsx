@@ -648,6 +648,29 @@ describe('RdsBadge audit fixes', () => {
     expect(container.querySelector('.rds-badge')).toHaveClass('my-badge');
   });
 
+  it('caps standalone numeric content at max (G1-087)', () => {
+    const { rerender } = render(<RdsBadge badgeContent={150} />);
+    expect(screen.getByText('99+')).toBeInTheDocument();
+    rerender(<RdsBadge badgeContent={99} />);
+    expect(screen.getByText('99')).toBeInTheDocument();
+    rerender(<RdsBadge badgeContent={150} max={200} />);
+    expect(screen.getByText('150')).toBeInTheDocument();
+    rerender(<RdsBadge badgeContent={15} max={9} />);
+    expect(screen.getByText('9+')).toBeInTheDocument();
+  });
+
+  it('forwards sx, ref and rest props on the standalone badge (G1-087)', () => {
+    const ref = React.createRef<HTMLElement>();
+    const { container } = render(
+      <RdsBadge badgeContent={4} ref={ref} sx={{ opacity: 0.5 }} data-testid="standalone" id="b1" />,
+    );
+    const root = container.querySelector('.rds-badge') as HTMLElement;
+    expect(ref.current).toBe(root);
+    expect(root).toHaveStyle({ opacity: '0.5' });
+    expect(root).toHaveAttribute('data-testid', 'standalone');
+    expect(root).toHaveAttribute('id', 'b1');
+  });
+
   it('lets consumers replace the layout icon (G1-088)', () => {
     render(<RdsBadge badgeContent={4} layout="icon-text" icon={<span data-testid="custom-badge-icon" />} />);
     expect(screen.getByTestId('custom-badge-icon')).toBeInTheDocument();

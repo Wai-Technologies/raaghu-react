@@ -18,8 +18,8 @@ function getInputPlaceholder(layoutType: RdsInputProps['layout'] | undefined): s
 
 export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size' | 'component' | 'focused'> {
   /**
-   * Field label. Shown above the field with `titlePosition="title-above"` or inside it with
-   * `"inline-title"`; otherwise it is used as the input's accessible name only.
+   * Field label. Shown above the field with `titlePosition="title-above"`; otherwise it is shown
+   * inside the field (floating label).
    */
   label?: string;
   placeholder?: string;
@@ -228,10 +228,8 @@ const RdsInput = ({
     }
   };
   const computedPlaceholder = placeholder ?? getInputPlaceholder(layout);
-  const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
-  const showsLabel = titlePosition === 'title-above' || titlePosition === 'inline-title';
-  const hiddenLabelProps: InputHTMLAttributes<HTMLInputElement> =
-    label && !showsLabel && !props['aria-label'] ? { 'aria-label': label } : {};
+  const isInlineLabel = titlePosition !== 'title-above';
+  const inlineTitleClass = titlePosition === 'inline-title' || (isInlineLabel && label) ? 'rds-input--inline-title' : '';
   const numericInputProps: InputHTMLAttributes<HTMLInputElement> =
     layout === 'phone number' || layout === 'number' || layout === 'card number'
       ? {
@@ -283,7 +281,7 @@ const RdsInput = ({
       )}
       <MuiTextField
         id={inputId}
-        label={titlePosition === 'inline-title' ? label : ''}
+        label={isInlineLabel ? label : ''}
         placeholder={computedPlaceholder}
         helperText={helperText ?? (errorMessage || hintText)}
         error={resolvedError}
@@ -301,7 +299,6 @@ const RdsInput = ({
           ...consumerSlotProps,
           input: inputSlotProps,
           htmlInput: {
-            ...hiddenLabelProps,
             ...numericInputProps,
             ...consumerSlotProps?.htmlInput,
           },

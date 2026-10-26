@@ -17,9 +17,9 @@ import './rds-modal.scss';
 export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open' | 'component' | 'onClose'> {
   /** Heading text shown in the dialog title. */
   title?: string;
-  /** @deprecated Use `open` instead. Takes precedence over `isOpen`. When nothing is set the modal is open. */
+  /** @deprecated Use `open` instead. Takes precedence over `isOpen`. When nothing is set the modal is closed. */
   visibility?: 'open' | 'closed';
-  /** Direct open state; when passed it takes precedence over `visibility` and `isOpen`. */
+  /** Direct open state; when passed it takes precedence over `visibility` and `isOpen`. Defaults to closed. */
   open?: boolean;
   /** Legacy open flag, used when `visibility` is not set. */
   isOpen?: boolean;
@@ -75,7 +75,7 @@ const RdsModal= ({
   if (headerChrome !== undefined) warnDeprecatedProp('RdsModal', 'headerChrome', '`hideCloseButton`');
   if (media !== undefined) warnDeprecatedProp('RdsModal', 'media', '`icon`, `showIcon` and `imageSrc`');
   if (body !== undefined) warnDeprecatedProp('RdsModal', 'body', '`showDescription`');
-  const resolvedIsOpen = visibility === 'open' ? true : visibility === 'closed' ? false : (legacyIsOpen ?? true);
+  const resolvedIsOpen = visibility === 'open' ? true : visibility === 'closed' ? false : (legacyIsOpen ?? false);
   const resolvedShowCloseButton = hideCloseButton !== undefined ? !hideCloseButton : headerChrome ? headerChrome === 'closeable' : (legacyShowCloseButton ?? true);
   const resolvedShowDescription = body === 'visible' ? true : body === 'hidden' ? false : (legacyShowDescription ?? true);
   const resolvedShowIcon = media === 'none'

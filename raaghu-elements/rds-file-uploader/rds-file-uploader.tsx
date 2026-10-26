@@ -12,6 +12,7 @@ import {
   useFileUploader
 } from './RdsFileUploaderComponents';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { formatFileSize } from './rds-file-uploader-utils';
 export type { FileWithProgress, FileUploaderVariant, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 import type { FileWithProgress, RdsFileUploaderProps as RdsFileUploaderBaseProps, RdsFileUploaderRootProps } from './rds-file-uploader-types';
 
@@ -93,7 +94,7 @@ const RdsFileUploader = ({
   const isMandatory = required ?? (display?.mandatory ? display.mandatory === 'required' : (legacyIsMandatory ?? false));
   const showHint = display?.hint ? display.hint === 'visible' : (legacyShowHint ?? false);
   const fieldLabel = label ?? title;
-  const hint = helperText ?? hintText ?? '';
+  const hint = helperText || hintText || `Maximum ${formatFileSize(maxSize)}`;
   const multiple = multipleProp ?? false;
 
   const {
@@ -103,7 +104,6 @@ const RdsFileUploader = ({
     mandatoryError,
     selectedFileName,
     fileInputRef,
-    formatFileSize,
     removeFile,
     handleFileSelect,
     handleDragOver,
@@ -191,6 +191,7 @@ const RdsFileUploader = ({
               onDragLeave: handleDragLeave,
               onDrop: handleDrop,
               openFileDialog,
+              accept,
             };
             if (dropAreaStyle === 'Drop Area - Side Icon') {
               return <RdsDropZoneSideIcon {...dropZoneProps} />;
@@ -213,7 +214,7 @@ const RdsFileUploader = ({
                 className={clsx('rds-file-uploader__hint', !showHint && 'is-hidden')}
                 variant="caption"
               >
-                {showHint ? (hint || 'Maximum 5MB') : ' '}
+                {showHint ? hint : ' '}
               </Typography>
             </div>
           </Box>

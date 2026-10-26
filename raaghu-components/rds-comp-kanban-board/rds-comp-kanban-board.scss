@@ -692,74 +692,36 @@
   color: var(--rds-text-primary) !important;
 }
 
-body[data-bs-theme="dark"],
-.MuiMenu-list,
-.MuiAutocomplete-listbox,
-.MuiSelect-root .MuiMenu-list,
-.rds-kanban-board__select-menu .MuiMenu-list,
-.rds-kanban-board__autocomplete-paper .MuiAutocomplete-listbox,
-.MuiList-root,
-.MuiMenuList-root,
-.MuiSelect-select,
-.MuiPaper-root,
-[role="listbox"],
-[role="menu"],
+.rds-kanban-board-container,
+.rds-kanban-board-container *,
+.kanban-board,
 .kanban-board *,
-.rds-kanban-board-container * {
+.rds-kanban-board__select-menu,
+.rds-kanban-board__select-menu .MuiMenu-list,
+.rds-kanban-board__autocomplete-paper,
+.rds-kanban-board__autocomplete-paper .MuiAutocomplete-listbox,
+.rds-kanban-board__menu-paper,
+.rds-kanban-board__menu-paper .MuiMenu-list {
   &::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
     background: transparent !important;
   }
-  
+
   &::-webkit-scrollbar-track,
   &::-webkit-scrollbar-thumb,
   &::-webkit-scrollbar-corner {
     display: none !important;
     background: transparent !important;
   }
-  
+
   scrollbar-width: none;
   -ms-overflow-style: none !important;
-  overflow: -moz-scrollbars-none !important;
 }
 
-.MuiPopover-root,
-.MuiMenu-root,
-.MuiPopover-paper,
-.MuiMenu-paper,
-.MuiPaper-elevation8,
-.MuiPaper-elevation16,
-div[role="presentation"],
-ul[role="listbox"],
-div[role="menu"],
-.MuiModal-root {
-  scrollbar-width: none;
-  -ms-overflow-style: none !important;
-  
-  &::-webkit-scrollbar,
-  & *::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
-  }
-  
-  .MuiPaper-root,
-  .MuiMenu-list,
-  .MuiAutocomplete-listbox,
-  * {
-    scrollbar-width: none;
-    -ms-overflow-style: none !important;
-  }
-}
-
-.css-1umw9bq-MuiSvgIcon-root {
-  fill: var(--rds-text-disabled) !important;
-}
-
-.css-120dh41-MuiSvgIcon-root {
+.rds-kanban-board-container .MuiSvgIcon-root.Mui-disabled,
+.rds-kanban-board__menu-icon.Mui-disabled {
   fill: var(--rds-text-disabled) !important;
 }
 

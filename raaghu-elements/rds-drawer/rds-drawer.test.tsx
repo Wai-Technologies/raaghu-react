@@ -411,6 +411,24 @@ describe('audit fixes', () => {
     });
   });
 
+  describe('G1-256 width only applies to left/right anchors', () => {
+    it.each(['top', 'bottom'] as const)('does not set the default width on a %s paper', (anchor) => {
+      render(<RdsDrawer open anchor={anchor}><div>Content</div></RdsDrawer>);
+      expect(getPaper()).not.toHaveStyle({ width: '251px' });
+    });
+
+    it.each(['top', 'bottom'] as const)('uses height instead of width on a %s paper', (anchor) => {
+      render(<RdsDrawer open anchor={anchor} width={300}><div>Content</div></RdsDrawer>);
+      expect(getPaper()).toHaveStyle({ height: '300px' });
+      expect(getPaper()).not.toHaveStyle({ width: '300px' });
+    });
+
+    it.each(['left', 'right'] as const)('keeps the default width on a %s paper', (anchor) => {
+      render(<RdsDrawer open anchor={anchor}><div>Content</div></RdsDrawer>);
+      expect(getPaper()).toHaveStyle({ width: '251px' });
+    });
+  });
+
   describe('G1-258 anchor replaces position', () => {
     it('defaults to the left anchor without a warning', () => {
       render(<RdsDrawer open><div>Content</div></RdsDrawer>);

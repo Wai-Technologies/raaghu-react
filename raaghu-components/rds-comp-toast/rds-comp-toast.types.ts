@@ -62,7 +62,7 @@ export interface RdsCompToastProps {
   open?: boolean;
   /** Called when the toast hides itself (timeout or close button). */
   onClose?: (event: Event | SyntheticEvent | null, reason: ToastCloseReason) => void;
-  /** Replaces the layout's built-in action buttons. */
+  /** Action buttons for download/chat/request layouts. No demo buttons are rendered when omitted. */
   action?: ReactNode;
   chrome?: {
     header?: "visible" | "hidden";

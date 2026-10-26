@@ -51,6 +51,17 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
   const cardId = cardIdOf(subCard);
   const title = subCard.title ?? subCard.ticketQuestion;
   const avatars = subCard.assignees ?? avatarData;
+  const bodyContent = subCard.description ? (
+    <>
+      {title && <><strong>{title}</strong><br /></>}
+      {subCard.description}
+    </>
+  ) : title && subCard.ticketId ? (
+    <>
+      <strong>{title}</strong><br />
+      {subCard.ticketId}
+    </>
+  ) : title || null;
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: cardId,
     data: { type: 'subCard', boardIndex, subCardIndex },
@@ -66,10 +77,10 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
         <CardContent className="rds-kanban-board__sub-card-content">
           <Box className="rds-kanban-board__sub-card-header">
             <Box className="rds-kanban-board__sub-card-header-left">
-              <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">{subCard.displayId ?? 'RDS110110'}</Typography>
+              {subCard.displayId && <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">{subCard.displayId}</Typography>}
             </Box>
             <Box className="rds-kanban-board__sub-card-header-right">
-              <RdsBadge badgeContent={subCard.badge ?? 'Badge'} color="secondary" size="small" shape="rectangle" />
+              {subCard.badge && <RdsBadge badgeContent={subCard.badge} color="secondary" size="small" shape="rectangle" />}
               <IconButton
                 size="small"
                 onClick={(e) => { e.stopPropagation(); toggleSubCardDropdown(cardId, e, subCard, boardIndex); }}
@@ -81,28 +92,13 @@ const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggle
               </IconButton>
             </Box>
           </Box>
-          <Box className="rds-kanban-board__sub-card-body">
-            <Typography variant="body2" className="f-14 fw-400 rds-kanban-board__sub-card-text">
-              {subCard.description !== undefined ? (
-                <>
-                  {title && <><strong>{title}</strong><br /></>}
-                  {subCard.description}
-                </>
-              ) : title && subCard.ticketId &&
-               title !== 'Question 1' && title !== 'Question 2' ? (
-                <>
-                  <strong>{title}</strong><br />
-                  {subCard.ticketId}
-                </>
-              ) : (
-                <>
-                  This is a sample text<br />
-                  This is a sample text<br />
-                  This is a sample text
-                </>
-              )}
-            </Typography>
-          </Box>
+          {bodyContent && (
+            <Box className="rds-kanban-board__sub-card-body">
+              <Typography variant="body2" className="f-14 fw-400 rds-kanban-board__sub-card-text">
+                {bodyContent}
+              </Typography>
+            </Box>
+          )}
           <Box className="rds-kanban-board__sub-card-footer">
             <Typography variant="caption" className="f-12 fw-500 rds-kanban-board__sub-card-footer-left">
               {subCard.ticketDate}

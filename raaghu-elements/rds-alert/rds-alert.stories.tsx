@@ -110,6 +110,10 @@ const baseArgs = {
   showIcon: true,
   showTitle: true,
   title: 'Heading Title.',
+  showButtons: true,
+  showLink: true,
+  showSecondary: true,
+  showPrimary: true,
 } satisfies Partial<RdsAlertProps>;
 
 export const Default: Story = {

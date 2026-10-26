@@ -84,6 +84,8 @@ jest.mock('../rds-comp-ai-attachment/rds-comp-ai-attachment', () => {
   };
 });
 
+const frontendOptions = [{ label: 'Raaghu', value: 1 }];
+
 const defaultProps: RdsCompAiTypingSectionProps = {
   iconName: 'enhance',
   placeholderText: 'Type your message...',
@@ -275,10 +277,15 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('passes required props to attachment', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} attachmentBadge="Premium" />);
       const attachment = screen.getByTestId('rds-attachment');
       expect(attachment).toHaveAttribute('data-badge-label', 'Premium');
       expect(attachment).toHaveAttribute('data-menu-icon', 'attachment_icon');
+    });
+
+    it('renders no attachment badge by default', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} />);
+      expect(screen.getByTestId('rds-attachment')).not.toHaveAttribute('data-badge-label');
     });
 
     it('handles file selection from attachment', async () => {
@@ -306,20 +313,28 @@ it('hides enhance icon when input has text', () => {
       expect(sendButton).toBeInTheDocument();
     });
 
-    it('renders New Project button', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+    it('renders New Project button when onNewProjectClick is provided', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={jest.fn()} />);
       const newProjectBtn = screen.getByTestId('btn-New Project');
       expect(newProjectBtn).toBeInTheDocument();
     });
 
-    it('renders Import From Figma button', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+    it('renders Import From Figma button when onImportFromFigmaClick is provided', () => {
+      render(<RdsCompAiTypingSection {...defaultProps} onImportFromFigmaClick={jest.fn()} />);
       const importBtn = screen.getByTestId('btn-Import From Figma');
       expect(importBtn).toBeInTheDocument();
     });
 
+    it('hides project actions and autocomplete by default', () => {
+      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      expect(screen.queryByTestId('btn-New Project')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('btn-Import From Figma')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rds-autocomplete')).not.toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section__button-sections')).not.toBeInTheDocument();
+    });
+
     it('buttons have correct styling props', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={jest.fn()} />);
       const newProjectBtn = screen.getByTestId('btn-New Project');
       expect(newProjectBtn).toHaveAttribute('data-color', 'primary');
       expect(newProjectBtn).toHaveAttribute('data-style', 'filled');
@@ -328,13 +343,13 @@ it('hides enhance icon when input has text', () => {
 
   describe('Autocomplete Component', () => {
     it('renders autocomplete component', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} autocompleteOptions={frontendOptions} />);
       const autocomplete = screen.getByTestId('rds-autocomplete');
       expect(autocomplete).toBeInTheDocument();
     });
 
     it('renders autocomplete with correct props', () => {
-      render(<RdsCompAiTypingSection {...defaultProps} />);
+      render(<RdsCompAiTypingSection {...defaultProps} autocompleteOptions={frontendOptions} />);
       const autocomplete = screen.getByTestId('rds-autocomplete');
       expect(autocomplete).toHaveAttribute('data-placeholder', 'Select Frontend');
       expect(autocomplete).not.toHaveAttribute('data-helper-text', 'Select one of the available options');
@@ -344,7 +359,8 @@ it('hides enhance icon when input has text', () => {
       const { container } = render(
         <RdsCompAiTypingSection 
           {...defaultProps} 
-          autoCompleteMaxWidth="500px"
+          autocompleteOptions={frontendOptions}
+            autoCompleteMaxWidth="500px"
         />
       );
       const autocompleteDiv = container.querySelector('.rds-comp-ai-typing-section__autocomplete');
@@ -452,13 +468,13 @@ it('hides enhance icon when input has text', () => {
     });
 
     it('renders button sections container', () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      const { container } = render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={jest.fn()} />);
       const buttonSections = container.querySelector('.rds-comp-ai-typing-section__button-sections');
       expect(buttonSections).toBeInTheDocument();
     });
 
     it('renders project actions container', () => {
-      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      const { container } = render(<RdsCompAiTypingSection {...defaultProps} onNewProjectClick={jest.fn()} />);
       const projectActions = container.querySelector('.rds-comp-ai-typing-section__project-actions');
       expect(projectActions).toBeInTheDocument();
     });
@@ -624,7 +640,7 @@ it('handles emoji input', () => {
     });
 
     it("merges slotProps.autocomplete.sx into the frontend selector", () => {
-      render(<RdsCompAiTypingSection slotProps={{ autocomplete: { sx: { maxWidth: "400px" } } }} />);
+      render(<RdsCompAiTypingSection autocompleteOptions={frontendOptions} slotProps={{ autocomplete: { sx: { maxWidth: "400px" } } }} />);
       expect(screen.getByTestId("rds-autocomplete")).toHaveAttribute("data-sx", JSON.stringify({ maxWidth: "400px" }));
     });
 

@@ -105,19 +105,19 @@ export const designSystemComponentOverrides: Components<Theme> = {
       }),
       standardSuccess: ({ theme }) => ({
         backgroundColor: theme.palette.success.light,
-        color: theme.palette.success.contrastText,
+        color: theme.palette.success.dark,
       }),
       standardError: ({ theme }) => ({
         backgroundColor: theme.palette.error.light,
-        color: theme.palette.error.contrastText,
+        color: theme.palette.error.dark,
       }),
       standardWarning: ({ theme }) => ({
         backgroundColor: theme.palette.warning.light,
-        color: theme.palette.warning.contrastText,
+        color: theme.palette.warning.dark,
       }),
       standardInfo: ({ theme }) => ({
         backgroundColor: theme.palette.info.light,
-        color: theme.palette.info.contrastText,
+        color: theme.palette.info.dark,
       }),
     },
   },
