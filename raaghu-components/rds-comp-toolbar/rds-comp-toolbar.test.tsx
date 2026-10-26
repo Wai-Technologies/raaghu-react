@@ -52,16 +52,17 @@ jest.mock('./rds-comp-toolbar-config-data', () => ({
 }));
 
 jest.mock('./rds-comp-toolbar-config', () => ({
-  ToolbarButton: ({ 
-    icon, 
-    action, 
-    hasDropdown, 
-    ariaLabel, 
-    isActive, 
-    disabled, 
+  ToolbarButton: ({
+    icon,
+    action,
+    hasDropdown,
+    ariaLabel,
+    className,
+    isActive,
+    disabled,
     dropdownAction,
     onClick,
-    onDropdownSelect 
+    onDropdownSelect
   }: any) => {
     const isDropdownOpen = Boolean(hasDropdown && dropdownAction === action);
     return (
@@ -72,6 +73,7 @@ jest.mock('./rds-comp-toolbar-config', () => ({
       data-is-active={isActive}
       data-is-disabled={disabled}
       data-is-dropdown-open={isDropdownOpen}
+      className={className}
       aria-label={ariaLabel}
       onClick={disabled ? undefined : onClick}
     >
@@ -718,6 +720,16 @@ describe('RdsCompToolbar', () => {
       expect(screen.getByTestId('toolbar-button-custom')).toHaveAttribute('data-has-dropdown', 'true');
       expect(screen.queryByTestId('toolbar-button-bold')).not.toBeInTheDocument();
       expect(ref.current).toBe(screen.getByRole('toolbar'));
+    });
+
+    it('applies per-button className from config (Undo/Redo muted)', () => {
+      render(
+        <RdsCompToolbar
+          {...defaultProps}
+          items={[[{ icon: 'u', action: 'undo', ariaLabel: 'Undo', className: 'rds-comp-toolbar__button--muted' }]]}
+        />
+      );
+      expect(screen.getByTestId('toolbar-button-undo')).toHaveClass('rds-comp-toolbar__button--muted');
     });
   });
 

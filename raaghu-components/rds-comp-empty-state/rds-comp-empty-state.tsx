@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import type { ElementType, ReactNode, Ref } from "react";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import type { BoxProps } from "@mui/material";
@@ -10,8 +10,6 @@ import Lottie from "lottie-react";
 import "./rds-comp-empty-state.scss";
 import emptyStatePng from "./empty-state.png";
 import emptyStateDarkPng from "./empty-state-dark.png";
-import illustrationLight from "./illustration-light.json";
-import illustrationDark from "./illustration-dark.json";
 
 export type RdsCompEmptyStateVariant = "illustration" | "minimal";
 
@@ -109,9 +107,29 @@ const RdsCompEmptyState = ({
   const useDarkVariant = mode === "Dark NRA" || (!mode && pageIsDark);
 
   const resolvedImage = useDarkVariant ? emptyStateDarkPng : emptyStatePng;
-  const resolvedAnimation = useDarkVariant ? illustrationDark : illustrationLight;
   const imageSrc = imageUrl || resolvedImage;
   const isDarkMode = mode === "Dark NRA";
+  const shouldLoadLottie = Boolean(!isMinimal && isAnimated);
+  const [animationData, setAnimationData] = useState<object | null>(null);
+
+  useEffect(() => {
+    if (!shouldLoadLottie) {
+      setAnimationData(null);
+      return;
+    }
+    let cancelled = false;
+    const load = useDarkVariant
+      ? import("./illustration-dark.json")
+      : import("./illustration-light.json");
+    load.then((mod) => {
+      if (!cancelled) {
+        setAnimationData((mod as { default?: object }).default ?? (mod as object));
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [shouldLoadLottie, useDarkVariant]);
 
   const titleColor = isDarkMode ? "var(--rds-neutral-0)" : "var(--rds-text-primary)";
 
@@ -127,14 +145,22 @@ const RdsCompEmptyState = ({
         aria-hidden="true"
       />
     );
-  } else if (!isMinimal && isAnimated) {
+  } else if (shouldLoadLottie && animationData) {
     iconContent = (
       <Lottie
-        animationData={resolvedAnimation}
+        animationData={animationData}
         loop={!prefersReducedMotion}
         autoplay={!prefersReducedMotion}
         style={{ width: "100%", height: "100%" }}
         data-testid="emptyStateLottie"
+      />
+    );
+  } else if (shouldLoadLottie) {
+    iconContent = (
+      <div
+        className="rds-comp-empty-state__lottie-placeholder"
+        data-testid="emptyStateLottie"
+        aria-hidden="true"
       />
     );
   } else {

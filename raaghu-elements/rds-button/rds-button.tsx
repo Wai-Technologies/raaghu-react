@@ -1,4 +1,5 @@
 import { type ReactNode, type CSSProperties } from 'react';
+import { useFormStatus } from 'react-dom';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import clsx from 'clsx';
@@ -62,7 +63,10 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style' | 
   style?: ButtonVariant | CSSProperties;
   color?: ButtonProps['color'];
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
-  /** Shows the MUI loading indicator and disables the button. */
+  /**
+   * Shows the MUI loading indicator and disables the button.
+   * When omitted, submit buttons also follow React DOM `useFormStatus().pending`.
+   */
   loading?: boolean;
   /** Shows `changeLeftIcon` (adds the Raaghu icon padding; MUI `startIcon` does not). */
   showLeftIcon?: boolean;
@@ -99,15 +103,18 @@ const RdsButton = ({
   className,
   startIcon,
   endIcon,
+  type,
   ...props
 }: RdsButtonProps) => {
   if (text !== undefined) warnDeprecatedProp('RdsButton', 'text', '`children`');
   if (isLoading !== undefined) warnDeprecatedProp('RdsButton', 'isLoading', '`loading`');
 
+  const { pending } = useFormStatus();
   const legacyVariant = typeof style === 'string' ? style : undefined;
   if (legacyVariant !== undefined) warnDeprecatedProp('RdsButton', 'style', '`variant`');
   const buttonVariant = variant ?? legacyVariant;
-  const isBusy = loading ?? isLoading ?? false;
+  // Explicit loading props win; otherwise submit buttons track the parent form's pending state.
+  const isBusy = loading ?? isLoading ?? (type === 'submit' && pending);
   const normalizedLayout = LAYOUT_ALIASES[layout.trim().toLowerCase()] ?? layout;
   const isIconOnly = normalizedLayout === 'icon-only';
   const legacyStartIcon = showLeftIcon ? resolveIcon(changeLeftIcon ?? 'add') : undefined;
@@ -146,6 +153,7 @@ const RdsButton = ({
     <MuiButton
       disabled={disabled || isBusy}
       loading={isBusy}
+      type={type}
       variant={buttonVariant === 'filled' ? 'contained' : buttonVariant === 'transparent' ? 'text' : buttonVariant}
       color={color}
       className={clsx(

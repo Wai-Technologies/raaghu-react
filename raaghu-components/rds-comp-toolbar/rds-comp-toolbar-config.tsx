@@ -8,44 +8,6 @@ import { type ToolbarButtonConfig } from './rds-comp-toolbar-config-types';
 import { buttonHasDropdown, getButtonOptions, isEmojiAction } from './rds-comp-toolbar-dropdown-options';
 export type { ToolbarButtonConfig, ToolbarConfig, ToolbarOption } from './rds-comp-toolbar-config-types';
 
-const resolvePortalThemeClass = (buttonElement: HTMLElement | null): string | null => {
-  if (!buttonElement) {
-    return null;
-  }
-
-  try {
-    let el: Element | null = buttonElement;
-    let found: string | null = null;
-    while (el && el !== document.documentElement) {
-      if (el.classList && el.classList.length) {
-        for (const className of Array.from(el.classList)) {
-          if (/^theme|theme-|dark|light/i.test(className)) {
-            found = className;
-            break;
-          }
-        }
-        if (found) {
-          break;
-        }
-      }
-      const dataTheme = (el as HTMLElement).dataset?.theme;
-      if (dataTheme) {
-        found = dataTheme;
-        break;
-      }
-      el = el.parentElement;
-    }
-
-    if (!found) {
-      const bodyTheme = Array.from(document.body.classList || []).find(c => /^theme|theme-|dark|light/i.test(c));
-      found = bodyTheme || Array.from(document.documentElement.classList || []).find(c => /^theme|theme-|dark|light/i.test(c)) || null;
-    }
-    return found;
-  } catch {
-    return null;
-  }
-};
-
 type DropdownPosition = { top: number; left: number; minWidth: number };
 
 const getDropdownPosition = (button: HTMLElement): DropdownPosition => {
@@ -57,12 +19,13 @@ const getDropdownPosition = (button: HTMLElement): DropdownPosition => {
   };
 };
 
-export const ToolbarButton = ({ 
-  icon, 
-  action, 
+export const ToolbarButton = ({
+  icon,
+  action,
   hasDropdown: hasDropdownProp,
   options,
   ariaLabel,
+  className,
   isActive,
   disabled,
   dropdownAction,
@@ -86,7 +49,6 @@ export const ToolbarButton = ({
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [dropdownPos, setDropdownPos] = useState<DropdownPosition | null>(null);
-  const [portalThemeClass, setPortalThemeClass] = useState<string | null>(null);
 
   useIsomorphicLayoutEffect(() => {
     const button = buttonRef.current;
@@ -96,7 +58,6 @@ export const ToolbarButton = ({
     }
     const update = () => setDropdownPos(getDropdownPosition(button));
     update();
-    setPortalThemeClass(resolvePortalThemeClass(button));
     window.addEventListener('scroll', update, true);
     window.addEventListener('resize', update);
     return () => {
@@ -138,7 +99,12 @@ export const ToolbarButton = ({
       <button
         ref={buttonRef}
         type="button"
-        className={clsx("rds-comp-toolbar__button", isActive && "rds-comp-toolbar__button--active", disabled && "rds-comp-toolbar__button--disabled")}
+        className={clsx(
+          "rds-comp-toolbar__button",
+          isActive && "rds-comp-toolbar__button--active",
+          disabled && "rds-comp-toolbar__button--disabled",
+          className,
+        )}
         onClick={onClick}
         disabled={disabled}
         aria-label={ariaLabel || action}
@@ -160,7 +126,7 @@ export const ToolbarButton = ({
       {isDropdownOpen && dropdownPos && createPortal(
         <div
           ref={menuRef}
-          className={clsx('rds-comp-toolbar__dropdown', portalThemeClass)}
+          className="rds-comp-toolbar__dropdown"
           style={{
             position: 'absolute',
             top: dropdownPos.top,

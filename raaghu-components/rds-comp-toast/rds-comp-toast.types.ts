@@ -13,9 +13,15 @@ export const ToastSeverity = {
   Basic: 'basic',
   Info: 'info',
   Success: 'success',
+  Warning: 'warning',
   Error: 'error',
 } as const;
 export type ToastSeverity = (typeof ToastSeverity)[keyof typeof ToastSeverity];
+
+/** @deprecated Use `ToastSeverity`. */
+export const ToastState = ToastSeverity;
+/** @deprecated Use `ToastSeverity`. */
+export type ToastState = ToastSeverity;
 
 export const ToastLeadingIcon = {
   Circle: 'circle',
