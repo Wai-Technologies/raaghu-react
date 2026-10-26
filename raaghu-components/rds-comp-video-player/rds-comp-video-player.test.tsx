@@ -12,7 +12,7 @@ jest.mock('./rds-comp-video-player.scss', () => ({}));
 jest.mock('react-player', () => ({
   __esModule: true,
   default: function MockReactPlayer({
-    url,
+    src,
     playing,
     loop,
     muted,
@@ -23,20 +23,24 @@ jest.mock('react-player', () => ({
     height,
     style,
     className,
+    preload,
+    title,
   }: any) {
     return (
       <div
         data-testid="react-player"
-        data-url={url}
+        data-src={src}
         data-playing={playing}
         data-loop={loop}
         data-muted={muted}
         data-controls={controls}
         data-volume={volume}
-        data-config={JSON.stringify(config)}
+        data-config={JSON.stringify(config ?? {})}
         data-width={width}
         data-height={height}
         data-style={JSON.stringify(style || { width, height })}
+        data-preload={preload}
+        data-title={title}
         className={className}
       >
         Video Player
@@ -97,7 +101,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should handle Vimeo type', () => {
@@ -109,7 +113,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://vimeo.com/123456789');
+      expect(player).toHaveAttribute('data-src', 'https://vimeo.com/123456789');
     });
 
     it('should handle Default type', () => {
@@ -121,7 +125,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://example.com/video.mp4');
+      expect(player).toHaveAttribute('data-src', 'https://example.com/video.mp4');
     });
   });
 
@@ -134,7 +138,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should format youtu.be shortened URL', () => {
@@ -145,7 +149,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should format YouTube embed URL', () => {
@@ -156,7 +160,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should handle YouTube URL with query parameters', () => {
@@ -167,7 +171,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     });
 
     it('should set correct YouTube player config', () => {
@@ -181,8 +185,7 @@ describe('RdsCompVideoPlayer', () => {
       const player = screen.getByTestId('react-player');
       const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.youtube).toBeDefined();
-      expect(config.youtube.playerVars.modestbranding).toBe(1);
-      expect(config.youtube.playerVars.rel).toBe(0);
+      expect(config.youtube.rel).toBe(0);
     });
   });
 
@@ -195,7 +198,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://vimeo.com/123456789');
+      expect(player).toHaveAttribute('data-src', 'https://vimeo.com/123456789');
     });
 
     it('should set correct Vimeo player config', () => {
@@ -209,9 +212,9 @@ describe('RdsCompVideoPlayer', () => {
       const player = screen.getByTestId('react-player');
       const config = JSON.parse(player.getAttribute('data-config') || '{}');
       expect(config.vimeo).toBeDefined();
-      expect(config.vimeo.playerOptions.title).toBe(false);
-      expect(config.vimeo.playerOptions.byline).toBe(false);
-      expect(config.vimeo.playerOptions.portrait).toBe(false);
+      expect(config.vimeo.title).toBe(false);
+      expect(config.vimeo.byline).toBe(false);
+      expect(config.vimeo.portrait).toBe(false);
     });
 
     it('should handle Vimeo type with Vimeo URL', () => {
@@ -251,7 +254,7 @@ describe('RdsCompVideoPlayer', () => {
       );
       const player = screen.getByTestId('react-player');
       const config = JSON.parse(player.getAttribute('data-config') || '{}');
-      expect(config.youtube.playerVars.controls).toBe(1);
+      expect(player).toHaveAttribute('data-controls', 'true');
     });
 
     it('should disable YouTube controls when controls is false', () => {
@@ -264,7 +267,7 @@ describe('RdsCompVideoPlayer', () => {
       );
       const player = screen.getByTestId('react-player');
       const config = JSON.parse(player.getAttribute('data-config') || '{}');
-      expect(config.youtube.playerVars.controls).toBe(0);
+      expect(player).toHaveAttribute('data-controls', 'false');
     });
   });
 
@@ -487,7 +490,7 @@ describe('RdsCompVideoPlayer', () => {
     it('should handle empty videoLink', () => {
       render(<RdsCompVideoPlayer videoLink="" />);
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', '');
+      expect(player).toHaveAttribute('data-src', '');
     });
 
     it('should handle undefined optional props', () => {
@@ -559,7 +562,7 @@ describe('RdsCompVideoPlayer', () => {
         />
       );
       const player = screen.getByTestId('react-player');
-      expect(player).toHaveAttribute('data-url', 'https://www.youtube.com/watch?v=invalid');
+      expect(player).toHaveAttribute('data-src', 'https://www.youtube.com/watch?v=invalid');
     });
 
     it('should handle video URL with special characters', () => {
@@ -617,7 +620,8 @@ describe('RdsCompVideoPlayer', () => {
       );
       const player = screen.getByTestId('react-player');
       const config = JSON.parse(player.getAttribute('data-config') || '{}');
-      expect(config.file).toBeDefined();
+      expect(config.file ?? config.youtube ?? config.vimeo).toBeUndefined();
+      expect(player).toHaveAttribute('data-preload', 'auto');
     });
 
     it('should use type to determine player config', () => {
@@ -630,7 +634,8 @@ describe('RdsCompVideoPlayer', () => {
 
       let player = screen.getByTestId('react-player');
       let config = JSON.parse(player.getAttribute('data-config') || '{}');
-      expect(config.file).toBeDefined();
+      expect(config.file ?? config.youtube ?? config.vimeo).toBeUndefined();
+      expect(player).toHaveAttribute('data-preload', 'auto');
 
       rerender(
         <RdsCompVideoPlayer
@@ -728,7 +733,7 @@ describe('audit fixes', () => {
   it('supports src and autoPlay, and loop override', async () => {
     render(<RdsCompVideoPlayer src={src} autoPlay loop={false} />);
     const player = await screen.findByTestId('react-player');
-    expect(player).toHaveAttribute('data-url', src);
+    expect(player).toHaveAttribute('data-src', src);
     expect(player).toHaveAttribute('data-playing', 'true');
     expect(player).toHaveAttribute('data-loop', 'false');
   });
@@ -741,11 +746,11 @@ describe('audit fixes', () => {
     expect(screen.getByText('Nope')).toBeInTheDocument();
   });
 
-  it('forwards rest/style/ref to root and passes title to config', async () => {
+  it('forwards rest/style/ref to root and passes title to the player', async () => {
     const ref = React.createRef<HTMLDivElement>();
     render(<RdsCompVideoPlayer src={src} ref={ref} data-testid="root" style={{ margin: 3 }} title="T" />);
     expect(ref.current).toBe(screen.getByTestId('root'));
     const player = await screen.findByTestId('react-player');
-    expect(JSON.parse(player.getAttribute('data-config')!).file.attributes.title).toBe('T');
+    expect(player).toHaveAttribute('data-title', 'T');
   });
 });

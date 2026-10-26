@@ -8,17 +8,25 @@ import dayjs from 'dayjs';
 jest.mock('./rds-comp-contribution.scss', () => ({}));
 jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
 
-jest.mock('react-measure', () => {
-  return function MockMeasure({ children, onResize }: any) {
-    React.useEffect(() => {
-      onResize({ bounds: { width: 1200, height: 300 } });
-    }, [onResize]);
-
-    return children({
-      measure: { ref: jest.fn() },
-      measureRef: jest.fn(),
-    });
-  };
+beforeAll(() => {
+  class MockResizeObserver {
+    private cb: ResizeObserverCallback;
+    constructor(cb: ResizeObserverCallback) {
+      this.cb = cb;
+    }
+    observe(target: Element) {
+      const width = 1200;
+      const height = 300;
+      this.cb(
+        [{ contentRect: { width, height, top: 0, left: 0, bottom: height, right: width, x: 0, y: 0, toJSON: () => ({}) } } as ResizeObserverEntry],
+        this as unknown as ResizeObserver,
+      );
+      void target;
+    }
+    unobserve() {}
+    disconnect() {}
+  }
+  global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver;
 });
 
 jest.mock('@mui/material/SvgIcon', () => {

@@ -9,8 +9,8 @@ import pkg from './package.json';
 // and ship duplicate copies of MUI, react-is, etc. CSS is still bundled into raaghu-react.css,
 // and JSON data is inlined because plain Node ESM (SSR, Jest) cannot import JSON without attributes.
 //
-// react-player stays bundled: its v2 CommonJS build lazy-loads players through extensionless
-// dynamic imports that only a bundler resolves, so it would break consumers' Node/Jest/SSR runs.
+// react-player stays bundled: v3 pulls custom media elements (youtube/vimeo/hls/…) that
+// consumers would otherwise need to resolve; bundling keeps the library entry self-contained.
 const bundledDependencies = ['react-player'];
 const externalPackages = [
   ...Object.keys(pkg.dependencies ?? {}),

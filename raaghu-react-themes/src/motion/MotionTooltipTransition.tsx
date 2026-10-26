@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIsomorphicLayoutEffect } from '../utils/use-isomorphic-layout-effect';
 
 interface MotionTooltipTransitionProps extends React.HTMLAttributes<HTMLDivElement> {
   in?: boolean;
@@ -16,7 +17,7 @@ const MotionTooltipTransition = ({ ref, in: isIn, children, onEnter, onEntered, 
     const onEnteredRef = React.useRef(onEntered);
     const onExitRef = React.useRef(onExit);
     const onExitedRef = React.useRef(onExited);
-    React.useLayoutEffect(() => { onEnterRef.current = onEnter; onEnteredRef.current = onEntered; onExitRef.current = onExit; onExitedRef.current = onExited; });
+    useIsomorphicLayoutEffect(() => { onEnterRef.current = onEnter; onEnteredRef.current = onEntered; onExitRef.current = onExit; onExitedRef.current = onExited; });
     React.useEffect(() => {
       if (isIn) { onEnterRef.current?.(); onEnteredRef.current?.(); }
       else { onExitRef.current?.(); onExitedRef.current?.(); }

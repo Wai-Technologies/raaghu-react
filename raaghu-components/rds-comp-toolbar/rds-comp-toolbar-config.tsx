@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
+import { useIsomorphicLayoutEffect } from "../../raaghu-elements/shared/utils/use-isomorphic-layout-effect";
 import clsx from "clsx";
 import { createPortal } from 'react-dom';
 import RdsEmojiGenerator from '../rds-comp-emoji-generator/rds-comp-emoji-generator';
@@ -87,7 +88,7 @@ export const ToolbarButton = ({
   const [dropdownPos, setDropdownPos] = useState<DropdownPosition | null>(null);
   const [portalThemeClass, setPortalThemeClass] = useState<string | null>(null);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const button = buttonRef.current;
     if (!isDropdownOpen || !button) {
       setDropdownPos(null);
@@ -105,7 +106,7 @@ export const ToolbarButton = ({
   }, [isDropdownOpen]);
 
   const isMenuShown = dropdownPos !== null;
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (isMenuShown) {
       menuRef.current?.querySelector<HTMLElement>('[role="menuitem"]')?.focus();
     }

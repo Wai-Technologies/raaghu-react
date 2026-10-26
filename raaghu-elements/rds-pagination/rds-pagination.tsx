@@ -11,8 +11,15 @@ import './rds-pagination.scss';
  * inner `MuiPagination`); the Raaghu-specific props below add a page-size dropdown,
  * a legend, a "Go to page" input and predefined Figma styles.
  */
-export interface RdsPaginationProps extends Omit<PaginationProps, 'component'> {
-  /** Total number of records (or pages when `count` is used for pages). See `count`. */
+export interface RdsPaginationProps extends Omit<PaginationProps, 'component' | 'count'> {
+  /**
+   * Total number of records (G2-117). Prefer this over `totalPages`.
+   * For an explicit page count without a record total, use `pageCount`.
+   */
+  count?: number;
+  /** Explicit number of pages. When set, wins over `count` / `totalPages` for page buttons. */
+  pageCount?: number;
+  /** Total number of records when `count` is omitted (same meaning as `count`). */
   totalPages?: number;
   /** @deprecated Use `page` instead. */
   currentPage?: number;
@@ -42,7 +49,7 @@ export interface RdsPaginationProps extends Omit<PaginationProps, 'component'> {
   showPageSize?: boolean;
   /** Shows the "Go to [input] Page" field. Takes precedence over the deprecated `showManualInput` and `controls`. */
   showPageInput?: boolean;
-  /** Predefined Figma style (`'Style 1'`–`'Style 11'`) that decides which controls are shown. */
+  /** Predefined Figma style (`'Style 1'`â€“`'Style 11'`) that decides which controls are shown. */
   paginationStyle?: 'Style 1' | 'Style 2' | 'Style 3' | 'Style 4' | 'Style 5' | 'Style 6' | 'Style 7' | 'Style 8' | 'Style 9' | 'Style 10' | 'Style 11';
   /** Shows both the first and last page buttons (same as `controls.firstLast`). Defaults to `true`. */
   showFirstLast?: boolean;
@@ -74,6 +81,7 @@ const RdsPagination = ({
   onPageChange,
   controls,
   count,
+  pageCount,
   page,
   defaultPage,
   onChange,
@@ -121,7 +129,7 @@ const RdsPagination = ({
 
   const styleConfig = getStyleConfig(paginationStyle);
   const { finalSiblingCount, finalBoundaryCount } = calculatePaginationConfig(paginationStyle, styleConfig, isSmallScreen);
-  const { totalPagesCalc, totalRecords } = calculateTotalPages(count, totalPages, pageSize);
+  const { totalPagesCalc, totalRecords } = calculateTotalPages(count, totalPages, pageSize, pageCount);
 
   const handleChange = (event: SyntheticEvent<unknown>, value: number) => {
     if (!isControlled) {

@@ -1,5 +1,5 @@
 import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
-import { useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from "react";
 import clsx from 'clsx';
 import {
     Box,
@@ -24,7 +24,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FlagIcon from "@mui/icons-material/Flag";
 
 import "./rds-comp-emoji-generator.scss";
-import { getEmojiLabel, getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
+import { ensureEmojiData, getEmojiLabel, getEmojisByCategory, isEmojiDataReady, searchEmojis } from './rds-comp-emoji-data';
 import { EmojiCategory, EmojiGeneratorType } from './rds-comp-emoji-data';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
@@ -176,6 +176,17 @@ const RdsCompEmojiGenerator = ({
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedSkinTone, setSelectedSkinTone] = useState(0);
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
+    const [emojiDataReady, setEmojiDataReady] = useState(() => isEmojiDataReady());
+
+    useEffect(() => {
+        let cancelled = false;
+        void ensureEmojiData().then(() => {
+            if (!cancelled) setEmojiDataReady(true);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     const handleEmojiClick = (e: string, event: SyntheticEvent) => {
         onEmojiSelect?.(e);
@@ -193,11 +204,13 @@ const RdsCompEmojiGenerator = ({
 
     const filteredEmojis = useMemo(
         () => (
-            searchTerm
-                ? searchEmojis(searchTerm, currentCategory, selectedSkinTone)
-                : getEmojisByCategory(currentCategory, selectedSkinTone)
+            !emojiDataReady
+                ? []
+                : searchTerm
+                    ? searchEmojis(searchTerm, currentCategory, selectedSkinTone)
+                    : getEmojisByCategory(currentCategory, selectedSkinTone)
         ),
-        [searchTerm, currentCategory, selectedSkinTone]
+        [emojiDataReady, searchTerm, currentCategory, selectedSkinTone]
     );
     const displayEmojis = useMemo(
         () => (maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis),

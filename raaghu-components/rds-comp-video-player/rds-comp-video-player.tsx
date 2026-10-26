@@ -1,7 +1,7 @@
 import { Suspense, lazy, type HTMLAttributes, type Ref } from "react";
 import { Box, type SxProps, type Theme } from "@mui/material";
 import clsx from "clsx";
-import type { ReactPlayerProps } from "react-player";
+import type { Config } from "react-player/types";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-video-player.scss";
 export { VideoPlayerType } from './rds-comp-video-player-types';
@@ -58,21 +58,18 @@ const formatVideoUrl = (videoLink: string): string => {
 const buildPlayerConfig = (
   type: VideoPlayerType,
   formattedUrl: string,
-  controls: boolean,
-  title?: string
-): ReactPlayerProps["config"] => {
+  controls: boolean
+): Config | undefined => {
   const isYouTubeUrl = formattedUrl.includes("youtube.com") || formattedUrl.includes("youtu.be");
   const isVimeoUrl = formattedUrl.includes("vimeo.com");
 
   if (type === VideoPlayerType.Vimeo || isVimeoUrl) {
     return {
       vimeo: {
-        playerOptions: {
-          controls,
-          title: false,
-          byline: false,
-          portrait: false,
-        },
+        controls,
+        title: false,
+        byline: false,
+        portrait: false,
       },
     };
   }
@@ -80,19 +77,12 @@ const buildPlayerConfig = (
   if (type === VideoPlayerType.YouTube || isYouTubeUrl) {
     return {
       youtube: {
-        playerVars: {
-          controls: controls ? 1 : 0,
-          modestbranding: 1,
-          rel: 0,
-        },
-        ...(title !== undefined && { embedOptions: { title } }),
+        rel: 0,
       },
     };
   }
 
-  return {
-    file: { attributes: { preload: "auto", ...(title !== undefined && { title }) } },
-  };
+  return undefined;
 };
 
 const RdsCompVideoPlayer = ({
@@ -118,7 +108,12 @@ const RdsCompVideoPlayer = ({
   if (videoLink !== undefined) warnDeprecatedProp("RdsCompVideoPlayer", "videoLink", "`src`");
   const shouldAutoPlay = (autoPlay ?? false) && !disabled;
   const formattedUrl = formatVideoUrl(src ?? videoLink ?? "");
-  const playerConfig = buildPlayerConfig(type, formattedUrl, controls, title);
+  const playerConfig = buildPlayerConfig(type, formattedUrl, controls);
+  const isFilePlayer =
+    type === VideoPlayerType.Default &&
+    !formattedUrl.includes("youtube.com") &&
+    !formattedUrl.includes("youtu.be") &&
+    !formattedUrl.includes("vimeo.com");
 
   return (
     <Box
@@ -140,7 +135,7 @@ const RdsCompVideoPlayer = ({
         >
           <ReactPlayer
             key={formattedUrl}
-            url={formattedUrl}
+            src={formattedUrl}
             width={width}
             height={height}
             playing={shouldAutoPlay}
@@ -149,6 +144,9 @@ const RdsCompVideoPlayer = ({
             controls={controls}
             volume={volume}
             config={playerConfig}
+            preload={isFilePlayer ? "auto" : undefined}
+            title={title}
+            wrapper="div"
             className="rds-comp-video-player__player"
           />
         </Suspense>

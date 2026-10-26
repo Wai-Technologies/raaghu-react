@@ -104,8 +104,6 @@ export default defineConfig({
       'react-syntax-highlighter/dist/esm/styles/hljs',
       'dayjs',
       'dayjs/plugin/customParseFormat',
-      'react-measure',
-      'react-color',
       'react-datepicker',
       'lottie-react',
       '@dnd-kit/core',
