@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import type DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
-import { CustomButtons } from './CustomButtons';
 import { CustomInputWithClear } from './CustomInputWithClear';
 import { ExampleCustomInput } from './ExampleCustomInput';
 import {
@@ -327,7 +326,6 @@ const RdsDatepicker = ({
                 dayClassName,
                 CustomInputWithClear,
                 ExampleCustomInput,
-                CustomButtons,
                 customDropdownRef
             )}
         </Box>

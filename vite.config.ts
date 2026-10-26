@@ -20,6 +20,9 @@ const isExternal = (id: string) =>
   !/\.(css|scss|json)$/.test(id) &&
   externalPackages.some((name) => id === name || id.startsWith(`${name}/`));
 
+// REACT19 #4 (preserveModules): deferred. package.json `exports` / main / module still
+// point at a single ES + CJS chunk; enabling preserveModules needs a multi-entry export
+// map and consumer migration, not a silent Vite flag flip.
 // https://vite.dev/config/
 export default defineConfig(() => {
   return {

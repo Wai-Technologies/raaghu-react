@@ -45,6 +45,7 @@ const meta: Meta<typeof RdsCompToast> = {
                     [ToastSeverity.Basic]: 'Basic',
                     [ToastSeverity.Info]: 'Info',
                     [ToastSeverity.Success]: 'Success',
+                    [ToastSeverity.Warning]: 'Warning',
                     [ToastSeverity.Error]: 'Error'
                 }
             },

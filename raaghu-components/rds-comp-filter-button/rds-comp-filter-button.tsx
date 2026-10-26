@@ -11,11 +11,11 @@ import {
 } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-filter-button.scss';
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
 export interface FilterOption {
   id: string;
@@ -64,15 +64,15 @@ export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivEle
 }
 
 const EMPTY_FILTER_OPTIONS: FilterOption[] = [];
-const DEFAULT_LEFT_ICON = <CircleOutlinedIcon sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />;
-const DEFAULT_RIGHT_ICON = <CircleOutlinedIcon sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />;
+const DEFAULT_START_ICON = <FilterListIcon sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />;
+const DEFAULT_END_ICON = <ExpandMore sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />;
 
 const RdsCompFilterButton = ({
   shape = 'rectangle',
   children,
   text,
   showLeftIcon = true,
-  showRightIcon = true,
+  showRightIcon = false,
   startIcon,
   endIcon,
   leftIcon,
@@ -100,8 +100,8 @@ const RdsCompFilterButton = ({
     apply: localeText?.apply ?? 'Apply',
     clearAll: localeText?.clearAll ?? 'Clear All',
   };
-  const resolvedStartIcon = startIcon !== undefined ? startIcon : (leftIcon !== undefined ? leftIcon : DEFAULT_LEFT_ICON);
-  const resolvedEndIcon = endIcon !== undefined ? endIcon : (rightIcon !== undefined ? rightIcon : DEFAULT_RIGHT_ICON);
+  const resolvedStartIcon = startIcon !== undefined ? startIcon : (leftIcon !== undefined ? leftIcon : DEFAULT_START_ICON);
+  const resolvedEndIcon = endIcon !== undefined ? endIcon : (rightIcon !== undefined ? rightIcon : DEFAULT_END_ICON);
   const label: ReactNode = children ?? text ?? 'Filter';
   const resolvedFilters = options ?? filters ?? EMPTY_FILTER_OPTIONS;
   const [isOpen, setIsOpen] = useState(false);

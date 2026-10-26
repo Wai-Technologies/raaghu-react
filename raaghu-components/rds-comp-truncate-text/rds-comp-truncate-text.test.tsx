@@ -9,13 +9,12 @@ import { axe } from 'jest-axe';
 jest.mock('./rds-comp-truncate-text.scss', () => ({}));
 
 jest.mock('../../raaghu-elements/rds-tooltip/rds-tooltip', () => {
-  return function MockRdsTooltip({ children, label, title, placement, arrow }: any) {
+  return function MockRdsTooltip({ children, title, placement, arrow }: any) {
     return (
       <div
         data-testid="rds-tooltip"
-        data-label={label}
         data-title={title}
-        data-style={placement}
+        data-placement={placement}
         data-arrow={arrow}
       >
         {children}
@@ -211,7 +210,7 @@ describe('RdsCompTruncateText', () => {
       fireEvent.mouseEnter(mainDiv!);
 
       const tooltip = screen.getByTestId('rds-tooltip');
-      expect(tooltip).toHaveAttribute('data-label', longText);
+      expect(tooltip).toHaveAttribute('data-title', longText);
     });
 
     it('should pass correct title to tooltip', () => {
@@ -242,7 +241,7 @@ describe('RdsCompTruncateText', () => {
       fireEvent.mouseEnter(mainDiv!);
 
       const tooltip = screen.getByTestId('rds-tooltip');
-      expect(tooltip).toHaveAttribute('data-style', 'bottom');
+      expect(tooltip).toHaveAttribute('data-placement', 'bottom');
     });
 
     it('should pass correct arrow prop to tooltip', () => {
@@ -545,7 +544,6 @@ describe('RdsCompTruncateText', () => {
       fireEvent.mouseEnter(mainDiv!);
 
       const tooltip = screen.getByTestId('rds-tooltip');
-      expect(tooltip).toHaveAttribute('data-label', fullText);
       expect(tooltip).toHaveAttribute('data-title', fullText);
     });
 

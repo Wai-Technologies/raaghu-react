@@ -52,7 +52,7 @@ export { RdsOffcanvasPlacement, RdsOffcanvasBackDrop } from './rds-comp-off-canv
 export type { RdsCompContributionProps } from './rds-comp-contribution/rds-comp-contribution';
 export type { RdsCompColorPickerProps, ColorPickerVariant, ColorPickerFormat, ColorPickerView } from './rds-comp-color-picker/rds-comp-color-picker.types';
 export type { RdsCompToastProps, ToastCloseReason } from './rds-comp-toast/rds-comp-toast.types';
-export { ToastLayout, ToastSeverity, ToastLeadingIcon, ToastPosition } from './rds-comp-toast/rds-comp-toast.types';
+export { ToastLayout, ToastSeverity, ToastState, ToastLeadingIcon, ToastPosition } from './rds-comp-toast/rds-comp-toast.types';
 export type { RdsScrollBarProps } from './rds-comp-scrollbar/rds-comp-scrollbar';
 export type { RdsCompTruncateTextProps } from './rds-comp-truncate-text/rds-comp-truncate-text';
 export type { RdsCompOffcanvasProps, RdsCompOffcanvasCloseReason } from './rds-comp-off-canvas/rds-comp-off-canvas';

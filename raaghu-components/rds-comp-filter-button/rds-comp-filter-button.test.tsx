@@ -126,6 +126,11 @@ jest.mock('@mui/icons-material', () => {
   };
 });
 
+jest.mock('@mui/icons-material/FilterList', () => ({
+  __esModule: true,
+  default: () => <span data-testid="FilterListIcon">☰</span>,
+}));
+
 describe('RdsCompFilterButton', () => {
   const mockFilters: FilterOption[] = [
     {
@@ -194,23 +199,21 @@ describe('RdsCompFilterButton', () => {
       expect(screen.getByTestId('filter-trigger-button')).toBeInTheDocument();
     });
 
-    it('should show left icon by default', () => {
-      renderComponent({ showLeftIcon: true });
-      const icons = screen.getAllByTestId('CircleOutlinedIcon');
-      expect(icons.length).toBeGreaterThan(0);
-      expect(icons[0]).toBeInTheDocument();
+    it('should show FilterList start icon by default', () => {
+      renderComponent();
+      expect(screen.getByTestId('FilterListIcon')).toBeInTheDocument();
+      expect(screen.queryByTestId('expand-more-icon')).not.toBeInTheDocument();
     });
 
     it('should hide left icon when showLeftIcon is false', () => {
       renderComponent({ showLeftIcon: false });
-      const icons = screen.queryAllByTestId('CircleOutlinedIcon');
-      expect(icons.length).toBeLessThanOrEqual(1); // Only right icon if shown
+      expect(screen.queryByTestId('FilterListIcon')).not.toBeInTheDocument();
     });
 
-    it('should show right icon by default', () => {
+    it('should show ExpandMore when showRightIcon is true', () => {
       renderComponent({ showRightIcon: true });
-      const icons = screen.getAllByTestId('CircleOutlinedIcon');
-      expect(icons.length).toBeGreaterThanOrEqual(2);
+      expect(screen.getByTestId('FilterListIcon')).toBeInTheDocument();
+      expect(screen.getByTestId('expand-more-icon')).toBeInTheDocument();
     });
 
     it('should use custom left icon', () => {
@@ -832,7 +835,7 @@ describe('RdsCompFilterButton', () => {
 
   describe('audit fixes', () => {
     it('children wins over text and startIcon/endIcon win and null hides', () => {
-      renderComponent({ children: 'Kids', text: 'Old', startIcon: <span data-testid="s-icon" />, endIcon: null, leftIcon: <span data-testid="l-icon" /> });
+      renderComponent({ children: 'Kids', text: 'Old', startIcon: <span data-testid="s-icon" />, endIcon: null, leftIcon: <span data-testid="l-icon" />, showRightIcon: true });
       const btn = screen.getByTestId('filter-trigger-button');
       expect(btn).toHaveTextContent('Kids');
       expect(screen.getByTestId('s-icon')).toBeInTheDocument();

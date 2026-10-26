@@ -125,7 +125,7 @@
     "react-datepicker": "^8.4.0",
     "react-draft-wysiwyg": "^1.15.0",
     "react-player": "^3.4.0",
-    "react-svg-worldmap": "^2.0.0-alpha.16",
+    "react-svg-worldmap": "^2.3.0",
     "react-syntax-highlighter": "^16.1.2"
   },
   "devDependencies": {

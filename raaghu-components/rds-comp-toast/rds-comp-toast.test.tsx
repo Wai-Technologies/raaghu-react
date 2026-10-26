@@ -93,21 +93,21 @@ describe('RdsCompToast', () => {
       render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Info} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--info');
-      expect(alert).toHaveClass('rds-comp-toast--border-dark');
+      expect(alert).toHaveClass('rds-comp-toast--border-info');
     });
 
     it('should apply success state class', () => {
       render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Success} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--success');
-      expect(alert).toHaveClass('rds-comp-toast--border-primary');
+      expect(alert).toHaveClass('rds-comp-toast--border-success');
     });
 
     it('should apply error state class', () => {
       render(<RdsCompToast {...defaultProps} severity={ToastSeverity.Error} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
-      expect(alert).toHaveClass('rds-comp-toast--border-danger');
+      expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
 
     it('should apply correct border color for each state', () => {
@@ -115,11 +115,11 @@ describe('RdsCompToast', () => {
         <RdsCompToast {...defaultProps} severity={ToastSeverity.Basic} />
       );
       let alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--border-light');
+      expect(alert).toHaveClass('rds-comp-toast--border-basic');
 
       rerender(<RdsCompToast {...defaultProps} severity={ToastSeverity.Info} />);
       alert = screen.getByRole('alert');
-      expect(alert).toHaveClass('rds-comp-toast--border-dark');
+      expect(alert).toHaveClass('rds-comp-toast--border-info');
     });
   });
 
@@ -725,7 +725,7 @@ describe('RdsCompToast', () => {
 
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast--error');
-      expect(alert).toHaveClass('rds-comp-toast--border-danger');
+      expect(alert).toHaveClass('rds-comp-toast--border-error');
     });
 
     it('should render info toast with chat layout', () => {
