@@ -17,9 +17,22 @@ figma.connect(
     props: {},
     example: (props) => <RdsCompAreaChart
       {...props}
-      dataSets={[
+      data={{ labels: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ], datasets: [
         {
-          backgroundColor: () => { },
+          backgroundColor: 'rgba(77, 207, 255, 0.2)',
           borderColor: '#4DCFFF',
           data: [
             600,
@@ -41,7 +54,7 @@ figma.connect(
           tension: 0.4
         },
         {
-          backgroundColor: () => { },
+          backgroundColor: 'rgba(134, 59, 255, 0.2)',
           borderColor: '#863BFF',
           data: [
             250,
@@ -63,22 +76,8 @@ figma.connect(
           pointRadius: 2,
           tension: 0.4
         }
-      ]}
+      ] }}
       id="area chart"
-      labels={[
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ]}
       options={{
         borderWidth: 2,
         maintainAspectRatio: false,
@@ -88,12 +87,10 @@ figma.connect(
             labels: {
               boxHeight: 10,
               boxWidth: 10,
-              height: 5,
               padding: 30,
               pointStyleWidth: 13,
               usePointStyle: true
             },
-            pointStyle: 'circle',
             position: 'top'
           },
           title: {
@@ -109,7 +106,6 @@ figma.connect(
         scales: {
           x: {
             axis: 'x',
-            beginAtZero: false,
             border: {
               color: 'rgba(0,0,0,0.1)',
               dash: [],
@@ -120,22 +116,16 @@ figma.connect(
             bounds: 'ticks',
             clip: true,
             display: true,
-            grace: 0,
             grid: {
-              borderColor: 'rgba(0,0,0,0.1)',
-              borderDash: [],
-              borderDashOffset: 0,
-              borderWidth: 1,
               color: 'rgba(0,0,0,0.1)',
               display: false,
-              drawBorder: true,
               drawOnChartArea: true,
               drawTicks: true,
               lineWidth: 1,
               offset: false,
-              tickColor: () => { },
+              tickColor: "#666",
               tickLength: 8,
-              tickWidth: () => { }
+              tickWidth: 1
             },
             id: 'x',
             offset: false,
@@ -147,7 +137,6 @@ figma.connect(
               autoSkipPadding: 3,
               backdropColor: 'rgba(255, 255, 255, 0.75)',
               backdropPadding: 2,
-              callback: () => { },
               color: '#666',
               crossAlign: 'near',
               display: true,
@@ -155,7 +144,6 @@ figma.connect(
               major: {},
               maxRotation: 50,
               minRotation: 0,
-              minor: {},
               mirror: false,
               padding: 3,
               showLabelBackdrop: false,
@@ -188,26 +176,15 @@ figma.connect(
             display: true,
             grace: 0,
             grid: {
-              borderColor: 'rgba(0,0,0,0.1)',
-              borderDash: [],
-              borderDashOffset: 0,
-              borderWidth: 1,
               color: 'rgba(0,0,0,0.1)',
               display: false,
-              drawBorder: true,
               drawOnChartArea: true,
               drawTicks: true,
               lineWidth: 1,
               offset: false,
-              tickColor: () => { },
+              tickColor: "#666",
               tickLength: 8,
-              tickWidth: () => { }
-            },
-            id: 'y',
-            legend: {
-              labels: {
-                maxheight: 10
-              }
+              tickWidth: 1
             },
             offset: false,
             position: 'left',
@@ -218,7 +195,6 @@ figma.connect(
               autoSkipPadding: 3,
               backdropColor: 'rgba(255, 255, 255, 0.75)',
               backdropPadding: 2,
-              callback: () => { },
               color: '#666',
               crossAlign: 'near',
               display: true,
@@ -226,7 +202,6 @@ figma.connect(
               major: {},
               maxRotation: 50,
               minRotation: 0,
-              minor: {},
               mirror: false,
               padding: 3,
               showLabelBackdrop: false,

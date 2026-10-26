@@ -1,87 +1,135 @@
+
 import RdsCompBubbleChart from "./rds-comp-chart-bubble";
 import "./rds-comp-chart-bubble.scss";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 
-const meta: Meta = {
-    title: 'Components/Charts/Bubble Chart',
+const meta = {
+    title: "Components/Charts/Bubble Chart",
     component: RdsCompBubbleChart,
     parameters: {
-            status: { type: 'stable' },
-        layout: 'padded',
-        docs:{
+        status: { type: "stable" },
+        layout: "padded",
+        docs: {
             description: {
-      component: 'The **Bubble Chart** element is a visual component in the design system used to display multi-dimensional data where each point represents three values: **x**, **y**, and **radius**. It is ideal for illustrating relationships, patterns, and outliers within complex datasets. This chart supports multiple datasets with customizable styling options including colors, border width, and point shapes. Features include tooltip interaction, dynamic legends, and optional titles for better data interpretation. The component is fully responsive and can be integrated into dashboards, analytics tools, or reporting views to enhance visual storytelling and decision-making based on data clusters or distributions.'
-      }
+                component:
+                    "The Bubble Chart displays multidimensional data, where each point represents x, y, and radius values. It supports multiple datasets, customizable colors, point shapes, tooltips, legends, and titles.",
+            },
+        },
+    },
+    tags: ["autodocs", "stable"],
+   argTypes: {
+    data: {
+        control: "object",
+        description: "Chart.js data containing labels and datasets.",
+    },
+    options: {
+        control: "object",
+        description: "Chart.js configuration options.",
+    },
+    className: {
+        control: "text",
+        description: "CSS class applied to the chart container.",
+    },
+    sx: {
+        control: "object",
+        description: "MUI system styles applied to the chart container.",
+    },
+    ref: {
+        control: false,
+        description: "React ref to the chart container; assign it in code.",
+    },
+    ariaLabel: {
+        control: "text",
+        description: "Accessible label for the chart.",
+    },
+    labels: {
+        control: false,
+        table: { disable: true },
+    },
+    dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+    chartLabel: {
+        control: false,
+        table: { disable: true },
+    },
 },
-    },
-    tags: ['autodocs', 'stable'],
-    argTypes: {
-        className: { control: 'text', description: 'CSS class applied to the chart container.' },
-        sx: { control: 'object', description: 'MUI system styles applied to the chart container.' },
-        ref: { control: false, description: 'React ref to the chart container; assign it in code.' },
-    },
 } satisfies Meta<typeof RdsCompBubbleChart>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompBubbleChart>;
+
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
         id: "bubblecha",
+        ariaLabel: "Bubble chart showing two datasets",
         data: {
             labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
             datasets: [
                 {
                     label: "Dataset 1",
-                    data: [90, 97, 20, 30, 40, 50, 60, 70],
+                    pointStyle: "triangle",
+                    data: [
+                        { x: 10, y: 90, r: 10 },
+                        { x: 20, y: 97, r: 12 },
+                        { x: 30, y: 20, r: 8 },
+                        { x: 40, y: 30, r: 10 },
+                        { x: 50, y: 40, r: 12 },
+                        { x: 60, y: 50, r: 10 },
+                        { x: 70, y: 60, r: 8 },
+                        { x: 80, y: 70, r: 10 },
+                    ],
                     borderColor: ["red"],
                     backgroundColor: ["rgba(255, 99, 132)"],
                 },
                 {
                     label: "Dataset 2",
-                    data: [90, 80, 70, 60, 50, 40, 30, 90, 98],
+                    data: [
+                        { x: 10, y: 90, r: 8 },
+                        { x: 20, y: 80, r: 10 },
+                        { x: 30, y: 70, r: 12 },
+                        { x: 40, y: 60, r: 10 },
+                        { x: 50, y: 50, r: 8 },
+                        { x: 60, y: 40, r: 10 },
+                        { x: 70, y: 30, r: 12 },
+                        { x: 80, y: 90, r: 10 },
+                        { x: 90, y: 98, r: 8 },
+                    ],
                     borderColor: ["orange"],
                     backgroundColor: ["rgba(255, 206, 86)"],
-                }
+                },
             ],
         },
-
-
         options: {
             responsive: true,
-            radius: 10,
             maintainAspectRatio: false,
-            pointStyle: "triangle",
             plugins: {
-
                 legend: {
                     position: "top",
-                    pointStyle: "line",
-
                     labels: {
-
-                        usePointStyle: true
-                    }
+                        usePointStyle: true,
+                    },
                 },
                 tooltip: {
                     usePointStyle: true,
                 },
                 title: {
                     display: true,
-                    text: "Bubble Chart"
-                }
+                    text: "Bubble Chart",
+                },
             },
-
         },
     },
     parameters: {
         controls: {
-            exclude: ['chartWidth', 'chartStyle',],
+            exclude: ["chartWidth", "chartStyle"],
         },
     },
     play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
+        const chart = await canvas.findByRole("img");
         await expect(chart).toBeInTheDocument();
     },
 };

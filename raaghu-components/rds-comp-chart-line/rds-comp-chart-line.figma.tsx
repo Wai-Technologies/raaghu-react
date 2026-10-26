@@ -21,7 +21,7 @@ figma.connect(
     example: (props) => (
       <RdsCompLineChart
         {...props}
-        dataSets={[
+        data={{ labels: ["January", "February", "March", "April", "May", "Jun", "July"], datasets: [
           {
             backgroundColor: "red",
             borderColor: "rgb(75, 192, 192)",
@@ -30,9 +30,8 @@ figma.connect(
             label: "My First Dataset",
             tension: 0.1,
           },
-        ]}
+        ] }}
         id="linechart"
-        labels={["January", "February", "March", "April", "May", "Jun", "July"]}
         options={{
           aspectRatio: 1,
           interaction: {
@@ -46,10 +45,8 @@ figma.connect(
             legend: {
               align: "center",
               labels: {
-                generateLabels: () => {},
                 usePointStyle: true,
               },
-              pointStyle: "bottom",
               position: "top",
             },
             title: {
@@ -60,13 +57,10 @@ figma.connect(
               usePointStyle: true,
             },
           },
-          pointStyle: "star",
-          radius: 7,
           responsive: true,
           scales: {
             x: {
               axis: "x",
-              beginAtZero: false,
               border: {
                 color: "rgba(0,0,0,0.1)",
                 dash: [],
@@ -77,7 +71,6 @@ figma.connect(
               bounds: "ticks",
               clip: true,
               display: true,
-              grace: 0,
               grid: {
                 color: "rgba(0,0,0,0.1)",
                 display: true,
@@ -85,11 +78,10 @@ figma.connect(
                 drawTicks: true,
                 lineWidth: 1,
                 offset: false,
-                tickColor: () => {},
+                tickColor: "#666",
                 tickLength: 8,
-                tickWidth: () => {},
+                tickWidth: 1,
               },
-              id: "x",
               offset: false,
               position: "bottom",
               reverse: false,
@@ -99,7 +91,6 @@ figma.connect(
                 autoSkipPadding: 3,
                 backdropColor: "rgba(255, 255, 255, 0.75)",
                 backdropPadding: 2,
-                callback: () => {},
                 color: "#666",
                 crossAlign: "near",
                 display: true,
@@ -107,7 +98,6 @@ figma.connect(
                 major: {},
                 maxRotation: 50,
                 minRotation: 0,
-                minor: {},
                 mirror: false,
                 padding: 3,
                 showLabelBackdrop: false,
@@ -146,11 +136,10 @@ figma.connect(
                 drawTicks: true,
                 lineWidth: 1,
                 offset: false,
-                tickColor: () => {},
+                tickColor: "#666",
                 tickLength: 8,
-                tickWidth: () => {},
+                tickWidth: 1,
               },
-              id: "y",
               offset: false,
               position: "left",
               reverse: false,
@@ -160,7 +149,6 @@ figma.connect(
                 autoSkipPadding: 3,
                 backdropColor: "rgba(255, 255, 255, 0.75)",
                 backdropPadding: 2,
-                callback: () => {},
                 color: "#666",
                 crossAlign: "near",
                 display: true,
@@ -168,7 +156,6 @@ figma.connect(
                 major: {},
                 maxRotation: 50,
                 minRotation: 0,
-                minor: {},
                 mirror: false,
                 padding: 3,
                 showLabelBackdrop: false,
