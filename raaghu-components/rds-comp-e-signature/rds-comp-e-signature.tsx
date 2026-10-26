@@ -117,7 +117,7 @@ const RdsCompESignature = ({
   penColor = eSignaturePenColors.black,
   defaultPenColor,
   onPenColorChange,
-  title = 'Draw Signature',
+  title,
   required = true,
   className,
   sx,
@@ -135,6 +135,13 @@ const RdsCompESignature = ({
 
   const mode = variant ?? modeProp;
   const type = signatureType ? (signatureType === 'initials' ? 'initials' : 'fullname') : typeProp;
+  const resolvedTitle = title ?? (
+    mode === 'upload'
+      ? (type === 'initials' ? 'Upload Initial' : 'Upload Signature')
+      : mode === 'choose'
+        ? 'Choose Signature'
+        : 'Draw Signature'
+  );
   const colorPickerShown = showColorPicker ?? colourSwatch ?? true;
   const disabledText = slotProps?.disabledMessage?.children ?? disabledMessage ?? 'Draw option is currently disabled.\nClear uploaded signature to enable drawing.';
   const footerText = slotProps?.helperText?.children ?? disabledFooterMessage ?? 'Another method already selected';
@@ -304,7 +311,7 @@ const RdsCompESignature = ({
   const renderDrawMode = () => (
     <Box className="rds-e-signature__draw-container">
       <Typography variant="h6" className="rds-e-signature__title">
-        {title}
+        {resolvedTitle}
         {required && <span className="rds-e-signature__required">*</span>}
       </Typography>
 
@@ -410,6 +417,7 @@ const RdsCompESignature = ({
           disabled={disabled}
           disabledFooterMessage={footerText}
           width={width}
+          title={resolvedTitle}
           required={required}
           onSignatureChange={onSignatureChange}
         />
@@ -419,6 +427,7 @@ const RdsCompESignature = ({
           type={type}
           disabled={disabled}
           predefinedSignatures={signatureOptions}
+          title={resolvedTitle}
           required={required}
           onSignatureChange={onSignatureChange}
           onCreateCustom={onCreateCustom}

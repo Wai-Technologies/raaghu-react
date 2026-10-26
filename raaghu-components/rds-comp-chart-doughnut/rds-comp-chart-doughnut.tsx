@@ -26,6 +26,8 @@ export interface RdsCompDoughnutProps
   /** Canvas width (number = px). */
   width?: string | number;
   /** Large text drawn in the centre. */
+  title?: string;
+  /** @deprecated Use `title` instead. */
   titleText?: string;
   /** Smaller text drawn under the title. */
   subtitle?: string;
@@ -48,7 +50,8 @@ const RdsCompDoughnutChart = ({
   id,
   height,
   width,
-  titleText = "",
+  title,
+  titleText,
   subtitle,
   subTitleText,
   ariaLabel,
@@ -58,12 +61,16 @@ const RdsCompDoughnutChart = ({
   sx,
   ...rest
 }: RdsCompDoughnutProps) => {
+  if (titleText !== undefined) {
+    warnDeprecatedProp("RdsCompDoughnutChart", "titleText", "`title`");
+  }
   if (subTitleText !== undefined) {
     warnDeprecatedProp("RdsCompDoughnutChart", "subTitleText", "`subtitle`");
   }
+  const centerTitle = title ?? titleText ?? "";
   const subTitle = subtitle ?? subTitleText ?? "";
   const resolved = resolveChartData("RdsCompDoughnutChart", data, labels, dataSets);
-  const defaultLabel = ["Doughnut chart:", ...[titleText, subTitle].filter(Boolean)];
+  const defaultLabel = ["Doughnut chart:", ...[centerTitle, subTitle].filter(Boolean)];
   const { canvasRef } = useChart(
     {
       type: "doughnut",
@@ -74,7 +81,7 @@ const RdsCompDoughnutChart = ({
       plugins: [
         createCenterTextPlugin({
           id: "counter3",
-          title: titleText,
+          title: centerTitle,
           subTitle,
           titleY: ({ top, height }) => top + height / 2 - 10,
           subTitleY: ({ top, height }) => top + height / 2 + 16,
@@ -87,7 +94,7 @@ const RdsCompDoughnutChart = ({
         applyCanvasSize(chart.canvas, height, width);
       },
     },
-    [resolved.labels, options, resolved.datasets, titleText, subTitle, height, width]
+    [resolved.labels, options, resolved.datasets, centerTitle, subTitle, height, width]
   );
 
   return (

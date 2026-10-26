@@ -16,7 +16,7 @@ figma.connect(
   {
     props: {
       subtitle: figma.string("Subtext"),
-      titleText: figma.string("Title Text"),
+      title: figma.string("Title Text"),
     },
     example: (props) => (
       <RdsCompDoughnutChart

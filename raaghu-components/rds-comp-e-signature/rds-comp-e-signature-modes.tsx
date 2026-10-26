@@ -19,6 +19,8 @@ export interface RdsESignatureUploadProps {
   disabled: boolean;
   disabledFooterMessage?: ReactNode;
   width?: number;
+  /** Heading above the upload panel. Defaults by `type`. */
+  title?: string;
   /** Shows the required asterisks. Defaults to `true`. */
   required?: boolean;
   onSignatureChange?: (signature: string | File | null) => void;
@@ -32,6 +34,7 @@ export const RdsESignatureUpload = ({
   disabled,
   disabledFooterMessage,
   width,
+  title,
   required = true,
   onSignatureChange,
   className,
@@ -39,6 +42,7 @@ export const RdsESignatureUpload = ({
   ref,
   ...rest
 }: RdsESignatureUploadProps) => {
+  const resolvedTitle = title ?? (type === 'initials' ? 'Upload Initial' : 'Upload Signature');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploadHovered, setIsUploadHovered] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -86,7 +90,7 @@ export const RdsESignatureUpload = ({
   return (
     <Box {...rest} ref={ref} className={clsx("rds-e-signature__upload-container", className)} sx={[{ maxWidth: width ? `${width}px` : '100%' }, sx]}>
       <Typography variant="h6" className="rds-e-signature__title">
-        {type === 'initials' ? 'Upload Initial' : 'Upload Signature'}
+        {resolvedTitle}
         {required && <span className="rds-e-signature__required">*</span>}
       </Typography>
       <Box
@@ -156,6 +160,8 @@ export interface RdsESignatureChooseProps {
   type: 'fullname' | 'initials';
   disabled: boolean;
   predefinedSignatures: PredefinedSignatureItem[];
+  /** Heading above the choose panel. Defaults to "Choose Signature". */
+  title?: string;
   /** Shows the required asterisk. Defaults to `true`. */
   required?: boolean;
   onSignatureChange?: (signature: string | File | null) => void;
@@ -167,6 +173,7 @@ export const RdsESignatureChoose = ({
   type,
   disabled,
   predefinedSignatures,
+  title = 'Choose Signature',
   required = true,
   onSignatureChange,
   onCreateCustom,
@@ -203,7 +210,7 @@ export const RdsESignatureChoose = ({
   return (
     <Box {...rest} ref={ref} className={clsx("rds-e-signature__choose-container", className)} sx={sx}>
       <Typography variant="h6" className="rds-e-signature__title">
-        Choose Signature
+        {title}
         {required && <span className="rds-e-signature__required">*</span>}
       </Typography>
       <Box className={clsx("rds-e-signature__choose-panel", multipleChooseError && "rds-e-signature__choose-panel--error")}>

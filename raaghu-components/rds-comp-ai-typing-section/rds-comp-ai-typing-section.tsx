@@ -178,7 +178,7 @@ const RdsCompAiTypingSectionComponent = ({
         >
           <textarea
             className="rds-comp-ai-typing-section__input-box rds-comp-ai-typing-section__input-box--muted-placeholder"
-            placeholder={!enhancedImage ? resolvedPlaceholder || "Placeholder Text" : ""}
+            placeholder={!enhancedImage ? (resolvedPlaceholder ?? "") : ""}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             title="Enter your prompt here"

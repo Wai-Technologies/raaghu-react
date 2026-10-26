@@ -38,6 +38,10 @@ const meta = {
         control: false,
         description: "React ref to the chart container; assign it in code.",
     },
+    title: {
+        control: "text",
+        description: "Large text drawn in the centre of the doughnut.",
+    },
     subtitle: {
         control: "text",
         description: "Smaller text displayed below the center title.",
@@ -53,6 +57,10 @@ const meta = {
         table: { disable: true },
     },
     dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+    titleText: {
         control: false,
         table: { disable: true },
     },
@@ -74,7 +82,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         id: "myChart",
-        titleText: "Title",
+        title: "Title",
         subtitle: "Subtext",
         ariaLabel: "Doughnut chart showing five color categories",
         data: {
@@ -117,7 +125,7 @@ export const Default: Story = {
 export const Advanced: Story = {
     args: {
         id: "doughnutchart",
-        titleText: "Title Sample",
+        title: "Title Sample",
         subtitle: "total",
         ariaLabel: "Doughnut chart showing total sales, revenue, and expenses",
         data: {

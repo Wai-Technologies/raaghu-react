@@ -22,7 +22,7 @@ figma.connect(
         "Mac": ScrollBarType.Mac,
         "Simple": ScrollBarType.Simple,
       }),
-      position: figma.enum("📍 Position", {
+      scrollTo: figma.enum("📍 Position", {
         "Start": ScrollPosition.Start,
         "Middle": ScrollPosition.Middle,
         "End": ScrollPosition.End,

@@ -3,6 +3,7 @@ import { Box, type SxProps, type Theme } from "@mui/material";
 import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import clsx from "clsx";
+import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import "./rds-comp-scrollbar.scss";
 export { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
@@ -10,6 +11,9 @@ import { ScrollBarType, ScrollPosition } from './rds-comp-scrollbar-types';
 export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style'> {
   variant?: ScrollBarType;
   type?: ScrollBarType;
+  /** Initial scroll offset within the content. */
+  scrollTo?: ScrollPosition;
+  /** @deprecated Use `scrollTo` instead. Collides with CSS `position`. */
   position?: ScrollPosition;
   showButtons?: boolean;
   startIcon?: ReactNode;
@@ -24,7 +28,8 @@ export interface RdsScrollBarProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 const RdsCompScrollBar = ({
   variant,
   type,
-  position = ScrollPosition.Start,
+  scrollTo,
+  position,
   showButtons = true,
   startIcon,
   endIcon,
@@ -34,10 +39,12 @@ const RdsCompScrollBar = ({
   ref,
   ...rest
 }: RdsScrollBarProps) => {
+  if (position !== undefined) warnDeprecatedProp("RdsCompScrollBar", "position", "`scrollTo`");
+  const resolvedScrollTo = scrollTo ?? position ?? ScrollPosition.Start;
   const resolvedType = variant ?? type ?? ScrollBarType.Mac;
   const scrollContentRef = useRef<HTMLDivElement>(null);
 
-  const scrollToPosition = (pos: RdsScrollBarProps["position"]) => {
+  const applyScrollTo = (pos: ScrollPosition) => {
     const content = scrollContentRef.current;
     if (!content) return;
 
@@ -51,8 +58,8 @@ const RdsCompScrollBar = ({
   };
 
   useEffect(() => {
-    scrollToPosition(position);
-  }, [position]);
+    applyScrollTo(resolvedScrollTo);
+  }, [resolvedScrollTo]);
 
   const rootClassName = clsx("rds-scrollbar", resolvedType === ScrollBarType.Mac ? "rds-scrollbar--mac" : "rds-scrollbar--simple");
 
@@ -68,7 +75,7 @@ const RdsCompScrollBar = ({
           <button
             type="button"
             className="rds-scrollbar__button"
-            onClick={() => scrollToPosition(ScrollPosition.Start)}
+            onClick={() => applyScrollTo(ScrollPosition.Start)}
             aria-label="Scroll to top"
           >
             {startIcon ?? <KeyboardArrowUp fontSize="small" />}
@@ -76,7 +83,7 @@ const RdsCompScrollBar = ({
           <button
             type="button"
             className="rds-scrollbar__button"
-            onClick={() => scrollToPosition(ScrollPosition.End)}
+            onClick={() => applyScrollTo(ScrollPosition.End)}
             aria-label="Scroll to bottom"
           >
             {endIcon ?? <KeyboardArrowDown fontSize="small" />}

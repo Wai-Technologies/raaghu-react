@@ -463,7 +463,9 @@ describe('RdsDialog audit fixes', () => {
       const dialog = screen.getByRole('dialog');
       const labelId = dialog.getAttribute('aria-labelledby');
       expect(labelId).toBeTruthy();
-      expect(document.getElementById(labelId as string)).toHaveTextContent('My Title');
+      const labelEl = document.getElementById(labelId as string);
+      expect(labelEl).toHaveTextContent(/^My Title$/);
+      expect(labelEl?.textContent).toBe('My Title');
       expect(screen.getByRole('button', { name: 'close' })).toBeInTheDocument();
     });
   });

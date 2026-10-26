@@ -126,10 +126,10 @@ describe('RdsCompAiTypingSection', () => {
       expect(textarea.placeholder).toBe(placeholder);
     });
 
-    it('renders default placeholder when not provided', () => {
+    it('renders empty placeholder when not provided', () => {
       const { container } = render(<RdsCompAiTypingSection iconName="test" />);
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
-      expect(textarea.placeholder).toBe('Placeholder Text');
+      expect(textarea.placeholder).toBe('');
     });
 
     it('hides placeholder when enhanced image is present', () => {
@@ -511,7 +511,7 @@ it('hides enhance icon when input has text', () => {
         <RdsCompAiTypingSection iconName="test" />
       );
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
-      expect(textarea.placeholder).toBe('Placeholder Text');
+      expect(textarea.placeholder).toBe('');
     });
 
     it('handles empty previewImage prop', () => {

@@ -1,5 +1,6 @@
 
 import type { ReactNode, MouseEvent } from 'react';
+import { useId } from 'react';
 import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import clsx from 'clsx';
@@ -89,6 +90,7 @@ const RdsDialog = ({
   onPrimaryClick,
   onSecondaryClick,
   slotProps,
+  'aria-labelledby': ariaLabelledByProp,
   ...props
 }: RdsDialogProps) => {
   if (showTitleProp !== undefined) warnDeprecatedProp('RdsDialog', 'showTitle', '`title={undefined}`');
@@ -97,33 +99,84 @@ const RdsDialog = ({
   const showTitle = showTitleProp ?? true;
   const showClose = showCloseButtonProp ?? showDissmiss ?? true;
   const resolvedSize = size ?? 'medium';
+  const titleId = useId();
+  // Label by the title text only so the close button's name is not part of the dialog name.
+  const labelledBy = ariaLabelledByProp ?? (showTitle && title ? titleId : undefined);
   const closeFromButton = (event: MouseEvent<HTMLButtonElement>) => {
     (onClose as ((event: MouseEvent<HTMLButtonElement>) => void) | undefined)?.(event);
   };
+
+  const titleRow = (opts: { confirm: boolean }) =>
+    ((title && showTitle) || showClose) && (
+      <DialogTitle
+        component="div"
+        className={opts.confirm ? 'rds-dialog__title' : undefined}
+        sx={
+          opts.confirm
+            ? undefined
+            : {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 1,
+                pr: showClose ? 1 : undefined,
+              }
+        }
+      >
+        {opts.confirm ? (
+          <div className="rds-dialog__title-inner">
+            <div style={{ flex: 1 }}>
+              {showTitle && title ? <span id={titleId}>{title}</span> : null}
+            </div>
+            {showClose && (
+              <IconButton aria-label="close" className="rds-dialog__close-button" onClick={closeFromButton} size="medium">
+                <CloseIcon />
+              </IconButton>
+            )}
+          </div>
+        ) : (
+          <>
+            <Box
+              sx={{
+                flex: '1 1 auto',
+                minWidth: 0,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {showTitle && title ? <span id={titleId}>{title}</span> : null}
+            </Box>
+            {showClose && onClose && (
+              <IconButton
+                aria-label="close"
+                onClick={closeFromButton}
+                sx={{
+                  flex: '0 0 auto',
+                  color: 'var(--rds-neutral-500)',
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            )}
+          </>
+        )}
+      </DialogTitle>
+    );
 
   if (variant === 'confirm' || variant === 'standard') {
     return (
       <MuiDialog
         onClose={onClose}
         maxWidth={resolvedSize ? SIZE_MAP[resolvedSize] : resolvedSize}
+        aria-labelledby={labelledBy}
         {...props}
         slotProps={{
           ...slotProps,
           paper: mergePaperSlotProps({ className: 'rds-dialog rds-dialog__paper' }, slotProps?.paper),
         }}
       >
-        {((title && showTitle) || showClose) && (
-          <DialogTitle className="rds-dialog__title">
-            <div className="rds-dialog__title-inner">
-              <div style={{ flex: 1 }}>{showTitle ? title : null}</div>
-              {showClose && (
-                <IconButton aria-label="close" className="rds-dialog__close-button" onClick={closeFromButton} size="medium" >
-                  <CloseIcon />
-                </IconButton>
-              )}
-            </div>
-          </DialogTitle>
-        )}
+        {titleRow({ confirm: true })}
         <DialogContent className="rds-dialog__content" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', textAlign: 'center' }}>{children}</DialogContent>
         <DialogActions className="rds-dialog__actions">
           {showSecondary && (
@@ -155,44 +208,11 @@ const RdsDialog = ({
   <MuiDialog
     onClose={onClose}
     maxWidth={resolvedSize ? SIZE_MAP[resolvedSize] : resolvedSize}
+    aria-labelledby={labelledBy}
     {...props}
     slotProps={slotProps}
   >
-      {((title && showTitle) || showClose) && (
-        <DialogTitle
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 1,
-            pr: showClose ? 1 : undefined,
-          }}
-        >
-          <Box
-            sx={{
-              flex: '1 1 auto',
-              minWidth: 0,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {showTitle ? title : null}
-          </Box>
-          {showClose && onClose && (
-            <IconButton
-              aria-label="close"
-              onClick={closeFromButton}
-              sx={{
-                flex: '0 0 auto',
-                color: 'var(--rds-neutral-500)',
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          )}
-        </DialogTitle>
-      )}
+      {titleRow({ confirm: false })}
       <DialogContent>
         {children}
       </DialogContent>

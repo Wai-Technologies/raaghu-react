@@ -17,8 +17,8 @@ const meta: Meta = {
             code = code.replace(/variant="([^"]+)"/g, (match, p1) => `variant={ScrollBarType.${p1}}`);
             code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={ScrollBarType.${p1}}`);
             code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: ScrollBarType.${p1}`);
-            code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={ScrollPosition.${p1}}`);
-            code = code.replace(/position:\s*"([^"]+)"/g, (match, p1) => `position: ScrollPosition.${p1}`);
+            code = code.replace(/scrollTo="([^"]+)"/g, (match, p1) => `scrollTo={ScrollPosition.${p1}}`);
+            code = code.replace(/scrollTo:\s*"([^"]+)"/g, (match, p1) => `scrollTo: ScrollPosition.${p1}`);
             return code;
           }
         }
@@ -34,10 +34,10 @@ const meta: Meta = {
           options: ["Mac", "Simple"],
           description: "Type of scrollbar",
         },
-        position: {
+        scrollTo: {
           control: "select",
           options: ["Start", "Middle", "End"],
-          description: "Initial scroll position",
+          description: "Initial scroll offset within the content",
         },
         showButtons: {
           control: "boolean",
@@ -52,7 +52,7 @@ type Story = StoryObj<typeof RdsScrollBar>;
 export const Default: Story = {
     args: {
       variant: ScrollBarType.Mac,
-      position: ScrollPosition.Start,
+      scrollTo: ScrollPosition.Start,
       showButtons: true,
       startIcon: <ArrowDropUp />,
       endIcon: <ArrowDropDown />,
@@ -62,5 +62,5 @@ export const Default: Story = {
       expect(el).toBeTruthy();
     },
 } satisfies Story;
-   Default.parameters = { controls: { include: ['variant', 'position', 'showButtons', 'className', 'sx', 'ref'] } };
+   Default.parameters = { controls: { include: ['variant', 'scrollTo', 'showButtons', 'className', 'sx', 'ref'] } };
     
