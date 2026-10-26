@@ -333,6 +333,20 @@ describe('RdsInput audit fixes', () => {
     expect(screen.getByRole('textbox', { name: 'Search term' })).toBeInTheDocument();
   });
 
+  it('shows the label inside the field when titlePosition is undefined (G2-028)', () => {
+    const { container } = render(<RdsInput label="Search term" required />);
+    const muiLabel = container.querySelector('.MuiInputLabel-root');
+    expect(muiLabel).toHaveTextContent('Search term');
+    expect(muiLabel?.querySelector('.MuiFormLabel-asterisk')).toBeInTheDocument();
+    expect(container.querySelector('.rds-input__label')).not.toBeInTheDocument();
+  });
+
+  it('does not render a second MUI label for title-above (G2-028)', () => {
+    const { container } = render(<RdsInput label="City" titlePosition="title-above" />);
+    expect(container.querySelector('.MuiInputLabel-root')).not.toBeInTheDocument();
+    expect(container.querySelector('.rds-input__label')).toHaveTextContent('City');
+  });
+
   it('accepts helperText and required as the new names (G2-035)', () => {
     render(<RdsInput label="City" titlePosition="title-above" helperText="Where you live" required />);
     expect(screen.getByText('Where you live')).toBeInTheDocument();

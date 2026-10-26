@@ -32,11 +32,11 @@ export interface KanbanSubCard {
   ticketDate: string;
   SubcardId: number;
   actions: KanbanAction[];
-  /** Identifier shown in the card header. Falls back to `RDS110110` when omitted. */
+  /** Identifier shown in the card header. Nothing is rendered when omitted. */
   displayId?: string;
-  /** Badge label shown in the card header. Falls back to `Badge` when omitted. */
+  /** Badge label shown in the card header. No badge is rendered when omitted. */
   badge?: string;
-  /** Body text shown under the question. When omitted the legacy body is rendered. */
+  /** Body text shown under the title. When omitted the body shows the title and ticket id, or just the title. */
   description?: string;
   /** Card id. Takes precedence over `SubcardId`. */
   id?: number;

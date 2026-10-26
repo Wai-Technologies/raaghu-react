@@ -1,6 +1,7 @@
 import RdsCompProductTour from "./rds-comp-product-tour";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { renderFormInputs } from './product-tour-helpers';
 
 const meta: Meta = {
     title: "Components/Product Tour",
@@ -80,5 +81,19 @@ export const Default: Story = {
             { id: 9, imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"},
             { id: 10, imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"},
         ],
+    },
+};
+
+export const FormWithInputs: Story = {
+    args: {
+        variant: "Form",
+        anchorCorner: "top-left",
+        subtitle: "Getting Started Tour",
+        title: "Tour Title",
+        description: "In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.",
+        steps: 3,
+        activeStep: 1,
+        items: ["Designers", "Developers", "Managers"],
+        children: renderFormInputs(),
     },
 };

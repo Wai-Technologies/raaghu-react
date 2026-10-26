@@ -8,6 +8,7 @@ import RdsAutocomplete, { type RdsAutocompleteProps } from "../../raaghu-element
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import RdsCompAiAttachment, {
   type Comment as AttachmentComment,
+  type RdsCompAiAttachmentSlotProps,
 } from "../rds-comp-ai-attachment/rds-comp-ai-attachment";
 import RdsCompAiIcon, { registerMaterialIcons } from "../rds-comp-ai-icon/rds-comp-ai-icon";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -37,19 +38,24 @@ export interface RdsCompAiTypingSectionProps extends Omit<HTMLAttributes<HTMLDiv
   type?: string;
   /** @deprecated Use `slotProps.autocomplete.sx` instead. */
   autoCompleteMaxWidth?: string;
-  /** Props passed to inner slots; `autocomplete.sx` is merged into the frontend selector. */
-  slotProps?: { autocomplete?: Partial<RdsAutocompleteProps<RdsCompAiTypingSectionOption>> };
-  /** Called when the "New Project" button is clicked. */
+  /** Props passed to inner slots; `autocomplete.sx` is merged into the frontend selector and `attachment` overrides the attachment menu and dialog copy. */
+  slotProps?: {
+    autocomplete?: Partial<RdsAutocompleteProps<RdsCompAiTypingSectionOption>>;
+    attachment?: RdsCompAiAttachmentSlotProps;
+  };
+  /** Called when the "New Project" button is clicked. The button is rendered only when provided. */
   onNewProjectClick?: () => void;
-  /** Called when the "Import From Figma" button is clicked. */
+  /** Called when the "Import From Figma" button is clicked. The button is rendered only when provided. */
   onImportFromFigmaClick?: () => void;
-  /** Options of the frontend selector (defaults to Raaghu). */
+  /** Options of the frontend selector. The selector is hidden when empty. */
   autocompleteOptions?: RdsCompAiTypingSectionOption[];
+  /** Badge label on the attachment menu button. No badge is shown when omitted. */
+  attachmentBadge?: string | null;
   ref?: Ref<HTMLDivElement>;
   sx?: SxProps<Theme>;
 }
 
-const DEFAULT_AUTOCOMPLETE_OPTIONS: RdsCompAiTypingSectionOption[] = [{ label: "Raaghu", value: 1 }];
+const DEFAULT_AUTOCOMPLETE_OPTIONS: RdsCompAiTypingSectionOption[] = [];
 
 registerMaterialIcons({
   enhance: AutoAwesomeOutlinedIcon,
@@ -83,6 +89,7 @@ const RdsCompAiTypingSectionComponent = ({
   onNewProjectClick,
   onImportFromFigmaClick,
   autocompleteOptions = DEFAULT_AUTOCOMPLETE_OPTIONS,
+  attachmentBadge,
   className,
   ref,
   sx,
@@ -97,6 +104,17 @@ const RdsCompAiTypingSectionComponent = ({
   const resolvedPlaceholder = placeholder ?? placeholderText;
   const resolvedImage = imageSrc ?? previewImage;
   const { sx: autocompleteSx, ...autocompleteSlotProps } = slotProps?.autocomplete ?? {};
+  const attachmentSlotProps = useMemo<RdsCompAiAttachmentSlotProps>(
+    () => ({
+      menu: { ...ATTACHMENT_SLOT_PROPS.menu, ...slotProps?.attachment?.menu },
+      dialog: { ...ATTACHMENT_SLOT_PROPS.dialog, ...slotProps?.attachment?.dialog },
+    }),
+    [slotProps?.attachment]
+  );
+  const showNewProject = onNewProjectClick !== undefined;
+  const showImportFromFigma = onImportFromFigmaClick !== undefined;
+  const showProjectActions = showNewProject || showImportFromFigma;
+  const showAutocomplete = autocompleteOptions.length > 0;
   const [inputText, setInputText] = useState<string>("");
   const [isMobile, setIsMobile] = useState<boolean>(() => typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
@@ -186,14 +204,14 @@ const RdsCompAiTypingSectionComponent = ({
           <div className="rds-comp-ai-typing-section__action-icons">
             <div className="rds-comp-ai-typing-section__attach">
               <RdsCompAiAttachment
-                badge="Premium"
+                badge={attachmentBadge ?? null}
                 badgeProps={{ color: "primary" }}
                 onAddComment={handleAddComment}
                 icon="attachment_icon"
                 onFigmaUrlChange={handleFigmaSubmit}
                 onFileSelect={handleFileSelect}
                 placement="end"
-                slotProps={ATTACHMENT_SLOT_PROPS}
+                slotProps={attachmentSlotProps}
               />
             </div>
             <div className="rds-comp-ai-typing-section__send">
@@ -210,45 +228,55 @@ const RdsCompAiTypingSectionComponent = ({
           </div>
         </div>
       </div>
-      <div className="rds-comp-ai-typing-section__button-sections">
-        <div className="rds-comp-ai-typing-section__project-actions">
-          <div className="rds-comp-ai-typing-section__action-button rds-comp-ai-typing-section__action-button--project">
-            <RdsButton
-              color="primary"
-              changeLeftIcon="add"
-              showLeftIcon
-              text="New Project"
-              onClick={onNewProjectClick}
-              variant="filled"
-              size={isMobile ? "small" : "medium"}
-            />
-          </div>
-          <div className="rds-comp-ai-typing-section__action-button rds-comp-ai-typing-section__action-button--figma">
-            <RdsButton
-              color="primary"
-              changeLeftIcon="add"
-              showLeftIcon
-              text="Import From Figma"
-              onClick={onImportFromFigmaClick}
-              variant="outlined"
-              size={isMobile ? "small" : "medium"}
-            />
-          </div>
+      {(showProjectActions || showAutocomplete) && (
+        <div className="rds-comp-ai-typing-section__button-sections">
+          {showProjectActions && (
+            <div className="rds-comp-ai-typing-section__project-actions">
+              {showNewProject && (
+                <div className="rds-comp-ai-typing-section__action-button rds-comp-ai-typing-section__action-button--project">
+                  <RdsButton
+                    color="primary"
+                    changeLeftIcon="add"
+                    showLeftIcon
+                    text="New Project"
+                    onClick={onNewProjectClick}
+                    variant="filled"
+                    size={isMobile ? "small" : "medium"}
+                  />
+                </div>
+              )}
+              {showImportFromFigma && (
+                <div className="rds-comp-ai-typing-section__action-button rds-comp-ai-typing-section__action-button--figma">
+                  <RdsButton
+                    color="primary"
+                    changeLeftIcon="add"
+                    showLeftIcon
+                    text="Import From Figma"
+                    onClick={onImportFromFigmaClick}
+                    variant="outlined"
+                    size={isMobile ? "small" : "medium"}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+          {showAutocomplete && (
+            <div className="rds-comp-ai-typing-section__autocomplete" style={autocompleteStyle}>
+              <RdsAutocomplete
+                controlStyle="default"
+                required={false}
+                label=""
+                options={autocompleteOptions}
+                placeholder="Select Frontend"
+                showHintText={false}
+                showTitle={false}
+                {...autocompleteSlotProps}
+                sx={autocompleteSx}
+              />
+            </div>
+          )}
         </div>
-        <div className="rds-comp-ai-typing-section__autocomplete" style={autocompleteStyle}>
-          <RdsAutocomplete
-            controlStyle="default"
-            required={false}
-            label=""
-            options={autocompleteOptions}
-            placeholder="Select Frontend"
-            showHintText={false}
-            showTitle={false}
-            {...autocompleteSlotProps}
-            sx={autocompleteSx}
-          />
-        </div>
-      </div>
+      )}
     </Box>
   );
 };

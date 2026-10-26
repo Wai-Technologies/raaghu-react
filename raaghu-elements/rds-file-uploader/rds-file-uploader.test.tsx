@@ -34,8 +34,8 @@ jest.mock('./RdsFileUploaderComponents', () => ({
       Drop Zone With Button
     </div>
   ),
-  RdsDropZoneDefault: ({ openFileDialog }: any) => (
-    <button type="button" data-testid="drop-zone-default" onClick={openFileDialog} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+  RdsDropZoneDefault: ({ openFileDialog, accept }: any) => (
+    <button type="button" data-testid="drop-zone-default" data-accept={accept} onClick={openFileDialog} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
       Drop Zone Default
     </button>
   ),
@@ -183,7 +183,12 @@ describe('RdsFileUploader', () => {
 
     it('should show default hint when no hintText provided', () => {
       setup({ mode: 'default', showHint: true });
-      expect(screen.getByText('Maximum 5MB')).toBeInTheDocument();
+      expect(screen.getByText('Maximum 10 MB')).toBeInTheDocument();
+    });
+
+    it('derives the default hint from maxSize', () => {
+      setup({ mode: 'default', showHint: true, maxSize: 2 * 1024 * 1024 });
+      expect(screen.getByText('Maximum 2 MB')).toBeInTheDocument();
     });
   });
 
@@ -507,6 +512,52 @@ describe('audit fixes', () => {
     });
   });
 
+  describe('G1-274 oversize files', () => {
+    const { RdsFileList: ActualFileList } = jest.requireActual('./RdsFileUploaderComponents');
+
+    it('flags an oversize file with an error', () => {
+      const { result } = renderHook(() => useActualFileUploader({ maxSize: 0, maxFiles: 5, isMandatory: false }));
+      act(() => result.current.addFiles([makeFile('big.pdf')]));
+      expect(result.current.files[0].error).toBe('File size exceeds 0 Bytes');
+    });
+
+    it('shows the error under the file name in the file list', () => {
+      const files = [
+        { file: makeFile('big.pdf'), progress: 0, error: 'File size exceeds 0 Bytes' },
+        { file: makeFile('ok.pdf'), progress: 0 },
+      ];
+      render(<ActualFileList files={files} isUploading={false} removeFile={jest.fn()} formatFileSize={() => '1 KB'} />);
+      expect(screen.getByRole('alert')).toHaveTextContent('File size exceeds 0 Bytes');
+      expect(screen.getAllByRole('alert')).toHaveLength(1);
+    });
+  });
+
+  describe('G1-275 accept label', () => {
+    const { RdsDropZoneDefault: ActualDropZone, RdsDropZoneSideIcon: ActualSideIcon } = jest.requireActual('./RdsFileUploaderComponents');
+    const dropProps = { mode: 'default', isDragOver: false, disabled: false, onDragOver: jest.fn(), onDragLeave: jest.fn(), onDrop: jest.fn(), openFileDialog: jest.fn() };
+
+    it.each([
+      ['.png,.jpg', '(PNG, JPG)'],
+      ['image/*', '(IMAGE)'],
+      ['application/pdf, .pdf', '(PDF)'],
+      [undefined, '(All files)'],
+    ])('derives the label for accept=%s', (accept, label) => {
+      render(<ActualDropZone {...dropProps} accept={accept} />);
+      expect(screen.getByText(label)).toBeInTheDocument();
+      expect(screen.queryByText(/DOC, PDF, PPT/)).not.toBeInTheDocument();
+    });
+
+    it('derives the label in the side-icon drop zone', () => {
+      render(<ActualSideIcon {...dropProps} accept=".docx" />);
+      expect(screen.getByText('(DOCX)')).toBeInTheDocument();
+    });
+
+    it('passes accept to the drop zones', () => {
+      render(<RdsFileUploader mode="default" accept=".pdf" />);
+      expect(screen.getByTestId('drop-zone-default')).toHaveAttribute('data-accept', '.pdf');
+    });
+  });
+
   describe('standard view', () => {
     it('G1-271 passes `accept` to the file input', () => {
       const { container } = render(<ActualStandardView {...standardViewProps({ accept: '.pdf' })} />);
@@ -525,6 +576,14 @@ describe('audit fixes', () => {
     it('G1-270 names the remove button after the file', () => {
       render(<ActualStandardView {...standardViewProps({ selectedFileName: 'a.pdf' })} />);
       expect(screen.getByRole('button', { name: 'Remove a.pdf' })).toBeInTheDocument();
+    });
+
+    it('G1-270 renders a Close icon in the remove button by default and lets children override it', () => {
+      const { rerender } = render(<ActualStandardView {...standardViewProps({ selectedFileName: 'a.pdf' })} />);
+      expect(screen.getByRole('button', { name: 'Remove a.pdf' }).querySelector('svg[data-testid="CloseIcon"]')).toBeInTheDocument();
+      rerender(<ActualStandardView {...standardViewProps({ selectedFileName: 'a.pdf', children: <span data-testid="custom-remove" /> })} />);
+      expect(screen.getByTestId('custom-remove')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Remove a.pdf' }).querySelector('svg[data-testid="CloseIcon"]')).not.toBeInTheDocument();
     });
 
     it('describes the Choose File control with the visible label', () => {

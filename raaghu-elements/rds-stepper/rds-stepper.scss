@@ -15,9 +15,10 @@ $rds-stepper-breakpoint-sm: 420px;
 @media (max-width: $rds-stepper-breakpoint-sm) {
   .rds-stepper {
     margin-left: var(--rds-stepper-mobile-offset-left);
-  }
-  .MuiStep-root {
-    padding-right: var(--rds-stepper-mobile-step-padding-right) !important;
+
+    .MuiStep-root {
+      padding-right: var(--rds-stepper-mobile-step-padding-right) !important;
+    }
   }
 }
 

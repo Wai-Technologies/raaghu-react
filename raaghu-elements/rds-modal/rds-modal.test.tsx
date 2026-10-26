@@ -695,20 +695,25 @@ describe('audit fixes', () => {
     expect(screen.getByRole('dialog')).not.toHaveAttribute('showclosebutton');
   });
   it('uses imageAlt, defaulting to Modal', () => {
-    const { rerender } = render(<RdsModal onClose={jest.fn()} imageSrc="a.png">b</RdsModal>);
+    const { rerender } = render(<RdsModal onClose={jest.fn()} open imageSrc="a.png">b</RdsModal>);
     expect(screen.getByAltText('Modal')).toBeInTheDocument();
-    rerender(<RdsModal onClose={jest.fn()} imageSrc="a.png" imageAlt="">b</RdsModal>);
+    rerender(<RdsModal onClose={jest.fn()} open imageSrc="a.png" imageAlt="">b</RdsModal>);
     expect(document.querySelector('img')).toHaveAttribute('alt', '');
+  });
+
+  it('stays closed when open is not set (G2-092)', () => {
+    render(<RdsModal onClose={jest.fn()} title="T">body</RdsModal>);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });
 
 describe('audit fixes', () => {
   it('hideCloseButton hides the close button and wins over headerChrome', () => {
-    render(<RdsModal onClose={jest.fn()} title="T" hideCloseButton headerChrome="closeable">b</RdsModal>);
+    render(<RdsModal onClose={jest.fn()} open title="T" hideCloseButton headerChrome="closeable">b</RdsModal>);
     expect(screen.queryByLabelText('close')).not.toBeInTheDocument();
   });
   it('hideCloseButton false keeps the close button', () => {
-    render(<RdsModal onClose={jest.fn()} title="T" hideCloseButton={false} headerChrome="plain">b</RdsModal>);
+    render(<RdsModal onClose={jest.fn()} open title="T" hideCloseButton={false} headerChrome="plain">b</RdsModal>);
     expect(screen.getByLabelText('close')).toBeInTheDocument();
   });
   it('legacy visibility, media and body still work', () => {

@@ -298,11 +298,11 @@ describe('RdsBanner', () => {
       has(setup().container, '.rds-banner__close-button');
     });
 
-    it('should show all buttons by default', () => {
+    it('should hide action buttons by default', () => {
       setup();
-      expect(screen.getByText('Link')).toBeInTheDocument();
-      expect(screen.getByText('Cancel')).toBeInTheDocument();
-      expect(screen.getByText('Okay')).toBeInTheDocument();
+      expect(screen.queryByText('Link')).not.toBeInTheDocument();
+      expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
+      expect(screen.queryByText('Okay')).not.toBeInTheDocument();
     });
 
     it('should have persistent disabled by default', () => {
@@ -446,6 +446,9 @@ describe('RdsBanner audit fixes', () => {
     render(
       <RdsBanner
         description="Message"
+        showLink
+        showSecondary
+        showPrimary
         linkText="Details"
         secondaryText="Dismiss"
         primaryText="Confirm"
@@ -462,11 +465,11 @@ describe('RdsBanner audit fixes', () => {
     expect(onPrimaryClick).toHaveBeenCalledTimes(1);
   });
 
-  it('keeps the default buttons and labels (no visual change)', () => {
+  it('hides action buttons by default (G1-097)', () => {
     render(<RdsBanner description="Message" />);
-    expect(screen.getByText('Link')).toBeInTheDocument();
-    expect(screen.getByText('Cancel')).toBeInTheDocument();
-    expect(screen.getByText('Okay')).toBeInTheDocument();
+    expect(screen.queryByText('Link')).not.toBeInTheDocument();
+    expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
+    expect(screen.queryByText('Okay')).not.toBeInTheDocument();
   });
 
   it('accepts the MUI icon prop and hides it with false (G1-098)', () => {

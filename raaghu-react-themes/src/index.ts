@@ -1,4 +1,12 @@
-export { lightTheme, darkTheme, designSystemComponentOverrides } from './mui';
+export {
+  raaghuTheme,
+  createRaaghuTheme,
+  lightTheme,
+  darkTheme,
+  designSystemComponentOverrides,
+  applyBrandOverridesToPalette,
+  type RaaghuMuiTheme,
+} from './mui';
 export { designTokens } from '../tokens/design-tokens';
 export { injectTokens, buildRdsCssVars, buildStaticCssSnapshot, type RdsThemeMode, type RdsBrandOverrides } from '../tokens/build-rds-css-vars';
 export { RaaghuThemeProvider, useRaaghuTheme, type RaaghuThemeProviderProps } from './provider/RaaghuThemeProvider';

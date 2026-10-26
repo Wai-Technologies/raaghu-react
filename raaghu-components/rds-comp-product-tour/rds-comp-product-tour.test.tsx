@@ -983,6 +983,14 @@ describe('RdsCompProductTour', () => {
       expect(container.querySelector('.rds-comp-product-tour__corner-dot--bottom-right')).toBeTruthy();
     });
 
+    it('G6-058: renders no mock form inputs unless children are provided', () => {
+      const { rerender } = render(<RdsCompProductTour variant="Form" title="T" />);
+      expect(screen.queryByPlaceholderText('Enter Project Name')).not.toBeInTheDocument();
+      expect(screen.queryByText('Option 1')).not.toBeInTheDocument();
+      rerender(<RdsCompProductTour variant="Form" title="T"><span data-testid="custom-form" /></RdsCompProductTour>);
+      expect(screen.getByTestId('custom-form')).toBeInTheDocument();
+    });
+
     it('warns for deprecated props', () => {
       const { warnDeprecatedProp } = jest.requireMock('../../raaghu-elements/shared/utils/deprecation');
       render(<RdsCompProductTour variant="Image" formTitle="x" tabTitle={['a']} stepsIndicator="1/2" topLeft />);

@@ -36,6 +36,8 @@
     "**/*.test.*",
     "**/*.spec.*",
     "**/*.figma.*",
+    "**/rds-carousel-figma-slide.tsx",
+    "**/rds-file-uploader-render.tsx",
     "types/jest-axe.d.ts",
     "raaghu-components/rds-comp-tree-structure/**",
     "raaghu-components/rds-comp-adaptive-cards/**",

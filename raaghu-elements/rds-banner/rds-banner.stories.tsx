@@ -13,6 +13,9 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
   },
   args: {
     showOutline: false,
+    showLink: true,
+    showSecondary: true,
+    showPrimary: true,
   },
   decorators: [
     (Story, ctx) => {

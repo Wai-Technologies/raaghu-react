@@ -3,8 +3,6 @@ import { AppBar as MuiAppBar, IconButton, type AppBarProps, InputBase, Tabs, Tab
 import { ProfileMenu, type ProfileMenuItem } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Menu as MenuIcon } from '@mui/icons-material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Person from '@mui/icons-material/Person';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-header.scss';
@@ -36,7 +34,7 @@ export interface RdsHeaderProps extends Omit<AppBarProps, 'component'> {
   tabValue?: number;
   /** @deprecated Use `onTabsChange` instead. */
   onTabChange?: (value: number) => void;
-  /** Items of the profile menu shown when `user.name`, `user.initials` and `user.email` are set. Defaults to "My Profile" and "Logout". */
+  /** Items of the profile menu shown when `user.name`, `user.initials` and `user.email` are set. Pass explicitly; there is no demo default. */
   profileMenuItems?: ProfileMenuItem[];
   subHeader?: ReactNode;
   children?: ReactNode;
@@ -133,10 +131,7 @@ const RdsHeader = ({
               name={userName}
               shortName={userShortName}
               email={userEmail}
-              menuItems={profileMenuItems ?? [
-                { label: 'My Profile', icon: <Person />, onClick: () => alert('Profile clicked!') },
-                { label: 'Logout', icon: <LogoutIcon />, onClick: () => alert('Logout clicked!'), sx: { color: 'var(--rds-error-main)' } },
-              ]}
+              menuItems={profileMenuItems}
             />
           </span>
         ) : (

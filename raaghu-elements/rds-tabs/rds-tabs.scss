@@ -162,7 +162,7 @@
   border-top-color: var(--rds-color-hover-bg) !important;
 }
 
-.css-jhczcq-MuiTabs-root{
+.rds-tabs .MuiTabs-root {
   overflow: visible !important;
 }
 
@@ -171,17 +171,15 @@
   background-color: transparent !important;
 }
 
-.MuiTab-root {
+.rds-tabs .MuiTab-root {
   position: relative !important;
   overflow: visible !important;
-}
-
-.css-1usuzwp-MuiButtonBase-root-MuiTab-root{
-  overflow: visible !important;
   max-width: var(--rds-tabs-tab-max-width, 150px) !important;
+  min-width: var(--rds-tabs-tab-min-width, 120px) !important;
+  width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
-.MuiTabs-scroller{
+.rds-tabs .MuiTabs-scroller {
   overflow: visible !important;
 }
 
@@ -264,12 +262,7 @@
    font-size: 1.2em;        
 }
 
-.css-nowihk-MuiButtonBase-root-MuiTab-root,
-.css-r0euln-MuiButtonBase-root-MuiTab-root {
-  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
-}
-
-.MuiTabs-vertical .MuiTab-root {
+.rds-tabs .MuiTabs-vertical .MuiTab-root {
   max-width: var(--rds-tabs-tab-max-width, 150px) !important;
   min-width: var(--rds-tabs-tab-min-width, 120px) !important;
   width: var(--rds-tabs-tab-max-width, 150px) !important;
@@ -280,21 +273,10 @@
   width: var(--rds-tabs-tab-max-width, 150px) !important;
 }
 
-.MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
+.rds-tabs .MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
   max-width: var(--rds-tabs-tab-max-width, 150px) !important;
   min-width: var(--rds-tabs-tab-min-width, 120px) !important;
   width: var(--rds-tabs-tab-max-width, 150px) !important;
-}
-
-.MuiTab-root {
-  max-width: var(--rds-tabs-tab-max-width, 150px) !important;
-  min-width: var(--rds-tabs-tab-min-width, 120px) !important;
-  width: var(--rds-tabs-tab-max-width, 150px) !important;
-}
-
-.css-gb4ru6,
-.css-1ar1kv5 {
-  background-color: unset !important;
 }
 
 @include bp.down(sm) {

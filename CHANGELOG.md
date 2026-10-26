@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Moved `@mui/material`, `@mui/system`, `@mui/icons-material`, `@mui/lab`, `@mui/x-date-pickers`, `@emotion/react`, and `@emotion/styled` from runtime `dependencies` to `peerDependencies` (kept in `devDependencies` for this repo) so consuming apps install one MUI/Emotion copy.
+- `npm run type-check` now runs against `tsconfig.library.json` (same as `type-check:all`).
+
+### Fixed
+
+- Excluded `*.figma.*`, `rds-carousel-figma-slide.tsx`, and `rds-file-uploader-render.tsx` from the published npm tarball; declaration emit also skips the two helpers.
+- Removed obsolete `@types/react-datepicker` (react-datepicker 8 ships its own types).
+- Standard MUI Alert text uses palette `.dark` on light backgrounds for readable contrast.
+- Single MUI `raaghuTheme` with light/dark `colorSchemes` + CSS variables (`data-theme`); `brandOverrides` now update MUI palette channels as well as `--rds-*`.
+
 ## [2.0.0] - 2026-09-04
 
 ### Changed

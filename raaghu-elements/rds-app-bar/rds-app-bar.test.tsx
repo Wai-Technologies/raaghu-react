@@ -525,9 +525,9 @@ describe('RdsAppBar audit fixes', () => {
     expect(container.querySelector('header')).toHaveClass('MuiPaper-elevation4');
   });
 
-  it('uses custom profile menu items and keeps the two defaults (G1-026)', () => {
+  it('has no demo profile menu items by default and accepts custom ones (G1-026)', () => {
     const { rerender } = render(<RdsAppBar userName="Ann Lee" userEmail="ann@example.com" />);
-    expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('2');
+    expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('0');
     rerender(
       <RdsAppBar
         userName="Ann Lee"
@@ -538,24 +538,23 @@ describe('RdsAppBar audit fixes', () => {
     expect(screen.getByTestId('profile-menu-items')).toHaveTextContent('3');
   });
 
-  it('shows the default bottom actions on small screens and allows replacing or hiding them (G1-025)', () => {
+  it('has no demo bottom actions by default and allows custom content (G1-025)', () => {
     mockSmallScreen(true);
     const tabs = ['Home', 'Reports'];
     const { rerender } = render(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} />);
-    expect(screen.getByText('28 Days Left')).toBeInTheDocument();
+    expect(screen.queryByText('28 Days Left')).not.toBeInTheDocument();
+    expect(screen.queryByText('View Plans')).not.toBeInTheDocument();
 
     rerender(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} bottomActions={<span>Upgrade</span>} />);
-    expect(screen.queryByText('28 Days Left')).not.toBeInTheDocument();
     expect(screen.getByText('Upgrade')).toBeInTheDocument();
 
     rerender(<RdsAppBar variantStyle="withMenuButton" tabs={tabs} bottomActions={null} />);
     expect(screen.queryByText('Upgrade')).not.toBeInTheDocument();
-    expect(screen.queryByText('View Plans')).not.toBeInTheDocument();
   });
 
   it('keeps "With Menu Button" (with spaces) off the mobile bottom bar, as before', () => {
     mockSmallScreen(true);
-    render(<RdsAppBar variantStyle="With Menu Button" tabs={['Home']} />);
+    render(<RdsAppBar variantStyle="With Menu Button" tabs={['Home']} bottomActions={<span>28 Days Left</span>} />);
     expect(screen.queryByText('28 Days Left')).not.toBeInTheDocument();
   });
 
@@ -565,6 +564,57 @@ describe('RdsAppBar audit fixes', () => {
     expect(error.mock.calls.some(([msg]) => String(msg).includes('same key'))).toBe(false);
     error.mockRestore();
   });
+
+  it('merges consumer sx after theme-aware base styles (G1-041)', () => {
+    const { container } = render(<RdsAppBar sx={{ opacity: 0.87 }} />);
+    expect(container.querySelector('header')).toHaveStyle({ opacity: '0.87' });
+  });
+
+  it('keeps primary and transparent variant classes for theme sx hooks (G1-041)', () => {
+    const { container, rerender } = render(<RdsAppBar color="primary" />);
+    expect(container.querySelector('header')).toHaveClass('rds-header--primary');
+    rerender(<RdsAppBar color="transparent" />);
+    expect(container.querySelector('header')).toHaveClass('rds-header--transparent');
+  });
+
+  it('moves withMenuButton chrome to bottom nav classes and hides inline tabs (G1-041 Phase I/J)', () => {
+    mockSmallScreen(true);
+    const { container } = render(
+      <RdsAppBar variantStyle="withMenuButton" tabs={['Home', 'Reports']} tabValue={0} onTabChange={jest.fn()} />,
+    );
+    const header = container.querySelector('header');
+    expect(header).toHaveClass('rds-header--bottom-nav-active');
+    expect(header).toHaveClass('rds-header--withmenubutton-compact');
+    expect(header).toHaveClass('rds-header--withmenubutton-narrow');
+    expect(container.querySelector('.rds-header__tabs-inline')).not.toBeInTheDocument();
+    expect(container.querySelector('.rds-bottom-navigation')).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Home' })).toBeInTheDocument();
+  });
+
+  it.each([
+    ['logoSearchTabs', 'rds-header--logosearchtabs-compact', 'rds-header--logosearchtabs-narrow'],
+    ['logoSearchTabsActions', 'rds-header--logosearchtabsactions-compact', undefined],
+    ['logoTabsActions', 'rds-header--logotabsactions-compact', 'rds-header--logotabsactions-narrow'],
+    ['dashboardWithLang', 'rds-header--dashboardwithlang-compact', 'rds-header--dashboardwithlang-narrow'],
+  ] as const)('applies compact/narrow classes for %s (G1-041)', (variantStyle, compact, narrow) => {
+    mockSmallScreen(true);
+    const { container } = render(<RdsAppBar variantStyle={variantStyle} />);
+    const header = container.querySelector('header');
+    expect(header).toHaveClass(compact);
+    if (narrow) expect(header).toHaveClass(narrow);
+  });
+
+  it.each(['withTabs', 'withActions', 'withLogoAndTabs', 'withNotificationBadge'] as const)(
+    'applies tablet-compact + mobile-toolbar classes for %s (G1-041)',
+    (variantStyle) => {
+      mockSmallScreen(true);
+      const { container } = render(<RdsAppBar variantStyle={variantStyle} />);
+      const header = container.querySelector('header');
+      expect(header).toHaveClass('rds-header--tablet-compact');
+      expect(header).toHaveClass('rds-header--mobile-toolbar');
+      expect(header).toHaveClass('rds-header--mobile-toolbar-xs');
+    },
+  );
 });
 
 describe('RdsAppBar additive renames', () => {

@@ -57,11 +57,11 @@ export interface RdsBannerProps extends Omit<AlertProps, 'onClose' | 'component'
   showDescription?: boolean;
   /** Puts the title and description on separate lines. Defaults to `false`. Overridden by `content.multiline`. */
   multiline?: boolean;
-  /** Shows the link button. Defaults to `true`. Overridden by `actionsConfig.link`. */
+  /** Shows the link button. Defaults to `false`. Overridden by `actionsConfig.link`. */
   showLink?: boolean;
-  /** Shows the secondary button. Defaults to `true`. Overridden by `actionsConfig.secondary`. */
+  /** Shows the secondary button. Defaults to `false`. Overridden by `actionsConfig.secondary`. */
   showSecondary?: boolean;
-  /** Shows the primary button. Defaults to `true`. Overridden by `actionsConfig.primary`. */
+  /** Shows the primary button. Defaults to `false`. Overridden by `actionsConfig.primary`. */
   showPrimary?: boolean;
   /** Shows the close button. Defaults to `true`. Overridden by `actionsConfig.close`. */
   closable?: boolean;
@@ -119,9 +119,9 @@ const RdsBanner = ({
   const showTitle = pick(content?.title, 'visible', showTitleProp ?? false);
   const showDescription = pick(content?.description, 'visible', showDescriptionProp ?? true);
   const multiline = pick(content?.multiline, 'on', multilineProp ?? false);
-  const showLink = pick(actionsConfig?.link, 'visible', showLinkProp ?? true);
-  const showSecondary = pick(actionsConfig?.secondary, 'visible', showSecondaryProp ?? true);
-  const showPrimary = pick(actionsConfig?.primary, 'visible', showPrimaryProp ?? true);
+  const showLink = pick(actionsConfig?.link, 'visible', showLinkProp ?? false);
+  const showSecondary = pick(actionsConfig?.secondary, 'visible', showSecondaryProp ?? false);
+  const showPrimary = pick(actionsConfig?.primary, 'visible', showPrimaryProp ?? false);
   const closable = pick(actionsConfig?.close, 'visible', closableProp ?? true);
   const persistent = pick(layout?.persistent, 'on', persistentProp ?? false);
   const fullWidth = pick(layout?.width, 'full', fullWidthProp ?? true);

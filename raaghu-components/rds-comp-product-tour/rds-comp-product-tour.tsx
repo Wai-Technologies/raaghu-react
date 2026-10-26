@@ -16,7 +16,6 @@ import {
     renderCloseButton,
     renderNavRow,
     renderInfoSection,
-    renderFormInputs,
     renderCarouselNavigation,
     renderGifNavigation,
     renderFormNavigation
@@ -157,7 +156,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     const navRowElement = renderNavRow(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, "rds-comp-product-tour__stepcount", "rds-comp-product-tour__skip", "rds-comp-product-tour__arrows", onSkip);
     const carouselNavigationElement = renderCarouselNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
     const gifNavigationElement = renderGifNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
-    const formInputsElement = children ?? renderFormInputs();
+    const formInputsElement = children ?? null;
     const formNavigationElement = renderFormNavigation(currentIndicator, showTertiaryButton, showSecondaryButton, showPrimaryButton, handleBack, handleNext, onSkip);
 
     if (!isVisible) {

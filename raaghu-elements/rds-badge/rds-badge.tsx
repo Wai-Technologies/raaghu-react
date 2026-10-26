@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
+import { Badge as MuiBadge, Box, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
 import clsx from 'clsx';
 import { resolveDeprecatedProp } from '../shared/utils/deprecation';
@@ -12,7 +12,7 @@ type BadgeStyleVariant = 'primary' | 'outline' | 'transparent';
 const PALETTE_COLORS: readonly string[] = ['primary', 'secondary', 'tertiary', 'danger', 'error', 'warning', 'light', 'success'];
 const STYLE_VARIANTS: readonly string[] = ['primary', 'outline', 'transparent'];
 
-export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant'> {
+export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant' | 'color'> {
   /** MUI badge variant (`standard` | `dot`), or the visual style (`primary` | `outline` | `transparent`). Preferred over `styleType`. */
   variant?: BadgeProps['variant'] | BadgeStyleVariant;
   /** Disables the badge. */
@@ -97,7 +97,20 @@ const RdsBadge = ({
 
   if (!children) {
     if (isHidden) return null;
-    const text = badgeContent?.toString();
+    const {
+      sx,
+      ref,
+      anchorOrigin: _anchorOrigin,
+      overlap: _overlap,
+      invisible: _invisible,
+      slots: _slots,
+      slotProps: _slotProps,
+      classes: _classes,
+      components: _components,
+      componentsProps: _componentsProps,
+      ...spanProps
+    } = props;
+    const text = typeof badgeContent === 'number' && badgeContent > max ? `${max}+` : badgeContent?.toString();
     const renderIcon = (margin: { marginLeft?: number | string; marginRight?: number | string }) =>
       icon ?? <Notifications fontSize="small" sx={margin} />;
     const layoutStart =
@@ -114,9 +127,9 @@ const RdsBadge = ({
     );
 
     return (
-      <span className={bemClass}>
+      <Box component="span" {...spanProps} ref={ref} sx={sx} className={bemClass}>
         <span className="rds-badge__badge">{badgeInner}</span>
-      </span>
+      </Box>
     );
   }
 
@@ -130,7 +143,7 @@ const RdsBadge = ({
       showZero={showZero}
       max={max}
       color={muiColor}
-      variant={muiVariant}
+      variant={muiVariant as BadgeProps['variant']}
       {...props}
       className={bemClass}
     >

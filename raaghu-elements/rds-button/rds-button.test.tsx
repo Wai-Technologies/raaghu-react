@@ -96,18 +96,13 @@ describe('RdsButton audit fixes', () => {
     expect(button).toHaveClass('rds-button', 'my-button');
   });
 
-  it('converts theme-scaled sx numbers the way sx does instead of raw px (G1-136)', () => {
-    render(<RdsButton sx={{ padding: 2, minWidth: '120px' }}>Pad</RdsButton>);
+  it('does not copy sx into the inline style (G1-136)', () => {
+    render(<RdsButton sx={{ padding: 2, minWidth: '120px', mr: 2, '&:hover': { color: 'red' } }}>Pad</RdsButton>);
     const button = screen.getByRole('button', { name: 'Pad' });
-    expect(button.style.padding).toBe('16px');
-    expect(button.style.minWidth).toBe('120px');
-  });
-
-  it('does not copy shorthands or nested selectors into the inline style (G1-136)', () => {
-    render(<RdsButton sx={{ mr: 2, '&:hover': { color: 'red' } }}>Short</RdsButton>);
-    const button = screen.getByRole('button', { name: 'Short' });
-    expect(button.getAttribute('style')).not.toContain('mr');
-    expect(button.getAttribute('style')).not.toContain('hover');
+    expect(button.style.padding).toBe('');
+    expect(button.style.minWidth).toBe('');
+    expect(button.getAttribute('style') ?? '').not.toContain('mr');
+    expect(button.getAttribute('style') ?? '').not.toContain('hover');
   });
 
   it('accepts an array sx without crashing (G1-136)', () => {
@@ -115,11 +110,19 @@ describe('RdsButton audit fixes', () => {
     expect(screen.getByRole('button', { name: 'Array' })).toBeInTheDocument();
   });
 
-  it('supports loading as the replacement for isLoading (G1-138)', () => {
+  it('does not pin filled colours on the inline style so hover can win (G1-137)', () => {
+    render(<RdsButton variant="filled" color="primary">Fill</RdsButton>);
+    const button = screen.getByRole('button', { name: 'Fill' });
+    expect(button.style.backgroundColor).toBe('');
+    expect(button.style.color).toBe('');
+  });
+
+  it('supports loading as the replacement for isLoading (G1-133/G1-138)', () => {
     render(<RdsButton loading>Busy</RdsButton>);
     const button = screen.getByRole('button');
     expect(button).toBeDisabled();
     expect(button).toHaveClass('rds-button__loading');
+    expect(button.querySelector('.MuiCircularProgress-root')).toBeInTheDocument();
   });
 
   it('renders MUI startIcon and endIcon (G1-139/G1-140)', () => {

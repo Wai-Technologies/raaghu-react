@@ -38,12 +38,12 @@
 }
 
 @include bp.between(mobile-sm, 568) {
-  .css-3k03ww, .css-1fm6jzk {
+  .rds-range .MuiSlider-root {
     width: var(--rds-range-slider-width-mobile, 288px) !important;
   }
 }
 @include bp.between(mobile-lg, 896) {
-  .css-3k03ww, .css-1fm6jzk {
+  .rds-range .MuiSlider-root {
     width: var(--rds-range-slider-width-tablet, 382px) !important;
   }
 }

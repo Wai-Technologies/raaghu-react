@@ -576,12 +576,13 @@ describe('RdsCompToast', () => {
       expect(screen.getByText('10:30 AM')).toBeInTheDocument();
     });
 
-    it('should render Reply and Mark As Read buttons in chat layout with header', () => {
+    it('should render action slot buttons in chat layout with header', () => {
       render(
         <RdsCompToast
           {...defaultProps}
           layout={ToastLayout.Chat}
           showHeader={true}
+          action={<><button data-testid="rds-button">Reply</button><button data-testid="rds-button">Mark As Read</button></>}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
@@ -630,12 +631,13 @@ describe('RdsCompToast', () => {
       expect(screen.getByText('document.xlsx')).toBeInTheDocument();
     });
 
-    it('should render Cancel and Go To Downloads buttons in download layout', () => {
+    it('should render action slot buttons in download layout', () => {
       render(
         <RdsCompToast
           {...defaultProps}
           layout={ToastLayout.Download}
           showHeader={true}
+          action={<><button data-testid="rds-button">Cancel</button><button data-testid="rds-button">Go To Downloads</button></>}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
@@ -646,12 +648,13 @@ describe('RdsCompToast', () => {
   });
 
   describe('Request Layout Features', () => {
-    it('should render Reject and Accept buttons in request layout', () => {
+    it('should render action slot buttons in request layout', () => {
       render(
         <RdsCompToast
           {...defaultProps}
           layout={ToastLayout.Request}
           showHeader={true}
+          action={<><button data-testid="rds-button">Reject</button><button data-testid="rds-button">Accept</button></>}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
@@ -660,12 +663,13 @@ describe('RdsCompToast', () => {
       expect(buttonTexts).toContain('Accept');
     });
 
-    it('should render Reject and Accept buttons without header', () => {
+    it('should render action slot buttons without header', () => {
       render(
         <RdsCompToast
           {...defaultProps}
           layout={ToastLayout.Request}
           showHeader={false}
+          action={<><button data-testid="rds-button">Reject</button><button data-testid="rds-button">Accept</button></>}
         />
       );
       const buttons = screen.getAllByTestId('rds-button');
@@ -916,10 +920,12 @@ jest.mock('../../raaghu-elements/shared/utils/deprecation', () => ({ warnDepreca
 describe('audit fixes', () => {
   const base = { layout: 'text', severity: 'basic', showSubText: true, showHeader: true, showDismiss: true } as const;
 
-  it('G6-134 action slot replaces built-in buttons', () => {
-    render(<RdsCompToast {...base} layout="request" message="m" action={<button>Custom</button>} />);
-    expect(screen.getByText('Custom')).toBeInTheDocument();
+  it('G6-134 action slot renders and dead buttons stay off by default', () => {
+    const { rerender } = render(<RdsCompToast {...base} layout="request" message="m" />);
     expect(screen.queryByText('Accept')).not.toBeInTheDocument();
+    expect(screen.queryByText('Reject')).not.toBeInTheDocument();
+    rerender(<RdsCompToast {...base} layout="request" message="m" action={<button>Custom</button>} />);
+    expect(screen.getByText('Custom')).toBeInTheDocument();
   });
 
   it('G6-135 controlled open and onClose reasons', () => {
