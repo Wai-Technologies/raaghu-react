@@ -22,7 +22,20 @@ figma.connect(
       showThirdDataset: figma.boolean("Show Third Dataset"),
     },
     example: (props) => <RdsCompStackedChart
-  dataSets={[
+  data={{ labels: [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ], datasets: [
     {
       backgroundColor: '#62D5D9',
       borderColor: 'white',
@@ -40,7 +53,6 @@ figma.connect(
         141,
         142
       ],
-      fill: true,
       label: 'My Second dataset'
     },
     {
@@ -60,7 +72,6 @@ figma.connect(
         161,
         162
       ],
-      fill: true,
       label: 'My Third dataset'
     },
     {
@@ -80,25 +91,10 @@ figma.connect(
         210,
         211
       ],
-      fill: true,
       label: 'My Fourth dataset'
     }
-  ]}
+  ] }}
   id="Stacked_Chart"
-  labels={[
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ]}
   options={{
     interaction: {
       axis: 'x',
@@ -110,10 +106,6 @@ figma.connect(
         labels: {
           usePointStyle: true
         },
-        pointStyle: 'circle',
-        tooltip: {
-          usePointStyle: true
-        }
       },
       title: {
         display: true,
@@ -128,18 +120,11 @@ figma.connect(
     scales: {
       x: {
         axis: 'x',
-        beginAtZero: false,
         bounds: 'ticks',
         display: true,
-        grace: 0,
         grid: {
-          borderColor: 'rgba(0,0,0,0.1)',
-          borderDash: [],
-          borderDashOffset: 0,
-          borderWidth: 1,
           color: 'rgba(0,0,0,0.1)',
           display: true,
-          drawBorder: true,
           drawOnChartArea: true,
           drawTicks: true,
           lineWidth: 1,
@@ -163,7 +148,6 @@ figma.connect(
           major: {},
           maxRotation: 50,
           minRotation: 0,
-          minor: {},
           mirror: false,
           padding: 3,
           showLabelBackdrop: false,
@@ -188,20 +172,14 @@ figma.connect(
         display: true,
         grace: 0,
         grid: {
-          borderColor: 'rgba(0,0,0,0.1)',
-          borderDash: [],
-          borderDashOffset: 0,
-          borderWidth: 1,
           color: 'rgba(0,0,0,0.1)',
           display: true,
-          drawBorder: true,
           drawOnChartArea: true,
           drawTicks: true,
           lineWidth: 1,
           offset: false,
           tickLength: 8
         },
-        id: 'y',
         offset: false,
         position: 'left',
         reverse: false,
@@ -219,7 +197,6 @@ figma.connect(
           major: {},
           maxRotation: 50,
           minRotation: 0,
-          minor: {},
           mirror: false,
           padding: 3,
           showLabelBackdrop: false,

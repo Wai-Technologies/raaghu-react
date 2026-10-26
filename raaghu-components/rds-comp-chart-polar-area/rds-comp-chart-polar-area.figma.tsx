@@ -19,7 +19,7 @@ figma.connect(
     },
     example: (props) => (
       <RdsCompPolarAreaChart
-        dataSets={[
+        data={{ labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"], datasets: [
           {
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
@@ -33,9 +33,8 @@ figma.connect(
             data: [100, 70, 80, 96, 87, 77],
             label: "Dataset 1",
           },
-        ]}
+        ] }}
         id="Polar_Area_chart"
-        labels={["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]}
         options={{
           animation: {
             animateRotate: true,
@@ -47,7 +46,6 @@ figma.connect(
               labels: {
                 usePointStyle: true,
               },
-              pointStyle: "line",
               position: "top",
             },
             title: {
@@ -63,7 +61,6 @@ figma.connect(
             r: {
               angleLines: {
                 borderDash: [],
-                borderDashOffset: 0,
                 color: "rgba(0,0,0,0.1)",
                 display: false,
                 lineWidth: 1,
@@ -90,16 +87,15 @@ figma.connect(
                 drawTicks: true,
                 lineWidth: 1,
                 offset: false,
-                tickColor: () => {},
+                tickColor: "#666",
                 tickLength: 8,
-                tickWidth: () => {},
+                tickWidth: 1,
               },
               id: "r",
               offset: false,
               pointLabels: {
                 backdropColor: undefined,
                 backdropPadding: 2,
-                callback: () => {},
                 centerPointLabels: false,
                 color: "#666",
                 display: false,
@@ -112,20 +108,11 @@ figma.connect(
               reverse: false,
               startAngle: 0,
               ticks: {
-                align: "center",
-                autoSkip: true,
-                autoSkipPadding: 3,
                 backdropColor: "rgba(255, 255, 255, 0.75)",
                 backdropPadding: 2,
-                callback: () => {},
                 color: "#666",
-                crossAlign: "near",
                 display: true,
-                labelOffset: 0,
                 major: {},
-                maxRotation: 50,
-                minRotation: 0,
-                minor: {},
                 mirror: false,
                 padding: 3,
                 showLabelBackdrop: true,

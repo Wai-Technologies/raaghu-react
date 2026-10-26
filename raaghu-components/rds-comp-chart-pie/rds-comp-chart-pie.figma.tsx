@@ -17,7 +17,7 @@ figma.connect(
     props: {},
     example: (props) => (
       <RdsCompPieChart
-        dataSets={[
+        data={{ labels: ["red", "Orange", "Yellow", "Green", "Blue"], datasets: [
           {
             backgroundColor: [
               "#ff6384",
@@ -31,9 +31,8 @@ figma.connect(
             data: [20, 10, 20, 40, 10],
             label: "Dataset1",
           },
-        ]}
+        ] }}
         id="chart pie"
-        labels={["red", "Orange", "Yellow", "Green", "Blue"]}
         options={{
           animation: {
             animateRotate: false,
@@ -46,12 +45,10 @@ figma.connect(
               labels: {
                 boxHeight: 10,
                 boxWidth: 10,
-                height: 5,
                 padding: 30,
                 pointStyleWidth: 13,
                 usePointStyle: true,
               },
-              pointStyle: "line",
               position: "top",
             },
             title: {

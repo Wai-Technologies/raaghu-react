@@ -15,13 +15,13 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=9943-1272",
   {
     props: {
-      subtext: figma.string("Subtext"),
+      subtitle: figma.string("Subtext"),
       titleText: figma.string("Title Text"),
     },
     example: (props) => (
       <RdsCompDoughnutChart
         {...props}
-        dataSets={[
+        data={{ labels: ["Red", "Orange", "Yellow", "Green", "Blue"], datasets: [
           {
             backgroundColor: [
               "#ff6384",
@@ -34,33 +34,21 @@ figma.connect(
             data: [20, 10, 20, 40, 10],
             label: "Dataset 1",
           },
-        ]}
+        ] }}
         id="myChart"
-        labels={["Red", "Orange", "Yellow", "Green", "Blue"]}
         options={{
           maintainAspectRatio: false,
-          options: {
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: "top",
-              },
-              subTitle: {
-                fontColor: "#fff",
-              },
-              title: {
-                display: true,
-                text: "Chart.js Doughnut Chart",
-              },
+          plugins: {
+            legend: {
+              position: "top",
             },
-            responsive: true,
+            title: {
+              display: true,
+              text: "Chart.js Doughnut Chart",
+            },
           },
-          plugins: {},
-          scales: {},
-          type: "doughnut",
+          responsive: true,
         }}
-        subtitle="deioj"
-        titleText="35 k"
       />
     ),
   }

@@ -17,7 +17,15 @@ figma.connect(
     props: {},
     example: (props) => <RdsCompBarChart
     {...props}
-  dataSets={[
+  data={{ labels: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July'
+  ], datasets: [
     {
       backgroundColor: "var(--rds-comp-chart-bar-ds1-bg, rgba(75, 192, 192, 1))",
       borderColor: "var(--rds-comp-chart-bar-ds1-border, rgba(75, 192, 192, 1))",
@@ -52,17 +60,8 @@ figma.connect(
       ],
       label: 'Small Radius'
     }
-  ]}
-  id={1}
-  labels={[
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July'
-  ]}
+  ] }}
+  id="1"
   options={{
     maintainAspectRatio: false,
     plugins: {
@@ -78,7 +77,6 @@ figma.connect(
     scales: {
       x: {
         axis: 'x',
-        beginAtZero: false,
           border: {
           color: "var(--rds-border-opacity-light, rgba(0,0,0,0.1))",
           dash: [],
@@ -89,7 +87,6 @@ figma.connect(
         bounds: 'ticks',
         clip: true,
         display: true,
-        grace: 0,
           grid: {
           color: "var(--rds-border-opacity-light, rgba(0,0,0,0.1))",
           display: true,
@@ -97,11 +94,10 @@ figma.connect(
           drawTicks: true,
           lineWidth: 1,
           offset: true,
-          tickColor: function woe(){},
+          tickColor: "#666",
           tickLength: 8,
-          tickWidth: function woe(){}
+          tickWidth: 1
         },
-        id: 'x',
         offset: true,
         position: 'bottom',
         reverse: false,
@@ -111,7 +107,6 @@ figma.connect(
           autoSkipPadding: 3,
           backdropColor: "var(--rds-backdrop-color, rgba(255, 255, 255, 0.75))",
           backdropPadding: 2,
-          callback: function woe(){},
           color: "var(--rds-text-secondary, #666)",
           crossAlign: 'near',
           display: true,
@@ -119,7 +114,6 @@ figma.connect(
           major: {},
           maxRotation: 50,
           minRotation: 0,
-          minor: {},
           mirror: false,
           padding: 3,
           showLabelBackdrop: false,
@@ -158,11 +152,10 @@ figma.connect(
           drawTicks: true,
           lineWidth: 1,
           offset: false,
-          tickColor: function woe(){},
+          tickColor: "#666",
           tickLength: 8,
-          tickWidth: function woe(){}
+          tickWidth: 1
         },
-        id: 'y',
         offset: false,
         position: 'left',
         reverse: false,
@@ -172,7 +165,6 @@ figma.connect(
           autoSkipPadding: 3,
           backdropColor: 'rgba(255, 255, 255, 0.75)',
           backdropPadding: 2,
-          callback: function woe(){},
           color: '#666',
           crossAlign: 'near',
           display: true,
@@ -180,7 +172,6 @@ figma.connect(
           major: {},
           maxRotation: 50,
           minRotation: 0,
-          minor: {},
           mirror: false,
           padding: 3,
           showLabelBackdrop: false,

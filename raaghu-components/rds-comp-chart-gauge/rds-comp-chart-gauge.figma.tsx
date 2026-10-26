@@ -17,7 +17,7 @@ figma.connect(
     props: {},
     example: (props) => (
       <RdsCompGaugeChart
-        dataSets={[
+        data={{ labels: ["Green", "Blue", "Yellow", "Orange", "Purple", "Red"], datasets: [
           {
             backgroundColor: [
               "#28a745",
@@ -28,15 +28,14 @@ figma.connect(
               "#dc3545",
             ],
             borderWidth: 0,
-            cutout: "70%",
             data: [16.7, 16.7, 16.7, 16.7, 16.7, 16.7],
             label: "Gauge Data",
           },
-        ]}
+        ] }}
         id="gaugeChart"
-        labels={["Green", "Blue", "Yellow", "Orange", "Purple", "Red"]}
         options={{
           maintainAspectRatio: false,
+          cutout: "70%",
           plugins: {
             legend: {
               display: true,

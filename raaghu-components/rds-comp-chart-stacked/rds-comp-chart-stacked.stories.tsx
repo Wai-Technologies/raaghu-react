@@ -1,259 +1,187 @@
-import React from "react";
-import RdsCompStackedChart from "./rds-comp-chart-stacked";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
 
-const meta: Meta = {
-    title: 'Components/Charts/Stacked Chart',
+import RdsCompStackedChart from "./rds-comp-chart-stacked";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
+
+const meta = {
+    title: "Components/Charts/Stacked Chart",
     component: RdsCompStackedChart,
     parameters: {
-            status: { type: 'stable' },
-        layout: 'padded',
+        status: { type: "stable" },
+        layout: "padded",
         docs: {
-  description: {
-    component: 'The **Stacked Chart** element is a layered bar or line chart that visualizes multiple datasets stacked on top of each other, allowing users to easily compare parts of a whole across categories such as time, geography, or other dimensions. It is particularly useful for showing cumulative data trends while still preserving the visibility of individual dataset contributions. This chart accepts multiple **datasets**, each customizable with unique labels, colors, and fill options. The **labels** property defines category markers (e.g., months), while the **options** property enables extensive configuration, including stacked axes, responsive behavior, interaction modes, titles, legends, tooltips, and grid styling. The chart is visually informative and highly customizable, making it ideal for dashboards, reports, and analytics tools that require comparative and aggregate data visualization.'
-  }
-}
-
+            description: {
+                component:
+                    "The **Stacked Chart** element visualizes multiple datasets stacked on top of each other, allowing users to compare cumulative values across categories. It supports customizable datasets, colors, stacked axes, legends, tooltips, and responsive behavior.",
+            },
+        },
     },
-    tags: ['autodocs', 'stable'],
+    tags: ["autodocs", "stable"],
     argTypes: {
-        className: { control: 'text', description: 'CSS class applied to the chart container.' },
-        sx: { control: 'object', description: 'MUI system styles applied to the chart container.' },
-        ref: { control: false, description: 'React ref to the chart container; assign it in code.' },
+    data: {
+        description: "Chart.js data containing labels and datasets.",
+        control: "object",
     },
+    options: {
+        description: "Chart.js configuration options.",
+        control: "object",
+    },
+    className: {
+        control: "text",
+        description: "CSS class applied to the chart container.",
+    },
+    sx: {
+        control: "object",
+        description: "MUI system styles applied to the chart container.",
+    },
+    ref: {
+        control: false,
+        description: "React ref to the chart container; assign it in code.",
+    },
+    labels: {
+        control: false,
+        table: { disable: true },
+    },
+    dataSets: {
+        control: false,
+        table: { disable: true },
+    },
+    chartLabel: {
+        control: false,
+        table: { disable: true },
+    },
+},
 } satisfies Meta<typeof RdsCompStackedChart>;
 
 export default meta;
 type Story = StoryObj<typeof RdsCompStackedChart>;
 
-
 export const Default: Story = {
     args: {
         id: "Stacked_Chart",
+        ariaLabel: "Stacked chart showing monthly values",
         data: {
             labels: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec"
+                "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
             ],
             datasets: [
                 {
-                    "label": "My Second dataset",
-                    "data": [
-                        140,
-                        140,
-                        170,
-                        235,
-                        125,
-                        125,
-                        110,
-                        140,
-                        140,
-                        170,
-                        230,
-                        80
+                    label: "My Second dataset",
+                    data: [
+                        140, 140, 170, 235, 125, 125,
+                        110, 140, 140, 170, 230, 80,
                     ],
-                    "borderColor": "white",
-                    "backgroundColor": "#62D5D9"
+                    borderColor: "white",
+                    backgroundColor: "#62D5D9",
+                    borderRadius: 3,
                 },
                 {
-                    "label": "My Third dataset",
-                    "data": [
-                        90,
-                        185,
-                        110,
-                        90,
-                        230,
-                        75,
-                        230,
-                        80,
-                        180,
-                        185,
-                        185,
-                        330
+                    label: "My Third dataset",
+                    data: [
+                        90, 185, 110, 90, 230, 75,
+                        230, 80, 180, 185, 185, 330,
                     ],
-                    "borderColor": "white",
-                    "backgroundColor": "#928AE0"
+                    borderColor: "white",
+                    backgroundColor: "#928AE0",
+                    borderRadius: 3,
                 },
                 {
-                    "label": "My Fourth dataset",
-                    "data": [
-                        150,
-                        201,
-                        160,
-                        203,
-                        151,
-                        205,
-                        206,
-                        207,
-                        208,
-                        209,
-                        210,
-                        211
+                    label: "My Fourth dataset",
+                    data: [
+                        150, 201, 160, 203, 151, 205,
+                        206, 207, 208, 209, 210, 211,
                     ],
-                    "borderColor": "white",
-                    "backgroundColor": "#EDB371"
-                }
+                    borderColor: "white",
+                    backgroundColor: "#EDB371",
+                    borderRadius: 3,
+                },
             ],
         },
         options: {
-            "radius": 3,
-            "pointStyle": "triangle",
-                        "stepSize": 50,
-            "plugins": {
-                "title": {
-                    "display": true,
-                    "text": "Chart.js Line Chart - stacked"
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Stacked Chart",
                 },
-                "tooltip": {
-                    "mode": "index"
+                tooltip: {
+                    mode: "index",
                 },
-                "legend": {
-                    "pointStyle": "circle",
-                    "labels": {
-                        "usePointStyle": true
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: "triangle",
                     },
-                    "tooltip": {
-                        "usePointStyle": true
-                    }
-                }
+                },
             },
-            "interaction": {
-                "mode": "nearest",
-                "axis": "x",
-                "intersect": false
+            interaction: {
+                mode: "nearest",
+                axis: "x",
+                intersect: false,
             },
-            "scales": {
-                "x": {
-                    "axis": "x",
-                    "title": {
-                        "display": true,
-                        "text": "Month",
-                        "padding": {
-                            "top": 4,
-                            "bottom": 4
+            scales: {
+                x: {
+                    axis: "x",
+                    type: "category",
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: "Month",
+                        padding: {
+                            top: 4,
+                            bottom: 4,
                         },
-                        "color": "#666"
+                        color: "#666",
                     },
-                    "type": "category",
-                    "ticks": {
-                        "minRotation": 0,
-                        "maxRotation": 50,
-                        "mirror": false,
-                        "textStrokeWidth": 0,
-                        "textStrokeColor": "",
-                        "padding": 3,
-                        "display": true,
-                        "autoSkip": true,
-                        "autoSkipPadding": 3,
-                        "labelOffset": 0,
-                        "minor": {},
-                        "major": {},
-                        "align": "center",
-                        "crossAlign": "near",
-                        "showLabelBackdrop": false,
-                                "stepSize": 50,
-                        "backdropColor": "rgba(255, 255, 255, 0.75)",
-                        "backdropPadding": 2,
-                        "color": "#666"
+                    ticks: {
+                        minRotation: 0,
+                        maxRotation: 50,
+                        padding: 3,
+                        color: "#666",
                     },
-                    "display": true,
-                    "offset": false,
-                    "reverse": false,
-                    "beginAtZero": false,
-                    "bounds": "ticks",
-                    "grace": 0,
-                    "grid": {
-                        "display": true,
-                        "lineWidth": 1,
-                        "drawBorder": true,
-                        "drawOnChartArea": true,
-                        "drawTicks": true,
-                        "tickLength": 8,
-                        "offset": false,
-                        "borderDash": [],
-                        "borderDashOffset": 0,
-                        "borderWidth": 1,
-                        "color": "rgba(0,0,0,0.1)",
-                        "borderColor": "rgba(0,0,0,0.1)"
+                    grid: {
+                        display: true,
+                        lineWidth: 1,
+                        drawOnChartArea: true,
+                        drawTicks: true,
+                        tickLength: 8,
+                        color: "rgba(0,0,0,0.1)",
                     },
-                    "id": "x",
-                    "position": "bottom"
+                    position: "bottom",
                 },
-                "y": {
-                    "axis": "y",
-                    "stacked": true,
-                    "title": {
-                        "display": true,
-                        "text": "Value",
-                        "padding": {
-                            "top": 4,
-                            "bottom": 4
+                y: {
+                    axis: "y",
+                    type: "linear",
+                    stacked: true,
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Value",
+                        padding: {
+                            top: 4,
+                            bottom: 4,
                         },
-                        "color": "#666"
+                        color: "#666",
                     },
-                    "type": "linear",
-                    "ticks": {
-                        "minRotation": 0,
-                        "maxRotation": 50,
-                        "mirror": false,
-                        "textStrokeWidth": 0,
-                        "textStrokeColor": "",
-                        "padding": 3,
-                        "display": true,
-                        "autoSkip": true,
-                        "autoSkipPadding": 3,
-                        "labelOffset": 0,
-                        "minor": {},
-                        "major": {},
-                        "align": "center",
-                        "crossAlign": "near",
-                        "showLabelBackdrop": false,
-                            "backdropColor": "rgba(255, 255, 255, 0.75)",
-                            "backdropPadding": 2,
-                            "color": "#666",
-                            "stepSize": 50,
+                    ticks: {
+                        stepSize: 50,
+                        color: "#666",
                     },
-                    "display": true,
-                    "offset": false,
-                    "reverse": false,
-                    "beginAtZero": false,
-                    "bounds": "ticks",
-                    "grace": 0,
-                    "grid": {
-                        "display": true,
-                        "lineWidth": 1,
-                        "drawBorder": true,
-                        "drawOnChartArea": true,
-                        "drawTicks": true,
-                        "tickLength": 8,
-                        "offset": false,
-                        "borderDash": [],
-                        "borderDashOffset": 0,
-                        "borderWidth": 1,
-                        "color": "rgba(0,0,0,0.1)",
-                        "borderColor": "rgba(0,0,0,0.1)"
+                    grid: {
+                        display: true,
+                        lineWidth: 1,
+                        drawOnChartArea: true,
+                        drawTicks: true,
+                        tickLength: 8,
+                        color: "rgba(0,0,0,0.1)",
                     },
-                    "id": "y",
-                    "position": "left"
-                }
-            }
+                    position: "left",
+                },
+            },
         },
-
-
     },
     play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
+        const chart = await canvas.findByRole("img");
         await expect(chart).toBeInTheDocument();
     },
 };

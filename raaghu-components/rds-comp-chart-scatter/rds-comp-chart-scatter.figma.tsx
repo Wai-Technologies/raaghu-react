@@ -12,7 +12,7 @@ figma.connect(
     },
     example: (props) => (
       <RdsCompScatterChart
-        dataSets={[
+        data={{ labels: ["January", "February", "March", "April"], datasets: [
           {
             backgroundColor: "rgb(255, 99, 132)",
             data: [
@@ -50,9 +50,8 @@ figma.connect(
             pointStyle: "triangle",
             type: "scatter",
           },
-        ]}
+        ] }}
         id="Scatter_Chart"
-        labels={["January", "February", "March", "April"]}
         options={{
           maintainAspectRatio: false,
           plugins: {
