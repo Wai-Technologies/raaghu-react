@@ -59,14 +59,12 @@ export const Default: Story = {
             plugins: {
                 legend: {
                     position: "top",
-                    pointStyle: "line",
                     labels: {
                         pointStyleWidth: 13,
                         usePointStyle: true,
                         boxWidth: 10,
                         boxHeight: 10,
                         padding: 30,
-                        height: 5,
                     },
                 },
                 title: {
@@ -81,4 +79,3 @@ export const Default: Story = {
         await expect(chart).toBeInTheDocument();
     },
 };
-

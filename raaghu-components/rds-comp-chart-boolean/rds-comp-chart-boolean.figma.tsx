@@ -1,4 +1,5 @@
 import React from "react"
+import PeopleOutline from "@mui/icons-material/PeopleOutline";
 import  RdsCompBooleanChart  from "./rds-comp-chart-boolean"
 import figma from "@figma/code-connect"
 
@@ -15,13 +16,14 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=9923-4213",
   {
     props: {
-      iconSwap: figma.instance("Icon Swap"),
-      showIcon: figma.boolean("Show Icon"),
     },
     example: (props) => <RdsCompBooleanChart
     {...props}
-  centerIconName="users"
-  dataSets={[
+  centerIcon={<PeopleOutline fontSize="small" />}
+  data={{ labels: [
+    'green',
+    'grey'
+  ], datasets: [
     {
       backgroundColor: [
         "var(--rds-semantic-success-main, #01AE9D)",
@@ -31,72 +33,28 @@ figma.connect(
         "var(--rds-neutral-0, #fff)"
       ],
       borderWidth: 1,
-      cutout: '90%',
       data: [
         20,
         10
       ],
-      fillRect: [
-        200,
-        100,
-        40,
-        10
-      ],
-      fillStyle: 'blue',
       label: 'Dataset 1',
-      title: {
-        dockInsidePlotArea: true,
-        text: 'Doughnut Chart',
-        verticalAlign: 'center'
-      }
     }
-  ]}
+  ] }}
   id="BooleanId"
-  labels={[
-    'green',
-    'grey'
-  ]}
   options={{
-    cutoutPercentage: 75,
-    elements: {
-      center: {
-        text: '50%'
-      }
-    },
-    legend: {
-      display: false
-    },
+    cutout: '90%',
     maintainAspectRatio: false,
     plugins: {
-      doughnutlabel: {
-        labels: [
-          {
-            font: {
-              size: 20,
-              weight: 'bold'
-            },
-            text: '550'
-          },
-          {
-            text: 'total'
-          }
-        ]
-      },
       legend: {
-        align: 'center',
         display: false,
         position: 'top'
       },
-      series: {
-        label: {
-          display: false,
-          position: 'inside',
-          text: 'total'
-        }
+      title: {
+        display: true,
+        text: 'Doughnut Chart'
       }
     },
     responsive: true,
-    scales: {}
   }}
 />,
   },

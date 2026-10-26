@@ -67,8 +67,6 @@ export const Default: Story = {
             plugins: {
                 legend: {
                     position: "top",
-                    pointStyle: "line",
-
                     labels: {
 
                         usePointStyle: true

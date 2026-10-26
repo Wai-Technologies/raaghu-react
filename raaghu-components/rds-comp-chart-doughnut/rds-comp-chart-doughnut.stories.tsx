@@ -1,36 +1,79 @@
-import RdsCompDoughnutChart from "./rds-comp-chart-doughnut";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
 
-const meta: Meta = {
-    title: 'Components/Charts/Doughnut Chart',
+import RdsCompDoughnutChart from "./rds-comp-chart-doughnut";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
+
+const meta = {
+    title: "Components/Charts/Doughnut Chart",
     component: RdsCompDoughnutChart,
     parameters: {
-            status: { type: 'stable' },
-        layout: 'padded',
-        docs:{
+        status: { type: "stable" },
+        layout: "padded",
+        docs: {
             description: {
-  component: 'The **Doughnut Chart** element visually represents data as proportional segments of a circle, making it easy to compare different categories. It accepts customizable **labels**, **datasets**, titles, and subtitles to provide clear context. Fully responsive and configurable, it supports legends, tooltips, animations, and center labels for enhanced clarity. This component is designed for consistent use in dashboards and reports, enabling effective communication of data distribution and comparisons.'
-}
-
-        }
+                component:
+                    "The Doughnut Chart represents data as proportional segments of a circle. It supports customizable labels, datasets, titles, subtitles, legends, tooltips, and center text for dashboards and reports.",
+            },
+        },
     },
-    tags: ['autodocs', 'stable'],
+    tags: ["autodocs", "stable"],
     argTypes: {
-        className: { control: 'text', description: 'CSS class applied to the chart container.' },
-        sx: { control: 'object', description: 'MUI system styles applied to the chart container.' },
-        ref: { control: false, description: 'React ref to the chart container; assign it in code.' },
+        className: {
+            control: "text",
+            description: "CSS class applied to the chart container.",
+        },
+        sx: {
+            control: "object",
+            description: "MUI system styles applied to the chart container.",
+        },
+        ref: {
+            control: false,
+            description: "React ref to the chart container; assign it in code.",
+        },
+
+        // Current API
+        data: {
+            description: "Chart data containing labels and datasets.",
+        },
+        subtitle: {
+            control: "text",
+            description: "Smaller text displayed below the center title.",
+        },
+        ariaLabel: {
+            control: "text",
+            description: "Accessible label for the chart.",
+        },
+
+        // Hide deprecated aliases from the Docs table.
+        labels: {
+            control: false,
+            table: { disable: true },
+        },
+        dataSets: {
+            control: false,
+            table: { disable: true },
+        },
+        subTitleText: {
+            control: false,
+            table: { disable: true },
+        },
+        chartLabel: {
+            control: false,
+            table: { disable: true },
+        },
     },
 } satisfies Meta<typeof RdsCompDoughnutChart>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompDoughnutChart>;
+
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
         id: "myChart",
         titleText: "Title",
         subtitle: "Subtext",
+        ariaLabel: "Doughnut chart showing five color categories",
         data: {
             labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
             datasets: [
@@ -42,39 +85,28 @@ export const Default: Story = {
                         "#ff9f40",
                         "#ffcd56",
                         "#4bc0c0",
-                        "#0000FF"
+                        "#0000FF",
                     ],
-                    borderColor: [
-                        "#fff",
-                    ],
-                }
+                    borderColor: ["#fff"],
+                },
             ],
         },
         options: {
             maintainAspectRatio: false,
-            type: "doughnut",
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: "top",
-                    },
-                    title: {
-                        display: true,
-                        text: "Chart.js Doughnut Chart"
-                    },
-                    subTitle: {
-                        fontColor: "#fff",
-                    }
-                }
-            }
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "top",
+                },
+                title: {
+                    display: true,
+                    text: "Chart.js Doughnut Chart",
+                },
+            },
         },
-
-    
     },
     play: async ({ canvas }) => {
-        const chart = await canvas.findByRole('img');
+        const chart = await canvas.findByRole("img");
         await expect(chart).toBeInTheDocument();
     },
 } satisfies Story;
@@ -82,102 +114,75 @@ export const Default: Story = {
 export const Advanced: Story = {
     args: {
         id: "doughnutchart",
+        titleText: "Title Sample",
+        subtitle: "total",
+        ariaLabel: "Doughnut chart showing total sales, revenue, and expenses",
         data: {
-            labels: ['Total Sales - 85%', 'Revenue - 25%', 'Expenses - 15%'],
+            labels: [
+                "Total Sales - 85%",
+                "Revenue - 25%",
+                "Expenses - 15%",
+            ],
             datasets: [
                 {
-    
                     label: "Total Sales",
                     data: [85, 0, 0, 15],
-                    backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                    weight: 0.2,
+                    backgroundColor: [
+                        "#FF6384",
+                        "#BF00BB",
+                        "#7E2EEF",
+                        "#d9c9ef33",
+                    ],
                     borderRadius: 20,
-                    borderColor: ["transparent"]
-                },
-                {
-                    weight: 0.2
+                    borderColor: ["transparent"],
                 },
                 {
                     label: "Revenue",
                     data: [0, 75, 0, 25],
-                    backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                    weight: 0.2,
+                    backgroundColor: [
+                        "#FF6384",
+                        "#BF00BB",
+                        "#7E2EEF",
+                        "#d9c9ef33",
+                    ],
                     borderRadius: 20,
-                    borderColor: ["transparent"]
-                },
-                {
-                    weight: 0.2
+                    borderColor: ["transparent"],
                 },
                 {
                     label: "Expenses",
                     data: [0, 0, 55, 45],
-                    backgroundColor: ["#FF6384", "#BF00BB", "#7E2EEF", "#d9c9ef33"],
-                    weight: 0.2,
+                    backgroundColor: [
+                        "#FF6384",
+                        "#BF00BB",
+                        "#7E2EEF",
+                        "#d9c9ef33",
+                    ],
                     borderRadius: 20,
-                    borderColor: ["transparent"]
+                    borderColor: ["transparent"],
                 },
             ],
         },
         options: {
-            animationEnabled: true,
-            title: {
-                fontColor: "#fff",
-            },
-            cutoutPercentage: 80,
-            legend: {
-                display: false,
-            },
+            cutout: "80%",
             responsive: true,
-
-            subtitles: {
-                fontColor: "#fff",
-                verticalAlign: "center",
-            },
             maintainAspectRatio: false,
             plugins: {
-                series: {
-                    label: {
-                        position: "inside",
-                        text: "total",
-                        display: false,
-                        font: {
-                            size: 12,
-                            weight: "regular",
-                        },
-                    },
-                },
-                doughnutlabel: {
-                    labels: [
-                        {
-                            text: "550",
-                            font: {
-                                size: 8,
-                                weight: "bold",
-                            },
-                        },
-                        {
-                            text: "total",
-                        },
-                    ],
-                }, title: {
-                    text: 'title sample',
-                    font: {
-                        size: 12,
-
-                    }
-                },
                 legend: {
-                    display: true,
-                    align: "middle",
+                    display: false,
                     position: "top",
                     labels: {
                         boxWidth: 15,
                         padding: 15,
                     },
                 },
-                tooltip: { enabled: false },
+                title: {
+                    display: true,
+                    text: "Doughnut Chart",
+                },
+                tooltip: {
+                    enabled: false,
+                },
             },
-            scales: {},
         },
-    }
-};
+    },
+} satisfies Story;

@@ -1,37 +1,44 @@
-import { StoryObj, Meta } from "@storybook/react-vite";
-import { expect } from 'storybook/test';
+
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 import RdsCompBarChart from "./rds-comp-chart-bar";
 import "./rds-comp-chart-bar.scss";
 
-const meta: Meta = {
-    title: 'Components/Charts/Bar Chart',
-    component: RdsCompBarChart,
-    parameters: {
-            status: { type: 'stable' },
-        layout: 'padded',
-        docs:{
-            description: {
-      component: 'The **Bar Chart** element is a flexible and highly customizable data visualization tool designed for our design system. It supports both **horizontal** and **vertical** orientations, enabling clear representation of single or multiple datasets. Key features include **stacked bars** for comparative insights, **border radius customization** for refined aesthetics, and full responsiveness to adapt across devices. The component integrates options for axis configuration, layout padding, and rich plugin support such as legends, tooltips, and titles. Use this component to visualize performance metrics, trends, and comparisons effectively within your applications.'
+const meta = {
+  title: "Components/Charts/Bar Chart",
+  component: RdsCompBarChart,
+  parameters: {
+    status: { type: "stable" },
+    layout: "padded",
+    docs: {
+      description: {
+        component:
+          "The Bar Chart is a customizable data visualization component supporting horizontal and vertical orientations, stacked datasets, border radius customization, responsive layouts, legends, tooltips, and titles.",
+      },
+    },
+  },
+  tags: ["autodocs", "stable"],
+   argTypes: {
+    data: {
+      description:
+        "Chart data containing labels and datasets. Edit data.labels for category names and data.datasets for values and dataset styling.",
+      control: "object",
+    },
+    options: {
+      description: "Chart.js configuration options.",
+      control: "object",
+    },
 
-},
-        }
-    },
-    tags: ['autodocs', 'stable'],
-    argTypes: {
-        className: { control: 'text', description: 'CSS class applied to the chart container.' },
-        sx: { control: 'object', description: 'MUI system styles applied to the chart container.' },
-        ref: { control: false, description: 'React ref to the chart container; assign it in code.' },
-        height: {
-            control: 'text',
-            description: 'Height of the chart (e.g., "400px", "50vh", or number for pixels)',
-        },
-    },
+    // Hide deprecated props from Storybook documentation.
+    labels: { control: false, table: { disable: true } },
+    dataSets: { control: false, table: { disable: true } },
+    chartLabel: { control: false, table: { disable: true } },
+  },
 } satisfies Meta<typeof RdsCompBarChart>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompBarChart>;
 
-
+type Story = StoryObj<typeof meta>;
 
 export const BorderRadius: Story = {
     args: {
@@ -121,8 +128,6 @@ export const Horizontal: Story = {
             elements: {
                 bar: {
                     borderWidth: 0,
-                        categoryPercentage: 0.5,
-                        barPercentage: 0.3,
                 }
             },
             layout: {
@@ -131,8 +136,6 @@ export const Horizontal: Story = {
             plugins: {
                 legend: {
                     position: "top",
-                    pointStyle: "line",
-
                     labels: {
 
                         usePointStyle: true,
@@ -140,7 +143,6 @@ export const Horizontal: Story = {
                         boxWidth: 10,
                         boxHeight: 10,
                         padding: 30,
-                        height: 5,
                     }
                 },
                 tooltip: {
