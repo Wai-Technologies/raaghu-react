@@ -7,6 +7,12 @@
   --rds-spinner-info-color: var(--rds-info-dark);
   --rds-spinner-light-color: var(--rds-surface-subtle);
   --rds-spinner-dark-color: var(--rds-text-primary);
+
+  /* G6-103: size tokens (inline style map keeps matching px for jest/consumers) */
+  --rds-spinner-size-small: 15px;
+  --rds-spinner-size-default: 30px;
+  --rds-spinner-size-medium: 35px;
+  --rds-spinner-size-large: 45px;
   
   --rds-spinner-animation-duration: 0.75s;
 }
@@ -36,32 +42,32 @@
   /* Default and size modifier classes for consistent sizing */
   .spinner-border,
   .spinner-grow {
-    width: 30px;
-    height: 30px;
+    width: var(--rds-spinner-size-default, 30px);
+    height: var(--rds-spinner-size-default, 30px);
   }
 
   .spinner-border.spinner--small,
   .spinner-grow.spinner--small {
-    width: 15px;
-    height: 15px;
+    width: var(--rds-spinner-size-small, 15px);
+    height: var(--rds-spinner-size-small, 15px);
   }
 
   .spinner-border.spinner--default,
   .spinner-grow.spinner--default {
-    width: 30px;
-    height: 30px;
+    width: var(--rds-spinner-size-default, 30px);
+    height: var(--rds-spinner-size-default, 30px);
   }
 
   .spinner-border.spinner--medium,
   .spinner-grow.spinner--medium {
-    width: 35px;
-    height: 35px;
+    width: var(--rds-spinner-size-medium, 35px);
+    height: var(--rds-spinner-size-medium, 35px);
   }
 
   .spinner-border.spinner--large,
   .spinner-grow.spinner--large {
-    width: 45px;
-    height: 45px;
+    width: var(--rds-spinner-size-large, 45px);
+    height: var(--rds-spinner-size-large, 45px);
   }
 
   .text-primary {

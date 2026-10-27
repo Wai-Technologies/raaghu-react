@@ -595,11 +595,8 @@
   }
 }
 
-html[data-theme='dark'] .time-picker-container,
-body[data-theme='dark'] .time-picker-container,
-body.theme-dark .time-picker-container,
-body.dark-theme .time-picker-container,
-[data-theme='dark'] .time-picker-container {
+/* G6-133: one :is() dark host instead of duplicated theme-sniff selectors */
+:is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme, [data-theme='dark']) .time-picker-container {
   .time-input {
     background-color: var(--rds-color-surface, var(--rds-background-paper));
     color: var(--rds-color-on-surface, var(--rds-text-primary));

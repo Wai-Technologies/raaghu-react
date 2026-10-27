@@ -74,6 +74,10 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   /** @deprecated Use `multiUrl` instead. */
   isMultiUrl?: boolean;
   customClasses?: string;
+  /** Override built-in copy. `required` replaces the empty-value message. */
+  localeText?: {
+    required?: string;
+  };
 }
 
 const RdsTextArea = ({
@@ -107,6 +111,7 @@ const RdsTextArea = ({
   multiUrl,
   isMultiUrl,
   customClasses,
+  localeText,
   ...rest
 }: RdsTextAreaProps): ReactNode => {
   if (showTitle !== undefined) warnDeprecatedProp('RdsTextArea', 'showTitle', 'omitting `label`');
@@ -177,27 +182,33 @@ const RdsTextArea = ({
   const getStyleClass = () => {
     switch (resolvedVariant) {
       case 'Pill':
-        return "textarea-pill";
+        return 'textarea-pill rds-textarea__pill';
       case 'Bottom Outline':
-        return "textarea-bottom-outline";
+        return 'textarea-bottom-outline rds-textarea__bottom-outline';
       default:
-        return "textarea-style-default";
+        return 'textarea-style-default rds-textarea__default';
     }
   };
 
   const isDisabled = Boolean(disabled);
   const isError = Boolean(error) || !isValid || (isMandatory && !isMandatoryValid);
   const stateClass = clsx(
-    isError && 'textarea-error',
-    isDisabled && 'textarea-disabled',
-    selected && 'textarea-selected'
+    isError && 'textarea-error rds-textarea__error',
+    isDisabled && 'textarea-disabled rds-textarea__disabled',
+    selected && 'textarea-selected rds-textarea__selected',
   );
 
   const getValidationMessage = () => {
-    if (isMandatory && !isMandatoryValid) {
-      return `${label || 'Label'} is required`;
+    if (helperText) {
+      return helperText;
     }
-    return helperText ?? validationMsg;
+    if (validationMsg) {
+      return validationMsg;
+    }
+    if (isMandatory && !isMandatoryValid) {
+      return localeText?.required ?? `${label || 'Label'} is required`;
+    }
+    return undefined;
   };
 
   return (
@@ -207,17 +218,26 @@ const RdsTextArea = ({
       style={typeof style === 'object' ? style : undefined}
     >
       {showTitle !== false && label && (
-        <label htmlFor={assignedId} className={`textarea-label ${isDisabled ? 'disabled' : ''}`}>
+        <label
+          htmlFor={assignedId}
+          className={clsx(
+            'textarea-label',
+            'rds-textarea__label',
+            isDisabled && 'disabled',
+            isDisabled && 'rds-textarea__label--disabled',
+          )}
+        >
           {label}
-          {isMandatory && <span className="required-asterisk"> *</span>}
+          {isMandatory && <span className="required-asterisk rds-textarea__required"> *</span>}
         </label>
       )}
-      
+
       <div
         className={clsx(
           'textarea-wrapper',
-          resolvedVariant === 'Pill' && 'textarea-pill-wrapper',
-          resolvedVariant === 'Pill' && stateClass
+          'rds-textarea__wrapper',
+          resolvedVariant === 'Pill' && 'textarea-pill-wrapper rds-textarea__pill-wrapper',
+          resolvedVariant === 'Pill' && stateClass,
         )}
       >
         <textarea
@@ -241,9 +261,11 @@ const RdsTextArea = ({
           aria-describedby={isError ? errorId : undefined}
         />
       </div>
-      
+
       {isError && getValidationMessage() && (
-        <div id={errorId} className="error-message">{getValidationMessage()}</div>
+        <div id={errorId} className="error-message rds-textarea__error-message" role="alert">
+          {getValidationMessage()}
+        </div>
       )}
     </Box>
   );

@@ -557,6 +557,15 @@ describe('doc-09 renames', () => {
     expect(container.querySelector('.rds-emoji-generator__skin-tone-inline')).toBeInTheDocument();
   });
 
+  it('G5-038: selected skin tone uses BEM class + aria-pressed (not inline border)', () => {
+    const { container } = render(<RdsEmojiGenerator skinTonePickerOpen />);
+    const selected = container.querySelector('.rds-emoji-generator__skin-tone-option--selected') as HTMLElement;
+    expect(selected).toBeTruthy();
+    expect(selected).toHaveAttribute('aria-pressed', 'true');
+    expect(selected.style.border).toBe('');
+    expect(selected.style.boxShadow).toBe('');
+  });
+
   it('RdsCompEmojiPicker is an alias of the component', () => {
     const mod = jest.requireActual('./rds-comp-emoji-generator');
     expect(mod.RdsCompEmojiPicker).toBe(mod.default);

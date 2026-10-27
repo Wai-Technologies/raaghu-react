@@ -77,21 +77,24 @@ const SkinTonePicker = ({
     buttonSize,
 }: SkinTonePickerProps) => (
     <>
-        {skinToneOptions.map((o) => (
+        {skinToneOptions.map((o) => {
+            const selected = selectedSkinTone === o.value;
+            return (
             <IconButton
                 aria-label={`Skin tone: ${o.label}`}
+                aria-pressed={selected}
                 key={o.value}
                 onClick={() => onSelect(o.value)}
-                className="rds-emoji-generator__skin-tone-option"
-                style={{
-                    backgroundColor: o.color,
-                    border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
-                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
-                }}
+                className={clsx(
+                    'rds-emoji-generator__skin-tone-option',
+                    selected && 'rds-emoji-generator__skin-tone-option--selected'
+                )}
+                style={{ backgroundColor: o.color }}
                 title={o.label}
                 size={size ?? buttonSize}
             />
-        ))}
+            );
+        })}
     </>
 );
 

@@ -1,7 +1,10 @@
 .rds-scrollbar {
+  /* G6-094: default height via token; consumer sx/className can override */
+  --rds-scrollbar-height: 300px;
   position: relative;
   overflow: hidden;
   width: calc(var(--rds-spacing-md) + 2px);
+  height: var(--rds-scrollbar-height);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,320 +1,640 @@
 /* G6-055: scope drawer chrome / placement under .offcanvas-drawer (no global .placement-* / header leaks) */
+
 .offcanvas-drawer {
+
   .offcanvas-header {
+
     background-color: var(--rds-offcanvas-header-bg, transparent);
+
   }
+
+
 
   .offcanvas-title {
+
     font-size: var(--font-size-xl, 18px);
+
     font-style: normal;
+
     font-weight: var(--font-weight-medium, 500);
+
     text-transform: uppercase;
+
   }
+
+
 
   .MuiDrawer-paper {
+
     box-sizing: border-box;
+
     padding: 0;
+
     width: var(--rds-offcanvas-width, 650px);
+
     height: var(--rds-offcanvas-height, 100%);
+
   }
+
+
 
   &.placement-left .MuiDrawer-paper { left: 0; }
+
   &.placement-right .MuiDrawer-paper { right: 0; }
+
   &.placement-top .MuiDrawer-paper {
+
     width: 100%;
+
     height: var(--rds-offcanvas-top-height, 300px);
+
   }
+
   &.placement-bottom .MuiDrawer-paper {
+
     width: 100%;
+
     height: var(--rds-offcanvas-top-height, 300px);
+
   }
+
 }
+
+
 
 .offcanvas-container {
+
   height: 100%;
+
   display: flex;
+
   flex-direction: column;
+
 }
+
+
 
 .offcanvas-header {
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+
   border-bottom: 1px solid var(--rds-offcanvas-border);
+
 }
+
+
 
 .offcanvas-header.no-title {
+
   padding: var(--rds-spacing-xs) var(--rds-spacing-md);
+
   justify-content: flex-end;
+
   border-bottom: none;
+
 }
+
+
 
 .offcanvas-title-wrap {
+
   display: flex;
+
   align-items: center;
+
   flex: 1 1 auto;
+
 }
+
+
 
 .offcanvas-close-wrap {
+
   display: flex;
+
   align-items: center;
+
   justify-content: flex-end;
+
 }
+
+
 
 .offcanvas-close-button {
+
   padding: var(--rds-spacing-sm);
+
   border: 1px solid transparent;
+
   border-radius: var(--rds-border-radius-sm);
+
   transition: all 0.2s ease-in-out;
+
 }
+
 .offcanvas-close-button:hover {
+
   background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
+
   border-radius: var(--rds-border-radius-sm);
+
 }
+
 .offcanvas-body {
+
   flex: 1;
+
   padding: var(--rds-spacing-md);
+
   display: flex;
+
   flex-direction: column;
+
   overflow: hidden;
+
 }
+
 .offcanvas-body.scrolling {
+
   overflow: auto;
+
 }
+
+
 
 .offcanvas-body-inner {
+
   display: flex;
+
   flex-direction: column;
+
   flex: 1;
+
   min-height: 0;
+
   height: 100%;
+
 }
+
+
 
 .offcanvas-footer {
+
   display: flex;
+
   justify-content: flex-start;
+
   gap: var(--rds-spacing-sm);
+
   margin-top: auto;
+
   padding-top: var(--rds-spacing-md);
+
 }
+
+
 
 .tertiary-button-container,
+
 .secondary-button-container,
+
 .primary-button-container {
+
   flex: 0 0 auto;
+
   min-width: fit-content;
+
 }
+
+
 
 .tertiary-button-container {
+
   margin-right: auto;
+
 }
+
+
 
 .secondary-button-container {
+
   margin-left: auto;
+
 }
+
+
 
 .primary-button-container {
+
   margin-left: var(--rds-spacing-sm);
+
 }
+
+
 
 #offcanvas-btns .rds-button,
+
 #offcanvas-btns .MuiButton-root {
+
   min-height: 36px;
+
   //padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-md);
+
 }
+
 .offcanvas-margin {
+
   display: flex;
+
   gap: calc(var(--rds-spacing-md) - 1px);
+
 }
+
+
 
 .offcanvas-btn {
+
   flex: 1;
+
 }
+
 .offcanvas-btn-restore {
+
   flex: 0.4;
+
 }
+
+
 
 .offcanvas-action-btn {
+
   width: auto;
+
 }
+
 @media (max-width: 767px) {
+
   .offcanvas-drawer .MuiDrawer-paper {
+
     width: min(375px, 100vw);
+
   }
+
 }
+
+
 
 .offcanvas_btn {
+
   cursor: pointer;
+
   width: fit-content;
+
 }
+
+
 
 .offcanvas-container .offcanvas-header .close {
+
   cursor: pointer;
+
   padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
+
   border: 1px solid transparent;
+
   transition: all 0.2s ease-in-out;
+
   border-radius: var(--rds-border-radius-sm);
+
 }
+
+
 
 .offcanvas-container .offcanvas-header .close:hover {
+
   background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
+
 }
+
 @media (max-width: 420px) {
+
   .offcanvas-drawer .MuiDrawer-paper {
-    width: min(320px, 100vw) !important;
+
+    width: min(320px, 100vw);
+
   }
+
   .offcanvas-margin {
+
     display: flex;
+
     flex-wrap: nowrap;
+
     gap: var(--rds-spacing-xs);
+
     align-items: center;
+
   }
+
+
 
   .offcanvas-margin .me-2:first-child {
+
     align-self: center;
+
   }
+
+
 
   .offcanvas-margin .me-2:nth-child(2) {
-    margin-right: var(--rds-spacing-12-px) !important;
+
+    margin-right: var(--rds-spacing-12-px);
+
   }
+
+
 
   .offcanvas-margin .me-2 {
-    margin-right: var(--rds-spacing-xxs) !important;
+
+    margin-right: var(--rds-spacing-xxs);
+
     flex: 1;
+
     min-width: 0;
+
   }
+
   
+
   .offcanvas-margin .rds-button {
-    font-size: var(--rds-font-size-caption, 11px) !important;
+
+    font-size: var(--rds-font-size-caption, 11px);
+
     padding: var(--rds-spacing-tight) var(--rds-spacing-7);
-    width: 100% !important;
+
+    width: 100%;
+
     white-space: nowrap;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
-    min-width: auto !important;
-    max-width: none !important;
-    height: auto !important;
+
+    min-width: auto;
+
+    max-width: none;
+
+    height: auto;
+
     line-height: 1.2;
+
   }
+
   
+
   .offcanvas-margin .rds-button span {
-    font-size: var(--rds-font-size-caption, 11px) !important;
+
+    font-size: var(--rds-font-size-caption, 11px);
+
     display: inline-block;
+
     white-space: nowrap;
+
     line-height: 1.2;
+
   }
+
+
 
   #offcanvas-btns {
+
     padding: 0 var(--rds-spacing-tight);
+
     display: flex;
+
     flex-wrap: nowrap;
+
     gap: var(--rds-spacing-xs);
+
     align-items: center;
+
   }
+
+
 
   #offcanvas-btns .tertiary-button-container,
+
   #offcanvas-btns .secondary-button-container,
+
   #offcanvas-btns .primary-button-container {
+
     flex: 1;
+
     min-width: 0;
+
   }
+
+
 
   #offcanvas-btns .tertiary-button-container {
+
     margin-right: auto;
+
   }
 
+
+
   #offcanvas-btns .secondary-button-container {
+
     margin-left: auto;
+
     margin-right: var(--rds-spacing-xs);
+
   }
 
+
+
   #offcanvas-btns .primary-button-container {
+
     margin-left: var(--rds-spacing-xs);
+
   }
+
   
+
   #offcanvas-btns .rds-button {
-    font-size: var(--rds-font-size-caption, 11px) !important;
+
+    font-size: var(--rds-font-size-caption, 11px);
+
     padding: var(--rds-spacing-tight) var(--rds-spacing-7);
-    width: 100% !important;
+
+    width: 100%;
+
     white-space: nowrap;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
-    min-width: auto !important;
-    max-width: none !important;
-    height: auto !important;
+
+    min-width: auto;
+
+    max-width: none;
+
+    height: auto;
+
     line-height: 1.2;
+
   }
+
   
+
   #offcanvas-btns .rds-button span {
-    font-size: var(--rds-font-size-caption, 11px) !important;
+
+    font-size: var(--rds-font-size-caption, 11px);
+
     display: inline-block;
+
     white-space: nowrap;
+
     line-height: 1.2;
+
   }
+
   #close-btn .rds-icon-button,
+
   #close-btn .MuiIconButton-root {
-    padding: var(--rds-spacing-compact) var(--rds-spacing-sm) !important;
-    min-width: var(--rds-icon-button-size, 36px) !important;
-    min-height: var(--rds-icon-button-size, 36px) !important;
-    width: var(--rds-icon-button-size, 36px) !important;
-    height: var(--rds-icon-button-size, 36px) !important;
+
+    padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
+
+    min-width: var(--rds-icon-button-size, 36px);
+
+    min-height: var(--rds-icon-button-size, 36px);
+
+    width: var(--rds-icon-button-size, 36px);
+
+    height: var(--rds-icon-button-size, 36px);
+
   }
+
   
+
   #close-btn .rds-icon-button svg,
+
   #close-btn .MuiIconButton-root svg {
-    width: var(--rds-icon-button-svg-size, 16px) !important;
-    height: var(--rds-icon-button-svg-size, 16px) !important;
-    margin-left: 0 !important;
+
+    width: var(--rds-icon-button-svg-size, 16px);
+
+    height: var(--rds-icon-button-svg-size, 16px);
+
+    margin-left: 0;
+
   }
+
 }
+
 @media (max-width: 896px) {
-  .offcanvas-drawer .MuiDrawer-paper { width: min(400px, 100vw) !important; }
+
+  .offcanvas-drawer .MuiDrawer-paper { width: min(400px, 100vw); }
+
   #offcanvas-btns, .offcanvas-margin {
+
     display: flex;
+
     flex-wrap: nowrap;
+
     gap: var(--rds-spacing-xs);
+
     align-items: center;
+
     justify-content: flex-end;
-    padding-left: var(--rds-spacing-md) !important;
-    padding-right: 0 !important;
+
+    padding-left: var(--rds-spacing-md);
+
+    padding-right: 0;
+
   }
+
+
 
   #offcanvas-btns .tertiary-button-container {
+
     margin-right: auto;
+
   }
+
+
 
   #offcanvas-btns .secondary-button-container {
+
     margin-left: auto;
+
     margin-right: var(--rds-spacing-sm);
+
   }
+
+
 
   #offcanvas-btns .primary-button-container {
+
     margin-left: var(--rds-spacing-xs);
+
   }
 
+
+
   #offcanvas-btns .rds-button {
-    font-size: var(--rds-font-size-sm) !important;
-    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm) !important;
-    width: 100% !important;
+
+    font-size: var(--rds-font-size-sm);
+
+    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
+
+    width: 100%;
+
     white-space: nowrap;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
+
   }
+
+
 
   #close-btn .rds-icon-button, #close-btn .MuiIconButton-root {
-    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm) !important;
-    width: var(--rds-icon-button-lg-size, 40px) !important; height: var(--rds-icon-button-lg-size, 40px) !important;
-    min-width: var(--rds-icon-button-lg-size, 40px) !important; min-height: var(--rds-icon-button-lg-size, 40px) !important;
+
+    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
+
+    width: var(--rds-icon-button-lg-size, 40px); height: var(--rds-icon-button-lg-size, 40px);
+
+    min-width: var(--rds-icon-button-lg-size, 40px); min-height: var(--rds-icon-button-lg-size, 40px);
+
   }
+
   #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
-    width: var(--rds-icon-button-lg-svg-size, 18px) !important; height: var(--rds-icon-button-lg-svg-size, 18px) !important; 
-    margin-left: 0 !important;
+
+    width: var(--rds-icon-button-lg-svg-size, 18px); height: var(--rds-icon-button-lg-svg-size, 18px); 
+
+    margin-left: 0;
+
   }
+
 }
 
+
+
 :root {
+
   --rds-offcanvas-width: 650px;
+
   --rds-offcanvas-height: 100%;
+
   --rds-offcanvas-top-height: 300px;
+
 }
+

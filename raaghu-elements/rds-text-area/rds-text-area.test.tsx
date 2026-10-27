@@ -58,14 +58,14 @@ describe('RdsTextArea', () => {
     it('uses the error prop for error styling and accessibility', () => {
       render(<RdsTextArea error dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-error');
+      expect(textarea).toHaveClass('rds-textarea__error');
       expect(textarea).toHaveAttribute('aria-invalid', 'true');
     });
 
     it('uses the disabled prop for disabled styling and behavior', () => {
       render(<RdsTextArea disabled dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-disabled');
+      expect(textarea).toHaveClass('rds-textarea__disabled');
       expect(textarea).toBeDisabled();
     });
 
@@ -73,7 +73,7 @@ describe('RdsTextArea', () => {
       render(<RdsTextArea error dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       fireEvent.focus(textarea);
-      expect(textarea).toHaveClass('textarea-error');
+      expect(textarea).toHaveClass('rds-textarea__error');
     });
 
     it('uses the current value for the filled appearance', () => {
@@ -83,7 +83,7 @@ describe('RdsTextArea', () => {
 
     it('applies the selected appearance when selected is true', () => {
       render(<RdsTextArea selected dataTestId="test-textarea" />);
-      expect(screen.getByTestId('test-textarea')).toHaveClass('textarea-selected');
+      expect(screen.getByTestId('test-textarea')).toHaveClass('rds-textarea__selected');
     });
   });
 
@@ -91,20 +91,20 @@ describe('RdsTextArea', () => {
     it('should render default style by default', () => {
       render(<RdsTextArea dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-style-default');
+      expect(textarea).toHaveClass('rds-textarea__default');
     });
 
     it('should apply pill style class', () => {
       render(<RdsTextArea variant="Pill" dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-pill');
-      expect(textarea.closest('.textarea-pill-wrapper')).toBeTruthy();
+      expect(textarea).toHaveClass('rds-textarea__pill');
+      expect(textarea.closest('.rds-textarea__pill-wrapper')).toBeTruthy();
     });
 
     it('should apply bottom outline style class', () => {
       render(<RdsTextArea variant="Bottom Outline" dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('textarea-bottom-outline');
+      expect(textarea).toHaveClass('rds-textarea__bottom-outline');
     });
   });
 
@@ -510,7 +510,7 @@ describe('RdsTextArea', () => {
         />
       );
       const textarea = screen.getByTestId('test-textarea');
-      expect(textarea).toHaveClass('rds-textarea', 'textarea-error', 'textarea-pill', 'my-custom');
+      expect(textarea).toHaveClass('rds-textarea', 'rds-textarea__error', 'rds-textarea__pill', 'my-custom');
     });
   });
 
@@ -607,7 +607,7 @@ describe('RdsTextArea', () => {
       const textarea = screen.getByTestId('test-textarea') as HTMLTextAreaElement;
       
       expect(screen.getByText('Email')).toBeInTheDocument();
-      expect(textarea).toHaveClass('rds-textarea', 'textarea-error', 'textarea-pill', 'custom');
+      expect(textarea).toHaveClass('rds-textarea', 'rds-textarea__error', 'rds-textarea__pill', 'custom');
       expect(textarea).toHaveAttribute('aria-required', 'true');
       
       fireEvent.focus(textarea);
@@ -629,13 +629,13 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       
-      expect(textarea).toHaveClass('textarea-style-default');
+      expect(textarea).toHaveClass('rds-textarea__default');
       
       rerender(<RdsTextArea error dataTestId="test-textarea" />);
-      expect(textarea).toHaveClass('textarea-error');
+      expect(textarea).toHaveClass('rds-textarea__error');
       
       rerender(<RdsTextArea disabled dataTestId="test-textarea" />);
-      expect(textarea).toHaveClass('textarea-disabled');
+      expect(textarea).toHaveClass('rds-textarea__disabled');
     });
   });
 
@@ -693,7 +693,7 @@ describe('audit fixes', () => {
     render(<RdsTextArea disabled variant="Pill" dataTestId="ta" />);
     const ta = screen.getByTestId('ta');
     expect(ta).toBeDisabled();
-    expect(ta).toHaveClass('textarea-pill');
+    expect(ta).toHaveClass('rds-textarea__pill');
   });
 
   it('G2-346: passes className, name, maxLength, disabled, defaultValue and ref', () => {
@@ -719,14 +719,14 @@ describe('audit fixes', () => {
 
   it('B29: error forces the error state and helperText replaces validationMsg', () => {
     render(<RdsTextArea error helperText="Bad" validationMsg="Old" data-testid="ta" />);
-    expect(screen.getByTestId('ta')).toHaveClass('textarea-error');
+    expect(screen.getByTestId('ta')).toHaveClass('rds-textarea__error');
     expect(screen.getByText('Bad')).toBeInTheDocument();
     expect(screen.queryByText('Old')).not.toBeInTheDocument();
   });
 
   it('B29: variant wins over the deprecated style string, and style accepts CSSProperties', () => {
     const { container } = render(<RdsTextArea variant="Pill" style="Bottom Outline" data-testid="ta" />);
-    expect(screen.getByTestId('ta')).toHaveClass('textarea-pill');
+    expect(screen.getByTestId('ta')).toHaveClass('rds-textarea__pill');
     const { container: c2 } = render(<RdsTextArea style={{ marginTop: '12px' }} />);
     expect(c2.firstChild).toHaveStyle({ marginTop: '12px' });
     expect(container).toBeInTheDocument();
@@ -744,5 +744,23 @@ describe('audit fixes', () => {
     ['dataTestId', 'showTitle', 'reset', 'validationMsg'].forEach((p) =>
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTextArea', p, expect.any(String))
     );
+  });
+
+  it('G2-352: localeText.required overrides the empty-value message', () => {
+    render(<RdsTextArea required label="Notes" value="" localeText={{ required: 'Notes needed' }} dataTestId="ta" />);
+    expect(screen.getByText('Notes needed')).toBeInTheDocument();
+    expect(screen.queryByText('Notes is required')).not.toBeInTheDocument();
+  });
+
+  it('G2-353: keeps legacy class aliases alongside BEM', () => {
+    const { container } = render(
+      <RdsTextArea required label="Notes" value="" error variant="Pill" dataTestId="ta" />
+    );
+    const ta = screen.getByTestId('ta');
+    expect(ta).toHaveClass('textarea-error', 'rds-textarea__error', 'textarea-pill', 'rds-textarea__pill');
+    expect(container.querySelector('.textarea-label.rds-textarea__label')).toBeInTheDocument();
+    expect(container.querySelector('.required-asterisk.rds-textarea__required')).toBeInTheDocument();
+    expect(container.querySelector('.error-message.rds-textarea__error-message')).toBeInTheDocument();
+    expect(container.querySelector('.textarea-wrapper.rds-textarea__wrapper')).toBeInTheDocument();
   });
 });

@@ -753,6 +753,25 @@ describe('RdsAvatar audit fixes', () => {
     expect(container.querySelector('.rds-avatar__avatar-outer > .rds-avatar__ring')).toBeInTheDocument();
     expect(container.querySelector('.rds-avatar__avatar-wrap > .rds-avatar__ring')).not.toBeInTheDocument();
   });
+
+  it('forwards slotProps to wrap/info/designation (G3-137)', () => {
+    const { container } = render(
+      <RdsAvatar
+        name="Ann Lee"
+        description="Engineer"
+        displayStyle="with-name"
+        slotProps={{
+          wrap: { className: 'slot-wrap', 'data-testid': 'avatar-wrap' },
+          info: { className: 'slot-info' },
+          designation: { className: 'slot-designation' },
+        }}
+      />
+    );
+    expect(container.querySelector('.rds-avatar__avatar-wrap')).toHaveClass('slot-wrap');
+    expect(container.querySelector('[data-testid="avatar-wrap"]')).toBeInTheDocument();
+    expect(container.querySelector('.rds-avatar__info')).toHaveClass('slot-info');
+    expect(container.querySelector('.rds-avatar__designation')).toHaveClass('slot-designation');
+  });
 });
 
 describe('RdsAvatar additive renames', () => {

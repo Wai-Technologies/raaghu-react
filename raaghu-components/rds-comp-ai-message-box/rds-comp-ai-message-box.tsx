@@ -66,6 +66,11 @@ const RdsCompAiMessageBox = memo(({
             src={avatarSrc}
             description={children ?? message}
             name={name}
+            slotProps={{
+              wrap: { className: "rds-comp-ai-message-box__avatar-wrap" },
+              info: { className: "rds-comp-ai-message-box__avatar-info" },
+              designation: { className: "rds-comp-ai-message-box__avatar-designation" },
+            }}
           />
         </div>
         {showImage && (

@@ -6,6 +6,7 @@ import "./rds-comp-spinner.scss";
 export { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
 import { SpinnerSize, SpinnerLayout, SpinnerLevel, type RdsCompSpinnerProps } from './rds-comp-spinner-types';
 
+/** Inline px match `--rds-spinner-size-*` in scss (G6-103); tests assert these strings. */
 const SIZE_DIMENSIONS: Record<SpinnerSize, { width: string; height: string }> = {
   [SpinnerSize.Default]: { width: "30px", height: "30px" },
   [SpinnerSize.Small]: { width: "15px", height: "15px" },

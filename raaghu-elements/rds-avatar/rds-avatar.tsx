@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 type AvatarColor = 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
@@ -59,6 +59,12 @@ export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'>
   showDesignation?: boolean;
   /** @deprecated Keep `max` at or above the avatar count to hide the +N badge. */
   showRemainingCount?: boolean;
+  /** Props for named layout slots (avoids consumers piercing BEM internals). */
+  slotProps?: {
+    wrap?: HTMLAttributes<HTMLSpanElement>;
+    info?: HTMLAttributes<HTMLDivElement>;
+    designation?: HTMLAttributes<HTMLDivElement>;
+  };
 }
 
 const sizeStyles = {
@@ -113,8 +119,12 @@ const RdsAvatar = ({
   showName = true,
   showDesignation = true,
   showRemainingCount = true,
+  slotProps,
   ...props
 }: RdsAvatarProps) => {
+  const { className: wrapClassName, ...wrapSlotRest } = slotProps?.wrap ?? {};
+  const { className: infoClassName, ...infoSlotRest } = slotProps?.info ?? {};
+  const { className: designationClassName, ...designationSlotRest } = slotProps?.designation ?? {};
   if (colorVariantProp !== undefined) warnDeprecatedProp('RdsAvatar', 'colorVariant', '`color`');
   if (titleProp !== undefined) warnDeprecatedProp('RdsAvatar', 'title', '`name`');
   if (subText !== undefined) warnDeprecatedProp('RdsAvatar', 'subText', '`description`');
@@ -210,7 +220,7 @@ const RdsAvatar = ({
   const ring = activityRing && <span className="rds-avatar__ring" aria-hidden="true" />;
 
   const renderAvatar = (initials: ReactNode, ringInside = false) => (
-    <span className="rds-avatar__avatar-wrap">
+    <span {...wrapSlotRest} className={clsx('rds-avatar__avatar-wrap', wrapClassName)}>
       {ringInside && ring}
       <MuiAvatar sx={[sizeStyles[size], ...toSxArray(sx)]} className={className} color={isPaletteColor ? undefined : color} {...props}>
         {initials}
@@ -224,9 +234,13 @@ const RdsAvatar = ({
       <div className={rootClassName}>
         {renderAvatar(title ? allInitials(title) : children, true)}
 
-        <div className="rds-avatar__info">
+        <div {...infoSlotRest} className={clsx('rds-avatar__info', infoClassName)}>
           {showName && title && <div className="rds-avatar__name" id='avatarname'>{title}</div>}
-          {showDesignation && subTextResolved && <div className="rds-avatar__designation">{subTextResolved}</div>}
+          {showDesignation && subTextResolved && (
+            <div {...designationSlotRest} className={clsx('rds-avatar__designation', designationClassName)}>
+              {subTextResolved}
+            </div>
+          )}
         </div>
       </div>
     );
@@ -239,9 +253,13 @@ const RdsAvatar = ({
           {ring}
           {renderAvatar(title ? allInitials(title) : children)}
         </span>
-        <div className="rds-avatar__info rds-avatar__info--center">
+        <div {...infoSlotRest} className={clsx('rds-avatar__info', 'rds-avatar__info--center', infoClassName)}>
           {showName && title && <div className="rds-avatar__name">{title}</div>}
-          {showDesignation && subTextResolved && <div className="rds-avatar__designation">{subTextResolved}</div>}
+          {showDesignation && subTextResolved && (
+            <div {...designationSlotRest} className={clsx('rds-avatar__designation', designationClassName)}>
+              {subTextResolved}
+            </div>
+          )}
         </div>
       </div>
     );

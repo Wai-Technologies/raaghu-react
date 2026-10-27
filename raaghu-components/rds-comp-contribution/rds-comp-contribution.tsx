@@ -5,7 +5,6 @@ import { Box } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material';
 import clsx from 'clsx';
 import './rds-comp-contribution.scss';
-import SvgIcon from '@mui/material/SvgIcon';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 
 dayjs.extend(customParseFormat);
@@ -254,7 +253,9 @@ const RdsCompContribution = ({
             data-value={contribution.value}
             {...panelAttributes}
             key={`panel_${i}_${j}`}
-          />
+          >
+            <title>{`${contribution.date}: ${contribution.value}`}</title>
+          </rect>
         );
       }
     }
@@ -367,23 +368,18 @@ const RdsCompContribution = ({
     >
       <div className="rds-comp-contribution__container">
         <div className="rds-comp-contribution__wrapper">
-          <SvgIcon
+          <svg
             className="rds-comp-contribution__svg"
             viewBox={`0 0 ${svgWidth} ${svgHeight}`}
             role="img"
-            aria-hidden={false}
             aria-label="Contribution graph"
-            sx={{
-              width: '100%',
-              height: 'auto',
-              maxWidth: '100%',
-              minWidth: 'unset',
-            }}
+            data-testid="svg-icon"
           >
+            <title>Contribution graph</title>
             {weekLabels}
             {contributionPanels}
             {monthLabels}
-          </SvgIcon>
+          </svg>
         </div>
       </div>
     </Box>

@@ -294,22 +294,14 @@
   }
 }
 
-html[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-text,
-body[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-text,
-body.theme-dark .rds-comp-toolbar--secondary.rds-comp-toolbar--more-text,
-body.dark-theme .rds-comp-toolbar--secondary.rds-comp-toolbar--more-text,
-html[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-paragraph,
-body[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-paragraph,
-body.theme-dark .rds-comp-toolbar--secondary.rds-comp-toolbar--more-paragraph,
-body.dark-theme .rds-comp-toolbar--secondary.rds-comp-toolbar--more-paragraph,
-html[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-rich-content,
-body[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--more-rich-content,
-body.theme-dark .rds-comp-toolbar--secondary.rds-comp-toolbar--more-rich-content,
-body.dark-theme .rds-comp-toolbar--secondary.rds-comp-toolbar--more-rich-content,
-html[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--misc,
-body[data-theme='dark'] .rds-comp-toolbar--secondary.rds-comp-toolbar--misc,
-body.theme-dark .rds-comp-toolbar--secondary.rds-comp-toolbar--misc,
-body.dark-theme .rds-comp-toolbar--secondary.rds-comp-toolbar--misc {
+/* G6-166: one :is() dark host for secondary toolbar hover (was 16 selectors) */
+:is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme)
+  .rds-comp-toolbar--secondary:is(
+    .rds-comp-toolbar--more-text,
+    .rds-comp-toolbar--more-paragraph,
+    .rds-comp-toolbar--more-rich-content,
+    .rds-comp-toolbar--misc
+  ) {
   .rds-comp-toolbar__row--secondary .rds-comp-toolbar__button:hover {
     background: var(--rds-surface-dark-hover, #4a5058);
     border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.18));

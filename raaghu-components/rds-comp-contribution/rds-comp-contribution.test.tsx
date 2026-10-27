@@ -795,7 +795,12 @@ describe('audit fixes', () => {
 
   it('G4-051: svg exposes an accessible name', () => {
     render(<RdsCompContribution {...base} />);
-    expect(screen.getByTestId('svg-icon')).toHaveAttribute('aria-label', 'Contribution graph');
+    const svg = screen.getByTestId('svg-icon');
+    expect(svg.tagName.toLowerCase()).toBe('svg');
+    expect(svg).toHaveAttribute('aria-label', 'Contribution graph');
+    expect(svg.querySelector('title')).toHaveTextContent('Contribution graph');
+    const panelTitle = svg.querySelector('rect[data-date="2024-01-01"] title');
+    expect(panelTitle).toHaveTextContent('2024-01-01: 2');
   });
 
   it('G4-055: root forwards className, ref and rest props', () => {
