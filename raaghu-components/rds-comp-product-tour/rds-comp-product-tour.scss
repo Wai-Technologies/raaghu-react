@@ -1219,7 +1219,7 @@ padding: var(--rds-spacing-lg);
         }
 
         .MuiAutocomplete-popupIndicator {
-          padding: 2px !important;
+          padding: var(--rds-spacing-xxs) !important;
 
           .MuiSvgIcon-root {
             font-size: var(--rds-font-size-xl) ;

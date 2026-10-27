@@ -268,7 +268,7 @@
 // Ensure the MUI Dialog paper doesn't overflow small mobile viewports
 @media (max-width: 360px) {
   .MuiDialog-paper {
-    margin: 16px !important;
+    margin: var(--rds-spacing-md) !important;
     max-height: calc(100% - 32px) !important;
   }
 

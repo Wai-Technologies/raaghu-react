@@ -24,13 +24,13 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 4px 0;
+    gap: var(--rds-spacing-compact);
+    padding: var(--rds-spacing-xs) 0;
   }
 
   &__option {
     cursor: pointer;
-    padding: 4px 8px;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius-sm, 4px);
     width: 100%;
     background-color: transparent;
@@ -90,8 +90,8 @@
 .rds-button-dropdown__option {
 	display: flex;
 	align-items: center;
-  gap: 6px;
-  padding: 4px 6px;
+  gap: var(--rds-spacing-compact);
+  padding: var(--rds-spacing-xs) var(--rds-spacing-compact);
   min-height: 32px;
 
   /* Keep compact avatar size without overlap */
@@ -115,7 +115,7 @@
     min-width: 0;
 
 		.MuiRadio-root {
-      padding: 3px !important;
+      padding: var(--rds-spacing-micro) !important;
 
 			svg {
         width: 16px !important;
@@ -133,7 +133,7 @@
 		.MuiFormControlLabel-root {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: var(--rds-spacing-compact);
 			margin-right: 0 !important;
       margin-left: 0 !important;
 		}
@@ -147,7 +147,7 @@
     .MuiFormControlLabel-root {
       margin-left: 0 !important;
       margin-right: 0 !important;
-      gap: 6px;
+      gap: var(--rds-spacing-compact);
     }
 
 		.MuiFormControlLabel-label,
@@ -157,7 +157,7 @@
 		}
 
 		.MuiCheckbox-root {
-      padding: 3px !important;
+      padding: var(--rds-spacing-micro) !important;
 
 			svg {
         width: 16px !important;

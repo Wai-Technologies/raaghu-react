@@ -1038,7 +1038,7 @@
       gap: 0;
       
       &-options {
-        gap: 2px;
+        gap: var(--rds-spacing-xxs);
         flex-shrink: 0;
         
         .nav-tabs .nav-link {
