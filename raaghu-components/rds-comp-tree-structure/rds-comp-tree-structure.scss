@@ -43,7 +43,7 @@
     justify-content: center;
     width: auto;
     height: auto;
-    padding: 2px 6px;
+    padding: var(--rds-spacing-xxs) var(--rds-spacing-compact);
     cursor: pointer;
     transition: transform var(--rds-transition-duration-short, 0.2s) ease, color 0.12s ease;
     color: var(--rds-text-secondary);
@@ -125,7 +125,7 @@
     justify-content: center;
     border: 0;
     border-radius: 6px;
-    padding: 4px;
+    padding: var(--rds-spacing-xs);
     width: 28px;
     height: 28px;
     transition: background-color var(--rds-transition-duration-short, 0.15s) ease, color 0.15s ease;

@@ -253,7 +253,7 @@
       align-items: center;
       align-self: center;
       flex-shrink: 0;
-      gap: 2px;
+      gap: var(--rds-spacing-xxs);
       margin-top: 0;
       width: 28px;
 
@@ -268,7 +268,7 @@
       .rds-comments-box__score-border {
         min-width: 28px;
         min-height: 28px;
-        padding: 2px 4px;
+        padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
         border-radius: var(--rds-border-radius-sm, 4px);
         border: 1px solid var(--rds-border-default, var(--rds-neutral-200, #e0e0e0));
         box-sizing: border-box;
@@ -426,7 +426,7 @@
   &--composer {
     display: flex;
     align-items: center;
-    padding: 6px 10px;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
     border-radius: var(--rds-border-radius-md, 8px);
     gap: var(--rds-spacing-xxs, 2px);
     max-width: 280px;
@@ -443,7 +443,7 @@
         border: 1px solid var(--rds-neutral-300);
         padding-right: 4px;
         input {
-          padding: 5px 8px;
+          padding: var(--rds-spacing-tight) var(--rds-spacing-sm);
           font-size: var(--rds-font-size-sm, 12px);
           color: var(--rds-text-primary);
         }
@@ -1176,13 +1176,13 @@
     border: 1px solid var(--rds-neutral-300);
     border-radius: var(--rds-border-radius-md, 8px);
     box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0,0,0,0.06));
-    padding: 6px 4px;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-xs);
     min-width: 110px;
   }
   &__comment-dropdown-item {
     display: flex;
     align-items: center;
-    padding: 6px 10px;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
     cursor: pointer;
     margin: 0;
     background: transparent;
@@ -1328,7 +1328,7 @@
   }
   
   &__mention-search {
-    padding: 8px 8px 0 8px;
+    padding: var(--rds-spacing-sm) var(--rds-spacing-sm) 0 var(--rds-spacing-sm);
   }
   &__mention-search-input {
     width: 100%;
@@ -1348,7 +1348,7 @@
   }
   &__mention-divider {
     border-bottom: 1px solid var(--rds-border-light);
-    margin: 6px 0 0 0;
+    margin: var(--rds-spacing-compact) 0 0 0;
   }
   &__mention-user-list {
     max-height: 180px;
@@ -1905,7 +1905,7 @@
       margin-right: 0;
     }
     .rds-avatar__avatar-wrap {
-      padding: 2px;
+      padding: var(--rds-spacing-xxs);
     }
     .rds-comments-box__typing-box {
       flex: 1 1 auto;
@@ -1926,7 +1926,7 @@
       height: 22px !important;
       min-width: 22px !important;
       min-height: 22px !important;
-      padding: 2px 6px !important;
+      padding: var(--rds-spacing-xxs) var(--rds-spacing-compact) !important;
     }
   }
 

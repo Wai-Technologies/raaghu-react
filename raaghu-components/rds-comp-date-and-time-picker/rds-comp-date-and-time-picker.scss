@@ -722,7 +722,7 @@
 .rds-date-picker__range-calendar-row {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: var(--rds-spacing-md);
   flex-wrap: wrap;
   width: 100%;
   box-sizing: border-box;
@@ -736,7 +736,7 @@
 .rds-date-picker__time-range-stack {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: var(--rds-spacing-md);
   width: 100%;
 }
 
@@ -759,7 +759,7 @@
 .rds-date-picker__range-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--rds-spacing-sm);
   margin-top: 16px;
   width: 100%;
 }
@@ -860,7 +860,7 @@
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 12px;
+    padding: var(--rds-spacing-3);
     max-height: calc(100dvh - 80px);
     box-sizing: border-box;
     align-items: stretch;
@@ -880,13 +880,13 @@
     .rds-date-picker__range-datetime-divider {
       width: auto;
       height: 1px;
-      margin: 8px 0;
+      margin: var(--rds-spacing-sm) 0;
     }
 
     .rds-date-picker__range-datetime-spacer {
       width: auto;
       height: 0;
-      margin: 4px 0;
+      margin: var(--rds-spacing-xs) 0;
     }
   }
 
@@ -928,8 +928,8 @@
     .rds-date-picker__preset-list {
       flex-direction: row;
       flex-wrap: wrap;
-      gap: 8px;
-      padding: 12px;
+      gap: var(--rds-spacing-sm);
+      padding: var(--rds-spacing-3);
     }
   }
 }
@@ -971,7 +971,7 @@
 
   .rds-date-picker__range-paper {
     max-width: 100%;
-    padding: 8px;
+    padding: var(--rds-spacing-sm);
     max-height: calc(100dvh - 64px);
     align-items: stretch;
 
@@ -998,7 +998,7 @@
       width: 32px !important;
       height: 32px !important;
       font-size: 0.8rem !important;
-      margin: 1px !important;
+      margin: var(--rds-spacing-hairline) !important;
     }
 
     .MuiDayCalendar-weekDayLabel {
@@ -1079,7 +1079,7 @@
 
 // Range picker Popover paper
 .rds-date-picker__range-paper {
-  padding: 16px;
+  padding: var(--rds-spacing-md);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -1125,13 +1125,13 @@
   width: 1px;
   background-color: var(--rds-color-primary, #2196F3);
   align-self: stretch;
-  margin: 8px;
+  margin: var(--rds-spacing-sm);
 }
 
 .rds-date-picker__range-datetime-spacer {
   width: 0.5px;
   align-self: stretch;
-  margin: 8px;
+  margin: var(--rds-spacing-sm);
 }
 
 .rds-date-picker__range-datetime-time-label {
@@ -1278,7 +1278,7 @@
 
 // Action bar button styling for all pickers
 .MuiPickersLayout-actionBar {
-  padding: 8px 16px !important;
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md) !important;
 
   .MuiButton-root {
     text-transform: none !important;

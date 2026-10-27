@@ -268,7 +268,7 @@
     &.active {
       color: var(--rds-color-primary, #9751F2);
       font-weight: 500;
-      gap: 8px;
+      gap: var(--rds-spacing-sm);
       padding-left: 16px;
       
       &::before {
