@@ -42,8 +42,8 @@ const meta = {
     },
     size: {
       control: { type: 'select' },
-      options: ['medium', 'large'],
-      description: 'Sets the size of the menu items',
+      options: ['small', 'medium', 'large'],
+      description: 'Sets the size of the menu items (`default` is deprecated; use `medium`)',
     },
     selected: {
       control: 'boolean',

@@ -31,7 +31,7 @@ export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivEleme
   /** Figma alias of `variant`. */
   type?: 'expandable' | 'selectable';
   /** Size of the trigger button and menu items. `'default'` is deprecated; use `'medium'`. */
-  size?: 'medium' | 'default' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'default';
   /** Selects the first item when using the selectable variant. */
   selected?: boolean;
   /** Called with the chosen option. */
@@ -44,6 +44,7 @@ export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivEleme
   ref?: Ref<HTMLDivElement>;
 }
 
+type MultiLevelMenuSize = 'small' | 'medium' | 'large';
 
 const menuItemStyle = {
   display: 'flex',
@@ -56,6 +57,8 @@ const menuPaperStyle = {
   minWidth: 'var(--rds-mlm-min-width, 220px)',
 };
 
+const resolveSize = (sizeProp: 'small' | 'medium' | 'large' | 'default'): MultiLevelMenuSize =>
+  sizeProp === 'default' ? 'medium' : sizeProp;
 
 export const RdsMultiLevelMenu = ({
   items,
@@ -74,7 +77,7 @@ export const RdsMultiLevelMenu = ({
   if (options !== undefined) warnDeprecatedProp('RdsMultiLevelMenu', 'options', '`items`');
   if (sizeProp === 'default') warnDeprecatedProp('RdsMultiLevelMenu', 'size="default"', '`size="medium"`');
   const type = variant ?? typeProp ?? 'expandable';
-  const size = sizeProp === 'medium' ? 'default' : sizeProp;
+  const size = resolveSize(sizeProp);
   const isMobile = useMediaQuery('(max-width:568px)', { noSsr: true });
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
@@ -184,7 +187,7 @@ export const RdsMultiLevelMenu = ({
                   ...menuItemStyle,
                 }}
                 className={clsx(
-                  size === 'large' && 'large',
+                  size !== 'medium' && size,
                   isExpandable && openIndexes[level] === idx && 'expanded-open',
                 )}
                 disableRipple={isExpandable}
@@ -235,7 +238,7 @@ export const RdsMultiLevelMenu = ({
       <RdsButton
         variant="filled"
         onClick={(e) => handleMenuOpen(e)}
-        size={size === 'large' ? 'large' : 'medium'}
+        size={size}
       >
         {children ?? 'Multi Level Menu'}
       </RdsButton>

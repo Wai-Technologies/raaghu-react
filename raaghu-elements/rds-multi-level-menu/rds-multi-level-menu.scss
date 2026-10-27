@@ -63,6 +63,13 @@
 }
 
 
+.rds-mlm-paper .MuiMenuItem-root.small {
+  font-size: var(--rds-font-size-sm, 0.875rem);
+  line-height: 1.25;
+  min-height: var(--rds-size-lg, 32px);
+  padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+}
+
 .rds-mlm-paper .MuiMenuItem-root.large {
   font-size: var(--rds-font-size-lg);
   line-height: 24px;
@@ -76,6 +83,10 @@
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-arrow {
   color: var(--rds-primary-main) !important;
+}
+
+.rds-mlm-paper.size-small {
+  --rds-mlm-min-width: 180px;
 }
 
 .rds-mlm-paper.size-large {

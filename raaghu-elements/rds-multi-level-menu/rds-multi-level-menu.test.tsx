@@ -375,27 +375,46 @@ describe('RdsMultiLevelMenu', () => {
   });
 
   describe('Menu Size', () => {
-    it('should apply default size', async () => {
-      const { container } = renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} size="default" />
+    it('should apply medium size', async () => {
+      renderWithTheme(
+        <RdsMultiLevelMenu options={defaultOptions} size="medium" />
       );
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
-      
+
       const menuItem = screen.getByText('File').closest('[role="menuitem"]');
       expect(menuItem).toBeInTheDocument();
+      expect(menuItem).not.toHaveClass('small');
+      expect(menuItem).not.toHaveClass('large');
+    });
+
+    it('should apply small size', async () => {
+      renderWithTheme(
+        <RdsMultiLevelMenu options={defaultOptions} size="small" />
+      );
+      const button = screen.getByTestId('rds-button');
+      await userEvent.click(button);
+
+      const menuItem = screen.getByText('File').closest('[role="menuitem"]');
+      expect(menuItem).toHaveClass('small');
+      expect(document.querySelector('.rds-mlm-paper')).toHaveClass('size-small');
     });
 
     it('should apply large size', async () => {
       renderWithTheme(
         <RdsMultiLevelMenu options={defaultOptions} size="large" />
       );
-      expect(screen.getByTestId('rds-button')).toBeInTheDocument();
+      const button = screen.getByTestId('rds-button');
+      await userEvent.click(button);
+
+      const menuItem = screen.getByText('File').closest('[role="menuitem"]');
+      expect(menuItem).toHaveClass('large');
+      expect(document.querySelector('.rds-mlm-paper')).toHaveClass('size-large');
     });
 
     it('should reset menu state when size changes', async () => {
       const { rerender } = renderWithTheme(
-        <RdsMultiLevelMenu options={defaultOptions} size="default" />
+        <RdsMultiLevelMenu options={defaultOptions} size="medium" />
       );
       const button = screen.getByTestId('rds-button');
       await userEvent.click(button);
