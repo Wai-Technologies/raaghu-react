@@ -54,7 +54,7 @@
     box-sizing: border-box;
     padding: var(--rds-spacing-md, 16px);
     gap: var(--rds-spacing-md, 16px);
-    background: var(--rds-background-paper, #ffffff);
+    background: var(--rds-background-paper);
     border: 1px solid var(--rds-border-default, var(--rds-neutral-200, #e0e0e0));
     border-radius: var(--rds-border-radius-sm, 4px);
     box-shadow: none;
@@ -158,7 +158,7 @@
     box-sizing: border-box;
     padding: var(--rds-spacing-md, 16px);
     gap: var(--rds-spacing-xs, 4px);
-    background: var(--rds-background-paper, #ffffff);
+    background: var(--rds-background-paper);
     border: 1px solid var(--rds-border-default, var(--rds-neutral-200, #e0e0e0));
     border-radius: var(--rds-border-radius-sm, 4px);
     box-shadow: none;
@@ -181,7 +181,7 @@
         font-size: 18px !important;
         width: 18px;
         height: 18px;
-        color: var(--rds-text-secondary, #646464);
+        color: var(--rds-text-secondary);
       }
     }
 
@@ -262,7 +262,7 @@
         font-size: 16px !important;
         width: 16px;
         height: 16px;
-        color: var(--rds-primary-main, #3c98ff);
+        color: var(--rds-primary-main);
       }
 
       .rds-comments-box__score-border {
@@ -408,7 +408,7 @@
         }
 
         .rds-comments-box__send-icon {
-          color: var(--rds-primary-contrast-text, #fff);
+          color: var(--rds-primary-contrast-text);
           width: 11px;
           height: 11px;
           margin: 0;
@@ -453,8 +453,8 @@
       }
     }
     .rds-comments-box__send-btn {
-      background: var(--rds-primary-main, #3c98ff) ;
-      color: var(--rds-primary-contrast-text, #fff) ;
+      background: var(--rds-primary-main) ;
+      color: var(--rds-primary-contrast-text) ;
       border-radius: var(--rds-border-radius-sm, 4px) ;
       padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) ;
       display: flex;
@@ -474,7 +474,7 @@
         display: inline-flex;
         width: 11px;
         height: 11px;
-        color: var(--rds-primary-contrast-text, #fff);
+        color: var(--rds-primary-contrast-text);
         margin: 0;
 
         svg {
@@ -542,7 +542,7 @@
       font-size: var(--rds-font-size-sm, 12px) !important;
       font-weight: var(--rds-typography-semibold, 600) !important;
       background-color: var(--rds-primary-main) ;
-      color: var(--rds-primary-contrast-text, #fff) ;
+      color: var(--rds-primary-contrast-text) ;
     }
 
     .rds-comments-box__dot {
@@ -558,7 +558,7 @@
       border: 0 !important;
       outline: none !important;
       border-radius: var(--rds-border-radius-pill, 9999px) !important;
-      background-color: var(--rds-error-main, #bd0d1d) !important;
+      background-color: var(--rds-error-main) !important;
       background-image: none !important;
       box-shadow: none;
       filter: none !important;
@@ -605,8 +605,8 @@
       flex-direction: column;
       gap: var(--rds-spacing-3, 12px);
       padding: var(--rds-spacing-3, 12px) var(--rds-spacing-3, 12px) 0;
-      background: var(--rds-background-paper, #ffffff);
-      border: 1px solid var(--rds-neutral-600, #7d7d7d);
+      background: var(--rds-background-paper);
+      border: 1px solid var(--rds-neutral-600);
       border-radius: var(--rds-border-radius-md, 8px);
       box-sizing: border-box;
       color: var(--rds-text-primary);
@@ -660,9 +660,9 @@
 
       .MuiInputBase-input::placeholder,
       .MuiInput-input::placeholder {
-        color: var(--rds-text-primary, #353535) !important;
+        color: var(--rds-text-primary) !important;
         opacity: 1 !important;
-        -webkit-text-fill-color: var(--rds-text-primary, #353535);
+        -webkit-text-fill-color: var(--rds-text-primary);
       }
     }
 
@@ -690,7 +690,7 @@
       min-width: 36px;
       padding: 0;
       border-radius: var(--rds-border-radius-sm, 4px);
-      color: var(--rds-primary-main, #3c98ff);
+      color: var(--rds-primary-main);
 
       &:hover {
         background: transparent;
@@ -703,7 +703,7 @@
       min-width: 36px;
       padding: 0;
       border-radius: var(--rds-border-radius-sm, 4px);
-      color: var(--rds-text-secondary, #646464);
+      color: var(--rds-text-secondary);
 
       &:hover {
         background: transparent;
@@ -716,7 +716,7 @@
       min-width: 0;
       padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-3, 12px);
       border-radius: var(--rds-border-radius-sm, 4px);
-      color: var(--rds-text-secondary, #646464);
+      color: var(--rds-text-secondary);
 
       &:hover {
         background: transparent;
@@ -728,7 +728,7 @@
       display: inline-flex;
       width: 12px;
       height: 12px;
-      color: var(--rds-primary-main, #3c98ff);
+      color: var(--rds-primary-main);
 
       svg {
         display: block;
@@ -743,13 +743,13 @@
       font-size: var(--rds-font-size-xs, 12px);
       font-weight: var(--rds-typography-regular, 400);
       line-height: 16px;
-      color: var(--rds-text-secondary, #646464) !important;
+      color: var(--rds-text-secondary) !important;
       text-transform: none;
     }
 
     .rds-comments-box__send-btn {
-      background: var(--rds-primary-main, #3c98ff) ;
-      color: var(--rds-primary-contrast-text, #fff) ;
+      background: var(--rds-primary-main) ;
+      color: var(--rds-primary-contrast-text) ;
       width: auto;
       height: 24px;
       min-width: 26px;
@@ -770,7 +770,7 @@
       display: inline-flex;
       width: 11px;
       height: 11px;
-      color: var(--rds-primary-contrast-text, #fff);
+      color: var(--rds-primary-contrast-text);
 
       svg {
         display: block;
@@ -807,11 +807,11 @@
     }
 
     .rds-comments-box__attachment-dropdown-menu {
-      border: 1px solid var(--rds-neutral-600, #7d7d7d);
+      border: 1px solid var(--rds-neutral-600);
       border-radius: var(--rds-border-radius-md, 8px);
       box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0, 0, 0, 0.08));
       padding: var(--rds-spacing-xs, 4px) 0;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
     }
 
     .rds-comments-box__attachment-dropdown-item {
@@ -841,7 +841,7 @@
       font-size: var(--rds-font-size-md, 16px) !important;
       width: 16px !important;
       height: 16px !important;
-      color: var(--rds-text-secondary, #646464) !important;
+      color: var(--rds-text-secondary) !important;
       flex-shrink: 0;
     }
 
@@ -854,11 +854,11 @@
     }
 
     .rds-comments-box__mention-dropdown {
-      border: 1px solid var(--rds-neutral-600, #7d7d7d);
+      border: 1px solid var(--rds-neutral-600);
       border-radius: var(--rds-border-radius-md, 8px);
       box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0, 0, 0, 0.08));
       padding: 0;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
       color: var(--rds-text-primary);
       font-family: var(--rds-font-family-base);
     }
@@ -871,11 +871,11 @@
       width: 100%;
       padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 8px);
       border-radius: var(--rds-border-radius-sm, 4px);
-      border: 1px solid var(--rds-neutral-400, #bdbdbd);
+      border: 1px solid var(--rds-neutral-400);
       font-size: var(--rds-font-size-sm, 14px);
       line-height: 18px;
       outline: none;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
       color: var(--rds-text-primary);
       box-sizing: border-box;
     }
@@ -1093,8 +1093,8 @@
       }
       .rds-comments-box__send-btn {
         padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) ;
-        background: var(--rds-primary-main, #3c98ff) ;
-        color: var(--rds-primary-contrast-text, #fff) ;
+        background: var(--rds-primary-main) ;
+        color: var(--rds-primary-contrast-text) ;
         width: auto;
         height: 24px;
         min-width: 26px;
@@ -1115,7 +1115,7 @@
           display: inline-flex;
           width: 11px;
           height: 11px;
-          color: var(--rds-primary-contrast-text, #fff);
+          color: var(--rds-primary-contrast-text);
           margin: 0;
 
           svg {
@@ -1261,7 +1261,7 @@
     position: absolute;
     top: calc(100% + var(--rds-spacing-sm, 8px));
     left: 0;
-    border: 1px solid var(--rds-neutral-400, #bdbdbd);
+    border: 1px solid var(--rds-neutral-400);
     border-radius: var(--rds-border-radius-md, 8px);
     box-shadow: var(--rds-card-shadow, 0 2px 8px rgba(0,0,0,0.08));
     padding: var(--rds-spacing-xs, 4px) 0;
@@ -1299,7 +1299,7 @@
     font-size: var(--rds-font-size-md, 16px) !important;
     width: 16px !important;
     height: 16px !important;
-    color: var(--rds-text-secondary, #646464) !important;
+    color: var(--rds-text-secondary) !important;
     flex-shrink: 0;
   }
   &__attachment-dropdown-label {
@@ -1418,8 +1418,8 @@
   }
 
   &__typing-box {
-    background: var(--rds-background-paper, #ffffff);
-    border: 1px solid var(--rds-neutral-600, #7d7d7d);
+    background: var(--rds-background-paper);
+    border: 1px solid var(--rds-neutral-600);
     border-radius: var(--rds-border-radius-md, 8px);
     min-height: 0;
     width: 342px;
@@ -1514,7 +1514,7 @@
     display: inline-flex;
     width: 12px;
     height: 12px;
-    color: var(--rds-primary-main, #3c98ff);
+    color: var(--rds-primary-main);
 
     svg {
       display: block;
@@ -1526,7 +1526,7 @@
     font-family: var(--rds-font-family-base);
     font-size: var(--rds-font-size-xs, 12px);
     line-height: 16px;
-    color: var(--rds-text-secondary, #646464);
+    color: var(--rds-text-secondary);
   }
 }
 
@@ -1776,12 +1776,12 @@
   }
 
   &:hover .rds-comments-box__input .MuiOutlinedInput-root {
-    border-color: var(--rds-border-hover, var(--rds-primary-main, #3c98ff));
+    border-color: var(--rds-border-hover, var(--rds-primary-main));
   }
 
   &:focus-within {
     .rds-comments-box__input .MuiOutlinedInput-root {
-      border-color: var(--rds-primary-main, #3c98ff);
+      border-color: var(--rds-primary-main);
     }
   }
 }
@@ -2283,7 +2283,7 @@
 }
 
 [data-theme="dark"] .rds-comments-box--thread .rds-comments-box__thread-divider {
-  border-top-color: var(--rds-neutral-600, #7d7d7d) !important;
+  border-top-color: var(--rds-neutral-600) !important;
 }
 
 [data-theme="dark"] .rds-comments-box--typing,
@@ -2328,7 +2328,7 @@
   .rds-comments-box__attach-btn,
   .rds-comments-box__emoji-icon,
   .rds-comments-box__attach-icon {
-    color: var(--rds-primary-main, #3c98ff) !important;
+    color: var(--rds-primary-main) !important;
   }
 
   .rds-comments-box__attachment-dropdown-menu,
