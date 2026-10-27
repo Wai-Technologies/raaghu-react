@@ -22,7 +22,59 @@ export interface RdsButtonDropdownOption {
 
 export type RdsButtonDropdownCloseReason = 'backdropClick' | 'escapeKeyDown' | 'toggleInput' | 'selectOption';
 
-export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'onChange' | 'style' | 'defaultValue' | 'value'> {
+/** Shape treatment aligned with `RdsButton.variant`. */
+export type RdsButtonDropdownVariant = 'filled' | 'outlined' | 'transparent';
+/** @deprecated Use `variant` (`filled` | `outlined` | `transparent`) with `color`. */
+export type RdsButtonDropdownLegacyVariant = 'primary' | 'secondary' | 'outline' | 'transparent';
+export type RdsButtonDropdownColor = 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
+
+const LEGACY_STYLE_VARIANTS = new Set<string>(['primary', 'secondary', 'outline']);
+
+function resolveTriggerAppearance(
+  rawVariant: string | undefined,
+  colorProp: RdsButtonDropdownColor | undefined,
+  component: string,
+): {
+  buttonVariant: RdsButtonDropdownVariant;
+  color: RdsButtonDropdownColor;
+  isSecondary: boolean;
+  isOutline: boolean;
+} {
+  const resolved = rawVariant ?? 'filled';
+  if (LEGACY_STYLE_VARIANTS.has(resolved)) {
+    const replacement =
+      resolved === 'outline'
+        ? '`variant: "outlined"` (and optional `color`)'
+        : `\`variant: "filled"\` with \`color: "${resolved}"\``;
+    warnDeprecatedProp(component, `variant="${resolved}"`, replacement);
+  }
+
+  if (resolved === 'primary') {
+    return { buttonVariant: 'filled', color: colorProp ?? 'primary', isSecondary: false, isOutline: false };
+  }
+  if (resolved === 'secondary') {
+    return { buttonVariant: 'filled', color: colorProp ?? 'secondary', isSecondary: true, isOutline: false };
+  }
+  if (resolved === 'outline') {
+    return { buttonVariant: 'outlined', color: colorProp ?? 'primary', isSecondary: false, isOutline: true };
+  }
+  if (resolved === 'transparent') {
+    return { buttonVariant: 'transparent', color: colorProp ?? 'primary', isSecondary: false, isOutline: false };
+  }
+  if (resolved === 'outlined') {
+    return { buttonVariant: 'outlined', color: colorProp ?? 'primary', isSecondary: false, isOutline: true };
+  }
+  // filled (canonical default) or unknown → filled
+  const color = colorProp ?? 'primary';
+  return {
+    buttonVariant: 'filled',
+    color,
+    isSecondary: color === 'secondary',
+    isOutline: false,
+  };
+}
+
+export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'onChange' | 'style' | 'defaultValue' | 'value' | 'color'> {
   /** Trigger label. Defaults to `'Button'`. */
   children?: ReactNode;
   options: RdsButtonDropdownOption[];
@@ -59,10 +111,15 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   onChange?: (selected: string[] | string) => void;
   size?: 'small' | 'medium' | 'large';
   layout?: 'icon+text' | 'text-only' | 'icon-only';
-  /** Visual style. Preferred over `styleType`. */
-  variant?: 'primary' | 'secondary' | 'outline' | 'transparent';
-  /** @deprecated Use `variant`. */
-  styleType?: 'primary' | 'secondary' | 'outline' | 'transparent';
+  /**
+   * Shape treatment aligned with `RdsButton` (`filled` | `outlined` | `transparent`).
+   * Legacy values `primary` | `secondary` | `outline` are deprecated — use `variant` + `color`.
+   */
+  variant?: RdsButtonDropdownVariant | RdsButtonDropdownLegacyVariant;
+  /** Semantic color aligned with `RdsButton.color`. */
+  color?: RdsButtonDropdownColor;
+  /** @deprecated Use `variant` (`filled` | `outlined` | `transparent`) with `color`. */
+  styleType?: RdsButtonDropdownLegacyVariant;
   shape?: 'rectangle' | 'pill';
   /** Icon after the label. */
   endIcon?: ReactNode;
@@ -123,6 +180,7 @@ const RdsButtonDropdown = ({
   showAvatar,
   optionVariant,
   variant,
+  color: colorProp,
   endIcon,
   startIcon,
   rightIcon,
@@ -151,7 +209,18 @@ const RdsButtonDropdown = ({
   if (leftIcon !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'leftIcon', '`startIcon`');
 
   if (ui !== undefined) warnDeprecatedProp('RdsButtonDropdown', 'ui', '`searchable`, `showAvatar` and `optionVariant`');
-  const styleType = resolveDeprecatedProp(variant, styleTypeProp, 'RdsButtonDropdown', 'styleType', '`variant`') ?? 'primary';
+  const rawVariant = resolveDeprecatedProp(
+    variant,
+    styleTypeProp,
+    'RdsButtonDropdown',
+    'styleType',
+    '`variant` (`filled` | `outlined` | `transparent`) with `color`',
+  );
+  const { buttonVariant, color, isSecondary, isOutline } = resolveTriggerAppearance(
+    rawVariant,
+    colorProp,
+    'RdsButtonDropdown',
+  );
   const label = children ?? buttonText ?? 'Button';
   const isMultiple = multiple ?? multiSelect ?? false;
   const resolvedRightIcon = endIcon !== undefined ? endIcon : rightIcon;
@@ -245,18 +314,14 @@ const RdsButtonDropdown = ({
         size={size}
         layout={layout}
         shape={shape}
-        color="primary"
+        color={color}
         disabled={disabled}
         selected={isButtonSelected}
-        style={
-          styleType === 'transparent' ? 'transparent' :
-          styleType === 'primary' ? 'filled' :
-          styleType === 'secondary' ? 'filled' : 'outlined'
-        }
+        variant={buttonVariant}
         className={clsx(
-          styleType === 'secondary' && 'rds-button-dropdown--secondary',
-          styleType === 'outline' && 'rds-button-dropdown__button',
-          styleType === 'outline' && 'rds-button-dropdown--outline',
+          isSecondary && 'rds-button-dropdown--secondary',
+          isOutline && 'rds-button-dropdown__button',
+          isOutline && 'rds-button-dropdown--outline',
           className,
         )}
         aria-haspopup="menu"
@@ -303,7 +368,7 @@ const RdsButtonDropdown = ({
                     value={selected[0]?.toString()}
                     onChange={(event) => handleOptionChange(opt.id, event)}
                     layout="icon with label"
-                    className={styleType === 'outline' ? 'rds-button-dropdown__button rds-button-dropdown--outline' : ''}
+                    className={isOutline ? 'rds-button-dropdown__button rds-button-dropdown--outline' : ''}
                   />
                 ) : (
                   <button

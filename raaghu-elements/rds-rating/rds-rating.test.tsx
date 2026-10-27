@@ -7,6 +7,7 @@ import { axe } from 'jest-axe';
 
 jest.mock('./rds-rating.scss', () => ({}));
 jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
@@ -191,7 +192,7 @@ describe('RdsRating', () => {
       const { container } = renderWithTheme(
         <RdsRating type="slider" value={2.5} showValue={true} />
       );
-      const displayValue = container.querySelector('.rds-rating__display-value');
+      const displayValue = container.querySelector('.rds-rating__value');
       expect(displayValue?.textContent).toBeTruthy();
     });
 
@@ -285,7 +286,7 @@ describe('RdsRating', () => {
       const { container } = renderWithTheme(
         <RdsRating type="star" colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-rating--color-danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-error')).toBeInTheDocument();
     });
 
     it('should apply multiple style variants together', () => {
@@ -316,11 +317,20 @@ describe('RdsRating', () => {
       expect(container.querySelector('.rds-rating--color-success')).toBeInTheDocument();
     });
 
-    it('should apply danger color variant', () => {
+    it('should apply danger color variant as error and warn', () => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
       const { container } = renderWithTheme(
         <RdsRating type="star" colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-rating--color-danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-rating--color-error')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRating', 'color="danger"', '`color: "error"`');
+    });
+
+    it('should apply error color variant', () => {
+      const { container } = renderWithTheme(
+        <RdsRating type="star" color="error" />
+      );
+      expect(container.querySelector('.rds-rating--color-error')).toBeInTheDocument();
     });
 
     it('should apply warning color variant', () => {

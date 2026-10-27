@@ -164,9 +164,19 @@ describe('RdsBadge', () => {
       expect(container.querySelector('.rds-badge--tertiary')).toBeInTheDocument();
     });
 
-    it('should apply danger color', () => {
+    it('should apply danger color as error and warn', () => {
+      const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
       const { container } = render(
-        <RdsBadge {...defaultProps} colorVariant="danger" />
+        <RdsBadge {...defaultProps} color="danger" />
+      );
+      expect(container.querySelector('.rds-badge--error')).toBeInTheDocument();
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('color="danger"'));
+      warnSpy.mockRestore();
+    });
+
+    it('should apply error color', () => {
+      const { container } = render(
+        <RdsBadge {...defaultProps} color="error" />
       );
       expect(container.querySelector('.rds-badge--error')).toBeInTheDocument();
     });

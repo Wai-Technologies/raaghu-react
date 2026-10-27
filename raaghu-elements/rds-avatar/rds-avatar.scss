@@ -236,6 +236,7 @@
     .rds-avatar__dot { background: var(--rds-color-success); }
     .MuiAvatar-root { background-color: var(--rds-color-success) !important; }
   }
+  &--error,
   &--danger {
     .rds-avatar__ring { border-color: var(--rds-color-error); }
     .rds-avatar__dot { background: var(--rds-color-error); }

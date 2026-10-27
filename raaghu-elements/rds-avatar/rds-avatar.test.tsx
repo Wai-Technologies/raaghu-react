@@ -171,11 +171,13 @@ describe('RdsAvatar', () => {
       expect(container.querySelector('.rds-avatar--success')).toBeInTheDocument();
     });
 
-    it('should apply danger color variant', () => {
+    it('should apply danger color variant as error and warn', () => {
+      (warnDeprecatedProp as jest.Mock).mockClear();
       const { container } = render(
         <RdsAvatar {...defaultProps} colorVariant="danger" />
       );
-      expect(container.querySelector('.rds-avatar--danger')).toBeInTheDocument();
+      expect(container.querySelector('.rds-avatar--error')).toBeInTheDocument();
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'color="danger"', '`color: "error"`');
     });
 
     it('should apply warning color variant', () => {
@@ -662,9 +664,10 @@ describe('RdsAvatar', () => {
     });
 
     it('should accept valid colorVariant prop values', () => {
-      const colors: Array<'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark'> = [
+      const colors: Array<'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark'> = [
         'primary',
         'success',
+        'error',
         'danger',
         'warning',
         'light',
@@ -676,7 +679,8 @@ describe('RdsAvatar', () => {
         const { container } = render(
           <RdsAvatar title="Test" colorVariant={color} />
         );
-        expect(container.querySelector(`.rds-avatar--${color}`)).toBeInTheDocument();
+        const expected = color === 'danger' ? 'error' : color;
+        expect(container.querySelector(`.rds-avatar--${expected}`)).toBeInTheDocument();
       });
     });
 
@@ -792,7 +796,7 @@ describe('RdsAvatar additive renames', () => {
 
   it('color wins over colorVariant, which warns', () => {
     const { container } = render(<RdsAvatar name="Ann" color="danger" colorVariant="info" />);
-    expect(container.querySelector('.rds-avatar--danger')).toBeInTheDocument();
+    expect(container.querySelector('.rds-avatar--error')).toBeInTheDocument();
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'colorVariant', '`color`');
   });
 

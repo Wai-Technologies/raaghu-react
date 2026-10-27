@@ -3,10 +3,11 @@ import clsx from 'clsx';
 import { Rating as MuiRating, type RatingProps, Slider } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-rating.scss';
 
 type RatingStyle = 'default' | 'filled' | 'outlined';
-type RatingColor = 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+type RatingColor = 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
 
 export interface RdsRatingProps extends Omit<RatingProps, 'component' | 'color'> {
   /** Text label rendered before the rating. */
@@ -23,9 +24,9 @@ export interface RdsRatingProps extends Omit<RatingProps, 'component' | 'color'>
   styles?: RatingStyle;
   /** Visual style of the stars. */
   variant?: RatingStyle;
-  /** Color of the rating. */
+  /** Color of the rating. `'danger'` is deprecated; use `'error'`. */
   color?: RatingColor;
-  /** @deprecated Use `color` instead. */
+  /** @deprecated Use `color` instead. `'danger'` is deprecated; use `'error'`. */
   colorVariant?: RatingColor;
 }
 
@@ -76,9 +77,12 @@ const RdsRating = ({
 }: RdsRatingProps) => {
   if (maxStars !== undefined) warnDeprecatedProp('RdsRating', 'maxStars', '`max`');
   if (colorVariant !== undefined) warnDeprecatedProp('RdsRating', 'colorVariant', '`color`');
+  if (color === 'danger' || colorVariant === 'danger') {
+    warnDeprecatedProp('RdsRating', 'color="danger"', '`color: "error"`');
+  }
   const maxRating = max || maxStars || 5;
   const resolvedStyle = variant ?? styles ?? 'default';
-  const resolvedColor = color ?? colorVariant;
+  const resolvedColor = normalizePaletteColor(color ?? colorVariant);
 
   const [internalValue, setInternalValue] = useState<number | null>(() => {
     if (type === 'slider') {

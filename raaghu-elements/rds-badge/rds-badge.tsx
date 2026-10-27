@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 import { Badge as MuiBadge, Box, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
 import clsx from 'clsx';
-import { resolveDeprecatedProp } from '../shared/utils/deprecation';
+import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
 import { normalizePaletteColor } from '../shared/utils/palette-color';
 import './rds-badge.scss';
 
@@ -32,10 +32,10 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant' 
   styleType?: BadgeStyleVariant;
   /**
    * Palette used for standalone / BEM styling.
-   * Prefer this over `colorVariant`. `danger` is normalized to `error`.
+   * Prefer this over `colorVariant`. `'danger'` is deprecated; use `'error'`.
    */
   color?: BadgeProps['color'] | BadgePaletteColor;
-  /** @deprecated Use `color`. */
+  /** @deprecated Use `color`. `'danger'` is deprecated; use `'error'`. */
   colorVariant?: BadgePaletteColor;
 }
 
@@ -70,6 +70,10 @@ const RdsBadge = ({
       '`variant`',
     ) ?? 'primary';
   const muiVariant = isStyleVariant ? undefined : variant;
+
+  if (colorProp === 'danger' || colorVariant === 'danger') {
+    warnDeprecatedProp('RdsBadge', 'color="danger"', '`color: "error"`');
+  }
 
   const paletteFromColor =
     colorProp !== undefined && typeof colorProp === 'string' && PALETTE_COLORS.includes(colorProp)

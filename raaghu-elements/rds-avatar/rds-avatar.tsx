@@ -3,15 +3,16 @@ import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 import type { HTMLAttributes, ReactNode } from 'react';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { normalizePaletteColor } from '../shared/utils/palette-color';
 
-type AvatarColor = 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
-const avatarColors: readonly string[] = ['primary', 'success', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'];
+type AvatarColor = 'primary' | 'success' | 'error' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
+const avatarColors: readonly string[] = ['primary', 'success', 'error', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'];
 type AvatarSize = 'smallest' | 'small' | 'medium' | 'large' | 'largest';
 
 export interface RdsAvatarProps extends Omit<AvatarProps, 'component' | 'color'> {
-  /** Color of the activity ring and status dot. Other strings are passed through to the root element, as before. */
+  /** Color of the activity ring and status dot. `'danger'` is deprecated; use `'error'`. Other strings pass through. */
   color?: AvatarColor | (string & {});
-  /** @deprecated Use `color` instead. */
+  /** @deprecated Use `color` instead. `'danger'` is deprecated; use `'error'`. */
   colorVariant?: AvatarColor;
   /** Name shown beside/below the avatar; its initials fill the avatar. */
   name?: string;
@@ -131,9 +132,13 @@ const RdsAvatar = ({
   if (maxVisibleAvatars !== undefined) warnDeprecatedProp('RdsAvatar', 'maxVisibleAvatars', '`max`');
   if (activeDotTopProp !== undefined) warnDeprecatedProp('RdsAvatar', 'activeDotTop', '`status` and `statusPosition`');
   if (activeDotBottomProp !== undefined) warnDeprecatedProp('RdsAvatar', 'activeDotBottom', '`status` and `statusPosition`');
+  if (color === 'danger' || colorVariantProp === 'danger') {
+    warnDeprecatedProp('RdsAvatar', 'color="danger"', '`color: "error"`');
+  }
 
   const isPaletteColor = color !== undefined && avatarColors.includes(color);
-  const colorVariant = (isPaletteColor ? (color as AvatarColor) : colorVariantProp) ?? 'primary';
+  const rawColor = (isPaletteColor ? (color as AvatarColor) : colorVariantProp) ?? 'primary';
+  const colorVariant = normalizePaletteColor(rawColor) as AvatarColor;
   const title = name ?? titleProp;
   const subTextResolved = description ?? subText;
   const maxResolved = max ?? maxVisibleAvatars ?? 3;

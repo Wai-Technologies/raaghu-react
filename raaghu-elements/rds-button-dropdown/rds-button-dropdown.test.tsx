@@ -624,6 +624,37 @@ describe('audit fixes', () => {
       expect(screen.getByPlaceholderText('Search')).toBeInTheDocument();
       expect(screen.queryAllByRole('radio')).toHaveLength(0);
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsButtonDropdown', 'ui', '`searchable`, `showAvatar` and `optionVariant`');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith(
+        'RdsButtonDropdown',
+        'variant="outline"',
+        '`variant: "outlined"` (and optional `color`)',
+      );
+    });
+
+    it('maps RdsButton-aligned variant and color onto the trigger', () => {
+      render(<RdsButtonDropdown options={options} variant="filled" color="secondary" />);
+      const props = lastButtonProps();
+      expect(props.variant).toBe('filled');
+      expect(props.color).toBe('secondary');
+      expect(screen.getByText('Button')).toHaveClass('rds-button-dropdown--secondary');
+      expect(warnDeprecatedProp).not.toHaveBeenCalledWith(
+        'RdsButtonDropdown',
+        'variant="secondary"',
+        expect.any(String),
+      );
+    });
+
+    it('maps outlined variant without a legacy deprecation warning', () => {
+      render(<RdsButtonDropdown options={options} variant="outlined" color="primary" />);
+      const props = lastButtonProps();
+      expect(props.variant).toBe('outlined');
+      expect(props.color).toBe('primary');
+      expect(screen.getByText('Button')).toHaveClass('rds-button-dropdown--outline');
+      expect(warnDeprecatedProp).not.toHaveBeenCalledWith(
+        'RdsButtonDropdown',
+        'variant="outline"',
+        expect.any(String),
+      );
     });
   });
 });

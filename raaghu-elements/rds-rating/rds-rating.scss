@@ -271,6 +271,7 @@
   }
 }
 
+.rds-rating--color-error,
 .rds-rating--color-danger {
   .rds-rating__stars { .MuiRating-iconFilled { color: var(--rds-error-main); } }
   .rds-rating__slider {

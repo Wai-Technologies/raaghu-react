@@ -14,7 +14,8 @@ const meta: Meta<typeof RdsAvatar> = {
   argTypes: {
     color: {
       control: 'select',
-      options: ['primary', 'success', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'],
+      options: ['primary', 'success', 'error', 'danger', 'warning', 'light', 'info', 'secondary', 'dark'],
+      description: 'Avatar palette color (`danger` is deprecated; use `error`)',
       description: 'Color variant for activity ring and dot',
     },
     showName: {

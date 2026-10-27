@@ -76,8 +76,13 @@ const meta: Meta<typeof RdsButtonDropdown> = {
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'outline', 'transparent'],
-      description: 'Style of the button',
+      options: ['filled', 'outlined', 'transparent', 'primary', 'secondary', 'outline'],
+      description: 'Shape treatment aligned with RdsButton (`filled` | `outlined` | `transparent`). Legacy `primary` | `secondary` | `outline` are deprecated.',
+    },
+    color: {
+      control: 'select',
+      options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
+      description: 'Semantic color aligned with RdsButton.color',
     },
     layout: {
       control: 'select',
@@ -103,7 +108,8 @@ export const Default: Story = {
     showSearch: false,
     size: 'medium',
     layout: 'icon+text',
-    variant: 'primary',
+    variant: 'filled',
+    color: 'primary',
     shape: 'rectangle',
     endIcon: <ArrowDropDown />,
     startIcon: <RadioButtonUnchecked />,
@@ -113,7 +119,7 @@ export const Default: Story = {
     showRightIcon: true,
   },
 };
-Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'showUserAvatar', 'showRadio', 'showLeftIcon', 'showRightIcon', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
+Default.parameters = { controls: { include: ['children', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'showUserAvatar', 'showRadio', 'showLeftIcon', 'showRightIcon', 'size', 'layout', 'variant', 'color', 'shape', 'className', 'sx', 'ref'] } };
 
 export const MultiSelect: Story = {
   args: {
@@ -125,7 +131,7 @@ export const MultiSelect: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-MultiSelect.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
+MultiSelect.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'color', 'shape', 'className', 'sx', 'ref'] } };
 
 export const WithSearch: Story = {
   args: {
@@ -137,7 +143,7 @@ export const WithSearch: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-WithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
+WithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'color', 'shape', 'className', 'sx', 'ref'] } };
 
 export const MultiSelectWithSearch: Story = {
   args: {
@@ -149,4 +155,4 @@ export const MultiSelectWithSearch: Story = {
     startIcon: <RadioButtonUnchecked />
   },
 };
-MultiSelectWithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'shape', 'className', 'sx', 'ref'] } };
+MultiSelectWithSearch.parameters = { controls: { include: ['children', 'options', 'multiple', 'showSearch', 'open', 'disabled', 'selected', 'size', 'layout', 'variant', 'color', 'shape', 'className', 'sx', 'ref'] } };
