@@ -16,7 +16,7 @@ import { Box } from '@mui/material';
 import "./rds-text-area.scss";
 export type { TextareaStyle } from './rds-text-area-types';
 import type { TextareaStyle } from './rds-text-area-types';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 
 type NativeTextareaProps = Omit<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -59,7 +59,12 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   id?: string;
   /** @deprecated Use `data-testid` instead. */
   dataTestId?: string;
-  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  /**
+   * Value-first change handler (canonical for custom Raaghu controls).
+   * Signature: `(value, event) => void` — prefer reading `value`.
+   * Event-only handlers `(event) => event.target.value` are no longer supported; migrate to `(value) => …`.
+   */
+  onChange?: (value: string, event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClick?: (event: MouseEvent<HTMLTextAreaElement>) => void;
   onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
   onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
@@ -167,7 +172,7 @@ const RdsTextArea = ({
       );
     }
 
-    onChange?.(e);
+    invokeValueFirstOnChange(onChange, inputValue, e);
   };
 
   const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {

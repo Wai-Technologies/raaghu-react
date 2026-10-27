@@ -32,6 +32,29 @@ describe('warnDeprecatedProp', () => {
   });
 });
 
+describe('invokeValueFirstOnChange', () => {
+  it('calls onChange with value then event', () => {
+    let invoke!: typeof import('./deprecation').invokeValueFirstOnChange;
+    jest.isolateModules(() => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports -- fresh module instance
+      invoke = require('./deprecation').invokeValueFirstOnChange;
+    });
+    const onChange = jest.fn();
+    const event = { type: 'change' };
+    invoke(onChange, 'hello', event);
+    expect(onChange).toHaveBeenCalledWith('hello', event);
+  });
+
+  it('no-ops when onChange is undefined', () => {
+    let invoke!: typeof import('./deprecation').invokeValueFirstOnChange;
+    jest.isolateModules(() => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports -- fresh module instance
+      invoke = require('./deprecation').invokeValueFirstOnChange;
+    });
+    expect(() => invoke(undefined, 'x', { type: 'change' })).not.toThrow();
+  });
+});
+
 describe('resolveDeprecatedProp', () => {
   const originalEnv = process.env.NODE_ENV;
   afterEach(() => {

@@ -54,6 +54,8 @@ Use MUI-aligned canonical prop names for shared concepts. Prefer these for new A
 | Icons | `startIcon`, `endIcon`, `icon` | `leftIcon`, `rightIcon`, `changeLeftIcon`, `isShowLeftIcon` |
 | Close | `onClose` | Prefer over `onDismiss` when the intent is the same |
 | Enum style | lowercase `'small' \| 'medium' \| 'large'` | Avoid PascalCase string enums for new APIs |
+| `onChange` (custom controls) | `(value) => void` — value-first; optional `(value, event)` when the DOM/MUI event is useful | Event-only `(event) => void` on custom controls (migrate with a deprecation warning when practical) |
+| `onChange` (thin MUI wrappers) | Keep MUI `(event, value) => void` (e.g. toggle group, file uploader, emoji picker, `RdsInput` / TextField) | Do not rewrite these to value-only |
 
 Do not unify names when semantics differ (e.g. Accordion `expanded` vs Dialog `open`; Tooltip `placement` vs FAB `position`).
 

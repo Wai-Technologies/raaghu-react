@@ -6,7 +6,14 @@ import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-text-area.scss', () => ({}));
-jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  invokeValueFirstOnChange: jest.fn(
+    (onChange: ((value: string, event: unknown) => void) | undefined, value: string, event: unknown) => {
+      onChange?.(value, event);
+    },
+  ),
+}));
 
 describe('RdsTextArea', () => {
   describe('Basic Rendering', () => {
@@ -146,8 +153,8 @@ describe('RdsTextArea', () => {
       render(<RdsTextArea onChange={onChange} dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       
-      await userEvent.type(textarea, 'test input');
-      expect(onChange).toHaveBeenCalled();
+      await userEvent.type(textarea, 'a');
+      expect(onChange).toHaveBeenCalledWith('a', expect.objectContaining({ type: 'change' }));
     });
 
     it('should update value on change', async () => {
@@ -398,8 +405,8 @@ describe('RdsTextArea', () => {
       render(<RdsTextArea onChange={onChange} dataTestId="test-textarea" />);
       const textarea = screen.getByTestId('test-textarea');
       
-      await userEvent.type(textarea, 'test');
-      expect(onChange).toHaveBeenCalled();
+      await userEvent.type(textarea, 'ab');
+      expect(onChange).toHaveBeenLastCalledWith('ab', expect.objectContaining({ type: 'change' }));
     });
   });
 
