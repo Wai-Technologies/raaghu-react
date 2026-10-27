@@ -21,7 +21,11 @@ export interface RdsCompRadarProps
   data?: ChartData<"radar">;
   /** @deprecated Use `data.labels` instead. */
   labels?: string[];
-  /** Chart.js options (never mutated). */
+  /**
+   * Chart.js options (never mutated).
+   * Note: The legend's `pointStyleWidth` is set to `undefined` to prevent oval-shaped legend markers.
+   * This ensures consistent circular markers regardless of `boxWidth` and `boxHeight` settings.
+   */
   options: ChartOptions<"radar">;
   /** @deprecated Use `data.datasets` instead. */
   dataSets?: ChartDataset<"radar">[];

@@ -57,6 +57,7 @@ jest.mock('@mui/icons-material', () => ({
 
 jest.mock('@dnd-kit/core', () => ({
   DndContext: ({ children }: any) => <div data-testid="dnd-context">{children}</div>,
+  DragOverlay: ({ children }: any) => <>{children}</>,
   closestCenter: jest.fn(),
   KeyboardSensor: jest.fn(),
   PointerSensor: jest.fn(),

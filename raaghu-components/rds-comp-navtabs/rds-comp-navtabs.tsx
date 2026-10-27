@@ -110,13 +110,15 @@ const RdsCompNavtabs = ({
     const isHorizontalStyle = HORIZONTAL_STYLES.has(variant || "");
     const extraClasses = STYLE_EXTRA_CLASSES[variant || ""] ?? ["nav-tabs"];
 
+    const isVerticalLayout = typeof layout === "string" && layout.toLowerCase() === "vertical";
+
     return clsx(
       "rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs",
       id !== "chat" && "d-md-block",
       isHorizontalStyle && ["d-flex", "flex-row", "rds-comp-navtabs__nav--horizontal"],
       ...extraClasses,
       type === "tabs" && "text-primary",
-      layout === "vertical" && ["col-12", "d-block", "rds-comp-navtabs__nav--vertical"],
+      isVerticalLayout && ["col-12", "d-block", "rds-comp-navtabs__nav--vertical"],
       fill && "nav-fill",
       justified && "nav-justified",
       iconOnly && ["nav-icon-only", "rds-comp-navtabs__nav--icon-align"]
@@ -126,11 +128,12 @@ const RdsCompNavtabs = ({
   const getNavLinkClasses = useCallback((navtabsItem: { id: unknown; disabled?: boolean }) => {
     const isActive = navtabsItem.id === activeNavTabId;
     const isActiveSelected = isActive && ACTIVE_SELECTED_STYLES.has(variant || "");
+    const isVerticalLayout = typeof layout === "string" && layout.toLowerCase() === "vertical";
 
     return clsx(
       "nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link",
       type === "tabs" && "rounded-0",
-      layout === "Vertical" && "rounded-2",
+      isVerticalLayout && "rounded-2",
       isActive && "rds-comp-navtabs__nav-link--active",
       isActiveSelected && ["selected", "rds-comp-navtabs__nav-link--selected"],
       isActive && !isActiveSelected && type === "tabs" && ["border-bottom", "border-primary", "border-3", "text-primary"],
@@ -172,13 +175,14 @@ const RdsCompNavtabs = ({
               {!iconOnly && (
                 <span className="fw-medium px-3 rds-comp-navtabs__label">{navtabsItem.label}</span>
               )}
-              {navtabsItem.count && navtabsItem.count > 0 && (
+              {navtabsItem.count != null && navtabsItem.count > 0 && (
                 <span className="rds-comp-navtabs__badge">
-                  <RdsBadge 
-                    shape="pill" 
-                    size="small" 
+                  <RdsBadge
+                    shape="pill"
+                    size="small"
                     color={navtabsItem.color ?? navtabsItem.colorVariant}
-                    className="" 
+                    badgeContent={navtabsItem.count}
+                    className=""
                   />
                 </span>
               )}

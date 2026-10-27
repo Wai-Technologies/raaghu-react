@@ -16,6 +16,7 @@ import {
 } from "../chart-utils";
 import { useChart } from "../use-chart";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
+import "./rds-comp-chart-boolean.scss";
 
 /** Props for {@link RdsCompBooleanChart}. */
 export interface RdsCompBooleanChartProps
@@ -138,7 +139,7 @@ const RdsCompBooleanChart = ({
             }
 
             const centerIconPlugin = {
-                id: "counter4",
+                id: "rdsBooleanCenterIcon",
                 afterDraw(chart: Chart) {
                     if (!iconImage?.complete) return;
                     const chartCtx = chart.ctx;
@@ -201,7 +202,7 @@ const RdsCompBooleanChart = ({
     );
 
     return (
-        <Box {...rest} ref={ref} className={clsx(className)} sx={sx}>
+        <Box {...rest} ref={ref} className={clsx("rds-comp-chart-boolean", className)} sx={sx}>
             {hasCenterIcon ? (
                 <span
                     style={{

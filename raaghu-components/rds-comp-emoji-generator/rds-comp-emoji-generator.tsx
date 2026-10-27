@@ -121,6 +121,11 @@ export interface RdsCompEmojiGeneratorProps {
     quickReactions?: string[];
     /** Base URL (folder, with 72x72 PNGs named by codepoints) for flag images. Defaults to a pinned Twemoji 14.0.2 CDN URL. */
     flagBaseUrl?: string;
+    /** Overridable UI strings. */
+    localeText?: {
+        searchPlaceholder?: string;
+        moodPrompt?: string;
+    };
     /** MUI system styles for the root element. */
     sx?: SxProps<Theme>;
     /** Extra class name(s) merged onto the root element. */
@@ -147,12 +152,15 @@ const RdsCompEmojiGenerator = ({
     onMoreClick,
     quickReactions = QUICK_EMOJIS,
     flagBaseUrl = DEFAULT_FLAG_BASE_URL,
+    localeText,
     sx,
     className,
     ref,
     ...props
 }: RdsCompEmojiGeneratorProps) => {
     if (onEmojiSelect !== undefined) warnDeprecatedProp('RdsCompEmojiGenerator', 'onEmojiSelect', '`onChange`');
+    const searchPlaceholder = localeText?.searchPlaceholder ?? 'Search';
+    const moodPrompt = localeText?.moodPrompt ?? "What's your mood?";
     const resolvedType = typeProp ?? variant ?? EmojiGeneratorType.Default;
     const skinToneExpanded = skinTonePickerOpen ?? false;
     const categoryProp = category;
@@ -253,7 +261,7 @@ const RdsCompEmojiGenerator = ({
                         <TextField
                             fullWidth
                             size="small"
-                            placeholder="Search"
+                            placeholder={searchPlaceholder}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             slotProps={{
@@ -295,10 +303,8 @@ const RdsCompEmojiGenerator = ({
                             onClose={handleSkinToneClose}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                            container={() => rootRef.current || document.body}
                             slotProps={{ paper: { className: 'rds-emoji-generator__skin-tone-popover' } }}
-                            disableAutoFocus
-                            disableEnforceFocus
-                            container={() => rootRef.current?.closest('.rds-comp-toolbar__dropdown') || rootRef.current || document.body}
                         >
                             <Box className="rds-emoji-generator__skin-tone-dropdown">
                                 <SkinTonePicker
@@ -371,7 +377,7 @@ const RdsCompEmojiGenerator = ({
                 <Box className="rds-emoji-generator__footer">
                     <Typography className="rds-emoji-generator__footer-emoji">🙂</Typography>
                     <Typography className="rds-emoji-generator__footer-text" variant="body2">
-                        What's your mood?
+                        {moodPrompt}
                     </Typography>
                 </Box>
             )}

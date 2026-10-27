@@ -6,16 +6,17 @@ export const EmojiGeneratorType = {
 } as const;
 export type EmojiGeneratorType = (typeof EmojiGeneratorType)[keyof typeof EmojiGeneratorType];
 
-export enum EmojiCategory {
-  SmileysAndPeople = "SmileysAndPeople",
-  AnimalsAndNature = "AnimalsAndNature",
-  FoodAndDrink = "FoodAndDrink",
-  TravelAndPlaces = "TravelAndPlaces",
-  Activities = "Activities",
-  Objects = "Objects",
-  Symbols = "Symbols",
-  Flags = "Flags",
-}
+export const EmojiCategory = {
+  SmileysAndPeople: "SmileysAndPeople",
+  AnimalsAndNature: "AnimalsAndNature",
+  FoodAndDrink: "FoodAndDrink",
+  TravelAndPlaces: "TravelAndPlaces",
+  Activities: "Activities",
+  Objects: "Objects",
+  Symbols: "Symbols",
+  Flags: "Flags",
+} as const;
+export type EmojiCategory = (typeof EmojiCategory)[keyof typeof EmojiCategory];
 
 const categoryGroupMap: Record<EmojiCategory, number[]> = {
   [EmojiCategory.SmileysAndPeople]: [0, 1],

@@ -1,12 +1,14 @@
 import { memo, type Ref, type RefObject } from "react";
-import { Slider } from "@mui/material";
+import { Popover, Slider } from "@mui/material";
 
 interface SettingsModalProps {
   showSettingsModal: boolean;
   settingsModalRef?: RefObject<HTMLDivElement | null>;
+  /** Anchor for the popover (settings button). */
+  anchorEl?: HTMLElement | null;
   playbackSpeed: number;
   handlePlaybackSpeedChange: (event: Event, value: number | number[]) => void;
-  /** Called when Escape is pressed inside the dialog. */
+  /** Called when Escape is pressed or the popover requests close. */
   onClose?: () => void;
 }
 
@@ -14,6 +16,7 @@ export const SettingsModalComponent = memo(
   ({
     showSettingsModal,
     settingsModalRef,
+    anchorEl,
     playbackSpeed,
     handlePlaybackSpeedChange,
     onClose,
@@ -21,74 +24,97 @@ export const SettingsModalComponent = memo(
     if (!showSettingsModal) return null;
 
     return (
-      <div
-        ref={settingsModalRef as Ref<HTMLDivElement>}
-        className="rds-comp-audio-player__settings-modal"
-        role="dialog"
-        aria-label="Playback speed settings"
-        onKeyDown={(e) => {
-          if (e.key === "Escape") onClose?.();
+      <Popover
+        open
+        anchorEl={anchorEl}
+        anchorReference={anchorEl ? "anchorEl" : "none"}
+        anchorPosition={anchorEl ? undefined : { top: 0, left: 0 }}
+        onClose={() => onClose?.()}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        slotProps={{
+          paper: {
+            className: "rds-comp-audio-player__settings-modal",
+            elevation: 0,
+            sx: {
+              backgroundImage: "none",
+              // Popover positions via anchor; drop absolute offsets from SCSS.
+              position: "relative",
+              top: "auto",
+              right: "auto",
+            },
+          },
         }}
       >
-        <div className="rds-comp-audio-player__settings-header">
-          <h3>Playback Speed</h3>
-        </div>
-        <div className="rds-comp-audio-player__settings-content">
-          <div className="rds-comp-audio-player__speed-slider-container">
-            <Slider
-              value={playbackSpeed}
-              onChange={handlePlaybackSpeedChange}
-              min={0.5}
-              max={2.0}
-              step={0.25}
-              marks={[
-                { value: 0.5, label: "0.5x" },
-                { value: 0.75, label: "0.75x" },
-                { value: 1.0, label: "1.0x" },
-                { value: 1.25, label: "1.25x" },
-                { value: 1.5, label: "1.5x" },
-                { value: 1.75, label: "1.75x" },
-                { value: 2.0, label: "2.0x" },
-              ]}
-              sx={{
-                color: "var(--rds-primary-main)",
-                height: 8,
-                "& .MuiSlider-thumb": {
-                  width: 20,
-                  height: 20,
-                  backgroundColor: "var(--rds-primary-main)",
-                  "&:hover": {
-                    boxShadow: "0 0 0 8px var(--rds-action-hover)",
-                  },
-                },
-                "& .MuiSlider-track": {
+        <div
+          ref={settingsModalRef as Ref<HTMLDivElement>}
+          role="dialog"
+          aria-label="Playback speed settings"
+          tabIndex={-1}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") onClose?.();
+          }}
+        >
+          <div className="rds-comp-audio-player__settings-header">
+            <h3>Playback Speed</h3>
+          </div>
+          <div className="rds-comp-audio-player__settings-content">
+            <div className="rds-comp-audio-player__speed-slider-container">
+              <Slider
+                value={playbackSpeed}
+                onChange={handlePlaybackSpeedChange}
+                min={0.5}
+                max={2.0}
+                step={0.25}
+                marks={[
+                  { value: 0.5, label: "0.5x" },
+                  { value: 0.75, label: "0.75x" },
+                  { value: 1.0, label: "1.0x" },
+                  { value: 1.25, label: "1.25x" },
+                  { value: 1.5, label: "1.5x" },
+                  { value: 1.75, label: "1.75x" },
+                  { value: 2.0, label: "2.0x" },
+                ]}
+                sx={{
+                  color: "var(--rds-primary-main)",
                   height: 8,
-                  backgroundColor: "var(--rds-primary-main)",
-                  border: "none",
-                },
-                "& .MuiSlider-rail": {
-                  height: 8,
-                  backgroundColor: "var(--rds-neutral-300)",
-                },
-                "& .MuiSlider-mark": {
-                  backgroundColor: "var(--rds-primary-main)",
-                  height: 5,
-                  width: 5,
-                  borderRadius: "50%",
-                  "&.MuiSlider-markActive": {
-                    backgroundColor: "var(--rds-neutral-0)",
+                  "& .MuiSlider-thumb": {
+                    width: 20,
+                    height: 20,
+                    backgroundColor: "var(--rds-primary-main)",
+                    "&:hover": {
+                      boxShadow: "0 0 0 8px var(--rds-action-hover)",
+                    },
                   },
-                },
-                "& .MuiSlider-markLabel": {
-                  fontSize: "var(--rds-font-size-sm)",
-                  color: "var(--rds-text-secondary)",
-                  marginTop: "var(--rds-spacing-sm)",
-                },
-              }}
-            />
+                  "& .MuiSlider-track": {
+                    height: 8,
+                    backgroundColor: "var(--rds-primary-main)",
+                    border: "none",
+                  },
+                  "& .MuiSlider-rail": {
+                    height: 8,
+                    backgroundColor: "var(--rds-neutral-300)",
+                  },
+                  "& .MuiSlider-mark": {
+                    backgroundColor: "var(--rds-primary-main)",
+                    height: 5,
+                    width: 5,
+                    borderRadius: "50%",
+                    "&.MuiSlider-markActive": {
+                      backgroundColor: "var(--rds-neutral-0)",
+                    },
+                  },
+                  "& .MuiSlider-markLabel": {
+                    fontSize: "var(--rds-font-size-sm)",
+                    color: "var(--rds-text-secondary)",
+                    marginTop: "var(--rds-spacing-sm)",
+                  },
+                }}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </Popover>
     );
   }
 );

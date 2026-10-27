@@ -15,7 +15,7 @@
     border-radius: var(--rds-border-radius, 8px);
     background: var(--rds-color-surface, #fff);
     padding: var(--rds-spacing-sm, 12px);
-    width: 285px;
+    width: var(--rds-color-picker-width, 285px);
   }
   
   &__spectrum-type1 {
@@ -673,8 +673,8 @@
   .rds-comp-color-picker {
     span,
     .MuiSvgIcon-root {
-      color: var(--rds-color-on-surface) !important;
-      fill: var(--rds-color-on-surface) !important;
+      color: var(--rds-color-on-surface);
+      fill: var(--rds-color-on-surface);
     }
 
     .rds-comp-color-picker__tabs {
@@ -698,5 +698,5 @@
 
 
 .rds-comp-color-picker__container{
-  margin-top: var(--rds-spacing-compact) !important;
+  margin-top: var(--rds-spacing-compact);
 }

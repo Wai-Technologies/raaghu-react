@@ -72,9 +72,6 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
       {onClear && <button data-testid="clear-btn" onClick={onClear}>Clear</button>}
     </div>
   ),
-  ExampleCustomInput: ({ value, onClick }: any) => (
-    <input data-testid="example-custom-input" value={value} onClick={onClick} readOnly />
-  ),
   getDayClassName: (date: Date, selectedDate: Date | null) => {
     if (!selectedDate) return '';
     return date.toDateString() === selectedDate.toDateString() ? 'selected' : '';

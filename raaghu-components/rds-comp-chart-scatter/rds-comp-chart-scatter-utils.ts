@@ -1,10 +1,7 @@
+/** @deprecated Prefer Chart.js `scatter` only; `bar`/`line` were accepted historically. */
 export type ScatterChartType = 'scatter' | 'bar' | 'line';
 
-const VALID_CHART_TYPES: ScatterChartType[] = ['scatter', 'bar', 'line'];
-
-export function resolveScatterChartType(chartType?: string): ScatterChartType {
-  if (chartType && VALID_CHART_TYPES.includes(chartType as ScatterChartType)) {
-    return chartType as ScatterChartType;
-  }
+/** Always resolves to `scatter` — this component is a scatter chart. */
+export function resolveScatterChartType(_chartType?: string): 'scatter' {
   return 'scatter';
 }

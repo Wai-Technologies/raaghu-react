@@ -1,10 +1,34 @@
-import { createElement, type RefObject, type ReactNode } from "react";
+import { createElement, type MouseEvent, type Ref, type RefObject, type ReactNode } from "react";
 import DatePicker, { type DatePickerProps } from "react-datepicker";
 import { renderPickerIcon } from "./CustomInputWithClear";
 import { RenderDefaultDropdownHeader, RenderMultiMonthHeader } from "./renderCustomHeader";
 
 /** Stable popper container (module scope so react-datepicker does not remount the popper each render). */
 const popperContainer = ({ children }: { children?: ReactNode }) => <div>{children}</div>;
+
+/** Preset-menu trigger for the nested range picker (G4-106). */
+const PresetRangeCustomInput = ({
+    ref,
+    onClick,
+    onActivate,
+}: {
+    ref?: Ref<HTMLButtonElement>;
+    value?: string;
+    onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+    onActivate?: () => void;
+}) => (
+    <button
+        type="button"
+        className="rds-datepicker__dropdown-action rds-datepicker__dropdown-action--custom"
+        onClick={(event) => {
+            onActivate?.();
+            onClick?.(event);
+        }}
+        ref={ref}
+    >
+        Custom
+    </button>
+);
 
 const getRenderCustomHeader = (
     layout: string,
@@ -96,7 +120,6 @@ export const renderDatePickerTypeView = (
     customClickHandler: () => void,
     dayClassName: (date: Date) => string,
     CustomInputWithClear: React.ElementType,
-    ExampleCustomInput: React.ElementType,
     customDropdownRef?: RefObject<HTMLDivElement | null>
 ) => {
 
@@ -124,8 +147,7 @@ export const renderDatePickerTypeView = (
             </div>
         );
     } else if (type === "Custom") {
-        const rangeCustomInput = createElement(ExampleCustomInput, {
-            changeIcon: props.changeIcon,
+        const rangeCustomInput = createElement(PresetRangeCustomInput, {
             onActivate: customClickHandler,
         });
         const pickerProps = buildDatePickerProps({

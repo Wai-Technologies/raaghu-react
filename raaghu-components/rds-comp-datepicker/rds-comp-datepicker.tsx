@@ -5,7 +5,6 @@ import type DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
 import { CustomInputWithClear } from './CustomInputWithClear';
-import { ExampleCustomInput } from './ExampleCustomInput';
 import {
     getDayClassName,
     getYesterdayDate,
@@ -339,7 +338,6 @@ const RdsDatepicker = ({
                 customClickHandler,
                 dayClassName,
                 CustomInputWithClear,
-                ExampleCustomInput,
                 customDropdownRef
             )}
         </Box>

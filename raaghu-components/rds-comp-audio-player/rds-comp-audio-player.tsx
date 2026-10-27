@@ -41,6 +41,10 @@ export interface RdsCompAudioPlayerProps
   type?: AudioPlayerType;
   /** Variant alias for `type` (`player` = "Audio Player", `editor` = "Audio Edition", `collapsed` = "Collapsed"); wins over `type`. */
   variant?: 'player' | 'editor' | 'collapsed';
+  /**
+   * @deprecated Prefer `showSettings` / `showVolume` / `showExport` / `showMoreOptions`.
+   * String `'visible' | 'hidden'` map; also shadows native `<audio controls>`.
+   */
   controls?: {
     settings?: ControlVisibility;
     /** Shows the volume button. */
@@ -50,15 +54,15 @@ export interface RdsCompAudioPlayerProps
     export?: ControlVisibility;
     moreOptions?: ControlVisibility;
   };
-  /** Legacy boolean for `controls.settings`. */
+  /** Show the settings control. */
   showSettings?: boolean;
-  /** Legacy boolean for `controls.volume`. */
+  /** Show the volume control. */
   showVolume?: boolean;
-  /** @deprecated Use `showVolume` (or `controls.volume`) instead. */
+  /** @deprecated Use `showVolume` instead. */
   showTranscript?: boolean;
-  /** Legacy boolean for `controls.export`. */
+  /** Show the export menu. */
   showExport?: boolean;
-  /** Legacy boolean for `controls.moreOptions`. */
+  /** Show the more-options menu. */
   showMoreOptions?: boolean;
   /** Items of the export menu (defaults to the built-in sample items). */
   exportItems?: RdsCompAiFabMenuItem[];
@@ -146,18 +150,27 @@ const RdsCompAudioPlayer = ({
   ref,
   ...rest
 }: RdsCompAudioPlayerProps) => {
+  if (controls !== undefined) {
+    warnDeprecatedProp('RdsCompAudioPlayer', 'controls', '`showSettings` / `showVolume` / `showExport` / `showMoreOptions`');
+  }
   if (controls?.transcript !== undefined) warnDeprecatedProp('RdsCompAudioPlayer', 'controls.transcript', '`controls.volume`');
   if (legacyShowTranscript !== undefined) warnDeprecatedProp('RdsCompAudioPlayer', 'showTranscript', '`showVolume`');
 
   const resolvedType: AudioPlayerType = variant ? VARIANT_TO_TYPE[variant] : type;
 
   const asBool = (value: unknown) => (typeof value === 'boolean' ? value : undefined);
-  const volumeControl = controls?.volume ?? controls?.transcript;
+  const fromVisibility = (value: ControlVisibility | undefined) =>
+    value === undefined ? undefined : value === 'visible';
 
-  const showSettings = controls?.settings ? controls.settings === 'visible' : (asBool(legacyShowSettings) ?? false);
-  const showVolume = volumeControl ? volumeControl === 'visible' : (asBool(legacyShowVolume) ?? asBool(legacyShowTranscript) ?? false);
-  const showExport = controls?.export ? controls.export === 'visible' : (asBool(legacyShowExport) ?? false);
-  const showMoreOptions = controls?.moreOptions ? controls.moreOptions === 'visible' : (asBool(legacyShowMoreOptions) ?? false);
+  const showSettings = asBool(legacyShowSettings) ?? fromVisibility(controls?.settings) ?? false;
+  const showVolume =
+    asBool(legacyShowVolume) ??
+    asBool(legacyShowTranscript) ??
+    fromVisibility(controls?.volume) ??
+    fromVisibility(controls?.transcript) ??
+    false;
+  const showExport = asBool(legacyShowExport) ?? fromVisibility(controls?.export) ?? false;
+  const showMoreOptions = asBool(legacyShowMoreOptions) ?? fromVisibility(controls?.moreOptions) ?? false;
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
@@ -602,6 +615,7 @@ const RdsCompAudioPlayer = ({
           <SettingsModalComponent
             showSettingsModal={showSettingsModal}
             settingsModalRef={settingsModalRef}
+            anchorEl={settingsButtonRef.current}
             playbackSpeed={playbackSpeed}
             handlePlaybackSpeedChange={handlePlaybackSpeedChange}
             onClose={closeSettingsModal}
@@ -660,7 +674,7 @@ const RdsCompAudioPlayer = ({
                       y={(200 - adjustedHeight) / 2}
                       width="5"
                       height={adjustedHeight}
-                      fill="white"
+                      fill="var(--rds-color-on-primary-container, #fff)"
                       rx="2"
                       opacity={0.9}
                     />

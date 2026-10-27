@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useId, useRef, useState, type CSSProperties, type ReactElement, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
+import { useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type CSSProperties, type ReactElement, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
 import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-ai-fab-menu.scss";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -57,7 +57,12 @@ export interface RdsCompAiFabMenuProps {
   items?: RdsCompAiFabMenuItem[];
   /** @deprecated Use `items` instead. */
   listItems?: RdsCompAiFabMenuItem[];
+  /** Applied to the menu root. */
   className?: string;
+  /** Props forwarded to the trigger button (e.g. `className`, `disabled`). */
+  slotProps?: {
+    button?: ButtonHTMLAttributes<HTMLButtonElement>;
+  };
   id?: string;
   /** Use the compact item style (defaults to `id === "attachment-text"`). */
   dense?: boolean;
@@ -101,6 +106,7 @@ function RdsCompAiFabMenu({
   items,
   listItems,
   className = "",
+  slotProps,
   id,
   dense,
   "aria-label": ariaLabel = "Open menu",
@@ -116,6 +122,12 @@ function RdsCompAiFabMenu({
   onClick,
   sx,
 }: RdsCompAiFabMenuProps) {
+  const {
+    className: buttonClassName,
+    type: buttonType = "button",
+    onClick: slotButtonOnClick,
+    ...buttonSlotRest
+  } = slotProps?.button ?? {};
   if (menuiconWidth !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconWidth", "nothing (no effect)");
   if (menuiconHeight !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconHeight", "nothing (no effect)");
   if (onClick !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "onClick", "nothing (no effect)");
@@ -203,7 +215,8 @@ function RdsCompAiFabMenu({
       className={clsx(
         "rds-fab-menu",
         resolvedPlacement === "right" && "rds-fab-menu--right",
-        isMenuOpen && "rds-fab-menu--open"
+        isMenuOpen && "rds-fab-menu--open",
+        className
       )}
       sx={sx}
       data-alignment={resolvedPlacement}
@@ -212,15 +225,19 @@ function RdsCompAiFabMenu({
     >
       <button
         ref={buttonRef}
+        {...buttonSlotRest}
         className={clsx(
           "rds-fab-menu__button",
           `rds-fab-menu__button--${resolvedColor}`,
           size && `rds-fab-menu__button--${size}`,
           `rds-fab-menu__button--${resolvedBackgroundType}`,
-          className
+          buttonClassName
         )}
-        type="button"
-        onClick={toggleMenu}
+        type={buttonType}
+        onClick={(event) => {
+          slotButtonOnClick?.(event);
+          if (!event.defaultPrevented) toggleMenu();
+        }}
         aria-expanded={isMenuOpen ? "true" : "false"}
         aria-haspopup="menu"
         aria-controls={isMenuOpen ? menuId : undefined}

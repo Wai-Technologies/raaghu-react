@@ -5,7 +5,7 @@ import "./rds-comp-ai-icon.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import { resolveDeprecatedProp, warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
-import { normalizePaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
+import { normalizePaletteColor, type RaaghuPaletteColor } from "../../raaghu-elements/shared/utils/palette-color";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 
@@ -101,9 +101,9 @@ export interface RdsCompAiIconProps
   width?: string;
   height?: string;
   /** Palette class (`rds-comp-ai-icon--{color}`). `danger` is normalized to `error`. */
-  color?: string;
+  color?: RaaghuPaletteColor;
   /** @deprecated Use `color`. */
-  colorVariant?: string;
+  colorVariant?: RaaghuPaletteColor;
   name?: string;
   fill?: boolean;
   stroke?: boolean;

@@ -1,12 +1,11 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-map {
-  /* Use theme variable and avoid forcing white fallback so dark themes stay dark */
-  background: var(--rds-bg, transparent) !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) !important;
-  margin: 0 !important;
+  background: var(--rds-bg, transparent);
+  border: none;
+  box-shadow: none;
+  padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
+  margin: 0;
   min-height: auto;
   height: auto;
   position: relative;
@@ -71,38 +70,37 @@
 
   .svg-map,
   svg {
-    background: var(--rds-background-paper, transparent) !important;
+    background: var(--rds-background-paper, transparent);
   }
 
   .svg-map__background,
   svg > rect:first-of-type {
-    fill: var(--rds-background-paper, transparent) !important;
+    fill: var(--rds-background-paper, transparent);
   }
 
-  // Fix: figure wrapper from react-svg-worldmap should be transparent
   figure,
   .worldmap__figure-container,
   figure.worldmap__figure-container {
-    background-color: transparent !important;
-    background: transparent !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    background-color: transparent;
+    background: transparent;
+    margin: 0;
+    padding: 0;
   }
 
   div[style*="height"] {
-    height: auto !important;
+    height: auto;
   }
 
   @include bp.down(sm) {
     svg {
-      max-width: calc(100vw - 20px) !important;
-      width: calc(100vw - 20px) !important;
+      max-width: calc(100vw - 20px);
+      width: calc(100vw - 20px);
     }
   }
 
   .rds-theme--dark .rds-comp-map .worldmap__figure-container,
 [data-theme="dark"] .rds-comp-map .worldmap__figure-container {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
   &__heatmap-image {
@@ -126,7 +124,7 @@
   }
 
   @include bp.down(mobile-sm) {
-    padding: calc(var(--rds-spacing-xs) + 1px) !important;
+    padding: calc(var(--rds-spacing-xs) + 1px);
     max-width: 100vw;
     box-sizing: border-box;
     height: auto;
@@ -151,10 +149,10 @@
     }
     
     svg, &__heatmap-image {
-      width: 310px !important;
-      max-width: 310px !important;
-      min-width: 280px !important;
-      height: auto !important;
+      width: 310px;
+      max-width: 310px;
+      min-width: 280px;
+      height: auto;
       transform: scale(1);
       transform-origin: center top;
       box-sizing: border-box;
@@ -163,16 +161,16 @@
     }
 
     & > div {
-      width: 310px !important;
-      max-width: 310px !important;
-      height: auto !important;
-      margin: 0 auto !important;
-      overflow: visible !important;
+      width: 310px;
+      max-width: 310px;
+      height: auto;
+      margin: 0 auto;
+      overflow: visible;
     }
   }
 
   @include bp.between(mobile-sm, 420) {
-    padding: var(--rds-spacing-sm) !important;
+    padding: var(--rds-spacing-sm);
     max-width: 100vw;
     box-sizing: border-box;
     height: auto;
@@ -197,10 +195,10 @@
     }
     
     svg, &__heatmap-image {
-      width: 400px !important;
-      max-width: 400px !important;
-      min-width: 380px !important;
-      height: auto !important;
+      width: 400px;
+      max-width: 400px;
+      min-width: 380px;
+      height: auto;
       transform: scale(1);
       transform-origin: center top;
       box-sizing: border-box;
@@ -209,11 +207,11 @@
     }
 
     & > div {
-      width: 400px !important;
-      max-width: 400px !important;
-      height: auto !important;
-      margin: 0 auto !important;
-      overflow: visible !important;
+      width: 400px;
+      max-width: 400px;
+      height: auto;
+      margin: 0 auto;
+      overflow: visible;
     }
   }
 
@@ -239,37 +237,34 @@
 body[data-theme="dark"], html[data-theme="dark"], body[data-bs-theme="dark"], html[data-bs-theme="dark"], .theme-dark, .sb-show-main[data-theme="dark"],
 .rds-theme--dark, body.theme-dark, .dark-theme {
   .rds-comp-map {
-    background: var(--rds-bg, transparent) !important;
+    background: var(--rds-bg, transparent);
 
-    // Target the figure/container rendered by react-svg-worldmap
     figure,
     .worldmap__figure-container,
     figure.worldmap__figure-container {
-      background-color: transparent !important;
-      background: transparent !important;
-      margin: 0 !important;
-      padding: 0 !important;
+      background-color: transparent;
+      background: transparent;
+      margin: 0;
+      padding: 0;
     }
 
     svg {
-      background-color: transparent !important;
+      background-color: transparent;
     }
 
     .rds-comp-map__worldmap-host,
     .svg-map {
-      background-color: transparent !important;
+      background-color: transparent;
     }
 
-    /* Some world map implementations render a rect or a white group; ensure it's dark */
     .svg-map__background,
     svg > rect:first-of-type,
     svg rect[fill="#fff"],
     svg rect[fill="#ffffff"],
     svg rect[fill="white"] {
-      fill: transparent !important;
+      fill: transparent;
     }
 
-    /* Make label and surrounding areas adapt to dark theme */
     &__label {
       color: var(--rds-color-on-surface-dark, #e6e6e6);
     }

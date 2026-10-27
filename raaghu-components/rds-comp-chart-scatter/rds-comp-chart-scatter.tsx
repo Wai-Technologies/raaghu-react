@@ -113,6 +113,7 @@ const RdsCompScatterChart = ({
   if (chartType !== undefined) {
     warnDeprecatedProp("RdsCompScatterChart", "chartType", "`showLine` on the datasets");
   }
+  // Always scatter — chartType is deprecated and ignored for rendering.
   const resolvedChartType = resolveScatterChartType(chartType);
   const resolved = resolveChartData<unknown[], ChartDataset[]>(
     "RdsCompScatterChart",
@@ -120,17 +121,17 @@ const RdsCompScatterChart = ({
     labels,
     dataSets as ChartDataset[] | undefined
   );
-  const { canvasRef } = useChart<ScatterChartType>(
+  const { canvasRef } = useChart<"scatter">(
     {
       type: resolvedChartType,
       labels: resolved.labels,
       datasets: resolved.datasets.map((dataset) =>
         normalizeScatterDataset(dataset, resolvedChartType)
-      ) as ChartData<ScatterChartType>["datasets"],
-      options: options as ChartConfiguration<ScatterChartType>["options"],
+      ) as ChartData<"scatter">["datasets"],
+      options: options as ChartConfiguration<"scatter">["options"],
       onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
     },
-    [id, resolved.labels, options, resolved.datasets, chartType, height, width]
+    [id, resolved.labels, options, resolved.datasets, height, width]
   );
 
   return (
