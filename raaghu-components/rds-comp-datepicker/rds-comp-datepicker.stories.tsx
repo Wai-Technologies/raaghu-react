@@ -46,6 +46,10 @@ const meta: Meta = {
             control: { type: "boolean" },
             description: "Applies the selected appearance to the date picker.",
         },
+        disabled: {
+    control: { type: "boolean" },
+    description: "Disables the date picker when true.",
+},
         openPickerIcon: {
             options: ["calendar", "dashboard_settings"],
             mapping: { calendar: undefined, dashboard_settings: <SettingsIcon className="rds-datepicker__calendar-icon" /> },
