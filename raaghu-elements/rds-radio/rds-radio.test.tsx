@@ -1036,4 +1036,9 @@ describe('doc-09 renames', () => {
     const bottom = renderWithTheme(<RdsRadio options={defaultOptions} labelPlacement="bottom" defaultValue={defaultOptions[1].value} />);
     expect((bottom.container.querySelectorAll('input')[1] as HTMLInputElement).checked).toBe(true);
   });
+
+  it('forwards data-testid to the root .rds-radio', () => {
+    renderWithTheme(<RdsRadio options={defaultOptions} data-testid="plan-radio" />);
+    expect(screen.getByTestId('plan-radio')).toHaveClass('rds-radio');
+  });
 });

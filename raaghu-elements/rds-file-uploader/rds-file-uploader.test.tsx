@@ -646,4 +646,14 @@ describe('RdsFileUploader additive renames', () => {
     expect(onFilesChange).toHaveBeenCalledWith([]);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsFileUploader', 'onFilesChange', '`onChange`');
   });
+
+  it('forwards data-testid to the root .rds-file-uploader', () => {
+    render(<RdsFileUploader mode="default" data-testid="avatar-upload" />);
+    expect(screen.getByTestId('avatar-upload')).toHaveClass('rds-file-uploader');
+  });
+
+  it('passes data-testid through rootProps in standard mode', () => {
+    render(<RdsFileUploader mode="standard" data-testid="avatar-upload" />);
+    expect(mockStandardViewProps.rootProps['data-testid']).toBe('avatar-upload');
+  });
 });

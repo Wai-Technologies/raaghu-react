@@ -121,6 +121,7 @@ const RdsAvatar = ({
   showDesignation = true,
   showRemainingCount = true,
   slotProps,
+  'data-testid': dataTestId,
   ...props
 }: RdsAvatarProps) => {
   const { className: wrapClassName, ...wrapSlotRest } = slotProps?.wrap ?? {};
@@ -164,6 +165,7 @@ const RdsAvatar = ({
     return (
       <div
         className={clsx('rds-avatar', `rds-avatar--${size}`, 'rds-avatar__stacking', 'avatar-container', className)}
+        data-testid={dataTestId}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -236,7 +238,7 @@ const RdsAvatar = ({
   );
   if (displayStyle === 'with-name') {
     return (
-      <div className={rootClassName}>
+      <div className={rootClassName} data-testid={dataTestId}>
         {renderAvatar(title ? allInitials(title) : children, true)}
 
         <div {...infoSlotRest} className={clsx('rds-avatar__info', infoClassName)}>
@@ -253,7 +255,7 @@ const RdsAvatar = ({
 
   if (displayStyle === 'name-bottom') {
     return (
-      <div className={rootClassName}>
+      <div className={rootClassName} data-testid={dataTestId}>
         <span className="rds-avatar__avatar-outer">
           {ring}
           {renderAvatar(title ? allInitials(title) : children)}
@@ -271,7 +273,7 @@ const RdsAvatar = ({
   }
 
   return (
-    <span className={rootClassName}>
+    <span className={rootClassName} data-testid={dataTestId}>
       <span className="rds-avatar__avatar-outer">
         {ring}
         {renderAvatar(title ? title.charAt(0).toUpperCase() : children)}

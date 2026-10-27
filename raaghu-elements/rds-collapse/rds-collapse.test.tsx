@@ -57,9 +57,9 @@ describe('RdsCollapse', () => {
       expect(screen.getByText('Child Content')).toBeInTheDocument();
     });
 
-    it('should render with custom className', () => {
+    it('should render with custom className on the outer shell', () => {
       const { container } = renderWithTheme(<RdsCollapse {...defaultProps} className="custom-class" />);
-      expect(container.querySelector('.MuiBox-root')).toBeInTheDocument();
+      expect(container.querySelector('.rds-collapse.custom-class')).toBeInTheDocument();
     });
 
     it('should render empty collapse when children is empty string', () => {
@@ -571,5 +571,10 @@ describe('RdsCollapse additive renames', () => {
     render(<RdsCollapse title="T" showToggleButton hideToggle>c</RdsCollapse>);
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(warn).toHaveBeenCalledWith('RdsCollapse', 'showToggleButton', '`hideToggle`');
+  });
+
+  it('forwards data-testid to the root .rds-collapse', () => {
+    render(<RdsCollapse title="T" data-testid="details-collapse">c</RdsCollapse>);
+    expect(screen.getByTestId('details-collapse')).toHaveClass('rds-collapse');
   });
 });

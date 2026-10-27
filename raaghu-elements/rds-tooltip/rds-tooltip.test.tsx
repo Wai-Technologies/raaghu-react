@@ -1026,4 +1026,13 @@ describe('RdsTooltip audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTooltip', 'style', '`placement`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTooltip', 'style', expect.any(String));
   });
+
+  it('forwards data-testid to the trigger wrapper', () => {
+    renderWithTheme(
+      <RdsTooltip title="Tip" data-testid="help-tooltip">
+        <button>Child</button>
+      </RdsTooltip>,
+    );
+    expect(screen.getByTestId('help-tooltip')).toHaveClass('rds-tooltip__wrapper');
+  });
 });

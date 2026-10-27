@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Slider as MuiSlider, type SliderProps, Box, Typography } from '@mui/material';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 import clsx from 'clsx';
 import './rds-range.scss';
 
@@ -8,8 +8,11 @@ import './rds-range.scss';
 export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange' | 'component'> {
   /** Controlled value: a number for one thumb, `[start, end]` for two. Omit for uncontrolled use. */
   value?: number | number[];
-  /** Called with the new value while a thumb moves. */
-  onChange?: (value: number | number[]) => void;
+  /**
+   * Value-first change handler (canonical for custom Raaghu controls).
+   * Signature: `(value, event) => void` — prefer reading `value`.
+   */
+  onChange?: (value: number | number[], event: Event) => void;
   /** Text shown above the slider; also the accessible name. */
   label?: string;
   /** Shows the current value above the slider. */
@@ -85,6 +88,7 @@ const RdsRange= ({
   className,
   sx,
   ref,
+  'data-testid': dataTestId,
   ...props
 }: RdsRangeProps) => {
   if (leftLabel !== undefined) warnDeprecatedProp('RdsRange', 'leftLabel', '`min`');
@@ -132,7 +136,7 @@ const RdsRange= ({
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setInternalValue(newValue);
-    onChange?.(newValue);
+    invokeValueFirstOnChange(onChange, newValue, event);
   };
 
   const formatDisplayValue = (val: number | number[]) => {
@@ -155,6 +159,7 @@ const RdsRange= ({
     <Box
       ref={ref}
       className={generateClassName()}
+      data-testid={dataTestId}
       sx={[{ width: '100%' }, ...(Array.isArray(sx) ? sx : sx != null ? [sx] : [])]}
     >
       {((label && textLabel) || showValue) && (

@@ -210,4 +210,9 @@ describe('RdsButton audit fixes', () => {
     expect(link.tagName).toBe('A');
     expect(link).toHaveAttribute('href', '#go');
   });
+
+  it('forwards data-testid to the root button', () => {
+    render(<RdsButton data-testid="save-btn">Save</RdsButton>);
+    expect(screen.getByTestId('save-btn')).toBe(screen.getByRole('button', { name: 'Save' }));
+  });
 });

@@ -629,4 +629,9 @@ describe('audit fixes', () => {
     render(<RdsSpeedDial actions={[]} ariaLabel="New" tooltipTitle="Legacy" />);
     expect(screen.getByRole('button', { name: 'New' })).toBeInTheDocument();
   });
+
+  it('forwards data-testid to the speed dial root', () => {
+    render(<RdsSpeedDial actions={[]} ariaLabel="Actions" data-testid="quick-actions" />);
+    expect(screen.getByTestId('quick-actions')).toHaveClass('MuiSpeedDial-root');
+  });
 });

@@ -76,6 +76,7 @@ const RdsAccordion = ({
   className,
   slotProps,
   onChange,
+  'data-testid': dataTestId,
   ...props
 }: RdsAccordionProps) => {
   if (icon !== undefined) {
@@ -122,7 +123,10 @@ const RdsAccordion = ({
         };
 
   return (
-    <div className={clsx('rds-accordion__container', `rds-accordion--${styleClass}`)}>
+    <div
+      className={clsx('rds-accordion__container', `rds-accordion--${styleClass}`)}
+      data-testid={dataTestId}
+    >
       <MuiAccordion
         {...props}
         expanded={isExpanded}

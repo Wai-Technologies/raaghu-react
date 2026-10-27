@@ -875,4 +875,15 @@ describe('audit fixes', () => {
     render(<RdsPopover open onClose={jest.fn()} anchorEl={anchor} position="top-left">Content</RdsPopover>);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsPopover', 'position', '`placement` and `arrow`');
   });
+
+  it('forwards data-testid to the popover root', () => {
+    const anchor = document.createElement('div');
+    document.body.appendChild(anchor);
+    render(
+      <RdsPopover open onClose={jest.fn()} anchorEl={anchor} data-testid="help-popover">
+        Content
+      </RdsPopover>,
+    );
+    expect(screen.getByTestId('help-popover')).toBeInTheDocument();
+  });
 });

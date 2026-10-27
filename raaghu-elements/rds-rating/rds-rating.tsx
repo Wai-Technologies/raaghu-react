@@ -73,6 +73,7 @@ const RdsRating = ({
   defaultValue,
   onChange,
   precision: precisionProp,
+  'data-testid': dataTestId,
   ...props
 }: RdsRatingProps) => {
   if (maxStars !== undefined) warnDeprecatedProp('RdsRating', 'maxStars', '`max`');
@@ -202,7 +203,10 @@ const RdsRating = ({
   );
 
   return (
-  <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} rds-rating--${resolvedStyle} ${getPositionClass()} ${resolvedColor ? `rds-rating--color-${resolvedColor}` : ''}`}>
+  <div
+    className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} rds-rating--${resolvedStyle} ${getPositionClass()} ${resolvedColor ? `rds-rating--color-${resolvedColor}` : ''}`}
+    data-testid={dataTestId}
+  >
       {label && <span className="rds-rating__label">{label}</span>}
       {type === 'slider' ? renderSliderRating() : renderStarRating()}
       {showValue && type !== 'slider' && currentValue !== undefined && (

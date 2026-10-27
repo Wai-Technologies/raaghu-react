@@ -1,15 +1,19 @@
-import { useEffect, useId, useRef, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useEffect, useId, useRef, type ChangeEvent, type KeyboardEvent, type MouseEvent } from 'react';
 import { TextField, InputAdornment, IconButton, type TextFieldProps } from '@mui/material';
 import type { InputProps } from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import clsx from 'clsx';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-search.scss';
 
 export interface RdsSearchProps extends Omit<TextFieldProps, 'onChange' | 'component'> {
   value: string;
-  onChange: (value: string) => void;
+  /**
+   * Value-first change handler (canonical for custom Raaghu controls).
+   * Signature: `(value, event) => void` — prefer reading `value`.
+   */
+  onChange: (value: string, event: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>) => void;
   /** Called with the current value on Enter, on the search button, and after `debounce` ms when it is set. */
   onSearch?: (value: string) => void;
   onClear?: () => void;
@@ -48,6 +52,7 @@ const RdsSearch = ({
   slotProps: consumerSlotProps,
   className,
   id,
+  'data-testid': dataTestId,
   ...restProps
 }: RdsSearchProps) => {
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -66,7 +71,7 @@ const RdsSearch = ({
     if (disabled) return;
 
     const newValue = event.target.value;
-    onChange(newValue);
+    invokeValueFirstOnChange(onChange, newValue, event);
     if (autoSearchOn && onSearch) {
       if (searchTimeoutRef.current) {
         clearTimeout(searchTimeoutRef.current);
@@ -82,10 +87,10 @@ const RdsSearch = ({
     onSearch?.(value);
   };
 
-  const handleClear = () => {
+  const handleClear = (event: MouseEvent<HTMLButtonElement>) => {
     if (disabled) return;
 
-    onChange('');
+    invokeValueFirstOnChange(onChange, '', event);
     onClear?.();
   };
 
@@ -161,7 +166,7 @@ const RdsSearch = ({
   };
 
   return (
-    <div className={containerClasses}>
+    <div className={containerClasses} data-testid={dataTestId}>
       {typeof label === 'string' && label.trim() !== '' && (
         <label className={labelClasses} htmlFor={inputId}>
           {label}

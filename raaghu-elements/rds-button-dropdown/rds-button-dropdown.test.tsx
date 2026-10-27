@@ -10,6 +10,13 @@ jest.mock('../shared/utils/deprecation', () => {
   const warnDeprecatedProp = jest.fn();
   return {
     warnDeprecatedProp,
+    invokeValueFirstOnChange: (
+      onChange: ((value: unknown, event: unknown) => void) | undefined,
+      value: unknown,
+      event: unknown,
+    ) => {
+      onChange?.(value, event);
+    },
     resolveDeprecatedProp: (
       canonical: unknown,
       legacy: unknown,
@@ -89,7 +96,7 @@ jest.mock('../rds-search/rds-search', () => {
       <input
         data-testid="search-input"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value, e)}
         placeholder={placeholder}
       />
     );
@@ -425,7 +432,8 @@ describe('audit fixes', () => {
       fireEvent.click(screen.getAllByRole('checkbox')[0]);
       fireEvent.click(screen.getAllByRole('checkbox')[1]);
       fireEvent.click(screen.getAllByRole('checkbox')[0]);
-      expect(onChange.mock.calls).toEqual([[[1]], [[1, 2]], [[2]]]);
+      expect(onChange.mock.calls.map((call) => call[0])).toEqual([[1], [1, 2], [2]]);
+      onChange.mock.calls.forEach((call) => expect(call[1]).toEqual(expect.anything()));
     });
 
     it('calls onChange once with the id string in single-select mode', () => {
@@ -437,7 +445,8 @@ describe('audit fixes', () => {
       );
       fireEvent.click(screen.getByText('Button'));
       fireEvent.click(screen.getAllByRole('radio')[1]);
-      expect(onChange.mock.calls).toEqual([['2']]);
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange).toHaveBeenCalledWith('2', expect.anything());
     });
   });
 
@@ -593,7 +602,7 @@ describe('audit fixes', () => {
       const checkboxes = screen.getAllByRole('checkbox');
       expect(checkboxes[1]).toBeChecked();
       fireEvent.click(checkboxes[0]);
-      expect(onChange).toHaveBeenCalledWith([2, 1]);
+      expect(onChange).toHaveBeenCalledWith([2, 1], expect.anything());
       expect(screen.getAllByRole('checkbox')[0]).not.toBeChecked();
     });
 

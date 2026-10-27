@@ -929,4 +929,9 @@ describe('audit fixes', () => {
     );
     expect(document.querySelector('label.rds-select__label')).not.toBeInTheDocument();
   });
+
+  it('forwards data-testid to the root .rds-select', () => {
+    wrap(<RdsSelect options={opts} data-testid="country-select" value="" />);
+    expect(screen.getByTestId('country-select')).toHaveClass('rds-select');
+  });
 });

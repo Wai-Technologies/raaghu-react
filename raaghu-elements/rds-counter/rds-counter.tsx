@@ -1,9 +1,9 @@
-import { useId, useState, type ChangeEvent, type KeyboardEvent, type Ref } from 'react';
+import { useId, useState, type ChangeEvent, type FocusEvent, type KeyboardEvent, type MouseEvent, type Ref, type SyntheticEvent } from 'react';
 import { Box, IconButton, InputBase, Typography, type BoxProps } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import clsx from 'clsx';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 import "./rds-counter.scss";
 
 /** Root props are forwarded to the outer `Box` (`className`, `sx`, `ref`, `id`, `aria-*`, `data-*`, event handlers…). */
@@ -14,8 +14,12 @@ export interface RdsCounterProps
   ref?: Ref<HTMLDivElement>;
   /** Controlled value. When set (even without `onChange`) the counter is controlled. */
   value?: number;
-  /** Called with the new value. Only values inside `[min, max]` are emitted. */
-  onChange?: (value: number) => void;
+  /**
+   * Value-first change handler (canonical for custom Raaghu controls).
+   * Signature: `(value, event) => void` — prefer reading `value`.
+   * Only values inside `[min, max]` are emitted.
+   */
+  onChange?: (value: number, event: SyntheticEvent) => void;
   /** Initial value when uncontrolled. */
   defaultValue?: number;
   min?: number;
@@ -101,33 +105,33 @@ const RdsCounter = ({
   const [draft, setDraft] = useState<string | null>(null);
   const currentValue = isControlled ? value : internalValue;
 
-  const updateValue = (newValue: number | undefined) => {
+  const updateValue = (newValue: number | undefined, event?: SyntheticEvent) => {
     if (isControlled) {
-      if (typeof newValue === 'number') onChange?.(newValue);
+      if (typeof newValue === 'number' && event) invokeValueFirstOnChange(onChange, newValue, event);
     } else {
       setInternalValue(newValue);
     }
   };
 
-  const handleIncrement = () => {
+  const handleIncrement = (event: MouseEvent<HTMLButtonElement>) => {
     setDraft(null);
     const base = typeof currentValue === 'number' ? currentValue : min;
     const newValue = Math.min(base + step, max);
-    updateValue(newValue);
+    updateValue(newValue, event);
   };
 
-  const handleDecrement = () => {
+  const handleDecrement = (event: MouseEvent<HTMLButtonElement>) => {
     setDraft(null);
     const base = typeof currentValue === 'number' ? currentValue : min;
     const newValue = Math.max(base - step, min);
-    updateValue(newValue);
+    updateValue(newValue, event);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const raw = event.target.value.trim();
     if (raw === '') {
       setDraft(null);
-      updateValue(undefined);
+      updateValue(undefined, event);
       return;
     }
     if (raw === '-' && min < 0) {
@@ -138,19 +142,19 @@ const RdsCounter = ({
     if (isNaN(newValue)) return;
     if (newValue >= min && newValue <= max) {
       setDraft(null);
-      updateValue(newValue);
+      updateValue(newValue, event);
     } else if (canReachRange(newValue, min, max)) {
       setDraft(String(newValue));
     }
   };
 
-  const handleInputBlur = () => {
+  const handleInputBlur = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (draft === null) return;
     setDraft(null);
     const parsed = parseInt(draft, 10);
     if (isNaN(parsed)) return;
     const clamped = Math.min(Math.max(parsed, min), max);
-    if (clamped !== currentValue) updateValue(clamped);
+    if (clamped !== currentValue) updateValue(clamped, event);
   };
 
   const isSelected = selected;
@@ -161,10 +165,18 @@ const RdsCounter = ({
   const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (event.key === 'ArrowUp') {
       event.preventDefault();
-      if (!atMax) handleIncrement();
+      if (!atMax) {
+        setDraft(null);
+        const base = typeof currentValue === 'number' ? currentValue : min;
+        updateValue(Math.min(base + step, max), event);
+      }
     } else if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (!atMin) handleDecrement();
+      if (!atMin) {
+        setDraft(null);
+        const base = typeof currentValue === 'number' ? currentValue : min;
+        updateValue(Math.max(base - step, min), event);
+      }
     }
   };
 

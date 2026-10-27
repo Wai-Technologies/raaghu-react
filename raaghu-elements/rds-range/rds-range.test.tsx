@@ -6,7 +6,14 @@ import RdsRange from './rds-range';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-range.scss', () => ({}));
-jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  invokeValueFirstOnChange: jest.fn(
+    (onChange: ((value: unknown, event: unknown) => void) | undefined, value: unknown, event: unknown) => {
+      onChange?.(value, event);
+    },
+  ),
+}));
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(
@@ -1013,5 +1020,10 @@ describe('audit fixes', () => {
     expect(container.querySelector('.MuiSlider-valueLabel')).toHaveTextContent('30');
     renderWithTheme(<RdsRange showTooltip />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRange', 'showTooltip', '`valueLabelDisplay`');
+  });
+
+  it('forwards data-testid to the root .rds-range', () => {
+    renderWithTheme(<RdsRange data-testid="price-range" />);
+    expect(screen.getByTestId('price-range')).toHaveClass('rds-range');
   });
 });

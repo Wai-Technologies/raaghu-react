@@ -412,8 +412,8 @@ describe('RdsSkeleton', () => {
       renderWithTheme(
         <RdsSkeleton frames={2} data-testid="frame-skeleton" />
       );
-      const skeletons = screen.getAllByTestId('frame-skeleton');
-      expect(skeletons.length).toBe(2);
+      expect(screen.getByTestId('frame-skeleton')).toHaveClass('rds-skeleton');
+      expect(screen.getAllByTestId('frame-skeleton')).toHaveLength(1);
     });
   });
 
@@ -467,7 +467,7 @@ describe('RdsSkeleton', () => {
     });
 
     it('should render with all props at once', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsSkeleton
           frames={2}
           shape="rectangular"
@@ -479,11 +479,10 @@ describe('RdsSkeleton', () => {
           data-testid="full-skeleton"
         />
       );
-      const skeletons = screen.getAllByTestId('full-skeleton');
-      expect(skeletons.length).toBe(2);
-      expect(skeletons[0]).toHaveClass('rds-skeleton--rectangular');
-      expect(skeletons[0]).toHaveClass('custom-loader');
-      expect(skeletons[0]).toHaveStyle('background-color: rgb(240, 240, 240)');
+      const root = screen.getByTestId('full-skeleton');
+      expect(root).toHaveClass('rds-skeleton--rectangular', 'custom-loader');
+      expect(root.querySelectorAll('.MuiSkeleton-root')).toHaveLength(2);
+      expect(root.querySelector('.MuiSkeleton-root')).toHaveStyle('background-color: rgb(240, 240, 240)');
     });
   });
 
@@ -570,5 +569,10 @@ describe('audit fixes 518', () => {
   it('legacy animated={false} still disables animation', () => {
     const { container } = render(<RdsSkeleton animated={false} />);
     expect(container.querySelector('.MuiSkeleton-pulse')).toBeNull();
+  });
+
+  it('forwards data-testid to the root .rds-skeleton', () => {
+    render(<RdsSkeleton data-testid="card-skeleton" frames={3} />);
+    expect(screen.getByTestId('card-skeleton')).toHaveClass('rds-skeleton');
   });
 });

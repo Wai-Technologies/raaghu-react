@@ -667,4 +667,9 @@ describe('audit fixes 526', () => {
     render(<RdsSnackbar open message="Hi" hideCloseButton={false} showCloseButton={false} />);
     expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument();
   });
+
+  it('forwards data-testid to the snackbar root', () => {
+    render(<RdsSnackbar open message="Hi" data-testid="toast-snackbar" />);
+    expect(screen.getByTestId('toast-snackbar')).toBeInTheDocument();
+  });
 });

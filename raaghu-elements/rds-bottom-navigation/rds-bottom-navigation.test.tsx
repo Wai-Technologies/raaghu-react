@@ -322,5 +322,10 @@ describe('RdsBottomNavigation', () => {
       expect(root).toHaveClass('custom');
       expect(ref.current).toBe(root);
     });
+
+    it('forwards data-testid to the root .rds-bottom-navigation', () => {
+      setup({ 'data-testid': 'app-nav' });
+      expect(screen.getByTestId('app-nav')).toHaveClass('rds-bottom-navigation');
+    });
   });
 });

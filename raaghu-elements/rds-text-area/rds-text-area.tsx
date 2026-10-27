@@ -16,7 +16,7 @@ import { Box } from '@mui/material';
 import "./rds-text-area.scss";
 export type { TextareaStyle } from './rds-text-area-types';
 import type { TextareaStyle } from './rds-text-area-types';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 
 type NativeTextareaProps = Omit<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -59,7 +59,12 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   id?: string;
   /** @deprecated Use `data-testid` instead. */
   dataTestId?: string;
-  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  /**
+   * Value-first change handler (canonical for custom Raaghu controls).
+   * Signature: `(value, event) => void` — prefer reading `value`.
+   * Event-only handlers `(event) => event.target.value` are no longer supported; migrate to `(value) => …`.
+   */
+  onChange?: (value: string, event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClick?: (event: MouseEvent<HTMLTextAreaElement>) => void;
   onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
   onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
@@ -112,10 +117,12 @@ const RdsTextArea = ({
   isMultiUrl,
   customClasses,
   localeText,
+  'data-testid': dataTestIdAttr,
   ...rest
 }: RdsTextAreaProps): ReactNode => {
   if (showTitle !== undefined) warnDeprecatedProp('RdsTextArea', 'showTitle', 'omitting `label`');
   if (dataTestId !== undefined) warnDeprecatedProp('RdsTextArea', 'dataTestId', '`data-testid`');
+  const resolvedTestId = dataTestIdAttr ?? dataTestId;
   if (resetProp !== undefined) warnDeprecatedProp('RdsTextArea', 'reset', 'a new `key`');
   if (validationMsg !== undefined) warnDeprecatedProp('RdsTextArea', 'validationMsg', '`helperText`');
   if (isMultiUrl !== undefined) warnDeprecatedProp('RdsTextArea', 'isMultiUrl', '`multiUrl`');
@@ -167,7 +174,7 @@ const RdsTextArea = ({
       );
     }
 
-    onChange?.(e);
+    invokeValueFirstOnChange(onChange, inputValue, e);
   };
 
   const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
@@ -216,6 +223,7 @@ const RdsTextArea = ({
       className={clsx('rds-textarea-container', className)}
       sx={sx}
       style={typeof style === 'object' ? style : undefined}
+      data-testid={resolvedTestId}
     >
       {showTitle !== false && label && (
         <label
@@ -252,7 +260,6 @@ const RdsTextArea = ({
           onKeyDown={onKeyDown}
           onFocus={onFocus}
           onBlur={handleBlur}
-          {...(dataTestId !== undefined && { 'data-testid': dataTestId })}
           value={value}
           defaultValue={value === undefined ? defaultValue : undefined}
           onChange={handleChange}

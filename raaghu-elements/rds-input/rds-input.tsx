@@ -92,6 +92,7 @@ const RdsInput = ({
   id,
   InputProps: legacyInputProps,
   slotProps: consumerSlotProps,
+  'data-testid': dataTestId,
   ...props
 }: RdsInputProps) => {
   if (hintText !== undefined) warnDeprecatedProp('RdsInput', 'hintText', '`helperText`');
@@ -263,6 +264,7 @@ const RdsInput = ({
 
   return (
     <div
+      data-testid={dataTestId}
       style={typeof style === 'object' ? style : undefined}
       className={clsx(
       'rds-input',

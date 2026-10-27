@@ -283,7 +283,7 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
     setSelectedCard(boards[index]);
   };
 
-  const toggleSubCardDropdown = (subCardId: number, event: MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => {
+  const toggleSubCardDropdown = (subCardId: number, event: MouseEvent<HTMLElement>, subCard: KanbanSubCard, cardIndex: number) => {
     setSubCardAnchorEl(event.currentTarget);
     setSelectedSubCard(subCard);
     setSelectedCardIndex(cardIndex);

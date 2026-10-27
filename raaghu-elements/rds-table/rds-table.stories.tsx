@@ -367,7 +367,7 @@ export const Default: Story = {
       <RdsTable
         {...args}
         selected={selected}
-        onSelectionChange={(_, ids) => setSelected(ids)}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -392,7 +392,7 @@ export const SmallSize: Story = {
       <RdsTable
         {...args}
         selected={selected}
-        onSelectionChange={(_, ids) => setSelected(ids)}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -413,7 +413,7 @@ export const StickyHeader: Story = {
       <RdsTable
         {...args}
         selected={selected}
-        onSelectionChange={(_, ids) => setSelected(ids)}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -434,7 +434,7 @@ export const LargeDataset: Story = {
       <RdsTable
         {...args}
         selected={selected}
-        onSelectionChange={(_, ids) => setSelected(ids)}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -460,7 +460,7 @@ export const WithActions: Story = {
       <RdsTable
         {...args}
         selected={selected}
-        onSelectionChange={(_, ids) => setSelected(ids)}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />
@@ -489,7 +489,7 @@ export const Empty: Story = {
       <RdsTable
         {...args}
         selected={selected}
-        onSelectionChange={(_, ids) => setSelected(ids)}
+        onSelectionChange={(ids) => setSelected(ids)}
         defaultSortBy="id"
         defaultSortDirection="asc"
       />

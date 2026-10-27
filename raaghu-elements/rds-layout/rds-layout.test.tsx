@@ -424,12 +424,12 @@ describe('RdsLayout', () => {
 
   describe('Props Spreading', () => {
     it('should accept additional Container props', () => {
-      const { container } = renderWithTheme(
+      renderWithTheme(
         <RdsLayout data-testid="custom-layout" className="custom-class">
           <div>Content</div>
         </RdsLayout>
       );
-      expect(screen.getByTestId('custom-layout')).toBeInTheDocument();
+      expect(screen.getByTestId('custom-layout')).toHaveClass('rds-layout', 'custom-class');
     });
 
     it('should apply custom className', () => {
@@ -438,8 +438,8 @@ describe('RdsLayout', () => {
           <div>Content</div>
         </RdsLayout>
       );
-      const muiContainer = container.querySelector('.MuiContainer-root');
-      expect(muiContainer).toHaveClass('my-layout');
+      const root = container.querySelector('.rds-layout');
+      expect(root).toHaveClass('my-layout');
     });
 
     it('should apply style prop', () => {

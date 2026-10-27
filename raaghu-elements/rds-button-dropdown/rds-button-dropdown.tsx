@@ -10,7 +10,7 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
-import { resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
+import { invokeValueFirstOnChange, resolveDeprecatedProp, warnDeprecatedProp } from '../shared/utils/deprecation';
 
 export interface RdsButtonDropdownOption {
   id: string | number;
@@ -108,7 +108,8 @@ export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonEl
   showAvatar?: boolean;
   /** Single-select options as `'radio'` or plain `'button'`s. Preferred over `ui.selection`. */
   optionVariant?: 'radio' | 'button';
-  onChange?: (selected: string[] | string) => void;
+  
+  onChange?: (selected: string[] | string, event: object) => void;
   size?: 'small' | 'medium' | 'large';
   layout?: 'icon+text' | 'text-only' | 'icon-only';
   /**
@@ -274,10 +275,10 @@ const RdsButtonDropdown = ({
     if (isMultiple) {
       const next = selected.includes(id) ? selected.filter(i => i !== id) : [...selected, id];
       if (!isValueControlled) setSelectedState(next);
-      onChange?.(next as string[]);
+      invokeValueFirstOnChange(onChange, next as string[], event);
     } else {
       if (!isValueControlled) setSelectedState([id]);
-      onChange?.(id.toString());
+      invokeValueFirstOnChange(onChange, id.toString(), event);
       requestClose(event, 'selectOption');
     }
   };
@@ -358,7 +359,7 @@ const RdsButtonDropdown = ({
                 {isMultiple ? (
                   <RdsCheckbox
                     checked={selected.includes(opt.id)}
-                    onChange={() => handleOptionChange(opt.id)}
+                    onChange={(event) => handleOptionChange(opt.id, event)}
                     isDisabled={opt.disabled}
                     labelText= {opt.label}
                   />

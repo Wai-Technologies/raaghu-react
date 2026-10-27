@@ -44,17 +44,17 @@ export const TreeNodeRow = ({
     if (props.onCheckboxChange) props.onCheckboxChange(node.id, checked);
   };
 
-  const handleMouseEnter = (e: MouseEvent) => {
+  const handleMouseEnter = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setHoveredNodeId(node.id);
   };
 
-  const handleMouseLeave = (e: MouseEvent) => {
+  const handleMouseLeave = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setHoveredNodeId(null);
   };
 
-  const handlerButtonGroupClick = (e: MouseEvent, id: string, nodeObj: { data: TreeNode }) => {
+  const handlerButtonGroupClick = (e: MouseEvent<HTMLElement>, id: string, nodeObj: { data: TreeNode }) => {
     if (id == 'plus') {
       e.stopPropagation();
       props.onCreateNode && props.onCreateNode(nodeObj.data);
@@ -84,8 +84,8 @@ export const TreeNodeRow = ({
       >
         <div
           className="rds-comp-tree-structure__node-content"
-          onMouseEnter={(e) => handleMouseEnter(e as any)}
-          onMouseLeave={(e) => handleMouseLeave(e as any)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           {(node.children && level < maxLevel && props.showChewron) && (
             <button
@@ -140,7 +140,7 @@ export const TreeNodeRow = ({
               <button
                 type="button"
                 className="rds-comp-tree-structure__action-btn"
-                onClick={(e) => handlerButtonGroupClick(e as any, 'plus', { data: node })}
+                onClick={(e) => handlerButtonGroupClick(e, 'plus', { data: node })}
                 aria-label="Add child"
               >
                 <AddIcon />
@@ -148,7 +148,7 @@ export const TreeNodeRow = ({
               <button
                 type="button"
                 className="rds-comp-tree-structure__action-btn"
-                onClick={(e) => handlerButtonGroupClick(e as any, 'edit', { data: node })}
+                onClick={(e) => handlerButtonGroupClick(e, 'edit', { data: node })}
                 aria-label="Edit node"
               >
                 <EditIcon />
@@ -156,7 +156,7 @@ export const TreeNodeRow = ({
               <button
                 type="button"
                 className="rds-comp-tree-structure__action-btn"
-                onClick={(e) => handlerButtonGroupClick(e as any, 'move', { data: node })}
+                onClick={(e) => handlerButtonGroupClick(e, 'move', { data: node })}
                 aria-label="Move node"
               >
                 <OpenWithIcon />
@@ -164,7 +164,7 @@ export const TreeNodeRow = ({
               <button
                 type="button"
                 className="rds-comp-tree-structure__action-btn"
-                onClick={(e) => handlerButtonGroupClick(e as any, 'delete', { data: node })}
+                onClick={(e) => handlerButtonGroupClick(e, 'delete', { data: node })}
                 aria-label="Delete node"
               >
                 <DeleteIcon />

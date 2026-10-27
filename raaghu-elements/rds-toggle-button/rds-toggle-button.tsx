@@ -56,6 +56,7 @@ const RdsToggleButton = ({
   color,
   className,
   sx,
+  'data-testid': dataTestId,
   ...otherProps
 }: RdsToggleButtonProps) => {
   if (enforceSelected !== undefined) warnDeprecatedProp('RdsToggleButton', 'enforceSelected', '`required`');
@@ -115,6 +116,7 @@ const RdsToggleButton = ({
 
   return (
     <div
+      data-testid={dataTestId}
       className={clsx(
         'rds-toggle-button',
         `rds-toggle-button--${orientation}`,

@@ -17,6 +17,20 @@ export function warnDeprecatedProp(component: string, prop: string, replacement:
 }
 
 /**
+ * Invokes a value-first `onChange` (canonical for custom Raaghu controls).
+ * Call shape: `(value, event) => void`. Prefer reading `value`; use `event` only when needed.
+ *
+ * Thin MUI wrappers should keep calling MUI's `(event, value)` directly instead of this helper.
+ */
+export function invokeValueFirstOnChange<TValue, TEvent>(
+  onChange: ((value: TValue, event: TEvent) => void) | undefined,
+  value: TValue,
+  event: TEvent,
+): void {
+  onChange?.(value, event);
+}
+
+/**
  * Prefers the canonical prop value. When a legacy value is provided, warns once
  * (even if canonical is also set). Canonical wins when both are defined.
  */

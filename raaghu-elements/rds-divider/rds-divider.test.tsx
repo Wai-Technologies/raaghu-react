@@ -207,7 +207,7 @@ describe('RdsDivider', () => {
   describe('MUI Props Forwarding', () => {
     it('should forward MUI Divider props', () => {
       const { container } = renderWithTheme(<RdsDivider {...defaultProps} data-testid="custom-divider" />);
-      expect(container.querySelector('[data-testid="custom-divider"]')).toBeInTheDocument();
+      expect(container.querySelector('[data-testid="custom-divider"]')).toHaveClass('rds-divider');
     });
 
     it('should accept standard HTML attributes', () => {
@@ -363,10 +363,12 @@ describe('RdsDivider audit fixes', () => {
       expect(ref.mock.calls.filter(([node]) => node !== null)).toHaveLength(1);
     });
 
-    it('still forwards className and other props to every line', () => {
+    it('applies className on the outer shell and forwards data-testid to the root', () => {
       const { container } = renderWithTheme(<RdsDivider className="line" data-testid="line">Text</RdsDivider>);
-      expect(container.querySelectorAll('.MuiDivider-root.line')).toHaveLength(2);
-      expect(container.querySelectorAll('[data-testid="line"]')).toHaveLength(2);
+      expect(container.querySelector('.rds-divider.line')).toBeInTheDocument();
+      expect(container.querySelectorAll('.MuiDivider-root.line')).toHaveLength(0);
+      expect(container.querySelectorAll('[data-testid="line"]')).toHaveLength(1);
+      expect(container.querySelector('[data-testid="line"]')).toHaveClass('rds-divider');
     });
   });
 

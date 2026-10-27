@@ -198,8 +198,25 @@ export function createCenterTextPlugin<TType extends ChartType = ChartType>({
 }
 
 /** Loose view of Chart.js options used internally while writing theme colours. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ChartOptionsLike = Record<string, any>;
+type ChartScaleConfig = {
+  grid?: { color?: string };
+  ticks?: { color?: string };
+  border?: { color?: string };
+  title?: { color?: string };
+};
+
+type ChartOptionsLike = {
+  scales?: Record<string, ChartScaleConfig | undefined>;
+  plugins?: {
+    legend?: { labels?: { color?: string } };
+    title?: { color?: string };
+    tooltip?: {
+      backgroundColor?: string;
+      titleColor?: string;
+      bodyColor?: string;
+    };
+  };
+};
 
 /**
  * Applies dark/light theme colors to a Chart.js options object in-place.
