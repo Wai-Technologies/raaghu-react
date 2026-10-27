@@ -57,6 +57,7 @@ const RdsRadio = ({
   layout: layoutProp = 'icon with label',
   disabled = false,
   selected,
+  'data-testid': dataTestId,
   ...props
 }: RdsRadioProps) => {
   if (direction !== undefined) warnDeprecatedProp('RdsRadio', 'direction', '`row`');
@@ -170,6 +171,7 @@ const RdsRadio = ({
   return (
     <FormControl
       component="fieldset"
+      data-testid={dataTestId}
       className={clsx(
         'rds-radio',
         `rds-radio--${layout.replace(/ /g, '-')}`,

@@ -44,6 +44,7 @@ const RdsSwitch = ({
   variant,
   showLabel,
   className,
+  'data-testid': dataTestId,
   ...props
 }:RdsSwitchProps) => {
   if (showLabel !== undefined) warnDeprecatedProp('RdsSwitch', 'showLabel', 'omitting `label`');
@@ -113,7 +114,7 @@ const RdsSwitch = ({
 
   if (label && showLabel !== false) {
     return (
-      <div className={rootClassName} style={rowStyle}>
+      <div className={rootClassName} style={rowStyle} data-testid={dataTestId}>
         <FormControlLabel
           className={styleClass}
           control={<MuiSwitch {...switchProps} />}
@@ -124,7 +125,7 @@ const RdsSwitch = ({
     );
   }
   return (
-    <div className={rootClassName} style={rowStyle}>
+    <div className={rootClassName} style={rowStyle} data-testid={dataTestId}>
       <MuiSwitch {...switchProps} />
     </div>
   );

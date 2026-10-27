@@ -358,6 +358,7 @@ describe('RdsAccordion', () => {
       );
       const accordion = container.querySelector('.MuiAccordion-root');
       expect(accordion).toHaveAttribute('id', 'test-accordion');
+      expect(screen.getByTestId('accordion-test')).toHaveClass('rds-accordion__container');
     });
 
     it('should apply custom className from MUI props', () => {

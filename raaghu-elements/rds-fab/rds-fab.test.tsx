@@ -503,4 +503,9 @@ describe('RdsFab additive renames', () => {
     render(<RdsFab icon={<span />} />);
     expect(warn).toHaveBeenCalledWith('RdsFab', 'icon', '`startIcon`');
   });
+
+  it('forwards data-testid to the root button', () => {
+    render(<RdsFab data-testid="add-fab" aria-label="Add" startIcon={<span>★</span>} />);
+    expect(screen.getByTestId('add-fab')).toBe(screen.getByRole('button', { name: 'Add' }));
+  });
 });

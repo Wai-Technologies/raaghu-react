@@ -744,4 +744,9 @@ describe('audit fixes', () => {
     expect(screen.queryByTestId('left')).not.toBeInTheDocument();
     expect(screen.queryByTestId('right')).not.toBeInTheDocument();
   });
+
+  it('forwards data-testid to the root .rds-tabs', () => {
+    renderWithTheme(<RdsTabs items={[{ id: 'a', label: 'a' }]} data-testid="nav-tabs" />);
+    expect(screen.getByTestId('nav-tabs')).toHaveClass('rds-tabs');
+  });
 });

@@ -35,6 +35,7 @@ const RdsTooltip = ({
   tooltipStyle,
   arrow = false,
   wrapper: _wrapper,
+  'data-testid': dataTestId,
   ...props
 }: RdsTooltipProps) => {
   const legacyPlacement = typeof style === 'string' ? style : undefined;
@@ -62,7 +63,11 @@ const RdsTooltip = ({
       sx={tooltipStyle}
       {...props}
     >
-      <span className="rds-tooltip__wrapper" style={typeof style === 'object' ? style : undefined}>
+      <span
+        className="rds-tooltip__wrapper"
+        style={typeof style === 'object' ? style : undefined}
+        data-testid={dataTestId}
+      >
         {children}
       </span>
     </MuiTooltip>

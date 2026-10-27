@@ -38,6 +38,7 @@ const RdsCheckbox = ({
   indeterminate,
   onChange,
   slotProps,
+  'data-testid': dataTestId,
   ...props
 }: RdsCheckboxProps) => {
   if (isDisabled !== undefined) warnDeprecatedProp('RdsCheckbox', 'isDisabled', '`disabled`');
@@ -101,7 +102,11 @@ const RdsCheckbox = ({
   );
 
   return (
-    <div className={checkboxClassName} style={styleObject ? { ...cssStyle, ...styleObject } : cssStyle}>
+    <div
+      className={checkboxClassName}
+      style={styleObject ? { ...cssStyle, ...styleObject } : cssStyle}
+      data-testid={dataTestId}
+    >
       {resolvedLabelText ? (
         <FormControlLabel
           control={checkbox}

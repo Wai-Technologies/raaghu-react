@@ -828,4 +828,9 @@ describe('audit fixes', () => {
     const { container } = renderWithTheme(<RdsChip label="Plain" />);
     expect(container.querySelector('.rds-chip')).toBeNull();
   });
+
+  it('forwards data-testid to the root chip', () => {
+    renderWithTheme(<RdsChip label="Tag" data-testid="status-chip" />);
+    expect(screen.getByTestId('status-chip')).toHaveClass('MuiChip-root');
+  });
 });

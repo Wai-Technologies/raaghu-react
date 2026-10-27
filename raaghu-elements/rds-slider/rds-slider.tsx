@@ -48,6 +48,7 @@ const RdsSlider = (sliderProps: RdsSliderProps): ReactElement => {
     value,
     onChange,
     valueLabelDisplay,
+    'data-testid': dataTestId,
     ...props
   } = sliderProps;
   const min: number = props.min ?? 0;
@@ -156,7 +157,7 @@ const RdsSlider = (sliderProps: RdsSliderProps): ReactElement => {
   const isRangeValue = Array.isArray(sliderValue);
 
   return (
-    <div className={`rds-slider ${className || ''}`}>
+    <div className={`rds-slider ${className || ''}`} data-testid={dataTestId}>
       {(labelVisible || showValue) && (
         <div className="rds-slider__label-row">
           {labelVisible && <span className="rds-slider__label-text">{label}</span>}

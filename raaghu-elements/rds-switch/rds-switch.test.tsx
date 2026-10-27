@@ -651,4 +651,9 @@ describe('audit fixes', () => {
     expect(container.querySelector('.rds-switch--style3')).toBeInTheDocument();
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsSwitch', 'style', expect.any(String));
   });
+
+  it('forwards data-testid to the root .rds-switch--row', () => {
+    renderWithTheme(<RdsSwitch label="Notify" data-testid="notify-switch" />);
+    expect(screen.getByTestId('notify-switch')).toHaveClass('rds-switch--row');
+  });
 });

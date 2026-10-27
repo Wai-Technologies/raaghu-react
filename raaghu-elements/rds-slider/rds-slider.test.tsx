@@ -767,4 +767,9 @@ describe('audit fixes 522-524', () => {
     renderWithTheme(<RdsSlider showTooltip="tooltip" />);
     expect(document.querySelector('.MuiSlider-thumb')).toBeInTheDocument();
   });
+
+  it('forwards data-testid to the root .rds-slider', () => {
+    renderWithTheme(<RdsSlider data-testid="volume-slider" />);
+    expect(screen.getByTestId('volume-slider')).toHaveClass('rds-slider');
+  });
 });

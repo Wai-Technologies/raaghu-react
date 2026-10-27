@@ -117,10 +117,12 @@ const RdsTextArea = ({
   isMultiUrl,
   customClasses,
   localeText,
+  'data-testid': dataTestIdAttr,
   ...rest
 }: RdsTextAreaProps): ReactNode => {
   if (showTitle !== undefined) warnDeprecatedProp('RdsTextArea', 'showTitle', 'omitting `label`');
   if (dataTestId !== undefined) warnDeprecatedProp('RdsTextArea', 'dataTestId', '`data-testid`');
+  const resolvedTestId = dataTestIdAttr ?? dataTestId;
   if (resetProp !== undefined) warnDeprecatedProp('RdsTextArea', 'reset', 'a new `key`');
   if (validationMsg !== undefined) warnDeprecatedProp('RdsTextArea', 'validationMsg', '`helperText`');
   if (isMultiUrl !== undefined) warnDeprecatedProp('RdsTextArea', 'isMultiUrl', '`multiUrl`');
@@ -221,6 +223,7 @@ const RdsTextArea = ({
       className={clsx('rds-textarea-container', className)}
       sx={sx}
       style={typeof style === 'object' ? style : undefined}
+      data-testid={resolvedTestId}
     >
       {showTitle !== false && label && (
         <label
@@ -257,7 +260,6 @@ const RdsTextArea = ({
           onKeyDown={onKeyDown}
           onFocus={onFocus}
           onBlur={handleBlur}
-          {...(dataTestId !== undefined && { 'data-testid': dataTestId })}
           value={value}
           defaultValue={value === undefined ? defaultValue : undefined}
           onChange={handleChange}

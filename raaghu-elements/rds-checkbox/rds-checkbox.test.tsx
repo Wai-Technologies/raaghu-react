@@ -787,4 +787,9 @@ describe('RdsCheckbox additive renames', () => {
     expect(container.firstChild).toHaveClass('rds-checkbox__indeterminate');
     expect(screen.getByRole('checkbox').getAttribute('data-indeterminate')).toBe('true');
   });
+
+  it('forwards data-testid to the root .rds-checkbox', () => {
+    renderWithTheme(<RdsCheckbox label="Accept" data-testid="terms-checkbox" />);
+    expect(screen.getByTestId('terms-checkbox')).toHaveClass('rds-checkbox');
+  });
 });

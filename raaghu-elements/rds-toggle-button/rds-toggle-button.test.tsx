@@ -925,4 +925,9 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsToggleButton', 'iconTextSpacing', expect.any(String));
   });
 
+  it('forwards data-testid to the root .rds-toggle-button', () => {
+    render(<RdsToggleButton options={mockOptions} data-testid="view-toggle" />);
+    expect(screen.getByTestId('view-toggle')).toHaveClass('rds-toggle-button');
+  });
+
 });
