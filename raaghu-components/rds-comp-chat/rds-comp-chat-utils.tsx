@@ -1,3 +1,4 @@
+
 import type { ChangeEvent, Dispatch, RefObject, SetStateAction } from "react";
 
 export interface Comment {
@@ -7,6 +8,13 @@ export interface Comment {
   image?: string;
   video?: string;
 }
+
+interface ImageUploadUser {
+  firstName: string;
+  lastName: string;
+}
+
+type AddCommentHandler = (comment: Comment) => void;
 
 export const startCamera = async (videoRef: RefObject<HTMLVideoElement>) => {
   try {
@@ -31,7 +39,6 @@ export const capturePhoto = (
   videoRef: RefObject<HTMLVideoElement>,
   addComment: (comment: Comment) => void,
   currentUser: { firstName: string; lastName: string },
-  updateState: (updates: Record<string, unknown>) => void,
   updateState: (updates: Record<string, unknown>) => void,
   stopCameraFn: () => void
 ) => {
@@ -97,18 +104,27 @@ export function handleAddComment(
   }
 }
 
-export function handleImageUpload(event: ChangeEvent<HTMLInputElement>, currentUser: any, addCommentFn: any) {
+export function handleImageUpload(
+  event: ChangeEvent<HTMLInputElement>,
+  currentUser: ImageUploadUser,
+  addCommentFn: AddCommentHandler
+) {
   const file = event.target.files?.[0];
+
   if (file?.type.startsWith("image/")) {
     const reader = new FileReader();
+
     reader.onloadend = () => {
+      if (typeof reader.result !== "string") return;
+
       addCommentFn({
         firstName: currentUser.firstName,
         lastName: currentUser.lastName,
         comment: "",
-        image: reader.result as string,
+        image: reader.result,
       });
     };
+
     reader.readAsDataURL(file);
   }
 }
