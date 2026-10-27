@@ -57,9 +57,9 @@ describe('RdsCollapse', () => {
       expect(screen.getByText('Child Content')).toBeInTheDocument();
     });
 
-    it('should render with custom className', () => {
+    it('should render with custom className on the outer shell', () => {
       const { container } = renderWithTheme(<RdsCollapse {...defaultProps} className="custom-class" />);
-      expect(container.querySelector('.MuiBox-root')).toBeInTheDocument();
+      expect(container.querySelector('.rds-collapse.custom-class')).toBeInTheDocument();
     });
 
     it('should render empty collapse when children is empty string', () => {

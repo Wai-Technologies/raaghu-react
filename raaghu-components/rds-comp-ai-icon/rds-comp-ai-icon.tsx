@@ -10,8 +10,7 @@ import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 
 /** Accepts MUI SvgIcon components and plain SVG React components. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type RdsIconComponent = ComponentType<any>;
+type RdsIconComponent = ComponentType<SVGProps<SVGSVGElement> & { fontSize?: string | number }>;
 
 const defaultMaterialIcons: Record<string, RdsIconComponent> = {
   users: GroupOutlinedIcon,

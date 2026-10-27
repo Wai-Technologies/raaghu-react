@@ -43,6 +43,7 @@ const RdsSwitch = ({
   style,
   variant,
   showLabel,
+  className,
   ...props
 }:RdsSwitchProps) => {
   if (showLabel !== undefined) warnDeprecatedProp('RdsSwitch', 'showLabel', 'omitting `label`');
@@ -101,15 +102,18 @@ const RdsSwitch = ({
     checked: isControlled ? props.checked : internalChecked,
     disabled,
     onChange: handleChange,
-    className: clsx(styleClass, props.className),    slotProps: {
+    className: styleClass,
+    slotProps: {
       ...restProps.slotProps,
       input: mergedInput,
     },
   };
 
+  const rootClassName = clsx('rds-switch--row', className);
+
   if (label && showLabel !== false) {
     return (
-      <div className="rds-switch--row" style={rowStyle}>
+      <div className={rootClassName} style={rowStyle}>
         <FormControlLabel
           className={styleClass}
           control={<MuiSwitch {...switchProps} />}
@@ -120,7 +124,7 @@ const RdsSwitch = ({
     );
   }
   return (
-    <div className="rds-switch--row" style={rowStyle}>
+    <div className={rootClassName} style={rowStyle}>
       <MuiSwitch {...switchProps} />
     </div>
   );

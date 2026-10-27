@@ -8,6 +8,7 @@ import {
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 const ICON_MAP = {
@@ -71,6 +72,7 @@ const RdsDivider = ({
   color,
   id,
   ref,
+  className,
   ...props
 }: RdsDividerProps) => {
   if (dividerMessage !== undefined) warnDeprecatedProp('RdsDivider', 'dividerMessage', '`children`');
@@ -135,6 +137,7 @@ const RdsDivider = ({
   if (layout === 'vertical') {
     return (
       <Box
+        className={clsx('rds-divider', className)}
         sx={{
           display: 'flex',
           alignItems: 'center',
@@ -170,6 +173,7 @@ const RdsDivider = ({
 
   return (
     <Box
+      className={clsx('rds-divider', className)}
       display="flex"
       alignItems="center"
       width="100%"

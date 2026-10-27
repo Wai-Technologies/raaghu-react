@@ -470,28 +470,26 @@ describe('RdsSwitch', () => {
   });
 
   describe('Custom ClassName', () => {
-    it('should apply custom className', () => {
+    it('should apply custom className on the outer row', () => {
       const { container } = renderWithTheme(
         <RdsSwitch className="custom-switch" />
       );
-      const switchElement = container.querySelector('.custom-switch');
-      expect(switchElement).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch--row.custom-switch')).toBeInTheDocument();
     });
 
-    it('should combine rds-switch with custom className', () => {
+    it('should keep rds-switch on the control and custom className on the row', () => {
       const { container } = renderWithTheme(
         <RdsSwitch className="custom-switch" />
       );
-      const switchElement = container.querySelector('.rds-switch.custom-switch');
-      expect(switchElement).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch--row.custom-switch')).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch')).toBeInTheDocument();
     });
 
-    it('should apply multiple custom classes', () => {
+    it('should apply multiple custom classes on the outer row', () => {
       const { container } = renderWithTheme(
         <RdsSwitch className="class1 class2" />
       );
-      const switchElement = container.querySelector('.class1.class2');
-      expect(switchElement).toBeInTheDocument();
+      expect(container.querySelector('.rds-switch--row.class1.class2')).toBeInTheDocument();
     });
   });
 

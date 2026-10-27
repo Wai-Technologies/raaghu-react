@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, type CSSProperties, type ReactNode, type Ref } from 'react';
+import { useState, useMemo, useCallback, type ComponentType, type CSSProperties, type ReactElement, type ReactNode, type Ref } from 'react';
 import clsx from 'clsx';
 import { warnDeprecatedProp } from '../../raaghu-elements/shared/utils/deprecation';
 import './rds-comp-date-and-time-picker.scss';
@@ -9,7 +9,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { PickersDay } from '@mui/x-date-pickers/PickersDay';
+import { PickersDay, type PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import { TimeClock } from '@mui/x-date-pickers/TimeClock';
 import Popover from '@mui/material/Popover';
 import Paper from '@mui/material/Paper';
@@ -171,33 +171,6 @@ const isSameDay = (a: Dayjs | null, b: Dayjs | null) => !!a && !!b && a.isSame(b
 const isBetween = (day: Dayjs, start: Dayjs | null, end: Dayjs | null) =>
   !!start && !!end && day.isAfter(start, 'day') && day.isBefore(end, 'day');
 
-interface RangeDaySlotProps {
-  day: Dayjs;
-  draft: [Dayjs | null, Dayjs | null];
-  onSelectDay: (day: Dayjs) => void;
-  [key: string]: any;
-}
-
-const RangeDaySlot = ({ day, draft, onSelectDay, ...dayProps }: RangeDaySlotProps) => {
-  const [start, end] = draft;
-  const inRange = isBetween(day, start, end);
-  const isStart = isSameDay(day, start);
-  const isEnd = isSameDay(day, end);
-  return (
-    <PickersDay
-      {...dayProps}
-      day={day}
-      onClick={() => onSelectDay(day)}
-      className={[
-        dayProps.className,
-        inRange ? 'rds-date-picker__day--in-range' : '',
-        (isStart || isEnd) ? 'rds-date-picker__day--range-end-point' : '',
-      ].filter(Boolean).join(' ')}
-    />
-  );
-};
-RangeDaySlot.displayName = 'RangeDaySlot';
-
 function RangeCalendar({
   value,
   onChange,
@@ -242,6 +215,26 @@ function RangeCalendar({
     setCurrentMonth(newMonth);
   };
 
+  const RangeDaySlot: ComponentType<PickersDayProps> = (dayProps: PickersDayProps): ReactElement => {
+    const day = dayProps.day as Dayjs;
+    const [start, end] = draft;
+    const inRange = isBetween(day, start, end);
+    const isStart = isSameDay(day, start);
+    const isEnd = isSameDay(day, end);
+    return (
+      <PickersDay
+        {...dayProps}
+        day={day}
+        onClick={() => handleSelect(day)}
+        className={[
+          dayProps.className,
+          inRange ? 'rds-date-picker__day--in-range' : '',
+          (isStart || isEnd) ? 'rds-date-picker__day--range-end-point' : '',
+        ].filter(Boolean).join(' ')}
+      />
+    );
+  };
+
   const calendars = (
     <Box className="rds-date-picker__range-calendar-row">
       <DateCalendar
@@ -250,11 +243,10 @@ function RangeCalendar({
         onMonthChange={(newMonth) => setCurrentMonth(newMonth)}
         minDate={minDate}
         maxDate={maxDate}
-        slots={{ day: RangeDaySlot as any }}
+        slots={{ day: RangeDaySlot }}
         views={['year', 'month', 'day']}
         displayWeekNumber
         slotProps={{
-          day: { draft, onSelectDay: handleSelect } as any,
           calendarHeader: {
             format: 'MMMM YYYY',
           },
@@ -267,11 +259,10 @@ function RangeCalendar({
           onMonthChange={(newMonth) => setCurrentMonth(newMonth.subtract(1, 'month'))}
           minDate={minDate}
           maxDate={maxDate}
-          slots={{ day: RangeDaySlot as any }}
+          slots={{ day: RangeDaySlot }}
           views={['year', 'month', 'day']}
           displayWeekNumber
           slotProps={{
-            day: { draft, onSelectDay: handleSelect } as any,
             calendarHeader: {
               format: 'MMMM YYYY',
             },

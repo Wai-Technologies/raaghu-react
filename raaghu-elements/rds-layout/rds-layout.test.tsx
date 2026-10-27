@@ -438,8 +438,8 @@ describe('RdsLayout', () => {
           <div>Content</div>
         </RdsLayout>
       );
-      const muiContainer = container.querySelector('.MuiContainer-root');
-      expect(muiContainer).toHaveClass('my-layout');
+      const root = container.querySelector('.rds-layout');
+      expect(root).toHaveClass('my-layout');
     });
 
     it('should apply style prop', () => {

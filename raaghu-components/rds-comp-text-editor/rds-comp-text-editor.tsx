@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useId, useMemo, useRef, useState, type HTMLAttributes, type Ref } from "react";
+import { Suspense, lazy, useCallback, useId, useMemo, useRef, useState, type CSSProperties, type HTMLAttributes, type Ref } from "react";
 import { Box, FormHelperText, InputLabel as Label, type SxProps, type Theme } from "@mui/material";
 import type { ComponentType } from "react";
 import clsx from 'clsx';
@@ -9,9 +9,23 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
 import { sanitizeEditorHtml } from "./sanitize-html";
 
+type DraftWysiwygEditorProps = {
+    editorState: ReturnType<typeof EditorState.createEmpty>;
+    onEditorStateChange: (state: ReturnType<typeof EditorState.createEmpty>) => void;
+    readOnly?: boolean;
+    placeholder?: string;
+    toolbar?: unknown;
+    toolbarClassName?: string;
+    wrapperClassName?: string;
+    editorClassName?: string;
+    editorStyle?: CSSProperties;
+    ariaDescribedBy?: string;
+    ref?: Ref<unknown>;
+};
+
 const Editor = lazy(() =>
     import("react-draft-wysiwyg").then((m) => ({ default: m.Editor }))
-) as ComponentType<any>;
+) as ComponentType<DraftWysiwygEditorProps>;
 import "./rds-comp-text-editor.scss";
 
 export interface RdsCompTextEditorProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange" | "style"> {

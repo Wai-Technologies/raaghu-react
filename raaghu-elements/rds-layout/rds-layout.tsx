@@ -1,8 +1,9 @@
 import { type ReactNode } from 'react';
 import { Box, Container, type ContainerProps, type SxProps, type Theme } from '@mui/material';
+import clsx from 'clsx';
 import RdsHeader from '../rds-header/rds-header';
 
-/** Props for {@link RdsLayout}. Extra props are forwarded to the inner MUI `Container`. */
+/** Props for {@link RdsLayout}. Extra props (except `className`) are forwarded to the inner MUI `Container`. */
 export interface RdsLayoutProps extends Omit<ContainerProps, 'children' | 'component'> {
   /** Page content, rendered inside the inner `Container`. */
   children: ReactNode;
@@ -29,11 +30,12 @@ const RdsLayout= ({
   headerHeight = 64,
   padding = 3,
   maxWidth = 'lg',
+  className,
   ...props
 }:RdsLayoutProps) => {
   const rootSx: SxProps<Theme> = { display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` };
   return (
-    <Box sx={rootSx}>
+    <Box className={clsx('rds-layout', className)} sx={rootSx}>
       {showHeader && header && (
         <RdsHeader
           title={header.title}

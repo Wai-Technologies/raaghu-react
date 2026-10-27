@@ -280,15 +280,15 @@ const EditableCell = ({
   tempValue, 
   validationError 
 }: {
-  value: any;
+  value: unknown;
   column: RdsCompGridColumn;
-  row: any;
+  row: GridRow;
   isEditing: boolean;
   onStartEdit: () => void;
-  onSave: (newValue: any) => void;
+  onSave: (newValue: unknown) => void;
   onCancel: () => void;
-  onValueChange: (newValue: any) => void;
-  tempValue: any;
+  onValueChange: (newValue: unknown) => void;
+  tempValue: unknown;
   validationError?: string;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -352,7 +352,7 @@ const EditableCell = ({
     return (
       <TextField
         ref={inputRef}
-        value={tempValue}
+        value={formatValueForDisplay(tempValue)}
         onChange={(e) => onValueChange(e.target.value)}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
@@ -437,9 +437,9 @@ const EditableCell = ({
 };
 
 const ActionMenu = ({ row, actions, onActionSelection }: {
-  row: any;
+  row: GridRow;
   actions: RdsCompGridAction[];
-  onActionSelection?: (rowData: any, actionId: any) => void;
+  onActionSelection?: (rowData: GridRow, actionId: string) => void;
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

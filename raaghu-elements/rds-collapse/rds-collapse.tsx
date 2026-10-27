@@ -1,6 +1,7 @@
 import { useId, useState, type ReactNode } from 'react';
 import { Collapse as MuiCollapse, type CollapseProps, Box, Typography, IconButton } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import clsx from 'clsx';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-collapse.scss';
 
@@ -36,6 +37,7 @@ const RdsCollapse = ({
   showToggleButton,
   in: inProp,
   id: idProp,
+  className,
   ...props
 }: RdsCollapseProps) => {
   if (showToggleButton !== undefined) warnDeprecatedProp('RdsCollapse', 'showToggleButton', '`hideToggle`');
@@ -63,7 +65,7 @@ const RdsCollapse = ({
   };
 
   return (
-    <Box>
+    <Box className={clsx('rds-collapse', className)}>
       {(hasTitle || showToggle) && (
         <Box
           sx={{
