@@ -92,7 +92,6 @@ const RdsCompAiChatBot = ({
         text: messageText,
         image: image || inputImage || undefined,
         role: "user",
-        sender: false,
       };
 
       setMessages?.((prev) => [...prev, newMessage]);

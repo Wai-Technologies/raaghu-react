@@ -1,35 +1,46 @@
 import type { CSSProperties, HTMLAttributes, Ref } from "react";
 import type { SxProps, Theme } from "@mui/material";
 
+/** Canonical layout union — prefer over {@link ColorPickerType}. */
+export type ColorPickerVariant = 'inline' | 'button' | 'button-expanded';
+/** Canonical colour format — prefer over {@link ColorMode}. */
+export type ColorPickerFormat = 'hex' | 'rgb' | 'hsb' | 'hsl';
+/** Canonical view — prefer over {@link PickerType}. */
+export type ColorPickerView = 'grid' | 'spectrum';
+
+/** @deprecated Prefer `ColorPickerVariant` (`'inline' | 'button' | 'button-expanded'`). */
 export const ColorPickerType = {
   Default: 'Default',
   Button: 'Button',
   ButtonExpanded: 'Button-Expanded',
 } as const;
+/** @deprecated Prefer `ColorPickerVariant`. */
 export type ColorPickerType = (typeof ColorPickerType)[keyof typeof ColorPickerType];
 
-export type ColorPickerVariant = 'inline' | 'button' | 'button-expanded';
-export type ColorPickerFormat = 'hex' | 'rgb' | 'hsb' | 'hsl';
-export type ColorPickerView = 'grid' | 'spectrum';
-
+/** @deprecated Prefer `ColorPickerView` (`'grid' | 'spectrum'`). */
 export const PickerType = {
   Grid: 'Grid',
   Spectrum: 'Spectrum',
 } as const;
+/** @deprecated Prefer `ColorPickerView`. */
 export type PickerType = (typeof PickerType)[keyof typeof PickerType];
 
+/** @deprecated Prefer `ColorPickerFormat` (`'hex' | 'rgb' | 'hsb' | 'hsl'`). */
 export const ColorMode = {
   HEX: 'HEX',
   RGB: 'RGB',
   HSB: 'HSB',
   HSL: 'HSL',
 } as const;
+/** @deprecated Prefer `ColorPickerFormat`. */
 export type ColorMode = (typeof ColorMode)[keyof typeof ColorMode];
 
+/** @deprecated Prefer `swatchesVariant: 'list' | 'grid'`. */
 export const StyleType = {
   Type1: 'Type 1',
   Type2: 'Type 2',
 } as const;
+/** @deprecated Prefer `swatchesVariant`. */
 export type StyleType = (typeof StyleType)[keyof typeof StyleType];
 
 /** Extra colour details passed as the second `onChange` argument. */

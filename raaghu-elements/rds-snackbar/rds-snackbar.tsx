@@ -56,7 +56,7 @@ const RdsSnackbar = ({
       onClose={handleClose}
       {...props}
     >
-      {resolvedSeverity && message ? (
+      {resolvedSeverity && content ? (
         <Alert
           onClose={showClose ? handleClose : undefined}
           severity={resolvedSeverity}

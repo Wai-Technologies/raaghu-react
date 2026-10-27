@@ -48,6 +48,8 @@ const asReactNode = (value: ReactNode): ReactNode => {
   return undefined;
 };
 
+
+
 const ANZ_MENU_ITEMS: RdsSidebarItem[] = [
   { label: 'Dashboard', icon: <DashboardOutlined /> },
   { label: 'Saas', icon: <AppsOutlined /> },

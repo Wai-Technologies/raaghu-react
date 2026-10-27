@@ -597,6 +597,11 @@ describe('audit fixes', () => {
     render(<RdsCompSpinner />);
     expect(screen.getByRole('status')).toHaveAttribute('aria-label', 'Loading');
   });
+
+  it('accepts numeric size in px (G6-102)', () => {
+    render(<RdsCompSpinner size={42} />);
+    expect(screen.getByRole('status')).toHaveStyle({ width: '42px', height: '42px' });
+  });
 });
 
 describe('audit fixes labelPlacement', () => {

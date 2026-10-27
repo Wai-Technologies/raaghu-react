@@ -67,7 +67,7 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children' 
   /** @deprecated Use `open` instead. */
   isOpen?: boolean;
   /** Called when the popover requests to close (backdrop click, Escape, close button). */
-  onClose: () => void;
+  onClose: NonNullable<PopoverProps['onClose']>;
   /** Element the popover is anchored to. */
   anchorEl: Element | null;
   /** Optional heading; also labels the popover for assistive technology. */
@@ -202,7 +202,7 @@ const RdsPopover = ({
             {showCloseButton && (
               <IconButton
                 aria-label="close"
-                onClick={onClose}
+                onClick={(event) => onClose(event, 'escapeKeyDown')}
                 size="small"
                 className="rds-popover__close-button"
               >

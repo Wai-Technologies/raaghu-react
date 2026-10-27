@@ -201,9 +201,9 @@ const RdsRating = ({
   <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} rds-rating--${resolvedStyle} ${getPositionClass()} ${resolvedColor ? `rds-rating--color-${resolvedColor}` : ''}`}>
       {label && <span className="rds-rating__label">{label}</span>}
       {type === 'slider' ? renderSliderRating() : renderStarRating()}
-      {showValue && currentValue !== undefined && (
+      {showValue && type !== 'slider' && currentValue !== undefined && (
         <span className="rds-rating__display-value">
-          {type === 'slider' ? `${Number(currentValue).toFixed(1)}` : `(${currentValue}/${maxRating})`}
+          {`(${currentValue}/${maxRating})`}
         </span>
       )}
     </div>

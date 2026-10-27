@@ -134,7 +134,7 @@ describe('RdsSpeedDial', () => {
 
   describe('State Management', () => {
     it('should manage internal state when no open prop is provided', async () => {
-      const { container } = render(<RdsSpeedDial {...defaultProps} open={false} />);
+      const { container } = render(<RdsSpeedDial {...defaultProps} />);
       const fab = container.querySelector('.MuiSpeedDial-fab');
       
       expect(fab).toBeInTheDocument();
@@ -143,6 +143,17 @@ describe('RdsSpeedDial', () => {
       await waitFor(() => {
         expect(fab).toHaveAttribute('aria-expanded', 'true');
       });
+    });
+
+    it('should remain closed when open={false} (controlled)', async () => {
+      const { container } = render(<RdsSpeedDial {...defaultProps} open={false} />);
+      const fab = container.querySelector('.MuiSpeedDial-fab');
+      
+      expect(fab).toHaveAttribute('aria-expanded', 'false');
+      fireEvent.click(fab!);
+      
+      await new Promise(resolve => setTimeout(resolve, 100));
+      expect(fab).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('should use controlled open state when provided', () => {

@@ -72,9 +72,6 @@ jest.mock('./rds-comp-datepicker-utils', () => ({
       {onClear && <button data-testid="clear-btn" onClick={onClear}>Clear</button>}
     </div>
   ),
-  ExampleCustomInput: ({ value, onClick }: any) => (
-    <input data-testid="example-custom-input" value={value} onClick={onClick} readOnly />
-  ),
   getDayClassName: (date: Date, selectedDate: Date | null) => {
     if (!selectedDate) return '';
     return date.toDateString() === selectedDate.toDateString() ? 'selected' : '';
@@ -518,5 +515,16 @@ describe('audit fixes', () => {
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'dateForEdit', '`value`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'controls.mandatory', '`required`');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'changeIcon', '`openPickerIcon`');
+  });
+
+  it('G4-087: selectedDate and customDate warn in favour of onChange', () => {
+    render(<RdsDatepicker selectedDate={jest.fn()} customDate={jest.fn()} />);
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'selectedDate', '`onChange`');
+    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsCompDatepicker', 'customDate', '`onChange`');
+  });
+
+  it('G4-109: locale is forwarded on shared picker props', () => {
+    render(<RdsDatepicker type="Custom" locale="de-DE" defaultValue={new Date(2025, 0, 15)} />);
+    expect(mockCaptured.type?.[5]?.locale).toBe('de-DE');
   });
 });

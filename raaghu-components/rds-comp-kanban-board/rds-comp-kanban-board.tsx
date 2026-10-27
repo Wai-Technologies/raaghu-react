@@ -1,14 +1,16 @@
-
-import type { ReactNode, MouseEvent } from 'react';
+import { useState, type ReactNode, type MouseEvent } from 'react';
 import clsx from 'clsx';
 import {
   DndContext,
+  DragOverlay,
   closestCenter,
   KeyboardSensor,
   PointerSensor,
   useSensor,
   useSensors,
   useDroppable,
+  type DragStartEvent,
+  type UniqueIdentifier,
 } from '@dnd-kit/core';
 import {
   SortableContext,
@@ -20,8 +22,7 @@ import { CSS } from '@dnd-kit/utilities';
 import './rds-comp-kanban-board.scss';
 import {
   Card, CardContent, Typography, IconButton, Menu, MenuItem,
-  TextField, Box, FormControl, InputLabel, Select, Autocomplete, Paper,
-  type PaperProps,
+  TextField, Box, FormControl, InputLabel, Select, Autocomplete,
 } from '@mui/material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import { MoreVert as MoreVertIcon, Close as CloseIcon, Delete as DeleteIcon } from '@mui/icons-material';
@@ -33,6 +34,7 @@ import {
   useKanbanBoardState,
   createEventHandlers,
   createDragEndHandler,
+  createDragOverHandler,
   colorClass,
   cardIdOf,
   KanbanSubCard,
@@ -157,9 +159,6 @@ const PlusIcon = (
   </svg>
 );
 
-const AutocompletePaper = (paperProps: PaperProps) => (
-  <Paper {...paperProps} className="rds-kanban-board__autocomplete-paper" />
-);
 
 const NO_EFFECT = 'nothing (it has no effect)';
 const DEPRECATED_PROPS: Record<string, string> = {
@@ -250,7 +249,22 @@ const RdsCompKanbanBoard = ({
     handleAddQuestionDataChanges, onSelectedCreators,
   } = handlers;
 
-  const onDragEnd = createDragEndHandler(boards, state.setBoards, handleColumnsChange);
+  const [activeDragId, setActiveDragId] = useState<UniqueIdentifier | null>(null);
+  const onDragOver = createDragOverHandler(boards, state.setBoards, handleColumnsChange);
+  const onDragEndBase = createDragEndHandler(boards, state.setBoards, handleColumnsChange);
+  const onDragStart = (event: DragStartEvent) => {
+    setActiveDragId(event.active.id);
+  };
+  const onDragEnd = (event: Parameters<typeof onDragEndBase>[0]) => {
+    setActiveDragId(null);
+    onDragEndBase(event);
+  };
+  const onDragCancel = () => {
+    setActiveDragId(null);
+  };
+  const activeDragCard = activeDragId == null
+    ? null
+    : boards.flatMap((board) => board.subCards).find((card) => cardIdOf(card) === activeDragId) ?? null;
 
   const handleCloseSubCardInput = () => {
     state.setSubCardInputsVisible(null);
@@ -264,7 +278,14 @@ const RdsCompKanbanBoard = ({
   );
 
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDragEnd={onDragEnd}
+      onDragCancel={onDragCancel}
+    >
       <Box {...rest} ref={ref} className={clsx('rds-kanban-board-container', className)} sx={sx}>
         {showAddColumn !== undefined && (
           <>
@@ -396,8 +417,8 @@ value={(resolvedTagOptions || []).filter((option: KanbanOption) =>
                                   const placeholderText = Array.isArray(currentTags) && currentTags.length > 0 ? "" : "Select Tags";
                                   return <TextField {...params} label="Tags" placeholder={placeholderText} />;
                                 }}
-                                PaperComponent={AutocompletePaper}
                                 slotProps={{
+                                  paper: { className: 'rds-kanban-board__autocomplete-paper' },
                                   popper: {
                                     modifiers: [
                                       { name: 'preventOverflow', options: { altBoundary: true, rootBoundary: 'viewport' } },
@@ -467,6 +488,24 @@ value={(resolvedTagOptions || []).filter((option: KanbanOption) =>
           </>
         );
       })()}
+      <DragOverlay dropAnimation={null}>
+        {activeDragCard ? (
+          <Box className="sub-card rds-kanban-board__sub-card rds-kanban-board__sub-card--overlay">
+            <Card variant="outlined" className="rds-kanban-board__sub-card-card">
+              <CardContent className="rds-kanban-board__sub-card-content">
+                {activeDragCard.displayId && (
+                  <Typography variant="body2" className="f-12 fw-500" fontWeight="medium">
+                    {activeDragCard.displayId}
+                  </Typography>
+                )}
+                <Typography variant="body2" className="f-14 fw-400 rds-kanban-board__sub-card-text">
+                  {activeDragCard.title ?? activeDragCard.ticketQuestion}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 };

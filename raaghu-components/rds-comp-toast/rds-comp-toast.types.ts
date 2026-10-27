@@ -49,6 +49,10 @@ export interface ToastAnchorOrigin {
 
 export type ToastCloseReason = "timeout" | "closeClick";
 
+/**
+ * Toast / notification popup.
+ * @deprecated Prefer `RdsSnackbar` from `raaghu-elements` (G6-149).
+ */
 export interface RdsCompToastProps {
   /** Toast title. */
   title?: string;

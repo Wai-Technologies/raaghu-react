@@ -82,6 +82,9 @@ const RdsRange= ({
   level = '1',
   leftLabel,
   rightLabel,
+  className,
+  sx,
+  ref,
   ...props
 }: RdsRangeProps) => {
   if (leftLabel !== undefined) warnDeprecatedProp('RdsRange', 'leftLabel', '`min`');
@@ -123,6 +126,7 @@ const RdsRange= ({
       minMaxVisible && 'rds-range--with-labels',
       props.size && `rds-range--${props.size}`,
       props.color && `rds-range--${props.color}`,
+      className,
     );
   };
 
@@ -148,7 +152,11 @@ const RdsRange= ({
   const isRangeValue = Array.isArray(effectiveValue);
 
   return (
-    <Box className={generateClassName()} sx={{ width: '100%' }}>
+    <Box
+      ref={ref}
+      className={generateClassName()}
+      sx={[{ width: '100%' }, ...(Array.isArray(sx) ? sx : sx != null ? [sx] : [])]}
+    >
       {((label && textLabel) || showValue) && (
         <Box className="rds-range__header" sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
           {label && textLabel && (

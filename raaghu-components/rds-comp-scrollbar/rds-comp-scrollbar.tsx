@@ -68,7 +68,7 @@ const RdsCompScrollBar = ({
       {...rest}
       ref={ref}
       className={clsx(rootClassName, className)}
-      sx={[{ height: 300 }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+      sx={sx}
     >
       {resolvedType === ScrollBarType.Mac && showButtons && (
         <div className="rds-scrollbar__controls">

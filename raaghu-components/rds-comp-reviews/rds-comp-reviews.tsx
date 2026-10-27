@@ -73,7 +73,7 @@ const RdsCompReviews = ({
       {showDefaultVariant && (
         <Grid container spacing={2} wrap="wrap">
           {list.map((item, index) => (
-            <Grid key={getItemKey(item, index)} size={GRID_SIZE} style={{ display: "flex" }}>
+            <Grid key={getItemKey(item, index)} size={GRID_SIZE} sx={{ display: "flex" }}>
               <ReviewStyleCard
                 item={item}
                 variant={variant ?? legacyStyle}

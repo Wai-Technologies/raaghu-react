@@ -15,7 +15,8 @@ export const DatePickerLayout = {
 } as const;
 export type DatePickerLayout = (typeof DatePickerLayout)[keyof typeof DatePickerLayout];
 
-export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivElement>,  "style" | "onChange" | "children" | "defaultValue"> {
+export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "style" | "onChange" | "children" | "defaultValue"> {
+  /** @deprecated Use `onChange` instead (single-date picks). */
   selectedDate?: (date: Date | null) => void;
   /** Selected date; the picker re-syncs whenever it changes (`null` clears it). */
   value?: Date | string | null;
@@ -46,6 +47,7 @@ export interface RdsCompDatepickerProps extends Omit<HTMLAttributes<HTMLDivEleme
   onDatePicker?: (date: Date | [Date | null, Date | null]) => void;
   datePickerStyleType?: DatePickerStyleType;
   layout?: DatePickerLayout;
+  /** @deprecated Use `onChange` instead (range picks). */
   customDate?: (dates: [Date | null, Date | null]) => void;
   controls?: {
     title?: "visible" | "hidden";

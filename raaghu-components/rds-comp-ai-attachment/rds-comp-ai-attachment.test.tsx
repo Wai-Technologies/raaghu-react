@@ -77,7 +77,12 @@ jest.mock('../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu', () => {
         </button>
         <div data-testid="fab-menu-items">
           {(items ?? listItems)?.map((item: any, idx: number) => (
-            <div key={item.key || idx} data-testid={`fab-item-${item.key}`} style={{ cursor: 'pointer' }}>
+            <div
+              key={item.key || idx}
+              data-testid={`fab-item-${item.key}`}
+              style={{ cursor: 'pointer' }}
+              onClick={() => item.onClick?.()}
+            >
               {item.label ?? item.value}
             </div>
           ))}
@@ -460,7 +465,7 @@ describe('RdsCompAiAttachment', () => {
         <RdsCompAiAttachment {...defaultProps} className="custom" data-testid="root" />
       );
       const root = screen.getByTestId('root');
-      expect(root).toHaveClass('rds-comp-ai-attachment__dropdown', 'custom');
+      expect(root).toHaveClass('rds-comp-ai-attachment', 'rds-comp-ai-attachment__dropdown', 'custom');
       expect(container.querySelector('input[type="file"]')).toHaveAttribute('accept', 'image/*');
     });
 

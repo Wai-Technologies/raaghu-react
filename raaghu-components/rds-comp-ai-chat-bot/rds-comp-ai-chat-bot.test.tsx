@@ -697,6 +697,17 @@ describe('RdsCompAiChatBot', () => {
       expect(onSend).toHaveBeenCalledWith(expect.objectContaining({ text: "Hello", role: "user" }));
     });
 
+    it("omits legacy sender on newly composed messages (G3-088)", () => {
+      const onSend = jest.fn();
+      render(<RdsCompAiChatBot assistantAvatar="a.png" messages={[]} onSend={onSend} />);
+      const input = screen.getByTestId("message-input") as HTMLInputElement;
+      input.value = "Hello";
+      fireEvent.click(screen.getByTestId("send-button"));
+      const sent = onSend.mock.calls[0][0];
+      expect(sent.role).toBe("user");
+      expect(sent).not.toHaveProperty("sender");
+    });
+
     it("assigns message ids from max existing id + 1 (G3-087)", () => {
       const onSend = jest.fn();
       render(

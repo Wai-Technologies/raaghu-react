@@ -199,4 +199,15 @@ describe('RdsButton audit fixes', () => {
     render(<RdsButton type="submit" loading={false}>Save</RdsButton>);
     expect(screen.getByRole('button')).not.toBeDisabled();
   });
+
+  it('forwards MUI component prop (G1-277)', () => {
+    render(
+      <RdsButton component="a" href="#go">
+        Link
+      </RdsButton>
+    );
+    const link = screen.getByRole('link', { name: 'Link' });
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveAttribute('href', '#go');
+  });
 });

@@ -88,74 +88,74 @@
     }
 
     &--none {
-      background-color: transparent !important;
-      box-shadow: none !important;
+      background-color: transparent;
+      box-shadow: none;
       border: none;
       
       &.rds-fab-menu__button--primary {
-        background-color: transparent !important;
+        background-color: transparent;
         color: var(--rds-color-primary);
       }
 
       &.rds-fab-menu__button--secondary {
-        background-color: transparent !important;
+        background-color: transparent;
         color: var(--rds-color-secondary);
       }
 
       &.rds-fab-menu__button--success {
-        background-color: transparent !important;
+        background-color: transparent;
         color: var(--rds-color-success);
       }
 
       &.rds-fab-menu__button--info {
-        background-color: transparent !important;
+        background-color: transparent;
         color: var(--rds-color-info);
       }
 
       &.rds-fab-menu__button--warning {
-        background-color: transparent !important;
+        background-color: transparent;
         color: var(--rds-color-warning);
       }
 
       &.rds-fab-menu__button--danger {
-        background-color: transparent !important;
+        background-color: transparent;
         color: var(--rds-color-danger);
       }
 
       &.rds-fab-menu__button--dark {
-        background-color: transparent !important;
+        background-color: transparent;
         color: var(--rds-color-dark);
       }
 
       &.rds-fab-menu__button--light {
-        background-color: transparent !important;
+        background-color: transparent;
         color: var(--rds-text-secondary);
         border: none;
       }
 
       &:hover {
-        background-color: transparent !important;
+        background-color: transparent;
         transform: translateY(-1px);
-        box-shadow: none !important;
+        box-shadow: none;
         opacity: 0.8;
-        border-radius: 0 !important; 
+        border-radius: 0;
       }
 
       &:focus-visible {
-        background-color: transparent !important;
+        background-color: transparent;
         outline: 2px solid var(--rds-color-primary);
         outline-offset: 2px;
         opacity: 0.9;
-        box-shadow: none !important;
-        border-radius: 0 !important; 
+        box-shadow: none;
+        border-radius: 0;
       }
 
       &:active {
-        background-color: transparent !important;
+        background-color: transparent;
         transform: translateY(0);
-        box-shadow: none !important;
+        box-shadow: none;
         opacity: 0.7;
-        border-radius: 0 !important; 
+        border-radius: 0;
       }
 
       &.rds-fab-menu__button--secondary:hover,
@@ -165,10 +165,10 @@
       &.rds-fab-menu__button--danger:hover,
       &.rds-fab-menu__button--dark:hover,
       &.rds-fab-menu__button--light:hover {
-        background-color: transparent !important;
+        background-color: transparent;
         opacity: 0.8;
-        box-shadow: none !important;
-        border-radius: 0 !important;
+        box-shadow: none;
+        border-radius: 0;
       }
 
       &.rds-fab-menu__button--secondary:focus,
@@ -178,9 +178,9 @@
       &.rds-fab-menu__button--danger:focus,
       &.rds-fab-menu__button--dark:focus,
       &.rds-fab-menu__button--light:focus {
-        background-color: transparent !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
       }
 
       &.rds-fab-menu__button--secondary:active,
@@ -190,9 +190,9 @@
       &.rds-fab-menu__button--danger:active,
       &.rds-fab-menu__button--dark:active,
       &.rds-fab-menu__button--light:active {
-        background-color: transparent !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
       }
     }
 
@@ -248,7 +248,7 @@
   }
 
   .rds-fab-menu__button--none + .rds-fab-menu__dropdown-container--open {
-    margin-top: var(--rds-spacing-sm, -8px);
+    margin-top: calc(-1 * var(--rds-spacing-sm, 8px));
   }
 
   &__dropdown {

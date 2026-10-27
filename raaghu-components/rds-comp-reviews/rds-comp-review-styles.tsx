@@ -124,6 +124,20 @@ export const ReviewStyleCard = ({
     onDislike?.(item);
   };
 
+  const starRating = (
+    size: "small" | "medium" = "medium",
+    max?: number,
+  ) => (
+    <RdsRating
+      value={rating}
+      max={max}
+      precision={0.5}
+      size={size}
+      onChange={handleRatingChange}
+      readOnly={false}
+    />
+  );
+
   switch (variant) {
     case ReviewStyle.Style1:
       return (
@@ -178,13 +192,7 @@ export const ReviewStyleCard = ({
               {item.username}
             </Typography>
             <Box sx={{ my: 3, display: "flex", justifyContent: "center" }}>
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating()}
             </Box>
             <Typography variant="body1">{item.description}</Typography>
           </CardContent>
@@ -216,13 +224,7 @@ export const ReviewStyleCard = ({
           <Typography variant="body1">{item.description}</Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-            <RdsRating
-              value={rating}
-              precision={0.5}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-            />
+            {starRating()}
           </Box>
         </Card>
       );
@@ -246,13 +248,7 @@ export const ReviewStyleCard = ({
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-            <RdsRating
-              value={rating}
-              precision={0.5}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-            />
+            {starRating()}
           </Box>
         </Card>
       );
@@ -279,13 +275,7 @@ export const ReviewStyleCard = ({
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-            <RdsRating
-              value={rating}
-              precision={0.5}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-            />
+            {starRating()}
           </Box>
 
           <Typography variant="body1" sx={{ mt: 3 }}>
@@ -309,13 +299,7 @@ export const ReviewStyleCard = ({
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-            <RdsRating
-              value={rating}
-              precision={0.5}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-            />
+            {starRating()}
           </Box>
 
           <Typography variant="body1" sx={{ mt: 3 }}>
@@ -375,13 +359,7 @@ export const ReviewStyleCard = ({
                 justifyContent: { xs: "flex-start", sm: "flex-end" },
               }}
             >
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size={isXs ? "small" : "medium"}
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating(isXs ? "small" : "medium")}
             </Box>
           </Box>
 
@@ -398,13 +376,7 @@ export const ReviewStyleCard = ({
         <Card sx={{ p: 3, height: "100%" }}>
           <Box>
             <Box sx={{ display: "flex", alignItems: "center", mb: 2, mt: 2 }}>
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating()}
             </Box>
             <Typography variant="caption" color="text.secondary">
               {formatDate(item.date)}
@@ -446,13 +418,7 @@ export const ReviewStyleCard = ({
 
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating()}
             </Box>
 
             <Typography variant="caption" color="text.secondary">
@@ -484,13 +450,7 @@ export const ReviewStyleCard = ({
 
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
+              {starRating()}
             </Box>
 
             <Typography variant="caption" color="text.secondary">
@@ -534,14 +494,7 @@ export const ReviewStyleCard = ({
                 my: 3,
               }}
             >
-              <RdsRating
-                value={rating}
-                max={1}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-                precision={0.5}
-              />
+              {starRating("medium", 1)}
               <Typography className="rating-value">{item.reviews ?? "0"}</Typography>
             </Box>
             <Typography variant="body1" sx={{ textAlign: "center" }}>
@@ -570,14 +523,7 @@ export const ReviewStyleCard = ({
                 my: 3,
               }}
             >
-              <RdsRating
-                value={rating}
-                max={1}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-                precision={0.5}
-              />
+              {starRating("medium", 1)}
               <Typography className="rating-value">{item.reviews ?? "0"}</Typography>
             </Box>
             <Typography variant="body1" sx={{ textAlign: "center" }}>

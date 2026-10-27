@@ -1,4 +1,4 @@
-import { applyChartThemeColors, useChartThemeMode } from './chart-utils';
+import { applyChartThemeColors, chartFont, chartTextColor, useChartThemeMode } from './chart-utils';
 import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
 import { renderHook } from '@testing-library/react';
 
@@ -23,5 +23,12 @@ describe('applyChartThemeColors audit fixes', () => {
     const { result } = renderHook(() => useChartThemeMode());
     expect(result.current).toBe('dark');
     (isDarkMode as jest.Mock).mockReturnValue(false);
+  });
+
+  it('falls back to CSS variables instead of hard-coded hex/Poppins (G3-006)', () => {
+    expect(chartTextColor()).toMatch(/var\(--/);
+    expect(chartTextColor()).not.toMatch(/#[0-9a-fA-F]{3,6}/);
+    expect(chartFont('regular', 'md')).toContain('sans-serif');
+    expect(chartFont('regular', 'md')).not.toContain('Poppins');
   });
 });

@@ -14,23 +14,24 @@
     align-items: center;
   }
 
-  .rds-avatar--with-name {
+  /* G3-137: style via public avatar root + slotProps classes (no pierced `.rds-avatar__*` internals) */
+  &__row > .rds-avatar--with-name {
     align-items: center;
     width: 100%;
   }
 
-  .rds-avatar__avatar-wrap {
+  &__avatar-wrap {
     margin-bottom: 0;
     flex-shrink: 0;
     align-self: center;
     padding: var(--rds-spacing-xxs, 2px);
   }
 
-  .rds-avatar__info {
+  &__avatar-info {
     align-self: center;
   }
 
-  .rds-avatar__designation {
+  &__avatar-designation {
     margin-top: 0;
   }
   &__message {

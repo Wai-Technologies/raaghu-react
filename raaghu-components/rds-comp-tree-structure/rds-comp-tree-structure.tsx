@@ -58,6 +58,8 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   }, []);
 
   const maxLevel = useMemo(() => getMaxLevelFromEnum(props.level), [getMaxLevelFromEnum, props.level]);
+  // Prefer controlled `checkedNodes` when provided so parent updates are visible.
+  const resolvedCheckedNodes = props.checkedNodes ?? checkedNodeIds;
   const { className, sx, ref } = props;
   return (
     <Box ref={ref} className={clsx("rds-comp-tree-structure", className)} sx={sx}>
@@ -67,7 +69,7 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
           node={node}
           level={1}
           maxLevel={maxLevel}
-          props={{...props, checkedNodes: checkedNodeIds}}
+          props={{ ...props, checkedNodes: resolvedCheckedNodes }}
           expandedNodeIds={expandedNodeIds}
           hoveredNodeId={hoveredNodeId}
           setHoveredNodeId={setHoveredNodeId}

@@ -140,8 +140,8 @@
   }
 
   &--chat &__header-content {
-    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem) !important;
-    gap: 0 !important;
+    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem);
+    gap: 0;
   }
   
   &__leading-icon {
@@ -383,27 +383,26 @@
     margin-top: var(--rds-spacing-md, 0.5rem);
   }
 
-  &--chat {
-    & .rds-comp-toast__leading-icon {
-      display: none !important;
-      width: 0 !important;
-      min-width: 0 !important;
-      max-width: 0 !important;
-    }
+  /* G6-148: chat layout via BEM nesting (no !important) */
+  &--chat &__leading-icon {
+    display: none;
+    width: 0;
+    min-width: 0;
+    max-width: 0;
+  }
 
-    & .rds-comp-toast__header-content {
-      padding-left: var(--rds-spacing-lg, 1rem) !important;
-      gap: 0 !important;
-    }
+  &--chat &__header-content {
+    padding-left: var(--rds-spacing-lg, 1rem);
+    gap: 0;
+  }
 
-    & .rds-comp-toast__body {
-      padding-left: var(--rds-spacing-lg, 1rem) !important;
-    }
+  &--chat &__body {
+    padding-left: var(--rds-spacing-lg, 1rem);
+  }
 
-    & .rds-comp-toast__title {
-      margin-left: 0 !important;
-      padding-left: 0 !important;
-    }
+  &--chat &__title {
+    margin-left: 0;
+    padding-left: 0;
   }
   
   &__btn {
@@ -444,11 +443,8 @@
   }
 }
 
-html[data-theme='dark'] .rds-comp-toast,
-body[data-theme='dark'] .rds-comp-toast,
-[data-theme='dark'] .rds-comp-toast,
-body.theme-dark .rds-comp-toast,
-body.dark-theme .rds-comp-toast {
+/* G6-148: one :is() dark host instead of duplicated theme-sniff selectors */
+:is(html[data-theme='dark'], body[data-theme='dark'], body.theme-dark, body.dark-theme, [data-theme='dark']) .rds-comp-toast {
   --rds-toast-accent-info: var(--rds-color-on-surface, var(--rds-text-primary));
   --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
   --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));

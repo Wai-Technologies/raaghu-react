@@ -26,6 +26,9 @@ const RdsTextField = ({
 }: RdsTextFieldProps) => {
   if (isRequired !== undefined) warnDeprecatedProp('RdsTextField', 'isRequired', '`required`');
   if (errorMessage !== undefined) warnDeprecatedProp('RdsTextField', 'errorMessage', '`error` and `helperText`');
+  if (legacyFormHelperTextProps !== undefined) {
+    warnDeprecatedProp('RdsTextField', 'FormHelperTextProps', '`slotProps.formHelperText`');
+  }
   const rootClassName = clsx('rds-text-field', className);
   const consumerFormHelperTextProps =
     typeof consumerSlotProps?.formHelperText === 'object' && consumerSlotProps?.formHelperText !== null
@@ -42,9 +45,9 @@ const RdsTextField = ({
     ),
   };
 
-  const fieldProps = defaultValue !== undefined && props.value === undefined
-    ? { defaultValue }
-    : {};
+  // Only forward defaultValue when uncontrolled — React warns if both value and defaultValue are set.
+  const uncontrolledDefault =
+    defaultValue !== undefined && props.value === undefined ? { defaultValue } : {};
 
   return (
     <MuiTextField
@@ -55,7 +58,7 @@ const RdsTextField = ({
         ...consumerSlotProps,
         formHelperText: formHelperTextSlotProps,
       }}
-      {...fieldProps}
+      {...uncontrolledDefault}
       {...props}
       className={rootClassName}
     />

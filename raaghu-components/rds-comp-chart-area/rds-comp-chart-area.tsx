@@ -62,11 +62,7 @@ const RdsCompAreaChart = ({
       labels: resolved.labels,
       datasets: resolved.datasets,
       options,
-      onCreate: (chart) => {
-        chart.canvas.style.height = "76vh";
-        chart.canvas.style.width = "100vh";
-        applyCanvasSize(chart.canvas, height, width);
-      },
+      onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
     },
     [resolved.labels, resolved.datasets, options, height, width]
   );

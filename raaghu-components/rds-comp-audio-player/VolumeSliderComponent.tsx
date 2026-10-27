@@ -36,7 +36,7 @@ export const VolumeSliderComponent = memo(
                 height: 16,
                 backgroundColor: "var(--rds-primary-main)",
                 "&:hover": {
-                  boxShadow: "0 0 0 8px var(--rds-primary-focus-ring, rgba(25, 118, 210, 0.16))",
+                  boxShadow: "0 0 0 8px color-mix(in srgb, var(--rds-primary-main) 16%, transparent)",
                 },
               },
               "& .MuiSlider-track": {
@@ -45,7 +45,7 @@ export const VolumeSliderComponent = memo(
               },
               "& .MuiSlider-rail": {
                 width: 4,
-                backgroundColor: "var(--rds-neutral-300, #e0e0e0)",
+                backgroundColor: "var(--rds-neutral-300, var(--rds-grey-300, #e0e0e0))",
               },
             }}
           />

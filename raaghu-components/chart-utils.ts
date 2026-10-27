@@ -87,11 +87,12 @@ export function getCSSVar(property: string, fallback = ''): string {
 }
 
 export function chartTextColor(): string {
-  return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
+  // Token-only fallbacks (G3-006) — avoid drifting hard-coded hex.
+  return getCSSVar('--rds-text-primary', 'var(--mui-palette-text-primary, currentColor)');
 }
 
 export function chartMutedColor(): string {
-  return getCSSVar('--rds-text-secondary', isDarkMode() ? '#9e9e9e' : '#757575');
+  return getCSSVar('--rds-text-secondary', 'var(--mui-palette-text-secondary, currentColor)');
 }
 
 /**
@@ -99,22 +100,22 @@ export function chartMutedColor(): string {
  */
 function chartGridColor(): string {
   return isDarkMode()
-    ? getCSSVar('--rds-comp-chart-grid-color-dark', 'rgba(255,255,255,0.28)')
-    : getCSSVar('--rds-comp-chart-grid-color-light', 'rgba(0,0,0,0.12)');
+    ? getCSSVar('--rds-comp-chart-grid-color-dark', 'var(--rds-divider, var(--mui-palette-divider, currentColor))')
+    : getCSSVar('--rds-comp-chart-grid-color-light', 'var(--rds-divider, var(--mui-palette-divider, currentColor))');
 }
 
 /**
  * Returns the current theme's tooltip background color.
  */
 function chartTooltipBg(): string {
-  return getCSSVar('--rds-background-paper', isDarkMode() ? '#424242' : '#ffffff');
+  return getCSSVar('--rds-background-paper', 'var(--mui-palette-background-paper, Canvas)');
 }
 
 /**
  * Returns the current theme's tooltip text color.
  */
 function chartTooltipTextColor(): string {
-  return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
+  return getCSSVar('--rds-text-primary', 'var(--mui-palette-text-primary, currentColor)');
 }
 
 export function chartFont(
@@ -138,7 +139,7 @@ export function chartFont(
 
   const weightVal = getCSSVar(weightMap[weight] || '--rds-font-weight-regular', '400');
   const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md', '14px');
-  const family = getCSSVar('--rds-font-family-base', 'Poppins');
+  const family = getCSSVar('--rds-font-family-base', 'var(--rds-font-family, sans-serif)');
 
   return `${weightVal} ${sizeVal} ${family}`;
 }

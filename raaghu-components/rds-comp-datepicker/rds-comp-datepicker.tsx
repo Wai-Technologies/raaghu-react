@@ -5,7 +5,6 @@ import type DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 import "./rds-comp-datepicker.scss";
 import { CustomInputWithClear } from './CustomInputWithClear';
-import { ExampleCustomInput } from './ExampleCustomInput';
 import {
     getDayClassName,
     getYesterdayDate,
@@ -24,6 +23,11 @@ import { resolveDeprecatedProp, warnDeprecatedProp } from '../../raaghu-elements
 
 const asBoolean = (value: unknown): boolean | undefined => (typeof value === 'boolean' ? value : undefined);
 const toDate = (value?: Date | string | null) => (value ? new Date(value) : null);
+/** Locale-aware display; omit locale to keep the legacy `toDateString().slice(4)` shape (G4-109). */
+const formatDisplayDate = (date: Date, locale?: string) =>
+    locale
+        ? date.toLocaleDateString(locale, { month: "short", day: "2-digit", year: "numeric" })
+        : date.toDateString().slice(4);
 const styleTypeByVariant = { dropdown: DatePickerStyleType.Dropdown, selector: DatePickerStyleType.Selector };
 
 const RdsDatepicker = ({
@@ -69,6 +73,8 @@ const RdsDatepicker = ({
         [controls?.mandatory, 'controls.mandatory', '`required`'],
         [dateForEdit, 'dateForEdit', '`value`'],
         [onDatePicker, 'onDatePicker', '`onChange`'],
+        [selectedDate, 'selectedDate', '`onChange`'],
+        [customDate, 'customDate', '`onChange`'],
         [placeholderTextProp, 'placeholderText', '`placeholder`'],
         [changeIcon, 'changeIcon', '`openPickerIcon`'],
         [showClearDateProp, 'showClearDate', '`clearable`'],
@@ -116,7 +122,7 @@ const RdsDatepicker = ({
     const [pickerState, setPickerState] = useState(() => {
         const start = toDate(editValue) ?? toDate(defaultValue) ?? (isDefaultDate ? new Date() : null);
         return {
-            dropdownDisplayValue: start ? start.toDateString().slice(4) : "",
+            dropdownDisplayValue: start ? formatDisplayDate(start, locale) : "",
             activeList: "custom",
             startDate: start as Date | null,
             endDate: null as Date | null,
@@ -136,7 +142,7 @@ const RdsDatepicker = ({
         setPrevEditValue(editValue);
         if (editValue || value !== undefined) {
             const newDate = toDate(editValue);
-            updatePickerState({ startDate: newDate, dropdownDisplayValue: newDate ? newDate.toDateString().slice(4) : "" });
+            updatePickerState({ startDate: newDate, dropdownDisplayValue: newDate ? formatDisplayDate(newDate, locale) : "" });
         }
     }
 
@@ -149,7 +155,7 @@ const RdsDatepicker = ({
     if (isDefaultDate && !defaultsInitialized) {
         setDefaultsInitialized(true);
         const now = new Date();
-        updatePickerState({ startDate: now, dropdownDisplayValue: now.toDateString().slice(4) });
+        updatePickerState({ startDate: now, dropdownDisplayValue: formatDisplayDate(now, locale) });
     }
     const datePickerRef = useRef<DatePicker | null>(null);
     const customDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -163,12 +169,12 @@ const RdsDatepicker = ({
             startDate: start,
             endDate: end,
             dropdownDisplayValue:
-            start ? start.toDateString().slice(4) +
-                (end ? " - " + end.toDateString().slice(4) : "") : "",
+            start ? formatDisplayDate(start, locale) +
+                (end ? " - " + formatDisplayDate(end, locale) : "") : "",
             isDropdownOpen: false,
         });
         emitChange([start, end]);
-    }, [customDate, emitChange, updatePickerState]);
+    }, [customDate, emitChange, updatePickerState, locale]);
 
     const handlerDateChange = useCallback((date: Date | null) => {
         updatePickerState({ startDate: date });
@@ -200,16 +206,16 @@ const RdsDatepicker = ({
         updatePickerState({ activeList: "yesterday" });
         const newDate = getYesterdayDate(today);
         onRangeChange([newDate, newDate]);
-        updatePickerState({ dropdownDisplayValue: newDate.toDateString().slice(4) });
-    }, [onRangeChange, updatePickerState]);
+        updatePickerState({ dropdownDisplayValue: formatDisplayDate(newDate, locale) });
+    }, [onRangeChange, updatePickerState, locale]);
 
     const todayClickHandler = useCallback(() => {
         const today = new Date();
         updatePickerState({ activeList: "today" });
         const { todayDate, newDate } = getTodayDate(today);
         onRangeChange([todayDate, newDate]);
-        updatePickerState({ dropdownDisplayValue: newDate.toDateString().slice(4) });
-    }, [onRangeChange, updatePickerState]);
+        updatePickerState({ dropdownDisplayValue: formatDisplayDate(newDate, locale) });
+    }, [onRangeChange, updatePickerState, locale]);
 
     const lastSevenDaysClickHandler = useCallback(() => {
         const today = new Date();
@@ -217,9 +223,9 @@ const RdsDatepicker = ({
         const newDate = getLastSevenDaysDate(today);
         onRangeChange([newDate, today]);
         updatePickerState({ dropdownDisplayValue:
-            newDate.toDateString().slice(4) + " - " + today.toDateString().slice(4)
+            formatDisplayDate(newDate, locale) + " - " + formatDisplayDate(today, locale)
         });
-    }, [onRangeChange, updatePickerState]);
+    }, [onRangeChange, updatePickerState, locale]);
 
     const lastFourteenDaysClickHandler = useCallback(() => {
         const today = new Date();
@@ -227,9 +233,9 @@ const RdsDatepicker = ({
         const newDate = getLastFourteenDaysDate(today);
         onRangeChange([newDate, today]);
         updatePickerState({ dropdownDisplayValue:
-            newDate.toDateString().slice(4) + " - " + today.toDateString().slice(4)
+            formatDisplayDate(newDate, locale) + " - " + formatDisplayDate(today, locale)
         });
-    }, [onRangeChange, updatePickerState]);
+    }, [onRangeChange, updatePickerState, locale]);
 
     const customClickHandler = useCallback(() => {
         updatePickerState({ activeList: "custom" });
@@ -332,7 +338,6 @@ const RdsDatepicker = ({
                 customClickHandler,
                 dayClassName,
                 CustomInputWithClear,
-                ExampleCustomInput,
                 customDropdownRef
             )}
         </Box>

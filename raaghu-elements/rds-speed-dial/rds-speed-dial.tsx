@@ -45,21 +45,16 @@ const RdsSpeedDial = ({
   if (tooltipTitle !== undefined) warnDeprecatedProp('RdsSpeedDial', 'tooltipTitle', '`ariaLabel`');
   const [internalOpen, setInternalOpen] = useState(false);
   
-  const isForceOpen = open === true;
-  const useInternalState = open !== true;
-  const finalOpenState = isForceOpen ? true : internalOpen;
+  const isControlled = open !== undefined;
+  const finalOpenState = isControlled ? Boolean(open) : internalOpen;
   
   const handleOpen = (event: SyntheticEvent<{}, Event>, reason: OpenReason) => {
-    if (useInternalState) {
-      setInternalOpen(true);
-    }
+    if (!isControlled) setInternalOpen(true);
     onOpen?.(event, reason);
   };
   
   const handleClose = (event: SyntheticEvent<{}, Event>, reason: CloseReason) => {
-    if (useInternalState) {
-      setInternalOpen(false);
-    }
+    if (!isControlled) setInternalOpen(false);
     onClose?.(event, reason);
   };
 

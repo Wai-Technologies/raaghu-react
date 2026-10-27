@@ -19,7 +19,7 @@ export interface RdsCompLineProps
   options: ChartOptions<"line">;
   /** @deprecated Use `data.datasets` instead. */
   dataSets?: ChartDataset<"line">[];
-  /** Id of the canvas element. */
+  /** Id of the canvas element. Note: legacy IDs `linechart1` and `linechart2` trigger specific canvas sizes. */
   id: string;
   /** Canvas height (number = px). */
   height?: string | number;
@@ -34,6 +34,13 @@ export interface RdsCompLineProps
   sx?: SxProps<Theme>;
 }
 
+/**
+ * Applies legacy ID-based canvas sizing for backwards compatibility.
+ * - `linechart1`: 65vh × 100vh
+ * - `linechart2`: --rds-spacing-2xl (default 50px) square
+ * - Other IDs: 76vh × 100vh
+ * @internal Kept for backwards compatibility; callers should migrate to explicit `height`/`width` props.
+ */
 const applyLineCanvasSizing = (chart: Chart, chartId: string) => {
   if (chartId === "linechart1") {
     chart.canvas.style.height = "65vh";

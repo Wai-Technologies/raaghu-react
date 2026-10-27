@@ -6,7 +6,7 @@ import {
   type MouseEventHandler,
   type Ref,
 } from 'react';
-import type { DragEndEvent } from '@dnd-kit/core';
+import type { DragEndEvent, DragOverEvent, UniqueIdentifier } from '@dnd-kit/core';
 import type { SxProps, Theme } from '@mui/material';
 
 export interface KanbanAction {
@@ -429,6 +429,88 @@ export const createEventHandlers = (state: KanbanBoardState, props: RdsCompKanba
   };
 };
 
+const findSubCardLocation = (boards: KanbanBoardInfo[], id: UniqueIdentifier) => {
+  for (let boardIndex = 0; boardIndex < boards.length; boardIndex++) {
+    const subCardIndex = boards[boardIndex].subCards.findIndex(
+      (card) => cardIdOf(card) === id,
+    );
+    if (subCardIndex !== -1) return { boardIndex, subCardIndex };
+  }
+  return null;
+};
+
+const resolveDropLocation = (
+  boards: KanbanBoardInfo[],
+  overId: UniqueIdentifier,
+  overData: { boardIndex?: number; subCardIndex?: number } | null | undefined,
+) => {
+  if (typeof overId === 'string' && overId.startsWith('column-')) {
+    const boardIndex = parseInt(overId.replace('column-', ''), 10);
+    return {
+      boardIndex,
+      subCardIndex: boards[boardIndex]?.subCards.length ?? 0,
+    };
+  }
+  return {
+    boardIndex: overData?.boardIndex ?? -1,
+    subCardIndex: overData?.subCardIndex ?? -1,
+  };
+};
+
+const moveSubCard = (
+  boards: KanbanBoardInfo[],
+  sourceBoardIndex: number,
+  sourceSubCardIndex: number,
+  destBoardIndex: number,
+  destSubCardIndex: number,
+) => {
+  const newBoards = Array.from(boards);
+  if (sourceBoardIndex === destBoardIndex) {
+    const newSubCards = Array.from(boards[sourceBoardIndex].subCards);
+    const [moved] = newSubCards.splice(sourceSubCardIndex, 1);
+    newSubCards.splice(destSubCardIndex, 0, moved);
+    newBoards[sourceBoardIndex] = { ...newBoards[sourceBoardIndex], subCards: newSubCards };
+  } else {
+    const sourceSubCards = Array.from(boards[sourceBoardIndex].subCards);
+    const destSubCards = Array.from(boards[destBoardIndex].subCards);
+    const [moved] = sourceSubCards.splice(sourceSubCardIndex, 1);
+    destSubCards.splice(destSubCardIndex, 0, moved);
+    newBoards[sourceBoardIndex] = { ...newBoards[sourceBoardIndex], subCards: sourceSubCards };
+    newBoards[destBoardIndex] = { ...newBoards[destBoardIndex], subCards: destSubCards };
+  }
+  return newBoards;
+};
+
+/** Cross-column preview while dragging (G5-132). Same-column reorder is handled on drag end. */
+export const createDragOverHandler = (
+  boards: KanbanBoardInfo[],
+  setBoards: (next: KanbanBoardInfo[]) => void,
+  onColumnsChange?: (columns: KanbanColumn[]) => void,
+) => {
+  return (event: DragOverEvent) => {
+    const { active, over } = event;
+    if (!over) return;
+    if (active.id === over.id) return;
+
+    const source = findSubCardLocation(boards, active.id);
+    if (!source) return;
+
+    const dest = resolveDropLocation(boards, over.id, over.data.current);
+    if (dest.boardIndex < 0 || dest.boardIndex >= boards.length) return;
+    if (source.boardIndex === dest.boardIndex) return;
+
+    const newBoards = moveSubCard(
+      boards,
+      source.boardIndex,
+      source.subCardIndex,
+      dest.boardIndex,
+      dest.subCardIndex,
+    );
+    setBoards(newBoards);
+    onColumnsChange?.(newBoards);
+  };
+};
+
 export const createDragEndHandler = (
   boards: KanbanBoardInfo[],
   setBoards: (next: KanbanBoardInfo[]) => void,
@@ -437,42 +519,27 @@ export const createDragEndHandler = (
   return (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) return;
+    if (active.id === over.id) return;
 
-    const activeId = active.id;
-    const overId = over.id;
-    if (activeId === overId) return;
+    const source = findSubCardLocation(boards, active.id)
+      ?? {
+        boardIndex: active.data.current?.boardIndex ?? -1,
+        subCardIndex: active.data.current?.subCardIndex ?? -1,
+      };
+    if (source.boardIndex === -1 || source.subCardIndex === -1) return;
 
-    const sourceBoardIndex: number = active.data.current?.boardIndex ?? -1;
-    const sourceSubCardIndex: number = active.data.current?.subCardIndex ?? -1;
-    if (sourceBoardIndex === -1 || sourceSubCardIndex === -1) return;
+    const dest = resolveDropLocation(boards, over.id, over.data.current);
+    if (dest.boardIndex < 0 || dest.boardIndex >= boards.length) return;
 
-    let destBoardIndex: number;
-    let destSubCardIndex: number;
-
-    if (typeof overId === 'string' && overId.startsWith('column-')) {
-      destBoardIndex = parseInt(overId.replace('column-', ''), 10);
-      destSubCardIndex = boards[destBoardIndex]?.subCards.length ?? 0;
-    } else {
-      destBoardIndex = over.data.current?.boardIndex ?? -1;
-      destSubCardIndex = over.data.current?.subCardIndex ?? -1;
-    }
-
-    if (destBoardIndex < 0 || destBoardIndex >= boards.length) return;
-
-    const newBoards = Array.from(boards);
-    if (sourceBoardIndex === destBoardIndex) {
-      const newSubCards = Array.from(boards[sourceBoardIndex].subCards);
-      const [moved] = newSubCards.splice(sourceSubCardIndex, 1);
-      newSubCards.splice(destSubCardIndex, 0, moved);
-      newBoards[sourceBoardIndex] = { ...newBoards[sourceBoardIndex], subCards: newSubCards };
-    } else {
-      const sourceSubCards = Array.from(boards[sourceBoardIndex].subCards);
-      const destSubCards = Array.from(boards[destBoardIndex].subCards);
-      const [moved] = sourceSubCards.splice(sourceSubCardIndex, 1);
-      destSubCards.splice(destSubCardIndex, 0, moved);
-      newBoards[sourceBoardIndex] = { ...newBoards[sourceBoardIndex], subCards: sourceSubCards };
-      newBoards[destBoardIndex] = { ...newBoards[destBoardIndex], subCards: destSubCards };
-    }
+    // If onDragOver already moved the card into the destination column, source reflects
+    // the current board and this becomes a same-column reorder (or a no-op).
+    const newBoards = moveSubCard(
+      boards,
+      source.boardIndex,
+      source.subCardIndex,
+      dest.boardIndex,
+      dest.subCardIndex,
+    );
     setBoards(newBoards);
     onColumnsChange?.(newBoards);
   };

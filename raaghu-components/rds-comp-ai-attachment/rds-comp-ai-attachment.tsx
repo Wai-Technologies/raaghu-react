@@ -45,7 +45,7 @@ export interface RdsCompAiAttachmentProps
   /** @deprecated Has no effect. */
   image?: string;
   /** User the uploaded image comment is attributed to. */
-  currentUser?: Pick<UserData, "firstName" | "lastName">;
+  currentUser?: AttachmentCurrentUser;
   /** @deprecated Use `currentUser` instead. */
   userData?: UserData[];
   /** Called with the selected image file. */
@@ -79,9 +79,17 @@ export interface RdsCompAiAttachmentSlotProps {
 /** @deprecated Use `RdsCompAiAttachmentProps` */
 export type RdsCompAiAttachementProps = RdsCompAiAttachmentProps;
 
-export interface UserData {
+/** Fields this component reads for comment attribution. */
+export type AttachmentCurrentUser = {
   firstName: string;
   lastName: string;
+};
+
+/**
+ * @deprecated Prefer {@link AttachmentCurrentUser} via `currentUser`.
+ * Only `firstName` / `lastName` are used here; the rest mirror chat user shapes.
+ */
+export interface UserData extends AttachmentCurrentUser {
   activeDotButton: boolean;
   status: string;
   size: string;
@@ -221,8 +229,9 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
     return [
       {
         key: "new",
+        onClick: openModal,
         label: (
-          <button type="button" onClick={openModal} className="rds-comp-ai-attachment__reset-btn">
+          <span className="rds-comp-ai-attachment__reset-btn">
             <span className="rds-comp-ai-attachment__upload-row">
               <span className="rds-comp-ai-attachment__upload-text">{resolvedUploadText}</span>
               {badgeContent != null && badgeContent !== false && (
@@ -237,22 +246,21 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
                 />
               )}
             </span>
-          </button>
+          </span>
         ),
       },
       {
         key: "refresh",
+        onClick: handleImportClick,
         label: (
-          <button type="button" onClick={handleImportClick} className="rds-comp-ai-attachment__reset-btn">
-            {resolvedImportText}
-          </button>
+          <span className="rds-comp-ai-attachment__reset-btn">{resolvedImportText}</span>
         ),
       },
     ];
   }, [openModal, resolvedUploadText, badgeContent, badgeProps, badgeColor, handleImportClick, resolvedImportText]);
 
   return (
-    <Box {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)} sx={sx}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-ai-attachment", "rds-comp-ai-attachment__dropdown", className)} sx={sx}>
       <input
         type="file"
         accept="image/*"
@@ -270,6 +278,14 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
         bordered
         placement={alignment}
         items={listItems}
+        slotProps={{
+          dropdown: {
+            style: {
+              minWidth: "var(--rds-ai-attachment-min-width, 273px)",
+              maxWidth: "none",
+            },
+          },
+        }}
       />
 
       {showModal && (
