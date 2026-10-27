@@ -499,4 +499,14 @@ describe('RdsDialog additive renames', () => {
     expect(warn).toHaveBeenCalledWith('RdsDialog', 'size', '`maxWidth`');
     expect(warn).toHaveBeenCalledWith('RdsDialog', 'showTitle', '`title={undefined}`');
   });
+
+  it('forwards data-testid to the dialog root', () => {
+    render(
+      <RdsDialog open onClose={jest.fn()} data-testid="confirm-dialog" title="T">
+        c
+      </RdsDialog>,
+    );
+    expect(screen.getByTestId('confirm-dialog')).toBeInTheDocument();
+    expect(screen.queryByTestId('dialog-root')).not.toBeInTheDocument();
+  });
 });

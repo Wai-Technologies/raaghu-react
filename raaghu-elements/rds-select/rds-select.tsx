@@ -55,6 +55,7 @@ const RdsSelect = ({
   labelPosition,
   size = 'small',
   className,
+  'data-testid': dataTestId,
   ...props
 }: RdsSelectProps) => {
   if (isRequired !== undefined) warnDeprecatedProp('RdsSelect', 'isRequired', '`required`');
@@ -69,7 +70,10 @@ const RdsSelect = ({
   const hasError = !!errorMessage || error;
   
   return (
-    <div className={clsx('rds-select', hasError && 'rds-select--error', className)}>
+    <div
+      data-testid={dataTestId}
+      className={clsx('rds-select', hasError && 'rds-select--error', className)}
+    >
       <FormControl 
         fullWidth 
         error={hasError} 

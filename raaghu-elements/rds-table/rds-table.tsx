@@ -141,6 +141,7 @@ const RdsTable = ({
   defaultSortBy,
   defaultSortDirection = 'asc',
   onCellSelectionChange,
+  'data-testid': dataTestId,
   ...props
 }: RdsTableProps) => {
   if (pagination !== undefined) warnDeprecatedProp('RdsTable', 'pagination', '`paginated`');
@@ -331,7 +332,7 @@ const RdsTable = ({
   const isIndeterminate = selectable && currentSelectedRows.length > 0 && currentSelectedRows.length < rows.length;
 
   return (
-    <Paper className={clsx('rds-table', className)}>
+    <Paper className={clsx('rds-table', className)} data-testid={dataTestId}>
       <MuiTableContainer
           className={clsx('rds-table__container', stickyHeader && 'rds-table__container--sticky')}
         style={{ maxHeight: stickyHeader ? 440 : undefined }}

@@ -584,4 +584,11 @@ describe('audit fixes', () => {
     );
     expect(container.querySelector(paginationSel)?.textContent).toContain('77');
   });
+
+  it('forwards data-testid to the root .rds-table', () => {
+    renderWithTheme(
+      <RdsTable columns={mockColumns} rows={mockRows} data-testid="users-table" />,
+    );
+    expect(screen.getByTestId('users-table')).toHaveClass('rds-table');
+  });
 });

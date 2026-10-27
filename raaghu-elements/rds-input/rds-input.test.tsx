@@ -391,4 +391,11 @@ describe('RdsInput audit fixes', () => {
       expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsInput', name, expect.any(String)),
     );
   });
+
+  it('forwards data-testid to the root .rds-input', () => {
+    const { container } = render(<RdsInput data-testid="email-field" label="Email" />);
+    const root = screen.getByTestId('email-field');
+    expect(root).toHaveClass('rds-input');
+    expect(container.querySelector('.MuiTextField-root')).not.toHaveAttribute('data-testid');
+  });
 });
