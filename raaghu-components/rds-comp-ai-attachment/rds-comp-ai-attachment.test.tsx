@@ -465,7 +465,7 @@ describe('RdsCompAiAttachment', () => {
         <RdsCompAiAttachment {...defaultProps} className="custom" data-testid="root" />
       );
       const root = screen.getByTestId('root');
-      expect(root).toHaveClass('rds-comp-ai-attachment__dropdown', 'custom');
+      expect(root).toHaveClass('rds-comp-ai-attachment', 'rds-comp-ai-attachment__dropdown', 'custom');
       expect(container.querySelector('input[type="file"]')).toHaveAttribute('accept', 'image/*');
     });
 

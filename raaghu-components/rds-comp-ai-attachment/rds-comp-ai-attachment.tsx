@@ -260,7 +260,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
   }, [openModal, resolvedUploadText, badgeContent, badgeProps, badgeColor, handleImportClick, resolvedImportText]);
 
   return (
-    <Box {...rest} ref={ref} className={clsx("rds-comp-ai-attachment__dropdown", className)} sx={sx}>
+    <Box {...rest} ref={ref} className={clsx("rds-comp-ai-attachment", "rds-comp-ai-attachment__dropdown", className)} sx={sx}>
       <input
         type="file"
         accept="image/*"
@@ -278,6 +278,14 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
         bordered
         placement={alignment}
         items={listItems}
+        slotProps={{
+          dropdown: {
+            style: {
+              minWidth: "var(--rds-ai-attachment-min-width, 273px)",
+              maxWidth: "none",
+            },
+          },
+        }}
       />
 
       {showModal && (

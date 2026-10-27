@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type CSSProperties, type ReactElement, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
+import { useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type CSSProperties, type HTMLAttributes, type ReactElement, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
 import { Box, type SxProps, type Theme } from "@mui/material";
 import "./rds-comp-ai-fab-menu.scss";
 import { warnDeprecatedProp } from "../../raaghu-elements/shared/utils/deprecation";
@@ -59,9 +59,11 @@ export interface RdsCompAiFabMenuProps {
   listItems?: RdsCompAiFabMenuItem[];
   /** Applied to the menu root. */
   className?: string;
-  /** Props forwarded to the trigger button (e.g. `className`, `disabled`). */
+  /** Props forwarded to the trigger button / dropdown panel. */
   slotProps?: {
     button?: ButtonHTMLAttributes<HTMLButtonElement>;
+    /** Applied to the `role="menu"` dropdown panel (e.g. `style.minWidth`). */
+    dropdown?: HTMLAttributes<HTMLDivElement>;
   };
   id?: string;
   /** Use the compact item style (defaults to `id === "attachment-text"`). */
@@ -128,6 +130,10 @@ function RdsCompAiFabMenu({
     onClick: slotButtonOnClick,
     ...buttonSlotRest
   } = slotProps?.button ?? {};
+  const {
+    className: dropdownClassName,
+    ...dropdownSlotRest
+  } = slotProps?.dropdown ?? {};
   if (menuiconWidth !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconWidth", "nothing (no effect)");
   if (menuiconHeight !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "menuiconHeight", "nothing (no effect)");
   if (onClick !== undefined) warnDeprecatedProp("RdsCompAiFabMenu", "onClick", "nothing (no effect)");
@@ -266,10 +272,12 @@ function RdsCompAiFabMenu({
         ref={menuRef}
       >
         <div
+          {...dropdownSlotRest}
           className={clsx(
             "rds-fab-menu__dropdown",
             resolvedBordered && "rds-fab-menu__dropdown--bordered",
-            isMenuOpen && "rds-fab-menu__dropdown--open"
+            isMenuOpen && "rds-fab-menu__dropdown--open",
+            dropdownClassName
           )}
           role="menu"
           id={menuId}

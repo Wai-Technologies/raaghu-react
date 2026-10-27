@@ -125,7 +125,7 @@
     &__attach {
       .rds-fab-menu__dropdown-container--open {
         right: auto;
-        left: -129px;
+        left: var(--ai-typing-fab-left-offset);
       }
     }
   }
