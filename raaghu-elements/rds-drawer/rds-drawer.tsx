@@ -34,6 +34,11 @@ export interface RdsDrawerProps extends Omit<DrawerProps, 'component' | 'slotPro
   slotProps?: DrawerProps['slotProps'] & { trigger?: DrawerButtonProps; closeButton?: DrawerButtonProps };
   centerTrigger?: boolean;
   triggerWrapperClassName?: string;
+  /**
+   * Embeds the drawer in document flow (relative paper, full height) for flex layouts
+   * such as app-shell — avoids SCSS `!important` fights with MUI fixed positioning.
+   */
+  embedded?: boolean;
 }
 
 const RdsDrawer = ({
@@ -53,6 +58,7 @@ const RdsDrawer = ({
   slotProps,
   centerTrigger = false,
   triggerWrapperClassName,
+  embedded = false,
   open,
   onClose,
   id,
@@ -129,9 +135,19 @@ const RdsDrawer = ({
         {
           ...sizeSx,
           flexShrink: 0,
+          ...(embedded && { position: 'relative', height: '100%' }),
           '& .MuiDrawer-paper': {
             ...sizeSx,
             boxSizing: 'border-box',
+            ...(embedded && {
+              position: 'relative',
+              top: 'auto',
+              left: 'auto',
+              height: '100%',
+              marginTop: 0,
+              marginLeft: 0,
+              boxShadow: 'none',
+            }),
           },
         },
         ...(sx === undefined ? [] : Array.isArray(sx) ? sx : [sx]),

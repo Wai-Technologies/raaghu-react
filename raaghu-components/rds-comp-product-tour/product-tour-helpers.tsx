@@ -176,8 +176,8 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
 
 export const renderNavRow = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, stepClass: string, skipClass: string, arrowClass: string, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__navigation-row">
-        <Typography className={stepClass}>{currentIndicator}</Typography>
-        {showTertiaryButton && <Typography className={skipClass} {...getSkipProps(onSkip)}>Skip</Typography>}
+        <Typography variant="inherit" component="span" className={stepClass}>{currentIndicator}</Typography>
+        {showTertiaryButton && <Typography variant="inherit" component="span" className={skipClass} {...getSkipProps(onSkip)}>Skip</Typography>}
         <Box className={arrowClass}>
             <Box className={clsx("rds-comp-product-tour__arrows", "rds-comp-product-tour__arrows--default")}>
                 {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
@@ -189,8 +189,8 @@ export const renderNavRow = (currentIndicator: string, showTertiaryButton: boole
 
 export const renderInfoSection = (header?: string, description?: string, titleId?: string) => (
     <Box className="rds-comp-product-tour__info">
-        <Typography variant="h6" id={titleId} className="rds-comp-product-tour__title">{header}</Typography>
-        <Typography variant="body2" className="rds-comp-product-tour__desc">{description}</Typography>
+        <Typography variant="inherit" component="h2" id={titleId} className="rds-comp-product-tour__title">{header}</Typography>
+        <Typography variant="inherit" component="p" className="rds-comp-product-tour__desc">{description}</Typography>
     </Box>
 );
 
@@ -272,7 +272,7 @@ export const renderFormInputs = () => (
 
 export const renderCarouselNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__carousel-nav-row">
-        <Typography className="rds-comp-product-tour__carousel-stepcount">{currentIndicator}</Typography>
+        <Typography variant="inherit" component="span" className="rds-comp-product-tour__carousel-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__carousel-nav-group">
             {showTertiaryButton && <button type="button" className="rds-comp-product-tour__carousel-skip" onClick={onSkip}>Skip</button>}
             <Box className="rds-comp-product-tour__carousel-arrows">
@@ -285,9 +285,9 @@ export const renderCarouselNavigation = (currentIndicator: string, showTertiaryB
 
 export const renderGifNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__animation-navigation">
-        <Typography className="rds-comp-product-tour__animation-stepcount">{currentIndicator}</Typography>
+        <Typography variant="inherit" component="span" className="rds-comp-product-tour__animation-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__animation-controls">
-            {showTertiaryButton && <Typography className="rds-comp-product-tour__animation-skip" {...getSkipProps(onSkip)}>Skip</Typography>}
+            {showTertiaryButton && <Typography variant="inherit" component="span" className="rds-comp-product-tour__animation-skip" {...getSkipProps(onSkip)}>Skip</Typography>}
             <Box className="rds-comp-product-tour__animation-nav-buttons">
                 {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
                 {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
@@ -298,9 +298,9 @@ export const renderGifNavigation = (currentIndicator: string, showTertiaryButton
 
 export const renderFormNavigation = (currentIndicator: string, showTertiaryButton: boolean, showSecondaryButton: boolean, showPrimaryButton: boolean, goPrev: () => void, goNext: () => void, onSkip?: () => void) => (
     <Box className="rds-comp-product-tour__form-navigation">
-        <Typography className="rds-comp-product-tour__form-stepcount">{currentIndicator}</Typography>
+        <Typography variant="inherit" component="span" className="rds-comp-product-tour__form-stepcount">{currentIndicator}</Typography>
         <Box className="rds-comp-product-tour__form-navigation-actions">
-            {showTertiaryButton && <Typography className="rds-comp-product-tour__form-skip" {...getSkipProps(onSkip)}>Skip</Typography>}
+            {showTertiaryButton && <Typography variant="inherit" component="span" className="rds-comp-product-tour__form-skip" {...getSkipProps(onSkip)}>Skip</Typography>}
             <Box className="rds-comp-product-tour__form-arrows">
                 {showSecondaryButton && <button type="button" onClick={goPrev} aria-label="Previous" className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
                 {showPrimaryButton && <button type="button" onClick={goNext} aria-label="Next" className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}

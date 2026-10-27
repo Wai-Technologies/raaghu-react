@@ -187,8 +187,8 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__carousel-header">
-                    <Typography variant="h6" id={headerId} className="rds-comp-product-tour__carousel-title">{resolvedHeader}</Typography>
-                    <Typography variant="body2" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
+                    <Typography variant="inherit" component="h2" id={headerId} className="rds-comp-product-tour__carousel-title">{resolvedHeader}</Typography>
+                    <Typography variant="inherit" component="p" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-wrapper">
                     <RdsCarousel showIndicators={false} showArrows={false} type="circle" variant="default" height="var(--rds-carousel-height, 300px)" activeIndex={currentIndex}>
@@ -220,8 +220,8 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                     <Box sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', width: '100%', background: 'transparent' }} />
                 )}
                 <Box className="rds-comp-product-tour__animation-info">
-                    <Typography variant="h5" id={headerId} className="rds-comp-product-tour__animation-title">{resolvedHeader}</Typography>
-                    <Typography variant="body1" className="rds-comp-product-tour__animation-desc">{description}</Typography>
+                    <Typography variant="inherit" component="h2" id={headerId} className="rds-comp-product-tour__animation-title">{resolvedHeader}</Typography>
+                    <Typography variant="inherit" component="p" className="rds-comp-product-tour__animation-desc">{description}</Typography>
                 </Box>
                 {gifNavigationElement}
             </Paper>
@@ -233,16 +233,16 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__form-header">
-                    <Typography variant="h6" className="rds-comp-product-tour__form-subtitle">
+                    <Typography variant="inherit" component="p" className="rds-comp-product-tour__form-subtitle">
                        {resolvedSubtitle}
                     </Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__form-content">
                     <Box className="rds-comp-product-tour__form-title-badge-row">
-                        <Typography variant="h6" id={headerId} className="rds-comp-product-tour__form-title">{resolvedHeader}</Typography>
+                        <Typography variant="inherit" component="h2" id={headerId} className="rds-comp-product-tour__form-title">{resolvedHeader}</Typography>
                         {badge !== null && <RdsBadge badgeContent={badge === undefined ? "Badge" : badge} size="medium" colorVariant="primary" shape="pill" layout="text" />}
                     </Box>
-                    <Typography variant="body2" className="rds-comp-product-tour__form-description">{description}</Typography>
+                    <Typography variant="inherit" component="p" className="rds-comp-product-tour__form-description">{description}</Typography>
                     <Box className="rds-comp-product-tour__form-tabs-wrapper">
                         <Box className="rds-comp-product-tour__form-tabs">
                             {resolvedTabTitle.map((title, index) => (

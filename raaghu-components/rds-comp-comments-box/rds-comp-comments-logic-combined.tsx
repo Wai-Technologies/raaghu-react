@@ -60,8 +60,9 @@ export const RdsCommentBoxLogic = ({
       </RdsAvatar>
       <TextField
         variant="outlined"
+        size="small"
         placeholder={typingPlaceholderText ?? placeholderText ?? 'Add a comment'}
-        className="rds-comments-box__input"
+        className="rds-comments-box__input rds-input--compact"
         value={draft}
         onChange={(event) => setDraft(event.target.value)}
         slotProps={{
@@ -71,10 +72,24 @@ export const RdsCommentBoxLogic = ({
                 <IconButton
                   aria-label="send comment"
                   className="rds-comments-box__send-btn"
+                  size="small"
                   onClick={() => setDraft('')}
                   disabled={!draft.trim()}
+                  sx={{
+                    padding: 'var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px)',
+                    backgroundColor: 'var(--rds-primary-main)',
+                    color: 'var(--rds-primary-contrast-text)',
+                    width: 'auto',
+                    height: 24,
+                    minWidth: 26,
+                    minHeight: 24,
+                    maxHeight: 24,
+                    borderRadius: 'var(--rds-border-radius-sm, 4px)',
+                    boxShadow: 'none',
+                    '&:hover': { backgroundColor: 'var(--rds-primary-dark)' },
+                  }}
                 >
-                  <SendIcon aria-hidden="true" className="rds-comments-box__send-icon" />
+                  <SendIcon aria-hidden="true" className="rds-comments-box__send-icon" sx={{ fontSize: 11, width: 11, height: 11 }} />
                 </IconButton>
               </InputAdornment>
             ),

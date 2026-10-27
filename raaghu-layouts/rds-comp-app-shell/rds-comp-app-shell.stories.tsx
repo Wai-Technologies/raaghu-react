@@ -254,7 +254,7 @@ const AppShellStory = (args: any) => {
                 user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                 open
                 items={sidebarItems}
-                variant="permanent"
+                variant="permanent" embedded
                 layout="raaghu"
                 showLogo
               />
@@ -269,7 +269,7 @@ const AppShellStory = (args: any) => {
                   user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                   open
                   items={sidebarItems}
-                  variant="permanent"
+                  variant="permanent" embedded
                   layout="toolbar"
                   typeOf="collapse"
                   anchor="right"
@@ -292,7 +292,7 @@ const AppShellStory = (args: any) => {
                 user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                 open
                 items={sidebarItems}
-                variant="permanent"
+                variant="permanent" embedded
                 layout="raaghu"
                 typeOf="collapse"
                 anchor="left"
@@ -302,7 +302,7 @@ const AppShellStory = (args: any) => {
                 user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
                 open
                 items={sidebarItems}
-                variant="permanent"
+                variant="permanent" embedded
                 layout="raaghu"
                 typeOf="expanded"
               />
@@ -331,7 +331,7 @@ const AppShellStory = (args: any) => {
               user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
               open
               items={sidebarItems}
-              variant="permanent"
+              variant="permanent" embedded
               layout="raaghu"
               showLogo={false}
             />
@@ -358,7 +358,7 @@ const AppShellStory = (args: any) => {
           user={{ avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" }}
           open
           items={sidebarItems}
-          variant="permanent"
+          variant="permanent" embedded
           layout="raaghu"
           showLogo={args.displayType !== AppShellDisplayType.Default}
         />
@@ -437,7 +437,7 @@ const AppShellStory = (args: any) => {
                       onClick: () => {},
                     },
                   ]}
-                  variant="permanent"
+                  variant="permanent" embedded
                   layout="raaghu"
                 />
               </BrowserRouter>

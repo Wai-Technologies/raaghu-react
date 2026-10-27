@@ -125,6 +125,11 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children' | 'compone
   avatarCollapsedSrc?: string;
   showLogo?: boolean;
   container?: Element | (() => Element | null) | null;
+  /**
+   * Embeds the drawer in document flow (relative paper, full height) for flex layouts
+   * such as app-shell demos — avoids fighting MUI fixed drawer positioning with SCSS `!important`.
+   */
+  embedded?: boolean;
 }
 
 const RdsSidebar = ({
@@ -151,6 +156,7 @@ const RdsSidebar = ({
   showLogo,
   container,
   layout,
+  embedded = false,
   ModalProps: modalPropsFromProps,
   sx: propsSx,
   ...props
@@ -221,7 +227,13 @@ const RdsSidebar = ({
     showSearchBox = showSearch;
   }
 
-  const sidebarClasses = clsx('rds-sidebar', `rds-sidebar--${typeOf}`, isNarrowCollapsed && 'rds-sidebar--narrow-collapsed', className);
+  const sidebarClasses = clsx(
+    'rds-sidebar',
+    `rds-sidebar--${typeOf}`,
+    isNarrowCollapsed && 'rds-sidebar--narrow-collapsed',
+    embedded && 'rds-sidebar--embedded',
+    className,
+  );
   const headerClasses = clsx('rds-sidebar__header', `rds-sidebar__header--${typeOf}`);
   const contentClasses = 'rds-sidebar__content';
   const navItemClasses = clsx('rds-sidebar__nav-item', `rds-sidebar__nav-item--${typeOf}`);
@@ -232,16 +244,30 @@ const RdsSidebar = ({
   const drawerSx: SxProps<Theme> = {
     width: shouldShowIconsOnly ? 64 : width,
     flexShrink: 0,
+    ...(embedded && {
+      position: 'relative',
+      height: '100%',
+    }),
     ['& .MuiDrawer-paper']: {
       width: shouldShowIconsOnly ? 64 : width,
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
       height: shouldShowIconsOnly && typeOf === 'fixed' ? '100vh' : '100%',
+      ...(embedded && {
+        position: 'relative',
+        top: 'auto',
+        left: 'auto',
+        height: '100%',
+        marginTop: 0,
+        marginLeft: 0,
+        boxShadow: 'none',
+        borderRight: '1px solid var(--rds-border-default)',
+      }),
       ...(shouldShowIconsOnly && {
         alignItems: 'center',
         overflow: 'hidden',
-        ...(typeOf === 'fixed' && {
+        ...(typeOf === 'fixed' && !embedded && {
           position: 'fixed',
           top: 0,
           left: 0,

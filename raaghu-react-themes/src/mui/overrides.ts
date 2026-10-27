@@ -169,6 +169,64 @@ export const designSystemComponentOverrides: Components<Theme> = {
       }),
     },
   },
+  MuiTabs: {
+    styleOverrides: {
+      indicator: {
+        backgroundColor: 'var(--rds-color-primary)',
+        height: 3,
+      },
+    },
+  },
+  MuiTab: {
+    styleOverrides: {
+      root: {
+        '&.Mui-selected': {
+          color: 'var(--rds-color-primary)',
+          fontWeight: 600,
+        },
+        '&:hover': {
+          color: 'var(--rds-color-primary)',
+          backgroundColor: 'transparent',
+          opacity: 1,
+        },
+        '&.Mui-selected:hover': {
+          color: 'var(--rds-color-primary)',
+          backgroundColor: 'transparent',
+        },
+        '&.Mui-focusVisible': {
+          backgroundColor: 'var(--rds-color-primary-container)',
+        },
+      },
+    },
+  },
+  MuiBottomNavigationAction: {
+    styleOverrides: {
+      root: {
+        '&.Mui-selected': {
+          color: 'var(--rds-color-primary)',
+          fontWeight: 600,
+        },
+        '&:hover': {
+          color: 'var(--rds-color-primary)',
+          backgroundColor: 'transparent',
+          opacity: 1,
+        },
+        '&.Mui-selected:hover': {
+          color: 'var(--rds-color-primary)',
+          backgroundColor: 'transparent',
+        },
+        '&.Mui-focusVisible': {
+          backgroundColor: 'var(--rds-color-primary-container)',
+        },
+      },
+      label: {
+        '.Mui-selected &': {
+          color: 'var(--rds-color-primary)',
+          fontWeight: 600,
+        },
+      },
+    },
+  },
   MuiCardHeader: {
     styleOverrides: {
       root: ({ theme }) => ({

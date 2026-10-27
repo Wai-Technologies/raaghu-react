@@ -13,44 +13,13 @@
   }
 }
 
-.MuiTabs-root,
+/* Selected tab / indicator colors live in designSystemComponentOverrides (MuiTab / MuiTabs / MuiBottomNavigationAction). */
 .rds-header__navigation,
-.MuiBottomNavigation-root,
 .rds-footer-navigation {
-  .MuiTab-root.Mui-selected,
-  .MuiBottomNavigationAction-root.Mui-selected,
   .rds-tab--selected,
   .rds-nav-tab--selected {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
-  }
-  
-  .MuiTabs-indicator {
-    background-color: var(--rds-color-primary) !important;
-    height: 3px !important;
-  }
-  
-  .MuiBottomNavigationAction-root.Mui-selected .MuiBottomNavigationAction-label {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
-  }
-  
-  .MuiTab-root:hover,
-  .MuiBottomNavigationAction-root:hover {
-    color: var(--rds-color-primary) !important;
-    background-color: transparent !important;
-    opacity: 1;
-  }
-
-  .MuiTab-root.Mui-selected:hover,
-  .MuiBottomNavigationAction-root.Mui-selected:hover {
-    color: var(--rds-color-primary) !important;
-    background-color: transparent !important;
-  }
-  
-  .MuiTab-root.Mui-focusVisible,
-  .MuiBottomNavigationAction-root.Mui-focusVisible {
-    background-color: var(--rds-color-primary-container) !important;
+    color: var(--rds-color-primary);
+    font-weight: 600;
   }
 }
 
@@ -392,11 +361,11 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   }
   
   &--primary {
-    color: var(--rds-color-primary) !important;
-    font-weight: 600 !important;
+    color: var(--rds-color-primary);
+    font-weight: 600;
     
     .rds-story-sub-tab-icon {
-      color: var(--rds-color-primary) !important;
+      color: var(--rds-color-primary);
     }
   }
   
@@ -529,16 +498,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       height: 100%;
     }
 
-    .MuiDrawer-paper {
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      height: 100% !important;
-      margin-top: 0 !important;
-      margin-left: 0 !important;
-      box-shadow: none;
-      border-right: 1px solid var(--rds-border-default);
-    }
+    /* Embedded paper positioning owned by RdsSidebar embedded prop */
   }
 
   > .sidebar-layout {
@@ -596,16 +556,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         height: 100%;
       }
 
-      .MuiDrawer-paper {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        height: 100% !important;
-        margin-top: 0 !important;
-        margin-left: 0 !important;
-        box-shadow: none;
-        border-right: 1px solid var(--rds-border-default);
-      }
+      /* Embedded paper positioning owned by RdsSidebar embedded prop */
     }
   }
 
@@ -836,8 +787,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
         
         &[data-active="true"] {
-          color: var(--rds-color-primary) !important;
-          font-weight: 600 !important;
+          color: var(--rds-color-primary);
+          font-weight: 600;
         }
         
         &::before,
@@ -850,13 +801,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
+      color: var(--rds-color-primary);
+      font-weight: 600;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
+      background-color: var(--rds-color-primary);
+      height: 3px;
     }
   }
   
@@ -1707,13 +1658,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
+      color: var(--rds-color-primary);
+      font-weight: 600;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
+      background-color: var(--rds-color-primary);
+      height: 3px;
     }
   }
   
@@ -1893,8 +1844,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-width: 0 !important;
         
         &.Mui-selected {
-          color: var(--rds-color-primary) !important;
-          font-weight: 600 !important;
+          color: var(--rds-color-primary);
+          font-weight: 600;
         }
       }
       
@@ -1951,13 +1902,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
       .MuiTab-root.Mui-selected,
       .MuiBottomNavigationAction-root.Mui-selected {
-        color: var(--rds-color-primary) !important;
-        font-weight: 600 !important;
+        color: var(--rds-color-primary);
+        font-weight: 600;
       }
 
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary) !important;
-        height: 3px !important;
+        background-color: var(--rds-color-primary);
+        height: 3px;
       }
     }
 
@@ -2921,13 +2872,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
-      color: var(--rds-color-primary) !important;
-      font-weight: 600 !important;
+      color: var(--rds-color-primary);
+      font-weight: 600;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary) !important;
-      height: 3px !important;
+      background-color: var(--rds-color-primary);
+      height: 3px;
     }
   }
 }

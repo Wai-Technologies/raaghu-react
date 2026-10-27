@@ -211,7 +211,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
     <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
       {showHeader && (
         <div className="rds-adaptive-cards__header">
-          <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
+          <RdsStack direction="row" spacing={0} alignItems="center" className="rds-adaptive-cards__header-title-row">
             {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
             <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
             {closeIcon && (
@@ -299,8 +299,8 @@ export function FootballScorecardCard({
             <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{homeTeam?.status}</RdsTypography>
           </RdsStack>
 
-          <RdsStack alignItems="center" className="rds-adaptive-cards__football-score-section">
-            <RdsStack direction="row" spacing={1} alignItems="center" className="rds-adaptive-cards__football-score-row">
+          <RdsStack alignItems="center" spacing={0} className="rds-adaptive-cards__football-score-section">
+            <RdsStack direction="row" spacing={0} alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-score-row">
               <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">{homeScore}</RdsTypography>
               <RdsTypography variant="h3" className="rds-adaptive-cards__football-score rds-adaptive-cards__football-score-colon">:</RdsTypography>
               <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">{awayScore}</RdsTypography>
