@@ -136,7 +136,7 @@ export const ToolbarButton = ({
           }}
           role={isEmoji && dropdownOptions.length === 0 ? 'dialog' : 'menu'}
           aria-label={ariaLabel || action}
-          data-portal-theme={portalThemeClass || undefined}
+        
           onKeyDown={handleMenuKeyDown}
         >
           {dropdownOptions.map((option) => (

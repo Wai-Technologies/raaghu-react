@@ -304,24 +304,24 @@ const RdsCompAiIconComponent = ({
       : {};
 
     return (
-      <Box
-        component={Icon}
-        {...rest}
-        ref={setRootRef}
-        className={clsx(className, "rds-comp-ai-icon__svg")}
-        onClick={onClick || undefined}
-        id={id}
-        data-testid={resolvedTestId}
-        style={style}
-        sx={sx}
-        data-bs-dismiss={resolvedDismiss}
-        data-bs-target={resolvedTarget}
-        data-bs-toggle={resolvedToggle}
-        aria-controls={resolvedControls}
-        fill={fill ? "currentColor" : "none"}
-        stroke={stroke ? strokeColor || "currentColor" : "none"}
-        {...interactive}
-      />
+    
+
+        <Icon
+    {...rest}
+    ref={setRootRef as Ref<SVGSVGElement>}
+    className={clsx(className, "rds-comp-ai-icon__svg")}
+    onClick={onClick || undefined}
+    id={id}
+    data-testid={resolvedTestId}
+    style={style}
+    data-bs-dismiss={resolvedDismiss}
+    data-bs-target={resolvedTarget}
+    data-bs-toggle={resolvedToggle}
+    aria-controls={resolvedControls}
+    fill={fill ? "currentColor" : "none"}
+    stroke={stroke ? strokeColor || "currentColor" : "none"}
+    {...interactive}
+  />
     );
   }
 

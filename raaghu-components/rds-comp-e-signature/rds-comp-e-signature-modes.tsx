@@ -88,8 +88,15 @@ export const RdsESignatureUpload = ({
   }, [disabled]);
 
   return (
-    <Box {...rest} ref={ref} className={clsx("rds-e-signature__upload-container", className)} sx={[{ maxWidth: width ? `${width}px` : '100%' }, sx]}>
-      <Typography variant="h6" className="rds-e-signature__title">
+<Box
+  {...rest}
+  ref={ref}
+  className={clsx("rds-e-signature__upload-container", className)}
+  sx={[
+    { maxWidth: width ? `${width}px` : '100%' },
+    ...(sx ? (Array.isArray(sx) ? sx : [sx]) : []),
+  ]}
+>      <Typography variant="h6" className="rds-e-signature__title">
         {resolvedTitle}
         {required && <span className="rds-e-signature__required">*</span>}
       </Typography>

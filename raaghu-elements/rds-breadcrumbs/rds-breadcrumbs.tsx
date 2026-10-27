@@ -10,6 +10,7 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-breadcrumbs.scss';
 import clsx from 'clsx';
+
 export { BreadcrumbSeparator } from './rds-breadcrumbs-types';
 import { BreadcrumbSeparator } from './rds-breadcrumbs-types';
 
@@ -26,20 +27,25 @@ const getDefaultIconForPosition = (index: number, label: string): string => {
   if (index === 0) {
     return 'home';
   }
+
   const labelLower = label.toLowerCase();
+
   if (labelLower.includes('product') || labelLower.includes('shop') || labelLower.includes('store')) {
     return 'inventory';
   }
+
   if (labelLower.includes('category') || labelLower.includes('section')) {
     return 'category';
   }
+
   if (labelLower.includes('folder') || labelLower.includes('directory')) {
     return 'folder';
   }
+
   if (labelLower.includes('business') || labelLower.includes('company')) {
     return 'business';
   }
-  
+
   const positionIcons = ['home', 'inventory', 'category', 'folder', 'star'];
   return positionIcons[index] || 'folder';
 };
@@ -47,7 +53,7 @@ const getDefaultIconForPosition = (index: number, label: string): string => {
 /** A built-in icon name or a custom icon element. */
 export type RdsBreadcrumbIcon = keyof typeof iconMap | ReactElement;
 
-const isIconGiven = (value: RdsBreadcrumbIcon): boolean =>
+const isIconGiven = (value: RdsBreadcrumbIcon | undefined): value is RdsBreadcrumbIcon =>
   value !== undefined && value !== null && value !== '' && typeof value !== 'boolean';
 
 /** Enter/Space activate an element that has `role="button"` (native `<a href>` already handles Enter). */
@@ -105,23 +111,29 @@ const RdsBreadcrumbs = ({
   title,
   autoIcons: autoIconsProp,
   ...props
-}:RdsBreadcrumbsProps) => {
+}: RdsBreadcrumbsProps) => {
   if (title !== undefined) warnDeprecatedProp('RdsBreadcrumbs', 'title', "the first item's `label`");
   if (autoIconsProp !== undefined) warnDeprecatedProp('RdsBreadcrumbs', 'autoIcons', '`icon`');
+
   const autoIcons = autoIconsProp ?? true;
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
-  
+
   const getSeparator = (): ReactNode => {
     if (separator !== undefined) {
       return separator;
     }
-    
+
     if (separatorType) {
       return <span className="rds-breadcrumbs__separator">{separatorType}</span>;
     }
-    
-    return <span className="rds-breadcrumbs__separator"><NavigateNextIcon fontSize="small" color="inherit" /></span>;
+
+    return (
+      <span className="rds-breadcrumbs__separator">
+        <NavigateNextIcon fontSize="small" color="inherit" />
+      </span>
+    );
   };
+
   const getFilteredItems = () => {
     if (!level) return items;
 
@@ -130,7 +142,7 @@ const RdsBreadcrumbs = ({
       level2: 2,
       level3: 3,
       level4: 4,
-      level5: 5
+      level5: 5,
     };
 
     const maxItems = levelMap[level];
@@ -138,6 +150,7 @@ const RdsBreadcrumbs = ({
   };
 
   let filteredItems = getFilteredItems();
+
   if (title && filteredItems.length > 0) {
     filteredItems = filteredItems.map((item, index) => {
       if (index === 0) {
@@ -149,6 +162,7 @@ const RdsBreadcrumbs = ({
 
   const getLayoutClass = (itemLayout?: string) => {
     const activeLayout = itemLayout || layout;
+
     switch (activeLayout) {
       case 'pill background':
         return 'rds-breadcrumbs__pill';
@@ -161,9 +175,15 @@ const RdsBreadcrumbs = ({
   };
 
   const breadcrumbsClass = clsx('rds-breadcrumbs', getLayoutClass(), className);
-  
-  const getIconComponent = (itemIcon?: RdsBreadcrumbIcon, globalIcon?: RdsBreadcrumbIcon, index?: number, label?: string): ReactNode => {
+
+  const getIconComponent = (
+    itemIcon?: RdsBreadcrumbIcon,
+    globalIcon?: RdsBreadcrumbIcon,
+    index?: number,
+    label?: string,
+  ): ReactNode => {
     let iconName: RdsBreadcrumbIcon;
+
     if (isIconGiven(itemIcon)) {
       iconName = itemIcon;
     } else if (isIconGiven(globalIcon)) {
@@ -179,6 +199,7 @@ const RdsBreadcrumbs = ({
     }
 
     const IconComp = iconMap[iconName.toLowerCase()] || HomeOutlinedIcon;
+
     return <IconComp sx={{ fontSize: 20, verticalAlign: 'middle', mr: 0.5 }} color="inherit" />;
   };
 
@@ -203,7 +224,7 @@ const RdsBreadcrumbs = ({
 
         if (isLast || item.active || isSelected || selectedIdx === index) {
           return (
-            <Typography 
+            <Typography
               key={`${item.label}-${item.routePath || item.url || index}`}
               className={typographyClass.trim()}
               onClick={() => setSelectedIdx(index)}
@@ -212,16 +233,18 @@ const RdsBreadcrumbs = ({
                 : { role: 'button', tabIndex: 0, onKeyDown: activateOnKey })}
               style={{ cursor: 'pointer' }}
             >
-              {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
+              {showIcon && item.showIcon !== false && getIconComponent(item.icon, icon, index, item.label)}
               {item.label}
             </Typography>
           );
         }
 
         const isClickable = Boolean(item.onClick) || item.selected === true;
-        const buttonProps = !item.href && isClickable
-          ? { role: 'button', tabIndex: 0, onKeyDown: activateOnKey }
-          : {};
+        const buttonProps =
+          !item.href && isClickable
+            ? { role: 'button', tabIndex: 0, onKeyDown: activateOnKey }
+            : {};
+
         return (
           <Link
             key={`${item.label}-${item.routePath || item.url || item.href || 'link'}`}
@@ -233,13 +256,18 @@ const RdsBreadcrumbs = ({
                 setSelectedIdx(index);
                 e.preventDefault();
               }
+
               if (item.onClick) item.onClick(e);
             }}
             underline="hover"
-            className={clsx('rds-breadcrumbs__item', itemLayoutClass, item.selected && 'rds-breadcrumbs__item__selected')}
+            className={clsx(
+              'rds-breadcrumbs__item',
+              itemLayoutClass,
+              item.selected && 'rds-breadcrumbs__item__selected',
+            )}
             sx={{ cursor: isClickable ? 'pointer' : 'default' }}
           >
-            {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
+            {showIcon && item.showIcon !== false && getIconComponent(item.icon, icon, index, item.label)}
             {item.label}
           </Link>
         );
@@ -249,4 +277,5 @@ const RdsBreadcrumbs = ({
 };
 
 RdsBreadcrumbs.displayName = 'RdsBreadcrumbs';
+
 export default RdsBreadcrumbs;
