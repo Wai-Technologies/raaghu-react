@@ -803,6 +803,25 @@ describe('audit fixes', () => {
     expect(panelTitle).toHaveTextContent('2024-01-01: 2');
   });
 
+  it('G4-050: mobile panel size scales from panelSize', async () => {
+    global.innerWidth = 320;
+    const { container, rerender } = render(
+      <RdsCompContribution {...base} panelSize={22} panelMargin={4} />
+    );
+    fireEvent(window, new Event('resize'));
+    await waitFor(() => {
+      const rect = container.querySelector('rect.rds-comp-contribution__panel');
+      expect(rect).toHaveAttribute('width', '16');
+    });
+    global.innerWidth = 1200;
+    rerender(<RdsCompContribution {...base} panelSize={22} panelMargin={4} />);
+    fireEvent(window, new Event('resize'));
+    await waitFor(() => {
+      const rect = container.querySelector('rect.rds-comp-contribution__panel');
+      expect(rect).toHaveAttribute('width', '22');
+    });
+  });
+
   it('G4-055: root forwards className, ref and rest props', () => {
     const ref = React.createRef<HTMLDivElement>();
     const { container } = render(<RdsCompContribution {...base} className="custom" ref={ref} data-testid="root" />);

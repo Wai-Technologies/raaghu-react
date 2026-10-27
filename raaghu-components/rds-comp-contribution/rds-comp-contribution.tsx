@@ -150,14 +150,16 @@ const RdsCompContribution = ({
 
   const isMobile = viewportWidth <= 414;
   const { dynamicPanelSize, dynamicPanelMargin } = useMemo(() => {
+    const sizeAt = (ratio: number) => Math.max(1, Math.round(panelSize * ratio));
+    const marginAt = (ratio: number) => Math.max(0.5, Math.round(panelMargin * ratio * 10) / 10);
     if (viewportWidth <= 320) {
-      return { dynamicPanelSize: 8, dynamicPanelMargin: 1.2 };
+      return { dynamicPanelSize: sizeAt(8 / 11), dynamicPanelMargin: marginAt(1.2 / 2) };
     }
     if (viewportWidth <= 414) {
-      return { dynamicPanelSize: 9, dynamicPanelMargin: 1.2 };
+      return { dynamicPanelSize: sizeAt(9 / 11), dynamicPanelMargin: marginAt(1.2 / 2) };
     }
     if (viewportWidth <= 834) {
-      return { dynamicPanelSize: 8, dynamicPanelMargin: 2 };
+      return { dynamicPanelSize: sizeAt(8 / 11), dynamicPanelMargin: marginAt(1) };
     }
     return { dynamicPanelSize: panelSize, dynamicPanelMargin: panelMargin };
   }, [panelMargin, panelSize, viewportWidth]);

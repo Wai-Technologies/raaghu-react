@@ -1,5 +1,10 @@
 .rds-comp-chart-gauge {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  canvas {
+    width: var(--rds-comp-chart-gauge-size, 45vh);
+    height: var(--rds-comp-chart-gauge-size, 45vh);
+  }
 }

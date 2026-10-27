@@ -125,8 +125,6 @@ const RdsCompGaugeChart = ({
         },
       }),
       onCreate: (chart) => {
-        chart.canvas.style.width = "45vh";
-        chart.canvas.style.height = "45vh";
         applyCanvasSize(chart.canvas, height, width);
       },
     },
