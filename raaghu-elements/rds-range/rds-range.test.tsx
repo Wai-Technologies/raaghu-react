@@ -1021,4 +1021,9 @@ describe('audit fixes', () => {
     renderWithTheme(<RdsRange showTooltip />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsRange', 'showTooltip', '`valueLabelDisplay`');
   });
+
+  it('forwards data-testid to the root .rds-range', () => {
+    renderWithTheme(<RdsRange data-testid="price-range" />);
+    expect(screen.getByTestId('price-range')).toHaveClass('rds-range');
+  });
 });

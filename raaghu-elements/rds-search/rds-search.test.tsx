@@ -981,4 +981,9 @@ describe('RdsSearch audit fixes', () => {
     rerender(<RdsSearch value="" onChange={jest.fn()} iconPosition="right" />);
     expect(warnDeprecatedProp).toHaveBeenCalled();
   });
+
+  it('forwards data-testid to the root .rds-search', () => {
+    render(<RdsSearch value="" onChange={jest.fn()} data-testid="global-search" />);
+    expect(screen.getByTestId('global-search')).toHaveClass('rds-search');
+  });
 });

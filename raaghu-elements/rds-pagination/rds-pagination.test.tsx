@@ -866,4 +866,9 @@ describe('audit fixes', () => {
       totalRecords: 200,
     });
   });
+
+  it('forwards data-testid to the root .rds-pagination-wrapper', () => {
+    render(<RdsPagination totalPages={3} data-testid="users-pagination" />);
+    expect(screen.getByTestId('users-pagination')).toHaveClass('rds-pagination-wrapper');
+  });
 });

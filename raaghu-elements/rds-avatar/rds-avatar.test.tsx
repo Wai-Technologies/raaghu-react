@@ -821,4 +821,9 @@ describe('RdsAvatar additive renames', () => {
     expect(screen.queryByText('Old Title')).not.toBeInTheDocument();
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAvatar', 'title', '`name`');
   });
+
+  it('forwards data-testid to the root .rds-avatar', () => {
+    render(<RdsAvatar name="Ann" data-testid="user-avatar" />);
+    expect(screen.getByTestId('user-avatar')).toHaveClass('rds-avatar');
+  });
 });

@@ -88,6 +88,7 @@ const RdsRange= ({
   className,
   sx,
   ref,
+  'data-testid': dataTestId,
   ...props
 }: RdsRangeProps) => {
   if (leftLabel !== undefined) warnDeprecatedProp('RdsRange', 'leftLabel', '`min`');
@@ -158,6 +159,7 @@ const RdsRange= ({
     <Box
       ref={ref}
       className={generateClassName()}
+      data-testid={dataTestId}
       sx={[{ width: '100%' }, ...(Array.isArray(sx) ? sx : sx != null ? [sx] : [])]}
     >
       {((label && textLabel) || showValue) && (

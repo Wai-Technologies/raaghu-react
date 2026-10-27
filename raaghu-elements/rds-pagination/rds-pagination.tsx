@@ -101,6 +101,7 @@ const RdsPagination = ({
   showFirst: legacyShowFirst,
   showLast: legacyShowLast,
   showManualInput: legacyShowManualInput,
+  'data-testid': dataTestId,
   ...props
 }: RdsPaginationProps) => {
   if (controls !== undefined) warnDeprecatedProp('RdsPagination', 'controls', '`showFirstLast`, `showFirst`, `showLast`, `showPageSize`, `showPageInput` and `showLegend`');
@@ -184,7 +185,7 @@ const RdsPagination = ({
   const shouldShowManualInput = showPageInput ?? (showManualInput ||
     (styleConfig.showManualInputControl && showManualInput !== false));
   return (
-    <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}`}>
+    <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}`} data-testid={dataTestId}>
       {styleConfig.showPagination && (
       <MuiPagination
         className="rds-pagination"

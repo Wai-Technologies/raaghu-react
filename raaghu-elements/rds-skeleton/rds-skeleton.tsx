@@ -24,6 +24,7 @@ const RdsSkeleton = ({
   className = '',
   height,
   width,
+  'data-testid': dataTestId,
   ...props
 }: RdsSkeletonProps) => {
   if (shape !== undefined) warnDeprecatedProp('RdsSkeleton', 'shape', '`variant`');
@@ -43,6 +44,7 @@ const RdsSkeleton = ({
     return (
       <Box
         className={bemClass}
+        data-testid={dataTestId}
         style={{
           display: 'flex',
           flexDirection: isText ? 'column' : 'row',
@@ -75,6 +77,7 @@ const RdsSkeleton = ({
       variant={resolvedVariant}
       animation={animationValue}
       {...props}
+      data-testid={dataTestId}
       sx={mergedSx}
       className={bemClass}
     />

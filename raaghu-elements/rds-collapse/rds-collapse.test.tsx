@@ -572,4 +572,9 @@ describe('RdsCollapse additive renames', () => {
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(warn).toHaveBeenCalledWith('RdsCollapse', 'showToggleButton', '`hideToggle`');
   });
+
+  it('forwards data-testid to the root .rds-collapse', () => {
+    render(<RdsCollapse title="T" data-testid="details-collapse">c</RdsCollapse>);
+    expect(screen.getByTestId('details-collapse')).toHaveClass('rds-collapse');
+  });
 });

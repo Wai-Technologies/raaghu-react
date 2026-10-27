@@ -31,6 +31,7 @@ const RdsBottomNavigation = ({
   showLabels = false,
   value,
   onChange,
+  'data-testid': dataTestId,
   ...props
 }: RdsBottomNavigationProps) => {
   if (activeValue !== undefined) warnDeprecatedProp('RdsBottomNavigation', 'activeValue', '`value`');
@@ -42,7 +43,7 @@ const RdsBottomNavigation = ({
   };
 
   return (
-    <div className="rds-bottom-navigation">
+    <div className="rds-bottom-navigation" data-testid={dataTestId}>
       <MuiBottomNavigation
         {...props}
         value={value ?? activeValue}

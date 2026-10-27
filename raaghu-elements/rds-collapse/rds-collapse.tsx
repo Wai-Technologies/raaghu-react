@@ -38,6 +38,7 @@ const RdsCollapse = ({
   in: inProp,
   id: idProp,
   className,
+  'data-testid': dataTestId,
   ...props
 }: RdsCollapseProps) => {
   if (showToggleButton !== undefined) warnDeprecatedProp('RdsCollapse', 'showToggleButton', '`hideToggle`');
@@ -65,7 +66,7 @@ const RdsCollapse = ({
   };
 
   return (
-    <Box className={clsx('rds-collapse', className)}>
+    <Box className={clsx('rds-collapse', className)} data-testid={dataTestId}>
       {(hasTitle || showToggle) && (
         <Box
           sx={{

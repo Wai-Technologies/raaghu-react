@@ -52,6 +52,7 @@ const RdsSearch = ({
   slotProps: consumerSlotProps,
   className,
   id,
+  'data-testid': dataTestId,
   ...restProps
 }: RdsSearchProps) => {
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -165,7 +166,7 @@ const RdsSearch = ({
   };
 
   return (
-    <div className={containerClasses}>
+    <div className={containerClasses} data-testid={dataTestId}>
       {typeof label === 'string' && label.trim() !== '' && (
         <label className={labelClasses} htmlFor={inputId}>
           {label}

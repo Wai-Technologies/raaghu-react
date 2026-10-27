@@ -73,6 +73,7 @@ const RdsDivider = ({
   id,
   ref,
   className,
+  'data-testid': dataTestId,
   ...props
 }: RdsDividerProps) => {
   if (dividerMessage !== undefined) warnDeprecatedProp('RdsDivider', 'dividerMessage', '`children`');
@@ -138,6 +139,7 @@ const RdsDivider = ({
     return (
       <Box
         className={clsx('rds-divider', className)}
+        data-testid={dataTestId}
         sx={{
           display: 'flex',
           alignItems: 'center',
@@ -174,6 +176,7 @@ const RdsDivider = ({
   return (
     <Box
       className={clsx('rds-divider', className)}
+      data-testid={dataTestId}
       display="flex"
       alignItems="center"
       width="100%"

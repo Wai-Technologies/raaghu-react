@@ -795,4 +795,9 @@ describe('audit fixes', () => {
     expect(container.querySelector('.rds-rating--filled')).toBeInTheDocument();
     expect(container.querySelector('input[value="3"]')).toBeChecked();
   });
+
+  it('forwards data-testid to the root .rds-rating', () => {
+    renderWithTheme(<RdsRating data-testid="product-rating" />);
+    expect(screen.getByTestId('product-rating')).toHaveClass('rds-rating');
+  });
 });

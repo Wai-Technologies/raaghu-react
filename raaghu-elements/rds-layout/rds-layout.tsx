@@ -31,11 +31,12 @@ const RdsLayout= ({
   padding = 3,
   maxWidth = 'lg',
   className,
+  'data-testid': dataTestId,
   ...props
 }:RdsLayoutProps) => {
   const rootSx: SxProps<Theme> = { display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` };
   return (
-    <Box className={clsx('rds-layout', className)} sx={rootSx}>
+    <Box className={clsx('rds-layout', className)} sx={rootSx} data-testid={dataTestId}>
       {showHeader && header && (
         <RdsHeader
           title={header.title}
