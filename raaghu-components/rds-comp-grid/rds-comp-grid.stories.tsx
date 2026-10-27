@@ -384,10 +384,10 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data updated:', { rowId, columnKey, newValue, oldValue });
+   
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Edit completed:', { rowId, columnKey, newValue, isValid });
+  
 //     },
 //   },
 //   parameters: {
@@ -415,10 +415,10 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data updated with selection:', { rowId, columnKey, newValue, oldValue });
+     
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Edit completed with selection:', { rowId, columnKey, newValue, isValid });
+    
 //     },
 //   },
 //   parameters: {
@@ -448,10 +448,9 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data updated with actions:', { rowId, columnKey, newValue, oldValue });
-//     },
+    
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Edit completed with actions:', { rowId, columnKey, newValue, isValid });
+    
 //     },
 //   },
 //   parameters: {
@@ -481,10 +480,10 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Button actions - Cell edited:', { rowId, columnKey, newValue, oldValue });
+     
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Button actions - Edit completed:', { rowId, columnKey, newValue, isValid });
+    
 //     },
 //   },
 //   parameters: {
@@ -551,10 +550,10 @@ export const Default: Story = {
 //     enableColumnSwapping: false,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Custom buttons - Cell edited:', { rowId, columnKey, newValue, oldValue });
+     
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Custom buttons - Edit completed:', { rowId, columnKey, newValue, isValid });
+      
 //     },
 //   },
 //   parameters: {
@@ -583,10 +582,8 @@ export const Default: Story = {
 //     enableColumnSwapping: false,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data updated with pagination:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Edit completed with pagination:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -684,10 +681,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Large dataset - Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Large dataset - Edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -790,10 +785,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Column resizing - Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Column resizing - Edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -884,10 +877,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Inline edit with truncation - Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Inline edit with truncation - Edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -1439,10 +1430,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Cell edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -1564,10 +1553,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Data type edit:', { rowId, columnKey, newValue, oldValue });
-//     },
+//     }
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Data type edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -1665,10 +1652,8 @@ export const Default: Story = {
 //     showHeader: true,
 //     showSubHeader: true,
 //     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-//       console.log('Row edit - Cell edited:', { rowId, columnKey, newValue, oldValue });
 //     },
 //     onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-//       console.log('Row edit - Cell edit completed:', { rowId, columnKey, newValue, isValid });
 //     },
 //   },
 //   parameters: {
@@ -1775,7 +1760,7 @@ export const Default: Story = {
 //     const handleExportData = () => {
 //       if (gridRef.current) {
 //         const csvData = gridRef.current.exportData('csv');
-//         console.log('CSV Export:', csvData);
+      
 //         alert('CSV data exported to console!');
 //       }
 //     };
@@ -1876,11 +1861,11 @@ export const Default: Story = {
 //           pagination={true}
 //           recordsPerPage={10}
 //           onRowSelect={(data) => {
-//             console.log('Row selected:', data);
+            
 //             updateGridInfo();
 //           }}
 //           onDataChange={(newData) => {
-//             console.log('Data changed:', newData);
+      
 //             updateGridInfo();
 //           }}
 //         />

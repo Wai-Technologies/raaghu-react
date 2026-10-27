@@ -42,12 +42,24 @@ import {
   type KanbanAssignee,
 } from './kanban-board-helpers';
 
+interface KanbanOption {
+  val: string | number;
+  label: string;
+}
+
+type KanbanTagValue = string | number;
+
 interface SortableSubCardProps {
   subCard: KanbanSubCard;
   subCardIndex: number;
   boardIndex: number;
   avatarData?: KanbanAssignee[];
-  toggleSubCardDropdown: (id: number, e: MouseEvent<HTMLElement>, subCard: any, cardIndex: number) => void;
+  toggleSubCardDropdown: (
+    id: number,
+    e: MouseEvent<HTMLElement>,
+    subCard: KanbanSubCard,
+    cardIndex: number
+  ) => void;
 }
 
 const SortableSubCard = ({ subCard, subCardIndex, boardIndex, avatarData, toggleSubCardDropdown }: SortableSubCardProps) => {
@@ -381,7 +393,7 @@ const RdsCompKanbanBoard = ({
                                   onChange={(e) => handleAddQuestionDataChanges(e.target.value, "supportCategoryId")}
                                   MenuProps={{ slotProps: { paper: { className: "rds-kanban-board__select-menu" } } }}
                                 >
-                                  {resolvedCategoryOptions?.map((category: any) => (
+                                  {resolvedCategoryOptions?.map((category: KanbanOption) => (
                                     <MenuItem key={category.val} value={category.val}>{category.label}</MenuItem>
                                   ))}
                                 </Select>
@@ -392,9 +404,13 @@ const RdsCompKanbanBoard = ({
                                 multiple
                                 size="small"
                                 options={resolvedTagOptions || []}
-                                getOptionLabel={(option: any) => option.label}
-                                value={(Array.isArray(addQuestionData?.supportTagIds) ? addQuestionData.supportTagIds : []) as any[]}
-                                onChange={(_event, value) => onSelectedCreators(value)}
+                                getOptionLabel={(option: KanbanOption) => option.label}
+value={(resolvedTagOptions || []).filter((option: KanbanOption) =>
+  (Array.isArray(addQuestionData?.supportTagIds)
+    ? addQuestionData.supportTagIds
+    : []
+  ).includes(option.val)
+)}                                onChange={(_event, value) => onSelectedCreators(value)}
                                 className="rds-kanban-board__autocomplete"
                                 renderInput={(params) => {
                                   const currentTags = addQuestionData?.supportTagIds || [];

@@ -27,10 +27,11 @@ const meta: Meta = {
             control: { type: 'text' },
             description: 'Label for the date picker'
         },
-        disabled: {
-            control: { type: 'boolean' },
-            description: 'Whether the date picker is disabled'
-        },
+       
+           disabled: {
+    control: { type: "boolean" },
+    description: "Disables the date picker when true.",
+},
         readOnly: {
             control: { type: 'boolean' },
             description: 'Whether the date picker is read-only'

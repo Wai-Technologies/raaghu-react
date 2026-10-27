@@ -82,10 +82,10 @@ export const Default: Story = {
 export const Simple: Story = {
   args: {
     items: [
-      { label: 'Home', href: '/' },
-      { label: 'Current', active: true },
-      { label: 'Category', href: '/products/category' },
-      { label: 'Subcategory', href: '/products/category/subcategory' },
+      { label: 'Home', onClick: () => {} },
+      { label: 'Products', onClick: () => {} },
+      { label: 'Category', onClick: () => {} },
+      { label: 'Subcategory', onClick: () => {} },
       { label: 'Current Page', active: true },
     ],
     layout: 'without background',
