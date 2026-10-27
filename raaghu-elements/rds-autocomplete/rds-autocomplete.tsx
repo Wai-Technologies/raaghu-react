@@ -165,6 +165,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   renderValue,
   clearIcon,
   disabled,
+  'data-testid': dataTestId,
   ...muiAutocompleteProps
 }: RdsAutocompleteProps<T>) => {
   if (display?.mandatory !== undefined) warnDeprecatedProp('RdsAutocomplete', 'display.mandatory', '`required`');
@@ -322,7 +323,11 @@ const RdsAutocomplete = <T extends { label?: string },>({
       : mergeListbox(consumerListbox);
 
   return (
-    <div ref={containerRef} className={`rds-autocomplete ${sizeClass} rds-autocomplete--root`}>
+    <div
+      ref={containerRef}
+      className={`rds-autocomplete ${sizeClass} rds-autocomplete--root`}
+      data-testid={dataTestId}
+    >
       {showTitle && label && (
         <label htmlFor={inputId} className={`rds-autocomplete__label rds-autocomplete__label--${selectSizeResolved}`}>
           {label}

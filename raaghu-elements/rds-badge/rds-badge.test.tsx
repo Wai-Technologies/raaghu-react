@@ -714,4 +714,9 @@ describe('RdsBadge audit fixes', () => {
     rerender(<RdsBadge variant="dot"><span>x</span></RdsBadge>);
     expect(container.querySelector('.MuiBadge-dot')).toBeInTheDocument();
   });
+
+  it('forwards data-testid to the root .rds-badge', () => {
+    render(<RdsBadge badgeContent={3} data-testid="notif-badge"><span>bell</span></RdsBadge>);
+    expect(screen.getByTestId('notif-badge')).toHaveClass('rds-badge');
+  });
 });

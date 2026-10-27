@@ -730,4 +730,9 @@ describe('RdsAutocomplete additive renames', () => {
     expect(screen.getAllByTestId('old').length).toBe(2);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsAutocomplete', 'userIcon', '`getOptionIcon`');
   });
+
+  it('forwards data-testid to the root .rds-autocomplete', () => {
+    render(<RdsAutocomplete options={options} data-testid="country-autocomplete" />);
+    expect(screen.getByTestId('country-autocomplete')).toHaveClass('rds-autocomplete');
+  });
 });

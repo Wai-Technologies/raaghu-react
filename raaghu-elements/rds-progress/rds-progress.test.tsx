@@ -413,4 +413,9 @@ describe('doc-09 renames', () => {
     const legacy = render(<RdsProgress shape="stepper" stepperType="circle" steps={2} />);
     expect(legacy.container.querySelectorAll('.rds-progress__stepper-inner-dot')).toHaveLength(5);
   });
+
+  it('forwards data-testid to the root .rds-progress', () => {
+    render(<RdsProgress data-testid="upload-progress" mode="determinate" value={40} />);
+    expect(screen.getByTestId('upload-progress')).toHaveClass('rds-progress');
+  });
 });

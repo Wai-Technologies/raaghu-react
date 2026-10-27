@@ -667,4 +667,11 @@ describe('audit fixes (renames)', () => {
     render(<RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'Delete', color: 'danger' }]} />);
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsMenu', 'items[].color="danger"', '`color: "error"`');
   });
+
+  it('forwards data-testid to the root .rds-menu', () => {
+    render(
+      <RdsMenu open anchorEl={document.body} items={[{ id: 1, label: 'A' }]} data-testid="actions-menu" />,
+    );
+    expect(screen.getByTestId('actions-menu')).toHaveClass('rds-menu');
+  });
 });
