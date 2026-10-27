@@ -6,7 +6,14 @@ import RdsSearch from './rds-search';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-search.scss', () => ({}));
-jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  invokeValueFirstOnChange: jest.fn(
+    (onChange: ((value: unknown, event: unknown) => void) | undefined, value: unknown, event: unknown) => {
+      onChange?.(value, event);
+    },
+  ),
+}));
 
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
@@ -251,9 +258,9 @@ describe('RdsSearch', () => {
       
       expect(handleChange).toHaveBeenCalled();
       expect(handleChange).toHaveBeenCalledTimes(4);
-      expect(handleChange).toHaveBeenCalledWith('t');
-      expect(handleChange).toHaveBeenCalledWith('e');
-      expect(handleChange).toHaveBeenCalledWith('s');
+      expect(handleChange).toHaveBeenCalledWith('t', expect.objectContaining({ type: 'change' }));
+      expect(handleChange).toHaveBeenCalledWith('e', expect.objectContaining({ type: 'change' }));
+      expect(handleChange).toHaveBeenCalledWith('s', expect.objectContaining({ type: 'change' }));
     });
 
     it('should update input value', async () => {
@@ -380,7 +387,7 @@ describe('RdsSearch', () => {
       const clearButton = screen.getByLabelText('clear');
       fireEvent.click(clearButton);
       
-      expect(handleChange).toHaveBeenCalledWith('');
+      expect(handleChange).toHaveBeenCalledWith('', expect.anything());
       expect(handleClear).toHaveBeenCalled();
     });
 

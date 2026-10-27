@@ -6,7 +6,14 @@ import RdsRange from './rds-range';
 import { axe } from 'jest-axe';
 
 jest.mock('./rds-range.scss', () => ({}));
-jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  invokeValueFirstOnChange: jest.fn(
+    (onChange: ((value: unknown, event: unknown) => void) | undefined, value: unknown, event: unknown) => {
+      onChange?.(value, event);
+    },
+  ),
+}));
 const renderWithTheme = (component: React.ReactElement) => {
   const theme = createTheme();
   return render(

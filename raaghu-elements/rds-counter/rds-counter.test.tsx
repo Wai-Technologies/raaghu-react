@@ -6,7 +6,14 @@ import RdsCounter from './rds-counter';
 import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 jest.mock('./rds-counter.scss', () => ({}));
-jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  invokeValueFirstOnChange: jest.fn(
+    (onChange: ((value: unknown, event: unknown) => void) | undefined, value: unknown, event: unknown) => {
+      onChange?.(value, event);
+    },
+  ),
+}));
 
 const textbox = () => screen.getByRole('textbox') as HTMLInputElement;
 const inc = () => screen.getAllByRole('button')[1];
@@ -148,14 +155,14 @@ describe('RdsCounter', () => {
       const handleChange = jest.fn();
       render(<RdsCounter value={5} onChange={handleChange} min={0} max={10} />);
       fireEvent.click(inc());
-      expect(handleChange).toHaveBeenCalledWith(6);
+      expect(handleChange).toHaveBeenCalledWith(6, expect.anything());
     });
 
     it('should call onChange when value changes via input', () => {
       const handleChange = jest.fn();
       render(<RdsCounter showInput={true} value={5} onChange={handleChange} min={0} max={100} />);
       fireEvent.change(textbox(), { target: { value: '42' } });
-      expect(handleChange).toHaveBeenCalledWith(42);
+      expect(handleChange).toHaveBeenCalledWith(42, expect.anything());
     });
   });
 
@@ -265,7 +272,7 @@ describe('audit fixes', () => {
       expect(handleChange).not.toHaveBeenCalled();
       expect(input.value).toBe('1');
       fireEvent.change(input, { target: { value: '12' } });
-      expect(handleChange).toHaveBeenCalledWith(12);
+      expect(handleChange).toHaveBeenCalledWith(12, expect.anything());
     });
 
     it('clamps an intermediate value on blur and emits it when it changed', () => {
@@ -274,7 +281,7 @@ describe('audit fixes', () => {
       const input = textbox();
       fireEvent.change(input, { target: { value: '1' } });
       fireEvent.blur(input);
-      expect(handleChange).toHaveBeenCalledWith(5);
+      expect(handleChange).toHaveBeenCalledWith(5, expect.anything());
       expect(input.value).toBe('8');
     });
 
@@ -304,7 +311,7 @@ describe('audit fixes', () => {
       fireEvent.change(input, { target: { value: '-' } });
       expect(input.value).toBe('-');
       fireEvent.change(input, { target: { value: '-3' } });
-      expect(handleChange).toHaveBeenCalledWith(-3);
+      expect(handleChange).toHaveBeenCalledWith(-3, expect.anything());
     });
   });
 
@@ -374,9 +381,9 @@ describe('audit fixes', () => {
       render(<RdsCounter value={5} min={0} max={6} step={1} onChange={handleChange} />);
       const input = screen.getByRole('textbox');
       fireEvent.keyDown(input, { key: 'ArrowUp' });
-      expect(handleChange).toHaveBeenLastCalledWith(6);
+      expect(handleChange).toHaveBeenLastCalledWith(6, expect.anything());
       fireEvent.keyDown(input, { key: 'ArrowDown' });
-      expect(handleChange).toHaveBeenLastCalledWith(4);
+      expect(handleChange).toHaveBeenLastCalledWith(4, expect.anything());
     });
 
     it('does not step past max/min', () => {

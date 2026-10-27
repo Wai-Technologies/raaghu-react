@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import clsx from 'clsx';
-import { warnDeprecatedProp } from '../shared/utils/deprecation';
+import { invokeValueFirstOnChange, warnDeprecatedProp } from '../shared/utils/deprecation';
 import './rds-table.scss';
 
 const DEFAULT_ROWS_PER_PAGE_OPTIONS = [5, 10, 25];
@@ -81,8 +81,11 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
   selectable?: boolean;
   /** Controlled selected row ids. */
   selected?: string[];
-  /** Called with the change event and the next selected row ids. */
-  onSelectionChange?: (event: ChangeEvent<HTMLInputElement>, ids: string[]) => void;
+  /**
+   * Value-first selection handler (canonical for custom Raaghu controls).
+   * Signature: `(ids, event) => void` — prefer reading `ids`.
+   */
+  onSelectionChange?: (ids: string[], event: ChangeEvent<HTMLInputElement>) => void;
   /**
    * @deprecated Use `selected` instead.
    * Selected row ids. With `onRowSelect` the selection is fully controlled by this prop;
@@ -96,10 +99,13 @@ export interface RdsTableProps extends Omit<TableProps, 'children' | 'component'
   onSortChange?: (columnId: string | undefined, direction: 'asc' | 'desc' | undefined) => void;
   defaultSortBy?: string;
   defaultSortDirection?: 'asc' | 'desc';
-  /** Fired when per-column checkbox/radio cell selection changes. */
+  /**
+   * Value-first handler when per-column checkbox/radio cell selection changes.
+   * Signature: `(selection, event) => void` — prefer reading `selection`.
+   */
   onCellSelectionChange?: (
+    selection: { checkbox: string[]; radio: string | null },
     event: ChangeEvent<HTMLInputElement>,
-    selection: { checkbox: string[]; radio: string | null }
   ) => void;
 }
 
@@ -183,7 +189,7 @@ const RdsTable = ({
   const currentSelectedRows = controlledSelection ?? internalSelectedRows;
   const handleRowSelection = (event: ChangeEvent<HTMLInputElement>, nextRows: string[]) => {
     if (controlledSelection === undefined) updateTableState({ internalSelectedRows: nextRows });
-    onSelectionChange?.(event, nextRows);
+    invokeValueFirstOnChange(onSelectionChange, nextRows, event);
     onRowSelect?.(nextRows);
   };
   const sortBy = controlledSortBy !== undefined ? controlledSortBy : internalSortBy;
@@ -231,12 +237,20 @@ const RdsTable = ({
     const next = new Set(cellCheckboxSelected);
     if (next.has(rowId)) next.delete(rowId); else next.add(rowId);
     updateTableState({ cellCheckboxSelected: next });
-    onCellSelectionChange?.(event, { checkbox: Array.from(next), radio: cellRadioSelected });
+    invokeValueFirstOnChange(
+      onCellSelectionChange,
+      { checkbox: Array.from(next), radio: cellRadioSelected },
+      event,
+    );
   };
 
   const selectCellRadio = (event: ChangeEvent<HTMLInputElement>, rowId: string) => {
     updateTableState({ cellRadioSelected: rowId });
-    onCellSelectionChange?.(event, { checkbox: Array.from(cellCheckboxSelected), radio: rowId });
+    invokeValueFirstOnChange(
+      onCellSelectionChange,
+      { checkbox: Array.from(cellCheckboxSelected), radio: rowId },
+      event,
+    );
   };
 
   const checkboxRowIds = useMemo<string[]>(
@@ -364,10 +378,11 @@ const RdsTable = ({
                             ? new Set(checkboxRowIds)
                             : new Set<string>();
                           updateTableState({ cellCheckboxSelected: next });
-                          onCellSelectionChange?.(e, {
-                            checkbox: Array.from(next),
-                            radio: cellRadioSelected,
-                          });
+                          invokeValueFirstOnChange(
+                            onCellSelectionChange,
+                            { checkbox: Array.from(next), radio: cellRadioSelected },
+                            e,
+                          );
                         }}
                         size="small"
                         disableRipple

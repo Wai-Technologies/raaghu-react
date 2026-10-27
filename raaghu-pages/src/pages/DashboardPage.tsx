@@ -47,6 +47,20 @@ import {
 } from '@mui/icons-material';
 
 
+/** Soft tint from a semantic token — preferred over hardcoded rgba(hex). */
+const tint = (token: string, percent: number) =>
+  `color-mix(in srgb, ${token} ${percent}%, transparent)`;
+
+const COLOR = {
+  primary: 'var(--rds-primary-main)',
+  secondary: 'var(--rds-secondary-main)',
+  success: 'var(--rds-success-main)',
+  warning: 'var(--rds-warning-main)',
+  error: 'var(--rds-error-main)',
+  info: 'var(--rds-info-main)',
+  white: 'var(--rds-color-white)',
+} as const;
+
 const KPI_CARDS = [
   {
     label: 'Total Users',
@@ -54,9 +68,9 @@ const KPI_CARDS = [
     trend: '+12%',
     trendUp: true,
     subtitle: 'vs last month',
-    accent: '#4F46E5',
-    iconBg: 'rgba(79,70,229,0.12)',
-    icon: <PeopleIcon sx={{ fontSize: 22, color: '#4F46E5' }} />,
+    accent: COLOR.primary,
+    iconBg: tint(COLOR.primary, 12),
+    icon: <PeopleIcon sx={{ fontSize: 22, color: COLOR.primary }} />,
     progress: 72,
   },
   {
@@ -65,9 +79,9 @@ const KPI_CARDS = [
     trend: '+8%',
     trendUp: true,
     subtitle: 'vs last month',
-    accent: '#059669',
-    iconBg: 'rgba(5,150,105,0.12)',
-    icon: <MoneyIcon sx={{ fontSize: 22, color: '#059669' }} />,
+    accent: COLOR.success,
+    iconBg: tint(COLOR.success, 12),
+    icon: <MoneyIcon sx={{ fontSize: 22, color: COLOR.success }} />,
     progress: 58,
   },
   {
@@ -76,9 +90,9 @@ const KPI_CARDS = [
     trend: '+3',
     trendUp: true,
     subtitle: 'new this week',
-    accent: '#7C3AED',
-    iconBg: 'rgba(124,58,237,0.12)',
-    icon: <WorkIcon sx={{ fontSize: 22, color: '#7C3AED' }} />,
+    accent: COLOR.secondary,
+    iconBg: tint(COLOR.secondary, 12),
+    icon: <WorkIcon sx={{ fontSize: 22, color: COLOR.secondary }} />,
     progress: 81,
   },
   {
@@ -87,33 +101,33 @@ const KPI_CARDS = [
     trend: '-6',
     trendUp: false,
     subtitle: 'resolved today',
-    accent: '#D97706',
-    iconBg: 'rgba(217,119,6,0.12)',
-    icon: <TicketIcon sx={{ fontSize: 22, color: '#D97706' }} />,
+    accent: COLOR.warning,
+    iconBg: tint(COLOR.warning, 12),
+    icon: <TicketIcon sx={{ fontSize: 22, color: COLOR.warning }} />,
     progress: 35,
   },
 ];
 
 const ACTIVITY = [
-  { initials: 'AM', user: 'Alice Martin',  action: 'Closed ticket #1284 — Login timeout',               time: '5m ago',  tag: 'Ticket',  avatarColor: '#4F46E5' },
-  { initials: 'BC', user: 'Bob Chen',      action: 'Created new project "Q3 Launch"',                   time: '23m ago', tag: 'Project', avatarColor: '#059669' },
-  { initials: 'SK', user: 'Sarah Kim',     action: 'Updated user permissions for Marketing team',       time: '1h ago',  tag: 'Users',   avatarColor: '#7C3AED' },
-  { initials: 'JP', user: 'James Patel',   action: 'Deployed release v2.4.1 to production',             time: '3h ago',  tag: 'Deploy',  avatarColor: '#DC2626' },
-  { initials: 'ED', user: 'Emily Davis',   action: 'Resolved ticket #1279 — Dashboard crash on mobile', time: '5h ago',  tag: 'Ticket',  avatarColor: '#0891B2' },
+  { initials: 'AM', user: 'Alice Martin',  action: 'Closed ticket #1284 — Login timeout',               time: '5m ago',  tag: 'Ticket',  avatarColor: COLOR.primary },
+  { initials: 'BC', user: 'Bob Chen',      action: 'Created new project "Q3 Launch"',                   time: '23m ago', tag: 'Project', avatarColor: COLOR.success },
+  { initials: 'SK', user: 'Sarah Kim',     action: 'Updated user permissions for Marketing team',       time: '1h ago',  tag: 'Users',   avatarColor: COLOR.secondary },
+  { initials: 'JP', user: 'James Patel',   action: 'Deployed release v2.4.1 to production',             time: '3h ago',  tag: 'Deploy',  avatarColor: COLOR.error },
+  { initials: 'ED', user: 'Emily Davis',   action: 'Resolved ticket #1279 — Dashboard crash on mobile', time: '5h ago',  tag: 'Ticket',  avatarColor: COLOR.info },
 ];
 
 const TAG_COLORS: Record<string, { bg: string; color: string }> = {
-  Ticket:  { bg: 'rgba(79,70,229,0.1)',  color: '#4F46E5' },
-  Project: { bg: 'rgba(5,150,105,0.1)',  color: '#059669' },
-  Users:   { bg: 'rgba(124,58,237,0.1)', color: '#7C3AED' },
-  Deploy:  { bg: 'rgba(220,38,38,0.1)',  color: '#DC2626' },
+  Ticket:  { bg: tint(COLOR.primary, 10),   color: COLOR.primary },
+  Project: { bg: tint(COLOR.success, 10),   color: COLOR.success },
+  Users:   { bg: tint(COLOR.secondary, 10), color: COLOR.secondary },
+  Deploy:  { bg: tint(COLOR.error, 10),     color: COLOR.error },
 };
 
 const QUICK_STATS = [
-  { label: 'Uptime',         value: '99.9%',  icon: <CheckIcon sx={{ fontSize: 18, color: '#059669' }} />, color: '#059669' },
-  { label: 'Avg. Response',  value: '142ms',  icon: <FlashIcon sx={{ fontSize: 18, color: '#4F46E5' }} />, color: '#4F46E5' },
-  { label: 'Critical Issues',value: '2',      icon: <ErrorIcon sx={{ fontSize: 18, color: '#DC2626' }} />, color: '#DC2626' },
-  { label: 'Pending Reviews',value: '18',     icon: <ClockIcon sx={{ fontSize: 18, color: '#D97706' }} />, color: '#D97706' },
+  { label: 'Uptime',          value: '99.9%', icon: <CheckIcon sx={{ fontSize: 18, color: COLOR.success }} />, color: COLOR.success, iconBg: tint(COLOR.success, 10) },
+  { label: 'Avg. Response',   value: '142ms', icon: <FlashIcon sx={{ fontSize: 18, color: COLOR.primary }} />, color: COLOR.primary, iconBg: tint(COLOR.primary, 10) },
+  { label: 'Critical Issues', value: '2',     icon: <ErrorIcon sx={{ fontSize: 18, color: COLOR.error }} />,   color: COLOR.error,   iconBg: tint(COLOR.error, 10) },
+  { label: 'Pending Reviews', value: '18',    icon: <ClockIcon sx={{ fontSize: 18, color: COLOR.warning }} />, color: COLOR.warning, iconBg: tint(COLOR.warning, 10) },
 ];
 
 const NAV_ITEMS = [
@@ -208,10 +222,11 @@ export default function DashboardPage() {
                   sx={{
                     width: 34,
                     height: 34,
-                    background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
+                    background: `linear-gradient(135deg, ${COLOR.primary} 0%, ${COLOR.secondary} 100%)`,
+                    color: COLOR.white,
                     fontSize: 13,
                     fontWeight: 700,
-                    boxShadow: '0 2px 8px rgba(79,70,229,0.4)',
+                    boxShadow: `0 2px 8px ${tint(COLOR.primary, 40)}`,
                   }}
                 >
                   JD
@@ -306,15 +321,15 @@ export default function DashboardPage() {
           </Typography>
         </Box>
         <Chip
-          icon={<CheckIcon sx={{ fontSize: '14px !important', color: '#059669 !important' }} />}
+          icon={<CheckIcon sx={{ fontSize: '14px !important', color: `${COLOR.success} !important` }} />}
           label="All systems operational"
           size="small"
           sx={{
-            bgcolor: 'rgba(5,150,105,0.1)',
-            color: '#059669',
+            bgcolor: tint(COLOR.success, 10),
+            color: COLOR.success,
             fontWeight: 600,
             fontSize: 12,
-            border: '1px solid rgba(5,150,105,0.2)',
+            border: `1px solid ${tint(COLOR.success, 20)}`,
             height: 28,
           }}
         />
@@ -336,12 +351,12 @@ export default function DashboardPage() {
               bgcolor: 'background.paper',
               border: '1px solid var(--rds-divider)',
               borderRadius: 'var(--rds-border-radius-md)',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)',
+              boxShadow: 'var(--rds-elevation-1)',
               transition: 'transform 0.15s ease, box-shadow 0.15s ease',
               cursor: 'default',
               '&:hover': {
                 transform: 'translateY(-2px)',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                boxShadow: 'var(--rds-elevation-2)',
               },
             }}
           >
@@ -371,13 +386,13 @@ export default function DashboardPage() {
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1.5 }}>
               {kpi.trendUp
-                ? <TrendingUp sx={{ fontSize: 15, color: '#059669' }} />
-                : <TrendingDown sx={{ fontSize: 15, color: '#D97706' }} />}
+                ? <TrendingUp sx={{ fontSize: 15, color: COLOR.success }} />
+                : <TrendingDown sx={{ fontSize: 15, color: COLOR.warning }} />}
               <Typography
                 variant="caption"
                 sx={{
                   fontWeight: 700,
-                  color: kpi.trendUp ? '#059669' : '#D97706',
+                  color: kpi.trendUp ? COLOR.success : COLOR.warning,
                 }}
               >
                 {kpi.trend}
@@ -388,7 +403,7 @@ export default function DashboardPage() {
             </Box>
 
             <LinearProgress
-              progressVariant="determinate"
+              variant="determinate"
               value={kpi.progress}
               sx={{
                 height: 4,
@@ -417,7 +432,7 @@ export default function DashboardPage() {
             border: '1px solid var(--rds-divider)',
             borderRadius: 'var(--rds-border-radius-md)',
             overflow: 'hidden',
-            boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+            boxShadow: 'var(--rds-elevation-1)',
           }}
         >
           <Box
@@ -441,14 +456,14 @@ export default function DashboardPage() {
             <Typography
               variant="caption"
               sx={{
-                color: '#4F46E5',
+                color: COLOR.primary,
                 cursor: 'pointer',
                 fontWeight: 600,
                 px: 1.5,
                 py: 0.5,
                 borderRadius: 1,
-                bgcolor: 'rgba(79,70,229,0.08)',
-                '&:hover': { bgcolor: 'rgba(79,70,229,0.14)' },
+                bgcolor: tint(COLOR.primary, 8),
+                '&:hover': { bgcolor: tint(COLOR.primary, 14) },
                 transition: 'background 0.15s',
               }}
             >
@@ -473,9 +488,10 @@ export default function DashboardPage() {
                         width: 38,
                         height: 38,
                         bgcolor: item.avatarColor,
+                        color: COLOR.white,
                         fontSize: 13,
                         fontWeight: 700,
-                        boxShadow: `0 2px 6px ${item.avatarColor}55`,
+                        boxShadow: `0 2px 6px ${tint(item.avatarColor, 33)}`,
                       }}
                     >
                       {item.initials}
@@ -523,7 +539,7 @@ export default function DashboardPage() {
               border: '1px solid var(--rds-divider)',
               borderRadius: 'var(--rds-border-radius-md)',
               overflow: 'hidden',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+              boxShadow: 'var(--rds-elevation-1)',
             }}
           >
             <Box sx={{ px: 2.5, py: 2, borderBottom: '1px solid var(--rds-divider)' }}>
@@ -543,7 +559,7 @@ export default function DashboardPage() {
                         width: 30,
                         height: 30,
                         borderRadius: 1.5,
-                        bgcolor: `${stat.color}18`,
+                        bgcolor: stat.iconBg,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -567,9 +583,9 @@ export default function DashboardPage() {
             sx={{
               p: 2.5,
               borderRadius: 'var(--rds-border-radius-md)',
-              background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
-              color: '#fff',
-              boxShadow: '0 4px 20px rgba(79,70,229,0.35)',
+              background: `linear-gradient(135deg, ${COLOR.primary} 0%, ${COLOR.secondary} 100%)`,
+              color: COLOR.white,
+              boxShadow: `0 4px 20px ${tint(COLOR.primary, 35)}`,
             }}
           >
             <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5, opacity: 0.9, fontSize: 13 }}>
@@ -579,14 +595,14 @@ export default function DashboardPage() {
               78%
             </Typography>
             <LinearProgress
-              progressVariant="determinate"
+              variant="determinate"
               value={78}
               sx={{
                 height: 6,
                 borderRadius: 99,
-                bgcolor: 'rgba(255,255,255,0.25)',
+                bgcolor: tint(COLOR.white, 25),
                 mb: 1.5,
-                '& .MuiLinearProgress-bar': { bgcolor: '#fff', borderRadius: 99 },
+                '& .MuiLinearProgress-bar': { bgcolor: COLOR.white, borderRadius: 99 },
               }}
             />
             <Typography variant="caption" sx={{ opacity: 0.75, fontSize: 12 }}>

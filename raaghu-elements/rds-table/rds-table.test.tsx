@@ -8,7 +8,14 @@ import { warnDeprecatedProp } from '../shared/utils/deprecation';
 
 
 jest.mock('./rds-table.scss', () => ({}));
-jest.mock('../shared/utils/deprecation', () => ({ warnDeprecatedProp: jest.fn() }));
+jest.mock('../shared/utils/deprecation', () => ({
+  warnDeprecatedProp: jest.fn(),
+  invokeValueFirstOnChange: jest.fn(
+    (onChange: ((value: unknown, event: unknown) => void) | undefined, value: unknown, event: unknown) => {
+      onChange?.(value, event);
+    },
+  ),
+}));
 jest.mock('@mui/icons-material/SwapVert', () => {
   return function MockSwapVertIcon() {
     return <div data-testid="swap-vert-icon">SwapVert</div>;
@@ -298,9 +305,10 @@ describe('RdsTable', () => {
       const checkbox = container.querySelector('.rds-table__body input[type="checkbox"]') as HTMLInputElement;
       fireEvent.click(checkbox);
       expect(onCellSelectionChange).toHaveBeenCalled();
-      const selection = onCellSelectionChange.mock.calls[0][1];
+      const selection = onCellSelectionChange.mock.calls[0][0];
       expect(selection.checkbox).toHaveLength(1);
       expect(selection.radio).toBeNull();
+      expect(onCellSelectionChange.mock.calls[0][1]).toEqual(expect.anything());
     });
 
     it('should select all checkbox cells in column', () => {
@@ -550,17 +558,17 @@ describe('audit fixes', () => {
     const onSelectionChange = jest.fn();
     renderWithTheme(<RdsTable columns={mockColumns} rows={rows} selectable onSelectionChange={onSelectionChange} />);
     fireEvent.click(screen.getByLabelText('Select row 1'));
-    expect(onSelectionChange).toHaveBeenCalledWith(expect.anything(), ['k1']);
+    expect(onSelectionChange).toHaveBeenCalledWith(['k1'], expect.anything());
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsTable', 'rows[].key', '`rows[].id`');
   });
 
-  it('541: selected is controlled and onSelectionChange receives event and ids', () => {
+  it('541: selected is controlled and onSelectionChange receives ids then event', () => {
     const onSelectionChange = jest.fn();
     renderWithTheme(
       <RdsTable columns={mockColumns} rows={mockRows} selectable selected={['1']} onSelectionChange={onSelectionChange} />
     );
     fireEvent.click(screen.getByLabelText('Select row 2'));
-    expect(onSelectionChange).toHaveBeenCalledWith(expect.objectContaining({ target: expect.anything() }), ['1', '2']);
+    expect(onSelectionChange).toHaveBeenCalledWith(['1', '2'], expect.objectContaining({ target: expect.anything() }));
     expect(screen.getByLabelText('Select row 2')).not.toBeChecked();
   });
 
