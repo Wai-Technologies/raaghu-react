@@ -219,6 +219,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
                     <WorldMap
                         styleFunction={stylingFunction}
                         color={resolvedColor}
+                        backgroundColor="transparent"
                         title=""
                         valueSuffix={valueSuffix}
                         size={mapSize}

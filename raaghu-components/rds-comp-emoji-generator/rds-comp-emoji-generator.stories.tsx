@@ -48,6 +48,7 @@ const meta: Meta = {
             control: { type: "number", min: 10, max: 200, step: 10 },
             description: "Maximum number of emojis to display in grid",
         },
+        variant: { table: { disable: true } },
         onChange: {
             action: 'emoji-selected',
             description: "Callback when emoji is clicked",
@@ -91,6 +92,9 @@ export const QuickReactions: Story = {
         maxEmojis: 32,
     },
     parameters: {
+        controls: {
+            exclude: ['onChange', 'category', 'showSkinTone', 'showFooter', 'skinTonePickerOpen', 'maxEmojis'],
+        },
         docs: {
             description: {
                 story: 'A simplified emoji generator for quick reactions. Shows only the category tabs and emoji grid without search or footer text. Perfect for chat applications or quick emoji picking scenarios.',

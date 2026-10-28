@@ -144,8 +144,8 @@ export function chartSeriesColors(count = CHART_SERIES_VARS.length): string[] {
  */
 function chartGridColor(): string {
   return isDarkMode()
-    ? getCSSVar('--rds-comp-chart-grid-color-dark', 'var(--rds-divider, var(--mui-palette-divider, currentColor))')
-    : getCSSVar('--rds-comp-chart-grid-color-light', 'var(--rds-divider, var(--mui-palette-divider, currentColor))');
+    ? getCSSVar('--rds-comp-chart-grid-color-dark', getCSSVar('--rds-divider', 'rgba(255,255,255,0.28)'))
+    : getCSSVar('--rds-comp-chart-grid-color-light', getCSSVar('--rds-divider', 'rgba(0,0,0,0.12)'));
 }
 
 /**

@@ -177,7 +177,7 @@ const RdsAvatar = ({
       >
         {visibleAvatars.map((avatar, idx) => (
           <MuiAvatar
-            key={avatar.src || avatar.title || avatar.alt || `${avatar.colorVariant || 'avatar'}-${idx + 1}`}
+            key={`${avatar.src || avatar.title || avatar.alt || avatar.colorVariant || 'avatar'}-${idx + 1}`}
             src={avatar.src}
             alt={avatar.alt ?? avatar.title}
             sx={[

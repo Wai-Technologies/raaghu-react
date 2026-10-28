@@ -77,7 +77,6 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
         ...rest,
         role: 'dialog' as const,
         'aria-labelledby': resolvedHeader ? headerId : undefined,
-        className,
         sx,
         ref,
     };
@@ -164,7 +163,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     }
     if (resolvedVariant === "Image") {
         return (
-            <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--image">
+            <Paper {...rootProps} className={clsx("rds-comp-product-tour", "rds-comp-product-tour__container", "rds-comp-product-tour__container--image", className)}>
                 {cornerDotsElement}
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
@@ -183,7 +182,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     }
     if (resolvedVariant === "Carousel") {
         return (
-            <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--carousel">
+            <Paper {...rootProps} className={clsx("rds-comp-product-tour", "rds-comp-product-tour__container", "rds-comp-product-tour__container--carousel", className)}>
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__carousel-header">
@@ -209,7 +208,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     }
     if (resolvedVariant === "GIF") {
         return (
-            <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--animation">
+            <Paper {...rootProps} className={clsx("rds-comp-product-tour", "rds-comp-product-tour__container", "rds-comp-product-tour__container--animation", className)}>
                 {cornerDotsElement}
                 {closeButtonElement}
                 {showVisualPlaceholder ? (
@@ -229,7 +228,7 @@ const RdsCompProductTour: FC<RdsCompProductTourProps> = ({
     }
     if (resolvedVariant === "Form") {
         return (
-            <Paper {...rootProps} className="rds-comp-product-tour__container rds-comp-product-tour__container--form">
+            <Paper {...rootProps} className={clsx("rds-comp-product-tour", "rds-comp-product-tour__container", "rds-comp-product-tour__container--form", className)}>
                 {cornerDotsElement}
                 {closeButtonElement}
                 <Box className="rds-comp-product-tour__form-header">

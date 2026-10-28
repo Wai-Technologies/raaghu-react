@@ -96,4 +96,7 @@ export const FormWithInputs: Story = {
         items: ["Designers", "Developers", "Managers"],
         children: renderFormInputs(),
     },
+    argTypes: {
+        showVisualPlaceholder: { table: { disable: true } },
+    },
 };

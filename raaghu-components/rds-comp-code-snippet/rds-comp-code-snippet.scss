@@ -505,6 +505,6 @@
     background-color: var(--rds-color-border-dark);
 }
 .rds-comp-code-snippet--light pre{
-    background-color: transparent;
+    --rds-comp-code-snippet-highlighter-bg: transparent;
 }
 }

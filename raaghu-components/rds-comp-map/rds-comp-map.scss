@@ -2,9 +2,6 @@
 
 .rds-comp-map {
   --rds-map-dim-1: 280px;
-  --rds-map-dim-2: 310px;
-  --rds-map-dim-3: 380px;
-  --rds-map-dim-4: 400px;
   --rds-map-dim-5: 700px;
 
   --rds-bg: transparent;
@@ -158,9 +155,8 @@
     }
     
     svg, &__heatmap-image {
-      width: var(--rds-map-dim-2);
-      max-width: var(--rds-map-dim-2);
-      min-width: var(--rds-map-dim-1);
+      width: 100%;
+      max-width: 100%;
       height: auto;
       transform: scale(1);
       transform-origin: center top;
@@ -170,8 +166,8 @@
     }
 
     & > div {
-      width: var(--rds-map-dim-2);
-      max-width: var(--rds-map-dim-2);
+      width: 100%;
+      max-width: 100%;
       height: auto;
       margin: 0 auto;
       overflow: visible;
@@ -204,9 +200,8 @@
     }
     
     svg, &__heatmap-image {
-      width: var(--rds-map-dim-4);
-      max-width: var(--rds-map-dim-4);
-      min-width: var(--rds-map-dim-3);
+      width: 100%;
+      max-width: 100%;
       height: auto;
       transform: scale(1);
       transform-origin: center top;
@@ -216,8 +211,8 @@
     }
 
     & > div {
-      width: var(--rds-map-dim-4);
-      max-width: var(--rds-map-dim-4);
+      width: 100%;
+      max-width: 100%;
       height: auto;
       margin: 0 auto;
       overflow: visible;

@@ -305,7 +305,7 @@ const RdsCompKanbanBoard = ({
                       <Box className="add-board add-board--with-input">
                         <TextField fullWidth size="small" placeholder="Enter Board Title" value={boardName} onChange={handleDataChanges} className="rds-kanban-board__input-field" />
                         <Box className="add-item-btn btn-margin rds-kanban-board__button-container">
-                          <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button" text="Add Board" />
+                          <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button" textCase="unset" text="Add Board" />
                           <IconButton size="small" onClick={onCancel} className="rds-kanban-board__close-button" aria-label="Close">
                             <CloseIcon />
                           </IconButton>
@@ -330,7 +330,7 @@ const RdsCompKanbanBoard = ({
                         </Box>
                       </Box>
                       <Box className="add-board add-board--center-button">
-                        <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={handleShowInputBox} fullWidth className="rds-kanban-board__add-button" text="Add Board" />
+                        <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={handleShowInputBox} fullWidth className="rds-kanban-board__add-button" textCase="unset" text="Add Board" />
                       </Box>
                     </CardContent>
                   </Card>
@@ -428,7 +428,7 @@ value={(resolvedTagOptions || []).filter((option: KanbanOption) =>
                                 }}
                               />
                               <Box className="add-item-btn btn-margin add-board rds-kanban-board__button-container">
-                                <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={(e: MouseEvent<HTMLElement>) => onAddSubCardClick(e, index)} disabled={isNewItemTitleEmpty} className="rds-kanban-board__add-button" text="Add Item" />
+                                <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={(e: MouseEvent<HTMLElement>) => onAddSubCardClick(e, index)} disabled={isNewItemTitleEmpty} className="rds-kanban-board__add-button" textCase="unset" text="Add Item" />
                                 <IconButton size="small" onClick={handleCloseSubCardInput} className="close-board rds-kanban-board__close-button" aria-label="Close">
                                   <CloseIcon fontSize="small" />
                                 </IconButton>
@@ -436,7 +436,7 @@ value={(resolvedTagOptions || []).filter((option: KanbanOption) =>
                             </Box>
                           ) : (
                             <Box className="add-item-btn add-board rds-kanban-board__add-item-simple">
-                              <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={() => addSubCard(index)} fullWidth className="rds-kanban-board__add-button" text="Add Item" />
+                              <RdsButton variant="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={() => addSubCard(index)} fullWidth className="rds-kanban-board__add-button" textCase="unset" text="Add Item" />
                             </Box>
                           )}
                         </>

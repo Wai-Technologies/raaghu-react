@@ -18,7 +18,11 @@ const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main)", "var(--rds-semantic
 const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main)","var(--rds-semantic-error-main)","var(--rds-info-main)","var(--rds-primary-main)","var(--rds-info-light)","var(--rds-info-variant)","var(--rds-neutral-300)","var(--rds-success-main)","var(--rds-success-dark)","var(--rds-success-light)","var(--rds-info-contrast-text)","var(--rds-primary-light)","var(--rds-primary-dark)","var(--rds-neutral-400)"];
 
 const getSwatchHexDisplay = (swatchValue: string) => {
-  const hexMatch = swatchValue.match(/#(?:[\dA-Fa-f]{3}){1,2}\b/);
+  const varName = swatchValue.match(/^var\((--[\w-]+)\)$/)?.[1];
+  const resolved = varName && typeof window !== "undefined"
+    ? getComputedStyle(document.documentElement).getPropertyValue(varName).trim()
+    : "";
+  const hexMatch = (resolved || swatchValue).match(/#(?:[\dA-Fa-f]{3}){1,2}\b/);
   return hexMatch ? hexMatch[0].toUpperCase() : swatchValue;
 };
 

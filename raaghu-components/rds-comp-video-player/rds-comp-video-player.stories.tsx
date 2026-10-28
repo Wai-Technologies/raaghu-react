@@ -81,8 +81,6 @@ type Story = StoryObj<typeof RdsCompVideoPlayer>;
 export const Default: Story = {
     args: {
         type: VideoPlayerType.Default,
-        width: "100%",
-        height: "400px",
         autoPlay: false,
         muted: false,
         controls: true,

@@ -13,12 +13,21 @@ import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
 type HighlighterStyle = Record<string, Record<string, string> | string>;
 
-const atomOneLightStyle = atomOneLight as HighlighterStyle;
+const atomOneLightBase = atomOneLight as HighlighterStyle;
+const atomOneLightHljs = typeof atomOneLightBase.hljs === 'object' ? atomOneLightBase.hljs : {};
+
+const atomOneLightStyle: HighlighterStyle = {
+  ...atomOneLightBase,
+  hljs: {
+    ...atomOneLightHljs,
+    background: `var(--rds-comp-code-snippet-highlighter-bg, ${atomOneLightHljs.background})`,
+  },
+};
 
 const darkStyle: HighlighterStyle = {
   ...atomOneLightStyle,
   hljs: {
-    ...(typeof atomOneLightStyle.hljs === 'object' ? atomOneLightStyle.hljs : {}),
+    ...atomOneLightHljs,
     background: 'var(--rds-code-bg)',
     color: 'var(--rds-code-color)',
   },
