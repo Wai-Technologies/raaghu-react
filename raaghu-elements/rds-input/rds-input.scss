@@ -1,4 +1,6 @@
 .rds-input {
+  --rds-input-dim-1: 0.01px;
+
   --rds-input-border-width-thin: calc(var(--rds-spacing-xs) / 4);
   --rds-input-border-width-thick: calc(var(--rds-spacing-xs) / 2);
   --rds-input-focus-ring-error: 0 0 0 var(--rds-input-border-width-thick) var(--rds-error-light);
@@ -399,8 +401,8 @@
 .rds-input--inline-title {
   .MuiOutlinedInput-notchedOutline {
     legend {
-      max-width: 0.01px !important;
-      width: 0.01px !important;
+      max-width: var(--rds-input-dim-1) !important;
+      width: var(--rds-input-dim-1) !important;
       padding: 0 !important;
       visibility: hidden !important;
       border: 0 !important;

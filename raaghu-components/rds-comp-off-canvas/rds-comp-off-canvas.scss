@@ -1,3 +1,8 @@
+/* auto size dims */
+--rds-off-canvas-dim-1: 320px;
+--rds-off-canvas-dim-2: 375px;
+--rds-off-canvas-dim-3: 400px;
+
 /* G6-055: scope drawer chrome / placement under .offcanvas-drawer (no global .placement-* / header leaks) */
 
 .offcanvas-drawer {
@@ -84,7 +89,7 @@
 
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);
 
-  border-bottom: 1px solid var(--rds-offcanvas-border);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-offcanvas-border);
 
 }
 
@@ -130,7 +135,7 @@
 
   padding: var(--rds-spacing-sm);
 
-  border: 1px solid transparent;
+  border: var(--rds-border-width-thin) solid transparent;
 
   border-radius: var(--rds-border-radius-sm);
 
@@ -242,7 +247,7 @@
 
 #offcanvas-btns .MuiButton-root {
 
-  min-height: 36px;
+  min-height: var(--rds-size-36);
 
   //padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-md);
 
@@ -282,7 +287,7 @@
 
   .offcanvas-drawer .MuiDrawer-paper {
 
-    width: min(375px, 100vw);
+    width: min(var(--rds-off-canvas-dim-2), 100vw);
 
   }
 
@@ -306,7 +311,7 @@
 
   padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
 
-  border: 1px solid transparent;
+  border: var(--rds-border-width-thin) solid transparent;
 
   transition: all 0.2s ease-in-out;
 
@@ -326,7 +331,7 @@
 
   .offcanvas-drawer .MuiDrawer-paper {
 
-    width: min(320px, 100vw);
+    width: min(var(--rds-off-canvas-dim-1), 100vw);
 
   }
 
@@ -540,7 +545,7 @@
 
 @media (max-width: 896px) {
 
-  .offcanvas-drawer .MuiDrawer-paper { width: min(400px, 100vw); }
+  .offcanvas-drawer .MuiDrawer-paper { width: min(var(--rds-off-canvas-dim-3), 100vw); }
 
   #offcanvas-btns, .offcanvas-margin {
 

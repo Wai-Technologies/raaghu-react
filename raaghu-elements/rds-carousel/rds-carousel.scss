@@ -1,6 +1,19 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-carousel {
+  --rds-carousel-dim-1: 3px;
+  --rds-carousel-dim-2: 10px;
+  --rds-carousel-dim-3: 35px;
+  --rds-carousel-dim-4: 60px;
+  --rds-carousel-dim-5: 70px;
+  --rds-carousel-dim-6: 90px;
+  --rds-carousel-dim-7: 100px;
+  --rds-carousel-dim-8: 110px;
+  --rds-carousel-dim-9: 265px;
+  --rds-carousel-dim-10: 359px;
+  --rds-carousel-dim-11: 360px;
+  --rds-carousel-dim-12: 390px;
+
   display: block;
   position: relative;
   overflow: hidden;
@@ -41,8 +54,8 @@
     color: var(--rds-color-on-primary);
     border: none;
     border-radius: var(--rds-border-radius-pill);
-    width: 40px;
-    height: 40px;
+    width: var(--rds-size-40);
+    height: var(--rds-size-40);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,17 +89,17 @@
     cursor: pointer;
     transition: var(--rds-transition-base);
     background-color: var(--rds-carousel-indicator-bg, var(--rds-color-gray-400));
-    border: 1px solid transparent;
+    border: var(--rds-border-width-thin) solid transparent;
 
     &--circle {
-      width: 12px;
-      height: 12px;
+      width: var(--rds-size-12);
+      height: var(--rds-size-12);
       border-radius: var(--rds-border-radius-pill);
     }
 
     &--line {
       width: var(--rds-size-lg);
-      height: 4px;
+      height: var(--rds-size-xs);
       border-radius: calc(var(--rds-border-radius-sm) / 2);
     }
     
@@ -105,22 +118,22 @@
     background-color: var(--rds-carousel-title-bg);
     width: 100%;
     max-width: 100%;
-    min-height: 100px;
+    min-height: var(--rds-carousel-dim-7);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: var(--rds-spacing-xs);
-    border: 1px solid var(--rds-carousel-title-border);
+    border: var(--rds-border-width-thin) solid var(--rds-carousel-title-border);
     box-sizing: border-box;
 
     &--top {
       border-radius: var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0 0;
-      border-bottom: 1px solid var(--rds-carousel-divider);
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-carousel-divider);
     }
 
     &--bottom {
       order: 2;
-      min-height: 80px;
+      min-height: var(--rds-size-4xl);
       border-radius: 0 0 var(--rds-border-radius-sm) var(--rds-border-radius-sm);
     }
   }
@@ -134,7 +147,7 @@
     color: var(--rds-color-text-primary);
     padding: var(--rds-spacing-md);
     z-index: calc(var(--rds-z-index-base) + 1);
-    min-height: 80px;
+    min-height: var(--rds-size-4xl);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -238,7 +251,7 @@
       background-color: var(--rds-carousel-title-bg);
       color: var(--rds-color-text-primary);
       border-radius: 0 0 var(--rds-border-radius-sm) var(--rds-border-radius-sm);
-      border-top: 1px solid var(--rds-carousel-divider, var(--rds-color-divider));
+      border-top: var(--rds-border-width-thin) solid var(--rds-carousel-divider, var(--rds-color-divider));
     }
     
     .rds-carousel__indicators {
@@ -246,16 +259,16 @@
       
       .rds-carousel__indicator {
         background-color: var(--rds-color-gray-400);
-        border: 1px solid var(--rds-color-gray-300);
+        border: var(--rds-border-width-thin) solid var(--rds-color-gray-300);
         
         &__active {
           background-color: var(--rds-color-primary) !important;
-          border: 1px solid var(--rds-color-primary);
+          border: var(--rds-border-width-thin) solid var(--rds-color-primary);
         }
         
         &:hover:not(.rds-carousel__indicator__active) {
           background-color: var(--rds-color-gray-500);
-          border: 1px solid var(--rds-color-gray-400);
+          border: var(--rds-border-width-thin) solid var(--rds-color-gray-400);
         }
       }
     }
@@ -272,7 +285,7 @@
   }
   
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary);
+    outline: var(--rds-border-width-medium) solid var(--rds-color-primary);
     outline-offset: 2px;
   }
 }
@@ -280,18 +293,18 @@
 @include bp.down(tablet-sm) {
   .rds-carousel {
     &__navigation {
-      width: 36px;
-      height: 36px;
+      width: var(--rds-size-36);
+      height: var(--rds-size-36);
     }
     
     &__title-content {
       padding: var(--rds-spacing-sm);
-      min-height: 80px;
+      min-height: var(--rds-size-4xl);
     }
     
     &__title-overlay {
       padding: var(--rds-spacing-sm);
-      min-height: 70px;
+      min-height: var(--rds-carousel-dim-5);
     }
     
     &__title-text {
@@ -326,19 +339,19 @@
 
 @include bp.down(sm) {
   .rds-carousel--with-title .rds-carousel__slide-content {
-    height: calc(100% - 90px) !important; 
+    height: calc(100% - var(--rds-carousel-dim-6)) !important; 
   }
 }
 
   .rds-carousel--with-title .rds-carousel__slide-content {
-    height: calc(100% - 80px) !important;
+    height: calc(100% - var(--rds-size-4xl)) !important;
   }
 
 @include bp.down(sm) {
   .rds-carousel {
     &__navigation {
-      width: 44px;
-      height: 44px;
+      width: var(--rds-size-44);
+      height: var(--rds-size-44);
       background-color: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(calc(2 * var(--rds-backdrop-blur)));
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
@@ -358,35 +371,35 @@
       transition: var(--rds-transition-slow);
       
       &--circle {
-        width: 8px;
-        height: 8px;
+        width: var(--rds-size-sm);
+        height: var(--rds-size-sm);
         
         &.rds-carousel__indicator__active {
-          width: 10px;
-          height: 10px;
+          width: var(--rds-carousel-dim-2);
+          height: var(--rds-carousel-dim-2);
           transform: scale(1.2);
         }
       }
       
       &--line {
         width: var(--rds-size-md);
-        height: 3px;
+        height: var(--rds-carousel-dim-1);
 
         &.rds-carousel__indicator__active {
           width: var(--rds-size-lg);
-          height: 4px;
+          height: var(--rds-size-xs);
         }
       }
     }
     
     &__title-content {
       padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-      min-height: 70px;
+      min-height: var(--rds-carousel-dim-5);
     }
     
     &__title-overlay {
       padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-      min-height: 70px;
+      min-height: var(--rds-carousel-dim-5);
       backdrop-filter: blur(calc(4 * var(--rds-backdrop-blur)));
     }
     
@@ -432,7 +445,7 @@
 }
 @include bp.down(mobile-sm) {
   .rds-carousel--with-title .rds-carousel__slide-content {
-    height: calc(100% - 110px) !important;
+    height: calc(100% - var(--rds-carousel-dim-8)) !important;
   }
 }
 @include bp.down(mobile-sm) {
@@ -443,8 +456,8 @@
     min-width: 0;
 
     &__navigation {
-      width: 40px;
-      height: 40px;
+      width: var(--rds-size-40);
+      height: var(--rds-size-40);
       
       &--prev {
         left: var(--rds-spacing-xs);
@@ -457,7 +470,7 @@
     &__title-overlay,
     &__title-content {
       padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-      min-height: 60px;
+      min-height: var(--rds-carousel-dim-4);
     }
     
     &__title-text {
@@ -470,9 +483,9 @@
     
     &--default,
     &--with-title {
-      height: min(390px, calc(100vh - 24px)) !important;
+      height: min(var(--rds-carousel-dim-12), calc(100vh - var(--rds-size-lg))) !important;
       .rds-carousel__slide-content {
-        height: calc(100% - 35px) !important;
+        height: calc(100% - var(--rds-carousel-dim-3)) !important;
       }
     }
     
@@ -487,7 +500,7 @@
       max-width: 100% !important;
       
       .rds-carousel__slide-content {
-        height: calc(100% - 80px);
+        height: calc(100% - var(--rds-size-4xl));
         width: 100% !important;
       }
       
@@ -500,7 +513,7 @@
       }
 
       .rds-carousel__title-content--bottom {
-        min-height: 60px;
+        min-height: var(--rds-carousel-dim-4);
         padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       }
     }
@@ -509,13 +522,13 @@
 
 @include bp.between(mobile-lg, md) {
   .rds-carousel__slide-content {
-        height: 360px !important;
+        height: var(--rds-carousel-dim-11) !important;
   }
   .rds-carousel--default .rds-carousel__indicators{
     bottom: var(--rds-spacing-3) !important;
   }
   .rds-carousel--auto-play .rds-carousel__slide-content {
-    height: 265px !important;
+    height: var(--rds-carousel-dim-9) !important;
   }
   
   .rds-carousel--with-title .rds-carousel__navigation {
@@ -535,7 +548,7 @@
     }
 
     .rds-carousel__slide-content {
-      height: calc(100% - 90px) !important;
+      height: calc(100% - var(--rds-carousel-dim-6)) !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box !important;
@@ -550,7 +563,7 @@
     }
 
     .rds-carousel__title-content--bottom {
-      min-height: 70px;
+      min-height: var(--rds-carousel-dim-5);
     }
   }
 }
@@ -585,13 +598,13 @@
 }
 @include bp.between(tablet-lg, lg) {
   .rds-carousel__slide-content {
-        height: 359px !important;
+        height: var(--rds-carousel-dim-10) !important;
   }
   .rds-carousel--default .rds-carousel__indicators {
     bottom: var(--rds-spacing-13) !important;
   }
   .rds-carousel--auto-play .rds-carousel__slide-content {
-    height: 265px !important;
+    height: var(--rds-carousel-dim-9) !important;
   }
 }
 
@@ -600,13 +613,13 @@
   .sb-show-main[data-theme="dark"] .rds-carousel {
     .rds-carousel__title-content {
       background-color: var(--rds-carousel-title-bg-dark) !important;
-      border: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.04)) !important;
+      border: var(--rds-border-width-thin) solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.04)) !important;
       color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
     }
 
     .rds-carousel__title-content--bottom {
       background-color: var(--rds-carousel-title-bg-dark) !important;
-      border-top: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.06)) !important;
+      border-top: var(--rds-border-width-thin) solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.06)) !important;
       color: var(--rds-color-on-surface, var(--rds-color-text-primary)) !important;
     }
 

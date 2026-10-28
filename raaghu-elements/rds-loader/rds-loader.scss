@@ -10,6 +10,8 @@
   --rds-loader-triangle-size: 50px;
   --rds-loader-sand-width: 40px;
   --rds-loader-sand-height: 80px;
+  --rds-loader-radius-pill: 30px;
+  --rds-loader-radius-rotate: 10px;
   display: inline-block;
   
   &__spinner {
@@ -202,9 +204,9 @@
   animation: rds-loader-jump7456 0.5s linear infinite;
 }
 @keyframes rds-loader-jump7456 {
-  15% { border-bottom-right-radius: 3px; }
+  15% { border-bottom-right-radius: var(--rds-border-radius-micro); }
   25% { transform: translateY(9px) rotate(22.5deg); }
-  50% { transform: translateY(18px) scale(1, .9) rotate(45deg); border-bottom-right-radius: 40px; }
+  50% { transform: translateY(18px) scale(1, .9) rotate(45deg); border-bottom-right-radius: var(--rds-size-40); }
   75% { transform: translateY(9px) rotate(67.5deg); }
   100% { transform: translateY(0) rotate(90deg); }
 }
@@ -254,8 +256,8 @@
   --c2: var(--rds-loader-sand-light);
   width: var(--rds-loader-sand-width);
   height: var(--rds-loader-sand-height);
-  border-top: 4px solid var(--c1);
-  border-bottom: 4px solid var(--c1);
+  border-top: var(--rds-border-width-heavy) solid var(--c1);
+  border-bottom: var(--rds-border-width-heavy) solid var(--c1);
   background: linear-gradient(90deg, var(--c1) 2px, var(--c2) 0 5px,var(--c1) 0) 50%/7px 8px no-repeat;
   display: grid;
   overflow: hidden;
@@ -266,9 +268,9 @@
   content: "";
   grid-area: 1/1;
   width: 75%;
-  height: calc(50% - 4px);
+  height: calc(50% - var(--rds-size-xs));
   margin: 0 auto;
-  border: 2px solid var(--c1);
+  border: var(--rds-border-width-medium) solid var(--c1);
   border-top: 0;
   box-sizing: content-box;
   border-radius: 0 0 40% 40%;
@@ -304,7 +306,7 @@
   --loader-color: var(--rds-primary-main);
   width: var(--rds-loader-moving-width);
   height: var(--height-of-loader);
-  border-radius: 30px;
+  border-radius: var(--rds-loader-radius-pill);
   background-color: var(--rds-loader-track-bg, rgba(0,0,0,0.2));
   position: relative;
 }
@@ -316,7 +318,7 @@
   left: 0;
   width: 0%;
   height: 100%;
-  border-radius: 30px;
+  border-radius: var(--rds-loader-radius-pill);
   animation: rds-loader-moving 1s ease-in-out infinite;
 }
 @keyframes rds-loader-moving {
@@ -335,7 +337,7 @@
   position: absolute;
   transform: translate(-50%, -50%) rotate(45deg);
   height: 100%;
-  width: 4px;
+  width: var(--rds-size-xs);
   background: var(--rds-color-primary);
   left: 50%;
   top: 50%;
@@ -392,9 +394,9 @@
 }
 
 .rds-loader__rotate, .rds-loader__rotate::before, .rds-loader__rotate::after {
-  border-width: 2px;
+  border-width: var(--rds-border-width-medium);
   border-style: solid;
-  border-radius: 10px;
+  border-radius: var(--rds-loader-radius-rotate);
   animation: rds-loader-rotate-ring 5s linear infinite;
 }
 .rds-loader__rotate {

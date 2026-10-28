@@ -1,6 +1,17 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-layout-wrapper_basic {
+  --rds-layout-dim-1: 100px;
+  --rds-layout-dim-2: 120px;
+  --rds-layout-dim-3: 180px;
+  --rds-layout-dim-4: 200px;
+  --rds-layout-dim-5: 240px;
+  --rds-layout-dim-6: 300px;
+  --rds-layout-dim-7: 360px;
+  --rds-layout-dim-8: 400px;
+  --rds-layout-dim-9: 500px;
+  --rds-layout-dim-10: 600px;
+
   min-height: 83vh;
   width: 100%;
   display: flex;
@@ -23,9 +34,9 @@
 .rds-comp-layout__card_basic {
   position: relative;
   padding: var(--rds-spacing-lg); 
-  border: 1px solid var(--rds-border-light);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   background: var(--rds-background-default);
-  min-height: 200px;
+  min-height: var(--rds-layout-dim-4);
   height: 83vh;
   width: 100%;
   margin-left: auto;
@@ -49,7 +60,7 @@
 }
 
 .rds-comp-layout-inner-wrapper {
-  min-height: 100px;
+  min-height: var(--rds-layout-dim-1);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -58,152 +69,152 @@
 
 
 .rds-comp-layout__paper {
-  border: 1px solid var(--rds-border-light);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-sm) !important;
   background: var(--rds-background-default);
   box-shadow: var(--rds-box-shadow-card)!important;
   
   &--height-xs {
-    min-height: 80px;
+    min-height: var(--rds-size-4xl);
     
     @include bp.up(600) {
-      min-height: 100px;
+      min-height: var(--rds-layout-dim-1);
     }
     
     @include bp.up(md) {
-      min-height: 100px;
+      min-height: var(--rds-layout-dim-1);
     }
   }
   
   &--height-sm {
-    min-height: 80px;
+    min-height: var(--rds-size-4xl);
     
     @include bp.up(600) {
-      min-height: 120px;
+      min-height: var(--rds-layout-dim-2);
     }
     
     @include bp.up(md) {
-      min-height: 120px;
+      min-height: var(--rds-layout-dim-2);
     }
   }
   
   &--height-md {
-    min-height: 120px;
+    min-height: var(--rds-layout-dim-2);
     
     @include bp.up(600) {
-      min-height: 180px;
+      min-height: var(--rds-layout-dim-3);
     }
     
     @include bp.up(md) {
-      min-height: 180px;
+      min-height: var(--rds-layout-dim-3);
     }
   }
   
   &--height-lg {
-    min-height: 180px;
+    min-height: var(--rds-layout-dim-3);
     
     @include bp.up(600) {
-      min-height: 240px;
+      min-height: var(--rds-layout-dim-5);
     }
     
     @include bp.up(md) {
-      min-height: 240px;
+      min-height: var(--rds-layout-dim-5);
     }
   }
   
   &--height-xl {
-    min-height: 240px;
+    min-height: var(--rds-layout-dim-5);
     
     @include bp.up(600) {
-      min-height: 360px;
+      min-height: var(--rds-layout-dim-7);
     }
     
     @include bp.up(md) {
-      min-height: 360px;
+      min-height: var(--rds-layout-dim-7);
     }
   }
   
   &--height-xxl {
-    min-height: 240px;
+    min-height: var(--rds-layout-dim-5);
     
     @include bp.up(600) {
-      min-height: 360px;
+      min-height: var(--rds-layout-dim-7);
     }
     
     @include bp.up(md) {
-      min-height: 400px;
+      min-height: var(--rds-layout-dim-8);
     }
   }
   
   &--height-full {
-    min-height: 240px;
+    min-height: var(--rds-layout-dim-5);
     
     @include bp.up(600) {
-      min-height: 360px;
+      min-height: var(--rds-layout-dim-7);
     }
     
     @include bp.up(md) {
-      min-height: 500px;
+      min-height: var(--rds-layout-dim-9);
     }
   }
   
   &--height-tall {
-    min-height: 400px;
+    min-height: var(--rds-layout-dim-8);
     
     @include bp.up(600) {
-      min-height: 600px;
+      min-height: var(--rds-layout-dim-10);
     }
     
     @include bp.up(md) {
-      min-height: 600px;
+      min-height: var(--rds-layout-dim-10);
     }
   }
   
   &--height-spotlight {
-    min-height: 120px;
+    min-height: var(--rds-layout-dim-2);
     
     @include bp.up(600) {
-      min-height: 180px;
+      min-height: var(--rds-layout-dim-3);
     }
     
     @include bp.up(md) {
-      min-height: 400px;
+      min-height: var(--rds-layout-dim-8);
     }
   }
   
   &--height-stacks {
-    min-height: 180px;
+    min-height: var(--rds-layout-dim-3);
     
     @include bp.up(600) {
-      min-height: 240px;
+      min-height: var(--rds-layout-dim-5);
     }
     
     @include bp.up(md) {
-      min-height: 300px;
+      min-height: var(--rds-layout-dim-6);
     }
   }
   
   &--height-relaxed-left {
-    min-height: 180px;
+    min-height: var(--rds-layout-dim-3);
     
     @include bp.up(600) {
-      min-height: 600px;
+      min-height: var(--rds-layout-dim-10);
     }
     
     @include bp.up(md) {
-      min-height: 600px;
+      min-height: var(--rds-layout-dim-10);
     }
   }
   
   &--height-relaxed-big {
-    min-height: 180px;
+    min-height: var(--rds-layout-dim-3);
     
     @include bp.up(600) {
-      min-height: 360px;
+      min-height: var(--rds-layout-dim-7);
     }
     
     @include bp.up(md) {
-      min-height: 360px;
+      min-height: var(--rds-layout-dim-7);
     }
   }
 }

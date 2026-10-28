@@ -260,12 +260,12 @@
 
 .rds-toggle-button__group {
   .MuiToggleButtonGroup-grouped {
-    border: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
     margin-left: 0 !important;
-    border-left-width: 1px !important;
+    border-left-width: var(--rds-border-width-thin) !important;
     
     &.Mui-disabled {
-      border: 1px solid var(--rds-toggle-group-border-disabled-light, rgba(100, 100, 100, 0.3)) !important;
+      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-disabled-light, rgba(100, 100, 100, 0.3)) !important;
     }
     
     &.Mui-selected {
@@ -277,11 +277,11 @@
 
 @media (prefers-color-scheme: dark) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
-    border-left-width: 1px !important;
+    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
+    border-left-width: var(--rds-border-width-thin) !important;
     
     &.Mui-disabled {
-      border: 1px solid var(--rds-toggle-group-border-disabled-dark, rgba(100, 100, 100, 0.5)) !important;
+      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-disabled-dark, rgba(100, 100, 100, 0.5)) !important;
     }
     
     &.Mui-selected {
@@ -292,19 +292,19 @@
 
 @include bp.down(400) {
   .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-    border: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
     
     &:not(:first-of-type) {
-      border-left: 1px solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
+      border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-light, rgba(0, 0, 0, 0.23)) !important;
     }
   }
   
   @media (prefers-color-scheme: dark) {
     .rds-toggle-button__group .MuiToggleButtonGroup-grouped {
-      border: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
+      border: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
       
       &:not(:first-of-type) {
-        border-left: 1px solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
+        border-left: var(--rds-border-width-thin) solid var(--rds-toggle-group-border-dark, rgba(255, 255, 255, 0.23)) !important;
       }
     }
   }

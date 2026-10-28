@@ -1,4 +1,8 @@
 .rds-checkbox {
+  --rds-checkbox-dim-1: 2px;
+  --rds-checkbox-dim-2: 6px;
+  --rds-checkbox-dim-3: 10px;
+
   display: inline-flex;
   align-items: center;
 
@@ -115,8 +119,8 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 6px;
-        height: 10px;
+        width: var(--rds-checkbox-dim-2);
+        height: var(--rds-checkbox-dim-3);
         border: solid var(--rds-primary-contrast-text);
         border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
@@ -145,11 +149,11 @@
         }
 
         &::after {
-          width: 8px;
-          height: 2px;
+          width: var(--rds-size-sm);
+          height: var(--rds-checkbox-dim-1);
           border: none;
           background-color: var(--rds-primary-contrast-text);
-          border-radius: 2px;
+          border-radius: var(--rds-border-radius-xs);
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
         }
@@ -207,8 +211,8 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 6px;
-        height: 10px;
+        width: var(--rds-checkbox-dim-2);
+        height: var(--rds-checkbox-dim-3);
         border: solid var(--rds-primary-contrast-text);
         border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
@@ -237,11 +241,11 @@
         }
 
         &::after {
-          width: 8px;
-          height: 2px;
+          width: var(--rds-size-sm);
+          height: var(--rds-checkbox-dim-1);
           border: none;
           background-color: var(--rds-primary-contrast-text);
-          border-radius: 2px;
+          border-radius: var(--rds-border-radius-xs);
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
         }

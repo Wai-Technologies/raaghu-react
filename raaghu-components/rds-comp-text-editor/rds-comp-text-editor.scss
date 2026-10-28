@@ -2,7 +2,13 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-text-editor {
-  border: 1px solid var(--rds-color-border);
+  --rds-text-editor-dim-1: 30px;
+  --rds-text-editor-dim-2: 100px;
+  --rds-text-editor-dim-3: 110px;
+  --rds-text-editor-dim-4: 260px;
+  --rds-text-editor-dim-5: 320px;
+
+  border: var(--rds-border-width-thin) solid var(--rds-color-border);
   border-radius: var(--rds-border-radius);
   padding: 0;
   min-height: var(--rds-editor-min-height);
@@ -13,7 +19,7 @@
   position: relative;
 
   &--selected {
-    border: 1px solid var(--rds-color-border);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border);
   }
 
   &--error {
@@ -53,7 +59,7 @@
     background-color: var(--rds-color-surface-variant);
     border-radius: var(--rds-border-radius) var(--rds-border-radius) 0 0;
     padding: var(--rds-spacing-xs);
-    border-bottom: 1px solid var(--rds-color-border);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
     margin-bottom: 0;
     transition: background-color 0.15s ease, border-color 0.15s ease;
 
@@ -64,7 +70,7 @@
     }
 
     .rdw-option-wrapper {
-      border: 1px solid var(--rds-color-border-light);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       padding: var(--rds-spacing-xxs);
       min-width: var(--rds-toolbar-button-size);
       height: var(--rds-toolbar-button-size);
@@ -96,11 +102,11 @@
     }
 
     .rdw-dropdown-wrapper {
-      border: 1px solid var(--rds-color-border-light);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       background: var(--rds-color-surface);
       color: var(--rds-color-on-surface);
       border-radius: var(--rds-border-radius-sm);
-      min-width: 110px;
+      min-width: var(--rds-text-editor-dim-3);
       min-height: var(--rds-toolbar-button-size);
       transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 
@@ -124,7 +130,7 @@
 
       .rdw-dropdown-optionwrapper {
         background: var(--rds-color-surface);
-        border: 1px solid var(--rds-color-border-light);
+        border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
         box-shadow: var(--rds-elevation-2);
         border-radius: var(--rds-border-radius-sm);
         z-index: var(--rds-z-index-dropdown, 1300);
@@ -154,7 +160,7 @@
         border-radius: var(--rds-border-radius);
         background-color: var(--rds-color-surface);
         color: var(--rds-color-on-surface);
-        border: 1px solid var(--rds-color-border);
+        border: var(--rds-border-width-thin) solid var(--rds-color-border);
         box-shadow: var(--rds-elevation-3);
         z-index: var(--rds-z-index-modal, 1400);
 
@@ -237,7 +243,7 @@
       background-color: var(--rds-color-surface-variant);
       padding: var(--rds-spacing-xs);
       border-radius: var(--rds-border-radius-sm);
-      border: 1px solid var(--rds-color-border-light);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       font-family: var(--rds-font-family-base);
       overflow-x: auto;
     }
@@ -266,7 +272,7 @@
 .rdw-link-modal-input,
 .rdw-image-modal-size-input,
 .rdw-image-modal-alt-input {
-  border: 1px solid var(--rds-border-light);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
 }
 
 /* Global modal field defaults */
@@ -408,19 +414,19 @@
 
     .rdw-image-modal {
       left: var(--rds-spacing-neg-93);
-      max-height: calc(100vh - 100px);
+      max-height: calc(100vh - var(--rds-text-editor-dim-2));
       overflow-y: auto;
       box-shadow: var(--rds-elevation-4);
-      border: 1px solid var(--rds-color-border);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border);
 
       @include bp.down(mobile-sm) {
         position: fixed;
         left: 50%;
         top: 70%;
         transform: translate(-50%, -50%);
-        width: 260px;
-        max-width: calc(100vw - 30px);
-        max-height: calc(100vh - 40px);
+        width: var(--rds-text-editor-dim-4);
+        max-width: calc(100vw - var(--rds-text-editor-dim-1));
+        max-height: calc(100vh - var(--rds-size-40));
         z-index: var(--rds-z-index-modal);
       }
     }
@@ -436,9 +442,9 @@
     .rdw-image-modal {
       right: 0;
       left: auto;
-      max-width: 320px;
+      max-width: var(--rds-text-editor-dim-5);
       box-shadow: var(--rds-elevation-4);
-      border: 1px solid var(--rds-color-border);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border);
       z-index: var(--rds-z-index-modal, 1400);
     }
   }

@@ -364,6 +364,46 @@ export const radiusTokens = {
   full: '9999px',
 };
 
+/** Border width tokens (exact px for hairline / chrome borders) */
+export const borderWidthTokens = {
+  none: '0px',
+  hairline: '0.5px',
+  thin: '1px',
+  emphasis: '1.5px',
+  medium: '2px',
+  bold: '2.5px',
+  thick: '3px',
+  heavy: '4px',
+} as const;
+
+/**
+ * Control / icon / chrome size tokens (exact px for layout snapping).
+ * Prefer these for width/height — not spacing tokens.
+ */
+export const sizeTokens = {
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
+  '2xl': '48px',
+  '3xl': '64px',
+  '4xl': '80px',
+  '5xl': '96px',
+  '6xl': '96px', // alias kept for existing --rds-size-6xl consumers
+  // Numeric control sizes (high-frequency in component SCSS)
+  '12': '12px',
+  '14': '14px',
+  '18': '18px',
+  '20': '20px',
+  '28': '28px',
+  '36': '36px',
+  '40': '40px',
+  '44': '44px',
+  '56': '56px',
+  colorBtn: '32px',
+} as const;
+
 // Shadow Tokens
 export const shadowTokens = {
   none: 'none',
@@ -1321,6 +1361,8 @@ export const designTokens = {
   typography: typographyTokens,
   spacing: spacingTokens,
   radius: radiusTokens,
+  borderWidth: borderWidthTokens,
+  size: sizeTokens,
   shadow: shadowTokens,
   animation: animationTokens,
   zIndex: zIndexTokens,

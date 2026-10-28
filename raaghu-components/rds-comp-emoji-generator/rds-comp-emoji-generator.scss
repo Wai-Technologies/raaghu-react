@@ -1,4 +1,6 @@
 .rds-emoji-generator {
+  --rds-emoji-generator-dim-1: 294px;
+
   display: flex;
   flex-direction: column;
   background-color: var(--rds-background-paper);
@@ -16,7 +18,7 @@
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     background-color: var(--rds-background-paper);
     border-radius: var(--rds-border-radius-xl);
-    border: 1px solid var(--rds-border-light);
+    border: var(--rds-border-width-thin) solid var(--rds-border-light);
     box-shadow: var(--rds-elevation-1);
     width: fit-content;
     min-width: auto;
@@ -40,7 +42,7 @@
       .MuiInputBase-root {
         background-color: var(--rds-background-paper);
         border-radius: var(--rds-border-radius-sm);
-        border: 1px solid var(--rds-border-default);
+        border: var(--rds-border-width-thin) solid var(--rds-border-default);
         transition: all var(--rds-transition-base);
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-primary);
@@ -83,7 +85,7 @@
     width: var(--rds-emoji-skin-tone-size);
     height: var(--rds-emoji-skin-tone-size);
     border-radius: var(--rds-border-radius-sm);
-    border: 1px solid var(--rds-border-light);
+    border: var(--rds-border-width-thin) solid var(--rds-border-light);
     min-width: var(--rds-emoji-skin-tone-size);
     padding: 0;
     margin-left: var(--rds-spacing-sm);
@@ -157,13 +159,13 @@
     padding: 0;
     margin: var(--rds-spacing-xs) 0;
     display: block;
-    border: 1px solid var(--rds-border-default);
+    border: var(--rds-border-width-thin) solid var(--rds-border-default);
     box-shadow: none;
     box-sizing: border-box;
 
     &--selected,
     &[aria-pressed='true'] {
-      border: 2px solid var(--rds-primary-main);
+      border: var(--rds-border-width-medium) solid var(--rds-primary-main);
       box-shadow: 0 0 0 1px var(--rds-primary-light);
     }
   }
@@ -238,8 +240,8 @@
   }
 
   &__emoji-image {
-      width: 24px;
-      height: 24px;
+      width: var(--rds-size-lg);
+      height: var(--rds-size-lg);
       display: block;
       object-fit: contain;
       pointer-events: none;
@@ -316,7 +318,7 @@
     cursor: pointer;
     transition: transform 0.2s ease;
     font-size: var(--rds-font-size-xl);
-    border: 1px solid transparent;
+    border: var(--rds-border-width-thin) solid transparent;
     background-color: transparent;
     
     &:hover {
@@ -416,7 +418,7 @@
 
 @media (max-width: 600px) {
   .rds-emoji-generator {
-    width: min(294px, 100%);
+    width: min(var(--rds-emoji-generator-dim-1), 100%);
 
     &__grid-container {
       grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg), 1fr));
@@ -438,7 +440,7 @@
     border-color: var(--rds-border-strong);
     
     &__emoji {
-      border: 1px solid transparent;
+      border: var(--rds-border-width-thin) solid transparent;
       
       &:hover {
         border-color: var(--rds-color-primary);

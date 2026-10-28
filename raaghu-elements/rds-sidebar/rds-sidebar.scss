@@ -1,4 +1,7 @@
 .rds-sidebar {
+  --rds-sidebar-dim-1: 30px;
+  --rds-sidebar-dim-2: 50px;
+
   --rds-sidebar-header-gap: var(--rds-spacing-sm);
   --rds-sidebar-nav-min-height: var(--rds-spacing-2xl);
   --rds-sidebar-child-nav-min-height: var(--rds-menu-item-min-height);
@@ -44,7 +47,7 @@
     height: auto;
     
     &--collapse {
-      max-width: 50px !important;
+      max-width: var(--rds-sidebar-dim-2) !important;
     }
     
     &--expanded {
@@ -52,7 +55,7 @@
     }
     
     &--fixed {
-      max-width: 50px !important;
+      max-width: var(--rds-sidebar-dim-2) !important;
     }
   }
   
@@ -63,7 +66,7 @@
   
   &__search-divider {
     border: none;
-    border-top: 1px solid var(--rds-border-default);
+    border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
     margin: 0 0 var(--rds-spacing-3) 0;
   }
   
@@ -239,7 +242,7 @@
   }
   
   &__nav-icon {
-    min-width: 30px;
+    min-width: var(--rds-sidebar-dim-1);
     justify-content: center;
     display: flex;
     align-items: center;
@@ -261,7 +264,7 @@
   
   &__footer-divider {
     border: none;
-    border-top: 1px solid var(--rds-border-default);
+    border-top: var(--rds-border-width-thin) solid var(--rds-border-default);
     margin: 0;
   }
   
@@ -356,7 +359,7 @@
   .MuiDrawer-paper {
     img {
       &.rds-sidebar__logo--collapse {
-        max-width: 50px !important;
+        max-width: var(--rds-sidebar-dim-2) !important;
       }
       
       &.rds-sidebar__logo--expanded {

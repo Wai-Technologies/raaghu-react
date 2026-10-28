@@ -169,25 +169,26 @@ All `--rds-*` variables are injected at runtime. The canonical list is in
 
 ## Writing Component SCSS
 
-Always use tokens. Never hardcode hex or spacing px values.
+Always use tokens. Never hardcode hex, spacing, size, border-width, radius, or font-size px in declarations.
 
-Hex and spacing lengths may only be authored in `raaghu-react-themes/tokens/design-tokens.ts`.
-Consumers must use bare `var(--rds-*)` (no color hex fallbacks and no `px`/`rem` length fallbacks). Enforcement:
+Lengths may only be authored in `raaghu-react-themes/tokens/design-tokens.ts` (globals) or as component-local `--rds-*:` definitions at the top of a component block. Consumers use bare `var(--rds-*)` (no color hex or `px`/`rem` fallbacks). `@media` breakpoints may keep px. Enforcement:
 
 - `npm run lint:scss` — stylelint `color-no-hex`
 - `npm run lint:hex` — `scripts/check-no-hex.mjs` for TS/TSX (allowlists token source, color-picker spectrum/API, stories/tests/figma fixtures)
 - `npm run lint:spacing` — `scripts/check-spacing-in-scss.mjs` (no new bare `padding`/`margin`/`gap` px)
+- `npm run lint:raw-px` — `scripts/check-raw-px-in-scss.mjs` (no bare width/height/border/radius/font-size px)
 
-One-shot cleanups (same idea as hex): `node scripts/strip-px-fallbacks.mjs` removes `px`/`rem` fallbacks from `var(--rds-*)`; prefer bare `var(--rds-spacing-md)` in new SCSS.
+One-shot cleanups: `node scripts/strip-px-fallbacks.mjs`; size/border helpers under `scripts/replace-bare-*.mjs`.
 
 ```scss
 // Good
 .rds-my-component {
   background-color: var(--rds-background-paper);
   color:            var(--rds-text-primary);
-  border:           1px solid var(--rds-divider);
+  border:           var(--rds-border-width-thin) solid var(--rds-divider);
   border-radius:    var(--rds-border-radius-md);
   padding:          var(--rds-spacing-md);
+  width:            var(--rds-size-xl);
   box-shadow:       var(--rds-elevation-2);
   transition:       background-color 200ms ease;
 

@@ -1,4 +1,8 @@
 .rds-autocomplete {
+  --rds-autocomplete-dim-1: 30px;
+  --rds-autocomplete-dim-2: 52px;
+  --rds-autocomplete-dim-3: 120px;
+
   display: block;
   position: relative;
   --rds-autocomplete-focus-ring-width: 1px;
@@ -101,14 +105,14 @@
       margin-bottom: 0 !important;
       display: inline-flex;
       align-items: center;
-      height: 20px;
+      height: var(--rds-size-20);
     }
   }
 
   &--medium {
     .MuiInputBase-root {
-      height: 40px !important;
-      min-height: 40px !important;
+      height: var(--rds-size-40) !important;
+      min-height: var(--rds-size-40) !important;
       font-size: var(--rds-font-size-body) !important;
       overflow: hidden !important;
     }
@@ -135,15 +139,15 @@
 
   &--large {
     .MuiInputBase-root {
-      height: 52px !important;
-      min-height: 52px !important;
+      height: var(--rds-autocomplete-dim-2) !important;
+      min-height: var(--rds-autocomplete-dim-2) !important;
       font-size: var(--rds-font-size-large) !important;
       overflow: hidden !important;
     }
 
     .MuiInputBase-input {
-      height: 36px !important;
-      min-height: 36px !important;
+      height: var(--rds-size-36) !important;
+      min-height: var(--rds-size-36) !important;
       font-size: var(--rds-font-size-large) !important;
       box-sizing: border-box;
       padding-top: 0;
@@ -157,7 +161,7 @@
       margin-bottom: 0 !important;
       display: inline-flex;
       align-items: center;
-      height: 28px;
+      height: var(--rds-size-28);
     }
   }
 
@@ -224,7 +228,7 @@
 
   .MuiFormHelperText-root {
     margin-left: 0 !important;
-    min-height: 20px !important;
+    min-height: var(--rds-size-20) !important;
     margin-top: var(--rds-spacing-micro) !important;
     margin-bottom: 0 !important;
     line-height: 1.2 !important;
@@ -262,13 +266,13 @@
 
     .MuiAutocomplete-tag {
       flex-shrink: 0;
-      max-width: calc(50% - 8px);
+      max-width: calc(50% - var(--rds-size-sm));
       white-space: nowrap;
     }
 
     // When chips are present, shrink input to minimum; when empty, let it fill fully
     .MuiAutocomplete-input {
-      min-width: 30px !important;
+      min-width: var(--rds-autocomplete-dim-1) !important;
       flex-shrink: 1;
       flex-grow: 1;
       overflow: hidden !important;
@@ -297,20 +301,20 @@
 
   &__chip {
     margin: var(--rds-spacing-hairline) var(--rds-spacing-xxs) !important;
-    max-width: 120px !important;
+    max-width: var(--rds-autocomplete-dim-3) !important;
     font-size: 0.75rem !important;
     vertical-align: middle;
     
     &--small {
-      height: 20px !important;
+      height: var(--rds-size-20) !important;
     }
     
     &--medium {
-      height: 24px !important;
+      height: var(--rds-size-lg) !important;
     }
     
     &--large {
-      height: 28px !important;
+      height: var(--rds-size-28) !important;
     }
     
     &--overflow {

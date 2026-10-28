@@ -9,6 +9,12 @@
 }
 
 .rds-kanban-board-container {
+  --rds-kanban-board-dim-1: 6px;
+  --rds-kanban-board-dim-2: 35px;
+  --rds-kanban-board-dim-3: 50px;
+  --rds-kanban-board-dim-4: 600px;
+  --rds-kanban-board-dim-5: 133.6px;
+
   display: flex;
   flex-wrap: wrap;
   gap: var(--rds-spacing-sm);
@@ -30,7 +36,7 @@
     color: var(--rds-text-primary);
     
     &--empty-board {
-      border: 1px dashed var(--rds-surface-primary-medium) !important;
+      border: var(--rds-border-width-thin) dashed var(--rds-surface-primary-medium) !important;
     }
     
     &--add-board-320 {
@@ -53,7 +59,7 @@
     margin-bottom: var(--rds-spacing-md) !important;
     background-color: var(--rds-surface-primary-light) !important;
     color: var(--rds-text-primary) !important;
-    min-height: 35px !important;
+    min-height: var(--rds-kanban-board-dim-2) !important;
     padding: var(--rds-spacing-sm) !important;
     margin-left: var(--rds-spacing-neg-8) !important;
     margin-right: var(--rds-spacing-neg-8) !important;
@@ -87,20 +93,20 @@
 
   .card {
     padding: var(--rds-spacing-xs) !important;
-  min-height: 600px !important;
-    border: 1px solid var(--rds-surface-primary-medium);
+  min-height: var(--rds-kanban-board-dim-4) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-surface-primary-medium);
     background-color: var(--rds-background-paper);
   }
 
   .card-header {
     background-color: var(--rds-surface-primary-light) !important;
     color: var(--rds-text-primary);
-    min-height: 35px !important;
-    height: 35px !important;
+    min-height: var(--rds-kanban-board-dim-2) !important;
+    height: var(--rds-kanban-board-dim-2) !important;
     display: flex !important;
     align-items: center !important;
     flex-direction: row !important;
-    border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-surface-primary-medium) !important;
     padding-left: var(--rds-spacing-md) !important;
     padding-right: var(--rds-spacing-sm) !important;
     font-size: var(--rds-font-size-lg) !important;
@@ -140,12 +146,12 @@
     .card-header {
       background-color: transparent !important;
       color: var(--rds-text-primary);
-      min-height: 35px !important;
-      height: 35px !important;
+      min-height: var(--rds-kanban-board-dim-2) !important;
+      height: var(--rds-kanban-board-dim-2) !important;
       display: flex !important;
       align-items: center !important;
       flex-direction: row !important;
-      border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-surface-primary-medium) !important;
       padding-left: var(--rds-spacing-18) !important;
       padding-right: var(--rds-spacing-sm) !important;
       font-size: var(--rds-font-size-md) !important;
@@ -157,7 +163,7 @@
       padding: 0 var(--rds-spacing-xs) !important;
       background: var(--rds-background-paper, var(--Background-bg-primary-lighter-default));
       color: var(--rds-text-primary);
-      border-radius: 0px !important;
+      border-radius: var(--rds-border-radius-none) !important;
   min-height: var(--rds-kanban-subcard-min-height) !important;
     }
 
@@ -210,9 +216,9 @@
   &-card {
     background-color: var(--rds-background-paper) !important;
     color: var(--rds-text-primary) !important;
-    border: 1px solid var(--rds-surface-neutral-light) !important;
-    border-radius: 0px !important;
-  min-height: 133.6px !important;
+    border: var(--rds-border-width-thin) solid var(--rds-surface-neutral-light) !important;
+    border-radius: var(--rds-border-radius-none) !important;
+  min-height: var(--rds-kanban-board-dim-5) !important;
   }
   
   &-content {
@@ -271,7 +277,7 @@
   &__menu-paper {
     background-color: var(--rds-background-paper) !important;
     color: var(--rds-text-primary) !important;
-    border: 1px solid var(--rds-surface-neutral-light) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-surface-neutral-light) !important;
   }
   
   &__menu-item {
@@ -409,7 +415,7 @@
 
 .rds-kanban-board__add-button {
   flex-grow: 1;
-  border: 1px solid var(--rds-primary-main) !important;
+  border: var(--rds-border-width-thin) solid var(--rds-primary-main) !important;
   color: var(--rds-primary-main) !important;
   background-color: var(--rds-background-paper) !important;
   text-transform: none !important;
@@ -436,7 +442,7 @@
   border-color: var(--rds-primary-main) !important;
     background-color: transparent !important;
   color: var(--rds-primary-main) !important;
-  border: 1px solid var(--rds-primary-main) !important;
+  border: var(--rds-border-width-thin) solid var(--rds-primary-main) !important;
   }
 
   .small {
@@ -483,7 +489,7 @@
 
   .btn {
     width: 100% !important;
-  border: 1px solid var(--rds-primary-main) !important;
+  border: var(--rds-border-width-thin) solid var(--rds-primary-main) !important;
   color: var(--rds-primary-main) !important;
     text-transform: none;
     background-color: var(--rds-background-paper);
@@ -512,11 +518,11 @@
 }
 
 .kanban-board .card {
-  border-radius: 0px;
+  border-radius: var(--rds-border-radius-none);
 }
 
 .sub-cards-container {
-  min-height: 50px;
+  min-height: var(--rds-kanban-board-dim-3);
   padding: 0 var(--rds-kanban-subcard-padding-inner) var(--rds-kanban-subcard-padding-inner) var(--rds-kanban-subcard-padding-inner);
 }
 
@@ -543,9 +549,9 @@
   }
 
   .kanban-board {
-    width: calc(100vw - 40px) !important;
-    min-width: calc(100vw - 40px) !important;
-    max-width: calc(100vw - 40px) !important;
+    width: calc(100vw - var(--rds-size-40)) !important;
+    min-width: calc(100vw - var(--rds-size-40)) !important;
+    max-width: calc(100vw - var(--rds-size-40)) !important;
     margin-right: var(--rds-spacing-0) !important;
     margin-left: var(--rds-spacing-0) !important;
 
@@ -574,7 +580,7 @@
   }
 
   .rds-kanban-board-container::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
     background: transparent;
   }
 
@@ -588,7 +594,7 @@
   .MuiPaper-root {
     background-color: var(--rds-background-paper) !important;
     color: var(--rds-text-primary) !important;
-    border: 1px solid var(--rds-surface-neutral-light) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-surface-neutral-light) !important;
   }
   
   .MuiMenuItem-root {
@@ -735,13 +741,13 @@ html[data-theme="dark"],
   .kanban-board {
     &__card {
       background-color: var(--rds-background-paper, transparent) !important;
-      border: 1px solid var(--rds-border-dark, transparent) !important;
+      border: var(--rds-border-width-thin) solid var(--rds-border-dark, transparent) !important;
     }
 
     &__card-header {
       background-color: var(--rds-kanban-header-bg) !important;
       color: var(--rds-color-on-primary) !important;
-      border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-surface-primary-medium) !important;
     }
 
     &__header-button,
@@ -755,7 +761,7 @@ html[data-theme="dark"],
   .rds-kanban-board__sub-card-card,
   .kanban-board .sub-card .MuiCard-root {
     background-color: var(--rds-kanban-subcard-bg) !important;
-    border: 1px solid var(--rds-kanban-subcard-border) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-kanban-subcard-border) !important;
   }
 
   .rds-kanban-board__sub-card-header-left .MuiTypography-root,

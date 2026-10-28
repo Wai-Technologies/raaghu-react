@@ -1,4 +1,7 @@
 .rds-comp-filter-button {
+  --rds-filter-button-dim-1: 1px;
+  --rds-filter-button-dim-2: 450px;
+
   position: relative;
   display: inline-block;
 }
@@ -8,7 +11,7 @@
   max-height: var(--rds-filter-popover-max-height);
   border-radius: var(--rds-border-radius);
   box-shadow: var(--rds-elevation-3);
-  border: 1px solid var(--rds-color-border);
+  border: var(--rds-border-width-thin) solid var(--rds-color-border);
   margin-top: var(--rds-filter-popover-gap);
   overflow: hidden;
   display: flex;
@@ -19,7 +22,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-height: 450px;
+  max-height: var(--rds-filter-button-dim-2);
 }
 
 .rds-filter-button__header {
@@ -37,7 +40,7 @@
   bottom: 0;
   left: var(--rds-spacing-md);
   right: var(--rds-spacing-md);
-  height: 1px;
+  height: var(--rds-filter-button-dim-1);
   background: var(--rds-border-light);
 }
 

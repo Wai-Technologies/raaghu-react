@@ -1,6 +1,8 @@
 @use '../shared/styles/rds-profile-menu';
 
 .rds-header--transparent {
+  --rds-header-dim-1: 2px;
+
   background: transparent !important;
   box-shadow: none !important;
   color: var(--rds-color-on-surface);
@@ -66,7 +68,7 @@
   flex-direction: column;
   background: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
-  border-bottom: 1px solid var(--rds-color-border);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
   box-shadow: var(--rds-elevation-1);
   position: relative;
   width: 100%;
@@ -102,7 +104,7 @@
     letter-spacing: var(--rds-letter-spacing-wide);
     display: flex;
     align-items: center;
-    min-width: 80px;
+    min-width: var(--rds-size-4xl);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -115,7 +117,7 @@
     padding: 0 var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius);
     font-size: var(--rds-font-size-body);
-    border: 1px solid var(--rds-color-border);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border);
     box-shadow: none;
     height: var(--rds-header-search-height);
     display: flex;
@@ -147,9 +149,9 @@
     min-height: var(--rds-header-tabs-height);
     border-bottom: none;
     .MuiTabs-indicator {
-      height: 2px;
+      height: var(--rds-header-dim-1);
       background: var(--rds-color-primary);
-      border-radius: var(--rds-border-radius-xs) 2px 0 0;
+      border-radius: var(--rds-border-radius-xs) var(--rds-border-radius-xs) 0 0;
     }
     .MuiTabs-flexContainer {
       gap: var(--rds-spacing-xs);
@@ -173,7 +175,7 @@
   &__sub-header {
     background: var(--rds-color-surface-alt);
     padding: var(--rds-spacing-xs) var(--rds-spacing-xl);
-    border-top: 1px solid var(--rds-color-border);
+    border-top: var(--rds-border-width-thin) solid var(--rds-color-border);
     font-size: var(--rds-font-size-body);
     color: var(--rds-color-on-surface);
     display: flex;

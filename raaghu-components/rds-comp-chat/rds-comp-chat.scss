@@ -2,6 +2,27 @@
 
 @include bp.down(tablet-sm) {
   .rds-comp-chat__window-header-title--mobile {
+  --rds-chat-dim-1: 10px;
+  --rds-chat-dim-2: 26px;
+  --rds-chat-dim-3: 30px;
+  --rds-chat-dim-4: 34px;
+  --rds-chat-dim-5: 50px;
+  --rds-chat-dim-6: 120px;
+  --rds-chat-dim-7: 140px;
+  --rds-chat-dim-8: 150px;
+  --rds-chat-dim-9: 180px;
+  --rds-chat-dim-10: 220px;
+  --rds-chat-dim-11: 240px;
+  --rds-chat-dim-12: 260px;
+  --rds-chat-dim-13: 280px;
+  --rds-chat-dim-14: 300px;
+  --rds-chat-dim-15: 320px;
+  --rds-chat-dim-16: 350px;
+  --rds-chat-dim-17: 360px;
+  --rds-chat-dim-18: 370px;
+  --rds-chat-dim-19: 400px;
+  --rds-chat-dim-20: 600px;
+
     .rds-avatar {
       .MuiAvatar-root {
         width: var(--rds-avatar-size-medium) !important;
@@ -14,13 +35,13 @@
     .nav-link {
       font-size: var(--rds-font-size-sm) !important;
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
-      min-width: 48px;
+      min-width: var(--rds-size-2xl);
     }
   }
   .nav-link--mobile {
     font-size: var(--rds-font-size-sm) !important;
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
-    min-width: 48px;
+    min-width: var(--rds-size-2xl);
   }
   .rds-comp-chat__back-btn {
     display: inline-flex;
@@ -40,13 +61,13 @@
     .nav-link {
       font-size: var(--rds-font-size-sm) !important;
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
-      min-width: 40px;
+      min-width: var(--rds-size-40);
     }
   }
   .nav-link--mobile {
     font-size: var(--rds-font-size-sm) !important;
     padding: var(--rds-spacing-xxs) var(--rds-spacing-compact) !important;
-    min-width: 40px;
+    min-width: var(--rds-size-40);
   }
   .rds-comp-chat__back-btn {
     font-size: var(--rds-font-size-xl);
@@ -56,7 +77,7 @@
 }
 
 .rds-comp-chat {
-  border: 1px solid var(--rds-border-default);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
   border-radius: var(--rds-border-radius);
   display: flex;
   flex-direction: column;
@@ -76,7 +97,7 @@
   &__screen {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid var(--rds-color-border-light);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border-light);
     min-height: 0;
     flex: 1;
     overflow: hidden;
@@ -85,22 +106,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 56px;
-      min-height: 56px;
-      border-bottom: 1px solid var(--rds-color-border-light);
+      height: var(--rds-size-56);
+      min-height: var(--rds-size-56);
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       flex-shrink: 0;
     }
 
     &-main {
-      height: calc(100% - 56px);
+      height: calc(100% - var(--rds-size-56));
       overflow-y: auto;
       overflow-x: hidden;
 
       .rds-comp-chat__user-item {
         cursor: pointer;
         padding: var(--rds-spacing-sm);
-        border-bottom: 1px solid var(--rds-color-border-light);
+        border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border-light);
 
         &:hover {
           background-color: var(--rds-color-primary-light);
@@ -125,10 +146,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 56px;
-      min-height: 56px;
+      height: var(--rds-size-56);
+      min-height: var(--rds-size-56);
       padding: 0 var(--rds-spacing-sm);
-      border-bottom: 1px solid var(--rds-color-border-light);
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       flex-shrink: 0;
       position: relative;
       
@@ -199,7 +220,7 @@
           justify-content: center;
           padding: var(--rds-spacing-13) var(--rds-spacing-cozy) !important;
           border: none !important;
-          border-bottom: 2px solid transparent !important;
+          border-bottom: var(--rds-border-width-medium) solid transparent !important;
           border-radius: 0;
           background: transparent;
           color: var(--rds-color-on-surface) !important;
@@ -223,7 +244,7 @@
         .nav-link.active {
           color: var(--rds-color-primary) !important;
           font-weight: var(--rds-font-weight-bold, 700) !important;
-          border-bottom: 2px solid var(--rds-color-primary) !important;
+          border-bottom: var(--rds-border-width-medium) solid var(--rds-color-primary) !important;
           margin-bottom: var(--rds-spacing-neg-1);
         }
       }
@@ -267,7 +288,7 @@
       }
 
         .rds-comp-chat__comment-content {
-        border-radius: var(--rds-border-radius-md) 8px 0px 8px;
+        border-radius: var(--rds-border-radius-md) var(--rds-border-radius-md) var(--rds-border-radius-none) var(--rds-border-radius-md);
         padding: var(--rds-spacing-sm) var(--rds-spacing-md);
         font-size: var(--rds-font-size-body);
         max-width: var(--rds-chat-message-max-width);
@@ -288,7 +309,7 @@
       }
 
         .rds-comp-chat__comment-content {
-        border-radius: var(--rds-border-radius-md) 8px 8px 0px;
+        border-radius: var(--rds-border-radius-md) var(--rds-border-radius-md) var(--rds-border-radius-md) var(--rds-border-radius-none);
         padding: var(--rds-spacing-sm) var(--rds-spacing-md);
         font-size: var(--rds-font-size-body);
         max-width: var(--rds-chat-message-max-width);
@@ -318,7 +339,7 @@
     &-image {
       max-width: 100%;
       width: 100%;
-      max-height: 220px;
+      max-height: var(--rds-chat-dim-10);
       height: auto;
       border-radius: var(--rds-border-radius);
       margin-bottom: var(--rds-spacing-xs);
@@ -370,7 +391,7 @@
   &__video-feed {
     width: 80%;
     max-width: var(--rds-chat-video-max-width);
-    border: 2px solid var(--rds-color-on-primary);
+    border: var(--rds-border-width-medium) solid var(--rds-color-on-primary);
     border-radius: var(--rds-border-radius);
   }
 
@@ -381,16 +402,16 @@
     left: 0;
     margin-bottom: var(--rds-spacing-sm);
     background-color: var(--rds-background-paper);
-    border: 1px solid var(--rds-border-light);
+    border: var(--rds-border-width-thin) solid var(--rds-border-light);
     border-radius: var(--rds-border-radius-md);
     box-shadow: var(--rds-elevation-3);
-    width: 360px;
-    max-height: 400px;
+    width: var(--rds-chat-dim-17);
+    max-height: var(--rds-chat-dim-19);
     
     .rds-emoji-generator {
       width: 100%;
-      height: 400px;
-      max-height: 400px;
+      height: var(--rds-chat-dim-19);
+      max-height: var(--rds-chat-dim-19);
       overflow-x: hidden; 
       
       .rds-emoji-generator__grid-container {
@@ -406,13 +427,13 @@
       left: var(--rds-spacing-3);
       right: var(--rds-spacing-3);
       width: auto;
-      max-width: calc(100% - 24px);
+      max-width: calc(100% - var(--rds-size-lg));
       margin: 0;
       
       .rds-emoji-generator {
         width: 100%;
-        height: 350px;
-        max-height: 350px;
+        height: var(--rds-chat-dim-16);
+        max-height: var(--rds-chat-dim-16);
         overflow-x: hidden;
         
         .rds-emoji-generator__grid-container {
@@ -429,14 +450,14 @@
       left: var(--rds-spacing-sm) !important;
       right: var(--rds-spacing-sm) !important;
       width: auto !important;
-      max-width: calc(100% - 16px) !important; 
+      max-width: calc(100% - var(--rds-size-md)) !important; 
       margin: 0 !important;
       transform: none !important;
       
       .rds-emoji-generator {
         width: 100%;
-        height: 320px; 
-        max-height: 320px;
+        height: var(--rds-chat-dim-15); 
+        max-height: var(--rds-chat-dim-15);
         overflow-x: hidden;
         border-radius: var(--rds-border-radius-md);
         
@@ -454,8 +475,8 @@
         
         .rds-emoji-generator__emoji {
           font-size: var(--rds-font-size-xl); 
-          width: 30px; 
-          height: 30px;
+          width: var(--rds-chat-dim-3); 
+          height: var(--rds-chat-dim-3);
         }
         
         .rds-emoji-generator__search {
@@ -475,14 +496,14 @@
       left: var(--rds-spacing-sm) !important;
       right: var(--rds-spacing-sm) !important;
       width: auto !important;
-      max-width: calc(100% - 16px) !important; 
+      max-width: calc(100% - var(--rds-size-md)) !important; 
       margin: 0 !important;
       transform: none !important;
       
       .rds-emoji-generator {
         width: 100%;
-        height: 300px; 
-        max-height: 300px;
+        height: var(--rds-chat-dim-14); 
+        max-height: var(--rds-chat-dim-14);
         overflow-x: hidden;
         border-radius: var(--rds-border-radius-md); 
         
@@ -500,8 +521,8 @@
         
         .rds-emoji-generator__emoji {
           font-size: var(--rds-font-size-lg); 
-          width: 28px; 
-          height: 28px;
+          width: var(--rds-size-28); 
+          height: var(--rds-size-28);
         }
         
         .rds-emoji-generator__search {
@@ -520,7 +541,7 @@
     width: 100%;
     max-width: 100%;
     display: block;
-    min-height: 44px; 
+    min-height: var(--rds-size-44); 
 
 
     input,
@@ -531,7 +552,7 @@
       box-sizing: border-box;
       padding-right: var(--rds-spacing-56-px);
       padding-left: var(--rds-spacing-12-px);
-      height: 40px;
+      height: var(--rds-size-40);
       line-height: 1.2;
       border-radius: var(--rds-border-radius-md);
     }
@@ -551,13 +572,13 @@
     padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
     box-sizing: border-box;
     gap: var(--rds-spacing-sm);
-    min-height: 44px;
+    min-height: var(--rds-size-44);
     background: var(--rds-color-surface);
-    border: 1px solid var(--rds-color-border-light);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
   }
 
   &__field {
-    border: 1px solid var(--rds-border-default) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-border-default) !important;
   }
 
   &__rds-input,
@@ -682,8 +703,8 @@
 
     svg,
     .MuiSvgIcon-root {
-      width: 20px;
-      height: 20px;
+      width: var(--rds-size-20);
+      height: var(--rds-size-20);
       color: inherit;
     }
 
@@ -699,20 +720,20 @@
 
   @include bp.down(tablet-sm) {
     &__send-icon { 
-      width: 28px; 
-      height: 28px;
+      width: var(--rds-size-28); 
+      height: var(--rds-size-28);
       
       svg {
-        width: 18px;
-        height: 18px;
+        width: var(--rds-size-18);
+        height: var(--rds-size-18);
       }
     }
   }
 
   @include bp.down(mobile-sm) {
     &__send-icon { 
-      width: 26px; 
-      height: 26px;
+      width: var(--rds-chat-dim-2); 
+      height: var(--rds-chat-dim-2);
       
       svg {
         width: var(--rds-size-md);
@@ -720,7 +741,7 @@
       }
     }
     .rds-button--state-default {
-      min-width: 40px !important;
+      min-width: var(--rds-size-40) !important;
       margin-bottom: var(--rds-spacing-compact);
     }
   }
@@ -743,9 +764,9 @@
 
     .btn-icon,
     .rds-button {
-      min-width: 40px !important;
-      height: 40px;
-      width: 40px;
+      min-width: var(--rds-size-40) !important;
+      height: var(--rds-size-40);
+      width: var(--rds-size-40);
       border-radius: var(--rds-border-radius-md);
       display: flex !important;
       align-items: center;
@@ -753,8 +774,8 @@
       padding: 0 !important;
       
       svg {
-        width: 20px;
-        height: 20px;
+        width: var(--rds-size-20);
+        height: var(--rds-size-20);
       }
     }
 
@@ -765,8 +786,8 @@
       justify-content: center;
       font-size: var(--rds-font-size-2xl);
       color: var(--rds-color-on-surface);
-      width: 40px;
-      height: 40px;
+      width: var(--rds-size-40);
+      height: var(--rds-size-40);
       border-radius: var(--rds-border-radius-md);
       padding: 0;
 
@@ -779,13 +800,13 @@
       }
       
       svg {
-        width: 20px;
-        height: 20px;
+        width: var(--rds-size-20);
+        height: var(--rds-size-20);
       }
     }
 
     .rds-button--state-default {
-      min-width: 50px !important;
+      min-width: var(--rds-chat-dim-5) !important;
     }
   }
 
@@ -797,7 +818,7 @@
     }
     
     &__input-wrapper {
-      min-height: 36px;
+      min-height: var(--rds-size-36);
       padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
     }
   }
@@ -810,7 +831,7 @@
     }
     
     &__input-wrapper {
-      min-height: 34px;
+      min-height: var(--rds-chat-dim-4);
       padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
     }
   }
@@ -826,17 +847,17 @@
   }
 
   .btn-icon {
-    min-width: 10px !important;
+    min-width: var(--rds-chat-dim-1) !important;
     flex-shrink: 0; 
   }
 
   .nav-tabs {
     margin-top: var(--rds-spacing-14);
-    border-bottom: 1px solid var(--rds-color-border-light);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border-light);
     
     .nav-link {
       border: none;
-      border-bottom: 2px solid transparent;
+      border-bottom: var(--rds-border-width-medium) solid transparent;
       color: var(--rds-color-text-secondary);
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
       font-weight: var(--rds-font-weight-medium, 500);
@@ -873,7 +894,7 @@
       &.active:focus-visible {
         outline: none !important;
         box-shadow: none !important;
-        border-bottom: 2px solid var(--rds-color-primary) !important;
+        border-bottom: var(--rds-border-width-medium) solid var(--rds-color-primary) !important;
       }
     }
     display: flex;
@@ -895,7 +916,7 @@
     overflow: hidden;
     border-radius: var(--rds-border-radius-md);
     background: var(--rds-color-surface);
-    border: 1px solid var(--rds-color-border-light);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
     padding: var(--rds-spacing-compact);
     box-sizing: border-box;
 
@@ -938,13 +959,13 @@
 @include bp.up(tablet-sm) {
   .rds-comp-chat {
     flex-direction: row;
-    height: 600px;
+    height: var(--rds-chat-dim-20);
 
     &__screen {
       width: 30%;
-      min-width: 280px;
-      max-width: 350px;
-      border-right: 1px solid var(--rds-color-border-light);
+      min-width: var(--rds-chat-dim-13);
+      max-width: var(--rds-chat-dim-16);
+      border-right: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       border-bottom: none;
       flex-shrink: 0;
     }
@@ -993,7 +1014,7 @@
 
     &__window-main {
       flex: 1 !important;
-      min-height: calc(100vh - 140px); 
+      min-height: calc(100vh - var(--rds-chat-dim-7)); 
     }
 
     &__message {
@@ -1001,7 +1022,7 @@
 
       &--current-user {
         .rds-comp-chat__comment-content {
-          max-width: 260px;
+          max-width: var(--rds-chat-dim-12);
           font-size: var(--rds-font-size-md);
           padding: var(--rds-spacing-sm) var(--rds-spacing-md);
           margin-right: var(--rds-spacing-sm);
@@ -1010,7 +1031,7 @@
 
       &--other-user {
         .rds-comp-chat__comment-content {
-          max-width: 260px;
+          max-width: var(--rds-chat-dim-12);
           font-size: var(--rds-font-size-md);
           padding: var(--rds-spacing-sm) var(--rds-spacing-md);
           margin-left: var(--rds-spacing-sm);
@@ -1021,7 +1042,7 @@
     &__comment {
       &-image {
         max-width: 100%;
-        max-height: 180px;
+        max-height: var(--rds-chat-dim-9);
       }
 
       &-video {
@@ -1058,16 +1079,16 @@
     &__footer-left {
       
       .rds-comp-chat__emoji-btn {
-        width: 36px;
-        height: 36px;
+        width: var(--rds-size-36);
+        height: var(--rds-size-36);
         font-size: var(--rds-font-size-xl);
         margin-bottom: var(--rds-spacing-compact);
       }
       
       .btn-icon {
-        min-width: 36px !important;
-        height: 36px;
-        width: 36px;
+        min-width: var(--rds-size-36) !important;
+        height: var(--rds-size-36);
+        width: var(--rds-size-36);
       }
     }
 
@@ -1076,7 +1097,7 @@
 
       &--current-user {
         .rds-comp-chat__comment-content {
-          max-width: 240px;
+          max-width: var(--rds-chat-dim-11);
           padding: var(--rds-spacing-sm) var(--rds-spacing-md);
           font-size: var(--rds-font-size-md);
           margin-right: var(--rds-spacing-xs);
@@ -1085,7 +1106,7 @@
 
       &--other-user {
         .rds-comp-chat__comment-content {
-          max-width: 240px;
+          max-width: var(--rds-chat-dim-11);
           padding: var(--rds-spacing-sm) var(--rds-spacing-md);
           font-size: var(--rds-font-size-md);
           margin-left: var(--rds-spacing-xs);
@@ -1096,7 +1117,7 @@
     &__comment {
       &-image {
         max-width: 100%;
-        max-height: 150px;
+        max-height: var(--rds-chat-dim-8);
       }
 
       &-video {
@@ -1108,8 +1129,8 @@
 
 @include bp.down(tablet-sm) {
   .EmojiPickerReact {
-    height: 370px !important;
-    width: min(300px, 90vw) !important;
+    height: var(--rds-chat-dim-18) !important;
+    width: min(var(--rds-chat-dim-14), 90vw) !important;
     right: var(--rds-spacing-md) !important;
     top: auto !important;
     bottom: var(--rds-spacing-80-px) !important;
@@ -1120,7 +1141,7 @@
 
 @include bp.down(mobile-sm) {
   .EmojiPickerReact {
-    height: 350px !important;
+    height: var(--rds-chat-dim-16) !important;
     width: calc(100vw - 2rem) !important;
     right: var(--rds-spacing-md) !important;
     left: var(--rds-spacing-md) !important;
@@ -1136,7 +1157,7 @@
   }
   
   .EmojiPickerReact {
-    height: 320px !important;
+    height: var(--rds-chat-dim-15) !important;
     width: calc(100vw - 1rem) !important;
     right: 0.5rem !important;
     left: 0.5rem !important;
@@ -1146,13 +1167,13 @@
   .rds-comp-chat {
     &__window-main {
       flex: 1 !important;
-      height: calc(100vh - 120px);
+      height: calc(100vh - var(--rds-chat-dim-6));
     }
 
     &__comment {
       &-image {
         max-width: 100%;
-        max-height: 120px;
+        max-height: var(--rds-chat-dim-6);
       }
 
       &-video {
@@ -1161,7 +1182,7 @@
     }
   }
   .rds-button--state-default {
-      min-width: 40px !important;
+      min-width: var(--rds-size-40) !important;
       margin-bottom: var(--rds-spacing-micro);
     }
 }
@@ -1271,11 +1292,11 @@
     height: var(--rds-chat-height);
 
     &__screen {
-      width: 320px;
-      min-width: 280px;
-      max-width: 360px;
+      width: var(--rds-chat-dim-15);
+      min-width: var(--rds-chat-dim-13);
+      max-width: var(--rds-chat-dim-17);
       flex: 0 0 320px;
-      border-right: 1px solid var(--rds-color-border-light);
+      border-right: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       border-bottom: none;
       overflow: hidden;
       display: flex;

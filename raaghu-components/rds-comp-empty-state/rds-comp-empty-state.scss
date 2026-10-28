@@ -30,6 +30,8 @@
 }
 
 .rds-comp-empty-state {
+  --rds-empty-state-dim-1: 160px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,12 +139,12 @@
     font-size: var(--rds-font-size-md);
     font-weight: 500;
     text-transform: none;
-    min-width: 160px;
+    min-width: var(--rds-empty-state-dim-1);
     line-height: 1.2;
     font-family: var(--rds-font-family-base);
 
     &:focus-visible {
-      outline: 2px solid var(--rds-focus-ring);
+      outline: var(--rds-border-width-medium) solid var(--rds-focus-ring);
       outline-offset: 2px;
     }
   }

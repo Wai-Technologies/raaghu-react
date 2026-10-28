@@ -1,4 +1,7 @@
 .rds-comp-ai-typing-section {
+  --rds-ai-typing-section-dim-1: 160px;
+  --rds-ai-typing-section-dim-2: 220px;
+
 
   display: block;
 
@@ -26,7 +29,7 @@
 
     border-radius: var(--rds-border-radius);
 
-    border: 1px solid var(--rds-color-border);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border);
 
     background: var(--rds-color-surface);
 
@@ -604,9 +607,9 @@
 
       flex: 1 1 auto;
 
-      min-width: 160px;
+      min-width: var(--rds-ai-typing-section-dim-1);
 
-      max-width: 220px;
+      max-width: var(--rds-ai-typing-section-dim-2);
 
     }
 

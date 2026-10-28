@@ -1,14 +1,18 @@
 .rds-scrollbar {
+  --rds-scrollbar-dim-1: 1px;
+  --rds-scrollbar-dim-2: 2px;
+  --rds-scrollbar-dim-3: 800px;
+
   /* G6-094: default height via token; consumer sx/className can override */
   --rds-scrollbar-height: 300px;
   position: relative;
   overflow: hidden;
-  width: calc(var(--rds-spacing-md) + 2px);
+  width: calc(var(--rds-spacing-md) + var(--rds-scrollbar-dim-2));
   height: var(--rds-scrollbar-height);
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--rds-color-gray-300);
+  border: var(--rds-border-width-thin) solid var(--rds-color-gray-300);
   background-color: var(--rds-color-white);
   border-radius: var(--rds-border-radius-md);
   padding: 0;
@@ -36,7 +40,7 @@
         height: auto;
         width: 100%;
         min-height: var(--rds-spacing-md);
-        max-height: calc(var(--rds-spacing-md) + 4px);
+        max-height: calc(var(--rds-spacing-md) + var(--rds-size-xs));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -60,14 +64,14 @@
     z-index: var(--rds-z-index-base);
   }
     .rds-scrollbar__inner-content {
-        height: 800px;
-        width: 1px;
+        height: var(--rds-scrollbar-dim-3);
+        width: var(--rds-scrollbar-dim-1);
         margin: 0 auto;
     }
 }
 
 .rds-scrollbar--mac .rds-scrollbar__content {
-  height: calc(100% - 40px);
+  height: calc(100% - var(--rds-size-40));
   overflow-y: scroll;
   background-color: transparent;
   margin: 0 auto;
@@ -82,7 +86,7 @@
   background-color: var(--rds-color-gray-500);
   border-radius: var(--rds-border-radius-full);
   width: var(--rds-spacing-xs);
-  min-height: 40px;
+  min-height: var(--rds-size-40);
   margin: 0 auto;
 }
 
@@ -101,7 +105,7 @@
   background-color: var(--rds-color-gray-400);
   border-radius: var(--rds-border-radius-sm);
   width: var(--rds-spacing-xs);
-  min-height: 40px;
+  min-height: var(--rds-size-40);
   margin: 0 auto;
 }
 
@@ -125,7 +129,7 @@
   margin: 0;
   width: 100%;
   min-height: var(--rds-spacing-md);
-  max-height: calc(var(--rds-spacing-md) + 4px);
+  max-height: calc(var(--rds-spacing-md) + var(--rds-size-xs));
   display: flex;
   align-items: center;
   justify-content: center;

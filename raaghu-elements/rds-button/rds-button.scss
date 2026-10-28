@@ -52,7 +52,7 @@
   &__secondary {
     background-color: var(--rds-button-secondary-bg);
     color: var(--rds-button-secondary-text);
-    border: 1px solid var(--rds-button-secondary-border);
+    border: var(--rds-border-width-thin) solid var(--rds-button-secondary-border);
     
     &:hover {
       background-color: transparent;

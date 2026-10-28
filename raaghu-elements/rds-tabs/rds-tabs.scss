@@ -1,34 +1,42 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
+.rds-tabs {
+  --rds-tabs-flap-border-y: 8px;
+  --rds-tabs-flap-border-x: 12px;
+  --rds-tabs-flap-border-y-lg: 27px;
+  --rds-tabs-flap-border-y-md: 22px;
+  --rds-tabs-flap-border-x-lg: 34px;
+}
+
 .rds-tabs--line-left .MuiTab-root {
-  border-left: 2px solid transparent;
+  border-left: var(--rds-border-width-medium) solid transparent;
   &.Mui-selected {
-    border-left: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    border-left: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
 .rds-tabs--line-bottom .MuiTab-root {
-  border-bottom: 2px solid transparent;
+  border-bottom: var(--rds-border-width-medium) solid transparent;
   &.Mui-selected {
-    border-bottom: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    border-bottom: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
 .rds-tabs--line-bottom-solid .MuiTab-root {
-  border-bottom: 3px solid transparent;
+  border-bottom: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
-    border-bottom: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    border-bottom: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-accent) !important; // Use accent token
     border-radius: unset !important;
     background: var(--rds-color-accent-bg) !important; // Use accent bg token
   }
 }
 .rds-tabs--line-left-solid .MuiTab-root {
-  border-left: 3px solid transparent;
+  border-left: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
-    border-left: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    border-left: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-accent) !important;
     border-radius: unset !important;
     background: var(--rds-color-accent-bg) !important;
@@ -36,18 +44,18 @@
 }
 
 .rds-tabs--line-right .MuiTab-root {
-  border-right: 2px solid transparent;
+  border-right: var(--rds-border-width-medium) solid transparent;
   &.Mui-selected {
-    border-right: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    border-right: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-primary, var(--rds-primary-main));
     border-radius: unset !important;
   }
 }
 
 .rds-tabs--line-right-solid .MuiTab-root {
-  border-right: 3px solid transparent;
+  border-right: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
-    border-right: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    border-right: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-accent) !important;
     border-radius: unset !important;
     background: var(--rds-color-accent-bg) !important;
@@ -55,18 +63,18 @@
 }
 
 .rds-tabs--line-top .MuiTab-root {
-  border-top: 2px solid transparent;
+  border-top: var(--rds-border-width-medium) solid transparent;
   &.Mui-selected {
-    border-top: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    border-top: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
 
 .rds-tabs--line-top-solid .MuiTab-root {
-  border-top: 3px solid transparent;
+  border-top: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
-    border-top: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    border-top: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-accent) !important;
     border-radius: unset !important;
     background: var(--rds-color-accent-bg) !important;
@@ -90,6 +98,8 @@
 
 
 .rds-tabs {
+  --rds-tabs-dim-1: 211px;
+
   display: flex;
   flex-direction: column;
   position: relative;
@@ -192,9 +202,9 @@
   transform: translateY(-50%) !important;
   width: 0 !important;
   height: 0 !important;
-  border-top: 8px solid transparent !important;
-  border-bottom: 8px solid transparent !important;
-  border-left: 12px solid var(--rds-color-accent) !important;
+  border-top: var(--rds-tabs-flap-border-y) solid transparent !important;
+  border-bottom: var(--rds-tabs-flap-border-y) solid transparent !important;
+  border-left: var(--rds-tabs-flap-border-x) solid var(--rds-color-accent) !important;
   z-index: calc(var(--rds-z-index-base) + 1) !important;
 }
 
@@ -312,7 +322,7 @@
   }
 
   .rds-tabs .MuiTab-root:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main)) !important;
+    outline: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main)) !important;
     outline-offset: 2px !important;
   }
 }
@@ -322,11 +332,11 @@
     left: calc(100% + 0) !important;
     top: 48% !important;
     transform: translateY(-48%) !important;
-    width: 211px !important;
-    height: 18px !important;
-    border-top: 27px solid transparent !important;
-    border-bottom: 22px solid transparent !important;
-    border-left: 34px solid var(--rds-color-accent) !important;
+    width: var(--rds-tabs-dim-1) !important;
+    height: var(--rds-size-18) !important;
+    border-top: var(--rds-tabs-flap-border-y-lg) solid transparent !important;
+    border-bottom: var(--rds-tabs-flap-border-y-md) solid transparent !important;
+    border-left: var(--rds-tabs-flap-border-x-lg) solid var(--rds-color-accent) !important;
     z-index: calc(var(--rds-z-index-base) + 1) !important;
 }
 .rds-tabs--flap .Mui-selected {
@@ -411,7 +421,7 @@
   }
 
   .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-disabled.Mui-selected::after {
-    border-left: 34px solid var(--rds-color-disabled-container-dark) !important;
+    border-left: var(--rds-tabs-flap-border-x-lg) solid var(--rds-color-disabled-container-dark) !important;
     opacity: 1;
   }
 

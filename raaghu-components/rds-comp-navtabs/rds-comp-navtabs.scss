@@ -14,7 +14,7 @@
         }
         
         &:focus-visible {
-          outline: 2px solid var(--rds-color-primary);
+          outline: var(--rds-border-width-medium) solid var(--rds-color-primary);
           outline-offset: 2px;
         }
         
@@ -194,7 +194,7 @@
 
 @include bp.down(1023) {
   .bs-md-0 {
-    border-left: 0px solid transparent;
+    border-left: var(--rds-border-width-none) solid transparent;
   }
   
   .rds-comp-navtabs {

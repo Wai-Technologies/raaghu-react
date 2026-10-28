@@ -1,13 +1,15 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-mlm-paper {
+  --rds-multi-level-menu-dim-1: 520px;
+
   --rds-mlm-min-width: 220px;
   --rds-mlm-item-padding-y: 8px;
   --rds-mlm-item-padding-x: 16px;
   --rds-mlm-item-transition: var(--rds-transition-fast, 0.15s ease-in-out);
   box-shadow: var(--rds-elevation-3);
   border-radius: var(--rds-border-radius-md);
-  border: 1px solid var(--rds-border-default);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
   padding: 0;
   min-width: var(--rds-mlm-min-width);
   background: var(--rds-background-paper);
@@ -73,7 +75,7 @@
 .rds-mlm-paper .MuiMenuItem-root.large {
   font-size: var(--rds-font-size-lg);
   line-height: 24px;
-  min-height: 48px;
+  min-height: var(--rds-size-2xl);
   padding: var(--rds-spacing-md) calc(var(--rds-spacing-lg) + var(--rds-spacing-xxs));
 }
 
@@ -90,7 +92,7 @@
 }
 
 .rds-mlm-paper.size-large {
-  max-height: 520px;
+  max-height: var(--rds-multi-level-menu-dim-1);
   overflow: auto;
 }
 

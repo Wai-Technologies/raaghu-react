@@ -1,4 +1,6 @@
 .rds-select {
+  --rds-select-dim-1: 1px;
+
   --rds-select-focus-border-width: 2px;
   --rds-select-helper-margin-left: 0px;
   display: block;
@@ -130,8 +132,8 @@
 
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: var(--rds-select-dim-1);
+  height: var(--rds-select-dim-1);
   padding: 0;
   margin: var(--rds-spacing-neg-1);
   overflow: hidden;

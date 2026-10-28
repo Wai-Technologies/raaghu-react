@@ -1,4 +1,6 @@
 .rds-switch {
+  --rds-switch-dim-1: 10px;
+
   --rds-switch-focus-ring-width: 2px;
   --rds-switch-disabled-opacity: 0.6;
   --rds-switch-disabled-track-opacity: 0.4;
@@ -116,8 +118,8 @@
 
 .rds-switch--style3 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
-  height: 10px !important;
-  border-radius: 999px !important;
+  height: var(--rds-switch-dim-1) !important;
+  border-radius: var(--rds-border-radius-full) !important;
   position: absolute !important;
   top: 50% !important;
   left: 0 !important;

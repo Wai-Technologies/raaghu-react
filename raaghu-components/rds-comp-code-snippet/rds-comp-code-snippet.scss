@@ -1,8 +1,15 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-code-snippet {
+  --rds-code-snippet-dim-1: 1px;
+  --rds-code-snippet-dim-2: 30px;
+  --rds-code-snippet-dim-3: 68px;
+  --rds-code-snippet-dim-4: 72px;
+  --rds-code-snippet-dim-5: 120px;
+  --rds-code-snippet-dim-6: 400px;
+
   border-radius: var(--rds-border-radius);
-  border: 1px solid var(--rds-color-border);
+  border: var(--rds-border-width-thin) solid var(--rds-color-border);
   overflow: hidden;
   font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-sm);
@@ -24,8 +31,8 @@
     position: relative;
 
     .rds-button.MuiButton-root {
-      height: 32px;
-      min-height: 32px;
+      height: var(--rds-size-xl);
+      min-height: var(--rds-size-xl);
       box-sizing: border-box;
     }
 
@@ -35,7 +42,7 @@
       bottom: 0;
       left: calc(-1 * var(--rds-spacing-md));
       right: calc(-1 * var(--rds-spacing-md));
-      height: 1px;
+      height: var(--rds-code-snippet-dim-1);
       background-color: var(--rds-color-border);
     }
 
@@ -62,16 +69,16 @@
     }
 
     &__language-label {
-      max-width: 68px;
+      max-width: var(--rds-code-snippet-dim-3);
       font-size: var(--rds-font-size-xs) !important;
     }
 
     &__copy-button {
-      min-width: 72px;
+      min-width: var(--rds-code-snippet-dim-4);
       padding: calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
       font-size: var(--rds-font-size-xs) !important;
       white-space: nowrap;
-      height: 30px;
+      height: var(--rds-code-snippet-dim-2);
     }
 
     &__expand-icon {
@@ -126,7 +133,7 @@
   }
 
   &__copy-button {
-    min-width: 120px;
+    min-width: var(--rds-code-snippet-dim-5);
 
     &:focus,
     &:focus-visible,
@@ -208,8 +215,8 @@
     padding: var(--rds-spacing-md) var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md);
     text-align: right;
     user-select: none;
-    min-width: 40px;
-    border-right: 1px solid;
+    min-width: var(--rds-size-40);
+    border-right: var(--rds-border-width-thin) solid;
   }
 
   &__line-number {
@@ -233,7 +240,7 @@
     justify-content: flex-end;
     align-items: center;
     padding: var(--rds-spacing-md) var(--rds-spacing-md);
-    min-height: 48px;
+    min-height: var(--rds-size-2xl);
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
@@ -384,7 +391,7 @@
 
   &--multiLine {
     .rds-comp-code-snippet__content {
-      max-height: 400px;
+      max-height: var(--rds-code-snippet-dim-6);
       overflow-y: auto;
     }
   }

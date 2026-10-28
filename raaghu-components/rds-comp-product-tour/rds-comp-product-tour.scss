@@ -1,6 +1,21 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-product-tour {
+  --rds-product-tour-dim-1: 1px;
+  --rds-product-tour-dim-info-nav: 137.74px;
+  --rds-product-tour-dim-2: 38px;
+  --rds-product-tour-dim-3: 72px;
+  --rds-product-tour-dim-4: 74px;
+  --rds-product-tour-dim-5: 88px;
+  --rds-product-tour-dim-6: 90px;
+  --rds-product-tour-dim-7: 120px;
+  --rds-product-tour-dim-8: 160px;
+  --rds-product-tour-dim-9: 180px;
+  --rds-product-tour-dim-10: 240px;
+  --rds-product-tour-dim-11: 280px;
+  --rds-product-tour-dim-12: 306px;
+  --rds-product-tour-dim-13: 700px;
+
   &__container {
     background: var(--rds-background-paper);
     box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow, rgba(162, 89, 255, 0.18));
@@ -30,7 +45,7 @@
 
     &--animation {
       padding: calc(var(--rds-spacing-xl) - var(--rds-spacing-xs)) calc(var(--rds-spacing-2xl) - var(--rds-spacing-md));
-      border: 1px solid var(--rds-border-light);
+      border: var(--rds-border-width-thin) solid var(--rds-border-light);
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -39,7 +54,7 @@
 
     &--form {
       padding: var(--rds-spacing-md) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
-      max-width: 700px;
+      max-width: var(--rds-product-tour-dim-13);
       margin-top: var(--rds-spacing-md);
       height: auto;
       min-height: unset;
@@ -123,7 +138,7 @@
 
   &__info-nav-section {
     width: 100%;
-    min-height: 137.74px;
+    min-height: var(--rds-product-tour-dim-info-nav);
     background: var(--rds-background-paper);
     border-radius: 0 0 var(--rds-border-radius-md) var(--rds-border-radius-md);
     display: flex;
@@ -182,7 +197,7 @@
   }
 
     &__arrow {
-    border: 0.5px solid var(--rds-primary-main);
+    border: var(--rds-border-width-hairline) solid var(--rds-primary-main);
     background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
@@ -324,7 +339,7 @@
 
   &__carousel-arrow-prev,
   &__carousel-arrow-next {
-    border: 1px solid var(--rds-primary-main);
+    border: var(--rds-border-width-thin) solid var(--rds-primary-main);
     background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
@@ -372,8 +387,8 @@
 
     img, 
     .rds-comp-product-tour__gif {
-      max-width: 280px;
-      max-height: 280px;
+      max-width: var(--rds-product-tour-dim-11);
+      max-height: var(--rds-product-tour-dim-11);
       width: 100%;
       height: auto;
       display: block;
@@ -440,7 +455,7 @@
 
   &__animation-nav-prev,
   &__animation-nav-next {
-    border: 0.5px solid var(--rds-primary-main);
+    border: var(--rds-border-width-hairline) solid var(--rds-primary-main);
     background: var(--rds-background-paper);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
@@ -527,9 +542,9 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 1px;
+    height: var(--rds-product-tour-dim-1);
     background-color: var(--rds-border-default);
-    width: 306px;
+    width: var(--rds-product-tour-dim-12);
   }
 
   &__form-tab {
@@ -544,7 +559,7 @@
     text-align: center;
     flex: 0 0 auto; 
     transition: all 0.3s ease;
-    border-radius: 3px;
+    border-radius: var(--rds-border-radius-micro);
     position: relative;
 
     &:hover {
@@ -569,9 +584,9 @@
       border-color: var(--rds-primary-main) ;
       color: var(--rds-primary-main) ;
       background-color: transparent !important;
-      min-width: 90px !important;
-      width: 90px !important;
-      height: 38px !important;
+      min-width: var(--rds-product-tour-dim-6) !important;
+      width: var(--rds-product-tour-dim-6) !important;
+      height: var(--rds-product-tour-dim-2) !important;
       text-transform: none !important; 
 
       &:hover {
@@ -592,7 +607,7 @@
       .MuiOutlinedInput-root {
         .MuiOutlinedInput-notchedOutline {
           border-color: var(--rds-border-light) ;
-          border-width: 1px !important;
+          border-width: var(--rds-border-width-thin) !important;
         }
       }
     }
@@ -667,9 +682,9 @@
 
   .rds-comp-product-tour__form-action-btn .rds-button,
   .rds-comp-product-tour__form-action-btn .MuiButton-root {
-    min-width: 90px !important; 
-    width: 90px !important; 
-    height: 36px !important;
+    min-width: var(--rds-product-tour-dim-6) !important; 
+    width: var(--rds-product-tour-dim-6) !important; 
+    height: var(--rds-size-36) !important;
     padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
     box-sizing: border-box !important;
     text-transform: none !important; 
@@ -695,9 +710,9 @@
 
     .rds-comp-product-tour__form-action-btn .rds-button,
     .rds-comp-product-tour__form-action-btn .MuiButton-root {
-      min-width: 90px !important;
-      width: 90px !important;
-      height: 36px !important;
+      min-width: var(--rds-product-tour-dim-6) !important;
+      width: var(--rds-product-tour-dim-6) !important;
+      height: var(--rds-size-36) !important;
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
       box-sizing: border-box !important;
       text-transform: none !important; 
@@ -773,7 +788,7 @@
       max-width: 100% !important;
       box-sizing: border-box !important;
       padding: var(--rds-spacing-md) !important;
-      border: 2px dashed var(--rds-border-default) !important;
+      border: var(--rds-border-width-medium) dashed var(--rds-border-default) !important;
       border-radius: var(--rds-border-radius-md) !important;
     }
 
@@ -856,7 +871,7 @@
 
   &__form-arrow-prev,
   &__form-arrow-next {
-    border: 0.5px solid var(--rds-primary-main);
+    border: var(--rds-border-width-hairline) solid var(--rds-primary-main);
     background: var(--rds-neutral-0);
     width: var(--rds-spacing-xl);
     height: var(--rds-spacing-xl);
@@ -993,7 +1008,7 @@
       height: var(--rds-spacing-xl);
       min-width: var(--rds-spacing-xl);
       min-height: var(--rds-spacing-xl);
-      border: 1px solid var(--rds-primary-main);
+      border: var(--rds-border-width-thin) solid var(--rds-primary-main);
       box-sizing: border-box;
       flex-shrink: 0;
     }
@@ -1018,14 +1033,14 @@
 
 @include bp.down(420) {
   .rds-comp-product-tour__container {
-    max-height: calc(100vh - 24px);
+    max-height: calc(100vh - var(--rds-size-lg));
     overflow: visible;
   }
 
   .rds-comp-product-tour__info-nav-section,
   .rds-comp-product-tour__form-content,
   .rds-comp-product-tour__animation-info {
-    max-height: calc(100vh - 120px); 
+    max-height: calc(100vh - var(--rds-product-tour-dim-7)); 
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1059,7 +1074,7 @@
 
   .rds-comp-product-tour__animation-section img,
   .rds-comp-product-tour__animation-section .rds-comp-product-tour__gif {
-    max-height: 160px;
+    max-height: var(--rds-product-tour-dim-8);
   }
 
   .rds-comp-product-tour__animation-info {
@@ -1089,7 +1104,7 @@
   }
 
   .rds-comp-product-tour__carousel-wrapper {
-    height: clamp(180px, 34vh, 240px);
+    height: clamp(var(--rds-product-tour-dim-9), 34vh, var(--rds-product-tour-dim-10));
   }
 
   .rds-comp-product-tour__carousel-dots {
@@ -1107,7 +1122,7 @@
   }
 
   .rds-comp-product-tour__form-tab {
-    max-width: 88px; 
+    max-width: var(--rds-product-tour-dim-5); 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1122,7 +1137,7 @@
       .rds-badge .rds-badge__badge {
         font-size: 0.75rem;
         padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
-        min-width: 40px;
+        min-width: var(--rds-size-40);
         height: var(--rds-size-lg);
         line-height: 1.2;
       }
@@ -1176,8 +1191,8 @@ padding: var(--rds-spacing-lg);
 
       .rds-comp-product-tour__form-action-btn .rds-button,
       .rds-comp-product-tour__form-action-btn .MuiButton-root {
-        min-width: 64px !important;
-        width: 64px !important;
+        min-width: var(--rds-size-3xl) !important;
+        width: var(--rds-size-3xl) !important;
         padding-left: var(--rds-spacing-xs) !important;
         padding-right: var(--rds-spacing-xs) !important;
       }
@@ -1193,18 +1208,18 @@ padding: var(--rds-spacing-lg);
           position: relative;
           flex-wrap: nowrap !important;
           align-items: center !important;
-          height: 40px !important;
-          min-height: 40px !important;
-          max-height: 40px !important;
+          height: var(--rds-size-40) !important;
+          min-height: var(--rds-size-40) !important;
+          max-height: var(--rds-size-40) !important;
           padding-top: var(--rds-spacing-xs) !important;
           padding-bottom: var(--rds-spacing-xs) !important;
           padding-right: var(--rds-spacing-xl) !important;
 
           &.Mui-focused,
           &[aria-expanded='true'] {
-            height: 40px !important;
-            min-height: 40px !important;
-            max-height: 40px !important;
+            height: var(--rds-size-40) !important;
+            min-height: var(--rds-size-40) !important;
+            max-height: var(--rds-size-40) !important;
           }
         }
 
@@ -1215,7 +1230,7 @@ padding: var(--rds-spacing-lg);
           transform: translateY(-50%);
           display: flex;
           align-items: center;
-          max-height: 32px;
+          max-height: var(--rds-size-xl);
         }
 
         .MuiAutocomplete-popupIndicator {
@@ -1236,19 +1251,19 @@ padding: var(--rds-spacing-lg);
         .rds-autocomplete__chip {
           flex-shrink: 1;
           min-width: 0;
-          max-width: 72px !important;
+          max-width: var(--rds-product-tour-dim-3) !important;
         }
 
         .rds-autocomplete__chip--overflow {
           flex-shrink: 0 !important;
-          max-width: 36px !important;
-          min-width: 28px !important;
+          max-width: var(--rds-size-36) !important;
+          min-width: var(--rds-size-28) !important;
           margin-right: var(--rds-spacing-xxs) ;
         }
       }
 
       .MuiAutocomplete-popper {
-        max-width: calc(100vw - 32px);
+        max-width: calc(100vw - var(--rds-size-xl));
       }
 
       .MuiAutocomplete-listbox {

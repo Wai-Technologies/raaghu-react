@@ -9,31 +9,31 @@
   font-size: var(--rds-font-size-sm);
   line-height: var(--rds-line-height-base);
   border-radius: var(--rds-border-radius-sm);
-  border: 1px solid transparent;
+  border: var(--rds-border-width-thin) solid transparent;
   background: var(--rds-alert-info-bg);
 
   &.MuiAlert-filledInfo {
     background-color: var(--rds-alert-info-bg);
     color: var(--rds-alert-info-text);
-    border: 1px solid var(--rds-alert-info-border);
+    border: var(--rds-border-width-thin) solid var(--rds-alert-info-border);
   }
 
   &.MuiAlert-filledSuccess {
     background-color: var(--rds-alert-success-bg);
     color: var(--rds-alert-success-text);
-    border: 1px solid var(--rds-alert-success-border);
+    border: var(--rds-border-width-thin) solid var(--rds-alert-success-border);
   }
 
   &.MuiAlert-filledWarning {
     background-color: var(--rds-alert-warning-bg);
     color: var(--rds-alert-warning-text);
-    border: 1px solid var(--rds-alert-warning-border);
+    border: var(--rds-border-width-thin) solid var(--rds-alert-warning-border);
   }
 
   &.MuiAlert-filledError {
     background-color: var(--rds-alert-error-bg);
     color: var(--rds-alert-error-text);
-    border: 1px solid var(--rds-alert-error-border);
+    border: var(--rds-border-width-thin) solid var(--rds-alert-error-border);
   }
 
   &.MuiAlert-outlined {
@@ -41,22 +41,22 @@
 
     &.MuiAlert-outlinedInfo {
       color: var(--rds-alert-info-text);
-      border: 1.5px solid var(--rds-alert-info-border);
+      border: var(--rds-border-width-emphasis) solid var(--rds-alert-info-border);
     }
 
     &.MuiAlert-outlinedSuccess {
       color: var(--rds-alert-success-text);
-      border: 1.5px solid var(--rds-alert-success-border);
+      border: var(--rds-border-width-emphasis) solid var(--rds-alert-success-border);
     }
 
     &.MuiAlert-outlinedWarning {
       color: var(--rds-alert-warning-text);
-      border: 1.5px solid var(--rds-alert-warning-border);
+      border: var(--rds-border-width-emphasis) solid var(--rds-alert-warning-border);
     }
 
     &.MuiAlert-outlinedError {
       color: var(--rds-alert-error-text);
-      border: 1.5px solid var(--rds-alert-error-border);
+      border: var(--rds-border-width-emphasis) solid var(--rds-alert-error-border);
     }
   }
 

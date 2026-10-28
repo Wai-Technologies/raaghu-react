@@ -106,7 +106,7 @@
   
   &--style-outlined {
     background-color: transparent;
-    border: 1px solid var(--rds-card-border) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-card-border) !important;
     box-shadow: none;
   }
   
@@ -184,7 +184,7 @@
   
   &__header {
     padding: var(--rds-spacing-md);
-    border-bottom: 1px solid var(--rds-card-border, var(--rds-border-light));
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-card-border, var(--rds-border-light));
     
     &:last-child {
       border-bottom: none;
@@ -206,7 +206,7 @@
   
   &--elevation-0 {
     box-shadow: var(--rds-elevation-0, none);
-    border: 1px solid var(--rds-card-border);
+    border: var(--rds-border-width-thin) solid var(--rds-card-border);
   }
   
   &--elevation-1 {

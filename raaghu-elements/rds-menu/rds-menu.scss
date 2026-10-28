@@ -1,4 +1,9 @@
 .rds-menu {
+  --rds-menu-dim-1: 1px;
+  --rds-menu-dim-2: 225px;
+  --rds-menu-dim-3: 260px;
+  --rds-menu-dim-4: 340px;
+
   &__list {
     min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
@@ -95,7 +100,7 @@
   &--small {
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-small);
-      max-width: 225px;
+      max-width: var(--rds-menu-dim-2);
     }
     .rds-menu__item {
       font-size: 0.80rem;
@@ -120,7 +125,7 @@
   &--medium {
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-medium);
-      max-width: 260px;
+      max-width: var(--rds-menu-dim-3);
     }
     .rds-menu__item {
       font-size: 1rem;
@@ -145,7 +150,7 @@
   &--large {
     .rds-menu__list {
       min-width: var(--rds-menu-list-min-width-large);
-      max-width: 340px;
+      max-width: var(--rds-menu-dim-4);
     }
     .rds-menu__item {
       font-size: 1.0625rem;
@@ -176,10 +181,10 @@
     letter-spacing: var(--rds-menu-letter-spacing);
     text-transform: uppercase;
     background: var(--rds-background-default);
-    border-bottom: 1px solid var(--rds-border-light);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-border-light);
   }
   &__divider {
-    height: 1px;
+    height: var(--rds-menu-dim-1);
     background: var(--rds-neutral-300);
     margin: var(--rds-spacing-xs) 0;
     border: none;
@@ -220,7 +225,7 @@
   .rds-menu__header {
     color: var(--rds-neutral-200);
     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900));
-    border-bottom: 1px solid var(--rds-border-default);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-border-default);
   }
 
   .rds-menu__divider {

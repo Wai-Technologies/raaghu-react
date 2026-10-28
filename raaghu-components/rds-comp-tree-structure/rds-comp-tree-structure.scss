@@ -1,6 +1,9 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-tree-structure {
+  --rds-tree-structure-dim-1: 22px;
+  --rds-tree-structure-dim-2: 25px;
+
   
   &__node-container {
     position: relative;
@@ -29,7 +32,7 @@
     display: flex;
     align-items: center;
     padding: var(--rds-spacing-xs);
-    max-height: 22px;
+    max-height: var(--rds-tree-structure-dim-1);
     flex: 1;
   }
   
@@ -55,8 +58,8 @@
     line-height: 0;
 
     svg {
-      width: 14px;
-      height: 14px;
+      width: var(--rds-size-14);
+      height: var(--rds-size-14);
       display: block;
     }
 
@@ -82,7 +85,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 20px;
+    min-width: var(--rds-size-20);
     
     &--folder {
       color: var(--rds-warning-main);
@@ -101,8 +104,8 @@
     
     &--circle {
       display: inline-block;
-      width: 12px;
-      height: 12px;
+      width: var(--rds-size-12);
+      height: var(--rds-size-12);
       margin-bottom: var(--rds-spacing-xs);
       background-color: var(--rds-border-default);
       border-radius: var(--rds-border-radius-pill);
@@ -124,18 +127,18 @@
     align-items: center;
     justify-content: center;
     border: 0;
-    border-radius: 6px;
+    border-radius: var(--rds-radius-md);
     padding: var(--rds-spacing-xs);
-    width: 28px;
-    height: 28px;
+    width: var(--rds-size-28);
+    height: var(--rds-size-28);
     transition: background-color var(--rds-transition-duration-short, 0.15s) ease, color 0.15s ease;
     cursor: pointer;
     background: transparent;
     color: var(--rds-text-secondary);
 
     svg {
-      width: 16px;
-      height: 16px;
+      width: var(--rds-size-md);
+      height: var(--rds-size-md);
       color: inherit;
     }
 
@@ -158,8 +161,8 @@
       margin-left: var(--rds-spacing-xs);
     }
     &__action-btn {
-      width: 25px;
-      height: 25px;
+      width: var(--rds-tree-structure-dim-2);
+      height: var(--rds-tree-structure-dim-2);
       padding: var(--rds-spacing-xxs);
       svg {
         width: var(--rds-size-md);

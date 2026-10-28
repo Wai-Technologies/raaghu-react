@@ -1,6 +1,15 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-counter__mandatory {
+  --rds-counter-dim-1: 30px;
+  --rds-counter-dim-2: 50px;
+  --rds-counter-dim-3: 60px;
+  --rds-counter-dim-4: 70px;
+  --rds-counter-dim-5: 90px;
+  --rds-counter-dim-6: 100px;
+  --rds-counter-dim-7: 140px;
+  --rds-counter-dim-8: 160px;
+
   display: inline-block;
   width: 1em;
   color: var(--rds-semantic-error-main, var(--rds-color-error));
@@ -95,7 +104,7 @@
 
   display: flex;
   align-items: center;
-  border: 1px solid var(--rds-border-default);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
   border-radius: var(--rds-border-radius-md);
   padding: var(--rds-spacing-xs);
   gap: var(--rds-spacing-sm);
@@ -191,7 +200,7 @@
   align-items: center;
   justify-content: center;
   transition: background var(--rds-transition-base);
-  border: 1px solid var(--rds-color-primary) !important;
+  border: var(--rds-border-width-thin) solid var(--rds-color-primary) !important;
 
   &:hover:not(.rds-counter__button--disabled) {
     background-color: var(--rds-primary-dark, var(--rds-color-primary-hover)) !important;
@@ -253,8 +262,8 @@
   border: none !important;
   color: inherit;
   flex: 1;
-  min-width: 40px;
-  max-width: 80px;
+  min-width: var(--rds-size-40);
+  max-width: var(--rds-size-4xl);
   box-sizing: border-box;
 
   input {
@@ -288,33 +297,33 @@
 
   &--compact {
     font-size: var(--rds-font-size-md);
-    min-width: 30px;
-    max-width: 50px;
+    min-width: var(--rds-counter-dim-1);
+    max-width: var(--rds-counter-dim-2);
   }
 
   &--default {
     font-size: var(--rds-font-size-md);
-    min-width: 50px;
-    max-width: 80px;
+    min-width: var(--rds-counter-dim-2);
+    max-width: var(--rds-size-4xl);
   }
 
   &--small {
     font-size: var(--rds-font-size-sm);
-    min-width: 30px;
-    max-width: 60px;
+    min-width: var(--rds-counter-dim-1);
+    max-width: var(--rds-counter-dim-3);
     padding: var(--rds-spacing-xxs) !important;
   }
 
   &--medium {
     font-size: var(--rds-font-size-md);
-    min-width: 40px;
-    max-width: 70px;
+    min-width: var(--rds-size-40);
+    max-width: var(--rds-counter-dim-4);
   }
 
   &--large {
     font-size: var(--rds-font-size-lg);
-    min-width: 50px;
-    max-width: 90px;
+    min-width: var(--rds-counter-dim-2);
+    max-width: var(--rds-counter-dim-5);
   }
 
   &--disabled {
@@ -337,31 +346,31 @@
   color: var(--rds-text-secondary);
   line-height: 1.2;
   flex: 1;
-  min-width: 40px;
+  min-width: var(--rds-size-40);
 
   &--compact {
     font-size: var(--rds-font-size-md);
-    min-width: 30px;
+    min-width: var(--rds-counter-dim-1);
   }
 
   &--default {
     font-size: var(--rds-font-size-lg);
-    min-width: 50px;
+    min-width: var(--rds-counter-dim-2);
   }
 
   &--small {
     font-size: var(--rds-font-size-sm);
-    min-width: 30px;
+    min-width: var(--rds-counter-dim-1);
   }
 
   &--medium {
     font-size: var(--rds-font-size-md);
-    min-width: 40px;
+    min-width: var(--rds-size-40);
   }
 
   &--large {
     font-size: var(--rds-font-size-lg);
-    min-width: 50px;
+    min-width: var(--rds-counter-dim-2);
   }
 
   &--disabled {
@@ -426,12 +435,12 @@
     }
 
     &__input {
-      min-width: 40px !important;
-      max-width: 60px !important;
+      min-width: var(--rds-size-40) !important;
+      max-width: var(--rds-counter-dim-3) !important;
     }
 
     &__value {
-      min-width: 40px !important;
+      min-width: var(--rds-size-40) !important;
     }
   }
 }
@@ -444,12 +453,12 @@
     }
 
     &__input {
-      min-width: 50px !important;
-      max-width: 70px !important;
+      min-width: var(--rds-counter-dim-2) !important;
+      max-width: var(--rds-counter-dim-4) !important;
     }
 
     &__value {
-      min-width: 50px !important;
+      min-width: var(--rds-counter-dim-2) !important;
     }
   }
 }
@@ -458,11 +467,11 @@
   .rds-counter {
     &__controls {
       &--default {
-        min-width: 140px;
+        min-width: var(--rds-counter-dim-7);
       }
 
       &--large {
-        min-width: 160px;
+        min-width: var(--rds-counter-dim-8);
       }
     }
   }
@@ -501,7 +510,7 @@
     justify-content: space-between;
     align-items: center;
     padding: var(--rds-spacing-sm) 0;
-    border-bottom: 1px solid var(--rds-neutral-light);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-neutral-light);
   }
 
   &__item-details {
@@ -520,7 +529,7 @@
   &__item-total {
     text-align: right;
     font-weight: 500;
-    width: 100px;
+    width: var(--rds-counter-dim-6);
   }
 
   &__footer {
@@ -555,7 +564,7 @@
 
     .rds-counter__controls {
       width: fit-content !important;
-      min-width: 100px !important;
+      min-width: var(--rds-counter-dim-6) !important;
     }
   }
 }

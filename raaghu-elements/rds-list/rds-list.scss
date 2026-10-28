@@ -1,6 +1,8 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-list {
+  --rds-list-dim-1: 1px;
+
   --rds-list-focus-ring-width: 2px;
   --rds-list-shadow-surface: var(--rds-shadow-2);
   --rds-list-demo-sticky-height: 400px;
@@ -18,7 +20,7 @@
   &__item {
     display: flex;
     align-items: center;
-    min-height: 48px;
+    min-height: var(--rds-size-2xl);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     transition: background-color var(--rds-transition-base, 0.2s ease-in-out);
     
@@ -90,13 +92,13 @@
     font-size: var(--rds-font-size-icon-md);
     color: var(--rds-text-secondary);
     flex-shrink: 0;
-    min-width: 36px !important;
+    min-width: var(--rds-size-36) !important;
     margin-right: var(--rds-spacing-xs);
   }
 
   // Override MUI ListItemIcon default min-width to reduce icon-text gap
   .MuiListItemIcon-root {
-    min-width: 36px;
+    min-width: var(--rds-size-36);
   }
 
   .rds-list__expand-icon {
@@ -142,7 +144,7 @@
   }
 
   &__divider {
-    height: 1px;
+    height: var(--rds-list-dim-1);
     background-color: var(--rds-border-default);
     margin: 0;
   }
@@ -160,7 +162,7 @@
 
   &--dense {
     .rds-list__item {
-      min-height: 40px;
+      min-height: var(--rds-size-40);
       padding: var(--rds-spacing-xs) var(--rds-spacing-md);
       
       &--no-gutters {
@@ -188,7 +190,7 @@
   
   @media (forced-colors: active) {
     .rds-list__divider {
-      border: 1px solid CanvasText;
+      border: var(--rds-border-width-thin) solid CanvasText;
     }
     
     .rds-list__item--selected {
@@ -313,7 +315,7 @@
     max-height: var(--rds-list-demo-sticky-height);
     overflow: auto;
     width: var(--rds-list-demo-sticky-width);
-    border: 1px solid var(--rds-border-default);
+    border: var(--rds-border-width-thin) solid var(--rds-border-default);
     border-radius: var(--rds-border-radius-sm);
   }
 }
@@ -361,7 +363,7 @@
   font-size: var(--rds-font-size-sm);
   color: var(--rds-text-secondary);
   padding: var(--rds-spacing-sm) 0;
-  border-top: 1px solid var(--rds-border-light);
+  border-top: var(--rds-border-width-thin) solid var(--rds-border-light);
   margin-top: var(--rds-spacing-sm);
 }
 

@@ -1,4 +1,8 @@
 .rds-fab-menu {
+  --rds-ai-fab-menu-dim-1: 200px;
+  --rds-ai-fab-menu-dim-2: 220px;
+  --rds-ai-fab-menu-dim-3: 300px;
+
   position: relative;
   display: inline-block;
 
@@ -17,25 +21,25 @@
     cursor: pointer;
     transition: all var(--rds-transition-base);
     outline: none;
-    min-width: 48px;
-    min-height: 48px;
+    min-width: var(--rds-size-2xl);
+    min-height: var(--rds-size-2xl);
     padding: 0;
     box-shadow: var(--rds-elevation-2);
     border-radius: var(--rds-border-radius-pill);
 
     &--small {
-      min-width: 40px;
-      min-height: 40px;
+      min-width: var(--rds-size-40);
+      min-height: var(--rds-size-40);
     }
 
     &--medium {
-      min-width: 48px;
-      min-height: 48px;
+      min-width: var(--rds-size-2xl);
+      min-height: var(--rds-size-2xl);
     }
 
     &--large {
-      min-width: 56px;
-      min-height: 56px;
+      min-width: var(--rds-size-56);
+      min-height: var(--rds-size-56);
     }
 
     &--primary {
@@ -76,7 +80,7 @@
     &--light {
       background-color: var(--rds-color-light);
       color: var(--rds-color-on-light);
-      border: 1px solid var(--rds-color-border);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border);
     }
 
     &--circular {
@@ -143,7 +147,7 @@
 
       &:focus-visible {
         background-color: transparent;
-        outline: 2px solid var(--rds-color-primary);
+        outline: var(--rds-border-width-medium) solid var(--rds-color-primary);
         outline-offset: 2px;
         opacity: 0.9;
         box-shadow: none;
@@ -202,7 +206,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary);
+      outline: var(--rds-border-width-medium) solid var(--rds-color-primary);
       outline-offset: 2px;
     }
 
@@ -226,8 +230,8 @@
     right: 0;
     z-index: var(--rds-z-index-dropdown);
   margin-top: var(--rds-spacing-sm);
-    min-width: 200px;
-    max-width: 300px;
+    min-width: var(--rds-ai-fab-menu-dim-1);
+    max-width: var(--rds-ai-fab-menu-dim-3);
     transform: translateY(10px);
     &--left {
       left: 0;
@@ -255,8 +259,8 @@
   background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius);
     box-shadow: var(--rds-elevation-3);
-    min-width: 220px;
-    max-width: 300px;
+    min-width: var(--rds-ai-fab-menu-dim-2);
+    max-width: var(--rds-ai-fab-menu-dim-3);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px) scale(0.95);
@@ -270,7 +274,7 @@
     }
 
     &--bordered {
-      border: 1px solid var(--rds-color-border);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border);
     }
   }
 
@@ -343,15 +347,15 @@
 @media (prefers-contrast: high) {
   .rds-fab-menu {
     &__button {
-      border: 2px solid currentColor;
+      border: var(--rds-border-width-medium) solid currentColor;
     }
 
     &__dropdown {
-      border: 2px solid var(--rds-color-border);
+      border: var(--rds-border-width-medium) solid var(--rds-color-border);
     }
 
     &__item {
-      border-bottom: 1px solid var(--rds-color-border);
+      border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
 
       &:last-child {
         border-bottom: none;

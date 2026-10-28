@@ -1,11 +1,15 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-toolbar {
+  --rds-toolbar-dim-1: 1px;
+  --rds-toolbar-dim-2: 6px;
+  --rds-toolbar-dim-3: 160px;
+
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-md) var(--rds-spacing-lg);
   background: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-outline);
+  border: var(--rds-border-width-thin) solid var(--rds-color-outline);
   border-radius: var(--rds-border-radius);
   gap: var(--rds-spacing-md);
   box-sizing: border-box;
@@ -108,7 +112,7 @@
   }
 
   &__divider {
-    width: 1px;
+    width: var(--rds-toolbar-dim-1);
     height: var(--rds-size-lg);
     background: var(--rds-color-outline);
     margin: 0 var(--rds-spacing-xs);
@@ -155,7 +159,7 @@
     min-width: var(--rds-size-xl);
     height: var(--rds-size-xl);
     padding: var(--rds-spacing-sm);
-    border: 1px solid transparent;
+    border: var(--rds-border-width-thin) solid transparent;
     background: transparent;
     border-radius: var(--rds-border-radius-sm);
     cursor: pointer;
@@ -211,12 +215,12 @@
    top: 100%;
    left: 0;
   z-index: var(--rds-z-index-popover);
-   min-width: 160px;
-   max-width: calc(100vw - 24px);
+   min-width: var(--rds-toolbar-dim-3);
+   max-width: calc(100vw - var(--rds-size-lg));
    max-height: 61vh;
    overflow: auto;
   background: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-outline);
+  border: var(--rds-border-width-thin) solid var(--rds-color-outline);
    border-radius: var(--rds-border-radius-sm);
    box-shadow: var(--rds-elevation-3);
    padding: var(--rds-spacing-xs) 0;
@@ -348,7 +352,7 @@
       scrollbar-color: var(--rds-color-on-surface-variant) transparent;
       
       &::-webkit-scrollbar {
-        height: 6px;
+        height: var(--rds-toolbar-dim-2);
         display: block;
       }
       
@@ -375,7 +379,7 @@
       scrollbar-color: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3)) transparent;
       
       &::-webkit-scrollbar {
-        height: 6px;
+        height: var(--rds-toolbar-dim-2);
         display: block;
       }
       
@@ -423,8 +427,8 @@
     }
 
     &__button {
-      min-width: 28px;
-      height: 28px;
+      min-width: var(--rds-size-28);
+      height: var(--rds-size-28);
       padding: var(--rds-spacing-xs);
       flex-shrink: 0;
 
@@ -436,12 +440,12 @@
     &__text-icon,
     &__highlight-icon {
       font-size: var(--rds-font-size-sm);
-      min-width: 14px;
-      min-height: 14px;
+      min-width: var(--rds-size-14);
+      min-height: var(--rds-size-14);
     }
 
     &__divider {
-      height: 20px;
+      height: var(--rds-size-20);
       margin: 0 var(--rds-spacing-xs);
       flex-shrink: 0;
     }
@@ -466,12 +470,12 @@
     &__text-icon,
     &__highlight-icon {
       font-size: var(--rds-font-size-sm);
-      min-width: 12px;
-      min-height: 12px;
+      min-width: var(--rds-size-12);
+      min-height: var(--rds-size-12);
     }
 
     &__divider {
-      height: 18px;
+      height: var(--rds-size-18);
       margin: 0 var(--rds-spacing-xxs);
       flex-shrink: 0;
     }

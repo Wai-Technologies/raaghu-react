@@ -1,6 +1,10 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-popover {
+  --rds-popover-dim-1: 285px;
+  --rds-popover-dim-2: 330px;
+  --rds-popover-dim-3: 380px;
+
   display: block;
   position: relative;
   overflow: visible;
@@ -181,7 +185,7 @@
   &__position-option {
     width: var(--rds-popover-position-option-size);
     height: var(--rds-popover-position-option-size);
-    border: 1px solid var(--rds-color-border);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border);
     border-radius: var(--rds-border-radius-sm);
     display: flex;
     align-items: center;
@@ -231,7 +235,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
 }
@@ -251,18 +255,18 @@
 
 @include bp.between(mobile-sm, sm) {
   .rds-popover__container {
-    max-width: 285px !important;
+    max-width: var(--rds-popover-dim-1) !important;
   }
 }
 @include bp.between(mobile-lg, md) {
   .rds-popover__container {
-    max-width: 380px !important;
+    max-width: var(--rds-popover-dim-3) !important;
   }
 }
 
 @include bp.between(tablet-md, lg) {
     .rds-popover__container {
-        max-width: 330px !important;
+        max-width: var(--rds-popover-dim-2) !important;
     }
 }
 

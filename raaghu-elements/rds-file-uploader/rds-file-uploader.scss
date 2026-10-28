@@ -249,7 +249,7 @@
     overflow: hidden;
     background: var(--rds-background-paper);
     border-radius: var(--rds-file-uploader-control-radius);
-    border: 1px solid var(--rds-color-outline);
+    border: var(--rds-border-width-thin) solid var(--rds-color-outline);
     box-sizing: border-box;
   }
 
@@ -415,7 +415,7 @@
     min-height: var(--rds-file-uploader-file-item-min-height);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     margin-bottom: var(--rds-spacing-sm);
-    border: 1px solid var(--rds-color-outline);
+    border: var(--rds-border-width-thin) solid var(--rds-color-outline);
     background: var(--rds-background-paper);
     border-radius: var(--rds-border-radius);
   }

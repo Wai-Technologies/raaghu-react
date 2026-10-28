@@ -1,6 +1,11 @@
 @use "sass:list";
 
 .rds-badge {
+  --rds-badge-dim-1: 10px;
+  --rds-badge-dim-2: 15px;
+  --rds-badge-dim-3: 22px;
+  --rds-badge-dim-4: 60px;
+
   position: relative;
   display: inline-flex;
   vertical-align: middle;
@@ -48,7 +53,7 @@
     vertical-align: middle;
     box-shadow: var(--rds-badge-pill-shadow);
     padding: var(--rds-spacing-xs) var(--rds-spacing-18);
-    min-width: 60px;
+    min-width: var(--rds-badge-dim-4);
     height: var(--rds-size-xl);
     border-radius: var(--rds-border-radius-xl);
   }
@@ -65,13 +70,13 @@
   &--outline > .rds-badge__badge {
     background: transparent;
     color: var(--rds-primary-main);
-    border: 2px solid var(--rds-primary-main);
+    border: var(--rds-border-width-medium) solid var(--rds-primary-main);
     box-shadow: none;
   }
   &--outline .MuiBadge-badge {
     background-color: transparent !important;
     color: var(--rds-primary-main) !important;
-    border: 2px solid var(--rds-primary-main) !important;
+    border: var(--rds-border-width-medium) solid var(--rds-primary-main) !important;
   }
   
   &--transparent > .rds-badge__badge {
@@ -120,14 +125,14 @@
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
       color: list.nth($value, 1);
       background-color: transparent;
-      border: 2px solid list.nth($value, 1);
+      border: var(--rds-border-width-medium) solid list.nth($value, 1);
       box-shadow: none;
     }
     
     &.rds-badge--outline.rds-badge--#{$key} .MuiBadge-badge {
       background-color: transparent !important;
       color: list.nth($value, 1) !important;
-      border: 2px solid list.nth($value, 1) !important;
+      border: var(--rds-border-width-medium) solid list.nth($value, 1) !important;
     }
 
     &.rds-badge--transparent.rds-badge--#{$key} > .rds-badge__badge {
@@ -174,7 +179,7 @@
     font-size: 0.75rem;
     padding: var(--rds-spacing-xxs) var(--rds-spacing-3);
     border-radius: var(--rds-border-radius-md);
-    min-width: 40px;
+    min-width: var(--rds-size-40);
     height: var(--rds-size-lg);
     line-height: 20px;
   }
@@ -190,25 +195,25 @@
 
   }
   &--small .MuiBadge-dot {
-    width: 10px !important;
-    height: 10px !important;
-    min-width: 8px !important;
+    width: var(--rds-badge-dim-1) !important;
+    height: var(--rds-badge-dim-1) !important;
+    min-width: var(--rds-size-sm) !important;
     border-radius: var(--rds-border-radius-pill) !important;
   }
 
   &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
   &.rds-badge--medium:has(> .MuiSvgIcon-root) .MuiBadge-dot {
-    width: 18px !important;
-    height: 18px !important;
-    min-width: 18px !important;
+    width: var(--rds-size-18) !important;
+    height: var(--rds-size-18) !important;
+    min-width: var(--rds-size-18) !important;
     border-radius: var(--rds-border-radius-pill) !important;
   }
 
   &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
   &.rds-badge--large:has(> .MuiSvgIcon-root) .MuiBadge-dot {
-    width: 22px !important;
-    height: 22px !important;
-    min-width: 22px !important;
+    width: var(--rds-badge-dim-3) !important;
+    height: var(--rds-badge-dim-3) !important;
+    min-width: var(--rds-badge-dim-3) !important;
     border-radius: var(--rds-border-radius-pill) !important;
   }
 
@@ -219,8 +224,8 @@
     place-items: center !important;
     padding: var(--rds-spacing-xxs) !important;
     line-height: 1 !important;
-    height: 15px !important;
-    min-width: 15px !important;
+    height: var(--rds-badge-dim-2) !important;
+    min-width: var(--rds-badge-dim-2) !important;
     vertical-align: middle !important;
   }
 
@@ -289,7 +294,7 @@
     font-size: 1rem;
     padding: var(--rds-spacing-xs) var(--rds-spacing-18);
     border-radius: var(--rds-border-radius-lg);
-    min-width: 60px;
+    min-width: var(--rds-badge-dim-4);
     height: var(--rds-size-xl);
   }
   &--medium .MuiBadge-badge {
@@ -304,8 +309,8 @@
     font-size: 1.25rem;
     padding: var(--rds-spacing-compact) var(--rds-spacing-lg);
     border-radius: var(--rds-border-radius-xl);
-    min-width: 80px;
-    height: 40px;
+    min-width: var(--rds-size-4xl);
+    height: var(--rds-size-40);
   }
   &--large .MuiBadge-badge {
     font-size: 0.875rem !important;
@@ -324,7 +329,7 @@
     box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
     padding: var(--rds-spacing-xs) var(--rds-spacing-18);
     font-size: 1rem;
-    min-width: 60px;
+    min-width: var(--rds-badge-dim-4);
     height: var(--rds-size-xl);
     display: flex;
     align-items: center;

@@ -1,12 +1,17 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-banner {
+  --rds-banner-dim-1: 6px;
+  --rds-banner-dim-2: 22px;
+  --rds-banner-dim-3: 26px;
+  --rds-banner-dim-4: 110px;
+
   // banner sizing and offsets are provided by centralized --rds-* tokens
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);
   background-color: var(--rds-background-surface);
-  border: 1px solid var(--rds-border-default);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
   border-radius: var(--rds-spacing-xs);
   gap: var(--rds-spacing-sm);
 
@@ -86,13 +91,13 @@
   &--style1 {
     margin-left: var(--rds-spacing-md);
     margin-right: var(--rds-spacing-md);
-    border-bottom-width: 1px;
+    border-bottom-width: var(--rds-border-width-thin);
     border-bottom-style: solid;
     border-bottom-color: var(--rds-alert-warning-border); 
   }
 
   &--style1-outline {
-    border-width: 1px !important;
+    border-width: var(--rds-border-width-thin) !important;
     border-style: solid !important;
     border-color: var(--rds-alert-warning-border) !important;
     border-radius: var(--rds-spacing-xs) !important;
@@ -133,7 +138,7 @@
   }
 
   :global(.MuiAlert-action .MuiButton-root) {
-    height: 26px;
+    height: var(--rds-banner-dim-3);
     border-radius: var(--rds-spacing-xs);
     text-transform: none;
   }
@@ -177,7 +182,7 @@
   }
 
   &__primary-button {
-    height: 28px;
+    height: var(--rds-size-28);
   }
 
   &__heading {
@@ -196,7 +201,7 @@
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     .rds-banner__heading { font-size: 0.875rem; }
     .rds-banner__description { font-size: 0.8125rem; }
-    .rds-banner__primary-button { height: 26px; }
+    .rds-banner__primary-button { height: var(--rds-banner-dim-3); }
   }
 
   &--medium {
@@ -277,7 +282,7 @@
       display: flex;
       flex-direction: column;
       gap: var(--rds-spacing-sm);
-      width: calc(100% - 32px);
+      width: calc(100% - var(--rds-size-xl));
       overflow: hidden;
       box-sizing: border-box;
       padding-right: var(--rds-spacing-sm);
@@ -324,7 +329,7 @@
     
     &__content-wrapper { 
       gap: var(--rds-banner-mobile-gap-xs); 
-      width: calc(100% - 28px);
+      width: calc(100% - var(--rds-size-28));
       padding-right: var(--rds-banner-mobile-gap-xs);
     }
     
@@ -340,21 +345,21 @@
       .rds-banner__link-button,
       .rds-banner__secondary-button,
       .rds-banner__primary-button {
-        min-height: 22px;
+        min-height: var(--rds-banner-dim-2);
         font-size: 0.8125rem;
         padding: calc(var(--rds-spacing-xs) / 2) calc(1.5 * var(--rds-spacing-xs)) !important;
       }
     }
 
     :global(.MuiAlert-message) {
-      width: calc(100% - 6px) !important;
+      width: calc(100% - var(--rds-banner-dim-1)) !important;
       gap: var(--rds-banner-mobile-gap-xs) !important;
     }
 
     &__close-button {
-      min-width: 110px !important;
-      width: 20px !important;
-      height: 40px !important;
+      min-width: var(--rds-banner-dim-4) !important;
+      width: var(--rds-size-20) !important;
+      height: var(--rds-size-40) !important;
     }
 
     &__action-container {
