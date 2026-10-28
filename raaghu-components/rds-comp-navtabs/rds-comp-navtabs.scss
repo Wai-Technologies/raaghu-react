@@ -10,7 +10,7 @@
         transition: all 0.2s ease;
         
         &:hover {
-          background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
+          background-color: var(--rds-color-surface-hover);
         }
         
         &:focus-visible {
@@ -81,7 +81,7 @@
       .nav-link {
         &.selected {
           background-color: var(--rds-color-primary);
-          color: var(--rds-color-on-primary, white);
+          color: var(--rds-color-on-primary);
         }
       }
     }
@@ -102,34 +102,34 @@
     
     &--active {
       background-color: var(--rds-color-primary);
-      color: var(--rds-color-on-primary, white);
+      color: var(--rds-color-on-primary);
     }
     
     &--selected {
       background-color: var(--rds-color-primary);
-      color: var(--rds-color-on-primary, white);
+      color: var(--rds-color-on-primary);
     }
     
     &--inactive {
       background-color: transparent;
-      color: var(--rds-color-on-surface, inherit);
+      color: var(--rds-color-on-surface);
     }
   }
 
   &__label {
     font-weight: 500;
-    padding: 0 var(--rds-spacing-sm, 0.75rem);
+    padding: 0 var(--rds-spacing-sm);
   }
   
   &__badge {
-    margin-left: var(--rds-spacing-xs, 0.25rem);
+    margin-left: var(--rds-spacing-xs);
   }
   
   &[id="features"] {
     .nav-link {
       &.active {
         background-color: var(--rds-color-primary);
-        color: var(--rds-color-on-primary, white);
+        color: var(--rds-color-on-primary);
       }
       
       text-align: start;
@@ -153,7 +153,7 @@
     
     .nav-link.selected {
       background-color: var(--rds-color-primary);
-      color: var(--rds-color-on-primary, white);
+      color: var(--rds-color-on-primary);
     }
   }
   

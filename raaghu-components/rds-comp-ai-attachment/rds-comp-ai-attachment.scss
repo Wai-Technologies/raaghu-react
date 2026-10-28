@@ -7,7 +7,7 @@
     --rds-ai-attachment-fab-bottom: 10px;
     --rds-ai-attachment-transform-x: 30px;
     --rds-ai-attachment-transform-y: 97.5px;
-    --rds-ai-attachment-dropdown-gap: var(--rds-spacing-xs, 4px);
+    --rds-ai-attachment-dropdown-gap: var(--rds-spacing-xs);
 
     &__icon {
         height: var(--rds-size-xl);
@@ -78,7 +78,7 @@
     &__upload-row {
         display: inline-flex;
         align-items: center;
-        gap: var(--rds-spacing-xs, 8px);
+        gap: var(--rds-spacing-xs);
         white-space: nowrap;
     }
 

@@ -9,7 +9,7 @@
   
   &__container {
     width: 100%;
-    padding: var(--rds-spacing-lg, 20px) 0;
+    padding: var(--rds-spacing-lg) 0;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -29,7 +29,7 @@
   &__svg {
     fill: transparent;
     stroke: none;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.02));
+    filter: drop-shadow(0 1px 2px var(--rds-alpha-black-02));
     width: 100% !important;
     height: auto !important;
     max-width: 100% !important;
@@ -37,18 +37,18 @@
   }
   
   &__text {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     
     &--month {
-      fill: var(--rds-color-text-primary, #333);
-      font-size: var(--rds-font-size-xs, 12px);
-      font-weight: var(--rds-font-weight-medium, 500);
+      fill: var(--rds-color-text-primary);
+      font-size: var(--rds-font-size-xs);
+      font-weight: var(--rds-font-weight-medium);
       letter-spacing: -0.01em;
       alignment-baseline: central;
     }
     
     &--month-mobile {
-      font-size: var(--rds-font-size-caption, 8px) !important;
+      font-size: var(--rds-font-size-caption) !important;
     }
     
     &--week {
@@ -62,8 +62,8 @@
   &__panel {
     rx: 2;
     ry: 2;
-    transition: all var(--rds-transition-duration-short, 0.15s) var(--rds-transition-timing, ease);
-    stroke: rgba(255,255,255,0.6);
+    transition: all var(--rds-transition-duration-short) var(--rds-transition-timing);
+    stroke: var(--rds-alpha-white-60);
     stroke-width: 0.5;
     shape-rendering: geometricPrecision;
     
@@ -94,13 +94,13 @@
     }
     
     &__text--month {
-      font-size: var(--rds-font-size-caption, 10px) !important;
+      font-size: var(--rds-font-size-caption) !important;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
     
     &__text--week {
-      font-size: var(--rds-font-size-caption, 9px) !important;
+      font-size: var(--rds-font-size-caption) !important;
       display: none; 
     }
   }
@@ -127,13 +127,13 @@
     }
     
     &__text--month {
-      font-size: var(--rds-font-size-caption, 11px) !important;
+      font-size: var(--rds-font-size-caption) !important;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
     
     &__text--week {
-      font-size: var(--rds-font-size-caption, 10px) !important;
+      font-size: var(--rds-font-size-caption) !important;
     }
   }
 }
@@ -160,12 +160,12 @@
     }
     
     &__text--month {
-      font-size: var(--rds-font-size-caption, 8px) !important;
+      font-size: var(--rds-font-size-caption) !important;
       font-weight: 500;
     }
     
     &__text--week {
-      font-size: var(--rds-font-size-caption, 7px) !important;
+      font-size: var(--rds-font-size-caption) !important;
     }
   }
 }
@@ -173,7 +173,7 @@
 @include bp.up(835) {
   .rds-comp-contribution {
     &__container {
-      padding: var(--rds-spacing-lg, 20px) 0;
+      padding: var(--rds-spacing-lg) 0;
     }
     
     &__wrapper {
@@ -181,12 +181,12 @@
     }
     
     &__text--month {
-      font-size: var(--rds-font-size-xs, 13px);
+      font-size: var(--rds-font-size-xs);
       font-weight: 500;
     }
     
     &__text--week {
-      font-size: var(--rds-font-size-caption, 10px);
+      font-size: var(--rds-font-size-caption);
     }
   }
 }

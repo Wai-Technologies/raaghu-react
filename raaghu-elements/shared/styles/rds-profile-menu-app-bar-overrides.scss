@@ -6,21 +6,21 @@
   min-width: 0;
 
   @media (max-width: 834px) {
-    padding-left: 0.4rem;
-    padding-right: 0.8rem;
+    padding-left: var(--rds-spacing-legacy-0-4rem);
+    padding-right: var(--rds-spacing-legacy-0-8rem);
     gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
   }
 
   @media (max-width: 420px) {
-    padding-left: 0.3rem;
-    padding-right: 0.6rem;
+    padding-left: var(--rds-spacing-legacy-0-3rem);
+    padding-right: var(--rds-spacing-legacy-0-6rem);
     gap: var(--rds-spacing-xs);
     margin-left: var(--rds-spacing-xxs);
   }
 
   @media (max-width: 320px) {
-    padding-left: 0.2rem;
-    padding-right: 0.4rem;
+    padding-left: var(--rds-spacing-legacy-0-2rem);
+    padding-right: var(--rds-spacing-legacy-0-4rem);
     gap: calc(var(--rds-spacing-xs) / 2);
     margin-left: var(--rds-spacing-hairline);
   }
@@ -54,11 +54,11 @@
   white-space: nowrap;
 
   @media (max-width: 420px) {
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-md);
   }
 
   @media (max-width: 320px) {
-    font-size: var(--rds-font-size-sm, 13px);
+    font-size: var(--rds-font-size-sm);
   }
 }
 
@@ -68,11 +68,11 @@
   white-space: nowrap;
 
   @media (max-width: 420px) {
-    font-size: var(--rds-font-size-xs, 11px);
+    font-size: var(--rds-font-size-xs);
   }
 
   @media (max-width: 320px) {
-    font-size: var(--rds-font-size-xs, 10px);
+    font-size: var(--rds-font-size-xs);
   }
 }
 

@@ -1,11 +1,11 @@
 .rds-button-dropdown {
   // dropdown menu sizing and colors provided by centralized --rds-* tokens
   &__menu {
-    padding: var(--rds-button-dropdown-menu-padding, 6px);
-    min-width: var(--rds-button-dropdown-menu-min-width, 176px);
-    margin-top: 6px;
-    border: 1px solid var(--rds-color-border, var(--rds-border-light));
-    box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0, 0, 0, 0.12)) !important;
+    padding: var(--rds-button-dropdown-menu-padding);
+    min-width: var(--rds-button-dropdown-menu-min-width);
+    margin-top: var(--rds-spacing-compact);
+    border: 1px solid var(--rds-color-border);
+    box-shadow: var(--rds-elevation-3) !important;
 
     .rds-menu__list {
       box-shadow: none !important;
@@ -13,7 +13,7 @@
   }
 
   &__search {
-    margin-bottom: 6px;
+    margin-bottom: var(--rds-spacing-compact);
   }
 
   &__list {
@@ -24,17 +24,17 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 4px 0;
+    gap: var(--rds-spacing-compact);
+    padding: var(--rds-spacing-xs-px) 0;
   }
 
   &__option {
     cursor: pointer;
-    padding: 4px 8px;
-    border-radius: var(--rds-border-radius-sm, 4px);
+    padding: var(--rds-spacing-xs-px) var(--rds-spacing-sm-px);
+    border-radius: var(--rds-border-radius-sm);
     width: 100%;
     background-color: transparent;
-    transition: background-color var(--rds-button-dropdown-transition, var(--rds-transition-base, 0.2s ease-in-out));
+    transition: background-color var(--rds-button-dropdown-transition);
     outline: none;
 
     &:hover:not(&--selected) {
@@ -58,22 +58,22 @@
 }
 
 [data-theme="dark"] .rds-button-dropdown__menu {
-  background: var(--rds-background-paper, #262626);
-  border-color: var(--rds-color-border-dark, var(--rds-border-default));
+  background: var(--rds-background-paper);
+  border-color: var(--rds-color-border-dark);
 }
 
 [data-theme="dark"] .rds-button-dropdown__option {
   background: transparent;
-  color: var(--rds-text-primary, #e6eef6);
+  color: var(--rds-text-primary);
 }
 
 [data-theme="dark"] .rds-button-dropdown__option:hover:not(.rds-button-dropdown__option--selected) {
-  background: var(--rds-button-dropdown-hover-bg-dark, rgba(255,255,255,0.04));
+  background: var(--rds-button-dropdown-hover-bg-dark);
 }
 
 [data-theme="dark"] .rds-button-dropdown__option--selected {
-  background: var(--rds-button-dropdown-selected-bg, var(--rds-primary-main));
-  color: var(--rds-button-dropdown-selected-text, #fff);
+  background: var(--rds-button-dropdown-selected-bg);
+  color: var(--rds-button-dropdown-selected-text);
 }
 
 .rds-button-dropdown__avatar {
@@ -90,8 +90,8 @@
 .rds-button-dropdown__option {
 	display: flex;
 	align-items: center;
-  gap: 6px;
-  padding: 4px 6px;
+  gap: var(--rds-spacing-compact);
+  padding: var(--rds-spacing-xs-px) var(--rds-spacing-compact);
   min-height: 32px;
 
   /* Keep compact avatar size without overlap */
@@ -101,10 +101,10 @@
     height: 28px !important;
     min-width: 28px !important;
     min-height: 28px !important;
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-legacy-11px) !important;
 
 		svg {
-      font-size: 16px !important;
+      font-size: var(--rds-font-size-md) !important;
 		}
 	}
 
@@ -115,25 +115,25 @@
     min-width: 0;
 
 		.MuiRadio-root {
-      padding: 3px !important;
+      padding: var(--rds-spacing-micro) !important;
 
 			svg {
         width: 16px !important;
         height: 16px !important;
-        font-size: 16px !important;
+        font-size: var(--rds-font-size-md) !important;
 			}
 		}
 
 		.MuiFormControlLabel-label,
 		.MuiTypography-root {
-      font-size: 12px !important;
+      font-size: var(--rds-font-size-xs) !important;
       line-height: 1.35 !important;
 		}
 
 		.MuiFormControlLabel-root {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: var(--rds-spacing-compact);
 			margin-right: 0 !important;
       margin-left: 0 !important;
 		}
@@ -147,22 +147,22 @@
     .MuiFormControlLabel-root {
       margin-left: 0 !important;
       margin-right: 0 !important;
-      gap: 6px;
+      gap: var(--rds-spacing-compact);
     }
 
 		.MuiFormControlLabel-label,
 		.MuiTypography-root {
-      font-size: 12px !important;
+      font-size: var(--rds-font-size-xs) !important;
       line-height: 1.35 !important;
 		}
 
 		.MuiCheckbox-root {
-      padding: 3px !important;
+      padding: var(--rds-spacing-micro) !important;
 
 			svg {
         width: 16px !important;
         height: 16px !important;
-        font-size: 16px !important;
+        font-size: var(--rds-font-size-md) !important;
 			}
 		}
 	}

@@ -10,7 +10,7 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  z-index: var(--rds-bottom-navigation-z-index, 1000);
+  z-index: var(--rds-bottom-navigation-z-index);
 
   .MuiBottomNavigation-root {
     width: 100%;
@@ -18,7 +18,7 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     box-sizing: border-box;
     // Separates the bar from the page background in light mode
     border-top: 1px solid
-      var(--rds-bottom-navigation-border-color, var(--rds-color-border, var(--rds-border-default)));
+      var(--rds-bottom-navigation-border-color);
   }
 
   .MuiBottomNavigationAction-root {
@@ -27,13 +27,13 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     flex: 1 1 0 !important;
     min-width: 0 !important;
     max-width: none !important;
-    padding: var(--rds-bottom-navigation-action-padding-y, 6px)
-      var(--rds-bottom-navigation-action-padding-x, 8px) !important;
+    padding: var(--rds-bottom-navigation-action-padding-y)
+      var(--rds-bottom-navigation-action-padding-x) !important;
 
     .MuiBottomNavigationAction-label {
-      font-size: var(--rds-bottom-navigation-label-font-size, 0.8rem) !important;
-      margin-top: var(--rds-bottom-navigation-label-margin-top, 2px) !important;
-      line-height: var(--rds-bottom-navigation-label-line-height, 1.2) !important;
+      font-size: var(--rds-bottom-navigation-label-font-size) !important;
+      margin-top: var(--rds-bottom-navigation-label-margin-top) !important;
+      line-height: var(--rds-bottom-navigation-label-line-height) !important;
       white-space: nowrap !important;
       overflow: hidden !important;
       text-overflow: ellipsis !important;
@@ -42,32 +42,32 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     }
 
     .MuiSvgIcon-root {
-      font-size: var(--rds-bottom-navigation-icon-size, 1.6rem) !important;
+      font-size: var(--rds-bottom-navigation-icon-size) !important;
     }
   }
 
   &:focus-visible {
-    outline: var(--rds-bottom-navigation-focus-ring-width, 2px) solid
-      var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-bottom-navigation-focus-ring-width) solid
+      var(--rds-color-primary);
     outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: var(--rds-bottom-navigation-disabled-opacity, 0.6);
+    opacity: var(--rds-bottom-navigation-disabled-opacity);
     pointer-events: none;
   }
 
   @media (max-width: $rds-bottom-navigation-mobile-breakpoint) {
     .MuiBottomNavigationAction-root {
-      padding: var(--rds-bottom-navigation-action-padding-y, 6px) 4px !important;
+      padding: var(--rds-bottom-navigation-action-padding-y) var(--rds-spacing-xs-px) !important;
 
       .MuiBottomNavigationAction-label {
-        font-size: 0.7rem !important;
+        font-size: var(--rds-font-size-legacy-0-7rem) !important;
       }
 
       .MuiSvgIcon-root {
-        font-size: 1.4rem !important;
+        font-size: var(--rds-font-size-legacy-1-4rem) !important;
       }
     }
   }

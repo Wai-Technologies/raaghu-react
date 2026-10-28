@@ -5,7 +5,7 @@
   text-overflow: ellipsis;
   max-width: 100%;
   font-size: var(--rds-font-size-md);
-  font-weight: var(--rds-font-weight-regular, 400);
+  font-weight: var(--rds-font-weight-regular);
   color: var(--rds-color-on-surface);
 
   &:focus-within {

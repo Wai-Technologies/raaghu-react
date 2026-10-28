@@ -1,12 +1,12 @@
 .rds-textarea-container {
   display: flex;
   flex-direction: column;
-  gap: var(--rds-textarea-stack-gap, 3px);
-  margin-bottom: var(--rds-spacing-md, 16px);
+  gap: var(--rds-textarea-stack-gap);
+  margin-bottom: var(--rds-spacing-md);
 
   .textarea-label {
   font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-md, 14px);
+  font-size: var(--rds-font-size-md);
 
     .required-asterisk {
       color: var(--rds-error-main);
@@ -18,11 +18,11 @@
     position: relative;
 
     &.textarea-pill-wrapper {
-      border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full, 9999px));
+      border-radius: var(--rds-border-radius-pill);
       border: 1px solid var(--rds-border-default);
       overflow: hidden;
       background-color: var(--rds-background-paper);
-      transition: border-color var(--rds-transition-base, 0.2s) ease-in-out;
+      transition: border-color var(--rds-transition-base) ease-in-out;
 
       &.textarea-disabled {
         background-color: var(--rds-background-disabled);
@@ -48,15 +48,15 @@
 
  .rds-textarea {
   width: 100%;
-  min-height: var(--rds-textarea-min-height, 120px);
-  padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
-  font-size: var(--rds-font-size-md, 14px);
+  min-height: var(--rds-textarea-min-height);
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+  font-size: var(--rds-font-size-md);
   font-family: var(--rds-font-family-base);
   line-height: 1.5;
   border: 1px solid var(--rds-border-default);
   outline: none;
   resize: vertical;
-  transition: all var(--rds-transition-base, 0.2s) ease-in-out;
+  transition: all var(--rds-transition-base) ease-in-out;
   background-color: var(--rds-background-paper);
 
     &::placeholder {
@@ -69,15 +69,15 @@
     }
 
     &:focus-visible:not(.textarea-disabled):not(.textarea-error) {
-      outline: var(--rds-focus-ring-width, 2px) solid var(--rds-primary-main);
-      outline-offset: var(--rds-focus-ring-offset, 2px);
+      outline: var(--rds-focus-ring-width) solid var(--rds-primary-main);
+      outline-offset: var(--rds-focus-ring-offset);
     }
 
     &:not(:placeholder-shown):not(:focus):not(.textarea-disabled):not(.textarea-error) {
       border-color: var(--rds-border-selected);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active) solid var(--rds-border-selected) !important;
       }
     }
 
@@ -86,19 +86,19 @@
     }
 
     &.textarea-style-default {
-      border-radius: var(--rds-border-radius-md, 4px);
+      border-radius: var(--rds-border-radius-md);
     }
 
     &.textarea-pill {
-      border-radius: var(--rds-border-radius-pill, var(--rds-border-radius-full, 9999px));
-      padding: var(--rds-spacing-lg, 24px);
+      border-radius: var(--rds-border-radius-pill);
+      padding: var(--rds-spacing-lg);
       box-sizing: border-box;
     }
 
     &.textarea-bottom-outline {
-      border-radius: var(--rds-border-radius-md, 4px);
-      border-bottom: var(--rds-textarea-bottom-border-width, 2px) solid var(--rds-border-default) !important;
-      padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
+      border-radius: var(--rds-border-radius-md);
+      border-bottom: var(--rds-textarea-bottom-border-width) solid var(--rds-border-default) !important;
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       background-color: var(--rds-background-paper);
     }
 
@@ -114,7 +114,7 @@
 
       &.textarea-bottom-outline {
         background-color: var(--rds-background-disabled) !important;
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active) solid var(--rds-border-disabled) !important;
       }
     }
 
@@ -122,13 +122,13 @@
       border-color: var(--rds-error-main);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active) solid var(--rds-error-main) !important;
       }
     }
   }
 
   .error-message {
-    font-size: var(--rds-font-size-sm, 13px);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-error-main);
     font-family: var(--rds-font-family-base);
     font-weight: 400;
@@ -146,7 +146,7 @@
     &.textarea-bottom-outline {
       background-color: var(--rds-background-paper) !important;
       color: var(--rds-text-primary) !important;
-      border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
+      border-bottom: var(--rds-textarea-bottom-border-width-active) solid var(--rds-primary-main) !important;
     }
 
     &.textarea-disabled {
@@ -160,7 +160,7 @@
 
       &.textarea-bottom-outline {
         background-color: var(--rds-background-disabled) !important;
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active) solid var(--rds-border-disabled) !important;
       }
     }
 
@@ -168,7 +168,7 @@
       border-color: var(--rds-error-main);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active) solid var(--rds-error-main) !important;
       }
     }
   }

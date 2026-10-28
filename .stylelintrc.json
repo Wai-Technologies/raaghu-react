@@ -1,0 +1,36 @@
+{
+  "rules": {
+    "declaration-property-value-disallowed-list": [
+      {
+        "/^(color|background|background-color|border|border-color|border-top-color|border-right-color|border-bottom-color|border-left-color|outline-color|fill|stroke|box-shadow|text-shadow)$/": [
+          "/#[0-9a-fA-F]{3,8}\\b/",
+          "/\\brgba?\\(\\s*[0-9]/",
+          "/\\bhsla?\\(\\s*[0-9]/"
+        ],
+        "font-size": [
+          "/^[0-9.]+(px|rem|em)$/"
+        ],
+        "font-family": [
+          "/^(?!var\\(|inherit|unset|initial).+/"
+        ],
+        "/^(padding|margin|gap|row-gap|column-gap)(-(top|right|bottom|left))?$/": [
+          "/(^|\\s)-?[0-9.]+(px|rem|em)(\\s|$)/"
+        ],
+        "border-radius": [
+          "/(^|\\s)[0-9.]+(px|rem|em)(\\s|$)/"
+        ]
+      },
+      {
+        "message": "Use a --rds-* design token instead of a literal value (see raaghu-react-themes/tokens/design-tokens.ts).",
+        "severity": "error"
+      }
+    ],
+    "declaration-property-value-no-unknown": null
+  },
+  "ignoreFiles": [
+    "**/node_modules/**",
+    "dist/**",
+    "storybook-static/**"
+  ],
+  "customSyntax": "postcss-scss"
+}

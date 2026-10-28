@@ -2,14 +2,14 @@
   position: relative;
   --rds-stack-divider-color-light: var(--rds-border-light);
   --rds-stack-divider-color-dark: var(--rds-border-default);
-  --rds-stack-item-radius: var(--rds-border-radius-sm, 4px);
-  --rds-stack-item-font-weight: var(--rds-font-weight-medium, 500);
+  --rds-stack-item-radius: var(--rds-border-radius-sm);
+  --rds-stack-item-font-weight: var(--rds-font-weight-medium);
   --rds-stack-divider-thickness: 1px;
 }
 
 .rds-stack .MuiDivider-root,
 .rds-stack .rds-stack__divider {
-  border-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
+  border-color: var(--rds-stack-divider-color);
 }
 
 .rds-stack .MuiDivider-root.MuiDivider-vertical,
@@ -30,10 +30,10 @@
 }
 
 .rds-stack__demo-item {
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--rds-stack-item-radius, var(--rds-border-radius-sm, 4px));
-  font-weight: var(--rds-stack-item-font-weight, var(--rds-font-weight-medium, 500));
-  color: var(--rds-neutral-0, var(--rds-color-on-primary));
+  padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+  border-radius: var(--rds-stack-item-radius);
+  font-weight: var(--rds-stack-item-font-weight);
+  color: var(--rds-neutral-0);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -41,13 +41,13 @@
 }
 
 .rds-stack__demo-item--primary {
-  background-color: var(--rds-color-primary-light, var(--rds-primary-main));
+  background-color: var(--rds-color-primary-light);
 }
 
 .rds-stack__demo-item--secondary {
-  background-color: var(--rds-color-secondary, var(--rds-secondary-main));
+  background-color: var(--rds-color-secondary);
 }
 
 .rds-stack__demo-item--success {
-  background-color: var(--rds-color-success, var(--rds-success-main));
+  background-color: var(--rds-color-success);
 }

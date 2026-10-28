@@ -15,7 +15,7 @@
   }
   
   &:focus-visible {
-    outline: var(--rds-chip-focus-ring-width) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-chip-focus-ring-width) solid var(--rds-color-primary);
     outline-offset: var(--rds-focus-ring-offset);
   }
 

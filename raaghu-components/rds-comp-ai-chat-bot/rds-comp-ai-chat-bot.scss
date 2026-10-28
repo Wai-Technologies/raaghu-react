@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 95vh;
-    min-height: var(--rds-ai-chat-bot-min-height, 500px);
+    min-height: var(--rds-ai-chat-bot-min-height);
     max-height: 100vh;
     width: 100%;
     max-width: 100%;
@@ -17,7 +17,7 @@
     }
 
     &__message {
-        margin-bottom: var(--rds-spacing-xxs, 2px);
+        margin-bottom: var(--rds-spacing-xxs);
         
         &--sender {
             text-align: right;
@@ -30,7 +30,7 @@
 
     &__input-wrapper {
         flex-shrink: 0;
-        padding: var(--rds-spacing-md, 10px);
+        padding: var(--rds-spacing-md);
     }
 
     &__input {
@@ -73,7 +73,7 @@
         min-height: 400px;
 
         &__input-wrapper {
-            padding: var(--rds-spacing-sm, 8px);
+            padding: var(--rds-spacing-sm);
         }
     }
 }

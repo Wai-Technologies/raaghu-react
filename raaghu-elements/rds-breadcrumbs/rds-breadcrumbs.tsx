@@ -47,7 +47,7 @@ const getDefaultIconForPosition = (index: number, label: string): string => {
 /** A built-in icon name or a custom icon element. */
 export type RdsBreadcrumbIcon = keyof typeof iconMap | ReactElement;
 
-const isIconGiven = (value: RdsBreadcrumbIcon): boolean =>
+const isIconGiven = (value?: RdsBreadcrumbIcon | null): value is RdsBreadcrumbIcon =>
   value !== undefined && value !== null && value !== '' && typeof value !== 'boolean';
 
 /** Enter/Space activate an element that has `role="button"` (native `<a href>` already handles Enter). */

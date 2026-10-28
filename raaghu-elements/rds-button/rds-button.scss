@@ -56,14 +56,14 @@
     
     &:hover {
       background-color: transparent;
-      color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
-      border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
+      color: var(--rds-button-primary-bg-hover);
+      border-color: var(--rds-button-primary-bg-hover);
     }
     
     &:active {
       background-color: transparent;
-      color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main)));
-      border-color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main)));
+      color: var(--rds-button-primary-bg-active);
+      border-color: var(--rds-button-primary-bg-active);
     }
   }
 
@@ -72,7 +72,7 @@
     color: var(--rds-button-text-color);
     
     &:hover {
-      background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover));
+      background-color: var(--rds-button-text-variant-bg);
     }
     
     &:active {
@@ -116,14 +116,14 @@
 
     &.rds-button__secondary {
       background-color: transparent !important;
-      color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
-      border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+      color: var(--rds-button-primary-bg-hover) !important;
+      border-color: var(--rds-button-primary-bg-hover) !important;
       box-shadow: none;
 
       &:hover {
         background-color: transparent !important;
-        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
-        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        color: var(--rds-button-primary-bg-hover) !important;
+        border-color: var(--rds-button-primary-bg-hover) !important;
         box-shadow: none;
       }
     }
@@ -140,12 +140,12 @@
 
     &.MuiButton-text,
     &.rds-button__text {
-      background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+      background-color: var(--rds-button-text-variant-bg) !important;
       box-shadow: none;
       transform: none;
 
       &:hover {
-        background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+        background-color: var(--rds-button-text-variant-bg) !important;
         box-shadow: none;
         transform: none;
       }
@@ -169,14 +169,14 @@
 
     &.rds-button__secondary {
       background-color: transparent !important;
-      border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main))) !important;
-      color: var(--rds-button-secondary-text-active, var(--rds-primary-main)) !important;
+      border-color: var(--rds-button-secondary-border-active) !important;
+      color: var(--rds-button-secondary-text-active) !important;
       box-shadow: none;
 
       &:hover {
         background-color: transparent !important;
-        border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main))) !important;
-        color: var(--rds-button-secondary-text-active, var(--rds-primary-main)) !important;
+        border-color: var(--rds-button-secondary-border-active) !important;
+        color: var(--rds-button-secondary-text-active) !important;
       }
     }
 

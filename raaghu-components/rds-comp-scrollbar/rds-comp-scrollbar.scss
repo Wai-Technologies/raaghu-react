@@ -8,7 +8,7 @@
   align-items: center;
   border: 1px solid var(--rds-color-gray-300);
   background-color: var(--rds-color-white);
-  border-radius: var(--rds-border-radius-md, 15px);
+  border-radius: var(--rds-border-radius-md);
   padding: 0;
 
   &--mac {
@@ -78,7 +78,7 @@
 
 .rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar-thumb {
   background-color: var(--rds-color-gray-500);
-  border-radius: var(--rds-border-radius-full, 9999px);
+  border-radius: var(--rds-border-radius-full);
   width: var(--rds-spacing-xs);
   min-height: 40px;
   margin: 0 auto;
@@ -97,7 +97,7 @@
 
 .rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-thumb {
   background-color: var(--rds-color-gray-400);
-  border-radius: var(--rds-border-radius-sm, 2px);
+  border-radius: var(--rds-border-radius-sm);
   width: var(--rds-spacing-xs);
   min-height: 40px;
   margin: 0 auto;
@@ -105,7 +105,7 @@
 
 .rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-track {
   background-color: var(--rds-color-gray-100);
-  border-radius: var(--rds-border-radius-sm, 2px);
+  border-radius: var(--rds-border-radius-sm);
 }
 
 .rds-scrollbar {

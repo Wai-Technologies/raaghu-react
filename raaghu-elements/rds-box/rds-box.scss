@@ -6,59 +6,59 @@
   // box surface tokens provided by centralized --rds-* theme vars
 
   &:focus-visible {
-    outline: var(--rds-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset, 2px);
+    outline: var(--rds-focus-ring-width) solid var(--rds-color-primary);
+    outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: var(--rds-opacity-disabled, 0.6);
+    opacity: var(--rds-opacity-disabled);
     pointer-events: none;
   }
 
   &--flex-container {
     display: flex;
-    gap: var(--rds-spacing-md, 16px);
-    padding: var(--rds-spacing-md, 16px);    
-    border: var(--rds-border-width-thin, 1px) solid var(--rds-box-surface-outline, var(--rds-color-outline));
+    gap: var(--rds-spacing-md);
+    padding: var(--rds-spacing-md);    
+    border: var(--rds-border-width-thin) solid var(--rds-box-surface-outline);
     justify-content: space-around;
     
     @include bp.down(sm) {
       flex-direction: column;
       align-items: center;
-      gap: var(--rds-spacing-xs, 8px);
+      gap: var(--rds-spacing-xs);
     }
   }
 
   &--default {
-    padding: var(--rds-spacing-md, 16px); 
-    border: var(--rds-border-width-thin, 1px) dashed var(--rds-box-surface-outline, var(--rds-color-outline));
+    padding: var(--rds-spacing-md); 
+    border: var(--rds-border-width-thin) dashed var(--rds-box-surface-outline);
   }
 
   &--with-padding {
-    padding: var(--rds-spacing-xl, 32px); 
-    background-color: var(--rds-box-surface-primary, var(--rds-color-primary, var(--rds-primary-main)));
+    padding: var(--rds-spacing-xl); 
+    background-color: var(--rds-box-surface-primary);
     color: var(--rds-color-on-primary);
   }
 
   &--with-margin {
-    margin: var(--rds-spacing-md, 16px); 
-    padding: var(--rds-spacing-md, 16px); 
-    background-color: var(--rds-box-surface-secondary, var(--rds-color-secondary));
+    margin: var(--rds-spacing-md); 
+    padding: var(--rds-spacing-md); 
+    background-color: var(--rds-box-surface-secondary);
     color: var(--rds-color-on-secondary);
   }
 
   &--grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--rds-spacing-md, 16px); 
-    padding: var(--rds-spacing-md, 16px); 
-    border: var(--rds-border-width-thin, 1px) solid var(--rds-box-surface-outline, var(--rds-color-outline));
+    gap: var(--rds-spacing-md); 
+    padding: var(--rds-spacing-md); 
+    border: var(--rds-border-width-thin) solid var(--rds-box-surface-outline);
   }
 
   &--custom-component {
-    padding: var(--rds-spacing-md, 16px); 
-    background-color: var(--rds-box-surface-tertiary, var(--rds-color-tertiary));
+    padding: var(--rds-spacing-md); 
+    background-color: var(--rds-box-surface-tertiary);
     color: var(--rds-color-on-tertiary);
   }
 }

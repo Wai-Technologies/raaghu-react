@@ -427,10 +427,10 @@
 
   .MuiInputLabel-root {
     background: var(--rds-background-paper) !important;
-    padding: 0 0.25rem !important;
+    padding: 0 var(--rds-spacing-xs) !important;
     line-height: 1 !important;
     pointer-events: none;
-    z-index: 1;
+    z-index: var(--rds-z-index-layer-1);
   }
 
   .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
@@ -456,7 +456,7 @@
     align-self: start;
     transform: translate(calc(var(--rds-spacing-sm) - 0.25rem), -50%) scale(0.85) !important;
     transform-origin: left center !important;
-    z-index: 2;
+    z-index: var(--rds-z-index-layer-2);
   }
 
   &.rds-input--large .MuiInputLabel-root:not(.MuiInputLabel-shrink) {

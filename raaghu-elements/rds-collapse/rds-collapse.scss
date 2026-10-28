@@ -47,22 +47,22 @@
   }
   .rds-collapse__story-box--warning {
     background-color: var(--rds-warning-light) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    * { color: rgba(0, 0, 0, 0.87) !important; }
+    color: var(--rds-alpha-black-87) !important;
+    * { color: var(--rds-alpha-black-87) !important; }
   }
   .rds-collapse__story-box--primary {
     background-color: var(--rds-primary-light) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    * { color: rgba(0, 0, 0, 0.87) !important; }
+    color: var(--rds-alpha-black-87) !important;
+    * { color: var(--rds-alpha-black-87) !important; }
   }
   .rds-collapse__story-box--secondary {
     background-color: var(--rds-secondary-light) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    * { color: rgba(0, 0, 0, 0.87) !important; }
+    color: var(--rds-alpha-black-87) !important;
+    * { color: var(--rds-alpha-black-87) !important; }
   }
   .rds-collapse__story-box--success {
     background-color: var(--rds-success-light) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    * { color: rgba(0, 0, 0, 0.87) !important; }
+    color: var(--rds-alpha-black-87) !important;
+    * { color: var(--rds-alpha-black-87) !important; }
   }
 }

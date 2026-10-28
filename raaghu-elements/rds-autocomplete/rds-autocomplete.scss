@@ -9,7 +9,7 @@
   &--root {
     display: inline-flex;
     flex-direction: column;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
     width: 100%;
   }
 
@@ -24,9 +24,9 @@
   &__option {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
-    gap: var(--rds-spacing-sm, 8px);
-    min-height: var(--rds-field-min-height, 40px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+    gap: var(--rds-spacing-sm);
+    min-height: var(--rds-field-min-height);
     cursor: pointer;
 
     &:hover {
@@ -40,12 +40,12 @@
 
     .MuiCheckbox-root,
     .MuiRadio-root {
-      padding: 0 var(--rds-spacing-xs, 4px);
+      padding: 0 var(--rds-spacing-xs);
     }
 
     span {
-      margin-left: var(--rds-spacing-xs, 4px);
-      font-size: var(--rds-font-size-body, 1rem);
+      margin-left: var(--rds-spacing-xs);
+      font-size: var(--rds-font-size-body);
     }
   }
 
@@ -72,7 +72,7 @@
   &--focused {
     .MuiInputBase-root {
       border-color: var(--rds-color-primary);
-      box-shadow: 0 0 0 var(--rds-autocomplete-focus-ring-width, 1px) var(--rds-color-primary);
+      box-shadow: 0 0 0 var(--rds-autocomplete-focus-ring-width) var(--rds-color-primary);
     }
   }
 
@@ -80,14 +80,14 @@
     .MuiInputBase-root {
       height: var(--rds-size-xl) !important;
       min-height: var(--rds-size-xl) !important;
-      font-size: var(--rds-font-size-small, 14px) !important;
+      font-size: var(--rds-font-size-small) !important;
       overflow: hidden !important;
     }
 
     .MuiInputBase-input {
       height: var(--rds-size-md) !important;
       min-height: var(--rds-size-md) !important;
-      font-size: var(--rds-font-size-small, 14px) !important;
+      font-size: var(--rds-font-size-small) !important;
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
@@ -109,14 +109,14 @@
     .MuiInputBase-root {
       height: 40px !important;
       min-height: 40px !important;
-      font-size: var(--rds-font-size-body, 16px) !important;
+      font-size: var(--rds-font-size-body) !important;
       overflow: hidden !important;
     }
 
     .MuiInputBase-input {
       height: var(--rds-size-lg) !important;
       min-height: var(--rds-size-lg) !important;
-      font-size: var(--rds-font-size-body, 16px) !important;
+      font-size: var(--rds-font-size-body) !important;
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
@@ -137,14 +137,14 @@
     .MuiInputBase-root {
       height: 52px !important;
       min-height: 52px !important;
-      font-size: var(--rds-font-size-large, 18px) !important;
+      font-size: var(--rds-font-size-large) !important;
       overflow: hidden !important;
     }
 
     .MuiInputBase-input {
       height: 36px !important;
       min-height: 36px !important;
-      font-size: var(--rds-font-size-large, 18px) !important;
+      font-size: var(--rds-font-size-large) !important;
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
@@ -163,24 +163,24 @@
 
   &__label {
     &--small {
-      font-size: var(--rds-font-size-caption, 0.9rem) !important;
+      font-size: var(--rds-font-size-caption) !important;
       margin-bottom: var(--rds-spacing-xxs) !important;
     }
 
     &--medium {
-      font-size: var(--rds-font-size-body, 1rem) !important;
+      font-size: var(--rds-font-size-body) !important;
       margin-bottom: var(--rds-spacing-xs) !important;
     }
 
     &--large {
-      font-size: var(--rds-font-size-subheading, 1.1rem) !important;
+      font-size: var(--rds-font-size-subheading) !important;
       margin-bottom: var(--rds-spacing-compact) !important;
     }
   }
 
   &:focus-visible {
-    outline: var(--rds-autocomplete-focus-outline-width, 2px) solid var(--rds-color-primary);
-    outline-offset: var(--rds-focus-ring-offset, 2px);
+    outline: var(--rds-autocomplete-focus-outline-width) solid var(--rds-color-primary);
+    outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
@@ -289,16 +289,16 @@
     
     // Tighten vertical padding in multiple mode so chips stay within the border
     &.MuiAutocomplete-inputRoot {
-      padding-top: 4px !important;
-      padding-bottom: 4px !important;
+      padding-top: var(--rds-spacing-xs-px) !important;
+      padding-bottom: var(--rds-spacing-xs-px) !important;
       align-items: center !important;
     }
   }
 
   &__chip {
-    margin: 1px 2px !important;
+    margin: var(--rds-spacing-hairline) var(--rds-spacing-xxs) !important;
     max-width: 120px !important;
-    font-size: 0.75rem !important;
+    font-size: var(--rds-font-size-xs) !important;
     vertical-align: middle;
     
     &--small {
@@ -314,7 +314,7 @@
     }
     
     &--overflow {
-      background-color: var(--rds-primary-light, rgba(135, 46, 252, 0.12)) !important;
+      background-color: var(--rds-primary-light) !important;
       color: var(--rds-primary-main) !important;
       font-weight: 600 !important;
       pointer-events: none !important;

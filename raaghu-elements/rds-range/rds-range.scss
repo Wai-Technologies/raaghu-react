@@ -13,10 +13,10 @@
   width: 100%;
 
   @include bp.down(sm) {
-    max-width: var(--rds-range-max-width-sm, 370px);
+    max-width: var(--rds-range-max-width-sm);
   }
   @include bp.down(400) {
-    max-width: var(--rds-range-max-width-xs, 275px);
+    max-width: var(--rds-range-max-width-xs);
   }
 
   &__header {
@@ -32,18 +32,18 @@
   }
 
   &--disabled {
-    opacity: var(--rds-range-disabled-opacity, 0.6);
+    opacity: var(--rds-range-disabled-opacity);
     pointer-events: none;
   }
 }
 
 @include bp.between(mobile-sm, 568) {
   .css-3k03ww, .css-1fm6jzk {
-    width: var(--rds-range-slider-width-mobile, 288px) !important;
+    width: var(--rds-range-slider-width-mobile) !important;
   }
 }
 @include bp.between(mobile-lg, 896) {
   .css-3k03ww, .css-1fm6jzk {
-    width: var(--rds-range-slider-width-tablet, 382px) !important;
+    width: var(--rds-range-slider-width-tablet) !important;
   }
 }

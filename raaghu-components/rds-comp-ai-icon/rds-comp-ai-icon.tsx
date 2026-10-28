@@ -303,7 +303,7 @@ const RdsCompAiIconComponent = ({
     return (
       <Box
         component={Icon}
-        {...rest}
+        {...(rest as object)}
         ref={setRootRef}
         className={clsx(className, "rds-comp-ai-icon__svg")}
         onClick={onClick || undefined}

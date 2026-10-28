@@ -12,7 +12,7 @@ type BadgeStyleVariant = 'primary' | 'outline' | 'transparent';
 const PALETTE_COLORS: readonly string[] = ['primary', 'secondary', 'tertiary', 'danger', 'error', 'warning', 'light', 'success'];
 const STYLE_VARIANTS: readonly string[] = ['primary', 'outline', 'transparent'];
 
-export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant'> {
+export interface RdsBadgeProps extends Omit<BadgeProps, 'component' | 'variant' | 'color'> {
   /** MUI badge variant (`standard` | `dot`), or the visual style (`primary` | `outline` | `transparent`). Preferred over `styleType`. */
   variant?: BadgeProps['variant'] | BadgeStyleVariant;
   /** Disables the badge. */
@@ -69,7 +69,7 @@ const RdsBadge = ({
       'styleType',
       '`variant`',
     ) ?? 'primary';
-  const muiVariant = isStyleVariant ? undefined : variant;
+  const muiVariant = (isStyleVariant ? undefined : variant) as BadgeProps['variant'];
 
   const paletteFromColor =
     colorProp !== undefined && typeof colorProp === 'string' && PALETTE_COLORS.includes(colorProp)

@@ -3,11 +3,11 @@
 .rds-comp-product-tour {
   &__container {
     background: var(--rds-background-paper);
-    box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow, rgba(162, 89, 255, 0.18));
+    box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow);
     border-radius: var(--rds-border-radius-xl);
     margin: var(--rds-spacing-xl) auto;
     width: 100%;
-    max-width: var(--rds-product-tour-max-width, 550px);
+    max-width: var(--rds-product-tour-max-width);
     position: relative;
     overflow: visible;
     padding: 0;
@@ -21,7 +21,7 @@
     &--carousel {
   width: 100%;
   width: 100%;
-  max-width: var(--rds-carousel-max-width, 520px);
+  max-width: var(--rds-carousel-max-width);
   height: auto;
   margin: var(--rds-spacing-lg) auto;
   padding: calc(var(--rds-spacing-xl) - var(--rds-spacing-xs)) calc(var(--rds-spacing-xl) - var(--rds-spacing-xs)) var(--rds-spacing-lg) calc(var(--rds-spacing-xl) - var(--rds-spacing-xs));
@@ -57,27 +57,27 @@
     height: var(--rds-spacing-md);
     background: var(--rds-primary-main);
     border-radius: var(--rds-border-radius-pill);
-    box-shadow: 0 0 0 var(--rds-spacing-sm) var(--rds-product-tour-dot-shadow, rgba(135, 46, 252, 0.15));
+    box-shadow: 0 0 0 var(--rds-spacing-sm) var(--rds-product-tour-dot-shadow);
     z-index: var(--rds-z-index-local-50);
 
     &--top-left {
-      left: -8px;
-      top: -8px;
+      left: var(--rds-spacing-neg-8);
+      top: var(--rds-spacing-neg-8);
     }
 
     &--top-right {
-      right: -8px;
-      top: -8px;
+      right: var(--rds-spacing-neg-8);
+      top: var(--rds-spacing-neg-8);
     }
 
     &--bottom-left {
-      left: -8px;
-      bottom: -8px;
+      left: var(--rds-spacing-neg-8);
+      bottom: var(--rds-spacing-neg-8);
     }
 
     &--bottom-right {
-      right: -8px;
-      bottom: -8px;
+      right: var(--rds-spacing-neg-8);
+      bottom: var(--rds-spacing-neg-8);
     }
   }
 
@@ -103,7 +103,7 @@
 
   &__image-section {
     width: 100%;
-    height: var(--rds-product-tour-image-height, 260px);
+    height: var(--rds-product-tour-image-height);
     margin: 0;
     border-radius: var(--rds-border-radius-md) var(--rds-border-radius-md) 0 0;
     overflow: hidden;
@@ -237,7 +237,7 @@
 
   &__carousel-wrapper {
     width: 100%;
-      height: var(--rds-carousel-height, 300px);
+      height: var(--rds-carousel-height);
     border-radius: var(--rds-border-radius-md);
     overflow: hidden;
     margin-bottom: 0;
@@ -270,7 +270,7 @@
     width: var(--rds-spacing-sm);
     height: var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius-pill);
-    background-color: var(--rds-carousel-dot-bg, rgba(124, 58, 237, 0.3));
+    background-color: var(--rds-carousel-dot-bg);
     transition: background-color 0.2s ease;
 
     &--active {
@@ -544,7 +544,7 @@
     text-align: center;
     flex: 0 0 auto; 
     transition: all 0.3s ease;
-    border-radius: 3px;
+    border-radius: var(--rds-border-radius-3);
     position: relative;
 
     &:hover {
@@ -829,7 +829,7 @@
   }
 
   &__form-stepcount {
-    font-size: var(--rds-font-size-md, 15px) !important;
+    font-size: var(--rds-font-size-md) !important;
     font-weight: 500 !important;
     color: var(--rds-text-primary) !important;
   }
@@ -841,7 +841,7 @@
   }
 
     &__form-skip {
-    font-size: var(--rds-font-size-md, 15px) !important;
+    font-size: var(--rds-font-size-md) !important;
     margin-right: var(--rds-spacing-md);
     color: var(--rds-primary-main) !important;
     font-weight: 500 !important;
@@ -868,8 +868,8 @@
     padding: 0;
 
     svg {
-      width: var(--rds-icon-button-lg-svg-size, 18px);
-      height: var(--rds-icon-button-lg-svg-size, 18px);
+      width: var(--rds-icon-button-lg-svg-size);
+      height: var(--rds-icon-button-lg-svg-size);
       fill: none;
       display: block;
       margin: auto;
@@ -891,8 +891,8 @@
 
 .rds-comp-product-tour__container--carousel {
   .rds-comp-product-tour__close-btn {
-    top: 6px;
-    right: 12px;
+    top: var(--rds-spacing-compact);
+    right: var(--rds-spacing-12-px);
     z-index: var(--rds-z-index-local-15);
   }
 
@@ -917,8 +917,8 @@
 @include bp.down(420) {
   .rds-comp-product-tour__container--image {
     .rds-comp-product-tour__close-btn {
-      top: 0px; 
-      right: 0px; 
+      top: var(--rds-spacing-0); 
+      right: var(--rds-spacing-0); 
     }
   }
 }
@@ -947,7 +947,7 @@
     }
 
     .rds-comp-product-tour__carousel-wrapper {
-      height: var(--rds-carousel-mobile-height, 280px); 
+      height: var(--rds-carousel-mobile-height); 
       border-radius: var(--rds-border-radius-sm);
       margin-bottom: var(--rds-spacing-sm);
       overflow: hidden;
@@ -963,8 +963,8 @@
     }
 
     .rds-comp-product-tour__carousel-dot {
-      width: var(--rds-carousel-dot-size, 6px);
-      height: var(--rds-carousel-dot-size, 6px);
+      width: var(--rds-carousel-dot-size);
+      height: var(--rds-carousel-dot-size);
     }
 
     .rds-comp-product-tour__carousel-nav-row,
@@ -1009,8 +1009,8 @@
     }
 
     .rds-comp-product-tour__close-btn {
-      top: 6px;
-      right: 8px;
+      top: var(--rds-spacing-compact);
+      right: var(--rds-spacing-sm-px);
       svg { width: var(--rds-size-lg); height: var(--rds-size-lg); }
     }
   }
@@ -1120,7 +1120,7 @@
   .rds-comp-product-tour__container--form {
     .rds-comp-product-tour__form-title-badge-row {
       .rds-badge .rds-badge__badge {
-        font-size: 0.75rem;
+        font-size: var(--rds-font-size-xs);
         padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
         min-width: 40px;
         height: var(--rds-size-lg);
@@ -1196,9 +1196,9 @@ padding: var(--rds-spacing-lg);
           height: 40px !important;
           min-height: 40px !important;
           max-height: 40px !important;
-          padding-top: 4px !important;
-          padding-bottom: 4px !important;
-          padding-right: 32px !important;
+          padding-top: var(--rds-spacing-xs-px) !important;
+          padding-bottom: var(--rds-spacing-xs-px) !important;
+          padding-right: var(--rds-spacing-xl-px) !important;
 
           &.Mui-focused,
           &[aria-expanded='true'] {
@@ -1210,7 +1210,7 @@ padding: var(--rds-spacing-lg);
 
         .MuiAutocomplete-endAdornment {
           position: absolute;
-          right: 4px;
+          right: var(--rds-spacing-xs-px);
           top: 50%;
           transform: translateY(-50%);
           display: flex;
@@ -1219,7 +1219,7 @@ padding: var(--rds-spacing-lg);
         }
 
         .MuiAutocomplete-popupIndicator {
-          padding: 2px !important;
+          padding: var(--rds-spacing-xxs) !important;
 
           .MuiSvgIcon-root {
             font-size: var(--rds-font-size-xl) !important;
@@ -1243,7 +1243,7 @@ padding: var(--rds-spacing-lg);
           flex-shrink: 0 !important;
           max-width: 36px !important;
           min-width: 28px !important;
-          margin-right: 2px !important;
+          margin-right: var(--rds-spacing-xxs) !important;
         }
       }
 

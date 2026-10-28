@@ -3,8 +3,8 @@
     min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
     background: var(--rds-background-paper);
-    box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0,0,0,0.10));
-    border-radius: var(--rds-border-radius-sm, 4px);
+    box-shadow: var(--rds-elevation-3);
+    border-radius: var(--rds-border-radius-sm);
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -12,12 +12,12 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 12px);
+    gap: var(--rds-spacing-md);
     padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
-    font-size: 1rem;
+    font-size: var(--rds-font-size-md);
     min-height: var(--rds-menu-item-min-height);
     cursor: pointer;
-    transition: background var(--rds-transition-fast, 0.18s ease-in-out), color var(--rds-transition-fast, 0.18s ease-in-out);
+    transition: background var(--rds-transition-fast), color var(--rds-transition-fast);
     border: none;
     background: none;
     width: 100%;
@@ -66,14 +66,14 @@
       }
 
       .MuiSvgIcon-root {
-        font-size: 1.25rem;
+        font-size: var(--rds-font-size-xl);
       }
 
       // Keep avatars aligned with standard menu icon scale
       .rds-avatar .MuiAvatar-root {
         width: 1.25rem !important;
         height: 1.25rem !important;
-        font-size: 0.5625rem !important;
+        font-size: var(--rds-font-size-legacy-0-5625rem) !important;
       }
     }
     &__text {
@@ -86,7 +86,7 @@
     &__shortcut {
       margin-left: var(--rds-spacing-md);
       color: var(--rds-text-secondary);
-      font-size: 0.92em;
+      font-size: var(--rds-font-size-legacy-0-92em);
       letter-spacing: var(--rds-menu-letter-spacing);
       font-family: var(--rds-font-family-base);
     }
@@ -98,21 +98,21 @@
       max-width: 225px;
     }
     .rds-menu__item {
-      font-size: 0.80rem;
+      font-size: var(--rds-font-size-legacy-0-80rem);
       min-height: var(--rds-menu-item-min-height-small);
       padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1rem;
+      font-size: var(--rds-font-size-md);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
       width: 1rem !important;
       height: 1rem !important;
-      font-size: 0.5rem !important;
+      font-size: var(--rds-font-size-legacy-0-5rem) !important;
     }
     .rds-menu__header {
-      font-size: 0.85em;
+      font-size: var(--rds-font-size-legacy-0-85em);
       padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     }
   }
@@ -123,21 +123,21 @@
       max-width: 260px;
     }
     .rds-menu__item {
-      font-size: 1rem;
+      font-size: var(--rds-font-size-md);
       min-height: var(--rds-menu-item-min-height);
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
-      gap: var(--rds-spacing-md, 12px);
+      gap: var(--rds-spacing-md);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1.25rem;
+      font-size: var(--rds-font-size-xl);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
       width: 1.25rem !important;
       height: 1.25rem !important;
-      font-size: 0.5625rem !important;
+      font-size: var(--rds-font-size-legacy-0-5625rem) !important;
     }
     .rds-menu__header {
-      font-size: 0.98em;
+      font-size: var(--rds-font-size-legacy-0-98em);
       padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-xs) var(--rds-spacing-md);
     }
   }
@@ -148,28 +148,28 @@
       max-width: 340px;
     }
     .rds-menu__item {
-      font-size: 1.0625rem;
+      font-size: var(--rds-font-size-legacy-1-0625rem);
       min-height: 2.75rem;
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) var(--rds-spacing-lg);
-      gap: var(--rds-spacing-md, 12px);
+      gap: var(--rds-spacing-md);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
-      font-size: 1.5rem;
+      font-size: var(--rds-font-size-2xl);
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
       width: 1.5rem !important;
       height: 1.5rem !important;
-      font-size: 0.6875rem !important;
+      font-size: var(--rds-font-size-legacy-0-6875rem) !important;
     }
     .rds-menu__header {
-      font-size: 1.05em;
+      font-size: var(--rds-font-size-legacy-1-05em);
       padding: var(--rds-spacing-sm) var(--rds-spacing-lg) var(--rds-spacing-xs) var(--rds-spacing-lg);
     }
   }
 
   &__header {
-    font-weight: var(--rds-menu-header-font-weight, 600);
-    font-size: 0.98em;
+    font-weight: var(--rds-menu-header-font-weight);
+    font-size: var(--rds-font-size-legacy-0-98em);
     color: var(--rds-text-secondary);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-xs) var(--rds-spacing-md);
     margin-bottom: var(--rds-menu-header-margin-bottom);
@@ -207,7 +207,7 @@
 
 [data-theme="dark"] {
   .rds-menu__list {
-     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e)) !important;
+     background-color: var(--rds-color-surface-dark) !important;
   }
 
   .rds-menu__item {
@@ -218,8 +218,8 @@
     color: var(--rds-text-disabled);
   }
   .rds-menu__header {
-    color: var(--rds-neutral-200, #ccc);
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e));
+    color: var(--rds-neutral-200);
+    background-color: var(--rds-color-surface-dark);
     border-bottom: 1px solid var(--rds-border-default);
   }
 
@@ -241,19 +241,19 @@
 
   /* Force MuiListItemIcon root itself to white for all non-colored items */
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) {
-    color: var(--rds-neutral-0, #fff) !important;
+    color: var(--rds-neutral-0) !important;
   }
 
   /* Target MuiSvgIcon-root directly so MUI icon color is white in dark mode */
   .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root,
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root {
-    color: var(--rds-neutral-0, #fff) !important;
-    fill: var(--rds-neutral-0, #fff) !important;
+    color: var(--rds-neutral-0) !important;
+    fill: var(--rds-neutral-0) !important;
   }
 
   /* MuiPaper that wraps the dropdown */
   .rds-menu .MuiPaper-root {
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e)) !important;
+    background-color: var(--rds-color-surface-dark) !important;
   }
 
   .rds-menu__item .rds-menu__item__icon--primary svg,

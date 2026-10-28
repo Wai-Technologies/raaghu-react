@@ -10,12 +10,12 @@
   & .MuiBadge-badge {
     background-color: var(--rds-primary-main) !important;
     color: var(--rds-neutral-0) !important;
-    font-weight: var(--rds-font-weight-medium, 500) !important;
-    font-size: var(--rds-badge-dot-font-size, 0.75rem) !important;
-    min-width: var(--rds-badge-dot-min-size, 20px) !important;
-    height: var(--rds-badge-dot-min-size, 20px) !important;
-    border-radius: var(--rds-border-radius-md, 8px) !important;
-    padding: 0 var(--rds-badge-dot-padding-x, 6px) !important;
+    font-weight: var(--rds-font-weight-medium) !important;
+    font-size: var(--rds-badge-dot-font-size) !important;
+    min-width: var(--rds-badge-dot-min-size) !important;
+    height: var(--rds-badge-dot-min-size) !important;
+    border-radius: var(--rds-border-radius-md) !important;
+    padding: 0 var(--rds-badge-dot-padding-x) !important;
     font-family: var(--rds-font-family-base) !important;
     display: flex !important;
     align-items: center !important;
@@ -39,18 +39,18 @@
     background: var(--rds-primary-100);
     color: var(--rds-primary-800);
     font-family: var(--rds-font-family-base);
-    font-weight: var(--rds-font-weight-regular, 400);
+    font-weight: var(--rds-font-weight-regular);
     font-style: normal;
-    font-size: 0.875rem;
+    font-size: var(--rds-font-size-sm);
     line-height: 20px;
     letter-spacing: 0;
     text-align: center;
     vertical-align: middle;
-    box-shadow: var(--rds-badge-pill-shadow, 0 1px 4px rgba(108, 46, 183, 0.08));
-    padding: var(--rds-spacing-xs) 18px;
+    box-shadow: var(--rds-badge-pill-shadow);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-18);
     min-width: 60px;
     height: var(--rds-size-xl);
-    border-radius: var(--rds-border-radius-xl, 16px);
+    border-radius: var(--rds-border-radius-xl);
   }
   &--primary > .rds-badge__badge {
     background: var(--rds-primary-100);
@@ -88,10 +88,10 @@
   }
 
   &--rectangle > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-sm, 4px) !important;
+    border-radius: var(--rds-border-radius-sm) !important;
   }
   &--pill > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-xl, 16px) !important;
+    border-radius: var(--rds-border-radius-xl) !important;
   }
 
   $rds-badge-colors: (
@@ -145,10 +145,10 @@
     }
   }
   &--rectangle > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-sm, 4px) !important;
+    border-radius: var(--rds-border-radius-sm) !important;
   }
   &--pill > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-xl, 16px) !important;
+    border-radius: var(--rds-border-radius-xl) !important;
   }
   &--disabled > .rds-badge__badge {
     background: var(--rds-neutral-100) !important;
@@ -171,19 +171,19 @@
     transition: none;
   }
   &--small .rds-badge__badge {
-    font-size: 0.75rem;
+    font-size: var(--rds-font-size-xs);
     padding: var(--rds-spacing-xxs) var(--rds-spacing-3);
-    border-radius: var(--rds-border-radius-md, 8px);
+    border-radius: var(--rds-border-radius-md);
     min-width: 40px;
     height: var(--rds-size-lg);
     line-height: 20px;
   }
   &--small .MuiBadge-badge {
-    font-size: 0.625rem !important;
+    font-size: var(--rds-font-size-legacy-0-625rem) !important;
     min-width: var(--rds-size-md) !important;
     height: var(--rds-size-md) !important;
-    border-radius: var(--rds-border-radius-md, 8px) !important;
-    padding: 0 var(--rds-spacing-xs, 4px) !important;
+    border-radius: var(--rds-border-radius-md) !important;
+    padding: 0 var(--rds-spacing-xs) !important;
     line-height: 1 !important;
     display: grid !important;
     place-items: center !important;
@@ -286,32 +286,32 @@
   }
   
   &--medium .rds-badge__badge {
-    font-size: 1rem;
-    padding: var(--rds-spacing-xs) 18px;
-    border-radius: var(--rds-border-radius-lg, 12px);
+    font-size: var(--rds-font-size-md);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-18);
+    border-radius: var(--rds-border-radius-lg);
     min-width: 60px;
     height: var(--rds-size-xl);
   }
   &--medium .MuiBadge-badge {
-    font-size: var(--rds-badge-dot-font-size, 0.75rem) !important;
-    min-width: var(--rds-badge-dot-min-size, 20px) !important;
-    height: var(--rds-badge-dot-min-size, 20px) !important;
-    border-radius: var(--rds-border-radius-md, 8px) !important;
-    padding: 0 var(--rds-badge-dot-padding-x, 6px) !important;
+    font-size: var(--rds-badge-dot-font-size) !important;
+    min-width: var(--rds-badge-dot-min-size) !important;
+    height: var(--rds-badge-dot-min-size) !important;
+    border-radius: var(--rds-border-radius-md) !important;
+    padding: 0 var(--rds-badge-dot-padding-x) !important;
   }
   
   &--large .rds-badge__badge {
-    font-size: 1.25rem;
+    font-size: var(--rds-font-size-xl);
     padding: var(--rds-spacing-compact) var(--rds-spacing-lg);
-    border-radius: var(--rds-border-radius-xl, 16px);
+    border-radius: var(--rds-border-radius-xl);
     min-width: 80px;
     height: 40px;
   }
   &--large .MuiBadge-badge {
-    font-size: 0.875rem !important;
+    font-size: var(--rds-font-size-sm) !important;
     min-width: var(--rds-size-lg) !important;
     height: var(--rds-size-lg) !important;
-    border-radius: var(--rds-border-radius-lg, 12px) !important;
+    border-radius: var(--rds-border-radius-lg) !important;
     padding: 0 var(--rds-spacing-sm) !important;
   }
   
@@ -319,11 +319,11 @@
     position: static;
     background: var(--rds-primary-100);
     color: var(--rds-primary-800);
-    border-radius: var(--rds-border-radius-xl, 16px);
-    font-weight: var(--rds-font-weight-semibold, 600);
-    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
-    padding: var(--rds-spacing-xs) 18px;
-    font-size: 1rem;
+    border-radius: var(--rds-border-radius-xl);
+    font-weight: var(--rds-font-weight-semibold);
+    box-shadow: 0 1px 4px var(--rds-alpha-legacy-108-46-183-08);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-18);
+    font-size: var(--rds-font-size-md);
     min-width: 60px;
     height: var(--rds-size-xl);
     display: flex;

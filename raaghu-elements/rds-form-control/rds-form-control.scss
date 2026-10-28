@@ -1,5 +1,5 @@
 .rds-form-control {
-  --rds-form-control-select-width: var(--rds-input-min-width, 200px);
+  --rds-form-control-select-width: var(--rds-input-min-width);
 
   // Match MuiFormControl (inline-flex + column). `display: block` overrides that
   // and lets the inline FormLabel sit beside the TextField when SCSS injects
@@ -49,7 +49,7 @@
     max-width: 100% !important;
     min-width: 0 !important;
     overflow: hidden !important;
-    padding-right: 32px !important;
+    padding-right: var(--rds-spacing-xl-px) !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
   }
@@ -61,9 +61,9 @@
     opacity: 1 !important;
     pointer-events: none;
     position: absolute !important;
-    right: 7px !important;
+    right: var(--rds-spacing-7) !important;
     visibility: visible !important;
-    z-index: 2;
+    z-index: var(--rds-z-index-layer-2);
   }
 
   .MuiInputBase-input::placeholder,

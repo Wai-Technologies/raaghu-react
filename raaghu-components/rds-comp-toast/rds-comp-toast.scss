@@ -1,12 +1,12 @@
 .rds-comp-toast {
-  --rds-toast-accent-info: var(--rds-text-primary, var(--rds-color-on-surface));
-  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
-  --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
+  --rds-toast-accent-info: var(--rds-text-primary);
+  --rds-toast-accent-success: var(--rds-color-primary);
+  --rds-toast-accent-error: var(--rds-color-error);
 
   background: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
-  border-radius: var(--rds-border-radius, 8px);
-  box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
+  border: 1px solid var(--rds-color-outline-variant);
+  border-radius: var(--rds-border-radius);
+  box-shadow: var(--rds-elevation-2);
   min-width: min(420px, 95vw);
   max-width: min(420px, 95vw);
   overflow: hidden;
@@ -25,24 +25,24 @@
   }
   
   &--info {
-    border-left: 4px solid var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
+    border-left: 4px solid var(--rds-toast-accent-info);
   }
   
   &--success {
-    border-left: 4px solid var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
+    border-left: 4px solid var(--rds-toast-accent-success);
   }
   
   &--error {
-    border-left: 4px solid var(--rds-toast-accent-error, var(--rds-color-error));
+    border-left: 4px solid var(--rds-toast-accent-error);
   }
 
   &--border-light,
   &--border-dark,
   &--border-primary,
   &--border-danger {
-    border-top-color: var(--rds-color-outline-variant, var(--rds-color-border));
-    border-right-color: var(--rds-color-outline-variant, var(--rds-color-border));
-    border-bottom-color: var(--rds-color-outline-variant, var(--rds-color-border));
+    border-top-color: var(--rds-color-outline-variant);
+    border-right-color: var(--rds-color-outline-variant);
+    border-bottom-color: var(--rds-color-outline-variant);
   }
   
   &--text {
@@ -124,12 +124,12 @@
   &__header-content {
     display: flex;
     align-items: flex-start;
-    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-xs, 0.3rem);
-    gap: var(--rds-spacing-md, 0.4rem);
+    padding: var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-xs);
+    gap: var(--rds-spacing-md);
   }
 
   &--chat &__header-content {
-    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem) !important;
+    padding: var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-lg) !important;
     gap: 0 !important;
   }
   
@@ -138,7 +138,7 @@
     display: flex;
     align-items: center;
     height: 100%;
-    margin-top: var(--rds-spacing-xxs, 2px);
+    margin-top: var(--rds-spacing-xxs);
     width: var(--rds-size-lg);
     min-width: var(--rds-size-lg);
     max-width: var(--rds-size-lg);
@@ -158,16 +158,16 @@
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-circle-color: var(--rds-text-secondary, var(--rds-color-on-surface-variant));
+      --rds-toast-circle-color: var(--rds-text-secondary);
     }
     .rds-comp-toast--info & {
-      --rds-toast-circle-color: var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
+      --rds-toast-circle-color: var(--rds-toast-accent-info);
     }
     .rds-comp-toast--success & {
-      --rds-toast-circle-color: var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
+      --rds-toast-circle-color: var(--rds-toast-accent-success);
     }
     .rds-comp-toast--error & {
-      --rds-toast-circle-color: var(--rds-toast-accent-error, var(--rds-color-error));
+      --rds-toast-circle-color: var(--rds-toast-accent-error);
     }
     
     &--plus {
@@ -178,40 +178,40 @@
         content: '';
         position: absolute;
         background: var(--rds-toast-plus-color);
-        border-radius: 1px;
+        border-radius: var(--rds-border-radius-1);
       }
       &::before {
         width: 2px;
         height: 12px;
-        top: 4px;
-        left: 9px;
+        top: var(--rds-spacing-xs-px);
+        left: var(--rds-spacing-9-px);
       }
       &::after {
         width: 12px;
         height: 2px;
-        top: 9px;
-        left: 4px;
+        top: var(--rds-spacing-9-px);
+        left: var(--rds-spacing-xs-px);
       }
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-plus-color: var(--rds-text-secondary, var(--rds-color-on-surface-variant));
+      --rds-toast-plus-color: var(--rds-text-secondary);
     }
     .rds-comp-toast--info & {
-      --rds-toast-plus-color: var(--rds-toast-accent-info, var(--rds-text-primary, var(--rds-color-on-surface)));
+      --rds-toast-plus-color: var(--rds-toast-accent-info);
     }
     .rds-comp-toast--success & {
-      --rds-toast-plus-color: var(--rds-toast-accent-success, var(--rds-color-primary, var(--rds-primary-main)));
+      --rds-toast-plus-color: var(--rds-toast-accent-success);
     }
     .rds-comp-toast--error & {
-      --rds-toast-plus-color: var(--rds-toast-accent-error, var(--rds-color-error));
+      --rds-toast-plus-color: var(--rds-toast-accent-error);
     }
   }
   
   &__title {
     flex: 1;
-    font-size: var(--rds-font-size-base, 1rem);
-    font-weight: var(--rds-font-weight-semibold, 600);
+    font-size: var(--rds-font-size-base);
+    font-weight: var(--rds-font-weight-semibold);
     color: var(--rds-color-on-surface);
     margin: 0;
     display: flex;
@@ -227,22 +227,22 @@
   &__header-actions {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 0.5rem);
+    gap: var(--rds-spacing-md);
     height: 22px;
   }
   
   &__chat-time {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
   }
   
   &__close-btn {
     background: none;
     border: none;
-    font-size: var(--rds-font-size-lg, 1.5rem);
+    font-size: var(--rds-font-size-lg);
     color: var(--rds-color-on-surface-variant);
     cursor: pointer;
-    padding: var(--rds-spacing-xs, 0.25rem);
+    padding: var(--rds-spacing-xs);
     line-height: 1;
     display: flex;
     align-items: center;
@@ -261,9 +261,9 @@
   }
   
   &__body {
-    padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) 2.2rem;
+    padding: 0 var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-legacy-2-2rem);
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     line-height: 1.5;
   }
   
@@ -274,31 +274,31 @@
   &__body-simple {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-lg, 1rem);
-    gap: var(--rds-spacing-md, 0.75rem);
+    padding: var(--rds-spacing-lg);
+    gap: var(--rds-spacing-md);
   }
   
   &__text {
     flex: 1;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
   }
   
   &__footer {
-    padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem);
+    padding: 0 var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-lg);
     
     &--request {
-      padding-top: var(--rds-spacing-md, 0.75rem);
+      padding-top: var(--rds-spacing-md);
     }
   }
 
   &__progress {
     display: flex;
     align-items: center;
-    padding: 0 0 0 1.3rem;
-    gap: var(--rds-spacing-md, 0.75rem);
-    margin-bottom: var(--rds-spacing-xs, 0.2rem);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    padding: 0 0 0 var(--rds-spacing-legacy-1-3rem);
+    gap: var(--rds-spacing-md);
+    margin-bottom: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-sm);
     height: 12px;
     position: relative;
     overflow: visible;
@@ -310,42 +310,42 @@
     background: var(--rds-color-primary);
     height: 100%;
     border-radius: inherit;
-    transition: width var(--rds-transition-duration-standard, 0.3s) ease;
+    transition: width var(--rds-transition-duration-standard) ease;
   }
   
   &__progress-label {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
     min-width: 2.5rem;
     text-align: right;
   }
   
   &__filename {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
-    margin-bottom: var(--rds-spacing-md, 0.75rem);
-    padding: 0 0 0 1.3rem;
+    margin-bottom: var(--rds-spacing-md);
+    padding: 0 0 0 var(--rds-spacing-legacy-1-3rem);
   }
   
   &__input-group {
-    margin-bottom: var(--rds-spacing-md, 0.75rem);
+    margin-bottom: var(--rds-spacing-md);
   }
   
   &__input {
     width: 100%;
-    padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-md, 0.75rem);
-    border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
-    border-radius: var(--rds-border-radius-sm, 4px);
-    font-size: var(--rds-font-size-base, 0.875rem);
+    padding: var(--rds-spacing-md) var(--rds-spacing-md);
+    border: 1px solid var(--rds-color-outline-variant);
+    border-radius: var(--rds-border-radius-sm);
+    font-size: var(--rds-font-size-base);
     color: var(--rds-color-on-surface);
-    background: var(--rds-color-surface-container, var(--rds-color-surface));
-    transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
-                box-shadow var(--rds-transition-duration-short, 0.2s) ease;
+    background: var(--rds-color-surface-container);
+    transition: border-color var(--rds-transition-duration-short) ease,
+                box-shadow var(--rds-transition-duration-short) ease;
     
     &:focus {
       outline: none;
       border-color: var(--rds-color-primary);
-      box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+      box-shadow: 0 0 0 2px var(--rds-alpha-legacy-25-118-210-20);
     }
     
     &::placeholder {
@@ -355,12 +355,12 @@
 
   &__actions {
     display: flex;
-    gap: var(--rds-spacing-xs, 8px);
+    gap: var(--rds-spacing-xs);
     justify-content: flex-end;
 
     .rds-comp-toast__action-btn {
-      font-size: var(--rds-font-size-xs, 0.8125rem);
-      padding: var(--rds-spacing-xxs, 2px) var(--rds-spacing-sm, 10px);
+      font-size: var(--rds-font-size-xs);
+      padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
       min-width: 0;
       height: 1.875rem;
       line-height: 1.2;
@@ -369,7 +369,7 @@
 
   &--chat &__actions {
     justify-content: flex-start;
-    margin-top: var(--rds-spacing-md, 0.5rem);
+    margin-top: var(--rds-spacing-md);
   }
 
   &--chat {
@@ -381,12 +381,12 @@
     }
 
     & .rds-comp-toast__header-content {
-      padding-left: var(--rds-spacing-lg, 1rem) !important;
+      padding-left: var(--rds-spacing-lg) !important;
       gap: 0 !important;
     }
 
     & .rds-comp-toast__body {
-      padding-left: var(--rds-spacing-lg, 1rem) !important;
+      padding-left: var(--rds-spacing-lg) !important;
     }
 
     & .rds-comp-toast__title {
@@ -396,13 +396,13 @@
   }
   
   &__btn {
-    padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    font-size: var(--rds-font-size-sm, 0.875rem);
-    font-weight: var(--rds-font-weight-medium, 500);
+    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
+    border-radius: var(--rds-border-radius-sm);
+    font-size: var(--rds-font-size-sm);
+    font-weight: var(--rds-font-weight-medium);
     cursor: pointer;
     border: 1px solid transparent;
-    transition: all var(--rds-transition-duration-short, 0.2s) ease;
+    transition: all var(--rds-transition-duration-short) ease;
     
     &--primary {
       background: var(--rds-color-primary);
@@ -423,11 +423,11 @@
       border-color: transparent;
       
       &:hover {
-        background: var(--rds-color-primary-hover-light, rgba(25, 118, 210, 0.04));
+        background: var(--rds-color-primary-hover-light);
       }
       
       &:active {
-        background: var(--rds-color-primary-pressed-light, rgba(25, 118, 210, 0.12));
+        background: var(--rds-color-primary-pressed-light);
       }
     }
   }
@@ -438,21 +438,21 @@ body[data-theme='dark'] .rds-comp-toast,
 [data-theme='dark'] .rds-comp-toast,
 body.theme-dark .rds-comp-toast,
 body.dark-theme .rds-comp-toast {
-  --rds-toast-accent-info: var(--rds-color-on-surface, var(--rds-text-primary));
-  --rds-toast-accent-success: var(--rds-color-primary, var(--rds-primary-main));
-  --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
+  --rds-toast-accent-info: var(--rds-color-on-surface);
+  --rds-toast-accent-success: var(--rds-color-primary);
+  --rds-toast-accent-error: var(--rds-color-error);
 
-  border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-  border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-  border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+  border-top-color: var(--rds-color-border-overlay);
+  border-right-color: var(--rds-color-border-overlay);
+  border-bottom-color: var(--rds-color-border-overlay);
 
   &.rds-comp-toast--border-light,
   &.rds-comp-toast--border-dark,
   &.rds-comp-toast--border-primary,
   &.rds-comp-toast--border-danger {
-    border-top-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-    border-right-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
-    border-bottom-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.16));
+    border-top-color: var(--rds-color-border-overlay);
+    border-right-color: var(--rds-color-border-overlay);
+    border-bottom-color: var(--rds-color-border-overlay);
   }
 
   &.rds-comp-toast--info {
@@ -483,9 +483,9 @@ body.dark-theme .rds-comp-toast {
   }
 
   .rds-comp-toast__input {
-    background: var(--rds-color-surface-dark, var(--rds-color-surface));
-    border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.24));
-    color: var(--rds-color-on-surface-dark, var(--rds-color-on-surface));
+    background: var(--rds-color-surface-dark);
+    border-color: var(--rds-color-border-overlay);
+    color: var(--rds-color-on-surface-dark);
   }
 }
 
@@ -520,7 +520,7 @@ body.dark-theme .rds-comp-toast {
     &__container--top-left,
     &__container--middle-left,
     &__container--bottom-left {
-      left: 1rem;
+      left: var(--rds-spacing-md);
       right: auto;
       transform: none;
     }
@@ -528,7 +528,7 @@ body.dark-theme .rds-comp-toast {
     &__container--top-right,
     &__container--middle-right,
     &__container--bottom-right {
-      right: 1rem;
+      right: var(--rds-spacing-md);
       left: auto;
       transform: none;
     }
@@ -547,14 +547,14 @@ body.dark-theme .rds-comp-toast {
     &__container--top-left,
     &__container--top-center,
     &__container--top-right {
-      top: 1rem;
+      top: var(--rds-spacing-md);
       bottom: auto;
     }
 
     &__container--bottom-left,
     &__container--bottom-center,
     &__container--bottom-right {
-      bottom: 1rem;
+      bottom: var(--rds-spacing-md);
       top: auto;
     }
   }

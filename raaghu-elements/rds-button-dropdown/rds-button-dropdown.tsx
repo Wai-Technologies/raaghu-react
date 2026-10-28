@@ -21,7 +21,7 @@ export interface RdsButtonDropdownOption {
 
 export type RdsButtonDropdownCloseReason = 'backdropClick' | 'escapeKeyDown' | 'toggleInput' | 'selectOption';
 
-export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'style'> {
+export interface RdsButtonDropdownProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'children' | 'onClick' | 'style' | 'defaultValue' | 'onChange'> {
   /** Trigger label. Defaults to `'Button'`. */
   children?: ReactNode;
   options: RdsButtonDropdownOption[];

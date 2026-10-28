@@ -6,14 +6,14 @@
   --rds-rating-color-dark: var(--rds-text-primary);
   --rds-rating-color-light: var(--rds-border-default);
   align-items: center;
-  gap: var(--rds-spacing-sm, 8px);
+  gap: var(--rds-spacing-sm);
   position: relative;
 
   &__label {
-    font-size: var(--rds-font-size-body, 14px);
-    font-weight: var(--rds-font-weight-medium, 500);
+    font-size: var(--rds-font-size-body);
+    font-weight: var(--rds-font-weight-medium);
     color: var(--rds-color-on-surface);
-    margin-right: var(--rds-spacing-xs, 4px);
+    margin-right: var(--rds-spacing-xs);
   }
 
   &__stars {
@@ -65,24 +65,24 @@
   &__star-icon {
     &--empty {
       --rds-rating-empty-opacity: 0.6;
-      opacity: var(--rds-rating-empty-opacity, 0.6);
+      opacity: var(--rds-rating-empty-opacity);
       color: var(--rds-color-outline-variant);
     }
   }
 
   &__slider-container {
-    width: calc(50 * var(--rds-spacing-xs, 4px));
+    width: calc(50 * var(--rds-spacing-xs));
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
 
   &__slider-wrapper {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 
   &__slider {
@@ -113,8 +113,8 @@
   }
 
   &__value {
-    min-width: calc(10 * var(--rds-spacing-xs, 4px));
-    font-size: var(--rds-font-size-caption, 12px);
+    min-width: calc(10 * var(--rds-spacing-xs));
+    font-size: var(--rds-font-size-caption);
     color: var(--rds-color-on-surface);
     text-align: center;
   }
@@ -122,10 +122,10 @@
   &__slider-labels {
     width: 100%;
     position: relative;
-    font-size: var(--rds-font-size-caption, 12px);
+    font-size: var(--rds-font-size-caption);
     color: var(--rds-color-on-surface-variant);
-    padding: 0 var(--rds-spacing-xs, 4px);
-    height: var(--rds-spacing-md, 16px);
+    padding: 0 var(--rds-spacing-xs);
+    height: var(--rds-spacing-md);
   }
 
   &__slider-label {
@@ -148,7 +148,7 @@
   }
 
   &__display-value {
-    font-size: var(--rds-font-size-caption, 12px);
+    font-size: var(--rds-font-size-caption);
     color: var(--rds-color-on-surface-variant);
   }
 
@@ -165,7 +165,7 @@
   }
 
   &--disabled {
-    opacity: var(--rds-rating-disabled-opacity, 0.6);
+    opacity: var(--rds-rating-disabled-opacity);
     pointer-events: none;
 
     .MuiRating-icon,
@@ -185,46 +185,46 @@
   }
 
   &:focus-visible {
-    outline: var(--rds-rating-focus-ring-width, 2px) solid var(--rds-primary-main);
-    outline-offset: var(--rds-focus-ring-offset, 2px);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    outline: var(--rds-rating-focus-ring-width) solid var(--rds-primary-main);
+    outline-offset: var(--rds-focus-ring-offset);
+    border-radius: var(--rds-border-radius-sm);
   }
 
   &:disabled,
   &--disabled {
-    opacity: var(--rds-rating-disabled-opacity, 0.6);
+    opacity: var(--rds-rating-disabled-opacity);
     pointer-events: none;
   }
 
   &--small {
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
 
     .rds-rating__label {
-      font-size: var(--rds-font-size-caption, 12px);
+      font-size: var(--rds-font-size-caption);
     }
 
     .rds-rating__slider-container {
-      width: calc(40 * var(--rds-spacing-xs, 4px));
+      width: calc(40 * var(--rds-spacing-xs));
     }
 
     .MuiRating-icon {
-      font-size: var(--rds-rating-icon-size-small, 1.2rem);
+      font-size: var(--rds-rating-icon-size-small);
     }
   }
 
   &--large {
-    gap: var(--rds-spacing-md, 12px);
+    gap: var(--rds-spacing-md);
 
     .rds-rating__label {
-      font-size: var(--rds-font-size-body-large, 16px);
+      font-size: var(--rds-font-size-body-large);
     }
 
     .rds-rating__slider-container {
-      width: calc(60 * var(--rds-spacing-xs, 4px));
+      width: calc(60 * var(--rds-spacing-xs));
     }
 
     .MuiRating-icon {
-      font-size: var(--rds-rating-icon-size-large, 2rem);
+      font-size: var(--rds-rating-icon-size-large);
     }
   }
 
@@ -242,13 +242,13 @@
 
   &--level-half {
     .MuiRating-icon {
-      font-size: 1.1em;
+      font-size: var(--rds-font-size-legacy-1-1em);
     }
   }
 
   &--level-quarter {
     .MuiRating-icon {
-      font-size: 1.05em;
+      font-size: var(--rds-font-size-legacy-1-05em);
     }
   }
 }

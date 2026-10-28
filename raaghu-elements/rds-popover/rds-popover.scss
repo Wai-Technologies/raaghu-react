@@ -14,7 +14,7 @@
   --rds-popover-surface-shadow-left: drop-shadow(-1px 0px 0px var(--rds-border-default));
   --rds-popover-surface-shadow-right: drop-shadow(1px 0px 0px var(--rds-border-default));
   --rds-popover-position-option-size: 32px;
-  --rds-popover-list-mobile-padding: var(--rds-spacing-sm, 6px);
+  --rds-popover-list-mobile-padding: var(--rds-spacing-sm);
   --rds-popover-container-max-width: 400px;
   --rds-popover-container-min-width: 200px;
   --rds-popover-wide-min-width: 300px;
@@ -26,9 +26,9 @@
   --rds-popover-list-mobile-min-width: 120px;
 
   &-highlight-box {
-    margin-top: var(--rds-spacing-md, 16px);
-    padding: var(--rds-spacing-md, 16px);
-    border-radius: var(--rds-border-radius-md, 8px);
+    margin-top: var(--rds-spacing-md);
+    padding: var(--rds-spacing-md);
+    border-radius: var(--rds-border-radius-md);
     background-color: var(--rds-color-gray-500);
   }
 
@@ -39,9 +39,9 @@
   }
 
   &__container {
-    padding: var(--rds-spacing-md, 16px);
-    max-width: var(--rds-popover-container-max-width, 400px);
-    min-width: var(--rds-popover-container-min-width, 200px);
+    padding: var(--rds-spacing-md);
+    max-width: var(--rds-popover-container-max-width);
+    min-width: var(--rds-popover-container-min-width);
     position: relative;
     overflow: visible;
   }
@@ -50,25 +50,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--rds-spacing-sm, 8px);
+    margin-bottom: var(--rds-spacing-sm);
   }
 
   &__title {
-    font-weight: var(--rds-font-weight-medium, 500);
-    color: var(--rds-text-primary, var(--rds-color-text-primary));
+    font-weight: var(--rds-font-weight-medium);
+    color: var(--rds-text-primary);
   }
 
   &__close-button {
-    color: var(--rds-text-secondary, var(--rds-color-text-secondary));
+    color: var(--rds-text-secondary);
     
     &:hover {
-      color: var(--rds-text-primary, var(--rds-color-text-primary));
-      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      color: var(--rds-text-primary);
+      background-color: var(--rds-action-hover);
     }
   }
 
   &__content {
-    color: var(--rds-text-primary, var(--rds-color-text-primary));
+    color: var(--rds-text-primary);
   }
 
   &__arrow {
@@ -79,18 +79,18 @@
     height: 0;
 
     &--top {
-      top: calc(-1 * var(--rds-popover-arrow-size, 8px));
-      border-left: var(--rds-popover-arrow-size, 8px) solid transparent;
-      border-right: var(--rds-popover-arrow-size, 8px) solid transparent;
-      border-bottom: var(--rds-popover-arrow-size, 8px) solid var(--rds-color-surface);
-      filter: var(--rds-popover-surface-shadow-top, drop-shadow(0px -1px 0px rgba(0, 0, 0, 0.12)));
+      top: calc(-1 * var(--rds-popover-arrow-size));
+      border-left: var(--rds-popover-arrow-size) solid transparent;
+      border-right: var(--rds-popover-arrow-size) solid transparent;
+      border-bottom: var(--rds-popover-arrow-size) solid var(--rds-color-surface);
+      filter: var(--rds-popover-surface-shadow-top);
 
       &.rds-popover__arrow--bottom-left {
-        left: var(--rds-popover-arrow-offset-primary, 30px);
+        left: var(--rds-popover-arrow-offset-primary);
       }
 
       &.rds-popover__arrow--bottom-right {
-        left: calc(100% - var(--rds-popover-arrow-offset-secondary, 42px));
+        left: calc(100% - var(--rds-popover-arrow-offset-secondary));
       }
 
       &.rds-popover__arrow--bottom-center {
@@ -100,18 +100,18 @@
     }
 
     &--bottom {
-      bottom: calc(-1 * var(--rds-popover-arrow-size, 8px));
-      border-left: var(--rds-popover-arrow-size, 8px) solid transparent;
-      border-right: var(--rds-popover-arrow-size, 8px) solid transparent;
-      border-top: var(--rds-popover-arrow-size, 8px) solid var(--rds-color-surface);
-      filter: var(--rds-popover-surface-shadow-bottom, drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.12)));
+      bottom: calc(-1 * var(--rds-popover-arrow-size));
+      border-left: var(--rds-popover-arrow-size) solid transparent;
+      border-right: var(--rds-popover-arrow-size) solid transparent;
+      border-top: var(--rds-popover-arrow-size) solid var(--rds-color-surface);
+      filter: var(--rds-popover-surface-shadow-bottom);
 
       &.rds-popover__arrow--top-left {
-        left: var(--rds-popover-arrow-offset-primary, 30px);
+        left: var(--rds-popover-arrow-offset-primary);
       }
 
       &.rds-popover__arrow--top-right {
-        left: calc(100% - var(--rds-popover-arrow-offset-secondary, 42px));
+        left: calc(100% - var(--rds-popover-arrow-offset-secondary));
       }
 
       &.rds-popover__arrow--top-center {
@@ -121,18 +121,18 @@
     }
 
     &--left {
-      left: calc(-1 * var(--rds-popover-arrow-size, 8px));
-      border-top: var(--rds-popover-arrow-size, 8px) solid transparent;
-      border-bottom: var(--rds-popover-arrow-size, 8px) solid transparent;
-      border-right: var(--rds-popover-arrow-size, 8px) solid var(--rds-color-surface);
-      filter: var(--rds-popover-surface-shadow-left, drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.12)));
+      left: calc(-1 * var(--rds-popover-arrow-size));
+      border-top: var(--rds-popover-arrow-size) solid transparent;
+      border-bottom: var(--rds-popover-arrow-size) solid transparent;
+      border-right: var(--rds-popover-arrow-size) solid var(--rds-color-surface);
+      filter: var(--rds-popover-surface-shadow-left);
 
       &.rds-popover__arrow--right-top {
-        top: var(--rds-popover-arrow-edge-inset, 8px);
+        top: var(--rds-popover-arrow-edge-inset);
       }
 
       &.rds-popover__arrow--right-bottom {
-        bottom: var(--rds-popover-arrow-edge-inset, 8px);
+        bottom: var(--rds-popover-arrow-edge-inset);
       }
 
       &.rds-popover__arrow--right-center {
@@ -142,18 +142,18 @@
     }
 
     &--right {
-      right: calc(-1 * var(--rds-popover-arrow-size, 8px));
-      border-top: var(--rds-popover-arrow-size, 8px) solid transparent;
-      border-bottom: var(--rds-popover-arrow-size, 8px) solid transparent;
-      border-left: var(--rds-popover-arrow-size, 8px) solid var(--rds-color-surface);
-      filter: var(--rds-popover-surface-shadow-right, drop-shadow(1px 0px 0px rgba(0, 0, 0, 0.12)));
+      right: calc(-1 * var(--rds-popover-arrow-size));
+      border-top: var(--rds-popover-arrow-size) solid transparent;
+      border-bottom: var(--rds-popover-arrow-size) solid transparent;
+      border-left: var(--rds-popover-arrow-size) solid var(--rds-color-surface);
+      filter: var(--rds-popover-surface-shadow-right);
 
       &.rds-popover__arrow--left-top {
-        top: var(--rds-popover-arrow-edge-inset, 8px);
+        top: var(--rds-popover-arrow-edge-inset);
       }
 
       &.rds-popover__arrow--left-bottom {
-        bottom: var(--rds-popover-arrow-edge-inset, 8px);
+        bottom: var(--rds-popover-arrow-edge-inset);
       }
 
       &.rds-popover__arrow--left-center {
@@ -166,38 +166,38 @@
   &__position-controls {
     display: flex;
     flex-direction: column;
-    gap: var(--rds-spacing-md, 16px);
-    margin-bottom: var(--rds-spacing-lg, 24px);
+    gap: var(--rds-spacing-md);
+    margin-bottom: var(--rds-spacing-lg);
   }
 
   &__position-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--rds-spacing-xs, 4px);
-    max-width: var(--rds-popover-position-grid-max-width, 120px);
+    gap: var(--rds-spacing-xs);
+    max-width: var(--rds-popover-position-grid-max-width);
     margin: 0 auto;
   }
 
   &__position-option {
-    width: var(--rds-popover-position-option-size, 32px);
-    height: var(--rds-popover-position-option-size, 32px);
+    width: var(--rds-popover-position-option-size);
+    height: var(--rds-popover-position-option-size);
     border: 1px solid var(--rds-color-border);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    border-radius: var(--rds-border-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     background-color: var(--rds-color-surface);
-    transition: all var(--rds-transition-base, 0.2s ease-in-out);
+    transition: all var(--rds-transition-base);
 
     &:hover {
       background-color: var(--rds-action-hover);
-      border-color: var(--rds-color-primary, var(--rds-primary-main));
+      border-color: var(--rds-color-primary);
     }
 
     &--selected {
-      background-color: var(--rds-color-primary, var(--rds-primary-main));
-      border-color: var(--rds-color-primary, var(--rds-primary-main));
+      background-color: var(--rds-color-primary);
+      border-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary);
     }
 
@@ -210,29 +210,29 @@
   }
 
   &__position-label {
-    font-size: var(--rds-font-size-sm, 0.875rem);
-    font-weight: var(--rds-font-weight-medium, 500);
-    color: var(--rds-text-primary, var(--rds-color-text-primary));
-    margin-bottom: var(--rds-spacing-xs, 4px);
+    font-size: var(--rds-font-size-sm);
+    font-weight: var(--rds-font-weight-medium);
+    color: var(--rds-text-primary);
+    margin-bottom: var(--rds-spacing-xs);
   }
 
   &--wide {
     .rds-popover__container {
-      min-width: var(--rds-popover-wide-min-width, 300px);
-      max-width: var(--rds-popover-wide-max-width, 600px);
+      min-width: var(--rds-popover-wide-min-width);
+      max-width: var(--rds-popover-wide-max-width);
     }
   }
 
   &--narrow {
     .rds-popover__container {
-      min-width: var(--rds-popover-narrow-min-width, 150px);
-      max-width: var(--rds-popover-narrow-max-width, 250px);
+      min-width: var(--rds-popover-narrow-min-width);
+      max-width: var(--rds-popover-narrow-max-width);
     }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset, 2px);
+    outline: 2px solid var(--rds-color-primary);
+    outline-offset: var(--rds-focus-ring-offset);
   }
 }
 
@@ -243,10 +243,10 @@
 
 @include bp.down(mobile-sm) {
   .with-list-popover .rds-popover__container {
-    max-width: var(--rds-popover-list-mobile-max-width, 220px) !important;
-    min-width: var(--rds-popover-list-mobile-min-width, 120px) !important;
-    padding: var(--rds-popover-list-mobile-padding, var(--rds-spacing-sm, 6px)) !important;
-    font-size: 0.95rem;
+    max-width: var(--rds-popover-list-mobile-max-width) !important;
+    min-width: var(--rds-popover-list-mobile-min-width) !important;
+    padding: var(--rds-popover-list-mobile-padding) !important;
+    font-size: var(--rds-font-size-legacy-0-95rem);
   }
   .with-list-popover .MuiListItem-root {
     padding-top: var(--rds-spacing-xxs) !important;

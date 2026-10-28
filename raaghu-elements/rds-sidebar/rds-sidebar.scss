@@ -1,14 +1,14 @@
 .rds-sidebar {
-  --rds-sidebar-header-gap: var(--rds-spacing-sm, 12px);
-  --rds-sidebar-nav-min-height: var(--rds-spacing-2xl, 48px);
-  --rds-sidebar-child-nav-min-height: var(--rds-menu-item-min-height, 40px);
+  --rds-sidebar-header-gap: var(--rds-spacing-sm);
+  --rds-sidebar-nav-min-height: var(--rds-spacing-2xl);
+  --rds-sidebar-child-nav-min-height: var(--rds-menu-item-min-height);
   --rds-sidebar-overlay-bg: var(--rds-action-hover);
-  --rds-sidebar-subitem-radius: var(--rds-border-radius-sm, 4px);
-  --rds-sidebar-search-icon-only-size: var(--rds-menu-item-min-height, 40px);
-  --rds-sidebar-search-icon-button-size: calc(var(--rds-size-lg, 24px) + var(--rds-size-xs, 4px));
-  --rds-sidebar-search-icon-button-padding: var(--rds-spacing-xs, 4px);
+  --rds-sidebar-subitem-radius: var(--rds-border-radius-sm);
+  --rds-sidebar-search-icon-only-size: var(--rds-menu-item-min-height);
+  --rds-sidebar-search-icon-button-size: calc(var(--rds-size-lg) + var(--rds-size-xs));
+  --rds-sidebar-search-icon-button-padding: var(--rds-spacing-xs);
   --rds-sidebar-search-icon-border-color: var(--rds-border-default);
-  --rds-sidebar-search-icon-border-radius: var(--rds-border-radius-sm, 4px);
+  --rds-sidebar-search-icon-border-radius: var(--rds-border-radius-sm);
   display: flex;
   flex-shrink: 0;
   
@@ -22,7 +22,7 @@
   
   &__header {
     display: flex;
-    margin-bottom: var(--rds-sidebar-header-gap, 12px);
+    margin-bottom: var(--rds-sidebar-header-gap);
     
     &--collapse {
       padding: var(--rds-spacing-md) 0 0 0;
@@ -30,7 +30,7 @@
     }
     
     &--expanded {
-      padding: var(--rds-spacing-sm, 9px) var(--rds-spacing-md, 16px) 0 var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md) 0 var(--rds-spacing-md);
       justify-content: flex-start;
     }
     
@@ -68,7 +68,7 @@
   }
   
   &__search-container {
-    padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-md);
     max-width: 100%;
     box-sizing: border-box;
     overflow: hidden;
@@ -79,7 +79,7 @@
       align-items: center;
       width: 100%;
       max-width: 100%;
-      padding: var(--rds-spacing-xs, 2px) 0;
+      padding: var(--rds-spacing-xs) 0;
       overflow: hidden;
 
       .rds-search {
@@ -90,7 +90,7 @@
         max-width: 100%;
         min-width: 0;
         overflow: visible;
-        --rds-search-input-min-width: var(--rds-spacing-none, 0px);
+        --rds-search-input-min-width: var(--rds-spacing-none);
 
         .rds-search__input.MuiTextField-root {
           display: flex;
@@ -126,7 +126,7 @@
             .MuiOutlinedInput-notchedOutline {
               display: block !important;
               border-color: var(--rds-sidebar-search-icon-border-color) !important;
-              border-width: var(--rds-border-width-thin, 1px) !important;
+              border-width: var(--rds-border-width-thin) !important;
               border-radius: var(--rds-sidebar-search-icon-border-radius) !important;
               top: 0;
               legend {
@@ -209,7 +209,7 @@
   }
   
   &__nav-button {
-    min-height: var(--rds-sidebar-nav-min-height, 48px);
+    min-height: var(--rds-sidebar-nav-min-height);
     
     .MuiListItemText-root {
       flex-shrink: 0;
@@ -266,7 +266,7 @@
   }
   
   &__avatar-container {
-  padding: var(--rds-spacing-xs) var(--rds-spacing-md, 16px);
+  padding: var(--rds-spacing-xs) var(--rds-spacing-md);
   display: flex;
   overflow-x: hidden;
     
@@ -345,8 +345,8 @@
             padding-left: var(--rds-spacing-sm);
             padding-right: var(--rds-spacing-sm);
             background-color: var(--rds-sidebar-overlay-bg);
-            margin: 1px var(--rds-spacing-xs, 4px);
-            border-radius: var(--rds-sidebar-subitem-radius, 4px);
+            margin: var(--rds-spacing-hairline) var(--rds-spacing-xs);
+            border-radius: var(--rds-sidebar-subitem-radius);
           }
         }
       }

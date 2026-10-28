@@ -345,7 +345,7 @@ const RdsCompContribution = ({
       {({ measureRef }: MeasuredComponentProps) => (
         <Box
           {...rest}
-          ref={(node) => {
+          ref={(node: HTMLDivElement | null) => {
             measureRef(node);
             if (typeof ref === 'function') ref(node);
             else if (ref) ref.current = node;

@@ -2,22 +2,22 @@
   display: flex;
   flex-direction: column;
   background-color: var(--rds-background-paper);
-  border-radius: var(--rds-border-radius-lg, 12px);
+  border-radius: var(--rds-border-radius-lg);
   overflow: hidden;
-  width: var(--rds-emoji-generator-width, 360px);
-  height: var(--rds-emoji-generator-height, 420px);
-  box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.08));
+  width: var(--rds-emoji-generator-width);
+  height: var(--rds-emoji-generator-height);
+  box-shadow: var(--rds-elevation-2);
   gap: 0;
 
   &--quick {
     flex-direction: row;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    gap: var(--rds-spacing-sm);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     background-color: var(--rds-background-paper);
-    border-radius: var(--rds-border-radius-xl, 20px);
+    border-radius: var(--rds-border-radius-xl);
     border: 1px solid var(--rds-border-light);
-    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.1));
+    box-shadow: var(--rds-elevation-1);
     width: fit-content;
     min-width: auto;
     max-height: none;
@@ -25,13 +25,13 @@
   }
   
   &__search {
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     background-color: var(--rds-background-paper);
     
     &-container {
       display: flex;
       align-items: center;
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
     }
     
     .MuiTextField-root {
@@ -39,7 +39,7 @@
       
       .MuiInputBase-root {
         background-color: var(--rds-background-paper);
-        border-radius: var(--rds-border-radius-sm, 4px);
+        border-radius: var(--rds-border-radius-sm);
         border: 1px solid var(--rds-border-default);
         transition: all var(--rds-transition-base);
         font-size: var(--rds-font-size-md);
@@ -51,13 +51,13 @@
         }
         
         &.Mui-focused {
-          box-shadow: 0 0 0 2px var(--rds-color-primary-20, rgba(59, 130, 246, 0.2));
+          box-shadow: 0 0 0 2px var(--rds-color-primary-20);
           background-color: var(--rds-background-paper);
         }
       }
       
       .MuiInputBase-input {
-        padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px);
+        padding: var(--rds-spacing-xs) var(--rds-spacing-md);
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-primary);
         
@@ -80,50 +80,50 @@
   &__skin-tone-button {
     transition: all var(--rds-transition-base);
     flex-shrink: 0;
-    width: var(--rds-size-sm, 29px);
-    height: var(--rds-size-sm, 29px);
-    border-radius: var(--rds-border-radius-sm, 4px) !important;
+    width: var(--rds-size-sm);
+    height: var(--rds-size-sm);
+    border-radius: var(--rds-border-radius-sm) !important;
     border: 1px solid var(--rds-border-light);
-    min-width: var(--rds-size-sm, 29px);
+    min-width: var(--rds-size-sm);
     padding: 0;
-    margin-left: var(--rds-spacing-sm, 8px);
+    margin-left: var(--rds-spacing-sm);
     
     &:hover {
       transform: scale(1.05);
-      box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.08));
+      box-shadow: var(--rds-elevation-2);
     }
   }
 
   &__skin-tone-inline {
     position: absolute;
-    right: -6px;
-    top: 30px;
+    right: var(--rds-spacing-neg-6);
+    top: var(--rds-spacing-30);
     display: flex;
     flex-direction: column;
     gap: calc(var(--rds-spacing-xs) / 2);
     padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
     background-color: var(--rds-background-paper);
     border-radius: var(--rds-border-radius-md);
-    box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15));
-    z-index: var(--rds-z-index-toast, 1700);
-    min-width: var(--rds-size-md, 36px);
+    box-shadow: var(--rds-elevation-3);
+    z-index: var(--rds-z-index-toast);
+    min-width: var(--rds-size-md);
     align-items: center;
 
     .MuiIconButton-root {
-      width: var(--rds-size-sm, 29px) !important;
-      height: var(--rds-size-sm, 29px) !important;
-      min-width: var(--rds-size-sm, 29px) !important;
+      width: var(--rds-size-sm) !important;
+      height: var(--rds-size-sm) !important;
+      min-width: var(--rds-size-sm) !important;
       padding: var(--rds-spacing-xs) !important;
     }
   }
 
   &__skin-tone-popover {
-    padding: var(--rds-spacing-xs, 4px);
-    border-radius: var(--rds-border-radius-md, 8px) !important;
-    box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15)) !important;
+    padding: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-md) !important;
+    box-shadow: var(--rds-elevation-3) !important;
     margin-top: var(--rds-spacing-xxs);
     min-width: auto;
-    width: var(--rds-size-sm, 45px);
+    width: var(--rds-size-sm);
   }
 
   &__skin-tone-dropdown {
@@ -135,42 +135,42 @@
     .MuiIconButton-root {
       transition: all var(--rds-transition-base);
       display: block !important;
-        width: var(--rds-size-sm, 29px) !important;
-        height: var(--rds-size-sm, 29px) !important;
-        min-width: var(--rds-size-sm, 29px) !important;
+        width: var(--rds-size-sm) !important;
+        height: var(--rds-size-sm) !important;
+        min-width: var(--rds-size-sm) !important;
       padding: 0 !important;
       
       &:hover {
         transform: scale(1.08);
-        box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.08));
+        box-shadow: var(--rds-elevation-2);
       }
     }
   }
 
   &__skin-tone-option {
-    width: var(--rds-size-sm, 29px) !important;
-    height: var(--rds-size-sm, 29px) !important;
+    width: var(--rds-size-sm) !important;
+    height: var(--rds-size-sm) !important;
     border-radius: 0 !important;
-    min-width: var(--rds-size-sm, 29px) !important;
+    min-width: var(--rds-size-sm) !important;
     padding: 0 !important;
-    margin: var(--rds-spacing-xs, 2px) 0 !important;
+    margin: var(--rds-spacing-xs) 0 !important;
     display: block !important;
   }
   
   &__categories {
     background-color: var(--rds-background-paper);
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     overflow: hidden;
     
     &-container {
       display: flex;
       flex-wrap: nowrap;
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
       align-items: center;
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      padding: var(--rds-spacing-xs, 2px) 0;
+      padding: var(--rds-spacing-xs) 0;
       
       &::-webkit-scrollbar {
         display: none;
@@ -186,7 +186,7 @@
     width: var(--rds-size-xl) !important;
     height: var(--rds-size-xl) !important;
     padding: 0 !important;
-    border-radius: var(--rds-border-radius-xl, 16px) !important;
+    border-radius: var(--rds-border-radius-xl) !important;
     background-color: transparent;
     color: var(--rds-text-secondary);
     .MuiChip-icon {
@@ -201,24 +201,24 @@
     
     &:hover {
       transform: translateY(-1px);
-      box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.1));
+      box-shadow: var(--rds-elevation-2);
       background-color: var(--rds-background-neutral-50);
     }
     
     &--selected {
-      box-shadow: 0 2px 8px var(--rds-color-primary-30, rgba(59, 130, 246, 0.3));
+      box-shadow: 0 2px 8px var(--rds-color-primary-30);
     }
     
     .MuiChip-icon {
       margin: 0 !important;
-      font-size: var(--rds-font-size-sm, 16px) !important;
+      font-size: var(--rds-font-size-sm) !important;
     }
   }
   
   &__grid {
     flex: 1;
     overflow: hidden;
-    padding: var(--rds-spacing-md, 14px);
+    padding: var(--rds-spacing-md);
     background-color: var(--rds-background-paper);
     min-height: 0;
     display: flex;
@@ -235,13 +235,13 @@
   }
   
   &__category-title {
-    margin-bottom: var(--rds-spacing-md, 14px);
-    padding: 0 var(--rds-spacing-xs, 2px);
+    margin-bottom: var(--rds-spacing-md);
+    padding: 0 var(--rds-spacing-xs);
     flex-shrink: 0;
     
     &-text {
-      font-size: var(--rds-font-size-md, 15px) !important;
-      font-weight: var(--rds-font-weight-semibold, 600) !important;
+      font-size: var(--rds-font-size-md) !important;
+      font-weight: var(--rds-font-weight-semibold) !important;
       color: var(--rds-text-primary);
       margin: 0 !important;
       line-height: 1.2 !important;
@@ -252,30 +252,30 @@
     &-container {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
       justify-items: center;
       align-items: start;
       flex: 1;
       overflow-y: auto;
-      padding-right: var(--rds-spacing-sm, 8px);
+      padding-right: var(--rds-spacing-sm);
       align-content: start;
       grid-auto-rows: min-content;
       scrollbar-width: thin;
       
       &::-webkit-scrollbar {
-        width: var(--rds-spacing-xs, 6px);
+        width: var(--rds-spacing-xs);
         background-color: var(--rds-background-neutral-50);
-        border-radius: var(--rds-border-radius-xs, 3px);
+        border-radius: var(--rds-border-radius-xs);
       }
       
       &::-webkit-scrollbar-track {
         background-color: var(--rds-background-neutral-50);
-        border-radius: var(--rds-border-radius-xs, 3px);
+        border-radius: var(--rds-border-radius-xs);
       }
       
       &::-webkit-scrollbar-thumb {
         background-color: var(--rds-border-default);
-        border-radius: var(--rds-border-radius-xs, 3px);
+        border-radius: var(--rds-border-radius-xs);
         transition: background-color 0.2s ease;
         
         &:hover {
@@ -297,14 +297,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--rds-size-lg, 36px);
-    height: var(--rds-size-lg, 36px);
-    min-width: var(--rds-size-lg, 36px);
-    min-height: var(--rds-size-lg, 36px);
-    border-radius: var(--rds-border-radius-md, 8px);
+    width: var(--rds-size-lg);
+    height: var(--rds-size-lg);
+    min-width: var(--rds-size-lg);
+    min-height: var(--rds-size-lg);
+    border-radius: var(--rds-border-radius-md);
     cursor: pointer;
     transition: transform 0.2s ease;
-    font-size: var(--rds-font-size-xl, 20px);
+    font-size: var(--rds-font-size-xl);
     border: 1px solid transparent;
     background-color: transparent;
     
@@ -317,10 +317,10 @@
     }
 
     &--quick {
-      width: var(--rds-size-md, 32px);
-      height: var(--rds-size-md, 32px);
+      width: var(--rds-size-md);
+      height: var(--rds-size-md);
       border-radius: 0;
-      font-size: var(--rds-font-size-xl, 20px);
+      font-size: var(--rds-font-size-xl);
       background-color: transparent;
       border: none;
       transition: transform 0.2s ease;
@@ -339,8 +339,8 @@
   }
 
   &__plus {
-    width: var(--rds-size-md, 32px) !important;
-    height: var(--rds-size-md, 32px) !important;
+    width: var(--rds-size-md) !important;
+    height: var(--rds-size-md) !important;
     border-radius: 0 !important;
     cursor: pointer;
     transition: all 0.2s ease !important;
@@ -355,7 +355,7 @@
     
     .MuiSvgIcon-root {
       color: var(--rds-text-secondary);
-      font-size: var(--rds-font-size-lg, 18px);
+      font-size: var(--rds-font-size-lg);
     }
   }
 
@@ -363,22 +363,22 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: var(--rds-spacing-sm, 8px);
-    padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
+    gap: var(--rds-spacing-sm);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     background-color: var(--rds-background-paper);
     flex-shrink: 0;
-    min-height: var(--rds-size-xl, 48px);
+    min-height: var(--rds-size-xl);
     
     &-emoji {
-      font-size: var(--rds-font-size-xl, 20px);
+      font-size: var(--rds-font-size-xl);
       flex-shrink: 0;
       line-height: 1;
     }
     
     &-text {
       color: var(--rds-text-secondary);
-      font-size: var(--rds-font-size-sm, 14px) !important;
-      font-weight: var(--rds-font-weight-normal, 400) !important;
+      font-size: var(--rds-font-size-sm) !important;
+      font-weight: var(--rds-font-weight-normal) !important;
       line-height: 1.4 !important;
       margin: 0 !important;
       flex: 1;
@@ -386,7 +386,7 @@
   }
 
   &__grid::-webkit-scrollbar {
-    width: var(--rds-spacing-xs, 6px);
+    width: var(--rds-spacing-xs);
   }
   
   &__grid::-webkit-scrollbar-track {
@@ -395,7 +395,7 @@
   
   &__grid::-webkit-scrollbar-thumb {
     background: var(--rds-border-default);
-    border-radius: var(--rds-border-radius-xs, 3px);
+    border-radius: var(--rds-border-radius-xs);
   }
   
   &__grid::-webkit-scrollbar-thumb:hover {
@@ -408,16 +408,16 @@
     width: min(294px, 100%);
 
     &__grid-container {
-      grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg, 35px), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg), 1fr));
     }
 
     &__emoji {
-      font-size: var(--rds-font-size-lg, 18px);
+      font-size: var(--rds-font-size-lg);
     }
 
     &__categories-container {
       .MuiChip-root {
-        font-size: var(--rds-font-size-xs, 11px);
+        font-size: var(--rds-font-size-xs);
       }
     }
   }

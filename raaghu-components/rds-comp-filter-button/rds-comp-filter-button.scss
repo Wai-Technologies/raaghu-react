@@ -4,12 +4,12 @@
 }
 
 .rds-filter-button__popover.MuiPopover-paper {
-  width: var(--rds-filter-popover-width, 380px) !important;
-  max-height: var(--rds-filter-popover-max-height, 450px) !important;
-  border-radius: var(--rds-border-radius, 8px) !important;
-  box-shadow: var(--rds-elevation-3, 0 4px 20px rgba(0,0,0,0.1)) !important;
+  width: var(--rds-filter-popover-width) !important;
+  max-height: var(--rds-filter-popover-max-height) !important;
+  border-radius: var(--rds-border-radius) !important;
+  box-shadow: var(--rds-elevation-3) !important;
   border: 1px solid var(--rds-color-border) !important;
-  margin-top: var(--rds-filter-popover-gap, 3px) !important;
+  margin-top: var(--rds-filter-popover-gap) !important;
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
@@ -23,7 +23,7 @@
 }
 
 .rds-filter-button__header {
-  padding: var(--rds-spacing-md, 16px);
+  padding: var(--rds-spacing-md);
   border-bottom: none;
   background-color: var(--rds-neutral-0);
   flex-shrink: 0;
@@ -34,20 +34,20 @@
   content: "";
   position: absolute;
   bottom: 0;
-  left: var(--rds-spacing-md, 16px);
-  right: var(--rds-spacing-md, 16px);
+  left: var(--rds-spacing-md);
+  right: var(--rds-spacing-md);
   height: 1px;
   background: var(--rds-border-light);
 }
 
 .rds-filter-button__search {
-  padding: var(--rds-spacing-md, 16px);
+  padding: var(--rds-spacing-md);
   border-bottom: none;
   flex-shrink: 0;
 }
 
 .rds-filter-button__search .MuiOutlinedInput-root {
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-color-surface);
 }
 
@@ -67,27 +67,27 @@
 .rds-filter-button__options {
   display: flex;
   flex-direction: column;
-  gap: var(--rds-spacing-xs, 4px);
+  gap: var(--rds-spacing-xs);
 }
 
 .rds-filter-button__option {
   .MuiFormControlLabel-label {
-    font-size: var(--rds-font-size-sm, 13px);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-text-secondary);
-    padding-left: var(--rds-spacing-xs, 4px);
+    padding-left: var(--rds-spacing-xs);
   }
 }
 
 .rds-filter-button__header-title {
   font-family: var(--rds-font-family-base) !important;
-  font-size: var(--rds-font-size-lg, 16px) !important;
+  font-size: var(--rds-font-size-lg) !important;
   font-style: normal !important;
-  font-weight: var(--rds-font-weight-medium, 600) !important;
+  font-weight: var(--rds-font-weight-medium) !important;
   line-height: 22px !important;
 }
 
 .rds-filter-button__popover .MuiAccordionDetails-root {
-  padding: var(--rds-spacing-md, 16px) !important;
+  padding: var(--rds-spacing-md) !important;
 }
 
 .rds-filter-button__popover .MuiAccordionSummary-root::after {

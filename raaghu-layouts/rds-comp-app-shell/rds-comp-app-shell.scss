@@ -1,6 +1,6 @@
 .rds-appshell-appbar {
   width: 100%;
-  z-index: var(--rds-z-index-dropdown, 1000);
+  z-index: var(--rds-z-index-dropdown);
   
   &--fixed {
     position: fixed;
@@ -78,7 +78,7 @@
     
     > .rds-appshell-appbar {
       position: relative;
-      z-index: var(--rds-z-index-dropdown, 1000);
+      z-index: var(--rds-z-index-dropdown);
     }
   }
 }
@@ -128,7 +128,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: var(--rds-font-size-legacy-2rem);
   font-weight: bold;
   z-index: var(--rds-z-index-layer-1);
   pointer-events: none;
@@ -148,7 +148,7 @@ html[data-theme="dark"] {
   .rds-appshell-add-layout-center,
   .rds-appshell-add-layout-flex-center,
   .side-nav .sidenav-mobile-content {
-    background: var(--rds-surface-dark-deep, #1b1d1f);
+    background: var(--rds-surface-dark-deep);
   }
 }
 
@@ -156,7 +156,7 @@ html[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
 body[data-theme="dark"] .side-nav .rds-appshell-add-layout-flex-center,
 html[data-theme="dark"] .side-nav .sidenav-desktop-content,
 body[data-theme="dark"] .side-nav .sidenav-desktop-content {
-  background: var(--rds-surface-dark-deep, #1b1d1f);
+  background: var(--rds-surface-dark-deep);
 }
 
 @media (min-width: 769px) {
@@ -169,9 +169,9 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     .double-nav .topnav-layout .rds-footer-navigation,
     .triPane .topnav-layout .MuiBottomNavigation-root,
     .triPane .topnav-layout .rds-footer-navigation {
-      background: var(--rds-surface-dark, #1f2123) !important;
+      background: var(--rds-surface-dark) !important;
       border-top: 1px solid var(--rds-border-default) !important;
-      color: var(--rds-text-primary, #e6e9ee) !important;
+      color: var(--rds-text-primary) !important;
     }
 
     .double-nav .MuiBottomNavigation-root .MuiBottomNavigationAction-root,
@@ -182,7 +182,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     .double-nav .rds-footer-navigation .MuiTab-root,
     .triPane .MuiBottomNavigation-root .MuiTab-root,
     .triPane .rds-footer-navigation .MuiTab-root {
-      color: var(--rds-text-primary, #e6e9ee) !important;
+      color: var(--rds-text-primary) !important;
     }
   }
 }
@@ -209,7 +209,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-appshell-add-layout-text {
-  font-size: 2rem;
+  font-size: var(--rds-font-size-legacy-2rem);
   font-weight: bold;
 }
 
@@ -239,7 +239,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     position: relative;
     
     .rds-appshell-add-layout-text {
-      font-size: 2rem;
+      font-size: var(--rds-font-size-legacy-2rem);
       font-weight: bold;
       color: var(--rds-text-secondary);
       text-align: center;
@@ -286,7 +286,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   align-items: stretch;
   width: 100%;
   height: calc(100vh - 68px);
-  margin-top: 68px;
+  margin-top: var(--rds-spacing-68);
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
@@ -308,14 +308,14 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   height: 100vh;
   width: 100%;
   position: relative;
-  margin-top: 50px;
+  margin-top: var(--rds-spacing-50);
 }
 
 .rds-story-relaxing-content {
   display: flex;
   flex-direction: row;
   min-height: 0;
-  padding-top: 50px;
+  padding-top: var(--rds-spacing-50);
   position: relative;
   z-index: var(--rds-z-index-layer-1);
 }
@@ -333,7 +333,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   width: 100%;
   min-height: calc(100vh - 64px);
   height: calc(100vh - 64px);
-  margin-top: 64px;
+  margin-top: var(--rds-spacing-3xl-px);
   z-index: var(--rds-z-index-layer-1);
   
   .rds-appshell-add-layout-center {
@@ -346,7 +346,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: var(--rds-font-size-legacy-2rem);
     font-weight: bold;
     z-index: var(--rds-z-index-layer-1);
   }
@@ -463,7 +463,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 #side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"]) {
-  margin-top: 200px;
+  margin-top: var(--rds-spacing-200);
 }
 
 #detail-pane-one-three-one {
@@ -625,9 +625,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   display: block;
   
   &__header {
-    margin: 0 0 var(--rds-spacing-md, 16px);
+    margin: 0 0 var(--rds-spacing-md);
     padding: 0;
-    font-size: 1.25rem;
+    font-size: var(--rds-font-size-xl);
     font-weight: 600;
     color: var(--rds-color-on-surface);
   }
@@ -637,13 +637,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   &--small .rds-comp-app-shell-item__header {
-    font-size: 1rem;
-    margin-bottom: var(--rds-spacing-sm, 12px);
+    font-size: var(--rds-font-size-md);
+    margin-bottom: var(--rds-spacing-sm);
   }
   
   &--large .rds-comp-app-shell-item__header {
-    font-size: 1.5rem;
-    margin-bottom: var(--rds-spacing-lg, 20px);
+    font-size: var(--rds-font-size-2xl);
+    margin-bottom: var(--rds-spacing-lg);
   }
 }
 
@@ -703,13 +703,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         justify-content: flex-start !important;
         text-align: left !important;
         padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
-        font-size: var(--rds-font-size-xs, 13px) !important;
+        font-size: var(--rds-font-size-xs) !important;
         min-width: auto !important;
         white-space: nowrap !important;
         
         .MuiSvgIcon-root,
         .rds-story-sub-tab-icon {
-          margin-right: 6px !important;
+          margin-right: var(--rds-spacing-compact) !important;
           font-size: var(--rds-font-size-lg) !important;
         }
       }
@@ -733,7 +733,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .rds-story-topnav-content {
-      padding-bottom: 64px !important;
+      padding-bottom: var(--rds-spacing-3xl-px) !important;
       
       .rds-appshell-add-layout-center {
         display: flex !important;
@@ -746,7 +746,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   // Top Nav story specific mobile fix
   .rds-story-topnav-content {
-    padding-bottom: 64px !important;
+    padding-bottom: var(--rds-spacing-3xl-px) !important;
     overflow: hidden;
     box-sizing: border-box;
     
@@ -791,7 +791,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    z-index: var(--rds-z-index-modal, 1400) !important;
+    z-index: var(--rds-z-index-modal) !important;
     border-top: 1px solid var(--rds-border-default) !important;
     box-shadow: var(--rds-elevation-3) !important;
     height: 56px !important;
@@ -817,7 +817,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         cursor: pointer !important;
         flex: 1 !important;
         text-align: center !important;
-        font-size: var(--rds-font-size-caption, 11px) !important;
+        font-size: var(--rds-font-size-caption) !important;
         font-weight: 400 !important;
         color: inherit !important;
         min-width: 0 !important;
@@ -928,10 +928,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       height: 100vh;
       width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(0);
       transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
     
@@ -941,10 +941,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       height: 100vh;
       width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -963,17 +963,17 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         left: 0;
         height: 100vh;
         width: 240px;
-        z-index: var(--rds-z-index-modal, 1400);
+        z-index: var(--rds-z-index-modal);
         transform: translateX(0);
         transition: transform 0.3s ease;
-        background: var(--rds-background-paper, #ffffff);
+        background: var(--rds-background-paper);
         box-shadow: var(--rds-elevation-3);
       }
       
       .rds-story-standard-content {
         margin-left: 0 !important;
-        margin-top: 48px !important;
-        padding-bottom: 20px !important;
+        margin-top: var(--rds-spacing-2xl-px) !important;
+        padding-bottom: var(--rds-spacing-20-px) !important;
         min-height: calc(100vh - 112px) !important;
         overflow-y: auto;
       }
@@ -985,10 +985,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       height: 100vh;
       width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -1007,7 +1007,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0 !important;
       left: 0 !important;
       right: 0 !important;
-      z-index: var(--rds-z-index-drawer, 1200) !important;
+      z-index: var(--rds-z-index-drawer) !important;
       width: 100% !important;
     }
 
@@ -1021,8 +1021,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-story-standard-content {
       position: relative;
       z-index: var(--rds-z-index-layer-1);
-      margin-bottom: 44px;
-      padding-bottom: 68px;
+      margin-bottom: var(--rds-spacing-44);
+      padding-bottom: var(--rds-spacing-68);
       min-height: calc(100vh - 136px);
       padding-left: var(--rds-spacing-md);
       padding-right: var(--rds-spacing-md);
@@ -1035,7 +1035,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         align-items: center;
         justify-content: center;
         min-height: calc(100vh - 200px);
-        font-size: 2rem;
+        font-size: var(--rds-font-size-legacy-2rem);
         font-weight: bold;
         color: var(--rds-text-secondary);
       }
@@ -1128,7 +1128,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
     
@@ -1141,7 +1141,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      bottom: 63px;
+      bottom: var(--rds-spacing-63);
       margin: 0;
       padding: 0;
       display: flex;
@@ -1162,7 +1162,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
+          font-size: var(--rds-font-size-legacy-2rem);
           font-weight: bold;
           color: var(--rds-text-secondary);
         }
@@ -1203,8 +1203,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       max-width: 395px;
       margin: 0;
       padding: 0;
-      background: var(--rds-background-paper, #ffffff);
-      z-index: var(--rds-z-index-modal, 1400);
+      background: var(--rds-background-paper);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
       transition: transform 0.3s ease;
       box-shadow: var(--rds-elevation-3);
@@ -1264,21 +1264,21 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
       height: 100%;
       background-color: var(--rds-overlay-dark);
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
     }
   }
   
   .side-nav {
     .rds-appshell-side-nav-layout {
-      padding-top: 68px;
-      padding-bottom: 80px;
+      padding-top: var(--rds-spacing-68);
+      padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
       min-height: calc(100vh - 148px);
     }
     
     .sidenav-mobile-content {
       position: fixed;
-      top: 68px;
+      top: var(--rds-spacing-68);
       left: 0;
       right: 0;
       bottom: 0;
@@ -1289,7 +1289,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-layer-1);
       
       .rds-appshell-add-layout-flex-center {
-        padding: 2rem 1.5rem;
+        padding: var(--rds-spacing-xl) var(--rds-spacing-lg);
         border-radius: var(--rds-border-radius-md);
         display: inline-flex;
         align-items: center;
@@ -1297,7 +1297,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
+          font-size: var(--rds-font-size-legacy-2rem);
           font-weight: bold;
           color: var(--rds-text-secondary);
           text-align: center;
@@ -1353,7 +1353,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
     
@@ -1363,10 +1363,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .tripane-mobile-content {
       position: absolute;
-      top: 53px;
+      top: var(--rds-spacing-53);
       left: 0;
       right: 0;
-      bottom: 63px;
+      bottom: var(--rds-spacing-63);
       display: flex;
       flex-direction: column;
       transition: opacity 0.3s ease;
@@ -1381,7 +1381,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-height: 100%;
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
+          font-size: var(--rds-font-size-legacy-2rem);
           font-weight: bold;
           color: var(--rds-text-secondary);
         }
@@ -1420,8 +1420,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       max-width: 395px;
       margin: 0;
       padding: 0;
-      background: var(--rds-background-paper, #ffffff);
-      z-index: var(--rds-z-index-modal, 1400);
+      background: var(--rds-background-paper);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
       transition: transform 0.3s ease;
       box-shadow: var(--rds-elevation-3);
@@ -1471,7 +1471,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
       height: 100%;
       background-color: var(--rds-overlay-dark);
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
     }
   }
   
@@ -1488,7 +1488,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       flex-shrink: 0;
     }
     
@@ -1499,8 +1499,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       position: relative;
       width: 100%;
       height: 100%;
-      margin-top: 52px;
-      padding-bottom: 56px;
+      margin-top: var(--rds-spacing-52);
+      padding-bottom: var(--rds-spacing-56-px);
     }
     
     .rds-story-relaxing-content {
@@ -1527,7 +1527,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         z-index: var(--rds-z-index-layer-1);
         
         .rds-appshell-add-layout-text {
-          font-size: 2rem;
+          font-size: var(--rds-font-size-legacy-2rem);
           font-weight: bold;
           color: var(--rds-text-secondary);
         }
@@ -1540,7 +1540,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
-      z-index: var(--rds-z-index-toast, 1700) !important;
+      z-index: var(--rds-z-index-toast) !important;
     }
 
     .rds-bottom-navigation {
@@ -1555,8 +1555,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       align-items: center !important;
       box-sizing: border-box !important;
       overflow: hidden !important;
-      z-index: var(--rds-z-index-toast, 1700) !important;
-      background: var(--rds-background-paper, #ffffff) !important;
+      z-index: var(--rds-z-index-toast) !important;
+      background: var(--rds-background-paper) !important;
 
       .rds-bottom-nav-tab,
       .MuiButton-root {
@@ -1578,7 +1578,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
 
     .doublenav-mobile-content {
-      bottom: 45px !important;
+      bottom: var(--rds-spacing-45) !important;
     }
 
     .doublenav-mobile-toolbar {
@@ -1602,7 +1602,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
   .triPane {
     .tripane-mobile-content {
-      bottom: 45px !important;
+      bottom: var(--rds-spacing-45) !important;
     }
 
     .tripane-mobile-toolbar {
@@ -1625,7 +1625,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 
   .rds-story-topnav-content {
-    padding-bottom: 56px !important;
+    padding-bottom: var(--rds-spacing-56-px) !important;
 
     .rds-appshell-add-layout-center {
       margin-top: 0 !important;
@@ -1638,10 +1638,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
 @media (max-width: 480px) {
   .rds-story-topnav-content {
-    padding-bottom: 44px !important;
+    padding-bottom: var(--rds-spacing-44) !important;
 
     .rds-appshell-add-layout-center {
-      margin-top: 210px !important;
+      margin-top: var(--rds-spacing-210) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -1699,7 +1699,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    z-index: var(--rds-z-index-toast, 1700) !important;
+    z-index: var(--rds-z-index-toast) !important;
     box-shadow: var(--rds-elevation-3) !important;
     height: 56px !important;
     min-height: 56px !important;
@@ -1721,7 +1721,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding-bottom: 56px !important;
+    padding-bottom: var(--rds-spacing-56-px) !important;
     box-sizing: border-box;
     
     .rds-appshell-add-layout-center {
@@ -1751,10 +1751,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       height: 100vh;
       width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(0);
       transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
       box-shadow: var(--rds-elevation-3);
     }
     
@@ -1764,10 +1764,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       height: 100vh;
       width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
     }
     
     .topnav-layout {
@@ -1780,18 +1780,18 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .side-nav {
     .rds-appshell-side-nav-layout {
-      padding-top: 68px;
-      padding-bottom: 80px;
+      padding-top: var(--rds-spacing-68);
+      padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
       min-height: calc(100vh - 148px);
     }
     
     .sidenav-mobile-content {
       position: fixed;
-      top: 68px;
+      top: var(--rds-spacing-68);
       left: 0;
       right: 0;
-      bottom: 50px;
+      bottom: var(--rds-spacing-50);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1799,7 +1799,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-layer-1);
       
       .rds-appshell-add-layout-flex-center {
-        padding: 2.5rem 2rem;
+        padding: var(--rds-spacing-10) var(--rds-spacing-xl);
         border-radius: var(--rds-border-radius-md);
         display: inline-flex;
         align-items: center;
@@ -1807,7 +1807,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         background: transparent;
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
+          font-size: var(--rds-font-size-legacy-2-5rem);
           font-weight: bold;
           color: var(--rds-text-secondary);
           text-align: center;
@@ -1831,13 +1831,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .double-nav {
     .doublenav-mobile-content {
-      bottom: 70px !important;
+      bottom: var(--rds-spacing-70) !important;
     }
   }
   
   .triPane {
     .tripane-mobile-content {
-      bottom: 70px !important;
+      bottom: var(--rds-spacing-70) !important;
     }
   }
 }
@@ -1875,7 +1875,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       bottom: 0 !important;
       left: 0 !important;
       right: 0 !important;
-      z-index: var(--rds-z-index-toast, 1700) !important;
+      z-index: var(--rds-z-index-toast) !important;
       background: transparent !important;
       border-top: 1px solid var(--rds-border-default) !important;
       box-shadow: var(--rds-elevation-3) !important;
@@ -1909,7 +1909,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding-bottom: 64px !important;
+      padding-bottom: var(--rds-spacing-3xl-px) !important;
       box-sizing: border-box;
       
       .rds-appshell-add-layout-center,
@@ -1944,9 +1944,9 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       bottom: 0 !important;
       left: 0 !important;
       right: 0 !important;
-      z-index: var(--rds-z-index-toast, 1700) !important;
+      z-index: var(--rds-z-index-toast) !important;
       box-shadow: var(--rds-elevation-3) !important;
-      background: var(--rds-surface-primary, #ffffff) !important;
+      background: var(--rds-surface-primary) !important;
       display: flex !important;
 
       .MuiTab-root.Mui-selected,
@@ -1966,7 +1966,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .topnav-layout .MuiBottomNavigation-root,
     .topnav-layout .rds-footer-navigation {
       display: flex !important;
-      background: var(--rds-surface-primary, #ffffff) !important;
+      background: var(--rds-surface-primary) !important;
       border-top: 1px solid var(--rds-border-default) !important;
     }
 
@@ -1976,7 +1976,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0 !important;
       left: 0 !important;
       right: 0 !important;
-      bottom: 70px !important;
+      bottom: var(--rds-spacing-70) !important;
       margin: 0 !important;
       padding: 0 !important;
       overflow-y: auto !important;
@@ -2027,7 +2027,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      bottom: 70px;
+      bottom: var(--rds-spacing-70);
       margin: 0;
       padding: 0;
       flex-direction: column;
@@ -2047,7 +2047,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         padding: 0;
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
+          font-size: var(--rds-font-size-legacy-2-5rem);
           font-weight: bold;
           color: var(--rds-text-secondary);
         }
@@ -2104,10 +2104,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       height: 100vh;
       width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
       box-shadow: none;
       display: block !important;
       visibility: visible !important;
@@ -2179,8 +2179,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0;
       height: 100vh;
       width: 395px;
-      background: var(--rds-background-paper, #ffffff);
-      z-index: var(--rds-z-index-modal, 1400);
+      background: var(--rds-background-paper);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
       transition: transform 0.3s ease;
       box-shadow: var(--rds-elevation-3);
@@ -2243,7 +2243,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
       height: 100%;
       background-color: var(--rds-overlay-dark);
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       cursor: pointer;
     }
     
@@ -2261,10 +2261,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .tripane-mobile-content {
       display: flex !important;
       position: absolute;
-      top: 68px;
+      top: var(--rds-spacing-68);
       left: 0;
       right: 0;
-      bottom: 70px;
+      bottom: var(--rds-spacing-70);
       margin: 0;
       padding: 0;
       flex-direction: column;
@@ -2279,7 +2279,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         border-radius: var(--rds-border-radius-md);
         
         .rds-appshell-add-layout-text {
-          font-size: 2.5rem;
+          font-size: var(--rds-font-size-legacy-2-5rem);
           font-weight: bold;
           color: var(--rds-text-secondary);
         }
@@ -2354,10 +2354,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       height: 100vh;
       width: 240px;
-      z-index: var(--rds-z-index-modal, 1400);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
-      background: var(--rds-background-paper, #ffffff);
+      background: var(--rds-background-paper);
       box-shadow: none;
       display: block !important;
       visibility: visible !important;
@@ -2420,8 +2420,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0;
       height: 100vh;
       width: 395px;
-      background: var(--rds-background-paper, #ffffff);
-      z-index: var(--rds-z-index-modal, 1400);
+      background: var(--rds-background-paper);
+      z-index: var(--rds-z-index-modal);
       transform: translateX(100%);
       transition: transform 0.3s ease;
       box-shadow: var(--rds-elevation-3);
@@ -2474,7 +2474,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 100%;
       height: 100%;
       background-color: var(--rds-overlay-dark);
-      z-index: var(--rds-z-index-drawer, 1200);
+      z-index: var(--rds-z-index-drawer);
       cursor: pointer;
     }
   }
@@ -2530,7 +2530,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-height: var(--rds-side-nav-top-height) !important;
         max-height: var(--rds-side-nav-top-height) !important;
         margin: 0 !important;
-        padding: 0 var(--rds-spacing-md, 16px) !important;
+        padding: 0 var(--rds-spacing-md) !important;
         visibility: visible !important;
         opacity: 1 !important;
         border-bottom: 1px solid var(--rds-border-default);
@@ -2554,8 +2554,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .sidenav-desktop-content {
       position: fixed !important;
       top: var(--rds-side-nav-top-height) !important;
-      left: 240px !important;
-      right: 64px !important;
+      left: var(--rds-spacing-240) !important;
+      right: var(--rds-spacing-3xl-px) !important;
       bottom: 0 !important;
       display: flex !important;
       align-items: stretch !important;
@@ -2571,7 +2571,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       .rds-appshell-add-layout-text {
-        font-size: 2rem;
+        font-size: var(--rds-font-size-legacy-2rem);
         font-weight: bold;
         color: var(--rds-text-secondary);
         text-align: center;
@@ -2631,7 +2631,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       flex: 1 1 auto;
       width: auto !important;
       min-width: 0;
-      margin-right: 64px;
+      margin-right: var(--rds-spacing-3xl-px);
       box-sizing: border-box;
       position: relative;
       z-index: var(--rds-z-index-layer-1);
@@ -2651,7 +2651,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         max-height: var(--rds-side-nav-top-height) !important;
         box-shadow: none !important;
         border-bottom: 1px solid var(--rds-border-default);
-        background: var(--rds-color-surface, #ffffff) !important;
+        background: var(--rds-color-surface) !important;
         color: var(--rds-text-primary) !important;
         overflow: hidden !important;
       }
@@ -2662,7 +2662,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         height: var(--rds-side-nav-top-height) !important;
         min-height: var(--rds-side-nav-top-height) !important;
         max-height: var(--rds-side-nav-top-height) !important;
-        padding: 0 var(--rds-spacing-md, 16px) !important;
+        padding: 0 var(--rds-spacing-md) !important;
         overflow: hidden !important;
         background: transparent !important;
       }
@@ -2880,7 +2880,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       align-items: stretch;
       width: 100%;
       height: calc(100vh - 68px);
-      margin-top: 68px;
+      margin-top: var(--rds-spacing-68);
     }
 
     .rds-appshell-add-layout-flex-center {
@@ -2978,7 +2978,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   width: 100%;
   height: 100%;
   background-color: var(--rds-overlay-dark);
-  z-index: var(--rds-z-index-drawer, 1200);
+  z-index: var(--rds-z-index-drawer);
   display: block;
   cursor: pointer;
 }
