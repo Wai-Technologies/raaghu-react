@@ -2,7 +2,7 @@
 
 .rds-card {
   border-radius: var(--rds-border-radius-md, 8px);
-  box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08));
+  box-shadow: var(--rds-elevation-3);
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -153,13 +153,13 @@
   }
   
   &:hover:not(.rds-card--disabled):not(.rds-card--selected) {
-    box-shadow: var(--rds-elevation-2, 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08));
+    box-shadow: var(--rds-elevation-2);
     background-color: var(--rds-card-bg-hover, var(--rds-color-gray-200)) !important;
   }
   
   &--selected {
     background-color: var(--rds-card-selected-bg, var(--rds-color-gray-200)) !important;
-    box-shadow: var(--rds-elevation-focus, 0 0 0 1px rgba(25, 118, 210, 0.2));
+    box-shadow: var(--rds-elevation-focus);
     
     .rds-card__subtext {
       color: var(--rds-color-primary) !important;
@@ -205,20 +205,20 @@
   }
   
   &--elevation-0 {
-    box-shadow: var(--rds-elevation-0, none);
+    box-shadow: var(--rds-elevation-0);
     border: 1px solid var(--rds-card-border);
   }
   
   &--elevation-1 {
-    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.08));
+    box-shadow: var(--rds-elevation-1);
   }
   
   &--elevation-2 {
-    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    box-shadow: var(--rds-elevation-2);
   }
   
   &--elevation-3 {
-    box-shadow: var(--rds-elevation-3, 0 4px 8px rgba(0, 0, 0, 0.15));
+    box-shadow: var(--rds-elevation-3);
   }
   
   &--clickable {
@@ -614,5 +614,5 @@
 
 .rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {
   --Paper-shadow: none !important;
-  box-shadow: var(--rds-card-shadow, 0 8px 24px var(--rds-card-shadow-color, rgba(16, 45, 86, 0.08)));
+  box-shadow: var(--rds-card-shadow, var(--rds-elevation-3));
 }

@@ -122,7 +122,7 @@
     &:focus {
       outline: none;
       border-color: var(--colorBrandBackground, var(--rds-primary-main));
-      box-shadow: 0 0 0 1px
+      box-shadow: 0 0 0 var(--rds-border-width-thin)
         var(--colorBrandBackground, var(--rds-primary-main));
     }
 
@@ -200,7 +200,7 @@
     background-color: var(--rds-grid-bg);
     border: 1px solid var(--rds-grid-border);
     border-radius: var(--rds-border-radius-sm, 4px);
-    box-shadow: var(--shadow8);
+    box-shadow: var(--rds-elevation-2);
     z-index: var(--rds-z-index-modal, 1400);
   }
 
@@ -1005,7 +1005,7 @@
   background-color: var(--rds-grid-bg);
   border: 1px solid var(--rds-grid-border);
   border-radius: calc(var(--rds-border-radius-sm, 4px) / 2);
-  box-shadow: var(--shadow4);
+  box-shadow: var(--rds-elevation-1);
   z-index: var(--rds-z-index-modal, 1400);
 
   &-header {
@@ -1075,7 +1075,7 @@
   &:focus {
     outline: none;
     border-color: var(--colorBrandBackground, var(--rds-primary-main));
-    box-shadow: 0 0 0 1px var(--colorBrandBackground, var(--rds-primary-main));
+    box-shadow: 0 0 0 var(--rds-border-width-thin) var(--colorBrandBackground, var(--rds-primary-main));
   }
 }
 

@@ -125,7 +125,7 @@
       .rdw-dropdown-optionwrapper {
         background: var(--rds-color-surface);
         border: 1px solid var(--rds-color-border-light);
-        box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
+        box-shadow: var(--rds-elevation-2);
         border-radius: var(--rds-border-radius-sm, 2px);
         z-index: var(--rds-z-index-dropdown, 1300);
       }
@@ -155,7 +155,7 @@
         background-color: var(--rds-color-surface);
         color: var(--rds-color-on-surface);
         border: 1px solid var(--rds-color-border);
-        box-shadow: var(--rds-elevation-3, 0 2px 8px rgba(0, 0, 0, 0.1));
+        box-shadow: var(--rds-elevation-3);
         z-index: var(--rds-z-index-modal, 1400);
 
         .rdw-image-modal-header-option {
@@ -173,7 +173,7 @@
 
           &:hover {
             background: var(--rds-color-primary-dark);
-            box-shadow: var(--rds-elevation-1, 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075));
+            box-shadow: var(--rds-elevation-1);
           }
 
           &:disabled {
@@ -410,7 +410,7 @@
       left: -93px;
       max-height: calc(100vh - 100px);
       overflow-y: auto;
-      box-shadow: var(--rds-elevation-4, 0 4px 12px rgba(0, 0, 0, 0.15));
+      box-shadow: var(--rds-elevation-4);
       border: 1px solid var(--rds-color-border);
 
       @include bp.down(mobile-sm) {
@@ -437,7 +437,7 @@
       right: 0;
       left: auto;
       max-width: 320px;
-      box-shadow: var(--rds-elevation-4, 0 4px 12px rgba(0, 0, 0, 0.15));
+      box-shadow: var(--rds-elevation-4);
       border: 1px solid var(--rds-color-border);
       z-index: var(--rds-z-index-modal, 1400);
     }

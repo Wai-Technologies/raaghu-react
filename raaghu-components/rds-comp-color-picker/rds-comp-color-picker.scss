@@ -11,7 +11,7 @@
 
   &__container {
     position: relative;
-    box-shadow: var(--rds-elevation-2, 0 2px 10px rgba(0, 0, 0, 0.12));
+    box-shadow: var(--rds-elevation-2);
     border-radius: var(--rds-border-radius, 8px);
     background: var(--rds-color-surface);
     padding: var(--rds-spacing-sm, 12px);
@@ -96,13 +96,13 @@
     &:hover {
       transform: scale(1.15);
       z-index: var(--rds-z-index-layer-2);
-      box-shadow: var(--rds-elevation-1, 0 0 4px rgba(0, 0, 0, 0.4));
+      box-shadow: var(--rds-elevation-1);
       outline: 1px solid var(--rds-color-surface-contrast, var(--rds-color-on-surface));
     }
 
     &--selected {
       outline: 2px solid var(--rds-color-surface-contrast, var(--rds-color-on-surface));
-      box-shadow: 0 0 0 1px var(--rds-color-neutral-1000, var(--rds-color-on-surface));
+      box-shadow: 0 0 0 var(--rds-border-width-thin) var(--rds-color-neutral-1000, var(--rds-color-on-surface));
       z-index: var(--rds-z-index-layer-1);
       position: relative;
     }
@@ -121,7 +121,7 @@
     justify-content: center;
     color: var(--rds-color-on-primary);
     cursor: pointer;
-    box-shadow: var(--rds-elevation-1, 0 2px 4px rgba(0, 0, 0, 0.2));
+    box-shadow: var(--rds-elevation-1);
 
     svg {
       width: 12px;
@@ -145,7 +145,7 @@
     align-items: center;
     justify-content: center;
     color: var(--rds-color-on-primary);
-    box-shadow: var(--rds-elevation-1, 0 1px 2px rgba(0, 0, 0, 0.25));
+    box-shadow: var(--rds-elevation-1);
     flex-shrink: 0;
     cursor: pointer;
 
@@ -234,7 +234,7 @@
     background-color: var(--rds-color-surface);
     border: 1px solid var(--rds-color-outline);
     border-radius: var(--rds-border-radius, 4px);
-    box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.1));
+    box-shadow: var(--rds-elevation-2);
     z-index: var(--rds-z-index-raised);
     margin-top: var(--rds-spacing-xs);
     overflow: hidden;
@@ -622,7 +622,7 @@
     top: -8px;
     transform: translateX(-8px);
     cursor: pointer;
-    box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0, 0, 0, 0.2));
+    box-shadow: var(--rds-elevation-1);
     z-index: var(--rds-z-index-layer-1);
 
     &:hover {
