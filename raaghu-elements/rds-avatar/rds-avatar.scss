@@ -214,7 +214,7 @@
   }
 
   &__stacking-avatar {
-    box-shadow: 0 0 0 2px var(--rds-color-on-primary);
+    box-shadow: 0 0 0 var(--rds-avatar-dot-border-width) var(--rds-color-on-primary);
     transition: box-shadow var(--rds-transition-base);
     position: relative;
     flex-shrink: 0;

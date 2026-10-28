@@ -710,7 +710,7 @@ font-weight: bold;
 .rds-datepicker__calendar .react-datepicker__day--today {
   color: var(--rds-primary-main) ;
   font-weight: 600;
-  box-shadow: inset 0 0 0 1px var(--rds-color-primary-container);
+  box-shadow: inset 0 0 0 var(--rds-border-width-thin) var(--rds-color-primary-container);
   border-radius: var(--rds-border-radius-sm);
 }
 

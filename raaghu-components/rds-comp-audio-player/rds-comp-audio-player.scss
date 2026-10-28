@@ -496,7 +496,7 @@
     
     &:focus-visible {
       background: var(--rds-color-primary-hover);
-      box-shadow: 0 0 0 2px var(--rds-color-primary-container, rgba(25, 118, 210, 0.3));
+      box-shadow: 0 0 0 2px var(--rds-color-primary-container);
     }
     
     &--active {

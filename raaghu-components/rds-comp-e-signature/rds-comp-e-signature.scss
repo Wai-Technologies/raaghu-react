@@ -619,7 +619,7 @@
     gap: var(--rds-spacing-xs);
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    font-family: var(--rds-font-family-secondary, 'Segoe UI', sans-serif);
+    font-family: var(--rds-font-family-secondary);
   }
 
   &__mini-card:hover:not(:disabled) {
@@ -654,7 +654,7 @@
   &__mini-full {
     font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-normal, 400);
-    font-family: var(--rds-font-family-base, 'Segoe UI', sans-serif);
+    font-family: var(--rds-font-family-base);
   }
 
   &__mini-initials {

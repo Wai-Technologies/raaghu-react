@@ -127,7 +127,7 @@
       padding-top: var(--rds-spacing-xs);
       padding-bottom: var(--rds-spacing-none, 0);
       line-height: 1.1 ;
-      font-family: var(--rds-font-family-base, 'Poppins', sans-serif) ;
+      font-family: var(--rds-font-family-base) ;
   }
   &__title-icon {
     width: var(--rds-font-size-xl);
@@ -599,7 +599,7 @@
   
   &__football-team-name {
     font-weight: var(--rds-font-weight-black, 1000);
-    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) ;
+    font-family: var(--rds-font-family-bold) ;
     text-align: center;
     font-size: var(--rds-font-size-md) ;
     letter-spacing: var(--rds-football-team-name-letter-spacing) ;
@@ -642,7 +642,7 @@
   &__football-score {
     font-size: var(--rds-font-size-4xl) ;
     font-weight: var(--rds-font-weight-extrabold, 800);
-    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
+    font-family: var(--rds-font-family-bold);
     text-align: center ;
     line-height: 1 ; 
     display: inline-block; 
@@ -1098,7 +1098,7 @@
   font-size: var(--rds-font-size-md);
   color: var(--rds-text-secondary); 
   text-align: center;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+ font-family: var(--rds-font-family-base);
   font-style: normal;
   font-weight: var(--rds-font-weight-medium, 500);
   line-height: var(--rds-spacing-md);
@@ -1122,7 +1122,7 @@
   font-size: var(--rds-font-size-md) ;
   color: var(--rds-text-secondary);
   text-align: center;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-style: normal;
   font-weight: var(--rds-font-weight-bold, 700);
   line-height: normal;
@@ -1132,7 +1132,7 @@
   font-size: var(--rds-font-size-lg);
   color: var(--rds-text-secondary);
   text-align: center;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-style: normal;
   font-weight: var(--rds-font-weight-normal, 400);
   line-height: normal;

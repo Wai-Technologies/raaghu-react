@@ -27,7 +27,7 @@
 
   &__container {
     background: var(--rds-background-paper);
-    box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow, rgba(162, 89, 255, 0.18));
+    box-shadow: 0 4px 32px 0 var(--rds-color-primary-overlay-strong);
     border-radius: var(--rds-border-radius-xl);
     margin: var(--rds-spacing-xl) auto;
     width: 100%;
@@ -81,7 +81,7 @@
     height: var(--rds-spacing-md);
     background: var(--rds-primary-main);
     border-radius: var(--rds-border-radius-pill);
-    box-shadow: 0 0 0 var(--rds-spacing-sm) var(--rds-product-tour-dot-shadow, rgba(135, 46, 252, 0.15));
+    box-shadow: 0 0 0 var(--rds-spacing-sm) var(--rds-color-primary-overlay-strong);
     z-index: var(--rds-z-index-local-50);
 
     &--top-left {
