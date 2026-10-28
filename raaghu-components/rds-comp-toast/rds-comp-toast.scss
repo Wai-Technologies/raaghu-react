@@ -391,7 +391,7 @@
     margin-top: var(--rds-spacing-md);
   }
 
-  /* G6-148: chat layout via BEM nesting (no !important) */
+  /* G6-148: chat layout via BEM nesting (no) */
   &--chat &__leading-icon {
     display: none;
     width: 0;

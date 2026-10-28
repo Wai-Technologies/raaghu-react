@@ -9,6 +9,11 @@ hardcoding debt is **rgb()/rgba() literals** and **bare px/rem inside
 component-local `--rds-*` custom properties** — gated by CI baselines and
 scheduled for Phase A component-by-component cleanup.
 
+**Phase B (cascade)** is a separate track: pervasive `!important` fighting MUI
+Emotion, Bootstrap leftovers, and third-party CSS. Gated by
+`scripts/important-baseline.txt` / `lint:important`. See override hierarchy in
+`docs/CSS_ARCHITECTURE.md`.
+
 ---
 
 ## What Works
@@ -54,6 +59,31 @@ Frozen by CI; **do not raise** baselines. Ratchet down in component PRs.
 | `rgb()` / `rgba()` in SCSS | `scripts/check-no-rgba-in-scss.mjs` | **203** | `lint:rgba` |
 | Bare `px`/`rem` in `--…:` defs | `scripts/check-local-dim-px-in-scss.mjs` | **572** | `lint:local-dim-px` |
 | Hex in SCSS | `scripts/check-hex-in-scss.sh` | **0** | (CI + `lint:hex`) |
+| `!important` in SCSS (Phase B) | `scripts/check-no-important-in-scss.mjs` | **0** | `lint:important` |
+
+---
+
+## Phase B — `!important` cascade debt
+
+Frozen by CI; **do not raise** the baseline. Ratchet down in cleanup PRs.
+Independent of Phase A token migrations.
+
+Root causes: MUI Emotion + dual theme/SCSS channels, Bootstrap legacy classes,
+react-datepicker defaults, cross-component layout overrides, and habitual
+`!important` on owned BEM.
+
+### Top files by `!important` count
+
+Opened at **~3337**; current baseline **0** (Phase B debt cleared in component SCSS).
+
+Heavy files cleared via BEM specificity, `--flush` / `--docked` modifiers, and
+`mui/overrides.ts` (Switch, Badge, Accordion, Button skins). New `!important`
+fails CI (`lint:important`). Re-seed only if a documented third-party escape is
+intentionally added:
+
+```bash
+node scripts/check-no-important-in-scss.mjs --set-baseline
+```
 
 ### Top files by `rgb()`/`rgba()` count
 

@@ -3,18 +3,18 @@
 .rds-header--transparent {
   --rds-header-dim-1: 2px;
 
-  background: transparent !important;
-  box-shadow: none !important;
+  background: transparent;
+  box-shadow: none;
   color: var(--rds-color-on-surface);
 }
 
 .rds-header--primary {
-  background: var(--rds-color-primary) !important;
-  color: var(--rds-color-on-primary) !important;
+  background: var(--rds-color-primary);
+  color: var(--rds-color-on-primary);
   .rds-header__title,
   .rds-header__actions,
   .rds-header__logo {
-    color: var(--rds-color-on-primary) !important;
+    color: var(--rds-color-on-primary);
   }
   .rds-header__search {
     background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
@@ -34,12 +34,12 @@
 }
 
 .rds-header--secondary {
-  background: var(--rds-color-secondary) !important;
-  color: var(--rds-color-on-secondary) !important;
+  background: var(--rds-color-secondary);
+  color: var(--rds-color-on-secondary);
   .rds-header__title,
   .rds-header__actions,
   .rds-header__logo {
-    color: var(--rds-color-on-secondary) !important;
+    color: var(--rds-color-on-secondary);
   }
   .rds-header__search {
     background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
@@ -199,7 +199,7 @@
   }
 
   &__search-clear {
-    position: absolute !important;
+    position: absolute;
     right: var(--rds-spacing-xs);
     top: 50%;
     transform: translateY(-50%);

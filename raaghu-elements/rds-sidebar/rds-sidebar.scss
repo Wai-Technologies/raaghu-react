@@ -47,15 +47,15 @@
     height: auto;
     
     &--collapse {
-      max-width: var(--rds-sidebar-dim-2) !important;
+      max-width: var(--rds-sidebar-dim-2);
     }
     
     &--expanded {
-      max-width: 70% !important;
+      max-width: 70%;
     }
     
     &--fixed {
-      max-width: var(--rds-sidebar-dim-2) !important;
+      max-width: var(--rds-sidebar-dim-2);
     }
   }
   
@@ -99,38 +99,38 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          width: var(--rds-sidebar-search-icon-only-size) !important;
-          max-width: var(--rds-sidebar-search-icon-only-size) !important;
-          min-width: 0 !important;
+          width: var(--rds-sidebar-search-icon-only-size);
+          max-width: var(--rds-sidebar-search-icon-only-size);
+          min-width: 0;
           margin: 0 auto;
 
           .MuiInputBase-root,
           .MuiOutlinedInput-root,
           .MuiFilledInput-root,
           .MuiInput-root {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            width: var(--rds-sidebar-search-icon-only-size) !important;
-            max-width: var(--rds-sidebar-search-icon-only-size) !important;
-            min-width: 0 !important;
-            height: var(--rds-sidebar-search-icon-only-size) !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: var(--rds-sidebar-search-icon-only-size);
+            max-width: var(--rds-sidebar-search-icon-only-size);
+            min-width: 0;
+            height: var(--rds-sidebar-search-icon-only-size);
             overflow: hidden;
-            padding: 0 !important;
-            margin: 0 auto !important;
-            background: transparent !important;
+            padding: 0;
+            margin: 0 auto;
+            background: transparent;
             border-radius: var(--rds-sidebar-search-icon-border-radius);
 
             &::before,
             &::after {
-              display: none !important;
+              display: none;
             }
 
             .MuiOutlinedInput-notchedOutline {
-              display: block !important;
-              border-color: var(--rds-sidebar-search-icon-border-color) !important;
-              border-width: var(--rds-border-width-thin) !important;
-              border-radius: var(--rds-sidebar-search-icon-border-radius) !important;
+              display: block;
+              border-color: var(--rds-sidebar-search-icon-border-color);
+              border-width: var(--rds-border-width-thin);
+              border-radius: var(--rds-sidebar-search-icon-border-radius);
               top: 0;
               legend {
                 display: none;
@@ -138,47 +138,47 @@
             }
 
             fieldset {
-              display: block !important;
+              display: block;
             }
 
             .MuiInputBase-input,
             .MuiOutlinedInput-input,
             .MuiFilledInput-input,
             .MuiInput-input {
-              display: none !important;
-              width: 0 !important;
-              min-width: 0 !important;
-              max-width: 0 !important;
-              padding: 0 !important;
-              flex: 0 0 0 !important;
-              opacity: 0 !important;
-              position: absolute !important;
-              pointer-events: none !important;
+              display: none;
+              width: 0;
+              min-width: 0;
+              max-width: 0;
+              padding: 0;
+              flex: 0 0 0;
+              opacity: 0;
+              position: absolute;
+              pointer-events: none;
             }
 
             .MuiInputAdornment-root {
-              margin: 0 !important;
+              margin: 0;
               max-height: none;
               height: auto;
               width: 100%;
               max-width: 100%;
-              display: flex !important;
-              justify-content: center !important;
-              align-items: center !important;
+              display: flex;
+              justify-content: center;
+              align-items: center;
 
               &.MuiInputAdornment-positionStart,
               &.MuiInputAdornment-positionEnd {
-                margin: 0 !important;
+                margin: 0;
               }
             }
 
             .MuiIconButton-root,
             .MuiIconButton-edgeStart,
             .MuiIconButton-edgeEnd {
-              position: static !important;
-              right: auto !important;
-              left: auto !important;
-              margin: 0 !important;
+              position: static;
+              right: auto;
+              left: auto;
+              margin: 0;
               padding: var(--rds-sidebar-search-icon-button-padding);
               width: var(--rds-sidebar-search-icon-button-size);
               height: var(--rds-sidebar-search-icon-button-size);
@@ -359,11 +359,11 @@
   .MuiDrawer-paper {
     img {
       &.rds-sidebar__logo--collapse {
-        max-width: var(--rds-sidebar-dim-2) !important;
+        max-width: var(--rds-sidebar-dim-2);
       }
       
       &.rds-sidebar__logo--expanded {
-        max-width: 70% !important;
+        max-width: 70%;
       }
     }
     
@@ -371,9 +371,9 @@
     .MuiMenu-root,
     .MuiPaper-root.rds-sidebar__menu-paper,
     .MuiPaper-root {
-      background: transparent !important;
-      box-shadow: none !important;
-      border: none !important;
+      background: transparent;
+      box-shadow: none;
+      border: none;
     }
   }
 
@@ -381,8 +381,8 @@
   .MuiListItem-root.Mui-selected,
   .MuiMenuItem-root.Mui-selected,
   .MuiButtonBase-root.Mui-selected {
-    background-color: transparent !important;
-    color: inherit !important;
+    background-color: transparent;
+    color: inherit;
   }
 
   .Mui-selected:hover,
@@ -397,13 +397,13 @@
   .MuiListItem-root.Mui-selected:active,
   .MuiMenuItem-root.Mui-selected:active,
   .MuiButtonBase-root.Mui-selected:active {
-    background-color: transparent !important;
+    background-color: transparent;
   }
 
   .Mui-selected .MuiTouchRipple-root,
   .MuiListItem-root.Mui-selected .MuiTouchRipple-root,
   .MuiMenuItem-root.Mui-selected .MuiTouchRipple-root,
   .MuiButtonBase-root.Mui-selected .MuiTouchRipple-root {
-    display: none !important;
+    display: none;
   }
 }

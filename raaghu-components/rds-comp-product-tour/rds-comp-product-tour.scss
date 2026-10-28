@@ -267,17 +267,17 @@
     margin-bottom: 0;
 
     .rds-carousel {
-      width: 100% !important;
-      height: 100% !important;
-      border-radius: var(--rds-border-radius-md) !important;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--rds-border-radius-md);
     }
 
     .rds-carousel__slide {
-      border-radius: var(--rds-border-radius-md) !important;
+      border-radius: var(--rds-border-radius-md);
     }
 
     .rds-carousel__slide img {
-      border-radius: var(--rds-border-radius-md) !important;
+      border-radius: var(--rds-border-radius-md);
     }
   }
 
@@ -592,11 +592,11 @@
     .rds-button {
       border-color: var(--rds-primary-main) ;
       color: var(--rds-primary-main) ;
-      background-color: transparent !important;
-      min-width: var(--rds-product-tour-dim-6) !important;
-      width: var(--rds-product-tour-dim-6) !important;
-      height: var(--rds-product-tour-dim-2) !important;
-      text-transform: none !important; 
+      background-color: transparent;
+      min-width: var(--rds-product-tour-dim-6);
+      width: var(--rds-product-tour-dim-6);
+      height: var(--rds-product-tour-dim-2);
+      text-transform: none; 
 
       &:hover {
         background-color: var(--rds-primary-main) ;
@@ -616,7 +616,7 @@
       .MuiOutlinedInput-root {
         .MuiOutlinedInput-notchedOutline {
           border-color: var(--rds-border-light) ;
-          border-width: var(--rds-border-width-thin) !important;
+          border-width: var(--rds-border-width-thin);
         }
       }
     }
@@ -691,12 +691,12 @@
 
   .rds-comp-product-tour__form-action-btn .rds-button,
   .rds-comp-product-tour__form-action-btn .MuiButton-root {
-    min-width: var(--rds-product-tour-dim-6) !important; 
-    width: var(--rds-product-tour-dim-6) !important; 
-    height: var(--rds-size-36) !important;
-    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
-    box-sizing: border-box !important;
-    text-transform: none !important; 
+    min-width: var(--rds-product-tour-dim-6); 
+    width: var(--rds-product-tour-dim-6); 
+    height: var(--rds-size-36);
+    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+    box-sizing: border-box;
+    text-transform: none; 
   }
 
   &__form-button-right {
@@ -708,8 +708,8 @@
       .rds-button {
       border-color: var(--rds-primary-main) ;
       color: var(--rds-primary-main) ;
-      background-color: transparent !important;
-      text-transform: none !important;
+      background-color: transparent;
+      text-transform: none;
 
       &:hover {
         background-color: var(--rds-primary-main) ;
@@ -719,12 +719,12 @@
 
     .rds-comp-product-tour__form-action-btn .rds-button,
     .rds-comp-product-tour__form-action-btn .MuiButton-root {
-      min-width: var(--rds-product-tour-dim-6) !important;
-      width: var(--rds-product-tour-dim-6) !important;
-      height: var(--rds-size-36) !important;
-      padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
-      box-sizing: border-box !important;
-      text-transform: none !important; 
+      min-width: var(--rds-product-tour-dim-6);
+      width: var(--rds-product-tour-dim-6);
+      height: var(--rds-size-36);
+      padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      box-sizing: border-box;
+      text-transform: none; 
     }
   }
 
@@ -755,20 +755,20 @@
       overflow: visible;
       
       > * {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
     }
     
     .rds-file-uploader {
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .rds-file-uploader__standard {
-      width: 100% !important;
+      width: 100%;
       margin-bottom: 0;
     }
 
@@ -787,32 +787,32 @@
     }
     
     .rds-file-uploader__container {
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     
     .rds-file-uploader__drop-zone {
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
-      padding: var(--rds-spacing-md) !important;
-      border: var(--rds-border-width-medium) dashed var(--rds-border-default) !important;
-      border-radius: var(--rds-border-radius-md) !important;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: var(--rds-spacing-md);
+      border: var(--rds-border-width-medium) dashed var(--rds-border-default);
+      border-radius: var(--rds-border-radius-md);
     }
 
     .rds-file-uploader__content {
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .rds-file-uploader__button {
-      max-width: fit-content !important;
+      max-width: fit-content;
       background-color: var(--rds-primary-main) ;
       border-color: var(--rds-primary-main) ;
       color: var(--rds-neutral-0) ;
-      text-transform: none !important;
+      text-transform: none;
 
     }
 
@@ -820,7 +820,7 @@
       background-color: var(--rds-primary-main) ;
       border-color: var(--rds-primary-main) ;
       color: var(--rds-neutral-0) ;
-      text-transform: none !important;
+      text-transform: none;
     }
     .rds-file-uploader__choose-btn:hover {
       background-color: var(--rds-primary-main) ; 
@@ -833,14 +833,14 @@
       background-color: var(--rds-primary-main) ;
       border-color: var(--rds-primary-main) ;
       color: var(--rds-neutral-0) ;
-      text-transform: none !important;
+      text-transform: none;
     }
 
     .rds-file-uploader__text {
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
-      text-align: left !important;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      text-align: left;
     }
   }
 
@@ -921,20 +921,20 @@
   }
 
   .rds-carousel__slide img {
-    border-radius: var(--rds-border-radius-md) !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+    border-radius: var(--rds-border-radius-md);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .rds-carousel__slide {
-    border-radius: var(--rds-border-radius-md) !important;
-    overflow: hidden !important;
+    border-radius: var(--rds-border-radius-md);
+    overflow: hidden;
   }
 
   .rds-carousel {
-    border-radius: var(--rds-border-radius-md) !important;
-    overflow: hidden !important;
+    border-radius: var(--rds-border-radius-md);
+    overflow: hidden;
   }
 }
 
@@ -978,7 +978,7 @@
     }
 
     .rds-carousel {
-      height: 100% !important;
+      height: 100%;
     }
 
     .rds-comp-product-tour__carousel-dots {
@@ -1154,13 +1154,13 @@
 
     .rds-comp-product-tour__form-input-row--team-members {
       .rds-autocomplete .MuiAutocomplete-clearIndicator {
-        display: none !important;
-        visibility: hidden !important;
-        width: 0 !important;
-        height: 0 !important;
-        padding: 0 !important;
+        display: none;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        padding: 0;
         margin: 0 ;
-        pointer-events: none !important;
+        pointer-events: none;
       }
     }
   }
@@ -1169,13 +1169,13 @@
 @container product-tour-form (max-width: 414px) {
   .rds-comp-product-tour__form-input-row--team-members {
     .rds-autocomplete .MuiAutocomplete-clearIndicator {
-      display: none !important;
-      visibility: hidden !important;
-      width: 0 !important;
-      height: 0 !important;
-      padding: 0 !important;
+      display: none;
+      visibility: hidden;
+      width: 0;
+      height: 0;
+      padding: 0;
       margin: 0 ;
-      pointer-events: none !important;
+      pointer-events: none;
     }
   }
 }
@@ -1200,10 +1200,10 @@ padding: var(--rds-spacing-lg);
 
       .rds-comp-product-tour__form-action-btn .rds-button,
       .rds-comp-product-tour__form-action-btn .MuiButton-root {
-        min-width: var(--rds-size-3xl) !important;
-        width: var(--rds-size-3xl) !important;
-        padding-left: var(--rds-spacing-xs) !important;
-        padding-right: var(--rds-spacing-xs) !important;
+        min-width: var(--rds-size-3xl);
+        width: var(--rds-size-3xl);
+        padding-left: var(--rds-spacing-xs);
+        padding-right: var(--rds-spacing-xs);
       }
 
       .rds-autocomplete {
@@ -1215,20 +1215,20 @@ padding: var(--rds-spacing-lg);
 
         .MuiOutlinedInput-root.MuiAutocomplete-inputRoot {
           position: relative;
-          flex-wrap: nowrap !important;
-          align-items: center !important;
-          height: var(--rds-size-40) !important;
-          min-height: var(--rds-size-40) !important;
-          max-height: var(--rds-size-40) !important;
-          padding-top: var(--rds-spacing-xs) !important;
-          padding-bottom: var(--rds-spacing-xs) !important;
-          padding-right: var(--rds-spacing-xl) !important;
+          flex-wrap: nowrap;
+          align-items: center;
+          height: var(--rds-size-40);
+          min-height: var(--rds-size-40);
+          max-height: var(--rds-size-40);
+          padding-top: var(--rds-spacing-xs);
+          padding-bottom: var(--rds-spacing-xs);
+          padding-right: var(--rds-spacing-xl);
 
           &.Mui-focused,
           &[aria-expanded='true'] {
-            height: var(--rds-size-40) !important;
-            min-height: var(--rds-size-40) !important;
-            max-height: var(--rds-size-40) !important;
+            height: var(--rds-size-40);
+            min-height: var(--rds-size-40);
+            max-height: var(--rds-size-40);
           }
         }
 
@@ -1243,7 +1243,7 @@ padding: var(--rds-spacing-lg);
         }
 
         .MuiAutocomplete-popupIndicator {
-          padding: var(--rds-spacing-xxs) !important;
+          padding: var(--rds-spacing-xxs);
 
           .MuiSvgIcon-root {
             font-size: var(--rds-font-size-xl) ;
@@ -1251,22 +1251,22 @@ padding: var(--rds-spacing-lg);
         }
 
         .MuiAutocomplete-input {
-          min-width: 0 !important;
-          flex: 1 1 0 !important;
-          padding: 0 !important;
+          min-width: 0;
+          flex: 1 1 0;
+          padding: 0;
         }
 
         .MuiAutocomplete-tag,
         .rds-autocomplete__chip {
           flex-shrink: 1;
           min-width: 0;
-          max-width: var(--rds-product-tour-dim-3) !important;
+          max-width: var(--rds-product-tour-dim-3);
         }
 
         .rds-autocomplete__chip--overflow {
-          flex-shrink: 0 !important;
-          max-width: var(--rds-size-36) !important;
-          min-width: var(--rds-size-28) !important;
+          flex-shrink: 0;
+          max-width: var(--rds-size-36);
+          min-width: var(--rds-size-28);
           margin-right: var(--rds-spacing-xxs) ;
         }
       }

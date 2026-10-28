@@ -47,7 +47,7 @@
       max-height: 98vh;
       border-radius: var(--rds-spacing-xs);
       margin: 0 var(--rds-spacing-xs);
-    overflow: hidden !important;
+    overflow: hidden;
     }
   }
  
@@ -71,7 +71,7 @@
     padding-inline: var(--rds-spacing-sm);
 
     &--with-close {
-      padding-inline: var(--rds-spacing-sm) !important;
+      padding-inline: var(--rds-spacing-sm);
     }
 
     &--with-image {
@@ -117,7 +117,7 @@
     display: flex;
     justify-content: center;
       @media (max-width: var(--rds-modal-mobile-breakpoint)) {
-        overflow: hidden !important;
+        overflow: hidden;
       }
   }
 

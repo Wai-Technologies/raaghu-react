@@ -81,29 +81,29 @@
   }
 
   &:disabled:not(.rds-button__loading) {
-    background-color: var(--rds-button-primary-bg-disabled) !important;
-    color: var(--rds-button-primary-text-disabled) !important;
+    background-color: var(--rds-button-primary-bg-disabled);
+    color: var(--rds-button-primary-text-disabled);
     cursor: not-allowed;
-    border-color: var(--rds-border-light) !important;
+    border-color: var(--rds-border-light);
   }
 
   &__loading {
     pointer-events: none;
 
     &.Mui-disabled {
-      opacity: 1 !important;
+      opacity: 1;
     }
   }
 
   &:hover:not(:disabled):not(.rds-button--selected) {
     &.MuiButton-contained.MuiButton-colorPrimary,
     &.rds-button__primary.MuiButton-colorPrimary {
-      background-color: var(--rds-button-primary-bg-hover) !important;
+      background-color: var(--rds-button-primary-bg-hover);
       transform: translateY(-1px);
       box-shadow: var(--rds-elevation-2);
 
       &:hover {
-        background-color: var(--rds-button-primary-bg-hover) !important;
+        background-color: var(--rds-button-primary-bg-hover);
         transform: translateY(-1px);
         box-shadow: var(--rds-elevation-2);
       }
@@ -115,37 +115,37 @@
     }
 
     &.rds-button__secondary {
-      background-color: transparent !important;
-      color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
-      border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+      background-color: transparent;
+      color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
+      border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
       box-shadow: none;
 
       &:hover {
-        background-color: transparent !important;
-        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
-        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        background-color: transparent;
+        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
+        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
         box-shadow: none;
       }
     }
 
     &.MuiButton-outlined:not(.rds-button__secondary) {
-      background-color: transparent !important;
+      background-color: transparent;
       box-shadow: none;
 
       &:hover {
-        background-color: transparent !important;
+        background-color: transparent;
         box-shadow: none;
       }
     }
 
     &.MuiButton-text,
     &.rds-button__text {
-      background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+      background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover));
       box-shadow: none;
       transform: none;
 
       &:hover {
-        background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover)) !important;
+        background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover));
         box-shadow: none;
         transform: none;
       }
@@ -155,11 +155,11 @@
   &--selected {
     &.MuiButton-contained.MuiButton-colorPrimary,
     &.rds-button__primary.MuiButton-colorPrimary {
-      background-color: var(--rds-button-primary-bg-active) !important;
+      background-color: var(--rds-button-primary-bg-active);
       box-shadow: var(--rds-elevation-1);
 
       &:hover {
-        background-color: var(--rds-button-primary-bg-active) !important;
+        background-color: var(--rds-button-primary-bg-active);
       }
     }
 
@@ -168,70 +168,70 @@
     }
 
     &.rds-button__secondary {
-      background-color: transparent !important;
-      border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main))) !important;
-      color: var(--rds-button-secondary-text-active, var(--rds-primary-main)) !important;
+      background-color: transparent;
+      border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main)));
+      color: var(--rds-button-secondary-text-active, var(--rds-primary-main));
       box-shadow: none;
 
       &:hover {
-        background-color: transparent !important;
-        border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main))) !important;
-        color: var(--rds-button-secondary-text-active, var(--rds-primary-main)) !important;
+        background-color: transparent;
+        border-color: var(--rds-button-secondary-border-active, var(--rds-button-secondary-text-active, var(--rds-primary-main)));
+        color: var(--rds-button-secondary-text-active, var(--rds-primary-main));
       }
     }
 
     &.MuiButton-outlined:not(.rds-button__secondary) {
-      background-color: transparent !important;
+      background-color: transparent;
       box-shadow: none;
 
       &:hover {
-        background-color: transparent !important;
+        background-color: transparent;
       }
     }
 
     &.rds-button__text {
-      background-color: var(--rds-button-text-bg-active) !important;
-      color: var(--rds-button-text-color-active) !important;
+      background-color: var(--rds-button-text-bg-active);
+      color: var(--rds-button-text-color-active);
       box-shadow: none;
 
       &:hover {
-        background-color: var(--rds-button-text-bg-active) !important;
-        color: var(--rds-button-text-color-active) !important;
+        background-color: var(--rds-button-text-bg-active);
+        color: var(--rds-button-text-color-active);
       }
     }
 
     &.MuiButton-text:not(.rds-button__text) {
-      background-color: color-mix(in srgb, currentColor 12%, transparent) !important;
+      background-color: color-mix(in srgb, currentColor 12%, transparent);
       box-shadow: none;
 
       &:hover {
-        background-color: color-mix(in srgb, currentColor 12%, transparent) !important;
+        background-color: color-mix(in srgb, currentColor 12%, transparent);
       }
     }
   }
 
   &:disabled {
-    background-color: var(--rds-button-primary-bg-disabled) !important;
-    color: var(--rds-button-primary-text-disabled) !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
-    border-color: var(--rds-border-light) !important;
+    background-color: var(--rds-button-primary-bg-disabled);
+    color: var(--rds-button-primary-text-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+    border-color: var(--rds-border-light);
     
     &:hover {
-      background-color: var(--rds-button-primary-bg-disabled) !important;
-      transform: none !important;
-      box-shadow: var(--rds-elevation-0) !important;
+      background-color: var(--rds-button-primary-bg-disabled);
+      transform: none;
+      box-shadow: var(--rds-elevation-0);
     }
 
     &.MuiButton-outlined {
-      background-color: var(--rds-button-secondary-bg-disabled) !important;
-      border-color: var(--rds-button-secondary-border-disabled) !important;
-      color: var(--rds-button-secondary-text-disabled) !important;
+      background-color: var(--rds-button-secondary-bg-disabled);
+      border-color: var(--rds-button-secondary-border-disabled);
+      color: var(--rds-button-secondary-text-disabled);
     }
 
     &.MuiButton-text {
-      background-color: transparent !important;
-      color: var(--rds-button-text-color-disabled) !important;
+      background-color: transparent;
+      color: var(--rds-button-text-color-disabled);
     }
   }
 
@@ -277,6 +277,6 @@
 [data-theme="dark"] {
   .rds-button.MuiButton-contained,
   .rds-button.rds-button__primary {
-    color: var(--rds-neutral-0) !important;
+    color: var(--rds-neutral-0);
   }
 }

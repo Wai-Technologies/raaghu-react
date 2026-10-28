@@ -117,17 +117,17 @@
 
   @include bp.between(420, 834) {
     &__block {
-      width: var(--rds-progress-dim-5) !important;
-      height: var(--rds-progress-dim-3) !important;
-      font-size: var(--rds-font-size-md) !important;
+      width: var(--rds-progress-dim-5);
+      height: var(--rds-progress-dim-3);
+      font-size: var(--rds-font-size-md);
     }
   }
 
   @include bp.between(mobile-sm, mobile-lg) {
     &__block {
-      width: var(--rds-progress-dim-4) !important;
-      height: var(--rds-progress-dim-3) !important;
-      font-size: var(--rds-font-size-sm) !important;
+      width: var(--rds-progress-dim-4);
+      height: var(--rds-progress-dim-3);
+      font-size: var(--rds-font-size-sm);
     }
   }
 
@@ -179,23 +179,23 @@
 
     @include bp.between(420, 834) {
       &-step {
-        width: var(--rds-progress-step-size-mobile) !important;
-        height: var(--rds-progress-step-size-mobile) !important;
+        width: var(--rds-progress-step-size-mobile);
+        height: var(--rds-progress-step-size-mobile);
       }
 
       &--stepper {
-        width: 100% !important;
+        width: 100%;
       }
     }
 
     @include bp.between(mobile-sm, mobile-lg) {
       &-step {
-        width: var(--rds-progress-step-size-mobile) !important;
-        height: var(--rds-progress-step-size-mobile) !important;
+        width: var(--rds-progress-step-size-mobile);
+        height: var(--rds-progress-step-size-mobile);
       }
 
       &-connector {
-        width: var(--rds-progress-connector-width-mobile) !important;
+        width: var(--rds-progress-connector-width-mobile);
       }
     }
 

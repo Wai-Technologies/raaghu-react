@@ -26,7 +26,7 @@
 .rds-profile-menu__button.MuiIconButton-root:active,
 .rds-profile-menu__button.MuiIconButton-root:focus,
 .rds-profile-menu__button.MuiIconButton-root.Mui-focusVisible {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 .rds-profile-menu__button .MuiTouchRipple-root {
@@ -47,10 +47,10 @@
 }
 
 .rds-profile-menu__avatar {
-  width: var(--rds-profile-menu-avatar-size) !important;
-  height: var(--rds-profile-menu-avatar-size) !important;
-  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt)) !important;
-  color: var(--rds-color-avatar-fg, var(--rds-primary-main)) !important;
+  width: var(--rds-profile-menu-avatar-size);
+  height: var(--rds-profile-menu-avatar-size);
+  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt));
+  color: var(--rds-color-avatar-fg, var(--rds-primary-main));
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-body);
 }
@@ -93,11 +93,11 @@
 }
 
 .rds-profile-menu__avatar-lg {
-  width: var(--rds-profile-menu-avatar-size-lg) !important;
-  height: var(--rds-profile-menu-avatar-size-lg) !important;
+  width: var(--rds-profile-menu-avatar-size-lg);
+  height: var(--rds-profile-menu-avatar-size-lg);
   margin-right: var(--rds-spacing-md);
-  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt)) !important;
-  color: var(--rds-color-avatar-fg, var(--rds-primary-main)) !important;
+  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt));
+  color: var(--rds-color-avatar-fg, var(--rds-primary-main));
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-lg);
 }
@@ -116,9 +116,9 @@
 }
 
 .rds-profile-menu__item {
-  font-size: var(--rds-font-size-base) !important;
+  font-size: var(--rds-font-size-base);
 }
 
 .rds-profile-menu__item--last {
-  border-radius: 0 0 var(--rds-border-radius-lg) var(--rds-border-radius-lg) !important;
+  border-radius: 0 0 var(--rds-border-radius-lg) var(--rds-border-radius-lg);
 }

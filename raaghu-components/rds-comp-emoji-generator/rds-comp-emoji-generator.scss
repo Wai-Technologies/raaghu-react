@@ -150,7 +150,7 @@
     }
   }
 
-  /* G5-038/040: border/shadow via BEM + aria-pressed; beat MUI without !important */
+  /* G5-038/040: border/shadow via BEM + aria-pressed; beat MUI without */
   &__skin-tone-option.MuiIconButton-root {
     width: var(--rds-emoji-skin-tone-size);
     height: var(--rds-emoji-skin-tone-size);

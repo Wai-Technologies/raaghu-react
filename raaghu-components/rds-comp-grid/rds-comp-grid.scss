@@ -495,8 +495,8 @@
   th.MuiTableCell-head,
   [role='columnheader'],
   .rds-comp-grid__header-cell {
-    background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
-    color: var(--rds-grid-text) !important;
+    background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
+    color: var(--rds-grid-text);
   }
 
   .rds-comp-grid-toolbar,
@@ -513,9 +513,9 @@
   div[class*='toolbar'],
   div[class*='header-controls'],
   div[class*='grid-controls'] {
-    background-color: var(--rds-grid-bg-alt) !important;
-    color: var(--rds-grid-text) !important;
-    border-bottom-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg-alt);
+    color: var(--rds-grid-text);
+    border-bottom-color: var(--rds-grid-border-soft);
   }
 
   input.rds-comp-grid__search-input,
@@ -534,12 +534,12 @@
   [type='search'],
   div[class*='search'] input,
   .search-input {
-    background-color: var(--rds-grid-bg) !important;
-    color: var(--rds-grid-text) !important;
-    border-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg);
+    color: var(--rds-grid-text);
+    border-color: var(--rds-grid-border-soft);
 
     &::placeholder {
-      color: var(--rds-grid-text-subtle) !important;
+      color: var(--rds-grid-text-subtle);
       opacity: 0.7;
     }
   }
@@ -557,12 +557,12 @@
   div[class*='toolbar'] button,
   div[class*='header'] button,
   div[class*='controls'] button {
-    background-color: var(--rds-grid-bg) !important;
-    color: var(--rds-grid-text) !important;
-    border-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg);
+    color: var(--rds-grid-text);
+    border-color: var(--rds-grid-border-soft);
 
     &:hover {
-      background-color: var(--rds-grid-row-hover) !important;
+      background-color: var(--rds-grid-row-hover);
     }
 
     svg,
@@ -570,8 +570,8 @@
     .MuiButton-label,
     .MuiButton-startIcon,
     .MuiButton-endIcon {
-      fill: var(--rds-grid-text) !important;
-      color: var(--rds-grid-text) !important;
+      fill: var(--rds-grid-text);
+      color: var(--rds-grid-text);
     }
   }
 
@@ -582,7 +582,7 @@
   .rds-comp-grid-cell-text,
   .rds-comp-grid-header-title,
   .rds-comp-grid-title {
-    color: var(--rds-grid-text) !important;
+    color: var(--rds-grid-text);
   }
 
   .rds-comp-grid__btn,
@@ -611,15 +611,15 @@
   .rds-comp-grid__table,
   .rds-comp-grid table,
   .rds-comp-grid-table {
-    background-color: var(--rds-grid-bg-alt) !important;
-    color: var(--rds-grid-text) !important;
+    background-color: var(--rds-grid-bg-alt);
+    color: var(--rds-grid-text);
 
     .fui-DataGridHeader,
     thead,
     tr:first-child,
     .rds-comp-grid-header-row {
-      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
-      color: var(--rds-grid-text) !important;
+      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
+      color: var(--rds-grid-text);
     }
 
     .fui-DataGridHeaderCell,
@@ -627,10 +627,10 @@
     .rds-comp-grid-header-cell,
     th.MuiTableCell-head,
     [role='columnheader'] {
-      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
-      color: var(--rds-grid-text) !important;
-      border-bottom-color: var(--rds-grid-border-soft) !important;
-      border-right-color: var(--rds-grid-border-soft) !important;
+      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
+      color: var(--rds-grid-text);
+      border-bottom-color: var(--rds-grid-border-soft);
+      border-right-color: var(--rds-grid-border-soft);
       font-weight: var(--rds-font-weight-semibold, 600);
     }
 
@@ -650,7 +650,7 @@
       &--selected,
       &.selected,
       &.Mui-selected {
-        background-color: var(--rds-grid-row-selected) !important;
+        background-color: var(--rds-grid-row-selected);
       }
     }
 
@@ -732,8 +732,8 @@
   }
 
   svg {
-    fill: var(--rds-grid-text) !important;
-    color: var(--rds-grid-text) !important;
+    fill: var(--rds-grid-text);
+    color: var(--rds-grid-text);
   }
 }
 
@@ -988,8 +988,8 @@
   color: var(--rds-grid-text-subtle);
 
   &-active {
-    background-color: var(--colorBrandBackground, var(--rds-primary-main)) !important;
-    color: var(--rds-neutral-0) !important;
+    background-color: var(--colorBrandBackground, var(--rds-primary-main));
+    color: var(--rds-neutral-0);
   }
 }
 
@@ -1043,7 +1043,7 @@
   background-color: var(--rds-grid-bg-alt);
 
   &-active {
-    background-color: var(--colorBrandBackground, var(--rds-primary-main)) !important;
+    background-color: var(--colorBrandBackground, var(--rds-primary-main));
     color: var(--rds-neutral-0);
 
     .rds-comp-grid-filter-label {

@@ -24,25 +24,25 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
   .MuiBottomNavigationAction-root {
     // Equal columns across the full bar — override MUI maxWidth: 168px
     // which otherwise leaves empty space on the right at mid/large widths.
-    flex: 1 1 0 !important;
-    min-width: 0 !important;
-    max-width: none !important;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
     padding: var(--rds-bottom-navigation-action-padding-y)
-      var(--rds-bottom-navigation-action-padding-x) !important;
+      var(--rds-bottom-navigation-action-padding-x);
 
     .MuiBottomNavigationAction-label {
-      font-size: var(--rds-bottom-navigation-label-font-size) !important;
-      margin-top: var(--rds-bottom-navigation-label-margin-top) !important;
-      line-height: var(--rds-bottom-navigation-label-line-height, 1.2) !important;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
-      max-width: 100% !important;
+      font-size: var(--rds-bottom-navigation-label-font-size);
+      margin-top: var(--rds-bottom-navigation-label-margin-top);
+      line-height: var(--rds-bottom-navigation-label-line-height, 1.2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
       width: 100%;
     }
 
     .MuiSvgIcon-root {
-      font-size: var(--rds-bottom-navigation-icon-size) !important;
+      font-size: var(--rds-bottom-navigation-icon-size);
     }
   }
 
@@ -60,14 +60,14 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
 
   @media (max-width: $rds-bottom-navigation-mobile-breakpoint) {
     .MuiBottomNavigationAction-root {
-      padding: var(--rds-bottom-navigation-action-padding-y) var(--rds-spacing-xs) !important;
+      padding: var(--rds-bottom-navigation-action-padding-y) var(--rds-spacing-xs);
 
       .MuiBottomNavigationAction-label {
-        font-size: 0.7rem !important;
+        font-size: 0.7rem;
       }
 
       .MuiSvgIcon-root {
-        font-size: 1.4rem !important;
+        font-size: 1.4rem;
       }
     }
   }

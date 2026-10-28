@@ -21,7 +21,7 @@
     .MuiFormControlLabel-label {
       font-size: var(--rds-font-size-body);
       line-height: var(--rds-line-height-body, 1.5);
-      color: var(--rds-text-secondary) !important;
+      color: var(--rds-text-secondary);
     }
 
     &--icon {
@@ -60,7 +60,7 @@
     cursor: pointer;
     
     &--disabled {
-      color: var(--rds-text-disabled, var(--rds-color-text-disabled)) !important;
+      color: var(--rds-text-disabled, var(--rds-color-text-disabled));
       cursor: not-allowed;
     }
   }
@@ -74,8 +74,8 @@
     min-height: auto;
 
     .MuiRadio-root {
-      margin: 0 !important;
-      padding: var(--rds-spacing-xs) !important;
+      margin: 0;
+      padding: var(--rds-spacing-xs);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -150,12 +150,12 @@
   }
 
   .MuiFormLabel-root {
-    color: var(--rds-text-secondary) !important;
+    color: var(--rds-text-secondary);
   }
 
   .MuiButtonBase-root.MuiRadio-root.Mui-checked,
   .MuiRadio-root.Mui-checked {
-    color: var(--rds-primary-main) !important;
+    color: var(--rds-primary-main);
   }
 
   .MuiRadio-root:hover {
@@ -172,7 +172,7 @@
   }
 
   .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
-    color: var(--rds-text-disabled) !important;
+    color: var(--rds-text-disabled);
   }
 
 }
@@ -181,19 +181,19 @@
   .MuiFormControlLabel-label {
     font-size: var(--rds-font-size-body);
     line-height: var(--rds-line-height-body, 1.5);
-    color: var(--rds-color-light) !important;
+    color: var(--rds-color-light);
   }
    .MuiFormLabel-root {
-    color: var(--rds-color-light) !important;
+    color: var(--rds-color-light);
   }
   
   .MuiRadio-root.Mui-checked,
   .MuiButtonBase-root.MuiRadio-root.Mui-checked {
-    color: var(--rds-primary-main) !important;
+    color: var(--rds-primary-main);
     
     svg {
-      color: var(--rds-primary-main) !important;
-      fill: var(--rds-primary-main) !important;
+      color: var(--rds-primary-main);
+      fill: var(--rds-primary-main);
     }
   }
 }

@@ -14,7 +14,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: var(--rds-background-paper) !important;
+  background-color: var(--rds-background-paper);
   box-shadow: var(--rds-list-shadow-surface, var(--rds-shadow-2));
   border-radius: var(--rds-border-radius-md);
   border: none;
@@ -94,7 +94,7 @@
     font-size: var(--rds-font-size-icon-md);
     color: var(--rds-text-secondary);
     flex-shrink: 0;
-    min-width: var(--rds-size-36) !important;
+    min-width: var(--rds-size-36);
     margin-right: var(--rds-spacing-xs);
   }
 
@@ -204,7 +204,7 @@
   &--nested {
     box-shadow: none;
     border-radius: 0;
-    background-color: transparent !important;
+    background-color: transparent;
   }
  }
 
@@ -212,7 +212,7 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  background-color: var(--rds-background-paper) !important;
+  background-color: var(--rds-background-paper);
 }
 
 .rds-list__item .MuiListItemButton-root {

@@ -109,10 +109,10 @@
       justify-content: center;
       align-items: center;
       padding: 0 var(--rds-spacing-3);
-      color: var(--rds-color-primary, var(--rds-primary-main)) !important;
-      background: transparent !important;
+      color: var(--rds-color-primary, var(--rds-primary-main));
+      background: transparent;
       border-radius: var(--rds-border-radius-md);
-      border: var(--rds-border-width-thin) solid var(--rds-color-primary, var(--rds-primary-main)) !important;
+      border: var(--rds-border-width-thin) solid var(--rds-color-primary, var(--rds-primary-main));
       box-shadow: none;
       box-sizing: border-box;
       font-family: var(--rds-font-family-base);
@@ -125,9 +125,9 @@
 
       &:hover,
       &:focus-visible {
-        background: transparent !important;
-        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
-        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        background: transparent;
+        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
+        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
       }
     }
 
@@ -147,8 +147,8 @@
       margin-top: var(--rds-spacing-sm);
       font-size: var(--rds-font-size-md);
       line-height: var(--rds-dialog-action-button-height);
-      font-weight: var(--rds-font-weight-regular, 400) !important;
-      font-size: var(--rds-font-size-xs) !important;
+      font-weight: var(--rds-font-weight-regular, 400);
+      font-size: var(--rds-font-size-xs);
       margin-left: 0;
     }
 
@@ -162,9 +162,9 @@
 
     // Responsive: fit inside small mobile screens (≤320px)
     @media (max-width: 360px) {
-      width: calc(100vw - var(--rds-size-xl)) !important;
-      min-width: unset !important;
-      max-width: calc(100vw - var(--rds-size-xl)) !important;
+      width: calc(100vw - var(--rds-size-xl));
+      min-width: unset;
+      max-width: calc(100vw - var(--rds-size-xl));
       padding: var(--rds-spacing-md);
 
       .rds-dialog__content p,
@@ -212,7 +212,7 @@
     }
 
     &__primary {
-      background: var(--rds-primary-main, var(--rds-color-primary)) !important;
+      background: var(--rds-primary-main, var(--rds-color-primary));
       color: var(--rds-primary-contrast-text);
       box-shadow: none;
 
@@ -232,22 +232,22 @@
     }
 
     &__dismiss {
-      color: var(--rds-color-primary, var(--rds-primary-main)) !important;
-      background: transparent !important;
-      border: var(--rds-border-width-thin) solid var(--rds-color-primary, var(--rds-primary-main)) !important;
-      box-shadow: none !important;
+      color: var(--rds-color-primary, var(--rds-primary-main));
+      background: transparent;
+      border: var(--rds-border-width-thin) solid var(--rds-color-primary, var(--rds-primary-main));
+      box-shadow: none;
 
       &:hover,
       &:focus-visible {
-        background: transparent !important;
-        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
-        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main)) !important;
+        background: transparent;
+        color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
+        border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
       }
 
       &:active {
-        background: transparent !important;
-        color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main))) !important;
-        border-color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main))) !important;
+        background: transparent;
+        color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main)));
+        border-color: var(--rds-button-primary-bg-active, var(--rds-primary-dark, var(--rds-primary-main)));
       }
     }
   }
@@ -272,14 +272,14 @@
 // Ensure the MUI Dialog paper doesn't overflow small mobile viewports
 @media (max-width: 360px) {
   .MuiDialog-paper {
-    margin: var(--rds-spacing-md) !important;
-    max-height: calc(100% - var(--rds-size-xl)) !important;
+    margin: var(--rds-spacing-md);
+    max-height: calc(100% - var(--rds-size-xl));
   }
 
   .MuiDialog-paperWidthXs:has(.rds-dialog__content svg) {
-    width: calc(100vw - var(--rds-size-xl)) !important;
-    min-width: unset !important;
-    max-width: calc(100vw - var(--rds-size-xl)) !important;
+    width: calc(100vw - var(--rds-size-xl));
+    min-width: unset;
+    max-width: calc(100vw - var(--rds-size-xl));
   }
 }
 

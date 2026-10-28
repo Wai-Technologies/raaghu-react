@@ -63,8 +63,63 @@
   border: none;
   position: relative;
 
+  /* App-shell / right-nav: flush layout without ID-scoped overrides */
+  &--flush {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-left: 0;
+    align-items: stretch;
+    align-self: stretch;
+
+    .rds-comp-details-pane__toolbar-buttons-row,
+    .rds-comp-details-pane__toolbar-buttons-row--scrollable {
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      margin: 0;
+    }
+
+    .detail-pane-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &--flush-toolbar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--rds-spacing-xs) * 1.25);
+    margin-left: 0;
+    overflow: hidden;
+    align-items: stretch;
+    align-self: stretch;
+
+    .rds-comp-details-pane__toolbar-buttons-row,
+    .rds-comp-details-pane__toolbar-buttons-row--scrollable {
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      margin: 0;
+    }
+
+    .detail-pane-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .custom-content-wrapper {
+      overflow: hidden;
+    }
+  }
+
   &__header {
-    margin-left: var(--rds-details-pane-header-margin-left) !important;
+    margin-left: var(--rds-details-pane-header-margin-left);
     margin: 0;
     color: var(--rds-color-on-surface);
     font-size: var(--rds-font-size-md);
@@ -110,13 +165,13 @@
 
   &__search-field {
     .MuiOutlinedInput-notchedOutline {
-      border-color: transparent !important;
+      border-color: transparent;
     }
     
     .MuiInputBase-input {
-      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
-      font-size: var(--rds-font-size-sm) !important;
-      color: var(--rds-color-text-secondary) !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+      font-size: var(--rds-font-size-sm);
+      color: var(--rds-color-text-secondary);
       
       &::placeholder {
         color: var(--rds-color-text-placeholder);
@@ -139,11 +194,11 @@
       .MuiInputBase-root {
         height: var(--rds-input-height-md);
         background-color: var(--rds-color-background-light);
-        border: var(--rds-border-width-thin) solid transparent !important;
-        border-radius: var(--rds-border-radius-md) !important;
+        border: var(--rds-border-width-thin) solid transparent;
+        border-radius: var(--rds-border-radius-md);
         
         &:hover {
-          border: var(--rds-border-width-thin) solid var(--rds-color-border-hover) !important;
+          border: var(--rds-border-width-thin) solid var(--rds-color-border-hover);
         }                
       }
     }
@@ -152,8 +207,8 @@
       &.MuiFormControl-root {
         .MuiInputBase-root {
           height: var(--rds-input-height-md);
-          border: var(--rds-border-width-thin) solid var(--rds-color-border) !important;
-          border-radius: var(--rds-border-radius-sm) !important;
+          border: var(--rds-border-width-thin) solid var(--rds-color-border);
+          border-radius: var(--rds-border-radius-sm);
           
           .MuiInputAdornment-root {
             margin: 0;
@@ -170,9 +225,9 @@
           }
           
           .MuiInputBase-input {
-            padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
-            font-size: var(--rds-font-size-sm) !important;
-            color: var(--rds-color-text-primary) !important;
+            padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+            font-size: var(--rds-font-size-sm);
+            color: var(--rds-color-text-primary);
             
             &::placeholder {
               color: var(--rds-color-text-tertiary);
@@ -561,16 +616,16 @@
     }
 
     .rds-checkbox .MuiCheckbox-root {
-      padding: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      min-width: 0 !important;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
       box-sizing: border-box;
-      background: transparent !important;
+      background: transparent;
     }
 
     .rds-checkbox .MuiFormControlLabel-root {
-      margin: 0 !important;
+      margin: 0;
       display: inline-flex;
       align-items: center;
     }
@@ -631,7 +686,7 @@
   }
   
   &__carousel-indicators-default {
-    top: var(--rds-carousel-indicators-top) !important;
+    top: var(--rds-carousel-indicators-top);
   }
   
   &__detail-pane-container {
@@ -900,17 +955,17 @@
 
     &--selected,
     &[aria-pressed='true'] {
-      background: var(--rds-color-primary) !important;
-      border-color: var(--rds-color-primary) !important;
-      color: var(--rds-color-on-primary) !important;
+      background: var(--rds-color-primary);
+      border-color: var(--rds-color-primary);
+      color: var(--rds-color-on-primary);
 
       &:hover,
       &:focus,
       &:focus-visible,
       &:active {
-        background: var(--rds-color-primary) !important;
-        border-color: var(--rds-color-primary) !important;
-        color: var(--rds-color-on-primary) !important;
+        background: var(--rds-color-primary);
+        border-color: var(--rds-color-primary);
+        color: var(--rds-color-on-primary);
         outline: none;
       }
     }
@@ -1205,15 +1260,15 @@
 
     .rds-accordion.rds-accordion--medium .rds-accordion__details,
     .rds-accordion__details {
-      padding: 0 !important;
+      padding: 0;
     }
 
     .rds-accordion__details .rds-accordion__details-panel,
     .rds-accordion__details-panel {
-      margin: var(--rds-spacing-xxs) 0 var(--rds-spacing-xs) !important;
-      padding: 0 !important;
-      min-height: 0 !important;
-      align-items: stretch !important;
+      margin: var(--rds-spacing-xxs) 0 var(--rds-spacing-xs);
+      padding: 0;
+      min-height: 0;
+      align-items: stretch;
       overflow: hidden;
     }
 
@@ -1223,9 +1278,9 @@
     }
 
     .rds-comp-details-pane__thumbnail-img-square {
-      width: 100% !important;
-      height: var(--rds-details-pane-dim-15) !important;
-      object-fit: cover !important;
+      width: 100%;
+      height: var(--rds-details-pane-dim-15);
+      object-fit: cover;
       display: block;
       border-radius: var(--rds-border-radius-xs);
     }
@@ -1271,20 +1326,20 @@
   &__icon-history { color: var(--rds-text-disabled); }
 
   &__icon-delete {
-    height: var(--rds-details-pane-dim-5) !important;
-    width: var(--rds-details-pane-dim-5) !important;
+    height: var(--rds-details-pane-dim-5);
+    width: var(--rds-details-pane-dim-5);
     cursor: pointer;
   }
 
   &__icon-edit {
-    width: var(--rds-details-pane-dim-6) !important;
-    height: var(--rds-details-pane-dim-6) !important;
-    color: var(--rds-text-secondary) !important;
+    width: var(--rds-details-pane-dim-6);
+    height: var(--rds-details-pane-dim-6);
+    color: var(--rds-text-secondary);
   }
 
   &__icon-star {
-    width: var(--rds-details-pane-dim-7) !important;
-    height: var(--rds-details-pane-dim-4) !important;
+    width: var(--rds-details-pane-dim-7);
+    height: var(--rds-details-pane-dim-4);
   }
 
   &__palette-grid {
@@ -1334,13 +1389,13 @@
     overflow-x: hidden; 
     &__header {
       
-      margin-left: var(--rds-spacing-sm) !important;
+      margin-left: var(--rds-spacing-sm);
       font-size: var(--rds-font-size-sm);
       padding: var(--rds-spacing-sm) 0;
     }
     .rds-carousel--default, .rds-carousel--with-title {
-      margin: 0 var(--rds-carousel-mobile-margin-right) 0 0 !important;
-      height: var(--rds-carousel-mobile-height) !important;
+      margin: 0 var(--rds-carousel-mobile-margin-right) 0 0;
+      height: var(--rds-carousel-mobile-height);
     }
     &__title {
       font-size: var(--rds-font-size-md);
@@ -1358,8 +1413,8 @@
     
     &__search-field {
       .MuiInputBase-input {
-        padding: var(--rds-spacing-xxs) var(--rds-spacing-xs) !important;
-        font-size: var(--rds-font-size-xs) !important;
+        padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
+        font-size: var(--rds-font-size-xs);
       }
       
       &.MuiFormControl-root {
@@ -1381,8 +1436,8 @@
             }
             
             .MuiInputBase-input {
-              padding: var(--rds-spacing-xxs) var(--rds-spacing-xs) !important;
-              font-size: var(--rds-font-size-xs) !important;
+              padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
+              font-size: var(--rds-font-size-xs);
             }
           }
         }
@@ -1714,13 +1769,13 @@
   }
 
   html, body {
-    -ms-overflow-style: none !important;
-    scrollbar-width: none !important; 
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
   }  
   html::-webkit-scrollbar, body::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
+    display: none;
+    width: 0;
+    height: 0;
   }
 
 }
@@ -1743,7 +1798,7 @@
   }
 }
 @media screen and (min-width: 420px) {
-  .rds-comp-details-pane {
+  .rds-comp-details-pane:not(.rds-comp-details-pane--flush):not(.rds-comp-details-pane--flush-toolbar) {
     margin-left: var(--rds-spacing-25);
   }
 } 
@@ -1808,21 +1863,21 @@ html.rds-theme--dark .rds-comp-details-pane {
 
   .rds-comp-details-pane__search-field.MuiFormControl-root .MuiInputBase-root,
   .rds-comp-details-pane .MuiInputBase-root {
-    background-color: var(--rds-color-surface-dark) !important;
-    border: var(--rds-border-width-thin) solid var(--rds-border-default, rgba(255, 255, 255, 0.24)) !important;
-    color: var(--rds-color-on-surface) !important;
+    background-color: var(--rds-color-surface-dark);
+    border: var(--rds-border-width-thin) solid var(--rds-border-default, rgba(255, 255, 255, 0.24));
+    color: var(--rds-color-on-surface);
 
     .MuiInputBase-input {
-      color: var(--rds-color-on-surface) !important;
+      color: var(--rds-color-on-surface);
 
       &::placeholder {
-        color: var(--rds-color-text-placeholder) !important;
+        color: var(--rds-color-text-placeholder);
         opacity: 1;
       }
     }
 
     .MuiInputAdornment-root svg {
-      color: var(--rds-color-text-placeholder) !important;
+      color: var(--rds-color-text-placeholder);
     }
   }
 
@@ -1845,5 +1900,5 @@ html.rds-theme--dark .rds-comp-details-pane {
 }
 
   .css-97gwpj-MuiButtonBase-root-MuiButton-root{
-  padding: var(--rds-spacing-0) var(--rds-spacing-compact) !important;
+  padding: var(--rds-spacing-0) var(--rds-spacing-compact);
 }

@@ -186,8 +186,12 @@ allowlisted). Remaining gated debt (Phase A — see
   (`lint:local-dim-px`); ~277 map to existing spacing/size tokens, ~295 keep
   as semantic locals
 
+**Phase B (cascade):** `!important` gated by `important-baseline.txt` = **0**
+(`lint:important`). Prefer theme `styleOverrides` / `sx` / scoped BEM —
+see override hierarchy in `docs/CSS_ARCHITECTURE.md`.
+
 New components must use `var(--rds-*)` — no hex, no raw `rgb()`/`rgba()`, and
-no new numbered `--rds-*-dim-N` locals with bare lengths.
+no new numbered `--rds-*-dim-N` locals with bare lengths. No new `!important`.
 
 ---
 

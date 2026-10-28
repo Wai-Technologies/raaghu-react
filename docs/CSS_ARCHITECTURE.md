@@ -180,6 +180,28 @@ See `docs/THEME_INTEGRATION_COMPLETE.md` for current baselines and inventory.
 
 ---
 
+## Override hierarchy (Phase B — cascade)
+
+When restyling MUI or third-party widgets, use this order. Do **not** jump to
+`!important`.
+
+1. **Theme channel** — `raaghu-react-themes/src/mui/overrides.ts`
+   `components.*.styleOverrides` / `variants` (Emotion injects correctly).
+   Prefer this when BEM modifiers live on the MUI root (`className` includes
+   `rds-switch--style1`, etc.).
+2. **One-offs** — `sx` / `slotProps` on the instance (avatar size, drawer paper).
+3. **Scoped SCSS** — `.rds-{component} …` without `!important`. Rely on BEM
+   specificity (e.g. `.rds-tabs--pill .MuiTab-root.Mui-selected`) over raw
+   `.Mui-*` theme defaults.
+4. **`!important` escape hatch** — only for documented third-party CSS that
+   cannot be omitted or layered. Baseline is **0** — do not raise
+   `scripts/important-baseline.txt` (`npm run lint:important`).
+
+Phase B is independent of Phase A token work — a themed `var(--rds-*)` under
+`!important` elsewhere can still clobber or be clobbered unpredictably.
+
+---
+
 ## SCSS Conventions
 
 - **Max nesting depth:** 3 levels
@@ -188,4 +210,5 @@ See `docs/THEME_INTEGRATION_COMPLETE.md` for current baselines and inventory.
 - **No hardcoded pixel spacing** for theme-sensitive values — use spacing tokens
 - **Local length tokens:** allowed for true one-offs; prefer central
   `--rds-spacing-*` / `--rds-size-*` on exact match; no new numbered `dim-N` names
+- **No new `!important`** — follow the override hierarchy; CI baseline ratchet
 - **Comments:** only when the WHY is non-obvious (workarounds, known browser bugs)

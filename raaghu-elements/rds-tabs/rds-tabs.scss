@@ -13,7 +13,7 @@
   &.Mui-selected {
     border-left: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-primary, var(--rds-primary-main));
-      border-radius: unset !important;
+      border-radius: unset;
   }
 }
 .rds-tabs--line-bottom .MuiTab-root {
@@ -21,25 +21,25 @@
   &.Mui-selected {
     border-bottom: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-primary, var(--rds-primary-main));
-      border-radius: unset !important;
+      border-radius: unset;
   }
 }
 .rds-tabs--line-bottom-solid .MuiTab-root {
   border-bottom: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
     border-bottom: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
-    color: var(--rds-color-accent) !important; // Use accent token
-    border-radius: unset !important;
-    background: var(--rds-color-accent-bg) !important; // Use accent bg token
+    color: var(--rds-color-accent); // Use accent token
+    border-radius: unset;
+    background: var(--rds-color-accent-bg); // Use accent bg token
   }
 }
 .rds-tabs--line-left-solid .MuiTab-root {
   border-left: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
     border-left: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
-    color: var(--rds-color-accent) !important;
-    border-radius: unset !important;
-    background: var(--rds-color-accent-bg) !important;
+    color: var(--rds-color-accent);
+    border-radius: unset;
+    background: var(--rds-color-accent-bg);
   }
 }
 
@@ -48,7 +48,7 @@
   &.Mui-selected {
     border-right: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-primary, var(--rds-primary-main));
-    border-radius: unset !important;
+    border-radius: unset;
   }
 }
 
@@ -56,9 +56,9 @@
   border-right: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
     border-right: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
-    color: var(--rds-color-accent) !important;
-    border-radius: unset !important;
-    background: var(--rds-color-accent-bg) !important;
+    color: var(--rds-color-accent);
+    border-radius: unset;
+    background: var(--rds-color-accent-bg);
   }
 }
 
@@ -67,7 +67,7 @@
   &.Mui-selected {
     border-top: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
     color: var(--rds-color-primary, var(--rds-primary-main));
-      border-radius: unset !important;
+      border-radius: unset;
   }
 }
 
@@ -75,24 +75,24 @@
   border-top: var(--rds-border-width-thick) solid transparent;
   &.Mui-selected {
     border-top: var(--rds-border-width-thick) solid var(--rds-color-primary, var(--rds-primary-main));
-    color: var(--rds-color-accent) !important;
-    border-radius: unset !important;
-    background: var(--rds-color-accent-bg) !important;
+    color: var(--rds-color-accent);
+    border-radius: unset;
+    background: var(--rds-color-accent-bg);
   }
 }
 
 .rds-tabs--pill .MuiTab-root {
-  border-radius: var(--rds-tabs-pill-radius) !important;
+  border-radius: var(--rds-tabs-pill-radius);
   margin: 0 var(--rds-spacing-xs);
   &.Mui-selected {
-    border-radius: var(--rds-tabs-pill-radius) !important;
-    background: var(--rds-color-primary) !important;
-    color: var(--rds-color-on-primary) !important;
+    border-radius: var(--rds-tabs-pill-radius);
+    background: var(--rds-color-primary);
+    color: var(--rds-color-on-primary);
   }
 }
 .rds-tabs--pill .MuiTab-root:hover {
   &.Mui-selected {
-     border-radius: var(--rds-tabs-pill-radius) !important;
+     border-radius: var(--rds-tabs-pill-radius);
   }
 }
 
@@ -116,18 +116,18 @@
   --rds-tabs-mobile-font-size: var(--rds-font-size-sm);
   
   &--flap {
-    overflow: visible !important;
+    overflow: visible;
     
     .MuiTabs-root {
-      overflow: visible !important;
+      overflow: visible;
     }
     
     .MuiTabs-scroller {
-      overflow: visible !important;
+      overflow: visible;
     }
     
     .MuiTabPanel-root {
-      overflow: visible !important;
+      overflow: visible;
     }
   }
 
@@ -139,19 +139,19 @@
 }
 
 .rds-tabs--filled .Mui-selected {
-  background: var(--rds-color-accent) !important;
-  color: var(--rds-color-on-accent) !important;
-  border-radius: var(--rds-tabs-corner-radius) var(--rds-tabs-corner-radius) 0 0 !important;
-  border: unset !important;
+  background: var(--rds-color-accent);
+  color: var(--rds-color-on-accent);
+  border-radius: var(--rds-tabs-corner-radius) var(--rds-tabs-corner-radius) 0 0;
+  border: unset;
 }
 
 .rds-tabs--flap .Mui-selected {
-  background: var(--rds-color-accent) !important;
-  color: var(--rds-color-on-accent) !important;
-  border-radius: var(--rds-tabs-corner-radius) var(--rds-tabs-corner-radius) 0 0 !important;
-  border: unset !important;
-  position: relative !important;
-  z-index: var(--rds-z-index-sticky, 1100) !important;
+  background: var(--rds-color-accent);
+  color: var(--rds-color-on-accent);
+  border-radius: var(--rds-tabs-corner-radius) var(--rds-tabs-corner-radius) 0 0;
+  border: unset;
+  position: relative;
+  z-index: var(--rds-z-index-sticky, 1100);
 }
 
 .rds-tabs--flap .Mui-selected::after {
@@ -169,68 +169,68 @@
 }
 
 .rds-tabs--flap .Mui-selected:hover::after {
-  border-top-color: var(--rds-color-hover-bg) !important;
+  border-top-color: var(--rds-color-hover-bg);
 }
 
 .rds-tabs .MuiTabs-root {
-  overflow: visible !important;
+  overflow: visible;
 }
 
 .rds-tabs .MuiTabs-indicator {
-  display: none !important;
-  background-color: transparent !important;
+  display: none;
+  background-color: transparent;
 }
 
 .rds-tabs .MuiTab-root {
-  position: relative !important;
-  overflow: visible !important;
-  max-width: var(--rds-tabs-tab-max-width) !important;
-  min-width: var(--rds-tabs-tab-min-width) !important;
-  width: var(--rds-tabs-tab-max-width) !important;
+  position: relative;
+  overflow: visible;
+  max-width: var(--rds-tabs-tab-max-width);
+  min-width: var(--rds-tabs-tab-min-width);
+  width: var(--rds-tabs-tab-max-width);
 }
 
 .rds-tabs .MuiTabs-scroller {
-  overflow: visible !important;
+  overflow: visible;
 }
 
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
-  content: "" !important;
-  position: absolute !important;
-  left: var(--rds-tabs-tab-max-width) !important;
-  top: 50% !important;
-  right: calc(-1 * var(--rds-spacing-3)) !important;
-  transform: translateY(-50%) !important;
-  width: 0 !important;
-  height: 0 !important;
-  border-top: var(--rds-tabs-flap-border-y) solid transparent !important;
-  border-bottom: var(--rds-tabs-flap-border-y) solid transparent !important;
-  border-left: var(--rds-tabs-flap-border-x) solid var(--rds-color-accent) !important;
-  z-index: calc(var(--rds-z-index-base) + 1) !important;
+  content: "";
+  position: absolute;
+  left: var(--rds-tabs-tab-max-width);
+  top: 50%;
+  right: calc(-1 * var(--rds-spacing-3));
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: var(--rds-tabs-flap-border-y) solid transparent;
+  border-bottom: var(--rds-tabs-flap-border-y) solid transparent;
+  border-left: var(--rds-tabs-flap-border-x) solid var(--rds-color-accent);
+  z-index: calc(var(--rds-z-index-base) + 1);
 }
 
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
-  border-left-color: var(--rds-color-hover-bg) !important;
+  border-left-color: var(--rds-color-hover-bg);
 }
 .rds-tabs .MuiTab-root.Mui-disabled.Mui-selected {
-  background: var(--rds-color-disabled-bg) !important;
-  color: var(--rds-color-disabled-text) !important;
-  border-radius: var(--rds-tabs-corner-radius) var(--rds-tabs-corner-radius) 0 0 !important;
+  background: var(--rds-color-disabled-bg);
+  color: var(--rds-color-disabled-text);
+  border-radius: var(--rds-tabs-corner-radius) var(--rds-tabs-corner-radius) 0 0;
 }
 
 .rds-tabs--flap .MuiTab-root.Mui-disabled.Mui-selected::after {
-  border-top: var(--rds-tabs-flap-arrow-size) solid var(--rds-color-disabled-bg) !important;
+  border-top: var(--rds-tabs-flap-arrow-size) solid var(--rds-color-disabled-bg);
   pointer-events: none;
 }
 
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-disabled.Mui-selected::after {
-  border-left-color: var(--rds-color-disabled-bg) !important;
+  border-left-color: var(--rds-color-disabled-bg);
   pointer-events: none;
 }
 
 .rds-tabs--pill .MuiTab-root.Mui-disabled.Mui-selected {
-  background: var(--rds-color-disabled-bg) !important;
-  color: var(--rds-color-disabled-text) !important;
-  border-radius: var(--rds-tabs-pill-radius) !important;
+  background: var(--rds-color-disabled-bg);
+  color: var(--rds-color-disabled-text);
+  border-radius: var(--rds-tabs-pill-radius);
   pointer-events: none;
 }
 
@@ -238,10 +238,10 @@
 .rds-tabs--line-left-solid .MuiTab-root.Mui-disabled.Mui-selected,
 .rds-tabs--line-right-solid .MuiTab-root.Mui-disabled.Mui-selected,
 .rds-tabs--line-top-solid .MuiTab-root.Mui-disabled.Mui-selected {
-  background: var(--rds-color-disabled-bg) !important;
-  color: var(--rds-color-disabled-text) !important;
-  border-radius: unset !important;
-  border-color: var(--rds-color-disabled-bg) !important;
+  background: var(--rds-color-disabled-bg);
+  color: var(--rds-color-disabled-text);
+  border-radius: unset;
+  border-color: var(--rds-color-disabled-bg);
   pointer-events: none;
 }
 
@@ -251,18 +251,18 @@
    justify-content: center;  
   gap: var(--rds-spacing-sm);                 
    line-height: 1.5;
-   text-transform: none !important;       
+   text-transform: none;       
 }
 
 .rds-tabs .MuiTab-root .rds-tabs__label span {
-  text-transform: none !important;
+  text-transform: none;
 }
 
 .rds-tabs .MuiTab-root,
 .rds-tabs .MuiTab-root *,
 .rds-tabs .MuiButtonBase-root,
 .rds-tabs .MuiButtonBase-root * {
-  text-transform: none !important;
+  text-transform: none;
 }
 
 .rds-tabs__icon {
@@ -273,46 +273,46 @@
 }
 
 .rds-tabs .MuiTabs-vertical .MuiTab-root {
-  max-width: var(--rds-tabs-tab-max-width) !important;
-  min-width: var(--rds-tabs-tab-min-width) !important;
-  width: var(--rds-tabs-tab-max-width) !important;
+  max-width: var(--rds-tabs-tab-max-width);
+  min-width: var(--rds-tabs-tab-min-width);
+  width: var(--rds-tabs-tab-max-width);
 }
 
 .rds-tabs .MuiTabs-vertical {
-  max-width: var(--rds-tabs-tab-max-width) !important;
-  width: var(--rds-tabs-tab-max-width) !important;
+  max-width: var(--rds-tabs-tab-max-width);
+  width: var(--rds-tabs-tab-max-width);
 }
 
 .rds-tabs .MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
-  max-width: var(--rds-tabs-tab-max-width) !important;
-  min-width: var(--rds-tabs-tab-min-width) !important;
-  width: var(--rds-tabs-tab-max-width) !important;
+  max-width: var(--rds-tabs-tab-max-width);
+  min-width: var(--rds-tabs-tab-min-width);
+  width: var(--rds-tabs-tab-max-width);
 }
 
 @include bp.down(sm) {
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-root,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scroller,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scrollableX {
-    overflow: visible !important;
+    overflow: visible;
     -webkit-overflow-scrolling: touch;
   }
 
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-flexContainer {
-    display: flex !important;
+    display: flex;
     gap: calc(1.5 * var(--rds-spacing-xs));
     white-space: normal;
-    flex-wrap: wrap !important;
+    flex-wrap: wrap;
     align-items: center;
   }
 
   .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root {
-    flex: 0 1 auto !important;
-    width: auto !important;
-    min-width: var(--rds-tabs-tab-mobile-min-width) !important;
-    max-width: var(--rds-tabs-tab-mobile-max-width) !important;
-    padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
-    font-size: var(--rds-tabs-mobile-font-size) !important;
-    box-sizing: border-box !important;
+    flex: 0 1 auto;
+    width: auto;
+    min-width: var(--rds-tabs-tab-mobile-min-width);
+    max-width: var(--rds-tabs-tab-mobile-max-width);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+    font-size: var(--rds-tabs-mobile-font-size);
+    box-sizing: border-box;
   }
 
   .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root .rds-tabs__label {
@@ -322,58 +322,58 @@
   }
 
   .rds-tabs .MuiTab-root:focus-visible {
-    outline: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main)) !important;
-    outline-offset: 2px !important;
+    outline: var(--rds-border-width-medium) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: 2px;
   }
 }
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
-    content: "" !important;
-    position: absolute !important;
-    left: calc(100% + 0) !important;
-    top: 48% !important;
-    transform: translateY(-48%) !important;
-    width: var(--rds-tabs-dim-1) !important;
-    height: var(--rds-size-18) !important;
-    border-top: var(--rds-tabs-flap-border-y-lg) solid transparent !important;
-    border-bottom: var(--rds-tabs-flap-border-y-md) solid transparent !important;
-    border-left: var(--rds-tabs-flap-border-x-lg) solid var(--rds-color-accent) !important;
-    z-index: calc(var(--rds-z-index-base) + 1) !important;
+    content: "";
+    position: absolute;
+    left: calc(100% + 0);
+    top: 48%;
+    transform: translateY(-48%);
+    width: var(--rds-tabs-dim-1);
+    height: var(--rds-size-18);
+    border-top: var(--rds-tabs-flap-border-y-lg) solid transparent;
+    border-bottom: var(--rds-tabs-flap-border-y-md) solid transparent;
+    border-left: var(--rds-tabs-flap-border-x-lg) solid var(--rds-color-accent);
+    z-index: calc(var(--rds-z-index-base) + 1);
 }
 .rds-tabs--flap .Mui-selected {
-  border-radius: var(--rds-tabs-corner-radius) var(--rds-tabs-corner-radius) 0 0 !important;
+  border-radius: var(--rds-tabs-corner-radius) var(--rds-tabs-corner-radius) 0 0;
 }
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected {
-  border-radius: 0 0 0 0 !important;
+  border-radius: 0 0 0 0;
 }
 
 [data-theme="dark"] {
   .rds-tabs .MuiTab-root {
-    color: var(--rds-neutral-300) !important;
+    color: var(--rds-neutral-300);
   }
 
   .rds-tabs .MuiTab-root:hover {
-    color: var(--rds-neutral-0) !important;
+    color: var(--rds-neutral-0);
   }
 
   .rds-tabs--line-bottom .MuiTab-root.Mui-selected,
   .rds-tabs--line-top .MuiTab-root.Mui-selected,
   .rds-tabs--line-left .MuiTab-root.Mui-selected,
   .rds-tabs--line-right .MuiTab-root.Mui-selected {
-    color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+    color: var(--rds-color-primary, var(--rds-primary-main));
   }
 
   .rds-tabs--line-bottom-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-top-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-left-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-right-solid .MuiTab-root.Mui-selected {
-    color: var(--rds-color-on-primary, var(--rds-neutral-0)) !important;
-    background-color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+    color: var(--rds-color-on-primary, var(--rds-neutral-0));
+    background-color: var(--rds-color-primary, var(--rds-primary-main));
   }
 
   .rds-tabs--filled .MuiTab-root.Mui-selected,
   .rds-tabs--flap .MuiTab-root.Mui-selected,
   .rds-tabs--pill .MuiTab-root.Mui-selected {
-    color: var(--rds-color-on-primary, var(--rds-neutral-0)) !important;
+    color: var(--rds-color-on-primary, var(--rds-neutral-0));
   }
 
   .rds-tabs .rds-tabs__icon svg {
@@ -381,47 +381,47 @@
   }
 
   .rds-tabs .MuiTab-root.Mui-disabled {
-    color: var(--rds-color-disabled-text-dark) !important;
+    color: var(--rds-color-disabled-text-dark);
     pointer-events: none;
   }
 
   .rds-tabs .MuiTab-root.Mui-disabled:hover {
-    color: var(--rds-color-disabled-text-dark) !important;
+    color: var(--rds-color-disabled-text-dark);
   }
 
   .rds-tabs .MuiTab-root.Mui-disabled.Mui-selected {
-    background: var(--rds-color-disabled-container-dark) !important;
-    color: var(--rds-neutral-400) !important;
-    border: unset !important;
+    background: var(--rds-color-disabled-container-dark);
+    color: var(--rds-neutral-400);
+    border: unset;
     opacity: 1;
   }
 
   .rds-tabs--filled .MuiTab-root.Mui-disabled.Mui-selected,
   .rds-tabs--flap .MuiTab-root.Mui-disabled.Mui-selected,
   .rds-tabs--pill .MuiTab-root.Mui-disabled.Mui-selected {
-    border: unset !important;
+    border: unset;
   }
 
   .rds-tabs .MuiTab-root.Mui-disabled.Mui-selected .rds-tabs__label,
   .rds-tabs .MuiTab-root.Mui-disabled.Mui-selected .rds-tabs__label span,
   .rds-tabs .MuiTab-root.Mui-disabled.Mui-selected .rds-tabs__icon {
-    color: inherit !important;
+    color: inherit;
   }
 
   .rds-tabs--line-bottom-solid .MuiTab-root.Mui-disabled.Mui-selected,
   .rds-tabs--line-left-solid .MuiTab-root.Mui-disabled.Mui-selected,
   .rds-tabs--line-right-solid .MuiTab-root.Mui-disabled.Mui-selected,
   .rds-tabs--line-top-solid .MuiTab-root.Mui-disabled.Mui-selected {
-    border-color: var(--rds-color-disabled-container-dark) !important;
+    border-color: var(--rds-color-disabled-container-dark);
   }
 
   .rds-tabs--flap .MuiTab-root.Mui-disabled.Mui-selected::after {
-    border-top: var(--rds-tabs-flap-arrow-size) solid var(--rds-color-disabled-container-dark) !important;
+    border-top: var(--rds-tabs-flap-arrow-size) solid var(--rds-color-disabled-container-dark);
     opacity: 1;
   }
 
   .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-disabled.Mui-selected::after {
-    border-left: var(--rds-tabs-flap-border-x-lg) solid var(--rds-color-disabled-container-dark) !important;
+    border-left: var(--rds-tabs-flap-border-x-lg) solid var(--rds-color-disabled-container-dark);
     opacity: 1;
   }
 

@@ -95,8 +95,8 @@
 
       svg,
       svg * {
-        fill: currentColor !important;
-        color: inherit !important;
+        fill: currentColor;
+        color: inherit;
       }
     }
     
@@ -154,10 +154,10 @@
 @include bp.down(md) {
   .rds-comp-tree-structure {
     &__node {
-      margin-left: calc(-1 * var(--rds-spacing-md)) !important;
+      margin-left: calc(-1 * var(--rds-spacing-md));
     }
     &__actions {
-      display: flex !important;
+      display: flex;
       flex-direction: row;
       align-items: center;
       margin-left: var(--rds-spacing-xs);

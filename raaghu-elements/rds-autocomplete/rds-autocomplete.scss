@@ -69,7 +69,7 @@
 
   &--error {
     .MuiInputBase-root {
-      border-color: var(--rds-color-error) !important;
+      border-color: var(--rds-color-error);
     }
   }
 
@@ -82,16 +82,16 @@
 
   &--small {
     .MuiInputBase-root {
-      height: var(--rds-size-xl) !important;
-      min-height: var(--rds-size-xl) !important;
-      font-size: var(--rds-font-size-small) !important;
-      overflow: hidden !important;
+      height: var(--rds-size-xl);
+      min-height: var(--rds-size-xl);
+      font-size: var(--rds-font-size-small);
+      overflow: hidden;
     }
 
     .MuiInputBase-input {
-      height: var(--rds-size-md) !important;
-      min-height: var(--rds-size-md) !important;
-      font-size: var(--rds-font-size-small) !important;
+      height: var(--rds-size-md);
+      min-height: var(--rds-size-md);
+      font-size: var(--rds-font-size-small);
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
@@ -101,8 +101,8 @@
       align-items: center;
     }
     .MuiAutocomplete-tag {
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
+      margin-top: 0;
+      margin-bottom: 0;
       display: inline-flex;
       align-items: center;
       height: var(--rds-size-20);
@@ -111,16 +111,16 @@
 
   &--medium {
     .MuiInputBase-root {
-      height: var(--rds-size-40) !important;
-      min-height: var(--rds-size-40) !important;
-      font-size: var(--rds-font-size-body) !important;
-      overflow: hidden !important;
+      height: var(--rds-size-40);
+      min-height: var(--rds-size-40);
+      font-size: var(--rds-font-size-body);
+      overflow: hidden;
     }
 
     .MuiInputBase-input {
-      height: var(--rds-size-lg) !important;
-      min-height: var(--rds-size-lg) !important;
-      font-size: var(--rds-font-size-body) !important;
+      height: var(--rds-size-lg);
+      min-height: var(--rds-size-lg);
+      font-size: var(--rds-font-size-body);
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
@@ -129,8 +129,8 @@
       align-items: center;
     }
     .MuiAutocomplete-tag {
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
+      margin-top: 0;
+      margin-bottom: 0;
       display: inline-flex;
       align-items: center;
       height: var(--rds-size-lg);
@@ -139,16 +139,16 @@
 
   &--large {
     .MuiInputBase-root {
-      height: var(--rds-autocomplete-dim-2) !important;
-      min-height: var(--rds-autocomplete-dim-2) !important;
-      font-size: var(--rds-font-size-large) !important;
-      overflow: hidden !important;
+      height: var(--rds-autocomplete-dim-2);
+      min-height: var(--rds-autocomplete-dim-2);
+      font-size: var(--rds-font-size-large);
+      overflow: hidden;
     }
 
     .MuiInputBase-input {
-      height: var(--rds-size-36) !important;
-      min-height: var(--rds-size-36) !important;
-      font-size: var(--rds-font-size-large) !important;
+      height: var(--rds-size-36);
+      min-height: var(--rds-size-36);
+      font-size: var(--rds-font-size-large);
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
@@ -157,8 +157,8 @@
       align-items: center;
     }
     .MuiAutocomplete-tag {
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
+      margin-top: 0;
+      margin-bottom: 0;
       display: inline-flex;
       align-items: center;
       height: var(--rds-size-28);
@@ -167,18 +167,18 @@
 
   &__label {
     &--small {
-      font-size: var(--rds-font-size-caption) !important;
-      margin-bottom: var(--rds-spacing-xxs) !important;
+      font-size: var(--rds-font-size-caption);
+      margin-bottom: var(--rds-spacing-xxs);
     }
 
     &--medium {
-      font-size: var(--rds-font-size-body) !important;
-      margin-bottom: var(--rds-spacing-xs) !important;
+      font-size: var(--rds-font-size-body);
+      margin-bottom: var(--rds-spacing-xs);
     }
 
     &--large {
-      font-size: var(--rds-font-size-subheading) !important;
-      margin-bottom: var(--rds-spacing-compact) !important;
+      font-size: var(--rds-font-size-subheading);
+      margin-bottom: var(--rds-spacing-compact);
     }
   }
 
@@ -196,24 +196,24 @@
   /* Filled variant: label is external, so drop MUI floating-label top padding
      and vertically center the placeholder / input text. */
   .MuiFilledInput-root {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    display: flex !important;
-    align-items: center !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    display: flex;
+    align-items: center;
     min-height: inherit;
 
     &.MuiInputBase-sizeSmall,
     &.MuiInputBase-adornedEnd,
     &.MuiInputBase-adornedStart {
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     .MuiFilledInput-input,
     .MuiAutocomplete-input {
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      height: 100% !important;
+      padding-top: 0;
+      padding-bottom: 0;
+      height: 100%;
       box-sizing: border-box;
       display: flex;
       align-items: center;
@@ -222,47 +222,47 @@
 
   .MuiAutocomplete-hasPopupIcon .MuiFilledInput-root,
   .MuiAutocomplete-hasClearIcon .MuiFilledInput-root {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .MuiFormHelperText-root {
-    margin-left: 0 !important;
-    min-height: var(--rds-size-20) !important;
-    margin-top: var(--rds-spacing-micro) !important;
-    margin-bottom: 0 !important;
-    line-height: 1.2 !important;
+    margin-left: 0;
+    min-height: var(--rds-size-20);
+    margin-top: var(--rds-spacing-micro);
+    margin-bottom: 0;
+    line-height: 1.2;
   }
 
   &__textfield--hidden-helper {
     .MuiFormHelperText-root {
-      color: transparent !important;
-      visibility: visible !important; 
-      user-select: none !important;
+      color: transparent;
+      visibility: visible; 
+      user-select: none;
     }
   }
   .MuiInputBase-input::placeholder,
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-placeholder-color) !important;
-    opacity: 1 !important;
+    color: var(--rds-placeholder-color);
+    opacity: 1;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   &__textfield--bottom-line {
     .MuiOutlinedInput-notchedOutline {
-      border-left: none !important;
-      border-right: none !important;
-      border-top: none !important;
-      border-radius: 0 !important;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-radius: 0;
     }
   }
 
   .MuiAutocomplete-inputRoot {
-    overflow: hidden !important;
-    flex-wrap: nowrap !important;
+    overflow: hidden;
+    flex-wrap: nowrap;
 
     .MuiAutocomplete-tag {
       flex-shrink: 0;
@@ -272,56 +272,56 @@
 
     // When chips are present, shrink input to minimum; when empty, let it fill fully
     .MuiAutocomplete-input {
-      min-width: var(--rds-autocomplete-dim-1) !important;
+      min-width: var(--rds-autocomplete-dim-1);
       flex-shrink: 1;
       flex-grow: 1;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
-      white-space: nowrap !important;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     &[aria-expanded="true"],
     &[aria-expanded="false"] {
-      min-height: inherit !important;
-      height: inherit !important;
+      min-height: inherit;
+      height: inherit;
     }
   }
 
   // Make the outlined border box clip chips properly
   .MuiOutlinedInput-root {
-    overflow: hidden !important;
+    overflow: hidden;
     
     // Tighten vertical padding in multiple mode so chips stay within the border
     &.MuiAutocomplete-inputRoot {
-      padding-top: var(--rds-spacing-xs) !important;
-      padding-bottom: var(--rds-spacing-xs) !important;
-      align-items: center !important;
+      padding-top: var(--rds-spacing-xs);
+      padding-bottom: var(--rds-spacing-xs);
+      align-items: center;
     }
   }
 
   &__chip {
-    margin: var(--rds-spacing-hairline) var(--rds-spacing-xxs) !important;
-    max-width: var(--rds-autocomplete-dim-3) !important;
-    font-size: 0.75rem !important;
+    margin: var(--rds-spacing-hairline) var(--rds-spacing-xxs);
+    max-width: var(--rds-autocomplete-dim-3);
+    font-size: 0.75rem;
     vertical-align: middle;
     
     &--small {
-      height: var(--rds-size-20) !important;
+      height: var(--rds-size-20);
     }
     
     &--medium {
-      height: var(--rds-size-lg) !important;
+      height: var(--rds-size-lg);
     }
     
     &--large {
-      height: var(--rds-size-28) !important;
+      height: var(--rds-size-28);
     }
     
     &--overflow {
-      background-color: var(--rds-primary-light, rgba(135, 46, 252, 0.12)) !important;
-      color: var(--rds-primary-main) !important;
-      font-weight: 600 !important;
-      pointer-events: none !important;
+      background-color: var(--rds-primary-light, rgba(135, 46, 252, 0.12));
+      color: var(--rds-primary-main);
+      font-weight: 600;
+      pointer-events: none;
     }
   }
 }

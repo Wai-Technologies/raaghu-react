@@ -37,9 +37,9 @@
   }
 
   &__paper {
-    overflow: visible !important;
-    border: var(--rds-popover-surface-border) !important;
-    box-shadow: none !important;
+    overflow: visible;
+    border: var(--rds-popover-surface-border);
+    box-shadow: none;
   }
 
   &__container {
@@ -242,31 +242,31 @@
 
 @include bp.down(mobile-sm) {
   .with-list-popover .rds-popover__container {
-    max-width: var(--rds-popover-list-mobile-max-width) !important;
-    min-width: var(--rds-popover-list-mobile-min-width) !important;
-    padding: var(--rds-popover-list-mobile-padding, var(--rds-spacing-sm)) !important;
+    max-width: var(--rds-popover-list-mobile-max-width);
+    min-width: var(--rds-popover-list-mobile-min-width);
+    padding: var(--rds-popover-list-mobile-padding, var(--rds-spacing-sm));
     font-size: 0.95rem;
   }
   .with-list-popover .MuiListItem-root {
-    padding-top: var(--rds-spacing-xxs) !important;
-    padding-bottom: var(--rds-spacing-xs) !important;
+    padding-top: var(--rds-spacing-xxs);
+    padding-bottom: var(--rds-spacing-xs);
   }
 }
 
 @include bp.between(mobile-sm, sm) {
   .rds-popover__container {
-    max-width: var(--rds-popover-dim-1) !important;
+    max-width: var(--rds-popover-dim-1);
   }
 }
 @include bp.between(mobile-lg, md) {
   .rds-popover__container {
-    max-width: var(--rds-popover-dim-3) !important;
+    max-width: var(--rds-popover-dim-3);
   }
 }
 
 @include bp.between(tablet-md, lg) {
     .rds-popover__container {
-        max-width: var(--rds-popover-dim-2) !important;
+        max-width: var(--rds-popover-dim-2);
     }
 }
 

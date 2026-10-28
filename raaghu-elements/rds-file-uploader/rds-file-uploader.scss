@@ -76,7 +76,7 @@
       var(--rds-file-uploader-dropzone-padding-x);
     text-align: center;
     border: var(--rds-file-uploader-dropzone-border-width) dashed
-      var(--rds-color-primary) !important;
+      var(--rds-color-primary);
     background-color: var(--rds-background-paper);
     cursor: pointer;
     transition: border-color var(--rds-transition-base),
@@ -85,7 +85,7 @@
       --rds-file-uploader-dropzone-border-radius, var(--rds-border-radius)
     );
     position: relative;
-    width: 100% !important;
+    width: 100%;
     max-width: 100%;
     min-width: 0;
     align-self: stretch;
@@ -104,7 +104,7 @@
       padding-top: var(--rds-spacing-md);
       padding-bottom: var(--rds-spacing-md);
       border: var(--rds-file-uploader-dropzone-border-width) dashed
-        var(--rds-color-primary) !important;
+        var(--rds-color-primary);
       border-radius: var(
         --rds-file-uploader-dropzone-border-radius, var(--rds-border-radius)
       );
@@ -139,8 +139,8 @@
       min-height: var(--rds-file-uploader-dropzone-min-height);
       padding: var(--rds-spacing-md) var(--rds-spacing-xl);
       border: var(--rds-file-uploader-dropzone-border-width) dashed
-        var(--rds-color-primary) !important;
-      background: var(--rds-background-paper) !important;
+        var(--rds-color-primary);
+      background: var(--rds-background-paper);
       border-radius: var(
         --rds-file-uploader-dropzone-border-radius, var(--rds-border-radius)
       );
@@ -236,7 +236,7 @@
 
   &__standard {
     margin-bottom: var(--rds-spacing-lg);
-    width: 80vw !important;
+    width: 80vw;
     max-width: 100%;
     min-width: 0;
     overflow: hidden;
@@ -265,10 +265,10 @@
   }
 
   &__choose-btn {
-    background: var(--rds-color-primary) !important;
-    color: var(--rds-primary-contrast-text) !important;
+    background: var(--rds-color-primary);
+    color: var(--rds-primary-contrast-text);
     border-radius: var(--rds-file-uploader-control-radius) 0 0
-      var(--rds-file-uploader-control-radius) !important;
+      var(--rds-file-uploader-control-radius);
     min-width: var(--rds-file-uploader-btn-min-width);
     font-weight: var(--rds-font-weight-medium, 500);
     text-transform: none;
@@ -310,7 +310,7 @@
         border-color: var(
           --rds-border-selected,
           var(--rds-primary-main)
-        ) !important;
+        );
       }
     }
 
@@ -318,7 +318,7 @@
     align-items: center;
     justify-content: space-between;
     min-height: var(--rds-file-uploader-hint-row-height);
-    margin-top: var(--rds-spacing-xs) !important;
+    margin-top: var(--rds-spacing-xs);
     gap: var(--rds-spacing-sm);
   }
 
@@ -495,17 +495,17 @@
 
 @include bp.between(420, 834) {
   .rds-file-uploader {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
 
     &__drop-zone {
-      min-width: 0 !important;
-      width: 100% !important;
-      max-width: 100% !important;
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
       padding: var(--rds-spacing-md)
-        var(--rds-spacing-xs) !important;
+        var(--rds-spacing-xs);
       font-size: var(--rds-font-size-md);
       box-sizing: border-box;
       text-align: center;
@@ -519,21 +519,21 @@
     &__title,
     &__title--left,
     &__title--inline {
-      font-size: var(--rds-font-size-lg) !important;
-      margin-bottom: var(--rds-spacing-sm) !important;
+      font-size: var(--rds-font-size-lg);
+      margin-bottom: var(--rds-spacing-sm);
     }
 
     &__info,
     &__info--left {
-      font-size: var(--rds-font-size-sm) !important;
-      margin-top: var(--rds-spacing-xxs) !important;
+      font-size: var(--rds-font-size-sm);
+      margin-top: var(--rds-spacing-xxs);
     }
 
     &__upload-btn {
-      min-width: var(--rds-spacing-xl) !important;
-      font-size: var(--rds-font-size-sm) !important;
+      min-width: var(--rds-spacing-xl);
+      font-size: var(--rds-font-size-sm);
       padding: var(--rds-spacing-xxs)
-        var(--rds-spacing-xs) !important;
+        var(--rds-spacing-xs);
       margin-top: var(--rds-spacing-sm);
     }
 
@@ -559,7 +559,7 @@
     }
 
     &__icon {
-      font-size: var(--rds-font-size-lg) !important;
+      font-size: var(--rds-font-size-lg);
       margin-bottom: var(--rds-spacing-xs);
     }
 
@@ -577,12 +577,12 @@
 
 @include bp.between(835, lg) {
   .rds-file-uploader {
-    min-width: 0 !important;
+    min-width: 0;
 
     &__drop-zone {
-      min-width: 0 !important;
+      min-width: 0;
       padding: var(--rds-spacing-xl)
-        var(--rds-spacing-lg) !important;
+        var(--rds-spacing-lg);
       font-size: var(--rds-font-size-lg);
     }
 
@@ -593,19 +593,19 @@
     &__title,
     &__title--left,
     &__title--inline {
-      font-size: var(--rds-font-size-xl) !important;
+      font-size: var(--rds-font-size-xl);
     }
 
     &__info,
     &__info--left {
-      font-size: var(--rds-font-size-md) !important;
+      font-size: var(--rds-font-size-md);
     }
 
     &__upload-btn {
-      min-width: var(--rds-spacing-xl) !important;
-      font-size: var(--rds-font-size-md) !important;
+      min-width: var(--rds-spacing-xl);
+      font-size: var(--rds-font-size-md);
       padding: var(--rds-spacing-xs)
-        var(--rds-spacing-sm) !important;
+        var(--rds-spacing-sm);
     }
 
     &__file-list {
@@ -628,7 +628,7 @@
     }
 
     &__icon {
-      font-size: var(--rds-font-size-xl) !important;
+      font-size: var(--rds-font-size-xl);
     }
 
     &__hint-row {
@@ -660,25 +660,25 @@
     }
 
     &__upload-btn {
-      margin-left: 0 !important;
-      min-width: var(--rds-spacing-2xl) !important;
+      margin-left: 0;
+      min-width: var(--rds-spacing-2xl);
     }
   }
 }
 
 @include bp.between(mobile-sm, mobile-lg) {
   .rds-file-uploader {
-    min-width: 0 !important;
-    max-width: 100% !important;
+    min-width: 0;
+    max-width: 100%;
     margin: 0 auto;
 
     &__drop-zone {
-      min-width: 0 !important;
-      width: 100% !important;
-      max-width: 100% !important;
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
       padding: var(--rds-spacing-md)
-        var(--rds-spacing-xs) !important;
+        var(--rds-spacing-xs);
       font-size: var(--rds-font-size-md);
       box-sizing: border-box;
       text-align: center;
@@ -692,21 +692,21 @@
     &__title,
     &__title--left,
     &__title--inline {
-      font-size: var(--rds-font-size-lg) !important;
-      margin-bottom: var(--rds-spacing-sm) !important;
+      font-size: var(--rds-font-size-lg);
+      margin-bottom: var(--rds-spacing-sm);
     }
 
     &__info,
     &__info--left {
-      font-size: var(--rds-font-size-sm) !important;
-      margin-top: var(--rds-spacing-xxs) !important;
+      font-size: var(--rds-font-size-sm);
+      margin-top: var(--rds-spacing-xxs);
     }
 
     &__upload-btn {
-      min-width: var(--rds-spacing-xl) !important;
-      font-size: var(--rds-font-size-sm) !important;
+      min-width: var(--rds-spacing-xl);
+      font-size: var(--rds-font-size-sm);
       padding: var(--rds-spacing-xxs)
-        var(--rds-spacing-xs) !important;
+        var(--rds-spacing-xs);
       margin-top: var(--rds-spacing-sm);
     }
 
@@ -732,7 +732,7 @@
     }
 
     &__icon {
-      font-size: var(--rds-font-size-lg) !important;
+      font-size: var(--rds-font-size-lg);
       margin-bottom: var(--rds-spacing-xs);
     }
 
@@ -747,14 +747,14 @@
     }
 
     &__drop-zone--with-upload-btn {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: stretch !important;
-      justify-content: center !important;
-      text-align: center !important;
-      row-gap: var(--rds-spacing-xs) !important;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      text-align: center;
+      row-gap: var(--rds-spacing-xs);
       padding: var(--rds-spacing-md)
-        var(--rds-spacing-xs) !important;
+        var(--rds-spacing-xs);
     }
 
     &__icon-box {
@@ -769,22 +769,22 @@
     }
 
     &__upload-btn {
-      width: 100% !important;
-      min-width: 0 !important;
-      margin-left: 0 !important;
+      width: 100%;
+      min-width: 0;
+      margin-left: 0;
     }
   }
 }
 
 .rds-file-uploader__title--inline {
   font-weight: var(--rds-font-weight-medium, 500);
-  color: var(--rds-text-primary) !important;
+  color: var(--rds-text-primary);
   margin-bottom: 0;
   display: inline-block;
 }
 
 .rds-file-uploader__title-or {
-  color: var(--rds-text-primary) !important;
+  color: var(--rds-text-primary);
   font-weight: var(--rds-font-weight-regular, 400);
   margin: 0 var(--rds-spacing-sm);
   display: inline;

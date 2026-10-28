@@ -266,7 +266,7 @@
 
   &__speaker-icon {
     color: var(--rds-color-primary);
-    font-size: var(--rds-font-size-3xl) !important;
+    font-size: var(--rds-font-size-3xl);
     margin-bottom: var(--rds-spacing-sm);
   }
 
@@ -753,8 +753,8 @@
       min-width: var(--rds-size-4xl);
       max-width: 100%;
       margin: 0;
-      display: block !important;
-      visibility: visible !important;
+      display: block;
+      visibility: visible;
     }
 
     &__total-time {
@@ -806,7 +806,7 @@
       grid-column: 2;
       grid-row: 1;
       justify-self: stretch;
-      display: block !important;
+      display: block;
     }
 
     &__total-time {

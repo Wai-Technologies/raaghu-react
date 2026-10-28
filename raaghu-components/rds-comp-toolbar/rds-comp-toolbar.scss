@@ -323,16 +323,16 @@
 
 @include bp.down(sm) {
   .rds-comp-toolbar__dropdown {
-    left: var(--rds-spacing-45) !important;
-    max-height: 48vh !important;
+    left: var(--rds-spacing-45);
+    max-height: 48vh;
     
   }
 }
 
 @include bp.down(mobile-sm) {
   .rds-comp-toolbar__dropdown {
-    left: 12.8px !important;
-    max-height: 76vh !important;
+    left: 12.8px;
+    max-height: 76vh;
   }
 }
 

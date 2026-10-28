@@ -12,6 +12,8 @@ on:
       - 'scripts/check-no-hex.mjs'
       - 'scripts/rgba-baseline.txt'
       - 'scripts/check-no-rgba-in-scss.mjs'
+      - 'scripts/important-baseline.txt'
+      - 'scripts/check-no-important-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/check-spacing-in-scss.sh'
       - 'scripts/check-spacing-in-scss.mjs'
@@ -35,6 +37,8 @@ on:
       - 'scripts/check-no-hex.mjs'
       - 'scripts/rgba-baseline.txt'
       - 'scripts/check-no-rgba-in-scss.mjs'
+      - 'scripts/important-baseline.txt'
+      - 'scripts/check-no-important-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/check-spacing-in-scss.sh'
       - 'scripts/check-spacing-in-scss.mjs'
@@ -80,6 +84,9 @@ jobs:
 
       - name: Check for new rgb()/rgba() literals in SCSS
         run: node scripts/check-no-rgba-in-scss.mjs
+
+      - name: Check for new !important in SCSS
+        run: node scripts/check-no-important-in-scss.mjs
 
       - name: Check for new hardcoded px spacing in SCSS
         run: node scripts/check-spacing-in-scss.mjs

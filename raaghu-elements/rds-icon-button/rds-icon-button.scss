@@ -19,23 +19,23 @@
 
 .rds-icon-button.MuiIconButton-sizeSmall .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeSmall svg {
-  font-size: var(--rds-icon-button-size-small) !important;
-  width: var(--rds-icon-button-size-small) !important;
-  height: var(--rds-icon-button-size-small) !important;
+  font-size: var(--rds-icon-button-size-small);
+  width: var(--rds-icon-button-size-small);
+  height: var(--rds-icon-button-size-small);
 }
 
 .rds-icon-button.MuiIconButton-sizeMedium .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeMedium svg {
-  font-size: var(--rds-icon-button-size-medium) !important;
-  width: var(--rds-icon-button-size-medium) !important;
-  height: var(--rds-icon-button-size-medium) !important;
+  font-size: var(--rds-icon-button-size-medium);
+  width: var(--rds-icon-button-size-medium);
+  height: var(--rds-icon-button-size-medium);
 }
 
 .rds-icon-button.MuiIconButton-sizeLarge .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeLarge svg {
-  font-size: var(--rds-icon-button-size-large) !important;
-  width: var(--rds-icon-button-size-large) !important;
-  height: var(--rds-icon-button-size-large) !important;
+  font-size: var(--rds-icon-button-size-large);
+  width: var(--rds-icon-button-size-large);
+  height: var(--rds-icon-button-size-large);
 }
 
 .rds-icon-button--outlined {

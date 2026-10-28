@@ -58,8 +58,8 @@
       flex-shrink: 0;
       line-height: 0;
       // Override MUI ListItemIcon default 56px min-width (causes large icon→text gap)
-      min-width: auto !important;
-      margin-right: 0 !important;
+      min-width: auto;
+      margin-right: 0;
 
       // Constrain avatar chrome so wrap padding does not inflate the row
       .rds-avatar,
@@ -78,9 +78,9 @@
 
       // Keep avatars aligned with standard menu icon scale
       .rds-avatar .MuiAvatar-root {
-        width: 1.25rem !important;
-        height: 1.25rem !important;
-        font-size: 0.5625rem !important;
+        width: 1.25rem;
+        height: 1.25rem;
+        font-size: 0.5625rem;
       }
     }
     &__text {
@@ -114,9 +114,9 @@
       font-size: 1rem;
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
-      width: 1rem !important;
-      height: 1rem !important;
-      font-size: 0.5rem !important;
+      width: 1rem;
+      height: 1rem;
+      font-size: 0.5rem;
     }
     .rds-menu__header {
       font-size: 0.85em;
@@ -139,9 +139,9 @@
       font-size: 1.25rem;
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
-      width: 1.25rem !important;
-      height: 1.25rem !important;
-      font-size: 0.5625rem !important;
+      width: 1.25rem;
+      height: 1.25rem;
+      font-size: 0.5625rem;
     }
     .rds-menu__header {
       font-size: 0.98em;
@@ -164,9 +164,9 @@
       font-size: 1.5rem;
     }
     .rds-menu__item__icon .rds-avatar .MuiAvatar-root {
-      width: 1.5rem !important;
-      height: 1.5rem !important;
-      font-size: 0.6875rem !important;
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 0.6875rem;
     }
     .rds-menu__header {
       font-size: 1.05em;
@@ -214,7 +214,7 @@
 
 [data-theme="dark"] {
   .rds-menu__list {
-     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900)) !important;
+     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900));
   }
 
   .rds-menu__item {
@@ -248,19 +248,19 @@
 
   /* Force MuiListItemIcon root itself to white for all non-colored items */
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) {
-    color: var(--rds-neutral-0) !important;
+    color: var(--rds-neutral-0);
   }
 
   /* Target MuiSvgIcon-root directly so MUI icon color is white in dark mode */
   .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root,
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root {
-    color: var(--rds-neutral-0) !important;
-    fill: var(--rds-neutral-0) !important;
+    color: var(--rds-neutral-0);
+    fill: var(--rds-neutral-0);
   }
 
   /* MuiPaper that wraps the dropdown */
   .rds-menu .MuiPaper-root {
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900)) !important;
+    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900));
   }
 
   .rds-menu__item .rds-menu__item__icon--primary svg,
@@ -268,8 +268,8 @@
   .rds-menu__item .rds-menu__item__icon--danger svg,
   .rds-menu__item .rds-menu__item__icon--info svg,
   .rds-menu__item .rds-menu__item__icon--warning svg {
-    color: inherit !important;
-    fill: currentColor !important;
+    color: inherit;
+    fill: currentColor;
   }
 
   .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon,

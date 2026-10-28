@@ -8,7 +8,7 @@
 
   &__helper-text {
     display: block;
-    margin-left: 0 !important;
+    margin-left: 0;
     margin-top: var(--rds-text-field-helper-offset, var(--rds-spacing-sm));
     margin-bottom: 0;
     font-size: var(--rds-text-field-helper-font-size, var(--rds-font-size-md));
@@ -28,7 +28,7 @@
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-placeholder-color) !important;
-    opacity: 1 !important;
+    color: var(--rds-placeholder-color);
+    opacity: 1;
   }
 }

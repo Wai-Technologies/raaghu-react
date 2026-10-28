@@ -39,11 +39,11 @@
 
 @include bp.between(mobile-sm, 568) {
   .rds-range .MuiSlider-root {
-    width: var(--rds-range-slider-width-mobile) !important;
+    width: var(--rds-range-slider-width-mobile);
   }
 }
 @include bp.between(mobile-lg, 896) {
   .rds-range .MuiSlider-root {
-    width: var(--rds-range-slider-width-tablet) !important;
+    width: var(--rds-range-slider-width-tablet);
   }
 }

@@ -67,7 +67,7 @@
 }
 
 .football-scorecard-stable {
-  min-height: var(--rds-adaptive-cards-min-height-200) !important;
+  min-height: var(--rds-adaptive-cards-min-height-200);
   display: flex;
   flex-direction: column ;
 }
@@ -84,7 +84,7 @@
 .rds-adaptive-cards--default {
   width: var(--rds-card-width-default);
   height: var(--rds-alt-card-body-height, auto);
-  border: var(--rds-border-width-thin) solid var(--rds-border-light) !important;
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-lg);
   padding: var(--rds-spacing-xs) 0 0 0;
   background: var(--rds-background-default);
@@ -97,8 +97,8 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--rds-spacing-sm);
-    padding-top: var(--rds-spacing-none, 0) !important;
-    padding-bottom: var(--rds-spacing-none, 0) !important;
+    padding-top: var(--rds-spacing-none, 0);
+    padding-bottom: var(--rds-spacing-none, 0);
     margin-top: var(--rds-spacing-none, 0) ;
     margin-bottom: var(--rds-spacing-none, 0) ;
     padding: var(--rds-spacing-md);
@@ -112,8 +112,8 @@
     gap: var(--rds-spacing-sm) ;
     margin-top: var(--rds-spacing-none, 0) ;
     margin-bottom: var(--rds-spacing-none, 0) ;
-    padding-top: var(--rds-spacing-none, 0) !important;
-    padding-bottom: var(--rds-spacing-none, 0) !important;
+    padding-top: var(--rds-spacing-none, 0);
+    padding-bottom: var(--rds-spacing-none, 0);
   }
   &__title {
         font-size: var(--rds-font-size-2xl) ;
@@ -124,8 +124,8 @@
       align-items: center;
       justify-content: flex-start;
       text-align: left ;
-      padding-top: var(--rds-spacing-xs) !important;
-      padding-bottom: var(--rds-spacing-none, 0) !important;
+      padding-top: var(--rds-spacing-xs);
+      padding-bottom: var(--rds-spacing-none, 0);
       line-height: 1.1 ;
       font-family: var(--rds-font-family-base, 'Poppins', sans-serif) ;
   }
@@ -150,7 +150,7 @@
   }
   &__image-list {
     width: 100%;
-    display: grid !important;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--rds-spacing-none, 0);
     background: var(--rds-background-light);
@@ -219,15 +219,15 @@
   &__action-btn {
     font-size: var(--rds-font-size-md);
     min-height: var(--rds-component-button-height-small);
-    text-transform: none !important;
+    text-transform: none;
   }
   &__action-btn--restaurant-order {
     font-size: var(--rds-font-size-sm) ;
-    min-height: var(--rds-component-button-height-small) !important;
-    height: var(--rds-component-button-height-small) !important;
+    min-height: var(--rds-component-button-height-small);
+    height: var(--rds-component-button-height-small);
   font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) ;
     font-weight: var(--rds-font-weight-normal, 400);
-    text-transform: none !important;
+    text-transform: none;
     display: block;
     box-sizing: border-box;
     margin: var(--rds-spacing-none, 0) auto ;
@@ -244,11 +244,11 @@
   }
   &__action-btn--input-form {
     font-size: var(--rds-font-size-sm) ;
-    min-height: var(--rds-component-button-height-small) !important;
-    height: var(--rds-component-button-height-small) !important;
+    min-height: var(--rds-component-button-height-small);
+    height: var(--rds-component-button-height-small);
    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) ;
     font-weight: var(--rds-font-weight-normal, 400);
-    text-transform: none !important;
+    text-transform: none;
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm) ;
     width: 100%;
     display: block;
@@ -274,8 +274,8 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    position: relative !important;
-    min-height: var(--rds-adaptive-cards-min-height-120) !important;
+    position: relative;
+    min-height: var(--rds-adaptive-cards-min-height-120);
   }
 
   &__calendar-reminder-label {
@@ -297,7 +297,7 @@
     .MuiOutlinedInput-input::placeholder,
     input::placeholder {
       color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) ;
-      opacity: 1 !important;
+      opacity: 1;
       font-size: var(--rds-font-size-xs) ;
     }
     &::placeholder {
@@ -310,16 +310,16 @@
     flex-direction: row ;
     align-items: flex-start ;
     width: 100%;
-    min-height: var(--rds-adaptive-cards-min-height-48) !important;
+    min-height: var(--rds-adaptive-cards-min-height-48);
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     flex-wrap: nowrap ;
-    position: relative !important;
+    position: relative;
   }
   &__activity-update-avatar {
-    width: var(--rds-spacing-xl) !important;
-    height: var(--rds-spacing-xl) !important;
+    width: var(--rds-spacing-xl);
+    height: var(--rds-spacing-xl);
     min-width: var(--rds-spacing-xl) ;
     flex-shrink: 0 ;
     border-radius: var(--rds-border-radius-pill) ;
@@ -331,8 +331,8 @@
     flex-direction: column ;
     align-items: flex-start ;
     justify-content: flex-start ;
-    flex: 1 !important;
-    min-width: 0 !important;
+    flex: 1;
+    min-width: 0;
     padding: 0;
     margin: 0;
   }
@@ -378,7 +378,7 @@
   }
   &__restaurant-order-info-icon {
     font-size: var(--rds-font-size-2xl) ;
-    width: var(--rds-adaptive-cards-thumb-width) !important;
+    width: var(--rds-adaptive-cards-thumb-width);
     height: var(--rds-size-20);
     color: var(--rds-text-secondary) ;
   }
@@ -416,22 +416,22 @@
   }
 
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league-avatar {
-    order: 0 !important;
+    order: 0;
     margin-right: var(--rds-spacing-xs) ;
     flex-shrink: 0 ;
   }
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
-    order: 1 !important;
+    order: 1;
     white-space: nowrap;
-    min-width: 0 !important; 
+    min-width: 0; 
   }
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live,
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live--aligned {
-    position: absolute !important;
-    right: 0 !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    margin-left: 0 !important;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0;
     flex-shrink: 0 ;
   }
 
@@ -440,13 +440,13 @@
       align-items: center ;
       justify-content: center ;
       gap: var(--rds-spacing-sm) ;
-      flex: 1 1 auto !important;
-      min-width: 0 !important;
+      flex: 1 1 auto;
+      min-width: 0;
       margin-left: var(--rds-spacing-none, 0) ;
     }
   &__football-league-avatar {
-    width: var(--rds-football-league-avatar-size) !important;
-    height: var(--rds-football-league-avatar-size) !important;
+    width: var(--rds-football-league-avatar-size);
+    height: var(--rds-football-league-avatar-size);
     flex-shrink: 0 ;
     display: block;
     border-radius: var(--rds-border-radius-pill) ;
@@ -457,11 +457,11 @@
       letter-spacing: var(--rds-football-league-letter-spacing) ;
       font-size: var(--rds-font-size-3xl) ;
       color: var(--rds-text-primary) ;
-      text-shadow: none !important;
+      text-shadow: none;
       display: inline-block;
       white-space: nowrap;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
+      overflow: hidden;
+      text-overflow: ellipsis;
       margin: 0;
       line-height: 1.2 ;
     }
@@ -477,7 +477,7 @@
     margin: var(--rds-spacing-xs) 0 ;
     letter-spacing: var(--rds-football-date-letter-spacing) ;
     text-align: center ;
-    min-width: 0 !important;
+    min-width: 0;
   }
   &__football-final {
     color: var(--rds-text-secondary) ;
@@ -490,7 +490,7 @@
   &__football-live {
     font-size: var(--rds-font-size-xs) ;
     font-weight: var(--rds-font-weight-normal, 400);
-    border-radius: var(--rds-border-radius-full) !important;
+    border-radius: var(--rds-border-radius-full);
     background: var(--rds-error-main) ;
     color: var(--rds-neutral-0) ;
     display: inline-flex;
@@ -504,11 +504,11 @@
   }
 
   .rds-adaptive-cards__football-live--aligned {
-    position: relative !important;
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    right: 0 !important;
-    left: auto !important;
+    position: relative;
+    margin-left: auto;
+    margin-right: 0;
+    right: 0;
+    left: auto;
     display: inline-flex;
     align-items: center ;
     justify-content: center ;
@@ -564,7 +564,7 @@
     }
 
     &__football-img {
-      background: transparent !important;
+      background: transparent;
     }
 
     &__football-score,
@@ -648,7 +648,7 @@
     display: inline-block; 
     
     &-colon {
-      margin: 0 var(--rds-spacing-xxs) !important; 
+      margin: 0 var(--rds-spacing-xxs); 
     }
   }
   &__football-time {
@@ -683,7 +683,7 @@
   &:active {
     outline: none;
     border-color: var(--rds-border-light) ;
-    box-shadow: none !important;
+    box-shadow: none;
   }
 }
 
@@ -747,13 +747,13 @@
   display: inline-flex;
   align-items: center ;
   justify-content: center ;
-  vertical-align: middle !important;
+  vertical-align: middle;
 }
 
 .rds-adaptive-cards__calendar-reminder-actions.rds-adaptive-cards__actions--input-form {
   justify-content: space-between ;
-  padding-left: var(--rds-spacing-sm) !important;
-  padding-right: var(--rds-spacing-sm) !important;
+  padding-left: var(--rds-spacing-sm);
+  padding-right: var(--rds-spacing-sm);
 }
 
 .rds-adaptive-cards.is-default-selected .rds-adaptive-cards__default-slot,
@@ -802,17 +802,17 @@
 }
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
 .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon) {
-  stroke: var(--rds-text-secondary) !important;
+  stroke: var(--rds-text-secondary);
   color: var(--rds-text-secondary) ;
   font-size: var(--rds-font-size-md) ;
-  width: var(--rds-font-size-md) !important;
-  height: var(--rds-font-size-md) !important;
+  width: var(--rds-font-size-md);
+  height: var(--rds-font-size-md);
 }
 .rds-adaptive-cards__calendar-reminder-select-icon {
   font-size: var(--rds-font-size-md) ;
-  width: 1em !important;
-  height: 1em !important;
-  stroke: var(--rds-text-secondary) !important;
+  width: 1em;
+  height: 1em;
+  stroke: var(--rds-text-secondary);
   color: var(--rds-text-secondary) ;
 }
 
@@ -821,13 +821,13 @@
   .MuiOutlinedInput-root,
   .MuiOutlinedInput-root.Mui-focused,
   .MuiOutlinedInput-root:hover {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   .MuiSelect-icon {
@@ -841,13 +841,13 @@
   .MuiOutlinedInput-root,
   .MuiOutlinedInput-root.Mui-focused,
   .MuiOutlinedInput-root:hover {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 }
 
@@ -930,7 +930,7 @@
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-img {
-  background: transparent !important;
+  background: transparent;
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time,
@@ -1159,7 +1159,7 @@
   line-height: var(--rds-font-size-xs);
 }
 .rds-adaptive-cards__footer .dropdown-menu.show {
-  inset: var(--rds-dropdown-menu-inset, var(--rds-spacing-xs) auto auto var(--rds-spacing-neg-67)) !important;
+  inset: var(--rds-dropdown-menu-inset, var(--rds-spacing-xs) auto auto var(--rds-spacing-neg-67));
 }
 
 @include bp.between(mobile-sm, mobile-md) {
@@ -1175,8 +1175,8 @@
   .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
     font-size: var(--rds-font-size-xl) ;
     font-weight: 700;
-    padding-top: var(--rds-spacing-xs) !important;
-    padding-bottom: var(--rds-spacing-sm) !important;
+    padding-top: var(--rds-spacing-xs);
+    padding-bottom: var(--rds-spacing-sm);
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1186,13 +1186,13 @@
   }
   .rds-adaptive-cards__actions--input-form .rds-adaptive-cards__title {
     font-size: var(--rds-font-size-xl) ;
-    padding-top: var(--rds-title-padding-top-mobile) !important;
+    padding-top: var(--rds-title-padding-top-mobile);
     margin-bottom: var(--rds-title-margin-bottom-mobile) ;
     font-weight: 700;
   }
   .rds-adaptive-cards__restaurant-order-label {
     font-size: var(--rds-font-size-sm);
-    padding-top: var(--rds-title-padding-top-mobile) !important;
+    padding-top: var(--rds-title-padding-top-mobile);
     margin-bottom: var(--rds-title-margin-bottom-mobile) ;
     text-align: left ;
     line-height: 1.2 ;
@@ -1206,23 +1206,23 @@
     padding: var(--rds-spacing-sm) ;
   }
   .rds-adaptive-cards__image-list {
-    grid-template-columns: repeat(1, 1fr) !important;
+    grid-template-columns: repeat(1, 1fr);
   }
   .rds-adaptive-cards__image-list-item {
-    height: var(--rds-image-list-item-height-mobile) !important;
+    height: var(--rds-image-list-item-height-mobile);
   }
   .rds-adaptive-cards__football-header-row {
     margin-left: 0;
   }
   .rds-adaptive-cards__football-live {
-      position: relative !important;
-      left: 0 !important;
-      right: 0 !important;
-      margin: 0 0 var(--rds-spacing-5) var(--rds-spacing-md) !important;
+      position: relative;
+      left: 0;
+      right: 0;
+      margin: 0 0 var(--rds-spacing-5) var(--rds-spacing-md);
       display: flex;
       align-items: center ;
       justify-content: center ;
-      max-width: var(--rds-adaptive-cards-max-width-sm) !important;
+      max-width: var(--rds-adaptive-cards-max-width-sm);
       min-width: var(--rds-adaptive-cards-min-width-sm) ;
       font-size: var(--rds-adaptive-cards-font-size-xxs) ;
       z-index: var(--rds-z-index-layer-2);
@@ -1235,20 +1235,20 @@
   
   @include bp.down(340) {
     .rds-adaptive-cards__football-live {
-      position: relative !important;
-      left: 0 !important;
-      right: 0 !important;
-      margin: 0 0 var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
+      position: relative;
+      left: 0;
+      right: 0;
+      margin: 0 0 var(--rds-spacing-xs) var(--rds-spacing-sm);
       display: flex;
       align-items: center ;
       justify-content: center ;
-      max-width: var(--rds-adaptive-cards-max-width-xs) !important;
+      max-width: var(--rds-adaptive-cards-max-width-xs);
       font-size: var(--rds-adaptive-cards-font-size-xxs) ;
       z-index: var(--rds-z-index-dropdown, 1000);
     }
     .rds-adaptive-cards__football-league {
       font-size: var(--rds-adaptive-cards-font-size-md) ;
-      letter-spacing: 0.3px !important;
+      letter-spacing: 0.3px;
       font-weight: var(--rds-font-weight-bold, 700);
     }
   }
@@ -1281,15 +1281,15 @@
   .rds-adaptive-cards__football-live {
     font-size: var(--rds-font-size-xs) ;
     font-weight: var(--rds-font-weight-normal, 400);
-    height: var(--rds-font-size-xs) !important;
-    position: relative !important;
-    left: 0 !important;
-    right: 0 !important;
-    margin: 0 0 var(--rds-spacing-5) var(--rds-spacing-md) !important;
+    height: var(--rds-font-size-xs);
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: 0 0 var(--rds-spacing-5) var(--rds-spacing-md);
     display: flex;
     align-items: center ;
     justify-content: center ;
-    max-width: var(--rds-adaptive-cards-max-width-md) !important;
+    max-width: var(--rds-adaptive-cards-max-width-md);
     min-width: var(--rds-adaptive-cards-min-width-sm) ;
     z-index: var(--rds-z-index-layer-2);
   }
@@ -1320,10 +1320,10 @@
     white-space: nowrap;
     word-break: break-word;
     box-sizing: border-box;
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr);
   }
   .rds-adaptive-cards__image-list-item {
-    height: var(--rds-image-list-item-height-tablet) !important;
+    height: var(--rds-image-list-item-height-tablet);
   }
 
   .rds-adaptive-cards__football-team-name {
@@ -1346,10 +1346,10 @@
     padding: var(--rds-spacing-lg) ;
   }
   .rds-adaptive-cards__image-list {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(3, 1fr);
   }
   .rds-adaptive-cards__image-list-item {
-    height: var(--rds-image-list-item-height-tablet-lg) !important;
+    height: var(--rds-image-list-item-height-tablet-lg);
   }
 }
 
@@ -1380,7 +1380,7 @@
 
   &__close-icon {
     align-self: center;
-    left: var(--rds-spacing-cozy) !important;
+    left: var(--rds-spacing-cozy);
     font-size: var(--rds-font-size-sm) ;
   }
   
@@ -1399,7 +1399,7 @@
   }
 
   &__title-text {
-  font-size: 1.3rem !important; 
+  font-size: 1.3rem; 
   font-weight: 700; 
   margin-right: 0; 
   }
@@ -1505,7 +1505,7 @@
 .rds-adaptive-cards__activity-update-wrapper {
   width: 100%;
   display: block;
-  position: relative !important;
+  position: relative;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -1523,10 +1523,10 @@
 
 .rds-adaptive-cards__input-error {
   border-color: var(--rds-error-main) ;
-  border-width: var(--rds-adaptive-cards-border-width) !important;
+  border-width: var(--rds-adaptive-cards-border-width);
   &:focus {
     outline-color: var(--rds-error-main) ;
-    box-shadow: var(--rds-adaptive-cards-error-ring) !important;
+    box-shadow: var(--rds-adaptive-cards-error-ring);
   }
 }
 
@@ -1543,7 +1543,7 @@
   .rds-adaptive-cards--football-scorecard,
   .rds-adaptive-cards__scorecard-container {
     width: 100%;
-    min-width: 0 !important;
+    min-width: 0;
     padding: var(--rds-spacing-sm) ;
     box-sizing: border-box;
   }
@@ -1554,20 +1554,20 @@
   }
 
   .rds-adaptive-cards__football-team {
-    min-width: var(--rds-size-56) !important; 
-    max-width: var(--rds-size-4xl) !important;
+    min-width: var(--rds-size-56); 
+    max-width: var(--rds-size-4xl);
   }
 
   .rds-adaptive-cards__football-score-section {
-    min-width: var(--rds-size-56) !important;
-    max-width: var(--rds-size-4xl) !important;
+    min-width: var(--rds-size-56);
+    max-width: var(--rds-size-4xl);
   }
 
   .rds-adaptive-cards__football-team-name {
-    max-width: var(--rds-size-4xl) !important;
+    max-width: var(--rds-size-4xl);
     white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: var(--rds-adaptive-cards-font-size-sm) ;
   }
 
@@ -1610,15 +1610,15 @@
 @media (max-width: 834px) {
   .rds-adaptive-cards--default,
   .rds-adaptive-cards--football-scorecard {
-    min-width: 0 !important;
+    min-width: 0;
     max-width: 100%;
   }
 
   .rds-adaptive-cards__header,
   .rds-adaptive-cards__content,
   .rds-adaptive-cards__actions {
-    padding-left: var(--rds-spacing-sm) !important;
-    padding-right: var(--rds-spacing-sm) !important;
+    padding-left: var(--rds-spacing-sm);
+    padding-right: var(--rds-spacing-sm);
   }
 
   .rds-adaptive-cards__actions,
@@ -1640,26 +1640,26 @@
   .rds-adaptive-cards__action-btn--input-form,
   .rds-adaptive-cards__action-btn--input-form-button,
   .rds-adaptive-cards__action-btn--restaurant-order {
-    height: var(--rds-size-36) !important;
-    min-height: var(--rds-size-36) !important;
+    height: var(--rds-size-36);
+    min-height: var(--rds-size-36);
   }
 
   .rds-adaptive-cards__restaurant-order-form .MuiOutlinedInput-root,
   .rds-adaptive-cards__restaurant-order-form .MuiInputBase-root {
-    height: var(--rds-size-36) !important;
-    min-height: var(--rds-size-36) !important;
+    height: var(--rds-size-36);
+    min-height: var(--rds-size-36);
     box-sizing: border-box;
   }
 
   .rds-adaptive-cards__restaurant-order-form .MuiSelect-select {
-    min-height: var(--rds-size-36) !important;
+    min-height: var(--rds-size-36);
     display: flex;
     align-items: center ;
     box-sizing: border-box;
   }
 
   .rds-adaptive-cards__football-header-left {
-    margin-left: 0 !important;
+    margin-left: 0;
     justify-content: center ;
   }
 
@@ -1669,8 +1669,8 @@
 
   .rds-adaptive-cards__football-team,
   .rds-adaptive-cards__football-score-section {
-    min-width: 0 !important;
-    max-width: none !important;
+    min-width: 0;
+    max-width: none;
   }
 
   .rds-adaptive-cards__football-team-name,

@@ -34,17 +34,17 @@
     }
     
     .MuiCardContent-root {
-      padding-top: 0 !important;
+      padding-top: 0;
       flex: 1;
       min-width: 0;
     }
     
     .MuiCardActions-root {
-      padding-top: 0 !important;
+      padding-top: 0;
     }
     
     .MuiCardContent-root .MuiTypography-gutterBottom {
-      margin-top: 0 !important;
+      margin-top: 0;
     }
     
     &.rds-card--hide-icon {
@@ -74,15 +74,15 @@
     }
     
     .MuiCardContent-root {
-      padding-top: 0 !important;
+      padding-top: 0;
     }
     
     .MuiCardActions-root {
-      padding-top: 0 !important;
+      padding-top: 0;
     }
     
     .MuiCardContent-root .MuiTypography-gutterBottom {
-      margin-top: 0 !important;
+      margin-top: 0;
     }
   }
   
@@ -111,12 +111,12 @@
   
   &--style-outlined {
     background-color: transparent;
-    border: var(--rds-border-width-thin) solid var(--rds-card-border) !important;
+    border: var(--rds-border-width-thin) solid var(--rds-card-border);
     box-shadow: none;
   }
   
   &--style-filled {
-    background-color: var(--rds-card-surface-filled) !important;
+    background-color: var(--rds-card-surface-filled);
     border: none;
     box-shadow: none;
   }
@@ -152,28 +152,28 @@
   &__indicator-icon {
     width: 100%;
     height: 100%;
-    background-color: var(--rds-card-indicator-bg, var(--rds-color-gray-700)) !important;
+    background-color: var(--rds-card-indicator-bg, var(--rds-color-gray-700));
     transition: var(--rds-transition-base, all 0.2s ease-in-out);
     border-radius: 0 var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0;
   }
   
   &:hover:not(.rds-card--disabled):not(.rds-card--selected) {
     box-shadow: var(--rds-elevation-2);
-    background-color: var(--rds-card-bg-hover, var(--rds-color-gray-200)) !important;
+    background-color: var(--rds-card-bg-hover, var(--rds-color-gray-200));
   }
   
   &--selected {
-    background-color: var(--rds-card-selected-bg, var(--rds-color-gray-200)) !important;
+    background-color: var(--rds-card-selected-bg, var(--rds-color-gray-200));
     box-shadow: var(--rds-elevation-focus);
     
     .rds-card__subtext {
-      color: var(--rds-color-primary) !important;
+      color: var(--rds-color-primary);
     }
   }
   
   &--disabled {
     opacity: 0.6;
-    background-color: var(--rds-card-disabled-bg, var(--rds-color-gray-300)) !important;
+    background-color: var(--rds-card-disabled-bg, var(--rds-color-gray-300));
     color: var(--rds-card-text-disabled, var(--rds-color-disabled-text));
     pointer-events: none;
     cursor: not-allowed;
@@ -181,9 +181,9 @@
     .MuiButton-root,
     .rds-button,
     button {
-      color: var(--rds-color-disabled-text) !important;
-      pointer-events: none !important;
-      cursor: not-allowed !important;
+      color: var(--rds-color-disabled-text);
+      pointer-events: none;
+      cursor: not-allowed;
     }
   }
   
@@ -271,21 +271,21 @@
   
   &__title {
     font-weight: var(--rds-font-weight-medium, 500);
-    font-size: var(--rds-font-size-xl) !important;
+    font-size: var(--rds-font-size-xl);
     line-height: 1.3;
     color: var(--rds-color-text-secondary);
     margin: 0;
-    margin-bottom: var(--rds-spacing-xs) !important;
+    margin-bottom: var(--rds-spacing-xs);
   }
   
   &__subtext {
     font-weight: var(--rds-font-weight-normal, 400);
-    font-size: var(--rds-font-size-sm) !important;
-    color: var(--rds-text-secondary) !important;
+    font-size: var(--rds-font-size-sm);
+    color: var(--rds-text-secondary);
     margin: 0;
     
     &.MuiTypography-root {
-      margin-bottom: var(--rds-spacing-xs) !important;
+      margin-bottom: var(--rds-spacing-xs);
     }
   }
   
@@ -294,7 +294,7 @@
     font-size: var(--rds-font-size-sm); 
     color: var(--rds-card-text-secondary, var(--rds-color-text-secondary));
     margin: 0;
-    margin-bottom: var(--rds-spacing-sm) !important;
+    margin-bottom: var(--rds-spacing-sm);
   }
   
   &__additional-content {
@@ -380,7 +380,7 @@
         display: flex;
         align-items: center;
         gap: var(--rds-spacing-xs);
-        margin-left: var(--rds-spacing-sm) !important;
+        margin-left: var(--rds-spacing-sm);
         flex-shrink: 0;
       }
 
@@ -399,7 +399,7 @@
         }
         
         .rds-card__edit-controls {
-          margin-left: var(--rds-card-avatar-controls-mobile-offset) !important;
+          margin-left: var(--rds-card-avatar-controls-mobile-offset);
           justify-content: flex-end;
           padding-top: var(--rds-spacing-xs);
         }
@@ -443,12 +443,12 @@
 }
 .rds-card .css-16xl4zq-MuiTypography-root,
 .rds-card .css-1f9xtph-MuiTypography-root {
-  font-size: var(--rds-font-size-lg) !important;
+  font-size: var(--rds-font-size-lg);
 }
 
 .rds-card__additional-content .rds-card__description,
 .rds-card > .rds-card__description {
-  display: block !important;
+  display: block;
   font-size: var(--rds-font-size-sm);
   color: var(--rds-color-text-secondary);
   line-height: 1.5;
@@ -479,19 +479,19 @@
   color: var(--rds-color-text-secondary);
   line-height: 1.5;
   margin: 0 0 var(--rds-spacing-md) 0;
-  display: block !important;
+  display: block;
 }
 
 .rds-card__avatar-section {
   &--editable {
     position: relative;
-    align-items: flex-start !important;
+    align-items: flex-start;
     
     .rds-card__edit-controls {
       display: flex;
       align-items: center;
       gap: var(--rds-spacing-xs);
-      margin-left: var(--rds-spacing-xs) !important;
+      margin-left: var(--rds-spacing-xs);
     }
     
     .rds-card__edit-icon {
@@ -538,10 +538,10 @@
 
     @include bp.down(mobile-sm) {
       .rds-card__edit-controls {
-        margin-left: 0 !important;
+        margin-left: 0;
         
         .rds-card__edit-icon {
-          margin-bottom: 0 !important;
+          margin-bottom: 0;
         }
       }
     }
@@ -562,7 +562,7 @@
       width: 100%;
       
       .MuiInputBase-root {
-        font-size: var(--rds-font-size-sm) !important;
+        font-size: var(--rds-font-size-sm);
         
         &.Mui-focused fieldset {
           border-color: var(--rds-color-primary);
@@ -609,15 +609,15 @@
 } 
 
 .rds-card .rds-avatar {
-   justify-content: flex-start !important;
+   justify-content: flex-start;
 }
 
 .rds-card__avatar-section--editable .rds-avatar{
- margin-left: var(--rds-card-avatar-offset-left) !important;
-  margin-top: var(--rds-spacing-xs) !important;
+ margin-left: var(--rds-card-avatar-offset-left);
+  margin-top: var(--rds-spacing-xs);
 }
 
 .rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {
-  --Paper-shadow: none !important;
+  --Paper-shadow: none;
   box-shadow: var(--rds-card-shadow);
 }

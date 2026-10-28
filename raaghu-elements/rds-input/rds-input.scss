@@ -121,7 +121,7 @@
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-error-main) !important;
+      border-color: var(--rds-error-main);
       border-width: var(--rds-input-border-width-thin);
     }
   }
@@ -138,7 +138,7 @@
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-border-light) !important;
+      border-color: var(--rds-border-light);
       border-width: var(--rds-input-border-width-thin);
     }
   }
@@ -155,7 +155,7 @@
       }
 
       .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-primary-main) !important;
+        border-color: var(--rds-primary-main);
         border-width: var(--rds-input-border-width-thick);
       }
     }
@@ -165,78 +165,78 @@
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-primary-main) !important;
+      border-color: var(--rds-primary-main);
       border-width: var(--rds-input-border-width-thin);
     }
   }
 
   &--small {
     .rds-input__field {
-      padding: var(--rds-input-padding-small-y) var(--rds-input-padding-small-x) !important;
-      font-size: var(--rds-font-size-sm) !important;
+      padding: var(--rds-input-padding-small-y) var(--rds-input-padding-small-x);
+      font-size: var(--rds-font-size-sm);
     }
 
     .MuiInputBase-root {
-      font-size: var(--rds-font-size-sm) !important;
-      align-items: center !important;
+      font-size: var(--rds-font-size-sm);
+      align-items: center;
     }
 
     .MuiInputBase-input {
-      padding-top: var(--rds-input-mui-padding-small-y) !important;
-      padding-bottom: var(--rds-input-mui-padding-small-y) !important;
-      padding-left: var(--rds-input-mui-padding-small-x) !important;
-      padding-right: var(--rds-input-mui-padding-small-x) !important;
-      display: flex !important;
-      align-items: center !important;
-      line-height: normal !important;
+      padding-top: var(--rds-input-mui-padding-small-y);
+      padding-bottom: var(--rds-input-mui-padding-small-y);
+      padding-left: var(--rds-input-mui-padding-small-x);
+      padding-right: var(--rds-input-mui-padding-small-x);
+      display: flex;
+      align-items: center;
+      line-height: normal;
     }
   }
 
   &--medium {
     .rds-input__field {
-      padding: var(--rds-input-padding-medium-y) var(--rds-input-padding-medium-x) !important;
-      font-size: var(--rds-font-size-md) !important;
+      padding: var(--rds-input-padding-medium-y) var(--rds-input-padding-medium-x);
+      font-size: var(--rds-font-size-md);
     }
 
     .MuiInputBase-root {
-      font-size: var(--rds-font-size-md) !important;
-      align-items: center !important;
+      font-size: var(--rds-font-size-md);
+      align-items: center;
     }
 
     .MuiInputBase-input {
-      padding-top: var(--rds-input-mui-padding-medium-y) !important;
-      padding-bottom: var(--rds-input-mui-padding-medium-y) !important;
-      padding-left: var(--rds-input-mui-padding-medium-x) !important;
-      padding-right: var(--rds-input-mui-padding-medium-x) !important;
-      display: flex !important;
-      align-items: center !important;
-      line-height: normal !important;
+      padding-top: var(--rds-input-mui-padding-medium-y);
+      padding-bottom: var(--rds-input-mui-padding-medium-y);
+      padding-left: var(--rds-input-mui-padding-medium-x);
+      padding-right: var(--rds-input-mui-padding-medium-x);
+      display: flex;
+      align-items: center;
+      line-height: normal;
     }
   }
 
   &--large {
     .rds-input__field {
-      padding: var(--rds-input-padding-large-y) var(--rds-input-padding-large-x) !important;
-      font-size: var(--rds-font-size-lg) !important;
+      padding: var(--rds-input-padding-large-y) var(--rds-input-padding-large-x);
+      font-size: var(--rds-font-size-lg);
     }
 
     .MuiInputBase-root {
-      font-size: var(--rds-font-size-lg) !important;
-      align-items: center !important;
+      font-size: var(--rds-font-size-lg);
+      align-items: center;
     }
 
     .MuiInputBase-input {
-      padding-top: var(--rds-input-mui-padding-medium-y) !important;
-      padding-bottom: var(--rds-input-mui-padding-medium-y) !important;
-      padding-left: var(--rds-input-mui-padding-large-x) !important;
-      padding-right: var(--rds-input-mui-padding-large-x) !important;
-      display: flex !important;
-      align-items: center !important;
-      line-height: normal !important;
+      padding-top: var(--rds-input-mui-padding-medium-y);
+      padding-bottom: var(--rds-input-mui-padding-medium-y);
+      padding-left: var(--rds-input-mui-padding-large-x);
+      padding-right: var(--rds-input-mui-padding-large-x);
+      display: flex;
+      align-items: center;
+      line-height: normal;
     }
 
     .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
-      transform: translate(var(--rds-input-label-large-x), var(--rds-input-label-large-y)) scale(1) !important;
+      transform: translate(var(--rds-input-label-large-x), var(--rds-input-label-large-y)) scale(1);
     }
   }
 
@@ -244,17 +244,17 @@
     .MuiOutlinedInput-root,
     .MuiFilledInput-root,
     .MuiInputBase-root {
-      border-radius: var(--rds-border-radius-full) !important;
-      padding-right: var(--rds-spacing-lg) !important;
+      border-radius: var(--rds-border-radius-full);
+      padding-right: var(--rds-spacing-lg);
       box-sizing: border-box;
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-radius: var(--rds-border-radius-full) !important;
+      border-radius: var(--rds-border-radius-full);
     }
 
     .MuiInputBase-input {
-      border-radius: var(--rds-border-radius-full) !important;
+      border-radius: var(--rds-border-radius-full);
     }
   }
 
@@ -311,40 +311,40 @@
 
   &--error {
     .MuiFormLabel-root.Mui-error {
-      color: var(--rds-error-main) !important;
+      color: var(--rds-error-main);
     }
 
     .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-error-main) !important;
+      border-color: var(--rds-error-main);
     }
 
     .MuiFormHelperText-root.Mui-error {
-      color: var(--rds-error-main) !important;
+      color: var(--rds-error-main);
     }
   }
 
   &--selected {
     .MuiFormLabel-root {
-      color: var(--rds-primary-main) !important;
+      color: var(--rds-primary-main);
     }
 
     .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
     .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-primary-main) !important;
+      border-color: var(--rds-primary-main);
     }
 
     .MuiOutlinedInput-root.Mui-focused {
-      box-shadow: none !important;
+      box-shadow: none;
     }
   }
 
   &--disabled {
     .MuiFormLabel-root.Mui-disabled {
-      color: var(--rds-text-disabled) !important;
+      color: var(--rds-text-disabled);
     }
 
     .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-border-light) !important;
+      border-color: var(--rds-border-light);
     }
 
     .MuiInputBase-root.Mui-disabled {
@@ -354,19 +354,19 @@
   }
 
   .MuiFormLabel-root.Mui-required .MuiFormLabel-asterisk {
-    color: var(--rds-error-main) !important;
+    color: var(--rds-error-main);
   }
 
   .MuiOutlinedInput-notchedOutline legend {
-    font-size: var(--rds-font-size-sm) !important;
+    font-size: var(--rds-font-size-sm);
   }
 
   .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   .MuiFormHelperText-root {
-    margin-left: var(--rds-border-radius-none) !important;
+    margin-left: var(--rds-border-radius-none);
   }
 
   &:focus-visible {
@@ -390,23 +390,23 @@
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-text-hint) !important;
-    opacity: 1 !important;
+    color: var(--rds-text-hint);
+    opacity: 1;
   }
 }
 
 .rds-input .MuiFormHelperText-root {
-  margin-left: var(--rds-border-radius-none) !important;
+  margin-left: var(--rds-border-radius-none);
 }
 
 .rds-input--inline-title {
   .MuiOutlinedInput-notchedOutline {
     legend {
-      max-width: var(--rds-input-dim-1) !important;
-      width: var(--rds-input-dim-1) !important;
-      padding: 0 !important;
-      visibility: hidden !important;
-      border: 0 !important;
+      max-width: var(--rds-input-dim-1);
+      width: var(--rds-input-dim-1);
+      padding: 0;
+      visibility: hidden;
+      border: 0;
     }
     overflow: hidden;
   }
@@ -429,9 +429,9 @@
   }
 
   .MuiInputLabel-root {
-    background: var(--rds-background-paper) !important;
-    padding: 0 0.25rem !important;
-    line-height: 1 !important;
+    background: var(--rds-background-paper);
+    padding: 0 0.25rem;
+    line-height: 1;
     pointer-events: none;
     z-index: 1;
   }
@@ -439,31 +439,31 @@
   .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
     grid-row: 1;
     grid-column: 1;
-    position: relative !important;
+    position: relative;
     align-self: center;
     justify-self: start;
-    top: auto !important;
-    left: auto !important;
-    margin: 0 !important;
+    top: auto;
+    left: auto;
+    margin: 0;
     width: max-content;
-    transform: translateX(calc(var(--rds-spacing-sm) + var(--rds-input-border-width-thin))) !important;
-    transform-origin: left center !important;
+    transform: translateX(calc(var(--rds-spacing-sm) + var(--rds-input-border-width-thin)));
+    transform-origin: left center;
   }
 
   .MuiInputLabel-root.MuiInputLabel-shrink {
-    position: absolute !important;
+    position: absolute;
     grid-row: 1;
     grid-column: 1;
-    top: 0 !important;
-    left: 0 !important;
+    top: 0;
+    left: 0;
     align-self: start;
-    transform: translate(calc(var(--rds-spacing-sm) - 0.25rem), -50%) scale(0.85) !important;
-    transform-origin: left center !important;
+    transform: translate(calc(var(--rds-spacing-sm) - 0.25rem), -50%) scale(0.85);
+    transform-origin: left center;
     z-index: 2;
   }
 
   &.rds-input--large .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
-    transform: translateX(calc(var(--rds-spacing-md) - (var(--rds-input-border-width-thick) / 2))) !important;
+    transform: translateX(calc(var(--rds-spacing-md) - (var(--rds-input-border-width-thick) / 2)));
   }
 }
 
