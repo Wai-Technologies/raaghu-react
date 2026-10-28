@@ -1007,6 +1007,8 @@ export const alphaTokens = {
   actionActiveLight: 'rgba(0, 0, 0, 0.54)',
   /** Disabled state (light) */
   actionDisabledLight: 'rgba(0, 0, 0, 0.26)',
+  /** Disabled background (light) — MUI action.disabledBackground */
+  actionDisabledBgLight: 'rgba(0, 0, 0, 0.12)',
   /** Selected state background (light) — MUI action.selected */
   actionSelectedLight: 'rgba(0, 0, 0, 0.08)',
 
@@ -1017,6 +1019,8 @@ export const alphaTokens = {
   actionActiveDark: 'rgba(255, 255, 255, 0.16)',
   /** Disabled state (dark) */
   actionDisabledDark: 'rgba(255, 255, 255, 0.3)',
+  /** Disabled background (dark) — MUI action.disabledBackground */
+  actionDisabledBgDark: 'rgba(255, 255, 255, 0.12)',
   /** Selected state background (dark) — MUI action.selected */
   actionSelectedDark: 'rgba(255, 255, 255, 0.16)',
 

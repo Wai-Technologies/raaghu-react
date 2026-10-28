@@ -56,7 +56,12 @@ const meta: Meta = {
   tags: ['autodocs', 'stable'],
   argTypes: {
     open: { control: { type: 'boolean' } },
-    maxWidth: { control: { type: 'select' }, options: ['xs', 'sm', 'md', 'lg', 'xl', false] },
+    maxWidth: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl', false],
+      description:
+        'Dialog max width (MUI 5-breakpoint scale). Unlike button/badge size, dialogs use xs–xl. Pass false to remove the max-width cap so the paper sizes to its content.',
+    },
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },

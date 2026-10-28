@@ -1,5 +1,5 @@
 import type { PaletteOptions } from '@mui/material/styles';
-import { colorTokens } from '../../tokens/design-tokens';
+import { alphaTokens, colorTokens } from '../../tokens/design-tokens';
 
 const white = colorTokens.neutral[0];
 const black = colorTokens.neutral[1000];
@@ -70,10 +70,10 @@ export function lightMuiPalette(): PaletteOptions {
     },
     divider: n[300],
     action: {
-      hover: 'rgba(0, 0, 0, 0.04)',
-      selected: 'rgba(0, 0, 0, 0.08)',
-      disabled: 'rgba(0, 0, 0, 0.26)',
-      disabledBackground: 'rgba(0, 0, 0, 0.12)',
+      hover: alphaTokens.actionHoverLight,
+      selected: alphaTokens.actionSelectedLight,
+      disabled: alphaTokens.actionDisabledLight,
+      disabledBackground: alphaTokens.actionDisabledBgLight,
     },
   };
 }
@@ -137,10 +137,10 @@ export function darkMuiPalette(): PaletteOptions {
     },
     divider: n[700],
     action: {
-      hover: 'rgba(255, 255, 255, 0.08)',
-      selected: 'rgba(255, 255, 255, 0.16)',
-      disabled: 'rgba(255, 255, 255, 0.3)',
-      disabledBackground: 'rgba(255, 255, 255, 0.12)',
+      hover: alphaTokens.actionHoverDark,
+      selected: alphaTokens.actionSelectedDark,
+      disabled: alphaTokens.actionDisabledDark,
+      disabledBackground: alphaTokens.actionDisabledBgDark,
     },
   };
 }

@@ -30,8 +30,8 @@ export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivEleme
   variant?: 'expandable' | 'selectable';
   /** Figma alias of `variant`. */
   type?: 'expandable' | 'selectable';
-  /** Size of the trigger button and menu items. `'default'` is deprecated; use `'medium'`. */
-  size?: 'small' | 'medium' | 'large' | 'default';
+  /** Size of the trigger button and menu items. Standard 3-value scale; defaults to `'medium'`. */
+  size?: 'small' | 'medium' | 'large';
   /** Selects the first item when using the selectable variant. */
   selected?: boolean;
   /** Called with the chosen option. */
@@ -44,8 +44,6 @@ export interface RdsMultiLevelMenuProps extends Omit<HTMLAttributes<HTMLDivEleme
   ref?: Ref<HTMLDivElement>;
 }
 
-type MultiLevelMenuSize = 'small' | 'medium' | 'large';
-
 const menuItemStyle = {
   display: 'flex',
   alignItems: 'center',
@@ -57,15 +55,12 @@ const menuPaperStyle = {
   minWidth: 'var(--rds-mlm-min-width)',
 };
 
-const resolveSize = (sizeProp: 'small' | 'medium' | 'large' | 'default'): MultiLevelMenuSize =>
-  sizeProp === 'default' ? 'medium' : sizeProp;
-
 export const RdsMultiLevelMenu = ({
   items,
   options,
   variant,
   type: typeProp,
-  size: sizeProp = 'medium',
+  size = 'medium',
   selected = false,
   onSelect,
   children,
@@ -75,9 +70,7 @@ export const RdsMultiLevelMenu = ({
   ...rest
 }: RdsMultiLevelMenuProps) => {
   if (options !== undefined) warnDeprecatedProp('RdsMultiLevelMenu', 'options', '`items`');
-  if (sizeProp === 'default') warnDeprecatedProp('RdsMultiLevelMenu', 'size="default"', '`size="medium"`');
   const type = variant ?? typeProp ?? 'expandable';
-  const size = resolveSize(sizeProp);
   const isMobile = useMediaQuery('(max-width:568px)', { noSsr: true });
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
