@@ -1,7 +1,9 @@
 /* auto size dims */
---rds-off-canvas-dim-1: 320px;
---rds-off-canvas-dim-2: 375px;
---rds-off-canvas-dim-3: 400px;
+:root {
+  --rds-off-canvas-dim-1: 320px;
+  --rds-off-canvas-dim-2: 375px;
+  --rds-off-canvas-dim-3: 400px;
+}
 
 /* G6-055: scope drawer chrome / placement under .offcanvas-drawer (no global .placement-* / header leaks) */
 

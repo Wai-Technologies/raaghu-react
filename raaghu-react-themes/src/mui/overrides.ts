@@ -738,7 +738,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           '& .MuiSwitch-thumb': {
             backgroundColor: 'var(--rds-background-paper)',
           },
-          '& .Mui-checked + .MuiSwitch-track, & .MuiSwitch-input:checked + .MuiSwitch-track': {
+          '& .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track': {
             background: 'var(--rds-primary-light)',
             opacity: 1,
           },
@@ -760,7 +760,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           '& .MuiSwitch-thumb': {
             background: 'var(--rds-color-switch-thumb)',
           },
-          '& .Mui-checked + .MuiSwitch-track, & .MuiSwitch-input:checked + .MuiSwitch-track': {
+          '& .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track': {
             background: 'var(--rds-secondary-light)',
             opacity: 1,
           },
@@ -782,7 +782,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           '& .MuiSwitch-thumb': {
             background: 'var(--rds-color-switch-thumb)',
           },
-          '& .Mui-checked + .MuiSwitch-track, & .MuiSwitch-input:checked + .MuiSwitch-track': {
+          '& .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track': {
             background: 'var(--rds-error-light)',
             opacity: 1,
           },
@@ -794,7 +794,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           '& .MuiSwitch-thumb': {
             background: 'var(--rds-color-switch-thumb)',
           },
-          '& .Mui-checked + .MuiSwitch-track, & .MuiSwitch-input:checked + .MuiSwitch-track': {
+          '& .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track': {
             background: 'var(--rds-warning-light)',
             opacity: 1,
           },
@@ -816,7 +816,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           '& .MuiSwitch-thumb': {
             background: 'var(--rds-color-switch-thumb)',
           },
-          '& .Mui-checked + .MuiSwitch-track, & .MuiSwitch-input:checked + .MuiSwitch-track': {
+          '& .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track': {
             background: 'var(--rds-info-light)',
             opacity: 1,
           },
@@ -828,7 +828,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           '& .MuiSwitch-thumb': {
             background: 'var(--rds-color-switch-thumb)',
           },
-          '& .Mui-checked + .MuiSwitch-track, & .MuiSwitch-input:checked + .MuiSwitch-track': {
+          '& .MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track': {
             background: 'var(--rds-success-light)',
             opacity: 1,
           },

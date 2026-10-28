@@ -42,7 +42,7 @@ export interface RdsTextAreaProps extends NativeTextareaProps {
   error?: boolean;
   /** Applies the selected appearance. */
   selected?: boolean;
-  /** Text shown under the field when it is in error. */
+  /** Hint text shown under the field. Turns into the error message when the field is in error. */
   helperText?: string;
   /** Style variant. */
   variant?: TextareaStyle;
@@ -217,6 +217,7 @@ const RdsTextArea = ({
     }
     return undefined;
   };
+  const bottomText = isError ? getValidationMessage() : helperText;
 
   return (
     <Box
@@ -265,13 +266,17 @@ const RdsTextArea = ({
           onChange={handleChange}
           aria-invalid={isError}
           aria-required={isMandatory ? true : undefined}
-          aria-describedby={isError ? errorId : undefined}
+          aria-describedby={bottomText ? errorId : undefined}
         />
       </div>
 
-      {isError && getValidationMessage() && (
-        <div id={errorId} className="error-message rds-textarea__error-message" role="alert">
-          {getValidationMessage()}
+      {bottomText && (
+        <div
+          id={errorId}
+          className={isError ? 'error-message rds-textarea__error-message' : 'rds-textarea__helper-text'}
+          role={isError ? 'alert' : undefined}
+        >
+          {bottomText}
         </div>
       )}
     </Box>

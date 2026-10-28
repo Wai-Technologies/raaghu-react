@@ -726,6 +726,14 @@ describe('audit fixes', () => {
     expect(screen.queryByText('Old')).not.toBeInTheDocument();
   });
 
+  it('shows helperText as a hint when there is no error', () => {
+    render(<RdsTextArea helperText="Max 200 characters" />);
+    const hint = screen.getByText('Max 200 characters');
+    expect(hint).toHaveClass('rds-textarea__helper-text');
+    expect(hint).not.toHaveAttribute('role');
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-describedby', hint.id);
+  });
+
   it('B29: variant wins over the deprecated style string, and style accepts CSSProperties', () => {
     const { container } = render(<RdsTextArea variant="Pill" style="Bottom Outline" data-testid="ta" />);
     expect(screen.getByRole('textbox')).toHaveClass('rds-textarea__pill');

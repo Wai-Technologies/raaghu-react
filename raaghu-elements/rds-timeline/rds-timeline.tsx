@@ -41,6 +41,7 @@ const RdsTimeline = ({
 }: RdsTimelineProps) => {
   if (alternating) warnDeprecatedProp('RdsTimeline', 'alternating', '`position="alternate"`');
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
+  const isAlternate = timelinePosition === 'alternate' || timelinePosition === 'alternate-reverse';
 
   return (
     <MuiTimeline position={timelinePosition} {...props} className={clsx('rds-timeline', className)}>
@@ -51,7 +52,7 @@ const RdsTimeline = ({
           <MuiTimelineItem
             key={item.id}
             sx={
-              !opposite
+              !opposite && !isAlternate
                 ? {
                     [`&.${timelineItemClasses.missingOppositeContent}:before`]: {
                       flex: 0,
