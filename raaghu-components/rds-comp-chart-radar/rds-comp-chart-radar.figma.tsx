@@ -22,7 +22,7 @@ figma.connect(
                         {
                             label: "Dataset 1",
                             data: [0.5, 0.8, 0.4, 0.6, 0.7, 0.2, 0.9],
-                            borderColor: ["#ff9f40"],
+                            borderColor: ["var(--rds-chart-series-5)"],
                             backgroundColor: ["rgba(255, 99, 132, 0.2)"],
                             fill: false,
                             pointRadius: 2,
@@ -31,7 +31,7 @@ figma.connect(
                         {
                             label: "Dataset 2",
                             data: [0.9, 0.3, 0.8, 0.9, 0.1, 0.7, 0.2],
-                            borderColor: ["#ff6384"],
+                            borderColor: ["var(--rds-chart-series-1)"],
                             backgroundColor: ["rgba(255, 206, 86, 0.2)"],
                             fill: true,
                             pointRadius: 2,
@@ -40,7 +40,7 @@ figma.connect(
                         {
                             label: "Dataset 3",
                             data: [0.7, 0.2, 0.1, 0.9, 0.8, 0.4, 0.7],
-                            borderColor: ["#83BE5A"],
+                            borderColor: ["var(--rds-chart-named-green-soft)"],
                             backgroundColor: ["rgba(255, 240, 204, 0.2)"],
                             fill: false,
                             pointRadius: 2,
@@ -90,7 +90,7 @@ figma.connect(
                             },
                             ticks: {
                                 showLabelBackdrop: true,
-                                color: "#666",
+                                color: "var(--rds-chart-axis)",
                                 padding: 3,
                                 backdropColor: "rgba(255, 255, 255, 0.75)",
                                 backdropPadding: 2,
@@ -102,7 +102,7 @@ figma.connect(
                                 },
                                 padding: 5,
                                 centerPointLabels: false,
-                                color: "#666",
+                                color: "var(--rds-chart-axis)",
                             },
                         },
                     },

@@ -15,7 +15,9 @@ export default tseslint.config([
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
+      // Use `recommended` (not `recommended-latest`) to avoid React 19 compiler
+      // rules (refs / set-state-in-effect) that flag many existing patterns.
+      reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
     languageOptions: {
@@ -41,6 +43,12 @@ export default tseslint.config([
       '@typescript-eslint/no-empty-object-type': 'warn',
 
       'react-hooks/exhaustive-deps': 'warn',
+      // React Compiler rules from eslint-plugin-react-hooks@7 — opt out until
+      // the codebase is ready; classic hooks rules above stay active.
+      'react-hooks/refs': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/static-components': 'off',
+      'react-hooks/immutability': 'off',
 
       // react-refresh is designed for app HMR; library files intentionally export
       // both components and utilities from the same file
@@ -53,6 +61,13 @@ export default tseslint.config([
     rules: {
       'no-console': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+  // Ambient DOM lib shims legitimately use `declare var`.
+  {
+    files: ['**/*.d.ts'],
+    rules: {
+      'no-var': 'off',
     },
   },
 ], storybook.configs["flat/recommended"]);

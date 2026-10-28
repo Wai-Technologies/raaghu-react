@@ -257,7 +257,7 @@
     .rds-avatar__dot { background: var(--rds-color-light); }
     .MuiAvatar-root {
       background-color: var(--rds-color-light) !important;
-      color: var(--rds-color-on-light, var(--rds-neutral-900, #212121)) !important;
+      color: var(--rds-color-on-light, var(--rds-neutral-900)) !important;
       box-shadow: inset 0 0 0 1px var(--rds-border-default);
     }
   }
@@ -266,7 +266,7 @@
     .rds-avatar__dot { background: var(--rds-color-dark); }
     .MuiAvatar-root {
       background-color: var(--rds-color-dark) !important;
-      color: var(--rds-color-on-dark, #ffffff) !important;
+      color: var(--rds-color-on-dark) !important;
       box-shadow: inset 0 0 0 1px var(--rds-border-default);
     }
   }

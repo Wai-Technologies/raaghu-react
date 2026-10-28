@@ -117,7 +117,7 @@
         left: 50%;
         width: 6px;
         height: 10px;
-        border: solid var(--rds-primary-contrast-text, #fff);
+        border: solid var(--rds-primary-contrast-text);
         border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transform-origin: center;
@@ -148,7 +148,7 @@
           width: 8px;
           height: 2px;
           border: none;
-          background-color: var(--rds-primary-contrast-text, #fff);
+          background-color: var(--rds-primary-contrast-text);
           border-radius: 2px;
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
@@ -209,7 +209,7 @@
         left: 50%;
         width: 6px;
         height: 10px;
-        border: solid var(--rds-primary-contrast-text, #fff);
+        border: solid var(--rds-primary-contrast-text);
         border-width: 0 var(--rds-checkbox-border-width) var(--rds-checkbox-border-width) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transform-origin: center;
@@ -240,7 +240,7 @@
           width: 8px;
           height: 2px;
           border: none;
-          background-color: var(--rds-primary-contrast-text, #fff);
+          background-color: var(--rds-primary-contrast-text);
           border-radius: 2px;
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;

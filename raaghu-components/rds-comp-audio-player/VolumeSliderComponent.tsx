@@ -45,7 +45,7 @@ export const VolumeSliderComponent = memo(
               },
               "& .MuiSlider-rail": {
                 width: 4,
-                backgroundColor: "var(--rds-neutral-300, var(--rds-grey-300, #e0e0e0))",
+                backgroundColor: "var(--rds-neutral-300, var(--rds-grey-300))",
               },
             }}
           />

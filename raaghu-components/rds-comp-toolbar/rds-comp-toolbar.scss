@@ -303,17 +303,17 @@
     .rds-comp-toolbar--misc
   ) {
   .rds-comp-toolbar__row--secondary .rds-comp-toolbar__button:hover {
-    background: var(--rds-surface-dark-hover, #4a5058);
+    background: var(--rds-surface-dark-hover);
     border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.18));
-    color: var(--rds-color-on-surface-dark, #fff);
+    color: var(--rds-color-on-surface-dark);
   }
 
   .rds-comp-toolbar__button:hover,
   .rds-comp-toolbar__button:focus-visible,
   .rds-comp-toolbar__button[aria-expanded='true'] {
-    background: var(--rds-surface-dark-hover, #4a5058);
+    background: var(--rds-surface-dark-hover);
     border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.18));
-    color: var(--rds-color-on-surface-dark, #fff);
+    color: var(--rds-color-on-surface-dark);
   }
 }
 

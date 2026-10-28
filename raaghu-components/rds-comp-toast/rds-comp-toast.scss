@@ -1,7 +1,7 @@
 .rds-comp-toast {
-  --rds-toast-accent-info: var(--rds-color-info, var(--rds-info-main, #0288d1));
-  --rds-toast-accent-success: var(--rds-color-success, var(--rds-success-main, #2e7d32));
-  --rds-toast-accent-warning: var(--rds-color-warning, var(--rds-warning-main, #ed6c02));
+  --rds-toast-accent-info: var(--rds-color-info, var(--rds-info-main));
+  --rds-toast-accent-success: var(--rds-color-success, var(--rds-success-main));
+  --rds-toast-accent-warning: var(--rds-color-warning, var(--rds-warning-main));
   --rds-toast-accent-error: var(--rds-color-error, var(--rds-error-main));
   --rds-toast-accent-basic: var(--rds-color-outline-variant, var(--rds-color-border));
 

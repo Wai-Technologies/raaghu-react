@@ -885,7 +885,7 @@
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--home,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--away {
-  background: var(--rds-surface-dark-alt, #3a3a3a) ;
+  background: var(--rds-surface-dark-alt) ;
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-img {
@@ -894,7 +894,7 @@
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time .MuiChip-root {
-  background: var(--rds-surface-dark-alt, #3a3a3a) ;
+  background: var(--rds-surface-dark-alt) ;
   color: var(--rds-neutral-0) ;
 }
 
@@ -926,9 +926,9 @@
 
   /* Keep InputForm fields on a dark surface in dark mode */
   .rds-adaptive-cards__action-btn--input-form {
-    background: var(--rds-color-surface-dark, var(--rds-neutral-900, #2b2f3a)) ;
+    background: var(--rds-color-surface-dark, var(--rds-neutral-900)) ;
     border-color: var(--rds-border-default, rgba(255, 255, 255, 0.2)) ;
-    color: var(--rds-neutral-0, #fff) ;
+    color: var(--rds-neutral-0) ;
   }
 
   .rds-adaptive-cards__action-btn--input-form::placeholder,

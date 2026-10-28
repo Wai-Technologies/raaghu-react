@@ -674,7 +674,7 @@ const RdsCompAudioPlayer = ({
                       y={(200 - adjustedHeight) / 2}
                       width="5"
                       height={adjustedHeight}
-                      fill="var(--rds-color-on-primary-container, #fff)"
+                      fill="var(--rds-color-on-primary-container)"
                       rx="2"
                       opacity={0.9}
                     />

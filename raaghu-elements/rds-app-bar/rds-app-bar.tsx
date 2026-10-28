@@ -232,7 +232,7 @@ const RdsAppBar = ({
     zIndex: tokens.zIndex.dropdown,
     borderTop: `1px solid ${tokens.cssVar('border-default')}`,
     boxShadow: tokens.cssVar('elevation-2'),
-    backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface, #ffffff))',
+    backgroundColor: 'var(--rds-background-paper, var(--rds-color-surface))',
   } as const;
 
   const renderBottomBar = () => {
@@ -288,7 +288,7 @@ const RdsAppBar = ({
           sx={{
             ...bottomBarSx,
             padding: `${tokens.space(1)} ${tokens.space(3)}`,
-            color: 'var(--rds-color-on-surface, var(--rds-text-primary, #212121))',
+            color: 'var(--rds-color-on-surface, var(--rds-text-primary))',
           }}
         >
           {renderOverflowItems()}

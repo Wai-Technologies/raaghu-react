@@ -370,7 +370,7 @@ describe('RdsCompBarChart', () => {
         {
           label: 'Revenue',
           data: [100, 200, 300],
-          borderColor: "var(--rds-semantic-error-main, #ff0000)",
+          borderColor: "var(--rds-semantic-error-main)",
         },
       ];
       const { container } = render(
@@ -384,7 +384,7 @@ describe('RdsCompBarChart', () => {
         {
           label: 'Revenue',
           data: [100, 200, 300],
-          backgroundColor: "var(--rds-semantic-success-main, #00ff00)",
+          backgroundColor: "var(--rds-semantic-success-main)",
         },
       ];
       const { container } = render(
@@ -527,8 +527,8 @@ describe('RdsCompBarChart', () => {
         plugins: {
           tooltip: {
             backgroundColor: 'rgba(0,0,0,0.8)',
-            titleColor: "var(--rds-neutral-0, #fff)",
-            bodyColor: "var(--rds-neutral-0, #fff)",
+            titleColor: "var(--rds-neutral-0)",
+            bodyColor: "var(--rds-neutral-0)",
           },
         },
       };

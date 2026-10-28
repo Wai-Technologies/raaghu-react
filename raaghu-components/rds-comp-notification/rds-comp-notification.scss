@@ -376,8 +376,8 @@
     }
 
     &--type-info.MuiCard-root {
-      background-color: var(--rds-background-surface, #1f2633);
-      color: var(--rds-neutral-0, #fff);
+      background-color: var(--rds-background-surface);
+      color: var(--rds-neutral-0);
       border: none;
     }
 
@@ -394,7 +394,7 @@
 
     .rds-comp-notification__title,
     .rds-comp-notification__description {
-      color: var(--rds-neutral-0, #fff);
+      color: var(--rds-neutral-0);
     }
 
     .rds-comp-notification__time,

@@ -89,7 +89,7 @@ figma.connect(
                 drawTicks: true,
                 lineWidth: 1,
                 offset: true,
-                tickColor: "#666",
+                tickColor: "var(--rds-chart-axis)",
                 tickLength: 8,
                 tickWidth: 1,
               },
@@ -102,7 +102,7 @@ figma.connect(
                 autoSkipPadding: 3,
                 backdropColor: "rgba(255, 255, 255, 0.75)",
                 backdropPadding: 2,
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 crossAlign: "near",
                 display: true,
                 labelOffset: 0,
@@ -116,7 +116,7 @@ figma.connect(
                 textStrokeWidth: 0,
               },
               title: {
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 display: false,
                 padding: {
                   bottom: 4,
@@ -147,7 +147,7 @@ figma.connect(
                 drawTicks: true,
                 lineWidth: 1,
                 offset: false,
-                tickColor: "#666",
+                tickColor: "var(--rds-chart-axis)",
                 tickLength: 8,
                 tickWidth: 1,
               },
@@ -160,7 +160,7 @@ figma.connect(
                 autoSkipPadding: 3,
                 backdropColor: "rgba(255, 255, 255, 0.75)",
                 backdropPadding: 2,
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 crossAlign: "near",
                 display: true,
                 labelOffset: 0,
@@ -174,7 +174,7 @@ figma.connect(
                 textStrokeWidth: 0,
               },
               title: {
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 display: false,
                 padding: {
                   bottom: 4,

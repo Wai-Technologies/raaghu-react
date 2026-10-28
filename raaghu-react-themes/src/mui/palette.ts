@@ -1,8 +1,8 @@
 import type { PaletteOptions } from '@mui/material/styles';
 import { colorTokens } from '../../tokens/design-tokens';
 
-const white = '#ffffff';
-const black = '#000000';
+const white = colorTokens.neutral[0];
+const black = colorTokens.neutral[1000];
 
 /**
  * MUI palette must use resolved color strings (hex/rgba), not CSS variables.

@@ -151,11 +151,11 @@
   z-index: var(--rds-z-index-tooltip, 9999);
 
   .MuiTypography-root {
-    color: var(--rds-neutral-0, #fff);
+    color: var(--rds-neutral-0);
   }
 
   .rds-loader__label {
-    color: var(--rds-neutral-0, #fff);
+    color: var(--rds-neutral-0);
   }
 }
 .rds-loader__hash:before { animation: rds-loader-before8 2s infinite; }

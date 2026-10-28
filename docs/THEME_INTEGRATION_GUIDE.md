@@ -171,6 +171,12 @@ All `--rds-*` variables are injected at runtime. The canonical list is in
 
 Always use tokens. Never hardcode hex values.
 
+Hex may only be authored in `raaghu-react-themes/tokens/design-tokens.ts`.
+Consumers must use bare `var(--rds-*)` (no color hex fallbacks). Enforcement:
+
+- `npm run lint:scss` — stylelint `color-no-hex`
+- `npm run lint:hex` — `scripts/check-no-hex.mjs` for TS/TSX (allowlists token source, color-picker spectrum/API, stories/tests/figma fixtures)
+
 ```scss
 // Good
 .rds-my-component {

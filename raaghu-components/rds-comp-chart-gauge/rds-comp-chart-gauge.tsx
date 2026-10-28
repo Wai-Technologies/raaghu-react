@@ -80,7 +80,7 @@ const RdsCompGaugeChart = ({
       ? ([
           {
             data: [value, Math.max(0, maxValue - value)],
-            backgroundColor: ["var(--rds-success-main, #4CAF50)", "var(--rds-neutral-200, #E0E0E0)"],
+            backgroundColor: ["var(--rds-success-main)", "var(--rds-neutral-200)"],
             borderWidth: 0,
           },
         ] as ChartDataset<"doughnut">[])

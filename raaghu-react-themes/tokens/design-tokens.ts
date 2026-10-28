@@ -128,6 +128,15 @@ export const colorTokens = {
     800: '#0D47A1',
     900: '#0B3D91',
   },
+
+  /** Fixed accent pairs used by color-palette / utility UI (not full 50–900 scales). */
+  accent: {
+    cyan:   { light: '#80DEEA', dark: '#00838F' },
+    indigo: { light: '#9FA8DA', dark: '#1A237E' },
+    lime:   { light: '#E6EE9C', dark: '#827717' },
+    pink:   { light: '#F48FB1', dark: '#880E4F' },
+    teal:   { light: '#80CBC4', dark: '#004D40' },
+  },
 };
 
 // (component-specific blocks for detailsPane and eSignature relocated below)
@@ -192,17 +201,6 @@ export const typographyTokens = {
     base: '1rem',     // 16px
     lg: '1.125rem',   // 18px
     xl: '1.25rem',    // 20px
-    popover: {
-      containerMaxWidth: '400px',
-      containerMinWidth: '200px',
-      wideMinWidth: '300px',
-      wideMaxWidth: '600px',
-      narrowMinWidth: '150px',
-      narrowMaxWidth: '250px',
-      positionGridMaxWidth: '120px',
-      listMobileMaxWidth: '220px',
-      listMobileMinWidth: '120px',
-    },
     '2xl': '1.5rem',  // 24px
     '3xl': '1.875rem', // 30px
     '4xl': '2.25rem', // 36px
@@ -414,8 +412,6 @@ export const breakpointTokens = {
 };
 
 // Component Tokens
-// The `& Record<string, unknown>` allows dynamic property assignment after declaration
- 
 const _componentTokensBase = {
   button: {
     height: {
@@ -670,158 +666,160 @@ const _componentTokensBase = {
     ],
   },
 };
-export const componentTokens: typeof _componentTokensBase & Record<string, unknown> =
-  _componentTokensBase as typeof _componentTokensBase & Record<string, unknown>;
+export const componentTokens = {
+  ..._componentTokensBase,
 
   // Toolbar component tokens (used by rds-comp-toolbar)
-  componentTokens.toolbar = {
+  toolbar: {
     height: '40px',
     heightMobile: '32px',
     spacingXxs: spacingExact.xxs, // 2px
-  };
-
-// Component-specific tokens for details pane + e-signature (relocated)
-componentTokens.detailsPane = {
-  width: '338.098px',
-  height: '671px',
-  padding: '14px 7px',
-  headerMarginLeft: '17px',
-  tabUnderlineOffset: '-2px',
-  tabUnderlineHeight: '3px',
-  activityItemPadding: '8px 5px',
-  sectionLineHeight: '1px',
-  agentCardBeforeWidth: '5px',
-  agentNameMarginBottom: '3px',
-  agentRadioSize: '16px',
-  footerFixedMarginLeft: '-28px',
-  footerButtonHeight: '36px',
-  footerButtonMaxWidth: '360px',
-  favouriteCardImageMaxWidth: '340px',
-  carouselIndicatorsTop: '180px',
-  thumbnailViewWidth: '329px',
-  thumbnailViewHeight: '596px',
-  downloadButtonContainerMarginRight: '3px',
-  historyItemPadding: '10px 8px',
-  historyIconSize: '36px',
-  carouselMobileMarginRight: '-30px',
-  carouselMobileHeight: '152px',
-  mobileWidth: '281.098px',
-  mobileHeight: '543px',
-};
-
-componentTokens.eSignature = {
-  paddingBottom: '68px',
-  controlsPadding: '14px 24px 12px',
-  drawHeightCompact: '200px',
-  compactMaxWidth: '420px',
-  compactPaddingBottom: '56px',
-  uploadPanelMaxWidth: '420px',
-  uploadPanelPadding: '20px',
-  fileButtonHeight: '32px',
-  fileButtonMinWidth: '108px',
-  fileButtonFontSize: '13px',
-  fileButtonPadding: '0 12px',
-  fileTextHeight: '32px',
-  fileTextFontSize: '13px',
-  fileTextPaddingHorizontal: '12px',
-  fileDeleteHeight: '32px',
-  fileDeletePaddingHorizontal: '8px',
-  colorPaletteGap: '10px',
-  colorButtonSize: '32px',
-};
-
-// Pagination component tokens
-componentTokens.pagination = {
-  itemSize: {
-    xs: '18px',
-    sm: '22px',
-    md: '24px',
-    lg: '28px',
-    xl: '30px',
   },
-  buttonMinWidth: '60px',
-  textFieldWidth: '64px',
-  smallGapOffset: '3px',
-  dropdownMinWidth: '120px',
-  fontSize: {
-    xs: '0.65rem',
-    sm: '0.7rem',
-    md: '0.75rem',
-    lg: '0.85rem',
-  }
-};
 
-// Progress component tokens
-componentTokens.progress = {
-  dashWidth: '50px',
-  dashHeight: '5px',
-  blockWidth: '80px',
-  blockHeight: '40px',
-  stepSize: '40px',
-  stepSizeMobile: '30px',
-  connectorWidth: '60px',
-  connectorWidthMobile: '35px',
-  innerDotSize: '20px',
-  transition: '0.2s ease-in-out',
-};
+  // Component-specific tokens for details pane + e-signature
+  detailsPane: {
+    width: '338.098px',
+    height: '671px',
+    padding: '14px 7px',
+    headerMarginLeft: '17px',
+    tabUnderlineOffset: '-2px',
+    tabUnderlineHeight: '3px',
+    activityItemPadding: '8px 5px',
+    sectionLineHeight: '1px',
+    agentCardBeforeWidth: '5px',
+    agentNameMarginBottom: '3px',
+    agentRadioSize: '16px',
+    footerFixedMarginLeft: '-28px',
+    footerButtonHeight: '36px',
+    footerButtonMaxWidth: '360px',
+    favouriteCardImageMaxWidth: '340px',
+    carouselIndicatorsTop: '180px',
+    thumbnailViewWidth: '329px',
+    thumbnailViewHeight: '596px',
+    downloadButtonContainerMarginRight: '3px',
+    historyItemPadding: '10px 8px',
+    historyIconSize: '36px',
+    carouselMobileMarginRight: '-30px',
+    carouselMobileHeight: '152px',
+    mobileWidth: '281.098px',
+    mobileHeight: '543px',
+  },
 
-// Range component tokens (used by rds-range)
-componentTokens.range = {
-  maxWidthSm: '370px',
-  maxWidthXs: '275px',
-  sliderWidthMobile: '288px',
-  sliderWidthTablet: '382px',
-  disabledOpacity: '0.6',
-};
+  eSignature: {
+    paddingBottom: '68px',
+    controlsPadding: '14px 24px 12px',
+    drawHeightCompact: '200px',
+    compactMaxWidth: '420px',
+    compactPaddingBottom: '56px',
+    uploadPanelMaxWidth: '420px',
+    uploadPanelPadding: '20px',
+    fileButtonHeight: '32px',
+    fileButtonMinWidth: '108px',
+    fileButtonFontSize: '13px',
+    fileButtonPadding: '0 12px',
+    fileTextHeight: '32px',
+    fileTextFontSize: '13px',
+    fileTextPaddingHorizontal: '12px',
+    fileDeleteHeight: '32px',
+    fileDeletePaddingHorizontal: '8px',
+    colorPaletteGap: '10px',
+    colorButtonSize: '32px',
+  },
 
-// Component tokens for emoji generator and empty state (used by components)
-componentTokens.emojiGenerator = {
-  width: '360px',
-  height: '420px',
-  iconSizeSm: '29px',
-  iconSizeXs: '22px',
-  popoverWidth: '45px',
-  inlineMinWidth: '36px',
-};
+  // Pagination component tokens
+  pagination: {
+    itemSize: {
+      xs: '18px',
+      sm: '22px',
+      md: '24px',
+      lg: '28px',
+      xl: '30px',
+    },
+    buttonMinWidth: '60px',
+    textFieldWidth: '64px',
+    smallGapOffset: '3px',
+    dropdownMinWidth: '120px',
+    fontSize: {
+      xs: '0.65rem',
+      sm: '0.7rem',
+      md: '0.75rem',
+      lg: '0.85rem',
+    },
+  },
 
-componentTokens.emptyState = {
-  maxWidth: '640px',
-  padding: '32px',
-  buttonPadding: '6px 15px',
-};
+  // Progress component tokens
+  progress: {
+    dashWidth: '50px',
+    dashHeight: '5px',
+    blockWidth: '80px',
+    blockHeight: '40px',
+    stepSize: '40px',
+    stepSizeMobile: '30px',
+    connectorWidth: '60px',
+    connectorWidthMobile: '35px',
+    innerDotSize: '20px',
+    transition: '0.2s ease-in-out',
+  },
 
-// Table component tokens
-componentTokens.table = {
-  stickyMaxHeight: '440px',
-  actionsWidth: '120px',
-  checkbox: {
-    size: '18px',
-    borderWidth: '2px',
-    checkWidth: '6px',
-    checkHeight: '10px',
-    indeterminateWidth: '8px',
-    indeterminateHeight: '2px',
-    hoverRingSize: '4px',
-    focusRingSize: '2px',
+  // Range component tokens (used by rds-range)
+  range: {
+    maxWidthSm: '370px',
+    maxWidthXs: '275px',
+    sliderWidthMobile: '288px',
+    sliderWidthTablet: '382px',
     disabledOpacity: '0.6',
   },
-  focus: {
-    ringWidth: '2px',
-    ringOffset: '2px',
-  }
-};
 
-/**
- * Surface / UI chrome tokens — named semantic aliases used by build-rds-css-vars.ts.
- * These are NOT raw palette entries; they carry intent (e.g. "code background").
- */
-export const surfaceTokens = {
-  /** Dark code-block background */
-  codeBg: '#0b1220',
-  /** Light code-block foreground */
-  codeColor: '#e6eef6',
+  // Emoji generator + empty state
+  emojiGenerator: {
+    width: '360px',
+    height: '420px',
+    iconSizeSm: '29px',
+    iconSizeXs: '22px',
+    popoverWidth: '45px',
+    inlineMinWidth: '36px',
+  },
 
-  // ── Light-theme surface neutrals ──────────────────────────────────────────
+  emptyState: {
+    maxWidth: '640px',
+    padding: '32px',
+    buttonPadding: '6px 15px',
+  },
+
+  // Table component tokens
+  table: {
+    stickyMaxHeight: '440px',
+    actionsWidth: '120px',
+    checkbox: {
+      size: '18px',
+      borderWidth: '2px',
+      checkWidth: '6px',
+      checkHeight: '10px',
+      indeterminateWidth: '8px',
+      indeterminateHeight: '2px',
+      hoverRingSize: '4px',
+      focusRingSize: '2px',
+      disabledOpacity: '0.6',
+    },
+    focus: {
+      ringWidth: '2px',
+      ringOffset: '2px',
+    },
+  },
+
+  // Popover component tokens
+  popover: {
+    containerMaxWidth: '400px',
+    containerMinWidth: '200px',
+    wideMinWidth: '300px',
+    wideMaxWidth: '600px',
+    narrowMinWidth: '150px',
+    narrowMaxWidth: '250px',
+    positionGridMaxWidth: '120px',
+    listMobileMaxWidth: '220px',
+    listMobileMinWidth: '120px',
+  },
+
   // Adaptive Cards component tokens (component-scoped defaults)
   adaptiveCards: {
     thumbWidth: '20px',
@@ -849,8 +847,21 @@ export const surfaceTokens = {
     fontSizeMd: '15px',
     errorRing: '0 0 0 2px rgba(189,13,29,0.2)',
     imageListItemHeightMobile: '120px',
-    footballLogoSizeMobile: '72px'
+    footballLogoSizeMobile: '72px',
   },
+};
+
+/**
+ * Surface / UI chrome tokens — named semantic aliases used by build-rds-css-vars.ts.
+ * These are NOT raw palette entries; they carry intent (e.g. "code background").
+ */
+export const surfaceTokens = {
+  /** Dark code-block background */
+  codeBg: '#0b1220',
+  /** Light code-block foreground */
+  codeColor: '#e6eef6',
+
+  // ── Light-theme surface neutrals ──────────────────────────────────────────
   /** Darkest neutral surface (light theme) */
   neutralDarker: '#202020',
   /** Dark neutral surface (light theme) */
@@ -1213,11 +1224,45 @@ export const mapTokens = {
   },
 };
 
+/**
+ * Shared chart series + chrome palette.
+ * Emitted as --rds-chart-series-* / --rds-chart-axis / --rds-chart-muted.
+ * Prefer these over per-file hex in chart components and *.figma.tsx demos.
+ */
 export const chartPaletteTokens = {
   dataset: {
     teal: '#4BC0C0',
     blue: '#36A2EB',
   },
+  /** Ordered series colors for multi-dataset / pie / doughnut / gauge charts */
+  series: {
+    1: '#FF6384',
+    2: '#36A2EB',
+    3: '#FFCE56',
+    4: '#4BC0C0',
+    5: '#FF9F40',
+    6: '#9966FF',
+    7: '#28A745',
+    8: '#17A2B8',
+    9: '#FFC107',
+    10: '#FD7E14',
+    11: '#6F42C1',
+    12: '#DC3545',
+  },
+  /** Extra named colors used by area/stacked/radar demos */
+  named: {
+    cyanBright: '#4DCFFF',
+    purple: '#863BFF',
+    mint: '#62D5D9',
+    lavender: '#928AE0',
+    sand: '#EDB371',
+    greenSoft: '#83BE5A',
+    blueBright: '#059BFF',
+    blueSolid: '#0000FF',
+  },
+  /** Axis ticks / labels / muted chrome (was hardcoded #666 across figma files) */
+  axis: '#666666',
+  muted: '#666666',
 };
 
 /** Emoji skin-tone modifier colors (Unicode standard) */

@@ -67,7 +67,7 @@ const RdsLoader = ({ className, sx, ref, ...props }: RdsLoaderProps) => {
   }
 
   const overlayTextSx = overlay
-    ? { color: 'var(--rds-neutral-0, #fff)' }
+    ? { color: 'var(--rds-neutral-0)' }
     : undefined;
 
   const getSizeValue = () => {

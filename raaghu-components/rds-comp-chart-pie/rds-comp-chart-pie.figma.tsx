@@ -20,13 +20,13 @@ figma.connect(
         data={{ labels: ["red", "Orange", "Yellow", "Green", "Blue"], datasets: [
           {
             backgroundColor: [
-              "#ff6384",
-              "#ff9f40",
-              "#ffcd56",
-              "#4bc0c0",
-              "#059bff",
+              "var(--rds-chart-series-1)",
+              "var(--rds-chart-series-5)",
+              "var(--rds-chart-series-3)",
+              "var(--rds-chart-series-4)",
+              "var(--rds-chart-named-blue-bright)",
             ],
-            borderColor: ["#fff"],
+            borderColor: ["var(--rds-neutral-0)"],
             borderWidth: 1,
             data: [20, 10, 20, 40, 10],
             label: "Dataset1",

@@ -29,7 +29,7 @@ figma.connect(
               "rgba(153, 102, 255, 0.2)",
               "rgba(167, 145, 78, 0.2)",
             ],
-            borderColor: ["#fff"],
+            borderColor: ["var(--rds-neutral-0)"],
             data: [100, 70, 80, 96, 87, 77],
             label: "Dataset 1",
           },
@@ -87,7 +87,7 @@ figma.connect(
                 drawTicks: true,
                 lineWidth: 1,
                 offset: false,
-                tickColor: "#666",
+                tickColor: "var(--rds-chart-axis)",
                 tickLength: 8,
                 tickWidth: 1,
               },
@@ -97,7 +97,7 @@ figma.connect(
                 backdropColor: undefined,
                 backdropPadding: 2,
                 centerPointLabels: false,
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 display: false,
                 font: {
                   size: 10,
@@ -110,7 +110,7 @@ figma.connect(
               ticks: {
                 backdropColor: "rgba(255, 255, 255, 0.75)",
                 backdropPadding: 2,
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 display: true,
                 major: {},
                 mirror: false,
@@ -120,7 +120,7 @@ figma.connect(
                 textStrokeWidth: 0,
               },
               title: {
-                color: "#666",
+                color: "var(--rds-chart-axis)",
                 display: false,
                 padding: {
                   bottom: 4,

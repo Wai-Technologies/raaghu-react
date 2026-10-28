@@ -242,7 +242,7 @@
     border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-info-border);
 
     &.rds-alert--success {
-      border-color: var(--rds-alert-loading-border, #3D98FF);
+      border-color: var(--rds-alert-loading-border);
     }
 
     &.rds-alert--error {
@@ -265,7 +265,7 @@
     border-left-style: solid;
 
     &.rds-alert--success {
-      border-left-color: var(--rds-alert-loading-border, #3D98FF);
+      border-left-color: var(--rds-alert-loading-border);
     }
 
     &.rds-alert--error {
@@ -285,7 +285,7 @@
 .rds-alert__link-button {
   background: transparent;
   text-decoration: underline;
-  color: var(--rds-alert-link-color, var(--rds-color-primary, #2196f3));
+  color: var(--rds-alert-link-color, var(--rds-color-primary));
   box-shadow: none;
   border: none;
   font-size: var(--rds-alert-link-font-size, 0.8125rem);
@@ -294,25 +294,25 @@
 
 .rds-alert__secondary-button.MuiButton-root {
   background-color: transparent;
-  color: var(--rds-alert-secondary-text, #2d7ff9);
+  color: var(--rds-alert-secondary-text);
   border: none;
 
   &:hover,
   &:focus-visible {
-    background-color: var(--rds-alert-secondary-bg-hover, #d9e8ff);
-    color: var(--rds-alert-secondary-text, #2d7ff9);
+    background-color: var(--rds-alert-secondary-bg-hover);
+    color: var(--rds-alert-secondary-text);
   }
 }
 
 .rds-alert__secondary-button--error.MuiButton-root {
   background-color: transparent;
-  color: var(--rds-alert-error-text, #bd0d1d);
+  color: var(--rds-alert-error-text);
   border: none;
 
   &:hover,
   &:focus-visible {
-    background-color: var(--rds-alert-error-bg-hover, #fbd7d3);
-    color: var(--rds-alert-error-text, #bd0d1d);
+    background-color: var(--rds-alert-error-bg-hover);
+    color: var(--rds-alert-error-text);
   }
 }
 
@@ -356,7 +356,7 @@
     .rds-alert__link-button .MuiButton-root,
     .rds-alert__actions .rds-alert__link-button,
     .rds-alert__link-button.MuiButton-root {
-      color: var(--rds-alert-link-color, var(--rds-primary-main, #1976d2));
+      color: var(--rds-alert-link-color, var(--rds-primary-main));
     }
   }
 }

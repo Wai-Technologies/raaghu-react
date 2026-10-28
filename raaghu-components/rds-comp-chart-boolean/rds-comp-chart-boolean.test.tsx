@@ -42,7 +42,7 @@ const defaultProps = {
   dataSets: [
     {
       data: [65, 35],
-      backgroundColor: ["var(--rds-semantic-success-main, #4CAF50)", "var(--rds-semantic-error-main, #FF6B6B)"],
+      backgroundColor: ["var(--rds-semantic-success-main)", "var(--rds-semantic-error-main)"],
     },
   ],
   options: {
@@ -99,7 +99,7 @@ describe('RdsCompBooleanChart', () => {
       const customDatasets = [
         {
           data: [50, 50],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -287,7 +287,7 @@ describe('RdsCompBooleanChart', () => {
           dataSets={[
             {
               data: [75, 25],
-                backgroundColor: ["var(--rds-semantic-success-main, #00FF00)", "var(--rds-semantic-error-main, #FF0000)"],
+                backgroundColor: ["var(--rds-semantic-success-main)", "var(--rds-semantic-error-main)"],
             },
           ]}
         />
@@ -317,11 +317,11 @@ describe('RdsCompBooleanChart', () => {
       const multiDatasets = [
           {
           data: [65, 35],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
         {
           data: [45, 55],
-          backgroundColor: ["var(--rds-info-main, #0000FF)", "var(--rds-warning-main, #FFFF00)"],
+          backgroundColor: ["var(--rds-info-main)", "var(--rds-warning-main)"],
         },
       ];
       const { container } = render(
@@ -383,7 +383,7 @@ describe('RdsCompBooleanChart', () => {
       const customDataset = [
         {
           data: [60, 40],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF5733)", "var(--rds-semantic-success-main, #33FF57)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -396,7 +396,7 @@ describe('RdsCompBooleanChart', () => {
       const customDataset = [
         {
           data: [60, 40],
-          borderColor: ["var(--rds-neutral-900, #000000)", "var(--rds-neutral-0, #FFFFFF)"],
+          borderColor: ["var(--rds-neutral-900)", "var(--rds-neutral-0)"],
           borderWidth: 2,
         },
       ];
@@ -439,7 +439,7 @@ describe('RdsCompBooleanChart', () => {
       const largeDataset = [
         {
               data: [999999, 1],
-              backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+              backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -452,7 +452,7 @@ describe('RdsCompBooleanChart', () => {
       const smallDataset = [
         {
           data: [0.1, 0.9],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -465,7 +465,7 @@ describe('RdsCompBooleanChart', () => {
       const zeroDataset = [
         {
           data: [0, 100],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -478,7 +478,7 @@ describe('RdsCompBooleanChart', () => {
       const skewedDataset = [
         {
           data: [100, 0],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(
@@ -491,7 +491,7 @@ describe('RdsCompBooleanChart', () => {
       const balancedDataset = [
         {
           data: [50, 50],
-          backgroundColor: ["var(--rds-semantic-error-main, #FF0000)", "var(--rds-semantic-success-main, #00FF00)"],
+          backgroundColor: ["var(--rds-semantic-error-main)", "var(--rds-semantic-success-main)"],
         },
       ];
       const { container } = render(

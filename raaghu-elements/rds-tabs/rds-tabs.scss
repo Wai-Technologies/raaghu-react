@@ -338,11 +338,11 @@
 
 [data-theme="dark"] {
   .rds-tabs .MuiTab-root {
-    color: var(--rds-neutral-300, #ccc) !important;
+    color: var(--rds-neutral-300) !important;
   }
 
   .rds-tabs .MuiTab-root:hover {
-    color: var(--rds-neutral-0, #fff) !important;
+    color: var(--rds-neutral-0) !important;
   }
 
   .rds-tabs--line-bottom .MuiTab-root.Mui-selected,
@@ -356,14 +356,14 @@
   .rds-tabs--line-top-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-left-solid .MuiTab-root.Mui-selected,
   .rds-tabs--line-right-solid .MuiTab-root.Mui-selected {
-    color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+    color: var(--rds-color-on-primary, var(--rds-neutral-0)) !important;
     background-color: var(--rds-color-primary, var(--rds-primary-main)) !important;
   }
 
   .rds-tabs--filled .MuiTab-root.Mui-selected,
   .rds-tabs--flap .MuiTab-root.Mui-selected,
   .rds-tabs--pill .MuiTab-root.Mui-selected {
-    color: var(--rds-color-on-primary, var(--rds-neutral-0, #fff)) !important;
+    color: var(--rds-color-on-primary, var(--rds-neutral-0)) !important;
   }
 
   .rds-tabs .rds-tabs__icon svg {
@@ -371,17 +371,17 @@
   }
 
   .rds-tabs .MuiTab-root.Mui-disabled {
-    color: var(--rds-color-disabled-text-dark, #9e9e9e) !important;
+    color: var(--rds-color-disabled-text-dark) !important;
     pointer-events: none;
   }
 
   .rds-tabs .MuiTab-root.Mui-disabled:hover {
-    color: var(--rds-color-disabled-text-dark, #9e9e9e) !important;
+    color: var(--rds-color-disabled-text-dark) !important;
   }
 
   .rds-tabs .MuiTab-root.Mui-disabled.Mui-selected {
-    background: var(--rds-color-disabled-container-dark, #4a4a4a) !important;
-    color: var(--rds-neutral-400, #bdbdbd) !important;
+    background: var(--rds-color-disabled-container-dark) !important;
+    color: var(--rds-neutral-400) !important;
     border: unset !important;
     opacity: 1;
   }
@@ -402,16 +402,16 @@
   .rds-tabs--line-left-solid .MuiTab-root.Mui-disabled.Mui-selected,
   .rds-tabs--line-right-solid .MuiTab-root.Mui-disabled.Mui-selected,
   .rds-tabs--line-top-solid .MuiTab-root.Mui-disabled.Mui-selected {
-    border-color: var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+    border-color: var(--rds-color-disabled-container-dark) !important;
   }
 
   .rds-tabs--flap .MuiTab-root.Mui-disabled.Mui-selected::after {
-    border-top: var(--rds-tabs-flap-arrow-size, 10px) solid var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+    border-top: var(--rds-tabs-flap-arrow-size, 10px) solid var(--rds-color-disabled-container-dark) !important;
     opacity: 1;
   }
 
   .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-disabled.Mui-selected::after {
-    border-left: 34px solid var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+    border-left: 34px solid var(--rds-color-disabled-container-dark) !important;
     opacity: 1;
   }
 

@@ -207,7 +207,7 @@
 
 [data-theme="dark"] {
   .rds-menu__list {
-     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e)) !important;
+     background-color: var(--rds-color-surface-dark, var(--rds-neutral-900)) !important;
   }
 
   .rds-menu__item {
@@ -218,8 +218,8 @@
     color: var(--rds-text-disabled);
   }
   .rds-menu__header {
-    color: var(--rds-neutral-200, #ccc);
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e));
+    color: var(--rds-neutral-200);
+    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900));
     border-bottom: 1px solid var(--rds-border-default);
   }
 
@@ -241,19 +241,19 @@
 
   /* Force MuiListItemIcon root itself to white for all non-colored items */
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) {
-    color: var(--rds-neutral-0, #fff) !important;
+    color: var(--rds-neutral-0) !important;
   }
 
   /* Target MuiSvgIcon-root directly so MUI icon color is white in dark mode */
   .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root,
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) .MuiSvgIcon-root {
-    color: var(--rds-neutral-0, #fff) !important;
-    fill: var(--rds-neutral-0, #fff) !important;
+    color: var(--rds-neutral-0) !important;
+    fill: var(--rds-neutral-0) !important;
   }
 
   /* MuiPaper that wraps the dropdown */
   .rds-menu .MuiPaper-root {
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900, #1e1e2e)) !important;
+    background-color: var(--rds-color-surface-dark, var(--rds-neutral-900)) !important;
   }
 
   .rds-menu__item .rds-menu__item__icon--primary svg,

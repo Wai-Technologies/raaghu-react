@@ -188,7 +188,7 @@ const RdsAvatar = ({
                 marginLeft: idx === 0 ? 0 : `${overlapOffset}px`,
                 border: 'none',
                 boxSizing: 'content-box',
-                background: 'var(--rds-neutral-300, #e0e0e0)',
+                background: 'var(--rds-neutral-300)',
               },
               ...toSxArray(sx),
             ]}

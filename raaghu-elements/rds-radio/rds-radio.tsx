@@ -139,7 +139,7 @@ const RdsRadio = ({
                 sx={{
                   pointerEvents: finalDisabled ? 'none' : 'auto',
                   opacity: finalDisabled ? 0.6 : 1,
-                  color: finalDisabled ? 'var(--rds-text-disabled, #9e9e9e)' : 'inherit',
+                  color: finalDisabled ? 'var(--rds-text-disabled)' : 'inherit',
                   marginTop: 'var(--rds-spacing-xxs, 2px)',
                   textAlign: 'center'
                 }}

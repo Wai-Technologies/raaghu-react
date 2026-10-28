@@ -14,8 +14,8 @@ const CHECKERBOARD =
 
 const GRID_ROWS = Array.from({ length: 10 }, (_, i) => i);
 const GRID_COLS = Array.from({ length: 11 }, (_, i) => i);
-const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main, #FFC300)", "var(--rds-semantic-error-main, #FF4F00)", "var(--rds-info-main, #EA00FA)", "var(--rds-primary-main, #1708FF)", "var(--rds-info-light, #00F5FF)"];
-const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main, #FFC300)","var(--rds-semantic-error-main, #FF4F00)","var(--rds-info-main, #EA00FA)","var(--rds-primary-main, #9751F2)","var(--rds-info-light, #00F5FF)","var(--rds-info-variant, #00E5FF)","var(--rds-neutral-300, #E0E0E0)","var(--rds-success-main, #1ABC9C)","var(--rds-success-dark, #27AE60)","var(--rds-success-light, #2ECC71)","var(--rds-info-contrast, #16A085)","var(--rds-primary-light, #3498DB)","var(--rds-primary-dark, #1565C0)","var(--rds-neutral-400, #BDBDBD)"];
+const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main)", "var(--rds-semantic-error-main)", "var(--rds-info-main)", "var(--rds-primary-main)", "var(--rds-info-light)"];
+const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main)","var(--rds-semantic-error-main)","var(--rds-info-main)","var(--rds-primary-main)","var(--rds-info-light)","var(--rds-info-variant)","var(--rds-neutral-300)","var(--rds-success-main)","var(--rds-success-dark)","var(--rds-success-light)","var(--rds-info-contrast)","var(--rds-primary-light)","var(--rds-primary-dark)","var(--rds-neutral-400)"];
 
 const getSwatchHexDisplay = (swatchValue: string) => {
   const hexMatch = swatchValue.match(/#(?:[\dA-Fa-f]{3}){1,2}\b/);
@@ -247,7 +247,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
               '& .MuiSlider-thumb': {
                 width: 12,
                 height: 12,
-                backgroundColor: 'var(--rds-color-surface-contrast, #fff)',
+                backgroundColor: 'var(--rds-color-surface-contrast)',
                 boxShadow: '0 0 2px var(--rds-shadow-color, rgba(0, 0, 0, 0.6))',
               },
             }}
@@ -282,7 +282,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
               '& .MuiSlider-thumb': {
                 width: 12,
                 height: 12,
-                backgroundColor: 'var(--rds-color-surface-contrast, #fff)',
+                backgroundColor: 'var(--rds-color-surface-contrast)',
                 boxShadow: '0 0 2px var(--rds-shadow-color, rgba(0, 0, 0, 0.6))',
               },
             }}

@@ -95,6 +95,50 @@ export function chartMutedColor(): string {
   return getCSSVar('--rds-text-secondary', 'var(--mui-palette-text-secondary, currentColor)');
 }
 
+/** Axis tick / label color — prefers shared chart chrome token. */
+export function chartAxisColor(): string {
+  return getCSSVar('--rds-chart-axis', getCSSVar('--rds-text-secondary', 'currentColor'));
+}
+
+/**
+ * CSS var() references for the shared chart series palette (1–12).
+ * Pass through {@link resolveDatasetColors} before handing to Chart.js.
+ */
+export const CHART_SERIES_VARS = [
+  'var(--rds-chart-series-1)',
+  'var(--rds-chart-series-2)',
+  'var(--rds-chart-series-3)',
+  'var(--rds-chart-series-4)',
+  'var(--rds-chart-series-5)',
+  'var(--rds-chart-series-6)',
+  'var(--rds-chart-series-7)',
+  'var(--rds-chart-series-8)',
+  'var(--rds-chart-series-9)',
+  'var(--rds-chart-series-10)',
+  'var(--rds-chart-series-11)',
+  'var(--rds-chart-series-12)',
+] as const;
+
+/** Named chart colors used by area / stacked / radar demos. */
+export const CHART_NAMED_VARS = {
+  cyanBright: 'var(--rds-chart-named-cyan-bright)',
+  purple: 'var(--rds-chart-named-purple)',
+  mint: 'var(--rds-chart-named-mint)',
+  lavender: 'var(--rds-chart-named-lavender)',
+  sand: 'var(--rds-chart-named-sand)',
+  greenSoft: 'var(--rds-chart-named-green-soft)',
+  blueBright: 'var(--rds-chart-named-blue-bright)',
+  blueSolid: 'var(--rds-chart-named-blue-solid)',
+} as const;
+
+/** Resolved series colors for Chart.js (requires DOM / injected tokens). */
+export function chartSeriesColors(count = CHART_SERIES_VARS.length): string[] {
+  return CHART_SERIES_VARS.slice(0, count).map((v) => {
+    const match = v.match(/var\((--[\w-]+)\)/);
+    return match ? getCSSVar(match[1], v) : v;
+  });
+}
+
 /**
  * Returns the current theme's grid line color for chart axes.
  */

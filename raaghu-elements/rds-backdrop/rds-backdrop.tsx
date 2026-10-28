@@ -33,7 +33,7 @@ const baseSx = (theme: Theme): SystemStyleObject<Theme> => ({
     justifyContent: 'center',
     zIndex: `var(--rds-z-index-overlay, ${theme.zIndex.modal})`,
     backgroundColor: 'var(--rds-overlay-dark, rgba(0, 0, 0, 0.5))',
-    color: 'var(--rds-neutral-0, #ffffff)',
+    color: 'var(--rds-neutral-0)',
   },
   '.dark-theme &.rds-backdrop, [data-theme="dark"] &.rds-backdrop': {
     backgroundColor: 'var(--rds-overlay-semi, rgba(128, 128, 128, 0.4))',

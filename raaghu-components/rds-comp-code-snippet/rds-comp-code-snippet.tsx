@@ -19,8 +19,8 @@ const darkStyle: HighlighterStyle = {
   ...atomOneLightStyle,
   hljs: {
     ...(typeof atomOneLightStyle.hljs === 'object' ? atomOneLightStyle.hljs : {}),
-    background: 'var(--rds-code-bg, #0b1220)',
-    color: 'var(--rds-code-color, #e6eef6)',
+    background: 'var(--rds-code-bg)',
+    color: 'var(--rds-code-color)',
   },
 };
 

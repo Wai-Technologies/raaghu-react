@@ -175,12 +175,12 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
         sx={{
           borderRadius: '4px !important',
           ...(inRange && {
-            backgroundColor: 'var(--rds-color-primary-hover, #E3F2FD) !important',
-            color: 'var(--rds-color-primary, #1976d2) !important',
+            backgroundColor: 'var(--rds-color-primary-hover) !important',
+            color: 'var(--rds-color-primary) !important',
           }),
           ...(isStart || isEnd ? {
-            backgroundColor: 'var(--rds-color-primary, #2196F3) !important',
-            color: 'var(--rds-color-on-primary, #fff) !important',
+            backgroundColor: 'var(--rds-color-primary) !important',
+            color: 'var(--rds-color-on-primary) !important',
           } : {}),
         }}
       />

@@ -2082,7 +2082,7 @@ const RdsCompGrid = ({
                     sx={{ 
                       width: '60px',
                       padding: 'var(--rds-spacing-sm-px)',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: '1px solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -2094,7 +2094,7 @@ const RdsCompGrid = ({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: '1px solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -2117,7 +2117,7 @@ const RdsCompGrid = ({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      borderRight: '1px solid var(--rds-border-default)',
                       bgcolor: 'action.hover !important',
                     }}
                   >
@@ -2200,7 +2200,7 @@ const RdsCompGrid = ({
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
-                          borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                          borderRight: '1px solid var(--rds-border-default)',
                           bgcolor: 'action.hover !important',
                           transition: isDragging ? 'none' : 'all 0.2s ease',
                           '&:last-child': {
@@ -2411,7 +2411,7 @@ const RdsCompGrid = ({
                           <TableCell sx={{ 
                             width: '60px', 
                             padding: 'var(--rds-spacing-sm-px)',
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                            borderRight: '1px solid var(--rds-border-default)',
                             textAlign: 'center',
                             verticalAlign: 'middle'
                           }}>
@@ -2483,7 +2483,7 @@ const RdsCompGrid = ({
                             width: cellWidth,
                             minWidth: header.minWidth || 50,
                             maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                            borderRight: '1px solid var(--rds-border-default)',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -2508,7 +2508,7 @@ const RdsCompGrid = ({
                             width: cellWidth,
                             minWidth: header.minWidth || 50,
                             maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                            borderRight: '1px solid var(--rds-border-default)',
                             color: 'text.primary',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',

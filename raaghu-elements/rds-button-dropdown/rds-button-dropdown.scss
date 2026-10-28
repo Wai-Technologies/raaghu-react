@@ -58,13 +58,13 @@
 }
 
 [data-theme="dark"] .rds-button-dropdown__menu {
-  background: var(--rds-background-paper, #262626);
+  background: var(--rds-background-paper);
   border-color: var(--rds-color-border-dark, var(--rds-border-default));
 }
 
 [data-theme="dark"] .rds-button-dropdown__option {
   background: transparent;
-  color: var(--rds-text-primary, #e6eef6);
+  color: var(--rds-text-primary);
 }
 
 [data-theme="dark"] .rds-button-dropdown__option:hover:not(.rds-button-dropdown__option--selected) {
@@ -73,7 +73,7 @@
 
 [data-theme="dark"] .rds-button-dropdown__option--selected {
   background: var(--rds-button-dropdown-selected-bg, var(--rds-primary-main));
-  color: var(--rds-button-dropdown-selected-text, #fff);
+  color: var(--rds-button-dropdown-selected-text);
 }
 
 .rds-button-dropdown__avatar {

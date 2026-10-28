@@ -37,7 +37,7 @@ figma.connect(
     'Dec'
   ], datasets: [
     {
-      backgroundColor: '#62D5D9',
+      backgroundColor: 'var(--rds-chart-named-mint)',
       borderColor: 'white',
       data: [
         131,
@@ -56,7 +56,7 @@ figma.connect(
       label: 'My Second dataset'
     },
     {
-      backgroundColor: '#928AE0',
+      backgroundColor: 'var(--rds-chart-named-lavender)',
       borderColor: 'white',
       data: [
         151,
@@ -75,7 +75,7 @@ figma.connect(
       label: 'My Third dataset'
     },
     {
-      backgroundColor: '#EDB371',
+      backgroundColor: 'var(--rds-chart-named-sand)',
       borderColor: 'white',
       data: [
         150,
@@ -141,7 +141,7 @@ figma.connect(
           autoSkipPadding: 3,
           backdropColor: 'rgba(255, 255, 255, 0.75)',
           backdropPadding: 2,
-          color: '#666',
+          color: 'var(--rds-chart-axis)',
           crossAlign: 'near',
           display: true,
           labelOffset: 0,
@@ -155,7 +155,7 @@ figma.connect(
           textStrokeWidth: 0
         },
         title: {
-          color: '#666',
+          color: 'var(--rds-chart-axis)',
           display: true,
           padding: {
             bottom: 4,
@@ -190,7 +190,7 @@ figma.connect(
           autoSkipPadding: 3,
           backdropColor: 'rgba(255, 255, 255, 0.75)',
           backdropPadding: 2,
-          color: '#666',
+          color: 'var(--rds-chart-axis)',
           crossAlign: 'near',
           display: true,
           labelOffset: 0,
@@ -204,7 +204,7 @@ figma.connect(
           textStrokeWidth: 0
         },
         title: {
-          color: '#666',
+          color: 'var(--rds-chart-axis)',
           display: true,
           padding: {
             bottom: 4,
