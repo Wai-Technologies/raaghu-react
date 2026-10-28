@@ -40,6 +40,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  parameters: { controls: { include: ['container'] } },
   play: async ({ canvasElement }) => {
     const el = canvasElement.firstElementChild;
     expect(el).toBeTruthy();

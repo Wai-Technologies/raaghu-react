@@ -64,13 +64,15 @@ const SnackbarTemplate = (args: any) => {
   );
 };
 
-export const Success = {
+export const Default = {
   render: SnackbarTemplate,
   args: {
     message: 'Operation completed successfully!',
     severity: 'success',
   },
 };
+
+export const Success: Story = { ...Default };
 
 export const Error = {
   render: SnackbarTemplate,
@@ -105,4 +107,3 @@ export const AutoHide = {
   },
 };
 
-export const Default: Story = { ...Success } as Story;

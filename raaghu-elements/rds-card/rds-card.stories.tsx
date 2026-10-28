@@ -391,7 +391,7 @@ export const WithAvatar: Story = {
 };
 WithAvatar.parameters = { 
   controls: { 
-    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'children', 'variant']
   } 
 };
 
@@ -429,7 +429,7 @@ export const WithBadges: Story = {
 };
 WithBadges.parameters = { 
   controls: { 
-    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'description', 'children', 'variant']
+    include: ['selected', 'disabled', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'icon', 'title', 'subtitle', 'children', 'variant']
   } 
 };
 

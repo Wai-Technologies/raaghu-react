@@ -16,7 +16,7 @@ const meta: Meta<typeof RdsCarousel> = {
         'showIndicators',
         'height',
         'type',
-        'style',
+        'variant',
         'title',
         'subtitle',
       ],

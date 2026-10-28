@@ -1,5 +1,7 @@
 import { alpha, type Components, type Theme } from '@mui/material/styles';
 
+const pal = (theme: Theme) => theme.vars?.palette ?? theme.palette;
+
 export const designSystemComponentOverrides: Components<Theme> = {
   MuiInputBase: {
     styleOverrides: {
@@ -32,7 +34,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
   MuiOutlinedInput: {
     styleOverrides: {
       notchedOutline: ({ theme }) => ({
-        borderColor: theme.palette.divider,
+        borderColor: pal(theme).divider,
       }),
       root: ({ theme }) => ({
         '&:hover .MuiOutlinedInput-notchedOutline': {
@@ -40,10 +42,10 @@ export const designSystemComponentOverrides: Components<Theme> = {
         },
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
           borderColor: 'var(--rds-primary-main)',
-          boxShadow: `0 0 0 ${theme.spacing(0.25)} color-mix(in srgb, ${theme.palette.primary.main} 20%, transparent)`,
+          boxShadow: `0 0 0 ${theme.spacing(0.25)} color-mix(in srgb, ${pal(theme).primary.main} 20%, transparent)`,
         },
         '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.error.main,
+          borderColor: pal(theme).error.main,
         },
       }),
     },
@@ -53,20 +55,26 @@ export const designSystemComponentOverrides: Components<Theme> = {
       root: ({ theme }) => ({
         borderTopLeftRadius: theme.shape.borderRadius,
         borderTopRightRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.text.primary, theme.palette.mode === 'dark' ? 0.16 : 0.06),
+        backgroundColor: alpha(theme.palette.text.primary, 0.06),
         '&:hover': {
-          backgroundColor: alpha(theme.palette.text.primary, theme.palette.mode === 'dark' ? 0.22 : 0.1),
+          backgroundColor: alpha(theme.palette.text.primary, 0.1),
         },
+        ...theme.applyStyles('dark', {
+          backgroundColor: 'color-mix(in srgb, var(--rds-color-white) 16%, transparent)',
+          '&:hover': {
+            backgroundColor: 'color-mix(in srgb, var(--rds-color-white) 22%, transparent)',
+          },
+        }),
         '&.Mui-focused': {
           backgroundColor: 'color-mix(in srgb, var(--rds-primary-main) 8%, transparent)',
         },
       }),
       underline: ({ theme }) => ({
         '&:before': {
-          borderBottomColor: theme.palette.divider,
+          borderBottomColor: pal(theme).divider,
         },
         '&:after': {
-          borderBottomColor: theme.palette.primary.main,
+          borderBottomColor: pal(theme).primary.main,
         },
       }),
     },
@@ -82,7 +90,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
         paddingRight: theme.spacing(4),
       }),
       icon: ({ theme }) => ({
-        color: theme.palette.text.secondary,
+        color: pal(theme).text.secondary,
         position: 'absolute',
         right: theme.spacing(1),
         pointerEvents: 'none',
@@ -96,10 +104,10 @@ export const designSystemComponentOverrides: Components<Theme> = {
         margin: theme.spacing(0.25, 0.75),
         padding: theme.spacing(1, 1.5),
         '&.Mui-selected': {
-          backgroundColor: theme.palette.action.selected,
+          backgroundColor: pal(theme).action.selected,
         },
         '&.Mui-selected:hover': {
-          backgroundColor: theme.palette.action.selected,
+          backgroundColor: pal(theme).action.selected,
         },
       }),
     },
@@ -111,20 +119,20 @@ export const designSystemComponentOverrides: Components<Theme> = {
         padding: theme.spacing(1, 1.5),
       }),
       standardSuccess: ({ theme }) => ({
-        backgroundColor: theme.palette.success.light,
-        color: theme.palette.success.dark,
+        backgroundColor: pal(theme).success.light,
+        color: pal(theme).success.dark,
       }),
       standardError: ({ theme }) => ({
-        backgroundColor: theme.palette.error.light,
-        color: theme.palette.error.dark,
+        backgroundColor: pal(theme).error.light,
+        color: pal(theme).error.dark,
       }),
       standardWarning: ({ theme }) => ({
-        backgroundColor: theme.palette.warning.light,
-        color: theme.palette.warning.dark,
+        backgroundColor: pal(theme).warning.light,
+        color: pal(theme).warning.dark,
       }),
       standardInfo: ({ theme }) => ({
-        backgroundColor: theme.palette.info.light,
-        color: theme.palette.info.dark,
+        backgroundColor: pal(theme).info.light,
+        color: pal(theme).info.dark,
       }),
     },
   },
@@ -237,8 +245,8 @@ export const designSystemComponentOverrides: Components<Theme> = {
         borderRadius: theme.shape.borderRadius,
         // Both variants get the divider border; outlined also drops the shadow
         ...(ownerState?.variant === 'outlined'
-          ? { border: `1px solid ${theme.palette.divider}`, boxShadow: 'none' }
-          : { border: `1px solid ${theme.palette.divider}` }),
+          ? { border: `1px solid ${pal(theme).divider}`, boxShadow: 'none' }
+          : { border: `1px solid ${pal(theme).divider}` }),
       }),
     },
   },
@@ -335,7 +343,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
         ...theme.typography.h6,
       }),
       subheader: ({ theme }) => ({
-        color: theme.palette.text.secondary,
+        color: pal(theme).text.secondary,
       }),
     },
   },
@@ -351,33 +359,33 @@ export const designSystemComponentOverrides: Components<Theme> = {
         if (!colorKey || colorKey === 'default') {
           return {
             backgroundColor: 'var(--rds-color-primary-container)',
-            color: theme.palette.primary.main,
+            color: pal(theme).primary.main,
           };
         }
 
-        const paletteColor = theme.palette[colorKey as keyof typeof theme.palette] as
+        const paletteColor = pal(theme)[colorKey as keyof ReturnType<typeof pal>] as
           | { main?: string; contrastText?: string }
           | undefined;
 
         if (!paletteColor?.main) {
           return {
             backgroundColor: 'var(--rds-color-primary-container)',
-            color: theme.palette.primary.main,
+            color: pal(theme).primary.main,
           };
         }
 
         return {
           backgroundColor: paletteColor.main,
-          color: paletteColor.contrastText ?? theme.palette.common.white,
+          color: paletteColor.contrastText ?? pal(theme).common.white,
         };
       },
       outlined: ({ theme }) => ({
-        borderColor: theme.palette.divider,
+        borderColor: pal(theme).divider,
       }),
       deleteIcon: ({ theme }) => ({
-        color: theme.palette.text.secondary,
+        color: pal(theme).text.secondary,
         '&:hover': {
-          color: theme.palette.text.primary,
+          color: pal(theme).text.primary,
         },
       }),
     },
@@ -399,14 +407,14 @@ export const designSystemComponentOverrides: Components<Theme> = {
   MuiAvatar: {
     styleOverrides: {
       root: ({ theme }) => ({
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
+        backgroundColor: pal(theme).primary.main,
+        color: pal(theme).primary.contrastText,
         fontSize: theme.typography.body2.fontSize,
         fontWeight: theme.typography.fontWeightMedium,
       }),
       colorDefault: ({ theme }) => ({
-        backgroundColor: theme.palette.action.hover,
-        color: theme.palette.text.primary,
+        backgroundColor: pal(theme).action.hover,
+        color: pal(theme).text.primary,
       }),
     },
   },
@@ -486,42 +494,42 @@ export const designSystemComponentOverrides: Components<Theme> = {
       },
       containedPrimary: ({ theme }) => ({
         backgroundColor: 'var(--rds-button-primary-bg)',
-        color: theme.palette.primary.contrastText,
+        color: pal(theme).primary.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-primary-dark)',
-          color: theme.palette.primary.contrastText,
+          color: pal(theme).primary.contrastText,
         },
       }),
       containedSecondary: ({ theme }) => ({
         backgroundColor: 'var(--rds-secondary-main)',
-        color: theme.palette.secondary.contrastText,
+        color: pal(theme).secondary.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-secondary-dark)',
-          color: theme.palette.secondary.contrastText,
+          color: pal(theme).secondary.contrastText,
         },
       }),
       containedSuccess: ({ theme }) => ({
         backgroundColor: 'var(--rds-success-main)',
-        color: theme.palette.success.contrastText,
+        color: pal(theme).success.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-success-dark)',
-          color: theme.palette.success.contrastText,
+          color: pal(theme).success.contrastText,
         },
       }),
       containedWarning: ({ theme }) => ({
         backgroundColor: 'var(--rds-warning-main)',
-        color: theme.palette.warning.contrastText,
+        color: pal(theme).warning.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-warning-dark)',
-          color: theme.palette.warning.contrastText,
+          color: pal(theme).warning.contrastText,
         },
       }),
       containedError: ({ theme }) => ({
         backgroundColor: 'var(--rds-error-main)',
-        color: theme.palette.error.contrastText,
+        color: pal(theme).error.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-error-dark)',
-          color: theme.palette.error.contrastText,
+          color: pal(theme).error.contrastText,
         },
       }),
     },

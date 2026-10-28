@@ -17,6 +17,11 @@ const meta: Meta<typeof RdsModal> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    open: { table: { disable: true } },
+    visibility: { table: { disable: true } },
+    headerChrome: { table: { disable: true } },
+    media: { table: { disable: true } },
+    body: { table: { disable: true } },
     title: {
       control: 'text',
       description: 'Title of the modal',

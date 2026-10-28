@@ -67,6 +67,7 @@
     color: var(--rds-text-secondary);
     font-weight: var(--rds-font-weight-regular, 400);
     text-align: left;
+    overflow-wrap: anywhere;
     font-size: var(--rds-file-uploader-info-size-left);
     margin-top: var(--rds-spacing-xs);
   }
@@ -212,6 +213,7 @@
     color: var(--rds-color-on-surface-variant);
     margin-top: var(--rds-spacing-sm);
     letter-spacing: 0.5px;
+    overflow-wrap: anywhere;
 
     .rds-file-uploader__drop-zone--with-upload-btn & {
       color: var(--rds-color-on-surface-variant);

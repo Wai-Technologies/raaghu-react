@@ -20,6 +20,7 @@ const meta: Meta = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    open: { table: { disable: true } },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
@@ -77,9 +78,10 @@ export const Default: Story = {
     );
   },
 };
-Default.parameters = { controls: { include: ['open'] } };
+Default.parameters = { controls: { include: ['size'] } };
 
 export const WithIcon: Story = {
+  parameters: { controls: { include: ['size'] } },
   args: {
     items: [
       { id: 1, label: 'Profile', icon: <RdsAvatar>M</RdsAvatar> },
@@ -253,6 +255,7 @@ export const WithDisabled: Story = {
 };
 
 export const CustomizedMenu: Story = {
+  parameters: { controls: { include: ['size'] } },
   args: {
     items: [
       { id: 1, header: 'Header 1' },

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
+import { Box, Typography } from '@mui/material';
 import RdsDivider from './rds-divider';
 
 const meta: Meta<typeof RdsDivider> = {
@@ -80,8 +81,15 @@ export const Vertical: Story = {
     layout: "vertical",
   },
   parameters: {
-    controls: { exclude: ['layout', 'component', 'icon', 'children', 'textAlign'] },
+    controls: { exclude: ['layout', 'component', 'icon', 'children', 'textAlign', 'iconShow'] },
   },
+  render: (args) => (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography variant="body2">Left</Typography>
+      <RdsDivider {...args} />
+      <Typography variant="body2">Right</Typography>
+    </Box>
+  ),
 };
 
 

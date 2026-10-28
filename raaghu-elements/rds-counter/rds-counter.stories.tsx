@@ -181,6 +181,7 @@ export const Sizes: Story = {
     layout: 'side-to-side',
     placeholder: '00',
   },
+  parameters: { controls: { exclude: ['label', 'size'] } },
   render: (args) => {
     return (
       <Box className="rds-counter__responsive">
@@ -212,6 +213,7 @@ export const CompactSizes: Story = {
     layout: 'side-to-side',
     placeholder: '00',
   },
+  parameters: { controls: { exclude: ['label', 'size'] } },
   render: (args) => {
     return (
       <Box className="rds-counter__responsive">
@@ -269,6 +271,7 @@ export const Disabled: Story = {
     layout: 'side-to-side',
     placeholder: '00',
   },
+  parameters: { controls: { exclude: ['label', 'variant', 'value'] } },
   render: (args) => {
     const defaultDisabled = 5;
     const compactDisabled = 3;

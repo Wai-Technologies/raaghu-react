@@ -1,8 +1,5 @@
 .rds-icon-button--outlined {
   --rds-icon-button-outlined-border-width: 1.5px;
-  --rds-icon-button-size-small: 18px;
-  --rds-icon-button-size-medium: 20px;
-  --rds-icon-button-size-large: 24px;
   --rds-icon-button-outlined-radius: 6px;
   --rds-icon-button-outlined-padding: 6px;
 
@@ -15,6 +12,9 @@
   justify-content: center;
   line-height: 0;
   --rds-icon-button-focus-ring-width: 2px;
+  --rds-icon-button-size-small: 18px;
+  --rds-icon-button-size-medium: 20px;
+  --rds-icon-button-size-large: 24px;
 }
 
 .rds-icon-button.MuiIconButton-sizeSmall .MuiSvgIcon-root,

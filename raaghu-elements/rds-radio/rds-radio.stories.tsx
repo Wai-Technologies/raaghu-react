@@ -37,11 +37,8 @@ const meta: Meta<typeof RdsRadio> = {
       description: 'Disable all radio options',
     },
       value: {
-        control: 'text',
-        description: 'Selected value (leave empty for unchecked)',
-        table: {
-          defaultValue: { summary: 'undefined' },
-        },
+        control: false,
+        table: { disable: true },
       },
       selected: {
         control: 'boolean',
@@ -77,7 +74,7 @@ export const Default: Story = {
     return (
       <RdsRadio
         {...args}
-        value={valueToUse}
+        value={valueToUse ?? ''}
         onChange={(_e, val) => {
           if (typeof args.selected === 'undefined') setInternal(val);
         }}

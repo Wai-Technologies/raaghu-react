@@ -64,7 +64,7 @@ When a platform is specified, the component automatically displays the appropria
   argTypes: {
     isOpen: {
       control: 'boolean',
-      description: 'Whether the sidebar is open',
+      description: 'Whether the sidebar is open. Has no effect when `variant` is `permanent`.',
     },
     width: {
       control: { type: 'number', min: 64, max: 400, step: 8 },
@@ -261,7 +261,7 @@ export const Default = {
   args: {
     items: basicItems,
     isOpen: true,
-    variant: 'permanent',
+    variant: 'persistent',
     user: { avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     showLogo: true,
     showSearch: true,

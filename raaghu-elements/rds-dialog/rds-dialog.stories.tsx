@@ -89,8 +89,8 @@ export const Default: Story = {
     fullWidth: true,
     title: 'Dialog Title',
     variant: 'confirm',
-    ShowPrimary: true,
-    ShowSecondary: true,
+    showPrimary: true,
+    showSecondary: true,
     children: (
       <div>
         <RdsTypography variant="body1">

@@ -29,17 +29,12 @@ const meta: Meta<typeof RdsSelect> = {
     placeholder: {
       control: 'text',
     },
-    inputPlaceholder: {
-      control: 'text',
-    },
+    inputPlaceholder: { table: { disable: true } },
     labelPlacement: {
       control: 'select',
       options: ['floating', 'top'],
     },
-    labelPosition: {
-      control: 'boolean',
-      description: 'Use a floating label when true, or place it above the field when false.',
-    },
+    labelPosition: { table: { disable: true } },
     required: {
       control: 'boolean',
     },
@@ -95,7 +90,7 @@ export const Default: Story = {
   args: {
     label: 'Select Option',
     options: basicOptions,
-    inputPlaceholder: 'Please select...',
+    placeholder: 'Please select...',
     labelPlacement: 'floating',
     size: 'small',
   },
@@ -152,4 +147,5 @@ export const WithValue: Story = {
     value: 'option2',
     options: basicOptions,
   },
+  parameters: { controls: { exclude: ['placeholder'] } },
 };

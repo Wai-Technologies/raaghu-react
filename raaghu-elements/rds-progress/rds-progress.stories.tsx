@@ -66,7 +66,7 @@ const meta: Meta<typeof RdsProgress> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Circular: Story = {
+export const Default: Story = {
   args: {
     shape: 'circular',
     mode: 'determinate',
@@ -79,7 +79,9 @@ export const Circular: Story = {
     await expect(progress).toBeInTheDocument();
   },
 };
-Circular.parameters = { controls: { include: ['shape', 'mode', 'steps', 'showLabel', 'color', 'stepIcon', 'className', 'sx', 'ref'] } };
+Default.parameters = { controls: { include: ['shape', 'mode', 'steps', 'showLabel', 'color', 'className', 'sx', 'ref'] } };
+
+export const Circular: Story = { ...Default };
 
 export const Stepper: Story = {
   args: {
@@ -95,22 +97,26 @@ export const ColorVariants: Story = {
   args: {
     mode: 'determinate',
     value: 60,
+    valueBuffer: 80,
     color: 'secondary',
   },
 };
-ColorVariants.parameters = { controls: { include: ['mode', 'value', 'color', 'className', 'sx', 'ref'] } };
+ColorVariants.parameters = { controls: { include: ['mode', 'value', 'valueBuffer', 'color', 'className', 'sx', 'ref'] } };
 
 export const Indeterminate: Story = {
   args: {
     mode: 'indeterminate',
+    value: 60,
+    valueBuffer: 80,
   },
 };
-Indeterminate.parameters = { controls: { include: ['mode', 'className', 'sx', 'ref'] } };
+Indeterminate.parameters = { controls: { include: ['mode', 'value', 'valueBuffer', 'className', 'sx', 'ref'] } };
 
 export const Linear: Story = {
   args: {
     mode: 'determinate',
     value: 75,
+    valueBuffer: 90,
   },
   decorators: [
     (Story) => (
@@ -120,6 +126,5 @@ export const Linear: Story = {
     ),
   ],
 };
-Linear.parameters = { controls: { include: ['mode', 'value', 'className', 'sx', 'ref'] } };
+Linear.parameters = { controls: { include: ['mode', 'value', 'valueBuffer', 'className', 'sx', 'ref'] } };
 
-export const Default: Story = { ...Circular };

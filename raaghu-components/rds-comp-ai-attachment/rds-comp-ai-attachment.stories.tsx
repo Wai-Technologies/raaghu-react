@@ -16,7 +16,7 @@ const meta: Meta = {
     },
     parameters: {
             status: { type: 'stable' },
-        layout: 'padded',
+        layout: 'centered',
         docs:{
             story: {
                 height: '132px'

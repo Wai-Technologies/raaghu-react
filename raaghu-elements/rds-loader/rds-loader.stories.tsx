@@ -13,6 +13,9 @@ const hideAllControls = {
   overlay: { table: { disable: true } },
   thickness: { table: { disable: true } },
   type: { table: { disable: true } },
+  className: { table: { disable: true } },
+  sx: { table: { disable: true } },
+  ref: { table: { disable: true } },
 };
 
 /** Stage so overlay/non-overlay share one centering box. */
@@ -284,7 +287,7 @@ export const LinearWithLabel: Story = {
   decorators: [withOverlayStage],
   parameters: {
     ...overlayStoryParameters,
-    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'size', 'className', 'sx', 'ref'] },
+    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'className', 'sx', 'ref'] },
   },
 };
 
@@ -298,7 +301,7 @@ export const LinearDeterminate: Story = {
   decorators: [withOverlayStage],
   parameters: {
     ...overlayStoryParameters,
-    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'size', 'className', 'sx', 'ref'] },
+    controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'className', 'sx', 'ref'] },
   },
 };
 

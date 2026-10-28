@@ -36,7 +36,7 @@
     }
   }
   
-  &__primary {
+  &__primary.MuiButton-colorPrimary {
     background-color: var(--rds-button-primary-bg);
     color: var(--rds-button-primary-text);
     
@@ -92,6 +92,19 @@
 
     &.Mui-disabled {
       opacity: 1;
+
+      &.MuiButton-contained {
+        background-color: var(--variant-containedBg);
+        color: var(--variant-containedColor);
+      }
+
+      &.MuiButton-outlined {
+        color: var(--variant-outlinedColor);
+      }
+
+      &.MuiButton-text {
+        color: var(--variant-textColor);
+      }
     }
   }
 

@@ -119,4 +119,5 @@ export const WithoutLabel: Story = {
   args: {
     status: 'checked',
   },
+  parameters: { controls: { exclude: ['cssStyle', 'slots', 'slotProps', 'component', 'showText'] } },
 };

@@ -153,6 +153,7 @@ const RdsButton = ({
     <MuiButton
       disabled={disabled || isBusy}
       loading={isBusy}
+      loadingPosition="start"
       type={type}
       variant={buttonVariant === 'filled' ? 'contained' : buttonVariant === 'transparent' ? 'text' : buttonVariant}
       color={color}

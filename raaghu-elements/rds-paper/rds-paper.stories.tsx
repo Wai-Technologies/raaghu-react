@@ -12,6 +12,7 @@ const meta: Meta<typeof RdsPaper> = {
   },
   tags: ['autodocs', 'stable'],
   argTypes: {
+    padding: { table: { disable: true } },
     elevation: {
       control: 'number',
       description: 'Shadow elevation (0-24)',

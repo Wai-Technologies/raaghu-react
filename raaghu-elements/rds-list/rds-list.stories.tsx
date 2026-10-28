@@ -78,7 +78,7 @@ const meta: Meta<typeof RdsList> = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['simple', 'button', 'icon', 'avatar', 'dense'],
+      options: ['simple', 'button', 'dense'],
     },
     alignItems: {
       control: { type: 'select' },
@@ -137,7 +137,7 @@ const meta: Meta<typeof RdsList> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const AlignItems: Story = {
+export const Default: Story = {
   args: {
     dividers: true,
     alignItems: 'flex-start',
@@ -199,7 +199,12 @@ const firebaseBuildItems = [
   }
 ];
 
+export const AlignItems: Story = { ...Default };
+
 export const CustomizedList: Story = {
+  parameters: {
+    controls: { include: ['dense', 'disablePadding'] },
+  },
   render: (args) => (
     <Paper className="rds-list-demo__custom-container">
       <div className="rds-list-demo__header">
@@ -283,6 +288,9 @@ const interactiveCombinedItems = [
 ];
 
 export const Interactive: Story = {
+  parameters: {
+    controls: { include: ['dense', 'disablePadding'] },
+  },
   render: (args) => (
   <div className="rds-list-demo__grid rds-list-demo__grid--col-responsive">
      
@@ -413,6 +421,9 @@ const subheaderSections = [
 ];
 
 export const StickySubheader: Story = {
+  parameters: {
+    controls: { include: ['dense', 'disablePadding'] },
+  },
   render: (args) => (
     <div className="rds-list-demo__container rds-list-demo__container--sticky">
       <RdsList
@@ -531,4 +542,3 @@ export const WithSwitch: Story = {
   }
 };
 
-export const Default: Story = { ...AlignItems };

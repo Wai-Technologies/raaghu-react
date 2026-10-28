@@ -85,7 +85,8 @@ export const sanitizeReactNodeArgs = <T extends Record<string, unknown>>(args: T
 
   for (const key of REACT_NODE_ARG_KEYS) {
     if (!(key in next)) continue;
-    if (isUnsafeReactChild(next[key])) {
+    const value = next[key];
+    if (isPlainObject(value) ? Object.keys(value).length === 0 : isUnsafeReactChild(value)) {
       next[key] = undefined;
     }
   }

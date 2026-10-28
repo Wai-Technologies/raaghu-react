@@ -258,6 +258,9 @@ export const FullWidth: Story = {
 };
 
 export const Sizes: Story = {
+  parameters: {
+    controls: { exclude: ['size'] },
+  },
   render: (args) => {
     const [small, setSmall] = useState('');
     const [medium, setMedium] = useState('');
@@ -310,6 +313,9 @@ export const Sizes: Story = {
 };
 
 export const Variants: Story = {
+  parameters: {
+    controls: { exclude: ['variant'] },
+  },
   render: (args) => {
     const [outlined, setOutlined] = useState('');
     const [filled, setFilled] = useState('');

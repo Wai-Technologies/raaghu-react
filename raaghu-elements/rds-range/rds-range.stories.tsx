@@ -82,7 +82,7 @@ export const Default: Story = {
     const [rangeValue, setRangeValue] = useState([20, 80]);    const isOneWay = args.type === 'one-way';
 
     return (
-      <Box sx={{ width: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <Box sx={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
         <RdsRange
           value={isOneWay && args.level ? undefined : (isOneWay ? singleValue : rangeValue)}
           onChange={(value) => {
@@ -128,8 +128,9 @@ export const Colors: Story = {
     showTooltip: false,
   },
   argTypes: {
-    color: { control: false },
+    color: { table: { disable: true } },
     value: { control: false },
+    label: { table: { disable: true } },
   },
   render: (args) => {
     const [primarySingleValue, setPrimarySingleValue] = useState(40);
@@ -140,7 +141,7 @@ export const Colors: Story = {
     const isOneWay = args.type === 'one-way';
 
     return (
-      <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={{ width: '100%', maxWidth: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
         <RdsRange
           value={isOneWay && args.level ? undefined : (isOneWay ? primarySingleValue : primaryRangeValue)}
           onChange={(value) => {
@@ -216,7 +217,9 @@ export const Interactive: Story = {
     showMinMax: false,
     textLabel: false,
     showTooltip: false,
-    
+  },
+  argTypes: {
+    label: { table: { disable: true } },
   },
   render: (args) => {
     const [singleValue, setSingleValue] = useState(30);
@@ -226,7 +229,7 @@ export const Interactive: Story = {
     const isOneWay = args.type === 'one-way';
 
     return (
-      <Box sx={{ width: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <Box sx={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
         <RdsRange
           value={isOneWay && args.level ? undefined : (isOneWay ? singleValue : rangeValue)}
           onChange={(value) => {

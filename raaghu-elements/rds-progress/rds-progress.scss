@@ -134,6 +134,7 @@
   &__stepper {
     display: flex;
     align-items: center;
+    min-width: 0;
     gap: 0;
 
     &-step {
@@ -150,6 +151,7 @@
       font-size: var(--rds-font-size-sm);
       color: var(--rds-color-gray-500);
       position: relative;
+      flex-shrink: 0;
 
       &--completed {
         border-color: var(--progress-color);
@@ -193,20 +195,23 @@
         width: var(--rds-progress-step-size-mobile);
         height: var(--rds-progress-step-size-mobile);
       }
-
-      &-connector {
-        width: var(--rds-progress-connector-width-mobile);
-      }
     }
 
     &-connector {
-    width: var(--rds-progress-connector-width);
+    flex: 0 1 var(--rds-progress-connector-width);
+    min-width: 0;
     height: var(--rds-progress-dim-1);
     background-color: var(--rds-color-gray-300);
       transition: background-color var(--rds-progress-transition, var(--rds-transition-base, 0.2s ease-in-out));
 
       &--completed {
         background-color: var(--progress-color);
+      }
+    }
+
+    @include bp.between(mobile-sm, mobile-lg) {
+      &-connector {
+        flex-basis: var(--rds-progress-connector-width-mobile);
       }
     }
   }

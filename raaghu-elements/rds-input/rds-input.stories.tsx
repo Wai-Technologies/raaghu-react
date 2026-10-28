@@ -72,7 +72,7 @@ export const Default: Story = {
     selected: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'size', 'layout', 'shape', 'label', 'helperText', 'required', 'labelPlacement', 'error', 'disabled', 'readOnly', 'selected','startIcon', 'endIcon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'shape', 'label', 'helperText', 'required', 'labelPlacement', 'error', 'disabled', 'selected','startIcon', 'endIcon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',

@@ -32,13 +32,13 @@ const meta: Meta<typeof RdsPagination> = {
     onChange: { control: false },
     pageSizeOptions: { control: false },
     ref: { control: false },
-    count: {
+    pageCount: {
       control: 'number',
       description: 'Total number of pages',
     },
     page: {
-      control: 'number',
-      description: 'Current page number',
+      control: false,
+      table: { disable: true },
     },
     size: {
       control: 'select',
@@ -142,8 +142,6 @@ export const Default: Story = {
         'showPageSize',
         'showLegend',
         'legendText',
-        'showFirst',
-        'showLast',
         'showPageInput',
         'size',
         'variant',
@@ -218,7 +216,7 @@ export const Advanced: Story = {
 };
 
 const basicPaginationControls = [
-  'count',
+  'pageCount',
   'page',
   'size',
   'variant',
@@ -240,7 +238,7 @@ export const Disabled: Story = {
     );
   },
   args: {
-    count: 10,
+    pageCount: 10,
     page: 5,
     disabled: true,
   },
@@ -258,7 +256,7 @@ export const Large: Story = {
     );
   },
   args: {
-    count: 12,
+    pageCount: 12,
     page: 6,
     size: 'large',
   },
@@ -277,7 +275,7 @@ export const Outlined: Story = {
     );
   },
   args: {
-    count: 10,
+    pageCount: 10,
     page: 3,
     variant: 'outlined',
   },
@@ -296,7 +294,7 @@ export const Rounded: Story = {
     );
   },
   args: {
-    count: 15,
+    pageCount: 15,
     page: 7,
     shape: 'rounded',
   },
@@ -314,7 +312,7 @@ export const Small: Story = {
     );
   },
   args: {
-    count: 8,
+    pageCount: 8,
     page: 4,
     size: 'small',
   },
@@ -333,7 +331,7 @@ export const WithFirstLast: Story = {
     );
   },
   args: {
-    count: 20,
+    pageCount: 20,
     page: 10,
   },
   parameters: { controls: { include: [...basicPaginationControls] } },

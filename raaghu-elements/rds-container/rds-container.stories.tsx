@@ -84,6 +84,7 @@ export const ExtraLarge: Story = {
     maxWidth: 'xl',
     children: sampleContent,
   },
+  parameters: { controls: { exclude: ['component', 'fixed'] } },
 };
 
 export const Fluid: Story = {
