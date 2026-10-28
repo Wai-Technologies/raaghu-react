@@ -1,6 +1,12 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-video-player {
+  --rds-player-max-width: 480px;
+  --rds-player-min-height: 180px;
+  --rds-player-controls-height: 48px;
+  --rds-player-min-height-sm: 150px;
+  --rds-player-min-height-xs: 120px;
+
   position: relative;
   display: block;
   width: 100%;

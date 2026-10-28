@@ -7,6 +7,9 @@
   --rds-map-dim-4: 400px;
   --rds-map-dim-5: 700px;
 
+  --rds-bg: transparent;
+  --rds-text: #333;
+
   background: var(--rds-bg, transparent);
   border: none;
   box-shadow: none;

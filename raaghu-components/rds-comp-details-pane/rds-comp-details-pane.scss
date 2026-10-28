@@ -21,6 +21,36 @@
   --rds-details-pane-dim-20: 543px;
   --rds-details-pane-dim-21: 647px;
 
+  --rds-details-pane-width: 338.098px;
+  --rds-details-pane-height: 671px;
+  --rds-details-pane-padding: 14px 7px;
+  --rds-details-pane-header-margin-left: 17px;
+  --rds-icon-size-md: 20px;
+  --rds-input-height-md: 42px;
+  --rds-icon-size-sm: 16px;
+  --rds-input-height-sm: 32px;
+  --rds-avatar-padding: 7px;
+  --rds-tab-underline-offset: -2px;
+  --rds-tab-underline-height: 3px;
+  --rds-activity-item-padding: var(--rds-spacing-xs, 8px) 5px;
+  --rds-section-line-height: 1px;
+  --rds-agent-name-margin-bottom: 3px;
+  --rds-agent-radio-size: 16px;
+  --rds-footer-fixed-margin-left: -28px;
+  --rds-footer-button-height: 36px;
+  --rds-footer-button-max-width: 360px;
+  --rds-favourite-card-image-max-width: 340px;
+  --rds-carousel-indicators-top: 180px;
+  --rds-thumbnail-view-width: 329px;
+  --rds-thumbnail-view-height: 596px;
+  --rds-download-button-container-margin-right: 3px;
+  --rds-history-item-padding: 10px 8px;
+  --rds-history-icon-size: 36px;
+  --rds-details-pane-mobile-width: 281.098px;
+  --rds-details-pane-mobile-height: 543px;
+  --rds-carousel-mobile-margin-right: -30px;
+  --rds-carousel-mobile-height: 280px;
+
   width: var(--rds-details-pane-width);
   height: var(--rds-details-pane-height);
   flex-direction: column;

@@ -1,6 +1,11 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-card {
+  --rds-card-action-min-width: 60px;
+  --rds-card-action-height: 32px;
+  --rds-card-avatar-offset-left: 15px;
+  --rds-card-shadow: 0 8px 24px rgba(16, 45, 86, 0.08);
+
   border-radius: var(--rds-border-radius-md);
   box-shadow: var(--rds-elevation-3);
   overflow: hidden;

@@ -127,6 +127,8 @@ export const colorTokens = {
     700: '#1565C0',
     800: '#0D47A1',
     900: '#0B3D91',
+    /** Accent cyan used by color-picker swatches / charts */
+    variant: '#00E5FF',
   },
 
   /** Fixed accent pairs used by color-palette / utility UI (not full 50–900 scales). */
@@ -838,6 +840,7 @@ export const componentTokens = {
     iconSizeXs: '22px',
     popoverWidth: '45px',
     inlineMinWidth: '36px',
+    skinToneSize: '32px',
   },
 
   emptyState: {
@@ -1004,6 +1007,8 @@ export const alphaTokens = {
   actionActiveLight: 'rgba(0, 0, 0, 0.54)',
   /** Disabled state (light) */
   actionDisabledLight: 'rgba(0, 0, 0, 0.26)',
+  /** Selected state background (light) — MUI action.selected */
+  actionSelectedLight: 'rgba(0, 0, 0, 0.08)',
 
   // ── Dark-theme action states ──────────────────────────────────────────────
   /** Hover state background (dark) */
@@ -1012,6 +1017,8 @@ export const alphaTokens = {
   actionActiveDark: 'rgba(255, 255, 255, 0.16)',
   /** Disabled state (dark) */
   actionDisabledDark: 'rgba(255, 255, 255, 0.3)',
+  /** Selected state background (dark) — MUI action.selected */
+  actionSelectedDark: 'rgba(255, 255, 255, 0.16)',
 
   // ── Border alphas ─────────────────────────────────────────────────────────
   /** Light-theme border with opacity */
@@ -1028,6 +1035,10 @@ export const alphaTokens = {
   // ── Modal backdrop ────────────────────────────────────────────────────────
   /** Modal backdrop scrim */
   modalBackdrop: 'rgba(0, 0, 0, 0.5)',
+  /** Light chart tick / label backdrop */
+  backdropLight: 'rgba(255, 255, 255, 0.75)',
+  /** Generic soft shadow color (slider thumbs, overlays) */
+  shadowColor: 'rgba(0, 0, 0, 0.6)',
 
   // ── Dark-theme toggle / scrollbar ─────────────────────────────────────────
   /** Toggle group border (dark) */
@@ -1175,7 +1186,7 @@ export const tooltipTokens = {
  * E-signature component tokens.
  */
 export const esignatureTokens = {
-  drawHeight: 'var(--rds-signature-draw-height, 280px)',
+  drawHeight: '280px',
   spacingMd: 'var(--rds-spacing-md)',
 };
 

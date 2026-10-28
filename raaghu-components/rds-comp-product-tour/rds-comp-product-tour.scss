@@ -16,6 +16,15 @@
   --rds-product-tour-dim-12: 306px;
   --rds-product-tour-dim-13: 700px;
 
+  --rds-product-tour-shadow: rgba(162, 89, 255, 0.18);
+  --rds-product-tour-max-width: 550px;
+  --rds-carousel-max-width: 520px;
+  --rds-product-tour-dot-shadow: rgba(135, 46, 252, 0.15);
+  --rds-product-tour-image-height: 260px;
+  --rds-carousel-height: 300px;
+  --rds-carousel-dot-bg: rgba(124, 58, 237, 0.3);
+  --rds-carousel-dot-size: 6px;
+
   &__container {
     background: var(--rds-background-paper);
     box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow, rgba(162, 89, 255, 0.18));

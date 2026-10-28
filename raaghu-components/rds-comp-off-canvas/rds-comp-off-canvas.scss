@@ -7,6 +7,12 @@
 
 .offcanvas-drawer {
 
+  --rds-offcanvas-header-bg: transparent;
+  --rds-icon-button-size: 36px;
+  --rds-icon-button-svg-size: 16px;
+  --rds-icon-button-lg-size: 40px;
+  --rds-icon-button-lg-svg-size: 18px;
+
   .offcanvas-header {
 
     background-color: var(--rds-offcanvas-header-bg, transparent);

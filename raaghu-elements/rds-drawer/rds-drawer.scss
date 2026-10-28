@@ -6,7 +6,7 @@ $rds-drawer-breakpoint-md: 768px;
 $rds-drawer-breakpoint-sm: 480px;
 
 .rds-drawer-close-button {
-  margin-left: var(--rds-drawer-close-button-margin-left, var(--rds-spacing-md));
+  margin-left: var(--rds-spacing-md);
 }
 
 .rds-drawer-trigger-wrapper {

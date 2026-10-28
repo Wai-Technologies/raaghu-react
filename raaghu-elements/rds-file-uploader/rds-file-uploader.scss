@@ -2,6 +2,9 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-file-uploader {
+  --rds-file-uploader-icon-color: var(--rds-primary-main);
+  --rds-file-uploader-file-item-min-height: 48px;
+
   display: flex;
   flex-direction: column;
   align-items: stretch;

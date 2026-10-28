@@ -15,7 +15,7 @@ const CHECKERBOARD =
 const GRID_ROWS = Array.from({ length: 10 }, (_, i) => i);
 const GRID_COLS = Array.from({ length: 11 }, (_, i) => i);
 const SWATCHES_TYPE_1 = ["var(--rds-semantic-warning-main)", "var(--rds-semantic-error-main)", "var(--rds-info-main)", "var(--rds-primary-main)", "var(--rds-info-light)"];
-const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main)","var(--rds-semantic-error-main)","var(--rds-info-main)","var(--rds-primary-main)","var(--rds-info-light)","var(--rds-info-variant)","var(--rds-neutral-300)","var(--rds-success-main)","var(--rds-success-dark)","var(--rds-success-light)","var(--rds-info-contrast)","var(--rds-primary-light)","var(--rds-primary-dark)","var(--rds-neutral-400)"];
+const SWATCHES_TYPE_2 = ["var(--rds-semantic-warning-main)","var(--rds-semantic-error-main)","var(--rds-info-main)","var(--rds-primary-main)","var(--rds-info-light)","var(--rds-info-variant)","var(--rds-neutral-300)","var(--rds-success-main)","var(--rds-success-dark)","var(--rds-success-light)","var(--rds-info-contrast-text)","var(--rds-primary-light)","var(--rds-primary-dark)","var(--rds-neutral-400)"];
 
 const getSwatchHexDisplay = (swatchValue: string) => {
   const hexMatch = swatchValue.match(/#(?:[\dA-Fa-f]{3}){1,2}\b/);
@@ -248,7 +248,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
                 width: 12,
                 height: 12,
                 backgroundColor: 'var(--rds-color-surface-contrast)',
-                boxShadow: '0 0 2px var(--rds-shadow-color, rgba(0, 0, 0, 0.6))',
+                boxShadow: '0 0 2px var(--rds-shadow-color)',
               },
             }}
           />
@@ -283,7 +283,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
                 width: 12,
                 height: 12,
                 backgroundColor: 'var(--rds-color-surface-contrast)',
-                boxShadow: '0 0 2px var(--rds-shadow-color, rgba(0, 0, 0, 0.6))',
+                boxShadow: '0 0 2px var(--rds-shadow-color)',
               },
             }}
           />

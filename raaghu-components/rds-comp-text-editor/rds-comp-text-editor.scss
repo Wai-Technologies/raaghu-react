@@ -8,6 +8,11 @@
   --rds-text-editor-dim-4: 260px;
   --rds-text-editor-dim-5: 320px;
 
+  --rds-editor-min-height: 200px;
+  --rds-resize-handle-size: 12px;
+  --rds-toolbar-button-size: 25px;
+  --rds-editor-content-min-height: 150px;
+
   border: var(--rds-border-width-thin) solid var(--rds-color-border);
   border-radius: var(--rds-border-radius);
   padding: 0;
@@ -350,14 +355,14 @@
 
   .rdw-editor-main,
   .rds-comp-text-editor__content {
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-850));
+    background-color: var(--rds-color-surface-dark);
     color: var(--rds-neutral-0, var(--rds-neutral-0));
   }
 
   &.rds-comp-text-editor--disabled {
     .rdw-editor-main,
     .rds-comp-text-editor__content {
-      background-color: var(--rds-color-surface-dark, var(--rds-neutral-850));
+      background-color: var(--rds-color-surface-dark);
       color: var(--rds-color-disabled-text-dark, var(--rds-neutral-400));
     }
 

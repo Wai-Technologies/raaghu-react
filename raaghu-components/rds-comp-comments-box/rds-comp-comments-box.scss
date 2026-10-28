@@ -20,6 +20,18 @@
 
   --rds-comments-avatar-size: 32px;
 
+  --rds-comments-max-width: 450px;
+  --rds-reply-min-width: 0px;
+  --rds-reply-max-width: 600px;
+  --rds-reply-height: 32px;
+  --rds-reply-max-height: 36px;
+  --rds-input-height: 48px;
+  --rds-dropdown-top: 40px;
+  --rds-dropdown-min-width: 160px;
+  --rds-dropdown-width: 180px;
+  --rds-mention-list-max-height: 200px;
+  --rds-mention-avatar-max-width: 260px;
+
   display: flex;
   align-items: center;
   gap: var(--rds-spacing-xs);
@@ -1735,7 +1747,7 @@
 .mention-user-avatar {
   max-width: var(--rds-mention-avatar-max-width) !important;
   width: 100%;
-  height: var(--rds-avatar-size-sm);
+  height: var(--rds-avatar-size-small);
   border-radius: var(--rds-border-radius-pill);
   background: var(--rds-background-surface);
   display: flex;

@@ -1,6 +1,8 @@
 .rds-ai-chat-bot {
   --rds-ai-chat-bot-dim-1: 400px;
 
+  --rds-ai-chat-bot-min-height: 500px;
+
     display: flex;
     flex-direction: column;
     height: 95vh;

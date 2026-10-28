@@ -14,6 +14,11 @@ on:
       - 'scripts/check-spacing-in-scss.mjs'
       - 'scripts/raw-px-baseline.txt'
       - 'scripts/check-raw-px-in-scss.mjs'
+      - 'scripts/check-orphaned-css-vars.mjs'
+      - 'raaghu-react-themes/tokens/**'
+      - 'raaghu-elements/**/*.{ts,tsx}'
+      - 'raaghu-components/**/*.{ts,tsx}'
+      - 'raaghu-layouts/**/*.{ts,tsx}'
   pull_request:
     branches: [main, development, production]
     paths:
@@ -27,6 +32,11 @@ on:
       - 'scripts/check-spacing-in-scss.mjs'
       - 'scripts/raw-px-baseline.txt'
       - 'scripts/check-raw-px-in-scss.mjs'
+      - 'scripts/check-orphaned-css-vars.mjs'
+      - 'raaghu-react-themes/tokens/**'
+      - 'raaghu-elements/**/*.{ts,tsx}'
+      - 'raaghu-components/**/*.{ts,tsx}'
+      - 'raaghu-layouts/**/*.{ts,tsx}'
   workflow_dispatch:
 
 permissions:
@@ -60,6 +70,9 @@ jobs:
 
       - name: Check for bare size/border/radius/font px in SCSS
         run: node scripts/check-raw-px-in-scss.mjs
+
+      - name: Check for orphaned var(--rds-*) references
+        run: node scripts/check-orphaned-css-vars.mjs
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps

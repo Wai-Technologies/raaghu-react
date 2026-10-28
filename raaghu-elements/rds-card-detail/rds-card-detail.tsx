@@ -53,11 +53,19 @@ const RdsCardDetail = ({
   const isElevationVariant = props.variant !== 'outlined';
   const isDarkMode = mode === 'dark';
 
+  const ELEVATION_VARS = [
+    'var(--rds-elevation-0)',
+    'var(--rds-elevation-1)',
+    'var(--rds-elevation-2)',
+    'var(--rds-elevation-3)',
+    'var(--rds-elevation-4)',
+    'var(--rds-elevation-5)',
+  ] as const;
   const elevationSx = isElevationVariant
     ? {
         border: 'none',
         ...(isDarkMode && passedElevation > 0
-          ? { boxShadow: `var(--rds-elevation-${Math.min(passedElevation, 5)}, var(--rds-elevation-1))` }
+          ? { boxShadow: ELEVATION_VARS[Math.min(passedElevation, 5)] ?? ELEVATION_VARS[1] }
           : {}),
       }
     : {};

@@ -12,6 +12,13 @@
   --rds-loader-sand-height: 80px;
   --rds-loader-radius-pill: 30px;
   --rds-loader-radius-rotate: 10px;
+  --rds-overlay-backdrop: rgba(0, 0, 0, 0.5);
+  --rds-loader-jump-size: 48px;
+  --rds-loader-jump-shadow-height: 5px;
+  --rds-loader-jump-shadow-top: 60px;
+  --rds-loader-track-bg: rgba(0,0,0,0.2);
+  --rds-loader-spin-border: 4px;
+
   display: inline-block;
   
   &__spinner {
@@ -434,7 +441,7 @@
   display: grid;
   border: var(--rds-loader-spin-border) solid transparent;
   border-radius: var(--rds-border-radius-pill);
-  border-right-color: var(--rds-loader-spin-color, var(--rds-primary-main));
+  border-right-color: var(--rds-primary-main);
   animation: rds-loader-spinner-a4dj62 1s infinite linear;
 }
 .rds-loader__spin::before, .rds-loader__spin::after {

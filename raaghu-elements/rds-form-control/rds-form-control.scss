@@ -4,6 +4,8 @@
   // Match MuiFormControl (inline-flex + column). `display: block` overrides that
   // and lets the inline FormLabel sit beside the TextField when SCSS injects
   // after Emotion (common on first Storybook navigation).
+  --rds-input-min-width: 200px;
+
   display: inline-flex;
   flex-direction: column;
   position: relative;

@@ -7,6 +7,26 @@
   --rds-e-signature-dim-5: 500px;
   --rds-e-signature-dim-6: 620px;
 
+  --rds-signature-draw-height: 280px;
+  --rds-esignature-padding-bottom: 68px;
+  --rds-esignature-controls-padding: 14px 24px 12px;
+  --rds-esignature-draw-height-compact: 200px;
+  --rds-esignature-compact-max-width: 420px;
+  --rds-esignature-compact-padding-bottom: 56px;
+  --rds-esignature-upload-panel-max-width: 420px;
+  --rds-esignature-upload-panel-padding: var(--rds-spacing-lg) 20px;
+  --rds-file-button-height: 32px;
+  --rds-file-button-min-width: 108px;
+  --rds-file-button-font-size: 13px;
+  --rds-file-button-padding: 0 12px;
+  --rds-file-button-radius: 5px;
+  --rds-file-text-height: 32px;
+  --rds-file-text-font-size: 13px;
+  --rds-file-text-padding-horizontal: 12px;
+  --rds-file-delete-height: 32px;
+  --rds-file-delete-padding-horizontal: 8px;
+  --rds-signature-fullname-max-width: 960px;
+
   width: 100%;
 
   &__title {

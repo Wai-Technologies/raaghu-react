@@ -6,6 +6,9 @@
   --rds-slider-font-weight-medium: 500;
   --rds-slider-font-weight-regular: 400;
   --rds-slider-label-muted-color: var(--rds-color-on-surface-variant);
+  --rds-slider-story-width: 300px;
+  --rds-slider-story-margin: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) 0px;
+
   display: block;
   position: relative;
   padding-inline: var(--rds-slider-inline-padding);

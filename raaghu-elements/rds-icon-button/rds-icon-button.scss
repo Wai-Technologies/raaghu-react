@@ -1,4 +1,11 @@
 .rds-icon-button--outlined {
+  --rds-icon-button-outlined-border-width: 1.5px;
+  --rds-icon-button-size-small: 18px;
+  --rds-icon-button-size-medium: 20px;
+  --rds-icon-button-size-large: 24px;
+  --rds-icon-button-outlined-radius: 6px;
+  --rds-icon-button-outlined-padding: 6px;
+
   border: var(--rds-icon-button-outlined-border-width) solid currentColor;
 }
 

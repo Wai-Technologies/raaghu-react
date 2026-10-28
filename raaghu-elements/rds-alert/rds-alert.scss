@@ -1,4 +1,10 @@
 .rds-alert {
+  --rds-alert-icon-color: inherit;
+  --rds-alert-link-color: var(--rds-primary-main);
+  --rds-alert-secondary-text: var(--rds-primary-main);
+  --rds-alert-secondary-bg-hover: var(--rds-color-primary-container);
+  --rds-alert-error-bg-hover: var(--rds-error-light);
+
   position: relative;
   display: flex;
   flex-direction: row;

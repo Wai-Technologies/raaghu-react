@@ -1,4 +1,9 @@
 .rds-textarea-container {
+  --rds-textarea-stack-gap: 3px;
+  --rds-textarea-min-height: 120px;
+  --rds-textarea-bottom-border-width-active: 3px;
+  --rds-textarea-bottom-border-width: 2px;
+
   display: flex;
   flex-direction: column;
   gap: var(--rds-textarea-stack-gap);

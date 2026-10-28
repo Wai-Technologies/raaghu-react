@@ -30,6 +30,9 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   --rds-app-bar-dim-18: 280px;
   --rds-app-bar-dim-19: 300px;
   --rds-app-bar-dim-20: 360px;
+  --rds-header-logo-height: 32px;
+  --rds-header-logo-min-width: 120px;
+
 }
 
 .rds-story-logo {
@@ -677,7 +680,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     min-width: var(--rds-header-logo-min-width);
     font-size: var(--rds-font-size-lg);
     font-weight: var(--rds-font-weight-bold, 700);
-    letter-spacing: var(--rds-letter-spacing);
+    letter-spacing: var(--rds-letter-spacing-normal);
     flex-shrink: 0;
     
     @media (max-width: 834px) {

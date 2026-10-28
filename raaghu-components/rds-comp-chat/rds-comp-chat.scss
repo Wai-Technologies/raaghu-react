@@ -77,6 +77,8 @@
 }
 
 .rds-comp-chat {
+  --rds-backdrop-overlay: rgba(0, 0, 0, 0.8);
+
   border: var(--rds-border-width-thin) solid var(--rds-border-default);
   border-radius: var(--rds-border-radius);
   display: flex;

@@ -4,6 +4,8 @@
   --rds-menu-dim-3: 260px;
   --rds-menu-dim-4: 340px;
 
+  --rds-menu-header-font-weight: 600;
+
   &__list {
     min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;

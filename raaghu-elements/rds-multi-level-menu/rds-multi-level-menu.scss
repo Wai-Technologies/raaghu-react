@@ -7,6 +7,8 @@
   --rds-mlm-item-padding-y: 8px;
   --rds-mlm-item-padding-x: 16px;
   --rds-mlm-item-transition: var(--rds-transition-fast, 0.15s ease-in-out);
+  --rds-mlm-shortcut-min-width: 72px;
+
   box-shadow: var(--rds-elevation-3);
   border-radius: var(--rds-border-radius-md);
   border: var(--rds-border-width-thin) solid var(--rds-border-default);
