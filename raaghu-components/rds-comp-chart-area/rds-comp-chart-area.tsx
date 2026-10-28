@@ -19,9 +19,9 @@ export interface RdsCompAreaChartProps
   dataSets?: ChartDataset<"line">[];
   /** Id of the canvas element. */
   id?: string;
-  /** Canvas height (number = px). */
+  /** Canvas height (number = px). Defaults to `76vh`. */
   height?: string | number;
-  /** Canvas width (number = px). */
+  /** Canvas width (number = px). Defaults to `100vh`. */
   width?: string | number;
   /** @deprecated Has no effect. Use a scriptable `backgroundColor` on the dataset instead. */
   isGradient?: boolean;
@@ -62,7 +62,7 @@ const RdsCompAreaChart = ({
       labels: resolved.labels,
       datasets: resolved.datasets,
       options,
-      onCreate: (chart) => applyCanvasSize(chart.canvas, height, width),
+      onCreate: (chart) => applyCanvasSize(chart.canvas, height ?? "76vh", width ?? "100vh"),
     },
     [resolved.labels, resolved.datasets, options, height, width]
   );

@@ -144,8 +144,13 @@ export const Advanced: Story = {
                         "#7E2EEF",
                         "#d9c9ef33",
                     ],
+                    weight: 0.2,
                     borderRadius: 20,
                     borderColor: ["transparent"],
+                },
+                {
+                    data: [],
+                    weight: 0.2,
                 },
                 {
                     label: "Revenue",
@@ -156,8 +161,13 @@ export const Advanced: Story = {
                         "#7E2EEF",
                         "#d9c9ef33",
                     ],
+                    weight: 0.2,
                     borderRadius: 20,
                     borderColor: ["transparent"],
+                },
+                {
+                    data: [],
+                    weight: 0.2,
                 },
                 {
                     label: "Expenses",
@@ -168,18 +178,18 @@ export const Advanced: Story = {
                         "#7E2EEF",
                         "#d9c9ef33",
                     ],
+                    weight: 0.2,
                     borderRadius: 20,
                     borderColor: ["transparent"],
                 },
             ],
         },
         options: {
-            cutout: "80%",
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false,
+                    display: true,
                     position: "top",
                     labels: {
                         boxWidth: 15,
@@ -187,7 +197,7 @@ export const Advanced: Story = {
                     },
                 },
                 title: {
-                    display: true,
+                    display: false,
                     text: "Doughnut Chart",
                 },
                 tooltip: {

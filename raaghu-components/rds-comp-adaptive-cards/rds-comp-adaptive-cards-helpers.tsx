@@ -222,13 +222,13 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
       )}
       <div className="rds-adaptive-cards__content">
         <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__small-text">{smallText}</RdsTypography>
-        <ImageList cols={4} className="rds-adaptive-cards__image-list">
+        <ImageList cols={4} className="rds-adaptive-cards__image-list" style={{ gridTemplateColumns: undefined }}>
           {(images ?? []).reduce<ReactNode[]>((items, src, index) => {
             if (!src) {
               return items;
             }
             items.push(
-              <ImageListItem key={src} className="rds-adaptive-cards__image-list-item" onClick={() => onImageClick && onImageClick(index)}>
+              <ImageListItem key={src} className="rds-adaptive-cards__image-list-item" style={{ height: undefined }} onClick={() => onImageClick && onImageClick(index)}>
                 <img src={src} alt={`Thumbnail ${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
               </ImageListItem>
             );
@@ -401,12 +401,12 @@ export function CalendarReminderForm({
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
-            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" text={snoozeLabel || btn1Label} />
+            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset" text={snoozeLabel || btn1Label} />
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
-            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" text={lateLabel || btn2Label} />
+            <RdsButton variant="outlined" className="rds-adaptive-cards__action-btn" textCase="unset" text={lateLabel || btn2Label} />
           </RdsBox>
         )}
       </RdsStack>
