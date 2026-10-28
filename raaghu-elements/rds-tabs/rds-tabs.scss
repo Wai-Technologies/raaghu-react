@@ -329,7 +329,7 @@
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
     content: "";
     position: absolute;
-    left: calc(100% + 0);
+    left: 100%;
     top: 48%;
     transform: translateY(-48%);
     width: var(--rds-tabs-dim-1);

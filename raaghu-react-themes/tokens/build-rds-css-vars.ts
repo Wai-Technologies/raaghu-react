@@ -1420,6 +1420,7 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-neutral-main': n[200],
     '--rds-neutral-light': n[100],
     '--rds-neutral-dark': n[400],
+    '--rds-neutral-0': white,
     // ── Background (from resolveSemanticPalette) ─────────────────────────────
     '--rds-background-default': sem.background.default,
     '--rds-background-paper': sem.background.paper,

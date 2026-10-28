@@ -75,7 +75,7 @@ export const ProfileMenu = ({
         {variant === 'rich' ? (
           <>
             <RdsAvatar
-              subText={isSmallScreen ? undefined : designation}
+              description={isSmallScreen ? undefined : designation}
               displayStyle={isSmallScreen ? undefined : 'with-name'}
               title={name}
               showDesignation={!isSmallScreen}

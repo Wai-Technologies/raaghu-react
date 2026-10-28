@@ -298,25 +298,21 @@ export const rdsAppBarSx: AppBarSx[] = [
     },
 
     // withMenuButton ≤420 — narrow overrides on top of compact
-    '&.rds-header--withmenubutton-narrow': {
+    '&.rds-header--withmenubutton-compact.rds-header--withmenubutton-narrow': {
       '.rds-header__toolbar': {
-        paddingLeft: 'var(--rds-spacing-56-px)',
+        paddingLeft: 'var(--rds-spacing-sm)',
         paddingRight: 'var(--rds-spacing-110)',
         overflow: 'visible',
       },
-      '.rds-appbar-logo-group, .rds-header__logo': {
-        position: 'absolute',
-        left: 12,
-        top: '50%',
-        transform: 'translateY(-50%)',
-        zIndex: 'calc(var(--rds-z-index-base) + 4)',
+      '.rds-header__title': {
+        flex: '0 0 auto',
+        maxWidth: 'none',
       },
       '.rds-header__search-wrapper': {
         order: 2,
         flex: '1 1 auto',
-        minWidth: 90,
+        minWidth: 0,
         maxWidth: 140,
-        transform: 'translateX(8px)',
       },
       '.rds-withmenubutton-settings': {
         right: 60,
@@ -630,7 +626,7 @@ export const rdsAppBarSx: AppBarSx[] = [
       '.rds-header__center-content, .rds-header__center-content > div': {
         gap: 0,
       },
-      '.MuiIconButton-edgeStart, .MuiIconButton-root[aria-label="menu"], .rds-header__toolbar > .MuiIconButton-root:first-child':
+      '.MuiIconButton-edgeStart, .MuiIconButton-root[aria-label="menu"], .rds-header__toolbar > .MuiIconButton-root:first-of-type':
         {
           marginRight: 0,
         },

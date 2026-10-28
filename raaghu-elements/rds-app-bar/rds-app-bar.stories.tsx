@@ -827,7 +827,7 @@ const DynamicTemplate = (args: any) => {
         endSlot: (
           <div className="rds-appbar-actions-group">
             <span className="rds-appbar-badge">28 Days Left</span>
-            <RdsButton style='filled' color="primary" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none', textTransform: 'none' }}>
+            <RdsButton style='filled' color="primary" textCase="unset" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none' }}>
               View Plans
             </RdsButton>
             <IconButton color="default" sx={{ ml: 1 }} className="rds-withmenubutton-settings">
@@ -836,28 +836,19 @@ const DynamicTemplate = (args: any) => {
                 <path d="M7.45 13.01C7.45 14.1 7.78 15.18 8.39 16.09C9 17 9.86 17.71 10.88 18.13C11.89 18.55 13.01 18.66 14.08 18.45C15.16 18.24 16.15 17.71 16.92 16.93C17.7 16.15 18.23 15.17 18.44 14.09C18.66 13.01 18.55 11.9 18.13 10.88C17.71 9.87 17 9 16.08 8.39C15.17 7.78 14.1 7.46 13 7.46C11.53 7.46 10.12 8.04 9.08 9.08C8.04 10.12 7.45 11.54 7.45 13.01Z" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </IconButton>
-            <ProfileMenu name={args.userName || 'Jane Doe'} email={args.userEmail || 'jane.doe@example.com'} />
+            <ProfileMenu name={args.userName || 'Jane Doe'} email={args.userEmail || 'jane.doe@example.com'} designation="Developer" />
           </div>
         ),
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
-        overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'row', gap: 12, padding: 12, width: '100%', boxSizing: 'border-box', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', gap: 40, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-              <Button variant="text" size="small">HOME</Button>
-              <Button variant="text" size="small">AGREEMENT</Button>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span className="rds-appbar-badge">28 Days Left</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Button variant="contained" color="primary" sx={{ minWidth: 90, fontWeight: 500, fontSize: 13, boxShadow: 'none', textTransform: 'none' }}>
-                View Plans
-              </Button>
-            </div>
-          </div>
+        bottomActions: (
+          <>
+            <span className="rds-appbar-badge">28 Days Left</span>
+            <Button variant="contained" color="primary" sx={{ minWidth: 'auto', fontWeight: 500, boxShadow: 'none', textTransform: 'none' }}>
+              View Plans
+            </Button>
+          </>
         ),
       };
       break;

@@ -1,16 +1,18 @@
 /* auto size dims */
---rds-time-picker-dim-1: var(--rds-spacing-hairline);
---rds-time-picker-dim-2: var(--rds-spacing-34);
---rds-time-picker-dim-3: var(--rds-spacing-35);
---rds-time-picker-dim-4: 38px;
---rds-time-picker-dim-5: var(--rds-spacing-45);
---rds-time-picker-dim-6: var(--rds-spacing-50);
---rds-time-picker-dim-7: var(--rds-spacing-60);
---rds-time-picker-dim-8: var(--rds-spacing-70);
---rds-time-picker-dim-9: 72px;
---rds-time-picker-dim-10: 200px;
---rds-time-picker-dim-11: 280px;
---rds-time-picker-dim-12: 350px;
+:root {
+  --rds-time-picker-dim-1: var(--rds-spacing-hairline);
+  --rds-time-picker-dim-2: var(--rds-spacing-34);
+  --rds-time-picker-dim-3: var(--rds-spacing-35);
+  --rds-time-picker-dim-4: 38px;
+  --rds-time-picker-dim-5: var(--rds-spacing-45);
+  --rds-time-picker-dim-6: var(--rds-spacing-50);
+  --rds-time-picker-dim-7: var(--rds-spacing-60);
+  --rds-time-picker-dim-8: var(--rds-spacing-70);
+  --rds-time-picker-dim-9: 72px;
+  --rds-time-picker-dim-10: 200px;
+  --rds-time-picker-dim-11: 280px;
+  --rds-time-picker-dim-12: 350px;
+}
 
 .time-picker-container {
   position: relative;
