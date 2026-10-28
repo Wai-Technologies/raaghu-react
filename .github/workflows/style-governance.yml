@@ -9,11 +9,16 @@ on:
       - 'raaghu-layouts/**/*.scss'
       - 'scripts/hex-baseline.txt'
       - 'scripts/check-hex-in-scss.sh'
+      - 'scripts/check-no-hex.mjs'
+      - 'scripts/rgba-baseline.txt'
+      - 'scripts/check-no-rgba-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/check-spacing-in-scss.sh'
       - 'scripts/check-spacing-in-scss.mjs'
       - 'scripts/raw-px-baseline.txt'
       - 'scripts/check-raw-px-in-scss.mjs'
+      - 'scripts/local-dim-px-baseline.txt'
+      - 'scripts/check-local-dim-px-in-scss.mjs'
       - 'scripts/check-orphaned-css-vars.mjs'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
@@ -27,11 +32,16 @@ on:
       - 'raaghu-layouts/**/*.scss'
       - 'scripts/hex-baseline.txt'
       - 'scripts/check-hex-in-scss.sh'
+      - 'scripts/check-no-hex.mjs'
+      - 'scripts/rgba-baseline.txt'
+      - 'scripts/check-no-rgba-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/check-spacing-in-scss.sh'
       - 'scripts/check-spacing-in-scss.mjs'
       - 'scripts/raw-px-baseline.txt'
       - 'scripts/check-raw-px-in-scss.mjs'
+      - 'scripts/local-dim-px-baseline.txt'
+      - 'scripts/check-local-dim-px-in-scss.mjs'
       - 'scripts/check-orphaned-css-vars.mjs'
       - 'raaghu-react-themes/tokens/**'
       - 'raaghu-elements/**/*.{ts,tsx}'
@@ -65,11 +75,20 @@ jobs:
           node-version: '20'
           cache: npm
 
+      - name: Check for unauthorized hex (allowlist)
+        run: node scripts/check-no-hex.mjs
+
+      - name: Check for new rgb()/rgba() literals in SCSS
+        run: node scripts/check-no-rgba-in-scss.mjs
+
       - name: Check for new hardcoded px spacing in SCSS
         run: node scripts/check-spacing-in-scss.mjs
 
       - name: Check for bare size/border/radius/font px in SCSS
         run: node scripts/check-raw-px-in-scss.mjs
+
+      - name: Check for bare px/rem in local --rds-* custom properties
+        run: node scripts/check-local-dim-px-in-scss.mjs
 
       - name: Check for orphaned var(--rds-*) references
         run: node scripts/check-orphaned-css-vars.mjs
