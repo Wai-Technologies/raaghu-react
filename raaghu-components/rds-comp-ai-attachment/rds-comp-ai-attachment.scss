@@ -3,7 +3,7 @@
 
     /* Component-scoped layout tokens (consumed from centralized design tokens) */
     --rds-ai-attachment-min-width: 273px;
-    --rds-ai-attachment-dropdown-gap: var(--rds-spacing-xs, 4px);
+    --rds-ai-attachment-dropdown-gap: var(--rds-spacing-xs);
 
     &__icon {
         height: var(--rds-size-xl);
@@ -35,7 +35,7 @@
     &__upload-row {
         display: inline-flex;
         align-items: center;
-        gap: var(--rds-spacing-xs, 8px);
+        gap: var(--rds-spacing-xs);
         white-space: nowrap;
     }
 

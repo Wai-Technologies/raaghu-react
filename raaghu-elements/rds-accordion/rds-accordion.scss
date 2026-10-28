@@ -59,13 +59,13 @@
 }
 .rds-accordion__container {
   --rds-accordion-container-radius: 4px;
-  --rds-accordion-container-gap-bottom: calc(1.75 * var(--rds-spacing-xs, 4px));
+  --rds-accordion-container-gap-bottom: calc(1.75 * var(--rds-spacing-xs));
   --rds-accordion-item-divider-color: var(--rds-border-default);
   border: 1px solid var(--rds-border-default);
   background: var(--rds-color-surface);
-  border-radius: var(--rds-accordion-container-radius, 4px);
+  border-radius: var(--rds-accordion-container-radius);
   overflow: hidden;
-  margin-bottom: var(--rds-accordion-container-gap-bottom, calc(1.75 * var(--rds-spacing-xs, 4px)));
+  margin-bottom: var(--rds-accordion-container-gap-bottom, calc(1.75 * var(--rds-spacing-xs)));
   
   &.rds-accordion--bottomline {
   border: none;
@@ -98,8 +98,8 @@
       &::after {
         content: '';
         position: absolute;
-        left: 0px; 
-        right: 0px;
+        left: 0; 
+        right: 0;
         bottom: 0;
         height: 0.5px;
         background: var(--rds-border-default);
@@ -188,16 +188,16 @@
     background-color: var(--rds-color-surface) !important;
     border-radius: 0 !important;
     min-height: 48px !important;
-    min-height: var(--rds-accordion-summary-height-md, 48px) !important;
-    padding: 0 var(--rds-accordion-summary-padding-md-x, 16px) !important;
+    min-height: var(--rds-accordion-summary-height-md) !important;
+    padding: 0 var(--rds-accordion-summary-padding-md-x) !important;
     border-bottom: none !important;
     position: relative;
     
     &::after {
       content: '';
       position: absolute;
-      left: 0px;
-      right: 0px;
+      left: 0;
+      right: 0;
       bottom: 0;
       height: 1px;
       background: var(--rds-border-default);
@@ -211,10 +211,10 @@
     }
     
     .MuiAccordionSummary-content {
-      margin: var(--rds-accordion-summary-content-margin-md, 12px) 0 !important;
+      margin: var(--rds-accordion-summary-content-margin-md) 0 !important;
       
       &.Mui-expanded {
-        margin: var(--rds-accordion-summary-content-margin-md, 12px) 0 !important;
+        margin: var(--rds-accordion-summary-content-margin-md) 0 !important;
       }
     }
     
@@ -232,7 +232,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 
   &__title {
@@ -247,10 +247,10 @@
     align-items: center;
     justify-content: center;
     color: var(--rds-color-text-secondary) !important;
-    margin-right: var(--rds-spacing-sm, 8px);
+    margin-right: var(--rds-spacing-sm);
     
     .MuiSvgIcon-root {
-      font-size: var(--rds-accordion-size-md, 20px) !important;
+      font-size: var(--rds-accordion-size-md) !important;
     }
   }
   
@@ -259,9 +259,9 @@
       border: 1.5px solid var(--rds-border-default);
       background: var(--rds-color-surface);
       border-radius: var(--rds-border-radius-sm);
-      margin: var(--rds-accordion-details-margin-top, 12px) var(--rds-accordion-details-margin-right, 12px) var(--rds-accordion-details-margin-bottom, 20px) var(--rds-accordion-details-margin-left, 12px);
-      min-height: var(--rds-accordion-details-min-height, 80px);
-      padding: var(--rds-spacing-md, 16px) calc(5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-lg, 24px) calc(5 * var(--rds-spacing-xs, 4px));
+      margin: var(--rds-accordion-details-margin-top) var(--rds-accordion-details-margin-right) var(--rds-accordion-details-margin-bottom) var(--rds-accordion-details-margin-left);
+      min-height: var(--rds-accordion-details-min-height);
+      padding: var(--rds-spacing-md) calc(5 * var(--rds-spacing-xs)) var(--rds-spacing-lg) calc(5 * var(--rds-spacing-xs));
       box-sizing: border-box;
       display: flex;
       align-items: center;
@@ -374,14 +374,14 @@
 
   &--small {
     .rds-accordion__summary {
-      min-height: var(--rds-accordion-summary-height-sm, 32px) !important;
-      padding: 0 var(--rds-accordion-summary-padding-sm-x, 8px) !important;
+      min-height: var(--rds-accordion-summary-height-sm) !important;
+      padding: 0 var(--rds-accordion-summary-padding-sm-x) !important;
       
       .MuiAccordionSummary-content {
-        margin: var(--rds-accordion-summary-content-margin-sm, 6px) 0 !important;
+        margin: var(--rds-accordion-summary-content-margin-sm) 0 !important;
         
         &.Mui-expanded {
-          margin: var(--rds-accordion-summary-content-margin-sm, 6px) 0 !important;
+          margin: var(--rds-accordion-summary-content-margin-sm) 0 !important;
         }
       }
     }
@@ -391,22 +391,22 @@
     }
 
     .rds-accordion__icon .MuiSvgIcon-root {
-      font-size: var(--rds-accordion-size-sm, 16px) !important;
+      font-size: var(--rds-accordion-size-sm) !important;
     }
     
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root {
-      font-size: var(--rds-accordion-size-sm, 16px) !important;
+      font-size: var(--rds-accordion-size-sm) !important;
     }
 
     .rds-accordion__details {
-      padding: var(--rds-spacing-sm, 8px) !important;
+      padding: var(--rds-spacing-sm) !important;
     }
   }
 
   &--medium {
     .rds-accordion__summary {
-      min-height: var(--rds-accordion-summary-height-md, 48px) !important;
-      padding: 0 var(--rds-accordion-summary-padding-md-x, 16px) !important;
+      min-height: var(--rds-accordion-summary-height-md) !important;
+      padding: 0 var(--rds-accordion-summary-padding-md-x) !important;
     }
 
     .rds-accordion__title {
@@ -414,28 +414,28 @@
     }
 
     .rds-accordion__icon .MuiSvgIcon-root {
-      font-size: var(--rds-accordion-size-md, 20px) !important;
+      font-size: var(--rds-accordion-size-md) !important;
     }
     
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root {
-      font-size: var(--rds-accordion-size-md, 20px) !important;
+      font-size: var(--rds-accordion-size-md) !important;
     }
 
     .rds-accordion__details {
-      padding: var(--rds-spacing-md, 16px) !important;
+      padding: var(--rds-spacing-md) !important;
     }
   }
 
   &--large {
     .rds-accordion__summary {
-      min-height: var(--rds-accordion-summary-height-lg, 64px) !important;
-      padding: 0 var(--rds-accordion-summary-padding-lg-x, 24px) !important;
+      min-height: var(--rds-accordion-summary-height-lg) !important;
+      padding: 0 var(--rds-accordion-summary-padding-lg-x) !important;
       
       .MuiAccordionSummary-content {
-        margin: var(--rds-accordion-summary-content-margin-lg, 16px) 0 !important;
+        margin: var(--rds-accordion-summary-content-margin-lg) 0 !important;
         
         &.Mui-expanded {
-          margin: var(--rds-accordion-summary-content-margin-lg, 16px) 0 !important;
+          margin: var(--rds-accordion-summary-content-margin-lg) 0 !important;
         }
       }
     }
@@ -445,15 +445,15 @@
     }
 
     .rds-accordion__icon .MuiSvgIcon-root {
-      font-size: var(--rds-accordion-size-lg, 28px) !important;
+      font-size: var(--rds-accordion-size-lg) !important;
     }
     
     .MuiAccordionSummary-expandIconWrapper .MuiSvgIcon-root {
-      font-size: var(--rds-accordion-size-lg, 28px) !important;
+      font-size: var(--rds-accordion-size-lg) !important;
     }
 
     .rds-accordion__details {
-      padding: var(--rds-spacing-lg, 24px) !important;
+      padding: var(--rds-spacing-lg) !important;
     }
   }
 }

@@ -96,11 +96,11 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
     margin-left: auto;
 
     .rds-alert__link-button {
-      margin-right: var(--rds-alert-link-margin-right, 10px);
+      margin-right: var(--rds-alert-link-margin-right);
     }
 
     .MuiButton-root.rds-alert__link-button {
@@ -117,7 +117,7 @@
 
   &__heading--multiline {
     font-weight: var(--rds-font-weight-bold, 700);
-    margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
+    margin-bottom: calc(var(--rds-spacing-xs) / 2);
   }
 
   &__wrapper {
@@ -145,7 +145,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      margin-top: var(--rds-spacing-sm, 8px);
+      margin-top: var(--rds-spacing-sm);
     }
 
     .rds-alert__left-actions {
@@ -156,12 +156,12 @@
     .rds-alert__right-actions {
       display: flex;
       align-items: center;
-      gap: var(--rds-spacing-xs, 8px);
+      gap: var(--rds-spacing-xs);
     }
 
     .rds-alert__icon {
       align-self: flex-start;
-      margin-top: calc(var(--rds-spacing-xs, 4px) / 2);
+      margin-top: calc(var(--rds-spacing-xs) / 2);
     }
 
     .MuiAlert-icon {
@@ -220,26 +220,26 @@
   }
 
   &--small {
-    padding: var(--rds-alert-padding-sm, 0.25rem 0.5rem);
+    padding: var(--rds-alert-padding-sm);
   }
 
   &--medium {
-    padding: var(--rds-alert-padding-md, 0.375rem 0.75rem);
+    padding: var(--rds-alert-padding-md);
   }
 
   &--large {
-    padding: var(--rds-alert-padding-lg, 0.5rem 1rem);
+    padding: var(--rds-alert-padding-lg);
   }
 
   &--style1 {
-    box-shadow: var(--rds-alert-style1-shadow, 0px 12px 20px -4px var(--rds-alert-shadow, rgba(0, 0, 0, 0.15)));
+    box-shadow: var(--rds-alert-style1-shadow);
     border: none;
     z-index: calc(var(--rds-z-index-base) + 1);
   }
 
   &--style2 {
     box-shadow: none;
-    border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-info-border);
+    border: var(--rds-alert-style-border-width) solid var(--rds-alert-info-border);
 
     &.rds-alert--success {
       border-color: var(--rds-alert-loading-border);
@@ -261,7 +261,7 @@
   &--style3 {
     box-shadow: none;
     border: none;
-    border-left-width: var(--rds-alert-left-border-width, 6px);
+    border-left-width: var(--rds-alert-left-border-width);
     border-left-style: solid;
 
     &.rds-alert--success {
@@ -288,8 +288,8 @@
   color: var(--rds-alert-link-color, var(--rds-color-primary));
   box-shadow: none;
   border: none;
-  font-size: var(--rds-alert-link-font-size, 0.8125rem);
-  padding: 0 var(--rds-spacing-xs, 4px);
+  font-size: var(--rds-alert-link-font-size);
+  padding: 0 var(--rds-spacing-xs);
 }
 
 .rds-alert__secondary-button.MuiButton-root {
@@ -419,6 +419,6 @@
 
   .rds-alert__icon {
     align-self: flex-start;
-    margin-top: calc(var(--rds-spacing-xs, 4px) / 2);
+    margin-top: calc(var(--rds-spacing-xs) / 2);
   }
 }

@@ -209,8 +209,8 @@
 
   &__dismiss.MuiIconButton-root {
     position: absolute;
-    top: 17px;
-    right: 5px;
+    top: var(--rds-spacing-17);
+    right: var(--rds-spacing-tight);
     padding: var(--rds-spacing-xs);
     background-color: transparent;
     z-index: var(--rds-z-index-layer-1);
@@ -230,14 +230,14 @@
   &--style-avatar,
   &--style-icon {
     .rds-comp-notification__dismiss.MuiIconButton-root {
-      top: 12px;
+      top: var(--rds-spacing-3);
     }
   }
 
   &--layout-horizontal.rds-comp-notification--style-image {
     .rds-comp-notification__dismiss.MuiIconButton-root {
-      top: 8px;
-      right: 12px;
+      top: var(--rds-spacing-sm);
+      right: var(--rds-spacing-3);
     }
 
     .rds-comp-notification__title-section {
@@ -314,7 +314,7 @@
         }
 
         .rds-comp-notification__dismiss.MuiIconButton-root {
-          top: 16px;
+          top: var(--rds-spacing-md);
           right: 0;
         }
       }

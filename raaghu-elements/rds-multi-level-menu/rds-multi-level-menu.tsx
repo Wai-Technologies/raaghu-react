@@ -50,11 +50,11 @@ const menuItemStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  minWidth: 'var(--rds-mlm-min-width, 220px)',
+  minWidth: 'var(--rds-mlm-min-width)',
 };
 
 const menuPaperStyle = {
-  minWidth: 'var(--rds-mlm-min-width, 220px)',
+  minWidth: 'var(--rds-mlm-min-width)',
 };
 
 const resolveSize = (sizeProp: 'small' | 'medium' | 'large' | 'default'): MultiLevelMenuSize =>
@@ -151,7 +151,7 @@ export const RdsMultiLevelMenu = ({
           list: { autoFocusItem: open, disablePadding: true },
           paper: {
             sx: level === 0
-              ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset, 43px)', sm: 0 } }
+              ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset)', sm: 0 } }
               : menuPaperStyle,
             className: clsx('rds-mlm-paper', level === 0 && 'rds-mlm-root', `type-${type}`, `size-${size}`)
           }

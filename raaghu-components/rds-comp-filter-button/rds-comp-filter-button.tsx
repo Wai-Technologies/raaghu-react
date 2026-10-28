@@ -64,8 +64,8 @@ export interface RdsCompFilterButtonProps extends Omit<HTMLAttributes<HTMLDivEle
 }
 
 const EMPTY_FILTER_OPTIONS: FilterOption[] = [];
-const DEFAULT_START_ICON = <FilterListIcon sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />;
-const DEFAULT_END_ICON = <ExpandMore sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />;
+const DEFAULT_START_ICON = <FilterListIcon sx={{ fontSize: 'var(--rds-icon-size-sm)' }} />;
+const DEFAULT_END_ICON = <ExpandMore sx={{ fontSize: 'var(--rds-icon-size-sm)' }} />;
 
 const RdsCompFilterButton = ({
   shape = 'rectangle',
@@ -289,8 +289,8 @@ const RdsCompFilterButton = ({
                       content: '""',
                       position: 'absolute',
                       bottom: 0,
-                      left: 'var(--rds-spacing-md, 16px)',
-                      right: 'var(--rds-spacing-md, 16px)',
+                      left: 'var(--rds-spacing-md)',
+                      right: 'var(--rds-spacing-md)',
                       height: '1px',
                       backgroundColor: 'var(--rds-border-default)',
                       display: index === filteredFilters.length - 1 ? 'none' : 'block',
@@ -309,7 +309,7 @@ const RdsCompFilterButton = ({
                     ) : null}
 
                     <Typography sx={{ 
-                      fontSize: 'var(--rds-font-size-md, 14px)', 
+                      fontSize: 'var(--rds-font-size-md)', 
                       fontWeight: 'var(--rds-font-weight-medium, 500)',
                       color: 'var(--rds-text-primary)'
                     }}>

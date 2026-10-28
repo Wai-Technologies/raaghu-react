@@ -4,7 +4,7 @@
   width: 100%;
   display: block;
   &__container {
-    padding: 0 var(--rds-spacing-md, 16px);
+    padding: 0 var(--rds-spacing-md);
     display: flex;
     flex-direction: column;
   }
@@ -24,7 +24,7 @@
     margin-bottom: 0;
     flex-shrink: 0;
     align-self: center;
-    padding: var(--rds-spacing-xxs, 2px);
+    padding: var(--rds-spacing-xxs);
   }
 
   &__avatar-info {
@@ -39,8 +39,8 @@
     word-wrap: break-word;
   }
   &__image-wrapper {
-    margin-left: var(--rds-spacing-2xl, 48px);
-    max-width: calc(100% - var(--rds-spacing-2xl, 48px));
+    margin-left: var(--rds-spacing-2xl);
+    max-width: calc(100% - var(--rds-spacing-2xl));
     overflow: hidden;
     .rds-comp-ai-message-box__image {
       max-width: 100%;
@@ -65,12 +65,12 @@
       }
     }
     &--spaced {
-      margin-top: var(--rds-spacing-hairline, 1px);
+      margin-top: var(--rds-spacing-hairline);
     }
   }
   @include bp.down(568) {
     &__container {
-      padding: 0 var(--rds-spacing-xs, 8px);
+      padding: 0 var(--rds-spacing-xs);
     }
     &__row {
       flex-direction: row;
@@ -87,13 +87,13 @@
       }
     }
     &--spaced {
-      margin-top: var(--rds-spacing-hairline, 1px);
+      margin-top: var(--rds-spacing-hairline);
     }
   }
 
   @include bp.down(xs) {
     &__container {
-      padding: 0 var(--rds-spacing-xs, 4px);
+      padding: 0 var(--rds-spacing-xs);
     }
     &__image-wrapper {
       margin-left: var(--rds-spacing-sm);

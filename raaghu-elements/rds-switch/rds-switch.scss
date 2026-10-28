@@ -12,7 +12,7 @@
   --rds-switch-style1-track-height: 1.5rem;
   --rds-switch-style1-track-width: 5.5rem;
   --rds-switch-style3-track-height: 1.4rem;
-  --rds-switch-style4-track-height: var(--rds-spacing-sm, 8px);
+  --rds-switch-style4-track-height: var(--rds-spacing-sm);
   &__track {
     display: block;
   }
@@ -26,8 +26,8 @@
   }
 
   &:focus-visible {
-    outline: var(--rds-switch-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset, 2px);
+    outline: var(--rds-switch-focus-ring-width) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
@@ -97,7 +97,7 @@
 .rds-switch--style1 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
   height: 100% !important;
-  border-radius: var(--rds-switch-track-border-radius, var(--rds-border-radius-3xl, 1.5rem)) !important;
+  border-radius: var(--rds-switch-track-border-radius, var(--rds-border-radius-3xl)) !important;
   width: 100% !important;
 }
 .rds-switch--style1 .MuiSwitch-thumb {
@@ -107,11 +107,11 @@
 .rds-switch--style2 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
   height: 100% !important;
-  border-radius: var(--rds-border-radius-sm, 4px) !important;
+  border-radius: var(--rds-border-radius-sm) !important;
 }
 .rds-switch--style2 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb) !important;
-  border-radius: var(--rds-border-radius-sm, 4px) !important;
+  border-radius: var(--rds-border-radius-sm) !important;
 }
 
 .rds-switch--style3 .MuiSwitch-track {
@@ -129,13 +129,13 @@
 }
 
 .rds-switch--style3 .MuiSwitch-switchBase {
-  top: 2px !important;
+  top: var(--rds-spacing-xxs) !important;
 }
 
 .rds-switch--style4 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
   height: 100% !important;
-  border-radius: calc(2.5 * var(--rds-spacing-xs, 4px)) !important;
+  border-radius: calc(2.5 * var(--rds-spacing-xs)) !important;
   position: relative !important;
 }
 .rds-switch--style4 .MuiSwitch-thumb {
@@ -145,32 +145,32 @@
 .rds-switch--style4 .MuiSwitch-track::before {
   content: 'On' !important;
   position: absolute !important;
-  left: calc(var(--rds-spacing-xs, 4px) / 2) !important;
+  left: calc(var(--rds-spacing-xs) / 2) !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
+  font-size: var(--rds-font-size-sm) !important;
 }
 
 .rds-switch--style4 .MuiSwitch-track::after {
   content: 'Off' !important;
   position: absolute !important;
-  right: calc(var(--rds-spacing-xs, 4px) / 2) !important;
+  right: calc(var(--rds-spacing-xs) / 2) !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
+  font-size: var(--rds-font-size-sm) !important;
 }
 
 .rds-switch--style5 .MuiSwitch-track {
   background: var(--rds-color-switch-track) !important;
   height: 100% !important;
-  border-radius: calc(0.75 * var(--rds-spacing-xs, 4px)) !important;
+  border-radius: calc(0.75 * var(--rds-spacing-xs)) !important;
   position: relative !important;
 }
 .rds-switch--style5 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb) !important;
-  border-radius: var(--rds-border-radius-sm, 4px) !important;
+  border-radius: var(--rds-border-radius-sm) !important;
 }
 
 .rds-switch--style4,
@@ -190,21 +190,21 @@
 .rds-switch--style5 .MuiSwitch-track::before {
   content: 'On' !important;
   position: absolute !important;
-  left: calc(var(--rds-spacing-xs, 4px) / 2) !important;
+  left: calc(var(--rds-spacing-xs) / 2) !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
+  font-size: var(--rds-font-size-sm) !important;
 }
 
 .rds-switch--style5 .MuiSwitch-track::after {
   content: 'Off' !important;
   position: absolute !important;
-  right: calc(var(--rds-spacing-xs, 4px) / 2) !important;
+  right: calc(var(--rds-spacing-xs) / 2) !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   color: var(--rds-color-switch-label) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
+  font-size: var(--rds-font-size-sm) !important;
 }
 
 .rds-switch--style1 .Mui-checked + .MuiSwitch-track,

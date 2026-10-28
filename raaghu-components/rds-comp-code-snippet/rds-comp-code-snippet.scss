@@ -1,11 +1,11 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-code-snippet {
-  border-radius: var(--rds-border-radius, 8px);
+  border-radius: var(--rds-border-radius);
   border: 1px solid var(--rds-color-border);
   overflow: hidden;
   font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-sm, 14px);
+  font-size: var(--rds-font-size-sm);
 
   &__container {
     position: relative;
@@ -19,8 +19,8 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-    gap: var(--rds-spacing-xs, 12px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+    gap: var(--rds-spacing-xs);
     position: relative;
 
     .rds-button.MuiButton-root {
@@ -33,8 +33,8 @@
       content: '';
       position: absolute;
       bottom: 0;
-      left: calc(-1 * var(--rds-spacing-md, 16px));
-      right: calc(-1 * var(--rds-spacing-md, 16px));
+      left: calc(-1 * var(--rds-spacing-md));
+      right: calc(-1 * var(--rds-spacing-md));
       height: 1px;
       background-color: var(--rds-color-border);
     }
@@ -43,11 +43,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-md);
 
       &::after {
-        left: calc(-1 * var(--rds-spacing-md, 16px));
-        right: calc(-1 * var(--rds-spacing-md, 16px));
+        left: calc(-1 * var(--rds-spacing-md));
+        right: calc(-1 * var(--rds-spacing-md));
       }
     }
   }
@@ -57,19 +57,19 @@
     //   margin-right: 0px;
     // }
     &__toolbar {
-      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) calc(var(--rds-spacing-xs) + 1px) var(--rds-spacing-xs);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) var(--rds-spacing-xs);
       gap: calc(var(--rds-spacing-xs) * 0.75);
     }
 
     &__language-label {
       max-width: 68px;
-      font-size: var(--rds-font-size-xs, 8px) !important;
+      font-size: var(--rds-font-size-xs) !important;
     }
 
     &__copy-button {
       min-width: 72px;
-      padding: calc(var(--rds-spacing-xs) + 1px) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
-      font-size: var(--rds-font-size-xs, 10px) !important;
+      padding: calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
+      font-size: var(--rds-font-size-xs) !important;
       white-space: nowrap;
       height: 30px;
     }
@@ -115,11 +115,11 @@
   &__actions {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-xs, 8px);
+    gap: var(--rds-spacing-xs);
   }
 
   &__language-label {
-    font-size: var(--rds-font-size-xs, 12px);
+    font-size: var(--rds-font-size-xs);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -164,7 +164,7 @@
 
     pre {
       margin: 0;
-      padding: var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-md);
       overflow-x: auto;
       white-space: pre;
 
@@ -196,7 +196,7 @@
   }
 
   &__content--with-max {
-    max-height: var(--rds-code-max-height, 400px);
+    max-height: var(--rds-code-max-height);
     overflow: auto;
   }
 
@@ -205,7 +205,7 @@
   }
 
   &__line-numbers {
-    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md) var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md);
     text-align: right;
     user-select: none;
     min-width: 40px;
@@ -215,12 +215,12 @@
   &__line-number {
     display: block;
     line-height: 1.55;
-    font-size: var(--rds-font-size-xs, 12px);
+    font-size: var(--rds-font-size-xs);
   }
 
   &__code-lines {
     flex: 1;
-    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md);
   }
 
   &__code-line {
@@ -232,7 +232,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: var(--rds-spacing-md, 12px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md) var(--rds-spacing-md);
     min-height: 48px;
     position: relative;
     box-sizing: border-box;
@@ -244,14 +244,14 @@
     align-items: center;
     justify-content: center;
     max-width: 100%;
-    padding-left: var(--rds-spacing-sm, 12px);
-    padding-right: var(--rds-spacing-sm, 12px);
+    padding-left: var(--rds-spacing-sm);
+    padding-right: var(--rds-spacing-sm);
     box-sizing: border-box;
     .rds-button {
       color: var(--rds-color-primary) !important;
       background: transparent !important;
       border: none !important;
-      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px) !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
       min-width: 0 !important;
       height: auto !important;
     }
@@ -376,7 +376,7 @@
 
   &--singleLine {
     .rds-comp-code-snippet__content pre {
-      padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       white-space: nowrap;
       overflow-x: auto;
     }

@@ -3,18 +3,18 @@
   width: 100%;
 
   &__title {
-    font-size: var(--rds-font-size-base, 16px);
+    font-size: var(--rds-font-size-base);
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-text-primary, var(--rds-color-neutral-900));
-    margin: 0 0 var(--rds-space-3, 12px);
+    margin: 0 0 var(--rds-space-3);
     display: flex;
     align-items: center;
-    gap: var(--rds-space-1, 4px);
+    gap: var(--rds-space-1);
   }
 
   &__required {
     color: var(--rds-color-error-700);
-    font-size: var(--rds-font-size-base, 16px);
+    font-size: var(--rds-font-size-base);
   }
 
   &__draw-container {
@@ -22,14 +22,14 @@
   }
 
   &__canvas-container {
-    --rds-esignature-draw-height: var(--rds-signature-draw-height, 280px);
+    --rds-esignature-draw-height: var(--rds-signature-draw-height);
 
     border: 2px dashed var(--rds-color-border-default);
-    border-radius: var(--rds-radius-lg, 8px);
+    border-radius: var(--rds-radius-lg);
     width: 100%;
     max-width: 100%;
     height: var(--rds-esignature-draw-height);
-    padding: 0 var(--rds-space-5, 20px) var(--rds-esignature-padding-bottom, 68px);
+    padding: 0 var(--rds-space-5) var(--rds-esignature-padding-bottom);
     background-color: var(--rds-color-surface);
     transition: border-color var(--rds-transition-base), background-color var(--rds-transition-base);
     position: relative;
@@ -84,7 +84,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    padding: var(--rds-esignature-controls-padding, 14px 24px 12px);
+    padding: var(--rds-esignature-controls-padding, var(--rds-spacing-14) var(--rds-spacing-lg) var(--rds-spacing-3));
     pointer-events: none;
   }
 
@@ -94,13 +94,13 @@
 
   &--type-initials {
     .rds-e-signature__canvas-container {
-      --rds-esignature-draw-height: var(--rds-esignature-draw-height-compact, 200px);
-      max-width: var(--rds-esignature-compact-max-width, 420px);
-      padding: 0 16px var(--rds-esignature-compact-padding-bottom, 56px);
+      --rds-esignature-draw-height: var(--rds-esignature-draw-height-compact);
+      max-width: var(--rds-esignature-compact-max-width);
+      padding: 0 var(--rds-spacing-md) var(--rds-esignature-compact-padding-bottom);
     }
 
     .rds-e-signature__canvas-title {
-      font-size: var(--rds-font-size-base, 16px);
+      font-size: var(--rds-font-size-base);
     }
 
     .rds-e-signature__canvas-icon {
@@ -108,18 +108,18 @@
     }
 
     .rds-e-signature__color-button {
-      width: var(--rds-size-color-btn, 28px);
-      height: var(--rds-size-color-btn, 28px);
+      width: var(--rds-size-color-btn);
+      height: var(--rds-size-color-btn);
     }
 
     .rds-e-signature__actions {
-      gap: var(--rds-space-3, 12px);
+      gap: var(--rds-space-3);
     }
 
     .rds-e-signature__upload-panel {
-      max-width: var(--rds-esignature-upload-panel-max-width, 420px);
+      max-width: var(--rds-esignature-upload-panel-max-width);
       border-color: var(--rds-color-accent-blue-500);
-      padding: var(--rds-esignature-upload-panel-padding, var(--rds-spacing-lg) 20px);
+      padding: var(--rds-esignature-upload-panel-padding, var(--rds-spacing-lg) var(--rds-spacing-5));
     }
 
     .rds-e-signature__file-row,
@@ -133,23 +133,23 @@
     }
 
     .rds-e-signature__file-button {
-      height: var(--rds-file-button-height, 32px);
-      min-width: var(--rds-file-button-min-width, 108px);
-      font-size: var(--rds-file-button-font-size, 13px);
-      padding: var(--rds-file-button-padding, 0 12px);
-      border-radius: var(--rds-file-button-radius, 5px) 0 0 var(--rds-file-button-radius, 5px);
+      height: var(--rds-file-button-height);
+      min-width: var(--rds-file-button-min-width);
+      font-size: var(--rds-file-button-font-size);
+      padding: var(--rds-file-button-padding, 0 var(--rds-spacing-3));
+      border-radius: var(--rds-file-button-radius) 0 0 var(--rds-file-button-radius);
     }
 
     .rds-e-signature__file-text {
-      height: var(--rds-file-text-height, 32px);
-      font-size: var(--rds-file-text-font-size, 13px);
-      padding: 0 var(--rds-file-text-padding-horizontal, 12px);
+      height: var(--rds-file-text-height);
+      font-size: var(--rds-file-text-font-size);
+      padding: 0 var(--rds-file-text-padding-horizontal);
     }
 
     .rds-e-signature__file-delete {
-      height: var(--rds-file-delete-height, 32px);
+      height: var(--rds-file-delete-height);
       font-size: var(--rds-font-size-lg);
-      padding: 0 var(--rds-file-delete-padding-horizontal, 8px);
+      padding: 0 var(--rds-file-delete-padding-horizontal);
     }
 
     .rds-e-signature__file-button::before {
@@ -162,7 +162,7 @@
   &--type-fullname {
     .rds-e-signature__canvas-container {
       --rds-esignature-draw-height: 240px;
-      max-width: var(--rds-signature-fullname-max-width, 960px);
+      max-width: var(--rds-signature-fullname-max-width);
     }
   }
 
@@ -183,14 +183,14 @@
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-sm);
-    font-size: var(--rds-font-size-xl, 22px);
+    font-size: var(--rds-font-size-xl);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-neutral-700);
     letter-spacing: 0.2px;
   }
 
   &__canvas-icon {
-    font-size: var(--rds-font-size-icon-lg, 26px);
+    font-size: var(--rds-font-size-icon-lg);
     color: var(--rds-color-neutral-700);
   }
 
@@ -210,13 +210,13 @@
 
   &__color-palette {
     display: flex;
-    gap: var(--rds-color-palette-gap, 10px);
+    gap: var(--rds-color-palette-gap);
     position: static;
   }
 
   &__color-button {
-    width: var(--rds-color-button-size, 32px);
-    height: var(--rds-color-button-size, 32px);
+    width: var(--rds-color-button-size);
+    height: var(--rds-color-button-size);
     border-radius: var(--rds-border-radius-sm);
     border: 1px solid transparent;
     cursor: pointer;
@@ -253,7 +253,7 @@
     font-size: var(--rds-font-size-lg);
     font-weight: var(--rds-font-weight-medium, 500);
     line-height: 1;
-    text-shadow: var(--rds-text-shadow, 0 1px 0 rgba(0, 0, 0, 0.4));
+    text-shadow: var(--rds-text-shadow);
   }
 
   &__color-button--selected {
@@ -270,7 +270,7 @@
   &__actions {
     display: flex;
     justify-content: flex-end;
-    gap: var(--rds-space-4, 16px);
+    gap: var(--rds-space-4);
     position: static;
   }
 
@@ -312,9 +312,9 @@
 
   &__upload-panel {
     background: var(--rds-color-neutral-0);
-    padding: var(--rds-spacing-xl, 28px) var(--rds-spacing-md, 13px);
+    padding: var(--rds-spacing-xl) var(--rds-spacing-md);
     border: 2px dashed var(--rds-color-border-default);
-    border-radius: var(--rds-radius-lg, 8px);
+    border-radius: var(--rds-radius-lg);
     width: 100%;
     box-sizing: border-box;
     transition: border-color 0.25s ease, background-color 0.25s ease;
@@ -350,7 +350,7 @@
     gap: 0;
     background: var(--rds-color-neutral-0);
     border: 1px solid var(--rds-color-neutral-300);
-    border-radius: var(--rds-radius-md, 6px);
+    border-radius: var(--rds-radius-md);
     box-sizing: border-box;
     width: 100%;
     max-width: 500px;
@@ -371,11 +371,11 @@
   &__upload-content {
     display: flex;
     flex-direction: column;
-    gap: var(--rds-spacing-sm, 10px);
+    gap: var(--rds-spacing-sm);
   }
 
   &__upload-label {
-    font-size: var(--rds-font-size-sm, 14px);
+    font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-neutral-900);
     display: inline-flex;
@@ -396,9 +396,9 @@
     background: var(--rds-color-accent-blue-500);
     color: var(--rds-color-neutral-0);
     border: none;
-    padding: 0 var(--rds-space-4, 16px);
+    padding: 0 var(--rds-space-4);
     cursor: pointer;
-    font-size: var(--rds-font-size-sm, 14px);
+    font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-medium, 500);
     height: 36px;
     min-width: 120px;
@@ -440,7 +440,7 @@
     display: inline-flex;
     align-items: center;
     padding: 0 var(--rds-spacing-14);
-    font-size: var(--rds-font-size-sm, 14px);
+    font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-neutral-900);
     white-space: nowrap;
@@ -498,9 +498,9 @@
 
   &__file-limit {
     color: var(--rds-color-neutral-700);
-    font-size: var(--rds-font-size-xs, 13px);
+    font-size: var(--rds-font-size-xs);
     font-weight: var(--rds-font-weight-normal, 400);
-    margin-top: var(--rds-space-1, 4px);
+    margin-top: var(--rds-space-1);
   }
 
   &__upload-error {
@@ -523,7 +523,7 @@
     border-radius: var(--rds-border-radius-pill);
     background: transparent;
     color: var(--rds-color-error-700);
-    font-size: var(--rds-font-size-caption, 9px);
+    font-size: var(--rds-font-size-caption);
     font-weight: 600;
     line-height: 1;
   }
@@ -545,8 +545,8 @@
   &__choose-panel {
     border: 2px dashed var(--rds-color-accent-blue-600);
     background: var(--rds-color-neutral-0);
-    border-radius: var(--rds-radius-lg, 8px);
-    padding: var(--rds-spacing-md) 20px 16px;
+    border-radius: var(--rds-radius-lg);
+    padding: var(--rds-spacing-md) var(--rds-spacing-5) var(--rds-spacing-md);
     margin-top: var(--rds-spacing-compact);
     display: inline-block;
     width: auto;
@@ -562,8 +562,8 @@
   &__mini-grid {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    column-gap: var(--rds-spacing-2xl, 40px);
-    row-gap: var(--rds-spacing-md, 18px);
+    column-gap: var(--rds-spacing-2xl);
+    row-gap: var(--rds-spacing-md);
     width: 100%;
     box-sizing: border-box;
   }
@@ -576,7 +576,7 @@
   }
 
   &__mini-label {
-    font-size: var(--rds-font-size-xs, 13px);
+    font-size: var(--rds-font-size-xs);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-neutral-900);
   }
@@ -585,11 +585,11 @@
     border: 1px solid var(--rds-color-border-subtle);
     background: var(--rds-color-neutral-0);
     border-radius: var(--rds-border-radius-sm);
-    padding: 2px var(--rds-spacing-xs, 6px);
+    padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
     display: inline-flex;
     align-items: stretch;
     justify-content: flex-start;
-    gap: var(--rds-spacing-xs, 6px);
+    gap: var(--rds-spacing-xs);
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     font-family: var(--rds-font-family-secondary, 'Segoe UI', sans-serif);
@@ -613,7 +613,7 @@
     background: var(--rds-color-neutral-soft);
     border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
-    padding: 0 var(--rds-spacing-sm, 12px);
+    padding: 0 var(--rds-spacing-sm);
   }
 
   &__mini-full-wrapper {
@@ -625,13 +625,13 @@
   }
 
   &__mini-full {
-    font-size: var(--rds-font-size-sm, 14px);
+    font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-normal, 400);
     font-family: var(--rds-font-family-base, 'Segoe UI', sans-serif);
   }
 
   &__mini-initials {
-    font-size: var(--rds-font-size-sm, 14px);
+    font-size: var(--rds-font-size-sm);
     font-style: italic;
   }
 
@@ -646,7 +646,7 @@
 
   &__choose-error {
     color: var(--rds-color-error-dark);
-    font-size: var(--rds-font-size-xs, 12px);
+    font-size: var(--rds-font-size-xs);
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-compact);
@@ -656,11 +656,11 @@
 
   &__create-link {
     color: var(--rds-color-primary-700, var(--rds-primary-main));
-    font-size: var(--rds-font-size-sm, 14px);
+    font-size: var(--rds-font-size-sm);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: var(--rds-space-1, 4px);
+    gap: var(--rds-space-1);
 
     &:hover {
       color: var(--rds-color-primary-800);
@@ -670,11 +670,11 @@
 
   &__error {
     color: var(--rds-color-error-700);
-    font-size: var(--rds-font-size-sm, 14px);
-    margin-top: var(--rds-space-2, 8px);
+    font-size: var(--rds-font-size-sm);
+    margin-top: var(--rds-space-2);
     display: flex;
     align-items: center;
-    gap: var(--rds-space-2, 8px);
+    gap: var(--rds-space-2);
     font-family: var(--rds-font-family-error, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
     line-height: 1.25;
     font-weight: var(--rds-font-weight-medium, 500);
@@ -688,7 +688,7 @@
     border-radius: var(--rds-border-radius-pill);
     align-items: center;
     justify-content: center;
-    font-size: var(--rds-font-size-caption, 9px);
+    font-size: var(--rds-font-size-caption);
     line-height: 1;
     font-weight: 600;
     margin-top: 0;
@@ -697,8 +697,8 @@
 
   &__disable-message {
     color: var(--rds-color-neutral-600);
-    font-size: var(--rds-font-size-xs, 12px);
-    margin-top: var(--rds-space-2, 8px);
+    font-size: var(--rds-font-size-xs);
+    margin-top: var(--rds-space-2);
     text-align: left;
     font-style: italic;
   }
@@ -708,14 +708,14 @@
     line-height: 1.4;
     white-space: pre-line;
     text-align: center;
-    font-size: var(--rds-font-size-sm, 14px);
+    font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-medium, 500);
     width: 100%;
   }
 
   &--type-initials {
     .rds-e-signature__disabled-text {
-      font-size: var(--rds-font-size-xs, 13px);
+      font-size: var(--rds-font-size-xs);
       line-height: 1.35;
       width: 100%;
       background: transparent;
@@ -727,8 +727,8 @@
 
   &__disabled-footer {
     color: var(--rds-color-accent-blue-600);
-    font-size: var(--rds-font-size-sm, 14px);
-    margin-top: var(--rds-space-3, 12px);
+    font-size: var(--rds-font-size-sm);
+    margin-top: var(--rds-space-3);
     font-family: var(--rds-font-family-accent, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
   }
 
@@ -737,7 +737,7 @@
     .rds-e-signature__upload-area {
       border-color: var(--rds-color-primary-700, var(--rds-primary-main));
       border-style: solid;
-      box-shadow: var(--rds-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+      box-shadow: var(--rds-shadow-sm);
     }
   }
 
@@ -746,7 +746,7 @@
     .rds-e-signature__upload-area {
       border-color: var(--rds-color-primary-900);
       border-style: solid;
-      box-shadow: var(--rds-shadow-hover, 0 4px 12px rgba(0, 0, 0, 0.15));
+      box-shadow: var(--rds-shadow-hover);
     }
   }
 

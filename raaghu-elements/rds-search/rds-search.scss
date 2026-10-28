@@ -1,13 +1,13 @@
 .rds-search {
   display: flex;
   position: relative;
-  --rds-search-row-gap: var(--rds-spacing-sm, 8px);
-  --rds-search-label-font-size: var(--rds-font-size-md, 14px);
+  --rds-search-row-gap: var(--rds-spacing-sm);
+  --rds-search-label-font-size: var(--rds-font-size-md);
   --rds-search-label-font-weight: var(--rds-font-weight-medium, 500);
-  --rds-search-input-min-width: var(--rds-input-min-width, 200px);
-  --rds-search-icon-button-padding: var(--rds-spacing-xs, 4px);
-  --rds-search-icon-button-size: calc(var(--rds-size-lg, 24px) + var(--rds-size-xs, 4px));
-  --rds-search-icon-size: var(--rds-icon-button-size-small, 18px);
+  --rds-search-input-min-width: var(--rds-input-min-width);
+  --rds-search-icon-button-padding: var(--rds-spacing-xs);
+  --rds-search-icon-button-size: calc(var(--rds-size-lg) + var(--rds-size-xs));
+  --rds-search-icon-size: var(--rds-icon-button-size-small);
   
   &--column {
     flex-direction: column;
@@ -20,18 +20,18 @@
   &--row {
     flex-direction: row;
     align-items: center;
-    gap: var(--rds-search-row-gap, var(--rds-spacing-sm, 8px));
+    gap: var(--rds-search-row-gap, var(--rds-spacing-sm));
   }
   
   &--row-reverse {
     flex-direction: row-reverse;
     align-items: center;
-    gap: var(--rds-search-row-gap, var(--rds-spacing-sm, 8px));
+    gap: var(--rds-search-row-gap, var(--rds-spacing-sm));
   }
   
   &__label {
     font-weight: var(--rds-search-label-font-weight, var(--rds-font-weight-medium, 500));
-    font-size: var(--rds-search-label-font-size, var(--rds-font-size-md, 14px));
+    font-size: var(--rds-search-label-font-size, var(--rds-font-size-md));
     color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
     
     &--top {
@@ -43,11 +43,11 @@
     }
     
     &--left {
-      margin-right: var(--rds-search-row-gap, var(--rds-spacing-sm, 8px));
+      margin-right: var(--rds-search-row-gap, var(--rds-spacing-sm));
     }
     
     &--right {
-      margin-left: var(--rds-spacing-md, 12px);
+      margin-left: var(--rds-spacing-md);
       white-space: nowrap;
       align-self: center;
     }
@@ -83,14 +83,14 @@
   &--row {
     .rds-search__input {
       flex: 1;
-      min-width: var(--rds-search-input-min-width, 200px);
+      min-width: var(--rds-search-input-min-width);
     }
   }
   
   &--row-reverse {
     .rds-search__input {
       flex: 1;
-      min-width: var(--rds-search-input-min-width, 200px);
+      min-width: var(--rds-search-input-min-width);
     }
   }
 

@@ -27,12 +27,12 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     flex: 1 1 0 !important;
     min-width: 0 !important;
     max-width: none !important;
-    padding: var(--rds-bottom-navigation-action-padding-y, 6px)
-      var(--rds-bottom-navigation-action-padding-x, 8px) !important;
+    padding: var(--rds-bottom-navigation-action-padding-y)
+      var(--rds-bottom-navigation-action-padding-x) !important;
 
     .MuiBottomNavigationAction-label {
-      font-size: var(--rds-bottom-navigation-label-font-size, 0.8rem) !important;
-      margin-top: var(--rds-bottom-navigation-label-margin-top, 2px) !important;
+      font-size: var(--rds-bottom-navigation-label-font-size) !important;
+      margin-top: var(--rds-bottom-navigation-label-margin-top) !important;
       line-height: var(--rds-bottom-navigation-label-line-height, 1.2) !important;
       white-space: nowrap !important;
       overflow: hidden !important;
@@ -42,12 +42,12 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
     }
 
     .MuiSvgIcon-root {
-      font-size: var(--rds-bottom-navigation-icon-size, 1.6rem) !important;
+      font-size: var(--rds-bottom-navigation-icon-size) !important;
     }
   }
 
   &:focus-visible {
-    outline: var(--rds-bottom-navigation-focus-ring-width, 2px) solid
+    outline: var(--rds-bottom-navigation-focus-ring-width) solid
       var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
@@ -60,7 +60,7 @@ $rds-bottom-navigation-mobile-breakpoint: 568px;
 
   @media (max-width: $rds-bottom-navigation-mobile-breakpoint) {
     .MuiBottomNavigationAction-root {
-      padding: var(--rds-bottom-navigation-action-padding-y, 6px) 4px !important;
+      padding: var(--rds-bottom-navigation-action-padding-y) var(--rds-spacing-xs) !important;
 
       .MuiBottomNavigationAction-label {
         font-size: 0.7rem !important;

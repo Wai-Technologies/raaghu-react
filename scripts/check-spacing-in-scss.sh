@@ -18,16 +18,16 @@ SCAN_DIRS=(
   "raaghu-layouts"
 )
 
-# Matches padding/margin/gap with a bare px value (not inside var()).
-# Uses leading context to avoid matching column-gap, row-gap, and CSS variable names.
-SPACING_PATTERN='(^|[[:space:];{])(padding|margin|gap):[[:space:]]*[0-9]+px'
+# Matches padding/margin/gap (including longhands and row/column-gap) with a bare
+# integer px value at the start of the declaration (not inside var()).
+SPACING_PATTERN='(^|[[:space:];{])(padding|margin|gap|row-gap|column-gap)(-[a-z]+)?:[[:space:]]*[0-9]+px'
 
 # ---------------------------------------------------------------------------
 # Validate baseline file
 # ---------------------------------------------------------------------------
 if [[ ! -f "$BASELINE_FILE" ]]; then
   echo "ERROR: Baseline file not found at $BASELINE_FILE"
-  echo "       Create it with: echo 106 > scripts/spacing-baseline.txt"
+  echo "       Create it with: echo 0 > scripts/spacing-baseline.txt"
   exit 1
 fi
 

@@ -89,8 +89,8 @@
       min-height: 40px;
 
       .MuiInputBase-input {
-        padding: var(--rds-spacing-sm, 8.5px) var(--rds-spacing-sm, 14px);
-        font-size: var(--rds-font-size-body2, 0.875rem);
+        padding: var(--rds-spacing-sm) var(--rds-spacing-sm);
+        font-size: var(--rds-font-size-body2);
       }
     }
 
@@ -100,16 +100,16 @@
       }
 
       .MuiInputLabel-root {
-        font-size: var(--rds-font-size-body2, 0.875rem);
+        font-size: var(--rds-font-size-body2);
 
         &.MuiInputLabel-shrink {
-          font-size: var(--rds-font-size-caption, 0.75rem);
+          font-size: var(--rds-font-size-caption);
         }
       }
 
       .MuiInputAdornment-root {
         .MuiIconButton-root {
-          padding: var(--rds-spacing-xs, 6px);
+          padding: var(--rds-spacing-xs);
 
           .MuiSvgIcon-root {
             font-size: 1.25rem;
@@ -125,8 +125,8 @@
       min-height: 56px;
 
       .MuiInputBase-input {
-        padding: var(--rds-spacing-md, 16.5px) var(--rds-spacing-sm, 14px);
-        font-size: var(--rds-font-size-body1, 1rem);
+        padding: var(--rds-spacing-md) var(--rds-spacing-sm);
+        font-size: var(--rds-font-size-body1);
       }
     }
   }
@@ -146,27 +146,27 @@
   .MuiDateRangePickerDay-root,
   .MuiPickersYear-root,
   .MuiPickersMonth-root {
-    border-radius: var(--rds-border-radius, 4px) !important;
+    border-radius: var(--rds-border-radius) !important;
 
     &:hover {
-      border-radius: var(--rds-border-radius, 4px) !important;
+      border-radius: var(--rds-border-radius) !important;
       background-color: var(--rds-color-primary-hover) !important;
       color: var(--rds-color-primary) !important;
     }
 
     &.Mui-selected {
-      border-radius: var(--rds-border-radius, 4px) !important;
+      border-radius: var(--rds-border-radius) !important;
       background-color: var(--rds-color-primary) !important;
       color: var(--rds-color-on-primary) !important;
 
       &:hover {
-        border-radius: var(--rds-border-radius, 4px) !important;
+        border-radius: var(--rds-border-radius) !important;
         background-color: var(--rds-color-primary-dark) !important;
       }
     }
 
     &.MuiPickersDay-today {
-      border-radius: var(--rds-border-radius, 4px) !important;
+      border-radius: var(--rds-border-radius) !important;
       border: 2px solid var(--rds-color-primary) !important;
       color: var(--rds-color-primary) !important;
     }
@@ -193,12 +193,12 @@
 
   &__preset-list {
     list-style: none;
-    padding: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md);
     margin: 0;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
 
   &__preset-item {
@@ -207,12 +207,12 @@
 
   &__preset-button {
     width: 100%;
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     border: none;
-    border-radius: var(--rds-border-radius, 4px);
+    border-radius: var(--rds-border-radius);
     background-color: transparent;
     color: var(--rds-color-on-surface);
-    font-size: var(--rds-font-size-body2, 0.875rem);
+    font-size: var(--rds-font-size-body2);
     font-weight: 400;
     text-align: left;
     cursor: pointer;
@@ -239,7 +239,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md);
     background-color: var(--rds-color-surface);
   }
 
@@ -301,15 +301,15 @@
   &__label {
     display: inline-flex;
     align-items: center;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
 
   &__required-indicator {
     color: var(--rds-color-error);
-    font-size: var(--rds-font-size-body1, 1rem);
+    font-size: var(--rds-font-size-body1);
     font-weight: var(--rds-font-weight-bold, 700);
     line-height: 1;
-    margin-left: var(--rds-spacing-xs, 2px);
+    margin-left: var(--rds-spacing-xs);
     display: inline-block;
     vertical-align: top;
   }
@@ -363,13 +363,13 @@
   }
 
   &__day {
-    border-radius: var(--rds-border-radius, 4px) !important;
+    border-radius: var(--rds-border-radius) !important;
   }
 
   // Demo component styling
   &__demo-title {
-    margin: 0 0 var(--rds-spacing-md, 16px) 0;
-    font-size: var(--rds-font-size-h6, 1.25rem);
+    margin: 0 0 var(--rds-spacing-md) 0;
+    font-size: var(--rds-font-size-h6);
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-text-primary);
   }
@@ -383,7 +383,7 @@
     margin-top: var(--rds-spacing-compact);
     padding-left: var(--rds-spacing-14);
     padding-right: var(--rds-spacing-14);
-    font-size: var(--rds-font-size-caption, 0.75rem);
+    font-size: var(--rds-font-size-caption);
     line-height: 1.25;
     color: var(--rds-color-text-secondary);
     white-space: normal;
@@ -392,7 +392,7 @@
 
   // Material UI input styles
   .MuiInputBase-root {
-    border-radius: var(--rds-border-radius-lg, 8px);
+    border-radius: var(--rds-border-radius-lg);
     transition: all 0.3s ease;
     cursor: pointer;
     min-height: 56px;
@@ -406,9 +406,9 @@
 
     .MuiInputBase-input {
       cursor: pointer;
-      padding: var(--rds-spacing-md, 16.5px) var(--rds-spacing-sm, 14px);
+      padding: var(--rds-spacing-md) var(--rds-spacing-sm);
       line-height: 1.4375em;
-      font-size: var(--rds-font-size-body1, 1rem);
+      font-size: var(--rds-font-size-body1);
       flex: 1;
       min-width: 0;
 
@@ -434,7 +434,7 @@
     }
 
     .MuiInputAdornment-positionEnd {
-      margin-left: var(--rds-spacing-xs, 8px);
+      margin-left: var(--rds-spacing-xs);
 
       .MuiSvgIcon-root {
         font-size: 1.5rem;
@@ -475,22 +475,22 @@
 
     .MuiInputAdornment-root {
       cursor: pointer;
-      margin-left: var(--rds-spacing-xs, 8px);
+      margin-left: var(--rds-spacing-xs);
 
       &.MuiInputAdornment-positionEnd {
-        margin-left: var(--rds-spacing-xs, 8px);
-        margin-right: var(--rds-spacing-xs, 8px);
+        margin-left: var(--rds-spacing-xs);
+        margin-right: var(--rds-spacing-xs);
       }
 
       .MuiIconButton-root {
-        padding: var(--rds-spacing-xs, 8px);
+        padding: var(--rds-spacing-xs);
         margin-right: var(--rds-spacing-neg-8);
       }
     }
 
     &.MuiInputBase-adornedEnd {
       .MuiInputBase-input {
-        padding-right: var(--rds-spacing-xs, 8px);
+        padding-right: var(--rds-spacing-xs);
       }
     }
   }
@@ -550,8 +550,8 @@
   }
 
   .MuiFormHelperText-root {
-    margin-top: var(--rds-spacing-xs, 6px);
-    font-size: var(--rds-font-size-caption, 0.75rem);
+    margin-top: var(--rds-spacing-xs);
+    font-size: var(--rds-font-size-caption);
 
     &.Mui-error {
       color: var(--rds-color-error);
@@ -565,19 +565,19 @@
     .MuiPaper-root {
       box-shadow: none !important;
       border: 1.5px solid var(--rds-color-border-light) !important;
-      border-radius: var(--rds-border-radius-lg, 12px) !important;
+      border-radius: var(--rds-border-radius-lg) !important;
     }
   }
 
   .MuiDateCalendar-root {
     background: var(--rds-color-surface);
-    border-radius: var(--rds-border-radius-lg, 12px);
+    border-radius: var(--rds-border-radius-lg);
     box-shadow: none !important;
     border: 1.5px solid var(--rds-color-border-light) !important;
   }
 
   .MuiPickersCalendarHeader-root {
-    padding: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md);
     border-bottom: 1px solid var(--rds-color-border);
   }
 
@@ -763,10 +763,10 @@
 
     .MuiInputBase-root {
       .MuiInputBase-input {
-        font-size: var(--rds-font-size-body1, 1rem) !important;
+        font-size: var(--rds-font-size-body1) !important;
 
         &::placeholder {
-          font-size: var(--rds-font-size-body1, 1rem) !important;
+          font-size: var(--rds-font-size-body1) !important;
         }
       }
     }
@@ -789,10 +789,10 @@
         .MuiInputBase-input {
           min-width: 0 !important;
           width: 100%;
-          font-size: var(--rds-font-size-body1, 1rem) !important;
+          font-size: var(--rds-font-size-body1) !important;
 
           &::placeholder {
-            font-size: var(--rds-font-size-body1, 1rem) !important;
+            font-size: var(--rds-font-size-body1) !important;
           }
         }
       }
@@ -885,10 +885,10 @@
 
     .MuiInputBase-root {
       .MuiInputBase-input {
-        font-size: var(--rds-font-size-body1, 1rem) !important;
+        font-size: var(--rds-font-size-body1) !important;
 
         &::placeholder {
-          font-size: var(--rds-font-size-body1, 1rem) !important;
+          font-size: var(--rds-font-size-body1) !important;
         }
       }
     }
@@ -896,10 +896,10 @@
     &__range-input-container {
       .MuiInputBase-root {
         .MuiInputBase-input {
-          font-size: var(--rds-font-size-body1, 1rem) !important;
+          font-size: var(--rds-font-size-body1) !important;
 
           &::placeholder {
-            font-size: var(--rds-font-size-body1, 1rem) !important;
+            font-size: var(--rds-font-size-body1) !important;
           }
         }
       }
@@ -1060,7 +1060,7 @@
 }
 
 .rds-date-picker__range-datetime-time-label {
-  font-size: var(--rds-font-size-body2, 0.75rem);
+  font-size: var(--rds-font-size-body2);
   color: var(--rds-color-text-secondary);
   margin-bottom: var(--rds-spacing-xs);
   text-align: center;
@@ -1075,27 +1075,27 @@
   .MuiPickersDay-root,
   .MuiPickersYear-root,
   .MuiPickersMonth-root {
-    border-radius: var(--rds-border-radius, 4px) !important;
+    border-radius: var(--rds-border-radius) !important;
 
     &:hover {
-      border-radius: var(--rds-border-radius, 4px) !important;
+      border-radius: var(--rds-border-radius) !important;
       background-color: var(--rds-color-primary-hover) !important;
       color: var(--rds-color-primary) !important;
     }
 
     &.Mui-selected {
-      border-radius: var(--rds-border-radius, 4px) !important;
+      border-radius: var(--rds-border-radius) !important;
       background-color: var(--rds-color-primary) !important;
       color: var(--rds-color-on-primary) !important;
 
       &:hover {
-        border-radius: var(--rds-border-radius, 4px) !important;
+        border-radius: var(--rds-border-radius) !important;
         background-color: var(--rds-color-primary-dark) !important;
       }
     }
 
     &.MuiPickersDay-today {
-      border-radius: var(--rds-border-radius, 4px) !important;
+      border-radius: var(--rds-border-radius) !important;
       border: 2px solid var(--rds-color-primary) !important;
       color: var(--rds-color-primary) !important;
 
@@ -1207,7 +1207,7 @@
   .MuiButton-root {
     text-transform: none !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
-    border-radius: var(--rds-border-radius-md, 6px) !important;
+    border-radius: var(--rds-border-radius-md) !important;
   }
 
   // Cancel button

@@ -7,7 +7,7 @@
 
     @include bp.between(md, lg) {
         canvas {
-            height: var(--rds-comp-chart-bar-tablet-height, 600px);
+            height: var(--rds-comp-chart-bar-tablet-height);
         }
     }
 }

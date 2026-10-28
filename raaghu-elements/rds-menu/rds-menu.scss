@@ -3,8 +3,8 @@
     min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
     background: var(--rds-background-paper);
-    box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0,0,0,0.10));
-    border-radius: var(--rds-border-radius-sm, 4px);
+    box-shadow: var(--rds-elevation-3);
+    border-radius: var(--rds-border-radius-sm);
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -12,7 +12,7 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 12px);
+    gap: var(--rds-spacing-md);
     padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
     font-size: 1rem;
     min-height: var(--rds-menu-item-min-height);
@@ -101,7 +101,7 @@
       font-size: 0.80rem;
       min-height: var(--rds-menu-item-min-height-small);
       padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
       font-size: 1rem;
@@ -126,7 +126,7 @@
       font-size: 1rem;
       min-height: var(--rds-menu-item-min-height);
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
-      gap: var(--rds-spacing-md, 12px);
+      gap: var(--rds-spacing-md);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
       font-size: 1.25rem;
@@ -151,7 +151,7 @@
       font-size: 1.0625rem;
       min-height: 2.75rem;
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) var(--rds-spacing-lg);
-      gap: var(--rds-spacing-md, 12px);
+      gap: var(--rds-spacing-md);
     }
     .rds-menu__item__icon .MuiSvgIcon-root {
       font-size: 1.5rem;

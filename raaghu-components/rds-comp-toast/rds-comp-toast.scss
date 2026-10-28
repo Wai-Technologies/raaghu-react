@@ -7,8 +7,8 @@
 
   background: var(--rds-color-surface);
   border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
-  border-radius: var(--rds-border-radius, 8px);
-  box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
+  border-radius: var(--rds-border-radius);
+  box-shadow: var(--rds-elevation-2);
   min-width: min(420px, 95vw);
   max-width: min(420px, 95vw);
   overflow: hidden;
@@ -135,12 +135,12 @@
   &__header-content {
     display: flex;
     align-items: flex-start;
-    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-xs, 0.3rem);
-    gap: var(--rds-spacing-md, 0.4rem);
+    padding: var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-xs);
+    gap: var(--rds-spacing-md);
   }
 
   &--chat &__header-content {
-    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem);
+    padding: var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-lg);
     gap: 0;
   }
   
@@ -149,7 +149,7 @@
     display: flex;
     align-items: center;
     height: 100%;
-    margin-top: var(--rds-spacing-xxs, 2px);
+    margin-top: var(--rds-spacing-xxs);
     width: var(--rds-size-lg);
     min-width: var(--rds-size-lg);
     max-width: var(--rds-size-lg);
@@ -194,14 +194,14 @@
       &::before {
         width: 2px;
         height: 12px;
-        top: 4px;
-        left: 9px;
+        top: var(--rds-spacing-xs);
+        left: var(--rds-spacing-9-px);
       }
       &::after {
         width: 12px;
         height: 2px;
-        top: 9px;
-        left: 4px;
+        top: var(--rds-spacing-9-px);
+        left: var(--rds-spacing-xs);
       }
     }
 
@@ -221,7 +221,7 @@
   
   &__title {
     flex: 1;
-    font-size: var(--rds-font-size-base, 1rem);
+    font-size: var(--rds-font-size-base);
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-on-surface);
     margin: 0;
@@ -238,22 +238,22 @@
   &__header-actions {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 0.5rem);
+    gap: var(--rds-spacing-md);
     height: 22px;
   }
   
   &__chat-time {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
   }
   
   &__close-btn {
     background: none;
     border: none;
-    font-size: var(--rds-font-size-lg, 1.5rem);
+    font-size: var(--rds-font-size-lg);
     color: var(--rds-color-on-surface-variant);
     cursor: pointer;
-    padding: var(--rds-spacing-xs, 0.25rem);
+    padding: var(--rds-spacing-xs);
     line-height: 1;
     display: flex;
     align-items: center;
@@ -272,9 +272,9 @@
   }
   
   &__body {
-    padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) 2.2rem;
+    padding: 0 var(--rds-spacing-lg) var(--rds-spacing-md) 2.2rem;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     line-height: 1.5;
   }
   
@@ -285,21 +285,21 @@
   &__body-simple {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-lg, 1rem);
-    gap: var(--rds-spacing-md, 0.75rem);
+    padding: var(--rds-spacing-lg);
+    gap: var(--rds-spacing-md);
   }
   
   &__text {
     flex: 1;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
   }
   
   &__footer {
-    padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem);
+    padding: 0 var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-lg);
     
     &--request {
-      padding-top: var(--rds-spacing-md, 0.75rem);
+      padding-top: var(--rds-spacing-md);
     }
   }
 
@@ -307,9 +307,9 @@
     display: flex;
     align-items: center;
     padding: 0 0 0 1.3rem;
-    gap: var(--rds-spacing-md, 0.75rem);
-    margin-bottom: var(--rds-spacing-xs, 0.2rem);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    gap: var(--rds-spacing-md);
+    margin-bottom: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-sm);
     height: 12px;
     position: relative;
     overflow: visible;
@@ -325,29 +325,29 @@
   }
   
   &__progress-label {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
     min-width: 2.5rem;
     text-align: right;
   }
   
   &__filename {
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
-    margin-bottom: var(--rds-spacing-md, 0.75rem);
+    margin-bottom: var(--rds-spacing-md);
     padding: 0 0 0 1.3rem;
   }
   
   &__input-group {
-    margin-bottom: var(--rds-spacing-md, 0.75rem);
+    margin-bottom: var(--rds-spacing-md);
   }
   
   &__input {
     width: 100%;
-    padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-md, 0.75rem);
+    padding: var(--rds-spacing-md) var(--rds-spacing-md);
     border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
-    border-radius: var(--rds-border-radius-sm, 4px);
-    font-size: var(--rds-font-size-base, 0.875rem);
+    border-radius: var(--rds-border-radius-sm);
+    font-size: var(--rds-font-size-base);
     color: var(--rds-color-on-surface);
     background: var(--rds-color-surface-container, var(--rds-color-surface));
     transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
@@ -366,12 +366,12 @@
 
   &__actions {
     display: flex;
-    gap: var(--rds-spacing-xs, 8px);
+    gap: var(--rds-spacing-xs);
     justify-content: flex-end;
 
     .rds-comp-toast__action-btn {
-      font-size: var(--rds-font-size-xs, 0.8125rem);
-      padding: var(--rds-spacing-xxs, 2px) var(--rds-spacing-sm, 10px);
+      font-size: var(--rds-font-size-xs);
+      padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
       min-width: 0;
       height: 1.875rem;
       line-height: 1.2;
@@ -380,7 +380,7 @@
 
   &--chat &__actions {
     justify-content: flex-start;
-    margin-top: var(--rds-spacing-md, 0.5rem);
+    margin-top: var(--rds-spacing-md);
   }
 
   /* G6-148: chat layout via BEM nesting (no !important) */
@@ -392,12 +392,12 @@
   }
 
   &--chat &__header-content {
-    padding-left: var(--rds-spacing-lg, 1rem);
+    padding-left: var(--rds-spacing-lg);
     gap: 0;
   }
 
   &--chat &__body {
-    padding-left: var(--rds-spacing-lg, 1rem);
+    padding-left: var(--rds-spacing-lg);
   }
 
   &--chat &__title {
@@ -406,9 +406,9 @@
   }
   
   &__btn {
-    padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    font-size: var(--rds-font-size-sm, 0.875rem);
+    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
+    border-radius: var(--rds-border-radius-sm);
+    font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-medium, 500);
     cursor: pointer;
     border: 1px solid transparent;

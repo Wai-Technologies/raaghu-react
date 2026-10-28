@@ -1,14 +1,14 @@
 .rds-skeleton {
-  --rds-skeleton-gap: var(--rds-spacing-sm, 8px);
+  --rds-skeleton-gap: var(--rds-spacing-sm);
   --rds-skeleton-focus-ring-width: 2px;
   --rds-skeleton-disabled-opacity: 0.6;
   display: flex;
   align-items: center;
-  gap: var(--rds-skeleton-gap, 8px);
+  gap: var(--rds-skeleton-gap);
   position: relative;
 
   &:focus-visible {
-    outline: var(--rds-skeleton-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-skeleton-focus-ring-width) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
 

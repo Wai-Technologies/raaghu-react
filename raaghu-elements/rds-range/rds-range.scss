@@ -13,10 +13,10 @@
   width: 100%;
 
   @include bp.down(sm) {
-    max-width: var(--rds-range-max-width-sm, 370px);
+    max-width: var(--rds-range-max-width-sm);
   }
   @include bp.down(400) {
-    max-width: var(--rds-range-max-width-xs, 275px);
+    max-width: var(--rds-range-max-width-xs);
   }
 
   &__header {
@@ -39,11 +39,11 @@
 
 @include bp.between(mobile-sm, 568) {
   .rds-range .MuiSlider-root {
-    width: var(--rds-range-slider-width-mobile, 288px) !important;
+    width: var(--rds-range-slider-width-mobile) !important;
   }
 }
 @include bp.between(mobile-lg, 896) {
   .rds-range .MuiSlider-root {
-    width: var(--rds-range-slider-width-tablet, 382px) !important;
+    width: var(--rds-range-slider-width-tablet) !important;
   }
 }

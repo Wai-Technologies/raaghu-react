@@ -315,6 +315,21 @@ export const spacingExact = {
   '170': '170px',
   '235': '235px',
   '240': '240px',
+  // Repeated legacy layout offsets (legacy SCSS — not for new code)
+  '17': '17px',
+  '35': '35px',
+  '45': '45px',
+  '50': '50px',
+  '55': '55px',
+  '63': '63px',
+  '70': '70px',
+  '76': '76px',
+  '84': '84px',
+  '90': '90px',
+  '100': '100px',
+  '200': '200px',
+  '210': '210px',
+  '250': '250px',
   // Negative offsets (layout adjustments in legacy components — not for new code)
   'neg-1': '-1px',
   'neg-2': '-2px',
@@ -325,10 +340,15 @@ export const spacingExact = {
   'neg-9': '-9px',
   'neg-14': '-14px',
   'neg-16': '-16px',
+  'neg-17': '-17px',
+  'neg-18': '-18px',
   'neg-20': '-20px',
   'neg-25': '-25px',
   'neg-35': '-35px',
+  'neg-67': '-67px',
   'neg-80': '-80px',
+  'neg-93': '-93px',
+  'neg-180': '-180px',
 } as const;
 
 // Border Radius Tokens

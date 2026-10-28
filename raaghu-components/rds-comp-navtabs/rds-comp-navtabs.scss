@@ -118,11 +118,11 @@
 
   &__label {
     font-weight: 500;
-    padding: 0 var(--rds-spacing-sm, 0.75rem);
+    padding: 0 var(--rds-spacing-sm);
   }
   
   &__badge {
-    margin-left: var(--rds-spacing-xs, 0.25rem);
+    margin-left: var(--rds-spacing-xs);
   }
   
   &[id="features"] {

@@ -11,6 +11,7 @@ on:
       - 'scripts/check-hex-in-scss.sh'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/check-spacing-in-scss.sh'
+      - 'scripts/check-spacing-in-scss.mjs'
   pull_request:
     branches: [main, development, production]
     paths:
@@ -21,6 +22,7 @@ on:
       - 'scripts/check-hex-in-scss.sh'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/check-spacing-in-scss.sh'
+      - 'scripts/check-spacing-in-scss.mjs'
   workflow_dispatch:
 
 permissions:
@@ -43,14 +45,14 @@ jobs:
       - name: Check for new hardcoded hex colors in SCSS
         run: bash scripts/check-hex-in-scss.sh
 
-      - name: Check for new hardcoded px spacing in SCSS
-        run: bash scripts/check-spacing-in-scss.sh
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
+
+      - name: Check for new hardcoded px spacing in SCSS
+        run: node scripts/check-spacing-in-scss.mjs
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps

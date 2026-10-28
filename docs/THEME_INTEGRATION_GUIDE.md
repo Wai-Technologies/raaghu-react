@@ -169,13 +169,16 @@ All `--rds-*` variables are injected at runtime. The canonical list is in
 
 ## Writing Component SCSS
 
-Always use tokens. Never hardcode hex values.
+Always use tokens. Never hardcode hex or spacing px values.
 
-Hex may only be authored in `raaghu-react-themes/tokens/design-tokens.ts`.
-Consumers must use bare `var(--rds-*)` (no color hex fallbacks). Enforcement:
+Hex and spacing lengths may only be authored in `raaghu-react-themes/tokens/design-tokens.ts`.
+Consumers must use bare `var(--rds-*)` (no color hex fallbacks and no `px`/`rem` length fallbacks). Enforcement:
 
 - `npm run lint:scss` — stylelint `color-no-hex`
 - `npm run lint:hex` — `scripts/check-no-hex.mjs` for TS/TSX (allowlists token source, color-picker spectrum/API, stories/tests/figma fixtures)
+- `npm run lint:spacing` — `scripts/check-spacing-in-scss.mjs` (no new bare `padding`/`margin`/`gap` px)
+
+One-shot cleanups (same idea as hex): `node scripts/strip-px-fallbacks.mjs` removes `px`/`rem` fallbacks from `var(--rds-*)`; prefer bare `var(--rds-spacing-md)` in new SCSS.
 
 ```scss
 // Good

@@ -4,22 +4,22 @@
   .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
       .MuiAvatar-root {
-        width: var(--rds-avatar-size-medium, 32px) !important;
-        height: var(--rds-avatar-size-medium, 32px) !important;
+        width: var(--rds-avatar-size-medium) !important;
+        height: var(--rds-avatar-size-medium) !important;
         font-size: var(--rds-font-size-md) !important;
       }
     }
   }
   .nav-tabs--mobile {
     .nav-link {
-      font-size: var(--rds-font-size-sm, 13px) !important;
-      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important;
+      font-size: var(--rds-font-size-sm) !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
       min-width: 48px;
     }
   }
   .nav-link--mobile {
-    font-size: var(--rds-font-size-sm, 13px) !important;
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important;
+    font-size: var(--rds-font-size-sm) !important;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
     min-width: 48px;
   }
   .rds-comp-chat__back-btn {
@@ -39,7 +39,7 @@
   .nav-tabs--mobile {
     .nav-link {
       font-size: var(--rds-font-size-sm) !important;
-      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
       min-width: 40px;
     }
   }
@@ -57,12 +57,12 @@
 
 .rds-comp-chat {
   border: 1px solid var(--rds-border-default);
-  border-radius: var(--rds-border-radius, 5px);
+  border-radius: var(--rds-border-radius);
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 100%;
-  height: var(--rds-chat-height, 600px);
+  height: var(--rds-chat-height);
   max-height: var(--rds-chat-max-height, 80vh);
   overflow: hidden;
   box-sizing: border-box;
@@ -88,7 +88,7 @@
       height: 56px;
       min-height: 56px;
       border-bottom: 1px solid var(--rds-color-border-light);
-      padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 18px);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       flex-shrink: 0;
     }
 
@@ -99,7 +99,7 @@
 
       .rds-comp-chat__user-item {
         cursor: pointer;
-        padding: var(--rds-spacing-sm, 12px);
+        padding: var(--rds-spacing-sm);
         border-bottom: 1px solid var(--rds-color-border-light);
 
         &:hover {
@@ -127,7 +127,7 @@
       justify-content: space-between;
       height: 56px;
       min-height: 56px;
-      padding: 0 var(--rds-spacing-sm, 12px);
+      padding: 0 var(--rds-spacing-sm);
       border-bottom: 1px solid var(--rds-color-border-light);
       flex-shrink: 0;
       position: relative;
@@ -135,10 +135,10 @@
       &-title {
         flex: 1;
         min-width: 0;
-        margin-right: var(--rds-spacing-sm, 12px);
+        margin-right: var(--rds-spacing-sm);
 
       @include bp.down(mobile-sm) {
-        margin-right: var(--rds-spacing-xs, 4px);
+        margin-right: var(--rds-spacing-xs);
         flex: 1;
         min-width: 0;
 
@@ -167,7 +167,7 @@
         justify-content: flex-end;
         align-self: stretch;
         margin-left: auto;
-        gap: var(--rds-spacing-sm, 12px);
+        gap: var(--rds-spacing-sm);
         flex-shrink: 0;
         
         > span {
@@ -205,8 +205,8 @@
           color: var(--rds-color-on-surface) !important;
           font-weight: var(--rds-font-weight-medium, 500);
           @include bp.down(mobile-sm) {
-            padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px) !important;
-            font-size: var(--rds-font-size-sm, 12px) !important;
+            padding: var(--rds-spacing-xs) var(--rds-spacing-xs) !important;
+            font-size: var(--rds-font-size-sm) !important;
             min-width: unset;
           }
         }
@@ -224,7 +224,7 @@
           color: var(--rds-color-primary) !important;
           font-weight: var(--rds-font-weight-bold, 700) !important;
           border-bottom: 2px solid var(--rds-color-primary) !important;
-          margin-bottom: -1px;
+          margin-bottom: var(--rds-spacing-neg-1);
         }
       }
     }
@@ -233,7 +233,7 @@
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 12px);
+      padding: var(--rds-spacing-md) var(--rds-spacing-sm);
       min-height: 0;
     }
 
@@ -241,7 +241,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--rds-spacing-sm, 12px);
+      padding: var(--rds-spacing-sm);
       flex-shrink: 0;
       background: var(--rds-color-surface);
       position: relative;
@@ -254,7 +254,7 @@
 
   &__message {
     display: flex;
-    margin-bottom: var(--rds-spacing-md, 16px);
+    margin-bottom: var(--rds-spacing-md);
     align-items: flex-start;
     width: 100%;
     
@@ -268,9 +268,9 @@
 
         .rds-comp-chat__comment-content {
         border-radius: var(--rds-border-radius-md) 8px 0px 8px;
-        padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
-        font-size: var(--rds-font-size-body, 14px);
-        max-width: var(--rds-chat-message-max-width, 280px);
+        padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+        font-size: var(--rds-font-size-body);
+        max-width: var(--rds-chat-message-max-width);
         word-wrap: break-word;
         text-align: left;
         line-height: 1.4;
@@ -289,9 +289,9 @@
 
         .rds-comp-chat__comment-content {
         border-radius: var(--rds-border-radius-md) 8px 8px 0px;
-        padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
-        font-size: var(--rds-font-size-body, 14px);
-        max-width: var(--rds-chat-message-max-width, 280px);
+        padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+        font-size: var(--rds-font-size-body);
+        max-width: var(--rds-chat-message-max-width);
         word-wrap: break-word;
         text-align: left;
         line-height: 1.4;
@@ -306,7 +306,7 @@
       display: block;
       word-break: break-word;
       hyphens: auto;
-      box-shadow: var(--rds-elevation-1, 0 1px 2px rgba(0, 0, 0, 0.1));
+      box-shadow: var(--rds-elevation-1);
       overflow: hidden;
       
       .comment-text {
@@ -320,8 +320,8 @@
       width: 100%;
       max-height: 220px;
       height: auto;
-      border-radius: var(--rds-border-radius, 8px);
-      margin-bottom: var(--rds-spacing-xs, 8px);
+      border-radius: var(--rds-border-radius);
+      margin-bottom: var(--rds-spacing-xs);
       object-fit: cover;
       display: block;
       box-sizing: border-box;
@@ -331,8 +331,8 @@
       width: 100%;
       max-width: 100%;
       height: auto;
-      border-radius: var(--rds-border-radius, 10px);
-      margin-top: var(--rds-spacing-xs, 10px);
+      border-radius: var(--rds-border-radius);
+      margin-top: var(--rds-spacing-xs);
       display: block;
       box-sizing: border-box;
     }
@@ -352,12 +352,12 @@
     z-index: var(--rds-z-index-modal, 1400);
 
     button {
-      margin-top: var(--rds-spacing-xs, 10px);
-      padding: var(--rds-spacing-xs, 10px) var(--rds-spacing-md, 20px);
+      margin-top: var(--rds-spacing-xs);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-md);
       background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary, white);
       border: none;
-      border-radius: var(--rds-border-radius-sm, 5px);
+      border-radius: var(--rds-border-radius-sm);
       cursor: pointer;
       transition: background-color var(--rds-transition-base);
 
@@ -369,9 +369,9 @@
 
   &__video-feed {
     width: 80%;
-    max-width: var(--rds-chat-video-max-width, 600px);
+    max-width: var(--rds-chat-video-max-width);
     border: 2px solid var(--rds-color-on-primary);
-    border-radius: var(--rds-border-radius, 10px);
+    border-radius: var(--rds-border-radius);
   }
 
   &__emoji-popup {
@@ -383,7 +383,7 @@
     background-color: var(--rds-background-paper);
     border: 1px solid var(--rds-border-light);
     border-radius: var(--rds-border-radius-md);
-    box-shadow: var(--rds-elevation-3, 0 4px 12px rgba(0,0,0,0.15));
+    box-shadow: var(--rds-elevation-3);
     width: 360px;
     max-height: 400px;
     
@@ -402,9 +402,9 @@
     @include bp.between(mobile-lg, tablet-sm) {
       position: absolute;
       top: auto;
-      bottom: 60px;
-      left: 12px;
-      right: 12px;
+      bottom: var(--rds-spacing-60);
+      left: var(--rds-spacing-3);
+      right: var(--rds-spacing-3);
       width: auto;
       max-width: calc(100% - 24px);
       margin: 0;
@@ -425,9 +425,9 @@
     @include bp.between(mobile-sm, mobile-lg) {
       position: absolute !important;
       top: auto !important;
-      bottom: 55px !important;
-      left: 8px !important;
-      right: 8px !important;
+      bottom: var(--rds-spacing-55) !important;
+      left: var(--rds-spacing-sm) !important;
+      right: var(--rds-spacing-sm) !important;
       width: auto !important;
       max-width: calc(100% - 16px) !important; 
       margin: 0 !important;
@@ -471,9 +471,9 @@
     @include bp.down(mobile-sm) {
       position: absolute !important;
       top: auto !important;
-      bottom: 55px !important;
-      left: 8px !important;
-      right: 8px !important;
+      bottom: var(--rds-spacing-55) !important;
+      left: var(--rds-spacing-sm) !important;
+      right: var(--rds-spacing-sm) !important;
       width: auto !important;
       max-width: calc(100% - 16px) !important; 
       margin: 0 !important;
@@ -509,7 +509,7 @@
         }
         
         .rds-emoji-generator__categories {
-          padding: var(--rds-spacing-xs) 8px; 
+          padding: var(--rds-spacing-xs) var(--rds-spacing-sm); 
         }
       }
     }
@@ -806,7 +806,7 @@
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
-      font-size: var(--rds-font-size-xs, 13px);
+      font-size: var(--rds-font-size-xs);
     }
     
     &__input-wrapper {
@@ -838,7 +838,7 @@
       border: none;
       border-bottom: 2px solid transparent;
       color: var(--rds-color-text-secondary);
-      padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-sm, 12px);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
       font-weight: var(--rds-font-weight-medium, 500);
       transition: all var(--rds-transition-base);
       
@@ -886,7 +886,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     align-items: start;
-    padding: var(--rds-spacing-sm, 8px) 0;
+    padding: var(--rds-spacing-sm) 0;
   }
 
   &__media-item {
@@ -912,7 +912,7 @@
   &__user-time--absolute {
     font-size: var(--rds-font-size-sm);
     position: absolute;
-    right: 12px;
+    right: var(--rds-spacing-3);
     top: 40%;
     transform: translateY(-50%);
   }
@@ -967,23 +967,23 @@
     max-height: 100vh;
     
     &__window-header {
-      padding: 0 var(--rds-spacing-xs, 8px);
+      padding: 0 var(--rds-spacing-xs);
       
       &-title {
-        margin-right: var(--rds-spacing-xs, 8px);
+        margin-right: var(--rds-spacing-xs);
       }
       
       &-options {
         flex-wrap: nowrap;
         overflow-x: visible;
-        gap: var(--rds-spacing-xs, 4px);
+        gap: var(--rds-spacing-xs);
         justify-content: flex-end;
         
         .nav-tabs {
           flex-shrink: 0;
           
           .nav-link {
-            padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
+            padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
             font-size: var(--rds-font-size-md);
             white-space: nowrap;
           }
@@ -997,14 +997,14 @@
     }
 
     &__message {
-      margin-bottom: var(--rds-spacing-sm, 12px);
+      margin-bottom: var(--rds-spacing-sm);
 
       &--current-user {
         .rds-comp-chat__comment-content {
           max-width: 260px;
           font-size: var(--rds-font-size-md);
-          padding: var(--rds-spacing-sm, 10px) var(--rds-spacing-md, 14px);
-          margin-right: var(--rds-spacing-sm, 10px);
+          padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+          margin-right: var(--rds-spacing-sm);
         }
       }
 
@@ -1012,8 +1012,8 @@
         .rds-comp-chat__comment-content {
           max-width: 260px;
           font-size: var(--rds-font-size-md);
-          padding: var(--rds-spacing-sm, 10px) var(--rds-spacing-md, 14px);
-          margin-left: var(--rds-spacing-sm, 10px);
+          padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+          margin-left: var(--rds-spacing-sm);
         }
       }
     }
@@ -1034,7 +1034,7 @@
 @include bp.down(mobile-sm) {
   .rds-comp-chat {
     &__window-header {
-      padding: 0 var(--rds-spacing-xs, 4px);
+      padding: 0 var(--rds-spacing-xs);
       gap: 0;
       
       &-options {
@@ -1042,8 +1042,8 @@
         flex-shrink: 0;
         
         .nav-tabs .nav-link {
-          padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px);
-          font-size: var(--rds-font-size-xs, 12px);
+          padding: var(--rds-spacing-xs) var(--rds-spacing-xs);
+          font-size: var(--rds-font-size-xs);
           min-width: unset;
           white-space: nowrap;
         }
@@ -1051,7 +1051,7 @@
     }
 
     &__window-footer {
-      padding: var(--rds-spacing-xs, 8px);
+      padding: var(--rds-spacing-xs);
       margin-top: var(--rds-spacing-29);
     }
     
@@ -1072,23 +1072,23 @@
     }
 
     &__message {
-      margin-bottom: var(--rds-spacing-sm, 10px);
+      margin-bottom: var(--rds-spacing-sm);
 
       &--current-user {
         .rds-comp-chat__comment-content {
           max-width: 240px;
-          padding: var(--rds-spacing-sm, 10px) var(--rds-spacing-md, 12px);
+          padding: var(--rds-spacing-sm) var(--rds-spacing-md);
           font-size: var(--rds-font-size-md);
-          margin-right: var(--rds-spacing-xs, 8px);
+          margin-right: var(--rds-spacing-xs);
         }
       }
 
       &--other-user {
         .rds-comp-chat__comment-content {
           max-width: 240px;
-          padding: var(--rds-spacing-sm, 10px) var(--rds-spacing-md, 12px);
+          padding: var(--rds-spacing-sm) var(--rds-spacing-md);
           font-size: var(--rds-font-size-md);
-          margin-left: var(--rds-spacing-xs, 8px);
+          margin-left: var(--rds-spacing-xs);
         }
       }
     }
@@ -1110,10 +1110,10 @@
   .EmojiPickerReact {
     height: 370px !important;
     width: min(300px, 90vw) !important;
-    right: var(--rds-spacing-md, 1rem) !important;
+    right: var(--rds-spacing-md) !important;
     top: auto !important;
-    bottom: 80px !important;
-    left: var(--rds-spacing-md, 1rem) !important;
+    bottom: var(--rds-spacing-80-px) !important;
+    left: var(--rds-spacing-md) !important;
     position: fixed !important;
   }
 }
@@ -1122,9 +1122,9 @@
   .EmojiPickerReact {
     height: 350px !important;
     width: calc(100vw - 2rem) !important;
-    right: var(--rds-spacing-md, 1rem) !important;
-    left: var(--rds-spacing-md, 1rem) !important;
-    bottom: 70px !important;
+    right: var(--rds-spacing-md) !important;
+    left: var(--rds-spacing-md) !important;
+    bottom: var(--rds-spacing-70) !important;
   }
 }
 
@@ -1140,7 +1140,7 @@
     width: calc(100vw - 1rem) !important;
     right: 0.5rem !important;
     left: 0.5rem !important;
-    bottom: 60px !important;
+    bottom: var(--rds-spacing-60) !important;
   }
 
   .rds-comp-chat {
@@ -1268,7 +1268,7 @@
   .rds-comp-chat {
     flex-direction: row;
     align-items: stretch;
-    height: var(--rds-chat-height, 600px);
+    height: var(--rds-chat-height);
 
     &__screen {
       width: 320px;

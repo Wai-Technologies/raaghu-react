@@ -32,9 +32,9 @@ const STYLE_COLORS: Record<DividerColor, StyleColors> = {
 const DEFAULT_STYLE_COLORS: StyleColors = { dividerColor: 'var(--rds-border-default)', textColor: 'var(--rds-text-secondary)', iconBorderColor: 'var(--rds-border-default)', iconColor: 'var(--rds-text-secondary)' };
 
 const SIZE_STYLES: Record<string, { borderWidth: string; marginY: number }> = {
-  small: { borderWidth: 'var(--rds-divider-border-width-sm, 1px)', marginY: 2 },
-  medium: { borderWidth: 'var(--rds-divider-border-width-md, 2px)', marginY: 2 },
-  large: { borderWidth: 'var(--rds-divider-border-width-lg, 3px)', marginY: 2 },
+  small: { borderWidth: 'var(--rds-divider-border-width-sm)', marginY: 2 },
+  medium: { borderWidth: 'var(--rds-divider-border-width-md)', marginY: 2 },
+  large: { borderWidth: 'var(--rds-divider-border-width-lg)', marginY: 2 },
 };
 const DEFAULT_SIZE_STYLES = SIZE_STYLES.medium;
 
@@ -112,15 +112,15 @@ const RdsDivider = ({
       {showIcon && (
         <Box
           sx={{
-            width: 'var(--rds-divider-icon-box-size, 28px)',
-            height: 'var(--rds-divider-icon-box-size, 28px)',
+            width: 'var(--rds-divider-icon-box-size)',
+            height: 'var(--rds-divider-icon-box-size)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: iconColor,
           }}
         >
-          {customIcon ?? <IconComponent sx={{ fontSize: 'var(--rds-divider-icon-size, 21px)', color: iconColor }} />}
+          {customIcon ?? <IconComponent sx={{ fontSize: 'var(--rds-divider-icon-size)', color: iconColor }} />}
         </Box>
       )}
 
@@ -143,7 +143,7 @@ const RdsDivider = ({
         sx={{
           display: 'flex',
           alignItems: 'center',
-          height: 'var(--rds-divider-vertical-container-height, 120px)',
+          height: 'var(--rds-divider-vertical-container-height)',
         }}
       >
         <MuiDivider

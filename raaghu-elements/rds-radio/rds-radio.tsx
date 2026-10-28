@@ -126,7 +126,7 @@ const RdsRadio = ({
                 justifyContent: 'center',
                 alignItems: 'center',
                 margin: 0,
-                padding: 'var(--rds-spacing-xs, 4px)'
+                padding: 'var(--rds-spacing-xs)'
               }}
             />
             {optionLabel && (
@@ -140,7 +140,7 @@ const RdsRadio = ({
                   pointerEvents: finalDisabled ? 'none' : 'auto',
                   opacity: finalDisabled ? 0.6 : 1,
                   color: finalDisabled ? 'var(--rds-text-disabled)' : 'inherit',
-                  marginTop: 'var(--rds-spacing-xxs, 2px)',
+                  marginTop: 'var(--rds-spacing-xxs)',
                   textAlign: 'center'
                 }}
               >
@@ -184,7 +184,7 @@ const RdsRadio = ({
           className="rds-radio__group"
           role="radiogroup"
           aria-labelledby={labelId}
-          sx={{ display: 'flex', flexDirection: isRow ? 'row' : 'column', gap: 'var(--rds-spacing-md, 16px)' }}
+          sx={{ display: 'flex', flexDirection: isRow ? 'row' : 'column', gap: 'var(--rds-spacing-md)' }}
         >
           {options.map(renderOption)}
         </Box>

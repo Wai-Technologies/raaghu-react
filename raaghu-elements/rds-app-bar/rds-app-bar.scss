@@ -7,18 +7,18 @@ $rds-app-bar-breakpoint-xs: 320px;
 $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
 .rds-story-logo {
-  height: var(--rds-spacing-xl, 40px);
+  height: var(--rds-spacing-xl);
  
   @media (max-width: $rds-app-bar-breakpoint-md) {
-    height: var(--rds-spacing-xl, 40px);
+    height: var(--rds-spacing-xl);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    height: var(--rds-spacing-xl, 40px);
+    height: var(--rds-spacing-xl);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    height: calc(5.5 * var(--rds-spacing-xs, 4px));
+    height: calc(5.5 * var(--rds-spacing-xs));
     margin-left: 0;
   }
 }
@@ -26,15 +26,15 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 .rds-story-logo-search-container {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-md, 16px);
+  gap: var(--rds-spacing-md);
   flex: 1;
   
   @media (max-width: 420px) {
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
   
   @media (max-width: 320px) {
-    gap: calc(1.5 * var(--rds-spacing-xs, 4px));
+    gap: calc(1.5 * var(--rds-spacing-xs));
   }
 }
 
@@ -52,26 +52,26 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   --rds-story-search-max-width-xs: 180px;
   --rds-story-search-min-width-2xs: 100px;
   --rds-story-search-max-width-2xs: 140px;
-  min-width: var(--rds-story-search-min-width, 180px);
+  min-width: var(--rds-story-search-min-width);
   @media (max-width: $rds-app-bar-breakpoint-md) {
-    min-width: var(--rds-story-search-min-width-md, 160px);
-    max-width: var(--rds-story-search-max-width-md, 220px);
+    min-width: var(--rds-story-search-min-width-md);
+    max-width: var(--rds-story-search-max-width-md);
   }
  
   @media (max-width: 600px) {
-    min-width: var(--rds-story-search-min-width-sm, 140px);
+    min-width: var(--rds-story-search-min-width-sm);
     flex: 1;
-    max-width: var(--rds-story-search-max-width-sm, 200px);
+    max-width: var(--rds-story-search-max-width-sm);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    min-width: var(--rds-story-search-min-width-xs, 120px);
-    max-width: var(--rds-story-search-max-width-xs, 180px);
+    min-width: var(--rds-story-search-min-width-xs);
+    max-width: var(--rds-story-search-max-width-xs);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    min-width: var(--rds-story-search-min-width-2xs, 100px);
-    max-width: var(--rds-story-search-max-width-2xs, 140px);
+    min-width: var(--rds-story-search-min-width-2xs);
+    max-width: var(--rds-story-search-max-width-2xs);
   }
 }
  @media (min-width: 840px) {
@@ -81,24 +81,24 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 .rds-story-min-height-container {
-  min-height: calc(25 * var(--rds-spacing-xs, 4px));
+  min-height: calc(25 * var(--rds-spacing-xs));
 }
 
 .rds-story-nav-actions {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-md, 16px);
+  gap: var(--rds-spacing-md);
   
   @media (max-width: 834px) {
-    gap: calc(3 * var(--rds-spacing-xs, 4px));
+    gap: calc(3 * var(--rds-spacing-xs));
   }
   
   @media (max-width: 420px) {
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
   
   @media (max-width: 320px) {
-    gap: calc(1.5 * var(--rds-spacing-xs, 4px));
+    gap: calc(1.5 * var(--rds-spacing-xs));
   }
 }
 
@@ -109,15 +109,15 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
  
   @media (max-width: $rds-app-bar-breakpoint-sm) {
     svg {
-      width: var(--rds-story-nav-icon-size-sm, 16px);
-      height: var(--rds-story-nav-icon-size-sm, 16px);
+      width: var(--rds-story-nav-icon-size-sm);
+      height: var(--rds-story-nav-icon-size-sm);
     }
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
     svg {
-      width: var(--rds-story-nav-icon-size-xs, 14px);
-      height: var(--rds-story-nav-icon-size-xs, 14px);
+      width: var(--rds-story-nav-icon-size-xs);
+      height: var(--rds-story-nav-icon-size-xs);
     }
   }
 }
@@ -157,21 +157,21 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   display: block;
   flex-shrink: 0; 
   height: calc(100% - 16px); 
-  min-height: var(--rds-appbar-separator-min-height, 24px);
-  max-height: var(--rds-appbar-separator-max-height, 60px);
-  width: var(--rds-appbar-separator-width, 1px);
+  min-height: var(--rds-appbar-separator-min-height);
+  max-height: var(--rds-appbar-separator-max-height);
+  width: var(--rds-appbar-separator-width);
   background-color: var(--rds-appbar-separator-bg);
   background-clip: padding-box;
-  margin: 0 var(--rds-appbar-separator-horizontal-margin, 8px);
+  margin: 0 var(--rds-appbar-separator-horizontal-margin);
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    margin: 0 var(--rds-appbar-separator-horizontal-margin-sm, 6px);
-    min-height: var(--rds-appbar-separator-min-height-sm, 20px);
+    margin: 0 var(--rds-appbar-separator-horizontal-margin-sm);
+    min-height: var(--rds-appbar-separator-min-height-sm);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    margin: 0 var(--rds-appbar-separator-horizontal-margin-xs, 4px);
-    min-height: var(--rds-appbar-separator-min-height-xs, 18px);
+    margin: 0 var(--rds-appbar-separator-horizontal-margin-xs);
+    min-height: var(--rds-appbar-separator-min-height-xs);
   }
 }
 
@@ -187,7 +187,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-lg);
   text-transform: none;
-  padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-md, 16px);
+  padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-md);
   border-radius: var(--rds-border-radius-none);
   transition: background-color var(--rds-transition-base);
   
@@ -200,29 +200,29 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   
   @media (max-width: 834px) {
     font-size: var(--rds-font-size-md); // 15px ? md (14px, closest token)
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) calc(3.5 * var(--rds-spacing-xs, 4px));
+    padding: calc(1.5 * var(--rds-spacing-xs)) calc(3.5 * var(--rds-spacing-xs));
   }
   
   @media (max-width: 420px) {
     font-size: var(--rds-font-size-md);
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) calc(3 * var(--rds-spacing-xs, 4px));
+    padding: calc(1.5 * var(--rds-spacing-xs)) calc(3 * var(--rds-spacing-xs));
   }
   
   @media (max-width: 320px) {
     font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px);
+    padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-sm);
   }
 }
 
 .rds-header__logo-search {
   display: flex;
   align-items: center;
-  gap: calc(3 * var(--rds-spacing-xs, 4px));
+  gap: calc(3 * var(--rds-spacing-xs));
   flex: 1;
 }
 
 .rds-header__logo-img {
-  height: var(--rds-spacing-xl, 32px);
+  height: var(--rds-spacing-xl);
   display: block;
 }
 
@@ -237,29 +237,29 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   --rds-header-center-button-min-height-xs: 28px;
   display: inline-flex;
   align-items: center;
-  gap: var(--rds-spacing-sm, 8px); 
+  gap: var(--rds-spacing-sm); 
 
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    gap: var(--rds-header-center-gap-mobile, 12px); 
-    margin-left: var(--rds-header-center-margin-left-mobile, 95px);
+    gap: var(--rds-header-center-gap-mobile); 
+    margin-left: var(--rds-header-center-margin-left-mobile);
   }
 
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    gap: calc(2.5 * var(--rds-spacing-xs, 4px)); 
-    margin-left: var(--rds-header-center-margin-left-xs, 30px);
+    gap: calc(2.5 * var(--rds-spacing-xs)); 
+    margin-left: var(--rds-header-center-margin-left-xs);
   }
 
   .rds-button {
     @media (max-width: $rds-app-bar-breakpoint-sm) {
-      font-size: var(--rds-header-center-button-font-size-mobile, 12px); 
+      font-size: var(--rds-header-center-button-font-size-mobile); 
       padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
-      min-height: var(--rds-header-center-button-min-height-mobile, 32px);
+      min-height: var(--rds-header-center-button-min-height-mobile);
     }
 
     @media (max-width: $rds-app-bar-breakpoint-xs) {
-      font-size: var(--rds-header-center-button-font-size-xs, 11px);
-      padding: calc(var(--rds-spacing-xs) + 1px) var(--rds-spacing-sm);
-      min-height: var(--rds-header-center-button-min-height-xs, 28px);
+      font-size: var(--rds-header-center-button-font-size-xs);
+      padding: calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) var(--rds-spacing-sm);
+      min-height: var(--rds-header-center-button-min-height-xs);
     }
   }
 }
@@ -375,7 +375,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   padding: 0 var(--rds-font-size-lg);
   background-color: var(--rds-appbar-bg, var(--rds-primary-main));
   color: var(--rds-appbar-color, var(--rds-background-paper));
-  min-height: var(--rds-spacing-lg, 24px);
+  min-height: var(--rds-spacing-lg);
   box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, rgba(0, 0, 0, 0.2));
   position: relative;
   z-index: var(--rds-z-index-sticky);
@@ -412,7 +412,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
   &__menu-button {
     margin-right: var(--rds-spacing-sm);
-    margin-left: 0; // override MUI edge="start" default of -12px
+    margin-left: 0; // override MUI edge="start" default of calc(-1 * var(--rds-spacing-3))
     flex-shrink: 0;
     
     @media (max-width: 840px) {
@@ -600,7 +600,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   background: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
   border-bottom: 1px solid var(--rds-color-border);
-  box-shadow: var(--rds-elevation-1, 0 2px 8px 0 rgba(60,60,60,0.03));
+  box-shadow: var(--rds-elevation-1);
   position: relative;
   width: 100%;
   z-index: var(--rds-z-index-sticky, 1100);
@@ -609,10 +609,10 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   &__toolbar {
     display: flex;
     align-items: center;
-    min-height: var(--rds-header-toolbar-height, 56px);
-    padding-left: var(--rds-spacing-xl, 32px);
-    padding-right: var(--rds-spacing-xl, 32px);
-    gap: var(--rds-spacing-lg, 20px);
+    min-height: var(--rds-header-toolbar-height);
+    padding-left: var(--rds-spacing-xl);
+    padding-right: var(--rds-spacing-xl);
+    gap: var(--rds-spacing-lg);
     background: transparent;
     position: relative;
     width: 100%;
@@ -620,71 +620,71 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     overflow: hidden;
     
     @media (max-width: 834px) {
-      padding-left: var(--rds-spacing-lg, 24px);
-      padding-right: var(--rds-spacing-lg, 24px);
-      gap: var(--rds-spacing-md, 16px);
+      padding-left: var(--rds-spacing-lg);
+      padding-right: var(--rds-spacing-lg);
+      gap: var(--rds-spacing-md);
     }
     
     @media (max-width: 600px) {
-      padding-left: var(--rds-spacing-md, 16px);
-      padding-right: var(--rds-spacing-md, 16px);
-      gap: var(--rds-spacing-sm, 12px);
+      padding-left: var(--rds-spacing-md);
+      padding-right: var(--rds-spacing-md);
+      gap: var(--rds-spacing-sm);
     }
     
     @media (max-width: 420px) {
-      padding-left: var(--rds-spacing-sm, 12px);
-      padding-right: var(--rds-spacing-sm, 12px);
-      gap: var(--rds-spacing-xs, 10px);
+      padding-left: var(--rds-spacing-sm);
+      padding-right: var(--rds-spacing-sm);
+      gap: var(--rds-spacing-xs);
     }
     
     @media (max-width: 320px) {
-      padding-left: var(--rds-spacing-xs, 8px);
-      padding-right: var(--rds-spacing-xs, 8px);
-      gap: var(--rds-spacing-xs, 8px);
+      padding-left: var(--rds-spacing-xs);
+      padding-right: var(--rds-spacing-xs);
+      gap: var(--rds-spacing-xs);
     }
   }
 
   &__logo {
     display: flex;
     align-items: center;
-    height: var(--rds-header-logo-height, 32px);
-    min-width: var(--rds-header-logo-min-width, 120px);
-    font-size: var(--rds-font-size-lg, 20px);
+    height: var(--rds-header-logo-height);
+    min-width: var(--rds-header-logo-min-width);
+    font-size: var(--rds-font-size-lg);
     font-weight: var(--rds-font-weight-bold, 700);
-    letter-spacing: var(--rds-letter-spacing, 0.1px);
+    letter-spacing: var(--rds-letter-spacing);
     flex-shrink: 0;
     
     @media (max-width: 834px) {
-      min-width: var(--rds-header-logo-min-width, 100px);
-      font-size: var(--rds-font-size-md, 19px);
-      height: var(--rds-header-logo-height, 30px);
+      min-width: var(--rds-header-logo-min-width);
+      font-size: var(--rds-font-size-md);
+      height: var(--rds-header-logo-height);
     }
     
     @media (max-width: 600px) {
-      min-width: var(--rds-header-logo-min-width, 80px);
-      font-size: var(--rds-font-size-md, 18px);
-      height: var(--rds-header-logo-height, 28px);
+      min-width: var(--rds-header-logo-min-width);
+      font-size: var(--rds-font-size-md);
+      height: var(--rds-header-logo-height);
     }
     
     @media (max-width: 420px) {
-      min-width: var(--rds-header-logo-min-width, 70px);
-      font-size: var(--rds-font-size-md, 17px);
-      height: var(--rds-header-logo-height, 26px);
+      min-width: var(--rds-header-logo-min-width);
+      font-size: var(--rds-font-size-md);
+      height: var(--rds-header-logo-height);
     }
     
     @media (max-width: 320px) {
-      min-width: var(--rds-header-logo-min-width, 60px);
-      font-size: var(--rds-font-size-md, 16px);
-      height: var(--rds-header-logo-height, 24px);
+      min-width: var(--rds-header-logo-min-width);
+      font-size: var(--rds-font-size-md);
+      height: var(--rds-header-logo-height);
     }
   }
 
   &__title {
     flex-grow: 1;
     font-weight: var(--rds-font-weight-semibold, 600);
-    font-size: var(--rds-font-size-md, 18px);
+    font-size: var(--rds-font-size-md);
     color: var(--rds-color-on-surface);
-    letter-spacing: var(--rds-letter-spacing-wide, 0.2px);
+    letter-spacing: var(--rds-letter-spacing-wide);
     display: flex;
     align-items: center;
     min-width: 80px;
@@ -695,22 +695,22 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     
     @media (max-width: 834px) {
       min-width: 70px;
-      font-size: var(--rds-font-size-base, 17px);
+      font-size: var(--rds-font-size-base);
     }
     
     @media (max-width: 600px) {
       min-width: 60px;
-      font-size: var(--rds-font-size-base, 16px);
+      font-size: var(--rds-font-size-base);
     }
     
     @media (max-width: 420px) {
       min-width: 50px;
-      font-size: var(--rds-font-size-sm, 15px);
+      font-size: var(--rds-font-size-sm);
     }
     
     @media (max-width: 320px) {
       min-width: 40px;
-      font-size: var(--rds-font-size-sm, 14px);
+      font-size: var(--rds-font-size-sm);
     }
   }
 
@@ -795,9 +795,9 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     min-width: 148px;
     color: var(--rds-header__search-field-color, var(--rds-color-on-surface));
     background: var(--rds-header__search-field-bg, var(--rds-color-surface-alt));
-    padding: 0 var(--rds-spacing-sm, 12px);
-    border-radius: var(--rds-border-radius, 6px);
-    font-size: var(--rds-font-size-body, 15px);
+    padding: 0 var(--rds-spacing-sm);
+    border-radius: var(--rds-border-radius);
+    font-size: var(--rds-font-size-body);
     border: 1px solid var(--rds-color-border);
     box-shadow: none;
     height: 36px;
@@ -809,28 +809,28 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
  
     @media (max-width: 834px) {
       min-width: 180px;
-      font-size: var(--rds-font-size-sm, 14px);
+      font-size: var(--rds-font-size-sm);
       height: 34px;
     }
     
     @media (max-width: 600px) {
       min-width: 140px;
-      padding: 0 var(--rds-spacing-xs, 8px);
-      font-size: var(--rds-font-size-sm, 14px);
+      padding: 0 var(--rds-spacing-xs);
+      font-size: var(--rds-font-size-sm);
       height: 32px;
     }
     
     @media (max-width: 420px) {
       min-width: 120px;
-      padding: 0 var(--rds-spacing-xs, 8px);
-      font-size: var(--rds-font-size-sm, 13px);
+      padding: 0 var(--rds-spacing-xs);
+      font-size: var(--rds-font-size-sm);
       height: 30px;
     }
     
     @media (max-width: 320px) {
       min-width: 100px;
-      padding: 0 var(--rds-spacing-xs, 6px);
-      font-size: var(--rds-font-size-xs, 12px);
+      padding: 0 var(--rds-spacing-xs);
+      font-size: var(--rds-font-size-xs);
       height: 28px;
     }
     
@@ -843,23 +843,23 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
       border: none;
       outline: none;
       width: 100%;
-      font-size: var(--rds-font-size-body, 15px);
+      font-size: var(--rds-font-size-body);
       color: var(--rds-color-on-surface);
       padding: 0;
       height: 34px;
       
       @media (max-width: 834px) {
-        font-size: var(--rds-font-size-sm, 14px);
+        font-size: var(--rds-font-size-sm);
         height: 32px;
       }
       
       @media (max-width: 420px) {
-        font-size: var(--rds-font-size-sm, 13px);
+        font-size: var(--rds-font-size-sm);
         height: 28px;
       }
       
       @media (max-width: 320px) {
-        font-size: var(--rds-font-size-xs, 12px);
+        font-size: var(--rds-font-size-xs);
         height: 26px;
       }
     }
@@ -868,23 +868,23 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   &__actions {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 16px);
+    gap: var(--rds-spacing-md);
     flex-shrink: 0;
 
     @media (max-width: 834px) {
-      gap: var(--rds-spacing-sm, 14px);
+      gap: var(--rds-spacing-sm);
     }
     
     @media (max-width: 600px) {
-      gap: var(--rds-spacing-sm, 12px);
+      gap: var(--rds-spacing-sm);
     }
     
     @media (max-width: 420px) {
-      gap: var(--rds-spacing-xs, 10px);
+      gap: var(--rds-spacing-xs);
     }
     
     @media (max-width: 320px) {
-      gap: var(--rds-spacing-xs, 8px);
+      gap: var(--rds-spacing-xs);
     }
   }
 
@@ -897,15 +897,15 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
       border-radius: var(--rds-border-radius-xs) var(--rds-border-radius-xs) 0 0;
     }
     .MuiTabs-flexContainer {
-      gap: var(--rds-spacing-xs, 8px);
+      gap: var(--rds-spacing-xs);
     }
     .MuiTab-root {
       min-height: 40px;
       font-weight: var(--rds-font-weight-medium, 500);
-      font-size: var(--rds-font-size-body, 15px);
+      font-size: var(--rds-font-size-body);
       color: var(--rds-color-on-surface);
-      padding: 0 var(--rds-spacing-lg, 20px);
-      border-radius: var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0 0;
+      padding: 0 var(--rds-spacing-lg);
+      border-radius: var(--rds-border-radius) var(--rds-border-radius) 0 0;
       border-bottom: none;
       &.Mui-selected {
         color: var(--rds-color-primary);
@@ -917,9 +917,9 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
   &__sub-header {
     background: var(--rds-color-surface-alt);
-    padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-xl, 32px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-xl);
     border-top: 1px solid var(--rds-color-border);
-    font-size: var(--rds-font-size-body, 15px);
+    font-size: var(--rds-font-size-body);
     color: var(--rds-color-on-surface);
     display: flex;
     align-items: center;
@@ -1017,7 +1017,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     top: 0;
   }
   &--shadow {
-    box-shadow: var(--rds-elevation-2, 0 2px 8px 0 rgba(60,60,60,0.03));
+    box-shadow: var(--rds-elevation-2);
   }
 
   &__search-wrapper {
@@ -1055,7 +1055,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   &__search-clear {
     
 
-    right: var(--rds-spacing-xs, 4px);
+    right: var(--rds-spacing-xs);
     top: 50%;
     transform: translateY(-50%);
     z-index: calc(var(--rds-z-index-base) + 1);
@@ -1229,7 +1229,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
 @media (max-width: 834px) {
   .rds-header__toolbar {
-    gap: var(--rds-spacing-md, 12px);
+    gap: var(--rds-spacing-md);
   }
 
   .rds-appbar-actions-group {
@@ -1274,7 +1274,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   right: 0;
   display: flex;
   gap: var(--rds-spacing-sm);
-  padding: var(--rds-spacing-sm) 12px;
+  padding: var(--rds-spacing-sm) var(--rds-spacing-3);
   align-items: center;
   z-index: var(--rds-z-index-dropdown);
   border-top: 1px solid var(--rds-color-border);
@@ -1338,7 +1338,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     background: var(--rds-appbar-badge-bg);
     color: var(--rds-appbar-badge-color);
     border-radius: var(--rds-border-radius-sm);
-    padding: var(--rds-spacing-xs) 8px;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     font-weight: 500;
     font-size: var(--rds-font-size-sm);
     white-space: nowrap;
@@ -1347,7 +1347,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
   .MuiButton-root {
     font-size: var(--rds-font-size-sm);
-    padding: var(--rds-spacing-xs) 8px;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     min-width: auto;
     white-space: nowrap;
     flex-shrink: 0;
@@ -1364,7 +1364,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     
     .rds-bottom-nav-tab { 
       font-size: var(--rds-font-size-sm); 
-      padding: var(--rds-spacing-xs) 6px; 
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact); 
       min-width: auto;
     }
     
@@ -1381,7 +1381,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   }
 
   @media (max-width: 320px) {
-    padding: var(--rds-spacing-xs) 6px;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-compact);
     min-height: 44px;
     gap: var(--rds-spacing-xxs);
     

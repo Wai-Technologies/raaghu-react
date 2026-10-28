@@ -15,13 +15,13 @@
   .MuiFormControlLabel-label {
     color: var(--rds-text-primary);
     font-family: var(--rds-font-family-base);
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-md);
     line-height: 1.5;
   }
 
   .MuiCheckbox-root {
     position: relative;
-    padding: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-spacing-sm);
     color: var(--rds-border-default);
     transition: var(--rds-checkbox-transition);
 
@@ -103,7 +103,7 @@
         height: var(--rds-checkbox-size);
         transform: translate(-50%, -50%);
         border: var(--rds-checkbox-border-width) solid var(--rds-border-default);
-        border-radius: var(--rds-border-radius-sm, 4px);
+        border-radius: var(--rds-border-radius-sm);
         background: transparent;
         transition: var(--rds-checkbox-transition);
         box-sizing: border-box;

@@ -130,7 +130,7 @@ const RdsPopover = ({
   children,
   showCloseButton = false,
   width,
-  maxWidth = 'var(--rds-popover-container-max-width, 400px)',
+  maxWidth = 'var(--rds-popover-container-max-width)',
   placement,
   arrow = true,
   position,

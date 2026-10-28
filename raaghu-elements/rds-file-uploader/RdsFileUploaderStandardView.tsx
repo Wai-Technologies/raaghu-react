@@ -93,10 +93,10 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
           sx={{
-            minWidth: 'var(--rds-file-uploader-btn-min-width, 120px)',
-            fontSize: 'var(--rds-font-size-md, 0.9375rem)',
+            minWidth: 'var(--rds-file-uploader-btn-min-width)',
+            fontSize: 'var(--rds-font-size-md)',
             fontWeight: 'var(--rds-font-weight-medium, 500)',
-            padding: 'var(--rds-file-uploader-upload-padding-y, 4px) var(--rds-file-uploader-upload-padding-x, 13px)',
+            padding: 'var(--rds-file-uploader-upload-padding-y) var(--rds-file-uploader-upload-padding-x)',
             flexShrink: 0,
           }}
           aria-describedby={showTitle ? titleId : undefined}
@@ -132,14 +132,14 @@ const { showTitle, mandatory, showHint, showPreview } = viewConfig;
               onFilesChange?.([], event);
             }}
             disabled={disabled}
-            sx={{ ml: 'var(--rds-spacing-xs, 4px)' }}
+            sx={{ ml: 'var(--rds-spacing-xs)' }}
           >
             {children ?? <Close />}
           </IconButton>
         )}
       </Box>
 
-      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs, 4px)', minHeight: 'var(--rds-file-uploader-hint-row-height, 20px)' }}>
+      <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 'var(--rds-spacing-xs)', minHeight: 'var(--rds-file-uploader-hint-row-height)' }}>
         <Typography
           className="rds-file-uploader__hint"
           variant="caption"

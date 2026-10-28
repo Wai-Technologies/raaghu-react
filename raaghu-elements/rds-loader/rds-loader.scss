@@ -24,13 +24,13 @@
   }
   
   &--medium {
-    width: var(--rds-loader-size-medium, 40px);
-    height: var(--rds-loader-size-medium, 40px);
+    width: var(--rds-loader-size-medium);
+    height: var(--rds-loader-size-medium);
   }
   
   &--large {
-    width: var(--rds-loader-size-large, 60px);
-    height: var(--rds-loader-size-large, 60px);
+    width: var(--rds-loader-size-large);
+    height: var(--rds-loader-size-large);
   }
   
   &--primary {
@@ -82,11 +82,11 @@
   }
   50% {
     stroke-dasharray: 89, 200;
-    stroke-dashoffset: var(--rds-loader-dash-offset-mid, -35px);
+    stroke-dashoffset: var(--rds-loader-dash-offset-mid);
   }
   100% {
     stroke-dasharray: 89, 200;
-    stroke-dashoffset: var(--rds-loader-dash-offset-end, -48px);
+    stroke-dashoffset: var(--rds-loader-dash-offset-end);
   }
 }
 
@@ -123,11 +123,11 @@
 .rds-loader__type-wrap {
   display: flex;
   justify-content: center;
-  margin-block: var(--rds-spacing-xl, 3rem);
+  margin-block: var(--rds-spacing-xl);
 }
 
 .rds-loader__label-wrap {
-  margin-top: var(--rds-spacing-sm, 12px);
+  margin-top: var(--rds-spacing-sm);
   text-align: center;
   width: 100%;
 }
@@ -174,18 +174,18 @@
 }
 
 .rds-loader__jump {
-  width: var(--rds-loader-jump-size, 48px);
-  height: var(--rds-loader-jump-size, 48px);
+  width: var(--rds-loader-jump-size);
+  height: var(--rds-loader-jump-size);
   margin: auto;
   position: relative;
 }
 .rds-loader__jump:before {
   content: '';
-  width: var(--rds-loader-jump-size, 48px);
-  height: var(--rds-loader-jump-shadow-height, 5px);
+  width: var(--rds-loader-jump-size);
+  height: var(--rds-loader-jump-shadow-height);
   background: var(--rds-loader-jump-shadow);
   position: absolute;
-  top: var(--rds-loader-jump-shadow-top, 60px);
+  top: var(--rds-loader-jump-shadow-top);
   left: 0;
   border-radius: var(--rds-border-radius-pill);
   animation: rds-loader-shadow324 0.5s linear infinite;
@@ -252,8 +252,8 @@
 .rds-loader__sand {
   --c1: var(--rds-loader-sand-dark);
   --c2: var(--rds-loader-sand-light);
-  width: var(--rds-loader-sand-width, 40px);
-  height: var(--rds-loader-sand-height, 80px);
+  width: var(--rds-loader-sand-width);
+  height: var(--rds-loader-sand-height);
   border-top: 4px solid var(--c1);
   border-bottom: 4px solid var(--c1);
   background: linear-gradient(90deg, var(--c1) 2px, var(--c2) 0 5px,var(--c1) 0) 50%/7px 8px no-repeat;
@@ -302,7 +302,7 @@
 .rds-loader__moving {
   --height-of-loader: 4px;
   --loader-color: var(--rds-primary-main);
-  width: var(--rds-loader-moving-width, 130px);
+  width: var(--rds-loader-moving-width);
   height: var(--height-of-loader);
   border-radius: 30px;
   background-color: var(--rds-loader-track-bg, rgba(0,0,0,0.2));
@@ -366,8 +366,8 @@
 }
 
 .rds-loader__round {
-  width: var(--rds-loader-round-size, 44.8px);
-  height: var(--rds-loader-round-size, 44.8px);
+  width: var(--rds-loader-round-size);
+  height: var(--rds-loader-round-size);
   color: var(--rds-loader-round-color);
   position: relative;
   background: radial-gradient(11.2px,currentColor 94%,transparent);
@@ -402,8 +402,8 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  width: var(--rds-loader-rotate-size, 40px);
-  height: var(--rds-loader-rotate-size, 40px);
+  width: var(--rds-loader-rotate-size);
+  height: var(--rds-loader-rotate-size);
   border-color: var(--rds-loader-rotate-primary);
 }
 .rds-loader__rotate::before, .rds-loader__rotate::after {
@@ -427,10 +427,10 @@
 }
 
 .rds-loader__spin {
-  width: var(--rds-loader-spin-size, 56px);
-  height: var(--rds-loader-spin-size, 56px);
+  width: var(--rds-loader-spin-size);
+  height: var(--rds-loader-spin-size);
   display: grid;
-  border: var(--rds-loader-spin-border, 4px) solid transparent;
+  border: var(--rds-loader-spin-border) solid transparent;
   border-radius: var(--rds-border-radius-pill);
   border-right-color: var(--rds-loader-spin-color, var(--rds-primary-main));
   animation: rds-loader-spinner-a4dj62 1s infinite linear;
@@ -452,7 +452,7 @@
 }
 
 .rds-loader__triangle {
-  width: var(--rds-loader-triangle-size, 50px);
+  width: var(--rds-loader-triangle-size);
   aspect-ratio: 1.154;
   position: relative;
   background: conic-gradient(from 120deg at 50% 64%,transparent, var(--rds-semantic-error-main) 1deg 120deg,transparent 121deg);

@@ -1,8 +1,8 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-card {
-  border-radius: var(--rds-border-radius-md, 8px);
-  box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08));
+  border-radius: var(--rds-border-radius-md);
+  box-shadow: var(--rds-elevation-3);
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -15,8 +15,8 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: var(--rds-spacing-sm, 8px);
-      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) 0 var(--rds-spacing-md, 16px);
+      gap: var(--rds-spacing-sm);
+      padding: var(--rds-spacing-md) var(--rds-spacing-md) 0 var(--rds-spacing-md);
     }
 
     .rds-card__header-text {
@@ -25,7 +25,7 @@
     }
 
     .rds-card__below-content {
-      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md);
     }
     
     .MuiCardContent-root {
@@ -53,7 +53,7 @@
         min-width: 0;
         display: flex;
         align-items: center;
-        padding: var(--rds-spacing-md, 16px);
+        padding: var(--rds-spacing-md);
       }
     }
     
@@ -64,8 +64,8 @@
     flex-direction: column;
     
     .rds-card__icon-container--vertical {
-      padding: var(--rds-spacing-md, 6px);
-      padding-bottom: var(--rds-spacing-xs, 4px); 
+      padding: var(--rds-spacing-md);
+      padding-bottom: var(--rds-spacing-xs); 
     }
     
     .MuiCardContent-root {
@@ -85,16 +85,16 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding-left: var(--rds-card-content-padding-left, 14px);
+    padding-left: var(--rds-card-content-padding-left);
   }
 
   &--layout-vertical.rds-card--with-indicator {
     .rds-card__content-wrapper {
-      padding-left: calc(var(--rds-card-content-padding-left, 14px) + var(--rds-spacing-xs, 4px));
+      padding-left: calc(var(--rds-card-content-padding-left) + var(--rds-spacing-xs));
     }
 
     .rds-card__additional-content {
-      padding-left: var(--rds-spacing-xs, 4px);
+      padding-left: var(--rds-spacing-xs);
     }
   }
   
@@ -140,7 +140,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: var(--rds-spacing-xs, 4px);
+    width: var(--rds-spacing-xs);
     z-index: calc(var(--rds-z-index-base) + 1);
   }
   
@@ -149,17 +149,17 @@
     height: 100%;
     background-color: var(--rds-card-indicator-bg, var(--rds-color-gray-700)) !important;
     transition: var(--rds-transition-base, all 0.2s ease-in-out);
-    border-radius: 0 var(--rds-border-radius-sm, 2px) var(--rds-border-radius-sm, 2px) 0;
+    border-radius: 0 var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0;
   }
   
   &:hover:not(.rds-card--disabled):not(.rds-card--selected) {
-    box-shadow: var(--rds-elevation-2, 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08));
+    box-shadow: var(--rds-elevation-2);
     background-color: var(--rds-card-bg-hover, var(--rds-color-gray-200)) !important;
   }
   
   &--selected {
     background-color: var(--rds-card-selected-bg, var(--rds-color-gray-200)) !important;
-    box-shadow: var(--rds-elevation-focus, 0 0 0 1px rgba(25, 118, 210, 0.2));
+    box-shadow: var(--rds-elevation-focus);
     
     .rds-card__subtext {
       color: var(--rds-color-primary) !important;
@@ -183,7 +183,7 @@
   }
   
   &__header {
-    padding: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md);
     border-bottom: 1px solid var(--rds-card-border, var(--rds-border-light));
     
     &:last-child {
@@ -198,9 +198,9 @@
   }
   
   &__actions {
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md);
     display: flex;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
     align-items: center;
   }
   
@@ -210,15 +210,15 @@
   }
   
   &--elevation-1 {
-    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.08));
+    box-shadow: var(--rds-elevation-1);
   }
   
   &--elevation-2 {
-    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    box-shadow: var(--rds-elevation-2);
   }
   
   &--elevation-3 {
-    box-shadow: var(--rds-elevation-3, 0 4px 8px rgba(0, 0, 0, 0.15));
+    box-shadow: var(--rds-elevation-3);
   }
   
   &--clickable {
@@ -227,7 +227,7 @@
                 box-shadow var(--rds-transition-base, 0.2s ease-in-out);
     
     &:hover {
-      transform: translateY(var(--rds-card-hover-offset, -2px));
+      transform: translateY(var(--rds-card-hover-offset));
     }
     
     &:active {
@@ -242,14 +242,14 @@
   
   &--layout-vertical {
     .rds-card__content {
-      padding-top: var(--rds-spacing-xs, 4px); 
+      padding-top: var(--rds-spacing-xs); 
     }
   }
   
   &[style*="padding"] {
     .rds-card__content,
     .rds-card__content-wrapper {
-      min-height: var(--rds-card-content-min-height, 20px);
+      min-height: var(--rds-card-content-min-height);
       display: block;
     }
     
@@ -266,21 +266,21 @@
   
   &__title {
     font-weight: var(--rds-font-weight-medium, 500);
-    font-size: var(--rds-font-size-xl, 20px) !important;
+    font-size: var(--rds-font-size-xl) !important;
     line-height: 1.3;
     color: var(--rds-color-text-secondary);
     margin: 0;
-    margin-bottom: var(--rds-spacing-xs, 2px) !important;
+    margin-bottom: var(--rds-spacing-xs) !important;
   }
   
   &__subtext {
     font-weight: var(--rds-font-weight-normal, 400);
-    font-size: var(--rds-font-size-sm, 14px) !important;
+    font-size: var(--rds-font-size-sm) !important;
     color: var(--rds-text-secondary) !important;
     margin: 0;
     
     &.MuiTypography-root {
-      margin-bottom: var(--rds-spacing-xs, 4px) !important;
+      margin-bottom: var(--rds-spacing-xs) !important;
     }
   }
   
@@ -289,11 +289,11 @@
     font-size: var(--rds-font-size-sm); 
     color: var(--rds-card-text-secondary, var(--rds-color-text-secondary));
     margin: 0;
-    margin-bottom: var(--rds-spacing-sm, 8px) !important;
+    margin-bottom: var(--rds-spacing-sm) !important;
   }
   
   &__additional-content {
-    margin-top: var(--rds-spacing-sm, 8px);
+    margin-top: var(--rds-spacing-sm);
     
     > *:first-child {
       margin-top: 0;
@@ -311,8 +311,8 @@
     .rds-card__button-group {
       display: flex;
       justify-content: flex-end;
-      gap: var(--rds-spacing-xs, 8px);
-      margin: var(--rds-spacing-md, 16px);
+      gap: var(--rds-spacing-xs);
+      margin: var(--rds-spacing-md);
       
       .rds-button {
         margin-top: 0;
@@ -320,23 +320,23 @@
     }
 
     .rds-card__image {
-      margin-bottom: var(--rds-spacing-md, 16px);
-      margin-right: var(--rds-spacing-md, 16px);
+      margin-bottom: var(--rds-spacing-md);
+      margin-right: var(--rds-spacing-md);
       
       img {
         width: 100%;
         height: auto;
         object-fit: cover;
-        border-radius: var(--rds-border-radius-sm, 4px);
+        border-radius: var(--rds-border-radius-sm);
         display: block;
       }
     }
 
     .rds-card__badges {
       display: flex;
-      gap: var(--rds-spacing-xs, 8px);
+      gap: var(--rds-spacing-xs);
       flex-wrap: wrap;
-      margin-bottom: var(--rds-spacing-sm, 8px);
+      margin-bottom: var(--rds-spacing-sm);
       
       .rds-badge {
         flex-shrink: 0;
@@ -346,8 +346,8 @@
     .rds-card__avatar-section {
       display: flex;
       align-items: flex-start;
-      gap: var(--rds-spacing-sm, 4px);
-      margin-bottom: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-sm);
+      margin-bottom: var(--rds-spacing-sm);
       position: relative;
       
       .rds-card__avatar-info {
@@ -355,15 +355,15 @@
         min-width: 0;
         
         .rds-card__avatar-name {
-          font-size: var(--rds-font-size-md, 16px);
+          font-size: var(--rds-font-size-md);
           font-weight: var(--rds-font-weight-semibold, 600);
           color: var(--rds-color-text-primary);
-          margin: 0 0 var(--rds-spacing-xs, 2px) 0;
+          margin: 0 0 var(--rds-spacing-xs) 0;
           line-height: 1.3;
         }
         
         .rds-card__avatar-designation {
-          font-size: var(--rds-font-size-sm, 14px);
+          font-size: var(--rds-font-size-sm);
           font-weight: var(--rds-font-weight-normal, 400);
           color: var(--rds-color-text-secondary);
           margin: 0;
@@ -374,7 +374,7 @@
       .rds-card__edit-controls {
         display: flex;
         align-items: center;
-        gap: var(--rds-spacing-xs, 8px);
+        gap: var(--rds-spacing-xs);
         margin-left: var(--rds-spacing-sm) !important;
         flex-shrink: 0;
       }
@@ -389,32 +389,32 @@
         .rds-card__avatar-row {
           display: flex;
           align-items: flex-start;
-          gap: var(--rds-spacing-sm, 8px);
-          margin-bottom: var(--rds-spacing-xs, 8px);
+          gap: var(--rds-spacing-sm);
+          margin-bottom: var(--rds-spacing-xs);
         }
         
         .rds-card__edit-controls {
-          margin-left: var(--rds-card-avatar-controls-mobile-offset, 110px) !important;
+          margin-left: var(--rds-card-avatar-controls-mobile-offset) !important;
           justify-content: flex-end;
-          padding-top: var(--rds-spacing-xs, 4px);
+          padding-top: var(--rds-spacing-xs);
         }
       }
     }
 
     .rds-card__description {
-      font-size: var(--rds-font-size-sm, 14px);
+      font-size: var(--rds-font-size-sm);
       color: var(--rds-color-text-secondary);
       line-height: 1.5;
-      margin: 0 0 var(--rds-spacing-md, 16px) 0;
+      margin: 0 0 var(--rds-spacing-md) 0;
       display: block;
     }
   }
 
   &__description {
-    font-size: var(--rds-font-size-sm, 14px);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-text-secondary);
     line-height: 1.5;
-    margin: 0 0 var(--rds-spacing-md, 16px) 0;
+    margin: 0 0 var(--rds-spacing-md) 0;
     display: block;
   }
   
@@ -438,23 +438,23 @@
 }
 .rds-card .css-16xl4zq-MuiTypography-root,
 .rds-card .css-1f9xtph-MuiTypography-root {
-  font-size: var(--rds-font-size-lg, 18px) !important;
+  font-size: var(--rds-font-size-lg) !important;
 }
 
 .rds-card__additional-content .rds-card__description,
 .rds-card > .rds-card__description {
   display: block !important;
-  font-size: var(--rds-font-size-sm, 14px);
+  font-size: var(--rds-font-size-sm);
   color: var(--rds-color-text-secondary);
   line-height: 1.5;
-  margin: 0 0 var(--rds-spacing-md, 16px) 0;
+  margin: 0 0 var(--rds-spacing-md) 0;
 }
 
 .rds-card__tags {
   display: flex;
-  gap: var(--rds-spacing-xs, 8px);
+  gap: var(--rds-spacing-xs);
   flex-wrap: wrap;
-  margin-bottom: var(--rds-spacing-md, 16px);
+  margin-bottom: var(--rds-spacing-md);
   
   .rds-badge {
     flex-shrink: 0;
@@ -462,18 +462,18 @@
 }
 
 .rds-card__metadata {
-  font-size: var(--rds-font-size-xs, 12px);
+  font-size: var(--rds-font-size-xs);
   color: var(--rds-color-text-secondary);
   font-weight: var(--rds-font-weight-normal, 400);
-  margin: var(--rds-spacing-md, 16px) 0 0 0;
-  padding-top: var(--rds-spacing-sm, 8px);
+  margin: var(--rds-spacing-md) 0 0 0;
+  padding-top: var(--rds-spacing-sm);
 }
 
 .rds-card__long-description {
-  font-size: var(--rds-font-size-sm, 14px);
+  font-size: var(--rds-font-size-sm);
   color: var(--rds-color-text-secondary);
   line-height: 1.5;
-  margin: 0 0 var(--rds-spacing-md, 16px) 0;
+  margin: 0 0 var(--rds-spacing-md) 0;
   display: block !important;
 }
 
@@ -485,14 +485,14 @@
     .rds-card__edit-controls {
       display: flex;
       align-items: center;
-      gap: var(--rds-spacing-xs, 8px);
-      margin-left: var(--rds-spacing-xs, 8px) !important;
+      gap: var(--rds-spacing-xs);
+      margin-left: var(--rds-spacing-xs) !important;
     }
     
     .rds-card__edit-icon {
       cursor: pointer;
-      padding: var(--rds-spacing-xs, 4px);
-      border-radius: var(--rds-border-radius-sm, 4px);
+      padding: var(--rds-spacing-xs);
+      border-radius: var(--rds-border-radius-sm);
       transition: background-color var(--rds-transition-base);
       }
       
@@ -504,25 +504,25 @@
     
     .rds-card__edit-actions {
       display: flex;
-      gap: var(--rds-spacing-sm, 12px);
+      gap: var(--rds-spacing-sm);
       align-items: center;
-      padding: var(--rds-spacing-sm, 8px);
+      padding: var(--rds-spacing-sm);
       
       .rds-button {
-        font-size: var(--rds-font-size-xs, 12px);
-        padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 12px);
-        min-width: var(--rds-card-action-min-width, 60px);
-        height: var(--rds-card-action-height, 32px);
+        font-size: var(--rds-font-size-xs);
+        padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+        min-width: var(--rds-card-action-min-width);
+        height: var(--rds-card-action-height);
         text-transform: uppercase;
         font-weight: var(--rds-font-weight-medium, 500);
-        border-radius: var(--rds-border-radius-xs, 4px);
+        border-radius: var(--rds-border-radius-xs);
         line-height: 1.2;
       }
       
       .rds-card__action-icon {
         cursor: pointer;
-        padding: var(--rds-spacing-xs, 4px);
-        border-radius: var(--rds-border-radius-sm, 4px);
+        padding: var(--rds-spacing-xs);
+        border-radius: var(--rds-border-radius-sm);
         transition: background-color var(--rds-transition-base, 0.2s ease-in-out);
         
         &:hover {
@@ -544,10 +544,10 @@
 
 
 .rds-card__editable-field {
-  padding: var(--rds-spacing-xs, 8px);
+  padding: var(--rds-spacing-xs);
   
   .rds-input {
-    margin-bottom: var(--rds-spacing-sm, 12px);
+    margin-bottom: var(--rds-spacing-sm);
     
     &:last-child {
       margin-bottom: 0;
@@ -557,14 +557,14 @@
       width: 100%;
       
       .MuiInputBase-root {
-        font-size: var(--rds-font-size-sm, 14px) !important;
+        font-size: var(--rds-font-size-sm) !important;
         
         &.Mui-focused fieldset {
           border-color: var(--rds-color-primary);
         }
         
         .MuiInputBase-input {
-          padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-sm, 12px);
+          padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
         }
       }
     }
@@ -580,7 +580,7 @@
   
   .rds-card__input--subtitle {
     .MuiInputBase-input {
-      font-size: var(--rds-font-size-sm, 14px);
+      font-size: var(--rds-font-size-sm);
       font-weight: var(--rds-font-weight-normal, 400);
       color: var(--rds-color-text-secondary);
     }
@@ -588,7 +588,7 @@
   
   .rds-card__input--avatar-name {
     .MuiInputBase-input {
-      font-size: var(--rds-font-size-md, 16px);
+      font-size: var(--rds-font-size-md);
       font-weight: var(--rds-font-weight-semibold, 600);
       color: var(--rds-color-text-primary);
     }
@@ -596,7 +596,7 @@
   
   .rds-card__input--avatar-designation {
     .MuiInputBase-input {
-      font-size: var(--rds-font-size-sm, 14px);
+      font-size: var(--rds-font-size-sm);
       font-weight: var(--rds-font-weight-normal, 400);
       color: var(--rds-color-text-secondary);
     }
@@ -608,11 +608,11 @@
 }
 
 .rds-card__avatar-section--editable .rds-avatar{
- margin-left: var(--rds-card-avatar-offset-left, 15px) !important;
-  margin-top: var(--rds-spacing-xs, 8px) !important;
+ margin-left: var(--rds-card-avatar-offset-left) !important;
+  margin-top: var(--rds-spacing-xs) !important;
 }
 
 .rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {
   --Paper-shadow: none !important;
-  box-shadow: var(--rds-card-shadow, 0 8px 24px var(--rds-card-shadow-color, rgba(16, 45, 86, 0.08)));
+  box-shadow: var(--rds-card-shadow);
 }

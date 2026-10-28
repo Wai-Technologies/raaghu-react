@@ -884,7 +884,7 @@ describe('audit fixes', () => {
   it('uses consumer iconTextSpacing and spacing directly, keeps token default otherwise', () => {
     const opts = [{ value: 'a', label: 'A', icon: <i>x</i> }, { value: 'b', label: 'B', icon: <i>y</i> }];
     const { container, rerender } = render(<RdsToggleButton options={opts} />);
-    expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: 'var(--rds-spacing-xs, 8px)' });
+    expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: 'var(--rds-spacing-xs)' });
     rerender(<RdsToggleButton options={opts} iconTextSpacing={3} spacing={5} />);
     expect(container.querySelector('.rds-toggle-button__icon')).toHaveStyle({ marginRight: '3px' });
     expect(container.querySelector('.rds-toggle-button')).toHaveStyle({ '--rds-toggle-button-spacing': '5px' });

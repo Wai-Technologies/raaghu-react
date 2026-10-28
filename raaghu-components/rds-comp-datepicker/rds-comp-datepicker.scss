@@ -225,7 +225,7 @@
 
   &__dropdown-custom-icon {
     position: absolute;
-    right: 12px;
+    right: var(--rds-spacing-3);
     top: 50%;
     transform: translateY(-50%);
     display: inline-flex;
@@ -272,7 +272,7 @@
   
   &__icon-container {
     position: absolute;
-    right: 4px;
+    right: var(--rds-spacing-xs);
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -314,7 +314,7 @@
   }
 &__clear-button {
 position: absolute;
-right: 76px;
+right: var(--rds-spacing-76);
 top: 50%;
 transform: translateY(-50%);
 z-index: var(--rds-z-index-raised);
@@ -323,7 +323,7 @@ font-size: var(--rds-font-size-lg);
 font-weight: bold;
 
     &--dropdown {
-      right: 100px;
+      right: var(--rds-spacing-100);
     }
 
     &--clickable {
@@ -625,8 +625,8 @@ font-weight: bold;
 .rds-datepicker__popper,
 .rds-datepicker__calendar.react-datepicker-popper {
   z-index: var(--rds-z-index-picker-portal) !important;
-  left: 17px !important;
-  top: 90px !important;
+  left: var(--rds-spacing-17) !important;
+  top: var(--rds-spacing-90) !important;
   border-radius: var(--rds-border-radius-sm) ;
   transform: none !important;
   
@@ -793,7 +793,7 @@ font-weight: bold;
 .rds-datepicker__calendar .react-datepicker__year-dropdown-container--select,
 .rds-datepicker__calendar .react-datepicker__month-dropdown-container--scroll,
 .rds-datepicker__calendar .react-datepicker__year-dropdown-container--scroll {
-  margin: 0 4px;
+  margin: 0 var(--rds-spacing-xs);
   vertical-align: middle;
 }
 
@@ -993,7 +993,7 @@ font-weight: bold;
 
 .rds-datepicker__dropdown-menu--show .rds-datepicker__popper,
 .rds-datepicker__dropdown-menu--show .react-datepicker-popper {
-  left: calc(100% + 8px) !important;
+  left: calc(100% + var(--rds-spacing-sm)) !important;
   top: 0 !important;
   transform: none !important;
   z-index: calc(var(--rds-z-index-modal, 1400) + 1) !important;
@@ -1008,7 +1008,7 @@ font-weight: bold;
   .rds-datepicker__dropdown-menu--show .rds-datepicker__popper,
   .rds-datepicker__dropdown-menu--show .react-datepicker-popper {
     left: 0 !important;
-    top: calc(100% + 8px) !important;
+    top: calc(100% + var(--rds-spacing-sm)) !important;
     right: auto !important;
   }
 }
@@ -1038,9 +1038,9 @@ font-weight: bold;
 @include bp.down(360) {
   .rds-datepicker {
     &__input { font-size: 0.95rem; padding: 0.45rem 2.6rem 0.45rem 0.6rem; }
-    &__input--with-clear { padding-right: 84px; }
-    &__icon-container { right: 2px; width: 28px; height: 28px; }
-    &__clear-button { right: 64px; }
+    &__input--with-clear { padding-right: var(--rds-spacing-84); }
+    &__icon-container { right: var(--rds-spacing-xxs); width: 28px; height: 28px; }
+    &__clear-button { right: var(--rds-spacing-3xl); }
     &__dropdown-menu--show { margin-right: 0 !important; width: 100% !important; }
     &__custom-dropdown { width: 85% !important; }
     &__dropdown-menu--show .react-datepicker { margin-left: 0 !important; width: 100% !important; }
@@ -1099,7 +1099,7 @@ font-weight: bold;
     right: auto !important;
     transform: translateX(-50%) !important;
     width: auto !important; 
-    top: 92px !important; 
+    top: var(--rds-spacing-92) !important; 
   }
 }
 
@@ -1163,10 +1163,10 @@ font-weight: bold;
       padding-right: var(--rds-spacing-92);
     }
     &__icon-container {
-      right: 4px;
+      right: var(--rds-spacing-xs);
     }
     &__clear-button {
-      right: 76px;
+      right: var(--rds-spacing-76);
     }
   }
 }
@@ -1183,10 +1183,10 @@ font-weight: bold;
       padding-right: var(--rds-spacing-96-px);
     }
     &__icon-container {
-      right: 4px;
+      right: var(--rds-spacing-xs);
     }
     &__clear-button {
-      right: 76px;
+      right: var(--rds-spacing-76);
     }
   }
 }
@@ -1390,7 +1390,7 @@ font-weight: bold;
 @media (min-width: 768px) and (max-width: 1024px) {
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .rds-datepicker__popper,
   .rds-datepicker__custom-dropdown .rds-datepicker__dropdown-menu--show .react-datepicker-popper {
-    left: calc(100% + 8px) !important;
+    left: calc(100% + var(--rds-spacing-sm)) !important;
     top: 0 !important;
     right: auto !important;
     width: auto !important;

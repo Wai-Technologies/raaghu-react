@@ -28,7 +28,7 @@
       display: flex;
       flex-direction: inherit;
       width: 100%;
-      gap: var(--rds-toggle-button-spacing, 0px);
+      gap: var(--rds-toggle-button-spacing);
       background-color: transparent;
 
       .MuiToggleButtonGroup-grouped {
@@ -51,13 +51,13 @@
     }
     
     &:focus-visible {
-      outline: var(--rds-toggle-focus-ring-width, 2px) solid var(--rds-focus-color);
-      outline-offset: var(--rds-toggle-focus-ring-width, 2px);
+      outline: var(--rds-toggle-focus-ring-width) solid var(--rds-focus-color);
+      outline-offset: var(--rds-toggle-focus-ring-width);
     }
     
     &.Mui-selected {
       z-index: calc(var(--rds-z-index-base) + 1);
-      box-shadow: var(--rds-toggle-button-selected-shadow, inset 0 0 0 1px currentColor);
+      box-shadow: var(--rds-toggle-button-selected-shadow);
     }
     
     &.Mui-disabled {
@@ -68,10 +68,10 @@
 
     &--spaced {
       width: 100%;
-      box-shadow: var(--rds-toggle-button-spaced-shadow, inset 0 0 0 1px rgba(0, 0, 0, 0.12));
+      box-shadow: var(--rds-toggle-button-spaced-shadow);
       
       &.Mui-selected {
-        box-shadow: var(--rds-toggle-button-selected-shadow, inset 0 0 0 1px currentColor);
+        box-shadow: var(--rds-toggle-button-selected-shadow);
       }
     }
   }
@@ -137,25 +137,25 @@
   }
 
   .rds-toggle-button--small .rds-toggle-button__button { 
-    font-size: var(--rds-font-size-xs,0.7rem); 
-    padding: var(--rds-spacing-xs, 4px) calc(1.5 * var(--rds-spacing-xs, 4px)); 
+    font-size: var(--rds-font-size-xs); 
+    padding: var(--rds-spacing-xs) calc(1.5 * var(--rds-spacing-xs)); 
   }
   .rds-toggle-button--medium .rds-toggle-button__button { 
-    font-size: var(--rds-font-size-sm,0.8rem); 
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px); 
+    font-size: var(--rds-font-size-sm); 
+    padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-sm); 
   }
   .rds-toggle-button--large .rds-toggle-button__button { 
-    font-size: var(--rds-font-size-md,0.9rem); 
-    padding: var(--rds-spacing-sm, 8px) calc(3 * var(--rds-spacing-xs, 4px)); 
+    font-size: var(--rds-font-size-md); 
+    padding: var(--rds-spacing-sm) calc(3 * var(--rds-spacing-xs)); 
   }
 
-  .rds-toggle-button__icon { margin-right: var(--rds-spacing-xs, 4px) !important; }
+  .rds-toggle-button__icon { margin-right: var(--rds-spacing-xs) !important; }
 
   .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__group--spaced .rds-toggle-button__button { 
     flex:1 1 50%;
     min-width:50%;
     max-width:50%;
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px);
+    padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-sm);
     box-sizing:border-box;
   }
 
@@ -172,14 +172,14 @@
   }
   
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(1) {
-    border-top-left-radius: var(--rds-border-radius-sm, 4px) !important;
+    border-top-left-radius: var(--rds-border-radius-sm) !important;
     border-top-right-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
   
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(2) {
-    border-top-right-radius: var(--rds-border-radius-sm, 4px) !important;
+    border-top-right-radius: var(--rds-border-radius-sm) !important;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
@@ -188,8 +188,8 @@
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3) {
     flex:1 1 100%;
     max-width:100%;
-    border-bottom-left-radius: var(--rds-border-radius-sm, 4px) !important;
-    border-bottom-right-radius: var(--rds-border-radius-sm, 4px) !important;
+    border-bottom-left-radius: var(--rds-border-radius-sm) !important;
+    border-bottom-right-radius: var(--rds-border-radius-sm) !important;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
   }
@@ -213,25 +213,25 @@
     }
     
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(1) {
-      border-top-left-radius: var(--rds-border-radius-sm, 4px);
+      border-top-left-radius: var(--rds-border-radius-sm);
       border-bottom-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(2) {
-      border-top-right-radius: var(--rds-border-radius-sm, 4px);
+      border-top-right-radius: var(--rds-border-radius-sm);
       border-bottom-right-radius: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3) {
-      border-bottom-left-radius: var(--rds-border-radius-sm, 4px);
+      border-bottom-left-radius: var(--rds-border-radius-sm);
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(4) {
-      border-bottom-right-radius: var(--rds-border-radius-sm, 4px);
+      border-bottom-right-radius: var(--rds-border-radius-sm);
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-bottom-left-radius: 0;
@@ -252,8 +252,8 @@
   .rds-toggle-button__button { 
     flex:1 1 1; 
     min-width:0; 
-    padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px); 
-    font-size: var(--rds-font-size-sm, 0.8rem); 
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm); 
+    font-size: var(--rds-font-size-sm); 
     box-sizing:border-box; 
   }
 }

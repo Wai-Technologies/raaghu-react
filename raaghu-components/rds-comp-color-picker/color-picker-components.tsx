@@ -241,7 +241,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
               '& .MuiSlider-rail': {
                 opacity: 1,
                 background: HUE_TRACK_GRADIENT,
-                borderRadius: 'var(--rds-border-radius-lg, 8px)',
+                borderRadius: 'var(--rds-border-radius-lg)',
               },
               '& .MuiSlider-track': { background: 'transparent', border: 'none' },
               '& .MuiSlider-thumb': {
@@ -276,7 +276,7 @@ export const ColorPickerSliders = memo(({ selectedColorState, handleHueChange, h
                 backgroundImage: `linear-gradient(to right, transparent, ${solid}), ${CHECKERBOARD}`,
                 backgroundSize: '100% 100%, 8px 8px',
                 backgroundPosition: '0 0, 0 0, 0 4px, 4px -4px',
-                borderRadius: 'var(--rds-border-radius-lg, 8px)',
+                borderRadius: 'var(--rds-border-radius-lg)',
               },
               '& .MuiSlider-track': { background: 'transparent', border: 'none' },
               '& .MuiSlider-thumb': {

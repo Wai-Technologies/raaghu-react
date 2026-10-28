@@ -468,17 +468,17 @@
 .rds-input--compact,
 .rds-input.rds-input--compact {
   .MuiInputBase-root {
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
-    height: var(--rds-input-compact-height, 32px);
-    min-height: var(--rds-input-compact-height, 32px);
-    max-height: var(--rds-input-compact-height, 32px);
-    border-radius: var(--rds-border-radius-lg, 12px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-xs) var(--rds-spacing-xs) var(--rds-spacing-sm);
+    height: var(--rds-input-compact-height);
+    min-height: var(--rds-input-compact-height);
+    max-height: var(--rds-input-compact-height);
+    border-radius: var(--rds-border-radius-lg);
     box-sizing: border-box;
   }
 
   .MuiInputBase-input {
     padding: 0;
-    font-size: var(--rds-font-size-sm, 12px);
+    font-size: var(--rds-font-size-sm);
     height: auto;
   }
 
