@@ -1,5 +1,13 @@
 
 .rds-comp-toast {
+  --rds-toast-dim-1: 2px;
+  --rds-toast-dim-2: 22px;
+  --rds-toast-dim-3: 100px;
+  --rds-toast-dim-4: 120px;
+  --rds-toast-dim-5: 150px;
+  --rds-toast-dim-6: 260px;
+  --rds-toast-dim-7: 420px;
+
   --rds-toast-accent-info: var(--rds-color-info, var(--rds-info-main));
   --rds-toast-accent-success: var(--rds-color-success, var(--rds-success-main));
   --rds-toast-accent-warning: var(--rds-color-warning, var(--rds-warning-main));
@@ -7,11 +15,11 @@
   --rds-toast-accent-basic: var(--rds-color-outline-variant, var(--rds-color-border));
 
   background: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
-  border-radius: var(--rds-border-radius-md, 8px);
+  border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant, var(--rds-color-border));
+  border-radius: var(--rds-border-radius);
   box-shadow: var(--rds-elevation-2);
-  min-width: min(420px, 95vw);
-  max-width: min(420px, 95vw);
+  min-width: min(var(--rds-toast-dim-7), 95vw);
+  max-width: min(var(--rds-toast-dim-7), 95vw);
   overflow: hidden;
 
   &--visible {
@@ -28,23 +36,23 @@
   }
 
   &--basic {
-    border-left: var(--rds-spacing-xxs, 2px) solid var(--rds-toast-accent-basic);
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-basic);
   }
 
   &--info {
-    border-left: var(--rds-spacing-xxs, 2px) solid var(--rds-toast-accent-info);
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-info);
   }
 
   &--success {
-    border-left: var(--rds-spacing-xxs, 2px) solid var(--rds-toast-accent-success);
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-success);
   }
 
   &--warning {
-    border-left: var(--rds-spacing-xxs, 2px) solid var(--rds-toast-accent-warning);
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-warning);
   }
 
   &--error {
-    border-left: var(--rds-spacing-xxs, 2px) solid var(--rds-toast-accent-error);
+    border-left: var(--rds-border-width-heavy) solid var(--rds-toast-accent-error);
   }
 
   &--border-basic,
@@ -62,15 +70,15 @@
   }
 
   &--download {
-    min-height: 120px;
+    min-height: var(--rds-toast-dim-4);
   }
 
   &--chat {
-    min-height: 150px;
+    min-height: var(--rds-toast-dim-5);
   }
 
   &--request {
-    min-height: 100px;
+    min-height: var(--rds-toast-dim-3);
   }
 
   &__container {
@@ -136,12 +144,12 @@
   &__header-content {
     display: flex;
     align-items: flex-start;
-    padding: var(--rds-spacing-lg, 24px) var(--rds-spacing-lg, 24px) var(--rds-spacing-md, 16px) var(--rds-spacing-xs, 4px);
-    gap: var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-xs);
+    gap: var(--rds-spacing-md);
   }
 
   &--chat &__header-content {
-    padding: var(--rds-spacing-lg, 24px) var(--rds-spacing-lg, 24px) var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
+    padding: var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-md) var(--rds-spacing-lg);
     gap: 0;
   }
 
@@ -150,22 +158,22 @@
     display: flex;
     align-items: center;
     height: 100%;
-    margin-top: var(--rds-spacing-xxs, 2px);
-    width: var(--rds-size-lg, 24px);
-    min-width: var(--rds-size-lg, 24px);
-    max-width: var(--rds-size-lg, 24px);
+    margin-top: var(--rds-spacing-xxs);
+    width: var(--rds-size-lg);
+    min-width: var(--rds-size-lg);
+    max-width: var(--rds-size-lg);
     justify-content: center;
   }
 
   &__icon {
     display: inline-block;
-    width: var(--rds-size-md, 16px);
-    height: var(--rds-size-md, 16px);
+    width: var(--rds-size-20);
+    height: var(--rds-size-20);
     border-radius: var(--rds-border-radius-pill);
     vertical-align: middle;
 
     &--circle {
-      border: var(--rds-spacing-xxs, 2px) solid var(--rds-toast-circle-color);
+      border: var(--rds-border-width-medium) solid var(--rds-toast-circle-color);
       box-sizing: border-box;
     }
 
@@ -194,21 +202,21 @@
         content: '';
         position: absolute;
         background: var(--rds-toast-plus-color);
-        border-radius: var(--rds-border-radius-xs, 2px);
+        border-radius: var(--rds-border-radius-xs);
       }
 
       &::before {
-        width: var(--rds-spacing-xxs, 2px);
-        height: var(--rds-spacing-md, 16px);
-        top: var(--rds-spacing-xs, 4px);
-        left: var(--rds-spacing-lg, 24px);
+        width: var(--rds-toast-dim-1);
+        height: var(--rds-size-12);
+        top: var(--rds-spacing-xs);
+        left: var(--rds-spacing-9-px);
       }
 
       &::after {
-        width: var(--rds-spacing-md, 16px);
-        height: var(--rds-spacing-xxs, 2px);
-        top: var(--rds-spacing-lg, 24px);
-        left: var(--rds-spacing-xs, 4px);
+        width: var(--rds-size-12);
+        height: var(--rds-toast-dim-1);
+        top: var(--rds-spacing-9-px);
+        left: var(--rds-spacing-xs);
       }
     }
 
@@ -231,13 +239,13 @@
 
   &__title {
     flex: 1;
-    font-size: var(--rds-font-size-body1, 1rem);
+    font-size: var(--rds-font-size-base);
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-on-surface);
     margin: 0;
     display: flex;
     align-items: center;
-    min-height: 22px;
+    min-height: var(--rds-toast-dim-2);
   }
 
   &--chat &__title {
@@ -248,26 +256,26 @@
   &__header-actions {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
-    height: 22px;
+    gap: var(--rds-spacing-md);
+    height: var(--rds-toast-dim-2);
   }
 
   &__chat-time {
-    font-size: var(--rds-font-size-body2, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
   }
 
   &__close-btn {
     background: none;
     border: none;
-    font-size: var(--rds-font-size-xl, 1.5rem);
+    font-size: var(--rds-font-size-lg);
     color: var(--rds-color-on-surface-variant);
     cursor: pointer;
-    padding: var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-xs);
     line-height: 1;
     display: flex;
     align-items: center;
-    height: 22px;
+    height: var(--rds-toast-dim-2);
     box-shadow: none;
     outline: none;
 
@@ -276,15 +284,15 @@
     }
 
     &:focus-visible {
-      outline: var(--rds-spacing-xxs, 2px) solid var(--rds-primary-main);
-      outline-offset: var(--rds-spacing-xxs, 2px);
+      outline: var(--rds-border-width-medium) solid var(--rds-primary-main);
+      outline-offset: 2px;
     }
   }
 
   &__body {
-    padding: 0 var(--rds-spacing-lg, 24px) var(--rds-spacing-md, 16px) var(--rds-spacing-xl, 32px);
+    padding: 0 var(--rds-spacing-lg) var(--rds-spacing-md) 2.2rem;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-body2, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     line-height: 1.5;
   }
 
@@ -295,35 +303,35 @@
   &__body-simple {
     display: flex;
     align-items: center;
-    padding: var(--rds-spacing-lg, 24px);
-    gap: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-lg);
+    gap: var(--rds-spacing-md);
   }
 
   &__text {
     flex: 1;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-body2, 0.875rem);
+    font-size: var(--rds-font-size-sm);
   }
 
   &__footer {
-    padding: 0 var(--rds-spacing-lg, 24px) var(--rds-spacing-lg, 24px) var(--rds-spacing-lg, 24px);
-
+    padding: 0 var(--rds-spacing-lg) var(--rds-spacing-lg) var(--rds-spacing-lg);
+    
     &--request {
-      padding-top: var(--rds-spacing-md, 16px);
+      padding-top: var(--rds-spacing-md);
     }
   }
 
   &__progress {
     display: flex;
     align-items: center;
-    padding: 0 0 0 var(--rds-spacing-xl, 32px);
-    gap: var(--rds-spacing-md, 16px);
-    margin-bottom: var(--rds-spacing-xs, 4px);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    height: var(--rds-spacing-md, 16px);
+    padding: 0 0 0 1.3rem;
+    gap: var(--rds-spacing-md);
+    margin-bottom: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-sm);
+    height: var(--rds-size-12);
     position: relative;
     overflow: visible;
-    min-width: 260px;
+    min-width: var(--rds-toast-dim-6);
     width: 100%;
   }
 
@@ -335,29 +343,29 @@
   }
 
   &__progress-label {
-    font-size: var(--rds-font-size-body2, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
     min-width: var(--rds-size-lg, 24px);
     text-align: right;
   }
 
   &__filename {
-    font-size: var(--rds-font-size-body2, 0.875rem);
+    font-size: var(--rds-font-size-sm);
     color: var(--rds-color-on-surface-variant);
-    margin-bottom: var(--rds-spacing-md, 16px);
-    padding: 0 0 0 var(--rds-spacing-xl, 32px);
+    margin-bottom: var(--rds-spacing-md);
+    padding: 0 0 0 1.3rem;
   }
 
   &__input-group {
-    margin-bottom: var(--rds-spacing-md, 16px);
+    margin-bottom: var(--rds-spacing-md);
   }
 
   &__input {
     width: 100%;
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-    border: 1px solid var(--rds-color-outline-variant, var(--rds-color-border));
-    border-radius: var(--rds-border-radius-sm, 4px);
-    font-size: var(--rds-font-size-body2, 0.875rem);
+    padding: var(--rds-spacing-md) var(--rds-spacing-md);
+    border: var(--rds-border-width-thin) solid var(--rds-color-outline-variant, var(--rds-color-border));
+    border-radius: var(--rds-border-radius-sm);
+    font-size: var(--rds-font-size-base);
     color: var(--rds-color-on-surface);
     background: var(--rds-color-surface-container, var(--rds-color-surface));
     transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
@@ -376,12 +384,12 @@
 
   &__actions {
     display: flex;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
     justify-content: flex-end;
 
     .rds-comp-toast__action-btn {
-      font-size: var(--rds-font-size-body2, 0.875rem);
-      padding: var(--rds-spacing-xxs, 2px) var(--rds-spacing-sm, 8px);
+      font-size: var(--rds-font-size-xs);
+      padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
       min-width: 0;
       height: var(--rds-size-lg, 24px);
       line-height: 1.2;
@@ -390,10 +398,10 @@
 
   &--chat &__actions {
     justify-content: flex-start;
-    margin-top: var(--rds-spacing-md, 16px);
+    margin-top: var(--rds-spacing-md);
   }
 
-  /* G6-148: chat layout via BEM nesting (no !important) */
+  /* G6-148: chat layout via BEM nesting (no) */
   &--chat &__leading-icon {
     display: none;
     width: 0;
@@ -402,12 +410,12 @@
   }
 
   &--chat &__header-content {
-    padding-left: var(--rds-spacing-lg, 24px);
+    padding-left: var(--rds-spacing-lg);
     gap: 0;
   }
 
   &--chat &__body {
-    padding-left: var(--rds-spacing-lg, 24px);
+    padding-left: var(--rds-spacing-lg);
   }
 
   &--chat &__title {
@@ -416,12 +424,12 @@
   }
 
   &__btn {
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 24px);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    font-size: var(--rds-font-size-body2, 0.875rem);
+    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
+    border-radius: var(--rds-border-radius-sm);
+    font-size: var(--rds-font-size-sm);
     font-weight: var(--rds-font-weight-medium, 500);
     cursor: pointer;
-    border: 1px solid transparent;
+    border: var(--rds-border-width-thin) solid transparent;
     transition: all var(--rds-transition-duration-short, 0.2s) ease;
 
     &--primary {

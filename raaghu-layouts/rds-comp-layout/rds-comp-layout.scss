@@ -1,6 +1,19 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-layout-wrapper_basic {
+  --rds-layout-min-height-xs: 100px;
+  --rds-layout-min-height-sm: 120px;
+  --rds-layout-min-height-md: 180px;
+  --rds-layout-min-height-lg: 200px;
+  --rds-layout-min-height-xl: 240px;
+  --rds-layout-min-height-2xl: 300px;
+  --rds-layout-min-height-3xl: 360px;
+  --rds-layout-min-height-4xl: 400px;
+  --rds-layout-min-height-5xl: 500px;
+  --rds-layout-min-height-6xl: 600px;
+
+  --rds-box-shadow-card: 0 0 6px 5px rgba(77, 82, 89, 0.07);
+
   min-height: 83vh;
   width: 100%;
   display: flex;
@@ -15,7 +28,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--rds-spacing-sm, 8px);
+  padding: var(--rds-spacing-sm);
 }
 
 
@@ -23,9 +36,9 @@
 .rds-comp-layout__card_basic {
   position: relative;
   padding: var(--rds-spacing-lg); 
-  border: 1px solid var(--rds-border-light);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   background: var(--rds-background-default);
-  min-height: 200px;
+  min-height: var(--rds-layout-min-height-lg);
   height: 83vh;
   width: 100%;
   margin-left: auto;
@@ -34,7 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
- box-shadow: var(--rds-box-shadow-card) !important;
+  box-shadow: var(--rds-box-shadow-card)
 }
 
 
@@ -49,7 +62,7 @@
 }
 
 .rds-comp-layout-inner-wrapper {
-  min-height: 100px;
+  min-height: var(--rds-layout-min-height-xs);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -58,152 +71,152 @@
 
 
 .rds-comp-layout__paper {
-  border: 1px solid var(--rds-border-light);
-  border-radius: var(--rds-border-radius-sm) !important;
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-sm);
   background: var(--rds-background-default);
- box-shadow: var(--rds-box-shadow-card) !important;
+  box-shadow: var(--rds-box-shadow-card);
   
   &--height-xs {
-    min-height: 80px;
+    min-height: var(--rds-size-4xl);
     
     @include bp.up(600) {
-      min-height: 100px;
+      min-height: var(--rds-layout-min-height-xs);
     }
     
     @include bp.up(md) {
-      min-height: 100px;
+      min-height: var(--rds-layout-min-height-xs);
     }
   }
   
   &--height-sm {
-    min-height: 80px;
+    min-height: var(--rds-size-4xl);
     
     @include bp.up(600) {
-      min-height: 120px;
+      min-height: var(--rds-layout-min-height-sm);
     }
     
     @include bp.up(md) {
-      min-height: 120px;
+      min-height: var(--rds-layout-min-height-sm);
     }
   }
   
   &--height-md {
-    min-height: 120px;
+    min-height: var(--rds-layout-min-height-sm);
     
     @include bp.up(600) {
-      min-height: 180px;
+      min-height: var(--rds-layout-min-height-md);
     }
     
     @include bp.up(md) {
-      min-height: 180px;
+      min-height: var(--rds-layout-min-height-md);
     }
   }
   
   &--height-lg {
-    min-height: 180px;
+    min-height: var(--rds-layout-min-height-md);
     
     @include bp.up(600) {
-      min-height: 240px;
+      min-height: var(--rds-layout-min-height-xl);
     }
     
     @include bp.up(md) {
-      min-height: 240px;
+      min-height: var(--rds-layout-min-height-xl);
     }
   }
   
   &--height-xl {
-    min-height: 240px;
+    min-height: var(--rds-layout-min-height-xl);
     
     @include bp.up(600) {
-      min-height: 360px;
+      min-height: var(--rds-layout-min-height-3xl);
     }
     
     @include bp.up(md) {
-      min-height: 360px;
+      min-height: var(--rds-layout-min-height-3xl);
     }
   }
   
   &--height-xxl {
-    min-height: 240px;
+    min-height: var(--rds-layout-min-height-xl);
     
     @include bp.up(600) {
-      min-height: 360px;
+      min-height: var(--rds-layout-min-height-3xl);
     }
     
     @include bp.up(md) {
-      min-height: 400px;
+      min-height: var(--rds-layout-min-height-4xl);
     }
   }
   
   &--height-full {
-    min-height: 240px;
+    min-height: var(--rds-layout-min-height-xl);
     
     @include bp.up(600) {
-      min-height: 360px;
+      min-height: var(--rds-layout-min-height-3xl);
     }
     
     @include bp.up(md) {
-      min-height: 500px;
+      min-height: var(--rds-layout-min-height-5xl);
     }
   }
   
   &--height-tall {
-    min-height: 400px;
+    min-height: var(--rds-layout-min-height-4xl);
     
     @include bp.up(600) {
-      min-height: 600px;
+      min-height: var(--rds-layout-min-height-6xl);
     }
     
     @include bp.up(md) {
-      min-height: 600px;
+      min-height: var(--rds-layout-min-height-6xl);
     }
   }
   
   &--height-spotlight {
-    min-height: 120px;
+    min-height: var(--rds-layout-min-height-sm);
     
     @include bp.up(600) {
-      min-height: 180px;
+      min-height: var(--rds-layout-min-height-md);
     }
     
     @include bp.up(md) {
-      min-height: 400px;
+      min-height: var(--rds-layout-min-height-4xl);
     }
   }
   
   &--height-stacks {
-    min-height: 180px;
+    min-height: var(--rds-layout-min-height-md);
     
     @include bp.up(600) {
-      min-height: 240px;
+      min-height: var(--rds-layout-min-height-xl);
     }
     
     @include bp.up(md) {
-      min-height: 300px;
+      min-height: var(--rds-layout-min-height-2xl);
     }
   }
   
   &--height-relaxed-left {
-    min-height: 180px;
+    min-height: var(--rds-layout-min-height-md);
     
     @include bp.up(600) {
-      min-height: 600px;
+      min-height: var(--rds-layout-min-height-6xl);
     }
     
     @include bp.up(md) {
-      min-height: 600px;
+      min-height: var(--rds-layout-min-height-6xl);
     }
   }
   
   &--height-relaxed-big {
-    min-height: 180px;
+    min-height: var(--rds-layout-min-height-md);
     
     @include bp.up(600) {
-      min-height: 360px;
+      min-height: var(--rds-layout-min-height-3xl);
     }
     
     @include bp.up(md) {
-      min-height: 360px;
+      min-height: var(--rds-layout-min-height-3xl);
     }
   }
 }
@@ -243,8 +256,8 @@
   }
   
   .rds-layout-item {
-    flex: none !important;
-    width: 100% !important;
+    flex: none;
+    width: 100%;
   }
 }
 

@@ -20,6 +20,9 @@ SCAN_DIRS=(
 
 HEX_PATTERN='#[0-9a-fA-F]{3,8}'
 
+# Paths allowlisted for hex (SVG attribute selectors / map chrome) — same as check-no-hex.mjs
+ALLOWLIST_PATH_RE='rds-comp-map/rds-comp-map\.scss'
+
 # ---------------------------------------------------------------------------
 # Validate baseline file
 # ---------------------------------------------------------------------------
@@ -51,6 +54,12 @@ for dir in "${SCAN_DIRS[@]}"; do
   while IFS= read -r -d '' scss_file; do
     # Exclude stories / test / spec files
     if echo "$scss_file" | grep -qE '(stories|test|spec)'; then
+      continue
+    fi
+
+    # Normalize path separators for allowlist match (Windows/Git Bash)
+    rel_posix=$(echo "$scss_file" | sed "s|^$REPO_ROOT/||" | tr '\\' '/')
+    if echo "$rel_posix" | grep -qE "$ALLOWLIST_PATH_RE"; then
       continue
     fi
 

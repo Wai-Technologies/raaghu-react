@@ -127,6 +127,8 @@ export const colorTokens = {
     700: '#1565C0',
     800: '#0D47A1',
     900: '#0B3D91',
+    /** Accent cyan used by color-picker swatches / charts */
+    variant: '#00E5FF',
   },
 
   /** Fixed accent pairs used by color-palette / utility UI (not full 50–900 scales). */
@@ -315,6 +317,21 @@ export const spacingExact = {
   '170': '170px',
   '235': '235px',
   '240': '240px',
+  // Repeated legacy layout offsets (legacy SCSS — not for new code)
+  '17': '17px',
+  '35': '35px',
+  '45': '45px',
+  '50': '50px',
+  '55': '55px',
+  '63': '63px',
+  '70': '70px',
+  '76': '76px',
+  '84': '84px',
+  '90': '90px',
+  '100': '100px',
+  '200': '200px',
+  '210': '210px',
+  '250': '250px',
   // Negative offsets (layout adjustments in legacy components — not for new code)
   'neg-1': '-1px',
   'neg-2': '-2px',
@@ -325,10 +342,15 @@ export const spacingExact = {
   'neg-9': '-9px',
   'neg-14': '-14px',
   'neg-16': '-16px',
+  'neg-17': '-17px',
+  'neg-18': '-18px',
   'neg-20': '-20px',
   'neg-25': '-25px',
   'neg-35': '-35px',
+  'neg-67': '-67px',
   'neg-80': '-80px',
+  'neg-93': '-93px',
+  'neg-180': '-180px',
 } as const;
 
 // Border Radius Tokens
@@ -343,6 +365,46 @@ export const radiusTokens = {
   '3xl': '1.5rem',   // 24px
   full: '9999px',
 };
+
+/** Border width tokens (exact px for hairline / chrome borders) */
+export const borderWidthTokens = {
+  none: '0px',
+  hairline: '0.5px',
+  thin: '1px',
+  emphasis: '1.5px',
+  medium: '2px',
+  bold: '2.5px',
+  thick: '3px',
+  heavy: '4px',
+} as const;
+
+/**
+ * Control / icon / chrome size tokens (exact px for layout snapping).
+ * Prefer these for width/height — not spacing tokens.
+ */
+export const sizeTokens = {
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
+  '2xl': '48px',
+  '3xl': '64px',
+  '4xl': '80px',
+  '5xl': '96px',
+  '6xl': '96px', // alias kept for existing --rds-size-6xl consumers
+  // Numeric control sizes (high-frequency in component SCSS)
+  '12': '12px',
+  '14': '14px',
+  '18': '18px',
+  '20': '20px',
+  '28': '28px',
+  '36': '36px',
+  '40': '40px',
+  '44': '44px',
+  '56': '56px',
+  colorBtn: '32px',
+} as const;
 
 // Shadow Tokens
 export const shadowTokens = {
@@ -778,6 +840,7 @@ export const componentTokens = {
     iconSizeXs: '22px',
     popoverWidth: '45px',
     inlineMinWidth: '36px',
+    skinToneSize: '32px',
   },
 
   emptyState: {
@@ -944,6 +1007,10 @@ export const alphaTokens = {
   actionActiveLight: 'rgba(0, 0, 0, 0.54)',
   /** Disabled state (light) */
   actionDisabledLight: 'rgba(0, 0, 0, 0.26)',
+  /** Disabled background (light) — MUI action.disabledBackground */
+  actionDisabledBgLight: 'rgba(0, 0, 0, 0.12)',
+  /** Selected state background (light) — MUI action.selected */
+  actionSelectedLight: 'rgba(0, 0, 0, 0.08)',
 
   // ── Dark-theme action states ──────────────────────────────────────────────
   /** Hover state background (dark) */
@@ -952,6 +1019,10 @@ export const alphaTokens = {
   actionActiveDark: 'rgba(255, 255, 255, 0.16)',
   /** Disabled state (dark) */
   actionDisabledDark: 'rgba(255, 255, 255, 0.3)',
+  /** Disabled background (dark) — MUI action.disabledBackground */
+  actionDisabledBgDark: 'rgba(255, 255, 255, 0.12)',
+  /** Selected state background (dark) — MUI action.selected */
+  actionSelectedDark: 'rgba(255, 255, 255, 0.16)',
 
   // ── Border alphas ─────────────────────────────────────────────────────────
   /** Light-theme border with opacity */
@@ -968,6 +1039,10 @@ export const alphaTokens = {
   // ── Modal backdrop ────────────────────────────────────────────────────────
   /** Modal backdrop scrim */
   modalBackdrop: 'rgba(0, 0, 0, 0.5)',
+  /** Light chart tick / label backdrop */
+  backdropLight: 'rgba(255, 255, 255, 0.75)',
+  /** Generic soft shadow color (slider thumbs, overlays) */
+  shadowColor: 'rgba(0, 0, 0, 0.6)',
 
   // ── Dark-theme toggle / scrollbar ─────────────────────────────────────────
   /** Toggle group border (dark) */
@@ -1115,7 +1190,7 @@ export const tooltipTokens = {
  * E-signature component tokens.
  */
 export const esignatureTokens = {
-  drawHeight: 'var(--rds-signature-draw-height, 280px)',
+  drawHeight: '280px',
   spacingMd: 'var(--rds-spacing-md)',
 };
 
@@ -1301,6 +1376,8 @@ export const designTokens = {
   typography: typographyTokens,
   spacing: spacingTokens,
   radius: radiusTokens,
+  borderWidth: borderWidthTokens,
+  size: sizeTokens,
   shadow: shadowTokens,
   animation: animationTokens,
   zIndex: zIndexTokens,

@@ -94,7 +94,7 @@ const RdsToggleButton = ({
       ? 'rds-toggle-button--medium'
       : 'rds-toggle-button--small';
 
-  const iconGap = iconTextSpacing !== undefined ? `${iconTextSpacing}px` : 'var(--rds-spacing-xs, 8px)';
+  const iconGap = iconTextSpacing !== undefined ? `${iconTextSpacing}px` : 'var(--rds-spacing-xs)';
 
   const handleChange = (event: MouseEvent<HTMLElement>, newValue: string | string[] | null) => {
     if (mustSelect) {
@@ -144,7 +144,7 @@ const RdsToggleButton = ({
             gap: 'var(--rds-toggle-button-spacing)',
             backgroundColor: 'transparent',
             '& .MuiToggleButtonGroup-grouped': {
-              borderRadius: 'var(--rds-border-radius-sm, 4px)',
+              borderRadius: 'var(--rds-border-radius-sm)',
               border: '1px solid',
               borderColor: 'divider',
               margin: 0,

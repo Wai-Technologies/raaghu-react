@@ -14,7 +14,7 @@
         }
         
         &:focus-visible {
-          outline: 2px solid var(--rds-color-primary);
+          outline: var(--rds-border-width-medium) solid var(--rds-color-primary);
           outline-offset: 2px;
         }
         
@@ -118,11 +118,11 @@
 
   &__label {
     font-weight: 500;
-    padding: 0 var(--rds-spacing-sm, 0.75rem);
+    padding: 0 var(--rds-spacing-sm);
   }
   
   &__badge {
-    margin-left: var(--rds-spacing-xs, 0.25rem);
+    margin-left: var(--rds-spacing-xs);
   }
   
   &[id="features"] {
@@ -194,7 +194,7 @@
 
 @include bp.down(1023) {
   .bs-md-0 {
-    border-left: 0px solid transparent;
+    border-left: var(--rds-border-width-none) solid transparent;
   }
   
   .rds-comp-navtabs {

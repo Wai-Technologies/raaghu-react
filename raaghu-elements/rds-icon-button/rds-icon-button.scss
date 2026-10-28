@@ -1,5 +1,12 @@
 .rds-icon-button--outlined {
-  border: var(--rds-icon-button-outlined-border-width, 1.5px) solid currentColor;
+  --rds-icon-button-outlined-border-width: 1.5px;
+  --rds-icon-button-size-small: 18px;
+  --rds-icon-button-size-medium: 20px;
+  --rds-icon-button-size-large: 24px;
+  --rds-icon-button-outlined-radius: 6px;
+  --rds-icon-button-outlined-padding: 6px;
+
+  border: var(--rds-icon-button-outlined-border-width) solid currentColor;
 }
 
 .rds-icon-button {
@@ -12,31 +19,31 @@
 
 .rds-icon-button.MuiIconButton-sizeSmall .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeSmall svg {
-  font-size: var(--rds-icon-button-size-small, 18px) !important;
-  width: var(--rds-icon-button-size-small, 18px) !important;
-  height: var(--rds-icon-button-size-small, 18px) !important;
+  font-size: var(--rds-icon-button-size-small);
+  width: var(--rds-icon-button-size-small);
+  height: var(--rds-icon-button-size-small);
 }
 
 .rds-icon-button.MuiIconButton-sizeMedium .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeMedium svg {
-  font-size: var(--rds-icon-button-size-medium, 20px) !important;
-  width: var(--rds-icon-button-size-medium, 20px) !important;
-  height: var(--rds-icon-button-size-medium, 20px) !important;
+  font-size: var(--rds-icon-button-size-medium);
+  width: var(--rds-icon-button-size-medium);
+  height: var(--rds-icon-button-size-medium);
 }
 
 .rds-icon-button.MuiIconButton-sizeLarge .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeLarge svg {
-  font-size: var(--rds-icon-button-size-large, 24px) !important;
-  width: var(--rds-icon-button-size-large, 24px) !important;
-  height: var(--rds-icon-button-size-large, 24px) !important;
+  font-size: var(--rds-icon-button-size-large);
+  width: var(--rds-icon-button-size-large);
+  height: var(--rds-icon-button-size-large);
 }
 
 .rds-icon-button--outlined {
-  border-radius: var(--rds-icon-button-outlined-radius, 6px);
-  padding: var(--rds-icon-button-outlined-padding, 6px);
+  border-radius: var(--rds-icon-button-outlined-radius);
+  padding: var(--rds-icon-button-outlined-padding);
 }
 
 .rds-icon-button:focus-visible {
-  outline: var(--rds-icon-button-focus-ring-width, 2px) solid var(--rds-icon-button-focus-color, var(--rds-info-main));
-  outline-offset: var(--rds-icon-button-focus-ring-width, 2px);
+  outline: var(--rds-icon-button-focus-ring-width) solid var(--rds-icon-button-focus-color, var(--rds-info-main));
+  outline-offset: var(--rds-icon-button-focus-ring-width);
 }

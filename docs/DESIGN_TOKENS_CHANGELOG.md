@@ -31,6 +31,7 @@ Each entry follows this structure:
 
 ### Internal
 - MUI palette (`raaghu-react-themes/src/mui/palette.ts`) now imports resolved token values directly from `colorTokens` rather than duplicating hex strings
+- Shared `tokens/semantic-palette.ts` is the single map of semantic slots → scale steps; both `build-rds-css-vars.ts` and MUI `palette.ts` consume it (parity test in `src/mui/semantic-palette.parity.test.ts`)
 
 ---
 

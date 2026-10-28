@@ -42,32 +42,32 @@
   /* Default and size modifier classes for consistent sizing */
   .spinner-border,
   .spinner-grow {
-    width: var(--rds-spinner-size-default, 30px);
-    height: var(--rds-spinner-size-default, 30px);
+    width: var(--rds-spinner-size-default);
+    height: var(--rds-spinner-size-default);
   }
 
   .spinner-border.spinner--small,
   .spinner-grow.spinner--small {
-    width: var(--rds-spinner-size-small, 15px);
-    height: var(--rds-spinner-size-small, 15px);
+    width: var(--rds-spinner-size-small);
+    height: var(--rds-spinner-size-small);
   }
 
   .spinner-border.spinner--default,
   .spinner-grow.spinner--default {
-    width: var(--rds-spinner-size-default, 30px);
-    height: var(--rds-spinner-size-default, 30px);
+    width: var(--rds-spinner-size-default);
+    height: var(--rds-spinner-size-default);
   }
 
   .spinner-border.spinner--medium,
   .spinner-grow.spinner--medium {
-    width: var(--rds-spinner-size-medium, 35px);
-    height: var(--rds-spinner-size-medium, 35px);
+    width: var(--rds-spinner-size-medium);
+    height: var(--rds-spinner-size-medium);
   }
 
   .spinner-border.spinner--large,
   .spinner-grow.spinner--large {
-    width: var(--rds-spinner-size-large, 45px);
-    height: var(--rds-spinner-size-large, 45px);
+    width: var(--rds-spinner-size-large);
+    height: var(--rds-spinner-size-large);
   }
 
   .text-primary {

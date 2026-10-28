@@ -1,6 +1,11 @@
 @use "sass:list";
 
 .rds-badge {
+  --rds-badge-dim-1: 10px;
+  --rds-badge-dim-2: 15px;
+  --rds-badge-dim-3: 22px;
+  --rds-badge-dim-4: 60px;
+
   position: relative;
   display: inline-flex;
   vertical-align: middle;
@@ -8,21 +13,21 @@
   // badge sizing and shadow are provided by centralized --rds-* tokens
   
   & .MuiBadge-badge {
-    background-color: var(--rds-primary-main) !important;
-    color: var(--rds-neutral-0) !important;
-    font-weight: var(--rds-font-weight-medium, 500) !important;
-    font-size: var(--rds-badge-dot-font-size, 0.75rem) !important;
-    min-width: var(--rds-badge-dot-min-size, 20px) !important;
-    height: var(--rds-badge-dot-min-size, 20px) !important;
-    border-radius: var(--rds-border-radius-md, 8px) !important;
-   padding: 0 var(--rds-badge-dot-padding-x)!important;
-    font-family: var(--rds-font-family-base) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    line-height: 1 !important;
-    white-space: nowrap !important;
-    max-width: fit-content !important;
+    background-color: var(--rds-primary-main);
+    color: var(--rds-neutral-0);
+    font-weight: var(--rds-font-weight-medium, 500);
+    font-size: var(--rds-badge-dot-font-size);
+    min-width: var(--rds-badge-dot-min-size);
+    height: var(--rds-badge-dot-min-size);
+    border-radius: var(--rds-border-radius-md);
+    padding: 0 var(--rds-badge-dot-padding-x);
+    font-family: var(--rds-font-family-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    white-space: nowrap;
+    max-width: fit-content;
   }
   
   & > .rds-badge__badge {
@@ -46,11 +51,11 @@
     letter-spacing: 0;
     text-align: center;
     vertical-align: middle;
-    box-shadow: var(--rds-badge-pill-shadow, var(--rds-elevation-1));
-  padding: var(--rds-spacing-xs) var(--rds-spacing-18);
-    min-width: var(--rds-spacing-60);
+    box-shadow: var(--rds-badge-pill-shadow);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-18);
+    min-width: var(--rds-badge-dim-4);
     height: var(--rds-size-xl);
-    border-radius: var(--rds-border-radius-xl, 16px);
+    border-radius: var(--rds-border-radius-xl);
   }
   &--primary > .rds-badge__badge {
     background: var(--rds-primary-100);
@@ -58,35 +63,41 @@
     border: none;
   }
   &--primary .MuiBadge-badge {
-    background-color: var(--rds-primary-main) !important;
-    color: var(--rds-neutral-0) !important;
+    background-color: var(--rds-primary-main);
+    color: var(--rds-neutral-0);
   }
   
   &--outline > .rds-badge__badge {
     background: transparent;
     color: var(--rds-primary-main);
-    border: 2px solid var(--rds-primary-main);
+    border: var(--rds-border-width-medium) solid var(--rds-primary-main);
     box-shadow: none;
   }
   &--outline .MuiBadge-badge {
-    background-color: transparent !important;
-    color: var(--rds-primary-main) !important;
-    border: 2px solid var(--rds-primary-main) !important;
+    background-color: transparent;
+    color: var(--rds-primary-main);
+    border: var(--rds-border-width-medium) solid var(--rds-primary-main);
   }
   
   &--transparent > .rds-badge__badge {
-    background: transparent !important;
+    background: transparent;
     color: var(--rds-primary-main);
-    border: none !important;
-    box-shadow: none !important;
+    border: none;
+    box-shadow: none;
   }
   &--transparent .MuiBadge-badge {
-    background-color: transparent !important;
-    color: var(--rds-primary-main) !important;
-    border: none !important;
-    box-shadow: none !important;
+    background-color: transparent;
+    color: var(--rds-primary-main);
+    border: none;
+    box-shadow: none;
   }
 
+  &--rectangle > .rds-badge__badge {
+    border-radius: var(--rds-border-radius-sm);
+  }
+  &--pill > .rds-badge__badge {
+    border-radius: var(--rds-border-radius-xl);
+  }
 
   $rds-badge-colors: (
     primary: (var(--rds-primary-main) var(--rds-neutral-0)),
@@ -107,21 +118,21 @@
     }
     
     &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
-      background-color: list.nth($value, 1) !important;
-      color: list.nth($value, 2) !important;
+      background-color: list.nth($value, 1);
+      color: list.nth($value, 2);
     }
 
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
       color: list.nth($value, 1);
       background-color: transparent;
-      border: 2px solid list.nth($value, 1);
+      border: var(--rds-border-width-medium) solid list.nth($value, 1);
       box-shadow: none;
     }
     
     &.rds-badge--outline.rds-badge--#{$key} .MuiBadge-badge {
-      background-color: transparent !important;
-      color: list.nth($value, 1) !important;
-      border: 2px solid list.nth($value, 1) !important;
+      background-color: transparent;
+      color: list.nth($value, 1);
+      border: var(--rds-border-width-medium) solid list.nth($value, 1);
     }
 
     &.rds-badge--transparent.rds-badge--#{$key} > .rds-badge__badge {
@@ -132,34 +143,34 @@
     }
     
     &.rds-badge--transparent.rds-badge--#{$key} .MuiBadge-badge {
-      background-color: transparent !important;
-      color: list.nth($value, 1) !important;
-      border: none !important;
-      box-shadow: none !important;
+      background-color: transparent;
+      color: list.nth($value, 1);
+      border: none;
+      box-shadow: none;
     }
   }
   &--rectangle > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-sm, 4px) !important;
+    border-radius: var(--rds-border-radius-sm);
   }
   &--pill > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-xl, 16px) !important;
+    border-radius: var(--rds-border-radius-xl);
   }
   &--disabled > .rds-badge__badge {
-    background: var(--rds-neutral-100) !important;
-    color: var(--rds-neutral-400) !important;
-    border: none !important;
-    box-shadow: none !important;
-    cursor: not-allowed !important;
+    background: var(--rds-neutral-100);
+    color: var(--rds-neutral-400);
+    border: none;
+    box-shadow: none;
+    cursor: not-allowed;
     opacity: 0.7;
     pointer-events: none;
     transition: none;
   }
   &--disabled .MuiBadge-badge {
-    background-color: var(--rds-neutral-100) !important;
-    color: var(--rds-neutral-400) !important;
-    border: none !important;
-    box-shadow: none !important;
-    cursor: not-allowed !important;
+    background-color: var(--rds-neutral-100);
+    color: var(--rds-neutral-400);
+    border: none;
+    box-shadow: none;
+    cursor: not-allowed;
     opacity: 0.7;
     pointer-events: none;
     transition: none;
@@ -168,157 +179,157 @@
    font-size: var(--rds-font-size-xs);
     padding: var(--rds-spacing-xxs) var(--rds-spacing-3);
     border-radius: var(--rds-border-radius-md);
-    min-width: var(--rds-size-2xl, 40px);
+    min-width: var(--rds-size-40);
     height: var(--rds-size-lg);
     line-height: 20px;
   }
   &--small .MuiBadge-badge {
-    font-size: var(--rds-font-size-xs) !important;
-    min-width: var(--rds-size-md) !important;
-    height: var(--rds-size-md) !important;
-    border-radius: var(--rds-border-radius-md, 8px) !important;
-    padding: 0 var(--rds-spacing-xs, 4px) !important;
-    line-height: 1 !important;
-    display: grid !important;
-    place-items: center !important;
+    font-size: 0.625rem;
+    min-width: var(--rds-size-md);
+    height: var(--rds-size-md);
+    border-radius: var(--rds-border-radius-md);
+    padding: 0 var(--rds-spacing-xs);
+    line-height: 1;
+    display: grid;
+    place-items: center;
 
   }
   &--small .MuiBadge-dot {
-    width: var(--rds-spacing-cozy, 10px) !important;
-    height: var(--rds-spacing-cozy, 10px) !important;
-   min-width: var(--rds-spacing-sm, 8px) !important;
-    border-radius: var(--rds-border-radius-pill) !important;
+    width: var(--rds-badge-dim-1);
+    height: var(--rds-badge-dim-1);
+    min-width: var(--rds-size-sm);
+    border-radius: var(--rds-border-radius-pill);
   }
 
   &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
   &.rds-badge--medium:has(> .MuiSvgIcon-root) .MuiBadge-dot {
-    width: 18px !important;
-    height: 18px !important;
-    min-width: 18px !important;
-    border-radius: var(--rds-border-radius-pill) !important;
+    width: var(--rds-size-18);
+    height: var(--rds-size-18);
+    min-width: var(--rds-size-18);
+    border-radius: var(--rds-border-radius-pill);
   }
 
   &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
   &.rds-badge--large:has(> .MuiSvgIcon-root) .MuiBadge-dot {
-    width: 22px !important;
-    height: 22px !important;
-    min-width: 22px !important;
-    border-radius: var(--rds-border-radius-pill) !important;
+    width: var(--rds-badge-dim-3);
+    height: var(--rds-badge-dim-3);
+    min-width: var(--rds-badge-dim-3);
+    border-radius: var(--rds-border-radius-pill);
   }
 
   &.rds-badge--small .MuiBadge-badge,
   &.rds-badge--small .MuiBadge-root .MuiBadge-badge,
   &--small .MuiBadge-badge {
-    display: grid !important;
-    place-items: center !important;
-    padding: var(--rds-spacing-xxs) !important;
-    line-height: 1 !important;
-    height: 15px !important;
-    min-width: 15px !important;
-    vertical-align: middle !important;
+    display: grid;
+    place-items: center;
+    padding: var(--rds-spacing-xxs);
+    line-height: 1;
+    height: var(--rds-badge-dim-2);
+    min-width: var(--rds-badge-dim-2);
+    vertical-align: middle;
   }
 
   &.rds-badge--small .MuiBadge-badge > *,
   &--small .MuiBadge-badge > * {
-    transform: none !important;
-    margin: 0 !important;
+    transform: none;
+    margin: 0;
   }
 
   &.rds-badge--small .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
   &.rds-badge--small:has(.MuiAvatar-root) .MuiBadge-badge {
-    transform: translate(3px, -3px) !important;
+    transform: translate(3px, -3px);
   }
 
   &.rds-badge--small .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
   &.rds-badge--small:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
-    transform: translate(8px, -6px) !important;
+    transform: translate(8px, -6px);
   }
 
   &.rds-badge--small .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
   &.rds-badge--small:has(.MuiIconButton-root) .MuiBadge-badge {
-    transform: none !important;
+    transform: none;
   }
 
   &.rds-badge--medium .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
   &.rds-badge--medium:has(.MuiAvatar-root) .MuiBadge-badge {
-    transform: translate(6px, -9px) !important;
+    transform: translate(6px, -9px);
   }
 
   &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
   &.rds-badge--medium:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
-  transform: translate(12px, -10px) !important;
+  transform: translate(12px, -10px);
   }
 
   &.rds-badge--medium .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
   &.rds-badge--medium:has(.MuiIconButton-root) .MuiBadge-badge {
-    transform: none !important;
+    transform: none;
   }
 
   &.rds-badge--medium .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot),
   &.rds-badge--medium:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot) {
-    transform: translate(5px, -2px) !important;
+    transform: translate(5px, -2px);
   }
 
   &.rds-badge--large .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
   &.rds-badge--large:has(.MuiAvatar-root) .MuiBadge-badge {
-    transform: translate(10px, -12px) !important;
+    transform: translate(10px, -12px);
   }
 
   &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
   &.rds-badge--large:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
-  transform: translate(15px, -15px) !important;
+  transform: translate(15px, -15px);
   }
 
   &.rds-badge--large .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
   &.rds-badge--large:has(.MuiIconButton-root) .MuiBadge-badge {
-    transform: none !important;
+    transform: none;
   }
 
   &.rds-badge--large .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot),
   &.rds-badge--large:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot) {
-    transform: translate(12px, -6px) !important;
+    transform: translate(12px, -6px);
   }
   
   &--medium .rds-badge__badge {
-   font-size: var(--rds-font-size-md);
+    font-size: 1rem;
     padding: var(--rds-spacing-xs) var(--rds-spacing-18);
-    border-radius: var(--rds-border-radius-lg, 12px);
-    min-width: var(--rds-spacing-60);
+    border-radius: var(--rds-border-radius-lg);
+    min-width: var(--rds-badge-dim-4);
     height: var(--rds-size-xl);
   }
   &--medium .MuiBadge-badge {
-    font-size: var(--rds-badge-dot-font-size, 0.75rem) !important;
-    min-width: var(--rds-badge-dot-min-size, 20px) !important;
-    height: var(--rds-badge-dot-min-size, 20px) !important;
-    border-radius: var(--rds-border-radius-md, 8px) !important;
-    padding: 0 var(--rds-badge-dot-padding-x, 6px) !important;
+    font-size: var(--rds-badge-dot-font-size);
+    min-width: var(--rds-badge-dot-min-size);
+    height: var(--rds-badge-dot-min-size);
+    border-radius: var(--rds-border-radius-md);
+    padding: 0 var(--rds-badge-dot-padding-x);
   }
   
   &--large .rds-badge__badge {
     font-size: var(--rds-font-size-xl);
     padding: var(--rds-spacing-compact) var(--rds-spacing-lg);
-    border-radius: var(--rds-border-radius-xl, 16px);
-    min-width: var(--rds-size-5xl, 80px);
-    height: var(--rds-spacing-10);
+    border-radius: var(--rds-border-radius-xl);
+    min-width: var(--rds-size-4xl);
+    height: var(--rds-size-40);
   }
   &--large .MuiBadge-badge {
-    font-size: var(--rds-font-size-sm) !important;
-    min-width: var(--rds-size-lg) !important;
-    height: var(--rds-size-lg) !important;
-    border-radius: var(--rds-border-radius-lg, 12px) !important;
-    padding: 0 var(--rds-spacing-sm) !important;
+    font-size: 0.875rem;
+    min-width: var(--rds-size-lg);
+    height: var(--rds-size-lg);
+    border-radius: var(--rds-border-radius-lg);
+    padding: 0 var(--rds-spacing-sm);
   }
   
   &__badge {
     position: static;
     background: var(--rds-primary-100);
     color: var(--rds-primary-800);
-    border-radius: var(--rds-border-radius-xl, 16px);
+    border-radius: var(--rds-border-radius-xl);
     font-weight: var(--rds-font-weight-semibold, 600);
-   box-shadow: var(--rds-badge-pill-shadow, var(--rds-elevation-1));
+    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
     padding: var(--rds-spacing-xs) var(--rds-spacing-18);
-    font-size: var(--rds-font-size-body1);
-   min-width: var(--rds-spacing-60);
+    font-size: 1rem;
+    min-width: var(--rds-badge-dim-4);
     height: var(--rds-size-xl);
     display: flex;
     align-items: center;

@@ -105,7 +105,7 @@ figma.connect(
           align: 'center',
           autoSkip: true,
           autoSkipPadding: 3,
-          backdropColor: "var(--rds-backdrop-color, rgba(255, 255, 255, 0.75))",
+          backdropColor: "var(--rds-backdrop-color)",
           backdropPadding: 2,
           color: "var(--rds-text-secondary)",
           crossAlign: 'near',

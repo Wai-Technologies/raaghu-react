@@ -1,6 +1,17 @@
+/* auto size dims */
+--rds-off-canvas-dim-1: 320px;
+--rds-off-canvas-dim-2: 375px;
+--rds-off-canvas-dim-3: 400px;
+
 /* G6-055: scope drawer chrome / placement under .offcanvas-drawer (no global .placement-* / header leaks) */
 
 .offcanvas-drawer {
+
+  --rds-offcanvas-header-bg: transparent;
+  --rds-icon-button-size: 36px;
+  --rds-icon-button-svg-size: 16px;
+  --rds-icon-button-lg-size: 40px;
+  --rds-icon-button-lg-svg-size: 18px;
 
   .offcanvas-header {
 
@@ -12,7 +23,7 @@
 
   .offcanvas-title {
 
-    font-size: var(--font-size-xl, 18px);
+    font-size: var(--font-size-xl);
 
     font-style: normal;
 
@@ -30,7 +41,7 @@
 
     padding: 0;
 
-    width: var(--rds-offcanvas-width, 650px);
+    width: var(--rds-offcanvas-width);
 
     height: var(--rds-offcanvas-height, 100%);
 
@@ -46,7 +57,7 @@
 
     width: 100%;
 
-    height: var(--rds-offcanvas-top-height, 300px);
+    height: var(--rds-offcanvas-top-height);
 
   }
 
@@ -54,7 +65,7 @@
 
     width: 100%;
 
-    height: var(--rds-offcanvas-top-height, 300px);
+    height: var(--rds-offcanvas-top-height);
 
   }
 
@@ -84,7 +95,7 @@
 
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);
 
-  border-bottom: 1px solid var(--rds-offcanvas-border);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-offcanvas-border);
 
 }
 
@@ -130,7 +141,7 @@
 
   padding: var(--rds-spacing-sm);
 
-  border: 1px solid transparent;
+  border: var(--rds-border-width-thin) solid transparent;
 
   border-radius: var(--rds-border-radius-sm);
 
@@ -242,7 +253,7 @@
 
 #offcanvas-btns .MuiButton-root {
 
-  min-height: 36px;
+  min-height: var(--rds-size-36);
 
   //padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-md);
 
@@ -252,7 +263,7 @@
 
   display: flex;
 
-  gap: calc(var(--rds-spacing-md) - 1px);
+  gap: calc(var(--rds-spacing-md) - var(--rds-spacing-hairline));
 
 }
 
@@ -282,7 +293,7 @@
 
   .offcanvas-drawer .MuiDrawer-paper {
 
-    width: min(375px, 100vw);
+    width: min(var(--rds-off-canvas-dim-2), 100vw);
 
   }
 
@@ -306,7 +317,7 @@
 
   padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
 
-  border: 1px solid transparent;
+  border: var(--rds-border-width-thin) solid transparent;
 
   transition: all 0.2s ease-in-out;
 
@@ -326,7 +337,7 @@
 
   .offcanvas-drawer .MuiDrawer-paper {
 
-    width: min(320px, 100vw);
+    width: min(var(--rds-off-canvas-dim-1), 100vw);
 
   }
 
@@ -374,7 +385,7 @@
 
   .offcanvas-margin .rds-button {
 
-    font-size: var(--rds-font-size-caption, 11px);
+    font-size: var(--rds-font-size-caption);
 
     padding: var(--rds-spacing-tight) var(--rds-spacing-7);
 
@@ -400,7 +411,7 @@
 
   .offcanvas-margin .rds-button span {
 
-    font-size: var(--rds-font-size-caption, 11px);
+    font-size: var(--rds-font-size-caption);
 
     display: inline-block;
 
@@ -470,7 +481,7 @@
 
   #offcanvas-btns .rds-button {
 
-    font-size: var(--rds-font-size-caption, 11px);
+    font-size: var(--rds-font-size-caption);
 
     padding: var(--rds-spacing-tight) var(--rds-spacing-7);
 
@@ -496,7 +507,7 @@
 
   #offcanvas-btns .rds-button span {
 
-    font-size: var(--rds-font-size-caption, 11px);
+    font-size: var(--rds-font-size-caption);
 
     display: inline-block;
 
@@ -512,13 +523,13 @@
 
     padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
 
-    min-width: var(--rds-icon-button-size, 36px);
+    min-width: var(--rds-icon-button-size);
 
-    min-height: var(--rds-icon-button-size, 36px);
+    min-height: var(--rds-icon-button-size);
 
-    width: var(--rds-icon-button-size, 36px);
+    width: var(--rds-icon-button-size);
 
-    height: var(--rds-icon-button-size, 36px);
+    height: var(--rds-icon-button-size);
 
   }
 
@@ -528,9 +539,9 @@
 
   #close-btn .MuiIconButton-root svg {
 
-    width: var(--rds-icon-button-svg-size, 16px);
+    width: var(--rds-icon-button-svg-size);
 
-    height: var(--rds-icon-button-svg-size, 16px);
+    height: var(--rds-icon-button-svg-size);
 
     margin-left: 0;
 
@@ -540,7 +551,7 @@
 
 @media (max-width: 896px) {
 
-  .offcanvas-drawer .MuiDrawer-paper { width: min(400px, 100vw); }
+  .offcanvas-drawer .MuiDrawer-paper { width: min(var(--rds-off-canvas-dim-3), 100vw); }
 
   #offcanvas-btns, .offcanvas-margin {
 
@@ -610,15 +621,15 @@
 
     padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
 
-    width: var(--rds-icon-button-lg-size, 40px); height: var(--rds-icon-button-lg-size, 40px);
+    width: var(--rds-icon-button-lg-size); height: var(--rds-icon-button-lg-size);
 
-    min-width: var(--rds-icon-button-lg-size, 40px); min-height: var(--rds-icon-button-lg-size, 40px);
+    min-width: var(--rds-icon-button-lg-size); min-height: var(--rds-icon-button-lg-size);
 
   }
 
   #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
 
-    width: var(--rds-icon-button-lg-svg-size, 18px); height: var(--rds-icon-button-lg-svg-size, 18px); 
+    width: var(--rds-icon-button-lg-svg-size); height: var(--rds-icon-button-lg-svg-size); 
 
     margin-left: 0;
 

@@ -47,8 +47,8 @@ const applyBarCanvasSizing = (
     chart.canvas.style.height = "var(--rds-comp-chart-bar-barchart1-height, 65vh)";
     chart.canvas.style.width = "100%";
   } else if (id === "histogram") {
-    chart.canvas.style.height = "var(--rds-comp-chart-bar-histogram-size, 50px)";
-    chart.canvas.style.width = "var(--rds-comp-chart-bar-histogram-size, 50px)";
+    chart.canvas.style.height = "var(--rds-comp-chart-bar-histogram-size)";
+    chart.canvas.style.width = "var(--rds-comp-chart-bar-histogram-size)";
   } else {
     chart.canvas.style.height = "var(--rds-comp-chart-bar-default-height, 76vh)";
     chart.canvas.style.width = "100%";

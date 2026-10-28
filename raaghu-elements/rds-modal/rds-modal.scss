@@ -1,12 +1,12 @@
 .rds-modal {
   --rds-modal-mobile-breakpoint: 600px;
-  --rds-modal-container-shadow: 0 var(--rds-spacing-sm, 8px) var(--rds-spacing-xl, 32px) rgba(0, 0, 0, 0.3);
+  --rds-modal-container-shadow: 0 var(--rds-spacing-sm) var(--rds-spacing-xl) rgba(0, 0, 0, 0.3);
   --rds-modal-image-width: 300px;
   --rds-modal-image-height: 150px;
   --rds-modal-image-width-mobile: 190px;
   --rds-modal-animation-delay: 0.1s;
-  --rds-modal-title-close-padding-right: calc(5 * var(--rds-spacing-sm, 8px));
-  --rds-modal-image-mobile-margin-right: calc(1.5 * var(--rds-spacing-xs, 4px));
+  --rds-modal-title-close-padding-right: calc(5 * var(--rds-spacing-sm));
+  --rds-modal-image-mobile-margin-right: calc(1.5 * var(--rds-spacing-xs));
   position: fixed;
   top: 0;
   left: 0;
@@ -33,7 +33,7 @@
     position: relative;
     background-color: var(--rds-background-paper);
     border-radius: var(--rds-spacing-sm);
-    box-shadow: var(--rds-modal-container-shadow, 0 var(--rds-spacing-sm, 8px) var(--rds-spacing-xl, 32px) rgba(0, 0, 0, 0.3));
+    box-shadow: var(--rds-modal-container-shadow, 0 var(--rds-spacing-sm) var(--rds-spacing-xl) rgba(0, 0, 0, 0.3));
     max-width: 90vw;
     max-height: 90vh;
     overflow: hidden;
@@ -42,12 +42,12 @@
     animation: rds-modal-scale-in var(--rds-transition-base)-out forwards;
     animation-delay: var(--rds-modal-animation-delay, 0.1s);
  
-    @media (max-width: var(--rds-modal-mobile-breakpoint, 600px)) {
+    @media (max-width: var(--rds-modal-mobile-breakpoint)) {
       max-width: 98vw;
       max-height: 98vh;
       border-radius: var(--rds-spacing-xs);
       margin: 0 var(--rds-spacing-xs);
-    overflow: hidden !important;
+    overflow: hidden;
     }
   }
  
@@ -71,7 +71,7 @@
     padding-inline: var(--rds-spacing-sm);
 
     &--with-close {
-      padding-inline: var(--rds-spacing-sm) !important;
+      padding-inline: var(--rds-spacing-sm);
     }
 
     &--with-image {
@@ -94,8 +94,8 @@
 
   &__title:not(&__title--with-image) &__close-button {
     position: absolute;
-    right: var(--rds-spacing-sm, 8px);
-    top: var(--rds-spacing-sm, 8px);
+    right: var(--rds-spacing-sm);
+    top: var(--rds-spacing-sm);
   }
  
   &__close {
@@ -116,8 +116,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
-      @media (max-width: var(--rds-modal-mobile-breakpoint, 600px)) {
-        overflow: hidden !important;
+      @media (max-width: var(--rds-modal-mobile-breakpoint)) {
+        overflow: hidden;
       }
   }
 
@@ -142,14 +142,14 @@
   }
  
   &__image {
-    width: var(--rds-modal-image-width, 300px);
-    height: var(--rds-modal-image-height, 150px);
+    width: var(--rds-modal-image-width);
+    height: var(--rds-modal-image-height);
     border-radius: var(--rds-border-radius-sm);
     display: inline-block;
-    @media (max-width: var(--rds-modal-mobile-breakpoint, 600px)) {
-      width: var(--rds-modal-image-width-mobile, 190px);
-      height: var(--rds-modal-image-height, 150px);
-      margin-right: var(--rds-modal-image-mobile-margin-right, calc(1.5 * var(--rds-spacing-xs, 4px)));
+    @media (max-width: var(--rds-modal-mobile-breakpoint)) {
+      width: var(--rds-modal-image-width-mobile);
+      height: var(--rds-modal-image-height);
+      margin-right: var(--rds-modal-image-mobile-margin-right, calc(1.5 * var(--rds-spacing-xs)));
     }
   }
   &__content

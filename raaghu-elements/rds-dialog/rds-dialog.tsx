@@ -37,7 +37,13 @@ export interface RdsDialogProps extends Omit<DialogProps, 'component'> {
   showSecondary?: boolean;
   /** @deprecated Omit `title` instead. */
   showTitle?: boolean;
-  /** @deprecated Use `maxWidth` instead. A `maxWidth` prop takes precedence. */
+  /**
+   * @deprecated Prefer `maxWidth` (`'xs' | 'sm' | 'md' | 'lg' | 'xl' | false`). A `maxWidth` prop takes precedence.
+   *
+   * Dialog width uses MUI’s 5-breakpoint scale (not the component `small`/`medium`/`large` size token):
+   * `'extra-small'`→`xs`, `'small'`→`sm`, `'medium'`→`md`, `'large'`→`lg`, `'extra-large'`→`xl`.
+   * Pass `false` to disable the max-width constraint so the paper grows with its content (same as `maxWidth={false}`).
+   */
   size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large' | false;
   /** Label of the primary button (`standard` variant). Defaults to `'Okay'`. */
   primaryText?: string;

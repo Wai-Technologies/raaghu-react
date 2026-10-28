@@ -6,6 +6,6 @@
     .rds-chart-canvas,
     canvas {
         width: 100%;
-        height: var(--rds-comp-chart-mixed-default-height, var(--rds-comp-chart-bar-default-height));
+        height: var(--rds-comp-chart-bar-default-height);
     }
 }

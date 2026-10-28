@@ -281,7 +281,7 @@ const RdsCompAiAttachment = (props: RdsCompAiAttachmentProps) => {
         slotProps={{
           dropdown: {
             style: {
-              minWidth: "var(--rds-ai-attachment-min-width, 273px)",
+              minWidth: "var(--rds-ai-attachment-min-width)",
               maxWidth: "none",
             },
           },

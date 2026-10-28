@@ -1,17 +1,22 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-banner {
+  --rds-banner-dim-1: 6px;
+  --rds-banner-dim-2: 22px;
+  --rds-banner-dim-3: 26px;
+  --rds-banner-dim-4: 110px;
+
   // banner sizing and offsets are provided by centralized --rds-* tokens
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);
   background-color: var(--rds-background-surface);
-  border: 1px solid var(--rds-border-default);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
   border-radius: var(--rds-spacing-xs);
   gap: var(--rds-spacing-sm);
 
   &__link-button {
-    text-decoration: underline !important;
+    text-decoration: underline;
   }
   &__icon {
     flex-shrink: 0;
@@ -86,21 +91,21 @@
   &--style1 {
     margin-left: var(--rds-spacing-md);
     margin-right: var(--rds-spacing-md);
-    border-bottom-width: 1px;
+    border-bottom-width: var(--rds-border-width-thin);
     border-bottom-style: solid;
     border-bottom-color: var(--rds-alert-warning-border); 
   }
 
   &--style1-outline {
-    border-width: 1px !important;
-    border-style: solid !important;
-    border-color: var(--rds-alert-warning-border) !important;
-    border-radius: var(--rds-spacing-xs) !important;
-    box-sizing: border-box !important;
+    border-width: var(--rds-border-width-thin);
+    border-style: solid;
+    border-color: var(--rds-alert-warning-border);
+    border-radius: var(--rds-spacing-xs);
+    box-sizing: border-box;
   }
 
   &--style3 {
-    border-left: var(--rds-banner-style-left-border-width, 6px) solid;
+    border-left: var(--rds-banner-style-left-border-width) solid;
     
     &.rds-banner--info {
       border-left-color: var(--rds-info-main);
@@ -129,11 +134,11 @@
   :global(.MuiAlert-action) {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 
   :global(.MuiAlert-action .MuiButton-root) {
-    height: 26px;
+    height: var(--rds-banner-dim-3);
     border-radius: var(--rds-spacing-xs);
     text-transform: none;
   }
@@ -158,8 +163,8 @@
 
   &__actions {
     display: flex;
-    gap: var(--rds-spacing-sm, 8px);
-    margin-left: var(--rds-spacing-md, 16px);
+    gap: var(--rds-spacing-sm);
+    margin-left: var(--rds-spacing-md);
     align-items: center;
   }
 
@@ -173,11 +178,11 @@
   }
 
   &__secondary-button {
-    margin-right: var(--rds-spacing-md, 10px);
+    margin-right: var(--rds-spacing-md);
   }
 
   &__primary-button {
-    height: 28px;
+    height: var(--rds-size-28);
   }
 
   &__heading {
@@ -189,14 +194,14 @@
   &__action-container {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 
   &--small {
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     .rds-banner__heading { font-size: 0.875rem; }
     .rds-banner__description { font-size: 0.8125rem; }
-    .rds-banner__primary-button { height: 26px; }
+    .rds-banner__primary-button { height: var(--rds-banner-dim-3); }
   }
 
   &--medium {
@@ -216,116 +221,116 @@
   }
   
   @include bp.down(tablet-md) {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    margin: 0 !important;
-    padding: var(--rds-spacing-sm, 8px) !important;
-    border-radius: 0 !important;
-    overflow: hidden !important;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: var(--rds-spacing-sm);
+    border-radius: 0;
+    overflow: hidden;
     gap: var(--rds-spacing-xs);
     align-items: flex-start;
     position: relative;
-    box-sizing: border-box !important;
+    box-sizing: border-box;
 
     :global(.MuiAlert-root) {
-      width: 100vw !important;
-      max-width: 100vw !important;
-      overflow: hidden !important;
-      margin: 0 !important;
-      border-radius: 0 !important;
-      box-sizing: inherit !important;
-      padding: 0 !important;
+      width: 100vw;
+      max-width: 100vw;
+      overflow: hidden;
+      margin: 0;
+      border-radius: 0;
+      box-sizing: inherit;
+      padding: 0;
     }
 
     .rds-banner {
     .rds-banner__action-container {
-      position: relative !important;
+      position: relative;
     }
 
     .rds-banner__close-button {
-      position: absolute !important;
-      top: -8px !important;
-      top: var(--rds-banner-mobile-offset, -8px) !important;
-      right: var(--rds-banner-mobile-offset, -8px) !important;
-      transform: none !important;
-      margin-top: 0 !important;
+      position: absolute;
+      top: var(--rds-spacing-neg-8);
+      top: var(--rds-banner-mobile-offset);
+      right: var(--rds-banner-mobile-offset);
+      transform: none;
+      margin-top: 0;
     }
   }
 
     :global(.MuiAlert-message) {
-      width: 100% !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: stretch !important;
-      gap: var(--rds-spacing-sm, 8px) !important;
-      overflow: hidden !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      box-sizing: inherit !important;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--rds-spacing-sm);
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      box-sizing: inherit;
     }
 
     :global(.MuiAlert-action) {
-      position: absolute !important;
-      top: 4px !important;
-      right: 4px !important;
-      margin: 0 !important;
-      padding: 0 !important;
+      position: absolute;
+      top: var(--rds-spacing-xs);
+      right: var(--rds-spacing-xs);
+      margin: 0;
+      padding: 0;
       z-index: var(--rds-z-index-raised);
     }
 
     &__content-wrapper {
       display: flex;
       flex-direction: column;
-      gap: var(--rds-spacing-sm, 8px);
-      width: calc(100% - 32px);
+      gap: var(--rds-spacing-sm);
+      width: calc(100% - var(--rds-size-xl));
       overflow: hidden;
       box-sizing: border-box;
-      padding-right: var(--rds-spacing-sm, 8px);
+      padding-right: var(--rds-spacing-sm);
     }
 
     &__text-content { box-sizing: border-box; word-wrap: break-word; overflow: hidden; width: 100%; }
 
     &__actions {
-      display: flex !important;
-      width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow: hidden !important;
-      align-items: center !important;
-      box-sizing: border-box !important;
-      justify-content: flex-start !important;
+      display: flex;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      align-items: center;
+      box-sizing: border-box;
+      justify-content: flex-start;
     }
 
-    &__actions .rds-banner__link-button { order: 1 !important; margin: 0 !important; padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important; white-space: nowrap; flex-shrink: 0 !important; align-self: flex-start !important; }
-    &__actions .rds-banner__secondary-button { order: 2 !important; margin-left: auto !important; margin-right: var(--rds-spacing-xs, 4px) !important; padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important; white-space: nowrap; flex-shrink: 0 !important; }
-    &__actions .rds-banner__primary-button { order: 3 !important; margin: 0 !important; padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px) !important; white-space: nowrap; flex-shrink: 0 !important; }
+    &__actions .rds-banner__link-button { order: 1; margin: 0; padding: var(--rds-spacing-xs) var(--rds-spacing-sm); white-space: nowrap; flex-shrink: 0; align-self: flex-start; }
+    &__actions .rds-banner__secondary-button { order: 2; margin-left: auto; margin-right: var(--rds-spacing-xs); padding: var(--rds-spacing-xs) var(--rds-spacing-sm); white-space: nowrap; flex-shrink: 0; }
+    &__actions .rds-banner__primary-button { order: 3; margin: 0; padding: var(--rds-spacing-xs) var(--rds-spacing-sm); white-space: nowrap; flex-shrink: 0; }
 
     &__heading, &__description { word-wrap: break-word; line-height: 1.4; overflow: hidden; }
 
     &__close-button {
-      position: static !important;
-      min-width: var(--rds-size-lg) !important;
-      width: var(--rds-size-lg) !important;
-      height: var(--rds-size-lg) !important;
-      padding: calc(var(--rds-spacing-xs) / 2) !important;
+      position: static;
+      min-width: var(--rds-size-lg);
+      width: var(--rds-size-lg);
+      height: var(--rds-size-lg);
+      padding: calc(var(--rds-spacing-xs) / 2);
     }
 
     &__action-container {
-      position: absolute !important;
-      top: 4px !important;
-      right: 4px !important;
-      margin: 0 !important;
-      padding: 0 !important;
+      position: absolute;
+      top: var(--rds-spacing-xs);
+      right: var(--rds-spacing-xs);
+      margin: 0;
+      padding: 0;
     }
   }
 
 @include bp.between(mobile-sm, sm) {
-  padding: var(--rds-spacing-xs, 4px) !important;
+  padding: var(--rds-spacing-xs);
     
     &__content-wrapper { 
-      gap: var(--rds-banner-mobile-gap-xs, 6px); 
-      width: calc(100% - 28px);
-      padding-right: var(--rds-banner-mobile-gap-xs, 6px);
+      gap: var(--rds-banner-mobile-gap-xs); 
+      width: calc(100% - var(--rds-size-28));
+      padding-right: var(--rds-banner-mobile-gap-xs);
     }
     
     &__actions {
@@ -333,32 +338,32 @@
   position: relative;
 
   .rds-banner__link-button {
-    position: absolute !important;
-    left: -18px !important;
+    position: absolute;
+    left: var(--rds-spacing-neg-18);
   }
 
       .rds-banner__link-button,
       .rds-banner__secondary-button,
       .rds-banner__primary-button {
-        min-height: 22px;
+        min-height: var(--rds-banner-dim-2);
         font-size: 0.8125rem;
-        padding: calc(var(--rds-spacing-xs, 4px) / 2) calc(1.5 * var(--rds-spacing-xs, 4px)) !important;
+        padding: calc(var(--rds-spacing-xs) / 2) calc(1.5 * var(--rds-spacing-xs));
       }
     }
 
     :global(.MuiAlert-message) {
-      width: calc(100% - 6px) !important;
-      gap: var(--rds-banner-mobile-gap-xs, 6px) !important;
+      width: calc(100% - var(--rds-banner-dim-1));
+      gap: var(--rds-banner-mobile-gap-xs);
     }
 
     &__close-button {
-      min-width: 110px !important;
-      width: 20px !important;
-      height: 40px !important;
+      min-width: var(--rds-banner-dim-4);
+      width: var(--rds-size-20);
+      height: var(--rds-size-40);
     }
 
     &__action-container {
-      right: 2px !important;
+      right: var(--rds-spacing-xxs);
     }
   }
 }
@@ -366,15 +371,15 @@
 @include bp.between(mobile-lg, tablet-md) {
   .rds-banner {
     .rds-banner__action-container {
-      position: relative !important;
+      position: relative;
     }
 
     .rds-banner__close-button {
-      position: absolute !important;
-      top: var(--rds-banner-mobile-offset, -8px) !important;
-      right: var(--rds-banner-mobile-offset, -8px) !important;
-      transform: none !important;
-      margin-top: 0 !important;
+      position: absolute;
+      top: var(--rds-banner-mobile-offset);
+      right: var(--rds-banner-mobile-offset);
+      transform: none;
+      margin-top: 0;
     }
   }
 }

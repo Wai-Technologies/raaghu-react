@@ -764,7 +764,7 @@ export const rdsAppBarSx: AppBarSx[] = [
 
     '.rds-header__search-clear': {
       position: 'absolute',
-      right: 'var(--rds-spacing-xs, 4px)',
+      right: 'var(--rds-spacing-xs)',
       top: '50%',
       transform: 'translateY(-50%)',
       zIndex: 'calc(var(--rds-z-index-base) + 1)',
@@ -834,7 +834,7 @@ export const rdsAppBarSx: AppBarSx[] = [
             marginLeft: 0,
           },
         '.rds-header__logo + :not(.rds-header__title:empty)': {
-          marginLeft: 'var(--rds-spacing-xs, 4px)',
+          marginLeft: 'var(--rds-spacing-xs)',
         },
         '.rds-header__title:empty': {
           flex: '1 1 auto',

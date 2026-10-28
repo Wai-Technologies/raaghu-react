@@ -169,22 +169,32 @@ All `--rds-*` variables are injected at runtime. The canonical list is in
 
 ## Writing Component SCSS
 
-Always use tokens. Never hardcode hex values.
+Always use tokens. Never hardcode hex, `rgb()`/`rgba()`, spacing, size, border-width, radius, or font-size px in declarations.
 
-Hex may only be authored in `raaghu-react-themes/tokens/design-tokens.ts`.
-Consumers must use bare `var(--rds-*)` (no color hex fallbacks). Enforcement:
+Lengths may only be authored in `raaghu-react-themes/tokens/design-tokens.ts` (globals) or as component-local `--rds-*:` definitions at the top of a component block. Consumers use bare `var(--rds-*)` (no color hex or `px`/`rem` fallbacks). `@media` breakpoints may keep px.
+
+**Pragmatic local lengths:** prefer `--rds-spacing-*` / `--rds-size-*` when the value matches the scale. True one-offs may stay as component-local custom properties with **semantic names** (e.g. `--rds-app-bar-logo-min-width`). Do **not** author new numbered `--rds-*-dim-N` names. New bare `px`/`rem` inside `--…:` definitions are blocked by `lint:local-dim-px` (baseline ratchet).
+
+Enforcement:
 
 - `npm run lint:scss` — stylelint `color-no-hex`
-- `npm run lint:hex` — `scripts/check-no-hex.mjs` for TS/TSX (allowlists token source, color-picker spectrum/API, stories/tests/figma fixtures)
+- `npm run lint:hex` — `scripts/check-no-hex.mjs` (allowlists token source, color-picker spectrum/API, map SVG selectors, stories/tests/figma fixtures)
+- `npm run lint:rgba` — `scripts/check-no-rgba-in-scss.mjs` (no new `rgb()`/`rgba()` in SCSS)
+- `npm run lint:spacing` — `scripts/check-spacing-in-scss.mjs` (no new bare `padding`/`margin`/`gap` px)
+- `npm run lint:raw-px` — `scripts/check-raw-px-in-scss.mjs` (no bare width/height/border/radius/font-size px in declarations)
+- `npm run lint:local-dim-px` — `scripts/check-local-dim-px-in-scss.mjs` (no new bare `px`/`rem` inside `--` custom-property definitions)
+
+One-shot cleanups: `node scripts/strip-px-fallbacks.mjs`; size/border helpers under `scripts/replace-bare-*.mjs`. Phase A backlog: `docs/THEME_INTEGRATION_COMPLETE.md`.
 
 ```scss
 // Good
 .rds-my-component {
   background-color: var(--rds-background-paper);
   color:            var(--rds-text-primary);
-  border:           1px solid var(--rds-divider);
+  border:           var(--rds-border-width-thin) solid var(--rds-divider);
   border-radius:    var(--rds-border-radius-md);
   padding:          var(--rds-spacing-md);
+  width:            var(--rds-size-xl);
   box-shadow:       var(--rds-elevation-2);
   transition:       background-color 200ms ease;
 
@@ -217,11 +227,13 @@ To add a new token:
 1. Add the value to the appropriate export in `tokens/design-tokens.ts`
 2. Map it to a `--rds-*` CSS variable name in `tokens/build-rds-css-vars.ts`
    (add entries to both the light and dark maps)
-3. If the token affects MUI components, add it to `src/mui/palette.ts`
+3. If it is a shared semantic role (e.g. `primary.main`, `text.secondary`),
+   add or adjust it in `tokens/semantic-palette.ts` — MUI `palette.ts` and the
+   core `--rds-*` slots both consume that map (parity test enforces sync)
 4. Use `var(--rds-your-new-token)` in SCSS
 
-**Only edit `design-tokens.ts`** for the raw values — the build script and
-the SCSS are downstream consumers of that file.
+**Only edit `design-tokens.ts`** for raw scale values. Semantic role mappings
+belong in `semantic-palette.ts`; `build-rds-css-vars.ts` and MUI are downstream.
 
 ---
 
@@ -255,5 +267,6 @@ in individual story files.
 | Importing `themes/dark.scss` | These files do not exist |
 | `setMode('semi-dark')` | Only `'light'` and `'dark'` are supported |
 | Wrapping with `GriffelProvider` | Use `RaaghuThemeProvider` |
-| Hardcoding hex in SCSS | Use `var(--rds-*)` tokens |
+| Hardcoding hex / `rgb()` / `rgba()` in SCSS | Use `var(--rds-*)`, `color-mix`, or alpha tokens |
+| New numbered `--rds-*-dim-N: Npx` locals | Semantic local name, or central spacing/size token |
 | Importing individual color variables | Use CSS custom properties at runtime |

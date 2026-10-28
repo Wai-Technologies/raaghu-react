@@ -899,11 +899,10 @@ describe('audit fixes (renames)', () => {
     expect(warnDeprecatedProp).not.toHaveBeenCalled();
   });
 
-  it('options and size default warn; type stays silent', () => {
-    const { container } = render(<RdsMultiLevelMenu options={opts} type="selectable" size="default" />);
+  it('options warn; type stays silent', () => {
+    const { container } = render(<RdsMultiLevelMenu options={opts} type="selectable" size="medium" />);
     expect(container.firstChild).toHaveClass('type-selectable');
     expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsMultiLevelMenu', 'options', '`items`');
-    expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsMultiLevelMenu', 'size="default"', '`size="medium"`');
-    expect(warnDeprecatedProp).toHaveBeenCalledTimes(2);
+    expect(warnDeprecatedProp).toHaveBeenCalledTimes(1);
   });
 });

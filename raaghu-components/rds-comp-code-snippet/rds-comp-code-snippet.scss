@@ -1,11 +1,18 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-code-snippet {
-  border-radius: var(--rds-border-radius, 8px);
-  border: 1px solid var(--rds-color-border);
+  --rds-code-snippet-dim-1: 1px;
+  --rds-code-snippet-dim-2: 30px;
+  --rds-code-snippet-dim-3: 68px;
+  --rds-code-snippet-dim-4: 72px;
+  --rds-code-snippet-dim-5: 120px;
+  --rds-code-snippet-dim-6: 400px;
+
+  border-radius: var(--rds-border-radius);
+  border: var(--rds-border-width-thin) solid var(--rds-color-border);
   overflow: hidden;
   font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-sm, 14px);
+  font-size: var(--rds-font-size-sm);
 
   &__container {
     position: relative;
@@ -19,13 +26,13 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-    gap: var(--rds-spacing-xs, 12px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+    gap: var(--rds-spacing-xs);
     position: relative;
 
     .rds-button.MuiButton-root {
-      height: 32px;
-      min-height: 32px;
+      height: var(--rds-size-xl);
+      min-height: var(--rds-size-xl);
       box-sizing: border-box;
     }
 
@@ -33,9 +40,9 @@
       content: '';
       position: absolute;
       bottom: 0;
-      left: calc(-1 * var(--rds-spacing-md, 16px));
-      right: calc(-1 * var(--rds-spacing-md, 16px));
-      height: 1px;
+      left: calc(-1 * var(--rds-spacing-md));
+      right: calc(-1 * var(--rds-spacing-md));
+      height: var(--rds-code-snippet-dim-1);
       background-color: var(--rds-color-border);
     }
 
@@ -43,11 +50,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-md);
 
       &::after {
-        left: calc(-1 * var(--rds-spacing-md, 16px));
-        right: calc(-1 * var(--rds-spacing-md, 16px));
+        left: calc(-1 * var(--rds-spacing-md));
+        right: calc(-1 * var(--rds-spacing-md));
       }
     }
   }
@@ -57,27 +64,27 @@
     //   margin-right: 0px;
     // }
     &__toolbar {
-      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) calc(var(--rds-spacing-xs) + 1px) var(--rds-spacing-xs);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) var(--rds-spacing-xs);
       gap: calc(var(--rds-spacing-xs) * 0.75);
     }
 
     &__language-label {
-      max-width: 68px;
-      font-size: var(--rds-font-size-xs, 8px) !important;
+      max-width: var(--rds-code-snippet-dim-3);
+      font-size: var(--rds-font-size-xs);
     }
 
     &__copy-button {
-      min-width: 72px;
-      padding: calc(var(--rds-spacing-xs) + 1px) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
-      font-size: var(--rds-font-size-xs, 10px) !important;
+      min-width: var(--rds-code-snippet-dim-4);
+      padding: calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
+      font-size: var(--rds-font-size-xs);
       white-space: nowrap;
-      height: 30px;
+      height: var(--rds-code-snippet-dim-2);
     }
 
     &__expand-icon {
-      font-size: var(--rds-font-size-lg) !important;
-      width: var(--rds-size-md) !important;
-      height: var(--rds-size-md) !important;
+      font-size: var(--rds-font-size-lg);
+      width: var(--rds-size-md);
+      height: var(--rds-size-md);
     }
   }
 
@@ -91,42 +98,42 @@
     pre,
     code,
     span {
-      display: inline !important;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
+      display: inline;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       vertical-align: middle;
     }
   }
 
   &__inline-highlighter {
-    display: inline !important;
-    background: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    vertical-align: middle !important;
-    font-family: inherit !important;
-    line-height: inherit !important;
+    display: inline;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    font-family: inherit;
+    line-height: inherit;
   }
 
   &__actions {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-xs, 8px);
+    gap: var(--rds-spacing-xs);
   }
 
   &__language-label {
-    font-size: var(--rds-font-size-xs, 12px);
+    font-size: var(--rds-font-size-xs);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
   &__copy-button {
-    min-width: 120px;
+    min-width: var(--rds-code-snippet-dim-5);
 
     &:focus,
     &:focus-visible,
@@ -144,9 +151,9 @@
     }
 
     &--copied {
-      background-color: var(--rds-color-success) !important;
-      color: var(--rds-color-on-success) !important;
-      border-color: var(--rds-color-success) !important;
+      background-color: var(--rds-color-success);
+      color: var(--rds-color-on-success);
+      border-color: var(--rds-color-success);
     }
   }
 
@@ -164,7 +171,7 @@
 
     pre {
       margin: 0;
-      padding: var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-md);
       overflow-x: auto;
       white-space: pre;
 
@@ -179,24 +186,24 @@
     }
 
     &__highlighter {
-      background: transparent !important;
-      padding: var(--rds-spacing-md) !important;
-      margin: 0 !important;
-      font-family: inherit !important;
-      line-height: inherit !important;
+      background: transparent;
+      padding: var(--rds-spacing-md);
+      margin: 0;
+      font-family: inherit;
+      line-height: inherit;
 
       pre, code {
-        background: transparent !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        font-family: inherit !important;
-        line-height: inherit !important;
+        background: transparent;
+        margin: 0;
+        padding: 0;
+        font-family: inherit;
+        line-height: inherit;
       }
     }
   }
 
   &__content--with-max {
-    max-height: var(--rds-code-max-height, 400px);
+    max-height: var(--rds-code-max-height);
     overflow: auto;
   }
 
@@ -205,22 +212,22 @@
   }
 
   &__line-numbers {
-    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md) var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md);
     text-align: right;
     user-select: none;
-    min-width: 40px;
-    border-right: 1px solid;
+    min-width: var(--rds-size-40);
+    border-right: var(--rds-border-width-thin) solid;
   }
 
   &__line-number {
     display: block;
     line-height: 1.55;
-    font-size: var(--rds-font-size-xs, 12px);
+    font-size: var(--rds-font-size-xs);
   }
 
   &__code-lines {
     flex: 1;
-    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md);
   }
 
   &__code-line {
@@ -232,8 +239,8 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: var(--rds-spacing-md, 12px) var(--rds-spacing-md, 16px);
-    min-height: 48px;
+    padding: var(--rds-spacing-md) var(--rds-spacing-md);
+    min-height: var(--rds-size-2xl);
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
@@ -244,28 +251,28 @@
     align-items: center;
     justify-content: center;
     max-width: 100%;
-    padding-left: var(--rds-spacing-sm, 12px);
-    padding-right: var(--rds-spacing-sm, 12px);
+    padding-left: var(--rds-spacing-sm);
+    padding-right: var(--rds-spacing-sm);
     box-sizing: border-box;
     .rds-button {
-      color: var(--rds-color-primary) !important;
-      background: transparent !important;
-      border: none !important;
-      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px) !important;
-      min-width: 0 !important;
-      height: auto !important;
+      color: var(--rds-color-primary);
+      background: transparent;
+      border: none;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+      min-width: 0;
+      height: auto;
     }
 
     .rds-button__icon,
     .rds-button svg {
-      color: currentColor !important;
-      fill: currentColor !important;
+      color: currentColor;
+      fill: currentColor;
     }
 
     .rds-button:hover,
     .rds-button:focus-visible {
-      color: var(--rds-color-primary) !important;
-      background: transparent !important;
+      color: var(--rds-color-primary);
+      background: transparent;
     }
   }
 
@@ -325,7 +332,7 @@
     }
 
     .rds-comp-code-snippet__footer {
-      background-color: var(--rds-color-surface-variant-dark) !important;
+      background-color: var(--rds-color-surface-variant-dark);
     }
 
     .rds-comp-code-snippet__language-label {
@@ -333,30 +340,30 @@
     }
 
     .rds-comp-code-snippet__copy-button {
-      background-color: var(--rds-neutral-0) !important;
-      color: var(--rds-neutral-900) !important;
-      border-color: var(--rds-neutral-300) !important;
+      background-color: var(--rds-neutral-0);
+      color: var(--rds-neutral-900);
+      border-color: var(--rds-neutral-300);
 
       &.rds-button,
       &.MuiButton-outlined {
-        color: var(--rds-neutral-900) !important;
+        color: var(--rds-neutral-900);
       }
 
       .MuiButton-startIcon,
       .MuiButton-endIcon,
       .rds-button__icon,
       svg {
-        color: currentColor !important;
+        color: currentColor;
       }
 
       svg path {
-        fill: currentColor !important;
+        fill: currentColor;
       }
 
       &:hover:not(.rds-comp-code-snippet__copy-button--copied) {
-        background-color: var(--rds-neutral-100) !important;
-        color: var(--rds-neutral-900) !important;
-        border-color: var(--rds-neutral-400) !important;
+        background-color: var(--rds-neutral-100);
+        color: var(--rds-neutral-900);
+        border-color: var(--rds-neutral-400);
       }
     }
 
@@ -376,7 +383,7 @@
 
   &--singleLine {
     .rds-comp-code-snippet__content pre {
-      padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
       white-space: nowrap;
       overflow-x: auto;
     }
@@ -384,7 +391,7 @@
 
   &--multiLine {
     .rds-comp-code-snippet__content {
-      max-height: 400px;
+      max-height: var(--rds-code-snippet-dim-6);
       overflow-y: auto;
     }
   }
@@ -492,12 +499,12 @@
     border-color: var(--rds-color-border-dark);
 }
 .rds-button {
-    color: var(--btn-primary-solid-default) !important;
+    color: var(--btn-primary-solid-default);
 }
 .rds-comp-code-snippet--light .rds-comp-code-snippet__toolbar::after {
     background-color: var(--rds-color-border-dark);
 }
 .rds-comp-code-snippet--light pre{
-    background-color: transparent !important;
+    background-color: transparent;
 }
 }

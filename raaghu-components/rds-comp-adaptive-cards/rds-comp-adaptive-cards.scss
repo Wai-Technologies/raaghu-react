@@ -1,9 +1,50 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
+.rds-adaptive-cards,
+.rds-adaptive-cards--image-gallery,
+.rds-adaptive-cards--default,
+.rds-adaptive-cards--football-scorecard {
+  --rds-adaptive-cards-dim-1: 120px;
+  --rds-adaptive-cards-dim-2: 350px;
+  --rds-adaptive-cards-dim-3: 450px;
+  --rds-card-max-width: 1200px;
+  --rds-card-width-football: 350px;
+  --rds-card-width-default: 450px;
+  --rds-alt-card-body-height: 132px;
+  --rds-image-list-item-height: 180px;
+  --rds-component-button-height-small: 32px;
+  --rds-football-league-avatar-size: 24px;
+  --rds-football-league-letter-spacing: 0.5px;
+  --rds-football-date-font-size: 12px;
+  --rds-football-date-letter-spacing: 0.5px;
+  --rds-football-final-font-size: 12px;
+  --rds-football-img-barca-margin-top: 5px;
+  --rds-football-team-name-letter-spacing: 0.15px;
+  --rds-football-time-letter-spacing: 0.5px;
+  --rds-component-button-height-medium: 36px;
+  --rds-input-form-max-width: 400px;
+  --rds-close-btn-font-size: 1.8rem;
+  --rds-required-font-size: 1em;
+  --rds-calendar-reminder-placeholder-font-size: 0.85rem;
+  --rds-alt-card-width: 500px;
+  --rds-scorecard-container-width: 324px;
+  --rds-team-scorecard-width: 81px;
+  --rds-badge-left: 285px;
+  --rds-badge-top: 25px;
+  --rds-dropdown-menu-inset: 4px auto auto -67px;
+  --rds-title-margin-bottom-mobile: 4px;
+  --rds-title-padding-top-mobile: 10px;
+  --rds-football-team-name-letter-spacing-mobile: 0.15px;
+  --rds-image-list-item-height-tablet: 140px;
+  --rds-football-team-name-letter-spacing-tablet: 0.15px;
+  --rds-image-list-item-height-tablet-lg: 160px;
+
+}
+
 .rds-adaptive-cards--image-gallery {
   width: 100%;
-  max-width: var(--rds-card-max-width, 1200px);
-  border: 1px solid var(--rds-border-light);
+  max-width: var(--rds-card-max-width);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-xl);
   padding: var(--rds-spacing-lg) 0 0 0;
   background: var(--rds-background-default);
@@ -16,17 +57,17 @@
   transition: none;
 }
 .rds-adaptive-cards--football-scorecard {
-  width: var(--rds-card-width-football, 350px);
-  min-width: var(--rds-card-width-football, 350px);
-  border: 1px solid var(--rds-border-light);
-  border-radius: var(--rds-border-radius-lg, 12px);
-  padding: var(--rds-spacing-sm, 8px);
+  width: var(--rds-card-width-football);
+  min-width: var(--rds-card-width-football);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-lg);
+  padding: var(--rds-spacing-sm);
   box-sizing: border-box;
   overflow: hidden;
 }
 
 .football-scorecard-stable {
-  min-height: var(--rds-adaptive-cards-min-height-200, 200px) !important;
+  min-height: var(--rds-adaptive-cards-min-height-200);
   display: flex;
   flex-direction: column ;
 }
@@ -41,9 +82,9 @@
 }
 
 .rds-adaptive-cards--default {
-  width: var(--rds-card-width-default, 450px);
+  width: var(--rds-card-width-default);
   height: var(--rds-alt-card-body-height, auto);
-  border: 1px solid var(--rds-border-light) !important;
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-lg);
   padding: var(--rds-spacing-xs) 0 0 0;
   background: var(--rds-background-default);
@@ -55,27 +96,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--rds-spacing-sm, 8px);
-    padding-top: var(--rds-spacing-none, 0) !important;
-    padding-bottom: var(--rds-spacing-none, 0) !important;
+    gap: var(--rds-spacing-sm);
+    padding-top: var(--rds-spacing-none, 0);
+    padding-bottom: var(--rds-spacing-none, 0);
     margin-top: var(--rds-spacing-none, 0) ;
     margin-bottom: var(--rds-spacing-none, 0) ;
     padding: var(--rds-spacing-md);
   }
   &__input-form-field { 
-    margin-bottom: var(--rds-spacing-sm, 10px);
+    margin-bottom: var(--rds-spacing-sm);
   }
   &__header-title-row {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px) ;
+    gap: var(--rds-spacing-sm) ;
     margin-top: var(--rds-spacing-none, 0) ;
     margin-bottom: var(--rds-spacing-none, 0) ;
-    padding-top: var(--rds-spacing-none, 0) !important;
-    padding-bottom: var(--rds-spacing-none, 0) !important;
+    padding-top: var(--rds-spacing-none, 0);
+    padding-bottom: var(--rds-spacing-none, 0);
   }
   &__title {
-        font-size: var(--rds-font-size-2xl, 20px) ;
+        font-size: var(--rds-font-size-2xl) ;
       font-weight: var(--rds-font-weight-bold, 700);
       padding: var(--rds-spacing-none, 0) ;
       z-index: var(--rds-z-index-layer-1);
@@ -83,38 +124,38 @@
       align-items: center;
       justify-content: flex-start;
       text-align: left ;
-      padding-top: var(--rds-spacing-xs) !important;
-      padding-bottom: var(--rds-spacing-none, 0) !important;
+      padding-top: var(--rds-spacing-xs);
+      padding-bottom: var(--rds-spacing-none, 0);
       line-height: 1.1 ;
       font-family: var(--rds-font-family-base) ;
   }
   &__title-icon {
-    width: var(--rds-font-size-xl, 20px);
-    height: var(--rds-font-size-xl, 20px);
+    width: var(--rds-font-size-xl);
+    height: var(--rds-font-size-xl);
     border-radius: var(--rds-border-radius-pill);
-    border: 2px solid var(--rds-text-secondary);
+    border: var(--rds-border-width-medium) solid var(--rds-text-secondary);
     background: transparent;
-    margin-right: var(--rds-spacing-sm, 6px);
+    margin-right: var(--rds-spacing-sm);
   }
   &__content {
-    padding: var(--rds-spacing-sm, 8px) 0 var(--rds-spacing-sm, 8px) 0;
+    padding: var(--rds-spacing-sm) 0 var(--rds-spacing-sm) 0;
     padding: var(--rds-spacing-md);
   }
   &__input-form-card { 
-    padding: var(--rds-adaptive-cards-input-padding-vertical, 0) var(--rds-adaptive-cards-input-padding-horizontal, 16px);
+    padding: var(--rds-adaptive-cards-input-padding-vertical, 0) var(--rds-adaptive-cards-input-padding-horizontal);
   }
   &__small-text {
-    font-size: var(--rds-font-size-xs, 10px);
+    font-size: var(--rds-font-size-xs);
     color: var(--rds-text-secondary);
   }
   &__image-list {
     width: 100%;
-    display: grid !important;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--rds-spacing-none, 0);
     background: var(--rds-background-light);
     padding: var(--rds-spacing-none, 0);
-    border-radius: var(--rds-border-radius-md, 8px);
+    border-radius: var(--rds-border-radius-md);
     box-sizing: border-box;
   }
   &__image-list-item {
@@ -122,13 +163,13 @@
     align-items: center;
     justify-content: center;
     background: var(--rds-background-default);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    border-radius: var(--rds-border-radius-sm);
     box-shadow: none;
     overflow: hidden;
     transition: none;
     border: none;
     min-width: var(--rds-spacing-none, 0);
-    height: var(--rds-image-list-item-height, 180px);
+    height: var(--rds-image-list-item-height);
     &:hover {
       box-shadow: var(--rds-box-shadow-hover);
       border-color: var(--rds-border-hover);
@@ -141,15 +182,15 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--rds-border-radius-sm, 4px);
+    border-radius: var(--rds-border-radius-sm);
     transition: transform var(--rds-transition-base);
     display: block;
   }
   
   &__default-slot {
-    height: var(--rds-font-size-4xl, 132px);
-    border: 2px dashed var(--rds-border-default);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    height: var(--rds-font-size-4xl);
+    border: var(--rds-border-width-medium) dashed var(--rds-border-default);
+    border-radius: var(--rds-border-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -162,8 +203,8 @@
   &__actions {
     display: flex;
     justify-content: flex-end;
-    gap: var(--rds-spacing-xs, 2px);
-    margin-right: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-xs);
+    margin-right: var(--rds-spacing-sm);
     align-items: center ; 
     flex-wrap: nowrap ; 
     transition: none; 
@@ -173,20 +214,20 @@
     width: 100%;
     box-sizing: border-box;
     margin-right: var(--rds-spacing-none, 0) ;
-    padding: var(--rds-spacing-none, 0) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) ;
+    padding: var(--rds-spacing-none, 0) var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md) ;
   }
   &__action-btn {
-    font-size: var(--rds-font-size-md, 13px);
-    min-height: var(--rds-component-button-height-small, 32px);
-    text-transform: none !important;
+    font-size: var(--rds-font-size-md);
+    min-height: var(--rds-component-button-height-small);
+    text-transform: none;
   }
   &__action-btn--restaurant-order {
-    font-size: var(--rds-font-size-sm, 12px) ;
-    min-height: var(--rds-component-button-height-small, 34px) !important;
-    height: var(--rds-component-button-height-small, 34px) !important;
-  font-family: var(--rds-font-family-bold) ;
+    font-size: var(--rds-font-size-sm) ;
+    min-height: var(--rds-component-button-height-small);
+    height: var(--rds-component-button-height-small);
+  font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) ;
     font-weight: var(--rds-font-weight-normal, 400);
-    text-transform: none !important;
+    text-transform: none;
     display: block;
     box-sizing: border-box;
     margin: var(--rds-spacing-none, 0) auto ;
@@ -199,32 +240,32 @@
     box-sizing: border-box;
     text-align: center;
     margin-right: var(--rds-spacing-none, 0) ;
-    padding: var(--rds-spacing-none, 0) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) ;
+    padding: var(--rds-spacing-none, 0) var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md) ;
   }
   &__action-btn--input-form {
-    font-size: var(--rds-font-size-sm, 12px) ;
-    min-height: var(--rds-component-button-height-small, 32px) !important;
-    height: var(--rds-component-button-height-small, 34px) !important;
-   font-family: var(--rds-font-family-bold) ;
+    font-size: var(--rds-font-size-sm) ;
+    min-height: var(--rds-component-button-height-small);
+    height: var(--rds-component-button-height-small);
+   font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) ;
     font-weight: var(--rds-font-weight-normal, 400);
-    text-transform: none !important;
-    padding: var(--rds-spacing-xs, 3px) var(--rds-spacing-sm, 12px) ;
+    text-transform: none;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm) ;
     width: 100%;
     display: block;
     box-sizing: border-box;
   }
   &__action-btn--activity {
     text-transform: lowercase;
-    padding-top: var(--rds-spacing-sm, 8px);
-    padding-bottom: var(--rds-spacing-sm, 8px);
-    min-height: var(--rds-component-button-height-small, 32px);
+    padding-top: var(--rds-spacing-sm);
+    padding-bottom: var(--rds-spacing-sm);
+    min-height: var(--rds-component-button-height-small);
   }
   &__actions--activity-update {
     display: flex;
     justify-content: flex-end ;
     align-items: center ;
     padding: 0;
-    margin-top: var(--rds-spacing-sm, 8px) ;
+    margin-top: var(--rds-spacing-sm) ;
   }
   &__activity-update {
     display: flex;
@@ -233,14 +274,14 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    position: relative !important;
-    min-height: var(--rds-adaptive-cards-min-height-120, 120px) !important;
+    position: relative;
+    min-height: var(--rds-adaptive-cards-min-height-120);
   }
 
   &__calendar-reminder-label {
-    font-size: var(--rds-font-size-md, 14px) ;
+    font-size: var(--rds-font-size-md) ;
     font-weight: 700;
-    margin-bottom: var(--rds-spacing-sm, 8px) ;
+    margin-bottom: var(--rds-spacing-sm) ;
   }
   &__calendar-reminder-info-icon {
     font-size: var(--rds-font-size-2xl) ;
@@ -251,16 +292,16 @@
     color: var(--rds-text-secondary);
   }
   &__calendar-reminder-input {
-    font-size: var(--rds-font-size-md, 13px) ;
+    font-size: var(--rds-font-size-md) ;
     .MuiInputBase-input::placeholder,
     .MuiOutlinedInput-input::placeholder,
     input::placeholder {
       color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) ;
-      opacity: 1 !important;
-      font-size: var(--rds-font-size-xs, 12px) ;
+      opacity: 1;
+      font-size: var(--rds-font-size-xs) ;
     }
     &::placeholder {
-      font-size: var(--rds-font-size-xs, 12px) ;
+      font-size: var(--rds-font-size-xs) ;
     }
   }
 
@@ -269,17 +310,17 @@
     flex-direction: row ;
     align-items: flex-start ;
     width: 100%;
-    min-height: var(--rds-adaptive-cards-min-height-48, 48px) !important;
+    min-height: var(--rds-adaptive-cards-min-height-48);
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     flex-wrap: nowrap ;
-    position: relative !important;
+    position: relative;
   }
   &__activity-update-avatar {
-    width: var(--rds-spacing-xl, 40px) !important;
-    height: var(--rds-spacing-xl, 40px) !important;
-    min-width: var(--rds-spacing-xl, 40px) ;
+    width: var(--rds-spacing-xl);
+    height: var(--rds-spacing-xl);
+    min-width: var(--rds-spacing-xl) ;
     flex-shrink: 0 ;
     border-radius: var(--rds-border-radius-pill) ;
     display: block;
@@ -290,14 +331,14 @@
     flex-direction: column ;
     align-items: flex-start ;
     justify-content: flex-start ;
-    flex: 1 !important;
-    min-width: 0 !important;
+    flex: 1;
+    min-width: 0;
     padding: 0;
     margin: 0;
   }
   &__activity-update-name {
     font-weight: var(--rds-font-weight-bold, 700);
-    font-size: var(--rds-font-size-lg, 16px) ;
+    font-size: var(--rds-font-size-lg) ;
     line-height: 1.2 ;
     margin-top: var(--rds-spacing-tight) ;
     padding: 0;
@@ -311,7 +352,7 @@
       color: var(--rds-text-secondary) ;
     }
   &__activity-update-date {
-    font-size: var(--rds-font-size-sm, 12px) ;
+    font-size: var(--rds-font-size-sm) ;
     font-weight: var(--rds-font-weight-normal, 400);
     line-height: 1.2 ;
     margin: 0;
@@ -321,39 +362,39 @@
     box-sizing: border-box;
   }
   &__activity-update-text {
-    font-size: var(--rds-font-size-md, 14px) ;
-    margin-top: var(--rds-spacing-sm, 4px) ;
+    font-size: var(--rds-font-size-md) ;
+    margin-top: var(--rds-spacing-sm) ;
     line-height: 1.4 ;
   }
   
   &__restaurant-order-form {
     margin-bottom: var(--rds-spacing-none, 0);
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
   &__restaurant-order-label {
-    font-size: var(--rds-font-size-sm, 12px);
+    font-size: var(--rds-font-size-sm);
     display: flex;
     align-items: center;
   }
   &__restaurant-order-info-icon {
     font-size: var(--rds-font-size-2xl) ;
-    width: var(--rds-adaptive-cards-thumb-width, 20px) !important;
-    height: 20px;
+    width: var(--rds-adaptive-cards-thumb-width);
+    height: var(--rds-size-20);
     color: var(--rds-text-secondary) ;
   }
   
   &__placeholder {
     color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-md);
   }
   
   &__football-header {
     width: 100%;
-    padding: var(--rds-spacing-xs, 4px) 0 ;
+    padding: var(--rds-spacing-xs) 0 ;
     display: flex;
     flex-direction: column ;
     align-items: center ;
-    gap: var(--rds-spacing-xs, 4px) ;
+    gap: var(--rds-spacing-xs) ;
   }
     &__football-header-row {
     width: 100%;
@@ -361,9 +402,9 @@
     display: flex;
     align-items: center ;
     justify-content: center ;
-    gap: var(--rds-spacing-sm, 8px) ;
+    gap: var(--rds-spacing-sm) ;
     margin: 0;
-    padding: var(--rds-spacing-xs, 4px) 0 ;
+    padding: var(--rds-spacing-xs) 0 ;
     flex-wrap: nowrap ;
   }
 
@@ -371,26 +412,26 @@
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
     display: inline-flex;
     align-items: center ;
-    gap: var(--rds-spacing-xs, 6px) ;
+    gap: var(--rds-spacing-xs) ;
   }
 
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league-avatar {
-    order: 0 !important;
-    margin-right: var(--rds-spacing-xs, 8px) ;
+    order: 0;
+    margin-right: var(--rds-spacing-xs) ;
     flex-shrink: 0 ;
   }
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
-    order: 1 !important;
+    order: 1;
     white-space: nowrap;
-    min-width: 0 !important; 
+    min-width: 0; 
   }
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live,
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live--aligned {
-    position: absolute !important;
-    right: 0 !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    margin-left: 0 !important;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0;
     flex-shrink: 0 ;
   }
 
@@ -398,58 +439,58 @@
       display: flex;
       align-items: center ;
       justify-content: center ;
-      gap: var(--rds-spacing-sm, 8px) ;
-      flex: 1 1 auto !important;
-      min-width: 0 !important;
+      gap: var(--rds-spacing-sm) ;
+      flex: 1 1 auto;
+      min-width: 0;
       margin-left: var(--rds-spacing-none, 0) ;
     }
   &__football-league-avatar {
-    width: var(--rds-football-league-avatar-size, 24px) !important;
-    height: var(--rds-football-league-avatar-size, 24px) !important;
+    width: var(--rds-football-league-avatar-size);
+    height: var(--rds-football-league-avatar-size);
     flex-shrink: 0 ;
     display: block;
     border-radius: var(--rds-border-radius-pill) ;
   }
   &__football-league {
       font-weight: var(--rds-font-weight-black, 900);
-      font-family: var(--rds-font-family-bold) ;
-      letter-spacing: var(--rds-football-league-letter-spacing, 0.5px) ;
+      font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) ;
+      letter-spacing: var(--rds-football-league-letter-spacing) ;
       font-size: var(--rds-font-size-3xl) ;
       color: var(--rds-text-primary) ;
-      text-shadow: none !important;
+      text-shadow: none;
       display: inline-block;
       white-space: nowrap;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
+      overflow: hidden;
+      text-overflow: ellipsis;
       margin: 0;
       line-height: 1.2 ;
     }
     
     .rds-adaptive-cards__football-live + & {
-      margin-left: var(--rds-spacing-md, 12px) ;
+      margin-left: var(--rds-spacing-md) ;
     }
   &__football-date {
     color: var(--rds-text-secondary) ;
-    font-family: var(--rds-font-family-base) ;
-    font-size: var(--rds-football-date-font-size, 12px) ;
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) ;
+    font-size: var(--rds-football-date-font-size) ;
     font-weight: var(--rds-font-weight-medium, 500);
-    margin: var(--rds-spacing-xs, 2px) 0 ;
-    letter-spacing: var(--rds-football-date-letter-spacing, 0.5px) ;
+    margin: var(--rds-spacing-xs) 0 ;
+    letter-spacing: var(--rds-football-date-letter-spacing) ;
     text-align: center ;
-    min-width: 0 !important;
+    min-width: 0;
   }
   &__football-final {
     color: var(--rds-text-secondary) ;
-    font-family: var(--rds-font-family-base) ;
-    font-size: var(--rds-football-final-font-size, 12px) ;
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) ;
+    font-size: var(--rds-football-final-font-size) ;
     font-weight: var(--rds-font-weight-medium, 500);
     text-align: center ;
     margin: 0;
   }
   &__football-live {
-    font-size: var(--rds-font-size-xs, 10px) ;
+    font-size: var(--rds-font-size-xs) ;
     font-weight: var(--rds-font-weight-normal, 400);
-    border-radius: 999px !important;
+    border-radius: var(--rds-border-radius-full);
     background: var(--rds-error-main) ;
     color: var(--rds-neutral-0) ;
     display: inline-flex;
@@ -457,17 +498,17 @@
     justify-content: center ;
     flex-shrink: 0 ;
     margin: 0;
-    padding: var(--rds-spacing-sm) 6px ;
-    height: 20px; 
-    min-width: var(--rds-adaptive-cards-min-thumb-width, 32px) ;
+    padding: var(--rds-spacing-sm) var(--rds-spacing-compact) ;
+    height: var(--rds-size-20); 
+    min-width: var(--rds-adaptive-cards-min-thumb-width) ;
   }
 
   .rds-adaptive-cards__football-live--aligned {
-    position: relative !important;
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    right: 0 !important;
-    left: auto !important;
+    position: relative;
+    margin-left: auto;
+    margin-right: 0;
+    right: 0;
+    left: auto;
     display: inline-flex;
     align-items: center ;
     justify-content: center ;
@@ -482,23 +523,23 @@
     width: 100%;
     justify-content: space-around; 
     align-items: flex-start;
-    gap: var(--rds-spacing-xs, 8px);
-    min-height: 120px;
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-xs);
+    min-height: var(--rds-adaptive-cards-dim-1);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
   }
   &__football-team {
     display: flex; 
     flex-direction: column ; 
     align-items: center;
     flex: 1; 
-    min-width: var(--rds-adaptive-cards-min-width, 90px);
-    max-width: var(--rds-adaptive-cards-max-width, 120px);
+    min-width: var(--rds-adaptive-cards-min-width);
+    max-width: var(--rds-adaptive-cards-max-width);
     text-align: center;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
   }
   &__football-logo {
-    width: var(--rds-spacing-2xl, 80px);
-    height: var(--rds-spacing-2xl, 80px);
+    width: var(--rds-spacing-2xl);
+    height: var(--rds-spacing-2xl);
     border-radius: var(--rds-border-radius-pill);
     background: var(--rds-background-default);
     display: flex;
@@ -523,7 +564,7 @@
     }
 
     &__football-img {
-      background: transparent !important;
+      background: transparent;
     }
 
     &__football-score,
@@ -551,7 +592,7 @@
       border-radius: var(--rds-border-radius-pill);
       border: none;
       object-fit: cover;
-      margin-top: var(--rds-football-img-barca-margin-top, 5px);
+      margin-top: var(--rds-football-img-barca-margin-top);
       background: var(--rds-background-default);
     }
   }
@@ -560,33 +601,33 @@
     font-weight: var(--rds-font-weight-black, 1000);
     font-family: var(--rds-font-family-bold) ;
     text-align: center;
-    font-size: var(--rds-font-size-md, 14px) ;
-    letter-spacing: var(--rds-football-team-name-letter-spacing, 0.15px) ;
+    font-size: var(--rds-font-size-md) ;
+    letter-spacing: var(--rds-football-team-name-letter-spacing) ;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; 
-    max-width: var(--rds-adaptive-cards-max-width, 120px);
+    max-width: var(--rds-adaptive-cards-max-width);
     width: 100%; 
   }
   &__football-team-status {
     color: var(--rds-text-secondary);
     text-align: center;
     font-weight: var(--rds-font-weight-bold, 700);
-  font-family: var(--rds-font-family-bold);
-    font-size: var(--rds-font-size-sm, 12px) ; 
+    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
+    font-size: var(--rds-font-size-sm) ; 
     white-space: nowrap;
-    max-width: var(--rds-adaptive-cards-max-width, 120px);
+    max-width: var(--rds-adaptive-cards-max-width);
     width: 100%;
   }
   &__football-score-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-  font-family: var(--rds-font-family-base);
-    gap: var(--rds-spacing-xs, 4px);
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+    gap: var(--rds-spacing-xs);
     flex-shrink: 0;
-    min-width: var(--rds-adaptive-cards-min-width-100, 100px);
-    max-width: var(--rds-adaptive-cards-max-width, 120px);
+    min-width: var(--rds-adaptive-cards-min-width-100);
+    max-width: var(--rds-adaptive-cards-max-width);
     text-align: center;
   }
 
@@ -595,11 +636,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-xs);
     flex-wrap: nowrap;
   }
   &__football-score {
-    font-size: var(--rds-font-size-4xl, 38px) ;
+    font-size: var(--rds-font-size-4xl) ;
     font-weight: var(--rds-font-weight-extrabold, 800);
     font-family: var(--rds-font-family-bold);
     text-align: center ;
@@ -607,20 +648,20 @@
     display: inline-block; 
     
     &-colon {
-      margin: 0 var(--rds-spacing-xxs) !important; 
+      margin: 0 var(--rds-spacing-xxs); 
     }
   }
   &__football-time {
     background: var(--rds-background-default) ;
     color: var(--rds-text-secondary) ;
-    font-size: var(--rds-font-size-xs, 12px) ;
+    font-size: var(--rds-font-size-xs) ;
     font-weight: var(--rds-font-weight-bold, 700);
-    letter-spacing: var(--rds-football-time-letter-spacing, 0.5px) ;
-    padding: var(--rds-spacing-sm, 15px) var(--rds-spacing-sm, 8px) ;
-    min-width: var(--rds-spacing-xl, 50px) ;
-    border-radius: var(--rds-border-radius-sm, 4px) ;
-    font-family: var(--rds-font-family-bold) ;
-    height: 20px; 
+    letter-spacing: var(--rds-football-time-letter-spacing) ;
+    padding: var(--rds-spacing-sm) var(--rds-spacing-sm) ;
+    min-width: var(--rds-spacing-xl) ;
+    border-radius: var(--rds-border-radius-sm) ;
+    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) ;
+    height: var(--rds-size-20); 
     display: inline-flex;
     align-items: center ;
     justify-content: center ;
@@ -630,19 +671,19 @@
 
 .rds-adaptive-cards__action-btn--input-form {
   width: 100%;
-  border-radius: var(--rds-border-radius-md, 8px);
+  border-radius: var(--rds-border-radius-md);
   background: var(--rds-background-light);
   color: var(--rds-text-primary);
-  height: var(--rds-component-button-height-medium, 36px);
-  padding: var(--rds-adaptive-cards-input-padding-vertical, 1px) var(--rds-spacing-sm, 12px);
-  border: 1.5px solid var(--rds-border-light);
+  height: var(--rds-component-button-height-medium);
+  padding: var(--rds-adaptive-cards-input-padding-vertical) var(--rds-spacing-sm);
+  border: var(--rds-border-width-emphasis) solid var(--rds-border-light);
   box-sizing: border-box;
   
   &:focus,
   &:active {
     outline: none;
     border-color: var(--rds-border-light) ;
-    box-shadow: none !important;
+    box-shadow: none;
   }
 }
 
@@ -656,45 +697,45 @@
 }
 .rds-adaptive-cards__input-form-container {
   width: 100%;
-  max-width: var(--rds-input-form-max-width, 400px);
+  max-width: var(--rds-input-form-max-width);
   margin: var(--rds-spacing-none, 0) auto;
-  padding: var(--rds-spacing-lg, 16px);
+  padding: var(--rds-spacing-lg);
   background: var(--rds-background-default);
-  border-radius: var(--rds-border-radius-lg, 12px);
-box-shadow: var(--rds-box-shadow-md);
+  border-radius: var(--rds-border-radius-lg);
+  box-shadow: var(--rds-box-shadow-md);
 }
 .rds-adaptive-cards__input-form-title {
-  font-size: var(--rds-font-size-3xl, 24px);
+  font-size: var(--rds-font-size-3xl);
   font-weight: var(--rds-font-weight-bold, 700);
-  margin-bottom: var(--rds-spacing-sm, 8px);
+  margin-bottom: var(--rds-spacing-sm);
 }
 .rds-adaptive-cards__input-form-label {
-  font-size: var(--rds-font-size-md, 14px);
-  margin-bottom: var(--rds-spacing-xs, 4px);
+  font-size: var(--rds-font-size-md);
+  margin-bottom: var(--rds-spacing-xs);
 }
 .rds-adaptive-cards__input-form-small-text {
   color: var(--rds-text-secondary);
-  margin-bottom: var(--rds-spacing-lg, 16px);
-  font-size: var(--rds-font-size-xs, 12px);
+  margin-bottom: var(--rds-spacing-lg);
+  font-size: var(--rds-font-size-xs);
 }
 .rds-adaptive-cards__input-form-field-label {
-  font-size: var(--rds-font-size-md, 15px);
-  margin-bottom: var(--rds-spacing-xs, 4px);
+  font-size: var(--rds-font-size-md);
+  margin-bottom: var(--rds-spacing-xs);
   display: block;
 }
 
 .rds-adaptive-cards__chevron-icon {
   display: block;
-  margin-top: var(--rds-spacing-xs, 2px);
+  margin-top: var(--rds-spacing-xs);
 }
 
 .rds-adaptive-cards__calendar-reminder-actions {
-  margin-top: var(--rds-spacing-sm, 8px);
+  margin-top: var(--rds-spacing-sm);
   display: flex;
   flex-direction: row ;
   align-items: center ;
   justify-content: flex-end ;
-  gap: var(--rds-spacing-sm, 8px) ;
+  gap: var(--rds-spacing-sm) ;
   width: 100%;
   box-sizing: border-box;
   flex-wrap: nowrap ; 
@@ -706,13 +747,13 @@ box-shadow: var(--rds-box-shadow-md);
   display: inline-flex;
   align-items: center ;
   justify-content: center ;
-  vertical-align: middle !important;
+  vertical-align: middle;
 }
 
 .rds-adaptive-cards__calendar-reminder-actions.rds-adaptive-cards__actions--input-form {
   justify-content: space-between ;
-  padding-left: var(--rds-spacing-sm, 8px) !important;
-  padding-right: var(--rds-spacing-sm, 8px) !important;
+  padding-left: var(--rds-spacing-sm);
+  padding-right: var(--rds-spacing-sm);
 }
 
 .rds-adaptive-cards.is-default-selected .rds-adaptive-cards__default-slot,
@@ -721,15 +762,15 @@ box-shadow: var(--rds-box-shadow-md);
 }
 
 .rds-adaptive-cards__close-btn .MuiSvgIcon-root {
-  font-size: var(--rds-close-btn-font-size, 1.8rem) ;
+  font-size: var(--rds-close-btn-font-size) ;
 }
 
 .rds-adaptive-cards__activity-update-radio  {
-  font-size: var(--rds-font-size-md, 14px) ;
-  margin-left: var(--rds-spacing-xs, 4px) ;
+  font-size: var(--rds-font-size-md) ;
+  margin-left: var(--rds-spacing-xs) ;
 }
 .rds-adaptive-cards__activity-update-radio-desc {
-  font-size: var(--rds-adaptive-cards-font-size-xxs, 9px) ;
+  font-size: var(--rds-adaptive-cards-font-size-xxs) ;
   color: var(--rds-text-secondary);
   font-weight: var(--rds-font-weight-normal, 400);
 }
@@ -738,16 +779,16 @@ box-shadow: var(--rds-box-shadow-md);
   margin-right: var(--rds-spacing-xxs) ; 
   display: flex;
   align-items: center;
-  gap: var(--rds-adaptive-cards-gap-xxs, 2px) ; 
+  gap: var(--rds-adaptive-cards-gap-xxs) ; 
 }
 
 .rds-adaptive-cards__activity-update-radio-group .MuiSvgIcon-root {
-  font-size: var(--rds-font-size-lg, 18px) ;
+  font-size: var(--rds-font-size-lg) ;
 }
 
 .rds-adaptive-cards__required {
   color: var(--rds-error-main);
-  margin-left: var(--rds-spacing-xs, 2px);
+  margin-left: var(--rds-spacing-xs);
   font-size: var(--rds-required-font-size, 1em);
   font-weight: var(--rds-font-weight-bold, bold);
 }
@@ -757,21 +798,21 @@ box-shadow: var(--rds-box-shadow-md);
 }
 .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) ;
-  font-size: var(--rds-font-size-sm, 12px);
+  font-size: var(--rds-font-size-sm);
 }
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
 .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon) {
-  stroke: var(--rds-text-secondary) !important;
+  stroke: var(--rds-text-secondary);
   color: var(--rds-text-secondary) ;
-  font-size: var(--rds-font-size-md, 14px) ;
-  width: var(--rds-font-size-md, 14px) !important;
-  height: var(--rds-font-size-md, 14px) !important;
+  font-size: var(--rds-font-size-md) ;
+  width: var(--rds-font-size-md);
+  height: var(--rds-font-size-md);
 }
 .rds-adaptive-cards__calendar-reminder-select-icon {
-  font-size: var(--rds-font-size-md, 14px) ;
-  width: 1em !important;
-  height: 1em !important;
-  stroke: var(--rds-text-secondary) !important;
+  font-size: var(--rds-font-size-md) ;
+  width: 1em;
+  height: 1em;
+  stroke: var(--rds-text-secondary);
   color: var(--rds-text-secondary) ;
 }
 
@@ -780,18 +821,18 @@ box-shadow: var(--rds-box-shadow-md);
   .MuiOutlinedInput-root,
   .MuiOutlinedInput-root.Mui-focused,
   .MuiOutlinedInput-root:hover {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   .MuiSelect-icon {
     pointer-events: none;
-    right: var(--rds-spacing-sm, 8px);
+    right: var(--rds-spacing-sm);
     color: var(--rds-text-secondary) ;
   }
 }
@@ -800,30 +841,30 @@ box-shadow: var(--rds-box-shadow-md);
   .MuiOutlinedInput-root,
   .MuiOutlinedInput-root.Mui-focused,
   .MuiOutlinedInput-root:hover {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 }
 
 .rds-adaptive-cards__calendar-reminder-placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
-  font-size: var(--rds-calendar-reminder-placeholder-font-size, 0.85rem);
+  font-size: var(--rds-calendar-reminder-placeholder-font-size);
 }
 .rds-adaptive-cards__action-btn--input-form input::placeholder,
 .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
-  font-size: var(--rds-font-size-xs, 12px) ;
+  font-size: var(--rds-font-size-xs) ;
 }
 .rds-adaptive-cards__action-btn--input-form input::placeholder,
 .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) ;
 }
 .rds-adaptive-cards__action-btn--input-form::placeholder {
-  font-size: var(--rds-font-size-xs, 12px) ;
+  font-size: var(--rds-font-size-xs) ;
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) ;
 }
 .rds-adaptive-cards__action-btn--input-form-button{
@@ -837,45 +878,45 @@ box-shadow: var(--rds-box-shadow-md);
 
 .rds-adaptive-cards__container {
   display: flex;
-  width: var(--rds-alt-card-width, 500px);
-  padding: var(--rds-spacing-md, 16px);
+  width: var(--rds-alt-card-width);
+  padding: var(--rds-spacing-md);
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--rds-spacing-md, 16px);
-  border-radius: var(--rds-border-radius-xl, 12px);
-  border: 1px solid var(--rds-border-light);
+  gap: var(--rds-spacing-md);
+  border-radius: var(--rds-border-radius-xl);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   background: var(--rds-background-default);
 }
 .rds-adaptive-cards__header-alt {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--rds-spacing-sm, 8px);
+  gap: var(--rds-spacing-sm);
   align-self: stretch;
 }
 .rds-adaptive-cards__body {
   display: flex;
-  height: var(--rds-alt-card-body-height, 132px); 
-  padding: var(--rds-spacing-sm, 8px);
+  height: var(--rds-alt-card-body-height); 
+  padding: var(--rds-spacing-sm);
   justify-content: center;
   align-items: center;
-  gap: var(--rds-spacing-sm, 8px);
+  gap: var(--rds-spacing-sm);
   align-self: stretch;
-  border-radius: var(--rds-border-radius-sm, 4px);
-  border: 2px dashed var(--rds-border-default);
+  border-radius: var(--rds-border-radius-sm);
+  border: var(--rds-border-width-medium) dashed var(--rds-border-default);
 }
 .rds-adaptive-cards__footer {
   display: flex;
   justify-content: flex-end;
   align-items: center; 
   flex-wrap: nowrap;
-  gap: var(--rds-spacing-sm, 8px);
+  gap: var(--rds-spacing-sm);
   align-self: stretch;
 }
 .rds-adaptive-cards__title-alt {
   color: var(--rds-text-primary);
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-2xl, 16px);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-2xl);
   font-style: normal;
   font-weight: var(--rds-font-weight-bold, 700);
   line-height: normal;
@@ -889,7 +930,7 @@ box-shadow: var(--rds-box-shadow-md);
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-img {
-  background: transparent !important;
+  background: transparent;
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time,
@@ -946,67 +987,67 @@ box-shadow: var(--rds-box-shadow-md);
 }
 .rds-adaptive-cards__small-text-alt {
   color: var(--rds-text-secondary);
-font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-xs, 10px);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-xs);
   font-style: normal;
   font-weight: var(--rds-font-weight-normal, 400);
-  line-height: var(--rds-spacing-sm, 16px);
+  line-height: var(--rds-spacing-sm);
 }
 .rds-adaptive-cards__text {
   align-self: stretch;
   color: var(--rds-text-secondary);
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-md, 11px);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-md);
   font-style: normal;
   font-weight: var(--rds-font-weight-normal, 400);
-  line-height: var(--rds-spacing-md, 20px);
+  line-height: var(--rds-spacing-md);
 }
 .rds-adaptive-cards__image-container {
   display: flex;
   width: 100%;
-  padding: var(--rds-spacing-xs, 4px);
+  padding: var(--rds-spacing-xs);
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--rds-spacing-xs, 4px);
-  border-radius: var(--rds-border-radius-sm, 4px);
-  border: 1px solid var(--rds-border-light);
+  gap: var(--rds-spacing-xs);
+  border-radius: var(--rds-border-radius-sm);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   background: var(--rds-background-default);
 }
 .rds-adaptive-cards__image-body img {
   width: 100%;
   height: auto;
-  border-radius: var(--rds-border-radius-xs, 2px);
+  border-radius: var(--rds-border-radius-xs);
   object-fit: cover;
-  padding: var(--rds-spacing-xs, 4px);
+  padding: var(--rds-spacing-xs);
 }
 .rds-adaptive-cards__scorecard-container {
   display: flex;
-  width: var(--rds-scorecard-container-width, 324px);
-  padding: var(--rds-spacing-sm, 8px);
+  width: var(--rds-scorecard-container-width);
+  padding: var(--rds-spacing-sm);
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--rds-spacing-xs, 4px);
-  border-radius: var(--rds-border-radius-md, 8px);
-  border: 1px solid var(--rds-border-light);
+  gap: var(--rds-spacing-xs);
+  border-radius: var(--rds-border-radius-md);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
   background: var(--rds-background-default);
 }
 .rds-adaptive-cards__scorecard-header-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--rds-spacing-xs, 4px);
+  gap: var(--rds-spacing-xs);
   align-self: stretch;
 }
 .rds-adaptive-cards__scorecard-header {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-xs, 4px);
+  gap: var(--rds-spacing-xs);
 }
 .rds-adaptive-cards__scorecard-text {
   color: var(--rds-text-primary);
   text-align: center;
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-3xl, 19px);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-3xl);
   font-style: normal;
   font-weight: var(--rds-font-weight-semibold, 600);
   line-height: normal;
@@ -1014,81 +1055,81 @@ font-family: var(--rds-font-family-base);
 .rds-adaptive-cards__scorecard-subtext {
   color: var(--rds-text-secondary);
   text-align: center;
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-md, 11px);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-md);
   font-style: normal;
   font-weight: var(--rds-font-weight-medium, 500);
-  line-height: var(--rds-spacing-md, 22px);
+  line-height: var(--rds-spacing-md);
 }
 .rds-adaptive-cards__scorecard-body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: var(--rds-spacing-md, 16px);
-  padding-top: var(--rds-spacing-lg, 24px);
+  gap: var(--rds-spacing-md);
+  padding-top: var(--rds-spacing-lg);
 }
 .rds-adaptive-cards__team-container {
   display: flex;
-  width: var(--rds-spacing-2xl, 100px);
-  height: var(--rds-spacing-2xl, 100px);
+  width: var(--rds-spacing-2xl);
+  height: var(--rds-spacing-2xl);
   border-radius: var(--rds-border-radius-pill);
-  border: 2px solid var(--rds-border-light);
+  border: var(--rds-border-width-medium) solid var(--rds-border-light);
   object-fit: cover;
   background: var(--rds-background-default);
   aspect-ratio: 1/1;
   color: var(--rds-text-primary);
- font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-4xl, 25px);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-4xl);
   font-style: normal;
   font-weight: var(--rds-font-weight-semibold, 600);
   line-height: normal;
-  padding-bottom: var(--rds-spacing-lg, 24px);
+  padding-bottom: var(--rds-spacing-lg);
 } 
 .rds-adaptive-cards__timer-container {
   display: flex;
-  padding: var(--rds-spacing-xs, 4px);
+  padding: var(--rds-spacing-xs);
   justify-content: center;
   align-items: flex-end;
-  gap: var(--rds-spacing-sm, 8px);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  gap: var(--rds-spacing-sm);
+  border-radius: var(--rds-border-radius-sm);
   background: var(--rds-background-default);
 }
 .rds-adaptive-cards__match-timer {
-  font-size: var(--rds-font-size-md, 11px);
+  font-size: var(--rds-font-size-md);
   color: var(--rds-text-secondary); 
   text-align: center;
  font-family: var(--rds-font-family-base);
   font-style: normal;
   font-weight: var(--rds-font-weight-medium, 500);
-  line-height: var(--rds-spacing-md, 22px);
+  line-height: var(--rds-spacing-md);
 }
 .rds-adaptive-cards__team-scorecard {
   display: flex;
-  padding-top: var(--rds-spacing-lg, 24px);
+  padding-top: var(--rds-spacing-lg);
   flex-direction: column;
   align-items: center;
-  width: var(--rds-team-scorecard-width, 81px);
-  gap: var(--rds-spacing-lg, 24px);
+  width: var(--rds-team-scorecard-width);
+  gap: var(--rds-spacing-lg);
   align-self: stretch;
 }
 .rds-adaptive-cards__team-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--rds-spacing-xs, 4px);
+  gap: var(--rds-spacing-xs);
 }
 .rds-adaptive-cards__team-name {
-  font-size: var(--rds-font-size-md, 13px) ;
+  font-size: var(--rds-font-size-md) ;
   color: var(--rds-text-secondary);
   text-align: center;
   font-family: var(--rds-font-family-base);
   font-style: normal;
   font-weight: var(--rds-font-weight-bold, 700);
   line-height: normal;
-  padding-top: var(--rds-spacing-lg, 24px);
+  padding-top: var(--rds-spacing-lg);
 }
 .rds-adaptive-cards__team-status {
-  font-size: var(--rds-font-size-lg, 13px);
+  font-size: var(--rds-font-size-lg);
   color: var(--rds-text-secondary);
   text-align: center;
   font-family: var(--rds-font-family-base);
@@ -1098,44 +1139,44 @@ font-family: var(--rds-font-family-base);
 }
 .rds-adaptive-cards__badge {
   display: flex;
-  height: var(--rds-spacing-md, 20px);
-  padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+  height: var(--rds-spacing-md);
+  padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
   align-items: center;
-  gap: var(--rds-spacing-xs, 4px);
+  gap: var(--rds-spacing-xs);
   position: absolute;
-  left: var(--rds-badge-left, 285px);
-  top: var(--rds-badge-top, 25px);
-  border-radius: var(--rds-border-radius-full, 9999px);
+  left: var(--rds-badge-left);
+  top: var(--rds-badge-top);
+  border-radius: var(--rds-border-radius-full);
   background: var(--rds-badge-error-bg);
   overflow: hidden;
   color: var(--rds-badge-error-text);
   text-align: center;
   text-overflow: ellipsis;
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-xs, 8px);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-xs);
   font-style: normal;
   font-weight: var(--rds-font-weight-normal, 400);
-  line-height: var(--rds-font-size-xs, 8px);
+  line-height: var(--rds-font-size-xs);
 }
 .rds-adaptive-cards__footer .dropdown-menu.show {
-  inset: var(--rds-dropdown-menu-inset, 4px auto auto -67px) !important;
+  inset: var(--rds-dropdown-menu-inset, var(--rds-spacing-xs) auto auto var(--rds-spacing-neg-67));
 }
 
 @include bp.between(mobile-sm, mobile-md) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100%;
-    padding: var(--rds-spacing-sm, 8px) ;
+    padding: var(--rds-spacing-sm) ;
     text-align: left ;
     line-height: 1.2 ;
     word-break: break-word;
-    margin-bottom: var(--rds-title-margin-bottom-mobile, 6px) ;
+    margin-bottom: var(--rds-title-margin-bottom-mobile) ;
   }
   .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
     font-size: var(--rds-font-size-xl) ;
     font-weight: 700;
-    padding-top: var(--rds-spacing-xs) !important;
-    padding-bottom: var(--rds-spacing-sm) !important;
+    padding-top: var(--rds-spacing-xs);
+    padding-bottom: var(--rds-spacing-sm);
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1144,15 +1185,15 @@ font-family: var(--rds-font-family-base);
     box-sizing: border-box;
   }
   .rds-adaptive-cards__actions--input-form .rds-adaptive-cards__title {
-    font-size: var(--rds-font-size-xl, 18px) ;
-    padding-top: var(--rds-title-padding-top-mobile, 10px) !important;
-    margin-bottom: var(--rds-title-margin-bottom-mobile, 4px) ;
+    font-size: var(--rds-font-size-xl) ;
+    padding-top: var(--rds-title-padding-top-mobile);
+    margin-bottom: var(--rds-title-margin-bottom-mobile) ;
     font-weight: 700;
   }
   .rds-adaptive-cards__restaurant-order-label {
-    font-size: var(--rds-font-size-sm, 12px);
-    padding-top: var(--rds-title-padding-top-mobile, 10px) !important;
-    margin-bottom: var(--rds-title-margin-bottom-mobile, 4px) ;
+    font-size: var(--rds-font-size-sm);
+    padding-top: var(--rds-title-padding-top-mobile);
+    margin-bottom: var(--rds-title-margin-bottom-mobile) ;
     text-align: left ;
     line-height: 1.2 ;
     word-break: break-word;
@@ -1162,56 +1203,56 @@ font-family: var(--rds-font-family-base);
   .adaptive-scorecard-container {
     width: 100%;
     min-width: var(--rds-spacing-none, 0) ;
-    padding: var(--rds-spacing-sm, 8px) ;
+    padding: var(--rds-spacing-sm) ;
   }
   .rds-adaptive-cards__image-list {
-    grid-template-columns: repeat(1, 1fr) !important;
+    grid-template-columns: repeat(1, 1fr);
   }
   .rds-adaptive-cards__image-list-item {
-    height: var(--rds-image-list-item-height-mobile, 120px) !important;
+    height: var(--rds-image-list-item-height-mobile);
   }
   .rds-adaptive-cards__football-header-row {
     margin-left: 0;
   }
   .rds-adaptive-cards__football-live {
-      position: relative !important;
-      left: 0 !important;
-      right: 0 !important;
-      margin: 0 0 20px var(--rds-spacing-md, 12px) !important;
+      position: relative;
+      left: 0;
+      right: 0;
+      margin: 0 0 var(--rds-spacing-5) var(--rds-spacing-md);
       display: flex;
       align-items: center ;
       justify-content: center ;
-      max-width: var(--rds-adaptive-cards-max-width-sm, 50px) !important;
-      min-width: var(--rds-adaptive-cards-min-width-sm, 50px) ;
-      font-size: var(--rds-adaptive-cards-font-size-xxs, 9px) ;
+      max-width: var(--rds-adaptive-cards-max-width-sm);
+      min-width: var(--rds-adaptive-cards-min-width-sm) ;
+      font-size: var(--rds-adaptive-cards-font-size-xxs) ;
       z-index: var(--rds-z-index-layer-2);
     }
 
   .rds-adaptive-cards__football-logo {
-    width: var(--rds-football-logo-size-mobile, 72px);
+    width: var(--rds-football-logo-size-mobile);
      &.rds-adaptive-cards__football-logo--away {
       }
   
   @include bp.down(340) {
     .rds-adaptive-cards__football-live {
-      position: relative !important;
-      left: 0 !important;
-      right: 0 !important;
-      margin: 0 0 4px var(--rds-spacing-sm, 12px) !important;
+      position: relative;
+      left: 0;
+      right: 0;
+      margin: 0 0 var(--rds-spacing-xs) var(--rds-spacing-sm);
       display: flex;
       align-items: center ;
       justify-content: center ;
-      max-width: var(--rds-adaptive-cards-max-width-xs, 48px) !important;
-      font-size: var(--rds-adaptive-cards-font-size-xxs, 9px) ;
+      max-width: var(--rds-adaptive-cards-max-width-xs);
+      font-size: var(--rds-adaptive-cards-font-size-xxs) ;
       z-index: var(--rds-z-index-dropdown, 1000);
     }
     .rds-adaptive-cards__football-league {
-      font-size: var(--rds-adaptive-cards-font-size-md, 15px) ;
-      letter-spacing: 0.3px !important;
+      font-size: var(--rds-adaptive-cards-font-size-md) ;
+      letter-spacing: 0.3px;
       font-weight: var(--rds-font-weight-bold, 700);
     }
   }
-    height: var(--rds-football-logo-size-mobile, 72px);
+    height: var(--rds-football-logo-size-mobile);
     border-radius: var(--rds-border-radius-pill);
     object-fit: cover;
     background: var(--rds-background-default);
@@ -1219,37 +1260,37 @@ font-family: var(--rds-font-family-base);
     margin-bottom: var(--rds-spacing-none, 0);
   }
   .rds-adaptive-cards__football-team-name {
-    font-size: var(--rds-font-size-md, 14px) ;
-    letter-spacing: var(--rds-football-team-name-letter-spacing-mobile, 0.15px);
+    font-size: var(--rds-font-size-md) ;
+    letter-spacing: var(--rds-football-team-name-letter-spacing-mobile);
   }
   .rds-adaptive-cards__football-team-status {
-    font-size: var(--rds-font-size-xs, 10px) ;
+    font-size: var(--rds-font-size-xs) ;
   }
   .rds-adaptive-cards__football-score {
-    font-size: var(--rds-font-size-xl, 38px) ;
+    font-size: var(--rds-font-size-xl) ;
   }
   .rds-adaptive-cards__football-score-section {
-    gap: var(--rds-spacing-sm, 8px) ;
-    margin-bottom: var(--rds-spacing-md, 10px) ;
+    gap: var(--rds-spacing-sm) ;
+    margin-bottom: var(--rds-spacing-md) ;
   }
   .rds-adaptive-cards__football-body {
     display: flex;
     flex-direction: row ;
-    gap: var(--rds-spacing-sm, 8px) ;
+    gap: var(--rds-spacing-sm) ;
   }
   .rds-adaptive-cards__football-live {
-    font-size: var(--rds-font-size-xs, 10px) ;
+    font-size: var(--rds-font-size-xs) ;
     font-weight: var(--rds-font-weight-normal, 400);
-    height: var(--rds-font-size-xs, 20px) !important;
-    position: relative !important;
-    left: 0 !important;
-    right: 0 !important;
-    margin: 0 0 20px var(--rds-spacing-md, 14px) !important;
+    height: var(--rds-font-size-xs);
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: 0 0 var(--rds-spacing-5) var(--rds-spacing-md);
     display: flex;
     align-items: center ;
     justify-content: center ;
-    max-width: var(--rds-adaptive-cards-max-width-md, 55px) !important;
-    min-width: var(--rds-adaptive-cards-min-width-sm, 50px) ;
+    max-width: var(--rds-adaptive-cards-max-width-md);
+    min-width: var(--rds-adaptive-cards-min-width-sm) ;
     z-index: var(--rds-z-index-layer-2);
   }
 }
@@ -1263,14 +1304,14 @@ font-family: var(--rds-font-family-base);
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100%;
-    padding: var(--rds-spacing-md, 12px) ;
+    padding: var(--rds-spacing-md) ;
   }
   .rds-adaptive-cards--default,
   .rds-adaptive-cards--football-scorecard,
   .adaptive-scorecard-container {
     width: 100%;
     min-width: var(--rds-spacing-none, 0) ;
-    padding: var(--rds-spacing-md, 12px) ;
+    padding: var(--rds-spacing-md) ;
   }
   .rds-adaptive-cards__image-list {
     max-width: 100%;
@@ -1279,15 +1320,15 @@ font-family: var(--rds-font-family-base);
     white-space: nowrap;
     word-break: break-word;
     box-sizing: border-box;
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr);
   }
   .rds-adaptive-cards__image-list-item {
-    height: var(--rds-image-list-item-height-tablet, 140px) !important;
+    height: var(--rds-image-list-item-height-tablet);
   }
 
   .rds-adaptive-cards__football-team-name {
-    font-size: var(--rds-font-size-md, 14px) ;
-    letter-spacing: var(--rds-football-team-name-letter-spacing-tablet, 0.15px);
+    font-size: var(--rds-font-size-md) ;
+    letter-spacing: var(--rds-football-team-name-letter-spacing-tablet);
   }
 }
 
@@ -1295,43 +1336,43 @@ font-family: var(--rds-font-family-base);
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100%;
-    padding: var(--rds-spacing-lg, 16px) ;
+    padding: var(--rds-spacing-lg) ;
   }
   .rds-adaptive-cards--default,
   .rds-adaptive-cards--football-scorecard,
   .adaptive-scorecard-container {
     width: 100%;
     min-width: var(--rds-spacing-none, 0) ;
-    padding: var(--rds-spacing-lg, 16px) ;
+    padding: var(--rds-spacing-lg) ;
   }
   .rds-adaptive-cards__image-list {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(3, 1fr);
   }
   .rds-adaptive-cards__image-list-item {
-    height: var(--rds-image-list-item-height-tablet-lg, 160px) !important;
+    height: var(--rds-image-list-item-height-tablet-lg);
   }
 }
 
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-root,
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-select,
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-nativeInput {
-  font-size: var(--rds-font-size-sm, 12px) ;
+  font-size: var(--rds-font-size-sm) ;
 }
 
 .rds-adaptive-cards__calendar-reminder-input .MuiSelect-root,
 .rds-adaptive-cards__calendar-reminder-input .MuiSelect-select,
 .rds-adaptive-cards__calendar-reminder-input .MuiSelect-nativeInput {
-  font-size: var(--rds-font-size-xs, 10px) ;
+  font-size: var(--rds-font-size-xs) ;
 }
 .rds-adaptive-cards.rds-adaptive-cards--default {
-  min-height: var(--rds-adaptive-cards-min-height-160, 160px); 
+  min-height: var(--rds-adaptive-cards-min-height-160); 
 }
 
 .custom-box__title-stack {
-  gap: var(--rds-adaptive-cards-gap-xxs, 2px) ;
+  gap: var(--rds-adaptive-cards-gap-xxs) ;
 }
   .custom-box {
-  min-height: var(--rds-adaptive-cards-min-height-120, 120px);
+  min-height: var(--rds-adaptive-cards-min-height-120);
   background: transparent;
   border-radius: var(--rds-border-radius-lg);
   box-shadow: none;
@@ -1339,7 +1380,7 @@ font-family: var(--rds-font-family-base);
 
   &__close-icon {
     align-self: center;
-    left: 10px !important;
+    left: var(--rds-spacing-cozy);
     font-size: var(--rds-font-size-sm) ;
   }
   
@@ -1347,32 +1388,32 @@ font-family: var(--rds-font-family-base);
     margin-bottom: var(--rds-spacing-md);
     display: flex;
     align-items: center;
-    gap: var(--rds-adaptive-cards-gap, 14px);
+    gap: var(--rds-adaptive-cards-gap);
   }
 
   &__circle {
-    width: var(--rds-adaptive-cards-icon-width, 24px);
+    width: var(--rds-adaptive-cards-icon-width);
     height: var(--rds-size-lg);
-    border: 2px solid var(--rds-text-secondary);
+    border: var(--rds-border-width-medium) solid var(--rds-text-secondary);
     border-radius: var(--rds-border-radius-pill);
   }
 
   &__title-text {
-  font-size: 1.3rem !important; 
+  font-size: 1.3rem; 
   font-weight: 700; 
   margin-right: 0; 
   }
 
   &__slot {
-    border: 2px dashed var(--rds-border-default);
+    border: var(--rds-border-width-medium) dashed var(--rds-border-default);
     border-radius: var(--rds-border-radius-md);
-    min-height: 120px;
+    min-height: var(--rds-adaptive-cards-dim-1);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: var(--rds-spacing-lg);
      width: 100%;
-    height: 120px;
+    height: var(--rds-adaptive-cards-dim-1);
     box-sizing: border-box;
     text-align: center;
     position: relative;
@@ -1424,11 +1465,11 @@ font-family: var(--rds-font-family-base);
 }
 
 .rds-adaptive-cards__actions--input-form.MuiCardActions-root {
-  padding: var(--rds-spacing-none, 0) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
+  padding: var(--rds-spacing-none, 0) var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md);
 }
 
 .rds-adaptive-cards__actions--restaurant-order.MuiCardActions-root {
-  padding: var(--rds-spacing-none, 0) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
+  padding: var(--rds-spacing-none, 0) var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-md);
 }
 
 .rds-adaptive-cards__actions--input-form.MuiCardActions-root .rds-adaptive-cards__action-btn--input-form-button {
@@ -1464,28 +1505,28 @@ font-family: var(--rds-font-family-base);
 .rds-adaptive-cards__activity-update-wrapper {
   width: 100%;
   display: block;
-  position: relative !important;
+  position: relative;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
 .rds-adaptive-cards__activity-update-name {
-  font-family: var(--rds-font-family-base) ;
-  font-size: var(--rds-font-size-lg, 18px) ;
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif) ;
+  font-size: var(--rds-font-size-lg) ;
 }
 
 .rds-adaptive-cards__activity-update-date {
-  font-family: var(--rds-font-family-base) ;
-  font-size: var(--rds-font-size-lg, 14px) ;
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif) ;
+  font-size: var(--rds-font-size-lg) ;
 }
 
 .rds-adaptive-cards__input-error {
   border-color: var(--rds-error-main) ;
-  border-width: var(--rds-adaptive-cards-border-width, 2px) !important;
+  border-width: var(--rds-adaptive-cards-border-width);
   &:focus {
     outline-color: var(--rds-error-main) ;
-    box-shadow: var(--rds-adaptive-cards-error-ring) !important;
+    box-shadow: var(--rds-adaptive-cards-error-ring);
   }
 }
 
@@ -1502,32 +1543,32 @@ font-family: var(--rds-font-family-base);
   .rds-adaptive-cards--football-scorecard,
   .rds-adaptive-cards__scorecard-container {
     width: 100%;
-    min-width: 0 !important;
-    padding: var(--rds-spacing-sm, 8px) ;
+    min-width: 0;
+    padding: var(--rds-spacing-sm) ;
     box-sizing: border-box;
   }
 
   .rds-adaptive-cards__football-body {
-    gap: var(--rds-adaptive-cards-gap-xs, 6px) ;
+    gap: var(--rds-adaptive-cards-gap-xs) ;
     justify-content: space-between ;
   }
 
   .rds-adaptive-cards__football-team {
-    min-width: 56px !important; 
-    max-width: 80px !important;
+    min-width: var(--rds-size-56); 
+    max-width: var(--rds-size-4xl);
   }
 
   .rds-adaptive-cards__football-score-section {
-    min-width: 56px !important;
-    max-width: 80px !important;
+    min-width: var(--rds-size-56);
+    max-width: var(--rds-size-4xl);
   }
 
   .rds-adaptive-cards__football-team-name {
-    max-width: 80px !important;
+    max-width: var(--rds-size-4xl);
     white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    font-size: var(--rds-adaptive-cards-font-size-sm, 13px) ;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--rds-adaptive-cards-font-size-sm) ;
   }
 
   .rds-adaptive-cards__football-header-left {
@@ -1540,15 +1581,15 @@ font-family: var(--rds-font-family-base);
 }
 
 .rds-adaptive-cards--default {
-  width: min(100%, 450px);
-  max-width: 450px;
+  width: min(100%, var(--rds-adaptive-cards-dim-3));
+  max-width: var(--rds-adaptive-cards-dim-3);
   min-width: 0;
   box-sizing: border-box;
 }
 
 .rds-adaptive-cards--football-scorecard {
-  width: min(100%, 350px);
-  max-width: 350px;
+  width: min(100%, var(--rds-adaptive-cards-dim-2));
+  max-width: var(--rds-adaptive-cards-dim-2);
   min-width: 0;
   box-sizing: border-box;
 }
@@ -1569,67 +1610,67 @@ font-family: var(--rds-font-family-base);
 @media (max-width: 834px) {
   .rds-adaptive-cards--default,
   .rds-adaptive-cards--football-scorecard {
-    min-width: 0 !important;
+    min-width: 0;
     max-width: 100%;
   }
 
   .rds-adaptive-cards__header,
   .rds-adaptive-cards__content,
   .rds-adaptive-cards__actions {
-    padding-left: var(--rds-spacing-sm, 12px) !important;
-    padding-right: var(--rds-spacing-sm, 12px) !important;
+    padding-left: var(--rds-spacing-sm);
+    padding-right: var(--rds-spacing-sm);
   }
 
   .rds-adaptive-cards__actions,
   .custom-box__actions {
     flex-wrap: wrap ;
-    row-gap: var(--rds-spacing-xs, 6px);
+    row-gap: var(--rds-spacing-xs);
   }
 
   .rds-adaptive-cards__actions--input-form,
   .rds-adaptive-cards__actions--input-form.MuiCardActions-root {
-    padding: var(--rds-spacing-none, 0) var(--rds-spacing-sm, 12px) var(--rds-spacing-sm, 12px) var(--rds-spacing-sm, 12px) ;
+    padding: var(--rds-spacing-none, 0) var(--rds-spacing-sm) var(--rds-spacing-sm) var(--rds-spacing-sm) ;
   }
 
   .rds-adaptive-cards__actions--restaurant-order,
   .rds-adaptive-cards__actions--restaurant-order.MuiCardActions-root {
-    padding: var(--rds-spacing-none, 0) var(--rds-spacing-sm, 12px) var(--rds-spacing-sm, 12px) var(--rds-spacing-sm, 12px) ;
+    padding: var(--rds-spacing-none, 0) var(--rds-spacing-sm) var(--rds-spacing-sm) var(--rds-spacing-sm) ;
   }
 
   .rds-adaptive-cards__action-btn--input-form,
   .rds-adaptive-cards__action-btn--input-form-button,
   .rds-adaptive-cards__action-btn--restaurant-order {
-    height: 36px !important;
-    min-height: 36px !important;
+    height: var(--rds-size-36);
+    min-height: var(--rds-size-36);
   }
 
   .rds-adaptive-cards__restaurant-order-form .MuiOutlinedInput-root,
   .rds-adaptive-cards__restaurant-order-form .MuiInputBase-root {
-    height: 36px !important;
-    min-height: 36px !important;
+    height: var(--rds-size-36);
+    min-height: var(--rds-size-36);
     box-sizing: border-box;
   }
 
   .rds-adaptive-cards__restaurant-order-form .MuiSelect-select {
-    min-height: 36px !important;
+    min-height: var(--rds-size-36);
     display: flex;
     align-items: center ;
     box-sizing: border-box;
   }
 
   .rds-adaptive-cards__football-header-left {
-    margin-left: 0 !important;
+    margin-left: 0;
     justify-content: center ;
   }
 
   .rds-adaptive-cards__football-header-row {
-    gap: var(--rds-spacing-xs, 6px) ;
+    gap: var(--rds-spacing-xs) ;
   }
 
   .rds-adaptive-cards__football-team,
   .rds-adaptive-cards__football-score-section {
-    min-width: 0 !important;
-    max-width: none !important;
+    min-width: 0;
+    max-width: none;
   }
 
   .rds-adaptive-cards__football-team-name,

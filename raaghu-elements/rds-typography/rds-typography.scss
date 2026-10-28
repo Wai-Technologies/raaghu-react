@@ -8,18 +8,18 @@
   // ── Component-scoped size tokens ─────────────────────────────────────────────
   // These are overridable per-instance via inline style or a parent selector.
   // They reference the global --rds-font-size-* scale defined in custom-properties.scss.
-  --rds-typography-h1-size:        var(--rds-font-size-5xl, 3rem);
-  --rds-typography-h2-size:        var(--rds-font-size-4xl, 2.125rem);
-  --rds-typography-h3-size:        var(--rds-font-size-3xl, 1.5rem);
-  --rds-typography-h4-size:        var(--rds-font-size-2xl, 1.25rem);
-  --rds-typography-h5-size:        var(--rds-font-size-xl, 1.125rem);
-  --rds-typography-h6-size:        var(--rds-font-size-lg, 1rem);
-  --rds-typography-body1-size:     var(--rds-font-size-lg, 1rem);
-  --rds-typography-body2-size:     var(--rds-font-size-md, 0.875rem);
-  --rds-typography-caption-size:   var(--rds-font-size-sm, 0.75rem);
-  --rds-typography-overline-size:  var(--rds-font-size-sm, 0.75rem);
-  --rds-typography-h1-size-mobile: var(--rds-font-size-5xl, 2.8rem);
-  --rds-typography-h2-size-mobile: var(--rds-font-size-4xl, 2.3rem);
+  --rds-typography-h1-size:        var(--rds-font-size-5xl);
+  --rds-typography-h2-size:        var(--rds-font-size-4xl);
+  --rds-typography-h3-size:        var(--rds-font-size-3xl);
+  --rds-typography-h4-size:        var(--rds-font-size-2xl);
+  --rds-typography-h5-size:        var(--rds-font-size-xl);
+  --rds-typography-h6-size:        var(--rds-font-size-lg);
+  --rds-typography-body1-size:     var(--rds-font-size-lg);
+  --rds-typography-body2-size:     var(--rds-font-size-md);
+  --rds-typography-caption-size:   var(--rds-font-size-sm);
+  --rds-typography-overline-size:  var(--rds-font-size-sm);
+  --rds-typography-h1-size-mobile: var(--rds-font-size-5xl);
+  --rds-typography-h2-size-mobile: var(--rds-font-size-4xl);
 
   // ── Font weight tokens ───────────────────────────────────────────────────────
   --rds-typography-font-weight-light:   var(--rds-font-weight-light, 300);

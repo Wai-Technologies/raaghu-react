@@ -48,7 +48,13 @@ const RdsSnackbar = ({
   };
 
   const content = message || children;
-  const alertTextColor = resolvedSeverity ? `var(--rds-alert-${resolvedSeverity}-text, var(--rds-text-primary))` : 'var(--rds-text-primary)';
+  const ALERT_TEXT_BY_SEVERITY: Record<AlertColor, string> = {
+    success: 'var(--rds-alert-success-text)',
+    error: 'var(--rds-alert-error-text)',
+    warning: 'var(--rds-alert-warning-text)',
+    info: 'var(--rds-alert-info-text)',
+  };
+  const alertTextColor = ALERT_TEXT_BY_SEVERITY[resolvedSeverity] ?? 'var(--rds-text-primary)';
 
   return (
     <MuiSnackbar

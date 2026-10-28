@@ -31,10 +31,10 @@
 
   .rds-tag.MuiChip-filled.MuiChip-colorDefault .MuiChip-deleteIcon,
   .rds-tag.MuiChip-colorDefault:not(.MuiChip-outlined) .MuiChip-deleteIcon {
-    color: var(--rds-primary-main) !important;
+    color: var(--rds-primary-main);
   }
 
   .rds-tag.MuiChip-outlined .MuiChip-deleteIcon {
-    color: inherit !important;
+    color: inherit;
   }
 }

@@ -1,13 +1,17 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-toolbar {
+  --rds-toolbar-dim-1: 1px;
+  --rds-toolbar-dim-2: 6px;
+  --rds-toolbar-dim-3: 160px;
+
   display: flex;
   align-items: center;
-  padding: var(--rds-spacing-md, 8px) var(--rds-spacing-lg, 12px);
+  padding: var(--rds-spacing-md) var(--rds-spacing-lg);
   background: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-outline);
-  border-radius: var(--rds-border-radius, 8px);
-  gap: var(--rds-spacing-md, 8px);
+  border: var(--rds-border-width-thin) solid var(--rds-color-outline);
+  border-radius: var(--rds-border-radius);
+  gap: var(--rds-spacing-md);
   box-sizing: border-box;
   width: fit-content;
   max-width: 100%;
@@ -17,16 +21,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--rds-spacing-md, 8px);
-    padding: var(--rds-spacing-sm, 6px);
+    gap: var(--rds-spacing-md);
+    padding: var(--rds-spacing-sm);
   }
 
   &--secondary {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: var(--rds-spacing-xs, 4px);
-    padding: var(--rds-spacing-sm, 6px);
+    gap: var(--rds-spacing-xs);
+    padding: var(--rds-spacing-sm);
     
     .rds-comp-toolbar__row {
       justify-content: flex-start;
@@ -34,9 +38,9 @@
   }
 
   &--inline-editor {
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 8px);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    gap: var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-md);
+    border-radius: var(--rds-border-radius-sm);
+    gap: var(--rds-spacing-xs);
   }
 
   &--full-featured:not(.rds-comp-toolbar--primary) {
@@ -47,7 +51,7 @@
   &--more-paragraph,
   &--more-rich-content,
   &--misc {
-    padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 10px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
   }
 
   &--disabled {
@@ -70,10 +74,10 @@
   &__row {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 8px);
-    padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-xs, 4px);
+    gap: var(--rds-spacing-md);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-xs);
     width: auto;
-    height: var(--rds-toolbar-height, 40px);
+    height: var(--rds-toolbar-height);
     min-width: 0;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -86,7 +90,7 @@
 
     &--secondary {
       background: var(--rds-color-surface-variant);
-      border-radius: var(--rds-border-radius-sm, 4px);
+      border-radius: var(--rds-border-radius-sm);
 
       .rds-comp-toolbar__button {
         color: var(--rds-color-on-surface-variant);
@@ -102,20 +106,20 @@
   &__section {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 8px);
-    gap: var(--rds-spacing-xs, 2px);
+    gap: var(--rds-spacing-md);
+    gap: var(--rds-spacing-xs);
     flex-shrink: 0;
   }
 
   &__divider {
-    width: 1px;
+    width: var(--rds-toolbar-dim-1);
     height: var(--rds-size-lg);
     background: var(--rds-color-outline);
-    margin: 0 var(--rds-spacing-xs, 4px);
+    margin: 0 var(--rds-spacing-xs);
   }
 
   &__text-icon {
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-md);
     font-weight: 500;
     line-height: 1;
     display: inline-flex;
@@ -133,7 +137,7 @@
   }
 
   &__highlight-icon {
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-md);
     font-weight: 600;
     line-height: 1;
     display: inline-flex;
@@ -145,7 +149,7 @@
     color: inherit;
     font-family: var(--rds-font-family-base);
     background: linear-gradient(to bottom, transparent 50%, var(--rds-color-warning) 50%);
-    border-radius: var(--rds-border-radius-xs, 2px);
+    border-radius: var(--rds-border-radius-xs);
   }
 
   &__button {
@@ -154,13 +158,13 @@
     justify-content: center;
     min-width: var(--rds-size-xl);
     height: var(--rds-size-xl);
-    padding: var(--rds-spacing-sm, 6px);
-    border: 1px solid transparent;
+    padding: var(--rds-spacing-sm);
+    border: var(--rds-border-width-thin) solid transparent;
     background: transparent;
-    border-radius: var(--rds-border-radius-sm, 4px);
+    border-radius: var(--rds-border-radius-sm);
     cursor: pointer;
     color: var(--rds-color-on-surface-variant);
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-md);
     transition: all var(--rds-transition-base);
     position: relative;
 
@@ -179,8 +183,8 @@
     }
 
     &:focus-visible {
-      outline: var(--rds-focus-ring, 2px solid var(--rds-color-primary));
-      outline-offset: var(--rds-focus-ring-offset, 2px);
+      outline: var(--rds-focus-ring);
+      outline-offset: var(--rds-focus-ring-offset);
     }
 
     &--disabled {
@@ -211,16 +215,16 @@
    top: 100%;
    left: 0;
   z-index: var(--rds-z-index-popover);
-   min-width: 160px;
-   max-width: calc(100vw - 24px);
+   min-width: var(--rds-toolbar-dim-3);
+   max-width: calc(100vw - var(--rds-size-lg));
    max-height: 61vh;
    overflow: auto;
   background: var(--rds-color-surface);
-  border: 1px solid var(--rds-color-outline);
-   border-radius: var(--rds-border-radius-sm, 4px);
-   box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12));
-   padding: var(--rds-spacing-xs, 4px) 0;
-   margin-top: var(--rds-spacing-xs, 4px);
+  border: var(--rds-border-width-thin) solid var(--rds-color-outline);
+   border-radius: var(--rds-border-radius-sm);
+   box-shadow: var(--rds-elevation-3);
+   padding: var(--rds-spacing-xs) 0;
+   margin-top: var(--rds-spacing-xs);
    pointer-events: auto;
    -webkit-overflow-scrolling: touch;
    background-clip: padding-box;
@@ -232,11 +236,11 @@
   &__dropdown-item {
     display: block;
     width: 100%;
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     border: none;
     background: transparent;
     color: var(--rds-color-on-surface);
-    font-size: var(--rds-font-size-md, 14px);
+    font-size: var(--rds-font-size-md);
     text-align: left;
     cursor: pointer;
     transition: background-color var(--rds-transition-base);
@@ -263,34 +267,34 @@
     justify-content: center;
 
     svg {
-      font-size: var(--rds-font-size-lg, 18px);
+      font-size: var(--rds-font-size-lg);
     }
   }
 
   &__button-dropdown {
     display: flex;
     align-items: center;
-    margin-left: var(--rds-spacing-xs, 2px);
+    margin-left: var(--rds-spacing-xs);
 
     svg {
-      font-size: var(--rds-font-size-md, 16px);
+      font-size: var(--rds-font-size-md);
     }
   }
 
   &__text-icon {
     font-weight: 600;
-    font-size: var(--rds-font-size-body, 14px);
+    font-size: var(--rds-font-size-body);
   }
 
   &__highlight-icon {
     background: linear-gradient(to bottom, transparent 60%, var(--rds-color-warning) 60%);
     font-weight: 600;
-    padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-xs);
   }
 
   &__math-icon {
     font-weight: 600;
-    font-size: var(--rds-font-size-md, 16px);
+    font-size: var(--rds-font-size-md);
   }
 }
 
@@ -319,23 +323,23 @@
 
 @include bp.down(sm) {
   .rds-comp-toolbar__dropdown {
-    left: 45px !important;
-    max-height: 48vh !important;
+    left: var(--rds-spacing-45);
+    max-height: 48vh;
     
   }
 }
 
 @include bp.down(mobile-sm) {
   .rds-comp-toolbar__dropdown {
-    left: 12.8px !important;
-    max-height: 76vh !important;
+    left: 12.8px;
+    max-height: 76vh;
   }
 }
 
 @include bp.down(md) {
   .rds-comp-toolbar {
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 6px);
-    gap: var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+    gap: var(--rds-spacing-xs);
     overflow-x: auto;
     overflow-y: hidden;
     max-width: 100%;
@@ -348,18 +352,18 @@
       scrollbar-color: var(--rds-color-on-surface-variant) transparent;
       
       &::-webkit-scrollbar {
-        height: 6px;
+        height: var(--rds-toolbar-dim-2);
         display: block;
       }
       
       &::-webkit-scrollbar-track {
         background: var(--rds-color-surface-variant);
-        border-radius: var(--rds-border-radius-xs, 3px);
+        border-radius: var(--rds-border-radius-xs);
       }
 
       &::-webkit-scrollbar-thumb {
         background: var(--rds-color-on-surface-variant);
-        border-radius: var(--rds-border-radius-xs, 3px);
+        border-radius: var(--rds-border-radius-xs);
 
         &:hover {
           background: var(--rds-color-on-surface);
@@ -368,25 +372,25 @@
     }
     
     &--secondary {
-      padding: var(--rds-spacing-xs, 4px);
-      gap: var(--rds-spacing-xs, 2px);
+      padding: var(--rds-spacing-xs);
+      gap: var(--rds-spacing-xs);
       
       scrollbar-width: thin;
       scrollbar-color: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3)) transparent;
       
       &::-webkit-scrollbar {
-        height: 6px;
+        height: var(--rds-toolbar-dim-2);
         display: block;
       }
       
       &::-webkit-scrollbar-track {
         background: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.1));
-        border-radius: var(--rds-border-radius-xs, 3px);
+        border-radius: var(--rds-border-radius-xs);
       }
 
       &::-webkit-scrollbar-thumb {
         background: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3));
-        border-radius: var(--rds-border-radius-xs, 3px);
+        border-radius: var(--rds-border-radius-xs);
 
         &:hover {
           background: var(--rds-color-on-surface, rgba(0, 0, 0, 0.5));
@@ -395,8 +399,8 @@
     }
 
       &__row {
-      	gap: var(--rds-spacing-xs, 4px);
-      	padding: var(--rds-spacing-xs, 1px) var(--rds-spacing-xs, 3px);
+      	gap: var(--rds-spacing-xs);
+      	padding: var(--rds-spacing-xs) var(--rds-spacing-xs);
       flex-wrap: nowrap;
       overflow-x: auto;
       min-width: 0;
@@ -412,20 +416,20 @@
       }
       
       &--secondary {
-        padding: var(--rds-spacing-xs, 2px);
+        padding: var(--rds-spacing-xs);
       }
     }
 
     &__section {
-      gap: var(--rds-spacing-xxs, 1px);
+      gap: var(--rds-spacing-xxs);
       flex-shrink: 0;
       min-width: 0;
     }
 
     &__button {
-      min-width: 28px;
-      height: 28px;
-      padding: var(--rds-spacing-xs, 3px);
+      min-width: var(--rds-size-28);
+      height: var(--rds-size-28);
+      padding: var(--rds-spacing-xs);
       flex-shrink: 0;
 
       svg {
@@ -436,13 +440,13 @@
     &__text-icon,
     &__highlight-icon {
       font-size: var(--rds-font-size-sm);
-      min-width: 14px;
-      min-height: 14px;
+      min-width: var(--rds-size-14);
+      min-height: var(--rds-size-14);
     }
 
     &__divider {
-      height: 20px;
-      margin: 0 var(--rds-spacing-xs, 2px);
+      height: var(--rds-size-20);
+      margin: 0 var(--rds-spacing-xs);
       flex-shrink: 0;
     }
   }
@@ -450,12 +454,12 @@
 
 @include bp.down(sm) {
   .rds-comp-toolbar {
-    padding: var(--rds-spacing-xs, 3px) var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-xs);
     
     &__button {
       min-width: var(--rds-size-lg);
       height: var(--rds-size-lg);
-      padding: var(--rds-spacing-xs, 2px);
+      padding: var(--rds-spacing-xs);
       flex-shrink: 0;
 
       svg {
@@ -465,14 +469,14 @@
     
     &__text-icon,
     &__highlight-icon {
-      font-size: var(--rds-font-size-sm, 11px);
-      min-width: 12px;
-      min-height: 12px;
+      font-size: var(--rds-font-size-sm);
+      min-width: var(--rds-size-12);
+      min-height: var(--rds-size-12);
     }
 
     &__divider {
-      height: 18px;
-      margin: 0 var(--rds-spacing-xxs, 1px);
+      height: var(--rds-size-18);
+      margin: 0 var(--rds-spacing-xxs);
       flex-shrink: 0;
     }
     

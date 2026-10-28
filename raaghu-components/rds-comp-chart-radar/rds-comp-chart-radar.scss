@@ -1,10 +1,12 @@
 .rds-comp-chart-radar-container {
+  --rds-comp-chart-radar-max-width: 680px;
+  --rds-comp-chart-radar-height: 520px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: var(--rds-comp-chart-radar-max-width, 680px);
-    height: var(--rds-comp-chart-radar-height, 520px);
+    max-width: var(--rds-comp-chart-radar-max-width);
+    height: var(--rds-comp-chart-radar-height);
 
     canvas {
         display: block;

@@ -1,10 +1,14 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-notification {
+  --rds-notification-dim-1: 38px;
+  --rds-notification-dim-2: 115px;
+  --rds-notification-dim-3: 250px;
+
   &.MuiCard-root {
     position: relative;
     transition: all var(--rds-transition-slow);
-    border: 1px solid var(--rds-form-border);
+    border: var(--rds-border-width-thin) solid var(--rds-form-border);
     box-shadow: none;
   }
 
@@ -53,8 +57,8 @@
     }
 
     .rds-comp-notification__image-container img {
-      width: 250px;
-      height: 115px;
+      width: var(--rds-notification-dim-3);
+      height: var(--rds-notification-dim-2);
       object-fit: contain;
       display: block;
       margin: 0;
@@ -84,8 +88,8 @@
 
   &--style-avatar {
     .MuiAvatar-root {
-      width: 40px;
-      height: 40px;
+      width: var(--rds-size-40);
+      height: var(--rds-size-40);
       margin-top: 0;
       margin-right: var(--rds-spacing-12-px);
     }
@@ -95,8 +99,8 @@
     .rds-comp-notification__icon {
       display: flex;
       align-items: center;
-      width: 38px;
-      height: 38px;
+      width: var(--rds-notification-dim-1);
+      height: var(--rds-notification-dim-1);
       margin-top: 0;
       margin-right: var(--rds-spacing-14);
 
@@ -209,8 +213,8 @@
 
   &__dismiss.MuiIconButton-root {
     position: absolute;
-    top: 17px;
-    right: 5px;
+    top: var(--rds-spacing-17);
+    right: var(--rds-spacing-tight);
     padding: var(--rds-spacing-xs);
     background-color: transparent;
     z-index: var(--rds-z-index-layer-1);
@@ -220,8 +224,8 @@
     }
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: var(--rds-size-20);
+      height: var(--rds-size-20);
       color: var(--rds-text-secondary);
       pointer-events: none;
     }
@@ -230,14 +234,14 @@
   &--style-avatar,
   &--style-icon {
     .rds-comp-notification__dismiss.MuiIconButton-root {
-      top: 12px;
+      top: var(--rds-spacing-3);
     }
   }
 
   &--layout-horizontal.rds-comp-notification--style-image {
     .rds-comp-notification__dismiss.MuiIconButton-root {
-      top: 8px;
-      right: 12px;
+      top: var(--rds-spacing-sm);
+      right: var(--rds-spacing-3);
     }
 
     .rds-comp-notification__title-section {
@@ -314,7 +318,7 @@
         }
 
         .rds-comp-notification__dismiss.MuiIconButton-root {
-          top: 16px;
+          top: var(--rds-spacing-md);
           right: 0;
         }
       }

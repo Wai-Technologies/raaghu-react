@@ -1,9 +1,11 @@
 .rds-form-control {
-  --rds-form-control-select-width: var(--rds-input-min-width, 200px);
+  --rds-form-control-select-width: var(--rds-input-min-width);
 
   // Match MuiFormControl (inline-flex + column). `display: block` overrides that
   // and lets the inline FormLabel sit beside the TextField when SCSS injects
   // after Emotion (common on first Storybook navigation).
+  --rds-input-min-width: 200px;
+
   display: inline-flex;
   flex-direction: column;
   position: relative;
@@ -23,7 +25,7 @@
     &:hover,
     &.Mui-focused {
       .MuiOutlinedInput-notchedOutline {
-        box-shadow: none !important;
+        box-shadow: none;
       }
     }
   }
@@ -44,25 +46,25 @@
 
   // Reserve space for the chevron; truncate long values so they never cover the icon
   .MuiSelect-select.MuiInputBase-input {
-    box-sizing: border-box !important;
-    display: block !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    overflow: hidden !important;
-    padding-right: 32px !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
+    box-sizing: border-box;
+    display: block;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding-right: var(--rds-spacing-xl);
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .MuiSelect-icon {
-    color: var(--rds-text-secondary) !important;
-    display: inline-block !important;
+    color: var(--rds-text-secondary);
+    display: inline-block;
     flex-shrink: 0;
-    opacity: 1 !important;
+    opacity: 1;
     pointer-events: none;
-    position: absolute !important;
-    right: 7px !important;
-    visibility: visible !important;
+    position: absolute;
+    right: var(--rds-spacing-7);
+    visibility: visible;
     z-index: 2;
   }
 
@@ -70,8 +72,8 @@
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-placeholder-color) !important;
-    opacity: 1 !important;
+    color: var(--rds-placeholder-color);
+    opacity: 1;
   }
 }
 
@@ -82,15 +84,15 @@
 }
 
 .rds-form-control .MuiFormLabel-asterisk {
-  color: var(--rds-form-control-asterisk-color) !important;
+  color: var(--rds-form-control-asterisk-color);
 }
 
 .rds-form-control .MuiFormLabel-root.Mui-focused .MuiFormLabel-asterisk,
 .rds-form-control .MuiFormLabel-root.Mui-error .MuiFormLabel-asterisk {
-  color: var(--rds-form-control-asterisk-color) !important;
+  color: var(--rds-form-control-asterisk-color);
 }
 
 .rds-form-control .MuiFormHelperText-root,
 .rds-form-control .css-1t6h741-MuiFormHelperText-root {
-  margin-left: 0 !important;
+  margin-left: 0;
 }

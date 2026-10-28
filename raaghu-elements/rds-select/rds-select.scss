@@ -1,10 +1,12 @@
 .rds-select {
+  --rds-select-dim-1: 1px;
+
   --rds-select-focus-border-width: 2px;
   --rds-select-helper-margin-left: 0px;
   display: block;
   position: relative;
   .MuiFormLabel-asterisk {
-    color: var(--rds-alert-error-border) !important;
+    color: var(--rds-alert-error-border);
   }
 
   &__form-control {
@@ -40,15 +42,15 @@
     border-radius: var(--rds-spacing-xs);
     .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-border-default);
-      box-shadow: none !important;
+      box-shadow: none;
     }
     &:hover .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-text-secondary);
     }
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-primary-main);
-      border-width: var(--rds-select-focus-border-width, 2px);
-      box-shadow: none !important;
+      border-width: var(--rds-select-focus-border-width);
+      box-shadow: none;
     }
     &.Mui-error .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-alert-error-border);
@@ -95,7 +97,7 @@
     color: var(--rds-text-secondary);
     font-size: var(--rds-font-size-sm);
     margin-top: var(--rds-spacing-xs);
-    margin-left: var(--rds-select-helper-margin-left, 0px) !important;
+    margin-left: var(--rds-select-helper-margin-left);
     &.Mui-error {
       color: var(--rds-alert-error-border);
     }
@@ -110,14 +112,14 @@
   &.rds-select--small {
     .rds-select__field .MuiSelect-select {
       font-size: var(--rds-font-size-sm);
-      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     }
   }
 
   &.rds-select--medium {
     .rds-select__field .MuiSelect-select {
       font-size: var(--rds-font-size-md);
-      padding: var(--rds-spacing-sm) var(--rds-spacing-md) !important;
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     }
   }
 
@@ -130,8 +132,8 @@
 
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: var(--rds-select-dim-1);
+  height: var(--rds-select-dim-1);
   padding: 0;
   margin: var(--rds-spacing-neg-1);
   overflow: hidden;

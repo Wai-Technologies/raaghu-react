@@ -2,10 +2,21 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-text-editor {
-  border: 1px solid var(--rds-color-border);
-  border-radius: var(--rds-border-radius, 2px);
+  --rds-text-editor-dim-1: 30px;
+  --rds-text-editor-dim-2: 100px;
+  --rds-text-editor-dim-3: 110px;
+  --rds-text-editor-dim-4: 260px;
+  --rds-text-editor-dim-5: 320px;
+
+  --rds-editor-min-height: 200px;
+  --rds-resize-handle-size: 12px;
+  --rds-toolbar-button-size: 25px;
+  --rds-editor-content-min-height: 150px;
+
+  border: var(--rds-border-width-thin) solid var(--rds-color-border);
+  border-radius: var(--rds-border-radius);
   padding: 0;
-  min-height: var(--rds-editor-min-height, 200px);
+  min-height: var(--rds-editor-min-height);
   background-color: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
   transition: border-color 0.15s ease, background-color 0.15s ease;
@@ -13,7 +24,7 @@
   position: relative;
 
   &--selected {
-    border: 1px solid var(--rds-color-border);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border);
   }
 
   &--error {
@@ -35,10 +46,10 @@
   &--resizable::after {
     content: '';
     position: absolute;
-    right: var(--rds-spacing-xxs, 6px);
-    bottom: var(--rds-spacing-xxs, 6px);
-    width: var(--rds-resize-handle-size, 12px);
-    height: var(--rds-resize-handle-size, 12px);
+    right: var(--rds-spacing-xxs);
+    bottom: var(--rds-spacing-xxs);
+    width: var(--rds-resize-handle-size);
+    height: var(--rds-resize-handle-size);
     background:
       linear-gradient(135deg, transparent 50%, var(--rds-border-light) 50%) 0 0/6px 6px no-repeat,
       linear-gradient(135deg, transparent 50%, var(--rds-border-light) 50%) 6px 6px/6px 6px no-repeat;
@@ -51,9 +62,9 @@
   .rds-comp-text-editor__toolbar {
     border-color: var(--rds-color-border-light);
     background-color: var(--rds-color-surface-variant);
-    border-radius: var(--rds-border-radius, 2px) var(--rds-border-radius, 2px) 0 0;
-    padding: var(--rds-spacing-xs, 6px);
-    border-bottom: 1px solid var(--rds-color-border);
+    border-radius: var(--rds-border-radius) var(--rds-border-radius) 0 0;
+    padding: var(--rds-spacing-xs);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
     margin-bottom: 0;
     transition: background-color 0.15s ease, border-color 0.15s ease;
 
@@ -64,12 +75,12 @@
     }
 
     .rdw-option-wrapper {
-      border: 1px solid var(--rds-color-border-light);
-      padding: var(--rds-spacing-xxs, 5px);
-      min-width: var(--rds-toolbar-button-size, 25px);
-      height: var(--rds-toolbar-button-size, 25px);
-      border-radius: var(--rds-border-radius-sm, 2px);
-      margin: 0 var(--rds-spacing-xxs, 4px);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
+      padding: var(--rds-spacing-xxs);
+      min-width: var(--rds-toolbar-button-size);
+      height: var(--rds-toolbar-button-size);
+      border-radius: var(--rds-border-radius-sm);
+      margin: 0 var(--rds-spacing-xxs);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -96,12 +107,12 @@
     }
 
     .rdw-dropdown-wrapper {
-      border: 1px solid var(--rds-color-border-light);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       background: var(--rds-color-surface);
       color: var(--rds-color-on-surface);
-      border-radius: var(--rds-border-radius-sm, 2px);
-      min-width: 110px;
-      min-height: var(--rds-toolbar-button-size, 25px);
+      border-radius: var(--rds-border-radius-sm);
+      min-width: var(--rds-text-editor-dim-3);
+      min-height: var(--rds-toolbar-button-size);
       transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 
       &:hover {
@@ -110,8 +121,8 @@
 
       .rdw-dropdown-selectedtext {
         color: inherit;
-        padding: 0 var(--rds-spacing-xs, 8px);
-        line-height: var(--rds-toolbar-button-size, 25px);
+        padding: 0 var(--rds-spacing-xs);
+        line-height: var(--rds-toolbar-button-size);
       }
 
       .rdw-dropdown-carettoopen {
@@ -124,9 +135,9 @@
 
       .rdw-dropdown-optionwrapper {
         background: var(--rds-color-surface);
-        border: 1px solid var(--rds-color-border-light);
+        border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
         box-shadow: var(--rds-elevation-2);
-        border-radius: var(--rds-border-radius-sm, 2px);
+        border-radius: var(--rds-border-radius-sm);
         z-index: var(--rds-z-index-dropdown, 1300);
       }
 
@@ -151,10 +162,10 @@
 
     .rdw-image-wrapper {
       .rdw-image-modal {
-        border-radius: var(--rds-border-radius, 4px);
+        border-radius: var(--rds-border-radius);
         background-color: var(--rds-color-surface);
         color: var(--rds-color-on-surface);
-        border: 1px solid var(--rds-color-border);
+        border: var(--rds-border-width-thin) solid var(--rds-color-border);
         box-shadow: var(--rds-elevation-3);
         z-index: var(--rds-z-index-modal, 1400);
 
@@ -169,7 +180,7 @@
         .rdw-image-modal-btn {
           background: var(--rds-color-primary);
           color: var(--rds-color-on-primary);
-          border-radius: var(--rds-border-radius-sm, 2px);
+          border-radius: var(--rds-border-radius-sm);
 
           &:hover {
             background: var(--rds-color-primary-dark);
@@ -187,9 +198,9 @@
 
   .rdw-editor-main,
   .rds-comp-text-editor__content {
-    padding: var(--rds-spacing-sm, 10px);
-    font-size: var(--rds-font-size-body, 14px);
-    min-height: var(--rds-editor-content-min-height, 150px);
+    padding: var(--rds-spacing-sm);
+    font-size: var(--rds-font-size-body);
+    min-height: var(--rds-editor-content-min-height);
     line-height: var(--rds-line-height-body, 1.5);
     background-color: var(--rds-color-surface);
     color: var(--rds-color-on-surface);
@@ -209,8 +220,8 @@
     }
 
     blockquote {
-      border-left: var(--rds-blockquote-border-width, 5px) solid var(--rds-color-border-light);
-      padding-left: var(--rds-spacing-sm, 10px);
+      border-left: var(--rds-blockquote-border-width) solid var(--rds-color-border-light);
+      padding-left: var(--rds-spacing-sm);
       margin-left: 0;
       color: var(--rds-color-text-secondary);
     }
@@ -235,9 +246,9 @@
 
     pre {
       background-color: var(--rds-color-surface-variant);
-      padding: var(--rds-spacing-xs, 0.5rem);
-      border-radius: var(--rds-border-radius-sm, 2px);
-      border: 1px solid var(--rds-color-border-light);
+      padding: var(--rds-spacing-xs);
+      border-radius: var(--rds-border-radius-sm);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border-light);
       font-family: var(--rds-font-family-base);
       overflow-x: auto;
     }
@@ -246,7 +257,7 @@
 
 .rds-comp-text-editor-label {
   display: block;
-  margin-bottom: var(--rds-spacing-xs, 0.5rem);
+  margin-bottom: var(--rds-spacing-xs);
   font-weight: var(--rds-font-weight-medium, 500);
   color: var(--rds-color-on-surface);
   transition: color 0.2s ease;
@@ -258,23 +269,23 @@
 }
 
 .rds-comp-text-editor__error {
-  margin-top: var(--rds-spacing-xs, 0.5rem);
+  margin-top: var(--rds-spacing-xs);
   color: var(--rds-color-error);
-  font-size: var(--rds-font-size-small, 0.875rem);
+  font-size: var(--rds-font-size-small);
 }
 
 .rdw-link-modal-input,
 .rdw-image-modal-size-input,
 .rdw-image-modal-alt-input {
-  border: 1px solid var(--rds-border-light);
+  border: var(--rds-border-width-thin) solid var(--rds-border-light);
 }
 
 /* Global modal field defaults */
 .rdw-image-modal-url-input,
 .rdw-image-modal-size-input,
 .rdw-image-modal-alt-input {
-  border-radius: var(--rds-border-radius-sm, 4px);
-  padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 8px);
+  border-radius: var(--rds-border-radius-sm);
+  padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
 }
 
 /* G6-118: one :is() dark host instead of duplicated theme-sniff selectors */
@@ -344,14 +355,14 @@
 
   .rdw-editor-main,
   .rds-comp-text-editor__content {
-    background-color: var(--rds-color-surface-dark, var(--rds-neutral-850));
+    background-color: var(--rds-color-surface-dark);
     color: var(--rds-neutral-0, var(--rds-neutral-0));
   }
 
   &.rds-comp-text-editor--disabled {
     .rdw-editor-main,
     .rds-comp-text-editor__content {
-      background-color: var(--rds-color-surface-dark, var(--rds-neutral-850));
+      background-color: var(--rds-color-surface-dark);
       color: var(--rds-color-disabled-text-dark, var(--rds-neutral-400));
     }
 
@@ -396,31 +407,31 @@
   }
 
   .rdw-image-modal-btn {
-    border-radius: var(--rds-border-radius-sm, 4px);
+    border-radius: var(--rds-border-radius-sm);
   }
 }
 
 @include bp.down(430) {
   .rds-comp-text-editor {
     .rdw-link-modal {
-      left: -180px;
+      left: var(--rds-spacing-neg-180);
     }
 
     .rdw-image-modal {
-      left: -93px;
-      max-height: calc(100vh - 100px);
+      left: var(--rds-spacing-neg-93);
+      max-height: calc(100vh - var(--rds-text-editor-dim-2));
       overflow-y: auto;
       box-shadow: var(--rds-elevation-4);
-      border: 1px solid var(--rds-color-border);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border);
 
       @include bp.down(mobile-sm) {
         position: fixed;
         left: 50%;
         top: 70%;
         transform: translate(-50%, -50%);
-        width: 260px;
-        max-width: calc(100vw - 30px);
-        max-height: calc(100vh - 40px);
+        width: var(--rds-text-editor-dim-4);
+        max-width: calc(100vw - var(--rds-text-editor-dim-1));
+        max-height: calc(100vh - var(--rds-size-40));
         z-index: var(--rds-z-index-modal);
       }
     }
@@ -430,15 +441,15 @@
 @include bp.between(420, 834) {
   .rds-comp-text-editor {
     .rdw-link-modal {
-      left: 4px;
+      left: var(--rds-spacing-xs);
     }
 
     .rdw-image-modal {
       right: 0;
       left: auto;
-      max-width: 320px;
+      max-width: var(--rds-text-editor-dim-5);
       box-shadow: var(--rds-elevation-4);
-      border: 1px solid var(--rds-color-border);
+      border: var(--rds-border-width-thin) solid var(--rds-color-border);
       z-index: var(--rds-z-index-modal, 1400);
     }
   }

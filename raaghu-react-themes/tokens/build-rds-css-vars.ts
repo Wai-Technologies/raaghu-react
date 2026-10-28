@@ -19,6 +19,8 @@ import {
   interactiveTokens,
   miscTokens,
   radiusTokens,
+  borderWidthTokens,
+  sizeTokens,
   scrollbarTokens,
   semanticAliasTokens,
   shadowTokens,
@@ -32,6 +34,7 @@ import {
   spacingExact,
   syntaxTokens,
 } from './design-tokens';
+import { resolveSemanticPalette } from './semantic-palette';
 
 export type RdsThemeMode = 'light' | 'dark';
 
@@ -236,6 +239,20 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-170': spacingExact['170'],
     '--rds-spacing-235': spacingExact['235'],
     '--rds-spacing-240': spacingExact['240'],
+    '--rds-spacing-17': spacingExact['17'],
+    '--rds-spacing-35': spacingExact['35'],
+    '--rds-spacing-45': spacingExact['45'],
+    '--rds-spacing-50': spacingExact['50'],
+    '--rds-spacing-55': spacingExact['55'],
+    '--rds-spacing-63': spacingExact['63'],
+    '--rds-spacing-70': spacingExact['70'],
+    '--rds-spacing-76': spacingExact['76'],
+    '--rds-spacing-84': spacingExact['84'],
+    '--rds-spacing-90': spacingExact['90'],
+    '--rds-spacing-100': spacingExact['100'],
+    '--rds-spacing-200': spacingExact['200'],
+    '--rds-spacing-210': spacingExact['210'],
+    '--rds-spacing-250': spacingExact['250'],
     // Negative spacing offsets (layout adjustments in legacy components)
     '--rds-spacing-neg-1': spacingExact['neg-1'],
     '--rds-spacing-neg-2': spacingExact['neg-2'],
@@ -246,10 +263,15 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-neg-9': spacingExact['neg-9'],
     '--rds-spacing-neg-14': spacingExact['neg-14'],
     '--rds-spacing-neg-16': spacingExact['neg-16'],
+    '--rds-spacing-neg-17': spacingExact['neg-17'],
+    '--rds-spacing-neg-18': spacingExact['neg-18'],
     '--rds-spacing-neg-20': spacingExact['neg-20'],
     '--rds-spacing-neg-25': spacingExact['neg-25'],
     '--rds-spacing-neg-35': spacingExact['neg-35'],
+    '--rds-spacing-neg-67': spacingExact['neg-67'],
     '--rds-spacing-neg-80': spacingExact['neg-80'],
+    '--rds-spacing-neg-93': spacingExact['neg-93'],
+    '--rds-spacing-neg-180': spacingExact['neg-180'],
     // Pixel-exact gap values not covered by spacingExact named aliases
     '--rds-spacing-9-px': '9px',
     '--rds-spacing-11-px': '11px',
@@ -376,6 +398,22 @@ function sharedCssVars(): Record<string, string> {
     '--rds-emoji-generator-height': componentTokens.emojiGenerator?.height || '420px',
     '--rds-emoji-generator-icon-size-sm': componentTokens.emojiGenerator?.iconSizeSm || '29px',
     '--rds-emoji-generator-icon-size-xs': componentTokens.emojiGenerator?.iconSizeXs || '22px',
+    '--rds-emoji-skin-popover-width': componentTokens.emojiGenerator?.popoverWidth || '45px',
+    '--rds-emoji-skin-tone-size': componentTokens.emojiGenerator?.skinToneSize || '32px',
+    // Button heights (shared across components)
+    '--rds-component-button-height-small': componentTokens.button?.height?.small || '32px',
+    '--rds-component-button-height-medium': componentTokens.button?.height?.medium || '40px',
+    '--rds-component-button-height-large': componentTokens.button?.height?.large || '48px',
+    // Divider sizes (consumed from TSX sx)
+    '--rds-divider-border-width-sm': '1px',
+    '--rds-divider-border-width-md': '2px',
+    '--rds-divider-border-width-lg': '3px',
+    '--rds-divider-icon-box-size': '28px',
+    '--rds-divider-icon-size': '21px',
+    '--rds-divider-vertical-container-height': '120px',
+    '--rds-info-variant': colorTokens.info.variant,
+    '--rds-backdrop-color': alphaTokens.backdropLight,
+    '--rds-shadow-color': alphaTokens.shadowColor,
     '--rds-emoji-generator-popover-width': componentTokens.emojiGenerator?.popoverWidth || '45px',
     '--rds-emoji-generator-inline-min-width': componentTokens.emojiGenerator?.inlineMinWidth || '36px',
     // Empty state component tokens
@@ -927,21 +965,40 @@ function sharedCssVars(): Record<string, string> {
     '--rds-space-3': spacingTokens[3],
     '--rds-space-4': spacingTokens[4],
     '--rds-space-5': spacingTokens[5],
-    // ── Generic size tokens ───────────────────────────────────────────────────
-    '--rds-size-xs': spacingExact.xs,
-    '--rds-size-sm': spacingExact.sm,
-    '--rds-size-md': spacingExact.md,
-    '--rds-size-lg': spacingExact.lg,
-    '--rds-size-xl': spacingExact.xl,
-    '--rds-size-3xl': spacingExact['3xl'],
-    '--rds-size-4xl': spacingTokens[20],
-    '--rds-size-6xl': spacingTokens[24],
-    '--rds-size-color-btn': '32px',
+    // ── Generic size tokens (exact px — width/height/chrome) ─────────────────
+    '--rds-size-xs': sizeTokens.xs,
+    '--rds-size-sm': sizeTokens.sm,
+    '--rds-size-md': sizeTokens.md,
+    '--rds-size-lg': sizeTokens.lg,
+    '--rds-size-xl': sizeTokens.xl,
+    '--rds-size-2xl': sizeTokens['2xl'],
+    '--rds-size-3xl': sizeTokens['3xl'],
+    '--rds-size-4xl': sizeTokens['4xl'],
+    '--rds-size-5xl': sizeTokens['5xl'],
+    '--rds-size-6xl': sizeTokens['6xl'],
+    '--rds-size-12': sizeTokens['12'],
+    '--rds-size-14': sizeTokens['14'],
+    '--rds-size-18': sizeTokens['18'],
+    '--rds-size-20': sizeTokens['20'],
+    '--rds-size-28': sizeTokens['28'],
+    '--rds-size-36': sizeTokens['36'],
+    '--rds-size-40': sizeTokens['40'],
+    '--rds-size-44': sizeTokens['44'],
+    '--rds-size-56': sizeTokens['56'],
+    '--rds-size-color-btn': sizeTokens.colorBtn,
     // ── Border / radius aliases ───────────────────────────────────────────────
     '--rds-border-radius': radiusTokens.base,
-    '--rds-border-width-thin': '1px',
+    '--rds-border-width-none': borderWidthTokens.none,
+    '--rds-border-width-hairline': borderWidthTokens.hairline,
+    '--rds-border-width-thin': borderWidthTokens.thin,
+    '--rds-border-width-emphasis': borderWidthTokens.emphasis,
+    '--rds-border-width-medium': borderWidthTokens.medium,
+    '--rds-border-width-bold': borderWidthTokens.bold,
+    '--rds-border-width-thick': borderWidthTokens.thick,
+    '--rds-border-width-heavy': borderWidthTokens.heavy,
+    '--rds-border-radius-micro': '3px',
     '--rds-radius-md': radiusTokens.md,
-    '--rds-blockquote-border-width': '4px',
+    '--rds-blockquote-border-width': borderWidthTokens.heavy,
     // ── Shadow aliases ────────────────────────────────────────────────────────
     '--rds-shadow-sm': elevationTokens[1],
     '--rds-shadow-hover': elevationTokens[2],
@@ -1046,6 +1103,7 @@ function sharedCssVars(): Record<string, string> {
 }
 
 function lightThemeCssVars(): Record<string, string> {
+  const sem = resolveSemanticPalette('light');
   const p = colorTokens.primary;
   const s = colorTokens.secondary;
   const t = tertiaryTokens;
@@ -1056,11 +1114,11 @@ function lightThemeCssVars(): Record<string, string> {
   const i = infoPaletteTokens;
 
   return {
-    // ── Primary ──────────────────────────────────────────────────────────────
-    '--rds-primary-main': p[700],
-    '--rds-primary-light': p[100],
-    '--rds-primary-dark': p[600],
-    '--rds-primary-contrast-text': white,
+    // ── Primary (from resolveSemanticPalette) ────────────────────────────────
+    '--rds-primary-main': sem.primary.main,
+    '--rds-primary-light': sem.primary.light,
+    '--rds-primary-dark': sem.primary.dark,
+    '--rds-primary-contrast-text': sem.primary.contrastText,
     // ── Surface primary ──────────────────────────────────────────────────────
     '--rds-surface-primary-darker': p[800],
     '--rds-surface-primary-dark': p[700],
@@ -1073,11 +1131,11 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-surface-neutral-medium': surfaceTokens.neutralMedium,
     '--rds-surface-neutral-light': surfaceTokens.neutralLight,
     '--rds-surface-neutral-subtle': white,
-    // ── Secondary ────────────────────────────────────────────────────────────
-    '--rds-secondary-main': s[700],
-    '--rds-secondary-light': s[100],
-    '--rds-secondary-dark': s[600],
-    '--rds-secondary-contrast-text': white,
+    // ── Secondary (from resolveSemanticPalette) ──────────────────────────────
+    '--rds-secondary-main': sem.secondary.main,
+    '--rds-secondary-light': sem.secondary.light,
+    '--rds-secondary-dark': sem.secondary.dark,
+    '--rds-secondary-contrast-text': sem.secondary.contrastText,
     // ── Tertiary ─────────────────────────────────────────────────────────────
     '--rds-tertiary-main': t[500],
     '--rds-tertiary-light': t[100],
@@ -1105,40 +1163,40 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-surface-dark-alt': surfaceTokens.darkAlt,
     '--rds-surface-dark-deep': surfaceTokens.darkDeep,
     '--rds-border-dark-elevated': surfaceTokens.darkElevatedBorder,
-    // ── Semantic colors ──────────────────────────────────────────────────────
-    '--rds-error-main': e[700],
-    '--rds-error-light': e[100],
-    '--rds-error-dark': e[600],
-    '--rds-error-contrast-text': white,
-    '--rds-warning-main': w[700],
-    '--rds-warning-light': w[100],
-    '--rds-warning-dark': w[600],
-    '--rds-warning-contrast-text': white,
-    '--rds-success-main': su[700],
-    '--rds-success-light': su[100],
-    '--rds-success-dark': su[600],
-    '--rds-success-contrast-text': white,
-    '--rds-info-main': i[400],
-    '--rds-info-light': i[50],
-    '--rds-info-dark': i[600],
-    '--rds-info-contrast-text': white,
-    // ── Background ───────────────────────────────────────────────────────────
-    '--rds-background-default': n[50],
-    '--rds-background-paper': white,
+    // ── Semantic colors (from resolveSemanticPalette) ────────────────────────
+    '--rds-error-main': sem.error.main,
+    '--rds-error-light': sem.error.light,
+    '--rds-error-dark': sem.error.dark,
+    '--rds-error-contrast-text': sem.error.contrastText,
+    '--rds-warning-main': sem.warning.main,
+    '--rds-warning-light': sem.warning.light,
+    '--rds-warning-dark': sem.warning.dark,
+    '--rds-warning-contrast-text': sem.warning.contrastText,
+    '--rds-success-main': sem.success.main,
+    '--rds-success-light': sem.success.light,
+    '--rds-success-dark': sem.success.dark,
+    '--rds-success-contrast-text': sem.success.contrastText,
+    '--rds-info-main': sem.info.main,
+    '--rds-info-light': sem.info.light,
+    '--rds-info-dark': sem.info.dark,
+    '--rds-info-contrast-text': sem.info.contrastText,
+    // ── Background (from resolveSemanticPalette) ─────────────────────────────
+    '--rds-background-default': sem.background.default,
+    '--rds-background-paper': sem.background.paper,
     '--rds-background-surface': n[50],
     '--rds-background-overlay': alphaTokens.overlayDark,
-    // ── Text ─────────────────────────────────────────────────────────────────
-    '--rds-text-primary': n[900],
-    '--rds-text-secondary': n[600],
-    '--rds-text-disabled': n[400],
+    // ── Text (from resolveSemanticPalette) ───────────────────────────────────
+    '--rds-text-primary': sem.text.primary,
+    '--rds-text-secondary': sem.text.secondary,
+    '--rds-text-disabled': sem.text.disabled,
     '--rds-text-hint': n[500],
     // ── Border ───────────────────────────────────────────────────────────────
     '--rds-border-default': n[300],
     '--rds-border-light': n[200],
     '--rds-border-dark': n[400],
     '--rds-border-focus': 'var(--rds-primary-main)',
-    // ── Divider (alias for the most common border use-case in layouts) ────────
-    '--rds-divider': n[200],
+    // ── Divider (from resolveSemanticPalette) ────────────────────────────────
+    '--rds-divider': sem.divider,
     '--rds-button-primary-bg': p[700],
     '--rds-button-primary-bg-hover': p[750],
     '--rds-button-primary-bg-active': p[800],
@@ -1213,9 +1271,10 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-overlay-dark': alphaTokens.overlayDark,
     '--rds-overlay-darker': alphaTokens.overlayDarker,
     '--rds-overlay-semi': alphaTokens.overlaySemi,
-    '--rds-action-hover': alphaTokens.actionHoverLight,
+    '--rds-action-hover': sem.action.hover,
     '--rds-action-active': alphaTokens.actionActiveLight,
-    '--rds-action-disabled': alphaTokens.actionDisabledLight,
+    '--rds-action-disabled': sem.action.disabled,
+    '--rds-action-selected': sem.action.selected,
     // ── Tooltip (inverted: dark surface on light theme) ──────────────────────
     '--rds-tooltip-bg': n[900],
     '--rds-tooltip-color': white,
@@ -1245,6 +1304,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-color-primary-hover': 'var(--rds-primary-light)',
     '--rds-color-primary-container': 'color-mix(in srgb, var(--rds-primary-main) 8%, transparent)',
     '--rds-color-primary-container-hover': 'color-mix(in srgb, var(--rds-primary-main) 12%, transparent)',
+    '--rds-color-on-primary-container': 'var(--rds-primary-dark)',
     '--rds-color-info': 'var(--rds-info-main)',
     '--rds-color-info-container': 'var(--rds-info-light)',
     '--rds-color-on-info': 'var(--rds-info-contrast-text)',
@@ -1303,6 +1363,7 @@ function lightThemeCssVars(): Record<string, string> {
 }
 
 function darkThemeCssVars(): Record<string, string> {
+  const sem = resolveSemanticPalette('dark');
   const p = colorTokens.primary;
   const s = colorTokens.secondary;
   const t = tertiaryTokens;
@@ -1312,11 +1373,11 @@ function darkThemeCssVars(): Record<string, string> {
   const su = colorTokens.success;
 
   return {
-    // ── Primary ──────────────────────────────────────────────────────────────
-    '--rds-primary-main': p[200],
-    '--rds-primary-light': p[100],
-    '--rds-primary-dark': p[400],
-    '--rds-primary-contrast-text': n[900],
+    // ── Primary (from resolveSemanticPalette) ────────────────────────────────
+    '--rds-primary-main': sem.primary.main,
+    '--rds-primary-light': sem.primary.light,
+    '--rds-primary-dark': sem.primary.dark,
+    '--rds-primary-contrast-text': sem.primary.contrastText,
     // ── Surface primary ──────────────────────────────────────────────────────
     '--rds-surface-primary-darker': p[200],
     '--rds-surface-primary-dark': p[400],
@@ -1329,48 +1390,52 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-surface-neutral-medium': n[700],
     '--rds-surface-neutral-light': n[800],
     '--rds-surface-neutral-subtle': black,
-    // ── Secondary ────────────────────────────────────────────────────────────
-    '--rds-secondary-main': s[200],
-    '--rds-secondary-light': s[100],
-    '--rds-secondary-dark': s[400],
-    '--rds-secondary-contrast-text': n[900],
+    // ── Secondary (from resolveSemanticPalette) ──────────────────────────────
+    '--rds-secondary-main': sem.secondary.main,
+    '--rds-secondary-light': sem.secondary.light,
+    '--rds-secondary-dark': sem.secondary.dark,
+    '--rds-secondary-contrast-text': sem.secondary.contrastText,
     // ── Tertiary ─────────────────────────────────────────────────────────────
     '--rds-tertiary-main': t[200],
     '--rds-tertiary-light': t[100],
     '--rds-tertiary-dark': t[400],
-    // ── Semantic colors ──────────────────────────────────────────────────────
-    '--rds-error-main': e[200],
-    '--rds-error-light': e[100],
-    '--rds-error-dark': e[400],
-    '--rds-warning-main': w[200],
-    '--rds-warning-light': w[100],
-    '--rds-warning-dark': w[400],
-    '--rds-success-main': su[200],
-    '--rds-success-light': su[100],
-    '--rds-success-dark': su[400],
-    '--rds-info-main': p[200],
-    '--rds-info-light': p[100],
-    '--rds-info-dark': p[400],
+    // ── Semantic colors (from resolveSemanticPalette) ────────────────────────
+    '--rds-error-main': sem.error.main,
+    '--rds-error-light': sem.error.light,
+    '--rds-error-dark': sem.error.dark,
+    '--rds-error-contrast-text': sem.error.contrastText,
+    '--rds-warning-main': sem.warning.main,
+    '--rds-warning-light': sem.warning.light,
+    '--rds-warning-dark': sem.warning.dark,
+    '--rds-warning-contrast-text': sem.warning.contrastText,
+    '--rds-success-main': sem.success.main,
+    '--rds-success-light': sem.success.light,
+    '--rds-success-dark': sem.success.dark,
+    '--rds-success-contrast-text': sem.success.contrastText,
+    '--rds-info-main': sem.info.main,
+    '--rds-info-light': sem.info.light,
+    '--rds-info-dark': sem.info.dark,
+    '--rds-info-contrast-text': sem.info.contrastText,
     // ── Neutral scale ────────────────────────────────────────────────────────
     '--rds-neutral-main': n[200],
     '--rds-neutral-light': n[100],
     '--rds-neutral-dark': n[400],
-    // ── Background ───────────────────────────────────────────────────────────
-    '--rds-background-default': n[900],
-    '--rds-background-paper': n[800],
+    // ── Background (from resolveSemanticPalette) ─────────────────────────────
+    '--rds-background-default': sem.background.default,
+    '--rds-background-paper': sem.background.paper,
     '--rds-background-surface': n[800],
     '--rds-background-overlay': alphaTokens.overlayDarker,
-    // ── Text ─────────────────────────────────────────────────────────────────
-    '--rds-text-primary': white,
-    '--rds-text-secondary': n[400],
-    '--rds-text-disabled': n[600],
+    // ── Text (from resolveSemanticPalette) ───────────────────────────────────
+    '--rds-text-primary': sem.text.primary,
+    '--rds-text-secondary': sem.text.secondary,
+    '--rds-text-disabled': sem.text.disabled,
     '--rds-text-hint': n[500],
     // ── Border ───────────────────────────────────────────────────────────────
     '--rds-border-default': n[700],
     '--rds-border-light': n[800],
     '--rds-border-dark': n[600],
-    // ── Divider ───────────────────────────────────────────────────────────────
-    '--rds-divider': n[700],
+    // ── Divider (from resolveSemanticPalette) ────────────────────────────────
+    '--rds-divider': sem.divider,
     // ── Button primary (dark) ────────────────────────────────────────────────
     '--rds-button-primary-bg': p[200],
     '--rds-button-primary-bg-hover': p[250],
@@ -1416,6 +1481,7 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-color-primary-container': 'color-mix(in srgb, var(--rds-primary-main) 20%, transparent)',
     '--rds-color-primary-container-hover': 'color-mix(in srgb, var(--rds-primary-main) 28%, transparent)',
     '--rds-color-primary-container-variant': 'color-mix(in srgb, var(--rds-primary-main) 24%, transparent)',
+    '--rds-color-on-primary-container': 'var(--rds-primary-light)',
     '--rds-color-success': 'var(--rds-success-main)',
     '--rds-color-error': 'var(--rds-error-main)',
     '--rds-color-danger': 'var(--rds-error-main)',
@@ -1439,10 +1505,11 @@ function darkThemeCssVars(): Record<string, string> {
     // ── Dark-mode elevation ───────────────────────────────────────────────────
     '--rds-elevation-2-dark': alphaTokens.elevation2Dark,
     '--rds-elevation-focus-dark': alphaTokens.elevationFocusDark,
-    // ── Dark-mode actions ─────────────────────────────────────────────────────
-    '--rds-action-hover': alphaTokens.actionHoverDark,
+    // ── Dark-mode actions (from resolveSemanticPalette) ───────────────────────
+    '--rds-action-hover': sem.action.hover,
     '--rds-action-active': alphaTokens.actionActiveDark,
-    '--rds-action-disabled': alphaTokens.actionDisabledDark,
+    '--rds-action-disabled': sem.action.disabled,
+    '--rds-action-selected': sem.action.selected,
     '--rds-placeholder-color': 'var(--rds-placeholder-color-dark)',
     // ── Toggle group ──────────────────────────────────────────────────────────
     '--rds-toggle-group-border-light': alphaTokens.toggleGroupBorderDark,

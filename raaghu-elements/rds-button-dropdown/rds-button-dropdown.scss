@@ -1,23 +1,25 @@
 .rds-button-dropdown {
+  --rds-button-dropdown-dim-1: 220px;
+
   // dropdown menu sizing and colors provided by centralized --rds-* tokens
   &__menu {
-    padding: var(--rds-button-dropdown-menu-padding, 6px);
-    min-width: var(--rds-button-dropdown-menu-min-width, 176px);
-    margin-top: 6px;
-    border: 1px solid var(--rds-color-border, var(--rds-border-light));
-    box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0, 0, 0, 0.12)) !important;
+    padding: var(--rds-button-dropdown-menu-padding);
+    min-width: var(--rds-button-dropdown-menu-min-width);
+    margin-top: var(--rds-spacing-compact);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border, var(--rds-border-light));
+    box-shadow: var(--rds-elevation-3);
 
     .rds-menu__list {
-      box-shadow: none !important;
+      box-shadow: none;
     }
   }
 
   &__search {
-    margin-bottom: 6px;
+    margin-bottom: var(--rds-spacing-compact);
   }
 
   &__list {
-    max-height: 220px;
+    max-height: var(--rds-button-dropdown-dim-1);
     overflow-y: auto;
   }
 
@@ -31,7 +33,7 @@
   &__option {
     cursor: pointer;
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    border-radius: var(--rds-border-radius-sm);
     width: 100%;
     background-color: transparent;
     transition: background-color var(--rds-button-dropdown-transition, var(--rds-transition-base, 0.2s ease-in-out));
@@ -41,8 +43,8 @@
       background-color: var(--rds-button-dropdown-hover-bg);
     }
 
-    border: none !important;
-    box-shadow: none !important;
+    border: none;
+    box-shadow: none;
 
     &--selected {
       background-color: var(--rds-button-dropdown-selected-bg);
@@ -92,19 +94,19 @@
 	align-items: center;
   gap: var(--rds-spacing-compact);
   padding: var(--rds-spacing-xs) var(--rds-spacing-compact);
-  min-height: 32px;
+  min-height: var(--rds-size-xl);
 
   /* Keep compact avatar size without overlap */
 	.rds-avatar,
 	.rds-avatar .MuiAvatar-root {
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-    font-size: 11px !important;
+    width: var(--rds-size-28);
+    height: var(--rds-size-28);
+    min-width: var(--rds-size-28);
+    min-height: var(--rds-size-28);
+    font-size: var(--rds-font-size-xs);
 
 		svg {
-      font-size: 16px !important;
+      font-size: var(--rds-font-size-md);
 		}
 	}
 
@@ -115,101 +117,101 @@
     min-width: 0;
 
 		.MuiRadio-root {
-      padding: var(--rds-spacing-micro) !important;
+      padding: var(--rds-spacing-micro);
 
 			svg {
-        width: 16px !important;
-        height: 16px !important;
-        font-size: 16px !important;
+        width: var(--rds-size-md);
+        height: var(--rds-size-md);
+        font-size: var(--rds-font-size-md);
 			}
 		}
 
 		.MuiFormControlLabel-label,
 		.MuiTypography-root {
-      font-size: 12px !important;
-      line-height: 1.35 !important;
+      font-size: var(--rds-font-size-xs);
+      line-height: 1.35;
 		}
 
 		.MuiFormControlLabel-root {
       display: inline-flex;
       align-items: center;
       gap: var(--rds-spacing-compact);
-			margin-right: 0 !important;
-      margin-left: 0 !important;
+			margin-right: 0;
+      margin-left: 0;
 		}
 	}
 
   /* Keep checkbox compact but readable */
 	.rds-checkbox {
-    margin-left: 0 !important;
+    margin-left: 0;
     min-width: 0;
 
     .MuiFormControlLabel-root {
-      margin-left: 0 !important;
-      margin-right: 0 !important;
+      margin-left: 0;
+      margin-right: 0;
       gap: var(--rds-spacing-compact);
     }
 
 		.MuiFormControlLabel-label,
 		.MuiTypography-root {
-      font-size: 12px !important;
-      line-height: 1.35 !important;
+      font-size: var(--rds-font-size-xs);
+      line-height: 1.35;
 		}
 
 		.MuiCheckbox-root {
-      padding: var(--rds-spacing-micro) !important;
+      padding: var(--rds-spacing-micro);
 
 			svg {
-        width: 16px !important;
-        height: 16px !important;
-        font-size: 16px !important;
+        width: var(--rds-size-md);
+        height: var(--rds-size-md);
+        font-size: var(--rds-font-size-md);
 			}
 		}
 	}
 }
 
 .rds-button-dropdown--secondary {
-  background-color: var(--rds-button-dropdown-secondary-bg) !important;
-  color: var(--rds-button-dropdown-selected-text) !important;
-  border: none !important;
+  background-color: var(--rds-button-dropdown-secondary-bg);
+  color: var(--rds-button-dropdown-selected-text);
+  border: none;
   
   &:hover {
-    background-color: var(--rds-button-dropdown-secondary-bg-hover) !important;
-    color: var(--rds-button-dropdown-selected-text) !important;
+    background-color: var(--rds-button-dropdown-secondary-bg-hover);
+    color: var(--rds-button-dropdown-selected-text);
   }
   
   &:active {
-    background-color: var(--rds-button-dropdown-secondary-bg-active) !important;
-    color: var(--rds-button-dropdown-selected-text) !important;
+    background-color: var(--rds-button-dropdown-secondary-bg-active);
+    color: var(--rds-button-dropdown-selected-text);
   }
   
   &:focus {
-    background-color: var(--rds-button-dropdown-secondary-bg) !important;
-    color: var(--rds-button-dropdown-selected-text) !important;
+    background-color: var(--rds-button-dropdown-secondary-bg);
+    color: var(--rds-button-dropdown-selected-text);
   }
   
   .MuiSvgIcon-root {
-    color: var(--rds-button-dropdown-selected-text) !important;
+    color: var(--rds-button-dropdown-selected-text);
   }
   
   &.MuiButton-root {
-    background-color: var(--rds-button-dropdown-secondary-bg) !important;
-    color: var(--rds-button-dropdown-selected-text) !important;
-    border: none !important;
+    background-color: var(--rds-button-dropdown-secondary-bg);
+    color: var(--rds-button-dropdown-selected-text);
+    border: none;
     
     &:hover {
-      background-color: var(--rds-button-dropdown-secondary-bg-hover) !important;
-      color: var(--rds-button-dropdown-selected-text) !important;
+      background-color: var(--rds-button-dropdown-secondary-bg-hover);
+      color: var(--rds-button-dropdown-selected-text);
     }
     
     &:active {
-      background-color: var(--rds-button-dropdown-secondary-bg-active) !important;
-      color: var(--rds-button-dropdown-selected-text) !important;
+      background-color: var(--rds-button-dropdown-secondary-bg-active);
+      color: var(--rds-button-dropdown-selected-text);
     }
   }
 }
 
 .rds-button-dropdown__button.rds-button-dropdown--outline {
-  color: var(--rds-button-dropdown-selected-bg) !important;
+  color: var(--rds-button-dropdown-selected-bg);
 }
 

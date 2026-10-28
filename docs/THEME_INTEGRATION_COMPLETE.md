@@ -2,9 +2,17 @@
 
 ## Current State
 
-Theme integration is **partially complete**. The token pipeline and provider are
-fully implemented and working in Storybook and raaghu-pages. Component SCSS
-adoption is in progress.
+Theme integration is **operational**. The token pipeline and provider are fully
+implemented and working in Storybook and raaghu-pages. **Hex colors in component
+SCSS are solved** (baseline `0`, allowlisted map SVG selectors only). Remaining
+hardcoding debt is **rgb()/rgba() literals** and **bare px/rem inside
+component-local `--rds-*` custom properties** — gated by CI baselines and
+scheduled for Phase A component-by-component cleanup.
+
+**Phase B (cascade)** is a separate track: pervasive `!important` fighting MUI
+Emotion, Bootstrap leftovers, and third-party CSS. Gated by
+`scripts/important-baseline.txt` / `lint:important`. See override hierarchy in
+`docs/CSS_ARCHITECTURE.md`.
 
 ---
 
@@ -15,13 +23,11 @@ The full pipeline is implemented and live:
 
 ```
 tokens/design-tokens.ts
-       ↓  (injectTokens called by RaaghuThemeProvider)
-tokens/build-rds-css-vars.ts
        ↓
---rds-* CSS custom properties on <html>
-       ↓
-Component SCSS reads var(--rds-*)
-MUI ThemeProvider reads palette.ts (mirrors token values)
+tokens/semantic-palette.ts          ← shared semantic roles
+       ├── build-rds-css-vars.ts → injectTokens → --rds-* on <html>
+       │                              └── Component SCSS: var(--rds-*)
+       └── src/mui/palette.ts → MUI ThemeProvider
 ```
 
 ### RaaghuThemeProvider
@@ -36,34 +42,102 @@ MUI ThemeProvider reads palette.ts (mirrors token values)
 - All stories wrapped in `RaaghuThemeProvider` via `.storybook/preview.ts`
 - Light/dark toolbar toggle switches tokens and MUI theme simultaneously
 
-### raaghu-pages demo app
-- `main.tsx` bootstraps with `RaaghuThemeProvider` and `index.scss`
-- `DashboardPage` demonstrates live theme toggle across the full app shell
+### Hex governance (complete)
+- Stylelint `color-no-hex` + `npm run lint:hex` (`scripts/check-no-hex.mjs`)
+- SCSS debt ceiling `scripts/hex-baseline.txt` = **0** (map SCSS allowlisted)
+- Legitimate exceptions: `design-tokens.ts`, color-picker spectrum/API, map SVG
+  attribute selectors, stories/tests/figma fixtures
 
 ---
 
-## Partial: Component SCSS token adoption
+## Remaining hardcoding debt (Phase A)
 
-As of the last audit:
+Frozen by CI; **do not raise** baselines. Ratchet down in component PRs.
 
-| Metric | Count |
-|---|---|
-| SCSS files using `var(--rds-*)` | 109 |
-| SCSS files with hardcoded hex values | 60 |
-| Total hardcoded hex occurrences | ~1,510 |
+| Gate | Script | Baseline | npm script |
+|---|---|---|---|
+| `rgb()` / `rgba()` in SCSS | `scripts/check-no-rgba-in-scss.mjs` | **203** | `lint:rgba` |
+| Bare `px`/`rem` in `--…:` defs | `scripts/check-local-dim-px-in-scss.mjs` | **572** | `lint:local-dim-px` |
+| Hex in SCSS | `scripts/check-hex-in-scss.sh` | **0** | (CI + `lint:hex`) |
+| `!important` in SCSS (Phase B) | `scripts/check-no-important-in-scss.mjs` | **0** | `lint:important` |
 
-**Top files to migrate (by hex count):**
+---
+
+## Phase B — `!important` cascade debt
+
+Frozen by CI; **do not raise** the baseline. Ratchet down in cleanup PRs.
+Independent of Phase A token migrations.
+
+Root causes: MUI Emotion + dual theme/SCSS channels, Bootstrap legacy classes,
+react-datepicker defaults, cross-component layout overrides, and habitual
+`!important` on owned BEM.
+
+### Top files by `!important` count
+
+Opened at **~3337**; current baseline **0** (Phase B debt cleared in component SCSS).
+
+Heavy files cleared via BEM specificity, `--flush` / `--docked` modifiers, and
+`mui/overrides.ts` (Switch, Badge, Accordion, Button skins). New `!important`
+fails CI (`lint:important`). Re-seed only if a documented third-party escape is
+intentionally added:
+
+```bash
+node scripts/check-no-important-in-scss.mjs --set-baseline
+```
+
+### Top files by `rgb()`/`rgba()` count
 
 | File | Occurrences |
 |---|---|
-| `rds-comp-date-and-time-picker.scss` | 104 |
-| `rds-comp-details-pane.scss` | 102 |
-| `rds-comp-e-signature.scss` | 90 |
-| `rds-comp-comments-box.scss` | 84 |
-| `rds-app-bar.scss` | 64 |
-| `rds-comp-code-snippet.scss` | 60 |
+| `rds-loader.scss` | 20 |
+| `rds-app-bar.scss` | 13 |
+| `rds-toggle-button.scss` | 13 |
+| `rds-comp-datepicker.scss` | 13 |
+| `rds-carousel.scss` | 11 |
+| `rds-comp-adaptive-cards.scss` | 11 |
+| `rds-comp-audio-player.scss` | 10 |
+| `rds-comp-details-pane.scss` | 10 |
+| `rds-comp-toast.scss` | 10 |
 
-Components with hardcoded hex will not theme-switch cleanly until migrated.
+Prefer `var(--rds-*)`, `color-mix(in srgb, var(--rds-*) …)`, or tokens from
+`alphaTokens` in `design-tokens.ts`.
+
+### Local custom-property lengths — Phase A inventory
+
+Classification from `node scripts/check-local-dim-px-in-scss.mjs --inventory`
+(against current spacing/size token pixel values):
+
+| Class | Count | Action in Phase A |
+|---|---|---|
+| **Map to existing token** | ~277 | Replace bare `Npx` with `var(--rds-spacing-*)` / `var(--rds-size-*)` |
+| **Keep local, rename** | ~295 | True one-offs; rename numbered `dim-N` → semantic names |
+
+**Examples — map to token:**
+
+| Local | Value | Prefer |
+|---|---|---|
+| `--rds-ai-fab-menu-dim-1` | `200px` | `var(--rds-spacing-200)` |
+| `--rds-chat-dim-11` | `240px` | `var(--rds-spacing-240)` |
+| `--rds-component-button-height-small` | `32px` | `var(--rds-size-xl)` |
+| `--rds-football-league-avatar-size` | `24px` | `var(--rds-size-lg)` |
+
+**Examples — keep local (rename off `dim-N`):**
+
+| Local | Value | Suggested rename direction |
+|---|---|---|
+| `--rds-app-bar-dim-2` | `26px` | e.g. icon / control chrome width |
+| `--rds-chat-dim-2` | `26px` | same pattern |
+| `--rds-popover-dim-1` | `285px` | popover min/max width |
+| `--rds-adaptive-cards-dim-2` | `350px` | card width |
+
+Policy (pragmatic): component-local lengths are allowed for true one-offs.
+Prefer central tokens on exact match. **Do not author new numbered `dim-N`
+names** — use semantic locals (`--rds-app-bar-logo-min-width`).
+
+### Minor: bare border-radius rem (Phase A)
+
+Non-zero rem radii not yet on `--rds-border-radius-*` (e.g. `0.375rem` ≡
+`radiusTokens.md`, `0.5rem` ≡ `lg`). `0` resets and `50%` circles are fine.
 
 ---
 
@@ -115,11 +189,11 @@ actions so users can choose between following the device theme and forcing a
 manual light or dark mode.
 
 ```scss
-// Component SCSS — always use tokens, never hardcode hex
+// Component SCSS — always use tokens
 .rds-my-component {
   background-color: var(--rds-background-paper);
   color:            var(--rds-text-primary);
-  border:           1px solid var(--rds-divider);
+  border:           var(--rds-border-width-thin) solid var(--rds-divider);
   border-radius:    var(--rds-border-radius-md);
 
   &:hover {
@@ -130,29 +204,32 @@ manual light or dark mode.
 
 ---
 
-## Migration Path for Hardcoded Components
+## Phase A migration (per component)
 
-To migrate a component from hardcoded hex to tokens:
+1. Replace `rgb()`/`rgba()` with `var(--rds-*)` / `color-mix` / alpha tokens;
+   ratchet `scripts/rgba-baseline.txt` down.
+2. For each bare length in a `--rds-*:` definition: map exact matches to
+   spacing/size tokens; rename remaining `dim-N` to semantic locals; ratchet
+   `scripts/local-dim-px-baseline.txt` down.
+3. Map non-zero bare `border-radius` rem to `--rds-border-radius-*`.
+4. Verify light + dark in Storybook before merging.
 
-1. Open the `.scss` file
-2. For each hardcoded color, find the equivalent `--rds-*` token in
-   `tokens/design-tokens.ts` or `tokens/build-rds-css-vars.ts`
-3. Replace the hex with `var(--rds-{token-name})`
-4. Test in Storybook with both light and dark toolbar toggle
-5. Verify no visual regression via Storybook (`npm run test:storybook`) / manual review
+Re-run inventory anytime:
 
-Common mappings:
+```bash
+node scripts/check-local-dim-px-in-scss.mjs --inventory
+```
 
-| Hex (light theme) | Token |
+Common color mappings:
+
+| Literal (light) | Token |
 |---|---|
 | `#3C98FF` | `var(--rds-primary-main)` |
-| `#2534E9` | `var(--rds-secondary-main)` |
 | `#ffffff` (surface) | `var(--rds-background-paper)` |
-| `#f5f5f5` (page bg) | `var(--rds-background-default)` |
 | `#212121` (text) | `var(--rds-text-primary)` |
-| `#757575` (muted) | `var(--rds-text-secondary)` |
-| `rgba(0,0,0,0.12)` | `var(--rds-divider)` |
+| `rgba(0,0,0,0.12)` | `var(--rds-divider)` / border alpha tokens |
+| `rgba(0,0,0,0.5)` | `var(--rds-*)` overlay / `alphaTokens.overlayDark` |
 
 ---
 
-*Last updated: 2026-05-30*
+*Last updated: 2026-10-28*

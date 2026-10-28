@@ -14,7 +14,7 @@
 
 [data-theme="dark"] .rds-comp-empty-state__title,
 [data-theme="dark"] .rds-comp-empty-state__subtitle {
-  color: var(--rds-neutral-0) !important;
+  color: var(--rds-neutral-0);
 }
 
 [data-theme="dark"] .rds-comp-empty-state {
@@ -22,7 +22,7 @@
 }
 
 [data-theme="dark"] .rds-comp-empty-state__subtitle {
-  color: var(--rds-text-secondary) !important;
+  color: var(--rds-text-secondary);
 }
 
 [data-theme="dark"] .rds-comp-empty-state__icon--minimal {
@@ -30,27 +30,29 @@
 }
 
 .rds-comp-empty-state {
+  --rds-empty-state-dim-1: 160px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--rds-spacing-xl, 32px);
+  padding: var(--rds-spacing-xl);
 
-  min-height: var(--rds-size-6xl, 400px);
+  min-height: var(--rds-size-6xl);
   width: 100%;
-  font-family: var(--rds-font-family-base) !important;
+  font-family: var(--rds-font-family-base);
 
   &__content {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    max-width: var(--rds-empty-state-max-width, 640px);
-    padding: 0 var(--rds-spacing-md, 16px);
+    max-width: var(--rds-empty-state-max-width);
+    padding: 0 var(--rds-spacing-md);
   }
 
   &--minimal {
     .rds-comp-empty-state__title {
-      margin-top: var(--rds-spacing-md, 16px) !important;
+      margin-top: var(--rds-spacing-md);
     }
   }
 
@@ -69,34 +71,34 @@
 
     img,
     svg {
-      width: 100% !important;
-      height: 100% !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      object-fit: contain !important;
-      display: block !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      box-sizing: border-box !important;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     &--animated {
       position: relative;
 
       & > div {
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        display: block !important;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
       }
 
       & > div svg {
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        display: block !important;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
       }
     }
   }
@@ -107,42 +109,42 @@
   }
 
   &__title {
-    font-weight: var(--rds-font-weight-medium, 500) !important;
-    color: var(--rds-text-primary) !important;
-    font-size: var(--rds-font-size-lg, 1.09375rem) !important;
-    line-height: 1.4 !important;
-    margin: var(--rds-spacing-xs, 4px) 0 !important;
-    font-family: var(--rds-font-family-base) !important;
-    margin-top: var(--rds-spacing-lg, 10px) !important;
+    font-weight: var(--rds-font-weight-medium, 500);
+    color: var(--rds-text-primary);
+    font-size: var(--rds-font-size-lg);
+    line-height: 1.4;
+    margin: var(--rds-spacing-xs) 0;
+    font-family: var(--rds-font-family-base);
+    margin-top: var(--rds-spacing-lg);
   }
 
   &__subtitle {
-    color: var(--rds-text-secondary) !important;
-    font-size: var(--rds-font-size-sm, 14px) !important;
-    line-height: 1.5 !important;
-    margin: var(--rds-spacing-xs, 4px) 0 !important;
-    font-weight: var(--rds-font-weight-normal, 400) !important;
-    max-width: var(--rds-empty-state-max-width, 640px);
-    font-family: var(--rds-font-family-base) !important;
+    color: var(--rds-text-secondary);
+    font-size: var(--rds-font-size-sm);
+    line-height: 1.5;
+    margin: var(--rds-spacing-xs) 0;
+    font-weight: var(--rds-font-weight-normal, 400);
+    max-width: var(--rds-empty-state-max-width);
+    font-family: var(--rds-font-family-base);
   }
 
   &__action {
-    margin-top: var(--rds-spacing-lg, 10px);
+    margin-top: var(--rds-spacing-lg);
   }
 
   /* Layout only — colour comes from RdsButton / theme (G5-046). */
   &__button {
     border-radius: var(--rds-border-radius-sm);
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-md);
     font-size: var(--rds-font-size-md);
     font-weight: 500;
     text-transform: none;
-    min-width: 160px;
+    min-width: var(--rds-empty-state-dim-1);
     line-height: 1.2;
     font-family: var(--rds-font-family-base);
 
     &:focus-visible {
-      outline: 2px solid var(--rds-focus-ring);
+      outline: var(--rds-border-width-medium) solid var(--rds-focus-ring);
       outline-offset: 2px;
     }
   }
@@ -150,35 +152,35 @@
 
 @include bp.down(md) {
   .rds-comp-empty-state {
-    padding: var(--rds-spacing-lg, 24px) var(--rds-spacing-md, 16px);
-    min-height: var(--rds-size-4xl, 200px);
+    padding: var(--rds-spacing-lg) var(--rds-spacing-md);
+    min-height: var(--rds-size-4xl);
 
     &__content {
       max-width: 100%;
     }
 
     &__icon img {
-      max-width: none !important;
-      width: 100% !important;
-      height: 100% !important;
+      max-width: none;
+      width: 100%;
+      height: 100%;
     }
 
     &__title {
-      font-size: var(--rds-font-size-md, 16px) !important;
+      font-size: var(--rds-font-size-md);
     }
 
     &__subtitle {
-      font-size: var(--rds-font-size-sm, 14px) !important;
+      font-size: var(--rds-font-size-sm);
     }
 
     &__action {
-      margin-top: var(--rds-spacing-md, 16px);
+      margin-top: var(--rds-spacing-md);
     }
 
     &__button {
-      min-width: var(--rds-size-xl, 120px) !important;
-      padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-md, 16px) !important;
-      font-size: var(--rds-font-size-xs, 12px) !important;
+      min-width: var(--rds-size-xl);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-md);
+      font-size: var(--rds-font-size-xs);
     }
   }
 }
@@ -186,11 +188,11 @@
 @media (prefers-contrast: high) {
   .rds-comp-empty-state {
     &__title {
-      color: var(--rds-text-primary) !important;
+      color: var(--rds-text-primary);
     }
 
     &__subtitle {
-      color: var(--rds-text-secondary) !important;
+      color: var(--rds-text-secondary);
     }
   }
 }
@@ -198,14 +200,14 @@
 @media (prefers-reduced-motion: reduce) {
   .rds-comp-empty-state {
     &__button {
-      transition: none !important;
+      transition: none;
 
       &:hover {
-        transform: none !important;
+        transform: none;
       }
 
       &:active {
-        transform: none !important;
+        transform: none;
       }
     }
   }

@@ -220,10 +220,10 @@ export const RdsDropZoneWithButton = ({
         width: '100%',
         maxWidth: '100%',
         boxSizing: 'border-box',
-        minHeight: 'var(--rds-file-uploader-dropzone-min-height, 60px)',
-        px: 'var(--rds-file-uploader-dropzone-padding-x, 24px)',
-        py: 'var(--rds-file-uploader-dropzone-padding-y, 32px)',
-        border: 'var(--rds-file-uploader-dropzone-border-width, 1.5px) dashed var(--rds-color-primary)',
+        minHeight: 'var(--rds-file-uploader-dropzone-min-height)',
+        px: 'var(--rds-file-uploader-dropzone-padding-x)',
+        py: 'var(--rds-file-uploader-dropzone-padding-y)',
+        border: 'var(--rds-file-uploader-dropzone-border-width) dashed var(--rds-color-primary)',
         background: tokens.color.surface,
         cursor: disabled ? 'not-allowed' : 'pointer'
       }}
@@ -241,7 +241,7 @@ export const RdsDropZoneWithButton = ({
         className="rds-file-uploader__upload-btn"
         onClick={openFileDialog}
         disabled={disabled}
-        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
+        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl)', fontWeight: 600, fontSize: 'var(--rds-font-size-md)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
       >
         Upload Files
       </RdsButton>

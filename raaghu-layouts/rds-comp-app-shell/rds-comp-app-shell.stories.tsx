@@ -313,6 +313,7 @@ const AppShellStory = (args: any) => {
           </div>
           <div id="details-pane-app-shell">
             <RdsCompDetailsPane
+              className="rds-comp-details-pane--flush"
               headerSubText="Agent Information"
               headerText="Bayshore Transportation System"
               variant="Selection"
@@ -341,6 +342,7 @@ const AppShellStory = (args: any) => {
           </div>
           <div id="detail-pane-one-three-one">
             <RdsCompDetailsPane 
+              className="rds-comp-details-pane--flush-toolbar"
               variant="Toolbar"
               headerText={""} 
               figmaIconSrc="assets/figma.png"
@@ -469,6 +471,7 @@ const AppShellStory = (args: any) => {
           <div className={`${args.displayType === AppShellDisplayType.DoubleNav ? 'doublenav' : 'tripane'}-mobile-toolbar ${mobileToolbarOpen ? 'open' : ''}`}>
             <div className={`${args.displayType === AppShellDisplayType.DoubleNav ? 'doublenav' : 'tripane'}-toolbar-content`}>
               <RdsCompDetailsPane
+                className={args.displayType === AppShellDisplayType.TriPane ? "rds-comp-details-pane--flush-toolbar" : "rds-comp-details-pane--flush"}
                 headerSubText="Agent Information"
                 headerText={args.displayType === AppShellDisplayType.TriPane ? "Toolbar" : "Bayshore Transportation System"}
                 variant={args.displayType === AppShellDisplayType.TriPane ? "Toolbar" : "Selection"}
@@ -486,7 +489,7 @@ const AppShellStory = (args: any) => {
           )}
           
           {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && !mobileSidebarOpen && !mobileToolbarOpen && (
-            <div className="rds-footer-navigation MuiBottomNavigation-root">
+            <div className="rds-footer-navigation rds-footer-navigation--docked MuiBottomNavigation-root">
               <div style={{ 
                 display: 'flex', 
                 width: '100%', 

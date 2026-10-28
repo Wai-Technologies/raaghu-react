@@ -76,7 +76,7 @@ export const RdsCommentBoxLogic = ({
                   onClick={() => setDraft('')}
                   disabled={!draft.trim()}
                   sx={{
-                    padding: 'var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px)',
+                    padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)',
                     backgroundColor: 'var(--rds-primary-main)',
                     color: 'var(--rds-primary-contrast-text)',
                     width: 'auto',
@@ -84,7 +84,7 @@ export const RdsCommentBoxLogic = ({
                     minWidth: 26,
                     minHeight: 24,
                     maxHeight: 24,
-                    borderRadius: 'var(--rds-border-radius-sm, 4px)',
+                    borderRadius: 'var(--rds-border-radius-sm)',
                     boxShadow: 'none',
                     '&:hover': { backgroundColor: 'var(--rds-primary-dark)' },
                   }}

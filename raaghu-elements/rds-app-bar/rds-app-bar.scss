@@ -6,19 +6,48 @@ $rds-app-bar-breakpoint-sm: 420px;
 $rds-app-bar-breakpoint-xs: 320px;
 $rds-app-bar-breakpoint-notification-tablet: 1280px;
 
+/* Module size dims — shared by header/app-bar selectors in this file */
+.rds-app-bar,
+.rds-header__search-field,
 .rds-story-logo {
-  height: var(--rds-spacing-xl, 40px);
+  --rds-app-bar-dim-1: var(--rds-spacing-xxs);
+  --rds-app-bar-dim-2: 26px;
+  --rds-app-bar-dim-3: var(--rds-spacing-30);
+  --rds-app-bar-dim-4: var(--rds-spacing-34);
+  --rds-app-bar-dim-5: var(--rds-spacing-50);
+  --rds-app-bar-dim-6: var(--rds-spacing-60);
+  --rds-app-bar-dim-7: var(--rds-spacing-70);
+  --rds-app-bar-dim-8: 100px;
+  --rds-app-bar-dim-9: 120px;
+  --rds-app-bar-dim-10: 140px;
+  --rds-app-bar-dim-11: 148px;
+  --rds-app-bar-dim-12: 160px;
+  --rds-app-bar-dim-13: 180px;
+  --rds-app-bar-dim-14: 200px;
+  --rds-app-bar-dim-15: 220px;
+  --rds-app-bar-dim-16: 240px;
+  --rds-app-bar-dim-17: 260px;
+  --rds-app-bar-dim-18: 280px;
+  --rds-app-bar-dim-19: 300px;
+  --rds-app-bar-dim-20: 360px;
+  --rds-header-logo-height: var(--rds-size-xl);
+  --rds-header-logo-min-width: 120px;
+
+}
+
+.rds-story-logo {
+  height: var(--rds-spacing-xl);
  
   @media (max-width: $rds-app-bar-breakpoint-md) {
-    height: var(--rds-spacing-xl, 40px);
+    height: var(--rds-spacing-xl);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    height: var(--rds-spacing-xl, 40px);
+    height: var(--rds-spacing-xl);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    height: calc(5.5 * var(--rds-spacing-xs, 4px));
+    height: calc(5.5 * var(--rds-spacing-xs));
     margin-left: 0;
   }
 }
@@ -26,15 +55,15 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 .rds-story-logo-search-container {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-md, 16px);
+  gap: var(--rds-spacing-md);
   flex: 1;
   
   @media (max-width: 420px) {
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
   
   @media (max-width: 320px) {
-    gap: calc(1.5 * var(--rds-spacing-xs, 4px));
+    gap: calc(1.5 * var(--rds-spacing-xs));
   }
 }
 
@@ -52,26 +81,26 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   --rds-story-search-max-width-xs: 180px;
   --rds-story-search-min-width-2xs: 100px;
   --rds-story-search-max-width-2xs: 140px;
-  min-width: var(--rds-story-search-min-width, 180px);
+  min-width: var(--rds-story-search-min-width);
   @media (max-width: $rds-app-bar-breakpoint-md) {
-    min-width: var(--rds-story-search-min-width-md, 160px);
-    max-width: var(--rds-story-search-max-width-md, 220px);
+    min-width: var(--rds-story-search-min-width-md);
+    max-width: var(--rds-story-search-max-width-md);
   }
  
   @media (max-width: 600px) {
-    min-width: var(--rds-story-search-min-width-sm, 140px);
+    min-width: var(--rds-story-search-min-width-sm);
     flex: 1;
-    max-width: var(--rds-story-search-max-width-sm, 200px);
+    max-width: var(--rds-story-search-max-width-sm);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    min-width: var(--rds-story-search-min-width-xs, 120px);
-    max-width: var(--rds-story-search-max-width-xs, 180px);
+    min-width: var(--rds-story-search-min-width-xs);
+    max-width: var(--rds-story-search-max-width-xs);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    min-width: var(--rds-story-search-min-width-2xs, 100px);
-    max-width: var(--rds-story-search-max-width-2xs, 140px);
+    min-width: var(--rds-story-search-min-width-2xs);
+    max-width: var(--rds-story-search-max-width-2xs);
   }
 }
  @media (min-width: 840px) {
@@ -81,43 +110,43 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 .rds-story-min-height-container {
-  min-height: calc(25 * var(--rds-spacing-xs, 4px));
+  min-height: calc(25 * var(--rds-spacing-xs));
 }
 
 .rds-story-nav-actions {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-md, 16px);
+  gap: var(--rds-spacing-md);
   
   @media (max-width: 834px) {
-    gap: calc(3 * var(--rds-spacing-xs, 4px));
+    gap: calc(3 * var(--rds-spacing-xs));
   }
   
   @media (max-width: 420px) {
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
   
   @media (max-width: 320px) {
-    gap: calc(1.5 * var(--rds-spacing-xs, 4px));
+    gap: calc(1.5 * var(--rds-spacing-xs));
   }
 }
 
 .rds-story-nav-action {
-  --rds-story-nav-icon-size-sm: 16px;
-  --rds-story-nav-icon-size-xs: 14px;
+  --rds-story-nav-icon-size-sm: var(--rds-size-md);
+  --rds-story-nav-icon-size-xs: var(--rds-size-14);
   cursor: pointer;
  
   @media (max-width: $rds-app-bar-breakpoint-sm) {
     svg {
-      width: var(--rds-story-nav-icon-size-sm, 16px);
-      height: var(--rds-story-nav-icon-size-sm, 16px);
+      width: var(--rds-story-nav-icon-size-sm);
+      height: var(--rds-story-nav-icon-size-sm);
     }
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
     svg {
-      width: var(--rds-story-nav-icon-size-xs, 14px);
-      height: var(--rds-story-nav-icon-size-xs, 14px);
+      width: var(--rds-story-nav-icon-size-xs);
+      height: var(--rds-story-nav-icon-size-xs);
     }
   }
 }
@@ -145,33 +174,33 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 .rds-appbar-separator {
-  --rds-appbar-separator-horizontal-margin: 8px;
-  --rds-appbar-separator-horizontal-margin-sm: 6px;
-  --rds-appbar-separator-horizontal-margin-xs: 4px;
-  --rds-appbar-separator-min-height: 24px;
-  --rds-appbar-separator-min-height-sm: 20px;
-  --rds-appbar-separator-min-height-xs: 18px;
-  --rds-appbar-separator-max-height: 60px;
-  --rds-appbar-separator-width: 1px;
+  --rds-appbar-separator-horizontal-margin: var(--rds-spacing-sm);
+  --rds-appbar-separator-horizontal-margin-sm: var(--rds-spacing-compact);
+  --rds-appbar-separator-horizontal-margin-xs: var(--rds-spacing-xs);
+  --rds-appbar-separator-min-height: var(--rds-size-lg);
+  --rds-appbar-separator-min-height-sm: var(--rds-size-20);
+  --rds-appbar-separator-min-height-xs: var(--rds-size-18);
+  --rds-appbar-separator-max-height: var(--rds-spacing-60);
+  --rds-appbar-separator-width: var(--rds-spacing-hairline);
   align-self: center;
   display: block;
   flex-shrink: 0; 
-  height: calc(100% - 16px); 
-  min-height: var(--rds-appbar-separator-min-height, 24px);
-  max-height: var(--rds-appbar-separator-max-height, 60px);
-  width: var(--rds-appbar-separator-width, 1px);
+  height: calc(100% - var(--rds-size-md)); 
+  min-height: var(--rds-appbar-separator-min-height);
+  max-height: var(--rds-appbar-separator-max-height);
+  width: var(--rds-appbar-separator-width);
   background-color: var(--rds-appbar-separator-bg);
   background-clip: padding-box;
-  margin: 0 var(--rds-appbar-separator-horizontal-margin, 8px);
+  margin: 0 var(--rds-appbar-separator-horizontal-margin);
   
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    margin: 0 var(--rds-appbar-separator-horizontal-margin-sm, 6px);
-    min-height: var(--rds-appbar-separator-min-height-sm, 20px);
+    margin: 0 var(--rds-appbar-separator-horizontal-margin-sm);
+    min-height: var(--rds-appbar-separator-min-height-sm);
   }
   
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    margin: 0 var(--rds-appbar-separator-horizontal-margin-xs, 4px);
-    min-height: var(--rds-appbar-separator-min-height-xs, 18px);
+    margin: 0 var(--rds-appbar-separator-horizontal-margin-xs);
+    min-height: var(--rds-appbar-separator-min-height-xs);
   }
 }
 
@@ -187,79 +216,79 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-lg);
   text-transform: none;
-  padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-md, 16px);
+  padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-md);
   border-radius: var(--rds-border-radius-none);
   transition: background-color var(--rds-transition-base);
   
   &-active {
     color: var(--rds-text-primary);
-    border-bottom: 3px solid var(--rds-color-primary);
+    border-bottom: var(--rds-border-width-thick) solid var(--rds-color-primary);
   }
   white-space: nowrap;
   min-width: auto;
   
   @media (max-width: 834px) {
     font-size: var(--rds-font-size-md); // 15px ? md (14px, closest token)
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) calc(3.5 * var(--rds-spacing-xs, 4px));
+    padding: calc(1.5 * var(--rds-spacing-xs)) calc(3.5 * var(--rds-spacing-xs));
   }
   
   @media (max-width: 420px) {
     font-size: var(--rds-font-size-md);
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) calc(3 * var(--rds-spacing-xs, 4px));
+    padding: calc(1.5 * var(--rds-spacing-xs)) calc(3 * var(--rds-spacing-xs));
   }
   
   @media (max-width: 320px) {
     font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
-    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px);
+    padding: calc(1.5 * var(--rds-spacing-xs)) var(--rds-spacing-sm);
   }
 }
 
 .rds-header__logo-search {
   display: flex;
   align-items: center;
-  gap: calc(3 * var(--rds-spacing-xs, 4px));
+  gap: calc(3 * var(--rds-spacing-xs));
   flex: 1;
 }
 
 .rds-header__logo-img {
-  height: var(--rds-spacing-xl, 32px);
+  height: var(--rds-spacing-xl);
   display: block;
 }
 
 .rds-header__center-content {
-  --rds-header-center-gap-mobile: 12px;
-  --rds-header-center-gap-xs: 10px;
+  --rds-header-center-gap-mobile: var(--rds-spacing-3);
+  --rds-header-center-gap-xs: var(--rds-spacing-cozy);
   --rds-header-center-margin-left-mobile: 95px;
-  --rds-header-center-margin-left-xs: 30px;
+  --rds-header-center-margin-left-xs: var(--rds-spacing-30);
   --rds-header-center-button-font-size-mobile: 12px;
   --rds-header-center-button-font-size-xs: 11px;
-  --rds-header-center-button-min-height-mobile: 32px;
-  --rds-header-center-button-min-height-xs: 28px;
+  --rds-header-center-button-min-height-mobile: var(--rds-size-xl);
+  --rds-header-center-button-min-height-xs: var(--rds-size-28);
   display: inline-flex;
   align-items: center;
-  gap: var(--rds-spacing-sm, 8px); 
+  gap: var(--rds-spacing-sm); 
 
   @media (max-width: $rds-app-bar-breakpoint-sm) {
-    gap: var(--rds-header-center-gap-mobile, 12px); 
-    margin-left: var(--rds-header-center-margin-left-mobile, 95px);
+    gap: var(--rds-header-center-gap-mobile); 
+    margin-left: var(--rds-header-center-margin-left-mobile);
   }
 
   @media (max-width: $rds-app-bar-breakpoint-xs) {
-    gap: calc(2.5 * var(--rds-spacing-xs, 4px)); 
-    margin-left: var(--rds-header-center-margin-left-xs, 30px);
+    gap: calc(2.5 * var(--rds-spacing-xs)); 
+    margin-left: var(--rds-header-center-margin-left-xs);
   }
 
   .rds-button {
     @media (max-width: $rds-app-bar-breakpoint-sm) {
-      font-size: var(--rds-header-center-button-font-size-mobile, 12px); 
+      font-size: var(--rds-header-center-button-font-size-mobile); 
       padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
-      min-height: var(--rds-header-center-button-min-height-mobile, 32px);
+      min-height: var(--rds-header-center-button-min-height-mobile);
     }
 
     @media (max-width: $rds-app-bar-breakpoint-xs) {
-      font-size: var(--rds-header-center-button-font-size-xs, 11px);
-      padding: calc(var(--rds-spacing-xs) + 1px) var(--rds-spacing-sm);
-      min-height: var(--rds-header-center-button-min-height-xs, 28px);
+      font-size: var(--rds-header-center-button-font-size-xs);
+      padding: calc(var(--rds-spacing-xs) + var(--rds-spacing-hairline)) var(--rds-spacing-sm);
+      min-height: var(--rds-header-center-button-min-height-xs);
     }
   }
 }
@@ -314,19 +343,19 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 .rds-header__search-field {
-  min-width: 180px;
+  min-width: var(--rds-app-bar-dim-13);
   margin: 0;
   padding: 0;
   
   @media (max-width: 600px) {
-    min-width: 140px;
+    min-width: var(--rds-app-bar-dim-10);
     flex: 1;
-    max-width: 200px;
+    max-width: var(--rds-app-bar-dim-14);
   }
   
   @media (max-width: 320px) {
-    min-width: 120px;
-    max-width: 160px;
+    min-width: var(--rds-app-bar-dim-9);
+    max-width: var(--rds-app-bar-dim-12);
   }
 }
 
@@ -375,8 +404,8 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   padding: 0 var(--rds-font-size-lg);
   background-color: var(--rds-appbar-bg, var(--rds-primary-main));
   color: var(--rds-appbar-color, var(--rds-background-paper));
-  min-height: var(--rds-spacing-lg, 24px);
-box-shadow: var(--rds-elevation-2);
+  min-height: var(--rds-spacing-lg);
+  box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, rgba(0, 0, 0, 0.2));
   position: relative;
   z-index: var(--rds-z-index-sticky);
   width: 100%;
@@ -412,7 +441,7 @@ box-shadow: var(--rds-elevation-2);
 
   &__menu-button {
     margin-right: var(--rds-spacing-sm);
-    margin-left: 0; // override MUI edge="start" default of -12px
+    margin-left: 0; // override MUI edge="start" default of calc(-1 * var(--rds-spacing-3))
     flex-shrink: 0;
     
     @media (max-width: 840px) {
@@ -496,7 +525,7 @@ box-shadow: var(--rds-elevation-2);
       .MuiAvatar-root {
         background-color: rgba(255, 255, 255, 0.25);
         color: var(--rds-color-on-primary);
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        border: var(--rds-border-width-thin) solid rgba(255, 255, 255, 0.5);
       }
     }
 
@@ -560,7 +589,7 @@ box-shadow: var(--rds-elevation-2);
       .MuiAvatar-root {
         background-color: rgba(255, 255, 255, 0.25);
         color: var(--rds-color-on-secondary);
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        border: var(--rds-border-width-thin) solid rgba(255, 255, 255, 0.5);
       }
     }
 
@@ -599,8 +628,8 @@ box-shadow: var(--rds-elevation-2);
   flex-direction: column;
   background: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
-  border-bottom: 1px solid var(--rds-color-border);
- box-shadow: var(--rds-elevation-2);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-color-border);
+  box-shadow: var(--rds-elevation-1);
   position: relative;
   width: 100%;
   z-index: var(--rds-z-index-sticky, 1100);
@@ -609,10 +638,10 @@ box-shadow: var(--rds-elevation-2);
   &__toolbar {
     display: flex;
     align-items: center;
-    min-height: var(--rds-header-toolbar-height, 56px);
-    padding-left: var(--rds-spacing-xl, 32px);
-    padding-right: var(--rds-spacing-xl, 32px);
-    gap: var(--rds-spacing-lg, 20px);
+    min-height: var(--rds-header-toolbar-height);
+    padding-left: var(--rds-spacing-xl);
+    padding-right: var(--rds-spacing-xl);
+    gap: var(--rds-spacing-lg);
     background: transparent;
     position: relative;
     width: 100%;
@@ -620,97 +649,97 @@ box-shadow: var(--rds-elevation-2);
     overflow: hidden;
     
     @media (max-width: 834px) {
-      padding-left: var(--rds-spacing-lg, 24px);
-      padding-right: var(--rds-spacing-lg, 24px);
-      gap: var(--rds-spacing-md, 16px);
+      padding-left: var(--rds-spacing-lg);
+      padding-right: var(--rds-spacing-lg);
+      gap: var(--rds-spacing-md);
     }
     
     @media (max-width: 600px) {
-      padding-left: var(--rds-spacing-md, 16px);
-      padding-right: var(--rds-spacing-md, 16px);
-      gap: var(--rds-spacing-sm, 12px);
+      padding-left: var(--rds-spacing-md);
+      padding-right: var(--rds-spacing-md);
+      gap: var(--rds-spacing-sm);
     }
     
     @media (max-width: 420px) {
-      padding-left: var(--rds-spacing-sm, 12px);
-      padding-right: var(--rds-spacing-sm, 12px);
-      gap: var(--rds-spacing-xs, 10px);
+      padding-left: var(--rds-spacing-sm);
+      padding-right: var(--rds-spacing-sm);
+      gap: var(--rds-spacing-xs);
     }
     
     @media (max-width: 320px) {
-      padding-left: var(--rds-spacing-xs, 8px);
-      padding-right: var(--rds-spacing-xs, 8px);
-      gap: var(--rds-spacing-xs, 8px);
+      padding-left: var(--rds-spacing-xs);
+      padding-right: var(--rds-spacing-xs);
+      gap: var(--rds-spacing-xs);
     }
   }
 
   &__logo {
     display: flex;
     align-items: center;
-    height: var(--rds-header-logo-height, 32px);
-    min-width: var(--rds-header-logo-min-width, 120px);
-    font-size: var(--rds-font-size-lg, 20px);
+    height: var(--rds-header-logo-height);
+    min-width: var(--rds-header-logo-min-width);
+    font-size: var(--rds-font-size-lg);
     font-weight: var(--rds-font-weight-bold, 700);
-    letter-spacing: var(--rds-letter-spacing, 0.1px);
+    letter-spacing: var(--rds-letter-spacing-normal);
     flex-shrink: 0;
     
     @media (max-width: 834px) {
-      min-width: var(--rds-header-logo-min-width, 100px);
-      font-size: var(--rds-font-size-md, 19px);
-      height: var(--rds-header-logo-height, 30px);
+      min-width: var(--rds-header-logo-min-width);
+      font-size: var(--rds-font-size-md);
+      height: var(--rds-header-logo-height);
     }
     
     @media (max-width: 600px) {
-      min-width: var(--rds-header-logo-min-width, 80px);
-      font-size: var(--rds-font-size-md, 18px);
-      height: var(--rds-header-logo-height, 28px);
+      min-width: var(--rds-header-logo-min-width);
+      font-size: var(--rds-font-size-md);
+      height: var(--rds-header-logo-height);
     }
     
     @media (max-width: 420px) {
-      min-width: var(--rds-header-logo-min-width, 70px);
-      font-size: var(--rds-font-size-md, 17px);
-      height: var(--rds-header-logo-height, 26px);
+      min-width: var(--rds-header-logo-min-width);
+      font-size: var(--rds-font-size-md);
+      height: var(--rds-header-logo-height);
     }
     
     @media (max-width: 320px) {
-      min-width: var(--rds-header-logo-min-width, 60px);
-      font-size: var(--rds-font-size-md, 16px);
-      height: var(--rds-header-logo-height, 24px);
+      min-width: var(--rds-header-logo-min-width);
+      font-size: var(--rds-font-size-md);
+      height: var(--rds-header-logo-height);
     }
   }
 
   &__title {
     flex-grow: 1;
     font-weight: var(--rds-font-weight-semibold, 600);
-    font-size: var(--rds-font-size-md, 18px);
+    font-size: var(--rds-font-size-md);
     color: var(--rds-color-on-surface);
-    letter-spacing: var(--rds-letter-spacing-wide, 0.2px);
+    letter-spacing: var(--rds-letter-spacing-wide);
     display: flex;
     align-items: center;
-    min-width: 80px;
+    min-width: var(--rds-size-4xl);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     flex-shrink: 1;
     
     @media (max-width: 834px) {
-      min-width: 70px;
-      font-size: var(--rds-font-size-base, 17px);
+      min-width: var(--rds-app-bar-dim-7);
+      font-size: var(--rds-font-size-base);
     }
     
     @media (max-width: 600px) {
-      min-width: 60px;
-      font-size: var(--rds-font-size-base, 16px);
+      min-width: var(--rds-app-bar-dim-6);
+      font-size: var(--rds-font-size-base);
     }
     
     @media (max-width: 420px) {
-      min-width: 50px;
-      font-size: var(--rds-font-size-sm, 15px);
+      min-width: var(--rds-app-bar-dim-5);
+      font-size: var(--rds-font-size-sm);
     }
     
     @media (max-width: 320px) {
-      min-width: 40px;
-      font-size: var(--rds-font-size-sm, 14px);
+      min-width: var(--rds-size-40);
+      font-size: var(--rds-font-size-sm);
     }
   }
 
@@ -720,8 +749,8 @@ box-shadow: var(--rds-elevation-2);
   }
   .rds-language-menu-list {
     &::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: var(--rds-size-sm);
+      height: var(--rds-size-sm);
     }
     &::-webkit-scrollbar-track {
       background: transparent;
@@ -753,54 +782,54 @@ box-shadow: var(--rds-elevation-2);
   }
 
   .rds-language-menu-paper {
-    width: 220px;
-    max-width: 260px;
-    max-height: 360px;
+    width: var(--rds-app-bar-dim-15);
+    max-width: var(--rds-app-bar-dim-17);
+    max-height: var(--rds-app-bar-dim-20);
     overflow: hidden; 
     box-sizing: border-box;
     
     @media (max-width: 834px) {
-      width: 200px;
-      max-width: 240px;
+      width: var(--rds-app-bar-dim-14);
+      max-width: var(--rds-app-bar-dim-16);
     }
     
     @media (max-width: 420px) {
-      width: 180px;
-      max-width: 200px;
-      max-height: 300px;
+      width: var(--rds-app-bar-dim-13);
+      max-width: var(--rds-app-bar-dim-14);
+      max-height: var(--rds-app-bar-dim-19);
     }
     
     @media (max-width: 320px) {
-      width: 160px;
-      max-width: 180px;
-      max-height: 280px;
+      width: var(--rds-app-bar-dim-12);
+      max-width: var(--rds-app-bar-dim-13);
+      max-height: var(--rds-app-bar-dim-18);
     }
   }
 
   .rds-language-menu-list {
-    max-height: 360px;
+    max-height: var(--rds-app-bar-dim-20);
     overflow-y: auto;
     box-sizing: border-box;
     
     @media (max-width: 420px) {
-      max-height: 300px;
+      max-height: var(--rds-app-bar-dim-19);
     }
     
     @media (max-width: 320px) {
-      max-height: 280px;
+      max-height: var(--rds-app-bar-dim-18);
     }
   }
 
   &__search {
-    min-width: 148px;
+    min-width: var(--rds-app-bar-dim-11);
     color: var(--rds-header__search-field-color, var(--rds-color-on-surface));
     background: var(--rds-header__search-field-bg, var(--rds-color-surface-alt));
-    padding: 0 var(--rds-spacing-sm, 12px);
-    border-radius: var(--rds-border-radius, 6px);
-    font-size: var(--rds-font-size-body, 15px);
-    border: 1px solid var(--rds-color-border);
+    padding: 0 var(--rds-spacing-sm);
+    border-radius: var(--rds-border-radius);
+    font-size: var(--rds-font-size-body);
+    border: var(--rds-border-width-thin) solid var(--rds-color-border);
     box-shadow: none;
-    height: 36px;
+    height: var(--rds-size-36);
     display: flex;
     align-items: center;
     transition: border-color 0.2s;
@@ -808,30 +837,30 @@ box-shadow: var(--rds-elevation-2);
     flex-shrink: 1;
  
     @media (max-width: 834px) {
-      min-width: 180px;
-      font-size: var(--rds-font-size-sm, 14px);
-      height: 34px;
+      min-width: var(--rds-app-bar-dim-13);
+      font-size: var(--rds-font-size-sm);
+      height: var(--rds-app-bar-dim-4);
     }
     
     @media (max-width: 600px) {
-      min-width: 140px;
-      padding: 0 var(--rds-spacing-xs, 8px);
-      font-size: var(--rds-font-size-sm, 14px);
-      height: 32px;
+      min-width: var(--rds-app-bar-dim-10);
+      padding: 0 var(--rds-spacing-xs);
+      font-size: var(--rds-font-size-sm);
+      height: var(--rds-size-xl);
     }
     
     @media (max-width: 420px) {
-      min-width: 120px;
-      padding: 0 var(--rds-spacing-xs, 8px);
-      font-size: var(--rds-font-size-sm, 13px);
-      height: 30px;
+      min-width: var(--rds-app-bar-dim-9);
+      padding: 0 var(--rds-spacing-xs);
+      font-size: var(--rds-font-size-sm);
+      height: var(--rds-app-bar-dim-3);
     }
     
     @media (max-width: 320px) {
-      min-width: 100px;
-      padding: 0 var(--rds-spacing-xs, 6px);
-      font-size: var(--rds-font-size-xs, 12px);
-      height: 28px;
+      min-width: var(--rds-app-bar-dim-8);
+      padding: 0 var(--rds-spacing-xs);
+      font-size: var(--rds-font-size-xs);
+      height: var(--rds-size-28);
     }
     
     &:focus-within {
@@ -843,24 +872,24 @@ box-shadow: var(--rds-elevation-2);
       border: none;
       outline: none;
       width: 100%;
-      font-size: var(--rds-font-size-body, 15px);
+      font-size: var(--rds-font-size-body);
       color: var(--rds-color-on-surface);
       padding: 0;
-      height: 34px;
+      height: var(--rds-app-bar-dim-4);
       
       @media (max-width: 834px) {
-        font-size: var(--rds-font-size-sm, 14px);
-        height: 32px;
+        font-size: var(--rds-font-size-sm);
+        height: var(--rds-size-xl);
       }
       
       @media (max-width: 420px) {
-        font-size: var(--rds-font-size-sm, 13px);
-        height: 28px;
+        font-size: var(--rds-font-size-sm);
+        height: var(--rds-size-28);
       }
       
       @media (max-width: 320px) {
-        font-size: var(--rds-font-size-xs, 12px);
-        height: 26px;
+        font-size: var(--rds-font-size-xs);
+        height: var(--rds-app-bar-dim-2);
       }
     }
   }
@@ -868,44 +897,44 @@ box-shadow: var(--rds-elevation-2);
   &__actions {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 16px);
+    gap: var(--rds-spacing-md);
     flex-shrink: 0;
 
     @media (max-width: 834px) {
-      gap: var(--rds-spacing-sm, 14px);
+      gap: var(--rds-spacing-sm);
     }
     
     @media (max-width: 600px) {
-      gap: var(--rds-spacing-sm, 12px);
+      gap: var(--rds-spacing-sm);
     }
     
     @media (max-width: 420px) {
-      gap: var(--rds-spacing-xs, 10px);
+      gap: var(--rds-spacing-xs);
     }
     
     @media (max-width: 320px) {
-      gap: var(--rds-spacing-xs, 8px);
+      gap: var(--rds-spacing-xs);
     }
   }
 
   &__tabs {
-    min-height: 40px;
+    min-height: var(--rds-size-40);
     border-bottom: none;
     .MuiTabs-indicator {
-      height: 2px;
+      height: var(--rds-app-bar-dim-1);
       background: var(--rds-color-primary);
       border-radius: var(--rds-border-radius-xs) var(--rds-border-radius-xs) 0 0;
     }
     .MuiTabs-flexContainer {
-      gap: var(--rds-spacing-xs, 8px);
+      gap: var(--rds-spacing-xs);
     }
     .MuiTab-root {
-      min-height: 40px;
+      min-height: var(--rds-size-40);
       font-weight: var(--rds-font-weight-medium, 500);
-      font-size: var(--rds-font-size-body, 15px);
+      font-size: var(--rds-font-size-body);
       color: var(--rds-color-on-surface);
-      padding: 0 var(--rds-spacing-lg, 20px);
-      border-radius: var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0 0;
+      padding: 0 var(--rds-spacing-lg);
+      border-radius: var(--rds-border-radius) var(--rds-border-radius) 0 0;
       border-bottom: none;
       &.Mui-selected {
         color: var(--rds-color-primary);
@@ -917,13 +946,13 @@ box-shadow: var(--rds-elevation-2);
 
   &__sub-header {
     background: var(--rds-color-surface-alt);
-    padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-xl, 32px);
-    border-top: 1px solid var(--rds-color-border);
-    font-size: var(--rds-font-size-body, 15px);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-xl);
+    border-top: var(--rds-border-width-thin) solid var(--rds-color-border);
+    font-size: var(--rds-font-size-body);
     color: var(--rds-color-on-surface);
     display: flex;
     align-items: center;
-    min-height: 40px;
+    min-height: var(--rds-size-40);
   }
 
   &__sub-header-layout {
@@ -1024,38 +1053,38 @@ box-shadow: var(--rds-elevation-2);
     position: relative;
     display: flex;
     align-items: center;
-    width: 220px;
+    width: var(--rds-app-bar-dim-15);
     flex-shrink: 1;
     min-width: 0;
  
     @media (max-width: 834px) {
-      width: 180px;
-      min-width: 160px;
-      max-width: 200px;
+      width: var(--rds-app-bar-dim-13);
+      min-width: var(--rds-app-bar-dim-12);
+      max-width: var(--rds-app-bar-dim-14);
     }
     
     @media (max-width: 600px) {
       width: 100%;
-      min-width: 140px;
+      min-width: var(--rds-app-bar-dim-10);
       flex: 1;
-      max-width: 180px;
+      max-width: var(--rds-app-bar-dim-13);
     }
     
     @media (max-width: 420px) {
-      min-width: 120px;
-      max-width: 160px;
+      min-width: var(--rds-app-bar-dim-9);
+      max-width: var(--rds-app-bar-dim-12);
     }
     
     @media (max-width: 320px) {
-      min-width: 100px;
-      max-width: 140px;
+      min-width: var(--rds-app-bar-dim-8);
+      max-width: var(--rds-app-bar-dim-10);
     }
   }
 
   &__search-clear {
     
 
-    right: var(--rds-spacing-xs, 4px);
+    right: var(--rds-spacing-xs);
     top: 50%;
     transform: translateY(-50%);
     z-index: calc(var(--rds-z-index-base) + 1);
@@ -1097,8 +1126,8 @@ box-shadow: var(--rds-elevation-2);
   
   @media (max-width: 420px) {
     svg {
-      width: 28px;
-      height: 28px;
+      width: var(--rds-size-28);
+      height: var(--rds-size-28);
     }
   }
   
@@ -1157,7 +1186,7 @@ box-shadow: var(--rds-elevation-2);
 .rds-appbar-badge {
   background: var(--rds-appbar-badge-bg, rgba(25, 118, 210, 0.1));
   color: var(--rds-appbar-badge-color, var(--rds-color-primary));
-  border: 1px solid currentColor;
+  border: var(--rds-border-width-thin) solid currentColor;
   border-radius: var(--rds-border-radius-sm);
   padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   font-weight: 500;
@@ -1229,12 +1258,12 @@ box-shadow: var(--rds-elevation-2);
 
 @media (max-width: 834px) {
   .rds-header__toolbar {
-    gap: var(--rds-spacing-md, 12px);
+    gap: var(--rds-spacing-md);
   }
 
   .rds-appbar-actions-group {
     .MuiButton-root {
-      min-width: 80px;
+      min-width: var(--rds-size-4xl);
     }
   }
 }
@@ -1260,8 +1289,8 @@ box-shadow: var(--rds-elevation-2);
     }
 
     svg {
-      width: 18px;
-      height: 18px;
+      width: var(--rds-size-18);
+      height: var(--rds-size-18);
       color: inherit;
     }
   }
@@ -1274,15 +1303,15 @@ box-shadow: var(--rds-elevation-2);
   right: 0;
   display: flex;
   gap: var(--rds-spacing-sm);
-  padding: var(--rds-spacing-sm) 12px;
+  padding: var(--rds-spacing-sm) var(--rds-spacing-3);
   align-items: center;
   z-index: var(--rds-z-index-dropdown);
-  border-top: 1px solid var(--rds-color-border);
-  box-shadow: var(--rds-elevation-1);
+  border-top: var(--rds-border-width-thin) solid var(--rds-color-border);
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
   box-sizing: border-box;
-  min-height: 56px;
-  max-height: 56px;
-  height: 56px;
+  min-height: var(--rds-size-56);
+  max-height: var(--rds-size-56);
+  height: var(--rds-size-56);
   overflow: hidden;
   // Paper surface (not app-bar fill) — use on-surface so light mode stays readable
   background: var(--rds-background-paper, var(--rds-color-surface));
@@ -1326,7 +1355,7 @@ box-shadow: var(--rds-elevation-2);
     font-weight: 600;
     font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
     padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
-    min-width: 48px;
+    min-width: var(--rds-size-2xl);
     white-space: nowrap;
   }
 
@@ -1338,7 +1367,7 @@ box-shadow: var(--rds-elevation-2);
     background: var(--rds-appbar-badge-bg);
     color: var(--rds-appbar-badge-color);
     border-radius: var(--rds-border-radius-sm);
-    padding: var(--rds-spacing-xs) 8px;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     font-weight: 500;
     font-size: var(--rds-font-size-sm);
     white-space: nowrap;
@@ -1347,7 +1376,7 @@ box-shadow: var(--rds-elevation-2);
 
   .MuiButton-root {
     font-size: var(--rds-font-size-sm);
-    padding: var(--rds-spacing-xs) 8px;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     min-width: auto;
     white-space: nowrap;
     flex-shrink: 0;
@@ -1355,7 +1384,7 @@ box-shadow: var(--rds-elevation-2);
 
   @media (max-width: 420px) {
     padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
-    min-height: 48px;
+    min-height: var(--rds-size-2xl);
     gap: var(--rds-spacing-xs);
     
     .rds-bottom-navigation-single-row {
@@ -1364,7 +1393,7 @@ box-shadow: var(--rds-elevation-2);
     
     .rds-bottom-nav-tab { 
       font-size: var(--rds-font-size-sm); 
-      padding: var(--rds-spacing-xs) 6px; 
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact); 
       min-width: auto;
     }
     
@@ -1381,8 +1410,8 @@ box-shadow: var(--rds-elevation-2);
   }
 
   @media (max-width: 320px) {
-    padding: var(--rds-spacing-xs) 6px;
-    min-height: 44px;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-compact);
+    min-height: var(--rds-size-44);
     gap: var(--rds-spacing-xxs);
     
     .rds-bottom-navigation-single-row {

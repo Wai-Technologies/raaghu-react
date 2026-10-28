@@ -1,12 +1,14 @@
 
 .rds-emoji-generator {
+  --rds-emoji-generator-dim-1: 294px;
+
   display: flex;
   flex-direction: column;
   background-color: var(--rds-background-paper);
-  border-radius: var(--rds-border-radius-lg, 12px);
+  border-radius: var(--rds-border-radius-lg);
   overflow: hidden;
-  width: var(--rds-emoji-generator-width, 360px);
-  height: var(--rds-emoji-generator-height, 420px);
+  width: var(--rds-emoji-generator-width);
+  height: var(--rds-emoji-generator-height);
   box-shadow: var(--rds-elevation-2);
   gap: 0;
 
@@ -16,8 +18,8 @@
     gap: var(--rds-spacing-sm);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     background-color: var(--rds-background-paper);
-    border-radius: var(--rds-border-radius-xl, 16px);
-    border: 1px solid var(--rds-border-light);
+    border-radius: var(--rds-border-radius-xl);
+    border: var(--rds-border-width-thin) solid var(--rds-border-light);
     box-shadow: var(--rds-elevation-1);
     width: fit-content;
     min-width: auto;
@@ -41,7 +43,7 @@
       .MuiInputBase-root {
         background-color: var(--rds-background-paper);
         border-radius: var(--rds-border-radius-sm);
-        border: 1px solid var(--rds-border-default);
+        border: var(--rds-border-width-thin) solid var(--rds-border-default);
         transition: all var(--rds-transition-base);
         font-size: var(--rds-font-size-body2);
         color: var(--rds-text-primary);
@@ -59,7 +61,7 @@
 
       .MuiInputBase-input {
         padding: var(--rds-spacing-xs) var(--rds-spacing-md);
-        font-size: var(--rds-font-size-body2);
+        font-size: var(--rds-font-size-md);
         color: var(--rds-text-primary);
 
         &::placeholder {
@@ -81,14 +83,14 @@
   &__skin-tone-button.MuiIconButton-root {
     transition: all var(--rds-transition-base);
     flex-shrink: 0;
-    width: var(--rds-emoji-skin-tone-size, 29px);
-    height: var(--rds-emoji-skin-tone-size, 29px);
+    width: var(--rds-emoji-skin-tone-size);
+    height: var(--rds-emoji-skin-tone-size);
     border-radius: var(--rds-border-radius-sm);
-    border: 1px solid var(--rds-border-light);
-    min-width: var(--rds-emoji-skin-tone-size, 29px);
+    border: var(--rds-border-width-thin) solid var(--rds-border-light);
+    min-width: var(--rds-emoji-skin-tone-size);
     padding: 0;
     margin-left: var(--rds-spacing-sm);
-
+    
     &:hover {
       transform: scale(1.05);
       box-shadow: var(--rds-elevation-2);
@@ -97,8 +99,8 @@
 
   &__skin-tone-inline {
     position: absolute;
-    right: -6px;
-    top: 30px;
+    right: var(--rds-spacing-neg-6);
+    top: var(--rds-spacing-30);
     display: flex;
     flex-direction: column;
     gap: var(--rds-spacing-xxs);
@@ -111,9 +113,9 @@
     align-items: center;
 
     .MuiIconButton-root {
-      width: var(--rds-emoji-skin-tone-size, 29px);
-      height: var(--rds-emoji-skin-tone-size, 29px);
-      min-width: var(--rds-emoji-skin-tone-size, 29px);
+      width: var(--rds-emoji-skin-tone-size);
+      height: var(--rds-emoji-skin-tone-size);
+      min-width: var(--rds-emoji-skin-tone-size);
       padding: var(--rds-spacing-xs);
     }
   }
@@ -124,7 +126,8 @@
     box-shadow: var(--rds-elevation-3);
     margin-top: var(--rds-spacing-xxs);
     min-width: auto;
-    width: var(--rds-emoji-skin-popover-width, 45px);
+    /* G5-040: dedicated width token (was misusing --rds-size-sm with 45px fallback) */
+    width: var(--rds-emoji-skin-popover-width);
   }
 
   &__skin-tone-dropdown {
@@ -136,9 +139,9 @@
     .MuiIconButton-root {
       transition: all var(--rds-transition-base);
       display: block;
-      width: var(--rds-emoji-skin-tone-size, 29px);
-      height: var(--rds-emoji-skin-tone-size, 29px);
-      min-width: var(--rds-emoji-skin-tone-size, 29px);
+      width: var(--rds-emoji-skin-tone-size);
+      height: var(--rds-emoji-skin-tone-size);
+      min-width: var(--rds-emoji-skin-tone-size);
       padding: 0;
 
       &:hover {
@@ -148,22 +151,22 @@
     }
   }
 
-  /* G5-038/040: border/shadow via BEM + aria-pressed; beat MUI without !important */
+  /* G5-038/040: border/shadow via BEM + aria-pressed; beat MUI without */
   &__skin-tone-option.MuiIconButton-root {
-    width: var(--rds-emoji-skin-tone-size, 29px);
-    height: var(--rds-emoji-skin-tone-size, 29px);
+    width: var(--rds-emoji-skin-tone-size);
+    height: var(--rds-emoji-skin-tone-size);
     border-radius: 0;
-    min-width: var(--rds-emoji-skin-tone-size, 29px);
+    min-width: var(--rds-emoji-skin-tone-size);
     padding: 0;
-    margin: var(--rds-spacing-xxs) 0;
+    margin: var(--rds-spacing-xs) 0;
     display: block;
-    border: 1px solid var(--rds-border-default);
+    border: var(--rds-border-width-thin) solid var(--rds-border-default);
     box-shadow: none;
     box-sizing: border-box;
 
     &--selected,
     &[aria-pressed='true'] {
-      border: 2px solid var(--rds-primary-main);
+      border: var(--rds-border-width-medium) solid var(--rds-primary-main);
       box-shadow: 0 0 0 1px var(--rds-primary-light);
     }
   }
@@ -181,8 +184,8 @@
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      padding: var(--rds-spacing-xxs) 0;
-
+      padding: var(--rds-spacing-xs) 0;
+      
       &::-webkit-scrollbar {
         display: none;
       }
@@ -224,7 +227,7 @@
 
     .MuiChip-icon {
       margin: 0;
-      font-size: var(--rds-font-size-body2);
+      font-size: var(--rds-font-size-sm);
     }
   }
 
@@ -240,20 +243,20 @@
   }
 
   &__emoji-image {
-    width: var(--rds-size-md, 24px);
-    height: var(--rds-size-md, 24px);
-    display: block;
-    object-fit: contain;
-    pointer-events: none;
+      width: var(--rds-size-lg);
+      height: var(--rds-size-lg);
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
   }
 
   &__category-title {
     margin-bottom: var(--rds-spacing-md);
-    padding: 0 var(--rds-spacing-xxs);
+    padding: 0 var(--rds-spacing-xs);
     flex-shrink: 0;
 
     &-text.MuiTypography-root {
-      font-size: var(--rds-font-size-body2);
+      font-size: var(--rds-font-size-md);
       font-weight: var(--rds-font-weight-semibold, 600);
       color: var(--rds-text-primary);
       margin: 0;
@@ -310,15 +313,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--rds-size-lg, 36px);
-    height: var(--rds-size-lg, 36px);
-    min-width: var(--rds-size-lg, 36px);
-    min-height: var(--rds-size-lg, 36px);
+    width: var(--rds-size-lg);
+    height: var(--rds-size-lg);
+    min-width: var(--rds-size-lg);
+    min-height: var(--rds-size-lg);
     border-radius: var(--rds-border-radius-md);
     cursor: pointer;
     transition: transform 0.2s ease;
-    font-size: var(--rds-font-size-xl, 20px);
-    border: 1px solid transparent;
+    font-size: var(--rds-font-size-xl);
+    border: var(--rds-border-width-thin) solid transparent;
     background-color: transparent;
 
     &:hover {
@@ -330,10 +333,10 @@
     }
 
     &--quick {
-      width: var(--rds-size-md, 32px);
-      height: var(--rds-size-md, 32px);
+      width: var(--rds-size-md);
+      height: var(--rds-size-md);
       border-radius: 0;
-      font-size: var(--rds-font-size-xl, 20px);
+      font-size: var(--rds-font-size-xl);
       background-color: transparent;
       border: none;
       transition: transform 0.2s ease;
@@ -352,8 +355,8 @@
   }
 
   &__plus.MuiIconButton-root {
-    width: var(--rds-size-md, 32px);
-    height: var(--rds-size-md, 32px);
+    width: var(--rds-size-md);
+    height: var(--rds-size-md);
     border-radius: 0;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -368,7 +371,7 @@
 
     .MuiSvgIcon-root {
       color: var(--rds-text-secondary);
-      font-size: var(--rds-font-size-lg, 18px);
+      font-size: var(--rds-font-size-lg);
     }
   }
 
@@ -380,17 +383,17 @@
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     background-color: var(--rds-background-paper);
     flex-shrink: 0;
-    min-height: var(--rds-size-xl, 48px);
-
+    min-height: var(--rds-size-xl);
+    
     &-emoji {
-      font-size: var(--rds-font-size-xl, 20px);
+      font-size: var(--rds-font-size-xl);
       flex-shrink: 0;
       line-height: 1;
     }
 
     &-text.MuiTypography-root {
       color: var(--rds-text-secondary);
-      font-size: var(--rds-font-size-body2);
+      font-size: var(--rds-font-size-sm);
       font-weight: var(--rds-font-weight-normal, 400);
       line-height: 1.4;
       margin: 0;
@@ -418,19 +421,19 @@
 
 @media (max-width: 600px) {
   .rds-emoji-generator {
-    width: min(294px, 100%);
+    width: min(var(--rds-emoji-generator-dim-1), 100%);
 
     &__grid-container {
-      grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg, 35px), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg), 1fr));
     }
 
     &__emoji {
-      font-size: var(--rds-font-size-lg, 18px);
+      font-size: var(--rds-font-size-lg);
     }
 
     &__categories-container {
       .MuiChip-root {
-        font-size: var(--rds-font-size-small, 11px);
+        font-size: var(--rds-font-size-xs);
       }
     }
   }
@@ -441,8 +444,8 @@
     border-color: var(--rds-border-strong);
 
     &__emoji {
-      border: 1px solid transparent;
-
+      border: var(--rds-border-width-thin) solid transparent;
+      
       &:hover {
         border-color: var(--rds-color-primary);
       }

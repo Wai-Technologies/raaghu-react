@@ -43,7 +43,7 @@ const meta = {
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
-      description: 'Sets the size of the menu items (`default` is deprecated; use `medium`)',
+      description: 'Size of the trigger button and menu items. Standard scale; defaults to medium.',
     },
     selected: {
       control: 'boolean',

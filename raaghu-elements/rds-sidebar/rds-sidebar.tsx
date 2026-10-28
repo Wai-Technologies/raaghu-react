@@ -277,7 +277,7 @@ const RdsSidebar = ({
     }
   };
 
-  const searchIconOnlySize = 'var(--rds-sidebar-search-icon-only-size, var(--rds-menu-item-min-height, 40px))';
+  const searchIconOnlySize = 'var(--rds-sidebar-search-icon-only-size, var(--rds-menu-item-min-height))';
   const searchSx: SxProps<Theme> = shouldShowIconsOnly
     ? {
         width: searchIconOnlySize,
@@ -299,8 +299,8 @@ const RdsSidebar = ({
         },
         '& .MuiOutlinedInput-notchedOutline': {
           borderColor: 'var(--rds-sidebar-search-icon-border-color, var(--rds-border-default))',
-          borderWidth: 'var(--rds-border-width-thin, 1px)',
-          borderRadius: 'var(--rds-sidebar-search-icon-border-radius, var(--rds-border-radius-sm, 4px))',
+          borderWidth: 'var(--rds-border-width-thin)',
+          borderRadius: 'var(--rds-sidebar-search-icon-border-radius, var(--rds-border-radius-sm))',
         },
         '& .MuiInputBase-input': {
           display: 'none',
@@ -421,7 +421,7 @@ const RdsSidebar = ({
                 className={navButtonClasses}
                 aria-expanded={hasChildren ? !!openMap[index] : undefined}
                 sx={{
-                  minHeight: 'var(--rds-sidebar-nav-min-height, 48px)',
+                  minHeight: 'var(--rds-sidebar-nav-min-height)',
                   justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
                   px: shouldShowIconsOnly ? 0 : 2,
                 }}
@@ -467,7 +467,7 @@ const RdsSidebar = ({
                             selected={isItemSelected(child)}
                             className={navButtonClasses}
                             sx={{
-                                minHeight: 'var(--rds-sidebar-child-nav-min-height, 40px)',
+                                minHeight: 'var(--rds-sidebar-child-nav-min-height)',
                               justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
                               px: shouldShowIconsOnly ? 0 : 4,
                             }}

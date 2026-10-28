@@ -119,7 +119,7 @@ const RdsCompTextEditor = ({
     const editorRef = useRef<unknown>(null);
 
     const computedRows = typeof rows === "number" && rows > 0 ? rows : 6;
-    const lineHeightVar = "var(--rds-line-height-body, 26px)";
+    const lineHeightVar = "var(--rds-line-height-body)";
     const editorMinHeight = `calc(${computedRows} * ${lineHeightVar})`;
     const isResizable = resizable !== false;
 

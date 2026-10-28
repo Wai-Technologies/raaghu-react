@@ -14,10 +14,16 @@
 
 // Grid container
 .rds-comp-grid-container {
+  --rds-grid-dim-1: 60px;
+  --rds-grid-dim-2: 100px;
+  --rds-grid-dim-3: 120px;
+  --rds-grid-dim-4: 150px;
+  --rds-grid-dim-5: 200px;
+
   width: 100%;
   height: 100%;
-  border: 1px solid var(--rds-grid-border);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-grid-bg);
   overflow: hidden;
   color: var(--rds-grid-text);
@@ -26,8 +32,8 @@
 .rds-comp-grid {
   width: 100%;
   height: 100%;
-  border: 1px solid var(--rds-grid-border);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-grid-bg);
   overflow: hidden;
   color: var(--rds-grid-text);
@@ -37,32 +43,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
-    padding: var(--rds-spacing-md, 16px);
+    gap: var(--rds-spacing-sm);
+    padding: var(--rds-spacing-md);
     background-color: var(--rds-grid-bg-alt);
-    border-bottom: 1px solid var(--rds-grid-border-soft);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
   }
 
   &__header-search,
   &__header-controls {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 
   &__subheader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-spacing-sm);
     background-color: var(--rds-grid-bg-alt);
-    border-bottom: 1px solid var(--rds-grid-border-soft);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
   }
 
   &__subheader-left {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 
   &__subheader-title {
@@ -82,40 +88,40 @@
 
   // Filters
   &__filters {
-    padding: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md);
     background-color: var(--rds-grid-bg-alt);
-    border-bottom: 1px solid var(--rds-grid-border-soft);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
   }
 
   &__filters-content {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacingHorizontalM, 16px);
+    gap: var(--spacingHorizontalM);
     align-items: center;
   }
 
   &__filter-item {
     display: flex;
     align-items: center;
-    gap: var(--spacingHorizontalS, 8px);
-    min-width: 200px;
+    gap: var(--spacingHorizontalS);
+    min-width: var(--rds-grid-dim-5);
   }
 
   &__filter-label {
     font-weight: var(--fontWeightSemibold, 600);
-    font-size: var(--fontSizeBase200, 14px);
+    font-size: var(--fontSizeBase200);
     color: var(--rds-grid-text);
   }
 
   &__filter-input,
   &__filter-select,
   &__search-input {
-    min-width: 150px;
-    padding: var(--spacingVerticalXS, 4px)
-      var(--spacingHorizontalS, 8px);
-    border: 1px solid var(--rds-grid-border-alt);
-    border-radius: var(--borderRadiusSmall, 4px);
-    font-size: var(--fontSizeBase200, 14px);
+    min-width: var(--rds-grid-dim-4);
+    padding: var(--spacingVerticalXS)
+      var(--spacingHorizontalS);
+    border: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+    border-radius: var(--borderRadiusSmall);
+    font-size: var(--fontSizeBase200);
     background-color: var(--rds-grid-bg);
     color: var(--rds-grid-text);
 
@@ -133,19 +139,19 @@
   }
 
   &__search-input {
-    min-width: 200px;
+    min-width: var(--rds-grid-dim-5);
   }
 
   // Buttons
   &__btn,
   &__action-btn {
-    padding: var(--spacingVerticalXS, 4px)
-      var(--spacingHorizontalS, 8px);
-    border: 1px solid var(--rds-grid-border-alt);
-    border-radius: var(--borderRadiusSmall, 4px);
+    padding: var(--spacingVerticalXS)
+      var(--spacingHorizontalS);
+    border: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+    border-radius: var(--borderRadiusSmall);
     background-color: var(--rds-grid-bg-alt);
     color: var(--rds-grid-text);
-    font-size: var(--fontSizeBase200, 14px);
+    font-size: var(--fontSizeBase200);
     cursor: pointer;
     transition: var(--rds-transition-base);
 
@@ -176,14 +182,14 @@
   }
 
   &__btn--small {
-    padding: var(--spacingVerticalXXS, 2px)
-      var(--spacingHorizontalXS, 4px);
-    font-size: var(--fontSizeBase100, 12px);
+    padding: var(--spacingVerticalXXS)
+      var(--spacingHorizontalXS);
+    font-size: var(--fontSizeBase100);
   }
 
   &__action-btn {
-    margin-right: var(--spacingHorizontalXXS, 4px);
-    font-size: var(--fontSizeBase100, 12px);
+    margin-right: var(--spacingHorizontalXXS);
+    font-size: var(--fontSizeBase100);
   }
 
   &__action-menu {
@@ -196,11 +202,11 @@
     top: 100%;
     right: 0;
     display: none;
-    min-width: 120px;
+    min-width: var(--rds-grid-dim-3);
     background-color: var(--rds-grid-bg);
-    border: 1px solid var(--rds-grid-border);
-    border-radius: var(--rds-border-radius-sm, 4px);
-    box-shadow: var(--rds-elevation-2);
+    border: var(--rds-border-width-thin) solid var(--rds-grid-border);
+    border-radius: var(--rds-border-radius-sm);
+    box-shadow: var(--shadow8);
     z-index: var(--rds-z-index-modal, 1400);
   }
 
@@ -211,12 +217,12 @@
   &__action-item {
     display: block;
     width: 100%;
-    padding: var(--spacingVerticalXS, 4px)
-      var(--spacingHorizontalS, 8px);
+    padding: var(--spacingVerticalXS)
+      var(--spacingHorizontalS);
     border: none;
     background: transparent;
     text-align: left;
-    font-size: var(--fontSizeBase200, 14px);
+    font-size: var(--fontSizeBase200);
     color: var(--rds-grid-text);
     cursor: pointer;
 
@@ -227,15 +233,15 @@
 
   &__badge {
     padding: var(--rds-spacing-xxs) var(--rds-spacing-compact);
-    margin-left: var(--spacingHorizontalXS, 4px);
+    margin-left: var(--spacingHorizontalXS);
     border-radius: var(--borderRadiusCircular);
     background-color: var(--colorBrandBackground);
     color: var(--colorNeutralForegroundOnBrand);
-    font-size: var(--fontSizeBase100, 12px);
+    font-size: var(--fontSizeBase100);
   }
 
   &__required-indicator {
-    margin-left: var(--spacingHorizontalXS, 4px);
+    margin-left: var(--spacingHorizontalXS);
     color: var(--colorPaletteRedForeground1);
   }
 
@@ -252,13 +258,13 @@
 
     .fui-DataGridHeader {
       background-color: var(--rds-grid-bg-alt);
-      border-bottom: 2px solid var(--rds-grid-border);
+      border-bottom: var(--rds-border-width-medium) solid var(--rds-grid-border);
     }
 
     .fui-DataGridHeaderCell,
     .fui-DataGridCell {
-      padding: var(--rds-spacing-sm, 8px);
-      border-right: 1px solid var(--rds-grid-border-soft);
+      padding: var(--rds-spacing-sm);
+      border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
       position: relative;
     }
 
@@ -287,10 +293,10 @@
 
   &__header-cell {
     position: relative;
-    padding: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-spacing-sm);
     background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
-    border-right: 1px solid var(--rds-grid-border-alt);
-    border-bottom: 2px solid var(--rds-grid-border);
+    border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+    border-bottom: var(--rds-border-width-medium) solid var(--rds-grid-border);
     font-weight: var(--rds-font-weight-semibold, 600);
     text-align: left;
     user-select: none;
@@ -319,9 +325,9 @@
 
   &__cell {
     position: relative;
-    padding: var(--rds-spacing-sm, 8px);
-    border-right: 1px solid var(--rds-grid-border-alt);
-    border-bottom: 1px solid var(--rds-grid-border);
+    padding: var(--rds-spacing-sm);
+    border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
 
     &:last-child {
       border-right: none;
@@ -344,7 +350,7 @@
   }
 
   &__header-text {
-    font-size: var(--fontSizeBase200, 14px);
+    font-size: var(--fontSizeBase200);
 
     &--bold {
       font-weight: var(--fontWeightSemibold, 600);
@@ -352,7 +358,7 @@
   }
 
   &__cell-text {
-    font-size: var(--fontSizeBase200, 14px);
+    font-size: var(--fontSizeBase200);
     color: var(--rds-grid-text);
   }
 
@@ -361,7 +367,7 @@
   &__sort-indicator,
   &__filter-icon,
   &__filter-indicator {
-    margin-left: var(--rds-spacing-xs, 4px);
+    margin-left: var(--rds-spacing-xs);
     color: var(--rds-grid-text-subtle);
   }
 
@@ -379,8 +385,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--rds-spacing-md, 16px);
-    border-top: 1px solid var(--rds-grid-border);
+    padding: var(--rds-spacing-md);
+    border-top: var(--rds-border-width-thin) solid var(--rds-grid-border);
     background-color: var(--rds-grid-bg);
   }
 
@@ -388,7 +394,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--rds-spacing-2xl, 48px);
+    padding: var(--rds-spacing-2xl);
   }
 
   &__loading-text {
@@ -401,12 +407,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: var(--rds-spacing-2xl, 48px);
+    padding: var(--rds-spacing-2xl);
     text-align: center;
     background-color: var(--rds-grid-bg);
 
     &-title {
-      margin-bottom: var(--rds-spacing-sm, 8px);
+      margin-bottom: var(--rds-spacing-sm);
       font-size: var(--rds-font-size-xl);
       font-weight: var(--rds-font-weight-semibold, 600);
       color: var(--rds-grid-text);
@@ -423,7 +429,7 @@
   }
 
   &__search-box {
-    min-width: 200px;
+    min-width: var(--rds-grid-dim-5);
   }
 
   &__resize-handle {
@@ -431,7 +437,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    width: 4px;
+    width: var(--rds-size-xs);
     background-color: transparent;
     cursor: col-resize;
     transition: background-color var(--rds-transition-base);
@@ -443,7 +449,7 @@
     }
 
     &:focus {
-      outline: 2px solid var(--colorBrandBackground, var(--rds-primary-main));
+      outline: var(--rds-border-width-medium) solid var(--colorBrandBackground, var(--rds-primary-main));
       outline-offset: -2px;
     }
   }
@@ -454,9 +460,9 @@
     .rds-comp-grid__cell,
     .fui-DataGridHeaderCell,
     .fui-DataGridCell {
-      padding: var(--spacingVerticalXS, 4px)
-        var(--spacingHorizontalS, 8px);
-      font-size: var(--fontSizeBase100, 12px);
+      padding: var(--spacingVerticalXS)
+        var(--spacingHorizontalS);
+      font-size: var(--fontSizeBase100);
     }
   }
 
@@ -489,8 +495,8 @@
   th.MuiTableCell-head,
   [role='columnheader'],
   .rds-comp-grid__header-cell {
-    background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
-    color: var(--rds-grid-text) !important;
+    background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
+    color: var(--rds-grid-text);
   }
 
   .rds-comp-grid-toolbar,
@@ -507,9 +513,9 @@
   div[class*='toolbar'],
   div[class*='header-controls'],
   div[class*='grid-controls'] {
-    background-color: var(--rds-grid-bg-alt) !important;
-    color: var(--rds-grid-text) !important;
-    border-bottom-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg-alt);
+    color: var(--rds-grid-text);
+    border-bottom-color: var(--rds-grid-border-soft);
   }
 
   input.rds-comp-grid__search-input,
@@ -528,12 +534,12 @@
   [type='search'],
   div[class*='search'] input,
   .search-input {
-    background-color: var(--rds-grid-bg) !important;
-    color: var(--rds-grid-text) !important;
-    border-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg);
+    color: var(--rds-grid-text);
+    border-color: var(--rds-grid-border-soft);
 
     &::placeholder {
-      color: var(--rds-grid-text-subtle) !important;
+      color: var(--rds-grid-text-subtle);
       opacity: 0.7;
     }
   }
@@ -551,12 +557,12 @@
   div[class*='toolbar'] button,
   div[class*='header'] button,
   div[class*='controls'] button {
-    background-color: var(--rds-grid-bg) !important;
-    color: var(--rds-grid-text) !important;
-    border-color: var(--rds-grid-border-soft) !important;
+    background-color: var(--rds-grid-bg);
+    color: var(--rds-grid-text);
+    border-color: var(--rds-grid-border-soft);
 
     &:hover {
-      background-color: var(--rds-grid-row-hover) !important;
+      background-color: var(--rds-grid-row-hover);
     }
 
     svg,
@@ -564,8 +570,8 @@
     .MuiButton-label,
     .MuiButton-startIcon,
     .MuiButton-endIcon {
-      fill: var(--rds-grid-text) !important;
-      color: var(--rds-grid-text) !important;
+      fill: var(--rds-grid-text);
+      color: var(--rds-grid-text);
     }
   }
 
@@ -576,7 +582,7 @@
   .rds-comp-grid-cell-text,
   .rds-comp-grid-header-title,
   .rds-comp-grid-title {
-    color: var(--rds-grid-text) !important;
+    color: var(--rds-grid-text);
   }
 
   .rds-comp-grid__btn,
@@ -605,15 +611,15 @@
   .rds-comp-grid__table,
   .rds-comp-grid table,
   .rds-comp-grid-table {
-    background-color: var(--rds-grid-bg-alt) !important;
-    color: var(--rds-grid-text) !important;
+    background-color: var(--rds-grid-bg-alt);
+    color: var(--rds-grid-text);
 
     .fui-DataGridHeader,
     thead,
     tr:first-child,
     .rds-comp-grid-header-row {
-      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
-      color: var(--rds-grid-text) !important;
+      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
+      color: var(--rds-grid-text);
     }
 
     .fui-DataGridHeaderCell,
@@ -621,10 +627,10 @@
     .rds-comp-grid-header-cell,
     th.MuiTableCell-head,
     [role='columnheader'] {
-      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
-      color: var(--rds-grid-text) !important;
-      border-bottom-color: var(--rds-grid-border-soft) !important;
-      border-right-color: var(--rds-grid-border-soft) !important;
+      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt));
+      color: var(--rds-grid-text);
+      border-bottom-color: var(--rds-grid-border-soft);
+      border-right-color: var(--rds-grid-border-soft);
       font-weight: var(--rds-font-weight-semibold, 600);
     }
 
@@ -644,7 +650,7 @@
       &--selected,
       &.selected,
       &.Mui-selected {
-        background-color: var(--rds-grid-row-selected) !important;
+        background-color: var(--rds-grid-row-selected);
       }
     }
 
@@ -693,8 +699,8 @@
   .rds-comp-grid-header-cell {
     background-color: var(--rds-grid-bg);
     color: var(--rds-grid-text);
-    border-bottom: 2px solid var(--rds-grid-border);
-    border-right: 1px solid var(--rds-grid-border);
+    border-bottom: var(--rds-border-width-medium) solid var(--rds-grid-border);
+    border-right: var(--rds-border-width-thin) solid var(--rds-grid-border);
   }
 
   .rds-comp-grid-row {
@@ -716,8 +722,8 @@
   .rds-comp-grid-cell {
     background-color: transparent;
     color: var(--rds-grid-text);
-    border-right: 1px solid var(--rds-grid-border);
-    border-bottom: 1px solid var(--rds-grid-border);
+    border-right: var(--rds-border-width-thin) solid var(--rds-grid-border);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
   }
 
   .rds-comp-grid-cell-text,
@@ -726,8 +732,8 @@
   }
 
   svg {
-    fill: var(--rds-grid-text) !important;
-    color: var(--rds-grid-text) !important;
+    fill: var(--rds-grid-text);
+    color: var(--rds-grid-text);
   }
 }
 
@@ -736,14 +742,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--rds-spacing-md, 16px);
-  border-bottom: 1px solid var(--rds-grid-border);
+  padding: var(--rds-spacing-md);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
   background-color: var(--rds-grid-bg-alt);
 
   &-controls {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 }
 
@@ -751,12 +757,12 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  border: 1px solid var(--rds-grid-border-alt);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
 
   th,
   td {
-    border-right: 1px solid var(--rds-grid-border-alt);
-    border-bottom: 1px solid var(--rds-grid-border);
+    border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+    border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
 
     &:last-child {
       border-right: none;
@@ -765,7 +771,7 @@
 
   thead th {
     background-color: var(--rds-grid-bg-alt);
-    border-bottom: 2px solid var(--rds-grid-border-alt);
+    border-bottom: var(--rds-border-width-medium) solid var(--rds-grid-border-alt);
   }
 
   tbody tr:last-child td {
@@ -775,10 +781,10 @@
 
 .rds-comp-grid-header-cell {
   position: relative;
-  padding: var(--rds-spacing-sm, 8px);
+  padding: var(--rds-spacing-sm);
   background-color: var(--rds-grid-bg-alt);
-  border-bottom: 2px solid var(--rds-grid-border);
-  border-right: 1px solid var(--rds-grid-border-alt);
+  border-bottom: var(--rds-border-width-medium) solid var(--rds-grid-border);
+  border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
   font-weight: var(--rds-font-weight-semibold, 600);
   text-align: left;
   user-select: none;
@@ -809,9 +815,9 @@
 
 .rds-comp-grid-cell {
   position: relative;
-  padding: var(--rds-spacing-sm, 8px);
-  border-right: 1px solid var(--rds-grid-border-alt);
-  border-bottom: 1px solid var(--rds-grid-border);
+  padding: var(--rds-spacing-sm);
+  border-right: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+  border-bottom: var(--rds-border-width-thin) solid var(--rds-grid-border);
 
   &:last-child {
     border-right: none;
@@ -850,12 +856,12 @@
     max-height: var(--rds-size-lg);
     border-radius: var(--rds-border-radius-pill);
     vertical-align: middle;
-    margin-right: var(--rds-spacing-sm, 8px);
+    margin-right: var(--rds-spacing-sm);
   }
 
   .status-pill {
     display: inline-block;
-    min-width: 60px;
+    min-width: var(--rds-grid-dim-1);
     padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius-lg);
     font-size: var(--rds-font-size-sm);
@@ -895,9 +901,9 @@
 
   .progress-bar {
     width: 100%;
-    height: 8px;
+    height: var(--rds-size-sm);
     background-color: var(--rds-neutral-100);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    border-radius: var(--rds-border-radius-sm);
     overflow: hidden;
 
     .progress-fill {
@@ -911,8 +917,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
+    width: var(--rds-size-20);
+    height: var(--rds-size-20);
     border-radius: var(--rds-border-radius-pill);
 
     &.verified {
@@ -932,8 +938,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--rds-spacing-md, 16px);
-  border-top: 1px solid var(--rds-grid-border);
+  padding: var(--rds-spacing-md);
+  border-top: var(--rds-border-width-thin) solid var(--rds-grid-border);
   background-color: var(--rds-grid-bg);
 }
 
@@ -941,7 +947,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--rds-spacing-2xl, 48px);
+  padding: var(--rds-spacing-2xl);
 }
 
 .rds-comp-grid-empty-state {
@@ -949,12 +955,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: var(--rds-spacing-2xl, 48px);
+  padding: var(--rds-spacing-2xl);
   text-align: center;
   background-color: var(--rds-grid-bg);
 
   &-title {
-    margin-bottom: var(--rds-spacing-sm, 8px);
+    margin-bottom: var(--rds-spacing-sm);
     font-size: var(--rds-font-size-xl);
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-grid-text-subtle);
@@ -967,7 +973,7 @@
 }
 
 .rds-comp-grid-sort-icon {
-  margin-left: var(--rds-spacing-xs, 4px);
+  margin-left: var(--rds-spacing-xs);
   color: var(--rds-grid-text-subtle);
 }
 
@@ -978,12 +984,12 @@
 }
 
 .rds-comp-grid-filter-icon {
-  margin-left: var(--rds-spacing-xs, 4px);
+  margin-left: var(--rds-spacing-xs);
   color: var(--rds-grid-text-subtle);
 
   &-active {
-    background-color: var(--colorBrandBackground, var(--rds-primary-main)) !important;
-    color: var(--rds-neutral-0) !important;
+    background-color: var(--colorBrandBackground, var(--rds-primary-main));
+    color: var(--rds-neutral-0);
   }
 }
 
@@ -996,48 +1002,48 @@
   position: absolute;
   top: 100%;
   right: 0;
-  width: 120px;
-  max-height: 100px;
+  width: var(--rds-grid-dim-3);
+  max-height: var(--rds-grid-dim-2);
   overflow: auto;
   display: block;
-  margin-top: calc(var(--rds-spacing-xs, 4px) / 2);
-  padding: var(--rds-spacing-xs, 4px);
+  margin-top: calc(var(--rds-spacing-xs) / 2);
+  padding: var(--rds-spacing-xs);
   background-color: var(--rds-grid-bg);
-  border: 1px solid var(--rds-grid-border);
-  border-radius: calc(var(--rds-border-radius-sm, 4px) / 2);
-  box-shadow: var(--rds-elevation-1);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border);
+  border-radius: calc(var(--rds-border-radius-sm) / 2);
+  box-shadow: var(--shadow4);
   z-index: var(--rds-z-index-modal, 1400);
 
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
+    margin-bottom: calc(var(--rds-spacing-xs) / 2);
     font-size: var(--rds-font-size-sm);
     color: var(--rds-grid-text);
   }
 }
 
 .rds-comp-grid-filter-section {
-  margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
+  margin-bottom: calc(var(--rds-spacing-xs) / 2);
 
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
+    margin-bottom: calc(var(--rds-spacing-xs) / 2);
   }
 }
 
 .rds-comp-grid-filter-item {
-  margin-bottom: calc(var(--rds-spacing-xs, 4px) / 2);
-  padding: calc(var(--rds-spacing-xs, 4px) / 2);
-  border: 1px solid var(--rds-grid-border-soft);
-  border-radius: calc(var(--rds-border-radius-sm, 4px) / 2);
+  margin-bottom: calc(var(--rds-spacing-xs) / 2);
+  padding: calc(var(--rds-spacing-xs) / 2);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border-soft);
+  border-radius: calc(var(--rds-border-radius-sm) / 2);
   background-color: var(--rds-grid-bg-alt);
 
   &-active {
-    background-color: var(--colorBrandBackground, var(--rds-primary-main)) !important;
+    background-color: var(--colorBrandBackground, var(--rds-primary-main));
     color: var(--rds-neutral-0);
 
     .rds-comp-grid-filter-label {
@@ -1052,7 +1058,7 @@
 
 .rds-comp-grid-filter-label {
   display: block;
-  margin-bottom: var(--rds-spacing-xs, 4px);
+  margin-bottom: var(--rds-spacing-xs);
   font-weight: var(--rds-font-weight-medium, 500);
   font-size: var(--rds-font-size-md);
 }
@@ -1060,14 +1066,14 @@
 .rds-comp-grid-filter-controls {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-sm, 8px);
+  gap: var(--rds-spacing-sm);
 }
 
 .rds-comp-grid-filter-operator {
-  min-width: 120px;
+  min-width: var(--rds-grid-dim-3);
   padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
-  border: 1px solid var(--rds-border-default);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-grid-bg);
   color: var(--rds-grid-text);
   font-size: var(--rds-font-size-md);
@@ -1087,14 +1093,14 @@
 
 .rds-comp-grid-filter-operator-icon {
   position: absolute;
-  right: var(--rds-spacing-sm, 8px);
+  right: var(--rds-spacing-sm);
   pointer-events: none;
   color: var(--rds-grid-text-subtle);
 }
 
 .rds-comp-grid-clear-all {
   width: 100%;
-  margin-top: var(--rds-spacing-sm, 8px);
+  margin-top: var(--rds-spacing-sm);
 }
 
 // Column visibility
@@ -1102,8 +1108,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--rds-spacing-xs, 4px);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  padding: var(--rds-spacing-xs);
+  border-radius: var(--rds-border-radius-sm);
   cursor: pointer;
   transition: background-color var(--rds-transition-base);
 
@@ -1113,21 +1119,21 @@
 }
 
 .rds-comp-grid-column-list {
-  max-height: 150px;
-  margin-top: var(--rds-spacing-xs, 4px);
-  padding: var(--rds-spacing-xs, 4px);
+  max-height: var(--rds-grid-dim-4);
+  margin-top: var(--rds-spacing-xs);
+  padding: var(--rds-spacing-xs);
   overflow-y: auto;
-  border: 1px solid var(--rds-grid-border-alt);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border: var(--rds-border-width-thin) solid var(--rds-grid-border-alt);
+  border-radius: var(--rds-border-radius-sm);
   background-color: var(--rds-grid-bg);
 }
 
 .rds-comp-grid-column-item {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-sm, 8px);
-  padding: var(--rds-spacing-xs, 4px);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  gap: var(--rds-spacing-sm);
+  padding: var(--rds-spacing-xs);
+  border-radius: var(--rds-border-radius-sm);
   transition: background-color var(--rds-transition-base);
 
   &:hover {
@@ -1139,10 +1145,10 @@
   width: 100%;
   margin-top: 0;
   padding: var(--rds-spacing-xxs);
-  border: 1px solid var(--rds-border-default);
+  border: var(--rds-border-width-thin) solid var(--rds-border-default);
   border-top: none;
-  border-radius: 0 0 var(--rds-border-radius-sm, 4px)
-    var(--rds-border-radius-sm, 4px);
+  border-radius: 0 0 var(--rds-border-radius-sm)
+    var(--rds-border-radius-sm);
   background-color: var(--rds-background-surface);
 
   &-item {
@@ -1211,12 +1217,12 @@
 }
 
 .rds-grid-cell-rounded-sm {
-  border-radius: var(--rds-border-radius-sm, 4px);
+  border-radius: var(--rds-border-radius-sm);
   color: var(--rds-text-primary);
 }
 
 .rds-grid-cell-rounded-md {
-  border-radius: var(--rds-border-radius-md, 8px);
+  border-radius: var(--rds-border-radius-md);
   color: var(--rds-text-primary);
 }
 
@@ -1229,7 +1235,7 @@
   .rds-comp-grid__header {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
   }
 
   .rds-comp-grid__header-search,
@@ -1243,7 +1249,7 @@
 
   .rds-comp-grid__subheader {
     flex-direction: column;
-    gap: var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm);
     text-align: center;
   }
 
@@ -1252,8 +1258,8 @@
 
     .fui-DataGridHeaderCell,
     .fui-DataGridCell {
-      padding: var(--spacingVerticalXS, 4px);
-      font-size: var(--fontSizeBase100, 12px);
+      padding: var(--spacingVerticalXS);
+      font-size: var(--fontSizeBase100);
     }
   }
 }

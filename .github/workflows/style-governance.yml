@@ -9,8 +9,23 @@ on:
       - 'raaghu-layouts/**/*.scss'
       - 'scripts/hex-baseline.txt'
       - 'scripts/check-hex-in-scss.sh'
+      - 'scripts/check-no-hex.mjs'
+      - 'scripts/rgba-baseline.txt'
+      - 'scripts/check-no-rgba-in-scss.mjs'
+      - 'scripts/important-baseline.txt'
+      - 'scripts/check-no-important-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/check-spacing-in-scss.sh'
+      - 'scripts/check-spacing-in-scss.mjs'
+      - 'scripts/raw-px-baseline.txt'
+      - 'scripts/check-raw-px-in-scss.mjs'
+      - 'scripts/local-dim-px-baseline.txt'
+      - 'scripts/check-local-dim-px-in-scss.mjs'
+      - 'scripts/check-orphaned-css-vars.mjs'
+      - 'raaghu-react-themes/tokens/**'
+      - 'raaghu-elements/**/*.{ts,tsx}'
+      - 'raaghu-components/**/*.{ts,tsx}'
+      - 'raaghu-layouts/**/*.{ts,tsx}'
   pull_request:
     branches: [main, development, production]
     paths:
@@ -19,8 +34,23 @@ on:
       - 'raaghu-layouts/**/*.scss'
       - 'scripts/hex-baseline.txt'
       - 'scripts/check-hex-in-scss.sh'
+      - 'scripts/check-no-hex.mjs'
+      - 'scripts/rgba-baseline.txt'
+      - 'scripts/check-no-rgba-in-scss.mjs'
+      - 'scripts/important-baseline.txt'
+      - 'scripts/check-no-important-in-scss.mjs'
       - 'scripts/spacing-baseline.txt'
       - 'scripts/check-spacing-in-scss.sh'
+      - 'scripts/check-spacing-in-scss.mjs'
+      - 'scripts/raw-px-baseline.txt'
+      - 'scripts/check-raw-px-in-scss.mjs'
+      - 'scripts/local-dim-px-baseline.txt'
+      - 'scripts/check-local-dim-px-in-scss.mjs'
+      - 'scripts/check-orphaned-css-vars.mjs'
+      - 'raaghu-react-themes/tokens/**'
+      - 'raaghu-elements/**/*.{ts,tsx}'
+      - 'raaghu-components/**/*.{ts,tsx}'
+      - 'raaghu-layouts/**/*.{ts,tsx}'
   workflow_dispatch:
 
 permissions:
@@ -43,14 +73,32 @@ jobs:
       - name: Check for new hardcoded hex colors in SCSS
         run: bash scripts/check-hex-in-scss.sh
 
-      - name: Check for new hardcoded px spacing in SCSS
-        run: bash scripts/check-spacing-in-scss.sh
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
+
+      - name: Check for unauthorized hex (allowlist)
+        run: node scripts/check-no-hex.mjs
+
+      - name: Check for new rgb()/rgba() literals in SCSS
+        run: node scripts/check-no-rgba-in-scss.mjs
+
+      - name: Check for new !important in SCSS
+        run: node scripts/check-no-important-in-scss.mjs
+
+      - name: Check for new hardcoded px spacing in SCSS
+        run: node scripts/check-spacing-in-scss.mjs
+
+      - name: Check for bare size/border/radius/font px in SCSS
+        run: node scripts/check-raw-px-in-scss.mjs
+
+      - name: Check for bare px/rem in local --rds-* custom properties
+        run: node scripts/check-local-dim-px-in-scss.mjs
+
+      - name: Check for orphaned var(--rds-*) references
+        run: node scripts/check-orphaned-css-vars.mjs
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
