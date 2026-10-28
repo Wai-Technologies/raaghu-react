@@ -42,12 +42,7 @@ const meta: Meta<typeof RdsAccordion> = {
     },
     selected: {
       control: 'boolean',
-      description: 'Highlights the accordion as selected. Takes priority over `state`.',
-    },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'hover', 'selected'],
-      description: 'Visual state: default, hover (hover style while the pointer is over it) or selected.',
+      description: 'Highlights the accordion as selected. Hover styling comes from CSS `:hover`.',
     },
     showLeftIcon: {
       control: 'boolean',
@@ -92,7 +87,7 @@ const ControlledAccordion = ({ defaultExpanded = false, ...args }: RdsAccordionP
 const baseArgs = {
   size: 'medium',
   variant: 'outlined',
-  state: 'default',
+  selected: false,
   defaultExpanded: false,
   showLeftIcon: true,
   children: content,
