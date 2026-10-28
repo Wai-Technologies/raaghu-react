@@ -3,10 +3,10 @@
 // Uses design tokens for consistency across themes
 
 .rds-date-picker {
-  --rds-date-and-time-picker-dim-1: 1px;
-  --rds-date-and-time-picker-dim-2: 5px;
-  --rds-date-and-time-picker-dim-3: 30px;
-  --rds-date-and-time-picker-dim-4: 60px;
+  --rds-date-and-time-picker-dim-1: var(--rds-spacing-hairline);
+  --rds-date-and-time-picker-dim-2: var(--rds-spacing-tight);
+  --rds-date-and-time-picker-dim-3: var(--rds-spacing-30);
+  --rds-date-and-time-picker-dim-4: var(--rds-spacing-60);
   --rds-date-and-time-picker-dim-5: 100px;
   --rds-date-and-time-picker-dim-6: 200px;
   --rds-date-and-time-picker-dim-7: 250px;

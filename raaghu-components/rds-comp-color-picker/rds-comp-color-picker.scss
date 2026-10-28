@@ -1,11 +1,11 @@
 .rds-comp-color-picker {
   --rds-color-picker-width: 285px;
-  --rds-color-picker-dim-1: 6px;
-  --rds-color-picker-dim-2: 10px;
-  --rds-color-picker-dim-3: 22px;
-  --rds-color-picker-dim-4: 30px;
-  --rds-color-picker-dim-5: 60px;
-  --rds-color-picker-dim-6: 70px;
+  --rds-color-picker-dim-1: var(--rds-spacing-compact);
+  --rds-color-picker-dim-2: var(--rds-spacing-cozy);
+  --rds-color-picker-dim-3: var(--rds-spacing-22);
+  --rds-color-picker-dim-4: var(--rds-spacing-30);
+  --rds-color-picker-dim-5: var(--rds-spacing-60);
+  --rds-color-picker-dim-6: var(--rds-spacing-70);
   --rds-color-picker-dim-7: 100px;
   --rds-color-picker-dim-8: 120px;
   --rds-color-picker-dim-9: 160px;

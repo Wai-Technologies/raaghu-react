@@ -1,18 +1,18 @@
 .rds-appshell-appbar {
-  --rds-app-shell-dim-1: 3px;
-  --rds-app-shell-dim-2: 52px;
-  --rds-app-shell-dim-3: 68px;
-  --rds-app-shell-dim-4: 98px;
-  --rds-app-shell-dim-5: 112px;
-  --rds-app-shell-dim-6: 120px;
-  --rds-app-shell-dim-7: 136px;
-  --rds-app-shell-dim-8: 140px;
-  --rds-app-shell-dim-9: 148px;
-  --rds-app-shell-dim-10: 200px;
-  --rds-app-shell-dim-11: 240px;
-  --rds-app-shell-dim-12: 245px;
-  --rds-app-shell-dim-13: 395px;
-  --rds-app-shell-dim-14: 400px;
+  --rds-app-shell-divider-height: var(--rds-spacing-micro);
+  --rds-app-shell-header-offset-xs: var(--rds-spacing-52);
+  --rds-app-shell-header-offset-compact: var(--rds-spacing-68);
+  --rds-app-shell-header-offset-sm: var(--rds-spacing-98);
+  --rds-app-shell-header-offset-md: 112px;
+  --rds-app-shell-rail-max-width: 120px;
+  --rds-app-shell-header-offset-lg: 136px;
+  --rds-app-shell-toolbar-slot: 140px;
+  --rds-app-shell-header-offset-xl: 148px;
+  --rds-app-shell-header-offset-2xl: var(--rds-spacing-200);
+  --rds-app-shell-sidebar-width: var(--rds-spacing-240);
+  --rds-app-shell-sidebar-width-lg: 245px;
+  --rds-app-shell-content-max-width: 395px;
+  --rds-app-shell-panel-min-height: 400px;
 
   --rds-surface-primary: var(--rds-neutral-0);
 
@@ -126,7 +126,7 @@
   align-items: center;
   justify-content: center;
   background: var(--rds-surface-subtle);
-  min-height: calc(100vh - var(--rds-app-shell-dim-4));
+  min-height: calc(100vh - var(--rds-app-shell-header-offset-sm));
   width: 100%;
 }
 
@@ -204,7 +204,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  min-height: var(--rds-app-shell-dim-14);
+  min-height: var(--rds-app-shell-panel-min-height);
 }
 
 .rds-appshell-side-nav-center {
@@ -212,7 +212,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  min-height: calc(100vh - var(--rds-app-shell-dim-2));
+  min-height: calc(100vh - var(--rds-app-shell-header-offset-xs));
   height: 100%;
   width: 100%;
   
@@ -240,8 +240,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 
 .rds-appshell-side-nav-left {
   flex: 0 0 240px;
-  min-width: var(--rds-app-shell-dim-11);
-  max-width: var(--rds-app-shell-dim-11);
+  min-width: var(--rds-app-shell-sidebar-width);
+  max-width: var(--rds-app-shell-sidebar-width);
   height: 100%;
   align-self: stretch;
 
@@ -254,7 +254,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 .rds-appshell-side-nav-right {
   flex: 0 0 80px;
   min-width: var(--rds-size-4xl);
-  max-width: var(--rds-app-shell-dim-6);
+  max-width: var(--rds-app-shell-rail-max-width);
   height: 100%;
   align-self: stretch;
 
@@ -271,7 +271,7 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
   justify-content: flex-start;
   align-items: stretch;
   width: 100%;
-  height: calc(100vh - var(--rds-app-shell-dim-3));
+  height: calc(100vh - var(--rds-app-shell-header-offset-compact));
   margin-top: var(--rds-spacing-68);
   position: relative;
   box-sizing: border-box;
@@ -307,8 +307,8 @@ body[data-theme="dark"] .side-nav .sidenav-desktop-content {
 }
 
 .rds-story-relaxing-sidebar {
-  min-width: var(--rds-app-shell-dim-12);
-  max-width: var(--rds-app-shell-dim-12);
+  min-width: var(--rds-app-shell-sidebar-width-lg);
+  max-width: var(--rds-app-shell-sidebar-width-lg);
   height: 100%;
   position: relative;
   z-index: var(--rds-z-index-raised);
@@ -407,11 +407,11 @@ nav#sidebar {
 }
 
 #sidebar.toggle.hide {
-  min-height: calc(100vh - var(--rds-app-shell-dim-4));
+  min-height: calc(100vh - var(--rds-app-shell-header-offset-sm));
 }
 
 nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.pt-xxl-0.pt-xl-0.pt-lg-0.pt-md-0.pt-4.shadow.px-2.side-navigation.hide.toggle-sidebar-menu.show {
-  min-height: calc(100vh - var(--rds-app-shell-dim-4));
+  min-height: calc(100vh - var(--rds-app-shell-header-offset-sm));
 }
 
 #details-pane-app-shell {
@@ -824,7 +824,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTabs-indicator {
       background-color: var(--rds-color-primary);
-      height: var(--rds-app-shell-dim-1);
+      height: var(--rds-app-shell-divider-height);
     }
   }
   
@@ -895,7 +895,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-11);
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(0);
       transition: transform 0.3s ease;
@@ -908,7 +908,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-11);
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
@@ -930,7 +930,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         top: 0;
         left: 0;
         height: 100vh;
-        width: var(--rds-app-shell-dim-11);
+        width: var(--rds-app-shell-sidebar-width);
         z-index: var(--rds-z-index-modal, 1400);
         transform: translateX(0);
         transition: transform 0.3s ease;
@@ -942,7 +942,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         margin-left: 0 !important;
         margin-top: var(--rds-spacing-2xl) !important;
         padding-bottom: var(--rds-spacing-5) !important;
-        min-height: calc(100vh - var(--rds-app-shell-dim-5)) !important;
+        min-height: calc(100vh - var(--rds-app-shell-header-offset-md)) !important;
         overflow-y: auto;
       }
     }
@@ -952,7 +952,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-11);
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
@@ -991,7 +991,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-layer-1);
       margin-bottom: var(--rds-spacing-44);
       padding-bottom: var(--rds-spacing-68);
-      min-height: calc(100vh - var(--rds-app-shell-dim-7));
+      min-height: calc(100vh - var(--rds-app-shell-header-offset-lg));
       padding-left: var(--rds-spacing-md);
       padding-right: var(--rds-spacing-md);
       overflow-y: auto;
@@ -1002,7 +1002,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: calc(100vh - var(--rds-app-shell-dim-10));
+        min-height: calc(100vh - var(--rds-app-shell-header-offset-2xl));
         font-size: 2rem;
         font-weight: bold;
         color: var(--rds-text-secondary);
@@ -1014,7 +1014,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     &.mobile-sidebar-open > .sidebar-layout {
       left: 0 !important;
       top: 0 !important;
-      width: var(--rds-app-shell-dim-11) !important;
+      width: var(--rds-app-shell-sidebar-width) !important;
       max-width: 85vw !important;
       margin: 0 !important;
       padding: 0 !important;
@@ -1168,7 +1168,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: auto;
       height: 100vh;
       width: 85%;
-      max-width: var(--rds-app-shell-dim-13);
+      max-width: var(--rds-app-shell-content-max-width);
       margin: 0;
       padding: 0;
       background: var(--rds-background-paper);
@@ -1241,7 +1241,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding-top: var(--rds-spacing-68);
       padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
-      min-height: calc(100vh - var(--rds-app-shell-dim-9));
+      min-height: calc(100vh - var(--rds-app-shell-header-offset-xl));
     }
     
     .sidenav-mobile-content {
@@ -1385,7 +1385,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: auto;
       height: 100vh;
       width: 85%;
-      max-width: var(--rds-app-shell-dim-13);
+      max-width: var(--rds-app-shell-content-max-width);
       margin: 0;
       padding: 0;
       background: var(--rds-background-paper);
@@ -1541,7 +1541,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .double-nav {
     &.mobile-sidebar-open > .sidebar-layout {
       left: 0 !important;
-      width: var(--rds-app-shell-dim-11) !important;
+      width: var(--rds-app-shell-sidebar-width) !important;
       max-width: 85vw !important;
     }
 
@@ -1681,7 +1681,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTabs-indicator {
       background-color: var(--rds-color-primary);
-      height: var(--rds-app-shell-dim-1);
+      height: var(--rds-app-shell-divider-height);
     }
   }
   
@@ -1718,7 +1718,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-11);
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(0);
       transition: transform 0.3s ease;
@@ -1731,7 +1731,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-11);
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
@@ -1751,7 +1751,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding-top: var(--rds-spacing-68);
       padding-bottom: var(--rds-spacing-80-px);
       flex-direction: column;
-      min-height: calc(100vh - var(--rds-app-shell-dim-9));
+      min-height: calc(100vh - var(--rds-app-shell-header-offset-xl));
     }
     
     .sidenav-mobile-content {
@@ -1925,7 +1925,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
       .MuiTabs-indicator {
         background-color: var(--rds-color-primary);
-        height: var(--rds-app-shell-dim-1);
+        height: var(--rds-app-shell-divider-height);
       }
     }
 
@@ -2071,7 +2071,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-11);
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
@@ -2146,7 +2146,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       right: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-13);
+      width: var(--rds-app-shell-content-max-width);
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
@@ -2321,7 +2321,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-11);
+      width: var(--rds-app-shell-sidebar-width);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
@@ -2387,7 +2387,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       right: 0;
       height: 100vh;
-      width: var(--rds-app-shell-dim-13);
+      width: var(--rds-app-shell-content-max-width);
       background: var(--rds-background-paper);
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
@@ -2450,7 +2450,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 
 @media (min-width: 834px) {
   .side-nav {
-    --rds-side-nav-top-height: 64px;
+    --rds-side-nav-top-height: var(--rds-size-3xl);
 
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
@@ -2508,7 +2508,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: block !important;
         visibility: visible !important;
         max-height: var(--rds-size-xl) !important;
-        max-width: var(--rds-app-shell-dim-8) !important;
+        max-width: var(--rds-app-shell-toolbar-slot) !important;
         width: auto !important;
         height: auto !important;
         object-fit: contain;
@@ -2726,7 +2726,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: block !important;
       min-width: 0;
       max-width: 0;
-      height: calc(100vh - var(--rds-app-shell-dim-2));
+      height: calc(100vh - var(--rds-app-shell-header-offset-xs));
       position: relative;
       z-index: var(--rds-z-index-raised);
     }
@@ -2738,7 +2738,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding-top: 0;
       position: relative;
       z-index: var(--rds-z-index-layer-1);
-      height: calc(100vh - var(--rds-app-shell-dim-2));
+      height: calc(100vh - var(--rds-app-shell-header-offset-xs));
     }
     
     .rds-story-relaxing-layout {
@@ -2847,7 +2847,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       flex-direction: row;
       align-items: stretch;
       width: 100%;
-      height: calc(100vh - var(--rds-app-shell-dim-3));
+      height: calc(100vh - var(--rds-app-shell-header-offset-compact));
       margin-top: var(--rds-spacing-68);
     }
 
@@ -2895,7 +2895,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTabs-indicator {
       background-color: var(--rds-color-primary);
-      height: var(--rds-app-shell-dim-1);
+      height: var(--rds-app-shell-divider-height);
     }
   }
 }

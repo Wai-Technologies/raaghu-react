@@ -1,11 +1,11 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-counter__mandatory {
-  --rds-counter-dim-1: 30px;
-  --rds-counter-dim-2: 50px;
-  --rds-counter-dim-3: 60px;
-  --rds-counter-dim-4: 70px;
-  --rds-counter-dim-5: 90px;
+  --rds-counter-dim-1: var(--rds-spacing-30);
+  --rds-counter-dim-2: var(--rds-spacing-50);
+  --rds-counter-dim-3: var(--rds-spacing-60);
+  --rds-counter-dim-4: var(--rds-spacing-70);
+  --rds-counter-dim-5: var(--rds-spacing-90);
   --rds-counter-dim-6: 100px;
   --rds-counter-dim-7: 140px;
   --rds-counter-dim-8: 160px;
@@ -95,10 +95,10 @@
 }
 
 .rds-counter__controls {
-  --rds-counter-controls-height-default: 40px;
-  --rds-counter-controls-height-compact: 36px;
-  --rds-counter-controls-height-small: 32px;
-  --rds-counter-controls-height-large: 48px;
+  --rds-counter-controls-height-default: var(--rds-size-40);
+  --rds-counter-controls-height-compact: var(--rds-size-36);
+  --rds-counter-controls-height-small: var(--rds-size-xl);
+  --rds-counter-controls-height-large: var(--rds-size-2xl);
   --rds-counter-controls-min-width-small: 100px;
   --rds-counter-controls-min-width-default: 160px;
   --rds-counter-controls-min-width-medium: 140px;
@@ -186,10 +186,10 @@
 }
 
 .rds-counter__button {
-  --rds-counter-button-size-small: 24px;
-  --rds-counter-button-size-compact: 28px;
-  --rds-counter-button-size-default: 32px;
-  --rds-counter-button-size-large: 40px;
+  --rds-counter-button-size-small: var(--rds-size-lg);
+  --rds-counter-button-size-compact: var(--rds-size-28);
+  --rds-counter-button-size-default: var(--rds-size-xl);
+  --rds-counter-button-size-large: var(--rds-size-40);
   --rds-counter-button-disabled-opacity: 0.5;
 
   width: var(--rds-spacing-xl) !important;

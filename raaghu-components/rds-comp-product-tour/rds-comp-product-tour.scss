@@ -1,13 +1,13 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-comp-product-tour {
-  --rds-product-tour-dim-1: 1px;
+  --rds-product-tour-dim-1: var(--rds-spacing-hairline);
   --rds-product-tour-dim-info-nav: 137.74px;
   --rds-product-tour-dim-2: 38px;
   --rds-product-tour-dim-3: 72px;
   --rds-product-tour-dim-4: 74px;
   --rds-product-tour-dim-5: 88px;
-  --rds-product-tour-dim-6: 90px;
+  --rds-product-tour-dim-6: var(--rds-spacing-90);
   --rds-product-tour-dim-7: 120px;
   --rds-product-tour-dim-8: 160px;
   --rds-product-tour-dim-9: 180px;
@@ -23,7 +23,7 @@
   --rds-product-tour-image-height: 260px;
   --rds-carousel-height: 300px;
   --rds-carousel-dot-bg: rgba(124, 58, 237, 0.3);
-  --rds-carousel-dot-size: 6px;
+  --rds-carousel-dot-size: var(--rds-spacing-compact);
 
   &__container {
     background: var(--rds-background-paper);

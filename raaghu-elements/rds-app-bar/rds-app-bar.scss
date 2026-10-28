@@ -10,13 +10,13 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 .rds-app-bar,
 .rds-header__search-field,
 .rds-story-logo {
-  --rds-app-bar-dim-1: 2px;
+  --rds-app-bar-dim-1: var(--rds-spacing-xxs);
   --rds-app-bar-dim-2: 26px;
-  --rds-app-bar-dim-3: 30px;
-  --rds-app-bar-dim-4: 34px;
-  --rds-app-bar-dim-5: 50px;
-  --rds-app-bar-dim-6: 60px;
-  --rds-app-bar-dim-7: 70px;
+  --rds-app-bar-dim-3: var(--rds-spacing-30);
+  --rds-app-bar-dim-4: var(--rds-spacing-34);
+  --rds-app-bar-dim-5: var(--rds-spacing-50);
+  --rds-app-bar-dim-6: var(--rds-spacing-60);
+  --rds-app-bar-dim-7: var(--rds-spacing-70);
   --rds-app-bar-dim-8: 100px;
   --rds-app-bar-dim-9: 120px;
   --rds-app-bar-dim-10: 140px;
@@ -30,7 +30,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   --rds-app-bar-dim-18: 280px;
   --rds-app-bar-dim-19: 300px;
   --rds-app-bar-dim-20: 360px;
-  --rds-header-logo-height: 32px;
+  --rds-header-logo-height: var(--rds-size-xl);
   --rds-header-logo-min-width: 120px;
 
 }
@@ -132,8 +132,8 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 .rds-story-nav-action {
-  --rds-story-nav-icon-size-sm: 16px;
-  --rds-story-nav-icon-size-xs: 14px;
+  --rds-story-nav-icon-size-sm: var(--rds-size-md);
+  --rds-story-nav-icon-size-xs: var(--rds-size-14);
   cursor: pointer;
  
   @media (max-width: $rds-app-bar-breakpoint-sm) {
@@ -174,14 +174,14 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 .rds-appbar-separator {
-  --rds-appbar-separator-horizontal-margin: 8px;
-  --rds-appbar-separator-horizontal-margin-sm: 6px;
-  --rds-appbar-separator-horizontal-margin-xs: 4px;
-  --rds-appbar-separator-min-height: 24px;
-  --rds-appbar-separator-min-height-sm: 20px;
-  --rds-appbar-separator-min-height-xs: 18px;
-  --rds-appbar-separator-max-height: 60px;
-  --rds-appbar-separator-width: 1px;
+  --rds-appbar-separator-horizontal-margin: var(--rds-spacing-sm);
+  --rds-appbar-separator-horizontal-margin-sm: var(--rds-spacing-compact);
+  --rds-appbar-separator-horizontal-margin-xs: var(--rds-spacing-xs);
+  --rds-appbar-separator-min-height: var(--rds-size-lg);
+  --rds-appbar-separator-min-height-sm: var(--rds-size-20);
+  --rds-appbar-separator-min-height-xs: var(--rds-size-18);
+  --rds-appbar-separator-max-height: var(--rds-spacing-60);
+  --rds-appbar-separator-width: var(--rds-spacing-hairline);
   align-self: center;
   display: block;
   flex-shrink: 0; 
@@ -256,14 +256,14 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
 }
 
 .rds-header__center-content {
-  --rds-header-center-gap-mobile: 12px;
-  --rds-header-center-gap-xs: 10px;
+  --rds-header-center-gap-mobile: var(--rds-spacing-3);
+  --rds-header-center-gap-xs: var(--rds-spacing-cozy);
   --rds-header-center-margin-left-mobile: 95px;
-  --rds-header-center-margin-left-xs: 30px;
+  --rds-header-center-margin-left-xs: var(--rds-spacing-30);
   --rds-header-center-button-font-size-mobile: 12px;
   --rds-header-center-button-font-size-xs: 11px;
-  --rds-header-center-button-min-height-mobile: 32px;
-  --rds-header-center-button-min-height-xs: 28px;
+  --rds-header-center-button-min-height-mobile: var(--rds-size-xl);
+  --rds-header-center-button-min-height-xs: var(--rds-size-28);
   display: inline-flex;
   align-items: center;
   gap: var(--rds-spacing-sm); 

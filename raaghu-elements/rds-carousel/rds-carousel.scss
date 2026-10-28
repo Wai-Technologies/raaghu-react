@@ -1,12 +1,12 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-carousel {
-  --rds-carousel-dim-1: 3px;
-  --rds-carousel-dim-2: 10px;
-  --rds-carousel-dim-3: 35px;
-  --rds-carousel-dim-4: 60px;
-  --rds-carousel-dim-5: 70px;
-  --rds-carousel-dim-6: 90px;
+  --rds-carousel-dim-1: var(--rds-spacing-micro);
+  --rds-carousel-dim-2: var(--rds-spacing-cozy);
+  --rds-carousel-dim-3: var(--rds-spacing-35);
+  --rds-carousel-dim-4: var(--rds-spacing-60);
+  --rds-carousel-dim-5: var(--rds-spacing-70);
+  --rds-carousel-dim-6: var(--rds-spacing-90);
   --rds-carousel-dim-7: 100px;
   --rds-carousel-dim-8: 110px;
   --rds-carousel-dim-9: 265px;

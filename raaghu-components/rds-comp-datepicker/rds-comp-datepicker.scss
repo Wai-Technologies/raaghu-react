@@ -1,11 +1,11 @@
 @use '../../raaghu-react-themes/tokens/breakpoints' as bp;
 
 .rds-datepicker {  
-  --rds-datepicker-dim-1: 7px;
-  --rds-datepicker-dim-2: 9px;
-  --rds-datepicker-dim-3: 11px;
-  --rds-datepicker-dim-4: 27px;
-  --rds-datepicker-dim-5: 30px;
+  --rds-datepicker-dim-1: var(--rds-spacing-7);
+  --rds-datepicker-dim-2: var(--rds-spacing-9-px);
+  --rds-datepicker-dim-3: var(--rds-spacing-11-px);
+  --rds-datepicker-dim-4: var(--rds-spacing-27);
+  --rds-datepicker-dim-5: var(--rds-spacing-30);
   --rds-datepicker-dim-6: 120px;
   --rds-datepicker-dim-7: 180px;
   --rds-datepicker-dim-8: 200px;
