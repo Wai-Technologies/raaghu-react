@@ -15,7 +15,7 @@
     min-width: var(--rds-badge-dot-min-size, 20px) !important;
     height: var(--rds-badge-dot-min-size, 20px) !important;
     border-radius: var(--rds-border-radius-md, 8px) !important;
-    padding: 0 var(--rds-badge-dot-padding-x, 6px) !important;
+   padding: 0 var(--rds-badge-dot-padding-x)!important;
     font-family: var(--rds-font-family-base) !important;
     display: flex !important;
     align-items: center !important;
@@ -41,14 +41,14 @@
     font-family: var(--rds-font-family-base);
     font-weight: var(--rds-font-weight-regular, 400);
     font-style: normal;
-    font-size: 0.875rem;
+   font-size: var(--rds-font-size-sm);
     line-height: 20px;
     letter-spacing: 0;
     text-align: center;
     vertical-align: middle;
-    box-shadow: var(--rds-badge-pill-shadow, 0 1px 4px rgba(108, 46, 183, 0.08));
-    padding: var(--rds-spacing-xs) 18px;
-    min-width: 60px;
+    box-shadow: var(--rds-badge-pill-shadow, var(--rds-elevation-1));
+  padding: var(--rds-spacing-xs) var(--rds-spacing-18);
+    min-width: var(--rds-spacing-60);
     height: var(--rds-size-xl);
     border-radius: var(--rds-border-radius-xl, 16px);
   }
@@ -87,12 +87,6 @@
     box-shadow: none !important;
   }
 
-  &--rectangle > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-sm, 4px) !important;
-  }
-  &--pill > .rds-badge__badge {
-    border-radius: var(--rds-border-radius-xl, 16px) !important;
-  }
 
   $rds-badge-colors: (
     primary: (var(--rds-primary-main) var(--rds-neutral-0)),
@@ -171,15 +165,15 @@
     transition: none;
   }
   &--small .rds-badge__badge {
-    font-size: 0.75rem;
+   font-size: var(--rds-font-size-xs);
     padding: var(--rds-spacing-xxs) var(--rds-spacing-3);
-    border-radius: var(--rds-border-radius-md, 8px);
-    min-width: 40px;
+    border-radius: var(--rds-border-radius-md);
+    min-width: var(--rds-size-2xl, 40px);
     height: var(--rds-size-lg);
     line-height: 20px;
   }
   &--small .MuiBadge-badge {
-    font-size: 0.625rem !important;
+    font-size: var(--rds-font-size-xs) !important;
     min-width: var(--rds-size-md) !important;
     height: var(--rds-size-md) !important;
     border-radius: var(--rds-border-radius-md, 8px) !important;
@@ -190,9 +184,9 @@
 
   }
   &--small .MuiBadge-dot {
-    width: 10px !important;
-    height: 10px !important;
-    min-width: 8px !important;
+    width: var(--rds-spacing-cozy, 10px) !important;
+    height: var(--rds-spacing-cozy, 10px) !important;
+   min-width: var(--rds-spacing-sm, 8px) !important;
     border-radius: var(--rds-border-radius-pill) !important;
   }
 
@@ -286,10 +280,10 @@
   }
   
   &--medium .rds-badge__badge {
-    font-size: 1rem;
-    padding: var(--rds-spacing-xs) 18px;
+   font-size: var(--rds-font-size-md);
+    padding: var(--rds-spacing-xs) var(--rds-spacing-18);
     border-radius: var(--rds-border-radius-lg, 12px);
-    min-width: 60px;
+    min-width: var(--rds-spacing-60);
     height: var(--rds-size-xl);
   }
   &--medium .MuiBadge-badge {
@@ -301,14 +295,14 @@
   }
   
   &--large .rds-badge__badge {
-    font-size: 1.25rem;
+    font-size: var(--rds-font-size-xl);
     padding: var(--rds-spacing-compact) var(--rds-spacing-lg);
     border-radius: var(--rds-border-radius-xl, 16px);
-    min-width: 80px;
-    height: 40px;
+    min-width: var(--rds-size-5xl, 80px);
+    height: var(--rds-spacing-10);
   }
   &--large .MuiBadge-badge {
-    font-size: 0.875rem !important;
+    font-size: var(--rds-font-size-sm) !important;
     min-width: var(--rds-size-lg) !important;
     height: var(--rds-size-lg) !important;
     border-radius: var(--rds-border-radius-lg, 12px) !important;
@@ -321,10 +315,10 @@
     color: var(--rds-primary-800);
     border-radius: var(--rds-border-radius-xl, 16px);
     font-weight: var(--rds-font-weight-semibold, 600);
-    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
-    padding: var(--rds-spacing-xs) 18px;
-    font-size: 1rem;
-    min-width: 60px;
+   box-shadow: var(--rds-badge-pill-shadow, var(--rds-elevation-1));
+    padding: var(--rds-spacing-xs) var(--rds-spacing-18);
+    font-size: var(--rds-font-size-body1);
+   min-width: var(--rds-spacing-60);
     height: var(--rds-size-xl);
     display: flex;
     align-items: center;

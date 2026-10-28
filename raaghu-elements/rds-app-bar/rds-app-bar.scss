@@ -376,7 +376,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   background-color: var(--rds-appbar-bg, var(--rds-primary-main));
   color: var(--rds-appbar-color, var(--rds-background-paper));
   min-height: var(--rds-spacing-lg, 24px);
-  box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, rgba(0, 0, 0, 0.2));
+box-shadow: var(--rds-elevation-2);
   position: relative;
   z-index: var(--rds-z-index-sticky);
   width: 100%;
@@ -600,7 +600,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   background: var(--rds-color-surface);
   color: var(--rds-color-on-surface);
   border-bottom: 1px solid var(--rds-color-border);
-  box-shadow: var(--rds-elevation-1, 0 2px 8px 0 rgba(60,60,60,0.03));
+ box-shadow: var(--rds-elevation-2);
   position: relative;
   width: 100%;
   z-index: var(--rds-z-index-sticky, 1100);
@@ -1017,7 +1017,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     top: 0;
   }
   &--shadow {
-    box-shadow: var(--rds-elevation-2, 0 2px 8px 0 rgba(60,60,60,0.03));
+    box-shadow: var(--rds-elevation-2);
   }
 
   &__search-wrapper {
@@ -1278,7 +1278,7 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
   align-items: center;
   z-index: var(--rds-z-index-dropdown);
   border-top: 1px solid var(--rds-color-border);
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+  box-shadow: var(--rds-elevation-1);
   box-sizing: border-box;
   min-height: 56px;
   max-height: 56px;

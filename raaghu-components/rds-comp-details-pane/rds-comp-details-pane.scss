@@ -6,7 +6,7 @@
   gap: var(--rds-spacing-xl, 24px);
   flex-shrink: 0;
   background: var(--rds-color-surface);
-  box-shadow: var(--rds-elevation-2, 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04));
+box-shadow: var(--rds-elevation-2);
   padding: var(--rds-details-pane-padding, 14px 7px);
   border: none;
   position: relative;
@@ -561,7 +561,7 @@
     width: 100%;
     max-width: var(--rds-favourite-card-image-max-width, 340px);
     border-radius: var(--rds-border-radius-md, 8px);
-    box-shadow: var(--rds-elevation-1, 0 1px 8px rgba(0,0,0,0.08));
+   box-shadow: var(--rds-elevation-1);
     border: 1px solid var(--rds-color-border);
   }
 
@@ -571,7 +571,7 @@
     bottom: var(--rds-spacing-md, 18px);
     background: var(--rds-color-surface);
     border-radius: var(--rds-border-radius-pill);
-    box-shadow: var(--rds-box-shadow-xs, 0 1px 4px rgba(120, 37, 233, 0.10));
+   box-shadow: var(--rds-box-shadow-xs);
     padding: var(--rds-spacing-xs);
     display: flex;
     align-items: center;

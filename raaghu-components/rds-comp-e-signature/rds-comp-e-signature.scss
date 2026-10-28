@@ -592,7 +592,7 @@
     gap: var(--rds-spacing-xs, 6px);
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    font-family: var(--rds-font-family-secondary, 'Segoe UI', sans-serif);
+    font-family: var(--rds-font-family-secondary);
   }
 
   &__mini-card:hover:not(:disabled) {
@@ -627,7 +627,7 @@
   &__mini-full {
     font-size: var(--rds-font-size-sm, 14px);
     font-weight: var(--rds-font-weight-normal, 400);
-    font-family: var(--rds-font-family-base, 'Segoe UI', sans-serif);
+    font-family: var(--rds-font-family-base);
   }
 
   &__mini-initials {
@@ -675,7 +675,7 @@
     display: flex;
     align-items: center;
     gap: var(--rds-space-2, 8px);
-    font-family: var(--rds-font-family-error, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
+    font-family: var(--rds-font-family-error);
     line-height: 1.25;
     font-weight: var(--rds-font-weight-medium, 500);
   }
@@ -729,7 +729,7 @@
     color: var(--rds-color-accent-blue-600);
     font-size: var(--rds-font-size-sm, 14px);
     margin-top: var(--rds-space-3, 12px);
-    font-family: var(--rds-font-family-accent, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
+    font-family: var(--rds-font-family-accent);
   }
 
   &--selected {
@@ -737,7 +737,7 @@
     .rds-e-signature__upload-area {
       border-color: var(--rds-color-primary-700, var(--rds-primary-main));
       border-style: solid;
-      box-shadow: var(--rds-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+      box-shadow: var(--rds-shadow-sm);
     }
   }
 
@@ -746,7 +746,7 @@
     .rds-e-signature__upload-area {
       border-color: var(--rds-color-primary-900);
       border-style: solid;
-      box-shadow: var(--rds-shadow-hover, 0 4px 12px rgba(0, 0, 0, 0.15));
+    box-shadow: var(--rds-shadow-hover);
     }
   }
 
