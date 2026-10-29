@@ -694,4 +694,40 @@ describe('DropdownMenu Component', () => {
       expect(results).toHaveNoViolations();
     });
   });
+
+  describe('state prop', () => {
+    it.each([
+      ['default', 'rds-comments-box--default'],
+      ['selected', 'rds-comments-box--selected'],
+      ['typing', 'rds-comments-box--typing'],
+      ['comment Posted', 'rds-comments-box--posted'],
+      ['comment Hover', 'rds-comments-box--hover'],
+      ['comment Thread', 'rds-comments-box--thread'],
+    ] as const)('renders the %s state', (state, modifier) => {
+      const { container } = render(<RdsCommentBox {...defaultProps} state={state} className="custom" />);
+      const root = container.querySelector(`.${modifier}`);
+      expect(root).toBeInTheDocument();
+      expect(root).toHaveClass('custom');
+    });
+
+    it('renders the interactive composer when state is omitted', () => {
+      const { container } = render(<RdsCommentBox {...defaultProps} />);
+      expect(container.querySelector('.rds-comments-box--composer')).toBeInTheDocument();
+    });
+
+    it('shows hover content and toggles its actions menu', async () => {
+      render(<RdsCommentBox state="comment Hover" commentHoverName="Renne Doe" hoverText="Hello" editLabel="Edit" deleteLabel="Delete" />);
+      expect(screen.getByText('Renne Doe')).toBeInTheDocument();
+      await userEvent.click(screen.getByRole('button', { name: 'More options' }));
+      expect(screen.getByText('Edit')).toBeInTheDocument();
+      await userEvent.click(screen.getByText('Delete'));
+      expect(screen.queryByText('Edit')).not.toBeInTheDocument();
+    });
+
+    it('shows the no-image text in the thread state without imgSrc', () => {
+      render(<RdsCommentBox state="comment Thread" noImageText="Nothing here" score="7" />);
+      expect(screen.getByText('Nothing here')).toBeInTheDocument();
+      expect(screen.getByText('07')).toBeInTheDocument();
+    });
+  });
 });
