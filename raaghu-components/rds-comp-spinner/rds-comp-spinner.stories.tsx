@@ -44,9 +44,9 @@ const meta: Meta = {
             description: "Type of spinner",
         },
         color: {
-            options: ["primary", "secondary", "success", "error", "warning", "info", "dark"],
+            options: ["primary", "secondary", "success", "error", "warning", "dark"],
             control: { type: "select" },
-            description: "Color of the spinner (`danger` still accepted as an alias of `error`)",
+            description: "Color of the spinner (`danger` is still accepted as an alias of `error`, and `info` as an alias of `primary`)",
         },
         level: {
             options: ["01", "02", "03", "04"],

@@ -4,7 +4,6 @@
   --rds-spinner-success-color: var(--rds-semantic-success-main);
   --rds-spinner-danger-color: var(--rds-semantic-error-main);
   --rds-spinner-warning-color: var(--rds-semantic-warning-main);
-  --rds-spinner-info-color: var(--rds-info-dark);
   --rds-spinner-light-color: var(--rds-surface-subtle);
   --rds-spinner-dark-color: var(--rds-text-primary);
 
@@ -79,6 +78,7 @@
     color: var(--rds-success-main, var(--rds-spinner-success-color));
   }
 
+  .text-error,
   .text-danger {
     color: var(--rds-error-main, var(--rds-spinner-danger-color));
   }
@@ -88,7 +88,7 @@
   }
 
   .text-info {
-    color: var(--rds-info-main, var(--rds-spinner-info-color));
+    color: var(--rds-primary-main, var(--rds-spinner-primary-color));
   }
 
   .text-light {
