@@ -1,17 +1,19 @@
 .rds-comp-filter-button {
-  --rds-filter-button-dim-1: 1px;
-  --rds-filter-button-dim-2: 450px;
-
-  --rds-filter-popover-width: 380px;
-  --rds-filter-popover-max-height: 450px;
-  --rds-filter-popover-gap: 3px;
-
   position: relative;
   display: inline-block;
 }
 
+/* Vars live on the paper: Popover portals outside `.rds-comp-filter-button`. */
 .rds-filter-button__popover.MuiPopover-paper {
+  --rds-filter-button-dim-1: 1px;
+  --rds-filter-button-dim-2: 450px;
+  --rds-filter-popover-width: 380px;
+  --rds-filter-popover-max-height: 450px;
+  --rds-filter-popover-gap: 3px;
+
   width: var(--rds-filter-popover-width);
+  min-width: var(--rds-filter-popover-width);
+  max-width: var(--rds-filter-popover-width);
   max-height: var(--rds-filter-popover-max-height);
   border-radius: var(--rds-border-radius);
   box-shadow: var(--rds-elevation-3);
@@ -25,7 +27,8 @@
 .rds-filter-button__content {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   max-height: var(--rds-filter-button-dim-2);
 }
 
@@ -69,6 +72,38 @@
 .rds-filter-button__search .MuiInputBase-input::placeholder {
   color: var(--rds-placeholder-color);
   opacity: 1;
+}
+
+.rds-filter-button__filters {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+
+  &::-webkit-scrollbar {
+    width: var(--rds-spacing-compact);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--rds-background-default);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--rds-neutral-400);
+    border-radius: var(--rds-border-radius-micro);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--rds-neutral-500);
+  }
+}
+
+.rds-filter-button__footer {
+  padding: var(--rds-spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rds-spacing-sm);
+  flex-shrink: 0;
+  background-color: var(--rds-background-paper);
 }
 
 .rds-filter-button__options {

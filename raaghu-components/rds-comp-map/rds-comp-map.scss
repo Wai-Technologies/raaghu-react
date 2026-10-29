@@ -220,11 +220,8 @@
   }
 
   &--heatmap {
-    background: linear-gradient(0deg, var(--rds-comp-map-heatmap-0), var(--rds-comp-map-heatmap-0)),
-      radial-gradient(50.38% 50.38% at 30.5% 6.53%, var(--rds-comp-map-heatmap-1) 0%, var(--rds-comp-map-heatmap-2) 33%, var(--rds-comp-map-heatmap-3) 67.18%, var(--rds-comp-map-heatmap-4) 100%),
-      radial-gradient(61.69% 61.69% at 78.5% 19.32%, var(--rds-comp-map-heatmap-5) 0%, var(--rds-comp-map-heatmap-6) 38.26%, var(--rds-comp-map-heatmap-7) 100%),
-      radial-gradient(36.18% 63.42% at 35.64% 37.56%, var(--rds-comp-map-heatmap-8) 0%, var(--rds-comp-map-heatmap-9) 44.15%, color-mix(in srgb, var(--rds-comp-map-heatmap-fade-lime) 0%, transparent) 100%),
-      radial-gradient(18.75% 43.04% at 26.5% 80.97%, var(--rds-comp-map-heatmap-10) 0%, var(--rds-comp-map-heatmap-11) 50%, color-mix(in srgb, var(--rds-comp-map-heatmap-fade-orange) 0%, transparent) 100%);
+    /* Keep the map canvas clear — do not paint the yellow/orange heatmap gradient behind the SVG */
+    background: transparent;
 
     .rds-comp-map__label {
       color: var(--rds-text);

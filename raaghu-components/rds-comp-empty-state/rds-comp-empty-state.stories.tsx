@@ -40,6 +40,10 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       if: { arg: "variant", eq: "illustration" },
       description: "Enable full Lottie animation (illustration variant only)",
     },
+    // ReactNode / ElementType props — object controls pass `{}` and crash the story
+    image: { control: false, table: { disable: true } },
+    action: { control: false, table: { disable: true } },
+    titleComponent: { control: false, table: { disable: true } },
     className: {
       table: { disable: true },
     },

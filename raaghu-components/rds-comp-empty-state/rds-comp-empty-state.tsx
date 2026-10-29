@@ -53,6 +53,15 @@ export interface RdsCompEmptyStateProps extends Omit<BoxProps, "children" | "ref
 const toCss = (value: string | number): string =>
   /^\d+$/.test(String(value)) ? `${value}px` : String(value);
 
+/** Storybook object controls can pass `{}` for ReactNode props — those are not valid children. */
+const isCustomImageNode = (value: unknown): value is ReactNode => {
+  if (value == null || typeof value === 'boolean' || typeof value === 'string' || typeof value === 'number') {
+    return false;
+  }
+  if (Array.isArray(value)) return true;
+  return typeof value === 'object' && value !== null && '$$typeof' in value;
+};
+
 const isDarkThemeActive = (): boolean =>
   document.documentElement.getAttribute("data-theme") === "dark" ||
   document.body.classList.contains("dark");
@@ -94,15 +103,19 @@ const RdsCompEmptyState = ({
     if (deprecatedProps[name] !== undefined) warnDeprecatedProp("RdsCompEmptyState", name, replacements[name]);
   });
   const text = description ?? subLabel;
-  const imageValue = image ?? iconPath;
-  const imageUrl = typeof imageValue === "string" ? imageValue : undefined;
+  const rawImage = image ?? iconPath;
+  const customImageNode = isCustomImageNode(rawImage) ? rawImage : undefined;
+  const imageUrl = typeof rawImage === "string" ? rawImage : undefined;
   const isAnimated = animated ?? isContinueAnimate;
   const isMinimal = variant === "minimal";
   const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)", { noSsr: true });
   const pageIsDark = useSyncExternalStore(subscribeToTheme, isDarkThemeActive, getServerThemeSnapshot);
 
   const defaultSize = isMinimal ? 72 : 150;
-  const size = typeof imageSize === "object" ? imageSize : { width: imageSize, height: imageSize };
+  const size =
+    typeof imageSize === "object" && imageSize !== null && !Array.isArray(imageSize) && !('$$typeof' in imageSize)
+      ? imageSize
+      : { width: typeof imageSize === 'object' ? undefined : imageSize, height: typeof imageSize === 'object' ? undefined : imageSize };
   const sizeWidth = size.width ?? iconWidth;
   const width = toCss(sizeWidth ?? defaultSize);
   const height = toCss(size.height ?? iconHeight ?? sizeWidth ?? defaultSize);
@@ -137,9 +150,9 @@ const RdsCompEmptyState = ({
   const subtitleColor = "var(--rds-text-secondary)";
 
   let iconContent: ReactNode;
-  if (imageValue != null && typeof imageValue !== "string") {
-    iconContent = imageValue;
-  } else if (isMinimal && !imageValue) {
+  if (customImageNode !== undefined) {
+    iconContent = customImageNode;
+  } else if (isMinimal && !imageUrl) {
     iconContent = (
       <SearchOffOutlinedIcon
         className="rds-comp-empty-state__minimal-icon"
@@ -178,8 +191,9 @@ const RdsCompEmptyState = ({
     );
   }
 
+  const hasCustomAction = action !== undefined && (action === null || isCustomImageNode(action) || typeof action === 'string' || typeof action === 'number');
   const resolvedAction =
-    action === undefined ? (
+    !hasCustomAction ? (
       <RdsButton
         variant="filled"
         className="rds-comp-empty-state__button"
@@ -191,6 +205,11 @@ const RdsCompEmptyState = ({
     ) : (
       action
     );
+
+  const headingComponent: ElementType =
+    typeof titleComponent === 'string' || typeof titleComponent === 'function'
+      ? titleComponent
+      : 'h5';
 
   return (
     <Box
@@ -218,7 +237,7 @@ const RdsCompEmptyState = ({
         {label && (
           <Typography
             variant="h5"
-            component={titleComponent}
+            component={headingComponent}
             className="rds-comp-empty-state__title"
             data-testid="labelElement"
             sx={{

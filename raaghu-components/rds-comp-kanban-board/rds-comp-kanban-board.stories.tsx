@@ -66,31 +66,35 @@ const sampleItems: boardInfo[] = [
     {
         cardId: 1,
         status: "unassigned",
-        name: "Board 1",
+        name: "Board 2",
         subCardIndex: 0,
         color: "primary",
         actions: moreCardOptions,
-   
-subCards: [
-  {
-    ticketId: "1",
-    ticketPriority: "High",
-    ticketQuestion: "Question 1",
-    ticketDate: "12th Jun 2023",
-    SubcardId: 0,
-    actions: moreOptions,
-  },
-  {
-    ticketId: "2",
-    ticketPriority: "Low",
-    ticketQuestion: "Question 2",
-    ticketDate: "12th Jun 2023",
-    SubcardId: 1,
-    actions: moreOptions,
-  },
-],
-
-        key: ''
+        key: "board-2",
+        subCards: [
+            {
+                ticketId: "1",
+                ticketPriority: "High",
+                ticketQuestion: "",
+                ticketDate: "12th Jun 2023",
+                SubcardId: 0,
+                displayId: "RDS110110",
+                badge: "Badge",
+                description: "This is a sample text\nThis is a sample text\nThis is a sample text",
+                actions: moreOptions,
+            },
+            {
+                ticketId: "2",
+                ticketPriority: "Low",
+                ticketQuestion: "",
+                ticketDate: "12th Jun 2023",
+                SubcardId: 1,
+                displayId: "RDS110110",
+                badge: "Badge",
+                description: "This is a sample text\nThis is a sample text\nThis is a sample text",
+                actions: moreOptions,
+            },
+        ],
     },
 ];
 

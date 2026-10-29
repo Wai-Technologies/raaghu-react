@@ -124,9 +124,14 @@ const RdsCompFilterButton = ({
   }
   const [searchTerm, setSearchTerm] = useState('');
   const [prevOpen, setPrevOpen] = useState(isOpen);
+  /** Freeze trigger label while open so width changes don't shift the popover. */
+  const [frozenTriggerLabel, setFrozenTriggerLabel] = useState<ReactNode | null>(null);
   if (isOpen !== prevOpen) {
     setPrevOpen(isOpen);
-    if (!isOpen) setSearchTerm('');
+    if (!isOpen) {
+      setSearchTerm('');
+      setFrozenTriggerLabel(null);
+    }
   }
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -175,11 +180,15 @@ const RdsCompFilterButton = ({
   }, [localFilters, onClear, onFiltersChange]);
 
   const activeFiltersCount = localFilters.reduce((count, filter) => count + (filter.selectedValues?.length || 0), 0);
-  const buttonText: ReactNode = activeFiltersCount > 0
+  const countedLabel: ReactNode = activeFiltersCount > 0
     ? (typeof label === 'string' || typeof label === 'number'
       ? `${label} (${activeFiltersCount})`
       : <>{label} ({activeFiltersCount})</>)
     : label;
+  if (isOpen && frozenTriggerLabel === null) {
+    setFrozenTriggerLabel(countedLabel);
+  }
+  const buttonText = isOpen && frozenTriggerLabel != null ? frozenTriggerLabel : countedLabel;
 
   const filteredFilters = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
@@ -228,6 +237,9 @@ const RdsCompFilterButton = ({
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+        disableScrollLock
+        // Keep placement below the trigger when content height changes (e.g. checkbox selection).
+        marginThreshold={null}
         slotProps={{ paper: { className: "rds-filter-button__popover" } }}
       >
         <Box className="rds-filter-button__content">
@@ -248,24 +260,7 @@ const RdsCompFilterButton = ({
             />
           </Box>
 
-          <Box sx={{ 
-            flex: 1,
-            overflowY: 'auto',
-            minHeight: 0,
-            '&::-webkit-scrollbar': {
-              width: 'var(--rds-spacing-compact)',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: 'var(--rds-background-default)',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: 'var(--rds-neutral-400)',
-              borderRadius: 'var(--rds-border-radius-micro)',
-            },
-            '&::-webkit-scrollbar-thumb:hover': {
-              background: 'var(--rds-neutral-500)',
-            },
-          }}>
+          <Box className="rds-filter-button__filters">
             {filteredFilters.map((filter, index) => (
               <Accordion 
                 key={filter.id}
@@ -352,14 +347,7 @@ const RdsCompFilterButton = ({
             ))}
           </Box>
 
-          <Box sx={{ 
-            p: 1.5, 
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
-            flexShrink: 0,
-            backgroundColor: 'var(--rds-background-paper)'
-          }}>
+          <Box className="rds-filter-button__footer">
             <RdsButton
               variant="filled"
               fullWidth

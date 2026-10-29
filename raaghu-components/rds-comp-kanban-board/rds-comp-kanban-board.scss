@@ -96,8 +96,10 @@
   &__card.MuiPaper-root {
     padding: var(--rds-spacing-xs);
     min-height: var(--rds-kanban-board-dim-4);
-    border: var(--rds-border-width-thin) solid var(--rds-surface-primary-medium);
+    border: var(--rds-border-width-thin) solid var(--rds-surface-neutral-light);
     background-color: var(--rds-background-paper);
+    border-radius: var(--rds-border-radius-sm);
+    box-shadow: var(--rds-box-shadow-xs);
   }
 
   &__card-header {
@@ -164,7 +166,7 @@
 
     .rds-kanban-board__sub-card-card.MuiPaper-root {
       padding: 0 var(--rds-spacing-xs);
-      background: var(--rds-background-paper);
+      background: var(--rds-kanban-subcard-bg);
       color: var(--rds-text-primary);
       border-radius: var(--rds-border-radius-none);
       min-height: var(--rds-kanban-subcard-min-height);
@@ -218,9 +220,9 @@
   margin-top: var(--rds-spacing-sm);
   
   &-card {
-    background-color: var(--rds-background-paper);
+    background-color: var(--rds-kanban-subcard-bg);
     color: var(--rds-text-primary);
-    border: var(--rds-border-width-thin) solid var(--rds-surface-neutral-light);
+    border: var(--rds-border-width-thin) solid var(--rds-kanban-subcard-border);
     border-radius: var(--rds-border-radius-none);
   min-height: var(--rds-kanban-board-dim-5);
   }
@@ -259,6 +261,7 @@
   &-text {
     line-height: var(--rds-line-height-comfortable);
     color: var(--rds-text-primary);
+    white-space: pre-line;
   }
   
   &-footer {
@@ -522,7 +525,7 @@
 }
 
 .kanban-board__card.MuiPaper-root {
-  border-radius: var(--rds-border-radius-none);
+  border-radius: var(--rds-border-radius-sm);
 }
 
 .sub-cards-container {
@@ -680,8 +683,9 @@
   
   .sub-card {
     .MuiCard-root {
-      background-color: var(--rds-surface-primary-light);
+      background-color: var(--rds-kanban-subcard-bg);
       color: var(--rds-text-primary);
+      border-color: var(--rds-kanban-subcard-border);
     }
     
     .MuiTypography-root {
