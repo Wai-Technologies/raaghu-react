@@ -55,9 +55,10 @@ describe('RdsDivider', () => {
       expect(container.querySelector('.MuiDivider-root')).not.toHaveClass('MuiDivider-vertical');
     });
 
-    it('renders vertically with orientation, which wins over layout', () => {
+    it('renders vertically with deprecated orientation, which wins over layout', () => {
       const { container } = renderWithTheme(<RdsDivider {...defaultProps} layout="horizontal" orientation="vertical" />);
       expect(container.querySelector('.MuiDivider-root')).toHaveClass('MuiDivider-vertical');
+      expect(warnDeprecatedProp).toHaveBeenCalledWith('RdsDivider', 'orientation', '`layout`');
     });
 
     it('should apply flexbox styling to root container', () => {

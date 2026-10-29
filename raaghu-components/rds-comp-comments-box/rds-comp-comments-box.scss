@@ -459,7 +459,7 @@
     padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
     border-radius: var(--rds-border-radius-md);
     gap: var(--rds-spacing-xxs);
-    max-width: var(--rds-comments-box-dim-12);
+    max-width: var(--rds-comments-max-width);
 
     .rds-comments-box__avatar {
       margin-right: 0;

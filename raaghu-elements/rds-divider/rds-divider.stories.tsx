@@ -10,15 +10,21 @@ const meta: Meta<typeof RdsDivider> = {
         status: { type: 'stable' },
     layout: 'padded',
     controls: {
-      exclude: ['component','flexItem'],
+      exclude: ['component', 'flexItem', 'orientation'],
     },
   },
   tags: ['autodocs', 'stable'],
 
   argTypes: {
     layout: {
+      name: 'layout',
       control: 'select',
       options: ['horizontal', 'vertical'],
+      description: 'Horizontal or vertical divider line.',
+    },
+    orientation: {
+      table: { disable: true },
+      control: false,
     },
     children: {
       control: 'text',

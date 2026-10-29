@@ -823,7 +823,7 @@ font-weight: var(--rds-font-weight-bold);
   gap: 0.5rem;
 }
 
-.rds-datepicker__calendar .react-datepicker__header:has(.rds-datepicker__calendar .react-datepicker__header__dropdown) {
+.rds-datepicker__calendar .react-datepicker__header:has(.react-datepicker__header__dropdown) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1015,6 +1015,7 @@ font-weight: var(--rds-font-weight-bold);
   left: calc(100% + var(--rds-spacing-sm));
   top: 0;
   transform: none;
+  margin-left: calc(100% + var(--rds-spacing-sm));
   z-index: calc(var(--rds-z-index-modal, 1400) + 1);
 }
 
@@ -1029,6 +1030,7 @@ font-weight: var(--rds-font-weight-bold);
     left: 0;
     top: calc(100% + var(--rds-spacing-sm));
     right: auto;
+    margin-left: 0;
   }
 }
 
@@ -1277,13 +1279,13 @@ font-weight: var(--rds-font-weight-bold);
   .react-datepicker__day--selected,
   .react-datepicker__day--keyboard-selected {
     background-color: var(--rds-primary-main) ;
-    color: var(--rds-primary-contrast-text) ;
+    color: var(--rds-color-white) ;
     border-color: var(--rds-primary-main) ;
   }
 
   .react-datepicker__day--range-start,
   .react-datepicker__day--range-end {
-    color: var(--rds-primary-contrast-text) ;
+    color: var(--rds-color-white) ;
   }
 
   .react-datepicker__day--today {
@@ -1292,7 +1294,7 @@ font-weight: var(--rds-font-weight-bold);
 
   .react-datepicker__day--selected.react-datepicker__day--today,
   .react-datepicker__day--keyboard-selected.react-datepicker__day--today {
-    color: var(--rds-primary-contrast-text) ;
+    color: var(--rds-color-white) ;
     background-color: var(--rds-primary-main) ;
   }
 
@@ -1332,7 +1334,7 @@ font-weight: var(--rds-font-weight-bold);
     &--selected_month,
     &--selected {
       background-color: var(--rds-primary-main) ;
-      color: var(--rds-primary-contrast-text) ;
+      color: var(--rds-color-white) ;
     }
   }
 
@@ -1396,7 +1398,7 @@ font-weight: var(--rds-font-weight-bold);
   .react-datepicker__year-text--selected,
   .react-datepicker__year-text--keyboard-selected {
     background-color: var(--rds-primary-main) ;
-    color: var(--rds-primary-contrast-text) ;
+    color: var(--rds-color-white) ;
   }
 
   .react-datepicker__year--container .react-datepicker__header,

@@ -66,6 +66,7 @@ const RdsDrawer = ({
   centerTrigger = false,
   triggerWrapperClassName,
   embedded = false,
+  variant = 'temporary',
   open,
   onClose,
   id,
@@ -93,6 +94,8 @@ const RdsDrawer = ({
 
   const isSideAnchor = drawerAnchor === 'left' || drawerAnchor === 'right';
   const sizeSx = isSideAnchor ? { width: width ?? 251 } : width === undefined ? {} : { height: width };
+  /** Temporary drawers use a full-viewport root; width on the root breaks right/left slide exit. */
+  const rootLayoutSx = embedded || variant !== 'temporary' ? { ...sizeSx, flexShrink: 0 } : {};
 
   const drawerId = id ?? (showTrigger ? generatedId : undefined);
 
@@ -136,12 +139,12 @@ const RdsDrawer = ({
       slotProps={slotProps && drawerSlotProps}
       id={drawerId}
       anchor={drawerAnchor}
+      variant={variant}
       open={actualOpen}
       onClose={handleClose}
       sx={[
         {
-          ...sizeSx,
-          flexShrink: 0,
+          ...rootLayoutSx,
           ...(embedded && { position: 'relative', height: '100%' }),
           '& .MuiDrawer-paper': {
             ...sizeSx,

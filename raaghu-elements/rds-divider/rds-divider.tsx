@@ -38,14 +38,14 @@ const SIZE_STYLES: Record<string, { borderWidth: string; marginY: number }> = {
 };
 const DEFAULT_SIZE_STYLES = SIZE_STYLES.medium;
 
-export interface RdsDividerProps extends Omit<DividerProps, 'component'> {
+export interface RdsDividerProps extends Omit<DividerProps, 'component' | 'orientation'> {
   /** Text shown next to the line. Takes precedence over the deprecated `dividerMessage`. */
   children?: ReactNode;
   /** @deprecated Use `children` instead. */
   dividerMessage?: string;
-  /** Figma layout. Defaults to `'horizontal'`. */
+  /** Horizontal or vertical line. Defaults to `'horizontal'`. */
   layout?: 'horizontal' | 'vertical';
-  /** Line direction (MUI name for `layout`). Wins over `layout`. */
+  /** @deprecated Use `layout` instead. */
   orientation?: 'horizontal' | 'vertical';
   /** @deprecated Use `icon={null}` to hide the icon instead. */
   iconShow?: boolean;
@@ -83,6 +83,7 @@ const RdsDivider = ({
   if (iconShow !== undefined) warnDeprecatedProp('RdsDivider', 'iconShow', '`icon={null}`');
   if (styleVariant !== undefined) warnDeprecatedProp('RdsDivider', 'styleVariant', '`color`');
   if (iconName !== undefined) warnDeprecatedProp('RdsDivider', 'iconName', '`icon`');
+  if (orientation !== undefined) warnDeprecatedProp('RdsDivider', 'orientation', '`layout`');
 
   const resolvedLayout = orientation ?? layout ?? 'horizontal';
   const message: ReactNode = children ?? dividerMessage;

@@ -55,6 +55,7 @@ const RdsSelect = ({
   labelPosition,
   size = 'small',
   className,
+  sx,
   'data-testid': dataTestId,
   ...props
 }: RdsSelectProps) => {
@@ -65,9 +66,13 @@ const RdsSelect = ({
     ? labelPlacement === 'floating'
     : (labelPosition ?? true);
   const labelId = useId();
+  const helperTextId = useId();
   const isFieldRequired = required ?? isRequired ?? false;
   const resolvedPlaceholder = inputPlaceholder || placeholder;
+  const resolvedHelperText = errorMessage || helperText;
   const hasError = !!errorMessage || error;
+  // Keep floating label shrunk whenever a placeholder is shown so the two don't overlap.
+  const shrinkFloatingLabel = floatingLabel && !!resolvedPlaceholder;
   
   return (
     <div
@@ -91,6 +96,7 @@ const RdsSelect = ({
             id={labelId} 
             required={isFieldRequired}
             className="rds-select__input-label"
+            shrink={shrinkFloatingLabel ? true : undefined}
           >
             {label}
           </InputLabel>
@@ -126,9 +132,20 @@ const RdsSelect = ({
           }
           {...(required !== undefined && { required })}
           {...props}
-          {...(isFieldRequired && {
-            SelectDisplayProps: { 'aria-required': true, ...props.SelectDisplayProps },
-          })}
+          {...(shrinkFloatingLabel && label ? { notched: true as const } : {})}
+          sx={[
+            {
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                boxShadow: 'none',
+              },
+            },
+            ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+          ]}
+          SelectDisplayProps={{
+            ...props.SelectDisplayProps,
+            ...(isFieldRequired ? { 'aria-required': true as const } : {}),
+            ...(resolvedHelperText ? { 'aria-describedby': helperTextId } : {}),
+          }}
         >
           {options.map((option) => (
             <MenuItem 
@@ -141,12 +158,16 @@ const RdsSelect = ({
             </MenuItem>
           ))}
         </MuiSelect>
-        {(helperText || errorMessage) && (
-          <FormHelperText className="rds-select__helper-text">
-            {errorMessage || helperText}
-          </FormHelperText>
-        )}
       </FormControl>
+      {resolvedHelperText && (
+        <FormHelperText
+          id={helperTextId}
+          error={hasError}
+          className="rds-select__helper-text"
+        >
+          {resolvedHelperText}
+        </FormHelperText>
+      )}
     </div>
   );
 };

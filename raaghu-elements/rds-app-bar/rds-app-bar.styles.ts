@@ -46,6 +46,15 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
       [`${actionSlots} .MuiButton-root, ${actionSlots} .MuiButton-text, ${actionSlots} .MuiIconButton-root`]: {
         color: 'var(--rds-color-on-primary)',
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        '&:hover, &:focus, &:active, &.Mui-focusVisible': {
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
+        },
+      },
+      [`${actionSlots} .rds-profile-menu__button`]: {
+        backgroundColor: 'transparent',
       },
       [`${actionSlots} .MuiAvatar-root`]: {
         backgroundColor: 'color-mix(in srgb, var(--rds-color-white) 25%, transparent)',
@@ -69,6 +78,15 @@ export const rdsAppBarSx: AppBarSx[] = [
       },
       [`${actionSlots} .MuiButton-root, ${actionSlots} .MuiButton-text, ${actionSlots} .MuiIconButton-root`]: {
         color: 'var(--rds-color-on-secondary)',
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        '&:hover, &:focus, &:active, &.Mui-focusVisible': {
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
+        },
+      },
+      [`${actionSlots} .rds-profile-menu__button`]: {
+        backgroundColor: 'transparent',
       },
       [`${actionSlots} .MuiAvatar-root`]: {
         backgroundColor: 'color-mix(in srgb, var(--rds-color-white) 25%, transparent)',

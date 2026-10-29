@@ -11,6 +11,9 @@
 
   &__form-control {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   &__label {
@@ -38,8 +41,11 @@
   }
 
   &__field {
+    flex: 0 0 auto;
     background-color: var(--rds-background-paper);
     border-radius: var(--rds-spacing-xs);
+    box-shadow: none;
+
     .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-border-default);
       box-shadow: none;
@@ -47,6 +53,12 @@
     &:hover .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-text-secondary);
     }
+    // Beat theme MuiOutlinedInput focus ring (primary glow).
+    &.MuiOutlinedInput-root.Mui-focused,
+    &.Mui-focused {
+      box-shadow: none;
+    }
+    &.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: var(--rds-primary-main);
       border-width: var(--rds-select-focus-border-width);
@@ -94,10 +106,23 @@
   }
 
   &__helper-text {
+    display: block;
+    align-self: flex-start;
+    width: 100%;
+    box-sizing: border-box;
     color: var(--rds-text-secondary);
     font-size: var(--rds-font-size-sm);
+    line-height: var(--rds-line-height-compact);
     margin-top: var(--rds-spacing-xs);
     margin-left: var(--rds-select-helper-margin-left);
+    margin-right: 0;
+    margin-bottom: 0;
+
+    &.MuiFormHelperText-root {
+      margin-left: var(--rds-select-helper-margin-left);
+      margin-right: 0;
+    }
+
     &.Mui-error {
       color: var(--rds-alert-error-border);
     }

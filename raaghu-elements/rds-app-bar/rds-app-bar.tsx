@@ -342,7 +342,11 @@ const RdsAppBar = ({
         isExtraNarrowMobile && 'rds-header--mobile-toolbar-xs',
         className,
       )}
-      color={props.color === 'transparent' ? 'transparent' : 'default'}
+      color={
+        props.color === 'transparent' || props.color === 'primary' || props.color === 'secondary'
+          ? 'transparent'
+          : 'default'
+      }
       elevation={elevation}
       sx={[...rdsAppBarSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >

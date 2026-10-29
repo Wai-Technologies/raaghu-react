@@ -1600,13 +1600,7 @@
           "name": "layout",
           "type": "\"horizontal\" | \"vertical\"",
           "required": false,
-          "description": "Figma layout. Defaults to `'horizontal'`."
-        },
-        {
-          "name": "orientation",
-          "type": "\"horizontal\" | \"vertical\"",
-          "required": false,
-          "description": "Line direction (MUI name for `layout`). Wins over `layout`."
+          "description": "Horizontal or vertical line. Defaults to `'horizontal'`."
         },
         {
           "name": "size",
@@ -1628,6 +1622,10 @@
         {
           "name": "iconShow",
           "use": "Use `icon={null}` to hide the icon instead."
+        },
+        {
+          "name": "orientation",
+          "use": "Use `layout` instead."
         },
         {
           "name": "styleVariant",

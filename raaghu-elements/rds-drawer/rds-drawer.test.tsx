@@ -304,6 +304,7 @@ describe('audit fixes', () => {
   });
 
   const getTrigger = (text = 'Open Drawer') => screen.getByText(text);
+  const drawerRoot = () => document.querySelector('.MuiDrawer-root');
   const getPaper = () => document.querySelector('.MuiDrawer-paper') as HTMLElement;
 
   describe('G1-255 onClose / open are not overridden by rest props', () => {
@@ -408,6 +409,19 @@ describe('audit fixes', () => {
     it('lets the consumer sx override the base width', () => {
       render(<RdsDrawer open sx={{ '& .MuiDrawer-paper': { width: 400 } }}><div>Content</div></RdsDrawer>);
       expect(getPaper()).toHaveStyle({ width: '400px' });
+    });
+  });
+
+  describe('G1-260 temporary drawer root stays full viewport', () => {
+    it('does not constrain the drawer root width for temporary overlays', () => {
+      render(<RdsDrawer open anchor="right" variant="temporary"><div>Content</div></RdsDrawer>);
+      expect(drawerRoot()).not.toHaveStyle({ width: '251px' });
+      expect(getPaper()).toHaveStyle({ width: '251px' });
+    });
+
+    it('keeps width on the root for persistent and permanent variants', () => {
+      render(<RdsDrawer open anchor="right" variant="persistent"><div>Content</div></RdsDrawer>);
+      expect(drawerRoot()).toHaveStyle({ width: '251px' });
     });
   });
 

@@ -896,6 +896,21 @@ describe('audit fixes', () => {
     expect(screen.getByText('Old')).toBeInTheDocument();
   });
 
+  it('keeps floating label shrunk when placeholder is set so they do not overlap', () => {
+    wrap(
+      <RdsSelect
+        options={opts}
+        label="Select Option"
+        placeholder="Please select..."
+        labelPlacement="floating"
+        value=""
+      />,
+    );
+    const floatingLabel = document.querySelector('.rds-select__input-label');
+    expect(floatingLabel).toHaveClass('MuiInputLabel-shrink');
+    expect(screen.getByText('Please select...')).toBeInTheDocument();
+  });
+
   it('sets aria-required for required and isRequired (G2-219/220)', () => {
     const { unmount } = wrap(<RdsSelect options={opts} label="L" labelPosition={false} required value="" />);
     expect(screen.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
@@ -909,6 +924,11 @@ describe('audit fixes', () => {
     const { unmount } = wrap(<RdsSelect options={opts} label="L" error helperText="Pick one" value="" />);
     expect(screen.getByText('Pick one')).toBeInTheDocument();
     expect(document.querySelector('.rds-select--error')).toBeInTheDocument();
+    const field = document.querySelector('.rds-select__field');
+    const helper = document.querySelector('.rds-select__helper-text');
+    expect(field).toBeTruthy();
+    expect(helper).toBeTruthy();
+    expect(field!.compareDocumentPosition(helper!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     unmount();
     wrap(<RdsSelect options={opts} label="L" errorMessage="Old error" value="" />);
     expect(screen.getByText('Old error')).toBeInTheDocument();

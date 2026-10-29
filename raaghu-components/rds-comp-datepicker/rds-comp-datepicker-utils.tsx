@@ -1,5 +1,6 @@
 import { createElement, type MouseEvent, type Ref, type RefObject, type ReactNode } from "react";
 import DatePicker, { type DatePickerProps } from "react-datepicker";
+import { CustomButtons } from "./CustomButtons";
 import { renderPickerIcon } from "./CustomInputWithClear";
 import {
     RenderDefaultDropdownHeader,
@@ -136,6 +137,7 @@ const buildDatePickerProps = ({
         showYearPicker: props.layout === "Year Picker",
         showPreviousMonths: true,
         monthsShown: props.layout === "Multi Month" ? 3 : 1,
+        todayButton: <CustomButtons />,
         scrollableMonthYearDropdown:
             props.datePickerStyleType === "Dropdown",
         peekNextMonth: true,
@@ -369,6 +371,7 @@ export const renderDatePickerTypeView = (
                             }
                             popperContainer={popperContainer}
                             popperClassName="rds-datepicker__popper"
+                            todayButton={<CustomButtons />}
                             disabled={props.isDisabled}
                             placeholderText={
                                 props.placeholderText || "Select date"

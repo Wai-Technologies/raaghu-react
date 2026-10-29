@@ -207,6 +207,10 @@
 }
 
 .rds-button-dropdown__button.rds-button-dropdown--outline {
-  color: var(--rds-button-dropdown-selected-bg);
+  .MuiSvgIcon-root,
+  .MuiButton-endIcon,
+  .MuiButton-startIcon {
+    color: currentColor;
+  }
 }
 

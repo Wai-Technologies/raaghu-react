@@ -501,7 +501,9 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     #avatarname,
     .rds-avatar__designation,
     .rds-profile-menu__name,
-    .rds-profile-menu__chevron {
+    .rds-profile-menu__chevron,
+    .rds-profile-menu__button .rds-profile-menu__chevron,
+    .rds-profile-menu__button .rds-avatar__name {
       color: var(--rds-color-on-primary);
     }
 
@@ -512,6 +514,20 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
       .MuiButton-text,
       .MuiIconButton-root {
         color: var(--rds-color-on-primary);
+        background-color: transparent;
+        box-shadow: none;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.Mui-focusVisible {
+          background-color: transparent;
+          box-shadow: none;
+        }
+      }
+
+      .rds-profile-menu__button {
+        background-color: transparent;
       }
 
       .MuiAvatar-root {
@@ -565,7 +581,9 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
     #avatarname,
     .rds-avatar__designation,
     .rds-profile-menu__name,
-    .rds-profile-menu__chevron {
+    .rds-profile-menu__chevron,
+    .rds-profile-menu__button .rds-profile-menu__chevron,
+    .rds-profile-menu__button .rds-avatar__name {
       color: var(--rds-color-on-secondary);
     }
 
@@ -576,6 +594,20 @@ $rds-app-bar-breakpoint-notification-tablet: 1280px;
       .MuiButton-text,
       .MuiIconButton-root {
         color: var(--rds-color-on-secondary);
+        background-color: transparent;
+        box-shadow: none;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.Mui-focusVisible {
+          background-color: transparent;
+          box-shadow: none;
+        }
+      }
+
+      .rds-profile-menu__button {
+        background-color: transparent;
       }
 
       .MuiAvatar-root {

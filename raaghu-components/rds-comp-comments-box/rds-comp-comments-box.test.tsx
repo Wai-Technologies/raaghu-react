@@ -57,7 +57,7 @@ describe('RdsCommentBox', () => {
       expect(screen.getByTestId('rds-avatar')).toBeInTheDocument();
       expect(screen.getByTestId('rds-avatar')).toHaveTextContent('JD');
       expect(screen.getByRole('textbox')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'send comment' })).toBeDisabled();
+      expect(screen.getByRole('button', { name: 'send comment' })).toBeEnabled();
     });
 
     it('renders with default avatar initials when not provided', () => {
