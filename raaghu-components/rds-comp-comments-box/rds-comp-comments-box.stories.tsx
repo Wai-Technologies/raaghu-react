@@ -25,7 +25,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Interactive: Story = {
+export const Default: Story = {
   args: {
     avatarInitials: 'RD',
     placeholderText: 'Add a comment',
