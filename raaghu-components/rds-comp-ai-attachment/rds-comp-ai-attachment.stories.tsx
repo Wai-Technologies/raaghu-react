@@ -1,4 +1,5 @@
 import RdsCompAiAttachment from "./rds-comp-ai-attachment";
+import { Box } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from 'storybook/test';
  
@@ -16,13 +17,20 @@ const meta: Meta = {
     },
     parameters: {
             status: { type: 'stable' },
-        layout: 'centered',
-        docs:{
+        layout: 'padded',
+        docs: {
             story: {
-                height: '132px'
+                height: '180px',
             },
-        }
+        },
     },
+    decorators: [
+        (Story) => (
+            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                <Story />
+            </Box>
+        ),
+    ],
     tags: ['autodocs', 'stable'],
 } satisfies Meta<typeof RdsCompAiAttachment>;
 

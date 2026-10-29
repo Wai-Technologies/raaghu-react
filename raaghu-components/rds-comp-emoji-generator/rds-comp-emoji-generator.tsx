@@ -234,7 +234,7 @@ const RdsCompEmojiGenerator = ({
     if (resolvedType === EmojiGeneratorType.QuickReactions) {
         return (
             <Box ref={setRootRef} className={clsx("rds-emoji-generator rds-emoji-generator--quick", className)} sx={sx} {...props}>
-                {quickReactions.map((e) => (
+                {(Array.isArray(quickReactions) ? quickReactions : QUICK_EMOJIS).map((e) => (
                     <Box
                         key={e}
                         className="rds-emoji-generator__emoji rds-emoji-generator__emoji--quick"
@@ -366,7 +366,7 @@ const RdsCompEmojiGenerator = ({
                         >
                             {isFlagEmoji(e) ? (
                                 <img
-                                    src={twemojiUrl(e, flagBaseUrl)}
+                                    src={twemojiUrl(e, flagBaseUrl || DEFAULT_FLAG_BASE_URL)}
                                     alt={e}
                                     className="rds-emoji-generator__emoji-image"
                                     draggable={false}
