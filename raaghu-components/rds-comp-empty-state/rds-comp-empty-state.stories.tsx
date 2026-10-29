@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompEmptyState from "./rds-comp-empty-state";
+import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import { expect } from 'storybook/test';
 
 
@@ -39,6 +40,27 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       control: { type: "boolean" },
       if: { arg: "variant", eq: "illustration" },
       description: "Enable full Lottie animation (illustration variant only)",
+    },
+    image: {
+      control: { type: "text" },
+      description: "Artwork image URL. In code you can also pass a custom node.",
+    },
+    action: {
+      control: { type: "select" },
+      options: ["default", "custom", "none"],
+      mapping: {
+        default: undefined,
+        custom: <RdsButton variant="outlined">Refresh</RdsButton>,
+        none: null,
+      },
+      description: "Replaces the default action button. `none` passes `null` to render no action.",
+      table: { type: { summary: "ReactNode" } },
+    },
+    titleComponent: {
+      control: { type: "select" },
+      options: ["h1", "h2", "h3", "h4", "h5", "h6", "p", "span"],
+      description: "Element used for the heading.",
+      table: { type: { summary: "ElementType" }, defaultValue: { summary: "h5" } },
     },
     className: {
       table: { disable: true },

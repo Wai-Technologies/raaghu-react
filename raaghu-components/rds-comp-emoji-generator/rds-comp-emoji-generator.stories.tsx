@@ -48,6 +48,14 @@ const meta: Meta = {
             control: { type: "number", min: 10, max: 200, step: 10 },
             description: "Maximum number of emojis to display in grid",
         },
+        flagBaseUrl: {
+            control: { type: "text" },
+            description: "Base URL (folder of 72x72 PNGs named by codepoints) for flag images. Defaults to a pinned Twemoji 14.0.2 CDN URL.",
+        },
+        quickReactions: {
+            control: { type: "object" },
+            description: "Emojis shown in quick reactions mode, as an array of strings. Defaults to the built-in set.",
+        },
         variant: { table: { disable: true } },
         onChange: {
             action: 'emoji-selected',
@@ -84,6 +92,7 @@ export const Default: Story = {
 export const QuickReactions: Story = {
     args: {
         type: EmojiGeneratorType.QuickReactions,
+        quickReactions: ["👍", "😊", "😞", "💯", "😎"],
         category: EmojiCategory.SmileysAndPeople,
         showSkinTone: false,
         showFooter: false,

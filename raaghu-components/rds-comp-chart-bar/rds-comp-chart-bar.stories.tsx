@@ -51,6 +51,52 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+    args: {
+        id: "bar-chart-default",
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    label: "Dataset 1",
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    backgroundColor: "var(--rds-comp-chart-bar-ds1-bg, rgba(75, 192, 192, 1))",
+                    borderColor: "var(--rds-comp-chart-bar-ds1-border, rgba(75, 192, 192, 1))",
+                    borderWidth: 1,
+                },
+                {
+                    label: "Dataset 2",
+                    data: [28, 48, 40, 19, 86, 27, 90],
+                    backgroundColor: "var(--rds-comp-chart-bar-ds2-bg, rgba(54, 162, 235, 1))",
+                    borderColor: "var(--rds-comp-chart-bar-ds2-border, rgba(54, 162, 245, 1))",
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "top",
+                },
+                title: {
+                    display: true,
+                    text: "Bar Chart",
+                },
+            },
+        },
+    },
+    parameters: {
+        controls: {
+            exclude: ["height"],
+        },
+    },
+    play: async ({ canvasElement }) => {
+        await expect(canvasElement.querySelector("canvas")).toBeTruthy();
+    },
+} satisfies Story;
+
 export const BorderRadius: Story = {
     args: {
         id: "bar-chart-border-radius",

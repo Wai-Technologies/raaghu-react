@@ -337,13 +337,13 @@
     }
 
     .rds-comp-code-snippet__copy-button {
-      background-color: var(--rds-neutral-0);
-      color: var(--rds-neutral-900);
-      border-color: var(--rds-neutral-300);
+      background-color: var(--rds-color-white);
+      color: var(--rds-grey-900);
+      border-color: var(--rds-grey-300);
 
       &.rds-button,
       &.MuiButton-outlined {
-        color: var(--rds-neutral-900);
+        color: var(--rds-grey-900);
       }
 
       .MuiButton-startIcon,
@@ -358,9 +358,9 @@
       }
 
       &:hover:not(.rds-comp-code-snippet__copy-button--copied) {
-        background-color: var(--rds-neutral-100);
-        color: var(--rds-neutral-900);
-        border-color: var(--rds-neutral-400);
+        background-color: color-mix(in srgb, var(--rds-color-black) 4%, var(--rds-color-white));
+        color: var(--rds-grey-900);
+        border-color: color-mix(in srgb, var(--rds-color-black) 25%, var(--rds-color-white));
       }
     }
 

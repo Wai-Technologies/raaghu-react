@@ -15,6 +15,11 @@ const meta: Meta = {
     className: { control: "text", description: "CSS class applied to the message box container." },
     sx: { control: "object", description: "MUI system styles applied to the message box container." },
     ref: { control: false, description: "React ref to the message box container; assign it in code." },
+    name: { control: "text", description: "Display name shown for the sender." },
+    avatar: { control: "text", description: "Avatar image URL of the sender." },
+    imageSrc: { control: "text", description: "Image shown below the message." },
+    avatarAlt: { control: "text", description: "Alt text for the avatar image." },
+    imageAlt: { control: "text", description: "Alt text for the attached image." },
     avtar: {
       table: { disable: true },
     },

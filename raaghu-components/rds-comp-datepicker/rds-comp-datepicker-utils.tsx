@@ -129,6 +129,7 @@ const buildDatePickerProps = ({
         onChange,
         customInput: customInput as DatePickerProps["customInput"],
         wrapperClassName: "rds-datepicker__wrapper",
+        popperPlacement: "bottom-start",
         disabled: props.isDisabled,
         placeholderText: props.placeholderText || "Select date",
         showMonthYearPicker: props.layout === "Month Picker",

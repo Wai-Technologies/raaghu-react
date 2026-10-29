@@ -59,6 +59,28 @@ const meta: Meta<typeof RdsCompESignature> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    mode: 'draw',
+    type: 'fullname',
+    showColorPicker: true,
+  },
+  argTypes: {
+    mode: {
+      control: 'select',
+      options: ['draw', 'upload', 'choose'],
+      description: 'Signature mode: draw on a canvas, upload an image, or choose a generated style',
+      table: { defaultValue: { summary: 'draw' } },
+    },
+  },
+  parameters: {
+    controls: { include: ['mode', 'type', 'showColorPicker', 'disabled', 'className', 'sx', 'ref'], exclude: [] },
+  },
+  play: async ({ canvasElement }) => {
+    expect(canvasElement.querySelector('canvas')).toBeTruthy();
+  },
+};
+
 export const Draw: Story = {
   args: {
     mode: 'draw',
